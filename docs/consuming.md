@@ -8,7 +8,7 @@ How any project — human-driven or agent-driven — adopts this HTML-first desi
 
 | Consumer | Start here | Works today | Do not |
 |---|---|---|---|
-| **Claude Code** | `SKILL.md` → `README.md` → `styles.css` + bundler `@cyberskill/design` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve) | Strong — rules, components, prompts; gates via full clone | Hardcode the bundle suffix; treat Storybook host as the portable contract; import `_esm/cs.mjs` into Next/SSR without the legacy path |
+| **Claude Code** | `SKILL.md` → `README.md` → `styles.css` + bundler `@cyberskill/design` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve) | Strong — rules, components, prompts; gates via full clone | Hardcode the bundle suffix; treat Storybook host as the portable contract; import `_esm/cs.mjs` or `@cyberskill/design/legacy` into Next/SSR bundlers |
 | **Google Stitch** | `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` | Strong for doctrine + tokens + static `.cs-*` HTML | Treat `templates/**/*.dc.html` as SoT — no tweaks / `__dcSetProps` / DC compiler |
 | **Claude Design** | Full repo + DC compiler | Full fidelity (tweaks, `x-import`, bilingual templates) | Skip the sync loop in `docs/sync.md` |
 | **npm** | `@cyberskill/design` | **1.0.0** on registry; CI Trusted Publishing; grant in `docs/consumer-grant.md` | Treat registry install as a public license (still UNLICENSED) |
@@ -54,7 +54,7 @@ import { Button, TextField } from "@cyberskill/design";
 import "@cyberskill/design/styles.css";
 ```
 
-Add `transpilePackages: ["@cyberskill/design"]` in Next.js (JSX ships as source). React and react-dom are **peerDependencies** — your app provides them. Do **not** import `_esm/cs.mjs` (or `@cyberskill/design/legacy`) into an SSR bundler; that path self-ensures React via CDN and side-loads `_ds_bundle.js` for browsers only.
+Add `transpilePackages: ["@cyberskill/design"]` in Next.js (JSX ships as source). React and react-dom are **peerDependencies** — your app provides them. Published types use `export type *` (**TypeScript 5.0+**). Do **not** import `_esm/cs.mjs` (or `@cyberskill/design/legacy`) into an SSR bundler; that path self-ensures React via CDN and side-loads `_ds_bundle.js` for browsers only.
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) or continue with the static tree paths below. The published tarball is the **full portable tree** (styles, tokens, components, templates, guidelines, docs, UI kits) — not a minimal “lib-only” subset. Host-only tooling (Storybook, `_audit/`) is not in `files[]`.
 

@@ -27,11 +27,21 @@ const exportsMap = pkg.exports || {};
 if (!exportsMap['.']?.import?.includes('_esm/react.mjs')) {
   fail('exports["."] must point at _esm/react.mjs (bundler-native)');
 }
+if (!exportsMap['.']?.types?.includes('_esm/react.d.ts')) {
+  fail('exports["."].types must point at _esm/react.d.ts');
+}
+if (!exportsMap['./react']?.import?.includes('_esm/react.mjs')) {
+  fail('exports["./react"] must point at _esm/react.mjs');
+}
+if (!exportsMap['./react']?.types?.includes('_esm/react.d.ts')) {
+  fail('exports["./react"].types must point at _esm/react.d.ts');
+}
 if (!exportsMap['./legacy']?.import?.includes('_esm/cs.mjs')) {
   fail('exports["./legacy"] must point at _esm/cs.mjs');
 }
 if (!exportsMap['./styles.css']) fail('exports["./styles.css"] missing');
 if (!pkg.peerDependencies?.react) fail('peerDependencies.react missing');
+if (!pkg.peerDependencies?.['react-dom']) fail('peerDependencies.react-dom missing');
 
 // Default package resolve → bundler React entry
 let resolvedEntry;
@@ -65,6 +75,12 @@ for (const p of [styles, esm, react, bundle]) {
 const html = readFileSync(join(__dirname, 'index.html'), 'utf8');
 if (!html.includes('@cyberskill/design')) fail('index.html must import package name');
 if (!html.includes('_esm/cs.mjs')) fail('index.html must use legacy browser entry (_esm/cs.mjs)');
+if (!html.includes('@cyberskill/design/legacy')) {
+  fail('index.html import map must expose @cyberskill/design/legacy → _esm/cs.mjs');
+}
+if (!/from\s+['"]@cyberskill\/design(?:\/legacy)?['"]/.test(html)) {
+  fail('index.html module script must import from @cyberskill/design or /legacy');
+}
 if (!/data-cs-element="hoa"/.test(html) || !/data-cs-variant="plasma"/.test(html)) {
   fail('index.html must scope Lumi identity (hoa · plasma) from docs/products.md');
 }

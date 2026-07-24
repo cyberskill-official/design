@@ -29,7 +29,7 @@ npm install @cyberskill/design@1.0.0
 Then:
 
 1. Link styles: `@cyberskill/design/styles.css` (or `./node_modules/@cyberskill/design/styles.css`).
-2. **Next / Vite / SSR:** `import { Button } from "@cyberskill/design"` (default → `_esm/react.mjs`; peer React). See `docs/consuming.md`.
+2. **Next / Vite / SSR:** `import { Button } from "@cyberskill/design"` (default → `_esm/react.mjs`; peer `react` + `react-dom`). See `docs/consuming.md`.
 3. **Browser / no-build (this example):** map or import `@cyberskill/design/legacy` → `_esm/cs.mjs`.
 4. Scope the product root with the locked Markup row above.
 

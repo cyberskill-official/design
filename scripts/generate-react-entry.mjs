@@ -69,8 +69,8 @@ function buildDts(components) {
     const dtsMod = sourcePath.replace(/\.(jsx|js)$/, "");
     if (typed.length) {
       lines.push(`export { ${typed.join(", ")} } from ${JSON.stringify("../" + dtsMod)};`);
-      // Re-export Props / related types when the module declares them — TS
-      // `export type *` is safe even when a file has no type exports.
+      // Re-export Props / related types when the module declares them — TS 5.0+
+      // (`export type *`); safe even when a file has no type exports.
       lines.push(`export type * from ${JSON.stringify("../" + dtsMod)};`);
     }
     for (const n of declared) {

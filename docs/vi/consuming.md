@@ -8,7 +8,7 @@ Cách mọi project — do người hoặc agent điều khiển — áp dụng 
 
 | Consumer | Bắt đầu tại | Hoạt động hôm nay | Không làm |
 |---|---|---|---|
-| **Claude Code** | `SKILL.md` → `README.md` → `styles.css` + bundler `@cyberskill/design` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (resolve theo prefix) | Mạnh — rules, components, prompts; gates qua full clone | Hardcode hậu tố bundle; coi Storybook host là hợp đồng portable; import `_esm/cs.mjs` vào Next/SSR mà không dùng đường legacy |
+| **Claude Code** | `SKILL.md` → `README.md` → `styles.css` + bundler `@cyberskill/design` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (resolve theo prefix) | Mạnh — rules, components, prompts; gates qua full clone | Hardcode hậu tố bundle; coi Storybook host là hợp đồng portable; import `_esm/cs.mjs` hoặc `@cyberskill/design/legacy` vào bundler Next/SSR |
 | **Google Stitch** | `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` | Mạnh cho doctrine + tokens + HTML tĩnh `.cs-*` | Coi `templates/**/*.dc.html` là SoT — không có tweaks / `__dcSetProps` / DC compiler |
 | **Claude Design** | Full repo + DC compiler | Full fidelity (tweaks, `x-import`, template bilingual) | Bỏ qua vòng sync trong `docs/sync.md` |
 | **npm** | `@cyberskill/design` | **1.0.0** trên registry; CI Trusted Publishing; grant tại `docs/consumer-grant.md` | Coi cài từ registry như license công khai (vẫn UNLICENSED) |
@@ -54,7 +54,7 @@ import { Button, TextField } from "@cyberskill/design";
 import "@cyberskill/design/styles.css";
 ```
 
-Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng source). React và react-dom là **peerDependencies** — app của bạn cung cấp. **Không** import `_esm/cs.mjs` (hay `@cyberskill/design/legacy`) vào bundler SSR; đường đó self-ensure React qua CDN và side-load `_ds_bundle.js` chỉ cho browser.
+Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng source). React và react-dom là **peerDependencies** — app của bạn cung cấp. Types publish dùng `export type *` (**TypeScript 5.0+**). **Không** import `_esm/cs.mjs` (hay `@cyberskill/design/legacy`) vào bundler SSR; đường đó self-ensure React qua CDN và side-load `_ds_bundle.js` chỉ cho browser.
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) hoặc tiếp tục dùng đường cây tĩnh bên dưới. Tarball đã publish là **cả cây portable** (styles, tokens, components, templates, guidelines, docs, UI kits) — không phải subset “chỉ lib” tối thiểu. Tooling chỉ-host (Storybook, `_audit/`) không nằm trong `files[]`.
 

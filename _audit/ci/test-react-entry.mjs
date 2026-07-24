@@ -39,6 +39,7 @@ const ex = pkg.exports || {};
 assert(ex["."]?.import === "./_esm/react.mjs", 'exports["."] → react.mjs');
 assert(ex["."]?.types === "./_esm/react.d.ts", 'exports["."].types → react.d.ts');
 assert(ex["./react"]?.import === "./_esm/react.mjs", 'exports["./react"] → react.mjs');
+assert(ex["./react"]?.types === "./_esm/react.d.ts", 'exports["./react"].types → react.d.ts');
 assert(ex["./legacy"]?.import === "./_esm/cs.mjs", 'exports["./legacy"] → cs.mjs');
 assert(ex["./styles.css"], 'exports["./styles.css"] present');
 

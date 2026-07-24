@@ -76,6 +76,7 @@ async function exists(path){
     assert(ex['.']&&ex['.'].import==='./_esm/react.mjs','exports["."] must be _esm/react.mjs');
     assert(ex['.']&&ex['.'].types==='./_esm/react.d.ts','exports["."].types must be _esm/react.d.ts');
     assert(ex['./react']&&ex['./react'].import==='./_esm/react.mjs','exports["./react"] must be _esm/react.mjs');
+    assert(ex['./react']&&ex['./react'].types==='./_esm/react.d.ts','exports["./react"].types must be _esm/react.d.ts');
     assert(ex['./legacy']&&ex['./legacy'].import==='./_esm/cs.mjs','exports["./legacy"] must be _esm/cs.mjs');
     assert(pkg.peerDependencies&&pkg.peerDependencies.react,'peerDependencies.react required');
     assert(pkg.peerDependencies&&pkg.peerDependencies['react-dom'],'peerDependencies.react-dom required');
