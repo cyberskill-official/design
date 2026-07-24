@@ -25,11 +25,18 @@ swift build
 # or open Package.swift in Xcode and run the CyberSkillSample scheme
 ```
 
-### Compose (Android Studio / SDK)
+### Compose (Android Studio — supported path)
+
+Open `examples/native/compose/` in **Android Studio** (Hedgehog+ / AGP 8.2-compatible). Android Studio supplies the JDK and can generate a Gradle wrapper on first sync. Then Run the `app` configuration.
+
+There is **no committed `gradlew`** in this sample: bootstrapping a wrapper still needs **JDK 17+**, and `assembleDebug` still needs an Android SDK. Without those, a CLI `./gradlew` path is not runnable from a plain clone — use Android Studio.
+
+Optional CLI (only when JDK 17+ and `ANDROID_HOME` / `ANDROID_SDK_ROOT` are already set):
 
 ```bash
 cd examples/native/compose
-./gradlew :app:assembleDebug   # requires Android SDK + Gradle wrapper bootstrap
+# After Android Studio has generated the wrapper (or you ran `gradle wrapper` on JDK 17+):
+./gradlew :app:assembleDebug
 ```
 
 ### Flutter
@@ -56,7 +63,7 @@ Each platform ships a **Fastlane scaffold** + listing metadata placeholders. The
 npm run native:store-dry-run
 # or: bundle exec fastlane release_dry_run   (from each platform dir after bundle install)
 
-# CI soft-skips signed-release check without ASC_* / PLAY_SERVICE_ACCOUNT_JSON (Decision 1C).
+# CI soft-skips signed-release check without ASC_*/PLAY_SERVICE_ACCOUNT_JSON (Decision 1C).
 # Store submit lanes (`upload_store`) are intentionally disabled.
 ```
 

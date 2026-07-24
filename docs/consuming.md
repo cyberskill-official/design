@@ -115,7 +115,7 @@ Edit `examples/static-hello/index.html`: flip `data-theme="dark"` or `data-cs-el
 
 ## Native sample hosts (optional)
 
-Multi-screen samples (Sign in · Home · Settings) live under `examples/native/swiftui`, `compose`, and `flutter`. They sync generated tokens via `node examples/native/sync-tokens.mjs`. See `examples/native/README.md`. Not required for web consumers.
+Multi-screen samples (Sign in · Home · Settings) live under `examples/native/swiftui`, `compose`, and `flutter`. They sync generated tokens via `node examples/native/sync-tokens.mjs`. Compose opens in **Android Studio** (no committed `gradlew` — CLI needs JDK 17+ + SDK; see `examples/native/README.md`). Not required for web consumers.
 
 ## Extending
 

@@ -115,7 +115,7 @@ Sửa `examples/static-hello/index.html`: flip `data-theme="dark"` hoặc `data-
 
 ## Native sample hosts (tùy chọn)
 
-Sample đa màn hình (Sign in · Home · Settings) nằm dưới `examples/native/swiftui`, `compose`, và `flutter`. Chúng sync token generate qua `node examples/native/sync-tokens.mjs`. Xem `examples/native/README.md`. Không bắt buộc cho web consumer.
+Sample đa màn hình (Sign in · Home · Settings) nằm dưới `examples/native/swiftui`, `compose`, và `flutter`. Chúng sync token generate qua `node examples/native/sync-tokens.mjs`. Compose mở bằng **Android Studio** (không commit `gradlew` — CLI cần JDK 17+ + SDK; xem `examples/native/README.md`). Không bắt buộc cho web consumer.
 
 ## Mở rộng
 
