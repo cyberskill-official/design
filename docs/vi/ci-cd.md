@@ -16,9 +16,10 @@
 4. **`node-prechecks`** — authority Node không trình duyệt: `_audit/ci/check-bundle-freshness.mjs` (nguồn chân lý bundle-freshness — khám phá source đầy đủ gồm file mới/xóa; hàng board chỉ re-hash file ghi trong header) và `scripts/generate-design-md.mjs --check` (`DESIGN.md` gốc byte-equals regeneration).
 5. **`docs-consistency-blocker`** — merge blocker `docs-consistency` + `bilingual-parity`.
 6. **`whole-set-audits`** — quyết định B của owner: mọi push/PR, cộng nightly `0 3 * * *` và `workflow_dispatch` (responsive + language + theme overflow, ~15–20 phút).
-7. **`figma-variables-push`** — trên push `main` + thủ công. Quyết định A (non-Enterprise): Variables REST soft-skip; secrets vẫn chứng minh mở file. Xem `docs/figma.md`.
+7. **`figma-variables-push`** — trên push `main` + thủ công. **`FIGMA_TOKEN` / `FIGMA_FILE_KEY` trống → fail closed** (job lỗi — secret phải được inject). Quyết định A (non-Enterprise): Variables REST **soft-skip khi API 403** (và lỗi plan/scope liên quan) sau khi secret chứng minh mở file. Xem `docs/figma.md`.
 8. **`code-connect`** — trên PR + `main` + thủ công. Quyết định 1C: dry-run luôn (config + 99 mapping); publish soft-skip khi thiếu `FIGMA_TOKEN` / `FIGMA_FILE_KEY` hoặc API 403/404/429. Xem `docs/figma.md`.
 9. **`regenerate-tokens`** — path-filtered trên push/PR (`tokens.dtcg.json`, natives, generator, `VERSION`); luôn có trên schedule/manual. Output native deterministic; push với `contents: write` (hoặc `DS_PUSH_TOKEN`).
+10. **`npm-hello-smoke`** — chứng minh consumer registry: `cd examples/npm-hello && npm ci && npm run smoke` (**hard fail**; package public). Path-filtered trên push/PR khi `examples/npm-hello/**`, bề mặt publish package, hoặc workflow này đổi; luôn chạy trên schedule / `workflow_dispatch`.
 
 Workflow riêng **`npm-publish`** (`.github/workflows/npm-publish.yml`): `workflow_dispatch` + tag `v*`; pack dry-run luôn; publish qua **npm Trusted Publishing (OIDC)** (`id-token: write`, không `NPM_TOKEN` trên bước publish). Soft-skip khi auth / 403 / 404 / EOTP / conflict phiên bản. Phiên bản giữ **1.0.0**; license **UNLICENSED**. Trusted Publisher trên npmjs phải khớp filename workflow `npm-publish.yml`. Publishing access package: **Require 2FA and disallow tokens** (OIDC vẫn chạy; token classic bị từ chối).
 
@@ -67,10 +68,11 @@ node _audit/ci/generate-native-tokens.mjs
 ## Những gì KHÔNG auto-fail (có chủ đích)
 
 - **Hàng visual / component baseline side-by-side** — chỉ advisory (drift đánh giá bằng mắt). So sánh `%` pixel Playwright là gate **hard** (job `pixel-diff` + hàng Pixel CI trên board).
-- **Figma Variables write trên non-Enterprise** — soft-skip kèm report artifact.
+- **Figma Variables** — **secret trống fail closed** (job yêu cầu `FIGMA_TOKEN` / `FIGMA_FILE_KEY`). Write Variables trên non-Enterprise / API **403** soft-skip kèm report artifact sau khi secret mở được file.
 - **Code Connect publish** — soft-skip khi thiếu secret hoặc API 403/404/429 (Quyết định 1C).
 - **npm publish** — Trusted Publishing (OIDC) trên `npm-publish.yml`; soft-skip khi auth / conflict (Quyết định 1C).
 - **Native store signed release** — soft-skip khi thiếu `ASC_*` / `PLAY_SERVICE_ACCOUNT_JSON` (Quyết định 1C); submit store vẫn tắt.
+- **npm-hello registry smoke** — **hard fail** (`examples/npm-hello` → `npm ci` + `npm run smoke`); chứng minh đường install public `@cyberskill/design` (không soft-skip).
 
 ## Soft-skip dry-run (local)
 

@@ -77,14 +77,20 @@ Soft-skip means the job exits 0 with a report when secrets/plan/API cannot compl
 
 | Job | Script / workflow | What it asserts | Soft-skip when | Where it runs |
 |---|---|---|---|---|
-| Figma Variables | `_audit/ci/push-figma-variables.mjs` + `figma-variables-push` job | Secrets open the file; optional Variables write | Non-Enterprise / missing `file_variables:*` scopes / API 403 | `main` push + manual |
+| Figma Variables | `_audit/ci/push-figma-variables.mjs` + `figma-variables-push` job | Secrets open the file; optional Variables write | **Empty secrets fail closed.** Soft-skip only for non-Enterprise / missing `file_variables:*` scopes / API **403** after secrets are present | `main` push + manual |
 | Code Connect | `_audit/ci/code-connect-publish.mjs` + `code-connect` job | Config + 99 mappings; optional publish | Missing `FIGMA_TOKEN`/`FIGMA_FILE_KEY` or API 403/404/429 | PR + `main` + manual |
 | npm publish | `_audit/ci/npm-publish.mjs` + `npm-publish.yml` | Pack-safe `files`/`exports`; `npm publish` via OIDC Trusted Publishing (tokens disallowed on package) | Auth / 403 / 404 / EOTP / version conflict | `workflow_dispatch` / `v*` tags |
 | Native store | `_audit/ci/native-store-dry-run.mjs` + `native-store.yml` | Fastlane scaffolds + metadata; signed-release secrets check | Missing `ASC_*` / `PLAY_SERVICE_ACCOUNT_JSON` (submit always disabled) | PR + `main` (paths) + manual |
 
+## Registry consumer smoke (hard)
+
+| Job | Script / workflow | What it asserts | Pass criterion | Where it runs |
+|---|---|---|---|---|
+| npm-hello smoke | `examples/npm-hello` + `npm-hello-smoke` job | Public registry install of `@cyberskill/design@1.0.0` resolves package name + exports (`npm ci` + `npm run smoke`) | Exit 0 (**hard fail** — not soft-skip) | Path-filtered push/PR + nightly + manual |
+
 ## July 2026 hardening — delivered
 
-The eight gates the audit planned (token-format-parity, version-stamp, support-runtime-identity, package-exports-integrity, template-lang-parity, dtcg-typing, bundle-freshness, design-md-parity) are now **implemented** — see their rows in the fast-board and Node-pre-check tables above. All are wired into `_audit/run.html`, `_audit/index.html`, the CI workflow (`fast-gates` picks the board rows up automatically; `node-prechecks` + `unit-tests` are new jobs), and `dashboard.html` (whose Health tab embeds `run.html`, so board rows surface there without a separate list). The docs-consistency gate carries the stale-phrase blacklist (retired suite/pack counts) + `DESIGN.md` stamp extensions described in its row. The docs-lang-parity gate locks the `docs/vi/` mirror.
+The eight gates the audit planned (token-format-parity, version-stamp, support-runtime-identity, package-exports-integrity, template-lang-parity, dtcg-typing, bundle-freshness, design-md-parity) are now **implemented** — see their rows in the fast-board and Node-pre-check tables above. All are wired into `_audit/run.html`, `_audit/index.html`, and the CI workflow (`fast-gates` picks the board rows up automatically; `node-prechecks` + `unit-tests` are new jobs). Operators browse Health via Storybook **Status** (full-bleed `_audit/run.html`) and the audit index at `_audit/index.html` — `dashboard.html` is redirect-only and has no Health tab. The docs-consistency gate carries the stale-phrase blacklist (retired suite/pack counts) + `DESIGN.md` stamp extensions described in its row. The docs-lang-parity gate locks the `docs/vi/` mirror.
 
 ## Human-reviewed, never automated
 
