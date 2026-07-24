@@ -1,0 +1,12 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "legal-msa",
+  "slots": [
+    {
+      "id": "hdrLabel",
+      "type": "text",
+      "label": "Header document label",
+      "maxLength": 28
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "team-meeting-agenda",
+  "slots": [
+    {
+      "id": "hdrLabel",
+      "type": "text",
+      "label": "Header agenda label",
+      "maxLength": 28
+    }
+  ]
+}

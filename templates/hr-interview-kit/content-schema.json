@@ -1,0 +1,12 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "hr-interview-kit",
+  "slots": [
+    {
+      "id": "hdrLabel",
+      "type": "text",
+      "label": "Header confidentiality label",
+      "maxLength": 28
+    }
+  ]
+}

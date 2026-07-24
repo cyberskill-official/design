@@ -1,0 +1,15 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-receipt-acknowledgement",
+  "slots": [
+    {
+      "id": "docs",
+      "type": "list",
+      "label": "Acknowledged documents",
+      "i18n": {
+        "en": "Documents the employee acknowledges receiving",
+        "vi": "Tài liệu nhân viên xác nhận đã nhận"
+      }
+    }
+  ]
+}

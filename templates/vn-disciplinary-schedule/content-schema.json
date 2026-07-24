@@ -1,0 +1,15 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-disciplinary-schedule",
+  "slots": [
+    {
+      "id": "rows",
+      "type": "list",
+      "label": "Disciplinary schedule rows",
+      "i18n": {
+        "en": "Ordered schedule entries (columns per template table)",
+        "vi": "Các dòng lịch kỷ luật (theo cột bảng mẫu)"
+      }
+    }
+  ]
+}

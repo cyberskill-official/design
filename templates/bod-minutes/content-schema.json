@@ -1,0 +1,12 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "bod-minutes",
+  "slots": [
+    {
+      "id": "hdrLabel",
+      "type": "text",
+      "label": "Header confidentiality label",
+      "maxLength": 28
+    }
+  ]
+}

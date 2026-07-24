@@ -42,7 +42,7 @@ Dev-only harnesses for **deep** verification (owner doctrine: whole-set checks, 
 
 - **`apca-dark-preview.html`** — dark-pack APCA page: since v4.0.0 a **fast-runner gate** (all 15 dark elemental packs must hold bright ≥ 75 · accent ≥ 60 · button ink ≥ 75 · ink ≥ 75; `__apcaPreview.pass` / `currentFail === 0`); still previews derived proposals for future packs.
 
-- **`template-schema-test.html`** \u2014 template content-schema v2 gate (in the fast runner): validates every opt-in `templates/<slug>/content-schema.json` sidecar against the JSON Schema (`templates/schema/content-schema.schema.json`) and bidirectionally against the template's real `{{ hole }}`s. `window.__schemav2.pass` must be true; coverage across all templates reported informationally (27/84 opt-in sidecars). Growth of further sidecars and Storybook FullMatrix remains opportunistic when a primary already qualifies.
+- **`template-schema-test.html`** \u2014 template content-schema v2 gate (in the fast runner): validates every opt-in `templates/<slug>/content-schema.json` sidecar against the JSON Schema (`templates/schema/content-schema.schema.json`) and bidirectionally against the template's real `{{ hole }}`s. `window.__schemav2.pass` must be true; coverage across all templates reported informationally (39/84 opt-in sidecars). Growth of further sidecars and Storybook FullMatrix remains opportunistic when a primary already qualifies.
 
 - **`esm-smoke-test.html`** — ESM-path gate (in the fast runner): `_esm/cs.mjs` imports (self-ensures React + bundle, prefix-resolved namespace), export list in lockstep with `_ds_manifest.json` (drift guard both directions), Button mounts with brand tokens. `window.__esm.pass` must be true.
 
