@@ -272,7 +272,8 @@ jobs:
           git push origin "HEAD:$BRANCH"
 
   figma-variables-push:
-    # Soft-skips when Variables API is Enterprise-only (owner decision A: non-Enterprise for now).
+    # Soft-skips when secrets missing (same honesty as Code Connect) or Variables API is
+    # Enterprise-only (owner decision A: non-Enterprise for now). Soft-skip ≠ live sync.
     if: |
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'push' && github.ref == 'refs/heads/main')
@@ -282,32 +283,38 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Require Figma secrets
+      - name: Check Figma secrets (soft-skip when empty)
+        id: figma_secrets
         env:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
           FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
         run: |
           missing=0
           if [ -z "$FIGMA_TOKEN" ]; then
-            echo "::error::FIGMA_TOKEN is empty — Actions did not inject it."
+            echo "FIGMA_TOKEN: empty"
             missing=1
           else
             echo "FIGMA_TOKEN: present (length ${#FIGMA_TOKEN}, value not printed)"
           fi
           if [ -z "$FIGMA_FILE_KEY" ]; then
-            echo "::error::FIGMA_FILE_KEY is empty — Actions did not inject it."
+            echo "FIGMA_FILE_KEY: empty"
             missing=1
           else
             echo "FIGMA_FILE_KEY: present (length ${#FIGMA_FILE_KEY}, value not printed)"
           fi
           if [ "$missing" -ne 0 ]; then
-            echo "Add repository secrets FIGMA_TOKEN and FIGMA_FILE_KEY, or omit this job's secrets until Enterprise."
-            echo "Owner decision A: non-Enterprise soft-skip is fine once secrets exist; empty secrets still fail closed here."
-            exit 1
+            echo "SOFT SKIP — FIGMA_TOKEN and/or FIGMA_FILE_KEY empty; no Variables push attempted."
+            echo "Same honesty as Code Connect: missing secrets exit 0 (not a live sync)."
+            echo "Add repository secrets FIGMA_TOKEN and FIGMA_FILE_KEY when ready. See docs/figma.md."
+            printf '%s\n' '{"skipped":true,"reason":"missing_secrets","message":"FIGMA_TOKEN and/or FIGMA_FILE_KEY empty — no Variables push attempted."}' > _audit/ci/figma-push-report.json
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
       - name: Dry-run colour token plan
         run: node _audit/ci/push-figma-variables.mjs --dry-run
       - name: Push colour variables to Figma
+        if: steps.figma_secrets.outputs.ready == 'true'
         env:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
           FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}

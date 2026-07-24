@@ -47,7 +47,7 @@ Must be **repository secrets** under the Actions tab (exact names, case-sensitiv
 
 If you hover a PAT and only see scopes like `file_content:read`, `file_comments:*`, `webhooks:*`, `library_*` — that is expected on **Professional / Organization** seats. Figma **does not list** `file_variables:*` unless the account is on **Enterprise**. Regenerating a PAT on a non-Enterprise plan cannot unlock the Variables REST API.
 
-**What CI does today:** the `figma-variables-push` job **fails closed if `FIGMA_TOKEN` / `FIGMA_FILE_KEY` are empty** (Actions must inject repository secrets). With secrets present, file open works on any plan; the Variables write soft-skips with a report when Figma returns **403** / invalid scopes for `file_variables` (so gates stay green). Full auto-push needs Enterprise + those two scopes on the PAT.
+**What CI does today:** the `figma-variables-push` job **soft-skips (exit 0 + report) if `FIGMA_TOKEN` / `FIGMA_FILE_KEY` are empty** — same honesty as Code Connect (missing secrets are not a red main). With secrets present, file open works on any plan; the Variables write also soft-skips with a report when Figma returns **403** / invalid scopes for `file_variables`. Soft-skip ≠ live Variables sync. Full auto-push needs Enterprise + those two scopes on the PAT.
 
 **Non-Enterprise alternatives:** hand-sync colour styles from `tokens/tokens.dtcg.json`, or use [Tokens Studio](https://tokens.studio/) / the Plugin API inside the desktop app (plugin path does not use this REST job) — see the import recipe above.
 

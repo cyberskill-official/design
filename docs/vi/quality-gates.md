@@ -77,7 +77,7 @@ Soft-skip nghĩa là job exit 0 kèm report khi secret/plan/API không hoàn t�
 
 | Job | Script / workflow | Assert gì | Soft-skip khi | Chạy ở đâu |
 |---|---|---|---|---|
-| Figma Variables | `_audit/ci/push-figma-variables.mjs` + job `figma-variables-push` | Secret mở được file; write Variables tùy chọn | **Secret trống fail closed.** Soft-skip chỉ khi non-Enterprise / thiếu scope `file_variables:*` / API **403** sau khi secret đã có | Push `main` + thủ công |
+| Figma Variables | `_audit/ci/push-figma-variables.mjs` + job `figma-variables-push` | Secret mở được file; write Variables tùy chọn | Soft-skip khi thiếu secret (cùng trung thực với Code Connect) hoặc non-Enterprise / thiếu scope `file_variables:*` / API **403** sau khi secret đã có. Soft-skip ≠ sync live | Push `main` + thủ công |
 | Code Connect | `_audit/ci/code-connect-publish.mjs` + job `code-connect` | Config + 99 mapping; publish tùy chọn | Thiếu `FIGMA_TOKEN`/`FIGMA_FILE_KEY` hoặc API 403/404/429 | PR + `main` + thủ công |
 | npm publish | `_audit/ci/npm-publish.mjs` + `npm-publish.yml` | `files`/`exports` pack-safe; `npm publish` qua OIDC Trusted Publishing (package disallow tokens) | Auth / 403 / 404 / EOTP / conflict phiên bản | `workflow_dispatch` / tag `v*` |
 | Native store | `_audit/ci/native-store-dry-run.mjs` + `native-store.yml` | Scaffold Fastlane + metadata; kiểm secret signed-release | Thiếu `ASC_*` / `PLAY_SERVICE_ACCOUNT_JSON` (submit luôn tắt) | PR + `main` (paths) + thủ công |
