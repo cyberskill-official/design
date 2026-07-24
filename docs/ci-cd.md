@@ -16,7 +16,7 @@
 4. **`node-prechecks`** — browser-free Node authorities: `_audit/ci/check-bundle-freshness.mjs` (the bundle-freshness source of truth — full source discovery incl. new/deleted files; the board row only re-hashes header-recorded files) and `scripts/generate-design-md.mjs --check` (root `DESIGN.md` byte-equals regeneration).
 5. **`docs-consistency-blocker`** — `docs-consistency` + `bilingual-parity` merge blockers.
 6. **`whole-set-audits`** — owner decision B: every push/PR, plus nightly `0 3 * * *` and `workflow_dispatch` (responsive + language + theme overflow, ~15–20 min).
-7. **`figma-variables-push`** — on `main` push + manual. **Empty `FIGMA_TOKEN` / `FIGMA_FILE_KEY` fail closed** (job errors — secrets must be injected). Owner decision A (non-Enterprise): Variables REST **soft-skips on API 403** (and related plan/scope failures) after secrets prove file open. See `docs/figma.md`.
+7. **`figma-variables-push`** — on `main` push + manual. **Empty `FIGMA_TOKEN` / `FIGMA_FILE_KEY` soft-skip** (exit 0 + report — same honesty as Code Connect). Owner decision A (non-Enterprise): Variables REST also **soft-skips on API 403** (and related plan/scope failures) after secrets prove file open. Soft-skip ≠ live Variables sync. See `docs/figma.md`.
 8. **`code-connect`** — on PR + `main` + manual. Decision 1C: dry-run always (config + 99 mappings); publish soft-skips when `FIGMA_TOKEN` / `FIGMA_FILE_KEY` missing or API 403/404/429. See `docs/figma.md`.
 9. **`regenerate-tokens`** — path-filtered on push/PR (`tokens.dtcg.json`, natives, generator, `VERSION`); always available on schedule/manual. Deterministic native output; pushes with `contents: write` (or `DS_PUSH_TOKEN`).
 10. **`npm-hello-smoke`** — registry consumer proof: `cd examples/npm-hello && npm ci && npm run smoke` (**hard fail**; package is public). Path-filtered on push/PR when `examples/npm-hello/**`, package publish surface, or this workflow changes; always on schedule / `workflow_dispatch`.
@@ -68,7 +68,7 @@ node _audit/ci/generate-native-tokens.mjs
 ## What this does NOT auto-fail (by design)
 
 - **Side-by-side visual / component baseline rows** — advisory only (drift judged by eye). Playwright `%` pixel compare is a **hard** gate (`pixel-diff` job + board Pixel CI row).
-- **Figma Variables** — **empty secrets fail closed** (job requires `FIGMA_TOKEN` / `FIGMA_FILE_KEY`). Variables write on non-Enterprise / API **403** soft-skips with report artifact after secrets open the file.
+- **Figma Variables** — soft-skip when secrets missing (same honesty as Code Connect) or Variables write hits non-Enterprise / API **403**; report artifact records the skip. Soft-skip ≠ live sync.
 - **Code Connect publish** — soft-skip when secrets missing or API 403/404/429 (Decision 1C).
 - **npm publish** — Trusted Publishing (OIDC) on `npm-publish.yml`; soft-skip on auth / conflict (Decision 1C).
 - **Native store signed release** — soft-skip when `ASC_*` / `PLAY_SERVICE_ACCOUNT_JSON` absent (Decision 1C); store submit stays disabled.

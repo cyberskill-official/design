@@ -1,0 +1,12 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "hr-pip",
+  "slots": [
+    {
+      "id": "hdrLabel",
+      "type": "text",
+      "label": "Header confidentiality label",
+      "maxLength": 28
+    }
+  ]
+}

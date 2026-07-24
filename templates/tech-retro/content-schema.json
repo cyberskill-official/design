@@ -1,0 +1,12 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "tech-retro",
+  "slots": [
+    {
+      "id": "hdrLabel",
+      "type": "text",
+      "label": "Header retrospective label",
+      "maxLength": 28
+    }
+  ]
+}

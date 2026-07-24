@@ -1,0 +1,16 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "team-meeting-agenda",
+  "slots": [
+    {
+      "id": "hdrLabel",
+      "type": "text",
+      "label": "Header agenda label",
+      "maxLength": 28,
+      "i18n": {
+        "en": "Header agenda label",
+        "vi": "Nhãn chương trình họp phần đầu"
+      }
+    }
+  ]
+}

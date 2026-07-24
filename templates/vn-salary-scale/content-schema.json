@@ -1,0 +1,15 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-salary-scale",
+  "slots": [
+    {
+      "id": "grades",
+      "type": "list",
+      "label": "Salary grade rows",
+      "i18n": {
+        "en": "Ordered salary grade / band rows",
+        "vi": "Các dòng bậc / thang lương"
+      }
+    }
+  ]
+}

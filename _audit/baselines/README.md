@@ -10,6 +10,9 @@ Reference captures of representative surfaces. Two consumers share this folder:
 **Templates (archetypes)**
 - `dashboard.png` — product screen · pixel frame 909×540
 - `dashboard-dark.png` — same, forced dark via `__dcSetProps({theme:"dark"})` · pixel frame 909×540
+- `app-shell.png` — product app chrome · pixel frame 909×540
+- `settings.png` — settings product shell · pixel frame 909×540
+- `delivery-kickoff.png` — delivery kickoff document · pixel frame 909×540
 - `bod-report.png` — Letter document · pixel frame 909×540
 - `slide-deck.png` — 16:9 deck · pixel frame 909×540
 - `vn-labor-contract.png` — VN legal instrument · pixel frame 909×540
@@ -25,7 +28,7 @@ Reference captures of representative surfaces. Two consumers share this folder:
 - `status-hub.png` — portfolio dashboard kit home · pixel frame 909×540
 - `website.png` — bilingual marketing site home · pixel frame 909×540
 
-They anchor the archetypes, not every template. Declare each in `BASE` inside `visual-diff.html` (slug → `{w, src?}`) **and** in `TARGETS` inside `_audit/ci/pixel-diff.mjs` (keep those lists in lockstep with `_audit/pixel-ci.html`).
+They anchor high-traffic product / document / deck shells (15 curated captures), not every template. Declare each in `BASE` inside `visual-diff.html` (slug → `{w, src?}`) **and** in `TARGETS` inside `_audit/ci/pixel-diff.mjs` (keep those lists in lockstep with `_audit/pixel-ci.html`).
 
 ## Regenerate (Playwright — preferred for pixel CI)
 

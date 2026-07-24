@@ -27,7 +27,7 @@ The portable contract (styles.css · `_esm/cs.mjs` · bundle · tokens) works ev
 - [guidelines/](guidelines/): specimen cards + `atomic-view.html` (portable component grid) — host product surface is Storybook at `/`
 - [examples/static-hello/](examples/static-hello/): zero-install static consumer (Stitch / plain HTML)
 - [examples/npm-hello/](examples/npm-hello/): first registry consumer — `@cyberskill/design@1.0.0` (Lumi · Hỏa · plasma); Status Hub teams swap to `thuy`
-- [examples/native/](examples/native/): SwiftUI / Compose / Flutter sample apps + store scaffolds (see `examples/native/README.md`)
+- [examples/native/](examples/native/): SwiftUI / Compose / Flutter sample apps + store scaffolds — Compose is **Android Studio**-first (no committed `gradlew`; see `examples/native/README.md`)
 - [ui_kits/](ui_kits/): product recreations — status-hub · website · deck
 - [fonts/](fonts/): self-hosted Be Vietnam Pro + JetBrains Mono woff2
 - [assets/](assets/): official logo mark (never recreate) · favicon · aurora washes · Lumi mascot

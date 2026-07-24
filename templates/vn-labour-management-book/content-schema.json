@@ -1,0 +1,15 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-labour-management-book",
+  "slots": [
+    {
+      "id": "fields",
+      "type": "list",
+      "label": "Labour book field rows",
+      "i18n": {
+        "en": "Ordered field rows for the labour management book",
+        "vi": "Các dòng trường sổ quản lý lao động"
+      }
+    }
+  ]
+}

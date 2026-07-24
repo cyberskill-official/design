@@ -47,7 +47,7 @@ Phải là **repository secrets** dưới tab Actions (tên đúng, phân biệt
 
 Nếu hover PAT chỉ thấy scope kiểu `file_content:read`, `file_comments:*`, `webhooks:*`, `library_*` — đó là bình thường trên ghế **Professional / Organization**. Figma **không liệt kê** `file_variables:*` trừ khi account là **Enterprise**. Tạo lại PAT trên plan non-Enterprise không mở được Variables REST API.
 
-**CI làm gì hôm nay:** job `figma-variables-push` **fail closed nếu `FIGMA_TOKEN` / `FIGMA_FILE_KEY` trống** (Actions phải inject repository secret). Có secret thì mở file chạy trên mọi plan; Variables write soft-skip kèm report khi Figma trả **403** / scope không hợp lệ cho `file_variables` (để gates vẫn xanh). Auto-push đầy đủ cần Enterprise + hai scope đó trên PAT.
+**CI làm gì hôm nay:** job `figma-variables-push` **soft-skip (exit 0 + report) nếu `FIGMA_TOKEN` / `FIGMA_FILE_KEY` trống** — cùng trung thực với Code Connect (thiếu secret không làm đỏ main). Có secret thì mở file chạy trên mọi plan; Variables write cũng soft-skip kèm report khi Figma trả **403** / scope không hợp lệ cho `file_variables`. Soft-skip ≠ sync Variables live. Auto-push đầy đủ cần Enterprise + hai scope đó trên PAT.
 
 **Lựa chọn non-Enterprise:** hand-sync colour styles từ `tokens/tokens.dtcg.json`, hoặc dùng [Tokens Studio](https://tokens.studio/) / Plugin API trong desktop app (đường plugin không dùng job REST này) — xem công thức import ở trên.
 
