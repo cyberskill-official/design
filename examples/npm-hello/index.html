@@ -9,7 +9,8 @@
   <script type="importmap">
   {
     "imports": {
-      "@cyberskill/design": "./node_modules/@cyberskill/design/_esm/cs.mjs"
+      "@cyberskill/design": "./node_modules/@cyberskill/design/_esm/cs.mjs",
+      "@cyberskill/design/legacy": "./node_modules/@cyberskill/design/_esm/cs.mjs"
     }
   }
   </script>
@@ -25,8 +26,9 @@
   </p>
   <h1 style="font:var(--cs-text-h1);margin:0 0 12px">Hello from npm</h1>
   <p style="color:var(--cs-color-text-muted);max-width:40rem;margin:0 0 20px">
-    First-consumer path: <code>npm install @cyberskill/design@1.0.0</code>, link
-    <code>styles.css</code>, import from package exports (<code>_esm/cs.mjs</code>).
+    First-consumer <b>browser</b> path: <code>npm install @cyberskill/design@1.0.0</code>, link
+    <code>styles.css</code>, import legacy entry (<code>_esm/cs.mjs</code> / <code>@cyberskill/design/legacy</code>).
+    Next/SSR apps use default <code>import { Button } from "@cyberskill/design"</code> instead.
     Approved use: <code>docs/consumer-grant.md</code>.
   </p>
   <div id="root"></div>
@@ -36,7 +38,7 @@
   <script type="module">
     import { Button } from '@cyberskill/design';
     const root = document.getElementById('root');
-    // React / ReactDOM are ensured by _esm/cs.mjs (unpkg pinned; skipped if already present).
+    // React / ReactDOM are ensured by legacy _esm/cs.mjs (unpkg pinned; skipped if already present).
     ReactDOM.createRoot(root).render(
       React.createElement(
         React.Fragment,

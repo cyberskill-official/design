@@ -37,7 +37,8 @@ Storybook **10** là **site sản phẩm** cho operator trên `design.cyberskill
 |---|---|
 | Static / bất kỳ framework | `styles.css` + `.cs-*` |
 | React production | `styles.css` + `_ds_bundle.js` |
-| ESM | `_esm/cs.mjs` |
+| ESM (bundler) | `_esm/react.mjs` (mặc định / `@cyberskill/design/react`) |
+| ESM (browser legacy) | `_esm/cs.mjs` (`@cyberskill/design/legacy`) |
 | Tokens | `tokens/*` |
 | Claude Design | `templates/**/*.dc.html` |
 

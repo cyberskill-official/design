@@ -10,7 +10,8 @@ Repo GitHub (`cyberskill-official/design-system`) là **nguồn chân lý**. Ses
 - `templates/**/*.dc.html` (+ `ds-base.js`, `support.js`)
 - `guidelines/`, `ui_kits/`, `fonts/` (woff2), `assets/`, `docs/`, `_audit/*.html`
 
-- **`_esm/cs.mjs`** — entry ESM. Tiền tố underscore **không** nghĩa là build artifact hay gitignored ở đây (chỉ `uploads/`, `scraps/`, `_audit/exports/` là — xem Hygiene bên dưới); `_esm/` là source, cùng tầng với `templates/` hoặc `docs/`. Một lần port trước đã bỏ nó đúng vì giả định đó và làm gãy ESM smoke gate — nếu bạn port/copy cây này bằng tay, **explicit include mọi thư mục top-level danh sách này đặt tên**, đừng suy từ tiền tố `_`.
+- **`_esm/react.mjs`** — entry React bundler-native (export package mặc định; React peer). Regenerated qua `npm run build:react-entry`.
+- **`_esm/cs.mjs`** — entry ESM browser / no-build legacy (`@cyberskill/design/legacy`). Tiền tố underscore **không** nghĩa là build artifact hay gitignored ở đây (chỉ `uploads/`, `scraps/`, `_audit/exports/` là — xem Hygiene bên dưới); `_esm/` là source, cùng tầng với `templates/` hoặc `docs/`. Một lần port trước đã bỏ nó đúng vì giả định đó và làm gãy ESM smoke gate — nếu bạn port/copy cây này bằng tay, **explicit include mọi thư mục top-level danh sách này đặt tên**, đừng suy từ tiền tố `_`.
 
 - `README.md`, `CONTRIBUTING.md`, `SKILL.md`, `CLAUDE.md`, `VERSION`, `DESIGN.md` (open-spec surface generate — commit, chỉ regen qua `npm run build:design-md`, khóa bởi gate `design-md-parity`)
 

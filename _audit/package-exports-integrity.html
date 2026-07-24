@@ -11,11 +11,11 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>Package exports integrity gate</h1>
-<p class="lede">Guards the packaging hole class found in the Jul 2026 audit (<code>files</code> once omitted <code>_esm/</code> while <code>exports["."]</code> pointed into it). Asserts: every <code>package.json</code> <code>files</code> entry exists (fetch 200 — directories via listing); every <code>module</code> / <code>style</code> / <code>exports</code>-map target exists <b>and</b> is covered by a <code>files</code> entry (wildcard targets check their directory); the ESM entry <code>_esm/cs.mjs</code> (this package's ESM entry — there is no <code>index.js</code>) has export-statement sanity; and every <code>CS.*</code> re-export name in it is a subset of the exposed exports listed in the <code>_ds_bundle.js</code> header. Verdict on <code>window.__pkgexports</code>.</p>
+<p class="lede">Guards the packaging hole class found in the Jul 2026 audit (<code>files</code> once omitted <code>_esm/</code> while <code>exports["."]</code> pointed into it). Asserts: every <code>package.json</code> <code>files</code> entry exists (fetch 200 — directories via listing); every <code>module</code> / <code>types</code> / <code>style</code> / <code>exports</code>-map target exists <b>and</b> is covered by a <code>files</code> entry (wildcard targets check their directory); dual ESM entries — bundler-native <code>_esm/react.mjs</code> (<code>exports["."]</code> / <code>./react</code>, React as peer) and browser legacy <code>_esm/cs.mjs</code> (<code>exports["./legacy"]</code>) — have export-statement sanity; and every re-export name in both is a subset of the exposed exports listed in the <code>_ds_bundle.js</code> header. Verdict on <code>window.__pkgexports</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <script>
-const P=window.__gateProgress={done:0,total:6,current:'boot'};
+const P=window.__gateProgress={done:0,total:9,current:'boot'};
 const results=[]; const list=document.getElementById('list');
 function record(name,ok,detail){ results.push({name,ok,detail}); const r=document.createElement('div'); r.className='row '+(ok?'ok':'bad'); r.innerHTML='<span>'+(ok?'\u2713 ':'\u2717 ')+name+'</span><span class="d">'+String(detail).slice(0,200)+'</span>'; list.appendChild(r); }
 function publish(v){ if(window.__pkgexports) return; window.__pkgexports=v; const s=document.getElementById('sum'); s.textContent=v.pass?('\u2713 all '+v.total+' packaging checks pass'):('\u2717 '+(v.error?v.error:(v.failed.length+'/'+v.total+' failed: '+v.failed.join(', ')))); s.style.color=v.pass?'#166534':'#B42318'; console.log('PKGEXPORTS VERDICT '+JSON.stringify({pass:v.pass,failed:v.failed||[],error:v.error||null})); }
@@ -27,10 +27,11 @@ async function exists(path){
   return r.ok;
 }
 (async()=>{
-  let pkg,esmText,header;
-  await test('fetch package.json + _esm/cs.mjs + bundle header',async()=>{
+  let pkg,esmText,reactText,header;
+  await test('fetch package.json + ESM entries + bundle header',async()=>{
     pkg=JSON.parse(await (await fetch('../package.json',{cache:'no-store'})).text());
     esmText=await (await fetch('../_esm/cs.mjs',{cache:'no-store'})).text();
+    reactText=await (await fetch('../_esm/react.mjs',{cache:'no-store'})).text();
     const bundle=await (await fetch('../_ds_bundle.js',{cache:'no-store'})).text();
     const first=bundle.slice(0,bundle.indexOf('\n'));
     const m=first.match(/^\/\* @ds-bundle: (.*) \*\/$/);
@@ -46,17 +47,18 @@ async function exists(path){
     assert(missing.length===0,'missing: '+missing.join(', '));
     return pkg.files.length+' entries resolve';
   });
-  // Collect module/style/exports targets: "./x" strings; wildcards check their directory.
+  // Collect module/types/style/exports targets: "./x" strings; wildcards check their directory.
   function targets(){
     const out=[];
     if(pkg.main) out.push({field:'main',path:pkg.main});
     if(pkg.module) out.push({field:'module',path:pkg.module});
+    if(pkg.types) out.push({field:'types',path:pkg.types});
     if(pkg.style) out.push({field:'style',path:pkg.style});
     (function walk(node,at){ if(typeof node==='string'){ out.push({field:'exports'+at,path:node}); return; }
       if(node&&typeof node==='object') for(const k of Object.keys(node)) walk(node[k],at+'.'+k); })(pkg.exports||{},'');
     return out.map(t=>({field:t.field,raw:t.path,path:t.path.replace(/^\.\//,'').replace(/\*.*$/,'')}));
   }
-  await test('every module/style/exports target exists',async()=>{
+  await test('every module/types/style/exports target exists',async()=>{
     const missing=[];
     for(const t of targets()){ P.current=t.field; if(!(await exists(t.path))) missing.push(t.field+' \u2192 '+t.raw); }
     assert(missing.length===0,'missing: '+missing.join(', '));
@@ -67,23 +69,51 @@ async function exists(path){
       return !pkg.files.some(f=>{ const dir=f.replace(/\/$/,''); return t.path===f||t.path===dir||t.path.indexOf(dir+'/')===0; });
     });
     assert(uncovered.length===0,'not in files[]: '+uncovered.map(t=>t.field+' \u2192 '+t.raw).join(', '));
-    return 'module + style + exports map all pack-safe';
+    return 'module + types + style + exports map all pack-safe';
   });
-  await test('_esm/cs.mjs export-statement sanity',async()=>{
+  await test('dual entry map: . /react → react.mjs · legacy → cs.mjs',async()=>{
+    const ex=pkg.exports||{};
+    assert(ex['.']&&ex['.'].import==='./_esm/react.mjs','exports["."] must be _esm/react.mjs');
+    assert(ex['.']&&ex['.'].types==='./_esm/react.d.ts','exports["."].types must be _esm/react.d.ts');
+    assert(ex['./react']&&ex['./react'].import==='./_esm/react.mjs','exports["./react"] must be _esm/react.mjs');
+    assert(ex['./legacy']&&ex['./legacy'].import==='./_esm/cs.mjs','exports["./legacy"] must be _esm/cs.mjs');
+    assert(pkg.peerDependencies&&pkg.peerDependencies.react,'peerDependencies.react required');
+    assert(pkg.peerDependencies&&pkg.peerDependencies['react-dom'],'peerDependencies.react-dom required');
+    assert(pkg.module==='_esm/react.mjs','module field must be _esm/react.mjs');
+    assert(pkg.types==='_esm/react.d.ts','types field must be _esm/react.d.ts');
+    return 'bundler primary + browser legacy + peerDeps';
+  });
+  await test('_esm/cs.mjs legacy export-statement sanity',async()=>{
     assert(/^export default /m.test(esmText),'no export default');
     assert(/^export const /m.test(esmText),'no export const statements');
     assert(!/^module\.exports/m.test(esmText),'CommonJS leakage');
     const count=(esmText.match(/^export /gm)||[]).length;
-    return count+' export statements, ESM-shaped';
+    return count+' export statements, ESM-shaped (legacy browser)';
   });
-  await test('cs.mjs re-export names \u2286 bundle exposed exports',async()=>{
+  await test('_esm/react.mjs bundler export-statement sanity',async()=>{
+    assert(/^export \{ /m.test(reactText),'no export { } from statements');
+    assert(!/^module\.exports/m.test(reactText),'CommonJS leakage');
+    assert(!/unpkg\.com/.test(reactText),'must not CDN-load React');
+    assert(!/_ds_bundle\.js/.test(reactText),'must not side-load bundle');
+    assert(!/ensureScript/.test(reactText),'must not self-ensure scripts');
+    const count=(reactText.match(/^export \{ /gm)||[]).length;
+    return count+' re-export lines, bundler-native (no CDN)';
+  });
+  await test('cs.mjs + react.mjs re-export names \u2286 bundle exposed exports',async()=>{
     const exposed=new Set(header.components.map(c=>c.name));
-    const reexports=[]; const re=/^export const ([A-Za-z_$][\w$]*) = CS\.([\w$]+);/gm; let m;
-    while((m=re.exec(esmText))){ reexports.push(m[1]); assert(m[1]===m[2],'aliased re-export '+m[1]+' \u2260 CS.'+m[2]); }
-    assert(reexports.length>0,'no CS.* re-exports found');
-    const unknown=reexports.filter(n=>!exposed.has(n));
-    assert(unknown.length===0,'not in bundle header: '+unknown.slice(0,8).join(', '));
-    return reexports.length+' re-exports \u2286 '+exposed.size+' bundle exports';
+    const csNames=[]; const re=/^export const ([A-Za-z_$][\w$]*) = CS\.([\w$]+);/gm; let m;
+    while((m=re.exec(esmText))){ csNames.push(m[1]); assert(m[1]===m[2],'aliased re-export '+m[1]+' \u2260 CS.'+m[2]); }
+    assert(csNames.length>0,'no CS.* re-exports found in cs.mjs');
+    const csUnknown=csNames.filter(n=>!exposed.has(n));
+    assert(csUnknown.length===0,'cs.mjs not in bundle header: '+csUnknown.slice(0,8).join(', '));
+    const reactNames=[]; const rr=/^export \{ ([^}]+) \} from /gm;
+    while((m=rr.exec(reactText))){ for(const n of m[1].split(',').map(s=>s.trim()).filter(Boolean)) reactNames.push(n); }
+    assert(reactNames.length>0,'no re-exports found in react.mjs');
+    const reactUnknown=reactNames.filter(n=>!exposed.has(n));
+    assert(reactUnknown.length===0,'react.mjs not in bundle header: '+reactUnknown.slice(0,8).join(', '));
+    const missing= [...exposed].filter(n=>!reactNames.includes(n));
+    assert(missing.length===0,'react.mjs missing: '+missing.slice(0,8).join(', '));
+    return 'cs '+csNames.length+' + react '+reactNames.length+' \u2286 '+exposed.size+' bundle exports';
   });
   const bad=results.filter(r=>!r.ok);
   publish({pass:bad.length===0,total:results.length,failed:bad.map(r=>r.name)});

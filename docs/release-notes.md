@@ -16,7 +16,7 @@ npm install @cyberskill/design@1.0.0
 
 `design.cyberskill.world/` is the full Storybook product site. Docs, Foundations, Components, Release Notes, and Status live in one sidebar. Legacy `/dashboard` and `/playground` paths redirect to `/`.
 
-Portable consumers are unchanged: `styles.css`, `_ds_bundle.js`, and `_esm/cs.mjs` remain the adoption paths. Storybook is host-only tooling.
+Portable consumers: `styles.css`, `_ds_bundle.js`, bundler-native `_esm/react.mjs` (default `exports["."]`; React peer), and browser legacy `_esm/cs.mjs` (`@cyberskill/design/legacy`). Storybook is host-only tooling.
 
 ## Quality gates on Status
 

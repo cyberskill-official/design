@@ -4,7 +4,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Consuming the system
 
-How any project adopts this HTML-first design system. One sentence: consumers link **one file** (`styles.css`) and, if they want React, load the compiled bundle or the ESM entry. **This Storybook is host-only — product apps never depend on it.**
+How any project adopts this HTML-first design system. One sentence: consumers link **one file** (`styles.css`) and, if they want React, use the **bundler-native** package entry (Next/Vite) or the browser legacy / compiled bundle. **This Storybook is host-only — product apps never depend on it.**
 
 ## 1 · Static / prototypes — link the stylesheet
 
@@ -29,13 +29,24 @@ Link `styles.css` and `_ds_bundle.js`, then **resolve the namespace by prefix, n
 </script>
 ```
 
-## 2b · ESM — one import, no build
+## 2b · Bundler-native React (Next / Vite / SSR) — default npm entry
 
 ```js
-import { Button, TextField } from '<path>/_esm/cs.mjs';
+import { Button, TextField } from '@cyberskill/design';
+// or: import { Button } from '@cyberskill/design/react';
+import '@cyberskill/design/styles.css';
 ```
 
-The module self-ensures React, side-loads `_ds_bundle.js` once, resolves the namespace by prefix, and re-exports every component. Still link `styles.css` yourself.
+Resolves to `_esm/react.mjs`. React is a **peerDependency** (no CDN). Next.js: `transpilePackages: ["@cyberskill/design"]`.
+
+## 2c · Browser ESM legacy — one import, no build
+
+```js
+import { Button, TextField } from '@cyberskill/design/legacy';
+// or: import { Button } from '<path>/_esm/cs.mjs';
+```
+
+The module self-ensures React, side-loads `_ds_bundle.js` once, resolves the namespace by prefix, and re-exports every component. Still link `styles.css` yourself. **Not for Next/SSR.**
 
 ## 3 · Machine-readable tokens
 

@@ -11,11 +11,11 @@ This is the **entrance document** for the CyberSkill Design System — pinned **
 **Quick start by audience**
 - **Designers** — open Storybook (Foundations / Components / Maintainer surfaces) and the Templates picker (84 starting points, including the 37-document lawyer-validated Employment Suite); the Identity Lab (`ui_kits/status-hub/identity-lab.html`) lets you flip axes live.
 
-- **Claude Code / Claude Design** — read `SKILL.md` (normative Hard rules + orientation), then the guide below; compose with `styles.css` + `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). DC `*.dc.html` templates only when the session has the compiler. Component contracts live beside each component (`.d.ts` + `.prompt.md`).
+- **Claude Code / Claude Design** — read `SKILL.md` (normative Hard rules + orientation), then the guide below; compose with `styles.css` + bundler `@cyberskill/design` (`_esm/react.mjs`) / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). DC `*.dc.html` templates only when the session has the compiler. Component contracts live beside each component (`.d.ts` + `.prompt.md`).
 
 - **Google Stitch** — start at **`DESIGN.md`** (generated open-spec) → `llms.txt` → `tokens/tokens.dtcg.json`. Build **static** UI with `styles.css` + `.cs-*` / kitchen-sink / `examples/static-hello/`. **Do not** treat `templates/**/*.dc.html` as source of truth.
 
-- **Consuming projects** — npm package **`@cyberskill/design@1.0.0`** (see `docs/consuming.md`; grant in `docs/consumer-grant.md` — still UNLICENSED). First copy-paste install: **`examples/npm-hello/`** (Lumi · Hỏa · plasma). Or link **`styles.css`** from a clone/subtree (one file = everything), or copy a `templates/<slug>/` folder and edit one line in its `ds-base.js` (one-line rebind, validated end-to-end Jul 2026). Scope identity with `data-theme` · `data-cs-element` (+`data-cs-variant`) · `lang`. Release signal: tip SHA + `docs/release-notes.md` (VERSION stays **1.0.0**; no CHANGELOG).
+- **Consuming projects** — npm package **`@cyberskill/design@1.0.0`** (see `docs/consuming.md`; grant in `docs/consumer-grant.md` — still UNLICENSED). **Next/SSR:** `import { Button } from "@cyberskill/design"` (peer React). **Browser demo:** **`examples/npm-hello/`** (Lumi · Hỏa · plasma, legacy `_esm/cs.mjs`). Or link **`styles.css`** from a clone/subtree (one file = everything), or copy a `templates/<slug>/` folder and edit one line in its `ds-base.js` (one-line rebind, validated end-to-end Jul 2026). Scope identity with `data-theme` · `data-cs-element` (+`data-cs-variant`) · `lang`. Release signal: tip SHA + `docs/release-notes.md` (VERSION stays **1.0.0**; no CHANGELOG).
 
 **Document map — consumers**
 

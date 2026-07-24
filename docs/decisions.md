@@ -77,7 +77,16 @@ Recorded Jul 2026 — unlock defaults (updated as operator steps land):
 
 - **Figma Variables** — stay Tokens Studio / non-Enterprise (decision §3). Soft-skip on Variables REST remains honest.
 - **Code Connect** — **skipped while on Figma free**; revisit only after Org + published library + real `nodeId`s (decision §6). Soft-skip ≠ publish.
-- **npm** — **`@cyberskill/design@1.0.0` published**; CI uses **Trusted Publishing (OIDC)** via `npm-publish.yml`; npmjs **disallow tokens**; consumer grant in force at `docs/consumer-grant.md` (decision §7).
+- **npm** — **`@cyberskill/design@1.0.0` published**; CI uses **Trusted Publishing (OIDC)** via `npm-publish.yml`; npmjs **disallow tokens**; consumer grant in force at `docs/consumer-grant.md` (decision §7). Default package entry is bundler-native `_esm/react.mjs` (React peer); browser path is `@cyberskill/design/legacy` → `_esm/cs.mjs` (decision §10).
+
+## 10. Bundler-native React export (Next / SSR)
+
+**Owner choice: ship `_esm/react.mjs` as default `exports["."]`** (Jul 2026)
+
+- React / react-dom are **peerDependencies**; the entry re-exports source JSX (consumer transpiles — e.g. Next `transpilePackages`).
+- Browser / no-build keeps `_esm/cs.mjs` at `exports["./legacy"]` (CDN self-ensure + `_ds_bundle.js`).
+- Alias `@cyberskill/design/react` mirrors the default entry. VERSION stays **1.0.0**; republish via Trusted Publishing after merge.
+- Docs: `docs/consuming.md` (+ VI); gates: `package-exports-integrity` + `test:react-entry`.
 
 ## Maintainer tasks (open)
 

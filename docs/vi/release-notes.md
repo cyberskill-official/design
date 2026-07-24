@@ -16,7 +16,7 @@ npm install @cyberskill/design@1.0.0
 
 `design.cyberskill.world/` là site sản phẩm Storybook đầy đủ. Docs, Foundations, Components, Release Notes và Status nằm trong một sidebar. Đường legacy `/dashboard` và `/playground` redirect về `/`.
 
-Consumer portable không đổi: `styles.css`, `_ds_bundle.js`, và `_esm/cs.mjs`. Storybook chỉ là tooling host.
+Consumer portable: `styles.css`, `_ds_bundle.js`, bundler-native `_esm/react.mjs` (mặc định `exports["."]`; React peer), và browser legacy `_esm/cs.mjs` (`@cyberskill/design/legacy`). Storybook chỉ là tooling host.
 
 ## Quality gate trên Status
 

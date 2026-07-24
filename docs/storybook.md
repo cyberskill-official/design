@@ -37,7 +37,8 @@ Storybook **10** is the **product site** for operators on `design.cyberskill.wor
 |---|---|
 | Static / any framework | `styles.css` + `.cs-*` |
 | React production | `styles.css` + `_ds_bundle.js` |
-| ESM | `_esm/cs.mjs` |
+| ESM (bundler) | `_esm/react.mjs` (default / `@cyberskill/design/react`) |
+| ESM (browser legacy) | `_esm/cs.mjs` (`@cyberskill/design/legacy`) |
 | Tokens | `tokens/*` |
 | Claude Design | `templates/**/*.dc.html` |
 
