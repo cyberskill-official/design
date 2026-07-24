@@ -33,8 +33,11 @@ const DRIFT_PCT = 1.0;
 const TARGETS = [
   { slug: 'kitchen-sink', path: '/templates/kitchen-sink.html' },
   { slug: 'auth', path: '/templates/auth/Auth.dc.html' },
+  { slug: 'app-shell', path: '/templates/app-shell/AppShell.dc.html' },
+  { slug: 'settings', path: '/templates/settings/Settings.dc.html' },
   { slug: 'dashboard', path: '/templates/dashboard/Dashboard.dc.html' },
   { slug: 'dashboard-dark', path: '/templates/dashboard/Dashboard.dc.html', theme: 'dark' },
+  { slug: 'delivery-kickoff', path: '/templates/delivery-kickoff/DeliveryKickoff.dc.html' },
   { slug: 'bod-report', path: '/templates/bod-report/BodReport.dc.html' },
   { slug: 'slide-deck', path: '/templates/slide-deck/SlideDeck.dc.html' },
   { slug: 'marketing-page', path: '/templates/marketing-page/MarketingPage.dc.html' },

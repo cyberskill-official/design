@@ -38,7 +38,7 @@ Every deterministic quality gate in the system, what it asserts, its pass criter
 | Component baselines | `_audit/component-visual-diff.html` | 12 curated component crops anchor the atomic tiers for visual comparison | Crops render + baselines present (`__componentVisualDiff`) | Advisory | Fast board CI |
 | Axe smoke | `_audit/axe-smoke.html` | axe-core 4.10.0 (vendored at `_audit/vendor/axe.min.js`) serious/critical rules on a mounted bilingual component cluster | 0 serious/critical findings (`__axesmoke`) | Hard | Fast board CI |
 | Print smoke | `_audit/print-smoke.html` | Document templates declare the print-ownership meta and `@page` CSS hooks the export path relies on | 0 documents missing print hooks (`__printsmoke`) | Hard | Fast board CI |
-| Pixel CI | `_audit/pixel-ci.html` + `_audit/ci/pixel-diff.mjs` | Curated baselines exist; Playwright capture script performs real % pixel compare; last report must be clean (`drifted[]` empty) | Contract + clean compare (`__pixelci.pass`); drift or missing report fails | Hard | Fast board CI (compare step feeds the row) + `pixel-diff` job |
+| Pixel CI | `_audit/pixel-ci.html` + `_audit/ci/pixel-diff.mjs` | 15 curated baselines exist; Playwright capture script performs real % pixel compare; last report must be clean (`drifted[]` empty) | Contract + clean compare (`__pixelci.pass`); drift or missing report fails | Hard | Fast board CI (compare step feeds the row) + `pixel-diff` job |
 
 ## Whole-set audits — every template, every axis
 

@@ -24,8 +24,9 @@ const P=window.__gateProgress={done:0,total:4,current:'boot'};
 function row(ok,t,cls){const d=document.createElement('div');d.className='row '+(cls||(ok?'ok':'bad'));d.textContent=(ok?'✓ ':'✗ ')+t;list.appendChild(d);}
 // Keep in lockstep with TARGETS in _audit/ci/pixel-diff.mjs
 const NAMES=[
-  'kitchen-sink','auth','dashboard','dashboard-dark','bod-report','slide-deck',
-  'marketing-page','email','vn-labor-contract','tech-incident-report','status-hub','website'
+  'kitchen-sink','auth','app-shell','settings','dashboard','dashboard-dark','delivery-kickoff',
+  'bod-report','slide-deck','marketing-page','email','vn-labor-contract','tech-incident-report',
+  'status-hub','website'
 ];
 (async()=>{
   const fails=[];
