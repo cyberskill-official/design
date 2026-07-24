@@ -77,14 +77,20 @@ Soft-skip nghĩa là job exit 0 kèm report khi secret/plan/API không hoàn t�
 
 | Job | Script / workflow | Assert gì | Soft-skip khi | Chạy ở đâu |
 |---|---|---|---|---|
-| Figma Variables | `_audit/ci/push-figma-variables.mjs` + job `figma-variables-push` | Secret mở được file; write Variables tùy chọn | Non-Enterprise / thiếu scope `file_variables:*` / API 403 | Push `main` + thủ công |
+| Figma Variables | `_audit/ci/push-figma-variables.mjs` + job `figma-variables-push` | Secret mở được file; write Variables tùy chọn | **Secret trống fail closed.** Soft-skip chỉ khi non-Enterprise / thiếu scope `file_variables:*` / API **403** sau khi secret đã có | Push `main` + thủ công |
 | Code Connect | `_audit/ci/code-connect-publish.mjs` + job `code-connect` | Config + 99 mapping; publish tùy chọn | Thiếu `FIGMA_TOKEN`/`FIGMA_FILE_KEY` hoặc API 403/404/429 | PR + `main` + thủ công |
 | npm publish | `_audit/ci/npm-publish.mjs` + `npm-publish.yml` | `files`/`exports` pack-safe; `npm publish` qua OIDC Trusted Publishing (package disallow tokens) | Auth / 403 / 404 / EOTP / conflict phiên bản | `workflow_dispatch` / tag `v*` |
 | Native store | `_audit/ci/native-store-dry-run.mjs` + `native-store.yml` | Scaffold Fastlane + metadata; kiểm secret signed-release | Thiếu `ASC_*` / `PLAY_SERVICE_ACCOUNT_JSON` (submit luôn tắt) | PR + `main` (paths) + thủ công |
 
+## Registry consumer smoke (hard)
+
+| Job | Script / workflow | Assert gì | Tiêu chí pass | Chạy ở đâu |
+|---|---|---|---|---|
+| npm-hello smoke | `examples/npm-hello` + job `npm-hello-smoke` | Install registry public `@cyberskill/design@1.0.0` resolve đúng tên package + exports (`npm ci` + `npm run smoke`) | Exit 0 (**hard fail** — không soft-skip) | Push/PR path-filtered + nightly + thủ công |
+
 ## Hardening Th7 2026 — đã giao
 
-Tám gate audit lên kế hoạch (token-format-parity, version-stamp, support-runtime-identity, package-exports-integrity, template-lang-parity, dtcg-typing, bundle-freshness, design-md-parity) giờ đã **triển khai** — xem hàng của chúng trong bảng fast-board và Node-pre-check trên. Tất cả nối vào `_audit/run.html`, `_audit/index.html`, workflow CI (`fast-gates` nhận hàng board tự động; `node-prechecks` + `unit-tests` là job mới), và `dashboard.html` (tab Health nhúng `run.html`, nên hàng board hiện ở đó không cần list riêng). Gate docs-consistency mang blacklist stale-phrase (suite/pack count đã nghỉ) + mở rộng stamp `DESIGN.md` mô tả ở hàng của nó. Gate docs-lang-parity khóa gương `docs/vi/`.
+Tám gate audit lên kế hoạch (token-format-parity, version-stamp, support-runtime-identity, package-exports-integrity, template-lang-parity, dtcg-typing, bundle-freshness, design-md-parity) giờ đã **triển khai** — xem hàng của chúng trong bảng fast-board và Node-pre-check trên. Tất cả nối vào `_audit/run.html`, `_audit/index.html`, và workflow CI (`fast-gates` nhận hàng board tự động; `node-prechecks` + `unit-tests` là job mới). Operator xem Health qua Storybook **Status** (nhúng full-bleed `_audit/run.html`) và chỉ mục audit tại `_audit/index.html` — `dashboard.html` chỉ redirect và không còn tab Health. Gate docs-consistency mang blacklist stale-phrase (suite/pack count đã nghỉ) + mở rộng stamp `DESIGN.md` mô tả ở hàng của nó. Gate docs-lang-parity khóa gương `docs/vi/`.
 
 ## Human-reviewed, không bao giờ tự động hóa
 

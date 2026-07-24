@@ -16,9 +16,10 @@
 4. **`node-prechecks`** — browser-free Node authorities: `_audit/ci/check-bundle-freshness.mjs` (the bundle-freshness source of truth — full source discovery incl. new/deleted files; the board row only re-hashes header-recorded files) and `scripts/generate-design-md.mjs --check` (root `DESIGN.md` byte-equals regeneration).
 5. **`docs-consistency-blocker`** — `docs-consistency` + `bilingual-parity` merge blockers.
 6. **`whole-set-audits`** — owner decision B: every push/PR, plus nightly `0 3 * * *` and `workflow_dispatch` (responsive + language + theme overflow, ~15–20 min).
-7. **`figma-variables-push`** — on `main` push + manual. Owner decision A (non-Enterprise): Variables REST soft-skips; secrets still prove file open. See `docs/figma.md`.
+7. **`figma-variables-push`** — on `main` push + manual. **Empty `FIGMA_TOKEN` / `FIGMA_FILE_KEY` fail closed** (job errors — secrets must be injected). Owner decision A (non-Enterprise): Variables REST **soft-skips on API 403** (and related plan/scope failures) after secrets prove file open. See `docs/figma.md`.
 8. **`code-connect`** — on PR + `main` + manual. Decision 1C: dry-run always (config + 99 mappings); publish soft-skips when `FIGMA_TOKEN` / `FIGMA_FILE_KEY` missing or API 403/404/429. See `docs/figma.md`.
 9. **`regenerate-tokens`** — path-filtered on push/PR (`tokens.dtcg.json`, natives, generator, `VERSION`); always available on schedule/manual. Deterministic native output; pushes with `contents: write` (or `DS_PUSH_TOKEN`).
+10. **`npm-hello-smoke`** — registry consumer proof: `cd examples/npm-hello && npm ci && npm run smoke` (**hard fail**; package is public). Path-filtered on push/PR when `examples/npm-hello/**`, package publish surface, or this workflow changes; always on schedule / `workflow_dispatch`.
 
 Separate workflow **`npm-publish`** (`.github/workflows/npm-publish.yml`): `workflow_dispatch` + `v*` tags; pack dry-run always; publish via **npm Trusted Publishing (OIDC)** (`id-token: write`, no `NPM_TOKEN` on the publish step). Soft-skips on auth / 403 / 404 / EOTP / version conflict. Version stays **1.0.0**; license **UNLICENSED**. Trusted Publisher on npmjs must match workflow filename `npm-publish.yml`. Package Publishing access is **Require 2FA and disallow tokens** (OIDC still works; classic tokens rejected).
 
@@ -67,10 +68,11 @@ node _audit/ci/generate-native-tokens.mjs
 ## What this does NOT auto-fail (by design)
 
 - **Side-by-side visual / component baseline rows** — advisory only (drift judged by eye). Playwright `%` pixel compare is a **hard** gate (`pixel-diff` job + board Pixel CI row).
-- **Figma Variables write on non-Enterprise** — soft-skip with report artifact.
+- **Figma Variables** — **empty secrets fail closed** (job requires `FIGMA_TOKEN` / `FIGMA_FILE_KEY`). Variables write on non-Enterprise / API **403** soft-skips with report artifact after secrets open the file.
 - **Code Connect publish** — soft-skip when secrets missing or API 403/404/429 (Decision 1C).
 - **npm publish** — Trusted Publishing (OIDC) on `npm-publish.yml`; soft-skip on auth / conflict (Decision 1C).
 - **Native store signed release** — soft-skip when `ASC_*` / `PLAY_SERVICE_ACCOUNT_JSON` absent (Decision 1C); store submit stays disabled.
+- **npm-hello registry smoke** — **hard fail** (`examples/npm-hello` → `npm ci` + `npm run smoke`); proves the public `@cyberskill/design` install path (not soft-skip).
 
 ## Soft-skip dry-runs (local)
 

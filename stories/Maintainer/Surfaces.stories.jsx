@@ -13,7 +13,7 @@ export default {
     docs: {
       description: {
         component:
-          'Maintainer surfaces (Motion, Identity Lab, templates, kitchen-sink, AI cluster, RTL, Atomic View). Atomic View is buried here for gates — not a public top-level Docs entry.',
+          'Maintainer surfaces (Motion, Identity Lab, Status Hub, Website, Deck, templates, kitchen-sink, AI cluster, RTL, Atomic View). Atomic View is buried here for gates — not a public top-level Docs entry.',
       },
     },
   },
@@ -26,6 +26,21 @@ export const Motion = {
 export const IdentityLab = {
   name: 'Identity Lab',
   render: () => <IframeSurface src="/ui_kits/status-hub/identity-lab.html" title="Identity Lab" />,
+};
+
+export const StatusHub = {
+  name: 'Status Hub',
+  render: () => <IframeSurface src="/ui_kits/status-hub/index.html" title="Status Hub" />,
+};
+
+export const Website = {
+  name: 'Website',
+  render: () => <IframeSurface src="/ui_kits/website/index.html" title="Website" />,
+};
+
+export const Deck = {
+  name: 'Deck',
+  render: () => <IframeSurface src="/ui_kits/deck/index.html" title="Deck" />,
 };
 
 export const TemplatePlayground = {

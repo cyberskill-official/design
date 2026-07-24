@@ -9,7 +9,7 @@
 This is the **entrance document** for the CyberSkill Design System — pinned **v1.0.0** (see `VERSION`). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves three independent axes — **Theme** (light · dark) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI). Surface treatment is liquid-glass (fixed).
 
 **Quick start by audience**
-- **Designers** — open the Design System tab and the Templates picker (84 starting points, including the 37-document lawyer-validated Employment Suite); the Identity Lab (`ui_kits/status-hub/identity-lab.html`) lets you flip axes live.
+- **Designers** — open Storybook (Foundations / Components / Maintainer surfaces) and the Templates picker (84 starting points, including the 37-document lawyer-validated Employment Suite); the Identity Lab (`ui_kits/status-hub/identity-lab.html`) lets you flip axes live.
 
 - **Claude Code / Claude Design** — read `SKILL.md` (normative Hard rules + orientation), then the guide below; compose with `styles.css` + `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). DC `*.dc.html` templates only when the session has the compiler. Component contracts live beside each component (`.d.ts` + `.prompt.md`).
 
@@ -166,7 +166,7 @@ Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official mas
 
 Highlights: **Button** — Umber primary; variants primary/secondary/tertiary/ghost/danger/danger-ghost; sizes xs–lg; loading, icon, fullWidth. **TextField / Textarea / Select** share one `.cs-field` frame (label + description + inline error; diacritic/IME-safe). **DataTable** — caption, scoped headers, per-column render, empty state. **Card** — warm panel + header/body/footer. **Logo** renders the exact official mark; **Icon** drives the in-repo line-icon set. The **AI-native** family carries the brand's explainability doctrine — disclosure, human review, wish capture, and confidence, all stated in words (never colour alone).
 
-**Install / package name.** This monolith publishes (when granted) as **`@cyberskill/design`**. Do **not** install `@cyberskill/react` for this tree — that name is historical marketing-site inventory, not this package.
+**Install / package name.** This monolith publishes as **`@cyberskill/design`** (live at **1.0.0**; grant in `docs/consumer-grant.md` governs *use* — package remains UNLICENSED). Do **not** install `@cyberskill/react` for this tree — that name is historical marketing-site inventory, not this package.
 
 **Source inventory vs. extensions.** An earlier CyberSkill surface shipped six primitives — `Button`, `TextField`, `Dialog`, `DataTable`, `AIDisclosureBadge`, `HumanReviewGate` — plus a brand `Logo`. Everything else in **this** package is an **intentional extension** built in the brand's own token vocabulary so consumers have a complete working kit: `Icon` (the marketing site's real in-repo line-icon set), the standard Forms / Feedback / Data / Navigation / Overlays primitives (search, stepper, slider, file upload, list, description list, timeline, accordion, kbd, code block, sidebar, steps, command palette, popover, drawer, and more), added AI-native pieces (`PromptInput`, `ChatMessage`, `ConfidenceMeter`, `PromptSuggestions`, `TypingIndicator`, `CitationList`) that formalise the Lumi wish-flow, and the `LumiAvatar` mascot. None invent new visual language — they reuse the anchors, surfaces, type, and motion already defined.
 
@@ -285,7 +285,7 @@ components/                button · textfield · dialog · datatable · forms �
 guidelines/                specimen cards (Colors · Type · Spacing · Surfaces · Brand · Motion · Elements · Responsive & Bilingual) · atomic-view.html
 templates/                 marketing-page · dashboard · slide-deck · auth · settings · app-shell · article · email (copyable .dc.html)
                            + team artifacts — tech (release/incident/rfc) · team (meeting-agenda) · hr (announcement) · board (report/deck/memo) · marketing (brief/newsletter/launch/case-study/press-release)
-                           + business — legal (nda/msa/sow) · finance (invoice/quote) · sales (one-pager/proposal-deck) — letter print docs + client deck
+                           + business — legal (vn-mutual-nda / msa / sow; fictional legal-nda retired) · finance (invoice/quote) · sales (one-pager/proposal-deck) — letter print docs + client deck
                            + Documents (reference, govern all templates) — doc-style-guide · doc-suite-index (index & usage) · doc-templates (archetypes)
                            + HR Suite — 37 lawyer-validated bilingual A4 instruments (vn-*); content verbatim, latest-DS skin
 ui_kits/status-hub/        Status Hub recreation (index · login · settings · project · identity-lab + status.css · data.js · StatusHub.jsx)
@@ -301,7 +301,7 @@ SKILL.md                   Agent-Skills-compatible entry
 
 **UI kits** (product recreations, composing the tokens + `.cs-*` classes): **Status Hub** (portfolio dashboard — KPIs, board/table/releases lenses, drawer — plus **sign-in**, **settings**, **project detail**, and the **Identity Lab** for live Theme × Element × Language switching), **cyberskill.world** (bilingual marketing home with Lumi chat — plus **Work**, **Careers**, and a full-page **Lumi assistant**), and a **Brand deck** (16:9, `deck-stage`, PDF/PPTX-ready). See each kit's `README.md`.
 
-**Design System tab** renders every card: Components (115 exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**, plus the Status Hub (incl. Identity Lab), Website, and Deck surfaces.
+**Storybook** renders every card: Components (115 exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), plus Maintainer surfaces for Status Hub (incl. Identity Lab), Website, and Deck.
 
 ---
 

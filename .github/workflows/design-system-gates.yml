@@ -349,3 +349,47 @@ jobs:
           name: code-connect-report
           path: _audit/ci/code-connect-report.json
           if-no-files-found: ignore
+
+  npm-hello-smoke:
+    # Hard-fail registry consumer proof for public @cyberskill/design@1.0.0.
+    # Path-filtered on push/PR; always on schedule / workflow_dispatch.
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'schedule' ||
+      (github.event_name == 'push' || github.event_name == 'pull_request')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Detect npm-hello / package-export path changes
+        id: filter
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+          else
+            BASE="${{ github.event.before }}"
+          fi
+          if [ -z "${BASE:-}" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "No usable base SHA — always run npm-hello smoke."
+            exit 0
+          fi
+          if git diff --name-only "$BASE" HEAD | grep -E '^(examples/npm-hello/|package\.json|package-lock\.json|_esm/|_ds_bundle\.js|styles\.css|\.github/workflows/design-system-gates\.yml)' >/dev/null; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "npm-hello / package-export paths changed."
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "No npm-hello-related path changes — skip smoke."
+          fi
+      - name: Registry consumer smoke (examples/npm-hello)
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
+        working-directory: examples/npm-hello
+        run: |
+          set -euo pipefail
+          npm ci
+          npm run smoke

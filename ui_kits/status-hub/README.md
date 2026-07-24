@@ -1,6 +1,6 @@
 # Status Hub — UI kit
 
-A high-fidelity recreation of **CyberSkill Status Hub** (`status-hub@2`): the single-page portfolio dashboard that ships inside the design system repo (`docs/status/`). One page, three lenses.
+A high-fidelity recreation of **CyberSkill Status Hub** (`status-hub@2`): the single-page portfolio dashboard. One page, three lenses. (Gate / Health browsing for operators is Storybook **Status** / `_audit/run.html` — not this kit.)
 
 ## What it demonstrates
 - **Umber header** with the official Logo mark on an Ochre tile, the product title, and a warm-dark theme toggle (`data-theme` on the root — flip it to see the whole surface re-theme).
