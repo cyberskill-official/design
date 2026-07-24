@@ -10,7 +10,8 @@ The GitHub repo (`cyberskill-official/design-system`) is the **source of truth**
 - `templates/**/*.dc.html` (+ `ds-base.js`, `support.js`)
 - `guidelines/`, `ui_kits/`, `fonts/` (woff2), `assets/`, `docs/`, `_audit/*.html`
 
-- **`_esm/cs.mjs`** — the ESM entry point. Underscore-prefixed does **not** mean build artifact or gitignored here (only `uploads/`, `scraps/`, `_audit/exports/` are — see Hygiene below); `_esm/` is source, same tier as `templates/` or `docs/`. A prior port of this repo skipped it on exactly this assumption and broke the ESM smoke gate — if you're porting/copying this tree by hand, **explicitly include every top-level folder this list names**, don't infer from the `_` prefix.
+- **`_esm/react.mjs`** — bundler-native React entry (default package export; React peer). Regenerated via `npm run build:react-entry`.
+- **`_esm/cs.mjs`** — the browser / no-build legacy ESM entry (`@cyberskill/design/legacy`). Underscore-prefixed does **not** mean build artifact or gitignored here (only `uploads/`, `scraps/`, `_audit/exports/` are — see Hygiene below); `_esm/` is source, same tier as `templates/` or `docs/`. A prior port of this repo skipped it on exactly this assumption and broke the ESM smoke gate — if you're porting/copying this tree by hand, **explicitly include every top-level folder this list names**, don't infer from the `_` prefix.
 
 - `README.md`, `CONTRIBUTING.md`, `SKILL.md`, `CLAUDE.md`, `VERSION`, `DESIGN.md` (generated open-spec surface — committed, regenerated only via `npm run build:design-md`, pinned by the `design-md-parity` gate)
 

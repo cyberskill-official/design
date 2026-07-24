@@ -48,6 +48,8 @@ const bundle = readFileSync(join(root, '_ds_bundle.js'), 'utf8');
 assert(bundle.includes('FormFieldArray') && bundle.includes('FormWizard'), 'bundle exports new form APIs');
 const esm = readFileSync(join(root, '_esm/cs.mjs'), 'utf8');
 assert(esm.includes('FormFieldArray') && esm.includes('FormWizard'), 'esm re-exports');
+const reactEsm = readFileSync(join(root, '_esm/react.mjs'), 'utf8');
+assert(reactEsm.includes('FormFieldArray') && reactEsm.includes('FormWizard'), 'react.mjs re-exports');
 const atomic = readFileSync(join(root, 'guidelines/atomic-view.html'), 'utf8');
 assert(/\bFormFieldArray\b/.test(atomic) && /\bFormWizard\b/.test(atomic), 'atomic stories mention new exports');
 const prompt = readFileSync(join(root, 'components/forms/Form.prompt.md'), 'utf8');

@@ -77,7 +77,16 @@ Ghi nhận Th7 2026 — mặc định mở khóa (cập nhật khi bước vận
 
 - **Figma Variables** — giữ Tokens Studio / non-Enterprise (quyết định §3). Soft-skip Variables REST vẫn trung thực.
 - **Code Connect** — **bỏ qua khi còn Figma free**; chỉ xem lại sau Org + library đã publish + `nodeId` thật (quyết định §6). Soft-skip ≠ publish.
-- **npm** — **`@cyberskill/design@1.0.0` đã publish**; CI dùng **Trusted Publishing (OIDC)** qua `npm-publish.yml`; npmjs **disallow tokens**; grant consumer có hiệu lực tại `docs/consumer-grant.md` (quyết định §7).
+- **npm** — **`@cyberskill/design@1.0.0` đã publish**; CI dùng **Trusted Publishing (OIDC)** qua `npm-publish.yml`; npmjs **disallow tokens**; grant consumer có hiệu lực tại `docs/consumer-grant.md` (quyết định §7). Entry package mặc định là bundler-native `_esm/react.mjs` (React peer); đường browser là `@cyberskill/design/legacy` → `_esm/cs.mjs` (quyết định §10).
+
+## 10. Export React bundler-native (Next / SSR)
+
+**Lựa chọn owner: ship `_esm/react.mjs` làm mặc định `exports["."]`** (Th7 2026)
+
+- React / react-dom là **peerDependencies**; entry re-export JSX source (consumer transpile — ví dụ Next `transpilePackages`).
+- Browser / no-build giữ `_esm/cs.mjs` tại `exports["./legacy"]` (CDN self-ensure + `_ds_bundle.js`).
+- Alias `@cyberskill/design/react` mirror entry mặc định. VERSION giữ **1.0.0**; republish qua Trusted Publishing sau merge.
+- Docs: `docs/consuming.md` (+ VI); gate: `package-exports-integrity` + `test:react-entry`.
 
 ## Việc maintainer (đang mở)
 

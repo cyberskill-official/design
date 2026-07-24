@@ -8,7 +8,7 @@ How any project — human-driven or agent-driven — adopts this HTML-first desi
 
 | Consumer | Start here | Works today | Do not |
 |---|---|---|---|
-| **Claude Code** | `SKILL.md` → `README.md` → `styles.css` + `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve) | Strong — rules, components, prompts; gates via full clone | Hardcode the bundle suffix; treat Storybook host as the portable contract |
+| **Claude Code** | `SKILL.md` → `README.md` → `styles.css` + bundler `@cyberskill/design` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve) | Strong — rules, components, prompts; gates via full clone | Hardcode the bundle suffix; treat Storybook host as the portable contract; import `_esm/cs.mjs` or `@cyberskill/design/legacy` into Next/SSR bundlers |
 | **Google Stitch** | `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` | Strong for doctrine + tokens + static `.cs-*` HTML | Treat `templates/**/*.dc.html` as SoT — no tweaks / `__dcSetProps` / DC compiler |
 | **Claude Design** | Full repo + DC compiler | Full fidelity (tweaks, `x-import`, bilingual templates) | Skip the sync loop in `docs/sync.md` |
 | **npm** | `@cyberskill/design` | **1.0.0** on registry; CI Trusted Publishing; grant in `docs/consumer-grant.md` | Treat registry install as a public license (still UNLICENSED) |
@@ -19,7 +19,7 @@ How any project — human-driven or agent-driven — adopts this HTML-first desi
 
 ## Quick path for AI agents (Claude Code, or driving one)
 
-**What you get:** `styles.css` (400+ tokens + `.cs-*` classes + Liquid Glass surfaces, `@import`s `tokens/` + `base/`) · `_ds_bundle.js` (compiled React components, no build step) · `_esm/cs.mjs` (ESM entry re-exporting every component) · `_ds_manifest.json` (machine-readable inventory) · per-component `Name.d.ts` (API) + `Name.prompt.md` (usage brief) · `tokens/tokens.dtcg.json` (W3C DTCG) + `tokens.json`/`tokens.js`.
+**What you get:** `styles.css` (400+ tokens + `.cs-*` classes + Liquid Glass surfaces, `@import`s `tokens/` + `base/`) · `_ds_bundle.js` (compiled React components, no build step) · `_esm/react.mjs` (bundler-native React entry — React as peerDependency; default `exports["."]`) · `_esm/cs.mjs` (browser / no-build legacy via `exports["./legacy"]`) · `_ds_manifest.json` (machine-readable inventory) · per-component `Name.d.ts` (API) + `Name.prompt.md` (usage brief) · `tokens/tokens.dtcg.json` (W3C DTCG) + `tokens.json`/`tokens.js`.
 
 **Repo checkout** — clone or copy the whole tree; everything is relative-path static. Entry points: Storybook on the host site (`/` / `npm run storybook`) · `guidelines/atomic-view.html` (every component live, portable) · `templates/<slug>/` (copyable starting points — DC for Claude Design; kitchen-sink / `.cs-*` for Stitch). Read `SKILL.md` before authoring anything on-brand; Stitch readers start at `DESIGN.md`. Deeper maps live in `llms.txt` (inventory) and this file (full adoption + upgrade guide below).
 
@@ -46,9 +46,19 @@ The package is publishable (`private: false`, version pinned **1.0.0**). License
 npm install @cyberskill/design@1.0.0
 ```
 
-Then link styles and import from the package entry (`_esm/cs.mjs` via `exports["."]`), or continue using the static tree paths below. The published tarball is the **full portable tree** (styles, tokens, components, templates, guidelines, docs, UI kits) — not a minimal “lib-only” subset. Host-only tooling (Storybook, `_audit/`) is not in `files[]`.
+Then link styles and import components. **Next.js / Vite / SSR apps** use the default entry (bundler-native):
 
-**First real install (Lumi).** Copy-paste working consumer: `examples/npm-hello/` — installs `@cyberskill/design@1.0.0` from the registry, links `styles.css`, mounts `Button` via package exports, scopes **Lumi** with `data-cs-element="hoa" data-cs-variant="plasma"` (locked row in `docs/products.md`). From that folder: `npm install && npm run smoke && npm start` → open `http://127.0.0.1:8766/`. Status Hub teams use the same install and swap to `data-cs-element="thuy"` — do not invent mappings.
+```ts
+import { Button, TextField } from "@cyberskill/design";
+// equivalent: import { Button } from "@cyberskill/design/react";
+import "@cyberskill/design/styles.css";
+```
+
+Add `transpilePackages: ["@cyberskill/design"]` in Next.js (JSX ships as source). React and react-dom are **peerDependencies** — your app provides them. Published types use `export type *` (**TypeScript 5.0+**). Do **not** import `_esm/cs.mjs` (or `@cyberskill/design/legacy`) into an SSR bundler; that path self-ensures React via CDN and side-loads `_ds_bundle.js` for browsers only.
+
+**Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) or continue with the static tree paths below. The published tarball is the **full portable tree** (styles, tokens, components, templates, guidelines, docs, UI kits) — not a minimal “lib-only” subset. Host-only tooling (Storybook, `_audit/`) is not in `files[]`.
+
+**First real install (Lumi).** Copy-paste working **browser** consumer: `examples/npm-hello/` — installs `@cyberskill/design@1.0.0` from the registry, links `styles.css`, mounts `Button` via the **legacy** browser entry (`_esm/cs.mjs`), scopes **Lumi** with `data-cs-element="hoa" data-cs-variant="plasma"` (locked row in `docs/products.md`). From that folder: `npm install && npm run smoke && npm start` → open `http://127.0.0.1:8766/`. Status Hub teams use the same install and swap to `data-cs-element="thuy"` — do not invent mappings. For Next/SSR product apps (e.g. Lumi landing), use `import { Button } from "@cyberskill/design"` as above — not the npm-hello import map.
 
 **Publish path (maintainers):** `prepublishOnly` runs `build:bundle` + `build:design-md --check`. Workflow `.github/workflows/npm-publish.yml` on `workflow_dispatch` / `v*` tags uses **Trusted Publishing** (`permissions.id-token: write`; do not set `NODE_AUTH_TOKEN` on the publish step). `node _audit/ci/npm-publish.mjs --dry-run` always lists the tarball. See `docs/ci-cd.md` and `docs/decisions.md`.
 
@@ -66,7 +76,9 @@ Then link styles and import from the package entry (`_esm/cs.mjs` via `exports["
 </script>
 ```
 This is exactly what `_audit/consumer-smoke-test.html` exercises (and asserts green) — and the templates' `ds-base.js` does the same, publishing a stable `window.CyberSkillDS` alias.
-**2b. ESM (module) path — one import, no build.** `import { Button, TextField } from "<path>/_esm/cs.mjs"` — the module self-ensures React (pinned; skipped when `window.React` exists), side-loads `_ds_bundle.js` once, resolves the namespace by prefix, and re-exports all components (`_audit/esm-smoke-test.html` keeps the export list in lockstep with the manifest). Still link `styles.css` yourself.
+**2b. Bundler-native React (Next / Vite / SSR) — default package entry.** `import { Button, TextField } from "@cyberskill/design"` resolves to `_esm/react.mjs` (also exported as `@cyberskill/design/react`). Re-exports every component from source JSX with **React as an external peer** — no CDN, no `_ds_bundle.js` side-load. Your bundler must transpile the package (Next: `transpilePackages: ["@cyberskill/design"]`). Still link `styles.css` yourself. Regenerated with `npm run build:react-entry`; parity is gated by `package-exports-integrity` + `test:react-entry`.
+
+**2c. Browser ESM legacy — one import, no build.** `import { Button, TextField } from "@cyberskill/design/legacy"` (or `"<path>/_esm/cs.mjs"`) — the module self-ensures React (pinned; skipped when `window.React` exists), side-loads `_ds_bundle.js` once, resolves the namespace by prefix, and re-exports all components (`_audit/esm-smoke-test.html` keeps the export list in lockstep with the manifest). Still link `styles.css` yourself. **Not for Next/SSR.**
 
 **Templates.** Each `templates/<slug>/` is a Design Component seeded from `ds-base.js` (one `base` line to rebind the path to wherever this system lives relative to the consuming page). Copy the folder and edit copy/tweaks.
 

@@ -9,9 +9,18 @@
     "type": "git",
     "url": "git+https://github.com/cyberskill-official/design-system.git"
   },
-  "module": "_esm/cs.mjs",
+  "module": "_esm/react.mjs",
+  "types": "_esm/react.d.ts",
   "exports": {
     ".": {
+      "types": "./_esm/react.d.ts",
+      "import": "./_esm/react.mjs"
+    },
+    "./react": {
+      "types": "./_esm/react.d.ts",
+      "import": "./_esm/react.mjs"
+    },
+    "./legacy": {
       "import": "./_esm/cs.mjs"
     },
     "./styles.css": "./styles.css",
@@ -19,8 +28,12 @@
     "./_ds_bundle.js": "./_ds_bundle.js",
     "./_ds_manifest.json": "./_ds_manifest.json"
   },
-  "description": "CyberSkill Design System — HTML-first, Vietnamese-first (EN·VI). Anchors: Umber #45210E · Ochre #F4BA17. Axes: Theme × Element × Language. No build step: styles.css + _ds_bundle.js. Storybook is host-only playground.",
+  "description": "CyberSkill Design System — HTML-first, Vietnamese-first (EN·VI). Anchors: Umber #45210E · Ochre #F4BA17. Axes: Theme × Element × Language. Bundler React entry (`_esm/react.mjs`) + browser legacy (`_esm/cs.mjs`) + styles.css / _ds_bundle.js. Storybook is host-only playground.",
   "style": "styles.css",
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
   "files": [
     "styles.css",
     "_esm/",
@@ -51,8 +64,9 @@
   "type": "module",
   "scripts": {
     "build:bundle": "node scripts/build-bundle.mjs",
+    "build:react-entry": "node scripts/generate-react-entry.mjs",
     "build:design-md": "node scripts/generate-design-md.mjs",
-    "prepublishOnly": "npm run build:bundle && node scripts/generate-design-md.mjs --check",
+    "prepublishOnly": "npm run build:bundle && npm run build:react-entry && node scripts/generate-design-md.mjs --check",
     "code-connect:generate": "node _audit/ci/generate-code-connect.mjs",
     "code-connect:dry-run": "node _audit/ci/code-connect-publish.mjs --dry-run",
     "npm:pack-dry-run": "node _audit/ci/npm-publish.mjs --dry-run",
@@ -66,7 +80,8 @@
     "test:nav-model": "node _audit/ci/test-nav-model.mjs",
     "test:ui-contracts": "node _audit/ci/test-health-tokens-contract.mjs",
     "test:form-paths": "node _audit/ci/test-form-paths.mjs",
-    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-subtree-consume.mjs",
+    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs",
+    "test:react-entry": "node _audit/ci/test-react-entry.mjs",
     "test:subtree-consume": "node _audit/ci/test-subtree-consume.mjs",
     "native:sync-tokens": "node examples/native/sync-tokens.mjs",
     "test:storybook-contract": "node _audit/ci/test-storybook-contract.mjs",
