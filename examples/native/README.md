@@ -27,15 +27,16 @@ swift build
 
 ### Compose (Android Studio — supported path)
 
-Open `examples/native/compose/` in **Android Studio** (Hedgehog+ / AGP 8.2-compatible). Android Studio supplies the JDK and can generate a Gradle wrapper on first sync. Then Run the `app` configuration.
+Open `examples/native/compose/` in **Android Studio** (Hedgehog+ / AGP 8.2-compatible). Android Studio supplies the JDK; use **Run** on the `app` configuration for the supported path.
 
-There is **no committed `gradlew`** in this sample: bootstrapping a wrapper still needs **JDK 17+**, and `assembleDebug` still needs an Android SDK. Without those, a CLI `./gradlew` path is not runnable from a plain clone — use Android Studio.
+There is **no committed `gradlew`** in this sample. First sync does **not** create the wrapper scripts — those come from the Gradle `wrapper` task. A fresh clone therefore needs an explicit bootstrap (`gradle wrapper` with **JDK 17+**) before `./gradlew :app:assembleDebug` is usable, and `assembleDebug` still needs an Android SDK (`ANDROID_HOME` / `ANDROID_SDK_ROOT`). Without those, use Android Studio.
 
 Optional CLI (only when JDK 17+ and `ANDROID_HOME` / `ANDROID_SDK_ROOT` are already set):
 
 ```bash
 cd examples/native/compose
-# After Android Studio has generated the wrapper (or you ran `gradle wrapper` on JDK 17+):
+# Fresh clone: generate the wrapper first (JDK 17+), then assemble:
+gradle wrapper
 ./gradlew :app:assembleDebug
 ```
 

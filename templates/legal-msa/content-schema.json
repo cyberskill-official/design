@@ -6,7 +6,11 @@
       "id": "hdrLabel",
       "type": "text",
       "label": "Header document label",
-      "maxLength": 28
+      "maxLength": 28,
+      "i18n": {
+        "en": "Header document label",
+        "vi": "Nhãn tài liệu phần đầu"
+      }
     }
   ]
 }
