@@ -1,4 +1,4 @@
-<!-- @dsCard group="Components" viewport="700x360" name="Form controls" subtitle="Select, Checkbox, Radio, Switch, Textarea — brand accent" -->
+<!-- @dsCard group="Components" viewport="700x360" name="Form controls" subtitle="Select, NativeSelect, Checkbox, Radio, Switch, Textarea — brand accent" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,13 +17,14 @@
 <body>
 <div id="root"></div>
 <script type="text/babel">
-const { Select, Checkbox, RadioGroup, Switch, Textarea } = window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))] || {};
+const { Select, NativeSelect, Checkbox, RadioGroup, Switch, Textarea } = window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))] || {};
 function Demo() {
   const [plan, setPlan] = React.useState("yr");
   const [dark, setDark] = React.useState(true);
   return (
     <div className="grid">
       <Select label="Squad" options={[{value:"plat",label:"Platform"},{value:"ai",label:"AI"},{value:"growth",label:"Growth"}]} defaultValue="ai" />
+      <NativeSelect label="Interface" size="sm" options={[{value:"en",label:"English"},{value:"vi",label:"Tiếng Việt"}]} defaultValue="en" />
       <RadioGroup legend="Billing" value={plan} onChange={setPlan} options={[{value:"mo",label:"Monthly"},{value:"yr",label:"Annual",description:"Two months free"}]} />
       <div style={{display:"grid",gap:12}}>
         <Checkbox label="Email me release notes" defaultChecked />

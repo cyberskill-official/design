@@ -1,6 +1,6 @@
 # CyberSkill Design System
 
-> HTML-first, Vietnamese-first design system, pinned **v1.0.0**. Immutable anchors: Umber #45210E · Ochre #F4BA17. Three independent axes — Theme (light · dark) × Element (Ngũ Hành, 15 variants) × Language (EN · VI); surface treatment is liquid-glass (fixed). It ships 102 components / 118 exports, 84 copyable templates (EN·VN for emails + team/legal/finance; client/media collateral EN-first), and tokens in CSS + JSON + ESM + W3C DTCG + native mirrors. This file is the agent/tool front door: it maps each audience to the format it should consume. npm package name is **`@cyberskill/design`** (not `@cyberskill/react`). Release signal: tip SHA + [docs/release-notes.md](docs/release-notes.md) — no CHANGELOG.
+> HTML-first, Vietnamese-first design system, pinned **v1.0.0**. Immutable anchors: Umber #45210E · Ochre #F4BA17. Three independent axes — Theme (light · dark) × Element (Ngũ Hành, 15 variants) × Language (EN · VI); surface treatment is liquid-glass (fixed). It ships 105 components / 121 exports, 84 copyable templates (EN·VN for emails + team/legal/finance; client/media collateral EN-first), and tokens in CSS + JSON + ESM + W3C DTCG + native mirrors. This file is the agent/tool front door: it maps each audience to the format it should consume. npm package name is **`@cyberskill/design`** (not `@cyberskill/react`). Release signal: tip SHA + [docs/release-notes.md](docs/release-notes.md) — no CHANGELOG.
 
 The portable contract covers browser and bundler entry points: `styles.css` · `_esm/cs.mjs` legacy · `_ds_bundle.js` · tokens work without a build step; `_esm/react.mjs` is bundler-native JSX (Next/Vite must transpile — not a bare-browser import). The DC layer (`templates/**/*.dc.html`) is **Claude Design / authoring-environment-only**. **Google Stitch must not treat `*.dc.html` as source of truth** — use `DESIGN.md`, DTCG, `styles.css`, kitchen-sink, and `.cs-*` static HTML instead. Dual path: [docs/consuming.md](docs/consuming.md). The full non-negotiables list lives in `CONTRIBUTING.md` and `docs/conventions.md`.
 
@@ -24,7 +24,7 @@ The portable contract covers browser and bundler entry points: `styles.css` · `
 - [_esm/cs.mjs](_esm/cs.mjs): browser / no-build legacy ESM entry (`@cyberskill/design/legacy`)
 - [tokens/](tokens/): design tokens as CSS custom properties + `tokens.json` / `tokens.js` / `tokens.dtcg.json` (W3C DTCG) + `viewer.html` (table + raw modes) + `native/` (SwiftUI/Compose/Flutter)
 - [base/](base/): reset, component classes (`.cs-*`), a11y, responsive, glass
-- [components/](components/): 102 components / 118 exports — every primary ships `.jsx` + `.d.ts` + `.prompt.md` + a `@dsCard` card; co-exports are documented in their parent's files
+- [components/](components/): 105 components / 121 exports — every primary ships `.jsx` + `.d.ts` + `.prompt.md` + a `@dsCard` card; co-exports are documented in their parent's files
 - [templates/](templates/): 84 copyable starting points (`.dc.html`); `email-safe/` send-ready emails; `kitchen-sink.html`; `playground.html`
 - [guidelines/](guidelines/): specimen cards + `atomic-view.html` (portable component grid) — host product surface is Storybook at `/`
 - [examples/static-hello/](examples/static-hello/): zero-install static consumer (Stitch / plain HTML)

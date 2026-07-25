@@ -11,6 +11,26 @@
 .cs-list__sub { font-size: var(--cs-font-size-xs); color: var(--cs-color-text-muted); }
 .cs-list__trail { flex: none; color: var(--cs-color-text-muted); font-size: var(--cs-font-size-sm); }
 
+/* Item — settings / nav / list row chrome (sibling of ListItem, first-class) */
+.cs-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 14px; border-radius: var(--cs-radius-md);
+  color: var(--cs-color-text-primary); text-align: start;
+  text-decoration: none; border: 1px solid transparent;
+  background: var(--cs-color-surface-panel);
+}
+.cs-item--interactive { cursor: pointer; font: inherit; inline-size: 100%; }
+button.cs-item--interactive { border: 1px solid transparent; background: var(--cs-color-surface-panel); }
+.cs-item--interactive:hover { background: var(--cs-color-surface-raised); border-color: var(--cs-color-border-default); }
+.cs-item--interactive:focus-visible { outline: 3px solid var(--cs-color-accent-ochre); outline-offset: 2px; }
+.cs-item.is-selected { border-color: var(--cs-color-brand-ochre); background: var(--cs-accent-tint, var(--cs-color-surface-raised)); }
+.cs-item.is-disabled, .cs-item[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
+.cs-item__leading { flex: none; display: grid; place-items: center; color: var(--cs-color-text-accent); }
+.cs-item__main { flex: 1; min-inline-size: 0; display: grid; gap: 2px; }
+.cs-item__title { font-weight: 600; font-size: var(--cs-font-size-sm); line-height: 1.35; }
+.cs-item__description { font-size: var(--cs-font-size-xs); color: var(--cs-color-text-muted); line-height: 1.4; }
+.cs-item__trailing { flex: none; display: grid; place-items: center; color: var(--cs-color-text-muted); }
+
 /* DescriptionList */
 .cs-dl { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px 24px; margin: 0; }
 .cs-dl dt { font-size: var(--cs-font-size-xs); text-transform: uppercase; letter-spacing: var(--cs-letter-spacing-caps); color: var(--cs-color-text-muted); }

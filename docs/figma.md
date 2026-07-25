@@ -83,7 +83,7 @@ After a successful push, open the file in Figma → **Local variables** → coll
 | Mappings | `components/**/<Name>.figma.tsx` — **99** primaries; Button / TextField / Dialog / Card / Alert have prop maps; others are stubs |
 | Generator | `npm run code-connect:generate` → `_audit/ci/generate-code-connect.mjs` |
 | CI job | `code-connect` in `design-system-gates.yml` (PR + `main` + manual) |
-| Local dry-run | `npm run code-connect:dry-run` (no secrets; asserts config + ≥102 files) |
+| Local dry-run | `npm run code-connect:dry-run` (no secrets; asserts config + ≥105 files) |
 
 Document URLs use placeholder file key **`CS_FIGMA_FILE_KEY`**. Publish substitutes `FIGMA_FILE_KEY` via `documentUrlSubstitutions`.
 

@@ -7,6 +7,14 @@
 .cs-select__chevron { position: absolute; inset-inline-end: 12px; inset-block-start: 50%; transform: translateY(-50%); pointer-events: none; color: var(--cs-color-text-muted); display: grid; place-items: center; }
 .cs-select select.cs-field__control:focus-visible { outline: 3px solid var(--cs-color-accent-ochre); outline-offset: 2px; border-color: var(--cs-color-brand-ochre); }
 
+/* NativeSelect — lean progressive-enhancement companion beside Select */
+.cs-native-select { position: relative; display: block; }
+.cs-native-select select.cs-field__control { appearance: none; -webkit-appearance: none; width: 100%; padding-inline-end: 38px; cursor: pointer; background: var(--cs-color-surface-panel); }
+.cs-native-select__chevron { position: absolute; inset-inline-end: 12px; inset-block-start: 50%; transform: translateY(-50%); pointer-events: none; color: var(--cs-color-text-muted); display: grid; place-items: center; }
+.cs-native-select select.cs-field__control:focus-visible { outline: 3px solid var(--cs-color-accent-ochre); outline-offset: 2px; border-color: var(--cs-color-brand-ochre); }
+.cs-native-select--sm select.cs-field__control { min-block-size: 36px; padding-block: 6px; font-size: var(--cs-font-size-sm); }
+.cs-native-select--md select.cs-field__control { min-block-size: 44px; }
+
 /* Checkbox + Radio — native, brand accent */
 .cs-check, .cs-radio { display: inline-flex; align-items: flex-start; gap: 10px; cursor: pointer; color: var(--cs-color-text-primary); font-family: var(--cs-font-family-ui); line-height: 1.4; }
 .cs-check input, .cs-radio input { inline-size: 20px; block-size: 20px; margin: 0; flex: none; accent-color: var(--cs-color-brand-umber); cursor: pointer; }

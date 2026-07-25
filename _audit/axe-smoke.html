@@ -15,7 +15,7 @@
 <script src="./vendor/axe.min.js"></script>
 </head><body>
 <h1>Axe smoke</h1>
-<p class="lede">Mounts a representative bilingual cluster (37 components across forms, overlays, navigation, feedback, data, datatable, dialog, ai, brand, button, textfield, icon, logo — including the open Dialog and Tour overlays plus the Tooltip, Cascader, TreeSelect, ScrollArea, Collapsible, and AspectRatio surfaces) and runs <b>axe-core</b> 4.10.0 (vendored at <code>_audit/vendor/axe.min.js</code>) serious/critical WCAG 2 A/AA rules. Hard gate on the fast board — enforces Storybook a11y coverage without a separate test-runner. Verdict: <code>window.__axesmoke.pass</code>.</p>
+<p class="lede">Mounts a representative bilingual cluster (40 components across forms, overlays, navigation, feedback, data, datatable, dialog, ai, brand, button, textfield, icon, logo — including the open Dialog, AlertDialog, and Tour overlays plus the Tooltip, Cascader, TreeSelect, ScrollArea, Collapsible, AspectRatio, Item, and NativeSelect surfaces) and runs <b>axe-core</b> 4.10.0 (vendored at <code>_audit/vendor/axe.min.js</code>) serious/critical WCAG 2 A/AA rules. Hard gate on the fast board — enforces Storybook a11y coverage without a separate test-runner. Verdict: <code>window.__axesmoke.pass</code>.</p>
 <div id="list"></div><div id="sum">running…</div><div id="stage"></div>
 <script>
 const list=document.getElementById('list'), stage=document.getElementById('stage');
@@ -43,6 +43,7 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
     h(C('Checkbox'),{label:'Agree'}),
     h(C('Switch'),{label:'Notify'}),
     h(C('Select'),{label:'Role',options:[{value:'a',label:'Admin'},{value:'b',label:'Member'}]}),
+    h(C('NativeSelect'),{label:'Locale',size:'sm',options:[{value:'en',label:'English'},{value:'vi',label:'Tiếng Việt'}],defaultValue:'en'}),
     h(C('RadioGroup'),{legend:'Plan',name:'axe-plan',options:[{value:'pro',label:'Pro'},{value:'team',label:'Team'}],value:'pro',onChange:()=>{}}),
     h(C('Textarea'),{label:'Notes'}),
     h(C('SearchField'),{'aria-label':'Search',placeholder:'Search'}),
@@ -61,6 +62,7 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
     h(C('Collapsible'),{title:'Advanced',defaultOpen:false,children:'Collapsible body for axe.'}),
     h(C('ScrollArea'),{maxHeight:80,'aria-label':'Scroll sample',children:h('p',null,'Dense panel copy for axe scroll region.')}),
     h(C('AspectRatio'),{ratio:'16 / 9',children:h('img',{src:'../assets/aurora-gold.jpg',alt:'Aurora sample'})}),
+    h(C('Item'),{title:'Release notes',description:'Bilingual digest',trailing:h(C('Switch'),{'aria-label':'Release notes',defaultChecked:true})}),
     h(C('Card'),null,
       h(C('CardHeader'),{title:'Card',subtitle:'Axe sample'}),
       h(C('CardBody'),null,'Panel body')
@@ -75,6 +77,8 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
     }),
     // dialog (open — labelled modal)
     h(C('Dialog'),{open:true,title:'Confirm',onClose:()=>{},children:'Dialog body for axe.',actions:h(C('Button'),{children:'OK'})}),
+    // alertdialog (open — destructive confirm)
+    h(C('AlertDialog'),{open:true,title:'Delete workspace?',description:'Removes every project. This cannot be undone.',tone:'destructive',onOpenChange:()=>{},onConfirm:()=>{}}),
     // overlays (closed — trigger still mounted)
     h(C('Popconfirm'),{title:'Delete this draft?',onConfirm:()=>{},trigger:h(C('Button'),{variant:'danger-ghost',size:'sm',children:'Delete'})}),
     h(C('Popover'),{trigger:h('button',{type:'button'},'Open panel'),children:h('div',null,'Popover content')}),
@@ -105,11 +109,11 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
     h(C('TreeSelect'),{label:'Nhóm',nodes:TREE,lang:'vi'}),
   ];
   const names=[
-    'Button','FloatingActionButton','TextField','Checkbox','Switch','Select',
+    'Button','FloatingActionButton','TextField','Checkbox','Switch','Select','NativeSelect',
     'RadioGroup','Textarea','SearchField','Alert','Badge','ProgressBar','Spinner',
-    'Link','Breadcrumb','Tabs','Pagination','Accordion','Collapsible','ScrollArea','AspectRatio',
+    'Link','Breadcrumb','Tabs','Pagination','Accordion','Collapsible','ScrollArea','AspectRatio','Item',
     'Card','Avatar','DataTable',
-    'Dialog','Popconfirm','Popover','Tooltip','Cascader','TreeSelect','Tour',
+    'Dialog','AlertDialog','Popconfirm','Popover','Tooltip','Cascader','TreeSelect','Tour',
     'AIDisclosureBadge','TypingIndicator','ConfidenceMeter','LumiAvatar','Icon','Logo'
   ];
   row(missing.length===0, 'cluster mount: '+names.length+' components'+(missing.length?(' · missing '+missing.join(',')):'')+' (+'+viCluster.length+' VI twins)');
