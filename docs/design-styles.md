@@ -15,6 +15,8 @@ Current surface treatment is **liquid-glass** (fixed). The live styling axes are
 
 - Rejected by doctrine: neon/cyberpunk cold hues, memphis playfulness, full skeuomorphism, emoji in UI chrome.
 
+- Type families are fixed and token-named: Be Vietnam Pro (UI) · Space Grotesk (`--cs-font-family-display`, opt-in headline face) · JetBrains Mono (code). The display face is a **role a scope may opt into** with `.cs-display-face`, not a fourth axis — it changes nothing by default and no product mapping depends on it.
+
 ## Adding a new look
 
 Prefer:

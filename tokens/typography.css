@@ -5,8 +5,15 @@
  * usage (status hub: 11–24px chrome; hero display larger). Vietnamese-safe
  * line-heights (body 1.5 / heading 1.35) leave room for stacked diacritics. */
 :root {
-  /* Families */
+  /* Families.
+   * `display` is the opt-in headline face (Space Grotesk, self-hosted 300-700,
+   * Vietnamese subset included) used by cyberskill.world / Lumi. Nothing points
+   * at it by default: opt a scope in with `--cs-heading-family:
+   * var(--cs-font-family-display)` or the `.cs-display-face` utility. Space
+   * Grotesk has no 800, so it falls back to Be Vietnam Pro for the extrabold
+   * heading weight and for any glyph outside its subsets. */
   --cs-font-family-ui: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+  --cs-font-family-display: 'Space Grotesk', 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
   --cs-font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* Weights */

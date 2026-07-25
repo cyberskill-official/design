@@ -29,8 +29,19 @@ Purely additive, opt-in metadata: a sidecar `templates/<slug>/content-schema.jso
 | `slots[].required` | no | default `false` |
 | `slots[].i18n` | no | `{"en": "...", "vi": "..."}` — for templates that ship EN·VI variants |
 
-The formal machine-checkable shape lives in `templates/schema/content-schema.schema.json` (JSON Schema draft-07). `_audit/template-schema-test.html` validates every sidecar that exists — bidirectionally: every declared slot id must resolve to a real hole in the template, and (informationally) reports coverage across all `templates/`.
+The formal machine-checkable shape lives in `templates/schema/content-schema.schema.json` (JSON Schema draft-07). `_audit/template-schema-test.html` validates every sidecar that exists — bidirectionally: every declared slot id must resolve to a real hole in the template — **and enforces coverage**.
 
-## Rollout
+## Which holes are schema-eligible
 
-Like the visual-diff baselines, this shipped **intentionally incomplete** at first — three exemplars (one per major archetype) proved the pattern end-to-end: `marketing-page` (product), `bod-report` (document), `slide-deck` (deck). It has since been **swept across hole-driven templates** and keeps growing; current sidecar coverage is reported by `_audit/template-schema-test.html` (39/84 as of the latest sweep — product shells plus document/HR/legal/VN list-driven templates). Axis / control-flow holes (`rootTheme`, `langAttr`, `elAttr`, `vaAttr`, `isEN`, `true`, …) and boolean tweak holes (`showLogo`, `showSignatures`, …) stay out of schema — they are runtime axes, not typed content slots. Templates that only expose those axes (or hardcode bilingual copy per `sc-if` language branch) correctly omit a sidecar until they gain authorable `{{ hole }}` content. Add a sidecar to any template that gains hole-driven content as it's touched; prefer measurable growth on high-traffic templates first.
+A `{{ hole }}` is a **content hole** (schema-eligible) unless it is:
+
+- an **axis / control-flow** hole — `rootTheme`, `langAttr`, `elAttr`, `vaAttr`, `dirAttr`, `true`, `false`, anything matching `is<Uppercase>` (`isEN`, `isVN`, `isBoth`, `isTable`, …), or a bare numeric literal;
+- a **boolean tweak** hole — anything matching `show|hide|has|enable|with` + `<Uppercase>` (`showLogo`, `showSignatures`, `showQuote`, …).
+
+Those are runtime axes, not typed content slots, and stay out of schema.
+
+## Rollout — complete for eligible templates, and gated
+
+This shipped **intentionally incomplete** at first: three exemplars (one per major archetype) proved the pattern end-to-end — `marketing-page` (product), `bod-report` (document), `slide-deck` (deck) — and it was then swept across hole-driven templates.
+
+That sweep is now **finished and locked**. As of Jul 2026 the split is **39 content-hole-driven templates, all 39 with a sidecar**, and **45 templates that expose only axis/boolean holes** (bilingual copy hardcoded per `sc-if` branch), which correctly omit one. `_audit/template-schema-test.html` no longer merely reports this — it **fails** if any template exposing a content hole lacks a sidecar. So the rule for authors is mechanical: a template that gains an authorable `{{ hole }}` gains a sidecar in the same change, or the board goes red.

@@ -34,9 +34,10 @@ function TypographyPage() {
     <div ref={ref} style={{ maxWidth: 920 }}>
       <PageTitle>Typography</PageTitle>
       <Lede>
-        UI and display: Be Vietnam Pro — a Vietnamese-first Google family, self-hosted in
-        fonts/ (latin · latin-ext · vietnamese subsets). Code and data: JetBrains Mono.
-        Line-heights are Vietnamese-safe: stacked diacritics never clip.
+        UI: Be Vietnam Pro — a Vietnamese-first Google family. Display/headline: Space
+        Grotesk, opt-in. Code and data: JetBrains Mono. All three are self-hosted in fonts/
+        (latin · latin-ext · vietnamese subsets). Line-heights are Vietnamese-safe: stacked
+        diacritics never clip.
       </Lede>
       <LiveNote />
 
@@ -51,6 +52,15 @@ function TypographyPage() {
           </div>
         </div>
         <div style={{ padding: 16, background: 'var(--cs-color-surface-panel)', border: '1px solid var(--cs-color-border-default)', borderRadius: 'var(--cs-radius-lg)' }}>
+          <div style={{ fontFamily: 'var(--cs-font-family-display)', fontSize: 'var(--cs-font-size-xl)', fontWeight: 700 }}>
+            Space Grotesk — {DIACRITIC_SAMPLE}
+          </div>
+          <div className="cs-caption" style={{ marginTop: 6 }}>
+            <Mono>--cs-font-family-display</Mono> ·{' '}
+            <Mono muted>{values['--cs-font-family-display']}</Mono>
+          </div>
+        </div>
+        <div style={{ padding: 16, background: 'var(--cs-color-surface-panel)', border: '1px solid var(--cs-color-border-default)', borderRadius: 'var(--cs-radius-lg)' }}>
           <div style={{ fontFamily: 'var(--cs-font-family-mono)', fontSize: 'var(--cs-font-size-lg)' }}>
             JetBrains Mono — const wish = "granted";
           </div>
@@ -58,6 +68,34 @@ function TypographyPage() {
             <Mono>--cs-font-family-mono</Mono> · <Mono muted>{values['--cs-font-family-mono']}</Mono>
           </div>
         </div>
+      </div>
+
+      <SectionTitle>Display face</SectionTitle>
+      <p className="cs-caption" style={{ margin: '0 0 10px' }}>
+        Nothing points at the display face by default — headings stay on
+        <Mono> --cs-heading-family</Mono>, which resolves to the UI family. A product opts a
+        subtree in with <Mono>.cs-display-face</Mono> (or by setting
+        <Mono> --cs-heading-family: var(--cs-font-family-display)</Mono>), and every heading
+        utility follows while body copy stays on Be Vietnam Pro. Space Grotesk has no 800, so
+        the extrabold heading weight falls back to Be Vietnam Pro.
+      </p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12 }}>
+        {[
+          { label: 'Default — UI face', className: '' },
+          { label: 'Opted in — .cs-display-face', className: 'cs-display-face' },
+        ].map((scope) => (
+          <div
+            key={scope.label}
+            className={scope.className}
+            style={{ padding: 16, background: 'var(--cs-color-surface-panel)', border: '1px solid var(--cs-color-border-default)', borderRadius: 'var(--cs-radius-lg)' }}
+          >
+            <div className="cs-caption" style={{ marginBottom: 8 }}>{scope.label}</div>
+            <div className="cs-h2" style={{ margin: 0 }}>{DIACRITIC_SAMPLE}</div>
+            <p className="cs-body" style={{ margin: '6px 0 0' }}>
+              Body copy stays on the UI face in both scopes.
+            </p>
+          </div>
+        ))}
       </div>
 
       <SectionTitle>Weights</SectionTitle>
@@ -149,7 +187,7 @@ export default {
     docs: {
       description: {
         component:
-          'Be Vietnam Pro / JetBrains Mono, weights, size ramp, Vietnamese-safe line-heights — names from tokens.js, values live from the cascade.',
+          'Be Vietnam Pro / Space Grotesk (opt-in display) / JetBrains Mono, weights, size ramp, Vietnamese-safe line-heights — names from tokens.js, values live from the cascade.',
       },
     },
   },

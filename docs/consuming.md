@@ -86,6 +86,10 @@ This is exactly what `_audit/consumer-smoke-test.html` exercises (and asserts gr
 
 **Static HTML / no React / no build tooling.** Link `styles.css` and compose with `.cs-*` classes — full catalog demonstrated in `templates/kitchen-sink.html`.
 
+**Fonts, including a display face.** All three brand families are self-hosted in `fonts/` and declared by `tokens/fonts.css` (which `styles.css` `@import`s): **Be Vietnam Pro** (`--cs-font-family-ui`), **JetBrains Mono** (`--cs-font-family-mono`), and **Space Grotesk** (`--cs-font-family-display`, variable 300–700, Vietnamese subset included). The display face is **opt-in** — nothing in the DS points at it. A product that wants a headline face adds `class="cs-display-face"` (or sets `--cs-heading-family: var(--cs-font-family-display)`) on the scope; heading utilities follow, body copy stays on the UI face.
+
+Consumers that skip `styles.css` to control font loading (`cyberskill.world` / Lumi imports the token + base sheets individually and keeps its own `font-display: optional` strategy) can switch from their ad-hoc `brand-fonts.css` to the package: either `@import "@cyberskill/design/tokens/fonts.css"` for the packaged faces, or keep the local `@font-face` block and point `--cs-heading-family` at `var(--cs-font-family-display)` so the **role** comes from the DS even when the **bytes** are served locally. Either way the display face stops being a per-product exception. Space Grotesk has no 800 weight, so `--cs-heading-weight-strong` (800) falls back to Be Vietnam Pro.
+
 ## The three axes
 
 State Theme (`data-theme`), Element (`data-cs-element` + `data-cs-variant`), and Language (`lang` / template Language tweak) on a container; everything inside re-skins with no code change (see `templates/playground.html`). Defaults: `light · tho · en`. Surface treatment is liquid-glass (fixed). Bilingual: components resolve strings from `lang` (`lang="vi"` on any container → full Vietnamese).

@@ -67,11 +67,12 @@ Default accent pack = Thổ (the studio's own element). All 15 element×variant 
 
 ## Typography
 
-Families ship self-hosted (Be Vietnam Pro · JetBrains Mono, full Vietnamese unicode ranges).
+Families ship self-hosted (Be Vietnam Pro · Space Grotesk · JetBrains Mono, full Vietnamese unicode ranges). `--cs-font-family-display` is the opt-in headline face; nothing points at it by default.
 
 | Token | Value |
 |---|---|
 | `--cs-font-family-ui` | `'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif` |
+| `--cs-font-family-display` | `'Space Grotesk', 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif` |
 | `--cs-font-family-mono` | `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace` |
 | `--cs-font-weight-regular` | `400` |
 | `--cs-font-weight-medium` | `500` |

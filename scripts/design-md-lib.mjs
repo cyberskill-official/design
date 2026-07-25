@@ -127,7 +127,7 @@ export function buildDesignMd({ dtcg, manifest, version }) {
   L.push("");
   L.push("## Typography");
   L.push("");
-  L.push("Families ship self-hosted (Be Vietnam Pro · JetBrains Mono, full Vietnamese unicode ranges).");
+  L.push("Families ship self-hosted (Be Vietnam Pro · Space Grotesk · JetBrains Mono, full Vietnamese unicode ranges). `--cs-font-family-display` is the opt-in headline face; nothing points at it by default.");
   L.push("");
   L.push(table(twoCol("Token", "Value"), rowsOf("font", false)));
   L.push("");

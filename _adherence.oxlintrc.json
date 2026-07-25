@@ -51,8 +51,8 @@
         "message": "Raw px value — use a design-system spacing token via var()."
       },
       {
-        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Be Vietnam Pro|JetBrains Mono))/i]",
-        "message": "Font not provided by the design system. Available: Be Vietnam Pro, JetBrains Mono."
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Be Vietnam Pro|JetBrains Mono|Space Grotesk))/i]",
+        "message": "Font not provided by the design system. Available: Be Vietnam Pro (UI), JetBrains Mono (code/data), Space Grotesk (display — prefer var(--cs-font-family-display) or the .cs-display-face utility)."
       },
       {
         "selector": "JSXOpeningElement[name.name='AccordionEntry'] > JSXAttribute > JSXIdentifier[name!=/^(?:title|content|key|ref|className|style|children)$/]",

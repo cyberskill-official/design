@@ -32,4 +32,4 @@ Purely additive, opt-in metadata: a sidecar `templates/<slug>/content-schema.jso
 | `slots[].required` | no | default `false` |
 | `slots[].i18n` | no | `{ "en", "vi" }` for bilingual templates |
 
-Machine-checkable shape: `templates/schema/content-schema.schema.json`. Gate: `_audit/template-schema-test.html` (every hole-driven sidecar). **27** opt-in sidecars ship today — high-traffic product surfaces keep growing measurable content-slot coverage; axis holes stay out of schema. Full prose: `docs/template-schema-v2.md`.
+Machine-checkable shape: `templates/schema/content-schema.schema.json`. Gate: `_audit/template-schema-test.html`, which validates each sidecar **and enforces coverage** — a template exposing an authorable content hole must ship a sidecar or the board goes red. Axis / control-flow holes (`rootTheme`, `langAttr`, `is*`, numeric literals) and boolean tweak holes (`show*`, `hide*`, `has*`) are runtime axes, not typed slots, and stay out of schema; templates exposing only those correctly have no sidecar. The gate prints the live split instead of a hardcoded count. Full prose: `docs/template-schema-v2.md`.

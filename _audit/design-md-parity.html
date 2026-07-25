@@ -11,7 +11,7 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>DESIGN.md parity gate</h1>
-<p class="lede">The root <code>DESIGN.md</code> is the generated Stitch-style open-spec surface. This gate imports the <b>same</b> <code>scripts/design-md-lib.mjs</code> the generator uses, rebuilds the whole document from the live <code>tokens/tokens.dtcg.json</code> + <code>_ds_manifest.json</code> + <code>VERSION</code>, and asserts <b>byte equality</b> — any manual edit, stale regeneration, token change, or inventory change fails. Per-token row checks pinpoint which token drifted (every one of the 138 DTCG leaves is quoted in the doc). Fix: <code>npm run build:design-md</code>. Verdict on <code>window.__designmd</code>.</p>
+<p class="lede">The root <code>DESIGN.md</code> is the generated Stitch-style open-spec surface. This gate imports the <b>same</b> <code>scripts/design-md-lib.mjs</code> the generator uses, rebuilds the whole document from the live <code>tokens/tokens.dtcg.json</code> + <code>_ds_manifest.json</code> + <code>VERSION</code>, and asserts <b>byte equality</b> — any manual edit, stale regeneration, token change, or inventory change fails. Per-token row checks pinpoint which token drifted (every DTCG leaf is quoted in the doc; the verified row count is printed with the verdict). Fix: <code>npm run build:design-md</code>. Verdict on <code>window.__designmd</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <script type="module">

@@ -101,7 +101,7 @@ Related CyberSkill repos (not in this tree — explore for product/marketing fid
 
 **Palette — warm earth, never cold.** Umber `#45210E` grounds everything (it *is* the primary text colour); Ochre `#F4BA17` is the single accent — CTAs on dark, focus rings, highlights, the genie. Surfaces are warm paper: page `#FFFDF8`, panel `#FFFFFF`, raised `#FBF4E9`. Every neutral is warmed toward umber — borders are `#E7D9C6`, muted text `#6E5A4C`. Semantic colours (success `#166534`, danger `#B42318`, warning `#92400E`, info `#1D4ED8`) are used sparingly and never as the only signal. **Max one accent per surface** — on core surfaces that accent is Ochre; a *product* may swap in its element accent (see Elemental identity below), never add a second hue beside it. No bluish-purple gradients.
 
-**Typography.** UI/display: **Be Vietnam Pro** (300–800; a Vietnamese-first Google family). Code/data: **JetBrains Mono**. Display headings are heavy (800), tight tracking (−0.02em); body is 400/500 at 1.5. Uppercase eyebrows at 0.08–0.12em tracking. The size ramp runs xs 12 → 5xl 60 on a 16px base.
+**Typography.** UI: **Be Vietnam Pro** (300–800; a Vietnamese-first Google family) — the default for every surface, headings included. Display/headline: **Space Grotesk** (variable 300–700), the **opt-in** face behind `--cs-font-family-display`; nothing points at it until a scope opts in with `.cs-display-face`, which retargets `--cs-heading-family` and leaves body copy on the UI face. Code/data: **JetBrains Mono**. Display headings are heavy (800 on the UI face; Space Grotesk tops out at 700 and falls back to Be Vietnam Pro above it), tight tracking (−0.02em); body is 400/500 at 1.5. Uppercase eyebrows at 0.08–0.12em tracking. The size ramp runs xs 12 → 5xl 60 on a 16px base.
 
 **Spacing & layout.** 4px base grid (`--cs-space-*`); section padding lives between 64 and 96px; content max-width ~1200–1320px. Generous, calm whitespace.
 
@@ -294,7 +294,7 @@ ui_kits/deck/              brand deck on deck-stage (index.html; deck-stage runt
 assets/                    logo-mark.svg/png · favicon.svg · aurora-gold.jpg + aurora-{hoa,thuy,moc,kim}.png · lumi-poster.webp
 docs/                      the full doc set (see Document map above) + viewer.html reader (EN|VI)
 docs/vi/                   Vietnamese translations of every operator-facing docs/*.md
-fonts/                     self-hosted Be Vietnam Pro + JetBrains Mono woff2 (latin · latin-ext · vietnamese)
+fonts/                     self-hosted Be Vietnam Pro + Space Grotesk + JetBrains Mono woff2 (latin · latin-ext · vietnamese)
 thumbnail.html             project tile
 SKILL.md                   Agent-Skills-compatible entry
 ```
@@ -308,7 +308,9 @@ SKILL.md                   Agent-Skills-compatible entry
 
 ## Substitutions & caveats
 
-- **Fonts:** Be Vietnam Pro (300–800 + italics) and JetBrains Mono are **self-hosted** in `fonts/` as subset-split woff2 (latin · latin-ext · vietnamese) — no CDN dependency. Same families as the source (which ships them via `next/font`); no visual substitution.
+- **Fonts:** Be Vietnam Pro (300–800 + italics), Space Grotesk (variable 300–700), and JetBrains Mono are **self-hosted** in `fonts/` as subset-split woff2 (latin · latin-ext · vietnamese) — no CDN dependency. Same families as the source (which ships them via `next/font`); no visual substitution. `_audit/font-face-integrity.html` is the gate: it proves every face is local, subset-split, Vietnamese-covered, and mirrored in the manifest.
+
+- **Display face is opt-in, not a second default.** `--cs-font-family-display` (Space Grotesk) exists so a product with a headline face — cyberskill.world / Lumi — consumes a DS token instead of hand-rolling its own `@font-face`. Nothing in the DS points at it: opt a subtree in with `.cs-display-face`. Product → element mappings are unaffected (`docs/products.md` stays locked).
 
 - **Type size ramp & motion tokens** are a documented convention layered on the doctrine (the token source ships families + line-heights only); they mirror real in-product usage. The ramp also carries semantic role aliases (`--cs-text-h1`…) and `.cs-h1` / `.cs-body` / … utilities in `base/typography.css`.
 

@@ -138,6 +138,7 @@ export const tokens = {
     },
     "font": {
       "--cs-font-family-ui": "'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif",
+      "--cs-font-family-display": "'Space Grotesk', 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif",
       "--cs-font-family-mono": "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
       "--cs-font-weight-regular": "400",
       "--cs-font-weight-medium": "500",
