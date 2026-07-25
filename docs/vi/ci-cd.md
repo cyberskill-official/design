@@ -17,8 +17,8 @@
 5. **`docs-consistency-blocker`** — merge blocker `docs-consistency` + `bilingual-parity`.
 6. **`whole-set-audits`** — quyết định B của owner: mọi push/PR, cộng nightly `0 3 * * *` và `workflow_dispatch` (responsive + language + theme overflow, ~15–20 phút).
 7. **`figma-variables-push`** — trên push `main` + thủ công. **`FIGMA_TOKEN` / `FIGMA_FILE_KEY` trống → soft-skip** (exit 0 + report — cùng trung thực với Code Connect). Quyết định A (non-Enterprise): Variables REST cũng **soft-skip khi API 403** (và lỗi plan/scope liên quan) sau khi secret chứng minh mở file. Soft-skip ≠ sync Variables live. Xem `docs/figma.md`.
-8. **`code-connect`** — trên PR + `main` + thủ công. Quyết định 1C: dry-run luôn (config + 99 mapping); publish soft-skip khi thiếu `FIGMA_TOKEN` / `FIGMA_FILE_KEY` hoặc API 403/404/429. Xem `docs/figma.md`.
-9. **`regenerate-tokens`** — path-filtered trên push/PR (`tokens.dtcg.json`, natives, generator, `VERSION`); luôn có trên schedule/manual. Output native deterministic; push với `contents: write` (hoặc `DS_PUSH_TOKEN`).
+8. **`code-connect`** — trên PR + `main` + thủ công. Quyết định 1C: dry-run luôn (config + 102 mapping); publish soft-skip khi thiếu `FIGMA_TOKEN` / `FIGMA_FILE_KEY` hoặc API 403/404/429. Xem `docs/figma.md`.
+9. **`regenerate-tokens`** (pull request) + **`regenerate-tokens-push`** (push `main` / schedule / thủ công) — một path filter (`tokens.dtcg.json`, natives, generator, `VERSION`), một lần regenerate deterministic, hai kết quả. Trên **pull request** job chạy với `contents: read`, không bao giờ push, và **exit 1** khi có drift: chạy `node _audit/ci/generate-native-tokens.mjs` ở local rồi commit natives. Chỉ job song sinh push/schedule/thủ công giữ `contents: write` và auto-commit với `DS_PUSH_TOKEN` (hoặc `github.token`).
 10. **`npm-hello-smoke`** — chứng minh consumer registry: `cd examples/npm-hello && npm ci && npm run smoke` (**hard fail**; package public). Path-filtered trên push/PR khi `examples/npm-hello/**`, bề mặt publish package, hoặc workflow này đổi; luôn chạy trên schedule / `workflow_dispatch`.
 
 Workflow riêng **`npm-publish`** (`.github/workflows/npm-publish.yml`): `workflow_dispatch` + tag `v*`; pack dry-run luôn; publish qua **npm Trusted Publishing (OIDC)** (`id-token: write`, không `NPM_TOKEN` trên bước publish). Soft-skip khi auth / 403 / 404 / EOTP / conflict phiên bản. Phiên bản giữ **1.0.0**; license **UNLICENSED**. Trusted Publisher trên npmjs phải khớp filename workflow `npm-publish.yml`. Publishing access package: **Require 2FA and disallow tokens** (OIDC vẫn chạy; token classic bị từ chối).
@@ -40,7 +40,7 @@ Node **22** trên runner (tránh deprecation action Node 20). Cache key Playwrig
 
 ## Quyền auto-commit token
 
-Job yêu cầu `permissions: contents: write`. Nếu org khóa default token read-only, đặt repository secret `DS_PUSH_TOKEN` (fine-grained PAT, Contents read/write) hoặc mở write tại org Actions settings. Xem ghi chú trước trong git history / org settings.
+Chỉ `regenerate-tokens-push` yêu cầu `permissions: contents: write`; job song sinh cho pull request `regenerate-tokens` giữ `contents: read` và checkout không lưu credential, nên PR không bao giờ kích hoạt push của bot. Nếu org khóa default token read-only, đặt repository secret `DS_PUSH_TOKEN` (fine-grained PAT, Contents read/write) hoặc mở write tại org Actions settings. Xem ghi chú trước trong git history / org settings.
 
 ## Branch protection (khuyến nghị)
 
@@ -74,10 +74,12 @@ node _audit/ci/generate-native-tokens.mjs
 - **Native store signed release** — soft-skip khi thiếu `ASC_*` / `PLAY_SERVICE_ACCOUNT_JSON` (Quyết định 1C); submit store vẫn tắt.
 - **npm-hello registry smoke** — **hard fail** (`examples/npm-hello` → `npm ci` + `npm run smoke`); chứng minh đường install public `@cyberskill/design` (không soft-skip).
 
+Job `figma-variables-push` hay `code-connect` xanh — và do đó badge hay hàng Status xanh — chỉ có nghĩa job exit 0; nó **không** chứng minh sync Figma live, vì soft-skip và publish thật nhìn từ ngoài giống hệt nhau. Mở report artifact của run (`figma-push-report.json` / `code-connect-report.json`) để biết cái nào đã xảy ra.
+
 ## Soft-skip dry-run (local)
 
 ```bash
-npm run code-connect:dry-run          # config + ≥99 mapping; không secret
+npm run code-connect:dry-run          # config + ≥102 mapping; không secret
 node _audit/ci/code-connect-publish.mjs   # thiếu secret → SOFT SKIP missing_secrets
 npm run npm:pack-dry-run              # inventory tarball; không auth
 node _audit/ci/npm-publish.mjs        # GHA OIDC; không thì SOFT SKIP (package disallow tokens)

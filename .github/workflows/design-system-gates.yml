@@ -200,18 +200,66 @@ jobs:
           if-no-files-found: ignore
 
   regenerate-tokens:
-    # Only when DTCG / generator / native targets can drift. Deterministic output → no-op commit when clean.
+    # PR path — fail-closed. Same path filter + regenerate as the push twin, but the
+    # job never pushes and never asks for contents: write; drift is the contributor's
+    # job to fix locally. Auto-commit lives in regenerate-tokens-push below.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Detect token-related path changes
+        id: filter
+        run: |
+          set -euo pipefail
+          BASE="${{ github.event.pull_request.base.sha }}"
+          if [ -z "${BASE:-}" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "No usable base SHA — always regenerate."
+            exit 0
+          fi
+          if git diff --name-only "$BASE" HEAD | grep -E '^(tokens/tokens\.dtcg\.json|tokens/native/|_audit/ci/generate-native-tokens\.mjs|VERSION)$' >/dev/null; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Token-related paths changed."
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "No token-related path changes — skip regenerate."
+          fi
+      - name: Regenerate native token targets from tokens.dtcg.json
+        if: steps.filter.outputs.run == 'true'
+        run: node _audit/ci/generate-native-tokens.mjs
+      - name: Fail when the committed natives drift from DTCG
+        if: steps.filter.outputs.run == 'true'
+        run: |
+          if git diff --quiet -- tokens/native tokens/provenance.json; then
+            echo "Native tokens already match DTCG — nothing to regenerate."
+            exit 0
+          fi
+          git --no-pager diff --stat -- tokens/native tokens/provenance.json
+          echo "::error::tokens/native/* and/or tokens/provenance.json are stale. Run 'node _audit/ci/generate-native-tokens.mjs' locally and commit the result — pull request runs never push."
+          exit 1
+
+  regenerate-tokens-push:
+    # Auto-commit path — main pushes, nightly schedule, manual dispatch only.
+    # Deterministic output → no-op commit when clean.
     if: |
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'schedule' ||
-      (github.event_name == 'push' || github.event_name == 'pull_request')
+      github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || github.ref }}
+          ref: ${{ github.ref }}
           token: ${{ secrets.DS_PUSH_TOKEN || github.token }}
           fetch-depth: 0
       - uses: actions/setup-node@v4
@@ -219,14 +267,10 @@ jobs:
           node-version: '22'
       - name: Detect token-related path changes
         id: filter
-        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        if: github.event_name == 'push'
         run: |
           set -euo pipefail
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            BASE="${{ github.event.pull_request.base.sha }}"
-          else
-            BASE="${{ github.event.before }}"
-          fi
+          BASE="${{ github.event.before }}"
           if [ -z "${BASE:-}" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             echo "No usable base SHA — always regenerate."
@@ -257,7 +301,7 @@ jobs:
         if: steps.drift.outputs.changed == 'true'
         run: |
           set -euo pipefail
-          BRANCH="${{ github.head_ref || github.ref_name }}"
+          BRANCH="${{ github.ref_name }}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin "$BRANCH"

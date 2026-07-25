@@ -397,6 +397,18 @@
     "Watermark": {
       "nodeId": "9999:99",
       "published": false
+    },
+    "AspectRatio": {
+      "nodeId": "9999:5",
+      "published": false
+    },
+    "Collapsible": {
+      "nodeId": "9999:21",
+      "published": false
+    },
+    "ScrollArea": {
+      "nodeId": "9999:70",
+      "published": false
     }
   }
 }

@@ -17,8 +17,8 @@
 5. **`docs-consistency-blocker`** — `docs-consistency` + `bilingual-parity` merge blockers.
 6. **`whole-set-audits`** — owner decision B: every push/PR, plus nightly `0 3 * * *` and `workflow_dispatch` (responsive + language + theme overflow, ~15–20 min).
 7. **`figma-variables-push`** — on `main` push + manual. **Empty `FIGMA_TOKEN` / `FIGMA_FILE_KEY` soft-skip** (exit 0 + report — same honesty as Code Connect). Owner decision A (non-Enterprise): Variables REST also **soft-skips on API 403** (and related plan/scope failures) after secrets prove file open. Soft-skip ≠ live Variables sync. See `docs/figma.md`.
-8. **`code-connect`** — on PR + `main` + manual. Decision 1C: dry-run always (config + 99 mappings); publish soft-skips when `FIGMA_TOKEN` / `FIGMA_FILE_KEY` missing or API 403/404/429. See `docs/figma.md`.
-9. **`regenerate-tokens`** — path-filtered on push/PR (`tokens.dtcg.json`, natives, generator, `VERSION`); always available on schedule/manual. Deterministic native output; pushes with `contents: write` (or `DS_PUSH_TOKEN`).
+8. **`code-connect`** — on PR + `main` + manual. Decision 1C: dry-run always (config + 102 mappings); publish soft-skips when `FIGMA_TOKEN` / `FIGMA_FILE_KEY` missing or API 403/404/429. See `docs/figma.md`.
+9. **`regenerate-tokens`** (pull requests) + **`regenerate-tokens-push`** (push to `main` / schedule / manual) — one path filter (`tokens.dtcg.json`, natives, generator, `VERSION`), one deterministic regeneration, two outcomes. On a **pull request** the job runs with `contents: read`, never pushes, and **exits 1** on drift: run `node _audit/ci/generate-native-tokens.mjs` locally and commit the natives. Only the push/schedule/manual twin holds `contents: write` and auto-commits with `DS_PUSH_TOKEN` (or `github.token`).
 10. **`npm-hello-smoke`** — registry consumer proof: `cd examples/npm-hello && npm ci && npm run smoke` (**hard fail**; package is public). Path-filtered on push/PR when `examples/npm-hello/**`, package publish surface, or this workflow changes; always on schedule / `workflow_dispatch`.
 
 Separate workflow **`npm-publish`** (`.github/workflows/npm-publish.yml`): `workflow_dispatch` + `v*` tags; pack dry-run always; publish via **npm Trusted Publishing (OIDC)** (`id-token: write`, no `NPM_TOKEN` on the publish step). Soft-skips on auth / 403 / 404 / EOTP / version conflict. Version stays **1.0.0**; license **UNLICENSED**. Trusted Publisher on npmjs must match workflow filename `npm-publish.yml`. Package Publishing access is **Require 2FA and disallow tokens** (OIDC still works; classic tokens rejected).
@@ -40,7 +40,7 @@ Node **22** on runners (avoids Node 20 action deprecation). Playwright browser c
 
 ## Token auto-commit permissions
 
-Job requests `permissions: contents: write`. If org locks the default token to read-only, set repository secret `DS_PUSH_TOKEN` (fine-grained PAT, Contents read/write) or unlock write at org Actions settings. See earlier notes in git history / org settings.
+Only `regenerate-tokens-push` requests `permissions: contents: write`; the pull-request twin `regenerate-tokens` stays on `contents: read` and checks out without persisted credentials, so a PR can never trigger a bot push. If org locks the default token to read-only, set repository secret `DS_PUSH_TOKEN` (fine-grained PAT, Contents read/write) or unlock write at org Actions settings. See earlier notes in git history / org settings.
 
 ## Branch protection (recommended)
 
@@ -74,10 +74,12 @@ node _audit/ci/generate-native-tokens.mjs
 - **Native store signed release** — soft-skip when `ASC_*` / `PLAY_SERVICE_ACCOUNT_JSON` absent (Decision 1C); store submit stays disabled.
 - **npm-hello registry smoke** — **hard fail** (`examples/npm-hello` → `npm ci` + `npm run smoke`); proves the public `@cyberskill/design` install path (not soft-skip).
 
+A green `figma-variables-push` or `code-connect` job — and therefore a green badge or Status row — only means the job exited 0; it does **not** prove a live Figma sync, because a soft-skip and a real publish look identical from outside. Open the run's report artifact (`figma-push-report.json` / `code-connect-report.json`) to see which one happened.
+
 ## Soft-skip dry-runs (local)
 
 ```bash
-npm run code-connect:dry-run          # config + ≥99 mappings; no secrets
+npm run code-connect:dry-run          # config + ≥102 mappings; no secrets
 node _audit/ci/code-connect-publish.mjs   # without secrets → SOFT SKIP missing_secrets
 npm run npm:pack-dry-run              # tarball inventory; no auth
 node _audit/ci/npm-publish.mjs        # GHA OIDC; else SOFT SKIP (tokens disallowed on package)

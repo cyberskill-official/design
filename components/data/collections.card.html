@@ -1,4 +1,4 @@
-<!-- @dsCard group="Components" viewport="700x480" name="Collections & content" subtitle="List, DescriptionList, Timeline, Accordion, Kbd, CodeBlock" -->
+<!-- @dsCard group="Components" viewport="700x520" name="Collections & content" subtitle="List, DescriptionList, Timeline, Accordion, Collapsible, Kbd, CodeBlock" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +18,7 @@
 <body>
 <div id="root"></div>
 <script type="text/babel">
-const { List, ListItem, DescriptionList, Timeline, Accordion, Kbd, CodeBlock, Avatar, Badge } = (window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))]||{});
+const { List, ListItem, DescriptionList, Timeline, Accordion, Collapsible, Kbd, CodeBlock, Avatar, Badge } = (window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))]||{});
 function Demo() {
   return (
     <div className="cols">
@@ -31,6 +31,11 @@ function Demo() {
         </div>
         <div className="blk"><div className="lbl">Description list</div>
           <DescriptionList items={[{term:"Owner",value:"An Le"},{term:"Squad",value:"Platform"},{term:"Progress",value:"72%"},{term:"Updated",value:"2h ago"}]} />
+        </div>
+        <div className="blk"><div className="lbl">Collapsible</div>
+          <Collapsible title="Advanced preferences" defaultOpen={false}>
+            <p style={{ margin: 0 }}>Quiet by default — only what you opt into.</p>
+          </Collapsible>
         </div>
         <div><div className="lbl">Kbd</div><span><Kbd>⌘</Kbd> <Kbd>K</Kbd> &nbsp;to search</span></div>
       </div>

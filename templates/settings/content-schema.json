@@ -98,6 +98,42 @@
       "maxLength": 80
     },
     {
+      "id": "n3t",
+      "type": "text",
+      "label": "Notification 3 title",
+      "maxLength": 30
+    },
+    {
+      "id": "n3d",
+      "type": "text",
+      "label": "Notification 3 description",
+      "maxLength": 80
+    },
+    {
+      "id": "n4t",
+      "type": "text",
+      "label": "Notification 4 title",
+      "maxLength": 30
+    },
+    {
+      "id": "n4d",
+      "type": "text",
+      "label": "Notification 4 description",
+      "maxLength": 80
+    },
+    {
+      "id": "advT",
+      "type": "text",
+      "label": "Advanced preferences collapsible title",
+      "maxLength": 40
+    },
+    {
+      "id": "advD",
+      "type": "text",
+      "label": "Advanced preferences collapsible body",
+      "maxLength": 100
+    },
+    {
       "id": "dangerT",
       "type": "text",
       "label": "Danger-zone title",

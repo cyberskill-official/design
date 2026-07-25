@@ -84,7 +84,11 @@ function Website() {
               <button className="btn-ghost-light" onClick={() => openChat("")}>{t.talk}</button>
             </div>
           </div>
-          <div className="hero-art"><img src="../../assets/lumi-poster.webp" alt="Lumi, the golden genie" /></div>
+          <div className="hero-art">
+            <div className="cs-aspect-ratio" style={{ aspectRatio: "1", maxWidth: 260, marginInline: "auto" }}>
+              <img src="../../assets/lumi-poster.webp" alt="Lumi, the golden genie" />
+            </div>
+          </div>
         </div>
       </section>
       <div className="marq"><div className="container marq-in">{t.marquee.map((m, i) => <React.Fragment key={i}>{i > 0 && <b>·</b>}<span>{m}</span></React.Fragment>)}</div></div>

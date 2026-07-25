@@ -44,7 +44,7 @@ Stay on the current Figma plan. Variables REST API is Enterprise-only — write 
 
 **Status: provisional / soft-skip — not a live library publish** (Jul 2026; deferred Jul 2026)
 
-- CI job `code-connect` + `figma.config.json` + 99 `*.figma.tsx` mappings are in-repo (import snippets use `@cyberskill/design`).
+- CI job `code-connect` + `figma.config.json` + 102 `*.figma.tsx` mappings are in-repo (import snippets use `@cyberskill/design`).
 - Publish soft-skips when secrets are missing or the API returns 403/404/429. Soft-skip ≠ successful Code Connect publish.
 - **Owner deferral:** stay on **Figma free / non-Org** for now — do not pursue live Code Connect until an Org/Enterprise seat with a published team library is available. Then replace synthetic `9999:*` stubs in `code-connect/node-map.json` with real `nodeId`s. See `docs/figma.md`.
 
@@ -99,6 +99,10 @@ Operational follow-ups — not product marketing, not a backlog surface:
 ~~3. Finalize products registry~~ — **done** (Jul 2026): see decision §9; `docs/products.md` is locked.
 
 ~~4. First registry consumer path~~ — **done** (Jul 2026): `examples/npm-hello/` installs `@cyberskill/design@1.0.0` for locked **Lumi** identity; documented in `docs/consuming.md` (+ VI) and `docs/release-notes.md`.
+
+5. **Native token drift on PRs is fail-closed** (Jul 2026) — `regenerate-tokens` runs read-only on pull requests and exits 1 instead of pushing; only `regenerate-tokens-push` (main / schedule / manual) holds `contents: write`. When a PR fails it, run `node _audit/ci/generate-native-tokens.mjs` and commit the natives. See `docs/ci-cd.md`.
+
+6. **Shadcn gap / Wave 2** (Jul 2026) — CyberSkill already covers ~50 of shadcn’s 62 primitives as CS-native (forms / overlays / nav / data). Pilot shipped: `ScrollArea`, `Collapsible`, `AspectRatio`. Wave 2 backlog only (do **not** implement unless scoped): `AlertDialog` (vs Popconfirm), `Item` row primitive, `NativeSelect`. Do **not** port shadcn blocks, Tailwind, or the Radix CLI model — map patterns to existing `templates/` + `ui_kits/`.
 
 Schema sidecars and Storybook `FullMatrix` continue to grow **opportunistically** when a primary already qualifies (today only Button has FullMatrix under the contract) — not as a mass-add pass. See `docs/quality-gates.md`.
 
