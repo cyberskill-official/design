@@ -56,14 +56,14 @@ Default accent pack = Thổ (the studio's own element). All 15 element×variant 
 | Token | Value |
 |---|---|
 | `--cs-accent` | `#F4BA17` |
-| `--cs-accent-strong` | `#B98200` |
+| `--cs-accent-strong` | `#9E770B` |
 | `--cs-accent-bright` | `#F4BA17` |
 | `--cs-accent-on` | `#45210E` |
 | `--cs-accent-tint` | `#FBF4E9` |
 | `--cs-accent-ink` | `#45210E` |
 | `--cs-accent-glow` | `rgba(244, 186, 23, 0.5)` |
 | `--cs-accent-grad-a` | `#F4BA17` |
-| `--cs-accent-grad-b` | `#C77B4A` |
+| `--cs-accent-grad-b` | `#FFAD8E` |
 
 ## Typography
 

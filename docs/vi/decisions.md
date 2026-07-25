@@ -104,6 +104,8 @@ Theo dõi vận hành — không phải marketing sản phẩm, không phải ba
 
 6. **Shadcn gap / Wave 2** (Th7 2026) — CyberSkill đã phủ ~53/62 primitive shadcn dưới dạng CS-native (forms / overlays / nav / data). Đã ship: pilot `ScrollArea`, `Collapsible`, `AspectRatio`; Wave 2 `AlertDialog` (vs Popconfirm), `Item` row primitive, `NativeSelect`. Phần còn lại của shadcn là non-port có chủ đích (block, Tailwind, Radix CLI). **Không** port những thứ đó — map pattern sang `templates/` + `ui_kits/` hiện có.
 
+7. **Hình học màu Element** (Th7 2026) — Pack Element generate từ `tokens/element-seeds.json` (`npm run tokens:elements`): thang soft / middle / deep, Thổ middle ghim ochre logo, khóa hue light↔dark, sàn APCA dark. Tên variant công khai không đổi. Hard gate: `_audit/element-geometry.html`. Rubric benchmark: `docs/benchmark-rubric.md`. Pack `data-cs-style` tương lai theo checklist mở rộng style ở đó — không invent trục sản phẩm thứ tư tùy tiện.
+
 Schema sidecar và Storybook `FullMatrix` tiếp tục lớn **theo cơ hội** khi primary đã đủ điều kiện (hiện chỉ Button có FullMatrix theo contract) — không phải đợt mass-add. Xem `docs/quality-gates.md`.
 
 ## Cách đổi một quyết định

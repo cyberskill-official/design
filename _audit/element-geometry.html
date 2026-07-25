@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><title>Element geometry gate</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+body{font-family:var(--cs-font-family-ui);margin:24px;background:var(--cs-color-surface-page);color:var(--cs-color-text-primary)}
+.lede{max-width:72ch;color:var(--cs-color-text-muted);font-size:14px;line-height:1.5}
+.row{padding:6px 0;border-bottom:1px solid var(--cs-color-border-default);font-size:13px}
+.ok{color:var(--cs-color-semantic-success)}.bad{color:var(--cs-color-semantic-danger)}
+code{font-family:var(--cs-font-family-mono);font-size:12px}
+</style>
+</head><body>
+<h1>Element geometry</h1>
+<p class="lede">Hard gate: soft / middle / deep intensity sync across the five elements, variant distinctness inside each element, and light↔dark hue identity for all 15 packs (30 theme sets). Seeds: <code>tokens/element-seeds.json</code>. Verdict: <code>window.__elementgeometry</code>.</p>
+<div id="out"></div>
+<script type="module">
+import {
+  apca, deltaEok, deltaHueDeg, hexToLCH, hex2rgb
+} from '../scripts/lib/oklch.mjs';
+
+const out = document.getElementById('out');
+const problems = [];
+const row = (ok, msg) => {
+  const d = document.createElement('div');
+  d.className = 'row ' + (ok ? 'ok' : 'bad');
+  d.textContent = (ok ? '✓ ' : '✗ ') + msg;
+  out.appendChild(d);
+  if (!ok) problems.push(msg);
+};
+
+function parsePacks(css) {
+  const packs = {};
+  const re = /((?:\[[^\]]+\])+)\s*\{([^}]*)\}/g;
+  let m;
+  while ((m = re.exec(css))) {
+    const sel = m[1], body = m[2];
+    const el = (/\[data-cs-element="(\w+)"\]/.exec(sel) || [])[1];
+    if (!el) continue;
+    const va = (/\[data-cs-variant="(\w+)"\]/.exec(sel) || [])[1] || '';
+    const dark = /data-theme="dark"/.test(sel);
+    if (/data-cs-element\]/.test(sel) && !/data-cs-element="/.test(sel)) continue;
+    const decls = {};
+    let d;
+    const dr = /(--cs-[\w-]+)\s*:\s*([^;]+);/g;
+    while ((d = dr.exec(body))) decls[d[1]] = d[2].trim();
+    if (!decls['--cs-accent'] || !hex2rgb(decls['--cs-accent'])) continue;
+    const k = el + '|' + va;
+    packs[k] = packs[k] || { el, va, light: {}, dark: {} };
+    Object.assign(dark ? packs[k].dark : packs[k].light, decls);
+  }
+  return packs;
+}
+
+const SLOT_OF = {
+  'tho|': 'middle', 'tho|sand': 'soft', 'tho|clay': 'deep',
+  'hoa|': 'middle', 'hoa|plasma': 'soft', 'hoa|lava': 'deep',
+  'thuy|': 'middle', 'thuy|mist': 'soft', 'thuy|ocean': 'deep',
+  'moc|': 'middle', 'moc|bamboo': 'soft', 'moc|forest': 'deep',
+  'kim|': 'middle', 'kim|titanium': 'soft', 'kim|steel': 'deep',
+};
+
+(async () => {
+  const seeds = await (await fetch('../tokens/element-seeds.json', { cache: 'no-store' })).json();
+  const css = await (await fetch('../tokens/elements.css', { cache: 'no-store' })).text();
+  const packs = parsePacks(css);
+  const keys = Object.keys(SLOT_OF);
+  row(keys.every((k) => packs[k] && packs[k].light['--cs-accent']), '15 light packs present');
+  row(keys.every((k) => packs[k] && packs[k].dark['--cs-accent']), '15 dark packs present');
+
+  const tol = seeds.tolerance;
+  for (const slot of ['soft', 'middle', 'deep']) {
+    const group = keys.filter((k) => SLOT_OF[k] === slot);
+    const Ls = group.map((k) => hexToLCH(packs[k].light['--cs-accent']).L);
+    const avg = Ls.reduce((a, b) => a + b, 0) / Ls.length;
+    const maxDrift = Math.max(...Ls.map((L) => Math.abs(L - avg)));
+    row(maxDrift <= tol.l + 1e-6, `intensity sync L (${slot}): max drift ${maxDrift.toFixed(3)} ≤ ${tol.l}`);
+  }
+
+  const byEl = {};
+  for (const k of keys) {
+    byEl[packs[k].el] = byEl[packs[k].el] || [];
+    byEl[packs[k].el].push(k);
+  }
+  for (const [el, ks] of Object.entries(byEl)) {
+    const accents = ks.map((k) => packs[k].light['--cs-accent']);
+    let ok = true;
+    for (let i = 0; i < accents.length; i++) {
+      for (let j = i + 1; j < accents.length; j++) {
+        const dE = deltaEok(accents[i], accents[j]);
+        const dL = Math.abs(hexToLCH(accents[i]).L - hexToLCH(accents[j]).L);
+        if (dE < tol.minDeltaE && dL < tol.minDeltaL) ok = false;
+      }
+    }
+    row(ok, `variant distinctness (${el}): soft/middle/deep separated`);
+  }
+
+  let hueOk = true;
+  let worst = 0;
+  for (const k of keys) {
+    const lh = hexToLCH(packs[k].light['--cs-accent']).Hdeg;
+    const dh = hexToLCH(packs[k].dark['--cs-accent']).Hdeg;
+    const d = deltaHueDeg(lh, dh);
+    worst = Math.max(worst, d);
+    if (d > tol.hueLockDeg) hueOk = false;
+  }
+  row(hueOk, `hue identity light↔dark: max Δh ${worst.toFixed(1)}° ≤ ${tol.hueLockDeg}°`);
+
+  // Tho middle pins logo ochre
+  const tho = packs['tho|'].light['--cs-accent'].toUpperCase();
+  row(tho === '#F4BA17', `Thổ middle pins logo ochre (got ${tho})`);
+
+  // Generated header present
+  row(/GENERATED from tokens\/element-seeds\.json/.test(css), 'elements.css carries GENERATED header');
+
+  const pass = problems.length === 0;
+  window.__elementgeometry = {
+    pass,
+    problems,
+    packs: keys.length,
+    worstHueDrift: worst,
+  };
+  console.log('ELEMENT GEOMETRY ' + JSON.stringify(window.__elementgeometry));
+})().catch((e) => {
+  window.__elementgeometry = { pass: false, problems: [String(e && e.message || e)], error: true };
+});
+</script>
+</body></html>

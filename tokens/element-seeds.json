@@ -1,0 +1,98 @@
+{
+  "$meta": {
+    "system": "CyberSkill Design System",
+    "version": "1.0.0",
+    "note": "OKLCH seed contract for the 15 element packs × light/dark (30 sets). Source of truth for scripts/generate-element-packs.mjs — do not hand-edit tokens/elements.css."
+  },
+  "intensity": {
+    "soft": { "l": 0.88, "c": 0.10 },
+    "middle": { "l": 0.82, "c": 0.14 },
+    "deep": { "l": 0.58, "c": 0.13 }
+  },
+  "tolerance": {
+    "l": 0.04,
+    "c": 0.055,
+    "hueLockDeg": 14,
+    "minDeltaE": 0.06,
+    "minDeltaL": 0.07
+  },
+  "roles": {
+    "strongDeltaL": -0.18,
+    "brightDeltaL": 0.06,
+    "tintL": 0.96,
+    "tintCScale": 0.22,
+    "inkL": 0.28,
+    "inkCScale": 0.45,
+    "onL": 0.28,
+    "glowAlpha": 0.5
+  },
+  "dark": {
+    "panel": "#221710",
+    "text": "#f5ead9",
+    "ink": "#1a1108",
+    "targets": { "bright": 75, "accent": 60, "on": 75, "ink": 75 },
+    "tintL": 0.26,
+    "tintCMax": 0.05
+  },
+  "tuongSinh": {
+    "tho": "hoa",
+    "hoa": "tho",
+    "thuy": "moc",
+    "moc": "hoa",
+    "kim": "thuy"
+  },
+  "elements": {
+    "tho": {
+      "label": "Thổ · Earth",
+      "h": 85.2,
+      "cScale": 1.0,
+      "pinMiddleHex": "#F4BA17",
+      "soft": "sand",
+      "middle": null,
+      "middleName": "studio",
+      "deep": "clay"
+    },
+    "hoa": {
+      "label": "Hỏa · Fire",
+      "h": 42.2,
+      "cScale": 1.05,
+      "soft": "plasma",
+      "middle": null,
+      "middleName": "ember",
+      "deep": "lava",
+      "offsets": {
+        "plasma": { "dh": -30, "dc": 0.02 }
+      }
+    },
+    "thuy": {
+      "label": "Thủy · Water",
+      "h": 212.3,
+      "cScale": 0.55,
+      "soft": "mist",
+      "middle": null,
+      "middleName": "river",
+      "deep": "ocean"
+    },
+    "moc": {
+      "label": "Mộc · Wood",
+      "h": 130.0,
+      "cScale": 0.78,
+      "soft": "bamboo",
+      "middle": null,
+      "middleName": "leaf",
+      "deep": "forest"
+    },
+    "kim": {
+      "label": "Kim · Metal",
+      "h": 81.9,
+      "cScale": 0.28,
+      "soft": "titanium",
+      "middle": null,
+      "middleName": "champagne",
+      "deep": "steel",
+      "offsets": {
+        "steel": { "dh": 115, "dc": -0.02 }
+      }
+    }
+  }
+}
