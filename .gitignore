@@ -11,6 +11,10 @@ scraps/
 # heavy generated PPTX / standalone HTML proofs
 _audit/exports/
 
+# Secrets / env files (defense in depth — none are used by this static tree)
+.env
+.env.*
+
 # OS / editor cruft
 .DS_Store
 Thumbs.db

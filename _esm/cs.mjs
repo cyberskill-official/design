@@ -1,4 +1,4 @@
-// CyberSkill Design System — ESM entry point (GENERATED from _ds_manifest.json at v3.6.0).
+// CyberSkill Design System — ESM entry point (GENERATED from _ds_manifest.json at v1.0.0).
 // No build step: import this module directly in a browser. It ensures React 18.3.1 (pinned,
 // skipped when window.React already exists), side-loads ../_ds_bundle.js once, resolves the
 // compiler-assigned namespace BY PREFIX (never a hardcoded suffix), and re-exports every component.
@@ -12,14 +12,14 @@ async function ensureScript(src, integrity){
     if (integrity) { s.integrity = integrity; s.crossOrigin = "anonymous"; }
     s.onload = res; s.onerror = () => rej(new Error("cs.js: failed to load " + href)); document.head.appendChild(s); });
 }
-if (!g.React) await ensureScript("https://unpkg.com/react@18.3.1/umd/react.development.js", "sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L");
-if (!g.ReactDOM) await ensureScript("https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js", "sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm");
+if (!g.React) await ensureScript("https://unpkg.com/react@18.3.1/umd/react.production.min.js", "sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z");
+if (!g.ReactDOM) await ensureScript("https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js", "sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1");
 const found = () => Object.keys(g).find(k => /^CyberSkillDesignSystem_/.test(k));
 if (!found()) await ensureScript("../_ds_bundle.js");
 export const CS = g[found()];
 if (!CS) throw new Error("cs.js: bundle loaded but no CyberSkillDesignSystem_* namespace found");
 export default CS;
-export const VERSION = "3.6.0";
+export const VERSION = "1.0.0";
 export const AIDisclosureBadge = CS.AIDisclosureBadge;
 export const Accordion = CS.Accordion;
 export const Alert = CS.Alert;

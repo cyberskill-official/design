@@ -4,7 +4,7 @@ Mọi quality gate deterministic trong hệ thống, nó assert gì, tiêu chí 
 
 **Gate chạy ở đâu.** *Fast board CI* = job `fast-gates` trong `.github/workflows/design-system-gates.yml`, serve repo và điều khiển `_audit/run.html` headless qua `_audit/ci/run-gates.mjs` (mọi push/PR + nightly + thủ công) — hàng board mới được nhận tự động. Hai gate thêm chạy standalone như *merge blocker* (job `docs-consistency-blocker`, qua `_audit/ci/run-single-gate.mjs`). *Whole-set CI* = job `whole-set-audits` (mọi push/PR + nightly — quyết định B của owner). *Unit test* = `npm run test:unit` trong job `unit-tests` (Node thuần, không trình duyệt). *Node pre-checks* = job `node-prechecks` (authority không trình duyệt: bundle freshness, DESIGN.md freshness) cộng job `token-provenance`. Mọi browser gate publish verdict global (`window.__*`) mà headless runner đọc.
 
-## Fast board — 31 gates trong `_audit/run.html`
+## Fast board — 32 gates trong `_audit/run.html`
 
 | Gate | File | Assert gì | Tiêu chí pass | Loại | Chạy ở đâu |
 |---|---|---|---|---|---|
@@ -14,7 +14,7 @@ Mọi quality gate deterministic trong hệ thống, nó assert gì, tiêu chí 
 | Docs consistency | `_audit/docs-consistency.html` | Mọi claim đếm trong README/SKILL/llms.txt khớp compiler manifest; `VERSION` + `package.json` pin 1.0.0; không tham chiếu changelog-file; blacklist stale-phrase (suite/pack count đã gỡ trong audit Th7 2026) sạch trên README/SKILL/llms + `docs/*.md` (ghi chú lịch sử dưới `_audit/archive/` không được quét); `DESIGN.md` tồn tại với front-matter version = `VERSION`; routing agent trung thực — Claude path cite `_esm/cs.mjs` + bundle prefix; Stitch path cấm `*.dc.html` làm SoT; tên package `@cyberskill/design` | 0 claim lệch, 0 blacklist hit, pin + stamp + routing nguyên (`__docs`) | Hard | Fast board CI + merge blocker |
 | Docs language parity | `_audit/docs-lang-parity.html` | Mọi EN `docs/*.md` hướng operator có counterpart `docs/vi/`; VI không phải stub trống/TODO (≥40% độ dài EN); blacklist stale-phrase sạch trên cả EN và VI (ghi chú lịch sử dưới `_audit/archive/` không được theo dõi) | 0 cặp thiếu, 0 stub, 0 blacklist hit (`__docslangparity`) | Hard | Fast board CI |
 | DESIGN.md parity | `_audit/design-md-parity.html` | Root `DESIGN.md` (open-spec Stitch) byte-equals regeneration trong trình duyệt từ `tokens.dtcg.json` + `_ds_manifest.json` + `VERSION` qua `scripts/design-md-lib.mjs` dùng chung; từng hàng token được re-check riêng (số hàng in kèm verdict) | Byte-identical + 0 hàng drift (`__designmd`) | Hard | Fast board CI |
-| Version stamp | `_audit/version-stamp.html` | `package.json`, meta `tokens.json`/`tokens.js`, DTCG `$extensions`, `provenance.json` release + dtcgStamp, và front matter `DESIGN.md` đều bằng `VERSION` (pin 1.0.0) | Cả 8 stamp bằng nhau (`__versionstamp`) | Hard | Fast board CI |
+| Version stamp | `_audit/version-stamp.html` | `package.json`, meta `tokens.json`/`tokens.js`, DTCG `$extensions`, `provenance.json` release + dtcgStamp, front matter `DESIGN.md`, và `_esm/cs.mjs` `export const VERSION` đều bằng `VERSION` (pin 1.0.0) | Cả 9 stamp bằng nhau (`__versionstamp`) | Hard | Fast board CI |
 | Namespace portability | `_audit/namespace-portability.html` | Không source index bởi manifest hardcode hậu tố bundle project-id của compiler | 0 hậu tố hardcode (`__nsguard`) | Hard | Fast board CI |
 | Token contract | `_audit/token-contract.html` | Cả 15 scope element×variant resolve cả 9 role `--cs-accent-*`; token semantic core resolve | 0 role thiếu, 0 token core thiếu (`__contract`) | Hard | Fast board CI |
 | Token pipeline | `_audit/token-pipeline-test.html` | Mọi hằng dẫn từ DTCG xuất hiện nguyên văn trong cả ba target `tokens/native/`; provenance sha-256 khớp nguồn DTCG | 0 hằng drift, hash khớp (`__tokenpipe`) | Hard | Fast board CI |
@@ -24,7 +24,7 @@ Mọi quality gate deterministic trong hệ thống, nó assert gì, tiêu chí 
 | Story coverage | `_audit/story-coverage.html` | Mọi primary bundle export có Atomic View story (`guidelines/atomic-view.html`) | 0 story thiếu (`__storycov`) | Hard | Fast board CI |
 | Consumer smoke test | `_audit/consumer-smoke-test.html` | Đường consumer ngoài hoạt động: `styles.css` + `_ds_bundle.js` mount component thật và brand token tới Button đã render | Mọi assert mount + token pass (`__smoke`) | Hard | Fast board CI |
 | Bundle freshness | `_audit/bundle-freshness.html` | Mọi source ghi trong header `_ds_bundle.js` re-hash khớp sha-256 header (nhân bản trình duyệt của `ci/check-bundle-freshness.mjs`; script Node vẫn là authority CI và còn khám phá file mới); source component manifest ⊆ header | 0 source drift / thiếu (`__bundlefresh`) | Hard | Fast board CI (+ Node authority trong `node-prechecks`) |
-| ESM smoke test | `_audit/esm-smoke-test.html` | `_esm/cs.mjs` import không cần build, re-export mọi component manifest, và Button mount nhận brand token | Export/manifest parity + kiểm token (`__esm`) | Hard | Fast board CI |
+| ESM smoke test | `_audit/esm-smoke-test.html` | `_esm/cs.mjs` import không cần build, re-export mọi component manifest, `VERSION` bằng pin `VERSION` gốc, và Button mount nhận brand token | Export/manifest parity + pin VERSION + kiểm token (`__esm`) | Hard | Fast board CI |
 | Package exports integrity | `_audit/package-exports-integrity.html` | Mọi entry `files` của `package.json` và mọi target `module`/`types`/`style`/`exports` tồn tại; mọi target entry-point được `files` phủ (pack-safe); dual entry — `_esm/react.mjs` (mặc định / `./react`, React peer) + `_esm/cs.mjs` (`./legacy`) — hình ESM và re-export ⊆ export lộ trong header bundle | 0 thiếu / chưa phủ / lạ (`__pkgexports`) | Hard | Fast board CI |
 | Component children | `_audit/component-children-test.html` | Component void-element (Checkbox, Radio, Switch, SearchField, NumberField, Slider, Divider, TextField) mount với child lạc mà không throw React #137 | 0 throw (`__result.anyThrew === false`) | Hard | Fast board CI |
 | Component behavior | `_audit/component-behavior-test.html` | 35 assert tương tác thật — toggle, controlled selection, lọc palette, overlay open/close, Form rules, Tree/Splitter/keyboard | 35/35 assert pass (`__behavior`) | Hard | Fast board CI |
@@ -37,7 +37,7 @@ Mọi quality gate deterministic trong hệ thống, nó assert gì, tiêu chí 
 | APCA dark packs | `_audit/apca-dark-preview.html` | Cả 15 pack element×variant giữ mục tiêu APCA ở dark (bright-as-text ≥ 75, accent UI ≥ 60, ink-on-accent ≥ 75, ink-on-tint ≥ 75) | 0 fail hiện tại (`__apcaPreview.currentFail === 0`) | Hard | Fast board CI |
 | Visual baselines | `_audit/visual-diff.html` | Baseline template tồn tại và load được để so sánh side-by-side / overlay | Baseline có; drift đánh giá bằng mắt (`__visualdiff`) | Advisory | Fast board CI |
 | Component baselines | `_audit/component-visual-diff.html` | 12 crop component curated neo các tầng atomic cho so sánh visual | Crop render + baseline có (`__componentVisualDiff`) | Advisory | Fast board CI |
-| Axe smoke | `_audit/axe-smoke.html` | Rule serious/critical của axe-core 4.10.0 (vendored tại `_audit/vendor/axe.min.js`) trên cụm component bilingual đã mount | 0 finding serious/critical (`__axesmoke`) | Hard | Fast board CI |
+| Axe smoke | `_audit/axe-smoke.html` | Rule serious/critical WCAG 2 A/AA của axe-core 4.10.0 (vendored tại `_audit/vendor/axe.min.js`) trên cụm 30 component bilingual xuyên nhóm (forms · overlays · navigation · feedback · data · datatable · dialog · ai · brand · button · textfield · icon · logo); tương đương enforcement a11y Storybook (không test-runner riêng) | 0 finding serious/critical (`__axesmoke`) | Hard | Fast board CI |
 | Print smoke | `_audit/print-smoke.html` | Document template khai báo meta print-ownership và hook CSS `@page` mà đường export dựa vào | 0 document thiếu print hook (`__printsmoke`) | Hard | Fast board CI |
 | Pixel CI | `_audit/pixel-ci.html` + `_audit/ci/pixel-diff.mjs` | 15 baseline curated tồn tại; script Playwright capture so sánh % pixel thật; report gần nhất phải sạch (`drifted[]` rỗng) | Hợp đồng + compare sạch (`__pixelci.pass`); drift hoặc thiếu report → fail | Hard | Fast board CI (bước compare nuôi hàng) + job `pixel-diff` |
 
@@ -57,7 +57,7 @@ Mọi quality gate deterministic trong hệ thống, nó assert gì, tiêu chí 
 | Bundle freshness (authority) | `_audit/ci/check-bundle-freshness.mjs` | `_ds_bundle.js` đã commit được build từ component source hiện tại — khám phá source đầy đủ (đi `components/`, `ui_kits/`, root sources), nên file mới/xóa cũng bị bắt, hàng trình duyệt không làm được | Exit 0, 0 source drift/mới/xóa | Hard | CI job `node-prechecks` |
 | DESIGN.md freshness | `scripts/generate-design-md.mjs --check` | Root `DESIGN.md` byte-equals regeneration mới từ DTCG + manifest + `VERSION` | Exit 0 khi byte khớp | Hard | CI job `node-prechecks` |
 
-## Unit tests — `npm run test:unit` (8)
+## Unit tests — `npm run test:unit` (9)
 
 | Test | File | Assert gì | Tiêu chí pass | Loại | Chạy ở đâu |
 |---|---|---|---|---|---|
@@ -69,6 +69,7 @@ Mọi quality gate deterministic trong hệ thống, nó assert gì, tiêu chí 
 | Code Connect helpers | `_audit/ci/test-code-connect.mjs` | 99 primaries, helper node-map/render, classifier soft-skip, `figma.config.json` đã commit + `.figma.tsx` traffic cao | Mọi assert pass (exit 0) | Hard | Unit test |
 | Native samples | `_audit/ci/test-native-samples.mjs` | App sample SwiftUI / Compose / Flutter mỗi cái ≥ 3 màn hình, tham chiếu hằng token đã generate, và ship scaffold Fastlane store (submit tắt) | Mọi assert pass (exit 0) | Hard | Unit test |
 | Subtree consume | `_audit/ci/test-subtree-consume.mjs` | Bản copy portable `styles.css` + `base/` + `tokens/` + `fonts/` + `_esm/` + `_ds_bundle.js` (không clone full) vẫn resolve token/font và mount Button qua ESM — đường subtree-copy Stitch/Claude | Mọi assert pass (exit 0) | Hard | Unit test |
+| React entry | `_audit/ci/test-react-entry.mjs` | Dual package exports (`.` / `./react` → `_esm/react.mjs`, `./legacy` → `_esm/cs.mjs`); pin VERSION 1.0.0; peerDeps React; react.mjs không CDN/bundle bridge và re-export khớp header bundle; `generate-react-entry --check` xanh | Mọi assert pass (exit 0) | Hard | Unit test |
 
 Suite `test:unit` được nối vào CI workflow như một phần của hardening Th7 2026 (trước đó chỉ chạy local).
 

@@ -3,7 +3,7 @@
 Xử lý bề mặt hiện tại là **liquid-glass** (cố định). Các trục styling sống là **Theme × Element × Language** thôi.
 | Trục | Cách đặt | Thay đổi gì |
 |---|---|---|
-| **Theme** | `data-theme="light\|dark"` | màu semantic sáng/tối |
+| **Theme** | light = không có attribute; `data-theme="dark"` | màu semantic sáng/tối (trục UI sản phẩm). Ở tầng token, `data-theme="system"` theo OS (`prefers-color-scheme`) và mirror dark — không phải giá trị enum UI sản phẩm / Identity Lab / template |
 | **Element** | `data-cs-element` + tùy chọn `data-cs-variant` | bản sắc sản phẩm Ngũ Hành (15 pack) |
 | **Language** | `lang` / Language tweak | bản sao EN · VI |
 

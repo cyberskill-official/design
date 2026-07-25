@@ -16,9 +16,22 @@ export function Popconfirm({ trigger, title, onConfirm, onCancel, okLabel, cance
     document.addEventListener("keydown", k);
     return () => { document.removeEventListener("mousedown", d); document.removeEventListener("keydown", k); };
   }, [open]);
+  const toggle = () => setOpen((o) => !o);
+  // ARIA attrs must live on the interactive trigger (button), not a wrapping <span>
+  // — axe aria-allowed-attr flags aria-haspopup/aria-expanded on generic elements.
+  const triggerNode = React.isValidElement(trigger)
+    ? React.cloneElement(trigger, {
+        "aria-haspopup": "dialog",
+        "aria-expanded": open,
+        onClick: (e) => {
+          if (typeof trigger.props.onClick === "function") trigger.props.onClick(e);
+          if (!e.defaultPrevented) toggle();
+        },
+      })
+    : <button type="button" aria-haspopup="dialog" aria-expanded={open} onClick={toggle}>{trigger}</button>;
   return (
     <span ref={(el) => { wrap.current = el; ref.current = el; }} className={cx("cs-popconfirm", className)}>
-      <span onClick={() => setOpen((o) => !o)} aria-haspopup="dialog" aria-expanded={open}>{trigger}</span>
+      {triggerNode}
       {open ? (
         <span className="cs-popconfirm__panel" role="alertdialog" aria-label={typeof title === "string" ? title : undefined}>
           <span className="cs-popconfirm__title">{title}</span>
