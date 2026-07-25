@@ -59,6 +59,12 @@
       "maxLength": 300
     },
     {
+      "id": "code",
+      "type": "text",
+      "label": "Inline code sample",
+      "maxLength": 400
+    },
+    {
       "id": "alertTitle",
       "type": "text",
       "label": "Callout title",

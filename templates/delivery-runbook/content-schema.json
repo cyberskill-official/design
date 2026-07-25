@@ -3,6 +3,12 @@
   "template": "delivery-runbook",
   "slots": [
     {
+      "id": "hdrLabel",
+      "type": "text",
+      "label": "Header document label",
+      "maxLength": 28
+    },
+    {
       "id": "eyebrow",
       "type": "text",
       "label": "Header eyebrow",

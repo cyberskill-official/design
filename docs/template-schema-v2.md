@@ -29,14 +29,15 @@ Purely additive, opt-in metadata: a sidecar `templates/<slug>/content-schema.jso
 | `slots[].required` | no | default `false` |
 | `slots[].i18n` | no | `{"en": "...", "vi": "..."}` — for templates that ship EN·VI variants |
 
-The formal machine-checkable shape lives in `templates/schema/content-schema.schema.json` (JSON Schema draft-07). `_audit/template-schema-test.html` validates every sidecar that exists — bidirectionally: every declared slot id must resolve to a real hole in the template — **and enforces coverage**.
+The formal machine-checkable shape lives in `templates/schema/content-schema.schema.json` (JSON Schema draft-07). `_audit/template-schema-test.html` validates every sidecar that exists — bidirectionally against eligible content holes: every declared slot id must be a content hole in the `.dc.html`, and every content hole must appear as a slot — **and enforces coverage**.
 
 ## Which holes are schema-eligible
 
 A `{{ hole }}` is a **content hole** (schema-eligible) unless it is:
 
 - an **axis / control-flow** hole — `rootTheme`, `langAttr`, `elAttr`, `vaAttr`, `dirAttr`, `true`, `false`, anything matching `is<Uppercase>` (`isEN`, `isVN`, `isBoth`, `isTable`, …), or a bare numeric literal;
-- a **boolean tweak** hole — anything matching `show|hide|has|enable|with` + `<Uppercase>` (`showLogo`, `showSignatures`, `showQuote`, …).
+- a **boolean tweak** hole — anything matching `show|hide|has|enable|with` + `<Uppercase>` (`showLogo`, `showSignatures`, `showQuote`, …);
+- a **runtime-control** hole — UI selection / handler wiring: exact names `tabs`, `tab`, `lens`, `chatOpen`, `closeChat`, or anything matching `set|open` + `<Uppercase>` (`setTab`, `setLens`, `openChat`, …).
 
 Those are runtime axes, not typed content slots, and stay out of schema.
 

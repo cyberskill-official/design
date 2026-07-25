@@ -29,14 +29,15 @@ Metadata thuần additive, opt-in: sidecar `templates/<slug>/content-schema.json
 | `slots[].required` | không | mặc định `false` |
 | `slots[].i18n` | không | `{"en": "...", "vi": "..."}` — cho template ship biến thể EN·VI |
 
-Hình dạng máy kiểm được chính thức nằm ở `templates/schema/content-schema.schema.json` (JSON Schema draft-07). `_audit/template-schema-test.html` validate mọi sidecar tồn tại — hai chiều: mọi slot id khai báo phải resolve tới hole thật trong template — **và ép độ phủ**.
+Hình dạng máy kiểm được chính thức nằm ở `templates/schema/content-schema.schema.json` (JSON Schema draft-07). `_audit/template-schema-test.html` validate mọi sidecar tồn tại — hai chiều với content hole đủ điều kiện: mọi slot id khai báo phải là content hole trong `.dc.html`, và mọi content hole phải xuất hiện thành slot — **và ép độ phủ**.
 
 ## Hole nào đủ điều kiện có schema
 
 Một `{{ hole }}` là **content hole** (đủ điều kiện schema) trừ khi nó là:
 
 - hole **trục / control-flow** — `rootTheme`, `langAttr`, `elAttr`, `vaAttr`, `dirAttr`, `true`, `false`, bất kỳ tên nào khớp `is<ChữHoa>` (`isEN`, `isVN`, `isBoth`, `isTable`, …), hoặc một số nguyên trần;
-- hole **tweak boolean** — bất kỳ tên nào khớp `show|hide|has|enable|with` + `<ChữHoa>` (`showLogo`, `showSignatures`, `showQuote`, …).
+- hole **tweak boolean** — bất kỳ tên nào khớp `show|hide|has|enable|with` + `<ChữHoa>` (`showLogo`, `showSignatures`, `showQuote`, …);
+- hole **runtime-control** — wiring chọn UI / handler: tên đúng `tabs`, `tab`, `lens`, `chatOpen`, `closeChat`, hoặc bất kỳ tên nào khớp `set|open` + `<ChữHoa>` (`setTab`, `setLens`, `openChat`, …).
 
 Chúng là trục runtime, không phải content slot có kiểu, nên nằm ngoài schema.
 

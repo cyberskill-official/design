@@ -14,6 +14,7 @@
 .cs-mono { font-family: var(--cs-font-family-mono); }
 /* Opt in to the display face for a subtree — retargets --cs-heading-family so
  * .cs-display/.cs-h1…h4 and bare headings follow, body copy stays on the UI
- * face. This is the sanctioned way for a product (cyberskill.world / Lumi) to
- * use a headline face instead of hand-rolling its own @font-face + overrides. */
+ * face. Space Grotesk tops out at 700, so --cs-heading-weight-strong (800)
+ * clamps to 700 within that family (CSS does not hop to Be Vietnam Pro for a
+ * missing weight). Sanctioned path for cyberskill.world / Lumi headline face. */
 .cs-display-face { --cs-heading-family: var(--cs-font-family-display); }

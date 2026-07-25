@@ -25,7 +25,6 @@
     { "id": "navContact", "type": "text", "label": "Nav · Contact", "maxLength": 24 },
     { "id": "promptSend", "type": "text", "label": "Hero prompt send label", "maxLength": 24 },
     { "id": "genieLabel", "type": "text", "label": "Chat launcher label", "maxLength": 24 },
-    { "id": "closeChat", "type": "text", "label": "Chat close label", "maxLength": 16 },
     { "id": "chatHello", "type": "richtext", "label": "Chat greeting", "maxLength": 160 },
     { "id": "chatPh", "type": "text", "label": "Chat input placeholder", "maxLength": 60 },
     { "id": "chatSend", "type": "text", "label": "Chat send label", "maxLength": 24 }

@@ -71,6 +71,12 @@
       "maxLength": 20
     },
     {
+      "id": "code",
+      "type": "text",
+      "label": "Proposal code / pipeline sample",
+      "maxLength": 400
+    },
+    {
       "id": "toH",
       "type": "text",
       "label": "Trade-offs heading",

@@ -77,7 +77,7 @@ function TypographyPage() {
         subtree in with <Mono>.cs-display-face</Mono> (or by setting
         <Mono> --cs-heading-family: var(--cs-font-family-display)</Mono>), and every heading
         utility follows while body copy stays on Be Vietnam Pro. Space Grotesk has no 800, so
-        the extrabold heading weight falls back to Be Vietnam Pro.
+        the extrabold heading weight clamps to 700 within that family.
       </p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12 }}>
         {[
