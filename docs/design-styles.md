@@ -3,7 +3,7 @@
 Current surface treatment is **liquid-glass** (fixed). The live styling axes are **Theme × Element × Language** only.
 | Axis | How to set it | What it changes |
 |---|---|---|
-| **Theme** | `data-theme="light\|dark"` | light/dark semantic colours |
+| **Theme** | light = attribute absent; `data-theme="dark"` | light/dark semantic colours (product UI axis). Token-level `data-theme="system"` follows the OS (`prefers-color-scheme`) and mirrors dark — not a product-UI / Identity Lab / template enum value |
 | **Element** | `data-cs-element` + optional `data-cs-variant` | Ngũ Hành product identity (15 packs) |
 | **Language** | `lang` / Language tweak | EN · VI copy |
 

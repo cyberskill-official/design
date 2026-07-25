@@ -8,6 +8,7 @@ import { cx } from "../_utils/cx.js";
  * Do not recreate or recolour the mark.
  */
 export function Logo({ size = 32, title = "CyberSkill", decorative = false, className, ...props }) {
+  const safeTitle = String(title).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   return (
     <svg
       {...props}
@@ -19,7 +20,7 @@ export function Logo({ size = 32, title = "CyberSkill", decorative = false, clas
       role={decorative ? undefined : "img"}
       aria-hidden={decorative ? true : undefined}
       aria-label={decorative ? undefined : title}
-      dangerouslySetInnerHTML={{ __html: (decorative ? "" : `<title>${title}</title>`) + CS_LOGO_MARK_INNER }}
+      dangerouslySetInnerHTML={{ __html: (decorative ? "" : `<title>${safeTitle}</title>`) + CS_LOGO_MARK_INNER }}
     />
   );
 }

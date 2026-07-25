@@ -11,11 +11,11 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>Version stamp gate</h1>
-<p class="lede">Every version stamp in the tree must equal the contents of <code>VERSION</code> (pinned <b>1.0.0</b> until LAUNCH — owner rule; no changelog). Checked: <code>package.json</code> version · <code>tokens/tokens.json</code> $meta · <code>tokens/tokens.js</code> $meta (live ESM import) · <code>tokens/tokens.dtcg.json</code> $extensions · <code>tokens/provenance.json</code> release + dtcgStamp · root <code>DESIGN.md</code> front matter. All stamps listed below; any mismatch fails. Verdict on <code>window.__versionstamp</code>.</p>
+<p class="lede">Every version stamp in the tree must equal the contents of <code>VERSION</code> (pinned <b>1.0.0</b> until LAUNCH — owner rule; no changelog). Checked: <code>package.json</code> version · <code>tokens/tokens.json</code> $meta · <code>tokens/tokens.js</code> $meta (live ESM import) · <code>tokens/tokens.dtcg.json</code> $extensions · <code>tokens/provenance.json</code> release + dtcgStamp · root <code>DESIGN.md</code> front matter · <code>_esm/cs.mjs</code> <code>export const VERSION</code>. All stamps listed below; any mismatch fails. Verdict on <code>window.__versionstamp</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <script>
-const P=window.__gateProgress={done:0,total:8,current:'boot'};
+const P=window.__gateProgress={done:0,total:9,current:'boot'};
 const stamps=[]; const list=document.getElementById('list');
 function record(name,value,ok){ stamps.push({name,value,ok}); const r=document.createElement('div'); r.className='row '+(ok?'ok':'bad'); r.innerHTML='<span>'+(ok?'\u2713 ':'\u2717 ')+name+'</span><span class="d">'+value+'</span>'; list.appendChild(r); P.done=stamps.length; }
 function publish(v){ if(window.__versionstamp) return; window.__versionstamp=v; const s=document.getElementById('sum'); s.textContent=v.pass?('\u2713 all '+v.stamps.length+' stamps read '+v.version):('\u2717 '+(v.error||v.failed.join(', ')+' \u2260 '+v.version)); s.style.color=v.pass?'#166534':'#B42318'; console.log('VERSIONSTAMP VERDICT '+JSON.stringify({pass:v.pass,version:v.version,failed:v.failed||[],error:v.error||null})); }
@@ -43,6 +43,13 @@ function publish(v){ if(window.__versionstamp) return; window.__versionstamp=v; 
     if(r.ok){ const t=await r.text(); const m=t.match(/^version:\s*"?([\d.]+)"?\s*$/m); dmv=m?m[1]:'(no version key)'; }
   }catch(e){}
   record('DESIGN.md front-matter version',dmv,dmv===VERSION);
+  // Legacy ESM entry — hand-maintained; must stay pinned to VERSION
+  let csv='(missing)';
+  try{
+    const r=await fetch('../_esm/cs.mjs',{cache:'no-store'});
+    if(r.ok){ const t=await r.text(); const m=t.match(/export\s+const\s+VERSION\s*=\s*["']([^"']+)["']/); csv=m?m[1]:'(no VERSION export)'; }
+  }catch(e){}
+  record('_esm/cs.mjs export const VERSION',csv,csv===VERSION);
   const failed=stamps.filter(s=>!s.ok).map(s=>s.name+'='+s.value);
   publish({pass:failed.length===0,version:VERSION,stamps,failed});
 })().catch(e=>publish({pass:false,version:'?',stamps,failed:stamps.filter(s=>!s.ok).map(s=>s.name),error:String(e&&e.message||e).slice(0,160)}));

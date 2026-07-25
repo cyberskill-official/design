@@ -15,9 +15,22 @@ export function Menu({ trigger, children, align = "start", open: controlledOpen,
     document.addEventListener("keydown", onKey);
     return () => { document.removeEventListener("mousedown", onDoc); document.removeEventListener("keydown", onKey); };
   }, [open]);
+  const toggle = () => set(!open);
+  // ARIA attrs must live on the interactive trigger (button), not a wrapping <span>
+  // — axe aria-allowed-attr flags aria-haspopup/aria-expanded on generic elements.
+  const triggerNode = React.isValidElement(trigger)
+    ? React.cloneElement(trigger, {
+        "aria-haspopup": "menu",
+        "aria-expanded": open,
+        onClick: (e) => {
+          if (typeof trigger.props.onClick === "function") trigger.props.onClick(e);
+          if (!e.defaultPrevented) toggle();
+        },
+      })
+    : <button type="button" aria-haspopup="menu" aria-expanded={open} onClick={toggle}>{trigger}</button>;
   return (
     <div className={cx("cs-menu", className)} ref={ref}>
-      <span onClick={() => set(!open)} aria-haspopup="menu" aria-expanded={open}>{trigger}</span>
+      {triggerNode}
       {open ? (
         <div className={cx("cs-menu__list", align === "end" && "cs-menu__list--end")} role="menu">{children}</div>
       ) : null}

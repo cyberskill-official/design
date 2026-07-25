@@ -24,7 +24,7 @@ When **anything** grows — a new element/variant, icon, component, token role, 
 5. Docs — README/SKILL, `docs/conventions.md`, and every related doc; regenerate `docs/contrast-report.md` after token changes and `tokens/tokens.json`+`tokens.js` after any token change
 6. **Do not bump `VERSION` and do not write a changelog** — version is pinned at **1.0.0** until the owner says LAUNCH
 
-**Gate:** `check_design_system` clean **+** `_audit/run.html` fast board green **+** a grep for the old enum/list to prove nothing was left behind.
+**Gate:** `check_design_system` clean **+** `_audit/run.html` fast board green **+** a grep for the old enum/list to prove nothing was left behind. (`check_design_system` is the Claude Design compiler's built-in check — available only in compiler sessions. The portable clone equivalent is `_audit/run.html` fast board + `npm run test:unit`.)
 
 ## Verification depth (owner-mandated)
 

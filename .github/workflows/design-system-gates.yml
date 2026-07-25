@@ -33,9 +33,9 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: Serve the repo statically
-        run: npx --yes serve@14 -l 8080 . &
+        run: npx --yes serve@14.2.6 -l 8080 . &
       - name: Wait for server
-        run: npx --yes wait-on@7 http://127.0.0.1:8080/dashboard.html
+        run: npx --yes wait-on@7.2.0 http://127.0.0.1:8080/dashboard.html
       - name: Playwright pixel compare (hard — feeds board Pixel CI row)
         run: node _audit/ci/pixel-diff.mjs http://127.0.0.1:8080
       - name: Run the fast gate board (headless)
@@ -120,9 +120,9 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: Serve the repo statically
-        run: npx --yes serve@14 -l 8080 . &
+        run: npx --yes serve@14.2.6 -l 8080 . &
       - name: Wait for server
-        run: npx --yes wait-on@7 http://127.0.0.1:8080/dashboard.html
+        run: npx --yes wait-on@7.2.0 http://127.0.0.1:8080/dashboard.html
       - name: docs-consistency must be green to merge
         run: node _audit/ci/run-single-gate.mjs http://127.0.0.1:8080/_audit/docs-consistency.html __docs
       - name: bilingual-parity must be green to merge
@@ -147,9 +147,9 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: Serve the repo statically
-        run: npx --yes serve@14 -l 8080 . &
+        run: npx --yes serve@14.2.6 -l 8080 . &
       - name: Wait for server
-        run: npx --yes wait-on@7 http://127.0.0.1:8080/dashboard.html
+        run: npx --yes wait-on@7.2.0 http://127.0.0.1:8080/dashboard.html
       - name: responsive-overflow (all 84 templates)
         run: node _audit/ci/run-single-gate.mjs http://127.0.0.1:8080/_audit/responsive-overflow.html __overflow 360000
       - name: language-overflow (all 84 templates, forced VN)
@@ -176,9 +176,9 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: Serve the repo statically
-        run: npx --yes serve@14 -l 8080 . &
+        run: npx --yes serve@14.2.6 -l 8080 . &
       - name: Wait for server
-        run: npx --yes wait-on@7 http://127.0.0.1:8080/dashboard.html
+        run: npx --yes wait-on@7.2.0 http://127.0.0.1:8080/dashboard.html
       - name: Playwright pixel compare (hard)
         run: node _audit/ci/pixel-diff.mjs http://127.0.0.1:8080
       - name: Upload pixel-diff report

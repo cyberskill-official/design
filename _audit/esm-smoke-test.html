@@ -33,6 +33,8 @@ try{
   await test('module imports + namespace resolves',async()=>{
     assert(mod.CS&&mod.default===mod.CS,'CS/default export');
     assert(typeof mod.VERSION==='string','VERSION export');
+    const pin=(await (await fetch('../VERSION',{cache:'no-store'})).text()).trim();
+    assert(mod.VERSION===pin,'VERSION '+mod.VERSION+' \u2260 VERSION file '+pin);
     return 'v'+mod.VERSION;
   });
   await test('export/manifest parity (drift guard)',async()=>{
