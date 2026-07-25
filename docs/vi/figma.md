@@ -83,7 +83,7 @@ Sau push thành công, mở file trong Figma → **Local variables** → collect
 | Mapping | `components/**/<Name>.figma.tsx` — **99** primaries; Button / TextField / Dialog / Card / Alert có prop map; còn lại là stub |
 | Generator | `npm run code-connect:generate` → `_audit/ci/generate-code-connect.mjs` |
 | Job CI | `code-connect` trong `design-system-gates.yml` (PR + `main` + thủ công) |
-| Dry-run local | `npm run code-connect:dry-run` (không secrets; assert config + ≥99 file) |
+| Dry-run local | `npm run code-connect:dry-run` (không secrets; assert config + ≥102 file) |
 
 URL tài liệu dùng file key placeholder **`CS_FIGMA_FILE_KEY`**. Publish thay `FIGMA_FILE_KEY` qua `documentUrlSubstitutions`.
 

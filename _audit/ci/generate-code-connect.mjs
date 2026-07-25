@@ -6,7 +6,7 @@
  * Writes components/<group>/<Name>.figma.tsx (committed; re-run after adding a primary).
  *
  * High-traffic primaries (Button, TextField, Dialog, Card, Alert) get prop maps;
- * others get a minimal example so the publish path is complete for all 99.
+ * others get a minimal example so the publish path is complete for all primaries.
  *
  * URLs use placeholder file key `CS_FIGMA_FILE_KEY` — CI / local publish rewrites
  * via `documentUrlSubstitutions` in figma.config.json (see code-connect-publish.mjs).

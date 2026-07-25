@@ -103,8 +103,8 @@ function main() {
     if (!include.some((p) => String(p).includes('.figma.tsx'))) {
       throw new Error('figma.config.json include must cover *.figma.tsx');
     }
-    if (counts.total < 99) {
-      throw new Error(`expected ≥99 primaries in node-map, got ${counts.total}`);
+    if (counts.total < 102) {
+      throw new Error(`expected ≥102 primaries in node-map, got ${counts.total}`);
     }
     // Spot-check high-traffic files exist
     for (const rel of [
@@ -116,7 +116,7 @@ function main() {
     ]) {
       if (!existsSync(join(root, rel))) throw new Error(`missing ${rel}`);
     }
-    console.log('Dry-run OK — figma.config.json + ≥99 mappings present (no network).');
+    console.log('Dry-run OK — figma.config.json + ≥102 mappings present (no network).');
     writeReport({ dryRun: true, skipped: false, ...counts });
     return;
   }

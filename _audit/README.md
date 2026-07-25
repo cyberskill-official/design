@@ -70,7 +70,7 @@ Dev-only harnesses for **deep** verification (owner doctrine: whole-set checks, 
 
 - **`a11y-gate.html`** — a11y interaction gate (in the fast runner): Dialog/Drawer focus management (initial focus · Tab trap · restore-on-close · Escape), roving tabindex (Tabs · SegmentedControl · Menubar), combobox `aria-activedescendant`, and role/label contracts (Rating · InputOTP · DataGrid `aria-sort` · Carousel · Popconfirm · live regions). `window.__a11y.pass` must be true; loads the bundle — re-run on a fresh turn.
 
-- **`axe-smoke.html`** — **hard** axe-core 4.10.0 gate (vendored at `_audit/vendor/axe.min.js`, no CDN): mounts a 30-component bilingual cross-group cluster and fails on any serious/critical WCAG 2 A/AA violation (Storybook a11y enforcement without a separate test-runner). `window.__axesmoke.pass` must be true.
+- **`axe-smoke.html`** — **hard** axe-core 4.10.0 gate (vendored at `_audit/vendor/axe.min.js`, no CDN): mounts a 37-component bilingual cross-group cluster (Cascader / TreeSelect popups expanded before the scan) and fails on any serious/critical WCAG 2 A/AA violation (Storybook a11y enforcement without a separate test-runner). `window.__axesmoke.pass` must be true.
 
 - **`qr-scan-test.html`** — **advisory** QR reader-scan sanity: renders `QRCode`, rasterizes with a quiet zone, decodes with jsQR (CDN), asserts exact UTF-8 byte round-trip (incl. Vietnamese). `window.__qrscan`.
 

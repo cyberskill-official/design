@@ -138,13 +138,13 @@ Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official mas
 
 ## Components
 
-**A comprehensive library — 115 exports across 8 groups.** 99 of these are primary component files, and every primary ships the full contract trio — a `.jsx`, a `.d.ts` props contract, a `.prompt.md` — plus a Design-System card. The other 16 are co-exports (sub-parts such as `CardHeader`, `Tab`, `MenuItem`, `Radio`, and data consts such as `CS_ICONS`) documented inside their parent's files rather than with files of their own. Mount from the compiled bundle. The bundle's global is `window.CyberSkillDesignSystem_<projectId>` — the 6-hex suffix is assigned by the compiler and **changes when this system is imported into another project**, so resolve it by prefix rather than hardcoding it: `const CS = window[Object.keys(window).find(k => /^CyberSkillDesignSystem_/.test(k))]; const { Button } = CS;`
+**A comprehensive library — 118 exports across 8 groups.** 102 of these are primary component files, and every primary ships the full contract trio — a `.jsx`, a `.d.ts` props contract, a `.prompt.md` — plus a Design-System card. The other 16 are co-exports (sub-parts such as `CardHeader`, `Tab`, `MenuItem`, `Radio`, and data consts such as `CS_ICONS`) documented inside their parent's files rather than with files of their own. Mount from the compiled bundle. The bundle's global is `window.CyberSkillDesignSystem_<projectId>` — the 6-hex suffix is assigned by the compiler and **changes when this system is imported into another project**, so resolve it by prefix rather than hardcoding it: `const CS = window[Object.keys(window).find(k => /^CyberSkillDesignSystem_/.test(k))]; const { Button } = CS;`
 
 - **Core — actions & overlays** — `Button`, `ButtonGroup`, `FloatingActionButton`, `Dialog`
 
 - **Forms** — `TextField`, `Textarea`, `Select`, `Checkbox`, `RadioGroup` (+ `Radio`), `Switch`, `SearchField`, `NumberField`, `Slider`, `FileUpload`, `SegmentedControl`, `Toggle`, `Rating`, `InputOTP`, `InputGroup`, `TagInput`, `TimePicker`, `Combobox`, `Mentions`, `InlineEdit`, `ColorPicker`, `Calendar`, `DatePicker`, `Cascader`, `TreeSelect`, `Transfer`, `Editor`, `Form` (+ `FormField`, `FormFieldArray`, `FormWizard`)
 
-- **Data & layout** — `DataTable`, `DataGrid`, `TreeTable`, `Card` (+ `CardHeader`, `CardBody`, `CardFooter`), `Stat`, `Avatar` (+ `AvatarGroup`), `Tooltip`, `Divider`, `List` (+ `ListItem`), `DescriptionList`, `Timeline`, `Accordion`, `Kbd`, `CodeBlock`, `Tree`, `Comment`, `Carousel`, `Image`, `Masonry`, `Splitter`, `Sortable`, `Chart`, `Terminal`, `QRCode`, `Watermark`
+- **Data & layout** — `DataTable`, `DataGrid`, `TreeTable`, `Card` (+ `CardHeader`, `CardBody`, `CardFooter`), `Stat`, `Avatar` (+ `AvatarGroup`), `Tooltip`, `Divider`, `ScrollArea`, `AspectRatio`, `List` (+ `ListItem`), `DescriptionList`, `Timeline`, `Accordion`, `Collapsible`, `Kbd`, `CodeBlock`, `Tree`, `Comment`, `Carousel`, `Image`, `Masonry`, `Splitter`, `Sortable`, `Chart`, `Terminal`, `QRCode`, `Watermark`
 
 - **Feedback & status** — `Badge`, `Tag`, `Alert`, `Toast` (+ `ToastStack`), `Spinner`, `ProgressBar`, `Skeleton`, `StatusIndicator`, `EmptyState`, `Result`
 
@@ -156,11 +156,11 @@ Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official mas
 
 - **Brand** — `Logo` (+ the `CS_LOGO_MARK_INNER` / `CS_LOGO_VIEWBOX` data consts), `Icon` (+ the `CS_ICONS` data const), `LumiAvatar`
 
-**Atomic tiers** — the same 115 exports seen through the design-composition lens (browsable live in `guidelines/atomic-view.html`, where one toolbar reskins every tier across Theme × Element × Language). The eight groups above are the *functional/import* grouping (how the bundle is organized); these tiers are the *composition* grouping — same components, two lenses.
+**Atomic tiers** — the same 118 exports seen through the design-composition lens (browsable live in `guidelines/atomic-view.html`, where one toolbar reskins every tier across Theme × Element × Language). The eight groups above are the *functional/import* grouping (how the bundle is organized); these tiers are the *composition* grouping — same components, two lenses.
 
-- **Atoms** (indivisible primitives) — `Button`, `Icon`, `Badge`, `Tag`, `StatusIndicator`, `Spinner`, `ProgressBar`, `Skeleton`, `Avatar` (+ `AvatarGroup`), `Divider`, `Kbd`, `Logo`, `LumiAvatar`, `Toggle`, `Link`
+- **Atoms** (indivisible primitives) — `Button`, `Icon`, `Badge`, `Tag`, `StatusIndicator`, `Spinner`, `ProgressBar`, `Skeleton`, `Avatar` (+ `AvatarGroup`), `Divider`, `AspectRatio`, `Kbd`, `Logo`, `LumiAvatar`, `Toggle`, `Link`
 
-- **Molecules** (a few atoms bonded into one control) — `TextField`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `SearchField`, `NumberField`, `Slider`, `FileUpload`, `SegmentedControl`, `Tabs`, `Breadcrumb`, `Pagination`, `Menu`, `Steps`, `Stat`, `Card`, `Tooltip`, `List`, `DescriptionList`, `CodeBlock`, `Alert`, `Toast`, `ConfidenceMeter`, `AIDisclosureBadge`, `PromptSuggestions`, `TypingIndicator`, `CitationList`, `Rating`, `InputOTP`, `ButtonGroup`, `Combobox`, `InputGroup`, `TagInput`, `TimePicker`, `HoverCard`, `Popconfirm`, `ContextMenu`, `FloatingActionButton`, `InlineEdit`, `Toolbar`, `Anchor`, `Image`, `Watermark`, `BackTop`, `Mentions`, `ColorPicker`, `QRCode`
+- **Molecules** (a few atoms bonded into one control) — `TextField`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `SearchField`, `NumberField`, `Slider`, `FileUpload`, `SegmentedControl`, `Tabs`, `Breadcrumb`, `Pagination`, `Menu`, `Steps`, `Stat`, `Card`, `Tooltip`, `ScrollArea`, `Collapsible`, `List`, `DescriptionList`, `CodeBlock`, `Alert`, `Toast`, `ConfidenceMeter`, `AIDisclosureBadge`, `PromptSuggestions`, `TypingIndicator`, `CitationList`, `Rating`, `InputOTP`, `ButtonGroup`, `Combobox`, `InputGroup`, `TagInput`, `TimePicker`, `HoverCard`, `Popconfirm`, `ContextMenu`, `FloatingActionButton`, `InlineEdit`, `Toolbar`, `Anchor`, `Image`, `Watermark`, `BackTop`, `Mentions`, `ColorPicker`, `QRCode`
 
 - **Organisms** (composite, self-contained sections) — `Sidebar` (+ `NavItem`), `CommandPalette`, `DataTable`, `Accordion`, `Timeline`, `EmptyState`, `Dialog`, `Drawer`, `Popover`, the `PromptInput` + `ChatMessage` conversation, `HumanReviewGate`, `Calendar`, `DatePicker`, `Result`, `Menubar`, `NavigationMenu`, `Carousel`, `Comment`, `Form` (+ `FormField`), `Tree`, `TreeSelect`, `Cascader`, `Transfer`, `Tour`, `Masonry`, `Splitter`, `HotKeys`, `Dock`, `DataGrid`, `TreeTable`, `Sortable`, `Chart`, `Editor`, `Terminal`
 
@@ -301,7 +301,7 @@ SKILL.md                   Agent-Skills-compatible entry
 
 **UI kits** (product recreations, composing the tokens + `.cs-*` classes): **Status Hub** (portfolio dashboard — KPIs, board/table/releases lenses, drawer — plus **sign-in**, **settings**, **project detail**, and the **Identity Lab** for live Theme × Element × Language switching), **cyberskill.world** (bilingual marketing home with Lumi chat — plus **Work**, **Careers**, and a full-page **Lumi assistant**), and a **Brand deck** (16:9, `deck-stage`, PDF/PPTX-ready). See each kit's `README.md`.
 
-**Storybook** renders every card: Components (115 exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), plus Maintainer surfaces for Status Hub (incl. Identity Lab), Website, and Deck.
+**Storybook** renders every card: Components (118 exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), plus Maintainer surfaces for Status Hub (incl. Identity Lab), Website, and Deck.
 
 ---
 

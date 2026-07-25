@@ -46,3 +46,36 @@
 .cs-divider--label { display: flex; align-items: center; gap: 12px; background: none; block-size: auto; color: var(--cs-color-text-muted); font-size: var(--cs-font-size-sm); }
 .cs-divider--label::before, .cs-divider--label::after { content: ""; flex: 1; block-size: 1px; background: var(--cs-color-border-default); }
 .cs-divider--vertical { inline-size: 1px; block-size: auto; align-self: stretch; margin-inline: var(--cs-space-4); margin-block: 0; }
+
+/* ScrollArea — focusable overflow for dense panels */
+.cs-scroll-area {
+  overflow: auto;
+  overscroll-behavior: contain;
+  outline: none;
+  border-radius: var(--cs-radius-md);
+  scrollbar-color: color-mix(in oklab, var(--cs-color-brand-umber) 35%, transparent) transparent;
+  scrollbar-width: thin;
+}
+.cs-scroll-area:focus-visible {
+  box-shadow: 0 0 0 3px var(--cs-color-brand-ochre);
+}
+
+/* AspectRatio — CSS aspect-ratio lock for media */
+.cs-aspect-ratio {
+  position: relative;
+  display: block;
+  inline-size: 100%;
+  overflow: hidden;
+  border-radius: var(--cs-radius-md);
+}
+.cs-aspect-ratio > * {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+}
+.cs-aspect-ratio > img,
+.cs-aspect-ratio > video {
+  object-fit: cover;
+  display: block;
+}

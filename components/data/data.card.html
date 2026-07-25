@@ -1,4 +1,4 @@
-<!-- @dsCard group="Components" viewport="700x360" name="Data & layout" subtitle="Card, Stat, Avatar, Tooltip, Divider" -->
+<!-- @dsCard group="Components" viewport="700x420" name="Data & layout" subtitle="Card, Stat, Avatar, Tooltip, Divider, ScrollArea, AspectRatio" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +19,7 @@
 <body>
 <div id="root"></div>
 <script type="text/babel">
-const { Card, CardHeader, CardBody, CardFooter, Stat, Avatar, AvatarGroup, Tooltip, Divider, Badge } = (window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))]||{});
+const { Card, CardHeader, CardBody, CardFooter, Stat, Avatar, AvatarGroup, Tooltip, Divider, Badge, ScrollArea, AspectRatio } = (window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))]||{});
 function Demo() {
   return (
     <div className="grid">
@@ -40,6 +40,17 @@ function Demo() {
           <Avatar name="Nguyễn Vũ" size="lg" />
           <Tooltip label="Blocked on infra"><span className="cs-badge cs-badge--danger">Blocked</span></Tooltip>
         </div>
+        <Divider label="layout" />
+        <div className="lbl">ScrollArea</div>
+        <ScrollArea maxHeight={72} aria-label="Dense notes" style={{ border: "1px solid var(--cs-color-border-default)", padding: "6px 10px", fontSize: 13, color: "var(--cs-color-text-muted)" }}>
+          <p style={{ margin: "0 0 6px" }}>Release notes stay bilingual.</p>
+          <p style={{ margin: "0 0 6px" }}>Blocked alerts only when asked.</p>
+          <p style={{ margin: 0 }}>Quiet by default.</p>
+        </ScrollArea>
+        <div className="lbl" style={{ marginTop: 14 }}>AspectRatio</div>
+        <AspectRatio ratio="16 / 9" style={{ maxWidth: 200, background: "var(--cs-accent-tint)" }}>
+          <div style={{ display: "grid", placeItems: "center", color: "var(--cs-color-text-muted)", fontSize: 12 }}>16:9</div>
+        </AspectRatio>
       </div>
     </div>
   );

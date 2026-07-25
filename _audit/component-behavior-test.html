@@ -46,7 +46,7 @@ async function until(fn,ms){ ms=ms||2500; const t0=Date.now(); let r=false; whil
 async function run(){
   if(!h||typeof ReactDOM==='undefined'){ publish({pass:false,total:0,failed:[],error:'React CDN failed to load (unpkg unreachable?) \u2014 gate cannot run',results:[]}); return; }
   if(!NS){ publish({pass:false,total:0,failed:[],error:'bundle namespace not found \u2014 is _ds_bundle.js compiled?',results:[]}); return; }
-  const {Switch,Checkbox,Accordion,Tabs,CommandPalette,Menu,MenuItem,Popover,Dialog,Drawer,Pagination,SegmentedControl,Toggle,Rating,InputOTP,Combobox,TagInput,InlineEdit,Popconfirm,Carousel,DataGrid,Button,Form,FormField,TextField,Tree,Splitter,DatePicker,ColorPicker,TreeSelect,Sortable,Cascader,Transfer,Tour,HotKeys,Mentions,Calendar}=NS;
+  const {Switch,Checkbox,Accordion,Collapsible,Tabs,CommandPalette,Menu,MenuItem,Popover,Dialog,Drawer,Pagination,SegmentedControl,Toggle,Rating,InputOTP,Combobox,TagInput,InlineEdit,Popconfirm,Carousel,DataGrid,Button,Form,FormField,TextField,Tree,Splitter,DatePicker,ColorPicker,TreeSelect,Sortable,Cascader,Transfer,Tour,HotKeys,Mentions,Calendar}=NS;
 
   await test('Switch — click toggles checked',async()=>{
     assert(Switch,'Switch export missing');
@@ -77,6 +77,21 @@ async function run(){
     assert(trig[1].getAttribute('aria-expanded')==='true','item1 should open on click');
     assert(trig[0].getAttribute('aria-expanded')==='false','item0 should close (single-open)');
     return 'open moved 0→1, prior closed';
+  });
+
+  await test('Collapsible — trigger toggles panel',async()=>{
+    assert(Collapsible,'Collapsible export missing');
+    const c=mount(h(Collapsible,{title:'Advanced',defaultOpen:false},'panel body')); await wait(90);
+    const trig=c.querySelector('.cs-collapsible__trigger'); assert(trig,'no collapsible trigger');
+    assert(trig.getAttribute('aria-expanded')==='false','should start collapsed');
+    assert(!c.querySelector('.cs-collapsible__panel'),'panel hidden initially');
+    trig.click(); await wait(70);
+    assert(trig.getAttribute('aria-expanded')==='true','should expand on click');
+    assert(c.querySelector('.cs-collapsible__panel'),'panel visible when open');
+    trig.click(); await wait(70);
+    assert(trig.getAttribute('aria-expanded')==='false','should collapse on second click');
+    assert(!c.querySelector('.cs-collapsible__panel'),'panel hidden after collapse');
+    return 'closed→open→closed OK';
   });
 
   await test('Tabs — controlled selection follows clicks',async()=>{

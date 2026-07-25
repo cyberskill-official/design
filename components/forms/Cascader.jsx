@@ -7,6 +7,7 @@ export function Cascader({ nodes = [], value = [], onChange, placeholder, label,
   const [open, setOpen] = React.useState(false);
   const [path, setPath] = React.useState(value);
   const wrap = React.useRef(null);
+  const fieldId = React.useId();
   const [ref, L] = useLang(lang);
   const t = makeT("Cascader", L);
   const ph = placeholder != null ? placeholder : t("placeholder");
@@ -30,15 +31,16 @@ export function Cascader({ nodes = [], value = [], onChange, placeholder, label,
   { let lv = nodes; for (const k of value) { const n = (lv || []).find((x) => x.key === k); if (!n) break; labels.push(n.label); lv = n.children; } }
   return (
     <div ref={(el) => { wrap.current = el; ref.current = el; }} className={cx("cs-cascader", className)}>
-      <button type="button" className="cs-treeselect__field" disabled={disabled} aria-haspopup="listbox" aria-expanded={open} aria-label={label} onClick={() => setOpen((o) => !o)}>
+      <button type="button" id={fieldId} className="cs-treeselect__field" disabled={disabled} aria-haspopup="listbox" aria-expanded={open} aria-label={label} onClick={() => setOpen((o) => !o)}>
         <span className={labels.length ? undefined : "ph"}>{labels.length ? labels.join(" / ") : ph}</span><span aria-hidden="true">▾</span>
       </button>
       {open ? (
         <div className="cs-cascader__pop">
           {cols.map((col, i) => (
-            <ul key={i} role="listbox" className="cs-cascader__col">
+            <ul key={i} role="listbox" aria-labelledby={fieldId} className="cs-cascader__col">
               {col.map((n) => (
-                <li key={n.key}>
+                // role="none" — the <li> wrapper must not sit between listbox and option.
+                <li key={n.key} role="none">
                   <button type="button" role="option" aria-selected={path[i] === n.key} className={cx("cs-cascader__opt", path[i] === n.key && "on")}
                     onClick={() => {
                       const next = [...path.slice(0, i), n.key];

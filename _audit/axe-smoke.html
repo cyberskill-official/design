@@ -15,7 +15,7 @@
 <script src="./vendor/axe.min.js"></script>
 </head><body>
 <h1>Axe smoke</h1>
-<p class="lede">Mounts a representative bilingual cluster (30 components across forms, overlays, navigation, feedback, data, datatable, dialog, ai, brand, button, textfield, icon, logo) and runs <b>axe-core</b> 4.10.0 (vendored at <code>_audit/vendor/axe.min.js</code>) serious/critical WCAG 2 A/AA rules. Hard gate on the fast board — enforces Storybook a11y coverage without a separate test-runner. Verdict: <code>window.__axesmoke.pass</code>.</p>
+<p class="lede">Mounts a representative bilingual cluster (37 components across forms, overlays, navigation, feedback, data, datatable, dialog, ai, brand, button, textfield, icon, logo — including the open Dialog and Tour overlays plus the Tooltip, Cascader, TreeSelect, ScrollArea, Collapsible, and AspectRatio surfaces) and runs <b>axe-core</b> 4.10.0 (vendored at <code>_audit/vendor/axe.min.js</code>) serious/critical WCAG 2 A/AA rules. Hard gate on the fast board — enforces Storybook a11y coverage without a separate test-runner. Verdict: <code>window.__axesmoke.pass</code>.</p>
 <div id="list"></div><div id="sum">running…</div><div id="stage"></div>
 <script>
 const list=document.getElementById('list'), stage=document.getElementById('stage');
@@ -32,6 +32,8 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
   const h=React.createElement;
   const missing=[];
   function C(name){ if(!NS[name]){ missing.push(name); return 'div'; } return NS[name]; }
+  const CASCADE=[{key:'hcm',label:'Hồ Chí Minh',children:[{key:'d1',label:'District 1'},{key:'d3',label:'District 3'}]},{key:'hn',label:'Hà Nội',children:[{key:'bd',label:'Ba Đình'}]}];
+  const TREE=[{key:'eng',label:'Engineering',children:[{key:'ds',label:'Design System'},{key:'plat',label:'Platform'}]}];
   const cluster=[
     // button
     h(C('Button'),{children:'Save'}),
@@ -56,6 +58,9 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
     h(C('Pagination'),{page:2,pageCount:5,onChange:()=>{}}),
     // data
     h(C('Accordion'),{items:[{title:'Details',content:'Body copy for axe.'}],defaultOpen:0}),
+    h(C('Collapsible'),{title:'Advanced',defaultOpen:false,children:'Collapsible body for axe.'}),
+    h(C('ScrollArea'),{maxHeight:80,'aria-label':'Scroll sample',children:h('p',null,'Dense panel copy for axe scroll region.')}),
+    h(C('AspectRatio'),{ratio:'16 / 9',children:h('img',{src:'../assets/aurora-gold.jpg',alt:'Aurora sample'})}),
     h(C('Card'),null,
       h(C('CardHeader'),{title:'Card',subtitle:'Axe sample'}),
       h(C('CardBody'),null,'Panel body')
@@ -73,6 +78,13 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
     // overlays (closed — trigger still mounted)
     h(C('Popconfirm'),{title:'Delete this draft?',onConfirm:()=>{},trigger:h(C('Button'),{variant:'danger-ghost',size:'sm',children:'Delete'})}),
     h(C('Popover'),{trigger:h('button',{type:'button'},'Open panel'),children:h('div',null,'Popover content')}),
+    h(C('Tooltip'),{label:'Regenerates native tokens',children:h('button',{type:'button'},'Tokens')}),
+    // hierarchy pickers (collapsed field — labelled trigger)
+    h(C('Cascader'),{label:'Region',nodes:CASCADE}),
+    h(C('TreeSelect'),{label:'Team',nodes:TREE}),
+    // guided tour (open — spotlight dialog over a live anchor)
+    h('div',{id:'axe-tour-anchor'},'Tour anchor'),
+    h(C('Tour'),{open:true,onClose:()=>{},steps:[{target:'#axe-tour-anchor',title:'Gate board',body:'Every hard gate reports here.'}]}),
     // ai
     h(C('AIDisclosureBadge'),{label:'AI assisted'}),
     h(C('TypingIndicator'),{label:'Lumi is typing'}),
@@ -88,15 +100,19 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
     h(C('Checkbox'),{label:'Đồng ý',lang:'vi'}),
     h(C('Alert'),{variant:'success',lang:'vi',children:'Cụm axe song ngữ'}),
     h(C('Button'),{children:'Lưu',lang:'vi'}),
+    // built-in VN chrome (placeholder strings come from components/_i18n)
+    h(C('Cascader'),{label:'Khu vực',nodes:CASCADE,lang:'vi'}),
+    h(C('TreeSelect'),{label:'Nhóm',nodes:TREE,lang:'vi'}),
   ];
   const names=[
     'Button','FloatingActionButton','TextField','Checkbox','Switch','Select',
     'RadioGroup','Textarea','SearchField','Alert','Badge','ProgressBar','Spinner',
-    'Link','Breadcrumb','Tabs','Pagination','Accordion','Card','Avatar','DataTable',
-    'Dialog','Popconfirm','Popover','AIDisclosureBadge','TypingIndicator','ConfidenceMeter',
-    'LumiAvatar','Icon','Logo'
+    'Link','Breadcrumb','Tabs','Pagination','Accordion','Collapsible','ScrollArea','AspectRatio',
+    'Card','Avatar','DataTable',
+    'Dialog','Popconfirm','Popover','Tooltip','Cascader','TreeSelect','Tour',
+    'AIDisclosureBadge','TypingIndicator','ConfidenceMeter','LumiAvatar','Icon','Logo'
   ];
-  row(missing.length===0, 'cluster mount: '+names.length+' components'+(missing.length?(' · missing '+missing.join(',')):'')+' (+4 VI twins)');
+  row(missing.length===0, 'cluster mount: '+names.length+' components'+(missing.length?(' · missing '+missing.join(',')):'')+' (+'+viCluster.length+' VI twins)');
   if(missing.length){ finish(false,missing.map(n=>'missing:'+n)); return; }
   const root=ReactDOM.createRoot(stage);
   root.render(h('div',{className:'cs-stack'},
@@ -104,13 +120,21 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
     h('div',{lang:'vi'},...viCluster)
   ));
   await new Promise(r=>setTimeout(r,250));
+  // Open the hierarchy pickers — their popup ARIA (listbox/option, tree/treeitem) is
+  // only reachable once expanded, and that is where the roles can go wrong.
+  const openers=[...stage.querySelectorAll('.cs-cascader > button, .cs-treeselect > button')];
+  openers.forEach(b=>b.click());
+  await new Promise(r=>setTimeout(r,150));
+  const popups=stage.querySelectorAll('.cs-cascader__pop, .cs-treeselect__pop').length;
+  const openOk=openers.length>0 && popups===openers.length;
+  row(openOk, 'hierarchy popups expanded for scanning: '+popups+'/'+openers.length);
   P.current='axe'; P.done=2;
   try{
     const res=await axe.run(stage,{ runOnly:{type:'tag',values:['wcag2a','wcag2aa']}});
     const serious=(res.violations||[]).filter(v=>v.impact==='serious'||v.impact==='critical');
     row(serious.length===0, 'axe serious/critical: '+serious.length+' (total violations '+(res.violations||[]).length+')');
     serious.slice(0,12).forEach(v=>row(false, v.id+': '+v.help+' · '+(v.nodes||[]).slice(0,2).map(n=>(n.target||[]).join(' ')).join(' | ')));
-    finish(serious.length===0, serious.map(v=>v.id));
+    finish(serious.length===0 && openOk, serious.map(v=>v.id).concat(openOk?[]:['hierarchy popups did not expand']));
   }catch(e){ finish(false,[String(e)]); }
   function finish(pass, fails){
     P.current='done'; P.done=3;
