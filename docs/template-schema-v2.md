@@ -37,7 +37,7 @@ A `{{ hole }}` is a **content hole** (schema-eligible) unless it is:
 
 - an **axis / control-flow** hole — `rootTheme`, `langAttr`, `elAttr`, `vaAttr`, `dirAttr`, `true`, `false`, anything matching `is<Uppercase>` (`isEN`, `isVN`, `isBoth`, `isTable`, …), or a bare numeric literal;
 - a **boolean tweak** hole — anything matching `show|hide|has|enable|with` + `<Uppercase>` (`showLogo`, `showSignatures`, `showQuote`, …);
-- a **runtime-control** hole — UI selection / handler wiring: exact names `tabs`, `tab`, `lens`, `chatOpen`, `closeChat`, or anything matching `set|open` + `<Uppercase>` (`setTab`, `setLens`, `openChat`, …).
+- a **runtime-control** hole — UI selection / handler wiring: exact names `tabs`, `tab`, `lens`, `chatOpen`, `closeChat`, `dangerOpen`, `closeDanger`, or anything matching `set|open` + `<Uppercase>` (`setTab`, `setLens`, `openChat`, …).
 
 Those are runtime axes, not typed content slots, and stay out of schema.
 

@@ -26,7 +26,7 @@ const TYPES=['text','richtext','image','link','list','table','date'];
 // Hole taxonomy (docs/template-schema-v2.md). Only *content* holes are schema-eligible:
 // axis / control-flow, boolean tweaks, and runtime-control holes stay out of schema.
 const AXIS_HOLES=new Set(['rootTheme','langAttr','elAttr','vaAttr','dirAttr','true','false']);
-const RUNTIME_CONTROL_HOLES=new Set(['tabs','tab','lens','chatOpen','closeChat']);
+const RUNTIME_CONTROL_HOLES=new Set(['tabs','tab','lens','chatOpen','closeChat','dangerOpen','closeDanger']);
 const isAxisHole=(h)=>AXIS_HOLES.has(h)||/^is[A-Z]/.test(h)||/^\d+$/.test(h);
 const isBooleanTweakHole=(h)=>/^(show|hide|has|enable|with)[A-Z]/.test(h);
 const isRuntimeControlHole=(h)=>RUNTIME_CONTROL_HOLES.has(h)||/^(set|open)[A-Z]/.test(h);

@@ -26,6 +26,7 @@
 .cs-button:focus-visible,
 .cs-field__control:focus-visible,
 .cs-select select.cs-field__control:focus-visible,
+.cs-native-select select.cs-field__control:focus-visible,
 .cs-search:focus-within,
 .cs-ai-disclosure__badge:focus-visible,
 .cs-switch input:focus-visible + .cs-switch__track {

@@ -37,7 +37,7 @@ Một `{{ hole }}` là **content hole** (đủ điều kiện schema) trừ khi 
 
 - hole **trục / control-flow** — `rootTheme`, `langAttr`, `elAttr`, `vaAttr`, `dirAttr`, `true`, `false`, bất kỳ tên nào khớp `is<ChữHoa>` (`isEN`, `isVN`, `isBoth`, `isTable`, …), hoặc một số nguyên trần;
 - hole **tweak boolean** — bất kỳ tên nào khớp `show|hide|has|enable|with` + `<ChữHoa>` (`showLogo`, `showSignatures`, `showQuote`, …);
-- hole **runtime-control** — wiring chọn UI / handler: tên đúng `tabs`, `tab`, `lens`, `chatOpen`, `closeChat`, hoặc bất kỳ tên nào khớp `set|open` + `<ChữHoa>` (`setTab`, `setLens`, `openChat`, …).
+- hole **runtime-control** — wiring chọn UI / handler: tên đúng `tabs`, `tab`, `lens`, `chatOpen`, `closeChat`, `dangerOpen`, `closeDanger`, hoặc bất kỳ tên nào khớp `set|open` + `<ChữHoa>` (`setTab`, `setLens`, `openChat`, …).
 
 Chúng là trục runtime, không phải content slot có kiểu, nên nằm ngoài schema.
 

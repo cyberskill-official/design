@@ -23,7 +23,7 @@ function assert(c, m) {
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const manifest = JSON.parse(readFileSync(join(root, '_ds_manifest.json'), 'utf8'));
 const primaries = listPrimaries(manifest);
-assert(primaries.length === 102, 'expected 102 primaries, got ' + primaries.length);
+assert(primaries.length === 105, 'expected 105 primaries, got ' + primaries.length);
 
 const names = new Set(primaries.map((p) => p.name));
 for (const n of ['Button', 'TextField', 'Dialog', 'Card', 'Alert']) {
@@ -31,7 +31,7 @@ for (const n of ['Button', 'TextField', 'Dialog', 'Card', 'Alert']) {
 }
 
 const map = buildNodeMap(primaries, {});
-assert(Object.keys(map.nodes).length === 102, 'node-map size');
+assert(Object.keys(map.nodes).length === 105, 'node-map size');
 assert(figmaUrl('ABC', '1:2').includes('ABC') && figmaUrl('ABC', '1:2').includes('1-2'), 'figmaUrl');
 
 const btn = renderConnectFile('Button', '12:34');

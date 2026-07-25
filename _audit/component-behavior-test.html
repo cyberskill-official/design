@@ -46,7 +46,7 @@ async function until(fn,ms){ ms=ms||2500; const t0=Date.now(); let r=false; whil
 async function run(){
   if(!h||typeof ReactDOM==='undefined'){ publish({pass:false,total:0,failed:[],error:'React CDN failed to load (unpkg unreachable?) \u2014 gate cannot run',results:[]}); return; }
   if(!NS){ publish({pass:false,total:0,failed:[],error:'bundle namespace not found \u2014 is _ds_bundle.js compiled?',results:[]}); return; }
-  const {Switch,Checkbox,Accordion,Collapsible,Tabs,CommandPalette,Menu,MenuItem,Popover,Dialog,Drawer,Pagination,SegmentedControl,Toggle,Rating,InputOTP,Combobox,TagInput,InlineEdit,Popconfirm,Carousel,DataGrid,Button,Form,FormField,TextField,Tree,Splitter,DatePicker,ColorPicker,TreeSelect,Sortable,Cascader,Transfer,Tour,HotKeys,Mentions,Calendar}=NS;
+  const {Switch,Checkbox,Accordion,Collapsible,Tabs,CommandPalette,Menu,MenuItem,Popover,Dialog,Drawer,AlertDialog,Pagination,SegmentedControl,Toggle,Rating,InputOTP,Combobox,TagInput,InlineEdit,Popconfirm,Carousel,DataGrid,Button,Form,FormField,TextField,Tree,Splitter,DatePicker,ColorPicker,TreeSelect,Sortable,Cascader,Transfer,Tour,HotKeys,Mentions,Calendar,Item,NativeSelect}=NS;
 
   await test('Switch — click toggles checked',async()=>{
     assert(Switch,'Switch export missing');
@@ -79,6 +79,38 @@ async function run(){
     return 'open moved 0→1, prior closed';
   });
 
+  await test('AlertDialog — confirm fires onConfirm + closes',async()=>{
+    assert(AlertDialog,'AlertDialog export missing');
+    let ok=false;
+    function AH(){const[o,setO]=React.useState(true);return h(AlertDialog,{open:o,onOpenChange:setO,title:'Delete?',description:'Gone forever.',tone:'destructive',onConfirm:()=>{ok=true;}});}
+    const c=mount(h(AH)); await wait(90);
+    const d=c.querySelector('[role="alertdialog"]'); assert(d,'open');
+    assert(d.getAttribute('aria-modal')==='true','aria-modal');
+    assert(d.getAttribute('aria-labelledby'),'labelledby');
+    assert(d.getAttribute('aria-describedby'),'describedby');
+    const conf=c.querySelector('.cs-alert-dialog__confirm'); assert(conf,'confirm btn');
+    conf.click();
+    assert(await until(()=>ok&&!c.querySelector('[role="alertdialog"]')),'confirmed+closed');
+    return 'confirm OK';
+  });
+  await test('Item — interactive button activates onClick',async()=>{
+    assert(Item,'Item export missing');
+    let hit=false;
+    const c=mount(h(Item,{title:'Profile',description:'Settings row',onClick:()=>{hit=true;}})); await wait(70);
+    const btn=c.querySelector('button.cs-item'); assert(btn,'button row');
+    btn.click();
+    assert(hit,'onClick fired');
+    return 'click OK';
+  });
+  await test('NativeSelect — change fires onChange',async()=>{
+    assert(NativeSelect,'NativeSelect export missing');
+    let val=null;
+    const c=mount(h(NativeSelect,{label:'Squad',options:[{value:'a',label:'A'},{value:'b',label:'B'}],defaultValue:'a',onChange:(e)=>{val=e.target.value;}})); await wait(70);
+    const sel=c.querySelector('select'); assert(sel,'select');
+    sel.value='b'; sel.dispatchEvent(new Event('change',{bubbles:true}));
+    assert(val==='b','onChange value');
+    return 'change OK';
+  });
   await test('Collapsible — trigger toggles panel',async()=>{
     assert(Collapsible,'Collapsible export missing');
     const c=mount(h(Collapsible,{title:'Advanced',defaultOpen:false},'panel body')); await wait(90);

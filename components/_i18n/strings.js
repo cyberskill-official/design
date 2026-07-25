@@ -36,6 +36,10 @@ export const strings = {
     en: { close: "Close", confirm: "Confirm", cancel: "Cancel" },
     vi: { close: "Đóng", confirm: "Xác nhận", cancel: "Hủy" },
   },
+  AlertDialog: {
+    en: { confirm: "Confirm", cancel: "Cancel" },
+    vi: { confirm: "Xác nhận", cancel: "Hủy" },
+  },
   Drawer: {
     en: { close: "Close", panel: "Panel" },
     vi: { close: "Đóng", panel: "Bảng" },

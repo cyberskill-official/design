@@ -153,6 +153,9 @@
 .cs-dialog__actions { justify-content: flex-end; }
 .cs-dialog__title { font-size: 1.25rem; line-height: 1.35; margin: 0; }
 .cs-dialog__body { margin-block: 1rem; }
+/* AlertDialog — confirm/destructive modal (shares dialog layer; tighter panel) */
+.cs-alert-dialog { max-inline-size: min(28rem, calc(100vw - 2rem)); }
+.cs-alert-dialog--destructive .cs-dialog__title { color: var(--cs-color-semantic-danger, #b42318); }
 @media (max-width: 640px) {
   .cs-dialog { max-inline-size: calc(100vw - 1rem); top: 4vh; padding: var(--cs-space-4, 16px); }
   .cs-dialog__actions .cs-button, .cs-review-gate__actions .cs-button { flex: 1 1 auto; }

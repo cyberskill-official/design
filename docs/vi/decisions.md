@@ -44,7 +44,7 @@ Giữ plan Figma hiện tại. Variables REST API chỉ Enterprise — job ghi *
 
 **Trạng thái: provisional / soft-skip — không phải publish library live** (Th7 2026; hoãn Th7 2026)
 
-- Job CI `code-connect` + `figma.config.json` + 102 mapping `*.figma.tsx` đã trong repo (snippet import dùng `@cyberskill/design`).
+- Job CI `code-connect` + `figma.config.json` + 105 mapping `*.figma.tsx` đã trong repo (snippet import dùng `@cyberskill/design`).
 - Publish soft-skip khi thiếu secret hoặc API trả 403/404/429. Soft-skip ≠ publish Code Connect thành công.
 - **Owner hoãn:** giữ **Figma free / non-Org** — không theo đuổi Code Connect live đến khi có ghế Org/Enterprise và team library đã publish. Khi đó thay stub `9999:*` trong `code-connect/node-map.json` bằng `nodeId` thật. Xem `docs/figma.md`.
 
@@ -102,7 +102,7 @@ Theo dõi vận hành — không phải marketing sản phẩm, không phải ba
 
 5. **Drift token native trên PR là fail-closed** (Th7 2026) — `regenerate-tokens` chạy read-only trên pull request và exit 1 thay vì push; chỉ `regenerate-tokens-push` (main / schedule / thủ công) giữ `contents: write`. Khi PR fail, chạy `node _audit/ci/generate-native-tokens.mjs` rồi commit natives. Xem `docs/ci-cd.md`.
 
-6. **Shadcn gap / Wave 2** (Th7 2026) — CyberSkill đã phủ ~50/62 primitive shadcn dưới dạng CS-native (forms / overlays / nav / data). Pilot đã ship: `ScrollArea`, `Collapsible`, `AspectRatio`. Backlog Wave 2 chỉ ghi nhận (không triển khai trừ khi được scope): `AlertDialog` (vs Popconfirm), `Item` row primitive, `NativeSelect`. **Không** port block shadcn, Tailwind, hay mô hình Radix CLI — map pattern sang `templates/` + `ui_kits/` hiện có.
+6. **Shadcn gap / Wave 2** (Th7 2026) — CyberSkill đã phủ ~53/62 primitive shadcn dưới dạng CS-native (forms / overlays / nav / data). Đã ship: pilot `ScrollArea`, `Collapsible`, `AspectRatio`; Wave 2 `AlertDialog` (vs Popconfirm), `Item` row primitive, `NativeSelect`. Phần còn lại của shadcn là non-port có chủ đích (block, Tailwind, Radix CLI). **Không** port những thứ đó — map pattern sang `templates/` + `ui_kits/` hiện có.
 
 Schema sidecar và Storybook `FullMatrix` tiếp tục lớn **theo cơ hội** khi primary đã đủ điều kiện (hiện chỉ Button có FullMatrix theo contract) — không phải đợt mass-add. Xem `docs/quality-gates.md`.
 

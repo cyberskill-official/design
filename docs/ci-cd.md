@@ -17,7 +17,7 @@
 5. **`docs-consistency-blocker`** — `docs-consistency` + `bilingual-parity` merge blockers.
 6. **`whole-set-audits`** — owner decision B: every push/PR, plus nightly `0 3 * * *` and `workflow_dispatch` (responsive + language + theme overflow, ~15–20 min).
 7. **`figma-variables-push`** — on `main` push + manual. **Empty `FIGMA_TOKEN` / `FIGMA_FILE_KEY` soft-skip** (exit 0 + report — same honesty as Code Connect). Owner decision A (non-Enterprise): Variables REST also **soft-skips on API 403** (and related plan/scope failures) after secrets prove file open. Soft-skip ≠ live Variables sync. See `docs/figma.md`.
-8. **`code-connect`** — on PR + `main` + manual. Decision 1C: dry-run always (config + 102 mappings); publish soft-skips when `FIGMA_TOKEN` / `FIGMA_FILE_KEY` missing or API 403/404/429. See `docs/figma.md`.
+8. **`code-connect`** — on PR + `main` + manual. Decision 1C: dry-run always (config + 105 mappings); publish soft-skips when `FIGMA_TOKEN` / `FIGMA_FILE_KEY` missing or API 403/404/429. See `docs/figma.md`.
 9. **`regenerate-tokens`** (pull requests) + **`regenerate-tokens-push`** (push to `main` / schedule / manual) — one path filter (`tokens.dtcg.json`, natives, generator, `VERSION`), one deterministic regeneration, two outcomes. On a **pull request** the job runs with `contents: read`, never pushes, and **exits 1** on drift: run `node _audit/ci/generate-native-tokens.mjs` locally and commit the natives. Only the push/schedule/manual twin holds `contents: write` and auto-commits with `DS_PUSH_TOKEN` (or `github.token`).
 10. **`npm-hello-smoke`** — registry consumer proof: `cd examples/npm-hello && npm ci && npm run smoke` (**hard fail**; package is public). Path-filtered on push/PR when `examples/npm-hello/**`, package publish surface, or this workflow changes; always on schedule / `workflow_dispatch`.
 
@@ -79,7 +79,7 @@ A green `figma-variables-push` or `code-connect` job — and therefore a green b
 ## Soft-skip dry-runs (local)
 
 ```bash
-npm run code-connect:dry-run          # config + ≥102 mappings; no secrets
+npm run code-connect:dry-run          # config + ≥105 mappings; no secrets
 node _audit/ci/code-connect-publish.mjs   # without secrets → SOFT SKIP missing_secrets
 npm run npm:pack-dry-run              # tarball inventory; no auth
 node _audit/ci/npm-publish.mjs        # GHA OIDC; else SOFT SKIP (tokens disallowed on package)

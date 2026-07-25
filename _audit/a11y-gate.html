@@ -15,7 +15,7 @@
   #stage{position:absolute;left:0;top:-4000px;width:900px}
 </style></head><body>
 <h1>A11y interaction gate</h1>
-<p class="lede">Keyboard + ARIA assertions on the compiled components: <b>focus management</b> (Dialog/Drawer initial focus, Tab trap, restore-on-close, Escape), <b>roving tabindex</b> (Tabs, SegmentedControl, Menubar arrow keys), <b>combobox pattern</b> (aria-activedescendant), and role/label contracts (Rating, InputOTP, DataGrid aria-sort, Carousel, Popconfirm, live-region roles). Loads <code>_ds_bundle.js</code> (compiled end of turn) — re-run on a <b>fresh</b> turn after editing component sources. Per-test 8s + suite 60s watchdogs; verdict on <code>window.__a11y</code>.</p>
+<p class="lede">Keyboard + ARIA assertions on the compiled components: <b>focus management</b> (Dialog/Drawer/AlertDialog initial focus, Tab trap, restore-on-close, Escape), <b>roving tabindex</b> (Tabs, SegmentedControl, Menubar arrow keys), <b>combobox pattern</b> (aria-activedescendant), and role/label contracts (Rating, InputOTP, DataGrid aria-sort, Carousel, Popconfirm, live-region roles). Loads <code>_ds_bundle.js</code> (compiled end of turn) — re-run on a <b>fresh</b> turn after editing component sources. Per-test 8s + suite 60s watchdogs; verdict on <code>window.__a11y</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <div id="stage"></div>
@@ -50,7 +50,7 @@ async function until(fn,ms){ ms=ms||2500; const t0=Date.now(); let r=false; whil
 async function run(){
   if(!h||typeof ReactDOM==='undefined'){ publish({pass:false,total:0,failed:[],error:'React CDN failed to load \u2014 gate cannot run',results:[]}); return; }
   if(!NS){ publish({pass:false,total:0,failed:[],error:'bundle namespace not found \u2014 is _ds_bundle.js compiled?',results:[]}); return; }
-  const {Dialog,Drawer,Menubar,Tabs,SegmentedControl,Combobox,Menu,MenuItem,Popconfirm,Rating,InputOTP,Toast,Alert,Spinner,Result,DataGrid,Carousel,Editor,Button}=NS;
+  const {Dialog,Drawer,AlertDialog,Menubar,Tabs,SegmentedControl,Combobox,Menu,MenuItem,Popconfirm,Rating,InputOTP,Toast,Alert,Spinner,Result,DataGrid,Carousel,Editor,Button}=NS;
 
   await test('Dialog — focus moves in on open',async()=>{
     assert(Dialog,'missing');
@@ -171,6 +171,26 @@ async function run(){
     const d=c.querySelector('[role="alertdialog"]'); assert(d,'open');
     assert((d.getAttribute('aria-label')||'').length>0,'has accessible name');
     return 'labeled: '+d.getAttribute('aria-label');
+  });
+  await test('AlertDialog — focus in, labelledby, Escape restores',async()=>{
+    assert(AlertDialog&&Button,'missing');
+    function ADH(){const[o,setO]=React.useState(false);return h('div',null,h('button',{className:'trigAD',onClick:()=>setO(true)},'Open'),o?h(AlertDialog,{open:true,title:'Delete workspace?',description:'Gone forever.',tone:'destructive',onOpenChange:setO,onConfirm:()=>{}}):null);}
+    const c=mount(h(ADH)); await wait(90);
+    const trig=c.querySelector('.trigAD'); await fxSure(trig);
+    const spy=spyFocus(); trig.click();
+    const dlg=await until(()=>c.querySelector('[role="alertdialog"]'));
+    assert(dlg,'alertdialog open');
+    assert(dlg.getAttribute('aria-modal')==='true','aria-modal');
+    assert((dlg.getAttribute('aria-labelledby')||'').length>0,'labelledby');
+    assert((dlg.getAttribute('aria-describedby')||'').length>0,'describedby');
+    const okIn=await until(()=>dlg&&(dlg.contains(document.activeElement)||spy.calls.some(el=>dlg.contains(el))));
+    spy.stop();
+    assert(okIn,'focus moved into alertdialog');
+    const rs=spyRestore(trig);
+    escDoc();
+    assert(await until(()=>!c.querySelector('[role="alertdialog"]')),'Escape closes');
+    assert(await until(()=>rs.hit||document.activeElement===trig),'focus restored');
+    return 'focus · labelled · Esc restore';
   });
   await test('Rating — radiogroup semantics',async()=>{
     assert(Rating,'missing');
