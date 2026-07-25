@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — font-face integrity gate</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;font-family:var(--cs-font-family-ui,system-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
+  h1{font-size:16px;margin:0 0 2px}
+  .lede{color:#6b5d4f;max-width:900px;line-height:1.5;margin:0 0 14px;font-size:13px}
+  .row{display:flex;justify-content:space-between;gap:10px;padding:6px 10px;border-radius:6px;font:12.5px ui-monospace,monospace;max-width:880px;margin-bottom:2px}
+  .row.ok{background:#dcfce7;color:#166534}.row.bad{background:#FEE2E2;color:#B42318;font-weight:700}
+  .row .d{color:#6b5d4f;font-weight:400}
+  #sum{font-size:15px;font-weight:800;margin:12px 0}
+  #probe{position:absolute;left:-9999px;top:0}
+</style></head><body>
+<h1>Font-face integrity gate</h1>
+<p class="lede">Whole-set proof for the <b>type layer</b>: every <code>@font-face</code> in <code>tokens/fonts.css</code> is self-hosted (no CDN <code>src</code>), points at a file that really exists in <code>fonts/</code> and starts with the <code>wOF2</code> magic; every <b>brand family</b> named first by a <code>--cs-font-family-*</code> token has faces here <b>including the Vietnamese subset</b> (the brand anchor); <code>_ds_manifest.json</code> <code>fonts[]</code> matches the parsed faces entry-for-entry and <code>brandFonts[]</code> matches the token-named families; each family actually <b>loads</b> in this document (<code>document.fonts.load</code>, local files); and the opt-in <code>.cs-display-face</code> utility really retargets <code>--cs-heading-family</code> to <code>--cs-font-family-display</code> while body copy stays on the UI face. Verdict on <code>window.__fontface</code>.</p>
+<div id="probe"><div id="scope"><span id="heading" class="cs-h1">Hiện Thực Hoá Ý Chí</span><span id="body" class="cs-body">Hiện Thực Hoá Ý Chí</span></div></div>
+<div id="list"></div>
+<div id="sum">running…</div>
+<script>
+const P=window.__gateProgress={done:0,total:8,current:'boot'};
+const results=[]; const list=document.getElementById('list');
+// Vietnamese subset marker — the precomposed-with-tone block every brand face must carry.
+const VN_RANGE=/U\+1EA0-1EF9/i;
+function record(name,ok,detail){ results.push({name,ok,detail}); const r=document.createElement('div'); r.className='row '+(ok?'ok':'bad'); r.innerHTML='<span>'+(ok?'\u2713 ':'\u2717 ')+name+'</span><span class="d">'+String(detail).slice(0,240)+'</span>'; list.appendChild(r); }
+function publish(v){ if(window.__fontface) return; window.__fontface=v; const s=document.getElementById('sum'); s.textContent=v.pass?('\u2713 all '+v.total+' font-face checks pass'):('\u2717 '+(v.error?v.error:(v.failed.length+'/'+v.total+' failed: '+v.failed.join(', ')))); s.style.color=v.pass?'#166534':'#B42318'; console.log('FONTFACE VERDICT '+JSON.stringify({pass:v.pass,failed:v.failed||[],error:v.error||null})); }
+async function test(name,fn){ P.current=name; try{ const d=await fn(); record(name,true,d); }catch(e){ record(name,false,String(e.message||e).slice(0,240)); } P.done=results.length; }
+function assert(c,m){ if(!c) throw new Error(m); }
+const unquote=(s)=>String(s).trim().replace(/^['"]|['"]$/g,'');
+/** First real family named by a font-family token value (skips generic keywords). */
+function firstFamily(value){ return unquote(String(value).split(',')[0]); }
+
+/** Parse @font-face blocks out of a stylesheet text (comments stripped). */
+function parseFaces(css){
+  const text=css.replace(/\/\*[\s\S]*?\*\//g,' ');
+  const faces=[];
+  for(const m of text.matchAll(/@font-face\s*\{([^}]*)\}/g)){
+    const b=m[1];
+    const decl=(k)=>{ const r=new RegExp(k+'\\s*:\\s*([^;]+)').exec(b); return r?r[1].trim():''; };
+    const url=/url\(\s*["']?([^"')]+)["']?\s*\)/.exec(b);
+    faces.push({
+      family:unquote(decl('font-family')),
+      weight:decl('font-weight'),
+      style:decl('font-style'),
+      display:decl('font-display'),
+      unicodeRange:decl('unicode-range'),
+      cssPath:'tokens/fonts.css',
+      files:[url?url[1].replace(/^\.\.\//,''):''],
+      rawSrc:url?url[1]:'',
+    });
+  }
+  return faces;
+}
+const manifestShape=(f)=>({family:f.family,weight:f.weight,style:f.style,unicodeRange:f.unicodeRange,cssPath:f.cssPath,files:f.files});
+
+(async()=>{
+  let faces=[], M=null, families=[], tokenFamilies=[];
+  await test('tokens/fonts.css parses into @font-face records',async()=>{
+    const r=await fetch('../tokens/fonts.css',{cache:'no-store'}); assert(r.ok,'HTTP '+r.status+' on tokens/fonts.css');
+    faces=parseFaces(await r.text());
+    assert(faces.length>0,'no @font-face blocks found');
+    for(const f of faces){
+      assert(f.family,'a @font-face has no font-family');
+      assert(f.files[0],'@font-face for '+f.family+' has no src url()');
+      assert(f.unicodeRange,'@font-face '+f.family+' '+f.weight+' has no unicode-range (subset split is the contract)');
+      assert(f.display==='swap','@font-face '+f.family+' '+f.weight+' must be font-display:swap, got "'+f.display+'"');
+    }
+    families=[...new Set(faces.map(f=>f.family))];
+    return faces.length+' faces \u00b7 '+families.length+' families: '+families.join(', ');
+  });
+  if(!faces.length){ publish({pass:false,total:results.length,failed:results.filter(r=>!r.ok).map(r=>r.name),error:'fonts.css parse failed'}); return; }
+
+  await test('every src is self-hosted under fonts/ (no CDN)',async()=>{
+    const bad=faces.filter(f=>!/^\.\.\/fonts\/[A-Za-z0-9._-]+\.woff2$/.test(f.rawSrc));
+    assert(bad.length===0,'non-local src: '+bad.map(f=>f.family+' \u2192 '+f.rawSrc).join(' | '));
+    return faces.length+' relative ../fonts/*.woff2 sources';
+  });
+
+  await test('every referenced woff2 exists and is real woff2 (wOF2 magic)',async()=>{
+    const bad=[];
+    await Promise.all(faces.map(async f=>{
+      try{
+        const r=await fetch('../'+f.files[0],{cache:'no-store'});
+        if(!r.ok){ bad.push(f.files[0]+' HTTP '+r.status); return; }
+        const buf=new Uint8Array(await r.arrayBuffer());
+        const magic=String.fromCharCode(buf[0],buf[1],buf[2],buf[3]);
+        if(magic!=='wOF2') bad.push(f.files[0]+' magic "'+magic+'" (not woff2)');
+        else if(buf.length<1024) bad.push(f.files[0]+' only '+buf.length+' bytes');
+      }catch(e){ bad.push(f.files[0]+' '+String(e.message||e)); }
+    }));
+    assert(bad.length===0,bad.slice(0,4).join(' | '));
+    return faces.length+' files present, woff2-signed';
+  });
+
+  await test('manifest + token families line up with the faces',async()=>{
+    M=await (await fetch('../_ds_manifest.json',{cache:'no-store'})).json();
+    tokenFamilies=M.tokens.filter(t=>/^--cs-font-family-/.test(t.name)).map(t=>({name:t.name,family:firstFamily(t.value)}));
+    assert(tokenFamilies.length>0,'no --cs-font-family-* tokens in the manifest');
+    const orphanToken=tokenFamilies.filter(t=>!families.includes(t.family));
+    assert(orphanToken.length===0,'token family with no self-hosted face: '+orphanToken.map(t=>t.name+' \u2192 '+t.family).join(', '));
+    const orphanFace=families.filter(f=>!tokenFamilies.some(t=>t.family===f));
+    assert(orphanFace.length===0,'self-hosted family no token names first: '+orphanFace.join(', '));
+    return tokenFamilies.map(t=>t.name+'\u2192'+t.family).join(' \u00b7 ');
+  });
+
+  await test('every brand family carries the Vietnamese subset',async()=>{
+    const missing=families.filter(fam=>!faces.some(f=>f.family===fam&&VN_RANGE.test(f.unicodeRange)));
+    assert(missing.length===0,'no vietnamese-subset face for: '+missing.join(', '));
+    return families.length+' families \u00d7 U+1EA0-1EF9 face present';
+  });
+
+  await test('_ds_manifest.json fonts[] equals the parsed faces',async()=>{
+    const mine=faces.map(manifestShape);
+    assert(M.fonts.length===mine.length,'manifest lists '+M.fonts.length+' faces, fonts.css has '+mine.length);
+    const diffs=[];
+    for(let i=0;i<mine.length;i++){
+      if(JSON.stringify(M.fonts[i])!==JSON.stringify(mine[i])) diffs.push('#'+i+' '+mine[i].family+' '+mine[i].weight);
+    }
+    assert(diffs.length===0,diffs.length+' entry diffs: '+diffs.slice(0,4).join(', '));
+    return mine.length+' manifest font entries identical';
+  });
+
+  await test('_ds_manifest.json brandFonts[] matches the token-named families',async()=>{
+    const declared=M.brandFonts.map(b=>b.family).sort();
+    assert(JSON.stringify(declared)===JSON.stringify([...families].sort()),'brandFonts ['+declared.join(', ')+'] vs faces ['+[...families].sort().join(', ')+']');
+    const bad=[];
+    for(const b of M.brandFonts){
+      if(b.status!=='ok') bad.push(b.family+' status='+b.status);
+      if(b.path!=='tokens/fonts.css') bad.push(b.family+' path='+b.path);
+      for(const tok of (b.tokens||[])){
+        const t=tokenFamilies.find(t=>t.name===tok);
+        if(!t) bad.push(b.family+' names unknown token '+tok);
+        else if(t.family!==b.family) bad.push(tok+' first family is '+t.family+', not '+b.family);
+      }
+    }
+    assert(bad.length===0,bad.slice(0,4).join(' | '));
+    return M.brandFonts.length+' brand families wired to their tokens';
+  });
+
+  await test('each family actually loads in this document',async()=>{
+    const SAMPLE='Hi\u1EC7n Th\u1EF1c Ho\u00E1 \u00DD Ch\u00ED AaBb 0123';
+    const registered=[...document.fonts].map(f=>unquote(f.family));
+    const notRegistered=families.filter(f=>!registered.includes(f));
+    assert(notRegistered.length===0,'family absent from document.fonts (styles.css did not reach this page?): '+notRegistered.join(', '));
+    const failed=[];
+    for(const fam of families){
+      const spec='400 16px "'+fam+'"';
+      const loaded=await Promise.race([
+        document.fonts.load(spec,SAMPLE).then(l=>l.length>0).catch(()=>false),
+        new Promise(res=>setTimeout(()=>res('timeout'),8000)),
+      ]);
+      if(loaded!==true) failed.push(fam+(loaded==='timeout'?' (timeout)':' (no face matched)'));
+    }
+    assert(failed.length===0,'did not load: '+failed.join(', '));
+    return families.length+' families loaded from local woff2';
+  });
+
+  await test('.cs-display-face retargets headings only',async()=>{
+    // Computed font-family re-quotes families ("Be Vietnam Pro" vs 'Be Vietnam Pro'),
+    // so compare on the quote-stripped, space-collapsed stack.
+    const norm=(s)=>String(s).replace(/["']/g,'').replace(/\s*,\s*/g,', ').replace(/\s+/g,' ').trim();
+    const scope=document.getElementById('scope'), heading=document.getElementById('heading'), body=document.getElementById('body');
+    const uiFamily=norm(getComputedStyle(document.documentElement).getPropertyValue('--cs-font-family-ui'));
+    const displayFamily=norm(getComputedStyle(document.documentElement).getPropertyValue('--cs-font-family-display'));
+    assert(uiFamily&&displayFamily,'--cs-font-family-ui / --cs-font-family-display must resolve at :root');
+    assert(uiFamily!==displayFamily,'display family must differ from the UI family, else the role is a no-op');
+    scope.className='';
+    const before=norm(getComputedStyle(heading).fontFamily);
+    scope.className='cs-display-face';
+    const h=norm(getComputedStyle(heading).fontFamily);
+    const b=norm(getComputedStyle(body).fontFamily);
+    scope.className='';
+    assert(before===uiFamily,'default heading is on "'+before+'", expected the UI family');
+    assert(h===displayFamily,'.cs-display-face heading resolved to "'+h+'"');
+    assert(b===uiFamily,'.cs-display-face leaked onto body copy: "'+b+'"');
+    return 'heading \u2192 display face, body stays on the UI face';
+  });
+
+  const bad=results.filter(r=>!r.ok);
+  publish({pass:bad.length===0,total:results.length,failed:bad.map(r=>r.name),families,faces:faces.length});
+})().catch(e=>publish({pass:false,total:results.length,failed:results.filter(r=>!r.ok).map(r=>r.name),error:String(e&&e.message||e).slice(0,160)}));
+setTimeout(()=>{ if(!window.__fontface) publish({pass:false,total:results.length,failed:results.filter(r=>!r.ok).map(r=>r.name),error:'watchdog (45s) \u2014 stalled at "'+P.current+'"'}); },45000);
+</script></body></html>

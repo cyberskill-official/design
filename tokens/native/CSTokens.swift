@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.0.0 · source sha256 2de878e4f152f960…
+// release v1.0.0 · source sha256 c4330bde5ed92f5a…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -119,6 +119,7 @@ public enum CSTokens {
   public static let breakpoint2xl: CGFloat = 1536
   public static let containerMax: CGFloat = 1320
   public static let fontFamilyUi: String = "Be Vietnam Pro, ui-sans-serif, system-ui, sans-serif"
+  public static let fontFamilyDisplay: String = "Space Grotesk, Be Vietnam Pro, ui-sans-serif, system-ui, sans-serif"
   public static let fontFamilyMono: String = "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
   public static let fontWeightRegular: Double = 400
   public static let fontWeightMedium: Double = 500

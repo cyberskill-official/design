@@ -132,7 +132,7 @@ function diffFlat(label,cssSet,mirrorSet){
     assert(d.length===0,d.length+' diffs: '+d.slice(0,4).join(' | '));
     return 'dark + system + '+Object.keys(elements).length+' packs + '+Object.keys(elementsDark).length+' dark packs identical';
   });
-  await test('base count sane (138 expected from provenance)',async()=>{
+  await test('base count sane (matches tokens/provenance.json)',async()=>{
     const prov=JSON.parse(await (await fetch('../tokens/provenance.json',{cache:'no-store'})).text());
     assert(Object.keys(base).length===prov.counts.baseTokens,'css base '+Object.keys(base).length+' vs provenance '+prov.counts.baseTokens);
     return Object.keys(base).length+' base tokens';

@@ -90,10 +90,11 @@ try {
     assert(existsSync(src), 'missing portable path: ' + rel);
     cpSync(src, join(tmp, rel), { recursive: true });
   }
-  // Fonts: at least one Be Vietnam Pro + JetBrains Mono woff2 must land in the copy.
+  // Fonts: at least one woff2 per self-hosted family must land in the copy, display face included.
   const fonts = readdirSync(join(tmp, 'fonts'));
   assert(fonts.some((f) => /bevietnampro.*\.woff2$/i.test(f)), 'Be Vietnam Pro woff2 missing in subtree');
   assert(fonts.some((f) => /jetbrainsmono.*\.woff2$/i.test(f)), 'JetBrains Mono woff2 missing in subtree');
+  assert(fonts.some((f) => /spacegrotesk.*\.woff2$/i.test(f)), 'Space Grotesk woff2 missing in subtree');
   writeFileSync(join(tmp, 'smoke.html'), smokeHtml);
 
   const server = createServer((req, res) => {

@@ -31,7 +31,7 @@ The portable contract covers browser and bundler entry points: `styles.css` · `
 - [examples/npm-hello/](examples/npm-hello/): first registry **browser** consumer — `@cyberskill/design@1.0.0` legacy entry (Lumi · Hỏa · plasma); Status Hub teams swap to `thuy`; Next/SSR apps use default `@cyberskill/design` React entry instead
 - [examples/native/](examples/native/): SwiftUI / Compose / Flutter sample apps + store scaffolds — Compose is **Android Studio**-first (no committed `gradlew`; see `examples/native/README.md`)
 - [ui_kits/](ui_kits/): product recreations — status-hub · website · deck
-- [fonts/](fonts/): self-hosted Be Vietnam Pro + JetBrains Mono woff2
+- [fonts/](fonts/): self-hosted Be Vietnam Pro (UI) + Space Grotesk (opt-in display, `--cs-font-family-display`) + JetBrains Mono woff2
 - [assets/](assets/): official logo mark (never recreate) · favicon · aurora washes · Lumi mascot
 - [README.md](README.md): the entrance document — voice, visual foundations, components, templates, index
 - [DESIGN.md](DESIGN.md): generated open-spec surface (doctrine + tokens + inventory) for Stitch-style consumers — pinned to DTCG by the design-md-parity gate

@@ -12,7 +12,7 @@
   #cov{font:12px ui-monospace,monospace;color:#6b5d4f;margin-top:10px}
 </style></head><body>
 <h1>Template content-schema v2 gate</h1>
-<p class="lede">Validates every <b>opt-in</b> <code>templates/&lt;slug&gt;/content-schema.json</code> sidecar (spec: <code>docs/template-schema-v2.md</code>) against the JSON Schema in <code>templates/schema/content-schema.schema.json</code>, then bidirectionally against the sibling <code>.dc.html</code>: every declared slot id must resolve to a real <code>{{ id }}</code> hole, and (informationally, non-blocking) reports how many holes in the template have <b>no</b> schema entry yet. Coverage across all templates is reported but not required — like the visual-diff baselines, this is an intentionally incremental rollout (current sidecar count is printed by this gate at runtime). Verdict on <code>window.__schemav2</code>.</p>
+<p class="lede">Validates every <b>opt-in</b> <code>templates/&lt;slug&gt;/content-schema.json</code> sidecar (spec: <code>docs/template-schema-v2.md</code>) against the JSON Schema in <code>templates/schema/content-schema.schema.json</code>, then bidirectionally against the sibling <code>.dc.html</code>: declared slot ids and eligible content holes must match exactly (<code>holesOf(dc).filter(isContentHole)</code>). Coverage is now an <b>invariant, not a report</b>: every template that exposes at least one authorable <b>content hole</b> must ship a sidecar. Axis / control-flow holes (<code>rootTheme</code>, <code>langAttr</code>, <code>elAttr</code>, <code>vaAttr</code>, <code>dirAttr</code>, <code>true</code>/<code>false</code>, <code>is*</code>, numeric literals), boolean tweak holes (<code>show*</code>, <code>hide*</code>, <code>has*</code>, <code>enable*</code>, <code>with*</code>), and runtime-control holes (<code>tabs</code>/<code>tab</code>/<code>lens</code>/<code>chatOpen</code>/<code>closeChat</code>, <code>set*</code>/<code>open*</code> handlers) are not typed slots — templates exposing only those correctly omit a sidecar and are excluded from the eligible set. Verdict on <code>window.__schemav2</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <div id="cov"></div>
@@ -23,6 +23,15 @@ function publish(v){ if(window.__schemav2) return; window.__schemav2=v; const s=
 async function test(name,fn){ try{ const d=await fn(); record(name,true,d); }catch(e){ record(name,false,String(e.message||e).slice(0,140)); } }
 function assert(c,m){ if(!c) throw new Error(m); }
 const TYPES=['text','richtext','image','link','list','table','date'];
+// Hole taxonomy (docs/template-schema-v2.md). Only *content* holes are schema-eligible:
+// axis / control-flow, boolean tweaks, and runtime-control holes stay out of schema.
+const AXIS_HOLES=new Set(['rootTheme','langAttr','elAttr','vaAttr','dirAttr','true','false']);
+const RUNTIME_CONTROL_HOLES=new Set(['tabs','tab','lens','chatOpen','closeChat']);
+const isAxisHole=(h)=>AXIS_HOLES.has(h)||/^is[A-Z]/.test(h)||/^\d+$/.test(h);
+const isBooleanTweakHole=(h)=>/^(show|hide|has|enable|with)[A-Z]/.test(h);
+const isRuntimeControlHole=(h)=>RUNTIME_CONTROL_HOLES.has(h)||/^(set|open)[A-Z]/.test(h);
+const isContentHole=(h)=>!isAxisHole(h)&&!isBooleanTweakHole(h)&&!isRuntimeControlHole(h);
+const holesOf=(dc)=>[...new Set([...dc.matchAll(/\{\{\s*(\w+)\s*\}\}/g)].map(m=>m[1]))];
 
 function validateShape(schema,path){
   assert(schema.$schemaVersion==='2.0', path+': $schemaVersion must be "2.0"');
@@ -57,22 +66,39 @@ function validateShape(schema,path){
     }
     return found.length+' sidecar(s) shape-valid: '+found.join(', ');
   });
-  await test('every declared slot id resolves to a real {{ hole }} in the .dc.html',async()=>{
+  await test('sidecar slots \u2194 content holes in the .dc.html (both directions)',async()=>{
     const bad=[];
     for(const slug of found){
       const schema=await (await fetch('../templates/'+slug+'/content-schema.json')).json();
       const t=M.templates.find(t=>t.entryPath.startsWith('templates/'+slug+'/'));
       assert(t,slug+': not found in manifest');
       const dc=await (await fetch('../'+t.entryPath)).text();
-      const holes=new Set([...dc.matchAll(/\{\{\s*(\w+)\s*\}\}/g)].map(m=>m[1]));
-      for(const s of schema.slots){ if(!holes.has(s.id)) bad.push(slug+'.'+s.id); }
+      const contentHoles=new Set(holesOf(dc).filter(isContentHole));
+      const slotIds=new Set(schema.slots.map(s=>s.id));
+      for(const id of slotIds) if(!contentHoles.has(id)) bad.push(slug+'.'+id);
+      for(const id of contentHoles) if(!slotIds.has(id)) bad.push(slug+'.'+id);
     }
-    assert(bad.length===0,'schema slot(s) with no matching hole: '+bad.join(', '));
-    return found.length+' template(s) \u00d7 all slots resolve';
+    assert(bad.length===0,'schema/content-hole mismatch: '+bad.join(', '));
+    return found.length+' template(s) \u00d7 slots \u2194 content holes';
+  });
+  // Coverage is no longer a report — it is the invariant. Every template that exposes an
+  // authorable content hole must ship a sidecar; axis-only templates correctly omit one.
+  let eligible=[],axisOnly=[];
+  await test('every content-hole-driven template ships a sidecar',async()=>{
+    const uncovered=[];
+    for(const slug of slugs){
+      const t=M.templates.find(t=>t.entryPath.startsWith('templates/'+slug+'/'));
+      const dc=await (await fetch('../'+t.entryPath)).text();
+      const content=holesOf(dc).filter(isContentHole);
+      if(content.length){ eligible.push(slug); if(!found.includes(slug)) uncovered.push(slug+' ('+content.slice(0,6).join(', ')+')'); }
+      else axisOnly.push(slug);
+    }
+    assert(uncovered.length===0,uncovered.length+' hole-driven template(s) without a sidecar: '+uncovered.slice(0,6).join(' | '));
+    return eligible.length+' eligible template(s) all covered \u00b7 '+axisOnly.length+' axis/boolean-only correctly omit one';
   });
   const bad=results.filter(r=>!r.ok);
-  publish({pass:bad.length===0,total:results.length,failed:bad.map(r=>r.name),coverage:{withSchema:found.length,total:slugs.length,slugs:found}});
-  document.getElementById('cov').textContent='coverage (informational, non-gating): '+found.length+'/'+slugs.length+' templates have a v2 content-schema \u2014 '+(found.join(', ')||'none');
+  publish({pass:bad.length===0,total:results.length,failed:bad.map(r=>r.name),coverage:{withSchema:found.length,eligible:eligible.length,axisOnly:axisOnly.length,total:slugs.length,slugs:found}});
+  document.getElementById('cov').textContent='coverage: '+found.length+'/'+slugs.length+' templates have a v2 content-schema \u2014 '+eligible.length+' are content-hole-driven (all covered, gated) and '+axisOnly.length+' expose only axis/boolean holes (no sidecar by doctrine).';
 })().catch(e=>publish({pass:false,total:results.length,failed:results.filter(r=>!r.ok).map(r=>r.name),error:String(e&&e.message||e).slice(0,160)}));
 setTimeout(()=>{ if(!window.__schemav2){ const bad=results.filter(r=>!r.ok); publish({pass:false,total:results.length,failed:bad.map(r=>r.name),error:'watchdog (45s)'}); } },45000);
 </script></body></html>

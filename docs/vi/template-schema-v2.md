@@ -29,8 +29,20 @@ Metadata thuần additive, opt-in: sidecar `templates/<slug>/content-schema.json
 | `slots[].required` | không | mặc định `false` |
 | `slots[].i18n` | không | `{"en": "...", "vi": "..."}` — cho template ship biến thể EN·VI |
 
-Hình dạng máy kiểm được chính thức nằm ở `templates/schema/content-schema.schema.json` (JSON Schema draft-07). `_audit/template-schema-test.html` validate mọi sidecar tồn tại — hai chiều: mọi slot id khai báo phải resolve tới hole thật trong template, và (informational) báo coverage trên toàn `templates/`.
+Hình dạng máy kiểm được chính thức nằm ở `templates/schema/content-schema.schema.json` (JSON Schema draft-07). `_audit/template-schema-test.html` validate mọi sidecar tồn tại — hai chiều với content hole đủ điều kiện: mọi slot id khai báo phải là content hole trong `.dc.html`, và mọi content hole phải xuất hiện thành slot — **và ép độ phủ**.
 
-## Rollout
+## Hole nào đủ điều kiện có schema
 
-Giống visual-diff baselines, ban đầu ship **cố ý chưa đầy đủ** — ba exemplar (một mỗi archetype lớn) chứng minh pattern end-to-end: `marketing-page` (product), `bod-report` (document), `slide-deck` (deck). Sau đó đã **quét qua các template hole-driven** và tiếp tục lớn dần; độ phủ sidecar hiện tại do `_audit/template-schema-test.html` báo cáo (39/84 theo đợt quét mới nhất — product shell cộng template document/HR/legal/VN list-driven). Hole trục / control-flow (`rootTheme`, `langAttr`, `elAttr`, `vaAttr`, `isEN`, `true`, …) và hole tweak boolean (`showLogo`, `showSignatures`, …) nằm ngoài schema — chúng là trục runtime, không phải content slot có kiểu. Template chỉ lộ các trục đó (hoặc hardcode copy bilingual theo nhánh `sc-if` ngôn ngữ) đúng là không có sidecar cho tới khi có `{{ hole }}` content author được. Thêm sidecar cho mọi template nhận content hole-driven khi chạm tới; ưu tiên tăng measurable trên template traffic cao trước.
+Một `{{ hole }}` là **content hole** (đủ điều kiện schema) trừ khi nó là:
+
+- hole **trục / control-flow** — `rootTheme`, `langAttr`, `elAttr`, `vaAttr`, `dirAttr`, `true`, `false`, bất kỳ tên nào khớp `is<ChữHoa>` (`isEN`, `isVN`, `isBoth`, `isTable`, …), hoặc một số nguyên trần;
+- hole **tweak boolean** — bất kỳ tên nào khớp `show|hide|has|enable|with` + `<ChữHoa>` (`showLogo`, `showSignatures`, `showQuote`, …);
+- hole **runtime-control** — wiring chọn UI / handler: tên đúng `tabs`, `tab`, `lens`, `chatOpen`, `closeChat`, hoặc bất kỳ tên nào khớp `set|open` + `<ChữHoa>` (`setTab`, `setLens`, `openChat`, …).
+
+Chúng là trục runtime, không phải content slot có kiểu, nên nằm ngoài schema.
+
+## Rollout — đã đủ cho template đủ điều kiện, và đã có gate
+
+Ban đầu ship **cố ý chưa đầy đủ**: ba exemplar (một mỗi archetype lớn) chứng minh pattern end-to-end — `marketing-page` (product), `bod-report` (document), `slide-deck` (deck) — rồi quét qua các template hole-driven.
+
+Đợt quét đó nay **đã xong và được khoá**. Tính tới Jul 2026: **39 template content-hole-driven, cả 39 đều có sidecar**, và **45 template chỉ lộ hole trục/boolean** (copy song ngữ hardcode theo nhánh `sc-if`) đúng là không có sidecar. `_audit/template-schema-test.html` không còn chỉ báo cáo con số này — nó **fail** nếu có template lộ content hole mà thiếu sidecar. Nên luật cho author là cơ học: template nhận thêm một `{{ hole }}` author được thì nhận luôn sidecar trong cùng change, không thì board đỏ.

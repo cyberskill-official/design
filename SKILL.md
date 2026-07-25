@@ -48,6 +48,8 @@ Every artifact exports, all paths preserving Vietnamese Unicode (see `docs/conve
 
 - Vietnamese-first: ship EN + VN copy; preserve diacritics; use Vietnamese-safe line-heights.
 
+- Type families come from tokens, never from a hand-rolled `@font-face`: `--cs-font-family-ui` (Be Vietnam Pro) for UI and headings, `--cs-font-family-mono` (JetBrains Mono) for code/data, and the **opt-in** `--cs-font-family-display` (Space Grotesk, variable 300–700, Vietnamese subset included) for a product headline face — opt a subtree in with `.cs-display-face` rather than overriding `font-family` by hand.
+
 - Never remove focus outlines (3px Ochre ring); keep touch targets ≥ 44px (enforced on coarse pointers via `base/a11y.css`); honour `prefers-reduced-motion` and `prefers-contrast`; body text APCA Lc ≥ 75. Dark theme has full semantic overrides (all pairings pass AA).
 
 - Voice stays warm/direct/honest/respectful — never fun/playful/edgy. Products are "wishes" that Lumi helps grant.

@@ -15,6 +15,8 @@ Xử lý bề mặt hiện tại là **liquid-glass** (cố định). Các trụ
 
 - Từ chối theo doctrine: hue neon/cyberpunk lạnh, memphis vui nhộn, skeuomorphism đầy đủ, emoji trong chrome UI.
 
+- Họ chữ cố định và có tên token: Be Vietnam Pro (UI) · Space Grotesk (`--cs-font-family-display`, mặt chữ tiêu đề opt-in) · JetBrains Mono (code). Mặt chữ display là **role một scope có thể chọn dùng** qua `.cs-display-face`, không phải trục thứ tư — mặc định nó không đổi gì và không mapping sản phẩm nào phụ thuộc vào nó.
+
 ## Thêm một look mới
 
 Ưu tiên:

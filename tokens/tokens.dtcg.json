@@ -965,6 +965,16 @@
       ],
       "$type": "fontFamily"
     },
+    "--cs-font-family-display": {
+      "$value": [
+        "Space Grotesk",
+        "Be Vietnam Pro",
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$type": "fontFamily"
+    },
     "--cs-font-family-mono": {
       "$value": [
         "JetBrains Mono",
