@@ -145,6 +145,35 @@ assert(existsSync(join(root, 'docs/vi/release-notes.md')), 'docs/vi/release-note
 const releaseNotes = readFileSync(join(root, 'docs/release-notes.md'), 'utf8');
 assert(/CHANGELOG\.md/i.test(releaseNotes) && /never|no |not |forbid/i.test(releaseNotes), 'release-notes doctrine forbids CHANGELOG.md');
 assert(!existsSync(join(root, 'CHANGELOG.md')), 'no root CHANGELOG.md');
+const releaseNotesMdx = readFileSync(join(root, 'stories/ReleaseNotes/ReleaseNotes.mdx'), 'utf8');
+for (const needle of ['system', 'FullMatrix', 'liquid-glass', 'Axe smoke']) {
+  assert(releaseNotesMdx.includes(needle), `Release Notes MDX mentions ${needle}`);
+}
+assert(releaseNotes.includes('system') && releaseNotes.includes('FullMatrix') && releaseNotes.includes('liquid-glass'), 'docs/release-notes.md axes + FullMatrix + Style');
+
+const fourAxes = readFileSync(join(root, 'stories/Docs/TheFourAxes.mdx'), 'utf8');
+assert(/system/.test(fourAxes) && /prefers-color-scheme/.test(fourAxes), 'TheFourAxes Theme includes system');
+assert(/liquid-glass/.test(fourAxes), 'TheFourAxes Style pack named');
+
+assert(managerHead.includes('Theme × Element × Language × Style'), 'manager-head description names four axes');
+assert(dash.includes('Theme × Element × Language × Style'), 'dashboard meta names four axes');
+
+const conventionsMdx = readFileSync(join(root, 'stories/Docs/Conventions.mdx'), 'utf8');
+assert(!/not a fourth axis/i.test(conventionsMdx), 'Conventions MDX must not deny Style as fourth axis');
+assert(/data-cs-style/.test(conventionsMdx) && /liquid-glass/.test(conventionsMdx), 'Conventions MDX lists Style axis');
+
+const conventionsEn = readFileSync(join(root, 'docs/conventions.md'), 'utf8');
+assert(/four orthogonal scopes/i.test(conventionsEn), 'docs/conventions.md four orthogonal scopes');
+assert(!/three orthogonal scopes/i.test(conventionsEn), 'docs/conventions.md no three-orthogonal leftover');
+assert(/data-cs-style/.test(conventionsEn), 'docs/conventions.md names data-cs-style');
+
+const atomicView = readFileSync(join(root, 'guidelines/atomic-view.html'), 'utf8');
+assert(/value="system"/.test(atomicView) && />System</.test(atomicView), 'Atomic View Theme includes system');
+assert(/value="liquid-glass"/.test(atomicView) && /ctl">Style/.test(atomicView), 'Atomic View Style control present');
+
+const playground = readFileSync(join(root, 'templates/playground.html'), 'utf8');
+assert(/\["System","system"\]/.test(playground), 'playground Theme includes System');
+assert(/style:\[\["Liquid glass","liquid-glass"\]\]/.test(playground), 'playground Style sole pack');
 
 const decisions = readFileSync(join(root, 'docs/decisions.md'), 'utf8');
 assert(/Storybook is the single live hub/i.test(decisions), 'decision §4 Storybook hub');

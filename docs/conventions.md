@@ -8,20 +8,21 @@ For humans and agents *extending this system*. (Consumers: read `SKILL.md`.) The
 
 ## The four axes
 
-Every rendered surface resolves three orthogonal scopes — never encode one axis inside another:
+Every rendered surface resolves four orthogonal scopes — never encode one axis inside another:
 | Axis | Attribute | Owns | Packs live in |
 |---|---|---|---|
-| **Theme** | `data-theme="dark\|system"` | light/dark inversion | `tokens/colors.css` |
+| **Theme** | `data-theme="dark\|system"` | light / dark / system (OS) | `tokens/colors.css` |
 | **Element** (Ngũ Hành) | `data-cs-element` + `data-cs-variant` | hue identity per product | `tokens/elements.css` |
 | **Language** | `lang` / Language tweak | EN · VI copy | component registry + template props |
+| **Style** | `data-cs-style` (optional; absent ≡ `liquid-glass`) | surface material pack | `tokens/styles.css` |
 
-Style pack is liquid-glass (sole pack; absent ≡ default). Immutable under all axes: Umber/Ochre anchors, voice, type families, semantic status colors, the 3px Ochre focus ring, APCA floors, ≥44px targets.
+Style’s sole pack today is **liquid-glass**. Immutable under all axes: Umber/Ochre anchors, voice, type families, semantic status colors, the 3px Ochre focus ring, APCA floors, ≥44px targets.
 
 ## Naming grammar
 
 - Tokens: `--cs-<layer>-<role>[-<state>]` (`--cs-color-text-muted`). Element role layer: `--cs-accent-*` (9-token contract — see `tokens/elements.css` header).
 
-- Classes: `.cs-<block>[-<part>][--modifier]`. Data attributes: `data-theme`, `data-cs-element`, `data-cs-variant`.
+- Classes: `.cs-<block>[-<part>][--modifier]`. Data attributes: `data-theme`, `data-cs-element`, `data-cs-variant`, `data-cs-style`.
 
 - Files: `tokens/<concern>.css` · `base/<concern>.css` (concern names, never changelog names — "interaction", not "refinements2") · `components/<group>/<Name>.{jsx,d.ts,prompt.md}` · `templates/<dept>-<artifact>/` · `guidelines/<group>-<topic>.html`.
 
