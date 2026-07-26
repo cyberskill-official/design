@@ -5,25 +5,15 @@ export default {
   component: Image,
   tags: ['autodocs'],
   argTypes: {
-  "src": {
-    "control": "text"
+    src: { control: 'text' },
+    alt: { control: 'text' },
+    ratio: { control: 'text' },
+    preview: { control: 'boolean' },
+    fallback: { control: 'object' },
+    width: { control: 'number' },
+    height: { control: 'number' },
+    lang: { control: 'select', options: ['en', 'vi'] },
   },
-  "alt": {
-    "control": "text"
-  },
-  "ratio": {
-    "control": "text"
-  },
-  "preview": {
-    "control": "boolean"
-  },
-  "fallback": {
-    "control": "object"
-  },
-  "lang": {
-    "control": "text"
-  }
-},
   parameters: {
     docs: {
       description: {

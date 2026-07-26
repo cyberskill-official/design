@@ -288,10 +288,79 @@ function metaArgsObject(text) {
   return balanced(text, abs);
 }
 
+/** Top-level keys of an object literal / interface body (nested braces, arrays, parens). */
+function topLevelKeys(objLit) {
+  if (!objLit) return [];
+  const keys = [];
+  let depth = 0;
+  let inStr = null;
+  let esc = false;
+  let buf = '';
+  const flush = () => {
+    // Allow optional `?` so `.d.ts` props like `label?: string` parse.
+    const m = buf.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*\??\s*:/);
+    if (m) keys.push(m[1]);
+    buf = '';
+  };
+  for (let i = 1; i < objLit.length - 1; i++) {
+    const c = objLit[i];
+    if (inStr) {
+      buf += c;
+      if (esc) esc = false;
+      else if (c === '\\') esc = true;
+      else if (c === inStr) inStr = null;
+      continue;
+    }
+    if (c === '"' || c === "'" || c === '`') {
+      inStr = c;
+      buf += c;
+      continue;
+    }
+    // Track () so callback params `(key, node) => …` are not treated as props.
+    if (c === '{' || c === '[' || c === '(') {
+      depth++;
+      buf += c;
+      continue;
+    }
+    if (c === '}' || c === ']' || c === ')') {
+      depth--;
+      buf += c;
+      continue;
+    }
+    if ((c === ',' || c === ';') && depth === 0) {
+      flush();
+      continue;
+    }
+    buf += c;
+  }
+  flush();
+  return keys;
+}
+
 function argsNonEmpty(argsBlock) {
   if (!argsBlock) return false;
   const inner = argsBlock.slice(1, -1).trim();
   return inner.length > 0;
+}
+
+function propsFromDts(dtsText, primary) {
+  const re = new RegExp('(?:interface|type)\\s+' + primary + 'Props\\s*(?:=\\s*)?(\\{)');
+  const m = dtsText.match(re);
+  if (!m) return null;
+  const body = balanced(dtsText, m.index + m[0].length - 1);
+  if (!body) return null;
+  // Strip JSDoc / block comments so `/** … */ description?:` still yields `description`.
+  // topLevelKeys handles single-line interfaces and optional `?` props.
+  const cleaned = body.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/;/g, ',');
+  return topLevelKeys(cleaned);
+}
+
+function propCoveredInStory(text, prop) {
+  if (hasArgTypeKey(text, prop)) return true;
+  const esc = prop.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (new RegExp('\\b' + esc + '\\s*=').test(text)) return true;
+  if (new RegExp('\\b' + esc + '\\s*:').test(text)) return true;
+  return false;
 }
 
 function matrixFamilyBodies(text) {
@@ -445,7 +514,8 @@ for (const m of modules) {
     }
   }
 
-  // Meta args keys must be documented in argTypes (or an explicit fixture allowlist)
+  // Meta args keys must be documented in argTypes (or an explicit fixture allowlist).
+  // topLevelKeys (not ^-anchored) so single-line args objects cannot hide bad keys.
   const ARGS_KEY_ALLOW = new Set([
     'children',
     'className',
@@ -463,11 +533,45 @@ for (const m of modules) {
     'tabIndex',
   ]);
   if (metaArgs) {
-    const argKeys = [...metaArgs.matchAll(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*:/gm)].map((x) => x[1]);
+    const argKeys = topLevelKeys(metaArgs);
     for (const k of argKeys) {
       if (ARGS_KEY_ALLOW.has(k) || k.startsWith('aria') || k.startsWith('data')) continue;
       if (!atKeys.includes(k)) {
         fail.push(m.primary + ' meta args.' + k + ' missing from argTypes');
+      }
+    }
+  }
+
+  // .d.ts honesty beyond static argTypes: every non-handler XxxProps key must appear
+  // in argTypes or a Default/Matrix mount (catches children-only / uncontrolled drift).
+  const DTS_PROP_IGNORE = new Set([
+    'children',
+    'className',
+    'style',
+    'id',
+    'key',
+    'ref',
+    'dangerouslySetInnerHTML',
+  ]);
+  const dtsPath = join(root, m.relFromRoot.replace(/\.jsx$/, '.d.ts'));
+  if (existsSync(dtsPath)) {
+    const dtsProps = propsFromDts(readFileSync(dtsPath, 'utf8'), m.primary);
+    if (dtsProps) {
+      for (const p of dtsProps) {
+        if (DTS_PROP_IGNORE.has(p) || p.startsWith('aria') || p.startsWith('data')) continue;
+        if (/^on[A-Z]/.test(p)) continue; // handlers covered by behavior / mounts when needed
+        if (!propCoveredInStory(text, p)) {
+          fail.push(m.primary + ' .d.ts prop "' + p + '" missing from argTypes and story mounts');
+        }
+      }
+      // meta.args keys must also be real props (catches rows≠nodes fixture lies)
+      if (metaArgs) {
+        for (const k of topLevelKeys(metaArgs)) {
+          if (ARGS_KEY_ALLOW.has(k) || k.startsWith('aria') || k.startsWith('data')) continue;
+          if (!dtsProps.includes(k) && !DTS_PROP_IGNORE.has(k)) {
+            fail.push(m.primary + ' meta args.' + k + ' not in ' + m.primary + 'Props');
+          }
+        }
       }
     }
   }

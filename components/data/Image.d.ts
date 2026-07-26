@@ -11,6 +11,10 @@ export interface ImageProps {
   preview?: boolean;
   /** Custom fallback node when the image fails. */
   fallback?: ReactNode;
+  /** Forwarded to the underlying <img>. */
+  width?: number | string;
+  /** Forwarded to the underlying <img>. */
+  height?: number | string;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;
   className?: string;

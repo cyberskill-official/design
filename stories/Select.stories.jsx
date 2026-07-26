@@ -6,22 +6,13 @@ export default {
   component: Select,
   tags: ['autodocs'],
   argTypes: {
-  "label": {
-    "control": "object"
+    label: { control: 'text' },
+    description: { control: 'text' },
+    error: { control: 'text' },
+    options: { control: 'object' },
+    defaultValue: { control: 'text' },
+    disabled: { control: 'boolean' },
   },
-  "description": {
-    "control": "object"
-  },
-  "error": {
-    "control": "object"
-  },
-  "options": {
-    "control": "object"
-  },
-  "disabled": {
-    "control": "boolean"
-  }
-},
   parameters: {
     docs: {
       description: {
