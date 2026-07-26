@@ -82,7 +82,7 @@ const GATES=[
   {name:'ESM smoke test',file:'esm-smoke-test.html',sub:'_esm/cs.mjs imports \u00b7 export/manifest parity · hard',get:w=>w.__esm},
   {name:'Package exports integrity',file:'package-exports-integrity.html',sub:'files[] \u00b7 dual ESM (react + legacy) \u00b7 pack-safe · hard',get:w=>w.__pkgexports},
   {name:'Component children',file:'component-children-test.html',sub:'void-element #137 guard · hard',get:w=>{const v=w.__result;return v&&v.anyThrew!==undefined?{pass:v.anyThrew===false}:null;}},
-  {name:'Component behavior',file:'component-behavior-test.html',sub:'53 real interaction assertions · hard',get:w=>w.__behavior},
+  {name:'Component behavior',file:'component-behavior-test.html',sub:'78 real interaction assertions · hard',get:w=>w.__behavior},
   {name:'A11y interactions',file:'a11y-gate.html',sub:'focus trap/restore \u00b7 roving \u00b7 open-state Esc (Cascader\u2026ContextMenu) · hard',get:w=>w.__a11y},
   {name:'A11y CSSOM',file:'a11y-harness.html',sub:'touch-target floors \u00b7 focus-ring source proof \u00b7 reduced-motion/contrast · hard',get:w=>w.__a11ycss},
   {name:'Template schema v2',file:'template-schema-test.html',sub:'typed content slots — hole-driven templates validated · hard',get:w=>w.__schemav2},
