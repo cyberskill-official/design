@@ -12,13 +12,13 @@
 
 1. **`fast-gates`** — `npm ci` + Playwright Chromium cache, serve repo, mở `_audit/run.html` headless (`_audit/ci/run-gates.mjs`), fail khi hard-gate fail. Upload import-report khi fail. Hàng mới trên board (hardening Th7 2026 thêm 8: token-format-parity, version-stamp, support-runtime-identity, package-exports-integrity, template-lang-parity, dtcg-typing, design-md-parity, bundle-freshness) được nhận tự động — runner đọc `window.__run`, không phải danh sách gate phía job.
 2. **`token-provenance`** — kiểm Node không trình duyệt: natives + `provenance.json` khớp sha-256 nguồn DTCG.
-3. **`unit-tests`** — `npm run test:unit` (10 contract test Node thuần; nối vào CI bởi hardening Th7 2026 — trước đó chỉ local).
+3. **`unit-tests`** — `npm run test:unit` (11 contract test Node thuần; nối vào CI bởi hardening Th7 2026 — trước đó chỉ local). Gồm `test-element-packs` (freshness `node scripts/generate-element-packs.mjs --check`).
 4. **`node-prechecks`** — authority Node không trình duyệt: `_audit/ci/check-bundle-freshness.mjs` (nguồn chân lý bundle-freshness — khám phá source đầy đủ gồm file mới/xóa; hàng board chỉ re-hash file ghi trong header) và `scripts/generate-design-md.mjs --check` (`DESIGN.md` gốc byte-equals regeneration).
 5. **`docs-consistency-blocker`** — merge blocker `docs-consistency` + `bilingual-parity`.
 6. **`whole-set-audits`** — quyết định B của owner: mọi push/PR, cộng nightly `0 3 * * *` và `workflow_dispatch` (responsive + language + theme overflow, ~15–20 phút).
 7. **`figma-variables-push`** — trên push `main` + thủ công. **`FIGMA_TOKEN` / `FIGMA_FILE_KEY` trống → soft-skip** (exit 0 + report — cùng trung thực với Code Connect). Quyết định A (non-Enterprise): Variables REST cũng **soft-skip khi API 403** (và lỗi plan/scope liên quan) sau khi secret chứng minh mở file. Soft-skip ≠ sync Variables live. Xem `docs/figma.md`.
 8. **`code-connect`** — trên PR + `main` + thủ công. Quyết định 1C: dry-run luôn (config + 105 mapping); publish soft-skip khi thiếu `FIGMA_TOKEN` / `FIGMA_FILE_KEY` hoặc API 403/404/429. Xem `docs/figma.md`.
-9. **`regenerate-tokens`** (pull request) + **`regenerate-tokens-push`** (push `main` / schedule / thủ công) — một path filter (`tokens.dtcg.json`, natives, generator, `VERSION`), một lần regenerate deterministic, hai kết quả. Trên **pull request** job chạy với `contents: read`, không bao giờ push, và **exit 1** khi có drift: chạy `node _audit/ci/generate-native-tokens.mjs` ở local rồi commit natives. Chỉ job song sinh push/schedule/thủ công giữ `contents: write` và auto-commit với `DS_PUSH_TOKEN` (hoặc `github.token`).
+9. **`regenerate-tokens`** (pull request) + **`regenerate-tokens-push`** (push `main` / schedule / thủ công) — path filter phủ element seeds/packs (`element-seeds.json`, `elements.css`, mirror JSON/JS/DTCG, `generate-element-packs.mjs`) cộng natives / `VERSION`. Regenerate chạy `npm run tokens:elements` rồi `node _audit/ci/generate-native-tokens.mjs`. Trên **pull request** job chạy với `contents: read`, không bao giờ push, và **exit 1** khi có drift: chạy cả hai ở local rồi commit. Chỉ job song sinh push/schedule/thủ công giữ `contents: write` và auto-commit với `DS_PUSH_TOKEN` (hoặc `github.token`).
 10. **`npm-hello-smoke`** — chứng minh consumer registry: `cd examples/npm-hello && npm ci && npm run smoke` (**hard fail**; package public). Path-filtered trên push/PR khi `examples/npm-hello/**`, bề mặt publish package, hoặc workflow này đổi; luôn chạy trên schedule / `workflow_dispatch`.
 
 Workflow riêng **`npm-publish`** (`.github/workflows/npm-publish.yml`): `workflow_dispatch` + tag `v*`; pack dry-run luôn; publish qua **npm Trusted Publishing (OIDC)** (`id-token: write`, không `NPM_TOKEN` trên bước publish). Soft-skip khi auth / 403 / 404 / EOTP / conflict phiên bản. Phiên bản giữ **1.0.0**; license **UNLICENSED**. Trusted Publisher trên npmjs phải khớp filename workflow `npm-publish.yml`. Publishing access package: **Require 2FA and disallow tokens** (OIDC vẫn chạy; token classic bị từ chối).
@@ -62,6 +62,8 @@ node _audit/ci/check-bundle-freshness.mjs
 node scripts/generate-design-md.mjs --check
 npm run test:unit
 node _audit/ci/run-single-gate.mjs http://127.0.0.1:8080/_audit/docs-consistency.html __docs
+npm run tokens:elements
+node scripts/generate-element-packs.mjs --check
 node _audit/ci/generate-native-tokens.mjs
 ```
 

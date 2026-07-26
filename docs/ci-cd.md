@@ -12,13 +12,13 @@
 
 1. **`fast-gates`** — `npm ci` + cached Playwright Chromium, serves the repo, opens `_audit/run.html` headlessly (`_audit/ci/run-gates.mjs`), fails on any hard-gate failure. Uploads import-report on failure. New rows added to the board (the Jul 2026 hardening added 8: token-format-parity, version-stamp, support-runtime-identity, package-exports-integrity, template-lang-parity, dtcg-typing, design-md-parity, bundle-freshness) are picked up automatically — the runner reads `window.__run`, not a job-side gate list.
 2. **`token-provenance`** — browser-free Node check that natives + `provenance.json` match DTCG source sha-256.
-3. **`unit-tests`** — `npm run test:unit` (10 plain-Node contract tests; wired into CI by the Jul 2026 hardening — previously local-only).
+3. **`unit-tests`** — `npm run test:unit` (11 plain-Node contract tests; wired into CI by the Jul 2026 hardening — previously local-only). Includes `test-element-packs` (`node scripts/generate-element-packs.mjs --check` freshness).
 4. **`node-prechecks`** — browser-free Node authorities: `_audit/ci/check-bundle-freshness.mjs` (the bundle-freshness source of truth — full source discovery incl. new/deleted files; the board row only re-hashes header-recorded files) and `scripts/generate-design-md.mjs --check` (root `DESIGN.md` byte-equals regeneration).
 5. **`docs-consistency-blocker`** — `docs-consistency` + `bilingual-parity` merge blockers.
 6. **`whole-set-audits`** — owner decision B: every push/PR, plus nightly `0 3 * * *` and `workflow_dispatch` (responsive + language + theme overflow, ~15–20 min).
 7. **`figma-variables-push`** — on `main` push + manual. **Empty `FIGMA_TOKEN` / `FIGMA_FILE_KEY` soft-skip** (exit 0 + report — same honesty as Code Connect). Owner decision A (non-Enterprise): Variables REST also **soft-skips on API 403** (and related plan/scope failures) after secrets prove file open. Soft-skip ≠ live Variables sync. See `docs/figma.md`.
 8. **`code-connect`** — on PR + `main` + manual. Decision 1C: dry-run always (config + 105 mappings); publish soft-skips when `FIGMA_TOKEN` / `FIGMA_FILE_KEY` missing or API 403/404/429. See `docs/figma.md`.
-9. **`regenerate-tokens`** (pull requests) + **`regenerate-tokens-push`** (push to `main` / schedule / manual) — one path filter (`tokens.dtcg.json`, natives, generator, `VERSION`), one deterministic regeneration, two outcomes. On a **pull request** the job runs with `contents: read`, never pushes, and **exits 1** on drift: run `node _audit/ci/generate-native-tokens.mjs` locally and commit the natives. Only the push/schedule/manual twin holds `contents: write` and auto-commits with `DS_PUSH_TOKEN` (or `github.token`).
+9. **`regenerate-tokens`** (pull requests) + **`regenerate-tokens-push`** (push to `main` / schedule / manual) — path filter covers element seeds/packs (`element-seeds.json`, `elements.css`, JSON/JS/DTCG mirrors, `generate-element-packs.mjs`) plus natives / `VERSION`. Regeneration runs `npm run tokens:elements` then `node _audit/ci/generate-native-tokens.mjs`. On a **pull request** the job runs with `contents: read`, never pushes, and **exits 1** on drift: run both locally and commit. Only the push/schedule/manual twin holds `contents: write` and auto-commits with `DS_PUSH_TOKEN` (or `github.token`).
 10. **`npm-hello-smoke`** — registry consumer proof: `cd examples/npm-hello && npm ci && npm run smoke` (**hard fail**; package is public). Path-filtered on push/PR when `examples/npm-hello/**`, package publish surface, or this workflow changes; always on schedule / `workflow_dispatch`.
 
 Separate workflow **`npm-publish`** (`.github/workflows/npm-publish.yml`): `workflow_dispatch` + `v*` tags; pack dry-run always; publish via **npm Trusted Publishing (OIDC)** (`id-token: write`, no `NPM_TOKEN` on the publish step). Soft-skips on auth / 403 / 404 / EOTP / version conflict. Version stays **1.0.0**; license **UNLICENSED**. Trusted Publisher on npmjs must match workflow filename `npm-publish.yml`. Package Publishing access is **Require 2FA and disallow tokens** (OIDC still works; classic tokens rejected).
@@ -62,6 +62,8 @@ node _audit/ci/check-bundle-freshness.mjs
 node scripts/generate-design-md.mjs --check
 npm run test:unit
 node _audit/ci/run-single-gate.mjs http://127.0.0.1:8080/_audit/docs-consistency.html __docs
+npm run tokens:elements
+node scripts/generate-element-packs.mjs --check
 node _audit/ci/generate-native-tokens.mjs
 ```
 
