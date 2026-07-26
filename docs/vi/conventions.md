@@ -8,20 +8,21 @@ Cho người và agent *mở rộng hệ thống này*. (Consumer: đọc `SKILL
 
 ## Bốn trục
 
-Mọi bề mặt render resolve ba scope trực giao — không bao giờ mã hóa một trục trong trục khác:
+Mọi bề mặt render resolve bốn scope trực giao — không bao giờ mã hóa một trục trong trục khác:
 | Trục | Attribute | Sở hữu | Pack sống ở |
 |---|---|---|---|
-| **Theme** | `data-theme="dark\|system"` | đảo light/dark | `tokens/colors.css` |
+| **Theme** | `data-theme="dark\|system"` | light / dark / system (OS) | `tokens/colors.css` |
 | **Element** (Ngũ Hành) | `data-cs-element` + `data-cs-variant` | bản sắc hue theo sản phẩm | `tokens/elements.css` |
 | **Language** | `lang` / Language tweak | copy EN · VI | registry component + props template |
+| **Style** | `data-cs-style` (tuỳ chọn; vắng ≡ `liquid-glass`) | pack vật liệu bề mặt | `tokens/styles.css` |
 
-Pack Style là liquid-glass (sole pack; vắng ≡ mặc định). Bất biến dưới mọi trục: anchors Umber/Ochre, voice, họ chữ, màu semantic status, vòng focus Ochre 3px, sàn APCA, target ≥44px.
+Pack Style duy nhất hiện nay là **liquid-glass**. Bất biến dưới mọi trục: anchors Umber/Ochre, voice, họ chữ, màu semantic status, vòng focus Ochre 3px, sàn APCA, target ≥44px.
 
 ## Ngữ pháp đặt tên
 
 - Tokens: `--cs-<layer>-<role>[-<state>]` (`--cs-color-text-muted`). Layer role element: `--cs-accent-*` (hợp đồng 9-token — xem header `tokens/elements.css`).
 
-- Classes: `.cs-<block>[-<part>][--modifier]`. Data attributes: `data-theme`, `data-cs-element`, `data-cs-variant`.
+- Classes: `.cs-<block>[-<part>][--modifier]`. Data attributes: `data-theme`, `data-cs-element`, `data-cs-variant`, `data-cs-style`.
 
 - Files: `tokens/<concern>.css` · `base/<concern>.css` (tên concern, không tên changelog — "interaction", không "refinements2") · `components/<group>/<Name>.{jsx,d.ts,prompt.md}` · `templates/<dept>-<artifact>/` · `guidelines/<group>-<topic>.html`.
 

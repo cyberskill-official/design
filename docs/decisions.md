@@ -106,7 +106,7 @@ Operational follow-ups — not product marketing, not a backlog surface:
 
 7. **Element colour geometry** (Jul 2026) — Element packs are generated from `tokens/element-seeds.json` (`npm run tokens:elements`): soft / middle / deep intensity ladder, Thổ middle pinned to logo ochre, light↔dark hue lock, APCA dark floors. Public variant names unchanged. Hard gate: `_audit/element-geometry.html`. Benchmark rubric: `docs/benchmark-rubric.md`.
 
-8. **Style axis (`data-cs-style`)** (Jul 2026) — Fourth product axis with sole pack **liquid-glass** (absent ≡ liquid-glass; no visual change vs prior fixed treatment). Contract: `tokens/styles.css` + hard gate `_audit/style-contract.html`. Storybook toolbar + playground expose the pack; Identity Lab copy notes the sole pack (no style pill until a second pack). Further Style packs follow the Expansion Rule checklist in `docs/benchmark-rubric.md` — do not invent packs casually.
+8. **Style axis (`data-cs-style`)** (Jul 2026) — Fourth product axis with sole pack **liquid-glass** (absent ≡ liquid-glass; no visual change vs prior fixed treatment). Contract: `tokens/styles.css` + hard gate `_audit/style-contract.html`. Storybook toolbar, playground, Atomic View, and Identity Lab expose a sole-pack Style control (`liquid-glass` only). Further Style packs follow the Expansion Rule checklist in `docs/benchmark-rubric.md` — do not invent packs casually.
 
 Storybook `FullMatrix` is required whenever a public primary has ≥1 of {size enums, variant enums, state keys} (contract floor ≥28 stories). Schema sidecars remain complete for content-hole templates; axis-only templates omit by design. See `docs/quality-gates.md` and `docs/storybook.md`.
 

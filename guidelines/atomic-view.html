@@ -358,6 +358,7 @@ const NM = window.__csNavModel || {};
 
 function App(){
   const [theme,setTheme]=useState("light");
+  const [style,setStyle]=useState("liquid-glass");
   const [el,setEl]=useState("tho|");
   const [lang,setLang]=useState("");
   const [collapsed,setCollapsed]=useState({Atom:false,Molecule:false,Organism:false,found:false,tpl:true,pages:true});
@@ -373,10 +374,11 @@ function App(){
   const [elm,elv]=el.split("|");
   const axis={};
   if(theme!=="light") axis["data-theme"]=theme;
+  if(style) axis["data-cs-style"]=style;
   if(elm) axis["data-cs-element"]=elm;
   if(elv) axis["data-cs-variant"]=elv;
   if(lang) axis.lang=lang;
-  const artifactAx={theme,elm,elv,lang};
+  const artifactAx={theme,style,elm,elv,lang};
   const shownTpls=tpls.filter(t=>!nq||t.name.toLowerCase().includes(nq)||(NM.classifyTemplate&&NM.classifyTemplate(t.name).toLowerCase().includes(nq)));
   const tplGroups=(NM.groupTemplates||((xs)=>[{category:"All",items:xs}]))(shownTpls);
   const shownPages=PAGES.filter(t=>!nq||t.name.toLowerCase().includes(nq));
@@ -448,10 +450,13 @@ function App(){
         <div className="toolbar" data-chrome="atomic-toolbar">
           <h1>CyberSkill · Components</h1>
           <label className="ctl">Theme
-            <select value={theme} onChange={(e)=>setTheme(e.target.value)}><option value="light">Light</option><option value="dark">Dark</option></select>
+            <select value={theme} onChange={(e)=>setTheme(e.target.value)}><option value="light">Light</option><option value="dark">Dark</option><option value="system">System</option></select>
           </label>
           <label className="ctl">Element
             <select value={el} onChange={(e)=>setEl(e.target.value)}>{ELEMENTS.map(([v,l])=><option key={v} value={v}>{l}</option>)}</select>
+          </label>
+          <label className="ctl">Style
+            <select value={style} onChange={(e)=>setStyle(e.target.value)}><option value="liquid-glass">Liquid glass</option></select>
           </label>
           <label className="ctl">Language
             <select value={lang} onChange={(e)=>setLang(e.target.value)}>{LANGS.map(([v,l])=><option key={v} value={v}>{l}</option>)}</select>
