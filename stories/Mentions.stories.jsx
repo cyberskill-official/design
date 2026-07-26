@@ -5,46 +5,31 @@ export default {
   component: Mentions,
   tags: ['autodocs'],
   argTypes: {
-  "value": {
-    "control": "text"
+    defaultValue: { control: 'text' },
+    users: { control: 'object' },
+    placeholder: { control: 'text' },
+    rows: { control: 'number' },
+    lang: { control: 'text' },
   },
-  "defaultValue": {
-    "control": "text"
-  },
-  "onChange": {
-    "control": "text"
-  },
-  "users": {
-    "control": "text"
-  },
-  "placeholder": {
-    "control": "text"
-  },
-  "rows": {
-    "control": "number"
-  },
-  "lang": {
-    "control": "text"
-  }
-},
   parameters: {
     docs: {
       description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Mentions. Portable consumers use styles.css + bundle, not Storybook.',
+        component:
+          'Host Live CSF — Default plus honest control matrix mounting Mentions. Portable consumers use styles.css + bundle, not Storybook.',
       },
     },
   },
-  args: { options: [{ id: 'lumi', label: 'Lumi' }], label: 'Mention' },
+  args: { users: ['lumi', 'anle'], defaultValue: 'Thanks @', placeholder: 'Mention a teammate…', rows: 2 },
 };
 
 export const Default = {};
 
 export const Matrix = {
-  name: 'Matrix / Options',
+  name: 'Matrix / Users',
   render: (args) => (
     <div style={{ display: 'grid', gap: 12 }}>
-      <Mentions {...args} label="One" options={[{ id: 'lumi', label: 'Lumi' }]} />
-      <Mentions {...args} label="Two" options={[{ id: 'lumi', label: 'Lumi' }, { id: 'stephen', label: 'Stephen' }]} />
+      <Mentions {...args} users={['lumi']} defaultValue="Hi @" />
+      <Mentions {...args} users={['lumi', 'stephen', 'anle']} defaultValue="Ping @" />
     </div>
   ),
 };

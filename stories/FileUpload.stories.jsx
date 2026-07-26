@@ -5,33 +5,20 @@ export default {
   component: FileUpload,
   tags: ['autodocs'],
   argTypes: {
-  "title": {
-    "control": "object"
+    title: { control: 'text' },
+    hint: { control: 'text' },
+    accept: { control: 'text' },
+    multiple: { control: 'boolean' },
   },
-  "hint": {
-    "control": "object"
-  },
-  "accept": {
-    "control": "text"
-  },
-  "multiple": {
-    "control": "boolean"
-  },
-  "onFiles": {
-    "control": "object"
-  },
-  "icon": {
-    "control": "object"
-  }
-},
   parameters: {
     docs: {
       description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting FileUpload. Portable consumers use styles.css + bundle, not Storybook.',
+        component:
+          'Host Live CSF — Default plus honest control matrix mounting FileUpload. Portable consumers use styles.css + bundle, not Storybook.',
       },
     },
   },
-  args: { label: 'Attachments', accept: '.pdf,.png' },
+  args: { title: 'Attachments', accept: '.pdf,.png', hint: 'PDF or PNG' },
 };
 
 export const Default = {};
@@ -40,8 +27,8 @@ export const Matrix = {
   name: 'Matrix / Accept',
   render: (args) => (
     <div style={{ display: 'grid', gap: 12 }}>
-      <FileUpload {...args} label="PDF" accept=".pdf" />
-      <FileUpload {...args} label="Images" accept=".png,.jpg" />
+      <FileUpload {...args} title="PDF" accept=".pdf" hint="Documents only" />
+      <FileUpload {...args} title="Images" accept=".png,.jpg" hint="PNG or JPG" />
     </div>
   ),
 };

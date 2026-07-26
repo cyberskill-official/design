@@ -6,32 +6,19 @@ export default {
   component: TagInput,
   tags: ['autodocs'],
   argTypes: {
-  "value": {
-    "control": "text"
+    label: { control: 'text' },
+    value: { control: 'object' },
+    defaultValue: { control: 'object' },
+    placeholder: { control: 'text' },
+    max: { control: 'number' },
+    disabled: { control: 'boolean' },
+    lang: { control: 'text' },
   },
-  "defaultValue": {
-    "control": "text"
-  },
-  "onChange": {
-    "control": "text"
-  },
-  "placeholder": {
-    "control": "text"
-  },
-  "max": {
-    "control": "number"
-  },
-  "disabled": {
-    "control": "boolean"
-  },
-  "lang": {
-    "control": "text"
-  }
-},
   parameters: {
     docs: {
       description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting TagInput. Portable consumers use styles.css + bundle, not Storybook.',
+        component:
+          'Host Live CSF — Default plus honest control matrix mounting TagInput. Portable consumers use styles.css + bundle, not Storybook.',
       },
     },
   },
@@ -64,17 +51,11 @@ export const States = {
 export const FullMatrix = {
   name: 'Full matrix / state',
   render: (args) => {
-    const cells = cartesian({  }).flatMap((combo) =>
-      stateCombos(["disabled"]).map((state) => {
+    const cells = cartesian({}).flatMap((combo) =>
+      stateCombos(['disabled']).map((state) => {
         const props = { ...combo, ...state };
         const label = comboLabel(props, ['disabled']);
-        return (
-          <TagInput
-            key={label}
-            {...args}
-            disabled={!!state.disabled}
-          />
-        );
+        return <TagInput key={label} {...args} disabled={!!state.disabled} />;
       }),
     );
     return (
