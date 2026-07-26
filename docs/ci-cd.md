@@ -12,7 +12,7 @@
 
 1. **`fast-gates`** — `npm ci` + cached Playwright Chromium, serves the repo, opens `_audit/run.html` headlessly (`_audit/ci/run-gates.mjs`), fails on any hard-gate failure. Uploads import-report on failure. New rows added to the board (the Jul 2026 hardening added 8: token-format-parity, version-stamp, support-runtime-identity, package-exports-integrity, template-lang-parity, dtcg-typing, design-md-parity, bundle-freshness) are picked up automatically — the runner reads `window.__run`, not a job-side gate list.
 2. **`token-provenance`** — browser-free Node check that natives + `provenance.json` match DTCG source sha-256.
-3. **`unit-tests`** — `npm run test:unit` (8 plain-Node contract tests; wired into CI by the Jul 2026 hardening — previously local-only).
+3. **`unit-tests`** — `npm run test:unit` (10 plain-Node contract tests; wired into CI by the Jul 2026 hardening — previously local-only).
 4. **`node-prechecks`** — browser-free Node authorities: `_audit/ci/check-bundle-freshness.mjs` (the bundle-freshness source of truth — full source discovery incl. new/deleted files; the board row only re-hashes header-recorded files) and `scripts/generate-design-md.mjs --check` (root `DESIGN.md` byte-equals regeneration).
 5. **`docs-consistency-blocker`** — `docs-consistency` + `bilingual-parity` merge blockers.
 6. **`whole-set-audits`** — owner decision B: every push/PR, plus nightly `0 3 * * *` and `workflow_dispatch` (responsive + language + theme overflow, ~15–20 min).
