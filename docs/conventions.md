@@ -6,7 +6,7 @@ For humans and agents *extending this system*. (Consumers: read `SKILL.md`.) The
 
 **When anything grows, everything updates in the same change.** A new element/variant, icon, component, token role, language, or template pattern must propagate to: tokens/source → specimen cards (guidelines + the component group card) **and related guideline pages** → component contract trio (`.jsx` + `.d.ts` + `.prompt.md`) → **all** templates (tweak enums and maps) → Storybook Live / Identity Lab → docs (README counts, SKILL, **and every related document the change touches** — kit READMEs, registry, contrast report regenerated after token changes). **Do not bump `VERSION` and do not maintain a changelog file** — version stays at 1.0.0. Continuity is git history plus curated **Release Notes** (`docs/release-notes.md` / Storybook). Gate every expansion with the compiler check **and a grep for the old enum/list** — nothing ships half-propagated. Documented scope boundaries (doctrine, not gaps): UI-kit pages stay pixel-faithful Thổ recreations (axes demoed in Storybook Live and Identity Lab); every template is bilingual EN·VN and English-default (client/media collateral stays English-primary), and language variants render **fully separated** — see the decision log.
 
-## The three axes
+## The four axes
 
 Every rendered surface resolves three orthogonal scopes — never encode one axis inside another:
 | Axis | Attribute | Owns | Packs live in |
@@ -15,7 +15,7 @@ Every rendered surface resolves three orthogonal scopes — never encode one axi
 | **Element** (Ngũ Hành) | `data-cs-element` + `data-cs-variant` | hue identity per product | `tokens/elements.css` |
 | **Language** | `lang` / Language tweak | EN · VI copy | component registry + template props |
 
-Surface treatment is liquid-glass (fixed). Immutable under all axes: Umber/Ochre anchors, voice, type families, semantic status colors, the 3px Ochre focus ring, APCA floors, ≥44px targets.
+Style pack is liquid-glass (sole pack; absent ≡ default). Immutable under all axes: Umber/Ochre anchors, voice, type families, semantic status colors, the 3px Ochre focus ring, APCA floors, ≥44px targets.
 
 ## Naming grammar
 
@@ -43,7 +43,7 @@ Surface treatment is liquid-glass (fixed). Immutable under all axes: Umber/Ochre
 
 - Elements fully replace Ochre inside product scopes; plasma's hot-pink edge approved (Jul 2026).
 
-- Axes are Theme × Element × Language only. Surface treatment is liquid-glass (fixed).
+- Axes are Theme × Element × Language × Style. Style pack is liquid-glass (sole pack; absent ≡ default).
 
 - Product registry is **locked** (Jul 2026) — eight portfolio mappings in `docs/products.md`; do not invent new product → element assignments.
 

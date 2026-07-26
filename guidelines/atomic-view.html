@@ -1,4 +1,4 @@
-<!-- @dsCard group="Atomic View" viewport="1280x820" name="Atomic View" subtitle="Storybook-style browser — every component + variants, live across Theme × Element × Language" -->
+<!-- @dsCard group="Atomic View" viewport="1280x820" name="Atomic View" subtitle="Storybook-style browser — every component + variants, live across Theme × Element × Language × Style" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -315,6 +315,7 @@ function applyAxis(ifr, ax){
   try{
     const d=ifr.contentDocument, h=d&&d.documentElement; if(!h) return;
     (ax.theme&&ax.theme!=="light")?h.setAttribute("data-theme",ax.theme):h.removeAttribute("data-theme");
+    if(ax.style) h.setAttribute("data-cs-style",ax.style); else h.setAttribute("data-cs-style","liquid-glass");
     ax.elm?h.setAttribute("data-cs-element",ax.elm):h.removeAttribute("data-cs-element");
     ax.elv?h.setAttribute("data-cs-variant",ax.elv):h.removeAttribute("data-cs-variant");
     if(ax.lang) h.setAttribute("lang", ax.lang);

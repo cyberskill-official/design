@@ -16,6 +16,7 @@
 @import url("tokens/motion.css");
 @import url("tokens/component-tokens.css");
 @import url("tokens/elements.css");
+@import url("tokens/styles.css");
 
 /* 3 — Base: reset, type utilities, component classes, Liquid Glass surfaces */
 @import url("base/reset.css");

@@ -6,7 +6,7 @@ Cho người và agent *mở rộng hệ thống này*. (Consumer: đọc `SKILL
 
 **Khi bất kỳ thứ gì lớn lên, mọi thứ cập nhật trong cùng một change.** Element/variant, icon, component, token role, ngôn ngữ, hoặc pattern template mới phải lan tới: tokens/source → specimen cards (guidelines + card nhóm component) **và trang guideline liên quan** → bộ ba hợp đồng component (`.jsx` + `.d.ts` + `.prompt.md`) → **mọi** template (tweak enum và map) → Storybook Live / Identity Lab → docs (đếm README, SKILL, **và mọi tài liệu liên quan change chạm** — kit README, registry, contrast report regen sau đổi token). **Không bump `VERSION` và không maintain file changelog** — version giữ 1.0.0. Continuity là git history cộng **Release Notes** curated (`docs/release-notes.md` / Storybook). Gate mọi expansion bằng compiler check **và grep enum/list cũ** — không ship nửa lan. Ranh giới phạm vi đã ghi (doctrine, không phải lỗ): trang UI-kit giữ tái tạo Thổ pixel-faithful (trục demo ở Storybook Live và Identity Lab); mọi template bilingual EN·VN và mặc định tiếng Anh (collateral client/media giữ English-primary), và biến thể ngôn ngữ render **tách hoàn toàn** — xem decision log.
 
-## Ba trục
+## Bốn trục
 
 Mọi bề mặt render resolve ba scope trực giao — không bao giờ mã hóa một trục trong trục khác:
 | Trục | Attribute | Sở hữu | Pack sống ở |
@@ -15,7 +15,7 @@ Mọi bề mặt render resolve ba scope trực giao — không bao giờ mã h�
 | **Element** (Ngũ Hành) | `data-cs-element` + `data-cs-variant` | bản sắc hue theo sản phẩm | `tokens/elements.css` |
 | **Language** | `lang` / Language tweak | copy EN · VI | registry component + props template |
 
-Xử lý bề mặt là liquid-glass (cố định). Bất biến dưới mọi trục: anchors Umber/Ochre, voice, họ chữ, màu semantic status, vòng focus Ochre 3px, sàn APCA, target ≥44px.
+Pack Style là liquid-glass (sole pack; vắng ≡ mặc định). Bất biến dưới mọi trục: anchors Umber/Ochre, voice, họ chữ, màu semantic status, vòng focus Ochre 3px, sàn APCA, target ≥44px.
 
 ## Ngữ pháp đặt tên
 
@@ -43,7 +43,7 @@ Xử lý bề mặt là liquid-glass (cố định). Bất biến dưới mọi 
 
 - Element thay thế hoàn toàn Ochre trong scope sản phẩm; cạnh hot-pink của plasma được duyệt (Th7 2026).
 
-- Trục chỉ Theme × Element × Language. Xử lý bề mặt liquid-glass (cố định).
+- Trục: Theme × Element × Language × Style. Pack Style liquid-glass (sole pack; vắng ≡ mặc định).
 
 - Product registry **đã khóa** (Th7 2026) — tám ánh xạ portfolio trong `docs/products.md`; không invent ánh xạ product → element mới.
 

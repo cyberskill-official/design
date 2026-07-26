@@ -90,9 +90,9 @@ This is exactly what `_audit/consumer-smoke-test.html` exercises (and asserts gr
 
 Consumers that skip `styles.css` to control font loading (`cyberskill.world` / Lumi imports the token + base sheets individually and keeps its own `font-display: optional` strategy) can switch from their ad-hoc `brand-fonts.css` to the package: either `@import "@cyberskill/design/tokens/fonts.css"` for the packaged faces, or keep the local `@font-face` block and point `--cs-heading-family` at `var(--cs-font-family-display)` so the **role** comes from the DS even when the **bytes** are served locally. Either way the display face stops being a per-product exception. Space Grotesk has no 800 weight, so `--cs-heading-weight-strong` (800) under `.cs-display-face` clamps to 700 within Space Grotesk — CSS does not hop to Be Vietnam Pro for a missing weight.
 
-## The three axes
+## The four axes
 
-State Theme (`data-theme`), Element (`data-cs-element` + `data-cs-variant`), and Language (`lang` / template Language tweak) on a container; everything inside re-skins with no code change (see `templates/playground.html`). Defaults: `light · tho · en`. Surface treatment is liquid-glass (fixed). Bilingual: components resolve strings from `lang` (`lang="vi"` on any container → full Vietnamese).
+State Theme (`data-theme`), Element (`data-cs-element` + `data-cs-variant`), and Language (`lang` / template Language tweak) on a container; everything inside re-skins with no code change (see `templates/playground.html`). Defaults: `light · tho · en`. Style pack is liquid-glass (sole pack; absent ≡ default). Bilingual: components resolve strings from `lang` (`lang="vi"` on any container → full Vietnamese).
 
 ## Upgrading
 
@@ -104,7 +104,7 @@ State Theme (`data-theme`), Element (`data-cs-element` + `data-cs-variant`), and
 
 ## Host Storybook (optional)
 
-The live site serves Storybook at `/` as the **product surface** for operators (Theme × Element × Language + control matrices). That is **host-only tooling** — do not depend on Storybook in product apps. Portable Atomic View remains at `guidelines/atomic-view.html`. See `docs/storybook.md` and `docs/live-hub.md`.
+The live site serves Storybook at `/` as the **product surface** for operators (Theme × Element × Language × Style + control matrices). That is **host-only tooling** — do not depend on Storybook in product apps. Portable Atomic View remains at `guidelines/atomic-view.html`. See `docs/storybook.md` and `docs/live-hub.md`.
 
 ## Five-minute consumer spike
 

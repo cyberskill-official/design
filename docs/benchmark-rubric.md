@@ -18,7 +18,7 @@ Self-audit checklist for evolving CyberSkill Design System — external standard
 
 | Rule | Enforcement |
 |---|---|
-| Axes = Theme × Element × Language until a Style Expansion Rule pass | `axis-guard` (retired Expression/Density); doctrine in design-styles |
+| Axes = Theme × Element × Language × Style until a Style Expansion Rule pass | `axis-guard` (retired Expression/Density); doctrine in design-styles |
 | Text never on mid `-accent`; Ochre focus ring never remapped; status colours never remapped | `elements.css` contract · contrast-report · conventions |
 | One element per surface; Tương sinh gradients only | products registry · conventions |
 | Product→element registry locked; UI kits Thổ-faithful | [`docs/products.md`](products.md) |
@@ -26,19 +26,17 @@ Self-audit checklist for evolving CyberSkill Design System — external standard
 | VERSION pin **1.0.0** until LAUNCH | version-stamp · docs-consistency |
 | Element packs from seeds only (30 sets) | `element-geometry` · `tokens:elements` |
 
-## Style expansion checklist (`data-cs-style` — future)
+## Style expansion checklist (`data-cs-style`)
 
-When adding a style pack beyond liquid-glass:
+Sole pack today: **liquid-glass** (`tokens/styles.css`, gate `_audit/style-contract.html`). When adding a style pack beyond liquid-glass:
 
 1. Token overlay that **consumes** the existing 9 `--cs-accent-*` roles (do not invent parallel Element packs).
 2. Specimen card + Storybook / Identity Lab wiring if the style is product-selectable.
 3. Template / kit adoption only where the style is intentional — UI kits stay Thổ-faithful unless a decision says otherwise.
 4. Regenerate contrast surfaces if the style remaps backgrounds that host text.
 5. Expansion Rule grep for the new enum across templates, docs EN+VI, gates.
-6. Add or extend a style-contract gate; keep `_audit/run.html` green.
+6. Extend the style-contract allowlist; keep `_audit/run.html` green.
 7. Record the decision in [`docs/decisions.md`](decisions.md) (+ VI).
-
-First concrete style beyond liquid-glass is a **follow-up** after the Element 30-set geometry stays green.
 
 ## How to run a benchmark pass
 

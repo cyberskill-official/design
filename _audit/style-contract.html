@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — style contract</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;font-family:var(--cs-font-family-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
+  h1{font-size:16px;margin:0 0 6px}.lede{font-size:13px;color:#6b5d4f;max-width:900px;line-height:1.5}
+  .row{font:12.5px ui-monospace,monospace;padding:4px 8px;border-radius:5px;margin:2px 0;max-width:900px}
+  .ok{background:#dcfce7;color:#166534}.bad{background:#FEE2E2;color:#B42318;font-weight:700}
+  #sum{font-size:15px;font-weight:800;margin:12px 0}
+</style></head><body>
+<h1>Style contract</h1>
+<p class="lede">Allowlists the Style product axis: sole pack <code>liquid-glass</code> (absent ≡ liquid-glass). Asserts <code>styles.css</code> imports <code>tokens/styles.css</code>, <code>--cs-style-pack</code> resolves, and scanned sources never set an unknown <code>data-cs-style</code>. Verdict: <code>window.__stylecontract.pass</code>.</p>
+<div id="list"></div><div id="sum">running…</div>
+<script>
+const list=document.getElementById('list');
+const ALLOWED=new Set(['liquid-glass']);
+function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?'ok':'bad');d.textContent=(ok?'✓ ':'✗ ')+t;list.appendChild(d);}
+(async()=>{
+  const fails=[];
+  let styles='';
+  try{ styles=await (await fetch('../styles.css',{cache:'no-store'})).text(); }
+  catch(e){ fails.push('styles.css fetch: '+e); }
+  const importsStyles= /tokens\/styles\.css/.test(styles);
+  row(importsStyles, 'styles.css imports tokens/styles.css');
+  if(!importsStyles) fails.push('styles.css missing tokens/styles.css import');
+
+  const pack=getComputedStyle(document.documentElement).getPropertyValue('--cs-style-pack').trim();
+  row(pack==='liquid-glass', '--cs-style-pack resolves to liquid-glass (got "'+pack+'")');
+  if(pack!=='liquid-glass') fails.push('--cs-style-pack='+pack);
+
+  document.documentElement.setAttribute('data-cs-style','liquid-glass');
+  const packExplicit=getComputedStyle(document.documentElement).getPropertyValue('--cs-style-pack').trim();
+  row(packExplicit==='liquid-glass', 'data-cs-style="liquid-glass" keeps --cs-style-pack');
+  if(packExplicit!=='liquid-glass') fails.push('explicit liquid-glass pack drifted');
+  document.documentElement.removeAttribute('data-cs-style');
+
+  let M;
+  try{ M=await (await fetch('../_ds_manifest.json',{cache:'no-store'})).json(); }catch(e){ fails.push('manifest fetch: '+e); }
+  const paths=new Set();
+  if(M){
+    (M.templates||[]).forEach(t=>paths.add(t.entryPath));
+    (M.cards||[]).forEach(c=>paths.add(c.path));
+  }
+  ['.storybook/preview.jsx','styles.css','tokens/styles.css','templates/playground.html',
+   'guidelines/atomic-view.html','ui_kits/status-hub/identity-lab.html','_audit/run.html'].forEach(p=>paths.add(p));
+  let scanned=0, unknown=[];
+  const ATTR=/data-cs-style\s*=\s*["']([^"']+)["']/g;
+  for(const p of paths){
+    try{
+      const t=await (await fetch('../'+p,{cache:'no-store'})).text();
+      scanned++;
+      let m; ATTR.lastIndex=0;
+      while((m=ATTR.exec(t))){
+        if(!ALLOWED.has(m[1])) unknown.push(p+':'+m[1]);
+      }
+    }catch(e){ /* optional */ }
+  }
+  row(unknown.length===0, 'data-cs-style values allowlisted ('+scanned+' files scanned)'+(unknown.length?(' · '+unknown.slice(0,6).join(', ')):' · sole pack liquid-glass'));
+  if(unknown.length) fails.push(...unknown.map(u=>'unknown style '+u));
+
+  const pass=fails.length===0;
+  window.__stylecontract={pass,fails,allowed:[...ALLOWED],scanned};
+  const s=document.getElementById('sum');
+  s.textContent=pass?'✓ PASS — style contract (liquid-glass sole pack)':'✗ FAIL — '+fails.join(', ');
+  s.style.color=pass?'#166534':'#B42318';
+})();
+</script></body></html>

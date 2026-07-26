@@ -18,7 +18,7 @@ Checklist tự kiểm khi tiến hóa CyberSkill Design System — chuẩn bên 
 
 | Rule | Thực thi |
 |---|---|
-| Trục = Theme × Element × Language cho tới khi có Style Expansion Rule | `axis-guard` (Expression/Density đã nghỉ); doctrine trong design-styles |
+| Trục = Theme × Element × Language × Style cho tới khi có Style Expansion Rule | `axis-guard` (Expression/Density đã nghỉ); doctrine trong design-styles |
 | Chữ không trên mid `-accent`; focus Ochre không remap; màu status không remap | Hợp đồng `elements.css` · contrast-report · conventions |
 | Một element mỗi bề mặt; gradient chỉ Tương sinh | Registry products · conventions |
 | Registry product→element khóa; UI kit trung thành Thổ | [`docs/vi/products.md`](products.md) |
@@ -26,19 +26,17 @@ Checklist tự kiểm khi tiến hóa CyberSkill Design System — chuẩn bên 
 | Pin VERSION **1.0.0** tới LAUNCH | version-stamp · docs-consistency |
 | Pack Element chỉ từ seed (30 bộ) | `element-geometry` · `tokens:elements` |
 
-## Checklist mở rộng style (`data-cs-style` — tương lai)
+## Checklist mở rộng style (`data-cs-style`)
 
-Khi thêm style pack ngoài liquid-glass:
+Sole pack hôm nay: **liquid-glass** (`tokens/styles.css`, gate `_audit/style-contract.html`). Khi thêm style pack ngoài liquid-glass:
 
 1. Overlay token **tiêu thụ** 9 role `--cs-accent-*` sẵn có (không invent pack Element song song).
 2. Specimen card + Storybook / Identity Lab nếu style chọn được ở sản phẩm.
 3. Adoption template / kit chỉ khi cố ý — UI kit giữ Thổ trừ khi quyết định nói khác.
 4. Regen contrast nếu style remap nền chứa chữ.
 5. Expansion Rule grep enum mới qua templates, docs EN+VI, gates.
-6. Thêm hoặc mở rộng style-contract gate; giữ `_audit/run.html` xanh.
+6. Mở rộng allowlist style-contract; giữ `_audit/run.html` xanh.
 7. Ghi quyết định trong [`docs/vi/decisions.md`](decisions.md).
-
-Style cụ thể đầu tiên ngoài liquid-glass là **follow-up** sau khi hình học Element 30-bộ vẫn xanh.
 
 ## Cách chạy một lượt benchmark
 
