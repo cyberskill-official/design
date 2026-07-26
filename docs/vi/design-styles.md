@@ -4,7 +4,7 @@ Các trục styling sống là **Theme × Element × Language × Style**. Pack S
 
 | Trục | Cách đặt | Thay đổi gì |
 |---|---|---|
-| **Theme** | light = không có attribute; `data-theme="dark"` | màu semantic sáng/tối (trục UI sản phẩm). Ở tầng token, `data-theme="system"` theo OS (`prefers-color-scheme`) và mirror dark — Identity Lab cũng có pill system |
+| **Theme** | light = không có attribute; `data-theme="dark"` | màu semantic sáng/tối (trục UI sản phẩm). Ở tầng token, `data-theme="system"` theo OS (`prefers-color-scheme`) và mirror dark — Storybook toolbar và Atomic View có điều khiển system |
 | **Element** | `data-cs-element` + tùy chọn `data-cs-variant` | bản sắc sản phẩm Ngũ Hành (**15 pack** = 5 element × soft/middle/deep) |
 | **Language** | `lang` / Language tweak | bản sao EN · VI |
 | **Style** | `data-cs-style` (tuỳ chọn; vắng ≡ `liquid-glass`) | Pack vật liệu bề mặt. Sole pack hôm nay: **liquid-glass** (`tokens/styles.css` + `base/glass.css`) |

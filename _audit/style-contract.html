@@ -42,7 +42,7 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
     (M.cards||[]).forEach(c=>paths.add(c.path));
   }
   ['.storybook/preview.jsx','styles.css','tokens/styles.css','templates/playground.html',
-   'guidelines/atomic-view.html','ui_kits/status-hub/identity-lab.html','_audit/run.html'].forEach(p=>paths.add(p));
+   'guidelines/atomic-view.html','templates/playground.html','_audit/run.html'].forEach(p=>paths.add(p));
   let scanned=0, unknown=[];
   const ATTR=/data-cs-style\s*=\s*["']([^"']+)["']/g;
   for(const p of paths){

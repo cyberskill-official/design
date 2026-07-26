@@ -5,7 +5,7 @@
 1. Tokens/source (`tokens/`, component `.jsx` + `.d.ts` + `.prompt.md`)
 2. Specimen cards (guidelines + the component group card) **and any related guideline pages**
 3. **All** templates (tweak enums, EL/EX maps, swept accents)
-4. UI kits — via the Identity Lab (kit pages stay pixel-faithful by doctrine)
+4. UI kits — Thổ-faithful kit pages; axis demos via Storybook toolbar + Atomic View (Identity Lab retired)
 5. Docs: README (counts follow the compiler), SKILL.md, `docs/conventions.md`, **and every related document the change touches** (kit READMEs, `docs/products.md`, `docs/contrast-report.md` regeneration after token changes). **Do not bump `VERSION` and do not maintain a changelog** — version stays pinned at **1.0.0** until the owner says LAUNCH.
 6. **Browsable + health surfaces:** a new/changed component gets an **Atomic View** story in `guidelines/atomic-view.html` (plus a live **playground** if it has tweakable props — `_audit/story-coverage.html` enforces the story) and behavior coverage in `_audit/component-behavior-test.html` if interactive; any new axis, tool, or tab is wired into **`_audit/index.html`** and Storybook **Status** (full-bleed `_audit/run.html` — `dashboard.html` is redirect-only); and the matching deterministic **gate** is added or updated (`contrast-guard` for new colour rules, `token-contract` + the contrast matrix for tokens, `story-coverage` for components).
 

@@ -106,7 +106,9 @@ Theo dõi vận hành — không phải marketing sản phẩm, không phải ba
 
 7. **Hình học màu Element** (Th7 2026) — Pack Element generate từ `tokens/element-seeds.json` (`npm run tokens:elements`): thang soft / middle / deep, Thổ middle ghim ochre logo, khóa hue light↔dark, sàn APCA dark. Tên variant công khai không đổi. Hard gate: `_audit/element-geometry.html`. Rubric benchmark: `docs/benchmark-rubric.md`.
 
-8. **Trục Style (`data-cs-style`)** (Th7 2026) — Trục sản phẩm thứ tư với sole pack **liquid-glass** (vắng ≡ liquid-glass; không đổi visual so với treatment cố định trước). Hợp đồng: `tokens/styles.css` + hard gate `_audit/style-contract.html`. Storybook toolbar, playground, Atomic View, và Identity Lab lộ điều khiển Style sole-pack (`liquid-glass` thôi). Pack Style tiếp theo theo checklist Expansion Rule trong `docs/benchmark-rubric.md` — không invent pack tùy tiện.
+8. **Trục Style (`data-cs-style`)** (Th7 2026) — Trục sản phẩm thứ tư với sole pack **liquid-glass** (vắng ≡ liquid-glass; không đổi visual so với treatment cố định trước). Hợp đồng: `tokens/styles.css` + hard gate `_audit/style-contract.html`. Storybook toolbar, playground, và Atomic View lộ điều khiển Style sole-pack (`liquid-glass` thôi). Pack Style tiếp theo theo checklist Expansion Rule trong `docs/benchmark-rubric.md` — không invent pack tùy tiện.
+
+9. **Identity Lab đã gỡ** (Th7 2026) — Lựa chọn owner: xóa `ui_kits/status-hub/identity-lab.html` và mọi tham chiếu product/docs/Storybook. Demo trục nằm ở Storybook toolbar Theme × Element × Language × Style, Atomic View, và specimen Elements Geometry. Các trục Theme × Element × Language × Style **vẫn là** hạ tầng sản phẩm (template, token, kit trung thành Thổ). Không hồi sinh Lab dưới tên khác nếu chưa có quyết định mới.
 
 Storybook `FullMatrix` bắt buộc khi public primary có ≥1 trong {size enums, variant enums, state keys} (sàn contract ≥28 story). Schema sidecar đã đủ cho template content-hole; template chỉ-axis bỏ qua theo thiết kế. Xem `docs/quality-gates.md` và `docs/storybook.md`.
 

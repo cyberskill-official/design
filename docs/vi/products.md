@@ -21,7 +21,7 @@
 
 ## Phạm vi
 
-- **UI kits giữ trung thành Thổ.** `ui_kits/status-hub` và `ui_kits/website` vẫn là tái tạo Thổ; demo theo element nằm ở **Identity Lab** / Storybook Live.
+- **UI kits giữ trung thành Thổ.** `ui_kits/status-hub` và `ui_kits/website` vẫn là tái tạo Thổ; demo theo element nằm ở **Storybook Element toolbar**, **Atomic View**, và specimen **Elements Geometry**.
 
 - **Dùng một ánh xạ:** scope root sản phẩm bằng Markup của hàng và dùng `--cs-accent-*`.
 

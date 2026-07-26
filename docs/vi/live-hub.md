@@ -22,7 +22,7 @@
 |---|---|
 | **Storybook** (`/`) | Bề mặt sản phẩm host: toolbar Theme × Element × Language × Style, Docs/Foundations/Components/Release Notes/Status, và Maintainer/* iframe vào HTML portable |
 | **Atomic View** (`guidelines/atomic-view.html`) | Lưới component zero-build portable cho gates và duyệt clone-and-open — không phải entry sản phẩm công khai |
-| **Guidelines / templates khác** | Specimen portable; mở từ Storybook Maintainer/* khi khám phá Motion, Identity Lab, index Status Hub / Website / Deck, kitchen-sink, v.v. |
+| **Guidelines / templates khác** | Specimen portable; mở từ Storybook Maintainer/* khi khám phá Motion, index Status Hub / Website / Deck, kitchen-sink, v.v. |
 | **Legacy `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*`** | Redirect về `/` (stub + redirect Vercel) |
 
 ## Bản đồ bề mặt (story Maintainer/*)
@@ -31,7 +31,6 @@
 |---|---|
 | Components/* CSF | Nguồn React dưới `components/` |
 | Maintainer/Surfaces → Motion | `guidelines/motion.html` |
-| Maintainer/Surfaces → Identity Lab | `ui_kits/status-hub/identity-lab.html` |
 | Maintainer/Surfaces → Status Hub | `ui_kits/status-hub/index.html` |
 | Maintainer/Surfaces → Website | `ui_kits/website/index.html` |
 | Maintainer/Surfaces → Deck | `ui_kits/deck/index.html` |

@@ -2,7 +2,7 @@
 
 ## What ships in-repo
 - Design tokens in CSS + DTCG (`tokens/tokens.dtcg.json`) with native Swift/Kotlin/Flutter mirrors.
-- UI kits under `ui_kits/` are HTML recreations that stay pixel-faithful to the brand doctrine (Thổ-first Identity Lab).
+- UI kits under `ui_kits/` are HTML recreations that stay pixel-faithful to the brand doctrine (Thổ-first kits; axis demos in Storybook / Atomic View).
 - **Code Connect** mappings for all **99** public primaries (`components/**/*.figma.tsx` + `figma.config.json` + `code-connect/node-map.json`).
 
 ## Tokens Studio import recipe (hand-sync)

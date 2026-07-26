@@ -31,7 +31,7 @@ Checklist tự kiểm khi tiến hóa CyberSkill Design System — chuẩn bên 
 Sole pack hôm nay: **liquid-glass** (`tokens/styles.css`, gate `_audit/style-contract.html`). Khi thêm style pack ngoài liquid-glass:
 
 1. Overlay token **tiêu thụ** 9 role `--cs-accent-*` sẵn có (không invent pack Element song song).
-2. Specimen card + Storybook / Identity Lab nếu style chọn được ở sản phẩm.
+2. Specimen card + Storybook / Atomic View nếu style chọn được ở sản phẩm.
 3. Adoption template / kit chỉ khi cố ý — UI kit giữ Thổ trừ khi quyết định nói khác.
 4. Regen contrast nếu style remap nền chứa chữ.
 5. Expansion Rule grep enum mới qua templates, docs EN+VI, gates.
@@ -42,5 +42,5 @@ Sole pack hôm nay: **liquid-glass** (`tokens/styles.css`, gate `_audit/style-co
 
 1. `npm run tokens:elements` (nếu đổi seed) → regen native → `node scripts/generate-contrast-report.mjs`
 2. Fast board: mở `_audit/run.html` (hoặc CI `fast-gates`) — mọi hard gate xanh, gồm **Element geometry**
-3. Spot Identity Lab: soft/middle/deep × light/dark vẫn đọc là một họ mỗi element
+3. Whole-set Atomic View / Elements Geometry: soft/middle/deep × light/dark vẫn đọc là một họ mỗi element
 4. Chỉ sửa rubric này khi chuẩn hoặc doctrine CDS đổi — giữ EN·VI parity

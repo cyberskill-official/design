@@ -58,7 +58,7 @@ assert(
   'decorator sets data-theme for dark and system',
 );
 
-/** Canonical 15 packs — same order/keys as Identity Lab, atomic-view, tokens.elements, template EL maps. */
+/** Canonical 15 packs — same order/keys as atomic-view, tokens.elements, template EL maps. */
 const ELEMENT_TOOLBAR_PACKS = [
   'tho|',
   'tho|clay',
@@ -205,7 +205,6 @@ const surfaces = readFileSync(surfacesPath, 'utf8');
 for (const needle of [
   'atomic-view.html',
   'motion.html',
-  'identity-lab.html',
   'status-hub/index.html',
   'website/index.html',
   'deck/index.html',
@@ -217,6 +216,8 @@ for (const needle of [
 ]) {
   assert(surfaces.includes(needle), 'Maintainer surface maps ' + needle);
 }
+assert(!surfaces.includes('identity-lab.html'), 'Identity Lab surface retired');
+assert(!/export\s+const\s+IdentityLab\b/.test(surfaces), 'Identity Lab story export retired');
 assert(/Maintainer\/Surfaces|Live\/Surfaces/.test(surfaces), 'surfaces title is Maintainer/Surfaces');
 assert(/Atomic View \(gates\)|AtomicView/.test(surfaces), 'Atomic View buried as gates entry');
 

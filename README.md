@@ -9,7 +9,7 @@
 This is the **entrance document** for the CyberSkill Design System — pinned **v1.0.0** (see `VERSION`). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves four independent axes — **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
 
 **Quick start by audience**
-- **Designers** — open Storybook (Foundations / Components / Maintainer surfaces) and the Templates picker (84 starting points, including the 37-document lawyer-validated Employment Suite); the Identity Lab (`ui_kits/status-hub/identity-lab.html`) lets you flip axes live.
+- **Designers** — open Storybook (Foundations / Components / Maintainer surfaces) and the Templates picker (84 starting points, including the 37-document lawyer-validated Employment Suite). Flip Theme × Element × Language × Style live via the Storybook toolbar, Atomic View, and the Elements Geometry specimen.
 
 - **Claude Code / Claude Design** — read `SKILL.md` (normative Hard rules + orientation), then the guide below; compose with `styles.css` + bundler `@cyberskill/design` (`_esm/react.mjs`) / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). DC `*.dc.html` templates only when the session has the compiler. Component contracts live beside each component (`.d.ts` + `.prompt.md`).
 
@@ -288,7 +288,7 @@ templates/                 marketing-page · dashboard · slide-deck · auth · 
                            + business — legal (vn-mutual-nda / msa / sow; fictional legal-nda retired) · finance (invoice/quote) · sales (one-pager/proposal-deck) — letter print docs + client deck
                            + Documents (reference, govern all templates) — doc-style-guide · doc-suite-index (index & usage) · doc-templates (archetypes)
                            + HR Suite — 37 lawyer-validated bilingual A4 instruments (vn-*); content verbatim, latest-DS skin
-ui_kits/status-hub/        Status Hub recreation (index · login · settings · project · identity-lab + status.css · data.js · StatusHub.jsx)
+ui_kits/status-hub/        Status Hub recreation (index · login · settings · project + status.css · data.js · StatusHub.jsx)
 ui_kits/website/           cyberskill.world recreation (index · work · careers · chat + site.css · copy.js · Website.jsx)
 ui_kits/deck/              brand deck on deck-stage (index.html; deck-stage runtime lives in templates/_vendor/, outside the compiled bundle; export PPTX/PDF on demand)
 assets/                    logo-mark.svg/png · favicon.svg · aurora-gold.jpg + aurora-{hoa,thuy,moc,kim}.png · lumi-poster.webp
@@ -299,9 +299,9 @@ thumbnail.html             project tile
 SKILL.md                   Agent-Skills-compatible entry
 ```
 
-**UI kits** (product recreations, composing the tokens + `.cs-*` classes): **Status Hub** (portfolio dashboard — KPIs, board/table/releases lenses, drawer — plus **sign-in**, **settings**, **project detail**, and the **Identity Lab** for live Theme × Element × Language × Style switching), **cyberskill.world** (bilingual marketing home with Lumi chat — plus **Work**, **Careers**, and a full-page **Lumi assistant**), and a **Brand deck** (16:9, `deck-stage`, PDF/PPTX-ready). See each kit's `README.md`.
+**UI kits** (product recreations, composing the tokens + `.cs-*` classes): **Status Hub** (portfolio dashboard — KPIs, board/table/releases lenses, drawer — plus **sign-in**, **settings**, **project detail**). Live axis demos: Storybook toolbar · Atomic View · Elements Geometry specimen, **cyberskill.world** (bilingual marketing home with Lumi chat — plus **Work**, **Careers**, and a full-page **Lumi assistant**), and a **Brand deck** (16:9, `deck-stage`, PDF/PPTX-ready). See each kit's `README.md`.
 
-**Storybook** renders every card: Components (121 exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), plus Maintainer surfaces for Status Hub (incl. Identity Lab), Website, and Deck.
+**Storybook** renders every card: Components (121 exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), plus Maintainer surfaces for Status Hub, Website, and Deck.
 
 ---
 

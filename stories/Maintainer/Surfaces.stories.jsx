@@ -13,7 +13,7 @@ export default {
     docs: {
       description: {
         component:
-          'Maintainer surfaces (Motion, Identity Lab, Status Hub, Website, Deck, templates, kitchen-sink, AI cluster, RTL, Atomic View). Atomic View is buried here for gates — not a public top-level Docs entry.',
+          'Maintainer surfaces (Motion, Status Hub, Website, Deck, templates, kitchen-sink, AI cluster, RTL, Atomic View). Atomic View is buried here for gates — not a public top-level Docs entry. Axis demos: Storybook toolbar + Atomic View + Elements Geometry specimen (Identity Lab retired).',
       },
     },
   },
@@ -21,11 +21,6 @@ export default {
 
 export const Motion = {
   render: () => <IframeSurface src="/guidelines/motion.html" title="Motion" />,
-};
-
-export const IdentityLab = {
-  name: 'Identity Lab',
-  render: () => <IframeSurface src="/ui_kits/status-hub/identity-lab.html" title="Identity Lab" />,
 };
 
 export const StatusHub = {
