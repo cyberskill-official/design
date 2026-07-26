@@ -16,13 +16,13 @@
   #stage{position:fixed;left:-6000px;top:0}
 </style></head><body>
 <h1>Component behavior smoke test</h1>
-<p class="lede">Beyond mount (<code>component-children-test</code>): <b>53</b> real interaction assertions on the compiled components — Switch/Checkbox toggle, Accordion single-open, Wave-2 AlertDialog/Item/NativeSelect/Collapsible, Tabs + SegmentedControl + Pagination selection, CommandPalette filtering, Menu/Popover/Dialog/Drawer open+close, Form controller + asyncRules, Tree/Splitter/DatePicker/ColorPicker/TreeSelect/Sortable, Cascader/Transfer/Tour/HotKeys/Mentions/Calendar, DataGrid sort+filter, Tooltip/HoverCard/ContextMenu, Slider/Select, TreeTable expand, InputGroup clear+password, plus Menubar, Toast dismiss, RadioGroup, NumberField stepper, SearchField clear, TimePicker change, FileUpload onFiles. Loads <code>_ds_bundle.js</code> (regenerated at end of turn), so re-run on a <b>fresh</b> turn after editing component sources. <code>window.__behavior.pass</code> must be true. Hardened: React/bundle preflight, per-test + suite watchdogs — the gate always publishes a verdict naming the stalled test instead of hanging (progress on <code>window.__behaviorProgress</code>).</p>
+<p class="lede">Beyond mount (<code>component-children-test</code>): <b>60</b> real interaction assertions on the compiled components — Switch/Checkbox toggle, Accordion single-open, Wave-2 AlertDialog/Item/NativeSelect/Collapsible, Tabs + SegmentedControl + Pagination selection, CommandPalette filtering, Menu/Popover/Dialog/Drawer open+close, Form controller + asyncRules, Tree/Splitter/DatePicker/ColorPicker/TreeSelect/Sortable, Cascader/Transfer/Tour/HotKeys/Mentions/Calendar, DataGrid sort+filter, Tooltip/HoverCard/ContextMenu, Slider/Select, TreeTable expand, InputGroup clear+password, Menubar/Toast/RadioGroup/NumberField/SearchField/TimePicker/FileUpload, plus Wave-3 NavigationMenu, NavItem, PromptInput, Tag dismiss, Dock, TextField, Textarea. Loads <code>_ds_bundle.js</code> (regenerated at end of turn), so re-run on a <b>fresh</b> turn after editing component sources. <code>window.__behavior.pass</code> must be true. Hardened: React/bundle preflight, per-test + suite watchdogs — the gate always publishes a verdict naming the stalled test instead of hanging (progress on <code>window.__behaviorProgress</code>).</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <div id="stage"></div>
 <script>
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
-const P=window.__behaviorProgress={done:0,total:53,current:'boot'};
+const P=window.__behaviorProgress={done:0,total:60,current:'boot'};
 function publish(v){ if(window.__behavior) return; window.__behavior=v; const s=document.getElementById('sum'); s.textContent=v.pass?('\u2713 all '+v.total+' behavior checks pass'):('\u2717 '+(v.error?v.error:(v.failed.length+'/'+v.total+' failed: '+v.failed.join(', ')))); s.style.color=v.pass?'#166534':'#B42318'; }
 const h=(typeof React!=='undefined')?React.createElement:null;
 const NS=window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
@@ -46,7 +46,7 @@ async function until(fn,ms){ ms=ms||2500; const t0=Date.now(); let r=false; whil
 async function run(){
   if(!h||typeof ReactDOM==='undefined'){ publish({pass:false,total:0,failed:[],error:'React CDN failed to load (unpkg unreachable?) \u2014 gate cannot run',results:[]}); return; }
   if(!NS){ publish({pass:false,total:0,failed:[],error:'bundle namespace not found \u2014 is _ds_bundle.js compiled?',results:[]}); return; }
-  const {Switch,Checkbox,Accordion,Collapsible,Tabs,CommandPalette,Menu,MenuItem,Popover,Dialog,Drawer,AlertDialog,Pagination,SegmentedControl,Toggle,Rating,InputOTP,Combobox,TagInput,InlineEdit,Popconfirm,Carousel,DataGrid,Button,Form,FormField,TextField,Tree,Splitter,DatePicker,ColorPicker,TreeSelect,Sortable,Cascader,Transfer,Tour,HotKeys,Mentions,Calendar,Item,NativeSelect,Tooltip,HoverCard,ContextMenu,Slider,Select,TreeTable,InputGroup,Menubar,Toast,ToastStack,RadioGroup,NumberField,SearchField,TimePicker,FileUpload}=NS;
+  const {Switch,Checkbox,Accordion,Collapsible,Tabs,CommandPalette,Menu,MenuItem,Popover,Dialog,Drawer,AlertDialog,Pagination,SegmentedControl,Toggle,Rating,InputOTP,Combobox,TagInput,InlineEdit,Popconfirm,Carousel,DataGrid,Button,Form,FormField,TextField,Textarea,Tree,Splitter,DatePicker,ColorPicker,TreeSelect,Sortable,Cascader,Transfer,Tour,HotKeys,Mentions,Calendar,Item,NativeSelect,Tooltip,HoverCard,ContextMenu,Slider,Select,TreeTable,InputGroup,Menubar,Toast,ToastStack,RadioGroup,NumberField,SearchField,TimePicker,FileUpload,NavigationMenu,Sidebar,NavItem,PromptInput,Tag,Dock}=NS;
 
   await test('Switch — click toggles checked',async()=>{
     assert(Switch,'Switch export missing');
@@ -640,6 +640,75 @@ async function run(){
     inp.dispatchEvent(new Event('change',{bubbles:true}));
     assert(await until(()=>got&&got.length===1&&got[0].name==='note.txt'),'onFiles');
     return '1 file';
+  });
+
+  await test('NavigationMenu — open panel + Escape closes',async()=>{
+    assert(NavigationMenu,'NavigationMenu export missing');
+    const items=[{label:'Product',panel:[{label:'Agents',href:'#a'},{label:'Kits',href:'#k'}]},{label:'Docs',href:'#d'}];
+    const c=mount(h(NavigationMenu,{items})); await wait(70);
+    const top=c.querySelector('button.cs-navmenu__top'); assert(top,'top');
+    top.click();
+    assert(await until(()=>c.querySelector('.cs-navmenu__panel')&&top.getAttribute('aria-expanded')==='true'),'panel open');
+    document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
+    assert(await until(()=>!c.querySelector('.cs-navmenu__panel')),'Esc closes');
+    return 'open→Esc';
+  });
+
+  await test('NavItem — click fires onClick',async()=>{
+    assert(Sidebar&&NavItem,'Sidebar/NavItem export missing');
+    let hit=false;
+    const c=mount(h(Sidebar,{label:'App'},h(NavItem,{onClick:()=>{hit=true;}},'Home'))); await wait(70);
+    const item=c.querySelector('.cs-nav-item'); assert(item,'item'); item.click();
+    assert(hit,'onClick');
+    return 'clicked';
+  });
+
+  await test('PromptInput — send fires onSubmit',async()=>{
+    assert(PromptInput,'PromptInput export missing');
+    let got=null;
+    function PH(){const[v,setV]=React.useState('hi');return h(PromptInput,{value:v,onChange:setV,onSubmit:(t)=>{got=t;},lang:'en'});}
+    const c=mount(h(PH)); await wait(70);
+    const btn=c.querySelector('.cs-prompt__bar .cs-button--primary'); assert(btn,'send'); btn.click();
+    assert(await until(()=>got==='hi'),'onSubmit');
+    return 'submit hi';
+  });
+
+  await test('Tag — close fires onRemove',async()=>{
+    assert(Tag,'Tag export missing');
+    let gone=false;
+    const c=mount(h(Tag,{onRemove:()=>{gone=true;},lang:'en'},'Beta')); await wait(70);
+    const x=c.querySelector('.cs-tag__close'); assert(x,'close'); x.click();
+    assert(gone,'onRemove');
+    return 'dismissed';
+  });
+
+  await test('Dock — item click fires onSelect',async()=>{
+    assert(Dock,'Dock export missing');
+    let hit=false;
+    const c=mount(h(Dock,{label:'Apps',items:[{icon:'A',label:'Alpha',onSelect:()=>{hit=true;}},{icon:'B',label:'Beta'}]})); await wait(70);
+    const b=c.querySelector('.cs-dock__item'); assert(b,'item'); b.click();
+    assert(hit,'onSelect');
+    return 'selected';
+  });
+
+  await test('TextField — change fires onChange',async()=>{
+    assert(TextField,'TextField export missing');
+    let val='';
+    function FH(){const[v,setV]=React.useState('');val=v;return h(TextField,{label:'Name',value:v,onChange:(e)=>setV(e.target.value)});}
+    const c=mount(h(FH)); await wait(70);
+    setInput(c.querySelector('.cs-field__control'),'Cy'); await wait(40);
+    assert(val==='Cy','onChange');
+    return 'typed';
+  });
+
+  await test('Textarea — change fires onChange',async()=>{
+    assert(Textarea,'Textarea export missing');
+    let val='';
+    function TH(){const[v,setV]=React.useState('');val=v;return h(Textarea,{label:'Bio',value:v,onChange:(e)=>setV(e.target.value)});}
+    const c=mount(h(TH)); await wait(70);
+    setInput(c.querySelector('.cs-field__control'),'ok'); await wait(40);
+    assert(val==='ok','onChange');
+    return 'typed';
   });
 
   const bad=results.filter(r=>!r.ok);
