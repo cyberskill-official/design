@@ -37,15 +37,16 @@ Baselines must match **GitHub Actions `ubuntu-latest` Chromium** (not macOS, and
 Local amd64 Docker can approximate:
 
 ```bash
-docker run --rm --platform linux/amd64 -v "$PWD":/work -w /work mcr.microsoft.com/playwright:v1.47.0-jammy \
-  bash -lc 'npx --yes serve@14 -l 8080 . >/tmp/serve.log 2>&1 & npx --yes wait-on@7 http://127.0.0.1:8080/dashboard.html && node _audit/ci/pixel-diff.mjs --update http://127.0.0.1:8080'
+# Match package.json playwright major.minor (browsers installed inside the container).
+docker run --rm --platform linux/amd64 -v "$PWD":/work -w /work node:22-bookworm \
+  bash -lc 'npx playwright install --with-deps chromium && npx --yes serve@14 -l 8080 . >/tmp/serve.log 2>&1 & npx --yes wait-on@7 http://127.0.0.1:8080/dashboard.html && node _audit/ci/pixel-diff.mjs --update http://127.0.0.1:8080'
 ```
 
 Compare without rewriting (hard — non-zero exit on drift):
 
 ```bash
-docker run --rm --platform linux/amd64 -v "$PWD":/work -w /work mcr.microsoft.com/playwright:v1.47.0-jammy \
-  bash -lc 'npx --yes serve@14 -l 8080 . >/tmp/serve.log 2>&1 & npx --yes wait-on@7 http://127.0.0.1:8080/dashboard.html && node _audit/ci/pixel-diff.mjs http://127.0.0.1:8080'
+docker run --rm --platform linux/amd64 -v "$PWD":/work -w /work node:22-bookworm \
+  bash -lc 'npx playwright install --with-deps chromium && npx --yes serve@14 -l 8080 . >/tmp/serve.log 2>&1 & npx --yes wait-on@7 http://127.0.0.1:8080/dashboard.html && node _audit/ci/pixel-diff.mjs http://127.0.0.1:8080'
 ```
 
 Baselines **must** be real PNGs (not JPEG-named-as-PNG). After an intentional redesign, refresh on CI (or amd64 Linux matching the runner), commit the PNGs, and note it in the PR description.
