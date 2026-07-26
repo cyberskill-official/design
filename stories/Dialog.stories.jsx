@@ -7,19 +7,13 @@ export default {
   component: Dialog,
   tags: ['autodocs'],
   argTypes: {
-  "open": {
-    "control": "boolean"
+    open: { control: 'boolean' },
+    title: { control: 'text' },
+    actions: { control: 'object' },
+    closeLabel: { control: 'text' },
+    lang: { control: 'select', options: ['en', 'vi'] },
+    onClose: { control: false },
   },
-  "title": {
-    "control": "object"
-  },
-  "actions": {
-    "control": "object"
-  },
-  "closeLabel": {
-    "control": "text"
-  }
-},
   parameters: {
     docs: {
       description: {

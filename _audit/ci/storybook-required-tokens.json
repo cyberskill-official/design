@@ -25,5 +25,18 @@
   ],
   "CommandPalette": [
     "groups="
+  ],
+  "TreeTable": [
+    "nodes=",
+    "defaultExpanded"
+  ],
+  "AlertDialog": [
+    "defaultOpen",
+    "confirmLabel",
+    "cancelLabel"
+  ],
+  "InputGroup": [
+    "label=",
+    "prefix="
   ]
 }

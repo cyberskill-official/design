@@ -5,11 +5,13 @@ export default {
   component: Mentions,
   tags: ['autodocs'],
   argTypes: {
+    value: { control: 'text' },
     defaultValue: { control: 'text' },
+    onChange: { control: false },
     users: { control: 'object' },
     placeholder: { control: 'text' },
     rows: { control: 'number' },
-    lang: { control: 'text' },
+    lang: { control: 'select', options: ['en', 'vi'] },
   },
   parameters: {
     docs: {
