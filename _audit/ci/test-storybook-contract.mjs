@@ -310,10 +310,12 @@ function matrixFamilyBodies(text) {
 /** Resolve discrete select options from argTypes (literal array or const ref). */
 function resolveOptions(text, key) {
   const at = argTypesSection(text);
-  const keyRe = new RegExp('["\']?' + key + '["\']?\\s*:\\s*\\{');
-  const idx = at.search(keyRe);
-  if (idx < 0) return null;
-  const slice = at.slice(idx, idx + 600);
+  const keyRe = new RegExp('["\']?' + key + '["\']?\\s*:\\s*(\\{)');
+  const m = at.match(keyRe);
+  if (!m) return null;
+  // Scope to this prop's object only — a fixed char slice can steal a sibling's options.
+  const abs = (m.index ?? at.search(keyRe)) + m[0].length - 1;
+  const slice = balanced(at, abs) || '';
   const lit = slice.match(/["']?options["']?\s*:\s*\[([^\]]*)\]/);
   if (lit) {
     return lit[1]
@@ -421,6 +423,25 @@ for (const m of modules) {
     const miss = opts.filter((o) => !optionMounted(joinedBodies, key, o));
     if (miss.length) {
       fail.push(m.primary + ' missing ' + key + ' enum mounts: ' + miss.join(', '));
+    }
+  }
+
+  // Honest select enums: Default meta args + Matrix literal props ⊆ argTypes.options
+  for (const key of atKeys) {
+    const opts = resolveOptions(text, key);
+    if (!opts || !opts.length || isNumericOptions(opts)) continue;
+    if (metaArgs) {
+      const am = metaArgs.match(new RegExp('\\b' + key + '\\s*:\\s*[\'"]([^\'"]+)[\'"]'));
+      if (am && !opts.includes(am[1])) {
+        fail.push(m.primary + ' meta args.' + key + '=' + am[1] + ' not in argTypes.options');
+      }
+    }
+    const litRe = new RegExp('\\b' + key + '\\s*=\\s*[\'"]([^\'"]+)[\'"]', 'g');
+    let lm;
+    while ((lm = litRe.exec(joinedBodies))) {
+      if (!opts.includes(lm[1])) {
+        fail.push(m.primary + ' Matrix mounts ' + key + '=' + lm[1] + ' outside options');
+      }
     }
   }
 
