@@ -2,19 +2,19 @@
   "$meta": {
     "system": "CyberSkill Design System",
     "version": "1.0.0",
-    "note": "OKLCH seed contract for the 15 element packs × light/dark (30 sets). Source of truth for scripts/generate-element-packs.mjs — do not hand-edit tokens/elements.css."
+    "note": "OKLCH seed contract for the 15 element packs × light/dark (30 sets). Source of truth for scripts/generate-element-packs.mjs — do not hand-edit tokens/elements.css. Soft↔middle must clear raised minDeltaL so variants read as distinct on Atomic View / Geometry."
   },
   "intensity": {
-    "soft": { "l": 0.88, "c": 0.10 },
+    "soft": { "l": 0.94, "c": 0.09 },
     "middle": { "l": 0.82, "c": 0.14 },
-    "deep": { "l": 0.58, "c": 0.13 }
+    "deep": { "l": 0.52, "c": 0.145 }
   },
   "tolerance": {
-    "l": 0.04,
-    "c": 0.055,
+    "l": 0.045,
+    "c": 0.06,
     "hueLockDeg": 14,
-    "minDeltaE": 0.06,
-    "minDeltaL": 0.07
+    "minDeltaE": 0.085,
+    "minDeltaL": 0.10
   },
   "roles": {
     "strongDeltaL": -0.18,
@@ -50,7 +50,11 @@
       "soft": "sand",
       "middle": null,
       "middleName": "studio",
-      "deep": "clay"
+      "deep": "clay",
+      "offsets": {
+        "sand": { "dh": 10, "dc": -0.015 },
+        "clay": { "dh": -8, "dc": 0.025 }
+      }
     },
     "hoa": {
       "label": "Hỏa · Fire",
@@ -61,7 +65,8 @@
       "middleName": "ember",
       "deep": "lava",
       "offsets": {
-        "plasma": { "dh": -30, "dc": 0.02 }
+        "plasma": { "dh": -32, "dc": 0.025 },
+        "lava": { "dh": 12, "dc": 0.03 }
       }
     },
     "thuy": {
@@ -71,7 +76,11 @@
       "soft": "mist",
       "middle": null,
       "middleName": "river",
-      "deep": "ocean"
+      "deep": "ocean",
+      "offsets": {
+        "mist": { "dh": -14, "dc": 0.02 },
+        "ocean": { "dh": 12, "dc": 0.035 }
+      }
     },
     "moc": {
       "label": "Mộc · Wood",
@@ -80,7 +89,11 @@
       "soft": "bamboo",
       "middle": null,
       "middleName": "leaf",
-      "deep": "forest"
+      "deep": "forest",
+      "offsets": {
+        "bamboo": { "dh": -16, "dc": 0.02 },
+        "forest": { "dh": 14, "dc": 0.025 }
+      }
     },
     "kim": {
       "label": "Kim · Metal",
@@ -91,7 +104,8 @@
       "middleName": "champagne",
       "deep": "steel",
       "offsets": {
-        "steel": { "dh": 115, "dc": -0.02 }
+        "titanium": { "dh": -22, "dc": 0.015 },
+        "steel": { "dh": 115, "dc": 0.01 }
       }
     }
   }
