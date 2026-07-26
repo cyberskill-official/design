@@ -92,7 +92,7 @@ Consumers that skip `styles.css` to control font loading (`cyberskill.world` / L
 
 ## The four axes
 
-State Theme (`data-theme`), Element (`data-cs-element` + `data-cs-variant`), and Language (`lang` / template Language tweak) on a container; everything inside re-skins with no code change (see `templates/playground.html`). Defaults: `light · tho · en`. Style pack is liquid-glass (sole pack; absent ≡ default). Bilingual: components resolve strings from `lang` (`lang="vi"` on any container → full Vietnamese).
+State Theme (`data-theme` — light / dark / system), Element (`data-cs-element` + `data-cs-variant`), Language (`lang` / template Language tweak), and Style (`data-cs-style`) on a container; everything inside re-skins with no code change (see `templates/playground.html`). Defaults: `light · tho · en · liquid-glass` (absent theme / style ≡ those defaults). Bilingual: components resolve strings from `lang` (`lang="vi"` on any container → full Vietnamese).
 
 ## Upgrading
 

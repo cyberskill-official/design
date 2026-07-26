@@ -162,6 +162,19 @@ const conventionsMdx = readFileSync(join(root, 'stories/Docs/Conventions.mdx'), 
 assert(!/not a fourth axis/i.test(conventionsMdx), 'Conventions MDX must not deny Style as fourth axis');
 assert(/data-cs-style/.test(conventionsMdx) && /liquid-glass/.test(conventionsMdx), 'Conventions MDX lists Style axis');
 
+const designStylesMdx = readFileSync(join(root, 'stories/Docs/DesignStyles.mdx'), 'utf8');
+assert(/data-cs-style/.test(designStylesMdx) && /liquid-glass/.test(designStylesMdx), 'DesignStyles MDX names Style pack');
+assert(/system/.test(designStylesMdx) && /prefers-color-scheme/.test(designStylesMdx), 'DesignStyles MDX Theme includes system');
+assert(!/invent a fourth product axis/i.test(designStylesMdx), 'DesignStyles MDX must not call Style a non-axis');
+assert(/fifth product axis/i.test(designStylesMdx), 'DesignStyles MDX warns against a fifth axis');
+
+const aiCluster = readFileSync(join(root, 'templates/ai-cluster-demo.html'), 'utf8');
+assert(!/data-cs-theme/.test(aiCluster), 'ai-cluster-demo must not use data-cs-theme');
+assert(/data-theme/.test(aiCluster) || /removeAttribute\('data-theme'\)/.test(aiCluster), 'ai-cluster-demo wires data-theme');
+assert(/suggestions:/.test(aiCluster) && !/PromptSuggestions,\s*\{items:/.test(aiCluster), 'ai-cluster PromptSuggestions uses suggestions=');
+assert(/Theme × Element × Language × Style/.test(aiCluster), 'ai-cluster copy names four axes');
+assert(/data-cs-style/.test(aiCluster), 'ai-cluster handles Style axis');
+
 const conventionsEn = readFileSync(join(root, 'docs/conventions.md'), 'utf8');
 assert(/four orthogonal scopes/i.test(conventionsEn), 'docs/conventions.md four orthogonal scopes');
 assert(!/three orthogonal scopes/i.test(conventionsEn), 'docs/conventions.md no three-orthogonal leftover');
