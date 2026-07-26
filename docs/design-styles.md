@@ -4,7 +4,7 @@ The live styling axes are **Theme × Element × Language × Style**. Style’s s
 
 | Axis | How to set it | What it changes |
 |---|---|---|
-| **Theme** | light = attribute absent; `data-theme="dark"` | light/dark semantic colours (product UI axis). Token-level `data-theme="system"` follows the OS (`prefers-color-scheme`) and mirrors dark — Identity Lab also exposes a system pill |
+| **Theme** | light = attribute absent; `data-theme="dark"` | light/dark semantic colours (product UI axis). Token-level `data-theme="system"` follows the OS (`prefers-color-scheme`) and mirrors dark — Storybook toolbar and Atomic View expose a system control |
 | **Element** | `data-cs-element` + optional `data-cs-variant` | Ngũ Hành product identity (**15 packs** = 5 elements × soft/middle/deep) |
 | **Language** | `lang` / Language tweak | EN · VI copy |
 | **Style** | `data-cs-style` (optional; absent ≡ `liquid-glass`) | Surface material pack. Sole pack today: **liquid-glass** (`tokens/styles.css` + `base/glass.css`) |

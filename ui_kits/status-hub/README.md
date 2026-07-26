@@ -28,7 +28,6 @@ A high-fidelity recreation of **CyberSkill Status Hub** (`status-hub@2`): the si
 
 - `project.html` — full project detail view: breadcrumb, KPI stats, tasks, `cs-steps`, `cs-timeline`, `cs-dl` (dark toggle).
 
-- `identity-lab.html` — live Theme × Element × Language × Style on a product surface (15 element-variant pills · light / dark / system · sole Style pack **liquid-glass** · EN/VI).
 
 - `status.css` — product component styles ported from the real status-hub stylesheet; **tokens come from the design system**, not redeclared.
 

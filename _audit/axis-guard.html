@@ -25,7 +25,7 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
     (M.cards||[]).forEach(c=>paths.add(c.path));
   }
   ['styles.css','_audit/run.html','dashboard.html','guidelines/atomic-view.html','guidelines/motion.html',
-   'templates/playground.html','ui_kits/status-hub/identity-lab.html','ui_kits/status-hub/index.html',
+   'templates/playground.html','guidelines/atomic-view.html','ui_kits/status-hub/index.html',
    'ui_kits/website/index.html','ui_kits/deck/index.html','stories/Live/Surfaces.stories.jsx'].forEach(p=>paths.add(p));
   let scanned=0;
   for(const p of paths){

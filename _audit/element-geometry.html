@@ -91,7 +91,7 @@ const SLOT_OF = {
         if (dE < tol.minDeltaE && dL < tol.minDeltaL) ok = false;
       }
     }
-    row(ok, `variant distinctness (${el}): soft/middle/deep separated`);
+    row(ok, `variant distinctness (${el}): soft/middle/deep separated (minΔE ${tol.minDeltaE} · minΔL ${tol.minDeltaL})`);
   }
 
   let hueOk = true;

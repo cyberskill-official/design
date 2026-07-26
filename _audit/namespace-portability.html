@@ -6,7 +6,7 @@
      the PROJECT ID, so it changes whenever this system is imported into another
      project. Any source file that HARDCODES a specific suffix (…_847b3c) breaks on
      re-import until someone global-replaces it. This guard fetches every
-     manifest-indexed source (84 template entries + 58 cards) plus the bundle-consuming
+     manifest-indexed source (84 template entries + 57 cards) plus the bundle-consuming
      UI-kit pages and FAILS if any hardcodes a project-id suffix. The portable patterns
      are immune and expected: the prefix-resolver
        window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))]

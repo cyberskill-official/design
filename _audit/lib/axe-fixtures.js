@@ -371,21 +371,49 @@
     await wait(80);
     detail.push('picker fields clicked');
 
-    // Context menu zone
-    Array.prototype.forEach.call(stage.querySelectorAll('button'), function (b) {
-      var txt = b.textContent || '';
-      if (txt.indexOf('Right-click') >= 0 || txt.indexOf('chuột phải') >= 0) {
-        b.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true }));
+    // Tooltip — force bubbles open for axe (inline style survives later focus moves to HoverCard)
+    var tips = stage.querySelectorAll('.cs-tooltip');
+    tips.forEach(function (tip) {
+      var bubble = tip.querySelector('[role="tooltip"]');
+      if (bubble) {
+        bubble.style.opacity = '1';
+        bubble.style.transform = 'translateX(-50%) translateY(0)';
+        bubble.setAttribute('data-axe-forced-open', '1');
       }
+      var t = tip.querySelector('button, a, [tabindex], input, summary') || tip;
+      if (t && t.focus) t.focus();
     });
+    await wait(80);
+    var tipVisible = 0;
+    tips.forEach(function (tip) {
+      var bubble = tip.querySelector('[role="tooltip"][data-axe-forced-open="1"]');
+      if (bubble && Number(getComputedStyle(bubble).opacity) > 0.5) tipVisible++;
+    });
+    detail.push('tooltip visible ' + tipVisible + '/' + tips.length);
+    if (tips.length && tipVisible !== tips.length) ok = false;
 
-    // HoverCard trigger
-    Array.prototype.forEach.call(stage.querySelectorAll('button'), function (b) {
-      if ((b.textContent || '').indexOf('@anle') >= 0) {
-        b.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
-        b.focus();
-      }
+    // Context menu zone — open on the zone (React listens there); assert menu in tree
+    var zones = stage.querySelectorAll('.cs-ctxmenu-zone');
+    zones.forEach(function (z) {
+      z.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 20, clientY: 20 }));
     });
+    await wait(80);
+    var ctxMenus = stage.querySelectorAll('.cs-ctxmenu-zone [role="menu"]').length;
+    detail.push('context menus ' + ctxMenus + '/' + zones.length);
+    if (zones.length && ctxMenus !== zones.length) ok = false;
+
+    // HoverCard — open via mouseover on each wrapper (React onMouseEnter). Do not
+    // rely on focus: EN·VI twins would blur each other and race closeDelay.
+    var cards = stage.querySelectorAll('.cs-hovercard');
+    for (var ci = 0; ci < cards.length; ci++) {
+      var card = cards[ci];
+      card.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, cancelable: true, relatedTarget: document.body }));
+      await wait(40);
+    }
+    await wait(100);
+    var panels = stage.querySelectorAll('.cs-hovercard__panel').length;
+    detail.push('hovercard panels ' + panels + '/' + cards.length);
+    if (cards.length && panels !== cards.length) ok = false;
 
     return { ok: ok, detail: detail.join(' · ') };
   }

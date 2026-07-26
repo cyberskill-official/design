@@ -31,7 +31,7 @@ Self-audit checklist for evolving CyberSkill Design System — external standard
 Sole pack today: **liquid-glass** (`tokens/styles.css`, gate `_audit/style-contract.html`). When adding a style pack beyond liquid-glass:
 
 1. Token overlay that **consumes** the existing 9 `--cs-accent-*` roles (do not invent parallel Element packs).
-2. Specimen card + Storybook / Identity Lab wiring if the style is product-selectable.
+2. Specimen card + Storybook / Atomic View wiring if the style is product-selectable.
 3. Template / kit adoption only where the style is intentional — UI kits stay Thổ-faithful unless a decision says otherwise.
 4. Regenerate contrast surfaces if the style remaps backgrounds that host text.
 5. Expansion Rule grep for the new enum across templates, docs EN+VI, gates.
@@ -42,5 +42,5 @@ Sole pack today: **liquid-glass** (`tokens/styles.css`, gate `_audit/style-contr
 
 1. `npm run tokens:elements` (if seeds changed) → native regen → `node scripts/generate-contrast-report.mjs`
 2. Fast board: open `_audit/run.html` (or CI `fast-gates`) — all hard gates green, including **Element geometry**
-3. Spot Identity Lab: soft/middle/deep × light/dark still read as one family per element
+3. Whole-set Atomic View / Elements Geometry: soft/middle/deep × light/dark still read as one family per element, with soft↔middle clearing the raised `minDeltaL` / `minDeltaE` floors in `tokens/element-seeds.json`
 4. Update this rubric only when standards or CDS doctrine change — keep EN·VI parity

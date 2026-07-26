@@ -19,9 +19,9 @@ Storybook **10** là **site sản phẩm** cho operator trên `design.cyberskill
   - `States` (hoặc subsection Matrix) phủ `disabled` / `loading` / `error` / `busy` khi các argTypes đó tồn tại
   - Mọi option enum `size` / `variant` rời rạc được mount trong story họ matrix
   - `FullMatrix` khi ≥1 trong {size enums, variant enums, state keys} tồn tại — tích size × variant × key-state qua helper chung `stories/lib/matrix.jsx`
-- Toolbar globals: Theme (light · dark · **system**) × Element × Language × Style (cùng trục với template / Identity Lab). Element liệt kê **đủ 15** pack Ngũ Hành (Identity Lab / `tokens.elements` / EL map template) — không phải tập con. Pack Style duy nhất là **liquid-glass**.
+- Toolbar globals: Theme (light · dark · **system**) × Element × Language × Style (cùng trục với template / Atomic View). Element liệt kê **đủ 15** pack Ngũ Hành (`tokens.elements` / EL map template / Storybook toolbar) — không phải tập con. Pack Style duy nhất là **liquid-glass**.
 - **Docs/** hướng dẫn MDX công khai; **Release Notes/** prose sản phẩm curated (**không CHANGELOG.md**); **Status/** nhúng `_audit/run.html` full-bleed
-- Story **Maintainer/** cho bề mặt HTML portable (Motion, Identity Lab, templates, kitchen-sink, AI cluster, RTL; Atomic View chôn cho gates)
+- Story **Maintainer/** cho bề mặt HTML portable (Motion, templates, kitchen-sink, AI cluster, RTL; Atomic View chôn cho gates)
 - Cùng `styles.css` như production
 - Addon: `@storybook/addon-docs` + `@storybook/addon-a11y` (essentials gộp vào core ở SB10)
 

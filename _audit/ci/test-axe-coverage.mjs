@@ -18,6 +18,9 @@ const fixtures = readFileSync(fixturesPath, 'utf8');
 assert(/global\.__axeFixtures|window\.__axeFixtures/.test(fixtures), 'fixtures publish __axeFixtures');
 assert(/buildCluster\s*:/.test(fixtures) || /buildCluster\s*=/.test(fixtures) || /function buildCluster/.test(fixtures), 'buildCluster export');
 assert(/expandForScan/.test(fixtures), 'expandForScan export');
+assert(/data-axe-forced-open/.test(fixtures), 'expandForScan force-opens Tooltip for axe');
+assert(/cs-hovercard__panel/.test(fixtures), 'expandForScan asserts HoverCard panels');
+assert(/cs-ctxmenu-zone/.test(fixtures), 'expandForScan opens ContextMenu zones');
 
 const namesMatch = fixtures.match(/var NAMES = (\[[\s\S]*?\]);/);
 assert(namesMatch, 'NAMES array in axe-fixtures.js');

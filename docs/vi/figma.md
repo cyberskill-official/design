@@ -2,7 +2,7 @@
 
 ## Những gì ship trong repo
 - Design tokens dạng CSS + DTCG (`tokens/tokens.dtcg.json`) kèm mirror native Swift/Kotlin/Flutter.
-- UI kits dưới `ui_kits/` là tái tạo HTML giữ pixel-faithful theo doctrine brand (Identity Lab Thổ-first).
+- UI kits dưới `ui_kits/` là tái tạo HTML giữ pixel-faithful theo doctrine brand (kit Thổ-first; demo trục ở Storybook / Atomic View).
 - Mapping **Code Connect** cho cả **99** public primaries (`components/**/*.figma.tsx` + `figma.config.json` + `code-connect/node-map.json`).
 
 ## Công thức import Tokens Studio (hand-sync)

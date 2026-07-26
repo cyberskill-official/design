@@ -22,7 +22,7 @@
 |---|---|
 | **Storybook** (`/`) | Host product surface: Theme × Element × Language × Style toolbar, Docs/Foundations/Components/Release Notes/Status, and Maintainer/* iframes into portable HTML |
 | **Atomic View** (`guidelines/atomic-view.html`) | Portable zero-build component grid for gates and clone-and-open browsing — not the public product entry |
-| **Other guidelines / templates** | Portable specimens; opened from Storybook Maintainer/* when exploring Motion, Identity Lab, Status Hub / Website / Deck indexes, kitchen-sink, etc. |
+| **Other guidelines / templates** | Portable specimens; opened from Storybook Maintainer/* when exploring Motion, Status Hub / Website / Deck indexes, kitchen-sink, etc. |
 | **Legacy `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*`** | Redirect to `/` (stubs + Vercel redirects) |
 
 ## Surface map (Maintainer/* stories)
@@ -31,7 +31,6 @@
 |---|---|
 | Components/* CSF | React sources under `components/` |
 | Maintainer/Surfaces → Motion | `guidelines/motion.html` |
-| Maintainer/Surfaces → Identity Lab | `ui_kits/status-hub/identity-lab.html` |
 | Maintainer/Surfaces → Status Hub | `ui_kits/status-hub/index.html` |
 | Maintainer/Surfaces → Website | `ui_kits/website/index.html` |
 | Maintainer/Surfaces → Deck | `ui_kits/deck/index.html` |

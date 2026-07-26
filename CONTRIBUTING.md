@@ -20,7 +20,7 @@ When **anything** grows — a new element/variant, icon, component, token role, 
 1. Tokens/source (`tokens/`, component `.jsx` + `.d.ts` + `.prompt.md`)
 2. Specimen cards (guidelines + the component-group card) **and related guideline pages**
 3. **All** templates (tweak enums, EL/EX maps, swept accents)
-4. UI kits — via the Identity Lab (kits stay pixel-faithful by doctrine)
+4. UI kits — Thổ-faithful kit pages; axis demos via Storybook toolbar + Atomic View (Identity Lab retired)
 5. Docs — README/SKILL, `docs/conventions.md`, and every related doc; regenerate `docs/contrast-report.md` after token changes and `tokens/tokens.json`+`tokens.js` after any token change
 6. **Do not bump `VERSION` and do not write a changelog** — version is pinned at **1.0.0** until the owner says LAUNCH
 

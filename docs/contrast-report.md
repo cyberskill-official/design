@@ -1,6 +1,6 @@
 # Contrast report — elemental pairings (APCA)
 
-Generated 2026-07-25 · sweep at VERSION 1.0.0 pin.
+Generated 2026-07-26 · sweep at VERSION 1.0.0 pin.
 
 **Doctrine encoded by this sweep:** text sits on `-bright` or `-tint`, never on the mid-tone `-accent` — at any size. The accent is for bars, borders, progress fills, and non-text fills only. (Rule stated in `tokens/elements.css` and conventions.)
 
@@ -17,76 +17,76 @@ Packs are generated from `tokens/element-seeds.json` (soft / middle / deep ladde
 | tho | accent-bright on ink (headings) | #F4BA17 / #45210E | 66.3 | ✓ |
 | tho | accent-on on accent-bright (CTA text) | #45210E / #F4BA17 | 66.3 | ✓ |
 | tho | accent-bright on dark panel (dark labels) | #FEC42C / #221710 | 75 | ✓ |
-| tho · sand | text-accent on white (bold labels) | #977933 / #FFFFFF | 68.2 | ✓ |
-| tho · sand | text-accent on tint (bold labels) | #977933 / #F9F1E2 | 60.3 | ✓ |
-| tho · sand | accent-bright on ink (headings) | #FFE9BB / #33270C | 91.3 | ✓ |
-| tho · sand | accent-on on accent-bright (CTA text) | #33270C / #FFE9BB | 89.6 | ✓ |
-| tho · sand | accent-bright on dark panel (dark labels) | #FFE9BB / #221710 | 93.6 | ✓ |
-| tho · clay | text-accent on white (bold labels) | #5C4301 / #FFFFFF | 91.3 | ✓ |
-| tho · clay | text-accent on tint (bold labels) | #5C4301 / #FBF1DD | 83.4 | ✓ |
-| tho · clay | accent-bright on ink (headings) | #E8C67F / #352603 | 71 | ✓ |
-| tho · clay | accent-on on accent-bright (CTA text) | #352603 / #E8C67F | 70.8 | ✓ |
-| tho · clay | accent-bright on dark panel (dark labels) | #EBC982 / #221710 | 75.1 | ✓ |
+| tho · sand | text-accent on white (bold labels) | #8B7D4A / #FFFFFF | 68.1 | ✓ |
+| tho · sand | text-accent on tint (bold labels) | #8B7D4A / #F5F2E6 | 60.2 | ✓ |
+| tho · sand | accent-bright on ink (headings) | #F7ECC1 / #2E2915 | 91.6 | ✓ |
+| tho · sand | accent-on on accent-bright (CTA text) | #2E2915 / #F7ECC1 | 89.9 | ✓ |
+| tho · sand | accent-bright on dark panel (dark labels) | #F6ECC1 / #221710 | 93.9 | ✓ |
+| tho · clay | text-accent on white (bold labels) | #4C3201 / #FFFFFF | 97.1 | ✓ |
+| tho · clay | text-accent on tint (bold labels) | #4C3201 / #FFEFD8 | 88.7 | ✓ |
+| tho · clay | accent-bright on ink (headings) | #F6C06B / #382503 | 70.3 | ✓ |
+| tho · clay | accent-on on accent-bright (CTA text) | #382503 / #F6C06B | 70.2 | ✓ |
+| tho · clay | accent-bright on dark panel (dark labels) | #FDC672 / #221710 | 76.4 | ✓ |
 | hoa | text-accent on white (bold labels) | #C36036 / #FFFFFF | 68.1 | ✓ |
 | hoa | text-accent on tint (bold labels) | #C36036 / #FFEEE7 | 60 | ✓ |
 | hoa | accent-bright on ink (headings) | #FFCAB5 / #431C0B | 77.9 | ✓ |
 | hoa | accent-on on accent-bright (CTA text) | #431C0B / #FFCAB5 | 77.3 | ✓ |
 | hoa | accent-bright on dark panel (dark labels) | #FFCAB6 / #221710 | 80.2 | ✓ |
-| hoa · plasma | text-accent on white (bold labels) | #BB606C / #FFFFFF | 68.6 | ✓ |
-| hoa · plasma | text-accent on tint (bold labels) | #BB606C / #FFEDEE | 60.3 | ✓ |
-| hoa · plasma | accent-bright on ink (headings) | #FEE4E6 / #401C21 | 90.7 | ✓ |
-| hoa · plasma | accent-on on accent-bright (CTA text) | #401C21 / #FEE4E6 | 89.1 | ✓ |
-| hoa · plasma | accent-bright on dark panel (dark labels) | #FEE4E6 / #221710 | 92.9 | ✓ |
-| hoa · lava | text-accent on white (bold labels) | #7A2B01 / #FFFFFF | 91.5 | ✓ |
-| hoa · lava | text-accent on tint (bold labels) | #7A2B01 / #FFEEE7 | 83.4 | ✓ |
-| hoa · lava | accent-bright on ink (headings) | #FCB89E / #411D0E | 69.6 | ✓ |
-| hoa · lava | accent-on on accent-bright (CTA text) | #411D0E / #FCB89E | 69.6 | ✓ |
-| hoa · lava | accent-bright on dark panel (dark labels) | #FFC0A8 / #221710 | 75.7 | ✓ |
+| hoa · plasma | text-accent on white (bold labels) | #B65E6D / #FFFFFF | 69.9 | ✓ |
+| hoa · plasma | text-accent on tint (bold labels) | #B65E6D / #FFECEE | 61.2 | ✓ |
+| hoa · plasma | accent-bright on ink (headings) | #FFE3E6 / #3F1D23 | 90.4 | ✓ |
+| hoa · plasma | accent-on on accent-bright (CTA text) | #3F1D23 / #FFE3E6 | 88.8 | ✓ |
+| hoa · plasma | accent-bright on dark panel (dark labels) | #FFE3E6 / #221710 | 92.6 | ✓ |
+| hoa · lava | text-accent on white (bold labels) | #572A03 / #FFFFFF | 97.2 | ✓ |
+| hoa · lava | text-accent on tint (bold labels) | #572A03 / #FFEEE4 | 88.9 | ✓ |
+| hoa · lava | accent-bright on ink (headings) | #FFB98B / #421E02 | 69.9 | ✓ |
+| hoa · lava | accent-on on accent-bright (CTA text) | #421E02 / #FFB98B | 69.8 | ✓ |
+| hoa · lava | accent-bright on dark panel (dark labels) | #FEC39C / #221710 | 76.4 | ✓ |
 | thuy | text-accent on white (bold labels) | #408693 / #FFFFFF | 68.5 | ✓ |
 | thuy | text-accent on tint (bold labels) | #408693 / #E6F5F8 | 60.8 | ✓ |
 | thuy | accent-bright on ink (headings) | #ACE2EE / #122D33 | 79.8 | ✓ |
 | thuy | accent-on on accent-bright (CTA text) | #122D33 / #ACE2EE | 79 | ✓ |
 | thuy | accent-bright on dark panel (dark labels) | #ACE2ED / #221710 | 82.2 | ✓ |
-| thuy · mist | text-accent on white (bold labels) | #54838D / #FFFFFF | 68.8 | ✓ |
-| thuy · mist | text-accent on tint (bold labels) | #54838D / #E9F4F7 | 61.1 | ✓ |
-| thuy · mist | accent-bright on ink (headings) | #CDF3FC / #1A2C30 | 92 | ✓ |
-| thuy · mist | accent-on on accent-bright (CTA text) | #1A2C30 / #CDF3FC | 90.2 | ✓ |
-| thuy · mist | accent-bright on dark panel (dark labels) | #CDF3FB / #221710 | 94.3 | ✓ |
-| thuy · ocean | text-accent on white (bold labels) | #05515D / #FFFFFF | 90.2 | ✓ |
-| thuy · ocean | text-accent on tint (bold labels) | #05515D / #E7F5F8 | 82.6 | ✓ |
-| thuy · ocean | accent-bright on ink (headings) | #A3D4DF / #142D32 | 71.8 | ✓ |
-| thuy · ocean | accent-on on accent-bright (CTA text) | #142D32 / #A3D4DF | 71.5 | ✓ |
-| thuy · ocean | accent-bright on dark panel (dark labels) | #A6D7E1 / #221710 | 76 | ✓ |
+| thuy · mist | text-accent on white (bold labels) | #468689 / #FFFFFF | 68.6 | ✓ |
+| thuy · mist | text-accent on tint (bold labels) | #468689 / #E7F5F5 | 60.9 | ✓ |
+| thuy · mist | accent-bright on ink (headings) | #C3F7F8 / #142E2E | 92.4 | ✓ |
+| thuy · mist | accent-on on accent-bright (CTA text) | #142E2E / #C3F7F8 | 90.6 | ✓ |
+| thuy · mist | accent-bright on dark panel (dark labels) | #C3F7F8 / #221710 | 95 | ✓ |
+| thuy · ocean | text-accent on white (bold labels) | #063E4F / #FFFFFF | 96.3 | ✓ |
+| thuy · ocean | text-accent on tint (bold labels) | #063E4F / #E1F6FF | 88.8 | ✓ |
+| thuy · ocean | accent-bright on ink (headings) | #8AD7F4 / #012E3C | 71.9 | ✓ |
+| thuy · ocean | accent-on on accent-bright (CTA text) | #012E3C / #8AD7F4 | 71.6 | ✓ |
+| thuy · ocean | accent-bright on dark panel (dark labels) | #8DDAF7 / #221710 | 76.4 | ✓ |
 | moc | text-accent on white (bold labels) | #668741 / #FFFFFF | 68.2 | ✓ |
 | moc | text-accent on tint (bold labels) | #668741 / #ECF5E5 | 60.4 | ✓ |
 | moc | accent-bright on ink (headings) | #C6E3AA / #212E12 | 80.1 | ✓ |
 | moc | accent-on on accent-bright (CTA text) | #212E12 / #C6E3AA | 79.2 | ✓ |
 | moc | accent-bright on dark panel (dark labels) | #C6E3AA / #221710 | 82.7 | ✓ |
-| moc · bamboo | text-accent on white (bold labels) | #6B8354 / #FFFFFF | 68.9 | ✓ |
-| moc · bamboo | text-accent on tint (bold labels) | #6B8354 / #EEF4E8 | 61.1 | ✓ |
-| moc · bamboo | accent-bright on ink (headings) | #DEF4CB / #232C1A | 92.3 | ✓ |
-| moc · bamboo | accent-on on accent-bright (CTA text) | #232C1A / #DEF4CB | 90.5 | ✓ |
-| moc · bamboo | accent-bright on dark panel (dark labels) | #DFF4CA / #221710 | 94.8 | ✓ |
-| moc · forest | text-accent on white (bold labels) | #365110 / #FFFFFF | 90.4 | ✓ |
-| moc · forest | text-accent on tint (bold labels) | #365110 / #EDF5E6 | 82.9 | ✓ |
-| moc · forest | accent-bright on ink (headings) | #BAD5A1 / #212D14 | 72.2 | ✓ |
-| moc · forest | accent-on on accent-bright (CTA text) | #212D14 / #BAD5A1 | 71.9 | ✓ |
-| moc · forest | accent-bright on dark panel (dark labels) | #BDD8A4 / #221710 | 76.4 | ✓ |
+| moc · bamboo | text-accent on white (bold labels) | #7C8345 / #FFFFFF | 67.7 | ✓ |
+| moc · bamboo | text-accent on tint (bold labels) | #7C8345 / #F1F4E5 | 60.1 | ✓ |
+| moc · bamboo | accent-bright on ink (headings) | #EAF1BD / #292B13 | 91.9 | ✓ |
+| moc · bamboo | accent-on on accent-bright (CTA text) | #292B13 / #EAF1BD | 90.2 | ✓ |
+| moc · bamboo | accent-bright on dark panel (dark labels) | #EAF1BD / #221710 | 94.4 | ✓ |
+| moc · forest | text-accent on white (bold labels) | #09450E / #FFFFFF | 95.5 | ✓ |
+| moc · forest | text-accent on tint (bold labels) | #09450E / #E6F8E5 | 88.4 | ✓ |
+| moc · forest | accent-bright on ink (headings) | #A1DDA0 / #133114 | 72.9 | ✓ |
+| moc · forest | accent-on on accent-bright (CTA text) | #133114 / #A1DDA0 | 72.5 | ✓ |
+| moc · forest | accent-bright on dark panel (dark labels) | #A1DDA0 / #221710 | 75.8 | ✓ |
 | kim | text-accent on white (bold labels) | #897B65 / #FFFFFF | 68.4 | ✓ |
 | kim | text-accent on tint (bold labels) | #897B65 / #F5F1EB | 60.3 | ✓ |
 | kim | accent-bright on ink (headings) | #E1D6C2 / #2D281F | 78.8 | ✓ |
 | kim | accent-on on accent-bright (CTA text) | #2D281F / #E1D6C2 | 78.1 | ✓ |
 | kim | accent-bright on dark panel (dark labels) | #E1D6C2 / #221710 | 81.1 | ✓ |
-| kim · titanium | text-accent on white (bold labels) | #867C6B / #FFFFFF | 68.3 | ✓ |
-| kim · titanium | text-accent on tint (bold labels) | #867C6B / #F4F1ED | 60.1 | ✓ |
-| kim · titanium | accent-bright on ink (headings) | #F2EADC / #2C2822 | 91.1 | ✓ |
-| kim · titanium | accent-on on accent-bright (CTA text) | #2C2822 / #F2EADC | 89.5 | ✓ |
-| kim · titanium | accent-bright on dark panel (dark labels) | #F2EADC / #221710 | 93.4 | ✓ |
-| kim · steel | text-accent on white (bold labels) | #3E4A4A / #FFFFFF | 91.2 | ✓ |
-| kim · steel | text-accent on tint (bold labels) | #3E4A4A / #EFF2F2 | 83.1 | ✓ |
-| kim · steel | accent-bright on ink (headings) | #C2CDCD / #252A2A | 71.3 | ✓ |
-| kim · steel | accent-on on accent-bright (CTA text) | #252A2A / #C2CDCD | 71.1 | ✓ |
-| kim · steel | accent-bright on dark panel (dark labels) | #C5D0D1 / #221710 | 75.5 | ✓ |
+| kim · titanium | text-accent on white (bold labels) | #8F7867 / #FFFFFF | 68.6 | ✓ |
+| kim · titanium | text-accent on tint (bold labels) | #8F7867 / #F6F0EC | 60.3 | ✓ |
+| kim · titanium | accent-bright on ink (headings) | #FBE7D8 / #302720 | 90.9 | ✓ |
+| kim · titanium | accent-on on accent-bright (CTA text) | #302720 / #FBE7D8 | 89.2 | ✓ |
+| kim · titanium | accent-bright on dark panel (dark labels) | #FBE7D8 / #221710 | 93.2 | ✓ |
+| kim · steel | text-accent on white (bold labels) | #134040 / #FFFFFF | 96.2 | ✓ |
+| kim · steel | text-accent on tint (bold labels) | #134040 / #EAF4F4 | 88.4 | ✓ |
+| kim · steel | accent-bright on ink (headings) | #AFD3D3 / #1B2C2D | 72 | ✓ |
+| kim · steel | accent-on on accent-bright (CTA text) | #1B2C2D / #AFD3D3 | 71.8 | ✓ |
+| kim · steel | accent-bright on dark panel (dark labels) | #B2D6D6 / #221710 | 76.2 | ✓ |
 
 **Failures: 0.** All text pairings pass Lc ≥ 60.
 
@@ -96,18 +96,18 @@ Targets match `_audit/apca-dark-preview.html`: bright ≥ 75 · accent ≥ 60 ·
 | Pack | bright | accent | on | ink |
 |---|---|---|---|---|
 | tho | 75 | 69.2 | 75.6 | 75.3 |
-| tho · sand | 93.6 | 81.1 | 75.6 | 92.1 |
-| tho · clay | 75.1 | 60 | 82.7 | 75.3 |
+| tho · sand | 93.9 | 93.9 | 75.8 | 92.3 |
+| tho · clay | 76.4 | 60.2 | 87.8 | 75 |
 | hoa | 80.2 | 67.9 | 75.2 | 78.8 |
-| hoa · plasma | 92.9 | 79.8 | 75.7 | 91.6 |
-| hoa · lava | 75.7 | 60.4 | 83 | 76.5 |
+| hoa · plasma | 92.6 | 92.6 | 75.6 | 91.3 |
+| hoa · lava | 76.4 | 60.5 | 87.9 | 77.2 |
 | thuy | 82.2 | 71.1 | 75.5 | 80.5 |
-| thuy · mist | 94.3 | 82.4 | 75 | 92.6 |
-| thuy · ocean | 76 | 60.3 | 81.7 | 76 |
+| thuy · mist | 95 | 95.2 | 75.8 | 93.2 |
+| thuy · ocean | 76.4 | 60 | 87.2 | 76.4 |
 | moc | 82.7 | 71.6 | 75.4 | 81 |
-| moc · bamboo | 94.8 | 82.4 | 75 | 93.1 |
-| moc · forest | 76.4 | 60.2 | 82 | 76.5 |
+| moc · bamboo | 94.4 | 94.8 | 75.2 | 92.7 |
+| moc · forest | 75.8 | 61.1 | 86.5 | 75.8 |
 | kim | 81.1 | 69.5 | 75.8 | 79.6 |
-| kim · titanium | 93.4 | 81.1 | 75.6 | 91.9 |
-| kim · steel | 75.5 | 60.6 | 82.6 | 75.8 |
+| kim · titanium | 93.2 | 93.2 | 75.9 | 91.8 |
+| kim · steel | 76.2 | 61.8 | 87 | 76.2 |
 
