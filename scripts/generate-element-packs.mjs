@@ -91,8 +91,19 @@ function slotAccent(seeds, elKey, slot, variantName) {
     return { L: pinned.L, C: pinned.C, H: pinned.Hdeg, hex: el.pinMiddleHex.toUpperCase() };
   }
   const h = (((el.h + (off.dh || 0)) % 360) + 360) % 360;
-  const c = Math.max(0.01, inten.c * el.cScale + (off.dc || 0));
-  return { L: inten.l, C: c, H: h, hex: lchDegToHex(inten.l, c, h) };
+  const cTarget = Math.max(0.01, inten.c * el.cScale + (off.dc || 0));
+  let L = inten.l;
+  let hex = lchDegToHex(L, cTarget, h);
+  // Soft washes: if gamut crushing wiped the tint, ease L down slightly until a pastel chroma reads.
+  if (slot === 'soft') {
+    const minC = Math.min(0.035, Math.max(0.028, cTarget * 0.55));
+    for (let i = 0; i < 40 && hexToLCH(hex).C < minC; i++) {
+      L = clamp(L - 0.003, 0.90, inten.l);
+      hex = lchDegToHex(L, cTarget, h);
+    }
+  }
+  const out = hexToLCH(hex);
+  return { L: out.L, C: out.C, H: out.Hdeg, hex };
 }
 
 function deriveLightRoles(seeds, accent, gradB, { pinThoStudio }) {

@@ -2,37 +2,37 @@
   "$meta": {
     "system": "CyberSkill Design System",
     "version": "1.0.0",
-    "note": "OKLCH seed contract for the 15 element packs × light/dark (30 sets). Source of truth for scripts/generate-element-packs.mjs — do not hand-edit tokens/elements.css. Soft↔middle must clear raised minDeltaL so variants read as distinct on Atomic View / Geometry."
+    "note": "OKLCH seed contract for the 15 element packs × light/dark (30 sets). SoT for scripts/generate-element-packs.mjs — do not hand-edit tokens/elements.css. Owner bar (Jul 2026): soft/middle/deep clearly distinct; middle intensity synced across elements; harmonious role palettes; light↔dark same-hue identity. Public variant names unchanged."
   },
   "intensity": {
-    "soft": { "l": 0.94, "c": 0.09 },
-    "middle": { "l": 0.82, "c": 0.14 },
-    "deep": { "l": 0.52, "c": 0.145 }
+    "soft": { "l": 0.935, "c": 0.065 },
+    "middle": { "l": 0.82, "c": 0.16 },
+    "deep": { "l": 0.36, "c": 0.15 }
   },
   "tolerance": {
-    "l": 0.045,
-    "c": 0.06,
-    "hueLockDeg": 14,
-    "minDeltaE": 0.085,
-    "minDeltaL": 0.10
+    "l": 0.05,
+    "c": 0.08,
+    "hueLockDeg": 10,
+    "minDeltaE": 0.12,
+    "minDeltaL": 0.11
   },
   "roles": {
-    "strongDeltaL": -0.18,
-    "brightDeltaL": 0.06,
-    "tintL": 0.96,
-    "tintCScale": 0.22,
-    "inkL": 0.28,
-    "inkCScale": 0.45,
-    "onL": 0.28,
-    "glowAlpha": 0.5
+    "strongDeltaL": -0.16,
+    "brightDeltaL": 0.08,
+    "tintL": 0.975,
+    "tintCScale": 0.30,
+    "inkL": 0.26,
+    "inkCScale": 0.50,
+    "onL": 0.26,
+    "glowAlpha": 0.48
   },
   "dark": {
     "panel": "#221710",
     "text": "#f5ead9",
     "ink": "#1a1108",
     "targets": { "bright": 75, "accent": 60, "on": 75, "ink": 75 },
-    "tintL": 0.26,
-    "tintCMax": 0.05
+    "tintL": 0.28,
+    "tintCMax": 0.06
   },
   "tuongSinh": {
     "tho": "hoa",
@@ -52,60 +52,60 @@
       "middleName": "studio",
       "deep": "clay",
       "offsets": {
-        "sand": { "dh": 10, "dc": -0.015 },
-        "clay": { "dh": -8, "dc": 0.025 }
+        "sand": { "dh": 5, "dc": -0.01 },
+        "clay": { "dh": -5, "dc": 0.02 }
       }
     },
     "hoa": {
       "label": "Hỏa · Fire",
       "h": 42.2,
-      "cScale": 1.05,
+      "cScale": 1.12,
       "soft": "plasma",
       "middle": null,
       "middleName": "ember",
       "deep": "lava",
       "offsets": {
-        "plasma": { "dh": -32, "dc": 0.025 },
-        "lava": { "dh": 12, "dc": 0.03 }
+        "plasma": { "dh": -4, "dc": -0.005 },
+        "lava": { "dh": 7, "dc": 0.025 }
       }
     },
     "thuy": {
       "label": "Thủy · Water",
       "h": 212.3,
-      "cScale": 0.55,
+      "cScale": 0.92,
       "soft": "mist",
       "middle": null,
       "middleName": "river",
       "deep": "ocean",
       "offsets": {
-        "mist": { "dh": -14, "dc": 0.02 },
-        "ocean": { "dh": 12, "dc": 0.035 }
+        "mist": { "dh": -5, "dc": -0.005 },
+        "ocean": { "dh": 7, "dc": 0.025 }
       }
     },
     "moc": {
       "label": "Mộc · Wood",
       "h": 130.0,
-      "cScale": 0.78,
+      "cScale": 0.95,
       "soft": "bamboo",
       "middle": null,
       "middleName": "leaf",
       "deep": "forest",
       "offsets": {
-        "bamboo": { "dh": -16, "dc": 0.02 },
-        "forest": { "dh": 14, "dc": 0.025 }
+        "bamboo": { "dh": -5, "dc": -0.005 },
+        "forest": { "dh": 8, "dc": 0.025 }
       }
     },
     "kim": {
       "label": "Kim · Metal",
-      "h": 81.9,
-      "cScale": 0.28,
+      "h": 78.0,
+      "cScale": 0.82,
       "soft": "titanium",
       "middle": null,
       "middleName": "champagne",
       "deep": "steel",
       "offsets": {
-        "titanium": { "dh": -22, "dc": 0.015 },
-        "steel": { "dh": 115, "dc": 0.01 }
+        "titanium": { "dh": -4, "dc": -0.005 },
+        "steel": { "dh": 5, "dc": 0.02 }
       }
     }
   }

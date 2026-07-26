@@ -11,7 +11,7 @@ code{font-family:var(--cs-font-family-mono);font-size:12px}
 </style>
 </head><body>
 <h1>Element geometry</h1>
-<p class="lede">Hard gate: soft / middle / deep intensity sync across the five elements, variant distinctness inside each element, and light↔dark hue identity for all 15 packs (30 theme sets). Seeds: <code>tokens/element-seeds.json</code>. Verdict: <code>window.__elementgeometry</code>.</p>
+<p class="lede">Hard gate for the <b>30</b> default colour sets (5 elements × soft/middle/deep × light/dark): intensity sync across elements, soft↔middle↔deep distinctness (<b>both</b> minΔE and minΔL), monotonic L ladder, and light↔dark hue identity. Seeds: <code>tokens/element-seeds.json</code>. Verdict: <code>window.__elementgeometry</code>.</p>
 <div id="out"></div>
 <script type="module">
 import {
@@ -82,16 +82,20 @@ const SLOT_OF = {
     byEl[packs[k].el].push(k);
   }
   for (const [el, ks] of Object.entries(byEl)) {
-    const accents = ks.map((k) => packs[k].light['--cs-accent']);
+    const ordered = ['soft', 'middle', 'deep'].map((slot) => ks.find((k) => SLOT_OF[k] === slot));
+    const accents = ordered.map((k) => packs[k].light['--cs-accent']);
+    const Ls = accents.map((h) => hexToLCH(h).L);
     let ok = true;
+    let mono = Ls[0] > Ls[1] + 1e-6 && Ls[1] > Ls[2] + 1e-6;
     for (let i = 0; i < accents.length; i++) {
       for (let j = i + 1; j < accents.length; j++) {
         const dE = deltaEok(accents[i], accents[j]);
         const dL = Math.abs(hexToLCH(accents[i]).L - hexToLCH(accents[j]).L);
-        if (dE < tol.minDeltaE && dL < tol.minDeltaL) ok = false;
+        // Owner bar: both ΔE and ΔL must clear — not either-or.
+        if (dE < tol.minDeltaE || dL < tol.minDeltaL) ok = false;
       }
     }
-    row(ok, `variant distinctness (${el}): soft/middle/deep separated (minΔE ${tol.minDeltaE} · minΔL ${tol.minDeltaL})`);
+    row(ok && mono, `variant distinctness (${el}): soft>middle>deep L + minΔE ${tol.minDeltaE} · minΔL ${tol.minDeltaL}`+(mono?'':' · non-monotonic L'));
   }
 
   let hueOk = true;

@@ -13,14 +13,14 @@
  * Generative cycle (Tương sinh) only for grad-b: Mộc→Hỏa→Thổ→Kim→Thủy→Mộc. */
 :root {
   --cs-accent: #F4BA17;
-  --cs-accent-strong: #9E770B;
+  --cs-accent-strong: #A47D17;
   --cs-accent-bright: #F4BA17;
   --cs-accent-on: #45210E;
   --cs-accent-tint: #FBF4E9;
   --cs-accent-ink: #45210E;
-  --cs-accent-glow: rgba(244, 186, 23, 0.5);
+  --cs-accent-glow: rgba(244, 186, 23, 0.48);
   --cs-accent-grad-a: #F4BA17;
-  --cs-accent-grad-b: #FFAD8E;
+  --cs-accent-grad-b: #FDAE90;
 }
 
 /* ---- Element reach beyond accent ---- */
@@ -48,204 +48,204 @@
 /* ---- Thổ · Earth — soft / middle / deep ---- */
 [data-cs-element="tho"] {
   --cs-accent: #F4BA17;
-  --cs-accent-strong: #9E770B;
+  --cs-accent-strong: #A47D17;
   --cs-accent-bright: #F4BA17;
   --cs-accent-on: #45210E;
   --cs-accent-tint: #FBF4E9;
   --cs-accent-ink: #45210E;
-  --cs-accent-glow: rgba(244, 186, 23, 0.5);
+  --cs-accent-glow: rgba(244, 186, 23, 0.48);
   --cs-accent-grad-a: #F4BA17;
-  --cs-accent-grad-b: #FFAD8E;
+  --cs-accent-grad-b: #FDAE90;
 }
 [data-cs-element="tho"][data-cs-variant="sand"] {
-  --cs-accent: #FAECB2;
-  --cs-accent-strong: #8B7D4A;
-  --cs-accent-bright: #F7ECC1;
-  --cs-accent-on: #2E2915;
-  --cs-accent-tint: #F5F2E6;
-  --cs-accent-ink: #2E2915;
-  --cs-accent-glow: rgba(250, 236, 178, 0.5);
-  --cs-accent-grad-a: #FAECB2;
-  --cs-accent-grad-b: #FFAD8E;
-  --cs-color-text-accent: #8B7D4A;
-  --cs-color-link: #8B7D4A;
+  --cs-accent: #F8E9C0;
+  --cs-accent-strong: #90825E;
+  --cs-accent-bright: #F6EBCC;
+  --cs-accent-on: #292414;
+  --cs-accent-tint: #FBF7EA;
+  --cs-accent-ink: #292414;
+  --cs-accent-glow: rgba(248, 233, 192, 0.48);
+  --cs-accent-grad-a: #F8E9C0;
+  --cs-accent-grad-b: #FDAE90;
+  --cs-color-text-accent: #90825E;
+  --cs-color-link: #90825E;
 }
 [data-cs-element="tho"][data-cs-variant="clay"] {
-  --cs-accent: #8A6010;
-  --cs-accent-strong: #4C3201;
-  --cs-accent-bright: #F6C06B;
-  --cs-accent-on: #382503;
-  --cs-accent-tint: #FFEFD8;
-  --cs-accent-ink: #382503;
-  --cs-accent-glow: rgba(138, 96, 16, 0.5);
-  --cs-accent-grad-a: #8A6010;
-  --cs-accent-grad-b: #FFAD8E;
-  --cs-color-text-accent: #4C3201;
-  --cs-color-link: #4C3201;
+  --cs-accent: #513801;
+  --cs-accent-strong: #201300;
+  --cs-accent-bright: #DEC7A2;
+  --cs-accent-on: #2D220E;
+  --cs-accent-tint: #FFF6E7;
+  --cs-accent-ink: #2D220E;
+  --cs-accent-glow: rgba(81, 56, 1, 0.48);
+  --cs-accent-grad-a: #513801;
+  --cs-accent-grad-b: #FDAE90;
+  --cs-color-text-accent: #201300;
+  --cs-color-link: #201300;
 }
 
 /* ---- Hỏa · Fire — soft / middle / deep ---- */
 [data-cs-element="hoa"] {
-  --cs-accent: #FFAD8E;
-  --cs-accent-strong: #C36036;
-  --cs-accent-bright: #FFCAB5;
-  --cs-accent-on: #431C0B;
-  --cs-accent-tint: #FFEEE7;
-  --cs-accent-ink: #431C0B;
-  --cs-accent-glow: rgba(255, 173, 142, 0.5);
-  --cs-accent-grad-a: #FFAD8E;
+  --cs-accent: #FDAE90;
+  --cs-accent-strong: #B56F54;
+  --cs-accent-bright: #FFD3C2;
+  --cs-accent-on: #381B0F;
+  --cs-accent-tint: #FFF4F0;
+  --cs-accent-ink: #381B0F;
+  --cs-accent-glow: rgba(253, 174, 144, 0.48);
+  --cs-accent-grad-a: #FDAE90;
   --cs-accent-grad-b: #F4BA17;
-  --cs-color-text-accent: #C36036;
-  --cs-color-link: #C36036;
+  --cs-color-text-accent: #B56F54;
+  --cs-color-link: #B56F54;
 }
 [data-cs-element="hoa"][data-cs-variant="plasma"] {
-  --cs-accent: #FFE3E6;
-  --cs-accent-strong: #B65E6D;
-  --cs-accent-bright: #FFE3E6;
-  --cs-accent-on: #3F1D23;
-  --cs-accent-tint: #FFECEE;
-  --cs-accent-ink: #3F1D23;
-  --cs-accent-glow: rgba(255, 227, 230, 0.5);
-  --cs-accent-grad-a: #FFE3E6;
+  --cs-accent: #FFE1D8;
+  --cs-accent-strong: #967C75;
+  --cs-accent-bright: #FCE6DF;
+  --cs-accent-on: #2C211E;
+  --cs-accent-tint: #FEF4F2;
+  --cs-accent-ink: #2C211E;
+  --cs-accent-glow: rgba(255, 225, 216, 0.48);
+  --cs-accent-grad-a: #FFE1D8;
   --cs-accent-grad-b: #F4BA17;
-  --cs-color-text-accent: #B65E6D;
-  --cs-color-link: #B65E6D;
+  --cs-color-text-accent: #967C75;
+  --cs-color-link: #967C75;
 }
 [data-cs-element="hoa"][data-cs-variant="lava"] {
-  --cs-accent: #9C5215;
-  --cs-accent-strong: #572A03;
-  --cs-accent-bright: #FFB98B;
-  --cs-accent-on: #421E02;
-  --cs-accent-tint: #FFEEE4;
-  --cs-accent-ink: #421E02;
-  --cs-accent-glow: rgba(156, 82, 21, 0.5);
-  --cs-accent-grad-a: #9C5215;
+  --cs-accent: #632B03;
+  --cs-accent-strong: #290D00;
+  --cs-accent-bright: #F1BEA2;
+  --cs-accent-on: #361D0E;
+  --cs-accent-tint: #FFF4EE;
+  --cs-accent-ink: #361D0E;
+  --cs-accent-glow: rgba(99, 43, 3, 0.48);
+  --cs-accent-grad-a: #632B03;
   --cs-accent-grad-b: #F4BA17;
-  --cs-color-text-accent: #572A03;
-  --cs-color-link: #572A03;
+  --cs-color-text-accent: #290D00;
+  --cs-color-link: #290D00;
 }
 
 /* ---- Thủy · Water — soft / middle / deep ---- */
 [data-cs-element="thuy"] {
-  --cs-accent: #87D2E1;
-  --cs-accent-strong: #408693;
-  --cs-accent-bright: #ACE2EE;
-  --cs-accent-on: #122D33;
-  --cs-accent-tint: #E6F5F8;
-  --cs-accent-ink: #122D33;
-  --cs-accent-glow: rgba(135, 210, 225, 0.5);
-  --cs-accent-grad-a: #87D2E1;
-  --cs-accent-grad-b: #ADD386;
-  --cs-color-text-accent: #408693;
-  --cs-color-link: #408693;
+  --cs-accent: #2EDBF7;
+  --cs-accent-strong: #108EA0;
+  --cs-accent-bright: #99EEFF;
+  --cs-accent-on: #012A30;
+  --cs-accent-tint: #E7FBFF;
+  --cs-accent-ink: #012A30;
+  --cs-accent-glow: rgba(46, 219, 247, 0.48);
+  --cs-accent-grad-a: #2EDBF7;
+  --cs-accent-grad-b: #A3D768;
+  --cs-color-text-accent: #108EA0;
+  --cs-color-link: #108EA0;
 }
 [data-cs-element="thuy"][data-cs-variant="mist"] {
-  --cs-accent: #B4FAFC;
-  --cs-accent-strong: #468689;
-  --cs-accent-bright: #C3F7F8;
-  --cs-accent-on: #142E2E;
-  --cs-accent-tint: #E7F5F5;
-  --cs-accent-ink: #142E2E;
-  --cs-accent-glow: rgba(180, 250, 252, 0.5);
-  --cs-accent-grad-a: #B4FAFC;
-  --cs-accent-grad-b: #ADD386;
-  --cs-color-text-accent: #468689;
-  --cs-color-link: #468689;
+  --cs-accent: #C0F5FC;
+  --cs-accent-strong: #5A8A90;
+  --cs-accent-bright: #CDF4F9;
+  --cs-accent-on: #13282B;
+  --cs-accent-tint: #EBFAFC;
+  --cs-accent-ink: #13282B;
+  --cs-accent-glow: rgba(192, 245, 252, 0.48);
+  --cs-accent-grad-a: #C0F5FC;
+  --cs-accent-grad-b: #A3D768;
+  --cs-color-text-accent: #5A8A90;
+  --cs-color-link: #5A8A90;
 }
 [data-cs-element="thuy"][data-cs-variant="ocean"] {
-  --cs-accent: #037492;
-  --cs-accent-strong: #063E4F;
-  --cs-accent-bright: #8AD7F4;
-  --cs-accent-on: #012E3C;
-  --cs-accent-tint: #E1F6FF;
-  --cs-accent-ink: #012E3C;
-  --cs-accent-glow: rgba(3, 116, 146, 0.5);
-  --cs-accent-grad-a: #037492;
-  --cs-accent-grad-b: #ADD386;
-  --cs-color-text-accent: #063E4F;
-  --cs-color-link: #063E4F;
+  --cs-accent: #004554;
+  --cs-accent-strong: #011A21;
+  --cs-accent-bright: #A8D3E0;
+  --cs-accent-on: #10282F;
+  --cs-accent-tint: #EAFAFF;
+  --cs-accent-ink: #10282F;
+  --cs-accent-glow: rgba(0, 69, 84, 0.48);
+  --cs-accent-grad-a: #004554;
+  --cs-accent-grad-b: #A3D768;
+  --cs-color-text-accent: #011A21;
+  --cs-color-link: #011A21;
 }
 
 /* ---- Mộc · Wood — soft / middle / deep ---- */
 [data-cs-element="moc"] {
-  --cs-accent: #ADD386;
-  --cs-accent-strong: #668741;
-  --cs-accent-bright: #C6E3AA;
-  --cs-accent-on: #212E12;
-  --cs-accent-tint: #ECF5E5;
-  --cs-accent-ink: #212E12;
-  --cs-accent-glow: rgba(173, 211, 134, 0.5);
-  --cs-accent-grad-a: #ADD386;
-  --cs-accent-grad-b: #FFAD8E;
-  --cs-color-text-accent: #668741;
-  --cs-color-link: #668741;
+  --cs-accent: #A3D768;
+  --cs-accent-strong: #629122;
+  --cs-accent-bright: #C5ED9C;
+  --cs-accent-on: #182A00;
+  --cs-accent-tint: #EFFCE3;
+  --cs-accent-ink: #182A00;
+  --cs-accent-glow: rgba(163, 215, 104, 0.48);
+  --cs-accent-grad-a: #A3D768;
+  --cs-accent-grad-b: #FDAE90;
+  --cs-color-text-accent: #629122;
+  --cs-color-link: #629122;
 }
 [data-cs-element="moc"][data-cs-variant="bamboo"] {
-  --cs-accent: #EAF3AD;
-  --cs-accent-strong: #7C8345;
-  --cs-accent-bright: #EAF1BD;
-  --cs-accent-on: #292B13;
-  --cs-accent-tint: #F1F4E5;
-  --cs-accent-ink: #292B13;
-  --cs-accent-glow: rgba(234, 243, 173, 0.5);
-  --cs-accent-grad-a: #EAF3AD;
-  --cs-accent-grad-b: #FFAD8E;
-  --cs-color-text-accent: #7C8345;
-  --cs-color-link: #7C8345;
+  --cs-accent: #E1F1C8;
+  --cs-accent-strong: #7C8965;
+  --cs-accent-bright: #E5F1D2;
+  --cs-accent-on: #212617;
+  --cs-accent-tint: #F4F9ED;
+  --cs-accent-ink: #212617;
+  --cs-accent-glow: rgba(225, 241, 200, 0.48);
+  --cs-accent-grad-a: #E1F1C8;
+  --cs-accent-grad-b: #FDAE90;
+  --cs-color-text-accent: #7C8965;
+  --cs-color-link: #7C8965;
 }
 [data-cs-element="moc"][data-cs-variant="forest"] {
-  --cs-accent: #2B7C2F;
-  --cs-accent-strong: #09450E;
-  --cs-accent-bright: #A1DDA0;
-  --cs-accent-on: #133114;
-  --cs-accent-tint: #E6F8E5;
-  --cs-accent-ink: #133114;
-  --cs-accent-glow: rgba(43, 124, 47, 0.5);
-  --cs-accent-grad-a: #2B7C2F;
-  --cs-accent-grad-b: #FFAD8E;
-  --cs-color-text-accent: #09450E;
-  --cs-color-link: #09450E;
+  --cs-accent: #1A4A01;
+  --cs-accent-strong: #051D00;
+  --cs-accent-bright: #B0D8A3;
+  --cs-accent-on: #162A0E;
+  --cs-accent-tint: #ECFDE7;
+  --cs-accent-ink: #162A0E;
+  --cs-accent-glow: rgba(26, 74, 1, 0.48);
+  --cs-accent-grad-a: #1A4A01;
+  --cs-accent-grad-b: #FDAE90;
+  --cs-color-text-accent: #051D00;
+  --cs-color-link: #051D00;
 }
 
 /* ---- Kim · Metal — soft / middle / deep ---- */
 [data-cs-element="kim"] {
-  --cs-accent: #D1C2A8;
-  --cs-accent-strong: #897B65;
-  --cs-accent-bright: #E1D6C2;
-  --cs-accent-on: #2D281F;
-  --cs-accent-tint: #F5F1EB;
-  --cs-accent-ink: #2D281F;
-  --cs-accent-glow: rgba(209, 194, 168, 0.5);
-  --cs-accent-grad-a: #D1C2A8;
-  --cs-accent-grad-b: #87D2E1;
-  --cs-color-text-accent: #897B65;
-  --cs-color-link: #897B65;
+  --cs-accent: #EDBB69;
+  --cs-accent-strong: #A77A2A;
+  --cs-accent-bright: #FED89D;
+  --cs-accent-on: #322001;
+  --cs-accent-tint: #FFF5E6;
+  --cs-accent-ink: #322001;
+  --cs-accent-glow: rgba(237, 187, 105, 0.48);
+  --cs-accent-grad-a: #EDBB69;
+  --cs-accent-grad-b: #2EDBF7;
+  --cs-color-text-accent: #A77A2A;
+  --cs-color-link: #A77A2A;
 }
 [data-cs-element="kim"][data-cs-variant="titanium"] {
-  --cs-accent: #FFE6D3;
-  --cs-accent-strong: #8F7867;
-  --cs-accent-bright: #FBE7D8;
-  --cs-accent-on: #302720;
-  --cs-accent-tint: #F6F0EC;
-  --cs-accent-ink: #302720;
-  --cs-accent-glow: rgba(255, 230, 211, 0.5);
-  --cs-accent-grad-a: #FFE6D3;
-  --cs-accent-grad-b: #87D2E1;
-  --cs-color-text-accent: #8F7867;
-  --cs-color-link: #8F7867;
+  --cs-accent: #FBE6CB;
+  --cs-accent-strong: #938068;
+  --cs-accent-bright: #F8E9D4;
+  --cs-accent-on: #2A2319;
+  --cs-accent-tint: #FCF6EE;
+  --cs-accent-ink: #2A2319;
+  --cs-accent-glow: rgba(251, 230, 203, 0.48);
+  --cs-accent-grad-a: #FBE6CB;
+  --cs-accent-grad-b: #2EDBF7;
+  --cs-color-text-accent: #938068;
+  --cs-color-link: #938068;
 }
 [data-cs-element="kim"][data-cs-variant="steel"] {
-  --cs-accent: #447273;
-  --cs-accent-strong: #134040;
-  --cs-accent-bright: #AFD3D3;
-  --cs-accent-on: #1B2C2D;
-  --cs-accent-tint: #EAF4F4;
-  --cs-accent-ink: #1B2C2D;
-  --cs-accent-glow: rgba(68, 114, 115, 0.5);
-  --cs-accent-grad-a: #447273;
-  --cs-accent-grad-b: #87D2E1;
-  --cs-color-text-accent: #134040;
-  --cs-color-link: #134040;
+  --cs-accent: #4F3904;
+  --cs-accent-strong: #1F1400;
+  --cs-accent-bright: #DCC8A4;
+  --cs-accent-on: #2C220F;
+  --cs-accent-tint: #FEF6E7;
+  --cs-accent-ink: #2C220F;
+  --cs-accent-glow: rgba(79, 57, 4, 0.48);
+  --cs-accent-grad-a: #4F3904;
+  --cs-accent-grad-b: #2EDBF7;
+  --cs-color-text-accent: #1F1400;
+  --cs-color-link: #1F1400;
 }
 
 /* ---- Dark theme CTA remaps inside element scopes ---- */
@@ -266,122 +266,122 @@
 
 /* ---- APCA-derived DARK elemental packs (generated; hue-locked to light) ---- */
 [data-theme="dark"][data-cs-element="tho"][data-cs-variant="sand"] {
-  --cs-accent: #FAECB2;
-  --cs-accent-bright: #F6ECC1;
-  --cs-accent-strong: #665A27;
+  --cs-accent: #F8E9C0;
+  --cs-accent-bright: #F6EBCC;
+  --cs-accent-strong: #665A37;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #2B2403;
-  --cs-accent-ink: #F6ECC1;
+  --cs-accent-tint: #332701;
+  --cs-accent-ink: #F6EBCC;
 }
 [data-theme="dark"][data-cs-element="tho"] {
   --cs-accent: #F4BA17;
   --cs-accent-bright: #FEC42C;
   --cs-accent-strong: #73560B;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #2F2203;
-  --cs-accent-ink: #FEC849;
+  --cs-accent-tint: #352602;
+  --cs-accent-ink: #FECD5E;
 }
 [data-theme="dark"][data-cs-element="tho"][data-cs-variant="clay"] {
-  --cs-accent: #D9AC66;
-  --cs-accent-bright: #FDC672;
-  --cs-accent-strong: #4C3201;
+  --cs-accent: #CDB07E;
+  --cs-accent-bright: #E4CDA8;
+  --cs-accent-strong: #1F1300;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #312003;
-  --cs-accent-ink: #FDC672;
+  --cs-accent-tint: #372502;
+  --cs-accent-ink: #E7D0AB;
 }
 [data-theme="dark"][data-cs-element="hoa"][data-cs-variant="plasma"] {
-  --cs-accent: #FFE3E6;
-  --cs-accent-bright: #FFE3E6;
-  --cs-accent-strong: #923E4E;
+  --cs-accent: #FFE1D8;
+  --cs-accent-bright: #FCE6DF;
+  --cs-accent-strong: #6F5750;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #311E20;
-  --cs-accent-ink: #FFE3E6;
+  --cs-accent-tint: #38231C;
+  --cs-accent-ink: #FCE6DF;
 }
 [data-theme="dark"][data-cs-element="hoa"] {
-  --cs-accent: #FFAD8E;
-  --cs-accent-bright: #FFCAB6;
-  --cs-accent-strong: #9B3C0F;
+  --cs-accent: #FDAE90;
+  --cs-accent-bright: #FFD3C2;
+  --cs-accent-strong: #8B492F;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #381B10;
-  --cs-accent-ink: #FFCAB6;
+  --cs-accent-tint: #411D0F;
+  --cs-accent-ink: #FFD3C2;
 }
 [data-theme="dark"][data-cs-element="hoa"][data-cs-variant="lava"] {
-  --cs-accent: #F2A16A;
-  --cs-accent-bright: #FEC39C;
-  --cs-accent-strong: #572A04;
+  --cs-accent: #E9A682;
+  --cs-accent-bright: #F8C4A8;
+  --cs-accent-strong: #290D00;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #361D0A;
-  --cs-accent-ink: #FEC8A5;
+  --cs-accent-tint: #401F0B;
+  --cs-accent-ink: #FBC7AB;
 }
 [data-theme="dark"][data-cs-element="thuy"][data-cs-variant="mist"] {
-  --cs-accent: #B4FAFC;
-  --cs-accent-bright: #C3F7F8;
-  --cs-accent-strong: #206365;
+  --cs-accent: #C0F5FC;
+  --cs-accent-bright: #CDF4F9;
+  --cs-accent-strong: #316167;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #022A2B;
-  --cs-accent-ink: #C3F7F8;
+  --cs-accent-tint: #022F34;
+  --cs-accent-ink: #CDF4F9;
 }
 [data-theme="dark"][data-cs-element="thuy"] {
-  --cs-accent: #87D2E1;
-  --cs-accent-bright: #ACE2ED;
-  --cs-accent-strong: #176370;
+  --cs-accent: #2EDBF7;
+  --cs-accent-bright: #99EEFF;
+  --cs-accent-strong: #046270;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #032930;
-  --cs-accent-ink: #ACE2ED;
+  --cs-accent-tint: #032F36;
+  --cs-accent-ink: #99EEFF;
 }
 [data-theme="dark"][data-cs-element="thuy"][data-cs-variant="ocean"] {
-  --cs-accent: #65BEDF;
-  --cs-accent-bright: #8DDAF7;
-  --cs-accent-strong: #063E4F;
+  --cs-accent: #82BCCD;
+  --cs-accent-bright: #ABD6E3;
+  --cs-accent-strong: #011A21;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #032934;
-  --cs-accent-ink: #90DDFA;
+  --cs-accent-tint: #002F3A;
+  --cs-accent-ink: #AED9E6;
 }
 [data-theme="dark"][data-cs-element="moc"][data-cs-variant="bamboo"] {
-  --cs-accent: #EAF3AD;
-  --cs-accent-bright: #EAF1BD;
-  --cs-accent-strong: #5A6021;
+  --cs-accent: #E1F1C8;
+  --cs-accent-bright: #E5F1D2;
+  --cs-accent-strong: #54603E;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #242706;
-  --cs-accent-ink: #EAF1BD;
+  --cs-accent-tint: #232D0B;
+  --cs-accent-ink: #E5F1D2;
 }
 [data-theme="dark"][data-cs-element="moc"] {
-  --cs-accent: #ADD386;
-  --cs-accent-bright: #C6E3AA;
-  --cs-accent-strong: #45641C;
+  --cs-accent: #A3D768;
+  --cs-accent-bright: #C5ED9C;
+  --cs-accent-strong: #416501;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #1C290D;
-  --cs-accent-ink: #C6E3AA;
+  --cs-accent-tint: #1F2E0B;
+  --cs-accent-ink: #C5ED9C;
 }
 [data-theme="dark"][data-cs-element="moc"][data-cs-variant="forest"] {
-  --cs-accent: #77C777;
-  --cs-accent-bright: #A1DDA0;
-  --cs-accent-strong: #08450E;
+  --cs-accent: #8EC27D;
+  --cs-accent-bright: #B0D8A3;
+  --cs-accent-strong: #061D00;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #142A14;
-  --cs-accent-ink: #A4E0A3;
+  --cs-accent-tint: #193011;
+  --cs-accent-ink: #B6DFA9;
 }
 [data-theme="dark"][data-cs-element="kim"][data-cs-variant="titanium"] {
-  --cs-accent: #FFE6D3;
-  --cs-accent-bright: #FBE7D8;
-  --cs-accent-strong: #6B5646;
+  --cs-accent: #FBE6CB;
+  --cs-accent-bright: #F9E9D4;
+  --cs-accent-strong: #6A5841;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #311F11;
-  --cs-accent-ink: #FBE7D8;
+  --cs-accent-tint: #35260F;
+  --cs-accent-ink: #F9E9D4;
 }
 [data-theme="dark"][data-cs-element="kim"] {
-  --cs-accent: #D1C2A8;
-  --cs-accent-bright: #E1D6C2;
-  --cs-accent-strong: #655944;
+  --cs-accent: #EDBB69;
+  --cs-accent-bright: #FED89D;
+  --cs-accent-strong: #77530D;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #2E220C;
-  --cs-accent-ink: #E1D6C2;
+  --cs-accent-tint: #372503;
+  --cs-accent-ink: #FED89D;
 }
 [data-theme="dark"][data-cs-element="kim"][data-cs-variant="steel"] {
-  --cs-accent: #8FBFC0;
-  --cs-accent-bright: #B2D6D6;
-  --cs-accent-strong: #134041;
+  --cs-accent: #CAB180;
+  --cs-accent-bright: #DFCBA7;
+  --cs-accent-strong: #1F1400;
   --cs-accent-on: #f5ead9;
-  --cs-accent-tint: #022A2B;
-  --cs-accent-ink: #B5D9D9;
+  --cs-accent-tint: #362602;
+  --cs-accent-ink: #E5D1AD;
 }
