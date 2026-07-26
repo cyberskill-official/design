@@ -1,8 +1,8 @@
 // CyberSkill Design System — ESM entry point (GENERATED from _ds_manifest.json at v1.0.0).
-// No build step: import this module directly in a browser. It ensures React 18.3.1 (pinned,
-// skipped when window.React already exists), side-loads ../_ds_bundle.js once, resolves the
-// compiler-assigned namespace BY PREFIX (never a hardcoded suffix), and re-exports every component.
-// Styles are NOT injected — link styles.css yourself (same contract as the UMD path).
+// No build step: import this module directly in a browser. It ensures React 19.2.8 via umd-react
+// (official React 19 dropped UMD; pinned + SRI; skipped when window.React already exists), side-loads
+// ../_ds_bundle.js once, resolves the compiler-assigned namespace BY PREFIX (never a hardcoded suffix),
+// and re-exports every component. Styles are NOT injected — link styles.css yourself.
 // Regenerate when exports change — the esm-smoke gate fails on export/manifest drift.
 const g = typeof window !== "undefined" ? window : globalThis;
 async function ensureScript(src, integrity){
@@ -12,8 +12,8 @@ async function ensureScript(src, integrity){
     if (integrity) { s.integrity = integrity; s.crossOrigin = "anonymous"; }
     s.onload = res; s.onerror = () => rej(new Error("cs.js: failed to load " + href)); document.head.appendChild(s); });
 }
-if (!g.React) await ensureScript("https://unpkg.com/react@18.3.1/umd/react.production.min.js", "sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z");
-if (!g.ReactDOM) await ensureScript("https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js", "sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1");
+if (!g.React) await ensureScript("https://unpkg.com/umd-react@19.2.8/dist/react.production.min.js", "sha384-/nh8CKeV7Pk42Gpda6L4DM1JtZ2bwPOi+eh9O7+a1Y22UkGs8+mw3aW1shQ9FV30");
+if (!g.ReactDOM) await ensureScript("https://unpkg.com/umd-react@19.2.8/dist/react-dom.production.min.js", "sha384-rhLCB72qrpcezgY2QW0panvW9IeO32m94nvuDVRD/iEGHXoUbjtijL6Xi/Z5/mzu");
 const found = () => Object.keys(g).find(k => /^CyberSkillDesignSystem_/.test(k));
 if (!found()) await ensureScript("../_ds_bundle.js");
 export const CS = g[found()];

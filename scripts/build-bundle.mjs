@@ -5,7 +5,7 @@
 //   • single classic script (IIFE) that assigns window.<namespace> (namespace is
 //     read from _ds_manifest.json — the manifest and bundle must never drift)
 //   • React is NOT bundled: modules reference the global React provided by the
-//     consumer (script tags, or _esm/cs.mjs which self-ensures React 18.3.1)
+//     consumer (script tags, or _esm/cs.mjs which self-ensures React 19.2.8 (umd-react))
 //   • every source module is wrapped in its own try/IIFE with a `// <path>`
 //     marker and pushes load errors onto <namespace>.__errors
 //   • modules share values through a private __ds_scope object; ESM imports

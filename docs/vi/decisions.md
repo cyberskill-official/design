@@ -81,10 +81,10 @@ Ghi nhận Th7 2026 — mặc định mở khóa (cập nhật khi bước vận
 
 ## 10. Export React bundler-native (Next / SSR)
 
-**Lựa chọn owner: ship `_esm/react.mjs` làm mặc định `exports["."]`** (Th7 2026)
+**Lựa chọn owner: ship `_esm/react.mjs` làm mặc định `exports["."]`** (Th7 2026; host React 19 Th7 2026)
 
-- React / react-dom là **peerDependencies**; entry re-export JSX source (consumer transpile — ví dụ Next `transpilePackages`).
-- Browser / no-build giữ `_esm/cs.mjs` tại `exports["./legacy"]` (CDN self-ensure + `_ds_bundle.js`).
+- React / react-dom là **peerDependencies** (`^18 || ^19`); entry re-export JSX source (consumer transpile — ví dụ Next `transpilePackages`). Storybook / CI **devDependencies** pin **react@19.2.8** / **react-dom@19.2.8**.
+- Browser / no-build giữ `_esm/cs.mjs` tại `exports["./legacy"]` (CDN self-ensure + `_ds_bundle.js`). React 19 chính thức bỏ UMD — đường CDN load **`umd-react@19.2.8`** (pin SRI) để tạo `window.React` / `window.ReactDOM` cho `_ds_bundle.js`. Cùng pin dùng trong audit HTML, specimen card, UI kit, và runtime `templates/*/support.js` byte-identical.
 - Alias `@cyberskill/design/react` mirror entry mặc định. VERSION giữ **1.0.0**; republish qua Trusted Publishing sau merge.
 - Docs: `docs/consuming.md` (+ VI); gate: `package-exports-integrity` + `test:react-entry`.
 
