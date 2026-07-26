@@ -81,10 +81,10 @@ Recorded Jul 2026 — unlock defaults (updated as operator steps land):
 
 ## 10. Bundler-native React export (Next / SSR)
 
-**Owner choice: ship `_esm/react.mjs` as default `exports["."]`** (Jul 2026)
+**Owner choice: ship `_esm/react.mjs` as default `exports["."]`** (Jul 2026; React 19 host Jul 2026)
 
-- React / react-dom are **peerDependencies**; the entry re-exports source JSX (consumer transpiles — e.g. Next `transpilePackages`).
-- Browser / no-build keeps `_esm/cs.mjs` at `exports["./legacy"]` (CDN self-ensure + `_ds_bundle.js`).
+- React / react-dom are **peerDependencies** (`^18 || ^19`); the entry re-exports source JSX (consumer transpiles — e.g. Next `transpilePackages`). Host Storybook / CI **devDependencies** pin **react@19.2.8** / **react-dom@19.2.8**.
+- Browser / no-build keeps `_esm/cs.mjs` at `exports["./legacy"]` (CDN self-ensure + `_ds_bundle.js`). Official React 19 dropped UMD builds — the CDN path loads **`umd-react@19.2.8`** (SRI-pinned) to populate `window.React` / `window.ReactDOM` for `_ds_bundle.js`. Same pin is used in audit HTML, specimen cards, UI kits, and the byte-identical `templates/*/support.js` runtime.
 - Alias `@cyberskill/design/react` mirrors the default entry. VERSION stays **1.0.0**; republish via Trusted Publishing after merge.
 - Docs: `docs/consuming.md` (+ VI); gates: `package-exports-integrity` + `test:react-entry`.
 
