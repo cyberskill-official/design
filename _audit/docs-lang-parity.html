@@ -11,7 +11,7 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>Docs language parity gate</h1>
-<p class="lede">Every operator-facing EN doc under <code>docs/*.md</code> must have a Vietnamese counterpart at <code>docs/vi/&lt;same-name&gt;</code>. Checks: <b>(1) file presence</b> — EN and VI both fetch as raw markdown (not HTML intercept); <b>(2) no empty stubs</b> — VI length ≥ 40% of EN (floor 80 chars) and is not a TODO/FIXME/stub placeholder; <b>(3) stale-phrase blacklist</b> on both languages (the retired suite/pack counts). Historical audit notes under <code>_audit/archive/</code> are not tracked. Does <b>not</b> duplicate component/template bilingual systems (<code>_i18n</code> / <code>.dc.html</code>). Verdict on <code>window.__docslangparity</code>.</p>
+<p class="lede">Every operator-facing EN doc under <code>docs/*.md</code> must have a Vietnamese counterpart at <code>docs/vi/&lt;same-name&gt;</code>. Checks: <b>(1) file presence</b> — EN and VI both fetch as raw markdown (not HTML intercept); <b>(2) no empty stubs</b> — VI length ≥ 40% of EN (floor 80 chars) and is not a TODO/FIXME/stub placeholder; <b>(3) stale-phrase blacklist</b> on both languages (retired suite/pack counts plus three-axis leftovers). Historical audit notes under <code>_audit/archive/</code> are not tracked. Does <b>not</b> duplicate component/template bilingual systems (<code>_i18n</code> / <code>.dc.html</code>). Verdict on <code>window.__docslangparity</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <script>
@@ -29,7 +29,12 @@ const TRACKED=[
   'live-hub.md','products.md','quality-gates.md','release-notes.md','storybook.md','sync.md','template-schema-v2.md'
 ];
 const BLACKLIST_EXEMPT=new Set([]);
-const BLACKLIST=[/50\s+style\s+packs/i,/41-document/i,/41\s+documents/i];
+const BLACKLIST=[
+  /50\s+style\s+packs/i,/41-document/i,/41\s+documents/i,
+  /Ba\s+trục/i,/three\s+identity\s+axes/i,
+  /invent\s+a\s+fourth\s+product\s+axis/i,/not\s+a\s+fourth\s+axis/i,
+  /Theme\s*×\s*Element\s*×\s*Language(?!\s*×\s*Style)/,
+];
 const STUB_RE=/translate\s+me|stub\s+only|chưa\s+dịch|pending\s+translation|^\s*#?\s*TODO\b[\s:]*$/im;
 
 async function fetchRaw(path){

@@ -92,7 +92,7 @@ Consumer bỏ qua `styles.css` để tự kiểm soát font loading (`cyberskill
 
 ## Bốn trục
 
-Đặt Theme (`data-theme`), Element (`data-cs-element` + `data-cs-variant`), và Language (`lang` / Language tweak trên template) trên một container; mọi thứ bên trong re-skin không cần đổi code (xem `templates/playground.html`). Mặc định: `light · tho · en`. Pack Style là liquid-glass (sole pack; vắng ≡ mặc định). Bilingual: component resolve chuỗi từ `lang` (`lang="vi"` trên mọi container → tiếng Việt đầy đủ).
+Đặt Theme (`data-theme` — light / dark / system), Element (`data-cs-element` + `data-cs-variant`), Language (`lang` / Language tweak trên template), và Style (`data-cs-style`) trên một container; mọi thứ bên trong re-skin không cần đổi code (xem `templates/playground.html`). Mặc định: `light · tho · en · liquid-glass` (vắng theme / style ≡ các mặc định đó). Bilingual: component resolve chuỗi từ `lang` (`lang="vi"` trên mọi container → tiếng Việt đầy đủ).
 
 ## Nâng cấp
 

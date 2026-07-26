@@ -4,28 +4,31 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Design styles
 
-Current surface treatment is **liquid-glass** (fixed). The live styling axes are **Theme × Element × Language × Style** only.
+The live styling axes are **Theme × Element × Language × Style**. Style’s sole pack today is **liquid-glass** (absent `data-cs-style` ≡ liquid-glass — same default pattern as light theme / Thổ middle).
 
 | Axis | How to set it | What it changes |
 |---|---|---|
-| **Theme** | `data-theme="light\|dark"` | light/dark semantic colours |
+| **Theme** | light = attribute absent; `data-theme="dark\|system"` | light/dark semantic colours; **system** follows OS `prefers-color-scheme` |
 | **Element** | `data-cs-element` + optional `data-cs-variant` | Ngũ Hành product identity (15 packs) |
 | **Language** | `lang` / Language tweak | EN · VI copy |
+| **Style** | `data-cs-style` (optional; absent ≡ `liquid-glass`) | Surface material pack — sole pack **liquid-glass** |
 
-## Fixed treatment
+## Style pack — liquid-glass
 
 - Liquid-glass materials (`cs-surface-*`) are the default surface language
-- Radius, shadow, and glass tokens come from the base system — not a parallel "style pack" axis
+- Radius, shadow, and glass tokens come from `tokens/elevation.css` + `base/glass.css`; the Style axis contract lives in `tokens/styles.css`
+- Gate: `_audit/style-contract.html` — allowlists `liquid-glass` only
 - Rejected by doctrine: neon/cyberpunk cold hues, memphis playfulness, full skeuomorphism, emoji in UI chrome
 
 ## Adding a new look
 
 Prefer:
 
-1. A new **Element** or **variant** when the shift is hue/identity
+1. A new **Element** intensity tweak when the shift is hue/identity inside Ngũ Hành
 2. Local composition with existing tokens/classes when the shift is one-off layout
 3. A documented pattern in conventions + a specimen when the pattern should be reusable
+4. A new **`data-cs-style`** pack only after an Expansion Rule pass (see `docs/benchmark-rubric.md`)
 
-Do not invent a fourth product axis without an Expansion Rule pass across tokens, Storybook, templates, docs, and gates.
+Do not invent a fifth product axis, and do not add a second Style pack without the Expansion Rule checklist.
 
-See also **Foundations → Elements** and **Docs → The Four Axes**.
+See also **Foundations → Elements** and **Docs → The Four Axes**. Canonical long form: `docs/design-styles.md`.

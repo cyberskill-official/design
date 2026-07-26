@@ -18,7 +18,7 @@
 </style>
 </head><body>
 <h1><b>CyberSkill</b> · Docs-consistency check</h1>
-<p class="sub">Asserts every count claim in the live docs matches <code>_ds_manifest.json</code>, that <code>VERSION</code> / <code>package.json</code> stay pinned at <b>1.0.0</b>, that live entrance docs do not reintroduce <code>CHANGELOG.md</code>, that a <b>stale-phrase blacklist</b> (the retired "50 style packs" / "41-document(s)" suite counts) stays out of README / SKILL / llms.txt / <code>docs/*.md</code>, that the generated root <code>DESIGN.md</code> exists with its front-matter version matching <code>VERSION</code>, and that <b>agent routing stays honest</b> (Claude path cites <code>_esm/cs.mjs</code> + bundle prefix; Stitch path forbids treating <code>*.dc.html</code> as SoT; package name is <code>@cyberskill/design</code>). Historical audit notes live under <code>_audit/archive/</code> (not scanned). Verdict on <code>window.__docs</code>.</p>
+<p class="sub">Asserts every count claim in the live docs matches <code>_ds_manifest.json</code>, that <code>VERSION</code> / <code>package.json</code> stay pinned at <b>1.0.0</b>, that live entrance docs do not reintroduce <code>CHANGELOG.md</code>, that a <b>stale-phrase blacklist</b> (retired suite/pack counts plus three-axis leftovers such as "Ba trục" / "Theme × Element × Language" without Style) stays out of README / SKILL / llms.txt / <code>docs/*.md</code>, that the generated root <code>DESIGN.md</code> exists with its front-matter version matching <code>VERSION</code>, and that <b>agent routing stays honest</b> (Claude path cites <code>_esm/cs.mjs</code> + bundle prefix; Stitch path forbids treating <code>*.dc.html</code> as SoT; package name is <code>@cyberskill/design</code>). Historical audit notes live under <code>_audit/archive/</code> (not scanned). Verdict on <code>window.__docs</code>.</p>
 <div id="report">running…</div>
 <div id="truth" class="truth"></div>
 <script>
@@ -106,7 +106,16 @@ function ctx(s, i, n){ return s.slice(Math.max(0,i-4), i+n+18).replace(/\s+/g," 
   step('manifest looks sane', truth.templates>50 && truth.exports>50 && truth.files>40 && truth.tokens>100, JSON.stringify(truth));
 
   // ---- Stale-phrase blacklist over live entrance docs + docs/*.md.
-  const BLACKLIST = [/50\s+style\s+packs/i, /41-document/i, /41\s+documents/i];
+  const BLACKLIST = [
+    /50\s+style\s+packs/i,
+    /41-document/i,
+    /41\s+documents/i,
+    /Ba\s+trục/i,
+    /three\s+identity\s+axes/i,
+    /invent\s+a\s+fourth\s+product\s+axis/i,
+    /not\s+a\s+fourth\s+axis/i,
+    /Theme\s*×\s*Element\s*×\s*Language(?!\s*×\s*Style)/,
+  ];
   const scanSet = ['README.md','SKILL.md','llms.txt'].concat(DOCS_MD);
   const hits = [];
   for (const src of scanSet){
