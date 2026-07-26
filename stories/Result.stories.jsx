@@ -1,37 +1,26 @@
 import { Result } from '../components/feedback/Result.jsx';
 
+const STATUSES = ['success', 'error', 'warning', 'info'];
+
 export default {
   title: 'Components/Feedback/Result',
   component: Result,
   tags: ['autodocs'],
   argTypes: {
-  "status": {
-    "control": "select",
-    "options": [
-      "success",
-      "error",
-      "warning",
-      "info"
-    ]
+    status: { control: 'select', options: STATUSES },
+    title: { control: 'text' },
+    children: { control: 'text' },
+    lang: { control: 'text' },
   },
-  "title": {
-    "control": "object"
-  },
-  "actions": {
-    "control": "object"
-  },
-  "lang": {
-    "control": "text"
-  }
-},
   parameters: {
     docs: {
       description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Result. Portable consumers use styles.css + bundle, not Storybook.',
+        component:
+          'Host Live CSF — Default plus honest control matrix mounting Result. Portable consumers use styles.css + bundle, not Storybook.',
       },
     },
   },
-  args: { status: 'success', title: 'Wish shipped', description: 'All gates green.' },
+  args: { status: 'success', title: 'Wish shipped', children: 'All gates green.' },
 };
 
 export const Default = {};
@@ -40,8 +29,11 @@ export const Matrix = {
   name: 'Matrix / Status',
   render: (args) => (
     <div style={{ display: 'grid', gap: 16 }}>
-      <Result {...args} status="success" title="OK" description="Good" />
-      <Result {...args} status="error" title="Fail" description="Bad" />
+      {STATUSES.map((status) => (
+        <Result key={status} {...args} status={status} title={status}>
+          Body for {status}
+        </Result>
+      ))}
     </div>
   ),
 };

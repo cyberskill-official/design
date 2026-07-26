@@ -5,24 +5,18 @@ export default {
   component: EmptyState,
   tags: ['autodocs'],
   argTypes: {
-  "icon": {
-    "control": "object"
+    title: { control: 'text' },
+    children: { control: 'text' },
   },
-  "title": {
-    "control": "object"
-  },
-  "actions": {
-    "control": "object"
-  }
-},
   parameters: {
     docs: {
       description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting EmptyState. Portable consumers use styles.css + bundle, not Storybook.',
+        component:
+          'Host Live CSF — Default plus honest control matrix mounting EmptyState. Portable consumers use styles.css + bundle, not Storybook.',
       },
     },
   },
-  args: { title: 'No wishes yet', description: 'Capture the first one.' },
+  args: { title: 'No wishes yet', children: 'Capture the first one.' },
 };
 
 export const Default = {};
@@ -31,8 +25,12 @@ export const Matrix = {
   name: 'Matrix / Copy',
   render: (args) => (
     <div style={{ display: 'grid', gap: 16 }}>
-      <EmptyState {...args} title="Empty A" description="Desc A" />
-      <EmptyState {...args} title="Empty B" description="Desc B" />
+      <EmptyState {...args} title="Empty A">
+        Desc A
+      </EmptyState>
+      <EmptyState {...args} title="Empty B">
+        Desc B
+      </EmptyState>
     </div>
   ),
 };

@@ -445,6 +445,33 @@ for (const m of modules) {
     }
   }
 
+  // Meta args keys must be documented in argTypes (or an explicit fixture allowlist)
+  const ARGS_KEY_ALLOW = new Set([
+    'children',
+    'className',
+    'style',
+    'id',
+    'key',
+    'ref',
+    'defaultChecked',
+    'defaultValue',
+    'placeholder',
+    'autoFocus',
+    'name',
+    'type',
+    'role',
+    'tabIndex',
+  ]);
+  if (metaArgs) {
+    const argKeys = [...metaArgs.matchAll(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*:/gm)].map((x) => x[1]);
+    for (const k of argKeys) {
+      if (ARGS_KEY_ALLOW.has(k) || k.startsWith('aria') || k.startsWith('data')) continue;
+      if (!atKeys.includes(k)) {
+        fail.push(m.primary + ' meta args.' + k + ' missing from argTypes');
+      }
+    }
+  }
+
   // FullMatrix: size enums × variant enums × key-states when ≥1 axis present
   const statePresent = STATE_KEYS.filter((k) => hasArgTypeKey(text, k));
   const axisFlags = [

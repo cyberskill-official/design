@@ -6,33 +6,23 @@ export default {
   component: NumberField,
   tags: ['autodocs'],
   argTypes: {
-  "value": {
-    "control": "number"
+    label: { control: 'text' },
+    value: { control: 'number' },
+    min: { control: 'number' },
+    max: { control: 'number' },
+    step: { control: 'number' },
+    disabled: { control: 'boolean' },
+    lang: { control: 'text' },
   },
-  "onChange": {
-    "control": "text"
-  },
-  "min": {
-    "control": "number"
-  },
-  "max": {
-    "control": "number"
-  },
-  "step": {
-    "control": "number"
-  },
-  "disabled": {
-    "control": "boolean"
-  }
-},
   parameters: {
     docs: {
       description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting NumberField. Portable consumers use styles.css + bundle, not Storybook.',
+        component:
+          'Host Live CSF — Default plus honest control matrix mounting NumberField. Portable consumers use styles.css + bundle, not Storybook.',
       },
     },
   },
-  args: { label: 'Quantity', defaultValue: 1, min: 0 },
+  args: { label: 'Quantity', min: 0, step: 1 },
 };
 
 export const Default = {};
@@ -41,8 +31,8 @@ export const Matrix = {
   name: 'Matrix / Bounds',
   render: (args) => (
     <div style={{ display: 'grid', gap: 12, maxWidth: 240 }}>
-      <NumberField {...args} label="Min0" min={0} defaultValue={0} />
-      <NumberField {...args} label="Max10" min={0} max={10} defaultValue={10} />
+      <NumberField {...args} label="Min0" min={0} value={0} />
+      <NumberField {...args} label="Max10" min={0} max={10} value={10} />
     </div>
   ),
 };
@@ -61,17 +51,11 @@ export const States = {
 export const FullMatrix = {
   name: 'Full matrix / state',
   render: (args) => {
-    const cells = cartesian({  }).flatMap((combo) =>
-      stateCombos(["disabled"]).map((state) => {
+    const cells = cartesian({}).flatMap((combo) =>
+      stateCombos(['disabled']).map((state) => {
         const props = { ...combo, ...state };
         const label = comboLabel(props, ['disabled']);
-        return (
-          <NumberField
-            key={label}
-            {...args}
-            disabled={!!state.disabled}
-          />
-        );
+        return <NumberField key={label} {...args} disabled={!!state.disabled} />;
       }),
     );
     return (

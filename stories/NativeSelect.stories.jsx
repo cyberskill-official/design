@@ -8,6 +8,10 @@ export default {
   argTypes: {
     label: { control: 'text' },
     size: { control: 'select', options: ['sm', 'md'] },
+    options: { control: 'object' },
+    defaultValue: { control: 'text' },
+    error: { control: 'text' },
+    disabled: { control: 'boolean' },
   },
   parameters: {
     docs: {
@@ -67,17 +71,19 @@ export const States = {
 
 /** Exhaustive discrete-axis product (FullMatrix contract ≥1 axis). */
 export const FullMatrix = {
-  name: 'Full matrix / size',
+  name: 'Full matrix / size × state',
   render: (args) => {
-    const cells = cartesian({ size: ["sm","md"] }).flatMap((combo) =>
-      stateCombos([]).map((state) => {
+    const cells = cartesian({ size: ['sm', 'md'] }).flatMap((combo) =>
+      stateCombos(['disabled', 'error']).map((state) => {
         const props = { ...combo, ...state };
-        const label = comboLabel(props, ['size']);
+        const label = comboLabel(props, ['size', 'disabled', 'error']);
         return (
           <NativeSelect
             key={label}
             {...args}
             size={combo.size}
+            disabled={!!state.disabled}
+            error={state.error ? 'Pick a squad.' : undefined}
           />
         );
       }),

@@ -1,41 +1,38 @@
 import { TreeSelect } from '../components/forms/TreeSelect.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
+const NODES = [
+  {
+    key: 'root',
+    label: 'Root',
+    children: [
+      { key: 'a', label: 'A' },
+      { key: 'b', label: 'B', children: [{ key: 'b1', label: 'B1' }] },
+    ],
+  },
+];
+
 export default {
   title: 'Components/Forms/TreeSelect',
   component: TreeSelect,
   tags: ['autodocs'],
   argTypes: {
-  "nodes": {
-    "control": "object"
+    nodes: { control: 'object' },
+    value: { control: 'text' },
+    placeholder: { control: 'text' },
+    label: { control: 'text' },
+    disabled: { control: 'boolean' },
+    lang: { control: 'text' },
   },
-  "value": {
-    "control": "text"
-  },
-  "onChange": {
-    "control": "text"
-  },
-  "placeholder": {
-    "control": "text"
-  },
-  "label": {
-    "control": "text"
-  },
-  "disabled": {
-    "control": "boolean"
-  },
-  "lang": {
-    "control": "text"
-  }
-},
   parameters: {
     docs: {
       description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting TreeSelect. Portable consumers use styles.css + bundle, not Storybook.',
+        component:
+          'Host Live CSF — Default plus honest control matrix mounting TreeSelect. Portable consumers use styles.css + bundle, not Storybook.',
       },
     },
   },
-  args: { label: 'Folder', options: [{ value: 'root', label: 'Root', children: [{ value: 'a', label: 'A' }] }] },
+  args: { label: 'Folder', nodes: NODES, placeholder: 'Select…' },
 };
 
 export const Default = {};
@@ -44,8 +41,12 @@ export const Matrix = {
   name: 'Matrix / Trees',
   render: (args) => (
     <div style={{ display: 'grid', gap: 12 }}>
-      <TreeSelect {...args} label="A" options={[{ value: 'r', label: 'Root' }]} />
-      <TreeSelect {...args} label="B" options={[{ value: 'r', label: 'Root', children: [{ value: 'c', label: 'Child' }] }]} />
+      <TreeSelect {...args} label="Flat" nodes={[{ key: 'r', label: 'Root' }]} />
+      <TreeSelect
+        {...args}
+        label="Nested"
+        nodes={[{ key: 'r', label: 'Root', children: [{ key: 'c', label: 'Child' }] }]}
+      />
     </div>
   ),
 };
@@ -64,17 +65,11 @@ export const States = {
 export const FullMatrix = {
   name: 'Full matrix / state',
   render: (args) => {
-    const cells = cartesian({  }).flatMap((combo) =>
-      stateCombos(["disabled"]).map((state) => {
+    const cells = cartesian({}).flatMap((combo) =>
+      stateCombos(['disabled']).map((state) => {
         const props = { ...combo, ...state };
         const label = comboLabel(props, ['disabled']);
-        return (
-          <TreeSelect
-            key={label}
-            {...args}
-            disabled={!!state.disabled}
-          />
-        );
+        return <TreeSelect key={label} {...args} disabled={!!state.disabled} />;
       }),
     );
     return (
