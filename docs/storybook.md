@@ -19,7 +19,7 @@ Storybook **10** is the **product site** for operators on `design.cyberskill.wor
   - `States` (or a Matrix subsection) covering `disabled` / `loading` / `error` / `busy` when those argTypes exist
   - Every discrete `size` / `variant` enum option mounted in a matrix-family story
   - `FullMatrix` when ≥1 of {size enums, variant enums, state keys} exist — the size × variant × key-state product via shared helpers in `stories/lib/matrix.jsx`
-- Toolbar globals: Theme × Element × Language × Style (same axes as templates). Element lists **all 15** Ngũ Hành packs (Identity Lab / `tokens.elements` / template EL maps) — not a subset.
+- Toolbar globals: Theme (light · dark · **system**) × Element × Language × Style (same axes as templates / Identity Lab). Element lists **all 15** Ngũ Hành packs (Identity Lab / `tokens.elements` / template EL maps) — not a subset. Style’s sole pack is **liquid-glass**.
 - **Docs/** public MDX guides; **Release Notes/** curated product prose (**no CHANGELOG.md**); **Status/** embeds `_audit/run.html` full-bleed
 - **Maintainer/** stories for portable HTML surfaces (Motion, Identity Lab, templates, kitchen-sink, AI cluster, RTL; Atomic View buried for gates)
 - Same `styles.css` as production

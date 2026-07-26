@@ -5,21 +5,18 @@ export default {
   component: PromptSuggestions,
   tags: ['autodocs'],
   argTypes: {
-  "suggestions": {
-    "control": "object"
+    suggestions: { control: 'object' },
+    onSelect: { control: false },
   },
-  "onSelect": {
-    "control": "text"
-  }
-},
   parameters: {
     docs: {
       description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting PromptSuggestions. Portable consumers use styles.css + bundle, not Storybook.',
+        component:
+          'Host Live CSF — Default plus honest control matrix mounting PromptSuggestions. Portable consumers use styles.css + bundle, not Storybook.',
       },
     },
   },
-  args: { items: ['Draft a BOD memo', 'VN labor contract'] },
+  args: { suggestions: ['Draft a BOD memo', 'VN labor contract'] },
 };
 
 export const Default = {};
@@ -28,8 +25,8 @@ export const Matrix = {
   name: 'Matrix / Sets',
   render: (args) => (
     <div style={{ display: 'grid', gap: 12 }}>
-      <PromptSuggestions {...args} items={['One']} />
-      <PromptSuggestions {...args} items={['One', 'Two', 'Three']} />
+      <PromptSuggestions {...args} suggestions={['One']} />
+      <PromptSuggestions {...args} suggestions={['One', 'Two', 'Three']} />
     </div>
   ),
 };

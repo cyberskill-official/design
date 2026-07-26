@@ -46,13 +46,14 @@ const preview = {
   globalTypes: {
     theme: {
       name: 'Theme',
-      description: 'data-theme',
+      description: 'data-theme — light (default) · dark · system (OS prefers-color-scheme)',
       defaultValue: 'light',
       toolbar: {
         icon: 'circlehollow',
         items: [
           { value: 'light', title: 'Light' },
           { value: 'dark', title: 'Dark' },
+          { value: 'system', title: 'System' },
         ],
         dynamicTitle: true,
       },
@@ -117,13 +118,13 @@ const preview = {
       const fullscreen = context.parameters.layout === 'fullscreen';
       if (typeof document !== 'undefined') {
         const root = document.documentElement;
-        if (theme === 'dark') root.setAttribute('data-theme', 'dark');
+        if (theme === 'dark' || theme === 'system') root.setAttribute('data-theme', theme);
         else root.removeAttribute('data-theme');
         root.setAttribute('data-cs-style', style);
       }
       return (
         <div
-          data-theme={theme === 'dark' ? 'dark' : undefined}
+          data-theme={theme === 'dark' || theme === 'system' ? theme : undefined}
           data-cs-element={element || undefined}
           data-cs-variant={variant || undefined}
           data-cs-style={style}

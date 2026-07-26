@@ -28,7 +28,7 @@ Public operator docs ship EN·VI pairs under `docs/` / `docs/vi/`. Templates rem
 
 ## Foundations and CSF library
 
-Theme × Element × Language × Style toolbar globals mirror production templates. Every public primary ships a Default story plus an honest control matrix. Foundations cover colors, typography, spacing, elevation, motion, and the 15 Ngũ Hành element packs.
+Theme × Element × Language × Style toolbar globals mirror production templates (Theme includes **system** for OS `prefers-color-scheme`). Every public primary ships a Default story plus an honest control matrix; FullMatrix covers every ≥1-axis qualifier. Axe smoke scans all public primaries. Style’s sole pack is **liquid-glass**. Foundations cover colors, typography, spacing, elevation, motion, and the 15 Ngũ Hành element packs.
 
 ## Tokens and native mirrors
 
