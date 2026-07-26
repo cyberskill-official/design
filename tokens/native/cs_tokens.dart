@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.0.0 · source sha256 bdad41a38439ef3e…
+// release v1.0.0 · source sha256 3fad99b545d4ee20…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -58,7 +58,7 @@ class CSTokens {
   static const Color accentInk = Color(0xFF45210E);
   static const Color accentGlow = Color(0x7AF4BA17);
   static const Color accentGradA = Color(0xFFF4BA17);
-  static const Color accentGradB = Color(0xFFFDAE90);
+  static const Color accentGradB = Color(0xFFFCAF91);
   static const double depthBg = 0;
   static const double depthSection = 5;
   static const double depthCard = 10;
@@ -200,18 +200,18 @@ class CSTokens {
   static const Color accentOnHoaPlasmaDark = Color(0xFFF5EAD9);
   static const Color accentTintHoaPlasmaDark = Color(0xFF38231C);
   static const Color accentInkHoaPlasmaDark = Color(0xFFFCE6DF);
-  static const Color accentHoaDark = Color(0xFFFDAE90);
-  static const Color accentBrightHoaDark = Color(0xFFFFD3C2);
-  static const Color accentStrongHoaDark = Color(0xFF8B492F);
+  static const Color accentHoaDark = Color(0xFFFCAF91);
+  static const Color accentBrightHoaDark = Color(0xFFFED3C3);
+  static const Color accentStrongHoaDark = Color(0xFF8A4A30);
   static const Color accentOnHoaDark = Color(0xFFF5EAD9);
-  static const Color accentTintHoaDark = Color(0xFF411D0F);
-  static const Color accentInkHoaDark = Color(0xFFFFD3C2);
-  static const Color accentHoaLavaDark = Color(0xFFE9A682);
-  static const Color accentBrightHoaLavaDark = Color(0xFFF8C4A8);
-  static const Color accentStrongHoaLavaDark = Color(0xFF290D00);
+  static const Color accentTintHoaDark = Color(0xFF411E0F);
+  static const Color accentInkHoaDark = Color(0xFFFED3C3);
+  static const Color accentHoaLavaDark = Color(0xFFE8A683);
+  static const Color accentBrightHoaLavaDark = Color(0xFFF8C4AA);
+  static const Color accentStrongHoaLavaDark = Color(0xFF280D00);
   static const Color accentOnHoaLavaDark = Color(0xFFF5EAD9);
   static const Color accentTintHoaLavaDark = Color(0xFF401F0B);
-  static const Color accentInkHoaLavaDark = Color(0xFFFBC7AB);
+  static const Color accentInkHoaLavaDark = Color(0xFFFBC7AD);
   static const Color accentThuyMistDark = Color(0xFFC0F5FC);
   static const Color accentBrightThuyMistDark = Color(0xFFCDF4F9);
   static const Color accentStrongThuyMistDark = Color(0xFF316167);
@@ -248,22 +248,22 @@ class CSTokens {
   static const Color accentOnMocForestDark = Color(0xFFF5EAD9);
   static const Color accentTintMocForestDark = Color(0xFF193011);
   static const Color accentInkMocForestDark = Color(0xFFB6DFA9);
-  static const Color accentKimTitaniumDark = Color(0xFFFBE6CB);
-  static const Color accentBrightKimTitaniumDark = Color(0xFFF9E9D4);
-  static const Color accentStrongKimTitaniumDark = Color(0xFF6A5841);
+  static const Color accentKimTitaniumDark = Color(0xFFFEE5C7);
+  static const Color accentBrightKimTitaniumDark = Color(0xFFFBE8D2);
+  static const Color accentStrongKimTitaniumDark = Color(0xFF6B573E);
   static const Color accentOnKimTitaniumDark = Color(0xFFF5EAD9);
-  static const Color accentTintKimTitaniumDark = Color(0xFF35260F);
-  static const Color accentInkKimTitaniumDark = Color(0xFFF9E9D4);
-  static const Color accentKimDark = Color(0xFFEDBB69);
-  static const Color accentBrightKimDark = Color(0xFFFED89D);
-  static const Color accentStrongKimDark = Color(0xFF77530D);
+  static const Color accentTintKimTitaniumDark = Color(0xFF37250B);
+  static const Color accentInkKimTitaniumDark = Color(0xFFFBE8D2);
+  static const Color accentKimDark = Color(0xFFF3B958);
+  static const Color accentBrightKimDark = Color(0xFFFDD89F);
+  static const Color accentStrongKimDark = Color(0xFF795303);
   static const Color accentOnKimDark = Color(0xFFF5EAD9);
-  static const Color accentTintKimDark = Color(0xFF372503);
-  static const Color accentInkKimDark = Color(0xFFFED89D);
-  static const Color accentKimSteelDark = Color(0xFFCAB180);
-  static const Color accentBrightKimSteelDark = Color(0xFFDFCBA7);
+  static const Color accentTintKimDark = Color(0xFF382503);
+  static const Color accentInkKimDark = Color(0xFFFDD89F);
+  static const Color accentKimSteelDark = Color(0xFFCCB17E);
+  static const Color accentBrightKimSteelDark = Color(0xFFDFCBA5);
   static const Color accentStrongKimSteelDark = Color(0xFF1F1400);
   static const Color accentOnKimSteelDark = Color(0xFFF5EAD9);
   static const Color accentTintKimSteelDark = Color(0xFF362602);
-  static const Color accentInkKimSteelDark = Color(0xFFE5D1AD);
+  static const Color accentInkKimSteelDark = Color(0xFFE6D1AB);
 }

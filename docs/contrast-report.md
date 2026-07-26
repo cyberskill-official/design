@@ -27,21 +27,21 @@ Packs are generated from `tokens/element-seeds.json` (soft / middle / deep ladde
 | tho · clay | accent-bright on ink (headings) | #DEC7A2 / #2D220E | 71.7 | ✓ |
 | tho · clay | accent-on on accent-bright (CTA text) | #2D220E / #DEC7A2 | 71.8 | ✓ |
 | tho · clay | accent-bright on dark panel (dark labels) | #E4CDA8 / #221710 | 76.7 | ✓ |
-| hoa | text-accent on white (bold labels) | #B56F54 / #FFFFFF | 66.3 | ✓ |
-| hoa | text-accent on tint (bold labels) | #B56F54 / #FFF4F0 | 61 | ✓ |
-| hoa | accent-bright on ink (headings) | #FFD3C2 / #381B0F | 82.9 | ✓ |
-| hoa | accent-on on accent-bright (CTA text) | #381B0F / #FFD3C2 | 82.2 | ✓ |
-| hoa | accent-bright on dark panel (dark labels) | #FFD3C2 / #221710 | 84.3 | ✓ |
+| hoa | text-accent on white (bold labels) | #B47054 / #FFFFFF | 66.2 | ✓ |
+| hoa | text-accent on tint (bold labels) | #B47054 / #FFF4F0 | 60.9 | ✓ |
+| hoa | accent-bright on ink (headings) | #FED3C3 / #381B10 | 82.8 | ✓ |
+| hoa | accent-on on accent-bright (CTA text) | #381B10 / #FED3C3 | 82.1 | ✓ |
+| hoa | accent-bright on dark panel (dark labels) | #FED3C3 / #221710 | 84.2 | ✓ |
 | hoa · plasma | text-accent on white (bold labels) | #967C75 / #FFFFFF | 66.1 | ✓ |
 | hoa · plasma | text-accent on tint (bold labels) | #967C75 / #FEF4F2 | 60.7 | ✓ |
 | hoa · plasma | accent-bright on ink (headings) | #FCE6DF / #2C211E | 91.8 | ✓ |
 | hoa · plasma | accent-on on accent-bright (CTA text) | #2C211E / #FCE6DF | 90.4 | ✓ |
 | hoa · plasma | accent-bright on dark panel (dark labels) | #FCE6DF / #221710 | 93.2 | ✓ |
-| hoa · lava | text-accent on white (bold labels) | #290D00 / #FFFFFF | 104.7 | ✓ |
-| hoa · lava | text-accent on tint (bold labels) | #290D00 / #FFF4EE | 99.3 | ✓ |
-| hoa · lava | accent-bright on ink (headings) | #F1BEA2 / #361D0E | 71 | ✓ |
-| hoa · lava | accent-on on accent-bright (CTA text) | #361D0E / #F1BEA2 | 71.1 | ✓ |
-| hoa · lava | accent-bright on dark panel (dark labels) | #F8C4A8 / #221710 | 76.1 | ✓ |
+| hoa · lava | text-accent on white (bold labels) | #280D00 / #FFFFFF | 104.7 | ✓ |
+| hoa · lava | text-accent on tint (bold labels) | #280D00 / #FFF4EF | 99.4 | ✓ |
+| hoa · lava | accent-bright on ink (headings) | #F1BEA4 / #361D0F | 71 | ✓ |
+| hoa · lava | accent-on on accent-bright (CTA text) | #361D0F / #F1BEA4 | 71.2 | ✓ |
+| hoa · lava | accent-bright on dark panel (dark labels) | #F8C4AA / #221710 | 76.2 | ✓ |
 | thuy | text-accent on white (bold labels) | #108EA0 / #FFFFFF | 65.8 | ✓ |
 | thuy | text-accent on tint (bold labels) | #108EA0 / #E7FBFF | 61.2 | ✓ |
 | thuy | accent-bright on ink (headings) | #99EEFF / #012A30 | 85.3 | ✓ |
@@ -72,21 +72,21 @@ Packs are generated from `tokens/element-seeds.json` (soft / middle / deep ladde
 | moc · forest | accent-bright on ink (headings) | #B0D8A3 / #162A0E | 73.2 | ✓ |
 | moc · forest | accent-on on accent-bright (CTA text) | #162A0E / #B0D8A3 | 73.2 | ✓ |
 | moc · forest | accent-bright on dark panel (dark labels) | #B0D8A3 / #221710 | 75 | ✓ |
-| kim | text-accent on white (bold labels) | #A77A2A / #FFFFFF | 65.8 | ✓ |
-| kim | text-accent on tint (bold labels) | #A77A2A / #FFF5E6 | 60.5 | ✓ |
-| kim | accent-bright on ink (headings) | #FED89D / #322001 | 83.6 | ✓ |
-| kim | accent-on on accent-bright (CTA text) | #322001 / #FED89D | 82.8 | ✓ |
-| kim | accent-bright on dark panel (dark labels) | #FED89D / #221710 | 85.1 | ✓ |
-| kim · titanium | text-accent on white (bold labels) | #938068 / #FFFFFF | 65.5 | ✓ |
-| kim · titanium | text-accent on tint (bold labels) | #938068 / #FCF6EE | 60.6 | ✓ |
-| kim · titanium | accent-bright on ink (headings) | #F8E9D4 / #2A2319 | 92 | ✓ |
-| kim · titanium | accent-on on accent-bright (CTA text) | #2A2319 / #F8E9D4 | 90.5 | ✓ |
-| kim · titanium | accent-bright on dark panel (dark labels) | #F9E9D4 / #221710 | 93.6 | ✓ |
+| kim | text-accent on white (bold labels) | #AC780B / #FFFFFF | 65.8 | ✓ |
+| kim | text-accent on tint (bold labels) | #AC780B / #FFF5E7 | 60.5 | ✓ |
+| kim | accent-bright on ink (headings) | #FDD89F / #312002 | 83.5 | ✓ |
+| kim | accent-on on accent-bright (CTA text) | #312002 / #FDD89F | 82.8 | ✓ |
+| kim | accent-bright on dark panel (dark labels) | #FDD89F / #221710 | 85 | ✓ |
+| kim · titanium | text-accent on white (bold labels) | #947F65 / #FFFFFF | 65.8 | ✓ |
+| kim · titanium | text-accent on tint (bold labels) | #947F65 / #FDF5ED | 60.5 | ✓ |
+| kim · titanium | accent-bright on ink (headings) | #FBE8D2 / #2B2217 | 92 | ✓ |
+| kim · titanium | accent-on on accent-bright (CTA text) | #2B2217 / #FBE8D2 | 90.6 | ✓ |
+| kim · titanium | accent-bright on dark panel (dark labels) | #FBE8D2 / #221710 | 93.4 | ✓ |
 | kim · steel | text-accent on white (bold labels) | #1F1400 / #FFFFFF | 104.8 | ✓ |
 | kim · steel | text-accent on tint (bold labels) | #1F1400 / #FEF6E7 | 99.8 | ✓ |
-| kim · steel | accent-bright on ink (headings) | #DCC8A4 / #2C220F | 71.9 | ✓ |
-| kim · steel | accent-on on accent-bright (CTA text) | #2C220F / #DCC8A4 | 72 | ✓ |
-| kim · steel | accent-bright on dark panel (dark labels) | #DFCBA7 / #221710 | 75.1 | ✓ |
+| kim · steel | accent-bright on ink (headings) | #DCC8A2 / #2D220E | 71.8 | ✓ |
+| kim · steel | accent-on on accent-bright (CTA text) | #2D220E / #DCC8A2 | 71.9 | ✓ |
+| kim · steel | accent-bright on dark panel (dark labels) | #DFCBA5 / #221710 | 75.1 | ✓ |
 
 **Failures: 0.** All text pairings pass Lc ≥ 60.
 
@@ -98,16 +98,16 @@ Targets match `_audit/apca-dark-preview.html`: bright ≥ 75 · accent ≥ 60 ·
 | tho | 75 | 69.2 | 75.6 | 76.8 |
 | tho · sand | 93.8 | 92.7 | 75.6 | 91.5 |
 | tho · clay | 76.7 | 60.4 | 94.1 | 76.2 |
-| hoa | 84.3 | 67.9 | 75.2 | 82.1 |
+| hoa | 84.2 | 68.2 | 75.1 | 81.9 |
 | hoa · plasma | 93.2 | 91.2 | 75 | 90.9 |
-| hoa · lava | 76.1 | 61.2 | 93.9 | 75.6 |
+| hoa · lava | 76.2 | 61.1 | 94 | 75.7 |
 | thuy | 87.2 | 72.8 | 76 | 84.4 |
 | thuy · mist | 94.7 | 94 | 75.9 | 92 |
 | thuy · ocean | 76.1 | 60.1 | 93.9 | 75.1 |
 | moc | 86.9 | 71.8 | 75.4 | 84.4 |
 | moc · bamboo | 94.5 | 93.6 | 75.3 | 92 |
 | moc · forest | 75 | 60.8 | 93.7 | 76.3 |
-| kim | 85.1 | 69.2 | 75.9 | 82.7 |
-| kim · titanium | 93.6 | 92.2 | 75.6 | 91.3 |
-| kim · steel | 75.1 | 60.5 | 94 | 76.4 |
+| kim | 85 | 69.2 | 75.6 | 82.6 |
+| kim · titanium | 93.4 | 92.1 | 75.8 | 91.1 |
+| kim · steel | 75.1 | 60.7 | 94 | 76.4 |
 
