@@ -42,5 +42,5 @@ Sole pack hôm nay: **liquid-glass** (`tokens/styles.css`, gate `_audit/style-co
 
 1. `npm run tokens:elements` (nếu đổi seed) → regen native → `node scripts/generate-contrast-report.mjs`
 2. Fast board: mở `_audit/run.html` (hoặc CI `fast-gates`) — mọi hard gate xanh, gồm **Element geometry**
-3. Whole-set Atomic View / Elements Geometry: soft/middle/deep × light/dark vẫn đọc là một họ mỗi element, với soft↔middle vượt sàn `minDeltaL` / `minDeltaE` đã nâng trong `tokens/element-seeds.json`
+3. Whole-set Atomic View / Elements Geometry: đủ **30** bộ (soft/middle/deep × light/dark × năm element) — soft là pastel wash, middle đồng bộ cường độ giữa các element, deep rõ ràng tối hơn, role hài hòa, light↔dark giữ cùng họ hue. Gate geometry yêu cầu **cả** `minDeltaE` và `minDeltaL` (cộng L đơn điệu) từ `tokens/element-seeds.json`
 4. Chỉ sửa rubric này khi chuẩn hoặc doctrine CDS đổi — giữ EN·VI parity

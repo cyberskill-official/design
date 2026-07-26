@@ -11,25 +11,77 @@
   #sum{font-family:system-ui;font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>Atomic View — story coverage</h1>
-<p class="lede">Guards <code>guidelines/atomic-view.html</code> against drift: every primary component export on the bundle must appear in the Atomic View source (sub-parts like <code>Tab</code>, <code>MenuItem</code>, <code>CardHeader</code> and data consts are excluded — they're shown inside a parent's story). Add a component without a story → this fails. Loads the bundle (compiled at end of turn); re-run on a fresh turn. <code>window.__storycov.pass</code> must be true.</p>
+<p class="lede">Guards <code>guidelines/atomic-view.html</code>: (1) every primary bundle export has a story name presence; (2) tweakable primaries in <code>PLAYGROUND_REQUIRED</code> must appear inside a live <code>controls</code> + <code>renderC</code> playground (not specimen-only). Sub-parts (<code>Tab</code>, <code>MenuItem</code>, …) excluded. <code>window.__storycov.pass</code> must be true.</p>
 <div class="grid" id="out"></div><div id="sum">running…</div>
 <script>
-const EXCLUDE=new Set(['Tab','Radio','MenuItem','ListItem','AvatarGroup','ToastStack','CardHeader','CardBody','CardFooter','CS_ICONS','CS_LOGO_MARK_INNER','CS_LOGO_VIEWBOX']);
+const EXCLUDE=new Set(['Tab','Radio','MenuItem','ListItem','AvatarGroup','ToastStack','CardHeader','CardBody','CardFooter','CS_ICONS','CS_LOGO_MARK_INNER','CS_LOGO_VIEWBOX','NavItem','Miss']);
+/** Primaries with tweakable props that must ship a Controlled playground (Expansion Rule). */
+const PLAYGROUND_REQUIRED=[
+  'Button','Toggle','Icon','Badge','StatusIndicator','ProgressBar','Avatar','AspectRatio','Item','LumiAvatar',
+  'TextField','Switch','Select','Checkbox','RadioGroup','Rating','ScrollArea','Collapsible','Stat','Card',
+  'Tooltip','CodeBlock','Alert','Toast','Steps','ConfidenceMeter','AIDisclosureBadge','Accordion','AlertDialog',
+  'EmptyState','HumanReviewGate','Dialog','Drawer','Popover','HoverCard','Menubar','Tabs','Pagination',
+  'SearchField','NumberField','Slider','SegmentedControl','FileUpload'
+];
+function parseStories(src){
+  const stories=[];
+  const re=/\{\s*tier:"([^"]+)",\s*name:"([^"]+)"([\s\S]*?)(?=\n  \{ tier:|\n\];)/g;
+  let m;
+  while((m=re.exec(src))){
+    const body=m[3];
+    const hasControls=/controls\s*:/.test(body);
+    const hasRenderC=/renderC\s*:/.test(body);
+    let renderC='';
+    if(hasRenderC){
+      const rm=body.match(/renderC:\s*\([^)]*\)\s*=>\s*([\s\S]*?)(?=,\s*framed:|,\s*render:)/);
+      renderC=rm?rm[1]:'';
+    }
+    const tags=new Set([...renderC.matchAll(/<([A-Z][A-Za-z0-9]*)\b/g)].map(x=>x[1]));
+    stories.push({tier:m[1],name:m[2],hasControls,hasRenderC,renderC,tags});
+  }
+  return stories;
+}
+function playgroundCovered(stories){
+  const covered=new Set();
+  for(const s of stories){
+    if(!(s.hasControls&&s.hasRenderC)) continue;
+    s.tags.forEach(t=>{ if(!EXCLUDE.has(t)) covered.add(t); });
+  }
+  return covered;
+}
 (async()=>{
   const NS=window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
   const out=document.getElementById('out'),sum=document.getElementById('sum');
   if(!NS){ sum.textContent='✗ bundle not loaded (compiled at end of turn)'; window.__storycov={pass:false,error:'no-namespace'}; return; }
   const src=await (await fetch('../guidelines/atomic-view.html')).text();
   const exports=Object.keys(NS).filter(k=>/^[A-Z]/.test(k) && !EXCLUDE.has(k));
+  const stories=parseStories(src);
+  const playground=playgroundCovered(stories);
   const missing=[];
+  const missingPlay=[];
   exports.sort().forEach(name=>{
     const present=new RegExp('\\b'+name+'\\b').test(src);
     if(!present) missing.push(name);
     const d=document.createElement('div');d.className='r '+(present?'ok':'bad');d.textContent=(present?'✓ ':'✗ ')+name;out.appendChild(d);
   });
-  const pass=missing.length===0;
-  window.__storycov={pass,total:exports.length,missing};
-  sum.textContent=pass?('✓ all '+exports.length+' primary components have a story'):('✗ '+missing.length+' without a story: '+missing.join(', '));
+  PLAYGROUND_REQUIRED.forEach(name=>{
+    if(!NS[name]){ missingPlay.push(name+' (not in bundle)'); return; }
+    if(!playground.has(name)) missingPlay.push(name);
+  });
+  // Integrity: every controls story must ship renderC
+  const brokenControls=stories.filter(s=>s.hasControls&&!s.hasRenderC).map(s=>s.name);
+  const pass=missing.length===0 && missingPlay.length===0 && brokenControls.length===0;
+  window.__storycov={pass,total:exports.length,missing,missingPlay,brokenControls,playground:playground.size,required:PLAYGROUND_REQUIRED.length};
+  let msg;
+  if(pass) msg='✓ all '+exports.length+' primaries have stories · '+PLAYGROUND_REQUIRED.length+' tweakable playgrounds wired';
+  else {
+    const bits=[];
+    if(missing.length) bits.push(missing.length+' without story: '+missing.join(', '));
+    if(missingPlay.length) bits.push(missingPlay.length+' missing playground: '+missingPlay.join(', '));
+    if(brokenControls.length) bits.push('controls without renderC: '+brokenControls.join(', '));
+    msg='✗ '+bits.join(' · ');
+  }
+  sum.textContent=msg;
   sum.style.color=pass?'#166534':'#B42318';
 })();
 </script></body></html>

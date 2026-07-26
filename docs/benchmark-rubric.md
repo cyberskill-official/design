@@ -42,5 +42,5 @@ Sole pack today: **liquid-glass** (`tokens/styles.css`, gate `_audit/style-contr
 
 1. `npm run tokens:elements` (if seeds changed) → native regen → `node scripts/generate-contrast-report.mjs`
 2. Fast board: open `_audit/run.html` (or CI `fast-gates`) — all hard gates green, including **Element geometry**
-3. Whole-set Atomic View / Elements Geometry: soft/middle/deep × light/dark still read as one family per element, with soft↔middle clearing the raised `minDeltaL` / `minDeltaE` floors in `tokens/element-seeds.json`
+3. Whole-set Atomic View / Elements Geometry: all **30** sets (soft/middle/deep × light/dark × five elements) — soft reads as a washed pastel, middle intensity syncs across elements, deep is clearly darker, roles feel harmonious, and light↔dark keeps hue identity. Geometry gate requires **both** `minDeltaE` and `minDeltaL` (plus monotonic L) from `tokens/element-seeds.json`
 4. Update this rubric only when standards or CDS doctrine change — keep EN·VI parity
