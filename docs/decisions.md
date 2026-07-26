@@ -100,7 +100,7 @@ Operational follow-ups — not product marketing, not a backlog surface:
 
 ~~4. First registry consumer path~~ — **done** (Jul 2026): `examples/npm-hello/` installs `@cyberskill/design@1.0.0` for locked **Lumi** identity; documented in `docs/consuming.md` (+ VI) and `docs/release-notes.md`.
 
-5. **Native token drift on PRs is fail-closed** (Jul 2026) — `regenerate-tokens` runs read-only on pull requests and exits 1 instead of pushing; only `regenerate-tokens-push` (main / schedule / manual) holds `contents: write`. When a PR fails it, run `node _audit/ci/generate-native-tokens.mjs` and commit the natives. See `docs/ci-cd.md`.
+5. **Native + element-pack drift on PRs is fail-closed** (Jul 2026) — `regenerate-tokens` runs read-only on pull requests and exits 1 instead of pushing; only `regenerate-tokens-push` (main / schedule / manual) holds `contents: write`. When a PR fails it, run `npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs` and commit packs + natives. See `docs/ci-cd.md`.
 
 6. **Shadcn gap / Wave 2** (Jul 2026) — CyberSkill already covers ~53 of shadcn’s 62 primitives as CS-native (forms / overlays / nav / data). Shipped: pilot `ScrollArea`, `Collapsible`, `AspectRatio`; Wave 2 `AlertDialog` (vs Popconfirm), `Item` row primitive, `NativeSelect`. Residual shadcn gaps are intentional non-ports (blocks, Tailwind, Radix CLI). Do **not** port those — map patterns to existing `templates/` + `ui_kits/`.
 

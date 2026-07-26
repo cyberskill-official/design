@@ -61,7 +61,7 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Bundle freshness (authority) | `_audit/ci/check-bundle-freshness.mjs` | `_ds_bundle.js` đã commit được build từ component source hiện tại — khám phá source đầy đủ (đi `components/`, `ui_kits/`, root sources), nên file mới/xóa cũng bị bắt, hàng trình duyệt không làm được | Exit 0, 0 source drift/mới/xóa | Hard | CI job `node-prechecks` |
 | DESIGN.md freshness | `scripts/generate-design-md.mjs --check` | Root `DESIGN.md` byte-equals regeneration mới từ DTCG + manifest + `VERSION` | Exit 0 khi byte khớp | Hard | CI job `node-prechecks` |
 
-## Unit tests — `npm run test:unit` (10)
+## Unit tests — `npm run test:unit` (11)
 
 | Test | File | Assert gì | Tiêu chí pass | Loại | Chạy ở đâu |
 |---|---|---|---|---|---|
@@ -75,6 +75,7 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Native samples | `_audit/ci/test-native-samples.mjs` | App sample SwiftUI / Compose / Flutter mỗi cái ≥ 3 màn hình, tham chiếu hằng token đã generate, và ship scaffold Fastlane store (submit tắt) | Mọi assert pass (exit 0) | Hard | Unit test |
 | Subtree consume | `_audit/ci/test-subtree-consume.mjs` | Bản copy portable `styles.css` + `base/` + `tokens/` + `fonts/` + `_esm/` + `_ds_bundle.js` (không clone full) vẫn resolve token/font và mount Button qua ESM — đường subtree-copy Stitch/Claude | Mọi assert pass (exit 0) | Hard | Unit test |
 | React entry | `_audit/ci/test-react-entry.mjs` | Dual package exports (`.` / `./react` → `_esm/react.mjs`, `./legacy` → `_esm/cs.mjs`); pin VERSION 1.0.0; peerDeps React; react.mjs không CDN/bundle bridge và re-export khớp header bundle; `generate-react-entry --check` xanh | Mọi assert pass (exit 0) | Hard | Unit test |
+| Element packs | `_audit/ci/test-element-packs.mjs` | `tokens/elements.css` + mirror JSON/JS/DTCG byte-equal regeneration từ `tokens/element-seeds.json` | `generate-element-packs --check` exit 0 | Hard | Unit test |
 
 Suite `test:unit` được nối vào CI workflow như một phần của hardening Th7 2026 (trước đó chỉ chạy local).
 

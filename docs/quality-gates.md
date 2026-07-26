@@ -61,7 +61,7 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | Bundle freshness (authority) | `_audit/ci/check-bundle-freshness.mjs` | The committed `_ds_bundle.js` was built from the component sources as they exist now — full source discovery (walks `components/`, `ui_kits/`, root sources), so new/deleted files are caught too, which the browser row cannot do | Exit 0, 0 drifted/new/deleted sources | Hard | CI `node-prechecks` job |
 | DESIGN.md freshness | `scripts/generate-design-md.mjs --check` | The root `DESIGN.md` byte-equals a fresh regeneration from DTCG + manifest + `VERSION` | Exit 0 on byte match | Hard | CI `node-prechecks` job |
 
-## Unit tests — `npm run test:unit` (10)
+## Unit tests — `npm run test:unit` (11)
 
 | Test | File | What it asserts | Pass criterion | Type | Where it runs |
 |---|---|---|---|---|---|
@@ -75,6 +75,7 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | Native samples | `_audit/ci/test-native-samples.mjs` | SwiftUI / Compose / Flutter sample apps each have ≥ 3 screens, reference generated token constants, and ship Fastlane store scaffolds (submit disabled) | All assertions pass (exit 0) | Hard | Unit test |
 | Subtree consume | `_audit/ci/test-subtree-consume.mjs` | Portable copy of `styles.css` + `base/` + `tokens/` + `fonts/` + `_esm/` + `_ds_bundle.js` (no full clone) still resolves tokens/fonts and mounts a Button via ESM — Stitch/Claude subtree-copy path | All assertions pass (exit 0) | Hard | Unit test |
 | React entry | `_audit/ci/test-react-entry.mjs` | Dual package exports (`.` / `./react` → `_esm/react.mjs`, `./legacy` → `_esm/cs.mjs`); VERSION pin 1.0.0; React peerDeps; react.mjs has no CDN/bundle bridge and re-exports match the bundle header; `generate-react-entry --check` green | All assertions pass (exit 0) | Hard | Unit test |
+| Element packs | `_audit/ci/test-element-packs.mjs` | `tokens/elements.css` + JSON/JS/DTCG mirrors byte-equal regeneration from `tokens/element-seeds.json` | `generate-element-packs --check` exit 0 | Hard | Unit test |
 
 The `test:unit` suite is wired into the CI workflow as part of the July 2026 hardening change (it previously only ran locally).
 

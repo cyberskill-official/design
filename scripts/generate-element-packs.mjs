@@ -3,7 +3,9 @@
  * Generate tokens/elements.css (+ mirrors) from tokens/element-seeds.json.
  * Soft / middle / deep intensity ladder · light/dark hue lock · APCA dark floors.
  *
- * Usage: node scripts/generate-element-packs.mjs
+ * Usage:
+ *   node scripts/generate-element-packs.mjs           # write elements.css + mirrors
+ *   node scripts/generate-element-packs.mjs --check   # exit 1 if committed outputs are stale
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -353,7 +355,7 @@ function patchJsonElements(packs) {
   return { elements, elementsDark };
 }
 
-function updateTokensJson(elements) {
+function buildTokensJson(elements) {
   const p = path.join(ROOT, 'tokens/tokens.json');
   const j = JSON.parse(fs.readFileSync(p, 'utf8'));
   j.elements = elements;
@@ -361,10 +363,10 @@ function updateTokensJson(elements) {
   for (const k of ROLE_KEYS) {
     if (j.root.accent[k] != null) j.root.accent[k] = tho[k];
   }
-  fs.writeFileSync(p, JSON.stringify(j, null, 2) + '\n');
+  return JSON.stringify(j, null, 2) + '\n';
 }
 
-function updateTokensJs(elements) {
+function buildTokensJs(elements) {
   // tokens.js: `export const tokens = { ... };` + `export default tokens;`
   const p = path.join(ROOT, 'tokens/tokens.js');
   const raw = fs.readFileSync(p, 'utf8');
@@ -376,13 +378,10 @@ function updateTokensJs(elements) {
   for (const k of ROLE_KEYS) {
     if (j.root.accent[k] != null) j.root.accent[k] = tho[k];
   }
-  fs.writeFileSync(
-    p,
-    `// CyberSkill design tokens — generated from tokens/*.css (v1.0.0). Do not edit by hand.\nexport const tokens = ${JSON.stringify(j, null, 2)};\nexport default tokens;\n`,
-  );
+  return `// CyberSkill design tokens — generated from tokens/*.css (v1.0.0). Do not edit by hand.\nexport const tokens = ${JSON.stringify(j, null, 2)};\nexport default tokens;\n`;
 }
 
-function updateDtcg(elements, elementsDark) {
+function buildDtcg(elements, elementsDark) {
   const p = path.join(ROOT, 'tokens/tokens.dtcg.json');
   const j = JSON.parse(fs.readFileSync(p, 'utf8'));
   const ext = j.$extensions['com.cyberskill'];
@@ -396,22 +395,10 @@ function updateDtcg(elements, elementsDark) {
       if (j.accent[k] && j.accent[k].$value !== undefined) j.accent[k].$value = tho[k];
     }
   }
-  fs.writeFileSync(p, JSON.stringify(j, null, 2) + '\n');
+  return JSON.stringify(j, null, 2) + '\n';
 }
 
-function main() {
-  const seeds = loadSeeds();
-  const packs = buildAllPacks(seeds);
-  fs.writeFileSync(path.join(ROOT, 'tokens/elements.css'), emitCss(packs));
-  const { elements, elementsDark } = patchJsonElements(packs);
-  updateTokensJson(elements);
-  updateTokensJs(elements);
-  updateDtcg(elements, elementsDark);
-  console.log(`Generated ${packs.length} packs (${packs.length * 2} theme sets) → tokens/elements.css + mirrors`);
-  for (const p of packs) {
-    console.log(`  ${p.el}${p.variant ? '.' + p.variant : ''} [${p.slot}] ${p.light['--cs-accent']}`);
-  }
-  // Self-check geometry + APCA
+function selfCheck(seeds, packs) {
   let fails = 0;
   for (const slot of ['soft', 'middle', 'deep']) {
     const Ls = packs.filter((p) => p.slot === slot).map((p) => hexToLCH(p.light['--cs-accent']).L);
@@ -447,6 +434,55 @@ function main() {
   }
   if (fails) console.warn(`Self-check warnings: ${fails}`);
   else console.log('Self-check: intensity + hue-lock + APCA OK');
+  return fails;
+}
+
+function main() {
+  const check = process.argv.includes('--check');
+  const seeds = loadSeeds();
+  const packs = buildAllPacks(seeds);
+  const css = emitCss(packs);
+  const { elements, elementsDark } = patchJsonElements(packs);
+  const next = {
+    'tokens/elements.css': css,
+    'tokens/tokens.json': buildTokensJson(elements),
+    'tokens/tokens.js': buildTokensJs(elements),
+    'tokens/tokens.dtcg.json': buildDtcg(elements, elementsDark),
+  };
+
+  if (check) {
+    const stale = [];
+    for (const [rel, text] of Object.entries(next)) {
+      let current = null;
+      try {
+        current = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+      } catch {
+        /* missing */
+      }
+      if (current !== text) stale.push(rel);
+    }
+    if (stale.length) {
+      console.error('✗ Element packs are stale vs tokens/element-seeds.json:');
+      for (const s of stale) console.error('  - ' + s);
+      console.error('  Regenerate with: npm run tokens:elements');
+      console.error('  Then: node _audit/ci/generate-native-tokens.mjs');
+      process.exit(1);
+    }
+    console.log(
+      `✓ Element packs are fresh (${packs.length} packs / ${packs.length * 2} theme sets; elements.css + JSON/JS/DTCG mirrors)`,
+    );
+    selfCheck(seeds, packs);
+    return;
+  }
+
+  for (const [rel, text] of Object.entries(next)) {
+    fs.writeFileSync(path.join(ROOT, rel), text);
+  }
+  console.log(`Generated ${packs.length} packs (${packs.length * 2} theme sets) → tokens/elements.css + mirrors`);
+  for (const p of packs) {
+    console.log(`  ${p.el}${p.variant ? '.' + p.variant : ''} [${p.slot}] ${p.light['--cs-accent']}`);
+  }
+  selfCheck(seeds, packs);
 }
 
 main();
