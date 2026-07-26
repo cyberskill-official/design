@@ -88,7 +88,9 @@
     "test:storybook-coverage": "node _audit/ci/test-storybook-contract.mjs",
     "test:figma-helpers": "node _audit/ci/test-figma-push-helpers.mjs",
     "test:code-connect": "node _audit/ci/test-code-connect.mjs",
-    "test:native-samples": "node _audit/ci/test-native-samples.mjs"
+    "test:native-samples": "node _audit/ci/test-native-samples.mjs",
+    "tokens:elements": "node scripts/generate-element-packs.mjs",
+    "tokens:contrast": "node scripts/generate-contrast-report.mjs"
   },
   "devDependencies": {
     "@figma/code-connect": "^1.4.9",

@@ -104,6 +104,8 @@ Operational follow-ups — not product marketing, not a backlog surface:
 
 6. **Shadcn gap / Wave 2** (Jul 2026) — CyberSkill already covers ~53 of shadcn’s 62 primitives as CS-native (forms / overlays / nav / data). Shipped: pilot `ScrollArea`, `Collapsible`, `AspectRatio`; Wave 2 `AlertDialog` (vs Popconfirm), `Item` row primitive, `NativeSelect`. Residual shadcn gaps are intentional non-ports (blocks, Tailwind, Radix CLI). Do **not** port those — map patterns to existing `templates/` + `ui_kits/`.
 
+7. **Element colour geometry** (Jul 2026) — Element packs are generated from `tokens/element-seeds.json` (`npm run tokens:elements`): soft / middle / deep intensity ladder, Thổ middle pinned to logo ochre, light↔dark hue lock, APCA dark floors. Public variant names unchanged. Hard gate: `_audit/element-geometry.html`. Benchmark rubric: `docs/benchmark-rubric.md`. Future `data-cs-style` packs follow the style-expansion checklist there — do not invent a fourth product axis casually.
+
 Schema sidecars and Storybook `FullMatrix` continue to grow **opportunistically** when a primary already qualifies (today only Button has FullMatrix under the contract) — not as a mass-add pass. See `docs/quality-gates.md`.
 
 ## How to change a decision

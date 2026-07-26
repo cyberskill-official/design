@@ -4,7 +4,9 @@ Mọi quality gate deterministic trong hệ thống, nó assert gì, tiêu chí 
 
 **Gate chạy ở đâu.** *Fast board CI* = job `fast-gates` trong `.github/workflows/design-system-gates.yml`, serve repo và điều khiển `_audit/run.html` headless qua `_audit/ci/run-gates.mjs` (mọi push/PR + nightly + thủ công) — hàng board mới được nhận tự động. Hai gate thêm chạy standalone như *merge blocker* (job `docs-consistency-blocker`, qua `_audit/ci/run-single-gate.mjs`). *Whole-set CI* = job `whole-set-audits` (mọi push/PR + nightly — quyết định B của owner). *Unit test* = `npm run test:unit` trong job `unit-tests` (Node thuần, không trình duyệt). *Node pre-checks* = job `node-prechecks` (authority không trình duyệt: bundle freshness, DESIGN.md freshness) cộng job `token-provenance`. Mọi browser gate publish verdict global (`window.__*`) mà headless runner đọc.
 
-## Fast board — 32 gates trong `_audit/run.html`
+## Fast board — 33 gates trong `_audit/run.html`
+
+Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở rộng style): [`docs/vi/benchmark-rubric.md`](benchmark-rubric.md).
 
 | Gate | File | Assert gì | Tiêu chí pass | Loại | Chạy ở đâu |
 |---|---|---|---|---|---|
@@ -35,6 +37,7 @@ Mọi quality gate deterministic trong hệ thống, nó assert gì, tiêu chí 
 | Bilingual parity | `_audit/bilingual-parity.html` | Mọi component trong `components/_i18n/strings.js` có bảng en + vi với key set bằng nhau và không giá trị rỗng | 0 key thiếu/thừa, 0 giá trị rỗng (`__bilingual`) | Hard | Fast board CI + merge blocker |
 | Template language parity | `_audit/template-lang-parity.html` | Quét source tĩnh cả 84 `.dc.html`: en/vi hole-map key set giống và không rỗng (21 map template); nhánh `sc-if` `isEN`/`isVN` cặp (24 branch template); mọi template có language-tweak có cơ chế bilingual; lexicon EN-leak (Unsubscribe · View in browser · Preferences · All rights reserved · Manage subscription · Sent with) không bao giờ xuất hiện ngoài guard `isEN` / map `en`. Instrument VN-first stacked (37 `vn-*` + 3 `doc-*`) miễn leak theo thiết kế — cả hai ngôn ngữ luôn render | 0 key drift, 0 nhánh không cặp, 0 leak (`__langparity`) | Hard | Fast board CI |
 | APCA dark packs | `_audit/apca-dark-preview.html` | Cả 15 pack element×variant giữ mục tiêu APCA ở dark (bright-as-text ≥ 75, accent UI ≥ 60, ink-on-accent ≥ 75, ink-on-tint ≥ 75) | 0 fail hiện tại (`__apcaPreview.currentFail === 0`) | Hard | Fast board CI |
+| Element geometry | `_audit/element-geometry.html` | Sync cường độ soft/middle/deep giữa năm element; tách variant; khóa hue light↔dark; Thổ middle ghim ochre logo; pack generate từ seed | `__elementgeometry.pass` | Hard | Fast board CI |
 | Visual baselines | `_audit/visual-diff.html` | Baseline template tồn tại và load được để so sánh side-by-side / overlay | Baseline có; drift đánh giá bằng mắt (`__visualdiff`) | Advisory | Fast board CI |
 | Component baselines | `_audit/component-visual-diff.html` | 12 crop component curated neo các tầng atomic cho so sánh visual | Crop render + baseline có (`__componentVisualDiff`) | Advisory | Fast board CI |
 | Axe smoke | `_audit/axe-smoke.html` | Rule serious/critical WCAG 2 A/AA của axe-core 4.10.0 (vendored tại `_audit/vendor/axe.min.js`) trên cụm 40 component bilingual xuyên nhóm (forms · overlays · navigation · feedback · data · datatable · dialog · ai · brand · button · textfield · icon · logo) — Dialog, AlertDialog và Tour mount ở trạng thái mở, còn popup Cascader / TreeSelect được bung trước khi quét để phủ ARIA listbox·option và tree·treeitem; tương đương enforcement a11y Storybook (không test-runner riêng) | 0 finding serious/critical (`__axesmoke`) | Hard | Fast board CI |

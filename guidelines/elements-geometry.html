@@ -1,0 +1,69 @@
+<!-- @dsCard group="Elements" viewport="1280x720" name="Geometry · 30 sets" subtitle="Soft / middle / deep × light/dark — shared intensity · hue-locked themes" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+body{margin:0;background:var(--cs-color-surface-page);width:1280px;height:720px;overflow:hidden;box-sizing:border-box;padding:22px 28px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary)}
+h1{font-size:18px;margin:0 0 4px;font-weight:800;letter-spacing:-0.01em}
+.sub{font-size:12px;color:var(--cs-color-text-muted);margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.el{font-weight:800;font-size:12px;margin-bottom:6px}
+.card{border:1px solid var(--cs-color-border-default);border-radius:10px;overflow:hidden;background:var(--cs-color-surface-panel)}
+.row{display:grid;grid-template-columns:1fr 1fr;min-height:88px}
+.cell{padding:8px 10px;display:flex;flex-direction:column;justify-content:space-between;gap:6px}
+.cell.dark{background:#221710;color:#f5ead9}
+.slot{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;opacity:0.75}
+.sw{height:18px;border-radius:6px;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08)}
+.meta{font-size:10px;font-family:var(--cs-font-family-mono);opacity:0.85}
+.cta{display:inline-flex;align-items:center;justify-content:center;min-height:26px;padding:0 10px;border-radius:6px;font-size:11px;font-weight:700}
+footer{margin-top:12px;font-size:11px;color:var(--cs-color-text-muted)}
+</style></head>
+<body>
+<h1>Element geometry — 30 colour sets</h1>
+<p class="sub">Five elements × soft / middle / deep × light / dark. Middles share intensity; dark keeps hue. Seeds: <code>tokens/element-seeds.json</code>.</p>
+<div class="grid" id="grid"></div>
+<footer>Gate: <code>_audit/element-geometry.html</code> · Generate: <code>npm run tokens:elements</code> · Text never on mid-tone <code>-accent</code></footer>
+<script type="module">
+const ORDER = [
+  ['tho','Thổ',[['sand','soft'],[null,'middle'],['clay','deep']]],
+  ['hoa','Hỏa',[['plasma','soft'],[null,'middle'],['lava','deep']]],
+  ['thuy','Thủy',[['mist','soft'],[null,'middle'],['ocean','deep']]],
+  ['moc','Mộc',[['bamboo','soft'],[null,'middle'],['forest','deep']]],
+  ['kim','Kim',[['titanium','soft'],[null,'middle'],['steel','deep']]],
+];
+const grid = document.getElementById('grid');
+for (const [el, label, slots] of ORDER) {
+  const col = document.createElement('div');
+  col.innerHTML = `<div class="el">${label}</div>`;
+  for (const [va, slot] of slots) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.marginBottom = '8px';
+    const mk = (dark) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'cell' + (dark ? ' dark' : '');
+      if (el) wrap.setAttribute('data-cs-element', el);
+      if (va) wrap.setAttribute('data-cs-variant', va);
+      if (dark) wrap.setAttribute('data-theme', 'dark');
+      wrap.innerHTML = `
+        <div>
+          <div class="slot">${slot} · ${dark ? 'dark' : 'light'}${va ? ' · ' + va : ' · default'}</div>
+          <div class="sw" style="background:var(--cs-accent);margin-top:6px"></div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;justify-content:space-between">
+          <span class="cta" style="background:var(--cs-accent-strong);color:var(--cs-accent-on)">CTA</span>
+          <span class="meta" style="color:var(--cs-color-text-accent)">Aa</span>
+        </div>`;
+      return wrap;
+    };
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.appendChild(mk(false));
+    row.appendChild(mk(true));
+    card.appendChild(row);
+    col.appendChild(card);
+  }
+  grid.appendChild(col);
+}
+</script>
+</body></html>
