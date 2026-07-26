@@ -16,7 +16,7 @@
 <script src="./lib/axe-fixtures.js"></script>
 </head><body>
 <h1>Axe smoke</h1>
-<p class="lede">Mounts <b>every public primary</b> (inventory-locked via <code>_audit/lib/axe-fixtures.js</code> + <code>test-axe-coverage.mjs</code>) in a bilingual EN·VI cluster and runs <b>axe-core</b> 4.10.0 (vendored at <code>_audit/vendor/axe.min.js</code>) serious/critical WCAG 2 A/AA rules. Open overlays (Dialog, AlertDialog, Drawer, Tour, CommandPalette, Menu) plus expanded Cascader/TreeSelect/Menubar/Combobox surfaces are in the tree before the scan. Hard gate on the fast board — Storybook a11y enforcement without a separate test-runner. Verdict: <code>window.__axesmoke.pass</code>.</p>
+<p class="lede">Mounts <b>every public primary</b> (inventory-locked via <code>_audit/lib/axe-fixtures.js</code> + <code>test-axe-coverage.mjs</code>) in a bilingual EN·VI cluster and runs <b>axe-core</b> 4.10.0 (vendored at <code>_audit/vendor/axe.min.js</code>) serious/critical WCAG 2 A/AA rules. Open overlays (Dialog, AlertDialog, Drawer, Tour, CommandPalette, Menu) plus expanded Cascader/TreeSelect/Menubar/Combobox, force-open Tooltip bubbles, and asserted HoverCard/ContextMenu panels are in the tree before the scan. Hard gate on the fast board — Storybook a11y enforcement without a separate test-runner. Verdict: <code>window.__axesmoke.pass</code>.</p>
 <div id="list"></div><div id="sum">running…</div><div id="stage"></div>
 <script>
 const list=document.getElementById('list'), stage=document.getElementById('stage');
