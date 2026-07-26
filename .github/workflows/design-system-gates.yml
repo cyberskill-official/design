@@ -42,7 +42,7 @@ jobs:
         run: node _audit/ci/run-gates.mjs http://127.0.0.1:8080/_audit/run.html
       - name: Upload import report on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with: { name: import-report, path: _audit/ci/import-report.txt }
 
   token-provenance:
@@ -183,7 +183,7 @@ jobs:
         run: node _audit/ci/pixel-diff.mjs http://127.0.0.1:8080
       - name: Upload pixel-diff report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pixel-diff-report
           path: _audit/ci/pixel-diff-report.json
@@ -193,7 +193,7 @@ jobs:
         run: node _audit/ci/pixel-diff.mjs --update http://127.0.0.1:8080
       - name: Upload Linux baselines (on drift)
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pixel-baselines-linux
           path: _audit/baselines/*.png
@@ -374,7 +374,7 @@ jobs:
         run: node _audit/ci/push-figma-variables.mjs
       - name: Upload Figma push report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: figma-push-report
           path: _audit/ci/figma-push-report.json
@@ -404,7 +404,7 @@ jobs:
         run: node _audit/ci/code-connect-publish.mjs
       - name: Upload Code Connect report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: code-connect-report
           path: _audit/ci/code-connect-report.json

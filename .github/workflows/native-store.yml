@@ -48,7 +48,7 @@ jobs:
         run: node _audit/ci/native-store-dry-run.mjs
       - name: Upload native-store report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: native-store-report
           path: _audit/ci/native-store-report.json

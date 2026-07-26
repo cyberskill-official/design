@@ -40,7 +40,7 @@ jobs:
         run: node _audit/ci/npm-publish.mjs
       - name: Upload npm-publish report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: npm-publish-report
           path: _audit/ci/npm-publish-report.json
