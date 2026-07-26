@@ -1,4 +1,5 @@
 import { NumberField } from '../components/forms/NumberField.jsx';
+import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
 export default {
   title: 'Components/Forms/NumberField',
@@ -54,4 +55,29 @@ export const States = {
       <NumberField {...args} disabled />
     </div>
   ),
+};
+
+/** Exhaustive discrete-axis product (FullMatrix contract ≥1 axis). */
+export const FullMatrix = {
+  name: 'Full matrix / state',
+  render: (args) => {
+    const cells = cartesian({  }).flatMap((combo) =>
+      stateCombos(["disabled"]).map((state) => {
+        const props = { ...combo, ...state };
+        const label = comboLabel(props, ['disabled']);
+        return (
+          <NumberField
+            key={label}
+            {...args}
+            disabled={!!state.disabled}
+          />
+        );
+      }),
+    );
+    return (
+      <MatrixGrid gap={10} minWidth={140}>
+        {cells}
+      </MatrixGrid>
+    );
+  },
 };

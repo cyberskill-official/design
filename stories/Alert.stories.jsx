@@ -1,4 +1,5 @@
 import { Alert } from '../components/feedback/Alert.jsx';
+import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
 export default {
   title: 'Components/Feedback/Alert',
@@ -43,4 +44,31 @@ export const Matrix = {
       <Alert {...args} variant="danger">Danger</Alert>
     </div>
   ),
+};
+
+/** Exhaustive discrete-axis product (FullMatrix contract ≥1 axis). */
+export const FullMatrix = {
+  name: 'Full matrix / variant',
+  render: (args) => {
+    const cells = cartesian({ variant: ["info","success","warning","danger"] }).flatMap((combo) =>
+      stateCombos([]).map((state) => {
+        const props = { ...combo, ...state };
+        const label = comboLabel(props, ['variant']);
+        return (
+          <Alert
+            key={label}
+            {...args}
+            variant={combo.variant}
+          >
+            {label}
+          </Alert>
+        );
+      }),
+    );
+    return (
+      <MatrixGrid gap={10} minWidth={140}>
+        {cells}
+      </MatrixGrid>
+    );
+  },
 };

@@ -1,4 +1,5 @@
 import { Icon } from '../components/icon/Icon.jsx';
+import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
 export default {
   title: 'Components/Brand/Icon',
@@ -55,4 +56,29 @@ export const AllSizes = {
       <Icon {...args} name="sparkle" size="lg" />
     </div>
   ),
+};
+
+/** Exhaustive discrete-axis product (FullMatrix contract ≥1 axis). */
+export const FullMatrix = {
+  name: 'Full matrix / size',
+  render: (args) => {
+    const cells = cartesian({ size: ["sm","md","lg"] }).flatMap((combo) =>
+      stateCombos([]).map((state) => {
+        const props = { ...combo, ...state };
+        const label = comboLabel(props, ['size']);
+        return (
+          <Icon
+            key={label}
+            {...args}
+            size={combo.size}
+          />
+        );
+      }),
+    );
+    return (
+      <MatrixGrid gap={10} minWidth={140}>
+        {cells}
+      </MatrixGrid>
+    );
+  },
 };

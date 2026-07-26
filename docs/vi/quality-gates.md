@@ -67,7 +67,7 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Nav model | `_audit/ci/test-nav-model.mjs` | Logic classify/group của `guidelines/nav-model.js` đã ship hành xử đúng (chạy module thật) | Mọi assert pass (exit 0) | Hard | Unit test |
 | Health/Tokens UI contract | `_audit/ci/test-health-tokens-contract.mjs` | Hợp đồng cấu trúc của entry HTML Health + Tokens giữ | Mọi assert pass (exit 0) | Hard | Unit test |
 | Form paths | `_audit/ci/test-form-paths.mjs` | Helper Form path hành xử đúng (chạy `Form.jsx` đã ship qua dynamic import) | Mọi assert pass (exit 0) | Hard | Unit test |
-| Storybook contract | `_audit/ci/test-storybook-contract.mjs` | Live hub chỉ là Storybook; SB10 ESM main + addon-docs/a11y; CSF đủ cho mọi public primary; Matrix/AllVariants + AllSizes khi có `argTypes.size`; States/Matrix phủ disabled/loading/error/busy; mọi enum size/variant rời rạc được mount; FullMatrix bắt buộc khi ≥2 trục trong {size, variant, state} tồn tại | Mọi assert pass (exit 0) | Hard | Unit test |
+| Storybook contract | `_audit/ci/test-storybook-contract.mjs` | Live hub chỉ là Storybook; SB10 ESM main + addon-docs/a11y; CSF đủ cho mọi public primary; Matrix/AllVariants + AllSizes khi có `argTypes.size`; States/Matrix phủ disabled/loading/error/busy; mọi enum size/variant rời rạc được mount; FullMatrix bắt buộc khi ≥1 trục trong {size, variant, state} tồn tại (≥28 primary đủ điều kiện) | Mọi assert pass (exit 0) | Hard | Unit test |
 | Figma push helpers | `_audit/ci/test-figma-push-helpers.mjs` | Helper thuần trong `push-figma-variables.mjs` hành xử đúng (không mạng, không secret) | Mọi assert pass (exit 0) | Hard | Unit test |
 | Code Connect helpers | `_audit/ci/test-code-connect.mjs` | 105 primaries, helper node-map/render, classifier soft-skip, `figma.config.json` đã commit + `.figma.tsx` traffic cao | Mọi assert pass (exit 0) | Hard | Unit test |
 | Native samples | `_audit/ci/test-native-samples.mjs` | App sample SwiftUI / Compose / Flutter mỗi cái ≥ 3 màn hình, tham chiếu hằng token đã generate, và ship scaffold Fastlane store (submit tắt) | Mọi assert pass (exit 0) | Hard | Unit test |
@@ -78,7 +78,7 @@ Suite `test:unit` được nối vào CI workflow như một phần của harden
 
 ## Job sync / phân phối (soft-skip)
 
-Soft-skip nghĩa là job exit 0 kèm report khi secret/plan/API không hoàn tất write thật — **không** có nghĩa Code Connect hay Figma Variables đang live. npm CI publish dùng Trusted Publishing; soft-skip là trung thực auth/conflict. Coi việc maintainer còn lại trong `docs/decisions.md` là danh sách mở (Code Connect hoãn; grant consumer tại `docs/consumer-grant.md`). Schema sidecar và Storybook `FullMatrix` lớn theo cơ hội khi primary đã đủ điều kiện — không phải đợt mass-add.
+Soft-skip nghĩa là job exit 0 kèm report khi secret/plan/API không hoàn tất write thật — **không** có nghĩa Code Connect hay Figma Variables đang live. npm CI publish dùng Trusted Publishing; soft-skip là trung thực auth/conflict. Coi việc maintainer còn lại trong `docs/decisions.md` là danh sách mở (Code Connect hoãn; grant consumer tại `docs/consumer-grant.md`). Storybook `FullMatrix` bắt buộc cho mọi public primary có ≥1 trong {size enums, variant enums, state keys} — helper chung tại `stories/lib/matrix.jsx`.
 
 | Job | Script / workflow | Assert gì | Soft-skip khi | Chạy ở đâu |
 |---|---|---|---|---|

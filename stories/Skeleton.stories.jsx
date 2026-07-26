@@ -1,4 +1,5 @@
 import { Skeleton } from '../components/feedback/Skeleton.jsx';
+import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
 const VARIANTS = ['block', 'circle'];
 
@@ -47,4 +48,29 @@ export const Matrix = {
       <Skeleton {...args} lines={3} />
     </div>
   ),
+};
+
+/** Exhaustive discrete-axis product (FullMatrix contract ≥1 axis). */
+export const FullMatrix = {
+  name: 'Full matrix / variant',
+  render: (args) => {
+    const cells = cartesian({ variant: ["block","circle"] }).flatMap((combo) =>
+      stateCombos([]).map((state) => {
+        const props = { ...combo, ...state };
+        const label = comboLabel(props, ['variant']);
+        return (
+          <Skeleton
+            key={label}
+            {...args}
+            variant={combo.variant}
+          />
+        );
+      }),
+    );
+    return (
+      <MatrixGrid gap={10} minWidth={140}>
+        {cells}
+      </MatrixGrid>
+    );
+  },
 };

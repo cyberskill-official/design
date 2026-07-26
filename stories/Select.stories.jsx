@@ -1,4 +1,5 @@
 import { Select } from '../components/forms/Select.jsx';
+import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
 export default {
   title: 'Components/Forms/Select',
@@ -51,4 +52,30 @@ export const States = {
       <Select {...args} label="Error" error="Required" />
     </div>
   ),
+};
+
+/** Exhaustive discrete-axis product (FullMatrix contract ≥1 axis). */
+export const FullMatrix = {
+  name: 'Full matrix / state',
+  render: (args) => {
+    const cells = cartesian({  }).flatMap((combo) =>
+      stateCombos(["disabled","error"]).map((state) => {
+        const props = { ...combo, ...state };
+        const label = comboLabel(props, ['disabled', 'error']);
+        return (
+          <Select
+            key={label}
+            {...args}
+            disabled={!!state.disabled}
+            error={state.error ? 'Required' : undefined}
+          />
+        );
+      }),
+    );
+    return (
+      <MatrixGrid gap={10} minWidth={140}>
+        {cells}
+      </MatrixGrid>
+    );
+  },
 };

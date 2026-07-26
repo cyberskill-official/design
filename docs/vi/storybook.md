@@ -18,7 +18,7 @@ Storybook **10** là **site sản phẩm** cho operator trên `design.cyberskill
   - `AllSizes` khi `argTypes.size` tồn tại (token ramp hoặc size số đại diện)
   - `States` (hoặc subsection Matrix) phủ `disabled` / `loading` / `error` / `busy` khi các argTypes đó tồn tại
   - Mọi option enum `size` / `variant` rời rạc được mount trong story họ matrix
-  - `FullMatrix` khi ≥2 trong {size enums, variant enums, state keys} tồn tại — tích size × variant × key-state qua helper chung `stories/lib/matrix.jsx`
+  - `FullMatrix` khi ≥1 trong {size enums, variant enums, state keys} tồn tại — tích size × variant × key-state qua helper chung `stories/lib/matrix.jsx`
 - Toolbar globals: Theme × Element × Language (cùng trục với template). Element liệt kê **đủ 15** pack Ngũ Hành (Identity Lab / `tokens.elements` / EL map template) — không phải tập con.
 - **Docs/** hướng dẫn MDX công khai; **Release Notes/** prose sản phẩm curated (**không CHANGELOG.md**); **Status/** nhúng `_audit/run.html` full-bleed
 - Story **Maintainer/** cho bề mặt HTML portable (Motion, Identity Lab, templates, kitchen-sink, AI cluster, RTL; Atomic View chôn cho gates)

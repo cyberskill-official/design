@@ -106,7 +106,7 @@ Operational follow-ups — not product marketing, not a backlog surface:
 
 7. **Element colour geometry** (Jul 2026) — Element packs are generated from `tokens/element-seeds.json` (`npm run tokens:elements`): soft / middle / deep intensity ladder, Thổ middle pinned to logo ochre, light↔dark hue lock, APCA dark floors. Public variant names unchanged. Hard gate: `_audit/element-geometry.html`. Benchmark rubric: `docs/benchmark-rubric.md`. Future `data-cs-style` packs follow the style-expansion checklist there — do not invent a fourth product axis casually.
 
-Schema sidecars and Storybook `FullMatrix` continue to grow **opportunistically** when a primary already qualifies (today only Button has FullMatrix under the contract) — not as a mass-add pass. See `docs/quality-gates.md`.
+Storybook `FullMatrix` is required whenever a public primary has ≥1 of {size enums, variant enums, state keys} (contract floor ≥28 stories). Schema sidecars remain complete for content-hole templates; axis-only templates omit by design. See `docs/quality-gates.md` and `docs/storybook.md`.
 
 ## How to change a decision
 

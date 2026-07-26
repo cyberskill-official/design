@@ -67,7 +67,7 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | Nav model | `_audit/ci/test-nav-model.mjs` | The shipped `guidelines/nav-model.js` classify/group logic behaves (drives the real module) | All assertions pass (exit 0) | Hard | Unit test |
 | Health/Tokens UI contract | `_audit/ci/test-health-tokens-contract.mjs` | Structural contracts of the Health + Tokens HTML entry points hold | All assertions pass (exit 0) | Hard | Unit test |
 | Form paths | `_audit/ci/test-form-paths.mjs` | Form path helpers behave (drives the shipped `Form.jsx` via dynamic import) | All assertions pass (exit 0) | Hard | Unit test |
-| Storybook contract | `_audit/ci/test-storybook-contract.mjs` | Live hub is Storybook only; SB10 ESM main + addon-docs/a11y; complete CSF for every public primary; Matrix/AllVariants + AllSizes when `argTypes.size`; States/Matrix cover disabled/loading/error/busy; every discrete size/variant enum mounted; FullMatrix required when ≥2 of {size, variant, state} axes exist | All assertions pass (exit 0) | Hard | Unit test |
+| Storybook contract | `_audit/ci/test-storybook-contract.mjs` | Live hub is Storybook only; SB10 ESM main + addon-docs/a11y; complete CSF for every public primary; Matrix/AllVariants + AllSizes when `argTypes.size`; States/Matrix cover disabled/loading/error/busy; every discrete size/variant enum mounted; FullMatrix required when ≥1 of {size, variant, state} axes exist (≥28 qualifiers) | All assertions pass (exit 0) | Hard | Unit test |
 | Figma push helpers | `_audit/ci/test-figma-push-helpers.mjs` | Pure helpers in `push-figma-variables.mjs` behave (no network, no secrets) | All assertions pass (exit 0) | Hard | Unit test |
 | Code Connect helpers | `_audit/ci/test-code-connect.mjs` | 105 primaries, node-map/render helpers, soft-skip classifiers, committed `figma.config.json` + high-traffic `.figma.tsx` | All assertions pass (exit 0) | Hard | Unit test |
 | Native samples | `_audit/ci/test-native-samples.mjs` | SwiftUI / Compose / Flutter sample apps each have ≥ 3 screens, reference generated token constants, and ship Fastlane store scaffolds (submit disabled) | All assertions pass (exit 0) | Hard | Unit test |
@@ -78,7 +78,7 @@ The `test:unit` suite is wired into the CI workflow as part of the July 2026 har
 
 ## Sync / distribution jobs (soft-skip)
 
-Soft-skip means the job exits 0 with a report when secrets/plan/API cannot complete the real write — **not** that Code Connect or Figma Variables are live. npm CI publish uses Trusted Publishing; soft-skip covers auth/conflict honesty. Treat remaining maintainer tasks in `docs/decisions.md` as the open list (Code Connect deferred; consumer grant is in `docs/consumer-grant.md`). Schema sidecars and Storybook `FullMatrix` grow opportunistically when a primary already qualifies — not as a mass-add pass.
+Soft-skip means the job exits 0 with a report when secrets/plan/API cannot complete the real write — **not** that Code Connect or Figma Variables are live. npm CI publish uses Trusted Publishing; soft-skip covers auth/conflict honesty. Treat remaining maintainer tasks in `docs/decisions.md` as the open list (Code Connect deferred; consumer grant is in `docs/consumer-grant.md`). Storybook `FullMatrix` is required for every public primary with ≥1 of {size enums, variant enums, state keys} — shared helpers in `stories/lib/matrix.jsx`.
 
 | Job | Script / workflow | What it asserts | Soft-skip when | Where it runs |
 |---|---|---|---|---|

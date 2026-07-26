@@ -106,7 +106,7 @@ Theo dõi vận hành — không phải marketing sản phẩm, không phải ba
 
 7. **Hình học màu Element** (Th7 2026) — Pack Element generate từ `tokens/element-seeds.json` (`npm run tokens:elements`): thang soft / middle / deep, Thổ middle ghim ochre logo, khóa hue light↔dark, sàn APCA dark. Tên variant công khai không đổi. Hard gate: `_audit/element-geometry.html`. Rubric benchmark: `docs/benchmark-rubric.md`. Pack `data-cs-style` tương lai theo checklist mở rộng style ở đó — không invent trục sản phẩm thứ tư tùy tiện.
 
-Schema sidecar và Storybook `FullMatrix` tiếp tục lớn **theo cơ hội** khi primary đã đủ điều kiện (hiện chỉ Button có FullMatrix theo contract) — không phải đợt mass-add. Xem `docs/quality-gates.md`.
+Storybook `FullMatrix` bắt buộc khi public primary có ≥1 trong {size enums, variant enums, state keys} (sàn contract ≥28 story). Schema sidecar đã đủ cho template content-hole; template chỉ-axis bỏ qua theo thiết kế. Xem `docs/quality-gates.md` và `docs/storybook.md`.
 
 ## Cách đổi một quyết định
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Combobox } from '../components/forms/Combobox.jsx';
+import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
 export default {
   title: 'Components/Forms/Combobox',
@@ -62,6 +63,36 @@ export const States = {
         <Combobox label="Element" value={v} onChange={setV} options={options} />
         <Combobox label="Element" value={v} onChange={setV} options={options} disabled />
       </div>
+    );
+  },
+};
+
+/** Exhaustive discrete-axis product (FullMatrix contract ≥1 axis). */
+export const FullMatrix = {
+  name: 'Full matrix / state',
+  render: function FullMatrixRender() {
+    const [v, setV] = React.useState('tho');
+    const options = [{ value: 'tho', label: 'Thổ' }, { value: 'hoa', label: 'Hỏa' }];
+    const cells = cartesian({}).flatMap((combo) =>
+      stateCombos(["disabled"]).map((state) => {
+        const props = { ...combo, ...state };
+        const label = comboLabel(props, ['disabled']);
+        return (
+          <Combobox
+            key={label}
+            label={label || 'Element'}
+            value={v}
+            onChange={setV}
+            options={options}
+            disabled={!!state.disabled}
+          />
+        );
+      }),
+    );
+    return (
+      <MatrixGrid gap={10} minWidth={200}>
+        {cells}
+      </MatrixGrid>
     );
   },
 };

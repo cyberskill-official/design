@@ -1,6 +1,7 @@
 import { Item } from '../components/data/Item.jsx';
 import { Switch } from '../components/forms/Switch.jsx';
 import { Badge } from '../components/feedback/Badge.jsx';
+import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
 export default {
   title: 'Components/Data/Item',
@@ -44,4 +45,30 @@ export const Matrix = {
       <Item title="Release notes" description="Bilingual digest" trailing={<Switch defaultChecked />} />
     </div>
   ),
+};
+
+/** Exhaustive discrete-axis product (FullMatrix contract ≥1 axis). */
+export const FullMatrix = {
+  name: 'Full matrix / state',
+  render: (args) => {
+    const cells = cartesian({}).flatMap((combo) =>
+      stateCombos(["disabled"]).map((state) => {
+        const props = { ...combo, ...state };
+        const label = comboLabel(props, ['disabled']);
+        return (
+          <Item
+            key={label}
+            {...args}
+            title={label || args.title}
+            disabled={!!state.disabled}
+          />
+        );
+      }),
+    );
+    return (
+      <MatrixGrid gap={10} minWidth={240}>
+        {cells}
+      </MatrixGrid>
+    );
+  },
 };

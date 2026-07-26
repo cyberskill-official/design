@@ -1,4 +1,5 @@
 import { Cascader } from '../components/forms/Cascader.jsx';
+import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
 const REGION_NODES = [
   { key: 'vn', label: 'Vietnam', children: [{ key: 'hcm', label: 'HCMC' }, { key: 'hn', label: 'Hanoi' }] },
@@ -62,4 +63,29 @@ export const States = {
       <Cascader {...args} disabled />
     </div>
   ),
+};
+
+/** Exhaustive discrete-axis product (FullMatrix contract ≥1 axis). */
+export const FullMatrix = {
+  name: 'Full matrix / state',
+  render: (args) => {
+    const cells = cartesian({  }).flatMap((combo) =>
+      stateCombos(["disabled"]).map((state) => {
+        const props = { ...combo, ...state };
+        const label = comboLabel(props, ['disabled']);
+        return (
+          <Cascader
+            key={label}
+            {...args}
+            disabled={!!state.disabled}
+          />
+        );
+      }),
+    );
+    return (
+      <MatrixGrid gap={10} minWidth={140}>
+        {cells}
+      </MatrixGrid>
+    );
+  },
 };
