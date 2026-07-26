@@ -13,138 +13,63 @@
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
 <script src="../_ds_bundle.js"></script>
 <script src="./vendor/axe.min.js"></script>
+<script src="./lib/axe-fixtures.js"></script>
 </head><body>
 <h1>Axe smoke</h1>
-<p class="lede">Mounts a representative bilingual cluster (40 components across forms, overlays, navigation, feedback, data, datatable, dialog, ai, brand, button, textfield, icon, logo — including the open Dialog, AlertDialog, and Tour overlays plus the Tooltip, Cascader, TreeSelect, ScrollArea, Collapsible, AspectRatio, Item, and NativeSelect surfaces) and runs <b>axe-core</b> 4.10.0 (vendored at <code>_audit/vendor/axe.min.js</code>) serious/critical WCAG 2 A/AA rules. Hard gate on the fast board — enforces Storybook a11y coverage without a separate test-runner. Verdict: <code>window.__axesmoke.pass</code>.</p>
+<p class="lede">Mounts <b>every public primary</b> (inventory-locked via <code>_audit/lib/axe-fixtures.js</code> + <code>test-axe-coverage.mjs</code>) in a bilingual EN·VI cluster and runs <b>axe-core</b> 4.10.0 (vendored at <code>_audit/vendor/axe.min.js</code>) serious/critical WCAG 2 A/AA rules. Open overlays (Dialog, AlertDialog, Drawer, Tour, CommandPalette, Menu) plus expanded Cascader/TreeSelect/Menubar/Combobox surfaces are in the tree before the scan. Hard gate on the fast board — Storybook a11y enforcement without a separate test-runner. Verdict: <code>window.__axesmoke.pass</code>.</p>
 <div id="list"></div><div id="sum">running…</div><div id="stage"></div>
 <script>
 const list=document.getElementById('list'), stage=document.getElementById('stage');
-const P=window.__gateProgress={done:0,total:3,current:'boot'};
+const P=window.__gateProgress={done:0,total:4,current:'boot'};
 function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?'ok':'bad');d.textContent=(ok?'✓ ':'✗ ')+t;list.appendChild(d);}
 (async()=>{
   const fails=[];
   P.current='preflight'; P.done=0;
   if(typeof axe==='undefined'){ fails.push('axe-core vendor failed to load (_audit/vendor/axe.min.js)'); }
+  if(!window.__axeFixtures){ fails.push('axe fixtures missing (_audit/lib/axe-fixtures.js)'); }
   const NS=window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
   if(!NS) fails.push('bundle namespace missing');
   if(fails.length){ finish(false,fails); return; }
+  const names=window.__axeFixtures.names;
+  const missingExports=names.filter(n=>!NS[n]);
+  row(missingExports.length===0, 'bundle exports: '+names.length+' primaries'+(missingExports.length?(' · missing '+missingExports.join(',')):'') );
+  if(missingExports.length){ finish(false,missingExports.map(n=>'missing export:'+n)); return; }
+
   P.current='mount'; P.done=1;
   const h=React.createElement;
-  const missing=[];
-  function C(name){ if(!NS[name]){ missing.push(name); return 'div'; } return NS[name]; }
-  const CASCADE=[{key:'hcm',label:'Hồ Chí Minh',children:[{key:'d1',label:'District 1'},{key:'d3',label:'District 3'}]},{key:'hn',label:'Hà Nội',children:[{key:'bd',label:'Ba Đình'}]}];
-  const TREE=[{key:'eng',label:'Engineering',children:[{key:'ds',label:'Design System'},{key:'plat',label:'Platform'}]}];
-  const cluster=[
-    // button
-    h(C('Button'),{children:'Save'}),
-    h(C('FloatingActionButton'),{position:'static',label:'Make a wish',icon:h(C('Icon'),{name:'sparkle'})}),
-    // textfield + forms
-    h(C('TextField'),{label:'Name','aria-label':'Name'}),
-    h(C('Checkbox'),{label:'Agree'}),
-    h(C('Switch'),{label:'Notify'}),
-    h(C('Select'),{label:'Role',options:[{value:'a',label:'Admin'},{value:'b',label:'Member'}]}),
-    h(C('NativeSelect'),{label:'Locale',size:'sm',options:[{value:'en',label:'English'},{value:'vi',label:'Tiếng Việt'}],defaultValue:'en'}),
-    h(C('RadioGroup'),{legend:'Plan',name:'axe-plan',options:[{value:'pro',label:'Pro'},{value:'team',label:'Team'}],value:'pro',onChange:()=>{}}),
-    h(C('Textarea'),{label:'Notes'}),
-    h(C('SearchField'),{'aria-label':'Search',placeholder:'Search'}),
-    // feedback
-    h(C('Alert'),{variant:'info',children:'Axe cluster'}),
-    h(C('Badge'),{variant:'ochre',children:'Now'}),
-    h(C('ProgressBar'),{value:72,label:'v1.0 progress'}),
-    h(C('Spinner'),{label:'Loading'}),
-    // navigation
-    h(C('Link'),{href:'#',onClick:(e)=>e.preventDefault(),children:'Privacy'}),
-    h(C('Breadcrumb'),{items:[{label:'Home',href:'#'},{label:'Projects',href:'#'},{label:'Design System'}]}),
-    h(C('Tabs'),{tabs:[{value:'a',label:'Overview'},{value:'b',label:'Activity'}],value:'a',onChange:()=>{}}),
-    h(C('Pagination'),{page:2,pageCount:5,onChange:()=>{}}),
-    // data
-    h(C('Accordion'),{items:[{title:'Details',content:'Body copy for axe.'}],defaultOpen:0}),
-    h(C('Collapsible'),{title:'Advanced',defaultOpen:false,children:'Collapsible body for axe.'}),
-    h(C('ScrollArea'),{maxHeight:80,'aria-label':'Scroll sample',children:h('p',null,'Dense panel copy for axe scroll region.')}),
-    h(C('AspectRatio'),{ratio:'16 / 9',children:h('img',{src:'../assets/aurora-gold.jpg',alt:'Aurora sample'})}),
-    h(C('Item'),{title:'Release notes',description:'Bilingual digest',trailing:h(C('Switch'),{'aria-label':'Release notes',defaultChecked:true})}),
-    h(C('Card'),null,
-      h(C('CardHeader'),{title:'Card',subtitle:'Axe sample'}),
-      h(C('CardBody'),null,'Panel body')
-    ),
-    h(C('Avatar'),{name:'An Le'}),
-    // datatable
-    h(C('DataTable'),{
-      caption:'Projects',
-      columns:[{key:'name',header:'Name'},{key:'pct',header:'Progress'}],
-      rows:[{id:'1',name:'Design System',pct:'72%'}],
-      rowKey:'id'
-    }),
-    // dialog (open — labelled modal)
-    h(C('Dialog'),{open:true,title:'Confirm',onClose:()=>{},children:'Dialog body for axe.',actions:h(C('Button'),{children:'OK'})}),
-    // alertdialog (open — destructive confirm)
-    h(C('AlertDialog'),{open:true,title:'Delete workspace?',description:'Removes every project. This cannot be undone.',tone:'destructive',onOpenChange:()=>{},onConfirm:()=>{}}),
-    // overlays (closed — trigger still mounted)
-    h(C('Popconfirm'),{title:'Delete this draft?',onConfirm:()=>{},trigger:h(C('Button'),{variant:'danger-ghost',size:'sm',children:'Delete'})}),
-    h(C('Popover'),{trigger:h('button',{type:'button'},'Open panel'),children:h('div',null,'Popover content')}),
-    h(C('Tooltip'),{label:'Regenerates native tokens',children:h('button',{type:'button'},'Tokens')}),
-    // hierarchy pickers (collapsed field — labelled trigger)
-    h(C('Cascader'),{label:'Region',nodes:CASCADE}),
-    h(C('TreeSelect'),{label:'Team',nodes:TREE}),
-    // guided tour (open — spotlight dialog over a live anchor)
-    h('div',{id:'axe-tour-anchor'},'Tour anchor'),
-    h(C('Tour'),{open:true,onClose:()=>{},steps:[{target:'#axe-tour-anchor',title:'Gate board',body:'Every hard gate reports here.'}]}),
-    // ai
-    h(C('AIDisclosureBadge'),{label:'AI assisted'}),
-    h(C('TypingIndicator'),{label:'Lumi is typing'}),
-    h(C('ConfidenceMeter'),{value:0.82,label:'Confidence'}),
-    // brand / icon / logo
-    h(C('LumiAvatar'),{size:'md'}),
-    h(C('Icon'),{name:'sparkle',label:'Sparkle'}),
-    h(C('Logo'),{size:32,title:'CyberSkill'}),
-  ];
-  // VI twin of a few labelled controls (bilingual surface)
-  const viCluster=[
-    h(C('TextField'),{label:'Tên','aria-label':'Tên',lang:'vi'}),
-    h(C('Checkbox'),{label:'Đồng ý',lang:'vi'}),
-    h(C('Alert'),{variant:'success',lang:'vi',children:'Cụm axe song ngữ'}),
-    h(C('Button'),{children:'Lưu',lang:'vi'}),
-    // built-in VN chrome (placeholder strings come from components/_i18n)
-    h(C('Cascader'),{label:'Khu vực',nodes:CASCADE,lang:'vi'}),
-    h(C('TreeSelect'),{label:'Nhóm',nodes:TREE,lang:'vi'}),
-  ];
-  const names=[
-    'Button','FloatingActionButton','TextField','Checkbox','Switch','Select','NativeSelect',
-    'RadioGroup','Textarea','SearchField','Alert','Badge','ProgressBar','Spinner',
-    'Link','Breadcrumb','Tabs','Pagination','Accordion','Collapsible','ScrollArea','AspectRatio','Item',
-    'Card','Avatar','DataTable',
-    'Dialog','AlertDialog','Popconfirm','Popover','Tooltip','Cascader','TreeSelect','Tour',
-    'AIDisclosureBadge','TypingIndicator','ConfidenceMeter','LumiAvatar','Icon','Logo'
-  ];
-  row(missing.length===0, 'cluster mount: '+names.length+' components'+(missing.length?(' · missing '+missing.join(',')):'')+' (+'+viCluster.length+' VI twins)');
-  if(missing.length){ finish(false,missing.map(n=>'missing:'+n)); return; }
+  const en=window.__axeFixtures.buildCluster(h, NS, {lang:'en'});
+  const vi=window.__axeFixtures.buildCluster(h, NS, {lang:'vi'});
+  row(en.missing.length===0 && vi.missing.length===0,
+    'cluster mount: '+names.length+' primaries (+VI twin cluster)'+(en.missing.length||vi.missing.length?(' · missing '+[...new Set(en.missing.concat(vi.missing))].join(',')):'') );
+  if(en.missing.length||vi.missing.length){
+    finish(false,[...new Set(en.missing.concat(vi.missing))].map(n=>'missing:'+n));
+    return;
+  }
   const root=ReactDOM.createRoot(stage);
   root.render(h('div',{className:'cs-stack'},
-    h('div',{lang:'en'},...cluster),
-    h('div',{lang:'vi'},...viCluster)
+    h('div',{lang:'en','data-axe-lang':'en'},...en.nodes),
+    h('div',{lang:'vi','data-axe-lang':'vi'},...vi.nodes)
   ));
-  await new Promise(r=>setTimeout(r,250));
-  // Open the hierarchy pickers — their popup ARIA (listbox/option, tree/treeitem) is
-  // only reachable once expanded, and that is where the roles can go wrong.
-  const openers=[...stage.querySelectorAll('.cs-cascader > button, .cs-treeselect > button')];
-  openers.forEach(b=>b.click());
-  await new Promise(r=>setTimeout(r,150));
-  const popups=stage.querySelectorAll('.cs-cascader__pop, .cs-treeselect__pop').length;
-  const openOk=openers.length>0 && popups===openers.length;
-  row(openOk, 'hierarchy popups expanded for scanning: '+popups+'/'+openers.length);
-  P.current='axe'; P.done=2;
+  await new Promise(r=>setTimeout(r,300));
+
+  P.current='expand'; P.done=2;
+  const expanded=await window.__axeFixtures.expandForScan(stage);
+  row(expanded.ok, 'surfaces expanded for scanning: '+expanded.detail);
+  if(!expanded.ok){ finish(false,['expand failed: '+expanded.detail]); return; }
+
+  P.current='axe'; P.done=3;
   try{
     const res=await axe.run(stage,{ runOnly:{type:'tag',values:['wcag2a','wcag2aa']}});
     const serious=(res.violations||[]).filter(v=>v.impact==='serious'||v.impact==='critical');
     row(serious.length===0, 'axe serious/critical: '+serious.length+' (total violations '+(res.violations||[]).length+')');
-    serious.slice(0,12).forEach(v=>row(false, v.id+': '+v.help+' · '+(v.nodes||[]).slice(0,2).map(n=>(n.target||[]).join(' ')).join(' | ')));
-    finish(serious.length===0 && openOk, serious.map(v=>v.id).concat(openOk?[]:['hierarchy popups did not expand']));
+    serious.slice(0,20).forEach(v=>row(false, v.id+': '+v.help+' · '+(v.nodes||[]).slice(0,2).map(n=>(n.target||[]).join(' ')).join(' | ')));
+    finish(serious.length===0, serious.map(v=>v.id));
   }catch(e){ finish(false,[String(e)]); }
   function finish(pass, fails){
-    P.current='done'; P.done=3;
+    P.current='done'; P.done=4;
     window.__axesmoke={pass,fails:fails||[],components:names.length};
     const s=document.getElementById('sum');
-    s.textContent=pass?'✓ PASS — no serious/critical axe hits ('+names.length+' components)':'✗ FAIL — '+(fails||[]).join(', ');
+    s.textContent=pass?'✓ PASS — no serious/critical axe hits ('+names.length+' primaries)':'✗ FAIL — '+(fails||[]).join(', ');
     s.style.color=pass?'#166534':'#B42318';
   }
 })();

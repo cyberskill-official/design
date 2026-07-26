@@ -72,7 +72,7 @@ Dev-only harnesses for **deep** verification (owner doctrine: whole-set checks, 
 
 - **`a11y-gate.html`** — a11y interaction gate (in the fast runner): Dialog/Drawer/AlertDialog focus management (initial focus · Tab trap · restore-on-close · Escape), roving tabindex (Tabs · SegmentedControl · Menubar), combobox `aria-activedescendant`, and role/label contracts (Rating · InputOTP · DataGrid `aria-sort` · Carousel · Popconfirm · live regions). `window.__a11y.pass` must be true; loads the bundle — re-run on a fresh turn.
 
-- **`axe-smoke.html`** — **hard** axe-core 4.10.0 gate (vendored at `_audit/vendor/axe.min.js`, no CDN): mounts a 40-component bilingual cross-group cluster (Cascader / TreeSelect popups expanded before the scan) and fails on any serious/critical WCAG 2 A/AA violation (Storybook a11y enforcement without a separate test-runner). `window.__axesmoke.pass` must be true.
+- **`axe-smoke.html`** — **hard** axe-core 4.10.0 gate (vendored at `_audit/vendor/axe.min.js`, no CDN): mounts every public primary via `_audit/lib/axe-fixtures.js` (bilingual EN·VI; Cascader / TreeSelect / Menubar / Combobox expanded before the scan) and fails on any serious/critical WCAG 2 A/AA violation (Storybook a11y enforcement without a separate test-runner). Inventory lock: `_audit/ci/test-axe-coverage.mjs`. `window.__axesmoke.pass` must be true.
 
 - **`qr-scan-test.html`** — **advisory** QR reader-scan sanity: renders `QRCode`, rasterizes with a quiet zone, decodes with jsQR (CDN), asserts exact UTF-8 byte round-trip (incl. Vietnamese). `window.__qrscan`.
 

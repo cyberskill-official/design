@@ -25,8 +25,8 @@ export const strings = {
     vi: { placeholder: "Tìm kiếm…", clear: "Xóa tìm kiếm" },
   },
   NumberField: {
-    en: { decrease: "Decrease", increase: "Increase" },
-    vi: { decrease: "Giảm", increase: "Tăng" },
+    en: { decrease: "Decrease", increase: "Increase", value: "Value" },
+    vi: { decrease: "Giảm", increase: "Tăng", value: "Giá trị" },
   },
   FileUpload: {
     en: { title: "Drop files here or browse", hint: "PNG, JPG, or PDF up to 10MB" },
@@ -165,8 +165,8 @@ export const strings = {
     vi: { placeholder: "Chọn hoặc nhập…", empty: "Không có kết quả phù hợp" },
   },
   InputGroup: {
-    en: { clear: "Clear", show: "Show password", hide: "Hide password" },
-    vi: { clear: "Xóa", show: "Hiện mật khẩu", hide: "Ẩn mật khẩu" },
+    en: { clear: "Clear", show: "Show password", hide: "Hide password", input: "Input" },
+    vi: { clear: "Xóa", show: "Hiện mật khẩu", hide: "Ẩn mật khẩu", input: "Ô nhập" },
   },
   TagInput: {
     en: { placeholder: "Add a tag…", remove: "Remove" },

@@ -40,7 +40,7 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | Element geometry | `_audit/element-geometry.html` | Soft/middle/deep intensity sync across five elements; variant distinctness; light↔dark hue identity; Thổ middle pins logo ochre; packs generated from seeds | `__elementgeometry.pass` | Hard | Fast board CI |
 | Visual baselines | `_audit/visual-diff.html` | Template baselines exist and are loadable for side-by-side / overlay comparison | Baselines present; drift judged by eye (`__visualdiff`) | Advisory | Fast board CI |
 | Component baselines | `_audit/component-visual-diff.html` | 12 curated component crops anchor the atomic tiers for visual comparison | Crops render + baselines present (`__componentVisualDiff`) | Advisory | Fast board CI |
-| Axe smoke | `_audit/axe-smoke.html` | axe-core 4.10.0 (vendored at `_audit/vendor/axe.min.js`) serious/critical WCAG 2 A/AA rules on a 40-component bilingual cross-group cluster (forms · overlays · navigation · feedback · data · datatable · dialog · ai · brand · button · textfield · icon · logo) — Dialog, AlertDialog, and Tour mount open, and the Cascader / TreeSelect popups are expanded before the scan so their listbox·option and tree·treeitem ARIA is covered; gate-equivalent Storybook a11y enforcement (no separate test-runner) | 0 serious/critical findings (`__axesmoke`) | Hard | Fast board CI |
+| Axe smoke | `_audit/axe-smoke.html` + `_audit/lib/axe-fixtures.js` | axe-core 4.10.0 (vendored at `_audit/vendor/axe.min.js`) serious/critical WCAG 2 A/AA rules on every public primary (inventory-locked fixtures; bilingual EN·VI) — Dialog, AlertDialog, Drawer, Tour, CommandPalette, and Menu mount open, and Cascader / TreeSelect / Menubar / Combobox surfaces are expanded before the scan; gate-equivalent Storybook a11y enforcement (no separate test-runner) | 0 serious/critical findings (`__axesmoke`) | Hard | Fast board CI |
 | Print smoke | `_audit/print-smoke.html` | Document templates declare the print-ownership meta and `@page` CSS hooks the export path relies on | 0 documents missing print hooks (`__printsmoke`) | Hard | Fast board CI |
 | Pixel CI | `_audit/pixel-ci.html` + `_audit/ci/pixel-diff.mjs` | 15 curated baselines exist; Playwright capture script performs real % pixel compare; last report must be clean (`drifted[]` empty) | Contract + clean compare (`__pixelci.pass`); drift or missing report fails | Hard | Fast board CI (compare step feeds the row) + `pixel-diff` job |
 
@@ -60,7 +60,7 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | Bundle freshness (authority) | `_audit/ci/check-bundle-freshness.mjs` | The committed `_ds_bundle.js` was built from the component sources as they exist now — full source discovery (walks `components/`, `ui_kits/`, root sources), so new/deleted files are caught too, which the browser row cannot do | Exit 0, 0 drifted/new/deleted sources | Hard | CI `node-prechecks` job |
 | DESIGN.md freshness | `scripts/generate-design-md.mjs --check` | The root `DESIGN.md` byte-equals a fresh regeneration from DTCG + manifest + `VERSION` | Exit 0 on byte match | Hard | CI `node-prechecks` job |
 
-## Unit tests — `npm run test:unit` (9)
+## Unit tests — `npm run test:unit` (10)
 
 | Test | File | What it asserts | Pass criterion | Type | Where it runs |
 |---|---|---|---|---|---|
@@ -68,6 +68,7 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | Health/Tokens UI contract | `_audit/ci/test-health-tokens-contract.mjs` | Structural contracts of the Health + Tokens HTML entry points hold | All assertions pass (exit 0) | Hard | Unit test |
 | Form paths | `_audit/ci/test-form-paths.mjs` | Form path helpers behave (drives the shipped `Form.jsx` via dynamic import) | All assertions pass (exit 0) | Hard | Unit test |
 | Storybook contract | `_audit/ci/test-storybook-contract.mjs` | Live hub is Storybook only; SB10 ESM main + addon-docs/a11y; complete CSF for every public primary; Matrix/AllVariants + AllSizes when `argTypes.size`; States/Matrix cover disabled/loading/error/busy; every discrete size/variant enum mounted; FullMatrix required when ≥1 of {size, variant, state} axes exist (≥28 qualifiers) | All assertions pass (exit 0) | Hard | Unit test |
+| Axe coverage | `_audit/ci/test-axe-coverage.mjs` | Fixture `NAMES` ≡ `listPublicComponents()`; axe-smoke loads inventory-locked fixtures | All assertions pass (exit 0) | Hard | Unit test |
 | Figma push helpers | `_audit/ci/test-figma-push-helpers.mjs` | Pure helpers in `push-figma-variables.mjs` behave (no network, no secrets) | All assertions pass (exit 0) | Hard | Unit test |
 | Code Connect helpers | `_audit/ci/test-code-connect.mjs` | 105 primaries, node-map/render helpers, soft-skip classifiers, committed `figma.config.json` + high-traffic `.figma.tsx` | All assertions pass (exit 0) | Hard | Unit test |
 | Native samples | `_audit/ci/test-native-samples.mjs` | SwiftUI / Compose / Flutter sample apps each have ≥ 3 screens, reference generated token constants, and ship Fastlane store scaffolds (submit disabled) | All assertions pass (exit 0) | Hard | Unit test |

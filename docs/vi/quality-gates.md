@@ -40,7 +40,7 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Element geometry | `_audit/element-geometry.html` | Sync cường độ soft/middle/deep giữa năm element; tách variant; khóa hue light↔dark; Thổ middle ghim ochre logo; pack generate từ seed | `__elementgeometry.pass` | Hard | Fast board CI |
 | Visual baselines | `_audit/visual-diff.html` | Baseline template tồn tại và load được để so sánh side-by-side / overlay | Baseline có; drift đánh giá bằng mắt (`__visualdiff`) | Advisory | Fast board CI |
 | Component baselines | `_audit/component-visual-diff.html` | 12 crop component curated neo các tầng atomic cho so sánh visual | Crop render + baseline có (`__componentVisualDiff`) | Advisory | Fast board CI |
-| Axe smoke | `_audit/axe-smoke.html` | Rule serious/critical WCAG 2 A/AA của axe-core 4.10.0 (vendored tại `_audit/vendor/axe.min.js`) trên cụm 40 component bilingual xuyên nhóm (forms · overlays · navigation · feedback · data · datatable · dialog · ai · brand · button · textfield · icon · logo) — Dialog, AlertDialog và Tour mount ở trạng thái mở, còn popup Cascader / TreeSelect được bung trước khi quét để phủ ARIA listbox·option và tree·treeitem; tương đương enforcement a11y Storybook (không test-runner riêng) | 0 finding serious/critical (`__axesmoke`) | Hard | Fast board CI |
+| Axe smoke | `_audit/axe-smoke.html` + `_audit/lib/axe-fixtures.js` | Rule serious/critical WCAG 2 A/AA của axe-core 4.10.0 (vendored tại `_audit/vendor/axe.min.js`) trên mọi public primary (fixture khoá inventory; bilingual EN·VI) — Dialog, AlertDialog, Drawer, Tour, CommandPalette và Menu mount mở, còn Cascader / TreeSelect / Menubar / Combobox được bung trước khi quét; tương đương enforcement a11y Storybook (không test-runner riêng) | 0 finding serious/critical (`__axesmoke`) | Hard | Fast board CI |
 | Print smoke | `_audit/print-smoke.html` | Document template khai báo meta print-ownership và hook CSS `@page` mà đường export dựa vào | 0 document thiếu print hook (`__printsmoke`) | Hard | Fast board CI |
 | Pixel CI | `_audit/pixel-ci.html` + `_audit/ci/pixel-diff.mjs` | 15 baseline curated tồn tại; script Playwright capture so sánh % pixel thật; report gần nhất phải sạch (`drifted[]` rỗng) | Hợp đồng + compare sạch (`__pixelci.pass`); drift hoặc thiếu report → fail | Hard | Fast board CI (bước compare nuôi hàng) + job `pixel-diff` |
 
@@ -60,7 +60,7 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Bundle freshness (authority) | `_audit/ci/check-bundle-freshness.mjs` | `_ds_bundle.js` đã commit được build từ component source hiện tại — khám phá source đầy đủ (đi `components/`, `ui_kits/`, root sources), nên file mới/xóa cũng bị bắt, hàng trình duyệt không làm được | Exit 0, 0 source drift/mới/xóa | Hard | CI job `node-prechecks` |
 | DESIGN.md freshness | `scripts/generate-design-md.mjs --check` | Root `DESIGN.md` byte-equals regeneration mới từ DTCG + manifest + `VERSION` | Exit 0 khi byte khớp | Hard | CI job `node-prechecks` |
 
-## Unit tests — `npm run test:unit` (9)
+## Unit tests — `npm run test:unit` (10)
 
 | Test | File | Assert gì | Tiêu chí pass | Loại | Chạy ở đâu |
 |---|---|---|---|---|---|
@@ -68,6 +68,7 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Health/Tokens UI contract | `_audit/ci/test-health-tokens-contract.mjs` | Hợp đồng cấu trúc của entry HTML Health + Tokens giữ | Mọi assert pass (exit 0) | Hard | Unit test |
 | Form paths | `_audit/ci/test-form-paths.mjs` | Helper Form path hành xử đúng (chạy `Form.jsx` đã ship qua dynamic import) | Mọi assert pass (exit 0) | Hard | Unit test |
 | Storybook contract | `_audit/ci/test-storybook-contract.mjs` | Live hub chỉ là Storybook; SB10 ESM main + addon-docs/a11y; CSF đủ cho mọi public primary; Matrix/AllVariants + AllSizes khi có `argTypes.size`; States/Matrix phủ disabled/loading/error/busy; mọi enum size/variant rời rạc được mount; FullMatrix bắt buộc khi ≥1 trục trong {size, variant, state} tồn tại (≥28 primary đủ điều kiện) | Mọi assert pass (exit 0) | Hard | Unit test |
+| Axe coverage | `_audit/ci/test-axe-coverage.mjs` | `NAMES` fixture ≡ `listPublicComponents()`; axe-smoke nạp fixture khoá inventory | Mọi assert pass (exit 0) | Hard | Unit test |
 | Figma push helpers | `_audit/ci/test-figma-push-helpers.mjs` | Helper thuần trong `push-figma-variables.mjs` hành xử đúng (không mạng, không secret) | Mọi assert pass (exit 0) | Hard | Unit test |
 | Code Connect helpers | `_audit/ci/test-code-connect.mjs` | 105 primaries, helper node-map/render, classifier soft-skip, `figma.config.json` đã commit + `.figma.tsx` traffic cao | Mọi assert pass (exit 0) | Hard | Unit test |
 | Native samples | `_audit/ci/test-native-samples.mjs` | App sample SwiftUI / Compose / Flutter mỗi cái ≥ 3 màn hình, tham chiếu hằng token đã generate, và ship scaffold Fastlane store (submit tắt) | Mọi assert pass (exit 0) | Hard | Unit test |

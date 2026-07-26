@@ -80,7 +80,8 @@ export const FullMatrix = {
         return (
           <InputGroup
             key={label}
-            placeholder={label || 'Amount'}
+            label={label || 'Amount'}
+            placeholder="Amount"
             defaultValue="100"
             disabled={!!state.disabled}
           />

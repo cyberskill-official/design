@@ -80,7 +80,7 @@
     "test:nav-model": "node _audit/ci/test-nav-model.mjs",
     "test:ui-contracts": "node _audit/ci/test-health-tokens-contract.mjs",
     "test:form-paths": "node _audit/ci/test-form-paths.mjs",
-    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs",
+    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-axe-coverage.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs",
     "test:react-entry": "node _audit/ci/test-react-entry.mjs",
     "test:subtree-consume": "node _audit/ci/test-subtree-consume.mjs",
     "native:sync-tokens": "node examples/native/sync-tokens.mjs",

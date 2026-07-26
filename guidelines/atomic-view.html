@@ -125,9 +125,9 @@ function Controlled({spec}){
 function TabsD({L}){ const [v,setV]=useState("board"); const V=L==="vi"; return has(Tabs)?<Tabs value={v} onChange={setV} tabs={[{value:"board",label:V?"Bảng công việc":"Board"},{value:"table",label:V?"Bảng dữ liệu":"Table",count:6},{value:"rel",label:V?"Phát hành":"Releases"}]}/>:<Miss n="Tabs"/>; }
 function PaginationD(){ const [p,setP]=useState(3); return has(Pagination)?<Pagination page={p} pageCount={12} onChange={setP}/>:<Miss n="Pagination"/>; }
 function SegmentedD({L}){ const [v,setV]=useState("board"); const V=L==="vi"; return has(SegmentedControl)?<SegmentedControl value={v} onChange={setV} options={[{value:"board",label:V?"Bảng công việc":"Board"},{value:"table",label:V?"Bảng dữ liệu":"Table"},{value:"rel",label:V?"Phát hành":"Releases"}]}/>:<Miss n="SegmentedControl"/>; }
-function SliderD(){ const [v,setV]=useState(60); return has(Slider)?<div style={{flex:1,minWidth:200}}><Slider min={0} max={100} value={v} onChange={(e)=>setV(+e.target.value)}/></div>:<Miss n="Slider"/>; }
+function SliderD({L}){ const [v,setV]=useState(60); return has(Slider)?<div style={{flex:1,minWidth:200}}><Slider min={0} max={100} value={v} onChange={(e)=>setV(+e.target.value)} aria-label={L==="vi"?"Tiến độ":"Progress"}/></div>:<Miss n="Slider"/>; }
 function SearchD({L}){ const [q,setQ]=useState("Design System"); return has(SearchField)?<div style={{flex:1,minWidth:240}}><SearchField value={q} onChange={setQ} placeholder={L==="vi"?"Tìm dự án…":"Search projects…"}/></div>:<Miss n="SearchField"/>; }
-function NumberD(){ const [n,setN]=useState(3); return has(NumberField)?<NumberField value={n} onChange={setN} min={1} max={20}/>:<Miss n="NumberField"/>; }
+function NumberD({L}){ const [n,setN]=useState(3); return has(NumberField)?<NumberField label={L==="vi"?"Số lượng":"Quantity"} value={n} onChange={setN} min={1} max={20}/>:<Miss n="NumberField"/>; }
 function DateD({L}){ const [d,setD]=useState(()=>new Date(2026,6,18)); const [tm,setTm]=useState("09:30"); return <div className="srow" style={{alignItems:"flex-start",minHeight:400}}>{has(DatePicker)?<DatePicker value={d} onChange={setD}/>:<Miss n="DatePicker"/>}{has(TimePicker)?<TimePicker value={tm} onChange={setTm} step={15}/>:<Miss n="TimePicker"/>}</div>; }
 function CalD({L}){ const [d,setD]=useState(()=>new Date(2026,6,18)); return has(Calendar)?<Calendar value={d} onChange={setD}/>:<Miss n="Calendar"/>; }
 function ColorD({L}){ const [c,setC]=useState("#F4BA17"); return has(ColorPicker)?<div style={{minHeight:210}}><ColorPicker value={c} onChange={setC}/></div>:<Miss n="ColorPicker"/>; }
@@ -185,7 +185,7 @@ const STORIES = [
     </div>:<Miss n="Form controls"/> },
   { tier:"Molecule", name:"Search · Number · Slider · Segmented · FileUpload", grp:"Forms", render:(L)=> <div className="scol">
       <div className="srow"><SearchD L={L}/></div>
-      <div className="srow"><NumberD/><SliderD/></div>
+      <div className="srow"><NumberD L={L}/><SliderD L={L}/></div>
       <div className="srow"><SegmentedD L={L}/></div>
       {has(FileUpload)?<FileUpload/>:<Miss n="FileUpload"/>}
     </div> },
@@ -193,8 +193,8 @@ const STORIES = [
   { tier:"Molecule", name:"InputOTP", grp:"Forms", render:()=> has(InputOTP)?<InputOTP length={6} onComplete={()=>{}}/>:<Miss n="InputOTP"/> },
   { tier:"Molecule", name:"ButtonGroup", grp:"Core", render:(L)=> has(ButtonGroup,Button)?<ButtonGroup label="View"><Button variant="secondary" size="sm">{L==="vi"?"Bảng công việc":"Board"}</Button><Button variant="secondary" size="sm">{L==="vi"?"Danh sách":"List"}</Button><Button variant="secondary" size="sm">{L==="vi"?"Dòng thời gian":"Timeline"}</Button></ButtonGroup>:<Miss n="ButtonGroup"/> },
   { tier:"Molecule", name:"Combobox", grp:"Forms", render:(L)=> <div style={{minHeight:230}}><ComboD L={L}/></div> },
-  { tier:"Molecule", name:"InputGroup", grp:"Forms", render:(L)=> has(InputGroup)?<div className="scol" style={{maxWidth:360}}><InputGroup prefix="https://" suffix=".world" defaultValue="cyberskill" clearable/><InputGroup password defaultValue="hunter2" placeholder={L==="vi"?"Mật khẩu":"Password"}/></div>:<Miss n="InputGroup"/> },
-  { tier:"Molecule", name:"TagInput", grp:"Forms", render:(L)=> has(TagInput)?<div style={{maxWidth:420}}><TagInput defaultValue={L==="vi"?["Ứng dụng web","Song ngữ"]:["Web apps","Bilingual"]}/></div>:<Miss n="TagInput"/> },
+  { tier:"Molecule", name:"InputGroup", grp:"Forms", render:(L)=> has(InputGroup)?<div className="scol" style={{maxWidth:360}}><InputGroup label={L==="vi"?"Máy chủ":"Host"} prefix="https://" suffix=".world" defaultValue="cyberskill" clearable/><InputGroup label={L==="vi"?"Mật khẩu":"Password"} password defaultValue="hunter2" placeholder={L==="vi"?"Mật khẩu":"Password"}/></div>:<Miss n="InputGroup"/> },
+  { tier:"Molecule", name:"TagInput", grp:"Forms", render:(L)=> has(TagInput)?<div style={{maxWidth:420}}><TagInput label={L==="vi"?"Thẻ":"Tags"} defaultValue={L==="vi"?["Ứng dụng web","Song ngữ"]:["Web apps","Bilingual"]}/></div>:<Miss n="TagInput"/> },
   { tier:"Molecule", name:"HoverCard", grp:"Overlays", render:(L)=> has(HoverCard)?<div style={{minHeight:150}}><HoverCard trigger={<a href="#" onClick={(e)=>e.preventDefault()}>@anle</a>}><b>An Lê</b><br/>{L==="vi"?"Trưởng nhóm Nền tảng · Sài Gòn":"Platform lead · Saigon"}</HoverCard></div>:<Miss n="HoverCard"/> },
   { tier:"Molecule", name:"Popconfirm", grp:"Overlays", render:(L)=> has(Popconfirm,Button)?<div style={{minHeight:170}}><Popconfirm title={L==="vi"?"Xóa bản nháp này?":"Delete this draft?"} onConfirm={()=>{}} trigger={<Button variant="danger-ghost" size="sm">{L==="vi"?"Xóa":"Delete"}</Button>}/></div>:<Miss n="Popconfirm"/> },
   { tier:"Molecule", name:"ContextMenu", grp:"Overlays", render:(L)=> has(ContextMenu)?<ContextMenu items={L==="vi"?[{label:"Nhân bản"},{label:"Đổi tên"},"-",{label:"Xóa",danger:true}]:[{label:"Duplicate"},{label:"Rename"},"-",{label:"Delete",danger:true}]}><div style={{border:"1px dashed var(--cs-color-border-default)",borderRadius:"var(--cs-radius-md)",padding:"26px 18px",color:"var(--cs-color-text-muted)",fontSize:14,minHeight:120}}>{L==="vi"?"Nhấp chuột phải vào vùng này":"Right-click this zone"}</div></ContextMenu>:<Miss n="ContextMenu"/> },
