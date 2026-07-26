@@ -28,7 +28,7 @@ Docs operator công khai có cặp EN·VI dưới `docs/` / `docs/vi/`. Template
 
 ## Foundations và thư viện CSF
 
-Toolbar Theme × Element × Language × Style khớp template production. Mọi primary công khai có Default + ma trận điều khiển trung thực. Foundations gồm màu, typography, spacing, elevation, motion, và 15 pack Ngũ Hành.
+Toolbar Theme × Element × Language × Style khớp template production (Theme gồm **system** theo OS `prefers-color-scheme`). Mọi primary công khai có Default + ma trận điều khiển trung thực; FullMatrix phủ mọi primary ≥1 trục. Axe smoke quét mọi public primary. Pack Style duy nhất là **liquid-glass**. Foundations gồm màu, typography, spacing, elevation, motion, và 15 pack Ngũ Hành.
 
 ## Token và bản native
 

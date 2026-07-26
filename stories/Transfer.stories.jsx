@@ -1,34 +1,31 @@
 import { Transfer } from '../components/forms/Transfer.jsx';
 
+const ITEMS = [
+  { key: '1', label: 'Alpha' },
+  { key: '2', label: 'Beta' },
+  { key: '3', label: 'Gamma' },
+];
+
 export default {
   title: 'Components/Forms/Transfer',
   component: Transfer,
   tags: ['autodocs'],
   argTypes: {
-  "items": {
-    "control": "object"
+    items: { control: 'object' },
+    value: { control: 'object' },
+    onChange: { control: false },
+    titles: { control: 'object' },
+    lang: { control: 'text' },
   },
-  "value": {
-    "control": "text"
-  },
-  "onChange": {
-    "control": "text"
-  },
-  "titles": {
-    "control": "object"
-  },
-  "lang": {
-    "control": "text"
-  }
-},
   parameters: {
     docs: {
       description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Transfer. Portable consumers use styles.css + bundle, not Storybook.',
+        component:
+          'Host Live CSF — Default plus honest control matrix mounting Transfer. Portable consumers use styles.css + bundle, not Storybook.',
       },
     },
   },
-  args: { source: [{ id: '1', label: 'Alpha' }], target: [{ id: '2', label: 'Beta' }] },
+  args: { items: ITEMS, value: ['2'], titles: ['Available', 'Selected'] },
 };
 
 export const Default = {};
@@ -37,8 +34,8 @@ export const Matrix = {
   name: 'Matrix / Lists',
   render: (args) => (
     <div style={{ display: 'grid', gap: 16 }}>
-      <Transfer {...args} source={[{ id: '1', label: 'A' }]} target={[]} />
-      <Transfer {...args} source={[{ id: '1', label: 'A' }]} target={[{ id: '2', label: 'B' }]} />
+      <Transfer {...args} items={ITEMS} value={[]} />
+      <Transfer {...args} items={ITEMS} value={['1', '2']} />
     </div>
   ),
 };

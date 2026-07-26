@@ -1,41 +1,46 @@
 import { Toolbar } from '../components/navigation/Toolbar.jsx';
-import { Button } from '../components/button/Button.jsx';
+
+const ITEMS = [
+  { label: 'Bold', onSelect: () => {} },
+  { label: 'Italic', onSelect: () => {} },
+];
 
 export default {
   title: 'Components/Navigation/Toolbar',
   component: Toolbar,
   tags: ['autodocs'],
   argTypes: {
-  "items": {
-    "control": "object"
+    items: { control: 'object' },
+    overflowAfter: { control: 'number' },
+    label: { control: 'text' },
+    lang: { control: 'text' },
   },
-  "overflowAfter": {
-    "control": "number"
-  },
-  "label": {
-    "control": "text"
-  },
-  "lang": {
-    "control": "text"
-  }
-},
   parameters: {
     docs: {
       description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Toolbar. Portable consumers use styles.css + bundle, not Storybook.',
+        component:
+          'Host Live CSF — Default plus honest control matrix mounting Toolbar. Portable consumers use styles.css + bundle, not Storybook.',
       },
     },
   },
+  args: { label: 'Editor tools', items: ITEMS },
 };
 
-export const Default = { render: () => (<Toolbar><Button size="sm" variant="ghost">Bold</Button><Button size="sm" variant="ghost">Italic</Button></Toolbar>) };
+export const Default = {};
 
 export const Matrix = {
   name: 'Matrix / Tools',
-  render: () => (
+  render: (args) => (
     <div style={{ display: 'grid', gap: 12 }}>
-      <Toolbar><Button size="sm" variant="ghost">Bold</Button><Button size="sm" variant="ghost">Italic</Button></Toolbar>
-      <Toolbar><Button size="sm" variant="secondary">Save</Button><Button size="sm">Publish</Button></Toolbar>
+      <Toolbar {...args} items={ITEMS} />
+      <Toolbar
+        {...args}
+        label="Publish bar"
+        items={[
+          { label: 'Save', onSelect: () => {} },
+          { label: 'Publish', onSelect: () => {} },
+        ]}
+      />
     </div>
   ),
 };

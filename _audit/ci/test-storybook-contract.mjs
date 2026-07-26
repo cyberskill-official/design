@@ -43,6 +43,20 @@ const styleToolbarBlock = preview.match(/style:\s*\{[\s\S]*?toolbar:\s*\{[\s\S]*
 assert(styleToolbarBlock, 'Style toolbar items array present');
 const styleToolbarValueCount = (styleToolbarBlock[1].match(/value:\s*['"][^'"]+['"]/g) || []).length;
 assert(styleToolbarValueCount === 1, `Style toolbar has exactly 1 pack, got ${styleToolbarValueCount}`);
+const themeToolbarBlock = preview.match(/theme:\s*\{[\s\S]*?toolbar:\s*\{[\s\S]*?items:\s*\[([\s\S]*?)\]/);
+assert(themeToolbarBlock, 'Theme toolbar items array present');
+for (const pack of ['light', 'dark', 'system']) {
+  assert(
+    themeToolbarBlock[1].includes(`value: '${pack}'`) || themeToolbarBlock[1].includes(`value: "${pack}"`),
+    `Theme toolbar includes ${pack}`,
+  );
+}
+const themeToolbarValueCount = (themeToolbarBlock[1].match(/value:\s*['"][^'"]+['"]/g) || []).length;
+assert(themeToolbarValueCount === 3, `Theme toolbar has exactly 3 values, got ${themeToolbarValueCount}`);
+assert(
+  /theme === 'dark' \|\| theme === 'system'|theme === "dark" \|\| theme === "system"/.test(preview),
+  'decorator sets data-theme for dark and system',
+);
 
 /** Canonical 15 packs — same order/keys as Identity Lab, atomic-view, tokens.elements, template EL maps. */
 const ELEMENT_TOOLBAR_PACKS = [
