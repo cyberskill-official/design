@@ -1,6 +1,6 @@
-**InputGroup** — input with prefix/suffix addons, clearable ×, password reveal. Bilingual button labels via the registry.
+**InputGroup** — input with prefix/suffix addons, clearable ×, password reveal. Pass `label` for a visible field name; bilingual button labels via the registry.
 
 ```jsx
-<InputGroup prefix="https://" suffix=".world" defaultValue="cyberskill" clearable/>
-<InputGroup password placeholder="Password"/>
+<InputGroup label="Host" prefix="https://" suffix=".world" defaultValue="cyberskill" clearable/>
+<InputGroup label="Password" password placeholder="Password"/>
 ```

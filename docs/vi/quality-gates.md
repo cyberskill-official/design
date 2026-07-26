@@ -4,14 +4,14 @@ Mọi quality gate deterministic trong hệ thống, nó assert gì, tiêu chí 
 
 **Gate chạy ở đâu.** *Fast board CI* = job `fast-gates` trong `.github/workflows/design-system-gates.yml`, serve repo và điều khiển `_audit/run.html` headless qua `_audit/ci/run-gates.mjs` (mọi push/PR + nightly + thủ công) — hàng board mới được nhận tự động. Hai gate thêm chạy standalone như *merge blocker* (job `docs-consistency-blocker`, qua `_audit/ci/run-single-gate.mjs`). *Whole-set CI* = job `whole-set-audits` (mọi push/PR + nightly — quyết định B của owner). *Unit test* = `npm run test:unit` trong job `unit-tests` (Node thuần, không trình duyệt). *Node pre-checks* = job `node-prechecks` (authority không trình duyệt: bundle freshness, DESIGN.md freshness) cộng job `token-provenance`. Mọi browser gate publish verdict global (`window.__*`) mà headless runner đọc.
 
-## Fast board — 33 gates trong `_audit/run.html`
+## Fast board — 34 gates trong `_audit/run.html`
 
 Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở rộng style): [`docs/vi/benchmark-rubric.md`](benchmark-rubric.md).
 
 | Gate | File | Assert gì | Tiêu chí pass | Loại | Chạy ở đâu |
 |---|---|---|---|---|---|
 | Contrast guard | `_audit/contrast-guard.html` | Không base rule sơn umber trên bề mặt themeable mà thiếu dark override; mọi cặp text×surface semantic ghi điểm light và dark | 0 rule không shield và 0 cặp fail (`__contrastguard`) | Hard | Fast board CI |
-| Three-axes guard | `_audit/axis-guard.html` | Không live source đưa lại bề mặt sản phẩm Expression/Density đã nghỉ | 0 hit trên source index bởi manifest (`__axisguard`) | Hard | Fast board CI |
+| Axes guard | `_audit/axis-guard.html` | Không live source đưa lại bề mặt sản phẩm Expression/Density đã nghỉ | 0 hit trên source index bởi manifest (`__axisguard`) | Hard | Fast board CI |
 | Manifest CSS paths | `_audit/manifest-css-guard.html` | Mọi entry `globalCssPaths` của `_ds_manifest.json` tồn tại như raw CSS; mọi `@import` của `styles.css` được liệt kê | 0 thiếu / 0 chưa liệt kê (`__cssguard`) | Hard | Fast board CI |
 | Docs consistency | `_audit/docs-consistency.html` | Mọi claim đếm trong README/SKILL/llms.txt khớp compiler manifest; `VERSION` + `package.json` pin 1.0.0; không tham chiếu changelog-file; blacklist stale-phrase (suite/pack count đã gỡ trong audit Th7 2026) sạch trên README/SKILL/llms + `docs/*.md` (ghi chú lịch sử dưới `_audit/archive/` không được quét); `DESIGN.md` tồn tại với front-matter version = `VERSION`; routing agent trung thực — Claude path cite `_esm/cs.mjs` + bundle prefix; Stitch path cấm `*.dc.html` làm SoT; tên package `@cyberskill/design` | 0 claim lệch, 0 blacklist hit, pin + stamp + routing nguyên (`__docs`) | Hard | Fast board CI + merge blocker |
 | Docs language parity | `_audit/docs-lang-parity.html` | Mọi EN `docs/*.md` hướng operator có counterpart `docs/vi/`; VI không phải stub trống/TODO (≥40% độ dài EN); blacklist stale-phrase sạch trên cả EN và VI (ghi chú lịch sử dưới `_audit/archive/` không được theo dõi) | 0 cặp thiếu, 0 stub, 0 blacklist hit (`__docslangparity`) | Hard | Fast board CI |
@@ -38,9 +38,10 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Template language parity | `_audit/template-lang-parity.html` | Quét source tĩnh cả 84 `.dc.html`: en/vi hole-map key set giống và không rỗng (21 map template); nhánh `sc-if` `isEN`/`isVN` cặp (24 branch template); mọi template có language-tweak có cơ chế bilingual; lexicon EN-leak (Unsubscribe · View in browser · Preferences · All rights reserved · Manage subscription · Sent with) không bao giờ xuất hiện ngoài guard `isEN` / map `en`. Instrument VN-first stacked (37 `vn-*` + 3 `doc-*`) miễn leak theo thiết kế — cả hai ngôn ngữ luôn render | 0 key drift, 0 nhánh không cặp, 0 leak (`__langparity`) | Hard | Fast board CI |
 | APCA dark packs | `_audit/apca-dark-preview.html` | Cả 15 pack element×variant giữ mục tiêu APCA ở dark (bright-as-text ≥ 75, accent UI ≥ 60, ink-on-accent ≥ 75, ink-on-tint ≥ 75) | 0 fail hiện tại (`__apcaPreview.currentFail === 0`) | Hard | Fast board CI |
 | Element geometry | `_audit/element-geometry.html` | Sync cường độ soft/middle/deep giữa năm element; tách variant; khóa hue light↔dark; Thổ middle ghim ochre logo; pack generate từ seed | `__elementgeometry.pass` | Hard | Fast board CI |
+| Style contract | `_audit/style-contract.html` | Allowlist trục Style: sole pack `liquid-glass` (vắng ≡ mặc định); `styles.css` import `tokens/styles.css`; `--cs-style-pack` resolve; không `data-cs-style` lạ | `__stylecontract.pass` | Hard | Fast board CI |
 | Visual baselines | `_audit/visual-diff.html` | Baseline template tồn tại và load được để so sánh side-by-side / overlay | Baseline có; drift đánh giá bằng mắt (`__visualdiff`) | Advisory | Fast board CI |
 | Component baselines | `_audit/component-visual-diff.html` | 12 crop component curated neo các tầng atomic cho so sánh visual | Crop render + baseline có (`__componentVisualDiff`) | Advisory | Fast board CI |
-| Axe smoke | `_audit/axe-smoke.html` | Rule serious/critical WCAG 2 A/AA của axe-core 4.10.0 (vendored tại `_audit/vendor/axe.min.js`) trên cụm 40 component bilingual xuyên nhóm (forms · overlays · navigation · feedback · data · datatable · dialog · ai · brand · button · textfield · icon · logo) — Dialog, AlertDialog và Tour mount ở trạng thái mở, còn popup Cascader / TreeSelect được bung trước khi quét để phủ ARIA listbox·option và tree·treeitem; tương đương enforcement a11y Storybook (không test-runner riêng) | 0 finding serious/critical (`__axesmoke`) | Hard | Fast board CI |
+| Axe smoke | `_audit/axe-smoke.html` + `_audit/lib/axe-fixtures.js` | Rule serious/critical WCAG 2 A/AA của axe-core 4.10.0 (vendored tại `_audit/vendor/axe.min.js`) trên mọi public primary (fixture khoá inventory; bilingual EN·VI) — Dialog, AlertDialog, Drawer, Tour, CommandPalette và Menu mount mở, còn Cascader / TreeSelect / Menubar / Combobox được bung trước khi quét; tương đương enforcement a11y Storybook (không test-runner riêng) | 0 finding serious/critical (`__axesmoke`) | Hard | Fast board CI |
 | Print smoke | `_audit/print-smoke.html` | Document template khai báo meta print-ownership và hook CSS `@page` mà đường export dựa vào | 0 document thiếu print hook (`__printsmoke`) | Hard | Fast board CI |
 | Pixel CI | `_audit/pixel-ci.html` + `_audit/ci/pixel-diff.mjs` | 15 baseline curated tồn tại; script Playwright capture so sánh % pixel thật; report gần nhất phải sạch (`drifted[]` rỗng) | Hợp đồng + compare sạch (`__pixelci.pass`); drift hoặc thiếu report → fail | Hard | Fast board CI (bước compare nuôi hàng) + job `pixel-diff` |
 
@@ -60,14 +61,15 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Bundle freshness (authority) | `_audit/ci/check-bundle-freshness.mjs` | `_ds_bundle.js` đã commit được build từ component source hiện tại — khám phá source đầy đủ (đi `components/`, `ui_kits/`, root sources), nên file mới/xóa cũng bị bắt, hàng trình duyệt không làm được | Exit 0, 0 source drift/mới/xóa | Hard | CI job `node-prechecks` |
 | DESIGN.md freshness | `scripts/generate-design-md.mjs --check` | Root `DESIGN.md` byte-equals regeneration mới từ DTCG + manifest + `VERSION` | Exit 0 khi byte khớp | Hard | CI job `node-prechecks` |
 
-## Unit tests — `npm run test:unit` (9)
+## Unit tests — `npm run test:unit` (10)
 
 | Test | File | Assert gì | Tiêu chí pass | Loại | Chạy ở đâu |
 |---|---|---|---|---|---|
 | Nav model | `_audit/ci/test-nav-model.mjs` | Logic classify/group của `guidelines/nav-model.js` đã ship hành xử đúng (chạy module thật) | Mọi assert pass (exit 0) | Hard | Unit test |
 | Health/Tokens UI contract | `_audit/ci/test-health-tokens-contract.mjs` | Hợp đồng cấu trúc của entry HTML Health + Tokens giữ | Mọi assert pass (exit 0) | Hard | Unit test |
 | Form paths | `_audit/ci/test-form-paths.mjs` | Helper Form path hành xử đúng (chạy `Form.jsx` đã ship qua dynamic import) | Mọi assert pass (exit 0) | Hard | Unit test |
-| Storybook contract | `_audit/ci/test-storybook-contract.mjs` | Live hub chỉ là Storybook; SB10 ESM main + addon-docs/a11y; CSF đủ cho mọi public primary; Matrix/AllVariants + AllSizes khi có `argTypes.size`; States/Matrix phủ disabled/loading/error/busy; mọi enum size/variant rời rạc được mount; FullMatrix bắt buộc khi ≥2 trục trong {size, variant, state} tồn tại | Mọi assert pass (exit 0) | Hard | Unit test |
+| Storybook contract | `_audit/ci/test-storybook-contract.mjs` | Live hub chỉ là Storybook; SB10 ESM main + addon-docs/a11y; CSF đủ cho mọi public primary; Matrix/AllVariants + AllSizes khi có `argTypes.size`; States/Matrix phủ disabled/loading/error/busy; mọi enum size/variant rời rạc được mount; FullMatrix bắt buộc khi ≥1 trục trong {size, variant, state} tồn tại (≥28 primary đủ điều kiện) | Mọi assert pass (exit 0) | Hard | Unit test |
+| Axe coverage | `_audit/ci/test-axe-coverage.mjs` | `NAMES` fixture ≡ `listPublicComponents()`; axe-smoke nạp fixture khoá inventory | Mọi assert pass (exit 0) | Hard | Unit test |
 | Figma push helpers | `_audit/ci/test-figma-push-helpers.mjs` | Helper thuần trong `push-figma-variables.mjs` hành xử đúng (không mạng, không secret) | Mọi assert pass (exit 0) | Hard | Unit test |
 | Code Connect helpers | `_audit/ci/test-code-connect.mjs` | 105 primaries, helper node-map/render, classifier soft-skip, `figma.config.json` đã commit + `.figma.tsx` traffic cao | Mọi assert pass (exit 0) | Hard | Unit test |
 | Native samples | `_audit/ci/test-native-samples.mjs` | App sample SwiftUI / Compose / Flutter mỗi cái ≥ 3 màn hình, tham chiếu hằng token đã generate, và ship scaffold Fastlane store (submit tắt) | Mọi assert pass (exit 0) | Hard | Unit test |
@@ -78,7 +80,7 @@ Suite `test:unit` được nối vào CI workflow như một phần của harden
 
 ## Job sync / phân phối (soft-skip)
 
-Soft-skip nghĩa là job exit 0 kèm report khi secret/plan/API không hoàn tất write thật — **không** có nghĩa Code Connect hay Figma Variables đang live. npm CI publish dùng Trusted Publishing; soft-skip là trung thực auth/conflict. Coi việc maintainer còn lại trong `docs/decisions.md` là danh sách mở (Code Connect hoãn; grant consumer tại `docs/consumer-grant.md`). Schema sidecar và Storybook `FullMatrix` lớn theo cơ hội khi primary đã đủ điều kiện — không phải đợt mass-add.
+Soft-skip nghĩa là job exit 0 kèm report khi secret/plan/API không hoàn tất write thật — **không** có nghĩa Code Connect hay Figma Variables đang live. npm CI publish dùng Trusted Publishing; soft-skip là trung thực auth/conflict. Coi việc maintainer còn lại trong `docs/decisions.md` là danh sách mở (Code Connect hoãn; grant consumer tại `docs/consumer-grant.md`). Storybook `FullMatrix` bắt buộc cho mọi public primary có ≥1 trong {size enums, variant enums, state keys} — helper chung tại `stories/lib/matrix.jsx`.
 
 | Job | Script / workflow | Assert gì | Soft-skip khi | Chạy ở đâu |
 |---|---|---|---|---|

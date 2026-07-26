@@ -1,4 +1,5 @@
 import { NativeSelect } from '../components/forms/NativeSelect.jsx';
+import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
 export default {
   title: 'Components/Forms/NativeSelect',
@@ -62,4 +63,29 @@ export const States = {
       <NativeSelect {...args} error="Pick a squad." />
     </div>
   ),
+};
+
+/** Exhaustive discrete-axis product (FullMatrix contract ≥1 axis). */
+export const FullMatrix = {
+  name: 'Full matrix / size',
+  render: (args) => {
+    const cells = cartesian({ size: ["sm","md"] }).flatMap((combo) =>
+      stateCombos([]).map((state) => {
+        const props = { ...combo, ...state };
+        const label = comboLabel(props, ['size']);
+        return (
+          <NativeSelect
+            key={label}
+            {...args}
+            size={combo.size}
+          />
+        );
+      }),
+    );
+    return (
+      <MatrixGrid gap={10} minWidth={140}>
+        {cells}
+      </MatrixGrid>
+    );
+  },
 };

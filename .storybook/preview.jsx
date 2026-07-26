@@ -20,7 +20,7 @@ const preview = {
             'Figma',
             'Contrast',
             'Voice & Language',
-            'The Three Axes',
+            'The Four Axes',
           ],
           'Foundations',
           ['Colors', 'Typography', 'Spacing', 'Elevation', 'Motion', 'Elements'],
@@ -97,23 +97,36 @@ const preview = {
         dynamicTitle: true,
       },
     },
+    style: {
+      name: 'Style',
+      description: 'data-cs-style surface pack (sole pack today: liquid-glass)',
+      defaultValue: 'liquid-glass',
+      toolbar: {
+        icon: 'mirror',
+        items: [{ value: 'liquid-glass', title: 'Liquid glass' }],
+        dynamicTitle: true,
+      },
+    },
   },
   decorators: [
     (Story, context) => {
       const theme = context.globals.theme || 'light';
       const [element, variant] = String(context.globals.element || 'tho|').split('|');
       const language = context.globals.language || 'en';
+      const style = context.globals.style || 'liquid-glass';
       const fullscreen = context.parameters.layout === 'fullscreen';
       if (typeof document !== 'undefined') {
         const root = document.documentElement;
         if (theme === 'dark') root.setAttribute('data-theme', 'dark');
         else root.removeAttribute('data-theme');
+        root.setAttribute('data-cs-style', style);
       }
       return (
         <div
           data-theme={theme === 'dark' ? 'dark' : undefined}
           data-cs-element={element || undefined}
           data-cs-variant={variant || undefined}
+          data-cs-style={style}
           lang={language}
           style={{
             minHeight: '100%',

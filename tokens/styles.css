@@ -1,0 +1,15 @@
+/* Style axis — data-cs-style packs.
+ *
+ * Sole pack today: liquid-glass ≡ current elevation + base/glass.css materials.
+ * Absent attribute ≡ liquid-glass (same default pattern as light theme / Thổ middle).
+ * Future packs override glass scalars / material composition only and must consume
+ * the existing 9 --cs-accent-* roles — never invent parallel Element packs.
+ */
+
+:root {
+  --cs-style-pack: liquid-glass; /* @kind other */
+}
+
+[data-cs-style="liquid-glass"] {
+  --cs-style-pack: liquid-glass;
+}

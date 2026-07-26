@@ -90,9 +90,9 @@ Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng
 
 Consumer bỏ qua `styles.css` để tự kiểm soát font loading (`cyberskill.world` / Lumi import riêng các sheet token + base và giữ chiến lược `font-display: optional` của mình) có thể chuyển từ `brand-fonts.css` tự chế sang package: hoặc `@import "@cyberskill/design/tokens/fonts.css"` để lấy face đóng gói, hoặc giữ block `@font-face` cục bộ và trỏ `--cs-heading-family` vào `var(--cs-font-family-display)` để **role** đến từ DS ngay cả khi **byte** vẫn phục vụ cục bộ. Cách nào thì mặt chữ display cũng thôi là ngoại lệ riêng của một sản phẩm. Space Grotesk không có weight 800, nên `--cs-heading-weight-strong` (800) dưới `.cs-display-face` clamp về 700 trong Space Grotesk — CSS không nhảy sang Be Vietnam Pro vì thiếu weight.
 
-## Ba trục
+## Bốn trục
 
-Đặt Theme (`data-theme`), Element (`data-cs-element` + `data-cs-variant`), và Language (`lang` / Language tweak trên template) trên một container; mọi thứ bên trong re-skin không cần đổi code (xem `templates/playground.html`). Mặc định: `light · tho · en`. Xử lý bề mặt là liquid-glass (cố định). Bilingual: component resolve chuỗi từ `lang` (`lang="vi"` trên mọi container → tiếng Việt đầy đủ).
+Đặt Theme (`data-theme`), Element (`data-cs-element` + `data-cs-variant`), và Language (`lang` / Language tweak trên template) trên một container; mọi thứ bên trong re-skin không cần đổi code (xem `templates/playground.html`). Mặc định: `light · tho · en`. Pack Style là liquid-glass (sole pack; vắng ≡ mặc định). Bilingual: component resolve chuỗi từ `lang` (`lang="vi"` trên mọi container → tiếng Việt đầy đủ).
 
 ## Nâng cấp
 
@@ -104,7 +104,7 @@ Consumer bỏ qua `styles.css` để tự kiểm soát font loading (`cyberskill
 
 ## Host Storybook (tùy chọn)
 
-Site live phục vụ Storybook tại `/` như **bề mặt sản phẩm** cho operator (Theme × Element × Language + ma trận điều khiển). Đó là **tooling chỉ-host** — đừng phụ thuộc Storybook trong product app. Atomic View portable vẫn ở `guidelines/atomic-view.html`. Xem `docs/storybook.md` và `docs/live-hub.md`.
+Site live phục vụ Storybook tại `/` như **bề mặt sản phẩm** cho operator (Theme × Element × Language × Style + ma trận điều khiển). Đó là **tooling chỉ-host** — đừng phụ thuộc Storybook trong product app. Atomic View portable vẫn ở `guidelines/atomic-view.html`. Xem `docs/storybook.md` và `docs/live-hub.md`.
 
 ## Spike consumer năm phút
 

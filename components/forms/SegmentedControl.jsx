@@ -19,7 +19,7 @@ export function SegmentedControl({ options = [], value, onChange, className, ...
   return (
     <div role="tablist" className={cx("cs-segmented", className)} {...props}>
       {options.map((o, i) => (
-        <button key={o.value} type="button" role="tab" aria-selected={value === o.value} aria-pressed={value === o.value}
+        <button key={o.value} type="button" role="tab" aria-selected={value === o.value}
           tabIndex={i === idx ? 0 : -1} ref={(el) => (refs.current[i] = el)} onKeyDown={(e) => key(e, i)}
           onClick={() => onChange && onChange(o.value)}>
           {o.icon ? <span aria-hidden="true">{o.icon}</span> : null}

@@ -1,4 +1,5 @@
 import { ProgressBar } from '../components/feedback/ProgressBar.jsx';
+import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
 const VARIANTS = ['ochre', 'umber', 'success'];
 
@@ -45,4 +46,29 @@ export const Matrix = {
       <ProgressBar {...args} value={80} label="80%" />
     </div>
   ),
+};
+
+/** Exhaustive discrete-axis product (FullMatrix contract ≥1 axis). */
+export const FullMatrix = {
+  name: 'Full matrix / variant',
+  render: (args) => {
+    const cells = cartesian({ variant: ["ochre","umber","success"] }).flatMap((combo) =>
+      stateCombos([]).map((state) => {
+        const props = { ...combo, ...state };
+        const label = comboLabel(props, ['variant']);
+        return (
+          <ProgressBar
+            key={label}
+            {...args}
+            variant={combo.variant}
+          />
+        );
+      }),
+    );
+    return (
+      <MatrixGrid gap={10} minWidth={140}>
+        {cells}
+      </MatrixGrid>
+    );
+  },
 };

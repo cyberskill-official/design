@@ -24,7 +24,7 @@ Giữ plan Figma hiện tại. Variables REST API chỉ Enterprise — job ghi *
 
 **Lựa chọn owner: Storybook là live hub duy nhất** (Th7 2026)
 
-- Operator dùng Storybook tại `/` cho Theme × Element × Language và ma trận điều khiển component.
+- Operator dùng Storybook tại `/` cho Theme × Element × Language × Style và ma trận điều khiển component.
 - Không có trang Live View riêng trong tree.
 - Legacy `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` redirect về `/`.
 - Atomic View portable và HTML tĩnh khác vẫn phục vụ gate zero-build và consumer; chúng không phải entry sản phẩm của site.
@@ -104,9 +104,11 @@ Theo dõi vận hành — không phải marketing sản phẩm, không phải ba
 
 6. **Shadcn gap / Wave 2** (Th7 2026) — CyberSkill đã phủ ~53/62 primitive shadcn dưới dạng CS-native (forms / overlays / nav / data). Đã ship: pilot `ScrollArea`, `Collapsible`, `AspectRatio`; Wave 2 `AlertDialog` (vs Popconfirm), `Item` row primitive, `NativeSelect`. Phần còn lại của shadcn là non-port có chủ đích (block, Tailwind, Radix CLI). **Không** port những thứ đó — map pattern sang `templates/` + `ui_kits/` hiện có.
 
-7. **Hình học màu Element** (Th7 2026) — Pack Element generate từ `tokens/element-seeds.json` (`npm run tokens:elements`): thang soft / middle / deep, Thổ middle ghim ochre logo, khóa hue light↔dark, sàn APCA dark. Tên variant công khai không đổi. Hard gate: `_audit/element-geometry.html`. Rubric benchmark: `docs/benchmark-rubric.md`. Pack `data-cs-style` tương lai theo checklist mở rộng style ở đó — không invent trục sản phẩm thứ tư tùy tiện.
+7. **Hình học màu Element** (Th7 2026) — Pack Element generate từ `tokens/element-seeds.json` (`npm run tokens:elements`): thang soft / middle / deep, Thổ middle ghim ochre logo, khóa hue light↔dark, sàn APCA dark. Tên variant công khai không đổi. Hard gate: `_audit/element-geometry.html`. Rubric benchmark: `docs/benchmark-rubric.md`.
 
-Schema sidecar và Storybook `FullMatrix` tiếp tục lớn **theo cơ hội** khi primary đã đủ điều kiện (hiện chỉ Button có FullMatrix theo contract) — không phải đợt mass-add. Xem `docs/quality-gates.md`.
+8. **Trục Style (`data-cs-style`)** (Th7 2026) — Trục sản phẩm thứ tư với sole pack **liquid-glass** (vắng ≡ liquid-glass; không đổi visual so với treatment cố định trước). Hợp đồng: `tokens/styles.css` + hard gate `_audit/style-contract.html`. Storybook toolbar + playground lộ pack; Identity Lab ghi chú sole pack (chưa có style pill đến khi có pack thứ hai). Pack Style tiếp theo theo checklist Expansion Rule trong `docs/benchmark-rubric.md` — không invent pack tùy tiện.
+
+Storybook `FullMatrix` bắt buộc khi public primary có ≥1 trong {size enums, variant enums, state keys} (sàn contract ≥28 story). Schema sidecar đã đủ cho template content-hole; template chỉ-axis bỏ qua theo thiết kế. Xem `docs/quality-gates.md` và `docs/storybook.md`.
 
 ## Cách đổi một quyết định
 

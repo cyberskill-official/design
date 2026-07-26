@@ -24,8 +24,9 @@
   <div class="grp" id="theme"><span class="k">Theme</span></div>
   <div class="grp" id="element"><span class="k">Element</span></div>
   <div class="grp" id="language"><span class="k">Language</span></div>
+  <div class="grp" id="style"><span class="k">Style</span></div>
 </div>
-<div class="stage"><div class="gal" id="stage" data-theme="" data-cs-element="tho" data-cs-variant="" lang="en">
+<div class="stage"><div class="gal" id="stage" data-theme="" data-cs-element="tho" data-cs-variant="" data-cs-style="liquid-glass" lang="en">
   <div class="row"><span class="lbl">Accent swatches (live)</span>
     <div class="swatches">
       <div class="sw" style="background:var(--cs-accent)"></div>
@@ -49,14 +50,15 @@
     <div class="panel" style="flex:1;min-width:220px"><div style="font-weight:700;margin-bottom:6px">Wish card</div><div class="cs-progress" style="margin:6px 0"><div class="cs-progress__fill" style="inline-size:64%"></div></div><span class="cs-badge cs-badge--success"><span class="cs-badge__dot"></span>On track</span></div>
   </div>
   <div class="cs-tabs"><button class="cs-tab" aria-selected="true">Overview</button><button class="cs-tab">Projects</button><button class="cs-tab">Team</button></div>
-  <div class="cs-alert cs-alert--info"><div class="cs-alert__icon">ⓘ</div><div><p class="cs-alert__title">Theme × Element × Language are independent</p><p class="cs-alert__body">Switch any axis above — the same markup re-skins with zero code changes.</p></div></div>
+  <div class="cs-alert cs-alert--info"><div class="cs-alert__icon">ⓘ</div><div><p class="cs-alert__title">Theme × Element × Language × Style are independent</p><p class="cs-alert__body">Switch any axis above — the same markup re-skins with zero code changes.</p></div></div>
 </div></div>
 <script>
 const stage=document.getElementById('stage');
 const AX={
   theme:[["Light",""],["Dark","dark"]],
   element:[["Thổ","tho|"],["Thổ·clay","tho|clay"],["Thổ·sand","tho|sand"],["Hỏa","hoa|"],["Hỏa·lava","hoa|lava"],["Hỏa·plasma","hoa|plasma"],["Thủy","thuy|"],["Thủy·ocean","thuy|ocean"],["Thủy·mist","thuy|mist"],["Mộc","moc|"],["Mộc·bamboo","moc|bamboo"],["Mộc·forest","moc|forest"],["Kim","kim|"],["Kim·steel","kim|steel"],["Kim·titanium","kim|titanium"]],
-  language:[["English","en"],["Tiếng Việt","vi"]]};
+  language:[["English","en"],["Tiếng Việt","vi"]],
+  style:[["Liquid glass","liquid-glass"]]};
 function build(axis, apply){
   const box=document.getElementById(axis);
   AX[axis].forEach(([label,val],i)=>{
@@ -69,10 +71,12 @@ function build(axis, apply){
 build('theme', v=>{ if(v) stage.setAttribute('data-theme',v); else stage.removeAttribute('data-theme'); });
 build('element', v=>{ const [el,va]=v.split('|'); stage.setAttribute('data-cs-element',el); stage.setAttribute('data-cs-variant',va||''); });
 build('language', v=>{ stage.setAttribute('lang',v||'en'); document.documentElement.setAttribute('lang',v||'en'); });
+build('style', v=>{ if(v) stage.setAttribute('data-cs-style',v); else stage.removeAttribute('data-cs-style'); });
 window.addEventListener('message',function(ev){
   const d=ev.data||{}; if(d.type!=='__cs_axes') return;
   if(d.theme!==undefined){ if(d.theme) stage.setAttribute('data-theme',d.theme); else stage.removeAttribute('data-theme'); }
   if(d.element!==undefined){ if(d.element) stage.setAttribute('data-cs-element',d.element); else stage.removeAttribute('data-cs-element'); if(d.variant) stage.setAttribute('data-cs-variant',d.variant); else stage.removeAttribute('data-cs-variant'); }
+  if(d.style!==undefined){ if(d.style) stage.setAttribute('data-cs-style',d.style); else stage.removeAttribute('data-cs-style'); }
   if(d.lang){ stage.setAttribute('lang',d.lang); document.documentElement.setAttribute('lang',d.lang); }
 });
 </script>

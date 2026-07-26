@@ -1,4 +1,4 @@
-<!-- @dsCard group="Status Hub" viewport="1280x800" name="Identity Lab" subtitle="Live Theme × Element × Language on a product surface — click any pill" -->
+<!-- @dsCard group="Status Hub" viewport="1280x800" name="Identity Lab" subtitle="Live Theme × Element × Language × Style on a product surface — click any pill" -->
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CyberSkill · Identity Lab</title>
@@ -39,6 +39,11 @@ a{color:var(--cs-color-link)}a:hover{color:var(--cs-color-link-hover)}
   <span class="pills" id="themes">
     <button class="pill on" data-theme="">light</button>
     <button class="pill" data-theme="dark">dark</button>
+    <button class="pill" data-theme="system">system</button>
+  </span>
+  <span class="lb">Style</span>
+  <span class="pills" id="styles">
+    <button class="pill on" data-style="liquid-glass">liquid-glass</button>
   </span>
   <span class="lb">Language</span>
   <span class="pills" id="langs">
@@ -46,14 +51,14 @@ a{color:var(--cs-color-link)}a:hover{color:var(--cs-color-link-hover)}
     <button class="pill" data-lang="vi">Tiếng Việt</button>
   </span>
 </div>
-<div id="stage" style="max-width:1180px;margin:26px auto;padding:0 24px" lang="en">
+<div id="stage" style="max-width:1180px;margin:26px auto;padding:0 24px" lang="en" data-cs-style="liquid-glass">
   <div style="position:relative;overflow:hidden;background:var(--cs-accent-strong);color:#fff;border-radius:var(--cs-radius-lg);box-shadow:var(--cs-shadow-md)">
     <div class="cs-aurora-wash" style="position:absolute;inset:0;opacity:0.5;pointer-events:none"></div>
     <div style="position:relative;display:flex;align-items:center;gap:14px;padding:20px 26px">
       <span style="width:40px;height:40px;border-radius:var(--cs-radius-md);background:var(--cs-accent-bright);display:grid;place-items:center;color:var(--cs-accent-on);font-weight:800">✦</span>
       <div>
         <div style="font-weight:800;font-size:19px;letter-spacing:-0.01em" data-i18n="title">Status Hub</div>
-        <div style="font-size:12px;opacity:0.8" data-i18n="subtitle">Identity Lab · Theme × Element × Language</div>
+        <div style="font-size:12px;opacity:0.8" data-i18n="subtitle">Identity Lab · Theme × Element × Language × Style</div>
       </div>
       <span style="margin-left:auto;display:inline-flex;align-items:center;background:var(--cs-accent-bright);color:var(--cs-accent-on);font-weight:700;font-size:13.5px;padding:0 18px;border-radius:var(--cs-component-button-radius);min-height:var(--cs-component-button-md-minHeight)" data-i18n="cta">New project</span>
     </div>
@@ -86,8 +91,8 @@ a{color:var(--cs-color-link)}a:hover{color:var(--cs-color-link-hover)}
 (function(){
   var stage=document.getElementById('stage');
   var I18N={
-    en:{title:'Status Hub',subtitle:'Identity Lab · Theme × Element × Language',cta:'New project',k1:'Projects',k2:'In progress',k3:'Shipped',k4:'Avg progress',cardTitle:'Checkout rebuild',cardBody:'Staging cutover on track for the milestone.',badge:'In progress',wishTitle:'Make a wish',wishPh:'A faster checkout, an app, a tool…',wishCta:'Make a wish',how:'How it works',focus:'Focus rings stay Ochre in every identity — try tabbing the pills above.'},
-    vi:{title:'Status Hub',subtitle:'Phòng lab nhận diện · Theme × Element × Language',cta:'Dự án mới',k1:'Dự án',k2:'Đang làm',k3:'Đã giao',k4:'Tiến độ TB',cardTitle:'Tái dựng checkout',cardBody:'Chuyển staging đúng milestone.',badge:'Đang làm',wishTitle:'Ước một điều',wishPh:'Checkout nhanh hơn, một app, một công cụ…',wishCta:'Ước ngay',how:'Cách hoạt động',focus:'Vòng focus luôn Ochre ở mọi nhận diện — thử Tab trên các pill phía trên.'}
+    en:{title:'Status Hub',subtitle:'Identity Lab · Theme × Element × Language × Style (liquid-glass)',cta:'New project',k1:'Projects',k2:'In progress',k3:'Shipped',k4:'Avg progress',cardTitle:'Checkout rebuild',cardBody:'Staging cutover on track for the milestone.',badge:'In progress',wishTitle:'Make a wish',wishPh:'A faster checkout, an app, a tool…',wishCta:'Make a wish',how:'How it works',focus:'Focus rings stay Ochre in every identity — try tabbing the pills above. Theme system follows the OS.'},
+    vi:{title:'Status Hub',subtitle:'Phòng lab nhận diện · Theme × Element × Language × Style (liquid-glass)',cta:'Dự án mới',k1:'Dự án',k2:'Đang làm',k3:'Đã giao',k4:'Tiến độ TB',cardTitle:'Tái dựng checkout',cardBody:'Chuyển staging đúng milestone.',badge:'Đang làm',wishTitle:'Ước một điều',wishPh:'Checkout nhanh hơn, một app, một công cụ…',wishCta:'Ước ngay',how:'Cách hoạt động',focus:'Vòng focus luôn Ochre ở mọi nhận diện — thử Tab trên các pill phía trên. Theme system theo OS.'}
   };
   function applyLang(lang){
     var pack=I18N[lang]||I18N.en;
@@ -113,6 +118,10 @@ a{color:var(--cs-color-link)}a:hover{color:var(--cs-color-link-hover)}
     if(b.dataset.theme){stage.setAttribute('data-theme',b.dataset.theme);document.documentElement.setAttribute('data-theme',b.dataset.theme);}
     else{stage.removeAttribute('data-theme');document.documentElement.removeAttribute('data-theme');}
   });
+  wire('styles',function(b){
+    if(b.dataset.style){stage.setAttribute('data-cs-style',b.dataset.style);document.documentElement.setAttribute('data-cs-style',b.dataset.style);}
+    else{stage.removeAttribute('data-cs-style');document.documentElement.removeAttribute('data-cs-style');}
+  });
   wire('langs',function(b){ applyLang(b.dataset.lang||'en'); });
   // Parent frame (e.g. Storybook Live iframe host) can postMessage axes
   window.addEventListener('message',function(ev){
@@ -125,6 +134,11 @@ a{color:var(--cs-color-link)}a:hover{color:var(--cs-color-link-hover)}
     if(d.element!==undefined){
       if(d.element) stage.setAttribute('data-cs-element',d.element); else stage.removeAttribute('data-cs-element');
       if(d.variant) stage.setAttribute('data-cs-variant',d.variant); else stage.removeAttribute('data-cs-variant');
+    }
+    if(d.style!==undefined){
+      if(d.style){stage.setAttribute('data-cs-style',d.style);document.documentElement.setAttribute('data-cs-style',d.style);}
+      else{stage.removeAttribute('data-cs-style');document.documentElement.removeAttribute('data-cs-style');}
+      document.querySelectorAll('#styles .pill').forEach(function(p){p.classList.toggle('on',(p.dataset.style||'')===(d.style||'liquid-glass'));});
     }
     if(d.lang) applyLang(d.lang);
   });

@@ -10,7 +10,7 @@ How to extend the system without breaking its guarantees. The operative rules li
 
 - **Accessibility floor** — never remove the 3px Ochre `:focus-visible` ring; ≥44px touch targets on coarse pointers; body text APCA Lc ≥ 75; honour `prefers-reduced-motion`/`prefers-contrast`. All in `base/a11y.css` — don't regress it.
 
-- **Grammar** — Theme × Element × Language are independent axes. Surface treatment is liquid-glass (fixed).
+- **Grammar** — Theme × Element × Language × Style are independent axes. Style pack is liquid-glass (sole pack; absent ≡ default).
 
 - **Voice** — warm / direct / honest / respectful. Products are "wishes" Lumi helps grant. Lumi stays golden in every element.
 

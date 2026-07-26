@@ -6,7 +6,7 @@
 
 ## Start here
 
-This is the **entrance document** for the CyberSkill Design System — pinned **v1.0.0** (see `VERSION`). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves three independent axes — **Theme** (light · dark) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI). Surface treatment is liquid-glass (fixed).
+This is the **entrance document** for the CyberSkill Design System — pinned **v1.0.0** (see `VERSION`). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves four independent axes — **Theme** (light · dark) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI). Style pack is liquid-glass (sole pack; absent ≡ default).
 
 **Quick start by audience**
 - **Designers** — open Storybook (Foundations / Components / Maintainer surfaces) and the Templates picker (84 starting points, including the 37-document lawyer-validated Employment Suite); the Identity Lab (`ui_kits/status-hub/identity-lab.html`) lets you flip axes live.
@@ -26,9 +26,9 @@ This is the **entrance document** for the CyberSkill Design System — pinned **
 | `SKILL.md` | Agent entry — hard rules + fast orientation |
 | `docs/consuming.md` | Adopting & upgrading — Claude Code vs Stitch dual path, npm package name, axes, upgrade + extend |
 | `docs/consumer-grant.md` | Written npm consumer grant (CyberSkill portfolio; UNLICENSED + named products) |
-| `docs/conventions.md` | How to extend the system (naming grammar, checklists, the three axes) |
+| `docs/conventions.md` | How to extend the system (naming grammar, checklists, the four axes) |
 | `docs/release-notes.md` | Curated product highlights (not a changelog) |
-| `docs/design-styles.md` | The live styling axes (Theme × Element × Language) and the fixed liquid-glass treatment |
+| `docs/design-styles.md` | The live styling axes (Theme × Element × Language × Style) and the fixed liquid-glass treatment |
 | `docs/products.md` | Product → element registry (**locked** — do not invent assignments) |
 | `docs/contrast-report.md` | Generated APCA elemental sweep — 0 failures at its Lc ≥ 60 UI-label floor. Body text authors to the stricter Lc ≥ 75 floor (see Anchor immutables); the sweep's Lc ≥ 60 rows are accent/label pairings, not body text. |
 | `docs/template-schema-v2.md` | Typed content-slot spec for templates — opt-in, machine-checkable |
@@ -117,7 +117,7 @@ Related CyberSkill repos (not in this tree — explore for product/marketing fid
 
 **Elemental product identity — Ngũ Hành.** The studio itself is **Thổ/Earth** (Umber + Ochre — the traditional earth-yellow); each CyberSkill *product* may take one element — **Kim** (metal) · **Mộc** (wood) · **Thủy** (water) · **Hỏa** (fire) · **Thổ** (earth) — via `data-cs-element` (+ `data-cs-variant`, e.g. Hỏa: ember · lava · plasma). Each pack sets the nine **`--cs-accent-*`** role tokens (accent / strong / bright / on / tint / ink / glow / grad-a / grad-b) defined in `tokens/elements.css`; inside the scope the element fully takes Ochre's accent roles. Never elemental: semantic statuses, and the **3px Ochre focus ring** — the studio's accessibility signature on every product. Mixing follows the cycles: a secondary element may appear only as a gradient endpoint along **Tương sinh** (Mộc→Hỏa→Thổ→Kim→Thủy→Mộc); **Tương khắc** pairs never mix. Product→element mapping lives in `docs/products.md`. **Every template carries the Element tweak** — anything that should follow the product's element must consume `--cs-accent-*`, never raw hex. **Lumi stays golden in every element** — the genie is the studio's constant; only the environment re-tints.
 
-**Surface treatment.** Liquid-glass is fixed. Surfaces resolve **Theme × Element × Language** independently.
+**Surface treatment.** Liquid-glass is fixed. Surfaces resolve **Theme × Element × Language × Style** independently.
 
 
 
@@ -156,7 +156,7 @@ Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official mas
 
 - **Brand** — `Logo` (+ the `CS_LOGO_MARK_INNER` / `CS_LOGO_VIEWBOX` data consts), `Icon` (+ the `CS_ICONS` data const), `LumiAvatar`
 
-**Atomic tiers** — the same 121 exports seen through the design-composition lens (browsable live in `guidelines/atomic-view.html`, where one toolbar reskins every tier across Theme × Element × Language). The eight groups above are the *functional/import* grouping (how the bundle is organized); these tiers are the *composition* grouping — same components, two lenses.
+**Atomic tiers** — the same 121 exports seen through the design-composition lens (browsable live in `guidelines/atomic-view.html`, where one toolbar reskins every tier across Theme × Element × Language × Style). The eight groups above are the *functional/import* grouping (how the bundle is organized); these tiers are the *composition* grouping — same components, two lenses.
 
 - **Atoms** (indivisible primitives) — `Button`, `Icon`, `Badge`, `Tag`, `StatusIndicator`, `Spinner`, `ProgressBar`, `Skeleton`, `Avatar` (+ `AvatarGroup`), `Divider`, `AspectRatio`, `Item`, `Kbd`, `Logo`, `LumiAvatar`, `Toggle`, `Link`
 
@@ -268,7 +268,7 @@ Every template resolves to one of six archetypes, framed by `templates/doc-templ
 | **A4 bilingual instrument** | State-motto header · Articles · Party A/B tables · signing block; Style-Guide 1–10 in full | the 37 `vn-*` HR-suite instruments |
 | **Letter print doc** | Letter, 0.6in margins, desk + sheet, clean Print/PDF | `finance-invoice` · `finance-quote` · `finance-expense-report` · `legal-msa` · `legal-sow` · `sales-one-pager` · `bod-*` docs |
 | **Email (600px)** | Centred body, system header/CTA, no motto/signing; bilingual via Language tweak | `email` · `hr-announcement` · `marketing-newsletter` · `tech-release-notes` · `delivery-status-email` · `finance-dunning-email` |
-| **Product screen** | Components + tokens; Theme × Element × Language; no print geometry | `marketing-page` · `dashboard` · `app-shell` · `auth` · `settings` · `article` |
+| **Product screen** | Components + tokens; Theme × Element × Language × Style; no print geometry | `marketing-page` · `dashboard` · `app-shell` · `auth` · `settings` · `article` |
 | **Deck (16:9)** | Stacked 16:9 slides, umber cover, element accent, bilingual via Language tweak, PDF/PPTX | `slide-deck` · `bod-deck` · `sales-proposal-deck` · `delivery-qbr-deck` |
 | **Social image** | Fixed per-channel size (1080² · 1200×630 · 1080×1920) | `marketing-social-kit` |
 
@@ -299,7 +299,7 @@ thumbnail.html             project tile
 SKILL.md                   Agent-Skills-compatible entry
 ```
 
-**UI kits** (product recreations, composing the tokens + `.cs-*` classes): **Status Hub** (portfolio dashboard — KPIs, board/table/releases lenses, drawer — plus **sign-in**, **settings**, **project detail**, and the **Identity Lab** for live Theme × Element × Language switching), **cyberskill.world** (bilingual marketing home with Lumi chat — plus **Work**, **Careers**, and a full-page **Lumi assistant**), and a **Brand deck** (16:9, `deck-stage`, PDF/PPTX-ready). See each kit's `README.md`.
+**UI kits** (product recreations, composing the tokens + `.cs-*` classes): **Status Hub** (portfolio dashboard — KPIs, board/table/releases lenses, drawer — plus **sign-in**, **settings**, **project detail**, and the **Identity Lab** for live Theme × Element × Language × Style switching), **cyberskill.world** (bilingual marketing home with Lumi chat — plus **Work**, **Careers**, and a full-page **Lumi assistant**), and a **Brand deck** (16:9, `deck-stage`, PDF/PPTX-ready). See each kit's `README.md`.
 
 **Storybook** renders every card: Components (121 exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), plus Maintainer surfaces for Status Hub (incl. Identity Lab), Website, and Deck.
 

@@ -22,7 +22,7 @@ export default {
       },
     },
   },
-  args: { steps: [{ title: 'Welcome', content: 'Host Live hub.' }, { title: 'Axes', content: 'Theme × Element × Language.' }], open: true },
+  args: { steps: [{ title: 'Welcome', content: 'Host Live hub.' }, { title: 'Axes', content: 'Theme × Element × Language × Style.' }], open: true },
 };
 
 export const Default = {};

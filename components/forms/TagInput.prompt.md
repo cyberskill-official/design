@@ -1,5 +1,5 @@
-**TagInput** — multi-value tokens (Enter/comma adds · Backspace removes · blur commits). Bilingual placeholder + remove labels via the registry.
+**TagInput** — multi-value tokens (Enter/comma adds · Backspace removes · blur commits). Pass `label` for a visible field name; bilingual placeholder + remove labels via the registry.
 
 ```jsx
-<TagInput defaultValue={["Web apps","Bilingual"]} onChange={setTags} max={8}/>
+<TagInput label="Tags" defaultValue={["Web apps","Bilingual"]} onChange={setTags} max={8}/>
 ```

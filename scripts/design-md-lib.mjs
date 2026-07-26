@@ -107,7 +107,7 @@ export function buildDesignMd({ dtcg, manifest, version }) {
   L.push("");
   L.push("- **Slogan:** *Turn Your Will Into Real — Hiện Thực Hoá Ý Chí*.");
   L.push("- **Immutable anchors:** Umber `#45210E` (primary brand) · Ochre `#F4BA17` (accent). Never remap; the 3px ochre focus ring is a studio-wide accessibility signature.");
-  L.push("- **Three axes:** Theme (light · dark) × Element (Ngũ Hành — Kim · Mộc · Thủy · Hỏa · Thổ, 15 element×variant packs) × Language (EN · VI). Surface treatment is liquid-glass (fixed).");
+  L.push("- **Three axes:** Theme (light · dark) × Element (Ngũ Hành — Kim · Mộc · Thủy · Hỏa · Thổ, 15 element×variant packs) × Language (EN · VI). Style pack is liquid-glass (sole pack; absent ≡ default).");
   L.push("- **Bilingual EN·VN rule:** Vietnamese-first — every UI string ships an EN + VN pair, diacritics preserved.");
   L.push("- **Text never sits on the mid-tone `-accent`:** text goes on `-bright` or `-tint` only; `-accent` is for bars, borders, progress fills, and large non-text fills.");
   L.push("- **Accessibility floor:** APCA Lc ≥ 75 body text · ≥ 44px touch targets · focus rings never removed · honour `prefers-reduced-motion` / `prefers-contrast`.");

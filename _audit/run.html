@@ -64,7 +64,7 @@
 <script>
 const GATES=[
   {name:'Contrast guard',file:'contrast-guard.html',sub:'dark lint + token WCAG matrix · hard',get:w=>w.__contrastguard},
-  {name:'Three-axes guard',file:'axis-guard.html',sub:'no Expression/Density product surface reintroduced · hard',get:w=>w.__axisguard},
+  {name:'Axes guard',file:'axis-guard.html',sub:'no Expression/Density product surface reintroduced · hard',get:w=>w.__axisguard},
   {name:'Manifest CSS paths',file:'manifest-css-guard.html',sub:'globalCssPaths exist + match styles.css imports · hard',get:w=>w.__cssguard},
   {name:'Docs consistency',file:'docs-consistency.html',sub:'counts + VERSION pin + no CHANGELOG.md + DESIGN.md stamp + Claude/Stitch routing · hard',get:w=>w.__docs},
   {name:'Docs language parity',file:'docs-lang-parity.html',sub:'every docs/*.md has docs/vi/ counterpart · hard',get:w=>w.__docslangparity},
@@ -91,9 +91,10 @@ const GATES=[
   {name:'Template language parity',file:'template-lang-parity.html',sub:'en/vi hole-map keys + sc-if pairing + EN-leak lexicon · hard',get:w=>w.__langparity},
   {name:'APCA dark packs',file:'apca-dark-preview.html',sub:'15 dark elemental packs hold APCA targets · hard',get:w=>{const v=w.__apcaPreview;return v?{pass:v.currentFail===0,v}:null;}},
   {name:'Element geometry',file:'element-geometry.html',sub:'soft/middle/deep sync · distinctness · light↔dark hue lock · hard',get:w=>w.__elementgeometry},
+  {name:'Style contract',file:'style-contract.html',sub:'data-cs-style allowlist · liquid-glass sole pack · hard',get:w=>w.__stylecontract},
   {name:'Visual baselines',file:'visual-diff.html',sub:'baseline freshness — advisory (drift judged by eye)',advisory:true,get:w=>w.__visualdiff},
   {name:'Component baselines',file:'component-visual-diff.html',sub:'12 curated component crops — advisory (drift judged by eye)',advisory:true,get:w=>w.__componentVisualDiff},
-  {name:'Axe smoke',file:'axe-smoke.html',sub:'axe-core serious/critical on 40-component cross-group cluster, hierarchy popups expanded · hard',get:w=>w.__axesmoke},
+  {name:'Axe smoke',file:'axe-smoke.html',sub:'axe-core serious/critical on every public primary (inventory-locked), surfaces expanded · hard',get:w=>w.__axesmoke},
   {name:'Print smoke',file:'print-smoke.html',sub:'document templates declare print ownership / @page · hard',get:w=>w.__printsmoke},
   {name:'Pixel CI',file:'pixel-ci.html',sub:'Playwright % diff vs baselines — hard (drift fails board)',get:w=>w.__pixelci},
 ];

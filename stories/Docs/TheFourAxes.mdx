@@ -1,24 +1,25 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Docs/The Three Axes" />
+<Meta title="Docs/The Four Axes" />
 
-# The Three Axes
+# The Four Axes
 
-Every surface resolves three **independent** axes — the same three switches in this Storybook's toolbar (**Theme** · **Element** with all **15** packs · **Language**):
+Every surface resolves four **independent** axes — the same switches in this Storybook's toolbar (**Theme** · **Element** with all **15** packs · **Language** · **Style**):
 
 1. **Theme** — `data-theme` — light (default) · dark
 2. **Element** — `data-cs-element` (+ optional `data-cs-variant`) — Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, **15 packs** in the Element toolbar (same set as **Foundations/Elements**, Identity Lab, and template EL maps)
 3. **Language** — `lang` — `en` · `vi` (see **I18n**)
+4. **Style** — `data-cs-style` — sole pack today: `liquid-glass` (absent ≡ liquid-glass)
 
 State them on a container; everything inside re-skins with no code change:
 
 ```html
-<body data-theme="dark" data-cs-element="thuy" data-cs-variant="ocean" lang="vi">
-  <!-- every component and template inside resolves all three axes -->
+<body data-theme="dark" data-cs-element="thuy" data-cs-variant="ocean" data-cs-style="liquid-glass" lang="vi">
+  <!-- every component and template inside resolves all four axes -->
 </body>
 ```
 
-Defaults: `light · tho · en`. Surface treatment is liquid-glass — fixed, not an axis.
+Defaults: `light · tho · en · liquid-glass`.
 
 ## Do
 
@@ -27,6 +28,7 @@ Defaults: `light · tho · en`. Surface treatment is liquid-glass — fixed, not
 - Ship every UI string through the EN·VN registry
 - Test combinations that matter — axes multiply independently
 - Keep dark-theme overrides in token space
+- Keep Style packs on the allowlist (`_audit/style-contract.html`)
 
 ## Don't
 
@@ -35,3 +37,4 @@ Defaults: `light · tho · en`. Surface treatment is liquid-glass — fixed, not
 - Don't remap semantic status colours or the 3px Ochre focus ring per element
 - Don't mix two element accents as primary + secondary (gradient wash along Tương sinh only)
 - Don't inline one-language strings in components
+- Don't invent a second Style pack without the Expansion Rule checklist

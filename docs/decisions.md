@@ -24,7 +24,7 @@ Stay on the current Figma plan. Variables REST API is Enterprise-only — write 
 
 **Owner choice: Storybook is the single live hub** (Jul 2026)
 
-- Operators use Storybook at `/` for Theme × Element × Language and component control matrices.
+- Operators use Storybook at `/` for Theme × Element × Language × Style and component control matrices.
 - No separate Live View page exists in the tree.
 - Legacy `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` redirect to `/`.
 - Portable Atomic View and other static HTML remain for zero-build gates and consumers; they are not the site product entry.
@@ -104,9 +104,11 @@ Operational follow-ups — not product marketing, not a backlog surface:
 
 6. **Shadcn gap / Wave 2** (Jul 2026) — CyberSkill already covers ~53 of shadcn’s 62 primitives as CS-native (forms / overlays / nav / data). Shipped: pilot `ScrollArea`, `Collapsible`, `AspectRatio`; Wave 2 `AlertDialog` (vs Popconfirm), `Item` row primitive, `NativeSelect`. Residual shadcn gaps are intentional non-ports (blocks, Tailwind, Radix CLI). Do **not** port those — map patterns to existing `templates/` + `ui_kits/`.
 
-7. **Element colour geometry** (Jul 2026) — Element packs are generated from `tokens/element-seeds.json` (`npm run tokens:elements`): soft / middle / deep intensity ladder, Thổ middle pinned to logo ochre, light↔dark hue lock, APCA dark floors. Public variant names unchanged. Hard gate: `_audit/element-geometry.html`. Benchmark rubric: `docs/benchmark-rubric.md`. Future `data-cs-style` packs follow the style-expansion checklist there — do not invent a fourth product axis casually.
+7. **Element colour geometry** (Jul 2026) — Element packs are generated from `tokens/element-seeds.json` (`npm run tokens:elements`): soft / middle / deep intensity ladder, Thổ middle pinned to logo ochre, light↔dark hue lock, APCA dark floors. Public variant names unchanged. Hard gate: `_audit/element-geometry.html`. Benchmark rubric: `docs/benchmark-rubric.md`.
 
-Schema sidecars and Storybook `FullMatrix` continue to grow **opportunistically** when a primary already qualifies (today only Button has FullMatrix under the contract) — not as a mass-add pass. See `docs/quality-gates.md`.
+8. **Style axis (`data-cs-style`)** (Jul 2026) — Fourth product axis with sole pack **liquid-glass** (absent ≡ liquid-glass; no visual change vs prior fixed treatment). Contract: `tokens/styles.css` + hard gate `_audit/style-contract.html`. Storybook toolbar + playground expose the pack; Identity Lab copy notes the sole pack (no style pill until a second pack). Further Style packs follow the Expansion Rule checklist in `docs/benchmark-rubric.md` — do not invent packs casually.
+
+Storybook `FullMatrix` is required whenever a public primary has ≥1 of {size enums, variant enums, state keys} (contract floor ≥28 stories). Schema sidecars remain complete for content-hole templates; axis-only templates omit by design. See `docs/quality-gates.md` and `docs/storybook.md`.
 
 ## How to change a decision
 

@@ -6,7 +6,7 @@
  * - CSF bar: AllSizes when argTypes.size exists; States (or Matrix subsection) for
  *   disabled/loading/error/busy when those argTypes exist
  * - Exhaustive enum coverage: every discrete size/variant option must appear in a
- *   matrix-family story; when ≥2 of {size enums, variant enums, state keys} exist,
+ *   matrix-family story; when ≥1 of {size enums, variant enums, state keys} exist,
  *   FullMatrix must mount the size × variant × key-state product
  */
 import { readFileSync, existsSync } from 'node:fs';
@@ -37,6 +37,12 @@ const preview = readFileSync(join(root, '.storybook/preview.jsx'), 'utf8');
 assert(preview.includes('styles.css'), 'imports styles.css');
 assert(preview.includes('data-theme') && preview.includes('data-cs-element') && preview.includes('lang'), 'axes globals');
 assert(preview.includes('data-cs-variant'), 'decorator wires data-cs-variant');
+assert(preview.includes('data-cs-style'), 'decorator wires data-cs-style');
+assert(/style:\s*\{/.test(preview) && preview.includes("value: 'liquid-glass'"), 'Style toolbar includes liquid-glass');
+const styleToolbarBlock = preview.match(/style:\s*\{[\s\S]*?toolbar:\s*\{[\s\S]*?items:\s*\[([\s\S]*?)\]/);
+assert(styleToolbarBlock, 'Style toolbar items array present');
+const styleToolbarValueCount = (styleToolbarBlock[1].match(/value:\s*['"][^'"]+['"]/g) || []).length;
+assert(styleToolbarValueCount === 1, `Style toolbar has exactly 1 pack, got ${styleToolbarValueCount}`);
 
 /** Canonical 15 packs — same order/keys as Identity Lab, atomic-view, tokens.elements, template EL maps. */
 const ELEMENT_TOOLBAR_PACKS = [
@@ -362,15 +368,15 @@ for (const m of modules) {
     }
   }
 
-  // Multi-axis FullMatrix: size enums × variant enums × key-states when ≥2 axes present
+  // FullMatrix: size enums × variant enums × key-states when ≥1 axis present
   const statePresent = STATE_KEYS.filter((k) => hasArgTypeKey(text, k));
   const axisFlags = [
     sizeOpts && sizeOpts.length && !isNumericOptions(sizeOpts),
     variantOpts && variantOpts.length > 0,
     statePresent.length > 0,
   ].filter(Boolean);
-  if (axisFlags.length >= 2) {
-    assert(/export\s+const\s+FullMatrix\b/.test(text), 'FullMatrix story for multi-axis ' + m.primary);
+  if (axisFlags.length >= 1) {
+    assert(/export\s+const\s+FullMatrix\b/.test(text), 'FullMatrix story for ≥1-axis ' + m.primary);
     const full = matrixBodies.find((x) => x.name === 'FullMatrix');
     assert(full, 'FullMatrix body for ' + m.primary);
     fullMatrixCount++;
@@ -488,7 +494,7 @@ if (fail.length) {
 }
 
 assert(listStoryFiles().some((f) => f.includes('Surfaces.stories')), 'Surfaces.stories present');
-assert(fullMatrixCount >= 1, 'at least one FullMatrix multi-axis story expected');
+assert(fullMatrixCount >= 28, 'expected ≥28 FullMatrix stories (≥1-axis qualifiers), got ' + fullMatrixCount);
 
 console.log('PASS test-storybook-contract', {
   modules: modules.length,

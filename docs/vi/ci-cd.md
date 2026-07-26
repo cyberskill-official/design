@@ -12,7 +12,7 @@
 
 1. **`fast-gates`** — `npm ci` + Playwright Chromium cache, serve repo, mở `_audit/run.html` headless (`_audit/ci/run-gates.mjs`), fail khi hard-gate fail. Upload import-report khi fail. Hàng mới trên board (hardening Th7 2026 thêm 8: token-format-parity, version-stamp, support-runtime-identity, package-exports-integrity, template-lang-parity, dtcg-typing, design-md-parity, bundle-freshness) được nhận tự động — runner đọc `window.__run`, không phải danh sách gate phía job.
 2. **`token-provenance`** — kiểm Node không trình duyệt: natives + `provenance.json` khớp sha-256 nguồn DTCG.
-3. **`unit-tests`** — `npm run test:unit` (8 contract test Node thuần; nối vào CI bởi hardening Th7 2026 — trước đó chỉ local).
+3. **`unit-tests`** — `npm run test:unit` (10 contract test Node thuần; nối vào CI bởi hardening Th7 2026 — trước đó chỉ local).
 4. **`node-prechecks`** — authority Node không trình duyệt: `_audit/ci/check-bundle-freshness.mjs` (nguồn chân lý bundle-freshness — khám phá source đầy đủ gồm file mới/xóa; hàng board chỉ re-hash file ghi trong header) và `scripts/generate-design-md.mjs --check` (`DESIGN.md` gốc byte-equals regeneration).
 5. **`docs-consistency-blocker`** — merge blocker `docs-consistency` + `bilingual-parity`.
 6. **`whole-set-audits`** — quyết định B của owner: mọi push/PR, cộng nightly `0 3 * * *` và `workflow_dispatch` (responsive + language + theme overflow, ~15–20 phút).
