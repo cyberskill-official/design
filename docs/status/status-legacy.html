@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="hd-side">
-      <p class="hd-meta">VERSION <span class="code">1.0.0</span> · built from <span class="code">fp-83a7d5f2b305</span> · 0 tasks · 1 releases</p>
+      <p class="hd-meta">VERSION <span class="code">1.1.0</span> · built from <span class="code">fp-05ef7886fd20</span> · 1 tasks · 1 releases</p>
       <button id="theme" class="btn ghost" type="button" title="Toggle light / dark" aria-label="Toggle light / dark">◐</button>
     </div>
   </div>
@@ -30,21 +30,21 @@
 <main class="wrap">
   <section class="deck" aria-label="Project pulse">
 <div class="panel">
-  <h2>Overall progress · 0 tasks · 0 modules</h2>
+  <h2>Overall progress · 1 tasks · 1 modules</h2>
   <div class="kpis">
-    <button class="kpi" type="button" data-bucket="done" title="Filter to done"><b>0</b><span><i class="dot seg-done"></i>done</span></button>
+    <button class="kpi" type="button" data-bucket="done" title="Filter to done"><b>1</b><span><i class="dot seg-done"></i>done</span></button>
     <button class="kpi" type="button" data-bucket="active" title="Filter to in flight"><b>0</b><span><i class="dot seg-active"></i>in flight</span></button>
     <button class="kpi" type="button" data-bucket="todo" title="Filter to draft"><b>0</b><span><i class="dot seg-todo"></i>draft</span></button>
     <button class="kpi" type="button" data-bucket="hold" title="Filter to on hold"><b>0</b><span><i class="dot seg-hold"></i>on hold</span></button>
     <div class="kpi"><b>—</b><span>open effort (h)</span></div>
   </div>
   <div class="bar-seg">
-    <i class="seg-done" style="width:0.0%" title="done 0"></i>
+    <i class="seg-done" style="width:100.0%" title="done 1"></i>
     <i class="seg-active" style="width:0.0%" title="in flight 0"></i>
     <i class="seg-hold" style="width:0.0%" title="on hold 0"></i>
   </div>
   <div class="legend">
-    <span><i class="dot seg-done"></i> done / closed (0.0%)</span>
+    <span><i class="dot seg-done"></i> done / closed (100.0%)</span>
     <span><i class="dot seg-active"></i> in flight — ready_to_implement → testing</span>
     <span><i class="dot seg-todo"></i> draft</span>
     <span><i class="dot seg-hold"></i> on hold</span>
@@ -60,14 +60,14 @@
   
 <section class="now" id="stuck-wip">
   <h2>Stuck WIP (G13)</h2>
-  <p class="muted">As-of date unavailable (no CYBEROS_NOW / CYBEROS_HUB_ASOF and no dated CHANGELOG entry for VERSION 1.0.0) — age classification skipped. Detector stays report-only.</p>
+  <p class="muted">As-of date unavailable (no CYBEROS_NOW / CYBEROS_HUB_ASOF and no dated CHANGELOG entry for VERSION 1.1.0) — age classification skipped. Detector stays report-only.</p>
 </section>
 
   <nav class="bar" id="bar" aria-label="Search, filters and views">
     <div class="bar-top">
       <label class="srch">
         <span class="ic" aria-hidden="true">⌕</span>
-        <input id="q" type="search" placeholder="Search 0 tasks — id, title, module, owner, phase…" autocomplete="off" spellcheck="false">
+        <input id="q" type="search" placeholder="Search 1 tasks — id, title, module, owner, phase…" autocomplete="off" spellcheck="false">
       </label>
       <div class="lenses" role="tablist" aria-label="View">
         <button class="ln" role="tab" type="button" data-lens="board" aria-selected="true">▦ Board</button>
@@ -76,10 +76,10 @@
       </div>
     </div>
     <div class="bar-bot">
-      <label class="facet">module<select id="f-m"><option value="">all</option></select></label>
-  <label class="facet">status<select id="f-s"><option value="">all</option></select></label>
-  <label class="facet">priority<select id="f-p"><option value="">all</option></select></label>
-  <label class="facet">class<select id="f-c"><option value="">all</option></select></label>
+      <label class="facet">module<select id="f-m"><option value="">all</option><option value="release">release</option></select></label>
+  <label class="facet">status<select id="f-s"><option value="">all</option><option value="done">done</option></select></label>
+  <label class="facet">priority<select id="f-p"><option value="">all</option><option value="p0">p0</option></select></label>
+  <label class="facet">class<select id="f-c"><option value="">all</option><option value="feature">feature</option></select></label>
   <label class="facet">phase<select id="f-ph"><option value="">all</option></select></label>
   <label class="facet">group by<select id="f-g"><option value="m">module</option><option value="ph">phase</option><option value="s">status</option><option value="p">priority</option><option value="c">class</option><option value="o">owner</option></select></label>
       <button id="clear" class="btn ghost sm" type="button">Clear</button>
@@ -99,7 +99,7 @@ Everything below is the same corpus, rendered statically.</p>
 <div class="tbl-wrap"><table><thead><tr>
 <th>id</th><th>title</th><th>module</th><th>class</th><th>priority</th><th>phase</th><th>status</th>
 </tr></thead><tbody>
-
+<tr><td class="code">TASK-REL-001</td><td>LAUNCH design system at VERSION 1.1.0</td><td>release</td><td>feature</td><td>p0</td><td></td><td>done</td></tr>
 </tbody></table></div>
 <h3 class="groupq">Releases</h3>
 <article class="rel"><span class="tick">✓</span><div>
@@ -109,13 +109,13 @@ Everything below is the same corpus, rendered statically.</p>
 </div></article></div>
   </noscript>
 
-  <footer class="ft">design-system — generated at 1.0.0 (fp-83a7d5f2b305). Markdown is the record of truth; this page only renders it. · <a href="status.html">Current status page (v3)</a></footer>
+  <footer class="ft">design-system — generated at 1.1.0 (fp-05ef7886fd20). Markdown is the record of truth; this page only renders it. · <a href="status.html">Current status page (v3)</a></footer>
 </main>
 
 <div id="scrim" class="scrim" hidden></div>
 <aside id="drawer" class="drawer" hidden role="dialog" aria-modal="true" aria-labelledby="dw-title"></aside>
 
-<script type="application/json" id="cs-data">{"project":"design-system","version":"1.0.0","commit":"fp-83a7d5f2b305","statuses":["draft","ready_to_implement","implementing","ready_to_review","reviewing","ready_to_test","testing","done","on_hold","closed","cannot_reproduce","duplicate"],"specDir":"data/task","frBase":"../tasks/","tasks":[],"releases":[{"v":"0.1.0","vl":"v0.1.0","d":"2026-07-27","intro":[],"sec":[{"h":"Notes","items":["CyberOS initialised: task workflow vendored to .cyberos/, backlog at docs/tasks/BACKLOG.md, status page at docs/status/."]}],"cited":[],"dated":[]}],"bound":[],"draft_staleness":{"total":0,"by_reason":[]},"stuck_wip":{"asof":null,"threshold_days":30,"stale":[],"unparseable":[],"asof_missing":true}}</script>
+<script type="application/json" id="cs-data">{"project":"design-system","version":"1.1.0","commit":"fp-05ef7886fd20","statuses":["draft","ready_to_implement","implementing","ready_to_review","reviewing","ready_to_test","testing","done","on_hold","closed","cannot_reproduce","duplicate"],"specDir":"data/task","frBase":"../tasks/","tasks":[{"i":"TASK-REL-001","k":"TASK-REL-001-launch-1-1-0","dm":"release","t":"LAUNCH design system at VERSION 1.1.0","m":"release","c":"feature","p":"p0","s":"done","cr":"2026-07-27T09:26:43+0000","ca":"2026-07-27T09:26:43+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Owner said LAUNCH and set the release to 1.1.0. The pre-LAUNCH pin at 1.0.0 is lifted for this cut only; further bumps still need an explicit owner instruction. No CHANGELOG.md — continuity stays tip SHA + curated…","sp":1}],"releases":[{"v":"0.1.0","vl":"v0.1.0","d":"2026-07-27","intro":[],"sec":[{"h":"Notes","items":["CyberOS initialised: task workflow vendored to .cyberos/, backlog at docs/tasks/BACKLOG.md, status page at docs/status/."]}],"cited":[],"dated":[]}],"bound":[],"draft_staleness":{"total":0,"by_reason":[]},"stuck_wip":{"asof":null,"threshold_days":30,"stale":[],"unparseable":[],"asof_missing":true}}</script>
 <script defer src="assets/status-legacy.js"></script>
 </body>
 </html>

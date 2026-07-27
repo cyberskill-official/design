@@ -56,8 +56,12 @@ function softSkip(reason, detail) {
 
 function main() {
   const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
-  if (pkg.version !== '1.0.0') {
-    throw new Error(`VERSION pin: package.json must stay 1.0.0 until LAUNCH (got ${pkg.version})`);
+  const rootVersion = readFileSync(join(root, 'VERSION'), 'utf8').trim();
+  if (pkg.version !== rootVersion) {
+    throw new Error(`VERSION stamp drift: package.json ${pkg.version} ≠ VERSION ${rootVersion}`);
+  }
+  if (pkg.version !== '1.1.0') {
+    throw new Error(`VERSION pin: package.json must stay 1.1.0 until the next owner bump (got ${pkg.version})`);
   }
   if (pkg.private === true) {
     throw new Error('package.json private must be false for the publish path (workflow landed)');

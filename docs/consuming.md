@@ -11,11 +11,11 @@ How any project — human-driven or agent-driven — adopts this HTML-first desi
 | **Claude Code** | `SKILL.md` → `README.md` → `styles.css` + bundler `@cyberskill/design` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve) | Strong — rules, components, prompts; gates via full clone | Hardcode the bundle suffix; treat Storybook host as the portable contract; import `_esm/cs.mjs` or `@cyberskill/design/legacy` into Next/SSR bundlers |
 | **Google Stitch** | `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` | Strong for doctrine + tokens + static `.cs-*` HTML | Treat `templates/**/*.dc.html` as SoT — no tweaks / `__dcSetProps` / DC compiler |
 | **Claude Design** | Full repo + DC compiler | Full fidelity (tweaks, `x-import`, bilingual templates) | Skip the sync loop in `docs/sync.md` |
-| **npm** | `@cyberskill/design` | **1.0.0** on registry; CI Trusted Publishing; grant in `docs/consumer-grant.md` | Treat registry install as a public license (still UNLICENSED) |
+| **npm** | `@cyberskill/design` | **1.1.0** on registry; CI Trusted Publishing; grant in `docs/consumer-grant.md` | Treat registry install as a public license (still UNLICENSED) |
 
 **Stitch DC rule:** Stitch (and any non-DC tool) must **not** consume `*.dc.html` as source of truth. Use static export patterns, `templates/kitchen-sink.html`, `examples/static-hello/`, and `.cs-*` classes from `styles.css`.
 
-**Release signal:** VERSION stays pinned at **1.0.0** (no CHANGELOG). Treat the **git tip SHA** as technical truth; read curated product highlights in `docs/release-notes.md`.
+**Release signal:** version is LAUNCHED at **1.1.0** (no CHANGELOG). Treat the **git tip SHA** as technical truth; read curated product highlights in `docs/release-notes.md`.
 
 ## Quick path for AI agents (Claude Code, or driving one)
 
@@ -38,12 +38,12 @@ How any project — human-driven or agent-driven — adopts this HTML-first desi
 
 ## Adopt via npm (optional)
 
-The package is publishable (`private: false`, version pinned **1.0.0**). License remains **UNLICENSED** — installing from the registry does **not** grant redistribution rights by itself. **`@cyberskill/design@1.0.0` is published.** CI republishes via **npm Trusted Publishing (OIDC)** on workflow `npm-publish.yml` (no long-lived publish token; package Publishing access **disallows tokens**). Approved use is recorded in **`docs/consumer-grant.md`** (CyberSkill portfolio products from `docs/products.md`). See `docs/decisions.md` and `docs/ci-cd.md`.
+The package is publishable (`private: false`, version **1.1.0**). License remains **UNLICENSED** — installing from the registry does **not** grant redistribution rights by itself. **`@cyberskill/design@1.1.0` is the LAUNCH cut (publish via tag v1.1.0).** CI republishes via **npm Trusted Publishing (OIDC)** on workflow `npm-publish.yml` (no long-lived publish token; package Publishing access **disallows tokens**). Approved use is recorded in **`docs/consumer-grant.md`** (CyberSkill portfolio products from `docs/products.md`). See `docs/decisions.md` and `docs/ci-cd.md`.
 
 **Consumer grant (owner policy — not a secret).** Written and in force at `docs/consumer-grant.md` (+ `docs/vi/consumer-grant.md`). External teams need a dated stanza appended there; redistribution outside granted products needs a further written grant.
 
 ```bash
-npm install @cyberskill/design@1.0.0
+npm install @cyberskill/design@1.1.0
 ```
 
 Then link styles and import components. **Next.js / Vite / SSR apps** use the default entry (bundler-native):
@@ -58,7 +58,7 @@ Add `transpilePackages: ["@cyberskill/design"]` in Next.js (JSX ships as source)
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) or continue with the static tree paths below. The published tarball is the **full portable tree** (styles, tokens, components, templates, guidelines, docs, UI kits) — not a minimal “lib-only” subset. Host-only tooling (Storybook, `_audit/`) is not in `files[]`.
 
-**First real install (Lumi).** Copy-paste working **browser** consumer: `examples/npm-hello/` — installs `@cyberskill/design@1.0.0` from the registry, links `styles.css`, mounts `Button` via the **legacy** browser entry (`_esm/cs.mjs`), scopes **Lumi** with `data-cs-element="hoa" data-cs-variant="plasma"` (locked row in `docs/products.md`). From that folder: `npm install && npm run smoke && npm start` → open `http://127.0.0.1:8766/`. Status Hub teams use the same install and swap to `data-cs-element="thuy"` — do not invent mappings. For Next/SSR product apps (e.g. Lumi landing), use `import { Button } from "@cyberskill/design"` as above — not the npm-hello import map.
+**First real install (Lumi).** Copy-paste working **browser** consumer: `examples/npm-hello/` — installs `@cyberskill/design@1.1.0` from the registry, links `styles.css`, mounts `Button` via the **legacy** browser entry (`_esm/cs.mjs`), scopes **Lumi** with `data-cs-element="hoa" data-cs-variant="plasma"` (locked row in `docs/products.md`). From that folder: `npm install && npm run smoke && npm start` → open `http://127.0.0.1:8766/`. Status Hub teams use the same install and swap to `data-cs-element="thuy"` — do not invent mappings. For Next/SSR product apps (e.g. Lumi landing), use `import { Button } from "@cyberskill/design"` as above — not the npm-hello import map.
 
 **Publish path (maintainers):** `prepublishOnly` runs `build:bundle` + `build:design-md --check`. Workflow `.github/workflows/npm-publish.yml` on `workflow_dispatch` / `v*` tags uses **Trusted Publishing** (`permissions.id-token: write`; do not set `NODE_AUTH_TOKEN` on the publish step). `node _audit/ci/npm-publish.mjs --dry-run` always lists the tarball. See `docs/ci-cd.md` and `docs/decisions.md`.
 
@@ -96,7 +96,7 @@ State Theme (`data-theme` — light / dark / system), Element (`data-cs-element`
 
 ## Upgrading
 
-- **Version is pinned.** `VERSION` and `package.json` stay at **1.0.0**. There is no design-system changelog file — treat the **git tip SHA** as the technical truth, and read curated **Release Notes** (Storybook + `docs/release-notes.md`) for product-facing highlights.
+- **Version is pinned.** `VERSION` and `package.json` stay at **1.1.0**. There is no design-system changelog file — treat the **git tip SHA** as the technical truth, and read curated **Release Notes** (Storybook + `docs/release-notes.md`) for product-facing highlights.
 
 - Anchors (Umber/Ochre), the `.cs-*` class names, and the `--cs-*` token names are stable contracts — safe to depend on. Breaking renames of those contracts should be rare and called out in the PR/docs when they happen.
 

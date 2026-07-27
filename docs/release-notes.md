@@ -1,15 +1,15 @@
 # Release Notes
 
-Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. Version stays pinned at **1.0.0**; technical continuity is the repo tip, and product-facing continuity is this page (mirrored in Storybook **Release Notes**).
+Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. Version is **LAUNCHED at 1.1.0** (owner instruction Jul 2026); further bumps need an explicit owner instruction. Technical continuity is the repo tip; product-facing continuity is this page (mirrored in Storybook **Release Notes**).
 
-## `@cyberskill/design@1.0.0` on npm (Trusted Publishing)
+## LAUNCH — `@cyberskill/design@1.1.0`
 
-The package is live on the npm registry as **`@cyberskill/design@1.0.0`**. CI publishes via **npm Trusted Publishing (OIDC)** — no long-lived publish token. Package Publishing access on npmjs **disallows tokens** (OIDC still works; classic / granular publish tokens are rejected).
+Owner **LAUNCH** cut. `VERSION` / `package.json` and every version stamp move from the pre-LAUNCH **1.0.0** pin to **1.1.0**. Publish via **npm Trusted Publishing (OIDC)** on tag `v1.1.0` (or `workflow_dispatch`). Package Publishing access on npmjs **disallows tokens**. Soft-skip on the npm-hello registry install is honest until **1.1.0** is live on the registry — soft-skip ≠ published.
 
-Approved use for CyberSkill portfolio products is recorded in **`docs/consumer-grant.md`** (+ VI). The package remains **UNLICENSED**; registry install alone is not a public license. Copy-paste first install for a locked product (Lumi · Hỏa · plasma): `examples/npm-hello/` — see `docs/consuming.md`.
+Approved use for CyberSkill portfolio products remains in **`docs/consumer-grant.md`** (+ VI). The package remains **UNLICENSED**. First-consumer browser path: `examples/npm-hello/` (Lumi · Hỏa · plasma) — see `docs/consuming.md`.
 
 ```bash
-npm install @cyberskill/design@1.0.0
+npm install @cyberskill/design@1.1.0
 ```
 
 ## Storybook at the domain root

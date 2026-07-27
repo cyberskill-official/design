@@ -1,15 +1,15 @@
 # Ghi chú phát hành
 
-Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. Phiên bản giữ cố định **1.0.0**; chân lý kỹ thuật là tip repo, chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**).
+Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. Phiên bản **đã LAUNCH ở 1.1.0** (chỉ thị owner Th7 2026); bump tiếp theo cần chỉ thị owner rõ. Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**).
 
-## `@cyberskill/design@1.0.0` trên npm (Trusted Publishing)
+## LAUNCH — `@cyberskill/design@1.1.0`
 
-Package đã live trên npm registry với tên **`@cyberskill/design@1.0.0`**. CI publish qua **npm Trusted Publishing (OIDC)** — không token publish dài hạn. Publishing access trên npmjs **disallow tokens** (OIDC vẫn chạy; token publish classic / granular bị từ chối).
+Cut **LAUNCH** của owner. `VERSION` / `package.json` và mọi version stamp chuyển từ pin pre-LAUNCH **1.0.0** sang **1.1.0**. Publish qua **npm Trusted Publishing (OIDC)** trên tag `v1.1.0` (hoặc `workflow_dispatch`). Publishing access trên npmjs **disallow tokens**. Soft-skip install registry của npm-hello là trung thực cho tới khi **1.1.0** live trên registry — soft-skip ≠ đã publish.
 
-Dùng đã duyệt cho sản phẩm portfolio CyberSkill ghi tại **`docs/consumer-grant.md`** (+ VI). Package vẫn **UNLICENSED**; cài từ registry một mình không phải license công khai. Đường cài đầu tiên copy-paste cho sản phẩm đã khóa (Lumi · Hỏa · plasma): `examples/npm-hello/` — xem `docs/consuming.md`.
+Dùng đã duyệt cho sản phẩm portfolio CyberSkill vẫn tại **`docs/consumer-grant.md`** (+ VI). Package vẫn **UNLICENSED**. Đường consumer browser đầu tiên: `examples/npm-hello/` (Lumi · Hỏa · plasma) — xem `docs/consuming.md`.
 
 ```bash
-npm install @cyberskill/design@1.0.0
+npm install @cyberskill/design@1.1.0
 ```
 
 ## Storybook tại gốc domain
@@ -28,14 +28,14 @@ Docs operator công khai có cặp EN·VI dưới `docs/` / `docs/vi/`. Template
 
 ## Foundations và thư viện CSF
 
-Toolbar Theme × Element × Language × Style khớp template production (Theme gồm **system** theo OS `prefers-color-scheme`). Mọi primary công khai có Default + ma trận điều khiển trung thực; FullMatrix phủ mọi primary ≥1 trục. Axe smoke quét mọi public primary. Pack Style duy nhất là **liquid-glass**. Foundations gồm màu, typography, spacing, elevation, motion, và 15 pack Ngũ Hành.
+Toolbar Theme × Element × Language × Style mirror template production (Theme gồm **system** cho OS `prefers-color-scheme`). Mọi primary công khai ship Default story cộng control matrix trung thực; FullMatrix cover mọi qualifier ≥1-axis. Axe smoke quét mọi primary công khai. Pack Style duy nhất là **liquid-glass**. Foundations cover màu, typography, spacing, elevation, motion, và 15 pack element Ngũ Hành.
 
-## Token và bản native
+## Token và mirror native
 
-Token CSS, DTCG (`tokens/tokens.dtcg.json`), và mirror SwiftUI / Compose / Flutter giữ lockstep qua token pipeline. Text không bao giờ nằm trên `-accent` mid-tone — doctrine APCA được gate enforce.
+Token CSS, DTCG (`tokens/tokens.dtcg.json`), và mirror SwiftUI / Compose / Flutter pre-generated giữ lockstep qua pipeline token. Text không bao giờ ngồi trên `-accent` mid-tone — doctrine APCA được gate enforce.
 
 ## Những gì chúng ta không bao giờ ship
 
-- File gốc **`CHANGELOG.md`** (cấm bởi doctrine và docs-consistency)
-- Bump VERSION khi chưa có quyết định tường minh từ owner
-- Storybook như dependency của consumer
+- Root **`CHANGELOG.md`** (cấm bởi doctrine và docs-consistency)
+- Bump VERSION mà không có quyết định owner rõ
+- Storybook như dependency consumer

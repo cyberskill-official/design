@@ -411,8 +411,10 @@ jobs:
           if-no-files-found: ignore
 
   npm-hello-smoke:
-    # Hard-fail registry consumer proof for public @cyberskill/design@1.0.0.
+    # Hard-fail registry consumer proof for public @cyberskill/design@VERSION.
     # Path-filtered on push/PR; always on schedule / workflow_dispatch.
+    # Soft-skips registry install when the VERSION is not published yet (post-LAUNCH
+    # pre-publish window) and proves the local npm pack instead — soft-skip ≠ published.
     if: |
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'schedule' ||
@@ -451,5 +453,16 @@ jobs:
         working-directory: examples/npm-hello
         run: |
           set -euo pipefail
-          npm ci
+          EXPECTED="$(tr -d '[:space:]' < ../../VERSION)"
+          if npm view "@cyberskill/design@${EXPECTED}" version >/dev/null 2>&1; then
+            echo "Registry has @cyberskill/design@${EXPECTED} — npm install from registry."
+            npm install
+          else
+            echo "SOFT SKIP — @cyberskill/design@${EXPECTED} not on registry yet (post-LAUNCH pre-publish)."
+            echo "Proving local npm pack instead (soft-skip ≠ published)."
+            npm pack ../.. --pack-destination .
+            TARBALL="$(ls -1 cyberskill-design-*.tgz | head -1)"
+            npm install "./${TARBALL}" --no-save
+            rm -f "./${TARBALL}"
+          fi
           npm run smoke

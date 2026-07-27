@@ -21,7 +21,8 @@ if (!existsSync(pkgPath)) fail('run npm install in examples/npm-hello first');
 
 const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
 if (pkg.name !== '@cyberskill/design') fail('unexpected package name ' + pkg.name);
-if (pkg.version !== '1.0.0') fail('expected @cyberskill/design@1.0.0, got ' + pkg.version);
+const expected = readFileSync(join(__dirname, '../../VERSION'), 'utf8').trim();
+if (pkg.version !== expected) fail(`expected @cyberskill/design@${expected}, got ${pkg.version}`);
 
 const exportsMap = pkg.exports || {};
 if (!exportsMap['.']?.import?.includes('_esm/react.mjs')) {

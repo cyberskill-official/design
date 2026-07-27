@@ -29,7 +29,9 @@ const header = JSON.parse(hm[1]);
 const exposed = header.components.map((c) => c.name);
 
 // --- package.json surface ---
-assert(pkg.version === "1.0.0", "VERSION pin");
+const rootVersion = readFileSync(join(root, "VERSION"), "utf8").trim();
+assert(pkg.version === rootVersion, "package.json version must equal VERSION file");
+assert(pkg.version === "1.1.0", "VERSION pin 1.1.0 (post-LAUNCH)");
 assert(pkg.types === "_esm/react.d.ts", 'package.json types must be _esm/react.d.ts');
 assert(pkg.module === "_esm/react.mjs", 'package.json module must be _esm/react.mjs');
 assert(pkg.peerDependencies?.react, "peerDependencies.react required");

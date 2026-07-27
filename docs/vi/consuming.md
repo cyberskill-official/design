@@ -11,11 +11,11 @@ Cách mọi project — do người hoặc agent điều khiển — áp dụng 
 | **Claude Code** | `SKILL.md` → `README.md` → `styles.css` + bundler `@cyberskill/design` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (resolve theo prefix) | Mạnh — rules, components, prompts; gates qua full clone | Hardcode hậu tố bundle; coi Storybook host là hợp đồng portable; import `_esm/cs.mjs` hoặc `@cyberskill/design/legacy` vào bundler Next/SSR |
 | **Google Stitch** | `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` | Mạnh cho doctrine + tokens + HTML tĩnh `.cs-*` | Coi `templates/**/*.dc.html` là SoT — không có tweaks / `__dcSetProps` / DC compiler |
 | **Claude Design** | Full repo + DC compiler | Full fidelity (tweaks, `x-import`, template bilingual) | Bỏ qua vòng sync trong `docs/sync.md` |
-| **npm** | `@cyberskill/design` | **1.0.0** trên registry; CI Trusted Publishing; grant tại `docs/consumer-grant.md` | Coi cài từ registry như license công khai (vẫn UNLICENSED) |
+| **npm** | `@cyberskill/design` | **1.1.0** trên registry; CI Trusted Publishing; grant tại `docs/consumer-grant.md` | Coi cài từ registry như license công khai (vẫn UNLICENSED) |
 
 **Quy tắc DC cho Stitch:** Stitch (và mọi tool non-DC) **không** được tiêu thụ `*.dc.html` như nguồn chân lý. Dùng pattern export tĩnh, `templates/kitchen-sink.html`, `examples/static-hello/`, và class `.cs-*` từ `styles.css`.
 
-**Tín hiệu release:** VERSION giữ **1.0.0** (không CHANGELOG). Coi **git tip SHA** là chân lý kỹ thuật; đọc điểm nổi bật sản phẩm curated trong `docs/release-notes.md`.
+**Tín hiệu release:** VERSION là **1.1.0** (không CHANGELOG). Coi **git tip SHA** là chân lý kỹ thuật; đọc điểm nổi bật sản phẩm curated trong `docs/release-notes.md`.
 
 ## Đường nhanh cho AI agent (Claude Code, hoặc điều khiển một agent)
 
@@ -38,12 +38,12 @@ Cách mọi project — do người hoặc agent điều khiển — áp dụng 
 
 ## Adopt qua npm (tùy chọn)
 
-Package có thể publish (`private: false`, phiên bản cố định **1.0.0**). License vẫn **UNLICENSED** — cài từ registry **không** tự cấp quyền redistribution. **`@cyberskill/design@1.0.0` đã publish.** CI republish qua **npm Trusted Publishing (OIDC)** trên workflow `npm-publish.yml` (không token publish dài hạn; Publishing access package **disallow tokens**). Dùng đã duyệt ghi tại **`docs/consumer-grant.md`** (sản phẩm portfolio CyberSkill từ `docs/products.md`). Xem `docs/decisions.md` và `docs/ci-cd.md`.
+Package có thể publish (`private: false`, phiên bản **1.1.0**). License vẫn **UNLICENSED** — cài từ registry **không** tự cấp quyền redistribution. **`@cyberskill/design@1.1.0` là cut LAUNCH (publish qua tag `v1.1.0`).** CI republish qua **npm Trusted Publishing (OIDC)** trên workflow `npm-publish.yml` (không token publish dài hạn; Publishing access package **disallow tokens**). Dùng đã duyệt ghi tại **`docs/consumer-grant.md`** (sản phẩm portfolio CyberSkill từ `docs/products.md`). Xem `docs/decisions.md` và `docs/ci-cd.md`.
 
 **Grant consumer (chính sách owner — không phải secret).** Đã viết và có hiệu lực tại `docs/consumer-grant.md` (+ `docs/vi/consumer-grant.md`). Team bên ngoài cần stanza có ngày thêm vào đó; redistribution ngoài sản phẩm đã grant cần grant viết thêm.
 
 ```bash
-npm install @cyberskill/design@1.0.0
+npm install @cyberskill/design@1.1.0
 ```
 
 Rồi link styles và import component. **App Next.js / Vite / SSR** dùng entry mặc định (bundler-native):
@@ -58,7 +58,7 @@ Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) hoặc tiếp tục dùng đường cây tĩnh bên dưới. Tarball đã publish là **cả cây portable** (styles, tokens, components, templates, guidelines, docs, UI kits) — không phải subset “chỉ lib” tối thiểu. Tooling chỉ-host (Storybook, `_audit/`) không nằm trong `files[]`.
 
-**Cài thật đầu tiên (Lumi).** Consumer **browser** copy-paste: `examples/npm-hello/` — cài `@cyberskill/design@1.0.0` từ registry, link `styles.css`, mount `Button` qua entry **legacy** (`_esm/cs.mjs`), scope **Lumi** với `data-cs-element="hoa" data-cs-variant="plasma"` (hàng đã khóa trong `docs/products.md`). Trong thư mục đó: `npm install && npm run smoke && npm start` → mở `http://127.0.0.1:8766/`. Team Status Hub dùng cùng install và đổi sang `data-cs-element="thuy"` — không invent ánh xạ. Cho app Next/SSR (ví dụ Lumi landing), dùng `import { Button } from "@cyberskill/design"` như trên — không dùng import map của npm-hello.
+**Cài thật đầu tiên (Lumi).** Consumer **browser** copy-paste: `examples/npm-hello/` — cài `@cyberskill/design@1.1.0` từ registry, link `styles.css`, mount `Button` qua entry **legacy** (`_esm/cs.mjs`), scope **Lumi** với `data-cs-element="hoa" data-cs-variant="plasma"` (hàng đã khóa trong `docs/products.md`). Trong thư mục đó: `npm install && npm run smoke && npm start` → mở `http://127.0.0.1:8766/`. Team Status Hub dùng cùng install và đổi sang `data-cs-element="thuy"` — không invent ánh xạ. Cho app Next/SSR (ví dụ Lumi landing), dùng `import { Button } from "@cyberskill/design"` như trên — không dùng import map của npm-hello.
 
 **Đường publish (maintainer):** `prepublishOnly` chạy `build:bundle` + `build:design-md --check`. Workflow `.github/workflows/npm-publish.yml` trên `workflow_dispatch` / tag `v*` dùng **Trusted Publishing** (`permissions.id-token: write`; không đặt `NODE_AUTH_TOKEN` trên bước publish). `node _audit/ci/npm-publish.mjs --dry-run` luôn liệt kê tarball. Xem `docs/ci-cd.md` và `docs/decisions.md`.
 
@@ -96,7 +96,7 @@ Consumer bỏ qua `styles.css` để tự kiểm soát font loading (`cyberskill
 
 ## Nâng cấp
 
-- **Phiên bản cố định.** `VERSION` và `package.json` giữ **1.0.0**. Không có file changelog design-system — coi **git tip SHA** là chân lý kỹ thuật, và đọc **Release Notes** curated (Storybook + `docs/release-notes.md`) cho điểm nổi bật hướng sản phẩm.
+- **Phiên bản cố định.** `VERSION` và `package.json` là **1.1.0**. Không có file changelog design-system — coi **git tip SHA** là chân lý kỹ thuật, và đọc **Release Notes** curated (Storybook + `docs/release-notes.md`) cho điểm nổi bật hướng sản phẩm.
 
 - Anchors (Umber/Ochre), tên class `.cs-*`, và tên token `--cs-*` là hợp đồng ổn định — an toàn để phụ thuộc. Đổi tên phá vỡ những hợp đồng đó phải hiếm và được gọi ra trong PR/docs khi xảy ra.
 

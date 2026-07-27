@@ -389,7 +389,7 @@ function buildTokensJs(elements) {
   for (const k of ROLE_KEYS) {
     if (j.root.accent[k] != null) j.root.accent[k] = tho[k];
   }
-  return `// CyberSkill design tokens — generated from tokens/*.css (v1.0.0). Do not edit by hand.\nexport const tokens = ${JSON.stringify(j, null, 2)};\nexport default tokens;\n`;
+  return `// CyberSkill design tokens — generated from tokens/*.css (v1.1.0). Do not edit by hand.\nexport const tokens = ${JSON.stringify(j, null, 2)};\nexport default tokens;\n`;
 }
 
 function buildDtcg(elements, elementsDark) {

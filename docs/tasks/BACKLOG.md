@@ -10,15 +10,15 @@ Lifecycle: draft -> ready_to_implement -> implementing -> ready_to_review -> rev
 
 ## ready_to_implement
 
-- (none yet - add rows as `- [ready_to_implement] TASK-001-slug - title`; append `(improvement)` for hardening tasks)
+- (none)
 
 ## in flight
 
-- (implementing / reviewing / testing tasks appear here)
+- (none)
 
 ## done
 
-- (shipped tasks, for the audit trail)
+- [done] TASK-REL-001-launch-1-1-0 - LAUNCH design system at VERSION 1.1.0
 
 ## on_hold / closed
 

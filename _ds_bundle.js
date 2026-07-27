@@ -4737,7 +4737,7 @@ try { (() => {
 const tokens = {
   "$meta": {
     "system": "CyberSkill Design System",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "generated": "2026-07-23",
     "note": "Generated from tokens/*.css. Root grouped by category; theme/element scopes carry overrides only. Regenerate after any token change (see docs/conventions.md)."
   },

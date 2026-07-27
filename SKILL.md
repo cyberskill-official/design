@@ -8,7 +8,7 @@ If the user invokes this skill without any other guidance, ask them what they wa
 
 ## Fast orientation
 
-**Which front door?** **Claude Code / Claude Design** → this `SKILL.md` → `README.md` → portable runtime (`styles.css`, bundler `_esm/react.mjs` / legacy `_esm/cs.mjs`, `_ds_bundle.js` with prefix resolve) and optionally DC templates when the session has the compiler. **Google Stitch (and other DESIGN.md readers)** → root `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` + static `.cs-*` HTML — **never** treat `templates/**/*.dc.html` as source of truth (no tweaks / `__dcSetProps` / DC runtime outside Claude Design). Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-notes.md` (VERSION stays **1.0.0**; no CHANGELOG).
+**Which front door?** **Claude Code / Claude Design** → this `SKILL.md` → `README.md` → portable runtime (`styles.css`, bundler `_esm/react.mjs` / legacy `_esm/cs.mjs`, `_ds_bundle.js` with prefix resolve) and optionally DC templates when the session has the compiler. **Google Stitch (and other DESIGN.md readers)** → root `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` + static `.cs-*` HTML — **never** treat `templates/**/*.dc.html` as source of truth (no tweaks / `__dcSetProps` / DC runtime outside Claude Design). Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.1.0**; no CHANGELOG).
 
 - **`README.md`** — the entrance + design guide + manifest: anchor immutables, CONTENT FUNDAMENTALS (voice = warm/direct/honest/respectful, Vietnamese-first, the "wish" metaphor), VISUAL FOUNDATIONS, ICONOGRAPHY, and the component/kit index. Read it first.
 
@@ -54,7 +54,7 @@ Every artifact exports, all paths preserving Vietnamese Unicode (see `docs/conve
 
 - Voice stays warm/direct/honest/respectful — never fun/playful/edgy. Products are "wishes" that Lumi helps grant.
 
-- Expansion rule: when any set grows (element/variant, icon, component, language), update every deliverable in the same change — tokens, cards + related guidelines, contract trio, all template enums, Storybook toolbar / Atomic View, docs incl. every related document/README — and grep the old list to prove it. Version stays pinned at 1.0.0 until LAUNCH (no changelog).
+- Expansion rule: when any set grows (element/variant, icon, component, language), update every deliverable in the same change — tokens, cards + related guidelines, contract trio, all template enums, Storybook toolbar / Atomic View, docs incl. every related document/README — and grep the old list to prove it. Version is LAUNCHED at **1.1.0**; further bumps need an owner instruction (no changelog).
 
 - **Stitch / non-DC tools must not consume `*.dc.html` as source of truth.** Those files need the Design Components compiler (tweaks, `x-import`, `__dcSetProps`). Generate static UI from `DESIGN.md` / DTCG / `styles.css` + `.cs-*` / kitchen-sink / `examples/static-hello/` instead. DC authoring stays Claude Design (or a full clone with the compiler).
 
