@@ -50,12 +50,12 @@ Giữ plan Figma hiện tại. Variables REST API chỉ Enterprise — job ghi *
 
 ## 7. npm publish — live qua Trusted Publishing (OIDC)
 
-**Trạng thái: LAUNCH `@cyberskill/design@1.1.0`; CI publish dùng npm Trusted Publishing; token bị cấm** (Th7 2026; LAUNCH 2026-07-27)
+**Trạng thái: LAUNCH `@cyberskill/design@1.1.0`; pin hiện tại `@cyberskill/design@1.1.1`; CI publish dùng npm Trusted Publishing; token bị cấm** (Th7 2026; LAUNCH 2026-07-27)
 
 - `package.json` là `private: false`; tên package **`@cyberskill/design`** (`publishConfig.access: public`); `repository.url` khớp repo GitHub này cho provenance.
 - Workflow `.github/workflows/npm-publish.yml`: `id-token: write` + runner GitHub-hosted; **không** đặt `NPM_TOKEN` / `NODE_AUTH_TOKEN` trên bước publish (OIDC). Trusted Publisher trên npm phải liệt kê filename workflow **`npm-publish.yml`** cho `cyberskill-official/design-system`. Soft-skip khi auth / 403 / 404 / EOTP / conflict phiên bản.
 - **Publishing access** trên npmjs: **Require two-factor authentication and disallow tokens** (Trusted Publishing OIDC vẫn hoạt động; token publish classic / granular bị từ chối). Secret `NPM_TOKEN` dài hạn đã thu hồi.
-- License giữ **UNLICENSED**; phiên bản là **1.1.0**. Dùng đã duyệt ghi tại **`docs/consumer-grant.md`** (sản phẩm portfolio CyberSkill). Cài từ registry một mình không phải license công khai.
+- License giữ **UNLICENSED**; phiên bản là **1.1.1**. Dùng đã duyệt ghi tại **`docs/consumer-grant.md`** (sản phẩm portfolio CyberSkill). Cài từ registry một mình không phải license công khai.
 
 ## 8. Đóng gói store native — scaffold đã ship; submit tắt
 
@@ -77,7 +77,7 @@ Ghi nhận Th7 2026 — mặc định mở khóa (cập nhật khi bước vận
 
 - **Figma Variables** — giữ Tokens Studio / non-Enterprise (quyết định §3). Soft-skip Variables REST vẫn trung thực.
 - **Code Connect** — **bỏ qua khi còn Figma free**; chỉ xem lại sau Org + library đã publish + `nodeId` thật (quyết định §6). Soft-skip ≠ publish.
-- **npm** — **LAUNCH `@cyberskill/design@1.1.0`** (publish qua tag `v1.1.0`); CI dùng **Trusted Publishing (OIDC)** qua `npm-publish.yml`; npmjs **disallow tokens**; grant consumer có hiệu lực tại `docs/consumer-grant.md` (quyết định §7). Entry package mặc định là bundler-native `_esm/react.mjs` (React peer); đường browser là `@cyberskill/design/legacy` → `_esm/cs.mjs` (quyết định §10).
+- **npm** — **LAUNCH `@cyberskill/design@1.1.0`**; pin hiện tại **`@cyberskill/design@1.1.1`** (publish qua tag `v*`); CI dùng **Trusted Publishing (OIDC)** qua `npm-publish.yml`; npmjs **disallow tokens**; grant consumer có hiệu lực tại `docs/consumer-grant.md` (quyết định §7). Entry package mặc định là bundler-native `_esm/react.mjs` (React peer); đường browser là `@cyberskill/design/legacy` → `_esm/cs.mjs` (quyết định §10).
 
 ## 10. Export React bundler-native (Next / SSR)
 
@@ -85,7 +85,7 @@ Ghi nhận Th7 2026 — mặc định mở khóa (cập nhật khi bước vận
 
 - React / react-dom là **peerDependencies** (`^18 || ^19`); entry re-export JSX source (consumer transpile — ví dụ Next `transpilePackages`). Storybook / CI **devDependencies** pin **react@19.2.8** / **react-dom@19.2.8**.
 - Browser / no-build giữ `_esm/cs.mjs` tại `exports["./legacy"]` (CDN self-ensure + `_ds_bundle.js`). React 19 chính thức bỏ UMD — đường CDN load **`umd-react@19.2.8`** (pin SRI) để tạo `window.React` / `window.ReactDOM` cho `_ds_bundle.js`. Cùng pin dùng trong audit HTML, specimen card, UI kit, và runtime `templates/*/support.js` byte-identical.
-- Alias `@cyberskill/design/react` mirror entry mặc định. VERSION là **1.1.0**; republish qua Trusted Publishing sau merge.
+- Alias `@cyberskill/design/react` mirror entry mặc định. VERSION là **1.1.1**; republish qua Trusted Publishing sau merge.
 - Docs: `docs/consuming.md` (+ VI); gate: `package-exports-integrity` + `test:react-entry`.
 
 ## Việc maintainer (đang mở)
@@ -98,7 +98,7 @@ Theo dõi vận hành — không phải marketing sản phẩm, không phải ba
 
 ~~3. Chốt registry products~~ — **xong** (Th7 2026): xem quyết định §9; `docs/products.md` đã khóa.
 
-~~4. Đường consumer registry đầu tiên~~ — **xong** (Th7 2026): `examples/npm-hello/` cài `@cyberskill/design` cho identity **Lumi** đã khóa; ghi trong `docs/consuming.md` (+ VI) và `docs/release-notes.md`. Nay target **1.1.0** post-LAUNCH.
+~~4. Đường consumer registry đầu tiên~~ — **xong** (Th7 2026): `examples/npm-hello/` cài `@cyberskill/design` cho identity **Lumi** đã khóa; ghi trong `docs/consuming.md` (+ VI) và `docs/release-notes.md`. Nay target **1.1.1** post-LAUNCH.
 
 5. **Drift native + element-pack trên PR là fail-closed** (Th7 2026) — `regenerate-tokens` chạy read-only trên pull request và exit 1 thay vì push; chỉ `regenerate-tokens-push` (main / schedule / thủ công) giữ `contents: write`. Khi PR fail, chạy `npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs` rồi commit packs + natives. Xem `docs/ci-cd.md`.
 

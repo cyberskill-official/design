@@ -1,6 +1,14 @@
 # Release Notes
 
-Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. Version is **LAUNCHED at 1.1.0** (owner instruction Jul 2026); further bumps need an explicit owner instruction. Technical continuity is the repo tip; product-facing continuity is this page (mirrored in Storybook **Release Notes**).
+Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. Version is **LAUNCHED at 1.1.0**; current pin is **1.1.1** (owner instruction Jul 2026). Further bumps need an explicit owner instruction. Technical continuity is the repo tip; product-facing continuity is this page (mirrored in Storybook **Release Notes**).
+
+## Patch — `@cyberskill/design@1.1.1`
+
+Lockstep republish after the LAUNCH cut: regenerate natives / provenance / `_ds_bundle.js` so registry matches tip, and drop the forbidden root `CHANGELOG.md`. Install:
+
+```bash
+npm install @cyberskill/design@1.1.1
+```
 
 ## LAUNCH — `@cyberskill/design@1.1.0`
 

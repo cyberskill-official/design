@@ -1,6 +1,14 @@
 # Ghi chú phát hành
 
-Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. Phiên bản **đã LAUNCH ở 1.1.0** (chỉ thị owner Th7 2026); bump tiếp theo cần chỉ thị owner rõ. Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**).
+Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. Phiên bản **đã LAUNCH ở 1.1.0**; pin hiện tại **1.1.1** (chỉ thị owner Th7 2026). Bump tiếp theo cần chỉ thị owner rõ. Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**).
+
+## Patch — `@cyberskill/design@1.1.1`
+
+Republish lockstep sau cut LAUNCH: regen natives / provenance / `_ds_bundle.js` để registry khớp tip, và bỏ `CHANGELOG.md` gốc bị cấm. Cài:
+
+```bash
+npm install @cyberskill/design@1.1.1
+```
 
 ## LAUNCH — `@cyberskill/design@1.1.0`
 

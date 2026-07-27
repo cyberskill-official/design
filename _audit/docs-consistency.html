@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- DOCS-CONSISTENCY CHECK — reads the compiler's own _ds_manifest.json + VERSION
      (the source of truth) and asserts every count claim in the LIVE doc prose matches.
-     Version pinned at 1.1.0 post-LAUNCH — no CHANGELOG.md. Scope: README, SKILL.md, llms.txt. -->
+     Version pinned at 1.1.1 post-LAUNCH — no CHANGELOG.md. Scope: README, SKILL.md, llms.txt. -->
 <link rel="stylesheet" href="../styles.css">
 <style>
   body{margin:0;font-family:var(--cs-font-family-ui);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);padding:26px 30px;max-width:900px}
@@ -18,7 +18,7 @@
 </style>
 </head><body>
 <h1><b>CyberSkill</b> · Docs-consistency check</h1>
-<p class="sub">Asserts every count claim in the live docs matches <code>_ds_manifest.json</code>, that audit prose card-count claims (<code>_audit/index.html</code> / <code>_audit/README.md</code> / namespace-portability) match <code>manifest.cards</code>, that <code>VERSION</code> / <code>package.json</code> stay pinned at <b>1.1.0</b> (post-LAUNCH), that live entrance docs do not reintroduce <code>CHANGELOG.md</code>, that a <b>stale-phrase blacklist</b> (retired suite/pack counts plus three-axis leftovers such as "Ba trục" / "Theme × Element × Language" without Style) stays out of README / SKILL / llms.txt / <code>docs/*.md</code>, that the generated root <code>DESIGN.md</code> exists with its front-matter version matching <code>VERSION</code>, and that <b>agent routing stays honest</b> (Claude path cites <code>_esm/cs.mjs</code> + bundle prefix; Stitch path forbids treating <code>*.dc.html</code> as SoT; package name is <code>@cyberskill/design</code>). Historical audit notes live under <code>_audit/archive/</code> (not scanned). Verdict on <code>window.__docs</code>.</p>
+<p class="sub">Asserts every count claim in the live docs matches <code>_ds_manifest.json</code>, that audit prose card-count claims (<code>_audit/index.html</code> / <code>_audit/README.md</code> / namespace-portability) match <code>manifest.cards</code>, that <code>VERSION</code> / <code>package.json</code> stay pinned at <b>1.1.1</b> (post-LAUNCH), that live entrance docs do not reintroduce <code>CHANGELOG.md</code>, that a <b>stale-phrase blacklist</b> (retired suite/pack counts plus three-axis leftovers such as "Ba trục" / "Theme × Element × Language" without Style) stays out of README / SKILL / llms.txt / <code>docs/*.md</code>, that the generated root <code>DESIGN.md</code> exists with its front-matter version matching <code>VERSION</code>, and that <b>agent routing stays honest</b> (Claude path cites <code>_esm/cs.mjs</code> + bundle prefix; Stitch path forbids treating <code>*.dc.html</code> as SoT; package name is <code>@cyberskill/design</code>). Historical audit notes live under <code>_audit/archive/</code> (not scanned). Verdict on <code>window.__docs</code>.</p>
 <div id="report">running…</div>
 <div id="truth" class="truth"></div>
 <script>
@@ -61,10 +61,10 @@ function ctx(s, i, n){ return s.slice(Math.max(0,i-4), i+n+18).replace(/\s+/g," 
     "compiler truth \u2014 VERSION "+VERSION+" \u00b7 templates "+truth.templates+" \u00b7 "+truth.files+" component files / "+truth.exports+" exports \u00b7 tokens "+truth.tokens+" \u00b7 cards "+truth.cards;
 
   // Version pin — no CHANGELOG.md surface
-  step('VERSION pinned at 1.1.0', VERSION==='1.1.0', 'reads '+VERSION);
+  step('VERSION pinned at 1.1.1', VERSION==='1.1.1', 'reads '+VERSION);
   try {
     const P = JSON.parse(F['package.json']);
-    step('package.json version = 1.1.0', P.version==='1.1.0', P.version!=='1.1.0'?('reads '+P.version):'');
+    step('package.json version = 1.1.1', P.version==='1.1.1', P.version!=='1.1.1'?('reads '+P.version):'');
   } catch(e){ step('package.json parses', false, String(e).slice(0,80)); }
 
   // Live docs must not reintroduce a changelog file reference as a maintained surface

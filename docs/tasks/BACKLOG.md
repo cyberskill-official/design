@@ -18,6 +18,7 @@ Lifecycle: draft -> ready_to_implement -> implementing -> ready_to_review -> rev
 
 ## done
 
+- [done] TASK-REL-002-republish-1-1-1 - Republish @cyberskill/design at VERSION 1.1.1
 - [done] TASK-REL-001-launch-1-1-0 - LAUNCH design system at VERSION 1.1.0
 
 ## on_hold / closed

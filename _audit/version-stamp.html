@@ -11,7 +11,7 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>Version stamp gate</h1>
-<p class="lede">Every version stamp in the tree must equal the contents of <code>VERSION</code> (LAUNCHED <b>1.1.0</b> — further bumps need an owner instruction; no changelog). Checked: <code>package.json</code> version · <code>tokens/tokens.json</code> $meta · <code>tokens/tokens.js</code> $meta (live ESM import) · <code>tokens/tokens.dtcg.json</code> $extensions · <code>tokens/provenance.json</code> release + dtcgStamp · root <code>DESIGN.md</code> front matter · <code>_esm/cs.mjs</code> <code>export const VERSION</code>. All stamps listed below; any mismatch fails. Verdict on <code>window.__versionstamp</code>.</p>
+<p class="lede">Every version stamp in the tree must equal the contents of <code>VERSION</code> (current pin <b>1.1.1</b>; LAUNCHED at 1.1.0 — further bumps need an owner instruction; no changelog). Checked: <code>package.json</code> version · <code>tokens/tokens.json</code> $meta · <code>tokens/tokens.js</code> $meta (live ESM import) · <code>tokens/tokens.dtcg.json</code> $extensions · <code>tokens/provenance.json</code> release + dtcgStamp · root <code>DESIGN.md</code> front matter · <code>_esm/cs.mjs</code> <code>export const VERSION</code>. All stamps listed below; any mismatch fails. Verdict on <code>window.__versionstamp</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <script>
@@ -22,7 +22,7 @@ function publish(v){ if(window.__versionstamp) return; window.__versionstamp=v; 
 (async()=>{
   const VERSION=(await (await fetch('../VERSION',{cache:'no-store'})).text()).trim();
   P.current='stamps';
-  record('VERSION (source of truth)',VERSION,VERSION==='1.1.0');
+  record('VERSION (source of truth)',VERSION,VERSION==='1.1.1');
   async function j(path){ return JSON.parse(await (await fetch('../'+path,{cache:'no-store'})).text()); }
   const pkg=await j('package.json');
   record('package.json version',pkg.version,pkg.version===VERSION);

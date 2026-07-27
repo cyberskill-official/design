@@ -38,7 +38,7 @@ Pack Style duy nhất hiện nay là **liquid-glass**. Bất biến dưới mọ
 
 **Element variant mới** — ở trong envelope oklch của element; đặt 9 token hợp đồng `--cs-accent-*` cộng `--cs-color-text-accent`/`--cs-color-link` (APCA-check cả hai); aurora wash kế thừa từ element qua `.cs-aurora-wash` (chỉ override class rule nếu variant thật sự cần ảnh riêng); đối tác gradient (`grad-b`) phải theo Tương sinh.
 
-**Ship check** — chạy compiler check đến sạch, rồi chạy `_audit/docs-consistency.html` **và** `_audit/namespace-portability.html` (cả hai phải xanh). Version giữ pin 1.1.0.
+**Ship check** — chạy compiler check đến sạch, rồi chạy `_audit/docs-consistency.html` **và** `_audit/namespace-portability.html` (cả hai phải xanh). Version giữ pin 1.1.1.
 
 ## Decision log (owner duyệt)
 
