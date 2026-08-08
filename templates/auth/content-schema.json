@@ -74,7 +74,13 @@
       "id": "resetHint",
       "type": "text",
       "label": "Password-reset hint",
-      "maxLength": 80
+      "maxLength": 40
+    },
+    {
+      "id": "resetLink",
+      "type": "text",
+      "label": "Password-reset action link",
+      "maxLength": 64
     }
   ]
 }

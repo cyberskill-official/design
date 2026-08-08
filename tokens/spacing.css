@@ -31,4 +31,6 @@
 
   /* Layout */
   --cs-container-max: 1320px;
+  /* Readable prose measure (UX-024) — ~65–75ch for long-form kit/tool copy */
+  --cs-prose-measure: 45rem;
 }

@@ -2,27 +2,12 @@ import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { Icon } from "../icon/Icon.jsx";
 import { cx } from "../_utils/cx.js";
-
-const FOCUSABLE = [
-  'a[href]',
-  'area[href]',
-  'button:not([disabled])',
-  'input:not([disabled]):not([type="hidden"])',
-  'select:not([disabled])',
-  'textarea:not([disabled])',
-  'audio[controls]',
-  'video[controls]',
-  'summary',
-  'iframe',
-  '[contenteditable]:not([contenteditable="false"])',
-  '[tabindex]:not([tabindex="-1"])',
-].join(",");
+import { useOverlayLayer } from "../overlays/OverlayManager.jsx";
 
 /**
  * CyberSkill Dialog — modal overlay + panel. aria-modal, labelled by title and
  * described by its body, scrim click closes. Body scroll is locked while open
- * (prior overflow restored on close/unmount). Compose actions in the footer
- * with Buttons.
+ * via the overlay manager (nested-safe). Compose actions in the footer with Buttons.
  */
 export function Dialog({
   open,
@@ -40,34 +25,17 @@ export function Dialog({
   const bodyId = children == null ? undefined : baseId + "-body";
   const [ref, L] = useLang(lang);
   const panel = React.useRef(null);
-  const closeRef = React.useRef(onClose); closeRef.current = onClose;
-  React.useEffect(() => {
-    if (!open) return;
-    const prev = document.activeElement;
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const focusables = () => (panel.current ? [...panel.current.querySelectorAll(FOCUSABLE)] : []);
-    const first = focusables()[0];
-    (first || panel.current) && (first || panel.current).focus();
-    const k = (e) => {
-      if (e.key === "Escape") { closeRef.current && closeRef.current(); return; }
-      if (e.key !== "Tab" || !panel.current) return;
-      const f = focusables();
-      if (!f.length) { e.preventDefault(); panel.current.focus(); return; }
-      const a = f[0], z = f[f.length - 1];
-      const active = document.activeElement;
-      const inside = panel.current.contains(active);
-      // Wrap at either edge; if focus somehow escaped the panel, pull it back in.
-      if (e.shiftKey && (!inside || active === a)) { e.preventDefault(); z.focus(); }
-      else if (!e.shiftKey && (!inside || active === z)) { e.preventDefault(); a.focus(); }
-    };
-    document.addEventListener("keydown", k);
-    return () => {
-      document.removeEventListener("keydown", k);
-      document.body.style.overflow = prevOverflow;
-      if (prev && prev.focus) prev.focus();
-    };
-  }, [open]);
+  const closeRef = React.useRef(onClose);
+  closeRef.current = onClose;
+
+  useOverlayLayer({
+    open: !!open,
+    kind: "modal",
+    trapFocus: true,
+    onEscape: () => closeRef.current && closeRef.current(),
+    panelRef: panel,
+  });
+
   const cl = closeLabel != null ? closeLabel : makeT("Dialog", L)("close");
   if (!open) return null;
   return (

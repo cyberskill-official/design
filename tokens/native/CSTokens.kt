@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.1.1 · source sha256 59f49135245713d6…
+// release v1.1.1 · source sha256 16b39bda3ee5b664…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -124,6 +124,7 @@ object CSTokens {
   val breakpointXl = 1280.dp
   val breakpoint2xl = 1536.dp
   val containerMax = 1320.dp
+  val proseMeasure = 720.dp
   val fontFamilyUi = "Be Vietnam Pro, ui-sans-serif, system-ui, sans-serif"
   val fontFamilyDisplay = "Space Grotesk, Be Vietnam Pro, ui-sans-serif, system-ui, sans-serif"
   val fontFamilyMono = "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"

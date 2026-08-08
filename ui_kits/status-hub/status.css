@@ -199,5 +199,5 @@ table.tbl { border-collapse: collapse; width: 100%; font-size: 13px; }
 @media (max-width: 900px) { .deck { grid-template-columns: 1fr; } .hd-meta { text-align: left; } }
 
 /* UX-024 readable measure */
-.panel p, .notes, .release-body, article p { max-inline-size: 72ch; }
+.panel p, .notes, .release-body, article p { max-inline-size: var(--cs-prose-measure, 45rem); }
 .card, button.card { min-width: 0; }

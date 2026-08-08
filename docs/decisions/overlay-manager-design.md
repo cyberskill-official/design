@@ -1,6 +1,6 @@
 # Overlay manager design (C8 / CDS-ARCH-001)
 
-Status: **design accepted for Phase 2; land in Phase 3** (operator decision D5=A, 2026-08-08).  
+Status: **landed in Phase 3** (operator decision D5=A, 2026-08-08) — see `components/overlays/OverlayManager.jsx`.  
 Owner: design-system maintainer · Related: UX-009 depth tokens, CDS-A11Y-003 keyboard models.
 
 ## Problem

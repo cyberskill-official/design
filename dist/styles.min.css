@@ -232,6 +232,8 @@ color-scheme: dark;
 
 
 --cs-container-max: 1320px;
+
+--cs-prose-measure: 45rem;
 }
 
 :root {

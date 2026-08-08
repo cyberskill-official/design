@@ -108,6 +108,7 @@ export { AlertDialog } from "../components/overlays/AlertDialog.jsx";
 export { ContextMenu } from "../components/overlays/ContextMenu.jsx";
 export { Drawer } from "../components/overlays/Drawer.jsx";
 export { HoverCard } from "../components/overlays/HoverCard.jsx";
+export { OverlayProvider } from "../components/overlays/OverlayManager.jsx";
 export { Popconfirm } from "../components/overlays/Popconfirm.jsx";
 export { Popover } from "../components/overlays/Popover.jsx";
 export { Tour } from "../components/overlays/Tour.jsx";

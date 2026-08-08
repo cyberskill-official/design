@@ -50,7 +50,7 @@
         <x-import component-from-global-scope="CyberSkillDS.Button" variant="ghost" full-width="{{ true }}" hint-size="100%,44px">{{ lumiBtn }}</x-import>
       </div>
       <p style="text-align:center;font-size:13px;color:var(--cs-color-text-muted);margin-top:16px">{{ newHere }} <a href="#">{{ askAccess }}</a></p>
-      <p style="text-align:center;font-size:12px;color:var(--cs-color-text-muted);margin-top:8px">{{ resetHint }}</p>
+      <p style="text-align:center;font-size:12px;color:var(--cs-color-text-muted);margin-top:8px">{{ resetHint }} <a href="mailto:admin@cyberskill.world?subject=Password%20reset">{{ resetLink }}</a></p>
     </div>
   </div>
 </main>
@@ -67,8 +67,8 @@ class Component extends DCLogic {
     const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
 const vn = this.props.language === "Tiếng Việt";
-    const en = { brandH:"Turn Your Will Into Real", brandP:"Sign in to your workspace — one page, three lenses across every wish in flight.", title:"Sign in", sub:"Welcome back. Sign in to continue.", emailL:"Work email", pwL:"Password", rememberL:"Remember me", signInBtn:"Sign in", lumiBtn:"✦ Talk to Lumi instead", newHere:"New here?", askAccess:"Ask for access", resetHint:"Forgot password? Contact your workspace admin." };
-    const vi = { brandH:"Hiện Thực Hoá Ý Chí", brandP:"Đăng nhập vào không gian làm việc — một trang, ba lăng kính cho mọi điều ước đang chạy.", title:"Đăng nhập", sub:"Mừng bạn quay lại. Đăng nhập để tiếp tục.", emailL:"Email công việc", pwL:"Mật khẩu", rememberL:"Ghi nhớ đăng nhập", signInBtn:"Đăng nhập", lumiBtn:"✦ Trò chuyện với Lumi", newHere:"Lần đầu?", askAccess:"Xin quyền truy cập", resetHint:"Quên mật khẩu? Liên hệ quản trị không gian làm việc." };
+    const en = { brandH:"Turn Your Will Into Real", brandP:"Sign in to your workspace — one page, three lenses across every wish in flight.", title:"Sign in", sub:"Welcome back. Sign in to continue.", emailL:"Work email", pwL:"Password", rememberL:"Remember me", signInBtn:"Sign in", lumiBtn:"✦ Talk to Lumi instead", newHere:"New here?", askAccess:"Ask for access", resetHint:"Forgot password?", resetLink:"Email your workspace admin to reset." };
+    const vi = { brandH:"Hiện Thực Hoá Ý Chí", brandP:"Đăng nhập vào không gian làm việc — một trang, ba lăng kính cho mọi điều ước đang chạy.", title:"Đăng nhập", sub:"Mừng bạn quay lại. Đăng nhập để tiếp tục.", emailL:"Email công việc", pwL:"Mật khẩu", rememberL:"Ghi nhớ đăng nhập", signInBtn:"Đăng nhập", lumiBtn:"✦ Trò chuyện với Lumi", newHere:"Lần đầu?", askAccess:"Xin quyền truy cập", resetHint:"Quên mật khẩu?", resetLink:"Gửi email cho quản trị không gian làm việc để đặt lại." };
     return Object.assign({ langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, rootTheme: this.props.theme === "dark" ? "dark" : "", showBrand: this.props.showBrandPanel ?? true }, vn ? vi : en);
   }
 }

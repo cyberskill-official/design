@@ -206,6 +206,8 @@ export { Drawer } from "../components/overlays/Drawer";
 export type * from "../components/overlays/Drawer";
 export { HoverCard } from "../components/overlays/HoverCard";
 export type * from "../components/overlays/HoverCard";
+export { OverlayProvider } from "../components/overlays/OverlayManager";
+export type * from "../components/overlays/OverlayManager";
 export { Popconfirm } from "../components/overlays/Popconfirm";
 export type * from "../components/overlays/Popconfirm";
 export { Popover } from "../components/overlays/Popover";

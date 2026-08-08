@@ -65,7 +65,7 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | Bundle freshness (authority) | `_audit/ci/check-bundle-freshness.mjs` | The committed `_ds_bundle.js` was built from the component sources as they exist now — full source discovery (walks `components/`, `ui_kits/`, root sources), so new/deleted files are caught too, which the browser row cannot do | Exit 0, 0 drifted/new/deleted sources | Hard | CI `node-prechecks` job |
 | DESIGN.md freshness | `scripts/generate-design-md.mjs --check` | The root `DESIGN.md` byte-equals a fresh regeneration from DTCG + manifest + `VERSION` | Exit 0 on byte match | Hard | CI `node-prechecks` job |
 
-## Unit tests — `npm run test:unit` (12)
+## Unit tests — `npm run test:unit` (13)
 
 | Test | File | What it asserts | Pass criterion | Type | Where it runs |
 |---|---|---|---|---|---|
@@ -81,6 +81,7 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | React entry | `_audit/ci/test-react-entry.mjs` | Dual package exports (`.` / `./react` → `_esm/react.mjs`, `./legacy` → `_esm/cs.mjs`); VERSION pin 1.1.1; React peerDeps; react.mjs has no CDN/bundle bridge and re-exports match the bundle header; `generate-react-entry --check` green | All assertions pass (exit 0) | Hard | Unit test |
 | Element packs | `_audit/ci/test-element-packs.mjs` | `tokens/elements.css` + JSON/JS/DTCG mirrors byte-equal regeneration from `tokens/element-seeds.json` | `generate-element-packs --check` exit 0 | Hard | Unit test |
 | i18n builtins + doc/font residuals | `_audit/ci/test-i18n-builtins.mjs` | No hardcoded EN UI literals outside the registry path; 0 doc-palette hexes in templates; 0 raw font-size px in `base/` | Exit 0 | Hard | Unit test |
+| Storybook static freshness | `_audit/ci/test-storybook-freshness.mjs` | When `storybook-static/` exists, `.cs-freshness.json` `sourceHash` matches `stories/` + `.storybook/` (UX-030). Absent static tree skips. | Exit 0 | Hard | Unit test |
 
 The `test:unit` suite is wired into the CI workflow as part of the July 2026 hardening change (it previously only ran locally).
 

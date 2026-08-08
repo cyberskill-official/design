@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"CyberSkillDesignSystem_847b3c","components":[{"name":"AIDisclosureBadge","sourcePath":"components/ai/AIDisclosureBadge.jsx"},{"name":"ChatMessage","sourcePath":"components/ai/ChatMessage.jsx"},{"name":"CitationList","sourcePath":"components/ai/CitationList.jsx"},{"name":"ConfidenceMeter","sourcePath":"components/ai/ConfidenceMeter.jsx"},{"name":"HumanReviewGate","sourcePath":"components/ai/HumanReviewGate.jsx"},{"name":"PromptInput","sourcePath":"components/ai/PromptInput.jsx"},{"name":"PromptSuggestions","sourcePath":"components/ai/PromptSuggestions.jsx"},{"name":"TypingIndicator","sourcePath":"components/ai/TypingIndicator.jsx"},{"name":"LumiAvatar","sourcePath":"components/brand/LumiAvatar.jsx"},{"name":"Button","sourcePath":"components/button/Button.jsx"},{"name":"ButtonGroup","sourcePath":"components/button/ButtonGroup.jsx"},{"name":"FloatingActionButton","sourcePath":"components/button/FloatingActionButton.jsx"},{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"AspectRatio","sourcePath":"components/data/AspectRatio.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/data/Avatar.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"CardHeader","sourcePath":"components/data/Card.jsx"},{"name":"CardBody","sourcePath":"components/data/Card.jsx"},{"name":"CardFooter","sourcePath":"components/data/Card.jsx"},{"name":"Carousel","sourcePath":"components/data/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data/Chart.jsx"},{"name":"CodeBlock","sourcePath":"components/data/CodeBlock.jsx"},{"name":"Collapsible","sourcePath":"components/data/Collapsible.jsx"},{"name":"Comment","sourcePath":"components/data/Comment.jsx"},{"name":"DescriptionList","sourcePath":"components/data/DescriptionList.jsx"},{"name":"Divider","sourcePath":"components/data/Divider.jsx"},{"name":"Image","sourcePath":"components/data/Image.jsx"},{"name":"Item","sourcePath":"components/data/Item.jsx"},{"name":"Kbd","sourcePath":"components/data/Kbd.jsx"},{"name":"List","sourcePath":"components/data/List.jsx"},{"name":"ListItem","sourcePath":"components/data/List.jsx"},{"name":"Masonry","sourcePath":"components/data/Masonry.jsx"},{"name":"QRCode","sourcePath":"components/data/QRCode.jsx"},{"name":"ScrollArea","sourcePath":"components/data/ScrollArea.jsx"},{"name":"Sortable","sourcePath":"components/data/Sortable.jsx"},{"name":"Splitter","sourcePath":"components/data/Splitter.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Terminal","sourcePath":"components/data/Terminal.jsx"},{"name":"Timeline","sourcePath":"components/data/Timeline.jsx"},{"name":"Tooltip","sourcePath":"components/data/Tooltip.jsx"},{"name":"Tree","sourcePath":"components/data/Tree.jsx"},{"name":"Watermark","sourcePath":"components/data/Watermark.jsx"},{"name":"DataGrid","sourcePath":"components/datatable/DataGrid.jsx"},{"name":"DataTable","sourcePath":"components/datatable/DataTable.jsx"},{"name":"TreeTable","sourcePath":"components/datatable/TreeTable.jsx"},{"name":"Dialog","sourcePath":"components/dialog/Dialog.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Result","sourcePath":"components/feedback/Result.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"StatusIndicator","sourcePath":"components/feedback/StatusIndicator.jsx"},{"name":"Tag","sourcePath":"components/feedback/Tag.jsx"},{"name":"ToastStack","sourcePath":"components/feedback/Toast.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Calendar","sourcePath":"components/forms/Calendar.jsx"},{"name":"Cascader","sourcePath":"components/forms/Cascader.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"ColorPicker","sourcePath":"components/forms/ColorPicker.jsx"},{"name":"Combobox","sourcePath":"components/forms/Combobox.jsx"},{"name":"DatePicker","sourcePath":"components/forms/DatePicker.jsx"},{"name":"Editor","sourcePath":"components/forms/Editor.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"Form","sourcePath":"components/forms/Form.jsx"},{"name":"FormField","sourcePath":"components/forms/Form.jsx"},{"name":"FormFieldArray","sourcePath":"components/forms/Form.jsx"},{"name":"FormWizard","sourcePath":"components/forms/Form.jsx"},{"name":"InlineEdit","sourcePath":"components/forms/InlineEdit.jsx"},{"name":"InputGroup","sourcePath":"components/forms/InputGroup.jsx"},{"name":"InputOTP","sourcePath":"components/forms/InputOTP.jsx"},{"name":"Mentions","sourcePath":"components/forms/Mentions.jsx"},{"name":"NativeSelect","sourcePath":"components/forms/NativeSelect.jsx"},{"name":"NumberField","sourcePath":"components/forms/NumberField.jsx"},{"name":"Radio","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"Rating","sourcePath":"components/forms/Rating.jsx"},{"name":"SearchField","sourcePath":"components/forms/SearchField.jsx"},{"name":"SegmentedControl","sourcePath":"components/forms/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Slider","sourcePath":"components/forms/Slider.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TagInput","sourcePath":"components/forms/TagInput.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"TimePicker","sourcePath":"components/forms/TimePicker.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Transfer","sourcePath":"components/forms/Transfer.jsx"},{"name":"TreeSelect","sourcePath":"components/forms/TreeSelect.jsx"},{"name":"CS_ICONS","sourcePath":"components/icon/Icon.jsx"},{"name":"Icon","sourcePath":"components/icon/Icon.jsx"},{"name":"Logo","sourcePath":"components/logo/Logo.jsx"},{"name":"CS_LOGO_VIEWBOX","sourcePath":"components/logo/logo-data.js"},{"name":"CS_LOGO_MARK_INNER","sourcePath":"components/logo/logo-data.js"},{"name":"Anchor","sourcePath":"components/navigation/Anchor.jsx"},{"name":"BackTop","sourcePath":"components/navigation/BackTop.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"CommandPalette","sourcePath":"components/navigation/CommandPalette.jsx"},{"name":"Dock","sourcePath":"components/navigation/Dock.jsx"},{"name":"HotKeys","sourcePath":"components/navigation/HotKeys.jsx"},{"name":"Link","sourcePath":"components/navigation/Link.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"MenuItem","sourcePath":"components/navigation/Menu.jsx"},{"name":"Menubar","sourcePath":"components/navigation/Menubar.jsx"},{"name":"NavigationMenu","sourcePath":"components/navigation/NavigationMenu.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"NavItem","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Steps","sourcePath":"components/navigation/Steps.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Tab","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Toolbar","sourcePath":"components/navigation/Toolbar.jsx"},{"name":"AlertDialog","sourcePath":"components/overlays/AlertDialog.jsx"},{"name":"ContextMenu","sourcePath":"components/overlays/ContextMenu.jsx"},{"name":"Drawer","sourcePath":"components/overlays/Drawer.jsx"},{"name":"HoverCard","sourcePath":"components/overlays/HoverCard.jsx"},{"name":"Popconfirm","sourcePath":"components/overlays/Popconfirm.jsx"},{"name":"Popover","sourcePath":"components/overlays/Popover.jsx"},{"name":"Tour","sourcePath":"components/overlays/Tour.jsx"},{"name":"TextField","sourcePath":"components/textfield/TextField.jsx"}],"sourceHashes":{"components/_i18n/i18n.js":"63f973d61113","components/_i18n/strings.js":"cea7ef153e18","components/_utils/cx.js":"ad6a747ea116","components/ai/AIDisclosureBadge.jsx":"4c8954aa2d79","components/ai/ChatMessage.jsx":"84076f3488f2","components/ai/CitationList.jsx":"4d12ef868ff3","components/ai/ConfidenceMeter.jsx":"68cf2bba3a9e","components/ai/HumanReviewGate.jsx":"922b278dca5c","components/ai/PromptInput.jsx":"7634643dafa5","components/ai/PromptSuggestions.jsx":"02d64117ecfa","components/ai/TypingIndicator.jsx":"149e3a0c7ef8","components/brand/LumiAvatar.jsx":"b6444360cf80","components/button/Button.jsx":"6d902a925eed","components/button/ButtonGroup.jsx":"1a1481f6fb93","components/button/FloatingActionButton.jsx":"ce49fe4129a3","components/data/Accordion.jsx":"fed81278cefd","components/data/AspectRatio.jsx":"6c1e8703891e","components/data/Avatar.jsx":"88c8f59334e6","components/data/Card.jsx":"96e1f9ef44a9","components/data/Carousel.jsx":"caf09a766c42","components/data/Chart.jsx":"1953e9fef120","components/data/CodeBlock.jsx":"04e0bd2507e2","components/data/Collapsible.jsx":"3d961fef83f8","components/data/Comment.jsx":"81469a910d80","components/data/DescriptionList.jsx":"ce50d72546bb","components/data/Divider.jsx":"2d08b4a7b18e","components/data/Image.jsx":"da5c7d4c69af","components/data/Item.jsx":"7e1ac68c4e96","components/data/Kbd.jsx":"3b3d867cbdd8","components/data/List.jsx":"5c221b19efe0","components/data/Masonry.jsx":"a65508731d79","components/data/QRCode.jsx":"6acaf577a7fc","components/data/ScrollArea.jsx":"c2e2ec304b1e","components/data/Sortable.jsx":"315b50256128","components/data/Splitter.jsx":"d231064601e9","components/data/Stat.jsx":"35734a801a71","components/data/Terminal.jsx":"3a3cd4477814","components/data/Timeline.jsx":"22058a781a98","components/data/Tooltip.jsx":"4d027aff5559","components/data/Tree.jsx":"9097456de50f","components/data/Watermark.jsx":"66b7b71488d8","components/data/qr-encode.js":"14e8de77df5f","components/datatable/DataGrid.jsx":"c84fe5d5b8cc","components/datatable/DataTable.jsx":"fbfad5570592","components/datatable/TreeTable.jsx":"597c35135ebb","components/dialog/Dialog.jsx":"7af51ee28ab6","components/feedback/Alert.jsx":"0bbe4e5f467a","components/feedback/Badge.jsx":"e691ae1634f8","components/feedback/EmptyState.jsx":"9a9c00523cec","components/feedback/ProgressBar.jsx":"3986118b0da8","components/feedback/Result.jsx":"c168f8dcb009","components/feedback/Skeleton.jsx":"86ee345cb412","components/feedback/Spinner.jsx":"cad2ed4008a6","components/feedback/StatusIndicator.jsx":"d27a5fc3db2a","components/feedback/Tag.jsx":"13d288da9f38","components/feedback/Toast.jsx":"38cc9a82ede9","components/forms/Calendar.jsx":"8a66cbe766af","components/forms/Cascader.jsx":"ada31ccaf716","components/forms/Checkbox.jsx":"2badb7b3b72b","components/forms/ColorPicker.jsx":"d04db0ee7678","components/forms/Combobox.jsx":"3f2fb4d28922","components/forms/DatePicker.jsx":"7a6c18e1e635","components/forms/Editor.jsx":"194484fb9dc4","components/forms/FileUpload.jsx":"509dfaff8bea","components/forms/Form.jsx":"f7952da4b73a","components/forms/InlineEdit.jsx":"5ffb40598769","components/forms/InputGroup.jsx":"06d6c22420d0","components/forms/InputOTP.jsx":"c3a5d02ffebc","components/forms/Mentions.jsx":"04bc4b5a4ace","components/forms/NativeSelect.jsx":"d6f6d300f75d","components/forms/NumberField.jsx":"44975fd25721","components/forms/RadioGroup.jsx":"1a64f7600e01","components/forms/Rating.jsx":"06d345ecc5f4","components/forms/SearchField.jsx":"2a12c65900ec","components/forms/SegmentedControl.jsx":"1f143c62fb56","components/forms/Select.jsx":"1b5ba905b339","components/forms/Slider.jsx":"69aa1a5f1af8","components/forms/Switch.jsx":"ed54f4bceb60","components/forms/TagInput.jsx":"2d1554422097","components/forms/Textarea.jsx":"cf244fee0e37","components/forms/TimePicker.jsx":"abd6e54b2983","components/forms/Toggle.jsx":"338453a34669","components/forms/Transfer.jsx":"dd0c02d1014e","components/forms/TreeSelect.jsx":"a5b1b91d1d6a","components/icon/Icon.jsx":"280fba8477db","components/logo/Logo.jsx":"445c5f5fbd40","components/logo/logo-data.js":"f1a251a50c8f","components/navigation/Anchor.jsx":"491fb330e718","components/navigation/BackTop.jsx":"5cac0081fc20","components/navigation/Breadcrumb.jsx":"45636f3b0a51","components/navigation/CommandPalette.jsx":"2b5b30906b8b","components/navigation/Dock.jsx":"3073e2870c65","components/navigation/HotKeys.jsx":"f0f707a3335d","components/navigation/Link.jsx":"d4fe3fcffd2c","components/navigation/Menu.jsx":"6786788f13f8","components/navigation/Menubar.jsx":"1aa64f59891e","components/navigation/NavigationMenu.jsx":"020279fd7f79","components/navigation/Pagination.jsx":"a1fc19bfd104","components/navigation/Sidebar.jsx":"d578b013ad33","components/navigation/Steps.jsx":"85cb20bd45da","components/navigation/Tabs.jsx":"5d5921da1644","components/navigation/Toolbar.jsx":"ba1e0d0578b3","components/overlays/AlertDialog.jsx":"2ed7fbde4a5a","components/overlays/ContextMenu.jsx":"e7e3386d89ac","components/overlays/Drawer.jsx":"8227143abbfa","components/overlays/HoverCard.jsx":"5cfabde80960","components/overlays/Popconfirm.jsx":"55f08dba5f38","components/overlays/Popover.jsx":"1582f7fa5533","components/overlays/Tour.jsx":"707cd7464f0c","components/textfield/TextField.jsx":"c06bd9729f20","image-slot.js":"26886a229370","tokens/tokens.js":"e02edfa89ec3","ui_kits/status-hub/StatusHub.jsx":"2b2ed4c462c6","ui_kits/status-hub/data.js":"664bbbb30cb3","ui_kits/website/Website.jsx":"c6a98330480b","ui_kits/website/copy.js":"9d42c52c17cb"},"inlinedExternals":[],"unexposedExports":[{"name":"cx","sourcePath":"components/_utils/cx.js"},{"name":"formatCurrency","sourcePath":"components/_i18n/i18n.js"},{"name":"formatDate","sourcePath":"components/_i18n/i18n.js"},{"name":"formatNumber","sourcePath":"components/_i18n/i18n.js"},{"name":"getPath","sourcePath":"components/forms/Form.jsx"},{"name":"makeT","sourcePath":"components/_i18n/i18n.js"},{"name":"monthName","sourcePath":"components/_i18n/i18n.js"},{"name":"qrMatrix","sourcePath":"components/data/qr-encode.js"},{"name":"resolveLang","sourcePath":"components/_i18n/i18n.js"},{"name":"setPath","sourcePath":"components/forms/Form.jsx"},{"name":"strings","sourcePath":"components/_i18n/strings.js"},{"name":"tokens","sourcePath":"tokens/tokens.js"},{"name":"tr","sourcePath":"components/_i18n/i18n.js"},{"name":"useLang","sourcePath":"components/_i18n/i18n.js"}]} */
+/* @ds-bundle: {"format":4,"namespace":"CyberSkillDesignSystem_847b3c","components":[{"name":"AIDisclosureBadge","sourcePath":"components/ai/AIDisclosureBadge.jsx"},{"name":"ChatMessage","sourcePath":"components/ai/ChatMessage.jsx"},{"name":"CitationList","sourcePath":"components/ai/CitationList.jsx"},{"name":"ConfidenceMeter","sourcePath":"components/ai/ConfidenceMeter.jsx"},{"name":"HumanReviewGate","sourcePath":"components/ai/HumanReviewGate.jsx"},{"name":"PromptInput","sourcePath":"components/ai/PromptInput.jsx"},{"name":"PromptSuggestions","sourcePath":"components/ai/PromptSuggestions.jsx"},{"name":"TypingIndicator","sourcePath":"components/ai/TypingIndicator.jsx"},{"name":"LumiAvatar","sourcePath":"components/brand/LumiAvatar.jsx"},{"name":"Button","sourcePath":"components/button/Button.jsx"},{"name":"ButtonGroup","sourcePath":"components/button/ButtonGroup.jsx"},{"name":"FloatingActionButton","sourcePath":"components/button/FloatingActionButton.jsx"},{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"AspectRatio","sourcePath":"components/data/AspectRatio.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/data/Avatar.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"CardHeader","sourcePath":"components/data/Card.jsx"},{"name":"CardBody","sourcePath":"components/data/Card.jsx"},{"name":"CardFooter","sourcePath":"components/data/Card.jsx"},{"name":"Carousel","sourcePath":"components/data/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data/Chart.jsx"},{"name":"CodeBlock","sourcePath":"components/data/CodeBlock.jsx"},{"name":"Collapsible","sourcePath":"components/data/Collapsible.jsx"},{"name":"Comment","sourcePath":"components/data/Comment.jsx"},{"name":"DescriptionList","sourcePath":"components/data/DescriptionList.jsx"},{"name":"Divider","sourcePath":"components/data/Divider.jsx"},{"name":"Image","sourcePath":"components/data/Image.jsx"},{"name":"Item","sourcePath":"components/data/Item.jsx"},{"name":"Kbd","sourcePath":"components/data/Kbd.jsx"},{"name":"List","sourcePath":"components/data/List.jsx"},{"name":"ListItem","sourcePath":"components/data/List.jsx"},{"name":"Masonry","sourcePath":"components/data/Masonry.jsx"},{"name":"QRCode","sourcePath":"components/data/QRCode.jsx"},{"name":"ScrollArea","sourcePath":"components/data/ScrollArea.jsx"},{"name":"Sortable","sourcePath":"components/data/Sortable.jsx"},{"name":"Splitter","sourcePath":"components/data/Splitter.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Terminal","sourcePath":"components/data/Terminal.jsx"},{"name":"Timeline","sourcePath":"components/data/Timeline.jsx"},{"name":"Tooltip","sourcePath":"components/data/Tooltip.jsx"},{"name":"Tree","sourcePath":"components/data/Tree.jsx"},{"name":"Watermark","sourcePath":"components/data/Watermark.jsx"},{"name":"DataGrid","sourcePath":"components/datatable/DataGrid.jsx"},{"name":"DataTable","sourcePath":"components/datatable/DataTable.jsx"},{"name":"TreeTable","sourcePath":"components/datatable/TreeTable.jsx"},{"name":"Dialog","sourcePath":"components/dialog/Dialog.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Result","sourcePath":"components/feedback/Result.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"StatusIndicator","sourcePath":"components/feedback/StatusIndicator.jsx"},{"name":"Tag","sourcePath":"components/feedback/Tag.jsx"},{"name":"ToastStack","sourcePath":"components/feedback/Toast.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Calendar","sourcePath":"components/forms/Calendar.jsx"},{"name":"Cascader","sourcePath":"components/forms/Cascader.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"ColorPicker","sourcePath":"components/forms/ColorPicker.jsx"},{"name":"Combobox","sourcePath":"components/forms/Combobox.jsx"},{"name":"DatePicker","sourcePath":"components/forms/DatePicker.jsx"},{"name":"Editor","sourcePath":"components/forms/Editor.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"Form","sourcePath":"components/forms/Form.jsx"},{"name":"FormField","sourcePath":"components/forms/Form.jsx"},{"name":"FormFieldArray","sourcePath":"components/forms/Form.jsx"},{"name":"FormWizard","sourcePath":"components/forms/Form.jsx"},{"name":"InlineEdit","sourcePath":"components/forms/InlineEdit.jsx"},{"name":"InputGroup","sourcePath":"components/forms/InputGroup.jsx"},{"name":"InputOTP","sourcePath":"components/forms/InputOTP.jsx"},{"name":"Mentions","sourcePath":"components/forms/Mentions.jsx"},{"name":"NativeSelect","sourcePath":"components/forms/NativeSelect.jsx"},{"name":"NumberField","sourcePath":"components/forms/NumberField.jsx"},{"name":"Radio","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"Rating","sourcePath":"components/forms/Rating.jsx"},{"name":"SearchField","sourcePath":"components/forms/SearchField.jsx"},{"name":"SegmentedControl","sourcePath":"components/forms/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Slider","sourcePath":"components/forms/Slider.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TagInput","sourcePath":"components/forms/TagInput.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"TimePicker","sourcePath":"components/forms/TimePicker.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Transfer","sourcePath":"components/forms/Transfer.jsx"},{"name":"TreeSelect","sourcePath":"components/forms/TreeSelect.jsx"},{"name":"CS_ICONS","sourcePath":"components/icon/Icon.jsx"},{"name":"Icon","sourcePath":"components/icon/Icon.jsx"},{"name":"Logo","sourcePath":"components/logo/Logo.jsx"},{"name":"CS_LOGO_VIEWBOX","sourcePath":"components/logo/logo-data.js"},{"name":"CS_LOGO_MARK_INNER","sourcePath":"components/logo/logo-data.js"},{"name":"Anchor","sourcePath":"components/navigation/Anchor.jsx"},{"name":"BackTop","sourcePath":"components/navigation/BackTop.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"CommandPalette","sourcePath":"components/navigation/CommandPalette.jsx"},{"name":"Dock","sourcePath":"components/navigation/Dock.jsx"},{"name":"HotKeys","sourcePath":"components/navigation/HotKeys.jsx"},{"name":"Link","sourcePath":"components/navigation/Link.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"MenuItem","sourcePath":"components/navigation/Menu.jsx"},{"name":"Menubar","sourcePath":"components/navigation/Menubar.jsx"},{"name":"NavigationMenu","sourcePath":"components/navigation/NavigationMenu.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"NavItem","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Steps","sourcePath":"components/navigation/Steps.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Tab","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Toolbar","sourcePath":"components/navigation/Toolbar.jsx"},{"name":"AlertDialog","sourcePath":"components/overlays/AlertDialog.jsx"},{"name":"ContextMenu","sourcePath":"components/overlays/ContextMenu.jsx"},{"name":"Drawer","sourcePath":"components/overlays/Drawer.jsx"},{"name":"HoverCard","sourcePath":"components/overlays/HoverCard.jsx"},{"name":"OverlayProvider","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"Popconfirm","sourcePath":"components/overlays/Popconfirm.jsx"},{"name":"Popover","sourcePath":"components/overlays/Popover.jsx"},{"name":"Tour","sourcePath":"components/overlays/Tour.jsx"},{"name":"TextField","sourcePath":"components/textfield/TextField.jsx"}],"sourceHashes":{"components/_i18n/i18n.js":"63f973d61113","components/_i18n/strings.js":"cea7ef153e18","components/_utils/cx.js":"ad6a747ea116","components/ai/AIDisclosureBadge.jsx":"4c8954aa2d79","components/ai/ChatMessage.jsx":"84076f3488f2","components/ai/CitationList.jsx":"4d12ef868ff3","components/ai/ConfidenceMeter.jsx":"68cf2bba3a9e","components/ai/HumanReviewGate.jsx":"922b278dca5c","components/ai/PromptInput.jsx":"7634643dafa5","components/ai/PromptSuggestions.jsx":"02d64117ecfa","components/ai/TypingIndicator.jsx":"149e3a0c7ef8","components/brand/LumiAvatar.jsx":"b6444360cf80","components/button/Button.jsx":"6d902a925eed","components/button/ButtonGroup.jsx":"1a1481f6fb93","components/button/FloatingActionButton.jsx":"ce49fe4129a3","components/data/Accordion.jsx":"fed81278cefd","components/data/AspectRatio.jsx":"6c1e8703891e","components/data/Avatar.jsx":"88c8f59334e6","components/data/Card.jsx":"96e1f9ef44a9","components/data/Carousel.jsx":"caf09a766c42","components/data/Chart.jsx":"1953e9fef120","components/data/CodeBlock.jsx":"04e0bd2507e2","components/data/Collapsible.jsx":"3d961fef83f8","components/data/Comment.jsx":"81469a910d80","components/data/DescriptionList.jsx":"ce50d72546bb","components/data/Divider.jsx":"2d08b4a7b18e","components/data/Image.jsx":"da5c7d4c69af","components/data/Item.jsx":"7e1ac68c4e96","components/data/Kbd.jsx":"3b3d867cbdd8","components/data/List.jsx":"5c221b19efe0","components/data/Masonry.jsx":"a65508731d79","components/data/QRCode.jsx":"6acaf577a7fc","components/data/ScrollArea.jsx":"c2e2ec304b1e","components/data/Sortable.jsx":"315b50256128","components/data/Splitter.jsx":"d231064601e9","components/data/Stat.jsx":"35734a801a71","components/data/Terminal.jsx":"3a3cd4477814","components/data/Timeline.jsx":"22058a781a98","components/data/Tooltip.jsx":"4d027aff5559","components/data/Tree.jsx":"9097456de50f","components/data/Watermark.jsx":"66b7b71488d8","components/data/qr-encode.js":"14e8de77df5f","components/datatable/DataGrid.jsx":"c84fe5d5b8cc","components/datatable/DataTable.jsx":"fbfad5570592","components/datatable/TreeTable.jsx":"597c35135ebb","components/dialog/Dialog.jsx":"8ef7722c37c4","components/feedback/Alert.jsx":"0bbe4e5f467a","components/feedback/Badge.jsx":"e691ae1634f8","components/feedback/EmptyState.jsx":"9a9c00523cec","components/feedback/ProgressBar.jsx":"3986118b0da8","components/feedback/Result.jsx":"c168f8dcb009","components/feedback/Skeleton.jsx":"86ee345cb412","components/feedback/Spinner.jsx":"cad2ed4008a6","components/feedback/StatusIndicator.jsx":"d27a5fc3db2a","components/feedback/Tag.jsx":"13d288da9f38","components/feedback/Toast.jsx":"38cc9a82ede9","components/forms/Calendar.jsx":"8a66cbe766af","components/forms/Cascader.jsx":"7b830b11edb1","components/forms/Checkbox.jsx":"2badb7b3b72b","components/forms/ColorPicker.jsx":"d04db0ee7678","components/forms/Combobox.jsx":"3f2fb4d28922","components/forms/DatePicker.jsx":"7a6c18e1e635","components/forms/Editor.jsx":"194484fb9dc4","components/forms/FileUpload.jsx":"509dfaff8bea","components/forms/Form.jsx":"f7952da4b73a","components/forms/InlineEdit.jsx":"5ffb40598769","components/forms/InputGroup.jsx":"06d6c22420d0","components/forms/InputOTP.jsx":"c3a5d02ffebc","components/forms/Mentions.jsx":"04bc4b5a4ace","components/forms/NativeSelect.jsx":"d6f6d300f75d","components/forms/NumberField.jsx":"44975fd25721","components/forms/RadioGroup.jsx":"1a64f7600e01","components/forms/Rating.jsx":"06d345ecc5f4","components/forms/SearchField.jsx":"2a12c65900ec","components/forms/SegmentedControl.jsx":"1f143c62fb56","components/forms/Select.jsx":"1b5ba905b339","components/forms/Slider.jsx":"69aa1a5f1af8","components/forms/Switch.jsx":"ed54f4bceb60","components/forms/TagInput.jsx":"2d1554422097","components/forms/Textarea.jsx":"cf244fee0e37","components/forms/TimePicker.jsx":"abd6e54b2983","components/forms/Toggle.jsx":"338453a34669","components/forms/Transfer.jsx":"dd0c02d1014e","components/forms/TreeSelect.jsx":"a5b1b91d1d6a","components/icon/Icon.jsx":"280fba8477db","components/logo/Logo.jsx":"445c5f5fbd40","components/logo/logo-data.js":"f1a251a50c8f","components/navigation/Anchor.jsx":"491fb330e718","components/navigation/BackTop.jsx":"5cac0081fc20","components/navigation/Breadcrumb.jsx":"45636f3b0a51","components/navigation/CommandPalette.jsx":"51c25b8416eb","components/navigation/Dock.jsx":"3073e2870c65","components/navigation/HotKeys.jsx":"f0f707a3335d","components/navigation/Link.jsx":"d4fe3fcffd2c","components/navigation/Menu.jsx":"6786788f13f8","components/navigation/Menubar.jsx":"1aa64f59891e","components/navigation/NavigationMenu.jsx":"020279fd7f79","components/navigation/Pagination.jsx":"a1fc19bfd104","components/navigation/Sidebar.jsx":"d578b013ad33","components/navigation/Steps.jsx":"85cb20bd45da","components/navigation/Tabs.jsx":"5d5921da1644","components/navigation/Toolbar.jsx":"ba1e0d0578b3","components/overlays/AlertDialog.jsx":"dcfbb7f61506","components/overlays/ContextMenu.jsx":"e7e3386d89ac","components/overlays/Drawer.jsx":"a1c719da3f62","components/overlays/HoverCard.jsx":"5cfabde80960","components/overlays/OverlayManager.jsx":"6b58c4dad9da","components/overlays/Popconfirm.jsx":"55f08dba5f38","components/overlays/Popover.jsx":"1582f7fa5533","components/overlays/Tour.jsx":"707cd7464f0c","components/textfield/TextField.jsx":"c06bd9729f20","image-slot.js":"26886a229370","tokens/tokens.js":"5125b0c250db","ui_kits/status-hub/StatusHub.jsx":"8674a9fcf8fc","ui_kits/status-hub/data.js":"664bbbb30cb3","ui_kits/website/Website.jsx":"c6a98330480b","ui_kits/website/copy.js":"9d42c52c17cb"},"inlinedExternals":[],"unexposedExports":[{"name":"attachFocusTrap","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"cx","sourcePath":"components/_utils/cx.js"},{"name":"focusableSelector","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"formatCurrency","sourcePath":"components/_i18n/i18n.js"},{"name":"formatDate","sourcePath":"components/_i18n/i18n.js"},{"name":"formatNumber","sourcePath":"components/_i18n/i18n.js"},{"name":"getOverlayManager","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"getPath","sourcePath":"components/forms/Form.jsx"},{"name":"makeT","sourcePath":"components/_i18n/i18n.js"},{"name":"monthName","sourcePath":"components/_i18n/i18n.js"},{"name":"qrMatrix","sourcePath":"components/data/qr-encode.js"},{"name":"resolveLang","sourcePath":"components/_i18n/i18n.js"},{"name":"setPath","sourcePath":"components/forms/Form.jsx"},{"name":"strings","sourcePath":"components/_i18n/strings.js"},{"name":"tokens","sourcePath":"tokens/tokens.js"},{"name":"tr","sourcePath":"components/_i18n/i18n.js"},{"name":"useLang","sourcePath":"components/_i18n/i18n.js"},{"name":"useOverlayLayer","sourcePath":"components/overlays/OverlayManager.jsx"}]} */
 
 (() => {
 
@@ -1442,7 +1442,42 @@ function Cascader({ nodes = [], value = [], onChange, placeholder, label, disabl
       if (wrap.current && !wrap.current.contains(e.target)) setOpen(false);
     };
     const k = (e) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        const field = wrap.current && wrap.current.querySelector(".cs-treeselect__field");
+        field && field.focus && field.focus();
+        return;
+      }
+      if (!wrap.current) return;
+      const opts = [...wrap.current.querySelectorAll('[role="option"]')];
+      if (!opts.length) return;
+      const active = document.activeElement;
+      const idx = opts.indexOf(active);
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        (opts[idx < 0 ? 0 : Math.min(opts.length - 1, idx + 1)] || opts[0]).focus();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        (opts[idx < 0 ? opts.length - 1 : Math.max(0, idx - 1)] || opts[0]).focus();
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        opts[0].focus();
+      } else if (e.key === "End") {
+        e.preventDefault();
+        opts[opts.length - 1].focus();
+      } else if (e.key === "ArrowRight" && idx >= 0) {
+        active.click && active.click();
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        if (path.length) {
+          const next = path.slice(0, -1);
+          setPath(next);
+        } else {
+          setOpen(false);
+          const field = wrap.current.querySelector(".cs-treeselect__field");
+          field && field.focus && field.focus();
+        }
+      }
     };
     document.addEventListener("mousedown", d);
     document.addEventListener("keydown", k);
@@ -1450,7 +1485,7 @@ function Cascader({ nodes = [], value = [], onChange, placeholder, label, disabl
       document.removeEventListener("mousedown", d);
       document.removeEventListener("keydown", k);
     };
-  }, [open]);
+  }, [open, path]);
   const cols = [];
   let level = nodes;
   for (let i = 0; level && level.length; i++) {
@@ -1471,7 +1506,27 @@ function Cascader({ nodes = [], value = [], onChange, placeholder, label, disabl
   return /* @__PURE__ */ React.createElement("div", { ref: (el) => {
     wrap.current = el;
     ref.current = el;
-  }, className: cx("cs-cascader", className) }, /* @__PURE__ */ React.createElement("button", { type: "button", id: fieldId, className: "cs-treeselect__field", disabled, "aria-haspopup": "listbox", "aria-expanded": open, "aria-label": label, onClick: () => setOpen((o) => !o) }, /* @__PURE__ */ React.createElement("span", { className: labels.length ? void 0 : "ph" }, labels.length ? labels.join(" / ") : ph), /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, "▾")), open ? /* @__PURE__ */ React.createElement("div", { className: "cs-cascader__pop" }, cols.map((col, i) => /* @__PURE__ */ React.createElement("ul", { key: i, role: "listbox", "aria-labelledby": fieldId, className: "cs-cascader__col" }, col.map((n) => (
+  }, className: cx("cs-cascader", className) }, /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      type: "button",
+      id: fieldId,
+      className: "cs-treeselect__field",
+      disabled,
+      "aria-haspopup": "listbox",
+      "aria-expanded": open,
+      "aria-label": label,
+      onClick: () => setOpen((o) => !o),
+      onKeyDown: (e) => {
+        if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          setOpen(true);
+        }
+      }
+    },
+    /* @__PURE__ */ React.createElement("span", { className: labels.length ? void 0 : "ph" }, labels.length ? labels.join(" / ") : ph),
+    /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, "▾")
+  ), open ? /* @__PURE__ */ React.createElement("div", { className: "cs-cascader__pop" }, cols.map((col, i) => /* @__PURE__ */ React.createElement("ul", { key: i, role: "listbox", "aria-labelledby": fieldId, className: "cs-cascader__col" }, col.map((n) => (
     // role="none" — the <li> wrapper must not sit between listbox and option.
     /* @__PURE__ */ React.createElement("li", { key: n.key, role: "none" }, /* @__PURE__ */ React.createElement(
       "button",
@@ -1480,6 +1535,7 @@ function Cascader({ nodes = [], value = [], onChange, placeholder, label, disabl
         role: "option",
         "aria-selected": path[i] === n.key,
         className: cx("cs-cascader__opt", path[i] === n.key && "on"),
+        "data-cs-focusable": "",
         onClick: () => {
           const next = [...path.slice(0, i), n.key];
           setPath(next);
@@ -2925,103 +2981,6 @@ function DataGrid({
 Object.assign(__ds_scope, { DataGrid });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/datatable/DataGrid.jsx", error: String((e && e.message) || e) }); }
 
-// components/dialog/Dialog.jsx
-try { (() => {
-const { makeT, useLang } = __ds_scope;
-const { Icon } = __ds_scope;
-const { cx } = __ds_scope;
-const FOCUSABLE = [
-  "a[href]",
-  "area[href]",
-  "button:not([disabled])",
-  'input:not([disabled]):not([type="hidden"])',
-  "select:not([disabled])",
-  "textarea:not([disabled])",
-  "audio[controls]",
-  "video[controls]",
-  "summary",
-  "iframe",
-  '[contenteditable]:not([contenteditable="false"])',
-  '[tabindex]:not([tabindex="-1"])'
-].join(",");
-function Dialog({
-  open,
-  title,
-  children,
-  actions,
-  onClose,
-  className,
-  closeLabel,
-  lang,
-  ...props
-}) {
-  const baseId = React.useId();
-  const titleId = baseId + "-title";
-  const bodyId = children == null ? void 0 : baseId + "-body";
-  const [ref, L] = useLang(lang);
-  const panel = React.useRef(null);
-  const closeRef = React.useRef(onClose);
-  closeRef.current = onClose;
-  React.useEffect(() => {
-    if (!open) return;
-    const prev = document.activeElement;
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const focusables = () => panel.current ? [...panel.current.querySelectorAll(FOCUSABLE)] : [];
-    const first = focusables()[0];
-    (first || panel.current) && (first || panel.current).focus();
-    const k = (e) => {
-      if (e.key === "Escape") {
-        closeRef.current && closeRef.current();
-        return;
-      }
-      if (e.key !== "Tab" || !panel.current) return;
-      const f = focusables();
-      if (!f.length) {
-        e.preventDefault();
-        panel.current.focus();
-        return;
-      }
-      const a = f[0], z = f[f.length - 1];
-      const active = document.activeElement;
-      const inside = panel.current.contains(active);
-      if (e.shiftKey && (!inside || active === a)) {
-        e.preventDefault();
-        z.focus();
-      } else if (!e.shiftKey && (!inside || active === z)) {
-        e.preventDefault();
-        a.focus();
-      }
-    };
-    document.addEventListener("keydown", k);
-    return () => {
-      document.removeEventListener("keydown", k);
-      document.body.style.overflow = prevOverflow;
-      if (prev && prev.focus) prev.focus();
-    };
-  }, [open]);
-  const cl = closeLabel != null ? closeLabel : makeT("Dialog", L)("close");
-  if (!open) return null;
-  return /* @__PURE__ */ React.createElement("div", { ref, className: "cs-dialog-layer" }, /* @__PURE__ */ React.createElement("div", { className: "cs-dialog__overlay", onClick: onClose, "aria-hidden": "true" }), /* @__PURE__ */ React.createElement(
-    "section",
-    {
-      ...props,
-      ref: panel,
-      tabIndex: -1,
-      role: "dialog",
-      "aria-modal": "true",
-      "aria-labelledby": titleId,
-      "aria-describedby": bodyId != null ? bodyId : props["aria-describedby"],
-      className: cx("cs-dialog", className)
-    },
-    /* @__PURE__ */ React.createElement("header", { className: "cs-dialog__header" }, /* @__PURE__ */ React.createElement("h2", { id: titleId, className: "cs-dialog__title" }, title), onClose ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--ghost cs-button--sm", onClick: onClose, "aria-label": cl }, /* @__PURE__ */ React.createElement(Icon, { name: "close", size: "sm" })) : null),
-    /* @__PURE__ */ React.createElement("div", { id: bodyId, className: "cs-dialog__body" }, children),
-    actions ? /* @__PURE__ */ React.createElement("footer", { className: "cs-dialog__actions" }, actions) : null
-  ));
-}
-Object.assign(__ds_scope, { Dialog });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/dialog/Dialog.jsx", error: String((e && e.message) || e) }); }
-
 // components/logo/logo-data.js
 try { (() => {
 const CS_LOGO_VIEWBOX = "0 0 1007 1007";
@@ -3326,37 +3285,6 @@ function Breadcrumb({ items = [], lang, className, ...props }) {
 }
 Object.assign(__ds_scope, { Breadcrumb });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Breadcrumb.jsx", error: String((e && e.message) || e) }); }
-
-// components/navigation/CommandPalette.jsx
-try { (() => {
-const { makeT, useLang } = __ds_scope;
-const { cx } = __ds_scope;
-function CommandPalette({ open, onClose, placeholder, groups = [], lang, className }) {
-  const [q, setQ] = React.useState("");
-  React.useEffect(() => {
-    if (!open) return;
-    const onKey = (e) => {
-      if (e.key === "Escape") onClose && onClose();
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open]);
-  const [ref, L] = useLang(lang);
-  const t = makeT("CommandPalette", L);
-  const ph = placeholder != null ? placeholder : t("placeholder");
-  if (!open) return null;
-  const needle = q.trim().toLowerCase();
-  return /* @__PURE__ */ React.createElement("div", { ref, className: "cs-cmdk-scrim", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: cx("cs-cmdk", className), role: "dialog", "aria-modal": "true", "aria-label": t("aria"), onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__search" }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "11", cy: "11", r: "7" }), /* @__PURE__ */ React.createElement("path", { d: "M21 21l-4.3-4.3" })), /* @__PURE__ */ React.createElement("input", { autoFocus: true, value: q, onChange: (e) => setQ(e.target.value), placeholder: ph }), /* @__PURE__ */ React.createElement("span", { className: "cs-kbd" }, t("esc"))), /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__list" }, groups.map((g, gi) => {
-    const items = (g.items || []).filter((it) => !needle || String(it.label).toLowerCase().includes(needle));
-    if (!items.length) return null;
-    return /* @__PURE__ */ React.createElement(React.Fragment, { key: gi }, g.label ? /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__label" }, g.label) : null, items.map((it, ii) => /* @__PURE__ */ React.createElement("button", { key: ii, type: "button", className: "cs-cmdk__item", onClick: () => {
-      it.onSelect && it.onSelect();
-      onClose && onClose();
-    } }, it.icon ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, it.icon) : null, /* @__PURE__ */ React.createElement("span", null, it.label), it.shortcut ? /* @__PURE__ */ React.createElement("span", { className: "cs-kbd" }, it.shortcut) : null)));
-  }))));
-}
-Object.assign(__ds_scope, { CommandPalette });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/CommandPalette.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/Dock.jsx
 try { (() => {
@@ -3722,11 +3650,71 @@ function Toolbar({ items = [], overflowAfter, label, lang, className }) {
 Object.assign(__ds_scope, { Toolbar });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Toolbar.jsx", error: String((e && e.message) || e) }); }
 
-// components/overlays/AlertDialog.jsx
+// components/overlays/ContextMenu.jsx
 try { (() => {
-const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-const FOCUSABLE = [
+function ContextMenu({ items = [], children, className }) {
+  const [pos, setPos] = React.useState(null);
+  React.useEffect(() => {
+    if (!pos) return;
+    const close = () => setPos(null);
+    const k = (e) => {
+      if (e.key === "Escape") setPos(null);
+    };
+    document.addEventListener("click", close);
+    document.addEventListener("keydown", k);
+    return () => {
+      document.removeEventListener("click", close);
+      document.removeEventListener("keydown", k);
+    };
+  }, [pos]);
+  return /* @__PURE__ */ React.createElement(
+    "div",
+    {
+      className: cx("cs-ctxmenu-zone", className),
+      onContextMenu: (e) => {
+        e.preventDefault();
+        const r = e.currentTarget.getBoundingClientRect();
+        setPos({ x: e.clientX - r.left, y: e.clientY - r.top });
+      }
+    },
+    children,
+    pos ? /* @__PURE__ */ React.createElement("div", { className: "cs-menu__list", role: "menu", style: { position: "absolute", insetInlineStart: pos.x, insetBlockStart: pos.y } }, items.map((it, i) => it === "-" ? /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-menu__sep" }) : /* @__PURE__ */ React.createElement("button", { key: i, type: "button", role: "menuitem", className: cx("cs-menu__item", it.danger && "cs-menu__item--danger"), onClick: () => {
+      setPos(null);
+      it.onSelect && it.onSelect();
+    } }, it.label))) : null
+  );
+}
+Object.assign(__ds_scope, { ContextMenu });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/ContextMenu.jsx", error: String((e && e.message) || e) }); }
+
+// components/overlays/HoverCard.jsx
+try { (() => {
+const { cx } = __ds_scope;
+function HoverCard({ trigger, children, openDelay = 150, closeDelay = 200, className }) {
+  const [open, setOpen] = React.useState(false);
+  const t1 = React.useRef();
+  const t2 = React.useRef();
+  const show = () => {
+    clearTimeout(t2.current);
+    t1.current = setTimeout(() => setOpen(true), openDelay);
+  };
+  const hide = () => {
+    clearTimeout(t1.current);
+    t2.current = setTimeout(() => setOpen(false), closeDelay);
+  };
+  React.useEffect(() => () => {
+    clearTimeout(t1.current);
+    clearTimeout(t2.current);
+  }, []);
+  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-hovercard", className), onMouseEnter: show, onMouseLeave: hide, onFocus: show, onBlur: hide }, trigger, open ? /* @__PURE__ */ React.createElement("span", { className: "cs-hovercard__panel", role: "dialog" }, children) : null);
+}
+Object.assign(__ds_scope, { HoverCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/HoverCard.jsx", error: String((e && e.message) || e) }); }
+
+// components/overlays/OverlayManager.jsx
+try { (() => {
+const focusableSelector = [
   "a[href]",
   "area[href]",
   "button:not([disabled])",
@@ -3740,6 +3728,270 @@ const FOCUSABLE = [
   '[contenteditable]:not([contenteditable="false"])',
   '[tabindex]:not([tabindex="-1"])'
 ].join(",");
+function attachFocusTrap(panelEl, { handleEscape = false, onEscape } = {}) {
+  if (!panelEl) return () => {
+  };
+  const focusables = () => [...panelEl.querySelectorAll(focusableSelector)];
+  const k = (e) => {
+    if (handleEscape && e.key === "Escape") {
+      onEscape && onEscape();
+      return;
+    }
+    if (e.key !== "Tab") return;
+    const f = focusables();
+    if (!f.length) {
+      e.preventDefault();
+      panelEl.focus();
+      return;
+    }
+    const a = f[0];
+    const z = f[f.length - 1];
+    const active = document.activeElement;
+    const inside = panelEl.contains(active);
+    if (e.shiftKey && (!inside || active === a)) {
+      e.preventDefault();
+      z.focus();
+    } else if (!e.shiftKey && (!inside || active === z)) {
+      e.preventDefault();
+      a.focus();
+    }
+  };
+  document.addEventListener("keydown", k);
+  return () => document.removeEventListener("keydown", k);
+}
+function createOverlayManager() {
+  const layers = [];
+  let prevOverflow = "";
+  let locked = false;
+  let escapeBound = false;
+  const resort = () => {
+    layers.sort((a, b) => {
+      const pa = a.panelEl;
+      const pb = b.panelEl;
+      if (pa && pb && pa !== pb) {
+        if (pa.contains(pb)) return -1;
+        if (pb.contains(pa)) return 1;
+      }
+      return (a.seq || 0) - (b.seq || 0);
+    });
+  };
+  const applyScroll = () => {
+    const need = layers.some((l) => l.kind === "modal" && l.lockScroll !== false);
+    if (need && !locked) {
+      prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      locked = true;
+    } else if (!need && locked) {
+      document.body.style.overflow = prevOverflow;
+      locked = false;
+    }
+  };
+  const onDocEscape = (e) => {
+    if (e.key !== "Escape") return;
+    if (!layers.length) return;
+    resort();
+    const top = layers[layers.length - 1];
+    if (!top || typeof top.onEscape !== "function") return;
+    e.preventDefault();
+    e.stopPropagation();
+    top.onEscape();
+  };
+  const ensureEscape = () => {
+    if (escapeBound) return;
+    escapeBound = true;
+    document.addEventListener("keydown", onDocEscape, true);
+  };
+  let seq = 0;
+  return {
+    register(layer) {
+      ensureEscape();
+      const id = layer.id || `cs-ov-${++seq}`;
+      const entry = { ...layer, id, seq: ++seq };
+      layers.push(entry);
+      resort();
+      applyScroll();
+      return () => {
+        resort();
+        const i = layers.findIndex((l) => l.id === id);
+        const wasTop = i === layers.length - 1;
+        if (i >= 0) layers.splice(i, 1);
+        applyScroll();
+        if (wasTop && entry.restoreEl && typeof entry.restoreEl.focus === "function") {
+          try {
+            entry.restoreEl.focus();
+          } catch {
+          }
+        }
+      };
+    },
+    top() {
+      resort();
+      return layers[layers.length - 1] || null;
+    },
+    get scrollLocked() {
+      return locked;
+    },
+    get depth() {
+      return layers.length;
+    }
+  };
+}
+const defaultManager = createOverlayManager();
+const OverlayContext = React.createContext(null);
+function getOverlayManager() {
+  return defaultManager;
+}
+function OverlayProvider({ children }) {
+  const api = React.useMemo(() => createOverlayManager(), []);
+  return /* @__PURE__ */ React.createElement(OverlayContext.Provider, { value: api }, /* @__PURE__ */ React.createElement("div", { id: "cs-overlay-root", "data-cs-overlay-root": "" }), children);
+}
+function useOverlayLayer({
+  open,
+  kind = "modal",
+  trapFocus = false,
+  lockScroll,
+  onEscape,
+  panelRef,
+  preferFocusSelector
+}) {
+  const ctx = React.useContext(OverlayContext);
+  const mgr = ctx || defaultManager;
+  const escapeRef = React.useRef(onEscape);
+  escapeRef.current = onEscape;
+  React.useLayoutEffect(() => {
+    if (!open) return void 0;
+    const restoreEl = typeof document !== "undefined" ? document.activeElement : null;
+    const panel = panelRef && panelRef.current;
+    const unregister = mgr.register({
+      kind,
+      lockScroll: lockScroll != null ? lockScroll : kind === "modal",
+      onEscape: () => escapeRef.current && escapeRef.current(),
+      restoreEl,
+      panelEl: panel || null
+    });
+    let detachTrap = () => {
+    };
+    const top = mgr.top();
+    const isTop = top && top.panelEl === panel;
+    if (trapFocus && panel && isTop) {
+      const preferred = preferFocusSelector && panel.querySelector(preferFocusSelector) || panel.querySelector(focusableSelector) || panel;
+      preferred && preferred.focus && preferred.focus();
+      detachTrap = attachFocusTrap(panel, { handleEscape: false });
+    }
+    return () => {
+      detachTrap();
+      unregister();
+    };
+  }, [open, kind, trapFocus, lockScroll, mgr, panelRef, preferFocusSelector]);
+  return { manager: mgr };
+}
+Object.assign(__ds_scope, { focusableSelector, attachFocusTrap, getOverlayManager, OverlayProvider, useOverlayLayer });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/OverlayManager.jsx", error: String((e && e.message) || e) }); }
+
+// components/dialog/Dialog.jsx
+try { (() => {
+const { makeT, useLang } = __ds_scope;
+const { Icon } = __ds_scope;
+const { cx } = __ds_scope;
+const { useOverlayLayer } = __ds_scope;
+function Dialog({
+  open,
+  title,
+  children,
+  actions,
+  onClose,
+  className,
+  closeLabel,
+  lang,
+  ...props
+}) {
+  const baseId = React.useId();
+  const titleId = baseId + "-title";
+  const bodyId = children == null ? void 0 : baseId + "-body";
+  const [ref, L] = useLang(lang);
+  const panel = React.useRef(null);
+  const closeRef = React.useRef(onClose);
+  closeRef.current = onClose;
+  useOverlayLayer({
+    open: !!open,
+    kind: "modal",
+    trapFocus: true,
+    onEscape: () => closeRef.current && closeRef.current(),
+    panelRef: panel
+  });
+  const cl = closeLabel != null ? closeLabel : makeT("Dialog", L)("close");
+  if (!open) return null;
+  return /* @__PURE__ */ React.createElement("div", { ref, className: "cs-dialog-layer" }, /* @__PURE__ */ React.createElement("div", { className: "cs-dialog__overlay", onClick: onClose, "aria-hidden": "true" }), /* @__PURE__ */ React.createElement(
+    "section",
+    {
+      ...props,
+      ref: panel,
+      tabIndex: -1,
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-labelledby": titleId,
+      "aria-describedby": bodyId != null ? bodyId : props["aria-describedby"],
+      className: cx("cs-dialog", className)
+    },
+    /* @__PURE__ */ React.createElement("header", { className: "cs-dialog__header" }, /* @__PURE__ */ React.createElement("h2", { id: titleId, className: "cs-dialog__title" }, title), onClose ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--ghost cs-button--sm", onClick: onClose, "aria-label": cl }, /* @__PURE__ */ React.createElement(Icon, { name: "close", size: "sm" })) : null),
+    /* @__PURE__ */ React.createElement("div", { id: bodyId, className: "cs-dialog__body" }, children),
+    actions ? /* @__PURE__ */ React.createElement("footer", { className: "cs-dialog__actions" }, actions) : null
+  ));
+}
+Object.assign(__ds_scope, { Dialog });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/dialog/Dialog.jsx", error: String((e && e.message) || e) }); }
+
+// components/navigation/CommandPalette.jsx
+try { (() => {
+const { makeT, useLang } = __ds_scope;
+const { cx } = __ds_scope;
+const { useOverlayLayer } = __ds_scope;
+function CommandPalette({ open, onClose, placeholder, groups = [], lang, className }) {
+  const [q, setQ] = React.useState("");
+  const panel = React.useRef(null);
+  const closeRef = React.useRef(onClose);
+  closeRef.current = onClose;
+  useOverlayLayer({
+    open: !!open,
+    kind: "modal",
+    trapFocus: true,
+    preferFocusSelector: ".cs-cmdk__search input",
+    onEscape: () => closeRef.current && closeRef.current(),
+    panelRef: panel
+  });
+  const [ref, L] = useLang(lang);
+  const t = makeT("CommandPalette", L);
+  const ph = placeholder != null ? placeholder : t("placeholder");
+  if (!open) return null;
+  const needle = q.trim().toLowerCase();
+  return /* @__PURE__ */ React.createElement(
+    "div",
+    {
+      ref: (el) => {
+        ref.current = el;
+        panel.current = el;
+      },
+      className: "cs-cmdk-scrim",
+      onClick: onClose
+    },
+    /* @__PURE__ */ React.createElement("div", { className: cx("cs-cmdk", className), role: "dialog", "aria-modal": "true", "aria-label": t("aria"), onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__search" }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "11", cy: "11", r: "7" }), /* @__PURE__ */ React.createElement("path", { d: "M21 21l-4.3-4.3" })), /* @__PURE__ */ React.createElement("input", { autoFocus: true, value: q, onChange: (e) => setQ(e.target.value), placeholder: ph }), /* @__PURE__ */ React.createElement("span", { className: "cs-kbd" }, t("esc"))), /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__list" }, groups.map((g, gi) => {
+      const items = (g.items || []).filter((it) => !needle || String(it.label).toLowerCase().includes(needle));
+      if (!items.length) return null;
+      return /* @__PURE__ */ React.createElement(React.Fragment, { key: gi }, g.label ? /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__label" }, g.label) : null, items.map((it, ii) => /* @__PURE__ */ React.createElement("button", { key: ii, type: "button", className: "cs-cmdk__item", onClick: () => {
+        it.onSelect && it.onSelect();
+        onClose && onClose();
+      } }, it.icon ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, it.icon) : null, /* @__PURE__ */ React.createElement("span", null, it.label), it.shortcut ? /* @__PURE__ */ React.createElement("span", { className: "cs-kbd" }, it.shortcut) : null)));
+    })))
+  );
+}
+Object.assign(__ds_scope, { CommandPalette });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/CommandPalette.jsx", error: String((e && e.message) || e) }); }
+
+// components/overlays/AlertDialog.jsx
+try { (() => {
+const { makeT, useLang } = __ds_scope;
+const { cx } = __ds_scope;
+const { useOverlayLayer } = __ds_scope;
 function AlertDialog({
   open,
   defaultOpen = false,
@@ -3775,45 +4027,19 @@ function AlertDialog({
   confirmRef.current = onConfirm;
   const cancelRef = React.useRef(onCancel);
   cancelRef.current = onCancel;
-  React.useEffect(() => {
-    if (!isOpen) return;
-    const prev = document.activeElement;
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const focusables = () => panel.current ? [...panel.current.querySelectorAll(FOCUSABLE)] : [];
-    const preferred = panel.current?.querySelector(".cs-alert-dialog__confirm") || focusables()[0];
-    (preferred || panel.current)?.focus?.();
-    const k = (e) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        cancelRef.current?.();
-        return;
-      }
-      if (e.key !== "Tab" || !panel.current) return;
-      const f = focusables();
-      if (!f.length) {
-        e.preventDefault();
-        panel.current.focus();
-        return;
-      }
-      const a = f[0], z = f[f.length - 1];
-      const active = document.activeElement;
-      const inside = panel.current.contains(active);
-      if (e.shiftKey && (!inside || active === a)) {
-        e.preventDefault();
-        z.focus();
-      } else if (!e.shiftKey && (!inside || active === z)) {
-        e.preventDefault();
-        a.focus();
-      }
-    };
-    document.addEventListener("keydown", k);
-    return () => {
-      document.removeEventListener("keydown", k);
-      document.body.style.overflow = prevOverflow;
-      if (prev && prev.focus) prev.focus();
-    };
-  }, [isOpen]);
+  const setOpenRef = React.useRef(setOpen);
+  setOpenRef.current = setOpen;
+  useOverlayLayer({
+    open: isOpen,
+    kind: "modal",
+    trapFocus: true,
+    preferFocusSelector: ".cs-alert-dialog__confirm",
+    onEscape: () => {
+      setOpenRef.current(false);
+      cancelRef.current?.();
+    },
+    panelRef: panel
+  });
   const cl = cancelLabel != null ? cancelLabel : t("cancel");
   const cf = confirmLabel != null ? confirmLabel : t("confirm");
   const body = description ?? children;
@@ -3876,110 +4102,45 @@ function AlertDialog({
 Object.assign(__ds_scope, { AlertDialog });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/AlertDialog.jsx", error: String((e && e.message) || e) }); }
 
-// components/overlays/ContextMenu.jsx
-try { (() => {
-const { cx } = __ds_scope;
-function ContextMenu({ items = [], children, className }) {
-  const [pos, setPos] = React.useState(null);
-  React.useEffect(() => {
-    if (!pos) return;
-    const close = () => setPos(null);
-    const k = (e) => {
-      if (e.key === "Escape") setPos(null);
-    };
-    document.addEventListener("click", close);
-    document.addEventListener("keydown", k);
-    return () => {
-      document.removeEventListener("click", close);
-      document.removeEventListener("keydown", k);
-    };
-  }, [pos]);
-  return /* @__PURE__ */ React.createElement(
-    "div",
-    {
-      className: cx("cs-ctxmenu-zone", className),
-      onContextMenu: (e) => {
-        e.preventDefault();
-        const r = e.currentTarget.getBoundingClientRect();
-        setPos({ x: e.clientX - r.left, y: e.clientY - r.top });
-      }
-    },
-    children,
-    pos ? /* @__PURE__ */ React.createElement("div", { className: "cs-menu__list", role: "menu", style: { position: "absolute", insetInlineStart: pos.x, insetBlockStart: pos.y } }, items.map((it, i) => it === "-" ? /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-menu__sep" }) : /* @__PURE__ */ React.createElement("button", { key: i, type: "button", role: "menuitem", className: cx("cs-menu__item", it.danger && "cs-menu__item--danger"), onClick: () => {
-      setPos(null);
-      it.onSelect && it.onSelect();
-    } }, it.label))) : null
-  );
-}
-Object.assign(__ds_scope, { ContextMenu });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/ContextMenu.jsx", error: String((e && e.message) || e) }); }
-
 // components/overlays/Drawer.jsx
 try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
+const { useOverlayLayer } = __ds_scope;
 function Drawer({ open, onClose, title, side = "right", children, actions, lang, className }) {
   const [ref, L] = useLang(lang);
-  React.useEffect(() => {
-    if (!open) return;
-    const prev = document.activeElement;
-    const SEL = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
-    const p = ref.current;
-    const first = p ? p.querySelector(SEL) : null;
-    (first || p) && (first || p).focus();
-    const k = (e) => {
-      if (e.key === "Escape") {
-        onClose && onClose();
-        return;
-      }
-      if (e.key !== "Tab" || !ref.current) return;
-      const f = [...ref.current.querySelectorAll(SEL)];
-      if (!f.length) return;
-      const a = f[0], z = f[f.length - 1];
-      if (e.shiftKey && document.activeElement === a) {
-        e.preventDefault();
-        z.focus();
-      } else if (!e.shiftKey && document.activeElement === z) {
-        e.preventDefault();
-        a.focus();
-      }
-    };
-    document.addEventListener("keydown", k);
-    return () => {
-      document.removeEventListener("keydown", k);
-      if (prev && prev.focus) prev.focus();
-    };
-  }, [open]);
+  const panel = React.useRef(null);
+  const closeRef = React.useRef(onClose);
+  closeRef.current = onClose;
+  useOverlayLayer({
+    open: !!open,
+    kind: "modal",
+    trapFocus: true,
+    onEscape: () => closeRef.current && closeRef.current(),
+    panelRef: panel
+  });
   const t = makeT("Drawer", L);
   if (!open) return null;
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "cs-drawer-scrim", onClick: onClose, "aria-hidden": "true" }), /* @__PURE__ */ React.createElement("aside", { ref, tabIndex: -1, className: cx("cs-drawer", side === "left" && "cs-drawer--left", className), role: "dialog", "aria-modal": "true", "aria-label": typeof title === "string" ? title : t("panel") }, /* @__PURE__ */ React.createElement("div", { className: "cs-drawer__header" }, title ? /* @__PURE__ */ React.createElement("h2", { className: "cs-drawer__title" }, title) : null, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-drawer__close", "aria-label": t("close"), onClick: onClose }, /* @__PURE__ */ React.createElement("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 6l12 12M18 6L6 18" })))), /* @__PURE__ */ React.createElement("div", { className: "cs-drawer__body", tabIndex: 0 }, children), actions ? /* @__PURE__ */ React.createElement("div", { className: "cs-drawer__footer" }, actions) : null));
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "cs-drawer-scrim", onClick: onClose, "aria-hidden": "true" }), /* @__PURE__ */ React.createElement(
+    "aside",
+    {
+      ref: (el) => {
+        panel.current = el;
+        ref.current = el;
+      },
+      tabIndex: -1,
+      className: cx("cs-drawer", side === "left" && "cs-drawer--left", className),
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-label": typeof title === "string" ? title : t("panel")
+    },
+    /* @__PURE__ */ React.createElement("div", { className: "cs-drawer__header" }, title ? /* @__PURE__ */ React.createElement("h2", { className: "cs-drawer__title" }, title) : null, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-drawer__close", "aria-label": t("close"), onClick: onClose }, /* @__PURE__ */ React.createElement("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 6l12 12M18 6L6 18" })))),
+    /* @__PURE__ */ React.createElement("div", { className: "cs-drawer__body", tabIndex: 0 }, children),
+    actions ? /* @__PURE__ */ React.createElement("div", { className: "cs-drawer__footer" }, actions) : null
+  ));
 }
 Object.assign(__ds_scope, { Drawer });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/Drawer.jsx", error: String((e && e.message) || e) }); }
-
-// components/overlays/HoverCard.jsx
-try { (() => {
-const { cx } = __ds_scope;
-function HoverCard({ trigger, children, openDelay = 150, closeDelay = 200, className }) {
-  const [open, setOpen] = React.useState(false);
-  const t1 = React.useRef();
-  const t2 = React.useRef();
-  const show = () => {
-    clearTimeout(t2.current);
-    t1.current = setTimeout(() => setOpen(true), openDelay);
-  };
-  const hide = () => {
-    clearTimeout(t1.current);
-    t2.current = setTimeout(() => setOpen(false), closeDelay);
-  };
-  React.useEffect(() => () => {
-    clearTimeout(t1.current);
-    clearTimeout(t2.current);
-  }, []);
-  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-hovercard", className), onMouseEnter: show, onMouseLeave: hide, onFocus: show, onBlur: hide }, trigger, open ? /* @__PURE__ */ React.createElement("span", { className: "cs-hovercard__panel", role: "dialog" }, children) : null);
-}
-Object.assign(__ds_scope, { HoverCard });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/HoverCard.jsx", error: String((e && e.message) || e) }); }
 
 // components/overlays/Popconfirm.jsx
 try { (() => {
@@ -5024,7 +5185,8 @@ const tokens = {
       "--cs-breakpoint-2xl": "1536px"
     },
     "container": {
-      "--cs-container-max": "1320px"
+      "--cs-container-max": "1320px",
+      "--cs-prose-measure": "45rem"
     },
     "font": {
       "--cs-font-family-ui": "'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif",
@@ -5488,7 +5650,40 @@ function StatusHub() {
   }, [D, q, facet, kpi]);
   const maxV = Math.max(...D.velocity.map((v) => v.n));
   const toggleKpi = (k) => setKpi((cur) => cur === k ? null : k);
-  return /* @__PURE__ */ React.createElement("div", { className: "sh", lang, "data-theme": dark ? "dark" : void 0 }, /* @__PURE__ */ React.createElement("a", { className: "cs-skip", href: "#main", style: { position: "absolute", left: -999, width: 1, height: 1, overflow: "hidden" } }, "Skip to content"), /* @__PURE__ */ React.createElement("header", { className: "hd" }, /* @__PURE__ */ React.createElement("div", { className: "hd-in" }, /* @__PURE__ */ React.createElement("div", { className: "hd-id" }, /* @__PURE__ */ React.createElement("span", { className: "hd-mark" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/logo-mark.svg", alt: "" })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h1", null, "Status Hub"), /* @__PURE__ */ React.createElement("p", { className: "hd-sub" }, t.sub))), /* @__PURE__ */ React.createElement("div", { className: "hd-side" }, /* @__PURE__ */ React.createElement("p", { className: "hd-meta" }, t.updated, /* @__PURE__ */ React.createElement("br", null), VI ? VI.updated : D.updated), /* @__PURE__ */ React.createElement("button", { className: "btn ghost", onClick: () => setLang((l) => l === "en" ? "vi" : "en"), "aria-label": "Toggle language", style: { fontWeight: 700, fontSize: 13 } }, t.langBtn), /* @__PURE__ */ React.createElement("button", { className: "btn ghost", onClick: () => setDark((v) => !v), "aria-label": t.theme }, /* @__PURE__ */ React.createElement(ThemeGlyph, { dark }))))), /* @__PURE__ */ React.createElement("main", { id: "main", className: "wrap" }, /* @__PURE__ */ React.createElement("div", { className: "deck" }, /* @__PURE__ */ React.createElement("section", { className: "panel" }, /* @__PURE__ */ React.createElement("h2", null, t.portfolio), /* @__PURE__ */ React.createElement("div", { className: "kpis" }, /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === null ? "1" : "0", onClick: () => setKpi(null) }, /* @__PURE__ */ React.createElement("b", null, counts.total), /* @__PURE__ */ React.createElement("span", null, t.projects)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "active" ? "1" : "0", onClick: () => toggleKpi("active") }, /* @__PURE__ */ React.createElement("b", null, counts.active), /* @__PURE__ */ React.createElement("span", null, t.inprog)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "done" ? "1" : "0", onClick: () => toggleKpi("done") }, /* @__PURE__ */ React.createElement("b", null, counts.done), /* @__PURE__ */ React.createElement("span", null, t.shipped)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "hold" ? "1" : "0", onClick: () => toggleKpi("hold") }, /* @__PURE__ */ React.createElement("b", null, counts.hold), /* @__PURE__ */ React.createElement("span", null, t.blocked)), /* @__PURE__ */ React.createElement("button", { className: "kpi", onClick: () => setKpi(null) }, /* @__PURE__ */ React.createElement("b", null, counts.avg, "%"), /* @__PURE__ */ React.createElement("span", null, t.avg))), /* @__PURE__ */ React.createElement(Segments, { seg: { done: 60, active: 22, hold: 6, todo: 12 }, className: "bar-seg" }), /* @__PURE__ */ React.createElement("div", { className: "legend" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-semantic-success)" } }), t.shipped), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-brand-ochre)" } }), t.inprog), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-semantic-danger)" } }), t.blocked), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-status-todo)" } }), t.planned))), /* @__PURE__ */ React.createElement("section", { className: "panel" }, /* @__PURE__ */ React.createElement("h2", null, t.velocity), /* @__PURE__ */ React.createElement("div", { className: "spark" }, D.velocity.map((v) => /* @__PURE__ */ React.createElement("a", { key: v.wk, title: v.n + t.perShipped }, /* @__PURE__ */ React.createElement("b", null, v.n), /* @__PURE__ */ React.createElement("i", { style: { height: v.n / maxV * 72 + "px" } }), /* @__PURE__ */ React.createElement("span", null, v.wk)))))), /* @__PURE__ */ React.createElement("div", { className: "now" }, /* @__PURE__ */ React.createElement("h2", null, t.nowTitle), lang === "vi" ? /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "v1.6.0 — Liên kết Glass + gói Ngũ Hành v2."), " Liên kết component ", /* @__PURE__ */ React.createElement("span", { className: "mono" }, ".cs-surface-*"), " (tùy chọn), trình kiểm 0 cảnh báo trên cả 15 gói, và kiểm tra lại APCA cho chế độ tối. Ra mắt tuần này.") : /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "v1.6.0 — Glass bindings + element-pack v2."), " Opt-in ", /* @__PURE__ */ React.createElement("span", { className: "mono" }, ".cs-surface-*"), " component bindings, a zero-warning verifier across all 15 packs, and a dark-mode APCA re-check. Ships this week.")), /* @__PURE__ */ React.createElement("div", { className: "bar" }, /* @__PURE__ */ React.createElement("div", { className: "bar-top" }, /* @__PURE__ */ React.createElement("label", { className: "srch" }, /* @__PURE__ */ React.createElement(SearchGlyph, null), /* @__PURE__ */ React.createElement("input", { placeholder: t.search, value: q, onChange: (e) => setQ(e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "lenses", role: "tablist", "aria-label": t.view }, ["board", "table", "releases"].map((l) => /* @__PURE__ */ React.createElement("button", { key: l, className: "ln", role: "tab", "aria-selected": lens === l, onClick: () => setLens(l) }, t.lenses[l]))), /* @__PURE__ */ React.createElement("label", { className: "facet" }, t.status, /* @__PURE__ */ React.createElement("select", { value: kpi || facet, onChange: (e) => {
+  return /* @__PURE__ */ React.createElement("div", { className: "sh", lang, "data-theme": dark ? "dark" : void 0 }, /* @__PURE__ */ React.createElement("a", { className: "cs-skip", href: "#main", style: { position: "absolute", left: -999, width: 1, height: 1, overflow: "hidden" } }, "Skip to content"), /* @__PURE__ */ React.createElement("header", { className: "hd" }, /* @__PURE__ */ React.createElement("div", { className: "hd-in" }, /* @__PURE__ */ React.createElement("div", { className: "hd-id" }, /* @__PURE__ */ React.createElement("span", { className: "hd-mark" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/logo-mark.svg", alt: "" })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h1", null, "Status Hub"), /* @__PURE__ */ React.createElement("p", { className: "hd-sub" }, t.sub))), /* @__PURE__ */ React.createElement("div", { className: "hd-side" }, /* @__PURE__ */ React.createElement("p", { className: "hd-meta" }, t.updated, /* @__PURE__ */ React.createElement("br", null), VI ? VI.updated : D.updated), /* @__PURE__ */ React.createElement("button", { className: "btn ghost", onClick: () => setLang((l) => l === "en" ? "vi" : "en"), "aria-label": "Toggle language", style: { fontWeight: 700, fontSize: 13 } }, t.langBtn), /* @__PURE__ */ React.createElement("button", { className: "btn ghost", onClick: () => setDark((v) => !v), "aria-label": t.theme }, /* @__PURE__ */ React.createElement(ThemeGlyph, { dark }))))), /* @__PURE__ */ React.createElement("main", { id: "main", className: "wrap" }, /* @__PURE__ */ React.createElement("div", { className: "deck" }, /* @__PURE__ */ React.createElement("section", { className: "panel" }, /* @__PURE__ */ React.createElement("h2", null, t.portfolio), /* @__PURE__ */ React.createElement("div", { className: "kpis" }, /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === null ? "1" : "0", onClick: () => setKpi(null) }, /* @__PURE__ */ React.createElement("b", null, counts.total), /* @__PURE__ */ React.createElement("span", null, t.projects)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "active" ? "1" : "0", onClick: () => toggleKpi("active") }, /* @__PURE__ */ React.createElement("b", null, counts.active), /* @__PURE__ */ React.createElement("span", null, t.inprog)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "done" ? "1" : "0", onClick: () => toggleKpi("done") }, /* @__PURE__ */ React.createElement("b", null, counts.done), /* @__PURE__ */ React.createElement("span", null, t.shipped)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "hold" ? "1" : "0", onClick: () => toggleKpi("hold") }, /* @__PURE__ */ React.createElement("b", null, counts.hold), /* @__PURE__ */ React.createElement("span", null, t.blocked)), /* @__PURE__ */ React.createElement("button", { className: "kpi", onClick: () => setKpi(null) }, /* @__PURE__ */ React.createElement("b", null, counts.avg, "%"), /* @__PURE__ */ React.createElement("span", null, t.avg))), /* @__PURE__ */ React.createElement(Segments, { seg: { done: 60, active: 22, hold: 6, todo: 12 }, className: "bar-seg" }), /* @__PURE__ */ React.createElement("div", { className: "legend" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-semantic-success)" } }), t.shipped), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-brand-ochre)" } }), t.inprog), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-semantic-danger)" } }), t.blocked), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-status-todo)" } }), t.planned))), /* @__PURE__ */ React.createElement("section", { className: "panel" }, /* @__PURE__ */ React.createElement("h2", null, t.velocity), /* @__PURE__ */ React.createElement("div", { className: "spark" }, D.velocity.map((v) => /* @__PURE__ */ React.createElement("a", { key: v.wk, title: v.n + t.perShipped }, /* @__PURE__ */ React.createElement("b", null, v.n), /* @__PURE__ */ React.createElement("i", { style: { height: v.n / maxV * 72 + "px" } }), /* @__PURE__ */ React.createElement("span", null, v.wk)))))), /* @__PURE__ */ React.createElement("div", { className: "now" }, /* @__PURE__ */ React.createElement("h2", null, t.nowTitle), lang === "vi" ? /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "v1.6.0 — Liên kết Glass + gói Ngũ Hành v2."), " Liên kết component ", /* @__PURE__ */ React.createElement("span", { className: "mono" }, ".cs-surface-*"), " (tùy chọn), trình kiểm 0 cảnh báo trên cả 15 gói, và kiểm tra lại APCA cho chế độ tối. Ra mắt tuần này.") : /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "v1.6.0 — Glass bindings + element-pack v2."), " Opt-in ", /* @__PURE__ */ React.createElement("span", { className: "mono" }, ".cs-surface-*"), " component bindings, a zero-warning verifier across all 15 packs, and a dark-mode APCA re-check. Ships this week.")), /* @__PURE__ */ React.createElement("div", { className: "bar" }, /* @__PURE__ */ React.createElement("div", { className: "bar-top" }, /* @__PURE__ */ React.createElement("label", { className: "srch" }, /* @__PURE__ */ React.createElement(SearchGlyph, null), /* @__PURE__ */ React.createElement("input", { placeholder: t.search, value: q, onChange: (e) => setQ(e.target.value) })), /* @__PURE__ */ React.createElement(
+    "div",
+    {
+      className: "lenses",
+      role: "tablist",
+      "aria-label": t.view,
+      onKeyDown: (e) => {
+        const order = ["board", "table", "releases"];
+        const i = order.indexOf(lens);
+        let next = i;
+        if (e.key === "ArrowRight") next = (i + 1) % order.length;
+        else if (e.key === "ArrowLeft") next = (i - 1 + order.length) % order.length;
+        else if (e.key === "Home") next = 0;
+        else if (e.key === "End") next = order.length - 1;
+        else return;
+        e.preventDefault();
+        setLens(order[next]);
+        const tabs = e.currentTarget.querySelectorAll('[role="tab"]');
+        tabs[next] && tabs[next].focus && tabs[next].focus();
+      }
+    },
+    ["board", "table", "releases"].map((l) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: l,
+        className: "ln",
+        role: "tab",
+        "aria-selected": lens === l,
+        tabIndex: lens === l ? 0 : -1,
+        onClick: () => setLens(l)
+      },
+      t.lenses[l]
+    ))
+  ), /* @__PURE__ */ React.createElement("label", { className: "facet" }, t.status, /* @__PURE__ */ React.createElement("select", { value: kpi || facet, onChange: (e) => {
     setFacet(e.target.value);
     setKpi(null);
   } }, /* @__PURE__ */ React.createElement("option", { value: "all" }, t.all), /* @__PURE__ */ React.createElement("option", { value: "active" }, t.inprog), /* @__PURE__ */ React.createElement("option", { value: "done" }, t.shipped), /* @__PURE__ */ React.createElement("option", { value: "hold" }, t.blocked))), /* @__PURE__ */ React.createElement("span", { className: "cnt" }, shown.length, " ", t.of, " ", D.projects.length))), lens === "board" && /* @__PURE__ */ React.createElement("div", { className: "grid" }, shown.map((p0) => {
@@ -6029,6 +6224,8 @@ __ds_ns.ContextMenu = __ds_scope.ContextMenu;
 __ds_ns.Drawer = __ds_scope.Drawer;
 
 __ds_ns.HoverCard = __ds_scope.HoverCard;
+
+__ds_ns.OverlayProvider = __ds_scope.OverlayProvider;
 
 __ds_ns.Popconfirm = __ds_scope.Popconfirm;
 

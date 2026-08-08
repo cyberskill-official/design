@@ -108,6 +108,7 @@ export const NativeSelect = CS.NativeSelect;
 export const NavItem = CS.NavItem;
 export const NavigationMenu = CS.NavigationMenu;
 export const NumberField = CS.NumberField;
+export const OverlayProvider = CS.OverlayProvider;
 export const Pagination = CS.Pagination;
 export const Popconfirm = CS.Popconfirm;
 export const Popover = CS.Popover;

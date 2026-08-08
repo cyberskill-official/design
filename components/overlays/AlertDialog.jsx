@@ -1,26 +1,12 @@
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
-
-const FOCUSABLE = [
-  'a[href]',
-  'area[href]',
-  'button:not([disabled])',
-  'input:not([disabled]):not([type="hidden"])',
-  'select:not([disabled])',
-  'textarea:not([disabled])',
-  'audio[controls]',
-  'video[controls]',
-  'summary',
-  'iframe',
-  '[contenteditable]:not([contenteditable="false"])',
-  '[tabindex]:not([tabindex="-1"])',
-].join(",");
+import { useOverlayLayer } from "./OverlayManager.jsx";
 
 /**
  * CyberSkill AlertDialog — first-class destructive/confirm modal (role=alertdialog).
  * Distinct from Popconfirm (inline bubble) and Dialog (general modal). Focus trap +
- * restore; bilingual confirm/cancel via the registry.
+ * restore via overlay manager; bilingual confirm/cancel via the registry.
  */
 export function AlertDialog({
   open,
@@ -53,40 +39,24 @@ export function AlertDialog({
     onOpenChange?.(next);
   };
   const destructive = (tone ?? variant) === "destructive";
-  const confirmRef = React.useRef(onConfirm); confirmRef.current = onConfirm;
-  const cancelRef = React.useRef(onCancel); cancelRef.current = onCancel;
+  const confirmRef = React.useRef(onConfirm);
+  confirmRef.current = onConfirm;
+  const cancelRef = React.useRef(onCancel);
+  cancelRef.current = onCancel;
+  const setOpenRef = React.useRef(setOpen);
+  setOpenRef.current = setOpen;
 
-  React.useEffect(() => {
-    if (!isOpen) return;
-    const prev = document.activeElement;
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const focusables = () => (panel.current ? [...panel.current.querySelectorAll(FOCUSABLE)] : []);
-    // Prefer the confirm action for destructive prompts (WAI-ARIA alertdialog).
-    const preferred = panel.current?.querySelector(".cs-alert-dialog__confirm") || focusables()[0];
-    (preferred || panel.current)?.focus?.();
-    const k = (e) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        cancelRef.current?.();
-        return;
-      }
-      if (e.key !== "Tab" || !panel.current) return;
-      const f = focusables();
-      if (!f.length) { e.preventDefault(); panel.current.focus(); return; }
-      const a = f[0], z = f[f.length - 1];
-      const active = document.activeElement;
-      const inside = panel.current.contains(active);
-      if (e.shiftKey && (!inside || active === a)) { e.preventDefault(); z.focus(); }
-      else if (!e.shiftKey && (!inside || active === z)) { e.preventDefault(); a.focus(); }
-    };
-    document.addEventListener("keydown", k);
-    return () => {
-      document.removeEventListener("keydown", k);
-      document.body.style.overflow = prevOverflow;
-      if (prev && prev.focus) prev.focus();
-    };
-  }, [isOpen]);
+  useOverlayLayer({
+    open: isOpen,
+    kind: "modal",
+    trapFocus: true,
+    preferFocusSelector: ".cs-alert-dialog__confirm",
+    onEscape: () => {
+      setOpenRef.current(false);
+      cancelRef.current?.();
+    },
+    panelRef: panel,
+  });
 
   const cl = cancelLabel != null ? cancelLabel : t("cancel");
   const cf = confirmLabel != null ? confirmLabel : t("confirm");

@@ -142,7 +142,8 @@ export const tokens = {
       "--cs-breakpoint-2xl": "1536px"
     },
     "container": {
-      "--cs-container-max": "1320px"
+      "--cs-container-max": "1320px",
+      "--cs-prose-measure": "45rem"
     },
     "font": {
       "--cs-font-family-ui": "'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif",

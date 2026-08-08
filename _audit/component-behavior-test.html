@@ -142,12 +142,15 @@ async function run(){
   await test('CommandPalette — typing filters the list',async()=>{
     assert(CommandPalette,'CommandPalette export missing');
     const groups=[{label:'Go',items:[{label:'Alpha'},{label:'Beta'},{label:'Gamma'}]}];
-    const c=mount(h(CommandPalette,{open:true,onClose:()=>{},groups})); 
+    function CPH(){const[o,setO]=React.useState(true);return o?h(CommandPalette,{open:true,onClose:()=>setO(false),groups}):null;}
+    const c=mount(h(CPH));
     assert(await until(()=>document.querySelector('.cs-cmdk-scrim')),'palette not open');
     assert(await until(()=>document.querySelectorAll('.cs-cmdk__item').length===3),'want 3 items, got '+document.querySelectorAll('.cs-cmdk__item').length);
     const input=document.querySelector('.cs-cmdk__search input'); assert(input,'no search input');
     setInput(input,'alph');
     assert(await until(()=>document.querySelectorAll('.cs-cmdk__item').length===1),'want 1 filtered item, got '+document.querySelectorAll('.cs-cmdk__item').length);
+    document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
+    assert(await until(()=>!document.querySelector('.cs-cmdk-scrim')),'palette closes so later Escape tests stay clean');
     return '3→1 on "alph"';
   });
 

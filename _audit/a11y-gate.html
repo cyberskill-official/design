@@ -310,6 +310,63 @@ async function run(){
     return 'open→Esc';
   });
 
+  await test('Overlay stack — nested AlertDialog Escape closes top first',async()=>{
+    assert(Dialog&&AlertDialog&&Button,'missing');
+    function Nest(){
+      const[d,setD]=React.useState(true);
+      const[a,setA]=React.useState(true);
+      return h('div',null,
+        d?h(Dialog,{open:true,title:'Outer',onClose:()=>setD(false)},h('button',{className:'keep'},'Keep'),
+          a?h(AlertDialog,{open:true,title:'Confirm?',description:'Nested',onOpenChange:setA,onConfirm:()=>{},onCancel:()=>{}}):null
+        ):null
+      );
+    }
+    const c=mount(h(Nest)); await wait(100);
+    assert(c.querySelector('[role="dialog"]'),'outer dialog');
+    assert(c.querySelector('[role="alertdialog"]'),'inner alert');
+    escDoc();
+    assert(await until(()=>!c.querySelector('[role="alertdialog"]')),'Esc closes alert first');
+    assert(c.querySelector('[role="dialog"]'),'outer dialog still open');
+    escDoc();
+    assert(await until(()=>!c.querySelector('[role="dialog"]')),'second Esc closes dialog');
+    return 'nested Esc order';
+  });
+
+  await test('Overlay stack — scroll-lock refcount across nested modals',async()=>{
+    assert(Dialog&&AlertDialog,'missing');
+    function Nest(){
+      const[d,setD]=React.useState(true);
+      const[a,setA]=React.useState(true);
+      return h('div',null,
+        d?h(Dialog,{open:true,title:'Outer',onClose:()=>setD(false)},'body',
+          a?h(AlertDialog,{open:true,title:'Inner',description:'x',onOpenChange:setA,onConfirm:()=>{}}):null
+        ):null
+      );
+    }
+    const c=mount(h(Nest)); await wait(90);
+    assert(document.body.style.overflow==='hidden','locked with nested open');
+    escDoc();
+    assert(await until(()=>!c.querySelector('[role="alertdialog"]')),'alert closed');
+    assert(document.body.style.overflow==='hidden','still locked while dialog open');
+    escDoc();
+    assert(await until(()=>!c.querySelector('[role="dialog"]')),'dialog closed');
+    assert(await until(()=>document.body.style.overflow!=='hidden'),'unlocked after last modal');
+    return 'refcount OK';
+  });
+
+  await test('Cascader — ArrowDown moves option focus (E3 start)',async()=>{
+    assert(Cascader,'missing');
+    const nodes=[{key:'p',label:'Prov',children:[{key:'d',label:'Dist'}]},{key:'q',label:'Other'}];
+    const c=mount(h(Cascader,{nodes,label:'Region'})); await wait(80);
+    const field=c.querySelector('.cs-treeselect__field'); field.click();
+    assert(await until(()=>c.querySelector('[role="option"]')),'options');
+    const opts=()=>[...c.querySelectorAll('[role="option"]')];
+    opts()[0].focus();
+    kd(opts()[0],'ArrowDown');
+    assert(await until(()=>document.activeElement===opts()[1]||opts().indexOf(document.activeElement)>0),'ArrowDown moves');
+    return 'arrow model';
+  });
+
   const bad=results.filter(r=>!r.ok);
   publish({pass:bad.length===0,total:results.length,failed:bad.map(r=>r.name),results});
 }

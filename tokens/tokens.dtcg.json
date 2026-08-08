@@ -1037,6 +1037,11 @@
     "--cs-container-max": {
       "$value": "1320px",
       "$type": "dimension"
+    },
+    "--cs-prose-measure": {
+      "$value": "45rem",
+      "$type": "dimension",
+      "$description": "Readable prose measure for long-form kit/tool copy (UX-024). Web CSS may prefer ch; rem keeps native mirrors convertible."
     }
   },
   "font": {

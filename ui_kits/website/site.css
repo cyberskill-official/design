@@ -29,7 +29,7 @@
 .hero .eyebrow { color: var(--cs-color-brand-ochre); }
 .hero h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; margin: 14px 0 6px; color: var(--cs-color-brand-ochre); }
 .hero .vn { font-size: 20px; font-weight: 600; opacity: .9; margin-bottom: 18px; }
-.hero .lead { font-size: 18px; line-height: 1.55; max-width: 620px; opacity: .95; }
+.hero .lead { font-size: 18px; line-height: 1.55; max-width: min(620px, var(--cs-prose-measure, 45rem)); opacity: .95; }
 .wish { display: flex; gap: 10px; margin-top: 26px; max-width: 620px; flex-wrap: wrap; }
 .wish input { flex: 1 1 300px; min-height: 52px; border-radius: var(--cs-radius-full); border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.1); backdrop-filter: blur(8px); color: #fff; padding: 0 22px; font: 400 15px/1 var(--cs-font-family-ui); }
 .wish input::placeholder { color: rgba(255,255,255,.72); }
@@ -53,7 +53,7 @@
 .sec { padding: 88px 0; }
 .sec-alt { background: var(--cs-color-surface-raised); }
 .sec h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -.02em; margin: 8px 0 10px; }
-.sec-lead { font-size: 17px; color: var(--cs-color-text-muted); max-width: 620px; margin: 0 0 40px; }
+.sec-lead { font-size: 17px; color: var(--cs-color-text-muted); max-width: min(620px, var(--cs-prose-measure, 45rem)); margin: 0 0 40px; }
 
 /* services */
 .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--cs-space-5); }

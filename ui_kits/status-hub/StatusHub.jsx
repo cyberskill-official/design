@@ -196,9 +196,34 @@ function StatusHub() {
         <div className="bar">
           <div className="bar-top">
             <label className="srch"><SearchGlyph /><input placeholder={t.search} value={q} onChange={(e) => setQ(e.target.value)} /></label>
-            <div className="lenses" role="tablist" aria-label={t.view}>
+            <div
+              className="lenses"
+              role="tablist"
+              aria-label={t.view}
+              onKeyDown={(e) => {
+                const order = ["board", "table", "releases"];
+                const i = order.indexOf(lens);
+                let next = i;
+                if (e.key === "ArrowRight") next = (i + 1) % order.length;
+                else if (e.key === "ArrowLeft") next = (i - 1 + order.length) % order.length;
+                else if (e.key === "Home") next = 0;
+                else if (e.key === "End") next = order.length - 1;
+                else return;
+                e.preventDefault();
+                setLens(order[next]);
+                const tabs = e.currentTarget.querySelectorAll('[role="tab"]');
+                tabs[next] && tabs[next].focus && tabs[next].focus();
+              }}
+            >
               {["board", "table", "releases"].map((l) => (
-                <button key={l} className="ln" role="tab" aria-selected={lens === l} onClick={() => setLens(l)}>{t.lenses[l]}</button>
+                <button
+                  key={l}
+                  className="ln"
+                  role="tab"
+                  aria-selected={lens === l}
+                  tabIndex={lens === l ? 0 : -1}
+                  onClick={() => setLens(l)}
+                >{t.lenses[l]}</button>
               ))}
             </div>
             <label className="facet">{t.status}
