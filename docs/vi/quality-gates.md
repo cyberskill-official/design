@@ -4,7 +4,7 @@ Mọi quality gate deterministic trong hệ thống, nó assert gì, tiêu chí 
 
 **Gate chạy ở đâu.** *Fast board CI* = job `fast-gates` trong `.github/workflows/design-system-gates.yml`, serve repo và điều khiển `_audit/run.html` headless qua `_audit/ci/run-gates.mjs` (mọi push/PR + nightly + thủ công) — hàng board mới được nhận tự động. Hai gate thêm chạy standalone như *merge blocker* (job `docs-consistency-blocker`, qua `_audit/ci/run-single-gate.mjs`). *Whole-set CI* = job `whole-set-audits` (mọi push/PR + nightly — quyết định B của owner). *Unit test* = `npm run test:unit` trong job `unit-tests` (Node thuần, không trình duyệt). *Node pre-checks* = job `node-prechecks` (authority không trình duyệt: bundle freshness, DESIGN.md freshness) cộng job `token-provenance`. Mọi browser gate publish verdict global (`window.__*`) mà headless runner đọc.
 
-## Fast board — 38 gates trong `_audit/run.html`
+## Fast board — 39 gates trong `_audit/run.html`
 
 Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở rộng style): [`docs/vi/benchmark-rubric.md`](benchmark-rubric.md).
 
@@ -22,6 +22,7 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Overflow @320 | `_audit/responsive-overflow-320.html` | Chiều rộng reflow WCAG 1.4.10: template + kit ở 320px không overflow ngang | 0 bề mặt overflow (`__overflow320`) | Hard | Fast board CI |
 | Light contrast | `_audit/light-contrast.html` | DOM walk light (gương `theme-overflow`): fail WCAG AA leaf-text trên nền solid tái hiện được ngoài `REVIEWED_OK` | 0 fail contrast mở (`__lightcontrast`) | Hard | Fast board CI |
 | No third-party | `_audit/no-third-party.html` | Bề mặt sản phẩm (template · kit · Atomic View) không có origin script/style bên thứ ba; React + Babel có dưới `_vendor/` | 0 hit CDN + vendor có mặt (`__nothirdparty`) | Hard | Fast board CI |
+| Zoom + text-spacing | `_audit/zoom-text-spacing.html` | Fixture chrome đại diện: không tràn ngang ở 640px (proxy 200%) và 320px (proxy 400%); áp dụng text-spacing WCAG 1.4.12 | 0 overflow (`__zoomspacing`) | Hard | Fast board CI |
 | Token contract | `_audit/token-contract.html` | Cả 15 scope element×variant resolve cả 10 role `--cs-accent-*` (gồm `on-strong`); token semantic + doc/focus resolve | 0 role thiếu, 0 token core thiếu (`__contract`) | Hard | Fast board CI |
 | Token pipeline | `_audit/token-pipeline-test.html` | Mọi hằng dẫn từ DTCG xuất hiện nguyên văn trong cả ba target `tokens/native/`; provenance sha-256 khớp nguồn DTCG | 0 hằng drift, hash khớp (`__tokenpipe`) | Hard | Fast board CI |
 | Token format parity | `_audit/token-format-parity.html` | Mọi khai báo `--cs-*` trong `tokens/*.css` bằng mirror trong `tokens.json`, `tokens.js` (ESM deep-equal live), và DTCG (chuỗi ext-css hoặc typed transform) — base `:root` + theme dark/system + 15 pack element + 15 pack dark; 4 duration `_ds_manifest.json` bằng `motion.css` (chặn bug reduced-motion 0ms của compiler) | 0 diff trên mọi scope (`__tokenformat`) | Hard | Fast board CI |
@@ -85,6 +86,10 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 
 Suite `test:unit` được nối vào CI workflow như một phần của hardening Th7 2026 (trước đó chỉ chạy local).
 
+## Audit probe suite — `npm run test:audit-probe`
+
+Entry thúc đẩy cho proxy audit UX 2026-08-08 (`_audit/ci/audit-probe-suite.mjs`): suite unit + light-contrast + overflow 320 + language-overflow + zoom/text-spacing. **Ma trận AT thủ công** (`docs/plans/at-matrix-ux-audit-2026-08-08.md`, owner Stephen Cheng) chỉ liệt kê qua `--list`, không bao giờ tự đánh dấu pass.
+
 ## Job sync / phân phối (soft-skip)
 
 Soft-skip nghĩa là job exit 0 kèm report khi secret/plan/API không hoàn tất write thật — **không** có nghĩa Code Connect hay Figma Variables đang live. npm CI publish dùng Trusted Publishing; soft-skip là trung thực auth/conflict. Coi việc maintainer còn lại trong `docs/decisions.md` là danh sách mở (Code Connect hoãn; grant consumer tại `docs/consumer-grant.md`). Storybook `FullMatrix` bắt buộc cho mọi public primary có ≥1 trong {size enums, variant enums, state keys} — helper chung tại `stories/lib/matrix.jsx`.
@@ -112,3 +117,4 @@ Tám gate audit lên kế hoạch (token-format-parity, version-stamp, support-r
 - **Nội dung template pháp lý** — counsel review instrument; gate chỉ kiểm cấu trúc, cơ chế bilingual, và hình học print.
 - **Baseline pixel-diff** — drift `%` Playwright auto-fail (hard). Sau redesign có chủ đích, làm mới `_audit/baselines/` bằng `pixel-diff.mjs --update` và commit. Trang review side-by-side visual / component vẫn advisory (đánh giá bằng mắt).
 - **Review thiết kế API component** — đặt tên prop và ergonomics do owner review, không assert.
+- **AT thủ công (E1)** — ma trận NVDA / VoiceOver tại `docs/plans/at-matrix-ux-audit-2026-08-08.md`; owner **Stephen Cheng**; ô trống không phải pass.

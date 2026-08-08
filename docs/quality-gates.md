@@ -4,7 +4,7 @@ Every deterministic quality gate in the system, what it asserts, its pass criter
 
 **Where gates run.** *Fast board CI* = the `fast-gates` job in `.github/workflows/design-system-gates.yml`, which serves the repo and drives `_audit/run.html` headless via `_audit/ci/run-gates.mjs` (every push/PR + nightly + manual) — new board rows are picked up automatically. Two gates additionally run standalone as *merge blockers* (`docs-consistency-blocker` job, via `_audit/ci/run-single-gate.mjs`). *Whole-set CI* = the `whole-set-audits` job (every push/PR + nightly — owner decision B). *Unit test* = `npm run test:unit` in the `unit-tests` job (plain Node, no browser). *Node pre-checks* = the `node-prechecks` job (browser-free authorities: bundle freshness, DESIGN.md freshness) plus the `token-provenance` job. Every browser gate publishes a verdict global (`window.__*`) that the headless runners read.
 
-## Fast board — 38 gates in `_audit/run.html`
+## Fast board — 39 gates in `_audit/run.html`
 
 Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expansion): [`docs/benchmark-rubric.md`](benchmark-rubric.md).
 
@@ -22,6 +22,7 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | Overflow @320 | `_audit/responsive-overflow-320.html` | WCAG 1.4.10 reflow width: templates + kits at 320px without horizontal document overflow | 0 overflowing surfaces (`__overflow320`) | Hard | Fast board CI |
 | Light contrast | `_audit/light-contrast.html` | Light-mode DOM walk (mirrors `theme-overflow`): reproducible solid-bg leaf-text WCAG AA fails outside `REVIEWED_OK` | 0 open contrast fails (`__lightcontrast`) | Hard | Fast board CI |
 | No third-party | `_audit/no-third-party.html` | Product surfaces (templates · kits · Atomic View) contain no third-party script/style origins; React + Babel present under `_vendor/` | 0 CDN hits + vendors present (`__nothirdparty`) | Hard | Fast board CI |
+| Zoom + text-spacing | `_audit/zoom-text-spacing.html` | Representative chrome fixture: no horizontal overflow at 640px (200% proxy) and 320px (400% proxy); WCAG 1.4.12 text-spacing applied | 0 overflows (`__zoomspacing`) | Hard | Fast board CI |
 | Token contract | `_audit/token-contract.html` | All 15 element×variant scopes resolve all 10 `--cs-accent-*` roles (incl. `on-strong`); core semantic + doc/focus tokens resolve | 0 missing roles, 0 missing core tokens (`__contract`) | Hard | Fast board CI |
 | Token pipeline | `_audit/token-pipeline-test.html` | Every DTCG-derived constant appears verbatim in all three `tokens/native/` targets; provenance sha-256 matches the DTCG source | 0 drifted constants, hash match (`__tokenpipe`) | Hard | Fast board CI |
 | Token format parity | `_audit/token-format-parity.html` | Every `--cs-*` declaration in `tokens/*.css` equals its mirror in `tokens.json`, `tokens.js` (live ESM deep-equal), and DTCG (ext-css string or typed transform) — base `:root` + dark/system themes + 15 element packs + 15 dark packs; the 4 `_ds_manifest.json` durations equal `motion.css` (guards the reduced-motion 0ms compiler bug) | 0 diffs across all scopes (`__tokenformat`) | Hard | Fast board CI |
@@ -85,6 +86,10 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 
 The `test:unit` suite is wired into the CI workflow as part of the July 2026 hardening change (it previously only ran locally).
 
+## Audit probe suite — `npm run test:audit-probe`
+
+Promoted entry for the 2026-08-08 UX audit proxies (`_audit/ci/audit-probe-suite.mjs`): unit suite + light-contrast + 320 overflow + language-overflow + zoom/text-spacing. The **manual AT matrix** (`docs/plans/at-matrix-ux-audit-2026-08-08.md`, owner Stephen Cheng) is listed by `--list` but never auto-marked pass.
+
 ## Sync / distribution jobs (soft-skip)
 
 Soft-skip means the job exits 0 with a report when secrets/plan/API cannot complete the real write — **not** that Code Connect or Figma Variables are live. npm CI publish uses Trusted Publishing; soft-skip covers auth/conflict honesty. Treat remaining maintainer tasks in `docs/decisions.md` as the open list (Code Connect deferred; consumer grant is in `docs/consumer-grant.md`). Storybook `FullMatrix` is required for every public primary with ≥1 of {size enums, variant enums, state keys} — shared helpers in `stories/lib/matrix.jsx`.
@@ -112,3 +117,4 @@ The eight gates the audit planned (token-format-parity, version-stamp, support-r
 - **Legal template content** — counsel reviews the instruments; gates only check structure, bilingual mechanics, and print geometry.
 - **Pixel-diff baselines** — Playwright `%` drift auto-fails (hard). After intentional redesigns, refresh `_audit/baselines/` with `pixel-diff.mjs --update` and commit. Side-by-side visual / component review pages stay advisory (judgment by eye).
 - **Component API design review** — prop naming and ergonomics are reviewed by the owner, not asserted.
+- **Manual AT (E1)** — NVDA / VoiceOver matrix in `docs/plans/at-matrix-ux-audit-2026-08-08.md`; owner **Stephen Cheng**; empty slots are not passes.

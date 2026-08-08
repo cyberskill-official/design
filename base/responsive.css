@@ -13,6 +13,16 @@
 /* 1 — Media and embeds never blow out a column */
 img, svg, video, canvas { max-width: 100%; height: auto; }
 
+/* G1 / CDS-RESP-001 — container-query migration (compatibility layer).
+ * Opt-in hosts mark a sizing context with `.cs-cq`. Children can use
+ * `@container (max-width: …)` without waiting for a full layout rewrite.
+ * Media queries above remain the default until packs generate CQ variants. */
+.cs-cq { container-type: inline-size; container-name: cs; }
+@container cs (max-width: 640px) {
+  .cs-cq-stack { display: flex !important; flex-direction: column !important; }
+  .cs-cq-stack > * { min-inline-size: 0; max-inline-size: 100%; }
+}
+
 /* 2 — Print-doc archetype: shrink desk + sheet chrome as the screen narrows.
  * cs-desk is the grey backing; cs-sheet is the white page. */
 @media screen and (max-width: 900px) {

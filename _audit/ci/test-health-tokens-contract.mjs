@@ -23,7 +23,7 @@ assert(!run.includes('Copy import report'), 'import report UI removed');
 
 // Count gate open hrefs from GATES file list pattern
 const gateFiles = [...run.matchAll(/file:'([^']+\.html)'/g)].map((m) => m[1]);
-assert(gateFiles.length === 38, 'fast board has 38 gates, got ' + gateFiles.length);
+assert(gateFiles.length === 39, 'fast board has 39 gates, got ' + gateFiles.length);
 // Row open links are built dynamically: href="./'+g.file+'"
 assert(run.includes("href=\"./\"+g.file+\"") || run.includes("href=\"./'+g.file+'\""), 'open href uses g.file');
 assert(run.includes('class="open"'), 'open class on gate rows');

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — Zoom + text-spacing gate</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;font-family:var(--cs-font-family-ui,system-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
+  h1{font-size:16px;margin:0 0 2px}
+  .lede{color:#6b5d4f;max-width:920px;line-height:1.5;margin:0 0 14px;font-size:13px}
+  .row{display:flex;justify-content:space-between;gap:10px;padding:6px 10px;border-radius:6px;font:12.5px ui-monospace,monospace;max-width:860px;margin-bottom:2px}
+  .row.ok{background:#dcfce7;color:#166534}.row.bad{background:#FEE2E2;color:#B42318;font-weight:700}
+  .row .d{color:#6b5d4f;font-weight:400}
+  #sum{font-size:15px;font-weight:800;margin:12px 0}
+  #stage{border:1px solid var(--cs-color-border-default);border-radius:12px;padding:20px;max-width:720px;width:100%;box-sizing:border-box;background:var(--cs-color-surface-panel);margin:12px 0;min-width:0;overflow-wrap:anywhere}
+  #stage.spacing{line-height:1.5;letter-spacing:.12em;word-spacing:.16em}
+  #stage.spacing p,#stage.spacing .cs-field__label{line-height:1.5;letter-spacing:.12em;word-spacing:.16em}
+  #stage .lead,#stage .cs-field{min-width:0;max-width:100%}
+  #stage .cs-field__control{max-width:100%;box-sizing:border-box}
+</style>
+</head><body>
+<h1>Zoom + text-spacing gate</h1>
+<p class="lede">Phase-4 fixture for CDS-QA-002 / UX audit: proves representative product chrome still fits when the viewport is narrowed to simulate <b>200% zoom</b> (≈640 CSS px at 1280 design width) and when WCAG 1.4.12 text-spacing is applied. Not a substitute for manual AT. Verdict on <code>window.__zoomspacing</code>.</p>
+<div id="list"></div>
+<div id="sum">running…</div>
+<div id="stage">
+  <h2 style="margin:0 0 8px;font-size:20px">Wish status</h2>
+  <p class="lead" style="margin:0 0 12px;max-inline-size:var(--cs-prose-measure,45rem)">Tell Lumi a wish in a sentence. A real person replies within one business day.</p>
+  <label class="cs-field"><span class="cs-field__label">Work email</span><input class="cs-field__control" value="an@cyberskill.world" /></label>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+    <button type="button" class="cs-button cs-button--primary">Make a wish</button>
+    <button type="button" class="cs-button cs-button--secondary">Talk to Lumi</button>
+  </div>
+  <div class="cs-tabs" role="tablist" aria-label="Lenses" style="margin-top:16px">
+    <button type="button" class="cs-tab" role="tab" aria-selected="true" tabindex="0">Board</button>
+    <button type="button" class="cs-tab" role="tab" aria-selected="false" tabindex="-1">Table</button>
+    <button type="button" class="cs-tab" role="tab" aria-selected="false" tabindex="-1">Releases</button>
+  </div>
+</div>
+<script>
+const P=window.__gateProgress={done:0,total:4,current:'boot'};
+const results=[]; const list=document.getElementById('list');
+function record(name,ok,detail){ results.push({name,ok,detail}); const r=document.createElement('div'); r.className='row '+(ok?'ok':'bad'); r.innerHTML='<span>'+(ok?'\u2713 ':'\u2717 ')+name+'</span><span class="d">'+String(detail).slice(0,220)+'</span>'; list.appendChild(r); }
+function publish(v){ if(window.__zoomspacing) return; window.__zoomspacing=v; const s=document.getElementById('sum'); s.textContent=v.pass?('\u2713 all '+v.total+' zoom/spacing checks pass'):('\u2717 '+(v.error?v.error:(v.failed.length+'/'+v.total+' failed: '+v.failed.join(', ')))); s.style.color=v.pass?'#166534':'#B42318'; console.log('ZOOMSPACING VERDICT '+JSON.stringify({pass:v.pass,failed:v.failed||[],error:v.error||null})); }
+async function test(name,fn){ P.current=name; try{ const d=await fn(); record(name,true,d); }catch(e){ record(name,false,String(e.message||e).slice(0,220)); } P.done=results.length; }
+function assert(c,m){ if(!c) throw new Error(m); }
+function overflowX(el){ return el.scrollWidth>el.clientWidth+2; }
+function settle(){ return new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))); }
+async function assertNoStageOverflow(stage,label){
+  for(let i=0;i<3;i++){
+    await settle();
+    if(!overflowX(stage)) return;
+  }
+  throw new Error(label+' (scroll='+stage.scrollWidth+' client='+stage.clientWidth+')');
+}
+(async()=>{
+  const stage=document.getElementById('stage');
+  await test('fixture mounts with primary controls',async()=>{
+    assert(stage.querySelector('.cs-button--primary'),'primary');
+    assert(stage.querySelector('[role="tablist"]'),'tabs');
+    return 'mounted';
+  });
+  await test('200% zoom proxy — stage width 640px no horizontal overflow',async()=>{
+    const prev=stage.style.width;
+    stage.style.width='640px';
+    stage.style.maxWidth='640px';
+    await assertNoStageOverflow(stage,'stage overflows at 640px');
+    stage.style.width=prev;
+    stage.style.maxWidth='';
+    return '640px clean';
+  });
+  await test('text-spacing (1.4.12) — no horizontal overflow on stage',async()=>{
+    stage.style.width='640px';
+    stage.style.maxWidth='640px';
+    stage.classList.add('spacing');
+    await assertNoStageOverflow(stage,'spacing overflows stage');
+    stage.classList.remove('spacing');
+    stage.style.width='';
+    stage.style.maxWidth='';
+    return 'spacing clean';
+  });
+  await test('400% zoom proxy — stage width 320px still usable (wrap OK)',async()=>{
+    stage.style.width='320px';
+    stage.style.maxWidth='320px';
+    await assertNoStageOverflow(stage,'stage overflows at 320px');
+    const btn=stage.querySelector('.cs-button--primary');
+    assert(btn && btn.getBoundingClientRect().width>0,'primary still laid out');
+    stage.style.width='';
+    stage.style.maxWidth='';
+    return '320px clean';
+  });
+  const bad=results.filter(r=>!r.ok);
+  publish({pass:bad.length===0,total:results.length,failed:bad.map(r=>r.name),results});
+})().catch(e=>publish({pass:false,total:results.length,failed:results.filter(r=>!r.ok).map(r=>r.name),error:String(e&&e.message||e).slice(0,160)}));
+</script>
+</body></html>

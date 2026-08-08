@@ -1908,6 +1908,12 @@ scroll-behavior: auto !important;
 
 img, svg, video, canvas { max-width: 100%; height: auto; }
 
+.cs-cq { container-type: inline-size; container-name: cs; }
+@container cs (max-width: 640px) {
+.cs-cq-stack { display: flex !important; flex-direction: column !important; }
+.cs-cq-stack > * { min-inline-size: 0; max-inline-size: 100%; }
+}
+
 @media screen and (max-width: 900px) {
 .cs-desk { padding: 24px 10px !important; }
 .cs-sheet { padding: 40px 40px !important; }
