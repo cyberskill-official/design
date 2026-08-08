@@ -7,3 +7,6 @@ b0b6f5d: exempt  # Land UX audit Phase 3
 8aab010: exempt  # Close UX audit Phase 2
 46a10fb: exempt  # Close UX audit Phase 1
 91d9fd8: exempt  # feat: plan (UX audit planning)
+
+# CI plumbing — ubuntu-latest pixel baseline refresh after UX surface polish (no open TASK).
+056591c: exempt  # ci: refresh ubuntu pixel baselines after UX surface polish
