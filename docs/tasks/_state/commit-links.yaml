@@ -10,3 +10,5 @@ b0b6f5d: exempt  # Land UX audit Phase 3
 
 # CI plumbing — ubuntu-latest pixel baseline refresh after UX surface polish (no open TASK).
 056591c: exempt  # ci: refresh ubuntu pixel baselines after UX surface polish
+
+be0f872: exempt  # chore: ledger-exempt pixel baseline refresh commit
