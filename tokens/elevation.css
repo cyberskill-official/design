@@ -4,13 +4,19 @@
  * the material composition + classes live in base/glass.css.
  * Shadow values are warm (umber-tinted), taken from the shipped surfaces. */
 :root {
-  /* ---- Depth (z-index) ---- */
+  /* ---- Depth (z-index) ----
+   * Order (low → high): bg < section < card < nav < dropdown < overlay < modal < toast.
+   * Toasts intentionally stack above modals so save-confirmation feedback stays visible
+   * while a dialog is open (UX-009). Dropdown sits above sticky nav; overlay (scrims
+   * that are not modal-owned) sits between dropdown and modal. */
   --cs-depth-bg: 0;        /* @kind other */ /* page background / hero washes */
   --cs-depth-section: 5;   /* @kind other */ /* major sections (matte, no glass) */
   --cs-depth-card: 10;     /* @kind other */ /* cards/panels (Standard Glass) */
   --cs-depth-nav: 50;      /* @kind other */ /* sticky nav (Light Glass) */
+  --cs-depth-dropdown: 60; /* @kind other */ /* menus, combobox, datepicker pops */
+  --cs-depth-overlay: 80;  /* @kind other */ /* non-modal scrims / light overlays */
   --cs-depth-modal: 100;   /* @kind other */ /* modals, command palette (Heavy Glass) */
-  --cs-depth-toast: 200;   /* @kind other */ /* toasts, popovers, dropdowns (Heavy Glass) */
+  --cs-depth-toast: 200;   /* @kind other */ /* toasts above modals (Heavy Glass) */
 
   /* ---- Glass material scalars (blur / saturate / surface opacity) ---- */
   --cs-glass-whisper-blur: 8px;   --cs-glass-whisper-saturate: 110%; --cs-glass-whisper-opacity: 60%;

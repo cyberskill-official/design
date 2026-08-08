@@ -47,7 +47,7 @@
   <div class="grid2">
     <label class="cs-field"><span class="cs-field__label">Text field</span><input class="cs-field__control" placeholder="Nguyễn Hoàng An"></label>
     <label class="cs-field is-invalid"><span class="cs-field__label">With error</span><input class="cs-field__control" value="bad@"><span class="cs-field__error" role="alert">Enter a valid email</span></label>
-    <div class="cs-select cs-field"><span class="cs-field__label">Select</span><select class="cs-field__control"><option>Thổ · studio</option><option>Hỏa · ember</option></select><span class="cs-select__chevron">▾</span></div>
+    <label class="cs-select cs-field"><span class="cs-field__label">Select</span><select class="cs-field__control" name="element" aria-label="Element"><option>Thổ · studio</option><option>Hỏa · ember</option></select><span class="cs-select__chevron">▾</span></label>
     <label class="cs-field"><span class="cs-field__label">Textarea</span><textarea class="cs-field__control" rows="2">A faster checkout.</textarea></label>
   </div>
   <div class="row" style="margin-top:12px"><span class="lbl">Toggles</span>
@@ -58,8 +58,8 @@
   </div>
   <div class="row"><span class="lbl">Controls</span>
     <div class="cs-search" style="width:220px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input placeholder="Search"></div>
-    <div class="cs-stepper"><button>−</button><input value="3"><button>+</button></div>
-    <input type="range" class="cs-slider" value="60" style="width:160px">
+    <div class="cs-stepper" role="group" aria-label="Quantity"><button type="button" aria-label="Decrease">−</button><input value="3" aria-label="Quantity"><button type="button" aria-label="Increase">+</button></div>
+    <input type="range" class="cs-slider" value="60" style="width:160px" aria-label="Progress">
   </div>
 </section>
 
@@ -108,7 +108,12 @@
 </section>
 
 <section id="nav"><h2>Navigation</h2>
-  <div class="cs-tabs" style="margin-bottom:14px"><button class="cs-tab" aria-selected="true">Overview</button><button class="cs-tab">Projects<span class="cs-tab__count">6</span></button><button class="cs-tab">Team</button></div>
+  <div class="cs-tabs" role="tablist" aria-label="Sections" style="margin-bottom:14px">
+    <button type="button" class="cs-tab" role="tab" id="ks-tab-overview" aria-selected="true" aria-controls="ks-panel-overview" tabindex="0">Overview</button>
+    <button type="button" class="cs-tab" role="tab" id="ks-tab-projects" aria-selected="false" aria-controls="ks-panel-projects" tabindex="-1">Projects<span class="cs-tab__count">6</span></button>
+    <button type="button" class="cs-tab" role="tab" id="ks-tab-team" aria-selected="false" aria-controls="ks-panel-team" tabindex="-1">Team</button>
+  </div>
+  <div id="ks-panel-overview" role="tabpanel" aria-labelledby="ks-tab-overview"></div>
   <nav class="cs-breadcrumb" style="margin-bottom:14px"><ul style="list-style:none;margin:0;padding:0;display:flex;gap:8px"><li><a href="#">Status Hub</a></li><li class="cs-breadcrumb__sep">/</li><li><a href="#">Platform</a></li><li class="cs-breadcrumb__sep">/</li><li class="cs-breadcrumb__current">Design System</li></ul></nav>
   <div class="row"><nav class="cs-pagination"><button>‹</button><button aria-current="page">1</button><button>2</button><button>3</button><span class="cs-pagination__ellipsis">…</span><button>9</button><button>›</button></nav></div>
   <div class="cs-menu__list" style="position:static;max-width:220px;margin-top:12px"><button class="cs-menu__item">Open project</button><button class="cs-menu__item">Duplicate</button><div class="cs-menu__sep"></div><button class="cs-menu__item cs-menu__item--danger">Delete</button></div>

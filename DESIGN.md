@@ -48,6 +48,10 @@ Core semantic colours. Dark values are the `[data-theme="dark"]` overrides (the 
 | `--cs-color-border-default` | `#E7D9C6` | `#4a3a2c` |
 | `--cs-color-link` | `#6E3B0E` | `#f4ba17` |
 | `--cs-color-link-hover` | `#45210E` | `#f5ead9` |
+| `--cs-color-semantic-success-fg` | `#FFFFFF` | `#1a1108` |
+| `--cs-color-semantic-danger-fg` | `#FFFFFF` | `#1a1108` |
+| `--cs-color-semantic-warning-fg` | `#FFFFFF` | `#1a1108` |
+| `--cs-color-semantic-info-fg` | `#FFFFFF` | `#1a1108` |
 
 ### Accent roles (Ngũ Hành)
 
@@ -64,6 +68,18 @@ Default accent pack = Thổ (the studio's own element). All 15 element×variant 
 | `--cs-accent-glow` | `rgba(244, 186, 23, 0.48)` |
 | `--cs-accent-grad-a` | `#F4BA17` |
 | `--cs-accent-grad-b` | `#FCAF91` |
+| `--cs-accent-on-strong` | `#1A1108` |
+
+### Document palette
+
+Shared ink / paper / rule colours for print-leaning instruments (`--cs-doc-*`). Prefer these over raw hex in VN legal and office templates.
+
+| Token | Value |
+|---|---|
+| `--cs-doc-ink` | `#1A1614` |
+| `--cs-doc-slate` | `#3F4C55` |
+| `--cs-doc-fill` | `#FDE68A` |
+| `--cs-doc-fill-ink` | `#1A1614` |
 
 ## Typography
 
@@ -187,6 +203,8 @@ Shadow values are the raw CSS box-shadow strings from `$extensions["com.cyberski
 | `--cs-depth-nav` | `50` |
 | `--cs-depth-modal` | `100` |
 | `--cs-depth-toast` | `200` |
+| `--cs-depth-dropdown` | `60` |
+| `--cs-depth-overlay` | `80` |
 | `--cs-glass-whisper-blur` | `8px` |
 | `--cs-glass-whisper-saturate` | `110%` |
 | `--cs-glass-whisper-opacity` | `60%` |
@@ -245,6 +263,7 @@ Component-level design decisions (button · textfield). Dark values are theme ov
 | `--cs-component-textfield-paddingY` | `10px` | — |
 | `--cs-component-textfield-paddingX` | `12px` | — |
 | `--cs-component-textfield-minHeight` | `44px` | — |
+| `--cs-focus-ring` | `3px` | — |
 
 ## Components inventory
 

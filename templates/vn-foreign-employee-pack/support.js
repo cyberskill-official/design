@@ -1070,16 +1070,15 @@
   }
 
   // src/cdn.ts
-  var REACT_URL = "https://unpkg.com/umd-react@19.2.8/dist/react.production.min.js";
-  var REACT_SRI = "sha384-/nh8CKeV7Pk42Gpda6L4DM1JtZ2bwPOi+eh9O7+a1Y22UkGs8+mw3aW1shQ9FV30";
-  var REACT_DOM_URL = "https://unpkg.com/umd-react@19.2.8/dist/react-dom.production.min.js";
-  var REACT_DOM_SRI = "sha384-rhLCB72qrpcezgY2QW0panvW9IeO32m94nvuDVRD/iEGHXoUbjtijL6Xi/Z5/mzu";
-  var BABEL_URL = "https://unpkg.com/@babel/standalone@7.29.0/babel.min.js";
-  var BABEL_SRI = "sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y";
-  function cdnScriptFor(url, sri) {
+  var REACT_LOCAL = "../../_vendor/react/react.production.min.js";
+  var REACT_DOM_LOCAL = "../../_vendor/react/react-dom.production.min.js";
+  var BABEL_LOCAL = "../../_vendor/babel/babel.min.js";
+  // Product surfaces are offline-first (UX-026 / D4): no third-party script origins.
+  // Host editors may still remap via window.__resources[localPath].
+  function localScriptFor(path) {
     const res = window.__resources;
-    const v = res ? res[url] : void 0;
-    return typeof v === "string" && v ? { src: v } : { src: url, integrity: sri };
+    const v = res ? res[path] : void 0;
+    return typeof v === "string" && v ? v : path;
   }
 
   // src/external.ts
@@ -1106,16 +1105,12 @@
     function ensureBabel() {
       if (window.Babel) return Promise.resolve();
       if (babelLoading) return babelLoading;
-      const babel = cdnScriptFor(BABEL_URL, BABEL_SRI);
+      const src = localScriptFor(BABEL_LOCAL);
       babelLoading = new Promise((res, rej) => {
         const s = document.createElement("script");
-        s.src = babel.src;
-        if (babel.integrity) {
-          s.integrity = babel.integrity;
-          s.crossOrigin = "anonymous";
-        }
+        s.src = src;
         s.onload = () => res();
-        s.onerror = rej;
+        s.onerror = () => rej(new Error("failed to load local Babel: " + src));
         document.head.appendChild(s);
       });
       return babelLoading;
@@ -1768,11 +1763,9 @@
   function loadReactUmd() {
     const w = window;
     if (w.React && w.ReactDOM) return Promise.resolve();
-    const react = cdnScriptFor(REACT_URL, REACT_SRI);
-    const reactDom = cdnScriptFor(REACT_DOM_URL, REACT_DOM_SRI);
     return Promise.all([
-      loadScript(react.src, react.integrity),
-      loadScript(reactDom.src, reactDom.integrity)
+      loadScript(localScriptFor(REACT_LOCAL)),
+      loadScript(localScriptFor(REACT_DOM_LOCAL))
     ]).then(() => void 0);
   }
   function init() {

@@ -117,3 +117,9 @@
   color: #fff;
 }
 .cs-aurora--photo { background-size: cover; background-position: center; }
+
+/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
+@media (prefers-color-scheme: dark) {
+  /* ---- 5. Dark-mode border tuning ---- */
+[data-theme="system"] { --cs-color-border-default: #4a3a2c; }
+}

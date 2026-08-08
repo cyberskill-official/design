@@ -126,3 +126,18 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
   main > * { min-width: 0; }
   .cs-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 }
+
+/* ---- 320 reflow (UX-003 / WCAG 1.4.10) ---- */
+@media (max-width: 360px) {
+  .cs-tabs { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; }
+  .cs-pagination { flex-wrap: wrap; max-inline-size: 100%; }
+  .cs-pagination button { min-inline-size: 32px; }
+  .cs-otp { gap: 4px; }
+  .cs-otp__box { inline-size: 36px; block-size: 40px; font-size: 16px; }
+  .cs-dl { grid-template-columns: 1fr; }
+  .cs-field { min-inline-size: 0; }
+  .cs-field__control { min-inline-size: 0; }
+  .card, button.card, article.case { min-width: 0 !important; }
+  [style*="minmax(320px"] { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: 248px 1fr"] { grid-template-columns: 1fr !important; }
+}

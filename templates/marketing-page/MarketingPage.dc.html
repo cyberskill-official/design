@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<title>Marketing page · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
@@ -13,6 +14,8 @@
 <script src="../../image-slot.js"></script>
 </helmet>
 <div data-theme="{{ rootTheme }}" lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" style="font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary);background:var(--cs-color-surface-page);min-height:100vh">
+  <a class="cs-skip" href="#main" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden">Skip to content</a>
+  <main id="main">
   <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;flex-wrap:wrap;gap:10px 24px;padding:14px 32px;background:color-mix(in oklab,var(--cs-color-surface-panel) 82%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--cs-color-border-default)">
     <div style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:var(--cs-color-text-primary);letter-spacing:-0.01em">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="32" hint-size="32px,32px"></x-import>
@@ -28,17 +31,17 @@
     </div>
   </header>
 
-  <section style="position:relative;overflow:hidden;background:var(--cs-accent-strong);color:#fff;padding:84px 32px 96px">
+  <section style="position:relative;overflow:hidden;background:var(--cs-color-brand-umber);color:#FFFDF8;padding:84px 32px 96px">
     <image-slot id="cs-mktg-hero" shape="rect" placeholder="Drop a hero image (optional)" style="position:absolute;inset:0"></image-slot>
     <div class="cs-aurora-wash" style="position:absolute;inset:0;opacity:0.55;pointer-events:none"></div>
     <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(42,26,13,0.62),rgba(42,26,13,0.42))"></div>
     <div style="position:relative;z-index:1;max-width:1080px;margin:0 auto">
-      <div class="cs-rise-in" style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#fff">{{ heroKicker }}</div>
+      <div class="cs-rise-in" style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#FFFDF8">{{ heroKicker }}</div>
       <h1 class="cs-rise-in cs-rise-in--2" style="font-size:clamp(40px,6vw,64px);font-weight:800;letter-spacing:-0.02em;line-height:1.05;color:var(--cs-accent-bright);margin:14px 0 4px">{{ heroH }}</h1>
       <div class="cs-rise-in cs-rise-in--3" style="font-size:20px;font-weight:600;opacity:0.9;margin-bottom:18px">{{ heroSub }}</div>
       <p class="cs-rise-in cs-rise-in--4" style="font-size:18px;line-height:1.55;max-width:600px;opacity:0.95">{{ heroP }}</p>
       <div style="max-width:600px;margin-top:26px">
-        <x-import component-from-global-scope="CyberSkillDS.PromptInput" placeholder="{{ promptPh }}" send-label="{{ promptSend }}" hint-size="100%,120px"></x-import>
+        <x-import component-from-global-scope="CyberSkillDS.PromptInput" placeholder="{{ promptPh }}" send-label="{{ promptSend }}" lang="{{ langAttr }}" hint-size="100%,120px"></x-import>
       </div>
     </div>
   </section>
@@ -66,7 +69,7 @@
   </section>
 
   <section id="process" style="padding:0 32px 80px">
-    <div style="max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:linear-gradient(120deg,var(--cs-accent-strong) 35%,color-mix(in oklab,var(--cs-accent-grad-b) 26%,var(--cs-accent-strong)));color:#fff;border-radius:var(--cs-radius-lg);padding:40px 36px">
+    <div style="max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:linear-gradient(120deg,var(--cs-accent-strong) 35%,color-mix(in oklab,var(--cs-accent-grad-b) 26%,var(--cs-accent-strong)));color:var(--cs-accent-on-strong);border-radius:var(--cs-radius-lg);padding:40px 36px">
       <div>
         <h2 style="color:var(--cs-accent-bright);font-size:28px;font-weight:800;margin:0 0 6px;letter-spacing:-0.01em">{{ ctaH }}</h2>
         <p style="margin:0;opacity:0.9;max-width:520px">{{ ctaP }}</p>
@@ -77,9 +80,9 @@
     </div>
   </section>
 
-  <footer style="background:var(--cs-accent-strong);color:rgba(255,255,255,0.82);padding:40px 32px">
+  <footer style="background:var(--cs-color-brand-umber);color:#FFFDF8;padding:40px 32px">
     <div style="max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center">
-      <div style="display:flex;align-items:center;gap:10px;color:#fff;font-weight:800">
+      <div style="display:flex;align-items:center;gap:10px;color:#FFFDF8;font-weight:800">
         <x-import component-from-global-scope="CyberSkillDS.Logo" size="28" decorative="{{ true }}" hint-size="28px,28px"></x-import>
         CyberSkill
       </div>
@@ -88,13 +91,13 @@
   </footer>
 
   <sc-if value="{{ showLauncher }}" hint-placeholder-val="{{ true }}">
-    <button onClick="{{ openChat }}" style="position:fixed;right:22px;bottom:22px;z-index:200;background:var(--cs-accent-strong);color:var(--cs-accent-on);border:0;border-radius:var(--cs-radius-full);height:54px;padding:0 22px;font-family:var(--cs-font-family-ui);font-weight:700;font-size:15px;cursor:pointer;box-shadow:var(--cs-shadow-lg)">✦ {{ talkBtn }}</button>
+    <button onClick="{{ openChat }}" style="position:fixed;right:22px;bottom:22px;z-index:200;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);border:0;border-radius:var(--cs-radius-full);height:54px;padding:0 22px;font-family:var(--cs-font-family-ui);font-weight:700;font-size:15px;cursor:pointer;box-shadow:var(--cs-shadow-lg)">✦ {{ talkBtn }}</button>
   </sc-if>
 
   <sc-if value="{{ chatOpen }}">
     <div style="position:fixed;right:22px;bottom:22px;z-index:201;width:360px;max-width:calc(100vw - 44px);border-radius:var(--cs-radius-lg);overflow:hidden;box-shadow:var(--cs-shadow-xl);display:flex;flex-direction:column;max-height:min(560px,84vh)">
-      <div style="background:var(--cs-accent-strong);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px">
-        <span style="width:30px;height:30px;border-radius:50%;background:var(--cs-accent-strong);color:var(--cs-accent-on);display:grid;place-items:center;font-weight:800">✦</span>
+      <div style="background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);padding:14px 16px;display:flex;align-items:center;gap:10px">
+        <span style="width:30px;height:30px;border-radius:50%;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);display:grid;place-items:center;font-weight:800">✦</span>
         <b style="font-size:14px">Lumi · {{ genieLabel }}</b>
         <button onClick="{{ closeChat }}" aria-label="Close" style="margin-left:auto;background:transparent;border:0;color:rgba(255,255,255,0.8);cursor:pointer;font-size:18px">✕</button>
       </div>
@@ -102,10 +105,11 @@
         <x-import component-from-global-scope="CyberSkillDS.ChatMessage" role="lumi" hint-size="100%,60px">{{ chatHello }}</x-import>
       </div>
       <div style="background:var(--cs-color-surface-panel);padding:0 12px 12px">
-        <x-import component-from-global-scope="CyberSkillDS.PromptInput" placeholder="{{ chatPh }}" send-label="{{ chatSend }}" hint-size="100%,110px"></x-import>
+        <x-import component-from-global-scope="CyberSkillDS.PromptInput" placeholder="{{ chatPh }}" send-label="{{ chatSend }}" lang="{{ langAttr }}" hint-size="100%,110px"></x-import>
       </div>
     </div>
   </sc-if>
+</main>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{

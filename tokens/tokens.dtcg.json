@@ -31,7 +31,11 @@
             "--cs-shadow-sm": "0 1px 3px rgba(0, 0, 0, 0.34), 0 8px 24px rgba(0, 0, 0, 0.42)",
             "--cs-shadow-md": "0 12px 30px rgba(0, 0, 0, 0.50)",
             "--cs-shadow-lg": "0 20px 60px rgba(0, 0, 0, 0.55)",
-            "--cs-shadow-xl": "0 24px 80px rgba(0, 0, 0, 0.62)"
+            "--cs-shadow-xl": "0 24px 80px rgba(0, 0, 0, 0.62)",
+            "--cs-color-semantic-success-fg": "#1a1108",
+            "--cs-color-semantic-danger-fg": "#1a1108",
+            "--cs-color-semantic-warning-fg": "#1a1108",
+            "--cs-color-semantic-info-fg": "#1a1108"
           },
           "system": {
             "--cs-color-surface-page": "#1a1108",
@@ -55,7 +59,11 @@
             "--cs-shadow-sm": "0 1px 3px rgba(0, 0, 0, 0.34), 0 8px 24px rgba(0, 0, 0, 0.42)",
             "--cs-shadow-md": "0 12px 30px rgba(0, 0, 0, 0.50)",
             "--cs-shadow-lg": "0 20px 60px rgba(0, 0, 0, 0.55)",
-            "--cs-shadow-xl": "0 24px 80px rgba(0, 0, 0, 0.62)"
+            "--cs-shadow-xl": "0 24px 80px rgba(0, 0, 0, 0.62)",
+            "--cs-color-semantic-success-fg": "#1a1108",
+            "--cs-color-semantic-danger-fg": "#1a1108",
+            "--cs-color-semantic-warning-fg": "#1a1108",
+            "--cs-color-semantic-info-fg": "#1a1108"
           }
         },
         "elements": {
@@ -64,6 +72,7 @@
             "--cs-accent-strong": "#90825E",
             "--cs-accent-bright": "#F6EBCC",
             "--cs-accent-on": "#292414",
+            "--cs-accent-on-strong": "#1A1108",
             "--cs-accent-tint": "#FBF7EA",
             "--cs-accent-ink": "#292414",
             "--cs-accent-glow": "rgba(248, 233, 192, 0.48)",
@@ -77,6 +86,7 @@
             "--cs-accent-strong": "#A47D17",
             "--cs-accent-bright": "#F4BA17",
             "--cs-accent-on": "#45210E",
+            "--cs-accent-on-strong": "#1A1108",
             "--cs-accent-tint": "#FBF4E9",
             "--cs-accent-ink": "#45210E",
             "--cs-accent-glow": "rgba(244, 186, 23, 0.48)",
@@ -88,6 +98,7 @@
             "--cs-accent-strong": "#201300",
             "--cs-accent-bright": "#DEC7A2",
             "--cs-accent-on": "#2D220E",
+            "--cs-accent-on-strong": "#FFFFFF",
             "--cs-accent-tint": "#FFF6E7",
             "--cs-accent-ink": "#2D220E",
             "--cs-accent-glow": "rgba(81, 56, 1, 0.48)",
@@ -101,6 +112,7 @@
             "--cs-accent-strong": "#967C75",
             "--cs-accent-bright": "#FCE6DF",
             "--cs-accent-on": "#2C211E",
+            "--cs-accent-on-strong": "#1A1108",
             "--cs-accent-tint": "#FEF4F2",
             "--cs-accent-ink": "#2C211E",
             "--cs-accent-glow": "rgba(255, 225, 216, 0.48)",
@@ -114,6 +126,7 @@
             "--cs-accent-strong": "#B47054",
             "--cs-accent-bright": "#FED3C3",
             "--cs-accent-on": "#381B10",
+            "--cs-accent-on-strong": "#1A1108",
             "--cs-accent-tint": "#FFF4F0",
             "--cs-accent-ink": "#381B10",
             "--cs-accent-glow": "rgba(252, 175, 145, 0.48)",
@@ -127,6 +140,7 @@
             "--cs-accent-strong": "#280D00",
             "--cs-accent-bright": "#F1BEA4",
             "--cs-accent-on": "#361D0F",
+            "--cs-accent-on-strong": "#FFFFFF",
             "--cs-accent-tint": "#FFF4EF",
             "--cs-accent-ink": "#361D0F",
             "--cs-accent-glow": "rgba(98, 43, 6, 0.48)",
@@ -140,6 +154,7 @@
             "--cs-accent-strong": "#5A8A90",
             "--cs-accent-bright": "#CDF4F9",
             "--cs-accent-on": "#13282B",
+            "--cs-accent-on-strong": "#1A1108",
             "--cs-accent-tint": "#EBFAFC",
             "--cs-accent-ink": "#13282B",
             "--cs-accent-glow": "rgba(192, 245, 252, 0.48)",
@@ -153,6 +168,7 @@
             "--cs-accent-strong": "#108EA0",
             "--cs-accent-bright": "#99EEFF",
             "--cs-accent-on": "#012A30",
+            "--cs-accent-on-strong": "#1A1108",
             "--cs-accent-tint": "#E7FBFF",
             "--cs-accent-ink": "#012A30",
             "--cs-accent-glow": "rgba(46, 219, 247, 0.48)",
@@ -166,6 +182,7 @@
             "--cs-accent-strong": "#011A21",
             "--cs-accent-bright": "#A8D3E0",
             "--cs-accent-on": "#10282F",
+            "--cs-accent-on-strong": "#FFFFFF",
             "--cs-accent-tint": "#EAFAFF",
             "--cs-accent-ink": "#10282F",
             "--cs-accent-glow": "rgba(0, 69, 84, 0.48)",
@@ -179,6 +196,7 @@
             "--cs-accent-strong": "#7C8965",
             "--cs-accent-bright": "#E5F1D2",
             "--cs-accent-on": "#212617",
+            "--cs-accent-on-strong": "#1A1108",
             "--cs-accent-tint": "#F4F9ED",
             "--cs-accent-ink": "#212617",
             "--cs-accent-glow": "rgba(225, 241, 200, 0.48)",
@@ -192,6 +210,7 @@
             "--cs-accent-strong": "#629122",
             "--cs-accent-bright": "#C5ED9C",
             "--cs-accent-on": "#182A00",
+            "--cs-accent-on-strong": "#1A1108",
             "--cs-accent-tint": "#EFFCE3",
             "--cs-accent-ink": "#182A00",
             "--cs-accent-glow": "rgba(163, 215, 104, 0.48)",
@@ -205,6 +224,7 @@
             "--cs-accent-strong": "#051D00",
             "--cs-accent-bright": "#B0D8A3",
             "--cs-accent-on": "#162A0E",
+            "--cs-accent-on-strong": "#FFFFFF",
             "--cs-accent-tint": "#ECFDE7",
             "--cs-accent-ink": "#162A0E",
             "--cs-accent-glow": "rgba(26, 74, 1, 0.48)",
@@ -218,6 +238,7 @@
             "--cs-accent-strong": "#947F65",
             "--cs-accent-bright": "#FBE8D2",
             "--cs-accent-on": "#2B2217",
+            "--cs-accent-on-strong": "#1A1108",
             "--cs-accent-tint": "#FDF5ED",
             "--cs-accent-ink": "#2B2217",
             "--cs-accent-glow": "rgba(254, 229, 199, 0.48)",
@@ -231,6 +252,7 @@
             "--cs-accent-strong": "#AC780B",
             "--cs-accent-bright": "#FDD89F",
             "--cs-accent-on": "#312002",
+            "--cs-accent-on-strong": "#1A1108",
             "--cs-accent-tint": "#FFF5E7",
             "--cs-accent-ink": "#312002",
             "--cs-accent-glow": "rgba(243, 185, 88, 0.48)",
@@ -244,6 +266,7 @@
             "--cs-accent-strong": "#1F1400",
             "--cs-accent-bright": "#DCC8A2",
             "--cs-accent-on": "#2D220E",
+            "--cs-accent-on-strong": "#FFFFFF",
             "--cs-accent-tint": "#FEF6E7",
             "--cs-accent-ink": "#2D220E",
             "--cs-accent-glow": "rgba(80, 57, 1, 0.48)",
@@ -259,6 +282,7 @@
             "--cs-accent-bright": "#F6EBCC",
             "--cs-accent-strong": "#665A37",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#332701",
             "--cs-accent-ink": "#F6EBCC"
           },
@@ -267,6 +291,7 @@
             "--cs-accent-bright": "#FEC42C",
             "--cs-accent-strong": "#73560B",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#352602",
             "--cs-accent-ink": "#FECD5E"
           },
@@ -275,6 +300,7 @@
             "--cs-accent-bright": "#E4CDA8",
             "--cs-accent-strong": "#1F1300",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#372502",
             "--cs-accent-ink": "#E7D0AB"
           },
@@ -283,6 +309,7 @@
             "--cs-accent-bright": "#FCE6DF",
             "--cs-accent-strong": "#6F5750",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#38231C",
             "--cs-accent-ink": "#FCE6DF"
           },
@@ -291,6 +318,7 @@
             "--cs-accent-bright": "#FED3C3",
             "--cs-accent-strong": "#8A4A30",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#411E0F",
             "--cs-accent-ink": "#FED3C3"
           },
@@ -299,6 +327,7 @@
             "--cs-accent-bright": "#F8C4AA",
             "--cs-accent-strong": "#280D00",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#401F0B",
             "--cs-accent-ink": "#FBC7AD"
           },
@@ -307,6 +336,7 @@
             "--cs-accent-bright": "#CDF4F9",
             "--cs-accent-strong": "#316167",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#022F34",
             "--cs-accent-ink": "#CDF4F9"
           },
@@ -315,6 +345,7 @@
             "--cs-accent-bright": "#99EEFF",
             "--cs-accent-strong": "#046270",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#032F36",
             "--cs-accent-ink": "#99EEFF"
           },
@@ -323,6 +354,7 @@
             "--cs-accent-bright": "#ABD6E3",
             "--cs-accent-strong": "#011A21",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#002F3A",
             "--cs-accent-ink": "#AED9E6"
           },
@@ -331,6 +363,7 @@
             "--cs-accent-bright": "#E5F1D2",
             "--cs-accent-strong": "#54603E",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#232D0B",
             "--cs-accent-ink": "#E5F1D2"
           },
@@ -339,6 +372,7 @@
             "--cs-accent-bright": "#C5ED9C",
             "--cs-accent-strong": "#416501",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#1F2E0B",
             "--cs-accent-ink": "#C5ED9C"
           },
@@ -347,6 +381,7 @@
             "--cs-accent-bright": "#B0D8A3",
             "--cs-accent-strong": "#061D00",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#193011",
             "--cs-accent-ink": "#B6DFA9"
           },
@@ -355,6 +390,7 @@
             "--cs-accent-bright": "#FBE8D2",
             "--cs-accent-strong": "#6B573E",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#37250B",
             "--cs-accent-ink": "#FBE8D2"
           },
@@ -363,6 +399,7 @@
             "--cs-accent-bright": "#FDD89F",
             "--cs-accent-strong": "#795303",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#382503",
             "--cs-accent-ink": "#FDD89F"
           },
@@ -371,6 +408,7 @@
             "--cs-accent-bright": "#DFCBA5",
             "--cs-accent-strong": "#1F1400",
             "--cs-accent-on": "#f5ead9",
+            "--cs-accent-on-strong": "#FFFDF8",
             "--cs-accent-tint": "#362602",
             "--cs-accent-ink": "#E6D1AB"
           }
@@ -447,6 +485,22 @@
     "--cs-color-link-hover": {
       "$value": "#45210E",
       "$type": "color"
+    },
+    "--cs-color-semantic-success-fg": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "--cs-color-semantic-danger-fg": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "--cs-color-semantic-warning-fg": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "--cs-color-semantic-info-fg": {
+      "$type": "color",
+      "$value": "#FFFFFF"
     }
   },
   "component": {
@@ -546,6 +600,10 @@
     "--cs-component-textfield-minHeight": {
       "$value": "44px",
       "$type": "dimension"
+    },
+    "--cs-focus-ring": {
+      "$type": "dimension",
+      "$value": "3px"
     }
   },
   "accent": {
@@ -585,6 +643,10 @@
     "--cs-accent-grad-b": {
       "$value": "#FCAF91",
       "$type": "color"
+    },
+    "--cs-accent-on-strong": {
+      "$type": "color",
+      "$value": "#1A1108"
     }
   },
   "depth": {
@@ -611,6 +673,14 @@
     },
     "--cs-depth-toast": {
       "$value": "200",
+      "$type": "number"
+    },
+    "--cs-depth-dropdown": {
+      "$value": "60",
+      "$type": "number"
+    },
+    "--cs-depth-overlay": {
+      "$value": "80",
       "$type": "number"
     }
   },
@@ -1242,6 +1312,24 @@
     "--cs-icon-lg": {
       "$value": "24px",
       "$type": "dimension"
+    }
+  },
+  "doc": {
+    "--cs-doc-ink": {
+      "$type": "color",
+      "$value": "#1A1614"
+    },
+    "--cs-doc-slate": {
+      "$type": "color",
+      "$value": "#3F4C55"
+    },
+    "--cs-doc-fill": {
+      "$type": "color",
+      "$value": "#FDE68A"
+    },
+    "--cs-doc-fill-ink": {
+      "$type": "color",
+      "$value": "#1A1614"
     }
   }
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<title>Dashboard · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
@@ -12,7 +13,9 @@
 <script src="./ds-base.js"></script>
 </helmet>
 <div data-theme="{{ rootTheme }}" lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" style="font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary);background:var(--cs-color-surface-page);min-height:100vh">
-  <header style="background:var(--cs-accent-strong);color:#fff;border-bottom:3px solid var(--cs-accent)">
+  <a class="cs-skip" href="#main" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden">Skip to content</a>
+  <main id="main">
+  <header style="background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);border-bottom:3px solid var(--cs-accent)">
     <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 28px;flex-wrap:wrap">
       <div style="display:flex;align-items:center;gap:14px">
         <span style="width:42px;height:42px;border-radius:12px;background:var(--cs-accent-bright);display:grid;place-items:center;overflow:hidden">
@@ -42,7 +45,7 @@
     </div>
 
     <sc-if value="{{ isBoard }}" hint-placeholder-val="{{ true }}">
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:18px">
         <div style="background:var(--cs-color-surface-panel);border:1px solid var(--cs-accent);border-radius:var(--cs-radius-lg);padding:18px">
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
             <h3 style="margin:0;font-size:15px"><span style="font-family:var(--cs-font-family-mono);color:var(--cs-color-text-accent);font-weight:700">CDS</span> · Design System v1.6</h3>
@@ -85,6 +88,7 @@
       </div>
     </sc-if>
   </div>
+</main>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{

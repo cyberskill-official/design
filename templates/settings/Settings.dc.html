@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<title>Settings · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
@@ -12,6 +13,8 @@
 <script src="./ds-base.js"></script>
 </helmet>
 <div data-theme="{{ rootTheme }}" lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" style="font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary);background:var(--cs-color-surface-page);min-height:100vh">
+  <a class="cs-skip" href="#main" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden">Skip to content</a>
+  <main id="main">
   <div style="max-width:840px;margin:0 auto;padding:36px 28px 80px">
     <h1 style="font-size:30px;font-weight:800;letter-spacing:-0.02em;margin:0 0 4px">{{ title }}</h1>
     <p style="color:var(--cs-color-text-muted);margin:0 0 24px">{{ sub }}</p>
@@ -63,6 +66,7 @@
       <x-import component-from-global-scope="CyberSkillDS.Button" variant="primary" hint-size="140px,44px">{{ saveBtn }}</x-import>
     </div>
   </div>
+</main>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{

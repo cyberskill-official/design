@@ -53,3 +53,9 @@
 .cs-cmdk__item { display: flex; align-items: center; gap: 11px; inline-size: 100%; text-align: start; border: 0; background: transparent; font: inherit; font-family: var(--cs-font-family-ui); font-size: var(--cs-font-size-sm); color: var(--cs-color-text-primary); padding: 10px 12px; border-radius: var(--cs-radius-md); cursor: pointer; }
 .cs-cmdk__item:hover, .cs-cmdk__item[aria-selected="true"] { background: var(--cs-color-surface-raised); }
 .cs-cmdk__item .cs-kbd { margin-inline-start: auto; }
+
+/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] .cs-nav-item.is-active { color: var(--cs-color-brand-ochre); }
+  [data-theme="system"] .cs-nav-item.is-active .cs-nav-item__icon { color: var(--cs-color-brand-ochre); }
+}

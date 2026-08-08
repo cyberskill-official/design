@@ -27,12 +27,21 @@ const DIA=/[ăâđêôơưĂÂĐÊÔƠƯàáảãạằắẳẵặầấẩẫ�
 const pool=document.getElementById('pool'), grid=document.getElementById('grid'), busy=document.getElementById('busy');
 const results=[];
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
+/* Built-in EN strings that must not remain visible after forcing Tiếng Việt (UX-004). */
+const EN_LEAKS=[
+  'Lumi replies, then hands clear wishes to a human.',
+  'Drop files here or browse',
+  'Type your wish…',
+  'Pin this column',
+];
 function measure(doc){
-  let over=0, canvas=false, vn=false, clip=0, clipEx='';
+  let over=0, canvas=false, vn=false, clip=0, clipEx='', leaks=[];
   try{
     over=doc.documentElement.scrollWidth-W;
     canvas=!!doc.querySelector('.cs-canvas-desk');
-    vn=DIA.test(doc.body.innerText||'');
+    const text=doc.body.innerText||'';
+    vn=DIA.test(text);
+    for(const s of EN_LEAKS){ if(text.includes(s)) leaks.push(s); }
     for(const el of doc.querySelectorAll('section,div,span,a,button,h1,h2,h3,h4,td,th,li,p,figcaption')){
       const cs=doc.defaultView.getComputedStyle(el), o=cs.overflow, oy=cs.overflowY, ox=cs.overflowX;
       const vClip=(oy==='hidden'||o==='hidden') && el.clientHeight>40 && (el.scrollHeight-el.clientHeight)>6 && (el.innerText||'').trim().length>1;
@@ -40,7 +49,7 @@ function measure(doc){
       if(vClip||hClip){ clip++; if(!clipEx) clipEx=el.tagName.toLowerCase()+' "'+(el.innerText||'').slice(0,30).replace(/\s+/g,' ').trim()+'"'; }
     }
   }catch(e){ clipEx='ERR '+String(e).slice(0,40); }
-  return {over,canvas,vn,clip,clipEx};
+  return {over,canvas,vn,clip,clipEx,leaks};
 }
 function probeOne(src){
   return new Promise(res=>{
@@ -71,14 +80,14 @@ function probeOne(src){
     const measured=await Promise.all(batch.map(t=>probeOne(t.src)));
     batch.forEach((t,j)=>{
       const m=measured[j];
-      const fail=m.over>0 || m.clip>0;
+      const fail=m.over>0 || m.clip>0 || (m.leaks&&m.leaks.length>0);
       results.push({name:t.name,...m,fail});
       const cls=fail?'bad':(!m.vn?'warn':(m.canvas?'exp':'ok'));
-      const detail=fail?((m.over>0?'+'+m.over+'px ':'')+(m.clip>0?'clip×'+m.clip:'')):(!m.vn?'⚑ no-VN':'0');
+      const detail=fail?((m.over>0?'+'+m.over+'px ':'')+(m.clip>0?'clip×'+m.clip+' ':'')+(m.leaks&&m.leaks.length?'EN×'+m.leaks.length:'')):(!m.vn?'⚑ no-VN':'0');
       const row=document.createElement('div');
       row.className='r '+cls;
       row.innerHTML='<span>'+t.name+(m.canvas?' ◇':'')+'</span><span>'+detail+'</span>';
-      row.title=m.clipEx||'';
+      row.title=(m.clipEx||'')+(m.leaks&&m.leaks.length?(' | EN: '+m.leaks.join('; ')):'');
       grid.appendChild(row);
     });
     busy.textContent='probed '+results.length+'/'+tpls.length+'…';
@@ -86,13 +95,14 @@ function probeOne(src){
   }
   const bad=results.filter(r=>r.fail);
   const noVN=results.filter(r=>!r.vn);
+  const leakHits=results.filter(r=>r.leaks&&r.leaks.length);
   window.__language={done:tpls.length,total:tpls.length,results,
-    fail:bad.map(r=>r.name+' '+(r.over>0?'+'+r.over:'')+(r.clip>0?' clip×'+r.clip:'')),
-    noVN:noVN.map(r=>r.name), pass:bad.length===0};
+    fail:bad.map(r=>r.name+' '+(r.over>0?'+'+r.over:'')+(r.clip>0?' clip×'+r.clip:'')+(r.leaks&&r.leaks.length?' EN×'+r.leaks.length:'')),
+    noVN:noVN.map(r=>r.name), leaks:leakHits.map(r=>r.name+': '+r.leaks.join('; ')), pass:bad.length===0};
   window.__all=window.__language;
   busy.textContent='done — '+tpls.length+' templates';
   const sum=document.getElementById('sum');
-  sum.textContent=bad.length?('✗ '+bad.length+' VN overflow/clip: '+window.__language.fail.join(', ')):('✓ NO VN overflow or clipping across all '+tpls.length+' templates @390'+(noVN.length?(' — ⚑ '+noVN.length+' did not apply VN'):''));
+  sum.textContent=bad.length?('✗ '+bad.length+' VN overflow/clip/EN-leak: '+window.__language.fail.join(', ')):('✓ NO VN overflow, clipping, or EN built-in leaks across all '+tpls.length+' templates @390'+(noVN.length?(' — ⚑ '+noVN.length+' did not apply VN'):''));
   sum.style.color=bad.length?'#B42318':'#166534';
 })();
 </script></body></html>

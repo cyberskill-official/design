@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<title>Email · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
@@ -17,7 +18,7 @@
       <sc-if value="{{ showLogo }}" hint-placeholder-val="{{ true }}">
         <x-import component-from-global-scope="CyberSkillDS.Logo" size="34" hint-size="34px,34px"></x-import>
       </sc-if>
-      <span style="color:#fff;font-weight:800;font-size:19px;letter-spacing:-0.01em">CyberSkill</span>
+      <span style="color:var(--cs-accent-on-strong);font-weight:800;font-size:19px;letter-spacing:-0.01em">CyberSkill</span>
     </div>
     <div style="padding:36px 32px">
       <sc-if value="{{ isEN }}" hint-placeholder-val="{{ true }}">

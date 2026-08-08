@@ -58,3 +58,8 @@
 .cs-skeleton--circle { border-radius: 50%; }
 @keyframes cs-shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (prefers-reduced-motion: reduce) { .cs-skeleton { animation: none; } }
+
+/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] .cs-spinner { border-color: color-mix(in oklab, var(--cs-color-brand-ochre) 26%, transparent); border-top-color: var(--cs-color-brand-ochre); }
+}

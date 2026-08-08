@@ -77,8 +77,8 @@ export const strings = {
     vi: { input: "Ô nhập lệnh" },
   },
   DataGrid: {
-    en: { empty: "No records", selectAll: "Select all rows", selectRow: "Select row" },
-    vi: { empty: "Không có bản ghi", selectAll: "Chọn tất cả", selectRow: "Chọn dòng" },
+    en: { empty: "No records", selectAll: "Select all rows", selectRow: "Select row", pin: "Pin this column", pinNamed: "Pin column {name}" },
+    vi: { empty: "Không có bản ghi", selectAll: "Chọn tất cả", selectRow: "Chọn dòng", pin: "Ghim cột này", pinNamed: "Ghim cột {name}" },
   },
   Splitter: {
     en: { label: "Resize panes" },

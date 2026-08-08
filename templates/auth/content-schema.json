@@ -69,6 +69,12 @@
       "type": "text",
       "label": "Ask-for-access link label",
       "maxLength": 24
+    },
+    {
+      "id": "resetHint",
+      "type": "text",
+      "label": "Password-reset hint",
+      "maxLength": 80
     }
   ]
 }

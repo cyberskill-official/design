@@ -9,7 +9,8 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
   const [ref, L] = useLang(lang);
   const t = makeT("Toolbar", L);
   const cut = overflowAfter != null ? overflowAfter : items.length;
-  const head = items.slice(0, cut), tail = items.filter((x) => x !== "-").slice(cut);
+  const head = items.slice(0, cut);
+  const tail = items.slice(cut).filter((x) => x !== "-");
   React.useEffect(() => {
     if (!open) return;
     const d = (e) => { if (wrap.current && !wrap.current.contains(e.target)) setOpen(false); };

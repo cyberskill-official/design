@@ -7,8 +7,10 @@ const CLOCK = <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
 export function TimePicker({ value = "09:00", onChange, step = 30, label, disabled = false, lang, className }) {
   const [ref, L] = useLang(lang);
   const t = makeT("TimePicker", L);
+  const stepMin = Number(step);
+  const safeStep = Number.isFinite(stepMin) && stepMin > 0 ? stepMin : 30;
   const opts = [];
-  for (let m = 0; m < 24 * 60; m += step) {
+  for (let m = 0; m < 24 * 60; m += safeStep) {
     opts.push(String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"));
   }
   return (

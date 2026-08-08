@@ -105,16 +105,29 @@ function parseRules(css){ // strip comments, split into {sel,body}
     const pageL=light['--cs-color-surface-page']||'#FFFDF8', pageD=dark['--cs-color-surface-page']||'#1a1108';
     for(const r of erules){
       const g=p=>{const m=r.body.match(new RegExp('--cs-accent'+p+'\\s*:\\s*([^;]+)'));return m?m[1].trim():null;};
-      const strong=g('-strong'),bright=g('-bright'),on=g('-on');
+      const strong=g('-strong'),bright=g('-bright'),on=g('-on'),onStrong=g('-on-strong');
       const label=r.sel.replace(/\[data-cs-element="|"\]|\[data-cs-variant="/g,' ').replace(/\s+/g,' ').trim();
-      const checks=[['accent-strong on page (light)',strong,pageL],['accent-on on accent-bright',on,bright],['accent-bright on page (dark)',bright,pageD]];
+      const checks=[['accent-strong on page (light)',strong,pageL],['accent-on on accent-bright',on,bright],['accent-bright on page (dark)',bright,pageD],['on-strong on strong (light)',onStrong,strong]];
       for(const [nm,fg,bg] of checks){ const R=ratio(fg,bg); if(R==null){ continue; }
-        if(R<3.0){ matrixFails.push(label+' · '+nm+' = '+R.toFixed(2)+' (<3.0)'); row('bad','✗ '+R.toFixed(2)+' '+nm,label); }
-        else if(R<4.5){ elemAdvisory.push(label+' · '+nm+'='+R.toFixed(2)); row('rev','~ '+R.toFixed(2)+' '+nm+' (APCA-validated)',label); }
+        const hardMin = nm.indexOf('on-strong')===0 ? 4.5 : 3.0;
+        if(R<hardMin){ matrixFails.push(label+' · '+nm+' = '+R.toFixed(2)+' (<'+hardMin+')'); row('bad','✗ '+R.toFixed(2)+' '+nm,label); }
+        else if(R<4.5 && nm.indexOf('on-strong')!==0){ elemAdvisory.push(label+' · '+nm+'='+R.toFixed(2)); row('rev','~ '+R.toFixed(2)+' '+nm+' (APCA-validated)',label); }
         else row('ok','✓ '+R.toFixed(2)+' '+nm,label);
       }
     }
   }catch(e){ row('rev','? elements.css not parsed',String(e).slice(0,40)); }
+  // Semantic fg pairs (UX-008)
+  sec('3b · Semantic fill × fg pairs (light + dark)');
+  for(const sem of ['success','danger','warning','info']){
+    for(const mode of ['l','d']){
+      const F=(mode==='l'?light:dark)['--cs-color-semantic-'+sem+'-fg'];
+      const B=(mode==='l'?light:dark)['--cs-color-semantic-'+sem];
+      const R=ratio(F,B); const label=(mode==='l'?'light':'dark')+'  semantic-'+sem+'-fg on '+sem;
+      if(R==null){ row('rev','? unresolved',label); continue; }
+      if(R<4.5-0.05){ matrixFails.push(label+' = '+R.toFixed(2)); row('bad','✗ '+R.toFixed(2),label); }
+      else row('ok','✓ '+R.toFixed(2),label);
+    }
+  }
   window.__elemAdvisory=elemAdvisory;
   window.__gateProgress={current:'templates',done:3,total:4};
   // ---------- (4) template review (advisory) ----------

@@ -58,7 +58,7 @@ export function buildDesignMd({ dtcg, manifest, version }) {
   // Section assignment must cover every group — a new DTCG group without a home
   // fails the generator AND the parity gate until it is placed (expansion rule).
   const SECTION_OF = {
-    color: "colors", accent: "colors",
+    color: "colors", accent: "colors", doc: "colors",
     font: "typography", text: "typography", letter: "typography", heading: "typography",
     space: "spacing", radius: "spacing", breakpoint: "spacing", container: "spacing", icon: "spacing",
     shadow: "elevation", depth: "elevation", glass: "elevation",
@@ -124,6 +124,12 @@ export function buildDesignMd({ dtcg, manifest, version }) {
   L.push("Default accent pack = Thổ (the studio's own element). All 15 element×variant packs and their APCA-derived dark packs live in `tokens/elements.css` and DTCG `$extensions[\"com.cyberskill\"].overrides.elements` / `.elementsDark`.");
   L.push("");
   L.push(table(twoCol("Token", "Value"), rowsOf("accent", false)));
+  L.push("");
+  L.push("### Document palette");
+  L.push("");
+  L.push("Shared ink / paper / rule colours for print-leaning instruments (`--cs-doc-*`). Prefer these over raw hex in VN legal and office templates.");
+  L.push("");
+  L.push(table(twoCol("Token", "Value"), rowsOf("doc", false)));
   L.push("");
   L.push("## Typography");
   L.push("");

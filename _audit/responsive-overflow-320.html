@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>CyberSkill — Responsive overflow @320</title>
+<style>
+  body{margin:0;font-family:ui-monospace,monospace;font-size:11.5px;padding:14px 18px;background:#efe6d8;color:#231a12}
+  h1{font-family:system-ui;font-size:15px;margin:0 0 8px}
+  .lede{font-family:system-ui;color:#6b5d4f;max-width:920px;line-height:1.45;margin:0 0 10px}
+  #busy{margin:0 0 8px;color:#6b5d4f;font-family:system-ui}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px 20px;max-width:1180px}
+  .r{display:flex;justify-content:space-between;padding:2px 8px;border-radius:4px}
+  .r.bad{background:#FEE2E2;color:#B42318;font-weight:700}
+  .r.exp{background:#FEF3C7;color:#8a6d1a}
+  .r.ok{color:#166534}
+  #pool{position:fixed;left:-6000px;top:0}
+  #sum{font-family:system-ui;font-size:14px;font-weight:800;margin:10px 0}
+</style></head><body>
+<h1>Responsive overflow audit — every template @ 320 (WCAG 1.4.10)</h1>
+<p class="lede">UX-003 / E2. Same fresh-iframe pattern as the 390 gate. Canvas desks (<code>.cs-canvas-desk</code>) that scroll internally are marked expected. Verdict on <code>window.__overflow320</code>.</p>
+<div id="busy">loading manifest…</div>
+<div class="grid" id="grid"></div>
+<div id="sum"></div>
+<div id="pool"></div>
+<script>
+const W=320, GROUP=7, SETTLE=3200;
+const pool=document.getElementById('pool'), grid=document.getElementById('grid'), busy=document.getElementById('busy');
+const results=[];
+function probeOne(src){
+  return new Promise(res=>{
+    const f=document.createElement('iframe');
+    f.style.cssText='width:'+W+'px;height:1000px;border:0;display:block';
+    f.src=src; pool.appendChild(f);
+    f.onload=async()=>{
+      const doc=f.contentDocument;
+      try{await doc.fonts.ready;}catch(e){}
+      setTimeout(()=>{
+        let over=0, canvas=false;
+        try{ over=doc.documentElement.scrollWidth-W; canvas=!!doc.querySelector('.cs-canvas-desk'); }catch(e){}
+        f.remove();
+        res({over,canvas});
+      }, SETTLE);
+    };
+  });
+}
+(async()=>{
+  const M=await (await fetch('../_ds_manifest.json')).json();
+  const tpls=M.templates.map(t=>({name:t.name,src:'../'+t.entryPath}))
+    .concat([{name:'Kit · Status Hub',src:'../ui_kits/status-hub/index.html'},{name:'Kit · Website',src:'../ui_kits/website/index.html'},{name:'Kit · Deck',src:'../ui_kits/deck/index.html'}]);
+  busy.textContent='probing '+tpls.length+' templates @320…';
+  for(let i=0;i<tpls.length;i+=GROUP){
+    const batch=tpls.slice(i,i+GROUP);
+    const measured=await Promise.all(batch.map(t=>probeOne(t.src)));
+    batch.forEach((t,j)=>{
+      const m=measured[j];
+      results.push({name:t.name,over:m.over,canvas:m.canvas});
+      const cls=m.over<=0?'ok':(m.canvas?'exp':'bad');
+      const row=document.createElement('div');
+      row.className='r '+cls;
+      row.innerHTML='<span>'+t.name+(m.canvas?' ◇':'')+'</span><span>'+(m.over<=0?'0':'+'+m.over)+'</span>';
+      grid.appendChild(row);
+    });
+    busy.textContent='probed '+results.length+'/'+tpls.length+'…';
+  }
+  const bad=results.filter(r=>r.over>0 && !r.canvas);
+  window.__overflow320={done:tpls.length,total:tpls.length,results,over:bad.map(r=>r.name+' +'+r.over),pass:bad.length===0};
+  busy.textContent='done — '+tpls.length+' @320';
+  const sum=document.getElementById('sum');
+  sum.textContent=bad.length?('✗ '+bad.length+' overflow @320: '+bad.map(r=>r.name+' +'+r.over).join(', ')):'✓ NO horizontal overflow at 320 (canvas desks excluded)';
+  sum.style.color=bad.length?'#B42318':'#166534';
+})();
+</script></body></html>

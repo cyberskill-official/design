@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.1.1 · source sha256 9386ad73cf23d458…
+// release v1.1.1 · source sha256 187b2897524e0618…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -30,6 +30,10 @@ public enum CSTokens {
   public static let colorBorderDefault = color(0xE7D9C6)
   public static let colorLink = color(0x6E3B0E)
   public static let colorLinkHover = color(0x45210E)
+  public static let colorSemanticSuccessFg = color(0xFFFFFF)
+  public static let colorSemanticDangerFg = color(0xFFFFFF)
+  public static let colorSemanticWarningFg = color(0xFFFFFF)
+  public static let colorSemanticInfoFg = color(0xFFFFFF)
   public static let componentButtonPrimaryBg = color(0x45210E)
   public static let componentButtonPrimaryFg = color(0xFFFFFF)
   public static let componentButtonGap: CGFloat = 8
@@ -54,6 +58,7 @@ public enum CSTokens {
   public static let componentTextfieldPaddingY: CGFloat = 10
   public static let componentTextfieldPaddingX: CGFloat = 12
   public static let componentTextfieldMinHeight: CGFloat = 44
+  public static let focusRing: CGFloat = 3
   public static let accent = color(0xF4BA17)
   public static let accentStrong = color(0xA47D17)
   public static let accentBright = color(0xF4BA17)
@@ -63,12 +68,15 @@ public enum CSTokens {
   public static let accentGlow = color(0xF4BA17, alpha: 0.48)
   public static let accentGradA = color(0xF4BA17)
   public static let accentGradB = color(0xFCAF91)
+  public static let accentOnStrong = color(0x1A1108)
   public static let depthBg: Double = 0
   public static let depthSection: Double = 5
   public static let depthCard: Double = 10
   public static let depthNav: Double = 50
   public static let depthModal: Double = 100
   public static let depthToast: Double = 200
+  public static let depthDropdown: Double = 60
+  public static let depthOverlay: Double = 80
   public static let glassWhisperBlur: CGFloat = 8
   public static let glassWhisperSaturate: String = "110%"
   public static let glassWhisperOpacity: String = "60%"
@@ -159,6 +167,10 @@ public enum CSTokens {
   public static let iconSm: CGFloat = 16
   public static let iconMd: CGFloat = 20
   public static let iconLg: CGFloat = 24
+  public static let docInk = color(0x1A1614)
+  public static let docSlate = color(0x3F4C55)
+  public static let docFill = color(0xFDE68A)
+  public static let docFillInk = color(0x1A1614)
 
   // MARK: dark-theme color overrides
   public static let colorSurfacePageDark = color(0x1A1108)
@@ -178,96 +190,115 @@ public enum CSTokens {
   public static let componentButtonPrimaryBgDark = color(0xF4BA17)
   public static let componentButtonPrimaryFgDark = color(0x1A1108)
   public static let componentTextfieldBorderDefaultDark = color(0x5A4636)
+  public static let colorSemanticSuccessFgDark = color(0x1A1108)
+  public static let colorSemanticDangerFgDark = color(0x1A1108)
+  public static let colorSemanticWarningFgDark = color(0x1A1108)
+  public static let colorSemanticInfoFgDark = color(0x1A1108)
 
   // MARK: dark elemental accent packs (APCA-derived, v4.0.0)
   public static let accentThoSandDark = color(0xF8E9C0)
   public static let accentBrightThoSandDark = color(0xF6EBCC)
   public static let accentStrongThoSandDark = color(0x665A37)
   public static let accentOnThoSandDark = color(0xF5EAD9)
+  public static let accentOnStrongThoSandDark = color(0xFFFDF8)
   public static let accentTintThoSandDark = color(0x332701)
   public static let accentInkThoSandDark = color(0xF6EBCC)
   public static let accentThoDark = color(0xF4BA17)
   public static let accentBrightThoDark = color(0xFEC42C)
   public static let accentStrongThoDark = color(0x73560B)
   public static let accentOnThoDark = color(0xF5EAD9)
+  public static let accentOnStrongThoDark = color(0xFFFDF8)
   public static let accentTintThoDark = color(0x352602)
   public static let accentInkThoDark = color(0xFECD5E)
   public static let accentThoClayDark = color(0xCDB07E)
   public static let accentBrightThoClayDark = color(0xE4CDA8)
   public static let accentStrongThoClayDark = color(0x1F1300)
   public static let accentOnThoClayDark = color(0xF5EAD9)
+  public static let accentOnStrongThoClayDark = color(0xFFFDF8)
   public static let accentTintThoClayDark = color(0x372502)
   public static let accentInkThoClayDark = color(0xE7D0AB)
   public static let accentHoaPlasmaDark = color(0xFFE1D8)
   public static let accentBrightHoaPlasmaDark = color(0xFCE6DF)
   public static let accentStrongHoaPlasmaDark = color(0x6F5750)
   public static let accentOnHoaPlasmaDark = color(0xF5EAD9)
+  public static let accentOnStrongHoaPlasmaDark = color(0xFFFDF8)
   public static let accentTintHoaPlasmaDark = color(0x38231C)
   public static let accentInkHoaPlasmaDark = color(0xFCE6DF)
   public static let accentHoaDark = color(0xFCAF91)
   public static let accentBrightHoaDark = color(0xFED3C3)
   public static let accentStrongHoaDark = color(0x8A4A30)
   public static let accentOnHoaDark = color(0xF5EAD9)
+  public static let accentOnStrongHoaDark = color(0xFFFDF8)
   public static let accentTintHoaDark = color(0x411E0F)
   public static let accentInkHoaDark = color(0xFED3C3)
   public static let accentHoaLavaDark = color(0xE8A683)
   public static let accentBrightHoaLavaDark = color(0xF8C4AA)
   public static let accentStrongHoaLavaDark = color(0x280D00)
   public static let accentOnHoaLavaDark = color(0xF5EAD9)
+  public static let accentOnStrongHoaLavaDark = color(0xFFFDF8)
   public static let accentTintHoaLavaDark = color(0x401F0B)
   public static let accentInkHoaLavaDark = color(0xFBC7AD)
   public static let accentThuyMistDark = color(0xC0F5FC)
   public static let accentBrightThuyMistDark = color(0xCDF4F9)
   public static let accentStrongThuyMistDark = color(0x316167)
   public static let accentOnThuyMistDark = color(0xF5EAD9)
+  public static let accentOnStrongThuyMistDark = color(0xFFFDF8)
   public static let accentTintThuyMistDark = color(0x022F34)
   public static let accentInkThuyMistDark = color(0xCDF4F9)
   public static let accentThuyDark = color(0x2EDBF7)
   public static let accentBrightThuyDark = color(0x99EEFF)
   public static let accentStrongThuyDark = color(0x046270)
   public static let accentOnThuyDark = color(0xF5EAD9)
+  public static let accentOnStrongThuyDark = color(0xFFFDF8)
   public static let accentTintThuyDark = color(0x032F36)
   public static let accentInkThuyDark = color(0x99EEFF)
   public static let accentThuyOceanDark = color(0x82BCCD)
   public static let accentBrightThuyOceanDark = color(0xABD6E3)
   public static let accentStrongThuyOceanDark = color(0x011A21)
   public static let accentOnThuyOceanDark = color(0xF5EAD9)
+  public static let accentOnStrongThuyOceanDark = color(0xFFFDF8)
   public static let accentTintThuyOceanDark = color(0x002F3A)
   public static let accentInkThuyOceanDark = color(0xAED9E6)
   public static let accentMocBambooDark = color(0xE1F1C8)
   public static let accentBrightMocBambooDark = color(0xE5F1D2)
   public static let accentStrongMocBambooDark = color(0x54603E)
   public static let accentOnMocBambooDark = color(0xF5EAD9)
+  public static let accentOnStrongMocBambooDark = color(0xFFFDF8)
   public static let accentTintMocBambooDark = color(0x232D0B)
   public static let accentInkMocBambooDark = color(0xE5F1D2)
   public static let accentMocDark = color(0xA3D768)
   public static let accentBrightMocDark = color(0xC5ED9C)
   public static let accentStrongMocDark = color(0x416501)
   public static let accentOnMocDark = color(0xF5EAD9)
+  public static let accentOnStrongMocDark = color(0xFFFDF8)
   public static let accentTintMocDark = color(0x1F2E0B)
   public static let accentInkMocDark = color(0xC5ED9C)
   public static let accentMocForestDark = color(0x8EC27D)
   public static let accentBrightMocForestDark = color(0xB0D8A3)
   public static let accentStrongMocForestDark = color(0x061D00)
   public static let accentOnMocForestDark = color(0xF5EAD9)
+  public static let accentOnStrongMocForestDark = color(0xFFFDF8)
   public static let accentTintMocForestDark = color(0x193011)
   public static let accentInkMocForestDark = color(0xB6DFA9)
   public static let accentKimTitaniumDark = color(0xFEE5C7)
   public static let accentBrightKimTitaniumDark = color(0xFBE8D2)
   public static let accentStrongKimTitaniumDark = color(0x6B573E)
   public static let accentOnKimTitaniumDark = color(0xF5EAD9)
+  public static let accentOnStrongKimTitaniumDark = color(0xFFFDF8)
   public static let accentTintKimTitaniumDark = color(0x37250B)
   public static let accentInkKimTitaniumDark = color(0xFBE8D2)
   public static let accentKimDark = color(0xF3B958)
   public static let accentBrightKimDark = color(0xFDD89F)
   public static let accentStrongKimDark = color(0x795303)
   public static let accentOnKimDark = color(0xF5EAD9)
+  public static let accentOnStrongKimDark = color(0xFFFDF8)
   public static let accentTintKimDark = color(0x382503)
   public static let accentInkKimDark = color(0xFDD89F)
   public static let accentKimSteelDark = color(0xCCB17E)
   public static let accentBrightKimSteelDark = color(0xDFCBA5)
   public static let accentStrongKimSteelDark = color(0x1F1400)
   public static let accentOnKimSteelDark = color(0xF5EAD9)
+  public static let accentOnStrongKimSteelDark = color(0xFFFDF8)
   public static let accentTintKimSteelDark = color(0x362602)
   public static let accentInkKimSteelDark = color(0xE6D1AB)
 }

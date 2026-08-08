@@ -53,12 +53,21 @@ function Website() {
   const [seed, setSeed] = useState("");
   const [wish, setWish] = useState("");
   const [sent, setSent] = useState(false);
+  const [fabVisible, setFabVisible] = useState(false);
   const t = window.SITE_COPY[loc];
 
   function openChat(s) { setSeed(s || ""); setChat(true); }
 
+  useEffect(() => {
+    const sync = () => setFabVisible(window.scrollY > 140);
+    sync();
+    window.addEventListener("scroll", sync, { passive: true });
+    return () => window.removeEventListener("scroll", sync);
+  }, []);
+
   return (
     <div className="site" data-theme={dark ? "dark" : undefined}>
+      <a className="cs-skip" href="#main" style={{ position: "absolute", left: -999, width: 1, height: 1, overflow: "hidden" }}>Skip to content</a>
       <header className="hdr cs-surface-light">
         <div className="container hdr-in">
           <a className="brand" href="#top"><img src="../../assets/logo-mark.svg" alt="" />CyberSkill</a>
@@ -66,10 +75,11 @@ function Website() {
           <div className="hdr-side">
             <button className="mini" onClick={() => setLoc(loc === "en" ? "vi" : "en")}>{t.langLabel}</button>
             <button className="mini icon" onClick={() => setDark(!dark)} aria-label="Toggle theme"><I name={dark ? "sun" : "moon"} size={18} /></button>
-            <button className="mini" style={{ background: "var(--cs-color-brand-umber)", color: "#fff", borderColor: "transparent" }} onClick={() => openChat("")}>{t.talk}</button>
+            <button className="mini" style={{ background: "var(--cs-color-brand-umber)", color: "var(--cs-color-text-inverse,#fff)", borderColor: "transparent" }} onClick={() => openChat("")}>{t.talk}</button>
           </div>
         </div>
       </header>
+      <main id="main">
 
       <section className="hero" id="top">
         <div className="container hero-in">
@@ -81,7 +91,6 @@ function Website() {
             <div className="wish">
               <input value={wish} onChange={(e) => setWish(e.target.value)} onKeyDown={(e) => e.key === "Enter" && openChat(wish)} placeholder={t.wishPlaceholder} aria-label={t.wishPlaceholder} />
               <button className="btn-gold" onClick={() => openChat(wish)}><I name="sparkle" size={18} />{t.wishCta}</button>
-              <button className="btn-ghost-light" onClick={() => openChat("")}>{t.talk}</button>
             </div>
           </div>
           <div className="hero-art"><img src="../../assets/lumi-poster.webp" alt="Lumi, the golden genie" /></div>
@@ -149,6 +158,7 @@ function Website() {
           )}
         </div>
       </section>
+      </main>
 
       <footer className="ft">
         <div className="container ft-in">
@@ -158,7 +168,19 @@ function Website() {
         </div>
       </footer>
 
-      {!chat && <button className="fab" onClick={() => openChat("")}><img src="../../assets/lumi-poster.webp" alt="" />{t.talk}</button>}
+      {!chat && (
+        <button
+          className="fab"
+          type="button"
+          data-fab-deferred="1"
+          onClick={() => openChat("")}
+          style={{ opacity: fabVisible ? 1 : 0, pointerEvents: fabVisible ? "auto" : "none", transition: "opacity 160ms ease" }}
+          aria-hidden={!fabVisible}
+          tabIndex={fabVisible ? 0 : -1}
+        >
+          <img src="../../assets/lumi-poster.webp" alt="" />{t.talk}
+        </button>
+      )}
       {chat && <Chat t={t} seed={seed} onClose={() => setChat(false)} />}
     </div>
   );

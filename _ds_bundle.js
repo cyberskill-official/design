@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"CyberSkillDesignSystem_847b3c","components":[{"name":"AIDisclosureBadge","sourcePath":"components/ai/AIDisclosureBadge.jsx"},{"name":"ChatMessage","sourcePath":"components/ai/ChatMessage.jsx"},{"name":"CitationList","sourcePath":"components/ai/CitationList.jsx"},{"name":"ConfidenceMeter","sourcePath":"components/ai/ConfidenceMeter.jsx"},{"name":"HumanReviewGate","sourcePath":"components/ai/HumanReviewGate.jsx"},{"name":"PromptInput","sourcePath":"components/ai/PromptInput.jsx"},{"name":"PromptSuggestions","sourcePath":"components/ai/PromptSuggestions.jsx"},{"name":"TypingIndicator","sourcePath":"components/ai/TypingIndicator.jsx"},{"name":"LumiAvatar","sourcePath":"components/brand/LumiAvatar.jsx"},{"name":"Button","sourcePath":"components/button/Button.jsx"},{"name":"ButtonGroup","sourcePath":"components/button/ButtonGroup.jsx"},{"name":"FloatingActionButton","sourcePath":"components/button/FloatingActionButton.jsx"},{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"AspectRatio","sourcePath":"components/data/AspectRatio.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/data/Avatar.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"CardHeader","sourcePath":"components/data/Card.jsx"},{"name":"CardBody","sourcePath":"components/data/Card.jsx"},{"name":"CardFooter","sourcePath":"components/data/Card.jsx"},{"name":"Carousel","sourcePath":"components/data/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data/Chart.jsx"},{"name":"CodeBlock","sourcePath":"components/data/CodeBlock.jsx"},{"name":"Collapsible","sourcePath":"components/data/Collapsible.jsx"},{"name":"Comment","sourcePath":"components/data/Comment.jsx"},{"name":"DescriptionList","sourcePath":"components/data/DescriptionList.jsx"},{"name":"Divider","sourcePath":"components/data/Divider.jsx"},{"name":"Image","sourcePath":"components/data/Image.jsx"},{"name":"Item","sourcePath":"components/data/Item.jsx"},{"name":"Kbd","sourcePath":"components/data/Kbd.jsx"},{"name":"List","sourcePath":"components/data/List.jsx"},{"name":"ListItem","sourcePath":"components/data/List.jsx"},{"name":"Masonry","sourcePath":"components/data/Masonry.jsx"},{"name":"QRCode","sourcePath":"components/data/QRCode.jsx"},{"name":"ScrollArea","sourcePath":"components/data/ScrollArea.jsx"},{"name":"Sortable","sourcePath":"components/data/Sortable.jsx"},{"name":"Splitter","sourcePath":"components/data/Splitter.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Terminal","sourcePath":"components/data/Terminal.jsx"},{"name":"Timeline","sourcePath":"components/data/Timeline.jsx"},{"name":"Tooltip","sourcePath":"components/data/Tooltip.jsx"},{"name":"Tree","sourcePath":"components/data/Tree.jsx"},{"name":"Watermark","sourcePath":"components/data/Watermark.jsx"},{"name":"DataGrid","sourcePath":"components/datatable/DataGrid.jsx"},{"name":"DataTable","sourcePath":"components/datatable/DataTable.jsx"},{"name":"TreeTable","sourcePath":"components/datatable/TreeTable.jsx"},{"name":"Dialog","sourcePath":"components/dialog/Dialog.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Result","sourcePath":"components/feedback/Result.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"StatusIndicator","sourcePath":"components/feedback/StatusIndicator.jsx"},{"name":"Tag","sourcePath":"components/feedback/Tag.jsx"},{"name":"ToastStack","sourcePath":"components/feedback/Toast.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Calendar","sourcePath":"components/forms/Calendar.jsx"},{"name":"Cascader","sourcePath":"components/forms/Cascader.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"ColorPicker","sourcePath":"components/forms/ColorPicker.jsx"},{"name":"Combobox","sourcePath":"components/forms/Combobox.jsx"},{"name":"DatePicker","sourcePath":"components/forms/DatePicker.jsx"},{"name":"Editor","sourcePath":"components/forms/Editor.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"Form","sourcePath":"components/forms/Form.jsx"},{"name":"FormField","sourcePath":"components/forms/Form.jsx"},{"name":"FormFieldArray","sourcePath":"components/forms/Form.jsx"},{"name":"FormWizard","sourcePath":"components/forms/Form.jsx"},{"name":"InlineEdit","sourcePath":"components/forms/InlineEdit.jsx"},{"name":"InputGroup","sourcePath":"components/forms/InputGroup.jsx"},{"name":"InputOTP","sourcePath":"components/forms/InputOTP.jsx"},{"name":"Mentions","sourcePath":"components/forms/Mentions.jsx"},{"name":"NativeSelect","sourcePath":"components/forms/NativeSelect.jsx"},{"name":"NumberField","sourcePath":"components/forms/NumberField.jsx"},{"name":"Radio","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"Rating","sourcePath":"components/forms/Rating.jsx"},{"name":"SearchField","sourcePath":"components/forms/SearchField.jsx"},{"name":"SegmentedControl","sourcePath":"components/forms/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Slider","sourcePath":"components/forms/Slider.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TagInput","sourcePath":"components/forms/TagInput.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"TimePicker","sourcePath":"components/forms/TimePicker.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Transfer","sourcePath":"components/forms/Transfer.jsx"},{"name":"TreeSelect","sourcePath":"components/forms/TreeSelect.jsx"},{"name":"CS_ICONS","sourcePath":"components/icon/Icon.jsx"},{"name":"Icon","sourcePath":"components/icon/Icon.jsx"},{"name":"Logo","sourcePath":"components/logo/Logo.jsx"},{"name":"CS_LOGO_VIEWBOX","sourcePath":"components/logo/logo-data.js"},{"name":"CS_LOGO_MARK_INNER","sourcePath":"components/logo/logo-data.js"},{"name":"Anchor","sourcePath":"components/navigation/Anchor.jsx"},{"name":"BackTop","sourcePath":"components/navigation/BackTop.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"CommandPalette","sourcePath":"components/navigation/CommandPalette.jsx"},{"name":"Dock","sourcePath":"components/navigation/Dock.jsx"},{"name":"HotKeys","sourcePath":"components/navigation/HotKeys.jsx"},{"name":"Link","sourcePath":"components/navigation/Link.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"MenuItem","sourcePath":"components/navigation/Menu.jsx"},{"name":"Menubar","sourcePath":"components/navigation/Menubar.jsx"},{"name":"NavigationMenu","sourcePath":"components/navigation/NavigationMenu.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"NavItem","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Steps","sourcePath":"components/navigation/Steps.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Tab","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Toolbar","sourcePath":"components/navigation/Toolbar.jsx"},{"name":"AlertDialog","sourcePath":"components/overlays/AlertDialog.jsx"},{"name":"ContextMenu","sourcePath":"components/overlays/ContextMenu.jsx"},{"name":"Drawer","sourcePath":"components/overlays/Drawer.jsx"},{"name":"HoverCard","sourcePath":"components/overlays/HoverCard.jsx"},{"name":"Popconfirm","sourcePath":"components/overlays/Popconfirm.jsx"},{"name":"Popover","sourcePath":"components/overlays/Popover.jsx"},{"name":"Tour","sourcePath":"components/overlays/Tour.jsx"},{"name":"TextField","sourcePath":"components/textfield/TextField.jsx"}],"sourceHashes":{"components/_i18n/i18n.js":"c6c51a65bd79","components/_i18n/strings.js":"73bc5837fc8e","components/_utils/cx.js":"ad6a747ea116","components/ai/AIDisclosureBadge.jsx":"4c8954aa2d79","components/ai/ChatMessage.jsx":"84076f3488f2","components/ai/CitationList.jsx":"4d12ef868ff3","components/ai/ConfidenceMeter.jsx":"24e43b7f7a47","components/ai/HumanReviewGate.jsx":"922b278dca5c","components/ai/PromptInput.jsx":"7634643dafa5","components/ai/PromptSuggestions.jsx":"02d64117ecfa","components/ai/TypingIndicator.jsx":"149e3a0c7ef8","components/brand/LumiAvatar.jsx":"b6444360cf80","components/button/Button.jsx":"6d902a925eed","components/button/ButtonGroup.jsx":"1a1481f6fb93","components/button/FloatingActionButton.jsx":"ce49fe4129a3","components/data/Accordion.jsx":"fed81278cefd","components/data/AspectRatio.jsx":"6c1e8703891e","components/data/Avatar.jsx":"88c8f59334e6","components/data/Card.jsx":"96e1f9ef44a9","components/data/Carousel.jsx":"caf09a766c42","components/data/Chart.jsx":"1953e9fef120","components/data/CodeBlock.jsx":"04e0bd2507e2","components/data/Collapsible.jsx":"3d961fef83f8","components/data/Comment.jsx":"81469a910d80","components/data/DescriptionList.jsx":"ce50d72546bb","components/data/Divider.jsx":"2d08b4a7b18e","components/data/Image.jsx":"da5c7d4c69af","components/data/Item.jsx":"7e1ac68c4e96","components/data/Kbd.jsx":"3b3d867cbdd8","components/data/List.jsx":"5c221b19efe0","components/data/Masonry.jsx":"a65508731d79","components/data/QRCode.jsx":"6acaf577a7fc","components/data/ScrollArea.jsx":"c2e2ec304b1e","components/data/Sortable.jsx":"315b50256128","components/data/Splitter.jsx":"d231064601e9","components/data/Stat.jsx":"35734a801a71","components/data/Terminal.jsx":"3a3cd4477814","components/data/Timeline.jsx":"22058a781a98","components/data/Tooltip.jsx":"4d027aff5559","components/data/Tree.jsx":"9097456de50f","components/data/Watermark.jsx":"4be0b6230d47","components/data/qr-encode.js":"14e8de77df5f","components/datatable/DataGrid.jsx":"e4aa4a47d05e","components/datatable/DataTable.jsx":"fbfad5570592","components/datatable/TreeTable.jsx":"597c35135ebb","components/dialog/Dialog.jsx":"7af51ee28ab6","components/feedback/Alert.jsx":"0bbe4e5f467a","components/feedback/Badge.jsx":"e691ae1634f8","components/feedback/EmptyState.jsx":"9a9c00523cec","components/feedback/ProgressBar.jsx":"1a66335d5d9e","components/feedback/Result.jsx":"c168f8dcb009","components/feedback/Skeleton.jsx":"86ee345cb412","components/feedback/Spinner.jsx":"cad2ed4008a6","components/feedback/StatusIndicator.jsx":"d27a5fc3db2a","components/feedback/Tag.jsx":"13d288da9f38","components/feedback/Toast.jsx":"38cc9a82ede9","components/forms/Calendar.jsx":"8a66cbe766af","components/forms/Cascader.jsx":"ada31ccaf716","components/forms/Checkbox.jsx":"2badb7b3b72b","components/forms/ColorPicker.jsx":"d04db0ee7678","components/forms/Combobox.jsx":"3f2fb4d28922","components/forms/DatePicker.jsx":"7a6c18e1e635","components/forms/Editor.jsx":"d7bed6e52cff","components/forms/FileUpload.jsx":"e8031a109093","components/forms/Form.jsx":"f7952da4b73a","components/forms/InlineEdit.jsx":"5ffb40598769","components/forms/InputGroup.jsx":"06d6c22420d0","components/forms/InputOTP.jsx":"c3a5d02ffebc","components/forms/Mentions.jsx":"04bc4b5a4ace","components/forms/NativeSelect.jsx":"d6f6d300f75d","components/forms/NumberField.jsx":"44975fd25721","components/forms/RadioGroup.jsx":"1a64f7600e01","components/forms/Rating.jsx":"06d345ecc5f4","components/forms/SearchField.jsx":"2a12c65900ec","components/forms/SegmentedControl.jsx":"1f143c62fb56","components/forms/Select.jsx":"1b5ba905b339","components/forms/Slider.jsx":"69aa1a5f1af8","components/forms/Switch.jsx":"0b37cfa41979","components/forms/TagInput.jsx":"2d1554422097","components/forms/Textarea.jsx":"cf244fee0e37","components/forms/TimePicker.jsx":"165192c8760c","components/forms/Toggle.jsx":"338453a34669","components/forms/Transfer.jsx":"dd0c02d1014e","components/forms/TreeSelect.jsx":"a5b1b91d1d6a","components/icon/Icon.jsx":"379dc6de903e","components/logo/Logo.jsx":"445c5f5fbd40","components/logo/logo-data.js":"f1a251a50c8f","components/navigation/Anchor.jsx":"491fb330e718","components/navigation/BackTop.jsx":"5cac0081fc20","components/navigation/Breadcrumb.jsx":"45636f3b0a51","components/navigation/CommandPalette.jsx":"2b5b30906b8b","components/navigation/Dock.jsx":"3073e2870c65","components/navigation/HotKeys.jsx":"f0f707a3335d","components/navigation/Link.jsx":"d4fe3fcffd2c","components/navigation/Menu.jsx":"6786788f13f8","components/navigation/Menubar.jsx":"1aa64f59891e","components/navigation/NavigationMenu.jsx":"020279fd7f79","components/navigation/Pagination.jsx":"a1fc19bfd104","components/navigation/Sidebar.jsx":"d578b013ad33","components/navigation/Steps.jsx":"85cb20bd45da","components/navigation/Tabs.jsx":"5d5921da1644","components/navigation/Toolbar.jsx":"9727d7bdbc5f","components/overlays/AlertDialog.jsx":"2ed7fbde4a5a","components/overlays/ContextMenu.jsx":"e7e3386d89ac","components/overlays/Drawer.jsx":"8227143abbfa","components/overlays/HoverCard.jsx":"5cfabde80960","components/overlays/Popconfirm.jsx":"55f08dba5f38","components/overlays/Popover.jsx":"1582f7fa5533","components/overlays/Tour.jsx":"9901ee649da0","components/textfield/TextField.jsx":"c06bd9729f20","image-slot.js":"0394ad34f685","tokens/tokens.js":"02cfbae229ac","ui_kits/status-hub/StatusHub.jsx":"88dfd93e1664","ui_kits/status-hub/data.js":"664bbbb30cb3","ui_kits/website/Website.jsx":"c3a0938d9279","ui_kits/website/copy.js":"9d42c52c17cb"},"inlinedExternals":[],"unexposedExports":[{"name":"cx","sourcePath":"components/_utils/cx.js"},{"name":"formatCurrency","sourcePath":"components/_i18n/i18n.js"},{"name":"formatDate","sourcePath":"components/_i18n/i18n.js"},{"name":"formatNumber","sourcePath":"components/_i18n/i18n.js"},{"name":"getPath","sourcePath":"components/forms/Form.jsx"},{"name":"makeT","sourcePath":"components/_i18n/i18n.js"},{"name":"monthName","sourcePath":"components/_i18n/i18n.js"},{"name":"qrMatrix","sourcePath":"components/data/qr-encode.js"},{"name":"resolveLang","sourcePath":"components/_i18n/i18n.js"},{"name":"setPath","sourcePath":"components/forms/Form.jsx"},{"name":"strings","sourcePath":"components/_i18n/strings.js"},{"name":"tokens","sourcePath":"tokens/tokens.js"},{"name":"tr","sourcePath":"components/_i18n/i18n.js"},{"name":"useLang","sourcePath":"components/_i18n/i18n.js"}]} */
+/* @ds-bundle: {"format":4,"namespace":"CyberSkillDesignSystem_847b3c","components":[{"name":"AIDisclosureBadge","sourcePath":"components/ai/AIDisclosureBadge.jsx"},{"name":"ChatMessage","sourcePath":"components/ai/ChatMessage.jsx"},{"name":"CitationList","sourcePath":"components/ai/CitationList.jsx"},{"name":"ConfidenceMeter","sourcePath":"components/ai/ConfidenceMeter.jsx"},{"name":"HumanReviewGate","sourcePath":"components/ai/HumanReviewGate.jsx"},{"name":"PromptInput","sourcePath":"components/ai/PromptInput.jsx"},{"name":"PromptSuggestions","sourcePath":"components/ai/PromptSuggestions.jsx"},{"name":"TypingIndicator","sourcePath":"components/ai/TypingIndicator.jsx"},{"name":"LumiAvatar","sourcePath":"components/brand/LumiAvatar.jsx"},{"name":"Button","sourcePath":"components/button/Button.jsx"},{"name":"ButtonGroup","sourcePath":"components/button/ButtonGroup.jsx"},{"name":"FloatingActionButton","sourcePath":"components/button/FloatingActionButton.jsx"},{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"AspectRatio","sourcePath":"components/data/AspectRatio.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/data/Avatar.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"CardHeader","sourcePath":"components/data/Card.jsx"},{"name":"CardBody","sourcePath":"components/data/Card.jsx"},{"name":"CardFooter","sourcePath":"components/data/Card.jsx"},{"name":"Carousel","sourcePath":"components/data/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data/Chart.jsx"},{"name":"CodeBlock","sourcePath":"components/data/CodeBlock.jsx"},{"name":"Collapsible","sourcePath":"components/data/Collapsible.jsx"},{"name":"Comment","sourcePath":"components/data/Comment.jsx"},{"name":"DescriptionList","sourcePath":"components/data/DescriptionList.jsx"},{"name":"Divider","sourcePath":"components/data/Divider.jsx"},{"name":"Image","sourcePath":"components/data/Image.jsx"},{"name":"Item","sourcePath":"components/data/Item.jsx"},{"name":"Kbd","sourcePath":"components/data/Kbd.jsx"},{"name":"List","sourcePath":"components/data/List.jsx"},{"name":"ListItem","sourcePath":"components/data/List.jsx"},{"name":"Masonry","sourcePath":"components/data/Masonry.jsx"},{"name":"QRCode","sourcePath":"components/data/QRCode.jsx"},{"name":"ScrollArea","sourcePath":"components/data/ScrollArea.jsx"},{"name":"Sortable","sourcePath":"components/data/Sortable.jsx"},{"name":"Splitter","sourcePath":"components/data/Splitter.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Terminal","sourcePath":"components/data/Terminal.jsx"},{"name":"Timeline","sourcePath":"components/data/Timeline.jsx"},{"name":"Tooltip","sourcePath":"components/data/Tooltip.jsx"},{"name":"Tree","sourcePath":"components/data/Tree.jsx"},{"name":"Watermark","sourcePath":"components/data/Watermark.jsx"},{"name":"DataGrid","sourcePath":"components/datatable/DataGrid.jsx"},{"name":"DataTable","sourcePath":"components/datatable/DataTable.jsx"},{"name":"TreeTable","sourcePath":"components/datatable/TreeTable.jsx"},{"name":"Dialog","sourcePath":"components/dialog/Dialog.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Result","sourcePath":"components/feedback/Result.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"StatusIndicator","sourcePath":"components/feedback/StatusIndicator.jsx"},{"name":"Tag","sourcePath":"components/feedback/Tag.jsx"},{"name":"ToastStack","sourcePath":"components/feedback/Toast.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Calendar","sourcePath":"components/forms/Calendar.jsx"},{"name":"Cascader","sourcePath":"components/forms/Cascader.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"ColorPicker","sourcePath":"components/forms/ColorPicker.jsx"},{"name":"Combobox","sourcePath":"components/forms/Combobox.jsx"},{"name":"DatePicker","sourcePath":"components/forms/DatePicker.jsx"},{"name":"Editor","sourcePath":"components/forms/Editor.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"Form","sourcePath":"components/forms/Form.jsx"},{"name":"FormField","sourcePath":"components/forms/Form.jsx"},{"name":"FormFieldArray","sourcePath":"components/forms/Form.jsx"},{"name":"FormWizard","sourcePath":"components/forms/Form.jsx"},{"name":"InlineEdit","sourcePath":"components/forms/InlineEdit.jsx"},{"name":"InputGroup","sourcePath":"components/forms/InputGroup.jsx"},{"name":"InputOTP","sourcePath":"components/forms/InputOTP.jsx"},{"name":"Mentions","sourcePath":"components/forms/Mentions.jsx"},{"name":"NativeSelect","sourcePath":"components/forms/NativeSelect.jsx"},{"name":"NumberField","sourcePath":"components/forms/NumberField.jsx"},{"name":"Radio","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"Rating","sourcePath":"components/forms/Rating.jsx"},{"name":"SearchField","sourcePath":"components/forms/SearchField.jsx"},{"name":"SegmentedControl","sourcePath":"components/forms/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Slider","sourcePath":"components/forms/Slider.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TagInput","sourcePath":"components/forms/TagInput.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"TimePicker","sourcePath":"components/forms/TimePicker.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Transfer","sourcePath":"components/forms/Transfer.jsx"},{"name":"TreeSelect","sourcePath":"components/forms/TreeSelect.jsx"},{"name":"CS_ICONS","sourcePath":"components/icon/Icon.jsx"},{"name":"Icon","sourcePath":"components/icon/Icon.jsx"},{"name":"Logo","sourcePath":"components/logo/Logo.jsx"},{"name":"CS_LOGO_VIEWBOX","sourcePath":"components/logo/logo-data.js"},{"name":"CS_LOGO_MARK_INNER","sourcePath":"components/logo/logo-data.js"},{"name":"Anchor","sourcePath":"components/navigation/Anchor.jsx"},{"name":"BackTop","sourcePath":"components/navigation/BackTop.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"CommandPalette","sourcePath":"components/navigation/CommandPalette.jsx"},{"name":"Dock","sourcePath":"components/navigation/Dock.jsx"},{"name":"HotKeys","sourcePath":"components/navigation/HotKeys.jsx"},{"name":"Link","sourcePath":"components/navigation/Link.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"MenuItem","sourcePath":"components/navigation/Menu.jsx"},{"name":"Menubar","sourcePath":"components/navigation/Menubar.jsx"},{"name":"NavigationMenu","sourcePath":"components/navigation/NavigationMenu.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"NavItem","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Steps","sourcePath":"components/navigation/Steps.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Tab","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Toolbar","sourcePath":"components/navigation/Toolbar.jsx"},{"name":"AlertDialog","sourcePath":"components/overlays/AlertDialog.jsx"},{"name":"ContextMenu","sourcePath":"components/overlays/ContextMenu.jsx"},{"name":"Drawer","sourcePath":"components/overlays/Drawer.jsx"},{"name":"HoverCard","sourcePath":"components/overlays/HoverCard.jsx"},{"name":"Popconfirm","sourcePath":"components/overlays/Popconfirm.jsx"},{"name":"Popover","sourcePath":"components/overlays/Popover.jsx"},{"name":"Tour","sourcePath":"components/overlays/Tour.jsx"},{"name":"TextField","sourcePath":"components/textfield/TextField.jsx"}],"sourceHashes":{"components/_i18n/i18n.js":"63f973d61113","components/_i18n/strings.js":"ceb424c0c001","components/_utils/cx.js":"ad6a747ea116","components/ai/AIDisclosureBadge.jsx":"4c8954aa2d79","components/ai/ChatMessage.jsx":"84076f3488f2","components/ai/CitationList.jsx":"4d12ef868ff3","components/ai/ConfidenceMeter.jsx":"68cf2bba3a9e","components/ai/HumanReviewGate.jsx":"922b278dca5c","components/ai/PromptInput.jsx":"7634643dafa5","components/ai/PromptSuggestions.jsx":"02d64117ecfa","components/ai/TypingIndicator.jsx":"149e3a0c7ef8","components/brand/LumiAvatar.jsx":"b6444360cf80","components/button/Button.jsx":"6d902a925eed","components/button/ButtonGroup.jsx":"1a1481f6fb93","components/button/FloatingActionButton.jsx":"ce49fe4129a3","components/data/Accordion.jsx":"fed81278cefd","components/data/AspectRatio.jsx":"6c1e8703891e","components/data/Avatar.jsx":"88c8f59334e6","components/data/Card.jsx":"96e1f9ef44a9","components/data/Carousel.jsx":"caf09a766c42","components/data/Chart.jsx":"1953e9fef120","components/data/CodeBlock.jsx":"04e0bd2507e2","components/data/Collapsible.jsx":"3d961fef83f8","components/data/Comment.jsx":"81469a910d80","components/data/DescriptionList.jsx":"ce50d72546bb","components/data/Divider.jsx":"2d08b4a7b18e","components/data/Image.jsx":"da5c7d4c69af","components/data/Item.jsx":"7e1ac68c4e96","components/data/Kbd.jsx":"3b3d867cbdd8","components/data/List.jsx":"5c221b19efe0","components/data/Masonry.jsx":"a65508731d79","components/data/QRCode.jsx":"6acaf577a7fc","components/data/ScrollArea.jsx":"c2e2ec304b1e","components/data/Sortable.jsx":"315b50256128","components/data/Splitter.jsx":"d231064601e9","components/data/Stat.jsx":"35734a801a71","components/data/Terminal.jsx":"3a3cd4477814","components/data/Timeline.jsx":"22058a781a98","components/data/Tooltip.jsx":"4d027aff5559","components/data/Tree.jsx":"9097456de50f","components/data/Watermark.jsx":"66b7b71488d8","components/data/qr-encode.js":"14e8de77df5f","components/datatable/DataGrid.jsx":"c84fe5d5b8cc","components/datatable/DataTable.jsx":"fbfad5570592","components/datatable/TreeTable.jsx":"597c35135ebb","components/dialog/Dialog.jsx":"7af51ee28ab6","components/feedback/Alert.jsx":"0bbe4e5f467a","components/feedback/Badge.jsx":"e691ae1634f8","components/feedback/EmptyState.jsx":"9a9c00523cec","components/feedback/ProgressBar.jsx":"3986118b0da8","components/feedback/Result.jsx":"c168f8dcb009","components/feedback/Skeleton.jsx":"86ee345cb412","components/feedback/Spinner.jsx":"cad2ed4008a6","components/feedback/StatusIndicator.jsx":"d27a5fc3db2a","components/feedback/Tag.jsx":"13d288da9f38","components/feedback/Toast.jsx":"38cc9a82ede9","components/forms/Calendar.jsx":"8a66cbe766af","components/forms/Cascader.jsx":"ada31ccaf716","components/forms/Checkbox.jsx":"2badb7b3b72b","components/forms/ColorPicker.jsx":"d04db0ee7678","components/forms/Combobox.jsx":"3f2fb4d28922","components/forms/DatePicker.jsx":"7a6c18e1e635","components/forms/Editor.jsx":"194484fb9dc4","components/forms/FileUpload.jsx":"509dfaff8bea","components/forms/Form.jsx":"f7952da4b73a","components/forms/InlineEdit.jsx":"5ffb40598769","components/forms/InputGroup.jsx":"06d6c22420d0","components/forms/InputOTP.jsx":"c3a5d02ffebc","components/forms/Mentions.jsx":"04bc4b5a4ace","components/forms/NativeSelect.jsx":"d6f6d300f75d","components/forms/NumberField.jsx":"44975fd25721","components/forms/RadioGroup.jsx":"1a64f7600e01","components/forms/Rating.jsx":"06d345ecc5f4","components/forms/SearchField.jsx":"2a12c65900ec","components/forms/SegmentedControl.jsx":"1f143c62fb56","components/forms/Select.jsx":"1b5ba905b339","components/forms/Slider.jsx":"69aa1a5f1af8","components/forms/Switch.jsx":"ed54f4bceb60","components/forms/TagInput.jsx":"2d1554422097","components/forms/Textarea.jsx":"cf244fee0e37","components/forms/TimePicker.jsx":"abd6e54b2983","components/forms/Toggle.jsx":"338453a34669","components/forms/Transfer.jsx":"dd0c02d1014e","components/forms/TreeSelect.jsx":"a5b1b91d1d6a","components/icon/Icon.jsx":"280fba8477db","components/logo/Logo.jsx":"445c5f5fbd40","components/logo/logo-data.js":"f1a251a50c8f","components/navigation/Anchor.jsx":"491fb330e718","components/navigation/BackTop.jsx":"5cac0081fc20","components/navigation/Breadcrumb.jsx":"45636f3b0a51","components/navigation/CommandPalette.jsx":"2b5b30906b8b","components/navigation/Dock.jsx":"3073e2870c65","components/navigation/HotKeys.jsx":"f0f707a3335d","components/navigation/Link.jsx":"d4fe3fcffd2c","components/navigation/Menu.jsx":"6786788f13f8","components/navigation/Menubar.jsx":"1aa64f59891e","components/navigation/NavigationMenu.jsx":"020279fd7f79","components/navigation/Pagination.jsx":"a1fc19bfd104","components/navigation/Sidebar.jsx":"d578b013ad33","components/navigation/Steps.jsx":"85cb20bd45da","components/navigation/Tabs.jsx":"5d5921da1644","components/navigation/Toolbar.jsx":"ba1e0d0578b3","components/overlays/AlertDialog.jsx":"2ed7fbde4a5a","components/overlays/ContextMenu.jsx":"e7e3386d89ac","components/overlays/Drawer.jsx":"8227143abbfa","components/overlays/HoverCard.jsx":"5cfabde80960","components/overlays/Popconfirm.jsx":"55f08dba5f38","components/overlays/Popover.jsx":"1582f7fa5533","components/overlays/Tour.jsx":"707cd7464f0c","components/textfield/TextField.jsx":"c06bd9729f20","image-slot.js":"26886a229370","tokens/tokens.js":"6207137575eb","ui_kits/status-hub/StatusHub.jsx":"2b2ed4c462c6","ui_kits/status-hub/data.js":"664bbbb30cb3","ui_kits/website/Website.jsx":"c6a98330480b","ui_kits/website/copy.js":"9d42c52c17cb"},"inlinedExternals":[],"unexposedExports":[{"name":"cx","sourcePath":"components/_utils/cx.js"},{"name":"formatCurrency","sourcePath":"components/_i18n/i18n.js"},{"name":"formatDate","sourcePath":"components/_i18n/i18n.js"},{"name":"formatNumber","sourcePath":"components/_i18n/i18n.js"},{"name":"getPath","sourcePath":"components/forms/Form.jsx"},{"name":"makeT","sourcePath":"components/_i18n/i18n.js"},{"name":"monthName","sourcePath":"components/_i18n/i18n.js"},{"name":"qrMatrix","sourcePath":"components/data/qr-encode.js"},{"name":"resolveLang","sourcePath":"components/_i18n/i18n.js"},{"name":"setPath","sourcePath":"components/forms/Form.jsx"},{"name":"strings","sourcePath":"components/_i18n/strings.js"},{"name":"tokens","sourcePath":"tokens/tokens.js"},{"name":"tr","sourcePath":"components/_i18n/i18n.js"},{"name":"useLang","sourcePath":"components/_i18n/i18n.js"}]} */
 
 (() => {
 
@@ -80,8 +80,8 @@ const strings = {
     vi: { input: "Ô nhập lệnh" }
   },
   DataGrid: {
-    en: { empty: "No records", selectAll: "Select all rows", selectRow: "Select row" },
-    vi: { empty: "Không có bản ghi", selectAll: "Chọn tất cả", selectRow: "Chọn dòng" }
+    en: { empty: "No records", selectAll: "Select all rows", selectRow: "Select row", pin: "Pin this column", pinNamed: "Pin column {name}" },
+    vi: { empty: "Không có bản ghi", selectAll: "Chọn tất cả", selectRow: "Chọn dòng", pin: "Ghim cột này", pinNamed: "Ghim cột {name}" }
   },
   Splitter: {
     en: { label: "Resize panes" },
@@ -222,7 +222,16 @@ function useLang(propLang) {
   const ref = React.useRef(null);
   const [lang, setLang] = React.useState(() => resolveLang(propLang, null));
   React.useLayoutEffect(() => {
-    setLang(resolveLang(propLang, ref.current));
+    const el = ref.current;
+    setLang(resolveLang(propLang, el));
+    if (!el || propLang) return void 0;
+    const obs = new MutationObserver(() => setLang(resolveLang(propLang, el)));
+    let node = el.parentElement;
+    while (node) {
+      obs.observe(node, { attributes: true, attributeFilter: ["lang"] });
+      node = node.parentElement;
+    }
+    return () => obs.disconnect();
   }, [propLang]);
   return [ref, lang];
 }
@@ -319,19 +328,21 @@ const TONE = {
 };
 function ConfidenceMeter({ value, level, segments = 5, label, lang, className }) {
   let tone, filled;
+  const segs = Math.max(1, Number(segments) || 5);
   if (value != null) {
-    tone = value < 0.4 ? "low" : value < 0.75 ? "medium" : "high";
-    filled = Math.max(1, Math.round(value * segments));
+    const v = Math.max(0, Math.min(1, Number(value) || 0));
+    tone = v < 0.4 ? "low" : v < 0.75 ? "medium" : "high";
+    filled = Math.max(0, Math.min(segs, Math.round(v * segs)));
   } else {
-    tone = level || "medium";
-    filled = Math.round(TONE[tone].fill / 5 * segments);
+    tone = TONE[level] ? level : "medium";
+    filled = Math.max(0, Math.min(segs, Math.round(TONE[tone].fill / 5 * segs)));
   }
   const meta = TONE[tone];
   const [ref, L] = useLang(lang);
   const t = makeT("ConfidenceMeter", L);
   const lbl = label != null ? label : t("label");
   const levelText = t(tone);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-confidence", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-confidence__head" }, /* @__PURE__ */ React.createElement("span", null, lbl), /* @__PURE__ */ React.createElement("span", { className: "cs-confidence__level", style: { color: meta.color } }, levelText)), /* @__PURE__ */ React.createElement("div", { className: "cs-confidence__track", role: "meter", "aria-valuemin": 0, "aria-valuemax": segments, "aria-valuenow": filled, "aria-label": lbl + ": " + levelText }, Array.from({ length: segments }).map((_, i) => /* @__PURE__ */ React.createElement("span", { key: i, className: "cs-confidence__seg", style: i < filled ? { background: meta.color } : void 0 }))));
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-confidence", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-confidence__head" }, /* @__PURE__ */ React.createElement("span", null, lbl), /* @__PURE__ */ React.createElement("span", { className: "cs-confidence__level", style: { color: meta.color } }, levelText)), /* @__PURE__ */ React.createElement("div", { className: "cs-confidence__track", role: "meter", "aria-valuemin": 0, "aria-valuemax": segs, "aria-valuenow": filled, "aria-label": lbl + ": " + levelText }, Array.from({ length: segs }).map((_, i) => /* @__PURE__ */ React.createElement("span", { key: i, className: "cs-confidence__seg", style: i < filled ? { background: meta.color } : void 0 }))));
 }
 Object.assign(__ds_scope, { ConfidenceMeter });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/ai/ConfidenceMeter.jsx", error: String((e && e.message) || e) }); }
@@ -988,10 +999,17 @@ Object.assign(__ds_scope, { Tree });
 try { (() => {
 const { cx } = __ds_scope;
 function Watermark({ text = "CyberSkill", opacity = 0.09, gap = 140, rotate = -22, children, className }) {
+  const host = React.useRef(null);
+  const [fill, setFill] = React.useState("#45210E");
+  React.useLayoutEffect(() => {
+    if (!host.current || typeof getComputedStyle === "undefined") return;
+    const c = getComputedStyle(host.current).getPropertyValue("--cs-color-text-primary").trim();
+    if (c) setFill(c);
+  }, []);
   const svg = encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${gap}" height="${gap}"><text x="50%" y="50%" font-family="Be Vietnam Pro, sans-serif" font-size="14" font-weight="700" fill="#45210E" fill-opacity="${opacity}" text-anchor="middle" transform="rotate(${rotate} ${gap / 2} ${gap / 2})">${String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;")}</text></svg>`
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${gap}" height="${gap}"><text x="50%" y="50%" font-family="Be Vietnam Pro, sans-serif" font-size="14" font-weight="700" fill="${fill}" fill-opacity="${opacity}" text-anchor="middle" transform="rotate(${rotate} ${gap / 2} ${gap / 2})">${String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;")}</text></svg>`
   );
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-watermark", className), style: { position: "relative" } }, children, /* @__PURE__ */ React.createElement("div", { "aria-hidden": "true", style: { position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: `url("data:image/svg+xml,${svg}")` } }));
+  return /* @__PURE__ */ React.createElement("div", { ref: host, className: cx("cs-watermark", className), style: { position: "relative" } }, children, /* @__PURE__ */ React.createElement("div", { "aria-hidden": "true", style: { position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: `url("data:image/svg+xml,${svg}")` } }));
 }
 Object.assign(__ds_scope, { Watermark });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Watermark.jsx", error: String((e && e.message) || e) }); }
@@ -1131,124 +1149,6 @@ function QRCode({ value = "", size = 128, color = "var(--cs-color-text-primary)"
 Object.assign(__ds_scope, { QRCode });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/QRCode.jsx", error: String((e && e.message) || e) }); }
 
-// components/datatable/DataGrid.jsx
-try { (() => {
-const { makeT, useLang } = __ds_scope;
-const { cx } = __ds_scope;
-function DataGrid({
-  columns = [],
-  rows = [],
-  rowKey = "id",
-  selectable = false,
-  selected = [],
-  onSelect,
-  height = 280,
-  caption,
-  empty,
-  lang,
-  className,
-  filterText,
-  filterKeys,
-  /** When true (or rows exceed virtualThreshold), only paint a window of rows. */
-  virtual = false,
-  /** Row threshold that auto-enables virtualization. Default 80. */
-  virtualThreshold = 80,
-  /** Approximate row height for windowing. Default 36. */
-  rowHeight = 36,
-  /** localStorage key — when set, column key order is persisted across reloads. */
-  persistKey
-}) {
-  const [sort, setSort] = React.useState(null);
-  const [scrollTop, setScrollTop] = React.useState(0);
-  const [colOrder, setColOrder] = React.useState(() => {
-    if (!persistKey) return null;
-    try {
-      const raw = localStorage.getItem("cs:datagrid:cols:" + persistKey);
-      const arr = raw ? JSON.parse(raw) : null;
-      return Array.isArray(arr) ? arr : null;
-    } catch (e) {
-      return null;
-    }
-  });
-  const [ref, L] = useLang(lang);
-  const t = makeT("DataGrid", L);
-  const orderedColumns = React.useMemo(() => {
-    if (!colOrder || !colOrder.length) return columns;
-    const map = new Map(columns.map((c) => [c.key, c]));
-    const out = [];
-    for (const k of colOrder) if (map.has(k)) {
-      out.push(map.get(k));
-      map.delete(k);
-    }
-    for (const c of map.values()) out.push(c);
-    return out;
-  }, [columns, colOrder]);
-  const filtered = React.useMemo(() => {
-    const q = (filterText == null ? "" : String(filterText)).trim().toLowerCase();
-    if (!q) return rows;
-    const keys = filterKeys && filterKeys.length ? filterKeys : orderedColumns.map((c) => c.key);
-    return rows.filter((r) => keys.some((k) => String(r[k] == null ? "" : r[k]).toLowerCase().includes(q)));
-  }, [rows, filterText, filterKeys, orderedColumns]);
-  const sorted = React.useMemo(() => {
-    if (!sort) return filtered;
-    const col = orderedColumns.find((c) => c.key === sort.key);
-    const val = (r) => col && col.sortValue ? col.sortValue(r) : r[sort.key];
-    return [...filtered].sort((a, b) => {
-      const x = val(a), y = val(b);
-      return (x > y ? 1 : x < y ? -1 : 0) * (sort.dir === "asc" ? 1 : -1);
-    });
-  }, [filtered, sort, orderedColumns]);
-  const useVirtual = virtual || sorted.length >= virtualThreshold;
-  const bodyH = Math.max(0, height - 40);
-  const start = useVirtual ? Math.max(0, Math.floor(scrollTop / rowHeight) - 4) : 0;
-  const visibleCount = useVirtual ? Math.ceil(bodyH / rowHeight) + 8 : sorted.length;
-  const end = useVirtual ? Math.min(sorted.length, start + visibleCount) : sorted.length;
-  const slice = sorted.slice(start, end);
-  const padTop = useVirtual ? start * rowHeight : 0;
-  const padBottom = useVirtual ? Math.max(0, (sorted.length - end) * rowHeight) : 0;
-  const allSel = selectable && filtered.length && filtered.every((r) => selected.includes(r[rowKey]));
-  const toggleAll = () => onSelect && onSelect(allSel ? [] : filtered.map((r) => r[rowKey]));
-  const toggle = (k) => onSelect && onSelect(selected.includes(k) ? selected.filter((x) => x !== k) : [...selected, k]);
-  const pinColumn = (key) => {
-    if (!persistKey) return;
-    const keys = orderedColumns.map((c) => c.key);
-    const next = [key, ...keys.filter((k) => k !== key)];
-    setColOrder(next);
-    try {
-      localStorage.setItem("cs:datagrid:cols:" + persistKey, JSON.stringify(next));
-    } catch (e) {
-    }
-  };
-  return /* @__PURE__ */ React.createElement(
-    "div",
-    {
-      ref,
-      className: cx("cs-datagrid", useVirtual && "cs-datagrid--virtual", className),
-      style: { maxBlockSize: height, overflow: "auto" },
-      onScroll: useVirtual ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0,
-      "data-virtual": useVirtual ? "true" : "false",
-      "data-row-count": sorted.length
-    },
-    /* @__PURE__ */ React.createElement("table", { className: "cs-table" }, caption ? /* @__PURE__ */ React.createElement("caption", null, caption) : null, /* @__PURE__ */ React.createElement("thead", null, /* @__PURE__ */ React.createElement("tr", null, selectable ? /* @__PURE__ */ React.createElement("th", { scope: "col", className: "cs-datagrid__selcol" }, /* @__PURE__ */ React.createElement("input", { type: "checkbox", "aria-label": t("selectAll"), checked: !!allSel, onChange: toggleAll })) : null, orderedColumns.map((c) => /* @__PURE__ */ React.createElement(
-      "th",
-      {
-        key: c.key,
-        scope: "col",
-        className: c.pinned ? "cs-datagrid__pinned" : void 0,
-        style: c.pinned ? { position: "sticky", insetInlineStart: 0, zIndex: 1, background: "var(--cs-color-surface-panel)" } : void 0,
-        "aria-sort": sort && sort.key === c.key ? sort.dir === "asc" ? "ascending" : "descending" : void 0
-      },
-      c.sortable ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-datagrid__sort", onClick: () => setSort((s) => !s || s.key !== c.key ? { key: c.key, dir: "asc" } : s.dir === "asc" ? { key: c.key, dir: "desc" } : null) }, c.header, /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, sort && sort.key === c.key ? sort.dir === "asc" ? " ▲" : " ▼" : " ↕")) : c.header,
-      persistKey ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-datagrid__pin", title: "Pin column first", onClick: () => pinColumn(c.key), "aria-label": "Pin " + c.key }, "⟂") : null
-    )))), /* @__PURE__ */ React.createElement("tbody", null, sorted.length === 0 ? /* @__PURE__ */ React.createElement("tr", null, /* @__PURE__ */ React.createElement("td", { colSpan: orderedColumns.length + (selectable ? 1 : 0), className: "cs-table__empty" }, empty != null ? empty : t("empty"))) : /* @__PURE__ */ React.createElement(React.Fragment, null, padTop > 0 ? /* @__PURE__ */ React.createElement("tr", { "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("td", { colSpan: orderedColumns.length + (selectable ? 1 : 0), style: { height: padTop, padding: 0, border: 0 } })) : null, slice.map((r, i) => {
-      const k = r[rowKey] != null ? r[rowKey] : start + i;
-      return /* @__PURE__ */ React.createElement("tr", { key: k, className: selected.includes(k) ? "is-selected" : void 0, style: useVirtual ? { height: rowHeight } : void 0 }, selectable ? /* @__PURE__ */ React.createElement("td", { className: "cs-datagrid__selcol" }, /* @__PURE__ */ React.createElement("input", { type: "checkbox", "aria-label": t("selectRow"), checked: selected.includes(k), onChange: () => toggle(k) })) : null, orderedColumns.map((c) => /* @__PURE__ */ React.createElement("td", { key: c.key, className: c.pinned ? "cs-datagrid__pinned" : void 0, style: c.pinned ? { position: "sticky", insetInlineStart: 0, background: "var(--cs-color-surface-panel)" } : void 0 }, c.render ? c.render(r) : r[c.key])));
-    }), padBottom > 0 ? /* @__PURE__ */ React.createElement("tr", { "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("td", { colSpan: orderedColumns.length + (selectable ? 1 : 0), style: { height: padBottom, padding: 0, border: 0 } })) : null)))
-  );
-}
-Object.assign(__ds_scope, { DataGrid });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/datatable/DataGrid.jsx", error: String((e && e.message) || e) }); }
-
 // components/datatable/DataTable.jsx
 try { (() => {
 const { makeT, useLang } = __ds_scope;
@@ -1328,15 +1228,17 @@ Object.assign(__ds_scope, { EmptyState });
 try { (() => {
 const { cx } = __ds_scope;
 function ProgressBar({ value = 0, max = 100, variant, label, className }) {
-  const pct = Math.max(0, Math.min(100, value / max * 100));
+  const safeMax = max > 0 ? max : 100;
+  const clamped = Math.max(0, Math.min(safeMax, Number(value) || 0));
+  const pct = Math.max(0, Math.min(100, clamped / safeMax * 100));
   return /* @__PURE__ */ React.createElement(
     "div",
     {
       className: cx("cs-progress", variant && `cs-progress--${variant}`, className),
       role: "progressbar",
-      "aria-valuenow": Math.round(value),
+      "aria-valuenow": Math.round(clamped),
       "aria-valuemin": 0,
-      "aria-valuemax": max,
+      "aria-valuemax": safeMax,
       "aria-label": label
     },
     /* @__PURE__ */ React.createElement("span", { className: "cs-progress__fill", style: { inlineSize: pct + "%", width: pct + "%" } })
@@ -1759,8 +1661,24 @@ Object.assign(__ds_scope, { DatePicker });
 try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
+function sanitizeHtml(html) {
+  if (html == null || html === "") return "";
+  if (typeof document === "undefined") {
+    return String(html).replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "").replace(/on\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "").replace(/javascript:/gi, "");
+  }
+  const tpl = document.createElement("template");
+  tpl.innerHTML = String(html);
+  tpl.content.querySelectorAll("script,style,iframe,object,embed,link").forEach((n) => n.remove());
+  tpl.content.querySelectorAll("*").forEach((n) => {
+    [...n.attributes].forEach((a) => {
+      if (/^on/i.test(a.name) || /javascript:/i.test(a.value)) n.removeAttribute(a.name);
+    });
+  });
+  return tpl.innerHTML;
+}
 function Editor({ defaultValue = "", onChange, minHeight = 120, lang, className }) {
   const box = React.useRef(null);
+  const seeded = React.useRef(false);
   const [ref, L] = useLang(lang);
   const t = makeT("Editor", L);
   const cmd = (c) => {
@@ -1771,6 +1689,11 @@ function Editor({ defaultValue = "", onChange, minHeight = 120, lang, className 
   const emit = () => {
     onChange && box.current && onChange(box.current.innerHTML);
   };
+  React.useLayoutEffect(() => {
+    if (!box.current || seeded.current) return;
+    box.current.innerHTML = sanitizeHtml(defaultValue);
+    seeded.current = true;
+  }, [defaultValue]);
   const B = ({ c, label, children }) => /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-toolbar__btn", "aria-label": label, onMouseDown: (e) => {
     e.preventDefault();
     cmd(c);
@@ -1786,8 +1709,7 @@ function Editor({ defaultValue = "", onChange, minHeight = 120, lang, className 
       "aria-multiline": "true",
       "aria-label": t("area"),
       style: { minHeight },
-      onInput: emit,
-      dangerouslySetInnerHTML: { __html: defaultValue }
+      onInput: emit
     }
   ));
 }
@@ -1800,6 +1722,7 @@ const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 function FileUpload({ title, hint, accept, multiple = false, onFiles, icon, lang, className }) {
   const [drag, setDrag] = React.useState(false);
+  const inputRef = React.useRef(null);
   const pick = (files) => {
     if (files && files.length && onFiles) onFiles(Array.from(files));
   };
@@ -1807,8 +1730,9 @@ function FileUpload({ title, hint, accept, multiple = false, onFiles, icon, lang
   const t = makeT("FileUpload", L);
   const tt = title != null ? title : t("title");
   const hh = hint != null ? hint : t("hint");
+  const id = React.useId();
   return /* @__PURE__ */ React.createElement(
-    "label",
+    "div",
     {
       ref,
       className: cx("cs-dropzone", drag && "is-dragging", className),
@@ -1821,12 +1745,26 @@ function FileUpload({ title, hint, accept, multiple = false, onFiles, icon, lang
         e.preventDefault();
         setDrag(false);
         pick(e.dataTransfer.files);
-      }
+      },
+      onClick: () => inputRef.current && inputRef.current.click()
     },
-    /* @__PURE__ */ React.createElement("span", { className: "cs-dropzone__icon" }, icon ?? /* @__PURE__ */ React.createElement("svg", { width: "28", height: "28", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M12 16V4M7 9l5-5 5 5" }), /* @__PURE__ */ React.createElement("path", { d: "M5 16v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3" }))),
-    /* @__PURE__ */ React.createElement("span", { className: "cs-dropzone__title" }, tt),
-    /* @__PURE__ */ React.createElement("span", { className: "cs-dropzone__hint" }, hh),
-    /* @__PURE__ */ React.createElement("input", { type: "file", accept, multiple, style: { display: "none" }, onChange: (e) => pick(e.target.files) })
+    /* @__PURE__ */ React.createElement("span", { className: "cs-dropzone__icon", "aria-hidden": "true" }, icon ?? /* @__PURE__ */ React.createElement("svg", { width: "28", height: "28", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M12 16V4M7 9l5-5 5 5" }), /* @__PURE__ */ React.createElement("path", { d: "M5 16v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3" }))),
+    /* @__PURE__ */ React.createElement("label", { className: "cs-dropzone__title", htmlFor: id }, tt),
+    /* @__PURE__ */ React.createElement("span", { className: "cs-dropzone__hint", id: id + "-hint" }, hh),
+    /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        id,
+        ref: inputRef,
+        type: "file",
+        accept,
+        multiple,
+        className: "cs-sr-only",
+        "aria-describedby": id + "-hint",
+        onChange: (e) => pick(e.target.files),
+        onClick: (e) => e.stopPropagation()
+      }
+    )
   );
 }
 Object.assign(__ds_scope, { FileUpload });
@@ -2488,8 +2426,24 @@ Object.assign(__ds_scope, { Slider });
 // components/forms/Switch.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Switch({ label, disabled = false, className, children, ...props }) {
-  return /* @__PURE__ */ React.createElement("label", { className: cx("cs-switch", disabled && "is-disabled", className) }, /* @__PURE__ */ React.createElement("input", { type: "checkbox", role: "switch", disabled, ...props }), /* @__PURE__ */ React.createElement("span", { className: "cs-switch__track", "aria-hidden": "true" }), label ? /* @__PURE__ */ React.createElement("span", { className: "cs-switch__label" }, label) : null);
+let warnedNameless = false;
+function Switch({ label, disabled = false, className, children, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, ...props }) {
+  const named = !!(label || ariaLabel || ariaLabelledby);
+  if (!named && !warnedNameless && typeof console !== "undefined" && console.warn) {
+    warnedNameless = true;
+    console.warn("CyberSkill Switch: render with label, aria-label, or aria-labelledby.");
+  }
+  return /* @__PURE__ */ React.createElement("label", { className: cx("cs-switch", disabled && "is-disabled", className) }, /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      type: "checkbox",
+      role: "switch",
+      disabled,
+      "aria-label": ariaLabel,
+      "aria-labelledby": ariaLabelledby,
+      ...props
+    }
+  ), /* @__PURE__ */ React.createElement("span", { className: "cs-switch__track", "aria-hidden": "true" }), label ? /* @__PURE__ */ React.createElement("span", { className: "cs-switch__label" }, label) : null);
 }
 Object.assign(__ds_scope, { Switch });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Switch.jsx", error: String((e && e.message) || e) }); }
@@ -2589,8 +2543,10 @@ const CLOCK = /* @__PURE__ */ React.createElement("svg", { width: "16", height: 
 function TimePicker({ value = "09:00", onChange, step = 30, label, disabled = false, lang, className }) {
   const [ref, L] = useLang(lang);
   const t = makeT("TimePicker", L);
+  const stepMin = Number(step);
+  const safeStep = Number.isFinite(stepMin) && stepMin > 0 ? stepMin : 30;
   const opts = [];
-  for (let m = 0; m < 24 * 60; m += step) {
+  for (let m = 0; m < 24 * 60; m += safeStep) {
     opts.push(String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"));
   }
   return /* @__PURE__ */ React.createElement("span", { ref, className: cx("cs-timepicker", className) }, CLOCK, /* @__PURE__ */ React.createElement("select", { "aria-label": label != null ? label : t("label"), disabled, value, onChange: (e) => onChange && onChange(e.target.value) }, opts.map((o) => /* @__PURE__ */ React.createElement("option", { key: o, value: o }, o))));
@@ -2730,7 +2686,8 @@ const CS_ICONS = {
   edit: { viewBox: "0 0 24 24", els: [["path", { d: "M4 20h4L18.5 9.5a2.12 2.12 0 0 0-3-3L5 17z" }], ["path", { d: "M13.5 6.5l3 3" }]] },
   copy: { viewBox: "0 0 24 24", els: [["rect", { x: 8, y: 8, width: 12, height: 12, rx: 2 }], ["path", { d: "M4 16V6a2 2 0 0 1 2-2h10" }]] },
   info: { viewBox: "0 0 24 24", els: [["circle", { cx: 12, cy: 12, r: 9 }], ["path", { d: "M12 11v5M12 7.75v.01" }]] },
-  "alert-triangle": { viewBox: "0 0 24 24", els: [["path", { d: "M12 3.5l9 16H3z" }], ["path", { d: "M12 10v4M12 17.5v.01" }]] }
+  "alert-triangle": { viewBox: "0 0 24 24", els: [["path", { d: "M12 3.5l9 16H3z" }], ["path", { d: "M12 10v4M12 17.5v.01" }]] },
+  pin: { viewBox: "0 0 24 24", els: [["path", { d: "M12 21v-7" }], ["path", { d: "M8.5 3.5h7l-1.2 6.5h2.7L12 14.5 6.999 10h2.7z" }]] }
 };
 function Icon({ name, size = "md", label, className, strokeWidth = 1.75, ...props }) {
   const def = CS_ICONS[name] || CS_ICONS.sparkle;
@@ -2790,6 +2747,135 @@ function Image({ src, alt = "", ratio, preview = false, fallback, lang, classNam
 }
 Object.assign(__ds_scope, { Image });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Image.jsx", error: String((e && e.message) || e) }); }
+
+// components/datatable/DataGrid.jsx
+try { (() => {
+const { makeT, useLang } = __ds_scope;
+const { Icon } = __ds_scope;
+const { cx } = __ds_scope;
+function DataGrid({
+  columns = [],
+  rows = [],
+  rowKey = "id",
+  selectable = false,
+  selected = [],
+  onSelect,
+  height = 280,
+  caption,
+  empty,
+  lang,
+  className,
+  filterText,
+  filterKeys,
+  /** When true (or rows exceed virtualThreshold), only paint a window of rows. */
+  virtual = false,
+  /** Row threshold that auto-enables virtualization. Default 80. */
+  virtualThreshold = 80,
+  /** Approximate row height for windowing. Default 36. */
+  rowHeight = 36,
+  /** localStorage key — when set, column key order is persisted across reloads. */
+  persistKey
+}) {
+  const [sort, setSort] = React.useState(null);
+  const [scrollTop, setScrollTop] = React.useState(0);
+  const [colOrder, setColOrder] = React.useState(() => {
+    if (!persistKey) return null;
+    try {
+      const raw = localStorage.getItem("cs:datagrid:cols:" + persistKey);
+      const arr = raw ? JSON.parse(raw) : null;
+      return Array.isArray(arr) ? arr : null;
+    } catch (e) {
+      return null;
+    }
+  });
+  const [ref, L] = useLang(lang);
+  const t = makeT("DataGrid", L);
+  const orderedColumns = React.useMemo(() => {
+    if (!colOrder || !colOrder.length) return columns;
+    const map = new Map(columns.map((c) => [c.key, c]));
+    const out = [];
+    for (const k of colOrder) if (map.has(k)) {
+      out.push(map.get(k));
+      map.delete(k);
+    }
+    for (const c of map.values()) out.push(c);
+    return out;
+  }, [columns, colOrder]);
+  const filtered = React.useMemo(() => {
+    const q = (filterText == null ? "" : String(filterText)).trim().toLowerCase();
+    if (!q) return rows;
+    const keys = filterKeys && filterKeys.length ? filterKeys : orderedColumns.map((c) => c.key);
+    return rows.filter((r) => keys.some((k) => String(r[k] == null ? "" : r[k]).toLowerCase().includes(q)));
+  }, [rows, filterText, filterKeys, orderedColumns]);
+  const sorted = React.useMemo(() => {
+    if (!sort) return filtered;
+    const col = orderedColumns.find((c) => c.key === sort.key);
+    const val = (r) => col && col.sortValue ? col.sortValue(r) : r[sort.key];
+    return [...filtered].sort((a, b) => {
+      const x = val(a), y = val(b);
+      return (x > y ? 1 : x < y ? -1 : 0) * (sort.dir === "asc" ? 1 : -1);
+    });
+  }, [filtered, sort, orderedColumns]);
+  const useVirtual = virtual || sorted.length >= virtualThreshold;
+  const bodyH = Math.max(0, height - 40);
+  const start = useVirtual ? Math.max(0, Math.floor(scrollTop / rowHeight) - 4) : 0;
+  const visibleCount = useVirtual ? Math.ceil(bodyH / rowHeight) + 8 : sorted.length;
+  const end = useVirtual ? Math.min(sorted.length, start + visibleCount) : sorted.length;
+  const slice = sorted.slice(start, end);
+  const padTop = useVirtual ? start * rowHeight : 0;
+  const padBottom = useVirtual ? Math.max(0, (sorted.length - end) * rowHeight) : 0;
+  const allSel = selectable && filtered.length && filtered.every((r) => selected.includes(r[rowKey]));
+  const toggleAll = () => onSelect && onSelect(allSel ? [] : filtered.map((r) => r[rowKey]));
+  const toggle = (k) => onSelect && onSelect(selected.includes(k) ? selected.filter((x) => x !== k) : [...selected, k]);
+  const pinColumn = (key) => {
+    if (!persistKey) return;
+    const keys = orderedColumns.map((c) => c.key);
+    const next = [key, ...keys.filter((k) => k !== key)];
+    setColOrder(next);
+    try {
+      localStorage.setItem("cs:datagrid:cols:" + persistKey, JSON.stringify(next));
+    } catch (e) {
+    }
+  };
+  return /* @__PURE__ */ React.createElement(
+    "div",
+    {
+      ref,
+      className: cx("cs-datagrid", useVirtual && "cs-datagrid--virtual", className),
+      style: { maxBlockSize: height, overflow: "auto" },
+      onScroll: useVirtual ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0,
+      "data-virtual": useVirtual ? "true" : "false",
+      "data-row-count": sorted.length
+    },
+    /* @__PURE__ */ React.createElement("table", { className: "cs-table" }, caption ? /* @__PURE__ */ React.createElement("caption", null, caption) : null, /* @__PURE__ */ React.createElement("thead", null, /* @__PURE__ */ React.createElement("tr", null, selectable ? /* @__PURE__ */ React.createElement("th", { scope: "col", className: "cs-datagrid__selcol" }, /* @__PURE__ */ React.createElement("input", { type: "checkbox", "aria-label": t("selectAll"), checked: !!allSel, onChange: toggleAll })) : null, orderedColumns.map((c) => /* @__PURE__ */ React.createElement(
+      "th",
+      {
+        key: c.key,
+        scope: "col",
+        className: c.pinned ? "cs-datagrid__pinned" : void 0,
+        style: c.pinned ? { position: "sticky", insetInlineStart: 0, zIndex: 1, background: "var(--cs-color-surface-panel)" } : void 0,
+        "aria-sort": sort && sort.key === c.key ? sort.dir === "asc" ? "ascending" : "descending" : void 0
+      },
+      c.sortable ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-datagrid__sort", onClick: () => setSort((s) => !s || s.key !== c.key ? { key: c.key, dir: "asc" } : s.dir === "asc" ? { key: c.key, dir: "desc" } : null) }, c.header, /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, sort && sort.key === c.key ? sort.dir === "asc" ? " ▲" : " ▼" : " ↕")) : c.header,
+      persistKey ? /* @__PURE__ */ React.createElement(
+        "button",
+        {
+          type: "button",
+          className: "cs-datagrid__pin",
+          title: t("pin"),
+          onClick: () => pinColumn(c.key),
+          "aria-label": t("pinNamed").replace("{name}", String(c.header != null ? c.header : c.key))
+        },
+        /* @__PURE__ */ React.createElement(Icon, { name: "pin", size: "sm" })
+      ) : null
+    )))), /* @__PURE__ */ React.createElement("tbody", null, sorted.length === 0 ? /* @__PURE__ */ React.createElement("tr", null, /* @__PURE__ */ React.createElement("td", { colSpan: orderedColumns.length + (selectable ? 1 : 0), className: "cs-table__empty" }, empty != null ? empty : t("empty"))) : /* @__PURE__ */ React.createElement(React.Fragment, null, padTop > 0 ? /* @__PURE__ */ React.createElement("tr", { "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("td", { colSpan: orderedColumns.length + (selectable ? 1 : 0), style: { height: padTop, padding: 0, border: 0 } })) : null, slice.map((r, i) => {
+      const k = r[rowKey] != null ? r[rowKey] : start + i;
+      return /* @__PURE__ */ React.createElement("tr", { key: k, className: selected.includes(k) ? "is-selected" : void 0, style: useVirtual ? { height: rowHeight } : void 0 }, selectable ? /* @__PURE__ */ React.createElement("td", { className: "cs-datagrid__selcol" }, /* @__PURE__ */ React.createElement("input", { type: "checkbox", "aria-label": t("selectRow"), checked: selected.includes(k), onChange: () => toggle(k) })) : null, orderedColumns.map((c) => /* @__PURE__ */ React.createElement("td", { key: c.key, className: c.pinned ? "cs-datagrid__pinned" : void 0, style: c.pinned ? { position: "sticky", insetInlineStart: 0, background: "var(--cs-color-surface-panel)" } : void 0 }, c.render ? c.render(r) : r[c.key])));
+    }), padBottom > 0 ? /* @__PURE__ */ React.createElement("tr", { "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("td", { colSpan: orderedColumns.length + (selectable ? 1 : 0), style: { height: padBottom, padding: 0, border: 0 } })) : null)))
+  );
+}
+Object.assign(__ds_scope, { DataGrid });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/datatable/DataGrid.jsx", error: String((e && e.message) || e) }); }
 
 // components/dialog/Dialog.jsx
 try { (() => {
@@ -3567,7 +3653,8 @@ function Toolbar({ items = [], overflowAfter, label, lang, className }) {
   const [ref, L] = useLang(lang);
   const t = makeT("Toolbar", L);
   const cut = overflowAfter != null ? overflowAfter : items.length;
-  const head = items.slice(0, cut), tail = items.filter((x) => x !== "-").slice(cut);
+  const head = items.slice(0, cut);
+  const tail = items.slice(cut).filter((x) => x !== "-");
   React.useEffect(() => {
     if (!open) return;
     const d = (e) => {
@@ -3937,30 +4024,37 @@ const { cx } = __ds_scope;
 function Tour({ steps = [], open, onClose, lang, className }) {
   const [i, setI] = React.useState(0);
   const [rect, setRect] = React.useState(null);
+  const [pop, setPop] = React.useState({ top: 80, left: 40 });
   const [ref, L] = useLang(lang);
   const t = makeT("Tour", L);
   React.useEffect(() => {
     if (open) setI(0);
   }, [open]);
   React.useEffect(() => {
-    if (!open || !steps[i]) return;
+    if (!open || !steps[i]) return void 0;
     const el = document.querySelector(steps[i].target);
     if (el) {
       const r = el.getBoundingClientRect();
-      setRect({ x: r.left - 6, y: r.top - 6, w: r.width + 12, h: r.height + 12 });
-    } else setRect(null);
+      const next = { x: r.left - 6, y: r.top - 6, w: r.width + 12, h: r.height + 12 };
+      setRect(next);
+      setPop({
+        top: Math.min(window.innerHeight - 170, next.y + next.h + 12),
+        left: Math.max(12, Math.min(window.innerWidth - 292, next.x))
+      });
+    } else {
+      setRect(null);
+      setPop({ top: 80, left: 40 });
+    }
     const k = (e) => {
       if (e.key === "Escape") onClose && onClose();
     };
     document.addEventListener("keydown", k);
     return () => document.removeEventListener("keydown", k);
-  }, [open, i, steps]);
+  }, [open, i, steps, onClose]);
   if (!open || !steps.length) return /* @__PURE__ */ React.createElement("span", { ref, style: { display: "none" } });
   const s = steps[i];
   const last = i === steps.length - 1;
-  const popTop = rect ? Math.min(window.innerHeight - 170, rect.y + rect.h + 12) : 80;
-  const popLeft = rect ? Math.max(12, Math.min(window.innerWidth - 292, rect.x)) : 40;
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-tour", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-tour__scrim", onClick: onClose }), rect ? /* @__PURE__ */ React.createElement("div", { className: "cs-tour__hole", style: { left: rect.x, top: rect.y, width: rect.w, height: rect.h } }) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-tour__pop", role: "dialog", "aria-label": typeof s.title === "string" ? s.title : void 0, style: { left: popLeft, top: popTop } }, /* @__PURE__ */ React.createElement("b", null, s.title), s.body ? /* @__PURE__ */ React.createElement("p", null, s.body) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-tour__bar" }, /* @__PURE__ */ React.createElement("span", { className: "cs-tour__count" }, i + 1 + " / " + steps.length), /* @__PURE__ */ React.createElement("span", { className: "cs-tour__btns" }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--ghost cs-button--xs", onClick: onClose }, t("skip")), i > 0 ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--secondary cs-button--xs", onClick: () => setI(i - 1) }, t("back")) : null, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--primary cs-button--xs", onClick: () => last ? onClose && onClose() : setI(i + 1) }, last ? t("done") : t("next"))))));
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-tour", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-tour__scrim", onClick: onClose }), rect ? /* @__PURE__ */ React.createElement("div", { className: "cs-tour__hole", style: { left: rect.x, top: rect.y, width: rect.w, height: rect.h } }) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-tour__pop", role: "dialog", "aria-label": typeof s.title === "string" ? s.title : void 0, style: { left: pop.left, top: pop.top } }, /* @__PURE__ */ React.createElement("b", null, s.title), s.body ? /* @__PURE__ */ React.createElement("p", null, s.body) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-tour__bar" }, /* @__PURE__ */ React.createElement("span", { className: "cs-tour__count" }, i + 1 + " / " + steps.length), /* @__PURE__ */ React.createElement("span", { className: "cs-tour__btns" }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--ghost cs-button--xs", onClick: onClose }, t("skip")), i > 0 ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--secondary cs-button--xs", onClick: () => setI(i - 1) }, t("back")) : null, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--primary cs-button--xs", onClick: () => last ? onClose && onClose() : setI(i + 1) }, last ? t("done") : t("next"))))));
 }
 Object.assign(__ds_scope, { Tour });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/Tour.jsx", error: String((e && e.message) || e) }); }
@@ -4657,7 +4751,12 @@ try { (() => {
           y: stored && Number.isFinite(stored.y) ? stored.y : 0
         };
       }
-      this._cap.textContent = this.getAttribute("placeholder") || "Drop an image";
+      const authoring = typeof window !== "undefined" && typeof window.__dcSetProps === "function";
+      const phEn = this.getAttribute("placeholder") || "Drop an image";
+      const phVi = this.getAttribute("placeholder-vi") || "Thả ảnh (không bắt buộc)";
+      const lang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+      this._cap.textContent = authoring ? lang.startsWith("vi") ? phVi : phEn : "";
+      if (this._cap) this._cap.style.display = authoring ? "" : "none";
       const credit = (this.getAttribute("credit") || "").trim();
       const attrError = !!(!credit && !this._userUrl && srcAttr && isUnsplashHost(srcAttr));
       this.toggleAttribute("data-attribution-error", attrError);
@@ -4756,6 +4855,10 @@ const tokens = {
       "--cs-color-semantic-danger": "#B42318",
       "--cs-color-semantic-warning": "#92400E",
       "--cs-color-semantic-info": "#1D4ED8",
+      "--cs-color-semantic-success-fg": "#FFFFFF",
+      "--cs-color-semantic-danger-fg": "#FFFFFF",
+      "--cs-color-semantic-warning-fg": "#FFFFFF",
+      "--cs-color-semantic-info-fg": "#FFFFFF",
       "--cs-color-accent-ochre": "#F4BA17",
       "--cs-color-border-default": "#E7D9C6",
       "--cs-color-link": "#6E3B0E",
@@ -4785,7 +4888,8 @@ const tokens = {
       "--cs-component-textfield-border-default": "#BFA58F",
       "--cs-component-textfield-paddingY": "10px",
       "--cs-component-textfield-paddingX": "12px",
-      "--cs-component-textfield-minHeight": "44px"
+      "--cs-component-textfield-minHeight": "44px",
+      "--cs-focus-ring": "3px"
     },
     "accent": {
       "--cs-accent": "#F4BA17",
@@ -4796,7 +4900,8 @@ const tokens = {
       "--cs-accent-ink": "#45210E",
       "--cs-accent-glow": "rgba(244, 186, 23, 0.48)",
       "--cs-accent-grad-a": "#F4BA17",
-      "--cs-accent-grad-b": "#FCAF91"
+      "--cs-accent-grad-b": "#FCAF91",
+      "--cs-accent-on-strong": "#1A1108"
     },
     "depth": {
       "--cs-depth-bg": "0",
@@ -4804,7 +4909,9 @@ const tokens = {
       "--cs-depth-card": "10",
       "--cs-depth-nav": "50",
       "--cs-depth-modal": "100",
-      "--cs-depth-toast": "200"
+      "--cs-depth-toast": "200",
+      "--cs-depth-dropdown": "60",
+      "--cs-depth-overlay": "80"
     },
     "glass": {
       "--cs-glass-whisper-blur": "8px",
@@ -4921,6 +5028,12 @@ const tokens = {
       "--cs-icon-sm": "16px",
       "--cs-icon-md": "20px",
       "--cs-icon-lg": "24px"
+    },
+    "doc": {
+      "--cs-doc-ink": "#1A1614",
+      "--cs-doc-slate": "#3F4C55",
+      "--cs-doc-fill": "#FDE68A",
+      "--cs-doc-fill-ink": "#1A1614"
     }
   },
   "themes": {
@@ -4936,6 +5049,10 @@ const tokens = {
       "--cs-color-semantic-danger": "#F87171",
       "--cs-color-semantic-warning": "#FBBF24",
       "--cs-color-semantic-info": "#7CB2FB",
+      "--cs-color-semantic-success-fg": "#1a1108",
+      "--cs-color-semantic-danger-fg": "#1a1108",
+      "--cs-color-semantic-warning-fg": "#1a1108",
+      "--cs-color-semantic-info-fg": "#1a1108",
       "--cs-color-border-default": "#4a3a2c",
       "--cs-color-link": "#f4ba17",
       "--cs-color-link-hover": "#f5ead9",
@@ -4960,6 +5077,10 @@ const tokens = {
       "--cs-color-semantic-danger": "#F87171",
       "--cs-color-semantic-warning": "#FBBF24",
       "--cs-color-semantic-info": "#7CB2FB",
+      "--cs-color-semantic-success-fg": "#1a1108",
+      "--cs-color-semantic-danger-fg": "#1a1108",
+      "--cs-color-semantic-warning-fg": "#1a1108",
+      "--cs-color-semantic-info-fg": "#1a1108",
       "--cs-color-border-default": "#4a3a2c",
       "--cs-color-link": "#f4ba17",
       "--cs-color-link-hover": "#f5ead9",
@@ -4979,6 +5100,7 @@ const tokens = {
       "--cs-accent-strong": "#90825E",
       "--cs-accent-bright": "#F6EBCC",
       "--cs-accent-on": "#292414",
+      "--cs-accent-on-strong": "#1A1108",
       "--cs-accent-tint": "#FBF7EA",
       "--cs-accent-ink": "#292414",
       "--cs-accent-glow": "rgba(248, 233, 192, 0.48)",
@@ -4992,6 +5114,7 @@ const tokens = {
       "--cs-accent-strong": "#A47D17",
       "--cs-accent-bright": "#F4BA17",
       "--cs-accent-on": "#45210E",
+      "--cs-accent-on-strong": "#1A1108",
       "--cs-accent-tint": "#FBF4E9",
       "--cs-accent-ink": "#45210E",
       "--cs-accent-glow": "rgba(244, 186, 23, 0.48)",
@@ -5003,6 +5126,7 @@ const tokens = {
       "--cs-accent-strong": "#201300",
       "--cs-accent-bright": "#DEC7A2",
       "--cs-accent-on": "#2D220E",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#FFF6E7",
       "--cs-accent-ink": "#2D220E",
       "--cs-accent-glow": "rgba(81, 56, 1, 0.48)",
@@ -5016,6 +5140,7 @@ const tokens = {
       "--cs-accent-strong": "#967C75",
       "--cs-accent-bright": "#FCE6DF",
       "--cs-accent-on": "#2C211E",
+      "--cs-accent-on-strong": "#1A1108",
       "--cs-accent-tint": "#FEF4F2",
       "--cs-accent-ink": "#2C211E",
       "--cs-accent-glow": "rgba(255, 225, 216, 0.48)",
@@ -5029,6 +5154,7 @@ const tokens = {
       "--cs-accent-strong": "#B47054",
       "--cs-accent-bright": "#FED3C3",
       "--cs-accent-on": "#381B10",
+      "--cs-accent-on-strong": "#1A1108",
       "--cs-accent-tint": "#FFF4F0",
       "--cs-accent-ink": "#381B10",
       "--cs-accent-glow": "rgba(252, 175, 145, 0.48)",
@@ -5042,6 +5168,7 @@ const tokens = {
       "--cs-accent-strong": "#280D00",
       "--cs-accent-bright": "#F1BEA4",
       "--cs-accent-on": "#361D0F",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#FFF4EF",
       "--cs-accent-ink": "#361D0F",
       "--cs-accent-glow": "rgba(98, 43, 6, 0.48)",
@@ -5055,6 +5182,7 @@ const tokens = {
       "--cs-accent-strong": "#5A8A90",
       "--cs-accent-bright": "#CDF4F9",
       "--cs-accent-on": "#13282B",
+      "--cs-accent-on-strong": "#1A1108",
       "--cs-accent-tint": "#EBFAFC",
       "--cs-accent-ink": "#13282B",
       "--cs-accent-glow": "rgba(192, 245, 252, 0.48)",
@@ -5068,6 +5196,7 @@ const tokens = {
       "--cs-accent-strong": "#108EA0",
       "--cs-accent-bright": "#99EEFF",
       "--cs-accent-on": "#012A30",
+      "--cs-accent-on-strong": "#1A1108",
       "--cs-accent-tint": "#E7FBFF",
       "--cs-accent-ink": "#012A30",
       "--cs-accent-glow": "rgba(46, 219, 247, 0.48)",
@@ -5081,6 +5210,7 @@ const tokens = {
       "--cs-accent-strong": "#011A21",
       "--cs-accent-bright": "#A8D3E0",
       "--cs-accent-on": "#10282F",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#EAFAFF",
       "--cs-accent-ink": "#10282F",
       "--cs-accent-glow": "rgba(0, 69, 84, 0.48)",
@@ -5094,6 +5224,7 @@ const tokens = {
       "--cs-accent-strong": "#7C8965",
       "--cs-accent-bright": "#E5F1D2",
       "--cs-accent-on": "#212617",
+      "--cs-accent-on-strong": "#1A1108",
       "--cs-accent-tint": "#F4F9ED",
       "--cs-accent-ink": "#212617",
       "--cs-accent-glow": "rgba(225, 241, 200, 0.48)",
@@ -5107,6 +5238,7 @@ const tokens = {
       "--cs-accent-strong": "#629122",
       "--cs-accent-bright": "#C5ED9C",
       "--cs-accent-on": "#182A00",
+      "--cs-accent-on-strong": "#1A1108",
       "--cs-accent-tint": "#EFFCE3",
       "--cs-accent-ink": "#182A00",
       "--cs-accent-glow": "rgba(163, 215, 104, 0.48)",
@@ -5120,6 +5252,7 @@ const tokens = {
       "--cs-accent-strong": "#051D00",
       "--cs-accent-bright": "#B0D8A3",
       "--cs-accent-on": "#162A0E",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#ECFDE7",
       "--cs-accent-ink": "#162A0E",
       "--cs-accent-glow": "rgba(26, 74, 1, 0.48)",
@@ -5133,6 +5266,7 @@ const tokens = {
       "--cs-accent-strong": "#947F65",
       "--cs-accent-bright": "#FBE8D2",
       "--cs-accent-on": "#2B2217",
+      "--cs-accent-on-strong": "#1A1108",
       "--cs-accent-tint": "#FDF5ED",
       "--cs-accent-ink": "#2B2217",
       "--cs-accent-glow": "rgba(254, 229, 199, 0.48)",
@@ -5146,6 +5280,7 @@ const tokens = {
       "--cs-accent-strong": "#AC780B",
       "--cs-accent-bright": "#FDD89F",
       "--cs-accent-on": "#312002",
+      "--cs-accent-on-strong": "#1A1108",
       "--cs-accent-tint": "#FFF5E7",
       "--cs-accent-ink": "#312002",
       "--cs-accent-glow": "rgba(243, 185, 88, 0.48)",
@@ -5159,6 +5294,7 @@ const tokens = {
       "--cs-accent-strong": "#1F1400",
       "--cs-accent-bright": "#DCC8A2",
       "--cs-accent-on": "#2D220E",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#FEF6E7",
       "--cs-accent-ink": "#2D220E",
       "--cs-accent-glow": "rgba(80, 57, 1, 0.48)",
@@ -5302,7 +5438,7 @@ function StatusHub() {
   }, [D, q, facet, kpi]);
   const maxV = Math.max(...D.velocity.map((v) => v.n));
   const toggleKpi = (k) => setKpi((cur) => cur === k ? null : k);
-  return /* @__PURE__ */ React.createElement("div", { className: "sh", lang, "data-theme": dark ? "dark" : void 0 }, /* @__PURE__ */ React.createElement("header", { className: "hd" }, /* @__PURE__ */ React.createElement("div", { className: "hd-in" }, /* @__PURE__ */ React.createElement("div", { className: "hd-id" }, /* @__PURE__ */ React.createElement("span", { className: "hd-mark" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/logo-mark.svg", alt: "" })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h1", null, "Status Hub"), /* @__PURE__ */ React.createElement("p", { className: "hd-sub" }, t.sub))), /* @__PURE__ */ React.createElement("div", { className: "hd-side" }, /* @__PURE__ */ React.createElement("p", { className: "hd-meta" }, t.updated, /* @__PURE__ */ React.createElement("br", null), VI ? VI.updated : D.updated), /* @__PURE__ */ React.createElement("button", { className: "btn ghost", onClick: () => setLang((l) => l === "en" ? "vi" : "en"), "aria-label": "Toggle language", style: { fontWeight: 700, fontSize: 13 } }, t.langBtn), /* @__PURE__ */ React.createElement("button", { className: "btn ghost", onClick: () => setDark((v) => !v), "aria-label": t.theme }, /* @__PURE__ */ React.createElement(ThemeGlyph, { dark }))))), /* @__PURE__ */ React.createElement("div", { className: "wrap" }, /* @__PURE__ */ React.createElement("div", { className: "deck" }, /* @__PURE__ */ React.createElement("section", { className: "panel" }, /* @__PURE__ */ React.createElement("h2", null, t.portfolio), /* @__PURE__ */ React.createElement("div", { className: "kpis" }, /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === null ? "1" : "0", onClick: () => setKpi(null) }, /* @__PURE__ */ React.createElement("b", null, counts.total), /* @__PURE__ */ React.createElement("span", null, t.projects)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "active" ? "1" : "0", onClick: () => toggleKpi("active") }, /* @__PURE__ */ React.createElement("b", null, counts.active), /* @__PURE__ */ React.createElement("span", null, t.inprog)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "done" ? "1" : "0", onClick: () => toggleKpi("done") }, /* @__PURE__ */ React.createElement("b", null, counts.done), /* @__PURE__ */ React.createElement("span", null, t.shipped)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "hold" ? "1" : "0", onClick: () => toggleKpi("hold") }, /* @__PURE__ */ React.createElement("b", null, counts.hold), /* @__PURE__ */ React.createElement("span", null, t.blocked)), /* @__PURE__ */ React.createElement("button", { className: "kpi", onClick: () => setKpi(null) }, /* @__PURE__ */ React.createElement("b", null, counts.avg, "%"), /* @__PURE__ */ React.createElement("span", null, t.avg))), /* @__PURE__ */ React.createElement(Segments, { seg: { done: 60, active: 22, hold: 6, todo: 12 }, className: "bar-seg" }), /* @__PURE__ */ React.createElement("div", { className: "legend" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-semantic-success)" } }), t.shipped), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-brand-ochre)" } }), t.inprog), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-semantic-danger)" } }), t.blocked), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-status-todo)" } }), t.planned))), /* @__PURE__ */ React.createElement("section", { className: "panel" }, /* @__PURE__ */ React.createElement("h2", null, t.velocity), /* @__PURE__ */ React.createElement("div", { className: "spark" }, D.velocity.map((v) => /* @__PURE__ */ React.createElement("a", { key: v.wk, title: v.n + t.perShipped }, /* @__PURE__ */ React.createElement("b", null, v.n), /* @__PURE__ */ React.createElement("i", { style: { height: v.n / maxV * 72 + "px" } }), /* @__PURE__ */ React.createElement("span", null, v.wk)))))), /* @__PURE__ */ React.createElement("div", { className: "now" }, /* @__PURE__ */ React.createElement("h2", null, t.nowTitle), lang === "vi" ? /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "v1.6.0 — Liên kết Glass + gói Ngũ Hành v2."), " Liên kết component ", /* @__PURE__ */ React.createElement("span", { className: "mono" }, ".cs-surface-*"), " (tùy chọn), trình kiểm 0 cảnh báo trên cả 15 gói, và kiểm tra lại APCA cho chế độ tối. Ra mắt tuần này.") : /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "v1.6.0 — Glass bindings + element-pack v2."), " Opt-in ", /* @__PURE__ */ React.createElement("span", { className: "mono" }, ".cs-surface-*"), " component bindings, a zero-warning verifier across all 15 packs, and a dark-mode APCA re-check. Ships this week.")), /* @__PURE__ */ React.createElement("div", { className: "bar" }, /* @__PURE__ */ React.createElement("div", { className: "bar-top" }, /* @__PURE__ */ React.createElement("label", { className: "srch" }, /* @__PURE__ */ React.createElement(SearchGlyph, null), /* @__PURE__ */ React.createElement("input", { placeholder: t.search, value: q, onChange: (e) => setQ(e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "lenses", role: "tablist", "aria-label": t.view }, ["board", "table", "releases"].map((l) => /* @__PURE__ */ React.createElement("button", { key: l, className: "ln", role: "tab", "aria-selected": lens === l, onClick: () => setLens(l) }, t.lenses[l]))), /* @__PURE__ */ React.createElement("label", { className: "facet" }, t.status, /* @__PURE__ */ React.createElement("select", { value: kpi || facet, onChange: (e) => {
+  return /* @__PURE__ */ React.createElement("div", { className: "sh", lang, "data-theme": dark ? "dark" : void 0 }, /* @__PURE__ */ React.createElement("a", { className: "cs-skip", href: "#main", style: { position: "absolute", left: -999, width: 1, height: 1, overflow: "hidden" } }, "Skip to content"), /* @__PURE__ */ React.createElement("header", { className: "hd" }, /* @__PURE__ */ React.createElement("div", { className: "hd-in" }, /* @__PURE__ */ React.createElement("div", { className: "hd-id" }, /* @__PURE__ */ React.createElement("span", { className: "hd-mark" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/logo-mark.svg", alt: "" })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h1", null, "Status Hub"), /* @__PURE__ */ React.createElement("p", { className: "hd-sub" }, t.sub))), /* @__PURE__ */ React.createElement("div", { className: "hd-side" }, /* @__PURE__ */ React.createElement("p", { className: "hd-meta" }, t.updated, /* @__PURE__ */ React.createElement("br", null), VI ? VI.updated : D.updated), /* @__PURE__ */ React.createElement("button", { className: "btn ghost", onClick: () => setLang((l) => l === "en" ? "vi" : "en"), "aria-label": "Toggle language", style: { fontWeight: 700, fontSize: 13 } }, t.langBtn), /* @__PURE__ */ React.createElement("button", { className: "btn ghost", onClick: () => setDark((v) => !v), "aria-label": t.theme }, /* @__PURE__ */ React.createElement(ThemeGlyph, { dark }))))), /* @__PURE__ */ React.createElement("main", { id: "main", className: "wrap" }, /* @__PURE__ */ React.createElement("div", { className: "deck" }, /* @__PURE__ */ React.createElement("section", { className: "panel" }, /* @__PURE__ */ React.createElement("h2", null, t.portfolio), /* @__PURE__ */ React.createElement("div", { className: "kpis" }, /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === null ? "1" : "0", onClick: () => setKpi(null) }, /* @__PURE__ */ React.createElement("b", null, counts.total), /* @__PURE__ */ React.createElement("span", null, t.projects)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "active" ? "1" : "0", onClick: () => toggleKpi("active") }, /* @__PURE__ */ React.createElement("b", null, counts.active), /* @__PURE__ */ React.createElement("span", null, t.inprog)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "done" ? "1" : "0", onClick: () => toggleKpi("done") }, /* @__PURE__ */ React.createElement("b", null, counts.done), /* @__PURE__ */ React.createElement("span", null, t.shipped)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "hold" ? "1" : "0", onClick: () => toggleKpi("hold") }, /* @__PURE__ */ React.createElement("b", null, counts.hold), /* @__PURE__ */ React.createElement("span", null, t.blocked)), /* @__PURE__ */ React.createElement("button", { className: "kpi", onClick: () => setKpi(null) }, /* @__PURE__ */ React.createElement("b", null, counts.avg, "%"), /* @__PURE__ */ React.createElement("span", null, t.avg))), /* @__PURE__ */ React.createElement(Segments, { seg: { done: 60, active: 22, hold: 6, todo: 12 }, className: "bar-seg" }), /* @__PURE__ */ React.createElement("div", { className: "legend" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-semantic-success)" } }), t.shipped), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-brand-ochre)" } }), t.inprog), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-semantic-danger)" } }), t.blocked), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-status-todo)" } }), t.planned))), /* @__PURE__ */ React.createElement("section", { className: "panel" }, /* @__PURE__ */ React.createElement("h2", null, t.velocity), /* @__PURE__ */ React.createElement("div", { className: "spark" }, D.velocity.map((v) => /* @__PURE__ */ React.createElement("a", { key: v.wk, title: v.n + t.perShipped }, /* @__PURE__ */ React.createElement("b", null, v.n), /* @__PURE__ */ React.createElement("i", { style: { height: v.n / maxV * 72 + "px" } }), /* @__PURE__ */ React.createElement("span", null, v.wk)))))), /* @__PURE__ */ React.createElement("div", { className: "now" }, /* @__PURE__ */ React.createElement("h2", null, t.nowTitle), lang === "vi" ? /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "v1.6.0 — Liên kết Glass + gói Ngũ Hành v2."), " Liên kết component ", /* @__PURE__ */ React.createElement("span", { className: "mono" }, ".cs-surface-*"), " (tùy chọn), trình kiểm 0 cảnh báo trên cả 15 gói, và kiểm tra lại APCA cho chế độ tối. Ra mắt tuần này.") : /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "v1.6.0 — Glass bindings + element-pack v2."), " Opt-in ", /* @__PURE__ */ React.createElement("span", { className: "mono" }, ".cs-surface-*"), " component bindings, a zero-warning verifier across all 15 packs, and a dark-mode APCA re-check. Ships this week.")), /* @__PURE__ */ React.createElement("div", { className: "bar" }, /* @__PURE__ */ React.createElement("div", { className: "bar-top" }, /* @__PURE__ */ React.createElement("label", { className: "srch" }, /* @__PURE__ */ React.createElement(SearchGlyph, null), /* @__PURE__ */ React.createElement("input", { placeholder: t.search, value: q, onChange: (e) => setQ(e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "lenses", role: "tablist", "aria-label": t.view }, ["board", "table", "releases"].map((l) => /* @__PURE__ */ React.createElement("button", { key: l, className: "ln", role: "tab", "aria-selected": lens === l, onClick: () => setLens(l) }, t.lenses[l]))), /* @__PURE__ */ React.createElement("label", { className: "facet" }, t.status, /* @__PURE__ */ React.createElement("select", { value: kpi || facet, onChange: (e) => {
     setFacet(e.target.value);
     setKpi(null);
   } }, /* @__PURE__ */ React.createElement("option", { value: "all" }, t.all), /* @__PURE__ */ React.createElement("option", { value: "active" }, t.inprog), /* @__PURE__ */ React.createElement("option", { value: "done" }, t.shipped), /* @__PURE__ */ React.createElement("option", { value: "hold" }, t.blocked))), /* @__PURE__ */ React.createElement("span", { className: "cnt" }, shown.length, " ", t.of, " ", D.projects.length))), lens === "board" && /* @__PURE__ */ React.createElement("div", { className: "grid" }, shown.map((p0) => {
@@ -5499,15 +5635,35 @@ function Website() {
   const [seed, setSeed] = useState("");
   const [wish, setWish] = useState("");
   const [sent, setSent] = useState(false);
+  const [fabVisible, setFabVisible] = useState(false);
   const t = window.SITE_COPY[loc];
   function openChat(s) {
     setSeed(s || "");
     setChat(true);
   }
-  return /* @__PURE__ */ React.createElement("div", { className: "site", "data-theme": dark ? "dark" : void 0 }, /* @__PURE__ */ React.createElement("header", { className: "hdr cs-surface-light" }, /* @__PURE__ */ React.createElement("div", { className: "container hdr-in" }, /* @__PURE__ */ React.createElement("a", { className: "brand", href: "#top" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/logo-mark.svg", alt: "" }), "CyberSkill"), /* @__PURE__ */ React.createElement("nav", { className: "nav" }, t.nav.map((n, i) => /* @__PURE__ */ React.createElement("a", { key: i, href: "#" + ["services", "work", "process", "careers", "contact"][i] }, n))), /* @__PURE__ */ React.createElement("div", { className: "hdr-side" }, /* @__PURE__ */ React.createElement("button", { className: "mini", onClick: () => setLoc(loc === "en" ? "vi" : "en") }, t.langLabel), /* @__PURE__ */ React.createElement("button", { className: "mini icon", onClick: () => setDark(!dark), "aria-label": "Toggle theme" }, /* @__PURE__ */ React.createElement(I, { name: dark ? "sun" : "moon", size: 18 })), /* @__PURE__ */ React.createElement("button", { className: "mini", style: { background: "var(--cs-color-brand-umber)", color: "#fff", borderColor: "transparent" }, onClick: () => openChat("") }, t.talk)))), /* @__PURE__ */ React.createElement("section", { className: "hero", id: "top" }, /* @__PURE__ */ React.createElement("div", { className: "container hero-in" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, t.eyebrow), /* @__PURE__ */ React.createElement("h1", null, t.slogan), /* @__PURE__ */ React.createElement("div", { className: "vn" }, t.sub), /* @__PURE__ */ React.createElement("p", { className: "lead" }, t.lead), /* @__PURE__ */ React.createElement("div", { className: "wish" }, /* @__PURE__ */ React.createElement("input", { value: wish, onChange: (e) => setWish(e.target.value), onKeyDown: (e) => e.key === "Enter" && openChat(wish), placeholder: t.wishPlaceholder, "aria-label": t.wishPlaceholder }), /* @__PURE__ */ React.createElement("button", { className: "btn-gold", onClick: () => openChat(wish) }, /* @__PURE__ */ React.createElement(I, { name: "sparkle", size: 18 }), t.wishCta), /* @__PURE__ */ React.createElement("button", { className: "btn-ghost-light", onClick: () => openChat("") }, t.talk))), /* @__PURE__ */ React.createElement("div", { className: "hero-art" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/lumi-poster.webp", alt: "Lumi, the golden genie" })))), /* @__PURE__ */ React.createElement("div", { className: "marq" }, /* @__PURE__ */ React.createElement("div", { className: "container marq-in" }, t.marquee.map((m, i) => /* @__PURE__ */ React.createElement(React.Fragment, { key: i }, i > 0 && /* @__PURE__ */ React.createElement("b", null, "·"), /* @__PURE__ */ React.createElement("span", null, m))))), /* @__PURE__ */ React.createElement("section", { className: "sec", id: "services" }, /* @__PURE__ */ React.createElement("div", { className: "container" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, t.nav[0]), /* @__PURE__ */ React.createElement("h2", null, t.servicesTitle), /* @__PURE__ */ React.createElement("p", { className: "sec-lead" }, t.servicesLead), /* @__PURE__ */ React.createElement("div", { className: "svc-grid" }, t.services.map((s, i) => /* @__PURE__ */ React.createElement("article", { className: "svc cs-surface-standard", key: i }, /* @__PURE__ */ React.createElement("div", { className: "svc-ic" }, /* @__PURE__ */ React.createElement(I, { name: s.icon })), /* @__PURE__ */ React.createElement("h3", null, s.t), /* @__PURE__ */ React.createElement("p", null, s.s), /* @__PURE__ */ React.createElement("ul", null, s.o.map((o) => /* @__PURE__ */ React.createElement("li", { key: o }, o)))))))), /* @__PURE__ */ React.createElement("section", { className: "sec sec-alt", id: "process" }, /* @__PURE__ */ React.createElement("div", { className: "container" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, t.nav[2]), /* @__PURE__ */ React.createElement("h2", null, t.processTitle), /* @__PURE__ */ React.createElement("p", { className: "sec-lead" }, t.processLead), /* @__PURE__ */ React.createElement("div", { className: "steps" }, t.steps.map((s) => /* @__PURE__ */ React.createElement("div", { className: "step", key: s.n }, /* @__PURE__ */ React.createElement("span", { className: "n" }, s.n), /* @__PURE__ */ React.createElement("h3", null, s.t), /* @__PURE__ */ React.createElement("p", null, s.s)))))), /* @__PURE__ */ React.createElement("section", { className: "sec", id: "careers" }, /* @__PURE__ */ React.createElement("div", { className: "container" }, /* @__PURE__ */ React.createElement("div", { className: "band" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", null, t.careersTitle), /* @__PURE__ */ React.createElement("p", null, t.careersLead)), /* @__PURE__ */ React.createElement("button", { className: "btn-gold", onClick: () => openChat("") }, t.careersCta, /* @__PURE__ */ React.createElement(I, { name: "arrow-right", size: 18 }))))), /* @__PURE__ */ React.createElement("section", { className: "sec sec-alt", id: "contact" }, /* @__PURE__ */ React.createElement("div", { className: "container contact-grid" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, t.nav[4]), /* @__PURE__ */ React.createElement("h2", null, t.contactTitle), /* @__PURE__ */ React.createElement("p", { className: "sec-lead", style: { marginBottom: 16 } }, t.contactLead), /* @__PURE__ */ React.createElement("p", { className: "trust" }, /* @__PURE__ */ React.createElement(I, { name: "check", size: 16 }), t.form.trust)), sent ? /* @__PURE__ */ React.createElement("div", { className: "sent" }, /* @__PURE__ */ React.createElement(I, { name: "check", size: 18 }), " ", loc === "vi" ? "Đã nhận được lời nhắn. Cảm ơn bạn!" : "Message received. Thank you!") : /* @__PURE__ */ React.createElement("form", { className: "form", onSubmit: (e) => {
+  useEffect(() => {
+    const sync = () => setFabVisible(window.scrollY > 140);
+    sync();
+    window.addEventListener("scroll", sync, { passive: true });
+    return () => window.removeEventListener("scroll", sync);
+  }, []);
+  return /* @__PURE__ */ React.createElement("div", { className: "site", "data-theme": dark ? "dark" : void 0 }, /* @__PURE__ */ React.createElement("a", { className: "cs-skip", href: "#main", style: { position: "absolute", left: -999, width: 1, height: 1, overflow: "hidden" } }, "Skip to content"), /* @__PURE__ */ React.createElement("header", { className: "hdr cs-surface-light" }, /* @__PURE__ */ React.createElement("div", { className: "container hdr-in" }, /* @__PURE__ */ React.createElement("a", { className: "brand", href: "#top" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/logo-mark.svg", alt: "" }), "CyberSkill"), /* @__PURE__ */ React.createElement("nav", { className: "nav" }, t.nav.map((n, i) => /* @__PURE__ */ React.createElement("a", { key: i, href: "#" + ["services", "work", "process", "careers", "contact"][i] }, n))), /* @__PURE__ */ React.createElement("div", { className: "hdr-side" }, /* @__PURE__ */ React.createElement("button", { className: "mini", onClick: () => setLoc(loc === "en" ? "vi" : "en") }, t.langLabel), /* @__PURE__ */ React.createElement("button", { className: "mini icon", onClick: () => setDark(!dark), "aria-label": "Toggle theme" }, /* @__PURE__ */ React.createElement(I, { name: dark ? "sun" : "moon", size: 18 })), /* @__PURE__ */ React.createElement("button", { className: "mini", style: { background: "var(--cs-color-brand-umber)", color: "var(--cs-color-text-inverse,#fff)", borderColor: "transparent" }, onClick: () => openChat("") }, t.talk)))), /* @__PURE__ */ React.createElement("main", { id: "main" }, /* @__PURE__ */ React.createElement("section", { className: "hero", id: "top" }, /* @__PURE__ */ React.createElement("div", { className: "container hero-in" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, t.eyebrow), /* @__PURE__ */ React.createElement("h1", null, t.slogan), /* @__PURE__ */ React.createElement("div", { className: "vn" }, t.sub), /* @__PURE__ */ React.createElement("p", { className: "lead" }, t.lead), /* @__PURE__ */ React.createElement("div", { className: "wish" }, /* @__PURE__ */ React.createElement("input", { value: wish, onChange: (e) => setWish(e.target.value), onKeyDown: (e) => e.key === "Enter" && openChat(wish), placeholder: t.wishPlaceholder, "aria-label": t.wishPlaceholder }), /* @__PURE__ */ React.createElement("button", { className: "btn-gold", onClick: () => openChat(wish) }, /* @__PURE__ */ React.createElement(I, { name: "sparkle", size: 18 }), t.wishCta))), /* @__PURE__ */ React.createElement("div", { className: "hero-art" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/lumi-poster.webp", alt: "Lumi, the golden genie" })))), /* @__PURE__ */ React.createElement("div", { className: "marq" }, /* @__PURE__ */ React.createElement("div", { className: "container marq-in" }, t.marquee.map((m, i) => /* @__PURE__ */ React.createElement(React.Fragment, { key: i }, i > 0 && /* @__PURE__ */ React.createElement("b", null, "·"), /* @__PURE__ */ React.createElement("span", null, m))))), /* @__PURE__ */ React.createElement("section", { className: "sec", id: "services" }, /* @__PURE__ */ React.createElement("div", { className: "container" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, t.nav[0]), /* @__PURE__ */ React.createElement("h2", null, t.servicesTitle), /* @__PURE__ */ React.createElement("p", { className: "sec-lead" }, t.servicesLead), /* @__PURE__ */ React.createElement("div", { className: "svc-grid" }, t.services.map((s, i) => /* @__PURE__ */ React.createElement("article", { className: "svc cs-surface-standard", key: i }, /* @__PURE__ */ React.createElement("div", { className: "svc-ic" }, /* @__PURE__ */ React.createElement(I, { name: s.icon })), /* @__PURE__ */ React.createElement("h3", null, s.t), /* @__PURE__ */ React.createElement("p", null, s.s), /* @__PURE__ */ React.createElement("ul", null, s.o.map((o) => /* @__PURE__ */ React.createElement("li", { key: o }, o)))))))), /* @__PURE__ */ React.createElement("section", { className: "sec sec-alt", id: "process" }, /* @__PURE__ */ React.createElement("div", { className: "container" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, t.nav[2]), /* @__PURE__ */ React.createElement("h2", null, t.processTitle), /* @__PURE__ */ React.createElement("p", { className: "sec-lead" }, t.processLead), /* @__PURE__ */ React.createElement("div", { className: "steps" }, t.steps.map((s) => /* @__PURE__ */ React.createElement("div", { className: "step", key: s.n }, /* @__PURE__ */ React.createElement("span", { className: "n" }, s.n), /* @__PURE__ */ React.createElement("h3", null, s.t), /* @__PURE__ */ React.createElement("p", null, s.s)))))), /* @__PURE__ */ React.createElement("section", { className: "sec", id: "careers" }, /* @__PURE__ */ React.createElement("div", { className: "container" }, /* @__PURE__ */ React.createElement("div", { className: "band" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", null, t.careersTitle), /* @__PURE__ */ React.createElement("p", null, t.careersLead)), /* @__PURE__ */ React.createElement("button", { className: "btn-gold", onClick: () => openChat("") }, t.careersCta, /* @__PURE__ */ React.createElement(I, { name: "arrow-right", size: 18 }))))), /* @__PURE__ */ React.createElement("section", { className: "sec sec-alt", id: "contact" }, /* @__PURE__ */ React.createElement("div", { className: "container contact-grid" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, t.nav[4]), /* @__PURE__ */ React.createElement("h2", null, t.contactTitle), /* @__PURE__ */ React.createElement("p", { className: "sec-lead", style: { marginBottom: 16 } }, t.contactLead), /* @__PURE__ */ React.createElement("p", { className: "trust" }, /* @__PURE__ */ React.createElement(I, { name: "check", size: 16 }), t.form.trust)), sent ? /* @__PURE__ */ React.createElement("div", { className: "sent" }, /* @__PURE__ */ React.createElement(I, { name: "check", size: 18 }), " ", loc === "vi" ? "Đã nhận được lời nhắn. Cảm ơn bạn!" : "Message received. Thank you!") : /* @__PURE__ */ React.createElement("form", { className: "form", onSubmit: (e) => {
     e.preventDefault();
     setSent(true);
-  } }, /* @__PURE__ */ React.createElement("label", { className: "cs-field" }, /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, t.form.name), /* @__PURE__ */ React.createElement("input", { className: "cs-field__control", required: true })), /* @__PURE__ */ React.createElement("label", { className: "cs-field" }, /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, t.form.email), /* @__PURE__ */ React.createElement("input", { className: "cs-field__control", type: "email", required: true })), /* @__PURE__ */ React.createElement("label", { className: "cs-field" }, /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, t.form.company, " ", /* @__PURE__ */ React.createElement("span", { className: "muted", style: { fontWeight: 400, color: "var(--cs-color-text-muted)" } }, "· ", t.form.optional)), /* @__PURE__ */ React.createElement("input", { className: "cs-field__control" })), /* @__PURE__ */ React.createElement("label", { className: "cs-field" }, /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, t.form.message), /* @__PURE__ */ React.createElement("textarea", { className: "cs-field__control", rows: "3" })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-gold" }, t.form.submit, /* @__PURE__ */ React.createElement(I, { name: "arrow-right", size: 18 })))))), /* @__PURE__ */ React.createElement("footer", { className: "ft" }, /* @__PURE__ */ React.createElement("div", { className: "container ft-in" }, /* @__PURE__ */ React.createElement("a", { className: "brand", href: "#top" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/logo-mark.svg", alt: "" }), "CyberSkill"), /* @__PURE__ */ React.createElement("div", { className: "ft-links" }, t.footerLinks.map((l) => /* @__PURE__ */ React.createElement("a", { key: l, href: "#top" }, l))), /* @__PURE__ */ React.createElement("small", null, "© 2026 CyberSkill · ", t.footerRights, " · Saigon"))), !chat && /* @__PURE__ */ React.createElement("button", { className: "fab", onClick: () => openChat("") }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/lumi-poster.webp", alt: "" }), t.talk), chat && /* @__PURE__ */ React.createElement(Chat, { t, seed, onClose: () => setChat(false) }));
+  } }, /* @__PURE__ */ React.createElement("label", { className: "cs-field" }, /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, t.form.name), /* @__PURE__ */ React.createElement("input", { className: "cs-field__control", required: true })), /* @__PURE__ */ React.createElement("label", { className: "cs-field" }, /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, t.form.email), /* @__PURE__ */ React.createElement("input", { className: "cs-field__control", type: "email", required: true })), /* @__PURE__ */ React.createElement("label", { className: "cs-field" }, /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, t.form.company, " ", /* @__PURE__ */ React.createElement("span", { className: "muted", style: { fontWeight: 400, color: "var(--cs-color-text-muted)" } }, "· ", t.form.optional)), /* @__PURE__ */ React.createElement("input", { className: "cs-field__control" })), /* @__PURE__ */ React.createElement("label", { className: "cs-field" }, /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, t.form.message), /* @__PURE__ */ React.createElement("textarea", { className: "cs-field__control", rows: "3" })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-gold" }, t.form.submit, /* @__PURE__ */ React.createElement(I, { name: "arrow-right", size: 18 }))))))), /* @__PURE__ */ React.createElement("footer", { className: "ft" }, /* @__PURE__ */ React.createElement("div", { className: "container ft-in" }, /* @__PURE__ */ React.createElement("a", { className: "brand", href: "#top" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/logo-mark.svg", alt: "" }), "CyberSkill"), /* @__PURE__ */ React.createElement("div", { className: "ft-links" }, t.footerLinks.map((l) => /* @__PURE__ */ React.createElement("a", { key: l, href: "#top" }, l))), /* @__PURE__ */ React.createElement("small", null, "© 2026 CyberSkill · ", t.footerRights, " · Saigon"))), !chat && /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      className: "fab",
+      type: "button",
+      "data-fab-deferred": "1",
+      onClick: () => openChat(""),
+      style: { opacity: fabVisible ? 1 : 0, pointerEvents: fabVisible ? "auto" : "none", transition: "opacity 160ms ease" },
+      "aria-hidden": !fabVisible,
+      tabIndex: fabVisible ? 0 : -1
+    },
+    /* @__PURE__ */ React.createElement("img", { src: "../../assets/lumi-poster.webp", alt: "" }),
+    t.talk
+  ), chat && /* @__PURE__ */ React.createElement(Chat, { t, seed, onClose: () => setChat(false) }));
 }
 window.Website = Website;
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/Website.jsx", error: String((e && e.message) || e) }); }

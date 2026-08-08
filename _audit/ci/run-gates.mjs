@@ -13,7 +13,8 @@ page.on('console', (m) => { if (/VERDICT|ERROR/i.test(m.text())) console.log('[p
 await page.goto(url, { waitUntil: 'load' });
 
 // The runner sets window.__run once every gate (incl. advisory) has settled.
-const result = await page.waitForFunction(() => window.__run, null, { timeout: 5 * 60 * 1000 })
+// Light-contrast + overflow@320 whole-set rows live on the fast board (UX audit D2/E2) — allow headroom.
+const result = await page.waitForFunction(() => window.__run, null, { timeout: 12 * 60 * 1000 })
   .then((h) => h.jsonValue())
   .catch(() => null);
 

@@ -15,12 +15,14 @@ const TONE = {
  */
 export function ConfidenceMeter({ value, level, segments = 5, label, lang, className }) {
   let tone, filled;
+  const segs = Math.max(1, Number(segments) || 5);
   if (value != null) {
-    tone = value < 0.4 ? "low" : value < 0.75 ? "medium" : "high";
-    filled = Math.max(1, Math.round(value * segments));
+    const v = Math.max(0, Math.min(1, Number(value) || 0));
+    tone = v < 0.4 ? "low" : v < 0.75 ? "medium" : "high";
+    filled = Math.max(0, Math.min(segs, Math.round(v * segs)));
   } else {
-    tone = level || "medium";
-    filled = Math.round((TONE[tone].fill / 5) * segments);
+    tone = TONE[level] ? level : "medium";
+    filled = Math.max(0, Math.min(segs, Math.round((TONE[tone].fill / 5) * segs)));
   }
   const meta = TONE[tone];
   const [ref, L] = useLang(lang);
@@ -33,8 +35,8 @@ export function ConfidenceMeter({ value, level, segments = 5, label, lang, class
         <span>{lbl}</span>
         <span className="cs-confidence__level" style={{ color: meta.color }}>{levelText}</span>
       </div>
-      <div className="cs-confidence__track" role="meter" aria-valuemin={0} aria-valuemax={segments} aria-valuenow={filled} aria-label={lbl + ": " + levelText}>
-        {Array.from({ length: segments }).map((_, i) => (
+      <div className="cs-confidence__track" role="meter" aria-valuemin={0} aria-valuemax={segs} aria-valuenow={filled} aria-label={lbl + ": " + levelText}>
+        {Array.from({ length: segs }).map((_, i) => (
           <span key={i} className="cs-confidence__seg" style={i < filled ? { background: meta.color } : undefined} />
         ))}
       </div>

@@ -9,6 +9,19 @@
  * Focus rings are NOT here — they are already systematic (global :focus-visible in
  * reset.css + per-component 3px ochre rings in components/forms/navigation/controls). */
 
+/* Visually hidden but available to AT / file inputs (FileUpload keyboard path). */
+.cs-sr-only {
+  position: absolute !important;
+  inline-size: 1px !important;
+  block-size: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 /* ---- 1. Touch targets: 44px minimum on coarse pointers ---- */
 @media (pointer: coarse) {
   /* Primary navigation & action targets → full 44px */
@@ -54,4 +67,9 @@
 @media (prefers-contrast: more) {
   :root { --cs-color-border-default: #9a8060; --cs-color-text-muted: #5a4638; }
   [data-theme="dark"] { --cs-color-border-default: #7a6450; --cs-color-text-muted: #d8c9b6; }
+}
+
+/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] { --cs-color-border-default: #7a6450; --cs-color-text-muted: #d8c9b6; }
 }

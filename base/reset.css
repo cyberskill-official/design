@@ -14,4 +14,4 @@ body {
 :where(h1, h2, h3, h4, h5, h6) { line-height: var(--cs-font-lineHeight-heading, 1.35); text-wrap: balance; }
 :where(p) { text-wrap: pretty; }
 :where(code, pre, kbd, samp) { font-family: var(--cs-font-family-mono, ui-monospace, monospace); }
-:where(:focus-visible) { outline: 2px solid var(--cs-color-accent-ochre, #f4ba17); outline-offset: 2px; }
+:where(:focus-visible) { outline: var(--cs-focus-ring, 3px) solid var(--cs-color-accent-ochre, #f4ba17); outline-offset: 2px; }

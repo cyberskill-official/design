@@ -37,3 +37,9 @@
 .cs-menu__item--danger:hover { background: color-mix(in oklab, var(--cs-color-semantic-danger) 10%, transparent); }
 .cs-menu__sep { block-size: 1px; background: var(--cs-color-border-default); margin: 4px 2px; }
 .cs-menu__label { font-size: var(--cs-font-size-xs); text-transform: uppercase; letter-spacing: var(--cs-letter-spacing-caps); color: var(--cs-color-text-muted); padding: 6px 10px 2px; }
+
+/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] .cs-tab[aria-selected="true"] { color: var(--cs-color-brand-ochre); }
+  [data-theme="system"] .cs-pagination button[aria-current="page"] { background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); }
+}

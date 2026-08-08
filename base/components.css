@@ -130,7 +130,7 @@
 .cs-field__error { color: var(--cs-color-semantic-danger, #b42318); font-size: 0.875rem; }
 
 /* ---- Dialog ---- */
-.cs-dialog-layer { inset: 0; position: fixed; z-index: 1000; }
+.cs-dialog-layer { inset: 0; position: fixed; z-index: var(--cs-depth-modal); }
 .cs-dialog__overlay { background: rgba(31, 19, 11, 0.42); inset: 0; position: absolute; }
 .cs-dialog {
   background: var(--cs-color-surface-panel, #ffffff);
@@ -212,4 +212,11 @@
 .cs-button, .cs-field, .cs-field__control, .cs-dialog, .cs-table,
 .cs-ai-disclosure, .cs-review-gate, .cs-logo {
   font-family: var(--cs-font-family-ui, ui-sans-serif, system-ui);
+}
+
+/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
+@media (prefers-color-scheme: dark) {
+  /* Dark theme: umber text/border on the low-emphasis buttons is invisible on dark surfaces —
+   remap so secondary reads as an ochre outline and tertiary/ghost use the light body colour. */
+[data-theme="system"] .cs-button--secondary { color: var(--cs-color-brand-ochre); border-color: var(--cs-color-brand-ochre); }
 }

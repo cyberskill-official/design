@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — artifact head gate</title>
+<style>
+  body{margin:0;font-family:ui-monospace,monospace;font-size:11.5px;padding:14px 18px;background:#efe6d8;color:#231a12}
+  h1{font-family:system-ui;font-size:15px;margin:0 0 8px}
+  .lede{font-family:system-ui;color:#6b5d4f;max-width:920px;line-height:1.45;margin:0 0 10px}
+  .r{display:flex;justify-content:space-between;padding:2px 8px;border-radius:4px;max-width:920px}
+  .r.bad{background:#FEE2E2;color:#B42318;font-weight:700}
+  .r.ok{color:#166534}
+  #sum{font-family:system-ui;font-size:14px;font-weight:800;margin:10px 0}
+  #pool{position:fixed;left:-6000px;top:0}
+</style></head><body>
+<h1>Artifact head — title + html lang on every template</h1>
+<p class="lede">UX-002 / Phase 0–1. Fresh-iframe probe of every manifest template: after settle, require a non-empty <code>document.title</code> and a non-empty <code>&lt;html lang&gt;</code>. Phase 0 ships advisory (board does not fail); Phase 1 flips hard once ds-base injection lands. Verdict on <code>window.__artifacthead</code>.</p>
+<div id="busy">loading…</div>
+<div id="grid"></div>
+<div id="sum"></div>
+<div id="pool"></div>
+<script>
+const SETTLE=2800, GROUP=6;
+const pool=document.getElementById('pool'), grid=document.getElementById('grid'), busy=document.getElementById('busy');
+const results=[];
+function probe(src){
+  return new Promise(res=>{
+    const f=document.createElement('iframe');
+    f.style.cssText='width:1280px;height:800px;border:0';
+    f.src=src; pool.appendChild(f);
+    f.onload=()=>{
+      setTimeout(()=>{
+        let title='', lang='', err=null;
+        try{
+          const d=f.contentDocument;
+          title=(d.title||'').trim();
+          lang=(d.documentElement.getAttribute('lang')||'').trim();
+        }catch(e){ err=String(e.message||e); }
+        f.remove();
+        res({title,lang,err});
+      }, SETTLE);
+    };
+  });
+}
+(async()=>{
+  const M=await (await fetch('../_ds_manifest.json')).json();
+  const tpls=M.templates.map(t=>({name:t.name,src:'../'+t.entryPath}));
+  busy.textContent='probing '+tpls.length+'…';
+  for(let i=0;i<tpls.length;i+=GROUP){
+    const batch=tpls.slice(i,i+GROUP);
+    const measured=await Promise.all(batch.map(t=>probe(t.src)));
+    batch.forEach((t,j)=>{
+      const m=measured[j];
+      const ok=!m.err && !!m.title && !!m.lang;
+      results.push({name:t.name,ok,title:m.title,lang:m.lang,err:m.err});
+      const row=document.createElement('div');
+      row.className='r '+(ok?'ok':'bad');
+      row.innerHTML='<span>'+t.name+'</span><span>'+(ok?('✓ "'+m.title.slice(0,40)+'" lang='+m.lang):(m.err||('title='+(m.title?'y':'n')+' lang='+(m.lang||'∅'))))+'</span>';
+      grid.appendChild(row);
+    });
+    busy.textContent='probed '+results.length+'/'+tpls.length;
+    window.__all={done:results.length,total:tpls.length,results};
+  }
+  const bad=results.filter(r=>!r.ok);
+  // Phase 1: hard pass when zero failures. Known baseline count retained for reporting.
+  window.__artifacthead={pass:bad.length===0,total:tpls.length,failed:bad.length,missing:bad.map(r=>r.name),baselineExpected:84};
+  busy.textContent='done';
+  const sum=document.getElementById('sum');
+  sum.textContent=bad.length?('✗ '+bad.length+'/'+tpls.length+' missing title/lang'):('✓ '+tpls.length+' templates have title + html lang');
+  sum.style.color=bad.length?'#B42318':'#166534';
+})();
+</script></body></html>

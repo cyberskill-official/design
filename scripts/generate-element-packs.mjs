@@ -62,12 +62,37 @@ const ROLE_KEYS = [
   '--cs-accent-strong',
   '--cs-accent-bright',
   '--cs-accent-on',
+  '--cs-accent-on-strong',
   '--cs-accent-tint',
   '--cs-accent-ink',
   '--cs-accent-glow',
   '--cs-accent-grad-a',
   '--cs-accent-grad-b',
 ];
+
+/** Pick / tune a text colour that clears WCAG AA (≥4.5:1) on a strong fill. */
+function ensureOnStrong(strongHex, candidates = ['#1A1108', '#45210E', '#FFFDF8', '#FFFFFF']) {
+  let best = candidates[0];
+  let bestR = 0;
+  for (const c of candidates) {
+    const r = wcagRatio(c, strongHex);
+    if (r > bestR) {
+      bestR = r;
+      best = c;
+    }
+  }
+  if (bestR >= 4.5) return best;
+  // Darken ink until AA, or lighten cream the other way.
+  const preferDark = bestR < 4.5 && relLum(best) < relLum(strongHex);
+  let hex = preferDark ? '#1A1108' : '#FFFDF8';
+  const lch = hexToLCH(hex);
+  let L = lch.L;
+  for (let i = 0; i < 120 && wcagRatio(hex, strongHex) < 4.5; i++) {
+    L = preferDark ? clamp(L - 0.01, 0.02, 0.5) : clamp(L + 0.01, 0.7, 0.99);
+    hex = lchDegToHex(L, Math.min(lch.C, 0.04), lch.Hdeg);
+  }
+  return hex;
+}
 
 const EL_ORDER = ['tho', 'hoa', 'thuy', 'moc', 'kim'];
 const EL_LABEL = {
@@ -131,11 +156,13 @@ function deriveLightRoles(seeds, accent, gradB, { pinThoStudio }) {
   };
 
   if (pinThoStudio) {
+    const strong = finishStrong(lchDegToHex(0.65, accent.C * 0.85, accent.H));
     return {
       '--cs-accent': accentHex,
-      '--cs-accent-strong': finishStrong(lchDegToHex(0.65, accent.C * 0.85, accent.H)),
+      '--cs-accent-strong': strong,
       '--cs-accent-bright': accentHex,
       '--cs-accent-on': '#45210E',
+      '--cs-accent-on-strong': ensureOnStrong(strong, ['#1A1108', '#45210E', '#FFFDF8']),
       '--cs-accent-tint': '#FBF4E9',
       '--cs-accent-ink': '#45210E',
       '--cs-accent-glow': hexToRgba(accentHex, r.glowAlpha),
@@ -143,11 +170,13 @@ function deriveLightRoles(seeds, accent, gradB, { pinThoStudio }) {
       '--cs-accent-grad-b': gradB,
     };
   }
+  const strong = finishStrong(strongSeed);
   return {
     '--cs-accent': accentHex,
-    '--cs-accent-strong': finishStrong(strongSeed),
+    '--cs-accent-strong': strong,
     '--cs-accent-bright': bright,
     '--cs-accent-on': on,
+    '--cs-accent-on-strong': ensureOnStrong(strong, [ink, on, '#1A1108', '#FFFDF8', '#FFFFFF']),
     '--cs-accent-tint': tint,
     '--cs-accent-ink': ink,
     '--cs-accent-glow': hexToRgba(accentHex, r.glowAlpha),
@@ -209,11 +238,13 @@ function deriveDarkRoles(seeds, light) {
     ink = pinH(ink);
   }
 
+  const onStrong = ensureOnStrong(strong, [bo.on, D.ink, D.text, '#1A1108', '#FFFDF8']);
   return {
     '--cs-accent': accent,
     '--cs-accent-bright': bright,
     '--cs-accent-strong': strong,
     '--cs-accent-on': bo.on,
+    '--cs-accent-on-strong': onStrong,
     '--cs-accent-tint': tint,
     '--cs-accent-ink': ink,
   };
@@ -270,10 +301,12 @@ function emitCss(packs) {
  * Five elements: Kim (metal) · Mộc (wood) · Thủy (water) · Hỏa (fire) · Thổ (earth).
  * Soft / middle / deep intensity ladder (middle = default). Thổ middle pins logo ochre.
  *
- * Contract — every element/variant sets exactly these 9 role tokens:
+ * Contract — every element/variant sets exactly these 10 role tokens:
  *   --cs-accent · --cs-accent-strong · --cs-accent-bright · --cs-accent-on
- *   --cs-accent-tint · --cs-accent-ink · --cs-accent-glow · --cs-accent-grad-a/b
+ *   --cs-accent-on-strong · --cs-accent-tint · --cs-accent-ink
+ *   --cs-accent-glow · --cs-accent-grad-a/b
  * TEXT RULE: text sits on -bright or -tint only — never on the mid-tone -accent.
+ * Text on -strong uses --cs-accent-on-strong (WCAG AA ≥4.5:1 light and dark).
  * Focus ring --cs-color-accent-ochre and semantic status tokens NEVER remap.
  * Generative cycle (Tương sinh) only for grad-b: Mộc→Hỏa→Thổ→Kim→Thủy→Mộc. */
 `;
@@ -341,7 +374,7 @@ function emitCss(packs) {
       const sel = p.variant
         ? `[data-theme="dark"][data-cs-element="${el}"][data-cs-variant="${p.variant}"]`
         : `[data-theme="dark"][data-cs-element="${el}"]`;
-      const keys = ['--cs-accent', '--cs-accent-bright', '--cs-accent-strong', '--cs-accent-on', '--cs-accent-tint', '--cs-accent-ink'];
+      const keys = ['--cs-accent', '--cs-accent-bright', '--cs-accent-strong', '--cs-accent-on', '--cs-accent-on-strong', '--cs-accent-tint', '--cs-accent-ink'];
       css += `${sel} {\n${decls(p.dark, keys)}\n}\n`;
     }
   }
@@ -371,8 +404,9 @@ function buildTokensJson(elements) {
   const j = JSON.parse(fs.readFileSync(p, 'utf8'));
   j.elements = elements;
   const tho = elements.tho;
+  if (!j.root.accent) j.root.accent = {};
   for (const k of ROLE_KEYS) {
-    if (j.root.accent[k] != null) j.root.accent[k] = tho[k];
+    if (tho[k] != null) j.root.accent[k] = tho[k];
   }
   return JSON.stringify(j, null, 2) + '\n';
 }
@@ -386,8 +420,9 @@ function buildTokensJs(elements) {
   const j = JSON.parse(m[1]);
   j.elements = elements;
   const tho = elements.tho;
+  if (!j.root.accent) j.root.accent = {};
   for (const k of ROLE_KEYS) {
-    if (j.root.accent[k] != null) j.root.accent[k] = tho[k];
+    if (tho[k] != null) j.root.accent[k] = tho[k];
   }
   return `// CyberSkill design tokens — generated from tokens/*.css (v1.1.1). Do not edit by hand.\nexport const tokens = ${JSON.stringify(j, null, 2)};\nexport default tokens;\n`;
 }
@@ -401,10 +436,11 @@ function buildDtcg(elements, elementsDark) {
   ext.overrides.elementsDark = { ...elementsDark };
   // Keep typed accent leaves in lockstep with :root / Thổ middle
   const tho = elements.tho;
-  if (j.accent) {
-    for (const k of ROLE_KEYS) {
-      if (j.accent[k] && j.accent[k].$value !== undefined) j.accent[k].$value = tho[k];
-    }
+  if (!j.accent) j.accent = {};
+  for (const k of ROLE_KEYS) {
+    if (tho[k] == null) continue;
+    if (!j.accent[k]) j.accent[k] = { $type: 'color', $value: tho[k] };
+    else j.accent[k].$value = tho[k];
   }
   return JSON.stringify(j, null, 2) + '\n';
 }
@@ -441,6 +477,18 @@ function selfCheck(seeds, packs) {
         console.warn(`  WARN APCA ${p.el}.${p.variant || 'middle'} ${name} Lc=${lc} < ${t}`);
         fails++;
       }
+    }
+    const onStrongL = p.light['--cs-accent-on-strong'];
+    const strongL = p.light['--cs-accent-strong'];
+    const onStrongD = p.dark['--cs-accent-on-strong'];
+    const strongD = p.dark['--cs-accent-strong'];
+    if (wcagRatio(onStrongL, strongL) < 4.5) {
+      console.warn(`  WARN WCAG on-strong light ${p.el}.${p.variant || 'middle'} = ${wcagRatio(onStrongL, strongL).toFixed(2)}`);
+      fails++;
+    }
+    if (wcagRatio(onStrongD, strongD) < 4.5) {
+      console.warn(`  WARN WCAG on-strong dark ${p.el}.${p.variant || 'middle'} = ${wcagRatio(onStrongD, strongD).toFixed(2)}`);
+      fails++;
     }
   }
   if (fails) console.warn(`Self-check warnings: ${fails}`);

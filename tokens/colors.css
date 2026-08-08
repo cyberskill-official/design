@@ -20,11 +20,21 @@
   --cs-color-text-accent: #6E3B0E;   /* accessible ochre-adjacent link/accent text */
   --cs-color-text-muted: #6E5A4C;    /* APCA-safe secondary text on page */
 
-  /* ---- Semantic foregrounds ---- */
+  /* ---- Semantic fills + paired foregrounds (literal-on-semantic, UX-008) ---- */
   --cs-color-semantic-success: #166534;
   --cs-color-semantic-danger: #B42318;
   --cs-color-semantic-warning: #92400E;
   --cs-color-semantic-info: #1D4ED8;
+  --cs-color-semantic-success-fg: #FFFFFF;
+  --cs-color-semantic-danger-fg: #FFFFFF;
+  --cs-color-semantic-warning-fg: #FFFFFF;
+  --cs-color-semantic-info-fg: #FFFFFF;
+
+  /* ---- Document palette (Style Guide Articles · legal A4 instruments) ---- */
+  --cs-doc-ink: #1A1614;
+  --cs-doc-slate: #3F4C55;
+  --cs-doc-fill: #FDE68A;
+  --cs-doc-fill-ink: #1A1614;
 
   /* ---- Accent alias + border ---- */
   --cs-color-accent-ochre: #F4BA17;  /* focus rings */
@@ -52,6 +62,10 @@ a:hover { color: var(--cs-color-link-hover); }
   --cs-color-semantic-danger: #F87171;
   --cs-color-semantic-warning: #FBBF24;
   --cs-color-semantic-info: #7CB2FB;
+  --cs-color-semantic-success-fg: #1a1108;
+  --cs-color-semantic-danger-fg: #1a1108;
+  --cs-color-semantic-warning-fg: #1a1108;
+  --cs-color-semantic-info-fg: #1a1108;
   --cs-color-border-default: #4a3a2c;
   --cs-color-link: #f4ba17;
   --cs-color-link-hover: #f5ead9;
@@ -70,6 +84,10 @@ a:hover { color: var(--cs-color-link-hover); }
     --cs-color-semantic-danger: #F87171;
     --cs-color-semantic-warning: #FBBF24;
     --cs-color-semantic-info: #7CB2FB;
+    --cs-color-semantic-success-fg: #1a1108;
+    --cs-color-semantic-danger-fg: #1a1108;
+    --cs-color-semantic-warning-fg: #1a1108;
+    --cs-color-semantic-info-fg: #1a1108;
     --cs-color-border-default: #4a3a2c;
     --cs-color-link: #f4ba17;
     --cs-color-link-hover: #f5ead9;

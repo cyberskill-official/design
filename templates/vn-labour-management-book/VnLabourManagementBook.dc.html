@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<title>HR Suite · Sổ quản lý lao động — Labour Management Book · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="omelette-owns-print" content="1">
@@ -52,7 +53,7 @@
     <p style="font-size:13px;line-height:1.5;margin:0 0 1px">Mỗi người lao động được ghi một dòng. Các trường dưới đây là bắt buộc theo Điều 3 Nghị định 145/2020/NĐ-CP.</p>
     <p style="font-size:12px;line-height:1.4;color:#3F4C55;font-style:italic;margin:0 0 8px">One row per employee. The fields below are those required by Article 3 of Decree 145/2020/ND-CP.</p>
     <table class="cs-avoid" style="width:100%;border-collapse:collapse;font-size:12px;margin:0 0 12px">
-      <thead><tr style="background:var(--cs-color-brand-umber);color:#fff"><th style="text-align:left;padding:5px 9px;font-size:10px;width:38px">#</th><th style="text-align:left;padding:5px 9px;font-size:10px">Trường thông tin bắt buộc <i style="font-weight:400">Required field</i></th></tr></thead>
+      <thead><tr style="background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse,#fff)"><th style="text-align:left;padding:5px 9px;font-size:10px;width:38px">#</th><th style="text-align:left;padding:5px 9px;font-size:10px">Trường thông tin bắt buộc <i style="font-weight:400">Required field</i></th></tr></thead>
       <tbody>
         <sc-for list="{{ fields }}" as="f" hint-placeholder-count="13">
         <tr style="border-bottom:1px solid var(--cs-color-border-default)"><td style="padding:6px 9px;font-family:var(--cs-font-family-mono);color:var(--cs-color-text-muted)">{{ f.n }}</td><td style="padding:6px 9px"><span>{{ f.vi }}</span><div style="color:#3F4C55;font-style:italic;font-size:11px">{{ f.en }}</div></td></tr>

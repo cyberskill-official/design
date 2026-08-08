@@ -40,7 +40,7 @@ button.cs-item--interactive { border: 1px solid transparent; background: var(--c
 .cs-timeline { display: grid; }
 .cs-timeline__item { display: grid; grid-template-columns: 26px 1fr; gap: 14px; padding-block-end: 20px; position: relative; }
 .cs-timeline__item:not(:last-child)::before { content: ""; position: absolute; inset-block: 26px 0; inset-inline-start: 12px; inline-size: 2px; background: var(--cs-color-border-default); }
-.cs-timeline__marker { inline-size: 26px; block-size: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--cs-color-semantic-success); color: #fff; font-size: 12px; font-weight: 700; z-index: 1; }
+.cs-timeline__marker { inline-size: 26px; block-size: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--cs-color-semantic-success); color: var(--cs-color-semantic-success-fg, #fff); font-size: 12px; font-weight: 700; z-index: 1; }
 .cs-timeline__item--now .cs-timeline__marker { background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); }
 .cs-timeline__item--todo .cs-timeline__marker { background: var(--cs-color-surface-raised); color: var(--cs-color-text-muted); border: 1px solid var(--cs-color-border-default); }
 .cs-timeline__title { font-weight: 700; margin: 2px 0 2px; }
@@ -82,3 +82,8 @@ button.cs-item--interactive { border: 1px solid transparent; background: var(--c
 .cs-empty__title { font-size: var(--cs-text-h4); font-weight: 700; }
 .cs-empty__body { color: var(--cs-color-text-muted); max-inline-size: 380px; }
 .cs-empty__actions { margin-block-start: 12px; display: flex; gap: 10px; }
+
+/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] .cs-empty__icon { color: var(--cs-color-brand-ochre); }
+}

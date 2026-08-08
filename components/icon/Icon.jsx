@@ -49,6 +49,7 @@ export const CS_ICONS = {
   copy: { viewBox: "0 0 24 24", els: [["rect", { x: 8, y: 8, width: 12, height: 12, rx: 2 }], ["path", { d: "M4 16V6a2 2 0 0 1 2-2h10" }]] },
   info: { viewBox: "0 0 24 24", els: [["circle", { cx: 12, cy: 12, r: 9 }], ["path", { d: "M12 11v5M12 7.75v.01" }]] },
   "alert-triangle": { viewBox: "0 0 24 24", els: [["path", { d: "M12 3.5l9 16H3z" }], ["path", { d: "M12 10v4M12 17.5v.01" }]] },
+  pin: { viewBox: "0 0 24 24", els: [["path", { d: "M12 21v-7" }], ["path", { d: "M8.5 3.5h7l-1.2 6.5h2.7L12 14.5 6.999 10h2.7z" }]] },
 };
 
 export function Icon({ name, size = "md", label, className, strokeWidth = 1.75, ...props }) {

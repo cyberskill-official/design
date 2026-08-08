@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<title>Marketing · Case study · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="omelette-owns-print" content="1">
@@ -16,7 +17,7 @@
 </helmet>
 <div lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary)">
   <div class="cs-sheet" style="max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);overflow:hidden">
-    <div style="position:relative;overflow:hidden;background:var(--cs-accent-strong);color:#fff;padding:40px 56px 36px">
+    <div style="position:relative;overflow:hidden;background:var(--cs-color-brand-umber);color:#FFFDF8;padding:40px 56px 36px">
       <image-slot id="cs-case-hero" shape="rect" placeholder="Drop a result or product image" style="position:absolute;inset:0;z-index:0"></image-slot>
       <div class="cs-aurora-wash" style="position:absolute;inset:0;opacity:0.45;z-index:1;pointer-events:none"></div>
       <div style="position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(42,26,13,0.86),rgba(42,26,13,0.52) 60%,rgba(42,26,13,0.34))"></div>
@@ -42,8 +43,8 @@
       <sc-if value="{{ showQuote }}" hint-placeholder-val="{{ true }}">
       <blockquote class="cs-avoid" style="margin:0 0 24px;background:var(--cs-color-surface-raised);border-left:4px solid var(--cs-accent);border-radius:var(--cs-radius-md);padding:16px 20px;font-size:14px;line-height:1.65;font-style:italic">{{ quote }}<br><span style="font-style:normal;font-size:12px;color:var(--cs-color-text-muted)">— {{ quoteWho }}</span></blockquote>
       </sc-if>
-      <div class="cs-avoid" style="display:flex;align-items:center;gap:20px;background:var(--cs-accent-strong);border-radius:12px;padding:18px 24px">
-        <div style="flex:1;color:#fff"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-accent-bright);font-weight:700;margin-bottom:2px">{{ ctaKicker }}</div><div style="font-size:13.5px;line-height:1.55">{{ ctaBody }}</div></div>
+      <div class="cs-avoid" style="display:flex;align-items:center;gap:20px;background:var(--cs-color-brand-umber);border-radius:12px;padding:18px 24px">
+        <div style="flex:1;color:#FFFDF8"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-accent-bright);font-weight:700;margin-bottom:2px">{{ ctaKicker }}</div><div style="font-size:13.5px;line-height:1.55">{{ ctaBody }}</div></div>
         <span style="display:inline-block;background:var(--cs-accent-bright);color:var(--cs-accent-on);font-weight:700;font-size:13.5px;padding:11px 20px;border-radius:var(--cs-radius-full);white-space:nowrap">{{ ctaBtn }}</span>
       </div>
     </div>

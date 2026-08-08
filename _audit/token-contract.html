@@ -6,9 +6,10 @@
 <div id="probe" style="display:none"></div>
 <div id="out">running…</div>
 <script>
-// Runtime token-contract test: every element×variant must resolve all 9 --cs-accent-* role
+// Runtime token-contract test: every element×variant must resolve all 10 --cs-accent-* role
 // tokens to a non-empty value (via :root inheritance or an explicit block).
-const ROLES=["--cs-accent","--cs-accent-strong","--cs-accent-bright","--cs-accent-on","--cs-accent-tint","--cs-accent-ink","--cs-accent-glow","--cs-accent-grad-a","--cs-accent-grad-b"];
+const ROLES=["--cs-accent","--cs-accent-strong","--cs-accent-bright","--cs-accent-on","--cs-accent-on-strong","--cs-accent-tint","--cs-accent-ink","--cs-accent-glow","--cs-accent-grad-a","--cs-accent-grad-b"];
+const DEPTH=["--cs-depth-bg","--cs-depth-section","--cs-depth-card","--cs-depth-nav","--cs-depth-dropdown","--cs-depth-overlay","--cs-depth-modal","--cs-depth-toast"];
 const ELEMENTS={tho:["","clay","sand"],hoa:["","lava","plasma"],thuy:["","ocean","mist"],moc:["","bamboo","forest"],kim:["","steel","titanium"]};
 const probe=document.getElementById('probe');
 const rows=[]; let fails=0;
@@ -24,19 +25,22 @@ for(const [el,variants] of Object.entries(ELEMENTS)){
   }
 }
 // also: semantic + core text tokens resolve
-const coreCheck=["--cs-color-text-primary","--cs-color-text-muted","--cs-color-text-accent","--cs-color-semantic-success","--cs-color-semantic-danger","--cs-color-brand-umber","--cs-color-brand-ochre"];
+const coreCheck=["--cs-color-text-primary","--cs-color-text-muted","--cs-color-text-accent","--cs-color-semantic-success","--cs-color-semantic-danger","--cs-color-semantic-success-fg","--cs-color-brand-umber","--cs-color-brand-ochre","--cs-doc-ink","--cs-doc-slate","--cs-focus-ring"];
 probe.removeAttribute('data-cs-element');probe.removeAttribute('data-cs-variant');
 const csr=getComputedStyle(probe);
 const coreMiss=coreCheck.filter(t=>!csr.getPropertyValue(t).trim());
+const depthMiss=DEPTH.filter(t=>!csr.getPropertyValue(t).trim());
 window.__contract={
-  pass:fails===0&&coreMiss.length===0,
+  pass:fails===0&&coreMiss.length===0&&depthMiss.length===0,
   elementFails:fails,
   coreMissing:coreMiss,
+  depthMissing:depthMiss,
   total:rows.length
 };
 document.getElementById('out').textContent =
   "TOKEN CONTRACT — "+(window.__contract.pass?"✓ PASS":"✗ FAIL")+"\n\n"+
-  "Element role tokens ("+rows.length+" scopes, 9 roles each):\n"+rows.join("\n")+
-  "\n\nCore tokens: "+(coreMiss.length?"✗ missing "+coreMiss.join(", "):"✓ all resolve");
+  "Element role tokens ("+rows.length+" scopes, 10 roles each):\n"+rows.join("\n")+
+  "\n\nCore tokens: "+(coreMiss.length?"✗ missing "+coreMiss.join(", "):"✓ all resolve")+
+  "\nDepth tokens: "+(depthMiss.length?"✗ missing "+depthMiss.join(", "):"✓ all 8 resolve");
 </script>
 </body></html>

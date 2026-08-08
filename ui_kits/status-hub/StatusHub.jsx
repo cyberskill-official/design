@@ -139,6 +139,7 @@ function StatusHub() {
 
   return (
     <div className="sh" lang={lang} data-theme={dark ? "dark" : undefined}>
+      <a className="cs-skip" href="#main" style={{ position: "absolute", left: -999, width: 1, height: 1, overflow: "hidden" }}>Skip to content</a>
       <header className="hd">
         <div className="hd-in">
           <div className="hd-id">
@@ -156,7 +157,7 @@ function StatusHub() {
         </div>
       </header>
 
-      <div className="wrap">
+      <main id="main" className="wrap">
         <div className="deck">
           <section className="panel">
             <h2>{t.portfolio}</h2>
@@ -260,7 +261,7 @@ function StatusHub() {
         <p className="ft">{lang === "vi"
           ? <>CyberSkill Status Hub — bản tái hiện UI kit của design system. Dựng trên token <span className="mono">styles.css</span>. Turn Your Will Into Real.</>
           : <>CyberSkill Status Hub — a design-system UI kit recreation. Built on <span className="mono">styles.css</span> tokens. Turn Your Will Into Real.</>}</p>
-      </div>
+      </main>
 
       <Drawer p={sel && loc(sel)} onClose={() => setSel(null)} t={t} />
     </div>

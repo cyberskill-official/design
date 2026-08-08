@@ -2,6 +2,7 @@
  * Exact values from @cyberskill/tokens. Buttons carry a full size ramp with a
  * 44px comfortable default touch target; TextField matches. */
 :root {
+  --cs-focus-ring: 3px; /* @kind other */ /* signature focus outline width */
   /* Button */
   --cs-component-button-primary-bg: #45210E;
   --cs-component-button-primary-fg: #FFFFFF;

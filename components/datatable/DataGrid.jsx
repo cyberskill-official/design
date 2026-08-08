@@ -1,5 +1,6 @@
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
+import { Icon } from "../icon/Icon.jsx";
 import { cx } from "../_utils/cx.js";
 
 /**
@@ -114,7 +115,15 @@ export function DataGrid({
                   </button>
                 ) : c.header}
                 {persistKey ? (
-                  <button type="button" className="cs-datagrid__pin" title="Pin column first" onClick={() => pinColumn(c.key)} aria-label={"Pin " + c.key}>⟂</button>
+                  <button
+                    type="button"
+                    className="cs-datagrid__pin"
+                    title={t("pin")}
+                    onClick={() => pinColumn(c.key)}
+                    aria-label={t("pinNamed").replace("{name}", String(c.header != null ? c.header : c.key))}
+                  >
+                    <Icon name="pin" size="sm" />
+                  </button>
                 ) : null}
               </th>
             ))}

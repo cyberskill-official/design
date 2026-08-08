@@ -1078,7 +1078,13 @@
           y: stored && Number.isFinite(stored.y) ? stored.y : 0,
         };
       }
-      this._cap.textContent = this.getAttribute('placeholder') || 'Drop an image';
+      // Authoring-only ghost hint (UX-013): hide outside DC/host contexts.
+      const authoring = typeof window !== 'undefined' && typeof window.__dcSetProps === 'function';
+      const phEn = this.getAttribute('placeholder') || 'Drop an image';
+      const phVi = this.getAttribute('placeholder-vi') || 'Thả ảnh (không bắt buộc)';
+      const lang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+      this._cap.textContent = authoring ? (lang.startsWith('vi') ? phVi : phEn) : '';
+      if (this._cap) this._cap.style.display = authoring ? '' : 'none';
       // Toggle via style.display — the [hidden] attribute alone loses to
       // the display:flex / display:block rules in the stylesheet above.
       // An Unsplash src with no credit attribute must NOT render — showing

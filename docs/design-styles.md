@@ -38,6 +38,6 @@ Prefer:
 1. A new **Element** intensity tweak (seed offset) when the shift is hue/identity inside Ngũ Hành.
 2. Local composition with existing tokens/classes when the shift is one-off layout.
 3. A documented pattern in `docs/conventions.md` + a specimen card when the pattern should be reusable.
-4. A new **`data-cs-style`** pack only after an Expansion Rule pass — see [`docs/benchmark-rubric.md`](benchmark-rubric.md) style-expansion checklist. Styles consume the same 9 accent roles; they must not invent parallel Element packs.
+4. A new **`data-cs-style`** pack only after an Expansion Rule pass — see [`docs/benchmark-rubric.md`](benchmark-rubric.md) style-expansion checklist. Styles consume the same 10 accent roles (incl. `on-strong`); they must not invent parallel Element packs.
 
 Do not invent a fifth product axis, and do not add a second Style pack without the Expansion Rule checklist.

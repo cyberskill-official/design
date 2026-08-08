@@ -31,7 +31,19 @@ export function makeT(component, lang) { return (key) => tr(component, key, lang
 export function useLang(propLang) {
   const ref = React.useRef(null);
   const [lang, setLang] = React.useState(() => resolveLang(propLang, null));
-  React.useLayoutEffect(() => { setLang(resolveLang(propLang, ref.current)); }, [propLang]);
+  React.useLayoutEffect(() => {
+    const el = ref.current;
+    setLang(resolveLang(propLang, el));
+    if (!el || propLang) return undefined;
+    // Re-resolve when an ancestor [lang] changes (template Language axis / __dcSetProps).
+    const obs = new MutationObserver(() => setLang(resolveLang(propLang, el)));
+    let node = el.parentElement;
+    while (node) {
+      obs.observe(node, { attributes: true, attributeFilter: ["lang"] });
+      node = node.parentElement;
+    }
+    return () => obs.disconnect();
+  }, [propLang]);
   return [ref, lang];
 }
 

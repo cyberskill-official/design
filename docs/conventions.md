@@ -20,7 +20,7 @@ Style’s sole pack today is **liquid-glass**. Immutable under all axes: Umber/O
 
 ## Naming grammar
 
-- Tokens: `--cs-<layer>-<role>[-<state>]` (`--cs-color-text-muted`). Element role layer: `--cs-accent-*` (9-token contract — see `tokens/elements.css` header).
+- Tokens: `--cs-<layer>-<role>[-<state>]` (`--cs-color-text-muted`). Element role layer: `--cs-accent-*` (10-token contract including `--cs-accent-on-strong` for text on strong fills — see `tokens/elements.css` header).
 
 - Classes: `.cs-<block>[-<part>][--modifier]`. Data attributes: `data-theme`, `data-cs-element`, `data-cs-variant`, `data-cs-style`.
 
@@ -36,7 +36,7 @@ Style’s sole pack today is **liquid-glass**. Immutable under all axes: Umber/O
 
 **New template** — `templates/<slug>/<Slug>.dc.html` with `<!-- @template name description -->` first; `ds-base.js` stays single-entry (`styles.css` only — the one-line rebind was validated end-to-end Jul 2026 from a deeper path; the test scaffold has since been removed) and publishes the id-independent `window.CyberSkillDS` alias on bundle load, so mount DS components via `component-from-global-scope="CyberSkillDS.…"` — **never** a hardcoded `CyberSkillDesignSystem_<projectId>` suffix (it changes on re-import; enforced by `_audit/namespace-portability.html`); inline styles only; 1–3 tweaks (never plain copy/color — in-place editing covers those); printable docs add the `@page` + `.cs-desk`/`.cs-sheet` print block and carry **no dark tweak** (print is light-only).
 
-**New element variant** — stay inside the element's oklch envelope; set the 9 `--cs-accent-*` contract tokens plus `--cs-color-text-accent`/`--cs-color-link` (APCA-check both); the aurora wash inherits from the element via `.cs-aurora-wash` (override the class rule only if the variant truly needs its own image); gradient partner (`grad-b`) must follow Tương sinh.
+**New element variant** — stay inside the element's oklch envelope; set the 10 `--cs-accent-*` contract tokens (incl. `--cs-accent-on-strong` ≥4.5:1 on `-strong`) plus `--cs-color-text-accent`/`--cs-color-link` (APCA-check both); the aurora wash inherits from the element via `.cs-aurora-wash` (override the class rule only if the variant truly needs its own image); gradient partner (`grad-b`) must follow Tương sinh.
 
 **Ship check** — run the compiler check until clean, then run `_audit/docs-consistency.html` **and** `_audit/namespace-portability.html` (both must be green). Version is LAUNCHED at 1.1.0; current pin is **1.1.1**.
 

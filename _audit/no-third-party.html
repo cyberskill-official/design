@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — no-third-party origin gate</title>
+<style>
+  body{margin:0;font-family:var(--cs-font-family-ui,system-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
+  h1{font-size:16px;margin:0 0 2px}
+  .lede{color:#6b5d4f;max-width:980px;line-height:1.5;margin:0 0 14px;font-size:13px}
+  .row{display:flex;justify-content:space-between;gap:10px;padding:6px 10px;border-radius:6px;font:12.5px ui-monospace,monospace;max-width:960px;margin-bottom:2px}
+  .row.ok{background:#dcfce7;color:#166534}.row.bad{background:#FEE2E2;color:#B42318;font-weight:700}
+  .row .d{color:#6b5d4f;font-weight:400;text-align:right}
+  #sum{font-size:15px;font-weight:800;margin:12px 0}
+</style></head><body>
+<h1>No-third-party origin gate (product surfaces)</h1>
+<p class="lede">HARD GATE (<code>window.__nothirdparty.pass</code>): product surfaces — all <code>templates/**</code> entry HTML + <code>support.js</code> / <code>ds-base.js</code>, every <code>ui_kits/**/*.html</code>, and <code>guidelines/atomic-view.html</code> — must not reference third-party script/style origins (<code>unpkg.com</code>, <code>cdn.jsdelivr.net</code>, <code>cdnjs.cloudflare.com</code>, <code>esm.sh</code>, <code>jspm.dev</code>, Google fonts/CDN hosts). React and Babel are vendored under <code>_vendor/</code>. Audit harnesses may still use CDN as last resort; they are out of scope. UX-026 / D4.</p>
+<div id="list"></div>
+<div id="sum">running…</div>
+<script>
+const HOST_RE=/(?:https?:)?\/\/(?:unpkg\.com|cdn\.jsdelivr\.net|cdnjs\.cloudflare\.com|esm\.sh|jspm\.dev|fonts\.googleapis\.com|fonts\.gstatic\.com|ajax\.googleapis\.com)\b/i;
+const SCRIPT_SRC_RE=/<(?:script|link)\b[^>]*(?:src|href)\s*=\s*["']([^"']+)["'][^>]*>/gi;
+const results=[]; const list=document.getElementById('list');
+function record(name,ok,detail){
+  results.push({name,ok,detail});
+  const r=document.createElement('div');
+  r.className='row '+(ok?'ok':'bad');
+  r.innerHTML='<span>'+(ok?'✓ ':'✗ ')+name+'</span><span class="d">'+String(detail).slice(0,280)+'</span>';
+  list.appendChild(r);
+}
+function publish(v){
+  if(window.__nothirdparty) return;
+  window.__nothirdparty=v;
+  const s=document.getElementById('sum');
+  s.textContent=v.pass?('✓ all '+v.total+' product surfaces are origin-clean'):('✗ '+(v.failed.length)+'/'+v.total+' have third-party origins');
+  s.style.color=v.pass?'#166534':'#B42318';
+}
+function hitsIn(text){
+  const hits=new Set();
+  let m;
+  SCRIPT_SRC_RE.lastIndex=0;
+  while((m=SCRIPT_SRC_RE.exec(text))){
+    if(HOST_RE.test(m[1])) hits.add(m[1]);
+  }
+  // Also catch string literals used as script loaders (support.js historically held CDN URLs).
+  const lit=/["'`]((?:https?:)?\/\/(?:unpkg\.com|cdn\.jsdelivr\.net|cdnjs\.cloudflare\.com|esm\.sh|jspm\.dev)[^"'`]*)["'`]/gi;
+  while((m=lit.exec(text))) hits.add(m[1]);
+  // onerror CDN fallbacks
+  const onerr=/onerror\s*=\s*["'][^"']*(unpkg\.com|cdn\.jsdelivr\.net)[^"']*["']/gi;
+  while((m=onerr.exec(text))) hits.add(m[0].slice(0,80));
+  return [...hits];
+}
+(async()=>{
+  const M=await (await fetch('../_ds_manifest.json')).json();
+  const paths=new Set();
+  for(const t of M.templates){
+    paths.add(t.entryPath);
+    const dir=t.entryPath.replace(/[^/]+$/,'');
+    paths.add(dir+'support.js');
+    paths.add(dir+'ds-base.js');
+  }
+  // Non-manifest product demos under templates/
+  paths.add('templates/ai-cluster-demo.html');
+  paths.add('templates/kitchen-sink.html');
+  // Kits + Atomic View (explicit list — static hosting has no directory index)
+  for(const p of [
+    'ui_kits/website/index.html','ui_kits/website/chat.html','ui_kits/website/work.html','ui_kits/website/careers.html',
+    'ui_kits/status-hub/index.html','ui_kits/status-hub/settings.html','ui_kits/status-hub/login.html','ui_kits/status-hub/project.html',
+    'ui_kits/deck/index.html',
+    'guidelines/atomic-view.html',
+  ]) paths.add(p);
+
+  const failed=[];
+  let checked=0;
+  for(const rel of [...paths].sort()){
+    let r;
+    try{ r=await fetch('../'+rel,{cache:'no-store'}); }catch(e){ continue; }
+    if(!r.ok) continue; // optional sidecars may be absent for some demos
+    const text=await r.text();
+    const hits=hitsIn(text);
+    checked++;
+    if(hits.length){
+      failed.push(rel);
+      record(rel,false,hits.slice(0,3).join(' · '));
+    }else{
+      record(rel,true,'clean');
+    }
+  }
+  // Vendor presence
+  for(const v of ['_vendor/react/react.production.min.js','_vendor/react/react-dom.production.min.js','_vendor/babel/babel.min.js']){
+    const r=await fetch('../'+v,{cache:'no-store'});
+    const ok=r.ok;
+    record('vendor '+v,ok,ok?'present':'MISSING');
+    if(!ok) failed.push(v);
+    checked++;
+  }
+  publish({pass:failed.length===0,total:checked,failed,scanned:checked});
+})();
+</script></body></html>

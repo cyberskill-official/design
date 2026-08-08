@@ -12,8 +12,21 @@ async function ensureScript(src, integrity){
     if (integrity) { s.integrity = integrity; s.crossOrigin = "anonymous"; }
     s.onload = res; s.onerror = () => rej(new Error("cs.js: failed to load " + href)); document.head.appendChild(s); });
 }
-if (!g.React) await ensureScript("https://unpkg.com/umd-react@19.2.8/dist/react.production.min.js", "sha384-/nh8CKeV7Pk42Gpda6L4DM1JtZ2bwPOi+eh9O7+a1Y22UkGs8+mw3aW1shQ9FV30");
-if (!g.ReactDOM) await ensureScript("https://unpkg.com/umd-react@19.2.8/dist/react-dom.production.min.js", "sha384-rhLCB72qrpcezgY2QW0panvW9IeO32m94nvuDVRD/iEGHXoUbjtijL6Xi/Z5/mzu");
+async function ensureReact() {
+  const localReact = new URL("../_vendor/react/react.production.min.js", import.meta.url).href;
+  const localDom = new URL("../_vendor/react/react-dom.production.min.js", import.meta.url).href;
+  const cdnReact = "https://unpkg.com/umd-react@19.2.8/dist/react.production.min.js";
+  const cdnDom = "https://unpkg.com/umd-react@19.2.8/dist/react-dom.production.min.js";
+  const sriReact = "sha384-/nh8CKeV7Pk42Gpda6L4DM1JtZ2bwPOi+eh9O7+a1Y22UkGs8+mw3aW1shQ9FV30";
+  const sriDom = "sha384-rhLCB72qrpcezgY2QW0panvW9IeO32m94nvuDVRD/iEGHXoUbjtijL6Xi/Z5/mzu";
+  if (!g.React) {
+    try { await ensureScript(localReact); } catch { await ensureScript(cdnReact, sriReact); }
+  }
+  if (!g.ReactDOM) {
+    try { await ensureScript(localDom); } catch { await ensureScript(cdnDom, sriDom); }
+  }
+}
+await ensureReact();
 const found = () => Object.keys(g).find(k => /^CyberSkillDesignSystem_/.test(k));
 if (!found()) await ensureScript("../_ds_bundle.js");
 export const CS = g[found()];

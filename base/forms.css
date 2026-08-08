@@ -38,3 +38,8 @@
 
 /* Textarea reuses .cs-field; give it sane sizing */
 textarea.cs-field__control { min-height: 96px; resize: vertical; line-height: var(--cs-font-lineHeight-body); }
+
+/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] .cs-check input, [data-theme="system"] .cs-radio input { accent-color: var(--cs-color-brand-ochre); }
+}

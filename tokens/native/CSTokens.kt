@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.1.1 · source sha256 9386ad73cf23d458…
+// release v1.1.1 · source sha256 187b2897524e0618…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -28,6 +28,10 @@ object CSTokens {
   val colorBorderDefault = Color(0xFFE7D9C6)
   val colorLink = Color(0xFF6E3B0E)
   val colorLinkHover = Color(0xFF45210E)
+  val colorSemanticSuccessFg = Color(0xFFFFFFFF)
+  val colorSemanticDangerFg = Color(0xFFFFFFFF)
+  val colorSemanticWarningFg = Color(0xFFFFFFFF)
+  val colorSemanticInfoFg = Color(0xFFFFFFFF)
   val componentButtonPrimaryBg = Color(0xFF45210E)
   val componentButtonPrimaryFg = Color(0xFFFFFFFF)
   val componentButtonGap = 8.dp
@@ -52,6 +56,7 @@ object CSTokens {
   val componentTextfieldPaddingY = 10.dp
   val componentTextfieldPaddingX = 12.dp
   val componentTextfieldMinHeight = 44.dp
+  val focusRing = 3.dp
   val accent = Color(0xFFF4BA17)
   val accentStrong = Color(0xFFA47D17)
   val accentBright = Color(0xFFF4BA17)
@@ -61,12 +66,15 @@ object CSTokens {
   val accentGlow = Color(0x7AF4BA17)
   val accentGradA = Color(0xFFF4BA17)
   val accentGradB = Color(0xFFFCAF91)
+  val accentOnStrong = Color(0xFF1A1108)
   val depthBg = 0
   val depthSection = 5
   val depthCard = 10
   val depthNav = 50
   val depthModal = 100
   val depthToast = 200
+  val depthDropdown = 60
+  val depthOverlay = 80
   val glassWhisperBlur = 8.dp
   val glassWhisperSaturate = "110%"
   val glassWhisperOpacity = "60%"
@@ -157,6 +165,10 @@ object CSTokens {
   val iconSm = 16.dp
   val iconMd = 20.dp
   val iconLg = 24.dp
+  val docInk = Color(0xFF1A1614)
+  val docSlate = Color(0xFF3F4C55)
+  val docFill = Color(0xFFFDE68A)
+  val docFillInk = Color(0xFF1A1614)
 
   // dark-theme color overrides
   val colorSurfacePageDark = Color(0xFF1A1108)
@@ -176,96 +188,115 @@ object CSTokens {
   val componentButtonPrimaryBgDark = Color(0xFFF4BA17)
   val componentButtonPrimaryFgDark = Color(0xFF1A1108)
   val componentTextfieldBorderDefaultDark = Color(0xFF5A4636)
+  val colorSemanticSuccessFgDark = Color(0xFF1A1108)
+  val colorSemanticDangerFgDark = Color(0xFF1A1108)
+  val colorSemanticWarningFgDark = Color(0xFF1A1108)
+  val colorSemanticInfoFgDark = Color(0xFF1A1108)
 
   // dark elemental accent packs (APCA-derived, v4.0.0)
   val accentThoSandDark = Color(0xFFF8E9C0)
   val accentBrightThoSandDark = Color(0xFFF6EBCC)
   val accentStrongThoSandDark = Color(0xFF665A37)
   val accentOnThoSandDark = Color(0xFFF5EAD9)
+  val accentOnStrongThoSandDark = Color(0xFFFFFDF8)
   val accentTintThoSandDark = Color(0xFF332701)
   val accentInkThoSandDark = Color(0xFFF6EBCC)
   val accentThoDark = Color(0xFFF4BA17)
   val accentBrightThoDark = Color(0xFFFEC42C)
   val accentStrongThoDark = Color(0xFF73560B)
   val accentOnThoDark = Color(0xFFF5EAD9)
+  val accentOnStrongThoDark = Color(0xFFFFFDF8)
   val accentTintThoDark = Color(0xFF352602)
   val accentInkThoDark = Color(0xFFFECD5E)
   val accentThoClayDark = Color(0xFFCDB07E)
   val accentBrightThoClayDark = Color(0xFFE4CDA8)
   val accentStrongThoClayDark = Color(0xFF1F1300)
   val accentOnThoClayDark = Color(0xFFF5EAD9)
+  val accentOnStrongThoClayDark = Color(0xFFFFFDF8)
   val accentTintThoClayDark = Color(0xFF372502)
   val accentInkThoClayDark = Color(0xFFE7D0AB)
   val accentHoaPlasmaDark = Color(0xFFFFE1D8)
   val accentBrightHoaPlasmaDark = Color(0xFFFCE6DF)
   val accentStrongHoaPlasmaDark = Color(0xFF6F5750)
   val accentOnHoaPlasmaDark = Color(0xFFF5EAD9)
+  val accentOnStrongHoaPlasmaDark = Color(0xFFFFFDF8)
   val accentTintHoaPlasmaDark = Color(0xFF38231C)
   val accentInkHoaPlasmaDark = Color(0xFFFCE6DF)
   val accentHoaDark = Color(0xFFFCAF91)
   val accentBrightHoaDark = Color(0xFFFED3C3)
   val accentStrongHoaDark = Color(0xFF8A4A30)
   val accentOnHoaDark = Color(0xFFF5EAD9)
+  val accentOnStrongHoaDark = Color(0xFFFFFDF8)
   val accentTintHoaDark = Color(0xFF411E0F)
   val accentInkHoaDark = Color(0xFFFED3C3)
   val accentHoaLavaDark = Color(0xFFE8A683)
   val accentBrightHoaLavaDark = Color(0xFFF8C4AA)
   val accentStrongHoaLavaDark = Color(0xFF280D00)
   val accentOnHoaLavaDark = Color(0xFFF5EAD9)
+  val accentOnStrongHoaLavaDark = Color(0xFFFFFDF8)
   val accentTintHoaLavaDark = Color(0xFF401F0B)
   val accentInkHoaLavaDark = Color(0xFFFBC7AD)
   val accentThuyMistDark = Color(0xFFC0F5FC)
   val accentBrightThuyMistDark = Color(0xFFCDF4F9)
   val accentStrongThuyMistDark = Color(0xFF316167)
   val accentOnThuyMistDark = Color(0xFFF5EAD9)
+  val accentOnStrongThuyMistDark = Color(0xFFFFFDF8)
   val accentTintThuyMistDark = Color(0xFF022F34)
   val accentInkThuyMistDark = Color(0xFFCDF4F9)
   val accentThuyDark = Color(0xFF2EDBF7)
   val accentBrightThuyDark = Color(0xFF99EEFF)
   val accentStrongThuyDark = Color(0xFF046270)
   val accentOnThuyDark = Color(0xFFF5EAD9)
+  val accentOnStrongThuyDark = Color(0xFFFFFDF8)
   val accentTintThuyDark = Color(0xFF032F36)
   val accentInkThuyDark = Color(0xFF99EEFF)
   val accentThuyOceanDark = Color(0xFF82BCCD)
   val accentBrightThuyOceanDark = Color(0xFFABD6E3)
   val accentStrongThuyOceanDark = Color(0xFF011A21)
   val accentOnThuyOceanDark = Color(0xFFF5EAD9)
+  val accentOnStrongThuyOceanDark = Color(0xFFFFFDF8)
   val accentTintThuyOceanDark = Color(0xFF002F3A)
   val accentInkThuyOceanDark = Color(0xFFAED9E6)
   val accentMocBambooDark = Color(0xFFE1F1C8)
   val accentBrightMocBambooDark = Color(0xFFE5F1D2)
   val accentStrongMocBambooDark = Color(0xFF54603E)
   val accentOnMocBambooDark = Color(0xFFF5EAD9)
+  val accentOnStrongMocBambooDark = Color(0xFFFFFDF8)
   val accentTintMocBambooDark = Color(0xFF232D0B)
   val accentInkMocBambooDark = Color(0xFFE5F1D2)
   val accentMocDark = Color(0xFFA3D768)
   val accentBrightMocDark = Color(0xFFC5ED9C)
   val accentStrongMocDark = Color(0xFF416501)
   val accentOnMocDark = Color(0xFFF5EAD9)
+  val accentOnStrongMocDark = Color(0xFFFFFDF8)
   val accentTintMocDark = Color(0xFF1F2E0B)
   val accentInkMocDark = Color(0xFFC5ED9C)
   val accentMocForestDark = Color(0xFF8EC27D)
   val accentBrightMocForestDark = Color(0xFFB0D8A3)
   val accentStrongMocForestDark = Color(0xFF061D00)
   val accentOnMocForestDark = Color(0xFFF5EAD9)
+  val accentOnStrongMocForestDark = Color(0xFFFFFDF8)
   val accentTintMocForestDark = Color(0xFF193011)
   val accentInkMocForestDark = Color(0xFFB6DFA9)
   val accentKimTitaniumDark = Color(0xFFFEE5C7)
   val accentBrightKimTitaniumDark = Color(0xFFFBE8D2)
   val accentStrongKimTitaniumDark = Color(0xFF6B573E)
   val accentOnKimTitaniumDark = Color(0xFFF5EAD9)
+  val accentOnStrongKimTitaniumDark = Color(0xFFFFFDF8)
   val accentTintKimTitaniumDark = Color(0xFF37250B)
   val accentInkKimTitaniumDark = Color(0xFFFBE8D2)
   val accentKimDark = Color(0xFFF3B958)
   val accentBrightKimDark = Color(0xFFFDD89F)
   val accentStrongKimDark = Color(0xFF795303)
   val accentOnKimDark = Color(0xFFF5EAD9)
+  val accentOnStrongKimDark = Color(0xFFFFFDF8)
   val accentTintKimDark = Color(0xFF382503)
   val accentInkKimDark = Color(0xFFFDD89F)
   val accentKimSteelDark = Color(0xFFCCB17E)
   val accentBrightKimSteelDark = Color(0xFFDFCBA5)
   val accentStrongKimSteelDark = Color(0xFF1F1400)
   val accentOnKimSteelDark = Color(0xFFF5EAD9)
+  val accentOnStrongKimSteelDark = Color(0xFFFFFDF8)
   val accentTintKimSteelDark = Color(0xFF362602)
   val accentInkKimSteelDark = Color(0xFFE6D1AB)
 }
