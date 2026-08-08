@@ -133,7 +133,7 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
   .cs-pagination { flex-wrap: wrap; max-inline-size: 100%; }
   .cs-pagination button { min-inline-size: 32px; }
   .cs-otp { gap: 4px; }
-  .cs-otp__box { inline-size: 36px; block-size: 40px; font-size: 16px; }
+  .cs-otp__box { inline-size: 36px; block-size: 40px; font-size: var(--cs-font-size-base); }
   .cs-dl { grid-template-columns: 1fr; }
   .cs-field { min-inline-size: 0; }
   .cs-field__control { min-inline-size: 0; }

@@ -17,7 +17,7 @@
 .cs-chat-msg--user { flex-direction: row-reverse; }
 .cs-chat-msg__avatar { flex: none; inline-size: 32px; block-size: 32px; border-radius: 50%; display: grid; place-items: center; overflow: hidden; }
 .cs-chat-msg--lumi .cs-chat-msg__avatar { background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); }
-.cs-chat-msg--user .cs-chat-msg__avatar { background: var(--cs-color-brand-umber); color: #fff; font-weight: 700; font-size: 13px; font-family: var(--cs-font-family-ui); }
+.cs-chat-msg--user .cs-chat-msg__avatar { background: var(--cs-color-brand-umber); color: #fff; font-weight: 700; font-size: var(--cs-font-size-sm); font-family: var(--cs-font-family-ui); }
 .cs-chat-msg__avatar img { inline-size: 100%; block-size: 100%; object-fit: cover; }
 .cs-chat-msg__col { display: grid; gap: 3px; max-inline-size: 80%; }
 .cs-chat-msg--user .cs-chat-msg__col { justify-items: end; }
@@ -54,7 +54,7 @@
 .cs-citations__label { font-size: var(--cs-font-size-xs); text-transform: uppercase; letter-spacing: var(--cs-letter-spacing-caps); color: var(--cs-color-text-muted); }
 .cs-citation { display: flex; align-items: flex-start; gap: 9px; font-size: var(--cs-font-size-sm); color: var(--cs-color-text-primary); text-decoration: none; }
 a.cs-citation:hover .cs-citation__text { color: var(--cs-color-text-accent); }
-.cs-citation__num { flex: none; inline-size: 20px; block-size: 20px; border-radius: 6px; background: color-mix(in oklab, var(--cs-color-semantic-info) 14%, var(--cs-color-surface-panel)); color: var(--cs-color-semantic-info); font-family: var(--cs-font-family-mono); font-size: 11px; font-weight: 700; display: grid; place-items: center; }
+.cs-citation__num { flex: none; inline-size: 20px; block-size: 20px; border-radius: 6px; background: color-mix(in oklab, var(--cs-color-semantic-info) 14%, var(--cs-color-surface-panel)); color: var(--cs-color-semantic-info); font-family: var(--cs-font-family-mono); font-size: var(--cs-font-size-2xs); font-weight: 700; display: grid; place-items: center; }
 .cs-citation__text { line-height: 1.4; }
 .cs-citation__src { color: var(--cs-color-text-muted); font-size: var(--cs-font-size-xs); }
 

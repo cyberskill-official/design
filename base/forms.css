@@ -5,13 +5,13 @@
 .cs-select { position: relative; display: block; }
 .cs-select select.cs-field__control { appearance: none; -webkit-appearance: none; width: 100%; padding-inline-end: 38px; cursor: pointer; background: var(--cs-color-surface-panel); }
 .cs-select__chevron { position: absolute; inset-inline-end: 12px; inset-block-start: 50%; transform: translateY(-50%); pointer-events: none; color: var(--cs-color-text-muted); display: grid; place-items: center; }
-.cs-select select.cs-field__control:focus-visible { outline: 3px solid var(--cs-color-accent-ochre); outline-offset: 2px; border-color: var(--cs-color-brand-ochre); }
+.cs-select select.cs-field__control:focus-visible { outline: var(--cs-focus-ring, 3px) solid var(--cs-color-accent-ochre); outline-offset: 2px; border-color: var(--cs-color-brand-ochre); }
 
 /* NativeSelect — lean progressive-enhancement companion beside Select */
 .cs-native-select { position: relative; display: block; }
 .cs-native-select select.cs-field__control { appearance: none; -webkit-appearance: none; width: 100%; padding-inline-end: 38px; cursor: pointer; background: var(--cs-color-surface-panel); }
 .cs-native-select__chevron { position: absolute; inset-inline-end: 12px; inset-block-start: 50%; transform: translateY(-50%); pointer-events: none; color: var(--cs-color-text-muted); display: grid; place-items: center; }
-.cs-native-select select.cs-field__control:focus-visible { outline: 3px solid var(--cs-color-accent-ochre); outline-offset: 2px; border-color: var(--cs-color-brand-ochre); }
+.cs-native-select select.cs-field__control:focus-visible { outline: var(--cs-focus-ring, 3px) solid var(--cs-color-accent-ochre); outline-offset: 2px; border-color: var(--cs-color-brand-ochre); }
 .cs-native-select--sm select.cs-field__control { min-block-size: 36px; padding-block: 6px; font-size: var(--cs-font-size-sm); }
 .cs-native-select--md select.cs-field__control { min-block-size: 44px; }
 
@@ -33,7 +33,7 @@
 .cs-switch input:checked + .cs-switch__track { background: var(--cs-color-brand-umber); }
 [data-theme="dark"] .cs-switch input:checked + .cs-switch__track { background: var(--cs-color-brand-ochre); }
 .cs-switch input:checked + .cs-switch__track::after { transform: translateX(18px); }
-.cs-switch input:focus-visible + .cs-switch__track { outline: 3px solid var(--cs-color-accent-ochre); outline-offset: 2px; }
+.cs-switch input:focus-visible + .cs-switch__track { outline: var(--cs-focus-ring, 3px) solid var(--cs-color-accent-ochre); outline-offset: 2px; }
 .cs-switch.is-disabled { opacity: 0.55; cursor: not-allowed; }
 
 /* Textarea reuses .cs-field; give it sane sizing */
@@ -42,4 +42,5 @@ textarea.cs-field__control { min-height: 96px; resize: vertical; line-height: va
 /* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
 @media (prefers-color-scheme: dark) {
   [data-theme="system"] .cs-check input, [data-theme="system"] .cs-radio input { accent-color: var(--cs-color-brand-ochre); }
+  [data-theme="system"] .cs-switch input:checked + .cs-switch__track { background: var(--cs-color-brand-ochre); }
 }

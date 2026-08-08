@@ -22,7 +22,7 @@
 .cs-item--interactive { cursor: pointer; font: inherit; inline-size: 100%; }
 button.cs-item--interactive { border: 1px solid transparent; background: var(--cs-color-surface-panel); }
 .cs-item--interactive:hover { background: var(--cs-color-surface-raised); border-color: var(--cs-color-border-default); }
-.cs-item--interactive:focus-visible { outline: 3px solid var(--cs-color-accent-ochre); outline-offset: 2px; }
+.cs-item--interactive:focus-visible { outline: var(--cs-focus-ring, 3px) solid var(--cs-color-accent-ochre); outline-offset: 2px; }
 .cs-item.is-selected { border-color: var(--cs-color-brand-ochre); background: var(--cs-accent-tint, var(--cs-color-surface-raised)); }
 .cs-item.is-disabled, .cs-item[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 .cs-item__leading { flex: none; display: grid; place-items: center; color: var(--cs-color-text-accent); }
@@ -40,7 +40,7 @@ button.cs-item--interactive { border: 1px solid transparent; background: var(--c
 .cs-timeline { display: grid; }
 .cs-timeline__item { display: grid; grid-template-columns: 26px 1fr; gap: 14px; padding-block-end: 20px; position: relative; }
 .cs-timeline__item:not(:last-child)::before { content: ""; position: absolute; inset-block: 26px 0; inset-inline-start: 12px; inline-size: 2px; background: var(--cs-color-border-default); }
-.cs-timeline__marker { inline-size: 26px; block-size: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--cs-color-semantic-success); color: var(--cs-color-semantic-success-fg, #fff); font-size: 12px; font-weight: 700; z-index: 1; }
+.cs-timeline__marker { inline-size: 26px; block-size: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--cs-color-semantic-success); color: var(--cs-color-semantic-success-fg, #fff); font-size: var(--cs-font-size-xs); font-weight: 700; z-index: 1; }
 .cs-timeline__item--now .cs-timeline__marker { background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); }
 .cs-timeline__item--todo .cs-timeline__marker { background: var(--cs-color-surface-raised); color: var(--cs-color-text-muted); border: 1px solid var(--cs-color-border-default); }
 .cs-timeline__title { font-weight: 700; margin: 2px 0 2px; }
@@ -72,7 +72,7 @@ button.cs-item--interactive { border: 1px solid transparent; background: var(--c
 .cs-code__bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; border-block-end: 1px solid #4a3a2c; font-family: var(--cs-font-family-mono); font-size: var(--cs-font-size-xs); color: #c9b7a3; }
 .cs-code__copy { border: 0; background: transparent; color: #c9b7a3; cursor: pointer; font: inherit; font-family: var(--cs-font-family-ui); font-weight: 600; }
 .cs-code__copy:hover { color: var(--cs-color-brand-ochre); }
-.cs-code pre { margin: 0; padding: 14px 16px; overflow: auto; font-family: var(--cs-font-family-mono); font-size: 13px; line-height: 1.6; }
+.cs-code pre { margin: 0; padding: 14px 16px; overflow: auto; font-family: var(--cs-font-family-mono); font-size: var(--cs-font-size-sm); line-height: 1.6; }
 .cs-code code { font-family: inherit; }
 
 /* EmptyState */

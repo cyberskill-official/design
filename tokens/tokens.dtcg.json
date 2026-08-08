@@ -1103,6 +1103,11 @@
       "$value": "1.15",
       "$type": "number"
     },
+    "--cs-font-size-2xs": {
+      "$type": "dimension",
+      "$value": "0.6875rem",
+      "$description": "Micro numerals (11px)"
+    },
     "--cs-font-size-xs": {
       "$value": "0.75rem",
       "$type": "dimension"
@@ -1223,6 +1228,16 @@
       "$extensions": {
         "com.cyberskill": {
           "css": "var(--cs-font-size-sm)"
+        }
+      }
+    },
+    "--cs-text-micro": {
+      "$value": "{font.--cs-font-size-2xs}",
+      "$type": "dimension",
+      "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css.",
+      "$extensions": {
+        "com.cyberskill": {
+          "css": "var(--cs-font-size-2xs)"
         }
       }
     },

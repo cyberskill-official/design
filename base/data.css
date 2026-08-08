@@ -27,9 +27,9 @@
 /* Avatar */
 .cs-avatar { display: inline-grid; place-items: center; overflow: hidden; border-radius: 50%; background: var(--cs-color-brand-umber); color: var(--cs-color-brand-ochre); font-family: var(--cs-font-family-ui); font-weight: 700; flex: none; user-select: none; }
 .cs-avatar img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
-.cs-avatar--sm { inline-size: 28px; block-size: 28px; font-size: 12px; }
-.cs-avatar--md { inline-size: 40px; block-size: 40px; font-size: 15px; }
-.cs-avatar--lg { inline-size: 56px; block-size: 56px; font-size: 20px; }
+.cs-avatar--sm { inline-size: 28px; block-size: 28px; font-size: var(--cs-font-size-xs); }
+.cs-avatar--md { inline-size: 40px; block-size: 40px; font-size: var(--cs-font-size-sm); }
+.cs-avatar--lg { inline-size: 56px; block-size: 56px; font-size: var(--cs-font-size-lg); }
 .cs-avatar--square { border-radius: var(--cs-radius-md); }
 .cs-avatar-group { display: inline-flex; }
 .cs-avatar-group > .cs-avatar { box-shadow: 0 0 0 2px var(--cs-color-surface-panel); }

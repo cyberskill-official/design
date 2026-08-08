@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.1.1 · source sha256 187b2897524e0618…
+// release v1.1.1 · source sha256 59f49135245713d6…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -133,6 +133,7 @@ class CSTokens {
   static const double fontLineHeightBody = 1.5;
   static const double fontLineHeightHeading = 1.35;
   static const double fontLineHeightTight = 1.15;
+  static const double fontSize2xs = 11;
   static const double fontSizeXs = 12;
   static const double fontSizeSm = 14;
   static const double fontSizeBase = 16;
@@ -151,6 +152,7 @@ class CSTokens {
   static const String textBodyLg = "var(--cs-font-size-md)";
   static const String textBody = "var(--cs-font-size-base)";
   static const String textSecondary = "var(--cs-font-size-sm)";
+  static const String textMicro = "var(--cs-font-size-2xs)";
   static const String textCaption = "var(--cs-font-size-xs)";
   static const String textEyebrow = "var(--cs-font-size-xs)";
   static const double letterSpacingTightEm = -0.01;

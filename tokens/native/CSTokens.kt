@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.1.1 · source sha256 187b2897524e0618…
+// release v1.1.1 · source sha256 59f49135245713d6…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -135,6 +135,7 @@ object CSTokens {
   val fontLineHeightBody = 1.5f
   val fontLineHeightHeading = 1.35f
   val fontLineHeightTight = 1.15f
+  val fontSize2xs = 11.dp
   val fontSizeXs = 12.dp
   val fontSizeSm = 14.dp
   val fontSizeBase = 16.dp
@@ -153,6 +154,7 @@ object CSTokens {
   val textBodyLg = "var(--cs-font-size-md)"
   val textBody = "var(--cs-font-size-base)"
   val textSecondary = "var(--cs-font-size-sm)"
+  val textMicro = "var(--cs-font-size-2xs)"
   val textCaption = "var(--cs-font-size-xs)"
   val textEyebrow = "var(--cs-font-size-xs)"
   val letterSpacingTightEm = -0.01f

@@ -31,7 +31,7 @@
 .cs-button:focus-visible,
 .cs-field__control:focus-visible,
 .cs-ai-disclosure__badge:focus-visible {
-  outline: 3px solid var(--cs-color-accent-ochre, #f4ba17);
+  outline: var(--cs-focus-ring, 3px) solid var(--cs-color-accent-ochre, #f4ba17);
   outline-offset: 2px;
 }
 
@@ -218,5 +218,7 @@
 @media (prefers-color-scheme: dark) {
   /* Dark theme: umber text/border on the low-emphasis buttons is invisible on dark surfaces —
    remap so secondary reads as an ochre outline and tertiary/ghost use the light body colour. */
-[data-theme="system"] .cs-button--secondary { color: var(--cs-color-brand-ochre); border-color: var(--cs-color-brand-ochre); }
+  [data-theme="system"] .cs-button--secondary { color: var(--cs-color-brand-ochre); border-color: var(--cs-color-brand-ochre); }
+  [data-theme="system"] .cs-button--tertiary { color: var(--cs-color-text-primary); }
+  [data-theme="system"] .cs-button--ghost { color: var(--cs-color-text-primary); }
 }

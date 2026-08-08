@@ -98,6 +98,7 @@ Families ship self-hosted (Be Vietnam Pro · Space Grotesk · JetBrains Mono, fu
 | `--cs-font-lineHeight-body` | `1.5` |
 | `--cs-font-lineHeight-heading` | `1.35` |
 | `--cs-font-lineHeight-tight` | `1.15` |
+| `--cs-font-size-2xs` | `0.6875rem` |
 | `--cs-font-size-xs` | `0.75rem` |
 | `--cs-font-size-sm` | `0.875rem` |
 | `--cs-font-size-base` | `1rem` |
@@ -123,6 +124,7 @@ Semantic aliases into the ramp — write intent, not magic numbers. `Resolves to
 | `--cs-text-body-lg` | `var(--cs-font-size-md)` | `1.125rem` |
 | `--cs-text-body` | `var(--cs-font-size-base)` | `1rem` |
 | `--cs-text-secondary` | `var(--cs-font-size-sm)` | `0.875rem` |
+| `--cs-text-micro` | `var(--cs-font-size-2xs)` | `0.6875rem` |
 | `--cs-text-caption` | `var(--cs-font-size-xs)` | `0.75rem` |
 | `--cs-text-eyebrow` | `var(--cs-font-size-xs)` | `0.75rem` |
 

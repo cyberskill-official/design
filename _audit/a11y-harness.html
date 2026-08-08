@@ -54,6 +54,7 @@ window.addEventListener('load',()=>setTimeout(async()=>{
     const um=/:focus-visible\)?\s*\{([^}]*)\}/.exec(reset);
     assert(um,'no global :focus-visible rule in reset.css');
     assert(/outline\s*:\s*(?!none|0\b)/.test(um[1]),'global rule does not set a real outline');
+    assert(/var\(--cs-focus-ring/.test(um[1]) || /outline\s*:\s*3px\b/.test(um[1]),'global focus ring must be 3px / --cs-focus-ring');
     const files=['components.css','forms.css','navigation.css','controls.css','collections.css','data.css','ai.css','shell.css','interaction.css'];
     const silent=[];
     for(const f of files){

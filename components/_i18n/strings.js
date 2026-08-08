@@ -1,4 +1,4 @@
-/* CyberSkill — central bilingual string registry (v3 Batch 0/1).
+/* CyberSkill — central bilingual string registry (v3 Batch 0/1/2).
  * Every component with BUILT-IN UI text (text the consumer does NOT pass as a prop)
  * registers its strings here, EN + VI. _audit/bilingual-parity.html enforces:
  *   • each component has both `en` and `vi`
@@ -187,5 +187,54 @@ export const strings = {
   HumanReviewGate: {
     en: { aria: "Human review gate", risk: "review required", approve: "Approve", reject: "Reject", reviewer: "Reviewer" },
     vi: { aria: "Cổng kiểm duyệt của con người", risk: "cần xem xét", approve: "Phê duyệt", reject: "Từ chối", reviewer: "Người duyệt" },
+  },
+
+  Switch: {
+    en: { on: "On", off: "Off" },
+    vi: { on: "Bật", off: "Tắt" },
+  },
+  Tabs: {
+    en: { list: "Tabs" },
+    vi: { list: "Tab" },
+  },
+  EmptyState: {
+    en: { title: "Nothing here yet", action: "Get started" },
+    vi: { title: "Chưa có gì ở đây", action: "Bắt đầu" },
+  },
+  Alert: {
+    en: { dismiss: "Dismiss" },
+    vi: { dismiss: "Đóng" },
+  },
+  Select: {
+    en: { placeholder: "Select…" },
+    vi: { placeholder: "Chọn…" },
+  },
+  Slider: {
+    en: { label: "Slider" },
+    vi: { label: "Thanh trượt" },
+  },
+  Steps: {
+    en: { label: "Steps" },
+    vi: { label: "Các bước" },
+  },
+  Toggle: {
+    en: { pressed: "Pressed", unpressed: "Not pressed" },
+    vi: { pressed: "Đang bật", unpressed: "Chưa bật" },
+  },
+  Menu: {
+    en: { menu: "Menu" },
+    vi: { menu: "Trình đơn" },
+  },
+  ContextMenu: {
+    en: { menu: "Context menu" },
+    vi: { menu: "Trình đơn ngữ cảnh" },
+  },
+  Tooltip: {
+    en: { label: "Tooltip" },
+    vi: { label: "Chú thích" },
+  },
+  ProgressBar: {
+    en: { label: "Progress" },
+    vi: { label: "Tiến độ" },
   },
 };

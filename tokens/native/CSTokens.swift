@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.1.1 · source sha256 187b2897524e0618…
+// release v1.1.1 · source sha256 59f49135245713d6…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -137,6 +137,7 @@ public enum CSTokens {
   public static let fontLineHeightBody: Double = 1.5
   public static let fontLineHeightHeading: Double = 1.35
   public static let fontLineHeightTight: Double = 1.15
+  public static let fontSize2xs: CGFloat = 11
   public static let fontSizeXs: CGFloat = 12
   public static let fontSizeSm: CGFloat = 14
   public static let fontSizeBase: CGFloat = 16
@@ -155,6 +156,7 @@ public enum CSTokens {
   public static let textBodyLg: String = "var(--cs-font-size-md)"
   public static let textBody: String = "var(--cs-font-size-base)"
   public static let textSecondary: String = "var(--cs-font-size-sm)"
+  public static let textMicro: String = "var(--cs-font-size-2xs)"
   public static let textCaption: String = "var(--cs-font-size-xs)"
   public static let textEyebrow: String = "var(--cs-font-size-xs)"
   public static let letterSpacingTightEm: Double = -0.01

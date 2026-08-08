@@ -24,8 +24,19 @@ function lum({r,g,b}){const f=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.0
 function ratio(a,b){const A=hex2rgb(a),B=hex2rgb(b);if(!A||!B)return null;const L1=lum(A),L2=lum(B);return (Math.max(L1,L2)+.05)/(Math.min(L1,L2)+.05);}
 const BASE=['reset','components','shell','navigation','forms','controls','data','feedback','collections','ai','typography','glass','interaction','a11y','responsive'];
 const SCREENS=['app-shell/AppShell','dashboard/Dashboard','settings/Settings','auth/Auth','article/Article','marketing-page/MarketingPage'];
-function parseRules(css){ // strip comments, split into {sel,body}
+function parseRules(css){ // strip comments, split into {sel,body}; unwrap @media so system twins are visible
   css=css.replace(/\/\*[\s\S]*?\*\//g,'');
+  // Brace-depth unwrap of @media blocks (keeps nested selectors, drops the @media wrapper).
+  let out='', i=0;
+  while(i<css.length){
+    const m=css.slice(i).match(/^@media[^{]+\{/);
+    if(m){
+      i+=m[0].length; let depth=1, start=i;
+      while(i<css.length && depth){ if(css[i]==='{')depth++; else if(css[i]==='}')depth--; i++; }
+      out+=css.slice(start,i-1); // inner without closing brace
+    }else{ out+=css[i]; i++; }
+  }
+  css=out;
   const rules=[]; let depth=0,buf='';
   for(const ch of css){ buf+=ch; if(ch==='{')depth++; else if(ch==='}'){depth--; if(depth===0){const i=buf.lastIndexOf('{');rules.push({sel:buf.slice(0,i).trim(),body:buf.slice(i+1,-1)});buf='';}} }
   return rules.filter(r=>r.sel && !r.sel.startsWith('@'));
@@ -69,6 +80,20 @@ function parseRules(css){ // strip comments, split into {sel,body}
   sec('1 · Static source lint (base CSS)');
   if(lintFails.length) lintFails.forEach(f=>row('bad','✗ umber-text, no dark override',f));
   else row('ok','✓ every themeable umber-text rule has a [data-theme="dark"] override','checked '+checked);
+  // System-dark twin row (UX-010 / C5): every [data-theme="dark"] colour rule must have a
+  // [data-theme="system"] peer under prefers-color-scheme:dark (or the selector already uses semantic vars only).
+  const sysColorRules=allRules.filter(r=>r.sel.includes('[data-theme="system"]') && /color\s*:|accent-color\s*:|background\s*:/.test(r.body));
+  const sysCore=s=>s.replace(/\[data-theme="system"\]/g,'').trim();
+  const sysCores=new Set(sysColorRules.flatMap(r=>sysCore(r.sel).split(',').map(x=>norm(x))));
+  const darkTwinFails=[];
+  for(const r of darkColorRules){
+    const segs=core(r.sel).split(',').map(x=>norm(x.trim())).filter(Boolean);
+    for(const s of segs){
+      if(!sysCores.has(s)) darkTwinFails.push(r.file+' :: '+s.slice(0,70));
+    }
+  }
+  if(darkTwinFails.length){ darkTwinFails.slice(0,12).forEach(f=>row('bad','✗ dark rule missing system twin',f)); lintFails.push(...darkTwinFails); }
+  else row('ok','✓ every [data-theme="dark"] colour rule has a system twin','checked '+darkColorRules.length);
   window.__gateProgress={current:'matrix',done:1,total:4};
   // ---------- (2) token-pair matrix ----------
   const T=await (await fetch('../tokens/tokens.json',{cache:'no-store'})).json();

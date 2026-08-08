@@ -26,7 +26,8 @@
     "./styles.css": "./styles.css",
     "./tokens/*": "./tokens/*",
     "./_ds_bundle.js": "./_ds_bundle.js",
-    "./_ds_manifest.json": "./_ds_manifest.json"
+    "./_ds_manifest.json": "./_ds_manifest.json",
+    "./styles.min.css": "./dist/styles.min.css"
   },
   "description": "CyberSkill Design System — HTML-first, Vietnamese-first (EN·VI). Anchors: Umber #45210E · Ochre #F4BA17. Axes: Theme × Element × Language × Style. Bundler React entry (`_esm/react.mjs`) + browser legacy (`_esm/cs.mjs`) + styles.css / _ds_bundle.js. Storybook is host-only playground.",
   "style": "styles.css",
@@ -51,7 +52,8 @@
     "guidelines/",
     "ui_kits/",
     "DESIGN.md",
-    "VERSION"
+    "VERSION",
+    "dist/styles.min.css"
   ],
   "keywords": [
     "design-system",
@@ -80,7 +82,7 @@
     "test:nav-model": "node _audit/ci/test-nav-model.mjs",
     "test:ui-contracts": "node _audit/ci/test-health-tokens-contract.mjs",
     "test:form-paths": "node _audit/ci/test-form-paths.mjs",
-    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-axe-coverage.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs && node _audit/ci/test-element-packs.mjs",
+    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-axe-coverage.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs && node _audit/ci/test-element-packs.mjs && node _audit/ci/test-i18n-builtins.mjs",
     "test:element-packs": "node _audit/ci/test-element-packs.mjs",
     "test:react-entry": "node _audit/ci/test-react-entry.mjs",
     "test:subtree-consume": "node _audit/ci/test-subtree-consume.mjs",
@@ -91,7 +93,8 @@
     "test:code-connect": "node _audit/ci/test-code-connect.mjs",
     "test:native-samples": "node _audit/ci/test-native-samples.mjs",
     "tokens:elements": "node scripts/generate-element-packs.mjs",
-    "tokens:contrast": "node scripts/generate-contrast-report.mjs"
+    "tokens:contrast": "node scripts/generate-contrast-report.mjs",
+    "build:styles": "node scripts/flatten-styles.mjs"
   },
   "devDependencies": {
     "@figma/code-connect": "^1.4.9",
