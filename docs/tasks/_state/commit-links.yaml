@@ -1,0 +1,9 @@
+# Intentional exempts — UX audit phase commits (operator D4, 2026-08-09).
+# Task TASK-UX-AUDIT-20260808 deleted; no paper trail kept. Subjects used a
+# non-canonical TASK id that status-feed cannot link, so ledger-exempt them.
+a1695fe: exempt  # docs: stamp Phase 4–5 commit hash on UX audit plan
+6ca2a1a: exempt  # Close UX audit Phase 4–5
+b0b6f5d: exempt  # Land UX audit Phase 3
+8aab010: exempt  # Close UX audit Phase 2
+46a10fb: exempt  # Close UX audit Phase 1
+91d9fd8: exempt  # feat: plan (UX audit planning)

@@ -88,7 +88,7 @@ The `test:unit` suite is wired into the CI workflow as part of the July 2026 har
 
 ## Audit probe suite — `npm run test:audit-probe`
 
-Promoted entry for the 2026-08-08 UX audit proxies (`_audit/ci/audit-probe-suite.mjs`): unit suite + light-contrast + 320 overflow + language-overflow + zoom/text-spacing. The **manual AT matrix** (`docs/plans/at-matrix-ux-audit-2026-08-08.md`, owner Stephen Cheng) is listed by `--list` but never auto-marked pass.
+Promoted entry for UX audit proxies (`_audit/ci/audit-probe-suite.mjs`): unit suite + light-contrast + 320 overflow + language-overflow + zoom/text-spacing. Manual assistive-technology checks remain human-reviewed (never auto-marked pass).
 
 ## Sync / distribution jobs (soft-skip)
 
@@ -117,4 +117,4 @@ The eight gates the audit planned (token-format-parity, version-stamp, support-r
 - **Legal template content** — counsel reviews the instruments; gates only check structure, bilingual mechanics, and print geometry.
 - **Pixel-diff baselines** — Playwright `%` drift auto-fails (hard). After intentional redesigns, refresh `_audit/baselines/` with `pixel-diff.mjs --update` and commit. Side-by-side visual / component review pages stay advisory (judgment by eye).
 - **Component API design review** — prop naming and ergonomics are reviewed by the owner, not asserted.
-- **Manual AT (E1)** — NVDA / VoiceOver matrix in `docs/plans/at-matrix-ux-audit-2026-08-08.md`; owner **Stephen Cheng**; empty slots are not passes.
+- **Manual AT (E1)** — NVDA / VoiceOver (and similar) checks are owner-attested; empty slots are not passes.

@@ -27,7 +27,6 @@ const PROXIES = [
   { id: "light-contrast", file: "_audit/light-contrast.html", global: "__lightcontrast", note: "Light DOM contrast walk × templates" },
   { id: "overflow-320", file: "_audit/responsive-overflow-320.html", global: "__overflow320", note: "Whole-set 320 reflow" },
   { id: "language-overflow", file: "_audit/language-overflow.html", global: "__langoverflow", note: "VN overflow + EN leak lexicon" },
-  { id: "at-matrix", doc: "docs/plans/at-matrix-ux-audit-2026-08-08.md", note: "Manual AT — owner Stephen Cheng; not automatable" },
 ];
 
 const listOnly = process.argv.includes("--list");
@@ -64,9 +63,9 @@ for (const p of PROXIES) {
   if (r.status !== 0) failed++;
 }
 
-console.log("\nAT matrix (manual): docs/plans/at-matrix-ux-audit-2026-08-08.md — owner Stephen Cheng");
+console.log("\nManual AT: owner-attested (human-only; not automatable)");
 if (failed) {
   console.error(`\nFAIL audit-probe-suite (${failed} step(s)). Is the static server up on ${base}?`);
   process.exit(1);
 }
-console.log("\nPASS audit-probe-suite { proxies: ok, atMatrix: scheduled }");
+console.log("\nPASS audit-probe-suite { proxies: ok, atMatrix: human-only }");

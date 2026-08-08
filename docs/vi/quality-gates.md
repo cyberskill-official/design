@@ -88,7 +88,7 @@ Suite `test:unit` được nối vào CI workflow như một phần của harden
 
 ## Audit probe suite — `npm run test:audit-probe`
 
-Entry thúc đẩy cho proxy audit UX 2026-08-08 (`_audit/ci/audit-probe-suite.mjs`): suite unit + light-contrast + overflow 320 + language-overflow + zoom/text-spacing. **Ma trận AT thủ công** (`docs/plans/at-matrix-ux-audit-2026-08-08.md`, owner Stephen Cheng) chỉ liệt kê qua `--list`, không bao giờ tự đánh dấu pass.
+Entry thúc đẩy cho proxy audit UX (`_audit/ci/audit-probe-suite.mjs`): suite unit + light-contrast + overflow 320 + language-overflow + zoom/text-spacing. Kiểm tra công nghệ hỗ trợ thủ công vẫn do người review (không bao giờ tự đánh dấu pass).
 
 ## Job sync / phân phối (soft-skip)
 
@@ -117,4 +117,4 @@ Tám gate audit lên kế hoạch (token-format-parity, version-stamp, support-r
 - **Nội dung template pháp lý** — counsel review instrument; gate chỉ kiểm cấu trúc, cơ chế bilingual, và hình học print.
 - **Baseline pixel-diff** — drift `%` Playwright auto-fail (hard). Sau redesign có chủ đích, làm mới `_audit/baselines/` bằng `pixel-diff.mjs --update` và commit. Trang review side-by-side visual / component vẫn advisory (đánh giá bằng mắt).
 - **Review thiết kế API component** — đặt tên prop và ergonomics do owner review, không assert.
-- **AT thủ công (E1)** — ma trận NVDA / VoiceOver tại `docs/plans/at-matrix-ux-audit-2026-08-08.md`; owner **Stephen Cheng**; ô trống không phải pass.
+- **AT thủ công (E1)** — kiểm tra NVDA / VoiceOver (và tương tự) do owner xác nhận; ô trống không phải pass.
