@@ -1,10 +1,10 @@
 {
   "system": "CyberSkill Design System",
-  "release": "1.1.1",
+  "release": "1.2.0",
   "source": "tokens/tokens.dtcg.json",
   "sourceSha256": "16b39bda3ee5b664e468777a5cb3868dd990fa2b8e595866ac8547311acbd9ca",
   "dtcgStamp": {
-    "version": "1.1.1",
+    "version": "1.2.0",
     "generated": "2026-07-23"
   },
   "conversions": {
