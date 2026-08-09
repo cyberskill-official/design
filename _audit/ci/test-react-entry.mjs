@@ -49,7 +49,11 @@ assert(existsSync(join(root, "_esm/react.mjs")), "react.mjs exists");
 assert(existsSync(join(root, "_esm/react.d.ts")), "react.d.ts exists");
 assert(existsSync(join(root, "_esm/cs.mjs")), "legacy cs.mjs exists");
 
-// --- react.mjs shape: no browser bridge ---
+// --- react.mjs shape: client barrel + no browser bridge ---
+assert(
+  /^\s*["']use client["']\s*;/m.test(reactMjs) || reactMjs.trimStart().startsWith('"use client"'),
+  'react.mjs must start with "use client" (RSC / App Router client barrel — FIND-006)'
+);
 assert(!/unpkg\.com/.test(reactMjs), "react.mjs must not load React from CDN");
 assert(!/CyberSkillDesignSystem_/.test(reactMjs), "react.mjs must not hardcode bundle namespace");
 assert(!/_ds_bundle\.js/.test(reactMjs), "react.mjs must not side-load _ds_bundle.js");

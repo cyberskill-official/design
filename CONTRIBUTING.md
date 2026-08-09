@@ -40,6 +40,10 @@ Deep checks, never surface spot-checks. Cover the **whole set and every relevant
 
 - **Card / guideline** — `.html` with `<!-- @dsCard group="…" … -->` first line.
 
+## Agent MCP (CyberOS)
+
+Tracked `.mcp.json` points at `scripts/mcp/cyberos-mcp.mjs` (not gitignored `.cyberos/` directly — FIND-024). That stub forwards to `.cyberos/mcp/cyberos-mcp.mjs` after `cyberos install`; on a fresh clone it exits cleanly and leaves the server disconnected. Canonical shape: `.mcp.json.example`. Prefer user-level MCP or an unstaged local overlay if you need a private server list — do not reintroduce a tracked path into gitignored `.cyberos/`.
+
 ## Documented scope boundaries (not gaps)
 
 UI-kit pages remain Thổ-faithful recreations; bilingual EN·VN covers emails + team/legal/finance docs (client/media collateral is EN-first); text never sits on the mid-tone `-accent`; email-safe send variants are exemplars in `templates/email-safe/` (others convert on request).

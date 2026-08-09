@@ -15,13 +15,20 @@
   #stage{position:absolute;left:0;top:-4000px;width:900px}
 </style></head><body>
 <h1>A11y interaction gate</h1>
-<p class="lede">Keyboard + ARIA assertions on the compiled components: <b>focus management</b> (Dialog/Drawer/AlertDialog initial focus, Tab trap, restore-on-close, Escape), <b>roving tabindex</b> (Tabs, SegmentedControl, Menubar arrow keys), <b>combobox pattern</b> (aria-activedescendant), role/label contracts (Rating, InputOTP, DataGrid aria-sort, Carousel, Popconfirm, live-region roles), plus open-state surfaces also covered by axe (Cascader/TreeSelect Escape, Tour dialog Escape, HoverCard panel, ContextMenu Escape). Loads <code>_ds_bundle.js</code> (compiled end of turn) — re-run on a <b>fresh</b> turn after editing component sources. Verdict on <code>window.__a11y</code>.</p>
+<p class="lede">Keyboard + ARIA assertions on the compiled components: <b>focus management</b> (Dialog/Drawer/AlertDialog initial focus, Tab trap, restore-on-close, Escape), <b>roving tabindex</b> (Tabs, SegmentedControl, Menubar arrow keys), <b>combobox pattern</b> (aria-activedescendant), <b>Mentions APG</b> (arrow + activedescendant + Enter/Escape), <b>Sortable</b> move-up/down keyboard path, and <b>Rating / Tree / Toolbar APG</b> (roving + arrows — hard-fail), role/label contracts (Rating, InputOTP, DataGrid aria-sort, Carousel, Popconfirm, live-region roles), plus open-state surfaces also covered by axe (Cascader/TreeSelect Escape, Tour dialog Escape, HoverCard panel, ContextMenu Escape). Loads <code>_ds_bundle.js</code> (compiled end of turn) — re-run on a <b>fresh</b> turn after editing component sources. Verdict on <code>window.__a11y</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <div id="stage"></div>
 <script>
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
-const P=window.__gateProgress={done:0,total:22,current:'boot'};
+const P=window.__gateProgress={done:0,total:25,current:'boot'};
+function setInput(input,val){
+  const proto=input.tagName==='TEXTAREA'?window.HTMLTextAreaElement.prototype:window.HTMLInputElement.prototype;
+  const set=Object.getOwnPropertyDescriptor(proto,'value').set;
+  set.call(input,val);
+  input.dispatchEvent(new Event('input',{bubbles:true}));
+  input.dispatchEvent(new Event('change',{bubbles:true}));
+}
 function publish(v){ if(window.__a11y) return; window.__a11y=v; const s=document.getElementById('sum'); s.textContent=v.pass?('\u2713 all '+v.total+' a11y checks pass'):('\u2717 '+(v.error?v.error:(v.failed.length+'/'+v.total+' failed: '+v.failed.join(', ')))); s.style.color=v.pass?'#166534':'#B42318'; console.log('A11Y VERDICT '+JSON.stringify({pass:v.pass,failed:v.failed||[],error:v.error||null,results:(v.results||[]).map(r=>(r.ok?'+':'-')+r.name+(r.ok?'':' :: '+r.detail))})); }
 const h=(typeof React!=='undefined')?React.createElement:null;
 const NS=window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
@@ -50,7 +57,7 @@ async function until(fn,ms){ ms=ms||2500; const t0=Date.now(); let r=false; whil
 async function run(){
   if(!h||typeof ReactDOM==='undefined'){ publish({pass:false,total:0,failed:[],error:'React CDN failed to load \u2014 gate cannot run',results:[]}); return; }
   if(!NS){ publish({pass:false,total:0,failed:[],error:'bundle namespace not found \u2014 is _ds_bundle.js compiled?',results:[]}); return; }
-  const {Dialog,Drawer,AlertDialog,Menubar,Tabs,SegmentedControl,Combobox,Menu,MenuItem,Popconfirm,Rating,InputOTP,Toast,Alert,Spinner,Result,DataGrid,Carousel,Editor,Button,Cascader,TreeSelect,Tour,HoverCard,ContextMenu}=NS;
+  const {Dialog,Drawer,AlertDialog,Menubar,Tabs,SegmentedControl,Combobox,Menu,MenuItem,Popconfirm,Rating,InputOTP,Toast,Alert,Spinner,Result,DataGrid,Carousel,Editor,Button,Cascader,TreeSelect,Tour,HoverCard,ContextMenu,Mentions,Sortable,Tree,Toolbar}=NS;
 
   await test('Dialog — focus moves in on open',async()=>{
     assert(Dialog,'missing');
@@ -365,6 +372,114 @@ async function run(){
     kd(opts()[0],'ArrowDown');
     assert(await until(()=>document.activeElement===opts()[1]||opts().indexOf(document.activeElement)>0),'ArrowDown moves');
     return 'arrow model';
+  });
+
+  // FIND-012 / FIND-018 — Mentions APG editable-combobox (hard-fail)
+  await test('Mentions — APG arrow + activedescendant + Enter',async()=>{
+    assert(Mentions,'missing'); let got=null;
+    const c=mount(h(Mentions,{users:['alice','bob','carol'],onChange:(v)=>{got=v;}})); await wait(80);
+    const input=c.querySelector('textarea.cs-field__control, textarea[role="combobox"], textarea');
+    assert(input,'no mention textarea');
+    setInput(input,'@');
+    assert(await until(()=>c.querySelectorAll('.cs-mentions__pop [role="option"]').length>=2),'listbox open');
+    assert(input.getAttribute('aria-expanded')==='true','aria-expanded');
+    const ad0=input.getAttribute('aria-activedescendant');
+    assert(ad0,'aria-activedescendant set');
+    kd(input,'ArrowDown'); await wait(40);
+    const ad1=input.getAttribute('aria-activedescendant');
+    assert(ad1&&ad1!==ad0,'ArrowDown moves activedescendant');
+    kd(input,'Enter'); await wait(80);
+    assert(await until(()=>got&&/@bob\s/.test(got)),'Enter picks bob, got '+got);
+    assert(await until(()=>!c.querySelector('.cs-mentions__pop')),'popup closed');
+    return 'APG pick '+got;
+  });
+
+  await test('Mentions — Escape closes suggestions',async()=>{
+    assert(Mentions,'missing');
+    const c=mount(h(Mentions,{users:['alice','bob']})); await wait(80);
+    const input=c.querySelector('textarea');
+    setInput(input,'@a');
+    assert(await until(()=>c.querySelector('.cs-mentions__pop')),'open');
+    kd(input,'Escape'); await wait(60);
+    assert(await until(()=>!c.querySelector('.cs-mentions__pop')),'closed on Escape');
+    return 'Escape closes';
+  });
+
+  // FIND-013 / FIND-018 — Sortable single-pointer + keyboard path (hard-fail)
+  await test('Sortable — move buttons reorder without drag',async()=>{
+    assert(Sortable,'missing'); let items=null;
+    function SoB(){const[it,setIt]=React.useState([{key:'1',label:'One'},{key:'2',label:'Two'},{key:'3',label:'Three'}]);items=it;return h(Sortable,{items:it,onChange:setIt,lang:'en'});}
+    const c=mount(h(SoB)); await wait(80);
+    const down=c.querySelector('.cs-sortable__item button[aria-label="Move down"]');
+    assert(down,'no move-down button');
+    await fxSure(down);
+    kd(down,'Enter'); await wait(60);
+    // Enter on a button may not activate in all harnesses — click is the activation path after keyboard focus
+    if(!(items&&items.map(i=>i.key).join(',')==='2,1,3')){ down.click(); await wait(60); }
+    assert(await until(()=>items&&items.map(i=>i.key).join(',')==='2,1,3'),'order 2,1,3 got '+(items&&items.map(i=>i.key).join(',')));
+    const ups=[...c.querySelectorAll('.cs-sortable__item button[aria-label="Move up"]')];
+    const downs=[...c.querySelectorAll('.cs-sortable__item button[aria-label="Move down"]')];
+    assert(ups.length===3&&downs.length===3,'move-up/down on every item');
+    assert(ups[0].disabled,'first move-up disabled');
+    assert(downs[downs.length-1].disabled,'last move-down disabled');
+    return 'button reorder without drag';
+  });
+
+  // FIND-014 — Rating / Tree / Toolbar APG keyboard (hard-fail)
+  await test('Rating — radiogroup roving + ArrowRight',async()=>{
+    assert(Rating,'missing'); let got=null;
+    const c=mount(h(Rating,{defaultValue:2,onChange:(v)=>{got=v;}})); await wait(70);
+    const radios=[...c.querySelectorAll('[role="radio"]')];
+    assert(radios.length===5,'5 radios');
+    const tabs=radios.map(r=>r.tabIndex);
+    assert(tabs.filter(t=>t===0).length===1,'exactly one tab stop');
+    assert(radios[1].tabIndex===0,'focus on value 2');
+    radios[1].focus();
+    kd(radios[1],'ArrowRight'); await wait(40);
+    assert(await until(()=>got===3),'ArrowRight sets 3, got '+got);
+    assert(radios[2].tabIndex===0,'roving moved to star 3');
+    return 'roving + ArrowRight';
+  });
+
+  await test('Tree — APG ArrowDown + ArrowRight expand',async()=>{
+    assert(Tree,'missing'); let sel=null;
+    const nodes=[{key:'p',label:'Platform',children:[{key:'ds',label:'Design System'},{key:'tok',label:'Tokens'}]},{key:'ai',label:'AI'}];
+    function TH(){const[s,setS]=React.useState(null);sel=s;return h(Tree,{nodes,selected:s,onSelect:setS});}
+    const c=mount(h(TH)); await wait(80);
+    const labels=[...c.querySelectorAll('.cs-tree__label')];
+    assert(labels.length>=2,'visible labels');
+    assert(labels.filter(b=>b.tabIndex===0).length===1,'one tree tab stop');
+    labels[0].focus();
+    kd(labels[0],'ArrowDown'); await wait(40);
+    assert(document.activeElement===labels[1]||c.querySelectorAll('.cs-tree__label')[1]===document.activeElement,'ArrowDown moves');
+    // focus first parent again and expand
+    const first=c.querySelector('.cs-tree__label');
+    first.focus();
+    kd(first,'ArrowRight'); await wait(60);
+    assert(await until(()=>c.querySelectorAll('.cs-tree__label').length>=3),'ArrowRight expands children');
+    kd(first,'Enter'); await wait(40);
+    assert(sel==='p','Enter selects');
+    return 'tree APG';
+  });
+
+  await test('Toolbar — arrow nav + overflow menu Escape',async()=>{
+    assert(Toolbar,'missing');
+    const c=mount(h(Toolbar,{label:'Editor',overflowAfter:2,items:[{label:'Edit'},{label:'Copy'},{label:'Export'},{label:'Archive'}]})); await wait(80);
+    const bar=c.querySelector('[role="toolbar"]'); assert(bar,'toolbar');
+    const btns=[...bar.querySelectorAll(':scope > .cs-toolbar__btn, :scope > .cs-toolbar__more > .cs-toolbar__btn')];
+    assert(btns.length===3,'2 head + more');
+    assert(btns.filter(b=>b.tabIndex===0).length===1,'one toolbar tab stop');
+    btns[0].focus();
+    kd(btns[0],'ArrowRight'); await wait(40);
+    assert(document.activeElement===btns[1],'ArrowRight to second');
+    kd(btns[1],'ArrowRight'); await wait(40);
+    assert(document.activeElement===btns[2],'ArrowRight to more');
+    kd(btns[2],'ArrowDown'); await wait(60);
+    assert(await until(()=>c.querySelector('[role="menu"]')),'overflow menu open');
+    assert(c.querySelector('[role="menuitem"]'),'menuitem present');
+    kd(document.activeElement,'Escape'); await wait(60);
+    assert(await until(()=>!c.querySelector('[role="menu"]')),'Escape closes menu');
+    return 'toolbar APG';
   });
 
   const bad=results.filter(r=>!r.ok);

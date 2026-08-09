@@ -67,10 +67,16 @@ button.cs-item--interactive { border: 1px solid transparent; background: var(--c
 .cs-collapsible__panel > :first-child { margin-block-start: 0; }
 .cs-collapsible__panel > :last-child { margin-block-end: 0; }
 
-/* CodeBlock */
-.cs-code { position: relative; background: #2b1e14; color: #f5ead9; border-radius: var(--cs-radius-lg); overflow: hidden; border: 1px solid #4a3a2c; }
-.cs-code__bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; border-block-end: 1px solid #4a3a2c; font-family: var(--cs-font-family-mono); font-size: var(--cs-font-size-xs); color: #c9b7a3; }
-.cs-code__copy { border: 0; background: transparent; color: #c9b7a3; cursor: pointer; font: inherit; font-family: var(--cs-font-family-ui); font-weight: 600; }
+/* CodeBlock — always-dark chrome (FIND-010: hex only in local custom props) */
+.cs-code {
+  --cs-code-bg: #2b1e14;
+  --cs-code-fg: #f5ead9;
+  --cs-code-border: #4a3a2c;
+  --cs-code-muted: #c9b7a3;
+  position: relative; background: var(--cs-code-bg); color: var(--cs-code-fg); border-radius: var(--cs-radius-lg); overflow: hidden; border: 1px solid var(--cs-code-border);
+}
+.cs-code__bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; border-block-end: 1px solid var(--cs-code-border); font-family: var(--cs-font-family-mono); font-size: var(--cs-font-size-xs); color: var(--cs-code-muted); }
+.cs-code__copy { border: 0; background: transparent; color: var(--cs-code-muted); cursor: pointer; font: inherit; font-family: var(--cs-font-family-ui); font-weight: 600; }
 .cs-code__copy:hover { color: var(--cs-color-brand-ochre); }
 .cs-code pre { margin: 0; padding: 14px 16px; overflow: auto; font-family: var(--cs-font-family-mono); font-size: var(--cs-font-size-sm); line-height: 1.6; }
 .cs-code code { font-family: inherit; }

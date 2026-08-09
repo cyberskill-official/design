@@ -82,7 +82,7 @@
     "test:nav-model": "node _audit/ci/test-nav-model.mjs",
     "test:ui-contracts": "node _audit/ci/test-health-tokens-contract.mjs",
     "test:form-paths": "node _audit/ci/test-form-paths.mjs",
-    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-axe-coverage.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs && node _audit/ci/test-element-packs.mjs && node _audit/ci/test-i18n-builtins.mjs && node _audit/ci/test-storybook-freshness.mjs",
+    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-docs-consistency.mjs && node _audit/ci/test-base-hex-allowlist.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-axe-coverage.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-npm-publish.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs && node _audit/ci/test-element-packs.mjs && node _audit/ci/test-i18n-builtins.mjs && node _audit/ci/test-format-currency.mjs && node _audit/ci/test-storybook-freshness.mjs",
     "test:audit-probe": "node _audit/ci/audit-probe-suite.mjs",
     "test:element-packs": "node _audit/ci/test-element-packs.mjs",
     "test:react-entry": "node _audit/ci/test-react-entry.mjs",
@@ -99,7 +99,8 @@
     "version:check": "node scripts/ds-version.mjs --check",
     "version:selftest": "node scripts/ds-version.mjs --selftest",
     "version:stamp": "node scripts/stamp-release-version.mjs",
-    "version:stamp:apply": "node scripts/stamp-release-version.mjs --apply"
+    "version:stamp:apply": "node scripts/stamp-release-version.mjs --apply",
+    "sbom": "npx --yes @cyclonedx/cyclonedx-npm@3.1.0 --output-file bom.cdx.json --output-reproducible --spec-version 1.5"
   },
   "devDependencies": {
     "@figma/code-connect": "^1.4.9",

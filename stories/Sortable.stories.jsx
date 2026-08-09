@@ -5,21 +5,18 @@ export default {
   component: Sortable,
   tags: ['autodocs'],
   argTypes: {
-  "items": {
-    "control": "object"
+    items: { control: 'object' },
+    onChange: { control: false },
+    lang: { control: 'select', options: ['en', 'vi'] },
   },
-  "onChange": {
-    "control": "object"
-  }
-},
   parameters: {
     docs: {
       description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Sortable. Portable consumers use styles.css + bundle, not Storybook.',
+        component: 'Host Live CSF — Default plus honest control matrix mounting Sortable (move buttons + DnD). Portable consumers use styles.css + bundle, not Storybook.',
       },
     },
   },
-  args: { items: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }] },
+  args: { items: [{ key: 'a', label: 'Alpha' }, { key: 'b', label: 'Beta' }], lang: 'en' },
 };
 
 export const Default = {};
@@ -28,8 +25,8 @@ export const Matrix = {
   name: 'Matrix / Items',
   render: (args) => (
     <div style={{ display: 'grid', gap: 16 }}>
-      <Sortable {...args} items={[{ id: 'a', label: 'Alpha' }]} />
-      <Sortable {...args} items={[{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }, { id: 'c', label: 'Gamma' }]} />
+      <Sortable {...args} items={[{ key: 'a', label: 'Alpha' }]} />
+      <Sortable {...args} items={[{ key: 'a', label: 'Alpha' }, { key: 'b', label: 'Beta' }, { key: 'c', label: 'Gamma' }]} />
     </div>
   ),
 };

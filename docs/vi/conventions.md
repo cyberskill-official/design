@@ -20,7 +20,7 @@ Pack Style duy nhất hiện nay là **liquid-glass**. Bất biến dưới mọ
 
 ## Ngữ pháp đặt tên
 
-- Tokens: `--cs-<layer>-<role>[-<state>]` (`--cs-color-text-muted`). Layer role element: `--cs-accent-*` (hợp đồng 9-token — xem header `tokens/elements.css`).
+- Tokens: `--cs-<layer>-<role>[-<state>]` (`--cs-color-text-muted`). Layer role element: `--cs-accent-*` (hợp đồng 10-token gồm `--cs-accent-on-strong` — xem header `tokens/elements.css`).
 
 - Classes: `.cs-<block>[-<part>][--modifier]`. Data attributes: `data-theme`, `data-cs-element`, `data-cs-variant`, `data-cs-style`.
 
@@ -36,7 +36,7 @@ Pack Style duy nhất hiện nay là **liquid-glass**. Bất biến dưới mọ
 
 **Template mới** — `templates/<slug>/<Slug>.dc.html` với `<!-- @template name description -->` đầu tiên; `ds-base.js` giữ single-entry (`styles.css` thôi — rebind một dòng đã validate end-to-end Th7 2026 từ path sâu hơn; scaffold test đã gỡ) và publish alias độc lập-id `window.CyberSkillDS` lúc bundle load, nên mount DS component qua `component-from-global-scope="CyberSkillDS.…"` — **không bao giờ** hậu tố `CyberSkillDesignSystem_<projectId>` hardcode (đổi khi re-import; enforce bởi `_audit/namespace-portability.html`); chỉ inline styles; 1–3 tweaks (không plain copy/color — in-place editing phủ những cái đó); printable docs thêm khối print `@page` + `.cs-desk`/`.cs-sheet` và **không** mang dark tweak (print chỉ light).
 
-**Element variant mới** — ở trong envelope oklch của element; đặt 9 token hợp đồng `--cs-accent-*` cộng `--cs-color-text-accent`/`--cs-color-link` (APCA-check cả hai); aurora wash kế thừa từ element qua `.cs-aurora-wash` (chỉ override class rule nếu variant thật sự cần ảnh riêng); đối tác gradient (`grad-b`) phải theo Tương sinh.
+**Element variant mới** — ở trong envelope oklch của element; đặt 10 token hợp đồng `--cs-accent-*` (gồm `--cs-accent-on-strong` ≥4.5:1 trên `-strong`) cộng `--cs-color-text-accent`/`--cs-color-link` (APCA-check cả hai); aurora wash kế thừa từ element qua `.cs-aurora-wash` (chỉ override class rule nếu variant thật sự cần ảnh riêng); đối tác gradient (`grad-b`) phải theo Tương sinh.
 
 **Ship check** — chạy compiler check đến sạch, rồi chạy `_audit/docs-consistency.html` **và** `_audit/namespace-portability.html` (cả hai phải xanh). Pin theo `VERSION` (auto-bump trên `main`).
 

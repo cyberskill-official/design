@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.2.1 · source sha256 18ad31af00f45b3e…
+// release v1.2.1 · source sha256 1c2a8c8004ab3dab…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -118,6 +118,7 @@ object CSTokens {
   val radiusLg = 14.dp
   val radiusFull = 999.dp
   val breakpointXs = 0.dp
+  val breakpointPhone = 360.dp
   val breakpointSm = 640.dp
   val breakpointMd = 768.dp
   val breakpointLg = 1024.dp

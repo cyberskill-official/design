@@ -1012,6 +1012,11 @@
       "$value": "0px",
       "$type": "dimension"
     },
+    "--cs-breakpoint-phone": {
+      "$value": "360px",
+      "$type": "dimension",
+      "$description": "Justified small-phone / 320-reflow stop (UX-003)."
+    },
     "--cs-breakpoint-sm": {
       "$value": "640px",
       "$type": "dimension"

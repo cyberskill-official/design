@@ -81,6 +81,24 @@
       "type": "text",
       "label": "Password-reset action link",
       "maxLength": 64
+    },
+    {
+      "id": "errTitle",
+      "type": "text",
+      "label": "Sign-in error alert title (error/invalid states)",
+      "maxLength": 40
+    },
+    {
+      "id": "errBody",
+      "type": "text",
+      "label": "Sign-in error alert body",
+      "maxLength": 120
+    },
+    {
+      "id": "emailError",
+      "type": "text",
+      "label": "Email field validation error (invalid state)",
+      "maxLength": 64
     }
   ]
 }

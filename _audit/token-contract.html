@@ -30,17 +30,38 @@ probe.removeAttribute('data-cs-element');probe.removeAttribute('data-cs-variant'
 const csr=getComputedStyle(probe);
 const coreMiss=coreCheck.filter(t=>!csr.getPropertyValue(t).trim());
 const depthMiss=DEPTH.filter(t=>!csr.getPropertyValue(t).trim());
-window.__contract={
-  pass:fails===0&&coreMiss.length===0&&depthMiss.length===0,
-  elementFails:fails,
-  coreMissing:coreMiss,
-  depthMissing:depthMiss,
-  total:rows.length
-};
-document.getElementById('out').textContent =
-  "TOKEN CONTRACT — "+(window.__contract.pass?"✓ PASS":"✗ FAIL")+"\n\n"+
-  "Element role tokens ("+rows.length+" scopes, 10 roles each):\n"+rows.join("\n")+
-  "\n\nCore tokens: "+(coreMiss.length?"✗ missing "+coreMiss.join(", "):"✓ all resolve")+
-  "\nDepth tokens: "+(depthMiss.length?"✗ missing "+depthMiss.join(", "):"✓ all 8 resolve");
+// FIND-008 — inline z-index fallbacks in base CSS must equal elevation.css token values
+const DEPTH_EXPECT={bg:0,section:5,card:10,nav:50,dropdown:60,overlay:80,modal:100,toast:200};
+(async()=>{
+  let fbBad=[];
+  try{
+    const texts=await Promise.all(['../tokens/elevation.css','../base/controls.css','../base/glass.css'].map(async p=>{
+      const r=await fetch(p,{cache:'no-store'}); return r.ok?await r.text():'';
+    }));
+    const elev=texts[0], base=texts[1]+'\n'+texts[2];
+    const tok={};
+    for(const m of elev.matchAll(/--cs-depth-([a-z]+)\s*:\s*(\d+)\s*;/g)) tok[m[1]]=parseInt(m[2],10);
+    for(const [k,v] of Object.entries(DEPTH_EXPECT)){ if(tok[k]!==v) fbBad.push('token '+k+'='+tok[k]+'≠'+v); }
+    for(const m of base.matchAll(/var\(--cs-depth-([a-z]+)\s*,\s*(\d+)\s*\)/g)){
+      const name=m[1], fb=parseInt(m[2],10), expect=DEPTH_EXPECT[name];
+      if(expect===undefined) fbBad.push(name+':unknown');
+      else if(fb!==expect) fbBad.push(name+' fallback '+fb+'≠'+expect);
+    }
+  }catch(e){ fbBad.push(String(e).slice(0,80)); }
+  window.__contract={
+    pass:fails===0&&coreMiss.length===0&&depthMiss.length===0&&fbBad.length===0,
+    elementFails:fails,
+    coreMissing:coreMiss,
+    depthMissing:depthMiss,
+    depthFallbackBad:fbBad,
+    total:rows.length
+  };
+  document.getElementById('out').textContent =
+    "TOKEN CONTRACT — "+(window.__contract.pass?"✓ PASS":"✗ FAIL")+"\n\n"+
+    "Element role tokens ("+rows.length+" scopes, 10 roles each):\n"+rows.join("\n")+
+    "\n\nCore tokens: "+(coreMiss.length?"✗ missing "+coreMiss.join(", "):"✓ all resolve")+
+    "\nDepth tokens: "+(depthMiss.length?"✗ missing "+depthMiss.join(", "):"✓ all 8 resolve")+
+    "\nDepth fallbacks: "+(fbBad.length?"✗ "+fbBad.slice(0,6).join(' | '):"✓ base/ matches elevation.css");
+})();
 </script>
 </body></html>

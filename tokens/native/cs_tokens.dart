@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.2.1 · source sha256 18ad31af00f45b3e…
+// release v1.2.1 · source sha256 1c2a8c8004ab3dab…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -116,6 +116,7 @@ class CSTokens {
   static const double radiusLg = 14;
   static const double radiusFull = 999;
   static const double breakpointXs = 0;
+  static const double breakpointPhone = 360;
   static const double breakpointSm = 640;
   static const double breakpointMd = 768;
   static const double breakpointLg = 1024;

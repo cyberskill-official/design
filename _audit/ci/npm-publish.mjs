@@ -10,6 +10,11 @@
  * the CLI authenticates via OIDC (do not set NODE_AUTH_TOKEN / NPM_TOKEN).
  * Package Publishing access disallows classic tokens; local non-OIDC → soft-skip
  * (interactive maintainer publish uses `npm publish --otp` outside this script).
+ *
+ * Soft-skip (exit 0) is only for expected no-ops: missing_secrets, already-published
+ * (EPUBLISHCONFLICT), and similar fork/auth-unavailable cases (ENEEDAUTH / 404 / 402).
+ * Real denials after a publish attempt — 403 and EOTP — fail the job (non-zero).
+ * A successful publish is followed by `npm view <name>@<version>` presence check.
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -21,22 +26,83 @@ const REPORT = join(root, '_audit/ci/npm-publish-report.json');
 const args = new Set(process.argv.slice(2));
 const dryRun = args.has('--dry-run');
 
-export function isSoftSkippableNpmError(err) {
+/**
+ * Classify npm publish stderr/stdout (or Error) after a publish attempt.
+ * @returns {{ kind: 'soft_skip' | 'hard_fail' | 'unknown', reason: string }}
+ */
+export function classifyNpmPublishError(err) {
   const msg = String(err?.message || err || '');
-  return /ENEEDAUTH/i.test(msg)
-    || /need auth/i.test(msg)
-    || /EOTP/i.test(msg)
-    || /one-time password/i.test(msg)
-    || /404.*Not found/i.test(msg)
-    || /402\b/.test(msg)
-    || /403\b/.test(msg)
-    || /EPUBLISHCONFLICT/i.test(msg)
-    || /cannot publish over/i.test(msg);
+
+  // Hard fail: attempted publish was denied (FIND-020).
+  if (/EOTP/i.test(msg) || /one-time password/i.test(msg)) {
+    return { kind: 'hard_fail', reason: 'eotp' };
+  }
+  if (/\b403\b/.test(msg)) {
+    return { kind: 'hard_fail', reason: 'forbidden_403' };
+  }
+
+  // Soft-skip: expected no-ops (already published, fork/auth unavailable).
+  if (/EPUBLISHCONFLICT/i.test(msg) || /cannot publish over/i.test(msg)) {
+    return { kind: 'soft_skip', reason: 'already_published' };
+  }
+  if (/ENEEDAUTH/i.test(msg) || /need auth/i.test(msg)) {
+    return { kind: 'soft_skip', reason: 'need_auth' };
+  }
+  if (/404.*Not found/i.test(msg)) {
+    return { kind: 'soft_skip', reason: 'not_found_404' };
+  }
+  if (/\b402\b/.test(msg)) {
+    return { kind: 'soft_skip', reason: 'payment_402' };
+  }
+
+  return { kind: 'unknown', reason: 'unknown' };
+}
+
+/** True only for expected no-ops (not 403 / EOTP). */
+export function isSoftSkippableNpmError(err) {
+  return classifyNpmPublishError(err).kind === 'soft_skip';
 }
 
 export function preferOidcPublish(env = process.env) {
   // GitHub Actions + no explicit token → rely on Trusted Publishing / OIDC.
   return Boolean(env.GITHUB_ACTIONS) && !(env.NPM_TOKEN || '').trim();
+}
+
+/**
+ * Post-publish registry presence check. Fails if the version is not visible.
+ * @param {{ name: string, version: string, cwd?: string, env?: NodeJS.ProcessEnv, spawn?: typeof spawnSync }} opts
+ */
+export function assertRegistryPresence(opts) {
+  const {
+    name,
+    version,
+    cwd = root,
+    env = process.env,
+    spawn = spawnSync,
+  } = opts;
+  const spec = `${name}@${version}`;
+  const view = spawn('npm', ['view', spec, 'version', '--json'], {
+    cwd,
+    encoding: 'utf8',
+    env,
+    shell: process.platform === 'win32',
+  });
+  const combined = `${view.stdout || ''}\n${view.stderr || ''}`;
+  if (view.status !== 0) {
+    throw new Error(`post-publish registry check failed for ${spec}: ${combined.slice(0, 800)}`);
+  }
+  let reported;
+  try {
+    reported = JSON.parse((view.stdout || '').trim());
+  } catch {
+    reported = (view.stdout || '').trim().replace(/^"|"$/g, '');
+  }
+  if (String(reported) !== String(version)) {
+    throw new Error(
+      `post-publish registry check: expected ${spec} but npm view reported ${JSON.stringify(reported)}`,
+    );
+  }
+  return { ok: true, name, version, spec };
 }
 
 function writeReport(payload) {
@@ -52,6 +118,14 @@ function softSkip(reason, detail) {
   console.error('CI: configure npm Trusted Publisher for npm-publish.yml (OIDC). Package disallows classic tokens — local interactive: npm publish --otp. See docs/ci-cd.md.');
   writeReport({ skipped: true, reason, message: detail || reason });
   process.exit(0);
+}
+
+function hardFail(reason, detail, extra = {}) {
+  console.error('');
+  console.error(`FAIL — npm publish (${reason}).`);
+  if (detail) console.error(detail);
+  writeReport({ skipped: false, ok: false, reason, message: detail || reason, ...extra });
+  process.exit(1);
 }
 
 function main() {
@@ -103,7 +177,7 @@ function main() {
   }
 
   // For OIDC: do not inject NODE_AUTH_TOKEN (forces classic auth / EOTP).
-  // Token env is legacy-only and will fail under "disallow tokens"; still soft-skip on 403.
+  // Token env is legacy-only and will fail under "disallow tokens"; 403/EOTP fail closed.
   const env = { ...process.env };
   if (oidc) {
     delete env.NODE_AUTH_TOKEN;
@@ -122,22 +196,41 @@ function main() {
     shell: process.platform === 'win32',
   });
   const combined = `${pub.stdout || ''}\n${pub.stderr || ''}`;
+  const auth = oidc ? 'oidc' : 'token';
   if (pub.status !== 0) {
-    if (isSoftSkippableNpmError(combined)) {
-      softSkip('npm_registry_unavailable', combined.slice(0, 800));
+    const classified = classifyNpmPublishError(combined);
+    if (classified.kind === 'soft_skip') {
+      softSkip(classified.reason, combined.slice(0, 800));
+    }
+    if (classified.kind === 'hard_fail') {
+      hardFail(classified.reason, combined.slice(0, 800), { auth });
     }
     console.error(combined);
-    writeReport({ skipped: false, ok: false, message: combined.slice(0, 800), auth: oidc ? 'oidc' : 'token' });
+    writeReport({ skipped: false, ok: false, message: combined.slice(0, 800), auth });
     process.exit(pub.status || 1);
   }
   console.log(pub.stdout);
+
+  try {
+    const presence = assertRegistryPresence({
+      name: pkg.name,
+      version: pkg.version,
+      cwd: root,
+      env,
+    });
+    console.log(`Registry presence OK — ${presence.spec}`);
+  } catch (e) {
+    hardFail('registry_presence', String(e.message || e), { auth, published: true });
+  }
+
   writeReport({
     skipped: false,
     ok: true,
     published: true,
+    registryVerified: true,
     name: pkg.name,
     version: pkg.version,
-    auth: oidc ? 'oidc' : 'token',
+    auth,
   });
 }
 

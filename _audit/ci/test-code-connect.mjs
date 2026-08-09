@@ -48,8 +48,10 @@ assert(isSoftSkippableCodeConnectError('status 404 Not found'), '404 soft');
 assert(isSoftSkippableCodeConnectError('429 Rate limit'), '429 soft');
 assert(!isSoftSkippableCodeConnectError('syntax error in parser'), 'syntax not soft');
 
+// npm-publish classifier: soft for expected no-ops; 403/EOTP fail closed (see test-npm-publish.mjs)
 assert(isSoftSkippableNpmError('npm ERR! code ENEEDAUTH'), 'npm auth soft');
-assert(isSoftSkippableNpmError('npm error code EOTP'), 'EOTP soft');
+assert(!isSoftSkippableNpmError('npm error code EOTP'), 'EOTP hard-fail');
+assert(!isSoftSkippableNpmError('npm ERR! 403 Forbidden'), '403 hard-fail');
 assert(!isSoftSkippableNpmError('ENOTFOUND weird'), 'ENOTFOUND alone not soft unless matched');
 assert(preferOidcPublish({ GITHUB_ACTIONS: 'true' }), 'OIDC when GHA and no token');
 assert(!preferOidcPublish({ GITHUB_ACTIONS: 'true', NPM_TOKEN: 'x' }), 'token wins over OIDC prefer');

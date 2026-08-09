@@ -112,6 +112,10 @@ export const strings = {
     en: { placeholder: "Add a note — @ to mention" },
     vi: { placeholder: "Thêm ghi chú — gõ @ để nhắc tên" },
   },
+  Sortable: {
+    en: { moveUp: "Move up", moveDown: "Move down" },
+    vi: { moveUp: "Di chuyển lên", moveDown: "Di chuyển xuống" },
+  },
   Form: {
     en: { summary: "Please fix the following:", required: "required", requiredField: "This field is required" },
     vi: { summary: "Vui lòng sửa các mục sau:", required: "bắt buộc", requiredField: "Trường này là bắt buộc" },

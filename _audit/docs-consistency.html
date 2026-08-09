@@ -18,7 +18,7 @@
 </style>
 </head><body>
 <h1><b>CyberSkill</b> · Docs-consistency check</h1>
-<p class="sub">Asserts every count claim in the live docs matches <code>_ds_manifest.json</code>, that audit prose card-count claims (<code>_audit/index.html</code> / <code>_audit/README.md</code> / namespace-portability) match <code>manifest.cards</code>, that <code>VERSION</code> is semver and <code>package.json</code> matches it (LAUNCHED at 1.1.0; auto-bump on <code>main</code>), that live entrance docs do not reintroduce <code>CHANGELOG.md</code>, that a <b>stale-phrase blacklist</b> (retired suite/pack counts plus three-axis leftovers such as "Ba trục" / "Theme × Element × Language" without Style) stays out of README / SKILL / llms.txt / <code>docs/*.md</code>, that the generated root <code>DESIGN.md</code> exists with its front-matter version matching <code>VERSION</code>, and that <b>agent routing stays honest</b> (Claude path cites <code>_esm/cs.mjs</code> + bundle prefix; Stitch path forbids treating <code>*.dc.html</code> as SoT; package name is <code>@cyberskill/design</code>). Historical audit notes live under <code>_audit/archive/</code> (not scanned). Verdict on <code>window.__docs</code>.</p>
+<p class="sub">Asserts every count claim in the live docs matches <code>_ds_manifest.json</code>, that audit prose card-count claims (<code>_audit/index.html</code> / <code>_audit/README.md</code> / namespace-portability) match <code>manifest.cards</code>, that <code>VERSION</code> is semver and <code>package.json</code> matches it (LAUNCHED at 1.1.0; auto-bump on <code>main</code>), that live entrance docs do not reintroduce <code>CHANGELOG.md</code>, that a <b>stale-phrase blacklist</b> (retired suite/pack counts plus three-axis leftovers such as "Ba trục" / "Theme × Element × Language" without Style) stays out of README / SKILL / llms.txt / <code>docs/*.md</code>, that the generated root <code>DESIGN.md</code> exists with its front-matter version matching <code>VERSION</code>, that <b>agent routing stays honest</b> (Claude path cites <code>_esm/cs.mjs</code> + bundle prefix; Stitch path forbids treating <code>*.dc.html</code> as SoT; package name is <code>@cyberskill/design</code>), and that <b>doctrine matches source</b> — README/SKILL role-token list (10 incl. <code>on-strong</code>), depth-scale tiers, documented default lang vs <code>components/_i18n/i18n.js</code>, breakpoint token CSS↔JSON parity, and <code>base/</code> depth fallbacks vs <code>tokens/elevation.css</code>. Historical audit notes live under <code>_audit/archive/</code> (not scanned). Verdict on <code>window.__docs</code>.</p>
 <div id="report">running…</div>
 <div id="truth" class="truth"></div>
 <script>
@@ -30,9 +30,14 @@ function ctx(s, i, n){ return s.slice(Math.max(0,i-4), i+n+18).replace(/\s+/g," 
   // docs/*.md snapshot for the stale-phrase blacklist (operator docs only; _audit/archive/ not scanned).
   const DOCS_MD = ['docs/benchmark-rubric.md','docs/ci-cd.md','docs/consuming.md','docs/consumer-grant.md','docs/contrast-report.md',
     'docs/conventions.md','docs/decisions.md','docs/deploy.md','docs/design-styles.md',
-    'docs/figma.md','docs/live-hub.md','docs/products.md','docs/quality-gates.md','docs/release-notes.md',
+    'docs/figma.md','docs/live-hub.md','docs/products.md','docs/quality-gates.md','docs/release-notes.md','docs/release-runbook.md',
     'docs/storybook.md','docs/sync.md','docs/template-schema-v2.md'];
-  const names = ['_ds_manifest.json','VERSION','README.md','SKILL.md','llms.txt','package.json','DESIGN.md'].concat(DOCS_MD);
+  const SOURCE = [
+    'tokens/elements.css','tokens/elevation.css','tokens/spacing.css','tokens/tokens.json',
+    'components/_i18n/i18n.js','base/controls.css','base/glass.css',
+    'base/responsive.css','base/components.css',
+  ];
+  const names = ['_ds_manifest.json','VERSION','README.md','SKILL.md','llms.txt','package.json','DESIGN.md'].concat(DOCS_MD).concat(SOURCE);
   const F = {};
   for (const n of names){
     try {
@@ -186,6 +191,92 @@ function ctx(s, i, n){ return s.slice(Math.max(0,i-4), i+n+18).replace(/\s+/g," 
     && !/(?:^|[^\w-])npm install @cyberskill\/react\b/.test(readme + '\n' + consuming);
   step('package name @cyberskill/design (README + consuming; no @cyberskill/react install)', pkgNameOk, '');
   step('consuming.md dual path mentions Claude Code and Stitch', /Claude Code/i.test(consuming) && /Stitch/i.test(consuming), '');
+
+  // ---- Doctrine ↔ source parity (FIND-003/005/008/009 + FIND-018)
+  const elementsCss = F['tokens/elements.css'] || '';
+  const elevationCss = F['tokens/elevation.css'] || '';
+  const spacingCss = F['tokens/spacing.css'] || '';
+  const i18nJs = F['components/_i18n/i18n.js'] || '';
+  const ROLE_CANON = ['accent','strong','bright','on','on-strong','tint','ink','glow','grad-a','grad-b'];
+  // Count contract roles from :root declarations in elements.css
+  const roleDecl = [...elementsCss.matchAll(/--cs-accent(?:-([a-z0-9-]+))?\s*:/g)].map((m) => m[1] || 'accent');
+  const roleSet = [...new Set(roleDecl)];
+  const rolesOk = ROLE_CANON.every((r) => roleSet.includes(r)) && roleSet.length >= 10;
+  step('elements.css defines 10 accent roles incl. on-strong', rolesOk,
+    rolesOk ? ROLE_CANON.join(',') : ('got ['+roleSet.join(',')+']'));
+
+  const readmeRoles = /\bten\b[\s\S]{0,120}--cs-accent-\*[\s\S]{0,160}on-strong/i.test(readme)
+    || (/\bten\b[^.\n]{0,80}`?--cs-accent-\*`?/i.test(readme) && /on-strong/.test(readme));
+  const skillRoles = /10-role pack incl\.\s*`?on-strong`?/i.test(skill) || (/\b10[- ]role\b/i.test(skill) && /on-strong/.test(skill));
+  step('README role-token contract = 10 incl. on-strong', readmeRoles, readmeRoles ? '' : 'missing ten/on-strong wording');
+  step('SKILL.md role-token contract = 10 incl. on-strong', skillRoles, skillRoles ? '' : 'missing 10-role/on-strong wording');
+
+  const depthTok = {};
+  for (const m of elevationCss.matchAll(/--cs-depth-([a-z]+)\s*:\s*(\d+)\s*;/g)) depthTok[m[1]] = parseInt(m[2], 10);
+  const DEPTH_CANON = { bg:0, section:5, card:10, nav:50, dropdown:60, overlay:80, modal:100, toast:200 };
+  const depthSrcOk = Object.keys(DEPTH_CANON).every((k) => depthTok[k] === DEPTH_CANON[k]);
+  step('elevation.css depth scale complete', depthSrcOk,
+    depthSrcOk ? Object.entries(DEPTH_CANON).map(([k,v])=>k+' '+v).join(' → ') : JSON.stringify(depthTok));
+  const depthDocRe = /bg\s*0\s*→\s*section\s*5\s*→\s*card\s*10\s*→\s*nav\s*50\s*→\s*dropdown\s*60\s*→\s*overlay\s*80\s*→\s*modal\s*100\s*→\s*toast\s*200/;
+  step('README depth scale lists all 8 tiers', depthDocRe.test(readme), depthDocRe.test(readme) ? '' : 'missing dropdown/overlay tiers');
+
+  const i18nDefault = ((i18nJs.match(/return\s+l\s*\|\|\s*["'](vi|en)["']/) || [])[1])
+    || ((i18nJs.match(/default\s+['"](vi|en)['"]/) || [])[1]);
+  step('i18n.js default lang is vi', i18nDefault === 'vi', 'reads ' + (i18nDefault || 'missing'));
+  const axisDefaultRe = /light\s*·\s*tho\s*·\s*(vi|en)\s*·\s*liquid-glass/gi;
+  const axisHits = [];
+  for (const [src, text] of [['SKILL.md', skill], ['docs/consuming.md', consuming]]) {
+    axisDefaultRe.lastIndex = 0; let m;
+    while ((m = axisDefaultRe.exec(text))) axisHits.push({ src, lang: m[1] });
+  }
+  const axisBad = axisHits.filter((h) => h.lang !== 'vi');
+  step('documented axis Language default = vi (SKILL + consuming)',
+    axisHits.length > 0 && axisBad.length === 0,
+    axisHits.length ? (axisBad.length ? 'still en in '+axisBad.map((h)=>h.src).join(',') : 'vi in '+axisHits.map((h)=>h.src).join(',')) : 'no defaults line found');
+
+  // Breakpoint token CSS ↔ tokens.json parity + FIND-007 media/container widths ⊆ scale
+  let tokJson = {};
+  try { tokJson = JSON.parse(F['tokens/tokens.json'] || '{}'); } catch (e) { step('tokens.json parses', false, String(e).slice(0,60)); }
+  const bpCss = {};
+  for (const m of spacingCss.matchAll(/--cs-breakpoint-([a-z0-9]+)\s*:\s*([^;]+);/g)) bpCss[m[1]] = m[2].trim();
+  const bpJson = (tokJson.root && tokJson.root.breakpoint) || tokJson.breakpoint || {};
+  const bpJsonNorm = {};
+  for (const [k, v] of Object.entries(bpJson)) {
+    const key = k.replace(/^--cs-breakpoint-/, '');
+    bpJsonNorm[key] = typeof v === 'object' && v !== null ? (v.$value || v.value || '') : String(v);
+  }
+  const bpKeys = ['xs','phone','sm','md','lg','xl','2xl'];
+  const bpOk = bpKeys.every((k) => bpCss[k] && bpJsonNorm[k] && bpCss[k] === bpJsonNorm[k]);
+  step('breakpoint tokens CSS ↔ tokens.json parity', bpOk,
+    bpOk ? bpKeys.map((k)=>k+'='+bpCss[k]).join(' ') : ('css='+JSON.stringify(bpCss)+' json='+JSON.stringify(bpJsonNorm)));
+
+  const sanctionedPx = new Set(Object.values(bpCss).map((v) => parseInt(String(v), 10)).filter((n) => Number.isFinite(n) && n > 0));
+  const widthOff = [];
+  for (const [path, css] of Object.entries(F)) {
+    if (!path.startsWith('base/') || !path.endsWith('.css')) continue;
+    for (const m of css.matchAll(/@media[^{]*\((?:max|min)-width:\s*(\d+)px\)/g)) {
+      const px = parseInt(m[1], 10);
+      if (!sanctionedPx.has(px)) widthOff.push(path + ' @media ' + px);
+    }
+    for (const m of css.matchAll(/@container[^{]*\((?:max|min)-width:\s*(\d+)px\)/g)) {
+      const px = parseInt(m[1], 10);
+      if (!sanctionedPx.has(px)) widthOff.push(path + ' @container ' + px);
+    }
+  }
+  step('base/ @media|@container widths ⊆ breakpoint tokens (FIND-007)', widthOff.length === 0,
+    widthOff.length ? widthOff.slice(0, 8).join(' | ') : 'all width stops sanctioned');
+
+  // Depth fallbacks in base CSS must match elevation.css (FIND-008)
+  const baseCss = (F['base/controls.css'] || '') + '\n' + (F['base/glass.css'] || '');
+  const fbBad = [];
+  for (const m of baseCss.matchAll(/var\(--cs-depth-([a-z]+)\s*,\s*(\d+)\s*\)/g)) {
+    const name = m[1], fb = parseInt(m[2], 10), expect = DEPTH_CANON[name];
+    if (expect === undefined) { fbBad.push(name+':unknown'); continue; }
+    if (fb !== expect) fbBad.push(name+' fallback '+fb+'≠'+expect);
+  }
+  step('base/ depth fallbacks match elevation.css', fbBad.length === 0,
+    fbBad.length ? fbBad.slice(0,6).join(' | ') : 'all var(--cs-depth-*, N) match');
+
   finish();
 })();
 

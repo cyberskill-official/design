@@ -53,7 +53,7 @@ Stay on the current Figma plan. Variables REST API is Enterprise-only — write 
 **Status: LAUNCHED `@cyberskill/design@1.1.0`; pin tracks `VERSION` (auto-bump on main since Aug 2026); CI publish uses npm Trusted Publishing; tokens disallowed** (Jul 2026; LAUNCH 2026-07-27)
 
 - `package.json` is `private: false`; package name **`@cyberskill/design`** (`publishConfig.access: public`); `repository.url` matches this GitHub repo for provenance.
-- Workflow `.github/workflows/npm-publish.yml`: `id-token: write` + GitHub-hosted runner; **no** `NPM_TOKEN` / `NODE_AUTH_TOKEN` on the publish step (OIDC). npm Trusted Publisher must list workflow filename **`npm-publish.yml`** for `cyberskill-official/design-system`. Soft-skip on auth / 403 / 404 / EOTP / version conflict.
+- Workflow `.github/workflows/npm-publish.yml`: `id-token: write` + GitHub-hosted runner; **no** `NPM_TOKEN` / `NODE_AUTH_TOKEN` on the publish step (OIDC). npm Trusted Publisher must list workflow filename **`npm-publish.yml`** for `cyberskill-official/design-system`. Soft-skip only for expected no-ops (`missing_secrets`, already-published / EPUBLISHCONFLICT, fork auth-unavailable). **403** and **EOTP** fail the job; a successful publish is gated by post-publish `npm view @cyberskill/design@VERSION` registry presence (FIND-020 / TASK-IMP-005).
 - Package **Publishing access** on npmjs: **Require two-factor authentication and disallow tokens** (OIDC Trusted Publishing still works; classic / granular publish tokens are rejected). Long-lived `NPM_TOKEN` secrets are revoked.
 - License stays **UNLICENSED**; version tracks root `VERSION`. Approved use is recorded in **`docs/consumer-grant.md`** (CyberSkill portfolio products). Registry install alone is not a public license.
 
@@ -100,7 +100,7 @@ Operational follow-ups — not product marketing, not a backlog surface:
 
 ~~4. First registry consumer path~~ — **done** (Jul 2026): `examples/npm-hello/` installs `@cyberskill/design` for locked **Lumi** identity; documented in `docs/consuming.md` (+ VI) and `docs/release-notes.md`. Pin follows repo `VERSION`.
 
-5. **Native + element-pack drift on PRs is fail-closed** (Jul 2026) — `regenerate-tokens` runs read-only on pull requests and exits 1 instead of pushing; only `regenerate-tokens-push` (main / schedule / manual) holds `contents: write`. When a PR fails it, run `npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs` and commit packs + natives. See `docs/ci-cd.md`.
+5. **Native + element-pack drift on PRs is fail-closed** (Jul 2026; FIND-021 re-gate Aug 2026) — `regenerate-tokens` runs read-only on pull requests and exits 1 instead of pushing; only `regenerate-tokens-push` (main / schedule / manual) holds `contents: write`. When a PR fails it, run `npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs` and commit packs + natives. Auto-commits from `regenerate-tokens-push` **must not** use `[skip ci]` so the tip re-enters the gate board (TASK-IMP-008); PR fail-closed freshness remains the primary contributor path. Branch-protection required-check reality is NV-18.1 (out-of-band). See `docs/ci-cd.md`.
 
 6. **Shadcn gap / Wave 2** (Jul 2026) — CyberSkill already covers ~53 of shadcn’s 62 primitives as CS-native (forms / overlays / nav / data). Shipped: pilot `ScrollArea`, `Collapsible`, `AspectRatio`; Wave 2 `AlertDialog` (vs Popconfirm), `Item` row primitive, `NativeSelect`. Residual shadcn gaps are intentional non-ports (blocks, Tailwind, Radix CLI). Do **not** port those — map patterns to existing `templates/` + `ui_kits/`.
 
@@ -111,6 +111,44 @@ Operational follow-ups — not product marketing, not a backlog surface:
 9. **Identity Lab retired** (Jul 2026) — Owner choice: delete `ui_kits/status-hub/identity-lab.html` and every product/docs/Storybook reference. Axis demos live in the Storybook Theme × Element × Language × Style toolbar, Atomic View, and the Elements Geometry specimen. Theme × Element × Language × Style **axes remain** product infrastructure (templates, tokens, kits Thổ-faithful). Do not revive the Lab under another name without a new decision.
 
 Storybook `FullMatrix` is required whenever a public primary has ≥1 of {size enums, variant enums, state keys} (contract floor ≥28 stories). Schema sidecars remain complete for content-hole templates; axis-only templates omit by design. See `docs/quality-gates.md` and `docs/storybook.md`.
+
+## 11. Audit paper trails — archive, do not delete
+
+**Owner choice: archive-don't-delete** (Aug 2026; TASK-IMP-001 / assessment FIND-001)
+
+- Closed UX / AT / quality-audit artifacts MUST remain reconstructable from a fresh clone. Prefer `_audit/archive/` and/or `docs/audits/` over silent deletion.
+- Commit `8646dbf` deleted the Aug-8 UX audit plan, AT matrix, archive README, and `TASK-UX-AUDIT-20260808` “with no permanent record.” Those bodies are restored under `docs/audits/ux-audit-2026-08-08/` (plus `_audit/archive/ux-audit-2026-08-08/` pointer). Historical D1–D6 operator choices that drove that remediation stay in the restored plan; they do **not** authorize future deletion of audit trails.
+- Status-feed / ledger edits that hide completed audit work are discouraged; if a commit must be ledger-exempted, record the exemption and the archived path in the same change.
+- Claims that need provenance (e.g. “AT complete”, “lawyer-validated”) require a dated in-tree record or an explicit decision entry — not oral attestation alone.
+
+## 12. 12-month evolution plan — adoption status
+
+**Owner choice: partially superseded (near-term); plan retained as long-horizon reference** (Aug 2026; TASK-IMP-001 / assessment FIND-002)
+
+Source: `docs/plans/cyberskill-design-system-audit-and-12-month-evolution-plan.md` (audit date 2026-07-28). A prior `task-author` PLAN for that document was approved (manifest `docs/tasks/.workflow/task-author.design-system-evolution.manifest.json`) but most artefacts were never landed in `docs/tasks/`.
+
+| Horizon | Status | Notes |
+|---------|--------|-------|
+| Assessment Phases 0–3 | **Adopted** (HITL 2026-08-09) | `TASK-IMP-001`…`TASK-IMP-012` |
+| Assessment Phases 4–5 | **Implemented → ready_to_review** | `TASK-IMP-013`…`TASK-IMP-020` |
+| Full 12-month plan phases 0–6 task materialization | **Deferred** | Do not auto-expand the pending manifest artefacts until operator triages against tip `1.2.1` / post-assessment state |
+| Items already shipped outside backlog (e.g. Aug-8 UX remediation commits) | **Superseded as live tasks** | Evidence lives in `docs/audits/ux-audit-2026-08-08/` + git history; do not re-open as duplicate ready work without a fresh finding |
+
+Phases 3–5 of the **assessment** roadmap are authored as `TASK-IMP-009`…`020`; Phase 3 accepted HITL 2026-08-09; Phases 4–5 await final HITL at `ready_to_review`.
+
+## 13. Product vs CyberOS boundary
+
+**Owner choice: explicit fence** (Aug 2026; assessment area 28 / TASK-IMP-020)
+
+| Layer | Ships to consumers? | Lives where | Purpose |
+|-------|---------------------|-------------|---------|
+| **Product design system** | Yes — `@cyberskill/design`, portable tree (`styles.css`, `tokens/`, `components/`, `templates/`, `_audit/` gates, Storybook host) | repo root (non-`.cyberos`) | Tokens, components, templates, kits, deterministic quality gates |
+| **CyberOS orchestration** | No (gitignored / installable agent kit) | `.cyberos/`, `docs/tasks/`, BRAIN under `.cyberos/memory/` | Task lifecycle, HITL gates, agent entry, ship-tasks workflow |
+
+Rules:
+- Product acceptance criteria must not require `.cyberos/` to be present for consumers or for `npm` publish.
+- Agents operating this repo follow `.cyberos/AGENT-ENTRY.md`; humans shipping the DS follow `docs/release-runbook.md`.
+- Do not move product tokens/components into `.cyberos/`; do not publish CyberOS orchestration as part of the npm package.
 
 ## How to change a decision
 

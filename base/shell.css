@@ -17,7 +17,7 @@
 .cs-step { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; position: relative; padding-inline-end: 12px; }
 .cs-step:not(:last-child)::after { content: ""; position: absolute; inset-block-start: 13px; inset-inline-start: 34px; inline-size: calc(100% - 46px); block-size: 2px; background: var(--cs-color-border-default); }
 .cs-step__marker { inline-size: 28px; block-size: 28px; border-radius: 50%; display: grid; place-items: center; font-family: var(--cs-font-family-mono); font-weight: 700; font-size: var(--cs-font-size-sm); background: var(--cs-color-surface-raised); color: var(--cs-color-text-muted); border: 1px solid var(--cs-color-border-default); z-index: 1; }
-.cs-step--done .cs-step__marker { background: var(--cs-color-brand-umber); color: #fff; border-color: transparent; }
+.cs-step--done .cs-step__marker { background: var(--cs-color-brand-umber); color: #fff; /* on-brand-umber ink */ border-color: transparent; }
 .cs-step--done:not(:last-child)::after { background: var(--cs-color-brand-umber); }
 .cs-step--active .cs-step__marker { background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); border-color: transparent; box-shadow: 0 0 0 4px color-mix(in oklab, var(--cs-color-brand-ochre) 28%, transparent); }
 .cs-step__title { font-weight: 700; font-size: var(--cs-font-size-sm); }

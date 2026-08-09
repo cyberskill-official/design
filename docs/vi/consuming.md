@@ -54,7 +54,7 @@ import { Button, TextField } from "@cyberskill/design";
 import "@cyberskill/design/styles.css";
 ```
 
-Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng source). React và react-dom là **peerDependencies** — app của bạn cung cấp. Types publish dùng `export type *` (**TypeScript 5.0+**). **Không** import `_esm/cs.mjs` (hay `@cyberskill/design/legacy`) vào bundler SSR; đường đó self-ensure React qua CDN và side-load `_ds_bundle.js` chỉ cho browser.
+Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng source). Entry mặc định (`_esm/react.mjs`) là **barrel `"use client"`** — Server Component App Router có thể `import { Button } from "@cyberskill/design"` mà không cần shim client từng import. React và react-dom là **peerDependencies** — app của bạn cung cấp. Types publish dùng `export type *` (**TypeScript 5.0+**). **Không** import `_esm/cs.mjs` (hay `@cyberskill/design/legacy`) vào bundler SSR; đường đó self-ensure React qua CDN và side-load `_ds_bundle.js` chỉ cho browser.
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) hoặc tiếp tục dùng đường cây tĩnh bên dưới. Tarball đã publish là **cả cây portable** (styles, tokens, components, templates, guidelines, docs, UI kits) — không phải subset “chỉ lib” tối thiểu. Tooling chỉ-host (Storybook, `_audit/`) không nằm trong `files[]`.
 
@@ -64,11 +64,11 @@ Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng
 
 ## Adopt (hai đường, cộng shortcut module)
 
-**1. Static / prototype / mock — link stylesheet.** Copy `styles.css` (+ `tokens/`, `base/`, `fonts/` mà nó `@import`, hoặc serve cả cây) và link; bạn có mọi token `--cs-*`, class component `.cs-*`, và bề mặt Liquid Glass. Compose bằng class (xem `templates/kitchen-sink.html`). Copy mọi asset bạn tham chiếu từ `assets/`.
+**1. Static / prototype / mock — link stylesheet.** Cho **static production**, link bản flatten `dist/styles.min.css` (cũng `@cyberskill/design/styles.min.css`) — một file, không waterfall `@import`. Giữ `styles.css` (+ `tokens/`, `base/`, `fonts/` mà nó `@import`) làm đường source/dev dễ đọc, hoặc serve cả cây. Cách nào cũng có mọi token `--cs-*`, class component `.cs-*`, và bề mặt Liquid Glass. Compose bằng class (xem `templates/kitchen-sink.html` và `examples/static-hello/`). Copy mọi asset bạn tham chiếu từ `assets/`.
 
-**2. React production — nạp compiled bundle.** Link `styles.css` và `<script src="_ds_bundle.js">`, rồi đọc component từ namespace. **Resolve theo prefix, không hardcode:** bundle expose `window.CyberSkillDesignSystem_<projectId>`, và hậu tố 6-hex đó do compiler gán và **đổi khi import vào project khác**:
+**2. React production — nạp compiled bundle.** Link `dist/styles.min.css` (hoặc `styles.css` khi dev) và `<script src="_ds_bundle.js">`, rồi đọc component từ namespace. **Resolve theo prefix, không hardcode:** bundle expose `window.CyberSkillDesignSystem_<projectId>`, và hậu tố 6-hex đó do compiler gán và **đổi khi import vào project khác**:
 ```html
-<link rel="stylesheet" href="<path>/styles.css">
+<link rel="stylesheet" href="<path>/dist/styles.min.css">
 <script src="<path>/_ds_bundle.js"></script>
 <script>
  const CS = window[Object.keys(window).find(k => /^CyberSkillDesignSystem_/.test(k))];
@@ -76,7 +76,7 @@ Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng
 </script>
 ```
 Đây đúng là những gì `_audit/consumer-smoke-test.html` chạy (và assert xanh) — và `ds-base.js` của templates làm tương tự, publish alias ổn định `window.CyberSkillDS`.
-**2b. React bundler-native (Next / Vite / SSR) — entry package mặc định.** `import { Button, TextField } from "@cyberskill/design"` resolve tới `_esm/react.mjs` (cũng export như `@cyberskill/design/react`). Re-export mọi component từ JSX source với **React là peer external** — không CDN, không side-load `_ds_bundle.js`. Bundler của bạn phải transpile package (Next: `transpilePackages: ["@cyberskill/design"]`). Vẫn tự link `styles.css`. Regenerated bằng `npm run build:react-entry`; parity được gate bởi `package-exports-integrity` + `test:react-entry`.
+**2b. React bundler-native (Next / Vite / SSR) — entry package mặc định.** `import { Button, TextField } from "@cyberskill/design"` resolve tới `_esm/react.mjs` (cũng export như `@cyberskill/design/react`). File generated bắt đầu bằng `"use client"` để consumer App Router / RSC import component tương tác trực tiếp. Re-export mọi component từ JSX source với **React là peer external** — không CDN, không side-load `_ds_bundle.js`. Bundler của bạn phải transpile package (Next: `transpilePackages: ["@cyberskill/design"]`). Vẫn tự link styles (`styles.min.css` khuyến nghị cho sheet static production). Regenerated bằng `npm run build:react-entry`; parity được gate bởi `package-exports-integrity` + `test:react-entry`.
 
 **2c. ESM browser legacy — một import, không build.** `import { Button, TextField } from "@cyberskill/design/legacy"` (hoặc `"<path>/_esm/cs.mjs"`) — module tự ensure React qua **umd-react@19.2.8** (CDN pin SRI; React 19 chính thức không còn UMD; bỏ qua khi đã có `window.React`), side-load `_ds_bundle.js` một lần, resolve namespace theo prefix, và re-export mọi component (`_audit/esm-smoke-test.html` giữ danh sách export khóa với manifest). Vẫn tự link `styles.css`. **Không dùng cho Next/SSR.** App bundler vẫn cung cấp peer `react` / `react-dom` (`^18 || ^19`).
 
@@ -84,7 +84,7 @@ Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng
 
 **Token máy đọc được.** `tokens/tokens.json` + `tokens/tokens.js` (ESM) + `tokens/tokens.dtcg.json` (W3C DTCG, cho Tokens Studio/Style Dictionary) expose mọi token nhóm theo category + map theme/element — cho pipeline native/mobile/design-tool. **Native build ship sẵn** trong `tokens/native/` (SwiftUI `CSTokens.swift` · Compose `CSTokens.kt` · Flutter `cs_tokens.dart`) kèm `tokens/provenance.json` (release, source sha-256, quy tắc chuyển đổi, sha-256 từng target); gate `token-pipeline` giữ chúng khóa với nguồn DTCG.
 
-**HTML tĩnh / không React / không build tooling.** Link `styles.css` và compose bằng class `.cs-*` — catalog đầy đủ trong `templates/kitchen-sink.html`.
+**HTML tĩnh / không React / không build tooling.** Link `dist/styles.min.css` (production) hoặc `styles.css` (source/dev) và compose bằng class `.cs-*` — catalog đầy đủ trong `templates/kitchen-sink.html`.
 
 **Font, kể cả mặt chữ display.** Cả ba họ chữ brand đều self-host trong `fonts/` và khai báo ở `tokens/fonts.css` (được `styles.css` `@import`): **Be Vietnam Pro** (`--cs-font-family-ui`), **JetBrains Mono** (`--cs-font-family-mono`), và **Space Grotesk** (`--cs-font-family-display`, variable 300–700, có subset tiếng Việt). Mặt chữ display là **opt-in** — không thứ gì trong DS trỏ vào nó. Sản phẩm muốn mặt chữ tiêu đề thêm `class="cs-display-face"` (hoặc đặt `--cs-heading-family: var(--cs-font-family-display)`) trên scope; các utility heading theo sau, body copy vẫn ở mặt chữ UI.
 
@@ -92,7 +92,7 @@ Consumer bỏ qua `styles.css` để tự kiểm soát font loading (`cyberskill
 
 ## Bốn trục
 
-Đặt Theme (`data-theme` — light / dark / system), Element (`data-cs-element` + `data-cs-variant`), Language (`lang` / Language tweak trên template), và Style (`data-cs-style`) trên một container; mọi thứ bên trong re-skin không cần đổi code (xem `templates/playground.html`). Mặc định: `light · tho · en · liquid-glass` (vắng theme / style ≡ các mặc định đó). Bilingual: component resolve chuỗi từ `lang` (`lang="vi"` trên mọi container → tiếng Việt đầy đủ).
+Đặt Theme (`data-theme` — light / dark / system), Element (`data-cs-element` + `data-cs-variant`), Language (`lang` / Language tweak trên template), và Style (`data-cs-style`) trên một container; mọi thứ bên trong re-skin không cần đổi code (xem `templates/playground.html`). Mặc định: `light · tho · vi · liquid-glass` (vắng theme / style ≡ các mặc định đó; đặt `lang="en"` cho bề mặt EN). Bilingual: component resolve chuỗi từ `lang` (`lang="en"` trên mọi container → tiếng Anh đầy đủ; không đặt → fallback tiếng Việt trước).
 
 ## Nâng cấp
 

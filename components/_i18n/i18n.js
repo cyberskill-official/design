@@ -61,8 +61,33 @@ export function formatDate(d, lang) {
 }
 export function monthName(i, lang) { return lang === "vi" ? VI_MONTHS[i] : new Date(2000, i, 1).toLocaleDateString("en-US", { month: "long" }); }
 export function formatNumber(n, lang) { if (n == null || isNaN(n)) return ""; return new Intl.NumberFormat(lang === "vi" ? "vi-VN" : "en-US").format(n); }
-/** VN currency = "1.234.567 ₫"; EN = "$1,234,567". */
-export function formatCurrency(n, lang) {
+
+/**
+ * Format a money amount. Currency is independent of display language when options are used.
+ *
+ * Call shapes (FIND-025):
+ * - Legacy: `formatCurrency(amount, "en"|"vi")` — preserves prior presentation
+ *   (EN→USD-style `$1,234,567`; VI→`1.234.567 ₫`).
+ * - Preferred: `formatCurrency(amount, { currency, locale?, lang? })` —
+ *   `Intl.NumberFormat(locale, { style: "currency", currency })`.
+ *   `locale` defaults from `lang` (`vi`→`vi-VN`, else `en-US`).
+ */
+export function formatCurrency(n, langOrOpts) {
   if (n == null || isNaN(n)) return "";
-  return lang === "vi" ? new Intl.NumberFormat("vi-VN").format(n) + "\u00a0₫" : "$" + new Intl.NumberFormat("en-US").format(n);
+  const opts = langOrOpts && typeof langOrOpts === "object" ? langOrOpts : null;
+  if (opts && opts.currency) {
+    let locale = opts.locale;
+    if (!locale) {
+      locale = opts.lang === "vi" ? "vi-VN" : "en-US";
+    }
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: String(opts.currency).toUpperCase(),
+      currencyDisplay: "symbol",
+    }).format(Number(n));
+  }
+  const lang = typeof langOrOpts === "string" ? langOrOpts : (opts && opts.lang) || "en";
+  return lang === "vi"
+    ? new Intl.NumberFormat("vi-VN").format(n) + "\u00a0₫"
+    : "$" + new Intl.NumberFormat("en-US").format(n);
 }

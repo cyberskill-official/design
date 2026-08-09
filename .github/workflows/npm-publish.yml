@@ -2,7 +2,8 @@
 #
 # Triggers: workflow_dispatch, or push of version tags (v*).
 # Requires npm Trusted Publisher on @cyberskill/design for workflow file npm-publish.yml
-# (org cyberskill-official / repo design-system). Soft-skip on auth/404/403/conflict.
+# (org cyberskill-official / repo design-system). Soft-skip expected no-ops only;
+# 403/EOTP fail closed; post-publish npm view verifies registry presence.
 # Package Publishing access: Require 2FA and disallow tokens (OIDC exempt).
 # VERSION is auto-bumped on main (version.yml) and tagged v*; this workflow
 # publishes that tag via npm Trusted Publishing. License remains UNLICENSED.

@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.2.1 · source sha256 18ad31af00f45b3e…
+// release v1.2.1 · source sha256 1c2a8c8004ab3dab…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -120,6 +120,7 @@ public enum CSTokens {
   public static let radiusLg: CGFloat = 14
   public static let radiusFull: CGFloat = 999
   public static let breakpointXs: CGFloat = 0
+  public static let breakpointPhone: CGFloat = 360
   public static let breakpointSm: CGFloat = 640
   public static let breakpointMd: CGFloat = 768
   public static let breakpointLg: CGFloat = 1024

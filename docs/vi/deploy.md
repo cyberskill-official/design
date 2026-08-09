@@ -48,11 +48,15 @@ Nếu host dưới **domain khác**, đổi absolute URL trong các meta tag cho
 
 **Có Storybook tại `/`:** chạy `npm run build:site` trên host hoặc CI, rồi serve `.vercel-static/` làm webroot. Cấu hình cùng redirect như `vercel.json` (`/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` → `/`) nếu host hỗ trợ.
 
-Ví dụ Nginx (`.vercel-static` làm `root`):
+Ví dụ Nginx (`.vercel-static` làm `root`) — **cùng security headers với `vercel.json`** (FIND-019):
+```nginx
 server {
   server_name design.cyberskill.world;
   root /var/www/design-system/.vercel-static;
   index index.html;
+  add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; connect-src 'self'; frame-src 'self'; worker-src 'self' blob:; base-uri 'self'; form-action 'self'" always;
+  add_header X-Content-Type-Options "nosniff" always;
+  add_header Referrer-Policy "strict-origin-when-cross-origin" always;
   location = /dashboard { return 301 /; }
   location = /dashboard/ { return 301 /; }
   location = /dashboard.html { return 301 /; }
@@ -60,7 +64,10 @@ server {
   location = /playground { return 301 /; }
   location /playground/ { return 301 /; }
 }
+```
 Path portable vẫn là file thật (`guidelines/atomic-view.html`, `_audit/run.html`, `styles.css`, v.v.). Storybook sở hữu `/` và `/index.html`.
+
+**Netlify / Cloudflare Pages / tương tự:** file `_headers` ở root (và `public/_headers`) mirror cùng ba header cho host đọc `_headers` kiểu Netlify. Giữ khớp `vercel.json`.
 
 ## Checklist sau deploy
 1. Mở `/` — xác nhận Storybook load (không 404, directory listing, hay shell dashboard cũ).
@@ -86,12 +93,16 @@ Sau mỗi deploy production:
 
 ## Ghi chú Content-Security-Policy
 
-Static hosting có thể ship CSP chặt. Allowance điển hình cho hệ thống này:
-- `script-src 'self' https://unpkg.com` nếu load React từ CDN cho Atomic View
-- `font-src 'self'`
+CSP chuẩn nằm trong `vercel.json` và được mirror ở `_headers` + snippet nginx ở trên (FIND-015 / FIND-019). Policy hiện tại:
 
-- `img-src 'self' data:`
-Ưu tiên self-host React cạnh `_ds_bundle.js` cho cài air-gapped.
+`default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; connect-src 'self'; frame-src 'self'; worker-src 'self' blob:; base-uri 'self'; form-action 'self'`
+
+Lý do:
+- **Đã bỏ `unsafe-eval`** — React vendored local; Storybook static không cần `eval` toàn site.
+- **Đã bỏ CDN script/connect** (`unpkg.com`, `cdnjs.cloudflare.com`) — local-first React / `_ds_bundle.js`.
+- **Giữ `unsafe-inline`** — shell Storybook vẫn emit inline script/style; migrate nonce/hash là follow-on.
+- Ưu tiên self-host React cạnh `_ds_bundle.js` cho cài air-gapped.
+- Header thật trên production vẫn là OQ-003 (xác nhận bằng `curl -sSI` sau deploy).
 
 ## OG đa domain
 

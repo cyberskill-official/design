@@ -54,7 +54,7 @@ import { Button, TextField } from "@cyberskill/design";
 import "@cyberskill/design/styles.css";
 ```
 
-Add `transpilePackages: ["@cyberskill/design"]` in Next.js (JSX ships as source). React and react-dom are **peerDependencies** — your app provides them. Published types use `export type *` (**TypeScript 5.0+**). Do **not** import `_esm/cs.mjs` (or `@cyberskill/design/legacy`) into an SSR bundler; that path self-ensures React via CDN and side-loads `_ds_bundle.js` for browsers only.
+Add `transpilePackages: ["@cyberskill/design"]` in Next.js (JSX ships as source). The default entry (`_esm/react.mjs`) is a **`"use client"` barrel** — App Router Server Components can `import { Button } from "@cyberskill/design"` without per-import client shims. React and react-dom are **peerDependencies** — your app provides them. Published types use `export type *` (**TypeScript 5.0+**). Do **not** import `_esm/cs.mjs` (or `@cyberskill/design/legacy`) into an SSR bundler; that path self-ensures React via CDN and side-loads `_ds_bundle.js` for browsers only.
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) or continue with the static tree paths below. The published tarball is the **full portable tree** (styles, tokens, components, templates, guidelines, docs, UI kits) — not a minimal “lib-only” subset. Host-only tooling (Storybook, `_audit/`) is not in `files[]`.
 
@@ -64,11 +64,11 @@ Add `transpilePackages: ["@cyberskill/design"]` in Next.js (JSX ships as source)
 
 ## Adopt (two paths, plus a module shortcut)
 
-**1. Static / prototypes / mocks — link the stylesheet.** Copy `styles.css` (+ the `tokens/`, `base/`, `fonts/` it `@import`s, or serve the whole tree) and link it; you now have every `--cs-*` token, the `.cs-*` component classes, and the Liquid Glass surfaces. Compose with the classes (see `templates/kitchen-sink.html`). Copy any asset you reference from `assets/`.
+**1. Static / prototypes / mocks — link the stylesheet.** For **production static**, link the flattened bundle `dist/styles.min.css` (also `@cyberskill/design/styles.min.css`) — one file, no `@import` waterfall. Keep `styles.css` (+ the `tokens/`, `base/`, `fonts/` it `@import`s) as the readable source/dev path, or serve the whole tree. Either way you get every `--cs-*` token, the `.cs-*` component classes, and the Liquid Glass surfaces. Compose with the classes (see `templates/kitchen-sink.html` and `examples/static-hello/`). Copy any asset you reference from `assets/`.
 
-**2. Production React — load the compiled bundle.** Link `styles.css` and `<script src="_ds_bundle.js">`, then read components off the namespace. **Resolve by prefix, never hardcode:** the bundle exposes `window.CyberSkillDesignSystem_<projectId>`, and that 6-hex suffix is compiler-assigned and **changes on import into another project**:
+**2. Production React — load the compiled bundle.** Link `dist/styles.min.css` (or `styles.css` in dev) and `<script src="_ds_bundle.js">`, then read components off the namespace. **Resolve by prefix, never hardcode:** the bundle exposes `window.CyberSkillDesignSystem_<projectId>`, and that 6-hex suffix is compiler-assigned and **changes on import into another project**:
 ```html
-<link rel="stylesheet" href="<path>/styles.css">
+<link rel="stylesheet" href="<path>/dist/styles.min.css">
 <script src="<path>/_ds_bundle.js"></script>
 <script>
  const CS = window[Object.keys(window).find(k => /^CyberSkillDesignSystem_/.test(k))];
@@ -76,7 +76,7 @@ Add `transpilePackages: ["@cyberskill/design"]` in Next.js (JSX ships as source)
 </script>
 ```
 This is exactly what `_audit/consumer-smoke-test.html` exercises (and asserts green) — and the templates' `ds-base.js` does the same, publishing a stable `window.CyberSkillDS` alias.
-**2b. Bundler-native React (Next / Vite / SSR) — default package entry.** `import { Button, TextField } from "@cyberskill/design"` resolves to `_esm/react.mjs` (also exported as `@cyberskill/design/react`). Re-exports every component from source JSX with **React as an external peer** — no CDN, no `_ds_bundle.js` side-load. Your bundler must transpile the package (Next: `transpilePackages: ["@cyberskill/design"]`). Still link `styles.css` yourself. Regenerated with `npm run build:react-entry`; parity is gated by `package-exports-integrity` + `test:react-entry`.
+**2b. Bundler-native React (Next / Vite / SSR) — default package entry.** `import { Button, TextField } from "@cyberskill/design"` resolves to `_esm/react.mjs` (also exported as `@cyberskill/design/react`). The generated file starts with `"use client"` so App Router / RSC consumers import interactive components directly. Re-exports every component from source JSX with **React as an external peer** — no CDN, no `_ds_bundle.js` side-load. Your bundler must transpile the package (Next: `transpilePackages: ["@cyberskill/design"]`). Still link styles yourself (`styles.min.css` recommended for production static sheets). Regenerated with `npm run build:react-entry`; parity is gated by `package-exports-integrity` + `test:react-entry`.
 
 **2c. Browser ESM legacy — one import, no build.** `import { Button, TextField } from "@cyberskill/design/legacy"` (or `"<path>/_esm/cs.mjs"`) — the module self-ensures React via **umd-react@19.2.8** (SRI-pinned CDN; official React 19 has no UMD; skipped when `window.React` exists), side-loads `_ds_bundle.js` once, resolves the namespace by prefix, and re-exports all components (`_audit/esm-smoke-test.html` keeps the export list in lockstep with the manifest). Still link `styles.css` yourself. **Not for Next/SSR.** Bundler apps should keep providing their own `react` / `react-dom` peers (`^18 || ^19`).
 
@@ -84,7 +84,7 @@ This is exactly what `_audit/consumer-smoke-test.html` exercises (and asserts gr
 
 **Machine-readable tokens.** `tokens/tokens.json` + `tokens/tokens.js` (ESM) + `tokens/tokens.dtcg.json` (W3C DTCG, for Tokens Studio/Style Dictionary) expose every token grouped by category + theme/element maps — for native/mobile/design-tool pipelines. **Native builds ship pre-generated** in `tokens/native/` (SwiftUI `CSTokens.swift` · Compose `CSTokens.kt` · Flutter `cs_tokens.dart`) with `tokens/provenance.json` (release, source sha-256, conversion rules, per-target sha-256); the `token-pipeline` gate keeps them in lockstep with the DTCG source.
 
-**Static HTML / no React / no build tooling.** Link `styles.css` and compose with `.cs-*` classes — full catalog demonstrated in `templates/kitchen-sink.html`.
+**Static HTML / no React / no build tooling.** Link `dist/styles.min.css` (production) or `styles.css` (source/dev) and compose with `.cs-*` classes — full catalog demonstrated in `templates/kitchen-sink.html`.
 
 **Fonts, including a display face.** All three brand families are self-hosted in `fonts/` and declared by `tokens/fonts.css` (which `styles.css` `@import`s): **Be Vietnam Pro** (`--cs-font-family-ui`), **JetBrains Mono** (`--cs-font-family-mono`), and **Space Grotesk** (`--cs-font-family-display`, variable 300–700, Vietnamese subset included). The display face is **opt-in** — nothing in the DS points at it. A product that wants a headline face adds `class="cs-display-face"` (or sets `--cs-heading-family: var(--cs-font-family-display)`) on the scope; heading utilities follow, body copy stays on the UI face.
 
@@ -92,7 +92,7 @@ Consumers that skip `styles.css` to control font loading (`cyberskill.world` / L
 
 ## The four axes
 
-State Theme (`data-theme` — light / dark / system), Element (`data-cs-element` + `data-cs-variant`), Language (`lang` / template Language tweak), and Style (`data-cs-style`) on a container; everything inside re-skins with no code change (see `templates/playground.html`). Defaults: `light · tho · en · liquid-glass` (absent theme / style ≡ those defaults). Bilingual: components resolve strings from `lang` (`lang="vi"` on any container → full Vietnamese).
+State Theme (`data-theme` — light / dark / system), Element (`data-cs-element` + `data-cs-variant`), Language (`lang` / template Language tweak), and Style (`data-cs-style`) on a container; everything inside re-skins with no code change (see `templates/playground.html`). Defaults: `light · tho · vi · liquid-glass` (absent theme / style ≡ those defaults; set `lang="en"` for EN surfaces). Bilingual: components resolve strings from `lang` (`lang="en"` on any container → full English; unset → Vietnamese-first fallback).
 
 ## Upgrading
 

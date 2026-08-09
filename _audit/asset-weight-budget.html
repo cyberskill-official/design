@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CyberSkill — asset-weight budget</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;font-family:var(--cs-font-family-ui);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);padding:26px 30px;max-width:900px}
+  h1{font-size:18px;margin:0 0 4px}h1 b{color:var(--cs-color-brand-umber)}
+  .sub{color:var(--cs-color-text-muted);font-size:13px;margin:0 0 18px;line-height:1.55}
+  .sub code{font-family:var(--cs-font-family-mono);font-size:11.5px;background:var(--cs-color-surface-raised);border-radius:4px;padding:0 4px}
+  #report{font-family:var(--cs-font-family-mono);font-size:12px;line-height:1.65;white-space:pre-wrap;border:1px solid var(--cs-color-border-default);border-radius:10px;background:var(--cs-color-surface-panel);padding:16px 18px}
+  #report.pass{border-color:#166534}#report.fail{border-color:var(--cs-color-danger,#B42318)}
+  .b{display:inline-block;font-weight:800;font-size:13px;padding:2px 10px;border-radius:999px;margin-bottom:10px}
+  .b.pass{background:#DCFCE7;color:#166534}.b.fail{background:#FEE2E2;color:#B42318}
+</style>
+</head><body>
+<h1><b>CyberSkill</b> · Asset-weight budget</h1>
+<p class="sub">Regression budget for the elemental aurora WebPs (<code>assets/aurora-{hoa,thuy,moc,kim}.webp</code>, FIND-016). Each file ≤&nbsp;300&nbsp;KB and the set ≤&nbsp;1.2&nbsp;MB. Legacy aurora PNGs or unexpected aurora WebP names fail. Verdict on <code>window.__assetweight</code>.</p>
+<div id="report">running…</div>
+<script>
+/** Post-FIND-016 ceilings: WebP decorative washes (target well under 300 KB each). */
+const AURORA = ['aurora-hoa.webp','aurora-thuy.webp','aurora-moc.webp','aurora-kim.webp'];
+const PER_FILE_MAX = 300_000;   // 300 KB
+const TOTAL_MAX = 1_200_000;     // 1.2 MB for the set
+const out = { steps: [], pass: true, files: {}, total: 0 };
+
+function step(name, ok, detail){
+  out.steps.push((ok ? '\u2713 ' : '\u2717 ') + name + (detail ? ' \u2014 ' + detail : ''));
+  if (!ok) out.pass = false;
+}
+function fmt(n){ return (n/1024).toFixed(1) + ' KB (' + n + ' B)'; }
+
+(async () => {
+  window.__gateProgress = { current: 'fetch', done: 0, total: AURORA.length + 1 };
+  let total = 0;
+  for (let i = 0; i < AURORA.length; i++) {
+    const name = AURORA[i];
+    window.__gateProgress = { current: name, done: i, total: AURORA.length + 1 };
+    try {
+      const r = await fetch('../assets/' + name, { cache: 'no-store' });
+      if (!r.ok) { step(name + ' exists', false, 'HTTP ' + r.status); continue; }
+      const buf = await r.arrayBuffer();
+      const size = buf.byteLength;
+      out.files[name] = size;
+      total += size;
+      const ok = size > 0 && size <= PER_FILE_MAX;
+      step(name + ' ≤ ' + fmt(PER_FILE_MAX), ok, fmt(size));
+    } catch (e) {
+      step(name + ' fetch', false, String(e).slice(0, 80));
+    }
+  }
+  out.total = total;
+  step('aurora set total ≤ ' + fmt(TOTAL_MAX), total > 0 && total <= TOTAL_MAX, fmt(total));
+
+  // Fail closed if a legacy/extra aurora PNG remains (converted assets must not reappear as PNG).
+  const EXTRA_PNG = ['aurora-hoa.png','aurora-thuy.png','aurora-moc.png','aurora-kim.png','aurora-tho.png','aurora-gold.png','aurora.png','aurora-wash.png'];
+  for (const name of EXTRA_PNG) {
+    try {
+      const r = await fetch('../assets/' + name, { cache: 'no-store' });
+      if (r.ok) {
+        const buf = await r.arrayBuffer();
+        if (buf.byteLength > 0) step('no legacy/unexpected ' + name, false, 'present (' + fmt(buf.byteLength) + ')');
+        else step('no legacy/unexpected ' + name, true, '');
+      } else {
+        step('no legacy/unexpected ' + name, true, 'absent');
+      }
+    } catch (e) {
+      step('no legacy/unexpected ' + name, true, 'absent');
+    }
+  }
+
+  window.__gateProgress = { current: 'done', done: AURORA.length + 1, total: AURORA.length + 1 };
+  window.__assetweight = out;
+  const el = document.getElementById('report');
+  el.className = out.pass ? 'pass' : 'fail';
+  el.innerHTML = '<span class="b ' + (out.pass ? 'pass' : 'fail') + '">' + (out.pass ? 'PASS' : 'FAIL') + '</span>\n' + out.steps.join('\n');
+})();
+</script>
+</body></html>

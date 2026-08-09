@@ -173,6 +173,7 @@ Semantic aliases into the ramp — write intent, not magic numbers. `Resolves to
 | Token | Value |
 |---|---|
 | `--cs-breakpoint-xs` | `0px` |
+| `--cs-breakpoint-phone` | `360px` |
 | `--cs-breakpoint-sm` | `640px` |
 | `--cs-breakpoint-md` | `768px` |
 | `--cs-breakpoint-lg` | `1024px` |

@@ -1,5 +1,6 @@
-/** Whole-star rating (radiogroup). Controlled (value/onChange) or uncontrolled
- *  (defaultValue). Clicking the current value clears to 0. readOnly for display. */
+/** Whole-star rating (APG radiogroup: roving tabindex + arrow keys). Controlled
+ *  (value/onChange) or uncontrolled (defaultValue). Clicking the current value
+ *  clears to 0. readOnly for display. */
 export interface RatingProps {
   value?: number;
   defaultValue?: number;

@@ -277,10 +277,10 @@
 
 /* ---- Aurora washes ---- */
 .cs-aurora-wash { background-image: url("../assets/aurora-gold.jpg"); background-size: cover; background-position: center; }
-[data-cs-element="hoa"] .cs-aurora-wash { background-image: url("../assets/aurora-hoa.png"); }
-[data-cs-element="thuy"] .cs-aurora-wash { background-image: url("../assets/aurora-thuy.png"); }
-[data-cs-element="moc"] .cs-aurora-wash { background-image: url("../assets/aurora-moc.png"); }
-[data-cs-element="kim"] .cs-aurora-wash { background-image: url("../assets/aurora-kim.png"); }
+[data-cs-element="hoa"] .cs-aurora-wash { background-image: url("../assets/aurora-hoa.webp"); }
+[data-cs-element="thuy"] .cs-aurora-wash { background-image: url("../assets/aurora-thuy.webp"); }
+[data-cs-element="moc"] .cs-aurora-wash { background-image: url("../assets/aurora-moc.webp"); }
+[data-cs-element="kim"] .cs-aurora-wash { background-image: url("../assets/aurora-kim.webp"); }
 
 /* ---- APCA-derived DARK elemental packs (generated; hue-locked to light) ---- */
 [data-theme="dark"][data-cs-element="tho"][data-cs-variant="sand"] {

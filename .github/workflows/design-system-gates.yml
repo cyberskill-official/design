@@ -321,7 +321,9 @@ jobs:
           fi
           git add tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json \
             tokens/native/CSTokens.swift tokens/native/CSTokens.kt tokens/native/cs_tokens.dart tokens/provenance.json
-          git commit -m "chore: regenerate element packs + tokens/native/* from seeds/DTCG [skip ci]"
+          # No [skip ci]: the pushed tip must re-enter the gate board (FIND-021 / TASK-IMP-008).
+          # Deterministic regen → second run is a no-op commit (same loop-safety idea as version.yml).
+          git commit -m "chore: regenerate element packs + tokens/native/* from seeds/DTCG"
           if git push origin "HEAD:$BRANCH"; then
             echo "Pushed regenerated packs/natives to ${BRANCH}." >> "$GITHUB_STEP_SUMMARY"
           else
@@ -478,3 +480,28 @@ jobs:
             rm -f "./${TARBALL}"
           fi
           npm run smoke
+
+  # Area 27 / TASK-IMP-020 — surface nightly failures to Actions notifications
+  notify-schedule-failure:
+    if: >-
+      always() &&
+      github.event_name == 'schedule' &&
+      (
+        needs.fast-gates.result == 'failure' ||
+        needs.unit-tests.result == 'failure' ||
+        needs.docs-consistency-blocker.result == 'failure' ||
+        needs.whole-set-audits.result == 'failure'
+      )
+    needs:
+      - fast-gates
+      - unit-tests
+      - docs-consistency-blocker
+      - whole-set-audits
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Annotate nightly failure
+        run: |
+          echo "::error::Nightly design-system-gates schedule failed. Open https://github.com/${{ github.repository }}/actions and re-run via workflow_dispatch after triage. See docs/release-runbook.md."
+          exit 1

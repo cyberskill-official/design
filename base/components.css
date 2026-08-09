@@ -179,7 +179,7 @@
 .cs-ai-disclosure { display: inline-block; position: relative; }
 .cs-ai-disclosure__badge {
   background: var(--cs-color-semantic-info, #1d4ed8); border: 0; border-radius: 999px;
-  color: #ffffff; font: inherit; font-size: 0.875rem; font-weight: 700;
+  color: var(--cs-color-semantic-info-fg, #ffffff); font: inherit; font-size: 0.875rem; font-weight: 700;
   padding: 0.25rem 0.625rem; cursor: pointer;
 }
 .cs-ai-disclosure__panel {

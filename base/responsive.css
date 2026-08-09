@@ -1,4 +1,5 @@
 /* CyberSkill — global responsive layer (loaded LAST so it can adapt any surface).
+ * FIND-007: width stops ⊆ token breakpoints (incl. justified `phone` 360).
  * The system is desktop-first but every artifact must read on tablet and phone.
  * Strategy: (1) media never overflows; (2) the print-doc archetype (cs-desk /
  * cs-sheet) relaxes its generous desktop padding on small screens; (3) shared class
@@ -25,26 +26,26 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
 
 /* 2 — Print-doc archetype: shrink desk + sheet chrome as the screen narrows.
  * cs-desk is the grey backing; cs-sheet is the white page. */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 768px) {
   .cs-desk { padding: 24px 10px !important; }
   .cs-sheet { padding: 40px 40px !important; }
 }
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 640px) {
   .cs-desk { padding: 12px 6px !important; }
   .cs-sheet { padding: 26px 20px !important; border-radius: 8px !important; }
 }
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 360px) {
   .cs-sheet { padding: 20px 15px !important; }
 }
 
 /* 3 — Wide tables inside sheets/panels scroll horizontally instead of clipping */
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
   .cs-sheet table, .cs-table-scroll { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 }
 
 /* 4 — App shell: the sidebar + main is a fixed two-column inline grid on desktop.
  * Collapse it to a stacked layout; the sidebar becomes a horizontal nav strip. */
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
   .cs-sidebar { position: static !important; width: auto !important; height: auto !important;
     display: flex !important; flex-wrap: wrap !important; gap: 4px 10px !important;
     align-items: center !important; border-inline-end: 0 !important;
@@ -59,12 +60,12 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
  * even on a laptop (≈1280), which otherwise overflowed the document. The legible
  * min-width floor for the inner track only applies once the window itself is narrow. */
 .cs-canvas-desk { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-@media screen and (max-width: 1120px) {
+@media screen and (max-width: 1280px) {
   .cs-canvas-desk > * { min-width: 960px; }
 }
 
 /* 6 — Very wide section padding eases in on phones */
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 640px) {
   section[style*="padding: 84px"], section[style*="padding: 80px"],
   section[style*="padding: 72px"] { padding-inline: 22px !important; }
 }
@@ -76,13 +77,13 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
  * Tablet: 3+ cols → 2. Phone: everything → 1 (declared after, so it wins at the
  * narrow width). Print is unaffected — the @page is wide, so these screen
  * breakpoints never fire during print/export. */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 768px) {
   [style*="grid-template-columns: repeat(3"],
   [style*="grid-template-columns: repeat(4"],
   [style*="grid-template-columns: repeat(5"],
   [style*="grid-template-columns: repeat(6"] { grid-template-columns: repeat(2, 1fr) !important; }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 640px) {
   [style*="grid-template-columns: repeat(2"],
   [style*="grid-template-columns: repeat(3"],
   [style*="grid-template-columns: repeat(4"],
@@ -103,7 +104,7 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
 /* 8 — Touch targets reach the 44px minimum on phones/tablets (the system's a11y
  * floor). Base sidebar nav rows (39px) and the topbar search input (26px) are
  * fine for mouse on desktop but too small to tap; grow them on small screens. */
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
   .cs-sidebar .cs-nav-item, .cs-nav-item { min-height: 44px; }
   .cs-search { display: flex; align-items: center; min-height: 44px; }
   .cs-search input, .cs-search select { min-height: 44px; }
@@ -118,7 +119,7 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
  * being propped open. It only breaks a token when it would otherwise overflow, so
  * ordinary prose is untouched. Scoped to the print-doc wrapper; the print @page is
  * wide, so this screen breakpoint never fires during export. */
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
   .cs-desk, .cs-sheet { overflow-wrap: anywhere; }
 }
 
@@ -130,7 +131,7 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
  * attribute selector reliably overrides an inline grid-template-columns (a class
  * selector does not). Then let the app-region grids shrink (min-width:0) and the data
  * table scroll inside its panel instead of forcing the page wide. */
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
   [style*="grid-template-columns: 248px 1fr"] { grid-template-columns: 1fr !important; }
   main { min-width: 0; }
   main > * { min-width: 0; }

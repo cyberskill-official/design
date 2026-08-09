@@ -48,11 +48,15 @@ If you host under a **different** domain, change the absolute URLs in those meta
 
 **With Storybook at `/`:** run `npm run build:site` on the host or CI, then serve `.vercel-static/` as the webroot. Configure the same redirects as `vercel.json` (`/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` → `/`) if your host supports them.
 
-Nginx example (`.vercel-static` as `root`):
+Nginx example (`.vercel-static` as `root`) — **same security headers as `vercel.json`** (FIND-019):
+```nginx
 server {
   server_name design.cyberskill.world;
   root /var/www/design-system/.vercel-static;
   index index.html;
+  add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; connect-src 'self'; frame-src 'self'; worker-src 'self' blob:; base-uri 'self'; form-action 'self'" always;
+  add_header X-Content-Type-Options "nosniff" always;
+  add_header Referrer-Policy "strict-origin-when-cross-origin" always;
   location = /dashboard { return 301 /; }
   location = /dashboard/ { return 301 /; }
   location = /dashboard.html { return 301 /; }
@@ -60,7 +64,10 @@ server {
   location = /playground { return 301 /; }
   location /playground/ { return 301 /; }
 }
+```
 Portable paths remain real files (`guidelines/atomic-view.html`, `_audit/run.html`, `styles.css`, etc.). Storybook owns `/` and `/index.html`.
+
+**Netlify / Cloudflare Pages / similar:** commit root `_headers` (and `public/_headers`) mirrors the same three headers for hosts that read Netlify-style `_headers` files. Keep them byte-aligned with `vercel.json`.
 
 ## Post-deploy checklist
 1. Open `/` — confirm Storybook loads (not a 404, directory listing, or the old dashboard shell).
@@ -86,12 +93,16 @@ After every production deploy:
 
 ## Content-Security-Policy notes
 
-Static hosting can ship a strict CSP. Typical allowances for this system:
-- `script-src 'self' https://unpkg.com` if you load React from CDN for Atomic View
-- `font-src 'self'`
+Canonical CSP lives in `vercel.json` and is mirrored in `_headers` + the nginx snippet above (FIND-015 / FIND-019). Current policy:
 
-- `img-src 'self' data:`
-Prefer self-hosting React next to `_ds_bundle.js` for air-gapped installs.
+`default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; connect-src 'self'; frame-src 'self'; worker-src 'self' blob:; base-uri 'self'; form-action 'self'`
+
+Rationale:
+- **`unsafe-eval` removed** — React is vendored locally; Storybook static export does not need site-wide `eval`.
+- **CDN script/connect origins removed** (`unpkg.com`, `cdnjs.cloudflare.com`) — local-first React / `_ds_bundle.js`.
+- **`unsafe-inline` retained** — Storybook’s static shell still emits inline scripts/styles; a nonce/hash migration is a follow-on. Do not re-add open CDN allowlists without pinning.
+- Prefer self-hosting React next to `_ds_bundle.js` for air-gapped installs.
+- Live served-header truth on production remains OQ-003 (confirm with `curl -sSI` after deploy).
 
 ## Multi-domain OG
 

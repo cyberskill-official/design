@@ -29,7 +29,7 @@
 .cs-switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-family: var(--cs-font-family-ui); color: var(--cs-color-text-primary); }
 .cs-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
 .cs-switch__track { inline-size: 44px; block-size: 26px; border-radius: 999px; background: var(--cs-color-border-default); position: relative; transition: background var(--cs-duration-fast) var(--cs-ease-standard); flex: none; }
-.cs-switch__track::after { content: ""; position: absolute; inset-block-start: 3px; inset-inline-start: 3px; inline-size: 20px; block-size: 20px; border-radius: 50%; background: #fff; box-shadow: var(--cs-shadow-xs); transition: transform var(--cs-duration-fast) var(--cs-ease-standard); }
+.cs-switch__track::after { content: ""; position: absolute; inset-block-start: 3px; inset-inline-start: 3px; inline-size: 20px; block-size: 20px; border-radius: 50%; background: var(--cs-color-surface-panel, #fff); box-shadow: var(--cs-shadow-xs); transition: transform var(--cs-duration-fast) var(--cs-ease-standard); }
 .cs-switch input:checked + .cs-switch__track { background: var(--cs-color-brand-umber); }
 [data-theme="dark"] .cs-switch input:checked + .cs-switch__track { background: var(--cs-color-brand-ochre); }
 .cs-switch input:checked + .cs-switch__track::after { transform: translateX(18px); }

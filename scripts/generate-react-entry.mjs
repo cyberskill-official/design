@@ -32,12 +32,17 @@ function groupBySource(components) {
 
 function buildMjs(components) {
   const lines = [
+    '"use client";',
     "// CyberSkill Design System — bundler-native React entry (GENERATED).",
+    "// Client barrel: marks the default package entry as a React Client Module",
+    "// so Next.js App Router / RSC consumers can import interactive components",
+    "// without per-import shims (FIND-006).",
     "// Re-exports every public component from source. React / react-dom are",
     "// peerDependencies (external) — do not use this entry without a bundler",
     "// that can transpile JSX (Next transpilePackages, Vite, etc.).",
     "// Browser / no-build consumers: import from `@cyberskill/design/legacy`",
-    "// (`_esm/cs.mjs`) instead. Styles are NOT injected — link styles.css.",
+    "// (`_esm/cs.mjs`) instead. Styles are NOT injected — link styles.css",
+    "// (or dist/styles.min.css for production static).",
     "// Regenerate: node scripts/generate-react-entry.mjs",
     "",
   ];

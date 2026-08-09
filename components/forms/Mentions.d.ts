@@ -1,4 +1,4 @@
-/** Textarea with @user suggestions (typeahead on the trailing "@word"). */
+/** Textarea with @user suggestions (APG editable combobox / listbox). */
 export interface MentionsProps {
   value?: string;
   defaultValue?: string;

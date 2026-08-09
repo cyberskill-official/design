@@ -9,7 +9,7 @@
 This is the **entrance document** for the CyberSkill Design System — LAUNCHED **v1.1.0**; current **v1.1.1** (see `VERSION`). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves four independent axes — **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
 
 **Quick start by audience**
-- **Designers** — open Storybook (Foundations / Components / Maintainer surfaces) and the Templates picker (84 starting points, including the 37-document lawyer-validated Employment Suite). Flip Theme × Element × Language × Style live via the Storybook toolbar, Atomic View, and the Elements Geometry specimen.
+- **Designers** — open Storybook (Foundations / Components / Maintainer surfaces) and the Templates picker (84 starting points, including the 37-document client-supplied Employment Suite). Flip Theme × Element × Language × Style live via the Storybook toolbar, Atomic View, and the Elements Geometry specimen.
 
 - **Claude Code / Claude Design** — read `SKILL.md` (normative Hard rules + orientation), then the guide below; compose with `styles.css` + bundler `@cyberskill/design` (`_esm/react.mjs`) / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). DC `*.dc.html` templates only when the session has the compiler. Component contracts live beside each component (`.d.ts` + `.prompt.md`).
 
@@ -28,6 +28,7 @@ This is the **entrance document** for the CyberSkill Design System — LAUNCHED 
 | `docs/consumer-grant.md` | Written npm consumer grant (CyberSkill portfolio; UNLICENSED + named products) |
 | `docs/conventions.md` | How to extend the system (naming grammar, checklists, the four axes) |
 | `docs/release-notes.md` | Curated product highlights (not a changelog) |
+| `docs/release-runbook.md` | Authoritative release trigger → publish → verify |
 | `docs/design-styles.md` | The live styling axes (Theme × Element × Language × Style) and the fixed liquid-glass treatment |
 | `docs/products.md` | Product → element registry (**locked** — do not invent assignments) |
 | `docs/contrast-report.md` | Generated APCA elemental sweep — 0 failures at its Lc ≥ 60 UI-label floor. Body text authors to the stricter Lc ≥ 75 floor (see Anchor immutables); the sweep's Lc ≥ 60 rows are accent/label pairings, not body text. |
@@ -111,11 +112,11 @@ Related CyberSkill repos (not in this tree — explore for product/marketing fid
 
 **Shadows** are warm and umber-tinted (`rgba(69,33,14,…)`), a soft five-step scale from `xs` hairline to `xl` dialog lift. Never grey, never harsh.
 
-**Depth** is an explicit z-scale mapped to glass tiers: bg 0 → section 5 → card 10 → nav 50 → modal 100 → toast 200.
+**Depth** is an explicit z-scale mapped to glass tiers: bg 0 → section 5 → card 10 → nav 50 → dropdown 60 → overlay 80 → modal 100 → toast 200.
 
-**Backgrounds & imagery** glow from within: deep-umber darks with **warm gold particle light** (`aurora-gold.jpg`), never cold or flat — and each element carries its own wash (`assets/aurora-{hoa,thuy,moc,kim}.png`, applied via the `.cs-aurora-wash` overlay class; Thổ's is the official gold). Photography is warm-toned. Full-bleed umber sections anchor heroes, careers bands, and footers; on umber, the Ochre slogan and white body carry the message. The mascot, **Lumi**, is a polished golden genie rendered on transparent backgrounds.
+**Backgrounds & imagery** glow from within: deep-umber darks with **warm gold particle light** (`aurora-gold.jpg`), never cold or flat — and each element carries its own wash (`assets/aurora-{hoa,thuy,moc,kim}.webp`, applied via the `.cs-aurora-wash` overlay class; Thổ's is the official gold). Photography is warm-toned. Full-bleed umber sections anchor heroes, careers bands, and footers; on umber, the Ochre slogan and white body carry the message. The mascot, **Lumi**, is a polished golden genie rendered on transparent backgrounds.
 
-**Elemental product identity — Ngũ Hành.** The studio itself is **Thổ/Earth** (Umber + Ochre — the traditional earth-yellow); each CyberSkill *product* may take one element — **Kim** (metal) · **Mộc** (wood) · **Thủy** (water) · **Hỏa** (fire) · **Thổ** (earth) — via `data-cs-element` (+ `data-cs-variant`, e.g. Hỏa: ember · lava · plasma). Each pack sets the nine **`--cs-accent-*`** role tokens (accent / strong / bright / on / tint / ink / glow / grad-a / grad-b) defined in `tokens/elements.css`; inside the scope the element fully takes Ochre's accent roles. Never elemental: semantic statuses, and the **3px Ochre focus ring** — the studio's accessibility signature on every product. Mixing follows the cycles: a secondary element may appear only as a gradient endpoint along **Tương sinh** (Mộc→Hỏa→Thổ→Kim→Thủy→Mộc); **Tương khắc** pairs never mix. Product→element mapping lives in `docs/products.md`. **Every template carries the Element tweak** — anything that should follow the product's element must consume `--cs-accent-*`, never raw hex. **Lumi stays golden in every element** — the genie is the studio's constant; only the environment re-tints.
+**Elemental product identity — Ngũ Hành.** The studio itself is **Thổ/Earth** (Umber + Ochre — the traditional earth-yellow); each CyberSkill *product* may take one element — **Kim** (metal) · **Mộc** (wood) · **Thủy** (water) · **Hỏa** (fire) · **Thổ** (earth) — via `data-cs-element` (+ `data-cs-variant`, e.g. Hỏa: ember · lava · plasma). Each pack sets the ten **`--cs-accent-*`** role tokens (accent / strong / bright / on / on-strong / tint / ink / glow / grad-a / grad-b) defined in `tokens/elements.css`; inside the scope the element fully takes Ochre's accent roles. Never elemental: semantic statuses, and the **3px Ochre focus ring** — the studio's accessibility signature on every product. Mixing follows the cycles: a secondary element may appear only as a gradient endpoint along **Tương sinh** (Mộc→Hỏa→Thổ→Kim→Thủy→Mộc); **Tương khắc** pairs never mix. Product→element mapping lives in `docs/products.md`. **Every template carries the Element tweak** — anything that should follow the product's element must consume `--cs-accent-*`, never raw hex. **Lumi stays golden in every element** — the genie is the studio's constant; only the environment re-tints.
 
 **Surface treatment.** Liquid-glass is fixed. Surfaces resolve **Theme × Element × Language × Style** independently.
 
@@ -202,7 +203,7 @@ Branded documents, emails, reports, and decks per department — each a copyable
 
 - **Team** — `team-meeting-agenda` (time-boxed items, owners, decisions log, ground rules).
 
-- **HR** — `hr-announcement` (team-news email). *(The offer letter, onboarding checklist, and job description now live in the lawyer-validated Employment Suite below as `vn-offer-letter`, `vn-onboarding-checklist`, and `vn-job-description`.)*
+- **HR** — `hr-announcement` (team-news email). *(The offer letter, onboarding checklist, and job description now live in the client-supplied Employment Suite below as `vn-offer-letter`, `vn-onboarding-checklist`, and `vn-job-description`.)*
 - **Board** — `bod-report` (quarterly review: KPI stats, portfolio table, risks, AI-assisted disclosure), `bod-deck` (16:9 board deck — stacked slides, PDF/PPTX-exportable), `bod-memo` (one-page exec memo with a single ask).
 
 - **Marketing** — `marketing-campaign-brief` (objective, audience, channels, metrics), `marketing-newsletter` (“The Lamp” issue email), `marketing-launch` (product launch announcement), `marketing-case-study` (result hero, proof stats, quote — print-ready), `marketing-press-release` (dateline, boilerplate, media contact — print-ready).
@@ -211,7 +212,7 @@ Branded documents, emails, reports, and decks per department — each a copyable
 
 Print-ready letter documents and client decks — the paperwork a studio actually sends. Legal and finance docs are Letter-sized with an `@page` + `@media print` block, so **File → Print / Save as PDF** paginates cleanly with 0.6in margins; on screen they render as a warm sheet on a desk.
 
-- **Legal** — `legal-msa` (master services agreement — the umbrella SOWs hang off: definitions, IP, fees, liability, term), `legal-sow` (statement of work: deliverables & milestone tables, fees, acceptance, sign-off). *(The standalone mutual NDA now lives in the Employment Suite as the lawyer-validated `vn-mutual-nda`.)*
+- **Legal** — `legal-msa` (master services agreement — the umbrella SOWs hang off: definitions, IP, fees, liability, term), `legal-sow` (statement of work: deliverables & milestone tables, fees, acceptance, sign-off). *(The standalone mutual NDA now lives in the Employment Suite as the client-supplied `vn-mutual-nda`.)*
 - **Finance** — `finance-invoice` (bill-to/from, line items in đồng, VAT, total, bank details), `finance-quote` (scoped estimate with optional add-on, valid-until, accept CTA).
 
 - **Sales** — `sales-one-pager` (leave-behind: umber hero, services, proof stats, the wish process, contact CTA), `sales-proposal-deck` (8-slide 16:9 client proposal — the wish, understanding, approach, scope, timeline, team, investment, next steps).
@@ -221,15 +222,15 @@ Print-ready letter documents and client decks — the paperwork a studio actuall
 ### Reference documents (govern EVERY template)
 
 Three suite-wide reference documents define and catalogue the whole template library — legal, HR, finance, sales, client-facing paperwork, and EN-first communications alike. They live in `templates/doc-*/` and print as A4 bilingual documents themselves:
-- **Documents · Style Guide** (`templates/doc-style-guide/`) — the presentation standard: palette, type ramp, bilingual Ink/Slate rule, tables, fill-ins, tick-boxes, signing blocks, data hygiene, header/footer (Articles 1–10, verbatim from the lawyer-validated original), plus **Article 11 — scope & archetypes**, mapping the A4 rules onto Letter-print, email, product-screen, deck and social archetypes.
+- **Documents · Style Guide** (`templates/doc-style-guide/`) — the presentation standard: palette, type ramp, bilingual Ink/Slate rule, tables, fill-ins, tick-boxes, signing blocks, data hygiene, header/footer (Articles 1–10, verbatim from the client-supplied original), plus **Article 11 — scope & archetypes**, mapping the A4 rules onto Letter-print, email, product-screen, deck and social archetypes.
 
 - **Documents · Suite Index & Usage Guide** (`templates/doc-suite-index/`) — Part I catalogues every template by group (HR suite, legal, finance, sales, product, comms); Part II is the usage guide (employment lifecycle, which documents carry disciplinary force, the eight house presentation rules, and the 8-step “add a new template” workflow).
 
 - **Documents · Templates** (`templates/doc-templates/`) — Part A is the blank A4 bilingual shell (header, title block, sample clause, Party A pre-filled / Party B blank, signing block); Part B is the archetype map (A4 · Letter print · email · product screen · deck · social) with an example per family.
 
-### HR & Employment Suite (lawyer-validated)
+### HR & Employment Suite (client-supplied)
 
-Thirty-seven **counsel-validated** bilingual instruments supplied by the client (built on an earlier version of the system) were **converted one-by-one into templates, content preserved verbatim**, and re-skinned to the latest design system. They live under the **HR Suite** group (`templates/vn-*/`) and follow the house standard set out in the reference documents above: **A4, Vietnamese-first bilingual** (Ink `#1A1614` VN over Slate `#3F4C55` italic EN pairs), state-motto header, umber table title bars, yellow fill-in blanks, PDPL data-hygiene (Party B always blank), and signing blocks that never split. Every one carries the Element (15) tweaks like all templates; none carries a language tweak (they are inherently bilingual). Because these are validated instruments, **`vn-labor-contract` supersedes the earlier fictional `legal-employment-contract`**, and `vn-mutual-nda` / `vn-offer-letter` / `vn-onboarding-checklist` / `vn-job-description` supersede the fictional `legal-nda` / `hr-offer-letter` / `hr-onboarding` / `hr-job-description` (all removed); the remaining fictional templates are EN-first comms (announcements, newsletters, press releases) and client-facing sales/finance paperwork — a different purpose, so they stay.
+Thirty-seven bilingual instruments **supplied by the client** (built on an earlier version of the system) were **converted one-by-one into templates, content preserved verbatim**, and re-skinned to the latest design system. They live under the **HR Suite** group (`templates/vn-*/`) and follow the house standard set out in the reference documents above: **A4, Vietnamese-first bilingual** (Ink `#1A1614` VN over Slate `#3F4C55` italic EN pairs), state-motto header, umber table title bars, yellow fill-in blanks, PDPL data-hygiene (Party B always blank), and signing blocks that never split. Every one carries the Element (15) tweaks like all templates; none carries a language tweak (they are inherently bilingual). Because these are client-supplied instruments (keep content verbatim; counsel must review before real use), **`vn-labor-contract` supersedes the earlier fictional `legal-employment-contract`**, and `vn-mutual-nda` / `vn-offer-letter` / `vn-onboarding-checklist` / `vn-job-description` supersede the fictional `legal-nda` / `hr-offer-letter` / `hr-onboarding` / `hr-job-description` (all removed); the remaining fictional templates are EN-first comms (announcements, newsletters, press releases) and client-facing sales/finance paperwork — a different purpose, so they stay.
 
 - **Compensation & rewards** — `vn-total-rewards-appendix`, `vn-phantom-stock`, `vn-salary-scale`, `vn-compensation-regulation`.
 
@@ -287,11 +288,11 @@ templates/                 marketing-page · dashboard · slide-deck · auth · 
                            + team artifacts — tech (release/incident/rfc) · team (meeting-agenda) · hr (announcement) · board (report/deck/memo) · marketing (brief/newsletter/launch/case-study/press-release)
                            + business — legal (vn-mutual-nda / msa / sow; fictional legal-nda retired) · finance (invoice/quote) · sales (one-pager/proposal-deck) — letter print docs + client deck
                            + Documents (reference, govern all templates) — doc-style-guide · doc-suite-index (index & usage) · doc-templates (archetypes)
-                           + HR Suite — 37 lawyer-validated bilingual A4 instruments (vn-*); content verbatim, latest-DS skin
+                           + HR Suite — 37 client-supplied bilingual A4 instruments (vn-*); content verbatim, latest-DS skin; counsel review before real use
 ui_kits/status-hub/        Status Hub recreation (index · login · settings · project + status.css · data.js · StatusHub.jsx)
 ui_kits/website/           cyberskill.world recreation (index · work · careers · chat + site.css · copy.js · Website.jsx)
 ui_kits/deck/              brand deck on deck-stage (index.html; deck-stage runtime lives in templates/_vendor/, outside the compiled bundle; export PPTX/PDF on demand)
-assets/                    logo-mark.svg/png · favicon.svg · aurora-gold.jpg + aurora-{hoa,thuy,moc,kim}.png · lumi-poster.webp
+assets/                    logo-mark.svg/png · favicon.svg · aurora-gold.jpg + aurora-{hoa,thuy,moc,kim}.webp · lumi-poster.webp
 docs/                      the full doc set (see Document map above) + viewer.html reader (EN|VI)
 docs/vi/                   Vietnamese translations of every operator-facing docs/*.md
 fonts/                     self-hosted Be Vietnam Pro + Space Grotesk + JetBrains Mono woff2 (latin · latin-ext · vietnamese)

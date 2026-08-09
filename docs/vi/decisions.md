@@ -100,7 +100,7 @@ Theo dõi vận hành — không phải marketing sản phẩm, không phải ba
 
 ~~4. Đường consumer registry đầu tiên~~ — **xong** (Th7 2026): `examples/npm-hello/` cài `@cyberskill/design` cho identity **Lumi** đã khóa; ghi trong `docs/consuming.md` (+ VI) và `docs/release-notes.md`. Nay target **1.1.1** post-LAUNCH.
 
-5. **Drift native + element-pack trên PR là fail-closed** (Th7 2026) — `regenerate-tokens` chạy read-only trên pull request và exit 1 thay vì push; chỉ `regenerate-tokens-push` (main / schedule / thủ công) giữ `contents: write`. Khi PR fail, chạy `npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs` rồi commit packs + natives. Xem `docs/ci-cd.md`.
+5. **Drift native + element-pack trên PR là fail-closed** (Th7 2026; FIND-021 re-gate Th8 2026) — `regenerate-tokens` chạy read-only trên pull request và exit 1 thay vì push; chỉ `regenerate-tokens-push` (main / schedule / thủ công) giữ `contents: write`. Khi PR fail, chạy `npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs` rồi commit packs + natives. Auto-commit từ `regenerate-tokens-push` **không** được dùng `[skip ci]` để tip chạy lại bảng gate (TASK-IMP-008); freshness fail-closed trên PR vẫn là đường chính cho contributor. Thực tế required-check branch protection là NV-18.1 (ngoài repo). Xem `docs/ci-cd.md`.
 
 6. **Shadcn gap / Wave 2** (Th7 2026) — CyberSkill đã phủ ~53/62 primitive shadcn dưới dạng CS-native (forms / overlays / nav / data). Đã ship: pilot `ScrollArea`, `Collapsible`, `AspectRatio`; Wave 2 `AlertDialog` (vs Popconfirm), `Item` row primitive, `NativeSelect`. Phần còn lại của shadcn là non-port có chủ đích (block, Tailwind, Radix CLI). **Không** port những thứ đó — map pattern sang `templates/` + `ui_kits/` hiện có.
 
@@ -111,6 +111,29 @@ Theo dõi vận hành — không phải marketing sản phẩm, không phải ba
 9. **Identity Lab đã gỡ** (Th7 2026) — Lựa chọn owner: xóa `ui_kits/status-hub/identity-lab.html` và mọi tham chiếu product/docs/Storybook. Demo trục nằm ở Storybook toolbar Theme × Element × Language × Style, Atomic View, và specimen Elements Geometry. Các trục Theme × Element × Language × Style **vẫn là** hạ tầng sản phẩm (template, token, kit trung thành Thổ). Không hồi sinh Lab dưới tên khác nếu chưa có quyết định mới.
 
 Storybook `FullMatrix` bắt buộc khi public primary có ≥1 trong {size enums, variant enums, state keys} (sàn contract ≥28 story). Schema sidecar đã đủ cho template content-hole; template chỉ-axis bỏ qua theo thiết kế. Xem `docs/quality-gates.md` và `docs/storybook.md`.
+
+## 11. Giấy tờ audit — lưu trữ, không xóa
+
+**Lựa chọn owner: archive-don't-delete** (Th8 2026; TASK-IMP-001 / assessment FIND-001)
+
+- Artifact audit UX / AT / chất lượng đã đóng MUST còn tái dựng được từ clone mới. Ưu tiên `_audit/archive/` và/hoặc `docs/audits/` thay vì xóa im lặng.
+- Commit `8646dbf` đã xóa plan UX audit 8/8, AT matrix, README archive, và `TASK-UX-AUDIT-20260808` “không để lại bản ghi vĩnh viễn.” Nội dung được khôi phục tại `docs/audits/ux-audit-2026-08-08/` (kèm pointer `_audit/archive/ux-audit-2026-08-08/`). Các quyết định D1–D6 lịch sử trong plan đã khôi phục **không** ủy quyền xóa audit trail trong tương lai.
+- Chỉnh status-feed / ledger để che công việc audit đã làm nên tránh; nếu commit phải ledger-exempt, ghi exemption và đường dẫn archive trong cùng change.
+- Claim cần provenance (ví dụ “AT complete”, “lawyer-validated”) đòi bản ghi có ngày trong cây hoặc mục quyết định tường minh — không chỉ attestation miệng.
+
+## 12. Kế hoạch tiến hóa 12 tháng — trạng thái adoption
+
+**Lựa chọn owner: partially superseded (gần); giữ plan làm tham chiếu dài hạn** (Th8 2026; TASK-IMP-001 / assessment FIND-002)
+
+Nguồn: `docs/plans/cyberskill-design-system-audit-and-12-month-evolution-plan.md` (ngày audit 2026-07-28). PLAN `task-author` trước đó đã APPROVED (manifest `docs/tasks/.workflow/task-author.design-system-evolution.manifest.json`) nhưng hầu hết artefact chưa land vào `docs/tasks/`.
+
+| Tầm | Trạng thái | Ghi chú |
+|-----|------------|---------|
+| Assessment Phases 0–2 (tập con FIND-001…025) | **Adopted** — hàng đợi improvement CyberOS đang chạy | `TASK-IMP-001`…`TASK-IMP-008` trong `docs/tasks/improvement/`; index `docs/tasks/BACKLOG.md` |
+| Materialize đủ phase 0–6 của plan 12 tháng | **Deferred** | Không tự bung artefact PENDING trong manifest cho tới khi operator triage với tip `1.2.1` / hậu assessment |
+| Việc đã ship ngoài backlog (vd. commit remediation UX 8/8) | **Superseded** với tư cách task sống | Bằng chứng ở `docs/audits/ux-audit-2026-08-08/` + git history; không mở lại trùng trừ khi có finding mới |
+
+Phases 3–5 của **roadmap assessment** (RSC `"use client"`, APG Rating/Tree/Toolbar, CSP, SBOM, …) vẫn là follow-on hoãn — chưa author trong tranche này trừ khi operator yêu cầu.
 
 ## Cách đổi một quyết định
 
