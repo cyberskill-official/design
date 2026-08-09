@@ -322,7 +322,19 @@ jobs:
           git add tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json \
             tokens/native/CSTokens.swift tokens/native/CSTokens.kt tokens/native/cs_tokens.dart tokens/provenance.json
           git commit -m "chore: regenerate element packs + tokens/native/* from seeds/DTCG [skip ci]"
-          git push origin "HEAD:$BRANCH"
+          if git push origin "HEAD:$BRANCH"; then
+            echo "Pushed regenerated packs/natives to ${BRANCH}." >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "### Token regenerate commit NOT pushed"
+              echo "Push to \`${BRANCH}\` was rejected (branch protection / token scope)."
+              echo "Set repository secret \`DS_PUSH_TOKEN\` (contents:write) — same pattern as \`version.yml\`."
+              echo "Or commit locally: \`npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs\`."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::warning::Token regenerate commit blocked by branch protection — not pushed."
+            # Soft-exit: content drift is still enforced by token-provenance / fast-gates.
+            exit 0
+          fi
 
   figma-variables-push:
     # Soft-skips when secrets missing (same honesty as Code Connect) or Variables API is
