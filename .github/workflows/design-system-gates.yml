@@ -263,7 +263,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: ${{ github.ref }}
-          token: ${{ secrets.DS_PUSH_TOKEN || github.token }}
+          token: ${{ secrets.PUSH_TOKEN || github.token }}
           fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
@@ -328,7 +328,7 @@ jobs:
             {
               echo "### Token regenerate commit NOT pushed"
               echo "Push to \`${BRANCH}\` was rejected (branch protection / token scope)."
-              echo "Set repository secret \`DS_PUSH_TOKEN\` (contents:write) — same pattern as \`version.yml\`."
+              echo "Set repository secret \`PUSH_TOKEN\` (contents:write) — same pattern as \`version.yml\`."
               echo "Or commit locally: \`npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs\`."
             } >> "$GITHUB_STEP_SUMMARY"
             echo "::warning::Token regenerate commit blocked by branch protection — not pushed."

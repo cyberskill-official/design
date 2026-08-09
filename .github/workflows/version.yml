@@ -41,8 +41,8 @@ jobs:
           fetch-depth: 0
           ref: main
           # Same token pattern as regenerate-tokens-push. If branch protection
-          # blocks github.token, set repository secret DS_PUSH_TOKEN (contents:write).
-          token: ${{ secrets.DS_PUSH_TOKEN || github.token }}
+          # blocks github.token, set repository secret PUSH_TOKEN (contents:write).
+          token: ${{ secrets.PUSH_TOKEN || github.token }}
 
       - uses: actions/setup-node@v7
         with:
@@ -109,7 +109,7 @@ jobs:
             {
               echo "### VERSION bump ${VER} computed but NOT pushed"
               echo "Push to main was rejected (branch protection / token scope)."
-              echo "Set repository secret \`DS_PUSH_TOKEN\` (contents:write) — same pattern as regenerate-tokens-push."
+              echo "Set repository secret \`PUSH_TOKEN\` (contents:write) — same pattern as regenerate-tokens-push."
             } >> "$GITHUB_STEP_SUMMARY"
             echo "::warning::VERSION bump ${VER} computed but push blocked — not pushed."
             exit 0
