@@ -39,7 +39,7 @@ The PR diff is the safety net — it shows exactly what changed since the last c
 ## Hygiene that keeps round-trips clean
 - **`.gitignore`** the transient (`uploads/`, `scraps/`, `_audit/exports/`); commit everything else, **including `_esm/`** (see above — it is source, not a build artifact, despite the `_` prefix). The compiled `_ds_bundle.js`/manifest are committed for consumers that have no build step, but expect churn — or ignore them and let each session regenerate.
 
-- **`VERSION` is LAUNCHED at 1.1.0; current pin **1.1.1**** — bump only with an explicit owner instruction; do not maintain a changelog file. Continuity is the git history; open maintainer tasks live in `docs/decisions.md`.
+- **`VERSION` is LAUNCHED at 1.1.0; pin tracks `VERSION`** — auto-bump on push to `main` (`.github/workflows/version.yml` → tag `v*` → `npm-publish.yml`); owner may still force a bump. Do not maintain a changelog file. Continuity is the git history; open maintainer tasks live in `docs/decisions.md`.
 
 - **One source of truth at a time.** Don't edit the repo and a Claude Design project in parallel and push both — pull, work, push, in that order, so the repo is always the merge point.
 

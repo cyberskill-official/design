@@ -1,0 +1,232 @@
+#!/usr/bin/env node
+// stamp-release-version — propagate root VERSION into every design-system stamp.
+//
+// VERSION is the source of truth (auto-bumped by .github/workflows/version.yml).
+// This keeps package.json, token metas, legacy ESM entry, DESIGN.md, and the
+// npm-hello consumer pin in lockstep. Does NOT write a CHANGELOG.
+//
+// Usage:
+//   node scripts/stamp-release-version.mjs            # report drift
+//   node scripts/stamp-release-version.mjs --apply    # write files
+//   node scripts/stamp-release-version.mjs --check --exit-code  # exit 10 on drift
+
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { execSync } from "node:child_process";
+import { join } from "node:path";
+
+const root = (() => {
+  try { return execSync("git rev-parse --show-toplevel", { encoding: "utf8" }).trim(); } catch { return process.cwd(); }
+})();
+
+const version = readFileSync(join(root, "VERSION"), "utf8").trim();
+if (!/^\d+\.\d+\.\d+$/.test(version)) {
+  console.error(`stamp: VERSION is not semver: "${version}"`);
+  process.exit(2);
+}
+
+const apply = process.argv.includes("--apply");
+const exitCode = process.argv.includes("--exit-code");
+const changes = [];
+
+function read(rel) {
+  return readFileSync(join(root, rel), "utf8");
+}
+
+function write(rel, text) {
+  writeFileSync(join(root, rel), text);
+}
+
+function stampJsonField(rel, pathKeys, label = pathKeys.join(".")) {
+  if (!existsSync(join(root, rel))) return;
+  const raw = read(rel);
+  const obj = JSON.parse(raw);
+  let cur = obj;
+  for (let i = 0; i < pathKeys.length - 1; i++) {
+    if (cur == null || typeof cur !== "object") return;
+    cur = cur[pathKeys[i]];
+  }
+  const key = pathKeys[pathKeys.length - 1];
+  const before = cur?.[key];
+  if (before === version) return;
+  changes.push(`${rel}: ${label} ${before} -> ${version}`);
+  if (!apply) return;
+  if (pathKeys.length === 1) {
+    write(rel, raw.replace(new RegExp(`("${key}"\\s*:\\s*")[^"]*(")`), `$1${version}$2`));
+    return;
+  }
+  // Nested $meta.version (and similar): replace the first "version" under that object block.
+  if (pathKeys.length === 2 && pathKeys[0] === "$meta" && pathKeys[1] === "version") {
+    write(rel, raw.replace(/("\$meta"\s*:\s*\{[^]*?"version"\s*:\s*")[^"]*(")/, `$1${version}$2`));
+    return;
+  }
+  cur[key] = version;
+  write(rel, JSON.stringify(obj, null, 2) + "\n");
+}
+
+function stampPackageJson() {
+  const rel = "package.json";
+  const raw = read(rel);
+  const pkg = JSON.parse(raw);
+  if (pkg.version === version) return;
+  changes.push(`${rel}: version ${pkg.version} -> ${version}`);
+  if (apply) write(rel, raw.replace(/("version"\s*:\s*")[^"]*(")/, `$1${version}$2`));
+}
+
+function stampPackageLock() {
+  const rel = "package-lock.json";
+  if (!existsSync(join(root, rel))) return;
+  const raw = read(rel);
+  const lock = JSON.parse(raw);
+  const beforeRoot = lock.version;
+  const beforePkg = lock.packages?.[""]?.version;
+  if (beforeRoot === version && beforePkg === version) return;
+  changes.push(`${rel}: version ${beforeRoot}/${beforePkg} -> ${version}`);
+  if (!apply) return;
+  lock.version = version;
+  if (lock.packages && lock.packages[""]) lock.packages[""].version = version;
+  write(rel, JSON.stringify(lock, null, 2) + "\n");
+}
+
+function stampTokensJs() {
+  const rel = "tokens/tokens.js";
+  if (!existsSync(join(root, rel))) return;
+  let raw = read(rel);
+  const meta = raw.match(/"version"\s*:\s*"([^"]+)"/);
+  const header = raw.match(/\(v([^)]+)\)/);
+  const before = meta?.[1];
+  if (before === version && (!header || header[1] === version)) return;
+  changes.push(`${rel}: $meta/header ${before} -> ${version}`);
+  if (!apply) return;
+  raw = raw.replace(/\(v[\d.]+\)/, `(v${version})`);
+  raw = raw.replace(/("version"\s*:\s*")[^"]*(")/, `$1${version}$2`);
+  write(rel, raw);
+}
+
+function stampCsMjs() {
+  const rel = "_esm/cs.mjs";
+  if (!existsSync(join(root, rel))) return;
+  let raw = read(rel);
+  const exp = raw.match(/export\s+const\s+VERSION\s*=\s*["']([^"']+)["']/);
+  const before = exp?.[1];
+  if (before === version && raw.includes(`at v${version}`)) return;
+  changes.push(`${rel}: VERSION ${before} -> ${version}`);
+  if (!apply) return;
+  raw = raw.replace(/at v[\d.]+/, `at v${version}`);
+  raw = raw.replace(/export\s+const\s+VERSION\s*=\s*["'][^"']+["']/, `export const VERSION = "${version}"`);
+  write(rel, raw);
+}
+
+function stampTextReplace(rel, patterns) {
+  // patterns: [{ re, to }] where `to` may use $version
+  if (!existsSync(join(root, rel))) return;
+  let raw = read(rel);
+  const before = raw;
+  for (const { re, to } of patterns) {
+    raw = raw.replace(re, to.replaceAll("$version", version));
+  }
+  if (raw === before) return;
+  changes.push(`${rel}: consumer pin -> ${version}`);
+  if (apply) write(rel, raw);
+}
+
+function stampDesignMd() {
+  const rel = "DESIGN.md";
+  if (!existsSync(join(root, rel))) return;
+  const raw = read(rel);
+  const m = raw.match(/^version:\s*"?([\d.]+)"?\s*$/m);
+  if (m && m[1] === version) return;
+  changes.push(`${rel}: front-matter ${m?.[1] || "?"} -> ${version}`);
+  if (!apply) return;
+  execSync("node scripts/generate-design-md.mjs", { cwd: root, stdio: "inherit" });
+}
+
+function stampNpmHello() {
+  const oldFromPkg = (() => {
+    try { return JSON.parse(read("examples/npm-hello/package.json")).dependencies?.["@cyberskill/design"]; }
+    catch { return null; }
+  })();
+  // dependency pin only — leave the example package's own version (0.0.0) alone
+  if (existsSync(join(root, "examples/npm-hello/package.json"))) {
+    const raw = read("examples/npm-hello/package.json");
+    const dep = JSON.parse(raw).dependencies?.["@cyberskill/design"];
+    if (dep && dep !== version) {
+      changes.push(`examples/npm-hello/package.json: @cyberskill/design ${dep} -> ${version}`);
+      if (apply) {
+        write(
+          "examples/npm-hello/package.json",
+          raw.replace(/("@cyberskill\/design"\s*:\s*")[^"]*(")/, `$1${version}$2`)
+            .replace(/@cyberskill\/design@[\d.]+/g, `@cyberskill/design@${version}`),
+        );
+      }
+    }
+  }
+  const pin = oldFromPkg && oldFromPkg !== version ? oldFromPkg : null;
+  const pinRe = pin
+    ? new RegExp(pin.replace(/\./g, "\\."), "g")
+    : /@cyberskill\/design@\d+\.\d+\.\d+/g;
+  if (pin) {
+    stampTextReplace("examples/npm-hello/index.html", [
+      { re: pinRe, to: version },
+      { re: /@cyberskill\/design@\d+\.\d+\.\d+/g, to: `@cyberskill/design@${version}` },
+    ]);
+    stampTextReplace("examples/npm-hello/README.md", [
+      { re: pinRe, to: version },
+      { re: /@cyberskill\/design@\d+\.\d+\.\d+/g, to: `@cyberskill/design@${version}` },
+    ]);
+  } else {
+    stampTextReplace("examples/npm-hello/index.html", [
+      { re: /@cyberskill\/design@\d+\.\d+\.\d+/g, to: `@cyberskill/design@${version}` },
+    ]);
+    stampTextReplace("examples/npm-hello/README.md", [
+      { re: /@cyberskill\/design@\d+\.\d+\.\d+/g, to: `@cyberskill/design@${version}` },
+    ]);
+  }
+}
+
+// --- run ---------------------------------------------------------------------
+stampPackageJson();
+stampPackageLock();
+stampJsonField("tokens/tokens.json", ["$meta", "version"], "$meta.version");
+stampTokensJs();
+// DTCG nested extension
+(() => {
+  const rel = "tokens/tokens.dtcg.json";
+  if (!existsSync(join(root, rel))) return;
+  const raw = read(rel);
+  const obj = JSON.parse(raw);
+  const before = obj?.$extensions?.["com.cyberskill"]?.version;
+  if (before === version) return;
+  changes.push(`${rel}: $extensions.version ${before} -> ${version}`);
+  if (!apply) return;
+  write(rel, raw.replace(
+    /("com\.cyberskill"\s*:\s*\{[^]*?"version"\s*:\s*")[^"]*(")/,
+    `$1${version}$2`,
+  ));
+})();
+(() => {
+  const rel = "tokens/provenance.json";
+  if (!existsSync(join(root, rel))) return;
+  const raw = read(rel);
+  const obj = JSON.parse(raw);
+  const needRelease = obj.release !== version;
+  const needStamp = obj.dtcgStamp?.version !== version;
+  if (!needRelease && !needStamp) return;
+  changes.push(`${rel}: release/dtcgStamp ${obj.release}/${obj.dtcgStamp?.version} -> ${version}`);
+  if (!apply) return;
+  let out = raw;
+  out = out.replace(/("release"\s*:\s*")[^"]*(")/, `$1${version}$2`);
+  out = out.replace(/("dtcgStamp"\s*:\s*\{[^]*?"version"\s*:\s*")[^"]*(")/, `$1${version}$2`);
+  write(rel, out);
+})();
+stampCsMjs();
+stampDesignMd();
+stampNpmHello();
+
+if (!changes.length) {
+  console.log(`stamp: all targets already at ${version}`);
+  process.exit(0);
+}
+console.log(apply ? `stamp: applied ${changes.length} change(s) -> ${version}` : `stamp: ${changes.length} drift(s) vs ${version}`);
+for (const c of changes) console.log(`  ${c}`);
+if (!apply && exitCode) process.exit(10);
+process.exit(0);

@@ -1,6 +1,6 @@
 # Native multi-screen sample apps
 
-Post-LAUNCH samples (VERSION **1.1.1**) that demonstrate **Sign in → Home (wish list) → Settings** on three platforms, consuming **generated** design tokens from `tokens/native/` (not hand-copied hex).
+Post-LAUNCH samples (VERSION tracks the repo root file) that demonstrate **Sign in → Home (wish list) → Settings** on three platforms, consuming **generated** design tokens from `tokens/native/` (not hand-copied hex).
 
 | App | Path | Token source |
 |---|---|---|

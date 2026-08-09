@@ -22,7 +22,7 @@ When **anything** grows — a new element/variant, icon, component, token role, 
 3. **All** templates (tweak enums, EL/EX maps, swept accents)
 4. UI kits — Thổ-faithful kit pages; axis demos via Storybook toolbar + Atomic View (Identity Lab retired)
 5. Docs — README/SKILL, `docs/conventions.md`, and every related doc; regenerate `docs/contrast-report.md` after token changes and `tokens/tokens.json`+`tokens.js` after any token change
-6. **Bump `VERSION` only with an explicit owner instruction; do not write a changelog** — current release is **1.1.1**
+6. **`VERSION` auto-bumps on push to `main`** (Conventional Commits → `.github/workflows/version.yml` → tag `v*` → npm publish). Owner can still force a level via Actions `workflow_dispatch` or a `Release-As: X.Y.Z` trailer. **Do not write a changelog** — LAUNCHED at **1.1.0**; pin tracks `VERSION`
 
 **Gate:** `check_design_system` clean **+** `_audit/run.html` fast board green **+** a grep for the old enum/list to prove nothing was left behind. (`check_design_system` is the Claude Design compiler's built-in check — available only in compiler sessions. The portable clone equivalent is `_audit/run.html` fast board + `npm run test:unit`.)
 

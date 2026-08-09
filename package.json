@@ -95,7 +95,11 @@
     "test:native-samples": "node _audit/ci/test-native-samples.mjs",
     "tokens:elements": "node scripts/generate-element-packs.mjs",
     "tokens:contrast": "node scripts/generate-contrast-report.mjs",
-    "build:styles": "node scripts/flatten-styles.mjs"
+    "build:styles": "node scripts/flatten-styles.mjs",
+    "version:check": "node scripts/ds-version.mjs --check",
+    "version:selftest": "node scripts/ds-version.mjs --selftest",
+    "version:stamp": "node scripts/stamp-release-version.mjs",
+    "version:stamp:apply": "node scripts/stamp-release-version.mjs --apply"
   },
   "devDependencies": {
     "@figma/code-connect": "^1.4.9",

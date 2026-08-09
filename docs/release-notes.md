@@ -1,6 +1,6 @@
 # Release Notes
 
-Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. Version is **LAUNCHED at 1.1.0**; current pin is **1.1.1** (owner instruction Jul 2026). Further bumps need an explicit owner instruction. Technical continuity is the repo tip; product-facing continuity is this page (mirrored in Storybook **Release Notes**).
+Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. Version is **LAUNCHED at 1.1.0**; **pin tracks `VERSION`** (auto-bump on push to `main` from Conventional Commits; owner may still force a bump). Technical continuity is the repo tip; product-facing continuity is this page (mirrored in Storybook **Release Notes**).
 
 ## Patch — `@cyberskill/design@1.1.1`
 
@@ -45,5 +45,5 @@ CSS tokens, DTCG (`tokens/tokens.dtcg.json`), and pre-generated SwiftUI / Compos
 ## What we never ship
 
 - A root **`CHANGELOG.md`** (forbidden by doctrine and docs-consistency)
-- A VERSION bump without an explicit owner decision
+- A root `CHANGELOG.md` (still forbidden) — VERSION now auto-bumps on `main`; owner may still force
 - Storybook as a consumer dependency

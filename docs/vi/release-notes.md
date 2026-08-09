@@ -1,6 +1,6 @@
 # Ghi chú phát hành
 
-Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. Phiên bản **đã LAUNCH ở 1.1.0**; pin hiện tại **1.1.1** (chỉ thị owner Th7 2026). Bump tiếp theo cần chỉ thị owner rõ. Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**).
+Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. Phiên bản **đã LAUNCH ở 1.1.0**; **pin theo `VERSION`** (auto-bump khi push lên `main` từ Conventional Commits; owner vẫn có thể force bump). Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**).
 
 ## Patch — `@cyberskill/design@1.1.1`
 
@@ -45,5 +45,5 @@ Token CSS, DTCG (`tokens/tokens.dtcg.json`), và mirror SwiftUI / Compose / Flut
 ## Những gì chúng ta không bao giờ ship
 
 - Root **`CHANGELOG.md`** (cấm bởi doctrine và docs-consistency)
-- Bump VERSION mà không có quyết định owner rõ
+- Root CHANGELOG (vẫn cấm) — bump VERSION giờ do workflow auto trên `main`; owner vẫn có thể force
 - Storybook như dependency consumer

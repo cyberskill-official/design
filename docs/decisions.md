@@ -50,12 +50,12 @@ Stay on the current Figma plan. Variables REST API is Enterprise-only — write 
 
 ## 7. npm publish — live via Trusted Publishing (OIDC)
 
-**Status: LAUNCHED `@cyberskill/design@1.1.0`; current pin `@cyberskill/design@1.1.1`; CI publish uses npm Trusted Publishing; tokens disallowed** (Jul 2026; LAUNCH 2026-07-27)
+**Status: LAUNCHED `@cyberskill/design@1.1.0`; pin tracks `VERSION` (auto-bump on main since Aug 2026); CI publish uses npm Trusted Publishing; tokens disallowed** (Jul 2026; LAUNCH 2026-07-27)
 
 - `package.json` is `private: false`; package name **`@cyberskill/design`** (`publishConfig.access: public`); `repository.url` matches this GitHub repo for provenance.
 - Workflow `.github/workflows/npm-publish.yml`: `id-token: write` + GitHub-hosted runner; **no** `NPM_TOKEN` / `NODE_AUTH_TOKEN` on the publish step (OIDC). npm Trusted Publisher must list workflow filename **`npm-publish.yml`** for `cyberskill-official/design-system`. Soft-skip on auth / 403 / 404 / EOTP / version conflict.
 - Package **Publishing access** on npmjs: **Require two-factor authentication and disallow tokens** (OIDC Trusted Publishing still works; classic / granular publish tokens are rejected). Long-lived `NPM_TOKEN` secrets are revoked.
-- License stays **UNLICENSED**; version is **1.1.1**. Approved use is recorded in **`docs/consumer-grant.md`** (CyberSkill portfolio products). Registry install alone is not a public license.
+- License stays **UNLICENSED**; version tracks root `VERSION`. Approved use is recorded in **`docs/consumer-grant.md`** (CyberSkill portfolio products). Registry install alone is not a public license.
 
 ## 8. Native store packaging — scaffolds shipped; submit disabled
 
@@ -77,7 +77,7 @@ Recorded Jul 2026 — unlock defaults (updated as operator steps land):
 
 - **Figma Variables** — stay Tokens Studio / non-Enterprise (decision §3). Soft-skip on Variables REST remains honest.
 - **Code Connect** — **skipped while on Figma free**; revisit only after Org + published library + real `nodeId`s (decision §6). Soft-skip ≠ publish.
-- **npm** — **LAUNCH `@cyberskill/design@1.1.0`**; current pin **`@cyberskill/design@1.1.1`** (publish via `v*` tag / Trusted Publishing); CI uses **Trusted Publishing (OIDC)** via `npm-publish.yml`; npmjs **disallow tokens**; consumer grant in force at `docs/consumer-grant.md` (decision §7). Default package entry is bundler-native `_esm/react.mjs` (React peer); browser path is `@cyberskill/design/legacy` → `_esm/cs.mjs` (decision §10).
+- **npm** — **LAUNCH `@cyberskill/design@1.1.0`**; pin tracks `VERSION` (auto-bump on `main` → tag `v*` → Trusted Publishing); CI uses **Trusted Publishing (OIDC)** via `npm-publish.yml`; npmjs **disallow tokens**; consumer grant in force at `docs/consumer-grant.md` (decision §7). Default package entry is bundler-native `_esm/react.mjs` (React peer); browser path is `@cyberskill/design/legacy` → `_esm/cs.mjs` (decision §10).
 
 ## 10. Bundler-native React export (Next / SSR)
 
@@ -85,7 +85,7 @@ Recorded Jul 2026 — unlock defaults (updated as operator steps land):
 
 - React / react-dom are **peerDependencies** (`^18 || ^19`); the entry re-exports source JSX (consumer transpiles — e.g. Next `transpilePackages`). Host Storybook / CI **devDependencies** pin **react@19.2.8** / **react-dom@19.2.8**.
 - Browser / no-build keeps `_esm/cs.mjs` at `exports["./legacy"]` (CDN self-ensure + `_ds_bundle.js`). Official React 19 dropped UMD builds — the CDN path loads **`umd-react@19.2.8`** (SRI-pinned) to populate `window.React` / `window.ReactDOM` for `_ds_bundle.js`. Same pin is used in audit HTML, specimen cards, UI kits, and the byte-identical `templates/*/support.js` runtime.
-- Alias `@cyberskill/design/react` mirrors the default entry. VERSION is **1.1.1** post-LAUNCH; republish via Trusted Publishing after merge / tag.
+- Alias `@cyberskill/design/react` mirrors the default entry. VERSION auto-bumps on `main` post-LAUNCH; republish via Trusted Publishing when `version.yml` pushes tag `v*`.
 - Docs: `docs/consuming.md` (+ VI); gates: `package-exports-integrity` + `test:react-entry`.
 
 ## Maintainer tasks (open)
@@ -98,7 +98,7 @@ Operational follow-ups — not product marketing, not a backlog surface:
 
 ~~3. Finalize products registry~~ — **done** (Jul 2026): see decision §9; `docs/products.md` is locked.
 
-~~4. First registry consumer path~~ — **done** (Jul 2026): `examples/npm-hello/` installs `@cyberskill/design` for locked **Lumi** identity; documented in `docs/consuming.md` (+ VI) and `docs/release-notes.md`. Now targets **1.1.1** post-LAUNCH.
+~~4. First registry consumer path~~ — **done** (Jul 2026): `examples/npm-hello/` installs `@cyberskill/design` for locked **Lumi** identity; documented in `docs/consuming.md` (+ VI) and `docs/release-notes.md`. Pin follows repo `VERSION`.
 
 5. **Native + element-pack drift on PRs is fail-closed** (Jul 2026) — `regenerate-tokens` runs read-only on pull requests and exits 1 instead of pushing; only `regenerate-tokens-push` (main / schedule / manual) holds `contents: write`. When a PR fails it, run `npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs` and commit packs + natives. See `docs/ci-cd.md`.
 

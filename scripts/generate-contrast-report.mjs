@@ -7,6 +7,7 @@ import { apca, hex2rgb } from './lib/oklch.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DARK_PANEL = '#221710';
+const VERSION = fs.readFileSync(path.join(ROOT, 'VERSION'), 'utf8').trim();
 
 function parsePacks(css) {
   const packs = {};
@@ -50,7 +51,7 @@ function main() {
   const lines = [];
   lines.push('# Contrast report — elemental pairings (APCA)');
   lines.push('');
-  lines.push(`Generated ${new Date().toISOString().slice(0, 10)} · sweep at VERSION 1.1.1 pin.`);
+  lines.push(`Generated ${new Date().toISOString().slice(0, 10)} · sweep at VERSION ${VERSION}.`);
   lines.push('');
   lines.push('**Doctrine encoded by this sweep:** text sits on `-bright` or `-tint`, never on the mid-tone `-accent` — at any size. The accent is for bars, borders, progress fills, and non-text fills only. (Rule stated in `tokens/elements.css` and conventions.)');
   lines.push('');
@@ -122,7 +123,7 @@ function main() {
   const vi = [
     '# Báo cáo contrast — cặp elemental (APCA)',
     '',
-    `Tạo ${new Date().toISOString().slice(0, 10)} · quét tại pin VERSION 1.1.1.`,
+    `Tạo ${new Date().toISOString().slice(0, 10)} · quét tại VERSION ${VERSION}.`,
     '',
     '**Doctrine của sweep này:** chữ ngồi trên `-bright` hoặc `-tint`, không bao giờ trên mid-tone `-accent`. Accent chỉ cho bar, border, progress, fill không chữ. (Rule trong `tokens/elements.css` và conventions.)',
     '',

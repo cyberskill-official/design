@@ -1,0 +1,126 @@
+name: version
+
+# Auto version + tag on main (CyberOS-style bump, design-system publish chain).
+# On every push to main, compute the next VERSION from Conventional Commits since
+# the last commit that touched VERSION (feat -> minor, fix/perf/revert/refactor ->
+# patch, ! or BREAKING CHANGE -> major). When a bump is due:
+#   1. Write VERSION + stamp package/tokens/ESM/DESIGN.md/npm-hello
+#   2. Commit as `chore(release): X.Y.Z` (no [skip ci] — gates must see the tip)
+#   3. Push to main, then create/push tag `vX.Y.Z` so npm-publish.yml (on v*) fires
+#
+# Loop-safe: this job skips when the head commit message starts with `chore(release):`.
+# Manual override: `Release-As: X.Y.Z` trailer, or workflow_dispatch with a level.
+# No CHANGELOG.md — continuity stays tip SHA + docs/release-notes.md.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      level:
+        description: 'Force a bump level (leave blank to compute from commits)'
+        required: false
+        type: choice
+        options: ['', patch, minor, major]
+        default: ''
+
+concurrency:
+  group: design-system-version
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    if: ${{ github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'chore(release):') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: main
+          # Same token pattern as regenerate-tokens-push. If branch protection
+          # blocks github.token, set repository secret DS_PUSH_TOKEN (contents:write).
+          token: ${{ secrets.DS_PUSH_TOKEN || github.token }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Compute + apply the next version
+        id: bump
+        env:
+          FORCE_LEVEL: ${{ github.event.inputs.level }}
+        run: |
+          set -euo pipefail
+          if [ -n "${FORCE_LEVEL:-}" ]; then
+            node scripts/ds-version.mjs --apply --level "$FORCE_LEVEL"
+          else
+            node scripts/ds-version.mjs --apply
+          fi
+
+      - name: Stamp shippable artifacts at the new VERSION
+        if: ${{ steps.bump.outputs.changed == 'true' }}
+        run: node scripts/stamp-release-version.mjs --apply
+
+      - name: Refresh status hub at the new VERSION
+        if: ${{ steps.bump.outputs.changed == 'true' }}
+        run: |
+          set -euo pipefail
+          if [ -f .cyberos/lib/status-page.sh ]; then
+            bash .cyberos/lib/status-page.sh "$GITHUB_WORKSPACE" || echo "::warning::status hub regen soft-failed — VERSION stamp still committed"
+          fi
+
+      - name: Commit bump, push main, tag v*
+        if: ${{ steps.bump.outputs.changed == 'true' }}
+        env:
+          VER: ${{ steps.bump.outputs.version }}
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -u VERSION package.json package-lock.json \
+            tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/provenance.json \
+            _esm/cs.mjs DESIGN.md examples/npm-hello docs/status || true
+
+          if git diff --cached --quiet; then
+            echo "Nothing staged after stamp — aborting bump commit."
+            exit 1
+          fi
+
+          git commit -m "chore(release): ${VER}"
+
+          if git push origin HEAD:main; then
+            echo "design-system VERSION -> ${VER}" >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "### VERSION bump ${VER} computed but NOT pushed"
+              echo "Push to main was rejected (branch protection / token scope)."
+              echo "Set repository secret \`DS_PUSH_TOKEN\` (contents:write) — same pattern as regenerate-tokens-push."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::warning::VERSION bump ${VER} computed but push blocked — not pushed."
+            exit 0
+          fi
+
+          TAG="v${VER}"
+          if git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
+            echo "Tag ${TAG} already exists — skipping tag push." >> "$GITHUB_STEP_SUMMARY"
+          else
+            git tag -a "${TAG}" -m "release ${VER}"
+            if git push origin "${TAG}"; then
+              echo "Tagged ${TAG} — npm-publish.yml should fire on v*." >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "::warning::Tag ${TAG} created locally but push failed."
+              echo "Tag ${TAG} push failed — create/push manually to publish." >> "$GITHUB_STEP_SUMMARY"
+            fi
+          fi
+
+      - name: No bump needed
+        if: ${{ steps.bump.outputs.changed != 'true' }}
+        run: echo "No feat/fix/breaking commits since the last bump — VERSION unchanged (${{ steps.bump.outputs.version }})." >> "$GITHUB_STEP_SUMMARY"

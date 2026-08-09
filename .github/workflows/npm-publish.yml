@@ -4,8 +4,9 @@
 # Requires npm Trusted Publisher on @cyberskill/design for workflow file npm-publish.yml
 # (org cyberskill-official / repo design-system). Soft-skip on auth/404/403/conflict.
 # Package Publishing access: Require 2FA and disallow tokens (OIDC exempt).
-# Version pinned at 1.1.1 post-LAUNCH — further bumps need an owner instruction.
-# License remains UNLICENSED (explicit grant required). No CHANGELOG.md.
+# VERSION is auto-bumped on main (version.yml) and tagged v*; this workflow
+# publishes that tag via npm Trusted Publishing. License remains UNLICENSED.
+# No CHANGELOG.md.
 
 name: npm-publish
 

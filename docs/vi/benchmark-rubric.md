@@ -23,7 +23,7 @@ Checklist tự kiểm khi tiến hóa CyberSkill Design System — chuẩn bên 
 | Một element mỗi bề mặt; gradient chỉ Tương sinh | Registry products · conventions |
 | Registry product→element khóa; UI kit trung thành Thổ | [`docs/vi/products.md`](products.md) |
 | Expansion Rule đủ + `_audit/run.html` xanh + docs EN·VI parity | CLAUDE.md · docs-consistency · docs-lang-parity |
-| VERSION **1.1.1** post-LAUNCH | version-stamp · docs-consistency |
+| VERSION theo file (LAUNCH 1.1.0; auto-bump trên main) | version-stamp · docs-consistency |
 | Pack Element chỉ từ seed (30 bộ) | `element-geometry` · `tokens:elements` |
 
 ## Checklist mở rộng style (`data-cs-style`)
