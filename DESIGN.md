@@ -1,6 +1,6 @@
 ---
 name: "CyberSkill Design System"
-version: "1.2.0"
+version: "1.2.1"
 generated: "2026-07-23"
 generator: "scripts/generate-design-md.mjs (npm run build:design-md)"
 sources:
