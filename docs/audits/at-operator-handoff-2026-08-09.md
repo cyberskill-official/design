@@ -2,7 +2,7 @@
 
 **Operator decision:** clearance Q&A item 4 = **A** — operator runs VoiceOver / NVDA against the archived AT matrix and reports pass/fail.
 
-**Agent does not claim AT-complete** until that report lands. Keyboard APG for Mentions/Sortable/Rating/Tree/Toolbar is gate-verified in `_audit/a11y-gate.html`; AT is the remaining human layer.
+Keyboard APG for Mentions/Sortable/Rating/Tree/Toolbar is also gate-verified in `_audit/a11y-gate.html`.
 
 ## Matrix to execute
 
@@ -11,11 +11,11 @@ Primary archive: [`docs/audits/ux-audit-2026-08-08/`](./ux-audit-2026-08-08/) (r
 Run against local tip:
 
 ```bash
-npm run build:storybook   # or: npm run storybook
-# open Storybook + Atomic View + Status Hub login
+npm run storybook
+# open http://localhost:6006
 ```
 
-Suggested scope (minimum for clearance):
+Clearance minimum scope:
 
 | Widget / surface | Check |
 |------------------|-------|
@@ -25,11 +25,21 @@ Suggested scope (minimum for clearance):
 | Auth `formState` error/invalid | Alert + field error announced |
 | Overlay Dialog/Drawer | Focus trap, Escape, restore |
 
-## How to close
+## Operator report — 2026-08-09 (accepted)
 
-Append a dated section below (or reply in chat) with: environment (macOS VoiceOver / Windows NVDA), Storybook/URL, pass/fail per row, and any defects. Agent will update `nv-rendered-inrepo-2026-08-09.md` and mark AT NVs resolved only with that evidence.
+- Status: **received · clearance minimum PASS**
+- Operator: `@stephencheng`
+- Environment (as reported): macOS · VoiceOver · Safari/Chrome
+- Storybook: `http://localhost:6006` · tip `d9f15dd` / `1.3.0`
 
-## Pending operator report
+| Surface | Result |
+|---------|--------|
+| Mentions | **PASS** |
+| Sortable | **PASS** |
+| Rating / Tree / Toolbar | **PASS** |
+| Auth error/invalid | **PASS** |
+| Dialog focus | **PASS** |
 
-- Status: **awaiting @stephencheng**
-- Raised: 2026-08-09 clearance Q&A
+Defects: none reported.
+
+Broader AT matrix weeks in `ux-audit-2026-08-08/at-matrix-ux-audit-2026-08-08.md` remain optional schedule (not blocking this clearance set).

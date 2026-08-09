@@ -102,7 +102,7 @@ Lý do:
 - **Đã bỏ CDN script/connect** (`unpkg.com`, `cdnjs.cloudflare.com`) — local-first React / `_ds_bundle.js`.
 - **Giữ `unsafe-inline`** — shell Storybook vẫn emit inline script/style; migrate nonce/hash là follow-on.
 - Ưu tiên self-host React cạnh `_ds_bundle.js` cho cài air-gapped.
-- Header thật trên production vẫn là OQ-003 (xác nhận bằng `curl -sSI` sau deploy).
+- Header thật trên production đã xác nhận 2026-08-09 qua `curl -sSI https://design.cyberskill.world/` (OQ-003 đóng — xem `docs/audits/nv-rendered-inrepo-2026-08-09.md`).
 
 ## OG đa domain
 

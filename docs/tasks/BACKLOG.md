@@ -8,7 +8,7 @@ The `ship-tasks` workflow reads this file, picks the first eligible task (`ready
 
 Lifecycle: draft -> ready_to_implement -> implementing -> ready_to_review -> reviewing -> ready_to_test -> testing -> done. Off-ramps: on_hold, closed, cannot_reproduce (`type: bug` only), duplicate (requires `duplicate_of:`). See `.cyberos/cuo/STATUS-REFERENCE.md`.
 
-**Assessment complete (2026-08-09):** Phases 0–5 + FIND-016 WebP accepted HITL (`TASK-IMP-001`…`021`). Evolution-plan adoption: `docs/decisions.md` §12. Operator-owned remainder: AT report (`docs/audits/at-operator-handoff-2026-08-09.md`), OQ-003 CSP headers after deploy (paste). NV-18.1 aborted per clearance Q&A. No stale assessment `ready_to_implement` items.
+**Assessment complete (2026-08-09):** Phases 0–5 + FIND-016 WebP accepted HITL (`TASK-IMP-001`…`021`). Evolution-plan adoption: `docs/decisions.md` §12. AT clearance minimum **PASS**. OQ-003 live CSP **PASS** (operator `curl -sSI`). NV-18.1 aborted. Clearance gap-closure finished — no open assessment operator items.
 
 ## ready_to_implement
 

@@ -73,7 +73,7 @@
     "code-connect:dry-run": "node _audit/ci/code-connect-publish.mjs --dry-run",
     "npm:pack-dry-run": "node _audit/ci/npm-publish.mjs --dry-run",
     "native:store-dry-run": "node _audit/ci/native-store-dry-run.mjs --dry-run",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006 --host 127.0.0.1",
     "build:storybook": "storybook build -o storybook-static && node scripts/stamp-storybook-freshness.mjs",
     "build:site": "npm run build:storybook && node scripts/vercel-static-output.mjs",
     "verify:serve": "python3 -m http.server 8765 --bind 127.0.0.1",

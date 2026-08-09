@@ -24,9 +24,16 @@ function dsRootFilesPlugin() {
   };
   const attach = (server) => {
     server.middlewares.use((req, res, next) => {
-      const url = (req.url || '').split('?')[0];
+      const raw = req.url || '';
+      // Vite module graph uses query strings (?import, ?direct, t=…).
+      if (raw.includes('?')) return next();
+      const url = raw.split('?')[0];
       const rel = map[url];
       if (!rel) return next();
+      // preview.jsx does `import '../styles.css'` → bare `/styles.css` as a *module*.
+      // Only short-circuit real stylesheet fetches (Live iframes); let Vite transform the rest.
+      const dest = req.headers['sec-fetch-dest'];
+      if (rel.endsWith('.css') && dest !== 'style') return next();
       try {
         const data = fs.readFileSync(path.join(repoRoot, rel));
         res.statusCode = 200;
@@ -69,9 +76,16 @@ const config = {
     { from: '../guidelines', to: '/guidelines' },
     { from: '../templates', to: '/templates' },
     { from: '../ui_kits', to: '/ui_kits' },
-    { from: '../components', to: '/components' },
+    // Do NOT static-serve `components/` — raw `.jsx` is served as MIME `text/jsx` and
+    // breaks the preview when anything loads those URLs as ES modules. Stories import
+    // via Vite (`../components/...` / `@cs`); Live iframes use `_ds_bundle.js`.
     { from: '../_audit', to: '/_audit' },
   ],
+  // Allow 127.0.0.1 (Storybook core → Vite server.allowedHosts). Prefer opening
+  // http://localhost:6006 — iframe.html treats non-localhost as a hard preview error.
+  core: {
+    allowedHosts: ['localhost', '127.0.0.1'],
+  },
   async viteFinal(config) {
     config.plugins = config.plugins || [];
     if (!config.plugins.some((p) => p && p.name === 'vite:react-babel')) {
@@ -86,7 +100,9 @@ const config = {
           '@cs': path.join(repoRoot, 'components'),
         },
       },
-      server: { fs: { allow: [repoRoot] } },
+      server: {
+        fs: { allow: [repoRoot] },
+      },
     });
   },
 };

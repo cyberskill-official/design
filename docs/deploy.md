@@ -102,7 +102,7 @@ Rationale:
 - **CDN script/connect origins removed** (`unpkg.com`, `cdnjs.cloudflare.com`) — local-first React / `_ds_bundle.js`.
 - **`unsafe-inline` retained** — Storybook’s static shell still emits inline scripts/styles; a nonce/hash migration is a follow-on. Do not re-add open CDN allowlists without pinning.
 - Prefer self-hosting React next to `_ds_bundle.js` for air-gapped installs.
-- Live served-header truth on production remains OQ-003 (confirm with `curl -sSI` after deploy).
+- Live served-header truth confirmed 2026-08-09 via operator `curl -sSI https://design.cyberskill.world/` (OQ-003 closed — see `docs/audits/nv-rendered-inrepo-2026-08-09.md`).
 
 ## Multi-domain OG
 
