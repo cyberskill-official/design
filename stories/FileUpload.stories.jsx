@@ -6,6 +6,8 @@ export default {
   component: FileUpload,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
     title: { control: 'text' },
     hint: { control: 'text' },
     accept: { control: 'text' },
@@ -20,7 +22,7 @@ export default {
       },
     },
   },
-  args: { title: 'Attachments', accept: '.pdf,.png', hint: 'PDF or PNG', multiple: false },
+  args: { lang: 'vi', title: 'Attachments', accept: '.pdf,.png', hint: 'PDF or PNG', multiple: false },
 };
 
 export const Default = {

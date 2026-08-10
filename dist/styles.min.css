@@ -1089,6 +1089,8 @@ box-shadow: var(--cs-shadow-xl, 0 24px 80px rgba(31, 19, 11, 0.26));
 color: var(--cs-color-text-primary, #45210e);
 left: 50%;
 max-inline-size: min(42rem, calc(100vw - 2rem));
+max-block-size: min(80vh, calc(100vh - 4rem));
+overflow: auto;
 padding: var(--cs-space-6, 24px);
 position: absolute;
 top: 12vh;
@@ -1135,7 +1137,7 @@ background: var(--cs-color-surface-panel, #ffffff);
 border: 1px solid rgba(69, 33, 14, 0.18); border-radius: var(--cs-radius-md, 8px);
 box-shadow: var(--cs-shadow-md, 0 12px 30px rgba(31, 19, 11, 0.18));
 display: grid; gap: 0.375rem; inset-block-start: calc(100% + 0.375rem); inset-inline-start: 0;
-min-inline-size: 18rem; padding: 0.75rem; position: absolute; z-index: 20;
+min-inline-size: 18rem; padding: 0.75rem; position: absolute; z-index: var(--cs-depth-dropdown, 60);
 }
 .cs-ai-disclosure__sources { color: var(--cs-color-text-muted, #6e5a4c); font-size: 0.8125rem; }
 

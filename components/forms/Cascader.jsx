@@ -2,8 +2,10 @@ import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
+const EMPTY_PATH = [];
+
 /** CyberSkill Cascader — column-per-level picker for hierarchies (province → district style). */
-export function Cascader({ nodes = [], value = [], onChange, placeholder, label, disabled = false, lang, className }) {
+export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder, label, disabled = false, lang, className }) {
   const [open, setOpen] = React.useState(false);
   const [path, setPath] = React.useState(value);
   const wrap = React.useRef(null);
@@ -11,7 +13,10 @@ export function Cascader({ nodes = [], value = [], onChange, placeholder, label,
   const [ref, L] = useLang(lang);
   const t = makeT("Cascader", L);
   const ph = placeholder != null ? placeholder : t("placeholder");
-  React.useEffect(() => { setPath(value); }, [open]);
+  // Controlled value must re-sync even when the popover stays closed (FIND-014).
+  // Depend on a stable key — default `[]` must not reset path every render.
+  const valueKey = Array.isArray(value) ? value.join("\0") : "";
+  React.useEffect(() => { setPath(Array.isArray(value) ? value : EMPTY_PATH); }, [valueKey]);
   React.useEffect(() => {
     if (!open) return;
     const d = (e) => { if (wrap.current && !wrap.current.contains(e.target)) setOpen(false); };

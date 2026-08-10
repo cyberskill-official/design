@@ -14,6 +14,8 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
   /** Options as data; alternatively pass <option> children. */
   options?: SelectOption[];
   children?: ReactNode;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
 }
 
 export function Select(props: SelectProps): React.ReactElement;

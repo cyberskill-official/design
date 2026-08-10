@@ -5,6 +5,8 @@ export default {
   component: TypingIndicator,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "label": {
     "control": "text"
   }
@@ -16,7 +18,7 @@ export default {
       },
     },
   },
-  args: {},
+  args: { lang: 'vi',},
 };
 
 export const Default = {};

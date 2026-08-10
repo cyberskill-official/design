@@ -6,6 +6,8 @@ export default {
   component: Tabs,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "tabs": {
     "control": "object"
   },

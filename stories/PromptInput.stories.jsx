@@ -6,6 +6,8 @@ export default {
   component: PromptInput,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "value": {
     "control": "text"
   },
@@ -38,7 +40,7 @@ export default {
       },
     },
   },
-  args: { placeholder: 'Describe your wish…' },
+  args: { lang: 'vi', placeholder: 'Describe your wish…' },
 };
 
 export const Default = {};

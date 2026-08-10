@@ -13,6 +13,8 @@ export interface DrawerProps {
   side?: "right" | "left";
   children?: ReactNode;
   actions?: ReactNode;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 export function Drawer(props: DrawerProps): React.ReactElement | null;

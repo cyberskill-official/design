@@ -1,4 +1,5 @@
 import React from "react";
+import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 const PATHS = {
@@ -16,14 +17,19 @@ function DefaultIcon({ variant }) {
 }
 
 /** CyberSkill Alert — inline banner. variant: info | success | warning | danger. */
-export function Alert({ variant = "info", title, icon, children, className, ...props }) {
+export function Alert({ variant = "info", title, icon, children, onDismiss, lang, className, ...props }) {
+  const [ref, L] = useLang(lang);
+  const t = makeT("Alert", L);
   return (
-    <div role="status" className={cx("cs-alert", `cs-alert--${variant}`, className)} {...props}>
+    <div ref={ref} role="status" className={cx("cs-alert", `cs-alert--${variant}`, className)} {...props}>
       <span className="cs-alert__icon">{icon ?? <DefaultIcon variant={variant} />}</span>
       <div>
         {title ? <p className="cs-alert__title">{title}</p> : null}
         {children ? <div className="cs-alert__body">{children}</div> : null}
       </div>
+      {onDismiss ? (
+        <button type="button" className="cs-alert__dismiss" aria-label={t("dismiss")} onClick={onDismiss}>×</button>
+      ) : null}
     </div>
   );
 }

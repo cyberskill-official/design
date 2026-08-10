@@ -8,6 +8,8 @@ import type { ReactNode } from "react";
 export interface TooltipProps {
   label: ReactNode;
   children: ReactNode;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 

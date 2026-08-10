@@ -6,6 +6,8 @@ export default {
   component: Menu,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "trigger": {
     "control": "object"
   },

@@ -6,6 +6,8 @@ export default {
   component: Tooltip,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "label": {
     "control": "text"
   }

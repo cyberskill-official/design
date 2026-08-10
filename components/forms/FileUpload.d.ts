@@ -9,6 +9,8 @@ export interface FileUploadProps {
   multiple?: boolean;
   onFiles?: (files: File[]) => void;
   icon?: ReactNode;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 export function FileUpload(props: FileUploadProps): React.ReactElement;

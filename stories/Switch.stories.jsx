@@ -6,6 +6,8 @@ export default {
   component: Switch,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "label": {
     "control": "object"
   },
@@ -20,7 +22,7 @@ export default {
       },
     },
   },
-  args: { label: 'Dark mode', defaultChecked: false },
+  args: { lang: 'vi', label: 'Dark mode', defaultChecked: false },
 };
 
 export const Default = {};

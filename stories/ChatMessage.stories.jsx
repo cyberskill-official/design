@@ -5,6 +5,8 @@ export default {
   component: ChatMessage,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "role": {
     "control": "select",
     "options": [
@@ -26,7 +28,7 @@ export default {
       },
     },
   },
-  args: { role: 'lumi', children: 'Turn your will into real.' },
+  args: { lang: 'vi', role: 'lumi', children: 'Turn your will into real.' },
 };
 
 export const Default = {};

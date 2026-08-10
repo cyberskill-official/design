@@ -1,23 +1,21 @@
 import React from "react";
+import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
-
-let warnedNameless = false;
 
 /** CyberSkill Switch — accessible toggle (role="switch"); Umber on, Ochre knob-track in dark. */
 // `children` is destructured but never rendered on purpose: keeps stray children out of {...props} → void <input>.
-export function Switch({ label, disabled = false, className, children, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, ...props }) {
+export function Switch({ label, disabled = false, className, children, lang, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, ...props }) {
+  const [ref, L] = useLang(lang);
+  const t = makeT("Switch", L);
   const named = !!(label || ariaLabel || ariaLabelledby);
-  if (!named && !warnedNameless && typeof console !== "undefined" && console.warn) {
-    warnedNameless = true;
-    console.warn("CyberSkill Switch: render with label, aria-label, or aria-labelledby.");
-  }
+  const fallback = props.checked || props.defaultChecked ? t("on") : t("off");
   return (
-    <label className={cx("cs-switch", disabled && "is-disabled", className)}>
+    <label ref={ref} className={cx("cs-switch", disabled && "is-disabled", className)}>
       <input
         type="checkbox"
         role="switch"
         disabled={disabled}
-        aria-label={ariaLabel}
+        aria-label={ariaLabel ?? (named ? undefined : fallback)}
         aria-labelledby={ariaLabelledby}
         {...props}
       />

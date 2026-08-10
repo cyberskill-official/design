@@ -23,7 +23,9 @@ async function test(name,fn){ P.current=name; try{ const d=await fn(); record(na
 function assert(c,m){ if(!c) throw new Error(m); }
 async function exists(path){
   // Directories resolve via listing/redirect on both serve@14 and python http.server.
-  const r=await fetch('../'+path,{cache:'no-store'});
+  // files[] globs like docs/*.md → check the directory prefix (npm pack semantics).
+  const resolved=String(path||'').replace(/\*.*$/,'');
+  const r=await fetch('../'+resolved,{cache:'no-store'});
   return r.ok;
 }
 (async()=>{

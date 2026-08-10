@@ -11,6 +11,8 @@ export interface ToggleProps {
   icon?: ReactNode;
   children?: ReactNode;
   disabled?: boolean;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 export function Toggle(props: ToggleProps): React.ReactElement;

@@ -4,6 +4,8 @@ import type * as React from "react";
  *  under reduced-motion. */
 export interface TypingIndicatorProps {
   label?: string;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 export function TypingIndicator(props: TypingIndicatorProps): React.ReactElement;

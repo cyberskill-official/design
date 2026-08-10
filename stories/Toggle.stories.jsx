@@ -6,6 +6,8 @@ export default {
   component: Toggle,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
     pressed: { control: 'boolean' },
     defaultPressed: { control: 'boolean' },
     icon: { control: 'object' },
@@ -20,7 +22,7 @@ export default {
       },
     },
   },
-  args: { children: 'Notifications', defaultPressed: true },
+  args: { lang: 'vi', children: 'Notifications', defaultPressed: true },
 };
 
 export const Default = {};

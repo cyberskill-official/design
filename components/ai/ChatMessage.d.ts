@@ -11,6 +11,8 @@ export interface ChatMessageProps {
   name?: ReactNode;
   avatar?: ReactNode;
   children?: ReactNode;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 

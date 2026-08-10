@@ -7,6 +7,8 @@ export default {
   component: EmptyState,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
     title: { control: 'text' },
     children: { control: 'text' },
   },
@@ -18,7 +20,7 @@ export default {
       },
     },
   },
-  args: { title: 'No wishes yet', children: 'Capture the first one.' },
+  args: { lang: 'vi', title: 'No wishes yet', children: 'Capture the first one.' },
 };
 
 export const Default = {

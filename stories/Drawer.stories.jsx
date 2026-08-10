@@ -7,6 +7,8 @@ export default {
   component: Drawer,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "open": {
     "control": "boolean"
   },

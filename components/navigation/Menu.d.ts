@@ -12,6 +12,8 @@ export interface MenuProps {
   align?: "start" | "end";
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 export function Menu(props: MenuProps): React.ReactElement;

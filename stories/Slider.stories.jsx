@@ -5,6 +5,8 @@ export default {
   component: Slider,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "min": {
     "control": "number"
   },
@@ -25,7 +27,7 @@ export default {
       },
     },
   },
-  args: { 'aria-label': 'Opacity', defaultValue: 50, min: 0, max: 100, step: 1 },
+  args: { lang: 'vi', 'aria-label': 'Opacity', defaultValue: 50, min: 0, max: 100, step: 1 },
 };
 
 export const Default = {};
