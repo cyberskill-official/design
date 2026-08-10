@@ -1,4 +1,4 @@
-// CyberSkill Design System — ESM entry point (GENERATED from _ds_manifest.json at v1.3.3).
+// CyberSkill Design System — ESM entry point (GENERATED from _ds_manifest.json at v1.3.4).
 // No build step: import this module directly in a browser. It ensures React 19.2.8 via umd-react
 // (official React 19 dropped UMD; pinned + SRI; skipped when window.React already exists), side-loads
 // ../_ds_bundle.js once, resolves the compiler-assigned namespace BY PREFIX (never a hardcoded suffix),
@@ -32,7 +32,7 @@ if (!found()) await ensureScript("../_ds_bundle.js");
 export const CS = g[found()];
 if (!CS) throw new Error("cs.js: bundle loaded but no CyberSkillDesignSystem_* namespace found");
 export default CS;
-export const VERSION = "1.3.3";
+export const VERSION = "1.3.4";
 export const AIDisclosureBadge = CS.AIDisclosureBadge;
 export const Accordion = CS.Accordion;
 export const Alert = CS.Alert;
