@@ -1,6 +1,6 @@
 ---
 name: "CyberSkill Design System"
-version: "1.3.2"
+version: "1.3.3"
 generated: "2026-07-23"
 generator: "scripts/generate-design-md.mjs (npm run build:design-md)"
 sources:
@@ -18,7 +18,7 @@ gate: "_audit/design-md-parity.html (window.__designmd)"
 ## Brand & doctrine
 
 - **Slogan:** *Turn Your Will Into Real — Hiện Thực Hoá Ý Chí*.
-- **Immutable anchors:** Umber `#45210E` (primary brand) · Ochre `#F4BA17` (accent). Never remap; the composite focus indicator (text-primary contour + ochre halo) is a studio-wide accessibility signature.
+- **Immutable anchors:** Umber `#45210E` (primary brand) · Ochre `#F4BA17` (accent). Never remap; the 3px ochre focus ring is a studio-wide accessibility signature.
 - **Four axes:** Theme (light · dark · system) × Element (Ngũ Hành — Kim · Mộc · Thủy · Hỏa · Thổ, 15 element×variant packs) × Language (EN · VI) × Style (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
 - **Bilingual EN·VN rule:** Vietnamese-first — every UI string ships an EN + VN pair, diacritics preserved.
 - **Text never sits on the mid-tone `-accent`:** text goes on `-bright` or `-tint` only; `-accent` is for bars, borders, progress fills, and large non-text fills.
@@ -67,7 +67,7 @@ Default accent pack = Thổ (the studio's own element). All 15 element×variant 
 | `--cs-accent-ink` | `#45210E` |
 | `--cs-accent-glow` | `rgba(244, 186, 23, 0.48)` |
 | `--cs-accent-grad-a` | `#F4BA17` |
-| `--cs-accent-grad-b` | `#FCAF91` |
+| `--cs-accent-grad-b` | `#F3B958` |
 | `--cs-accent-on-strong` | `#1A1108` |
 
 ### Document palette

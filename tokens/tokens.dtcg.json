@@ -3,7 +3,7 @@
   "$extensions": {
     "com.cyberskill": {
       "system": "CyberSkill Design System",
-      "version": "1.3.2",
+      "version": "1.3.3",
       "generated": "2026-07-23",
       "source": "tokens/tokens.json",
       "note": "Scope overrides (dark/system theme · 15 element×variant packs) are carried under $extensions.overrides keyed by CSS selector — apply the matching selector on :root/ancestor to activate.",
