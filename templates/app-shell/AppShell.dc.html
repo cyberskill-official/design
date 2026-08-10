@@ -13,7 +13,7 @@
 <script src="./ds-base.js"></script>
 </helmet>
 <div data-theme="{{ rootTheme }}" lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" style="display:grid;grid-template-columns:248px 1fr;min-height:100vh;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary);background:var(--cs-color-surface-page)">
-  <a class="cs-skip" href="#main" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden">Skip to content</a>
+  <a class="cs-skip" href="#main" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden">{{ skipLabel }}</a>
   <nav class="cs-sidebar" aria-label="{{ navLabel }}">
     <div style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;color:var(--cs-color-text-primary);padding:6px 12px 14px">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="28" hint-size="28px,28px"></x-import>CyberSkill

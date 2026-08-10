@@ -53,7 +53,7 @@ Giữ plan Figma hiện tại. Variables REST API chỉ Enterprise — job ghi *
 **Trạng thái: LAUNCH `@cyberskill/design@1.1.0`; pin theo `VERSION` (auto-bump trên main từ Th8 2026); CI publish dùng npm Trusted Publishing; token bị cấm** (Th7 2026; LAUNCH 2026-07-27)
 
 - `package.json` là `private: false`; tên package **`@cyberskill/design`** (`publishConfig.access: public`); `repository.url` khớp repo GitHub này cho provenance.
-- Workflow `.github/workflows/npm-publish.yml`: `id-token: write` + runner GitHub-hosted; **không** đặt `NPM_TOKEN` / `NODE_AUTH_TOKEN` trên bước publish (OIDC). Trusted Publisher trên npm phải liệt kê filename workflow **`npm-publish.yml`** cho `cyberskill-official/design-system`. Soft-skip khi auth / 403 / 404 / EOTP / conflict phiên bản.
+- Workflow `.github/workflows/npm-publish.yml`: `id-token: write` + runner GitHub-hosted; **không** đặt `NPM_TOKEN` / `NODE_AUTH_TOKEN` trên bước publish (OIDC). Trusted Publisher trên npm phải liệt kê filename workflow **`npm-publish.yml`** cho `cyberskill-official/design` (FIND-088). Soft-skip chỉ no-op mong đợi (`already_published` / EPUBLISHCONFLICT, và `missing_secrets` thật sự ngoài GHA). Trên GHA tag / `workflow_dispatch`, **ENEEDAUTH** / **404** / **402** / **403** / **EOTP** fail job; publish thành công được khóa bởi `npm view @cyberskill/design@VERSION` **và** `dist-tags.latest === VERSION` (FIND-020 / FIND-094).
 - **Publishing access** trên npmjs: **Require two-factor authentication and disallow tokens** (Trusted Publishing OIDC vẫn hoạt động; token publish classic / granular bị từ chối). Secret `NPM_TOKEN` dài hạn đã thu hồi.
 - License giữ **UNLICENSED**; phiên bản theo root `VERSION`. Dùng đã duyệt ghi tại **`docs/consumer-grant.md`** (sản phẩm portfolio CyberSkill). Cài từ registry một mình không phải license công khai.
 
@@ -134,6 +134,20 @@ Nguồn: `docs/plans/cyberskill-design-system-audit-and-12-month-evolution-plan.
 | Việc đã ship ngoài backlog (vd. commit remediation UX 8/8) | **Superseded** với tư cách task sống | Bằng chứng ở `docs/audits/ux-audit-2026-08-08/` + git history; không mở lại trùng trừ khi có finding mới |
 
 Phases 3–5 của **roadmap assessment** (RSC `"use client"`, APG Rating/Tree/Toolbar, CSP, SBOM, …) vẫn là follow-on hoãn — chưa author trong tranche này trừ khi operator yêu cầu.
+
+## 13. Ranh giới Product vs CyberOS
+
+**Lựa chọn owner: hàng rào tường minh** (Th8 2026; assessment area 28 / TASK-IMP-020)
+
+| Lớp | Ship tới consumer? | Nằm ở đâu | Mục đích |
+|-------|---------------------|-------------|---------|
+| **Product design system** | Có — `@cyberskill/design`, cây portable (`styles.css`, `tokens/`, `components/`, `templates/`, gates `_audit/`, host Storybook) | root repo (không-`.cyberos`) | Token, component, template, kit, quality gate xác định |
+| **CyberOS orchestration** | Không (gitignored / agent kit cài được) | `.cyberos/`, `docs/tasks/`, BRAIN dưới `.cyberos/memory/` | Vòng đời task, cổng HITL, agent entry, workflow ship-tasks |
+
+Quy tắc:
+- Tiêu chí chấp nhận product không được đòi `.cyberos/` có mặt cho consumer hoặc cho `npm` publish.
+- Agent vận hành repo này theo `.cyberos/AGENT-ENTRY.md`; người ship DS theo `docs/release-runbook.md`.
+- Không chuyển token/component product vào `.cyberos/`; không publish orchestration CyberOS như một phần của gói npm.
 
 ## Cách đổi một quyết định
 

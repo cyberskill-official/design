@@ -8,7 +8,7 @@ If the user invokes this skill without any other guidance, ask them what they wa
 
 ## Fast orientation
 
-**Which front door?** **Claude Code / Claude Design** → this `SKILL.md` → `README.md` → portable runtime (`styles.css`, bundler `_esm/react.mjs` / legacy `_esm/cs.mjs`, `_ds_bundle.js` with prefix resolve) and optionally DC templates when the session has the compiler. **Google Stitch (and other DESIGN.md readers)** → root `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` + static `.cs-*` HTML — **never** treat `templates/**/*.dc.html` as source of truth (no tweaks / `__dcSetProps` / DC runtime outside Claude Design). Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.1.1**; no CHANGELOG).
+**Which front door?** **Claude Code / Claude Design** → this `SKILL.md` → `README.md` → portable runtime (`styles.css`, bundler `_esm/react.mjs` / legacy `_esm/cs.mjs`, `_ds_bundle.js` with prefix resolve) and optionally DC templates when the session has the compiler. **Google Stitch (and other DESIGN.md readers)** → root `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` + static `.cs-*` HTML — **never** treat `templates/**/*.dc.html` as source of truth (no tweaks / `__dcSetProps` / DC runtime outside Claude Design). Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.3.1**; no CHANGELOG).
 
 - **`README.md`** — the entrance + design guide + manifest: anchor immutables, CONTENT FUNDAMENTALS (voice = warm/direct/honest/respectful, Vietnamese-first, the "wish" metaphor), VISUAL FOUNDATIONS, ICONOGRAPHY, and the component/kit index. Read it first.
 
@@ -30,7 +30,7 @@ If the user invokes this skill without any other guidance, ask them what they wa
 
 - **`ui_kits/`** — full product recreations to copy patterns from: **status-hub** (portfolio dashboard + sign-in + settings + project detail), **website** (bilingual marketing home + Work + Careers + full Lumi chat), and **deck** (16:9 brand deck on deck-stage, PDF/PPTX-ready).
 
-- **`assets/`** — `logo-mark.svg`/`png` (official master mark — never recreate/recolour), `favicon.svg`, `aurora-gold.jpg` (warm hero wash), `aurora-{hoa,thuy,moc,kim}.webp` (element washes), `lumi-poster.webp` (Lumi mascot).
+- **`assets/`** — `logo-mark.svg`/`png` (official master mark — never recreate/recolour), `favicon.svg`, `aurora-{tho,hoa,thuy,moc,kim}.webp` (element washes; Thổ default), `aurora-gold.jpg` (sample still), `lumi-poster.webp` (Lumi mascot).
 
 ## Exporting
 
@@ -40,7 +40,7 @@ Every artifact exports, all paths preserving Vietnamese Unicode (see `docs/conve
 
 - Never redefine the anchors: Umber `#45210E`, Ochre `#F4BA17`. One accent per surface — Ochre on core surfaces; a product's element accent inside its `data-cs-element` scope.
 
-- Elemental identity: one element per product; consume `--cs-accent-*` roles (never raw element hex); semantic statuses and the 3px Ochre focus ring are NEVER elemental; secondary elements only as gradient endpoints along Tương sinh (Mộc→Hỏa→Thổ→Kim→Thủy→Mộc); Lumi stays golden in every element.
+- Elemental identity: one element per product; consume `--cs-accent-*` roles (never raw element hex); semantic statuses and the composite focus indicator (text-primary contour + ochre halo) are NEVER elemental; secondary elements only as gradient endpoints along Tương sinh (Mộc→Hỏa→Thổ→Kim→Thủy→Mộc); Lumi stays golden in every element.
 
 - Style pack is liquid-glass (sole pack; absent ≡ default). Do not invent styles ad hoc (neon/cyberpunk, memphis, and full skeuomorphism are rejected by doctrine).
 
