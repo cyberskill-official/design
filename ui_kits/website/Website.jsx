@@ -67,7 +67,7 @@ function Website() {
 
   return (
     <div className="site" data-theme={dark ? "dark" : undefined}>
-      <a className="cs-skip" href="#main" style={{ position: "absolute", left: -999, width: 1, height: 1, overflow: "hidden" }}>Skip to content</a>
+      <a className="cs-skip" href="#main" style={{ position: "absolute", left: -999, width: 1, height: 1, overflow: "hidden" }}>{loc === "vi" ? "Bỏ qua đến nội dung" : "Skip to content"}</a>
       <header className="hdr cs-surface-light">
         <div className="container hdr-in">
           <a className="brand" href="#top"><img src="../../assets/logo-mark.svg" alt="" />CyberSkill</a>

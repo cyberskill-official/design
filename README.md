@@ -2,11 +2,11 @@
 
 > **Turn Your Will Into Real — Hiện Thực Hoá Ý Chí**
 
-[![Design System Gates](https://github.com/cyberskill-official/design-system/actions/workflows/design-system-gates.yml/badge.svg)](https://github.com/cyberskill-official/design-system/actions/workflows/design-system-gates.yml)
+[![Design System Gates](https://github.com/cyberskill-official/design/actions/workflows/design-system-gates.yml/badge.svg)](https://github.com/cyberskill-official/design/actions/workflows/design-system-gates.yml)
 
 ## Start here
 
-This is the **entrance document** for the CyberSkill Design System — LAUNCHED **v1.1.0**; current **v1.1.1** (see `VERSION`). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves four independent axes — **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
+This is the **entrance document** for the CyberSkill Design System — LAUNCHED **v1.1.0**; current **v1.3.1** (see `VERSION`). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves four independent axes — **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
 
 **Quick start by audience**
 - **Designers** — open Storybook (Foundations / Components / Maintainer surfaces) and the Templates picker (84 starting points, including the 37-document client-supplied Employment Suite). Flip Theme × Element × Language × Style live via the Storybook toolbar, Atomic View, and the Elements Geometry specimen.
@@ -15,7 +15,7 @@ This is the **entrance document** for the CyberSkill Design System — LAUNCHED 
 
 - **Google Stitch** — start at **`DESIGN.md`** (generated open-spec) → `llms.txt` → `tokens/tokens.dtcg.json`. Build **static** UI with `styles.css` + `.cs-*` / kitchen-sink / `examples/static-hello/`. **Do not** treat `templates/**/*.dc.html` as source of truth.
 
-- **Consuming projects** — npm package **`@cyberskill/design@1.1.1`** (see `docs/consuming.md`; grant in `docs/consumer-grant.md` — still UNLICENSED). **Next/SSR:** `import { Button } from "@cyberskill/design"` (peer React). **Browser demo:** **`examples/npm-hello/`** (Lumi · Hỏa · plasma, legacy `_esm/cs.mjs`). Or link **`styles.css`** from a clone/subtree (one file = everything), or copy a `templates/<slug>/` folder and edit one line in its `ds-base.js` (one-line rebind, validated end-to-end Jul 2026). Scope identity with `data-theme` · `data-cs-element` (+`data-cs-variant`) · `lang`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.1.1**; no CHANGELOG).
+- **Consuming projects** — npm package **`@cyberskill/design@1.3.1`** (see `docs/consuming.md`; grant in `docs/consumer-grant.md` — still UNLICENSED). **Next/SSR:** `import { Button } from "@cyberskill/design"` (peer React). **Browser demo:** **`examples/npm-hello/`** (Lumi · Hỏa · plasma, legacy `_esm/cs.mjs`). Or link **`styles.css`** from a clone/subtree (one file = everything), or copy a `templates/<slug>/` folder and edit one line in its `ds-base.js` (one-line rebind, validated end-to-end Jul 2026). Scope identity with `data-theme` · `data-cs-element` (+`data-cs-variant`) · `lang`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.3.1**; no CHANGELOG).
 
 **Document map — consumers**
 
@@ -56,7 +56,7 @@ Consumers link one file: **`styles.css`**.
 
 ## Sources
 
-**This repository** (`cyberskill-official/design-system`) is the design-system source of truth: tokens, React components, brand assets, templates, and gates live here.
+**This repository** (`cyberskill-official/design`) is the design-system source of truth: tokens, React components, brand assets, templates, and gates live here.
 
 Related CyberSkill repos (not in this tree — explore for product/marketing fidelity):
 - **Marketing site** (Next.js, bilingual, Lumi genie, in-repo icon set): https://github.com/cyberskill-official/landing-page
@@ -114,9 +114,9 @@ Related CyberSkill repos (not in this tree — explore for product/marketing fid
 
 **Depth** is an explicit z-scale mapped to glass tiers: bg 0 → section 5 → card 10 → nav 50 → dropdown 60 → overlay 80 → modal 100 → toast 200.
 
-**Backgrounds & imagery** glow from within: deep-umber darks with **warm gold particle light** (`aurora-gold.jpg`), never cold or flat — and each element carries its own wash (`assets/aurora-{hoa,thuy,moc,kim}.webp`, applied via the `.cs-aurora-wash` overlay class; Thổ's is the official gold). Photography is warm-toned. Full-bleed umber sections anchor heroes, careers bands, and footers; on umber, the Ochre slogan and white body carry the message. The mascot, **Lumi**, is a polished golden genie rendered on transparent backgrounds.
+**Backgrounds & imagery** glow from within: deep-umber darks with **warm gold particle light** (`aurora-tho.webp`), never cold or flat — and each element carries its own wash (`assets/aurora-{tho,hoa,thuy,moc,kim}.webp`, applied via the `.cs-aurora-wash` overlay class; Thổ's is the official gold). Photography is warm-toned. Full-bleed umber sections anchor heroes, careers bands, and footers; on umber, the Ochre slogan and white body carry the message. The mascot, **Lumi**, is a polished golden genie rendered on transparent backgrounds.
 
-**Elemental product identity — Ngũ Hành.** The studio itself is **Thổ/Earth** (Umber + Ochre — the traditional earth-yellow); each CyberSkill *product* may take one element — **Kim** (metal) · **Mộc** (wood) · **Thủy** (water) · **Hỏa** (fire) · **Thổ** (earth) — via `data-cs-element` (+ `data-cs-variant`, e.g. Hỏa: ember · lava · plasma). Each pack sets the ten **`--cs-accent-*`** role tokens (accent / strong / bright / on / on-strong / tint / ink / glow / grad-a / grad-b) defined in `tokens/elements.css`; inside the scope the element fully takes Ochre's accent roles. Never elemental: semantic statuses, and the **3px Ochre focus ring** — the studio's accessibility signature on every product. Mixing follows the cycles: a secondary element may appear only as a gradient endpoint along **Tương sinh** (Mộc→Hỏa→Thổ→Kim→Thủy→Mộc); **Tương khắc** pairs never mix. Product→element mapping lives in `docs/products.md`. **Every template carries the Element tweak** — anything that should follow the product's element must consume `--cs-accent-*`, never raw hex. **Lumi stays golden in every element** — the genie is the studio's constant; only the environment re-tints.
+**Elemental product identity — Ngũ Hành.** The studio itself is **Thổ/Earth** (Umber + Ochre — the traditional earth-yellow); each CyberSkill *product* may take one element — **Kim** (metal) · **Mộc** (wood) · **Thủy** (water) · **Hỏa** (fire) · **Thổ** (earth) — via `data-cs-element` (+ `data-cs-variant`, e.g. Hỏa: ember · lava · plasma). Each pack sets the ten **`--cs-accent-*`** role tokens (accent / strong / bright / on / on-strong / tint / ink / glow / grad-a / grad-b) defined in `tokens/elements.css`; inside the scope the element fully takes Ochre's accent roles. Never elemental: semantic statuses, and the **composite focus indicator** (text-primary contour + ochre halo) — the studio's accessibility signature on every product. Mixing follows the cycles: a secondary element may appear only as a gradient endpoint along **Tương sinh** (Mộc→Hỏa→Thổ→Kim→Thủy→Mộc); **Tương khắc** pairs never mix. Product→element mapping lives in `docs/products.md`. **Every template carries the Element tweak** — anything that should follow the product's element must consume `--cs-accent-*`, never raw hex. **Lumi stays golden in every element** — the genie is the studio's constant; only the environment re-tints.
 
 **Surface treatment.** Liquid-glass is fixed. Surfaces resolve **Theme × Element × Language × Style** independently.
 
@@ -134,7 +134,7 @@ Related CyberSkill repos (not in this tree — explore for product/marketing fid
 
 CyberSkill ships **no external icon library**. It uses its own small **in-repo line-icon set** (from the marketing site, `TASK-DS-010`): each icon is data (a viewBox + primitive paths) rendered through one `<Icon>` component. Style: **line icons, `currentColor` stroke, 1.75 weight, round caps/joins, 24×24 viewBox** — so icons follow the surrounding text token and recolour by setting `color`. Sizes come from `--cs-icon-sm|md|lg` (16/20/24).
 The set: `close · sun · moon · arrow-right · check · sparkle · chat · sound-on · sound-off`, extended in v2.0 with `search · sliders · upload · download · calendar · user · plus · trash · external · menu` and in v2.13 with `chevron-down/up/left/right · edit · copy · info · alert-triangle` (same grammar, marked as extensions). `sparkle` is the brand's **"wish"** glyph. **No emoji** and no unicode-glyph icons in product UI. The one exception to "line icons" is the **brand mark** (`Logo`) and **Lumi** mascot, which are filled artwork.
-Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official master mark, Umber ground + Ochre genie), `favicon.svg`, `aurora-gold.jpg` (warm gold hero wash), `lumi-poster.webp` (the golden-genie mascot). **The logo is the real master file — never recreate, recolour, or approximate it;** for third-party tenants, swap the tenant's own logo.
+Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official master mark, Umber ground + Ochre genie), `favicon.svg`, `aurora-tho.webp` (warm gold hero wash; `aurora-gold.jpg` kept as a sample still), `lumi-poster.webp` (the golden-genie mascot). **The logo is the real master file — never recreate, recolour, or approximate it;** for third-party tenants, swap the tenant's own logo.
 ---
 
 ## Components
@@ -167,7 +167,7 @@ Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official mas
 
 Highlights: **Button** — Umber primary; variants primary/secondary/tertiary/ghost/danger/danger-ghost; sizes xs–lg; loading, icon, fullWidth. **TextField / Textarea / Select / NativeSelect** share one `.cs-field` frame (label + description/error; diacritic/IME-safe). **DataTable** — caption, scoped headers, per-column render, empty state. **Card** — warm panel + header/body/footer. **Logo** renders the exact official mark; **Icon** drives the in-repo line-icon set. The **AI-native** family carries the brand's explainability doctrine — disclosure, human review, wish capture, and confidence, all stated in words (never colour alone).
 
-**Install / package name.** This monolith publishes as **`@cyberskill/design`** (live at **1.1.1**; grant in `docs/consumer-grant.md` governs *use* — package remains UNLICENSED). Do **not** install `@cyberskill/react` for this tree — that name is historical marketing-site inventory, not this package.
+**Install / package name.** This monolith publishes as **`@cyberskill/design`** (live at **1.3.1**; grant in `docs/consumer-grant.md` governs *use* — package remains UNLICENSED). Do **not** install `@cyberskill/react` for this tree — that name is historical marketing-site inventory, not this package.
 
 **Source inventory vs. extensions.** An earlier CyberSkill surface shipped six primitives — `Button`, `TextField`, `Dialog`, `DataTable`, `AIDisclosureBadge`, `HumanReviewGate` — plus a brand `Logo`. Everything else in **this** package is an **intentional extension** built in the brand's own token vocabulary so consumers have a complete working kit: `Icon` (the marketing site's real in-repo line-icon set), the standard Forms / Feedback / Data / Navigation / Overlays primitives (search, stepper, slider, file upload, list, description list, timeline, accordion, kbd, code block, sidebar, steps, command palette, popover, drawer, and more), added AI-native pieces (`PromptInput`, `ChatMessage`, `ConfidenceMeter`, `PromptSuggestions`, `TypingIndicator`, `CitationList`) that formalise the Lumi wish-flow, and the `LumiAvatar` mascot. None invent new visual language — they reuse the anchors, surfaces, type, and motion already defined.
 
@@ -278,7 +278,7 @@ Every template resolves to one of six archetypes, framed by `templates/doc-templ
 ## Index / manifest
 
 ```
-styles.css                 ← single entry point (@import manifest only) · VERSION 1.1.1
+styles.css                 ← single entry point (@import manifest only) · VERSION 1.3.1
 tokens/                    fonts · colors · typography · spacing · elevation · motion · component-tokens · elements (Ngũ Hành packs)
 base/                      reset · typography · components · forms · feedback · data · navigation · ai · controls · collections · shell · glass · interaction · a11y · responsive
 components/                button · textfield · dialog · datatable · forms · feedback · data · navigation · overlays · ai · logo · icon · brand
@@ -292,7 +292,7 @@ templates/                 marketing-page · dashboard · slide-deck · auth · 
 ui_kits/status-hub/        Status Hub recreation (index · login · settings · project + status.css · data.js · StatusHub.jsx)
 ui_kits/website/           cyberskill.world recreation (index · work · careers · chat + site.css · copy.js · Website.jsx)
 ui_kits/deck/              brand deck on deck-stage (index.html; deck-stage runtime lives in templates/_vendor/, outside the compiled bundle; export PPTX/PDF on demand)
-assets/                    logo-mark.svg/png · favicon.svg · aurora-gold.jpg + aurora-{hoa,thuy,moc,kim}.webp · lumi-poster.webp
+assets/                    logo-mark.svg/png · favicon.svg · aurora-{tho,hoa,thuy,moc,kim}.webp (+ sample aurora-gold.jpg) · lumi-poster.webp
 docs/                      the full doc set (see Document map above) + viewer.html reader (EN|VI)
 docs/vi/                   Vietnamese translations of every operator-facing docs/*.md
 fonts/                     self-hosted Be Vietnam Pro + Space Grotesk + JetBrains Mono woff2 (latin · latin-ext · vietnamese)

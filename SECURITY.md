@@ -6,7 +6,7 @@ This repository is a **static design system** (tokens, CSS, React components, HT
 
 ## Reporting a vulnerability
 
-Please disclose privately via **GitHub Security Advisories** for [`cyberskill-official/design-system`](https://github.com/cyberskill-official/design-system/security/advisories/new). Do not open a public issue for sensitive reports.
+Please disclose privately via **GitHub Security Advisories** for [`cyberskill-official/design`](https://github.com/cyberskill-official/design/security/advisories/new). Do not open a public issue for sensitive reports.
 
 We will acknowledge private reports and coordinate a fix before any public disclosure.
 

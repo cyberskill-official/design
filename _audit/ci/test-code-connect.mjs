@@ -48,8 +48,9 @@ assert(isSoftSkippableCodeConnectError('status 404 Not found'), '404 soft');
 assert(isSoftSkippableCodeConnectError('429 Rate limit'), '429 soft');
 assert(!isSoftSkippableCodeConnectError('syntax error in parser'), 'syntax not soft');
 
-// npm-publish classifier: soft for expected no-ops; 403/EOTP fail closed (see test-npm-publish.mjs)
-assert(isSoftSkippableNpmError('npm ERR! code ENEEDAUTH'), 'npm auth soft');
+// npm-publish classifier: already_published + off-GHA auth soft; GHA release auth hard (see test-npm-publish.mjs)
+assert(isSoftSkippableNpmError('npm ERR! code ENEEDAUTH', { ghaRelease: false }), 'npm auth soft off GHA');
+assert(!isSoftSkippableNpmError('npm ERR! code ENEEDAUTH', { ghaRelease: true }), 'npm auth hard on GHA release');
 assert(!isSoftSkippableNpmError('npm error code EOTP'), 'EOTP hard-fail');
 assert(!isSoftSkippableNpmError('npm ERR! 403 Forbidden'), '403 hard-fail');
 assert(!isSoftSkippableNpmError('ENOTFOUND weird'), 'ENOTFOUND alone not soft unless matched');

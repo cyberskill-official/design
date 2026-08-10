@@ -7,10 +7,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cyberskill-official/design-system.git"
+    "url": "git+https://github.com/cyberskill-official/design.git"
   },
   "module": "_esm/react.mjs",
   "types": "_esm/react.d.ts",
+  "sideEffects": [
+    "**/*.css",
+    "./_ds_bundle.js",
+    "./_esm/cs.mjs",
+    "./image-slot.js",
+    "./ui_kits/**/*.js",
+    "./ui_kits/**/*.jsx"
+  ],
   "exports": {
     ".": {
       "types": "./_esm/react.d.ts",
@@ -23,6 +31,7 @@
     "./legacy": {
       "import": "./_esm/cs.mjs"
     },
+    "./components/*": "./components/*",
     "./styles.css": "./styles.css",
     "./tokens/*": "./tokens/*",
     "./_ds_bundle.js": "./_ds_bundle.js",
@@ -46,14 +55,18 @@
     "_ds_manifest.json",
     "llms.txt",
     "SKILL.md",
-    "docs/",
+    "docs/*.md",
+    "docs/vi/",
+    "docs/viewer.html",
     "components/",
     "templates/",
     "guidelines/",
     "ui_kits/",
+    "_vendor/",
     "DESIGN.md",
     "VERSION",
-    "dist/styles.min.css"
+    "dist/styles.min.css",
+    "THIRD-PARTY-NOTICES.md"
   ],
   "keywords": [
     "design-system",
@@ -68,7 +81,7 @@
     "build:bundle": "node scripts/build-bundle.mjs",
     "build:react-entry": "node scripts/generate-react-entry.mjs",
     "build:design-md": "node scripts/generate-design-md.mjs",
-    "prepublishOnly": "npm run build:bundle && npm run build:react-entry && node scripts/generate-design-md.mjs --check",
+    "prepublishOnly": "npm run build:bundle && npm run build:react-entry && npm run build:styles && node scripts/generate-design-md.mjs --check && node scripts/flatten-styles.mjs --check && node scripts/generate-contrast-report.mjs --check && npm run version:stamp:check",
     "code-connect:generate": "node _audit/ci/generate-code-connect.mjs",
     "code-connect:dry-run": "node _audit/ci/code-connect-publish.mjs --dry-run",
     "npm:pack-dry-run": "node _audit/ci/npm-publish.mjs --dry-run",
@@ -82,7 +95,7 @@
     "test:nav-model": "node _audit/ci/test-nav-model.mjs",
     "test:ui-contracts": "node _audit/ci/test-health-tokens-contract.mjs",
     "test:form-paths": "node _audit/ci/test-form-paths.mjs",
-    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-docs-consistency.mjs && node _audit/ci/test-base-hex-allowlist.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-axe-coverage.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-npm-publish.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs && node _audit/ci/test-element-packs.mjs && node _audit/ci/test-i18n-builtins.mjs && node _audit/ci/test-format-currency.mjs && node _audit/ci/test-storybook-freshness.mjs",
+    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-docs-consistency.mjs && node _audit/ci/test-base-hex-allowlist.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-axe-coverage.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-npm-publish.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs && node _audit/ci/test-element-packs.mjs && node _audit/ci/test-i18n-builtins.mjs && node _audit/ci/test-format-currency.mjs && node _audit/ci/check-manifest-coverage.mjs && node _audit/ci/ci-verdict.mjs --selftest && node _audit/ci/test-pack-hygiene.mjs && npm run version:stamp:check && node _audit/ci/test-docs-lang-parity.mjs && node _audit/ci/test-prop-parity.mjs && node _audit/ci/test-email-safe.mjs",
     "test:audit-probe": "node _audit/ci/audit-probe-suite.mjs",
     "test:element-packs": "node _audit/ci/test-element-packs.mjs",
     "test:react-entry": "node _audit/ci/test-react-entry.mjs",
@@ -93,6 +106,9 @@
     "test:figma-helpers": "node _audit/ci/test-figma-push-helpers.mjs",
     "test:code-connect": "node _audit/ci/test-code-connect.mjs",
     "test:native-samples": "node _audit/ci/test-native-samples.mjs",
+    "test:storybook-freshness": "node _audit/ci/test-storybook-freshness.mjs",
+    "test:manifest-coverage": "node _audit/ci/check-manifest-coverage.mjs",
+    "test:pack-hygiene": "node _audit/ci/test-pack-hygiene.mjs",
     "tokens:elements": "node scripts/generate-element-packs.mjs",
     "tokens:contrast": "node scripts/generate-contrast-report.mjs",
     "build:styles": "node scripts/flatten-styles.mjs",
@@ -100,6 +116,7 @@
     "version:selftest": "node scripts/ds-version.mjs --selftest",
     "version:stamp": "node scripts/stamp-release-version.mjs",
     "version:stamp:apply": "node scripts/stamp-release-version.mjs --apply",
+    "version:stamp:check": "node scripts/stamp-release-version.mjs --check",
     "sbom": "npx --yes @cyclonedx/cyclonedx-npm@3.1.0 --output-file bom.cdx.json --output-reproducible --spec-version 1.5"
   },
   "devDependencies": {

@@ -2,7 +2,7 @@
 
 Every deterministic quality gate in the system, what it asserts, its pass criterion, whether it blocks (hard) or informs (advisory), and where it runs.
 
-**Where gates run.** *Fast board CI* = the `fast-gates` job in `.github/workflows/design-system-gates.yml`, which serves the repo and drives `_audit/run.html` headless via `_audit/ci/run-gates.mjs` (every push/PR + nightly + manual) — new board rows are picked up automatically. Two gates additionally run standalone as *merge blockers* (`docs-consistency-blocker` job, via `_audit/ci/run-single-gate.mjs`). *Whole-set CI* = the `whole-set-audits` job (every push/PR + nightly — owner decision B). *Unit test* = `npm run test:unit` in the `unit-tests` job (plain Node, no browser). *Node pre-checks* = the `node-prechecks` job (browser-free authorities: bundle freshness, DESIGN.md freshness) plus the `token-provenance` job. Every browser gate publishes a verdict global (`window.__*`) that the headless runners read.
+**Where gates run.** *Fast board CI* = the `fast-gates` job in `.github/workflows/design-system-gates.yml`, which serves the repo and drives `_audit/run.html` headless via `_audit/ci/run-gates.mjs` (every push/PR + nightly + manual) — new board rows are picked up automatically. Two gates additionally run standalone as *merge blockers* (`docs-consistency-blocker` job, via `_audit/ci/run-single-gate.mjs`). *Whole-set CI* = the `whole-set-audits` job (every push/PR + nightly — owner decision B). *Unit test* = `npm run test:unit` in the `unit-tests` job (plain Node, no browser). *Node pre-checks* = the `node-prechecks` job (browser-free authorities: bundle freshness, DESIGN.md freshness, styles.min.css + contrast-report freshness, manifest coverage) plus the `token-provenance` job. *Storybook CI* = the `storybook-build` job (`build:storybook` + freshness `--require`). Every browser gate publishes a verdict global (`window.__*`) that the headless runners read.
 
 ## Fast board — 40 gates in `_audit/run.html`
 
@@ -14,7 +14,7 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | Axes guard | `_audit/axis-guard.html` | No live source reintroduces the retired Expression/Density product surface | 0 hits across manifest-indexed sources (`__axisguard`) | Hard | Fast board CI |
 | Manifest CSS paths | `_audit/manifest-css-guard.html` | Every `_ds_manifest.json` `globalCssPaths` entry exists as raw CSS; every `styles.css` `@import` is listed | 0 missing / 0 unlisted (`__cssguard`) | Hard | Fast board CI |
 | Docs consistency | `_audit/docs-consistency.html` | Every count claim in README/SKILL/llms.txt matches the compiler manifest; audit prose card-count claims (`_audit/index` / README / namespace-portability) match `manifest.cards`; `VERSION` is semver and `package.json` matches it (LAUNCHED 1.1.0; auto-bump on main); no changelog-file reference; stale-phrase blacklist (the retired suite/pack counts the Jul 2026 audit removed) clean across README/SKILL/llms + `docs/*.md` (historical notes under `_audit/archive/` are not scanned); `DESIGN.md` exists with front-matter version = `VERSION`; agent routing honesty — Claude path cites `_esm/cs.mjs` + bundle prefix; Stitch path forbids `*.dc.html` as SoT; package name `@cyberskill/design`; doctrine↔source parity — 10 accent roles incl. `on-strong`, full depth scale, default lang `vi` vs `i18n.js`, breakpoint CSS↔JSON, `base/` depth fallbacks vs `elevation.css` | 0 mismatched claims, 0 blacklist hits, VERSION sync + stamp + routing + doctrine parity intact (`__docs`) | Hard | Fast board CI + merge blocker |
-| Asset-weight budget | `_audit/asset-weight-budget.html` | Elemental aurora WebPs (`assets/aurora-{hoa,thuy,moc,kim}.webp`) stay under regression ceilings (≤300 KB each, ≤1.2 MB set); legacy aurora PNGs fail | All four present under ceilings (`__assetweight`) | Hard | Fast board CI (+ Node twin in `test-docs-consistency.mjs`) |
+| Asset-weight budget | `_audit/asset-weight-budget.html` | Elemental aurora WebPs (`assets/aurora-{tho,hoa,thuy,moc,kim}.webp`) stay under regression ceilings (≤300 KB each, ≤1.2 MB set); legacy aurora PNGs fail; wash CSS must not point at the Thổ JPEG | All five present under ceilings (`__assetweight`) | Hard | Fast board CI (+ Node twin in `test-docs-consistency.mjs`) |
 | Docs language parity | `_audit/docs-lang-parity.html` | Every operator-facing EN `docs/*.md` has a `docs/vi/` counterpart; VI is not an empty/TODO stub (≥40% EN length); stale-phrase blacklist clean on both EN and VI (historical notes under `_audit/archive/` are not tracked) | 0 missing pairs, 0 stubs, 0 blacklist hits (`__docslangparity`) | Hard | Fast board CI |
 | DESIGN.md parity | `_audit/design-md-parity.html` | The root `DESIGN.md` (Stitch open-spec surface) byte-equals an in-browser regeneration from `tokens.dtcg.json` + `_ds_manifest.json` + `VERSION` via the shared `scripts/design-md-lib.mjs`; every token row re-checked individually (the count is printed with the verdict) | Byte-identical + 0 drifted rows (`__designmd`) | Hard | Fast board CI |
 | Version stamp | `_audit/version-stamp.html` | `package.json`, `tokens.json`/`tokens.js` metas, DTCG `$extensions`, `provenance.json` release + dtcgStamp, `DESIGN.md` front matter, and `_esm/cs.mjs` `export const VERSION` all equal `VERSION` (pin tracks file; LAUNCHED at 1.1.0) | All 9 stamps equal (`__versionstamp`) | Hard | Fast board CI |
@@ -66,8 +66,12 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | Token provenance | `_audit/ci/check-token-provenance.mjs` | `tokens/native/` + `tokens/provenance.json` are in lockstep with `tokens/tokens.dtcg.json` (same sha-256 drift authority as the token-pipeline gate) | Exit 0 on hash match | Hard | CI `token-provenance` job |
 | Bundle freshness (authority) | `_audit/ci/check-bundle-freshness.mjs` | The committed `_ds_bundle.js` was built from the component sources as they exist now — full source discovery (walks `components/`, `ui_kits/`, root sources), so new/deleted files are caught too, which the browser row cannot do | Exit 0, 0 drifted/new/deleted sources | Hard | CI `node-prechecks` job |
 | DESIGN.md freshness | `scripts/generate-design-md.mjs --check` | The root `DESIGN.md` byte-equals a fresh regeneration from DTCG + manifest + `VERSION` | Exit 0 on byte match | Hard | CI `node-prechecks` job |
+| styles.min.css freshness | `scripts/flatten-styles.mjs --check` | Committed `dist/styles.min.css` byte-equals flatten of `styles.css` + tokens/base (FIND-026) | Exit 0 on byte match | Hard | CI `node-prechecks` job |
+| contrast-report freshness | `scripts/generate-contrast-report.mjs --check` | EN + VI contrast reports match regeneration from element packs (FIND-026) | Exit 0 on byte match | Hard | CI `node-prechecks` job |
+| Manifest coverage | `_audit/ci/check-manifest-coverage.mjs` | Shipped `templates/` + `.card.html` + startingPoints match `_ds_manifest.json` (allowlisted: `_vendor`, `schema`, `email-safe`) | Exit 0 | Hard | CI `node-prechecks` + unit |
+| Storybook build + freshness | `npm run build:storybook` + `test-storybook-freshness.mjs --require` | Storybook builds in CI; stamp matches `stories/` + `.storybook/` (FIND-074 / FIND-075) | Exit 0 | Hard | CI `storybook-build` job |
 
-## Unit tests — `npm run test:unit` (14)
+## Unit tests — `npm run test:unit`
 
 | Test | File | What it asserts | Pass criterion | Type | Where it runs |
 |---|---|---|---|---|---|
@@ -84,9 +88,11 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | React entry | `_audit/ci/test-react-entry.mjs` | Dual package exports (`.` / `./react` → `_esm/react.mjs`, `./legacy` → `_esm/cs.mjs`); `package.json` version equals `VERSION`; React peerDeps; react.mjs has no CDN/bundle bridge and re-exports match the bundle header; `generate-react-entry --check` green | All assertions pass (exit 0) | Hard | Unit test |
 | Element packs | `_audit/ci/test-element-packs.mjs` | `tokens/elements.css` + JSON/JS/DTCG mirrors byte-equal regeneration from `tokens/element-seeds.json` | `generate-element-packs --check` exit 0 | Hard | Unit test |
 | i18n builtins + doc/font residuals | `_audit/ci/test-i18n-builtins.mjs` | No hardcoded EN UI literals outside the registry path; 0 doc-palette hexes in templates; 0 raw font-size px in `base/` | Exit 0 | Hard | Unit test |
-| Storybook static freshness | `_audit/ci/test-storybook-freshness.mjs` | When `storybook-static/` exists, `.cs-freshness.json` `sourceHash` matches `stories/` + `.storybook/` (UX-030). Absent static tree skips. | Exit 0 | Hard | Unit test |
+| Manifest coverage | `_audit/ci/check-manifest-coverage.mjs` | Disk templates/cards/startingPoints ⊆ manifest (`email-safe` allowlisted) | Exit 0 | Hard | Unit test |
+| Pack hygiene | `_audit/ci/test-pack-hygiene.mjs` | Tarball excludes `docs/tasks|audits|plans|status`; includes notices + fonts + `_vendor/` (FIND-064) | Exit 0 | Hard | Unit test |
+| CI verdict selftest | `_audit/ci/ci-verdict.mjs --selftest` | Soft-skip vs success annotation helper (FIND-095) | Exit 0 | Hard | Unit test |
 
-The `test:unit` suite is wired into the CI workflow as part of the July 2026 hardening change (it previously only ran locally).
+The `test:unit` suite is wired into the CI workflow as part of the July 2026 hardening change (it previously only ran locally). Storybook freshness runs in `storybook-build` with `--require` (not skipped in CI).
 
 ## Audit probe suite — `npm run test:audit-probe`
 
@@ -94,20 +100,20 @@ Promoted entry for UX audit proxies (`_audit/ci/audit-probe-suite.mjs`): unit su
 
 ## Sync / distribution jobs (soft-skip)
 
-Soft-skip means the job exits 0 with a report when secrets/plan/API cannot complete the real write — **not** that Code Connect or Figma Variables are live. npm CI publish uses Trusted Publishing; soft-skip covers auth/conflict honesty. Treat remaining maintainer tasks in `docs/decisions.md` as the open list (Code Connect deferred; consumer grant is in `docs/consumer-grant.md`). Storybook `FullMatrix` is required for every public primary with ≥1 of {size enums, variant enums, state keys} — shared helpers in `stories/lib/matrix.jsx`.
+Soft-skip means the job exits 0 with a report when secrets/plan/API cannot complete the real write — **not** that Code Connect or Figma Variables are live. Soft-skip writes `$GITHUB_STEP_SUMMARY` and emits a distinct CI annotation (`::error::` on schedule/main, `::warning::` elsewhere) so it is never identical silent green to live success (FIND-095). npm CI publish uses Trusted Publishing; soft-skip covers **already-published** and true non-GHA `missing_secrets` only — auth/404/402 on GHA release fail closed (see `docs/release-runbook.md`). Treat remaining maintainer tasks in `docs/decisions.md` as the open list (Code Connect deferred; consumer grant is in `docs/consumer-grant.md`). Storybook `FullMatrix` is required for every public primary with ≥1 of {size enums, variant enums, state keys} — shared helpers in `stories/lib/matrix.jsx`.
 
 | Job | Script / workflow | What it asserts | Soft-skip when | Where it runs |
 |---|---|---|---|---|
 | Figma Variables | `_audit/ci/push-figma-variables.mjs` + `figma-variables-push` job | Secrets open the file; optional Variables write | Soft-skip when secrets missing (same honesty as Code Connect) or non-Enterprise / missing `file_variables:*` scopes / API **403** after secrets are present. Soft-skip ≠ live sync | `main` push + manual |
 | Code Connect | `_audit/ci/code-connect-publish.mjs` + `code-connect` job | Config + 105 mappings; optional publish | Missing `FIGMA_TOKEN`/`FIGMA_FILE_KEY` or API 403/404/429 | PR + `main` + manual |
-| npm publish | `_audit/ci/npm-publish.mjs` + `npm-publish.yml` | Pack-safe `files`/`exports`; `npm publish` via OIDC Trusted Publishing (tokens disallowed on package); post-publish `npm view` presence | Soft-skip: `missing_secrets` / already-published / fork auth-unavailable. **Fail:** 403 / EOTP / missing registry presence | `workflow_dispatch` / `v*` tags |
+| npm publish | `_audit/ci/npm-publish.mjs` + `npm-publish.yml` | Pack-safe `files`/`exports` (incl. `_vendor/`); `npm publish` via OIDC Trusted Publishing (tokens disallowed on package); post-publish `npm view` version **and** `dist-tags.latest === VERSION` (FIND-094) | Soft-skip: `already_published` / non-GHA `missing_secrets` only. **Fail on GHA release:** ENEEDAUTH / 404 / 402 / 403 / EOTP / missing registry presence or wrong `latest` | `workflow_dispatch` / `v*` tags |
 | Native store | `_audit/ci/native-store-dry-run.mjs` + `native-store.yml` | Fastlane scaffolds + metadata; signed-release secrets check | Missing `ASC_*` / `PLAY_SERVICE_ACCOUNT_JSON` (submit always disabled) | PR + `main` (paths) + manual |
 
-## Registry consumer smoke (hard)
+## Registry consumer smoke (fail-closed)
 
 | Job | Script / workflow | What it asserts | Pass criterion | Where it runs |
 |---|---|---|---|---|
-| npm-hello smoke | `examples/npm-hello` + `npm-hello-smoke` job | Public registry install of `@cyberskill/design@1.1.1` resolves package name + exports (`npm install` + `npm run smoke`; local pack proof if VERSION not on registry yet) | Exit 0 (**hard fail** once published; soft-skip pack proof if VERSION not on registry yet) | Path-filtered push/PR + nightly + manual |
+| npm-hello smoke | `examples/npm-hello` + `npm-hello-smoke` job | Public registry install of `@cyberskill/design@$VERSION` resolves package name + exports (`npm install` + `npm run smoke`) | Exit 0 only when VERSION is on the registry (**fail-closed**, FIND-087). Local-pack proof only if fork sets `NPM_HELLO_ALLOW_LOCAL_PACK=true` | Path-filtered push/PR + nightly + manual |
 
 ## July 2026 hardening — delivered
 

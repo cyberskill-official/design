@@ -10,7 +10,7 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>No-third-party origin gate (product surfaces)</h1>
-<p class="lede">HARD GATE (<code>window.__nothirdparty.pass</code>): product surfaces — all <code>templates/**</code> entry HTML + <code>support.js</code> / <code>ds-base.js</code>, every <code>ui_kits/**/*.html</code>, and <code>guidelines/atomic-view.html</code> — must not reference third-party script/style origins (<code>unpkg.com</code>, <code>cdn.jsdelivr.net</code>, <code>cdnjs.cloudflare.com</code>, <code>esm.sh</code>, <code>jspm.dev</code>, Google fonts/CDN hosts). React and Babel are vendored under <code>_vendor/</code>. Audit harnesses may still use CDN as last resort; they are out of scope. UX-026 / D4.</p>
+<p class="lede">HARD GATE (<code>window.__nothirdparty.pass</code>): product surfaces — all <code>templates/**</code> entry HTML + <code>support.js</code> / <code>ds-base.js</code>, every <code>ui_kits/**/*.html</code>, <code>guidelines/atomic-view.html</code>, and every shipped <code>components/**/*.card.html</code> — must not reference third-party script/style origins (<code>unpkg.com</code>, <code>cdn.jsdelivr.net</code>, <code>cdnjs.cloudflare.com</code>, <code>esm.sh</code>, <code>jspm.dev</code>, Google fonts/CDN hosts). React and Babel are vendored under <code>_vendor/</code>. Audit harnesses under <code>_audit/</code> may still use CDN as last resort and are an explicit exemption. FIND-066 / FIND-067.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <script>
@@ -65,6 +65,25 @@ function hitsIn(text){
     'ui_kits/deck/index.html',
     'guidelines/atomic-view.html',
   ]) paths.add(p);
+
+  // FIND-067 — component specimen cards ship in the package and must be origin-clean.
+  const cardManifest = await (await fetch('../_ds_manifest.json')).json().catch(()=>null);
+  // Prefer directory enumeration via known card paths from a lightweight index fetch.
+  // Static hosting has no dir listing — discover via a committed list in the gate when
+  // the fetch of a sentinel fails. Probe the 20 known cards (same set as FIND-066).
+  for(const p of [
+    'components/ai/ai-conversation.card.html','components/ai/ai-lumi.card.html','components/ai/ai.card.html',
+    'components/brand/brand.card.html','components/button/buttons.card.html',
+    'components/data/collections.card.html','components/data/data.card.html',
+    'components/datatable/datatable.card.html','components/dialog/dialog.card.html',
+    'components/feedback/feedback-2.card.html','components/feedback/feedback.card.html',
+    'components/forms/forms-2.card.html','components/forms/forms.card.html',
+    'components/icon/icon.card.html','components/logo/logo.card.html',
+    'components/navigation/navigation.card.html','components/navigation/shell.card.html',
+    'components/overlays/alertdialog.card.html','components/overlays/overlays.card.html',
+    'components/textfield/textfield.card.html',
+  ]) paths.add(p);
+  void cardManifest;
 
   const failed=[];
   let checked=0;

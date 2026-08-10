@@ -1,6 +1,6 @@
 # Repo ↔ Claude Design — round-trip fidelity & đồng bộ hai chiều
 
-Repo GitHub (`cyberskill-official/design-system`) là **nguồn chân lý**. Session Claude Design là filesystem project tạm — tài liệu này nói cách chúng giữ sync mà không mất việc.
+Repo GitHub (`cyberskill-official/design`) là **nguồn chân lý**. Session Claude Design là filesystem project tạm — tài liệu này nói cách chúng giữ sync mà không mất việc.
 
 ## Repo có khôi phục nguyên hệ thống không?
 

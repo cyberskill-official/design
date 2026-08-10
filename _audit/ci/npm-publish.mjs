@@ -11,15 +11,16 @@
  * Package Publishing access disallows classic tokens; local non-OIDC → soft-skip
  * (interactive maintainer publish uses `npm publish --otp` outside this script).
  *
- * Soft-skip (exit 0) is only for expected no-ops: missing_secrets, already-published
- * (EPUBLISHCONFLICT), and similar fork/auth-unavailable cases (ENEEDAUTH / 404 / 402).
- * Real denials after a publish attempt — 403 and EOTP — fail the job (non-zero).
- * A successful publish is followed by `npm view <name>@<version>` presence check.
+ * Soft-skip (exit 0) is only for expected no-ops: already_published (EPUBLISHCONFLICT)
+ * and true non-GHA missing_secrets. On GHA tag / workflow_dispatch, ENEEDAUTH / 404 /
+ * 402 are hard_fail (same as 403 / EOTP). A successful publish is followed by
+ * `npm view <name>@<version>` plus `dist-tags.latest === VERSION` (FIND-094).
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
+import { recordCiVerdict } from './ci-verdict.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const REPORT = join(root, '_audit/ci/npm-publish-report.json');
@@ -27,11 +28,27 @@ const args = new Set(process.argv.slice(2));
 const dryRun = args.has('--dry-run');
 
 /**
+ * True when this script is running the canonical release publish path:
+ * GitHub Actions on workflow_dispatch or a version tag push (npm-publish.yml).
+ * @param {NodeJS.ProcessEnv} [env]
+ */
+export function isGhaReleasePublish(env = process.env) {
+  if (!env.GITHUB_ACTIONS) return false;
+  const event = env.GITHUB_EVENT_NAME || '';
+  if (event === 'workflow_dispatch') return true;
+  if (event === 'push' && String(env.GITHUB_REF || '').startsWith('refs/tags/')) return true;
+  return false;
+}
+
+/**
  * Classify npm publish stderr/stdout (or Error) after a publish attempt.
+ * @param {unknown} err
+ * @param {{ ghaRelease?: boolean, env?: NodeJS.ProcessEnv }} [opts]
  * @returns {{ kind: 'soft_skip' | 'hard_fail' | 'unknown', reason: string }}
  */
-export function classifyNpmPublishError(err) {
+export function classifyNpmPublishError(err, opts = {}) {
   const msg = String(err?.message || err || '');
+  const ghaRelease = opts.ghaRelease ?? isGhaReleasePublish(opts.env || process.env);
 
   // Hard fail: attempted publish was denied (FIND-020).
   if (/EOTP/i.test(msg) || /one-time password/i.test(msg)) {
@@ -41,26 +58,32 @@ export function classifyNpmPublishError(err) {
     return { kind: 'hard_fail', reason: 'forbidden_403' };
   }
 
-  // Soft-skip: expected no-ops (already published, fork/auth unavailable).
+  // Soft-skip only for already-published (always). Auth/404/402 soft-skip off GHA only.
   if (/EPUBLISHCONFLICT/i.test(msg) || /cannot publish over/i.test(msg)) {
     return { kind: 'soft_skip', reason: 'already_published' };
   }
   if (/ENEEDAUTH/i.test(msg) || /need auth/i.test(msg)) {
-    return { kind: 'soft_skip', reason: 'need_auth' };
+    return ghaRelease
+      ? { kind: 'hard_fail', reason: 'need_auth' }
+      : { kind: 'soft_skip', reason: 'need_auth' };
   }
   if (/404.*Not found/i.test(msg)) {
-    return { kind: 'soft_skip', reason: 'not_found_404' };
+    return ghaRelease
+      ? { kind: 'hard_fail', reason: 'not_found_404' }
+      : { kind: 'soft_skip', reason: 'not_found_404' };
   }
   if (/\b402\b/.test(msg)) {
-    return { kind: 'soft_skip', reason: 'payment_402' };
+    return ghaRelease
+      ? { kind: 'hard_fail', reason: 'payment_402' }
+      : { kind: 'soft_skip', reason: 'payment_402' };
   }
 
   return { kind: 'unknown', reason: 'unknown' };
 }
 
-/** True only for expected no-ops (not 403 / EOTP). */
-export function isSoftSkippableNpmError(err) {
-  return classifyNpmPublishError(err).kind === 'soft_skip';
+/** True only for expected no-ops (not 403 / EOTP; not GHA auth/404/402). */
+export function isSoftSkippableNpmError(err, opts = {}) {
+  return classifyNpmPublishError(err, opts).kind === 'soft_skip';
 }
 
 export function preferOidcPublish(env = process.env) {
@@ -68,8 +91,18 @@ export function preferOidcPublish(env = process.env) {
   return Boolean(env.GITHUB_ACTIONS) && !(env.NPM_TOKEN || '').trim();
 }
 
+function parseNpmJsonStdout(stdout) {
+  const trimmed = (stdout || '').trim();
+  try {
+    return JSON.parse(trimmed);
+  } catch {
+    return trimmed.replace(/^"|"$/g, '');
+  }
+}
+
 /**
- * Post-publish registry presence check. Fails if the version is not visible.
+ * Post-publish registry presence check. Fails if the version is not visible
+ * or if dist-tags.latest is not the published VERSION (FIND-094).
  * @param {{ name: string, version: string, cwd?: string, env?: NodeJS.ProcessEnv, spawn?: typeof spawnSync }} opts
  */
 export function assertRegistryPresence(opts) {
@@ -91,18 +124,33 @@ export function assertRegistryPresence(opts) {
   if (view.status !== 0) {
     throw new Error(`post-publish registry check failed for ${spec}: ${combined.slice(0, 800)}`);
   }
-  let reported;
-  try {
-    reported = JSON.parse((view.stdout || '').trim());
-  } catch {
-    reported = (view.stdout || '').trim().replace(/^"|"$/g, '');
-  }
+  const reported = parseNpmJsonStdout(view.stdout);
   if (String(reported) !== String(version)) {
     throw new Error(
       `post-publish registry check: expected ${spec} but npm view reported ${JSON.stringify(reported)}`,
     );
   }
-  return { ok: true, name, version, spec };
+
+  const latestView = spawn('npm', ['view', name, 'dist-tags.latest', '--json'], {
+    cwd,
+    encoding: 'utf8',
+    env,
+    shell: process.platform === 'win32',
+  });
+  const latestCombined = `${latestView.stdout || ''}\n${latestView.stderr || ''}`;
+  if (latestView.status !== 0) {
+    throw new Error(
+      `post-publish dist-tags.latest check failed for ${name}: ${latestCombined.slice(0, 800)}`,
+    );
+  }
+  const latest = parseNpmJsonStdout(latestView.stdout);
+  if (String(latest) !== String(version)) {
+    throw new Error(
+      `post-publish dist-tags.latest check: expected ${version} but npm view reported ${JSON.stringify(latest)}`,
+    );
+  }
+
+  return { ok: true, name, version, spec, latest: String(latest) };
 }
 
 function writeReport(payload) {
@@ -116,7 +164,8 @@ function softSkip(reason, detail) {
   console.error(`SOFT SKIP — npm publish (${reason}).`);
   if (detail) console.error(detail);
   console.error('CI: configure npm Trusted Publisher for npm-publish.yml (OIDC). Package disallows classic tokens — local interactive: npm publish --otp. See docs/ci-cd.md.');
-  writeReport({ skipped: true, reason, message: detail || reason });
+  writeReport({ skipped: true, reason, message: detail || reason, channel: 'npm-publish' });
+  recordCiVerdict({ channel: 'npm-publish', kind: 'soft_skip', reason, detail });
   process.exit(0);
 }
 
@@ -124,7 +173,8 @@ function hardFail(reason, detail, extra = {}) {
   console.error('');
   console.error(`FAIL — npm publish (${reason}).`);
   if (detail) console.error(detail);
-  writeReport({ skipped: false, ok: false, reason, message: detail || reason, ...extra });
+  writeReport({ skipped: false, ok: false, reason, message: detail || reason, channel: 'npm-publish', ...extra });
+  recordCiVerdict({ channel: 'npm-publish', kind: 'hard_fail', reason, detail });
   process.exit(1);
 }
 
@@ -144,8 +194,25 @@ function main() {
     console.warn(`license is ${pkg.license} — expected UNLICENSED until an explicit open license is chosen`);
   }
 
-  // Consumer-safe tarball intent: full portable tree (styles, tokens, components, templates, docs).
-  const required = ['styles.css', '_esm/', 'tokens/', '_ds_bundle.js', 'components/', 'docs/'];
+  // Consumer-safe tarball intent: styles, tokens, components, templates, public docs.
+  // `_vendor/` ships for legacy browser React/Babel (FIND-111).
+  // FIND-064 — docs grant is `docs/*.md` + `docs/vi/` + viewer (not whole `docs/` backlog).
+  const required = [
+    'styles.css',
+    '_esm/',
+    'tokens/',
+    '_ds_bundle.js',
+    'components/',
+    '_vendor/',
+    'THIRD-PARTY-NOTICES.md',
+  ];
+  const docsGrant =
+    pkg.files?.includes('docs/*.md') ||
+    pkg.files?.includes('docs/') ||
+    pkg.files?.includes('docs');
+  if (!docsGrant) {
+    throw new Error('package.json files[] missing public docs grant (docs/*.md or docs/)');
+  }
   for (const f of required) {
     if (!pkg.files?.includes(f) && !pkg.files?.includes(f.replace(/\/$/, ''))) {
       throw new Error(`package.json files[] missing required entry: ${f}`);
@@ -165,14 +232,34 @@ function main() {
     }
     console.log(pack.stdout || pack.stderr);
     console.log('Dry-run OK — tarball inventory listed (no publish).');
-    writeReport({ skipped: false, ok: true, dryRun: true, name: pkg.name, version: pkg.version });
+    writeReport({
+      skipped: false,
+      ok: true,
+      dryRun: true,
+      name: pkg.name,
+      version: pkg.version,
+      channel: 'npm-publish',
+    });
+    recordCiVerdict({
+      channel: 'npm-publish',
+      kind: 'dry_run',
+      detail: `${pkg.name}@${pkg.version}`,
+    });
     return;
   }
 
   const token = (process.env.NPM_TOKEN || '').trim();
   const oidc = preferOidcPublish(process.env);
+  const ghaRelease = isGhaReleasePublish(process.env);
 
   if (!oidc && !token) {
+    // Soft-skip missing_secrets only off GHA (local). On release workflow → hard fail.
+    if (ghaRelease) {
+      hardFail(
+        'missing_secrets',
+        'GitHub Actions release publish requires OIDC Trusted Publishing (no classic NPM_TOKEN).',
+      );
+    }
     softSkip('missing_secrets', 'Not on GitHub Actions OIDC — no publish attempted (package disallows classic tokens).');
   }
 
@@ -198,7 +285,7 @@ function main() {
   const combined = `${pub.stdout || ''}\n${pub.stderr || ''}`;
   const auth = oidc ? 'oidc' : 'token';
   if (pub.status !== 0) {
-    const classified = classifyNpmPublishError(combined);
+    const classified = classifyNpmPublishError(combined, { ghaRelease, env: process.env });
     if (classified.kind === 'soft_skip') {
       softSkip(classified.reason, combined.slice(0, 800));
     }
@@ -218,7 +305,7 @@ function main() {
       cwd: root,
       env,
     });
-    console.log(`Registry presence OK — ${presence.spec}`);
+    console.log(`Registry presence OK — ${presence.spec} · dist-tags.latest=${presence.latest}`);
   } catch (e) {
     hardFail('registry_presence', String(e.message || e), { auth, published: true });
   }
@@ -228,9 +315,16 @@ function main() {
     ok: true,
     published: true,
     registryVerified: true,
+    latestVerified: true,
     name: pkg.name,
     version: pkg.version,
     auth,
+    channel: 'npm-publish',
+  });
+  recordCiVerdict({
+    channel: 'npm-publish',
+    kind: 'success',
+    detail: `PUBLISHED ${pkg.name}@${pkg.version}`,
   });
 }
 

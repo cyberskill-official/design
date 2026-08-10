@@ -19,6 +19,7 @@ import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
+import { recordCiVerdict } from './ci-verdict.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const REPORT = join(root, '_audit/ci/code-connect-report.json');
@@ -58,7 +59,8 @@ function softSkip(reason, detail) {
   console.error(`SOFT SKIP — Code Connect (${reason}).`);
   if (detail) console.error(detail);
   console.error('See docs/figma.md. Decision 1C: live path, soft-skip when secrets/API missing.');
-  writeReport({ skipped: true, reason, message: detail || reason });
+  writeReport({ skipped: true, reason, message: detail || reason, channel: 'code-connect' });
+  recordCiVerdict({ channel: 'code-connect', kind: 'soft_skip', reason, detail });
   process.exit(0);
 }
 
@@ -117,7 +119,12 @@ function main() {
       if (!existsSync(join(root, rel))) throw new Error(`missing ${rel}`);
     }
     console.log('Dry-run OK — figma.config.json + ≥105 mappings present (no network).');
-    writeReport({ dryRun: true, skipped: false, ...counts });
+    writeReport({ dryRun: true, skipped: false, channel: 'code-connect', ...counts });
+    recordCiVerdict({
+      channel: 'code-connect',
+      kind: 'dry_run',
+      detail: `${counts.total} mappings`,
+    });
     return;
   }
 
@@ -198,12 +205,22 @@ function main() {
         process.exit(result.status || 1);
       }
       console.log(result.stdout);
-      writeReport({ skipped: false, ok: true, published: true, ...counts });
+      writeReport({ skipped: false, ok: true, published: true, channel: 'code-connect', ...counts });
+      recordCiVerdict({
+        channel: 'code-connect',
+        kind: 'success',
+        detail: `published ${counts.total} mappings`,
+      });
       return;
     }
 
     console.log(result.stdout || 'parse/dry-run OK');
-    writeReport({ skipped: false, ok: true, dryRun: true, ...counts });
+    writeReport({ skipped: false, ok: true, dryRun: true, channel: 'code-connect', ...counts });
+    recordCiVerdict({
+      channel: 'code-connect',
+      kind: 'dry_run',
+      detail: `${counts.total} mappings`,
+    });
   } finally {
     try { rmSync(tmp, { recursive: true, force: true }); } catch (_) { /* ignore */ }
   }

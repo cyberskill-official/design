@@ -14,6 +14,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { recordCiVerdict } from './ci-verdict.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const DTCG = join(root, 'tokens/tokens.dtcg.json');
@@ -130,6 +131,11 @@ async function main() {
       console.log(`  ${c.name}  ${c.hex}`);
     }
     console.log('Dry-run complete — no API calls.');
+    recordCiVerdict({
+      channel: 'figma-variables',
+      kind: 'dry_run',
+      detail: `${colors.length} colour tokens`,
+    });
     return { dryRun: true, count: colors.length };
   }
 
@@ -256,6 +262,9 @@ async function main() {
 
   // Optional report for CI artifacts
   const report = {
+    skipped: false,
+    ok: true,
+    channel: 'figma-variables',
     file: meta.name,
     fileKey,
     collection: COLLECTION_NAME,
@@ -268,6 +277,11 @@ async function main() {
   try {
     writeFileSync(join(root, '_audit/ci/figma-push-report.json'), JSON.stringify(report, null, 2) + '\n');
   } catch (_) { /* ignore */ }
+  recordCiVerdict({
+    channel: 'figma-variables',
+    kind: 'success',
+    detail: `create ${createCount}, update ${updateCount}`,
+  });
 
   return report;
 }
@@ -307,11 +321,18 @@ if (invoked) {
         skipped: true,
         reason: 'enterprise_variables_api',
         message: msg,
+        channel: 'figma-variables',
         at: new Date().toISOString(),
       };
       try {
         writeFileSync(join(root, '_audit/ci/figma-push-report.json'), JSON.stringify(report, null, 2) + '\n');
       } catch (_) { /* ignore */ }
+      recordCiVerdict({
+        channel: 'figma-variables',
+        kind: 'soft_skip',
+        reason: 'enterprise_variables_api',
+        detail: msg,
+      });
       process.exit(0);
     }
     if (isSoftSkippableFigmaError(e)) {
@@ -323,11 +344,18 @@ if (invoked) {
         skipped: true,
         reason: 'figma_api_unavailable',
         message: msg,
+        channel: 'figma-variables',
         at: new Date().toISOString(),
       };
       try {
         writeFileSync(join(root, '_audit/ci/figma-push-report.json'), JSON.stringify(report, null, 2) + '\n');
       } catch (_) { /* ignore */ }
+      recordCiVerdict({
+        channel: 'figma-variables',
+        kind: 'soft_skip',
+        reason: 'figma_api_unavailable',
+        detail: msg,
+      });
       process.exit(0);
     }
     process.exit(1);

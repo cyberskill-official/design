@@ -1,6 +1,6 @@
 # Repo ↔ Claude Design — round-trip fidelity & two-way sync
 
-The GitHub repo (`cyberskill-official/design-system`) is the **source of truth**. Claude Design sessions are ephemeral project filesystems — this doc is how they stay in sync without losing work.
+The GitHub repo (`cyberskill-official/design`) is the **source of truth**. Claude Design sessions are ephemeral project filesystems — this doc is how they stay in sync without losing work.
 
 ## Does the repo restore the full system intact?
 

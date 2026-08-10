@@ -19,10 +19,13 @@ CyberSkill grants **CyberSkill** (the company and its product engineering teams 
 
 The package remains **UNLICENSED**. Installing from the npm registry does **not** by itself grant redistribution rights. Redistribution outside the products above — including publishing a fork, re-licensing, or shipping the package as a dependency of an unrelated third-party product — needs a **further written grant** recorded in this file (or a superseding instrument).
 
+**Third-party carve-out:** OFL fonts under `fonts/`, MIT-vendored runtimes under `_vendor/`, and other assets listed in root `THIRD-PARTY-NOTICES.md` keep their **upstream** licenses. The UNLICENSED assertion and this grant do **not** supersede those terms; redistributors must comply with `fonts/OFL.txt` and the notices file.
+
 ## Scope notes
 
 - **Clone / subtree / static link** of this repo for the same products is covered the same way as an npm install.
 - **Host-only tooling** (Storybook, `_audit/`) is not part of the npm tarball and is not redistributable under this grant.
+- **Third-party notices:** see root `THIRD-PARTY-NOTICES.md` and `fonts/OFL.txt`.
 - Adding a new CyberSkill product: update `docs/products.md` (+ VI) via a maintainer decision, then add the product row here in the same change.
 - Approving an **external** team or client: append a dated grant stanza below (team/org, named products, contact). Do not invent product → element mappings here — that stays in `docs/products.md`.
 

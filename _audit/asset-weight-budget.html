@@ -15,11 +15,11 @@
 </style>
 </head><body>
 <h1><b>CyberSkill</b> · Asset-weight budget</h1>
-<p class="sub">Regression budget for the elemental aurora WebPs (<code>assets/aurora-{hoa,thuy,moc,kim}.webp</code>, FIND-016). Each file ≤&nbsp;300&nbsp;KB and the set ≤&nbsp;1.2&nbsp;MB. Legacy aurora PNGs or unexpected aurora WebP names fail. Verdict on <code>window.__assetweight</code>.</p>
+<p class="sub">Regression budget for the elemental aurora WebPs (<code>assets/aurora-{tho,hoa,thuy,moc,kim}.webp</code>, FIND-016 / FIND-058). Each file ≤&nbsp;300&nbsp;KB and the set ≤&nbsp;1.2&nbsp;MB. Legacy aurora PNGs, the heavy Thổ JPEG wash path, or unexpected aurora WebP names fail. Verdict on <code>window.__assetweight</code>.</p>
 <div id="report">running…</div>
 <script>
-/** Post-FIND-016 ceilings: WebP decorative washes (target well under 300 KB each). */
-const AURORA = ['aurora-hoa.webp','aurora-thuy.webp','aurora-moc.webp','aurora-kim.webp'];
+/** Post-FIND-016 / FIND-058 ceilings: WebP decorative washes (target well under 300 KB each). */
+const AURORA = ['aurora-tho.webp','aurora-hoa.webp','aurora-thuy.webp','aurora-moc.webp','aurora-kim.webp'];
 const PER_FILE_MAX = 300_000;   // 300 KB
 const TOTAL_MAX = 1_200_000;     // 1.2 MB for the set
 const out = { steps: [], pass: true, files: {}, total: 0 };
@@ -52,7 +52,7 @@ function fmt(n){ return (n/1024).toFixed(1) + ' KB (' + n + ' B)'; }
   out.total = total;
   step('aurora set total ≤ ' + fmt(TOTAL_MAX), total > 0 && total <= TOTAL_MAX, fmt(total));
 
-  // Fail closed if a legacy/extra aurora PNG remains (converted assets must not reappear as PNG).
+  // Fail closed if a legacy/extra aurora PNG remains, or if the heavy Thổ JPEG is still used as a wash source of truth.
   const EXTRA_PNG = ['aurora-hoa.png','aurora-thuy.png','aurora-moc.png','aurora-kim.png','aurora-tho.png','aurora-gold.png','aurora.png','aurora-wash.png'];
   for (const name of EXTRA_PNG) {
     try {
@@ -67,6 +67,14 @@ function fmt(n){ return (n/1024).toFixed(1) + ' KB (' + n + ' B)'; }
     } catch (e) {
       step('no legacy/unexpected ' + name, true, 'absent');
     }
+  }
+  // FIND-058 — wash CSS must reference aurora-tho.webp, not aurora-gold.jpg.
+  try {
+    const css = await (await fetch('../tokens/elements.css', { cache: 'no-store' })).text();
+    const washOk = /\.cs-aurora-wash\s*\{[^}]*aurora-tho\.webp/.test(css) && !/\.cs-aurora-wash\s*\{[^}]*aurora-gold\.jpg/.test(css);
+    step('.cs-aurora-wash uses aurora-tho.webp', washOk, washOk ? 'ok' : 'still points at JPEG or missing tho webp');
+  } catch (e) {
+    step('.cs-aurora-wash uses aurora-tho.webp', false, String(e).slice(0, 80));
   }
 
   window.__gateProgress = { current: 'done', done: AURORA.length + 1, total: AURORA.length + 1 };

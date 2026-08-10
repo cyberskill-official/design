@@ -84,8 +84,8 @@ for (const m of baseCss.matchAll(/var\(--cs-depth-([a-z]+)\s*,\s*(\d+)\s*\)/g)) 
 }
 assert(fbBad.length === 0, 'depth fallbacks drift: ' + fbBad.join(' | '));
 
-// Aurora asset budget (same ceilings as asset-weight-budget.html) — FIND-016 WebP
-const AURORA = ['aurora-hoa.webp', 'aurora-thuy.webp', 'aurora-moc.webp', 'aurora-kim.webp'];
+// Aurora asset budget (same ceilings as asset-weight-budget.html) — FIND-016 / FIND-058 WebP
+const AURORA = ['aurora-tho.webp', 'aurora-hoa.webp', 'aurora-thuy.webp', 'aurora-moc.webp', 'aurora-kim.webp'];
 const PER_FILE_MAX = 300_000;
 const TOTAL_MAX = 1_200_000;
 let total = 0;
@@ -100,6 +100,14 @@ const extraWebp = readdirSync(assetsDir).filter((f) => /^aurora-.*\.webp$/i.test
 assert(extraWebp.length === 0, 'unexpected aurora WebPs: ' + extraWebp.join(', '));
 const legacyPng = readdirSync(assetsDir).filter((f) => /^aurora-.*\.png$/i.test(f));
 assert(legacyPng.length === 0, 'legacy aurora PNGs must be removed after FIND-016: ' + legacyPng.join(', '));
+assert(
+  /\.cs-aurora-wash\s*\{[^}]*aurora-tho\.webp/.test(elementsCss),
+  '.cs-aurora-wash must use assets/aurora-tho.webp (FIND-058)'
+);
+assert(
+  !/\.cs-aurora-wash\s*\{[^}]*aurora-gold\.jpg/.test(elementsCss),
+  '.cs-aurora-wash must not use aurora-gold.jpg (FIND-058)'
+);
 
 console.log('PASS test-docs-consistency', {
   roles: ROLE_CANON.length,

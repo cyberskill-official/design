@@ -2,7 +2,7 @@
 
 Mọi quality gate deterministic trong hệ thống, nó assert gì, tiêu chí pass, hard hay advisory, và chạy ở đâu.
 
-**Gate chạy ở đâu.** *Fast board CI* = job `fast-gates` trong `.github/workflows/design-system-gates.yml`, serve repo và điều khiển `_audit/run.html` headless qua `_audit/ci/run-gates.mjs` (mọi push/PR + nightly + thủ công) — hàng board mới được nhận tự động. Hai gate thêm chạy standalone như *merge blocker* (job `docs-consistency-blocker`, qua `_audit/ci/run-single-gate.mjs`). *Whole-set CI* = job `whole-set-audits` (mọi push/PR + nightly — quyết định B của owner). *Unit test* = `npm run test:unit` trong job `unit-tests` (Node thuần, không trình duyệt). *Node pre-checks* = job `node-prechecks` (authority không trình duyệt: bundle freshness, DESIGN.md freshness) cộng job `token-provenance`. Mọi browser gate publish verdict global (`window.__*`) mà headless runner đọc.
+**Gate chạy ở đâu.** *Fast board CI* = job `fast-gates` trong `.github/workflows/design-system-gates.yml`, serve repo và điều khiển `_audit/run.html` headless qua `_audit/ci/run-gates.mjs` (mọi push/PR + nightly + thủ công) — hàng board mới được nhận tự động. Hai gate thêm chạy standalone như *merge blocker* (job `docs-consistency-blocker`, qua `_audit/ci/run-single-gate.mjs`). *Whole-set CI* = job `whole-set-audits` (mọi push/PR + nightly — quyết định B của owner). *Unit test* = `npm run test:unit` trong job `unit-tests` (Node thuần, không trình duyệt). *Node pre-checks* = job `node-prechecks` (authority không trình duyệt: bundle freshness, DESIGN.md freshness, styles.min.css + contrast-report freshness, manifest coverage) cộng job `token-provenance`. *Storybook CI* = job `storybook-build` (`build:storybook` + freshness `--require`). Mọi browser gate publish verdict global (`window.__*`) mà headless runner đọc.
 
 ## Fast board — 40 gates trong `_audit/run.html`
 
@@ -14,7 +14,7 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Axes guard | `_audit/axis-guard.html` | Không live source đưa lại bề mặt sản phẩm Expression/Density đã nghỉ | 0 hit trên source index bởi manifest (`__axisguard`) | Hard | Fast board CI |
 | Manifest CSS paths | `_audit/manifest-css-guard.html` | Mọi entry `globalCssPaths` của `_ds_manifest.json` tồn tại như raw CSS; mọi `@import` của `styles.css` được liệt kê | 0 thiếu / 0 chưa liệt kê (`__cssguard`) | Hard | Fast board CI |
 | Docs consistency | `_audit/docs-consistency.html` | Mọi claim đếm trong README/SKILL/llms.txt khớp compiler manifest; claim số card trong prose audit (`_audit/index` / README / namespace-portability) khớp `manifest.cards`; `VERSION` semver và `package.json` khớp (LAUNCH 1.1.0; auto-bump trên main); không tham chiếu changelog-file; blacklist stale-phrase sạch trên README/SKILL/llms + `docs/*.md`; `DESIGN.md` stamp = `VERSION`; routing agent trung thực; doctrine↔source — 10 role accent (gồm `on-strong`), depth scale đủ, default lang `vi`, breakpoint CSS↔JSON, fallback depth trong `base/` | 0 claim lệch + doctrine parity (`__docs`) | Hard | Fast board CI + merge blocker |
-| Asset-weight budget | `_audit/asset-weight-budget.html` | WebP aurora elemental (`assets/aurora-{hoa,thuy,moc,kim}.webp`) dưới trần hồi quy (≤300 KB/file, ≤1.2 MB cả bộ); PNG aurora legacy thì fail | Cả bốn dưới trần (`__assetweight`) | Hard | Fast board CI (+ Node twin `test-docs-consistency.mjs`) |
+| Asset-weight budget | `_audit/asset-weight-budget.html` | WebP aurora elemental (`assets/aurora-{tho,hoa,thuy,moc,kim}.webp`) dưới trần hồi quy (≤300 KB/file, ≤1.2 MB cả bộ); PNG aurora legacy thì fail; CSS wash không được trỏ JPEG Thổ | Cả năm dưới trần (`__assetweight`) | Hard | Fast board CI (+ Node twin `test-docs-consistency.mjs`) |
 | Docs language parity | `_audit/docs-lang-parity.html` | Mọi EN `docs/*.md` hướng operator có counterpart `docs/vi/`; VI không phải stub trống/TODO (≥40% độ dài EN); blacklist stale-phrase sạch trên cả EN và VI (ghi chú lịch sử dưới `_audit/archive/` không được theo dõi) | 0 cặp thiếu, 0 stub, 0 blacklist hit (`__docslangparity`) | Hard | Fast board CI |
 | DESIGN.md parity | `_audit/design-md-parity.html` | Root `DESIGN.md` (open-spec Stitch) byte-equals regeneration trong trình duyệt từ `tokens.dtcg.json` + `_ds_manifest.json` + `VERSION` qua `scripts/design-md-lib.mjs` dùng chung; từng hàng token được re-check riêng (số hàng in kèm verdict) | Byte-identical + 0 hàng drift (`__designmd`) | Hard | Fast board CI |
 | Version stamp | `_audit/version-stamp.html` | `package.json`, meta `tokens.json`/`tokens.js`, DTCG `$extensions`, `provenance.json` release + dtcgStamp, front matter `DESIGN.md`, và `_esm/cs.mjs` `export const VERSION` đều bằng `VERSION` (pin theo file; LAUNCH 1.1.0) | Cả 9 stamp bằng nhau (`__versionstamp`) | Hard | Fast board CI |
@@ -66,8 +66,12 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Token provenance | `_audit/ci/check-token-provenance.mjs` | `tokens/native/` + `tokens/provenance.json` khóa với `tokens/tokens.dtcg.json` (cùng authority drift sha-256 như gate token-pipeline) | Exit 0 khi hash khớp | Hard | CI job `token-provenance` |
 | Bundle freshness (authority) | `_audit/ci/check-bundle-freshness.mjs` | `_ds_bundle.js` đã commit được build từ component source hiện tại — khám phá source đầy đủ (đi `components/`, `ui_kits/`, root sources), nên file mới/xóa cũng bị bắt, hàng trình duyệt không làm được | Exit 0, 0 source drift/mới/xóa | Hard | CI job `node-prechecks` |
 | DESIGN.md freshness | `scripts/generate-design-md.mjs --check` | Root `DESIGN.md` byte-equals regeneration mới từ DTCG + manifest + `VERSION` | Exit 0 khi byte khớp | Hard | CI job `node-prechecks` |
+| styles.min.css freshness | `scripts/flatten-styles.mjs --check` | `dist/styles.min.css` đã commit byte-equals flatten `styles.css` + tokens/base (FIND-026) | Exit 0 khi byte khớp | Hard | CI job `node-prechecks` |
+| contrast-report freshness | `scripts/generate-contrast-report.mjs --check` | Báo cáo contrast EN + VI khớp regeneration từ element packs (FIND-026) | Exit 0 khi byte khớp | Hard | CI job `node-prechecks` |
+| Manifest coverage | `_audit/ci/check-manifest-coverage.mjs` | `templates/` + `.card.html` + startingPoints khớp `_ds_manifest.json` (allowlist: `_vendor`, `schema`, `email-safe`) | Exit 0 | Hard | CI `node-prechecks` + unit |
+| Storybook build + freshness | `npm run build:storybook` + `test-storybook-freshness.mjs --require` | Storybook build trong CI; stamp khớp `stories/` + `.storybook/` (FIND-074 / FIND-075) | Exit 0 | Hard | CI job `storybook-build` |
 
-## Unit tests — `npm run test:unit` (14)
+## Unit tests — `npm run test:unit`
 
 | Test | File | Assert gì | Tiêu chí pass | Loại | Chạy ở đâu |
 |---|---|---|---|---|---|
@@ -83,9 +87,11 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | React entry | `_audit/ci/test-react-entry.mjs` | Dual package exports (`.` / `./react` → `_esm/react.mjs`, `./legacy` → `_esm/cs.mjs`); `package.json` version = `VERSION`; peerDeps React; react.mjs không CDN/bundle bridge và re-export khớp header bundle; `generate-react-entry --check` xanh | Mọi assert pass (exit 0) | Hard | Unit test |
 | Element packs | `_audit/ci/test-element-packs.mjs` | `tokens/elements.css` + mirror JSON/JS/DTCG byte-equal regeneration từ `tokens/element-seeds.json` | `generate-element-packs --check` exit 0 | Hard | Unit test |
 | i18n builtins + doc/font residuals | `_audit/ci/test-i18n-builtins.mjs` | Không literal EN UI cứng ngoài registry; 0 hex doc-palette trong templates; 0 font-size px thô trong `base/` | Exit 0 | Hard | Unit test |
-| Storybook static freshness | `_audit/ci/test-storybook-freshness.mjs` | Khi có `storybook-static/`, `.cs-freshness.json` `sourceHash` khớp `stories/` + `.storybook/` (UX-030). Không có cây static thì bỏ qua. | Exit 0 | Hard | Unit test |
+| Manifest coverage | `_audit/ci/check-manifest-coverage.mjs` | Disk templates/cards/startingPoints ⊆ manifest (`email-safe` allowlist) | Exit 0 | Hard | Unit test |
+| Pack hygiene | `_audit/ci/test-pack-hygiene.mjs` | Tarball loại `docs/tasks|audits|plans|status`; gồm notices + fonts + `_vendor/` (FIND-064) | Exit 0 | Hard | Unit test |
+| CI verdict selftest | `_audit/ci/ci-verdict.mjs --selftest` | Helper annotation soft-skip vs success (FIND-095) | Exit 0 | Hard | Unit test |
 
-Suite `test:unit` được nối vào CI workflow như một phần của hardening Th7 2026 (trước đó chỉ chạy local).
+Suite `test:unit` được nối vào CI workflow như một phần của hardening Th7 2026 (trước đó chỉ chạy local). Storybook freshness chạy trong `storybook-build` với `--require` (không skip trong CI).
 
 ## Audit probe suite — `npm run test:audit-probe`
 
@@ -93,20 +99,20 @@ Entry thúc đẩy cho proxy audit UX (`_audit/ci/audit-probe-suite.mjs`): suite
 
 ## Job sync / phân phối (soft-skip)
 
-Soft-skip nghĩa là job exit 0 kèm report khi secret/plan/API không hoàn tất write thật — **không** có nghĩa Code Connect hay Figma Variables đang live. npm CI publish dùng Trusted Publishing; soft-skip là trung thực auth/conflict. Coi việc maintainer còn lại trong `docs/decisions.md` là danh sách mở (Code Connect hoãn; grant consumer tại `docs/consumer-grant.md`). Storybook `FullMatrix` bắt buộc cho mọi public primary có ≥1 trong {size enums, variant enums, state keys} — helper chung tại `stories/lib/matrix.jsx`.
+Soft-skip nghĩa là job exit 0 kèm report khi secret/plan/API không hoàn tất write thật — **không** có nghĩa Code Connect hay Figma Variables đang live. Soft-skip ghi `$GITHUB_STEP_SUMMARY` và annotation CI riêng (`::error::` trên schedule/main, `::warning::` nơi khác) nên không bao giờ xanh im lặng giống live success (FIND-095). npm CI publish dùng Trusted Publishing; soft-skip chỉ **already-published** và `missing_secrets` thật sự ngoài GHA — auth/404/402 trên GHA release fail closed (xem `docs/release-runbook.md`). Coi việc maintainer còn lại trong `docs/decisions.md` là danh sách mở (Code Connect hoãn; grant consumer tại `docs/consumer-grant.md`). Storybook `FullMatrix` bắt buộc cho mọi public primary có ≥1 trong {size enums, variant enums, state keys} — helper chung tại `stories/lib/matrix.jsx`.
 
 | Job | Script / workflow | Assert gì | Soft-skip khi | Chạy ở đâu |
 |---|---|---|---|---|
 | Figma Variables | `_audit/ci/push-figma-variables.mjs` + job `figma-variables-push` | Secret mở được file; write Variables tùy chọn | Soft-skip khi thiếu secret (cùng trung thực với Code Connect) hoặc non-Enterprise / thiếu scope `file_variables:*` / API **403** sau khi secret đã có. Soft-skip ≠ sync live | Push `main` + thủ công |
 | Code Connect | `_audit/ci/code-connect-publish.mjs` + job `code-connect` | Config + 105 mapping; publish tùy chọn | Thiếu `FIGMA_TOKEN`/`FIGMA_FILE_KEY` hoặc API 403/404/429 | PR + `main` + thủ công |
-| npm publish | `_audit/ci/npm-publish.mjs` + `npm-publish.yml` | `files`/`exports` pack-safe; `npm publish` qua OIDC Trusted Publishing (package disallow tokens); sau publish `npm view` xác nhận | Soft-skip: `missing_secrets` / already-published / fork thiếu auth. **Fail:** 403 / EOTP / thiếu trên registry | `workflow_dispatch` / tag `v*` |
+| npm publish | `_audit/ci/npm-publish.mjs` + `npm-publish.yml` | `files`/`exports` pack-safe (gồm `_vendor/`); `npm publish` qua OIDC Trusted Publishing (package disallow tokens); sau publish `npm view` version **và** `dist-tags.latest === VERSION` (FIND-094) | Soft-skip: `already_published` / `missing_secrets` ngoài GHA. **Fail trên GHA release:** ENEEDAUTH / 404 / 402 / 403 / EOTP / thiếu trên registry hoặc `latest` sai | `workflow_dispatch` / tag `v*` |
 | Native store | `_audit/ci/native-store-dry-run.mjs` + `native-store.yml` | Scaffold Fastlane + metadata; kiểm secret signed-release | Thiếu `ASC_*` / `PLAY_SERVICE_ACCOUNT_JSON` (submit luôn tắt) | PR + `main` (paths) + thủ công |
 
-## Registry consumer smoke (hard)
+## Registry consumer smoke (fail-closed)
 
 | Job | Script / workflow | Assert gì | Tiêu chí pass | Chạy ở đâu |
 |---|---|---|---|---|
-| npm-hello smoke | `examples/npm-hello` + job `npm-hello-smoke` | Install registry public `@cyberskill/design@VERSION` resolve đúng tên package + exports (`npm install` + `npm run smoke`; pack proof local nếu VERSION chưa trên registry) | Exit 0 (**hard fail** khi đã publish; soft-skip pack proof nếu VERSION chưa trên registry) | Push/PR path-filtered + nightly + thủ công |
+| npm-hello smoke | `examples/npm-hello` + job `npm-hello-smoke` | Install registry public `@cyberskill/design@$VERSION` resolve đúng tên package + exports (`npm install` + `npm run smoke`) | Exit 0 chỉ khi VERSION có trên registry (**fail-closed**, FIND-087). Pack proof local chỉ khi fork đặt `NPM_HELLO_ALLOW_LOCAL_PACK=true` | Push/PR path-filtered + nightly + thủ công |
 
 ## Hardening Th7 2026 — đã giao
 

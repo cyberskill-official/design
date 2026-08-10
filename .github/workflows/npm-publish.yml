@@ -2,8 +2,9 @@
 #
 # Triggers: workflow_dispatch, or push of version tags (v*).
 # Requires npm Trusted Publisher on @cyberskill/design for workflow file npm-publish.yml
-# (org cyberskill-official / repo design-system). Soft-skip expected no-ops only;
-# 403/EOTP fail closed; post-publish npm view verifies registry presence.
+# (org cyberskill-official / repo design). Soft-skip only already_published + non-GHA
+# missing_secrets; ENEEDAUTH/404/402/403/EOTP fail closed on tag/workflow_dispatch;
+# post-publish npm view verifies version + dist-tags.latest.
 # Package Publishing access: Require 2FA and disallow tokens (OIDC exempt).
 # VERSION is auto-bumped on main (version.yml) and tagged v*; this workflow
 # publishes that tag via npm Trusted Publishing. License remains UNLICENSED.
@@ -21,29 +22,41 @@ permissions:
   contents: read
   id-token: write # OIDC for npm Trusted Publishing
 
+# FIND-089 — never cancel an in-flight release publish.
+concurrency:
+  group: npm-publish-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
           # Do not cache for release publishes (npm Trusted Publishing guidance)
-          cache: npm
-      - name: Ensure npm CLI supports Trusted Publishing
-        run: npm install -g npm@latest
       - name: Install npm dependencies
         run: npm ci
       - name: Pack dry-run (always)
         run: node _audit/ci/npm-publish.mjs --dry-run
       - name: Publish to npm (OIDC Trusted Publishing)
         # Do not set NODE_AUTH_TOKEN / NPM_TOKEN — package disallows tokens; OIDC only.
+        # FIND-095 — soft-skip vs success written to GITHUB_STEP_SUMMARY + annotations.
         run: node _audit/ci/npm-publish.mjs
+      - name: Soft-skip honesty annotation (FIND-095)
+        if: always()
+        run: |
+          if [ -f _audit/ci/npm-publish-report.json ]; then
+            node _audit/ci/ci-verdict.mjs --assert-report _audit/ci/npm-publish-report.json
+          fi
       - name: Upload npm-publish report
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7
         with:
           name: npm-publish-report
           path: _audit/ci/npm-publish-report.json

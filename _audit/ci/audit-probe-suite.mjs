@@ -22,7 +22,7 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "../..");
 
 const PROXIES = [
-  { id: "unit", cmd: ["npm", "run", "test:unit"], note: "13 Node unit gates incl. i18n + storybook freshness" },
+  { id: "unit", cmd: ["npm", "run", "test:unit"], note: "Node unit gates incl. i18n + manifest coverage + pack hygiene" },
   { id: "zoom-spacing", file: "_audit/zoom-text-spacing.html", global: "__zoomspacing", note: "200%/400% zoom proxy + WCAG 1.4.12 spacing" },
   { id: "light-contrast", file: "_audit/light-contrast.html", global: "__lightcontrast", note: "Light DOM contrast walk × templates" },
   { id: "overflow-320", file: "_audit/responsive-overflow-320.html", global: "__overflow320", note: "Whole-set 320 reflow" },
