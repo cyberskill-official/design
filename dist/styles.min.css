@@ -1114,6 +1114,7 @@ align-items: center; display: flex; flex-wrap: wrap; gap: 0.75rem; justify-conte
 }
 
 .cs-table-wrap { overflow: auto; }
+.cs-table-wrap--status { padding: var(--cs-space-4, 16px) 0; }
 .cs-table { border-collapse: collapse; color: var(--cs-color-text-primary, #45210e); inline-size: 100%; }
 .cs-table th, .cs-table td {
 border-block-end: 1px solid rgba(69, 33, 14, 0.18);

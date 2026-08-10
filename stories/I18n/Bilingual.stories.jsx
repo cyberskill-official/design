@@ -77,24 +77,44 @@ export const FileUploadPair = {
 };
 
 export const DataTablePair = {
-  name: 'DataTable (empty state)',
+  name: 'DataTable (async triad)',
   render: () => (
     <div>
-      <Intro component="DataTable" strings={<Mono>empty</Mono>} />
+      <Intro component="DataTable" strings={<Mono>empty · loading · error · errorHint</Mono>} />
       <p className="cs-caption" style={{ maxWidth: '72ch', margin: '0 0 12px' }}>
-        Column headers are consumer content (localized per column here); the empty-state
-        row is built-in chrome and flips automatically.
+        Column headers are consumer content; empty / loading / error chrome is built-in and flips with lang.
       </p>
       <Pair>
         {(lang) => (
-          <DataTable
-            caption={lang === 'vi' ? 'Quý 3' : 'Q3'}
-            columns={[
-              { key: 'name', header: lang === 'vi' ? 'Tên' : 'Name' },
-              { key: 'status', header: lang === 'vi' ? 'Trạng thái' : 'Status' },
-            ]}
-            rows={[]}
-          />
+          <div style={{ display: 'grid', gap: 16 }}>
+            <DataTable
+              caption={lang === 'vi' ? 'Quý 3' : 'Q3'}
+              columns={[
+                { key: 'name', header: lang === 'vi' ? 'Tên' : 'Name' },
+                { key: 'status', header: lang === 'vi' ? 'Trạng thái' : 'Status' },
+              ]}
+              rows={[]}
+            />
+            <DataTable
+              caption={lang === 'vi' ? 'Đang tải' : 'Loading'}
+              columns={[
+                { key: 'name', header: lang === 'vi' ? 'Tên' : 'Name' },
+                { key: 'status', header: lang === 'vi' ? 'Trạng thái' : 'Status' },
+              ]}
+              rows={[]}
+              state="loading"
+              loadingRows={2}
+            />
+            <DataTable
+              caption={lang === 'vi' ? 'Lỗi' : 'Error'}
+              columns={[
+                { key: 'name', header: lang === 'vi' ? 'Tên' : 'Name' },
+                { key: 'status', header: lang === 'vi' ? 'Trạng thái' : 'Status' },
+              ]}
+              rows={[]}
+              state="error"
+            />
+          </div>
         )}
       </Pair>
     </div>

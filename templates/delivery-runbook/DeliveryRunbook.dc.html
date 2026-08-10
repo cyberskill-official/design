@@ -65,7 +65,7 @@ class Component extends DCLogic {
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
 const vn = this.props.language === "Tiếng Việt";
     const en = {
-      eyebrow:"Handover · SOW-2026-014", h1:"Checkout & ops console — run it yourself", altTitle:"Sổ tay vận hành & bàn giao",
+      eyebrow:"Handover · SOW-2026-014", h1:"Checkout & ops console — run it yourself", altTitle:"Operations runbook & handover",
       intro:"Everything your team needs to own the system: what it is, where it runs, how to deploy, what watches it, and who to call. Built to last means you don't need us — and we're one message away if you do.",
       ovH:"System overview", ovP1:"Next.js storefront checkout (behind flag ", ovP2:") → pricing service (cache TTL 300s) → payment provider. Ops console reads the orders API with support-role auth. Recovery emails run on a nightly job.",
       envH:"Environments", thEnv:"Env", thFrom:"Deploys from", envProd:"Production", envProdFrom:"main · tagged release", envStg:"Staging", envStgFrom:"main · every merge", envSb:"Support sandbox", envSbFrom:"weekly snapshot",
@@ -75,7 +75,7 @@ const vn = this.props.language === "Tiếng Việt";
       contactsL:"Contacts", contactsBody:"Your on-call rota (primary) · CyberSkill: minh@cyberskill.world · escalation: vu@cyberskill.world · we reply within one business day",
       handedBy:"Handed over — CyberSkill Co., Ltd", acceptedBy:"Accepted — [Client Ltd]", sigMeta:"Name / title / date"};
     const vi = {
-      eyebrow:"Bàn giao · SOW-2026-014", h1:"Thanh toán & ops console — tự vận hành", altTitle:"Runbook & handover",
+      eyebrow:"Bàn giao · SOW-2026-014", h1:"Thanh toán & ops console — tự vận hành", altTitle:"Sổ tay vận hành & bàn giao",
       intro:"Tất cả những gì đội bạn cần để làm chủ hệ thống: nó là gì, chạy ở đâu, triển khai thế nào, ai giám sát, và gọi ai. Làm để bền lâu nghĩa là bạn không cần đến chúng tôi — và chúng tôi luôn cách một tin nhắn nếu cần.",
       ovH:"Tổng quan hệ thống", ovP1:"Trang thanh toán Next.js (sau cờ ", ovP2:") → dịch vụ định giá (cache TTL 300s) → nhà cung cấp thanh toán. Ops console đọc API đơn hàng với quyền support. Email khôi phục chạy theo tác vụ hằng đêm.",
       envH:"Môi trường", thEnv:"Môi trường", thFrom:"Triển khai từ", envProd:"Production", envProdFrom:"main · bản gắn thẻ", envStg:"Staging", envStgFrom:"main · mỗi lần merge", envSb:"Sandbox hỗ trợ", envSbFrom:"ảnh chụp hằng tuần",

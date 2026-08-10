@@ -52,7 +52,7 @@ Pack Style duy nhất hiện nay là **liquid-glass**. Bất biến dưới mọ
 
 - **Mặt chữ display là một token role, không phải mặc định thứ hai (Th7 2026).** `--cs-font-family-display` ship Space Grotesk (variable 300–700, có subset tiếng Việt) self-host cạnh Be Vietnam Pro và JetBrains Mono, để sản phẩm có mặt chữ tiêu đề — `cyberskill.world` / Lumi — tiêu thụ một role của DS thay vì tự nuôi `@font-face` ngoại lệ riêng. **Không thứ gì trong DS trỏ vào nó**: `--cs-heading-family` vẫn resolve về `--cs-font-family-ui`, mọi template và UI kit không đổi, và một scope chọn dùng qua `.cs-display-face` (`base/typography.css`) — chỉ chuyển `--cs-heading-family`, body copy vẫn ở mặt chữ UI. Space Grotesk không có 800, nên heading weight extrabold clamp về 700 trong family đó (CSS không nhảy sang Be Vietnam Pro vì thiếu weight). Thêm một họ chữ nghĩa là thêm face vào `tokens/fonts.css` **và** file vào `fonts/` **và** entry vào `fonts[]`/`brandFonts[]` của `_ds_manifest.json` — `_audit/font-face-integrity.html` fail nếu một trong ba lệch, và fail nếu family nào thiếu subset tiếng Việt. Điều này không đổi mapping sản phẩm → element nào; `docs/products.md` vẫn khóa.
 
-- Biến thể ngôn ngữ render **tách hoàn toàn**: đổi Language tweak cho artifact một ngôn ngữ đầy đủ — không dịch dở trong heading, label, helper text, footer, hoặc body. Phần bilingual-by-design duy nhất là lockup tên + slogan CyberSkill (`Hiện Thực Hoá Ý Chí · Turn Your Will Into Real`, dạng chuẩn — không bao giờ một nửa lẻ) và khối identity pháp lý A4 (tên pháp lý công ty + khẩu hiệu nhà nước). Mọi thứ khác đổi theo tweak (Th7 2026).
+- Biến thể ngôn ngữ render **tách hoàn toàn**: đổi Language tweak cho artifact một ngôn ngữ đầy đủ — không dịch dở trong heading, label, helper text, footer, hoặc body. Phần bilingual-by-design duy nhất là lockup tên + slogan CyberSkill (`Hiện Thực Hoá Ý Chí · Turn Your Will Into Real`, dạng chuẩn — không bao giờ một nửa lẻ) và khối identity pháp lý A4 (tên pháp lý công ty + khẩu hiệu nhà nước). Mọi thứ khác đổi theo tweak — gồm skip link và eyebrow loại tài liệu (FIND-125). Chuỗi catalog `<title>` / `@template name` giữ tiếng Anh cho chỉ mục template, không phải chrome chế độ ngôn ngữ; `_audit/template-lang-parity.html` che chúng khi quét lexicon rò EN (Th7 2026; follow-up FIND-125).
 
 - **Namespace được resolve, không hardcode** — compiler đặt tên bundle global `window.CyberSkillDesignSystem_<projectId>`, và hậu tố 6-hex dẫn từ project id, nên đổi khi hệ thống import vào project khác. Templates đọc alias ổn định `window.CyberSkillDS` mà `ds-base.js` publish lúc bundle load; cards, trang UI-kit, email standalone, và audit harness resolve theo prefix (`window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))]`). `_ds_bundle.js`/`_ds_manifest.json` và snapshot đóng băng `_audit/exports/` hợp pháp mang hậu tố thật (chúng *định nghĩa* nó). Enforce bởi `_audit/namespace-portability.html`, quét mọi source index bởi manifest — giữ re-import **zero-touch** (Th7 2026).
 
@@ -69,6 +69,19 @@ Mọi template export; đường đúng phụ thuộc archetype. Mọi đường
 | Bất kỳ | **Editor-native + Claude Code handoff** | Cả project sẵn sàng handoff-dev (compiled bundle + `.d.ts` + `prompt.md` mỗi component); generate package theo request qua handoff skill. |
 
 **Hành vi font lúc export.** Font brand self-host (`Be Vietnam Pro` UI, `Space Grotesk` display opt-in, mono). PPTX giữ **tên** font brand nhưng không embed file — trên máy không có chúng PowerPoint thay fallback (text Unicode VN được giữ; shape có thể reflow nhẹ). Để hand-off tự chứa đầy đủ, hoặc bảo người nhận cài font, hoặc export với swap web-safe (`fontSwaps:[{from:'Be Vietnam Pro',to:'Arial'}]` — Arial phủ tiếng Việt). Standalone HTML **embed** font (`@font-face` inline từ `styles.css`), nên luôn trung thành offline (Th7 2026).
+
+## Trạng thái dữ liệu bất đồng bộ (FIND-020 — pattern mỏng)
+
+Bề mặt collection sở hữu một fetch phải phân biệt **loading · error · empty · idle-có-dữ-liệu**. Không render thông báo trống trong lúc request đang chạy.
+
+| Trạng thái | Ghép | Ghi chú |
+|---|---|---|
+| **loading** | `Skeleton` (hàng bảng / dòng) + chuỗi status lịch sự | `aria-busy` trên vùng; giữ header cột khi có thể |
+| **error** | `Result status="error"` (hoặc `errorState` tùy chỉnh) | `role="alert"`; host cung cấp thử lại |
+| **empty** | `emptyState` / `EmptyState` | Chỉ sau phản hồi idle thành công với zero rows |
+| **idle** | Các hàng bình thường | Mặc định — bỏ `state` cho specimen tĩnh |
+
+**API tham chiếu:** `DataTable` nhận `state?: "idle" \| "loading" \| "error"` cùng `loadingState` / `errorState` / `loadingRows` tùy chọn. Các component collection khác (`DataGrid`, `TreeTable`, …) nên theo cùng triad khi có async ownership — không invent API loading song song từng bề mặt. Tác vụ dài không dạng bảng vẫn dùng `Spinner` (`role="status"`) hoặc `ProgressBar` với `aria-label` thật; ghép `Skeleton` trang trí (`aria-hidden`) với chuỗi status live.
 
 ## Accessibility (base/a11y.css + component ARIA)
 
