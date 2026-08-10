@@ -17,8 +17,8 @@ export const strings = {
     vi: { label: "Đường dẫn" },
   },
   CommandPalette: {
-    en: { placeholder: "Type a command or search…", empty: "No results found", aria: "Command palette", esc: "Esc" },
-    vi: { placeholder: "Nhập lệnh hoặc tìm kiếm…", empty: "Không tìm thấy kết quả", aria: "Bảng lệnh", esc: "Esc" },
+    en: { placeholder: "Type a command or search…", empty: "No results", aria: "Command palette", esc: "Esc" },
+    vi: { placeholder: "Nhập lệnh hoặc tìm kiếm…", empty: "Không có kết quả", aria: "Bảng lệnh", esc: "Esc" },
   },
   SearchField: {
     en: { placeholder: "Search…", clear: "Clear search" },
@@ -41,12 +41,12 @@ export const strings = {
     vi: { confirm: "Xác nhận", cancel: "Hủy" },
   },
   Drawer: {
-    en: { close: "Close", panel: "Panel" },
-    vi: { close: "Đóng", panel: "Bảng" },
+    en: { close: "Close", panel: "Side panel" },
+    vi: { close: "Đóng", panel: "Bảng bên" },
   },
   DataTable: {
-    en: { empty: "No records" },
-    vi: { empty: "Không có bản ghi" },
+    en: { empty: "No results" },
+    vi: { empty: "Không có kết quả" },
   },
   ConfidenceMeter: {
     en: { label: "Confidence", low: "Low", medium: "Medium", high: "High" },
@@ -58,10 +58,10 @@ export const strings = {
   },
   Tag: {
     en: { remove: "Remove" },
-    vi: { remove: "Gỡ bỏ" },
+    vi: { remove: "Gỡ" },
   },
   Toast: {
-    en: { notifications: "Notifications", dismiss: "Dismiss" },
+    en: { notifications: "Notifications", dismiss: "Close" },
     vi: { notifications: "Thông báo", dismiss: "Đóng" },
   },
   TypingIndicator: {
@@ -73,12 +73,12 @@ export const strings = {
     vi: { toolbar: "Định dạng", bold: "Đậm", italic: "Nghiêng", list: "Danh sách", area: "Văn bản" },
   },
   Terminal: {
-    en: { input: "Terminal input" },
-    vi: { input: "Ô nhập lệnh" },
+    en: { input: "Terminal input", title: "cyberskill — zsh" },
+    vi: { input: "Ô nhập lệnh", title: "cyberskill — zsh" },
   },
   DataGrid: {
-    en: { empty: "No records", selectAll: "Select all rows", selectRow: "Select row", pin: "Pin this column", pinNamed: "Pin column {name}" },
-    vi: { empty: "Không có bản ghi", selectAll: "Chọn tất cả", selectRow: "Chọn dòng", pin: "Ghim cột này", pinNamed: "Ghim cột {name}" },
+    en: { empty: "No results", selectAll: "Select all rows", selectRow: "Select row", pin: "Pin this column", pinNamed: "Pin column {name}" },
+    vi: { empty: "Không có kết quả", selectAll: "Chọn tất cả", selectRow: "Chọn dòng", pin: "Ghim cột này", pinNamed: "Ghim cột {name}" },
   },
   Splitter: {
     en: { label: "Resize panes" },
@@ -117,8 +117,8 @@ export const strings = {
     vi: { moveUp: "Di chuyển lên", moveDown: "Di chuyển xuống" },
   },
   Form: {
-    en: { summary: "Please fix the following:", required: "required", requiredField: "This field is required" },
-    vi: { summary: "Vui lòng sửa các mục sau:", required: "bắt buộc", requiredField: "Trường này là bắt buộc" },
+    en: { summary: "Please fix the following:", required: "required", requiredField: "Enter a value" },
+    vi: { summary: "Vui lòng sửa các mục sau:", required: "bắt buộc", requiredField: "Vui lòng nhập giá trị" },
   },
   BackTop: {
     en: { label: "Back to top" },
@@ -126,7 +126,7 @@ export const strings = {
   },
   Carousel: {
     en: { prev: "Previous slide", next: "Next slide", slide: "Slide" },
-    vi: { prev: "Trang trước", next: "Trang sau", slide: "Trang" },
+    vi: { prev: "Ảnh trước", next: "Ảnh sau", slide: "Ảnh" },
   },
   Comment: {
     en: { reply: "Reply" },
@@ -141,12 +141,12 @@ export const strings = {
     vi: { more: "Thao tác khác" },
   },
   Popconfirm: {
-    en: { ok: "OK", cancel: "Cancel" },
-    vi: { ok: "Đồng ý", cancel: "Hủy" },
+    en: { ok: "Confirm", cancel: "Cancel" },
+    vi: { ok: "Xác nhận", cancel: "Hủy" },
   },
   Result: {
-    en: { success: "Done", error: "Something went wrong", warning: "Please check", info: "For your information" },
-    vi: { success: "Hoàn tất", error: "Đã có lỗi xảy ra", warning: "Vui lòng kiểm tra", info: "Thông tin" },
+    en: { success: "Done", error: "We couldn't complete that", warning: "Please check", info: "Here's what happened" },
+    vi: { success: "Hoàn tất", error: "Chúng tôi chưa hoàn tất được", warning: "Vui lòng kiểm tra", info: "Đây là điều đã xảy ra" },
   },
   InlineEdit: {
     en: { edit: "Edit", empty: "Add text" },
@@ -165,8 +165,8 @@ export const strings = {
     vi: { label: "Giờ" },
   },
   Combobox: {
-    en: { placeholder: "Select or type…", empty: "No matches" },
-    vi: { placeholder: "Chọn hoặc nhập…", empty: "Không có kết quả phù hợp" },
+    en: { placeholder: "Select or type…", empty: "No results" },
+    vi: { placeholder: "Chọn hoặc nhập…", empty: "Không có kết quả" },
   },
   InputGroup: {
     en: { clear: "Clear", show: "Show password", hide: "Hide password", input: "Input" },
@@ -202,11 +202,11 @@ export const strings = {
     vi: { list: "Tab" },
   },
   EmptyState: {
-    en: { title: "Nothing here yet", action: "Get started" },
-    vi: { title: "Chưa có gì ở đây", action: "Bắt đầu" },
+    en: { title: "Nothing here yet", action: "Create your first item" },
+    vi: { title: "Chưa có gì ở đây", action: "Tạo mục đầu tiên" },
   },
   Alert: {
-    en: { dismiss: "Dismiss" },
+    en: { dismiss: "Close" },
     vi: { dismiss: "Đóng" },
   },
   Select: {
@@ -240,5 +240,9 @@ export const strings = {
   ProgressBar: {
     en: { label: "Progress" },
     vi: { label: "Tiến độ" },
+  },
+  ChatMessage: {
+    en: { you: "You" },
+    vi: { you: "Bạn" },
   },
 };

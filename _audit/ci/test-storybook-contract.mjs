@@ -38,6 +38,8 @@ assert(preview.includes('styles.css'), 'imports styles.css');
 assert(preview.includes('data-theme') && preview.includes('data-cs-element') && preview.includes('lang'), 'axes globals');
 assert(preview.includes('data-cs-variant'), 'decorator wires data-cs-variant');
 assert(preview.includes('data-cs-style'), 'decorator wires data-cs-style');
+assert(/language:[\s\S]*?defaultValue:\s*['"]vi['"]/.test(preview), 'Language toolbar defaults to vi (FIND-010)');
+assert(preview.includes("globals.language || 'vi'") || preview.includes('globals.language || "vi"'), 'decorator language fallback is vi');
 assert(/style:\s*\{/.test(preview) && preview.includes("value: 'liquid-glass'"), 'Style toolbar includes liquid-glass');
 const styleToolbarBlock = preview.match(/style:\s*\{[\s\S]*?toolbar:\s*\{[\s\S]*?items:\s*\[([\s\S]*?)\]/);
 assert(styleToolbarBlock, 'Style toolbar items array present');

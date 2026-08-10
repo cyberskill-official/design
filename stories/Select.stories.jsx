@@ -6,6 +6,8 @@ export default {
   component: Select,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
     label: { control: 'text' },
     description: { control: 'text' },
     error: { control: 'text' },
@@ -20,7 +22,7 @@ export default {
       },
     },
   },
-  args: { label: 'Element', options: [{ value: 'tho', label: 'Thổ' }, { value: 'hoa', label: 'Hỏa' }], defaultValue: 'tho' },
+  args: { lang: 'vi', label: 'Element', options: [{ value: 'tho', label: 'Thổ' }, { value: 'hoa', label: 'Hỏa' }], defaultValue: 'tho' },
 };
 
 export const Default = {};

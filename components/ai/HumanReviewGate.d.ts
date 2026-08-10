@@ -12,6 +12,8 @@ export interface HumanReviewGateProps {
   reviewer?: ReactNode;
   approveLabel?: string;
   rejectLabel?: string;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
   onApprove?: () => void;
   onReject?: () => void;

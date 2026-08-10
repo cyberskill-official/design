@@ -14,6 +14,8 @@ export interface CommandPaletteProps {
   onClose?: () => void;
   placeholder?: string;
   groups: CommandGroup[];
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 export function CommandPalette(props: CommandPaletteProps): React.ReactElement | null;

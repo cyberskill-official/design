@@ -55,6 +55,7 @@ export function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, 
   const [values, setValues] = React.useState(() => initialValues || {});
   const [ruleErrors, setRuleErrors] = React.useState({});
   const [pending, setPending] = React.useState(false);
+  const pendingRef = React.useRef(false);
   const setValue = React.useCallback((name, v) => {
     setValues((s) => (String(name).includes(".") ? setPath(s, name, v) : { ...s, [name]: v }));
     setRuleErrors((e) => (e[name] ? { ...e, [name]: undefined } : e));
@@ -96,20 +97,27 @@ export function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, 
   return (
     <Ctx.Provider value={ctx}>
       <form {...props} ref={ref} className={cx("cs-form", pending && "is-pending", className)} noValidate
+        aria-busy={pending || undefined}
         onSubmit={async (e) => {
           e.preventDefault();
+          // FIND-015 / FIND-044 — lock re-entry while async validation / submit runs.
+          if (pendingRef.current) return;
           const fd = new FormData(e.currentTarget);
           const v = {}; fd.forEach((val, k) => { v[k] = val; });
           Object.assign(v, values); // controller-registered fields are the source of truth
           const errs = runRules(v);
           if (Object.keys(errs).some((k) => errs[k])) { setRuleErrors(errs); return; }
+          pendingRef.current = true;
           setPending(true);
           try {
             const aerrs = await runAsyncRules(v);
             setRuleErrors(aerrs);
             if (Object.keys(aerrs).some((k) => aerrs[k])) return;
             onSubmit && onSubmit(v);
-          } finally { setPending(false); }
+          } finally {
+            pendingRef.current = false;
+            setPending(false);
+          }
         }}>
         {keys.length ? (
           <div className="cs-form__summary" role="alert">

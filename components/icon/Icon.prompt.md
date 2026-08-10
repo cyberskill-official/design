@@ -5,4 +5,4 @@
 <Icon name="sparkle" size="lg" label="Wish" /> {/* meaningful */}
 ```
 
-Set: `close · sun · moon · arrow-right · check · sparkle · chat · sound-on · sound-off` + v2.0 extension `search · sliders · upload · download · calendar · user · plus · trash · external · menu` + v2.13 `chevron-down/up/left/right · edit · copy · info · alert-triangle` (same grammar). `sparkle` is the brand's "wish" glyph. Colour follows the surrounding text token — set `color` on a parent to recolour.
+Set: `close · sun · moon · arrow-right · check · sparkle · chat · sound-on · sound-off` + v2.0 extension `search · sliders · upload · download · calendar · user · plus · trash · external · menu` + v2.13 `chevron-down/up/left/right · edit · copy · info · alert-triangle · pin` (same grammar). `sparkle` is the brand's "wish" glyph. Colour follows the surrounding text token — set `color` on a parent to recolour.

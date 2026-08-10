@@ -8,6 +8,8 @@ export default {
   component: ProgressBar,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
     value: {
       control: 'number',
     },
@@ -30,7 +32,7 @@ export default {
       },
     },
   },
-  args: { value: 45, label: 'Build progress' },
+  args: { lang: 'vi', value: 45, label: 'Build progress' },
 };
 
 export const Default = {};

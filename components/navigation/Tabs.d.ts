@@ -11,6 +11,8 @@ export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "o
   tabs: TabItem[];
   value?: string;
   onChange?: (value: string) => void;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
 }
 export function Tabs(props: TabsProps): React.ReactElement;
 

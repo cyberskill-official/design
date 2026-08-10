@@ -15,6 +15,8 @@ export interface PromptInputProps {
   hint?: ReactNode;
   disabled?: boolean;
   busy?: boolean;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 

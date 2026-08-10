@@ -5,6 +5,8 @@ export default {
   component: ContextMenu,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "items": {
     "control": "object"
   }

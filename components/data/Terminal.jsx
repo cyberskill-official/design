@@ -3,11 +3,12 @@ import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Terminal — command console: history + prompt input; onCommand returns output (string or lines). */
-export function Terminal({ title = "cyberskill — zsh", welcome, onCommand, prompt = "➜", lang, className }) {
+export function Terminal({ title, welcome, onCommand, prompt = "➜", lang, className }) {
   const [hist, setHist] = React.useState(() => (welcome ? [{ out: welcome }] : []));
   const [q, setQ] = React.useState("");
   const [ref, L] = useLang(lang);
   const t = makeT("Terminal", L);
+  const barTitle = title ?? t("title");
   const run = () => {
     if (!q.trim()) return;
     const res = onCommand ? onCommand(q.trim()) : "";
@@ -16,7 +17,7 @@ export function Terminal({ title = "cyberskill — zsh", welcome, onCommand, pro
   };
   return (
     <div ref={ref} className={cx("cs-terminal", className)}>
-      <div className="cs-terminal__bar"><i /><i /><i /><span>{title}</span></div>
+      <div className="cs-terminal__bar"><i /><i /><i /><span>{barTitle}</span></div>
       <div className="cs-terminal__body">
         {hist.map((l, i) => l.cmd != null
           ? <div key={i} className="cs-terminal__line"><span className="p">{prompt}</span> {l.cmd}</div>

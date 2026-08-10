@@ -19,6 +19,8 @@ export interface DataTableProps<Row extends Record<string, unknown>> {
   /** Field used as React key. Default "id". */
   rowKey?: keyof Row & string;
   emptyState?: ReactNode;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 

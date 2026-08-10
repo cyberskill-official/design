@@ -5,6 +5,8 @@ export default {
   component: ConfidenceMeter,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "value": {
     "control": "number"
   },
@@ -30,7 +32,7 @@ export default {
       },
     },
   },
-  args: { value: 0.82, label: 'Confidence' },
+  args: { lang: 'vi', value: 0.82, label: 'Confidence' },
 };
 
 export const Default = {};

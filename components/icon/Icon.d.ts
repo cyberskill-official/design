@@ -6,7 +6,7 @@ export type IconName =
   | "search" | "sliders" | "upload" | "download" | "calendar"
   | "user" | "plus" | "trash" | "external" | "menu"
   | "chevron-down" | "chevron-up" | "chevron-left" | "chevron-right"
-  | "edit" | "copy" | "info" | "alert-triangle";
+  | "edit" | "copy" | "info" | "alert-triangle" | "pin";
 
 /**
  * CyberSkill line-icon renderer. One component drives the whole in-repo icon set

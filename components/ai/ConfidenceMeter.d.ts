@@ -11,6 +11,8 @@ export interface ConfidenceMeterProps {
   level?: "low" | "medium" | "high";
   segments?: number;
   label?: ReactNode;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 

@@ -5,6 +5,8 @@ export default {
   component: Steps,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "steps": {
     "control": "object"
   },
@@ -19,7 +21,7 @@ export default {
       },
     },
   },
-  args: { current: 1, steps: [{ title: 'Capture' }, { title: 'Build' }, { title: 'Ship' }] },
+  args: { lang: 'vi', current: 1, steps: [{ title: 'Capture' }, { title: 'Build' }, { title: 'Ship' }] },
 };
 
 export const Default = {};

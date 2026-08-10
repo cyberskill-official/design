@@ -8,6 +8,8 @@ export interface EmptyStateProps {
   title?: ReactNode;
   children?: ReactNode;
   actions?: ReactNode;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 export function EmptyState(props: EmptyStateProps): React.ReactElement;

@@ -11,7 +11,8 @@ export function Cascader({ nodes = [], value = [], onChange, placeholder, label,
   const [ref, L] = useLang(lang);
   const t = makeT("Cascader", L);
   const ph = placeholder != null ? placeholder : t("placeholder");
-  React.useEffect(() => { setPath(value); }, [open]);
+  // Controlled value must re-sync even when the popover stays closed (FIND-014).
+  React.useEffect(() => { setPath(value); }, [value]);
   React.useEffect(() => {
     if (!open) return;
     const d = (e) => { if (wrap.current && !wrap.current.contains(e.target)) setOpen(false); };

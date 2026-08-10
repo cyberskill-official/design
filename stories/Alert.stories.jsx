@@ -6,6 +6,8 @@ export default {
   component: Alert,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "variant": {
     "control": "select",
     "options": [
@@ -29,7 +31,7 @@ export default {
       },
     },
   },
-  args: { children: 'Your wish is in review.', variant: 'info' },
+  args: { lang: 'vi', children: 'Your wish is in review.', variant: 'info' },
 };
 
 export const Default = {};

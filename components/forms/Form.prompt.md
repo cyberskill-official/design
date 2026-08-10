@@ -10,7 +10,7 @@
 
 Manual mode unchanged: omit `rules`/`name`, pass `errors={{email:"…"}}` yourself.
 
-**asyncRules:** optional map of field name → async `(value, values) => message|null`. Runs after sync `rules` pass; blocks submit while pending.
+**asyncRules:** optional map of field name → async `(value, values) => message|null`. Runs after sync `rules` pass; Form emits `is-pending` + `aria-busy`, locks controls, and refuses re-entry until the async pass finishes (FIND-015 / FIND-044). Controllers can also read `pending` from Form context.
 
 **FormFieldArray** — manage an array of row objects under `name` on the surrounding Form. Children render-prop: `({ index, item, remove, path })`.
 

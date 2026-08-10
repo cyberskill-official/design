@@ -8,6 +8,8 @@ export interface StepItem { title: ReactNode; body?: ReactNode; n?: ReactNode; }
 export interface StepsProps {
   steps: StepItem[];
   current?: number;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
   className?: string;
 }
 export function Steps(props: StepsProps): React.ReactElement;

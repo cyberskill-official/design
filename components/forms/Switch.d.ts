@@ -7,6 +7,8 @@ import type { ReactNode } from "react";
  */
 export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   label?: ReactNode;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
 }
 
 export function Switch(props: SwitchProps): React.ReactElement;

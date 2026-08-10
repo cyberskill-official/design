@@ -11,6 +11,8 @@ export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: ReactNode;
   icon?: ReactNode;
   children?: ReactNode;
+  /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
+  lang?: string;
 }
 
 export function Alert(props: AlertProps): React.ReactElement;

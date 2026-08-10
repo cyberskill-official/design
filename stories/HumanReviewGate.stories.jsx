@@ -5,6 +5,8 @@ export default {
   component: HumanReviewGate,
   tags: ['autodocs'],
   argTypes: {
+    lang: { control: 'select', options: ['en', 'vi'] },
+
   "risk": {
     "control": "object"
   },
@@ -28,7 +30,7 @@ export default {
       },
     },
   },
-  args: { children: 'Human approval required.' },
+  args: { lang: 'vi', children: 'Human approval required.' },
 };
 
 export const Default = {};
