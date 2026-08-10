@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.3.1 · source sha256 c7788fa05d1d9fbb…
+// release v1.3.2 · source sha256 ce0a15a567e5d99b…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -65,7 +65,7 @@ object CSTokens {
   val accentInk = Color(0xFF45210E)
   val accentGlow = Color(0x7AF4BA17)
   val accentGradA = Color(0xFFF4BA17)
-  val accentGradB = Color(0xFFFCAF91)
+  val accentGradB = Color(0xFFF3B958)
   val accentOnStrong = Color(0xFF1A1108)
   val depthBg = 0
   val depthSection = 5
