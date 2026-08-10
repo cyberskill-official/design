@@ -13,7 +13,7 @@
 <script src="./ds-base.js"></script>
 </helmet>
 <div data-theme="{{ rootTheme }}" lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" style="display:grid;grid-template-columns:248px 1fr;min-height:100vh;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary);background:var(--cs-color-surface-page)">
-  <a class="cs-skip" href="#main" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden">Skip to content</a>
+  <a class="cs-skip" href="#main" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden">{{ skipLabel }}</a>
   <nav class="cs-sidebar" aria-label="{{ navLabel }}">
     <div style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;color:var(--cs-color-text-primary);padding:6px 12px 14px">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="28" hint-size="28px,28px"></x-import>CyberSkill
@@ -64,8 +64,8 @@ class Component extends DCLogic {
     const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
 const vn = this.props.language === "Tiếng Việt";
-    const en = { navLabel:"Workspace", nav1:"Overview", nav2:"Projects", nav3:"Releases", nav4:"Team", nav5:"Settings", searchPh:"Search projects…", newBtn:"New project", h1:"Overview", sub:"Every wish in flight, at a glance.", s1:"Projects", s2:"In progress", s3:"Shipped", s4:"Avg progress", s4d:"+6 this week", tblCap:"Projects", cKey:"Key", cName:"Project", cSquad:"Squad", cProg:"Progress", cStatus:"Status", stInprog:"In progress", stBlocked:"Blocked" };
-    const vi = { navLabel:"Không gian", nav1:"Tổng quan", nav2:"Dự án", nav3:"Phát hành", nav4:"Đội ngũ", nav5:"Cài đặt", searchPh:"Tìm dự án…", newBtn:"Dự án mới", h1:"Tổng quan", sub:"Mọi điều ước đang chạy, trong một cái nhìn.", s1:"Dự án", s2:"Đang làm", s3:"Đã ra mắt", s4:"Tiến độ TB", s4d:"+6 tuần này", tblCap:"Dự án", cKey:"Mã", cName:"Dự án", cSquad:"Nhóm", cProg:"Tiến độ", cStatus:"Trạng thái", stInprog:"Đang làm", stBlocked:"Bị chặn" };
+    const en = { skipLabel:"Skip to content", navLabel:"Workspace", nav1:"Overview", nav2:"Projects", nav3:"Releases", nav4:"Team", nav5:"Settings", searchPh:"Search projects…", newBtn:"New project", h1:"Overview", sub:"Every wish in flight, at a glance.", s1:"Projects", s2:"In progress", s3:"Shipped", s4:"Avg progress", s4d:"+6 this week", tblCap:"Projects", cKey:"Key", cName:"Project", cSquad:"Squad", cProg:"Progress", cStatus:"Status", stInprog:"In progress", stBlocked:"Blocked" };
+    const vi = { skipLabel:"Bỏ qua nội dung", navLabel:"Không gian", nav1:"Tổng quan", nav2:"Dự án", nav3:"Phát hành", nav4:"Đội ngũ", nav5:"Cài đặt", searchPh:"Tìm dự án…", newBtn:"Dự án mới", h1:"Tổng quan", sub:"Mọi điều ước đang chạy, trong một cái nhìn.", s1:"Dự án", s2:"Đang làm", s3:"Đã ra mắt", s4:"Tiến độ TB", s4d:"+6 tuần này", tblCap:"Dự án", cKey:"Mã", cName:"Dự án", cSquad:"Nhóm", cProg:"Tiến độ", cStatus:"Trạng thái", stInprog:"Đang làm", stBlocked:"Bị chặn" };
     const t = vn ? vi : en;
     return Object.assign({ langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, rootTheme: this.props.theme === "dark" ? "dark" : "",
       cols: [ { key: "key", header: t.cKey }, { key: "name", header: t.cName }, { key: "squad", header: t.cSquad }, { key: "pct", header: t.cProg, render: (r) => r.pct + "%" }, { key: "status", header: t.cStatus } ],

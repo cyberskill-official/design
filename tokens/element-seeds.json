@@ -1,7 +1,7 @@
 {
   "$meta": {
     "system": "CyberSkill Design System",
-    "version": "1.3.1",
+    "version": "1.3.4",
     "note": "OKLCH seed contract for the 15 element packs × light/dark (30 sets). SoT for scripts/generate-element-packs.mjs — do not hand-edit tokens/elements.css. Owner bar (Jul 2026): soft/middle/deep clearly distinct; middle intensity synced across elements; harmonious role palettes; light↔dark same-hue identity. Public variant names unchanged."
   },
   "intensity": {

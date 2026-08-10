@@ -2,15 +2,17 @@
 // stamp-release-version — propagate root VERSION into every design-system stamp.
 //
 // VERSION is the source of truth (auto-bumped by .github/workflows/version.yml).
-// This keeps package.json, token metas, legacy ESM entry, DESIGN.md, and the
-// npm-hello consumer pin in lockstep. Does NOT write a CHANGELOG.
+// This keeps package.json, token metas, legacy ESM entry, DESIGN.md, npm-hello,
+// and consumer-facing prose pins (README / SKILL / llms.txt / stories / …)
+// in lockstep. Does NOT write a CHANGELOG.
 //
 // Usage:
 //   node scripts/stamp-release-version.mjs            # report drift
 //   node scripts/stamp-release-version.mjs --apply    # write files
-//   node scripts/stamp-release-version.mjs --check --exit-code  # exit 10 on drift
+//   node scripts/stamp-release-version.mjs --check    # exit 10 on drift
+//   node scripts/stamp-release-version.mjs --check --exit-code  # same
 
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { join } from "node:path";
 
@@ -25,8 +27,25 @@ if (!/^\d+\.\d+\.\d+$/.test(version)) {
 }
 
 const apply = process.argv.includes("--apply");
-const exitCode = process.argv.includes("--exit-code");
+// --check implies fail-on-drift (FIND-027 / FIND-116)
+const exitCode = process.argv.includes("--exit-code") || process.argv.includes("--check");
 const changes = [];
+
+/** Launch-narrative anchors and dated history — never rewrite these pins. */
+const HISTORICAL_OK = [
+  /LAUNCHED(?:\s+at)?\s+\*\*v?1\.1\.0\*\*/gi,
+  /LAUNCHED\s+\*\*v?1\.1\.0\*\*/gi,
+  /version is\s+\*\*LAUNCHED at 1\.1\.0\*\*/gi,
+  /LAUNCHED\s+`@cyberskill\/design@\d+\.\d+\.\d+`/gi,
+  /LAUNCH was\s+`@cyberskill\/design@\d+\.\d+\.\d+`/gi,
+  /LAUNCH là\s+`@cyberskill\/design@\d+\.\d+\.\d+`/gi,
+  /\*\*LAUNCH\s+`@cyberskill\/design@\d+\.\d+\.\d+`\*\*/gi,
+  /Trạng thái:\s*LAUNCH\s+`@cyberskill\/design@\d+\.\d+\.\d+`/gi,
+  /##\s+Patch\s+[—–-]\s+`@cyberskill\/design@\d+\.\d+\.\d+`/g,
+  /##\s+LAUNCH\s+[—–-]\s+`@cyberskill\/design@\d+\.\d+\.\d+`/g,
+  // Install commands immediately under a dated Patch/LAUNCH heading block (fenced)
+  /```bash\nnpm install @cyberskill\/design@\d+\.\d+\.\d+\n```/g,
+];
 
 function read(rel) {
   return readFileSync(join(root, rel), "utf8");
@@ -183,6 +202,107 @@ function stampNpmHello() {
   }
 }
 
+function protectHistorical(raw) {
+  const slots = [];
+  let out = raw;
+  for (const re of HISTORICAL_OK) {
+    re.lastIndex = 0;
+    out = out.replace(re, (m) => {
+      const i = slots.length;
+      slots.push(m);
+      return `\u0000HIST${i}\u0000`;
+    });
+  }
+  return {
+    text: out,
+    restore(stamped) {
+      return stamped.replace(/\u0000HIST(\d+)\u0000/g, (_, n) => slots[Number(n)] ?? "");
+    },
+  };
+}
+
+/** Prose / MDX / audit fallback pins that must track VERSION (FIND-027 / FIND-116). */
+function stampProseFile(rel, { allowPackageAt = false } = {}) {
+  if (!existsSync(join(root, rel))) return;
+  const before = read(rel);
+  const { text: protectedText, restore } = protectHistorical(before);
+  let raw = protectedText;
+
+  // Current-pin prose shapes only — never rewrite dated LAUNCH/Patch history.
+  raw = raw.replace(/current\s+\*\*v?\d+\.\d+\.\d+\*\*/gi, `current **v${version}**`);
+  raw = raw.replace(/current pin is\s+\*\*\d+\.\d+\.\d+\*\*/gi, `current pin is **${version}**`);
+  raw = raw.replace(/VERSION is\s+\*\*\d+\.\d+\.\d+\*\*/g, `VERSION is **${version}**`);
+  raw = raw.replace(/VERSION\s+\*\*\d+\.\d+\.\d+\*\*/g, `VERSION **${version}**`);
+  raw = raw.replace(/live at\s+\*\*\d+\.\d+\.\d+\*\*/gi, `live at **${version}**`);
+  raw = raw.replace(/· VERSION \d+\.\d+\.\d+/g, `· VERSION ${version}`);
+  raw = raw.replace(/\[VERSION\]\(VERSION\):\s*pinned\s+\d+\.\d+\.\d+/g, `[VERSION](VERSION): pinned ${version}`);
+  raw = raw.replace(/sweep at VERSION \d+\.\d+\.\d+/gi, `sweep at VERSION ${version}`);
+  raw = raw.replace(/let ver=['"]\d+\.\d+\.\d+['"]/g, `let ver='${version}'`);
+  // npm package pin in entrance / consumer guidance (historical LAUNCH lines are protected)
+  raw = raw.replace(
+    /npm package \*\*`@cyberskill\/design@\d+\.\d+\.\d+`\*\*/g,
+    `npm package **\`@cyberskill/design@${version}\`**`,
+  );
+  raw = raw.replace(
+    /includes `@cyberskill\/design@\d+\.\d+\.\d+`/g,
+    `includes \`@cyberskill/design@${version}\``,
+  );
+  raw = raw.replace(
+    /— `@cyberskill\/design@\d+\.\d+\.\d+` legacy entry/g,
+    `— \`@cyberskill/design@${version}\` legacy entry`,
+  );
+
+  if (allowPackageAt) {
+    raw = raw.replace(/@cyberskill\/design@\d+\.\d+\.\d+/g, `@cyberskill/design@${version}`);
+  }
+
+  raw = restore(raw);
+  if (raw === before) return;
+  changes.push(`${rel}: prose pin -> ${version}`);
+  if (apply) write(rel, raw);
+}
+
+function listMd(dirRel) {
+  const dir = join(root, dirRel);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith(".md"))
+    .map((f) => join(dirRel, f).split("\\").join("/"));
+}
+
+function walkMdx(dirRel, out = []) {
+  const dir = join(root, dirRel);
+  if (!existsSync(dir)) return out;
+  for (const ent of readdirSync(dir, { withFileTypes: true })) {
+    if (ent.name.startsWith(".")) continue;
+    const rel = `${dirRel}/${ent.name}`;
+    if (ent.isDirectory()) walkMdx(rel, out);
+    else if (ent.name.endsWith(".mdx")) out.push(rel.split("\\").join("/"));
+  }
+  return out;
+}
+
+function stampProseSurfaces() {
+  // Entrance docs (agent / human front doors) — may rewrite remaining @package pins
+  for (const rel of ["README.md", "SKILL.md", "llms.txt"]) {
+    stampProseFile(rel, { allowPackageAt: true });
+  }
+
+  // Operator docs (EN + VI) — current-pin shapes only; LAUNCH history protected
+  for (const rel of [...listMd("docs"), ...listMd("docs/vi")]) {
+    stampProseFile(rel);
+  }
+
+  // Storybook product-site MDX — current pin only
+  for (const rel of walkMdx("stories")) stampProseFile(rel);
+
+  // Audit board fallback when VERSION fetch fails
+  stampProseFile("_audit/run.html");
+
+  // Seed meta (machine; not CSS packs)
+  stampJsonField("tokens/element-seeds.json", ["$meta", "version"], "$meta.version");
+}
+
 // --- run ---------------------------------------------------------------------
 stampPackageJson();
 stampPackageLock();
@@ -221,6 +341,7 @@ stampTokensJs();
 stampCsMjs();
 stampDesignMd();
 stampNpmHello();
+stampProseSurfaces();
 
 if (!changes.length) {
   console.log(`stamp: all targets already at ${version}`);

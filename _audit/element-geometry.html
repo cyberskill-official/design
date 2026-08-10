@@ -34,6 +34,9 @@ function parsePacks(css) {
   let m;
   while ((m = re.exec(css))) {
     const sel = m[1], body = m[2];
+    // System theme blocks mirror dark accents under prefers-color-scheme;
+    // counting them as light overwrites the soft/middle/deep ladder (#69).
+    if (/data-theme="system"/.test(sel)) continue;
     const el = (/\[data-cs-element="(\w+)"\]/.exec(sel) || [])[1];
     if (!el) continue;
     const va = (/\[data-cs-variant="(\w+)"\]/.exec(sel) || [])[1] || '';

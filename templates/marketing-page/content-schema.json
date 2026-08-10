@@ -2,6 +2,7 @@
   "$schemaVersion": "2.0",
   "template": "marketing-page",
   "slots": [
+    { "id": "skipLabel", "type": "text", "label": "Skip-to-content link label", "maxLength": 40, "required": true },
     { "id": "heroKicker", "type": "text", "label": "Hero eyebrow", "maxLength": 40, "i18n": {"en": "Eyebrow above the headline", "vi": "Nhãn nhỏ phía trên tiêu đề"} },
     { "id": "heroH", "type": "text", "label": "Hero headline", "maxLength": 70, "required": true },
     { "id": "heroSub", "type": "text", "label": "Hero subhead", "maxLength": 90 },

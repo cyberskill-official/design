@@ -1,0 +1,24 @@
+{
+  "generatedBy": "_audit/ci/test-docs-lang-parity.mjs",
+  "tracked": [
+    "benchmark-rubric.md",
+    "ci-cd.md",
+    "consumer-grant.md",
+    "consuming.md",
+    "contrast-report.md",
+    "conventions.md",
+    "decisions.md",
+    "deploy.md",
+    "design-styles.md",
+    "figma.md",
+    "live-hub.md",
+    "products.md",
+    "quality-gates.md",
+    "release-notes.md",
+    "release-runbook.md",
+    "storybook.md",
+    "sync.md",
+    "template-schema-v2.md"
+  ],
+  "enOnly": []
+}

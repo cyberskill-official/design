@@ -64,6 +64,7 @@ const LEXICON=[
   {name:'All rights reserved',re:/\bAll rights reserved\b/gi},
   {name:'Manage subscription',re:/\bManage subscription\b/gi},
   {name:'Sent with',re:/\bSent with\b/g},
+  {name:'Skip to content',re:/\bSkip to content\b/g},
 ];
 (async()=>{
   const M=await (await fetch('../_ds_manifest.json',{cache:'no-store'})).json();
