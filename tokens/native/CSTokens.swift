@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.3.2 · source sha256 8268b3ac898f9c85…
+// release v1.3.2 · source sha256 ce0a15a567e5d99b…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -67,7 +67,7 @@ public enum CSTokens {
   public static let accentInk = color(0x45210E)
   public static let accentGlow = color(0xF4BA17, alpha: 0.48)
   public static let accentGradA = color(0xF4BA17)
-  public static let accentGradB = color(0xFCAF91)
+  public static let accentGradB = color(0xF3B958)
   public static let accentOnStrong = color(0x1A1108)
   public static let depthBg: Double = 0
   public static let depthSection: Double = 5

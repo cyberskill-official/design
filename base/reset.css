@@ -14,4 +14,10 @@ body {
 :where(h1, h2, h3, h4, h5, h6) { line-height: var(--cs-font-lineHeight-heading, 1.35); text-wrap: balance; }
 :where(p) { text-wrap: pretty; }
 :where(code, pre, kbd, samp) { font-family: var(--cs-font-family-mono, ui-monospace, monospace); }
-:where(:focus-visible) { outline: var(--cs-focus-ring, 3px) solid var(--cs-color-accent-ochre, #f4ba17); outline-offset: 2px; }
+/* Composite focus indicator (FIND-032): high-contrast text-primary contour (≥3:1
+ * on light + dark surfaces) + ochre outer brand halo. Ochre alone is ~1.7:1 on cream. */
+:where(:focus-visible) {
+  outline: 2px solid var(--cs-color-text-primary, #45210e);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--cs-color-accent-ochre, #f4ba17);
+}

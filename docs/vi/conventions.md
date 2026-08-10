@@ -16,7 +16,7 @@ Mọi bề mặt render resolve bốn scope trực giao — không bao giờ mã
 | **Language** | `lang` / Language tweak | copy EN · VI | registry component + props template |
 | **Style** | `data-cs-style` (tuỳ chọn; vắng ≡ `liquid-glass`) | pack vật liệu bề mặt | `tokens/styles.css` |
 
-Pack Style duy nhất hiện nay là **liquid-glass**. Bất biến dưới mọi trục: anchors Umber/Ochre, voice, họ chữ, màu semantic status, vòng focus Ochre 3px, sàn APCA, target ≥44px.
+Pack Style duy nhất hiện nay là **liquid-glass**. Bất biến dưới mọi trục: anchors Umber/Ochre, voice, họ chữ, màu semantic status, chỉ báo focus ghép (contour text-primary + halo ochre), sàn APCA, target ≥44px.
 
 ## Ngữ pháp đặt tên
 
@@ -72,7 +72,7 @@ Mọi template export; đường đúng phụ thuộc archetype. Mọi đường
 
 ## Accessibility (base/a11y.css + component ARIA)
 
-- **Focus rings có hệ thống** — vòng ochre global `:where(:focus-visible)` trong `base/reset.css`, cộng vòng ochre 3px theo component (`components/forms/navigation/controls`). Không bao giờ đặt `outline: none` trên state `:focus-visible` mà không thay vòng (regression menu-item, đã sửa Th7 2026). Soft glow 5px trong `interaction.css` chồng lên vòng 3px, không thay thế.
+- **Focus rings có hệ thống** — global `:where(:focus-visible)` trong `base/reset.css` là chỉ báo **ghép**: contour 2px `text-primary` (≥3:1 trên light và dark) cộng halo ochre 5px. Control wrapper (`SearchField`, `NumberField`, `PromptInput`, `Terminal`, `CommandPalette`) lặp lại qua `:focus-within`. Không bao giờ đặt `outline: none` trên control focusable mà không có vòng thay thế/wrapper.
 
 - **Touch targets** — `base/a11y.css` đảm bảo 44px trên `@media (pointer: coarse)` (tabs, pagination, menu items, stepper, checkbox/radio; segmented 40px trong track đã pad). Mật độ chuột desktop được giữ. `pointer: coarse` dùng có chủ đích thay breakpoint chiều rộng — touch laptop ở 1280px vẫn cần 44px. Button mang khối coarse riêng trong `components.css`.
 

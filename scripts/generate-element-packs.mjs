@@ -52,6 +52,25 @@ function ensureStrongOnPage(strongHex, pageHex = '#FFFFFF', minRatio = 3.05, min
   }
   return hex;
 }
+/**
+ * Body-link colour: darken seed until WCAG AA (≥4.5:1) on every light surface the pack
+ * paints (white, page cream, tint, raised). text-accent may stay on the looser bold floor.
+ */
+function ensureLinkOnSurfaces(
+  seedHex,
+  surfaces = ['#FFFFFF', '#FFFDF8', '#FBF4E9', '#F8F1E4'],
+  minRatio = 4.5,
+) {
+  let hex = seedHex;
+  const lch = hexToLCH(hex);
+  let L = lch.L;
+  for (let i = 0; i < 140; i++) {
+    if (surfaces.every((bg) => wcagRatio(hex, bg) >= minRatio)) break;
+    L = clamp(L - 0.01, 0.08, 0.9);
+    hex = lchDegToHex(L, lch.C, lch.Hdeg);
+  }
+  return hex;
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -270,7 +289,13 @@ function buildAllPacks(seeds) {
       const light = deriveLightRoles(seeds, accent, gradB, { pinThoStudio });
       if (!pinThoStudio) {
         light['--cs-color-text-accent'] = light['--cs-accent-strong'];
-        light['--cs-color-link'] = light['--cs-accent-strong'];
+        // Links are regular-weight body text — darker than bold-label text-accent (FIND-031).
+        light['--cs-color-link'] = ensureLinkOnSurfaces(light['--cs-accent-strong'], [
+          '#FFFFFF',
+          '#FFFDF8',
+          light['--cs-accent-tint'],
+          '#FBF4E9',
+        ]);
       }
       const dark = deriveDarkRoles(seeds, light);
       packs.push({
@@ -307,7 +332,7 @@ function emitCss(packs) {
  *   --cs-accent-glow · --cs-accent-grad-a/b
  * TEXT RULE: text sits on -bright or -tint only — never on the mid-tone -accent.
  * Text on -strong uses --cs-accent-on-strong (WCAG AA ≥4.5:1 light and dark).
- * Focus ring --cs-color-accent-ochre and semantic status tokens NEVER remap.
+ * Focus indicator (text-primary contour + ochre halo) and semantic status tokens NEVER remap.
  * Generative cycle (Tương sinh) only for grad-b: Mộc→Hỏa→Thổ→Kim→Thủy→Mộc. */
 `;
 
@@ -350,17 +375,24 @@ function emitCss(packs) {
     css += '\n';
   }
 
-  css += `/* ---- Dark theme CTA remaps inside element scopes ---- */
-[data-theme="dark"] [data-cs-element], [data-cs-element][data-theme="dark"] {
-  --cs-component-button-primary-bg: var(--cs-accent-strong);
+  const ctaRemap = `  --cs-component-button-primary-bg: var(--cs-accent-strong);
   --cs-component-button-primary-fg: var(--cs-accent-on);
   --cs-color-text-accent: var(--cs-accent-bright);
   --cs-color-link: var(--cs-accent-bright);
-  --cs-color-link-hover: var(--cs-color-text-primary);
+  --cs-color-link-hover: var(--cs-color-text-primary);`;
+
+  css += `/* ---- Dark theme CTA remaps inside element scopes ---- */
+[data-theme="dark"] [data-cs-element], [data-cs-element][data-theme="dark"] {
+${ctaRemap}
+}
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] [data-cs-element], [data-cs-element][data-theme="system"] {
+${ctaRemap}
+  }
 }
 
 /* ---- Aurora washes ---- */
-.cs-aurora-wash { background-image: url("../assets/aurora-gold.jpg"); background-size: cover; background-position: center; }
+.cs-aurora-wash { background-image: url("../assets/aurora-tho.webp"); background-size: cover; background-position: center; }
 [data-cs-element="hoa"] .cs-aurora-wash { background-image: url("../assets/aurora-hoa.webp"); }
 [data-cs-element="thuy"] .cs-aurora-wash { background-image: url("../assets/aurora-thuy.webp"); }
 [data-cs-element="moc"] .cs-aurora-wash { background-image: url("../assets/aurora-moc.webp"); }
@@ -369,13 +401,17 @@ function emitCss(packs) {
 /* ---- APCA-derived DARK elemental packs (generated; hue-locked to light) ---- */
 `;
 
+  const darkKeys = ['--cs-accent', '--cs-accent-bright', '--cs-accent-strong', '--cs-accent-on', '--cs-accent-on-strong', '--cs-accent-tint', '--cs-accent-ink'];
   for (const el of EL_ORDER) {
     for (const p of packs.filter((x) => x.el === el)) {
-      const sel = p.variant
+      const darkSel = p.variant
         ? `[data-theme="dark"][data-cs-element="${el}"][data-cs-variant="${p.variant}"]`
         : `[data-theme="dark"][data-cs-element="${el}"]`;
-      const keys = ['--cs-accent', '--cs-accent-bright', '--cs-accent-strong', '--cs-accent-on', '--cs-accent-on-strong', '--cs-accent-tint', '--cs-accent-ink'];
-      css += `${sel} {\n${decls(p.dark, keys)}\n}\n`;
+      const sysSel = p.variant
+        ? `[data-theme="system"][data-cs-element="${el}"][data-cs-variant="${p.variant}"]`
+        : `[data-theme="system"][data-cs-element="${el}"]`;
+      css += `${darkSel} {\n${decls(p.dark, darkKeys)}\n}\n`;
+      css += `@media (prefers-color-scheme: dark) {\n  ${sysSel} {\n${decls(p.dark, darkKeys).split('\n').map((l) => (l ? '  ' + l : l)).join('\n')}\n  }\n}\n`;
     }
   }
   return css;
@@ -490,6 +526,16 @@ function selfCheck(seeds, packs) {
     if (wcagRatio(onStrongD, strongD) < 4.5) {
       console.warn(`  WARN WCAG on-strong dark ${p.el}.${p.variant || 'middle'} = ${wcagRatio(onStrongD, strongD).toFixed(2)}`);
       fails++;
+    }
+    const link = p.light['--cs-color-link'];
+    if (link) {
+      for (const bg of ['#FFFFFF', '#FFFDF8', p.light['--cs-accent-tint'] || '#FBF4E9']) {
+        const r = wcagRatio(link, bg);
+        if (r < 4.5) {
+          console.warn(`  WARN WCAG link light ${p.el}.${p.variant || 'middle'} on ${bg} = ${r.toFixed(2)}`);
+          fails++;
+        }
+      }
     }
   }
   if (fails) console.warn(`Self-check warnings: ${fails}`);

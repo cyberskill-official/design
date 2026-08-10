@@ -54,9 +54,15 @@ window.addEventListener('load',()=>setTimeout(async()=>{
     const um=/:focus-visible\)?\s*\{([^}]*)\}/.exec(reset);
     assert(um,'no global :focus-visible rule in reset.css');
     assert(/outline\s*:\s*(?!none|0\b)/.test(um[1]),'global rule does not set a real outline');
-    assert(/var\(--cs-focus-ring/.test(um[1]) || /outline\s*:\s*3px\b/.test(um[1]),'global focus ring must be 3px / --cs-focus-ring');
+    // Composite ring (FIND-032): high-contrast outline + ochre halo — not ochre-only 3px.
+    const composite=/outline\s*:\s*2px\b/.test(um[1]) && /box-shadow\s*:\s*0\s+0\s+0\s+5px/.test(um[1]) && /text-primary|brand-umber/.test(um[1]);
+    const legacy=/var\(--cs-focus-ring/.test(um[1]) || /outline\s*:\s*3px\b/.test(um[1]);
+    assert(composite || legacy,'global focus ring must be composite (≥3:1 contour + ochre) or 3px / --cs-focus-ring');
     const files=['components.css','forms.css','navigation.css','controls.css','collections.css','data.css','ai.css','shell.css','interaction.css'];
     const silent=[];
+    const withinHasRing=(css,ancestor)=>ancestor && (
+      new RegExp(ancestor.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+':focus-within\\s*\\{[^}]*(?:outline\\s*:\\s*(?!none|0\\b)|box-shadow\\s*:\\s*(?!none))').test(css)
+    );
     for(const f of files){
       const r=await fetch('../base/'+f); const css=r.ok?await r.text():'';
       const re=/([^{}]*):focus(?:-visible)?([^{}]*)\{([^}]*)\}/g; let m;
@@ -64,12 +70,20 @@ window.addEventListener('load',()=>setTimeout(async()=>{
         if(!/outline\s*:\s*(none|0)\b/.test(body) || /box-shadow\s*:\s*(?!none)/.test(body)) continue;
         // established pattern: an ancestor wrapper shows the ring via :focus-within — accept it.
         const ancestor=(/^([.\w-]+)/.exec(selector)||[])[1];
-        const hasWithinRing=ancestor && new RegExp(ancestor.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+':focus-within\\s*\\{[^}]*outline\\s*:\\s*(?!none|0\\b)').test(css);
-        if(!hasWithinRing) silent.push(f+': '+selector.slice(0,60));
+        if(!withinHasRing(css,ancestor)) silent.push(f+': '+selector.slice(0,60));
       }
     }
     assert(silent.length===0,'outline silently removed with no replacement (and no ancestor :focus-within ring): '+silent.join(' | '));
-    return 'universal ring real · 0 unguarded silent removals across '+files.length+' files';
+    // Explicit keyboard-first surfaces (FIND-038)
+    const controls=await (await fetch('../base/controls.css')).text();
+    const shell=await (await fetch('../base/shell.css')).text();
+    assert(/\.cs-terminal:focus-within\s*\{[^}]*(?:outline|box-shadow)\s*:\s*(?!none)/.test(controls),'Terminal missing :focus-within ring');
+    assert(/\.cs-cmdk__search:focus-within\s*\{[^}]*(?:outline|box-shadow)\s*:\s*(?!none)/.test(shell),'CommandPalette search missing :focus-within ring');
+    assert(/\.cs-stepper:focus-within\s*\{[^}]*outline\s*:\s*(?!none|0\b)/.test(controls),'NumberField missing composite :focus-within');
+    const ai=await (await fetch('../base/ai.css')).text();
+    assert(/\.cs-search:focus-within\s*\{[^}]*outline\s*:\s*(?!none|0\b)/.test(controls),'SearchField missing composite :focus-within');
+    assert(/\.cs-prompt:focus-within\s*\{[^}]*outline\s*:\s*(?!none|0\b)/.test(ai),'PromptInput missing composite :focus-within');
+    return 'composite ring real · Terminal/CommandPalette/Search/Number/Prompt focus-within · 0 silent removals';
   });
   // 2) coarse-pointer floor: per-class DOCUMENTED floor (not a blanket 44 — this design
   // deliberately tiers icon-affordances/segmented-toggles lower, and native range/select

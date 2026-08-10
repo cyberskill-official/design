@@ -37,7 +37,7 @@
 
 /* Tooltip */
 .cs-tooltip { position: relative; display: inline-flex; }
-.cs-tooltip__bubble { position: absolute; inset-block-end: calc(100% + 8px); inset-inline-start: 50%; transform: translateX(-50%) translateY(4px); background: var(--cs-color-brand-umber); color: #fff; /* on-brand-umber ink */ font-size: var(--cs-font-size-xs); font-weight: 600; line-height: 1.35; padding: 6px 10px; border-radius: var(--cs-radius-sm); white-space: nowrap; max-inline-size: 240px; opacity: 0; pointer-events: none; transition: opacity var(--cs-duration-fast) var(--cs-ease-standard), transform var(--cs-duration-fast) var(--cs-ease-standard); box-shadow: var(--cs-shadow-md); z-index: var(--cs-depth-toast); }
+.cs-tooltip__bubble { position: absolute; inset-block-end: calc(100% + 8px); inset-inline-start: 50%; transform: translateX(-50%) translateY(4px); background: var(--cs-color-brand-umber); color: #fff; /* on-brand-umber ink */ font-size: var(--cs-font-size-xs); font-weight: 600; line-height: 1.35; padding: 6px 10px; border-radius: var(--cs-radius-sm); white-space: nowrap; max-inline-size: 240px; opacity: 0; pointer-events: none; transition: opacity var(--cs-duration-fast) var(--cs-ease-standard), transform var(--cs-duration-fast) var(--cs-ease-standard); box-shadow: var(--cs-shadow-md); z-index: var(--cs-depth-dropdown, 60); }
 .cs-tooltip__bubble::after { content: ""; position: absolute; inset-block-start: 100%; inset-inline-start: 50%; transform: translateX(-50%); border: 5px solid transparent; border-block-start-color: var(--cs-color-brand-umber); }
 .cs-tooltip:hover .cs-tooltip__bubble, .cs-tooltip:focus-within .cs-tooltip__bubble { opacity: 1; transform: translateX(-50%) translateY(0); }
 
