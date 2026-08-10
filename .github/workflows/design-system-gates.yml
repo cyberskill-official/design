@@ -10,22 +10,28 @@ on:
 permissions:
   contents: read
 
+# FIND-089 — cancel superseded PR/push runs; serialize write-capable paths separately.
+concurrency:
+  group: design-system-gates-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 # Reusable Node + Playwright install (browser cache).
 # Jobs below copy the same steps so each job stays self-contained.
 
 jobs:
   fast-gates:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
           cache: npm
       - name: Install npm dependencies
         run: npm ci
       - name: Cache Playwright browsers
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
         id: pw-cache
         with:
           path: ~/.cache/ms-playwright
@@ -42,15 +48,16 @@ jobs:
         run: node _audit/ci/run-gates.mjs http://127.0.0.1:8080/_audit/run.html
       - name: Upload import report on failure
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7
         with: { name: import-report, path: _audit/ci/import-report.txt }
 
   token-provenance:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: fast-gates
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
       - name: Verify tokens/native/ is in lockstep with tokens.dtcg.json (fast, no browser)
@@ -61,17 +68,19 @@ jobs:
     # form paths, Storybook contract, Figma helpers, Code Connect helpers, native samples)
     # plus subtree-consume (Playwright Chromium smoke for the portable copy).
     # Wired into CI by the Jul 2026 hardening (previously local-only).
+    # Storybook freshness runs in storybook-build (FIND-074/075), not here.
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
           cache: npm
       - name: Install npm dependencies
         run: npm ci
       - name: Cache Playwright browsers
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
@@ -86,11 +95,13 @@ jobs:
     #     discovers NEW source files; the board's bundle-freshness row only
     #     re-hashes files already recorded in the bundle header)
     #   • DESIGN.md freshness — byte-identical regeneration from DTCG + manifest
-    #     (the board's design-md-parity row proves the same in-browser)
+    #   • dist/styles.min.css + contrast-report freshness (FIND-026)
+    #   • _ds_manifest.json templates/cards/startingPoints coverage (FIND-078)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
           cache: npm
@@ -100,20 +111,44 @@ jobs:
         run: node _audit/ci/check-bundle-freshness.mjs
       - name: DESIGN.md is a fresh regeneration
         run: node scripts/generate-design-md.mjs --check
+      - name: dist/styles.min.css is a fresh flatten
+        run: node scripts/flatten-styles.mjs --check
+      - name: contrast-report.md is a fresh regeneration
+        run: node scripts/generate-contrast-report.mjs --check
+      - name: _ds_manifest.json covers shipped templates/cards/startingPoints
+        run: node _audit/ci/check-manifest-coverage.mjs
+
+  storybook-build:
+    # FIND-074 / FIND-075 — build Storybook in CI; freshness gate can fail for real.
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install npm dependencies
+        run: npm ci
+      - name: Build Storybook (+ freshness stamp)
+        run: npm run build:storybook
+      - name: Storybook static freshness (--require)
+        run: node _audit/ci/test-storybook-freshness.mjs --require
 
   docs-consistency-blocker:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     needs: fast-gates
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
           cache: npm
       - name: Install npm dependencies
         run: npm ci
       - name: Cache Playwright browsers
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
@@ -131,16 +166,17 @@ jobs:
   whole-set-audits:
     # Owner decision B: every push/PR + nightly + manual. ~15–20 min wall time.
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
           cache: npm
       - name: Install npm dependencies
         run: npm ci
       - name: Cache Playwright browsers
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
@@ -160,16 +196,17 @@ jobs:
   pixel-diff:
     # Hard gate: % drift above threshold fails the job (and blocks merge).
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
           cache: npm
       - name: Install npm dependencies
         run: npm ci
       - name: Cache Playwright browsers
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
@@ -183,7 +220,7 @@ jobs:
         run: node _audit/ci/pixel-diff.mjs http://127.0.0.1:8080
       - name: Upload pixel-diff report
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7
         with:
           name: pixel-diff-report
           path: _audit/ci/pixel-diff-report.json
@@ -193,7 +230,7 @@ jobs:
         run: node _audit/ci/pixel-diff.mjs --update http://127.0.0.1:8080
       - name: Upload Linux baselines (on drift)
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7
         with:
           name: pixel-baselines-linux
           path: _audit/baselines/*.png
@@ -205,14 +242,15 @@ jobs:
     # job to fix locally. Auto-commit lives in regenerate-tokens-push below.
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
       - name: Detect token-related path changes
@@ -252,20 +290,25 @@ jobs:
   regenerate-tokens-push:
     # Auto-commit path — main pushes, nightly schedule, manual dispatch only.
     # Deterministic output → no-op commit when clean.
+    # FIND-089 / FIND-130 — serialize with version.yml (both push to main).
     if: |
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'schedule' ||
       github.event_name == 'push'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: design-system-version
+      cancel-in-progress: false
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
         with:
           ref: ${{ github.ref }}
           token: ${{ secrets.PUSH_TOKEN || github.token }}
           fetch-depth: 0
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
       - name: Detect token-related path changes
@@ -341,13 +384,15 @@ jobs:
   figma-variables-push:
     # Soft-skips when secrets missing (same honesty as Code Connect) or Variables API is
     # Enterprise-only (owner decision A: non-Enterprise for now). Soft-skip ≠ live sync.
+    # FIND-095 — soft-skip emits step summary + ::error:: on main (not silent green).
     if: |
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'push' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
       - name: Check Figma secrets (soft-skip when empty)
@@ -373,7 +418,8 @@ jobs:
             echo "SOFT SKIP — FIGMA_TOKEN and/or FIGMA_FILE_KEY empty; no Variables push attempted."
             echo "Same honesty as Code Connect: missing secrets exit 0 (not a live sync)."
             echo "Add repository secrets FIGMA_TOKEN and FIGMA_FILE_KEY when ready. See docs/figma.md."
-            printf '%s\n' '{"skipped":true,"reason":"missing_secrets","message":"FIGMA_TOKEN and/or FIGMA_FILE_KEY empty — no Variables push attempted."}' > _audit/ci/figma-push-report.json
+            printf '%s\n' '{"skipped":true,"reason":"missing_secrets","message":"FIGMA_TOKEN and/or FIGMA_FILE_KEY empty — no Variables push attempted.","channel":"figma-variables"}' > _audit/ci/figma-push-report.json
+            node _audit/ci/ci-verdict.mjs --assert-report _audit/ci/figma-push-report.json
             echo "ready=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -386,9 +432,12 @@ jobs:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
           FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
         run: node _audit/ci/push-figma-variables.mjs
+      - name: Soft-skip honesty annotation (FIND-095)
+        if: always() && steps.figma_secrets.outputs.ready == 'false'
+        run: node _audit/ci/ci-verdict.mjs --assert-report _audit/ci/figma-push-report.json
       - name: Upload Figma push report
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7
         with:
           name: figma-push-report
           path: _audit/ci/figma-push-report.json
@@ -396,14 +445,16 @@ jobs:
 
   code-connect:
     # Decision 1C: live Code Connect path; soft-skip when secrets missing or API 403/404/429.
+    # FIND-095 — soft-skip writes GITHUB_STEP_SUMMARY + distinct CI annotations.
     if: |
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
       github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
           cache: npm
@@ -416,27 +467,35 @@ jobs:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
           FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
         run: node _audit/ci/code-connect-publish.mjs
+      - name: Soft-skip honesty annotation (FIND-095)
+        if: always()
+        run: |
+          if [ -f _audit/ci/code-connect-report.json ]; then
+            node _audit/ci/ci-verdict.mjs --assert-report _audit/ci/code-connect-report.json
+          fi
       - name: Upload Code Connect report
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7
         with:
           name: code-connect-report
           path: _audit/ci/code-connect-report.json
           if-no-files-found: ignore
 
   npm-hello-smoke:
-    # Hard-fail registry consumer proof for public @cyberskill/design@VERSION.
+    # Fail-closed registry consumer proof for public @cyberskill/design@VERSION (FIND-087).
+    # Missing registry VERSION → job FAIL (not soft-skip). Optional local-pack proof only
+    # when repo variable NPM_HELLO_ALLOW_LOCAL_PACK=true on a fork (not cyberskill-official/design).
     # Path-filtered on push/PR; always on schedule / workflow_dispatch.
-    # Soft-skips registry install when the VERSION is not published yet (post-LAUNCH
-    # pre-publish window) and proves the local npm pack instead — soft-skip ≠ published.
+    # FIND-095 — local-pack path annotates distinctly from registry success.
     if: |
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'schedule' ||
       (github.event_name == 'push' || github.event_name == 'pull_request')
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
@@ -464,6 +523,9 @@ jobs:
           fi
       - name: Registry consumer smoke (examples/npm-hello)
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
+        env:
+          NPM_HELLO_ALLOW_LOCAL_PACK: ${{ vars.NPM_HELLO_ALLOW_LOCAL_PACK || '' }}
+          GITHUB_REPOSITORY_NAME: ${{ github.repository }}
         working-directory: examples/npm-hello
         run: |
           set -euo pipefail
@@ -471,33 +533,54 @@ jobs:
           if npm view "@cyberskill/design@${EXPECTED}" version >/dev/null 2>&1; then
             echo "Registry has @cyberskill/design@${EXPECTED} — npm install from registry."
             npm install
+            {
+              echo "### Live success"
+              echo ""
+              echo "**npm-hello-smoke:** \`SUCCESS\` — registry @cyberskill/design@${EXPECTED}"
+              echo ""
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::notice title=SUCCESS::npm-hello-smoke registry install @${EXPECTED}"
           else
-            echo "SOFT SKIP — @cyberskill/design@${EXPECTED} not on registry yet (post-LAUNCH pre-publish)."
-            echo "Proving local npm pack instead (soft-skip ≠ published)."
-            npm pack ../.. --pack-destination .
-            TARBALL="$(ls -1 cyberskill-design-*.tgz | head -1)"
-            npm install "./${TARBALL}" --no-save
-            rm -f "./${TARBALL}"
+            # Fail-closed on the canonical repo (FIND-087). Local-pack proof is fork opt-in only.
+            if [ "${NPM_HELLO_ALLOW_LOCAL_PACK}" = "true" ] && [ "${GITHUB_REPOSITORY_NAME}" != "cyberskill-official/design" ]; then
+              echo "Fork opt-in NPM_HELLO_ALLOW_LOCAL_PACK — proving local npm pack (≠ published)."
+              npm pack ../.. --pack-destination .
+              TARBALL="$(ls -1 cyberskill-design-*.tgz | head -1)"
+              npm install "./${TARBALL}" --no-save
+              rm -f "./${TARBALL}"
+              {
+                echo "### Local-pack proof (not registry)"
+                echo ""
+                echo "**npm-hello-smoke:** \`LOCAL-PACK\` — @cyberskill/design@${EXPECTED} not on registry"
+                echo ""
+              } >> "$GITHUB_STEP_SUMMARY"
+              echo "::warning title=LOCAL-PACK::npm-hello-smoke used local pack (≠ registry) for @${EXPECTED}"
+            else
+              echo "::error::FAIL — @cyberskill/design@${EXPECTED} is not on the npm registry. npm-hello-smoke is fail-closed (FIND-087). Publish ${EXPECTED} via npm-publish.yml (operator-gated), or set repo variable NPM_HELLO_ALLOW_LOCAL_PACK=true on a fork only."
+              exit 1
+            fi
           fi
           npm run smoke
 
-  # Area 27 / TASK-IMP-020 — surface nightly failures to Actions notifications
+  # Area 27 / TASK-IMP-020 / FIND-108 — surface nightly failures for ALL scheduled jobs
   notify-schedule-failure:
     if: >-
       always() &&
       github.event_name == 'schedule' &&
-      (
-        needs.fast-gates.result == 'failure' ||
-        needs.unit-tests.result == 'failure' ||
-        needs.docs-consistency-blocker.result == 'failure' ||
-        needs.whole-set-audits.result == 'failure'
-      )
+      contains(needs.*.result, 'failure')
     needs:
       - fast-gates
+      - token-provenance
       - unit-tests
+      - node-prechecks
+      - storybook-build
       - docs-consistency-blocker
       - whole-set-audits
+      - pixel-diff
+      - regenerate-tokens-push
+      - npm-hello-smoke
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       contents: read
     steps:

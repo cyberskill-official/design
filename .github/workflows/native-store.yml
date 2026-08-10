@@ -22,12 +22,18 @@ on:
 permissions:
   contents: read
 
+# FIND-089
+concurrency:
+  group: native-store-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   store-dry-run:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
           cache: npm
@@ -46,9 +52,15 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: node _audit/ci/native-store-dry-run.mjs
+      - name: Soft-skip honesty annotation (FIND-095)
+        if: always()
+        run: |
+          if [ -f _audit/ci/native-store-report.json ]; then
+            node _audit/ci/ci-verdict.mjs --assert-report _audit/ci/native-store-report.json
+          fi
       - name: Upload native-store report
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7
         with:
           name: native-store-report
           path: _audit/ci/native-store-report.json

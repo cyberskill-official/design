@@ -139,7 +139,7 @@ function StatusHub() {
 
   return (
     <div className="sh" lang={lang} data-theme={dark ? "dark" : undefined}>
-      <a className="cs-skip" href="#main" style={{ position: "absolute", left: -999, width: 1, height: 1, overflow: "hidden" }}>Skip to content</a>
+      <a className="cs-skip" href="#main" style={{ position: "absolute", left: -999, width: 1, height: 1, overflow: "hidden" }}>{lang === "vi" ? "Bỏ qua đến nội dung" : "Skip to content"}</a>
       <header className="hd">
         <div className="hd-in">
           <div className="hd-id">

@@ -1,0 +1,7 @@
+# FIND-064 — defense-in-depth (npm 11 ignores .npmignore when `files` is set;
+# the real exclusion is package.json `docs/*.md` + `docs/vi/` + viewer only).
+docs/tasks/
+docs/audits/
+docs/plans/
+docs/status/
+docs/decisions/

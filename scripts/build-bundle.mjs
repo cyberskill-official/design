@@ -32,9 +32,9 @@ import { transformSync } from "esbuild";
 export const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export const BUNDLE_PATH = join(REPO_ROOT, "_ds_bundle.js");
 
-/** Directories whose .js/.jsx sources are bundled, plus standalone root files. */
-const SOURCE_DIRS = ["components", "ui_kits"];
-const SOURCE_FILES = ["image-slot.js", "tokens/tokens.js"];
+/** Public library sources only (FIND-025). UI kits + image-slot stay authoring-local. */
+const SOURCE_DIRS = ["components"];
+const SOURCE_FILES = ["tokens/tokens.js"];
 
 const shortHash = (buf) => createHash("sha256").update(buf).digest("hex").slice(0, 12);
 

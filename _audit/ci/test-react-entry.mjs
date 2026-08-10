@@ -44,6 +44,15 @@ assert(ex["./react"]?.import === "./_esm/react.mjs", 'exports["./react"] → rea
 assert(ex["./react"]?.types === "./_esm/react.d.ts", 'exports["./react"].types → react.d.ts');
 assert(ex["./legacy"]?.import === "./_esm/cs.mjs", 'exports["./legacy"] → cs.mjs');
 assert(ex["./styles.css"], 'exports["./styles.css"] present');
+assert(ex["./components/*"] === "./components/*", 'exports["./components/*"] subpath present (FIND-024)');
+assert(
+  Array.isArray(pkg.sideEffects) && pkg.sideEffects.some((s) => String(s).includes(".css")),
+  'package.json sideEffects must declare CSS (and exclude pure component modules) — FIND-024'
+);
+assert(
+  !header.sourceHashes || !Object.keys(header.sourceHashes).some((p) => p.startsWith("ui_kits/") || p === "image-slot.js"),
+  "published bundle must not hash ui_kits/ or image-slot.js (FIND-025)"
+);
 
 assert(existsSync(join(root, "_esm/react.mjs")), "react.mjs exists");
 assert(existsSync(join(root, "_esm/react.d.ts")), "react.d.ts exists");

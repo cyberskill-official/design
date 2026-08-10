@@ -11,6 +11,7 @@
 import { existsSync, readFileSync, writeFileSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { recordCiVerdict } from './ci-verdict.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const REPORT = join(root, '_audit/ci/native-store-report.json');
@@ -102,7 +103,15 @@ function softSkip(reason, detail, platforms) {
   if (detail) console.error(detail);
   console.error('Set ASC_KEY_ID / ASC_ISSUER_ID / ASC_KEY_P8 and PLAY_SERVICE_ACCOUNT_JSON for signed builds.');
   console.error('Store submit stays disabled — samples remain samples. See examples/native/README.md.');
-  writeReport({ skipped: true, reason, message: detail || reason, platforms, submit: false });
+  writeReport({
+    skipped: true,
+    reason,
+    message: detail || reason,
+    platforms,
+    submit: false,
+    channel: 'native-store',
+  });
+  recordCiVerdict({ channel: 'native-store', kind: 'soft_skip', reason, detail });
   process.exit(0);
 }
 
@@ -133,8 +142,36 @@ function assertScaffold(platform) {
   return { id: platform.id, root: platform.root, files: platform.required.length, ok: true };
 }
 
+function assertCanonicalNativeTokens() {
+  const tokens = [
+    'tokens/native/CSTokens.swift',
+    'tokens/native/CSTokens.kt',
+    'tokens/native/cs_tokens.dart',
+  ];
+  const missing = [];
+  const weak = [];
+  for (const rel of tokens) {
+    const path = join(root, rel);
+    if (!existsSync(path)) {
+      missing.push(rel);
+      continue;
+    }
+    const body = readFileSync(path, 'utf8');
+    if (!/colorBrandUmber|ColorBrandUmber|color_brand_umber/i.test(body)) weak.push(rel);
+  }
+  if (missing.length || weak.length) {
+    const parts = [];
+    if (missing.length) parts.push(`missing ${missing.join(', ')}`);
+    if (weak.length) parts.push(`missing brand umber fingerprint in ${weak.join(', ')}`);
+    throw new Error(`Native channel tokens incomplete — ${parts.join('; ')}`);
+  }
+  return tokens.map((rel) => ({ path: rel, ok: true }));
+}
+
 function main() {
   console.log('Native store packaging — scaffold dry-run (no store submit).');
+  const tokenFiles = assertCanonicalNativeTokens();
+  console.log(`  OK tokens/native (${tokenFiles.length} canonical files)`);
   const platforms = PLATFORMS.map(assertScaffold);
   for (const p of platforms) {
     console.log(`  OK ${p.id} (${p.files} required files)`);
@@ -142,7 +179,16 @@ function main() {
 
   if (dryRun) {
     console.log('Dry-run OK — Fastlane scaffolds + metadata placeholders present (no secrets checked).');
-    writeReport({ skipped: false, ok: true, dryRun: true, platforms, submit: false });
+    writeReport({
+      skipped: false,
+      ok: true,
+      dryRun: true,
+      platforms,
+      tokens: tokenFiles,
+      submit: false,
+      channel: 'native-store',
+    });
+    recordCiVerdict({ channel: 'native-store', kind: 'dry_run', detail: 'scaffolds + native tokens OK' });
     return;
   }
 
@@ -176,6 +222,12 @@ function main() {
     submit: false,
     message: 'Scaffold ready; submit disabled by design',
     keystore: hasAnyKeystoreMaterial(),
+    channel: 'native-store',
+  });
+  recordCiVerdict({
+    channel: 'native-store',
+    kind: 'success',
+    detail: 'signing secrets present; submit still disabled',
   });
 }
 

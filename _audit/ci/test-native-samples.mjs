@@ -6,6 +6,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
 import { missingSecrets, ASC_SECRETS, PLAY_SECRETS } from './native-store-dry-run.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -135,6 +136,16 @@ assertStoreScaffold(flutterRoot, [
 assert(existsSync(join(root, '_audit/ci/native-store-dry-run.mjs')), 'native-store-dry-run.mjs');
 assert(existsSync(join(root, '.github/workflows/native-store.yml')), 'native-store.yml workflow');
 
+// Canonical generated native tokens (Phase 5 channel verification).
+for (const rel of [
+  'tokens/native/CSTokens.swift',
+  'tokens/native/CSTokens.kt',
+  'tokens/native/cs_tokens.dart',
+]) {
+  assert(existsSync(join(root, rel)), 'missing ' + rel);
+  assert(/colorBrandUmber|ColorBrandUmber|color_brand_umber/i.test(read(rel)), rel + ' brand umber');
+}
+
 assert(missingSecrets(ASC_SECRETS, {}).length === ASC_SECRETS.length, 'ASC secrets empty-env');
 assert(missingSecrets(PLAY_SECRETS, { PLAY_SERVICE_ACCOUNT_JSON: 'x' }).length === 0, 'Play secret present');
 assert(missingSecrets(ASC_SECRETS, { ASC_KEY_ID: 'a', ASC_ISSUER_ID: 'b', ASC_KEY_P8: 'c' }).length === 0, 'ASC complete');
@@ -147,6 +158,13 @@ assert(swiftFiles.length >= 5, 'swift multi-file');
 assert(ktFiles.length >= 5, 'kotlin multi-file');
 assert(dartFiles.length >= 4, 'dart multi-file');
 
+// Dry-run must stay green without secrets (FIND Phase 5 native verification).
+const dry = spawnSync(process.execPath, [join(root, '_audit/ci/native-store-dry-run.mjs'), '--dry-run'], {
+  cwd: root,
+  encoding: 'utf8',
+});
+assert(dry.status === 0, 'native-store-dry-run --dry-run failed: ' + (dry.stderr || dry.stdout));
+
 console.log('PASS test-native-samples', {
   swiftScreens: 3,
   composeScreens: 3,
@@ -155,4 +173,5 @@ console.log('PASS test-native-samples', {
   ktFiles: ktFiles.length,
   dartFiles: dartFiles.length,
   storeScaffolds: ['swiftui', 'compose', 'flutter'],
+  nativeDryRun: 'ok',
 });

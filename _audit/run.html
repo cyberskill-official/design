@@ -87,7 +87,7 @@ const GATES=[
   {name:'ESM smoke test',file:'esm-smoke-test.html',sub:'_esm/cs.mjs imports \u00b7 export/manifest parity · hard',get:w=>w.__esm},
   {name:'Package exports integrity',file:'package-exports-integrity.html',sub:'files[] \u00b7 dual ESM (react + legacy) \u00b7 pack-safe · hard',get:w=>w.__pkgexports},
   {name:'Component children',file:'component-children-test.html',sub:'void-element #137 guard · hard',get:w=>{const v=w.__result;return v&&v.anyThrew!==undefined?{pass:v.anyThrew===false}:null;}},
-  {name:'Component behavior',file:'component-behavior-test.html',sub:'82 real interaction assertions · hard',get:w=>w.__behavior},
+  {name:'Component behavior',file:'component-behavior-test.html',sub:'83 real interaction assertions · hard',get:w=>w.__behavior},
   {name:'A11y interactions',file:'a11y-gate.html',sub:'focus trap/restore \u00b7 roving \u00b7 Mentions/Sortable/Rating/Tree/Toolbar APG \u00b7 open-state Esc · hard',get:w=>w.__a11y},
   {name:'A11y CSSOM',file:'a11y-harness.html',sub:'touch-target floors \u00b7 focus-ring source proof \u00b7 reduced-motion/contrast · hard',get:w=>w.__a11ycss},
   {name:'Zoom + text-spacing',file:'zoom-text-spacing.html',sub:'200%/400% zoom proxy \u00b7 WCAG 1.4.12 spacing · hard',get:w=>w.__zoomspacing},
@@ -202,7 +202,7 @@ async function runBoard(){
   overall.textContent=bad.length?('✗ '+bad.length+'/'+hard.length+' HARD FAILED — '+bad.join(', ')):(('✓ ALL '+hard.length+' HARD GATES PASS')+(advBad.length?(' · advisory issues: '+advBad.join(', ')):''));
   overall.style.background=bad.length?'#FEE2E2':'#dcfce7'; overall.style.color=bad.length?'#B42318':'#166534';
   progressEl.textContent='Progress: done · '+(finishedAt-startedAt)+' ms wall · hard '+(hard.length-bad.length)+'/'+hard.length+' pass';
-  let ver='1.1.1'; try{ ver=(await (await fetch('../VERSION',{cache:'no-store'})).text()).trim(); }catch(e){}
+  let ver='1.3.1'; try{ ver=(await (await fetch('../VERSION',{cache:'no-store'})).text()).trim(); }catch(e){}
   try{ localStorage.setItem('cs:last-gate-run', JSON.stringify({ver, ts:finishedAt, startedAt, pass:bad.length===0, total:hard.length, failed:bad, advisoryFailed:advBad})); }catch(e){}
   timestampsEl.innerHTML='Started: <strong>'+fmtTs(startedAt)+'</strong> · Finished: <strong>'+fmtTs(finishedAt)+'</strong> · VERSION '+ver;
   running=false;

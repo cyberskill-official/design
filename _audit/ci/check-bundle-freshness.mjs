@@ -3,10 +3,10 @@
 //
 // The bundle's line-1 `/* @ds-bundle: {...} */` header records a sourceHashes map
 // (first 12 hex chars of the sha256 of every bundled source file). This script
-// recomputes those hashes for the full source set (components/**, ui_kits/**,
-// image-slot.js, tokens/tokens.js — the same discovery the build uses) and diffs
-// them against the header. Any edited, added, or deleted source without a
-// matching `npm run build:bundle` rebuild fails with a per-file diff.
+// recomputes those hashes for the library source set (components/** +
+// tokens/tokens.js — the same discovery the build uses) and diffs them against
+// the header. Any edited, added, or deleted source without a matching
+// `npm run build:bundle` rebuild fails with a per-file diff.
 //
 // Standalone by design: NOT wired into run.html or any workflow yet (a later
 // phase does that). Run manually: node _audit/ci/check-bundle-freshness.mjs
@@ -49,6 +49,21 @@ for (const path of Object.keys(recorded)) {
     problems.push(
       `✗ ${path} — in the bundle header but ${gone ? "deleted from" : "no longer part of"} the source set`
     );
+  }
+}
+
+// FIND-025 — published bundle must not ship ui_kits / image-slot side effects.
+const illegal = current.filter(
+  (p) => !(p.startsWith("components/") || p === "tokens/tokens.js")
+);
+if (illegal.length) {
+  console.error("BUNDLE SCOPE — sources outside components/ + tokens/tokens.js:");
+  for (const p of illegal) console.error("  " + p);
+  process.exit(1);
+}
+for (const banned of ["image-slot.js", "ui_kits/"]) {
+  if (Object.keys(recorded).some((p) => p === banned || p.startsWith(banned))) {
+    problems.push(`✗ ${banned} — must not appear in published bundle header (FIND-025)`);
   }
 }
 

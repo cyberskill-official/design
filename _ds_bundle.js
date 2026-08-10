@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"CyberSkillDesignSystem_847b3c","components":[{"name":"AIDisclosureBadge","sourcePath":"components/ai/AIDisclosureBadge.jsx"},{"name":"ChatMessage","sourcePath":"components/ai/ChatMessage.jsx"},{"name":"CitationList","sourcePath":"components/ai/CitationList.jsx"},{"name":"ConfidenceMeter","sourcePath":"components/ai/ConfidenceMeter.jsx"},{"name":"HumanReviewGate","sourcePath":"components/ai/HumanReviewGate.jsx"},{"name":"PromptInput","sourcePath":"components/ai/PromptInput.jsx"},{"name":"PromptSuggestions","sourcePath":"components/ai/PromptSuggestions.jsx"},{"name":"TypingIndicator","sourcePath":"components/ai/TypingIndicator.jsx"},{"name":"LumiAvatar","sourcePath":"components/brand/LumiAvatar.jsx"},{"name":"Button","sourcePath":"components/button/Button.jsx"},{"name":"ButtonGroup","sourcePath":"components/button/ButtonGroup.jsx"},{"name":"FloatingActionButton","sourcePath":"components/button/FloatingActionButton.jsx"},{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"AspectRatio","sourcePath":"components/data/AspectRatio.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/data/Avatar.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"CardHeader","sourcePath":"components/data/Card.jsx"},{"name":"CardBody","sourcePath":"components/data/Card.jsx"},{"name":"CardFooter","sourcePath":"components/data/Card.jsx"},{"name":"Carousel","sourcePath":"components/data/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data/Chart.jsx"},{"name":"CodeBlock","sourcePath":"components/data/CodeBlock.jsx"},{"name":"Collapsible","sourcePath":"components/data/Collapsible.jsx"},{"name":"Comment","sourcePath":"components/data/Comment.jsx"},{"name":"DescriptionList","sourcePath":"components/data/DescriptionList.jsx"},{"name":"Divider","sourcePath":"components/data/Divider.jsx"},{"name":"Image","sourcePath":"components/data/Image.jsx"},{"name":"Item","sourcePath":"components/data/Item.jsx"},{"name":"Kbd","sourcePath":"components/data/Kbd.jsx"},{"name":"List","sourcePath":"components/data/List.jsx"},{"name":"ListItem","sourcePath":"components/data/List.jsx"},{"name":"Masonry","sourcePath":"components/data/Masonry.jsx"},{"name":"QRCode","sourcePath":"components/data/QRCode.jsx"},{"name":"ScrollArea","sourcePath":"components/data/ScrollArea.jsx"},{"name":"Sortable","sourcePath":"components/data/Sortable.jsx"},{"name":"Splitter","sourcePath":"components/data/Splitter.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Terminal","sourcePath":"components/data/Terminal.jsx"},{"name":"Timeline","sourcePath":"components/data/Timeline.jsx"},{"name":"Tooltip","sourcePath":"components/data/Tooltip.jsx"},{"name":"Tree","sourcePath":"components/data/Tree.jsx"},{"name":"Watermark","sourcePath":"components/data/Watermark.jsx"},{"name":"DataGrid","sourcePath":"components/datatable/DataGrid.jsx"},{"name":"DataTable","sourcePath":"components/datatable/DataTable.jsx"},{"name":"TreeTable","sourcePath":"components/datatable/TreeTable.jsx"},{"name":"Dialog","sourcePath":"components/dialog/Dialog.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Result","sourcePath":"components/feedback/Result.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"StatusIndicator","sourcePath":"components/feedback/StatusIndicator.jsx"},{"name":"Tag","sourcePath":"components/feedback/Tag.jsx"},{"name":"ToastStack","sourcePath":"components/feedback/Toast.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Calendar","sourcePath":"components/forms/Calendar.jsx"},{"name":"Cascader","sourcePath":"components/forms/Cascader.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"ColorPicker","sourcePath":"components/forms/ColorPicker.jsx"},{"name":"Combobox","sourcePath":"components/forms/Combobox.jsx"},{"name":"DatePicker","sourcePath":"components/forms/DatePicker.jsx"},{"name":"Editor","sourcePath":"components/forms/Editor.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"Form","sourcePath":"components/forms/Form.jsx"},{"name":"FormField","sourcePath":"components/forms/Form.jsx"},{"name":"FormFieldArray","sourcePath":"components/forms/Form.jsx"},{"name":"FormWizard","sourcePath":"components/forms/Form.jsx"},{"name":"InlineEdit","sourcePath":"components/forms/InlineEdit.jsx"},{"name":"InputGroup","sourcePath":"components/forms/InputGroup.jsx"},{"name":"InputOTP","sourcePath":"components/forms/InputOTP.jsx"},{"name":"Mentions","sourcePath":"components/forms/Mentions.jsx"},{"name":"NativeSelect","sourcePath":"components/forms/NativeSelect.jsx"},{"name":"NumberField","sourcePath":"components/forms/NumberField.jsx"},{"name":"Radio","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"Rating","sourcePath":"components/forms/Rating.jsx"},{"name":"SearchField","sourcePath":"components/forms/SearchField.jsx"},{"name":"SegmentedControl","sourcePath":"components/forms/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Slider","sourcePath":"components/forms/Slider.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TagInput","sourcePath":"components/forms/TagInput.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"TimePicker","sourcePath":"components/forms/TimePicker.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Transfer","sourcePath":"components/forms/Transfer.jsx"},{"name":"TreeSelect","sourcePath":"components/forms/TreeSelect.jsx"},{"name":"CS_ICONS","sourcePath":"components/icon/Icon.jsx"},{"name":"Icon","sourcePath":"components/icon/Icon.jsx"},{"name":"Logo","sourcePath":"components/logo/Logo.jsx"},{"name":"CS_LOGO_VIEWBOX","sourcePath":"components/logo/logo-data.js"},{"name":"CS_LOGO_MARK_INNER","sourcePath":"components/logo/logo-data.js"},{"name":"Anchor","sourcePath":"components/navigation/Anchor.jsx"},{"name":"BackTop","sourcePath":"components/navigation/BackTop.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"CommandPalette","sourcePath":"components/navigation/CommandPalette.jsx"},{"name":"Dock","sourcePath":"components/navigation/Dock.jsx"},{"name":"HotKeys","sourcePath":"components/navigation/HotKeys.jsx"},{"name":"Link","sourcePath":"components/navigation/Link.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"MenuItem","sourcePath":"components/navigation/Menu.jsx"},{"name":"Menubar","sourcePath":"components/navigation/Menubar.jsx"},{"name":"NavigationMenu","sourcePath":"components/navigation/NavigationMenu.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"NavItem","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Steps","sourcePath":"components/navigation/Steps.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Tab","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Toolbar","sourcePath":"components/navigation/Toolbar.jsx"},{"name":"AlertDialog","sourcePath":"components/overlays/AlertDialog.jsx"},{"name":"ContextMenu","sourcePath":"components/overlays/ContextMenu.jsx"},{"name":"Drawer","sourcePath":"components/overlays/Drawer.jsx"},{"name":"HoverCard","sourcePath":"components/overlays/HoverCard.jsx"},{"name":"OverlayProvider","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"Popconfirm","sourcePath":"components/overlays/Popconfirm.jsx"},{"name":"Popover","sourcePath":"components/overlays/Popover.jsx"},{"name":"Tour","sourcePath":"components/overlays/Tour.jsx"},{"name":"TextField","sourcePath":"components/textfield/TextField.jsx"}],"sourceHashes":{"components/_i18n/i18n.js":"c8fc9f74a4c0","components/_i18n/strings.js":"f3d0a756a394","components/_utils/cx.js":"ad6a747ea116","components/ai/AIDisclosureBadge.jsx":"4c8954aa2d79","components/ai/ChatMessage.jsx":"84076f3488f2","components/ai/CitationList.jsx":"4d12ef868ff3","components/ai/ConfidenceMeter.jsx":"68cf2bba3a9e","components/ai/HumanReviewGate.jsx":"922b278dca5c","components/ai/PromptInput.jsx":"7634643dafa5","components/ai/PromptSuggestions.jsx":"02d64117ecfa","components/ai/TypingIndicator.jsx":"149e3a0c7ef8","components/brand/LumiAvatar.jsx":"b6444360cf80","components/button/Button.jsx":"6d902a925eed","components/button/ButtonGroup.jsx":"1a1481f6fb93","components/button/FloatingActionButton.jsx":"ce49fe4129a3","components/data/Accordion.jsx":"fed81278cefd","components/data/AspectRatio.jsx":"6c1e8703891e","components/data/Avatar.jsx":"88c8f59334e6","components/data/Card.jsx":"96e1f9ef44a9","components/data/Carousel.jsx":"caf09a766c42","components/data/Chart.jsx":"1953e9fef120","components/data/CodeBlock.jsx":"04e0bd2507e2","components/data/Collapsible.jsx":"3d961fef83f8","components/data/Comment.jsx":"81469a910d80","components/data/DescriptionList.jsx":"ce50d72546bb","components/data/Divider.jsx":"2d08b4a7b18e","components/data/Image.jsx":"da5c7d4c69af","components/data/Item.jsx":"7e1ac68c4e96","components/data/Kbd.jsx":"3b3d867cbdd8","components/data/List.jsx":"5c221b19efe0","components/data/Masonry.jsx":"a65508731d79","components/data/QRCode.jsx":"6acaf577a7fc","components/data/ScrollArea.jsx":"c2e2ec304b1e","components/data/Sortable.jsx":"ed7615a9469a","components/data/Splitter.jsx":"d231064601e9","components/data/Stat.jsx":"35734a801a71","components/data/Terminal.jsx":"3a3cd4477814","components/data/Timeline.jsx":"22058a781a98","components/data/Tooltip.jsx":"4d027aff5559","components/data/Tree.jsx":"a1d33dec0451","components/data/Watermark.jsx":"66b7b71488d8","components/data/qr-encode.js":"14e8de77df5f","components/datatable/DataGrid.jsx":"c84fe5d5b8cc","components/datatable/DataTable.jsx":"fbfad5570592","components/datatable/TreeTable.jsx":"597c35135ebb","components/dialog/Dialog.jsx":"8ef7722c37c4","components/feedback/Alert.jsx":"0bbe4e5f467a","components/feedback/Badge.jsx":"e691ae1634f8","components/feedback/EmptyState.jsx":"9a9c00523cec","components/feedback/ProgressBar.jsx":"3986118b0da8","components/feedback/Result.jsx":"c168f8dcb009","components/feedback/Skeleton.jsx":"86ee345cb412","components/feedback/Spinner.jsx":"cad2ed4008a6","components/feedback/StatusIndicator.jsx":"d27a5fc3db2a","components/feedback/Tag.jsx":"13d288da9f38","components/feedback/Toast.jsx":"38cc9a82ede9","components/forms/Calendar.jsx":"8a66cbe766af","components/forms/Cascader.jsx":"7b830b11edb1","components/forms/Checkbox.jsx":"2badb7b3b72b","components/forms/ColorPicker.jsx":"d04db0ee7678","components/forms/Combobox.jsx":"3f2fb4d28922","components/forms/DatePicker.jsx":"7a6c18e1e635","components/forms/Editor.jsx":"194484fb9dc4","components/forms/FileUpload.jsx":"509dfaff8bea","components/forms/Form.jsx":"f7952da4b73a","components/forms/InlineEdit.jsx":"5ffb40598769","components/forms/InputGroup.jsx":"06d6c22420d0","components/forms/InputOTP.jsx":"c3a5d02ffebc","components/forms/Mentions.jsx":"3924619137f3","components/forms/NativeSelect.jsx":"d6f6d300f75d","components/forms/NumberField.jsx":"44975fd25721","components/forms/RadioGroup.jsx":"1a64f7600e01","components/forms/Rating.jsx":"bd5c94741d63","components/forms/SearchField.jsx":"2a12c65900ec","components/forms/SegmentedControl.jsx":"1f143c62fb56","components/forms/Select.jsx":"1b5ba905b339","components/forms/Slider.jsx":"69aa1a5f1af8","components/forms/Switch.jsx":"ed54f4bceb60","components/forms/TagInput.jsx":"2d1554422097","components/forms/Textarea.jsx":"cf244fee0e37","components/forms/TimePicker.jsx":"abd6e54b2983","components/forms/Toggle.jsx":"338453a34669","components/forms/Transfer.jsx":"dd0c02d1014e","components/forms/TreeSelect.jsx":"a5b1b91d1d6a","components/icon/Icon.jsx":"280fba8477db","components/logo/Logo.jsx":"445c5f5fbd40","components/logo/logo-data.js":"f1a251a50c8f","components/navigation/Anchor.jsx":"491fb330e718","components/navigation/BackTop.jsx":"5cac0081fc20","components/navigation/Breadcrumb.jsx":"45636f3b0a51","components/navigation/CommandPalette.jsx":"51c25b8416eb","components/navigation/Dock.jsx":"3073e2870c65","components/navigation/HotKeys.jsx":"f0f707a3335d","components/navigation/Link.jsx":"d4fe3fcffd2c","components/navigation/Menu.jsx":"6786788f13f8","components/navigation/Menubar.jsx":"1aa64f59891e","components/navigation/NavigationMenu.jsx":"020279fd7f79","components/navigation/Pagination.jsx":"a1fc19bfd104","components/navigation/Sidebar.jsx":"d578b013ad33","components/navigation/Steps.jsx":"85cb20bd45da","components/navigation/Tabs.jsx":"5d5921da1644","components/navigation/Toolbar.jsx":"0f1f25d9e0c5","components/overlays/AlertDialog.jsx":"dcfbb7f61506","components/overlays/ContextMenu.jsx":"e7e3386d89ac","components/overlays/Drawer.jsx":"a1c719da3f62","components/overlays/HoverCard.jsx":"5cfabde80960","components/overlays/OverlayManager.jsx":"6b58c4dad9da","components/overlays/Popconfirm.jsx":"55f08dba5f38","components/overlays/Popover.jsx":"1582f7fa5533","components/overlays/Tour.jsx":"707cd7464f0c","components/textfield/TextField.jsx":"c06bd9729f20","image-slot.js":"26886a229370","tokens/tokens.js":"5c27041d7d67","ui_kits/status-hub/StatusHub.jsx":"8674a9fcf8fc","ui_kits/status-hub/data.js":"664bbbb30cb3","ui_kits/website/Website.jsx":"c6a98330480b","ui_kits/website/copy.js":"9d42c52c17cb"},"inlinedExternals":[],"unexposedExports":[{"name":"attachFocusTrap","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"cx","sourcePath":"components/_utils/cx.js"},{"name":"focusableSelector","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"formatCurrency","sourcePath":"components/_i18n/i18n.js"},{"name":"formatDate","sourcePath":"components/_i18n/i18n.js"},{"name":"formatNumber","sourcePath":"components/_i18n/i18n.js"},{"name":"getOverlayManager","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"getPath","sourcePath":"components/forms/Form.jsx"},{"name":"makeT","sourcePath":"components/_i18n/i18n.js"},{"name":"monthName","sourcePath":"components/_i18n/i18n.js"},{"name":"qrMatrix","sourcePath":"components/data/qr-encode.js"},{"name":"reorderItems","sourcePath":"components/data/Sortable.jsx"},{"name":"resolveLang","sourcePath":"components/_i18n/i18n.js"},{"name":"setPath","sourcePath":"components/forms/Form.jsx"},{"name":"strings","sourcePath":"components/_i18n/strings.js"},{"name":"tokens","sourcePath":"tokens/tokens.js"},{"name":"tr","sourcePath":"components/_i18n/i18n.js"},{"name":"useLang","sourcePath":"components/_i18n/i18n.js"},{"name":"useOverlayLayer","sourcePath":"components/overlays/OverlayManager.jsx"}]} */
+/* @ds-bundle: {"format":4,"namespace":"CyberSkillDesignSystem_847b3c","components":[{"name":"AIDisclosureBadge","sourcePath":"components/ai/AIDisclosureBadge.jsx"},{"name":"ChatMessage","sourcePath":"components/ai/ChatMessage.jsx"},{"name":"CitationList","sourcePath":"components/ai/CitationList.jsx"},{"name":"ConfidenceMeter","sourcePath":"components/ai/ConfidenceMeter.jsx"},{"name":"HumanReviewGate","sourcePath":"components/ai/HumanReviewGate.jsx"},{"name":"PromptInput","sourcePath":"components/ai/PromptInput.jsx"},{"name":"PromptSuggestions","sourcePath":"components/ai/PromptSuggestions.jsx"},{"name":"TypingIndicator","sourcePath":"components/ai/TypingIndicator.jsx"},{"name":"LumiAvatar","sourcePath":"components/brand/LumiAvatar.jsx"},{"name":"Button","sourcePath":"components/button/Button.jsx"},{"name":"ButtonGroup","sourcePath":"components/button/ButtonGroup.jsx"},{"name":"FloatingActionButton","sourcePath":"components/button/FloatingActionButton.jsx"},{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"AspectRatio","sourcePath":"components/data/AspectRatio.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/data/Avatar.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"CardHeader","sourcePath":"components/data/Card.jsx"},{"name":"CardBody","sourcePath":"components/data/Card.jsx"},{"name":"CardFooter","sourcePath":"components/data/Card.jsx"},{"name":"Carousel","sourcePath":"components/data/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data/Chart.jsx"},{"name":"CodeBlock","sourcePath":"components/data/CodeBlock.jsx"},{"name":"Collapsible","sourcePath":"components/data/Collapsible.jsx"},{"name":"Comment","sourcePath":"components/data/Comment.jsx"},{"name":"DescriptionList","sourcePath":"components/data/DescriptionList.jsx"},{"name":"Divider","sourcePath":"components/data/Divider.jsx"},{"name":"Image","sourcePath":"components/data/Image.jsx"},{"name":"Item","sourcePath":"components/data/Item.jsx"},{"name":"Kbd","sourcePath":"components/data/Kbd.jsx"},{"name":"List","sourcePath":"components/data/List.jsx"},{"name":"ListItem","sourcePath":"components/data/List.jsx"},{"name":"Masonry","sourcePath":"components/data/Masonry.jsx"},{"name":"QRCode","sourcePath":"components/data/QRCode.jsx"},{"name":"ScrollArea","sourcePath":"components/data/ScrollArea.jsx"},{"name":"Sortable","sourcePath":"components/data/Sortable.jsx"},{"name":"Splitter","sourcePath":"components/data/Splitter.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Terminal","sourcePath":"components/data/Terminal.jsx"},{"name":"Timeline","sourcePath":"components/data/Timeline.jsx"},{"name":"Tooltip","sourcePath":"components/data/Tooltip.jsx"},{"name":"Tree","sourcePath":"components/data/Tree.jsx"},{"name":"Watermark","sourcePath":"components/data/Watermark.jsx"},{"name":"DataGrid","sourcePath":"components/datatable/DataGrid.jsx"},{"name":"DataTable","sourcePath":"components/datatable/DataTable.jsx"},{"name":"TreeTable","sourcePath":"components/datatable/TreeTable.jsx"},{"name":"Dialog","sourcePath":"components/dialog/Dialog.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Result","sourcePath":"components/feedback/Result.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"StatusIndicator","sourcePath":"components/feedback/StatusIndicator.jsx"},{"name":"Tag","sourcePath":"components/feedback/Tag.jsx"},{"name":"ToastStack","sourcePath":"components/feedback/Toast.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Calendar","sourcePath":"components/forms/Calendar.jsx"},{"name":"Cascader","sourcePath":"components/forms/Cascader.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"ColorPicker","sourcePath":"components/forms/ColorPicker.jsx"},{"name":"Combobox","sourcePath":"components/forms/Combobox.jsx"},{"name":"DatePicker","sourcePath":"components/forms/DatePicker.jsx"},{"name":"Editor","sourcePath":"components/forms/Editor.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"Form","sourcePath":"components/forms/Form.jsx"},{"name":"FormField","sourcePath":"components/forms/Form.jsx"},{"name":"FormFieldArray","sourcePath":"components/forms/Form.jsx"},{"name":"FormWizard","sourcePath":"components/forms/Form.jsx"},{"name":"InlineEdit","sourcePath":"components/forms/InlineEdit.jsx"},{"name":"InputGroup","sourcePath":"components/forms/InputGroup.jsx"},{"name":"InputOTP","sourcePath":"components/forms/InputOTP.jsx"},{"name":"Mentions","sourcePath":"components/forms/Mentions.jsx"},{"name":"NativeSelect","sourcePath":"components/forms/NativeSelect.jsx"},{"name":"NumberField","sourcePath":"components/forms/NumberField.jsx"},{"name":"Radio","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"Rating","sourcePath":"components/forms/Rating.jsx"},{"name":"SearchField","sourcePath":"components/forms/SearchField.jsx"},{"name":"SegmentedControl","sourcePath":"components/forms/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Slider","sourcePath":"components/forms/Slider.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TagInput","sourcePath":"components/forms/TagInput.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"TimePicker","sourcePath":"components/forms/TimePicker.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Transfer","sourcePath":"components/forms/Transfer.jsx"},{"name":"TreeSelect","sourcePath":"components/forms/TreeSelect.jsx"},{"name":"CS_ICONS","sourcePath":"components/icon/Icon.jsx"},{"name":"Icon","sourcePath":"components/icon/Icon.jsx"},{"name":"Logo","sourcePath":"components/logo/Logo.jsx"},{"name":"CS_LOGO_VIEWBOX","sourcePath":"components/logo/logo-data.js"},{"name":"CS_LOGO_MARK_INNER","sourcePath":"components/logo/logo-data.js"},{"name":"Anchor","sourcePath":"components/navigation/Anchor.jsx"},{"name":"BackTop","sourcePath":"components/navigation/BackTop.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"CommandPalette","sourcePath":"components/navigation/CommandPalette.jsx"},{"name":"Dock","sourcePath":"components/navigation/Dock.jsx"},{"name":"HotKeys","sourcePath":"components/navigation/HotKeys.jsx"},{"name":"Link","sourcePath":"components/navigation/Link.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"MenuItem","sourcePath":"components/navigation/Menu.jsx"},{"name":"Menubar","sourcePath":"components/navigation/Menubar.jsx"},{"name":"NavigationMenu","sourcePath":"components/navigation/NavigationMenu.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"NavItem","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Steps","sourcePath":"components/navigation/Steps.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Tab","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Toolbar","sourcePath":"components/navigation/Toolbar.jsx"},{"name":"AlertDialog","sourcePath":"components/overlays/AlertDialog.jsx"},{"name":"ContextMenu","sourcePath":"components/overlays/ContextMenu.jsx"},{"name":"Drawer","sourcePath":"components/overlays/Drawer.jsx"},{"name":"HoverCard","sourcePath":"components/overlays/HoverCard.jsx"},{"name":"OverlayProvider","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"Popconfirm","sourcePath":"components/overlays/Popconfirm.jsx"},{"name":"Popover","sourcePath":"components/overlays/Popover.jsx"},{"name":"Tour","sourcePath":"components/overlays/Tour.jsx"},{"name":"TextField","sourcePath":"components/textfield/TextField.jsx"}],"sourceHashes":{"components/_i18n/i18n.js":"c8fc9f74a4c0","components/_i18n/strings.js":"90d5662e7f04","components/_utils/cx.js":"ad6a747ea116","components/ai/AIDisclosureBadge.jsx":"4c8954aa2d79","components/ai/ChatMessage.jsx":"344e9c13fcfe","components/ai/CitationList.jsx":"4d12ef868ff3","components/ai/ConfidenceMeter.jsx":"68cf2bba3a9e","components/ai/HumanReviewGate.jsx":"922b278dca5c","components/ai/PromptInput.jsx":"7634643dafa5","components/ai/PromptSuggestions.jsx":"02d64117ecfa","components/ai/TypingIndicator.jsx":"149e3a0c7ef8","components/brand/LumiAvatar.jsx":"b6444360cf80","components/button/Button.jsx":"6d902a925eed","components/button/ButtonGroup.jsx":"1a1481f6fb93","components/button/FloatingActionButton.jsx":"ce49fe4129a3","components/data/Accordion.jsx":"fed81278cefd","components/data/AspectRatio.jsx":"6c1e8703891e","components/data/Avatar.jsx":"88c8f59334e6","components/data/Card.jsx":"96e1f9ef44a9","components/data/Carousel.jsx":"caf09a766c42","components/data/Chart.jsx":"1953e9fef120","components/data/CodeBlock.jsx":"04e0bd2507e2","components/data/Collapsible.jsx":"3d961fef83f8","components/data/Comment.jsx":"81469a910d80","components/data/DescriptionList.jsx":"ce50d72546bb","components/data/Divider.jsx":"2d08b4a7b18e","components/data/Image.jsx":"0ea06cfe1532","components/data/Item.jsx":"7e1ac68c4e96","components/data/Kbd.jsx":"3b3d867cbdd8","components/data/List.jsx":"5c221b19efe0","components/data/Masonry.jsx":"a65508731d79","components/data/QRCode.jsx":"6acaf577a7fc","components/data/ScrollArea.jsx":"c2e2ec304b1e","components/data/Sortable.jsx":"ed7615a9469a","components/data/Splitter.jsx":"d231064601e9","components/data/Stat.jsx":"35734a801a71","components/data/Terminal.jsx":"9d419686bea8","components/data/Timeline.jsx":"22058a781a98","components/data/Tooltip.jsx":"3f30c6b1bf1d","components/data/Tree.jsx":"a1d33dec0451","components/data/Watermark.jsx":"66b7b71488d8","components/data/qr-encode.js":"14e8de77df5f","components/datatable/DataGrid.jsx":"c84fe5d5b8cc","components/datatable/DataTable.jsx":"fbfad5570592","components/datatable/TreeTable.jsx":"597c35135ebb","components/dialog/Dialog.jsx":"8ef7722c37c4","components/feedback/Alert.jsx":"4dbf685af3e1","components/feedback/Badge.jsx":"e691ae1634f8","components/feedback/EmptyState.jsx":"5ba1437e6d81","components/feedback/ProgressBar.jsx":"c63a431e9eed","components/feedback/Result.jsx":"c168f8dcb009","components/feedback/Skeleton.jsx":"86ee345cb412","components/feedback/Spinner.jsx":"cad2ed4008a6","components/feedback/StatusIndicator.jsx":"d27a5fc3db2a","components/feedback/Tag.jsx":"13d288da9f38","components/feedback/Toast.jsx":"6a7832751669","components/forms/Calendar.jsx":"8a66cbe766af","components/forms/Cascader.jsx":"c2ef1719808f","components/forms/Checkbox.jsx":"2badb7b3b72b","components/forms/ColorPicker.jsx":"d04db0ee7678","components/forms/Combobox.jsx":"3f2fb4d28922","components/forms/DatePicker.jsx":"7a6c18e1e635","components/forms/Editor.jsx":"194484fb9dc4","components/forms/FileUpload.jsx":"509dfaff8bea","components/forms/Form.jsx":"6945025a205f","components/forms/InlineEdit.jsx":"5ffb40598769","components/forms/InputGroup.jsx":"06d6c22420d0","components/forms/InputOTP.jsx":"c3a5d02ffebc","components/forms/Mentions.jsx":"3924619137f3","components/forms/NativeSelect.jsx":"d6f6d300f75d","components/forms/NumberField.jsx":"44975fd25721","components/forms/RadioGroup.jsx":"1a64f7600e01","components/forms/Rating.jsx":"bd5c94741d63","components/forms/SearchField.jsx":"2a12c65900ec","components/forms/SegmentedControl.jsx":"1f143c62fb56","components/forms/Select.jsx":"009495d18845","components/forms/Slider.jsx":"213b7b9edec9","components/forms/Switch.jsx":"3cdf185f757c","components/forms/TagInput.jsx":"2d1554422097","components/forms/Textarea.jsx":"cf244fee0e37","components/forms/TimePicker.jsx":"abd6e54b2983","components/forms/Toggle.jsx":"a5378fd66713","components/forms/Transfer.jsx":"dd0c02d1014e","components/forms/TreeSelect.jsx":"a5b1b91d1d6a","components/icon/Icon.jsx":"280fba8477db","components/logo/Logo.jsx":"445c5f5fbd40","components/logo/logo-data.js":"f1a251a50c8f","components/navigation/Anchor.jsx":"491fb330e718","components/navigation/BackTop.jsx":"5cac0081fc20","components/navigation/Breadcrumb.jsx":"45636f3b0a51","components/navigation/CommandPalette.jsx":"51c25b8416eb","components/navigation/Dock.jsx":"3073e2870c65","components/navigation/HotKeys.jsx":"f0f707a3335d","components/navigation/Link.jsx":"d4fe3fcffd2c","components/navigation/Menu.jsx":"999e1659f8b3","components/navigation/Menubar.jsx":"1aa64f59891e","components/navigation/NavigationMenu.jsx":"020279fd7f79","components/navigation/Pagination.jsx":"a1fc19bfd104","components/navigation/Sidebar.jsx":"d578b013ad33","components/navigation/Steps.jsx":"e26c4a18cdfc","components/navigation/Tabs.jsx":"16964d61f349","components/navigation/Toolbar.jsx":"0f1f25d9e0c5","components/overlays/AlertDialog.jsx":"dcfbb7f61506","components/overlays/ContextMenu.jsx":"e3fb63e7b74f","components/overlays/Drawer.jsx":"a1c719da3f62","components/overlays/HoverCard.jsx":"5cfabde80960","components/overlays/OverlayManager.jsx":"6b58c4dad9da","components/overlays/Popconfirm.jsx":"55f08dba5f38","components/overlays/Popover.jsx":"1582f7fa5533","components/overlays/Tour.jsx":"707cd7464f0c","components/textfield/TextField.jsx":"c06bd9729f20","tokens/tokens.js":"33a6e6dc7cf0"},"inlinedExternals":[],"unexposedExports":[{"name":"attachFocusTrap","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"cx","sourcePath":"components/_utils/cx.js"},{"name":"focusableSelector","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"formatCurrency","sourcePath":"components/_i18n/i18n.js"},{"name":"formatDate","sourcePath":"components/_i18n/i18n.js"},{"name":"formatNumber","sourcePath":"components/_i18n/i18n.js"},{"name":"getOverlayManager","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"getPath","sourcePath":"components/forms/Form.jsx"},{"name":"makeT","sourcePath":"components/_i18n/i18n.js"},{"name":"monthName","sourcePath":"components/_i18n/i18n.js"},{"name":"qrMatrix","sourcePath":"components/data/qr-encode.js"},{"name":"reorderItems","sourcePath":"components/data/Sortable.jsx"},{"name":"resolveLang","sourcePath":"components/_i18n/i18n.js"},{"name":"setPath","sourcePath":"components/forms/Form.jsx"},{"name":"strings","sourcePath":"components/_i18n/strings.js"},{"name":"tokens","sourcePath":"tokens/tokens.js"},{"name":"tr","sourcePath":"components/_i18n/i18n.js"},{"name":"useLang","sourcePath":"components/_i18n/i18n.js"},{"name":"useOverlayLayer","sourcePath":"components/overlays/OverlayManager.jsx"}]} */
 
 (() => {
 
@@ -20,8 +20,8 @@ const strings = {
     vi: { label: "Đường dẫn" }
   },
   CommandPalette: {
-    en: { placeholder: "Type a command or search…", empty: "No results found", aria: "Command palette", esc: "Esc" },
-    vi: { placeholder: "Nhập lệnh hoặc tìm kiếm…", empty: "Không tìm thấy kết quả", aria: "Bảng lệnh", esc: "Esc" }
+    en: { placeholder: "Type a command or search…", empty: "No results", aria: "Command palette", esc: "Esc" },
+    vi: { placeholder: "Nhập lệnh hoặc tìm kiếm…", empty: "Không có kết quả", aria: "Bảng lệnh", esc: "Esc" }
   },
   SearchField: {
     en: { placeholder: "Search…", clear: "Clear search" },
@@ -44,12 +44,12 @@ const strings = {
     vi: { confirm: "Xác nhận", cancel: "Hủy" }
   },
   Drawer: {
-    en: { close: "Close", panel: "Panel" },
-    vi: { close: "Đóng", panel: "Bảng" }
+    en: { close: "Close", panel: "Side panel" },
+    vi: { close: "Đóng", panel: "Bảng bên" }
   },
   DataTable: {
-    en: { empty: "No records" },
-    vi: { empty: "Không có bản ghi" }
+    en: { empty: "No results" },
+    vi: { empty: "Không có kết quả" }
   },
   ConfidenceMeter: {
     en: { label: "Confidence", low: "Low", medium: "Medium", high: "High" },
@@ -61,10 +61,10 @@ const strings = {
   },
   Tag: {
     en: { remove: "Remove" },
-    vi: { remove: "Gỡ bỏ" }
+    vi: { remove: "Gỡ" }
   },
   Toast: {
-    en: { notifications: "Notifications", dismiss: "Dismiss" },
+    en: { notifications: "Notifications", dismiss: "Close" },
     vi: { notifications: "Thông báo", dismiss: "Đóng" }
   },
   TypingIndicator: {
@@ -76,12 +76,12 @@ const strings = {
     vi: { toolbar: "Định dạng", bold: "Đậm", italic: "Nghiêng", list: "Danh sách", area: "Văn bản" }
   },
   Terminal: {
-    en: { input: "Terminal input" },
-    vi: { input: "Ô nhập lệnh" }
+    en: { input: "Terminal input", title: "cyberskill — zsh" },
+    vi: { input: "Ô nhập lệnh", title: "cyberskill — zsh" }
   },
   DataGrid: {
-    en: { empty: "No records", selectAll: "Select all rows", selectRow: "Select row", pin: "Pin this column", pinNamed: "Pin column {name}" },
-    vi: { empty: "Không có bản ghi", selectAll: "Chọn tất cả", selectRow: "Chọn dòng", pin: "Ghim cột này", pinNamed: "Ghim cột {name}" }
+    en: { empty: "No results", selectAll: "Select all rows", selectRow: "Select row", pin: "Pin this column", pinNamed: "Pin column {name}" },
+    vi: { empty: "Không có kết quả", selectAll: "Chọn tất cả", selectRow: "Chọn dòng", pin: "Ghim cột này", pinNamed: "Ghim cột {name}" }
   },
   Splitter: {
     en: { label: "Resize panes" },
@@ -120,8 +120,8 @@ const strings = {
     vi: { moveUp: "Di chuyển lên", moveDown: "Di chuyển xuống" }
   },
   Form: {
-    en: { summary: "Please fix the following:", required: "required", requiredField: "This field is required" },
-    vi: { summary: "Vui lòng sửa các mục sau:", required: "bắt buộc", requiredField: "Trường này là bắt buộc" }
+    en: { summary: "Please fix the following:", required: "required", requiredField: "Enter a value" },
+    vi: { summary: "Vui lòng sửa các mục sau:", required: "bắt buộc", requiredField: "Vui lòng nhập giá trị" }
   },
   BackTop: {
     en: { label: "Back to top" },
@@ -129,7 +129,7 @@ const strings = {
   },
   Carousel: {
     en: { prev: "Previous slide", next: "Next slide", slide: "Slide" },
-    vi: { prev: "Trang trước", next: "Trang sau", slide: "Trang" }
+    vi: { prev: "Ảnh trước", next: "Ảnh sau", slide: "Ảnh" }
   },
   Comment: {
     en: { reply: "Reply" },
@@ -144,12 +144,12 @@ const strings = {
     vi: { more: "Thao tác khác" }
   },
   Popconfirm: {
-    en: { ok: "OK", cancel: "Cancel" },
-    vi: { ok: "Đồng ý", cancel: "Hủy" }
+    en: { ok: "Confirm", cancel: "Cancel" },
+    vi: { ok: "Xác nhận", cancel: "Hủy" }
   },
   Result: {
-    en: { success: "Done", error: "Something went wrong", warning: "Please check", info: "For your information" },
-    vi: { success: "Hoàn tất", error: "Đã có lỗi xảy ra", warning: "Vui lòng kiểm tra", info: "Thông tin" }
+    en: { success: "Done", error: "We couldn't complete that", warning: "Please check", info: "Here's what happened" },
+    vi: { success: "Hoàn tất", error: "Chúng tôi chưa hoàn tất được", warning: "Vui lòng kiểm tra", info: "Đây là điều đã xảy ra" }
   },
   InlineEdit: {
     en: { edit: "Edit", empty: "Add text" },
@@ -168,8 +168,8 @@ const strings = {
     vi: { label: "Giờ" }
   },
   Combobox: {
-    en: { placeholder: "Select or type…", empty: "No matches" },
-    vi: { placeholder: "Chọn hoặc nhập…", empty: "Không có kết quả phù hợp" }
+    en: { placeholder: "Select or type…", empty: "No results" },
+    vi: { placeholder: "Chọn hoặc nhập…", empty: "Không có kết quả" }
   },
   InputGroup: {
     en: { clear: "Clear", show: "Show password", hide: "Hide password", input: "Input" },
@@ -204,11 +204,11 @@ const strings = {
     vi: { list: "Tab" }
   },
   EmptyState: {
-    en: { title: "Nothing here yet", action: "Get started" },
-    vi: { title: "Chưa có gì ở đây", action: "Bắt đầu" }
+    en: { title: "Nothing here yet", action: "Create your first item" },
+    vi: { title: "Chưa có gì ở đây", action: "Tạo mục đầu tiên" }
   },
   Alert: {
-    en: { dismiss: "Dismiss" },
+    en: { dismiss: "Close" },
     vi: { dismiss: "Đóng" }
   },
   Select: {
@@ -242,6 +242,10 @@ const strings = {
   ProgressBar: {
     en: { label: "Progress" },
     vi: { label: "Tiến độ" }
+  },
+  ChatMessage: {
+    en: { you: "You" },
+    vi: { you: "Bạn" }
   }
 };
 Object.assign(__ds_scope, { strings });
@@ -361,11 +365,15 @@ Object.assign(__ds_scope, { AIDisclosureBadge });
 
 // components/ai/ChatMessage.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function ChatMessage({ role = "lumi", name, avatar, children, className }) {
+function ChatMessage({ role = "lumi", name, avatar, lang, className, children }) {
   const isUser = role === "user";
-  const defaultAvatar = isUser ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, "You") : /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.9", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z" }));
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-chat-msg", isUser ? "cs-chat-msg--user" : "cs-chat-msg--lumi", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__avatar" }, avatar ?? defaultAvatar), /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__col" }, /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__name" }, name ?? (isUser ? "You" : "Lumi")), /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__bubble" }, children)));
+  const [ref, L] = useLang(lang);
+  const t = makeT("ChatMessage", L);
+  const you = t("you");
+  const defaultAvatar = isUser ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, you) : /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.9", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z" }));
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-chat-msg", isUser ? "cs-chat-msg--user" : "cs-chat-msg--lumi", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__avatar" }, avatar ?? defaultAvatar), /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__col" }, /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__name" }, name ?? (isUser ? you : "Lumi")), /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__bubble" }, children)));
 }
 Object.assign(__ds_scope, { ChatMessage });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/ai/ChatMessage.jsx", error: String((e && e.message) || e) }); }
@@ -1036,18 +1044,19 @@ Object.assign(__ds_scope, { Stat });
 try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Terminal({ title = "cyberskill — zsh", welcome, onCommand, prompt = "➜", lang, className }) {
+function Terminal({ title, welcome, onCommand, prompt = "➜", lang, className }) {
   const [hist, setHist] = React.useState(() => welcome ? [{ out: welcome }] : []);
   const [q, setQ] = React.useState("");
   const [ref, L] = useLang(lang);
   const t = makeT("Terminal", L);
+  const barTitle = title ?? t("title");
   const run = () => {
     if (!q.trim()) return;
     const res = onCommand ? onCommand(q.trim()) : "";
     setHist((h) => [...h, { cmd: q }, ...res ? [{ out: res }] : []]);
     setQ("");
   };
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-terminal", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-terminal__bar" }, /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("span", null, title)), /* @__PURE__ */ React.createElement("div", { className: "cs-terminal__body" }, hist.map((l, i) => l.cmd != null ? /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-terminal__line" }, /* @__PURE__ */ React.createElement("span", { className: "p" }, prompt), " ", l.cmd) : /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-terminal__out" }, l.out)), /* @__PURE__ */ React.createElement("div", { className: "cs-terminal__line" }, /* @__PURE__ */ React.createElement("span", { className: "p" }, prompt), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-terminal", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-terminal__bar" }, /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("span", null, barTitle)), /* @__PURE__ */ React.createElement("div", { className: "cs-terminal__body" }, hist.map((l, i) => l.cmd != null ? /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-terminal__line" }, /* @__PURE__ */ React.createElement("span", { className: "p" }, prompt), " ", l.cmd) : /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-terminal__out" }, l.out)), /* @__PURE__ */ React.createElement("div", { className: "cs-terminal__line" }, /* @__PURE__ */ React.createElement("span", { className: "p" }, prompt), /* @__PURE__ */ React.createElement(
     "input",
     {
       value: q,
@@ -1074,9 +1083,12 @@ Object.assign(__ds_scope, { Timeline });
 
 // components/data/Tooltip.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Tooltip({ label, children, className }) {
-  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-tooltip", className) }, children, /* @__PURE__ */ React.createElement("span", { className: "cs-tooltip__bubble", role: "tooltip" }, label));
+function Tooltip({ label, children, lang, className }) {
+  const [ref, L] = useLang(lang);
+  const t = makeT("Tooltip", L);
+  return /* @__PURE__ */ React.createElement("span", { ref, className: cx("cs-tooltip", className) }, children, /* @__PURE__ */ React.createElement("span", { className: "cs-tooltip__bubble", role: "tooltip" }, label ?? t("label")));
 }
 Object.assign(__ds_scope, { Tooltip });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Tooltip.jsx", error: String((e && e.message) || e) }); }
@@ -1412,6 +1424,7 @@ Object.assign(__ds_scope, { TreeTable });
 
 // components/feedback/Alert.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const PATHS = {
   info: "M12 8h.01M11 12h1v4h1 M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
@@ -1422,8 +1435,10 @@ const PATHS = {
 function DefaultIcon({ variant }) {
   return /* @__PURE__ */ React.createElement("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.9", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: PATHS[variant] || PATHS.info }));
 }
-function Alert({ variant = "info", title, icon, children, className, ...props }) {
-  return /* @__PURE__ */ React.createElement("div", { role: "status", className: cx("cs-alert", `cs-alert--${variant}`, className), ...props }, /* @__PURE__ */ React.createElement("span", { className: "cs-alert__icon" }, icon ?? /* @__PURE__ */ React.createElement(DefaultIcon, { variant })), /* @__PURE__ */ React.createElement("div", null, title ? /* @__PURE__ */ React.createElement("p", { className: "cs-alert__title" }, title) : null, children ? /* @__PURE__ */ React.createElement("div", { className: "cs-alert__body" }, children) : null));
+function Alert({ variant = "info", title, icon, children, onDismiss, lang, className, ...props }) {
+  const [ref, L] = useLang(lang);
+  const t = makeT("Alert", L);
+  return /* @__PURE__ */ React.createElement("div", { ref, role: "status", className: cx("cs-alert", `cs-alert--${variant}`, className), ...props }, /* @__PURE__ */ React.createElement("span", { className: "cs-alert__icon" }, icon ?? /* @__PURE__ */ React.createElement(DefaultIcon, { variant })), /* @__PURE__ */ React.createElement("div", null, title ? /* @__PURE__ */ React.createElement("p", { className: "cs-alert__title" }, title) : null, children ? /* @__PURE__ */ React.createElement("div", { className: "cs-alert__body" }, children) : null), onDismiss ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-alert__dismiss", "aria-label": t("dismiss"), onClick: onDismiss }, "×") : null);
 }
 Object.assign(__ds_scope, { Alert });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Alert.jsx", error: String((e && e.message) || e) }); }
@@ -1439,29 +1454,36 @@ Object.assign(__ds_scope, { Badge });
 
 // components/feedback/EmptyState.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function EmptyState({ icon, title, children, actions, className }) {
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-empty", className) }, /* @__PURE__ */ React.createElement("span", { className: "cs-empty__icon" }, icon ?? /* @__PURE__ */ React.createElement("svg", { width: "26", height: "26", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M3 8l2-4h14l2 4M3 8v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8M3 8h6l1 3h4l1-3h6" }))), title ? /* @__PURE__ */ React.createElement("div", { className: "cs-empty__title" }, title) : null, children ? /* @__PURE__ */ React.createElement("div", { className: "cs-empty__body" }, children) : null, actions ? /* @__PURE__ */ React.createElement("div", { className: "cs-empty__actions" }, actions) : null);
+function EmptyState({ icon, title, children, actions, lang, className }) {
+  const [ref, L] = useLang(lang);
+  const t = makeT("EmptyState", L);
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-empty", className) }, /* @__PURE__ */ React.createElement("span", { className: "cs-empty__icon" }, icon ?? /* @__PURE__ */ React.createElement("svg", { width: "26", height: "26", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M3 8l2-4h14l2 4M3 8v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8M3 8h6l1 3h4l1-3h6" }))), /* @__PURE__ */ React.createElement("div", { className: "cs-empty__title" }, title ?? t("title")), children ? /* @__PURE__ */ React.createElement("div", { className: "cs-empty__body" }, children) : null, actions ? /* @__PURE__ */ React.createElement("div", { className: "cs-empty__actions" }, actions) : null);
 }
 Object.assign(__ds_scope, { EmptyState });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/EmptyState.jsx", error: String((e && e.message) || e) }); }
 
 // components/feedback/ProgressBar.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function ProgressBar({ value = 0, max = 100, variant, label, className }) {
+function ProgressBar({ value = 0, max = 100, variant, label, lang, className }) {
   const safeMax = max > 0 ? max : 100;
   const clamped = Math.max(0, Math.min(safeMax, Number(value) || 0));
   const pct = Math.max(0, Math.min(100, clamped / safeMax * 100));
+  const [ref, L] = useLang(lang);
+  const t = makeT("ProgressBar", L);
   return /* @__PURE__ */ React.createElement(
     "div",
     {
+      ref,
       className: cx("cs-progress", variant && `cs-progress--${variant}`, className),
       role: "progressbar",
       "aria-valuenow": Math.round(clamped),
       "aria-valuemin": 0,
       "aria-valuemax": safeMax,
-      "aria-label": label
+      "aria-label": label ?? t("label")
     },
     /* @__PURE__ */ React.createElement("span", { className: "cs-progress__fill", style: { inlineSize: pct + "%", width: pct + "%" } })
   );
@@ -1544,13 +1566,21 @@ Object.assign(__ds_scope, { Tag });
 try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
+const PATHS = {
+  default: "M12 8h.01M11 12h1v4h1 M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
+  success: "M4 12.5l5 5 11-11",
+  danger: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M9 9l6 6 M15 9l-6 6"
+};
+function DefaultIcon({ variant }) {
+  return /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: PATHS[variant] || PATHS.default }));
+}
 function ToastStack({ children, lang, className }) {
   const [ref, L] = useLang(lang);
   return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-toast-stack", className), role: "region", "aria-label": makeT("Toast", L)("notifications") }, children);
 }
 function Toast({ variant = "default", title, icon, onClose, lang, children, className, ...props }) {
   const [ref, L] = useLang(lang);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-toast", `cs-toast--${variant}`, className), role: "status", ...props }, /* @__PURE__ */ React.createElement("span", { className: "cs-toast__icon", "aria-hidden": "true" }, icon ?? /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M4 12.5l5 5 11-11" }))), /* @__PURE__ */ React.createElement("div", null, title ? /* @__PURE__ */ React.createElement("div", { className: "cs-toast__title" }, title) : null, children ? /* @__PURE__ */ React.createElement("div", { className: "cs-toast__body" }, children) : null), onClose ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-toast__close", "aria-label": makeT("Toast", L)("dismiss"), onClick: onClose }, /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 6l12 12M18 6L6 18" }))) : null);
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-toast", `cs-toast--${variant}`, className), role: "status", ...props }, /* @__PURE__ */ React.createElement("span", { className: "cs-toast__icon", "aria-hidden": "true" }, icon ?? /* @__PURE__ */ React.createElement(DefaultIcon, { variant })), /* @__PURE__ */ React.createElement("div", null, title ? /* @__PURE__ */ React.createElement("div", { className: "cs-toast__title" }, title) : null, children ? /* @__PURE__ */ React.createElement("div", { className: "cs-toast__body" }, children) : null), onClose ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-toast__close", "aria-label": makeT("Toast", L)("dismiss"), onClick: onClose }, /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 6l12 12M18 6L6 18" }))) : null);
 }
 Object.assign(__ds_scope, { ToastStack, Toast });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Toast.jsx", error: String((e && e.message) || e) }); }
@@ -1609,7 +1639,7 @@ function Cascader({ nodes = [], value = [], onChange, placeholder, label, disabl
   const ph = placeholder != null ? placeholder : t("placeholder");
   React.useEffect(() => {
     setPath(value);
-  }, [open]);
+  }, [value]);
   React.useEffect(() => {
     if (!open) return;
     const d = (e) => {
@@ -2089,6 +2119,7 @@ function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, childre
   const [values, setValues] = React.useState(() => initialValues || {});
   const [ruleErrors, setRuleErrors] = React.useState({});
   const [pending, setPending] = React.useState(false);
+  const pendingRef = React.useRef(false);
   const setValue = React.useCallback((name, v) => {
     setValues((s) => String(name).includes(".") ? setPath(s, name, v) : { ...s, [name]: v });
     setRuleErrors((e) => e[name] ? { ...e, [name]: void 0 } : e);
@@ -2135,8 +2166,10 @@ function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, childre
       ref,
       className: cx("cs-form", pending && "is-pending", className),
       noValidate: true,
+      "aria-busy": pending || void 0,
       onSubmit: async (e) => {
         e.preventDefault();
+        if (pendingRef.current) return;
         const fd = new FormData(e.currentTarget);
         const v = {};
         fd.forEach((val, k) => {
@@ -2148,6 +2181,7 @@ function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, childre
           setRuleErrors(errs);
           return;
         }
+        pendingRef.current = true;
         setPending(true);
         try {
           const aerrs = await runAsyncRules(v);
@@ -2155,6 +2189,7 @@ function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, childre
           if (Object.keys(aerrs).some((k) => aerrs[k])) return;
           onSubmit && onSubmit(v);
         } finally {
+          pendingRef.current = false;
           setPending(false);
         }
       }
@@ -2780,44 +2815,49 @@ Object.assign(__ds_scope, { SegmentedControl });
 
 // components/forms/Select.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Select({ id, label, description, error, options, children, disabled = false, className, ...props }) {
+function Select({ id, label, description, error, options, children, disabled = false, lang, className, placeholder, ...props }) {
+  const [ref, L] = useLang(lang);
+  const t = makeT("Select", L);
   const gid = React.useId();
   const sid = id ?? gid;
   const descId = description ? sid + "-desc" : void 0;
   const errId = error ? sid + "-err" : void 0;
   const describedBy = [descId, errId].filter(Boolean).join(" ") || void 0;
-  return /* @__PURE__ */ React.createElement("label", { className: cx("cs-field", disabled && "is-disabled", error && "is-invalid", className), htmlFor: sid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, description ? /* @__PURE__ */ React.createElement("span", { id: descId, className: "cs-field__description" }, description) : null, /* @__PURE__ */ React.createElement("span", { className: "cs-select" }, /* @__PURE__ */ React.createElement("select", { ...props, id: sid, disabled, "aria-invalid": error ? true : void 0, "aria-describedby": describedBy, className: "cs-field__control" }, options ? options.map((o) => /* @__PURE__ */ React.createElement("option", { key: o.value, value: o.value }, o.label)) : children), /* @__PURE__ */ React.createElement("span", { className: "cs-select__chevron", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 9l6 6 6-6" })))), error ? /* @__PURE__ */ React.createElement("span", { id: errId, className: "cs-field__error", role: "alert" }, error) : null);
+  return /* @__PURE__ */ React.createElement("label", { ref, className: cx("cs-field", disabled && "is-disabled", error && "is-invalid", className), htmlFor: sid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, description ? /* @__PURE__ */ React.createElement("span", { id: descId, className: "cs-field__description" }, description) : null, /* @__PURE__ */ React.createElement("span", { className: "cs-select" }, /* @__PURE__ */ React.createElement("select", { ...props, id: sid, disabled, "aria-invalid": error ? true : void 0, "aria-describedby": describedBy, className: "cs-field__control" }, placeholder != null || !children ? /* @__PURE__ */ React.createElement("option", { value: "", disabled: true, hidden: true }, placeholder ?? t("placeholder")) : null, options ? options.map((o) => /* @__PURE__ */ React.createElement("option", { key: o.value, value: o.value }, o.label)) : children), /* @__PURE__ */ React.createElement("span", { className: "cs-select__chevron", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 9l6 6 6-6" })))), error ? /* @__PURE__ */ React.createElement("span", { id: errId, className: "cs-field__error", role: "alert" }, error) : null);
 }
 Object.assign(__ds_scope, { Select });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Select.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Slider.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Slider({ className, children, ...props }) {
-  return /* @__PURE__ */ React.createElement("input", { type: "range", className: cx("cs-slider", className), ...props });
+function Slider({ className, children, lang, "aria-label": ariaLabel, ...props }) {
+  const [ref, L] = useLang(lang);
+  const t = makeT("Slider", L);
+  return /* @__PURE__ */ React.createElement("input", { ref, type: "range", className: cx("cs-slider", className), "aria-label": ariaLabel ?? t("label"), ...props });
 }
 Object.assign(__ds_scope, { Slider });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Slider.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Switch.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-let warnedNameless = false;
-function Switch({ label, disabled = false, className, children, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, ...props }) {
+function Switch({ label, disabled = false, className, children, lang, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, ...props }) {
+  const [ref, L] = useLang(lang);
+  const t = makeT("Switch", L);
   const named = !!(label || ariaLabel || ariaLabelledby);
-  if (!named && !warnedNameless && typeof console !== "undefined" && console.warn) {
-    warnedNameless = true;
-    console.warn("CyberSkill Switch: render with label, aria-label, or aria-labelledby.");
-  }
-  return /* @__PURE__ */ React.createElement("label", { className: cx("cs-switch", disabled && "is-disabled", className) }, /* @__PURE__ */ React.createElement(
+  const fallback = props.checked || props.defaultChecked ? t("on") : t("off");
+  return /* @__PURE__ */ React.createElement("label", { ref, className: cx("cs-switch", disabled && "is-disabled", className) }, /* @__PURE__ */ React.createElement(
     "input",
     {
       type: "checkbox",
       role: "switch",
       disabled,
-      "aria-label": ariaLabel,
+      "aria-label": ariaLabel ?? (named ? void 0 : fallback),
       "aria-labelledby": ariaLabelledby,
       ...props
     }
@@ -2934,16 +2974,33 @@ Object.assign(__ds_scope, { TimePicker });
 
 // components/forms/Toggle.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Toggle({ pressed, defaultPressed = false, onChange, icon, children, disabled = false, className, ...props }) {
+function Toggle({ pressed, defaultPressed = false, onChange, icon, children, disabled = false, lang, className, "aria-label": ariaLabel, ...props }) {
   const [inner, setInner] = React.useState(defaultPressed);
   const on = pressed != null ? pressed : inner;
+  const [ref, L] = useLang(lang);
+  const t = makeT("Toggle", L);
   const flip = () => {
     const v = !on;
     if (pressed == null) setInner(v);
     onChange && onChange(v);
   };
-  return /* @__PURE__ */ React.createElement("button", { type: "button", className: cx("cs-toggle", className), "aria-pressed": on, disabled, onClick: flip, ...props }, icon ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true", style: { display: "inline-flex" } }, icon) : null, children);
+  return /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      ref,
+      type: "button",
+      className: cx("cs-toggle", className),
+      "aria-pressed": on,
+      "aria-label": ariaLabel ?? (on ? t("pressed") : t("unpressed")),
+      disabled,
+      onClick: flip,
+      ...props
+    },
+    icon ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true", style: { display: "inline-flex" } }, icon) : null,
+    children
+  );
 }
 Object.assign(__ds_scope, { Toggle });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Toggle.jsx", error: String((e && e.message) || e) }); }
@@ -3109,16 +3166,26 @@ function Image({ src, alt = "", ratio, preview = false, fallback, lang, classNam
     document.addEventListener("keydown", k);
     return () => document.removeEventListener("keydown", k);
   }, [zoom]);
+  const openPreview = () => setZoom(true);
+  const onPreviewKey = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openPreview();
+    }
+  };
   const body = state === "error" ? /* @__PURE__ */ React.createElement("span", { className: "cs-image__fallback" }, fallback || /* @__PURE__ */ React.createElement("svg", { width: "28", height: "28", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "3", width: "18", height: "18", rx: "2" }), /* @__PURE__ */ React.createElement("circle", { cx: "9", cy: "9", r: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M21 15l-5-5-9 9" }))) : /* @__PURE__ */ React.createElement("img", { ...props, src, alt, onLoad: () => setState("ok"), onError: () => setState("error") });
+  const canPreview = preview && state === "ok";
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(
     "span",
     {
       ref,
-      className: cx("cs-image", state === "loading" && "is-loading", preview && state === "ok" && "is-zoomable", className),
+      className: cx("cs-image", state === "loading" && "is-loading", canPreview && "is-zoomable", className),
       style: ratio ? { aspectRatio: ratio } : void 0,
-      onClick: preview && state === "ok" ? () => setZoom(true) : void 0,
-      role: preview && state === "ok" ? "button" : void 0,
-      "aria-label": preview && state === "ok" ? t("preview") + (alt ? ": " + alt : "") : void 0
+      onClick: canPreview ? openPreview : void 0,
+      onKeyDown: canPreview ? onPreviewKey : void 0,
+      role: canPreview ? "button" : void 0,
+      tabIndex: canPreview ? 0 : void 0,
+      "aria-label": canPreview ? t("preview") + (alt ? ": " + alt : "") : void 0
     },
     body
   ), zoom ? /* @__PURE__ */ React.createElement("span", { className: "cs-image__zoom", role: "dialog", "aria-label": alt || t("preview"), onClick: () => setZoom(false) }, /* @__PURE__ */ React.createElement("img", { src, alt }), /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("close"), onClick: () => setZoom(false) }, /* @__PURE__ */ React.createElement(Icon, { name: "close", size: "sm", style: { verticalAlign: "middle" } }))) : null);
@@ -3649,21 +3716,51 @@ Object.assign(__ds_scope, { Link });
 
 // components/navigation/Menu.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Menu({ trigger, children, align = "start", open: controlledOpen, onOpenChange, className }) {
+function Menu({ trigger, children, align = "start", open: controlledOpen, onOpenChange, lang, className }) {
   const [uOpen, setUOpen] = React.useState(false);
   const open = controlledOpen != null ? controlledOpen : uOpen;
   const set = (v) => {
     onOpenChange ? onOpenChange(v) : setUOpen(v);
   };
-  const ref = React.useRef(null);
+  const [ref, L] = useLang(lang);
+  const t = makeT("Menu", L);
+  const triggerRef = React.useRef(null);
+  const listRef = React.useRef(null);
   React.useEffect(() => {
     if (!open) return;
+    const items = () => listRef.current ? [...listRef.current.querySelectorAll('[role="menuitem"]:not([disabled])')] : [];
+    const first = items()[0];
+    if (first && first.focus) first.focus();
     const onDoc = (e) => {
       if (ref.current && !ref.current.contains(e.target)) set(false);
     };
     const onKey = (e) => {
-      if (e.key === "Escape") set(false);
+      const opts = items();
+      if (e.key === "Escape") {
+        e.preventDefault();
+        set(false);
+        const el = triggerRef.current;
+        if (el && el.focus) el.focus();
+        return;
+      }
+      if (!opts.length) return;
+      const active = document.activeElement;
+      const idx = opts.indexOf(active);
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        (opts[idx < 0 ? 0 : Math.min(opts.length - 1, idx + 1)] || opts[0]).focus();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        (opts[idx < 0 ? opts.length - 1 : Math.max(0, idx - 1)] || opts[0]).focus();
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        opts[0].focus();
+      } else if (e.key === "End") {
+        e.preventDefault();
+        opts[opts.length - 1].focus();
+      }
     };
     document.addEventListener("mousedown", onDoc);
     document.addEventListener("keydown", onKey);
@@ -3674,14 +3771,29 @@ function Menu({ trigger, children, align = "start", open: controlledOpen, onOpen
   }, [open]);
   const toggle = () => set(!open);
   const triggerNode = React.isValidElement(trigger) ? React.cloneElement(trigger, {
+    ref: (node) => {
+      triggerRef.current = node;
+      const r = trigger.ref;
+      if (typeof r === "function") r(node);
+      else if (r && typeof r === "object") r.current = node;
+    },
     "aria-haspopup": "menu",
     "aria-expanded": open,
     onClick: (e) => {
       if (typeof trigger.props.onClick === "function") trigger.props.onClick(e);
       if (!e.defaultPrevented) toggle();
     }
-  }) : /* @__PURE__ */ React.createElement("button", { type: "button", "aria-haspopup": "menu", "aria-expanded": open, onClick: toggle }, trigger);
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-menu", className), ref }, triggerNode, open ? /* @__PURE__ */ React.createElement("div", { className: cx("cs-menu__list", align === "end" && "cs-menu__list--end"), role: "menu" }, children) : null);
+  }) : /* @__PURE__ */ React.createElement("button", { type: "button", ref: triggerRef, "aria-haspopup": "menu", "aria-expanded": open, onClick: toggle }, trigger);
+  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-menu", className), ref }, triggerNode, open ? /* @__PURE__ */ React.createElement(
+    "div",
+    {
+      ref: listRef,
+      className: cx("cs-menu__list", align === "end" && "cs-menu__list--end"),
+      role: "menu",
+      "aria-label": t("menu")
+    },
+    children
+  ) : null);
 }
 function MenuItem({ danger = false, icon, children, className, ...props }) {
   return /* @__PURE__ */ React.createElement("button", { type: "button", role: "menuitem", className: cx("cs-menu__item", danger && "cs-menu__item--danger", className), ...props }, icon ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, icon) : null, children);
@@ -3842,11 +3954,14 @@ Object.assign(__ds_scope, { Sidebar, NavItem });
 
 // components/navigation/Steps.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Steps({ steps = [], current = 0, className }) {
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-steps", className) }, steps.map((s, i) => {
+function Steps({ steps = [], current = 0, lang, className }) {
+  const [ref, L] = useLang(lang);
+  const t = makeT("Steps", L);
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-steps", className), role: "list", "aria-label": t("label") }, steps.map((s, i) => {
     const state = i < current ? "done" : i === current ? "active" : "todo";
-    return /* @__PURE__ */ React.createElement("div", { key: i, className: cx("cs-step", `cs-step--${state}`) }, /* @__PURE__ */ React.createElement("span", { className: "cs-step__marker" }, state === "done" ? "✓" : s.n || i + 1), /* @__PURE__ */ React.createElement("span", { className: "cs-step__title" }, s.title), s.body ? /* @__PURE__ */ React.createElement("span", { className: "cs-step__body" }, s.body) : null);
+    return /* @__PURE__ */ React.createElement("div", { key: i, className: cx("cs-step", `cs-step--${state}`), role: "listitem" }, /* @__PURE__ */ React.createElement("span", { className: "cs-step__marker" }, state === "done" ? "✓" : s.n || i + 1), /* @__PURE__ */ React.createElement("span", { className: "cs-step__title" }, s.title), s.body ? /* @__PURE__ */ React.createElement("span", { className: "cs-step__body" }, s.body) : null);
   }));
 }
 Object.assign(__ds_scope, { Steps });
@@ -3854,10 +3969,13 @@ Object.assign(__ds_scope, { Steps });
 
 // components/navigation/Tabs.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Tabs({ tabs = [], value, onChange, className, ...props }) {
+function Tabs({ tabs = [], value, onChange, lang, className, "aria-label": ariaLabel, ...props }) {
+  const [ref, L] = useLang(lang);
+  const t = makeT("Tabs", L);
   const refs = React.useRef([]);
-  const idx = Math.max(0, tabs.findIndex((t) => t.value === value));
+  const idx = Math.max(0, tabs.findIndex((tab) => tab.value === value));
   const key = (e, i) => {
     let n = null;
     if (e.key === "ArrowRight") n = (i + 1) % tabs.length;
@@ -3870,21 +3988,21 @@ function Tabs({ tabs = [], value, onChange, className, ...props }) {
     const b = refs.current[n];
     if (b) b.focus();
   };
-  return /* @__PURE__ */ React.createElement("div", { role: "tablist", className: cx("cs-tabs", className), ...props }, tabs.map((t, i) => /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref, role: "tablist", "aria-label": ariaLabel ?? t("list"), className: cx("cs-tabs", className), ...props }, tabs.map((t2, i) => /* @__PURE__ */ React.createElement(
     "button",
     {
-      key: t.value,
+      key: t2.value,
       type: "button",
       role: "tab",
-      "aria-selected": value === t.value,
+      "aria-selected": value === t2.value,
       tabIndex: i === idx ? 0 : -1,
       ref: (el) => refs.current[i] = el,
       onKeyDown: (e) => key(e, i),
       className: "cs-tab",
-      onClick: () => onChange && onChange(t.value)
+      onClick: () => onChange && onChange(t2.value)
     },
-    t.label,
-    t.count != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-tab__count" }, t.count) : null
+    t2.label,
+    t2.count != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-tab__count" }, t2.count) : null
   )));
 }
 function Tab({ selected = false, count, children, className, ...props }) {
@@ -4059,9 +4177,12 @@ Object.assign(__ds_scope, { Toolbar });
 
 // components/overlays/ContextMenu.jsx
 try { (() => {
+const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function ContextMenu({ items = [], children, className }) {
+function ContextMenu({ items = [], children, lang, className }) {
   const [pos, setPos] = React.useState(null);
+  const [ref, L] = useLang(lang);
+  const t = makeT("ContextMenu", L);
   React.useEffect(() => {
     if (!pos) return;
     const close = () => setPos(null);
@@ -4078,6 +4199,7 @@ function ContextMenu({ items = [], children, className }) {
   return /* @__PURE__ */ React.createElement(
     "div",
     {
+      ref,
       className: cx("cs-ctxmenu-zone", className),
       onContextMenu: (e) => {
         e.preventDefault();
@@ -4086,7 +4208,7 @@ function ContextMenu({ items = [], children, className }) {
       }
     },
     children,
-    pos ? /* @__PURE__ */ React.createElement("div", { className: "cs-menu__list", role: "menu", style: { position: "absolute", insetInlineStart: pos.x, insetBlockStart: pos.y } }, items.map((it, i) => it === "-" ? /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-menu__sep" }) : /* @__PURE__ */ React.createElement("button", { key: i, type: "button", role: "menuitem", className: cx("cs-menu__item", it.danger && "cs-menu__item--danger"), onClick: () => {
+    pos ? /* @__PURE__ */ React.createElement("div", { className: "cs-menu__list", role: "menu", "aria-label": t("menu"), style: { position: "absolute", insetInlineStart: pos.x, insetBlockStart: pos.y } }, items.map((it, i) => it === "-" ? /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-menu__sep" }) : /* @__PURE__ */ React.createElement("button", { key: i, type: "button", role: "menuitem", className: cx("cs-menu__item", it.danger && "cs-menu__item--danger"), onClick: () => {
       setPos(null);
       it.onSelect && it.onSelect();
     } }, it.label))) : null
@@ -4721,732 +4843,6 @@ function TextField({
 Object.assign(__ds_scope, { TextField });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/textfield/TextField.jsx", error: String((e && e.message) || e) }); }
 
-// image-slot.js
-try { (() => {
-(() => {
-  const STATE_FILE = ".image-slots.state.json";
-  const UNSPLASH_HOMEPAGE_HREF = "https://unsplash.com/?utm_source=claude_design&utm_medium=referral";
-  const isUnsplashHost = (u) => {
-    try {
-      return /(^|\.)unsplash\.com$/.test(
-        new URL(u, document.baseURI).hostname.replace(/\.$/, "")
-      );
-    } catch {
-      return false;
-    }
-  };
-  const withReferral = (href) => {
-    try {
-      const u = new URL(href);
-      if (!/(^|\.)unsplash\.com$/.test(u.hostname.replace(/\.$/, ""))) {
-        return href;
-      }
-      if (!u.searchParams.has("utm_source")) {
-        u.searchParams.set("utm_source", "claude_design");
-      }
-      if (!u.searchParams.has("utm_medium")) {
-        u.searchParams.set("utm_medium", "referral");
-      }
-      return u.toString();
-    } catch (e) {
-      return href;
-    }
-  };
-  const MAX_DIM = 1200;
-  const ACCEPT = ["image/png", "image/jpeg", "image/webp", "image/avif"];
-  const subs = /* @__PURE__ */ new Set();
-  let slots = {};
-  const tombstones = /* @__PURE__ */ new Set();
-  let loaded = false;
-  let loadP = null;
-  function load() {
-    if (loadP) return loadP;
-    loadP = fetch(STATE_FILE).then((r) => r.ok ? r.json() : null).then((j) => {
-      if (j && typeof j === "object") {
-        const merged = Object.assign({}, j, slots);
-        for (const k in slots) {
-          if (merged[k] && !merged[k].u && j[k]) {
-            merged[k].u = typeof j[k] === "string" ? j[k] : j[k].u;
-          }
-        }
-        for (const id of tombstones) delete merged[id];
-        slots = merged;
-      }
-      tombstones.clear();
-    }).catch(() => {
-    }).then(() => {
-      loaded = true;
-      subs.forEach((fn) => fn());
-    });
-    return loadP;
-  }
-  let saving = false;
-  let saveDirty = false;
-  function flushNow() {
-    if (!loaded) return;
-    const w = window.omelette && window.omelette.writeFile;
-    if (!w) return;
-    try {
-      Promise.resolve(w(STATE_FILE, JSON.stringify(slots))).catch(() => {
-      });
-    } catch (e) {
-    }
-  }
-  function save() {
-    if (saving) {
-      saveDirty = true;
-      return;
-    }
-    const w = window.omelette && window.omelette.writeFile;
-    if (!w) return;
-    saving = true;
-    Promise.resolve(w(STATE_FILE, JSON.stringify(slots))).catch(() => {
-    }).then(() => {
-      saving = false;
-      if (saveDirty) {
-        saveDirty = false;
-        save();
-      }
-    });
-  }
-  const S_MAX = 5;
-  const clampS = (s) => Math.max(1, Math.min(S_MAX, s));
-  function getSlot(id) {
-    const v = slots[id];
-    if (!v) return null;
-    return typeof v === "string" ? { u: v, s: 1, x: 0, y: 0 } : v;
-  }
-  function setSlot(id, val) {
-    if (!id) return;
-    if (val) {
-      slots[id] = val;
-      tombstones.delete(id);
-    } else {
-      delete slots[id];
-      if (!loaded) tombstones.add(id);
-    }
-    subs.forEach((fn) => fn());
-    if (loaded) save();
-    else load().then(save);
-  }
-  async function toDataUrl(file, targetW) {
-    const bitmap = await createImageBitmap(file);
-    try {
-      const cap = Math.min(MAX_DIM, Math.max(1, Math.round(targetW * 2)) || MAX_DIM);
-      const scale = Math.min(1, cap / Math.max(bitmap.width, bitmap.height));
-      const w = Math.max(1, Math.round(bitmap.width * scale));
-      const h = Math.max(1, Math.round(bitmap.height * scale));
-      const canvas = document.createElement("canvas");
-      canvas.width = w;
-      canvas.height = h;
-      canvas.getContext("2d").drawImage(bitmap, 0, 0, w, h);
-      return canvas.toDataURL("image/webp", 0.85);
-    } finally {
-      bitmap.close && bitmap.close();
-    }
-  }
-  const stylesheet = (
-    // Fill the container by default: slots are usually placed inside a
-    // sized wrapper (a hero frame, a grid cell, an inset:0 layer) and are
-    // expected to take that box — a fixed intrinsic size would render as
-    // a small tile in the corner of a full-bleed wrapper instead.
-    // aspect-ratio is the companion fallback that keeps a bare slot
-    // visible when the parent's height is indefinite: height:100%
-    // resolves to auto there, and the ratio then derives height from
-    // width instead of letting the slot collapse to zero height.
-    // Explicit width/height on the element override all of this.
-    ':host{display:block;position:relative;  font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);  width:100%;height:100%;aspect-ratio:3/2}.frame{position:absolute;inset:0;overflow:hidden;background:rgba(0,0,0,.04)}.frame img{position:absolute;max-width:none;transform:translate(-50%,-50%);  -webkit-user-drag:none;user-select:none;touch-action:none}.spill{position:fixed;margin:0;inset:auto;border:0;padding:0;background:transparent;  overflow:visible;transform:translate(-50%,-50%);z-index:1;cursor:grab;touch-action:none}:host([data-panning]) .spill{cursor:grabbing}.spill .ghost{position:absolute;inset:0;width:100%;height:100%;opacity:.35;  pointer-events:none;-webkit-user-drag:none;user-select:none;  box-shadow:0 0 0 1px rgba(0,0,0,.2),0 12px 32px rgba(0,0,0,.2)}.spill .handle{position:absolute;width:12px;height:12px;border-radius:50%;  background:#fff;box-shadow:0 0 0 1.5px #c96442,0 1px 3px rgba(0,0,0,.3);  transform:translate(-50%,-50%)}.spill .handle[data-c=nw]{left:0;top:0;cursor:nwse-resize}.spill .handle[data-c=ne]{left:100%;top:0;cursor:nesw-resize}.spill .handle[data-c=sw]{left:0;top:100%;cursor:nesw-resize}.spill .handle[data-c=se]{left:100%;top:100%;cursor:nwse-resize}:host([data-reframe]){z-index:10}:host([data-reframe]) .frame{box-shadow:0 0 0 2px #c96442}.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;  justify-content:center;gap:6px;text-align:center;padding:12px;box-sizing:border-box;  cursor:pointer;user-select:none}.empty svg{opacity:.45}.empty .cap{max-width:90%;font-weight:500;letter-spacing:.01em}.empty .sub{font-size:11px}.empty .sub u{text-underline-offset:2px;text-decoration-color:rgba(0,0,0,.25)}.empty:hover .sub u{color:rgba(0,0,0,.75);text-decoration-color:currentColor}:host([data-over]) .frame{outline:2px solid #c96442;outline-offset:-2px;  background:rgba(201,100,66,.10)}.ring{position:absolute;inset:0;pointer-events:none;border:1.5px dashed rgba(0,0,0,.25);  transition:border-color .12s}:host([data-over]) .ring{border-color:#c96442}:host([data-filled]) .ring{display:none}.ctl{position:absolute;inset:auto;top:8px;right:8px;margin:0;border:0;padding:0;  background:transparent;overflow:visible;  display:flex;gap:6px;opacity:0;pointer-events:none;transition:opacity .12s;z-index:2;  white-space:nowrap}.ctl:popover-open{position:fixed;inset:auto;transform:translateX(-100%)}:host([data-filled][data-editable]:hover) .ctl,:host([data-reframe]) .ctl  {opacity:1;pointer-events:auto}.ctl button{appearance:none;border:0;border-radius:6px;padding:5px 10px;cursor:pointer;  background:rgba(0,0,0,.65);color:#fff;font:11px/1 system-ui,-apple-system,sans-serif;  backdrop-filter:blur(6px)}.ctl button:hover{background:rgba(0,0,0,.8)}.err{position:absolute;left:8px;bottom:8px;right:8px;color:#b3261e;font-size:11px;  background:rgba(255,255,255,.85);padding:4px 6px;border-radius:5px;pointer-events:none}:host([data-swapping]) .frame img{visibility:hidden}.loading{position:absolute;inset:0;display:none;align-items:center;  justify-content:center;pointer-events:none}:host([data-swapping]) .loading{display:flex}.loading::after{content:"";width:22px;height:22px;border-radius:50%;  border:2px solid rgba(0,0,0,.12);border-top-color:rgba(0,0,0,.45);  animation:om-slot-spin .7s linear infinite}@keyframes om-slot-spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.loading::after{animation:none}}.credit{position:absolute;left:6px;bottom:6px;max-width:calc(100% - 12px);display:none;  padding:3px 7px;border-radius:5px;background:rgba(0,0,0,.55);color:#fff;  font:10px/1.2 system-ui,-apple-system,sans-serif;text-decoration:none;  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;backdrop-filter:blur(6px)}.credit a{color:inherit;text-decoration:none}.credit a:hover,.credit a:focus-visible{text-decoration:underline}:host([data-filled][data-credit]) .credit{display:block}:host-context([data-om-exporting]) .ctl,:host-context([data-om-exporting]) .credit{display:none !important}.attr-error{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;  justify-content:center;gap:6px;text-align:center;padding:12px;box-sizing:border-box;  background:#f2f1ef;color:#6e6c66;user-select:none;  font:13px/1.45 system-ui,-apple-system,sans-serif}.attr-error svg{opacity:.55}.attr-error .cap{max-width:92%;font-weight:500;letter-spacing:.01em}:host([data-attribution-error]) .attr-error{display:flex}:host([data-attribution-error]) .ring{display:none}'
-  );
-  const icon = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>';
-  const warnIcon = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>';
-  class ImageSlot extends HTMLElement {
-    static get observedAttributes() {
-      return ["shape", "radius", "mask", "fit", "placeholder", "src", "id", "credit", "credit-href"];
-    }
-    /** Duplicate-slide hook (called by deck-stage, see its
-     *  _remintDuplicateIds): copy this id's stored image, if any, under a
-     *  freshly minted key and return that key — so a duplicated slide's
-     *  slot keeps its dropped photo instead of reverting to the
-     *  placeholder. 'isFree' is the caller's uniqueness check (document
-     *  ids); candidates must ALSO be unused in the sidecar, which can
-     *  hold keys from other pages sharing the project root. (An EMPTY
-     *  slot on another page leaves no sidecar entry, so its id is not
-     *  detectable here — a minted key can collide with it and that slot
-     *  would show this photo. Same blast radius as two pages reusing an
-     *  id by hand, which the shared sidecar already permits.) Returns null
-     *  when no id could be minted (caller strips the id, today's
-     *  behavior). */
-    static cloneSlot(fromId, isFree) {
-      if (typeof fromId !== "string" || !fromId) return null;
-      if (!loaded) return null;
-      const stem = fromId.replace(/-\d+$/, "") || fromId;
-      for (let n = 2; n < 100; n++) {
-        const toId = stem + "-" + n;
-        if (toId === fromId) continue;
-        if (slots[toId] !== void 0) {
-          const prev = getSlot(toId);
-          const cur = getSlot(fromId);
-          if (!(prev && cur && prev.u && prev.u === cur.u && prev.s === cur.s && prev.x === cur.x && prev.y === cur.y && (typeof isFree !== "function" || isFree(toId)))) continue;
-          return toId;
-        }
-        if (typeof isFree === "function" && !isFree(toId)) continue;
-        const v = getSlot(fromId);
-        if (v) setSlot(toId, Object.assign({}, v));
-        return toId;
-      }
-      return null;
-    }
-    constructor() {
-      super();
-      const root = this.shadowRoot || this.attachShadow({ mode: "open", clonable: true });
-      root.innerHTML = "<style>" + stylesheet + '</style><div class="frame" part="frame">  <img part="image" alt="" draggable="false" style="display:none">  <div class="empty" part="empty">' + icon + '    <div class="cap"></div>    <div class="sub">or <u>browse files</u></div></div>  <div class="attr-error" part="attribution-error">' + warnIcon + '    <div class="cap">This photo needs attribution</div></div>  <div class="loading" part="loading"></div>  <div class="ring" part="ring"></div></div><span class="credit" part="credit"></span><div class="spill" popover="manual" data-dc-edit-transparent>  <img class="ghost" alt="" draggable="false">  <div class="handle" data-c="nw"></div><div class="handle" data-c="ne"></div>  <div class="handle" data-c="sw"></div><div class="handle" data-c="se"></div></div><div class="ctl" popover="manual" data-dc-edit-transparent><button data-act="replace" title="Replace image">Replace</button>  <button data-act="edit" title="Reframe image">Edit</button></div><input type="file" accept="' + ACCEPT.join(",") + '" hidden>';
-      this._frame = root.querySelector(".frame");
-      this._ring = root.querySelector(".ring");
-      this._img = root.querySelector(".frame img");
-      this._empty = root.querySelector(".empty");
-      this._cap = root.querySelector(".cap");
-      this._sub = root.querySelector(".sub");
-      this._spill = root.querySelector(".spill");
-      this._ctl = root.querySelector(".ctl");
-      this._credit = root.querySelector(".credit");
-      this._attrError = root.querySelector(".attr-error");
-      this._credit.addEventListener("click", (e) => e.stopPropagation());
-      this._credit.addEventListener("dblclick", (e) => e.stopPropagation());
-      this._ghost = root.querySelector(".ghost");
-      this._err = null;
-      this._input = root.querySelector("input");
-      this._depth = 0;
-      this._gen = 0;
-      this._swapGen = 0;
-      this._loadPending = false;
-      this._hidShowing = false;
-      this._view = { s: 1, x: 0, y: 0 };
-      this._subFn = () => this._render();
-      this._empty.addEventListener("click", () => this._input.click());
-      root.addEventListener("click", (e) => {
-        const act = e.target && e.target.getAttribute && e.target.getAttribute("data-act");
-        if (!act) return;
-        if (!this.hasAttribute("data-editable")) return;
-        if (act === "replace") {
-          this._exitReframe(true);
-          this.dispatchEvent(new CustomEvent("image-slot:pick", {
-            bubbles: true,
-            composed: true,
-            detail: { id: this.id || null }
-          }));
-        }
-        if (act === "edit") {
-          if (!this._reframes()) return;
-          if (this.hasAttribute("data-reframe")) this._exitReframe(true);
-          else this._enterReframe();
-        }
-      });
-      this._input.addEventListener("change", () => {
-        const f = this._input.files && this._input.files[0];
-        if (f) this._ingest(f);
-        this._input.value = "";
-      });
-      this._img.addEventListener("load", () => {
-        this._loadPending = false;
-        this._releaseMask(true);
-        this._applyView();
-      });
-      this._img.addEventListener("error", () => {
-        this._loadPending = false;
-        this._releaseMask(true);
-      });
-      this.addEventListener("dblclick", (e) => {
-        if (!this.hasAttribute("data-editable") || !this._reframes()) return;
-        e.preventDefault();
-        if (this.hasAttribute("data-reframe")) this._exitReframe(true);
-        else this._enterReframe();
-      });
-      this._spill.addEventListener("pointerdown", (e) => {
-        if (e.button !== 0 || !this.hasAttribute("data-reframe")) return;
-        e.preventDefault();
-        e.stopPropagation();
-        this._spill.setPointerCapture(e.pointerId);
-        const rect = this.getBoundingClientRect();
-        const fw = rect.width || 1, fh = rect.height || 1;
-        const corner = e.target.getAttribute && e.target.getAttribute("data-c");
-        let move;
-        if (corner) {
-          const iw = this._img.naturalWidth || 1, ih = this._img.naturalHeight || 1;
-          const contain = (this.getAttribute("fit") || "cover").toLowerCase() === "contain";
-          const base = contain ? Math.min(fw / iw, fh / ih) : Math.max(fw / iw, fh / ih);
-          const sx = corner.includes("e") ? 1 : -1;
-          const sy = corner.includes("s") ? 1 : -1;
-          const s0 = this._view.s;
-          const w0 = iw * base * s0, h0 = ih * base * s0;
-          const cx0 = (50 + this._view.x) / 100 * fw;
-          const cy0 = (50 + this._view.y) / 100 * fh;
-          const ox = cx0 - sx * w0 / 2, oy = cy0 - sy * h0 / 2;
-          const diag0 = Math.hypot(w0, h0);
-          const ux = sx * w0 / diag0, uy = sy * h0 / diag0;
-          move = (ev) => {
-            const proj = (ev.clientX - rect.left - ox) * ux + (ev.clientY - rect.top - oy) * uy;
-            const s = clampS(s0 * proj / diag0);
-            const d = diag0 * s / s0;
-            this._view.s = s;
-            this._view.x = (ox + ux * d / 2) / fw * 100 - 50;
-            this._view.y = (oy + uy * d / 2) / fh * 100 - 50;
-            this._clampView();
-            this._applyView();
-          };
-        } else {
-          this.setAttribute("data-panning", "");
-          const start = { px: e.clientX, py: e.clientY, x: this._view.x, y: this._view.y };
-          move = (ev) => {
-            this._view.x = start.x + (ev.clientX - start.px) / fw * 100;
-            this._view.y = start.y + (ev.clientY - start.py) / fh * 100;
-            this._clampView();
-            this._applyView();
-          };
-        }
-        const up = () => {
-          try {
-            this._spill.releasePointerCapture(e.pointerId);
-          } catch {
-          }
-          this._spill.removeEventListener("pointermove", move);
-          this._spill.removeEventListener("pointerup", up);
-          this._spill.removeEventListener("pointercancel", up);
-          this.removeAttribute("data-panning");
-          this._dragUp = null;
-        };
-        this._dragUp = up;
-        this._spill.addEventListener("pointermove", move);
-        this._spill.addEventListener("pointerup", up);
-        this._spill.addEventListener("pointercancel", up);
-      });
-      this.addEventListener("wheel", (e) => {
-        if (!this.hasAttribute("data-reframe")) return;
-        e.preventDefault();
-        const r = this.getBoundingClientRect();
-        const cx = (e.clientX - r.left) / r.width * 100 - 50;
-        const cy = (e.clientY - r.top) / r.height * 100 - 50;
-        const prev = this._view.s;
-        const next = clampS(prev * Math.pow(1.0015, -e.deltaY));
-        if (next === prev) return;
-        const k = next / prev;
-        this._view.s = next;
-        this._view.x = cx * (1 - k) + this._view.x * k;
-        this._view.y = cy * (1 - k) + this._view.y * k;
-        this._clampView();
-        this._applyView();
-      }, { passive: false });
-    }
-    connectedCallback() {
-      if (!this.id && !ImageSlot._warned) {
-        ImageSlot._warned = true;
-        console.warn("<image-slot> without an id will not persist its dropped image.");
-      }
-      this.addEventListener("dragenter", this);
-      this.addEventListener("dragover", this);
-      this.addEventListener("dragleave", this);
-      this.addEventListener("drop", this);
-      subs.add(this._subFn);
-      this.addEventListener("pointerenter", this._subFn);
-      this._ro = new ResizeObserver(() => this._render());
-      this._ro.observe(this);
-      load();
-      this._render();
-    }
-    disconnectedCallback() {
-      subs.delete(this._subFn);
-      this.removeEventListener("pointerenter", this._subFn);
-      this.removeEventListener("dragenter", this);
-      this.removeEventListener("dragover", this);
-      this.removeEventListener("dragleave", this);
-      this.removeEventListener("drop", this);
-      if (this._ro) {
-        this._ro.disconnect();
-        this._ro = null;
-      }
-      this._exitReframe(false);
-    }
-    _enterReframe() {
-      if (this.hasAttribute("data-reframe")) return;
-      this.setAttribute("data-reframe", "");
-      this._signalReframe(true);
-      this._pagehide = () => {
-        this._exitReframe(true);
-        flushNow();
-      };
-      window.addEventListener("pagehide", this._pagehide);
-      try {
-        this._spill.showPopover();
-      } catch {
-      }
-      try {
-        this._ctl.showPopover();
-      } catch {
-      }
-      this._reposition = () => {
-        if (this.hasAttribute("data-reframe")) this._applyView();
-      };
-      window.addEventListener("scroll", this._reposition, true);
-      window.addEventListener("resize", this._reposition);
-      this._lastRect = "";
-      this._watch = () => {
-        if (!this.hasAttribute("data-reframe")) return;
-        const r = this.getBoundingClientRect();
-        const key = r.left + "," + r.top + "," + r.width + "," + r.height;
-        if (key !== this._lastRect) {
-          this._lastRect = key;
-          this._applyView();
-        }
-        this._watchId = requestAnimationFrame(this._watch);
-      };
-      this._watchId = requestAnimationFrame(this._watch);
-      this._applyView();
-      this._outside = (e) => {
-        if (e.composedPath && e.composedPath().includes(this)) return;
-        this._exitReframe(true);
-      };
-      this._esc = (e) => {
-        if (e.key === "Escape") this._exitReframe(true);
-      };
-      document.addEventListener("pointerdown", this._outside, true);
-      document.addEventListener("keydown", this._esc, true);
-    }
-    _exitReframe(commit) {
-      if (!this.hasAttribute("data-reframe")) return;
-      if (this._dragUp) this._dragUp();
-      this.removeAttribute("data-reframe");
-      this.removeAttribute("data-panning");
-      if (this._outside) document.removeEventListener("pointerdown", this._outside, true);
-      if (this._esc) document.removeEventListener("keydown", this._esc, true);
-      this._outside = this._esc = null;
-      if (this._reposition) {
-        window.removeEventListener("scroll", this._reposition, true);
-        window.removeEventListener("resize", this._reposition);
-        this._reposition = null;
-      }
-      if (this._watchId) {
-        cancelAnimationFrame(this._watchId);
-        this._watchId = 0;
-      }
-      if (this._pagehide) {
-        window.removeEventListener("pagehide", this._pagehide);
-        this._pagehide = null;
-      }
-      try {
-        this._spill.hidePopover();
-      } catch {
-      }
-      try {
-        this._ctl.hidePopover();
-      } catch {
-      }
-      this._ctl.style.left = "";
-      this._ctl.style.top = "";
-      if (commit) this._commitView();
-      this._signalReframe(false);
-    }
-    // Reframe state lives only in this DOM until commit, invisible to the
-    // host's dirty signals — announce enter/exit so the host can hold
-    // auto-reloads for exactly the gesture (the guest bundle forwards
-    // image-slot:reframe to the host as imageSlotReframe). Dispatched on
-    // the element (composed, so it escapes shadow roots) while connected;
-    // a disconnected exit (disconnectedCallback) falls back to document so
-    // the host still hears it.
-    _signalReframe(active) {
-      const target = this.isConnected ? this : document;
-      target.dispatchEvent(new CustomEvent("image-slot:reframe", {
-        bubbles: true,
-        composed: true,
-        detail: { active, id: this.id || null }
-      }));
-    }
-    // Public: host's "Import from computer" calls this to run local browse.
-    openFilePicker() {
-      this._exitReframe(true);
-      this._input.click();
-    }
-    attributeChangedCallback() {
-      if (this.shadowRoot) this._render();
-    }
-    // handleEvent — one listener object for all four drag events keeps the
-    // add/remove symmetric and the depth counter correct.
-    handleEvent(e) {
-      if (e.type === "dragenter" || e.type === "dragover") {
-        e.preventDefault();
-        e.stopPropagation();
-        if (e.dataTransfer) e.dataTransfer.dropEffect = "copy";
-        if (e.type === "dragenter") this._depth++;
-        this.setAttribute("data-over", "");
-      } else if (e.type === "dragleave") {
-        if (--this._depth <= 0) {
-          this._depth = 0;
-          this.removeAttribute("data-over");
-        }
-      } else if (e.type === "drop") {
-        e.preventDefault();
-        e.stopPropagation();
-        this._depth = 0;
-        this.removeAttribute("data-over");
-        const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-        if (f) this._ingest(f);
-      }
-    }
-    async _ingest(file) {
-      this._setError(null);
-      if (!file || ACCEPT.indexOf(file.type) < 0) {
-        this._setError("Drop a PNG, JPEG, WebP, or AVIF image.");
-        return;
-      }
-      const gen = ++this._gen;
-      if (this.hasAttribute("data-filled")) {
-        this.setAttribute("data-swapping", "");
-        this._swapGen = gen;
-      }
-      try {
-        const w = this.clientWidth || this.offsetWidth || MAX_DIM;
-        const url = await toDataUrl(file, w);
-        if (gen !== this._gen) return;
-        this._exitReframe(false);
-        this._swapGen = 0;
-        const val = { u: url, s: 1, x: 0, y: 0 };
-        setSlot(this.id || "", val);
-        if (!this.id) {
-          this._local = val;
-          this._render();
-        }
-      } catch (err) {
-        if (gen !== this._gen) return;
-        this._swapGen = 0;
-        this._releaseMask();
-        this._setError("Could not read that image.");
-        console.warn("<image-slot> ingest failed:", err);
-      }
-    }
-    _setError(msg) {
-      if (this._err) {
-        this._err.remove();
-        this._err = null;
-      }
-      if (!msg) return;
-      const d = document.createElement("div");
-      d.className = "err";
-      d.textContent = msg;
-      this.shadowRoot.appendChild(d);
-      this._err = d;
-      setTimeout(() => {
-        if (this._err === d) {
-          d.remove();
-          this._err = null;
-        }
-      }, 3e3);
-    }
-    // Reframing (pan/resize) is available on any filled slot — the user can
-    // always reposition/scale. `fit` only sets the initial baseline (see
-    // _geom): contain starts fully-visible, cover starts frame-filling.
-    _reframes() {
-      return this.hasAttribute("data-filled");
-    }
-    // The single release discipline for the replacement-in-flight mask
-    // (data-swapping). The mask comes off only when BOTH hold:
-    //  - no encode is pending (_swapGen) — mid-encode the stored value
-    //    still resolves to the old image, so any reveal paints it;
-    //  - the frame img has settled on its current src — an unsettled src
-    //    means some replacement is still in flight (e.g. a remote pick),
-    //    whoever started it, and revealing would paint the previous
-    //    frame. The load/error listeners pass settled=true (the event IS
-    //    the settlement signal, per spec complete is true by then);
-    //    other callers rely on the complete flag (covers loaded AND
-    //    failed).
-    // Every release path funnels through here EXCEPT _render's empty
-    // branch (the img is being cleared — nothing will ever settle).
-    _releaseMask(settled) {
-      if (!this._swapGen && !this._loadPending && (settled || this._img.complete)) {
-        this.removeAttribute("data-swapping");
-      }
-    }
-    // Baseline geometry, shared by clamp/apply/resize. `base` is the scale at
-    // view-scale s=1: cover = fill the frame (overflow on the looser axis),
-    // contain = fit fully inside (letterboxed). Zooming a contain image past
-    // s where it overflows naturally becomes a crop. Null until the img has
-    // loaded (naturalWidth is 0 before that) or when the slot has no layout
-    // box — ResizeObserver fires with a 0×0 rect under display:none, and
-    // clamping against a degenerate 1×1 frame would silently pull the stored
-    // pan toward zero.
-    _geom() {
-      const iw = this._img.naturalWidth, ih = this._img.naturalHeight;
-      const fw = this.clientWidth, fh = this.clientHeight;
-      if (!iw || !ih || !fw || !fh) return null;
-      const contain = (this.getAttribute("fit") || "cover").toLowerCase() === "contain";
-      const base = contain ? Math.min(fw / iw, fh / ih) : Math.max(fw / iw, fh / ih);
-      return { iw, ih, fw, fh, base };
-    }
-    _clampView() {
-      const g = this._geom();
-      if (!g) return;
-      const mx = Math.max(0, (g.iw * g.base * this._view.s / g.fw - 1) * 50);
-      const my = Math.max(0, (g.ih * g.base * this._view.s / g.fh - 1) * 50);
-      this._view.x = Math.max(-mx, Math.min(mx, this._view.x));
-      this._view.y = Math.max(-my, Math.min(my, this._view.y));
-    }
-    _applyView() {
-      const g = this._geom();
-      if (this.hasAttribute("data-reframe")) {
-        let onTop = false;
-        try {
-          onTop = this._ctl.matches(":popover-open");
-        } catch {
-        }
-        if (onTop) {
-          const r = this.getBoundingClientRect();
-          this._ctl.style.left = r.right - 8 + "px";
-          this._ctl.style.top = r.top + 8 + "px";
-        }
-      }
-      if (!g) {
-        const contain = (this.getAttribute("fit") || "cover").toLowerCase() === "contain";
-        this._img.style.width = "100%";
-        this._img.style.height = "100%";
-        this._img.style.left = "50%";
-        this._img.style.top = "50%";
-        this._img.style.objectFit = contain ? "contain" : "cover";
-        return;
-      }
-      const k = g.base * this._view.s;
-      const w = g.iw * k / g.fw * 100 + "%";
-      const h = g.ih * k / g.fh * 100 + "%";
-      const l = 50 + this._view.x + "%";
-      const t = 50 + this._view.y + "%";
-      this._img.style.width = w;
-      this._img.style.height = h;
-      this._img.style.left = l;
-      this._img.style.top = t;
-      this._img.style.objectFit = "";
-      if (this.hasAttribute("data-reframe")) {
-        const r = this.getBoundingClientRect();
-        const sx = g.fw ? r.width / g.fw : 1;
-        const sy = g.fh ? r.height / g.fh : 1;
-        this._spill.style.width = g.iw * k * sx + "px";
-        this._spill.style.height = g.ih * k * sy + "px";
-        this._spill.style.left = r.left + (50 + this._view.x) / 100 * r.width + "px";
-        this._spill.style.top = r.top + (50 + this._view.y) / 100 * r.height + "px";
-      }
-    }
-    _commitView() {
-      const v = { s: this._view.s, x: this._view.x, y: this._view.y };
-      if (this._userUrl) v.u = this._userUrl;
-      if (this.id) setSlot(this.id, v);
-      else {
-        this._local = v;
-      }
-    }
-    _render() {
-      const mask = this.getAttribute("mask");
-      const shape = (this.getAttribute("shape") || "rounded").toLowerCase();
-      let radius = "";
-      if (shape === "circle") radius = "50%";
-      else if (shape === "pill") radius = "9999px";
-      else if (shape === "rounded") {
-        const n = parseFloat(this.getAttribute("radius"));
-        radius = (Number.isFinite(n) ? n : 12) + "px";
-      }
-      this._frame.style.borderRadius = mask ? "" : radius;
-      this._frame.style.clipPath = mask || "";
-      this._ring.style.borderRadius = mask ? "" : radius;
-      this._ring.style.display = mask ? "none" : "";
-      const editable = !!(window.omelette && window.omelette.writeFile);
-      this.toggleAttribute("data-editable", editable);
-      this._sub.style.display = editable ? "" : "none";
-      let stored = this.id ? getSlot(this.id) : this._local;
-      if (stored && stored.u && !/^data:image\//i.test(stored.u)) stored = null;
-      const srcAttr = this.getAttribute("src") || "";
-      this._userUrl = stored && stored.u || null;
-      const url = this._userUrl || srcAttr;
-      if (!this.hasAttribute("data-reframe")) {
-        this._view = {
-          s: stored && Number.isFinite(stored.s) ? clampS(stored.s) : 1,
-          x: stored && Number.isFinite(stored.x) ? stored.x : 0,
-          y: stored && Number.isFinite(stored.y) ? stored.y : 0
-        };
-      }
-      const authoring = typeof window !== "undefined" && typeof window.__dcSetProps === "function";
-      const phEn = this.getAttribute("placeholder") || "Drop an image";
-      const phVi = this.getAttribute("placeholder-vi") || "Thả ảnh (không bắt buộc)";
-      const lang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
-      this._cap.textContent = authoring ? lang.startsWith("vi") ? phVi : phEn : "";
-      if (this._cap) this._cap.style.display = authoring ? "" : "none";
-      const credit = (this.getAttribute("credit") || "").trim();
-      const attrError = !!(!credit && !this._userUrl && srcAttr && isUnsplashHost(srcAttr));
-      this.toggleAttribute("data-attribution-error", attrError);
-      if (url && !attrError) {
-        const prev = this._img.getAttribute("src");
-        if (prev !== url) {
-          if (prev || this._hidShowing) this.setAttribute("data-swapping", "");
-          this._loadPending = true;
-          this._img.src = url;
-          this._ghost.src = url;
-        } else {
-          this._releaseMask();
-        }
-        this._hidShowing = false;
-        this._img.style.display = "block";
-        this._empty.style.display = "none";
-        this.setAttribute("data-filled", "");
-        this._clampView();
-        this._applyView();
-      } else {
-        this.removeAttribute("data-swapping");
-        this._loadPending = false;
-        this._hidShowing = attrError && !!this._img.getAttribute("src");
-        this._img.style.display = "none";
-        this._img.removeAttribute("src");
-        this._ghost.removeAttribute("src");
-        this._empty.style.display = attrError ? "none" : "flex";
-        this.removeAttribute("data-filled");
-      }
-      const showCredit = !!(url && credit && !this._userUrl && !attrError);
-      this._credit.textContent = "";
-      if (showCredit) {
-        let href = "";
-        const rawHref = this.getAttribute("credit-href") || "";
-        if (rawHref) {
-          try {
-            const u = new URL(rawHref, document.baseURI);
-            if (u.protocol === "http:" || u.protocol === "https:") {
-              href = withReferral(u.href);
-            }
-          } catch {
-          }
-        }
-        const mkLink = (text, linkHref) => {
-          const a = document.createElement("a");
-          a.setAttribute("target", "_blank");
-          a.setAttribute("rel", "noopener noreferrer");
-          a.setAttribute("href", linkHref);
-          a.textContent = text;
-          return a;
-        };
-        const m = /^Photo by (.+) on Unsplash$/.exec(credit);
-        if (m) {
-          this._credit.appendChild(document.createTextNode("Photo by "));
-          this._credit.appendChild(
-            href ? mkLink(m[1], href) : document.createTextNode(m[1])
-          );
-          this._credit.appendChild(document.createTextNode(" on "));
-          this._credit.appendChild(mkLink("Unsplash", UNSPLASH_HOMEPAGE_HREF));
-        } else if (href) {
-          this._credit.appendChild(mkLink(credit, href));
-        } else {
-          this._credit.textContent = credit;
-        }
-      }
-      this.toggleAttribute("data-credit", showCredit);
-    }
-  }
-  if (!customElements.get("image-slot")) {
-    customElements.define("image-slot", ImageSlot);
-  }
-})();
-})(); } catch (e) { __ds_ns.__errors.push({ path: "image-slot.js", error: String((e && e.message) || e) }); }
-
 // tokens/tokens.js
 try { (() => {
 const tokens = {
@@ -5516,7 +4912,7 @@ const tokens = {
       "--cs-accent-ink": "#45210E",
       "--cs-accent-glow": "rgba(244, 186, 23, 0.48)",
       "--cs-accent-grad-a": "#F4BA17",
-      "--cs-accent-grad-b": "#FCAF91",
+      "--cs-accent-grad-b": "#F3B958",
       "--cs-accent-on-strong": "#1A1108"
     },
     "depth": {
@@ -5725,9 +5121,9 @@ const tokens = {
       "--cs-accent-ink": "#292414",
       "--cs-accent-glow": "rgba(248, 233, 192, 0.48)",
       "--cs-accent-grad-a": "#F8E9C0",
-      "--cs-accent-grad-b": "#FCAF91",
+      "--cs-accent-grad-b": "#F3B958",
       "--cs-color-text-accent": "#90825E",
-      "--cs-color-link": "#90825E"
+      "--cs-color-link": "#7B6D4A"
     },
     "tho": {
       "--cs-accent": "#F4BA17",
@@ -5739,7 +5135,7 @@ const tokens = {
       "--cs-accent-ink": "#45210E",
       "--cs-accent-glow": "rgba(244, 186, 23, 0.48)",
       "--cs-accent-grad-a": "#F4BA17",
-      "--cs-accent-grad-b": "#FCAF91"
+      "--cs-accent-grad-b": "#F3B958"
     },
     "tho.clay": {
       "--cs-accent": "#513801",
@@ -5751,7 +5147,7 @@ const tokens = {
       "--cs-accent-ink": "#2D220E",
       "--cs-accent-glow": "rgba(81, 56, 1, 0.48)",
       "--cs-accent-grad-a": "#513801",
-      "--cs-accent-grad-b": "#FCAF91",
+      "--cs-accent-grad-b": "#F3B958",
       "--cs-color-text-accent": "#201300",
       "--cs-color-link": "#201300"
     },
@@ -5767,7 +5163,7 @@ const tokens = {
       "--cs-accent-grad-a": "#FFE1D8",
       "--cs-accent-grad-b": "#F4BA17",
       "--cs-color-text-accent": "#967C75",
-      "--cs-color-link": "#967C75"
+      "--cs-color-link": "#846B64"
     },
     "hoa": {
       "--cs-accent": "#FCAF91",
@@ -5781,7 +5177,7 @@ const tokens = {
       "--cs-accent-grad-a": "#FCAF91",
       "--cs-accent-grad-b": "#F4BA17",
       "--cs-color-text-accent": "#B47054",
-      "--cs-color-link": "#B47054"
+      "--cs-color-link": "#A15E43"
     },
     "hoa.lava": {
       "--cs-accent": "#622B06",
@@ -5809,7 +5205,7 @@ const tokens = {
       "--cs-accent-grad-a": "#C0F5FC",
       "--cs-accent-grad-b": "#A3D768",
       "--cs-color-text-accent": "#5A8A90",
-      "--cs-color-link": "#5A8A90"
+      "--cs-color-link": "#48787E"
     },
     "thuy": {
       "--cs-accent": "#2EDBF7",
@@ -5823,7 +5219,7 @@ const tokens = {
       "--cs-accent-grad-a": "#2EDBF7",
       "--cs-accent-grad-b": "#A3D768",
       "--cs-color-text-accent": "#108EA0",
-      "--cs-color-link": "#108EA0"
+      "--cs-color-link": "#027B8B"
     },
     "thuy.ocean": {
       "--cs-accent": "#004554",
@@ -5851,7 +5247,7 @@ const tokens = {
       "--cs-accent-grad-a": "#E1F1C8",
       "--cs-accent-grad-b": "#FCAF91",
       "--cs-color-text-accent": "#7C8965",
-      "--cs-color-link": "#7C8965"
+      "--cs-color-link": "#687451"
     },
     "moc": {
       "--cs-accent": "#A3D768",
@@ -5865,7 +5261,7 @@ const tokens = {
       "--cs-accent-grad-a": "#A3D768",
       "--cs-accent-grad-b": "#FCAF91",
       "--cs-color-text-accent": "#629122",
-      "--cs-color-link": "#629122"
+      "--cs-color-link": "#517B13"
     },
     "moc.forest": {
       "--cs-accent": "#1A4A01",
@@ -5893,7 +5289,7 @@ const tokens = {
       "--cs-accent-grad-a": "#FEE5C7",
       "--cs-accent-grad-b": "#2EDBF7",
       "--cs-color-text-accent": "#947F65",
-      "--cs-color-link": "#947F65"
+      "--cs-color-link": "#826D54"
     },
     "kim": {
       "--cs-accent": "#F3B958",
@@ -5907,7 +5303,7 @@ const tokens = {
       "--cs-accent-grad-a": "#F3B958",
       "--cs-accent-grad-b": "#2EDBF7",
       "--cs-color-text-accent": "#AC780B",
-      "--cs-color-link": "#AC780B"
+      "--cs-color-link": "#966700"
     },
     "kim.steel": {
       "--cs-accent": "#503901",
@@ -5927,477 +5323,6 @@ const tokens = {
 };
 Object.assign(__ds_scope, { tokens, __ds_default_tokens_tokens_9gob35: tokens });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "tokens/tokens.js", error: String((e && e.message) || e) }); }
-
-// ui_kits/status-hub/StatusHub.jsx
-try { (() => {
-const { useState, useMemo } = React;
-const ICON = {
-  search: "M11 4a7 7 0 1 0 4.2 12.6L20 21l1.4-1.4-4.4-4.4A7 7 0 0 0 11 4zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z",
-  close: "M6 6l12 12M18 6L6 18",
-  sun: null,
-  moon: null
-};
-function Glyph({ d, size = 18 }) {
-  return /* @__PURE__ */ React.createElement("svg", { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.9", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d }));
-}
-function SearchGlyph() {
-  return /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "currentColor", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: ICON.search }));
-}
-function ThemeGlyph({ dark }) {
-  return dark ? /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ React.createElement("circle", { cx: "12", cy: "12", r: "4" }), /* @__PURE__ */ React.createElement("path", { d: "M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4" })) : /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z" }));
-}
-const T = {
-  en: {
-    sub: "CyberSkill · one page, three lenses · Hiện Thực Hoá Ý Chí",
-    updated: "Updated",
-    portfolio: "Portfolio",
-    projects: "Projects",
-    inprog: "In progress",
-    shipped: "Shipped",
-    blocked: "Blocked",
-    planned: "Planned",
-    avg: "Avg progress",
-    velocity: "Velocity · tasks shipped / week",
-    perShipped: " shipped",
-    nowTitle: "Now shipping",
-    search: "Search projects…",
-    view: "View",
-    lenses: { board: "Board", table: "Table", releases: "Releases" },
-    status: "Status",
-    all: "All",
-    of: "of",
-    key: "Key",
-    project: "Project",
-    squad: "Squad",
-    owner: "Owner",
-    progress: "Progress",
-    thisWeek: "This week",
-    tasks: "Tasks",
-    risk: "Risk",
-    close: "Close",
-    langBtn: "VN",
-    theme: "Toggle theme"
-  },
-  vi: {
-    sub: "CyberSkill · một trang, ba lăng kính · Hiện Thực Hoá Ý Chí",
-    updated: "Cập nhật",
-    portfolio: "Danh mục",
-    projects: "Dự án",
-    inprog: "Đang làm",
-    shipped: "Đã ra mắt",
-    blocked: "Bị chặn",
-    planned: "Dự kiến",
-    avg: "Tiến độ TB",
-    velocity: "Tốc độ · task giao / tuần",
-    perShipped: " đã giao",
-    nowTitle: "Đang ra mắt",
-    search: "Tìm dự án…",
-    view: "Chế độ xem",
-    lenses: { board: "Bảng công việc", table: "Bảng dữ liệu", releases: "Phát hành" },
-    status: "Trạng thái",
-    all: "Tất cả",
-    of: "trên",
-    key: "Mã",
-    project: "Dự án",
-    squad: "Nhóm",
-    owner: "Phụ trách",
-    progress: "Tiến độ",
-    thisWeek: "Tuần này",
-    tasks: "Công việc",
-    risk: "Rủi ro",
-    close: "Đóng",
-    langBtn: "EN",
-    theme: "Đổi giao diện"
-  }
-};
-const statusLabels = (t) => ({ done: t.shipped, active: t.inprog, hold: t.blocked, todo: t.planned });
-function Segments({ seg, className }) {
-  return /* @__PURE__ */ React.createElement("div", { className }, seg.done > 0 && /* @__PURE__ */ React.createElement("i", { className: "seg-done", style: { width: seg.done + "%" } }), seg.active > 0 && /* @__PURE__ */ React.createElement("i", { className: "seg-active", style: { width: seg.active + "%" } }), seg.hold > 0 && /* @__PURE__ */ React.createElement("i", { className: "seg-hold", style: { width: seg.hold + "%" } }), seg.todo > 0 && /* @__PURE__ */ React.createElement("i", { className: "seg-todo", style: { width: seg.todo + "%" } }));
-}
-function Drawer({ p, onClose, t }) {
-  if (!p) return null;
-  const SL = statusLabels(t);
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "scrim", onClick: onClose }), /* @__PURE__ */ React.createElement("aside", { className: "drawer", role: "dialog", "aria-modal": "true", "aria-label": p.name }, /* @__PURE__ */ React.createElement("div", { className: "dw-h" }, /* @__PURE__ */ React.createElement("div", { className: "row" }, /* @__PURE__ */ React.createElement("span", { className: "mono muted", style: { fontWeight: 700 } }, p.key), /* @__PURE__ */ React.createElement("span", { className: "pill " + p.status }, SL[p.status]), /* @__PURE__ */ React.createElement("button", { className: "dw-x", onClick: onClose, "aria-label": t.close }, /* @__PURE__ */ React.createElement(Glyph, { d: ICON.close, size: 20 }))), /* @__PURE__ */ React.createElement("h2", null, p.name)), /* @__PURE__ */ React.createElement("div", { className: "dw-b" }, /* @__PURE__ */ React.createElement("p", { className: "muted", style: { marginTop: 0 } }, p.blurb), /* @__PURE__ */ React.createElement("dl", { className: "meta" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("dt", null, t.owner), /* @__PURE__ */ React.createElement("dd", null, p.owner)), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("dt", null, t.squad), /* @__PURE__ */ React.createElement("dd", null, p.squad)), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("dt", null, t.progress), /* @__PURE__ */ React.createElement("dd", null, p.pct, "%")), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("dt", null, t.updated), /* @__PURE__ */ React.createElement("dd", null, p.updated))), /* @__PURE__ */ React.createElement(Segments, { seg: p.seg, className: "minibar" }), /* @__PURE__ */ React.createElement("div", { className: "sect" }, /* @__PURE__ */ React.createElement("h3", null, t.tasks), /* @__PURE__ */ React.createElement("div", { className: "task-chips" }, p.tasks.map((tk) => /* @__PURE__ */ React.createElement("span", { key: tk[0], className: "chip " + tk[2], title: tk[1] }, tk[0]))), /* @__PURE__ */ React.createElement("ul", { className: "tasks" }, p.tasks.map((tk) => /* @__PURE__ */ React.createElement("li", { key: tk[0] }, tk[1], " — ", /* @__PURE__ */ React.createElement("span", { className: "muted" }, SL[tk[2]]))))), p.risk ? /* @__PURE__ */ React.createElement("div", { className: "sect" }, /* @__PURE__ */ React.createElement("h3", null, t.risk), /* @__PURE__ */ React.createElement("div", { className: "risk" }, p.risk)) : null)));
-}
-function StatusHub() {
-  const D = window.SH_DATA;
-  const [dark, setDark] = useState(false);
-  const [lang, setLang] = useState("en");
-  const [lens, setLens] = useState("board");
-  const [q, setQ] = useState("");
-  const [facet, setFacet] = useState("all");
-  const [kpi, setKpi] = useState(null);
-  const [sel, setSel] = useState(null);
-  const t = T[lang];
-  const SL = statusLabels(t);
-  const VI = lang === "vi" ? window.SH_VI || null : null;
-  const loc = (p) => VI ? {
-    ...p,
-    blurb: VI.blurbs[p.key] || p.blurb,
-    risk: VI.risks[p.key] != null ? VI.risks[p.key] : p.risk,
-    owner: VI.owners[p.owner] || p.owner,
-    squad: VI.squads[p.squad] || p.squad,
-    updated: VI.updatedRel[p.updated] || p.updated
-  } : p;
-  const counts = useMemo(() => {
-    const c = { active: 0, done: 0, hold: 0 };
-    D.projects.forEach((p) => {
-      if (c[p.status] != null) c[p.status]++;
-    });
-    const avg = Math.round(D.projects.reduce((a, p) => a + p.pct, 0) / D.projects.length);
-    return { total: D.projects.length, ...c, avg };
-  }, [D]);
-  const shown = useMemo(() => {
-    const needle = q.trim().toLowerCase();
-    const eff = kpi || (facet === "all" ? null : facet);
-    return D.projects.filter((p) => {
-      if (eff && p.status !== eff) return false;
-      if (!needle) return true;
-      return (p.name + " " + p.key + " " + p.blurb).toLowerCase().includes(needle);
-    });
-  }, [D, q, facet, kpi]);
-  const maxV = Math.max(...D.velocity.map((v) => v.n));
-  const toggleKpi = (k) => setKpi((cur) => cur === k ? null : k);
-  return /* @__PURE__ */ React.createElement("div", { className: "sh", lang, "data-theme": dark ? "dark" : void 0 }, /* @__PURE__ */ React.createElement("a", { className: "cs-skip", href: "#main", style: { position: "absolute", left: -999, width: 1, height: 1, overflow: "hidden" } }, "Skip to content"), /* @__PURE__ */ React.createElement("header", { className: "hd" }, /* @__PURE__ */ React.createElement("div", { className: "hd-in" }, /* @__PURE__ */ React.createElement("div", { className: "hd-id" }, /* @__PURE__ */ React.createElement("span", { className: "hd-mark" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/logo-mark.svg", alt: "" })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h1", null, "Status Hub"), /* @__PURE__ */ React.createElement("p", { className: "hd-sub" }, t.sub))), /* @__PURE__ */ React.createElement("div", { className: "hd-side" }, /* @__PURE__ */ React.createElement("p", { className: "hd-meta" }, t.updated, /* @__PURE__ */ React.createElement("br", null), VI ? VI.updated : D.updated), /* @__PURE__ */ React.createElement("button", { className: "btn ghost", onClick: () => setLang((l) => l === "en" ? "vi" : "en"), "aria-label": "Toggle language", style: { fontWeight: 700, fontSize: 13 } }, t.langBtn), /* @__PURE__ */ React.createElement("button", { className: "btn ghost", onClick: () => setDark((v) => !v), "aria-label": t.theme }, /* @__PURE__ */ React.createElement(ThemeGlyph, { dark }))))), /* @__PURE__ */ React.createElement("main", { id: "main", className: "wrap" }, /* @__PURE__ */ React.createElement("div", { className: "deck" }, /* @__PURE__ */ React.createElement("section", { className: "panel" }, /* @__PURE__ */ React.createElement("h2", null, t.portfolio), /* @__PURE__ */ React.createElement("div", { className: "kpis" }, /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === null ? "1" : "0", onClick: () => setKpi(null) }, /* @__PURE__ */ React.createElement("b", null, counts.total), /* @__PURE__ */ React.createElement("span", null, t.projects)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "active" ? "1" : "0", onClick: () => toggleKpi("active") }, /* @__PURE__ */ React.createElement("b", null, counts.active), /* @__PURE__ */ React.createElement("span", null, t.inprog)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "done" ? "1" : "0", onClick: () => toggleKpi("done") }, /* @__PURE__ */ React.createElement("b", null, counts.done), /* @__PURE__ */ React.createElement("span", null, t.shipped)), /* @__PURE__ */ React.createElement("button", { className: "kpi", "data-on": kpi === "hold" ? "1" : "0", onClick: () => toggleKpi("hold") }, /* @__PURE__ */ React.createElement("b", null, counts.hold), /* @__PURE__ */ React.createElement("span", null, t.blocked)), /* @__PURE__ */ React.createElement("button", { className: "kpi", onClick: () => setKpi(null) }, /* @__PURE__ */ React.createElement("b", null, counts.avg, "%"), /* @__PURE__ */ React.createElement("span", null, t.avg))), /* @__PURE__ */ React.createElement(Segments, { seg: { done: 60, active: 22, hold: 6, todo: 12 }, className: "bar-seg" }), /* @__PURE__ */ React.createElement("div", { className: "legend" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-semantic-success)" } }), t.shipped), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-brand-ochre)" } }), t.inprog), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-color-semantic-danger)" } }), t.blocked), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "dot", style: { background: "var(--cs-status-todo)" } }), t.planned))), /* @__PURE__ */ React.createElement("section", { className: "panel" }, /* @__PURE__ */ React.createElement("h2", null, t.velocity), /* @__PURE__ */ React.createElement("div", { className: "spark" }, D.velocity.map((v) => /* @__PURE__ */ React.createElement("a", { key: v.wk, title: v.n + t.perShipped }, /* @__PURE__ */ React.createElement("b", null, v.n), /* @__PURE__ */ React.createElement("i", { style: { height: v.n / maxV * 72 + "px" } }), /* @__PURE__ */ React.createElement("span", null, v.wk)))))), /* @__PURE__ */ React.createElement("div", { className: "now" }, /* @__PURE__ */ React.createElement("h2", null, t.nowTitle), lang === "vi" ? /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "v1.6.0 — Liên kết Glass + gói Ngũ Hành v2."), " Liên kết component ", /* @__PURE__ */ React.createElement("span", { className: "mono" }, ".cs-surface-*"), " (tùy chọn), trình kiểm 0 cảnh báo trên cả 15 gói, và kiểm tra lại APCA cho chế độ tối. Ra mắt tuần này.") : /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "v1.6.0 — Glass bindings + element-pack v2."), " Opt-in ", /* @__PURE__ */ React.createElement("span", { className: "mono" }, ".cs-surface-*"), " component bindings, a zero-warning verifier across all 15 packs, and a dark-mode APCA re-check. Ships this week.")), /* @__PURE__ */ React.createElement("div", { className: "bar" }, /* @__PURE__ */ React.createElement("div", { className: "bar-top" }, /* @__PURE__ */ React.createElement("label", { className: "srch" }, /* @__PURE__ */ React.createElement(SearchGlyph, null), /* @__PURE__ */ React.createElement("input", { placeholder: t.search, value: q, onChange: (e) => setQ(e.target.value) })), /* @__PURE__ */ React.createElement(
-    "div",
-    {
-      className: "lenses",
-      role: "tablist",
-      "aria-label": t.view,
-      onKeyDown: (e) => {
-        const order = ["board", "table", "releases"];
-        const i = order.indexOf(lens);
-        let next = i;
-        if (e.key === "ArrowRight") next = (i + 1) % order.length;
-        else if (e.key === "ArrowLeft") next = (i - 1 + order.length) % order.length;
-        else if (e.key === "Home") next = 0;
-        else if (e.key === "End") next = order.length - 1;
-        else return;
-        e.preventDefault();
-        setLens(order[next]);
-        const tabs = e.currentTarget.querySelectorAll('[role="tab"]');
-        tabs[next] && tabs[next].focus && tabs[next].focus();
-      }
-    },
-    ["board", "table", "releases"].map((l) => /* @__PURE__ */ React.createElement(
-      "button",
-      {
-        key: l,
-        className: "ln",
-        role: "tab",
-        "aria-selected": lens === l,
-        tabIndex: lens === l ? 0 : -1,
-        onClick: () => setLens(l)
-      },
-      t.lenses[l]
-    ))
-  ), /* @__PURE__ */ React.createElement("label", { className: "facet" }, t.status, /* @__PURE__ */ React.createElement("select", { value: kpi || facet, onChange: (e) => {
-    setFacet(e.target.value);
-    setKpi(null);
-  } }, /* @__PURE__ */ React.createElement("option", { value: "all" }, t.all), /* @__PURE__ */ React.createElement("option", { value: "active" }, t.inprog), /* @__PURE__ */ React.createElement("option", { value: "done" }, t.shipped), /* @__PURE__ */ React.createElement("option", { value: "hold" }, t.blocked))), /* @__PURE__ */ React.createElement("span", { className: "cnt" }, shown.length, " ", t.of, " ", D.projects.length))), lens === "board" && /* @__PURE__ */ React.createElement("div", { className: "grid" }, shown.map((p0) => {
-    const p = loc(p0);
-    return /* @__PURE__ */ React.createElement("button", { className: "card" + (p.status === "active" ? " hot" : ""), key: p.key, onClick: () => setSel(p0) }, /* @__PURE__ */ React.createElement("div", { className: "card-h" }, /* @__PURE__ */ React.createElement("h3", null, /* @__PURE__ */ React.createElement("span", { className: "k mono" }, p.key), " · ", p.name), /* @__PURE__ */ React.createElement("span", { className: "pct" }, p.pct, "%")), /* @__PURE__ */ React.createElement("p", null, p.blurb), /* @__PURE__ */ React.createElement(Segments, { seg: p.seg, className: "minibar" }), /* @__PURE__ */ React.createElement("div", { className: "task-chips" }, /* @__PURE__ */ React.createElement("span", { className: "pill " + p.status }, SL[p.status]), p.tasks.slice(0, 3).map((tk) => /* @__PURE__ */ React.createElement("span", { key: tk[0], className: "chip " + tk[2] }, tk[0]))));
-  })), lens === "table" && /* @__PURE__ */ React.createElement("div", { className: "tbl-wrap" }, /* @__PURE__ */ React.createElement("table", { className: "tbl" }, /* @__PURE__ */ React.createElement("thead", null, /* @__PURE__ */ React.createElement("tr", null, /* @__PURE__ */ React.createElement("th", null, t.key), /* @__PURE__ */ React.createElement("th", null, t.project), /* @__PURE__ */ React.createElement("th", null, t.squad), /* @__PURE__ */ React.createElement("th", null, t.owner), /* @__PURE__ */ React.createElement("th", null, t.progress), /* @__PURE__ */ React.createElement("th", null, t.status))), /* @__PURE__ */ React.createElement("tbody", null, shown.map((p0) => {
-    const p = loc(p0);
-    return /* @__PURE__ */ React.createElement("tr", { key: p.key, onClick: () => setSel(p0) }, /* @__PURE__ */ React.createElement("td", { className: "mono", style: { fontWeight: 700 } }, p.key), /* @__PURE__ */ React.createElement("td", null, p.name), /* @__PURE__ */ React.createElement("td", null, p.squad), /* @__PURE__ */ React.createElement("td", null, p.owner), /* @__PURE__ */ React.createElement("td", null, p.pct, "%"), /* @__PURE__ */ React.createElement("td", null, /* @__PURE__ */ React.createElement("span", { className: "pill " + p.status }, SL[p.status])));
-  })))), lens === "releases" && /* @__PURE__ */ React.createElement("div", { className: "rels" }, D.releases.map((r) => /* @__PURE__ */ React.createElement("div", { className: "rel" + (r.now ? " now" : ""), key: r.ver }, /* @__PURE__ */ React.createElement("div", { className: "tick" }, r.done ? "✓" : "→"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "rel-h" }, /* @__PURE__ */ React.createElement("b", null, r.ver), /* @__PURE__ */ React.createElement("span", { className: "pill " + (r.now ? "active" : "done") }, r.now ? t.thisWeek : t.shipped), /* @__PURE__ */ React.createElement("span", { className: "muted" }, VI ? VI.relWhen[r.ver] || r.when : r.when)), /* @__PURE__ */ React.createElement("div", { className: "rel-sec" }, /* @__PURE__ */ React.createElement("h4", null, VI ? VI.relTitles[r.ver] || r.title : r.title), /* @__PURE__ */ React.createElement("ul", null, (VI ? VI.relItems[r.ver] || r.items : r.items).map((it, i) => /* @__PURE__ */ React.createElement("li", { key: i }, it)))))))), /* @__PURE__ */ React.createElement("p", { className: "ft" }, lang === "vi" ? /* @__PURE__ */ React.createElement(React.Fragment, null, "CyberSkill Status Hub — bản tái hiện UI kit của design system. Dựng trên token ", /* @__PURE__ */ React.createElement("span", { className: "mono" }, "styles.css"), ". Turn Your Will Into Real.") : /* @__PURE__ */ React.createElement(React.Fragment, null, "CyberSkill Status Hub — a design-system UI kit recreation. Built on ", /* @__PURE__ */ React.createElement("span", { className: "mono" }, "styles.css"), " tokens. Turn Your Will Into Real."))), /* @__PURE__ */ React.createElement(Drawer, { p: sel && loc(sel), onClose: () => setSel(null), t }));
-}
-window.StatusHub = StatusHub;
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/status-hub/StatusHub.jsx", error: String((e && e.message) || e) }); }
-
-// ui_kits/status-hub/data.js
-try { (() => {
-window.SH_DATA = {
-  updated: "18 Jul 2026, 13:20 ICT",
-  velocity: [
-    { wk: "W23", n: 4 },
-    { wk: "W24", n: 7 },
-    { wk: "W25", n: 5 },
-    { wk: "W26", n: 9 },
-    { wk: "W27", n: 6 },
-    { wk: "W28", n: 11 },
-    { wk: "W29", n: 8 }
-  ],
-  projects: [
-    {
-      key: "CDS",
-      name: "Design System v1.6",
-      status: "active",
-      pct: 72,
-      blurb: "Liquid Glass component bindings + 15 element packs.",
-      seg: { done: 62, active: 20, hold: 4, todo: 14 },
-      owner: "Design Lead",
-      updated: "2h ago",
-      squad: "Platform",
-      tasks: [["TASK-DS-041", "Glass surface bindings", "done"], ["TASK-DS-047", "Element-pack verifier v2", "active"], ["TASK-DS-052", "Dark-mode APCA re-check", "active"], ["TASK-DS-055", "Figma variable sync", "todo"]],
-      risk: ""
-    },
-    {
-      key: "GENIE",
-      name: "Lumi Genie Chat",
-      status: "active",
-      pct: 58,
-      blurb: "Keyless Claude proxy; scripted wish-capture flow.",
-      seg: { done: 48, active: 24, hold: 8, todo: 20 },
-      owner: "AI Lead",
-      updated: "5h ago",
-      squad: "AI",
-      tasks: [["TASK-CHAR-026", "In-chat wish flow", "done"], ["TASK-CHAR-030", "One-time mascot hint", "active"], ["TASK-CHAR-021", "Golden-genie GLB", "hold"]],
-      risk: "GLB art asset is a hard external dependency — commission not yet confirmed (TASK-CHAR-021)."
-    },
-    {
-      key: "SITE",
-      name: "cyberskill.world",
-      status: "active",
-      pct: 84,
-      blurb: "Bilingual storytelling landing; lead capture live.",
-      seg: { done: 78, active: 12, hold: 0, todo: 10 },
-      owner: "Web Lead",
-      updated: "1h ago",
-      squad: "Growth",
-      tasks: [["TASK-BIZ-003", "Lead pipeline e2e", "done"], ["TASK-SEO-012", "llms.txt route", "done"], ["TASK-CTA-020", "Teardown funnel polish", "active"]],
-      risk: ""
-    },
-    {
-      key: "OS",
-      name: "CyberOS Agent Spine",
-      status: "hold",
-      pct: 41,
-      blurb: "BRAIN memory store + HITL acceptance gates.",
-      seg: { done: 36, active: 8, hold: 30, todo: 26 },
-      owner: "Eng Lead",
-      updated: "1d ago",
-      squad: "Platform",
-      tasks: [["TASK-OS-018", "Gate runner", "done"], ["TASK-OS-022", "Memory compaction", "hold"], ["TASK-OS-025", "Provenance ledger", "hold"]],
-      risk: "Blocked on infra: provenance ledger needs the signing service (target Q1 2027)."
-    },
-    {
-      key: "AUDIT",
-      name: "DS Audit Framework",
-      status: "done",
-      pct: 100,
-      blurb: "125-criteria vendor-neutral audit; L3 tier held.",
-      seg: { done: 100, active: 0, hold: 0, todo: 0 },
-      owner: "DesignOps",
-      updated: "3d ago",
-      squad: "Platform",
-      tasks: [["TASK-AUD-009", "Deterministic engine", "done"], ["TASK-AUD-011", "No-regression CI gate", "done"]],
-      risk: ""
-    },
-    {
-      key: "TOKENS",
-      name: "Token Pipeline",
-      status: "active",
-      pct: 66,
-      blurb: "DTCG → CSS/TS/Swift/Kotlin/Flutter/Figma.",
-      seg: { done: 58, active: 22, hold: 0, todo: 20 },
-      owner: "Eng Lead",
-      updated: "6h ago",
-      squad: "Platform",
-      tasks: [["TASK-TOK-014", "Contrast grid export", "done"], ["TASK-TOK-019", "Flutter target", "active"], ["TASK-TOK-021", "Provenance JSON", "todo"]],
-      risk: ""
-    }
-  ],
-  releases: [
-    {
-      ver: "v1.6.0",
-      when: "This week",
-      now: true,
-      done: false,
-      title: "Glass bindings + element-pack v2",
-      items: ["Opt-in .cs-surface-* component bindings", "Element-pack verifier v2 (0 warnings across 15)", "Dark-mode APCA re-check"]
-    },
-    {
-      ver: "v1.5.1",
-      when: "04 Jul 2026",
-      now: false,
-      done: true,
-      title: "15 element packs ship",
-      items: ["All 15 packs promoted to shipped", "Per-pack screenshot regression", "Gallery build script"]
-    },
-    {
-      ver: "v1.4.0",
-      when: "13 Jun 2026",
-      now: false,
-      done: true,
-      title: "Liquid Glass in code",
-      items: ["--cs-glass-* + --cs-depth-* scalars", "glass.css material layer", "Reduced-transparency fallbacks"]
-    },
-    {
-      ver: "v1.3.0",
-      when: "14 May 2026",
-      now: false,
-      done: true,
-      title: "Brand assets + Logo",
-      items: ["Official master mark ships", "React <Logo> from master artwork", "Light becomes default theme"]
-    }
-  ]
-};
-window.SH_VI = {
-  updated: "18/07/2026, 13:20 ICT",
-  blurbs: { CDS: "Liên kết component Liquid Glass + 15 gói Ngũ Hành.", GENIE: "Proxy Claude không cần khóa; luồng tiếp nhận điều ước theo kịch bản.", SITE: "Trang giới thiệu song ngữ kể chuyện; thu lead đang chạy.", OS: "Kho nhớ BRAIN + cổng nghiệm thu có con người.", AUDIT: "Bộ kiểm định trung lập 125 tiêu chí; giữ hạng L3.", TOKENS: "DTCG → CSS/TS/Swift/Kotlin/Flutter/Figma." },
-  risks: { GENIE: "Tài sản GLB là phụ thuộc ngoài khó — chưa chốt đặt hàng (TASK-CHAR-021).", OS: "Bị chặn bởi hạ tầng: sổ cái nguồn gốc cần dịch vụ ký số (mục tiêu Q1 2027)." },
-  owners: { "Design Lead": "Trưởng thiết kế", "AI Lead": "Trưởng AI", "Web Lead": "Trưởng web", "Eng Lead": "Trưởng kỹ thuật", "DesignOps": "DesignOps" },
-  squads: { Platform: "Nền tảng", AI: "AI", Growth: "Tăng trưởng" },
-  updatedRel: { "2h ago": "2 giờ trước", "5h ago": "5 giờ trước", "1h ago": "1 giờ trước", "1d ago": "1 ngày trước", "3d ago": "3 ngày trước", "6h ago": "6 giờ trước" },
-  relWhen: { "v1.6.0": "Tuần này", "v1.5.1": "04/07/2026", "v1.4.0": "13/06/2026", "v1.3.0": "14/05/2026" },
-  relTitles: { "v1.6.0": "Liên kết Glass + gói Ngũ Hành v2", "v1.5.1": "15 gói Ngũ Hành ra mắt", "v1.4.0": "Liquid Glass vào mã", "v1.3.0": "Tài sản thương hiệu + Logo" },
-  relItems: { "v1.6.0": ["Liên kết component .cs-surface-* (tùy chọn)", "Trình kiểm gói Ngũ Hành v2 (0 cảnh báo trên 15 gói)", "Kiểm tra lại APCA cho chế độ tối"], "v1.5.1": ["Cả 15 gói lên trạng thái đã ra mắt", "Regression ảnh chụp từng gói", "Script dựng gallery"], "v1.4.0": ["Scalar --cs-glass-* + --cs-depth-*", "Lớp chất liệu glass.css", "Fallback khi giảm độ trong suốt"], "v1.3.0": ["Master mark chính thức ra mắt", "<Logo> React từ artwork gốc", "Light thành theme mặc định"] }
-};
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/status-hub/data.js", error: String((e && e.message) || e) }); }
-
-// ui_kits/website/Website.jsx
-try { (() => {
-const { useState, useRef, useEffect } = React;
-function I({ name, size = 20, stroke = 1.9 }) {
-  const p = {
-    sparkle: "M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z",
-    chat: "M4 5h16v11H8l-4 4z",
-    check: "M4 12.5l5 5 11-11",
-    "arrow-right": "M5 12h14M13 6l6 6-6 6",
-    close: "M6 6l12 12M18 6L6 18",
-    sun: "M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4",
-    moon: "M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"
-  }[name];
-  return /* @__PURE__ */ React.createElement("svg", { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: stroke, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: p }));
-}
-function Chat({ t, seed, onClose }) {
-  const [msgs, setMsgs] = useState([{ who: "bot", text: t.genie.greeting }]);
-  const [val, setVal] = useState("");
-  const bodyRef = useRef(null);
-  useEffect(() => {
-    if (seed) send(seed);
-  }, []);
-  useEffect(() => {
-    const b = bodyRef.current;
-    if (b) b.scrollTop = b.scrollHeight;
-  }, [msgs]);
-  function send(text) {
-    const m = (text || "").trim();
-    if (!m) return;
-    setMsgs((cur) => [...cur, { who: "me", text: m }]);
-    setVal("");
-    setTimeout(() => setMsgs((cur) => [...cur, { who: "bot", text: "A wish worth granting. I’ll hand it to the team — first, what should I call you?" }]), 500);
-  }
-  return /* @__PURE__ */ React.createElement("div", { className: "chat" }, /* @__PURE__ */ React.createElement("div", { className: "chat-h" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/lumi-poster.webp", alt: "" }), /* @__PURE__ */ React.createElement("b", null, t.genie.title), /* @__PURE__ */ React.createElement("button", { onClick: onClose, "aria-label": "Close chat" }, /* @__PURE__ */ React.createElement(I, { name: "close", size: 18 }))), /* @__PURE__ */ React.createElement("div", { className: "chat-b", ref: bodyRef }, msgs.map((m, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "msg " + m.who }, m.text)), msgs.length === 1 && /* @__PURE__ */ React.createElement("div", { className: "chips" }, t.genie.chips.map((c) => /* @__PURE__ */ React.createElement("button", { key: c, onClick: () => send(c) }, c)))), /* @__PURE__ */ React.createElement("div", { className: "chat-f" }, /* @__PURE__ */ React.createElement("input", { value: val, onChange: (e) => setVal(e.target.value), onKeyDown: (e) => e.key === "Enter" && send(val), placeholder: t.genie.placeholder }), /* @__PURE__ */ React.createElement("button", { onClick: () => send(val) }, t.genie.send)));
-}
-function Website() {
-  const [loc, setLoc] = useState("en");
-  const [dark, setDark] = useState(false);
-  const [chat, setChat] = useState(false);
-  const [seed, setSeed] = useState("");
-  const [wish, setWish] = useState("");
-  const [sent, setSent] = useState(false);
-  const [fabVisible, setFabVisible] = useState(false);
-  const t = window.SITE_COPY[loc];
-  function openChat(s) {
-    setSeed(s || "");
-    setChat(true);
-  }
-  useEffect(() => {
-    const sync = () => setFabVisible(window.scrollY > 140);
-    sync();
-    window.addEventListener("scroll", sync, { passive: true });
-    return () => window.removeEventListener("scroll", sync);
-  }, []);
-  return /* @__PURE__ */ React.createElement("div", { className: "site", "data-theme": dark ? "dark" : void 0 }, /* @__PURE__ */ React.createElement("a", { className: "cs-skip", href: "#main", style: { position: "absolute", left: -999, width: 1, height: 1, overflow: "hidden" } }, "Skip to content"), /* @__PURE__ */ React.createElement("header", { className: "hdr cs-surface-light" }, /* @__PURE__ */ React.createElement("div", { className: "container hdr-in" }, /* @__PURE__ */ React.createElement("a", { className: "brand", href: "#top" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/logo-mark.svg", alt: "" }), "CyberSkill"), /* @__PURE__ */ React.createElement("nav", { className: "nav" }, t.nav.map((n, i) => /* @__PURE__ */ React.createElement("a", { key: i, href: "#" + ["services", "work", "process", "careers", "contact"][i] }, n))), /* @__PURE__ */ React.createElement("div", { className: "hdr-side" }, /* @__PURE__ */ React.createElement("button", { className: "mini", onClick: () => setLoc(loc === "en" ? "vi" : "en") }, t.langLabel), /* @__PURE__ */ React.createElement("button", { className: "mini icon", onClick: () => setDark(!dark), "aria-label": "Toggle theme" }, /* @__PURE__ */ React.createElement(I, { name: dark ? "sun" : "moon", size: 18 })), /* @__PURE__ */ React.createElement("button", { className: "mini", style: { background: "var(--cs-color-brand-umber)", color: "var(--cs-color-text-inverse,#fff)", borderColor: "transparent" }, onClick: () => openChat("") }, t.talk)))), /* @__PURE__ */ React.createElement("main", { id: "main" }, /* @__PURE__ */ React.createElement("section", { className: "hero", id: "top" }, /* @__PURE__ */ React.createElement("div", { className: "container hero-in" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, t.eyebrow), /* @__PURE__ */ React.createElement("h1", null, t.slogan), /* @__PURE__ */ React.createElement("div", { className: "vn" }, t.sub), /* @__PURE__ */ React.createElement("p", { className: "lead" }, t.lead), /* @__PURE__ */ React.createElement("div", { className: "wish" }, /* @__PURE__ */ React.createElement("input", { value: wish, onChange: (e) => setWish(e.target.value), onKeyDown: (e) => e.key === "Enter" && openChat(wish), placeholder: t.wishPlaceholder, "aria-label": t.wishPlaceholder }), /* @__PURE__ */ React.createElement("button", { className: "btn-gold", onClick: () => openChat(wish) }, /* @__PURE__ */ React.createElement(I, { name: "sparkle", size: 18 }), t.wishCta))), /* @__PURE__ */ React.createElement("div", { className: "hero-art" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/lumi-poster.webp", alt: "Lumi, the golden genie" })))), /* @__PURE__ */ React.createElement("div", { className: "marq" }, /* @__PURE__ */ React.createElement("div", { className: "container marq-in" }, t.marquee.map((m, i) => /* @__PURE__ */ React.createElement(React.Fragment, { key: i }, i > 0 && /* @__PURE__ */ React.createElement("b", null, "·"), /* @__PURE__ */ React.createElement("span", null, m))))), /* @__PURE__ */ React.createElement("section", { className: "sec", id: "services" }, /* @__PURE__ */ React.createElement("div", { className: "container" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, t.nav[0]), /* @__PURE__ */ React.createElement("h2", null, t.servicesTitle), /* @__PURE__ */ React.createElement("p", { className: "sec-lead" }, t.servicesLead), /* @__PURE__ */ React.createElement("div", { className: "svc-grid" }, t.services.map((s, i) => /* @__PURE__ */ React.createElement("article", { className: "svc cs-surface-standard", key: i }, /* @__PURE__ */ React.createElement("div", { className: "svc-ic" }, /* @__PURE__ */ React.createElement(I, { name: s.icon })), /* @__PURE__ */ React.createElement("h3", null, s.t), /* @__PURE__ */ React.createElement("p", null, s.s), /* @__PURE__ */ React.createElement("ul", null, s.o.map((o) => /* @__PURE__ */ React.createElement("li", { key: o }, o)))))))), /* @__PURE__ */ React.createElement("section", { className: "sec sec-alt", id: "process" }, /* @__PURE__ */ React.createElement("div", { className: "container" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, t.nav[2]), /* @__PURE__ */ React.createElement("h2", null, t.processTitle), /* @__PURE__ */ React.createElement("p", { className: "sec-lead" }, t.processLead), /* @__PURE__ */ React.createElement("div", { className: "steps" }, t.steps.map((s) => /* @__PURE__ */ React.createElement("div", { className: "step", key: s.n }, /* @__PURE__ */ React.createElement("span", { className: "n" }, s.n), /* @__PURE__ */ React.createElement("h3", null, s.t), /* @__PURE__ */ React.createElement("p", null, s.s)))))), /* @__PURE__ */ React.createElement("section", { className: "sec", id: "careers" }, /* @__PURE__ */ React.createElement("div", { className: "container" }, /* @__PURE__ */ React.createElement("div", { className: "band" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", null, t.careersTitle), /* @__PURE__ */ React.createElement("p", null, t.careersLead)), /* @__PURE__ */ React.createElement("button", { className: "btn-gold", onClick: () => openChat("") }, t.careersCta, /* @__PURE__ */ React.createElement(I, { name: "arrow-right", size: 18 }))))), /* @__PURE__ */ React.createElement("section", { className: "sec sec-alt", id: "contact" }, /* @__PURE__ */ React.createElement("div", { className: "container contact-grid" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, t.nav[4]), /* @__PURE__ */ React.createElement("h2", null, t.contactTitle), /* @__PURE__ */ React.createElement("p", { className: "sec-lead", style: { marginBottom: 16 } }, t.contactLead), /* @__PURE__ */ React.createElement("p", { className: "trust" }, /* @__PURE__ */ React.createElement(I, { name: "check", size: 16 }), t.form.trust)), sent ? /* @__PURE__ */ React.createElement("div", { className: "sent" }, /* @__PURE__ */ React.createElement(I, { name: "check", size: 18 }), " ", loc === "vi" ? "Đã nhận được lời nhắn. Cảm ơn bạn!" : "Message received. Thank you!") : /* @__PURE__ */ React.createElement("form", { className: "form", onSubmit: (e) => {
-    e.preventDefault();
-    setSent(true);
-  } }, /* @__PURE__ */ React.createElement("label", { className: "cs-field" }, /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, t.form.name), /* @__PURE__ */ React.createElement("input", { className: "cs-field__control", required: true })), /* @__PURE__ */ React.createElement("label", { className: "cs-field" }, /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, t.form.email), /* @__PURE__ */ React.createElement("input", { className: "cs-field__control", type: "email", required: true })), /* @__PURE__ */ React.createElement("label", { className: "cs-field" }, /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, t.form.company, " ", /* @__PURE__ */ React.createElement("span", { className: "muted", style: { fontWeight: 400, color: "var(--cs-color-text-muted)" } }, "· ", t.form.optional)), /* @__PURE__ */ React.createElement("input", { className: "cs-field__control" })), /* @__PURE__ */ React.createElement("label", { className: "cs-field" }, /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, t.form.message), /* @__PURE__ */ React.createElement("textarea", { className: "cs-field__control", rows: "3" })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-gold" }, t.form.submit, /* @__PURE__ */ React.createElement(I, { name: "arrow-right", size: 18 }))))))), /* @__PURE__ */ React.createElement("footer", { className: "ft" }, /* @__PURE__ */ React.createElement("div", { className: "container ft-in" }, /* @__PURE__ */ React.createElement("a", { className: "brand", href: "#top" }, /* @__PURE__ */ React.createElement("img", { src: "../../assets/logo-mark.svg", alt: "" }), "CyberSkill"), /* @__PURE__ */ React.createElement("div", { className: "ft-links" }, t.footerLinks.map((l) => /* @__PURE__ */ React.createElement("a", { key: l, href: "#top" }, l))), /* @__PURE__ */ React.createElement("small", null, "© 2026 CyberSkill · ", t.footerRights, " · Saigon"))), !chat && /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      className: "fab",
-      type: "button",
-      "data-fab-deferred": "1",
-      onClick: () => openChat(""),
-      style: { opacity: fabVisible ? 1 : 0, pointerEvents: fabVisible ? "auto" : "none", transition: "opacity 160ms ease" },
-      "aria-hidden": !fabVisible,
-      tabIndex: fabVisible ? 0 : -1
-    },
-    /* @__PURE__ */ React.createElement("img", { src: "../../assets/lumi-poster.webp", alt: "" }),
-    t.talk
-  ), chat && /* @__PURE__ */ React.createElement(Chat, { t, seed, onClose: () => setChat(false) }));
-}
-window.Website = Website;
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/Website.jsx", error: String((e && e.message) || e) }); }
-
-// ui_kits/website/copy.js
-try { (() => {
-window.SITE_COPY = {
-  en: {
-    nav: ["Services", "Work", "Process", "Careers", "Contact"],
-    langLabel: "Tiếng Việt",
-    eyebrow: "A Saigon studio that turns will into working software. Since 2020.",
-    slogan: "Turn Your Will Into Real",
-    sub: "Hiện Thực Hoá Ý Chí",
-    lead: "Lumi, our golden genie, takes a clear wish and helps the human team turn it into software your people actually run — built to ship, and built to last.",
-    wishPlaceholder: "Make a wish… a faster checkout, an app, a tool",
-    wishCta: "Make a wish",
-    talk: "Talk to Lumi",
-    marquee: ["Web apps", "Mobile apps", "Internal systems", "Automation", "Design systems", "Built to last"],
-    servicesTitle: "What we build",
-    servicesLead: "Three focused practices. One team that answers for the result.",
-    services: [
-      { icon: "sparkle", t: "Web & mobile apps", s: "Product apps your customers reach for — fast, accessible, bilingual by default.", o: ["Web apps", "Mobile apps", "Design systems"] },
-      { icon: "chat", t: "Internal systems & automation", s: "The tools your team runs on: dashboards, workflows, and the automation behind them.", o: ["Internal systems", "Automation"] },
-      { icon: "check", t: "Built to last", s: "Shipped software that keeps running — tested, documented, handed over cleanly.", o: ["Testing", "Docs", "Handover"] }
-    ],
-    processTitle: "The arc of a wish",
-    processLead: "Every project follows one arc: from a clear wish to software running in the real world.",
-    steps: [
-      { n: "01", t: "Make a wish", s: "Tell us the outcome in a sentence or two. We reply within one business day." },
-      { n: "02", t: "Shape it", s: "A small senior team scopes the work and is honest about trade-offs." },
-      { n: "03", t: "Build to ship", s: "Short cycles, real software you can run — not slideware." },
-      { n: "04", t: "Built to last", s: "Tested, documented, handed over. It keeps running after we leave." }
-    ],
-    careersTitle: "Build with us",
-    careersLead: "We hire for craft and care — senior, small, and honest about trade-offs.",
-    careersCta: "See open roles",
-    contactTitle: "Tell us your wish",
-    contactLead: "Send a short note. We reply within one business day.",
-    form: { name: "Your name", email: "Work email", company: "Company", message: "Anything we should know?", submit: "Send", optional: "optional", trust: "Your details go straight to the team. We never share them." },
-    genie: { title: "Lumi · CyberSkill’s golden genie", greeting: "Hello, I’m Lumi. Think of me as a friendly guide: tell me a wish, and I’ll share plain advice before asking for anything. When a wish is clear, it goes to a real person on the team.", placeholder: "Type your wish…", send: "Send", chips: ["A web app", "An internal tool", "A design system"] },
-    footerRights: "All rights reserved.",
-    footerLinks: ["Privacy", "Accessibility", "Terms"]
-  },
-  vi: {
-    nav: ["Dịch vụ", "Dự án", "Quy trình", "Tuyển dụng", "Liên hệ"],
-    langLabel: "English",
-    eyebrow: "Studio Sài Gòn. Biến ý chí thành phần mềm chạy thật. Từ năm 2020.",
-    slogan: "Hiện Thực Hoá Ý Chí",
-    sub: "Turn Your Will Into Real",
-    lead: "Lumi, thần đèn vàng của CyberSkill, cùng đội ngũ biến điều ước rõ thành phần mềm đội bạn dùng mỗi ngày: bàn giao được, dùng lâu được.",
-    wishPlaceholder: "Ước một điều… thanh toán nhanh hơn, một ứng dụng, một công cụ",
-    wishCta: "Ước điều này",
-    talk: "Trò chuyện với Lumi",
-    marquee: ["Ứng dụng web", "Ứng dụng di động", "Hệ thống nội bộ", "Tự động hóa", "Hệ thống thiết kế", "Bền bỉ lâu dài"],
-    servicesTitle: "Chúng tôi xây dựng những gì",
-    servicesLead: "Ba mảng chuyên sâu. Một đội chịu trách nhiệm đến kết quả cuối cùng.",
-    services: [
-      { icon: "sparkle", t: "Ứng dụng web & di động", s: "Sản phẩm khách hàng dùng mỗi ngày — nhanh, dễ tiếp cận, song ngữ mặc định.", o: ["Ứng dụng web", "Di động", "Hệ thống thiết kế"] },
-      { icon: "chat", t: "Hệ thống nội bộ & tự động hóa", s: "Công cụ đội bạn vận hành: bảng điều khiển, quy trình và tự động hóa phía sau.", o: ["Hệ thống nội bộ", "Tự động hóa"] },
-      { icon: "check", t: "Bền bỉ lâu dài", s: "Phần mềm bàn giao vẫn chạy tốt — được kiểm thử, tài liệu đầy đủ, bàn giao gọn.", o: ["Kiểm thử", "Tài liệu", "Bàn giao"] }
-    ],
-    processTitle: "Hành trình của một điều ước",
-    processLead: "Mỗi dự án một hành trình: từ điều ước rõ đến phần mềm chạy giữa đời thật.",
-    steps: [
-      { n: "01", t: "Ước một điều", s: "Kể kết quả bạn muốn trong một hai câu. Chúng tôi phản hồi trong một ngày làm việc." },
-      { n: "02", t: "Định hình", s: "Đội nhỏ, kinh nghiệm bóc tách công việc và nói thẳng về đánh đổi." },
-      { n: "03", t: "Xây để bàn giao", s: "Chu kỳ ngắn, phần mềm chạy thật — không phải slide." },
-      { n: "04", t: "Dùng lâu được", s: "Kiểm thử, tài liệu, bàn giao. Vẫn chạy tốt sau khi chúng tôi rời đi." }
-    ],
-    careersTitle: "Cùng chúng tôi kiến tạo",
-    careersLead: "Tuyển người có tay nghề và chỉn chu — đội gọn, kinh nghiệm, nói thẳng đánh đổi.",
-    careersCta: "Xem vị trí đang mở",
-    contactTitle: "Kể chúng tôi nghe điều bạn ước",
-    contactLead: "Một lời nhắn ngắn là đủ. Chúng tôi phản hồi trong một ngày làm việc.",
-    form: { name: "Tên của bạn", email: "Email công việc", company: "Công ty", message: "Bạn muốn chia sẻ thêm điều gì?", submit: "Gửi", optional: "không bắt buộc", trust: "Thông tin của bạn được gửi thẳng đến đội ngũ. Chúng tôi không chia sẻ cho bên thứ ba." },
-    genie: { title: "Lumi · thần đèn vàng CyberSkill", greeting: "Chào bạn, mình là Lumi. Cứ kể mình một điều ước; mình tư vấn trước, chỉ xin thông tin khi bạn muốn gửi. Điều ước rõ sẽ được chuyển cho người thật trong đội.", placeholder: "Viết điều ước của bạn…", send: "Gửi", chips: ["Một ứng dụng web", "Công cụ nội bộ", "Hệ thống thiết kế"] },
-    footerRights: "Bảo lưu mọi quyền.",
-    footerLinks: ["Quyền riêng tư", "Khả năng tiếp cận", "Điều khoản"]
-  }
-};
-})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/copy.js", error: String((e && e.message) || e) }); }
 
 __ds_ns.AIDisclosureBadge = __ds_scope.AIDisclosureBadge;
 
