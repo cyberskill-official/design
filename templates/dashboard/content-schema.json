@@ -3,6 +3,13 @@
   "template": "dashboard",
   "slots": [
     {
+      "id": "skipLabel",
+      "type": "text",
+      "label": "Skip-to-content link label",
+      "maxLength": 40,
+      "required": true
+    },
+    {
       "id": "tagline",
       "type": "text",
       "label": "Header tagline",

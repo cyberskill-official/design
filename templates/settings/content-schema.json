@@ -3,6 +3,13 @@
   "template": "settings",
   "slots": [
     {
+      "id": "skipLabel",
+      "type": "text",
+      "label": "Skip-to-content link label",
+      "maxLength": 40,
+      "required": true
+    },
+    {
       "id": "title",
       "type": "text",
       "label": "Page title",

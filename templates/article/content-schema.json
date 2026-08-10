@@ -3,6 +3,13 @@
   "template": "article",
   "slots": [
     {
+      "id": "skipLabel",
+      "type": "text",
+      "label": "Skip-to-content link label",
+      "maxLength": 40,
+      "required": true
+    },
+    {
       "id": "eyebrow",
       "type": "text",
       "label": "Section eyebrow",

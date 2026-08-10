@@ -49,14 +49,14 @@ class Component extends DCLogic {
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
 const vn = this.props.language === "Tiếng Việt";
     const code = '<div class="cs-glass-card">\n  <h3>Design System v1.6</h3>\n</div>';
-    const en = {
+    const en = { skipLabel:"Skip to content",
       eyebrow:"Engineering · Design systems", h1:"Liquid Glass, now bound to components", meta:"18 Jul 2026 · 6 min read", badge:"New", authorTeam:"Platform",
       lede:"Five glass materials over the immutable Umber and Ochre anchors — and now they are one class away on any surface. Here's how the bindings work, and when to reach for each.",
       p1:"Liquid Glass is CyberSkill's default surface treatment: translucent, refractive layers that let warm gold light show through. The material scalars live in tokens; this release wires them to real components so a card, a nav, or a modal can opt in with a single class.",
       h2:"When to reach for glass", p2:"Keep dense content on solid surfaces. Reserve glass for nav, cards over imagery, and modals — always after an APCA check against the backdrop.",
       alertTitle:"Rule of thumb", alertBody:"If text sits directly on a busy photo, step up one glass tier or drop to a solid surface.",
       p3:"That's the whole surface. Everything paints from the same anchors — warm, honest, and Vietnamese-first by default."};
-    const vi = {
+    const vi = { skipLabel:"Bỏ qua nội dung",
       eyebrow:"Kỹ thuật · Design system", h1:"Liquid Glass, nay gắn vào component", meta:"18/07/2026 · đọc 6 phút", badge:"Mới", authorTeam:"Nền tảng",
       lede:"Năm vật liệu kính trên hai màu neo bất biến Umber và Ochre — và giờ chỉ cách một class trên mọi bề mặt. Đây là cách các liên kết hoạt động, và khi nào nên dùng từng loại.",
       p1:"Liquid Glass là lớp bề mặt mặc định của CyberSkill: những lớp mờ, khúc xạ, để ánh vàng ấm hiện qua. Hệ số vật liệu nằm trong token; bản phát hành này gắn chúng vào component thật, để một card, một nav hay một modal có thể bật lên chỉ bằng một class.",
