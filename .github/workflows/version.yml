@@ -74,6 +74,9 @@ jobs:
           # sourceSha256, then rebuild _ds_bundle.js so gates stay green on tip.
           node _audit/ci/generate-native-tokens.mjs
           npm run build:bundle
+          # Contrast report headers embed VERSION; regenerate so node-prechecks
+          # and prepublishOnly --check stay green on the release tip.
+          npm run tokens:contrast
 
       - name: Refresh status hub at the new VERSION
         if: ${{ steps.bump.outputs.changed == 'true' }}
@@ -92,10 +95,12 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+          # Stamp + contrast touch more than package/token cores (prose pins,
+          # element-seeds, docs/stories MDX, contrast reports, audit board).
+          # Stage the full set so chore(release) tip stays gate-green.
           git add -u VERSION package.json package-lock.json \
-            tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/provenance.json \
-            tokens/native _ds_bundle.js \
-            _esm/cs.mjs DESIGN.md examples/npm-hello docs/status || true
+            tokens/ _ds_bundle.js _esm/cs.mjs DESIGN.md examples/npm-hello \
+            README.md SKILL.md llms.txt docs/ stories/ _audit/run.html || true
 
           if git diff --cached --quiet; then
             echo "Nothing staged after stamp — aborting bump commit."
