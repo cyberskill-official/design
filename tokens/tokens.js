@@ -1,8 +1,8 @@
-// CyberSkill design tokens — generated from tokens/*.css (v1.3.1). Do not edit by hand.
+// CyberSkill design tokens — generated from tokens/*.css (v1.3.2). Do not edit by hand.
 export const tokens = {
   "$meta": {
     "system": "CyberSkill Design System",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "generated": "2026-07-23",
     "note": "Generated from tokens/*.css. Root grouped by category; theme/element scopes carry overrides only. Regenerate after any token change (see docs/conventions.md)."
   },
