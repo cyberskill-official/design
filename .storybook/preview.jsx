@@ -88,7 +88,7 @@ const preview = {
     language: {
       name: 'Language',
       description: 'lang attribute (bilingual components)',
-      defaultValue: 'en',
+      defaultValue: 'vi',
       toolbar: {
         icon: 'globe',
         items: [
@@ -113,7 +113,7 @@ const preview = {
     (Story, context) => {
       const theme = context.globals.theme || 'light';
       const [element, variant] = String(context.globals.element || 'tho|').split('|');
-      const language = context.globals.language || 'en';
+      const language = context.globals.language || 'vi';
       const style = context.globals.style || 'liquid-glass';
       const fullscreen = context.parameters.layout === 'fullscreen';
       if (typeof document !== 'undefined') {
