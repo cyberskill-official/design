@@ -21,7 +21,7 @@ Source of truth: [`tokens/element-seeds.json`](../tokens/element-seeds.json) →
 | **Character offsets** | Small explicit `dh`/`dc` in the seed file only (e.g. Hỏa·plasma, Kim·steel) — not freehand drift |
 | **Light ↔ dark** | Same hue family (Δh locked); roles remapped + APCA-solved — 15 × 2 = **30 colour sets** |
 | **Text rule** | Text on `-bright` or `-tint` only — never on mid-tone `-accent` |
-| **Never remap** | `--cs-color-accent-ochre` focus ring · semantic status colours |
+| **Never remap** | composite focus indicator (text-primary contour + ochre halo) · semantic status colours |
 | **Geometry gate** | [`_audit/element-geometry.html`](../_audit/element-geometry.html) — intensity sync · variant distinctness · hue identity |
 
 ## Style pack — liquid-glass

@@ -66,7 +66,7 @@ export const tokens = {
       "--cs-accent-ink": "#45210E",
       "--cs-accent-glow": "rgba(244, 186, 23, 0.48)",
       "--cs-accent-grad-a": "#F4BA17",
-      "--cs-accent-grad-b": "#FCAF91",
+      "--cs-accent-grad-b": "#F3B958",
       "--cs-accent-on-strong": "#1A1108"
     },
     "depth": {
@@ -275,9 +275,9 @@ export const tokens = {
       "--cs-accent-ink": "#292414",
       "--cs-accent-glow": "rgba(248, 233, 192, 0.48)",
       "--cs-accent-grad-a": "#F8E9C0",
-      "--cs-accent-grad-b": "#FCAF91",
+      "--cs-accent-grad-b": "#F3B958",
       "--cs-color-text-accent": "#90825E",
-      "--cs-color-link": "#90825E"
+      "--cs-color-link": "#7B6D4A"
     },
     "tho": {
       "--cs-accent": "#F4BA17",
@@ -289,7 +289,7 @@ export const tokens = {
       "--cs-accent-ink": "#45210E",
       "--cs-accent-glow": "rgba(244, 186, 23, 0.48)",
       "--cs-accent-grad-a": "#F4BA17",
-      "--cs-accent-grad-b": "#FCAF91"
+      "--cs-accent-grad-b": "#F3B958"
     },
     "tho.clay": {
       "--cs-accent": "#513801",
@@ -301,7 +301,7 @@ export const tokens = {
       "--cs-accent-ink": "#2D220E",
       "--cs-accent-glow": "rgba(81, 56, 1, 0.48)",
       "--cs-accent-grad-a": "#513801",
-      "--cs-accent-grad-b": "#FCAF91",
+      "--cs-accent-grad-b": "#F3B958",
       "--cs-color-text-accent": "#201300",
       "--cs-color-link": "#201300"
     },
@@ -317,7 +317,7 @@ export const tokens = {
       "--cs-accent-grad-a": "#FFE1D8",
       "--cs-accent-grad-b": "#F4BA17",
       "--cs-color-text-accent": "#967C75",
-      "--cs-color-link": "#967C75"
+      "--cs-color-link": "#846B64"
     },
     "hoa": {
       "--cs-accent": "#FCAF91",
@@ -331,7 +331,7 @@ export const tokens = {
       "--cs-accent-grad-a": "#FCAF91",
       "--cs-accent-grad-b": "#F4BA17",
       "--cs-color-text-accent": "#B47054",
-      "--cs-color-link": "#B47054"
+      "--cs-color-link": "#A15E43"
     },
     "hoa.lava": {
       "--cs-accent": "#622B06",
@@ -359,7 +359,7 @@ export const tokens = {
       "--cs-accent-grad-a": "#C0F5FC",
       "--cs-accent-grad-b": "#A3D768",
       "--cs-color-text-accent": "#5A8A90",
-      "--cs-color-link": "#5A8A90"
+      "--cs-color-link": "#48787E"
     },
     "thuy": {
       "--cs-accent": "#2EDBF7",
@@ -373,7 +373,7 @@ export const tokens = {
       "--cs-accent-grad-a": "#2EDBF7",
       "--cs-accent-grad-b": "#A3D768",
       "--cs-color-text-accent": "#108EA0",
-      "--cs-color-link": "#108EA0"
+      "--cs-color-link": "#027B8B"
     },
     "thuy.ocean": {
       "--cs-accent": "#004554",
@@ -401,7 +401,7 @@ export const tokens = {
       "--cs-accent-grad-a": "#E1F1C8",
       "--cs-accent-grad-b": "#FCAF91",
       "--cs-color-text-accent": "#7C8965",
-      "--cs-color-link": "#7C8965"
+      "--cs-color-link": "#687451"
     },
     "moc": {
       "--cs-accent": "#A3D768",
@@ -415,7 +415,7 @@ export const tokens = {
       "--cs-accent-grad-a": "#A3D768",
       "--cs-accent-grad-b": "#FCAF91",
       "--cs-color-text-accent": "#629122",
-      "--cs-color-link": "#629122"
+      "--cs-color-link": "#517B13"
     },
     "moc.forest": {
       "--cs-accent": "#1A4A01",
@@ -443,7 +443,7 @@ export const tokens = {
       "--cs-accent-grad-a": "#FEE5C7",
       "--cs-accent-grad-b": "#2EDBF7",
       "--cs-color-text-accent": "#947F65",
-      "--cs-color-link": "#947F65"
+      "--cs-color-link": "#826D54"
     },
     "kim": {
       "--cs-accent": "#F3B958",
@@ -457,7 +457,7 @@ export const tokens = {
       "--cs-accent-grad-a": "#F3B958",
       "--cs-accent-grad-b": "#2EDBF7",
       "--cs-color-text-accent": "#AC780B",
-      "--cs-color-link": "#AC780B"
+      "--cs-color-link": "#966700"
     },
     "kim.steel": {
       "--cs-accent": "#503901",

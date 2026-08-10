@@ -22,15 +22,19 @@
   box-shadow: var(--cs-shadow-xs);
 }
 
-/* ---- 2. Soft ochre focus glow — layered on the immutable 3px ring ---- */
+/* ---- 2. Focus halo — ochre brand ring outside the high-contrast contour (FIND-032) ---- */
 .cs-button:focus-visible,
 .cs-field__control:focus-visible,
 .cs-select select.cs-field__control:focus-visible,
 .cs-native-select select.cs-field__control:focus-visible,
 .cs-search:focus-within,
+.cs-stepper:focus-within,
+.cs-prompt:focus-within,
+.cs-cmdk__search:focus-within,
+.cs-terminal:focus-within,
 .cs-ai-disclosure__badge:focus-visible,
 .cs-switch input:focus-visible + .cs-switch__track {
-  box-shadow: 0 0 0 5px color-mix(in oklab, var(--cs-color-accent-ochre) 26%, transparent);
+  box-shadow: 0 0 0 5px var(--cs-color-accent-ochre);
 }
 
 /* ---- 3. Entrance motion utilities (opt-in) + a gentle Dialog entrance ---- */

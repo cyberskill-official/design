@@ -94,6 +94,25 @@ function parseRules(css){ // strip comments, split into {sel,body}; unwrap @medi
   }
   if(darkTwinFails.length){ darkTwinFails.slice(0,12).forEach(f=>row('bad','✗ dark rule missing system twin',f)); lintFails.push(...darkTwinFails); }
   else row('ok','✓ every [data-theme="dark"] colour rule has a system twin','checked '+darkColorRules.length);
+  // FIND-030: tokens/elements.css must keep dark ↔ system parity (not only base/).
+  try{
+    const ecssTwin=await (await fetch('../tokens/elements.css',{cache:'no-store'})).text();
+    const erAll=parseRules(ecssTwin);
+    const eDark=erAll.filter(r=>r.sel.includes('[data-theme="dark"]') && /--cs-/.test(r.body));
+    const eSys=erAll.filter(r=>r.sel.includes('[data-theme="system"]') && /--cs-/.test(r.body));
+    const eSysCores=new Set(eSys.flatMap(r=>r.sel.replace(/\[data-theme="system"\]/g,'').trim().split(',').map(x=>norm(x.trim()))));
+    const eTwinFails=[];
+    for(const r of eDark){
+      for(const s of r.sel.replace(/\[data-theme="dark"\]/g,'').trim().split(',').map(x=>norm(x.trim())).filter(Boolean)){
+        if(!eSysCores.has(s)) eTwinFails.push(s.slice(0,70));
+      }
+    }
+    if(eTwinFails.length || eSys.length < eDark.length){
+      eTwinFails.slice(0,12).forEach(f=>row('bad','✗ elements.css dark missing system twin',f));
+      if(!eTwinFails.length) row('bad','✗ elements.css system count < dark',eSys.length+' < '+eDark.length);
+      lintFails.push(...(eTwinFails.length?eTwinFails:['elements.css system/dark count']));
+    } else row('ok','✓ elements.css dark/system parity','dark '+eDark.length+' · system '+eSys.length);
+  }catch(e){ lintFails.push('elements.css twin check'); row('bad','✗ elements.css twin check',String(e).slice(0,40)); }
   window.__gateProgress={current:'matrix',done:1,total:4};
   // ---------- (2) token-pair matrix ----------
   const T=await (await fetch('../tokens/tokens.json',{cache:'no-store'})).json();
@@ -121,16 +140,19 @@ function parseRules(css){ // strip comments, split into {sel,body}; unwrap @medi
   // button primary fg/bg both themes
   for(const mode of ['l','d']){ const F=(mode==='l'?light:dark)['--cs-component-button-primary-fg'],B=(mode==='l'?light:dark)['--cs-component-button-primary-bg'];const R=ratio(F,B);const label=(mode==='l'?'light':'dark')+'  button primary fg/bg';if(R!=null){const ok=R>=4.5-0.05;if(!ok){matrixFails.push(label+' = '+R.toFixed(2));row('bad','✗ '+R.toFixed(2),label);}else row('ok','✓ '+R.toFixed(2),label);}}
   window.__gateProgress={current:'elements',done:2,total:4};
-  // ---------- (3) Ngũ Hành element packs — accent contrast (advisory; system targets APCA) ----------
-  sec('3 · Element packs — accent contrast (15 scopes · WCAG advisory, APCA is the system metric)');
+  // ---------- (3) Ngũ Hành element packs — accent + link contrast ----------
+  sec('3 · Element packs — accent + link contrast (15 scopes)');
   const elemAdvisory=[];
   try{
     const ecss=await (await fetch('../tokens/elements.css',{cache:'no-store'})).text();
     const erules=parseRules(ecss).filter(r=>/^\[data-cs-element="\w+"\](\[data-cs-variant="\w+"\])?$/.test(r.sel.trim()));
     const pageL=light['--cs-color-surface-page']||'#FFFDF8', pageD=dark['--cs-color-surface-page']||'#1a1108';
+    const raisedL=light['--cs-color-surface-raised']||'#FBF4E9';
     for(const r of erules){
       const g=p=>{const m=r.body.match(new RegExp('--cs-accent'+p+'\\s*:\\s*([^;]+)'));return m?m[1].trim():null;};
-      const strong=g('-strong'),bright=g('-bright'),on=g('-on'),onStrong=g('-on-strong');
+      const linkM=r.body.match(/--cs-color-link\s*:\s*([^;]+)/);
+      const strong=g('-strong'),bright=g('-bright'),on=g('-on'),onStrong=g('-on-strong'),tint=g('-tint');
+      const link=linkM?linkM[1].trim():null;
       const label=r.sel.replace(/\[data-cs-element="|"\]|\[data-cs-variant="/g,' ').replace(/\s+/g,' ').trim();
       const checks=[['accent-strong on page (light)',strong,pageL],['accent-on on accent-bright',on,bright],['accent-bright on page (dark)',bright,pageD],['on-strong on strong (light)',onStrong,strong]];
       for(const [nm,fg,bg] of checks){ const R=ratio(fg,bg); if(R==null){ continue; }
@@ -139,8 +161,36 @@ function parseRules(css){ // strip comments, split into {sel,body}; unwrap @medi
         else if(R<4.5 && nm.indexOf('on-strong')!==0){ elemAdvisory.push(label+' · '+nm+'='+R.toFixed(2)); row('rev','~ '+R.toFixed(2)+' '+nm+' (APCA-validated)',label); }
         else row('ok','✓ '+R.toFixed(2)+' '+nm,label);
       }
+      // FIND-031 — body links must clear 4.5:1 (hard), separate from bold text-accent.
+      if(link && /^#/.test(link)){
+        for(const [nm,bg] of [['link on white', '#FFFFFF'],['link on page', pageL],['link on tint', tint||raisedL],['link on raised', raisedL]]){
+          const R=ratio(link,bg); if(R==null) continue;
+          if(R<4.5-0.05){ matrixFails.push(label+' · '+nm+' = '+R.toFixed(2)); row('bad','✗ '+R.toFixed(2)+' '+nm,label); }
+          else row('ok','✓ '+R.toFixed(2)+' '+nm,label);
+        }
+      }
     }
   }catch(e){ row('rev','? elements.css not parsed',String(e).slice(0,40)); }
+  // FIND-032 — focus contour (≥3:1 non-text) vs light/dark page surfaces.
+  sec('3c · Focus-ring non-text contrast (≥3:1)');
+  try{
+    const reset=await (await fetch('../base/reset.css',{cache:'no-store'})).text();
+    const um=/:focus-visible\)?\s*\{([^}]*)\}/.exec(reset);
+    const body=um?um[1]:'';
+    const hasComposite=/outline\s*:\s*2px/.test(body) && /box-shadow\s*:\s*0\s+0\s+0\s+5px/.test(body) && /text-primary|brand-umber/.test(body);
+    if(!hasComposite){ matrixFails.push('focus ring not composite'); row('bad','✗ reset.css focus ring must be composite contour + ochre halo','focus'); }
+    else {
+      const contourL=light['--cs-color-text-primary']||'#45210E';
+      const contourD=dark['--cs-color-text-primary']||'#f5ead9';
+      const pageL2=light['--cs-color-surface-page']||'#FFFDF8';
+      const pageD2=dark['--cs-color-surface-page']||'#1a1108';
+      for(const [label,fg,bg] of [['light focus contour on page',contourL,pageL2],['dark focus contour on page',contourD,pageD2]]){
+        const R=ratio(fg,bg);
+        if(R==null || R<3-0.05){ matrixFails.push(label+' = '+(R==null?'?':R.toFixed(2))); row('bad','✗ '+(R==null?'?':R.toFixed(2))+':1 (<3)',label); }
+        else row('ok','✓ '+R.toFixed(2)+':1',label);
+      }
+    }
+  }catch(e){ matrixFails.push('focus ring check'); row('bad','✗ focus ring check',String(e).slice(0,40)); }
   // Semantic fg pairs (UX-008)
   sec('3b · Semantic fill × fg pairs (light + dark)');
   for(const sem of ['success','danger','warning','info']){

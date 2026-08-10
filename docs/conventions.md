@@ -16,7 +16,7 @@ Every rendered surface resolves four orthogonal scopes — never encode one axis
 | **Language** | `lang` / Language tweak | EN · VI copy | component registry + template props |
 | **Style** | `data-cs-style` (optional; absent ≡ `liquid-glass`) | surface material pack | `tokens/styles.css` |
 
-Style’s sole pack today is **liquid-glass**. Immutable under all axes: Umber/Ochre anchors, voice, type families, semantic status colors, the 3px Ochre focus ring, APCA floors, ≥44px targets.
+Style’s sole pack today is **liquid-glass**. Immutable under all axes: Umber/Ochre anchors, voice, type families, semantic status colors, the composite focus indicator (text-primary contour + ochre halo), APCA floors, ≥44px targets.
 
 ## Naming grammar
 
@@ -72,7 +72,7 @@ Every template exports; the right path depends on the archetype. All paths prese
 
 ## Accessibility (base/a11y.css + component ARIA)
 
-- **Focus rings are systematic** — global `:where(:focus-visible)` ochre ring in `base/reset.css`, plus per-component 3px ochre rings (`components/forms/navigation/controls`). Never set `outline: none` on a `:focus-visible` state without replacing the ring (the menu-item regression, fixed Jul 2026). The soft 5px glow in `interaction.css` layers on the 3px ring, never replaces it.
+- **Focus rings are systematic** — global `:where(:focus-visible)` in `base/reset.css` is a **composite** indicator: 2px `text-primary` contour (≥3:1 non-text contrast on light and dark) plus a 5px ochre brand halo. Wrapper controls (`SearchField`, `NumberField`, `PromptInput`, `Terminal`, `CommandPalette`) mirror that via `:focus-within`. Never set `outline: none` on a focusable control without a paired wrapper/replacement ring.
 
 - **Touch targets** — `base/a11y.css` guarantees 44px on `@media (pointer: coarse)` (tabs, pagination, menu items, stepper, checkbox/radio; segmented 40px in its padded track). Desktop mouse density is preserved. `pointer: coarse` is used deliberately over a width breakpoint — a touch laptop at 1280px still needs 44px. Button carries its own coarse block in `components.css`.
 

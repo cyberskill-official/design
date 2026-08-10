@@ -1,6 +1,6 @@
 # Báo cáo contrast — cặp elemental (APCA)
 
-Tạo 2026-07-27 · quét tại pin VERSION 1.1.1.
+Tạo · quét tại VERSION 1.3.1.
 
 **Doctrine của sweep này:** chữ ngồi trên `-bright` hoặc `-tint`, không bao giờ trên mid-tone `-accent`. Accent chỉ cho bar, border, progress, fill không chữ. (Rule trong `tokens/elements.css` và conventions.)
 
@@ -89,6 +89,84 @@ Pack được generate từ `tokens/element-seeds.json` (thang soft / middle / d
 | kim · steel | accent-bright on dark panel (dark labels) | #DFCBA5 / #221710 | 75.1 | ✓ |
 
 **Failures: 0.** All text pairings pass Lc ≥ 60.
+
+## Element-pack link contrast (WCAG AA · body text)
+
+`--cs-color-link` is scored at **4.5:1** (regular-weight body). `--cs-color-text-accent` remains on the APCA Lc ≥ 60 bold-label floor above.
+| Scope | Pairing | fg / bg | Ratio | Verdict |
+|---|---|---|---|---|
+| tho · sand | link on white (body) | #7B6D4A / #FFFFFF | 5.09:1 | ✓ |
+| tho · sand | link on element page (body) | #7B6D4A / #FFFDF8 | 5.00:1 | ✓ |
+| tho · sand | link on tint (body) | #7B6D4A / #FBF7EA | 4.75:1 | ✓ |
+| tho · sand | link on raised cream (body) | #7B6D4A / #FBF4E9 | 4.66:1 | ✓ |
+| tho · sand | link on dark panel (body) | #F6EBCC / #221710 | 14.75:1 | ✓ |
+| tho · clay | link on white (body) | #201300 / #FFFFFF | 18.19:1 | ✓ |
+| tho · clay | link on element page (body) | #201300 / #FFFDF8 | 17.89:1 | ✓ |
+| tho · clay | link on tint (body) | #201300 / #FFF6E7 | 16.97:1 | ✓ |
+| tho · clay | link on raised cream (body) | #201300 / #FBF4E9 | 16.65:1 | ✓ |
+| tho · clay | link on dark panel (body) | #E4CDA8 / #221710 | 11.35:1 | ✓ |
+| hoa | link on white (body) | #A15E43 / #FFFFFF | 5.00:1 | ✓ |
+| hoa | link on element page (body) | #A15E43 / #FFFDF8 | 4.92:1 | ✓ |
+| hoa | link on tint (body) | #A15E43 / #FFF4F0 | 4.63:1 | ✓ |
+| hoa | link on raised cream (body) | #A15E43 / #FBF4E9 | 4.58:1 | ✓ |
+| hoa | link on dark panel (body) | #FED3C3 / #221710 | 12.79:1 | ✓ |
+| hoa · plasma | link on white (body) | #846B64 / #FFFFFF | 4.92:1 | ✓ |
+| hoa · plasma | link on element page (body) | #846B64 / #FFFDF8 | 4.84:1 | ✓ |
+| hoa · plasma | link on tint (body) | #846B64 / #FEF4F2 | 4.55:1 | ✓ |
+| hoa · plasma | link on raised cream (body) | #846B64 / #FBF4E9 | 4.50:1 | ✓ |
+| hoa · plasma | link on dark panel (body) | #FCE6DF / #221710 | 14.63:1 | ✓ |
+| hoa · lava | link on white (body) | #280D00 / #FFFFFF | 18.30:1 | ✓ |
+| hoa · lava | link on element page (body) | #280D00 / #FFFDF8 | 18.00:1 | ✓ |
+| hoa · lava | link on tint (body) | #280D00 / #FFF4EF | 16.94:1 | ✓ |
+| hoa · lava | link on raised cream (body) | #280D00 / #FBF4E9 | 16.74:1 | ✓ |
+| hoa · lava | link on dark panel (body) | #F8C4AA / #221710 | 11.24:1 | ✓ |
+| thuy | link on white (body) | #027B8B / #FFFFFF | 4.99:1 | ✓ |
+| thuy | link on element page (body) | #027B8B / #FFFDF8 | 4.91:1 | ✓ |
+| thuy | link on tint (body) | #027B8B / #E7FBFF | 4.67:1 | ✓ |
+| thuy | link on raised cream (body) | #027B8B / #FBF4E9 | 4.57:1 | ✓ |
+| thuy | link on dark panel (body) | #99EEFF / #221710 | 13.38:1 | ✓ |
+| thuy · mist | link on white (body) | #48787E / #FFFFFF | 4.93:1 | ✓ |
+| thuy · mist | link on element page (body) | #48787E / #FFFDF8 | 4.85:1 | ✓ |
+| thuy · mist | link on tint (body) | #48787E / #EBFAFC | 4.60:1 | ✓ |
+| thuy · mist | link on raised cream (body) | #48787E / #FBF4E9 | 4.51:1 | ✓ |
+| thuy · mist | link on dark panel (body) | #CDF4F9 / #221710 | 14.94:1 | ✓ |
+| thuy · ocean | link on white (body) | #011A21 / #FFFFFF | 17.93:1 | ✓ |
+| thuy · ocean | link on element page (body) | #011A21 / #FFFDF8 | 17.64:1 | ✓ |
+| thuy · ocean | link on tint (body) | #011A21 / #EAFAFF | 16.75:1 | ✓ |
+| thuy · ocean | link on raised cream (body) | #011A21 / #FBF4E9 | 16.41:1 | ✓ |
+| thuy · ocean | link on dark panel (body) | #ABD6E3 / #221710 | 11.23:1 | ✓ |
+| moc | link on white (body) | #517B13 / #FFFFFF | 5.01:1 | ✓ |
+| moc | link on element page (body) | #517B13 / #FFFDF8 | 4.93:1 | ✓ |
+| moc | link on tint (body) | #517B13 / #EFFCE3 | 4.70:1 | ✓ |
+| moc | link on raised cream (body) | #517B13 / #FBF4E9 | 4.58:1 | ✓ |
+| moc | link on dark panel (body) | #C5ED9C / #221710 | 13.33:1 | ✓ |
+| moc · bamboo | link on white (body) | #687451 / #FFFFFF | 4.99:1 | ✓ |
+| moc · bamboo | link on element page (body) | #687451 / #FFFDF8 | 4.91:1 | ✓ |
+| moc · bamboo | link on tint (body) | #687451 / #F4F9ED | 4.67:1 | ✓ |
+| moc · bamboo | link on raised cream (body) | #687451 / #FBF4E9 | 4.57:1 | ✓ |
+| moc · bamboo | link on dark panel (body) | #E5F1D2 / #221710 | 14.89:1 | ✓ |
+| moc · forest | link on white (body) | #051D00 / #FFFFFF | 17.76:1 | ✓ |
+| moc · forest | link on element page (body) | #051D00 / #FFFDF8 | 17.47:1 | ✓ |
+| moc · forest | link on tint (body) | #051D00 / #ECFDE7 | 16.72:1 | ✓ |
+| moc · forest | link on raised cream (body) | #051D00 / #FBF4E9 | 16.26:1 | ✓ |
+| moc · forest | link on dark panel (body) | #B0D8A3 / #221710 | 11.02:1 | ✓ |
+| kim | link on white (body) | #966700 / #FFFFFF | 4.96:1 | ✓ |
+| kim | link on element page (body) | #966700 / #FFFDF8 | 4.88:1 | ✓ |
+| kim | link on tint (body) | #966700 / #FFF5E7 | 4.59:1 | ✓ |
+| kim | link on raised cream (body) | #966700 / #FBF4E9 | 4.54:1 | ✓ |
+| kim | link on dark panel (body) | #FDD89F / #221710 | 12.94:1 | ✓ |
+| kim · titanium | link on white (body) | #826D54 / #FFFFFF | 4.92:1 | ✓ |
+| kim · titanium | link on element page (body) | #826D54 / #FFFDF8 | 4.84:1 | ✓ |
+| kim · titanium | link on tint (body) | #826D54 / #FDF5ED | 4.56:1 | ✓ |
+| kim · titanium | link on raised cream (body) | #826D54 / #FBF4E9 | 4.51:1 | ✓ |
+| kim · titanium | link on dark panel (body) | #FBE8D2 / #221710 | 14.67:1 | ✓ |
+| kim · steel | link on white (body) | #1F1400 / #FFFFFF | 18.13:1 | ✓ |
+| kim · steel | link on element page (body) | #1F1400 / #FFFDF8 | 17.83:1 | ✓ |
+| kim · steel | link on tint (body) | #1F1400 / #FEF6E7 | 16.88:1 | ✓ |
+| kim · steel | link on raised cream (body) | #1F1400 / #FBF4E9 | 16.59:1 | ✓ |
+| kim · steel | link on dark panel (body) | #DFCBA5 / #221710 | 11.04:1 | ✓ |
+
+**Link failures: 0.**
 
 ## Dark pack APCA floors (gate twin)
 

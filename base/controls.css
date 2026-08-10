@@ -2,7 +2,12 @@
 
 /* SearchField */
 .cs-search { display: flex; align-items: center; gap: 8px; border: 1px solid var(--cs-component-textfield-border-default); border-radius: var(--cs-radius-full); padding: 0 14px; min-height: 44px; background: var(--cs-color-surface-panel); }
-.cs-search:focus-within { border-color: var(--cs-color-brand-ochre); box-shadow: 0 0 0 3px color-mix(in oklab, var(--cs-color-brand-ochre) 30%, transparent); }
+.cs-search:focus-within {
+  border-color: var(--cs-color-text-primary);
+  outline: 2px solid var(--cs-color-text-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--cs-color-accent-ochre);
+}
 .cs-search svg { color: var(--cs-color-text-muted); flex: none; }
 .cs-search input { flex: 1; min-inline-size: 0; border: 0; background: transparent; outline: 0; font: inherit; font-family: var(--cs-font-family-ui); color: var(--cs-color-text-primary); }
 .cs-search input::placeholder { color: var(--cs-color-text-muted); }
@@ -11,7 +16,12 @@
 
 /* NumberField / stepper */
 .cs-stepper { display: inline-flex; align-items: stretch; border: 1px solid var(--cs-component-textfield-border-default); border-radius: var(--cs-radius-md); overflow: hidden; background: var(--cs-color-surface-panel); }
-.cs-stepper:focus-within { border-color: var(--cs-color-brand-ochre); }
+.cs-stepper:focus-within {
+  border-color: var(--cs-color-text-primary);
+  outline: 2px solid var(--cs-color-text-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--cs-color-accent-ochre);
+}
 .cs-stepper button { border: 0; background: var(--cs-color-surface-raised); color: var(--cs-color-text-primary); inline-size: 40px; cursor: pointer; font-size: var(--cs-font-size-md); font-weight: 700; display: grid; place-items: center; }
 .cs-stepper button:hover:not(:disabled) { color: var(--cs-color-text-accent); }
 .cs-stepper button:disabled { opacity: 0.45; cursor: not-allowed; }
@@ -214,6 +224,12 @@
 
 /* ---- v3 Batch 6a (Jul 2026): Form · Tree · BackTop · Watermark ---- */
 .cs-form { display: grid; gap: 16px; }
+/* FIND-015 — visible pending + interaction lock while asyncRules / submit run. */
+.cs-form.is-pending { opacity: 0.72; }
+.cs-form.is-pending :is(button, input, select, textarea, [role="button"]) {
+  pointer-events: none;
+  cursor: wait;
+}
 .cs-form__summary { border: 1px solid var(--cs-color-semantic-danger); border-radius: var(--cs-radius-md); background: color-mix(in oklab, var(--cs-color-semantic-danger) 8%, var(--cs-color-surface-panel)); color: var(--cs-color-text-primary); padding: 12px 14px; font-size: var(--cs-font-size-sm); }
 .cs-form__summary b { color: var(--cs-color-semantic-danger); }
 .cs-form__summary ul { margin: 6px 0 0; padding-inline-start: 18px; }
@@ -341,6 +357,12 @@
 .cs-terminal__line { display: flex; gap: 8px; align-items: center; }
 .cs-terminal__line .p { color: var(--cs-color-brand-ochre); }
 .cs-terminal__line input { flex: 1; border: 0; background: transparent; color: inherit; font: inherit; outline: none; }
+/* Wrapper ring — input clears outline for chrome; focus-within restores ≥3:1 indicator (FIND-038). */
+.cs-terminal:focus-within {
+  outline: 2px solid var(--cs-color-accent-ochre);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--cs-color-brand-umber);
+}
 .cs-terminal__out { color: var(--cs-term-muted); white-space: pre-wrap; }
 
 /* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */

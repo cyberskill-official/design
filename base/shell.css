@@ -25,7 +25,7 @@
 
 /* Popover */
 .cs-popover { position: relative; display: inline-block; }
-.cs-popover__panel { position: absolute; inset-block-start: calc(100% + 8px); inset-inline-start: 0; min-inline-size: 240px; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); box-shadow: var(--cs-shadow-md); padding: 14px; z-index: var(--cs-depth-toast); }
+.cs-popover__panel { position: absolute; inset-block-start: calc(100% + 8px); inset-inline-start: 0; min-inline-size: 240px; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); box-shadow: var(--cs-shadow-md); padding: 14px; z-index: var(--cs-depth-dropdown, 60); }
 .cs-popover__panel--end { inset-inline-start: auto; inset-inline-end: 0; }
 
 /* Drawer */
@@ -48,6 +48,12 @@
 .cs-cmdk__search { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-block-end: 1px solid var(--cs-color-border-default); }
 .cs-cmdk__search svg { color: var(--cs-color-text-muted); }
 .cs-cmdk__search input { flex: 1; border: 0; outline: 0; background: transparent; font: inherit; font-family: var(--cs-font-family-ui); font-size: var(--cs-font-size-md); color: var(--cs-color-text-primary); }
+/* Wrapper ring — search input clears outline; focus-within restores ≥3:1 indicator (FIND-038). */
+.cs-cmdk__search:focus-within {
+  outline: 2px solid var(--cs-color-text-primary);
+  outline-offset: -2px;
+  box-shadow: inset 0 0 0 2px var(--cs-color-accent-ochre);
+}
 .cs-cmdk__list { max-block-size: 340px; overflow: auto; padding: 8px; display: grid; gap: 2px; }
 .cs-cmdk__label { font-size: var(--cs-font-size-xs); text-transform: uppercase; letter-spacing: var(--cs-letter-spacing-caps); color: var(--cs-color-text-muted); padding: 8px 10px 2px; }
 .cs-cmdk__item { display: flex; align-items: center; gap: 11px; inline-size: 100%; text-align: start; border: 0; background: transparent; font: inherit; font-family: var(--cs-font-family-ui); font-size: var(--cs-font-size-sm); color: var(--cs-color-text-primary); padding: 10px 12px; border-radius: var(--cs-radius-md); cursor: pointer; }

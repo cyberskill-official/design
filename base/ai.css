@@ -4,7 +4,12 @@
 
 /* PromptInput */
 .cs-prompt { border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-lg); background: var(--cs-color-surface-panel); padding: 10px 12px; display: grid; gap: 8px; }
-.cs-prompt:focus-within { border-color: var(--cs-color-brand-ochre); box-shadow: 0 0 0 3px color-mix(in oklab, var(--cs-color-brand-ochre) 32%, transparent); }
+.cs-prompt:focus-within {
+  border-color: var(--cs-color-text-primary);
+  outline: 2px solid var(--cs-color-text-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--cs-color-accent-ochre);
+}
 .cs-prompt__field { border: 0; background: transparent; resize: none; font: inherit; font-family: var(--cs-font-family-ui); color: var(--cs-color-text-primary); min-height: 44px; outline: 0; inline-size: 100%; line-height: var(--cs-font-lineHeight-body); }
 .cs-prompt__field::placeholder { color: var(--cs-color-text-muted); }
 .cs-prompt__bar { display: flex; align-items: center; gap: 10px; }
