@@ -144,6 +144,23 @@ const statusStory = readFileSync(join(root, 'stories/Status/Status.stories.jsx')
 assert(statusStory.includes('/_audit/run.html'), 'Status story embeds run.html');
 assert(statusStory.includes('fullscreen') || statusStory.includes('fullBleed'), 'Status embed is full-bleed');
 
+const viewerHtml = readFileSync(join(root, 'docs/viewer.html'), 'utf8');
+assert(/html\.embed aside\{display:none\}/.test(viewerHtml), 'viewer hides chrome in embed mode');
+assert(/q\.get\('embed'\)==='1'/.test(viewerHtml), 'viewer honors ?embed=1');
+for (const rel of [
+  'stories/Docs/StartPages.stories.jsx',
+  'stories/Docs/GuidePages.stories.jsx',
+  'stories/Docs/MaintainerPages.stories.jsx',
+]) {
+  const src = readFileSync(join(root, rel), 'utf8');
+  assert(src.includes('?embed=1'), `${rel} passes ?embed=1 when iframing viewer`);
+}
+const startPages = readFileSync(join(root, 'stories/Docs/StartPages.stories.jsx'), 'utf8');
+assert(
+  startPages.includes("'/docs/viewer.html'") || startPages.includes('"/docs/viewer.html"'),
+  'Docs/Start Library keeps standalone viewer chrome (no embed flag)',
+);
+
 assert(existsSync(join(root, 'stories/ReleaseNotes/ReleaseNotes.mdx')), 'Release Notes MDX present');
 assert(existsSync(join(root, 'docs/release-notes.md')), 'docs/release-notes.md present');
 assert(existsSync(join(root, 'docs/vi/release-notes.md')), 'docs/vi/release-notes.md present');
