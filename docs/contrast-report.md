@@ -1,6 +1,6 @@
 # Contrast report — elemental pairings (APCA)
 
-Generated · sweep at VERSION 1.3.6.
+Generated · sweep at VERSION 1.3.7.
 
 **Doctrine encoded by this sweep:** text sits on `-bright` or `-tint`, never on the mid-tone `-accent` — at any size. The accent is for bars, borders, progress fills, and non-text fills only. (Rule stated in `tokens/elements.css` and conventions.)
 

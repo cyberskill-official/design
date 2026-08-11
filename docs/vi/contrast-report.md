@@ -1,6 +1,6 @@
 # Báo cáo contrast — cặp elemental (APCA)
 
-Tạo · quét tại VERSION 1.3.6.
+Tạo · quét tại VERSION 1.3.7.
 
 **Doctrine của sweep này:** chữ ngồi trên `-bright` hoặc `-tint`, không bao giờ trên mid-tone `-accent`. Accent chỉ cho bar, border, progress, fill không chữ. (Rule trong `tokens/elements.css` và conventions.)
 
