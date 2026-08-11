@@ -11,8 +11,8 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>Template language parity gate</h1>
-<p class="lede">Static source scan of <b>all</b> template <code>.dc.html</code> files (manifest-driven — currently 84). Three checks: <b>(1) hole-map key parity</b> — every template with <code>const en = {…}</code> / <code>const vi = {…}</code> maps must have identical, non-empty key sets; <b>(2) branch pairing</b> — every template using <code>&lt;sc-if value="{{ isEN }}"&gt;</code> must also carry the <code>isVN</code> branch (and vice versa), and every template exposing a <code>language</code> tweak must use at least one of the two mechanisms; <b>(3) EN-leak lexicon</b> — the email-chrome idioms that leaked pre-Phase-1 (<i>Unsubscribe · View in browser · Preferences · All rights reserved · Manage subscription · Sent with</i>) must not appear outside <code>isEN</code>-guarded regions or the <code>en</code> map literal.
-<b>Documented scope exclusions</b> (not gaps): the VN-first stacked instruments (37 <code>vn-*</code> + 3 <code>doc-*</code>, no <code>language</code> tweak) render Vietnamese and English together by design, so a hidden-language "leak" cannot exist there — they are exempt from check 3 (checks 1–2 still apply if they ever grow maps/branches); brand/product names that legitimately appear in Vietnamese copy (e.g. <i>Status Hub</i>, <i>CyberSkill</i>) are deliberately not in the lexicon. Verdict on <code>window.__langparity</code>.</p>
+<p class="lede">Static source scan of <b>all</b> template <code>.dc.html</code> files (manifest-driven — currently 84). Three checks: <b>(1) hole-map key parity</b> — every template with <code>const en = {…}</code> / <code>const vi = {…}</code> maps must have identical, non-empty key sets; <b>(2) branch pairing</b> — every template using <code>&lt;sc-if value="{{ isEN }}"&gt;</code> must also carry the <code>isVN</code> branch (and vice versa), and every template exposing a <code>language</code> tweak must use at least one of the two mechanisms; <b>(3) EN-leak lexicon</b> — email chrome (<i>Unsubscribe · View in browser · …</i>), a11y skip link (<i>Skip to content</i>), and doc-type eyebrow idioms (<i>Statement of work · Performance improvement plan · Change note · …</i>) must not appear outside <code>isEN</code>-guarded regions or the <code>en</code> map literal (FIND-125).
+<b>Documented scope exclusions</b> (not gaps): the VN-first stacked instruments (37 <code>vn-*</code> + 3 <code>doc-*</code>, no <code>language</code> tweak) render Vietnamese and English together by design, so a hidden-language "leak" cannot exist there — they are exempt from check 3 (checks 1–2 still apply if they ever grow maps/branches); <code>&lt;title&gt;</code> and HTML comments (including <code>@template name</code>) are catalog chrome, not rendered language mode — masked from check 3; brand/product names that legitimately appear in Vietnamese copy (e.g. <i>Status Hub</i>, <i>CyberSkill</i>) are deliberately not in the lexicon. Verdict on <code>window.__langparity</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <script>
@@ -58,14 +58,34 @@ function enGuardedRanges(text){
   return ranges;
 }
 const LEXICON=[
+  // Email chrome (historical incident)
   {name:'Unsubscribe',re:/\bUnsubscribe\b/g},
   {name:'View in browser',re:/\bView in browser\b/gi},
   {name:'Preferences',re:/\bPreferences\b/g},
   {name:'All rights reserved',re:/\bAll rights reserved\b/gi},
   {name:'Manage subscription',re:/\bManage subscription\b/gi},
   {name:'Sent with',re:/\bSent with\b/g},
+  // A11y + doc-type eyebrow chrome (FIND-125)
   {name:'Skip to content',re:/\bSkip to content\b/g},
+  {name:'Statement of work',re:/\bStatement of work\b/gi},
+  {name:'Performance improvement plan',re:/\bPerformance improvement plan\b/gi},
+  {name:'Master services agreement',re:/\bMaster services agreement\b/gi},
+  {name:'Change note',re:/\bChange note\b/gi},
+  {name:'Runbook / handover',re:/\bRunbook \/ handover\b/gi},
+  {name:'Runbook & handover',re:/\bRunbook &(?:amp;)? handover\b/gi},
+  {name:'Case study',re:/\bCase study\b/g},
+  {name:'FOR IMMEDIATE RELEASE',re:/\bFOR IMMEDIATE RELEASE\b/g},
+  {name:'Interview kit',re:/\bInterview kit\b/g},
 ];
+/** Non-rendered catalog chrome — title + HTML comments including @template name. */
+function catalogRanges(text){
+  const ranges=[]; let m;
+  const titleRe=/<title\b[^>]*>[\s\S]*?<\/title>/gi;
+  while((m=titleRe.exec(text))) ranges.push([m.index,m.index+m[0].length]);
+  const cmtRe=/<!--[\s\S]*?-->/g;
+  while((m=cmtRe.exec(text))) ranges.push([m.index,m.index+m[0].length]);
+  return ranges;
+}
 (async()=>{
   const M=await (await fetch('../_ds_manifest.json',{cache:'no-store'})).json();
   P.total=M.templates.length;
@@ -100,7 +120,7 @@ const LEXICON=[
     if(!hasLang) continue; // VN-first stacked — both languages always render (documented exclusion)
     toggleT++;
     if(!((en&&vi)||(hasIsENIf&&hasIsVNIf))) problems.push(t.folder+': language tweak but no bilingual mechanism');
-    const allowed=enGuardedRanges(text);
+    const allowed=enGuardedRanges(text).concat(catalogRanges(text));
     if(en) allowed.push([en.start,en.end+1]);
     const isAllowed=idx=>allowed.some(r=>idx>=r[0]&&idx<r[1]);
     for(const lex of LEXICON){

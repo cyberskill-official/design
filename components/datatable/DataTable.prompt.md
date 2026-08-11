@@ -1,4 +1,4 @@
-**DataTable** — semantic table with a caption, scoped column headers, per-column `render`, and an empty state. Dense content, so it stays on a solid surface (never glass).
+**DataTable** — semantic table with a caption, scoped column headers, per-column `render`, and an async triad (`idle` / `loading` / `error`). Dense content, so it stays on a solid surface (never glass). Use `state` when the host owns a fetch — do not show empty while loading.
 
 ```jsx
 <DataTable
@@ -10,6 +10,7 @@
   ]}
   rows={releases}
   rowKey="ver"
+  state={status} /* "idle" | "loading" | "error" */
   emptyState="No releases yet"
 />
 ```

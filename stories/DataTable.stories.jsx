@@ -25,6 +25,10 @@ export default {
   },
   "emptyState": {
     "control": "text"
+  },
+  "state": {
+    "control": "select",
+    "options": ["idle", "loading", "error"]
   }
 },
   parameters: {
@@ -45,6 +49,8 @@ export const Matrix = {
     <div style={{ display: 'grid', gap: 24 }}>
       <DataTable {...args} />
       <DataTable {...args} rows={[]} emptyState="No rows yet" caption="Empty" />
+      <DataTable {...args} rows={[]} state="loading" caption="Loading" loadingRows={3} />
+      <DataTable {...args} rows={[]} state="error" caption="Error" />
     </div>
   ),
 };

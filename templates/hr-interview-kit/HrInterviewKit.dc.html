@@ -95,7 +95,7 @@ class Component extends DCLogic {
     const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
 const lang = this.props.language ?? "English";
-    return { langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, isEN: lang !== "Tiếng Việt", isVN: lang === "Tiếng Việt", hdrLabel: lang === "Tiếng Việt" ? "Bộ phỏng vấn · Mật" : "Interview kit · Confidential" };
+    return { langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, isEN: lang !== "Tiếng Việt", isVN: lang === "Tiếng Việt", hdrLabel: lang === "Tiếng Việt" ? "Bộ phỏng vấn · Mật" : "Confidential · HR" };
   }
 }
 </script>

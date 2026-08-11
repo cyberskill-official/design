@@ -45,8 +45,18 @@ export const strings = {
     vi: { close: "Đóng", panel: "Bảng bên" },
   },
   DataTable: {
-    en: { empty: "No results" },
-    vi: { empty: "Không có kết quả" },
+    en: {
+      empty: "No results",
+      loading: "Loading table",
+      error: "We couldn't load this table",
+      errorHint: "Check your connection, then try again.",
+    },
+    vi: {
+      empty: "Không có kết quả",
+      loading: "Đang tải bảng",
+      error: "Không tải được bảng này",
+      errorHint: "Kiểm tra kết nối, rồi thử lại.",
+    },
   },
   ConfidenceMeter: {
     en: { label: "Confidence", low: "Low", medium: "Medium", high: "High" },

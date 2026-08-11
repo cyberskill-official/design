@@ -52,7 +52,7 @@ Style’s sole pack today is **liquid-glass**. Immutable under all axes: Umber/O
 
 - **The display face is a token role, not a second default (Jul 2026).** `--cs-font-family-display` ships Space Grotesk (variable 300–700, Vietnamese subset) self-hosted alongside Be Vietnam Pro and JetBrains Mono, so a product with a headline face — `cyberskill.world` / Lumi — consumes a DS role instead of maintaining its own `@font-face` exception. **Nothing in the DS points at it**: `--cs-heading-family` still resolves to `--cs-font-family-ui`, every template and UI kit is unchanged, and a scope opts in with `.cs-display-face` (`base/typography.css`), which retargets `--cs-heading-family` only — body copy stays on the UI face. Space Grotesk has no 800, so the extrabold heading weight clamps to 700 within that family (CSS does not hop to Be Vietnam Pro for a missing weight). Adding a family means adding its faces to `tokens/fonts.css` **and** its files to `fonts/` **and** its entries to `_ds_manifest.json` `fonts[]`/`brandFonts[]` — `_audit/font-face-integrity.html` fails on any of the three being out of step, and on any family missing the Vietnamese subset. This changes no product → element mapping; `docs/products.md` stays locked.
 
-- Language variants render **fully separated**: switching the Language tweak yields a complete single-language artifact — no partial translation left in headings, labels, helper text, footers, or body. The only bilingual-by-design elements are the CyberSkill name + slogan lockup (`Hiện Thực Hoá Ý Chí · Turn Your Will Into Real`, the canonical form — never a lone half) and the A4 legal identity block (company legal name + state motto). Everything else swaps with the tweak (Jul 2026).
+- Language variants render **fully separated**: switching the Language tweak yields a complete single-language artifact — no partial translation left in headings, labels, helper text, footers, or body. The only bilingual-by-design elements are the CyberSkill name + slogan lockup (`Hiện Thực Hoá Ý Chí · Turn Your Will Into Real`, the canonical form — never a lone half) and the A4 legal identity block (company legal name + state motto). Everything else swaps with the tweak — including skip links and doc-type eyebrows (FIND-125). Catalog `<title>` / `@template name` strings stay English for the template index and are not language-mode chrome; `_audit/template-lang-parity.html` masks them when scanning the EN-leak lexicon (Jul 2026; FIND-125 follow-up).
 
 - **Namespace is resolved, never hardcoded** — the compiler names the bundle global `window.CyberSkillDesignSystem_<projectId>`, and that 6-hex suffix is derived from the project id, so it changes whenever the system is imported into another project. Templates read the stable `window.CyberSkillDS` alias that `ds-base.js` publishes on bundle load; cards, UI-kit pages, the standalone email, and audit harnesses resolve by prefix (`window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))]`). `_ds_bundle.js`/`_ds_manifest.json` and the frozen `_audit/exports/` snapshot legitimately carry the real suffix (they *define* it). Enforced by `_audit/namespace-portability.html`, which scans every manifest-indexed source — keeps re-import **zero-touch** (Jul 2026).
 
@@ -69,6 +69,19 @@ Every template exports; the right path depends on the archetype. All paths prese
 | Any | **Editor-native + Claude Code handoff** | The whole project is dev-handoff-ready (compiled bundle + `.d.ts` + `prompt.md` per component); generate the package on request via the handoff skill. |
 
 **Font behavior on export.** Brand fonts are self-hosted (`Be Vietnam Pro` UI, `Space Grotesk` opt-in display, mono). PPTX keeps the brand-font **names** but does not embed the files — on a machine without them PowerPoint substitutes a fallback (VN Unicode text is preserved; shapes may reflow slightly). For a fully self-contained hand-off, either tell the recipient to install the fonts, or export with a web-safe swap (`fontSwaps:[{from:'Be Vietnam Pro',to:'Arial'}]` — Arial covers Vietnamese). Standalone HTML **embeds** the fonts (inlined `@font-face` from `styles.css`), so it is always faithful offline (Jul 2026).
+
+## Async data states (FIND-020 — thin pattern)
+
+Collection surfaces that own a fetch must distinguish **loading · error · empty · idle-with-data**. Do not render the empty message while a request is in flight.
+
+| State | Compose | Notes |
+|---|---|---|
+| **loading** | `Skeleton` (table rows / lines) + polite status text | `aria-busy` on the region; keep column headers when possible |
+| **error** | `Result status="error"` (or a custom `errorState`) | `role="alert"`; offer retry in the host |
+| **empty** | `emptyState` / `EmptyState` | Only after a successful idle response with zero rows |
+| **idle** | Normal rows | Default — omit `state` for static specimens |
+
+**Reference API:** `DataTable` accepts `state?: "idle" \| "loading" \| "error"` plus optional `loadingState` / `errorState` / `loadingRows`. Other collection components (`DataGrid`, `TreeTable`, …) should follow the same triad when they gain async ownership — do not invent a parallel loading API per surface. Long operations that are not tabular still use `Spinner` (`role="status"`) or `ProgressBar` with a real `aria-label`; pair decorative `Skeleton` (`aria-hidden`) with a live status string.
 
 ## Accessibility (base/a11y.css + component ARIA)
 

@@ -1,4 +1,4 @@
-<!-- @dsCard group="Components" viewport="700x300" name="DataTable" subtitle="Caption, scoped headers, custom cells, empty state" -->
+<!-- @dsCard group="Components" viewport="700x420" name="DataTable" subtitle="Caption, scoped headers, idle / loading / error / empty" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,20 +28,24 @@ const rows = [
   { ver: "v1.6.0", ships: "This week", status: "active", note: "Glass bindings" },
   { ver: "v1.7.0", ships: "Q3 2026", status: "hold", note: "Awaiting RFC" },
 ];
+const cols = [
+  { key: "ver", header: "Version", render: (r) => <span className="mono">{r.ver}</span> },
+  { key: "ships", header: "Ships" },
+  { key: "note", header: "Notes" },
+  { key: "status", header: "Status", render: (r) => <span className={"pill " + r.status}>{r.status}</span> },
+];
 function Demo() {
   return (
-    <div className="wrap">
-      <DataTable
-        caption="Releases"
-        rowKey="ver"
-        columns={[
-          { key: "ver", header: "Version", render: (r) => <span className="mono">{r.ver}</span> },
-          { key: "ships", header: "Ships" },
-          { key: "note", header: "Notes" },
-          { key: "status", header: "Status", render: (r) => <span className={"pill " + r.status}>{r.status}</span> },
-        ]}
-        rows={rows}
-      />
+    <div style={{ display: "grid", gap: 16 }}>
+      <div className="wrap">
+        <DataTable caption="Releases" rowKey="ver" columns={cols} rows={rows} />
+      </div>
+      <div className="wrap">
+        <DataTable caption="Loading" rowKey="ver" columns={cols} rows={[]} state="loading" loadingRows={3} />
+      </div>
+      <div className="wrap">
+        <DataTable caption="Error" rowKey="ver" columns={cols} rows={[]} state="error" />
+      </div>
     </div>
   );
 }
