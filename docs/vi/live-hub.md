@@ -1,5 +1,7 @@
 # Live hub = Storybook
 
+Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
+
 ## Quyết định
 
 **Storybook là live interactive hub duy nhất** cho operator trên `design.cyberskill.world`. Không có trang Live View riêng và không còn shell dashboard HTML làm sản phẩm. Production **`/`** là Storybook.

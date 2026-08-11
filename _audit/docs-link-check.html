@@ -10,10 +10,11 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>Docs link check</h1>
-<p class="lede">Crawls required published markdown and curated MDX for broken in-repo relative links and retired paths (<code>status.html</code>, status-legacy, Identity Lab). External <code>https://</code> URLs are skipped (no network). Verdict on <code>window.__docslinkcheck</code>.</p>
+<p class="lede">Crawls required <em>published</em> markdown, entrance files, and <code>docs/viewer.html</code> for broken in-repo relative links and retired paths (<code>status.html</code>, status-legacy, Identity Lab). External <code>https://</code> URLs are skipped (no network). Verdict on <code>window.__docslinkcheck</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <script>
+/** Live HTML twin: published catalog markdown + viewer only. Unpublished MDX href=/src= stays on the Node twin (_audit/ci/test-docs-link-check.mjs). Never fetch stories/. */
 const P=window.__gateProgress={done:0,total:1,current:'boot'};
 const list=document.getElementById('list');
 function row(ok,t){ const d=document.createElement('div'); d.className='row '+(ok?'ok':'bad'); d.innerHTML=(ok?'\u2713 ':'\u2717 ')+t; list.appendChild(d); }
@@ -44,6 +45,39 @@ function joinRel(fromDir, href){
   }
   return out.join('/');
 }
+function scanRetired(rel, text, problems){
+  for(const re of RETIRED){
+    re.lastIndex=0;
+    if(re.test(text) && /\]\([^)]*\)|href=|src=/.test(text)){
+      const hrefHit=new RegExp('(?:\\]\\(|href=["\']|src=["\'])[^)"\']*'+re.source,'i');
+      if(hrefHit.test(text)) problems.push(rel+': retired live href');
+    }
+  }
+}
+async function scanMarkdownLinks(rel, text, problems){
+  const re=/\[([^\]]*)\]\(([^)\s]+)\)/g; let m;
+  while((m=re.exec(text))){
+    const href=m[2];
+    const clean=href.split('#')[0].split('?')[0];
+    if(!clean) continue;
+    if(/[<>{}]/.test(clean)) continue;
+    if(/^(https?:|mailto:|data:)/i.test(clean)) continue;
+    const target=clean.startsWith('/') ? clean.replace(/^\/+/,'') : joinRel(dirname(rel), clean);
+    if(!(await existsRaw(target))) problems.push(rel+': broken '+href+' → '+target);
+  }
+}
+async function scanHtmlRefs(rel, text, problems){
+  const re=/(?:href|src)=["']([^"']+)["']/g; let m;
+  while((m=re.exec(text))){
+    const href=m[1];
+    const clean=href.split('#')[0].split('?')[0];
+    if(!clean) continue;
+    if(/[<>{}$]/.test(clean)) continue;
+    if(/^(https?:|mailto:|data:|javascript:)/i.test(clean)) continue;
+    const target=clean.startsWith('/') ? clean.replace(/^\/+/,'') : joinRel(dirname(rel), clean);
+    if(!(await existsRaw(target))) problems.push(rel+': broken '+href+' → '+target);
+  }
+}
 (async()=>{
   const problems=[];
   const catR=await fetchRaw('_audit/docs-catalog.json');
@@ -52,34 +86,25 @@ function joinRel(fromDir, href){
   const required=[
     ...(catalog.entrance||[]).map(p=>p.path),
     ...(catalog.pages||[]).map(p=>p.path),
-    ...(catalog.pages||[]).filter(p=>p.mdx).map(p=>p.mdx),
-    ...(catalog.curated||[]).filter(p=>p.mdx).map(p=>p.mdx),
   ];
-  P.total=required.length;
+  P.total=required.length+1;
   let scanned=0;
   for(const rel of required){
     P.current=rel; P.done=scanned;
     const file=await fetchRaw(rel);
     if(!file.ok){ problems.push(rel+': '+file.err); continue; }
     scanned++;
-    const text=file.text;
-    for(const re of RETIRED){
-      re.lastIndex=0;
-      if(re.test(text) && /\]\([^)]*\)|href=|src=/.test(text)){
-        const hrefHit=new RegExp('(?:\\]\\(|href=["\']|src=["\'])[^)"\']*'+re.source,'i');
-        if(hrefHit.test(text)) problems.push(rel+': retired live href');
-      }
-    }
-    const re=/\[([^\]]*)\]\(([^)\s]+)\)/g; let m;
-    while((m=re.exec(text))){
-      const href=m[2];
-      const clean=href.split('#')[0].split('?')[0];
-      if(!clean) continue;
-      if(/[<>{}]/.test(clean)) continue;
-      if(/^(https?:|mailto:|data:)/i.test(clean)) continue;
-      const target=clean.startsWith('/') ? clean.replace(/^\/+/,'') : joinRel(dirname(rel), clean);
-      if(!(await existsRaw(target))) problems.push(rel+': broken '+href+' → '+target);
-    }
+    scanRetired(rel, file.text, problems);
+    await scanMarkdownLinks(rel, file.text, problems);
+  }
+  const viewerRel='docs/viewer.html';
+  P.current=viewerRel;
+  const viewer=await fetchRaw(viewerRel);
+  if(!viewer.ok){ problems.push(viewerRel+': '+viewer.err); }
+  else {
+    scanned++;
+    scanRetired(viewerRel, viewer.text, problems);
+    await scanHtmlRefs(viewerRel, viewer.text, problems);
   }
   P.done=scanned;
   row(problems.length===0, scanned+' files · '+problems.length+' problems');

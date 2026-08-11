@@ -28,8 +28,14 @@ assert(gateFiles.includes('asset-weight-budget.html'), 'asset-weight-budget on f
 assert(gateFiles.includes('docs-consistency.html'), 'docs-consistency on fast board');
 assert(gateFiles.includes('docs-storybook-coverage.html'), 'docs-storybook-coverage on fast board');
 assert(gateFiles.includes('docs-link-check.html'), 'docs-link-check on fast board');
+const coverage = readFileSync(join(root, '_audit/docs-storybook-coverage.html'), 'utf8');
+assert(!/fetchRaw\(['"]\.storybook\//.test(coverage), 'HTML coverage must not fetch unpublished .storybook');
+assert(!/fetchRaw\(['"]stories\//.test(coverage), 'HTML coverage must not fetch unpublished stories/');
+assert(/index\.json|stories\.json/.test(coverage), 'HTML coverage consults published Storybook index when present');
 const linkCheck = readFileSync(join(root, '_audit/docs-link-check.html'), 'utf8');
 assert(linkCheck.includes('existsRaw'), 'HTML link check probes directory 200s (serve listings)');
+assert(!/fetchRaw\(['"]stories\//.test(linkCheck), 'HTML link-check must not fetch unpublished stories/');
+assert(linkCheck.includes('docs/viewer.html'), 'HTML link-check scans published viewer');
 // Row open links are built dynamically: href="./'+g.file+'"
 assert(run.includes("href=\"./\"+g.file+\"") || run.includes("href=\"./'+g.file+'\""), 'open href uses g.file');
 assert(run.includes('class="open"'), 'open class on gate rows');

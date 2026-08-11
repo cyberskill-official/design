@@ -1,6 +1,6 @@
 # Storybook — product surface at `/` (host)
 
-Storybook **10** is the **product site** for operators on `design.cyberskill.world` (`/`). It is still **not** part of the portable consumer contract.
+Storybook **10** is the **product site** for operators on `design.cyberskill.world` (`/`). It is still **not** part of the portable consumer contract. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 ## URL
 

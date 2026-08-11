@@ -2,6 +2,8 @@
 
 Tạo · quét tại VERSION 1.3.8.
 
+Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
+
 **Doctrine của sweep này:** chữ ngồi trên `-bright` hoặc `-tint`, không bao giờ trên mid-tone `-accent`. Accent chỉ cho bar, border, progress, fill không chữ. (Rule trong `tokens/elements.css` và conventions.)
 
 Pack được generate từ `tokens/element-seeds.json` (thang soft / middle / deep, khóa hue light↔dark). Gate hình học: `_audit/element-geometry.html`.

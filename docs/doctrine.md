@@ -1,6 +1,6 @@
 # Doctrine
 
-Normative rules for extending and verifying the CyberSkill Design System. Host-specific files (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) are shims that point here. Consumers start at `SKILL.md` and the Storybook **Docs** sidebar at `design.cyberskill.world`.
+Normative rules for extending and verifying the CyberSkill Design System. Host-specific files (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) are shims that point here. Consumers start at `SKILL.md` and the Storybook **Docs** sidebar at `design.cyberskill.world`. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 ## When to use
 

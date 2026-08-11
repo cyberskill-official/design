@@ -1,5 +1,7 @@
 # Deploy site Atomic live (Vercel / VPS / mọi static host)
 
+Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
+
 Hai track:
 
 1. **Design system portable (consumers)** — vẫn là cây file tĩnh: không cần bundler. Link `styles.css` + tùy chọn `_ds_bundle.js` / ESM. Claude Design, Google Stitch, và product app không cần Node hay Storybook.

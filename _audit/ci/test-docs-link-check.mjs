@@ -2,6 +2,8 @@
 /**
  * Crawl required published docs for broken in-repo links and retired paths.
  * External https:// URLs are not fetched (warn-only skipped).
+ * Also scans unpublished MDX href=/src= (git tree). Live HTML twin
+ * (_audit/docs-link-check.html) scans published markdown + viewer only — never stories/.
  */
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, normalize, resolve } from 'node:path';

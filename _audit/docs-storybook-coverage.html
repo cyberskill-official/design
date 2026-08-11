@@ -10,10 +10,11 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>Docs Storybook coverage</h1>
-<p class="lede">Every tracked operator doc, entrance file, and doctrine page must appear in the Storybook Docs sidebar and in <code>docs/viewer.html</code>. Storybook must publish <code>docs/</code> via <code>staticDirs</code> and entrance files at <code>/</code>. Verdict on <code>window.__docssbcoverage</code>.</p>
+<p class="lede">Every tracked operator doc, entrance file, and doctrine page must be on the <em>published</em> site: catalog, <code>/docs/**</code>, <code>docs/viewer.html</code>, and entrance files at <code>/</code>. When Storybook <code>index.json</code> / <code>stories.json</code> is present, sidebar titles are checked against it. Verdict on <code>window.__docssbcoverage</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <script>
+/** Live HTML twin: published surfaces only (catalog, /docs/**, viewer, entrance, Storybook index.json when present). Never fetch .storybook/ or stories/ — those trees are unpublished on the packaged site. CI Node twin (_audit/ci/test-docs-storybook-coverage.mjs) is the git-tree CSF/MDX + staticDirs proof. */
 const P=window.__gateProgress={done:0,total:1,current:'boot'};
 const list=document.getElementById('list');
 function row(ok,t){ const d=document.createElement('div'); d.className='row '+(ok?'ok':'bad'); d.innerHTML='<span>'+(ok?'\u2713 ':'\u2717 ')+t+'</span>'; list.appendChild(d); }
@@ -24,6 +25,24 @@ async function fetchRaw(path){
   if(!r.ok) return {ok:false,text:'',err:'HTTP '+r.status};
   if(/^\s*<(!doctype|html)/i.test(t) && !path.endsWith('.html')) return {ok:false,text:'',err:'got HTML (hosting intercept)'};
   return {ok:true,text:t,err:null};
+}
+function titlesFromIndex(json){
+  const out=new Set();
+  const entries=json.entries||json.stories||{};
+  for(const k of Object.keys(entries)){
+    const e=entries[k];
+    if(!e||typeof e!=='object') continue;
+    if(e.title) out.add(e.title);
+    if(e.title&&e.name) out.add(e.title+'/'+e.name);
+  }
+  return out;
+}
+function covered(title, set){
+  if(set.has(title)) return true;
+  for(const t of set){
+    if(t===title || t.startsWith(title+'/')) return true;
+  }
+  return false;
 }
 (async()=>{
   const problems=[];
@@ -39,46 +58,31 @@ async function fetchRaw(path){
     if(!catalogPaths.has('docs/'+name)) problems.push('tracked '+name+' missing from catalog');
   }
   if(!catalogPaths.has('docs/doctrine.md')) problems.push('doctrine.md missing from catalog');
+  for(const path of catalogPaths){
+    const r=await fetchRaw(path);
+    if(!r.ok) problems.push('published missing '+path+(r.err?(' '+r.err):''));
+  }
   const viewerR=await fetchRaw('docs/viewer.html');
   if(!viewerR.ok) throw new Error('viewer '+viewerR.err);
   const viewerSet=new Set([...(viewerR.text.matchAll(/\['([^']+\.(?:md|txt))'/g)||[])].map(m=>m[1]));
   for(const path of catalogPaths){
     if(!viewerSet.has(path)) problems.push('viewer nav missing '+path);
   }
-  const storyFiles=new Set([
-    'stories/Docs/StartPages.stories.jsx','stories/Docs/GuidePages.stories.jsx','stories/Docs/MaintainerPages.stories.jsx',
-    ...(catalog.pages||[]).filter(p=>p.mdx).map(p=>p.mdx),
-    ...(catalog.curated||[]).filter(p=>p.mdx).map(p=>p.mdx),
-  ]);
-  let storyBlob='';
-  for(const f of storyFiles){
-    const r=await fetchRaw(f);
-    if(!r.ok){ problems.push('missing story file '+f); continue; }
-    storyBlob+=r.text+'\n';
-  }
-  const GROUPS=['Docs/Start','Docs/Guides','Docs/Maintainers','Release Notes'];
-  function covered(title){
-    if(storyBlob.includes('<Meta title="'+title+'" />')) return true;
-    for(const group of GROUPS){
-      if(!title.startsWith(group+'/')) continue;
-      const leaf=title.slice(group.length+1);
-      if(storyBlob.includes("title: '"+group+"'") && storyBlob.includes("name: '"+leaf+"'")) return true;
+  let indexR=await fetchRaw('index.json');
+  if(!indexR.ok) indexR=await fetchRaw('stories.json');
+  if(indexR.ok){
+    let indexJson;
+    try{ indexJson=JSON.parse(indexR.text); }catch(e){ problems.push('Storybook index not JSON'); indexJson=null; }
+    if(indexJson){
+      const titleSet=titlesFromIndex(indexJson);
+      const titleBlob=[...titleSet].join('\n');
+      for(const t of catalogStories){
+        if(!covered(t, titleSet)) problems.push('Storybook missing title '+t);
+      }
+      for(const n of ['Start','Guides','Maintainers','Library','Doctrine']){
+        if(!titleBlob.includes(n)) problems.push('story index missing '+n);
+      }
     }
-    return false;
-  }
-  for(const t of catalogStories){
-    if(!covered(t)) problems.push('Storybook missing title '+t);
-  }
-  const mainR=await fetchRaw('.storybook/main.js');
-  if(!mainR.ok) throw new Error('main.js '+mainR.err);
-  if(!/from:\s*['"]\.\.\/docs['"]/.test(mainR.text) && !/to:\s*['"]\/docs['"]/.test(mainR.text)) problems.push('staticDirs missing docs/');
-  for(const ent of ['README.md','SKILL.md','llms.txt','CONTRIBUTING.md']){
-    if(!mainR.text.includes("'/"+ent+"'") && !mainR.text.includes('"/'+ent+'"')) problems.push('plugin missing /'+ent);
-  }
-  const prevR=await fetchRaw('.storybook/preview.jsx');
-  if(!prevR.ok) throw new Error('preview '+prevR.err);
-  for(const n of ['Start','Guides','Maintainers','Library','Doctrine']){
-    if(!prevR.text.includes("'"+n+"'")) problems.push('storySort missing '+n);
   }
   P.done=1;
   row(problems.length===0, problems.length+' violations');

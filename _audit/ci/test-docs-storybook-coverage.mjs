@@ -4,6 +4,9 @@
  *  - a Storybook Docs (or Release Notes) sidebar title
  *  - a docs/viewer.html nav entry
  * Storybook must publish `docs/` via staticDirs and entrance files at `/`.
+ * Git-tree twin: reads CSF/MDX + `.storybook` source. Live HTML twin
+ * (_audit/docs-storybook-coverage.html) uses published catalog/docs/viewer/entrance
+ * and Storybook index.json when present — never fetches `.storybook/` or `stories/`.
  */
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';

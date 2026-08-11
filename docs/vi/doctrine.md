@@ -1,6 +1,6 @@
 # Học thuyết
 
-Quy tắc chuẩn cho việc mở rộng và kiểm chứng Hệ thống Thiết kế CyberSkill. File theo từng host (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) chỉ là shim trỏ về đây. Người tiêu thụ bắt đầu từ `SKILL.md` và thanh bên **Docs** trên Storybook tại `design.cyberskill.world`.
+Quy tắc chuẩn cho việc mở rộng và kiểm chứng Hệ thống Thiết kế CyberSkill. File theo từng host (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) chỉ là shim trỏ về đây. Người tiêu thụ bắt đầu từ `SKILL.md` và thanh bên **Docs** trên Storybook tại `design.cyberskill.world`. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 ## Khi nào dùng
 

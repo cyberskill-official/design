@@ -1,6 +1,6 @@
 # Storybook — bề mặt sản phẩm tại `/` (host)
 
-Storybook **10** là **site sản phẩm** cho operator trên `design.cyberskill.world` (`/`). Nó vẫn **không** thuộc hợp đồng consumer portable.
+Storybook **10** là **site sản phẩm** cho operator trên `design.cyberskill.world` (`/`). Nó vẫn **không** thuộc hợp đồng consumer portable. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 ## URL
 

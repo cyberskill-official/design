@@ -59,6 +59,8 @@ function main() {
   // Deterministic stamp (VERSION only) so --check can byte-compare (FIND-026).
   lines.push(`Generated · sweep at VERSION ${VERSION}.`);
   lines.push('');
+  lines.push('Published on Storybook **Docs** at `design.cyberskill.world`.');
+  lines.push('');
   lines.push('**Doctrine encoded by this sweep:** text sits on `-bright` or `-tint`, never on the mid-tone `-accent` — at any size. The accent is for bars, borders, progress fills, and non-text fills only. (Rule stated in `tokens/elements.css` and conventions.)');
   lines.push('');
   lines.push('Packs are generated from `tokens/element-seeds.json` (soft / middle / deep ladder, light↔dark hue lock). Geometry gate: `_audit/element-geometry.html`.');
@@ -174,15 +176,18 @@ function main() {
 
   const enBody = lines.join('\n') + '\n';
   // VI twin: keep Vietnamese intro, same table
+  const tableIdx = lines.findIndex((l) => l.startsWith('| Scope | Pairing |'));
   const vi = [
     '# Báo cáo contrast — cặp elemental (APCA)',
     '',
     `Tạo · quét tại VERSION ${VERSION}.`,
     '',
+    'Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.',
+    '',
     '**Doctrine của sweep này:** chữ ngồi trên `-bright` hoặc `-tint`, không bao giờ trên mid-tone `-accent`. Accent chỉ cho bar, border, progress, fill không chữ. (Rule trong `tokens/elements.css` và conventions.)',
     '',
     'Pack được generate từ `tokens/element-seeds.json` (thang soft / middle / deep, khóa hue light↔dark). Gate hình học: `_audit/element-geometry.html`.',
-    ...lines.slice(7),
+    ...lines.slice(tableIdx),
   ];
   const viBody = vi.join('\n') + '\n';
   const enPath = path.join(ROOT, 'docs/contrast-report.md');

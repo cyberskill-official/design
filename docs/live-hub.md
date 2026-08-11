@@ -1,5 +1,7 @@
 # Live hub = Storybook
 
+Published on Storybook **Docs** at `design.cyberskill.world`.
+
 ## Decision
 
 **Storybook is the single live interactive hub** for operators on `design.cyberskill.world`. There is no separate Live View page and no separate HTML dashboard product shell. Production **`/`** is Storybook.
