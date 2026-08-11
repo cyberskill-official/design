@@ -8,7 +8,10 @@ import {
   preferOidcPublish,
   isGhaReleasePublish,
   assertRegistryPresence,
+  npmErrorSnippet,
+  oidcPublishEnv,
 } from './npm-publish.mjs';
+import { readFileSync } from 'node:fs';
 
 function assert(c, m) {
   if (!c) throw new Error(m || 'assert failed');
@@ -112,8 +115,30 @@ try {
 }
 assert(latestMismatch, 'presence fails when latest ≠ VERSION');
 
+
+// Error snippet prefers the tail (prepublish floods the head)
+assert(npmErrorSnippet('head\n' + 'x'.repeat(2000) + '\n404 Not Found - PUT').endsWith('404 Not Found - PUT'), 'snippet tail');
+assert(npmErrorSnippet('short').length === 5, 'snippet short passthrough');
+
+// OIDC env strips tokenized setup-node userconfig
+const oidcEnv = oidcPublishEnv({
+  GITHUB_ACTIONS: 'true',
+  NODE_AUTH_TOKEN: '',
+  NPM_TOKEN: '',
+  NPM_CONFIG_USERCONFIG: '/tmp/setup-node.npmrc',
+});
+assert(!('NODE_AUTH_TOKEN' in oidcEnv.env), 'NODE_AUTH_TOKEN deleted');
+assert(!('NPM_TOKEN' in oidcEnv.env), 'NPM_TOKEN deleted');
+assert(oidcEnv.env.NPM_CONFIG_USERCONFIG === oidcEnv.userconfig, 'clean userconfig set');
+assert(oidcEnv.userconfig !== '/tmp/setup-node.npmrc', 'userconfig replaced');
+const rc = readFileSync(oidcEnv.userconfig, 'utf8');
+assert(/registry=https:\/\/registry\.npmjs\.org\//.test(rc), 'registry present');
+assert(!/_authToken/.test(rc), 'no _authToken in OIDC npmrc');
+assert(!/always-auth/.test(rc), 'no always-auth in OIDC npmrc');
+
 console.log('PASS test-npm-publish', {
   soft: ['already_published', 'ENEEDAUTH/404/402 off-GHA'],
   hard: ['EOTP', '403', 'ENEEDAUTH/404/402 on-GHA-release'],
   latest: 'asserted',
+  oidcUserconfig: 'clean',
 });

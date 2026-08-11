@@ -2,7 +2,8 @@
 #
 # Triggers: workflow_dispatch, or push of version tags (v*).
 # Requires npm Trusted Publisher on @cyberskill/design for workflow file npm-publish.yml
-# (org cyberskill-official / repo design). Soft-skip only already_published + non-GHA
+# (org cyberskill-official / repo design — FIND-088; not the old design-system slug).
+# Soft-skip only already_published + non-GHA
 # missing_secrets; ENEEDAUTH/404/402/403/EOTP fail closed on tag/workflow_dispatch;
 # post-publish npm view verifies version + dist-tags.latest.
 # Package Publishing access: Require 2FA and disallow tokens (OIDC exempt).
@@ -40,6 +41,12 @@ jobs:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
           # Do not cache for release publishes (npm Trusted Publishing guidance)
+      # Trusted Publishing needs a current npm CLI; also print version for debug.
+      - name: Ensure npm CLI supports Trusted Publishing
+        run: |
+          npm install -g npm@latest
+          node -v
+          npm -v
       - name: Install npm dependencies
         run: npm ci
       - name: Pack dry-run (always)
