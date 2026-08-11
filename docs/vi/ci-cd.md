@@ -1,6 +1,6 @@
 # CI/CD — tự động hóa bảng gate
 
-**Gate CI** (workflow này) vẫn coi design system như cây tĩnh: serve repo, mở `_audit/run.html` headless, đọc verdict globals. Không cần product bundler cho gates.
+**Gate CI** (workflow này) vẫn coi design system như cây tĩnh: serve repo, mở `_audit/run.html` headless, đọc verdict globals. Không cần product bundler cho gates. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 **Host deploy** (Vercel, tách khỏi workflow này) chạy `npm install` + `npm run build:site` để Storybook ship làm bề mặt sản phẩm tại `/` — xem `docs/deploy.md` và `docs/storybook.md`. Đường đóng gói host đó không bắt buộc cho consuming project hay các job gate bên dưới.
 

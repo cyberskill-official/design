@@ -1,10 +1,14 @@
 # Consuming & upgrading the CyberSkill Design System
 
-How any project — human-driven or agent-driven — adopts this HTML-first design system, and how to take updates safely.
+How any project — human-driven or agent-driven — adopts this HTML-first design system, and how to take updates safely. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 **Package name:** `@cyberskill/design` (see `package.json`). Do not treat historical `@cyberskill/react` as the install path for this monolith.
 
-## Claude Code vs Google Stitch
+## When to use
+
+You are installing, linking, or upgrading the system in another product. Maintainers extending the system start at `docs/doctrine.md`.
+
+## Capability paths (DC-capable vs static)
 
 | Consumer | Start here | Works today | Do not |
 |---|---|---|---|
@@ -17,11 +21,11 @@ How any project — human-driven or agent-driven — adopts this HTML-first desi
 
 **Release signal:** version is LAUNCHED at **1.1.0**; **pin tracks `VERSION`** (no CHANGELOG). Treat the **git tip SHA** as technical truth; read curated product highlights in `docs/release-notes.md`.
 
-## Quick path for AI agents (Claude Code, or driving one)
+## Quick path for AI agents (DC-capable authoring, or driving one)
 
 **What you get:** `styles.css` (400+ tokens + `.cs-*` classes + Liquid Glass surfaces, `@import`s `tokens/` + `base/`) · `_ds_bundle.js` (compiled React components, no build step) · `_esm/react.mjs` (bundler-native React entry — React as peerDependency; default `exports["."]`) · `_esm/cs.mjs` (browser / no-build legacy via `exports["./legacy"]`) · `_ds_manifest.json` (machine-readable inventory) · per-component `Name.d.ts` (API) + `Name.prompt.md` (usage brief) · `tokens/tokens.dtcg.json` (W3C DTCG) + `tokens.json`/`tokens.js`.
 
-**Repo checkout** — clone or copy the whole tree; everything is relative-path static. Entry points: Storybook on the host site (`/` / `npm run storybook`) · `guidelines/atomic-view.html` (every component live, portable) · `templates/<slug>/` (copyable starting points — DC for Claude Design; kitchen-sink / `.cs-*` for Stitch). Read `SKILL.md` before authoring anything on-brand; Stitch readers start at `DESIGN.md`. Deeper maps live in `llms.txt` (inventory) and this file (full adoption + upgrade guide below).
+**Repo checkout** — clone or copy the whole tree; everything is relative-path static. Entry points: Storybook on the host site (`/` / `npm run storybook`) · `guidelines/atomic-view.html` (every component live, portable) · `templates/<slug>/` (copyable starting points — DC when a compiler is present; kitchen-sink / `.cs-*` for Stitch / static). Read `SKILL.md` before authoring anything on-brand; Stitch readers start at `DESIGN.md`. Deeper maps live in `llms.txt` (inventory) and this file (full adoption + upgrade guide below).
 
 **After import — prove health.** Open `_audit/run.html`, let the gate board finish (every fast gate). All green = the copy is internally consistent (contrast, docs, portability, tokens, consumer path, behavior, a11y, stories, bilingual parity). Full-clone only — `_audit/` is not in the npm tarball.
 
@@ -34,7 +38,7 @@ How any project — human-driven or agent-driven — adopts this HTML-first desi
 
 - Anchors (Umber/Ochre), `.cs-*` class names, `--cs-*` token names are stable contracts.
 
-- Extending the system? Follow `CONTRIBUTING.md` (Expansion Rule: propagate to every deliverable in one change; verify via `_audit/`).
+- Extending the system? Follow `docs/doctrine.md` and `CONTRIBUTING.md` (Expansion Rule: propagate to every deliverable in one change; verify via `_audit/`).
 
 ## Adopt via npm (optional)
 

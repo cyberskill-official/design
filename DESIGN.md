@@ -13,7 +13,7 @@ gate: "_audit/design-md-parity.html (window.__designmd)"
 
 > GENERATED FILE — do not edit by hand. Regenerate with `npm run build:design-md` after any token change; the `design-md-parity` gate fails on drift. This is the single-file open-spec surface for design tools and agents that read a root `DESIGN.md` (e.g. Google Stitch); the deep machine contract stays `tokens/tokens.dtcg.json`.
 
-> **Stitch / non-DC consumers:** do **not** treat `templates/**/*.dc.html` as source of truth — those files need the Design Components compiler (tweaks, `__dcSetProps`). Generate static UI from this file + DTCG + `styles.css` / `.cs-*` / `templates/kitchen-sink.html` / `examples/static-hello/`. Claude Code starts at `SKILL.md` and may use bundler `_esm/react.mjs` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). Dual path: `docs/consuming.md`.
+> **Stitch / non-DC consumers:** do **not** treat `templates/**/*.dc.html` as source of truth — those files need the Design Components compiler (tweaks, `__dcSetProps`). Generate static UI from this file + DTCG + `styles.css` / `.cs-*` / `templates/kitchen-sink.html` / `examples/static-hello/`. DC-capable authoring starts at `SKILL.md` and may use bundler `_esm/react.mjs` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). Dual path: `docs/consuming.md`. Operator docs are published on the Storybook Docs sidebar at `design.cyberskill.world`.
 
 ## Brand & doctrine
 
@@ -277,15 +277,16 @@ Component-level design decisions (button · textfield). Dark values are theme ov
 
 ## Templates
 
-84 copyable bilingual templates in `templates/*/` (each a `.dc.html` + byte-identical `support.js` runtime; see `docs/template-schema-v2.md` for typed content slots). **Claude Design / full-clone only** — Stitch must not consume `*.dc.html` as SoT; use kitchen-sink / `.cs-*` / static examples instead.
+84 copyable bilingual templates in `templates/*/` (each a `.dc.html` + byte-identical `support.js` runtime; see `docs/template-schema-v2.md` for typed content slots). **DC-capable authoring / full-clone only** — Stitch must not consume `*.dc.html` as SoT; use kitchen-sink / `.cs-*` / static examples instead.
 
 ## Links
 
 - [README.md](README.md) — entrance document (voice, foundations, index)
-- [SKILL.md](SKILL.md) — Claude Code agent entry: hard rules + fast orientation
-- [llms.txt](llms.txt) — agent/tool front door, Claude vs Stitch consume-by-audience map
-- [docs/consuming.md](docs/consuming.md) — adopt/upgrade + Claude Code vs Stitch dual path
-- [docs/sync.md](docs/sync.md) — repo ↔ Claude Design round-trip & what non-DC agents can consume
+- [SKILL.md](SKILL.md) — agent entry: hard rules + fast orientation
+- [llms.txt](llms.txt) — agent/tool front door, capability-based consume-by-audience map
+- [docs/consuming.md](docs/consuming.md) — adopt/upgrade + DC-capable vs static dual path
+- [docs/doctrine.md](docs/doctrine.md) — expansion rule, verification depth, immutables
+- [docs/sync.md](docs/sync.md) — repo ↔ authoring-environment round-trip & what non-DC agents can consume
 - [tokens/](tokens/) — CSS custom properties + `tokens.json` / `tokens.js` (ESM) / `tokens.dtcg.json` (W3C DTCG) / `native/` (SwiftUI · Compose · Flutter)
 - [docs/quality-gates.md](docs/quality-gates.md) — every deterministic gate incl. `design-md-parity`, which pins this file to the DTCG source
 

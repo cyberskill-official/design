@@ -1,6 +1,6 @@
 # Design styles
 
-The live styling axes are **Theme × Element × Language × Style**. Style’s sole pack today is **liquid-glass** (absent `data-cs-style` ≡ liquid-glass — same default pattern as light theme / Thổ middle).
+The live styling axes are **Theme × Element × Language × Style**. Style’s sole pack today is **liquid-glass** (absent `data-cs-style` ≡ liquid-glass — same default pattern as light theme / Thổ middle). Published on Storybook **Docs** at `design.cyberskill.world`.
 
 | Axis | How to set it | What it changes |
 |---|---|---|

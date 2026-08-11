@@ -2,6 +2,8 @@
 
 Generated · sweep at VERSION 1.3.8.
 
+Published on Storybook **Docs** at `design.cyberskill.world`.
+
 **Doctrine encoded by this sweep:** text sits on `-bright` or `-tint`, never on the mid-tone `-accent` — at any size. The accent is for bars, borders, progress fills, and non-text fills only. (Rule stated in `tokens/elements.css` and conventions.)
 
 Packs are generated from `tokens/element-seeds.json` (soft / middle / deep ladder, light↔dark hue lock). Geometry gate: `_audit/element-geometry.html`.

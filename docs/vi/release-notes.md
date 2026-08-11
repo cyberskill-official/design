@@ -1,6 +1,6 @@
 # Ghi chú phát hành
 
-Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. Phiên bản **đã LAUNCH ở 1.1.0**; **pin theo `VERSION`** (auto-bump khi push lên `main` từ Conventional Commits; owner vẫn có thể force bump). Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**).
+Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. Phiên bản **đã LAUNCH ở 1.1.0**; **pin theo `VERSION`** (auto-bump khi push lên `main` từ Conventional Commits; owner vẫn có thể force bump). Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**). Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 ## Patch — `@cyberskill/design@1.1.1`
 

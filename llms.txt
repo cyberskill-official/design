@@ -1,20 +1,23 @@
 # CyberSkill Design System
 
-> HTML-first, Vietnamese-first design system, LAUNCHED **v1.1.0**; current **v1.3.8**. Immutable anchors: Umber #45210E · Ochre #F4BA17. Four independent axes — Theme (light · dark · system) × Element (Ngũ Hành, 15 variants) × Language (EN · VI) × Style (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default). It ships 106 components / 122 exports, 84 copyable templates (EN·VN for emails + team/legal/finance; client/media collateral EN-first), and tokens in CSS + JSON + ESM + W3C DTCG + native mirrors. This file is the agent/tool front door: it maps each audience to the format it should consume. npm package name is **`@cyberskill/design`** (not `@cyberskill/react`). Release signal: tip SHA + [docs/release-notes.md](docs/release-notes.md) — VERSION **1.3.8**, no CHANGELOG.
+> HTML-first, Vietnamese-first design system, LAUNCHED **v1.1.0**; current **v1.3.8**. Immutable anchors: Umber #45210E · Ochre #F4BA17. Four independent axes — Theme (light · dark · system) × Element (Ngũ Hành, 15 variants) × Language (EN · VI) × Style (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default). It ships 106 components / 122 exports, 84 copyable templates (EN·VN for emails + team/legal/finance; client/media collateral EN-first), and tokens in CSS + JSON + ESM + W3C DTCG + native mirrors. This file is the agent/tool front door: it maps each **capability** to the format it should consume. npm package name is **`@cyberskill/design`** (not `@cyberskill/react`). Release signal: tip SHA + [docs/release-notes.md](docs/release-notes.md) — VERSION **1.3.8**, no CHANGELOG.
 
-The portable contract covers browser and bundler entry points: `styles.css` · `_esm/cs.mjs` legacy · `_ds_bundle.js` · tokens work without a build step; `_esm/react.mjs` is bundler-native JSX (Next/Vite must transpile — not a bare-browser import). The DC layer (`templates/**/*.dc.html`) is **Claude Design / authoring-environment-only**. **Google Stitch must not treat `*.dc.html` as source of truth** — use `DESIGN.md`, DTCG, `styles.css`, kitchen-sink, and `.cs-*` static HTML instead. Dual path: [docs/consuming.md](docs/consuming.md). The full non-negotiables list lives in `CONTRIBUTING.md` and `docs/conventions.md`.
+The portable contract covers browser and bundler entry points: `styles.css` · `_esm/cs.mjs` legacy · `_ds_bundle.js` · tokens work without a build step; `_esm/react.mjs` is bundler-native JSX (Next/Vite must transpile — not a bare-browser import). The DC layer (`templates/**/*.dc.html`) needs a **Design Components compiler**. **Google Stitch must not treat `*.dc.html` as source of truth** — use `DESIGN.md`, DTCG, `styles.css`, kitchen-sink, and `.cs-*` static HTML instead. Dual path: [docs/consuming.md](docs/consuming.md). The full non-negotiables list lives in `CONTRIBUTING.md` and `docs/doctrine.md`. Operator docs are published on the Storybook **Docs** sidebar at `design.cyberskill.world`.
 
 ## Consume by audience
 
-- **Claude Code** → [SKILL.md](SKILL.md) first, then [README.md](README.md): compose with `styles.css` + bundler `_esm/react.mjs` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). Optional DC templates only when the session has the compiler. Gates/`_audit/` need a full clone.
-- **Google Stitch** → [DESIGN.md](DESIGN.md) first, then this file + [tokens/tokens.dtcg.json](tokens/tokens.dtcg.json): generate **static** UI. Do **not** open or rewrite `templates/**/*.dc.html` as if they were plain HTML.
+- **DC-capable authoring** (compiler present — e.g. Claude Design, Claude Code with a full clone) → [SKILL.md](SKILL.md) first, then [README.md](README.md): compose with `styles.css` + bundler `_esm/react.mjs` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). Optional DC templates only when the session has the compiler. Gates/`_audit/` need a full clone.
+- **Static / open-spec** (e.g. Google Stitch) → [DESIGN.md](DESIGN.md) first, then this file + [tokens/tokens.dtcg.json](tokens/tokens.dtcg.json): generate **static** UI. Do **not** open or rewrite `templates/**/*.dc.html` as if they were plain HTML.
+- **Designers** → Storybook at `design.cyberskill.world` (`/` / `npm run storybook`): Foundations, Components, Docs, axis toolbar.
+- **Implementers (npm / Next / Vite)** → [docs/consuming.md](docs/consuming.md) + default `@cyberskill/design` React entry.
+- **Maintainers** → [docs/doctrine.md](docs/doctrine.md) + [docs/quality-gates.md](docs/quality-gates.md).
 - [styles.css](styles.css): any web / framework / email (Vue, Svelte, plain HTML, React) — link this one file for every `--cs-*` token, the `.cs-*` component classes, and the Liquid Glass surfaces. Framework-agnostic, no build step.
 - [_esm/react.mjs](_esm/react.mjs): **default** npm entry — `import { Button, … } from "@cyberskill/design"` (React peer; Next/Vite transpile). Also `@cyberskill/design/react`.
 - [_esm/cs.mjs](_esm/cs.mjs): browser / no-build legacy — `import { Button, … } from "@cyberskill/design/legacy"` (self-ensures React; still link `styles.css`). **Not for Next/SSR.**
 - [_ds_bundle.js](_ds_bundle.js): React (production) — `styles.css` + `<script src="_ds_bundle.js">`, then resolve the bundle global by prefix (its `_<projectId>` suffix is compiler-assigned and changes on re-import): `const CS = window[Object.keys(window).find(k => /^CyberSkillDesignSystem_/.test(k))]; const { Button, … } = CS`. Proven green by `_audit/consumer-smoke-test.html`. (Templates load via `ds-base.js`, which publishes a stable `window.CyberSkillDS` alias for the same reason.)
 - [tokens/tokens.json](tokens/tokens.json): design tools / native / token pipelines / other agents (Figma, Google Stitch, Style Dictionary) — every token grouped by category, plus theme/element override maps; also [tokens/tokens.js](tokens/tokens.js) (ESM) and [tokens/tokens.dtcg.json](tokens/tokens.dtcg.json) (**W3C DTCG** format for Tokens Studio for Figma / Style Dictionary). This is the canonical cross-tool contract.
 - [DESIGN.md](DESIGN.md): agents/tools that read a root DESIGN.md (Google Stitch open-spec style) — **this repo's** generated file with the brand doctrine, every token value (light + dark), and the component/template inventory. Generated from the DTCG source by `npm run build:design-md`; the `design-md-parity` gate pins it — do not hand-edit.
-- [templates/](templates/): Design Components (`templates/**/*.dc.html`) + the compiler (tweaks, `x-import`, `@dsCard` cards) for **Claude Design** only. Stitch and other non-DC tools: [templates/kitchen-sink.html](templates/kitchen-sink.html) + `.cs-*` / [examples/static-hello/](examples/static-hello/) — **not** `*.dc.html`.
+- [templates/](templates/): Design Components (`templates/**/*.dc.html`) + the compiler (tweaks, `x-import`, `@dsCard` cards) for **DC-capable authoring** only. Stitch and other non-DC tools: [templates/kitchen-sink.html](templates/kitchen-sink.html) + `.cs-*` / [examples/static-hello/](examples/static-hello/) — **not** `*.dc.html`.
 
 ## Key files
 
@@ -37,11 +40,14 @@ The portable contract covers browser and bundler entry points: `styles.css` · `
 - [DESIGN.md](DESIGN.md): generated open-spec surface (doctrine + tokens + inventory) for Stitch-style consumers — pinned to DTCG by the design-md-parity gate
 - [SKILL.md](SKILL.md): agent entry — hard rules + fast orientation
 - [CONTRIBUTING.md](CONTRIBUTING.md): one-page onboarding for extending the system
+- [docs/doctrine.md](docs/doctrine.md): expansion rule, verification depth, immutables
 - [VERSION](VERSION): pinned 1.3.8 (matches [package.json](package.json))
 
 ## Docs — consumers
 
-- [docs/consuming.md](docs/consuming.md): adopting & upgrading, Claude Code vs Stitch dual path, package name `@cyberskill/design`; first registry install at [examples/npm-hello/](examples/npm-hello/) (Lumi · Hỏa · plasma); native mirrors at [examples/native/](examples/native/) (SwiftUI / Compose / Flutter samples)
+Published on Storybook **Docs** (`design.cyberskill.world`) and in [docs/viewer.html](docs/viewer.html) (EN|VI).
+
+- [docs/consuming.md](docs/consuming.md): adopting & upgrading, DC-capable vs static dual path, package name `@cyberskill/design`; first registry install at [examples/npm-hello/](examples/npm-hello/) (Lumi · Hỏa · plasma); native mirrors at [examples/native/](examples/native/) (SwiftUI / Compose / Flutter samples)
 - [docs/release-notes.md](docs/release-notes.md): curated product highlights (not a changelog) — includes `@cyberskill/design@1.3.8` Trusted Publishing / grant pointer
 - [docs/consumer-grant.md](docs/consumer-grant.md): written npm grant (CyberSkill portfolio; UNLICENSED)
 - [docs/conventions.md](docs/conventions.md): authoring rules (naming grammar, the four axes)
@@ -51,13 +57,14 @@ The portable contract covers browser and bundler entry points: `styles.css` · `
 - [docs/template-schema-v2.md](docs/template-schema-v2.md): typed content-slot spec for templates
 - [docs/deploy.md](docs/deploy.md): deploying the live site (Vercel / VPS / any static host)
 - [docs/live-hub.md](docs/live-hub.md): Storybook at `/` is the product surface; surface map
-- [docs/storybook.md](docs/storybook.md): host Storybook product surface at `/`
+- [docs/storybook.md](docs/storybook.md): host Storybook product surface at `/` — Docs sidebar is the published reading surface for operator docs
 - [docs/figma.md](docs/figma.md): Figma / Tokens Studio import recipe
 - [docs/vi/](docs/vi/): Vietnamese mirror of every operator-facing `docs/*.md`
 - [docs/viewer.html](docs/viewer.html): reader UI (EN|VI toggle for `docs/*.md`)
 
 ## Docs — maintainers
 
+- [docs/doctrine.md](docs/doctrine.md): expansion, verification, immutables
 - [docs/decisions.md](docs/decisions.md): recorded owner decisions + open maintainer tasks
 - [docs/ci-cd.md](docs/ci-cd.md): CI/CD automation — workflow, headless gate runner, provenance pre-check
 - [docs/quality-gates.md](docs/quality-gates.md): benchmark reference — every quality gate, its assertion, pass criterion, where it runs
@@ -66,7 +73,7 @@ The portable contract covers browser and bundler entry points: `styles.css` · `
 
 ## Non-negotiables
 
-- [CONTRIBUTING.md](CONTRIBUTING.md): the full non-negotiables list (with `docs/conventions.md`)
+- [CONTRIBUTING.md](CONTRIBUTING.md): the full non-negotiables list (with `docs/doctrine.md` and `docs/conventions.md`)
 - [tokens/colors.css](tokens/colors.css): immutable Umber/Ochre anchors · one accent per surface
 - [base/a11y.css](base/a11y.css): APCA Lc ≥ 75 body text · ≥44px touch targets · 3px ochre focus ring · honour `prefers-reduced-motion`/`prefers-contrast`
 - [docs/conventions.md](docs/conventions.md): Vietnamese-first bilingual — every UI string ships an EN + VN pair, diacritics preserved

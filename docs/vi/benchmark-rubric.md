@@ -1,6 +1,6 @@
 # Rubric benchmark Design System
 
-Checklist tự kiểm khi tiến hóa CyberSkill Design System — chuẩn bên ngoài cộng rule CDS. Ghép với [`docs/vi/quality-gates.md`](quality-gates.md) (gate xác định) và [`docs/vi/design-styles.md`](design-styles.md) (hợp đồng màu Element).
+Checklist tự kiểm khi tiến hóa CyberSkill Design System — chuẩn bên ngoài cộng rule CDS. Ghép với [`docs/vi/quality-gates.md`](quality-gates.md) (gate xác định) và [`docs/vi/design-styles.md`](design-styles.md) (hợp đồng màu Element). Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 ## Chuẩn bên ngoài
 
@@ -22,7 +22,7 @@ Checklist tự kiểm khi tiến hóa CyberSkill Design System — chuẩn bên 
 | Chữ không trên mid `-accent`; focus Ochre không remap; màu status không remap | Hợp đồng `elements.css` · contrast-report · conventions |
 | Một element mỗi bề mặt; gradient chỉ Tương sinh | Registry products · conventions |
 | Registry product→element khóa; UI kit trung thành Thổ | [`docs/vi/products.md`](products.md) |
-| Expansion Rule đủ + `_audit/run.html` xanh + docs EN·VI parity | CLAUDE.md · docs-consistency · docs-lang-parity |
+| Expansion Rule đủ + `_audit/run.html` xanh + docs EN·VI parity | `docs/doctrine.md` · docs-consistency · docs-lang-parity · docs-storybook-coverage |
 | VERSION theo file (LAUNCH 1.1.0; auto-bump trên main) | version-stamp · docs-consistency |
 | Pack Element chỉ từ seed (30 bộ) | `element-geometry` · `tokens:elements` |
 

@@ -15,11 +15,16 @@ function dsRootFilesPlugin() {
     '/_ds_manifest.json': '_ds_manifest.json',
     '/image-slot.js': 'image-slot.js',
     '/VERSION': 'VERSION',
+    '/README.md': 'README.md',
+    '/SKILL.md': 'SKILL.md',
+    '/llms.txt': 'llms.txt',
+    '/CONTRIBUTING.md': 'CONTRIBUTING.md',
   };
   const mime = (rel) => {
     if (rel.endsWith('.css')) return 'text/css; charset=utf-8';
     if (rel.endsWith('.js')) return 'application/javascript; charset=utf-8';
     if (rel.endsWith('.json')) return 'application/json; charset=utf-8';
+    if (rel.endsWith('.md') || rel.endsWith('.txt')) return 'text/plain; charset=utf-8';
     return 'text/plain; charset=utf-8';
   };
   const attach = (server) => {
@@ -80,6 +85,7 @@ const config = {
     // breaks the preview when anything loads those URLs as ES modules. Stories import
     // via Vite (`../components/...` / `@cs`); Live iframes use `_ds_bundle.js`.
     { from: '../_audit', to: '/_audit' },
+    { from: '../docs', to: '/docs' },
   ],
   // Allow 127.0.0.1 (Storybook core → Vite server.allowedHosts). Prefer opening
   // http://localhost:6006 — iframe.html treats non-localhost as a hard preview error.

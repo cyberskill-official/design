@@ -1,6 +1,6 @@
 # Release runbook (authoritative)
 
-One page for how a release happens and how to tell it worked. Consolidates areas 21/23. Related detail: `docs/ci-cd.md`, `docs/deploy.md`, `docs/decisions.md` §7 / §13.
+One page for how a release happens and how to tell it worked. Consolidates areas 21/23. Related detail: `docs/ci-cd.md`, `docs/deploy.md`, `docs/decisions.md` §7 / §13. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 ## Trigger
 

@@ -1,5 +1,7 @@
 # Live hub = Storybook
 
+Published on Storybook **Docs** at `design.cyberskill.world`.
+
 ## Decision
 
 **Storybook is the single live interactive hub** for operators on `design.cyberskill.world`. There is no separate Live View page and no separate HTML dashboard product shell. Production **`/`** is Storybook.
@@ -8,7 +10,7 @@
 
 | Group | Role |
 |---|---|
-| **Docs** | Public MDX guides (consuming, deploy, conventions, styles, products, schema, Figma, contrast, voice, axes) |
+| **Docs** | Published operator docs: **Start** (Introduction, README, SKILL, Contributing, llms, Library) · **Guides** (consuming, grant, deploy, schema, conventions, styles, products, Figma, contrast, storybook, live-hub, release runbook, benchmark, …) · **Maintainers** (doctrine, decisions, CI/CD, quality gates, sync). Curated MDX plus one sidebar entry per tracked page. EN·VI via the Documentation Library (`/docs/viewer.html`) |
 | **Foundations** | Colors, typography, spacing, elevation, motion, elements |
 | **Components** | Full CSF library |
 | **Release Notes** | Curated product prose (**no CHANGELOG.md**) |

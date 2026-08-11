@@ -1,6 +1,6 @@
 # Product registry — ánh xạ element
 
-> **Đã khóa / locked** (Th7 2026). Registry product → element chuẩn cho agent và kit. **Không** invent ánh xạ product → element mới; thêm hoặc đổi hàng chỉ qua quyết định maintainer trong `docs/decisions.md`.
+> **Đã khóa / locked** (Th7 2026). Registry product → element chuẩn cho agent và kit. **Không** invent ánh xạ product → element mới; thêm hoặc đổi hàng chỉ qua quyết định maintainer trong `docs/decisions.md`. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 **Nguồn chân lý.** Ánh xạ sản phẩm portfolio CyberSkill sang pack element Ngũ Hành. Một element mỗi sản phẩm; accent phụ chỉ trong gradient wash theo Tương sinh.
 

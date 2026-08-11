@@ -1,6 +1,6 @@
 # Product registry — element mapping
 
-> **Locked** (Jul 2026). Canonical product → element registry for agents and kits. Do **not** invent new product → element assignments; add or change rows only via a maintainer decision in `docs/decisions.md`.
+> **Locked** (Jul 2026). Canonical product → element registry for agents and kits. Do **not** invent new product → element assignments; add or change rows only via a maintainer decision in `docs/decisions.md`. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 **Source of truth.** Maps CyberSkill portfolio products to Ngũ Hành element packs. One element per product; secondary accents only in gradient washes along Tương sinh.
 

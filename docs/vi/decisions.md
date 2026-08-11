@@ -1,6 +1,6 @@
 # Quyết định (maintainer)
 
-Các lựa chọn của owner định hình CI, đồng bộ Figma, và phân phối. How-to nằm ở `docs/figma.md` và `docs/ci-cd.md` — file này chỉ là biên bản quyết định. Không phải hướng dẫn consumer.
+Các lựa chọn của owner định hình CI, đồng bộ Figma, và phân phối. How-to nằm ở `docs/figma.md` và `docs/ci-cd.md` — file này chỉ là biên bản quyết định. Không phải hướng dẫn consumer. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 ## 1. Whole-set audits trên mọi PR
 

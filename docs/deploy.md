@@ -1,5 +1,7 @@
 # Deploying the live Atomic site (Vercel / VPS / any static host)
 
+Published on Storybook **Docs** at `design.cyberskill.world`.
+
 Two tracks:
 
 1. **Portable design system (consumers)** — still a static file tree: no bundler required. Link `styles.css` + optionally `_ds_bundle.js` / ESM. Claude Design, Google Stitch, and product apps never need Node or Storybook.
@@ -67,7 +69,7 @@ server {
 ```
 Portable paths remain real files (`guidelines/atomic-view.html`, `_audit/run.html`, `styles.css`, etc.). Storybook owns `/` and `/index.html`.
 
-**Netlify / Cloudflare Pages / similar:** commit root `_headers` (and `public/_headers`) mirrors the same three headers for hosts that read Netlify-style `_headers` files. Keep them byte-aligned with `vercel.json`.
+**Netlify / Cloudflare Pages / similar:** commit root `_headers` mirrors the same three headers for hosts that read Netlify-style `_headers` files. Keep it byte-aligned with `vercel.json`.
 
 ## Post-deploy checklist
 1. Open `/` — confirm Storybook loads (not a 404, directory listing, or the old dashboard shell).

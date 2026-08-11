@@ -1,10 +1,10 @@
-# Repo ↔ Claude Design — round-trip fidelity & two-way sync
+# Repo ↔ authoring environment — round-trip fidelity & two-way sync
 
-The GitHub repo (`cyberskill-official/design`) is the **source of truth**. Claude Design sessions are ephemeral project filesystems — this doc is how they stay in sync without losing work.
+The GitHub repo (`cyberskill-official/design`) is the **source of truth**. Compiler sessions (for example Claude Design) are ephemeral project filesystems — this doc is how they stay in sync without losing work. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 ## Does the repo restore the full system intact?
 
-**In a Claude-Design session — yes.** Everything that defines the system is plain text/asset files and round-trips losslessly:
+**In a DC-capable compiler session — yes.** Everything that defines the system is plain text/asset files and round-trips losslessly:
 - `styles.css` + `tokens/` + `base/` (all CSS + `tokens.json`/`tokens.js`)
 - `components/**` (`.jsx` + `.d.ts` + `.prompt.md` + `*.card.html`)
 - `templates/**/*.dc.html` (+ `ds-base.js`, `support.js`)
@@ -13,15 +13,15 @@ The GitHub repo (`cyberskill-official/design`) is the **source of truth**. Claud
 - **`_esm/react.mjs`** — bundler-native React entry (default package export; React peer). Regenerated via `npm run build:react-entry`.
 - **`_esm/cs.mjs`** — the browser / no-build legacy ESM entry (`@cyberskill/design/legacy`). Underscore-prefixed does **not** mean build artifact or gitignored here (only `uploads/`, `scraps/`, `_audit/exports/` are — see Hygiene below); `_esm/` is source, same tier as `templates/` or `docs/`. A prior port of this repo skipped it on exactly this assumption and broke the ESM smoke gate — if you're porting/copying this tree by hand, **explicitly include every top-level folder this list names**, don't infer from the `_` prefix.
 
-- `README.md`, `CONTRIBUTING.md`, `SKILL.md`, `CLAUDE.md`, `VERSION`, `DESIGN.md` (generated open-spec surface — committed, regenerated only via `npm run build:design-md`, pinned by the `design-md-parity` gate)
+- `README.md`, `CONTRIBUTING.md`, `SKILL.md`, `docs/doctrine.md`, host shims (`CLAUDE.md`), `VERSION`, `DESIGN.md` (generated open-spec surface — committed, regenerated only via `npm run build:design-md`, pinned by the `design-md-parity` gate)
 
-Pull them back into a fresh project (see below) and the compiler re-recognizes it as a design system — it keys off `styles.css`, the `.d.ts`/`.jsx` pairs, `@dsCard` HTML, and `templates/`. The **derived** files (`_ds_bundle.js`, `_ds_manifest.json`, `_adherence.oxlintrc.json`) are regenerated every turn from source, so they need not be trusted from the repo — they rebuild.
+Pull them back into a fresh project (see below) and the compiler re-recognizes it as a design system — it keys off `styles.css`, the `.d.ts`/`.jsx` pairs, `@dsCard` HTML, and `templates/`. Committed compiled artifacts (`_ds_bundle.js`, `_ds_manifest.json`, `_adherence.oxlintrc.json`, `dist/styles.min.css`, `DESIGN.md`) are part of the consumer contract — keep them in the tree and regenerate them with the documented npm scripts rather than treating them as disposable.
 
-**In other agents (Google Stitch, generic LLM tools) — partially.** They can consume the **portable** layer — `tokens/tokens.json` + `tokens.js`, the raw CSS, the component `.jsx`, fonts, and the Markdown docs — but they do **not** understand the `.dc.html` Design-Component format or the compiler that drives it. So a non-Claude-Design agent gets the tokens, styles, and component source as files, not the live DC/tweak/compile behavior. Point those tools at the root **`DESIGN.md`** first (the generated Stitch-style open-spec surface: doctrine + every token value + inventory, regenerated from DTCG via `npm run build:design-md` and pinned by the `design-md-parity` gate), then `tokens.json` / `tokens.dtcg.json` and the CSS for the machine contract; treat `.dc.html` + the compiler as Claude-Design-native.
+**In other agents (Google Stitch, generic LLM tools) — partially.** They can consume the **portable** layer — `tokens/tokens.json` + `tokens.js`, the raw CSS, the component `.jsx`, fonts, and the Markdown docs — but they do **not** understand the `.dc.html` Design-Component format or the compiler that drives it. So a non-compiler agent gets the tokens, styles, and component source as files, not the live DC/tweak/compile behavior. Point those tools at the root **`DESIGN.md`** first (the generated Stitch-style open-spec surface: doctrine + every token value + inventory, regenerated from DTCG via `npm run build:design-md` and pinned by the `design-md-parity` gate), then `tokens.json` / `tokens.dtcg.json` and the CSS for the machine contract; treat `.dc.html` + the compiler as DC-native.
 
 ## Two-way sync (repo = source of truth)
 
-Claude Design can **read/copy from** GitHub but **cannot push to** it. So sync is *automatic pull, manual push*:
+Compiler sessions can **read/copy from** GitHub but typically **cannot push to** it. So sync is *automatic pull, manual push*:
 **Session START — pull (reliable, automated):** tell the agent to load the repo. It copies the tree into the fresh project (the `github_copy_files` path), the compiler validates, and you continue from the committed truth — never from stale project state. Always begin here; do not resume from a half-remembered project.
 
 **Session END — push (manual, reviewed):** download the project, then from a clone:
@@ -37,7 +37,7 @@ git push -u origin session/<date-or-topic>   # branch, never --force, never stra
 The PR diff is the safety net — it shows exactly what changed since the last committed truth.
 
 ## Hygiene that keeps round-trips clean
-- **`.gitignore`** the transient (`uploads/`, `scraps/`, `_audit/exports/`); commit everything else, **including `_esm/`** (see above — it is source, not a build artifact, despite the `_` prefix). The compiled `_ds_bundle.js`/manifest are committed for consumers that have no build step, but expect churn — or ignore them and let each session regenerate.
+- **`.gitignore`** the transient (`uploads/`, `scraps/`, `_audit/exports/`); commit everything else, **including `_esm/`** (see above — it is source, not a build artifact, despite the `_` prefix). The compiled `_ds_bundle.js`, `_ds_manifest.json`, and `_adherence.oxlintrc.json` are **committed consumer artifacts** — they ship in the npm package so consumers with no build step can load the system. Do not gitignore them. Regenerate via `npm run build:bundle` after source changes; the bundle-freshness gate fails on drift.
 
 - **`VERSION` is LAUNCHED at 1.1.0; pin tracks `VERSION`** — auto-bump on push to `main` (`.github/workflows/version.yml` → tag `v*` → `npm-publish.yml`); owner may still force a bump. Do not maintain a changelog file. Continuity is the git history; open maintainer tasks live in `docs/decisions.md`.
 

@@ -1,10 +1,14 @@
 # Tiêu thụ & nâng cấp CyberSkill Design System
 
-Cách mọi project — do người hoặc agent điều khiển — áp dụng design system HTML-first này, và cách nhận update an toàn.
+Cách mọi project — do người hoặc agent điều khiển — áp dụng design system HTML-first này, và cách nhận update an toàn. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 **Tên package:** `@cyberskill/design` (xem `package.json`). Không coi `@cyberskill/react` lịch sử là đường cài cho monolith này.
 
-## Claude Code vs Google Stitch
+## Khi nào dùng
+
+Bạn đang cài, liên kết, hoặc nâng cấp hệ thống trong sản phẩm khác. Maintainer mở rộng hệ thống bắt đầu từ `docs/doctrine.md`.
+
+## Capability paths (DC-capable vs static)
 
 | Consumer | Bắt đầu tại | Hoạt động hôm nay | Không làm |
 |---|---|---|---|
@@ -17,11 +21,11 @@ Cách mọi project — do người hoặc agent điều khiển — áp dụng 
 
 **Tín hiệu release:** đã LAUNCH ở **1.1.0**; **pin theo `VERSION`** (không CHANGELOG). Coi **git tip SHA** là chân lý kỹ thuật; đọc điểm nổi bật sản phẩm curated trong `docs/release-notes.md`.
 
-## Đường nhanh cho AI agent (Claude Code, hoặc điều khiển một agent)
+## Đường nhanh cho AI agent (DC-capable authoring, hoặc điều khiển một agent)
 
 **Bạn nhận:** `styles.css` (400+ token + class `.cs-*` + bề mặt Liquid Glass, `@import` `tokens/` + `base/`) · `_ds_bundle.js` (React component đã compile, không cần build) · `_esm/react.mjs` (entry React bundler-native — React là peerDependency; mặc định `exports["."]`) · `_esm/cs.mjs` (browser / no-build legacy qua `exports["./legacy"]`) · `_ds_manifest.json` (inventory máy đọc được) · mỗi component `Name.d.ts` (API) + `Name.prompt.md` (brief dùng) · `tokens/tokens.dtcg.json` (W3C DTCG) + `tokens.json`/`tokens.js`.
 
-**Checkout repo** — clone hoặc copy cả cây; mọi thứ là static đường dẫn tương đối. Điểm vào: Storybook trên host site (`/` / `npm run storybook`) · `guidelines/atomic-view.html` (mọi component live, portable) · `templates/<slug>/` (điểm bắt đầu copy được — DC cho Claude Design; kitchen-sink / `.cs-*` cho Stitch). Đọc `SKILL.md` trước khi author bất kỳ thứ gì on-brand; reader Stitch bắt đầu tại `DESIGN.md`. Bản đồ sâu hơn ở `llms.txt` (inventory) và file này (hướng dẫn adopt + upgrade đầy đủ bên dưới).
+**Checkout repo** — clone hoặc copy cả cây; mọi thứ là static đường dẫn tương đối. Điểm vào: Storybook trên host site (`/` / `npm run storybook`) · `guidelines/atomic-view.html` (mọi component live, portable) · `templates/<slug>/` (điểm bắt đầu copy được — DC khi có compiler; kitchen-sink / `.cs-*` cho Stitch / static). Đọc `SKILL.md` trước khi author bất kỳ thứ gì on-brand; reader Stitch bắt đầu tại `DESIGN.md`. Bản đồ sâu hơn ở `llms.txt` (inventory) và file này (hướng dẫn adopt + upgrade đầy đủ bên dưới).
 
 **Sau import — chứng minh health.** Mở `_audit/run.html`, để bảng gate chạy xong (mọi fast gate). Tất cả xanh = bản copy nhất quán nội bộ (contrast, docs, portability, tokens, consumer path, behavior, a11y, stories, bilingual parity). Chỉ full-clone — `_audit/` không nằm trong tarball npm.
 
@@ -34,7 +38,7 @@ Cách mọi project — do người hoặc agent điều khiển — áp dụng 
 
 - Anchors (Umber/Ochre), tên class `.cs-*`, tên token `--cs-*` là hợp đồng ổn định.
 
-- Mở rộng hệ thống? Theo `CONTRIBUTING.md` (Expansion Rule: lan tới mọi deliverable trong một change; verify qua `_audit/`).
+- Mở rộng hệ thống? Theo `docs/doctrine.md` và `CONTRIBUTING.md` (Expansion Rule: lan tới mọi deliverable trong một change; verify qua `_audit/`).
 
 ## Adopt qua npm (tùy chọn)
 

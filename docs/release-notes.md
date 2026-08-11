@@ -1,6 +1,6 @@
 # Release Notes
 
-Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. Version is **LAUNCHED at 1.1.0**; **pin tracks `VERSION`** (auto-bump on push to `main` from Conventional Commits; owner may still force a bump). Technical continuity is the repo tip; product-facing continuity is this page (mirrored in Storybook **Release Notes**).
+Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. Version is **LAUNCHED at 1.1.0**; **pin tracks `VERSION`** (auto-bump on push to `main` from Conventional Commits; owner may still force a bump). Technical continuity is the repo tip; product-facing continuity is this page (mirrored in Storybook **Release Notes**). Published on Storybook **Docs** at `design.cyberskill.world`.
 
 ## Patch — `@cyberskill/design@1.1.1`
 

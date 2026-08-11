@@ -1,6 +1,6 @@
 # Template content-schema v2 — content slot có kiểu
 
-Metadata thuần additive, opt-in: sidecar `templates/<slug>/content-schema.json` cạnh `.dc.html` của template, khai báo **kiểu** của mỗi `{{ hole }}` đã có trong template — để agent hoặc pipeline điền/validate nội dung khách thật theo chương trình mà không parse HTML hay đoán.
+Metadata thuần additive, opt-in: sidecar `templates/<slug>/content-schema.json` cạnh `.dc.html` của template, khai báo **kiểu** của mỗi `{{ hole }}` đã có trong template — để agent hoặc pipeline điền/validate nội dung khách thật theo chương trình mà không parse HTML hay đoán. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 **Không cần đổi markup template.** `id` của slot là tên hole đã dùng trong `.dc.html` (ví dụ `{{ heroH }}`) và đã bind trong `renderVals()` của logic class — schema chỉ mô tả nó.
 

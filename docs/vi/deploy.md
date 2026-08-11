@@ -1,5 +1,7 @@
 # Deploy site Atomic live (Vercel / VPS / mọi static host)
 
+Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
+
 Hai track:
 
 1. **Design system portable (consumers)** — vẫn là cây file tĩnh: không cần bundler. Link `styles.css` + tùy chọn `_ds_bundle.js` / ESM. Claude Design, Google Stitch, và product app không cần Node hay Storybook.
@@ -67,7 +69,7 @@ server {
 ```
 Path portable vẫn là file thật (`guidelines/atomic-view.html`, `_audit/run.html`, `styles.css`, v.v.). Storybook sở hữu `/` và `/index.html`.
 
-**Netlify / Cloudflare Pages / tương tự:** file `_headers` ở root (và `public/_headers`) mirror cùng ba header cho host đọc `_headers` kiểu Netlify. Giữ khớp `vercel.json`.
+**Netlify / Cloudflare Pages / tương tự:** file `_headers` ở root mirror cùng ba header cho host đọc `_headers` kiểu Netlify. Giữ khớp `vercel.json`.
 
 ## Checklist sau deploy
 1. Mở `/` — xác nhận Storybook load (không 404, directory listing, hay shell dashboard cũ).
