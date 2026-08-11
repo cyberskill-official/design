@@ -20,7 +20,7 @@ Storybook **10** is the **product site** for operators on `design.cyberskill.wor
   - Every discrete `size` / `variant` enum option mounted in a matrix-family story
   - `FullMatrix` when ≥1 of {size enums, variant enums, state keys} exist — the size × variant × key-state product via shared helpers in `stories/lib/matrix.jsx`
 - Toolbar globals: Theme (light · dark · **system**) × Element × Language × Style (same axes as templates / Atomic View). Element lists **all 15** Ngũ Hành packs (`tokens.elements` / template EL maps / Storybook toolbar) — not a subset. Style’s sole pack is **liquid-glass**.
-- **Docs/** public MDX guides; **Release Notes/** curated product prose (**no CHANGELOG.md**); **Status/** embeds `_audit/run.html` full-bleed
+- **Docs/** published operator documentation — nested **Start / Guides / Maintainers**, curated MDX for high-traffic pages, one sidebar story per tracked markdown page, and a Documentation Library iframe of `/docs/viewer.html` (EN·VI). Canonical prose remains `docs/*.md`; Storybook is the live reading surface. **Release Notes/** curated product prose (**no CHANGELOG.md**); **Status/** embeds `_audit/run.html` full-bleed
 - **Maintainer/** stories for portable HTML surfaces (Motion, templates, kitchen-sink, AI cluster, RTL; Atomic View buried for gates)
 - Same `styles.css` as production
 - Addons: `@storybook/addon-docs` + `@storybook/addon-a11y` (essentials folded into core in SB10)
@@ -40,7 +40,7 @@ Storybook **10** is the **product site** for operators on `design.cyberskill.wor
 | ESM (bundler) | `_esm/react.mjs` (default / `@cyberskill/design/react`) |
 | ESM (browser legacy) | `_esm/cs.mjs` (`@cyberskill/design/legacy`) |
 | Tokens | `tokens/*` |
-| Claude Design | `templates/**/*.dc.html` |
+| DC-capable authoring | `templates/**/*.dc.html` |
 
 ## Commands
 

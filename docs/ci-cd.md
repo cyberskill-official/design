@@ -1,6 +1,6 @@
 # CI/CD — automating the gate board
 
-**Release how-to (authoritative):** [`docs/release-runbook.md`](./release-runbook.md) — trigger → version → tag → npm OIDC → Vercel; SBOM + Scorecard; nightly failure alerting.
+**Release how-to (authoritative):** [`docs/release-runbook.md`](./release-runbook.md) — trigger → version → tag → npm OIDC → Vercel; SBOM + Scorecard; nightly failure alerting. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 **Gate CI** (this workflow) still treats the design system as a static tree: serve the repo, open `_audit/run.html` headlessly, read verdict globals. No product bundler is required for gates.
 

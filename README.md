@@ -6,25 +6,27 @@
 
 ## Start here
 
-This is the **entrance document** for the CyberSkill Design System — LAUNCHED **v1.1.0**; current **v1.3.8** (see `VERSION`). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves four independent axes — **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
+This is the **entrance document** for the CyberSkill Design System — LAUNCHED **v1.1.0**; current **v1.3.8** (see `VERSION`). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Operator documentation is published in the Storybook **Docs** sidebar (and the Documentation Library at `/docs/viewer.html`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves four independent axes — **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
 
 **Quick start by audience**
-- **Designers** — open Storybook (Foundations / Components / Maintainer surfaces) and the Templates picker (84 starting points, including the 37-document client-supplied Employment Suite). Flip Theme × Element × Language × Style live via the Storybook toolbar, Atomic View, and the Elements Geometry specimen.
+- **Designers** — open Storybook (Foundations / Components / Docs / Maintainer surfaces) and the Templates picker (84 starting points, including the 37-document client-supplied Employment Suite). Flip Theme × Element × Language × Style live via the Storybook toolbar, Atomic View, and the Elements Geometry specimen.
 
-- **Claude Code / Claude Design** — read `SKILL.md` (normative Hard rules + orientation), then the guide below; compose with `styles.css` + bundler `@cyberskill/design` (`_esm/react.mjs`) / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). DC `*.dc.html` templates only when the session has the compiler. Component contracts live beside each component (`.d.ts` + `.prompt.md`).
+- **DC-capable authoring** (Design Components compiler present) — read `SKILL.md` (normative Hard rules + orientation), then the guide below; compose with `styles.css` + bundler `@cyberskill/design` (`_esm/react.mjs`) / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). DC `*.dc.html` templates only when the session has the compiler. Component contracts live beside each component (`.d.ts` + `.prompt.md`).
 
-- **Google Stitch** — start at **`DESIGN.md`** (generated open-spec) → `llms.txt` → `tokens/tokens.dtcg.json`. Build **static** UI with `styles.css` + `.cs-*` / kitchen-sink / `examples/static-hello/`. **Do not** treat `templates/**/*.dc.html` as source of truth.
+- **Static / open-spec** (e.g. Google Stitch) — start at **`DESIGN.md`** (generated open-spec) → `llms.txt` → `tokens/tokens.dtcg.json`. Build **static** UI with `styles.css` + `.cs-*` / kitchen-sink / `examples/static-hello/`. **Do not** treat `templates/**/*.dc.html` as source of truth.
 
-- **Consuming projects** — npm package **`@cyberskill/design@1.3.8`** (see `docs/consuming.md`; grant in `docs/consumer-grant.md` — still UNLICENSED). **Next/SSR:** `import { Button } from "@cyberskill/design"` (peer React). **Browser demo:** **`examples/npm-hello/`** (Lumi · Hỏa · plasma, legacy `_esm/cs.mjs`). Or link **`styles.css`** from a clone/subtree (one file = everything), or copy a `templates/<slug>/` folder and edit one line in its `ds-base.js` (one-line rebind, validated end-to-end Jul 2026). Scope identity with `data-theme` · `data-cs-element` (+`data-cs-variant`) · `lang`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.3.8**; no CHANGELOG).
+- **Implementers** — npm package **`@cyberskill/design@1.3.8`** (see `docs/consuming.md`; grant in `docs/consumer-grant.md` — still UNLICENSED). **Next/SSR:** `import { Button } from "@cyberskill/design"` (peer React). **Browser demo:** **`examples/npm-hello/`** (Lumi · Hỏa · plasma, legacy `_esm/cs.mjs`). Or link **`styles.css`** from a clone/subtree (one file = everything), or copy a `templates/<slug>/` folder and edit one line in its `ds-base.js` (one-line rebind, validated end-to-end Jul 2026). Scope identity with `data-theme` · `data-cs-element` (+`data-cs-variant`) · `lang`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.3.8**; no CHANGELOG).
 
-**Document map — consumers**
+- **Maintainers** — `docs/doctrine.md` (expansion + verification), then `CONTRIBUTING.md` and `docs/quality-gates.md`.
+
+**Document map — consumers** (also on Storybook **Docs**)
 
 | Doc | What it answers |
 |---|---|
 | `README.md` (this file, below) | The full guide: anchors, voice, visual foundations, components, templates, index |
 | `DESIGN.md` | **This repo's** generated open-spec surface (Stitch-style) — doctrine + every token value + inventory, from DTCG; regenerate via `npm run build:design-md`. Do not hand-edit. |
 | `SKILL.md` | Agent entry — hard rules + fast orientation |
-| `docs/consuming.md` | Adopting & upgrading — Claude Code vs Stitch dual path, npm package name, axes, upgrade + extend |
+| `docs/consuming.md` | Adopting & upgrading — DC-capable vs static dual path, npm package name, axes, upgrade + extend |
 | `docs/consumer-grant.md` | Written npm consumer grant (CyberSkill portfolio; UNLICENSED + named products) |
 | `docs/conventions.md` | How to extend the system (naming grammar, checklists, the four axes) |
 | `docs/release-notes.md` | Curated product highlights (not a changelog) |
@@ -35,7 +37,7 @@ This is the **entrance document** for the CyberSkill Design System — LAUNCHED 
 | `docs/template-schema-v2.md` | Typed content-slot spec for templates — opt-in, machine-checkable |
 | `docs/deploy.md` | Deploying the live site — Vercel (zero-config) · generic VPS/nginx · post-deploy checklist |
 | `docs/live-hub.md` | Storybook at `/` is the product surface; surface map |
-| `docs/storybook.md` | Host Storybook product surface at `/` |
+| `docs/storybook.md` | Host Storybook product surface at `/` — Docs sidebar is the published reading surface |
 | `docs/figma.md` | Figma / Tokens Studio import recipe for consumers and maintainers |
 | `docs/vi/*.md` | Vietnamese mirror of every operator-facing `docs/*.md` (toggle EN\|VI in `docs/viewer.html`; entrance docs stay EN) |
 
@@ -43,6 +45,7 @@ This is the **entrance document** for the CyberSkill Design System — LAUNCHED 
 
 | Doc | What it answers |
 |---|---|
+| `docs/doctrine.md` | Expansion rule, verification depth, immutables (host files such as `CLAUDE.md` are shims) |
 | `docs/decisions.md` | Recorded owner decisions + open maintainer tasks (Code Connect deferred) |
 | `docs/ci-cd.md` | CI/CD automation — GitHub Actions workflow, headless gate runner, token-provenance pre-check, badge |
 | `docs/quality-gates.md` | Benchmark reference — every quality gate, what it asserts, pass criterion, where it runs |

@@ -1,10 +1,10 @@
-# Repo ↔ Claude Design — round-trip fidelity & đồng bộ hai chiều
+# Repo ↔ môi trường authoring — round-trip fidelity & đồng bộ hai chiều
 
-Repo GitHub (`cyberskill-official/design`) là **nguồn chân lý**. Session Claude Design là filesystem project tạm — tài liệu này nói cách chúng giữ sync mà không mất việc.
+Repo GitHub (`cyberskill-official/design`) là **nguồn chân lý**. Session compiler (ví dụ Claude Design) là filesystem project tạm — tài liệu này nói cách chúng giữ sync mà không mất việc. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 ## Repo có khôi phục nguyên hệ thống không?
 
-**Trong session Claude Design — có.** Mọi thứ định nghĩa hệ thống là file text/asset thuần và round-trip lossless:
+**Trong session compiler DC-capable — có.** Mọi thứ định nghĩa hệ thống là file text/asset thuần và round-trip lossless:
 - `styles.css` + `tokens/` + `base/` (mọi CSS + `tokens.json`/`tokens.js`)
 - `components/**` (`.jsx` + `.d.ts` + `.prompt.md` + `*.card.html`)
 - `templates/**/*.dc.html` (+ `ds-base.js`, `support.js`)
@@ -13,15 +13,15 @@ Repo GitHub (`cyberskill-official/design`) là **nguồn chân lý**. Session Cl
 - **`_esm/react.mjs`** — entry React bundler-native (export package mặc định; React peer). Regenerated qua `npm run build:react-entry`.
 - **`_esm/cs.mjs`** — entry ESM browser / no-build legacy (`@cyberskill/design/legacy`). Tiền tố underscore **không** nghĩa là build artifact hay gitignored ở đây (chỉ `uploads/`, `scraps/`, `_audit/exports/` là — xem Hygiene bên dưới); `_esm/` là source, cùng tầng với `templates/` hoặc `docs/`. Một lần port trước đã bỏ nó đúng vì giả định đó và làm gãy ESM smoke gate — nếu bạn port/copy cây này bằng tay, **explicit include mọi thư mục top-level danh sách này đặt tên**, đừng suy từ tiền tố `_`.
 
-- `README.md`, `CONTRIBUTING.md`, `SKILL.md`, `CLAUDE.md`, `VERSION`, `DESIGN.md` (open-spec surface generate — commit, chỉ regen qua `npm run build:design-md`, khóa bởi gate `design-md-parity`)
+- `README.md`, `CONTRIBUTING.md`, `SKILL.md`, `docs/doctrine.md`, shim host (`CLAUDE.md`), `VERSION`, `DESIGN.md` (open-spec surface generate — commit, chỉ regen qua `npm run build:design-md`, khóa bởi gate `design-md-parity`)
 
-Kéo chúng vào project mới (xem bên dưới) và compiler nhận lại như design system — nó khóa vào `styles.css`, cặp `.d.ts`/`.jsx`, HTML `@dsCard`, và `templates/`. File **derived** (`_ds_bundle.js`, `_ds_manifest.json`, `_adherence.oxlintrc.json`) được regenerate mỗi turn từ source, nên không cần tin từ repo — chúng rebuild.
+Kéo chúng vào project mới (xem bên dưới) và compiler nhận lại như design system — nó khóa vào `styles.css`, cặp `.d.ts`/`.jsx`, HTML `@dsCard`, và `templates/`. Artifact compile đã commit (`_ds_bundle.js`, `_ds_manifest.json`, `_adherence.oxlintrc.json`, `dist/styles.min.css`, `DESIGN.md`) là một phần hợp đồng consumer — giữ trong cây và regenerate bằng npm script đã ghi, đừng coi chúng là disposable.
 
-**Ở agent khác (Google Stitch, LLM tool generic) — một phần.** Chúng tiêu thụ được lớp **portable** — `tokens/tokens.json` + `tokens.js`, raw CSS, component `.jsx`, fonts, và Markdown docs — nhưng **không** hiểu format Design-Component `.dc.html` hay compiler điều khiển nó. Vậy agent non-Claude-Design nhận tokens, styles, và source component như file, không phải hành vi DC/tweak/compile live. Hướng những tool đó vào root **`DESIGN.md`** trước (open-spec kiểu Stitch generate: doctrine + mọi giá trị token + inventory, regen từ DTCG qua `npm run build:design-md` và khóa bởi gate `design-md-parity`), rồi `tokens.json` / `tokens.dtcg.json` và CSS cho hợp đồng máy; coi `.dc.html` + compiler là native Claude Design.
+**Ở agent khác (Google Stitch, LLM tool generic) — một phần.** Chúng tiêu thụ được lớp **portable** — `tokens/tokens.json` + `tokens.js`, raw CSS, component `.jsx`, fonts, và Markdown docs — nhưng **không** hiểu format Design-Component `.dc.html` hay compiler điều khiển nó. Vậy agent không-compiler nhận tokens, styles, và source component như file, không phải hành vi DC/tweak/compile live. Hướng những tool đó vào root **`DESIGN.md`** trước (open-spec kiểu Stitch generate: doctrine + mọi giá trị token + inventory, regen từ DTCG qua `npm run build:design-md` và khóa bởi gate `design-md-parity`), rồi `tokens.json` / `tokens.dtcg.json` và CSS cho hợp đồng máy; coi `.dc.html` + compiler là native DC.
 
 ## Đồng bộ hai chiều (repo = nguồn chân lý)
 
-Claude Design có thể **đọc/copy từ** GitHub nhưng **không push tới** nó. Vậy sync là *pull tự động, push thủ công*:
+Session compiler có thể **đọc/copy từ** GitHub nhưng thường **không push tới** nó. Vậy sync là *pull tự động, push thủ công*:
 **Bắt đầu session — pull (tin cậy, tự động):** bảo agent load repo. Nó copy cây vào project mới (đường `github_copy_files`), compiler validate, và bạn tiếp từ chân lý đã commit — không bao giờ từ project state cũ. Luôn bắt đầu đây; đừng resume từ project nửa nhớ.
 
 **Kết thúc session — push (thủ công, review):** tải project, rồi từ clone:

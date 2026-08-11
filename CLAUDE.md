@@ -1,14 +1,5 @@
-# CLAUDE.md — persistent project rules
+# CLAUDE.md
 
-**Expansion rule (owner-mandated, Jul 2026):** when anything in this design system grows — a new element/variant, icon, component, token role, language, or template pattern — propagate it to **every deliverable in the same change**:
+Design-system doctrine (expansion rule, verification depth, immutables) lives in **[docs/doctrine.md](docs/doctrine.md)**. Follow that file for any change to tokens, components, templates, or documentation.
 
-1. Tokens/source (`tokens/`, component `.jsx` + `.d.ts` + `.prompt.md`)
-2. Specimen cards (guidelines + the component group card) **and any related guideline pages**
-3. **All** templates (tweak enums, EL/EX maps, swept accents)
-4. UI kits — Thổ-faithful kit pages; axis demos via Storybook toolbar + Atomic View (Identity Lab retired)
-5. Docs: README (counts follow the compiler), SKILL.md, `docs/conventions.md`, **and every related document the change touches** (kit READMEs, `docs/products.md`, `docs/contrast-report.md` regeneration after token changes). **`VERSION` auto-bumps on push to `main`** from Conventional Commits (`.github/workflows/version.yml` → tag `v*` → `npm-publish.yml`); owner may still force a bump via `Release-As:` / `workflow_dispatch`. **Do not maintain a changelog** — LAUNCHED at **1.1.0**; pin tracks `VERSION`.
-6. **Browsable + health surfaces:** a new/changed component gets an **Atomic View** story in `guidelines/atomic-view.html` (plus a live **playground** if it has tweakable props — `_audit/story-coverage.html` enforces the story) and behavior coverage in `_audit/component-behavior-test.html` if interactive; any new axis, tool, or tab is wired into **`_audit/index.html`** and Storybook **Status** (full-bleed `_audit/run.html` — `dashboard.html` is redirect-only); and the matching deterministic **gate** is added or updated (`contrast-guard` for new colour rules, `token-contract` + the contrast matrix for tokens, `story-coverage` for components).
-
-Gate: `check_design_system` clean + **`_audit/run.html` (all fast gates) green** + **`docs-consistency` green** + a grep for the old enum/list to prove nothing was left behind. Documented scope boundaries (not gaps): UI-kit pages remain Thổ-faithful recreations; bilingual EN·VN covers emails + team/legal/finance docs (client/media collateral is EN-first); text never sits on the mid-tone `-accent`.
-
-**Verification depth (owner-mandated, Jul 2026): deep checks, never surface spot-checks.** When verifying anything, cover the **whole set and every relevant state** — not a sample. Prefer deterministic, programmatic scans that touch **every** item (e.g. en/vi key-parity + hole-coverage + leak scan across all templates; computed-style/overflow probes at every breakpoint via the `_audit/` harnesses using `__dcSetProps` for language and the `__dc_theme` postMessage for theme), then add representative *visual/export* confirmation on top. A few screenshots are evidence, not proof. Never call work verified because it was "spot-checked" when a complete check is feasible; if a full check truly isn't feasible, say so explicitly and state what was and wasn't covered. Language, theme, and responsive states each get their own pass — one language/width/theme rendering cleanly is not evidence for the others.
+CyberOS workflow (tasks, HITL, machine gates): `.cyberos/AGENT-ENTRY.md`. Memory protocol: `.cyberos/memory/AGENTS.md`.

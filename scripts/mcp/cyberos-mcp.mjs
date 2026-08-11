@@ -19,7 +19,7 @@ if (!existsSync(target)) {
   console.error(
     '[cyberos-mcp] CyberOS MCP runtime not installed (`.cyberos/` is gitignored). ' +
       'Fresh clone: leave the server disconnected, or run `cyberos install` and restart the agent host. ' +
-      'See `.mcp.json.example` and CONTRIBUTING.md.',
+      'See `.mcp.json` and CONTRIBUTING.md.',
   );
   process.exit(0);
 }

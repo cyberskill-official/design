@@ -1,0 +1,36 @@
+{
+  "generatedBy": "hand-maintained inventory for Storybook Docs + viewer coverage",
+  "entrance": [
+    { "path": "README.md", "story": "Docs/Start/README", "labelEn": "README", "labelVi": "README (EN)" },
+    { "path": "SKILL.md", "story": "Docs/Start/SKILL", "labelEn": "SKILL", "labelVi": "SKILL (EN)" },
+    { "path": "llms.txt", "story": "Docs/Start/llms.txt", "labelEn": "llms.txt", "labelVi": "llms.txt (EN)" },
+    { "path": "CONTRIBUTING.md", "story": "Docs/Start/Contributing", "labelEn": "Contributing", "labelVi": "Contributing (EN)" }
+  ],
+  "curated": [
+    { "story": "Docs/Start/Introduction", "mdx": "stories/Docs/Introduction.mdx" },
+    { "story": "Docs/Start/The Four Axes", "mdx": "stories/Docs/TheFourAxes.mdx" },
+    { "story": "Docs/Start/Voice & Language", "mdx": "stories/Docs/VoiceAndLanguage.mdx" },
+    { "story": "Docs/Start/Library" }
+  ],
+  "pages": [
+    { "path": "docs/consuming.md", "story": "Docs/Guides/Consuming", "mdx": "stories/Docs/Consuming.mdx", "labelEn": "Consuming & upgrading", "labelVi": "Tiêu thụ & nâng cấp" },
+    { "path": "docs/consumer-grant.md", "story": "Docs/Guides/Consumer grant", "labelEn": "Consumer grant (npm · UNLICENSED)", "labelVi": "Grant consumer (npm · UNLICENSED)" },
+    { "path": "docs/deploy.md", "story": "Docs/Guides/Deploy", "mdx": "stories/Docs/Deploy.mdx", "labelEn": "Deploy (Vercel/VPS)", "labelVi": "Deploy (Vercel/VPS)" },
+    { "path": "docs/template-schema-v2.md", "story": "Docs/Guides/Schema", "mdx": "stories/Docs/Schema.mdx", "labelEn": "Template content-schema v2", "labelVi": "Template schema v2" },
+    { "path": "docs/conventions.md", "story": "Docs/Guides/Conventions", "mdx": "stories/Docs/Conventions.mdx", "labelEn": "Conventions", "labelVi": "Conventions" },
+    { "path": "docs/release-notes.md", "story": "Release Notes/Overview", "mdx": "stories/ReleaseNotes/ReleaseNotes.mdx", "labelEn": "Release Notes", "labelVi": "Ghi chú phát hành" },
+    { "path": "docs/release-runbook.md", "story": "Docs/Guides/Release runbook", "labelEn": "Release runbook", "labelVi": "Runbook phát hành" },
+    { "path": "docs/storybook.md", "story": "Docs/Guides/Storybook", "labelEn": "Storybook (product at /)", "labelVi": "Storybook (sản phẩm tại /)" },
+    { "path": "docs/live-hub.md", "story": "Docs/Guides/Live hub", "labelEn": "Live hub (Storybook at /)", "labelVi": "Live hub (Storybook tại /)" },
+    { "path": "docs/design-styles.md", "story": "Docs/Guides/Design styles", "mdx": "stories/Docs/DesignStyles.mdx", "labelEn": "Design styles", "labelVi": "Phong cách" },
+    { "path": "docs/benchmark-rubric.md", "story": "Docs/Guides/Benchmark rubric", "labelEn": "Benchmark rubric", "labelVi": "Rubric benchmark" },
+    { "path": "docs/products.md", "story": "Docs/Guides/Products", "mdx": "stories/Docs/Products.mdx", "labelEn": "Products", "labelVi": "Sản phẩm" },
+    { "path": "docs/contrast-report.md", "story": "Docs/Guides/Contrast", "mdx": "stories/Docs/Contrast.mdx", "labelEn": "Contrast report", "labelVi": "Báo cáo contrast" },
+    { "path": "docs/figma.md", "story": "Docs/Guides/Figma", "mdx": "stories/Docs/Figma.mdx", "labelEn": "Figma", "labelVi": "Figma" },
+    { "path": "docs/doctrine.md", "story": "Docs/Maintainers/Doctrine", "labelEn": "Doctrine", "labelVi": "Học thuyết" },
+    { "path": "docs/decisions.md", "story": "Docs/Maintainers/Decisions", "labelEn": "Decisions", "labelVi": "Quyết định" },
+    { "path": "docs/ci-cd.md", "story": "Docs/Maintainers/CI/CD", "labelEn": "CI/CD automation", "labelVi": "CI/CD" },
+    { "path": "docs/quality-gates.md", "story": "Docs/Maintainers/Quality gates", "labelEn": "Quality gates", "labelVi": "Quality gates" },
+    { "path": "docs/sync.md", "story": "Docs/Maintainers/Sync", "labelEn": "Git sync & hygiene", "labelVi": "Đồng bộ Git" }
+  ]
+}

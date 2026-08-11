@@ -20,7 +20,7 @@ Storybook **10** là **site sản phẩm** cho operator trên `design.cyberskill
   - Mọi option enum `size` / `variant` rời rạc được mount trong story họ matrix
   - `FullMatrix` khi ≥1 trong {size enums, variant enums, state keys} tồn tại — tích size × variant × key-state qua helper chung `stories/lib/matrix.jsx`
 - Toolbar globals: Theme (light · dark · **system**) × Element × Language × Style (cùng trục với template / Atomic View). Element liệt kê **đủ 15** pack Ngũ Hành (`tokens.elements` / EL map template / Storybook toolbar) — không phải tập con. Pack Style duy nhất là **liquid-glass**.
-- **Docs/** hướng dẫn MDX công khai; **Release Notes/** prose sản phẩm curated (**không CHANGELOG.md**); **Status/** nhúng `_audit/run.html` full-bleed
+- **Docs/** tài liệu operator đã xuất bản — lồng **Start / Guides / Maintainers**, MDX curated cho trang traffic cao, một story sidebar mỗi trang markdown tracked, và iframe Thư viện tài liệu `/docs/viewer.html` (EN·VI). Prose chuẩn vẫn là `docs/*.md`; Storybook là bề mặt đọc sống. **Release Notes/** prose sản phẩm curated (**không CHANGELOG.md**); **Status/** nhúng `_audit/run.html` full-bleed
 - Story **Maintainer/** cho bề mặt HTML portable (Motion, templates, kitchen-sink, AI cluster, RTL; Atomic View chôn cho gates)
 - Cùng `styles.css` như production
 - Addon: `@storybook/addon-docs` + `@storybook/addon-a11y` (essentials gộp vào core ở SB10)
@@ -40,7 +40,7 @@ Storybook **10** là **site sản phẩm** cho operator trên `design.cyberskill
 | ESM (bundler) | `_esm/react.mjs` (mặc định / `@cyberskill/design/react`) |
 | ESM (browser legacy) | `_esm/cs.mjs` (`@cyberskill/design/legacy`) |
 | Tokens | `tokens/*` |
-| Claude Design | `templates/**/*.dc.html` |
+| DC-capable authoring | `templates/**/*.dc.html` |
 
 ## Lệnh
 

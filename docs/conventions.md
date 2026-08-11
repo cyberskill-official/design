@@ -1,6 +1,6 @@
 # Conventions — authoring the CyberSkill DS
 
-For humans and agents *extending this system*. (Consumers: read `SKILL.md`.) The compiler is the source of truth for counts; prose describes shape, never numbers.
+For humans and agents *extending this system*. (Consumers: read `SKILL.md`.) Expansion and verification doctrine: `docs/doctrine.md`. The compiler is the source of truth for counts; prose describes shape, never numbers. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 ## The expansion rule
 

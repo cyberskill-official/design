@@ -1,6 +1,6 @@
 # Grant consumer — `@cyberskill/design`
 
-**Trạng thái: có hiệu lực** (Th7 2026). Văn bản chính sách — không phải secret. License trên package vẫn **UNLICENSED**; grant này là lớp duyệt dùng trong các sản phẩm đã nêu.
+**Trạng thái: có hiệu lực** (Th7 2026). Văn bản chính sách — không phải secret. License trên package vẫn **UNLICENSED**; grant này là lớp duyệt dùng trong các sản phẩm đã nêu. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 ## Grant
 

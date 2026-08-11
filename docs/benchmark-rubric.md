@@ -1,6 +1,6 @@
 # Design System Benchmark Rubric
 
-Self-audit checklist for evolving CyberSkill Design System — external standards plus CDS-owned rules. Pair with [`docs/quality-gates.md`](quality-gates.md) (deterministic gates) and [`docs/design-styles.md`](design-styles.md) (Element colour contract).
+Self-audit checklist for evolving CyberSkill Design System — external standards plus CDS-owned rules. Pair with [`docs/quality-gates.md`](quality-gates.md) (deterministic gates) and [`docs/design-styles.md`](design-styles.md) (Element colour contract). Published on Storybook **Docs** at `design.cyberskill.world`.
 
 ## External standards
 
@@ -22,7 +22,7 @@ Self-audit checklist for evolving CyberSkill Design System — external standard
 | Text never on mid `-accent`; Ochre focus ring never remapped; status colours never remapped | `elements.css` contract · contrast-report · conventions |
 | One element per surface; Tương sinh gradients only | products registry · conventions |
 | Product→element registry locked; UI kits Thổ-faithful | [`docs/products.md`](products.md) |
-| Expansion Rule completeness + `_audit/run.html` green + docs EN·VI parity | CLAUDE.md · docs-consistency · docs-lang-parity |
+| Expansion Rule completeness + `_audit/run.html` green + docs EN·VI parity | `docs/doctrine.md` · docs-consistency · docs-lang-parity · docs-storybook-coverage |
 | VERSION tracks file (LAUNCHED 1.1.0; auto-bump on main) | version-stamp · docs-consistency |
 | Element packs from seeds only (30 sets) | `element-geometry` · `tokens:elements` |
 

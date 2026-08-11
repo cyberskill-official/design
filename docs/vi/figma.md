@@ -1,5 +1,7 @@
 # Figma / Tokens Studio — ghi chú
 
+
+Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 ## Những gì ship trong repo
 - Design tokens dạng CSS + DTCG (`tokens/tokens.dtcg.json`) kèm mirror native Swift/Kotlin/Flutter.
 - UI kits dưới `ui_kits/` là tái tạo HTML giữ pixel-faithful theo doctrine brand (kit Thổ-first; demo trục ở Storybook / Atomic View).

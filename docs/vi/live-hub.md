@@ -8,7 +8,7 @@
 
 | Nhóm | Vai trò |
 |---|---|
-| **Docs** | Hướng dẫn MDX công khai (consuming, deploy, conventions, styles, products, schema, Figma, contrast, voice, axes) |
+| **Docs** | Docs operator đã xuất bản: **Start** (Introduction, README, SKILL, Contributing, llms, Library) · **Guides** (consuming, grant, deploy, schema, conventions, styles, products, Figma, contrast, storybook, live-hub, runbook phát hành, benchmark, …) · **Maintainers** (học thuyết, decisions, CI/CD, quality gates, sync). MDX curated cộng một mục sidebar mỗi trang tracked. EN·VI qua Thư viện tài liệu (`/docs/viewer.html`) |
 | **Foundations** | Colors, typography, spacing, elevation, motion, elements |
 | **Components** | Thư viện CSF đầy đủ |
 | **Release Notes** | Prose sản phẩm curated (**không CHANGELOG.md**) |

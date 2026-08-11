@@ -18,7 +18,7 @@
 </style>
 </head><body>
 <h1><b>CyberSkill</b> · Docs-consistency check</h1>
-<p class="sub">Asserts every count claim in the live docs matches <code>_ds_manifest.json</code>, that audit prose card-count claims (<code>_audit/index.html</code> / <code>_audit/README.md</code> / namespace-portability) match <code>manifest.cards</code>, that <code>VERSION</code> is semver and <code>package.json</code> matches it (LAUNCHED at 1.1.0; auto-bump on <code>main</code>), that live entrance docs do not reintroduce <code>CHANGELOG.md</code>, that a <b>stale-phrase blacklist</b> (retired suite/pack counts plus three-axis leftovers such as "Ba trục" / "Theme × Element × Language" without Style) stays out of README / SKILL / llms.txt / <code>docs/*.md</code>, that the generated root <code>DESIGN.md</code> exists with its front-matter version matching <code>VERSION</code>, that <b>agent routing stays honest</b> (Claude path cites <code>_esm/cs.mjs</code> + bundle prefix; Stitch path forbids treating <code>*.dc.html</code> as SoT; package name is <code>@cyberskill/design</code>), and that <b>doctrine matches source</b> — README/SKILL role-token list (10 incl. <code>on-strong</code>), depth-scale tiers, documented default lang vs <code>components/_i18n/i18n.js</code>, breakpoint token CSS↔JSON parity, and <code>base/</code> depth fallbacks vs <code>tokens/elevation.css</code>. Historical audit notes live under <code>_audit/archive/</code> (not scanned). Verdict on <code>window.__docs</code>.</p>
+<p class="sub">Asserts every count claim in the live docs matches <code>_ds_manifest.json</code>, that audit prose card-count claims (<code>_audit/index.html</code> / <code>_audit/README.md</code> / namespace-portability) match <code>manifest.cards</code>, that <code>VERSION</code> is semver and <code>package.json</code> matches it (LAUNCHED at 1.1.0; auto-bump on <code>main</code>), that live entrance docs do not reintroduce <code>CHANGELOG.md</code>, that a <b>stale-phrase blacklist</b> (retired suite/pack counts plus three-axis leftovers such as "Ba trục" / "Theme × Element × Language" without Style) stays out of README / SKILL / llms.txt / <code>docs/*.md</code>, that the generated root <code>DESIGN.md</code> exists with its front-matter version matching <code>VERSION</code>, that <b>agent routing stays honest</b> (SKILL/llms cite <code>_esm/cs.mjs</code> + bundle prefix; Stitch path forbids treating <code>*.dc.html</code> as SoT; package name is <code>@cyberskill/design</code>), and that <b>doctrine matches source</b> — README/SKILL role-token list (10 incl. <code>on-strong</code>), depth-scale tiers, documented default lang vs <code>components/_i18n/i18n.js</code>, breakpoint token CSS↔JSON parity, and <code>base/</code> depth fallbacks vs <code>tokens/elevation.css</code>. Historical audit notes live under <code>_audit/archive/</code> (not scanned). Verdict on <code>window.__docs</code>.</p>
 <div id="report">running…</div>
 <div id="truth" class="truth"></div>
 <script>
@@ -29,7 +29,7 @@ function ctx(s, i, n){ return s.slice(Math.max(0,i-4), i+n+18).replace(/\s+/g," 
 (async () => { window.__gateProgress={current:'fetch',done:0,total:3};
   // docs/*.md snapshot for the stale-phrase blacklist (operator docs only; _audit/archive/ not scanned).
   const DOCS_MD = ['docs/benchmark-rubric.md','docs/ci-cd.md','docs/consuming.md','docs/consumer-grant.md','docs/contrast-report.md',
-    'docs/conventions.md','docs/decisions.md','docs/deploy.md','docs/design-styles.md',
+    'docs/conventions.md','docs/decisions.md','docs/deploy.md','docs/design-styles.md','docs/doctrine.md',
     'docs/figma.md','docs/live-hub.md','docs/products.md','docs/quality-gates.md','docs/release-notes.md','docs/release-runbook.md',
     'docs/storybook.md','docs/sync.md','docs/template-schema-v2.md'];
   const SOURCE = [
@@ -185,8 +185,8 @@ function ctx(s, i, n){ return s.slice(Math.max(0,i-4), i+n+18).replace(/\s+/g," 
     || (/Stitch/i.test(stitchSurfaces) && /\*\.?dc\.html/i.test(stitchSurfaces) && /source of truth|SoT|không/i.test(stitchSurfaces));
   step('Stitch path forbids *.dc.html as SoT (SKILL / llms / DESIGN.md / consuming)', stitchDcBan,
     stitchDcBan ? '' : 'missing explicit Stitch must-not-consume *.dc.html warning');
-  step('Claude path cites _esm/cs.mjs in SKILL.md', /_esm\/cs\.mjs/.test(skill), /_esm\/cs\.mjs/.test(skill) ? '' : 'missing _esm/cs.mjs');
-  step('Claude path cites bundle prefix resolve (SKILL or llms)', /CyberSkillDesignSystem_/.test(skill + '\n' + llms), '');
+  step('SKILL.md cites _esm/cs.mjs', /_esm\/cs\.mjs/.test(skill), /_esm\/cs\.mjs/.test(skill) ? '' : 'missing _esm/cs.mjs');
+  step('SKILL or llms cite bundle prefix resolve', /CyberSkillDesignSystem_/.test(skill + '\n' + llms), '');
   const pkgNameOk = readme.includes('@cyberskill/design') && consuming.includes('@cyberskill/design')
     && !/(?:^|[^\w-])npm install @cyberskill\/react\b/.test(readme + '\n' + consuming);
   step('package name @cyberskill/design (README + consuming; no @cyberskill/react install)', pkgNameOk, '');

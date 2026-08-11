@@ -1,6 +1,6 @@
 # Conventions — authoring CyberSkill DS
 
-Cho người và agent *mở rộng hệ thống này*. (Consumer: đọc `SKILL.md`.) Compiler là nguồn chân lý cho đếm; prose mô tả hình dạng, không bao giờ số.
+Cho người và agent *mở rộng hệ thống này*. (Consumer: đọc `SKILL.md`.) Học thuyết mở rộng và kiểm chứng: `docs/doctrine.md`. Compiler là nguồn chân lý cho đếm; prose mô tả hình dạng, không bao giờ số. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 ## Quy tắc expansion
 

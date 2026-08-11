@@ -1,6 +1,6 @@
 # Runbook phát hành (chuẩn)
 
-Một trang về cách một bản phát hành diễn ra và cách biết nó đã thành công. Gộp các vùng 21/23. Chi tiết liên quan: `docs/ci-cd.md`, `docs/deploy.md`, `docs/decisions.md` §7 / §13.
+Một trang về cách một bản phát hành diễn ra và cách biết nó đã thành công. Gộp các vùng 21/23. Chi tiết liên quan: `docs/ci-cd.md`, `docs/deploy.md`, `docs/decisions.md` §7 / §13. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 ## Kích hoạt
 

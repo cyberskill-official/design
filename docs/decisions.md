@@ -1,6 +1,6 @@
 # Decisions (maintainer)
 
-Owner choices that shape CI, Figma sync, and distribution. How-tos live in `docs/figma.md` and `docs/ci-cd.md` — this file is the decision record only. Not a consumer guide.
+Owner choices that shape CI, Figma sync, and distribution. How-tos live in `docs/figma.md` and `docs/ci-cd.md` — this file is the decision record only. Not a consumer guide. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 ## 1. Whole-set audits on every PR
 

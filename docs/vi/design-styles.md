@@ -1,6 +1,6 @@
 # Phong cách thiết kế
 
-Các trục styling sống là **Theme × Element × Language × Style**. Pack Style duy nhất hôm nay là **liquid-glass** (vắng `data-cs-style` ≡ liquid-glass — cùng pattern mặc định với light theme / Thổ middle).
+Các trục styling sống là **Theme × Element × Language × Style**. Pack Style duy nhất hôm nay là **liquid-glass** (vắng `data-cs-style` ≡ liquid-glass — cùng pattern mặc định với light theme / Thổ middle). Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 | Trục | Cách đặt | Thay đổi gì |
 |---|---|---|

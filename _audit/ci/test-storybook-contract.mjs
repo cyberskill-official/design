@@ -134,8 +134,11 @@ assert(/Release Notes|Status/i.test(liveHub), 'docs mention Release Notes / Stat
 
 const previewSort = readFileSync(join(root, '.storybook/preview.jsx'), 'utf8');
 assert(previewSort.includes("'Docs'") && previewSort.includes("'Release Notes'") && previewSort.includes("'Status'"), 'storySort has Docs / Release Notes / Status');
+assert(previewSort.includes("'Start'") && previewSort.includes("'Guides'") && previewSort.includes("'Maintainers'"), 'storySort has Docs Start / Guides / Maintainers');
+assert(previewSort.includes("'Library'") && previewSort.includes("'Doctrine'"), 'storySort has Docs Library + Doctrine');
 assert(previewSort.includes("'Maintainer'"), 'storySort buries Maintainer (Atomic View)');
 assert(!previewSort.includes("'Guidelines'"), 'Guidelines merged into Docs');
+assert(main.includes("from: '../docs'") || main.includes('to: \'/docs\''), 'staticDirs publish docs/');
 
 const statusStory = readFileSync(join(root, 'stories/Status/Status.stories.jsx'), 'utf8');
 assert(statusStory.includes('/_audit/run.html'), 'Status story embeds run.html');

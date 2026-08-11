@@ -1,6 +1,6 @@
 # Consumer grant — `@cyberskill/design`
 
-**Status: in force** (Jul 2026). Policy text — not a secret. License on the package remains **UNLICENSED**; this grant is the approval layer for use in named products.
+**Status: in force** (Jul 2026). Policy text — not a secret. License on the package remains **UNLICENSED**; this grant is the approval layer for use in named products. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 ## Grant
 
