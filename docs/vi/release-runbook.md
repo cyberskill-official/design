@@ -61,7 +61,7 @@ Dùng khi git/`VERSION`/site đi trước npm `dist-tags.latest` (ví dụ tip `
 
 1. **Xác nhận lệch** — `cat VERSION`; `npm view @cyberskill/design version`; `npm view @cyberskill/design dist-tags.latest`; ghi nhận tag git `v1.2.1` / `v1.3.0` / `v1.3.1` là lịch sử vs mục tiêu publish.
 2. **Không** coi soft-skip xanh của `npm-publish` (hay proof pack local xanh của `npm-hello`) là bằng chứng VERSION đã public — smoke fail-closed; lỗi auth publish hard-fail trên GHA.
-3. **Sửa Trusted Publisher** nếu cần — cấu hình npm package phải liệt kê org/repo **`cyberskill-official/design`**, workflow **`npm-publish.yml`**, và đúng environment (FIND-088). Classic `NPM_TOKEN` bị cấm.
+3. **Sửa Trusted Publisher** nếu cần — cấu hình npm package phải liệt kê org/repo **`cyberskill-official/design`**, workflow **`npm-publish.yml`**, và đúng environment (FIND-088). Classic `NPM_TOKEN` bị cấm. CI dùng userconfig OIDC sạch (không `_authToken` rỗng từ `actions/setup-node`) để Trusted Publishing đổi token OIDC GitHub.
 4. **Publish có cổng operator** — chỉ sau chỉ thị tường minh: chạy lại `npm-publish.yml` trên tag **`v1.3.1`** (hoặc `workflow_dispatch` tại tip đó). Mục tiêu publish là **chỉ `1.3.1`**; không backfill `1.2.1` / `1.3.0`.
 5. **Xác minh** — `npm view @cyberskill/design@1.3.1 version` và `dist-tags.latest` đều `1.3.1`; chạy lại `npm-hello-smoke` (hoặc chờ lần gates kế) tới xanh.
 6. **Rollback / deprecate (nếu bản xấu đã lên `latest`)** — `npm deprecate @cyberskill/design@<bad> "…"` và/hoặc `npm dist-tag add @cyberskill/design@<good> latest`. npm thường không cho unpublish bản public gần đây — ưu tiên deprecate + retag `latest`. Rollback site/Vercel độc lập (`docs/deploy.md`).

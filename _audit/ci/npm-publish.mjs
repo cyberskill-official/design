@@ -16,7 +16,8 @@
  * 402 are hard_fail (same as 403 / EOTP). A successful publish is followed by
  * `npm view <name>@<version>` plus `dist-tags.latest === VERSION` (FIND-094).
  */
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -91,6 +92,48 @@ export function preferOidcPublish(env = process.env) {
   return Boolean(env.GITHUB_ACTIONS) && !(env.NPM_TOKEN || '').trim();
 }
 
+
+/**
+ * Prefer the last N characters of npm output — prepublishOnly floods the head
+ * and used to hide the real ERR! line from reports (FIND-088 debug).
+ * @param {string} text
+ * @param {number} [max]
+ */
+export function npmErrorSnippet(text, max = 1200) {
+  const s = String(text || '');
+  if (s.length <= max) return s;
+  return s.slice(-max);
+}
+
+/**
+ * setup-node registry-url writes `_authToken=${NODE_AUTH_TOKEN}` + always-auth.
+ * An empty/missing token counts as "auth configured" and blocks Trusted Publishing
+ * OIDC exchange, which npm surfaces as 404 Not Found on PUT.
+ * @param {NodeJS.ProcessEnv} env
+ * @returns {{ env: NodeJS.ProcessEnv, userconfig: string | null }}
+ */
+export function oidcPublishEnv(env = process.env) {
+  const next = { ...env };
+  delete next.NODE_AUTH_TOKEN;
+  delete next.NPM_TOKEN;
+  // Avoid inheriting a tokenized userconfig from actions/setup-node.
+  delete next.NPM_CONFIG_USERCONFIG;
+  delete next.npm_config_userconfig;
+  const dir = mkdtempSync(join(tmpdir(), 'cs-npm-oidc-'));
+  const userconfig = join(dir, '.npmrc');
+  writeFileSync(
+    userconfig,
+    [
+      'registry=https://registry.npmjs.org/',
+      // Explicitly no _authToken / always-auth — OIDC trusted publishing only.
+      '',
+    ].join('\n'),
+  );
+  next.NPM_CONFIG_USERCONFIG = userconfig;
+  return { env: next, userconfig };
+}
+
+
 function parseNpmJsonStdout(stdout) {
   const trimmed = (stdout || '').trim();
   try {
@@ -163,7 +206,7 @@ function softSkip(reason, detail) {
   console.error('');
   console.error(`SOFT SKIP — npm publish (${reason}).`);
   if (detail) console.error(detail);
-  console.error('CI: configure npm Trusted Publisher for npm-publish.yml (OIDC). Package disallows classic tokens — local interactive: npm publish --otp. See docs/ci-cd.md.');
+  console.error('CI: Trusted Publisher must bind cyberskill-official/design + workflow npm-publish.yml (FIND-088). Package disallows classic tokens — local interactive: npm publish --otp. See docs/release-runbook.md.');
   writeReport({ skipped: true, reason, message: detail || reason, channel: 'npm-publish' });
   recordCiVerdict({ channel: 'npm-publish', kind: 'soft_skip', reason, detail });
   process.exit(0);
@@ -173,6 +216,9 @@ function hardFail(reason, detail, extra = {}) {
   console.error('');
   console.error(`FAIL — npm publish (${reason}).`);
   if (detail) console.error(detail);
+  if (reason === 'not_found_404' || reason === 'need_auth') {
+    console.error('Remediation (FIND-088): on npmjs.com → @cyberskill/design → Trusted Publishers, set GitHub org/repo cyberskill-official/design and workflow filename npm-publish.yml (no GitHub Environment unless the job sets environment:). Re-run the tag workflow after saving. Do not set NPM_TOKEN / NODE_AUTH_TOKEN.');
+  }
   writeReport({ skipped: false, ok: false, reason, message: detail || reason, channel: 'npm-publish', ...extra });
   recordCiVerdict({ channel: 'npm-publish', kind: 'hard_fail', reason, detail });
   process.exit(1);
@@ -263,14 +309,15 @@ function main() {
     softSkip('missing_secrets', 'Not on GitHub Actions OIDC — no publish attempted (package disallows classic tokens).');
   }
 
-  // For OIDC: do not inject NODE_AUTH_TOKEN (forces classic auth / EOTP).
+  // For OIDC: strip setup-node tokenized userconfig + NODE_AUTH_TOKEN so the CLI
+  // can exchange the GitHub OIDC token (empty _authToken otherwise → 404).
   // Token env is legacy-only and will fail under "disallow tokens"; 403/EOTP fail closed.
-  const env = { ...process.env };
+  let env;
   if (oidc) {
-    delete env.NODE_AUTH_TOKEN;
-    delete env.NPM_TOKEN;
-    console.log('Auth mode: Trusted Publishing (OIDC) — no NPM_TOKEN');
+    ({ env } = oidcPublishEnv(process.env));
+    console.log('Auth mode: Trusted Publishing (OIDC) — no NPM_TOKEN (clean userconfig)');
   } else {
+    env = { ...process.env };
     env.NODE_AUTH_TOKEN = token;
     env.NPM_TOKEN = token;
     console.log('Auth mode: NPM_TOKEN (likely rejected — package disallows tokens)');
@@ -283,17 +330,18 @@ function main() {
     shell: process.platform === 'win32',
   });
   const combined = `${pub.stdout || ''}\n${pub.stderr || ''}`;
+  const snippet = npmErrorSnippet(combined);
   const auth = oidc ? 'oidc' : 'token';
   if (pub.status !== 0) {
     const classified = classifyNpmPublishError(combined, { ghaRelease, env: process.env });
     if (classified.kind === 'soft_skip') {
-      softSkip(classified.reason, combined.slice(0, 800));
+      softSkip(classified.reason, snippet);
     }
     if (classified.kind === 'hard_fail') {
-      hardFail(classified.reason, combined.slice(0, 800), { auth });
+      hardFail(classified.reason, snippet, { auth });
     }
     console.error(combined);
-    writeReport({ skipped: false, ok: false, message: combined.slice(0, 800), auth });
+    writeReport({ skipped: false, ok: false, message: snippet, auth });
     process.exit(pub.status || 1);
   }
   console.log(pub.stdout);
