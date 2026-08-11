@@ -8,7 +8,7 @@ If the user invokes this skill without any other guidance, ask them what they wa
 
 ## Fast orientation
 
-**Which front door?** **Claude Code / Claude Design** → this `SKILL.md` → `README.md` → portable runtime (`styles.css`, bundler `_esm/react.mjs` / legacy `_esm/cs.mjs`, `_ds_bundle.js` with prefix resolve) and optionally DC templates when the session has the compiler. **Google Stitch (and other DESIGN.md readers)** → root `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` + static `.cs-*` HTML — **never** treat `templates/**/*.dc.html` as source of truth (no tweaks / `__dcSetProps` / DC runtime outside Claude Design). Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.3.7**; no CHANGELOG).
+**Which front door?** **Claude Code / Claude Design** → this `SKILL.md` → `README.md` → portable runtime (`styles.css`, bundler `_esm/react.mjs` / legacy `_esm/cs.mjs`, `_ds_bundle.js` with prefix resolve) and optionally DC templates when the session has the compiler. **Google Stitch (and other DESIGN.md readers)** → root `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` + static `.cs-*` HTML — **never** treat `templates/**/*.dc.html` as source of truth (no tweaks / `__dcSetProps` / DC runtime outside Claude Design). Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.3.8**; no CHANGELOG).
 
 - **`README.md`** — the entrance + design guide + manifest: anchor immutables, CONTENT FUNDAMENTALS (voice = warm/direct/honest/respectful, Vietnamese-first, the "wish" metaphor), VISUAL FOUNDATIONS, ICONOGRAPHY, and the component/kit index. Read it first.
 
