@@ -25,6 +25,13 @@ async function fetchRaw(path){
   if(/^\s*<(!doctype|html)/i.test(t) && !/\.html$/i.test(path)) return {ok:false,text:'',err:'got HTML'};
   return {ok:true,text:t,err:null};
 }
+/** Existence only. `npx serve` returns HTTP 200 + an HTML listing for directories, which fetchRaw would reject as "got HTML". */
+async function existsRaw(path){
+  const probe=async(p)=>{ const r=await fetch('../'+p,{cache:'no-store'}); return r.ok; };
+  if(await probe(path)) return true;
+  if(!path.endsWith('/')) return probe(path+'/');
+  return false;
+}
 const RETIRED=[/status\.html(?![-\w])/i,/status-legacy\.html/i,/guidelines\/identity-lab/i,/identity-lab\.html/i];
 function dirname(p){ const i=p.lastIndexOf('/'); return i<0?'':p.slice(0,i); }
 function joinRel(fromDir, href){
@@ -71,8 +78,7 @@ function joinRel(fromDir, href){
       if(/[<>{}]/.test(clean)) continue;
       if(/^(https?:|mailto:|data:)/i.test(clean)) continue;
       const target=clean.startsWith('/') ? clean.replace(/^\/+/,'') : joinRel(dirname(rel), clean);
-      const got=await fetchRaw(target);
-      if(!got.ok) problems.push(rel+': broken '+href+' → '+target);
+      if(!(await existsRaw(target))) problems.push(rel+': broken '+href+' → '+target);
     }
   }
   P.done=scanned;

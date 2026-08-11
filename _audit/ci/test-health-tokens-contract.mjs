@@ -28,6 +28,8 @@ assert(gateFiles.includes('asset-weight-budget.html'), 'asset-weight-budget on f
 assert(gateFiles.includes('docs-consistency.html'), 'docs-consistency on fast board');
 assert(gateFiles.includes('docs-storybook-coverage.html'), 'docs-storybook-coverage on fast board');
 assert(gateFiles.includes('docs-link-check.html'), 'docs-link-check on fast board');
+const linkCheck = readFileSync(join(root, '_audit/docs-link-check.html'), 'utf8');
+assert(linkCheck.includes('existsRaw'), 'HTML link check probes directory 200s (serve listings)');
 // Row open links are built dynamically: href="./'+g.file+'"
 assert(run.includes("href=\"./\"+g.file+\"") || run.includes("href=\"./'+g.file+'\""), 'open href uses g.file');
 assert(run.includes('class="open"'), 'open class on gate rows');
