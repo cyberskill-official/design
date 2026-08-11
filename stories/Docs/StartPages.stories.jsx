@@ -2,9 +2,10 @@ import React from 'react';
 import { IframeSurface } from '../Maintainer/IframeSurface.jsx';
 
 function Page({ path, title }) {
+  // Per-page stories hide viewer chrome (?embed=1). Library keeps it (EN·VI + search).
   return (
     <IframeSurface
-      src={path ? `/docs/viewer.html#${path}` : '/docs/viewer.html'}
+      src={path ? `/docs/viewer.html?embed=1#${path}` : '/docs/viewer.html'}
       title={title}
       fullBleed
     />

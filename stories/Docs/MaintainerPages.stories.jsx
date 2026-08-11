@@ -3,7 +3,7 @@ import { IframeSurface } from '../Maintainer/IframeSurface.jsx';
 
 function Page({ path, title }) {
   return (
-    <IframeSurface src={`/docs/viewer.html#${path}`} title={title} fullBleed />
+    <IframeSurface src={`/docs/viewer.html?embed=1#${path}`} title={title} fullBleed />
   );
 }
 
