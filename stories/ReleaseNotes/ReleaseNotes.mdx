@@ -4,9 +4,25 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Release Notes
 
-Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. Version is **LAUNCHED at 1.1.0**; current pin is **1.3.9** (further bumps need an owner instruction); technical continuity is the repo tip, and product-facing continuity is this page.
+Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. Current pin is **1.3.9** (auto-bumps on `main`; first LAUNCH was **1.1.0**). Technical continuity is the repo tip; product-facing continuity is this page.
 
 ---
+
+## Release — `@cyberskill/design@1.3.9`
+
+Operator docs ship through the Storybook **Docs** sidebar (doctrine home, EN·VI tracked set, docs↔Storybook coverage + link gates). Live Status HTML gates check **published** surfaces only; Node twins still prove CSF/MDX source. Per-page Docs stories pass `?embed=1` so the Documentation Library chrome stays hidden inside Storybook (standalone `/docs/viewer.html` unchanged).
+
+```bash
+npm install @cyberskill/design@1.3.9
+```
+
+## Release — `@cyberskill/design@1.3.0`
+
+Assessment remediation Phases 0–5 and gap closure (TASK-IMP-001…021): contrast, pack-contract, overlay manager, zoom/CQ gates, and related Storybook / template polish.
+
+## Release — `@cyberskill/design@1.2.0`
+
+`VERSION` **auto-bumps on `main`** (Conventional Commits → tag `v*` → Trusted Publishing). Owner may still force a bump. Curated continuity stays here — still **no** root `CHANGELOG.md`.
 
 ## Patch — `@cyberskill/design@1.1.1`
 
@@ -51,5 +67,4 @@ CSS tokens, DTCG (`tokens/tokens.dtcg.json`), and pre-generated SwiftUI / Compos
 ## What we never ship
 
 - A root **`CHANGELOG.md`** (forbidden by doctrine and docs-consistency)
-- A VERSION bump without an explicit owner decision
 - Storybook as a consumer dependency

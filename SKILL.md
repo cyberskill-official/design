@@ -63,7 +63,7 @@ Every artifact exports, all paths preserving Vietnamese Unicode (see `docs/conve
 
 - Voice stays warm/direct/honest/respectful — never fun/playful/edgy. Products are "wishes" that Lumi helps grant.
 
-- Expansion rule: when any set grows (element/variant, icon, component, language), update every deliverable in the same change — tokens, cards + related guidelines, contract trio, all template enums, Storybook toolbar / Atomic View, docs incl. every related document/README — and grep the old list to prove it. Full text: `docs/doctrine.md`. Version is LAUNCHED at **1.1.0**; pin tracks `VERSION` (auto-bump on `main`; owner may still force a bump; no changelog).
+- Expansion rule: when any set grows (element/variant, icon, component, language), update every deliverable in the same change — tokens, cards + related guidelines, contract trio, all template enums, Storybook toolbar / Atomic View, docs incl. every related document/README — and grep the old list to prove it. Full text: `docs/doctrine.md`. Current pin tracks `VERSION` (auto-bump on `main`; owner may still force a bump; first LAUNCH was **1.1.0**; no changelog).
 
 - **Stitch / non-DC tools must not consume `*.dc.html` as source of truth.** Those files need the Design Components compiler (tweaks, `x-import`, `__dcSetProps`). Generate static UI from `DESIGN.md` / DTCG / `styles.css` + `.cs-*` / kitchen-sink / `examples/static-hello/` instead. DC authoring requires a compiler session (Claude Design, or a full clone with the compiler).
 

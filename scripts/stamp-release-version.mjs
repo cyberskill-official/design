@@ -42,7 +42,11 @@ const HISTORICAL_OK = [
   /\*\*LAUNCH\s+`@cyberskill\/design@\d+\.\d+\.\d+`\*\*/gi,
   /Trạng thái:\s*LAUNCH\s+`@cyberskill\/design@\d+\.\d+\.\d+`/gi,
   /##\s+Patch\s+[—–-]\s+`@cyberskill\/design@\d+\.\d+\.\d+`/g,
+  /##\s+Release\s+[—–-]\s+`@cyberskill\/design@\d+\.\d+\.\d+`/g,
   /##\s+LAUNCH\s+[—–-]\s+`@cyberskill\/design@\d+\.\d+\.\d+`/g,
+  /first LAUNCH was\s+\*\*1\.1\.0\*\*/gi,
+  /first LAUNCH\s+\*\*v?1\.1\.0\*\*/gi,
+  /LAUNCH đầu tiên là\s+\*\*1\.1\.0\*\*/gi,
   // Install commands immediately under a dated Patch/LAUNCH heading block (fenced)
   /```bash\nnpm install @cyberskill\/design@\d+\.\d+\.\d+\n```/g,
 ];
@@ -230,7 +234,7 @@ function stampProseFile(rel, { allowPackageAt = false } = {}) {
 
   // Current-pin prose shapes only — never rewrite dated LAUNCH/Patch history.
   raw = raw.replace(/current\s+\*\*v?\d+\.\d+\.\d+\*\*/gi, `current **v${version}**`);
-  raw = raw.replace(/current pin is\s+\*\*\d+\.\d+\.\d+\*\*/gi, `current pin is **${version}**`);
+  raw = raw.replace(/[Cc]urrent pin is\s+\*\*\d+\.\d+\.\d+\*\*/g, `Current pin is **${version}**`);
   raw = raw.replace(/VERSION is\s+\*\*\d+\.\d+\.\d+\*\*/g, `VERSION is **${version}**`);
   raw = raw.replace(/VERSION\s+\*\*\d+\.\d+\.\d+\*\*/g, `VERSION **${version}**`);
   raw = raw.replace(/live at\s+\*\*\d+\.\d+\.\d+\*\*/gi, `live at **${version}**`);
