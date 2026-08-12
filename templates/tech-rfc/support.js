@@ -115,11 +115,18 @@
       padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
       border-radius:4px;white-space:pre-wrap;pointer-events:none}
     /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts \u2014 keep both
-       in sync until dc-runtime regains a build step. */
+       in sync until dc-runtime regains a build step.
+       FULL_PAGE_CSS sets height:100% for screen; Safari/iOS print clips to that
+       viewport and can show a blank page unless the root chain is unlocked. */
     @media print {
       @page { margin: 0.5cm; }
       figure, table { break-inside: avoid; }
-      #dc-root, #dc-root > .sc-host { height: auto; }
+      html, body, #dc-root, #dc-root > .sc-host {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+      }
       *, *::before, *::after {
         print-color-adjust: exact; -webkit-print-color-adjust: exact;
         backdrop-filter: none !important; -webkit-backdrop-filter: none !important;

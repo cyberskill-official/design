@@ -16,10 +16,11 @@ Lifecycle: draft -> ready_to_implement -> implementing -> ready_to_review -> rev
 
 ## in flight
 
-- [done] TASK-IMP-022-template-export-csp - CSP-safe DC runtime + PDF/DOCX export + HR DOCX source audit (improvement)
+- [ready_to_review] TASK-IMP-023-print-blank-ios - Fix blank iOS/Safari print preview for document templates (improvement)
 
 ## done
 
+- [done] TASK-IMP-022-template-export-csp - CSP-safe DC runtime + PDF/DOCX export + HR DOCX source audit (improvement)
 - [done] TASK-IMP-021-aurora-webp - Convert elemental aurora washes PNG→WebP (FIND-016) (improvement)
 - [done] TASK-IMP-020-governance-runbook-alerting - Product↔CyberOS boundary, release runbook, schedule alerting (improvement)
 - [done] TASK-IMP-019-hr-suite-provenance - HR-suite provenance or soften claim (FIND-022) (improvement)
