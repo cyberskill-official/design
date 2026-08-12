@@ -4,7 +4,11 @@ title: CSP-safe DC runtime + PDF/DOCX export + HR DOCX source audit
 template: task@1
 type: improvement
 module: improvement
-status: ready_to_review
+status: done
+# Human acceptance (operator 2026-08-12): "I accept, go" after #81/#82/#84 on main.
+acceptance_verdict: approved
+accepted_at: 2026-08-12T20:54:00+0000
+accepted_by: "@stephencheng"
 priority: p1
 author: "@cursor-agent"
 department: engineering
@@ -39,7 +43,7 @@ Restore Design Component logic under the site CSP (no `unsafe-eval`), add in-ifr
 - [x] AC for 1.2 — every print template loads without EvalError; PDF `%PDF` + A4/Letter; DOCX ZIP + `word/document.xml`; toolbar present — `test-doc-export.mjs`
 - [x] AC for 1.3 — DC text parity vs committed fixtures for every mapped instrument — `test-docx-source-parity.mjs`
 - [x] AC for 1.4 — `npm run test:unit` includes new scripts; docs/gates updated — inspect
-- [ ] AC for 1.5 — human review + final acceptance — HITL only
+- [x] AC for 1.5 — human review + final acceptance — HITL only (operator 2026-08-12)
 
 ## 3. Edge cases
 
@@ -59,6 +63,12 @@ Restore Design Component logic under the site CSP (no `unsafe-eval`), add in-ifr
 - Inline classic `<script>` replaces both Function-constructor sites; sync via `scripts/sync-support-runtime.mjs`.
 - Export chrome: `templates/_vendor/doc-export.js` (CompressionStream ZIP OOXML) loaded from `ds-base.js` when `omelette-owns-print` is present.
 - 41 HR fixtures + `test-docx-source-parity` (≥85%); 62/62 print templates pass `test-doc-export` under site CSP.
+- Landed via #81 (HR fixtures), #82 (CSP runtime), #84 (PDF/DOCX export; #83 had stacked onto the CSP branch and missed `main`).
 - Framework agreement sample artifacts (local only): `.tmp-doc-export/VnFrameworkAgreement.{pdf,docx}` (4 PDF pages).
 
 *End of TASK-IMP-022.*
+
+## Human acceptance (2026-08-12)
+
+Operator instruction after #84 merged: **"I accept, go"** — review + final acceptance approved. Status set to `done`.
+Acceptance smoke (agent): `test-support-no-eval` 85/85, `test-docx-source-parity` 41/41, `test-doc-export` 62/62 on `main` @ 1.6.0.

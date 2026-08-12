@@ -16,7 +16,7 @@ Lifecycle: draft -> ready_to_implement -> implementing -> ready_to_review -> rev
 
 ## in flight
 
-- [ready_to_review] TASK-IMP-022-template-export-csp - CSP-safe DC runtime + PDF/DOCX export + HR DOCX source audit (improvement)
+- [done] TASK-IMP-022-template-export-csp - CSP-safe DC runtime + PDF/DOCX export + HR DOCX source audit (improvement)
 
 ## done
 
