@@ -11,7 +11,7 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>support.js runtime identity gate</h1>
-<p class="lede">Every template folder ships a <code>support.js</code> copy of the Claude Design DC runtime (the compiler's contract: one byte-identical copy per template). This gate fetches <b>all</b> of them (driven by <code>_ds_manifest.json</code> — currently 84), sha-256s each with SubtleCrypto, and asserts exactly <b>one</b> unique hash and a copy count equal to the template count. A second hash means a template's runtime was hand-edited or a stale copy survived a regeneration. Verdict on <code>window.__supportid</code>.</p>
+<p class="lede">Every template folder ships a <code>support.js</code> copy of the Claude Design DC runtime (the compiler's contract: one byte-identical copy per template). This gate fetches <b>all</b> of them (driven by <code>_ds_manifest.json</code> — currently 85), sha-256s each with SubtleCrypto, and asserts exactly <b>one</b> unique hash and a copy count equal to the template count. A second hash means a template's runtime was hand-edited or a stale copy survived a regeneration. Verdict on <code>window.__supportid</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <script>

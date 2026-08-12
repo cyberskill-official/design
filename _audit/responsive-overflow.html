@@ -63,7 +63,7 @@ function probeOne(src){
   window.__overflow=window.__all; // audit-suite verdict alias
   busy.textContent='done — '+tpls.length+' templates';
   const sum=document.getElementById('sum');
-  sum.textContent=bad.length?('✗ '+bad.length+' overflow: '+bad.map(r=>r.name+' +'+r.over).join(', ')):'✓ NO horizontal overflow at 390 across all 84 templates';
+  sum.textContent=bad.length?('✗ '+bad.length+' overflow: '+bad.map(r=>r.name+' +'+r.over).join(', ')):'✓ NO horizontal overflow at 390 across all 85 templates';
   sum.style.color=bad.length?'#B42318':'#166534';
 })();
 </script></body></html>

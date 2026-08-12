@@ -30,7 +30,7 @@ function ctx(s, i, n){ return s.slice(Math.max(0,i-4), i+n+18).replace(/\s+/g," 
   // docs/*.md snapshot for the stale-phrase blacklist (operator docs only; _audit/archive/ not scanned).
   const DOCS_MD = ['docs/benchmark-rubric.md','docs/ci-cd.md','docs/consuming.md','docs/consumer-grant.md','docs/contrast-report.md',
     'docs/conventions.md','docs/decisions.md','docs/deploy.md','docs/design-styles.md','docs/doctrine.md',
-    'docs/figma.md','docs/live-hub.md','docs/products.md','docs/quality-gates.md','docs/release-notes.md','docs/release-runbook.md',
+    'docs/figma.md','docs/live-hub.md','docs/hr-suite-sources.md','docs/products.md','docs/quality-gates.md','docs/release-notes.md','docs/release-runbook.md',
     'docs/storybook.md','docs/sync.md','docs/template-schema-v2.md'];
   const SOURCE = [
     'tokens/elements.css','tokens/elevation.css','tokens/spacing.css','tokens/tokens.json',
@@ -286,6 +286,8 @@ function finish(){
   const el = document.getElementById('report');
   el.className = out.pass ? 'pass' : 'fail';
   el.innerHTML = '<span class="b '+(out.pass?'pass':'fail')+'">'+(out.pass?'PASS':'FAIL')+'</span>\n'+out.steps.join('\n');
+  const fails = (out.steps || []).filter((s) => s.charAt(0) === '\u2717').slice(0,12);
+  console.log('DOCS VERDICT '+JSON.stringify({pass:out.pass,failed:fails,error:null}));
 }
 </script>
 </body></html>

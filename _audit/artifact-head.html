@@ -60,7 +60,7 @@ function probe(src){
   }
   const bad=results.filter(r=>!r.ok);
   // Phase 1: hard pass when zero failures. Known baseline count retained for reporting.
-  window.__artifacthead={pass:bad.length===0,total:tpls.length,failed:bad.length,missing:bad.map(r=>r.name),baselineExpected:84};
+  window.__artifacthead={pass:bad.length===0,total:tpls.length,failed:bad.length,missing:bad.map(r=>r.name),baselineExpected:85};
   busy.textContent='done';
   const sum=document.getElementById('sum');
   sum.textContent=bad.length?('✗ '+bad.length+'/'+tpls.length+' missing title/lang'):('✓ '+tpls.length+' templates have title + html lang');

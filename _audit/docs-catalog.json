@@ -22,6 +22,7 @@
     { "path": "docs/release-runbook.md", "story": "Docs/Guides/Release runbook", "labelEn": "Release runbook", "labelVi": "Runbook phát hành" },
     { "path": "docs/storybook.md", "story": "Docs/Guides/Storybook", "labelEn": "Storybook (product at /)", "labelVi": "Storybook (sản phẩm tại /)" },
     { "path": "docs/live-hub.md", "story": "Docs/Guides/Live hub", "labelEn": "Live hub (Storybook at /)", "labelVi": "Live hub (Storybook tại /)" },
+    { "path": "docs/hr-suite-sources.md", "story": "Docs/Guides/HR Suite sources", "labelEn": "HR Suite sources (DOCX ↔ templates)", "labelVi": "Nguồn HR Suite (DOCX ↔ templates)" },
     { "path": "docs/design-styles.md", "story": "Docs/Guides/Design styles", "mdx": "stories/Docs/DesignStyles.mdx", "labelEn": "Design styles", "labelVi": "Phong cách" },
     { "path": "docs/benchmark-rubric.md", "story": "Docs/Guides/Benchmark rubric", "labelEn": "Benchmark rubric", "labelVi": "Rubric benchmark" },
     { "path": "docs/products.md", "story": "Docs/Guides/Products", "mdx": "stories/Docs/Products.mdx", "labelEn": "Products", "labelVi": "Sản phẩm" },

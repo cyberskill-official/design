@@ -277,7 +277,7 @@ Component-level design decisions (button · textfield). Dark values are theme ov
 
 ## Templates
 
-84 copyable bilingual templates in `templates/*/` (each a `.dc.html` + byte-identical `support.js` runtime; see `docs/template-schema-v2.md` for typed content slots). **DC-capable authoring / full-clone only** — Stitch must not consume `*.dc.html` as SoT; use kitchen-sink / `.cs-*` / static examples instead.
+85 copyable bilingual templates in `templates/*/` (each a `.dc.html` + byte-identical `support.js` runtime; see `docs/template-schema-v2.md` for typed content slots). **DC-capable authoring / full-clone only** — Stitch must not consume `*.dc.html` as SoT; use kitchen-sink / `.cs-*` / static examples instead.
 
 ## Links
 
