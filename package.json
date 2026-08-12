@@ -38,7 +38,7 @@
     "./_ds_manifest.json": "./_ds_manifest.json",
     "./styles.min.css": "./dist/styles.min.css"
   },
-  "description": "CyberSkill Design System — HTML-first, Vietnamese-first (EN·VI). Anchors: Umber #45210E · Ochre #F4BA17. Axes: Theme × Element × Language × Style. Bundler React entry (`_esm/react.mjs`) + browser legacy (`_esm/cs.mjs`) + styles.css / _ds_bundle.js. Storybook is host-only playground.",
+  "description": "CyberSkill Design System \u2014 HTML-first, Vietnamese-first (EN\u00b7VI). Anchors: Umber #45210E \u00b7 Ochre #F4BA17. Axes: Theme \u00d7 Element \u00d7 Language \u00d7 Style. Bundler React entry (`_esm/react.mjs`) + browser legacy (`_esm/cs.mjs`) + styles.css / _ds_bundle.js. Storybook is host-only playground.",
   "style": "styles.css",
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
@@ -95,7 +95,7 @@
     "test:nav-model": "node _audit/ci/test-nav-model.mjs",
     "test:ui-contracts": "node _audit/ci/test-health-tokens-contract.mjs",
     "test:form-paths": "node _audit/ci/test-form-paths.mjs",
-    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-docs-consistency.mjs && node _audit/ci/test-base-hex-allowlist.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-axe-coverage.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-npm-publish.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs && node _audit/ci/test-element-packs.mjs && node _audit/ci/test-i18n-builtins.mjs && node _audit/ci/test-format-currency.mjs && node _audit/ci/check-manifest-coverage.mjs && node _audit/ci/ci-verdict.mjs --selftest && node _audit/ci/test-pack-hygiene.mjs && npm run version:stamp:check && node _audit/ci/test-docs-lang-parity.mjs && node _audit/ci/test-docs-storybook-coverage.mjs && node _audit/ci/test-docs-link-check.mjs && node _audit/ci/test-email-safe.mjs && node _audit/ci/test-prop-parity.mjs && node _audit/ci/test-support-no-eval.mjs && node _audit/ci/test-docx-source-parity.mjs",
+    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-docs-consistency.mjs && node _audit/ci/test-base-hex-allowlist.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-axe-coverage.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-npm-publish.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs && node _audit/ci/test-element-packs.mjs && node _audit/ci/test-i18n-builtins.mjs && node _audit/ci/test-format-currency.mjs && node _audit/ci/check-manifest-coverage.mjs && node _audit/ci/ci-verdict.mjs --selftest && node _audit/ci/test-pack-hygiene.mjs && npm run version:stamp:check && node _audit/ci/test-docs-lang-parity.mjs && node _audit/ci/test-docs-storybook-coverage.mjs && node _audit/ci/test-docs-link-check.mjs && node _audit/ci/test-email-safe.mjs && node _audit/ci/test-prop-parity.mjs && node _audit/ci/test-support-no-eval.mjs && node _audit/ci/test-docx-source-parity.mjs && node _audit/ci/test-doc-export.mjs",
     "test:support-no-eval": "node _audit/ci/test-support-no-eval.mjs",
     "test:docx-source-parity": "node _audit/ci/test-docx-source-parity.mjs",
     "test:audit-probe": "node _audit/ci/audit-probe-suite.mjs",
@@ -121,7 +121,8 @@
     "version:stamp:check": "node scripts/stamp-release-version.mjs --check",
     "sbom": "npx --yes @cyclonedx/cyclonedx-npm@3.1.0 --output-file bom.cdx.json --output-reproducible --spec-version 1.5",
     "test:docs-lang-parity": "node _audit/ci/test-docs-lang-parity.mjs",
-    "test:email-safe": "node _audit/ci/test-email-safe.mjs"
+    "test:email-safe": "node _audit/ci/test-email-safe.mjs",
+    "test:doc-export": "node _audit/ci/test-doc-export.mjs"
   },
   "devDependencies": {
     "@figma/code-connect": "^1.4.9",

@@ -22,6 +22,14 @@
   s.onerror = () => console.error('ds-base.js: failed to load ' + s.src + ' — if this is a consuming project, point the base line in ds-base.js at the bound _ds/<folder> tree relative to this page (e.g. _ds/<folder> at the project root, ../_ds/<folder> one level down); in a fresh design system this can just mean the bundle is not compiled yet');
   document.head.appendChild(s);
 
+  // Print documents: PDF (window.print) + editable DOCX toolbar (TASK-IMP-022).
+  // Path is relative to this template folder → templates/_vendor/doc-export.js
+  if (document.querySelector('meta[name="omelette-owns-print"]')) {
+    const ex = document.createElement('script');
+    ex.src = '../_vendor/doc-export.js';
+    document.head.appendChild(ex);
+  }
+
   const syncLang = () => {
     try {
       const a = document.querySelector('[lang]');

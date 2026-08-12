@@ -17,7 +17,7 @@ If the user invokes this skill without any other guidance, ask them what they wa
 | **Bundler React (Next/Vite/SSR)** | `docs/consuming.md` | `import { Button } from "@cyberskill/design"` + `styles.css`. React is a peer. |
 | **Maintainers** | `docs/doctrine.md` | Expansion + verification; Storybook Docs at `design.cyberskill.world`. |
 
-Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.5.1**; no CHANGELOG).
+Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.4.0**; no CHANGELOG).
 
 - **`README.md`** — the entrance + design guide + manifest: anchor immutables, CONTENT FUNDAMENTALS (voice = warm/direct/honest/respectful, Vietnamese-first, the "wish" metaphor), VISUAL FOUNDATIONS, ICONOGRAPHY, and the component/kit index. Read it first.
 
@@ -43,7 +43,7 @@ Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-n
 
 ## Exporting
 
-Every artifact exports, all paths preserving Vietnamese Unicode (see `docs/conventions.md` → Export paths). Decks → **editable PPTX** (`gen_pptx`, force VN per slide via `__dcSetProps`); documents (any with `@page{size}`) → **one-click PDF** (all carry `<meta name="omelette-owns-print">`); emails / product pages / any DC → **standalone offline HTML** (make a same-folder `*-standalone.html` copy with static `<link>`/`<script>` resource tags, then `super_inline_html`). Contribution/expansion process is **`docs/doctrine.md`** + the decision log in `docs/conventions.md`; deep-verification harnesses live in `_audit/` (see `_audit/README.md`).
+Every artifact exports, all paths preserving Vietnamese Unicode (see `docs/conventions.md` → Export paths). Decks → **editable PPTX** (`gen_pptx`, force VN per slide via `__dcSetProps`); documents (any with `@page{size}` / `omelette-owns-print`) → **PDF** (`window.print` / Playwright) **+ editable DOCX** (`templates/_vendor/doc-export.js` OOXML, no CDN); emails / product pages / any DC → **standalone offline HTML** (make a same-folder `*-standalone.html` copy with static `<link>`/`<script>` resource tags, then `super_inline_html`). Contribution/expansion process is **`docs/doctrine.md`** + the decision log in `docs/conventions.md`; deep-verification harnesses live in `_audit/` (see `_audit/README.md`).
 
 ## Hard rules
 
@@ -63,7 +63,7 @@ Every artifact exports, all paths preserving Vietnamese Unicode (see `docs/conve
 
 - Voice stays warm/direct/honest/respectful — never fun/playful/edgy. Products are "wishes" that Lumi helps grant.
 
-- Expansion rule: when any set grows (element/variant, icon, component, language), update every deliverable in the same change — tokens, cards + related guidelines, contract trio, all template enums, Storybook toolbar / Atomic View, docs incl. every related document/README — and grep the old list to prove it. Full text: `docs/doctrine.md`. VERSION **1.5.1** (auto-bumps on `main`; owner may still force a bump; no changelog).
+- Expansion rule: when any set grows (element/variant, icon, component, language), update every deliverable in the same change — tokens, cards + related guidelines, contract trio, all template enums, Storybook toolbar / Atomic View, docs incl. every related document/README — and grep the old list to prove it. Full text: `docs/doctrine.md`. VERSION **1.4.0** (auto-bumps on `main`; owner may still force a bump; no changelog).
 
 - **Stitch / non-DC tools must not consume `*.dc.html` as source of truth.** Those files need the Design Components compiler (tweaks, `x-import`, `__dcSetProps`). Generate static UI from `DESIGN.md` / DTCG / `styles.css` + `.cs-*` / kitchen-sink / `examples/static-hello/` instead. DC authoring requires a compiler session (Claude Design, or a full clone with the compiler).
 
