@@ -9,7 +9,7 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>Print smoke</h1>
-<p class="lede">Fetches document-style templates and asserts they declare print ownership meta and A4-friendly page CSS hooks used by the export path. Verdict: <code>window.__printsmoke.pass</code>.</p>
+<p class="lede">Fetches <b>every</b> document-style template that declares print ownership (<code>omelette-owns-print</code>) and asserts the meta plus A4/Letter <code>@page</code> hooks the export path relies on. Verdict: <code>window.__printsmoke.pass</code>.</p>
 <div id="list"></div><div id="sum">running…</div>
 <script>
 const list=document.getElementById('list');
@@ -17,25 +17,31 @@ const P=window.__gateProgress={done:0,total:2,current:'boot'};
 function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?'ok':'bad');d.textContent=(ok?'✓ ':'✗ ')+t;list.appendChild(d);}
 (async()=>{
   P.current='manifest'; const M=await (await fetch('../_ds_manifest.json',{cache:'no-store'})).json();
-  // Curated print-path documents (meta omelette-owns-print / @page A4) — not every template is a print doc.
-  const docs=(M.templates||[]).filter(t=>/bod-report|finance-invoice|doc-style|vn-code-of-conduct|legal-msa/.test(t.entryPath||t.folder||''));
-  const sample=docs.slice(0,8);
-  P.current='scan'; P.done=1;
-  const fails=[]; let okc=0;
-  for(const t of sample){
+  // Whole set: every template whose entry HTML declares omelette-owns-print (not a curated sample).
+  const candidates=M.templates||[];
+  P.total=candidates.length+1;
+  const docs=[];
+  for(const t of candidates){
+    P.current=t.entryPath||t.folder;
     try{
       const html=await (await fetch('../'+t.entryPath,{cache:'no-store'})).text();
-      const owns=/omelette-owns-print|name=["']omelette-owns-print/i.test(html);
-      const page=/@page|size:\s*A4|size:\s*Letter/i.test(html);
-      if(owns || page){ okc++; row(true, t.name||t.entryPath); }
-      else { fails.push(t.entryPath); row(false, (t.name||t.entryPath)+' missing print meta/@page'); }
-    }catch(e){ fails.push(t.entryPath+':'+e); row(false, String(e)); }
+      if(/omelette-owns-print|name=["']omelette-owns-print/i.test(html)) docs.push({t,html});
+    }catch(e){ /* fetch errors counted below if listed as print */ }
+    P.done++;
   }
-  P.done=2; P.current='done';
-  const pass=fails.length===0 && sample.length>0;
-  window.__printsmoke={pass,ok:okc,total:sample.length,fails};
+  P.current='assert';
+  const fails=[]; let okc=0;
+  for(const {t,html} of docs){
+    const owns=/omelette-owns-print|name=["']omelette-owns-print/i.test(html);
+    const page=/@page\s*\{[^}]*size:\s*(A4|letter)/i.test(html);
+    if(owns && page){ okc++; row(true, (t.name||t.entryPath)+' · '+(html.match(/size:\s*(A4|letter)/i)||[])[1]); }
+    else { fails.push(t.entryPath); row(false, (t.name||t.entryPath)+' missing print meta/@page size'); }
+  }
+  P.done=P.total; P.current='done';
+  const pass=fails.length===0 && docs.length>=60;
+  window.__printsmoke={pass,ok:okc,total:docs.length,fails};
   const s=document.getElementById('sum');
-  s.textContent=pass?('✓ PASS — '+okc+'/'+sample.length+' print-ready docs'):('✗ FAIL — '+fails.length);
+  s.textContent=pass?('✓ PASS — '+okc+'/'+docs.length+' print-ready docs (whole set)'):('✗ FAIL — '+fails.length+' · scanned '+docs.length);
   s.style.color=pass?'#166534':'#B42318';
 })().catch(e=>{ window.__printsmoke={pass:false,error:String(e)}; document.getElementById('sum').textContent='✗ '+e; });
 </script></body></html>

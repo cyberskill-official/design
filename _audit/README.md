@@ -63,6 +63,8 @@ Dev-only harnesses for **deep** verification (owner doctrine: whole-set checks, 
 
 - **`support-runtime-identity.html`** — fetches all 85 `templates/*/support.js`, sha-256s each (SubtleCrypto), asserts exactly **one** unique hash + copy count == manifest template count (the DC runtime is byte-identical per compiler contract — a second hash means a hand edit or stale copy). Canonical source: `templates/_vendor/support.js` synced via `node scripts/sync-support-runtime.mjs`. CSP-safe (no Function-constructor / `eval(` — see `_audit/ci/test-support-no-eval.mjs`). `window.__supportid.pass` must be true.
 
+- **`print-smoke.html`** — whole-set print-path gate: every `omelette-owns-print` template must also declare A4/Letter `@page`. Paired with Node export coverage in `_audit/ci/test-doc-export.mjs` (PDF + DOCX under site CSP) and HR DOCX↔DC fixtures in `_audit/ci/test-docx-source-parity.mjs`.
+
 - **`package-exports-integrity.html`** — packaging gate: every `package.json` `files`/`module`/`types`/`style`/`exports` target exists, every entry-point target is pack-covered by `files`, dual ESM entries (`_esm/react.mjs` default + `_esm/cs.mjs` legacy) are ESM-shaped, and their re-exports ⊆ the bundle header's exposed exports. `window.__pkgexports.pass` must be true.
 
 - **`test-subtree-consume.mjs`** (Node unit, `npm run test:subtree-consume`) — copies the portable subset (`styles.css` + `base/` + `tokens/` + `fonts/` + `_esm/` + `_ds_bundle.js`) to a temp tree and Playwright-proves tokens/fonts + ESM Button mount without the full clone — the Stitch/Claude subtree-copy path the in-repo consumer-smoke does not cover.

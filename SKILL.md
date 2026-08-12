@@ -43,7 +43,7 @@ Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-n
 
 ## Exporting
 
-Every artifact exports, all paths preserving Vietnamese Unicode (see `docs/conventions.md` → Export paths). Decks → **editable PPTX** (`gen_pptx`, force VN per slide via `__dcSetProps`); documents (any with `@page{size}`) → **one-click PDF** (all carry `<meta name="omelette-owns-print">`); emails / product pages / any DC → **standalone offline HTML** (make a same-folder `*-standalone.html` copy with static `<link>`/`<script>` resource tags, then `super_inline_html`). Contribution/expansion process is **`docs/doctrine.md`** + the decision log in `docs/conventions.md`; deep-verification harnesses live in `_audit/` (see `_audit/README.md`).
+Every artifact exports, all paths preserving Vietnamese Unicode (see `docs/conventions.md` → Export paths). Decks → **editable PPTX** (`gen_pptx`, force VN per slide via `__dcSetProps`); documents (any with `@page{size}` / `omelette-owns-print`) → **PDF** (`window.print` / Playwright) **+ editable DOCX** (`templates/_vendor/doc-export.js` OOXML, no CDN); emails / product pages / any DC → **standalone offline HTML** (make a same-folder `*-standalone.html` copy with static `<link>`/`<script>` resource tags, then `super_inline_html`). Contribution/expansion process is **`docs/doctrine.md`** + the decision log in `docs/conventions.md`; deep-verification harnesses live in `_audit/` (see `_audit/README.md`).
 
 ## Hard rules
 

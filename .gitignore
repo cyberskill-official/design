@@ -8,6 +8,8 @@
 # Transient / local-only — do not commit
 uploads/
 scraps/
+.tmp-doc-export/
+.tmp-subtree-*/
 # heavy generated PPTX / standalone HTML proofs
 _audit/exports/
 
