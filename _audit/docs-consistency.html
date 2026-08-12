@@ -286,14 +286,8 @@ function finish(){
   const el = document.getElementById('report');
   el.className = out.pass ? 'pass' : 'fail';
   el.innerHTML = '<span class="b '+(out.pass?'pass':'fail')+'">'+(out.pass?'PASS':'FAIL')+'</span>\n'+out.steps.join('\n');
-  // #region agent log
-  try {
-    const fails = (out.steps || []).filter((s) => s.charAt(0) === '\u2717');
-    fetch('http://127.0.0.1:7840/ingest/12b7d1aa-878b-45f0-b7ec-42842b8d3f74',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'c9c880'},body:JSON.stringify({sessionId:'c9c880',runId:'docs-consist',hypothesisId:'B',location:'_audit/docs-consistency.html:finish',message:'docs-consistency verdict',data:{pass:!!out.pass,failCount:fails.length,fails:fails.slice(0,12),templateTruth:(document.getElementById('truth')||{}).textContent||''},timestamp:Date.now()})}).catch(()=>{});
-  } catch (_) {}
-  // #endregion
-  console.log('DOCS VERDICT '+JSON.stringify({pass:out.pass,failed:failsSafe(out),error:null}));
+  const fails = (out.steps || []).filter((s) => s.charAt(0) === '\u2717').slice(0,12);
+  console.log('DOCS VERDICT '+JSON.stringify({pass:out.pass,failed:fails,error:null}));
 }
-function failsSafe(o){ try { return (o.steps||[]).filter((s)=>s.charAt(0)==='\u2717').slice(0,12); } catch(e){ return []; } }
 </script>
 </body></html>
