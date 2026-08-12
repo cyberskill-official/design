@@ -2,13 +2,13 @@
   "name": "@cyberskill/npm-hello-example",
   "private": true,
   "version": "0.0.0",
-  "description": "First-consumer smoke for @cyberskill/design@1.3.11 — Lumi (Hỏa · plasma) identity from docs/products.md",
+  "description": "First-consumer smoke for @cyberskill/design@1.4.0 — Lumi (Hỏa · plasma) identity from docs/products.md",
   "type": "module",
   "scripts": {
     "start": "python3 -m http.server 8766 --bind 127.0.0.1",
     "smoke": "node ./smoke.mjs"
   },
   "dependencies": {
-    "@cyberskill/design": "1.3.11"
+    "@cyberskill/design": "1.4.0"
   }
 }
