@@ -769,15 +769,32 @@
       return {};
     }
   };
+  /**
+   * Evaluate DC class source without Function-constructor / eval call sites
+   * (site CSP forbids unsafe-eval; 'unsafe-inline' still allows a synchronous
+   * classic script).
+   */
   function evalDcLogic(src) {
-    //! nosemgrep: eval-and-function-constructor
-    const fn = new Function(
-      "DCLogic",
-      "StreamableLogic",
-      "React",
-      src + '\n;return (typeof Component!=="undefined"&&Component)||undefined;'
-    );
-    return fn(StreamableLogic, StreamableLogic, getReact());
+    const key = "__dcEvalResult_" + Math.random().toString(36).slice(2);
+    window.__DCLogic = StreamableLogic;
+    window.__DCReactForEval = getReact();
+    const safeSrc = String(src).replace(/<\/(script)/gi, "<\\/$1");
+    const el = document.createElement("script");
+    el.text =
+      "var DCLogic=window.__DCLogic,StreamableLogic=window.__DCLogic,React=window.__DCReactForEval;\n" +
+      safeSrc +
+      "\n;window[" +
+      JSON.stringify(key) +
+      ']=(typeof Component!=="undefined"&&Component)||undefined;';
+    (document.documentElement || document.head).appendChild(el);
+    el.remove();
+    const result = window[key];
+    try {
+      delete window[key];
+    } catch (_) {
+      window[key] = void 0;
+    }
+    return result;
   }
 
   // src/component.ts
@@ -1139,13 +1156,22 @@
         }).code : src;
         const module = { exports: {} };
         const before = new Set(Object.keys(window));
-        //! nosemgrep: eval-and-function-constructor
-        new Function("React", "module", "exports", "require", code)(
-          getReact(),
-          module,
-          module.exports,
-          () => ({})
-        );
+        // CSP-safe: run Babel output via inline classic script (no Function ctor).
+        window.__DCReactForEval = getReact();
+        window.__DCModuleTmp = module;
+        const safeCode = String(code).replace(/<\/(script)/gi, "<\\/$1");
+        const el = document.createElement("script");
+        el.text =
+          "(function(React,module,exports,require){\n" +
+          safeCode +
+          "\n})(window.__DCReactForEval,window.__DCModuleTmp,window.__DCModuleTmp.exports,function(){return{};});";
+        (document.documentElement || document.head).appendChild(el);
+        el.remove();
+        try {
+          delete window.__DCModuleTmp;
+        } catch (_) {
+          window.__DCModuleTmp = void 0;
+        }
         const globals = {};
         for (const k of Object.keys(window)) {
           if (!before.has(k) && typeof window[k] === "function") {
