@@ -61,7 +61,7 @@ Dev-only harnesses for **deep** verification (owner doctrine: whole-set checks, 
 
 - **`version-stamp.html`** — every stamp equals `VERSION` (auto-bumps on main): `package.json`, `tokens.json`/`tokens.js` metas, DTCG `$extensions`, `provenance.json` release + dtcgStamp, and `DESIGN.md` front matter. `window.__versionstamp.pass` must be true.
 
-- **`support-runtime-identity.html`** — fetches all 84 `templates/*/support.js`, sha-256s each (SubtleCrypto), asserts exactly **one** unique hash + copy count == manifest template count (the DC runtime is byte-identical per compiler contract — a second hash means a hand edit or stale copy). `window.__supportid.pass` must be true.
+- **`support-runtime-identity.html`** — fetches all 85 `templates/*/support.js`, sha-256s each (SubtleCrypto), asserts exactly **one** unique hash + copy count == manifest template count (the DC runtime is byte-identical per compiler contract — a second hash means a hand edit or stale copy). Canonical source: `templates/_vendor/support.js` synced via `node scripts/sync-support-runtime.mjs`. CSP-safe (no Function-constructor / `eval(` — see `_audit/ci/test-support-no-eval.mjs`). `window.__supportid.pass` must be true.
 
 - **`package-exports-integrity.html`** — packaging gate: every `package.json` `files`/`module`/`types`/`style`/`exports` target exists, every entry-point target is pack-covered by `files`, dual ESM entries (`_esm/react.mjs` default + `_esm/cs.mjs` legacy) are ESM-shaped, and their re-exports ⊆ the bundle header's exposed exports. `window.__pkgexports.pass` must be true.
 
