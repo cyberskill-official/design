@@ -1,6 +1,6 @@
 # CyberSkill Design System
 
-> HTML-first, Vietnamese-first design system, VERSION **1.5.0**. Immutable anchors: Umber #45210E · Ochre #F4BA17. Four independent axes — Theme (light · dark · system) × Element (Ngũ Hành, 15 variants) × Language (EN · VI) × Style (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default). It ships 106 components / 122 exports, 85 copyable templates (EN·VN for emails + team/legal/finance; client/media collateral EN-first), and tokens in CSS + JSON + ESM + W3C DTCG + native mirrors. This file is the agent/tool front door: it maps each **capability** to the format it should consume. npm package name is **`@cyberskill/design`** (not `@cyberskill/react`). Release signal: tip SHA + [docs/release-notes.md](docs/release-notes.md) — VERSION **1.5.0**, no CHANGELOG.
+> HTML-first, Vietnamese-first design system, VERSION **1.5.1**. Immutable anchors: Umber #45210E · Ochre #F4BA17. Four independent axes — Theme (light · dark · system) × Element (Ngũ Hành, 15 variants) × Language (EN · VI) × Style (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default). It ships 106 components / 122 exports, 85 copyable templates (EN·VN for emails + team/legal/finance; client/media collateral EN-first), and tokens in CSS + JSON + ESM + W3C DTCG + native mirrors. This file is the agent/tool front door: it maps each **capability** to the format it should consume. npm package name is **`@cyberskill/design`** (not `@cyberskill/react`). Release signal: tip SHA + [docs/release-notes.md](docs/release-notes.md) — VERSION **1.5.1**, no CHANGELOG.
 
 The portable contract covers browser and bundler entry points: `styles.css` · `_esm/cs.mjs` legacy · `_ds_bundle.js` · tokens work without a build step; `_esm/react.mjs` is bundler-native JSX (Next/Vite must transpile — not a bare-browser import). The DC layer (`templates/**/*.dc.html`) needs a **Design Components compiler**. **Google Stitch must not treat `*.dc.html` as source of truth** — use `DESIGN.md`, DTCG, `styles.css`, kitchen-sink, and `.cs-*` static HTML instead. Dual path: [docs/consuming.md](docs/consuming.md). The full non-negotiables list lives in `CONTRIBUTING.md` and `docs/doctrine.md`. Operator docs are published on the Storybook **Docs** sidebar at `design.cyberskill.world`.
 
@@ -31,7 +31,7 @@ The portable contract covers browser and bundler entry points: `styles.css` · `
 - [templates/](templates/): 85 copyable starting points (`.dc.html`); `email-safe/` send-ready emails; `kitchen-sink.html`; `playground.html`
 - [guidelines/](guidelines/): specimen cards + `atomic-view.html` (portable component grid) — host product surface is Storybook at `/`
 - [examples/static-hello/](examples/static-hello/): zero-install static consumer (Stitch / plain HTML)
-- [examples/npm-hello/](examples/npm-hello/): first registry **browser** consumer — `@cyberskill/design@1.5.0` legacy entry (Lumi · Hỏa · plasma); Status Hub teams swap to `thuy`; Next/SSR apps use default `@cyberskill/design` React entry instead
+- [examples/npm-hello/](examples/npm-hello/): first registry **browser** consumer — `@cyberskill/design@1.5.1` legacy entry (Lumi · Hỏa · plasma); Status Hub teams swap to `thuy`; Next/SSR apps use default `@cyberskill/design` React entry instead
 - [examples/native/](examples/native/): SwiftUI / Compose / Flutter sample apps + store scaffolds — Compose is **Android Studio**-first (no committed `gradlew`; see `examples/native/README.md`)
 - [ui_kits/](ui_kits/): product recreations — status-hub · website · deck
 - [fonts/](fonts/): self-hosted Be Vietnam Pro (UI) + Space Grotesk (opt-in display, `--cs-font-family-display`) + JetBrains Mono woff2
@@ -48,7 +48,7 @@ The portable contract covers browser and bundler entry points: `styles.css` · `
 Published on Storybook **Docs** (`design.cyberskill.world`) and in [docs/viewer.html](docs/viewer.html) (EN|VI).
 
 - [docs/consuming.md](docs/consuming.md): adopting & upgrading, DC-capable vs static dual path, package name `@cyberskill/design`; first registry install at [examples/npm-hello/](examples/npm-hello/) (Lumi · Hỏa · plasma); native mirrors at [examples/native/](examples/native/) (SwiftUI / Compose / Flutter samples)
-- [docs/release-notes.md](docs/release-notes.md): curated product highlights (not a changelog) — includes `@cyberskill/design@1.5.0` Trusted Publishing / grant pointer
+- [docs/release-notes.md](docs/release-notes.md): curated product highlights (not a changelog) — includes `@cyberskill/design@1.5.1` Trusted Publishing / grant pointer
 - [docs/consumer-grant.md](docs/consumer-grant.md): written npm grant (CyberSkill portfolio; UNLICENSED)
 - [docs/conventions.md](docs/conventions.md): authoring rules (naming grammar, the four axes)
 - [docs/design-styles.md](docs/design-styles.md): the live styling axes and the fixed liquid-glass treatment
