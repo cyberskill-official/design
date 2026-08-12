@@ -39,7 +39,7 @@ Diff PR là lưới an toàn — nó hiện đúng những gì đổi kể từ 
 ## Hygiene giữ round-trip sạch
 - **`.gitignore`** transient (`uploads/`, `scraps/`, `_audit/exports/`); commit mọi thứ khác, **kể cả `_esm/`** (xem trên — nó là source, không phải build artifact, dù có tiền tố `_`). Compiled `_ds_bundle.js`/manifest được commit cho consumer không có bước build, nhưng kỳ vọng churn — hoặc ignore và để mỗi session regenerate.
 
-- **`VERSION` pin theo file** (auto-bump khi push lên `main` qua `.github/workflows/version.yml` → tag `v*` → `npm-publish.yml`; LAUNCH đầu tiên là **1.1.0**; owner vẫn có thể force bump). Không maintain file changelog. Continuity là git history; việc maintainer đang mở nằm ở `docs/decisions.md`.
+- **`VERSION` bằng root VERSION** (auto-bump khi push lên `main` qua `.github/workflows/version.yml` → tag `v*` → `npm-publish.yml`; owner vẫn có thể force bump). Không maintain file changelog. Continuity là git history; việc maintainer đang mở nằm ở `docs/decisions.md`.
 
 - **Một nguồn chân lý tại một thời điểm.** Đừng sửa repo và project Claude Design song song rồi push cả hai — pull, làm việc, push, theo thứ tự đó, để repo luôn là điểm merge.
 

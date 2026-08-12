@@ -1,6 +1,10 @@
 # Ghi chú phát hành
 
-Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. **Pin hiện tại theo `VERSION`** (auto-bump khi push lên `main` từ Conventional Commits; owner vẫn có thể force bump). LAUNCH đầu tiên là **1.1.0**. Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**). Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
+Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. VERSION **1.3.10** (auto-bump khi push lên `main` từ Conventional Commits; owner vẫn có thể force bump). Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**). Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
+
+## Release — `@cyberskill/design@1.3.10`
+
+Docs: một VERSION duy nhất trên surface operator (không lead-in “pin” / LAUNCH kép). Các mục Release / Patch / LAUNCH bên dưới giữ làm archive có ngày.
 
 ## Release — `@cyberskill/design@1.3.9`
 

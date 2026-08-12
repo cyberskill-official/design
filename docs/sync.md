@@ -39,7 +39,7 @@ The PR diff is the safety net — it shows exactly what changed since the last c
 ## Hygiene that keeps round-trips clean
 - **`.gitignore`** the transient (`uploads/`, `scraps/`, `_audit/exports/`); commit everything else, **including `_esm/`** (see above — it is source, not a build artifact, despite the `_` prefix). The compiled `_ds_bundle.js`, `_ds_manifest.json`, and `_adherence.oxlintrc.json` are **committed consumer artifacts** — they ship in the npm package so consumers with no build step can load the system. Do not gitignore them. Regenerate via `npm run build:bundle` after source changes; the bundle-freshness gate fails on drift.
 
-- **`VERSION` pin tracks the file** (auto-bump on push to `main` via `.github/workflows/version.yml` → tag `v*` → `npm-publish.yml`; first LAUNCH was **1.1.0**; owner may still force a bump). Do not maintain a changelog file. Continuity is the git history; open maintainer tasks live in `docs/decisions.md`.
+- **`VERSION`** (auto-bump on push to `main` via `.github/workflows/version.yml` → tag `v*` → `npm-publish.yml`; owner may still force a bump). Do not maintain a changelog file. Continuity is the git history; open maintainer tasks live in `docs/decisions.md`.
 
 - **One source of truth at a time.** Don't edit the repo and a Claude Design project in parallel and push both — pull, work, push, in that order, so the repo is always the merge point.
 

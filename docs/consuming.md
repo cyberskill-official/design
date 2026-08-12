@@ -19,7 +19,7 @@ You are installing, linking, or upgrading the system in another product. Maintai
 
 **Stitch DC rule:** Stitch (and any non-DC tool) must **not** consume `*.dc.html` as source of truth. Use static export patterns, `templates/kitchen-sink.html`, `examples/static-hello/`, and `.cs-*` classes from `styles.css`.
 
-**Release signal:** **pin tracks `VERSION`** (auto-bump on `main`; first LAUNCH was **1.1.0**; no CHANGELOG). Treat the **git tip SHA** as technical truth; read curated product highlights in `docs/release-notes.md`.
+**Release signal:** `VERSION` (auto-bump on `main`; no CHANGELOG). Treat the **git tip SHA** as technical truth; read curated product highlights in `docs/release-notes.md`.
 
 ## Quick path for AI agents (DC-capable authoring, or driving one)
 
@@ -42,7 +42,7 @@ You are installing, linking, or upgrading the system in another product. Maintai
 
 ## Adopt via npm (optional)
 
-The package is publishable (`private: false`; version equals root `VERSION`). License remains **UNLICENSED** — installing from the registry does **not** grant redistribution rights by itself. **LAUNCH was `@cyberskill/design@1.1.0`; pin follows `VERSION` thereafter** (auto-bump on `main` creates tag `vX.Y.Z`, which fires `npm-publish.yml`). CI publishes via **npm Trusted Publishing (OIDC)** (no long-lived publish token; package Publishing access **disallows tokens**). Approved use is recorded in **`docs/consumer-grant.md`** (CyberSkill portfolio products from `docs/products.md`). See `docs/decisions.md` and `docs/ci-cd.md`.
+The package is publishable (`private: false`; version equals root `VERSION`). License remains **UNLICENSED** — installing from the registry does **not** grant redistribution rights by itself. **Package version equals root `VERSION`** (auto-bump on `main` creates tag `vX.Y.Z`, which fires `npm-publish.yml`). CI publishes via **npm Trusted Publishing (OIDC)** (no long-lived publish token; package Publishing access **disallows tokens**). Approved use is recorded in **`docs/consumer-grant.md`** (CyberSkill portfolio products from `docs/products.md`). See `docs/decisions.md` and `docs/ci-cd.md`.
 
 **Consumer grant (owner policy — not a secret).** Written and in force at `docs/consumer-grant.md` (+ `docs/vi/consumer-grant.md`). External teams need a dated stanza appended there; redistribution outside granted products needs a further written grant.
 

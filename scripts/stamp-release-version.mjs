@@ -3,7 +3,7 @@
 //
 // VERSION is the source of truth (auto-bumped by .github/workflows/version.yml).
 // This keeps package.json, token metas, legacy ESM entry, DESIGN.md, npm-hello,
-// and consumer-facing prose pins (README / SKILL / llms.txt / stories / …)
+// and consumer-facing prose version strings (README / SKILL / llms.txt / stories / …)
 // in lockstep. Does NOT write a CHANGELOG.
 //
 // Usage:
@@ -31,7 +31,7 @@ const apply = process.argv.includes("--apply");
 const exitCode = process.argv.includes("--exit-code") || process.argv.includes("--check");
 const changes = [];
 
-/** Launch-narrative anchors and dated history — never rewrite these pins. */
+/** Dated release-history anchors — never rewrite past Release/Patch/LAUNCH sections. */
 const HISTORICAL_OK = [
   /LAUNCHED(?:\s+at)?\s+\*\*v?1\.1\.0\*\*/gi,
   /LAUNCHED\s+\*\*v?1\.1\.0\*\*/gi,
@@ -44,10 +44,7 @@ const HISTORICAL_OK = [
   /##\s+Patch\s+[—–-]\s+`@cyberskill\/design@\d+\.\d+\.\d+`/g,
   /##\s+Release\s+[—–-]\s+`@cyberskill\/design@\d+\.\d+\.\d+`/g,
   /##\s+LAUNCH\s+[—–-]\s+`@cyberskill\/design@\d+\.\d+\.\d+`/g,
-  /first LAUNCH was\s+\*\*1\.1\.0\*\*/gi,
-  /first LAUNCH\s+\*\*v?1\.1\.0\*\*/gi,
-  /LAUNCH đầu tiên là\s+\*\*1\.1\.0\*\*/gi,
-  // Install commands immediately under a dated Patch/LAUNCH heading block (fenced)
+  // Install commands immediately under a dated Patch/LAUNCH/Release heading block (fenced)
   /```bash\nnpm install @cyberskill\/design@\d+\.\d+\.\d+\n```/g,
 ];
 
@@ -225,24 +222,26 @@ function protectHistorical(raw) {
   };
 }
 
-/** Prose / MDX / audit fallback pins that must track VERSION (FIND-027 / FIND-116). */
+/** Prose / MDX / audit fallback version strings that must track VERSION (FIND-027 / FIND-116). */
 function stampProseFile(rel, { allowPackageAt = false } = {}) {
   if (!existsSync(join(root, rel))) return;
   const before = read(rel);
   const { text: protectedText, restore } = protectHistorical(before);
   let raw = protectedText;
 
-  // Current-pin prose shapes only — never rewrite dated LAUNCH/Patch history.
-  raw = raw.replace(/current\s+\*\*v?\d+\.\d+\.\d+\*\*/gi, `current **v${version}**`);
-  raw = raw.replace(/[Cc]urrent pin is\s+\*\*\d+\.\d+\.\d+\*\*/g, `Current pin is **${version}**`);
-  raw = raw.replace(/VERSION is\s+\*\*\d+\.\d+\.\d+\*\*/g, `VERSION is **${version}**`);
-  raw = raw.replace(/VERSION\s+\*\*\d+\.\d+\.\d+\*\*/g, `VERSION **${version}**`);
+  // Single-version prose shapes only — never rewrite dated Release/Patch/LAUNCH history.
+  raw = raw.replace(/\bVersion is\s+\*\*\d+\.\d+\.\d+\*\*/g, `Version is **${version}**`);
+  raw = raw.replace(/\bVersion\s+\*\*\d+\.\d+\.\d+\*\*/g, `Version **${version}**`);
+  raw = raw.replace(/\bVERSION is\s+\*\*\d+\.\d+\.\d+\*\*/g, `VERSION is **${version}**`);
+  raw = raw.replace(/\bVERSION\s+\*\*\d+\.\d+\.\d+\*\*/g, `VERSION **${version}**`);
+  raw = raw.replace(/\bcurrent\s+\*\*v?\d+\.\d+\.\d+\*\*/gi, `VERSION **${version}**`);
+  raw = raw.replace(/\b[Cc]urrent pin is\s+\*\*\d+\.\d+\.\d+\*\*/g, `Version is **${version}**`);
   raw = raw.replace(/live at\s+\*\*\d+\.\d+\.\d+\*\*/gi, `live at **${version}**`);
   raw = raw.replace(/· VERSION \d+\.\d+\.\d+/g, `· VERSION ${version}`);
-  raw = raw.replace(/\[VERSION\]\(VERSION\):\s*pinned\s+\d+\.\d+\.\d+/g, `[VERSION](VERSION): pinned ${version}`);
+  raw = raw.replace(/\[VERSION\]\(VERSION\):\s*pinned\s+\d+\.\d+\.\d+/g, `[VERSION](VERSION): ${version}`);
   raw = raw.replace(/sweep at VERSION \d+\.\d+\.\d+/gi, `sweep at VERSION ${version}`);
   raw = raw.replace(/let ver=['"]\d+\.\d+\.\d+['"]/g, `let ver='${version}'`);
-  // npm package pin in entrance / consumer guidance (historical LAUNCH lines are protected)
+  // npm package version in entrance / consumer guidance (historical LAUNCH lines are protected)
   raw = raw.replace(
     /npm package \*\*`@cyberskill\/design@\d+\.\d+\.\d+`\*\*/g,
     `npm package **\`@cyberskill/design@${version}\`**`,
@@ -262,7 +261,7 @@ function stampProseFile(rel, { allowPackageAt = false } = {}) {
 
   raw = restore(raw);
   if (raw === before) return;
-  changes.push(`${rel}: prose pin -> ${version}`);
+  changes.push(`${rel}: prose version -> ${version}`);
   if (apply) write(rel, raw);
 }
 
@@ -292,12 +291,12 @@ function stampProseSurfaces() {
     stampProseFile(rel, { allowPackageAt: true });
   }
 
-  // Operator docs (EN + VI) — current-pin shapes only; LAUNCH history protected
+  // Operator docs (EN + VI) — VERSION prose; dated Release/Patch/LAUNCH history protected
   for (const rel of [...listMd("docs"), ...listMd("docs/vi")]) {
     stampProseFile(rel);
   }
 
-  // Storybook product-site MDX — current pin only
+  // Storybook product-site MDX — VERSION prose only
   for (const rel of walkMdx("stories")) stampProseFile(rel);
 
   // Audit board fallback when VERSION fetch fails

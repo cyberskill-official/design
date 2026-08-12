@@ -23,7 +23,7 @@ Self-audit checklist for evolving CyberSkill Design System — external standard
 | One element per surface; Tương sinh gradients only | products registry · conventions |
 | Product→element registry locked; UI kits Thổ-faithful | [`docs/products.md`](products.md) |
 | Expansion Rule completeness + `_audit/run.html` green + docs EN·VI parity | `docs/doctrine.md` · docs-consistency · docs-lang-parity · docs-storybook-coverage |
-| VERSION tracks file (auto-bump on main; first LAUNCH was 1.1.0) | version-stamp · docs-consistency |
+| VERSION tracks file (auto-bump on main) | version-stamp · docs-consistency |
 | Element packs from seeds only (30 sets) | `element-geometry` · `tokens:elements` |
 
 ## Style expansion checklist (`data-cs-style`)

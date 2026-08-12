@@ -50,7 +50,7 @@ Stay on the current Figma plan. Variables REST API is Enterprise-only — write 
 
 ## 7. npm publish — live via Trusted Publishing (OIDC)
 
-**Status: LAUNCHED `@cyberskill/design@1.1.0`; pin tracks `VERSION` (auto-bump on main since Aug 2026); CI publish uses npm Trusted Publishing; tokens disallowed** (Jul 2026; LAUNCH 2026-07-27)
+**Status: LAUNCHED `@cyberskill/design@1.1.0`; thereafter `VERSION` auto-bumps on main (since Aug 2026); CI publish uses npm Trusted Publishing; tokens disallowed** (Jul 2026; LAUNCH 2026-07-27)
 
 - `package.json` is `private: false`; package name **`@cyberskill/design`** (`publishConfig.access: public`); `repository.url` matches this GitHub repo for provenance.
 - Workflow `.github/workflows/npm-publish.yml`: `id-token: write` + GitHub-hosted runner; **no** `NPM_TOKEN` / `NODE_AUTH_TOKEN` on the publish step (OIDC). npm Trusted Publisher must list workflow filename **`npm-publish.yml`** for `cyberskill-official/design` (FIND-088). Soft-skip only for expected no-ops (`already_published` / EPUBLISHCONFLICT, and true non-GHA `missing_secrets`). On GHA tag / `workflow_dispatch`, **ENEEDAUTH** / **404** / **402** / **403** / **EOTP** fail the job; a successful publish is gated by post-publish `npm view @cyberskill/design@VERSION` **and** `dist-tags.latest === VERSION` (FIND-020 / FIND-094).
@@ -77,7 +77,7 @@ Recorded Jul 2026 — unlock defaults (updated as operator steps land):
 
 - **Figma Variables** — stay Tokens Studio / non-Enterprise (decision §3). Soft-skip on Variables REST remains honest.
 - **Code Connect** — **skipped while on Figma free**; revisit only after Org + published library + real `nodeId`s (decision §6). Soft-skip ≠ publish.
-- **npm** — **LAUNCH `@cyberskill/design@1.1.0`**; pin tracks `VERSION` (auto-bump on `main` → tag `v*` → Trusted Publishing); CI uses **Trusted Publishing (OIDC)** via `npm-publish.yml`; npmjs **disallow tokens**; consumer grant in force at `docs/consumer-grant.md` (decision §7). Default package entry is bundler-native `_esm/react.mjs` (React peer); browser path is `@cyberskill/design/legacy` → `_esm/cs.mjs` (decision §10).
+- **npm** — **LAUNCH `@cyberskill/design@1.1.0`**; thereafter `VERSION` auto-bumps on `main` → tag `v*` → Trusted Publishing; CI uses **Trusted Publishing (OIDC)** via `npm-publish.yml`; npmjs **disallow tokens**; consumer grant in force at `docs/consumer-grant.md` (decision §7). Default package entry is bundler-native `_esm/react.mjs` (React peer); browser path is `@cyberskill/design/legacy` → `_esm/cs.mjs` (decision §10).
 
 ## 10. Bundler-native React export (Next / SSR)
 
