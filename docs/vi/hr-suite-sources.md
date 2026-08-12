@@ -42,6 +42,6 @@ Bảng đầy đủ (tiêu đề EN → path repo) nằm ở bản EN: `docs/hr-
 
 ## Trạng thái sync (Th8 2026)
 
-Zip ngày **2026-07-11**. Repo đã có `.dc.html` đã chuyển cho mọi instrument đã map. Thay đổi này **ghi nhận** map Drive/DOCX ↔ `vn-*` và đưa Templates lên Storybook; **không** re-import nội dung DOCX vào DC. Chỉ sync lại khi counsel/ops xác nhận Word lệch so với cây DC — rồi sửa `templates/vn-*/` tương ứng và regen CSF Storybook nếu đổi tên (`node scripts/generate-template-stories.mjs`).
+Zip ngày **2026-07-11**. **Th8 2026: pass đối chiếu DOCX↔DC toàn bộ** — fixture plain text chuẩn hóa cho mọi instrument đã map (cộng hợp đồng nguyên tắc) nằm tại `_audit/fixtures/hr-suite-docx-text/`, kèm CI `_audit/ci/test-docx-source-parity.mjs` (overlap cụm từ ≥85%). Cây `.dc.html` vẫn là instrument sống canonical; file Word không vào git (chỉ giải nén `scraps/`). Sync lại khi counsel/ops xác nhận Word lệch — sửa `templates/vn-*/` (hoặc `doc-*`), chạy lại `node scripts/extract-hr-suite-docx-fixtures.mjs`, và regen CSF Storybook nếu đổi tên (`node scripts/generate-template-stories.mjs`).
 
 Vẫn cần counsel review trước khi dùng thật (instrument do client cung cấp; xem README / SKILL).

@@ -1,0 +1,144 @@
+<!-- source: 8. Quy Chế Công Tác Phí & Chi Phí - Travel & Expense Policy.docx -->
+CÔNG TY CỔ PHẦN TƯ VẤN VÀ PHÁT TRIỂN GIẢI PHÁP PHẦN MỀM CYBERSKILL
+CYBERSKILL SOFTWARE SOLUTIONS CONSULTANCY AND DEVELOPMENT JOINT STOCK COMPANY
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập – Tự do – Hạnh phúc
+———————————
+The Socialist Republic of Vietnam · Independence – Freedom – Happiness
+QUY CHẾ CÔNG TÁC PHÍ VÀ HOÀN ỨNG CHI PHÍ
+TRAVEL AND EXPENSE POLICY
+Số / No.: ....../2026/QCCTP-CYBERSKILL
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+◆ ◆ ◆
+Quy chế này quy định việc chi trả công tác phí và hoàn ứng chi phí phục vụ công việc. Quy chế áp dụng cho toàn thể người lao động và cho cộng tác viên khi hợp đồng dịch vụ dẫn chiếu đến Quy chế này.
+This Policy governs travel allowances and the reimbursement of work expenses. It applies to all employees, and to contractors where their service contract refers to it.
+ĐIỀU 1 · NGUYÊN TẮC Article 1 · Principles
+a) Chi phí phải phục vụ trực tiếp cho công việc, hợp lý và có chứng từ.
+a) An expense must serve the work directly, be reasonable, and be evidenced.
+b) Chi phí hợp lệ được hoàn 100%. Chi phí không hợp lệ không được hoàn, kể cả khi đã chi.
+b) A valid expense is reimbursed in full. An invalid expense is not reimbursed, even if already spent.
+c) Người phê duyệt không được tự phê duyệt chi phí của chính mình.
+c) No one approves their own expense.
+d) Chi phí do khách hàng chi trả theo hợp đồng được lập chứng từ riêng và không tính vào định mức của Công ty.
+d) Expenses billed to a client under contract are documented separately and do not count against the Company's limits.
+ĐIỀU 2 · ĐỊNH MỨC CÔNG TÁC PHÍ Article 2 · Travel allowances
+Công ty áp dụng phụ cấp trọn gói cho ăn uống, và hoàn theo chứng từ thực tế cho lưu trú và đi lại.
+The Company pays a flat allowance for meals, and reimburses hotel and transport against actual receipts.
+Khoản mục
+Item
+Trong nước
+Domestic
+Nước ngoài
+Overseas
+Chứng từ
+Evidence
+Phụ cấp ăn uống (trọn gói/ngày)
+Meal allowance (flat, per day)
+300.000 VNĐ
+800.000 VNĐ (~35 USD)
+Không cần hóa đơn
+No receipt needed
+Lưu trú (trần/đêm)
+Accommodation (cap, per night)
+1.200.000 VNĐ tại TP.HCM và Hà Nội; 800.000 VNĐ nơi khác
+VND 1,200,000 in HCMC and Hanoi; VND 800,000 elsewhere
+120 USD
+Hóa đơn
+Invoice
+Vé máy bay
+Air travel
+Hạng phổ thông
+Economy
+Hạng phổ thông; hạng phổ thông đặc biệt nếu bay trên 06 giờ
+Economy; premium economy for flights over 06 hours
+Vé và thẻ lên máy bay
+Ticket and boarding pass
+Taxi, Grab, tàu, xe
+Taxi, Grab, rail, coach
+Theo thực tế
+Actual
+Theo thực tế
+Actual
+Biên nhận hoặc ảnh chụp màn hình ứng dụng
+Receipt or app screenshot
+Phương tiện cá nhân
+Own vehicle
+5.000 VNĐ/km (xe máy) · 12.000 VNĐ/km (ô tô)
+VND 5,000/km (motorbike) · VND 12,000/km (car)
+Không áp dụng
+Not applicable
+Bản kê quãng đường
+Mileage log
+Ghi chú soạn thảo: Các định mức trên là đề xuất mặc định. Điều chỉnh trước khi ban hành nếu cần.
+Drafting note: The figures above are the suggested defaults. Adjust before issue if needed.
+ĐIỀU 3 · PHÊ DUYỆT Article 3 · Approval
+Giá trị
+Amount
+Người phê duyệt
+Approver
+Thời điểm
+When
+Dưới 2.000.000 VNĐ
+Under VND 2,000,000
+Quản lý trực tiếp
+Line manager
+Trước khi chi
+Before the spend
+Từ 2.000.000 VNĐ trở lên
+VND 2,000,000 and above
+Tổng Giám đốc
+CEO
+Trước khi chi, bằng văn bản
+Before the spend, in writing
+Mọi chuyến công tác nước ngoài
+Any overseas trip
+Tổng Giám đốc
+CEO
+Trước khi đặt vé
+Before booking
+Chi phí phát sinh ngoài giờ hoặc khẩn cấp có thể được chi trước và xin phê duyệt sau, nhưng phải báo cáo trong 24 giờ.
+An out-of-hours or emergency expense may be incurred first and approved after, but must be reported within 24 hours.
+ĐIỀU 4 · HOÀN ỨNG Article 4 · Claiming
+a) Nộp đề nghị hoàn ứng kèm chứng từ trong vòng 10 ngày làm việc kể từ khi kết thúc chuyến công tác hoặc phát sinh chi phí.
+a) Submit the claim with evidence within 10 working days of the trip ending or the expense being incurred.
+b) Quá 10 ngày làm việc, chi phí không được hoàn, trừ trường hợp bất khả kháng được Tổng Giám đốc chấp thuận.
+b) After 10 working days the expense is not reimbursed, unless the CEO accepts a case of force majeure.
+c) Công ty thanh toán trong kỳ lương gần nhất sau khi đề nghị được duyệt.
+c) The Company pays in the next payroll run after the claim is approved.
+d) Hóa đơn giá trị gia tăng phải ghi đúng tên và mã số thuế của Công ty: Công Ty Cổ Phần Tư Vấn Và Phát Triển Giải Pháp Phần Mềm CyberSkill, MST 0316475200.
+d) A VAT invoice must carry the Company's correct name and tax code: CyberSkill Software Solutions Consultancy and Development Joint Stock Company, tax code 0316475200.
+ĐIỀU 5 · CHI PHÍ KHÔNG ĐƯỢC HOÀN Article 5 · What is never reimbursed
+a) Chi phí cá nhân: giải trí, mua sắm, spa, phòng nghỉ nâng hạng, người đi cùng không phục vụ công việc.
+a) Personal spending: entertainment, shopping, spa, room upgrades, and companions not travelling for work.
+b) Tiền phạt vi phạm giao thông, phạt đỗ xe, phạt hành chính.
+b) Traffic fines, parking fines and administrative penalties.
+c) Đồ uống có cồn, trừ khi là tiếp khách đã được Tổng Giám đốc duyệt trước.
+c) Alcohol, unless it is client entertainment pre-approved by the CEO.
+d) Chi phí không có chứng từ, trừ phụ cấp ăn uống trọn gói tại Điều 2.
+d) Any expense without evidence, other than the flat meal allowance in Article 2.
+e) Chi phí đã được khách hàng hoặc bên thứ ba thanh toán.
+e) Any expense already paid by a client or a third party.
+ĐIỀU 6 · GIAN LẬN CHI PHÍ Article 6 · Expense fraud
+Kê khai sai, làm giả chứng từ hoặc kê khai trùng lặp là hành vi vi phạm kỷ luật nghiêm trọng, được xử lý theo Nội quy lao động và Bảng xử lý kỷ luật, và có thể dẫn đến sa thải theo Điều 125 Bộ luật Lao động.
+Misstating a claim, falsifying evidence or double-claiming is a serious disciplinary breach, dealt with under the Internal Labor Regulations and the Disciplinary Schedule, and may lead to dismissal under Article 125 of the Labor Code.
+ĐIỀU 7 · HIỆU LỰC Article 7 · Effect
+Quy chế có hiệu lực kể từ ngày ký và được xem xét lại hằng năm.
+This Policy takes effect on signature and is reviewed annually.
+Thành phố Hồ Chí Minh, ngày ...... tháng ...... năm ......
+Ho Chi Minh City, ...... / ...... / ......
+ĐẠI DIỆN TẬP THỂ NGƯỜI LAO ĐỘNG
+Employee Representative
+(Ký, ghi rõ họ tên)
+(Sign and state full name)
+............................
+NGƯỜI SỬ DỤNG LAO ĐỘNG
+The Employer
+(Ký, ghi rõ họ tên và đóng dấu)
+(Sign, state full name, and affix seal)
+............................
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Quy chế Công tác phí & Chi phí · Travel & Expense Policy · Số / No.: ....../2026/QCCTP

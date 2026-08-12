@@ -1,0 +1,83 @@
+<!-- source: 6. Thỏa Thuận Bảo Mật Song Phương - Mutual NDA.docx -->
+Công Ty Cổ Phần Tư Vấn Và Phát Triển Giải Pháp Phần Mềm CyberSkill
+CyberSkill Software Solutions Consultancy and Development Joint Stock Company
+Số / No.: ...../2026/TTBM-SP-CYBERSKILL
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+The Socialist Republic of Vietnam · Independence - Freedom - Happiness
+Thành phố Hồ Chí Minh, ngày ...... tháng ...... năm ......
+THỎA THUẬN BẢO MẬT SONG PHƯƠNG
+MUTUAL NON-DISCLOSURE AGREEMENT
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+Căn cứ Bộ luật Dân sự số 91/2015/QH13 và Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15;
+Pursuant to the Civil Code No. 91/2015/QH13 and the Law on Personal Data Protection No. 91/2025/QH15;
+Hôm nay, ngày .... tháng .... năm ...., hai Bên gồm:
+Today, .... / .... / ...., the two Parties are:
+BÊN A · CYBERSKILL
+Party A · CyberSkill
+Công ty Company
+Công Ty Cổ Phần Tư Vấn Và Phát Triển Giải Pháp Phần Mềm CyberSkill (CyberSkill Software Solutions Consultancy and Development Joint Stock Company)
+Mã số thuế / DUNS Tax code / DUNS
+0316475200 / 673219568
+Địa chỉ Address
+Tầng 1, 207A Nguyễn Văn Thủ, Phường Tân Định, Thành phố Hồ Chí Minh1st Floor, 207A Nguyen Van Thu Street, Tan Dinh Ward, Ho Chi Minh City, Vietnam
+Đại diện Represented by
+Ông Trịnh Thái Anh (Mr. Stephen)
+Chức vụ Position
+Tổng Giám đốc Chief Executive Officer
+Điện thoại / Email Tel / Email
+(+84) 906 878 091 · info@cyberskill.world
+BÊN B · ĐỐI TÁC
+Party B · The Partner
+Tên tổ chức Organization
+..............................
+Mã số thuế Tax code
+...............................
+Địa chỉ Address
+............................................................
+Đại diện Represented by
+..............................
+Chức vụ Position
+..............................
+Điện thoại / Email Tel / Email
+...............................
+Hai Bên trao đổi thông tin cho mục đích hợp tác và thống nhất bảo mật như sau. Nghĩa vụ bảo mật áp dụng cho cả hai Bên (song phương).
+The Parties exchange information for a potential collaboration and agree on confidentiality as follows. The obligations apply to both Parties (mutually).
+ĐIỀU 1 · THÔNG TIN BẢO MẬT Article 1 · Confidential information
+Là mọi thông tin kỹ thuật, kinh doanh, tài chính, sản phẩm, khách hàng, mã nguồn, dữ liệu và tài liệu mà một Bên tiết lộ cho Bên kia, dù bằng văn bản, lời nói hay điện tử, được đánh dấu hoặc hợp lý được hiểu là bảo mật.
+Any technical, business, financial, product, customer, source-code, data, and documentary information disclosed by one Party to the other, whether written, oral, or electronic, marked or reasonably understood to be confidential.
+ĐIỀU 2 · NGHĨA VỤ BẢO MẬT Article 2 · Confidentiality obligations
+Bên nhận chỉ sử dụng thông tin cho mục đích hợp tác; không tiết lộ cho bên thứ ba nếu không có sự đồng ý bằng văn bản; áp dụng biện pháp bảo vệ ít nhất tương đương với thông tin bảo mật của mình.
+The receiving Party uses the information only for the collaboration; does not disclose it to third parties without written consent; and protects it with at least the same care as its own confidential information.
+ĐIỀU 3 · LOẠI TRỪ Article 3 · Exclusions
+Không áp dụng với thông tin đã công khai không do lỗi của Bên nhận; đã biết hợp pháp trước khi nhận; nhận hợp pháp từ bên thứ ba; hoặc phải tiết lộ theo yêu cầu của cơ quan có thẩm quyền, có thông báo trước hợp lý.
+Does not apply to information that is public through no fault of the receiving Party; lawfully known before receipt; lawfully received from a third party; or required to be disclosed by a competent authority, with reasonable prior notice.
+ĐIỀU 4 · THỜI HẠN Article 4 · Term
+Nghĩa vụ bảo mật có hiệu lực kể từ ngày ký và kéo dài 03 năm sau khi kết thúc trao đổi, trừ bí mật kinh doanh được bảo vệ đến khi không còn là bí mật.
+The obligations take effect from signing and last 03 years after the exchange ends, except trade secrets, which are protected until they cease to be secret.
+ĐIỀU 5 · BẢO VỆ DỮ LIỆU CÁ NHÂN Article 5 · Personal data protection
+Nếu việc trao đổi bao gồm dữ liệu cá nhân, các Bên tuân thủ Nghị định 13/2023/NĐ-CP và pháp luật về bảo vệ dữ liệu cá nhân.
+If the exchange includes personal data, the Parties comply with Decree 13/2023/ND-CP and the personal data protection law.
+ĐIỀU 6 · HOÀN TRẢ VÀ TIÊU HỦY Article 6 · Return and destruction
+Khi kết thúc hoặc theo yêu cầu, Bên nhận hoàn trả hoặc tiêu hủy thông tin bảo mật và bản sao, trừ khi phải lưu giữ theo luật.
+On termination or request, the receiving Party returns or destroys the confidential information and copies, except where retention is required by law.
+ĐIỀU 7 · CHẾ TÀI Article 7 · Remedies
+Bên vi phạm phải bồi thường thiệt hại thực tế phát sinh; Bên bị vi phạm có quyền yêu cầu áp dụng biện pháp ngăn chặn theo quy định của pháp luật.
+The breaching Party compensates actual damages; the aggrieved Party may seek injunctive measures as provided by law.
+ĐIỀU 8 · LUẬT ÁP DỤNG VÀ TRANH CHẤP Article 8 · Governing law and disputes
+Áp dụng pháp luật Việt Nam. Tranh chấp được giải quyết bằng thương lượng; nếu không thành, đưa ra Tòa án có thẩm quyền hoặc trọng tài theo thỏa thuận.
+Governed by the laws of Vietnam. Disputes are settled by negotiation; failing that, by the competent court or arbitration as agreed.
+ĐIỀU 9 · ĐIỀU KHOẢN CHUNG Article 9 · General provisions
+Thỏa thuận được lập thành 02 bản có giá trị như nhau, mỗi Bên giữ 01 bản.
+This Agreement is made in 02 copies of equal validity, one held by each Party.
+BÊN A · CYBERSKILL
+Party A
+(Ký, ghi rõ họ tên / Sign, full name)
+BÊN B · ĐỐI TÁC
+Party B
+(Ký, ghi rõ họ tên / Sign, full name)
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Thỏa thuận bảo mật song phương · Mutual NDA · Số / No.: ...../2026/TTBM-SP-CYBERSKILL

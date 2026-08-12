@@ -1,0 +1,153 @@
+<!-- source: 8. Chính Sách Bảo Vệ Dữ Liệu Cá Nhân - Personal Data Protection Policy.docx -->
+CÔNG TY CỔ PHẦN TƯ VẤN VÀ PHÁT TRIỂN GIẢI PHÁP PHẦN MỀM CYBERSKILL
+CYBERSKILL SOFTWARE SOLUTIONS CONSULTANCY AND DEVELOPMENT JOINT STOCK COMPANY
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập – Tự do – Hạnh phúc
+———————————
+The Socialist Republic of Vietnam · Independence – Freedom – Happiness
+CHÍNH SÁCH BẢO VỆ DỮ LIỆU CÁ NHÂN
+PERSONAL DATA PROTECTION POLICY
+Số / No.: ....../2026/CSBVDL-CYBERSKILL
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+◆ ◆ ◆
+Chính sách này thực hiện Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15. Chính sách áp dụng cho mọi hoạt động xử lý dữ liệu cá nhân của CyberSkill, bao gồm dữ liệu của người lao động, của khách hàng, và dữ liệu mà Công ty xử lý thay mặt khách hàng.
+This Policy gives effect to the Law on Personal Data Protection No. 91/2025/QH15. It applies to all processing of personal data by CyberSkill, including staff data, client data, and data the Company processes on a client's behalf.
+ĐIỀU 1 · NGUYÊN TẮC XỬ LÝ Article 1 · Processing principles
+a) Hợp pháp: mỗi hoạt động xử lý phải có căn cứ pháp lý rõ ràng.
+a) Lawful: every processing activity must have a clear legal basis.
+b) Minh bạch: chủ thể dữ liệu được biết dữ liệu của mình được xử lý như thế nào.
+b) Transparent: the data subject knows how their data is processed.
+c) Đúng mục đích: chỉ xử lý cho mục đích đã thông báo, không dùng cho mục đích khác.
+c) Purpose-bound: processed only for the notified purpose, never another.
+d) Tối thiểu: chỉ thu thập dữ liệu thực sự cần thiết.
+d) Minimal: only the data genuinely needed is collected.
+e) Chính xác và có thời hạn: dữ liệu được cập nhật và bị xóa khi hết thời hạn lưu trữ.
+e) Accurate and time-limited: data is kept current and deleted when its retention period ends.
+f) Bảo mật: dữ liệu được bảo vệ bằng biện pháp kỹ thuật và tổ chức phù hợp.
+f) Secure: protected by appropriate technical and organizational measures.
+ĐIỀU 2 · DỮ LIỆU CÔNG TY XỬ LÝ Article 2 · The data the Company processes
+Nhóm dữ liệu
+Category
+Bao gồm
+Includes
+Căn cứ pháp lý
+Legal basis
+Thời hạn lưu
+Retention
+Dữ liệu người lao động
+Staff data
+Họ tên, CCCD, ngày sinh, địa chỉ, tài khoản ngân hàng, tiền lương, hồ sơ khám sức khỏe, kết quả đánh giá.
+Name, Citizen ID, date of birth, address, bank account, salary, health check records, evaluation results.
+Thực hiện hợp đồng lao động và nghĩa vụ luật định (bảo hiểm, thuế).
+Performance of the labor contract and legal obligations (insurance, tax).
+05 năm sau khi chấm dứt hợp đồng
+05 years after termination
+Dữ liệu ứng viên
+Candidate data
+CV, thông tin liên hệ, kết quả phỏng vấn.
+CV, contact details, interview outcomes.
+Sự đồng ý của ứng viên.
+The candidate's consent.
+12 tháng, trừ khi ứng viên đồng ý lưu lâu hơn
+12 months, unless the candidate agrees to longer
+Dữ liệu liên hệ khách hàng
+Client contact data
+Họ tên, chức danh, thư điện tử, số điện thoại công việc.
+Name, title, work email, work phone.
+Thực hiện hợp đồng dịch vụ.
+Performance of the service contract.
+Thời hạn hợp đồng cộng 05 năm
+The contract term plus 05 years
+Dữ liệu trong hệ thống khách hàng
+Data inside client systems
+Dữ liệu người dùng cuối của khách hàng mà Công ty tiếp xúc khi xây dựng, vận hành hoặc bảo trì hệ thống.
+The client's end-user data that the Company encounters when building, running or maintaining a system.
+Hợp đồng dịch vụ. CyberSkill là Bên Xử lý dữ liệu, khách hàng là Bên Kiểm soát dữ liệu.
+The service contract. CyberSkill is the Processor; the client is the Controller.
+Theo chỉ dẫn của khách hàng
+As the client instructs
+Ghi chú soạn thảo: Nhóm thứ tư là nhóm rủi ro nhất. Khi làm việc trong hệ thống của khách hàng, CyberSkill là Bên Xử lý dữ liệu: chỉ được xử lý theo đúng chỉ dẫn bằng văn bản của khách hàng, không được dùng cho mục đích riêng.
+Drafting note: The fourth category carries the most risk. Working inside a client's system, CyberSkill is a Processor: it may only act on the client's written instructions, and never for its own purposes.
+ĐIỀU 3 · QUYỀN CỦA CHỦ THỂ DỮ LIỆU Article 3 · Rights of the data subject
+Người lao động, ứng viên và mọi cá nhân có dữ liệu do Công ty xử lý có các quyền sau. Công ty trả lời trong vòng 72 giờ kể từ khi nhận được yêu cầu.
+Employees, candidates and every individual whose data the Company processes hold the following rights. The Company responds within 72 hours of a request.
+a) Quyền được biết dữ liệu nào đang được xử lý và vì mục đích gì.
+a) To know what data is processed and for what purpose.
+b) Quyền truy cập và nhận bản sao dữ liệu của mình.
+b) To access and obtain a copy of their data.
+c) Quyền yêu cầu chỉnh sửa dữ liệu không chính xác.
+c) To have inaccurate data corrected.
+d) Quyền yêu cầu xóa dữ liệu, trừ khi Công ty phải lưu theo quy định của pháp luật.
+d) To have data deleted, unless the Company must retain it by law.
+e) Quyền hạn chế hoặc phản đối việc xử lý.
+e) To restrict or object to processing.
+f) Quyền rút lại sự đồng ý bất kỳ lúc nào, mà không ảnh hưởng đến tính hợp pháp của việc xử lý trước đó.
+f) To withdraw consent at any time, without affecting the lawfulness of processing before withdrawal.
+g) Quyền khiếu nại tới Công ty và tới cơ quan nhà nước có thẩm quyền.
+g) To complain to the Company and to the competent state authority.
+Đầu mối tiếp nhận yêu cầu: Tổng Giám đốc, hoặc thư điện tử info@cyberskill.world.
+Requests are received by the CEO, or at info@cyberskill.world.
+ĐIỀU 4 · CHUYỂN DỮ LIỆU RA NƯỚC NGOÀI Article 4 · Transferring data abroad
+Công ty sử dụng các dịch vụ đám mây đặt máy chủ ngoài lãnh thổ Việt Nam, bao gồm Google Workspace, GitHub, và nhà cung cấp hạ tầng đám mây. Việc này cấu thành chuyển dữ liệu cá nhân ra nước ngoài theo Luật Bảo vệ dữ liệu cá nhân.
+The Company uses cloud services hosted outside Vietnam, including Google Workspace, GitHub, and a cloud infrastructure provider. This constitutes a cross-border transfer of personal data under the Law on Personal Data Protection.
+a) Công ty lập và lưu giữ Hồ sơ đánh giá tác động chuyển dữ liệu ra nước ngoài, và nộp cho cơ quan có thẩm quyền theo quy định.
+a) The Company prepares and retains a transfer impact assessment file, and files it with the competent authority as required.
+b) Danh sách nhà cung cấp và quốc gia lưu trữ được cập nhật và công khai nội bộ.
+b) The list of providers and hosting countries is maintained and published internally.
+c) Không chuyển dữ liệu của khách hàng ra ngoài phạm vi mà hợp đồng với khách hàng cho phép.
+c) Client data is never transferred beyond what the client contract permits.
+ĐIỀU 5 · SỰ CỐ LỘ, LỌT DỮ LIỆU Article 5 · Data breaches
+Bước
+Step
+Nội dung
+Action
+Thời hạn
+Deadline
+1
+Người phát hiện báo cho Tổng Giám đốc.
+Whoever discovers it reports to the CEO.
+Trong 24 giờ
+Within 24 hours
+2
+Ngăn chặn, khắc phục, và ghi nhận phạm vi ảnh hưởng.
+Contain, remediate, and record the scope of impact.
+Ngay lập tức
+Immediately
+3
+Thông báo cho cơ quan nhà nước có thẩm quyền.
+Notify the competent state authority.
+Trong 72 giờ kể từ khi phát hiện
+Within 72 hours of discovery
+4
+Thông báo cho chủ thể dữ liệu bị ảnh hưởng, và cho khách hàng nếu là dữ liệu của khách hàng.
+Notify the affected data subjects, and the client where it is client data.
+Không chậm trễ
+Without delay
+5
+Lập báo cáo sự cố và biện pháp phòng ngừa tái diễn.
+Write an incident report and the measures to prevent recurrence.
+Trong 07 ngày làm việc
+Within 07 working days
+Ghi chú soạn thảo: Thời hạn nội bộ 24 giờ được đặt ngắn hơn thời hạn luật định 72 giờ, để Công ty còn thời gian điều tra và thông báo đúng hạn.
+Drafting note: The internal 24-hour deadline is deliberately shorter than the statutory 72 hours, so the Company still has time to investigate and notify on time.
+ĐIỀU 6 · TRÁCH NHIỆM Article 6 · Responsibility
+Người chịu trách nhiệm bảo vệ dữ liệu cá nhân của Công ty là Tổng Giám đốc, cho đến khi Công ty bổ nhiệm nhân sự chuyên trách. Mọi người lao động có trách nhiệm tuân thủ Chính sách này; vi phạm được xử lý theo Nội quy lao động.
+The person responsible for personal data protection is the CEO, until the Company appoints a dedicated officer. Every employee is responsible for complying with this Policy; a breach is dealt with under the Internal Labor Regulations.
+Thành phố Hồ Chí Minh, ngày ...... tháng ...... năm ......
+Ho Chi Minh City, ...... / ...... / ......
+ĐẠI DIỆN TẬP THỂ NGƯỜI LAO ĐỘNG
+Employee Representative
+(Ký, ghi rõ họ tên)
+(Sign and state full name)
+............................
+NGƯỜI SỬ DỤNG LAO ĐỘNG
+The Employer
+(Ký, ghi rõ họ tên và đóng dấu)
+(Sign, state full name, and affix seal)
+............................
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Chính sách Bảo vệ Dữ liệu Cá nhân · Personal Data Protection Policy · Số / No.: ....../2026/CSBVDL

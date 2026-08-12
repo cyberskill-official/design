@@ -1,0 +1,121 @@
+<!-- source: 8. Chính Sách An Toàn Thông Tin & Sử Dụng CNTT - Information Security & Acceptable Use Policy.docx -->
+CÔNG TY CỔ PHẦN TƯ VẤN VÀ PHÁT TRIỂN GIẢI PHÁP PHẦN MỀM CYBERSKILL
+CYBERSKILL SOFTWARE SOLUTIONS CONSULTANCY AND DEVELOPMENT JOINT STOCK COMPANY
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập – Tự do – Hạnh phúc
+———————————
+The Socialist Republic of Vietnam · Independence – Freedom – Happiness
+CHÍNH SÁCH AN TOÀN THÔNG TIN VÀ SỬ DỤNG CÔNG NGHỆ THÔNG TIN
+INFORMATION SECURITY AND ACCEPTABLE USE POLICY
+Số / No.: ....../2026/CSATTT-CYBERSKILL
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+◆ ◆ ◆
+Chính sách áp dụng cho mọi người lao động, thực tập sinh, cộng tác viên và bên thứ ba có quyền truy cập vào hệ thống, tài khoản, mã nguồn hoặc dữ liệu của CyberSkill hoặc của khách hàng.
+This Policy applies to every employee, intern, contractor and third party with access to CyberSkill or client systems, accounts, source code or data.
+Ghi chú soạn thảo: CyberSkill là công ty phần mềm làm việc trên hệ thống của khách hàng. Rủi ro lớn nhất của Công ty không phải là mất dữ liệu của chính mình, mà là làm lộ dữ liệu của khách hàng. Chính sách này được viết theo hướng đó.
+Drafting note: CyberSkill is a software company working inside client systems. The Company's largest risk is not losing its own data, but exposing a client's. This Policy is written accordingly.
+ĐIỀU 1 · THIẾT BỊ Article 1 · Devices
+a) Mọi công việc chạm đến mã nguồn hoặc dữ liệu của khách hàng phải được thực hiện trên máy tính do Công ty cấp.
+a) All work touching client source code or client data is done on a Company-issued computer.
+b) Thiết bị cá nhân (điện thoại, máy tính bảng) chỉ được dùng cho thư điện tử, lịch và tin nhắn nội bộ, với điều kiện có khóa màn hình và mã hóa thiết bị.
+b) Personal devices (phone, tablet) may be used for email, calendar and internal chat only, provided they have a screen lock and device encryption.
+c) Máy tính của Công ty phải bật mã hóa toàn ổ đĩa, tự khóa sau 10 phút không hoạt động, và cài đặt bản vá bảo mật trong vòng 07 ngày kể từ khi phát hành.
+c) Company computers must have full-disk encryption, auto-lock after 10 minutes idle, and security patches installed within 07 days of release.
+d) Mất hoặc bị đánh cắp thiết bị phải được báo cho Tổng Giám đốc trong vòng 01 giờ, bất kể ngày hay đêm.
+d) A lost or stolen device is reported to the CEO within 01 hour, at any hour of the day.
+ĐIỀU 2 · TÀI KHOẢN VÀ MẬT KHẨU Article 2 · Accounts and passwords
+a) Xác thực hai yếu tố (2FA) là bắt buộc trên mọi tài khoản: thư điện tử, GitHub, hạ tầng đám mây, ngân hàng và mọi hệ thống của khách hàng. Không có ngoại lệ.
+a) Two-factor authentication is mandatory on every account: email, GitHub, cloud infrastructure, banking, and every client system. No exceptions.
+b) Mật khẩu được lưu trong trình quản lý mật khẩu do Công ty cấp (1Password hoặc Bitwarden). Mật khẩu tối thiểu 14 ký tự và không được dùng lại giữa các hệ thống.
+b) Passwords are held in the Company-provided password manager (1Password or Bitwarden). Minimum 14 characters, never reused across systems.
+c) Chia sẻ mật khẩu qua thư điện tử, tin nhắn, bảng tính hoặc tài liệu là hành vi vi phạm kỷ luật.
+c) Sharing a password by email, chat, spreadsheet or document is a disciplinary breach.
+d) Tài khoản dùng chung bị cấm. Mỗi người một tài khoản định danh. Khi bắt buộc phải có tài khoản dịch vụ, tài khoản đó do Tổng Giám đốc quản lý và ghi nhận.
+d) Shared accounts are prohibited. One named account per person. Where a service account is unavoidable, it is held and recorded by the CEO.
+ĐIỀU 3 · SỬ DỤNG CÔNG CỤ TRÍ TUỆ NHÂN TẠO Article 3 · Use of artificial intelligence tools
+Công ty khuyến khích sử dụng công cụ AI để nâng cao năng suất, trong giới hạn dưới đây. Đây là điều khoản quan trọng nhất của Chính sách này.
+The Company encourages the use of AI tools to raise productivity, within the limits below. This is the most important Article in this Policy.
+Được phép
+Permitted
+Nghiêm cấm
+Prohibited
+Sử dụng ChatGPT, Claude, GitHub Copilot, Cursor trên TÀI KHOẢN DOANH NGHIỆP do Công ty cấp và trả phí.
+Using ChatGPT, Claude, GitHub Copilot and Cursor on the COMPANY ACCOUNT provided and paid for by the Company.
+Sử dụng tài khoản cá nhân hoặc tài khoản miễn phí cho bất kỳ công việc nào của Công ty. Dữ liệu nhập vào tài khoản miễn phí có thể được dùng để huấn luyện mô hình.
+Using a personal or free account for any Company work. Data entered into a free account may be used to train the model.
+Sinh mã, giải thích mã, viết kiểm thử, viết tài liệu trên mã nguồn NỘI BỘ của CyberSkill.
+Generating code, explaining code, writing tests and writing documentation against CyberSkill's OWN source code.
+Dán mã nguồn của KHÁCH HÀNG vào bất kỳ công cụ AI nào khi chưa có chấp thuận bằng văn bản của khách hàng đó.
+Pasting CLIENT source code into any AI tool without that client's written consent.
+Soạn thảo, dịch, tóm tắt văn bản không chứa dữ liệu cá nhân hoặc thông tin bảo mật.
+Drafting, translating and summarizing text that contains no personal data and no confidential information.
+Nhập dữ liệu cá nhân của bất kỳ người thật nào (nhân sự, khách hàng, người dùng cuối) vào công cụ AI.
+Entering the personal data of any real person (staff, client, end user) into an AI tool.
+Dùng AI như một công cụ hỗ trợ; con người vẫn chịu trách nhiệm cuối cùng về kết quả.
+Using AI as an assistant; a human remains accountable for the output.
+Nhập thông tin thuộc phạm vi thỏa thuận bảo mật (NDA) với bên thứ ba.
+Entering information covered by an NDA with a third party.
+a) Mã do AI sinh ra phải được người lao động đọc, hiểu và chịu trách nhiệm trước khi đưa vào sản phẩm. Không đưa vào sản phẩm mã mà mình không hiểu.
+a) AI-generated code must be read, understood and owned by the employee before it enters a product. Do not ship code you do not understand.
+b) Danh sách công cụ AI được phê duyệt do Tổng Giám đốc ban hành và cập nhật. Sử dụng công cụ ngoài danh sách cho công việc của Công ty phải được phê duyệt trước.
+b) The list of approved AI tools is issued and maintained by the CEO. Using a tool outside the list for Company work requires prior approval.
+c) Khi hợp đồng với khách hàng cấm sử dụng AI, quy định của hợp đồng đó được ưu tiên áp dụng.
+c) Where a client contract prohibits the use of AI, that contract prevails.
+ĐIỀU 4 · PHẦN MỀM VÀ DỊCH VỤ Article 4 · Software and services
+a) Phần mềm hoặc dịch vụ đám mây chạm đến mã nguồn hoặc dữ liệu của khách hàng phải được Tổng Giám đốc phê duyệt trước khi cài đặt hoặc đăng ký.
+a) Any software or cloud service that touches client source code or client data requires the CEO's approval before installation or subscription.
+b) Phần mềm không có bản quyền hợp lệ bị cấm tuyệt đối trên thiết bị của Công ty.
+b) Unlicensed software is absolutely prohibited on Company devices.
+c) Mã nguồn của Công ty và của khách hàng chỉ được lưu trên kho lưu trữ do Công ty quản lý. Không đẩy mã lên kho cá nhân, kể cả kho riêng tư.
+c) Company and client source code lives only in Company-controlled repositories. Never push code to a personal repository, even a private one.
+ĐIỀU 5 · SỰ CỐ AN TOÀN THÔNG TIN Article 5 · Security incidents
+Mức độ
+Severity
+Ví dụ
+Example
+Báo cho ai, trong bao lâu
+Report to whom, how fast
+Nghiêm trọng
+Critical
+Lộ dữ liệu khách hàng; mã nguồn bị đẩy ra ngoài; tài khoản bị chiếm quyền; mất máy tính chứa dữ liệu khách hàng.
+Client data exposed; source code leaked; account taken over; loss of a computer holding client data.
+Tổng Giám đốc, trong 01 giờ
+The CEO, within 01 hour
+Cao
+High
+Nghi ngờ bị lừa đảo (phishing) và đã bấm vào liên kết; phần mềm độc hại; mật khẩu bị lộ.
+Suspected phishing where a link was clicked; malware; a leaked password.
+Tổng Giám đốc, trong 04 giờ
+The CEO, within 04 hours
+Trung bình
+Medium
+Nhận được thư lừa đảo nhưng không bấm; thiết bị bị mất nhưng không chứa dữ liệu khách hàng.
+A phishing email received but not clicked; a device lost that held no client data.
+Tổng Giám đốc, trong 24 giờ
+The CEO, within 24 hours
+Báo cáo trung thực và kịp thời một sự cố do chính mình gây ra KHÔNG bị xử lý kỷ luật. Che giấu sự cố thì có. Đây là cam kết của Công ty và là điều kiện để hệ thống an toàn thông tin hoạt động được.
+Reporting an incident you caused, honestly and promptly, is NOT a disciplinary matter. Concealing one is. That is the Company's commitment, and it is what makes the whole security system work.
+ĐIỀU 6 · KHI CHẤM DỨT HỢP ĐỒNG Article 6 · On leaving
+Toàn bộ quyền truy cập được thu hồi trong ngày làm việc cuối cùng. Thiết bị, thẻ và tài khoản được bàn giao theo Thỏa thuận Chấm dứt & Bàn giao. Nghĩa vụ bảo mật tiếp tục có hiệu lực sau khi chấm dứt theo Thỏa thuận Bảo mật, KCT & SHTT.
+All access is revoked on the last working day. Devices, cards and accounts are handed over under the Exit-Handover Agreement. Confidentiality obligations survive termination under the NDNCA & IP Agreement.
+ĐIỀU 7 · VI PHẠM Article 7 · Breach
+Vi phạm Chính sách này được xử lý theo Nội quy lao động và Bảng xử lý kỷ luật. Làm lộ bí mật kinh doanh, bí mật công nghệ hoặc dữ liệu của khách hàng có thể dẫn đến sa thải theo Điều 125 Bộ luật Lao động và bồi thường thiệt hại.
+A breach of this Policy is dealt with under the Internal Labor Regulations and the Disciplinary Schedule. Disclosing business secrets, technology secrets or client data may lead to dismissal under Article 125 of the Labor Code and to a claim for damages.
+Thành phố Hồ Chí Minh, ngày ...... tháng ...... năm ......
+Ho Chi Minh City, ...... / ...... / ......
+ĐẠI DIỆN TẬP THỂ NGƯỜI LAO ĐỘNG
+Employee Representative
+(Ký, ghi rõ họ tên)
+(Sign and state full name)
+............................
+NGƯỜI SỬ DỤNG LAO ĐỘNG
+The Employer
+(Ký, ghi rõ họ tên và đóng dấu)
+(Sign, state full name, and affix seal)
+............................
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Chính sách An toàn Thông tin · Information Security & Acceptable Use Policy · Số / No.: ....../2026/CSATTT

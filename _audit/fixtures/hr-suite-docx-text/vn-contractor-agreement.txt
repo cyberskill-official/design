@@ -1,0 +1,96 @@
+<!-- source: 5. Hợp Đồng Dịch Vụ - Independent Contractor Agreement.docx -->
+Công Ty Cổ Phần Tư Vấn Và Phát Triển Giải Pháp Phần Mềm CyberSkill
+CyberSkill Software Solutions Consultancy and Development Joint Stock Company
+Số / No.: ...../2026/HĐDV-CYBERSKILL
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+The Socialist Republic of Vietnam · Independence - Freedom - Happiness
+Thành phố Hồ Chí Minh, ngày ...... tháng ...... năm ......
+HỢP ĐỒNG DỊCH VỤ (CỘNG TÁC VIÊN)
+SERVICE (INDEPENDENT CONTRACTOR) AGREEMENT
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+Căn cứ Bộ luật Dân sự số 91/2015/QH13 và các quy định pháp luật có liên quan;
+Pursuant to the Civil Code No. 91/2015/QH13 and other relevant laws;
+Hôm nay, ngày .... tháng .... năm ...., tại Thành phố Hồ Chí Minh, hai Bên gồm:
+Today, .... / .... / ...., in Ho Chi Minh City, the two Parties are:
+BÊN A · BÊN THUÊ DỊCH VỤ
+Party A · The Client
+Công ty Company
+Công Ty Cổ Phần Tư Vấn Và Phát Triển Giải Pháp Phần Mềm CyberSkill (CyberSkill Software Solutions Consultancy and Development Joint Stock Company)
+Mã số thuế / DUNS Tax code / DUNS
+0316475200 / 673219568
+Địa chỉ Address
+Tầng 1, 207A Nguyễn Văn Thủ, Phường Tân Định, Thành phố Hồ Chí Minh1st Floor, 207A Nguyen Van Thu Street, Tan Dinh Ward, Ho Chi Minh City, Vietnam
+Đại diện Represented by
+Ông Trịnh Thái Anh (Mr. Stephen)
+Chức vụ Position
+Tổng Giám đốc Chief Executive Officer
+Điện thoại Tel
+(+84) 906 878 091
+Thư điện tử Email
+info@cyberskill.world
+BÊN B · BÊN CUNG CẤP DỊCH VỤ (CỘNG TÁC VIÊN)
+Party B · The Contractor
+Họ và tên Full name
+..............................
+Ngày sinh Date of birth
+...... / ...... / ......
+Số CCCD Citizen ID no.
+...............................
+Ngày cấp / Nơi cấp Issued on/by
+...... / ...... / ...... - ..............................
+Nơi cư trú Place of residence
+............................................................
+Điện thoại Tel
+...............................
+Thư điện tử Email
+..............................
+Mã số thuế cá nhân Personal tax code
+...............................
+Số tài khoản / Ngân hàng Bank account / Bank
+...............................
+Hai Bên thỏa thuận ký kết Hợp đồng dịch vụ với các điều khoản sau. Đây là quan hệ dân sự độc lập, không phải quan hệ lao động.
+The Parties agree to this Service Agreement on the following terms. This is an independent civil relationship, not an employment relationship.
+ĐIỀU 1 · PHẠM VI CÔNG VIỆC Article 1 · Scope of services
+Bên B cung cấp dịch vụ và sản phẩm bàn giao theo mô tả tại Phụ lục Phạm vi công việc (SOW) đính kèm.
+The Contractor provides the services and deliverables described in the attached Statement of Work (SOW).
+ĐIỀU 2 · THỜI HẠN Article 2 · Term
+Hợp đồng có hiệu lực từ ngày ...../...../...... đến ngày ...../...../......, hoặc đến khi hoàn thành công việc theo SOW.
+This Agreement runs from ...../...../...... to ...../...../......, or until completion of the SOW.
+ĐIỀU 3 · PHÍ DỊCH VỤ VÀ THANH TOÁN Article 3 · Fees and payment
+3.1. Phí dịch vụ: .............................. VNĐ (hoặc theo đơn giá tại SOW). Thanh toán bằng chuyển khoản trong ...... ngày kể từ khi nghiệm thu và nhận hóa đơn/chứng từ hợp lệ.
+3.1. Fee: VND .............................. (or per SOW rates). Paid by bank transfer within ...... days of acceptance and receipt of a valid invoice.
+3.2. Bên B tự chịu trách nhiệm về thuế thu nhập cá nhân và bảo hiểm của mình. Công ty khấu trừ thuế tại nguồn nếu pháp luật yêu cầu.
+3.2. The Contractor is responsible for its own personal income tax and insurance. The Company withholds tax at source where required by law.
+ĐIỀU 4 · QUYỀN VÀ NGHĨA VỤ CỦA CÁC BÊN Article 4 · Rights and obligations
+Bên B thực hiện dịch vụ đúng chất lượng, tiến độ và tự tổ chức công việc. Công ty cung cấp thông tin, phối hợp và thanh toán đúng hạn.
+The Contractor performs to the agreed quality and schedule and organizes its own work. The Company provides information, cooperates, and pays on time.
+ĐIỀU 5 · SỞ HỮU TRÍ TUỆ Article 5 · Intellectual property
+Toàn bộ sản phẩm, kết quả công việc và quyền sở hữu trí tuệ phát sinh từ dịch vụ thuộc về Công ty kể từ khi thanh toán, trừ khi có thỏa thuận khác bằng văn bản.
+All work product and IP arising from the services belong to the Company upon payment, unless otherwise agreed in writing.
+ĐIỀU 6 · BẢO MẬT VÀ BẢO VỆ DỮ LIỆU Article 6 · Confidentiality and data protection
+Bên B giữ bí mật thông tin của Công ty và tuân thủ quy định bảo vệ dữ liệu cá nhân; ký Thỏa thuận Bảo mật, KCT & SHTT khi được yêu cầu.
+The Contractor keeps the Company's information confidential, complies with personal data protection rules, and signs the NDNCA & IP Agreement on request.
+ĐIỀU 7 · QUAN HỆ ĐỘC LẬP Article 7 · Independent relationship
+Hợp đồng không tạo quan hệ lao động, đại lý hay liên doanh. Bên B không được hưởng chế độ, phúc lợi lao động và không nhân danh Công ty nếu không được ủy quyền.
+This Agreement creates no employment, agency, or joint venture. The Contractor receives no labor benefits and may not act on behalf of the Company without authorization.
+ĐIỀU 8 · CHẤM DỨT Article 8 · Termination
+Mỗi Bên có thể chấm dứt khi Bên kia vi phạm nghiêm trọng và không khắc phục trong ...... ngày, hoặc bằng thông báo trước ...... ngày. Bên B được thanh toán phần công việc đã hoàn thành.
+Either Party may terminate on the other's uncured material breach within ...... days, or on ...... days' notice. The Contractor is paid for work completed.
+ĐIỀU 9 · LUẬT ÁP DỤNG VÀ GIẢI QUYẾT TRANH CHẤP Article 9 · Governing law and disputes
+Áp dụng pháp luật Việt Nam. Tranh chấp được giải quyết bằng thương lượng; nếu không thành, đưa ra Tòa án có thẩm quyền hoặc trọng tài theo thỏa thuận.
+Governed by the laws of Vietnam. Disputes are settled by negotiation; failing that, by the competent court or arbitration as agreed.
+ĐIỀU 10 · ĐIỀU KHOẢN CHUNG Article 10 · General provisions
+Hợp đồng được lập thành 02 bản có giá trị như nhau, mỗi Bên giữ 01 bản.
+This Agreement is made in 02 copies of equal validity, one held by each Party.
+BÊN CUNG CẤP DỊCH VỤ
+The Contractor
+(Ký, ghi rõ họ tên / Sign, full name)
+BÊN THUÊ DỊCH VỤ
+The Client
+(Ký, ghi rõ họ tên / Sign, full name)
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Hợp đồng dịch vụ (cộng tác viên) · Independent Contractor Agreement · Số / No.: ...../2026/HĐDV-CYBERSKILL

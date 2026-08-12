@@ -1,0 +1,320 @@
+<!-- source: 0. Danh Mục Bộ Tài Liệu - HR Document Suite Index.docx -->
+CÔNG TY CỔ PHẦN TƯ VẤN VÀ PHÁT TRIỂN GIẢI PHÁP PHẦN MỀM CYBERSKILL
+CYBERSKILL SOFTWARE SOLUTIONS CONSULTANCY AND DEVELOPMENT JOINT STOCK COMPANY
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập – Tự do – Hạnh phúc
+———————————
+The Socialist Republic of Vietnam · Independence – Freedom – Happiness
+DANH MỤC BỘ TÀI LIỆU NHÂN SỰ
+HR DOCUMENT SUITE INDEX
+Số / No.: DS-02/2026/CYBERSKILL
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+◆ ◆ ◆
+Bộ tài liệu gồm 40 mẫu đang hoạt động, chia theo vòng đời lao động. Mọi mẫu đều song ngữ, dùng chung một bộ token trình bày và được sinh ra từ cùng một bộ mã nguồn trong thư mục tools/.
+The suite comprises 40 live templates, organized by the employment lifecycle. Every template is bilingual, shares one presentation token set, and is generated from the same source in the tools/ directory.
+A · Tham chiếu Reference
+Tài liệu
+Document
+Mã
+Code
+Cẩm nang Trình bày Tài liệu
+Document Style Guide
+CNTB
+Danh mục Bộ Tài liệu
+Suite Index
+DS
+Hướng dẫn Sử dụng Bộ Tài liệu
+Usage Guide
+HD
+Mẫu Trình bày (.dotx)
+Word Template
+MT
+B · Tuyển dụng & nhận việc Hiring & onboarding
+Tài liệu
+Document
+Mã
+Code
+Thư mời nhận việc
+Employment Offer Letter
+TMV
+Bản mô tả công việc
+Job Description
+BMCV
+Hợp đồng thử việc
+Probation Contract
+HĐTV
+Hợp đồng lao động
+Labor Contract
+HĐLĐ
+Đồng ý xử lý dữ liệu cá nhân
+Personal Data Consent (PDPL)
+ĐYDL
+Thỏa thuận Bảo mật, KCT & SHTT
+NDNCA & IP
+TTBM
+Danh mục hồ sơ & checklist nhận việc
+Onboarding Checklist
+CL
+Phiếu xác nhận đã nhận tài liệu (BẮT BUỘC — bằng chứng để áp dụng nội quy)
+Acknowledgement of Receipt (ESSENTIAL — the evidence that makes the rules enforceable)
+PXN
+Sổ quản lý lao động (bắt buộc — Điều 12 BLLĐ)
+Labour Management Book (mandatory — Art. 12)
+SQL
+Hồ sơ lao động người nước ngoài
+Foreign Employee Work Permit Pack
+HSNN
+C · Đãi ngộ Compensation
+Tài liệu
+Document
+Mã
+Code
+Quy chế Lương, Thưởng & Phúc lợi (cơ chế chung, phải công khai)
+Compensation & Reward Regulation (the scheme; must be published)
+QCLT
+Thang lương, Bảng lương (bắt buộc — Điều 93 BLLĐ)
+Salary Scale & Payroll Table (mandatory — Art. 93)
+TLBL
+Phụ lục Đãi ngộ & Lộ trình phát triển (con số của từng cá nhân)
+Total Rewards Appendix (the individual's numbers)
+PLĐN
+Thỏa thuận Cổ phần ảo (văn bản pháp lý)
+Phantom Stock Agreement (the legal instrument)
+TTCPA
+D · Nội quy, chính sách & đánh giá Rules, policies & evaluation
+Tài liệu
+Document
+Mã
+Code
+Nội quy lao động (bắt buộc đăng ký — Điều 119 BLLĐ)
+Internal Labor Regulations (must be registered — Art. 119)
+NQLĐ
+Bảng xử lý kỷ luật lao động
+Disciplinary Schedule
+PL-NQLĐ
+Quy chế đánh giá mức độ hoàn thành công việc (bắt buộc — Điều 36.1(a))
+Performance Evaluation Regulation (mandatory — Art. 36.1(a))
+QCĐG
+Quy chế dân chủ ở cơ sở (bắt buộc — NĐ 145 Điều 48)
+Grassroots Democracy Regulation (mandatory — Decree 145 Art. 48)
+QCDC
+Bộ Quy tắc Ứng xử
+Code of Conduct
+QTUX
+Chính sách An toàn Thông tin & Sử dụng CNTT
+Information Security & Acceptable Use
+CSATTT
+Chính sách Bảo vệ Dữ liệu Cá nhân
+Personal Data Protection Policy
+CSBVDL
+Chính sách Làm việc Từ xa & Kết hợp
+Remote & Hybrid Work Policy
+CSTX
+Quy chế Công tác phí & Chi phí
+Travel & Expense Policy
+QCCTP
+E · Trong quá trình làm việc During employment
+Tài liệu
+Document
+Mã
+Code
+Phụ lục sửa đổi HĐLĐ
+Labor Contract Amendment Appendix
+PLHĐLĐ
+Đơn đề nghị của người lao động (nghỉ phép · làm thêm giờ · khác)
+Employee Request Form (leave · overtime · other)
+ĐĐN
+Hợp đồng đào tạo & cam kết
+Training & Service Commitment
+HĐĐT
+Quyết định bổ nhiệm & điều chuyển
+Appointment & Transfer Decision
+QĐBN
+Biểu mẫu đánh giá kết quả công việc
+Performance Review Form
+BMĐG
+F · Ngoài quan hệ lao động Outside the employment relationship
+Tài liệu
+Document
+Mã
+Code
+Thỏa thuận thực tập
+Internship Agreement
+HĐTT
+Hợp đồng dịch vụ (cộng tác viên)
+Independent Contractor Agreement
+HĐDV
+Phụ lục phạm vi công việc (SOW)
+Statement of Work
+PL-HĐDV
+Thỏa thuận bảo mật song phương
+Mutual NDA
+TTBM-SP
+G · Kỷ luật lao động Labor discipline
+Tài liệu
+Document
+Mã
+Code
+Hồ sơ xử lý kỷ luật lao động (4 phần: biên bản → thông báo → biên bản họp → quyết định)
+Disciplinary Case File (4 parts: record → notice → minutes → decision)
+HSKL
+H · Chấm dứt Exit
+Tài liệu
+Document
+Mã
+Code
+Đơn xin nghỉ việc
+Resignation Letter
+ĐNV
+Quyết định chấm dứt HĐLĐ
+Decision on Termination
+QĐ
+Thỏa thuận chấm dứt HĐLĐ & bàn giao
+Exit-Handover Agreement
+TTCĐ
+Giấy xác nhận quá trình công tác
+Certificate of Employment
+GXN
+I · CÒN THIẾU — ƯU TIÊN BỔ SUNG I · Gaps — to be added, by priority
+Các mẫu dưới đây chưa có trong bộ. Ưu tiên A là yêu cầu của pháp luật; ưu tiên B là nhu cầu vận hành.
+The templates below are not yet in the suite. Priority A is a legal requirement; priority B is an operational need.
+Tài liệu
+Document
+Vì sao cần
+Why it is needed
+Ưu tiên
+Priority
+— Không còn thiếu mẫu nào —
+— No templates outstanding —
+Bộ tài liệu đã bao phủ đầy đủ vòng đời lao động và các yêu cầu bắt buộc của pháp luật Việt Nam.
+The suite now covers the full employment lifecycle and every mandatory requirement of Vietnamese law.
+—
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Danh mục Bộ Tài liệu · HR Document Suite Index
+
+---
+
+<!-- source: 0. Hướng Dẫn Sử Dụng Bộ Tài Liệu - Employment Suite Usage Guide.docx -->
+CÔNG TY CỔ PHẦN TƯ VẤN VÀ PHÁT TRIỂN GIẢI PHÁP PHẦN MỀM CYBERSKILL
+CYBERSKILL SOFTWARE SOLUTIONS CONSULTANCY AND DEVELOPMENT JOINT STOCK COMPANY
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập – Tự do – Hạnh phúc
+———————————
+The Socialist Republic of Vietnam · Independence – Freedom – Happiness
+HƯỚNG DẪN SỬ DỤNG BỘ TÀI LIỆU NHÂN SỰ
+EMPLOYMENT SUITE USAGE GUIDE
+Số / No.: HD-01/2026/CYBERSKILL
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+◆ ◆ ◆
+ĐIỀU 1 · VÒNG ĐỜI LAO ĐỘNG VÀ TÀI LIỆU Article 1 · The employment lifecycle and its documents
+Giai đoạn
+Stage
+Tài liệu ký / ban hành
+Documents
+Thời điểm
+When
+1. Mời nhận việc
+Offer
+Thư mời nhận việc + Bản mô tả công việc
+Offer Letter + Job Description
+Trước khi nhận việc
+Before joining
+2. Thử việc
+Probation
+Hợp đồng thử việc (hoặc điều khoản thử việc trong HĐLĐ)
+Probation Contract (or a probation clause in the Labor Contract)
+Tối đa 60 ngày; 180 ngày với người quản lý
+Max 60 days; 180 days for managers
+3. Nhận việc
+Onboarding
+HĐLĐ + Thỏa thuận Bảo mật, KCT & SHTT + Đồng ý xử lý DLCN + Checklist
+Labor Contract + NDNCA & IP + PDPL Consent + Onboarding Checklist
+Ngày đầu tiên
+Day one
+4. Đãi ngộ
+Rewards
+Phụ lục Đãi ngộ; Thỏa thuận Cổ phần ảo (nếu được cấp)
+Total Rewards Appendix; Phantom Stock Agreement (if granted)
+Khi ký HĐLĐ hoặc khi được cấp
+On hire, or on grant
+5. Trong quá trình
+In service
+Phụ lục sửa đổi HĐLĐ; Đơn đề nghị của NLĐ (nghỉ phép · làm thêm giờ); Quyết định bổ nhiệm & điều chuyển; Hợp đồng đào tạo
+Amendment Appendix; Employee Request Form (leave · overtime); Appointment & Transfer Decision; Training Agreement
+Theo sự kiện
+As events arise
+6. Kỷ luật
+Discipline
+Hồ sơ xử lý kỷ luật (4 phần: Phần A → B → C → D, một số hồ sơ duy nhất)
+Disciplinary Case File (4 parts: A → B → C → D, one case number)
+Đúng trình tự Điều 122 BLLĐ
+In the Article 122 order
+7. Chấm dứt
+Exit
+Đơn xin nghỉ việc hoặc Quyết định chấm dứt + Thỏa thuận chấm dứt & bàn giao
+Resignation Letter or Decision on Termination + Exit-Handover Agreement
+Thanh toán trong 14 ngày làm việc
+Settle within 14 working days
+ĐIỀU 2 · TÀI LIỆU NÀO CÓ HIỆU LỰC KỶ LUẬT Article 2 · Which documents carry disciplinary force
+Chỉ Nội quy lao động đã đăng ký và Bảng xử lý kỷ luật kèm theo mới là căn cứ để xử lý kỷ luật lao động. Bộ Quy tắc Ứng xử và các Chính sách là tài liệu nội bộ: chúng chỉ có hiệu lực kỷ luật khi hành vi tương ứng được dẫn chiếu trong Nội quy hoặc Bảng xử lý kỷ luật.
+Only the registered Internal Labor Regulations and their Disciplinary Schedule found labor discipline. The Code of Conduct and the Policies are internal documents: they carry disciplinary force only where the conduct in question is referenced in the Regulations or the Schedule.
+Hệ quả thực tế: khi sửa một Chính sách, hãy kiểm tra xem Bảng xử lý kỷ luật có cần cập nhật tương ứng không.
+In practice: when a Policy changes, check whether the Disciplinary Schedule needs the matching update.
+ĐIỀU 3 · QUY TẮC TRÌNH BÀY BẮT BUỘC Article 3 · The house presentation rules
+a) Tiếng Việt trước, màu Ink. Tiếng Anh ngay dưới, màu Slate, in nghiêng, nhỏ hơn một cấp.
+a) Vietnamese first, in Ink. English immediately below, in Slate, italic, one size down.
+b) Umber chỉ dùng cho tiêu đề, header/footer và thanh tiêu đề bảng — không dùng cho chữ nội dung.
+b) Umber is for headings, header/footer and table title bars only — never for body text.
+c) Không canh đều hai bên. Toàn bộ tài liệu canh trái.
+c) Never justify. Every document is left-aligned.
+d) Mọi ô cần điền được tô nền vàng.
+d) Every fill-in blank is highlighted yellow.
+e) Mỗi ô chọn, gạch đầu dòng và điểm a) b) c) cách nhau 6 pt.
+e) Tick-boxes, bullets and a) b) c) items are 6 pt clear of each other.
+f) Khối ký chừa khoảng trống 2,5 cm và không bị cắt sang trang.
+f) The signing block leaves 2.5 cm of clear space and never splits across a page.
+g) Không đặt logo trong thân tài liệu — header đã mang dấu hiệu thương hiệu.
+g) No logo in the body — the header already carries the mark.
+h) Tài liệu mẫu không bao giờ chứa dữ liệu cá nhân thật.
+h) A template never contains real personal data.
+Chi tiết đầy đủ trong Cẩm nang Trình bày Tài liệu.
+The full detail is in the Document Style Guide.
+ĐIỀU 4 · TẠO MỘT MẪU MỚI Article 4 · Creating a new template
+Bước
+Step
+Việc cần làm
+What to do
+1
+Mở tệp 0. Mẫu Trình bày (.dotx). Lưu thành .docx với tên "N. Tên tiếng Việt - English Name.docx". Tên tệp là nguồn của tên tiếng Anh trên header.
+Open 0. Mẫu Trình bày (.dotx). Save as .docx named "N. Vietnamese Name - English Name.docx". The filename is the source of the English name in the header.
+2
+Sửa header: tên tài liệu tiếng Việt và mã số hiệu.
+Edit the header: the Vietnamese document name and the reference number.
+3
+Viết nội dung. Dùng các Style có sẵn: Title, Subtitle, Heading 1-3, CS Body VN, CS Body EN, CS List Item VN/EN.
+Write the content. Use the built-in styles: Title, Subtitle, Heading 1-3, CS Body VN, CS Body EN, CS List Item VN/EN.
+4
+Mỗi dòng tiếng Việt phải có dòng tiếng Anh ngay bên dưới.
+Every Vietnamese line must have its English line directly beneath it.
+5
+Đánh dấu ô cần điền bằng dấu chấm (......). Không cần tô vàng thủ công.
+Mark fill-in blanks with dot leaders (......). Do not highlight them by hand.
+6
+Lưu tệp vào thư mục doc-templates/, rồi chạy: python3 tools/standardize.py
+Save into doc-templates/, then run: python3 tools/standardize.py
+7
+Trình chuẩn hóa sẽ tự áp dụng toàn bộ quy tắc: màu, giãn dòng, bảng, tô vàng ô trống, khoảng ký, header song ngữ.
+The standardizer applies every rule automatically: colour, spacing, tables, yellow blanks, signing space, bilingual header.
+8
+Thêm mẫu mới vào Danh mục Bộ Tài liệu.
+Add the new template to the Suite Index.
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Hướng dẫn Sử dụng Bộ Tài liệu · Employment Suite Usage Guide

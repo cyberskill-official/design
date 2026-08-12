@@ -86,6 +86,6 @@ All **37** Employment Suite `templates/vn-*` folders from the zip map 1:1 to a z
 
 ## Sync status (Aug 2026)
 
-Zip dated **2026-07-11**. Repo already holds converted `.dc.html` for every mapped instrument. This change **documents** the Drive/DOCX ↔ `vn-*` map and promotes Templates in Storybook; it does **not** re-import DOCX body text into DC templates. Re-sync only when counsel or ops confirm Word content drifted from the DC tree — then update the matching `templates/vn-*/` folder and regenerate Storybook CSF if names change (`node scripts/generate-template-stories.mjs`).
+Zip dated **2026-07-11**. **Aug 2026 full DOCX↔DC text pass** completed: normalized plain-text fixtures for every mapped instrument (plus framework agreement) live under `_audit/fixtures/hr-suite-docx-text/`, with CI guard `_audit/ci/test-docx-source-parity.mjs` (substantial phrase overlap ≥85%). Repo `.dc.html` trees remain the canonical live instruments; Word files stay out of git (`scraps/` unpack only). Re-sync when counsel or ops confirm Word content drifted — update the matching `templates/vn-*/` (or `doc-*`) folder, refresh the fixture via `node scripts/extract-hr-suite-docx-fixtures.mjs`, and regenerate Storybook CSF if names change (`node scripts/generate-template-stories.mjs`).
 
 Counsel review remains required before real-world use (client-supplied instruments; see README / SKILL).
