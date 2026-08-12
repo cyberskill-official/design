@@ -1,0 +1,179 @@
+<!-- source: 8. Quy Chế Đánh Giá Kết Quả Công Việc - Performance Evaluation Regulation.docx -->
+CÔNG TY CỔ PHẦN TƯ VẤN VÀ PHÁT TRIỂN GIẢI PHÁP PHẦN MỀM CYBERSKILL
+CYBERSKILL SOFTWARE SOLUTIONS CONSULTANCY AND DEVELOPMENT JOINT STOCK COMPANY
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập – Tự do – Hạnh phúc
+———————————
+The Socialist Republic of Vietnam · Independence – Freedom – Happiness
+QUY CHẾ ĐÁNH GIÁ MỨC ĐỘ HOÀN THÀNH CÔNG VIỆC
+PERFORMANCE EVALUATION REGULATION
+Số / No.: ....../2026/QCĐG-CYBERSKILL
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+◆ ◆ ◆
+Căn cứ Bộ luật Lao động số 45/2019/QH14, đặc biệt điểm a khoản 1 Điều 36; căn cứ Nghị định số 145/2020/NĐ-CP; sau khi tham khảo ý kiến của tổ chức đại diện người lao động tại cơ sở, Công ty ban hành Quy chế đánh giá mức độ hoàn thành công việc như sau:
+Pursuant to the Labor Code No. 45/2019/QH14, in particular point (a) of Article 36.1; pursuant to Decree No. 145/2020/ND-CP; and having consulted the grassroots employee representative organization, the Company issues this Performance Evaluation Regulation:
+Ghi chú soạn thảo: Quy chế này là căn cứ pháp lý bắt buộc để Công ty có thể đơn phương chấm dứt hợp đồng lao động vì lý do người lao động thường xuyên không hoàn thành công việc. Không có Quy chế này, Công ty không được viện dẫn căn cứ đó.
+Drafting note: This Regulation is the mandatory legal basis for the Company to terminate a labor contract unilaterally on the ground of repeated failure to perform. Without it, the Company cannot rely on that ground.
+ĐIỀU 1 · PHẠM VI VÀ MỤC ĐÍCH Article 1 · Scope and purpose
+1.1. Quy chế áp dụng cho toàn bộ người lao động của Công ty, bao gồm cả người đang trong thời gian thử việc (với chu kỳ đánh giá riêng tại Điều 4.4).
+1.1. This Regulation applies to every employee of the Company, including those on probation (with the separate cycle in Article 4.4).
+1.2. Mục đích: (a) làm cơ sở xét nâng lương, thưởng và bổ nhiệm; (b) xác định khách quan mức độ hoàn thành công việc; và (c) làm căn cứ áp dụng điểm a khoản 1 Điều 36 Bộ luật Lao động khi cần thiết.
+1.2. Purpose: (a) to found decisions on pay rises, bonuses and promotion; (b) to determine objectively whether work is being completed; and (c) to found the application of Article 36.1(a) of the Labor Code where necessary.
+ĐIỀU 2 · THANG ĐIỂM ĐÁNH GIÁ Article 2 · The rating scale
+Mức
+Rating
+Tên gọi
+Label
+Ý nghĩa
+Meaning
+5
+Xuất sắc
+Outstanding
+Vượt xa yêu cầu ở phần lớn mục tiêu; tạo tác động rõ rệt ngoài phạm vi công việc.
+Far exceeds requirements on most objectives; visible impact beyond the role.
+4
+Tốt
+Exceeds
+Vượt yêu cầu ở một số mục tiêu, đạt yêu cầu ở phần còn lại.
+Exceeds requirements on some objectives and meets them on the rest.
+3
+Đạt yêu cầu
+Meets
+Hoàn thành công việc được giao đúng chất lượng và tiến độ. Đây là mức chuẩn.
+Completes assigned work to the required quality and schedule. This is the standard.
+2
+Chưa đạt
+Below
+Không đạt yêu cầu ở một hoặc nhiều mục tiêu trọng yếu, dù đã được hướng dẫn.
+Fails to meet requirements on one or more key objectives, despite guidance.
+1
+Không hoàn thành
+Fails
+Không hoàn thành phần lớn công việc được giao. Có bằng chứng bằng văn bản.
+Fails to complete most assigned work. Evidenced in writing.
+2.1. Mức 3 là mức chuẩn: người lao động đạt mức 3 được coi là HOÀN THÀNH công việc theo hợp đồng lao động.
+2.1. Rating 3 is the standard: an employee at rating 3 is treated as HAVING COMPLETED the work under their labor contract.
+2.2. Mức 1 hoặc mức 2 được coi là KHÔNG HOÀN THÀNH công việc theo hợp đồng lao động cho mục đích của Quy chế này.
+2.2. Rating 1 or rating 2 is treated as NOT HAVING COMPLETED the work under the labor contract for the purposes of this Regulation.
+ĐIỀU 3 · TIÊU CHÍ ĐÁNH GIÁ Article 3 · Evaluation criteria
+Mỗi người lao động được đánh giá trên bốn nhóm tiêu chí, với trọng số như sau:
+Each employee is evaluated against four groups of criteria, weighted as follows:
+Nhóm tiêu chí
+Criterion
+Trọng số
+Weight
+Đo bằng gì
+How it is measured
+Kết quả công việc
+Delivery
+50%
+Mục tiêu công việc đã thống nhất bằng văn bản đầu kỳ (số lượng, chất lượng, tiến độ).
+The written objectives agreed at the start of the cycle (volume, quality, schedule).
+Chất lượng kỹ thuật
+Quality of craft
+20%
+Chuẩn mã nguồn, tỷ lệ lỗi sau bàn giao, kết quả review, nợ kỹ thuật tạo ra.
+Code standards, post-delivery defect rate, review outcomes, technical debt created.
+Hợp tác và trách nhiệm
+Collaboration
+20%
+Phản hồi từ đồng nghiệp và khách hàng; tính chủ động; hỗ trợ đồng đội.
+Feedback from colleagues and clients; initiative; support given to the team.
+Tuân thủ
+Compliance
+10%
+Tuân thủ Nội quy lao động, bảo mật, bảo vệ dữ liệu và quy trình của Công ty.
+Compliance with the Internal Labor Regulations, confidentiality, data protection, and Company process.
+3.1. Mục tiêu công việc của mỗi kỳ phải được thống nhất bằng văn bản giữa người lao động và quản lý trực tiếp trong vòng 15 ngày làm việc kể từ đầu kỳ, và được lưu vào hồ sơ nhân sự. Không có mục tiêu bằng văn bản thì không được đánh giá mức 1 hoặc mức 2.
+3.1. The objectives for each cycle must be agreed in writing between the employee and the line manager within 15 working days of the start of the cycle, and filed in the personnel record. Where there are no written objectives, a rating of 1 or 2 may not be given.
+Ghi chú soạn thảo: Câu cuối của khoản 3.1 là lá chắn pháp lý quan trọng nhất trong Quy chế: nó buộc Công ty phải có bằng chứng mục tiêu trước khi có thể kết luận không hoàn thành.
+Drafting note: The last sentence of Article 3.1 is the most important legal protection in this Regulation: it forces the Company to have evidence of the objectives before it can conclude that they were not met.
+ĐIỀU 4 · CHU KỲ VÀ TRÌNH TỰ ĐÁNH GIÁ Article 4 · Cycle and procedure
+4.1. Chu kỳ đánh giá chính thức: 02 lần mỗi năm — kỳ giữa năm (tháng 6) và kỳ cuối năm (tháng 12).
+4.1. Formal evaluation cycle: twice a year — a mid-year cycle (June) and a year-end cycle (December).
+Bước
+Step
+Nội dung
+Action
+Ai làm
+Who
+1
+Người lao động tự đánh giá theo bốn nhóm tiêu chí.
+The employee self-assesses against the four criteria.
+Người lao động
+Employee
+2
+Quản lý trực tiếp đánh giá, cho điểm từng nhóm và ghi nhận xét bằng văn bản, kèm bằng chứng.
+The line manager assesses, scores each criterion, and records written comments with evidence.
+Quản lý trực tiếp
+Line manager
+3
+Họp trao đổi trực tiếp giữa quản lý và người lao động. Người lao động có quyền ghi ý kiến không đồng ý vào biểu mẫu.
+A face-to-face discussion between manager and employee. The employee may record a written disagreement on the form.
+Cả hai
+Both
+4
+Tổng Giám đốc phê duyệt mức đánh giá cuối cùng.
+The CEO approves the final rating.
+Tổng Giám đốc
+CEO
+5
+Kết quả được lưu vào hồ sơ nhân sự và thông báo cho người lao động bằng văn bản trong 05 ngày làm việc.
+The result is filed in the personnel record and notified to the employee in writing within 05 working days.
+Nhân sự
+HR
+4.2. Người lao động có quyền khiếu nại kết quả đánh giá bằng văn bản trong 10 ngày làm việc kể từ ngày nhận thông báo. Tổng Giám đốc xem xét và trả lời trong 15 ngày làm việc. Quyết định của Tổng Giám đốc là quyết định cuối cùng trong nội bộ.
+4.2. An employee may appeal a rating in writing within 10 working days of notification. The CEO reviews and responds within 15 working days. The CEO's decision is final internally.
+4.3. Kết quả đánh giá là căn cứ để xét nâng lương định kỳ (kỳ xét lương thường niên, hiệu lực từ ngày 01/04) và xét thưởng theo Quy chế Lương, Thưởng & Phúc lợi.
+4.3. The rating founds the annual salary review (effective 1 April) and the bonus award under the Compensation & Reward Regulation.
+4.4. Người lao động trong thời gian thử việc được đánh giá một lần vào cuối thời gian thử việc, theo cùng bốn nhóm tiêu chí.
+4.4. An employee on probation is evaluated once, at the end of probation, against the same four criteria.
+ĐIỀU 5 · KẾ HOẠCH CẢI THIỆN HIỆU SUẤT Article 5 · Performance improvement plan
+5.1. Khi người lao động bị đánh giá mức 1 hoặc mức 2, Công ty phải lập Kế hoạch Cải thiện Hiệu suất bằng văn bản trước khi áp dụng bất kỳ hệ quả nào.
+5.1. Where an employee is rated 1 or 2, the Company must put a written Performance Improvement Plan in place before any consequence follows.
+a) Thời hạn: tối thiểu 30 ngày làm việc; tối thiểu 60 ngày làm việc đối với vị trí quản lý hoặc chuyên gia cấp cao.
+a) Duration: at least 30 working days; at least 60 working days for a management or senior specialist role.
+b) Nội dung bắt buộc: mục tiêu cụ thể, đo lường được; nguồn lực và hỗ trợ Công ty cung cấp; lịch kiểm tra tiến độ ít nhất 02 tuần một lần; và hệ quả nếu không đạt.
+b) Mandatory content: specific, measurable objectives; the resources and support the Company will provide; a progress check at least once every 02 weeks; and the consequence of not meeting the plan.
+c) Kết thúc Kế hoạch, quản lý trực tiếp đánh giá lại và ghi kết quả bằng văn bản.
+c) At the end of the Plan, the line manager re-assesses and records the outcome in writing.
+ĐIỀU 6 · THƯỜNG XUYÊN KHÔNG HOÀN THÀNH CÔNG VIỆC Article 6 · Repeated failure to complete assigned work
+6.1. Người lao động được coi là THƯỜNG XUYÊN KHÔNG HOÀN THÀNH CÔNG VIỆC theo hợp đồng lao động, cho mục đích của điểm a khoản 1 Điều 36 Bộ luật Lao động, khi đồng thời thỏa mãn tất cả các điều kiện sau:
+6.1. An employee is treated as REPEATEDLY FAILING TO COMPLETE the work under their labor contract, for the purposes of Article 36.1(a) of the Labor Code, only where all of the following are satisfied:
+a) Bị đánh giá mức 1 hoặc mức 2 trong 02 kỳ đánh giá liên tiếp; và
+a) The employee was rated 1 or 2 in 02 consecutive evaluation cycles; and
+b) Đã được lập Kế hoạch Cải thiện Hiệu suất bằng văn bản theo Điều 5 sau kỳ đánh giá đầu tiên, và không đạt mục tiêu của Kế hoạch đó; và
+b) A written Performance Improvement Plan under Article 5 was put in place after the first of those cycles, and its objectives were not met; and
+c) Mục tiêu công việc của cả hai kỳ đã được thống nhất bằng văn bản theo khoản 3.1; và
+c) The objectives for both cycles were agreed in writing under Article 3.1; and
+d) Việc không hoàn thành không do lỗi của Công ty (thiếu nguồn lực, thiếu hướng dẫn, thay đổi phạm vi công việc giữa kỳ), không do người lao động nghỉ ốm, nghỉ thai sản, nghỉ phép hợp pháp, và không do bị tạm thời chuyển làm công việc khác.
+d) The failure was not caused by the Company (lack of resources, lack of direction, a mid-cycle change of scope), was not caused by sick leave, maternity leave or lawful leave, and did not arise from a temporary reassignment.
+6.2. Chỉ khi tất cả điều kiện tại khoản 6.1 được thỏa mãn và được lưu bằng chứng bằng văn bản, Công ty mới có quyền xem xét đơn phương chấm dứt hợp đồng lao động theo điểm a khoản 1 Điều 36, với thời gian báo trước theo Điều 36 khoản 2.
+6.2. Only where every condition in Article 6.1 is satisfied and evidenced in writing may the Company consider unilaterally terminating the labor contract under Article 36.1(a), giving the notice required by Article 36.2.
+6.3. Việc không hoàn thành công việc KHÔNG phải là hành vi vi phạm kỷ luật lao động và KHÔNG được xử lý theo trình tự kỷ luật tại Điều 122 Bộ luật Lao động. Hai chế định này hoàn toàn tách biệt.
+6.3. Failure to complete work is NOT a disciplinary breach and is NOT dealt with under the disciplinary procedure in Article 122 of the Labor Code. The two are entirely separate.
+Ghi chú soạn thảo: Khoản 6.3 tránh sai lầm phổ biến nhất: dùng trình tự kỷ luật để xử lý hiệu suất kém. Làm vậy khiến quyết định chấm dứt bị tuyên trái luật.
+Drafting note: Article 6.3 avoids the most common mistake: using the disciplinary procedure to deal with poor performance. Doing so renders the termination unlawful.
+ĐIỀU 7 · HIỆU LỰC Article 7 · Effect
+7.1. Quy chế có hiệu lực kể từ ngày ký, sau khi đã tham khảo ý kiến của tổ chức đại diện người lao động tại cơ sở, và được thông báo công khai đến toàn thể người lao động.
+7.1. This Regulation takes effect on signature, having been the subject of consultation with the grassroots employee representative organization, and is communicated openly to all employees.
+7.2. Quy chế được xem xét lại ít nhất một lần mỗi năm.
+7.2. This Regulation is reviewed at least once a year.
+Thành phố Hồ Chí Minh, ngày ...... tháng ...... năm ......
+Ho Chi Minh City, ...... / ...... / ......
+ĐẠI DIỆN TẬP THỂ NGƯỜI LAO ĐỘNG
+Employee Representative
+(Ký, ghi rõ họ tên)
+(Sign and state full name)
+............................
+NGƯỜI SỬ DỤNG LAO ĐỘNG
+The Employer
+(Ký, ghi rõ họ tên và đóng dấu)
+(Sign, state full name, and affix seal)
+............................
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Quy chế Đánh giá Kết quả Công việc · Performance Evaluation Regulation · Số / No.: ....../2026/QCĐG

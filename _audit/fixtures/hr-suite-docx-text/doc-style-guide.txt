@@ -1,0 +1,158 @@
+<!-- source: 0. Cẩm Nang Trình Bày Tài Liệu - CyberSkill Document Style Guide.docx -->
+CÔNG TY CỔ PHẦN TƯ VẤN VÀ PHÁT TRIỂN GIẢI PHÁP PHẦN MỀM CYBERSKILL
+CYBERSKILL SOFTWARE SOLUTIONS CONSULTANCY AND DEVELOPMENT JOINT STOCK COMPANY
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập – Tự do – Hạnh phúc
+———————————
+The Socialist Republic of Vietnam · Independence – Freedom – Happiness
+CẨM NANG TRÌNH BÀY TÀI LIỆU
+CYBERSKILL DOCUMENT STYLE GUIDE
+Số / No.: 00/2026/CNTB-CYBERSKILL
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+◆ ◆ ◆
+Bộ quy tắc trình bày thống nhất cho toàn bộ tài liệu pháp lý và nhân sự của CyberSkill, được neo theo CyberSkill Global Design System (v1.3.0). Mọi tài liệu trong bộ đều được sinh ra từ đúng bộ token được nêu trong Cẩm nang này.
+One consistent presentation standard for every CyberSkill legal and HR document, anchored to the CyberSkill Global Design System (v1.3.0). Every document in the suite is generated from exactly the tokens set out in this guide.
+ĐIỀU 1 · BẢNG MÀU Article 1 · Colour palette
+Token
+Mã màu
+Hex
+Dùng cho
+Use
+Umber — Thương hiệu
+Brand
+#45210E
+Tiêu đề, header/footer, thanh tiêu đề bảng
+Headings, header & footer, table title bars
+Ochre — Nhấn
+Accent
+#F4BA17
+Dấu chấm thương hiệu, thanh nhấn
+Brand dots, accent bars
+Ink — Chữ tiếng Việt
+VN text
+#1A1614
+Toàn bộ nội dung tiếng Việt
+All Vietnamese body text
+Slate — Chữ tiếng Anh
+EN text
+#3F4C55
+Dòng tiếng Anh, luôn in nghiêng
+English lines, always italic
+Rule — Kẻ mảnh
+Hairline
+#E7D9C6
+Đường viền, kẻ header/footer
+Borders, header & footer rules
+Tint — Nền chú thích
+Callout
+#FBF4E9
+Nền hộp ghi chú
+Callout background
+Highlight — Ô cần điền
+Fill-in
+Vàng / Yellow
+Mọi chỗ trống cần điền
+Every fill-in blank
+Umber và Ochre là màu bất biến của thương hiệu, không được thay đổi. Chữ nội dung KHÔNG dùng màu Umber — Umber chỉ dành cho bề mặt thương hiệu.
+Umber and Ochre are immutable brand anchors. Body text is never Umber — Umber is reserved for brand surfaces.
+ĐIỀU 2 · KIỂU CHỮ Article 2 · Typography
+Phông chữ: Be Vietnam Pro, nhúng sẵn trong mọi tệp.
+Typeface: Be Vietnam Pro, embedded in every file.
+Cấp bậc
+Level
+Cỡ
+Size
+Kiểu
+Style
+Tiêu đề tài liệu
+Title
+20 pt
+Đậm · Umber · canh giữa
+Bold · Umber · centred
+Phụ đề
+Subtitle
+11 pt
+Slate · nghiêng · canh giữa
+Slate · italic · centred
+ĐIỀU
+Heading 1
+13 pt
+Đậm · Umber · kẻ mảnh dưới
+Bold · Umber · hairline under
+Mục con
+Heading 2
+11.5 pt
+Đậm · Umber
+Bold · Umber
+Tiểu mục
+Heading 3
+11 pt
+Đậm · Umber
+Bold · Umber
+Nội dung tiếng Việt
+Body VN
+10.5 pt
+Thường · Ink
+Regular · Ink
+Dòng tiếng Anh
+Body EN
+9.5 pt
+Slate · nghiêng
+Slate · italic
+Bảng — tiếng Việt
+Table VN
+10 pt
+Ink
+Ink
+Bảng — tiếng Anh
+Table EN
+9 pt
+Slate · nghiêng
+Slate · italic
+Chú thích
+Caption
+8.5 pt
+Slate · nghiêng
+Slate · italic
+ĐIỀU 3 · GIÃN DÒNG & KHOẢNG CÁCH Article 3 · Spacing
+Giãn dòng 1,25. Giữa dòng Việt và dòng Anh của cùng một ý: 1 pt. Sau mỗi cặp Việt–Anh: 8 pt. Giữa các ô chọn, gạch đầu dòng và điểm a) b) c): 6 pt.
+Line spacing 1.25. Between a Vietnamese line and its own English line: 1 pt. After each Vietnamese–English pair: 8 pt. Between tick-boxes, bullets, and a) b) c) items: 6 pt.
+Tuyệt đối không canh đều hai bên. Canh đều làm giãn chữ tiếng Việt rất xấu — toàn bộ tài liệu canh trái.
+Never justify. Justification wrecks Vietnamese word spacing — every document is left-aligned.
+Khổ A4. Lề: trên 23 mm, dưới 20 mm, trái/phải 20 mm.
+A4. Margins: top 23 mm, bottom 20 mm, left/right 20 mm.
+ĐIỀU 4 · QUY TẮC SONG NGỮ Article 4 · Bilingual rule
+Tiếng Việt trước, màu Ink. Tiếng Anh ngay bên dưới, màu Slate, in nghiêng, nhỏ hơn một cấp. Đây là cam kết Vietnamese-first của Design System.
+Vietnamese first, in Ink. English immediately below, in Slate, italic, one size down. This is the Design System's Vietnamese-first commitment.
+ĐIỀU 5 · BẢNG BIỂU Article 5 · Tables
+Mọi bảng đều có thanh tiêu đề nền Umber, chữ trắng và tự lặp lại khi bảng sang trang mới.
+Every table carries an Umber title bar with white text and repeats it when the table runs onto a new page.
+Bảng thông tin các Bên (BÊN A / BÊN B): cột nhãn rộng 2880 dxa, chỉ kẻ ngang, không kẻ dọc — đọc như một danh sách định nghĩa.
+Party blocks (Party A / Party B): 2880 dxa label column, horizontal hairlines only, no vertical rules — it reads as a definition list.
+Bảng dữ liệu: kẻ đủ khung, nền xen kẽ để dễ dò hàng.
+Data tables: full grid, with zebra banding so rows are easy to track.
+ĐIỀU 6 · Ô CẦN ĐIỀN Article 6 · Fill-in blanks
+Mọi chỗ trống cần điền đều được tô nền vàng, ví dụ: ......................
+Every fill-in-the-blank is highlighted in yellow, for example: ......................
+ĐIỀU 7 · DANH SÁCH & Ô CHỌN Article 7 · Lists & tick-boxes
+☐ Mỗi ô chọn nằm trên dòng riêng, cách ô kế tiếp 6 pt.
+☐ Every tick-box sits on its own line, 6 pt clear of the next.
+a) Điểm chữ cái cũng áp dụng quy tắc này.
+a) Lettered points follow the same rule.
+ĐIỀU 8 · KHỐI KÝ Article 8 · Signing block
+Khối ký luôn chừa khoảng trống khoảng 2,5 cm để ký tay và không bao giờ bị cắt sang trang.
+The signing block always leaves about 2.5 cm of clear space to sign by hand and never splits across a page.
+ĐIỀU 9 · VỆ SINH DỮ LIỆU Article 9 · Data hygiene
+Tài liệu mẫu không bao giờ chứa dữ liệu cá nhân thật. Thông tin của BÊN B luôn để trống. Đây là yêu cầu của Nghị định bảo vệ dữ liệu cá nhân, không phải là tùy chọn trình bày.
+A template never contains real personal data. Party B's fields are always blank. This is a personal-data-protection requirement, not a presentation preference.
+ĐIỀU 10 · HEADER & FOOTER Article 10 · Header & footer
+Header: logo nhỏ · CyberSkill · tên tài liệu · số hiệu, kẻ mảnh phía dưới. Không đặt logo trong thân tài liệu — header đã mang dấu hiệu thương hiệu.
+Header: small logo · CyberSkill · document name · number, with a hairline under. No logo in the body — the header already carries the mark.
+Footer: khẩu hiệu, mã số thuế, thư điện tử, điện thoại và số trang.
+Footer: slogan, tax code, email, phone, and page number.
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Cẩm nang Trình bày Tài liệu · CyberSkill Document Style Guide

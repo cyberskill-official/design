@@ -1,0 +1,228 @@
+<!-- source: 3. Thoả Thuận Cổ Phần Ảo - Phantom Stock Agreement.docx -->
+CÔNG TY CỔ PHẦN TƯ VẤN VÀ PHÁT TRIỂN GIẢI PHÁP PHẦN MỀM CYBERSKILL
+CYBERSKILL SOFTWARE SOLUTIONS CONSULTANCY AND DEVELOPMENT JOINT STOCK COMPANY
+Số: 02/2026/TTCPA-CYBERSKILL
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+THE SOCIALIST REPUBLIC OF VIETNAM
+Independence - Freedom - Happiness
+——— ✵ ———
+THỎA THUẬN CỔ PHẦN ẢO
+PHANTOM STOCK AGREEMENT
+(Thỏa thuận khung - Master Agreement)
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+CĂN CỨ / WHEREAS:
+- Căn cứ Bộ luật Dân sự số 91/2015/QH13 và nguyên tắc tự do, tự nguyện cam kết, thỏa thuận;
+- Pursuant to the Civil Code No. 91/2015/QH13 and the principle of freedom and voluntariness of commitment and agreement;
+- Căn cứ Luật Doanh nghiệp số 59/2020/QH14 và Luật Trọng tài Thương mại số 54/2010/QH12;
+- Pursuant to the Law on Enterprises No. 59/2020/QH14 and the Law on Commercial Arbitration No. 54/2010/QH12;
+- Căn cứ Nghị quyết Hội đồng Quản trị số [__]/NQ-HĐQT ngày [__] của Công ty về việc phê duyệt Chương trình Cổ phần ảo và mẫu Thỏa thuận khung này;
+- Pursuant to Board of Directors Resolution No. [__]/NQ-HĐQT dated [__] of the Company approving the Phantom Stock Program and this Master Agreement template;
+- Xét rằng Thỏa thuận này là một giao dịch dân sự độc lập, được xác lập tách biệt và không phải là một bộ phận của bất kỳ hợp đồng lao động nào giữa hai Bên; quyền và nghĩa vụ tại đây phát sinh từ quan hệ hợp đồng dân sự, không phát sinh từ quan hệ lao động;
+- Whereas this Agreement is an independent civil transaction, established separately from, and not forming part of, any labor contract between the Parties, the rights and obligations herein arise from a civil contractual relationship, not from the employment relationship;
+- Xét rằng Cổ phần ảo theo Thỏa thuận này là quyền tài sản theo hợp đồng được thanh toán bằng tiền, không phải là cổ phần hay chứng khoán; không có bất kỳ đợt phát hành hay chào bán chứng khoán nào theo Luật Chứng khoán số 54/2019/QH14 phát sinh từ Thỏa thuận này;
+- Whereas Phantom Stock under this Agreement is a cash-settled contractual property right, not a share or a security; no issuance or offering of securities under the Securities Law No. 54/2019/QH14 arises from this Agreement;
+- Xét rằng Thỏa thuận này cụ thể hóa cơ chế được tóm tắt tại Điều 5 Phụ lục Đãi ngộ Toàn diện & Lộ trình Phát triển số 01/2026/PLĐN-CYBERSKILL;
+- Whereas this Agreement gives full effect to the mechanism summarized in Article 5 of the Total Rewards & Career Path Appendix No. 01/2026/PLĐN-CYBERSKILL;
+Hai Bên được xác định tại Thông báo Cấp phát (mẫu kèm theo) thống nhất ký kết Thỏa thuận Cổ phần ảo này ("Thỏa thuận") với các điều khoản sau:
+The two Parties identified in the Grant Notice (form attached) agree to enter into this Phantom Stock Agreement (the "Agreement") on the following terms:
+ 
+Điều 1. Định nghĩa
+Article 1. Definitions
+Cổ phần ảo (SP) / Phantom Stock (SP): quyền tài sản theo hợp đồng do Công ty cấp cho Thành viên, cho phép Thành viên nhận thanh toán bằng tiền theo công thức định giá tại Điều 3, không phải là cổ phần và không mang bất kỳ quyền cổ đông nào.
+A contractual property right granted by the Company to the Member, entitling the Member to cash payments under the valuation formula in Article 3; SP is not a share and carries no shareholder rights.
+Thông báo Cấp phát / Grant Notice: văn bản theo mẫu tại Phụ lục A, xác định danh tính Thành viên, số lượng SP, ngày cấp, ngày bắt đầu tính mở khóa và số Nghị quyết HĐQT phê duyệt lần cấp đó.
+The instrument in the form of Schedule A identifies the Member, the number of SP, the grant date, the vesting commencement date, and the Board Resolution number approving that grant.
+Mở khóa (Vesting): việc SP trở thành SP đã mở khóa theo lộ trình và điều kiện tại Điều 4; SP chưa đạt điều kiện là SP chưa mở khóa.
+The process by which SP becomes Vested SP under the schedule and conditions in Article 4; SP not yet satisfying those conditions is Unvested SP.
+CFO / CFO: dòng tiền thuần từ hoạt động kinh doanh của Công ty theo báo cáo tài chính năm đã được kiểm toán (hoặc, khi chưa có kiểm toán, báo cáo tài chính năm đã được HĐQT phê duyệt).
+The Company's net cash flow from operating activities per the audited annual financial statements (or, where unaudited, the annual financial statements approved by the Board).
+Hệ số Định giá Ngành / Industry Multiplier: hệ số do HĐQT công bố bằng văn bản trong 90 ngày đầu mỗi năm tài chính, áp dụng thống nhất cho mọi Thành viên trong năm đó.
+The multiplier is announced in writing by the Board within the first 90 days of each fiscal year and is applied uniformly to all Members for that year.
+Ngày định giá / Valuation Date: ngày kết thúc năm tài chính gần nhất trước sự kiện thanh toán liên quan.
+The last day of the most recent fiscal year preceding the relevant payment event.
+Sự kiện Thay đổi Kiểm soát / Change of Control: bất kỳ giao dịch hoặc chuỗi giao dịch nào dẫn đến: (i) chuyển nhượng trên 51% tổng số cổ phần có quyền biểu quyết của Công ty, trực tiếp hoặc gián tiếp thông qua thay đổi kiểm soát của tổ chức nắm giữ; (ii) sáp nhập, hợp nhất mà cổ đông hiện hữu không còn nắm đa số quyền biểu quyết của pháp nhân sau giao dịch; hoặc (iii) bán, chuyển nhượng từ 75% tổng giá trị tài sản của Công ty trở lên.
+any transaction or series of transactions resulting in: (i) a transfer of more than 51% of the Company's total voting shares, directly or indirectly through a change of control of a holding entity; (ii) a merger or consolidation after which existing shareholders no longer hold a majority of the voting power of the surviving entity; or (iii) a sale or transfer of 75% or more of the total value of the Company's assets.
+Người nghỉ việc hợp lệ / Good Leaver: Thành viên chấm dứt hợp đồng lao động đúng pháp luật (bao gồm tuân thủ thời gian báo trước), hoặc chấm dứt do qua đời, mất khả năng lao động vĩnh viễn, nghỉ hưu theo luật định, hoặc do Công ty cắt giảm nhân sự vì thay đổi cơ cấu, công nghệ hoặc lý do kinh tế.
+a Member whose labor contract terminates lawfully (including compliance with the notice period), or by reason of death, permanent incapacity, statutory retirement, or redundancy due to restructuring, technology change, or economic reasons on the Company's side.
+Người nghỉ việc vi phạm / Bad Leaver: Thành viên đơn phương chấm dứt hợp đồng lao động trái pháp luật hoặc bị sa thải do vi phạm kỷ luật nghiêm trọng theo Điều 125 Bộ luật Lao động.
+A Member who unlawfully terminates the labor contract unilaterally, or is dismissed for a severe disciplinary violation under Article 125 of the Labor Code.
+Lãi suất Tham chiếu ACB / ACB Reference Rate: lãi suất tiền gửi tiết kiệm VNĐ kỳ hạn 12 tháng, trả lãi cuối kỳ, do Ngân hàng TMCP Á Châu (ACB) công bố tại thời điểm áp dụng.
+The 12-month term VND savings deposit rate, interest paid at maturity, was published by Asia Commercial Joint Stock Bank (ACB) at the time of application.
+ 
+Điều 2. Bản chất pháp lý của Cổ phần ảo
+Article 2. Legal Nature of Phantom Stock
+a) SP là quyền tài sản theo hợp đồng được thanh toán bằng tiền. SP không phải là cổ phần, cổ phiếu hay chứng khoán dưới bất kỳ hình thức nào; không tạo ra quyền biểu quyết, quyền nhận cổ tức, quyền ưu tiên mua, quyền tiếp cận sổ sách hay bất kỳ quyền cổ đông nào theo Luật Doanh nghiệp; không được ghi nhận vào sổ đăng ký cổ đông; và không làm thay đổi vốn điều lệ của Công ty.
+a) SP is a cash-settled contractual property right. SP is not a share, stock, or security in any form; it creates no voting rights, dividend rights, pre-emptive rights, inspection rights, or any other shareholder rights under the Law on Enterprises; it is not recorded in the shareholder register; and it does not alter the Company's charter capital.
+b) Việc cấp, mở khóa và thanh toán SP không cấu thành đợt phát hành hay chào bán chứng khoán theo Luật Chứng khoán số 54/2019/QH14 và không phát sinh nghĩa vụ đăng ký với Ủy ban Chứng khoán Nhà nước.
+b) The grant, vesting and settlement of SP do not constitute an issue or an offering of securities under the Law on Securities No. 54/2019/QH14, and give rise to no registration obligation with the State Securities Commission.
+b) The grant, vesting, and settlement of SP do not constitute an issuance or offering of securities under the Securities Law No. 54/2019/QH14 and create no registration obligation with the State Securities Commission.
+c) Mọi khoản thanh toán theo Thỏa thuận này là nghĩa vụ thanh toán theo hợp đồng dân sự, được thực hiện ngoài hệ thống trả lương và không phải là tiền lương, phụ cấp lương hay khoản khấu trừ lương theo Bộ luật Lao động.
+c) All payments under this Agreement are civil contractual payment obligations, performed outside the payroll system, and are not wages, wage allowances, or wage deductions within the meaning of the Labor Code.
+ 
+Điều 3. Cấp phát và định giá
+Article 3. Grants and valuation
+a) Cấp phát: SP chỉ được cấp thông qua Thông báo Cấp phát được ký hợp lệ theo mẫu tại Phụ lục A. Thỏa thuận khung này điều chỉnh mọi lần cấp; Thông báo Cấp phát xác định số lượng, ngày cấp và ngày bắt đầu tính mở khóa của từng lần cấp. Trường hợp có mâu thuẫn, Thỏa thuận khung được ưu tiên áp dụng, trừ khi Thông báo Cấp phát dẫn chiếu rõ điều khoản được sửa đổi.
+a) Grants: SP is granted only by a duly executed Grant Notice in the form of Schedule A. This Master Agreement governs every grant; the Grant Notice fixes the number of SP, the grant date, and the vesting commencement date of each grant. In case of conflict, this Master Agreement prevails unless the Grant Notice expressly identifies the provision being varied.
+b) Điều kiện tiên quyết: Mỗi lần cấp chỉ có hiệu lực khi và kể từ khi: (i) Hội đồng Quản trị đã ban hành Nghị quyết chấp thuận lần cấp đó theo Điều 167 Luật Doanh nghiệp 2020, với thành viên có lợi ích liên quan không tham gia biểu quyết, và số Nghị quyết được ghi tại Thông báo Cấp phát; và (ii) trường hợp Thành viên đồng thời là người đại diện theo pháp luật của Công ty, Thông báo Cấp phát được ký bên phía Công ty bởi một người đại diện theo ủy quyền khác do HĐQT chỉ định, phù hợp khoản 3 Điều 141 Bộ luật Dân sự 2015.
+b) Conditions precedent: Each grant takes effect only when and from the time that: (i) the Board of Directors has passed a Resolution approving that grant under Article 167 of the Law on Enterprises 2020, with the interested member abstaining from voting, and the Resolution number is recorded in the Grant Notice; and (ii) where the Member is concurrently the Company's legal representative, the Grant Notice is signed on the Company's side by a different authorized representative appointed by the Board, consistent with Article 141.3 of the Civil Code 2015.
+c) Công thức định giá: Giá trị 1 SP = (Tổng CFO x Hệ số Định giá Ngành) / Tổng số SP đang lưu hành tại Ngày Định giá. Trường hợp Tổng CFO của năm tài chính bằng 0 hoặc âm do hoạt động đầu tư hoặc đóng băng dòng tiền, giá trị 1 SP của năm đó được bảo lưu bằng mức định giá của năm liền kề trước đó.
+c) Valuation formula: Value of 1 SP = (Total CFO x Industry Multiplier) / Total outstanding SP as at the Valuation Date. If the total CFO for a fiscal year is zero or negative due to investment activities or cash freezes, the SP value for that year is retained at the immediately preceding year's valuation.
+d) Tranh chấp định giá: Nếu Thành viên không đồng ý với giá trị SP được tính, Thành viên có quyền yêu cầu bằng văn bản trong 30 ngày kể từ khi nhận thông báo định giá; hai Bên sẽ trao đổi thiện chí trong 30 ngày tiếp theo, và nếu không đạt thống nhất, tranh chấp được giải quyết theo Điều 12.
+d) Valuation disputes: If the Member disagrees with a computed SP value, the Member may object in writing within 30 days of receiving the valuation notice; the Parties will negotiate in good faith for a further 30 days, failing which the dispute is resolved under Article 12.
+e) Hạn mức Quỹ và Cấp phát Bổ sung: Tổng số SP lưu hành tại mọi thời điểm không vượt quá mức tương đương 15% tổng số cổ phần thực đang lưu hành của Công ty. Sau khi hoàn tất chu kỳ mở khóa 4 năm đầu tiên, thành viên duy trì hiệu suất xuất sắc được xem xét cấp phát bổ sung bằng thông báo cấp phát mới.
+e) Pool cap and Refresh Grants: Total outstanding SP shall at no time exceed the equivalent of 15% of the Company's total outstanding actual shares. Upon completing the initial 4-year vesting cycle, Members maintaining outstanding performance are considered for Refresh Grants by a new Grant Notice.
+ 
+Điều 4. Lộ trình mở khóa
+Article 4. Vesting
+a) Lộ trình: SP được mở khóa 25% mỗi năm trong 4 năm kể từ ngày bắt đầu tính mở khóa ghi tại Thông báo Cấp phát. Đợt mở khóa đầu tiên chỉ diễn ra khi thành viên hoàn thành đủ 12 tháng làm việc liên tục kể từ ngày bắt đầu tính mở khóa (thời gian chờ tối thiểu); các đợt tiếp theo mở khóa vào mỗi ngày tròn năm tiếp theo.
+a) Schedule: SP vests at 25% per year over 4 years from the vesting commencement date stated in the Grant Notice. The first tranche vests only upon the Member completing 12 months of continuous service from the vesting commencement date (a 12-month cliff); subsequent tranches vest on each following anniversary.
+b) Điều kiện hiệu suất: Mỗi đợt mở khóa có điều kiện là thành viên đạt đánh giá hiệu suất năm liền trước từ mức "Đáp ứng kỳ vọng" (hoàn thành >= 100% KPI cá nhân) trở lên. Kết quả đánh giá do quản lý trực tiếp cùng bộ phận nhân sự xác lập và được Tổng Giám đốc (hoặc HĐQT, đối với Thành viên là người quản lý) phê chuẩn. Công ty không áp dụng loại trừ chéo (stack-ranking) giữa các thành viên.
+b) Performance condition: Each tranche vests on condition that the Member achieves a rating of at least "Meets Expectations" (completing >= 100% of individual KPIs) for the immediately preceding annual review. The rating is established by the line manager together with HR and ratified by the General Director (or the Board, for Members who are managers). The Company does not apply cross-elimination (stack-ranking) among Members.
+c) Khiếu nại kết quả đánh giá: Thành viên không đồng ý với kết quả đánh giá có quyền khiếu nại bằng văn bản trong 15 ngày; Hội đồng Chuyên môn xem xét và trả lời trong 30 ngày. Đợt mở khóa liên quan được treo cho đến khi có kết quả cuối cùng và nếu khiếu nại được chấp nhận, có hiệu lực hồi tố về đúng ngày mở khóa theo lộ trình.
+c) Rating appeals: A Member who disagrees with a rating may appeal in writing within 15 days; the Professional Council reviews and responds within 30 days. The affected tranche is suspended pending the final outcome and, if the appeal succeeds, vests retroactively to the scheduled vesting date.
+d) Bản chất có điều kiện: Quyền nhận thanh toán đối với mỗi SP chỉ phát sinh khi toàn bộ các điều kiện tại Thỏa thuận này được đáp ứng tại thời điểm thanh toán, bao gồm điều kiện không xảy ra sự kiện Người Nghỉ việc, Vi phạm theo Điều 7. Trước thời điểm đó, SP (kể cả SP đã mở khóa) là quyền có điều kiện, chưa phải là khoản nợ đến hạn của Công ty.
+d) Conditional nature: The right to payment for each SP accrues only when all conditions of this Agreement are satisfied at the time of payment, including the condition that no Bad Leaver event under Article 7 has occurred. Until then, SP (including Vested SP) is a conditional right and not yet a due debt of the Company.
+ 
+Điều 5. Quyền yêu cầu thanh khoản
+Article 5. Put option (liquidity rights)
+a) Từ năm thứ 3 kể từ ngày cấp, Thành viên có quyền yêu cầu Công ty mua lại tối đa 25% số SP Đã mở khóa mỗi năm bằng tiền. Yêu cầu được lập bằng văn bản theo mẫu của Công ty ("Lệnh Thanh khoản").
+a) From the 3rd year after the grant date, the Member may require the Company to repurchase up to 25% of Vested SP per year for cash. The request is made in writing in the Company's form (a "Liquidity Order").
+b) Giá thanh toán là giá trị 1 SP tại Ngày Định giá gần nhất trước ngày Lệnh Thanh khoản hợp lệ. Công ty thanh toán trong 60 ngày kể từ ngày nhận Lệnh thanh khoản hợp lệ.
+b) The settlement price is the SP value as at the most recent Valuation Date preceding a valid Liquidity Order. The Company pays within 60 days of receipt of a valid Liquidity Order.
+c) Ngân sách mua lại SP hàng năm của Công ty không vượt quá 15% CFO. Nếu tổng giá trị các Lệnh Thanh khoản hợp lệ trong năm vượt hạn mức, phần vượt được: (i) phân bổ công bằng theo tỷ lệ giữa các Thành viên; và (ii) cấu trúc thành thanh toán trả góp từ 6 đến 12 tháng, cộng Lãi suất Tham chiếu ACB tính trên dư nợ.
+c) The Company's annual SP repurchase budget shall not exceed 15% of CFO. If the total value of valid Liquidity Orders in a year exceeds the cap, the excess is: (i) allocated pro rata among Members; and (ii) structured into installment payments over 6 to 12 months, plus the ACB Reference Rate on the outstanding balance.
+d) Mọi khoản thanh toán tại Điều này là nghĩa vụ dân sự của Công ty, thực hiện bằng chuyển khoản ngoài kỳ trả lương.
+d) All payments under this Article are civil obligations of the Company, made by bank transfer outside payroll cycles.
+ 
+Điều 6. Sự kiện thanh khoản lớn
+Article 6. Major liquidity events
+a) Khi xảy ra Sự kiện Thay đổi Kiểm soát hoặc khi Công ty chào bán cổ phần lần đầu ra công chúng (IPO), toàn bộ SP Chưa mở khóa của Thành viên được mở khóa cấp tốc 100% ngay trước thời điểm hoàn tất giao dịch.
+a) Upon a Change of Control or an Initial Public Offering (IPO) by the Company, all of the Member's Unvested SP vests on an accelerated 100% basis immediately prior to completion of the transaction.
+b) Thành viên có quyền lựa chọn: (i) nhận thanh toán toàn bộ SP bằng tiền theo định giá thương vụ (giá trị trên một cổ phần thực áp dụng cho giao dịch, nhân với số SP); hoặc (ii) nếu pháp nhân nhận sáp nhập/mua lại chấp thuận, chuyển đổi SP thành cổ phần thực (ESOP) của pháp nhân đó theo tỷ lệ tương đương, với điều kiện việc phát hành tuân thủ pháp luật chứng khoán và doanh nghiệp tại thời điểm đó. Trường hợp phương án (ii) không khả thi về pháp lý, phương án (i) được áp dụng.
+b) The Member may elect: (i) full cash settlement of the SP at the transaction valuation (the per-actual-share deal value multiplied by the number of SP); or (ii) if the surviving/acquiring entity consents, conversion of the SP into actual shares (ESOP) of that entity at an equivalent ratio, provided the issuance complies with securities and enterprise law then in force. Where option (ii) is legally unavailable, option (i) applies.
+c) Công ty thông báo cho Thành viên về Sự kiện Thay đổi Kiểm soát hoặc IPO dự kiến trong thời gian sớm nhất hợp lý, phù hợp với nghĩa vụ bảo mật của giao dịch, và trong mọi trường hợp trước thời điểm hoàn tất.
+c) The Company notifies the Member of a prospective Change of Control or IPO as early as reasonably practicable, consistent with transaction confidentiality obligations, and in any event before completion.
+ 
+Điều 7. Chấm dứt quan hệ lao động
+Article 7. Leaver provisions
+a) Người nghỉ việc hợp lệ: Toàn bộ SP chưa mở khóa chấm dứt hiệu lực vào ngày chấm dứt hợp đồng lao động. Đối với SP đã mở khóa: Công ty có quyền ưu tiên mua lại toàn bộ hoặc một phần trong 12 tháng kể từ ngày chấm dứt, theo giá trị tại Ngày Định giá gần nhất trước ngày chấm dứt, thanh toán trong 60 ngày kể từ ngày thông báo thực hiện quyền. Hết thời hạn 12 tháng mà Công ty không thực hiện quyền, Thành viên giữ nguyên quyền thanh khoản theo Điều 5 như thể quan hệ lao động còn tiếp diễn.
+a) Good Leaver: All Unvested SP lapses on the labor contract termination date. For Vested SP: the Company holds a right of first refusal to repurchase all or part within 12 months of termination, at the value as at the most recent Valuation Date before termination, payable within 60 days of the exercise notice. If the Company does not exercise within the 12-month window, the Member retains liquidity rights under Article 5 as if employment had continued.
+b) Nghỉ chờ việc (garden leave): thời gian thành viên vẫn duy trì quan hệ lao động nhưng được miễn làm việc theo thỏa thuận được tính là thời gian làm việc liên tục cho mục đích mở khóa.
+b) Garden leave: any period during which the Member remains employed but is released from duties by agreement counts as continuous service for vesting purposes.
+c) Người Nghỉ việc Vi phạm: Việc không xảy ra sự kiện Người Nghỉ việc Vi phạm trước thời điểm thanh toán là điều kiện phát sinh quyền nhận thanh toán đối với mọi SP theo Điều 4(d). Khi sự kiện Người Nghỉ việc Vi phạm xảy ra, điều kiện này không được đáp ứng và quyền nhận thanh toán đối với toàn bộ SP (Đã mở khóa và Chưa mở khóa) không phát sinh; toàn bộ SP chấm dứt hiệu lực mà không có bồi hoàn. Hai Bên xác nhận đây là điều kiện thiết yếu của việc cấp SP không thu tiền, đã được giải thích đầy đủ và chấp nhận tự nguyện trước khi ký.
+c) Bad Leaver: The non-occurrence of a Bad Leaver event before the time of payment is a condition for the right to payment to accrue for any SP under Article 4(d). Upon a Bad Leaver event, that condition fails, and the right to payment for all SP (Vested and Unvested) does not accrue; all SP lapses without compensation. The Parties confirm this is an essential condition of the free-of-charge grant of SP, fully explained and voluntarily accepted before signing.
+d) Giảm trừ theo mức độ: Trường hợp cơ quan giải quyết tranh chấp xác định việc chấm dứt hiệu lực toàn bộ tại điểm (c) là quá mức đối với hoàn cảnh cụ thể, hai Bên thống nhất rằng cơ quan đó có thẩm quyền điều chỉnh phạm vi chấm dứt xuống mức tương xứng thay vì vô hiệu toàn bộ điều khoản, phù hợp với Điều 8(b) dưới đây.
+d) Proportionality fallback: If the dispute-resolution body determines that the full lapse under paragraph (c) is excessive in the specific circumstances, the Parties agree that the body may reduce the scope of the lapse to a proportionate level rather than invalidating the clause entirely, consistent with Article 8(b) below.
+ 
+Điều 8. Thuế, thu hồi và cam kết chung
+Article 8. Tax, clawback, and general commitments
+a) Thuế: Mọi giá trị SP là giá trị trước thuế. Khoản thanh toán bằng tiền theo Thỏa thuận này là thu nhập chịu thuế thu nhập cá nhân của Thành viên theo Luật Thuế TNCN số 109/2025/QH15; Công ty khấu trừ và nộp thay tại thời điểm chi trả theo biểu thuế lũy tiến hiện hành và chi trả phần còn lại cho Thành viên.
+a) Tax: All SP values are gross of tax. Cash payments under this Agreement are personal-income-taxable income of the Member under the PIT Law No. 109/2025/QH15; the Company withholds and remits at the time of payment under the prevailing progressive schedule and pays the balance to the Member.
+b) Thu hồi (clawback): Nếu trong 24 tháng sau một khoản thanh toán, báo cáo tài chính làm căn cứ định giá bị điều chỉnh trọng yếu, hoặc phát hiện Thành viên có hành vi gian lận, vi phạm nghiêm trọng ảnh hưởng đến căn cứ thanh toán, Công ty có quyền yêu cầu hoàn trả phần chênh lệch đã thanh toán vượt so với giá trị đúng, như một nghĩa vụ hoàn trả dân sự. Công ty không khấu trừ khoản này vào tiền lương.
+b) Clawback: If, within 24 months after a payment, the financial statements underlying the valuation are materially restated, or fraud or serious misconduct by the Member affecting the payment basis is discovered, the Company may require repayment of the overpaid difference as a civil restitution obligation. The Company shall not set this off against wages.
+c) Bảo mật và không phát ngôn bất lợi: Thành viên giữ bí mật các điều khoản cấp phát của mình và thông tin định giá nội bộ, trừ khi tiết lộ cho cố vấn pháp lý, thuế hoặc theo yêu cầu của cơ quan có thẩm quyền. Hai Bên không phát ngôn bất lợi về nhau liên quan đến Thỏa thuận này.
+c) Confidentiality and non-disparagement: The Member keeps their grant terms and internal valuation information confidential, except for disclosure to legal or tax advisors or as required by a competent authority. Neither Party makes disparaging statements about the other in connection with this Agreement.
+d) Không chuyển nhượng: SP không được chuyển nhượng, cầm cố hay dùng bảo đảm nghĩa vụ dưới bất kỳ hình thức nào, trừ trường hợp thừa kế theo pháp luật; người thừa kế kế thừa quyền của Người Nghỉ việc Hợp lệ.
+d) No transfer: SP may not be transferred, pledged, or used as security in any form, except by inheritance under law; heirs succeed to Good Leaver rights.
+e) Kế thừa khi tái cấu trúc: Thỏa thuận này ràng buộc và có hiệu lực đối với các bên kế thừa hợp pháp. Khi Công ty sáp nhập, hợp nhất hoặc chuyển đổi loại hình, pháp nhân tiếp nhận đương nhiên kế thừa quyền và nghĩa vụ theo Thỏa thuận này theo Luật Doanh nghiệp.
+e) Succession on restructuring: This Agreement binds and benefits lawful successors. Upon merger, consolidation, or conversion of the Company, the surviving entity succeeds by operation of law to the rights and obligations under this Agreement pursuant to the Law on Enterprises.
+ 
+Điều 9. Cam đoan và bảo đảm
+Article 9. Representations and warranties
+Mỗi Bên cam đoan: (i) có đầy đủ năng lực và thẩm quyền để ký kết, thực hiện Thỏa thuận này; (ii) việc ký kết không vi phạm bất kỳ nghĩa vụ nào với bên thứ ba; và (iii) đã đọc, hiểu và tự nguyện chấp nhận toàn bộ điều khoản. Thành viên xác nhận hiểu rõ rằng SP không phải là cổ phần, không bảo đảm giá trị tối thiểu và giá trị SP có thể tăng hoặc giảm theo kết quả kinh doanh.
+Each Party represents that: (i) it has full capacity and authority to execute and perform this Agreement; (ii) execution does not breach any obligation to a third party; and (iii) it has read, understood, and voluntarily accepted all terms. The Member acknowledges that SP is not a share, carries no minimum-value guarantee, and may rise or fall in value with business performance.
+ 
+Điều 10. Vi phạm và chấm dứt
+Article 10. Default and termination
+a) Sự kiện vi phạm bao gồm: không thanh toán đến hạn quá 30 ngày sau thông báo; vi phạm nghĩa vụ bảo mật; hoặc vi phạm cam đoan trọng yếu. Bên bị vi phạm có quyền yêu cầu thực hiện đúng, bồi thường thiệt hại theo Bộ luật Dân sự và các biện pháp tại Điều 12.
+a) Events of default include: non-payment overdue by more than 30 days after notice; breach of confidentiality; or breach of a material representation. The non-defaulting Party may require specific performance, claim damages under the Civil Code, and pursue remedies under Article 12.
+b) Thỏa thuận này chấm dứt khi: (i) toàn bộ SP đã được thanh toán hoặc chấm dứt hiệu lực theo Thỏa thuận; hoặc (ii) hai Bên thỏa thuận chấm dứt bằng văn bản. Các điều khoản về thuế, bảo mật, thu hồi và giải quyết tranh chấp tiếp tục có hiệu lực sau chấm dứt.
+b) This Agreement terminates when: (i) all SPs have been settled or have lapsed under this Agreement; or (ii) the Parties agree in writing to terminate. Tax, confidentiality, clawback, and dispute-resolution provisions survive termination.
+ 
+Điều 11. Điều khoản chung
+Article 11. General provisions
+a) Thông báo: bằng văn bản, giao trực tiếp, gửi bảo đảm hoặc thư điện tử tới địa chỉ tại Thông báo Cấp phát; có hiệu lực khi nhận được hoặc khi thư điện tử được gửi không báo lỗi.
+a) Notices: in writing, by hand, registered mail, or email to the addresses in the Grant Notice; effective on receipt or, for email, on transmission without error message.
+b) Sửa đổi và toàn bộ thỏa thuận: mọi sửa đổi phải bằng văn bản do hai Bên ký. Thỏa thuận này cùng các Thông báo Cấp phát là toàn bộ thỏa thuận về SP, thay thế mọi trao đổi trước đó về cùng nội dung.
+b) Amendment and entire agreement: any amendment must be in writing and signed by both Parties. This Agreement and the Grant Notices are the entire agreement on SP and supersede all prior communications on the same subject.
+c) Tính tách biệt: nếu một điều khoản bị tuyên vô hiệu hoặc không thể thi hành, điều khoản đó được điều chỉnh ở mức tối thiểu cần thiết để có hiệu lực; các điều khoản còn lại giữ nguyên hiệu lực.
+c) Severability: if any provision is held invalid or unenforceable, it is modified to the minimum extent necessary to be effective; the remaining provisions remain in full force.
+d) Luật áp dụng: pháp luật Việt Nam.
+d) Governing law: the laws of Vietnam.
+e) Ngôn ngữ: Thỏa thuận được lập song ngữ tiếng Việt và tiếng Anh; trường hợp có khác biệt, bản tiếng Việt được ưu tiên áp dụng.
+e) Language: this Agreement is made bilingually in Vietnamese and English; in case of discrepancy, the Vietnamese version prevails.
+ 
+Điều 12. Giải quyết tranh chấp
+Article 12. Dispute resolution
+Mọi tranh chấp phát sinh từ hoặc liên quan đến Thỏa thuận này sẽ được giải quyết chung thẩm bằng trọng tài tại Trung tâm Trọng tài Quốc tế Việt Nam (VIAC) theo Quy tắc tố tụng trọng tài của VIAC có hiệu lực tại thời điểm phát sinh tranh chấp. Địa điểm trọng tài là Thành phố Hồ Chí Minh, Việt Nam. Hội đồng trọng tài gồm một trọng tài viên duy nhất. Luật áp dụng cho nội dung tranh chấp là pháp luật Việt Nam. Ngôn ngữ trọng tài là tiếng Việt; tài liệu bằng tiếng Anh được nộp không cần bản dịch, trừ khi Hội đồng trọng tài yêu cầu khác. Trường hợp tranh chấp có yếu tố nước ngoài hoặc có một bên là doanh nghiệp có vốn đầu tư nước ngoài, các bên có thể thỏa thuận tiến hành tố tụng bằng tiếng Việt và tiếng Anh. Trước khi Hội đồng trọng tài được thành lập, mỗi Bên có quyền yêu cầu Tòa án có thẩm quyền áp dụng biện pháp khẩn cấp tạm thời theo Điều 48, Điều 53 Luật Trọng tài Thương mại 2010 mà không bị coi là từ bỏ thỏa thuận trọng tài.
+Any dispute arising out of or in relation to this Agreement shall be finally resolved by arbitration at the Vietnam International Arbitration Centre (VIAC) in accordance with its Rules of Arbitration in force at the time of the dispute. The place of arbitration is Ho Chi Minh City, Vietnam. The arbitral tribunal comprises a sole arbitrator. The law governing the merits is the law of Vietnam. The language of the arbitration is Vietnamese; documents in English may be submitted without translation unless the Arbitral Tribunal directs otherwise. Where the dispute involves a foreign element or a party that is a foreign-invested enterprise, the parties may agree to conduct the proceedings in Vietnamese and English. Before the tribunal is constituted, either Party may apply to the competent Court for interim urgent measures under Articles 48 and 53 of the Law on Commercial Arbitration 2010 without being deemed to have waived the arbitration agreement.
+Thành phố Hồ Chí Minh, ngày [__] tháng [__] năm 2026
+Ho Chi Minh City, [date] 2026
+THÀNH VIÊN
+THE MEMBER
+Tôi xác nhận đã đọc, hiểu rõ, tự nguyện đồng ý và chịu sự ràng buộc bởi toàn bộ các điều khoản của Thỏa thuận này.
+I confirm that I have read, fully understood, voluntarily agreed to, and am bound by all terms of this Agreement.
+Ký, ghi rõ họ tên
+Sign and state full name
+[Họ và tên / Full name]
+CÔNG TY
+THE COMPANY
+Người đại diện có thẩm quyền ký theo Nghị quyết HĐQT dẫn chiếu tại Thông báo Cấp phát.
+Authorized representative signing per the Board Resolution referenced in the Grant Notice.
+Ký, ghi rõ họ tên và đóng dấu
+Sign, state your full name, and stamp
+[Họ và tên / Full name]
+PHỤ LỤC A - THÔNG BÁO CẤP PHÁT CỔ PHẦN ẢO
+SCHEDULE A - PHANTOM STOCK GRANT NOTICE
+Số / No.: 02.[__]/2026/TBCP-CYBERSKILL
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+Thông báo Cấp phát này được lập theo và là bộ phận không tách rời của Thỏa thuận Cổ phần ảo khung số 02/2026/TTCPA-CYBERSKILL ("Thỏa thuận khung"). Thành viên xác nhận đã nhận, đọc và đồng ý chịu sự ràng buộc của Thỏa thuận khung.
+This Grant Notice is made under, and forms an integral part of, Master Phantom Stock Agreement No. 02/2026/TTCPA-CYBERSKILL (the "Master Agreement"). The Member confirms receipt of, and agreement to be bound by, the Master Agreement.
+THÔNG TIN CẤP PHÁT GRANT DETAILS
+Thành viên
+Member (full name)
+[Họ và tên]
+Số CCCD
+ID card no.
+[Số CCCD]
+Địa chỉ / Email nhận thông báo
+Notice address/email
+[Địa chỉ] / [Email]
+Số lượng SP được cấp
+Number of SP granted
+[Số lượng] SP
+Ngày cấp
+Grant date
+[Ngày/tháng/năm]
+Ngày bắt đầu tính mở khóa
+Vesting commencement date
+[Ngày/tháng/năm]
+Lộ trình mở khóa
+Vesting schedule
+25%/năm trong 4 năm; thời gian chờ 12 tháng cho đợt đầu (Điều 4 Thỏa thuận khung) / 25%/year over 4 years; 12-month cliff for the first tranche (Article 4, Master Agreement)
+Nghị quyết HĐQT chấp thuận
+Approving Board Resolution
+Số [__]/NQ-HĐQT ngày [__] (thành viên có lợi ích liên quan không biểu quyết / interested member abstaining)
+Người ký bên Công ty
+Company signatory
+[Họ tên, chức danh; theo ủy quyền tại Nghị quyết nêu trên nếu Thành viên là người đại diện theo pháp luật]
+THÀNH VIÊN
+THE MEMBER
+Tôi xác nhận các thông tin trên và đồng ý chịu sự ràng buộc của Thỏa thuận khung.
+I confirm the details above and agree to be bound by the Master Agreement.
+Ký, ghi rõ họ tên
+Sign and state full name
+[Họ và tên / Full name]
+CÔNG TY
+THE COMPANY
+Người đại diện có thẩm quyền theo Nghị quyết HĐQT nêu trên.
+Authorized representative per the Board Resolution above.
+Ký, ghi rõ họ tên và đóng dấu
+Sign, state your full name, and stamp
+[Họ và tên / Full name]
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Thỏa thuận Cổ phần Ảo · Phantom Stock Agreement · Số / No.: 02/2026/TTCPA-CYBERSKILL
