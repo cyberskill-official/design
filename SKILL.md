@@ -17,7 +17,7 @@ If the user invokes this skill without any other guidance, ask them what they wa
 | **Bundler React (Next/Vite/SSR)** | `docs/consuming.md` | `import { Button } from "@cyberskill/design"` + `styles.css`. React is a peer. |
 | **Maintainers** | `docs/doctrine.md` | Expansion + verification; Storybook Docs at `design.cyberskill.world`. |
 
-Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.3.9**; no CHANGELOG).
+Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.3.10**; no CHANGELOG).
 
 - **`README.md`** — the entrance + design guide + manifest: anchor immutables, CONTENT FUNDAMENTALS (voice = warm/direct/honest/respectful, Vietnamese-first, the "wish" metaphor), VISUAL FOUNDATIONS, ICONOGRAPHY, and the component/kit index. Read it first.
 
