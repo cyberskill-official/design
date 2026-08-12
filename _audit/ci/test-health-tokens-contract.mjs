@@ -57,7 +57,9 @@ const surfacesPath = existsSync(join(root, 'stories/Maintainer/Surfaces.stories.
 const liveSurfaces = readFileSync(surfacesPath, 'utf8');
 assert(liveSurfaces.includes('motion.html'), 'motion surface in Storybook Maintainer');
 assert(liveSurfaces.includes('rtl-preview.html'), 'rtl surface in Storybook Maintainer');
-assert(liveSurfaces.includes('atomic-view.html'), 'atomic view buried under Maintainer');
+assert(liveSurfaces.includes('atomic-view.html'), 'atomic view still mapped under Maintainer for gates');
+assert(existsSync(join(root, 'stories/Templates/Gallery.stories.jsx')), 'Templates Gallery public entry');
+assert(readFileSync(join(root, 'stories/Templates/Gallery.stories.jsx'), 'utf8').includes('atomic-view.html'), 'Templates Gallery links Atomic View');
 assert(existsSync(join(root, 'guidelines/motion.html')), 'motion.html still portable');
 assert(existsSync(join(root, 'guidelines/rtl-preview.html')), 'rtl-preview still portable');
 

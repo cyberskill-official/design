@@ -32,6 +32,11 @@ export const LiveHub = {
   render: () => <Page path="docs/live-hub.md" title="Live hub" />,
 };
 
+export const HrSuiteSources = {
+  name: 'HR Suite sources',
+  render: () => <Page path="docs/hr-suite-sources.md" title="HR Suite sources" />,
+};
+
 export const BenchmarkRubric = {
   name: 'Benchmark rubric',
   render: () => <Page path="docs/benchmark-rubric.md" title="Benchmark rubric" />,

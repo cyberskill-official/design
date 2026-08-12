@@ -9,7 +9,7 @@
 This is the **entrance document** for the CyberSkill Design System — VERSION **1.3.11** (see `VERSION`). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Operator documentation is published in the Storybook **Docs** sidebar (and the Documentation Library at `/docs/viewer.html`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves four independent axes — **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
 
 **Quick start by audience**
-- **Designers** — open Storybook (Foundations / Components / Docs / Maintainer surfaces) and the Templates picker (84 starting points, including the 37-document client-supplied Employment Suite). Flip Theme × Element × Language × Style live via the Storybook toolbar, Atomic View, and the Elements Geometry specimen.
+- **Designers** — open Storybook (Foundations / Components / Docs / Maintainer surfaces) and the Templates picker in Atomic View (85 starting points, including the 38-document VN A4 suite — Employment Suite + commercial framework). Flip Theme × Element × Language × Style live via the Storybook toolbar, Atomic View, and the Elements Geometry specimen.
 
 - **DC-capable authoring** (Design Components compiler present) — read `SKILL.md` (normative Hard rules + orientation), then the guide below; compose with `styles.css` + bundler `@cyberskill/design` (`_esm/react.mjs`) / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). DC `*.dc.html` templates only when the session has the compiler. Component contracts live beside each component (`.d.ts` + `.prompt.md`).
 
@@ -220,7 +220,7 @@ Print-ready letter documents and client decks — the paperwork a studio actuall
 
 - **Sales** — `sales-one-pager` (leave-behind: umber hero, services, proof stats, the wish process, contact CTA), `sales-proposal-deck` (8-slide 16:9 client proposal — the wish, understanding, approach, scope, timeline, team, investment, next steps).
 
-**Bilingual — full coverage.** Every one of the 84 templates is bilingual. The 37 `vn-*` HR-suite instruments and the three `doc-*` references are Vietnamese-first with English stacked beneath (Ink/Slate). Every other template carries a **Language** tweak (*English · Tiếng Việt*) that swaps the entire body between the two; several emails (`email`, `marketing-launch`, `tech-release-notes`, `delivery-status-email`, `finance-dunning-email`) add a *Both* mode that stacks them. Where doctrine says **EN-first** (client/media collateral), that means English is the *default* Language value — still with a full bilingual Language tweak — not an English-only exemption. Legal and finance docs (MSA, SOW, invoice, quote) print their Vietnamese side as an **unreviewed draft** behind a warning banner stating the English governs — have counsel review before real use. As of Jul 2026 the last English-only holdouts — board & comms (`bod-report`, `bod-deck`, `bod-investor-update`, `bod-resolution`) and the client decks/docs (`sales-proposal-deck`, `tech-rfc`, `delivery-kickoff`, `delivery-qbr-deck`) — carry the tweak too.
+**Bilingual — full coverage.** Every one of the 85 templates is bilingual. The 38 `vn-*` A4 instruments and the three `doc-*` references are Vietnamese-first with English stacked beneath (Ink/Slate). Every other template carries a **Language** tweak (*English · Tiếng Việt*) that swaps the entire body between the two; several emails (`email`, `marketing-launch`, `tech-release-notes`, `delivery-status-email`, `finance-dunning-email`) add a *Both* mode that stacks them. Where doctrine says **EN-first** (client/media collateral), that means English is the *default* Language value — still with a full bilingual Language tweak — not an English-only exemption. Legal and finance docs (MSA, SOW, invoice, quote) print their Vietnamese side as an **unreviewed draft** behind a warning banner stating the English governs — have counsel review before real use. As of Jul 2026 the last English-only holdouts — board & comms (`bod-report`, `bod-deck`, `bod-investor-update`, `bod-resolution`) and the client decks/docs (`sales-proposal-deck`, `tech-rfc`, `delivery-kickoff`, `delivery-qbr-deck`) — carry the tweak too.
 
 ### Reference documents (govern EVERY template)
 
@@ -233,7 +233,7 @@ Three suite-wide reference documents define and catalogue the whole template lib
 
 ### HR & Employment Suite (client-supplied)
 
-Thirty-seven bilingual instruments **supplied by the client** (built on an earlier version of the system) were **converted one-by-one into templates, content preserved verbatim**, and re-skinned to the latest design system. They live under the **HR Suite** group (`templates/vn-*/`) and follow the house standard set out in the reference documents above: **A4, Vietnamese-first bilingual** (Ink `#1A1614` VN over Slate `#3F4C55` italic EN pairs), state-motto header, umber table title bars, yellow fill-in blanks, PDPL data-hygiene (Party B always blank), and signing blocks that never split. Every one carries the Element (15) tweaks like all templates; none carries a language tweak (they are inherently bilingual). Because these are client-supplied instruments (keep content verbatim; counsel must review before real use), **`vn-labor-contract` supersedes the earlier fictional `legal-employment-contract`**, and `vn-mutual-nda` / `vn-offer-letter` / `vn-onboarding-checklist` / `vn-job-description` supersede the fictional `legal-nda` / `hr-offer-letter` / `hr-onboarding` / `hr-job-description` (all removed); the remaining fictional templates are EN-first comms (announcements, newsletters, press releases) and client-facing sales/finance paperwork — a different purpose, so they stay.
+Thirty-eight bilingual A4 instruments (**thirty-seven** Employment Suite docs supplied by the client, plus **`vn-framework-agreement`** commercial framework) (built on an earlier version of the system) were **converted one-by-one into templates, content preserved verbatim**, and re-skinned to the latest design system. They live under the **HR Suite** group (`templates/vn-*/`) and follow the house standard set out in the reference documents above: **A4, Vietnamese-first bilingual** (Ink `#1A1614` VN over Slate `#3F4C55` italic EN pairs), state-motto header, umber table title bars, yellow fill-in blanks, PDPL data-hygiene (Party B always blank), and signing blocks that never split. Every one carries the Element (15) tweaks like all templates; none carries a language tweak (they are inherently bilingual). Because these are client-supplied instruments (keep content verbatim; counsel must review before real use), **`vn-labor-contract` supersedes the earlier fictional `legal-employment-contract`**, and `vn-mutual-nda` / `vn-offer-letter` / `vn-onboarding-checklist` / `vn-job-description` supersede the fictional `legal-nda` / `hr-offer-letter` / `hr-onboarding` / `hr-job-description` (all removed); the remaining fictional templates are EN-first comms (announcements, newsletters, press releases) and client-facing sales/finance paperwork — a different purpose, so they stay.
 
 - **Compensation & rewards** — `vn-total-rewards-appendix`, `vn-phantom-stock`, `vn-salary-scale`, `vn-compensation-regulation`.
 
@@ -244,6 +244,8 @@ Thirty-seven bilingual instruments **supplied by the client** (built on an earli
 - **Performance & requests** — `vn-performance-review-form`, `vn-employee-request` (leave · overtime consent · other).
 
 - **Outside relationships** — `vn-internship-agreement`, `vn-contractor-agreement`, `vn-sow-appendix`, `vn-mutual-nda`.
+
+- **Commercial / client framework (VN A4 skin, not employment)** — `vn-framework-agreement` (Hợp đồng nguyên tắc — software services & account provisioning; specimen Ban QLDA Bình Quới; counsel-gated).
 
 - **Discipline & exit** — `vn-disciplinary-case-file` (4-part A→D), `vn-resignation-letter`, `vn-certificate-of-employment` (deliberately neutral), `vn-training-commitment`.
 
@@ -269,7 +271,7 @@ Raw markup (numbered clauses, invoice tables, milestone rows) in the legal/finan
 Every template resolves to one of six archetypes, framed by `templates/doc-templates`:
 | Archetype | Frame | Templates |
 |---|---|---|
-| **A4 bilingual instrument** | State-motto header · Articles · Party A/B tables · signing block; Style-Guide 1–10 in full | the 37 `vn-*` HR-suite instruments |
+| **A4 bilingual instrument** | State-motto header · Articles · Party A/B tables · signing block; Style-Guide 1–10 in full | the 38 `vn-*` A4 instruments |
 | **Letter print doc** | Letter, 0.6in margins, desk + sheet, clean Print/PDF | `finance-invoice` · `finance-quote` · `finance-expense-report` · `legal-msa` · `legal-sow` · `sales-one-pager` · `bod-*` docs |
 | **Email (600px)** | Centred body, system header/CTA, no motto/signing; bilingual via Language tweak | `email` · `hr-announcement` · `marketing-newsletter` · `tech-release-notes` · `delivery-status-email` · `finance-dunning-email` |
 | **Product screen** | Components + tokens; Theme × Element × Language × Style; no print geometry | `marketing-page` · `dashboard` · `app-shell` · `auth` · `settings` · `article` |
@@ -291,7 +293,7 @@ templates/                 marketing-page · dashboard · slide-deck · auth · 
                            + team artifacts — tech (release/incident/rfc) · team (meeting-agenda) · hr (announcement) · board (report/deck/memo) · marketing (brief/newsletter/launch/case-study/press-release)
                            + business — legal (vn-mutual-nda / msa / sow; fictional legal-nda retired) · finance (invoice/quote) · sales (one-pager/proposal-deck) — letter print docs + client deck
                            + Documents (reference, govern all templates) — doc-style-guide · doc-suite-index (index & usage) · doc-templates (archetypes)
-                           + HR Suite — 37 client-supplied bilingual A4 instruments (vn-*); content verbatim, latest-DS skin; counsel review before real use
+                           + VN A4 suite — 38 bilingual instruments (`vn-*`): 37 Employment Suite + 1 commercial framework agreement (`vn-framework-agreement`); counsel review before real use
 ui_kits/status-hub/        Status Hub recreation (index · login · settings · project + status.css · data.js · StatusHub.jsx)
 ui_kits/website/           cyberskill.world recreation (index · work · careers · chat + site.css · copy.js · Website.jsx)
 ui_kits/deck/              brand deck on deck-stage (index.html; deck-stage runtime lives in templates/_vendor/, outside the compiled bundle; export PPTX/PDF on demand)
@@ -305,7 +307,7 @@ SKILL.md                   Agent-Skills-compatible entry
 
 **UI kits** (product recreations, composing the tokens + `.cs-*` classes): **Status Hub** (portfolio dashboard — KPIs, board/table/releases lenses, drawer — plus **sign-in**, **settings**, **project detail**). Live axis demos: Storybook toolbar · Atomic View · Elements Geometry specimen, **cyberskill.world** (bilingual marketing home with Lumi chat — plus **Work**, **Careers**, and a full-page **Lumi assistant**), and a **Brand deck** (16:9, `deck-stage`, PDF/PPTX-ready). See each kit's `README.md`.
 
-**Storybook** renders every card: Components (122 exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), plus Maintainer surfaces for Status Hub, Website, and Deck.
+**Storybook** renders every card: Components (122 exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), **Templates** (85 starting points from the manifest, including HR Suite / VN A4), **Pages** (Status Hub, Website, Deck), plus Maintainer mirrors for gates.
 
 ---
 
