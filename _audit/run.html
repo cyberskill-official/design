@@ -204,7 +204,7 @@ async function runBoard(){
   overall.textContent=bad.length?('✗ '+bad.length+'/'+hard.length+' HARD FAILED — '+bad.join(', ')):(('✓ ALL '+hard.length+' HARD GATES PASS')+(advBad.length?(' · advisory issues: '+advBad.join(', ')):''));
   overall.style.background=bad.length?'#FEE2E2':'#dcfce7'; overall.style.color=bad.length?'#B42318':'#166534';
   progressEl.textContent='Progress: done · '+(finishedAt-startedAt)+' ms wall · hard '+(hard.length-bad.length)+'/'+hard.length+' pass';
-  let ver='1.4.0'; try{ ver=(await (await fetch('../VERSION',{cache:'no-store'})).text()).trim(); }catch(e){}
+  let ver='1.5.0'; try{ ver=(await (await fetch('../VERSION',{cache:'no-store'})).text()).trim(); }catch(e){}
   try{ localStorage.setItem('cs:last-gate-run', JSON.stringify({ver, ts:finishedAt, startedAt, pass:bad.length===0, total:hard.length, failed:bad, advisoryFailed:advBad})); }catch(e){}
   timestampsEl.innerHTML='Started: <strong>'+fmtTs(startedAt)+'</strong> · Finished: <strong>'+fmtTs(finishedAt)+'</strong> · VERSION '+ver;
   running=false;
