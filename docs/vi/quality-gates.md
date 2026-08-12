@@ -52,6 +52,8 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Axe smoke | `_audit/axe-smoke.html` + `_audit/lib/axe-fixtures.js` | Rule serious/critical WCAG 2 A/AA của axe-core 4.10.0 (vendored tại `_audit/vendor/axe.min.js`) trên mọi public primary (fixture khoá inventory; bilingual EN·VI) — Dialog, AlertDialog, Drawer, Tour, CommandPalette và Menu mount mở, còn Cascader / TreeSelect / Menubar / Combobox được bung trước khi quét; tương đương enforcement a11y Storybook (không test-runner riêng) | 0 finding serious/critical (`__axesmoke`) | Hard | Fast board CI |
 | Print smoke | `_audit/print-smoke.html` | Document template khai báo meta print-ownership và hook CSS `@page` mà đường export dựa vào | 0 document thiếu print hook (`__printsmoke`) | Hard | Fast board CI |
 | Support no-eval (Node) | `_audit/ci/test-support-no-eval.mjs` | Canonical `templates/_vendor/support.js` + all template copies are identical and contain no Function-constructor / `eval(` call sites (CSP-safe inline-script runtime) | Exit 0 | Hard | Unit test |
+| DOCX source parity (Node) | `_audit/ci/test-docx-source-parity.mjs` | DC text vs committed fixtures under `_audit/fixtures/hr-suite-docx-text/` for every mapped HR instrument | ≥85% phrase overlap; exit 0 | Hard | Unit test |
+
 | Pixel CI | `_audit/pixel-ci.html` + `_audit/ci/pixel-diff.mjs` | 15 baseline curated tồn tại; script Playwright capture so sánh % pixel thật; report gần nhất phải sạch (`drifted[]` rỗng) | Hợp đồng + compare sạch (`__pixelci.pass`); drift hoặc thiếu report → fail | Hard | Fast board CI (bước compare nuôi hàng) + job `pixel-diff` |
 
 ## Whole-set audits — mọi template, mọi trục

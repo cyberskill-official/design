@@ -1,0 +1,77 @@
+<!-- source: 9. Hợp đồng Nguyên Tắc - Framework Agreement (Software Services).docx -->
+CyberSkill · Hợp đồng nguyên tắc (cung cấp dịch vụ & tài khoản phần mềm)
+Số/No. ……/2026/HĐNT-CYBERSKILL
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+———————————
+The Socialist Republic of Vietnam · Independence - Freedom - Happiness
+Thành phố Hồ Chí Minh, ngày …… tháng …… năm ……
+HỢP ĐỒNG NGUYÊN TẮC
+VỀ CUNG CẤP DỊCH VỤ VÀ TÀI KHOẢN PHẦN MỀM
+Framework Agreement — Software services & account provisioning
+◆ ◆ ◆
+⚠ Counsel review required before real use / Cần luật sư rà soát trước khi dùng thật.
+Căn cứ Luật Thương mại số 36/2005/QH11; Bộ luật Dân sự số 91/2015/QH13 và các quy định pháp luật có liên quan;
+Pursuant to Commercial Law No. 36/2005/QH11; Civil Code No. 91/2015/QH13 and other applicable laws;
+Căn cứ chức năng, nhiệm vụ và nhu cầu của hai Bên.
+Pursuant to each Party’s functions, duties, and requirements.
+Hôm nay, ngày …… tháng …… năm ……, tại Thành phố Hồ Chí Minh, hai Bên gồm:
+Today, …… / …… / ……, in Ho Chi Minh City, the Parties are:
+BÊN A · BÊN CUNG CẤP · Party A · The Provider
+Công ty / Company: Công Ty Cổ Phần Tư Vấn Và Phát Triển Giải Pháp Phần Mềm CyberSkill
+Mã số thuế / Tax code: 0316475200
+Địa chỉ / Address: Tầng 1, 207A Nguyễn Văn Thủ, Phường Tân Định, Thành phố Hồ Chí Minh
+Đại diện / Represented by: Ông Trịnh Thái Anh (Mr. Stephen) · Tổng Giám đốc / CEO
+Điện thoại · Email: (+84) 906 878 091 · info@cyberskill.world
+Tài khoản / Bank account: 290815888 — Ngân hàng TMCP Á Châu (ACB) — Hội sở TP.HCM
+BÊN B · BÊN SỬ DỤNG · Party B · The Customer
+(Specimen counterparty — institutional fields may be filled for a named engagement; personal staff contacts use yellow blanks in the HTML instrument.)
+Đơn vị / Entity: Ban Quản lý Dự án Đầu tư Xây dựng Phường Bình Quới
+Đại diện / Represented by: Ông Phan Ngọc Anh Huy · Giám đốc / Director
+Địa chỉ / Address: Cạnh Lô G, Cư xá Thanh Đa, Phường Bình Quới, Thành phố Hồ Chí Minh
+Mã ĐVQHNS: 3037251
+Tài khoản / Treasury account: 3713.0.3037251.00000 — Kho bạc Nhà nước Khu vực II — PGD số 6
+Mã số thuế / Tax code: 0319511859
+Email: banqlda.phuongbinhquoi@gmail.com
+Sau khi thỏa thuận, hai Bên thống nhất ký Hợp đồng nguyên tắc với các điều khoản sau.
+Having agreed, the Parties enter into this Framework Agreement on the following terms.
+ĐIỀU 1 · NỘI DUNG HỢP ĐỒNG · Article 1 · Subject matter
+Bên A cung cấp và cấp quyền truy cập các tài khoản/dịch vụ phần mềm cho Bên B, bao gồm tài khoản Google Earth Professional Advanced và các sản phẩm phần mềm trí tuệ nhân tạo (AI) theo đề nghị cung cấp dịch vụ của Bên B.
+Party A provisions and grants access to software accounts/services for Party B, including Google Earth Professional Advanced and AI software products per Party B’s service request.
+Số lượng, chủng loại, thời hạn và đơn giá chi tiết theo từng Báo giá/Đơn hàng được hai Bên xác nhận (bao gồm Gói Google Earth Professional Advanced, đơn giá 5.000.000 VNĐ đã gồm VAT cho thời hạn 01 tháng, trừ khi Báo giá khác ghi khác).
+Quantity, SKU, term, and unit price follow each confirmed Quotation/Order (including Google Earth Professional Advanced at VND 5,000,000 incl. VAT for a one-month term, unless a Quotation states otherwise).
+ĐIỀU 2 · PHƯƠNG THỨC THANH TOÁN · Article 2 · Delivery & payment
+Căn cứ Báo giá/Đề nghị của Bên B, Bên A khởi tạo và cấp quyền truy cập tài khoản phần mềm qua địa chỉ email công việc của Bên B.
+Based on Party B’s Quotation/request, Party A activates and grants account access via Party B’s work email.
+Khi tiếp nhận quyền truy cập, Bên B kiểm tra số lượng, tính năng, thời hạn và ký Biên bản bàn giao/nghiệm thu với Bên A.
+On receiving access, Party B verifies quantity, features, and term, and signs the handover/acceptance minute with Party A.
+Căn cứ Biên bản bàn giao/nghiệm thu, Bên A xuất Hóa đơn điện tử (GTGT) và đề nghị thanh toán.
+Based on the handover/acceptance minute, Party A issues an e-VAT invoice and requests payment.
+Bên B thanh toán trong vòng 10 ngày làm việc sau khi nhận đủ quyền truy cập, biên bản bàn giao và hóa đơn hợp lệ. Hình thức: chuyển khoản.
+Party B pays within 10 business days after receiving access, the handover minute, and a valid invoice. Method: bank transfer.
+ĐIỀU 3 · TRÁCH NHIỆM CÁC BÊN · Article 3 · Responsibilities
+Bên A bảo đảm tài khoản chính chủ, đúng chủng loại, thời hạn và gói đã thỏa thuận (kể cả Google Earth Professional Advanced với dung lượng lưu trữ đám mây 20 GB, dữ liệu lịch sử ảnh vệ tinh & Street View, trợ lý AI Ask Google Earth, hỗ trợ kỹ thuật 24/5). Nếu lỗi kỹ thuật từ nhà cung cấp, Bên A xử lý hoặc cấp tài khoản thay thế trong 24 giờ; duy trì ổn định quyền truy cập và hỗ trợ trong suốt thời hạn dịch vụ.
+Party A warrants genuine accounts matching the agreed SKU, term, and pack (including Google Earth Professional Advanced with 20 GB cloud storage, historical satellite imagery & Street View, Ask Google Earth AI assistant, and 24/5 technical support). On vendor-side technical faults, Party A remediates or replaces the account within 24 hours; and maintains access and support for the service term.
+Phương thức giao nhận: cấp quyền truy cập qua email công việc của Bên B. Bộ chứng từ thanh toán gồm: hóa đơn điện tử (GTGT); biên bản bàn giao/cấp quyền; bảng báo giá đã xác nhận.
+Delivery method: access via Party B’s work email. Payment pack: e-VAT invoice; handover/access minute; confirmed quotation.
+Bên B cung cấp danh sách email công việc của nhân sự tiếp nhận, số điện thoại và thông tin liên hệ; cử nhân viên phối hợp kiểm tra và tiếp nhận bàn giao; thanh quyết toán đúng hạn.
+Party B provides recipient work emails, phone numbers, and contacts; assigns staff to verify and accept handover; and settles payment on time.
+ĐIỀU 4 · ĐIỀU KHOẢN CHUNG · Article 4 · General
+Hai Bên thực hiện nghiêm các điều khoản trên cơ sở pháp luật Việt Nam. Mọi sửa đổi chỉ có hiệu lực khi có văn bản đồng ý của cả hai Bên.
+The Parties perform under Vietnamese law. Amendments are valid only if agreed in writing by both Parties.
+Khó khăn phát sinh được thương lượng thiện chí. Nếu không thỏa thuận được, tranh chấp giải quyết tại Trọng tài kinh tế hoặc Tòa án có thẩm quyền tại Thành phố Hồ Chí Minh; chi phí do bên có lỗi chịu.
+Difficulties are negotiated in good faith. Failing agreement, disputes go to economic arbitration or the competent court in Ho Chi Minh City; costs are borne by the at-fault party.
+Hợp đồng có hiệu lực từ ngày ký đến hết ngày 31 tháng 12 năm 2026.
+This Agreement is effective from the signing date through 31 December 2026.
+Trong vòng 30 ngày sau khi hoàn thành nghĩa vụ cung cấp và thanh toán cho mỗi đơn hàng/báo giá, nếu không có khiếu nại thì đơn hàng/báo giá đó được xem như nghiệm thu và thanh lý.
+Within 30 days after completing provisioning and payment for each order/quotation, absent complaint that order/quotation is deemed accepted and liquidated.
+Hợp đồng lập thành 02 bản có giá trị như nhau, mỗi Bên giữ 01 bản.
+Made in two originals of equal validity, one retained by each Party.
+ 
+ĐẠI DIỆN BÊN A
+ĐẠI DIỆN BÊN B
+Party A representative
+Party B representative
+(Ký, ghi rõ họ tên / Sign, full name)
+(Ký, ghi rõ họ tên / Sign, full name)
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real · MST 0316475200 · info@cyberskill.world

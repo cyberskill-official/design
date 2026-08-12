@@ -1,0 +1,219 @@
+<!-- source: 7. Hồ Sơ Xử Lý Kỷ Luật Lao Động - Disciplinary Case File.docx -->
+CÔNG TY CỔ PHẦN TƯ VẤN VÀ PHÁT TRIỂN GIẢI PHÁP PHẦN MỀM CYBERSKILL
+CYBERSKILL SOFTWARE SOLUTIONS CONSULTANCY AND DEVELOPMENT JOINT STOCK COMPANY
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập – Tự do – Hạnh phúc
+———————————
+The Socialist Republic of Vietnam · Independence – Freedom – Happiness
+HỒ SƠ XỬ LÝ KỶ LUẬT LAO ĐỘNG
+DISCIPLINARY CASE FILE
+Số / No.: ....../2026/HSKL-CYBERSKILL
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+◆ ◆ ◆
+Hồ sơ này gồm bốn phần, sử dụng theo đúng thứ tự, cho MỘT vụ việc và MỘT số hồ sơ duy nhất. Trình tự dưới đây là trình tự bắt buộc tại Điều 122 Bộ luật Lao động; làm sai thứ tự khiến quyết định kỷ luật bị tuyên trái luật.
+This file has four parts, used in order, for ONE case under ONE case number. The sequence below is the mandatory procedure in Article 122 of the Labor Code; taking it out of order renders the disciplinary decision unlawful.
+Phần
+Part
+Nội dung
+What it is
+Thời hạn
+Timing
+A
+Biên bản ghi nhận sự việc
+Violation Record
+Ngay khi phát hiện
+As soon as it is discovered
+B
+Thông báo họp xử lý kỷ luật
+Notice of Disciplinary Meeting
+Ít nhất 05 ngày làm việc trước cuộc họp
+At least 05 working days before the meeting
+C
+Biên bản họp xử lý kỷ luật
+Minutes of the Meeting
+Tại cuộc họp
+At the meeting
+D
+Quyết định xử lý kỷ luật
+Disciplinary Decision
+Trong thời hiệu: 06 tháng, hoặc 12 tháng nếu liên quan tài chính, tài sản, bí mật kinh doanh
+Within the limitation period: 06 months, or 12 months where finance, property or business secrets are involved
+Ghi chú soạn thảo: Không hoàn thành công việc KHÔNG phải là vi phạm kỷ luật và KHÔNG dùng hồ sơ này. Trường hợp đó áp dụng Quy chế đánh giá mức độ hoàn thành công việc.
+Drafting note: Failure to perform is NOT a disciplinary breach and does NOT use this file. That case is handled under the Performance Evaluation Regulation.
+PHẦN A · BIÊN BẢN GHI NHẬN SỰ VIỆC Part A · Violation Record
+Nội dung
+Item
+Điền vào
+Fill in
+Số hồ sơ
+Case number
+....../2026/HSKL-CYBERSKILL
+Người lao động
+Employee
+..............................
+Chức danh / Bộ phận
+Position / Department
+..............................
+Thời gian xảy ra
+Date and time of the incident
+...... / ...... / ...... lúc ......
+Địa điểm
+Place
+..............................
+Người lập biên bản
+Recorded by
+..............................
+1. Mô tả hành vi (khách quan, không suy đoán):
+1. Description of the conduct (factual, no inference):
+..............................................................................................................................
+2. Chứng cứ kèm theo (nhật ký hệ thống, thư điện tử, ảnh, lời khai nhân chứng):
+2. Evidence attached (system logs, emails, photographs, witness statements):
+..............................................................................................................................
+3. Điều khoản bị vi phạm (dẫn chiếu Nội quy lao động và Bảng xử lý kỷ luật):
+3. The provision breached (cite the Internal Labor Regulations and the Disciplinary Schedule):
+..............................................................
+4. Người lao động có mặt khi lập biên bản?
+4. Was the employee present when this was recorded?
+☐ Có, và đã ký vào biên bản
+☐ Yes, and signed the record
+☐ Có, nhưng từ chối ký (ghi rõ lý do)
+☐ Yes, but refused to sign (state the reason)
+☐ Không có mặt
+☐ Not present
+NGƯỜI LAO ĐỘNG
+The Employee
+(Ký, ghi rõ họ tên)
+(Sign and state full name)
+............................
+NGƯỜI LẬP BIÊN BẢN
+Recorded by
+(Ký, ghi rõ họ tên)
+(Sign and state full name)
+............................
+PHẦN B · THÔNG BÁO HỌP XỬ LÝ KỶ LUẬT Part B · Notice of Disciplinary Meeting
+Công ty thông báo tổ chức cuộc họp xử lý kỷ luật lao động đối với Ông/Bà .............................. theo Điều 122 Bộ luật Lao động.
+The Company gives notice of a disciplinary meeting concerning Mr/Ms .............................., under Article 122 of the Labor Code.
+Nội dung
+Item
+Điền vào
+Fill in
+Thời gian họp
+Meeting date and time
+...... / ...... / ...... lúc ......
+Địa điểm
+Place
+..............................
+Ngày gửi thông báo
+Notice sent on
+...... / ...... / ......
+Thành phần bắt buộc
+Required attendees
+Người lao động; đại diện tổ chức đại diện NLĐ; người có thẩm quyền xử lý kỷ luật
+The employee; the employee representative organization; the person competent to impose discipline
+Ông/Bà có quyền tham dự, tự bào chữa hoặc nhờ luật sư, người bào chữa hoặc đại diện tổ chức đại diện người lao động bào chữa. Trường hợp đã được thông báo hợp lệ mà vắng mặt không có lý do chính đáng, Công ty có quyền tiến hành cuộc họp theo khoản 3 Điều 70 Nghị định 145/2020/NĐ-CP.
+You may attend, defend yourself, or be defended by a lawyer, a defender, or a representative of the employee representative organization. Where notice has been validly given and you are absent without a legitimate reason, the Company may proceed with the meeting under Article 70.3 of Decree 145/2020/ND-CP.
+Ghi chú soạn thảo: Thông báo phải đến tay người lao động ít nhất 05 ngày làm việc trước cuộc họp. Giữ bằng chứng đã gửi và đã nhận.
+Drafting note: The notice must reach the employee at least 05 working days before the meeting. Keep proof of sending and of receipt.
+NGƯỜI NHẬN THÔNG BÁO
+Notice received by
+(Ký, ghi rõ họ tên)
+(Sign and state full name)
+............................
+NGƯỜI SỬ DỤNG LAO ĐỘNG
+The Employer
+(Ký, ghi rõ họ tên và đóng dấu)
+(Sign, state full name, and affix seal)
+............................
+PHẦN C · BIÊN BẢN HỌP XỬ LÝ KỶ LUẬT Part C · Minutes of the Disciplinary Meeting
+Nội dung
+Item
+Điền vào
+Fill in
+Thời gian họp
+Date and time
+...... / ...... / ...... lúc ......
+Địa điểm
+Place
+..............................
+Chủ trì
+Chaired by
+..............................
+Thư ký
+Minuted by
+..............................
+Người lao động
+The employee
+.............................. ☐ có mặt ☐ vắng mặt
+.............................. ☐ present ☐ absent
+Đại diện tổ chức đại diện NLĐ
+Employee representative
+.............................. ☐ có mặt ☐ vắng mặt
+.............................. ☐ present ☐ absent
+Người bào chữa (nếu có)
+Defender, if any
+..............................
+1. Hành vi vi phạm và chứng cứ được trình bày:
+1. The conduct alleged, and the evidence presented:
+..............................................................................................................................
+2. Ý kiến của người lao động (ghi nguyên văn):
+2. The employee's statement (recorded verbatim):
+..............................................................................................................................
+3. Ý kiến của tổ chức đại diện người lao động:
+3. The view of the employee representative organization:
+...............................................................
+4. Kết luận của cuộc họp:
+4. The meeting's conclusion:
+...............................................................
+Ghi chú soạn thảo: Biên bản phải được thông qua tại cuộc họp và có chữ ký của tất cả những người tham dự. Người từ chối ký phải được ghi rõ lý do trong biên bản.
+Drafting note: The minutes must be approved at the meeting and signed by everyone present. Where a person refuses to sign, the reason must be recorded in the minutes.
+NGƯỜI LAO ĐỘNG
+The Employee
+(Ký, ghi rõ họ tên)
+(Sign and state full name)
+............................
+CHỦ TRÌ CUỘC HỌP
+Chair of the meeting
+(Ký, ghi rõ họ tên)
+(Sign and state full name)
+............................
+PHẦN D · QUYẾT ĐỊNH XỬ LÝ KỶ LUẬT Part D · Disciplinary Decision
+Căn cứ Bộ luật Lao động số 45/2019/QH14, đặc biệt các Điều 122, 123, 124 và 125; căn cứ Nội quy lao động và Bảng xử lý kỷ luật của Công ty; căn cứ Biên bản họp tại Phần C của Hồ sơ này,
+Pursuant to the Labor Code No. 45/2019/QH14, in particular Articles 122, 123, 124 and 125; pursuant to the Company's Internal Labor Regulations and Disciplinary Schedule; and on the basis of the Minutes in Part C of this file,
+QUYẾT ĐỊNH:
+DECIDES:
+Điều 1. Áp dụng hình thức xử lý kỷ luật lao động đối với Ông/Bà .............................. như sau:
+Article 1. The following disciplinary form is imposed on Mr/Ms ..............................:
+☐ Khiển trách (xóa kỷ luật sau 03 tháng)
+☐ Reprimand (spent after 03 months)
+☐ Kéo dài thời hạn nâng lương không quá 06 tháng (xóa kỷ luật sau 06 tháng)
+☐ Postponement of a pay rise for up to 06 months (spent after 06 months)
+☐ Cách chức (xem xét bổ nhiệm lại sau 03 năm)
+☐ Demotion (reappointment may be considered after 03 years)
+☐ Sa thải (chỉ trong các trường hợp tại Điều 125 Bộ luật Lao động)
+☐ Dismissal (only in the cases listed in Article 125 of the Labor Code)
+Điều 2. Lý do và điều khoản áp dụng: ..............................
+Article 2. The reason and the provision applied: ..............................
+Điều 3. Quyết định có hiệu lực kể từ ngày ...... / ...... / ....... Trường hợp sa thải, hợp đồng lao động chấm dứt kể từ ngày này và quyền lợi được giải quyết theo Điều 48 Bộ luật Lao động trong thời hạn 14 ngày làm việc.
+Article 3. This Decision takes effect on ...... / ...... / ....... In the case of dismissal, the labor contract ends on that date and entitlements are settled under Article 48 of the Labor Code within 14 working days.
+Điều 4. Người lao động có quyền khiếu nại theo quy định của pháp luật, hoặc yêu cầu giải quyết tranh chấp lao động cá nhân theo trình tự tại Bộ luật Lao động.
+Article 4. The employee may complain as provided by law, or refer the matter as an individual labor dispute under the procedure in the Labor Code.
+Nơi nhận / Recipients: Người lao động; tổ chức đại diện NLĐ; bộ phận nhân sự; lưu hồ sơ. · The Employee; the employee representative organization; HR; case file.
+Recipients: The Employee; the employee representative organization; HR; case file.
+Thành phố Hồ Chí Minh, ngày ...... tháng ...... năm ......
+Ho Chi Minh City, ...... / ...... / ......
+NGƯỜI LAO ĐỘNG (đã nhận quyết định)
+The Employee (decision received)
+(Ký, ghi rõ họ tên)
+(Sign and state full name)
+............................
+NGƯỜI SỬ DỤNG LAO ĐỘNG
+The Employer
+(Ký, ghi rõ họ tên và đóng dấu)
+(Sign, state full name, and affix seal)
+............................
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Hồ sơ Xử lý Kỷ luật · Disciplinary Case File · Số / No.: ....../2026/HSKL

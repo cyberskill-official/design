@@ -1,0 +1,81 @@
+<!-- source: 5. Đồng Ý Xử Lý Dữ Liệu Cá Nhân - Personal Data Consent (PDPL).docx -->
+Công Ty Cổ Phần Tư Vấn Và Phát Triển Giải Pháp Phần Mềm CyberSkill
+CyberSkill Software Solutions Consultancy and Development Joint Stock Company
+Số / No.: ...../2026/ĐYDL-CYBERSKILL
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+The Socialist Republic of Vietnam · Independence - Freedom - Happiness
+Thành phố Hồ Chí Minh, ngày ...... tháng ...... năm ......
+VĂN BẢN ĐỒNG Ý XỬ LÝ DỮ LIỆU CÁ NHÂN
+PERSONAL DATA PROCESSING CONSENT
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+Căn cứ Nghị định số 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân và Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15;
+Pursuant to Decree No. 13/2023/ND-CP on personal data protection and the Law on Personal Data Protection No. 91/2025/QH15;
+BÊN A · BÊN KIỂM SOÁT DỮ LIỆU
+Party A · The Data Controller
+Công ty Company
+Công Ty Cổ Phần Tư Vấn Và Phát Triển Giải Pháp Phần Mềm CyberSkill (CyberSkill Software Solutions Consultancy and Development Joint Stock Company)
+Mã số thuế / DUNS Tax code / DUNS
+0316475200 / 673219568
+Địa chỉ Address
+Tầng 1, 207A Nguyễn Văn Thủ, Phường Tân Định, Thành phố Hồ Chí Minh1st Floor, 207A Nguyen Van Thu Street, Tan Dinh Ward, Ho Chi Minh City, Vietnam
+Đại diện Represented by
+Ông Trịnh Thái Anh (Mr. Stephen)
+Chức vụ Position
+Tổng Giám đốc Chief Executive Officer
+Điện thoại Tel
+(+84) 906 878 091
+Thư điện tử Email
+info@cyberskill.world
+BÊN B · CHỦ THỂ DỮ LIỆU
+Party B · The Data Subject
+Họ và tên Full name
+..............................
+Ngày sinh Date of birth
+...... / ...... / ......
+Số CCCD Citizen ID no.
+...............................
+Ngày cấp / Nơi cấp Issued on/by
+...... / ...... / ...... - ..............................
+Nơi cư trú Place of residence
+............................................................
+Điện thoại Tel
+...............................
+Thư điện tử Email
+..............................
+ĐIỀU 1 · LOẠI DỮ LIỆU CÁ NHÂN ĐƯỢC XỬ LÝ Article 1 · Categories of personal data processed
+a) Dữ liệu cơ bản: họ tên, ngày sinh, giới tính, số CCCD, địa chỉ, liên hệ, thông tin tài khoản ngân hàng, thông tin công việc và lương.
+a) Basic data: name, date of birth, gender, ID number, address, contact, bank account, and employment and salary information.
+b) Dữ liệu nhạy cảm (nếu có): thông tin sức khỏe, bảo hiểm và các dữ liệu khác theo yêu cầu quản lý lao động, chỉ xử lý khi cần thiết.
+b) Sensitive data (if any): health and insurance information and other data required for labor management, processed only where necessary.
+ĐIỀU 2 · MỤC ĐÍCH XỬ LÝ Article 2 · Purposes of processing
+Quản lý nhân sự và hợp đồng; tính lương, thưởng và phúc lợi; đóng bảo hiểm và thực hiện nghĩa vụ thuế; tuân thủ pháp luật; bảo đảm an ninh, an toàn và quản trị nội bộ.
+HR and contract administration; payroll, bonuses, and benefits; insurance and tax obligations; legal compliance; and security, safety, and internal administration.
+ĐIỀU 3 · CÁCH THỨC VÀ THỜI GIAN XỬ LÝ Article 3 · Method and duration
+Dữ liệu được thu thập, lưu trữ và xử lý bằng phương tiện điện tử và/hoặc bằng giấy, với biện pháp bảo mật phù hợp, trong thời gian làm việc và thời hạn lưu trữ theo quy định của pháp luật.
+Data is collected, stored and processed by electronic and/or paper means, with appropriate security, during employment and for the retention period required by law.
+ĐIỀU 4 · BÊN THỨ BA TIẾP NHẬN Article 4 · Third-party recipients
+Cơ quan nhà nước có thẩm quyền; cơ quan bảo hiểm và thuế; ngân hàng và đơn vị chi trả; nhà cung cấp dịch vụ công nghệ và kế toán, theo hợp đồng và cam kết bảo mật.
+Competent state authorities; insurance and tax agencies; banks and payment providers; and technology and accounting service providers, under contract and confidentiality commitments.
+ĐIỀU 5 · QUYỀN CỦA CHỦ THỂ DỮ LIỆU Article 5 · Rights of the data subject
+Được biết, truy cập, chỉnh sửa, hạn chế, phản đối và yêu cầu xóa dữ liệu; rút lại sự đồng ý; và khiếu nại theo Nghị định 13/2023/NĐ-CP và pháp luật liên quan.
+To be informed, and to access, correct, restrict, object to and request deletion of data; to withdraw consent; and to complain, under Decree 13/2023/ND-CP and related law.
+ĐIỀU 6 · RÚT LẠI SỰ ĐỒNG Ý Article 6 · Withdrawal of consent
+Chủ thể dữ liệu có thể rút lại sự đồng ý bằng văn bản gửi tới info@cyberskill.world. Việc rút lại không ảnh hưởng đến tính hợp pháp của việc xử lý trước đó và các nghĩa vụ xử lý theo luật định.
+The data subject may withdraw consent by written notice to info@cyberskill.world. Withdrawal does not affect the lawfulness of prior processing or processing required by law.
+ĐIỀU 7 · XÁC NHẬN ĐỒNG Ý Article 7 · Confirmation of consent
+☐ Tôi đồng ý cho Công ty xử lý dữ liệu cá nhân cơ bản của tôi vì các mục đích nêu trên.
+☐ I consent to the Company processing my basic personal data for the purposes stated above.
+☐ Tôi đồng ý cho Công ty xử lý dữ liệu cá nhân nhạy cảm của tôi khi cần thiết vì các mục đích nêu trên.
+☐ I consent to the Company processing my sensitive personal data where necessary for the purposes stated above.
+CHỦ THỂ DỮ LIỆU
+The Data Subject
+(Ký, ghi rõ họ tên / Sign, full name)
+BÊN KIỂM SOÁT DỮ LIỆU
+The Data Controller
+(Ký, ghi rõ họ tên / Sign, full name)
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Đồng ý xử lý dữ liệu cá nhân · Personal Data Consent (PDPL) · Số / No.: ...../2026/ĐYDL-CYBERSKILL

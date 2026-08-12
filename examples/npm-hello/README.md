@@ -1,4 +1,4 @@
-# npm hello — first **browser** consumer (`@cyberskill/design@1.4.0`)
+# npm hello — first **browser** consumer (`@cyberskill/design@1.5.0`)
 
 Minimal **registry** consumer for a locked portfolio product. Uses the published package name (not a relative monorepo path). This example exercises the **legacy browser entry** (`_esm/cs.mjs` via import map) — not the bundler-native React path.
 
@@ -23,7 +23,7 @@ npm start              # http://127.0.0.1:8766/
 Copy-paste for product apps:
 
 ```bash
-npm install @cyberskill/design@1.4.0
+npm install @cyberskill/design@1.5.0
 ```
 
 Then:
