@@ -1,6 +1,6 @@
 # CyberSkill Design System
 
-> HTML-first, Vietnamese-first design system, current **v1.3.10** (first LAUNCH **v1.1.0**). Immutable anchors: Umber #45210E · Ochre #F4BA17. Four independent axes — Theme (light · dark · system) × Element (Ngũ Hành, 15 variants) × Language (EN · VI) × Style (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default). It ships 106 components / 122 exports, 84 copyable templates (EN·VN for emails + team/legal/finance; client/media collateral EN-first), and tokens in CSS + JSON + ESM + W3C DTCG + native mirrors. This file is the agent/tool front door: it maps each **capability** to the format it should consume. npm package name is **`@cyberskill/design`** (not `@cyberskill/react`). Release signal: tip SHA + [docs/release-notes.md](docs/release-notes.md) — VERSION **1.3.10**, no CHANGELOG.
+> HTML-first, Vietnamese-first design system, VERSION **1.3.10**. Immutable anchors: Umber #45210E · Ochre #F4BA17. Four independent axes — Theme (light · dark · system) × Element (Ngũ Hành, 15 variants) × Language (EN · VI) × Style (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default). It ships 106 components / 122 exports, 84 copyable templates (EN·VN for emails + team/legal/finance; client/media collateral EN-first), and tokens in CSS + JSON + ESM + W3C DTCG + native mirrors. This file is the agent/tool front door: it maps each **capability** to the format it should consume. npm package name is **`@cyberskill/design`** (not `@cyberskill/react`). Release signal: tip SHA + [docs/release-notes.md](docs/release-notes.md) — VERSION **1.3.10**, no CHANGELOG.
 
 The portable contract covers browser and bundler entry points: `styles.css` · `_esm/cs.mjs` legacy · `_ds_bundle.js` · tokens work without a build step; `_esm/react.mjs` is bundler-native JSX (Next/Vite must transpile — not a bare-browser import). The DC layer (`templates/**/*.dc.html`) needs a **Design Components compiler**. **Google Stitch must not treat `*.dc.html` as source of truth** — use `DESIGN.md`, DTCG, `styles.css`, kitchen-sink, and `.cs-*` static HTML instead. Dual path: [docs/consuming.md](docs/consuming.md). The full non-negotiables list lives in `CONTRIBUTING.md` and `docs/doctrine.md`. Operator docs are published on the Storybook **Docs** sidebar at `design.cyberskill.world`.
 
@@ -41,7 +41,7 @@ The portable contract covers browser and bundler entry points: `styles.css` · `
 - [SKILL.md](SKILL.md): agent entry — hard rules + fast orientation
 - [CONTRIBUTING.md](CONTRIBUTING.md): one-page onboarding for extending the system
 - [docs/doctrine.md](docs/doctrine.md): expansion rule, verification depth, immutables
-- [VERSION](VERSION): pinned 1.3.10 (matches [package.json](package.json))
+- [VERSION](VERSION): 1.3.10 (matches [package.json](package.json))
 
 ## Docs — consumers
 

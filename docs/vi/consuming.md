@@ -19,7 +19,7 @@ Bạn đang cài, liên kết, hoặc nâng cấp hệ thống trong sản phẩ
 
 **Quy tắc DC cho Stitch:** Stitch (và mọi tool non-DC) **không** được tiêu thụ `*.dc.html` như nguồn chân lý. Dùng pattern export tĩnh, `templates/kitchen-sink.html`, `examples/static-hello/`, và class `.cs-*` từ `styles.css`.
 
-**Tín hiệu release:** **pin theo `VERSION`** (auto-bump trên `main`; LAUNCH đầu tiên là **1.1.0**; không CHANGELOG). Coi **git tip SHA** là chân lý kỹ thuật; đọc điểm nổi bật sản phẩm curated trong `docs/release-notes.md`.
+**Tín hiệu release:** **theo `VERSION`** (auto-bump trên `main`; không CHANGELOG). Coi **git tip SHA** là chân lý kỹ thuật; đọc điểm nổi bật sản phẩm curated trong `docs/release-notes.md`.
 
 ## Đường nhanh cho AI agent (DC-capable authoring, hoặc điều khiển một agent)
 
@@ -42,7 +42,7 @@ Bạn đang cài, liên kết, hoặc nâng cấp hệ thống trong sản phẩ
 
 ## Adopt qua npm (tùy chọn)
 
-Package có thể publish (`private: false`; phiên bản = root `VERSION`). License vẫn **UNLICENSED** — cài từ registry **không** tự cấp quyền redistribution. **LAUNCH là `@cyberskill/design@1.1.0`; sau đó pin theo `VERSION`** (auto-bump trên `main` tạo tag `vX.Y.Z`, kích hoạt `npm-publish.yml`). CI publish qua **npm Trusted Publishing (OIDC)** (không token publish dài hạn; Publishing access package **disallow tokens**). Dùng đã duyệt ghi tại **`docs/consumer-grant.md`** (sản phẩm portfolio CyberSkill từ `docs/products.md`). Xem `docs/decisions.md` và `docs/ci-cd.md`.
+Package có thể publish (`private: false`; phiên bản = root `VERSION`). License vẫn **UNLICENSED** — cài từ registry **không** tự cấp quyền redistribution. **Phiên bản package = root `VERSION`** (auto-bump trên `main` tạo tag `vX.Y.Z`, kích hoạt `npm-publish.yml`). CI publish qua **npm Trusted Publishing (OIDC)** (không token publish dài hạn; Publishing access package **disallow tokens**). Dùng đã duyệt ghi tại **`docs/consumer-grant.md`** (sản phẩm portfolio CyberSkill từ `docs/products.md`). Xem `docs/decisions.md` và `docs/ci-cd.md`.
 
 **Grant consumer (chính sách owner — không phải secret).** Đã viết và có hiệu lực tại `docs/consumer-grant.md` (+ `docs/vi/consumer-grant.md`). Team bên ngoài cần stanza có ngày thêm vào đó; redistribution ngoài sản phẩm đã grant cần grant viết thêm.
 
