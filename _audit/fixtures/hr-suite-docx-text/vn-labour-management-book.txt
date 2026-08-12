@@ -1,0 +1,98 @@
+<!-- source: 6. Sổ Quản Lý Lao Động - Labour Management Book.docx -->
+CÔNG TY CỔ PHẦN TƯ VẤN VÀ PHÁT TRIỂN GIẢI PHÁP PHẦN MỀM CYBERSKILL
+CYBERSKILL SOFTWARE SOLUTIONS CONSULTANCY AND DEVELOPMENT JOINT STOCK COMPANY
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập – Tự do – Hạnh phúc
+———————————
+The Socialist Republic of Vietnam · Independence – Freedom – Happiness
+SỔ QUẢN LÝ LAO ĐỘNG
+LABOUR MANAGEMENT BOOK
+Số / No.: ....../2026/SQL-CYBERSKILL
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+◆ ◆ ◆
+Căn cứ Điều 12 Bộ luật Lao động số 45/2019/QH14 và Điều 3 Nghị định số 145/2020/NĐ-CP, Công ty lập và quản lý Sổ quản lý lao động tại trụ sở chính.
+Pursuant to Article 12 of the Labor Code No. 45/2019/QH14 and Article 3 of Decree No. 145/2020/ND-CP, the Company creates and maintains this Labour Management Book at its head office.
+Ghi chú soạn thảo: Sổ phải được lập trong vòng 30 ngày kể từ ngày bắt đầu hoạt động, cập nhật trong vòng 15 ngày kể từ khi có thay đổi, và xuất trình khi cơ quan quản lý nhà nước về lao động yêu cầu. Có thể lập bằng bản giấy hoặc bản điện tử.
+Drafting note: The Book must be created within 30 days of starting operations, updated within 15 days of any change, and produced on request by the labour authority. It may be kept on paper or electronically.
+PHẦN A · THÔNG TIN NGƯỜI SỬ DỤNG LAO ĐỘNG Part A · Employer details
+Nội dung
+Item
+Thông tin
+Detail
+Tên Công ty
+Company name
+Công Ty Cổ Phần Tư Vấn Và Phát Triển Giải Pháp Phần Mềm CyberSkill
+Mã số thuế
+Tax code
+0316475200
+Địa chỉ
+Address
+Tầng 1, 207A Nguyễn Văn Thủ, Phường Tân Định, Thành phố Hồ Chí Minh
+Người đại diện theo pháp luật
+Legal representative
+Ông Trịnh Thái Anh · Tổng Giám đốc
+Ngày lập Sổ
+Book created on
+...... / ...... / ......
+PHẦN B · DANH SÁCH NGƯỜI LAO ĐỘNG Part B · Register of employees
+Mỗi người lao động được ghi một dòng. Các trường dưới đây là bắt buộc theo Điều 3 Nghị định 145/2020/NĐ-CP.
+One row per employee. The fields below are those required by Article 3 of Decree 145/2020/ND-CP.
+Trường thông tin bắt buộc
+Required field
+Ghi chú
+Note
+Họ và tên; giới tính; ngày tháng năm sinh; quốc tịch
+Full name; gender; date of birth; nationality
+Nơi cư trú; số CCCD hoặc hộ chiếu; ngày cấp, nơi cấp
+Residence; Citizen ID or passport number; date and place of issue
+Trình độ chuyên môn kỹ thuật
+Professional and technical qualification
+Bậc trình độ kỹ năng nghề
+Vocational skill level
+Vị trí việc làm; chức danh nghề nghiệp
+Job position; occupational title
+Loại hợp đồng lao động; ngày bắt đầu làm việc
+Type of labor contract; start date
+Tham gia bảo hiểm xã hội, y tế, thất nghiệp
+Social, health and unemployment insurance participation
+Tiền lương; nâng bậc, nâng lương
+Salary; grade and salary progression
+Số ngày nghỉ trong năm; số giờ làm thêm
+Days of leave taken in the year; overtime hours
+Học nghề, đào tạo, bồi dưỡng nâng cao trình độ
+Apprenticeship, training and development
+Kỷ luật lao động; trách nhiệm vật chất
+Labor discipline; material responsibility
+Tai nạn lao động; bệnh nghề nghiệp
+Occupational accidents; occupational diseases
+Thời điểm chấm dứt hợp đồng lao động và lý do
+Date of termination of the labor contract and the reason
+Ghi chú soạn thảo: Trên thực tế, giữ Sổ này dưới dạng bảng tính hoặc trong CyberOS, một dòng cho mỗi người lao động, với đúng 13 trường trên. Bản in chỉ cần khi cơ quan lao động yêu cầu xuất trình.
+Drafting note: In practice, keep this Book as a spreadsheet or inside CyberOS, one row per employee, with exactly the 13 fields above. A printed copy is only needed when the labour authority asks to see it.
+PHẦN C · QUẢN LÝ SỔ Part C · Maintaining the Book
+a) Người chịu trách nhiệm cập nhật: ..............................
+a) Person responsible for updating it: ..............................
+b) Cập nhật trong vòng 15 ngày kể từ ngày phát sinh thay đổi.
+b) Updated within 15 days of any change.
+c) Xuất trình khi cơ quan quản lý nhà nước về lao động yêu cầu.
+c) Produced on request by the state labour authority.
+d) Lưu giữ tối thiểu 05 năm sau khi người lao động chấm dứt hợp đồng.
+d) Retained for at least 05 years after an employee's contract ends.
+Thành phố Hồ Chí Minh, ngày ...... tháng ...... năm ......
+Ho Chi Minh City, ...... / ...... / ......
+NGƯỜI LẬP SỔ
+Prepared by
+(Ký, ghi rõ họ tên)
+(Sign and state full name)
+............................
+NGƯỜI SỬ DỤNG LAO ĐỘNG
+The Employer
+(Ký, ghi rõ họ tên và đóng dấu)
+(Sign, state full name, and affix seal)
+............................
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Sổ Quản lý Lao động · Labour Management Book · Số / No.: ....../2026/SQL

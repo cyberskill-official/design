@@ -53,6 +53,8 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Print smoke | `_audit/print-smoke.html` | **Every** `omelette-owns-print` document declares print-ownership meta and A4/Letter `@page` hooks the PDF/DOCX export path relies on | ≥60 print docs, 0 missing hooks (`__printsmoke`) | Hard | Fast board CI |
 | Support no-eval (Node) | `_audit/ci/test-support-no-eval.mjs` | Canonical `templates/_vendor/support.js` + all template copies are identical and contain no Function-constructor / `eval(` call sites (CSP-safe inline-script runtime) | Exit 0 | Hard | Unit test |
 | Doc export (Node+PW) | `_audit/ci/test-doc-export.mjs` | Every print template under site CSP: no EvalError, export toolbar, PDF `%PDF` + A4/Letter MediaBox, DOCX ZIP + `word/document.xml` + VN diacritics | Exit 0 | Hard | Unit test |
+| DOCX source parity (Node) | `_audit/ci/test-docx-source-parity.mjs` | DC text vs committed fixtures under `_audit/fixtures/hr-suite-docx-text/` for every mapped HR instrument | ≥85% phrase overlap; exit 0 | Hard | Unit test |
+
 | Pixel CI | `_audit/pixel-ci.html` + `_audit/ci/pixel-diff.mjs` | 15 baseline curated tồn tại; script Playwright capture so sánh % pixel thật; report gần nhất phải sạch (`drifted[]` rỗng) | Hợp đồng + compare sạch (`__pixelci.pass`); drift hoặc thiếu report → fail | Hard | Fast board CI (bước compare nuôi hàng) + job `pixel-diff` |
 
 ## Whole-set audits — mọi template, mọi trục

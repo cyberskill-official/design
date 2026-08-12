@@ -1,0 +1,332 @@
+<!-- source: 1. Thoả Thuận Chấm Dứt Hợp Đồng Lao Động Và Bàn Giao - Exit-Handover Agreement.docx -->
+CÔNG TY CỔ PHẦN TƯ VẤN VÀ PHÁT TRIỂN GIẢI PHÁP PHẦN MỀM CYBERSKILL
+CYBERSKILL SOFTWARE SOLUTIONS CONSULTANCY AND DEVELOPMENT JOINT STOCK COMPANY
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+Số: 03/2026/TTCĐ-CYBERSKILL
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+THE SOCIALIST REPUBLIC OF VIETNAM
+Independence - Freedom - Happiness
+TP. Hồ Chí Minh, ngày ...... tháng ...... năm 2026
+THỎA THUẬN CHẤM DỨT HỢP ĐỒNG LAO ĐỘNG VÀ BÀN GIAO
+EXIT AND HANDOVER AGREEMENT
+Thỏa Thuận này được lập và giao kết tại Thành phố Hồ Chí Minh vào ngày ...../...../2026, bởi và giữa:
+This Agreement is made and entered into in Ho Chi Minh City on ...../...../2026, by and between:
+NGƯỜI SỬ DỤNG LAO ĐỘNG (“Công ty”) EMPLOYER (“the Company”)
+Tên công ty: Công Ty Cổ Phần Tư Vấn Và Phát Triển Giải Pháp Phần Mềm CyberSkill
+Company name: CyberSkill Software Solutions Consultancy and Development Joint Stock Company
+Mã số thuế: 0316475200
+Tax code (DUNS): 0316475200 (DUNS: 673219568)
+Địa chỉ: Tầng 1, 207A Nguyễn Văn Thủ, Phường Tân Định, Thành phố Hồ Chí Minh
+Address: 1st Floor, 207A Nguyen Van Thu Street, Tan Dinh Ward, Ho Chi Minh City, Vietnam
+Đại diện bởi: Ông Trịnh Thái Anh - Chức vụ: Tổng Giám đốc
+Represented by: Mr. Trinh Thai Anh (Mr. Stephen) - Position: Chief Executive Officer
+Điện thoại: 090 6878 091 (A. Thái Anh)
+Phone: (+84) 906 878 091 (Mr. Stephen)
+Thư điện tử: info@cyberskill.world
+Email: info@cyberskill.world
+ 
+NGƯỜI LAO ĐỘNG EMPLOYEE
+Họ và tên: ................................................................
+Full name: ................................................................
+Ngày sinh: ...../...../..........
+Date of birth: ...../...../..........
+Số CCCD: .................... - Ngày cấp: ...../...../.......... - Nơi cấp: ....................
+ID card no.: .................... - Issued: ...../...../.......... - Place of issue: ....................
+Địa chỉ thường trú: ................................................................
+Residential address: ................................................................
+Chức danh: .................... - Bộ phận: ....................
+Job title: .................... - Department: ....................
+Hợp đồng lao động số: .................... ngày ...../...../..........
+Labor contract no.: .................... dated ...../...../..........
+Điện thoại: ....................
+Phone: ....................
+Thư điện tử: ....................
+Email: ....................
+ 
+XÉT RẰNG, Các Bên đã giao kết hợp đồng lao động nêu trên (“Hợp Đồng Lao Động”) và Người Lao Động đã ký Thỏa thuận Bảo mật, Không cạnh tranh và Sở hữu trí tuệ số 02/2026/TTBM-CYBERSKILL (“Thỏa Thuận NDNCA”), một thỏa thuận dân sự độc lập tiếp tục có hiệu lực theo các điều khoản của nó;
+WHEREAS, the Parties entered into the labor contract identified above (the “Labor Contract”) and the Employee signed the Non-Disclosure, Non-Compete and Intellectual Property Agreement No. 02/2026/TTBM-CYBERSKILL (the “NDNCA”), an independent civil agreement which continues in force in accordance with its terms;
+XÉT RẰNG, Các Bên tự nguyện thống nhất chấm dứt Hợp Đồng Lao Động theo khoản 3 Điều 34 Bộ luật Lao động số 45/2019/QH14 và mong muốn giải quyết trọn vẹn, thiện chí các quyền và nghĩa vụ khi chấm dứt, bao gồm thanh toán, bàn giao tài sản và dữ liệu, xử lý các quyền lợi theo chương trình cổ phiếu ảo và lựa chọn kích hoạt hoặc miễn trừ cam kết không cạnh tranh;
+WHEREAS, the Parties voluntarily agree to terminate the Labor Contract by mutual agreement under Article 34.3 of the Labor Code No. 45/2019/QH14 and wish to settle, fully and in good faith, all rights and obligations upon termination, including payments, handover of assets and data, treatment of phantom stock entitlements, and the election to activate or waive the non-compete covenant;
+DO ĐÓ, Các Bên thỏa thuận như sau:
+NOW, THEREFORE, the Parties agree as follows:
+Điều 1. Chấm dứt hợp đồng lao động
+Article 1. Termination of the labor contract
+1.1. Căn cứ và thời điểm. Các Bên thống nhất chấm dứt Hợp Đồng Lao Động theo khoản 3 Điều 34 Bộ luật Lao động, có hiệu lực kể từ hết ngày làm việc cuối cùng là ngày ...../...../2026 (“Ngày Chấm Dứt”). Việc chấm dứt theo thỏa thuận không yêu cầu thời hạn báo trước theo Điều 35, Điều 36 Bộ luật Lao động.
+1.1. Ground and effective date. The Parties agree to terminate the Labor Contract by mutual agreement under Article 34.3 of the Labor Code, effective at the end of the last working day, ...../...../2026 (the “Termination Date”). Termination by mutual agreement requires no advance notice under Articles 35 and 36 of the Labor Code.
+1.2. Tự nguyện. Người Lao Động xác nhận việc ký Thỏa Thuận này là hoàn toàn tự nguyện, không bị ép buộc, lừa dối hay đe dọa, đã có đủ thời gian xem xét và có quyền tham vấn tư vấn độc lập trước khi ký.
+1.2. Voluntariness. The Employee confirms that this Agreement is signed entirely voluntarily, free of coercion, deception or threat, after adequate time for review and with the opportunity to seek independent advice before signing.
+1.3. Nghĩa vụ đến Ngày Chấm Dứt. Đến hết Ngày Chấm Dứt, Người Lao Động tiếp tục thực hiện công việc theo phân công hợp lý, phối hợp bàn giao theo Điều 3 và Phụ lục 02 và tuân thủ nội quy lao động của Công ty.
+1.3. Duties through the Termination Date. Through the Termination Date, the Employee shall continue to perform reasonably assigned work, cooperate in the handover under Article 3 and Schedule 02, and comply with the Company's internal labor regulations.
+Điều 2. Quyết toán và thanh toán
+Article 2. Final settlement and payment
+2.1. Các khoản thanh toán theo luật. Trong thời hạn 14 ngày làm việc kể từ Ngày Chấm Dứt theo khoản 1 Điều 48 Bộ luật Lao động, Công ty thanh toán đầy đủ cho Người Lao Động, không kèm bất kỳ điều kiện nào, các khoản nêu tại Phụ lục 01 (Bảng Quyết Toán), gồm: (a) tiền lương đến hết Ngày Chấm Dứt; (b) tiền lương những ngày nghỉ hằng năm chưa nghỉ theo khoản 3 Điều 113 Bộ luật Lao động; (c) trợ cấp thôi việc (nếu có) theo Điều 46 Bộ luật Lao động và Điều 8 Nghị định 145/2020/NĐ-CP, sau khi trừ thời gian đã tham gia bảo hiểm thất nghiệp; và (d) các khoản khác theo Hợp Đồng Lao Động và quy chế của Công ty.
+2.1. Statutory payments. Within 14 working days from the Termination Date pursuant to Article 48.1 of the Labor Code, the Company shall pay the Employee in full, unconditionally, the amounts set out in Schedule 01 (Settlement Statement), comprising: (a) wages through the Termination Date; (b) payment for untaken annual leave under Article 113.3 of the Labor Code; (c) severance allowance (if any) under Article 46 of the Labor Code and Article 8 of Decree 145/2020/ND-CP, after deducting periods covered by unemployment insurance; and (d) other amounts due under the Labor Contract and Company policies.
+2.2. Khấu trừ hợp pháp. Công ty chỉ được khấu trừ tiền lương theo Điều 102 Bộ luật Lao động để bồi thường thiệt hại về dụng cụ, thiết bị, tài sản của Công ty theo Điều 129, với mức khấu trừ hằng tháng không quá 30% tiền lương thực trả sau khi trích nộp các khoản bảo hiểm bắt buộc và thuế thu nhập cá nhân. Không khoản thanh toán theo luật nào tại Điều 2.1 bị giữ lại vì lý do chưa hoàn tất bàn giao.
+2.2. Lawful deductions. The Company may deduct wages only pursuant to Article 102 of the Labor Code to compensate for damage to the Company's tools, equipment, or assets under Article 129, at a monthly rate not exceeding 30% of net salary after compulsory insurance contributions and personal income tax. No statutory payment under Article 2.1 shall be withheld on account of incomplete handover.
+2.3. Hồ sơ và xác nhận. Theo khoản 3 Điều 48 Bộ luật Lao động, Công ty sẽ hoàn thành thủ tục xác nhận thời gian đóng bảo hiểm xã hội, bảo hiểm thất nghiệp; trả lại sổ bảo hiểm xã hội và bản chính giấy tờ khác của Người Lao Động (nếu có); cung cấp bản sao các tài liệu liên quan đến quá trình làm việc khi Người Lao Động yêu cầu, với chi phí sao, gửi tài liệu do Công ty chi trả; và cấp giấy xác nhận quá trình công tác, chứng từ khấu trừ thuế thu nhập cá nhân phục vụ quyết toán thuế.
+2.3. Documents and confirmations. Pursuant to Article 48.3 of the Labor Code, the Company shall complete the procedures confirming the Employee's social insurance and unemployment insurance participation; return the social insurance book and any other original documents of the Employee; provide copies of work-related documents upon the Employee's request, with copying and delivery costs borne by the Company; and issue a work confirmation and personal income tax withholding certificate for tax finalization purposes.
+2.4. Thuế thu nhập cá nhân. Trợ cấp thôi việc theo mức luật định được miễn thuế thu nhập cá nhân theo Thông tư 111/2013/TT-BTC. Các khoản chi trả sau Ngày Chấm Dứt không thuộc tiền lương theo Hợp Đồng Lao Động (bao gồm khoản hỗ trợ không cạnh tranh tại Điều 4 và khoản thanh toán cổ phiếu ảo tại Điều 5, nếu có) chịu khấu trừ thuế thu nhập cá nhân theo quy định đối với thu nhập vãng lai tại thời điểm chi trả; Công ty thực hiện khấu trừ và cấp chứng từ khấu trừ tương ứng.
+2.4. Personal income tax. Statutory severance allowance is exempt from personal income tax under Circular 111/2013/TT-BTC. Post-termination payments that are not wages under the Labor Contract (including the non-compete allowance under Article 4 and the phantom stock settlement under Article 5, if any) are subject to personal income tax withholding under the rules applicable to irregular income at the time of payment; the Company shall withhold and issue the corresponding withholding certificates.
+Điều 3. Bàn giao tài sản, dữ liệu và công việc
+Article 3. Handover of assets, data, and work
+3.1. Phạm vi bàn giao. Chậm nhất vào Ngày Chấm Dứt, Người Lao Động bàn giao cho Công ty theo Phụ lục 02 (Biên Bản Bàn Giao): (a) toàn bộ tài sản, thiết bị, thẻ, chìa khóa của Công ty; (b) toàn bộ tài khoản, thông tin xác thực, quyền truy cập hệ thống; (c) toàn bộ tài liệu, mã nguồn, dữ liệu thuộc Công ty trên mọi thiết bị, dịch vụ lưu trữ do Người Lao Động kiểm soát, kèm xác nhận đã xóa bản sao còn lại; (d) công việc dở dang, hồ sơ khách hàng và đầu mối liên hệ; và (e) xác nhận hoàn trả hoặc xóa Dữ Liệu Cá Nhân theo Luật số 91/2025/QH15 và Nghị định 356/2025/NĐ-CP.
+3.1. Scope of handover. No later than the Termination Date, the Employee shall hand over to the Company per Schedule 02 (Handover Certificate): (a) all Company assets, equipment, cards and keys; (b) all accounts, credentials and system access; (c) all Company documents, source code and data on any device or storage service under the Employee's control, with confirmation that remaining copies have been deleted; (d) work in progress, client files and contact points; and (e) confirmation of the return or deletion of Personal Data in accordance with Law No. 91/2025/QH15 and Decree No. 356/2025/ND-CP.
+3.2. Thu hồi quyền truy cập. Công ty thu hồi toàn bộ quyền truy cập hệ thống của Người Lao Động kể từ hết Ngày Chấm Dứt và xác nhận việc thu hồi trong Phụ lục 02.
+3.2. Access revocation. The Company shall revoke all of the Employee's system access effective from the end of the Termination Date and confirm such revocation in Schedule 02.
+3.3. Khoản hỗ trợ hoàn tất bàn giao. Nếu Người Lao Động hoàn tất bàn giao đầy đủ, đúng hạn theo Phụ lục 02, Công ty chi trả khoản hỗ trợ hoàn tất bàn giao (nếu có) với số tiền ghi tại Phụ lục 01, Mục B. Đây là khoản chi tự nguyện ngoài các quyền lợi luật định, không phải tiền lương và không ảnh hưởng đến các khoản thanh toán vô điều kiện tại Điều 2.1.
+3.3. Handover completion allowance. If the Employee completes the handover fully and on time per Schedule 02, the Company shall pay a handover completion allowance (if any) in the amount stated in Schedule 01, Section B. This is a voluntary payment beyond statutory entitlements, is not wages, and does not affect the unconditional payments under Article 2.1.
+Điều 4. Lựa chọn kích hoạt hoặc miễn trừ cam kết không cạnh tranh
+Article 4. Non-compete activation or waiver election
+4.1. Quyền lựa chọn. Theo Điều 4 Thỏa Thuận NDNCA, tại hoặc trước Ngày Chấm Dứt, Công ty lựa chọn bằng văn bản một trong hai phương án tại Điều 4.2 dưới đây. Lựa chọn được ghi nhận tại phần Lựa Chọn cuối Thỏa Thuận này. Nếu Công ty không lựa chọn, cam kết không cạnh tranh được coi là được miễn trừ theo Phương án B.
+4.1. Election right. Pursuant to Article 4 of the NDNCA, on or before the Termination Date, the Company shall elect in writing one of the two options in Article 4.2 below. The election is recorded in the Election Section at the end of this Agreement. If the Company makes no election, the non-compete covenant is deemed waived under Option B.
+4.2. Hai phương án. Phương án A - Kích hoạt: cam kết không cạnh tranh theo Điều 4.1 Thỏa Thuận NDNCA có hiệu lực trong 12 tháng kể từ Ngày Chấm Dứt; Công ty chi trả khoản hỗ trợ hằng tháng bằng 30% mức lương trung bình theo hợp đồng của 03 tháng liền kề trước Ngày Chấm Dứt, theo Điều 4.2 Thỏa Thuận NDNCA. Phương án B - Miễn trừ: Công ty miễn trừ cam kết không cạnh tranh; Người Lao Động được giải phóng khỏi Điều 4.1 Thỏa Thuận NDNCA kể từ Ngày Chấm Dứt và Công ty không phát sinh nghĩa vụ chi trả khoản hỗ trợ.
+4.2. The two options. Option A - Activation: the non-compete covenant under Article 4.1 of the NDNCA applies for 12 months from the Termination Date; the Company pays a monthly allowance equal to 30% of the average contractual salary of the 03 months preceding the Termination Date, per Article 4.2 of the NDNCA. Option B - Waiver: the Company waives the non-compete covenant; the Employee is released from Article 4.1 of the NDNCA as of the Termination Date, and the Company owes no allowance.
+4.3. Hiệu lực độc lập. Lựa chọn tại Điều này chỉ điều chỉnh cam kết không cạnh tranh. Các nghĩa vụ bảo mật, sở hữu trí tuệ và không lôi kéo theo Thỏa Thuận NDNCA tiếp tục có hiệu lực theo điều khoản của Thỏa Thuận NDNCA, không phụ thuộc vào lựa chọn này.
+4.3. Independent effect. The election under this Article governs only the non-compete covenant. The confidentiality, intellectual property, and non-solicitation obligations under the NDNCA remain in force per the NDNCA's terms, regardless of this election.
+Điều 5. Xử lý quyền lợi cổ phiếu ảo
+Article 5. Phantom stock treatment
+5.1. Bản chất dân sự. Các quyền lợi cổ phiếu ảo của Người Lao Động (nếu có) là quyền theo hợp đồng dân sự được thanh toán bằng tiền theo chương trình cổ phiếu ảo của Công ty và văn bản trao quyền tương ứng (“Chương Trình”), không phải tiền lương theo Điều 90 hay tiền thưởng theo Điều 104 Bộ luật Lao động, và được xử lý theo Điều này cùng các điều khoản của Chương Trình.
+5.1. Civil nature. The Employee's phantom stock entitlements (if any) are cash-settled civil contractual rights under the Company's phantom stock plan and the corresponding award documents (the “Plan”), are not wages under Article 90 or bonuses under Article 104 of the Labor Code, and are treated under this Article and the Plan's terms.
+5.2. Xác định trạng thái nghỉ việc. Trạng thái của Người Lao Động (nghỉ việc thông thường hoặc nghỉ việc do vi phạm theo định nghĩa của Chương Trình) và số đơn vị đã trao quyền, chưa trao quyền được xác định tại Phụ lục 01, Mục C. Trường hợp nghỉ việc thông thường: các đơn vị đã trao quyền tính đến Ngày Chấm Dứt được thanh toán bằng tiền theo giá trị và công thức của Chương Trình; các đơn vị chưa trao quyền chấm dứt mà không phát sinh thanh toán. Trường hợp nghỉ việc do vi phạm theo Chương Trình: các đơn vị chưa thanh toán bị xử lý theo điều khoản tương ứng của Chương Trình.
+5.2. Leaver status. The Employee's status (ordinary leaver or leaver for cause as defined in the Plan) and the vested and unvested unit counts are recorded in Schedule 01, Section C. For an ordinary leaver: units vested as of the Termination Date are cash-settled per the Plan's valuation and formula; unvested units lapse without payment. For a leaver for cause under the Plan, unsettled units are treated per the corresponding Plan provisions.
+5.3. Thời hạn và phương thức thanh toán. Khoản thanh toán cổ phiếu ảo (nếu có) là nghĩa vụ dân sự theo Chương Trình, được chi trả vào thời điểm ghi tại Phụ lục 01, Mục C, chuyển khoản vào tài khoản Người Lao Động chỉ định, sau khi khấu trừ thuế thu nhập cá nhân theo Điều 2.4.
+5.3. Timing and method. The phantom stock settlement (if any) is a civil obligation under the Plan, payable at the time stated in Schedule 01, Section C, by transfer to the account designated by the Employee, net of personal income tax withholding under Article 2.4.
+Điều 6. Nghĩa vụ tiếp tục có hiệu lực
+Article 6. Surviving obligations
+6.1. Người Lao Động tái xác nhận và tiếp tục bị ràng buộc bởi: (a) nghĩa vụ bảo mật và bảo vệ dữ liệu theo Điều 2 Thỏa Thuận NDNCA, với thời hạn theo Điều 6.1 Thỏa Thuận NDNCA; (b) các cam kết về sở hữu trí tuệ theo Điều 3 Thỏa Thuận NDNCA, bao gồm nghĩa vụ hỗ trợ xác lập quyền sau khi nghỉ việc; và (c) cam kết không lôi kéo theo Điều 4.3 Thỏa Thuận NDNCA trong 12 tháng kể từ Ngày Chấm Dứt.
+6.1. The Employee reaffirms and remains bound by: (a) the confidentiality and data protection obligations under Article 2 of the NDNCA, for the duration in Article 6.1 of the NDNCA; (b) the intellectual property undertakings under Article 3 of the NDNCA, including post-termination further assurances; and (c) the non-solicitation covenant under Article 4.3 of the NDNCA for 12 months from the Termination Date.
+6.2. Không có nội dung nào trong Thỏa Thuận này thay thế, hợp nhất hay làm chấm dứt Thỏa Thuận NDNCA; Thỏa Thuận NDNCA tiếp tục là thỏa thuận dân sự độc lập theo Án lệ số 69/2023/AL.
+6.2. Nothing in this Agreement replaces, merges with or terminates the NDNCA; the NDNCA remains an independent civil agreement consistent with Precedent No. 69/2023/AL.
+Điều 7. Miễn trừ lẫn nhau
+Article 7. Mutual release
+7.1. Miễn trừ của Người Lao Động. Với điều kiện Công ty hoàn thành các nghĩa vụ tại Điều 2 và các khoản thanh toán tại Phụ lục 01, Người Lao Động miễn trừ cho Công ty, người quản lý và nhân viên của Công ty mọi khiếu nại, yêu cầu phát sinh từ hoặc liên quan đến Hợp Đồng Lao Động và việc chấm dứt Hợp Đồng Lao Động mà Người Lao Động biết hoặc phải biết tại ngày ký, bao gồm các yêu cầu về thưởng tùy nghi, phụ cấp ngoài luật định và các khoản lợi ích theo thỏa thuận.
+7.1. Employee release. Conditional upon the Company completing its obligations under Article 2 and the payments in Schedule 01, the Employee releases the Company and its managers and employees from all claims and demands arising out of or in connection with the Labor Contract and its termination, which the Employee knows or ought to know as at the signing date, including claims for discretionary bonuses, non-statutory allowances and contractual benefits.
+7.2. Các quyền không bị miễn trừ. Miễn trừ tại Điều 7.1 không áp dụng và không làm mất hiệu lực đối với: (a) các quyền lợi luật định tối thiểu của Người Lao Động theo Điều 4 Bộ luật Lao động và các khoản tại Điều 2.1 Thỏa Thuận này; (b) quyền và chế độ bảo hiểm xã hội, bảo hiểm y tế, bảo hiểm thất nghiệp; (c) quyền yêu cầu liên quan đến tai nạn lao động, bệnh nghề nghiệp phát sinh hoặc được phát hiện sau ngày ký; (d) trách nhiệm hình sự và các quyền không thể từ bỏ theo pháp luật; và (e) quyền yêu cầu thực hiện chính Thỏa Thuận này và Thỏa Thuận NDNCA.
+7.2. Claims not released. The release in Article 7.1 does not apply to, and does not extinguish: (a) the Employee's statutory minimum entitlements under Article 4 of the Labor Code and the amounts in Article 2.1 of this Agreement; (b) social, health and unemployment insurance rights and benefits; (c) claims relating to occupational accidents or diseases arising or discovered after the signing date; (d) criminal liability and rights that cannot be waived by law; and (e) the right to enforce this Agreement and the NDNCA.
+7.3. Miễn trừ của Công ty. Với điều kiện Người Lao Động hoàn thành bàn giao theo Điều 3, Công ty miễn trừ cho Người Lao Động mọi khiếu nại phát sinh từ việc thực hiện công việc thông thường theo Hợp Đồng Lao Động mà Công ty biết tại ngày ký, ngoại trừ: (a) hành vi vi phạm Thỏa Thuận NDNCA; (b) hành vi gian lận, cố ý gây thiệt hại hoặc vi phạm pháp luật hình sự; và (c) các nghĩa vụ theo chính Thỏa Thuận này.
+7.3. Company release. Conditional upon the Employee completing the handover under Article 3, the Company releases the Employee from all claims arising from the ordinary performance of work under the Labor Contract known to the Company as at the signing date, except: (a) breaches of the NDNCA; (b) fraud, willful damage or criminal violations; and (c) obligations under this Agreement itself.
+Điều 8. Không phát ngôn bất lợi và tham chiếu
+Article 8. Non-disparagement and references
+8.1. Mỗi Bên không đưa ra phát ngôn công khai sai lệch, xúc phạm gây tổn hại đến uy tín của Bên kia. Điều khoản này không hạn chế quyền cung cấp thông tin trung thực cho cơ quan nhà nước có thẩm quyền, quyền tố cáo theo pháp luật, hoặc phát ngôn trung thực trong thủ tục tố tụng.
+8.1. Neither Party shall make false or defamatory public statements harming the other Party's reputation. This clause does not restrict truthful disclosures to competent State authorities, statutory whistleblowing rights, or truthful statements in legal proceedings.
+8.2. Theo yêu cầu, Công ty cấp giấy xác nhận quá trình công tác trung lập, nêu chức danh và thời gian làm việc. Đầu mối xác nhận: info@cyberskill.world.
+8.2. Upon request, the Company shall issue a neutral work confirmation stating job title and period of employment. Verification contact: info@cyberskill.world.
+Điều 9. Điều khoản chung
+Article 9. Miscellaneous
+9.1. Luật áp dụng và giải quyết tranh chấp. Thỏa thuận này được điều chỉnh theo pháp luật Việt Nam. Tranh chấp về quan hệ lao động và các khoản tại Điều 2 được giải quyết theo trình tự tại Điều 187 Bộ luật Lao động. Tranh chấp về các cam kết dân sự (Điều 4, Điều 5 và các nghĩa vụ theo Thỏa Thuận NDNCA) được giải quyết chung thẩm bằng trọng tài tại Trung tâm Trọng tài Quốc tế Việt Nam (VIAC) theo Quy tắc tố tụng trọng tài của Trung tâm này; hội đồng trọng tài gồm một (01) trọng tài viên duy nhất; địa điểm trọng tài là Thành phố Hồ Chí Minh; ngôn ngữ trọng tài là tiếng Việt.
+9.1. Governing law and dispute resolution. This Agreement is governed by the laws of Vietnam. Disputes concerning the labor relationship and the amounts in Article 2 follow the procedure in Article 187 of the Labor Code. Disputes concerning the civil covenants (Articles 4 and 5 and the obligations under the NDNCA) shall be finally settled by arbitration at the Vietnam International Arbitration Centre (VIAC) under its Rules of Arbitration; one (01) sole arbitrator; seat in Ho Chi Minh City; Vietnamese language.
+9.2. Tính tách biệt. Nếu điều khoản nào bị tuyên vô hiệu hoặc không thể thi hành, điều khoản đó được điều chỉnh ở mức tối thiểu cần thiết để có hiệu lực hoặc bị tách khỏi Thỏa Thuận, không ảnh hưởng đến các điều khoản còn lại; riêng các khoản luật định tại Điều 2.1 không bị ảnh hưởng trong mọi trường hợp.
+9.2. Severability. If any provision is held invalid or unenforceable, it shall be modified to the minimum extent necessary or severed, without affecting the remaining provisions; the statutory amounts in Article 2.1 are unaffected in all cases.
+9.3. Hình thức và chữ ký. Thỏa Thuận này được lập thành hai (02) bản chính song ngữ, mỗi Bên giữ một (01) bản, có giá trị pháp lý như nhau; không yêu cầu công chứng, chứng thực. Chữ ký điện tử có giá trị theo Luật Giao dịch điện tử số 20/2023/QH15; đối với bản tiếng Việt có giá trị ưu tiên, Các Bên ưu tiên ký trực tiếp hoặc dùng chữ ký số được cấp phép tại Việt Nam.
+9.3. Form and signature. This Agreement is made in two (02) bilingual originals, one (01) for each Party, of equal validity; no notarization is required. Electronic signatures are valid under the Law on E-Transactions No. 20/2023/QH15; for the prevailing Vietnamese text, the Parties prefer wet-ink signing or a Vietnam-licensed digital signature.
+9.4. Ngôn ngữ. Trường hợp có sự khác biệt giữa bản tiếng Việt và bản tiếng Anh, bản tiếng Việt được ưu tiên áp dụng.
+9.4. Language. In case of any discrepancy between the Vietnamese and English texts, the Vietnamese text shall prevail.
+PHẦN LỰA CHỌN CỦA CÔNG TY THEO ĐIỀU 4
+COMPANY ELECTION SECTION UNDER ARTICLE 4
+☐
+Phương án A - Kích hoạt: cam kết không cạnh tranh có hiệu lực 12 tháng; Công ty chi trả khoản hỗ trợ hằng tháng theo Điều 4.2.
+Option A - Activation: the non-compete applies for 12 months; the Company pays the monthly allowance under Article 4.2.
+☐
+Phương án B - Miễn trừ: Công ty miễn trừ cam kết không cạnh tranh; không phát sinh khoản hỗ trợ.
+Option B - Waiver: the Company waives the non-compete; no allowance is payable.
+Xác nhận lựa chọn của Công ty (ký, ghi rõ họ tên, ngày): ....................................................
+Company election confirmed by (signature, full name, date): ....................................................
+ 
+NGƯỜI LAO ĐỘNG
+EMPLOYEE
+Tôi xác nhận đã đọc, hiểu rõ, tự nguyện đồng ý và chịu sự ràng buộc bởi toàn bộ điều khoản của Thỏa Thuận này, bao gồm Điều 7 về miễn trừ.
+I confirm that I have read, fully understood, voluntarily agreed to, and am bound by all terms of this Agreement, including the release in Article 7.
+(Ký, ghi rõ họ tên)
+(Signature and full name)
+......................................
+NGƯỜI SỬ DỤNG LAO ĐỘNG
+EMPLOYER
+Đại diện hợp pháp của Công ty.
+Legal representative of the Company.
+(Ký, ghi rõ họ tên và đóng dấu)
+(Sign, state full name, and stamp)
+Trịnh Thái Anh
+Tổng Giám đốc · Chief Executive Officer
+PHỤ LỤC 01 - BẢNG QUYẾT TOÁN
+SCHEDULE 01 - SETTLEMENT STATEMENT
+Kỳ tính: đến hết ngày Chấm Dứt ...../...../2026. Số tiền bằng đồng Việt Nam. Bảng này là bộ phận không tách rời của Thỏa Thuận.
+Period: through the Termination Date ...../...../2026. Amounts in Vietnamese Dong. This statement is an integral part of the Agreement.
+Mục A - Các khoản luật định (thanh toán vô điều kiện trong 14 ngày làm việc)
+Section A - Statutory amounts (unconditional, within 14 working days)
+STT
+No.
+Khoản mục
+Item
+Căn cứ
+Basis
+Số tiền (VNĐ)
+Amount (VND)
+A1
+Tiền lương đến hết Ngày Chấm Dứt
+Wages through the Termination Date
+HĐLĐ; Điều 48 BLLĐ
+Labor Contract; Art. 48
+........................
+A2
+Tiền những ngày nghỉ hằng năm chưa nghỉ (...... ngày)
+Untaken annual leave payout (...... days)
+Khoản 3 Điều 113 BLLĐ
+Art. 113.3 Labor Code
+........................
+A3
+Trợ cấp thôi việc (nếu có), sau khi trừ thời gian đã đóng BHTN
+Severance allowance (if any), net of UI-covered periods
+Điều 46 BLLĐ; Điều 8 NĐ 145/2020/NĐ-CP
+Art. 46; Art. 8 Decree 145/2020
+........................
+A4
+Các khoản khác theo HĐLĐ, quy chế Công ty
+Other amounts under the Labor Contract and policies
+HĐLĐ; quy chế
+Contract; policies
+........................
+A5
+Khấu trừ hợp pháp (nếu có; tối đa 30%/tháng, chỉ bồi thường dụng cụ, thiết bị)
+Lawful deductions (if any; max 30%/month, tool/equipment damage only)
+Điều 102, Điều 129 BLLĐ
+Arts. 102, 129 Labor Code
+(........................)
+A6
+Thuế TNCN khấu trừ đối với các khoản chịu thuế tại Mục A
+PIT withheld on taxable Section A items
+TT 111/2013/TT-BTC
+Circular 111/2013
+(........................)
+Tổng Mục A thực nhận
+Section A net total
+........................
+ 
+Mục B - Khoản hỗ trợ tự nguyện (có điều kiện theo Điều 3.3)
+Section B - Voluntary allowance (conditional under Article 3.3)
+STT
+No.
+Khoản mục
+Item
+Điều kiện
+Condition
+Số tiền (VNĐ)
+Amount (VND)
+B1
+Khoản hỗ trợ hoàn tất bàn giao
+Handover completion allowance
+Hoàn tất Phụ lục 02 đúng hạn
+Schedule 02 was completed on time
+........................
+ 
+Mục C - Quyền lợi cổ phiếu ảo (nghĩa vụ dân sự theo Điều 5)
+Section C - Phantom stock entitlements (civil obligation under Article 5)
+STT
+No.
+Nội dung
+Item
+Giá trị / Ghi nhận
+Value / Record
+C1
+Trạng thái nghỉ việc theo Chương Trình
+Leaver status under the Plan
+☐ Nghỉ việc thông thường ☐ Nghỉ việc do vi phạm
+☐ Ordinary leaver ☐ Leaver for cause
+C2
+Số đơn vị đã trao quyền đến Ngày Chấm Dứt
+Units vested as of the Termination Date
+........................ đơn vị / units
+C3
+Số đơn vị chưa trao quyền (chấm dứt, không thanh toán)
+Unvested units (lapse without payment)
+........................ đơn vị / units
+C4
+Giá trị thanh toán trước thuế theo công thức Chương Trình
+Gross settlement value per the Plan formula
+........................ VNĐ
+C5
+Thời hạn thanh toán
+Settlement date
+...../...../2026
+ 
+Tài khoản nhận tiền của Người Lao Động: Ngân hàng .................... - Số tài khoản .................... - Chủ tài khoản ....................
+Employee's receiving account: Bank .................... - Account no. .................... - Account holder ....................
+Xác nhận Bảng Quyết Toán: Công ty ...................................... / Người Lao Động ......................................
+Settlement Statement confirmed: Company ...................................... / Employee ......................................
+PHỤ LỤC 02 - BIÊN BẢN BÀN GIAO
+SCHEDULE 02 - HANDOVER CERTIFICATE
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+Người lao động bàn giao và công ty tiếp nhận các hạng mục sau. Biên bản này là bộ phận không tách rời của Thỏa Thuận.
+The Employee hands over, and the Company receives the following items. This certificate is an integral part of the Agreement.
+STT
+No.
+Hạng mục bàn giao
+Item
+Tình trạng
+Status
+Ghi chú
+Notes
+1
+Thiết bị làm việc (máy tính, màn hình, phụ kiện)
+Work equipment (laptop, monitor, accessories)
+☐ Đủ ☐ Thiếu
+ 
+2
+Thẻ ra vào, chìa khóa, thẻ tên
+Access cards, keys, and name badge
+☐ Đủ ☐ Thiếu
+ 
+3
+Tài khoản, mật khẩu, khóa API, quyền truy cập hệ thống
+Accounts, passwords, API keys, system access
+☐ Đủ ☐ Thiếu
+ 
+4
+Mã nguồn, kho lưu trữ, tài liệu kỹ thuật
+Source code, repositories, technical documentation
+☐ Đủ ☐ Thiếu
+ 
+5
+Dữ liệu Công ty trên thiết bị, dịch vụ lưu trữ cá nhân (đã xóa, có xác nhận)
+Company data on personal devices or storage (deleted, confirmed)
+☐ Đủ ☐ Thiếu
+ 
+6
+Dữ Liệu Cá Nhân do Công ty kiểm soát (hoàn trả hoặc xóa theo Luật 91/2025/QH15)
+Personal Data controlled by the Company (returned or deleted per Law 91/2025/QH15)
+☐ Đủ ☐ Thiếu
+ 
+7
+Công việc dở dang, tiến độ, tài liệu dự án
+Work in progress, status, project documents
+☐ Đủ ☐ Thiếu
+ 
+8
+Hồ sơ khách hàng, đầu mối liên hệ, cam kết đang thực hiện
+Client files, contact points, and pending commitments
+☐ Đủ ☐ Thiếu
+ 
+9
+Khoản tạm ứng, công nợ với Công ty (nếu có)
+Advances or debts owed to the Company (if any)
+☐ Đủ ☐ Thiếu
+ 
+10
+Khác: ....................
+Other: ....................
+☐ Đủ ☐ Thiếu
+ 
+ 
+Xác nhận thu hồi quyền truy cập hệ thống (Điều 3.2): đã thu hồi toàn bộ vào ngày ...../...../2026. Người xác nhận (IT/Quản trị): ......................................
+System access revocation confirmed (Article 3.2): fully revoked on ...../...../2026. Confirmed by (IT/Admin): ......................................
+Cam đoan của Người Lao Động: tôi xác nhận đã bàn giao đầy đủ, không còn giữ bản sao Thông Tin Bảo Mật hay Dữ Liệu Cá Nhân của Công ty dưới bất kỳ hình thức nào.
+Employee undertaking: I confirm complete handover and that I retain no copy of the Company's Confidential Information or Personal Data in any form.
+Bên bàn giao (Người Lao Động): ...................................... Ngày: ...../...../2026
+Handed over by (Employee): ...................................... Date: ...../...../2026
+Bên nhận bàn giao (đại diện Công ty): ...................................... Ngày: ...../...../2026
+Received by (Company representative): ...................................... Date: ...../...../2026
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Thỏa thuận Chấm dứt HĐLĐ & Bàn giao · Exit-Handover Agreement · Số / No.: 03/2026/TTCĐ-CYBERSKILL

@@ -1,0 +1,94 @@
+<!-- source: 8. Bộ Quy Tắc Ứng Xử - Code of Conduct.docx -->
+CÔNG TY CỔ PHẦN TƯ VẤN VÀ PHÁT TRIỂN GIẢI PHÁP PHẦN MỀM CYBERSKILL
+CYBERSKILL SOFTWARE SOLUTIONS CONSULTANCY AND DEVELOPMENT JOINT STOCK COMPANY
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập – Tự do – Hạnh phúc
+———————————
+The Socialist Republic of Vietnam · Independence – Freedom – Happiness
+BỘ QUY TẮC ỨNG XỬ
+CODE OF CONDUCT
+Số / No.: ....../2026/QTUX-CYBERSKILL
+Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: ...... / ...... / ......
+◆ ◆ ◆
+Bộ Quy tắc này thể hiện bốn giá trị của CyberSkill: ấm áp, thẳng thắn, trung thực và tôn trọng. Bộ Quy tắc áp dụng cho toàn thể nhân sự.
+This Code expresses CyberSkill's four values: warm, direct, honest and respectful. It applies to everyone at the Company.
+Ghi chú soạn thảo: Bộ Quy tắc là tài liệu văn hóa. Chỉ những hành vi được dẫn chiếu trong Nội quy lao động và Bảng xử lý kỷ luật mới là căn cứ xử lý kỷ luật.
+Drafting note: This Code is a culture document. Only conduct referenced in the Internal Labor Regulations and the Disciplinary Schedule founds labor discipline.
+ĐIỀU 1 · CÁCH CHÚNG TA LÀM VIỆC VỚI NHAU Article 1 · How we work with each other
+a) Nói thẳng, nói sớm, nói với người liên quan trước khi nói với người khác.
+a) Say it directly, say it early, and say it to the person concerned before saying it to anyone else.
+b) Phản đối ý tưởng, không công kích con người.
+b) Argue with the idea, never attack the person.
+c) Thừa nhận sai sót sớm. Che giấu sai sót gây thiệt hại lớn hơn chính sai sót đó.
+c) Admit a mistake early. Concealing a mistake does more damage than the mistake.
+d) Không phân biệt đối xử về giới tính, dân tộc, tôn giáo, tuổi tác, tình trạng hôn nhân, khuyết tật hay bất kỳ đặc điểm cá nhân nào.
+d) No discrimination on grounds of gender, ethnicity, religion, age, marital status, disability or any personal characteristic.
+e) Nghiêm cấm quấy rối tình dục dưới mọi hình thức. Trình tự xử lý theo Điều 5 Nội quy lao động.
+e) Sexual harassment in any form is prohibited. The procedure is in Article 5 of the Internal Labor Regulations.
+ĐIỀU 2 · QUÀ TẶNG VÀ TIẾP KHÁCH Article 2 · Gifts and hospitality
+Tình huống
+Situation
+Quy định
+Rule
+Quà tặng giá trị dưới 500.000 VNĐ
+A gift worth less than VND 500,000
+Được phép nhận, không cần khai báo.
+May be accepted, no declaration needed.
+Quà tặng giá trị từ 500.000 VNĐ trở lên
+A gift worth VND 500,000 or more
+Phải khai báo với Tổng Giám đốc trong 05 ngày làm việc. Tổng Giám đốc quyết định giữ, trả lại hoặc chuyển thành quà chung của Công ty.
+Must be declared to the CEO within 05 working days. The CEO decides whether it is kept, returned, or shared across the Company.
+Tiền mặt, phiếu quà tặng quy đổi được thành tiền
+Cash, or a voucher convertible to cash
+Nghiêm cấm nhận, ở bất kỳ giá trị nào.
+Never accepted, at any value.
+Tiếp khách (ăn uống, sự kiện)
+Hospitality (meals, events)
+Được phép nếu hợp lý, có mục đích công việc, và không nhằm gây ảnh hưởng đến một quyết định đang chờ.
+Permitted where it is reasonable, has a business purpose, and is not aimed at influencing a pending decision.
+ĐIỀU 3 · XUNG ĐỘT LỢI ÍCH Article 3 · Conflicts of interest
+Xung đột lợi ích không phải là hành vi sai trái. Không khai báo mới là hành vi sai trái.
+A conflict of interest is not misconduct. Failing to declare one is.
+a) Làm việc tự do bên ngoài (freelance) được phép, với ba điều kiện: không phải cho khách hàng hoặc đối thủ của CyberSkill; không sử dụng thời gian, thiết bị hoặc tài sản của Công ty; và đã thông báo cho Tổng Giám đốc bằng văn bản trước khi bắt đầu.
+a) Freelance work outside is permitted on three conditions: it is not for a CyberSkill client or competitor; it uses no Company time, equipment or property; and it is notified to the CEO in writing before it starts.
+b) Sở hữu hoặc góp vốn vào một doanh nghiệp là khách hàng, nhà cung cấp hoặc đối thủ của Công ty phải được khai báo.
+b) Owning or investing in a business that is a client, supplier or competitor of the Company must be declared.
+c) Quan hệ tình cảm giữa hai người lao động được phép, nhưng phải khai báo, và không ai được quản lý hoặc đánh giá người kia.
+c) A romantic relationship between two employees is permitted, but must be declared, and neither may manage or evaluate the other.
+d) Tuyển dụng người thân trong gia đình phải được Tổng Giám đốc phê duyệt trước.
+d) Hiring a family member requires the CEO's prior approval.
+ĐIỀU 4 · PHÁT NGÔN CÔNG KHAI Article 4 · Speaking publicly
+a) Công ty khuyến khích nhân sự viết blog, nói tại hội thảo và chia sẻ kiến thức kỹ thuật.
+a) The Company encourages staff to blog, speak at conferences and share technical knowledge.
+b) Không nêu tên khách hàng, không trình bày mã nguồn hoặc dữ liệu của khách hàng, khi chưa có chấp thuận bằng văn bản của khách hàng đó.
+b) Never name a client, and never show client code or client data, without that client's written consent.
+c) Khi phát ngôn với tư cách cá nhân về chủ đề liên quan đến ngành, nói rõ đó là quan điểm cá nhân, không phải quan điểm của CyberSkill.
+c) When speaking personally on an industry topic, make clear it is a personal view, not CyberSkill's.
+d) Chỉ Tổng Giám đốc hoặc người được ủy quyền mới phát ngôn nhân danh Công ty với báo chí.
+d) Only the CEO, or a person authorized by the CEO, speaks for the Company to the press.
+ĐIỀU 5 · CHỐNG THAM NHŨNG VÀ HỐI LỘ Article 5 · Anti-bribery and corruption
+Nghiêm cấm đưa hoặc nhận bất kỳ khoản lợi ích nào nhằm giành được hợp đồng, tác động đến quyết định của cơ quan nhà nước, hoặc gây ảnh hưởng không chính đáng đến một quyết định kinh doanh. Quy định này áp dụng cả với hành vi thực hiện thông qua bên trung gian.
+Offering or accepting any benefit in order to win a contract, to influence a decision of a state body, or to improperly influence a business decision, is prohibited. This applies equally to anything done through an intermediary.
+ĐIỀU 6 · LÊN TIẾNG Article 6 · Speaking up
+Người phát hiện hành vi vi phạm Bộ Quy tắc này, vi phạm pháp luật, hoặc rủi ro nghiêm trọng cho khách hàng, phải báo cáo cho Tổng Giám đốc, hoặc qua thư điện tử ..............................
+Anyone who becomes aware of a breach of this Code, a breach of the law, or a serious risk to a client, must report it to the CEO, or by email to ..............................
+Công ty cam kết: người báo cáo trung thực sẽ không bị trả đũa dưới bất kỳ hình thức nào. Hành vi trả đũa là vi phạm kỷ luật độc lập. Báo cáo sai sự thật với dụng ý xấu cũng là vi phạm kỷ luật.
+The Company's commitment: an honest reporter will not be retaliated against in any way. Retaliation is a separate disciplinary breach. A knowingly false report made in bad faith is also a disciplinary breach.
+Thành phố Hồ Chí Minh, ngày ...... tháng ...... năm ......
+Ho Chi Minh City, ...... / ...... / ......
+ĐẠI DIỆN TẬP THỂ NGƯỜI LAO ĐỘNG
+Employee Representative
+(Ký, ghi rõ họ tên)
+(Sign and state full name)
+............................
+NGƯỜI SỬ DỤNG LAO ĐỘNG
+The Employer
+(Ký, ghi rõ họ tên và đóng dấu)
+(Sign, state full name, and affix seal)
+............................
+
+Hiện Thực Hoá Ý Chí · Turn Your Will Into Real
+MST / Tax code 0316475200 · info@cyberskill.world · (+84) 906 878 091 Trang / Page / 
+
+ CyberSkill · Bộ Quy tắc Ứng xử · Code of Conduct · Số / No.: ....../2026/QTUX-CYBERSKILL
