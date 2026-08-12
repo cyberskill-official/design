@@ -136,7 +136,8 @@ const previewSort = readFileSync(join(root, '.storybook/preview.jsx'), 'utf8');
 assert(previewSort.includes("'Docs'") && previewSort.includes("'Release Notes'") && previewSort.includes("'Status'"), 'storySort has Docs / Release Notes / Status');
 assert(previewSort.includes("'Start'") && previewSort.includes("'Guides'") && previewSort.includes("'Maintainers'"), 'storySort has Docs Start / Guides / Maintainers');
 assert(previewSort.includes("'Library'") && previewSort.includes("'Doctrine'"), 'storySort has Docs Library + Doctrine');
-assert(previewSort.includes("'Maintainer'"), 'storySort buries Maintainer (Atomic View)');
+assert(previewSort.includes("'Templates'") && previewSort.includes("'Pages'"), 'storySort has public Templates + Pages');
+assert(previewSort.includes("'Maintainer'"), 'storySort keeps Maintainer for gates');
 assert(!previewSort.includes("'Guidelines'"), 'Guidelines merged into Docs');
 assert(main.includes("from: '../docs'") || main.includes('to: \'/docs\''), 'staticDirs publish docs/');
 
@@ -241,7 +242,20 @@ for (const needle of [
 assert(!surfaces.includes('identity-lab.html'), 'Identity Lab surface retired');
 assert(!/export\s+const\s+IdentityLab\b/.test(surfaces), 'Identity Lab story export retired');
 assert(/Maintainer\/Surfaces|Live\/Surfaces/.test(surfaces), 'surfaces title is Maintainer/Surfaces');
-assert(/Atomic View \(gates\)|AtomicView/.test(surfaces), 'Atomic View buried as gates entry');
+assert(/Atomic View \(gates\)|AtomicView/.test(surfaces), 'Atomic View gates entry retained under Maintainer');
+
+const templatesGallery = readFileSync(join(root, 'stories/Templates/Gallery.stories.jsx'), 'utf8');
+assert(templatesGallery.includes('atomic-view.html'), 'Templates Gallery iframes Atomic View');
+assert(templatesGallery.includes('title: \'Templates/Gallery\'') || templatesGallery.includes('title: "Templates/Gallery"'), 'Templates/Gallery title');
+const pagesStories = readFileSync(join(root, 'stories/Pages/Pages.stories.jsx'), 'utf8');
+assert(pagesStories.includes('status-hub/index.html') && pagesStories.includes('website/index.html') && pagesStories.includes('deck/index.html'), 'Pages stories map UI kits');
+const hrStories = join(root, 'stories/Templates/categories/HR.stories.jsx');
+assert(existsSync(hrStories), 'generated Templates/HR stories present');
+assert(readFileSync(hrStories, 'utf8').includes('vn-labor-contract'), 'HR stories include labor contract');
+assert(existsSync(join(root, 'scripts/generate-template-stories.mjs')), 'template story generator present');
+assert(existsSync(join(root, 'docs/hr-suite-sources.md')), 'HR Suite sources doc present');
+assert(existsSync(join(root, 'docs/vi/hr-suite-sources.md')), 'HR Suite sources VI present');
+assert(/Templates/.test(liveHub) && /Pages/.test(liveHub), 'live-hub documents Templates + Pages IA');
 
 const modules = listPublicComponents();
 assert(modules.length >= 90, 'expected ~99 public component modules, got ' + modules.length);

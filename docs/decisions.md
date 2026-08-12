@@ -25,9 +25,10 @@ Stay on the current Figma plan. Variables REST API is Enterprise-only — write 
 **Owner choice: Storybook is the single live hub** (Jul 2026)
 
 - Operators use Storybook at `/` for Theme × Element × Language × Style and component control matrices.
+- Public IA follows the atomic browse path: Foundations → Components → **Templates** → **Pages** (Atoms/Molecules/Organisms remain in CSF + Atomic View; Templates/Pages are first-class sidebar groups, including the full VN A4 / HR Suite).
 - No separate Live View page exists in the tree.
 - Legacy `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` redirect to `/`.
-- Portable Atomic View and other static HTML remain for zero-build gates and consumers; they are not the site product entry.
+- Portable Atomic View and other static HTML remain for zero-build gates and consumers; Atomic View is also linked from **Templates → Gallery**.
 - Surface map: `docs/live-hub.md`.
 
 ## 5. Dual token JSON sources

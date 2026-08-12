@@ -3,7 +3,8 @@ import { IframeSurface } from './IframeSurface.jsx';
 
 /**
  * Maintainer-only portable surfaces iframed into Storybook.
- * Atomic View stays for gates / clone-and-open — not a public product entry.
+ * Public Templates (incl. HR Suite) and Pages live in top-level sidebar groups;
+ * Atomic View remains here for gates / clone-and-open as well as Templates/Gallery.
  * Portable HTML remains in-tree; Storybook at `/` is the product surface.
  */
 export default {
@@ -13,7 +14,7 @@ export default {
     docs: {
       description: {
         component:
-          'Maintainer surfaces (Motion, Status Hub, Website, Deck, templates, kitchen-sink, AI cluster, RTL, Atomic View). Atomic View is buried here for gates — not a public top-level Docs entry. Axis demos: Storybook toolbar + Atomic View + Elements Geometry specimen (Identity Lab retired).',
+          'Maintainer surfaces (Motion, Status Hub, Website, Deck, template demos, AI cluster, RTL, Atomic View). Operators browse Templates and Pages from the public sidebar; Atomic View stays available here for gates.',
       },
     },
   },
@@ -62,7 +63,7 @@ export const RTL = {
   render: () => <IframeSurface src="/guidelines/rtl-preview.html" title="RTL" />,
 };
 
-/** Gate / portable consumer surface — last in the Maintainer list on purpose. */
+/** Gate / portable consumer surface — also linked from Templates/Gallery. */
 export const AtomicView = {
   name: 'Atomic View (gates)',
   render: () => <IframeSurface src="/guidelines/atomic-view.html" title="Atomic View" />,

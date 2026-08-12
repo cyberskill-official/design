@@ -25,9 +25,10 @@ Giữ plan Figma hiện tại. Variables REST API chỉ Enterprise — job ghi *
 **Lựa chọn owner: Storybook là live hub duy nhất** (Th7 2026)
 
 - Operator dùng Storybook tại `/` cho Theme × Element × Language × Style và ma trận điều khiển component.
+- IA công khai theo đường duyệt atomic: Foundations → Components → **Templates** → **Pages** (Atoms/Molecules/Organisms vẫn trong CSF + Atomic View; Templates/Pages là nhóm sidebar hạng nhất, gồm cả bộ VN A4 / HR Suite).
 - Không có trang Live View riêng trong tree.
 - Legacy `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` redirect về `/`.
-- Atomic View portable và HTML tĩnh khác vẫn phục vụ gate zero-build và consumer; chúng không phải entry sản phẩm của site.
+- Atomic View portable và HTML tĩnh khác vẫn phục vụ gate zero-build và consumer; Atomic View cũng được nối từ **Templates → Gallery**.
 - Bản đồ bề mặt: `docs/live-hub.md`.
 
 ## 5. Hai nguồn token JSON
