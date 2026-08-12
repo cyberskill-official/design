@@ -1,6 +1,22 @@
 # Release Notes
 
-Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. Version is **LAUNCHED at 1.1.0**; **pin tracks `VERSION`** (auto-bump on push to `main` from Conventional Commits; owner may still force a bump). Technical continuity is the repo tip; product-facing continuity is this page (mirrored in Storybook **Release Notes**). Published on Storybook **Docs** at `design.cyberskill.world`.
+Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. **Current pin tracks `VERSION`** (auto-bump on push to `main` from Conventional Commits; owner may still force a bump). First LAUNCH was **1.1.0**. Technical continuity is the repo tip; product-facing continuity is this page (mirrored in Storybook **Release Notes**). Published on Storybook **Docs** at `design.cyberskill.world`.
+
+## Release — `@cyberskill/design@1.3.9`
+
+Operator docs ship through the Storybook **Docs** sidebar (doctrine home, EN·VI tracked set, docs↔Storybook coverage + link gates). Live Status HTML gates check **published** surfaces only; Node twins still prove CSF/MDX source. Per-page Docs stories pass `?embed=1` so the Documentation Library chrome stays hidden inside Storybook (standalone `/docs/viewer.html` unchanged).
+
+```bash
+npm install @cyberskill/design@1.3.9
+```
+
+## Release — `@cyberskill/design@1.3.0`
+
+Assessment remediation Phases 0–5 and gap closure (TASK-IMP-001…021): contrast, pack-contract, overlay manager, zoom/CQ gates, and related Storybook / template polish landed as one product line.
+
+## Release — `@cyberskill/design@1.2.0`
+
+`VERSION` **auto-bumps on `main`** (Conventional Commits → tag `v*` → `npm-publish.yml` Trusted Publishing). Owner may still force a bump via `Release-As:` / `workflow_dispatch`. Curated continuity stays on this page — still **no** root `CHANGELOG.md`.
 
 ## Patch — `@cyberskill/design@1.1.1`
 
@@ -45,5 +61,4 @@ CSS tokens, DTCG (`tokens/tokens.dtcg.json`), and pre-generated SwiftUI / Compos
 ## What we never ship
 
 - A root **`CHANGELOG.md`** (forbidden by doctrine and docs-consistency)
-- A root `CHANGELOG.md` (still forbidden) — VERSION now auto-bumps on `main`; owner may still force
 - Storybook as a consumer dependency

@@ -19,7 +19,7 @@ Bạn đang cài, liên kết, hoặc nâng cấp hệ thống trong sản phẩ
 
 **Quy tắc DC cho Stitch:** Stitch (và mọi tool non-DC) **không** được tiêu thụ `*.dc.html` như nguồn chân lý. Dùng pattern export tĩnh, `templates/kitchen-sink.html`, `examples/static-hello/`, và class `.cs-*` từ `styles.css`.
 
-**Tín hiệu release:** đã LAUNCH ở **1.1.0**; **pin theo `VERSION`** (không CHANGELOG). Coi **git tip SHA** là chân lý kỹ thuật; đọc điểm nổi bật sản phẩm curated trong `docs/release-notes.md`.
+**Tín hiệu release:** **pin theo `VERSION`** (auto-bump trên `main`; LAUNCH đầu tiên là **1.1.0**; không CHANGELOG). Coi **git tip SHA** là chân lý kỹ thuật; đọc điểm nổi bật sản phẩm curated trong `docs/release-notes.md`.
 
 ## Đường nhanh cho AI agent (DC-capable authoring, hoặc điều khiển một agent)
 

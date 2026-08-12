@@ -1,6 +1,22 @@
 # Ghi chú phát hành
 
-Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. Phiên bản **đã LAUNCH ở 1.1.0**; **pin theo `VERSION`** (auto-bump khi push lên `main` từ Conventional Commits; owner vẫn có thể force bump). Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**). Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
+Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. **Pin hiện tại theo `VERSION`** (auto-bump khi push lên `main` từ Conventional Commits; owner vẫn có thể force bump). LAUNCH đầu tiên là **1.1.0**. Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**). Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
+
+## Release — `@cyberskill/design@1.3.9`
+
+Docs operator xuất bản qua sidebar Storybook **Docs** (doctrine, bộ tracked EN·VI, gate coverage + link docs↔Storybook). Gate HTML trên Status live chỉ kiểm **surface đã publish**; twin Node vẫn chứng minh nguồn CSF/MDX. Story Docs từng trang truyền `?embed=1` để ẩn chrome Documentation Library trong Storybook (`/docs/viewer.html` standalone giữ nguyên).
+
+```bash
+npm install @cyberskill/design@1.3.9
+```
+
+## Release — `@cyberskill/design@1.3.0`
+
+Assessment remediation Phases 0–5 và đóng gap (TASK-IMP-001…021): contrast, pack-contract, overlay manager, gate zoom/CQ, và polish Storybook / template liên quan.
+
+## Release — `@cyberskill/design@1.2.0`
+
+`VERSION` **auto-bump trên `main`** (Conventional Commits → tag `v*` → `npm-publish.yml` Trusted Publishing). Owner vẫn có thể force bump qua `Release-As:` / `workflow_dispatch`. Continuity curated vẫn ở trang này — vẫn **không** có root `CHANGELOG.md`.
 
 ## Patch — `@cyberskill/design@1.1.1`
 
@@ -45,5 +61,4 @@ Token CSS, DTCG (`tokens/tokens.dtcg.json`), và mirror SwiftUI / Compose / Flut
 ## Những gì chúng ta không bao giờ ship
 
 - Root **`CHANGELOG.md`** (cấm bởi doctrine và docs-consistency)
-- Root CHANGELOG (vẫn cấm) — bump VERSION giờ do workflow auto trên `main`; owner vẫn có thể force
 - Storybook như dependency consumer

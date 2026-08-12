@@ -19,7 +19,7 @@ You are installing, linking, or upgrading the system in another product. Maintai
 
 **Stitch DC rule:** Stitch (and any non-DC tool) must **not** consume `*.dc.html` as source of truth. Use static export patterns, `templates/kitchen-sink.html`, `examples/static-hello/`, and `.cs-*` classes from `styles.css`.
 
-**Release signal:** version is LAUNCHED at **1.1.0**; **pin tracks `VERSION`** (no CHANGELOG). Treat the **git tip SHA** as technical truth; read curated product highlights in `docs/release-notes.md`.
+**Release signal:** **pin tracks `VERSION`** (auto-bump on `main`; first LAUNCH was **1.1.0**; no CHANGELOG). Treat the **git tip SHA** as technical truth; read curated product highlights in `docs/release-notes.md`.
 
 ## Quick path for AI agents (DC-capable authoring, or driving one)
 
