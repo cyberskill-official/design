@@ -1,6 +1,6 @@
 # Contrast report — elemental pairings (APCA)
 
-Generated · sweep at VERSION 1.7.0.
+Generated · sweep at VERSION 1.7.1.
 
 Published on Storybook **Docs** at `design.cyberskill.world`.
 
