@@ -1,10 +1,10 @@
 {
   "system": "CyberSkill Design System",
-  "release": "1.6.1",
+  "release": "1.7.0",
   "source": "tokens/tokens.dtcg.json",
-  "sourceSha256": "3c91e5d92ae82b14c6b92a9fafab71270fe99f3589c42ba49bd997671a5c7423",
+  "sourceSha256": "c1e69d03df03c12412835e06ba087c8a73a3c418007d9f47cdbcea85c5dadf53",
   "dtcgStamp": {
-    "version": "1.6.1",
+    "version": "1.7.0",
     "generated": "2026-07-23"
   },
   "conversions": {
@@ -36,17 +36,17 @@
     {
       "file": "tokens/native/CSTokens.swift",
       "lang": "swift",
-      "sha256": "8a794629bb3ac556479d51d7aa0d914a5f195428916854aa3ef7b5f4d87f6a9b"
+      "sha256": "ca83e3cf8b01f7acc8c06ca1aded61b64350818c91426ff026e576eec2bfd788"
     },
     {
       "file": "tokens/native/CSTokens.kt",
       "lang": "kotlin",
-      "sha256": "30ddbe51f5725a33f2a22576430da633d604cdeec716483544837eb132d79ad7"
+      "sha256": "bceb1925ac096d02637e24a78efdf8b18527fa95fdc76a5395de2d734b451256"
     },
     {
       "file": "tokens/native/cs_tokens.dart",
       "lang": "dart",
-      "sha256": "5dedab2bf45f06b716182e3be9c0ffb881ca61456cb2bf0750a2152fe3bddf6d"
+      "sha256": "4c0702c11721596654f91aba4f8dc0d85dcf7027a50449ab94f9bf992f0ee69d"
     }
   ]
 }
