@@ -284,9 +284,58 @@ try {
           !/Counsel review required before real use/.test(docXml),
           'framework DOCX still contains counsel-review banner',
         );
+        assert(
+          /w:highlight w:val="yellow"|w:fill="FDE68A"/.test(docXml),
+          'framework DOCX missing yellow placeholder fills',
+        );
+        assert(
+          /w:gridSpan w:val="2"/.test(docXml),
+          'framework DOCX missing colspan on party table headers',
+        );
+        const hdr = (entries['word/header1.xml'] || Buffer.from('')).toString('utf8');
+        assert(
+          !/HỢP ĐỒNG NGUYÊN TẮC|CÔNG TY CỔ PHẦN/.test(hdr),
+          'framework DOCX header still duplicates the sheet lockup',
+        );
+        assert(
+          !/091Trang/.test(docXml),
+          'framework DOCX mashes phone into page label',
+        );
       }
 
-      // PDF via Playwright
+      // Downloaded PDF (buildPdfBlob): one unstretched page of the live sheet.
+      if (t.folder === 'vn-framework-agreement') {
+        const painted = await page.evaluate(async () => {
+          const sheet = document.querySelector('.cs-sheet') || document.body;
+          const r = sheet.getBoundingClientRect();
+          const blob = await window.__csDocExport.buildPdfBlob(sheet);
+          const ab = await blob.arrayBuffer();
+          const bytes = new Uint8Array(ab);
+          let s = '';
+          for (let i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+          return {
+            b64: btoa(s),
+            sheetW: Math.max(sheet.scrollWidth, r.width),
+            sheetH: Math.max(sheet.scrollHeight, r.height),
+          };
+        });
+        const paintedBuf = Buffer.from(painted.b64, 'base64');
+        assert(paintedBuf.slice(0, 4).toString() === '%PDF', 'framework buildPdfBlob missing %PDF');
+        assert(pdfPageCount(paintedBuf) === 1, 'framework downloaded PDF must be one page (no A4 slice)');
+        const paintedBox = pdfMediaBox(paintedBuf);
+        assert(paintedBox, 'framework buildPdfBlob MediaBox missing');
+        const expectW = t.format === 'Letter' ? 612 : 595.28;
+        assert(Math.abs(paintedBox.w - expectW) < 3, `framework PDF width ${paintedBox.w} not ${expectW}`);
+        const expectRatio = painted.sheetH / painted.sheetW;
+        const gotRatio = paintedBox.h / paintedBox.w;
+        assert(
+          Math.abs(gotRatio - expectRatio) < 0.08,
+          `framework PDF aspect ${gotRatio.toFixed(3)} != sheet ${expectRatio.toFixed(3)} (stretched/sliced)`,
+        );
+        writeFileSync(join(outDir, 'VnFrameworkAgreement.download.pdf'), paintedBuf);
+      }
+
+      // PDF via Playwright (print path / CI smoke)
       const pdf = await page.pdf({
         format: t.format === 'Letter' ? 'Letter' : 'A4',
         printBackground: true,

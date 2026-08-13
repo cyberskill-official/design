@@ -6,6 +6,7 @@
  */
 (() => {
   const UMBER = '45210E';
+  const DOC_FILL = 'FDE68A';
   const A4 = { w: 11906, h: 16838, name: 'A4', ptW: 595.28, ptH: 841.89 };
   const LETTER = { w: 12240, h: 15840, name: 'Letter', ptW: 612, ptH: 792 };
   function pageSizeFromCss() {
@@ -123,17 +124,21 @@
     return el.getAttribute && el.getAttribute('data-omelette-chrome') != null;
   }
 
+  function isDocFillColor(bg) {
+    return bg && /rgb\(\s*253\s*,\s*230\s*,\s*138\s*\)/i.test(bg);
+  }
+
   function textRuns(el) {
     const parts = [];
-    const walk = (node, italic, bold, color) => {
+    const walk = (node, italic, bold, color, fill) => {
       if (node.nodeType === 3) {
         const raw = node.textContent || '';
         if (!raw) return;
         if (!raw.replace(/\s+/g, '').length) {
-          if (parts.length) parts.push({ t: ' ', italic, bold, color });
+          if (parts.length) parts.push({ t: ' ', italic, bold, color, fill });
           return;
         }
-        parts.push({ t: raw.replace(/\s+/g, ' '), italic, bold, color });
+        parts.push({ t: raw.replace(/\s+/g, ' '), italic, bold, color, fill });
         return;
       }
       if (node.nodeType !== 1) return;
@@ -152,9 +157,22 @@
       if (/^h[1-6]$/.test(tag) || (st.color && /rgb\(\s*69\s*,\s*33\s*,\s*14\s*\)/.test(st.color))) {
         nextColor = UMBER;
       }
-      for (const c of node.childNodes) walk(c, nextItalic, nextBold, nextColor);
+      const nextFill = fill || (isDocFillColor(st.backgroundColor) ? DOC_FILL : null);
+      const kids = [...node.childNodes];
+      for (let i = 0; i < kids.length; i++) {
+        const before = parts.length;
+        walk(kids[i], nextItalic, nextBold, nextColor, nextFill);
+        const nxt = kids[i + 1];
+        if (parts.length > before && nxt) {
+          const last = parts[parts.length - 1];
+          const nextRaw = nxt.textContent || '';
+          if (last && last.t && !/\s$/.test(last.t) && nextRaw.replace(/\s+/g, '') && !/^\s/.test(nextRaw)) {
+            parts.push({ t: ' ', italic: nextItalic, bold: nextBold, color: nextColor, fill: nextFill });
+          }
+        }
+      }
     };
-    walk(el, false, false, null);
+    walk(el, false, false, null, null);
     const merged = [];
     for (const r of parts) {
       const prev = merged[merged.length - 1];
@@ -162,7 +180,8 @@
         prev &&
         prev.italic === r.italic &&
         prev.bold === r.bold &&
-        prev.color === r.color
+        prev.color === r.color &&
+        prev.fill === r.fill
       ) {
         prev.t += r.t;
       } else {
@@ -182,6 +201,7 @@
         if (r.bold) rPr.push('<w:b/>');
         if (r.italic) rPr.push('<w:i/>');
         if (r.color) rPr.push(`<w:color w:val="${r.color}"/>`);
+        if (r.fill) rPr.push(`<w:shd w:val="clear" w:fill="${r.fill}"/><w:highlight w:val="yellow"/>`);
         rPr.push('<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>');
         const pr = rPr.length ? `<w:rPr>${rPr.join('')}</w:rPr>` : '';
         return `<w:r>${pr}<w:t xml:space="preserve">${xmlEscape(r.t)}</w:t></w:r>`;
@@ -189,11 +209,21 @@
       .join('');
   }
 
+  function pPrXml(el, style) {
+    const bits = [];
+    if (style) bits.push(`<w:pStyle w:val="${style}"/>`);
+    if (el) {
+      const ta = window.getComputedStyle(el).textAlign;
+      if (ta === 'center') bits.push('<w:jc w:val="center"/>');
+      else if (ta === 'right' || ta === 'end') bits.push('<w:jc w:val="right"/>');
+    }
+    return bits.length ? `<w:pPr>${bits.join('')}</w:pPr>` : '';
+  }
+
   function paraXml(el, style) {
     const runs = textRuns(el);
     if (!runs.length && !el.querySelector?.('br')) return '';
-    const pPr = style ? `<w:pPr><w:pStyle w:val="${style}"/></w:pPr>` : '';
-    return `<w:p>${pPr}${runsToXml(runs)}</w:p>`;
+    return `<w:p>${pPrXml(el, style)}${runsToXml(runs)}</w:p>`;
   }
 
   function cellInnerXml(cell, fillWhite) {
@@ -214,11 +244,20 @@
     return `<w:p>${runsToXml(paint(textRuns(cell)))}</w:p>`;
   }
 
+  function cellColSpan(cell) {
+    return Math.max(1, Number(cell.getAttribute('colspan')) || 1);
+  }
+
+  function rowColCount(tr) {
+    return [...tr.children].reduce((n, c) => n + cellColSpan(c), 0);
+  }
+
   function tableXml(table) {
     const rows = [...table.querySelectorAll(':scope > tbody > tr, :scope > thead > tr, :scope > tr')];
     if (!rows.length) return '';
-    const gridCols = Math.max(...rows.map((r) => r.children.length), 1);
+    const gridCols = Math.max(...rows.map(rowColCount), 1);
     const colW = Math.floor(9000 / gridCols);
+    const gridColsXml = Array.from({ length: gridCols }, () => `<w:gridCol w:w="${colW}"/>`).join('');
     let xml = `<w:tbl><w:tblPr><w:tblW w:w="5000" w:type="pct"/><w:tblBorders>
       <w:top w:val="single" w:sz="4" w:color="C9B8A8"/>
       <w:left w:val="single" w:sz="4" w:color="C9B8A8"/>
@@ -226,16 +265,21 @@
       <w:right w:val="single" w:sz="4" w:color="C9B8A8"/>
       <w:insideH w:val="single" w:sz="4" w:color="C9B8A8"/>
       <w:insideV w:val="single" w:sz="4" w:color="C9B8A8"/>
-    </w:tblBorders></w:tblPr><w:tblGrid>${'<w:gridCol w:w="' + colW + '"/>'.repeat(gridCols)}</w:tblGrid>`;
+    </w:tblBorders></w:tblPr><w:tblGrid>${gridColsXml}</w:tblGrid>`;
     for (const tr of rows) {
       xml += '<w:tr>';
       for (const cell of tr.children) {
         const bg = window.getComputedStyle(cell).backgroundColor;
         const umberFill = bg && /rgb\(\s*69\s*,\s*33\s*,\s*14\s*\)/.test(bg);
-        const shade = umberFill
-          ? `<w:tcPr><w:shd w:val="clear" w:fill="${UMBER}"/><w:tcW w:w="${colW}" w:type="dxa"/></w:tcPr>`
-          : `<w:tcPr><w:tcW w:w="${colW}" w:type="dxa"/></w:tcPr>`;
-        xml += `<w:tc>${shade}${cellInnerXml(cell, umberFill)}</w:tc>`;
+        const yellowFill = isDocFillColor(bg);
+        const span = cellColSpan(cell);
+        const spanXml = span > 1 ? `<w:gridSpan w:val="${span}"/>` : '';
+        const fillXml = umberFill
+          ? `<w:shd w:val="clear" w:fill="${UMBER}"/>`
+          : yellowFill
+            ? `<w:shd w:val="clear" w:fill="${DOC_FILL}"/>`
+            : '';
+        xml += `<w:tc><w:tcPr>${fillXml}${spanXml}<w:tcW w:w="${colW * span}" w:type="dxa"/></w:tcPr>${cellInnerXml(cell, umberFill)}</w:tc>`;
       }
       xml += '</w:tr>';
     }
@@ -257,10 +301,11 @@
     const kids = [...el.children].filter((c) => c.nodeType === 1 && !isChrome(c));
     if (kids.length < 2) return '';
     const colW = Math.floor(9000 / cols);
+    const gridColsXml = Array.from({ length: cols }, () => `<w:gridCol w:w="${colW}"/>`).join('');
     let xml = `<w:tbl><w:tblPr><w:tblW w:w="5000" w:type="pct"/><w:tblBorders>
       <w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/>
       <w:insideH w:val="nil"/><w:insideV w:val="nil"/>
-    </w:tblBorders></w:tblPr><w:tblGrid>${'<w:gridCol w:w="' + colW + '"/>'.repeat(cols)}</w:tblGrid>`;
+    </w:tblBorders></w:tblPr><w:tblGrid>${gridColsXml}</w:tblGrid>`;
     for (let i = 0; i < kids.length; i += cols) {
       xml += '<w:tr>';
       for (let c = 0; c < cols; c++) {
@@ -286,7 +331,7 @@
           continue;
         }
         if (/^h[1-6]$/.test(tag)) {
-          blocks.push(paraXml(el, 'Heading1'));
+          blocks.push(paraXml(el, tag === 'h1' ? 'Heading1' : 'Heading2'));
           continue;
         }
         const gridXml = gridAsTable(el);
@@ -318,10 +363,9 @@
   }
 
   function headerFooterText() {
-    return {
-      header: 'CyberSkill · Hiện Thực Hoá Ý Chí',
-      footer: 'CyberSkill · MST 0316475200 · info@cyberskill.world',
-    };
+    // Sheet already carries lockup + footer. Word chrome stays empty so the
+    // file does not duplicate the card into header/footer.
+    return { header: '', footer: '' };
   }
 
   async function buildDocxBlob(sheet) {
@@ -362,25 +406,20 @@
     <w:name w:val="heading 1"/><w:basedOn w:val="Normal"/><w:qFormat/>
     <w:rPr><w:b/><w:color w:val="${UMBER}"/><w:sz w:val="28"/></w:rPr>
   </w:style>
+  <w:style w:type="paragraph" w:styleId="Heading2">
+    <w:name w:val="heading 2"/><w:basedOn w:val="Normal"/><w:qFormat/>
+    <w:rPr><w:b/><w:color w:val="${UMBER}"/><w:sz w:val="24"/></w:rPr>
+  </w:style>
 </w:styles>`;
 
     const headerXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:hdr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-  <w:p><w:pPr><w:pBdr><w:bottom w:val="single" w:sz="6" w:color="C9B8A8"/></w:pBdr></w:pPr>
-    <w:r><w:rPr><w:b/><w:color w:val="${UMBER}"/><w:sz w:val="18"/></w:rPr>
-      <w:t xml:space="preserve">${xmlEscape(header)}</w:t></w:r>
-  </w:p>
+  <w:p>${header ? `<w:r><w:t xml:space="preserve">${xmlEscape(header)}</w:t></w:r>` : ''}</w:p>
 </w:hdr>`;
 
     const footerXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:ftr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-  <w:p>
-    <w:r><w:rPr><w:sz w:val="16"/><w:color w:val="6B5D4F"/></w:rPr>
-      <w:t xml:space="preserve">${xmlEscape(footer)} · </w:t></w:r>
-    <w:r><w:fldChar w:fldCharType="begin"/></w:r>
-    <w:r><w:instrText xml:space="preserve"> PAGE </w:instrText></w:r>
-    <w:r><w:fldChar w:fldCharType="end"/></w:r>
-  </w:p>
+  <w:p>${footer ? `<w:r><w:t xml:space="preserve">${xmlEscape(footer)}</w:t></w:r>` : ''}</w:p>
 </w:ftr>`;
 
     const documentXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -650,28 +689,12 @@
       ink = true;
     }
     if (!ink) throw new Error('blank-raster');
-    const pageH = Math.round(width * (page.h / page.w) * scale);
-    const pages = [];
-    let y = 0;
-    while (y < canvas.height - 1) {
-      const ch = Math.min(pageH, canvas.height - y);
-      const slice = document.createElement('canvas');
-      slice.width = canvas.width;
-      slice.height = Math.max(1, ch);
-      const sctx = slice.getContext('2d');
-      sctx.fillStyle = '#ffffff';
-      sctx.fillRect(0, 0, slice.width, slice.height);
-      sctx.drawImage(canvas, 0, y, canvas.width, ch, 0, 0, canvas.width, ch);
-      pages.push({
-        jpeg: dataUrlToBytes(slice.toDataURL('image/jpeg', 0.92)),
-        w: slice.width,
-        h: slice.height,
-      });
-      y += pageH;
-      if (pages.length > 40) break;
-    }
-    if (!pages.length) throw new Error('no-pages');
-    return jpegPagesToPdf(pages, page.ptW, page.ptH);
+    // One PDF page = the whole card. Slicing to A4 cut tables mid-row and
+    // stretched the leftover slice to full page height (squashed last page).
+    const jpeg = dataUrlToBytes(canvas.toDataURL('image/jpeg', 0.95));
+    const ptW = page.ptW;
+    const ptH = ptW * (canvas.height / canvas.width);
+    return jpegPagesToPdf([{ jpeg, w: canvas.width, h: canvas.height }], ptW, ptH);
   }
 
   async function buildPdfBlob(sheet) {
