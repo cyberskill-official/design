@@ -301,6 +301,18 @@ try {
           !/091Trang/.test(docXml),
           'framework DOCX mashes phone into page label',
         );
+        assert(
+          /HĐNT/.test(docXml) && /Hợp đồng nguyên tắc/.test(docXml),
+          'framework DOCX dropped the sheet header lockup (HĐNT / Hợp đồng nguyên tắc)',
+        );
+        assert(
+          /w:sz w:val="/.test(docXml),
+          'framework DOCX missing measured font sizes',
+        );
+        assert(
+          Object.keys(entries).some((n) => n.startsWith('word/media/')),
+          'framework DOCX missing embedded logo media',
+        );
       }
 
       // Downloaded PDF (buildPdfBlob): one unstretched page of the live sheet.
@@ -322,6 +334,15 @@ try {
         const paintedBuf = Buffer.from(painted.b64, 'base64');
         assert(paintedBuf.slice(0, 4).toString() === '%PDF', 'framework buildPdfBlob missing %PDF');
         assert(pdfPageCount(paintedBuf) === 1, 'framework downloaded PDF must be one page (no A4 slice)');
+        const paintedLatin = paintedBuf.toString('latin1');
+        assert(
+          /\/FlateDecode/.test(paintedLatin),
+          'framework downloaded PDF should be lossless Flate RGB, not JPEG',
+        );
+        assert(
+          !/\/DCTDecode/.test(paintedLatin),
+          'framework downloaded PDF still uses JPEG DCTDecode (blur)',
+        );
         const paintedBox = pdfMediaBox(paintedBuf);
         assert(paintedBox, 'framework buildPdfBlob MediaBox missing');
         const expectW = t.format === 'Letter' ? 612 : 595.28;

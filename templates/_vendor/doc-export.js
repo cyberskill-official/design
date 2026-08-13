@@ -128,23 +128,40 @@
     return bg && /rgb\(\s*253\s*,\s*230\s*,\s*138\s*\)/i.test(bg);
   }
 
+  function rgbToHex(rgb) {
+    const m = rgb && String(rgb).match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+    if (!m) return null;
+    const r = Number(m[1]);
+    const g = Number(m[2]);
+    const b = Number(m[3]);
+    if (r < 25 && g < 25 && b < 25) return null;
+    const hex = [r, g, b].map((n) => n.toString(16).padStart(2, '0')).join('').toUpperCase();
+    return hex === '000000' ? null : hex;
+  }
+
+  function halfPt(fontSize) {
+    const px = parseFloat(fontSize);
+    if (!px) return null;
+    return Math.max(14, Math.round((px * 72) / 96) * 2);
+  }
+
   function textRuns(el) {
     const parts = [];
-    const walk = (node, italic, bold, color, fill) => {
+    const walk = (node, italic, bold, color, fill, size) => {
       if (node.nodeType === 3) {
         const raw = node.textContent || '';
         if (!raw) return;
         if (!raw.replace(/\s+/g, '').length) {
-          if (parts.length) parts.push({ t: ' ', italic, bold, color, fill });
+          if (parts.length) parts.push({ t: ' ', italic, bold, color, fill, size });
           return;
         }
-        parts.push({ t: raw.replace(/\s+/g, ' '), italic, bold, color, fill });
+        parts.push({ t: raw.replace(/\s+/g, ' '), italic, bold, color, fill, size });
         return;
       }
       if (node.nodeType !== 1) return;
       if (isChrome(node)) return;
       const tag = node.tagName.toLowerCase();
-      if (tag === 'script' || tag === 'style' || tag === 'noscript') return;
+      if (tag === 'script' || tag === 'style' || tag === 'noscript' || tag === 'svg') return;
       const st = window.getComputedStyle(node);
       const nextItalic = italic || st.fontStyle === 'italic' || tag === 'i' || tag === 'em';
       const nextBold =
@@ -156,23 +173,33 @@
       let nextColor = color;
       if (/^h[1-6]$/.test(tag) || (st.color && /rgb\(\s*69\s*,\s*33\s*,\s*14\s*\)/.test(st.color))) {
         nextColor = UMBER;
+      } else {
+        nextColor = rgbToHex(st.color) || color;
       }
       const nextFill = fill || (isDocFillColor(st.backgroundColor) ? DOC_FILL : null);
+      const nextSize = halfPt(st.fontSize) || size;
       const kids = [...node.childNodes];
       for (let i = 0; i < kids.length; i++) {
         const before = parts.length;
-        walk(kids[i], nextItalic, nextBold, nextColor, nextFill);
+        walk(kids[i], nextItalic, nextBold, nextColor, nextFill, nextSize);
         const nxt = kids[i + 1];
         if (parts.length > before && nxt) {
           const last = parts[parts.length - 1];
           const nextRaw = nxt.textContent || '';
           if (last && last.t && !/\s$/.test(last.t) && nextRaw.replace(/\s+/g, '') && !/^\s/.test(nextRaw)) {
-            parts.push({ t: ' ', italic: nextItalic, bold: nextBold, color: nextColor, fill: nextFill });
+            parts.push({
+              t: ' ',
+              italic: nextItalic,
+              bold: nextBold,
+              color: nextColor,
+              fill: nextFill,
+              size: nextSize,
+            });
           }
         }
       }
     };
-    walk(el, false, false, null, null);
+    walk(el, false, false, null, null, null);
     const merged = [];
     for (const r of parts) {
       const prev = merged[merged.length - 1];
@@ -181,7 +208,8 @@
         prev.italic === r.italic &&
         prev.bold === r.bold &&
         prev.color === r.color &&
-        prev.fill === r.fill
+        prev.fill === r.fill &&
+        prev.size === r.size
       ) {
         prev.t += r.t;
       } else {
@@ -202,6 +230,7 @@
         if (r.italic) rPr.push('<w:i/>');
         if (r.color) rPr.push(`<w:color w:val="${r.color}"/>`);
         if (r.fill) rPr.push(`<w:shd w:val="clear" w:fill="${r.fill}"/><w:highlight w:val="yellow"/>`);
+        if (r.size) rPr.push(`<w:sz w:val="${r.size}"/><w:szCs w:val="${r.size}"/>`);
         rPr.push('<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>');
         const pr = rPr.length ? `<w:rPr>${rPr.join('')}</w:rPr>` : '';
         return `<w:r>${pr}<w:t xml:space="preserve">${xmlEscape(r.t)}</w:t></w:r>`;
@@ -213,9 +242,13 @@
     const bits = [];
     if (style) bits.push(`<w:pStyle w:val="${style}"/>`);
     if (el) {
-      const ta = window.getComputedStyle(el).textAlign;
+      const st = window.getComputedStyle(el);
+      const ta = st.textAlign;
       if (ta === 'center') bits.push('<w:jc w:val="center"/>');
       else if (ta === 'right' || ta === 'end') bits.push('<w:jc w:val="right"/>');
+      const before = Math.max(0, Math.round((parseFloat(st.marginTop) || 0) * 15));
+      const after = Math.max(0, Math.round((parseFloat(st.marginBottom) || 0) * 15));
+      if (before || after) bits.push(`<w:spacing w:before="${before}" w:after="${after}"/>`);
     }
     return bits.length ? `<w:pPr>${bits.join('')}</w:pPr>` : '';
   }
@@ -256,8 +289,20 @@
     const rows = [...table.querySelectorAll(':scope > tbody > tr, :scope > thead > tr, :scope > tr')];
     if (!rows.length) return '';
     const gridCols = Math.max(...rows.map(rowColCount), 1);
-    const colW = Math.floor(9000 / gridCols);
-    const gridColsXml = Array.from({ length: gridCols }, () => `<w:gridCol w:w="${colW}"/>`).join('');
+    let colWidths;
+    if (gridCols === 2) {
+      const tableW = table.getBoundingClientRect().width || 1;
+      const sample = rows.find((r) => r.children.length >= 2) || rows[0];
+      const c0 = sample && sample.children[0];
+      const ratio = c0 ? c0.getBoundingClientRect().width / tableW : 0.28;
+      const col0 = Math.round(9000 * Math.min(0.42, Math.max(0.18, ratio)));
+      colWidths = [col0, 9000 - col0];
+    } else {
+      const even = Math.floor(9000 / gridCols);
+      colWidths = Array.from({ length: gridCols }, () => even);
+    }
+    const gridColsXml = colWidths.map((w) => `<w:gridCol w:w="${w}"/>`).join('');
+    const colW = colWidths[0];
     let xml = `<w:tbl><w:tblPr><w:tblW w:w="5000" w:type="pct"/><w:tblBorders>
       <w:top w:val="single" w:sz="4" w:color="C9B8A8"/>
       <w:left w:val="single" w:sz="4" w:color="C9B8A8"/>
@@ -279,7 +324,8 @@
           : yellowFill
             ? `<w:shd w:val="clear" w:fill="${DOC_FILL}"/>`
             : '';
-        xml += `<w:tc><w:tcPr>${fillXml}${spanXml}<w:tcW w:w="${colW * span}" w:type="dxa"/></w:tcPr>${cellInnerXml(cell, umberFill)}</w:tc>`;
+        const tw = colWidths.slice(0, span).reduce((n, w) => n + w, 0);
+        xml += `<w:tc><w:tcPr>${fillXml}${spanXml}<w:tcW w:w="${tw}" w:type="dxa"/></w:tcPr>${cellInnerXml(cell, umberFill)}</w:tc>`;
       }
       xml += '</w:tr>';
     }
@@ -319,13 +365,162 @@
     return xml;
   }
 
-  function sheetBodyXml(sheet) {
+  function drawingRun(relId, cx, cy) {
+    return `<w:r><w:drawing>
+      <wp:inline distT="0" distB="0" distL="0" distR="0">
+        <wp:extent cx="${cx}" cy="${cy}"/>
+        <wp:docPr id="${relId.replace(/\D/g, '') || '1'}" name="img"/>
+        <a:graphic>
+          <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+            <pic:pic>
+              <pic:nvPicPr><pic:cNvPr id="0" name="image.png"/><pic:cNvPicPr/></pic:nvPicPr>
+              <pic:blipFill><a:blip r:embed="${relId}"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>
+              <pic:spPr>
+                <a:xfrm><a:off x="0" y="0"/><a:ext cx="${cx}" cy="${cy}"/></a:xfrm>
+                <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+              </pic:spPr>
+            </pic:pic>
+          </a:graphicData>
+        </a:graphic>
+      </wp:inline>
+    </w:drawing></w:r>`;
+  }
+
+  function findSvg(el) {
+    if (!el || el.nodeType !== 1) return null;
+    if (el.tagName.toLowerCase() === 'svg') return el;
+    const light = el.querySelector?.('svg');
+    if (light) return light;
+    if (el.shadowRoot) {
+      const sh = el.shadowRoot.querySelector('svg');
+      if (sh) return sh;
+    }
+    for (const c of el.children || []) {
+      const nested = findSvg(c);
+      if (nested) return nested;
+    }
+    return null;
+  }
+
+  async function addSvgPng(svg, bag) {
+    const box = svg.getBoundingClientRect();
+    const cssW = Math.max(box.width || parseFloat(svg.getAttribute('width')) || 18, 12);
+    const cssH = Math.max(box.height || parseFloat(svg.getAttribute('height')) || cssW, 12);
+    const scale = 3;
+    const w = Math.max(1, Math.round(cssW * scale));
+    const h = Math.max(1, Math.round(cssH * scale));
+    try {
+      const clone = svg.cloneNode(true);
+      clone.setAttribute('width', String(cssW));
+      clone.setAttribute('height', String(cssH));
+      if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      const xml = new XMLSerializer().serializeToString(clone);
+      if (/foreignObject/i.test(xml)) return '';
+      const blob = new Blob([xml], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      try {
+        const img = await loadImage(url);
+        const c = document.createElement('canvas');
+        c.width = w;
+        c.height = h;
+        const ctx = c.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        const bytes = dataUrlToBytes(c.toDataURL('image/png'));
+        const n = bag.media.length + 1;
+        const relId = `rIdImg${n}`;
+        bag.media.push({ name: `word/media/image${n}.png`, bytes, relId });
+        const emu = Math.round(cssW * 9525);
+        return drawingRun(relId, emu, Math.round(emu * (h / w)));
+      } finally {
+        URL.revokeObjectURL(url);
+      }
+    } catch (_) {
+      return '';
+    }
+  }
+
+  async function groupInnerXml(els, bag) {
+    let drawings = '';
+    const textEls = [];
+    for (const el of els) {
+      const svg = findSvg(el);
+      if (svg) drawings += await addSvgPng(svg, bag);
+      if (!svg || textRuns(el).length) textEls.push(el);
+    }
+    let runs = [];
+    for (const el of textEls) {
+      const next = textRuns(el);
+      if (
+        runs.length &&
+        next.length &&
+        !/\s$/.test(runs[runs.length - 1].t) &&
+        !/^\s/.test(next[0].t)
+      ) {
+        runs.push({
+          t: ' ',
+          italic: next[0].italic,
+          bold: next[0].bold,
+          color: next[0].color,
+          fill: next[0].fill,
+          size: next[0].size,
+        });
+      }
+      runs.push(...next);
+    }
+    if (!drawings && !runs.length) return `<w:p>${runsToXml([])}</w:p>`;
+    return `<w:p>${pPrXml(textEls[0] || els[0])}${drawings}${runsToXml(runs)}</w:p>`;
+  }
+
+  async function flexAsTable(el, bag) {
+    const st = window.getComputedStyle(el);
+    if (st.display !== 'flex' && st.display !== 'inline-flex') return '';
+    const dir = st.flexDirection || 'row';
+    if (dir === 'column' || dir === 'column-reverse') return '';
+    const kids = [...el.children].filter((c) => c.nodeType === 1 && !isChrome(c));
+    if (kids.length < 2) return '';
+    const hasLogo = kids.some((c) => {
+      const t = c.tagName.toLowerCase();
+      return t === 'svg' || t === 'x-import' || !!findSvg(c);
+    });
+    if (!hasLogo && kids.length !== 2) return '';
+    let split = -1;
+    for (let i = 1; i < kids.length; i++) {
+      const inline = kids[i].style?.marginLeft || '';
+      const attr = kids[i].getAttribute?.('style') || '';
+      if (inline === 'auto' || /margin-left\s*:\s*auto/i.test(attr)) {
+        split = i;
+        break;
+      }
+    }
+    if (split < 0) {
+      if (kids.length === 2) split = 1;
+      else return '';
+    }
+    const left = await groupInnerXml(kids.slice(0, split), bag);
+    const right = await groupInnerXml(kids.slice(split), bag);
+    return `<w:tbl><w:tblPr><w:tblW w:w="5000" w:type="pct"/><w:tblBorders>
+      <w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/>
+      <w:insideH w:val="nil"/><w:insideV w:val="nil"/>
+    </w:tblBorders></w:tblPr><w:tblGrid><w:gridCol w:w="6200"/><w:gridCol w:w="2800"/></w:tblGrid>
+    <w:tr>
+      <w:tc><w:tcPr><w:tcW w:w="6200" w:type="dxa"/></w:tcPr>${left}</w:tc>
+      <w:tc><w:tcPr><w:tcW w:w="2800" w:type="dxa"/></w:tcPr>${right}</w:tc>
+    </w:tr></w:tbl>`;
+  }
+
+  async function sheetBodyXml(sheet, bag) {
     const blocks = [];
-    const visit = (nodes) => {
+    const visit = async (nodes) => {
       for (const el of nodes) {
         if (el.nodeType !== 1) continue;
         if (isChrome(el)) continue;
         const tag = el.tagName.toLowerCase();
+        const svg = findSvg(el);
+        if (svg && (tag === 'svg' || !textRuns(el).length)) {
+          const drawing = await addSvgPng(svg, bag);
+          if (drawing) blocks.push(`<w:p>${drawing}</w:p>`);
+          continue;
+        }
         if (tag === 'table') {
           blocks.push(tableXml(el));
           continue;
@@ -339,12 +534,17 @@
           blocks.push(gridXml);
           continue;
         }
+        const flexXml = await flexAsTable(el, bag);
+        if (flexXml) {
+          blocks.push(flexXml);
+          continue;
+        }
         if (tag === 'p' || tag === 'div' || tag === 'section' || tag === 'li') {
           const hasBlock = [...el.children].some((c) =>
-            /^(DIV|TABLE|SECTION|UL|OL|H1|H2|H3|H4|H5|H6)$/.test(c.tagName),
+            /^(DIV|TABLE|SECTION|UL|OL|H1|H2|H3|H4|H5|H6|X-IMPORT)$/.test(c.tagName),
           );
           if (hasBlock && tag !== 'p') {
-            visit([...el.children]);
+            await visit([...el.children]);
           } else {
             const px = paraXml(el);
             if (px) blocks.push(px);
@@ -352,13 +552,15 @@
           continue;
         }
         if (tag === 'ul' || tag === 'ol') {
-          visit([...el.children]);
+          await visit([...el.children]);
           continue;
         }
-        visit([...el.children]);
+        const leftover = paraXml(el);
+        if (leftover) blocks.push(leftover);
+        else await visit([...el.children]);
       }
     };
-    visit([...sheet.children]);
+    await visit([...sheet.children]);
     return blocks.filter(Boolean).join('');
   }
 
@@ -372,12 +574,16 @@
     const page = pageSizeFromCss();
     const enc = new TextEncoder();
     const { header, footer } = headerFooterText();
-    const body = sheetBodyXml(sheet);
+    const bag = { media: [] };
+    const body = await sheetBodyXml(sheet, bag);
 
+    const pngDefault = bag.media.length
+      ? `\n  <Default Extension="png" ContentType="image/png"/>`
+      : '';
     const contentTypes = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
   <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
-  <Default Extension="xml" ContentType="application/xml"/>
+  <Default Extension="xml" ContentType="application/xml"/>${pngDefault}
   <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
   <Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>
   <Override PartName="/word/header1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml"/>
@@ -389,11 +595,18 @@
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
 </Relationships>`;
 
+    const mediaRels = bag.media
+      .map(
+        (m) =>
+          `  <Relationship Id="${m.relId}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/${m.name.split('/').pop()}"/>`,
+      )
+      .join('\n');
     const docRels = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
   <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/header" Target="header1.xml"/>
   <Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer1.xml"/>
+${mediaRels}
 </Relationships>`;
 
     const styles = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -424,14 +637,17 @@
 
     const documentXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
-  xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+  xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+  xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"
+  xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+  xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
   <w:body>
     ${body || '<w:p><w:r><w:t></w:t></w:r></w:p>'}
     <w:sectPr>
       <w:headerReference w:type="default" r:id="rId2"/>
       <w:footerReference w:type="default" r:id="rId3"/>
       <w:pgSz w:w="${page.w}" w:h="${page.h}"/>
-      <w:pgMar w:top="1440" w:right="1134" w:bottom="1134" w:left="1134" w:header="720" w:footer="720"/>
+      <w:pgMar w:top="360" w:right="360" w:bottom="360" w:left="360" w:header="0" w:footer="0"/>
     </w:sectPr>
   </w:body>
 </w:document>`;
@@ -444,6 +660,7 @@
       { name: 'word/styles.xml', bytes: enc.encode(styles) },
       { name: 'word/header1.xml', bytes: enc.encode(headerXml) },
       { name: 'word/footer1.xml', bytes: enc.encode(footerXml) },
+      ...bag.media.map((m) => ({ name: m.name, bytes: m.bytes })),
     ]);
     return new Blob([zip], {
       type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -500,7 +717,7 @@
     return out;
   }
 
-  function jpegPagesToPdf(pages, mediaW, mediaH) {
+  function imagePagesToPdf(pages, mediaW, mediaH) {
     const enc = new TextEncoder();
     const nl = enc.encode('\n');
     const chunks = [enc.encode('%PDF-1.4\n')];
@@ -532,10 +749,11 @@
         pageId,
         `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${mediaW.toFixed(2)} ${mediaH.toFixed(2)}] /Resources << /XObject << /Im0 ${imgId} 0 R >> >> /Contents ${contentId} 0 R >>`,
       );
+      const filter = page.filter || 'FlateDecode';
       pushObj(
         imgId,
-        `<< /Type /XObject /Subtype /Image /Width ${page.w} /Height ${page.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${page.jpeg.length} >>`,
-        page.jpeg,
+        `<< /Type /XObject /Subtype /Image /Width ${page.w} /Height ${page.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /${filter} /Length ${page.bytes.length} >>`,
+        page.bytes,
       );
       const contentBytes = enc.encode(content);
       pushObj(contentId, `<< /Length ${contentBytes.length} >>`, contentBytes);
@@ -555,6 +773,27 @@
     }
     const trailer = `trailer\n<< /Size ${nextId} /Root 1 0 R >>\nstartxref\n${xrefAt}\n%%EOF\n`;
     return concatBytes([body, enc.encode(xref), enc.encode(trailer)]);
+  }
+
+  function canvasRgb(ctx, w, h) {
+    const src = ctx.getImageData(0, 0, w, h).data;
+    const rgb = new Uint8Array(w * h * 3);
+    let j = 0;
+    for (let i = 0; i < src.length; i += 4) {
+      rgb[j++] = src[i];
+      rgb[j++] = src[i + 1];
+      rgb[j++] = src[i + 2];
+    }
+    return rgb;
+  }
+
+  async function deflateZlib(u8) {
+    const cs = new CompressionStream('deflate');
+    const writer = cs.writable.getWriter();
+    writer.write(u8);
+    writer.close();
+    const ab = await new Response(cs.readable).arrayBuffer();
+    return new Uint8Array(ab);
   }
 
   function relBox(el, origin, sheet) {
@@ -679,9 +918,15 @@
 
   async function rasterizeSheet(sheet) {
     const page = pageSizeFromCss();
-    const scale = 2;
-    const painted = await paintSheet(sheet, scale);
-    const { canvas, width, height, ctx } = painted;
+    let scale = 3;
+    let painted;
+    try {
+      painted = await paintSheet(sheet, scale);
+    } catch (_) {
+      scale = 2;
+      painted = await paintSheet(sheet, scale);
+    }
+    const { canvas, ctx } = painted;
     let ink = true;
     try {
       ink = canvasHasInk(ctx, canvas.width, Math.min(canvas.height, 400));
@@ -689,12 +934,26 @@
       ink = true;
     }
     if (!ink) throw new Error('blank-raster');
-    // One PDF page = the whole card. Slicing to A4 cut tables mid-row and
-    // stretched the leftover slice to full page height (squashed last page).
-    const jpeg = dataUrlToBytes(canvas.toDataURL('image/jpeg', 0.95));
+    // One PDF page = the whole card. Lossless Flate RGB (not JPEG) so type
+    // stays sharp; scale 3 ≈ 288 dpi on the A4-width MediaBox.
     const ptW = page.ptW;
     const ptH = ptW * (canvas.height / canvas.width);
-    return jpegPagesToPdf([{ jpeg, w: canvas.width, h: canvas.height }], ptW, ptH);
+    try {
+      const rgb = canvasRgb(ctx, canvas.width, canvas.height);
+      const bytes = await deflateZlib(rgb);
+      return imagePagesToPdf(
+        [{ bytes, w: canvas.width, h: canvas.height, filter: 'FlateDecode' }],
+        ptW,
+        ptH,
+      );
+    } catch (_) {
+      const jpeg = dataUrlToBytes(canvas.toDataURL('image/jpeg', 0.95));
+      return imagePagesToPdf(
+        [{ bytes: jpeg, w: canvas.width, h: canvas.height, filter: 'DCTDecode' }],
+        ptW,
+        ptH,
+      );
+    }
   }
 
   async function buildPdfBlob(sheet) {
