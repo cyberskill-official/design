@@ -167,6 +167,40 @@ try {
       });
       assert(live.toolbar, `${t.folder}: export toolbar missing`);
 
+      // Print media must unlock FULL_PAGE_CSS height:100% (Safari blank-page bug).
+      await page.emulateMedia({ media: 'print' });
+      const printLayout = await page.evaluate(() => {
+        const check = (sel) => {
+          const el = document.querySelector(sel);
+          if (!el) return { sel, missing: true };
+          const cs = getComputedStyle(el);
+          return {
+            sel,
+            height: cs.height,
+            maxHeight: cs.maxHeight,
+            overflow: cs.overflow,
+          };
+        };
+        return {
+          html: check('html'),
+          body: check('body'),
+          root: check('#dc-root'),
+          host: check('.sc-host'),
+          sheetText: (document.querySelector('.cs-sheet') || document.body).innerText.trim().length,
+          printPdf: typeof window.__csDocExport?.printPdf === 'function',
+        };
+      });
+      assert(printLayout.printPdf, `${t.folder}: __csDocExport.printPdf missing`);
+      assert(printLayout.sheetText > 40, `${t.folder}: print media has no sheet text`);
+      for (const node of [printLayout.html, printLayout.body, printLayout.root, printLayout.host]) {
+        if (node.missing) continue;
+        assert(node.overflow === 'visible', `${t.folder}: ${node.sel} overflow=${node.overflow} in print`);
+        assert(node.maxHeight === 'none', `${t.folder}: ${node.sel} maxHeight=${node.maxHeight} in print`);
+        // Used height may still be numeric; reject explicit 100% from FULL_PAGE_CSS.
+        assert(node.height !== '100%', `${t.folder}: ${node.sel} still height:100% in print`);
+      }
+      await page.emulateMedia({ media: 'screen' });
+
       // DOCX
       const docxB64 = await page.evaluate(async () => {
         const sheet = document.querySelector('.cs-sheet') || document.body;

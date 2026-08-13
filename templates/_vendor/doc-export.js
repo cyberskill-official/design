@@ -363,6 +363,40 @@
     return t.replace(/[^\w\u00C0-\u024F\- ]+/g, '').replace(/\s+/g, '-').slice(0, 80) + ext;
   }
 
+  /**
+   * Safari/iOS often prints a blank page from a Storybook iframe (clips to the
+   * framed viewport / height:100% root). Prefer a top-level window of the same
+   * document URL; fall back to in-frame window.print().
+   */
+  function printPdf() {
+    try {
+      const framed = window.top != null && window.top !== window;
+      if (framed) {
+        const w = window.open(location.href, '_blank');
+        if (w) {
+          let printed = false;
+          const go = () => {
+            if (printed) return;
+            printed = true;
+            try {
+              w.focus();
+              w.print();
+            } catch (_) {
+              /* ignore */
+            }
+          };
+          w.addEventListener('load', () => setTimeout(go, 500));
+          // Cached loads may not fire `load` reliably on iOS.
+          setTimeout(go, 1800);
+          return;
+        }
+      }
+    } catch (_) {
+      /* cross-origin top access or popup blocked */
+    }
+    window.print();
+  }
+
   function injectToolbar() {
     if (document.querySelector('[data-omelette-chrome="export"]')) return;
     const meta = document.querySelector('meta[name="omelette-owns-print"]');
@@ -384,6 +418,11 @@
       [data-omelette-chrome="export"] button:focus-visible{outline:2px solid #F4BA17;outline-offset:2px}
       @media print{
         [data-omelette-chrome="export"],[data-omelette-chrome="export-style"]{display:none!important}
+        /* Belt-and-suspenders with support.js print baseline — unlock FULL_PAGE_CSS
+           height:100% so Safari/iOS does not print a blank clipped viewport. */
+        html,body,#dc-root,#dc-root>.sc-host{
+          height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important
+        }
       }
     `;
     document.head.appendChild(style);
@@ -396,7 +435,7 @@
     const pdfBtn = document.createElement('button');
     pdfBtn.type = 'button';
     pdfBtn.textContent = 'PDF · In / Print';
-    pdfBtn.addEventListener('click', () => window.print());
+    pdfBtn.addEventListener('click', () => printPdf());
 
     const docxBtn = document.createElement('button');
     docxBtn.type = 'button';
@@ -422,6 +461,7 @@
     buildDocxBlob,
     pageSizeFromCss,
     injectToolbar,
+    printPdf,
   };
 
   const boot = () => injectToolbar();
