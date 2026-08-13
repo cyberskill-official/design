@@ -59,7 +59,8 @@ Operator preview of the framework agreement still shows a counsel-review warning
 
 - Banner lived only on `VnFrameworkAgreement.dc.html` (plus the fixture phrase).
 - Prior PDF path opened `location.href` (Storybook iframe / blank capture) and print CSS zeroed sheet padding, so the attachment did not look like the HTML card.
-- PDF download now paints the live `.cs-sheet` to canvas (boxes + text + inline SVG) and wraps JPEG pages in a PDF; SVG `foreignObject` taints canvas and is not used. Print of a same-origin sheet clone remains the fallback.
+- PDF download now paints the live `.cs-sheet` to canvas (boxes + text + inline SVG) as **one JPEG page** whose MediaBox matches the card aspect. A4 slicing cut tables mid-row and stretched the leftover slice (squashed last page). SVG `foreignObject` taints canvas and is not used. Print of a same-origin sheet clone remains the fallback.
+- DOCX: Word header/footer stay empty (sheet already has lockup + footer); yellow `--cs-doc-fill` blanks become highlight; `colspan` becomes `w:gridSpan`.
 - Prior DOCX dumped the first child into the Word header *and* the body, flattened nested cell labels, and dropped whitespace-only text nodes.
 
 *End of TASK-IMP-024.*
