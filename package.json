@@ -127,7 +127,7 @@
   "devDependencies": {
     "@figma/code-connect": "^1.4.9",
     "@storybook/addon-a11y": "^10.5.4",
-    "@storybook/addon-docs": "^10.5.4",
+    "@storybook/addon-docs": "^10.5.7",
     "@storybook/react": "^10.5.4",
     "@storybook/react-vite": "^10.5.4",
     "@vitejs/plugin-react": "^6.0.4",
