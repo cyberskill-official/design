@@ -158,14 +158,29 @@ try {
       const live = await page.evaluate(() => {
         const sheet = document.querySelector('.cs-sheet');
         const text = (sheet || document.body).innerText || '';
+        const bar = document.querySelector('[data-omelette-chrome="export"]');
+        const trigger = bar && bar.querySelector('[data-cs-export="trigger"]');
+        const menu = bar && bar.querySelector('[data-cs-export="menu"]');
+        const topButtons = bar ? [...bar.querySelectorAll(':scope > button')] : [];
         return {
-          toolbar: !!document.querySelector('[data-omelette-chrome="export"]'),
+          toolbar: !!bar,
+          trigger: !!(trigger && /Tải|Download/i.test(trigger.textContent || '')),
+          menuPdf: !!(menu && menu.querySelector('[data-cs-export="pdf"]')),
+          menuDocx: !!(menu && menu.querySelector('[data-cs-export="docx"]')),
+          dualTopButtons: topButtons.length === 2,
+          counselBanner: /Counsel review required before real use — commercial framework/.test(text),
           hasVn: /[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]/i.test(text),
           hasEn: /the|and|agreement|party|cyberSkill|CyberSkill/i.test(text),
           sample: text.replace(/\s+/g, ' ').trim().slice(0, 240),
         };
       });
       assert(live.toolbar, `${t.folder}: export toolbar missing`);
+      assert(live.trigger, `${t.folder}: missing Tải / Download trigger`);
+      assert(live.menuPdf && live.menuDocx, `${t.folder}: menu must list PDF and DOCX`);
+      assert(!live.dualTopButtons, `${t.folder}: old dual PDF+DOCX buttons still present`);
+      if (t.folder === 'vn-framework-agreement') {
+        assert(!live.counselBanner, 'vn-framework-agreement still shows counsel-review banner');
+      }
 
       // Print media must unlock FULL_PAGE_CSS height:100% (Safari blank-page bug).
       await page.emulateMedia({ media: 'print' });
@@ -188,9 +203,11 @@ try {
           host: check('.sc-host'),
           sheetText: (document.querySelector('.cs-sheet') || document.body).innerText.trim().length,
           printPdf: typeof window.__csDocExport?.printPdf === 'function',
+          buildPdfBlob: typeof window.__csDocExport?.buildPdfBlob === 'function',
         };
       });
       assert(printLayout.printPdf, `${t.folder}: __csDocExport.printPdf missing`);
+      assert(printLayout.buildPdfBlob, `${t.folder}: __csDocExport.buildPdfBlob missing`);
       assert(printLayout.sheetText > 40, `${t.folder}: print media has no sheet text`);
       for (const node of [printLayout.html, printLayout.body, printLayout.root, printLayout.host]) {
         if (node.missing) continue;
@@ -241,6 +258,32 @@ try {
       const tableCountDocx = (docXml.match(/<w:tbl>/g) || []).length;
       if (tableCountDom > 0) {
         assert(tableCountDocx > 0, `${t.folder}: DOM has tables but DOCX has none`);
+      }
+
+      const sheetWords = await page.evaluate(() => {
+        const text = (document.querySelector('.cs-sheet') || document.body).innerText || '';
+        return text
+          .normalize('NFC')
+          .split(/\s+/)
+          .filter((w) => w.length >= 6)
+          .slice(0, 40);
+      });
+      const docPlain = docXml.replace(/<[^>]+>/g, ' ');
+      if (sheetWords.length >= 10) {
+        let hits = 0;
+        for (const w of sheetWords) {
+          if (docPlain.includes(w)) hits += 1;
+        }
+        assert(
+          hits / sheetWords.length >= 0.7,
+          `${t.folder}: DOCX missing sheet text (${hits}/${sheetWords.length})`,
+        );
+      }
+      if (t.folder === 'vn-framework-agreement') {
+        assert(
+          !/Counsel review required before real use/.test(docXml),
+          'framework DOCX still contains counsel-review banner',
+        );
       }
 
       // PDF via Playwright

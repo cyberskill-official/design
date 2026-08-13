@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>design status</title>
+<link rel="stylesheet" href="assets/status-legacy.css">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+</head>
+<body data-template-id="status-hub@2">
+<a class="skip" href="#lens">Skip to content</a>
+
+<header class="hd">
+  <div class="wrap hd-in">
+    <div class="hd-id">
+      <span class="hd-mark" aria-hidden="true">D</span>
+      <div>
+        <h1>design status</h1>
+        <p class="hd-sub">Where design is and what is coming — generated from task frontmatter, CHANGELOG and VERSION</p>
+      </div>
+    </div>
+    <div class="hd-side">
+      <p class="hd-meta">VERSION <span class="code">1.6.1</span> · built from <span class="code">fp-22fc0b61f5a1</span> · 26 tasks · 1 releases</p>
+      <button id="theme" class="btn ghost" type="button" title="Toggle light / dark" aria-label="Toggle light / dark">◐</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="deck" aria-label="Project pulse">
+<div class="panel">
+  <h2>Overall progress · 26 tasks · 2 modules</h2>
+  <div class="kpis">
+    <button class="kpi" type="button" data-bucket="done" title="Filter to done"><b>24</b><span><i class="dot seg-done"></i>done</span></button>
+    <button class="kpi" type="button" data-bucket="active" title="Filter to in flight"><b>2</b><span><i class="dot seg-active"></i>in flight</span></button>
+    <button class="kpi" type="button" data-bucket="todo" title="Filter to draft"><b>0</b><span><i class="dot seg-todo"></i>draft</span></button>
+    <button class="kpi" type="button" data-bucket="hold" title="Filter to on hold"><b>0</b><span><i class="dot seg-hold"></i>on hold</span></button>
+    <div class="kpi"><b>—</b><span>open effort (h)</span></div>
+  </div>
+  <div class="bar-seg">
+    <i class="seg-done" style="width:92.3%" title="done 24"></i>
+    <i class="seg-active" style="width:7.7%" title="in flight 2"></i>
+    <i class="seg-hold" style="width:0.0%" title="on hold 0"></i>
+  </div>
+  <div class="legend">
+    <span><i class="dot seg-done"></i> done / closed (92.3%)</span>
+    <span><i class="dot seg-active"></i> in flight — ready_to_implement → testing</span>
+    <span><i class="dot seg-todo"></i> draft</span>
+    <span><i class="dot seg-hold"></i> on hold</span>
+    <span class="muted">click a number to filter · click any task to open it</span>
+  </div>
+</div>
+<div class="panel">
+  <h2>Releases · 1 · latest v1.6.1</h2>
+  <div class="spark"><a href="#timeline" title="v1.6.1 — 0 tasks"><b>0</b><i style="height:4px"></i><span>1.6.1</span></a></div>
+  <p class="relnote">tasks bound to each release — cited in the entry, or matched by <code>shipped:</code> date.</p>
+</div></section>
+
+  
+<section class="now">
+  <h2>Now shipping (2)</h2>
+  <div class="tasks"><button class="chip active" data-task="TASK-IMP-023" title="TASK-IMP-023 — Fix blank iOS/Safari print preview for document templates [ready_to_review]">IMP-023</button><button class="chip active" data-task="TASK-IMP-024" title="TASK-IMP-024 — HTML-faithful PDF/DOCX download + drop counsel banner [ready_to_review]">IMP-024</button></div>
+</section>
+<section class="now" id="stuck-wip">
+  <h2>Stuck WIP (G13)</h2>
+  <p class="muted">As-of date unavailable (no CYBEROS_NOW / CYBEROS_HUB_ASOF and no dated CHANGELOG entry for VERSION 1.6.1) — age classification skipped. Detector stays report-only.</p>
+</section>
+
+  <nav class="bar" id="bar" aria-label="Search, filters and views">
+    <div class="bar-top">
+      <label class="srch">
+        <span class="ic" aria-hidden="true">⌕</span>
+        <input id="q" type="search" placeholder="Search 26 tasks — id, title, module, owner, phase…" autocomplete="off" spellcheck="false">
+      </label>
+      <div class="lenses" role="tablist" aria-label="View">
+        <button class="ln" role="tab" type="button" data-lens="board" aria-selected="true">▦ Board</button>
+        <button class="ln" role="tab" type="button" data-lens="table" aria-selected="false">☰ Table</button>
+        <button class="ln" role="tab" type="button" data-lens="timeline" aria-selected="false">◷ Releases</button>
+      </div>
+    </div>
+    <div class="bar-bot">
+      <label class="facet">module<select id="f-m"><option value="">all</option><option value="improvement">improvement</option><option value="release">release</option></select></label>
+  <label class="facet">status<select id="f-s"><option value="">all</option><option value="ready_to_review">ready_to_review</option><option value="done">done</option></select></label>
+  <label class="facet">priority<select id="f-p"><option value="">all</option><option value="p0">p0</option><option value="p1">p1</option><option value="p2">p2</option></select></label>
+  <label class="facet">class<select id="f-c"><option value="">all</option><option value="feature">feature</option><option value="improvement">improvement</option></select></label>
+  <label class="facet">phase<select id="f-ph"><option value="">all</option></select></label>
+  <label class="facet">group by<select id="f-g"><option value="m">module</option><option value="ph">phase</option><option value="s">status</option><option value="p">priority</option><option value="c">class</option><option value="o">owner</option></select></label>
+      <button id="clear" class="btn ghost sm" type="button">Clear</button>
+      <output id="count" class="cnt" for="q"></output>
+    </div>
+    <div class="chipbar" id="active-filters" hidden></div>
+  </nav>
+
+  <div id="lens" class="lens" role="region" aria-live="polite" aria-label="Tasks"></div>
+
+  
+
+  <noscript>
+    <div class="nojs">
+<p class="relnote">JavaScript is off, so the interactive canvas and the task drawer are unavailable.
+Everything below is the same corpus, rendered statically.</p>
+<div class="tbl-wrap"><table><thead><tr>
+<th>id</th><th>title</th><th>module</th><th>class</th><th>priority</th><th>phase</th><th>status</th>
+</tr></thead><tbody>
+<tr><td class="code">TASK-IMP-001</td><td>Archive AT/UX audit trail + record evolution-plan adoption (FIND-001/002)</td><td>improvement</td><td>improvement</td><td>p0</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-002</td><td>Mentions APG editable-combobox keyboard (FIND-012)</td><td>improvement</td><td>improvement</td><td>p0</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-003</td><td>Sortable move buttons + keyboard reorder (FIND-013)</td><td>improvement</td><td>improvement</td><td>p0</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-004</td><td>Clear Status Hub login seed credential (FIND-011)</td><td>improvement</td><td>improvement</td><td>p1</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-005</td><td>npm-publish fail on 403/EOTP + registry presence (FIND-020)</td><td>improvement</td><td>improvement</td><td>p0</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-006</td><td>Extend docs-consistency + keyboard fixtures + asset budget (FIND-018)</td><td>improvement</td><td>improvement</td><td>p0</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-007</td><td>Fix z-index fallbacks + doc one-liners (FIND-008/003/005/009)</td><td>improvement</td><td>improvement</td><td>p1</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-008</td><td>Re-gate token auto-commit + resolve .mcp.json (FIND-021/024)</td><td>improvement</td><td>improvement</td><td>p1</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-009</td><td>RSC &quot;use client&quot; / client barrel (FIND-006)</td><td>improvement</td><td>improvement</td><td>p0</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-010</td><td>Rating/Tree/Toolbar APG keyboard + a11y fixtures (FIND-014)</td><td>improvement</td><td>improvement</td><td>p0</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-011</td><td>Auth pattern error/loading/invalid variants (FLOW-013 / NV-9.2)</td><td>improvement</td><td>improvement</td><td>p1</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-012</td><td>Recommend dist/styles.min.css as static default (FIND-017)</td><td>improvement</td><td>improvement</td><td>p2</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-013</td><td>Converge responsive CSS breakpoints on token scale (FIND-007)</td><td>improvement</td><td>improvement</td><td>p1</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-014</td><td>Replace theme-following raw hex in base CSS with tokens (FIND-010)</td><td>improvement</td><td>improvement</td><td>p2</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-015</td><td>Language-independent formatCurrency (FIND-025)</td><td>improvement</td><td>improvement</td><td>p2</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-016</td><td>Tighten CSP + port security headers to every host (FIND-015/019)</td><td>improvement</td><td>improvement</td><td>p1</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-017</td><td>In-repo NV rendered checks for areas 9/12/14/26</td><td>improvement</td><td>improvement</td><td>p2</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-018</td><td>CycloneDX SBOM per release + OpenSSF Scorecard (FIND-023)</td><td>improvement</td><td>improvement</td><td>p2</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-019</td><td>HR-suite validation provenance or soften claim (FIND-022)</td><td>improvement</td><td>improvement</td><td>p1</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-020</td><td>Product↔CyberOS boundary, release runbook, schedule alerting</td><td>improvement</td><td>improvement</td><td>p2</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-021</td><td>Convert elemental aurora washes PNG→WebP (FIND-016)</td><td>improvement</td><td>improvement</td><td>p2</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-022</td><td>CSP-safe DC runtime + PDF/DOCX export + HR DOCX source audit</td><td>improvement</td><td>improvement</td><td>p1</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-IMP-023</td><td>Fix blank iOS/Safari print preview for document templates</td><td>improvement</td><td>improvement</td><td>p1</td><td></td><td>ready_to_review</td></tr>
+<tr><td class="code">TASK-IMP-024</td><td>HTML-faithful PDF/DOCX download + drop counsel banner</td><td>improvement</td><td>improvement</td><td>p1</td><td></td><td>ready_to_review</td></tr>
+<tr><td class="code">TASK-REL-001</td><td>LAUNCH design system at VERSION 1.1.0</td><td>release</td><td>feature</td><td>p0</td><td></td><td>done</td></tr>
+<tr><td class="code">TASK-REL-002</td><td>Republish @cyberskill/design at VERSION 1.1.1</td><td>release</td><td>feature</td><td>p0</td><td></td><td>done</td></tr>
+</tbody></table></div>
+<h3 class="groupq">Releases</h3>
+<article class="rel"><span class="tick">✓</span><div>
+  <div class="rel-h"><b>v1.6.1</b></div>
+
+  
+</div></article></div>
+  </noscript>
+
+  <footer class="ft">design — generated at 1.6.1 (fp-22fc0b61f5a1). Markdown is the record of truth; this page only renders it. · <a href="status.html">Current status page (v3)</a></footer>
+</main>
+
+<div id="scrim" class="scrim" hidden></div>
+<aside id="drawer" class="drawer" hidden role="dialog" aria-modal="true" aria-labelledby="dw-title"></aside>
+
+<script type="application/json" id="cs-data">{"project":"design","version":"1.6.1","commit":"fp-22fc0b61f5a1","statuses":["draft","ready_to_implement","implementing","ready_to_review","reviewing","ready_to_test","testing","done","on_hold","closed","cannot_reproduce","duplicate"],"specDir":"data/task","frBase":"../tasks/","tasks":[{"i":"TASK-IMP-001","k":"TASK-IMP-001-archive-baseline","dm":"improvement","t":"Archive AT/UX audit trail + record evolution-plan adoption (FIND-001/002)","m":"improvement","c":"improvement","p":"p0","s":"done","cr":"2026-08-09T04:00:00+0000","ca":"2026-08-09T04:00:00+0000","st":[],"d":[],"b":["TASK-IMP-002","TASK-IMP-003","TASK-IMP-004","TASK-IMP-005","TASK-IMP-008"],"rl":[],"sm":"Close assessment FIND-001 and FIND-002 for Phases 0–2 by restoring durable audit history and making the CyberOS backlog reflect adopted work.","sp":1},{"i":"TASK-IMP-002","k":"TASK-IMP-002-mentions-apg-keyboard","dm":"improvement","t":"Mentions APG editable-combobox keyboard (FIND-012)","m":"improvement","c":"improvement","p":"p0","s":"done","cr":"2026-08-09T04:00:00+0000","ca":"2026-08-09T04:00:00+0000","st":[],"d":["TASK-IMP-001"],"b":["TASK-IMP-006"],"rl":[],"sm":"Close FIND-012: the Mentions suggestion listbox is keyboard-inoperable at tip (onMouseDown only).","sp":1},{"i":"TASK-IMP-003","k":"TASK-IMP-003-sortable-move-buttons","dm":"improvement","t":"Sortable move buttons + keyboard reorder (FIND-013)","m":"improvement","c":"improvement","p":"p0","s":"done","cr":"2026-08-09T04:00:00+0000","ca":"2026-08-09T04:00:00+0000","st":[],"d":["TASK-IMP-001"],"b":["TASK-IMP-006"],"rl":[],"sm":"Close FIND-013: Sortable reordering is drag-only (WCAG 2.5.7 / 2.1.1).","sp":1},{"i":"TASK-IMP-004","k":"TASK-IMP-004-login-seed-credential","dm":"improvement","t":"Clear Status Hub login seed credential (FIND-011)","m":"improvement","c":"improvement","p":"p1","s":"done","cr":"2026-08-09T04:00:00+0000","ca":"2026-08-09T04:00:00+0000","st":[],"d":["TASK-IMP-001"],"b":[],"rl":[],"sm":"Close FIND-011: Status Hub login ships a seed password and Remember-me default.","sp":1},{"i":"TASK-IMP-005","k":"TASK-IMP-005-npm-publish-fail-closed","dm":"improvement","t":"npm-publish fail on 403/EOTP + registry presence (FIND-020)","m":"improvement","c":"improvement","p":"p0","s":"done","cr":"2026-08-09T04:00:00+0000","ca":"2026-08-09T04:00:00+0000","st":[],"d":["TASK-IMP-001"],"b":[],"rl":[],"sm":"Close FIND-020: real publish denials currently soft-skip (process.exit(0)).","sp":1},{"i":"TASK-IMP-006","k":"TASK-IMP-006-gate-extension","dm":"improvement","t":"Extend docs-consistency + keyboard fixtures + asset budget (FIND-018)","m":"improvement","c":"improvement","p":"p0","s":"done","cr":"2026-08-09T04:00:00+0000","ca":"2026-08-09T04:00:00+0000","st":[],"d":["TASK-IMP-002","TASK-IMP-003"],"b":["TASK-IMP-007"],"rl":[],"sm":"Close FIND-018 — highest-leverage Phase-2 gate extension.","sp":1},{"i":"TASK-IMP-007","k":"TASK-IMP-007-zindex-doc-parity","dm":"improvement","t":"Fix z-index fallbacks + doc one-liners (FIND-008/003/005/009)","m":"improvement","c":"improvement","p":"p1","s":"done","cr":"2026-08-09T04:00:00+0000","ca":"2026-08-09T04:00:00+0000","st":[],"d":["TASK-IMP-006"],"b":[],"rl":[],"sm":"Land remaining doc/token parity fixes once TASK-IMP-006 gates exist (or fold into 006 if cheaper once gates land).","sp":1},{"i":"TASK-IMP-008","k":"TASK-IMP-008-ci-mcp-hygiene","dm":"improvement","t":"Re-gate token auto-commit + resolve .mcp.json (FIND-021/024)","m":"improvement","c":"improvement","p":"p1","s":"done","cr":"2026-08-09T04:00:00+0000","ca":"2026-08-09T04:00:00+0000","st":[],"d":["TASK-IMP-001"],"b":[],"rl":[],"sm":"Close FIND-021 and FIND-024.","sp":1},{"i":"TASK-IMP-009","k":"TASK-IMP-009-rsc-use-client","dm":"improvement","t":"RSC \"use client\" / client barrel (FIND-006)","m":"improvement","c":"improvement","p":"p0","s":"done","cr":"2026-08-09T05:00:00+0000","ca":"2026-08-09T05:00:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Close FIND-006: default bundler entry ships raw JSX with zero \"use client\" boundaries, so Next.js App Router Server Components cannot import interactive components.","sp":1},{"i":"TASK-IMP-010","k":"TASK-IMP-010-rating-tree-toolbar-apg","dm":"improvement","t":"Rating/Tree/Toolbar APG keyboard + a11y fixtures (FIND-014)","m":"improvement","c":"improvement","p":"p0","s":"done","cr":"2026-08-09T05:00:00+0000","ca":"2026-08-09T05:00:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Close FIND-014: Rating, Tree, and Toolbar declare ARIA interaction roles without the APG keyboard model.","sp":1},{"i":"TASK-IMP-011","k":"TASK-IMP-011-auth-pattern-states","dm":"improvement","t":"Auth pattern error/loading/invalid variants (FLOW-013 / NV-9.2)","m":"improvement","c":"improvement","p":"p1","s":"done","cr":"2026-08-09T05:00:00+0000","ca":"2026-08-09T05:00:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Close FLOW-013 / NV-9.2: the copyable auth pattern is happy-path-only.","sp":1},{"i":"TASK-IMP-012","k":"TASK-IMP-012-styles-min-default","dm":"improvement","t":"Recommend dist/styles.min.css as static default (FIND-017)","m":"improvement","c":"improvement","p":"p2","s":"done","cr":"2026-08-09T05:00:00+0000","ca":"2026-08-09T05:00:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Close FIND-017: documented static default is the 25-file @import waterfall (styles.css) while flattened dist/styles.min.css already exists.","sp":1},{"i":"TASK-IMP-013","k":"TASK-IMP-013-breakpoint-converge","dm":"improvement","t":"Converge responsive CSS breakpoints on token scale (FIND-007)","m":"improvement","c":"improvement","p":"p1","s":"done","cr":"2026-08-09T05:30:00+0000","ca":"2026-08-09T05:30:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Close FIND-007.","sp":1},{"i":"TASK-IMP-014","k":"TASK-IMP-014-base-hex-tokenize","dm":"improvement","t":"Replace theme-following raw hex in base CSS with tokens (FIND-010)","m":"improvement","c":"improvement","p":"p2","s":"done","cr":"2026-08-09T05:30:00+0000","ca":"2026-08-09T05:30:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Close FIND-010 rule-by-rule.","sp":1},{"i":"TASK-IMP-015","k":"TASK-IMP-015-format-currency","dm":"improvement","t":"Language-independent formatCurrency (FIND-025)","m":"improvement","c":"improvement","p":"p2","s":"done","cr":"2026-08-09T05:30:00+0000","ca":"2026-08-09T05:30:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Close FIND-025.","sp":1},{"i":"TASK-IMP-016","k":"TASK-IMP-016-csp-headers-portable","dm":"improvement","t":"Tighten CSP + port security headers to every host (FIND-015/019)","m":"improvement","c":"improvement","p":"p1","s":"done","cr":"2026-08-09T05:30:00+0000","ca":"2026-08-09T05:30:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Close FIND-015 and FIND-019.","sp":1},{"i":"TASK-IMP-017","k":"TASK-IMP-017-nv-rendered-inrepo","dm":"improvement","t":"In-repo NV rendered checks for areas 9/12/14/26","m":"improvement","c":"improvement","p":"p2","s":"done","cr":"2026-08-09T05:30:00+0000","ca":"2026-08-09T05:30:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Do what is feasible without visiting the live site for NV items in areas 9 / 12 / 14 / 26; document remainder as blocked.","sp":1},{"i":"TASK-IMP-018","k":"TASK-IMP-018-sbom-scorecard","dm":"improvement","t":"CycloneDX SBOM per release + OpenSSF Scorecard (FIND-023)","m":"improvement","c":"improvement","p":"p2","s":"done","cr":"2026-08-09T05:30:00+0000","ca":"2026-08-09T05:30:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Close FIND-023.","sp":1},{"i":"TASK-IMP-019","k":"TASK-IMP-019-hr-suite-provenance","dm":"improvement","t":"HR-suite validation provenance or soften claim (FIND-022)","m":"improvement","c":"improvement","p":"p1","s":"done","cr":"2026-08-09T05:30:00+0000","ca":"2026-08-09T05:30:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Close FIND-022.","sp":1},{"i":"TASK-IMP-020","k":"TASK-IMP-020-governance-runbook-alerting","dm":"improvement","t":"Product↔CyberOS boundary, release runbook, schedule alerting","m":"improvement","c":"improvement","p":"p2","s":"done","cr":"2026-08-09T05:30:00+0000","ca":"2026-08-09T05:30:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Close Phase 5 polish items from areas 21/23/27/28.","sp":1},{"i":"TASK-IMP-021","k":"TASK-IMP-021-aurora-webp","dm":"improvement","t":"Convert elemental aurora washes PNG→WebP (FIND-016)","m":"improvement","c":"improvement","p":"p2","s":"done","cr":"2026-08-09T05:45:00+0000","ca":"2026-08-09T05:45:00+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Close FIND-016 (deferred from Phase 4 asset-budget gate): serve elemental aurora washes as optimized WebP instead of ~1.5 MB PNGs.","sp":1},{"i":"TASK-IMP-022","k":"TASK-IMP-022-template-export-csp","dm":"improvement","t":"CSP-safe DC runtime + PDF/DOCX export + HR DOCX source audit","m":"improvement","c":"improvement","p":"p1","s":"done","cr":"2026-08-12T18:38:19+0000","ca":"2026-08-12T18:38:19+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Restore Design Component logic under the site CSP (no unsafe-eval), add in-iframe PDF + editable DOCX export for print documents, and audit zip-mapped HR instruments against original Word sources.","sp":1},{"i":"TASK-IMP-023","k":"TASK-IMP-023-print-blank-ios","dm":"improvement","t":"Fix blank iOS/Safari print preview for document templates","m":"improvement","c":"improvement","p":"p1","s":"ready_to_review","cr":"2026-08-12T21:10:21+0000","ca":"2026-08-12T21:10:21+0000","st":[],"d":["TASK-IMP-022"],"b":[],"rl":[],"sm":"After TASK-IMP-022 export landing, operator print preview (iOS Options → PDF) shows a blank white page (Page 1 of 1) while on-screen content is present. Chromium page.pdf CI still passes — this is a print-layout /…","sp":1},{"i":"TASK-IMP-024","k":"TASK-IMP-024-export-html-match","dm":"improvement","t":"HTML-faithful PDF/DOCX download + drop counsel banner","m":"improvement","c":"improvement","p":"p1","s":"ready_to_review","cr":"2026-08-13T02:10:00+0000","ca":"2026-08-13T02:10:00+0000","st":[],"d":["TASK-IMP-023"],"b":[],"rl":[],"sm":"Operator preview of the framework agreement still shows a counsel-review warning banner, and downloaded PDF/DOCX attachments do not match the on-screen HTML. Two separate export buttons are the wrong control: one…","sp":1},{"i":"TASK-REL-001","k":"TASK-REL-001-launch-1-1-0","dm":"release","t":"LAUNCH design system at VERSION 1.1.0","m":"release","c":"feature","p":"p0","s":"done","cr":"2026-07-27T09:26:43+0000","ca":"2026-07-27T09:26:43+0000","st":[],"d":[],"b":[],"rl":[],"sm":"Owner said LAUNCH and set the release to 1.1.0. The pre-LAUNCH pin at 1.0.0 is lifted for this cut only; further bumps still need an explicit owner instruction. No CHANGELOG.md — continuity stays tip SHA + curated…","sp":1},{"i":"TASK-REL-002","k":"TASK-REL-002-republish-1-1-1","dm":"release","t":"Republish @cyberskill/design at VERSION 1.1.1","m":"release","c":"feature","p":"p0","s":"done","cr":"2026-07-27T10:21:00+0000","ca":"2026-07-27T10:21:00+0000","st":[],"d":["TASK-REL-001"],"b":[],"rl":[],"sm":"Owner approved a 1.1.1 patch republish so the public registry matches tip after post-LAUNCH lockstep fixes (bundle freshness, native provenance, no CHANGELOG.md). LAUNCH narrative at 1.1.0 stays historical; current…","sp":1}],"releases":[{"v":"1.6.1","vl":"v1.6.1","d":"","intro":["Curated product highlights live in \u003ccode>docs/release-notes.md\u003c/code> (no root \u003ccode>CHANGELOG.md\u003c/code> by doctrine)."],"sec":[],"cited":[],"dated":[]}],"bound":[],"draft_staleness":{"total":0,"by_reason":[]},"stuck_wip":{"asof":null,"threshold_days":30,"stale":[],"unparseable":[],"asof_missing":true}}</script>
+<script defer src="assets/status-legacy.js"></script>
+</body>
+</html>
