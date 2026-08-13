@@ -1,6 +1,6 @@
 # Ghi chú phát hành
 
-Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. VERSION **1.6.0** (auto-bump khi push lên `main` từ Conventional Commits; owner vẫn có thể force bump). Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**). Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
+Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. VERSION **1.6.1** (auto-bump khi push lên `main` từ Conventional Commits; owner vẫn có thể force bump). Chân lý kỹ thuật là tip repo; chân lý hướng sản phẩm là trang này (đồng bộ Storybook **Release Notes**). Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 ## Release — `@cyberskill/design@1.3.10`
 

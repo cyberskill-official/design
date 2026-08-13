@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.6.0 · source sha256 8d4df3d6de072079…
+// release v1.6.1 · source sha256 3c91e5d92ae82b14…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
