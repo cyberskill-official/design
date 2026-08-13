@@ -38,7 +38,7 @@ Style’s sole pack today is **liquid-glass**. Immutable under all axes: Umber/O
 
 **New element variant** — stay inside the element's oklch envelope; set the 10 `--cs-accent-*` contract tokens (incl. `--cs-accent-on-strong` ≥4.5:1 on `-strong`) plus `--cs-color-text-accent`/`--cs-color-link` (APCA-check both); the aurora wash inherits from the element via `.cs-aurora-wash` (override the class rule only if the variant truly needs its own image); gradient partner (`grad-b`) must follow Tương sinh.
 
-**Ship check** — run the compiler check until clean, then run `_audit/docs-consistency.html` **and** `_audit/namespace-portability.html` (both must be green). VERSION **1.7.1** (auto-bumps on `main`).
+**Ship check** — run the compiler check until clean, then run `_audit/docs-consistency.html` **and** `_audit/namespace-portability.html` (both must be green). VERSION **1.7.2** (auto-bumps on `main`).
 
 ## Decision log (owner-approved)
 
