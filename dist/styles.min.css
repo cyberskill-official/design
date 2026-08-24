@@ -235,6 +235,9 @@ color-scheme: dark;
 --cs-container-max: 1320px;
 
 --cs-prose-measure: 45rem;
+
+--cs-scroll-padding-block-start: var(--cs-space-4);
+--cs-scroll-padding-block-end: var(--cs-space-4);
 }
 
 :root {
@@ -924,7 +927,11 @@ color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html {
+-webkit-text-size-adjust: 100%;
+scroll-padding-block-start: var(--cs-scroll-padding-block-start, var(--cs-space-4, 16px));
+scroll-padding-block-end: var(--cs-scroll-padding-block-end, var(--cs-space-4, 16px));
+}
 body {
 margin: 0;
 background: var(--cs-color-surface-page, #fffdf8);
@@ -943,6 +950,34 @@ text-rendering: optimizeLegibility;
 outline: 2px solid var(--cs-color-text-primary, #45210e);
 outline-offset: 2px;
 box-shadow: 0 0 0 5px var(--cs-color-accent-ochre, #f4ba17);
+}
+
+.cs-skip {
+position: absolute;
+left: -999px;
+top: auto;
+width: 1px;
+height: 1px;
+overflow: hidden;
+text-decoration: none;
+font-weight: 700;
+font-family: var(--cs-font-family-ui);
+}
+.cs-skip:focus,
+.cs-skip:focus-visible {
+position: fixed;
+left: 12px;
+top: 12px;
+z-index: calc(var(--cs-depth-toast, 200) + 1);
+width: auto;
+height: auto;
+padding: 10px 14px;
+background: var(--cs-color-surface-panel);
+color: var(--cs-color-text-primary);
+border: 2px solid var(--cs-color-brand-ochre);
+border-radius: var(--cs-radius-md, 8px);
+overflow: visible;
+box-shadow: var(--cs-shadow-md);
 }
 
 .cs-display { font-family: var(--cs-heading-family); font-size: var(--cs-text-display); line-height: var(--cs-font-lineHeight-tight); font-weight: var(--cs-heading-weight-strong); letter-spacing: var(--cs-heading-tracking); text-wrap: balance; }
@@ -2157,9 +2192,18 @@ scroll-behavior: auto !important;
 img, svg, video, canvas { max-width: 100%; height: auto; }
 
 .cs-cq { container-type: inline-size; container-name: cs; }
+@container cs (max-width: 768px) {
+.cs-cq-cols-2,
+.cs-cq-cols-3,
+.cs-cq-cols-4 { grid-template-columns: 1fr !important; }
+.cs-cq-hide-narrow { display: none !important; }
+}
 @container cs (max-width: 640px) {
 .cs-cq-stack { display: flex !important; flex-direction: column !important; }
 .cs-cq-stack > * { min-inline-size: 0; max-inline-size: 100%; }
+.cs-cq-cols-2,
+.cs-cq-cols-3,
+.cs-cq-cols-4 { grid-template-columns: 1fr !important; }
 }
 
 @media screen and (max-width: 768px) {

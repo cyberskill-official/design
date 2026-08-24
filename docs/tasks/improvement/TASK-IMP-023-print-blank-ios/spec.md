@@ -4,7 +4,11 @@ title: Fix blank iOS/Safari print preview for document templates
 template: task@1
 type: improvement
 module: improvement
-status: ready_to_review
+status: done
+# Human acceptance (operator 2026-08-24): approved TASK-IMP-023 and TASK-IMP-024 (HITL accept).
+acceptance_verdict: approved
+accepted_at: 2026-08-24T03:00:00+0000
+accepted_by: "@stephencheng"
 priority: p1
 author: "@cursor-agent"
 department: engineering
@@ -37,7 +41,7 @@ After TASK-IMP-022 export landing, operator print preview (iOS Options → PDF) 
 - [x] AC for 1.1 — print CSS unlocks height/overflow on root chain — vendor support.js + sync (85 copies)
 - [x] AC for 1.2 — PDF button uses top-level print when framed — `printPdf()` in doc-export.js
 - [x] AC for 1.3 — `test-doc-export` asserts print height auto; 62/62 green — CI
-- [ ] AC for 1.4 — human review + final acceptance — HITL only
+- [x] AC for 1.4 — human review + final acceptance — HITL only (operator 2026-08-24)
 
 ## 3. Edge cases
 
@@ -56,3 +60,7 @@ After TASK-IMP-022 export landing, operator print preview (iOS Options → PDF) 
 - Fix: print baseline unlocks the root chain; export chrome duplicates the rule; PDF click prefers `window.open(location.href)` + print when framed.
 
 *End of TASK-IMP-023.*
+
+## Human acceptance (2026-08-24)
+
+Operator instruction: **approved TASK-IMP-023 and TASK-IMP-024** (HITL accept). Status set to `done`.

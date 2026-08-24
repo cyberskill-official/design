@@ -106,6 +106,42 @@ Consumer bỏ qua `styles.css` để tự kiểm soát font loading (`cyberskill
 
 - **Chạy lại smoke test sau nâng cấp.** Mở `_audit/consumer-smoke-test.html` và bảng Health đầy đủ (`_audit/run.html`) trên tip mới — runner chứng minh đường packaged vẫn resolve.
 
+### ADOPT-001 — bump consumer đã biết lên 1.7.x
+
+Sản phẩm portfolio / sibling còn pin `@cyberskill/design` cũ (hoặc subtree vendored) nên bump lên **≥ 1.7.2** ở cửa sổ tích hợp tiếp theo. Làm **trong từng repo consumer** — cây design-system này không sửa checkout sibling.
+
+**Pin quan sát (sibling CyberSkill local, 2026-08-24):**
+
+| Repo consumer | Path manifest | Pin hiện tại | Đề xuất |
+|---|---|---|---|
+| **SachViet** | `sachviet/app/web/package.json` | `^1.0.0` (lock: **1.0.0**) | `npm install @cyberskill/design@1.7.2` |
+| **Strategem** | `strategem/apps/web/package.json` | `1.0.0` (exact) | `"@cyberskill/design": "1.7.2"` rồi install |
+| **Finance** | `finance/package.json` | `github:cyberskill-official/design-system` (không pin SHA) | Ưu tiên registry `@cyberskill/design@1.7.2` |
+| **Landing** | `landing/package.json` | `github:…/design-system#3edeb135…` | Refresh registry `1.7.2` hoặc tip SHA cây design đã publish |
+
+| Consumer (điển hình) | Ghi chú bump |
+|---|---|
+| **Finance** | Ưu tiên `dist/styles.min.css`; smoke print/export nếu dùng DC template |
+| **SachViet** | Sau bump: Theme × Element + skip-link / scroll-padding từ 1.7.2 |
+| **Landing** | Kit website: dùng `.cs-skip` + `--cs-scroll-padding-block-start` |
+| **Strategem** | Kit status hub: scroll-padding sticky bar |
+
+Checklist: cài `@cyberskill/design@1.7.2` (hoặc `VERSION` hiện tại) → smoke Tab skip → `#main` → ghi pin trong lockfile consumer.
+
+**One-liner sẵn PR (chỉ sửa trong repo consumer):**
+
+```diff
+// sachviet/app/web/package.json
+- "@cyberskill/design": "^1.0.0"
++ "@cyberskill/design": "1.7.2"
+
+// strategem/apps/web/package.json
+- "@cyberskill/design": "1.0.0"
++ "@cyberskill/design": "1.7.2"
+```
+
+Landing / Finance: ưu tiên chuyển từ pin `github:cyberskill-official/design-system#…` sang registry khi grant / Trusted Publishing phủ sản phẩm đó — không force-push remote sibling từ cây này.
+
 ## Host Storybook (tùy chọn)
 
 Site live phục vụ Storybook tại `/` như **bề mặt sản phẩm** cho operator (Theme × Element × Language × Style + ma trận điều khiển). Đó là **tooling chỉ-host** — đừng phụ thuộc Storybook trong product app. Atomic View portable vẫn ở `guidelines/atomic-view.html`. Xem `docs/storybook.md` và `docs/live-hub.md`.

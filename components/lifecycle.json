@@ -1,0 +1,502 @@
+{
+  "$schema": "https://cyberskill.world/schemas/component-lifecycle-v1.json",
+  "version": 1,
+  "statuses": [
+    "stable",
+    "preview",
+    "deprecated"
+  ],
+  "description": "Non-breaking lifecycle metadata for public component exports (CDS-COV-001 / TASK-IMP-028). Does not change React props.",
+  "updated": "2026-08-24",
+  "components": {
+    "AIDisclosureBadge": {
+      "status": "stable",
+      "sourcePath": "components/ai/AIDisclosureBadge.jsx"
+    },
+    "Accordion": {
+      "status": "stable",
+      "sourcePath": "components/data/Accordion.jsx"
+    },
+    "Alert": {
+      "status": "stable",
+      "sourcePath": "components/feedback/Alert.jsx"
+    },
+    "AlertDialog": {
+      "status": "stable",
+      "sourcePath": "components/overlays/AlertDialog.jsx"
+    },
+    "Anchor": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Anchor.jsx"
+    },
+    "AspectRatio": {
+      "status": "stable",
+      "sourcePath": "components/data/AspectRatio.jsx"
+    },
+    "Avatar": {
+      "status": "stable",
+      "sourcePath": "components/data/Avatar.jsx"
+    },
+    "AvatarGroup": {
+      "status": "stable",
+      "sourcePath": "components/data/Avatar.jsx"
+    },
+    "BackTop": {
+      "status": "stable",
+      "sourcePath": "components/navigation/BackTop.jsx"
+    },
+    "Badge": {
+      "status": "stable",
+      "sourcePath": "components/feedback/Badge.jsx"
+    },
+    "Breadcrumb": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Breadcrumb.jsx"
+    },
+    "Button": {
+      "status": "stable",
+      "sourcePath": "components/button/Button.jsx"
+    },
+    "ButtonGroup": {
+      "status": "stable",
+      "sourcePath": "components/button/ButtonGroup.jsx"
+    },
+    "CS_ICONS": {
+      "status": "stable",
+      "sourcePath": "components/icon/Icon.jsx"
+    },
+    "CS_LOGO_MARK_INNER": {
+      "status": "stable",
+      "sourcePath": "components/logo/logo-data.js"
+    },
+    "CS_LOGO_VIEWBOX": {
+      "status": "stable",
+      "sourcePath": "components/logo/logo-data.js"
+    },
+    "Calendar": {
+      "status": "stable",
+      "sourcePath": "components/forms/Calendar.jsx"
+    },
+    "Card": {
+      "status": "stable",
+      "sourcePath": "components/data/Card.jsx"
+    },
+    "CardBody": {
+      "status": "stable",
+      "sourcePath": "components/data/Card.jsx"
+    },
+    "CardFooter": {
+      "status": "stable",
+      "sourcePath": "components/data/Card.jsx"
+    },
+    "CardHeader": {
+      "status": "stable",
+      "sourcePath": "components/data/Card.jsx"
+    },
+    "Carousel": {
+      "status": "stable",
+      "sourcePath": "components/data/Carousel.jsx"
+    },
+    "Cascader": {
+      "status": "stable",
+      "sourcePath": "components/forms/Cascader.jsx"
+    },
+    "Chart": {
+      "status": "stable",
+      "sourcePath": "components/data/Chart.jsx"
+    },
+    "ChatMessage": {
+      "status": "stable",
+      "sourcePath": "components/ai/ChatMessage.jsx"
+    },
+    "Checkbox": {
+      "status": "stable",
+      "sourcePath": "components/forms/Checkbox.jsx"
+    },
+    "CitationList": {
+      "status": "stable",
+      "sourcePath": "components/ai/CitationList.jsx"
+    },
+    "CodeBlock": {
+      "status": "stable",
+      "sourcePath": "components/data/CodeBlock.jsx"
+    },
+    "Collapsible": {
+      "status": "stable",
+      "sourcePath": "components/data/Collapsible.jsx"
+    },
+    "ColorPicker": {
+      "status": "stable",
+      "sourcePath": "components/forms/ColorPicker.jsx"
+    },
+    "Combobox": {
+      "status": "stable",
+      "sourcePath": "components/forms/Combobox.jsx"
+    },
+    "CommandPalette": {
+      "status": "stable",
+      "sourcePath": "components/navigation/CommandPalette.jsx"
+    },
+    "Comment": {
+      "status": "stable",
+      "sourcePath": "components/data/Comment.jsx"
+    },
+    "ConfidenceMeter": {
+      "status": "stable",
+      "sourcePath": "components/ai/ConfidenceMeter.jsx"
+    },
+    "ContextMenu": {
+      "status": "stable",
+      "sourcePath": "components/overlays/ContextMenu.jsx"
+    },
+    "DataGrid": {
+      "status": "stable",
+      "sourcePath": "components/datatable/DataGrid.jsx"
+    },
+    "DataTable": {
+      "status": "stable",
+      "sourcePath": "components/datatable/DataTable.jsx"
+    },
+    "DatePicker": {
+      "status": "stable",
+      "sourcePath": "components/forms/DatePicker.jsx"
+    },
+    "DescriptionList": {
+      "status": "stable",
+      "sourcePath": "components/data/DescriptionList.jsx"
+    },
+    "Dialog": {
+      "status": "stable",
+      "sourcePath": "components/dialog/Dialog.jsx"
+    },
+    "Divider": {
+      "status": "stable",
+      "sourcePath": "components/data/Divider.jsx"
+    },
+    "Dock": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Dock.jsx"
+    },
+    "Drawer": {
+      "status": "stable",
+      "sourcePath": "components/overlays/Drawer.jsx"
+    },
+    "Editor": {
+      "status": "preview",
+      "sourcePath": "components/forms/Editor.jsx",
+      "note": "HTML model is schema-allowlisted; contentEditable remains until a full schema editor lands (TASK-IMP-029)."
+    },
+    "EmptyState": {
+      "status": "stable",
+      "sourcePath": "components/feedback/EmptyState.jsx"
+    },
+    "FileUpload": {
+      "status": "stable",
+      "sourcePath": "components/forms/FileUpload.jsx"
+    },
+    "FloatingActionButton": {
+      "status": "stable",
+      "sourcePath": "components/button/FloatingActionButton.jsx"
+    },
+    "Form": {
+      "status": "stable",
+      "sourcePath": "components/forms/Form.jsx"
+    },
+    "FormField": {
+      "status": "stable",
+      "sourcePath": "components/forms/Form.jsx"
+    },
+    "FormFieldArray": {
+      "status": "stable",
+      "sourcePath": "components/forms/Form.jsx"
+    },
+    "FormWizard": {
+      "status": "stable",
+      "sourcePath": "components/forms/Form.jsx"
+    },
+    "HotKeys": {
+      "status": "stable",
+      "sourcePath": "components/navigation/HotKeys.jsx"
+    },
+    "HoverCard": {
+      "status": "stable",
+      "sourcePath": "components/overlays/HoverCard.jsx"
+    },
+    "HumanReviewGate": {
+      "status": "stable",
+      "sourcePath": "components/ai/HumanReviewGate.jsx"
+    },
+    "Icon": {
+      "status": "stable",
+      "sourcePath": "components/icon/Icon.jsx"
+    },
+    "Image": {
+      "status": "stable",
+      "sourcePath": "components/data/Image.jsx"
+    },
+    "InlineEdit": {
+      "status": "stable",
+      "sourcePath": "components/forms/InlineEdit.jsx"
+    },
+    "InputGroup": {
+      "status": "stable",
+      "sourcePath": "components/forms/InputGroup.jsx"
+    },
+    "InputOTP": {
+      "status": "stable",
+      "sourcePath": "components/forms/InputOTP.jsx"
+    },
+    "Item": {
+      "status": "stable",
+      "sourcePath": "components/data/Item.jsx"
+    },
+    "Kbd": {
+      "status": "stable",
+      "sourcePath": "components/data/Kbd.jsx"
+    },
+    "Link": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Link.jsx"
+    },
+    "List": {
+      "status": "stable",
+      "sourcePath": "components/data/List.jsx"
+    },
+    "ListItem": {
+      "status": "stable",
+      "sourcePath": "components/data/List.jsx"
+    },
+    "Logo": {
+      "status": "stable",
+      "sourcePath": "components/logo/Logo.jsx"
+    },
+    "LumiAvatar": {
+      "status": "stable",
+      "sourcePath": "components/brand/LumiAvatar.jsx"
+    },
+    "Masonry": {
+      "status": "stable",
+      "sourcePath": "components/data/Masonry.jsx"
+    },
+    "Mentions": {
+      "status": "stable",
+      "sourcePath": "components/forms/Mentions.jsx"
+    },
+    "Menu": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Menu.jsx"
+    },
+    "MenuItem": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Menu.jsx"
+    },
+    "Menubar": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Menubar.jsx"
+    },
+    "NativeSelect": {
+      "status": "stable",
+      "sourcePath": "components/forms/NativeSelect.jsx"
+    },
+    "NavItem": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Sidebar.jsx"
+    },
+    "NavigationMenu": {
+      "status": "stable",
+      "sourcePath": "components/navigation/NavigationMenu.jsx"
+    },
+    "NumberField": {
+      "status": "stable",
+      "sourcePath": "components/forms/NumberField.jsx"
+    },
+    "OverlayProvider": {
+      "status": "stable",
+      "sourcePath": "components/overlays/OverlayManager.jsx"
+    },
+    "Pagination": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Pagination.jsx"
+    },
+    "Popconfirm": {
+      "status": "stable",
+      "sourcePath": "components/overlays/Popconfirm.jsx"
+    },
+    "Popover": {
+      "status": "stable",
+      "sourcePath": "components/overlays/Popover.jsx"
+    },
+    "ProgressBar": {
+      "status": "stable",
+      "sourcePath": "components/feedback/ProgressBar.jsx"
+    },
+    "PromptInput": {
+      "status": "stable",
+      "sourcePath": "components/ai/PromptInput.jsx"
+    },
+    "PromptSuggestions": {
+      "status": "stable",
+      "sourcePath": "components/ai/PromptSuggestions.jsx"
+    },
+    "QRCode": {
+      "status": "stable",
+      "sourcePath": "components/data/QRCode.jsx"
+    },
+    "Radio": {
+      "status": "stable",
+      "sourcePath": "components/forms/RadioGroup.jsx"
+    },
+    "RadioGroup": {
+      "status": "stable",
+      "sourcePath": "components/forms/RadioGroup.jsx"
+    },
+    "Rating": {
+      "status": "stable",
+      "sourcePath": "components/forms/Rating.jsx"
+    },
+    "Result": {
+      "status": "stable",
+      "sourcePath": "components/feedback/Result.jsx"
+    },
+    "ScrollArea": {
+      "status": "stable",
+      "sourcePath": "components/data/ScrollArea.jsx"
+    },
+    "SearchField": {
+      "status": "stable",
+      "sourcePath": "components/forms/SearchField.jsx"
+    },
+    "SegmentedControl": {
+      "status": "stable",
+      "sourcePath": "components/forms/SegmentedControl.jsx"
+    },
+    "Select": {
+      "status": "stable",
+      "sourcePath": "components/forms/Select.jsx"
+    },
+    "Sidebar": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Sidebar.jsx"
+    },
+    "Skeleton": {
+      "status": "stable",
+      "sourcePath": "components/feedback/Skeleton.jsx"
+    },
+    "Slider": {
+      "status": "stable",
+      "sourcePath": "components/forms/Slider.jsx"
+    },
+    "Sortable": {
+      "status": "stable",
+      "sourcePath": "components/data/Sortable.jsx"
+    },
+    "Spinner": {
+      "status": "stable",
+      "sourcePath": "components/feedback/Spinner.jsx"
+    },
+    "Splitter": {
+      "status": "stable",
+      "sourcePath": "components/data/Splitter.jsx"
+    },
+    "Stat": {
+      "status": "stable",
+      "sourcePath": "components/data/Stat.jsx"
+    },
+    "StatusIndicator": {
+      "status": "stable",
+      "sourcePath": "components/feedback/StatusIndicator.jsx"
+    },
+    "Steps": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Steps.jsx"
+    },
+    "Switch": {
+      "status": "stable",
+      "sourcePath": "components/forms/Switch.jsx"
+    },
+    "Tab": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Tabs.jsx"
+    },
+    "Tabs": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Tabs.jsx"
+    },
+    "Tag": {
+      "status": "stable",
+      "sourcePath": "components/feedback/Tag.jsx"
+    },
+    "TagInput": {
+      "status": "stable",
+      "sourcePath": "components/forms/TagInput.jsx"
+    },
+    "Terminal": {
+      "status": "stable",
+      "sourcePath": "components/data/Terminal.jsx"
+    },
+    "TextField": {
+      "status": "stable",
+      "sourcePath": "components/textfield/TextField.jsx"
+    },
+    "Textarea": {
+      "status": "stable",
+      "sourcePath": "components/forms/Textarea.jsx"
+    },
+    "TimePicker": {
+      "status": "stable",
+      "sourcePath": "components/forms/TimePicker.jsx"
+    },
+    "Timeline": {
+      "status": "stable",
+      "sourcePath": "components/data/Timeline.jsx"
+    },
+    "Toast": {
+      "status": "stable",
+      "sourcePath": "components/feedback/Toast.jsx"
+    },
+    "ToastStack": {
+      "status": "stable",
+      "sourcePath": "components/feedback/Toast.jsx"
+    },
+    "Toggle": {
+      "status": "stable",
+      "sourcePath": "components/forms/Toggle.jsx"
+    },
+    "Toolbar": {
+      "status": "stable",
+      "sourcePath": "components/navigation/Toolbar.jsx"
+    },
+    "Tooltip": {
+      "status": "stable",
+      "sourcePath": "components/data/Tooltip.jsx"
+    },
+    "Tour": {
+      "status": "stable",
+      "sourcePath": "components/overlays/Tour.jsx"
+    },
+    "Transfer": {
+      "status": "stable",
+      "sourcePath": "components/forms/Transfer.jsx"
+    },
+    "Tree": {
+      "status": "stable",
+      "sourcePath": "components/data/Tree.jsx"
+    },
+    "TreeSelect": {
+      "status": "stable",
+      "sourcePath": "components/forms/TreeSelect.jsx"
+    },
+    "TreeTable": {
+      "status": "stable",
+      "sourcePath": "components/datatable/TreeTable.jsx"
+    },
+    "TypingIndicator": {
+      "status": "stable",
+      "sourcePath": "components/ai/TypingIndicator.jsx"
+    },
+    "Watermark": {
+      "status": "stable",
+      "sourcePath": "components/data/Watermark.jsx"
+    }
+  }
+}
