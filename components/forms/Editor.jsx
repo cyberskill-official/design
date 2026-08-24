@@ -3,8 +3,6 @@ import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 import { EDITOR_SCHEMA, sanitizeHtml } from "./editor-schema.js";
 
-export { EDITOR_SCHEMA, sanitizeHtml };
-
 /** CyberSkill Editor — light rich-text (contentEditable): bold · italic · bullet list. onChange(html).
  *  Trust boundary (CDS-SEC-001 / SEC-001): `defaultValue` is schema-sanitized. Pass `unsafeHtml` only for
  *  already-trusted markup that must bypass sanitization (operator/CMS HTML). Emitted HTML is also sanitized. */

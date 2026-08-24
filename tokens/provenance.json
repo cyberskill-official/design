@@ -16,7 +16,7 @@
     "darkPackSuffix": "<Scope>Dark (APCA-derived)"
   },
   "counts": {
-    "baseTokens": 162,
+    "baseTokens": 164,
     "byType": {
       "color": 38,
       "dimension": 80,

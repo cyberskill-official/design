@@ -46,7 +46,7 @@
       const sheet = document.querySelector('.cs-sheet');
       const desk = document.querySelector('.cs-desk');
       const host = sheet || desk || document.body;
-      if (!host || host === document.body && !sheet && !desk) return false;
+      if (!host) return false;
       if (!host.id) host.id = 'main';
       if (host.tagName !== 'MAIN' && !host.getAttribute('role')) host.setAttribute('role', 'main');
       return true;

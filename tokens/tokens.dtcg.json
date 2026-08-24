@@ -1047,6 +1047,26 @@
       "$value": "45rem",
       "$type": "dimension",
       "$description": "Readable prose measure for long-form kit/tool copy (UX-024). Web CSS may prefer ch; rem keeps native mirrors convertible."
+    },
+    "--cs-scroll-padding-block-start": {
+      "$value": "16px",
+      "$type": "dimension",
+      "$description": "Focus-not-obscured scroll offset (WCAG 2.2 AA) — sticky nav / bottom bars.",
+      "$extensions": {
+        "com.cyberskill": {
+          "css": "var(--cs-space-4)"
+        }
+      }
+    },
+    "--cs-scroll-padding-block-end": {
+      "$value": "16px",
+      "$type": "dimension",
+      "$description": "Focus-not-obscured scroll offset (WCAG 2.2 AA) — sticky nav / bottom bars.",
+      "$extensions": {
+        "com.cyberskill": {
+          "css": "var(--cs-space-4)"
+        }
+      }
     }
   },
   "font": {
