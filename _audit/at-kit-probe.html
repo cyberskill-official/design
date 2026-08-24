@@ -65,6 +65,16 @@ function labeledInput(doc){
   }
   return doc.querySelectorAll('input:not([type=hidden])').length>0;
 }
+async function waitWebsiteReady(doc, maxTries=100, step=200){
+  for(let i=0;i<maxTries;i++){
+    const skip=doc.querySelector('.cs-skip[href="#main"]');
+    const main=doc.querySelector('#main');
+    const cta=doc.querySelector('.btn-gold, .cs-button--primary, button.btn-gold');
+    if(skip && main && cta) return { skip, main, cta };
+    await wait(step);
+  }
+  return null;
+}
 (async()=>{
   window.__gateProgress={done:0,total:5,current:'boot'};
   // AT-12 Auth
@@ -84,15 +94,16 @@ function labeledInput(doc){
       p.frame.remove();
     }
   }
-  // AT-13 Website home
+  // AT-13 Website home (Babel-in-browser JSX — poll until shell mounts)
   {
-    const p=await probeFrame('../ui_kits/website/index.html', REACT_SETTLE);
+    const p=await probeFrame('../ui_kits/website/index.html', SETTLE);
     if(p.err){ row('AT-13 Website','fail',p.err); }
     else{
       const doc=p.doc;
-      const skip=doc.querySelector('.cs-skip[href="#main"]');
-      const main=doc.querySelector('#main');
-      const cta=doc.querySelector('.btn-gold, .cs-button--primary, button.btn-gold');
+      const ready=await waitWebsiteReady(doc);
+      const skip=ready?.skip;
+      const main=ready?.main;
+      const cta=ready?.cta;
       const ctaNamed=cta && ((cta.textContent||'').trim().length>0 || (cta.getAttribute('aria-label')||'').length>0);
       let focusable=false;
       if(cta){ try{ cta.focus(); focusable=document.activeElement===cta || cta.tabIndex>=0; }catch(e){ focusable=cta.tabIndex>=0; } }
