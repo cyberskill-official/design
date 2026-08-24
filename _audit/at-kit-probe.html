@@ -33,7 +33,11 @@ function parseRgb(c){
 }
 function lum({r,g,b}){ const a=[r,g,b].map(v=>{ v/=255; return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4); }); return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2]; }
 function contrast(f,b){ const L1=lum(f),L2=lum(b); const hi=Math.max(L1,L2),lo=Math.min(L1,L2); return (hi+0.05)/(lo+0.05); }
-function row(name,ok,detail){ results.push({name,ok,detail}); const el=document.createElement('div'); el.className='r '+(ok?'ok':'bad'); el.innerHTML='<span>'+(ok?'✓ ':'✗ ')+name+'</span><span>'+detail+'</span>'; grid.appendChild(el); }
+function row(name,ok,detail){
+  results.push({name,ok,detail});
+  window.__gateProgress={done:results.length,total:5,current:name};
+  const el=document.createElement('div'); el.className='r '+(ok?'ok':'bad'); el.innerHTML='<span>'+(ok?'✓ ':'✗ ')+name+'</span><span>'+detail+'</span>'; grid.appendChild(el);
+}
 function probeFrame(src,settle){
   return new Promise(res=>{
     const f=document.createElement('iframe');
@@ -62,6 +66,7 @@ function labeledInput(doc){
   return doc.querySelectorAll('input:not([type=hidden])').length>0;
 }
 (async()=>{
+  window.__gateProgress={done:0,total:5,current:'boot'};
   // AT-12 Auth
   {
     const p=await probeFrame('../templates/auth/Auth.dc.html', SETTLE);
