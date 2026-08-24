@@ -1,27 +1,28 @@
 # Assistive-technology handoff — current state (updated 2026-08-24)
 
 **Owner:** Stephen Cheng (operator)  
-**Related:** [`ux-audit-2026-08-08/at-matrix-ux-audit-2026-08-08.md`](./ux-audit-2026-08-08/at-matrix-ux-audit-2026-08-08.md) · [`ux-audit-2026-08-23/roadmap.md`](./ux-audit-2026-08-23/roadmap.md)
+**Related:** [`at-automation-coverage.md`](./at-automation-coverage.md) · [`at-manual-checklist.md`](./at-manual-checklist.md) · [`ux-audit-2026-08-08/at-matrix-ux-audit-2026-08-08.md`](./ux-audit-2026-08-08/at-matrix-ux-audit-2026-08-08.md) · [`ux-audit-2026-08-23/roadmap.md`](./ux-audit-2026-08-23/roadmap.md)
 
-Agents **cannot** invent NVDA/VoiceOver pass results. This file separates what automation already proves from what still needs a human AT session.
+Agents **cannot** invent NVDA/VoiceOver pass results. Automated proxies now **map** to every AT-01…16 row — see [`at-automation-coverage.md`](./at-automation-coverage.md). This handoff lists **human-only** work only.
 
-## Automated-green (code / CI — not AT)
+## Automated proxies (CI — not AT pass)
 
-These prove keyboard models, contrast, overflow, and artifact head — they are **not** screen-reader confirmation.
+Run: `npm run test:audit-probe` (with static server on `:8790`).
 
-| Surface | Evidence | Status |
+| Proxy | Gate | Covers (matrix IDs) |
 |---|---|---|
-| Mentions / Sortable / Rating / Tree / Toolbar APG keyboard | `_audit/a11y-gate.html` fixtures | Automated green |
-| Auth `formState` error/invalid UI | Auth template + kit demos | Automated green |
-| Overlay focus trap / Escape (Dialog, Drawer) | a11y-gate + component tests | Automated green |
-| Light contrast whole-set | `light-contrast` probe ×85 | Automated green |
-| 320 reflow / VN overflow / zoom+text-spacing | audit-probe suite | Automated green |
-| Artifact head (`title` + `lang` + main landmark) | `_audit/artifact-head.html` + `ds-base` | Automated green (post UX-032) |
-| Skip links (`.cs-skip`) on product shells + kits | markup + `base/reset.css` | Code landed — AT still human |
+| Keyboard + focus + APG | `_audit/a11y-gate.html` | AT-01…11 (incl. nested Esc AT-03, CommandPalette AT-06) |
+| axe serious/critical + open overlays | `_audit/axe-smoke.html` | All primaries incl. CommandPalette AT-06 |
+| Product surfaces AT-12…16 | `_audit/at-kit-probe.html` | Auth, website, settings, marketing VN, disciplinary HT |
+| Artifact head | `_audit/artifact-head.html` | Partial AT-12 (title, lang, `#main`) |
+| VN EN-leak lexicon | `_audit/language-overflow.html` | Partial AT-15 |
+| Light contrast walk | `_audit/light-contrast.html` | Partial AT-16 |
+
+Coverage drift guard: `_audit/ci/test-at-coverage-map.mjs` (in `npm run test:unit`).
 
 ## Clearance minimum already accepted (2026-08-09)
 
-Operator VoiceOver run against the **clearance subset** only — see prior section history below. That acceptance does **not** close the broader AT matrix.
+Operator VoiceOver run against the **clearance subset** only — does **not** close the broader AT matrix.
 
 | Surface | Result (2026-08-09) |
 |---------|---------------------|
@@ -31,58 +32,29 @@ Operator VoiceOver run against the **clearance subset** only — see prior secti
 | Auth error/invalid | **PASS** (operator) |
 | Dialog focus | **PASS** (operator) |
 
-## Still needs human AT — remaining ☐ rows
+## Human-only — remaining ☐ rows
 
-Canonical matrix: [`at-matrix-ux-audit-2026-08-08.md`](./ux-audit-2026-08-08/at-matrix-ux-audit-2026-08-08.md). Every row below is still ☐ for both NVDA and VoiceOver unless you fill it.
+Use **[`at-manual-checklist.md`](./at-manual-checklist.md)** (copy-paste speech scripts). Mark results only in [`at-matrix-ux-audit-2026-08-08.md`](./ux-audit-2026-08-08/at-matrix-ux-audit-2026-08-08.md).
 
-### Priority 1 — overlays & menus
+| Priority | IDs | What automation cannot prove |
+|---|---|---|
+| Overlays & menus | AT-01…06 | Speech: names, descriptions, filter feedback, Esc announcement order |
+| Forms & widgets | AT-07…11 | Speech: options, sort, selection, tab names |
+| Product surfaces | AT-12…16 | Browse/landmarks, switch state, EN residual quality, HT pronunciation |
 
-| ID | Surface | Script (short) | NVDA | VO |
-|----|---------|----------------|------|-----|
-| AT-01 | Dialog | Open → name/description → Tab trap → Esc restores | ☐ | ☐ |
-| AT-02 | AlertDialog | Destructive confirm preferred → Esc cancels | ☐ | ☐ |
-| AT-03 | Nested Alert in Dialog | Esc closes alert first; second Esc closes dialog | ☐ | ☐ |
-| AT-04 | Drawer | Open → label → Esc restores | ☐ | ☐ |
-| AT-05 | Menu / Menubar | Arrow roving → submenu → Esc | ☐ | ☐ |
-| AT-06 | CommandPalette | Open → type filter → Esc closes | ☐ | ☐ |
-
-### Priority 2 — forms & complex widgets
-
-| ID | Surface | Script (short) | NVDA | VO |
-|----|---------|----------------|------|-----|
-| AT-07 | Combobox | Expand → activedescendant → select | ☐ | ☐ |
-| AT-08 | Cascader | Open → arrows → Esc restores field | ☐ | ☐ |
-| AT-09 | TreeSelect | Open tree → Esc closes | ☐ | ☐ |
-| AT-10 | DataGrid | Sort announces; selection named | ☐ | ☐ |
-| AT-11 | Tabs / Status Hub lenses | Arrows move selection; one tabbable tab | ☐ | ☐ |
-
-### Priority 3 — product surfaces
-
-| ID | Surface | Script (short) | NVDA | VO |
-|----|---------|----------------|------|-----|
-| AT-12 | Auth template | Landmarks/skip → labeled fields → reset announced | ☐ | ☐ |
-| AT-13 | Website kit home | Primary CTA; skip to `#main` | ☐ | ☐ |
-| AT-14 | Status Hub settings | Tablist + labeled switches | ☐ | ☐ |
-| AT-15 | Marketing page (VN) | No EN residual in browse | ☐ | ☐ |
-| AT-16 | `vn-disciplinary-schedule` | HT codes legible + announced | ☐ | ☐ |
+**Rule:** Both NVDA **and** VoiceOver must pass before ☑.
 
 ### How to execute
 
 ```bash
-cd /Users/stephencheng/Projects/CyberSkill/design
-npm run storybook
-# → http://localhost:6006  (Components + Templates)
-
-# or portable kits/templates:
+cd /path/to/design
 python3 -m http.server 8790 --bind 127.0.0.1
-# → http://127.0.0.1:8790/ui_kits/website/
-# → http://127.0.0.1:8790/ui_kits/status-hub/
-# → http://127.0.0.1:8790/guidelines/atomic-view.html
+# optional: npm run storybook → http://localhost:6006
 ```
 
-1. Start NVDA (Windows/Firefox) or VoiceOver (macOS/Safari) with speech on.
-2. For each ☐ row: run the script, note pass/fail + AT version + browser version.
-3. Replace ☐ with ☑ and fill **Result** / **Notes** in the matrix file — never green from axe alone.
+1. Open [`at-manual-checklist.md`](./at-manual-checklist.md).
+2. For each row: run NVDA session, then VoiceOver session.
+3. Replace ☐ with ☑ and fill **Result** / **Notes** in the matrix file.
 
 ## Operator report — 2026-08-09 (clearance minimum only)
 
@@ -91,4 +63,4 @@ python3 -m http.server 8790 --bind 127.0.0.1
 - Environment: macOS · VoiceOver · Safari/Chrome
 - Storybook tip at acceptance: `d9f15dd` / `1.3.0`
 
-Defects on that subset: none reported. Broader matrix remains open (AT-001 on the Aug-23 roadmap).
+Defects on that subset: none reported. Full matrix remains open until human sessions complete.

@@ -27,6 +27,7 @@ This file updates the phased program in [ux-audit-2026-08-08 §10](../ux-audit-2
 | **G1 CQ wave 2** | 2026-08-24 p.m. — kit grids + helpers → **TASK-IMP-025 done** (operator HITL 2026-08-24) |
 | **G4 lifecycle registry** | 2026-08-24 — `components/lifecycle.json` → **TASK-IMP-028 done** (operator HITL 2026-08-24) |
 | **SEC-001 schema allowlist** | 2026-08-24 — `editor-schema.js` → **TASK-IMP-029 done** (operator HITL 2026-08-24) |
+| **AT automation proxies** | 2026-08-24 — `at-automation-coverage.md`, `at-kit-probe`, a11y-gate AT-06, `test-at-coverage-map` |
 
 ## Prioritized backlog (remaining)
 
@@ -34,7 +35,7 @@ This file updates the phased program in [ux-audit-2026-08-08 §10](../ux-audit-2
 
 | ID | Work | Owner |
 |---|---|---|
-| AT-001 | Manual NVDA/VoiceOver matrix — see `at-operator-handoff-2026-08-09.md` (16 ☐×2 AT rows; automated-green ≠ AT pass) | Stephen Cheng |
+| AT-001 | Manual NVDA/VoiceOver matrix — automated proxies done ([`at-automation-coverage.md`](../at-automation-coverage.md)); human speech scripts: [`at-manual-checklist.md`](../at-manual-checklist.md) (16 ☐×2 AT rows) | Stephen Cheng |
 
 ### P1 — Done this tranche
 
@@ -45,15 +46,15 @@ UX-031…033 closed in code — `npm run test:audit-probe` PASS (2026-08-24).
 | ID | Work | Notes |
 |---|---|---|
 | UX-036 | Further kit → shared `.cs-*` composition | Skip links done; kit CTAs (e.g. `.btn-gold`) left intentional to avoid visual regression |
-| ADOPT-001 | Execute bumps in Finance / SachViet / Landing / Strategem repos | Checklist + exact pins in `docs/consuming.md`; **out of tree** |
+| ADOPT-001 | Execute bumps in Finance / SachViet / Landing / Strategem repos | Checklist + exact pins in `docs/consuming.md`; **deferred by operator 2026-08-24** |
 
 ### P3 — Improvement tasks
 
 | ID | Task | Status |
 |---|---|---|
 | G1 remainder | TASK-IMP-025 | **done** (operator HITL 2026-08-24) |
-| G2 | TASK-IMP-026 | `draft` — AC fleshed; needs operator locale decision |
-| G3 | TASK-IMP-027 | `draft` — AC fleshed; needs operator density/contrast decision |
+| G2 | TASK-IMP-026 | **`ready_to_implement`** — operator **B**: third-locale spike (**ja**); ADR at implementation start |
+| G3 | TASK-IMP-027 | **`ready_to_implement`** — operator **C**: density + contrast one wave; update `axis-guard` at implementation |
 | G4 | TASK-IMP-028 | **done** (operator HITL 2026-08-24) |
 | SEC-001 schema | TASK-IMP-029 | **done** (operator HITL 2026-08-24; contentEditable library swap deferred) |
 
@@ -65,7 +66,7 @@ UX-031…033 closed in code — `npm run test:audit-probe` PASS (2026-08-24).
 | 1 Critical a11y/contrast | axe serious = 0, 320 green | **Done** at tip |
 | 2 DS normalization | tokens, flat CSS, overlay manager | **Done** |
 | 3 Core flows | kit recomposition, Storybook polish | **Done** for skip/landmarks; CTA composition optional |
-| 4 Responsive/content | CQ layer, zoom gate, AT schedule | **CQ wave 2 done**; AT execution open |
+| 4 Responsive/content | CQ layer, zoom gate, AT schedule | **CQ wave 2 done**; **AT automated proxies done**; human matrix open |
 | 5 Final polish | probe suite, watermark, prose | **Done** + Aug-23/24 hardening |
 
-**Next operator actions:** execute AT matrix (AT-001) → consumer bumps (ADOPT-001) → promote 026/027 only after product decisions.
+**Next operator actions:** execute AT matrix human sessions ([`at-manual-checklist.md`](../at-manual-checklist.md)) → `ship-tasks` picks **026** then **027** → consumer bumps (ADOPT-001) when ready.

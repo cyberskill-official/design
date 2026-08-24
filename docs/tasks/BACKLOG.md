@@ -12,7 +12,8 @@ Lifecycle: draft -> ready_to_implement -> implementing -> ready_to_review -> rev
 
 ## ready_to_implement
 
-- (none)
+- [ready_to_implement] TASK-IMP-026-locale-architecture - Locale architecture beyond EN·VI binary (G2 / CDS-I18N-001) (improvement) — operator B: third-locale spike (ja)
+- [ready_to_implement] TASK-IMP-027-theme-axes - Brand/density/contrast axes (G3 / CDS-THEME-002) (improvement) — operator C: density + contrast one wave
 
 ## ready_to_review
 
@@ -20,8 +21,7 @@ Lifecycle: draft -> ready_to_implement -> implementing -> ready_to_review -> rev
 
 ## draft
 
-- [draft] TASK-IMP-026-locale-architecture - Locale architecture beyond EN·VI binary (G2 / CDS-I18N-001) (improvement)
-- [draft] TASK-IMP-027-theme-axes - Brand/density/contrast axes (G3 / CDS-THEME-002) (improvement)
+- (none)
 
 ## in flight
 
