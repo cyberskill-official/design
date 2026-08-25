@@ -124,13 +124,41 @@ const preview = {
     },
     language: {
       name: 'Language',
-      description: 'lang attribute (bilingual components)',
+      description:
+        'lang attribute — BCP-47 primary subtags (en · vi required; ja = TASK-IMP-026 spike)',
       defaultValue: 'vi',
       toolbar: {
         icon: 'globe',
         items: [
           { value: 'en', title: 'English' },
           { value: 'vi', title: 'Tiếng Việt' },
+          { value: 'ja', title: '日本語 (spike)' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+    density: {
+      name: 'Density',
+      description: 'data-cs-density Theme attribute (comfortable · compact) — TASK-IMP-027',
+      defaultValue: 'comfortable',
+      toolbar: {
+        icon: 'collapse',
+        items: [
+          { value: 'comfortable', title: 'Comfortable' },
+          { value: 'compact', title: 'Compact' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+    contrast: {
+      name: 'Contrast',
+      description: 'data-cs-contrast Theme attribute (standard · high) — TASK-IMP-027',
+      defaultValue: 'standard',
+      toolbar: {
+        icon: 'contrast',
+        items: [
+          { value: 'standard', title: 'Standard' },
+          { value: 'high', title: 'High' },
         ],
         dynamicTitle: true,
       },
@@ -152,12 +180,18 @@ const preview = {
       const [element, variant] = String(context.globals.element || 'tho|').split('|');
       const language = context.globals.language || 'vi';
       const style = context.globals.style || 'liquid-glass';
+      const density = context.globals.density || 'comfortable';
+      const contrast = context.globals.contrast || 'standard';
       const fullscreen = context.parameters.layout === 'fullscreen';
       if (typeof document !== 'undefined') {
         const root = document.documentElement;
         if (theme === 'dark' || theme === 'system') root.setAttribute('data-theme', theme);
         else root.removeAttribute('data-theme');
         root.setAttribute('data-cs-style', style);
+        if (density && density !== 'comfortable') root.setAttribute('data-cs-density', density);
+        else root.removeAttribute('data-cs-density');
+        if (contrast && contrast !== 'standard') root.setAttribute('data-cs-contrast', contrast);
+        else root.removeAttribute('data-cs-contrast');
       }
       return (
         <div
@@ -165,6 +199,8 @@ const preview = {
           data-cs-element={element || undefined}
           data-cs-variant={variant || undefined}
           data-cs-style={style}
+          data-cs-density={density !== 'comfortable' ? density : undefined}
+          data-cs-contrast={contrast !== 'standard' ? contrast : undefined}
           lang={language}
           style={{
             minHeight: '100%',

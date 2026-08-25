@@ -13,7 +13,7 @@ Every rendered surface resolves four orthogonal scopes — never encode one axis
 |---|---|---|---|
 | **Theme** | `data-theme="dark\|system"` | light / dark / system (OS) | `tokens/colors.css` |
 | **Element** (Ngũ Hành) | `data-cs-element` + `data-cs-variant` | hue identity per product | `tokens/elements.css` |
-| **Language** | `lang` / Language tweak | EN · VI copy | component registry + template props |
+| **Language** | `lang` / Language tweak | EN · VI required; `ja` spike (BCP-47 primary subtags) | component registry + template props — see `docs/decisions/locale-architecture.md` |
 | **Style** | `data-cs-style` (optional; absent ≡ `liquid-glass`) | surface material pack | `tokens/styles.css` |
 
 Style’s sole pack today is **liquid-glass**. Immutable under all axes: Umber/Ochre anchors, voice, type families, semantic status colors, the composite focus indicator (text-primary contour + ochre halo), APCA floors, ≥44px targets.

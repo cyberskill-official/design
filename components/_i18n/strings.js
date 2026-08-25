@@ -1,20 +1,23 @@
-/* CyberSkill — central bilingual string registry (v3 Batch 0/1/2).
+/* CyberSkill — central string registry (v3 Batch 0/1/2 + TASK-IMP-026 locale spike).
  * Every component with BUILT-IN UI text (text the consumer does NOT pass as a prop)
- * registers its strings here, EN + VI. _audit/bilingual-parity.html enforces:
+ * registers its strings here. EN + VI are required. Optional spike locales (ja) may
+ * add a third table with the same key set. _audit/bilingual-parity.html enforces:
  *   • each component has both `en` and `vi`
  *   • identical key sets across en/vi (no missing/extra keys)
- *   • no empty values
+ *   • optional locales (ja, …) match en keys when present; no empty values
  * Batch 1 wires each component to read these via i18n.js `makeT()` + `useLang()`,
  * replacing hardcoded English. Export is lowercase so the DS compiler does NOT expose
- * it on the component namespace. */
+ * it on the component namespace. See docs/decisions/locale-architecture.md. */
 export const strings = {
   Pagination: {
     en: { label: "Pagination", prev: "Previous page", next: "Next page" },
     vi: { label: "Phân trang", prev: "Trang trước", next: "Trang sau" },
+    ja: { label: "ページネーション", prev: "前のページ", next: "次のページ" },
   },
   Breadcrumb: {
     en: { label: "Breadcrumb" },
     vi: { label: "Đường dẫn" },
+    ja: { label: "パンくずリスト" },
   },
   CommandPalette: {
     en: { placeholder: "Type a command or search…", empty: "No results", aria: "Command palette", esc: "Esc" },
@@ -23,6 +26,7 @@ export const strings = {
   SearchField: {
     en: { placeholder: "Search…", clear: "Clear search" },
     vi: { placeholder: "Tìm kiếm…", clear: "Xóa tìm kiếm" },
+    ja: { placeholder: "検索…", clear: "検索をクリア" },
   },
   NumberField: {
     en: { decrease: "Decrease", increase: "Increase", value: "Value" },
@@ -35,6 +39,7 @@ export const strings = {
   Dialog: {
     en: { close: "Close", confirm: "Confirm", cancel: "Cancel" },
     vi: { close: "Đóng", confirm: "Xác nhận", cancel: "Hủy" },
+    ja: { close: "閉じる", confirm: "確認", cancel: "キャンセル" },
   },
   AlertDialog: {
     en: { confirm: "Confirm", cancel: "Cancel" },

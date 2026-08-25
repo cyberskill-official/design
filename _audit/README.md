@@ -38,7 +38,7 @@ Dev-only harnesses for **deep** verification (owner doctrine: whole-set checks, 
 
 - **`story-coverage.html`** — guards `guidelines/atomic-view.html`: every primary export has a story **and** every tweakable primary in `PLAYGROUND_REQUIRED` appears in a live `controls` + `renderC` playground (not specimen-only). Sub-parts excluded. Loads `_ds_bundle.js` (re-run on a fresh turn). `window.__storycov.pass` must be true.
 
-- **`bilingual-parity.html`** — v3 bilingual-doctrine gate: reads the central registry `components/_i18n/strings.js` and **fails** if any component lacks an `en`/`vi` table, has mismatched key sets across locales, or any empty value. Keeps EN·VI in lockstep as Batch 1 wires components. `window.__bilingual.pass` must be true.
+- **`bilingual-parity.html`** — v3 bilingual-doctrine gate: reads the central registry `components/_i18n/strings.js` and **fails** if any component lacks an `en`/`vi` table, has mismatched key sets across en/vi, any empty value, or an optional spike locale (e.g. `ja`) whose keys drift from `en`. Keeps EN·VI in lockstep as Batch 1 wires components. `window.__bilingual.pass` must be true.
 
 - **`run.html`** — one-click **gate runner**: loads every fast deterministic gate in sequence in fresh iframes, reads each verdict global, and shows a pass/fail board + aggregate `window.__run.pass`. **Row lifecycle:** each gate starts **pending**, only the active gate shows **running**, then **pass/fail/timeout** (advisory rows stay labeled). The three whole-set state audits (`responsive-overflow`, `language-overflow`, `theme-overflow` — ~5 min each) stay on the index, run them separately.
 

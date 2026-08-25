@@ -4,7 +4,7 @@ title: Locale architecture beyond EN·VI binary (G2 / CDS-I18N-001)
 template: task@1
 type: improvement
 module: improvement
-status: ready_to_implement
+status: implementing
 operator_decision: B
 promoted_at: 2026-08-24
 priority: p3
@@ -21,6 +21,22 @@ awh: N/A
 class: improvement
 findings: [CDS-I18N-001]
 assessment_phase: post-5
+new_files:
+  - docs/decisions/locale-architecture.md
+  - _audit/ci/test-locale-ja-spike.mjs
+modified_files:
+  - components/_i18n/i18n.js
+  - components/_i18n/strings.js
+  - _audit/bilingual-parity.html
+  - docs/decisions.md
+  - docs/vi/decisions.md
+  - docs/conventions.md
+  - docs/vi/conventions.md
+  - docs/quality-gates.md
+  - docs/vi/quality-gates.md
+  - .storybook/preview.jsx
+  - guidelines/atomic-view.html
+  - package.json
 ---
 
 # TASK-IMP-026: Locale architecture beyond EN·VI
@@ -37,10 +53,10 @@ Today Language is a hard **EN | VI** binary (component registry + template Langu
 
 ## 2. Acceptance criteria
 
-- [ ] AC-1 — Written ADR in `docs/decisions.md` (or `docs/decisions/locale-architecture.md`) choosing: extend Language axis vs nest locale under Language vs BCP-47 tags
-- [ ] AC-2 — Registry / `makeT` contract sketched so existing EN·VI pairs keep working (migration path, no big-bang rewrite)
-- [ ] AC-3 — Third-locale **spike** fixture proving registry shape beyond EN·VI (recommend **ja** — distinct script, low collision with EN/VI)
-- [ ] AC-4 — Gate plan: what `docs-lang-parity` / i18n builtins assert after the change
+- [x] AC-1 — Written ADR in `docs/decisions.md` (or `docs/decisions/locale-architecture.md`) choosing: extend Language axis vs nest locale under Language vs BCP-47 tags
+- [x] AC-2 — Registry / `makeT` contract sketched so existing EN·VI pairs keep working (migration path, no big-bang rewrite)
+- [x] AC-3 — Third-locale **spike** fixture proving registry shape beyond EN·VI (recommend **ja** — distinct script, low collision with EN/VI)
+- [x] AC-4 — Gate plan: what `docs-lang-parity` / i18n builtins assert after the change
 - [ ] AC-5 — HITL for final acceptance
 
 ## 3. Locked scope (operator B — 2026-08-24)
@@ -50,7 +66,15 @@ Today Language is a hard **EN | VI** binary (component registry + template Langu
 - Extend `components/_i18n/i18n.js` / `strings.js` registry shape; do **not** break Vietnamese-first default (`lang` unset → VI).
 - Plural/ICU-only scope and region variants remain follow-on unless folded into the spike ADR.
 
-## 4. Explicit non-goals
+## 4. Implementation notes (2026-08-25)
+
+- ADR: `docs/decisions/locale-architecture.md` + decisions §14 (EN·VI).
+- `primaryLang` / `resolveLang` use BCP-47 primary subtags; default still `vi`.
+- Spike `ja` tables on Pagination, Breadcrumb, SearchField, Dialog; bilingual-parity requires optional locales match `en` keys.
+- Unit gate: `_audit/ci/test-locale-ja-spike.mjs` (wired into `npm run test:unit`).
+- Storybook + Atomic View Language toolbar expose `ja` spike.
+
+## 5. Explicit non-goals
 
 - Do not invent a fourth product axis.
 - Do not break Vietnamese-first default (`lang` unset → VI).
