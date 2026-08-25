@@ -4,7 +4,11 @@ title: Brand/density/contrast axes (G3 / CDS-THEME-002)
 template: task@1
 type: improvement
 module: improvement
-status: reviewing
+status: done
+# Human acceptance (operator 2026-08-25): approve & accept TASK-IMP-026/027 (HITL).
+acceptance_verdict: approved
+accepted_at: 2026-08-25T04:20:00+0000
+accepted_by: "@operator"
 operator_decision: C
 promoted_at: 2026-08-24
 priority: p3
@@ -54,7 +58,7 @@ Immutable axes today: **Theme × Element × Language × Style**. Evolution plan 
 - [x] AC-2 — Token plan: which `--cs-*` roles gain density/contrast maps; APCA floors preserved (body Lc ≥ 75)
 - [x] AC-3 — One kit or Atomic View demo proving independent toggling (no Element/Language coupling)
 - [x] AC-4 — Gate plan: contrast-guard / light-contrast still green; docs-consistency stale-phrase checks updated; **`_audit/axis-guard.html` allowlist updated** (today it forbids `data-cs-density`)
-- [ ] AC-5 — HITL for final acceptance
+- [x] AC-5 — HITL for final acceptance — operator "i approve & accept" 2026-08-25 (PR #95)
 
 ## 3. Locked scope (operator C — 2026-08-24)
 

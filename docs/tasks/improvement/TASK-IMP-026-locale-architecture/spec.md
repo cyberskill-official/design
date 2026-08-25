@@ -4,7 +4,11 @@ title: Locale architecture beyond EN·VI binary (G2 / CDS-I18N-001)
 template: task@1
 type: improvement
 module: improvement
-status: reviewing
+status: done
+# Human acceptance (operator 2026-08-25): approve & accept TASK-IMP-026/027 (HITL).
+acceptance_verdict: approved
+accepted_at: 2026-08-25T04:20:00+0000
+accepted_by: "@operator"
 operator_decision: B
 promoted_at: 2026-08-24
 priority: p3
@@ -57,7 +61,7 @@ Today Language is a hard **EN | VI** binary (component registry + template Langu
 - [x] AC-2 — Registry / `makeT` contract sketched so existing EN·VI pairs keep working (migration path, no big-bang rewrite)
 - [x] AC-3 — Third-locale **spike** fixture proving registry shape beyond EN·VI (recommend **ja** — distinct script, low collision with EN/VI)
 - [x] AC-4 — Gate plan: what `docs-lang-parity` / i18n builtins assert after the change
-- [ ] AC-5 — HITL for final acceptance
+- [x] AC-5 — HITL for final acceptance — operator "i approve & accept" 2026-08-25 (PR #95)
 
 ## 3. Locked scope (operator B — 2026-08-24)
 

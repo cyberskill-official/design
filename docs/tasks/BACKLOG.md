@@ -24,11 +24,12 @@ Lifecycle: draft -> ready_to_implement -> implementing -> ready_to_review -> rev
 
 ## in flight
 
-- [reviewing] TASK-IMP-026-locale-architecture - Locale architecture beyond EN·VI binary (G2 / CDS-I18N-001) (improvement) — operator B: third-locale spike (ja)
-- [reviewing] TASK-IMP-027-theme-axes - Brand/density/contrast axes (G3 / CDS-THEME-002) (improvement) — operator C: density + contrast one wave
+- (none)
 
 ## done
 
+- [done] TASK-IMP-027-theme-axes - Brand/density/contrast axes (G3 / CDS-THEME-002) (improvement) — operator C: density + contrast one wave
+- [done] TASK-IMP-026-locale-architecture - Locale architecture beyond EN·VI binary (G2 / CDS-I18N-001) (improvement) — operator B: third-locale spike (ja)
 - [done] TASK-IMP-029-editor-schema-richtext - Editor schema-based rich text (SEC-001 / CDS-SEC-001) (improvement)
 - [done] TASK-IMP-028-component-lifecycle-status - Component lifecycle status field (G4 / CDS-COV-001) (improvement)
 - [done] TASK-IMP-025-cq-layout-migration - Container-query layout migration (G1 / CDS-RESP-001) (improvement)
