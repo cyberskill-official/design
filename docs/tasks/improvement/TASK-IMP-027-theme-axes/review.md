@@ -1,22 +1,23 @@
 # Review packet — TASK-IMP-027
 
-Status: **reviewing** — awaiting human review acceptance (`reviewing → ready_to_test`).
+**HITL closed 2026-08-25** — operator `"i approve & accept"` (PR #95).
 
-## §1 clause → evidence
+| Gate | Transition | Verdict |
+|------|------------|---------|
+| Review acceptance | `reviewing → ready_to_test` | approved by `@operator` |
+| Final acceptance | `testing → done` | accepted by `@operator` |
+
+Evidence: `docs/tasks/improvement/HITL-ACCEPT-IMP-026-027.md`  
+Receipts under `docs/tasks/_state/receipts/` · verdicts under `docs/tasks/_verdicts/`.
+
+## §1 clause → evidence (shipped)
 
 | AC | Evidence |
 |----|----------|
-| AC-1 ADR | `docs/decisions/theme-density-contrast.md` + `docs/decisions.md` §15 (+ VI) — Theme attributes, not a fifth identity axis |
-| AC-2 Token plan | `tokens/theme-attributes.css` — density space/padding maps; contrast muted/border; 44px minHeight preserved |
-| AC-3 Demo | Storybook Density/Contrast globals; Atomic View Density/Contrast selects — independent of Element/Language |
-| AC-4 Gate plan | `_audit/axis-guard.html` allowlists Theme attrs; still bans Expression + retired CSS packs; `test-theme-attributes.mjs` |
-| AC-5 HITL | This gate — operator verdict required |
+| AC-1 ADR | `docs/decisions/theme-density-contrast.md` + `docs/decisions.md` §15 (+ VI) |
+| AC-2 Token plan | `tokens/theme-attributes.css` |
+| AC-3 Demo | Storybook + Atomic View density/contrast |
+| AC-4 Gate plan | `axis-guard` allowlist + `test-theme-attributes.mjs` |
+| AC-5 HITL | Operator approve & accept 2026-08-25 |
 
-## Named tests
-
-- `node _audit/ci/test-theme-attributes.mjs`
-- Fast board `axis-guard` / contrast-guard (run after serve)
-
-## Ask
-
-Approve review → flip `reviewing → ready_to_test` with `--verdict-by` + evidence path.
+Status: **`done`**.

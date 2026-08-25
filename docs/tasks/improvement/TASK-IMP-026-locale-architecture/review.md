@@ -1,22 +1,23 @@
 # Review packet — TASK-IMP-026
 
-Status: **reviewing** — awaiting human review acceptance (`reviewing → ready_to_test`).
+**HITL closed 2026-08-25** — operator `"i approve & accept"` (PR #95).
 
-## §1 clause → evidence
+| Gate | Transition | Verdict |
+|------|------------|---------|
+| Review acceptance | `reviewing → ready_to_test` | approved by `@operator` |
+| Final acceptance | `testing → done` | accepted by `@operator` |
+
+Evidence: `docs/tasks/improvement/HITL-ACCEPT-IMP-026-027.md`  
+Receipts under `docs/tasks/_state/receipts/` · verdicts under `docs/tasks/_verdicts/`.
+
+## §1 clause → evidence (shipped)
 
 | AC | Evidence |
 |----|----------|
 | AC-1 ADR | `docs/decisions/locale-architecture.md` + `docs/decisions.md` §14 (+ VI) |
-| AC-2 Registry / makeT | `components/_i18n/i18n.js` (`primaryLang`, `resolveLang`, `tr`/`makeT`); EN·VI unchanged; optional locales fall back en→vi→key |
-| AC-3 ja spike | `strings.js` ja tables (Pagination, Breadcrumb, SearchField, Dialog); Storybook + Atomic View Language=`ja` |
-| AC-4 Gate plan | ADR gate table; `bilingual-parity` optional-locale key match; `test-locale-ja-spike.mjs` in `npm run test:unit`; docs-lang-parity unchanged |
-| AC-5 HITL | This gate — operator verdict required |
+| AC-2 Registry / makeT | `components/_i18n/i18n.js` |
+| AC-3 ja spike | `strings.js` ja tables; Storybook + Atomic View |
+| AC-4 Gate plan | bilingual-parity + `test-locale-ja-spike.mjs` |
+| AC-5 HITL | Operator approve & accept 2026-08-25 |
 
-## Named tests
-
-- `node _audit/ci/test-locale-ja-spike.mjs` — resolveLang ja/ja-JP, makeT ja, fallback, default vi
-- `npm run test:unit` — includes locale spike + docs-consistency (default lang vi)
-
-## Ask
-
-Approve review → flip `reviewing → ready_to_test` with `--verdict-by` + evidence path.
+Status: **`done`**.
