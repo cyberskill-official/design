@@ -307,7 +307,9 @@ const ELEMENTS = [
   ["moc|","Mộc · leaf (middle)"],["moc|bamboo","Mộc · bamboo (soft)"],["moc|forest","Mộc · forest (deep)"],
   ["kim|","Kim · champagne (middle)"],["kim|titanium","Kim · titanium (soft)"],["kim|steel","Kim · steel (deep)"],
 ];
-const LANGS = [["","Default"],["en","English"],["vi","Tiếng Việt"]];
+const LANGS = [["","Default"],["en","English"],["vi","Tiếng Việt"],["ja","日本語 (spike)"]];
+const DENSITIES = [["comfortable","Comfortable"],["compact","Compact"]];
+const CONTRASTS = [["standard","Standard"],["high","High"]];
 const PAGES = [
   { name:"Status Hub (product)", src:"../ui_kits/status-hub/index.html" },
   { name:"Marketing site", src:"../ui_kits/website/index.html" },
@@ -323,8 +325,16 @@ function applyAxis(ifr, ax){
     ax.elm?h.setAttribute("data-cs-element",ax.elm):h.removeAttribute("data-cs-element");
     ax.elv?h.setAttribute("data-cs-variant",ax.elv):h.removeAttribute("data-cs-variant");
     if(ax.lang) h.setAttribute("lang", ax.lang);
+    (ax.density&&ax.density!=="comfortable")?h.setAttribute("data-cs-density",ax.density):h.removeAttribute("data-cs-density");
+    (ax.contrast&&ax.contrast!=="standard")?h.setAttribute("data-cs-contrast",ax.contrast):h.removeAttribute("data-cs-contrast");
     const w=ifr.contentWindow;
-    if(ax.lang && w && w.__dcSetProps && w.__dcRootName){ const r=w.__dcRootName&&w.__dcRootName(); if(r) w.__dcSetProps(r,{language: ax.lang==="vi"?"Tiếng Việt":"English"}); }
+    if(ax.lang && w && w.__dcSetProps && w.__dcRootName){
+      const r=w.__dcRootName&&w.__dcRootName();
+      if(r){
+        const language = ax.lang==="vi"?"Tiếng Việt":ax.lang==="ja"?"日本語":"English";
+        w.__dcSetProps(r,{language});
+      }
+    }
   }catch(e){}
 }
 function Tile({ item, ax, mount }){
@@ -346,7 +356,7 @@ function Perma({id}){
   return <a className="perma" href={"#"+id} title="Copy permalink" onClick={()=>{ const url=location.href.split("#")[0]+"#"+id; try{ navigator.clipboard.writeText(url).then(()=>{ setOk(true); setTimeout(()=>setOk(false),1200); }).catch(()=>{}); }catch(e){} }}>{ok?"\u2713":"#"}</a>;
 }
 function Story({ s, lang }){
-  const L = lang === "vi" ? "vi" : "en";
+  const L = lang === "vi" ? "vi" : lang === "ja" ? "ja" : "en";
   return (
     <section className="story" id={slug(s.name)}>
       <header><h3>{s.name}</h3><span className="grp">{s.grp}</span><span className="exp">{s.tier}</span><Perma id={slug(s.name)}/></header>
@@ -365,6 +375,8 @@ function App(){
   const [style,setStyle]=useState("liquid-glass");
   const [el,setEl]=useState("tho|");
   const [lang,setLang]=useState("");
+  const [density,setDensity]=useState("comfortable");
+  const [contrast,setContrast]=useState("standard");
   const [collapsed,setCollapsed]=useState({Atom:false,Molecule:false,Organism:false,found:false,tpl:true,pages:true});
   const [openTplCat,setOpenTplCat]=useState({});
   const [tpls,setTpls]=useState([]);
@@ -382,7 +394,9 @@ function App(){
   if(elm) axis["data-cs-element"]=elm;
   if(elv) axis["data-cs-variant"]=elv;
   if(lang) axis.lang=lang;
-  const artifactAx={theme,style,elm,elv,lang};
+  if(density&&density!=="comfortable") axis["data-cs-density"]=density;
+  if(contrast&&contrast!=="standard") axis["data-cs-contrast"]=contrast;
+  const artifactAx={theme,style,elm,elv,lang,density,contrast};
   const shownTpls=tpls.filter(t=>!nq||t.name.toLowerCase().includes(nq)||(NM.classifyTemplate&&NM.classifyTemplate(t.name).toLowerCase().includes(nq)));
   const tplGroups=(NM.groupTemplates||((xs)=>[{category:"All",items:xs}]))(shownTpls);
   const shownPages=PAGES.filter(t=>!nq||t.name.toLowerCase().includes(nq));
@@ -465,6 +479,12 @@ function App(){
           <label className="ctl">Language
             <select value={lang} onChange={(e)=>setLang(e.target.value)}>{LANGS.map(([v,l])=><option key={v} value={v}>{l}</option>)}</select>
           </label>
+          <label className="ctl">Density
+            <select value={density} onChange={(e)=>setDensity(e.target.value)}>{DENSITIES.map(([v,l])=><option key={v} value={v}>{l}</option>)}</select>
+          </label>
+          <label className="ctl">Contrast
+            <select value={contrast} onChange={(e)=>setContrast(e.target.value)}>{CONTRASTS.map(([v,l])=><option key={v} value={v}>{l}</option>)}</select>
+          </label>
           <span className="count">{shown.length}/{STORIES.length}</span>
         </div>
         <div id="canvas" {...axis}>
@@ -472,7 +492,7 @@ function App(){
             <h2 className="tierhead">Foundations · Motion<span className="sub">Live easing tracks and duration chips — freezes under prefers-reduced-motion.</span></h2>
             <div className="motion-embed"><iframe src="motion.html" title="Motion specimen" loading="lazy"></iframe></div>
           </div>
-          <div key={"lang-"+(lang||"def")}>
+          <div key={"lang-"+(lang||"def")+"-d-"+density+"-c-"+contrast}>
           {TIERS.map(t=>{
             const byGrp=storyTree.get(t.id); if(!byGrp||!byGrp.size) return null;
             const groups=NM.sortedGroupNames?NM.sortedGroupNames(byGrp):[...byGrp.keys()].sort();

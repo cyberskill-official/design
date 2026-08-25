@@ -151,6 +151,25 @@ Rules:
 - Agents operating this repo follow `.cyberos/AGENT-ENTRY.md`; humans shipping the DS follow `docs/release-runbook.md`.
 - Do not move product tokens/components into `.cyberos/`; do not publish CyberOS orchestration as part of the npm package.
 
+## 14. Locale architecture beyond EN·VI
+
+**Owner choice: B — third-locale spike (`ja`); Language axis uses BCP-47 primary subtags** (Aug 2026; TASK-IMP-026 / CDS-I18N-001)
+
+Normative record: [`docs/decisions/locale-architecture.md`](./decisions/locale-architecture.md).
+
+- Language stays a product axis (Theme × Element × Language × Style). Values are primary language subtags (`en` · `vi` · spike `ja`), not a nested locale axis and not full region tags yet.
+- Registry keeps required EN·VI pairs; optional spike tables must match `en` keys when present.
+- Vietnamese-first default unchanged (`lang` unset → `vi`). Plural/ICU and region variants are follow-on.
+
+## 15. Theme attributes — density + contrast
+
+**Owner choice: C — density and contrast in one wave, as Theme attributes** (Aug 2026; TASK-IMP-027 / CDS-THEME-002)
+
+Normative record: [`docs/decisions/theme-density-contrast.md`](./decisions/theme-density-contrast.md).
+
+- `data-cs-density` (`comfortable` | `compact`) and `data-cs-contrast` (`standard` | `high`) are **attributes under Theme**, not a fifth product identity axis.
+- Product axes remain Theme × Element × Language × Style. APCA body floor Lc ≥ 75 and ≥44px touch targets stay immutable under compact.
+
 ## How to change a decision
 
 Edit the **Owner choice** line here. Implementer rewires CI and related docs in the same change.

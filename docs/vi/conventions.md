@@ -13,7 +13,7 @@ Mọi bề mặt render resolve bốn scope trực giao — không bao giờ mã
 |---|---|---|---|
 | **Theme** | `data-theme="dark\|system"` | light / dark / system (OS) | `tokens/colors.css` |
 | **Element** (Ngũ Hành) | `data-cs-element` + `data-cs-variant` | bản sắc hue theo sản phẩm | `tokens/elements.css` |
-| **Language** | `lang` / Language tweak | copy EN · VI | registry component + props template |
+| **Language** | `lang` / Language tweak | EN · VI bắt buộc; spike `ja` (primary subtag BCP-47) | registry component + props template — xem `docs/decisions/locale-architecture.md` |
 | **Style** | `data-cs-style` (tuỳ chọn; vắng ≡ `liquid-glass`) | pack vật liệu bề mặt | `tokens/styles.css` |
 
 Pack Style duy nhất hiện nay là **liquid-glass**. Bất biến dưới mọi trục: anchors Umber/Ochre, voice, họ chữ, màu semantic status, chỉ báo focus ghép (contour text-primary + halo ochre), sàn APCA, target ≥44px.

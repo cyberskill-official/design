@@ -4,7 +4,11 @@ title: Brand/density/contrast axes (G3 / CDS-THEME-002)
 template: task@1
 type: improvement
 module: improvement
-status: ready_to_implement
+status: done
+# Human acceptance (operator 2026-08-25): approve & accept TASK-IMP-026/027 (HITL).
+acceptance_verdict: approved
+accepted_at: 2026-08-25T04:20:00+0000
+accepted_by: "@operator"
 operator_decision: C
 promoted_at: 2026-08-24
 priority: p3
@@ -21,6 +25,23 @@ awh: N/A
 class: improvement
 findings: [CDS-THEME-002]
 assessment_phase: post-5
+new_files:
+  - docs/decisions/theme-density-contrast.md
+  - tokens/theme-attributes.css
+  - _audit/ci/test-theme-attributes.mjs
+modified_files:
+  - styles.css
+  - dist/styles.min.css
+  - _audit/axis-guard.html
+  - _audit/run.html
+  - _audit/index.html
+  - .storybook/preview.jsx
+  - guidelines/atomic-view.html
+  - docs/decisions.md
+  - docs/vi/decisions.md
+  - docs/quality-gates.md
+  - docs/vi/quality-gates.md
+  - package.json
 ---
 
 # TASK-IMP-027: Brand / density / contrast axes
@@ -33,11 +54,11 @@ Immutable axes today: **Theme × Element × Language × Style**. Evolution plan 
 
 ## 2. Acceptance criteria
 
-- [ ] AC-1 — ADR: density/contrast as **attributes under Theme** via `data-cs-density` / `data-cs-contrast` (not a fifth identity axis)
-- [ ] AC-2 — Token plan: which `--cs-*` roles gain density/contrast maps; APCA floors preserved (body Lc ≥ 75)
-- [ ] AC-3 — One kit or Atomic View demo proving independent toggling (no Element/Language coupling)
-- [ ] AC-4 — Gate plan: contrast-guard / light-contrast still green; docs-consistency stale-phrase checks updated; **`_audit/axis-guard.html` allowlist updated** (today it forbids `data-cs-density`)
-- [ ] AC-5 — HITL for final acceptance
+- [x] AC-1 — ADR: density/contrast as **attributes under Theme** via `data-cs-density` / `data-cs-contrast` (not a fifth identity axis)
+- [x] AC-2 — Token plan: which `--cs-*` roles gain density/contrast maps; APCA floors preserved (body Lc ≥ 75)
+- [x] AC-3 — One kit or Atomic View demo proving independent toggling (no Element/Language coupling)
+- [x] AC-4 — Gate plan: contrast-guard / light-contrast still green; docs-consistency stale-phrase checks updated; **`_audit/axis-guard.html` allowlist updated** (today it forbids `data-cs-density`)
+- [x] AC-5 — HITL for final acceptance — operator "i approve & accept" 2026-08-25 (PR #95)
 
 ## 3. Locked scope (operator C — 2026-08-24)
 
@@ -45,7 +66,17 @@ Immutable axes today: **Theme × Element × Language × Style**. Evolution plan 
 - ADR must define `data-cs-density` and `data-cs-contrast` as **Theme attributes**, not a fifth product identity axis.
 - Implementation **must update `_audit/axis-guard.html`** — the gate currently forbids `data-cs-density`; promotion does not change the allowlist (that happens when `ship-tasks` picks this task).
 
-## 4. Explicit non-goals
+## 4. Implementation notes (2026-08-25)
+
+- ADR: `docs/decisions/theme-density-contrast.md` + decisions §15.
+- Tokens: `tokens/theme-attributes.css` imported from `styles.css`.
+- Compact tightens padding/gaps; **does not** lower md control minHeight below 44px.
+- High contrast strengthens muted text + borders (anchors untouched).
+- Demos: Storybook toolbar Density/Contrast globals + Atomic View selects.
+- `axis-guard` allowlists Theme attrs; still bans Expression + retired density/expressions CSS packs.
+- Unit gate: `_audit/ci/test-theme-attributes.mjs`.
+
+## 5. Explicit non-goals
 
 - Do not redesign Tabs or overlay manager.
 - Do not ship a second Style pack under the guise of density.

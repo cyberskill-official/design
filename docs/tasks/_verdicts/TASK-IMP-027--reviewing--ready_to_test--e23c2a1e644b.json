@@ -1,0 +1,11 @@
+{
+  "schema": "cyberos.verdict@1",
+  "actor": "@operator",
+  "timestamp": "2026-08-25T04:20:19Z",
+  "task_id": "TASK-IMP-027",
+  "from": "reviewing",
+  "to": "ready_to_test",
+  "evidence_path": "docs/tasks/improvement/HITL-ACCEPT-IMP-026-027.md",
+  "evidence_sha256": "e23c2a1e644bc790cd32baa2c635546cfb960d5d1b4cb29a4464ae942a282169",
+  "artifact_sha256": "bdc451c7b5c5be6679a88188a1f20a0ac38394e91eff0e3b0e2c473bedb8bd33"
+}
