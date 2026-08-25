@@ -4,7 +4,11 @@ title: HTML-faithful PDF/DOCX download + drop counsel banner
 template: task@1
 type: improvement
 module: improvement
-status: ready_to_review
+status: done
+# Human acceptance (operator 2026-08-24): approved TASK-IMP-023 and TASK-IMP-024 (HITL accept).
+acceptance_verdict: approved
+accepted_at: 2026-08-24T03:00:00+0000
+accepted_by: "@stephencheng"
 priority: p1
 author: "@cursor-agent"
 department: engineering
@@ -39,7 +43,7 @@ Operator preview of the framework agreement still shows a counsel-review warning
 - [x] AC for 1.2 — PDF/DOCX built from `.cs-sheet`; DOCX keeps tables + VN diacritics; PDF still `%PDF` + A4/Letter
 - [x] AC for 1.3 — one Download trigger + PDF/DOCX menu; old dual buttons gone
 - [x] AC for 1.4 — `test-doc-export` + `test-docx-source-parity` green
-- [ ] AC for 1.5 — human review + final acceptance — HITL only
+- [x] AC for 1.5 — human review + final acceptance — HITL only (operator 2026-08-24)
 
 ## 3. Edge cases
 
@@ -64,3 +68,7 @@ Operator preview of the framework agreement still shows a counsel-review warning
 - Prior DOCX dumped the first child into the Word header *and* the body, flattened nested cell labels, and dropped whitespace-only text nodes.
 
 *End of TASK-IMP-024.*
+
+## Human acceptance (2026-08-24)
+
+Operator instruction: **approved TASK-IMP-023 and TASK-IMP-024** (HITL accept). Status set to `done`.

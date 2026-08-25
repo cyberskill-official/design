@@ -34,4 +34,7 @@
   --cs-container-max: 1320px;
   /* Readable prose measure (UX-024) — ~65–75ch for long-form kit/tool copy */
   --cs-prose-measure: 45rem;
+  /* Focus-not-obscured scroll offset (WCAG 2.2 AA) — sticky nav / bottom bars */
+  --cs-scroll-padding-block-start: var(--cs-space-4);
+  --cs-scroll-padding-block-end: var(--cs-space-4);
 }

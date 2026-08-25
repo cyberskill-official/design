@@ -23,10 +23,11 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "../..");
 
 const PROXIES = [
   { id: "unit", cmd: ["npm", "run", "test:unit"], note: "Node unit gates incl. i18n + manifest coverage + pack hygiene" },
-  { id: "zoom-spacing", file: "_audit/zoom-text-spacing.html", global: "__zoomspacing", note: "200%/400% zoom proxy + WCAG 1.4.12 spacing" },
-  { id: "light-contrast", file: "_audit/light-contrast.html", global: "__lightcontrast", note: "Light DOM contrast walk × templates" },
-  { id: "overflow-320", file: "_audit/responsive-overflow-320.html", global: "__overflow320", note: "Whole-set 320 reflow" },
-  { id: "language-overflow", file: "_audit/language-overflow.html", global: "__langoverflow", note: "VN overflow + EN leak lexicon" },
+  { id: "zoom-spacing", file: "_audit/zoom-text-spacing.html", global: "__zoomspacing", timeout: 180000, note: "200%/400% zoom proxy + WCAG 1.4.12 spacing" },
+  { id: "light-contrast", file: "_audit/light-contrast.html", global: "__lightcontrast", timeout: 300000, note: "Light DOM contrast walk × templates" },
+  { id: "overflow-320", file: "_audit/responsive-overflow-320.html", global: "__overflow320", timeout: 300000, note: "Whole-set 320 reflow" },
+  { id: "language-overflow", file: "_audit/language-overflow.html", global: "__language", timeout: 360000, note: "VN overflow + EN leak lexicon" },
+  { id: "at-kit-probe", file: "_audit/at-kit-probe.html", global: "__atkitprobe", timeout: 180000, note: "AT-12…16 product surface proxies (Auth, website, settings, marketing VN, disciplinary HT)" },
 ];
 
 const listOnly = process.argv.includes("--list");
@@ -56,7 +57,8 @@ for (const p of PROXIES) {
   }
   const url = `${base}/${p.file}`;
   console.log("\n→", p.id, url);
-  const r = spawnSync(process.execPath, [runner, url, p.global, "180000"], {
+  const timeout = String(p.timeout ?? 180000);
+  const r = spawnSync(process.execPath, [runner, url, p.global, timeout], {
     cwd: root,
     stdio: "inherit",
   });

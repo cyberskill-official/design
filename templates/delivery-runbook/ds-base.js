@@ -39,6 +39,19 @@
       else if (!document.documentElement.getAttribute('lang')) document.documentElement.setAttribute('lang', 'en');
     } catch (e) { /* authoring host may sandbox */ }
   };
+
+  const ensureLandmark = () => {
+    try {
+      if (document.querySelector('main, [role="main"], #main')) return true;
+      const sheet = document.querySelector('.cs-sheet');
+      const desk = document.querySelector('.cs-desk');
+      const host = sheet || desk || document.body;
+      if (!host) return false;
+      if (!host.id) host.id = 'main';
+      if (host.tagName !== 'MAIN' && !host.getAttribute('role')) host.setAttribute('role', 'main');
+      return true;
+    } catch (e) { return false; }
+  };
   const ensureHead = () => {
     try {
       if (!document.title || !document.title.trim()) {
@@ -47,12 +60,24 @@
         if (m) document.title = m[1] + ' · CyberSkill';
       }
       syncLang();
-      const obs = new MutationObserver(syncLang);
+      ensureLandmark();
+      const obs = new MutationObserver(() => {
+        syncLang();
+        if (ensureLandmark()) { /* keep observing lang; landmark is sticky once set */ }
+      });
       obs.observe(document.body || document.documentElement, {
         attributes: true,
         attributeFilter: ['lang'],
+        childList: true,
         subtree: true,
       });
+      // DC helmet mounts after first paint — retry briefly for print sheets.
+      let n = 0;
+      const tick = () => {
+        if (ensureLandmark() || ++n > 20) return;
+        setTimeout(tick, 100);
+      };
+      setTimeout(tick, 50);
     } catch (e) { /* authoring host may sandbox */ }
   };
   if (document.readyState === 'loading') {

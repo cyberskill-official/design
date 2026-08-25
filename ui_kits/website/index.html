@@ -9,6 +9,17 @@
 <link rel="stylesheet" href="../../styles.css" />
 <link rel="stylesheet" href="site.css" />
 <style>html,body{margin:0}</style>
+<script>
+(function () {
+  var path = location.pathname;
+  if (path.endsWith("/index")) path = path.slice(0, -6);
+  else if (path.endsWith("index.html")) path = path.slice(0, -10);
+  if (!path.endsWith("/")) path += "/";
+  var base = document.createElement("base");
+  base.href = path;
+  document.head.appendChild(base);
+})();
+</script>
 <script src="../../_vendor/react/react.production.min.js"></script>
 <script src="../../_vendor/react/react-dom.production.min.js"></script>
 <script src="../../_vendor/babel/babel.min.js"></script>

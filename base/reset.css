@@ -1,6 +1,10 @@
 /* CyberSkill — minimal base reset. Products opt in by linking styles.css. */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-block-start: var(--cs-scroll-padding-block-start, var(--cs-space-4, 16px));
+  scroll-padding-block-end: var(--cs-scroll-padding-block-end, var(--cs-space-4, 16px));
+}
 body {
   margin: 0;
   background: var(--cs-color-surface-page, #fffdf8);
@@ -20,4 +24,33 @@ body {
   outline: 2px solid var(--cs-color-text-primary, #45210e);
   outline-offset: 2px;
   box-shadow: 0 0 0 5px var(--cs-color-accent-ochre, #f4ba17);
+}
+
+/* Skip link — shared by templates, kits, and product shells (UX-002). */
+.cs-skip {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: var(--cs-font-family-ui);
+}
+.cs-skip:focus,
+.cs-skip:focus-visible {
+  position: fixed;
+  left: 12px;
+  top: 12px;
+  z-index: calc(var(--cs-depth-toast, 200) + 1);
+  width: auto;
+  height: auto;
+  padding: 10px 14px;
+  background: var(--cs-color-surface-panel);
+  color: var(--cs-color-text-primary);
+  border: 2px solid var(--cs-color-brand-ochre);
+  border-radius: var(--cs-radius-md, 8px);
+  overflow: visible;
+  box-shadow: var(--cs-shadow-md);
 }

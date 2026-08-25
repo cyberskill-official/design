@@ -181,6 +181,8 @@ Semantic aliases into the ramp — write intent, not magic numbers. `Resolves to
 | `--cs-breakpoint-2xl` | `1536px` |
 | `--cs-container-max` | `1320px` |
 | `--cs-prose-measure` | `45rem` |
+| `--cs-scroll-padding-block-start` | `var(--cs-space-4)` |
+| `--cs-scroll-padding-block-end` | `var(--cs-space-4)` |
 | `--cs-icon-sm` | `16px` |
 | `--cs-icon-md` | `20px` |
 | `--cs-icon-lg` | `24px` |

@@ -91,6 +91,7 @@ export { TimePicker } from "../components/forms/TimePicker.jsx";
 export { Toggle } from "../components/forms/Toggle.jsx";
 export { Transfer } from "../components/forms/Transfer.jsx";
 export { TreeSelect } from "../components/forms/TreeSelect.jsx";
+export { EDITOR_SCHEMA } from "../components/forms/editor-schema.js";
 export { CS_ICONS, Icon } from "../components/icon/Icon.jsx";
 export { Logo } from "../components/logo/Logo.jsx";
 export { CS_LOGO_VIEWBOX, CS_LOGO_MARK_INNER } from "../components/logo/logo-data.js";

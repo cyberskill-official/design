@@ -12,15 +12,28 @@ Lifecycle: draft -> ready_to_implement -> implementing -> ready_to_review -> rev
 
 ## ready_to_implement
 
+- [ready_to_implement] TASK-IMP-026-locale-architecture - Locale architecture beyond EN·VI binary (G2 / CDS-I18N-001) (improvement) — operator B: third-locale spike (ja)
+- [ready_to_implement] TASK-IMP-027-theme-axes - Brand/density/contrast axes (G3 / CDS-THEME-002) (improvement) — operator C: density + contrast one wave
+
+## ready_to_review
+
+- (none)
+
+## draft
+
 - (none)
 
 ## in flight
 
-- [ready_to_review] TASK-IMP-023-print-blank-ios - Fix blank iOS/Safari print preview for document templates (improvement)
-- [ready_to_review] TASK-IMP-024-export-html-match - HTML-faithful PDF/DOCX download + drop counsel banner (improvement)
+- (none)
 
 ## done
 
+- [done] TASK-IMP-029-editor-schema-richtext - Editor schema-based rich text (SEC-001 / CDS-SEC-001) (improvement)
+- [done] TASK-IMP-028-component-lifecycle-status - Component lifecycle status field (G4 / CDS-COV-001) (improvement)
+- [done] TASK-IMP-025-cq-layout-migration - Container-query layout migration (G1 / CDS-RESP-001) (improvement)
+- [done] TASK-IMP-024-export-html-match - HTML-faithful PDF/DOCX download + drop counsel banner (improvement)
+- [done] TASK-IMP-023-print-blank-ios - Fix blank iOS/Safari print preview for document templates (improvement)
 - [done] TASK-IMP-022-template-export-csp - CSP-safe DC runtime + PDF/DOCX export + HR DOCX source audit (improvement)
 - [done] TASK-IMP-021-aurora-webp - Convert elemental aurora washes PNG→WebP (FIND-016) (improvement)
 - [done] TASK-IMP-020-governance-runbook-alerting - Product↔CyberOS boundary, release runbook, schedule alerting (improvement)

@@ -6,6 +6,7 @@ export default {
   tags: ['autodocs'],
   argTypes: {
     defaultValue: { control: 'text' },
+    unsafeHtml: { control: 'text', description: 'Trusted HTML only — bypasses sanitization (CDS-SEC-001)' },
     minHeight: { control: 'number' },
     lang: { control: 'text' },
   },
@@ -13,7 +14,7 @@ export default {
     docs: {
       description: {
         component:
-          'Host Live CSF — Default plus honest control matrix mounting Editor. Portable consumers use styles.css + bundle, not Storybook.',
+          'Schema-allowlisted rich text (CDS-SEC-001): defaultValue + onChange HTML sanitized to EDITOR_SCHEMA; unsafeHtml is trusted-only bypass. contentEditable remains for this wave.',
       },
     },
   },

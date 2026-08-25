@@ -144,7 +144,9 @@ export const tokens = {
     },
     "container": {
       "--cs-container-max": "1320px",
-      "--cs-prose-measure": "45rem"
+      "--cs-prose-measure": "45rem",
+      "--cs-scroll-padding-block-start": "var(--cs-space-4)",
+      "--cs-scroll-padding-block-end": "var(--cs-space-4)"
     },
     "font": {
       "--cs-font-family-ui": "'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif",

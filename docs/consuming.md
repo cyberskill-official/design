@@ -106,6 +106,46 @@ State Theme (`data-theme` — light / dark / system), Element (`data-cs-element`
 
 - **Re-run the smoke test after upgrading.** Open `_audit/consumer-smoke-test.html` and the full Health board (`_audit/run.html`) against the new tip — the runner proves the packaged path still resolves.
 
+### ADOPT-001 — bump known consumers to 1.7.x
+
+Portfolio / sibling products that still pin an older `@cyberskill/design` (or a vendored subtree) should bump to **≥ 1.7.2** on their next integration window. Do this **in each consumer repo** — this design-system tree does not modify sibling checkouts.
+
+**Observed pins (local CyberSkill siblings, 2026-08-24):**
+
+| Consumer repo | Manifest path | Current pin | Proposed change |
+|---|---|---|---|
+| **SachViet** | `sachviet/app/web/package.json` | `^1.0.0` (lock: **1.0.0**) | `npm install @cyberskill/design@1.7.2` |
+| **Strategem** | `strategem/apps/web/package.json` | `1.0.0` (exact) | `"@cyberskill/design": "1.7.2"` then install |
+| **Finance** | `finance/package.json` | `github:cyberskill-official/design-system` (unpinned SHA) | Prefer registry `@cyberskill/design@1.7.2`, or pin a known SHA of this `design` repo after verifying the GitHub package path still resolves |
+| **Landing** | `landing/package.json` | `github:cyberskill-official/design-system#3edeb1350c2e48761bee18f7c10c323e6103ff7d` | Refresh to registry `1.7.2` or a tip SHA of the published design tree |
+
+| Consumer (typical) | Element mapping | Bump notes |
+|---|---|---|
+| **Finance** (invoice / quote surfaces) | Client delivery / finance templates → Thổ·clay or product row in `docs/products.md` | Prefer `dist/styles.min.css`; re-run print/export smoke if using DC templates |
+| **SachViet** (luxury / catalog) | Per product registry — do not invent element | After bump: verify Theme × Element tokens + skip-link / scroll-padding from 1.7.2 |
+| **Landing** (cyberskill.world / marketing) | Thổ studio (no attributes) or locked row | Website kit: drop inline skip styles; rely on `.cs-skip` + `--cs-scroll-padding-block-start` |
+| **Strategem** (ops / status) | Status Hub → Thủy when applicable | Status hub kit: sticky-bar scroll-padding; regenerate status page after task HITL |
+
+Checklist per consumer:
+1. `npm install @cyberskill/design@1.7.2` (or current `VERSION`) — or refresh subtree / `_ds/` bind.
+2. Switch static CSS to `dist/styles.min.css` if still on the `@import` waterfall (FIND-017).
+3. Smoke: consumer app build + keyboard Tab to skip link → `#main` on shell pages.
+4. Record the pin in that repo’s lockfile / release notes — not here.
+
+**PR-ready one-liners (apply in the consumer repo only):**
+
+```diff
+// sachviet/app/web/package.json
+- "@cyberskill/design": "^1.0.0"
++ "@cyberskill/design": "1.7.2"
+
+// strategem/apps/web/package.json
+- "@cyberskill/design": "1.0.0"
++ "@cyberskill/design": "1.7.2"
+```
+
+Landing / Finance: prefer switching from the legacy `github:cyberskill-official/design-system#…` pin to the registry package once Trusted Publishing / grant covers that product — do not force-push sibling remotes from this tree.
+
 ## Host Storybook (optional)
 
 The live site serves Storybook at `/` as the **product surface** for operators (Theme × Element × Language × Style + control matrices). That is **host-only tooling** — do not depend on Storybook in product apps. Portable Atomic View remains at `guidelines/atomic-view.html`. See `docs/storybook.md` and `docs/live-hub.md`.
