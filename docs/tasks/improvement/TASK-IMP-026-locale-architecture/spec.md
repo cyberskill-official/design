@@ -4,7 +4,7 @@ title: Locale architecture beyond EN·VI binary (G2 / CDS-I18N-001)
 template: task@1
 type: improvement
 module: improvement
-status: implementing
+status: reviewing
 operator_decision: B
 promoted_at: 2026-08-24
 priority: p3

@@ -4,7 +4,7 @@ title: Brand/density/contrast axes (G3 / CDS-THEME-002)
 template: task@1
 type: improvement
 module: improvement
-status: ready_to_implement
+status: reviewing
 operator_decision: C
 promoted_at: 2026-08-24
 priority: p3

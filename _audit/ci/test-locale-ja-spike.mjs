@@ -3,7 +3,7 @@
  * TASK-IMP-026 — third-locale (ja) spike + BCP-47 primary-subtag resolveLang contract.
  * See docs/decisions/locale-architecture.md.
  */
-import { makeT, primaryLang, resolveLang, tr, KNOWN_LOCALES } from '../../components/_i18n/i18n.js';
+import { makeT, primaryLang, resolveLang, tr, knownLocales } from '../../components/_i18n/i18n.js';
 import { strings } from '../../components/_i18n/strings.js';
 
 function assert(cond, msg) {
@@ -13,8 +13,8 @@ function assert(cond, msg) {
   }
 }
 
-assert(KNOWN_LOCALES.includes('ja'), 'KNOWN_LOCALES must include ja spike');
-assert(KNOWN_LOCALES.includes('vi') && KNOWN_LOCALES.includes('en'), 'KNOWN_LOCALES must include vi+en');
+assert(knownLocales.includes('ja'), 'knownLocales must include ja spike');
+assert(knownLocales.includes('vi') && knownLocales.includes('en'), 'knownLocales must include vi+en');
 
 assert(primaryLang(null) === null, 'primaryLang(null) → null');
 assert(primaryLang('') === null, 'primaryLang("") → null');
@@ -56,6 +56,6 @@ assert(
 );
 
 console.log('PASS test-locale-ja-spike', {
-  known: KNOWN_LOCALES,
+  known: knownLocales,
   paginationJaKeys: Object.keys(pag.ja).length,
 });

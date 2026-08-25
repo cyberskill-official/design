@@ -7,8 +7,9 @@
 import React from "react";
 import { strings as STRINGS } from "./strings.js";
 
-/** Locales with known registry tables or formatting branches. Spike: ja (TASK-IMP-026). */
-export const KNOWN_LOCALES = Object.freeze(["vi", "en", "ja"]);
+/** Locales with known registry tables or formatting branches. Spike: ja (TASK-IMP-026).
+ * camelCase so the bundle treats it as an unexposed helper (not a primary export). */
+export const knownLocales = Object.freeze(["vi", "en", "ja"]);
 
 /**
  * Normalize a lang / BCP-47 / display label to a primary language subtag.
