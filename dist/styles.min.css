@@ -235,6 +235,9 @@ color-scheme: dark;
 --cs-container-max: 1320px;
 
 --cs-prose-measure: 45rem;
+
+--cs-scroll-padding-block-start: var(--cs-space-4);
+--cs-scroll-padding-block-end: var(--cs-space-4);
 }
 
 :root {
@@ -923,8 +926,71 @@ color-scheme: dark;
 --cs-style-pack: liquid-glass;
 }
 
+:root {
+
+--cs-density-space-1: var(--cs-space-1);
+--cs-density-space-2: var(--cs-space-2);
+--cs-density-space-3: var(--cs-space-3);
+--cs-density-space-4: var(--cs-space-4);
+--cs-density-space-5: var(--cs-space-5);
+--cs-density-space-6: var(--cs-space-6);
+--cs-density-control-gap: var(--cs-component-button-gap);
+}
+
+[data-cs-density="compact"] {
+--cs-density-space-1: 3px;
+--cs-density-space-2: 6px;
+--cs-density-space-3: 9px;
+--cs-density-space-4: 12px;
+--cs-density-space-5: 16px;
+--cs-density-space-6: 18px;
+--cs-density-control-gap: 6px;
+
+--cs-component-button-gap: 6px;
+--cs-component-button-xs-paddingY: 3px;
+--cs-component-button-xs-paddingX: 8px;
+--cs-component-button-sm-paddingY: 6px;
+--cs-component-button-sm-paddingX: 12px;
+--cs-component-button-md-paddingY: 10px;
+--cs-component-button-md-paddingX: 16px;
+
+--cs-component-button-lg-paddingY: 12px;
+--cs-component-button-lg-paddingX: 22px;
+
+--cs-component-textfield-paddingY: 8px;
+--cs-component-textfield-paddingX: 10px;
+
+}
+
+[data-cs-density="comfortable"] {
+
+}
+
+[data-cs-contrast="high"] {
+--cs-color-border-default: #9a8060;
+--cs-color-text-muted: #5a4638;
+}
+
+[data-theme="dark"][data-cs-contrast="high"],
+[data-cs-contrast="high"][data-theme="dark"] {
+--cs-color-border-default: #7a6450;
+--cs-color-text-muted: #d8c9b6;
+}
+
+@media (prefers-color-scheme: dark) {
+[data-theme="system"][data-cs-contrast="high"],
+[data-cs-contrast="high"][data-theme="system"] {
+--cs-color-border-default: #7a6450;
+--cs-color-text-muted: #d8c9b6;
+}
+}
+
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html {
+-webkit-text-size-adjust: 100%;
+scroll-padding-block-start: var(--cs-scroll-padding-block-start, var(--cs-space-4, 16px));
+scroll-padding-block-end: var(--cs-scroll-padding-block-end, var(--cs-space-4, 16px));
+}
 body {
 margin: 0;
 background: var(--cs-color-surface-page, #fffdf8);
@@ -943,6 +1009,34 @@ text-rendering: optimizeLegibility;
 outline: 2px solid var(--cs-color-text-primary, #45210e);
 outline-offset: 2px;
 box-shadow: 0 0 0 5px var(--cs-color-accent-ochre, #f4ba17);
+}
+
+.cs-skip {
+position: absolute;
+left: -999px;
+top: auto;
+width: 1px;
+height: 1px;
+overflow: hidden;
+text-decoration: none;
+font-weight: 700;
+font-family: var(--cs-font-family-ui);
+}
+.cs-skip:focus,
+.cs-skip:focus-visible {
+position: fixed;
+left: 12px;
+top: 12px;
+z-index: calc(var(--cs-depth-toast, 200) + 1);
+width: auto;
+height: auto;
+padding: 10px 14px;
+background: var(--cs-color-surface-panel);
+color: var(--cs-color-text-primary);
+border: 2px solid var(--cs-color-brand-ochre);
+border-radius: var(--cs-radius-md, 8px);
+overflow: visible;
+box-shadow: var(--cs-shadow-md);
 }
 
 .cs-display { font-family: var(--cs-heading-family); font-size: var(--cs-text-display); line-height: var(--cs-font-lineHeight-tight); font-weight: var(--cs-heading-weight-strong); letter-spacing: var(--cs-heading-tracking); text-wrap: balance; }
@@ -2175,12 +2269,12 @@ scroll-behavior: auto !important;
 }
 
 @media (prefers-contrast: more) {
-:root:not([data-cs-contrast="normal"]) {
+:root:not([data-cs-contrast="standard"]) {
 --cs-color-border-default: #231a12;
 --cs-color-text-muted: #3d2a1c;
 }
-[data-theme="dark"]:not([data-cs-contrast="normal"]),
-[data-theme="system"]:not([data-cs-contrast="normal"]) {
+[data-theme="dark"]:not([data-cs-contrast="standard"]),
+[data-theme="system"]:not([data-cs-contrast="standard"]) {
 --cs-color-border-default: #f5ead9;
 --cs-color-text-muted: #e6d4be;
 }
@@ -2199,9 +2293,18 @@ background: var(--cs-color-surface-page);
 img, svg, video, canvas { max-width: 100%; height: auto; }
 
 .cs-cq { container-type: inline-size; container-name: cs; }
+@container cs (max-width: 768px) {
+.cs-cq-cols-2,
+.cs-cq-cols-3,
+.cs-cq-cols-4 { grid-template-columns: 1fr !important; }
+.cs-cq-hide-narrow { display: none !important; }
+}
 @container cs (max-width: 640px) {
 .cs-cq-stack { display: flex !important; flex-direction: column !important; }
 .cs-cq-stack > * { min-inline-size: 0; max-inline-size: 100%; }
+.cs-cq-cols-2,
+.cs-cq-cols-3,
+.cs-cq-cols-4 { grid-template-columns: 1fr !important; }
 }
 
 @media screen and (max-width: 768px) {

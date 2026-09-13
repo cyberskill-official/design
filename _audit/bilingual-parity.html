@@ -1,29 +1,23 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><title>CyberSkill — bilingual parity</title>
+<link rel="stylesheet" href="../styles.css">
 <style>
-  body{margin:0;font-family:ui-monospace,monospace;font-size:12.5px;padding:16px 20px;background:#efe6d8;color:#231a12}
-  h1{font-family:system-ui;font-size:16px;margin:0 0 2px}
-  .lede{font-family:system-ui;color:#6b5d4f;max-width:960px;line-height:1.55;margin:0 0 12px}
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px 20px;max-width:1000px}
+  body{margin:0;font-family:var(--cs-font-family-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
+  h1{font-size:16px;margin:0 0 6px} .lede{font-size:13px;color:#6b5d4f;max-width:920px;line-height:1.5}
   .r{display:flex;justify-content:space-between;gap:10px;padding:3px 9px;border-radius:5px}
-  .r.ok{color:#166534}.r.bad{background:#FEE2E2;color:#B42318;font-weight:700}
-  .r span:last-child{font-size:11px;white-space:nowrap}
-  #sum{font-family:system-ui;font-size:15px;font-weight:800;margin:12px 0}
+  .ok{background:#dcfce7;color:#166534}.bad{background:#FEE2E2;color:#B42318;font-weight:700}
+  #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
-<h1>Bilingual parity — EN · VI string registry</h1>
-<p class="lede">The enforcement gate for the v3 bilingual doctrine (owner: <b>all</b> components/artifacts bilingual). Reads the central registry <code>components/_i18n/strings.js</code> and fails if any component (a) lacks an <code>en</code> or <code>vi</code> table, (b) has mismatched key sets across en/vi (missing or extra keys), or (c) has any empty value. As Batch 1 wires each component to <code>i18n.js</code> and registers its built-in strings here, this gate keeps EN and VI in lockstep — no half-translated component ships. <code>window.__bilingual.pass</code> must be true.</p>
-<div class="grid" id="out"></div><div id="sum">running…</div>
-<script>
-(async()=>{
+<h1>Bilingual parity</h1>
+<p class="lede">The enforcement gate for the v3 bilingual doctrine (owner: <b>all</b> components/artifacts bilingual). Reads the central registry <code>components/_i18n/strings.js</code> and fails if any component (a) lacks an <code>en</code> or <code>vi</code> table, (b) has mismatched key sets across en/vi (missing or extra keys), (c) has any empty value, or (d) declares an optional spike locale (e.g. <code>ja</code>, TASK-IMP-026) whose keys drift from <code>en</code> or are empty. As Batch 1 wires each component to <code>i18n.js</code> and registers its built-in strings here, this gate keeps EN and VI in lockstep — no half-translated component ships. <code>window.__bilingual.pass</code> must be true.</p>
+<div id="out"></div><div id="sum">running…</div>
+<script type="module">
+  import { strings as STRINGS } from '../components/_i18n/strings.js';
   const out=document.getElementById('out'), sum=document.getElementById('sum');
-  let STRINGS;
-  try{
-    let txt=await (await fetch('../components/_i18n/strings.js')).text();
-    const i=txt.indexOf('{'), j=txt.lastIndexOf('}');
-    STRINGS=(new Function('return ('+txt.slice(i,j+1)+')'))();
-  }catch(e){ sum.textContent='✗ could not read/parse components/_i18n/strings.js — '+String(e).slice(0,80); sum.style.color='#B42318'; window.__bilingual={pass:false,error:'parse'}; return; }
-  const comps=Object.keys(STRINGS), fails=[];
-  comps.sort().forEach(name=>{
+  const comps=Object.keys(STRINGS);
+  const fails=[];
+  const REQUIRED=['en','vi'];
+  for(const name of comps){
     const c=STRINGS[name]||{}; const en=c.en, vi=c.vi; const problems=[];
     if(!en) problems.push('no en'); if(!vi) problems.push('no vi');
     if(en&&vi){
@@ -33,15 +27,28 @@
       if(missEn.length) problems.push('en missing: '+missEn.join(','));
       [['en',en],['vi',vi]].forEach(([L,t])=>Object.keys(t).forEach(k=>{ if(t[k]==null||String(t[k]).trim()==='') problems.push('empty '+L+'.'+k); }));
     }
+    // Optional spike locales (ja, …): when present, must match en keys + non-empty.
+    if(en){
+      for(const loc of Object.keys(c)){
+        if(REQUIRED.includes(loc)) continue;
+        const table=c[loc];
+        if(!table || typeof table!=='object'){ problems.push(loc+' not an object'); continue; }
+        const ek=Object.keys(en), lk=Object.keys(table);
+        const miss=ek.filter(k=>!(k in table)), extra=lk.filter(k=>!(k in en));
+        if(miss.length) problems.push(loc+' missing: '+miss.join(','));
+        if(extra.length) problems.push(loc+' extra: '+extra.join(','));
+        Object.keys(table).forEach(k=>{ if(table[k]==null||String(table[k]).trim()==='') problems.push('empty '+loc+'.'+k); });
+      }
+    }
     const ok=problems.length===0; if(!ok) fails.push(name+': '+problems.join('; '));
     const keys=en?Object.keys(en).length:0;
+    const extras=Object.keys(c).filter(k=>!REQUIRED.includes(k));
     const d=document.createElement('div'); d.className='r '+(ok?'ok':'bad');
-    d.innerHTML='<span>'+(ok?'✓ ':'✗ ')+name+'</span><span>'+(ok?keys+' keys · en+vi':problems.join('; ').slice(0,60))+'</span>';
+    d.innerHTML='<span>'+(ok?'✓ ':'✗ ')+name+'</span><span>'+(ok?keys+' keys · en+vi'+(extras.length?' +'+extras.join(','):''):problems.join('; ').slice(0,80))+'</span>';
     out.appendChild(d);
-  });
+  }
   const pass=fails.length===0;
   window.__bilingual={pass,total:comps.length,failed:fails};
-  sum.textContent=pass?('✓ all '+comps.length+' registered components have EN+VI parity'):('✗ '+fails.length+' parity failure(s): '+fails.join(' | '));
+  sum.textContent=pass?('✓ all '+comps.length+' registered components have EN+VI parity (optional locales key-matched)'):('✗ '+fails.length+' parity failure(s): '+fails.join(' | '));
   sum.style.color=pass?'#166534':'#B42318';
-})();
 </script></body></html>

@@ -14,7 +14,7 @@
 <p class="lede">Guards <code>guidelines/atomic-view.html</code>: (1) every primary bundle export has a story name presence; (2) tweakable primaries in <code>PLAYGROUND_REQUIRED</code> must appear inside a live <code>controls</code> + <code>renderC</code> playground (not specimen-only). Sub-parts (<code>Tab</code>, <code>MenuItem</code>, …) excluded. <code>window.__storycov.pass</code> must be true.</p>
 <div class="grid" id="out"></div><div id="sum">running…</div>
 <script>
-const EXCLUDE=new Set(['Tab','Radio','MenuItem','ListItem','AvatarGroup','ToastStack','CardHeader','CardBody','CardFooter','CS_ICONS','CS_LOGO_MARK_INNER','CS_LOGO_VIEWBOX','NavItem','Miss']);
+const EXCLUDE=new Set(['Tab','Radio','MenuItem','ListItem','AvatarGroup','ToastStack','CardHeader','CardBody','CardFooter','CS_ICONS','CS_LOGO_MARK_INNER','CS_LOGO_VIEWBOX','EDITOR_SCHEMA','NavItem','Miss']);
 /** Primaries with tweakable props that must ship a Controlled playground (Expansion Rule). */
 const PLAYGROUND_REQUIRED=[
   'Button','Toggle','Icon','Badge','StatusIndicator','ProgressBar','Avatar','AspectRatio','Item','LumiAvatar',

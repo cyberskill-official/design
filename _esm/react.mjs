@@ -11,8 +11,7 @@
 // (or dist/styles.min.css for production static).
 // Regenerate: node scripts/generate-react-entry.mjs
 
-export { SUPPORTED_LANGS } from "../components/_i18n/i18n.js";
-export { THEME_VALUES, CONTRAST_VALUES, ThemeProvider } from "../components/_theme/provider.js";
+export { THEME_VALUES, CONTRAST_VALUES, DENSITY_VALUES, ThemeProvider } from "../components/_theme/provider.js";
 export { ALLOWED_URL_SCHEMES, REMOVED_TAGS } from "../components/_utils/sanitize-html.js";
 export { AIDisclosureBadge } from "../components/ai/AIDisclosureBadge.jsx";
 export { ChatMessage } from "../components/ai/ChatMessage.jsx";
@@ -72,7 +71,7 @@ export { Checkbox } from "../components/forms/Checkbox.jsx";
 export { ColorPicker } from "../components/forms/ColorPicker.jsx";
 export { Combobox } from "../components/forms/Combobox.jsx";
 export { DatePicker } from "../components/forms/DatePicker.jsx";
-export { Editor } from "../components/forms/Editor.jsx";
+export { EDITOR_SCHEMA, Editor } from "../components/forms/Editor.jsx";
 export { FileUpload } from "../components/forms/FileUpload.jsx";
 export { Form, FormField, FormFieldArray, FormWizard } from "../components/forms/Form.jsx";
 export { InlineEdit } from "../components/forms/InlineEdit.jsx";
@@ -94,6 +93,7 @@ export { TimePicker } from "../components/forms/TimePicker.jsx";
 export { Toggle } from "../components/forms/Toggle.jsx";
 export { Transfer } from "../components/forms/Transfer.jsx";
 export { TreeSelect } from "../components/forms/TreeSelect.jsx";
+export { EDITOR_SCHEMA } from "../components/forms/editor-schema.js";
 export { CS_ICONS, Icon } from "../components/icon/Icon.jsx";
 export { Logo } from "../components/logo/Logo.jsx";
 export { CS_LOGO_VIEWBOX, CS_LOGO_MARK_INNER } from "../components/logo/logo-data.js";

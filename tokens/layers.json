@@ -23,6 +23,7 @@
   "knownSemanticFiles": [
     "tokens/colors.css",
     "tokens/elements.css",
+    "tokens/theme-attributes.css",
     "base/high-contrast.css"
   ],
   "knownComponentFiles": [

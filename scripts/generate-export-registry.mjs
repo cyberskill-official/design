@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Machine-readable public export registry: owner, maturity, support, deprecation, package.
- * Source of truth for TASK-IMP-025 / enterprise audit P0 governance.
+ * Source of truth for TASK-IMP-030 / enterprise audit P0 governance.
  */
 import { writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";

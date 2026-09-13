@@ -23,7 +23,8 @@ assert(existsSync(join(root, "components/_theme/provider.js")), "ThemeProvider r
 const provider = readFileSync(join(root, "components/_theme/provider.js"), "utf8");
 assert(provider.includes("getThemeInitScript"), "SSR no-flash script");
 assert(provider.includes("data-theme"), "applies data-theme");
-assert(provider.includes("data-cs-contrast"), "applies contrast");
-assert(!/data-cs-density/.test(provider), "must not revive Density axis");
+assert(provider.includes("data-cs-contrast"), "applies contrast Theme attribute");
+assert(provider.includes("data-cs-density"), "applies density Theme attribute (IMP-027)");
+assert(!/tokens\/density\.css/.test(provider), "must not import retired density CSS pack");
 
 console.log("PASS test-token-layers", { files: layers.knownSemanticFiles.length });

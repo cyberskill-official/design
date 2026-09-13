@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.7.2 · source sha256 1e71e4553ab540dd…
+// release v1.7.2 · source sha256 f2b02e5472293bb4…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -124,6 +124,8 @@ class CSTokens {
   static const double breakpoint2xl = 1536;
   static const double containerMax = 1320;
   static const double proseMeasure = 720;
+  static const String scrollPaddingBlockStart = "var(--cs-space-4)";
+  static const String scrollPaddingBlockEnd = "var(--cs-space-4)";
   static const String fontFamilyUi = "Be Vietnam Pro, ui-sans-serif, system-ui, sans-serif";
   static const String fontFamilyDisplay = "Space Grotesk, Be Vietnam Pro, ui-sans-serif, system-ui, sans-serif";
   static const String fontFamilyMono = "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";

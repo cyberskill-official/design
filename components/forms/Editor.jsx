@@ -1,14 +1,19 @@
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
-import { sanitizeHtml as sanitizeUntrustedHtml } from "../_utils/sanitize-html.js";
+import { EDITOR_SCHEMA as editorSchema, sanitizeHtml as sanitizeEditorHtml } from "./editor-schema.js";
+
+export const EDITOR_SCHEMA = editorSchema;
 
 export function sanitizeHtml(html) {
-  return sanitizeUntrustedHtml(html);
+  return sanitizeEditorHtml(html);
 }
 
-/** CyberSkill Editor — light rich-text (contentEditable): bold · italic · bullet list. onChange(html). */
-export function Editor({ defaultValue = "", value, onChange, minHeight = 120, lang, className }) {
+/** CyberSkill Editor — light rich-text (contentEditable): bold · italic · bullet list.
+ *  Trust boundary (CDS-SEC-001 / SEC-001): `defaultValue` and controlled `value` are
+ *  schema-sanitized. Pass `unsafeHtml` only for already-trusted markup that must
+ *  bypass sanitization (operator/CMS HTML). Emitted HTML is also sanitized. */
+export function Editor({ defaultValue = "", value, unsafeHtml, onChange, minHeight = 120, lang, className }) {
   const box = React.useRef(null);
   const seeded = React.useRef(false);
   const [ref, L] = useLang(lang);
@@ -31,9 +36,9 @@ export function Editor({ defaultValue = "", value, onChange, minHeight = 120, la
       return;
     }
     if (seeded.current) return;
-    box.current.innerHTML = sanitizeHtml(defaultValue);
+    box.current.innerHTML = unsafeHtml != null ? String(unsafeHtml) : sanitizeHtml(defaultValue);
     seeded.current = true;
-  }, [defaultValue, value, controlled]);
+  }, [defaultValue, value, controlled, unsafeHtml]);
   const B = ({ c, label, children }) => (
     <button type="button" className="cs-toolbar__btn" aria-label={label} onMouseDown={(e) => { e.preventDefault(); cmd(c); }}>{children}</button>
   );

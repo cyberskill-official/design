@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — AT kit/product surface probe</title>
+<style>
+  body{margin:0;font-family:ui-monospace,monospace;font-size:11.5px;padding:14px 18px;background:#efe6d8;color:#231a12}
+  h1{font-family:system-ui;font-size:15px;margin:0 0 2px}
+  .lede{font-family:system-ui;color:#6b5d4f;margin:0 0 8px;max-width:1100px;line-height:1.5}
+  .r{display:flex;justify-content:space-between;gap:8px;padding:2px 8px;border-radius:4px;max-width:1100px}
+  .r.bad{background:#FEE2E2;color:#B42318;font-weight:700}
+  .r.ok{color:#166534}
+  #sum{font-family:system-ui;font-size:14px;font-weight:800;margin:10px 0}
+  #pool{position:fixed;left:-6000px;top:0}
+</style></head><body>
+<h1>AT kit probe — product surfaces AT-12…16</h1>
+<p class="lede">Programmatic proxies for Auth, Website home, Status Hub settings, Marketing page (VN), and <code>vn-disciplinary-schedule</code>. Maps to matrix rows AT-12…16 in <code>docs/audits/at-automation-coverage.md</code>. Verdict: <code>window.__atkitprobe</code>.</p>
+<div id="busy">running…</div>
+<div id="grid"></div>
+<div id="sum"></div>
+<div id="pool"></div>
+<script>
+const EN_LEAKS=[
+  'Lumi replies, then hands clear wishes to a human.',
+  'Drop files here or browse',
+  'Type your wish…',
+  'Pin this column',
+];
+const BOOT_TRIES=50, BOOT_STEP=120, SETTLE=3200, REACT_SETTLE=5500;
+const pool=document.getElementById('pool'), grid=document.getElementById('grid'), busy=document.getElementById('busy');
+const results=[];
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function parseRgb(c){
+  const m=/rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(c||'');
+  return m?{r:+m[1],g:+m[2],b:+m[3]}:null;
+}
+function lum({r,g,b}){ const a=[r,g,b].map(v=>{ v/=255; return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4); }); return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2]; }
+function contrast(f,b){ const L1=lum(f),L2=lum(b); const hi=Math.max(L1,L2),lo=Math.min(L1,L2); return (hi+0.05)/(lo+0.05); }
+function row(name,ok,detail){
+  results.push({name,ok,detail});
+  window.__gateProgress={done:results.length,total:5,current:name};
+  const el=document.createElement('div'); el.className='r '+(ok?'ok':'bad'); el.innerHTML='<span>'+(ok?'✓ ':'✗ ')+name+'</span><span>'+detail+'</span>'; grid.appendChild(el);
+}
+function probeFrame(src,settle){
+  return new Promise(res=>{
+    const f=document.createElement('iframe');
+    f.style.cssText='width:1280px;height:900px;border:0';
+    f.src=src; pool.appendChild(f);
+    f.onload=async()=>{
+      await wait(settle);
+      let doc,win; try{ doc=f.contentDocument; win=f.contentWindow; }catch(e){ f.remove(); return res({err:String(e.message||e)}); }
+      res({doc,win,frame:f});
+    };
+  });
+}
+async function bootDc(win){
+  for(let i=0;i<BOOT_TRIES && !(win.__dcRootName && win.__dcRootName());i++) await wait(BOOT_STEP);
+  return !!(win.__dcRootName && win.__dcRootName());
+}
+function labeledInput(doc){
+  for(const inp of doc.querySelectorAll('input:not([type=hidden])')){
+    const id=inp.id;
+    const lbl=id&&doc.querySelector('label[for="'+id+'"]');
+    const wrap=inp.closest('label');
+    const aria=inp.getAttribute('aria-label');
+    const labelled=!!(lbl||wrap||aria||inp.closest('.cs-field'));
+    if(!labelled) return false;
+  }
+  return doc.querySelectorAll('input:not([type=hidden])').length>0;
+}
+async function waitWebsiteReady(doc, maxTries=100, step=200){
+  for(let i=0;i<maxTries;i++){
+    const skip=doc.querySelector('.cs-skip[href="#main"]');
+    const main=doc.querySelector('#main');
+    const cta=doc.querySelector('.btn-gold, .cs-button--primary, button.btn-gold');
+    if(skip && main && cta) return { skip, main, cta };
+    await wait(step);
+  }
+  return null;
+}
+(async()=>{
+  window.__gateProgress={done:0,total:5,current:'boot'};
+  // AT-12 Auth
+  {
+    const p=await probeFrame('../templates/auth/Auth.dc.html', SETTLE);
+    if(p.err){ row('AT-12 Auth','fail',p.err); }
+    else{
+      const doc=p.doc, win=p.win;
+      await bootDc(win);
+      await wait(800);
+      const skip=doc.querySelector('.cs-skip[href="#main"]');
+      const main=doc.querySelector('#main, main, [role=main]');
+      const reset=doc.querySelector('a[href^="mailto:"]');
+      const resetName=(reset&&(reset.textContent||reset.getAttribute('aria-label')||'').trim()).length>0;
+      const ok=!!skip && !!main && labeledInput(doc) && resetName;
+      row('AT-12 Auth', ok, ok?'skip→#main · labeled inputs · reset named':('skip='+(!!skip)+' main='+(!!main)+' labels='+(labeledInput(doc)?'y':'n')+' reset='+(resetName?'y':'n')));
+      p.frame.remove();
+    }
+  }
+  // AT-13 Website home (Babel-in-browser JSX — poll until shell mounts)
+  {
+    const p=await probeFrame('../ui_kits/website/index.html', SETTLE);
+    if(p.err){ row('AT-13 Website','fail',p.err); }
+    else{
+      const doc=p.doc;
+      const ready=await waitWebsiteReady(doc);
+      const skip=ready?.skip;
+      const main=ready?.main;
+      const cta=ready?.cta;
+      const ctaNamed=cta && ((cta.textContent||'').trim().length>0 || (cta.getAttribute('aria-label')||'').length>0);
+      let focusable=false;
+      if(cta){ try{ cta.focus(); focusable=document.activeElement===cta || cta.tabIndex>=0; }catch(e){ focusable=cta.tabIndex>=0; } }
+      const ok=!!skip && !!main && !!cta && ctaNamed && focusable;
+      row('AT-13 Website', ok, ok?'skip · #main · CTA named+focusable':('skip='+(!!skip)+' main='+(!!main)+' cta='+(!!cta)+' named='+(ctaNamed?'y':'n')));
+      p.frame.remove();
+    }
+  }
+  // AT-14 Status Hub settings
+  {
+    const p=await probeFrame('../ui_kits/status-hub/settings.html', SETTLE);
+    if(p.err){ row('AT-14 Settings','fail',p.err); }
+    else{
+      const doc=p.doc;
+      const tablist=doc.querySelector('[role=tablist]');
+      const tabs=doc.querySelectorAll('[role=tablist] [role=tab]');
+      const switches=doc.querySelectorAll('[role=switch], input[type=checkbox][role=switch]');
+      let swOk=true;
+      for(const sw of switches){
+        const id=sw.getAttribute('aria-labelledby');
+        const lbl=id&&doc.getElementById(id);
+        const wrap=sw.closest('label');
+        const aria=sw.getAttribute('aria-label');
+        if(!(lbl||wrap||aria)) swOk=false;
+      }
+      const ok=!!tablist && tabs.length>=2 && switches.length>=1 && swOk;
+      row('AT-14 Settings', ok, ok?(tabs.length+' tabs · '+switches.length+' labeled switches'):('tablist='+(!!tablist)+' switches='+switches.length+' labeled='+swOk));
+      p.frame.remove();
+    }
+  }
+  // AT-15 Marketing VN
+  {
+    const p=await probeFrame('../templates/marketing-page/MarketingPage.dc.html', SETTLE);
+    if(p.err){ row('AT-15 Marketing VN','fail',p.err); }
+    else{
+      const doc=p.doc, win=p.win;
+      if(await bootDc(win)){
+        try{ const root=win.__dcRootName(); if(win.__dcSetProps && root) win.__dcSetProps(root,{language:'Tiếng Việt'}); }catch(e){}
+        await wait(1800);
+      }
+      const text=doc.body.innerText||'';
+      const leaks=EN_LEAKS.filter(s=>text.includes(s));
+      const ok=leaks.length===0;
+      row('AT-15 Marketing VN', ok, ok?'no EN leak strings':('leaks: '+leaks.join('; ')));
+      p.frame.remove();
+    }
+  }
+  // AT-16 Disciplinary schedule
+  {
+    const p=await probeFrame('../templates/vn-disciplinary-schedule/VnDisciplinarySchedule.dc.html', SETTLE);
+    if(p.err){ row('AT-16 Disciplinary','fail',p.err); }
+    else{
+      const doc=p.doc, win=p.win;
+      await bootDc(win);
+      await wait(800);
+      const text=doc.body.innerText||'';
+      const ht=['HT1','HT2','HT3','HT4'].every(h=>text.includes(h));
+      const badge=doc.querySelector('span');
+      let ratioOk=true, ratioDetail='';
+      const cell=doc.querySelector('td span');
+      if(cell){
+        const cs=doc.defaultView.getComputedStyle(cell);
+        const fg=parseRgb(cs.color), bg=parseRgb(cs.backgroundColor);
+        if(fg&&bg){ const r=contrast(fg,bg); ratioOk=r>=4.5; ratioDetail=' contrast='+r.toFixed(2); }
+      }
+      const ok=ht && ratioOk;
+      row('AT-16 Disciplinary', ok, ok?('HT1–HT4 present'+ratioDetail):('ht='+(ht?'y':'n')+ratioDetail));
+      p.frame.remove();
+    }
+  }
+  const bad=results.filter(r=>!r.ok);
+  window.__atkitprobe={pass:bad.length===0,total:results.length,failed:bad.map(r=>r.name),results};
+  busy.textContent='done';
+  const sum=document.getElementById('sum');
+  sum.textContent=bad.length?('✗ '+bad.length+'/'+results.length+' kit probe fails'):('✓ all '+results.length+' AT kit probes pass');
+  sum.style.color=bad.length?'#B42318':'#166534';
+})();
+</script></body></html>

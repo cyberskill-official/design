@@ -4,11 +4,13 @@
  * the page-local tokens the CDS palette doesn't carry (text-on-fill roles). */
 
 :root {
-  --cs-status-on-ochre: #45210E;
-  --cs-status-on-fill: #FFFFFF;
-  --cs-status-todo: #E7D9C6;
-  --cs-status-header-bg: #45210E;
-  --cs-status-header-fg: #FFFFFF;
+  /* page-local tokens: map to CDS roles where they exist (UX-035 / FIND-010 pattern).
+     Residual rgba scrim/shadow/ghost stay page-local — no CDS equivalent. */
+  --cs-status-on-ochre: var(--cs-color-brand-umber);
+  --cs-status-on-fill: var(--cs-color-text-inverse);
+  --cs-status-todo: var(--cs-color-border-default);
+  --cs-status-header-bg: var(--cs-color-brand-umber);
+  --cs-status-header-fg: var(--cs-color-text-inverse);
   --cs-status-scrim: rgba(23, 17, 12, .45);
   --cs-status-shadow: rgba(23, 17, 12, .22);
   --cs-status-ghost-border: rgba(255, 255, 255, .25);
@@ -20,9 +22,24 @@
   --cs-status-todo: #59452F;
 }
 
-.sh { background: var(--cs-color-surface-page); color: var(--cs-color-text-primary);
-  font-family: var(--cs-font-family-ui); font-size: 15px; line-height: var(--cs-font-lineHeight-body); min-height: 100%; }
-.wrap { max-width: 1320px; margin: 0 auto; padding: 0 var(--cs-space-6); }
+/* Tall sticky .bar / .hd — WCAG 2.2 focus-not-obscured (UX-033). */
+.sh {
+  --cs-scroll-padding-block-start: calc(var(--cs-space-20) + var(--cs-space-4));
+  background: var(--cs-color-surface-page);
+  color: var(--cs-color-text-primary);
+  font-family: var(--cs-font-family-ui);
+  font-size: 15px;
+  line-height: var(--cs-font-lineHeight-body);
+  min-height: 100%;
+}
+.wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 var(--cs-space-6);
+  /* G1 / CDS-RESP-001 — opt-in container query host. */
+  container-type: inline-size;
+  container-name: cs;
+}
 .mono { font-family: var(--cs-font-family-mono); }
 .muted { color: var(--cs-color-text-muted); }
 
@@ -196,7 +213,14 @@ table.tbl { border-collapse: collapse; width: 100%; font-size: 13px; }
 
 .ft { margin: var(--cs-space-12) 0 var(--cs-space-16); text-align: center; font-size: 12px; color: var(--cs-color-text-muted); }
 
+/* Viewport fallback. */
 @media (max-width: 900px) { .deck { grid-template-columns: 1fr; } .hd-meta { text-align: left; } }
+/* G1 / TASK-IMP-025 — deck + board card grid from `.wrap` container width. */
+@container cs (max-width: 768px) {
+  .deck { grid-template-columns: 1fr; }
+  .hd-meta { text-align: left; }
+  .lenses { flex-wrap: wrap; max-inline-size: 100%; }
+}
 
 /* UX-024 readable measure */
 .panel p, .notes, .release-body, article p { max-inline-size: var(--cs-prose-measure, 45rem); }

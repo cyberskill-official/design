@@ -32,10 +32,13 @@
   .results .n { font-size: 44px; font-weight: 800; letter-spacing: -.02em; color: var(--cs-color-brand-umber); }
   .results .l { color: var(--cs-color-text-muted); font-size: 14px; margin-top: 2px; }
   @media (max-width: 760px) { .results { grid-template-columns: 1fr 1fr; } .nav { display: none; } }
+  /* G1 / TASK-IMP-025 — results band from `.container` width. */
+  @container cs (max-width: 768px) { .results { grid-template-columns: 1fr 1fr; } }
+  @container cs (max-width: 640px) { .results { grid-template-columns: 1fr; } .case-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
-<a class="cs-skip" href="#main" style="position:absolute;left:-999px;width:1px;height:1px;overflow:hidden">Bỏ qua đến nội dung</a>
+<a class="cs-skip" href="#main">Bỏ qua đến nội dung</a>
 <main id="main">
 
 <div class="site">

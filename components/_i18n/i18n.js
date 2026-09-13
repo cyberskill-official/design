@@ -1,27 +1,42 @@
-/* CyberSkill i18n — shared bilingual helper (v3 Batch 0).
+/* CyberSkill i18n — shared locale helper (v3 Batch 0 + TASK-IMP-026 locale spike).
  * Vietnamese-first: default 'vi'. A component resolves its language from an explicit
- * `lang` prop → nearest [lang] ancestor → document <html lang> → 'vi'. Built-in UI
- * strings live in strings.js (EN + VI parity, enforced by _audit/bilingual-parity.html).
+ * `lang` prop → nearest [lang] ancestor → document <html lang> → 'vi'.
+ * Language axis values are BCP-47 primary subtags (en · vi · ja spike). Built-in UI
+ * strings live in strings.js (EN + VI required; optional locales gated by bilingual-parity).
+ * Pseudo-locale (`pseudo` / `en-XA`) wraps strings for inclusive-matrix expansion.
  * Import from a component:  import { makeT, resolveLang, formatDate } from "../_i18n/i18n.js"; */
 import React from "react";
 import { strings as STRINGS } from "./strings.js";
 
-export const SUPPORTED_LANGS = Object.freeze(["vi", "en", "ja"]);
+/** Locales with known registry tables or formatting branches. Spike: ja (TASK-IMP-026).
+ * camelCase so the bundle treats it as an unexposed helper (not a primary export). */
+export const knownLocales = Object.freeze(["vi", "en", "ja"]);
 
-/** Map BCP-47 / lang hints onto the string table language (en|vi) plus a locale tag. */
-export function negotiateLang(requested) {
-  if (!requested) return null;
-  const raw = String(requested).toLowerCase();
-  if (raw === "pseudo" || raw === "en-xa" || raw.startsWith("en-xa")) return "pseudo";
-  if (raw === "ja" || raw.startsWith("ja-")) return "ja";
-  if (raw === "vi" || raw.startsWith("vi")) return "vi";
-  if (raw === "en" || raw.startsWith("en")) return "en";
-  return "en";
+/**
+ * Normalize a lang / BCP-47 / display label to a primary language subtag.
+ * Returns null when empty so callers can fall through to Vietnamese-first default.
+ * `pseudo` / `en-XA` stay a harness locale (TASK-IMP-030 inclusive matrix).
+ */
+export function primaryLang(tag) {
+  if (tag == null) return null;
+  const raw = String(tag).trim();
+  if (!raw) return null;
+  const lower = raw.toLowerCase().replace(/_/g, "-");
+  if (lower === "pseudo" || lower === "en-xa" || lower.startsWith("en-xa")) return "pseudo";
+  if (lower === "tiếng việt" || lower === "tieng viet") return "vi";
+  if (lower === "english") return "en";
+  if (lower === "日本語" || lower === "japanese") return "ja";
+  if (lower.startsWith("vi")) return "vi";
+  if (lower.startsWith("en")) return "en";
+  if (lower.startsWith("ja")) return "ja";
+  const primary = lower.split("-")[0];
+  return primary || null;
 }
 
 export function localeForLang(lang) {
-  if (lang === "vi") return "vi-VN";
-  if (lang === "ja") return "ja-JP";
+  const L = primaryLang(lang) || "vi";
+  if (L === "vi") return "vi-VN";
+  if (L === "ja") return "ja-JP";
   return "en-US";
 }
 
@@ -31,23 +46,32 @@ export function applyPseudo(str) {
 }
 
 export function resolveLang(propLang, el) {
-  let l = negotiateLang(propLang);
-  if (!l && el && el.closest) { const a = el.closest("[lang]"); if (a) l = negotiateLang(a.getAttribute("lang")); }
-  if (!l && typeof document !== "undefined") l = negotiateLang(document.documentElement.getAttribute("lang"));
+  let l = primaryLang(propLang);
+  if (!l && el && el.closest) {
+    const a = el.closest("[lang]");
+    if (a) l = primaryLang(a.getAttribute("lang"));
+  }
+  if (!l && typeof document !== "undefined") {
+    l = primaryLang(document.documentElement.getAttribute("lang"));
+  }
   return l || "vi";
 }
 
 export function tr(component, key, lang) {
-  const uiLang = lang === "pseudo" || lang === "ja" ? "en" : lang;
   const c = STRINGS[component] || {};
-  const table = c[uiLang] || c.vi || c.en || {};
+  const want = primaryLang(lang) === "pseudo" ? "en" : (primaryLang(lang) || "vi");
+  const table = c[want] || c.en || c.vi || {};
   let out;
   if (table[key] != null) out = table[key];
   else {
     const en = c.en || {};
-    out = en[key] != null ? en[key] : key;
+    if (en[key] != null) out = en[key];
+    else {
+      const vi = c.vi || {};
+      out = vi[key] != null ? vi[key] : key;
+    }
   }
-  return lang === "pseudo" ? applyPseudo(out) : out;
+  return primaryLang(lang) === "pseudo" ? applyPseudo(out) : out;
 }
 
 /** Bind a component + language once: const t = makeT("Pagination", lang); t("next"). */
@@ -77,18 +101,30 @@ export function useLang(propLang) {
 
 const VI_MONTHS = ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"];
 
-/** VN date = DD/MM/YYYY; EN = 02 Jul 2026. */
+/** VN date = DD/MM/YYYY; EN = 02 Jul 2026; JA = 2026/07/02. */
 export function formatDate(d, lang) {
   const dt = d instanceof Date ? d : new Date(d);
   if (isNaN(dt.getTime())) return "";
-  if (lang === "vi") {
+  const L = primaryLang(lang) || "vi";
+  if (L === "vi") {
     const p = (n) => String(n).padStart(2, "0");
     return p(dt.getDate()) + "/" + p(dt.getMonth() + 1) + "/" + dt.getFullYear();
   }
+  if (L === "ja") {
+    return dt.toLocaleDateString("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit" });
+  }
   return dt.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 }
-export function monthName(i, lang) { return lang === "vi" ? VI_MONTHS[i] : new Date(2000, i, 1).toLocaleDateString("en-US", { month: "long" }); }
-export function formatNumber(n, lang) { if (n == null || isNaN(n)) return ""; return new Intl.NumberFormat(localeForLang(lang)).format(n); }
+export function monthName(i, lang) {
+  const L = primaryLang(lang) || "vi";
+  if (L === "vi") return VI_MONTHS[i];
+  if (L === "ja") return new Date(2000, i, 1).toLocaleDateString("ja-JP", { month: "long" });
+  return new Date(2000, i, 1).toLocaleDateString("en-US", { month: "long" });
+}
+export function formatNumber(n, lang) {
+  if (n == null || isNaN(n)) return "";
+  return new Intl.NumberFormat(localeForLang(lang)).format(n);
+}
 
 /**
  * Format a money amount. Currency is independent of display language when options are used.
@@ -98,16 +134,14 @@ export function formatNumber(n, lang) { if (n == null || isNaN(n)) return ""; re
  *   (EN→USD-style `$1,234,567`; VI→`1.234.567 ₫`).
  * - Preferred: `formatCurrency(amount, { currency, locale?, lang? })` —
  *   `Intl.NumberFormat(locale, { style: "currency", currency })`.
- *   `locale` defaults from `lang` (`vi`→`vi-VN`, else `en-US`).
+ *   `locale` defaults from `lang` (`vi`→`vi-VN`, `ja`→`ja-JP`, else `en-US`).
  */
 export function formatCurrency(n, langOrOpts) {
   if (n == null || isNaN(n)) return "";
   const opts = langOrOpts && typeof langOrOpts === "object" ? langOrOpts : null;
   if (opts && opts.currency) {
     let locale = opts.locale;
-    if (!locale) {
-      locale = localeForLang(opts.lang || "en");
-    }
+    if (!locale) locale = localeForLang(opts.lang || "en");
     return new Intl.NumberFormat(locale, {
       style: "currency",
       currency: String(opts.currency).toUpperCase(),
@@ -115,7 +149,8 @@ export function formatCurrency(n, langOrOpts) {
     }).format(Number(n));
   }
   const lang = typeof langOrOpts === "string" ? langOrOpts : (opts && opts.lang) || "en";
-  return lang === "vi"
+  const L = primaryLang(lang) || "en";
+  return L === "vi"
     ? new Intl.NumberFormat("vi-VN").format(n) + "\u00a0₫"
     : "$" + new Intl.NumberFormat("en-US").format(n);
 }

@@ -9,11 +9,12 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>Axes guard</h1>
-<p class="lede">Fails if live product sources reintroduce retired Expression/Density product surface (<code>data-cs-expression</code>, <code>data-cs-density</code>, density/expressions CSS imports, density-gate on the runner). Live axes are Theme × Element × Language × Style. Scans manifest-indexed templates + cards + kits + styles entry + run.html. <code>_audit/exports/</code> is out of scope. Verdict: <code>window.__axisguard.pass</code>.</p>
+<p class="lede">Fails if live product sources reintroduce retired Expression product surface (<code>data-cs-expression</code>, density/expressions CSS pack imports, Density runner gate names). Product axes stay Theme × Element × Language × Style. <b>Theme attributes</b> <code>data-cs-density</code> / <code>data-cs-contrast</code> (TASK-IMP-027) are allowlisted — they are not a fifth identity axis. Scans manifest-indexed templates + cards + kits + styles entry + run.html. <code>_audit/exports/</code> is out of scope. Verdict: <code>window.__axisguard.pass</code>.</p>
 <div id="list"></div><div id="sum">running…</div>
 <script>
 const list=document.getElementById('list');
-const BAD=[/data-cs-expression/i,/data-cs-density/i,/tokens\/density\.css/i,/tokens\/expressions\.css/i,/density-gate\.html/i,/density-overflow\.html/i,/name:'Density'/];
+/* Retired product-surface patterns only. data-cs-density / data-cs-contrast are Theme attributes (allowed). */
+const BAD=[/data-cs-expression/i,/tokens\/density\.css/i,/tokens\/expressions\.css/i,/density-gate\.html/i,/density-overflow\.html/i,/name:'Density'/];
 function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?'ok':'bad');d.textContent=(ok?'✓ ':'✗ ')+t;list.appendChild(d);}
 (async()=>{
   const fails=[];
@@ -26,7 +27,8 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
   }
   ['styles.css','_audit/run.html','dashboard.html','guidelines/atomic-view.html','guidelines/motion.html',
    'templates/playground.html','guidelines/atomic-view.html','ui_kits/status-hub/index.html',
-   'ui_kits/website/index.html','ui_kits/deck/index.html','stories/Live/Surfaces.stories.jsx'].forEach(p=>paths.add(p));
+   'ui_kits/website/index.html','ui_kits/deck/index.html','stories/Live/Surfaces.stories.jsx',
+   'tokens/theme-attributes.css','.storybook/preview.jsx'].forEach(p=>paths.add(p));
   let scanned=0;
   for(const p of paths){
     try{
@@ -37,17 +39,23 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
       }
     }catch(e){ /* missing optional */ }
   }
-  // styles imports specifically
+  // styles imports specifically — retired packs only (theme-attributes.css is allowed)
   try{
     const st=await (await fetch('../styles.css',{cache:'no-store'})).text();
-    if(/density\.css|expressions\.css/.test(st)) fails.push('styles.css imports retired packs');
+    if(/tokens\/density\.css|tokens\/expressions\.css/.test(st)) fails.push('styles.css imports retired packs');
+    if(!/theme-attributes\.css/.test(st)) fails.push('styles.css must import tokens/theme-attributes.css (TASK-IMP-027)');
   }catch(e){ fails.push('styles.css: '+e); }
+  // Prove Theme-attribute allowlist is intentional: theme-attributes.css must declare both attrs
+  try{
+    const ta=await (await fetch('../tokens/theme-attributes.css',{cache:'no-store'})).text();
+    if(!/data-cs-density/.test(ta) || !/data-cs-contrast/.test(ta)) fails.push('theme-attributes.css missing density/contrast selectors');
+  }catch(e){ fails.push('theme-attributes.css: '+e); }
   row(fails.length===0, 'scanned '+scanned+' sources · '+fails.length+' violations');
   fails.slice(0,20).forEach(f=>row(false,f));
   const pass=fails.length===0;
   window.__axisguard={pass,scanned,fails};
   const s=document.getElementById('sum');
-  s.textContent=pass?('✓ PASS — '+scanned+' sources clean'):('✗ FAIL — '+fails.length+' hits');
+  s.textContent=pass?('✓ PASS — '+scanned+' sources clean (Theme attrs density/contrast allowlisted)'):('✗ FAIL — '+fails.length+' hits');
   s.style.color=pass?'#166534':'#B42318';
 })();
 </script></body></html>

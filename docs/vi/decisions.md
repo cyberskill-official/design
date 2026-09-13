@@ -150,9 +150,28 @@ Quy tắc:
 - Agent vận hành repo này theo `.cyberos/AGENT-ENTRY.md`; người ship DS theo `docs/release-runbook.md`.
 - Không chuyển token/component product vào `.cyberos/`; không publish orchestration CyberOS như một phần của gói npm.
 
-## 14. Tư thế license và phân phối
+## 14. Kiến trúc locale ngoài EN·VI
 
-**Lựa chọn owner: proprietary UNLICENSED + consumer grant** (Th9 2026 / TASK-IMP-025)
+**Lựa chọn owner: B — spike locale thứ ba (`ja`); trục Language dùng primary subtag BCP-47** (Th8 2026; TASK-IMP-026 / CDS-I18N-001)
+
+Bản ghi chuẩn: [`docs/decisions/locale-architecture.md`](../decisions/locale-architecture.md) (EN).
+
+- Language vẫn là trục sản phẩm (Theme × Element × Language × Style). Giá trị là primary language subtag (`en` · `vi` · spike `ja`), không phải trục locale lồng, chưa dùng full region tag.
+- Registry giữ cặp EN·VI bắt buộc; bảng spike tùy chọn phải khớp key `en` khi có.
+- Mặc định tiếng Việt trước không đổi (`lang` trống → `vi`). Plural/ICU và biến thể vùng là follow-on.
+
+## 15. Thuộc tính Theme — density + contrast
+
+**Lựa chọn owner: C — density và contrast một đợt, là thuộc tính Theme** (Th8 2026; TASK-IMP-027 / CDS-THEME-002)
+
+Bản ghi chuẩn: [`docs/decisions/theme-density-contrast.md`](../decisions/theme-density-contrast.md) (EN).
+
+- `data-cs-density` (`comfortable` | `compact`) và `data-cs-contrast` (`standard` | `high`) là **thuộc tính dưới Theme**, không phải trục danh tính sản phẩm thứ năm.
+- Trục sản phẩm vẫn Theme × Element × Language × Style. Sàn APCA body Lc ≥ 75 và touch target ≥44px bất biến dưới compact.
+
+## 16. Tư thế license và phân phối
+
+**Lựa chọn owner: proprietary UNLICENSED + consumer grant** (Th9 2026 / TASK-IMP-030)
 
 Trường `license` npm giữ `UNLICENSED` (pack-hygiene). Root `LICENSE` ghi grant độc quyền CyberSkill. Dùng portfolio được duyệt nằm ở `docs/consumer-grant.md`. `templates/_vendor/deck-stage.js` là bản phái sinh do CyberSkill duy trì từ omelette starter và được ghi trong `THIRD-PARTY-NOTICES.md`. Package workspace (`@cyberskill/tokens`, `@cyberskill/react`, …) cùng tư thế; `@cyberskill/design` vẫn là facade tương thích sáu tháng.
 

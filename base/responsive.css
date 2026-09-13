@@ -16,12 +16,23 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
 
 /* G1 / CDS-RESP-001 — container-query migration (compatibility layer).
  * Opt-in hosts mark a sizing context with `.cs-cq`. Children can use
- * `@container (max-width: …)` without waiting for a full layout rewrite.
- * Media queries above remain the default until packs generate CQ variants. */
+ * `@container cs (max-width: …)` without waiting for a full layout rewrite.
+ * Media queries remain the default authority; CQ helpers apply when the
+ * *parent* is narrow (sidebar / split panes) even if the viewport is wide.
+ * Breakpoints ⊆ token scale (sm 640 · md 768). */
 .cs-cq { container-type: inline-size; container-name: cs; }
+@container cs (max-width: 768px) {
+  .cs-cq-cols-2,
+  .cs-cq-cols-3,
+  .cs-cq-cols-4 { grid-template-columns: 1fr !important; }
+  .cs-cq-hide-narrow { display: none !important; }
+}
 @container cs (max-width: 640px) {
   .cs-cq-stack { display: flex !important; flex-direction: column !important; }
   .cs-cq-stack > * { min-inline-size: 0; max-inline-size: 100%; }
+  .cs-cq-cols-2,
+  .cs-cq-cols-3,
+  .cs-cq-cols-4 { grid-template-columns: 1fr !important; }
 }
 
 /* 2 — Print-doc archetype: shrink desk + sheet chrome as the screen narrows.

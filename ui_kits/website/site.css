@@ -2,8 +2,21 @@
  * bespoke section layer. The production site adds a 3D cosmic scene + Lumi
  * genie GLB over this base; here the base is the product. */
 
-.site { font-family: var(--cs-font-family-ui); color: var(--cs-color-text-primary); background: var(--cs-color-surface-page); }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 var(--cs-space-6); }
+/* Tall sticky .hdr — WCAG 2.2 focus-not-obscured (UX-033). */
+.site {
+  --cs-scroll-padding-block-start: calc(var(--cs-space-16) + var(--cs-space-2));
+  font-family: var(--cs-font-family-ui);
+  color: var(--cs-color-text-primary);
+  background: var(--cs-color-surface-page);
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--cs-space-6);
+  /* G1 / CDS-RESP-001 — opt-in container query host (P3). */
+  container-type: inline-size;
+  container-name: cs;
+}
 .eyebrow { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--cs-color-text-accent); }
 .site a { color: var(--cs-color-link); text-decoration: none; }
 .site a:hover { color: var(--cs-color-link-hover); }
@@ -114,8 +127,15 @@
 .chat-f input:focus { outline: 2px solid var(--cs-color-brand-ochre); }
 .chat-f button { background: var(--cs-color-brand-umber); color: #fff; border: 0; border-radius: var(--cs-radius-full); padding: 0 16px; font: 700 13px/1 var(--cs-font-family-ui); cursor: pointer; }
 
+/* Viewport fallback (authority until CQ is universal). */
 @media (max-width: 860px) {
   .hero-in { grid-template-columns: 1fr; } .hero-art { display: none; }
   .svc-grid, .steps, .contact-grid { grid-template-columns: 1fr; }
   .nav { display: none; }
+}
+/* G1 / TASK-IMP-025 — size from `.container` parent, not only viewport. */
+@container cs (max-width: 768px) {
+  .hero-in { grid-template-columns: 1fr; }
+  .hero-art { display: none; }
+  .svc-grid, .steps, .contact-grid { grid-template-columns: 1fr; }
 }

@@ -3,7 +3,8 @@ import React from "react";
 const ThemeContext = React.createContext(null);
 
 export const THEME_VALUES = Object.freeze(["light", "dark", "system"]);
-export const CONTRAST_VALUES = Object.freeze(["normal", "high"]);
+export const CONTRAST_VALUES = Object.freeze(["standard", "high"]);
+export const DENSITY_VALUES = Object.freeze(["comfortable", "compact"]);
 
 function prefersDark() {
   if (typeof window === "undefined" || !window.matchMedia) return false;
@@ -17,22 +18,26 @@ export function resolveTheme(theme) {
 
 /**
  * Inline script for the document <head>. Prevents a light-theme flash on SSR
- * by applying data-theme / data-cs-contrast before first paint.
+ * by applying data-theme / data-cs-contrast / data-cs-density before first paint.
+ * Density and contrast are Theme attributes (TASK-IMP-027), not product axes.
  */
 export function getThemeInitScript({
   storageKey = "cs-theme",
   contrastKey = "cs-contrast",
+  densityKey = "cs-density",
   defaultTheme = "system",
-  defaultContrast = "normal",
+  defaultContrast = "standard",
+  defaultDensity = "comfortable",
 } = {}) {
-  return `(function(){try{var t=localStorage.getItem(${JSON.stringify(storageKey)})||${JSON.stringify(defaultTheme)};var c=localStorage.getItem(${JSON.stringify(contrastKey)})||${JSON.stringify(defaultContrast)};var r=document.documentElement;var resolved=t;if(t==="system"){resolved=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}r.setAttribute("data-theme",t==="system"?"system":resolved);if(t==="system"){r.setAttribute("data-theme","system");}else{r.setAttribute("data-theme",resolved);}r.setAttribute("data-cs-contrast",c==="high"?"high":"normal");}catch(e){}})();`;
+  return `(function(){try{var t=localStorage.getItem(${JSON.stringify(storageKey)})||${JSON.stringify(defaultTheme)};var c=localStorage.getItem(${JSON.stringify(contrastKey)})||${JSON.stringify(defaultContrast)};var d=localStorage.getItem(${JSON.stringify(densityKey)})||${JSON.stringify(defaultDensity)};var r=document.documentElement;var resolved=t;if(t==="system"){resolved=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}if(t==="system"){r.setAttribute("data-theme","system");}else{r.setAttribute("data-theme",resolved);}r.setAttribute("data-cs-contrast",c==="high"?"high":"standard");r.setAttribute("data-cs-density",d==="compact"?"compact":"comfortable");}catch(e){}})();`;
 }
 
-function applyDom(theme, contrast, dir) {
+function applyDom(theme, contrast, density, dir) {
   if (typeof document === "undefined") return;
   const root = document.documentElement;
   root.setAttribute("data-theme", theme === "dark" || theme === "light" || theme === "system" ? theme : "system");
-  root.setAttribute("data-cs-contrast", contrast === "high" ? "high" : "normal");
+  root.setAttribute("data-cs-contrast", contrast === "high" ? "high" : "standard");
+  root.setAttribute("data-cs-density", density === "compact" ? "compact" : "comfortable");
   if (dir === "rtl" || dir === "ltr") root.setAttribute("dir", dir);
 }
 
@@ -42,10 +47,12 @@ export function useTheme() {
     return {
       theme: "system",
       resolvedTheme: "light",
-      contrast: "normal",
+      contrast: "standard",
+      density: "comfortable",
       dir: "ltr",
       setTheme() {},
       setContrast() {},
+      setDensity() {},
     };
   }
   return ctx;
@@ -53,53 +60,64 @@ export function useTheme() {
 
 /**
  * Typed SSR-safe theme provider. Controlled (`theme`) or uncontrolled
- * (`defaultTheme` + localStorage). Does not invent a Density product axis.
+ * (`defaultTheme` + localStorage). Density/contrast are Theme attributes,
+ * not product identity axes.
  */
 export function ThemeProvider({
   children,
   theme: themeProp,
   defaultTheme = "system",
   contrast: contrastProp,
-  defaultContrast = "normal",
+  defaultContrast = "standard",
+  density: densityProp,
+  defaultDensity = "comfortable",
   dir = "ltr",
   storageKey = "cs-theme",
   contrastKey = "cs-contrast",
+  densityKey = "cs-density",
   className,
 }) {
   const [themeState, setThemeState] = React.useState(defaultTheme);
   const [contrastState, setContrastState] = React.useState(defaultContrast);
+  const [densityState, setDensityState] = React.useState(defaultDensity);
   const [hydrated, setHydrated] = React.useState(false);
 
   React.useEffect(() => {
     try {
       const storedTheme = localStorage.getItem(storageKey);
       const storedContrast = localStorage.getItem(contrastKey);
+      const storedDensity = localStorage.getItem(densityKey);
       if (themeProp == null && storedTheme && THEME_VALUES.includes(storedTheme)) {
         setThemeState(storedTheme);
       }
       if (contrastProp == null && storedContrast && CONTRAST_VALUES.includes(storedContrast)) {
         setContrastState(storedContrast);
       }
+      if (densityProp == null && storedDensity && DENSITY_VALUES.includes(storedDensity)) {
+        setDensityState(storedDensity);
+      }
     } catch {
       /* private mode */
     }
     setHydrated(true);
-  }, [storageKey, contrastKey, themeProp, contrastProp]);
+  }, [storageKey, contrastKey, densityKey, themeProp, contrastProp, densityProp]);
 
   const theme = themeProp != null ? themeProp : themeState;
   const contrast = contrastProp != null ? contrastProp : contrastState;
+  const density = densityProp != null ? densityProp : densityState;
   const resolvedTheme = resolveTheme(theme);
 
   React.useEffect(() => {
-    applyDom(theme, contrast, dir);
+    applyDom(theme, contrast, density, dir);
     if (!hydrated) return;
     try {
       if (themeProp == null) localStorage.setItem(storageKey, theme);
       if (contrastProp == null) localStorage.setItem(contrastKey, contrast);
+      if (densityProp == null) localStorage.setItem(densityKey, density);
     } catch {
       /* ignore */
     }
-  }, [theme, contrast, dir, hydrated, storageKey, contrastKey, themeProp, contrastProp]);
+  }, [theme, contrast, density, dir, hydrated, storageKey, contrastKey, densityKey, themeProp, contrastProp, densityProp]);
 
   const setTheme = React.useCallback((next) => {
     if (!THEME_VALUES.includes(next)) return;
@@ -109,10 +127,14 @@ export function ThemeProvider({
     if (!CONTRAST_VALUES.includes(next)) return;
     setContrastState(next);
   }, []);
+  const setDensity = React.useCallback((next) => {
+    if (!DENSITY_VALUES.includes(next)) return;
+    setDensityState(next);
+  }, []);
 
   const value = React.useMemo(
-    () => ({ theme, resolvedTheme, contrast, dir, setTheme, setContrast }),
-    [theme, resolvedTheme, contrast, dir, setTheme, setContrast],
+    () => ({ theme, resolvedTheme, contrast, density, dir, setTheme, setContrast, setDensity }),
+    [theme, resolvedTheme, contrast, density, dir, setTheme, setContrast, setDensity],
   );
 
   return React.createElement(
@@ -124,6 +146,7 @@ export function ThemeProvider({
         className: ["cs-root", "cs-theme-provider", className].filter(Boolean).join(" "),
         "data-theme": theme,
         "data-cs-contrast": contrast,
+        "data-cs-density": density,
         dir,
       },
       children,

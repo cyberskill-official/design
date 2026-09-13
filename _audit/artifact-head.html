@@ -10,8 +10,8 @@
   #sum{font-family:system-ui;font-size:14px;font-weight:800;margin:10px 0}
   #pool{position:fixed;left:-6000px;top:0}
 </style></head><body>
-<h1>Artifact head — title + html lang on every template</h1>
-<p class="lede">UX-002 / Phase 0–1. Fresh-iframe probe of every manifest template: after settle, require a non-empty <code>document.title</code> and a non-empty <code>&lt;html lang&gt;</code>. Phase 0 ships advisory (board does not fail); Phase 1 flips hard once ds-base injection lands. Verdict on <code>window.__artifacthead</code>.</p>
+<h1>Artifact head — title + html lang + main landmark on every template</h1>
+<p class="lede">UX-002 / UX-032. Fresh-iframe probe of every manifest template: after settle, require a non-empty <code>document.title</code>, a non-empty <code>&lt;html lang&gt;</code>, and a main landmark (<code>main</code>, <code>[role=main]</code>, or <code>#main</code> — product shells ship markup; print sheets get <code>role=main</code> via <code>ds-base</code>). Verdict on <code>window.__artifacthead</code>.</p>
 <div id="busy">loading…</div>
 <div id="grid"></div>
 <div id="sum"></div>
@@ -27,14 +27,15 @@ function probe(src){
     f.src=src; pool.appendChild(f);
     f.onload=()=>{
       setTimeout(()=>{
-        let title='', lang='', err=null;
+        let title='', lang='', main=false, err=null;
         try{
           const d=f.contentDocument;
           title=(d.title||'').trim();
           lang=(d.documentElement.getAttribute('lang')||'').trim();
+          main=!!d.querySelector('main, [role="main"], #main');
         }catch(e){ err=String(e.message||e); }
         f.remove();
-        res({title,lang,err});
+        res({title,lang,main,err});
       }, SETTLE);
     };
   });
@@ -48,22 +49,22 @@ function probe(src){
     const measured=await Promise.all(batch.map(t=>probe(t.src)));
     batch.forEach((t,j)=>{
       const m=measured[j];
-      const ok=!m.err && !!m.title && !!m.lang;
-      results.push({name:t.name,ok,title:m.title,lang:m.lang,err:m.err});
+      const ok=!m.err && !!m.title && !!m.lang && !!m.main;
+      results.push({name:t.name,ok,title:m.title,lang:m.lang,main:m.main,err:m.err});
       const row=document.createElement('div');
       row.className='r '+(ok?'ok':'bad');
-      row.innerHTML='<span>'+t.name+'</span><span>'+(ok?('✓ "'+m.title.slice(0,40)+'" lang='+m.lang):(m.err||('title='+(m.title?'y':'n')+' lang='+(m.lang||'∅'))))+'</span>';
+      row.innerHTML='<span>'+t.name+'</span><span>'+(ok?('✓ "'+m.title.slice(0,40)+'" lang='+m.lang+' main'):(m.err||('title='+(m.title?'y':'n')+' lang='+(m.lang||'∅')+' main='+(m.main?'y':'n'))))+'</span>';
       grid.appendChild(row);
     });
     busy.textContent='probed '+results.length+'/'+tpls.length;
     window.__all={done:results.length,total:tpls.length,results};
   }
   const bad=results.filter(r=>!r.ok);
-  // Phase 1: hard pass when zero failures. Known baseline count retained for reporting.
-  window.__artifacthead={pass:bad.length===0,total:tpls.length,failed:bad.length,missing:bad.map(r=>r.name),baselineExpected:85};
+  // Hard pass when zero failures. Known baseline count retained for reporting.
+  window.__artifacthead={pass:bad.length===0,total:tpls.length,failed:bad.length,missing:bad.map(r=>r.name),baselineExpected:85,checks:['title','lang','main']};
   busy.textContent='done';
   const sum=document.getElementById('sum');
-  sum.textContent=bad.length?('✗ '+bad.length+'/'+tpls.length+' missing title/lang'):('✓ '+tpls.length+' templates have title + html lang');
+  sum.textContent=bad.length?('✗ '+bad.length+'/'+tpls.length+' missing title/lang/main'):('✓ '+tpls.length+' templates have title + html lang + main landmark');
   sum.style.color=bad.length?'#B42318':'#166534';
 })();
 </script></body></html>

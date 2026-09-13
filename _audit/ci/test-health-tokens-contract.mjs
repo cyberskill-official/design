@@ -23,8 +23,9 @@ assert(!run.includes('Copy import report'), 'import report UI removed');
 
 // Count gate open hrefs from GATES file list pattern
 const gateFiles = [...run.matchAll(/file:'([^']+\.html)'/g)].map((m) => m[1]);
-assert(gateFiles.length === 42, 'fast board has 42 gates, got ' + gateFiles.length);
+assert(gateFiles.length === 43, 'fast board has 43 gates, got ' + gateFiles.length);
 assert(gateFiles.includes('asset-weight-budget.html'), 'asset-weight-budget on fast board');
+assert(gateFiles.includes('at-kit-probe.html'), 'at-kit-probe on fast board');
 assert(gateFiles.includes('docs-consistency.html'), 'docs-consistency on fast board');
 assert(gateFiles.includes('docs-storybook-coverage.html'), 'docs-storybook-coverage on fast board');
 assert(gateFiles.includes('docs-link-check.html'), 'docs-link-check on fast board');
