@@ -21,4 +21,6 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   children?: ReactNode;
 }
 
-export function Button(props: ButtonProps): React.ReactElement;
+export const Button: React.ForwardRefExoticComponent<
+  ButtonProps & React.RefAttributes<HTMLButtonElement>
+>;

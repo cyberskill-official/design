@@ -6,6 +6,7 @@ export default {
   tags: ['autodocs'],
   argTypes: {
     defaultValue: { control: 'text' },
+    value: { control: 'text' },
     minHeight: { control: 'number' },
     lang: { control: 'text' },
   },

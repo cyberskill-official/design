@@ -1,4 +1,7 @@
 import React from "react";
+import { ThemeProvider as ThemeProviderImpl } from "../_theme/provider.js";
+import { useTheme as useThemeImpl } from "../_theme/provider.js";
+import { getThemeInitScript as getThemeInitScriptImpl } from "../_theme/provider.js";
 
 /** Shared focusable selector for modal traps (Dialog / AlertDialog / Drawer / CommandPalette). */
 export const focusableSelector = [
@@ -211,4 +214,14 @@ export function useOverlayLayer({
   }, [open, kind, trapFocus, lockScroll, mgr, panelRef, preferFocusSelector]);
 
   return { manager: mgr };
+}
+
+export function ThemeProvider(props) {
+  return ThemeProviderImpl(props);
+}
+export function useTheme() {
+  return useThemeImpl();
+}
+export function getThemeInitScript(opts) {
+  return getThemeInitScriptImpl(opts);
 }

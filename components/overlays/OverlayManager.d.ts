@@ -38,3 +38,9 @@ export function attachFocusTrap(
 ): () => void;
 
 export const focusableSelector: string;
+
+export {
+  ThemeProvider,
+  useTheme,
+  getThemeInitScript,
+} from "../_theme/provider";

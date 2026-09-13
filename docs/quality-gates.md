@@ -98,8 +98,14 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | Manifest coverage | `_audit/ci/check-manifest-coverage.mjs` | Disk templates/cards/startingPoints ⊆ manifest (`email-safe` allowlisted) | Exit 0 | Hard | Unit test |
 | Pack hygiene | `_audit/ci/test-pack-hygiene.mjs` | Tarball excludes `docs/tasks|audits|plans|status`; includes notices + fonts + `_vendor/` (FIND-064) | Exit 0 | Hard | Unit test |
 | CI verdict selftest | `_audit/ci/ci-verdict.mjs --selftest` | Soft-skip vs success annotation helper (FIND-095) | Exit 0 | Hard | Unit test |
+| Export registry | `_audit/ci/test-export-registry.mjs` | Every public export has owner, maturity, support, deprecation, package | Exit 0 | Hard | Unit test |
+| Token layers + ThemeProvider | `_audit/ci/test-token-layers.mjs` | Primitive→semantic→component→state map; no Density axis | Exit 0 | Hard | Unit test |
+| Trusted HTML | `_audit/ci/test-trusted-html.mjs` | Sanitizer allowlist + scheme policy | Exit 0 | Hard | Unit test |
+| TypeScript strict + SSR | `_audit/ci/test-typescript-strict.mjs` + `test-ssr-theme.mjs` + `test-react-18-ssr.mjs` | Declaration compile + React 18/19 SSR | Exit 0 | Hard | Unit test |
+| Inclusive matrix policy | `_audit/ci/test-inclusive-matrix.mjs` | engines, browserslist, Firefox/WebKit job | Exit 0 | Hard | Unit test + `inclusive-matrix` job |
+| Package budgets / workspaces / Changesets / release-bind | `test-package-budgets` / `test-workspace-topology` / `test-changesets` / `test-release-bind` | Size budgets, workspace split, changeset config, tag/SHA/digest bind | Exit 0 | Hard | Unit test |
 
-The `test:unit` suite is wired into the CI workflow as part of the July 2026 hardening change (it previously only ran locally). Storybook freshness runs in `storybook-build` with `--require` (not skipped in CI).
+`npm test` is an alias of `test:unit` (CyberOS gate). Playwright Chromium auto-installs via `scripts/ensure-playwright.mjs`. The `test:unit` suite is wired into CI. Storybook freshness runs in `storybook-build` with `--require` (not skipped in CI).
 
 ## Audit probe suite — `npm run test:audit-probe`
 

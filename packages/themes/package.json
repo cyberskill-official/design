@@ -1,0 +1,10 @@
+{
+  "name": "@cyberskill/themes",
+  "version": "1.7.2",
+  "private": false,
+  "type": "module",
+  "description": "ThemeProvider, high-contrast, RTL, reduced-motion hooks.",
+  "license": "UNLICENSED",
+  "exports": { ".": "./index.js" },
+  "files": ["index.js", "README.md"]
+}

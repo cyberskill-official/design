@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+import { readFileSync, existsSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = join(dirname(fileURLToPath(import.meta.url)), "../..");
+const layers = JSON.parse(readFileSync(join(root, "tokens/layers.json"), "utf8"));
+
+function assert(c, m) {
+  if (!c) throw new Error(m);
+}
+
+assert(Array.isArray(layers.layers) && layers.layers.join(",") === "primitive,semantic,component,state", "layer order");
+for (const key of ["knownPrimitiveFiles", "knownSemanticFiles", "knownComponentFiles"]) {
+  assert(Array.isArray(layers[key]) && layers[key].length, key);
+  for (const p of layers[key]) {
+    assert(existsSync(join(root, p)), "missing " + p);
+  }
+}
+assert(existsSync(join(root, "base/high-contrast.css")), "high-contrast pack");
+assert(existsSync(join(root, "components/_theme/provider.js")), "ThemeProvider runtime");
+
+const provider = readFileSync(join(root, "components/_theme/provider.js"), "utf8");
+assert(provider.includes("getThemeInitScript"), "SSR no-flash script");
+assert(provider.includes("data-theme"), "applies data-theme");
+assert(provider.includes("data-cs-contrast"), "applies contrast");
+assert(!/data-cs-density/.test(provider), "must not revive Density axis");
+
+console.log("PASS test-token-layers", { files: layers.knownSemanticFiles.length });

@@ -6,20 +6,48 @@
 import React from "react";
 import { strings as STRINGS } from "./strings.js";
 
+export const SUPPORTED_LANGS = Object.freeze(["vi", "en", "ja"]);
+
+/** Map BCP-47 / lang hints onto the string table language (en|vi) plus a locale tag. */
+export function negotiateLang(requested) {
+  if (!requested) return null;
+  const raw = String(requested).toLowerCase();
+  if (raw === "pseudo" || raw === "en-xa" || raw.startsWith("en-xa")) return "pseudo";
+  if (raw === "ja" || raw.startsWith("ja-")) return "ja";
+  if (raw === "vi" || raw.startsWith("vi")) return "vi";
+  if (raw === "en" || raw.startsWith("en")) return "en";
+  return "en";
+}
+
+export function localeForLang(lang) {
+  if (lang === "vi") return "vi-VN";
+  if (lang === "ja") return "ja-JP";
+  return "en-US";
+}
+
+export function applyPseudo(str) {
+  if (str == null) return str;
+  return "⟦" + String(str) + "⟧";
+}
+
 export function resolveLang(propLang, el) {
-  const norm = (l) => (!l ? null : String(l).toLowerCase().startsWith("vi") ? "vi" : "en");
-  let l = norm(propLang);
-  if (!l && el && el.closest) { const a = el.closest("[lang]"); if (a) l = norm(a.getAttribute("lang")); }
-  if (!l && typeof document !== "undefined") l = norm(document.documentElement.getAttribute("lang"));
+  let l = negotiateLang(propLang);
+  if (!l && el && el.closest) { const a = el.closest("[lang]"); if (a) l = negotiateLang(a.getAttribute("lang")); }
+  if (!l && typeof document !== "undefined") l = negotiateLang(document.documentElement.getAttribute("lang"));
   return l || "vi";
 }
 
 export function tr(component, key, lang) {
+  const uiLang = lang === "pseudo" || lang === "ja" ? "en" : lang;
   const c = STRINGS[component] || {};
-  const table = c[lang] || c.vi || c.en || {};
-  if (table[key] != null) return table[key];
-  const en = c.en || {};
-  return en[key] != null ? en[key] : key;
+  const table = c[uiLang] || c.vi || c.en || {};
+  let out;
+  if (table[key] != null) out = table[key];
+  else {
+    const en = c.en || {};
+    out = en[key] != null ? en[key] : key;
+  }
+  return lang === "pseudo" ? applyPseudo(out) : out;
 }
 
 /** Bind a component + language once: const t = makeT("Pagination", lang); t("next"). */
@@ -60,7 +88,7 @@ export function formatDate(d, lang) {
   return dt.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 }
 export function monthName(i, lang) { return lang === "vi" ? VI_MONTHS[i] : new Date(2000, i, 1).toLocaleDateString("en-US", { month: "long" }); }
-export function formatNumber(n, lang) { if (n == null || isNaN(n)) return ""; return new Intl.NumberFormat(lang === "vi" ? "vi-VN" : "en-US").format(n); }
+export function formatNumber(n, lang) { if (n == null || isNaN(n)) return ""; return new Intl.NumberFormat(localeForLang(lang)).format(n); }
 
 /**
  * Format a money amount. Currency is independent of display language when options are used.
@@ -78,7 +106,7 @@ export function formatCurrency(n, langOrOpts) {
   if (opts && opts.currency) {
     let locale = opts.locale;
     if (!locale) {
-      locale = opts.lang === "vi" ? "vi-VN" : "en-US";
+      locale = localeForLang(opts.lang || "en");
     }
     return new Intl.NumberFormat(locale, {
       style: "currency",

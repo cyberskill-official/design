@@ -1,0 +1,10 @@
+{
+  "name": "@cyberskill/eslint-plugin",
+  "version": "1.7.2",
+  "private": false,
+  "type": "module",
+  "description": "ESLint rules for CyberSkill tokens and contracts.",
+  "license": "UNLICENSED",
+  "exports": { ".": "./index.js" },
+  "files": ["index.js", "rules/", "README.md"]
+}

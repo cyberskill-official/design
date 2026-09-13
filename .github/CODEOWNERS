@@ -1,0 +1,15 @@
+# Design System Council — every stable export also lists a DRO in
+# docs/export-registry.json (generated from scripts/generate-export-registry.mjs).
+# GitHub team slugs are advisory until the org team exists; @stephencheng is the
+# fallback reviewer for this repository.
+
+* @stephencheng
+
+/tokens/ @stephencheng
+/components/ @stephencheng
+/packages/ @stephencheng
+/apps/ @stephencheng
+/.github/ @stephencheng
+/docs/ @stephencheng
+/scripts/ @stephencheng
+/_audit/ @stephencheng

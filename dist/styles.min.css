@@ -1639,8 +1639,9 @@ box-shadow: 0 0 0 5px var(--cs-color-accent-ochre);
 .cs-carousel__nav.next { inset-inline-end: 10px; }
 .cs-carousel__dots { display: flex; gap: 6px; justify-content: center; }
 .cs-carousel__dots button { inline-size: 9px; block-size: 9px; border-radius: 999px; border: 0; background: var(--cs-color-border-default); cursor: pointer; padding: 0; position: relative; }
-.cs-carousel__dots button::before { content: ""; position: absolute; inset: -7.5px; }
-.cs-carousel__dots button[aria-current="true"] { background: var(--cs-accent); }
+.cs-carousel__dots button::before { content: ""; position: absolute; inset: -17.5px; }
+.cs-carousel__dots button[aria-current="true"],
+.cs-carousel__dots button[aria-selected="true"] { background: var(--cs-accent); }
 @media (prefers-reduced-motion: reduce) { .cs-carousel__track { transition: none; } }
 .cs-comment { display: flex; gap: 10px; }
 .cs-comment__main { flex: 1; min-inline-size: 0; }
@@ -2153,6 +2154,47 @@ scroll-behavior: auto !important;
 @media (prefers-color-scheme: dark) {
 [data-theme="system"] { --cs-color-border-default: #7a6450; --cs-color-text-muted: #d8c9b6; }
 }
+
+[data-cs-contrast="high"] {
+--cs-color-border-default: #231a12;
+--cs-color-text-muted: #3d2a1c;
+--cs-color-text-primary: #1a1108;
+--cs-color-surface-page: #fffaf2;
+--cs-color-surface-panel: #fffaf2;
+--cs-color-link: #45210e;
+}
+
+[data-theme="dark"][data-cs-contrast="high"],
+[data-theme="system"][data-cs-contrast="high"] {
+--cs-color-border-default: #f5ead9;
+--cs-color-text-muted: #e6d4be;
+--cs-color-text-primary: #fff6e8;
+--cs-color-surface-page: #1a1108;
+--cs-color-surface-panel: #221710;
+--cs-color-link: #f4ba17;
+}
+
+@media (prefers-contrast: more) {
+:root:not([data-cs-contrast="normal"]) {
+--cs-color-border-default: #231a12;
+--cs-color-text-muted: #3d2a1c;
+}
+[data-theme="dark"]:not([data-cs-contrast="normal"]),
+[data-theme="system"]:not([data-cs-contrast="normal"]) {
+--cs-color-border-default: #f5ead9;
+--cs-color-text-muted: #e6d4be;
+}
+}
+
+@layer cs.overrides {
+.cs-root {
+font-family: var(--cs-font-family-ui);
+color: var(--cs-color-text-primary);
+background: var(--cs-color-surface-page);
+}
+}
+
+@layer cs.tokens, cs.base, cs.components, cs.a11y, cs.overrides;
 
 img, svg, video, canvas { max-width: 100%; height: auto; }
 

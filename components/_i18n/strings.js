@@ -123,8 +123,8 @@ export const strings = {
     vi: { placeholder: "Thêm ghi chú — gõ @ để nhắc tên" },
   },
   Sortable: {
-    en: { moveUp: "Move up", moveDown: "Move down" },
-    vi: { moveUp: "Di chuyển lên", moveDown: "Di chuyển xuống" },
+    en: { moveUp: "Move up", moveDown: "Move down", moved: "{item} moved to position {position}" },
+    vi: { moveUp: "Di chuyển lên", moveDown: "Di chuyển xuống", moved: "Đã chuyển {item} tới vị trí {position}" },
   },
   Form: {
     en: { summary: "Please fix the following:", required: "required", requiredField: "Enter a value" },
@@ -143,8 +143,8 @@ export const strings = {
     vi: { reply: "Trả lời" },
   },
   Image: {
-    en: { preview: "Preview image", close: "Close" },
-    vi: { preview: "Xem ảnh", close: "Đóng" },
+    en: { preview: "Preview image", close: "Close", previewOpen: "Image preview opened" },
+    vi: { preview: "Xem ảnh", close: "Đóng", previewOpen: "Đã mở xem ảnh" },
   },
   Toolbar: {
     en: { more: "More actions" },

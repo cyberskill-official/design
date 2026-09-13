@@ -1,0 +1,11 @@
+{
+  "name": "@cyberskill/codemods",
+  "version": "1.7.2",
+  "private": false,
+  "type": "module",
+  "description": "Codemods for CyberSkill design-system migrations.",
+  "license": "UNLICENSED",
+  "bin": { "cyberskill-codemod": "./bin.js" },
+  "exports": { ".": "./index.js" },
+  "files": ["bin.js", "index.js", "transforms/", "README.md"]
+}

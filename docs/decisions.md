@@ -151,6 +151,12 @@ Rules:
 - Agents operating this repo follow `.cyberos/AGENT-ENTRY.md`; humans shipping the DS follow `docs/release-runbook.md`.
 - Do not move product tokens/components into `.cyberos/`; do not publish CyberOS orchestration as part of the npm package.
 
+## 14. License and distribution posture
+
+**Owner choice: proprietary UNLICENSED + consumer grant** (Sep 2026 / TASK-IMP-025)
+
+The npm `license` field stays `UNLICENSED` (pack-hygiene). Root `LICENSE` states the CyberSkill proprietary grant. Approved portfolio use is `docs/consumer-grant.md`. `templates/_vendor/deck-stage.js` is a CyberSkill-maintained derivative of an omelette starter and is attributed in `THIRD-PARTY-NOTICES.md`. Workspace packages (`@cyberskill/tokens`, `@cyberskill/react`, …) share this posture; `@cyberskill/design` remains the six-month compatibility facade.
+
 ## How to change a decision
 
 Edit the **Owner choice** line here. Implementer rewires CI and related docs in the same change.

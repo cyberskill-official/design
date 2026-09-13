@@ -1,0 +1,13 @@
+{
+  "name": "@cyberskill/tokens",
+  "version": "1.7.2",
+  "private": false,
+  "type": "module",
+  "description": "CyberSkill design tokens (DTCG, CSS, native mirrors).",
+  "license": "UNLICENSED",
+  "exports": {
+    ".": "./index.js",
+    "./dtcg": "./index.js"
+  },
+  "files": ["index.js", "README.md"]
+}

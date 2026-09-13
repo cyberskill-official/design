@@ -1,0 +1,10 @@
+{
+  "name": "@cyberskill/web-components",
+  "version": "1.7.2",
+  "private": false,
+  "type": "module",
+  "description": "Demand-led web-component stub. Not a production adapter until two non-React pilots pass.",
+  "license": "UNLICENSED",
+  "exports": { ".": "./index.js" },
+  "files": ["index.js", "README.md"]
+}

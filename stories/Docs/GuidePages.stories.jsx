@@ -41,3 +41,28 @@ export const BenchmarkRubric = {
   name: 'Benchmark rubric',
   render: () => <Page path="docs/benchmark-rubric.md" title="Benchmark rubric" />,
 };
+
+export const SupportMatrix = {
+  name: 'Support matrix',
+  render: () => <Page path="docs/support-matrix.md" title="Support matrix" />,
+};
+
+export const ComponentContract = {
+  name: 'Component contract',
+  render: () => <Page path="docs/component-contract.md" title="Component contract" />,
+};
+
+export const TokenLayers = {
+  name: 'Token layers',
+  render: () => <Page path="docs/token-layers.md" title="Token layers" />,
+};
+
+export const TrustedHtml = {
+  name: 'Trusted HTML',
+  render: () => <Page path="docs/trusted-html.md" title="Trusted HTML" />,
+};
+
+export const PackageTopology = {
+  name: 'Package topology',
+  render: () => <Page path="docs/package-topology.md" title="Package topology" />,
+};

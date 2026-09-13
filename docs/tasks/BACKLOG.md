@@ -16,6 +16,7 @@ Lifecycle: draft -> ready_to_implement -> implementing -> ready_to_review -> rev
 
 ## in flight
 
+- [ready_to_review] TASK-IMP-025-enterprise-audit-remediation - Close the 2026-09-13 enterprise audit backlog (improvement)
 - [ready_to_review] TASK-IMP-023-print-blank-ios - Fix blank iOS/Safari print preview for document templates (improvement)
 - [ready_to_review] TASK-IMP-024-export-html-match - HTML-faithful PDF/DOCX download + drop counsel banner (improvement)
 

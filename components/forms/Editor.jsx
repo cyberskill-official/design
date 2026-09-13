@@ -1,40 +1,39 @@
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
+import { sanitizeHtml as sanitizeUntrustedHtml } from "../_utils/sanitize-html.js";
 
-/** Strip script/style/event-handler markup before injecting HTML (CDS-SEC-001). */
-function sanitizeHtml(html) {
-  if (html == null || html === "") return "";
-  if (typeof document === "undefined") {
-    return String(html)
-      .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
-      .replace(/on\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
-      .replace(/javascript:/gi, "");
-  }
-  const tpl = document.createElement("template");
-  tpl.innerHTML = String(html);
-  tpl.content.querySelectorAll("script,style,iframe,object,embed,link").forEach((n) => n.remove());
-  tpl.content.querySelectorAll("*").forEach((n) => {
-    [...n.attributes].forEach((a) => {
-      if (/^on/i.test(a.name) || /javascript:/i.test(a.value)) n.removeAttribute(a.name);
-    });
-  });
-  return tpl.innerHTML;
+export function sanitizeHtml(html) {
+  return sanitizeUntrustedHtml(html);
 }
 
 /** CyberSkill Editor — light rich-text (contentEditable): bold · italic · bullet list. onChange(html). */
-export function Editor({ defaultValue = "", onChange, minHeight = 120, lang, className }) {
+export function Editor({ defaultValue = "", value, onChange, minHeight = 120, lang, className }) {
   const box = React.useRef(null);
   const seeded = React.useRef(false);
   const [ref, L] = useLang(lang);
   const t = makeT("Editor", L);
-  const cmd = (c) => { document.execCommand(c); box.current && box.current.focus(); emit(); };
-  const emit = () => { onChange && box.current && onChange(box.current.innerHTML); };
+  const controlled = value != null;
+  const cmd = (c) => {
+    document.execCommand(c);
+    box.current && box.current.focus();
+    emit();
+  };
+  const emit = () => {
+    if (!onChange || !box.current) return;
+    onChange(sanitizeHtml(box.current.innerHTML));
+  };
   React.useLayoutEffect(() => {
-    if (!box.current || seeded.current) return;
+    if (!box.current) return;
+    if (controlled) {
+      const next = sanitizeHtml(value);
+      if (box.current.innerHTML !== next) box.current.innerHTML = next;
+      return;
+    }
+    if (seeded.current) return;
     box.current.innerHTML = sanitizeHtml(defaultValue);
     seeded.current = true;
-  }, [defaultValue]);
+  }, [defaultValue, value, controlled]);
   const B = ({ c, label, children }) => (
     <button type="button" className="cs-toolbar__btn" aria-label={label} onMouseDown={(e) => { e.preventDefault(); cmd(c); }}>{children}</button>
   );
@@ -55,6 +54,7 @@ export function Editor({ defaultValue = "", onChange, minHeight = 120, lang, cla
         aria-label={t("area")}
         style={{ minHeight }}
         onInput={emit}
+        onBlur={emit}
       />
     </div>
   );

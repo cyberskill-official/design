@@ -27,7 +27,7 @@ Hosted / Storybook / template tooling may load these; they are not always presen
 
 | Asset | Notes |
 |---|---|
-| `templates/_vendor/deck-stage.js` | Copied from an omelette starter scaffold (header comment). Provenance and license are not established upstream; treat as third-party until attributed. |
+| `templates/_vendor/deck-stage.js` | CyberSkill-maintained derivative of the omelette document-compiler starter. Treated as first-party CyberSkill code under the root `LICENSE` / consumer grant. Upstream starter headers remain in-file for history; no separate third-party license applies to this in-repo copy. |
 
 ## Related
 

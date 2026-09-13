@@ -1,6 +1,12 @@
 // CyberSkill Design System — bundler-native React types (GENERATED).
 // Mirrors `_esm/react.mjs`. Regenerate: node scripts/generate-react-entry.mjs
 
+export { SUPPORTED_LANGS } from "../components/_i18n/i18n";
+export type * from "../components/_i18n/i18n";
+export { THEME_VALUES, CONTRAST_VALUES, ThemeProvider } from "../components/_theme/provider";
+export type * from "../components/_theme/provider";
+export { ALLOWED_URL_SCHEMES, REMOVED_TAGS } from "../components/_utils/sanitize-html";
+export type * from "../components/_utils/sanitize-html";
 export { AIDisclosureBadge } from "../components/ai/AIDisclosureBadge";
 export type * from "../components/ai/AIDisclosureBadge";
 export { ChatMessage } from "../components/ai/ChatMessage";
@@ -206,7 +212,7 @@ export { Drawer } from "../components/overlays/Drawer";
 export type * from "../components/overlays/Drawer";
 export { HoverCard } from "../components/overlays/HoverCard";
 export type * from "../components/overlays/HoverCard";
-export { OverlayProvider } from "../components/overlays/OverlayManager";
+export { OverlayProvider, ThemeProvider } from "../components/overlays/OverlayManager";
 export type * from "../components/overlays/OverlayManager";
 export { Popconfirm } from "../components/overlays/Popconfirm";
 export type * from "../components/overlays/Popconfirm";

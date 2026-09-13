@@ -35,6 +35,8 @@
 
 /* 3.5 — Accessibility: coarse-pointer 44px targets + reduced-motion safety net */
 @import url("base/a11y.css");
+@import url("base/high-contrast.css");
+@import url("base/scope.css");
 
 /* 4 — Global responsive layer (loaded last; adapts every surface to tablet/phone) */
 @import url("base/responsive.css");

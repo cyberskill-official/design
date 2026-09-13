@@ -2,6 +2,7 @@ import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { Icon } from "../icon/Icon.jsx";
 import { cx } from "../_utils/cx.js";
+import { useOverlayLayer } from "../overlays/OverlayManager.jsx";
 
 /** CyberSkill Image — img with loading skeleton, warm fallback on error, optional click-to-preview lightbox. */
 export function Image({ src, alt = "", ratio, preview = false, fallback, lang, className, ...props }) {
@@ -9,12 +10,19 @@ export function Image({ src, alt = "", ratio, preview = false, fallback, lang, c
   const [zoom, setZoom] = React.useState(false);
   const [ref, L] = useLang(lang);
   const t = makeT("Image", L);
+  const panel = React.useRef(null);
+  const live = React.useRef(null);
+  useOverlayLayer({
+    open: zoom,
+    kind: "modal",
+    trapFocus: true,
+    onEscape: () => setZoom(false),
+    panelRef: panel,
+  });
   React.useEffect(() => {
-    if (!zoom) return;
-    const k = (e) => { if (e.key === "Escape") setZoom(false); };
-    document.addEventListener("keydown", k);
-    return () => document.removeEventListener("keydown", k);
-  }, [zoom]);
+    if (!live.current) return;
+    live.current.textContent = zoom ? t("previewOpen") : "";
+  }, [zoom, t]);
   const openPreview = () => setZoom(true);
   const onPreviewKey = (e) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -36,14 +44,24 @@ export function Image({ src, alt = "", ratio, preview = false, fallback, lang, c
         onKeyDown={canPreview ? onPreviewKey : undefined}
         role={canPreview ? "button" : undefined}
         tabIndex={canPreview ? 0 : undefined}
+        aria-haspopup={canPreview ? "dialog" : undefined}
+        aria-expanded={canPreview ? zoom : undefined}
         aria-label={canPreview ? t("preview") + (alt ? ": " + alt : "") : undefined}
       >
         {body}
       </span>
+      <span className="cs-sr-only" aria-live="polite" ref={live} />
       {zoom ? (
-        <span className="cs-image__zoom" role="dialog" aria-label={alt || t("preview")} onClick={() => setZoom(false)}>
+        <span
+          className="cs-image__zoom"
+          role="dialog"
+          aria-modal="true"
+          aria-label={alt || t("preview")}
+          ref={panel}
+          onClick={() => setZoom(false)}
+        >
           <img src={src} alt={alt} />
-          <button type="button" aria-label={t("close")} onClick={() => setZoom(false)}>
+          <button type="button" aria-label={t("close")} onClick={(e) => { e.stopPropagation(); setZoom(false); }}>
             <Icon name="close" size="sm" style={{ verticalAlign: "middle" }} />
           </button>
         </span>

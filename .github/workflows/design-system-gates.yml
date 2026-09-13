@@ -87,7 +87,40 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: Run unit tests
-        run: npm run test:unit
+        run: npm test
+
+  inclusive-matrix:
+    # Firefox/WebKit + 320 / forced-colors / reduced-motion / RTL / pseudo-locale.
+    # PR/push smoke uses Chromium; nightly and manual install all named browsers.
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install npm dependencies
+        run: npm ci
+      - name: Cache Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-inclusive
+      - name: Install Playwright browsers
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            npx playwright install --with-deps chromium firefox webkit
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - name: Inclusive matrix
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            node _audit/ci/inclusive-matrix.mjs --browsers=chromium,firefox,webkit
+          else
+            node _audit/ci/inclusive-matrix.mjs --browsers=chromium
+          fi
 
   node-prechecks:
     # Browser-free Node gates that the run.html board does not own:
@@ -572,6 +605,7 @@ jobs:
       - fast-gates
       - token-provenance
       - unit-tests
+      - inclusive-matrix
       - node-prechecks
       - storybook-build
       - docs-consistency-blocker

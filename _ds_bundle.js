@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"CyberSkillDesignSystem_847b3c","components":[{"name":"AIDisclosureBadge","sourcePath":"components/ai/AIDisclosureBadge.jsx"},{"name":"ChatMessage","sourcePath":"components/ai/ChatMessage.jsx"},{"name":"CitationList","sourcePath":"components/ai/CitationList.jsx"},{"name":"ConfidenceMeter","sourcePath":"components/ai/ConfidenceMeter.jsx"},{"name":"HumanReviewGate","sourcePath":"components/ai/HumanReviewGate.jsx"},{"name":"PromptInput","sourcePath":"components/ai/PromptInput.jsx"},{"name":"PromptSuggestions","sourcePath":"components/ai/PromptSuggestions.jsx"},{"name":"TypingIndicator","sourcePath":"components/ai/TypingIndicator.jsx"},{"name":"LumiAvatar","sourcePath":"components/brand/LumiAvatar.jsx"},{"name":"Button","sourcePath":"components/button/Button.jsx"},{"name":"ButtonGroup","sourcePath":"components/button/ButtonGroup.jsx"},{"name":"FloatingActionButton","sourcePath":"components/button/FloatingActionButton.jsx"},{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"AspectRatio","sourcePath":"components/data/AspectRatio.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/data/Avatar.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"CardHeader","sourcePath":"components/data/Card.jsx"},{"name":"CardBody","sourcePath":"components/data/Card.jsx"},{"name":"CardFooter","sourcePath":"components/data/Card.jsx"},{"name":"Carousel","sourcePath":"components/data/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data/Chart.jsx"},{"name":"CodeBlock","sourcePath":"components/data/CodeBlock.jsx"},{"name":"Collapsible","sourcePath":"components/data/Collapsible.jsx"},{"name":"Comment","sourcePath":"components/data/Comment.jsx"},{"name":"DescriptionList","sourcePath":"components/data/DescriptionList.jsx"},{"name":"Divider","sourcePath":"components/data/Divider.jsx"},{"name":"Image","sourcePath":"components/data/Image.jsx"},{"name":"Item","sourcePath":"components/data/Item.jsx"},{"name":"Kbd","sourcePath":"components/data/Kbd.jsx"},{"name":"List","sourcePath":"components/data/List.jsx"},{"name":"ListItem","sourcePath":"components/data/List.jsx"},{"name":"Masonry","sourcePath":"components/data/Masonry.jsx"},{"name":"QRCode","sourcePath":"components/data/QRCode.jsx"},{"name":"ScrollArea","sourcePath":"components/data/ScrollArea.jsx"},{"name":"Sortable","sourcePath":"components/data/Sortable.jsx"},{"name":"Splitter","sourcePath":"components/data/Splitter.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Terminal","sourcePath":"components/data/Terminal.jsx"},{"name":"Timeline","sourcePath":"components/data/Timeline.jsx"},{"name":"Tooltip","sourcePath":"components/data/Tooltip.jsx"},{"name":"Tree","sourcePath":"components/data/Tree.jsx"},{"name":"Watermark","sourcePath":"components/data/Watermark.jsx"},{"name":"DataGrid","sourcePath":"components/datatable/DataGrid.jsx"},{"name":"DataTable","sourcePath":"components/datatable/DataTable.jsx"},{"name":"TreeTable","sourcePath":"components/datatable/TreeTable.jsx"},{"name":"Dialog","sourcePath":"components/dialog/Dialog.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Result","sourcePath":"components/feedback/Result.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"StatusIndicator","sourcePath":"components/feedback/StatusIndicator.jsx"},{"name":"Tag","sourcePath":"components/feedback/Tag.jsx"},{"name":"ToastStack","sourcePath":"components/feedback/Toast.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Calendar","sourcePath":"components/forms/Calendar.jsx"},{"name":"Cascader","sourcePath":"components/forms/Cascader.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"ColorPicker","sourcePath":"components/forms/ColorPicker.jsx"},{"name":"Combobox","sourcePath":"components/forms/Combobox.jsx"},{"name":"DatePicker","sourcePath":"components/forms/DatePicker.jsx"},{"name":"Editor","sourcePath":"components/forms/Editor.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"Form","sourcePath":"components/forms/Form.jsx"},{"name":"FormField","sourcePath":"components/forms/Form.jsx"},{"name":"FormFieldArray","sourcePath":"components/forms/Form.jsx"},{"name":"FormWizard","sourcePath":"components/forms/Form.jsx"},{"name":"InlineEdit","sourcePath":"components/forms/InlineEdit.jsx"},{"name":"InputGroup","sourcePath":"components/forms/InputGroup.jsx"},{"name":"InputOTP","sourcePath":"components/forms/InputOTP.jsx"},{"name":"Mentions","sourcePath":"components/forms/Mentions.jsx"},{"name":"NativeSelect","sourcePath":"components/forms/NativeSelect.jsx"},{"name":"NumberField","sourcePath":"components/forms/NumberField.jsx"},{"name":"Radio","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"Rating","sourcePath":"components/forms/Rating.jsx"},{"name":"SearchField","sourcePath":"components/forms/SearchField.jsx"},{"name":"SegmentedControl","sourcePath":"components/forms/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Slider","sourcePath":"components/forms/Slider.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TagInput","sourcePath":"components/forms/TagInput.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"TimePicker","sourcePath":"components/forms/TimePicker.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Transfer","sourcePath":"components/forms/Transfer.jsx"},{"name":"TreeSelect","sourcePath":"components/forms/TreeSelect.jsx"},{"name":"CS_ICONS","sourcePath":"components/icon/Icon.jsx"},{"name":"Icon","sourcePath":"components/icon/Icon.jsx"},{"name":"Logo","sourcePath":"components/logo/Logo.jsx"},{"name":"CS_LOGO_VIEWBOX","sourcePath":"components/logo/logo-data.js"},{"name":"CS_LOGO_MARK_INNER","sourcePath":"components/logo/logo-data.js"},{"name":"Anchor","sourcePath":"components/navigation/Anchor.jsx"},{"name":"BackTop","sourcePath":"components/navigation/BackTop.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"CommandPalette","sourcePath":"components/navigation/CommandPalette.jsx"},{"name":"Dock","sourcePath":"components/navigation/Dock.jsx"},{"name":"HotKeys","sourcePath":"components/navigation/HotKeys.jsx"},{"name":"Link","sourcePath":"components/navigation/Link.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"MenuItem","sourcePath":"components/navigation/Menu.jsx"},{"name":"Menubar","sourcePath":"components/navigation/Menubar.jsx"},{"name":"NavigationMenu","sourcePath":"components/navigation/NavigationMenu.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"NavItem","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Steps","sourcePath":"components/navigation/Steps.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Tab","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Toolbar","sourcePath":"components/navigation/Toolbar.jsx"},{"name":"AlertDialog","sourcePath":"components/overlays/AlertDialog.jsx"},{"name":"ContextMenu","sourcePath":"components/overlays/ContextMenu.jsx"},{"name":"Drawer","sourcePath":"components/overlays/Drawer.jsx"},{"name":"HoverCard","sourcePath":"components/overlays/HoverCard.jsx"},{"name":"OverlayProvider","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"Popconfirm","sourcePath":"components/overlays/Popconfirm.jsx"},{"name":"Popover","sourcePath":"components/overlays/Popover.jsx"},{"name":"Tour","sourcePath":"components/overlays/Tour.jsx"},{"name":"TextField","sourcePath":"components/textfield/TextField.jsx"}],"sourceHashes":{"components/_i18n/i18n.js":"c8fc9f74a4c0","components/_i18n/strings.js":"0e63dc7515d8","components/_utils/cx.js":"ad6a747ea116","components/ai/AIDisclosureBadge.jsx":"4c8954aa2d79","components/ai/ChatMessage.jsx":"344e9c13fcfe","components/ai/CitationList.jsx":"4d12ef868ff3","components/ai/ConfidenceMeter.jsx":"68cf2bba3a9e","components/ai/HumanReviewGate.jsx":"922b278dca5c","components/ai/PromptInput.jsx":"7634643dafa5","components/ai/PromptSuggestions.jsx":"02d64117ecfa","components/ai/TypingIndicator.jsx":"149e3a0c7ef8","components/brand/LumiAvatar.jsx":"b6444360cf80","components/button/Button.jsx":"6d902a925eed","components/button/ButtonGroup.jsx":"1a1481f6fb93","components/button/FloatingActionButton.jsx":"ce49fe4129a3","components/data/Accordion.jsx":"fed81278cefd","components/data/AspectRatio.jsx":"6c1e8703891e","components/data/Avatar.jsx":"88c8f59334e6","components/data/Card.jsx":"96e1f9ef44a9","components/data/Carousel.jsx":"caf09a766c42","components/data/Chart.jsx":"1953e9fef120","components/data/CodeBlock.jsx":"04e0bd2507e2","components/data/Collapsible.jsx":"3d961fef83f8","components/data/Comment.jsx":"81469a910d80","components/data/DescriptionList.jsx":"ce50d72546bb","components/data/Divider.jsx":"2d08b4a7b18e","components/data/Image.jsx":"0ea06cfe1532","components/data/Item.jsx":"7e1ac68c4e96","components/data/Kbd.jsx":"3b3d867cbdd8","components/data/List.jsx":"5c221b19efe0","components/data/Masonry.jsx":"a65508731d79","components/data/QRCode.jsx":"6acaf577a7fc","components/data/ScrollArea.jsx":"c2e2ec304b1e","components/data/Sortable.jsx":"ed7615a9469a","components/data/Splitter.jsx":"d231064601e9","components/data/Stat.jsx":"35734a801a71","components/data/Terminal.jsx":"9d419686bea8","components/data/Timeline.jsx":"22058a781a98","components/data/Tooltip.jsx":"3f30c6b1bf1d","components/data/Tree.jsx":"a1d33dec0451","components/data/Watermark.jsx":"66b7b71488d8","components/data/qr-encode.js":"14e8de77df5f","components/datatable/DataGrid.jsx":"c84fe5d5b8cc","components/datatable/DataTable.jsx":"2a7c3bda5142","components/datatable/TreeTable.jsx":"597c35135ebb","components/dialog/Dialog.jsx":"8ef7722c37c4","components/feedback/Alert.jsx":"4dbf685af3e1","components/feedback/Badge.jsx":"e691ae1634f8","components/feedback/EmptyState.jsx":"5ba1437e6d81","components/feedback/ProgressBar.jsx":"c63a431e9eed","components/feedback/Result.jsx":"c168f8dcb009","components/feedback/Skeleton.jsx":"86ee345cb412","components/feedback/Spinner.jsx":"cad2ed4008a6","components/feedback/StatusIndicator.jsx":"d27a5fc3db2a","components/feedback/Tag.jsx":"13d288da9f38","components/feedback/Toast.jsx":"6a7832751669","components/forms/Calendar.jsx":"8a66cbe766af","components/forms/Cascader.jsx":"63f35db7101d","components/forms/Checkbox.jsx":"2badb7b3b72b","components/forms/ColorPicker.jsx":"d04db0ee7678","components/forms/Combobox.jsx":"3f2fb4d28922","components/forms/DatePicker.jsx":"7a6c18e1e635","components/forms/Editor.jsx":"194484fb9dc4","components/forms/FileUpload.jsx":"509dfaff8bea","components/forms/Form.jsx":"6945025a205f","components/forms/InlineEdit.jsx":"5ffb40598769","components/forms/InputGroup.jsx":"06d6c22420d0","components/forms/InputOTP.jsx":"c3a5d02ffebc","components/forms/Mentions.jsx":"3924619137f3","components/forms/NativeSelect.jsx":"d6f6d300f75d","components/forms/NumberField.jsx":"44975fd25721","components/forms/RadioGroup.jsx":"1a64f7600e01","components/forms/Rating.jsx":"bd5c94741d63","components/forms/SearchField.jsx":"2a12c65900ec","components/forms/SegmentedControl.jsx":"1f143c62fb56","components/forms/Select.jsx":"009495d18845","components/forms/Slider.jsx":"213b7b9edec9","components/forms/Switch.jsx":"3cdf185f757c","components/forms/TagInput.jsx":"2d1554422097","components/forms/Textarea.jsx":"cf244fee0e37","components/forms/TimePicker.jsx":"abd6e54b2983","components/forms/Toggle.jsx":"a5378fd66713","components/forms/Transfer.jsx":"dd0c02d1014e","components/forms/TreeSelect.jsx":"a5b1b91d1d6a","components/icon/Icon.jsx":"280fba8477db","components/logo/Logo.jsx":"445c5f5fbd40","components/logo/logo-data.js":"f1a251a50c8f","components/navigation/Anchor.jsx":"491fb330e718","components/navigation/BackTop.jsx":"5cac0081fc20","components/navigation/Breadcrumb.jsx":"45636f3b0a51","components/navigation/CommandPalette.jsx":"51c25b8416eb","components/navigation/Dock.jsx":"3073e2870c65","components/navigation/HotKeys.jsx":"f0f707a3335d","components/navigation/Link.jsx":"d4fe3fcffd2c","components/navigation/Menu.jsx":"999e1659f8b3","components/navigation/Menubar.jsx":"1aa64f59891e","components/navigation/NavigationMenu.jsx":"020279fd7f79","components/navigation/Pagination.jsx":"a1fc19bfd104","components/navigation/Sidebar.jsx":"d578b013ad33","components/navigation/Steps.jsx":"e26c4a18cdfc","components/navigation/Tabs.jsx":"16964d61f349","components/navigation/Toolbar.jsx":"0f1f25d9e0c5","components/overlays/AlertDialog.jsx":"dcfbb7f61506","components/overlays/ContextMenu.jsx":"e3fb63e7b74f","components/overlays/Drawer.jsx":"a1c719da3f62","components/overlays/HoverCard.jsx":"5cfabde80960","components/overlays/OverlayManager.jsx":"6b58c4dad9da","components/overlays/Popconfirm.jsx":"55f08dba5f38","components/overlays/Popover.jsx":"1582f7fa5533","components/overlays/Tour.jsx":"707cd7464f0c","components/textfield/TextField.jsx":"c06bd9729f20","tokens/tokens.js":"c4638b1eba09"},"inlinedExternals":[],"unexposedExports":[{"name":"attachFocusTrap","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"cx","sourcePath":"components/_utils/cx.js"},{"name":"focusableSelector","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"formatCurrency","sourcePath":"components/_i18n/i18n.js"},{"name":"formatDate","sourcePath":"components/_i18n/i18n.js"},{"name":"formatNumber","sourcePath":"components/_i18n/i18n.js"},{"name":"getOverlayManager","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"getPath","sourcePath":"components/forms/Form.jsx"},{"name":"makeT","sourcePath":"components/_i18n/i18n.js"},{"name":"monthName","sourcePath":"components/_i18n/i18n.js"},{"name":"qrMatrix","sourcePath":"components/data/qr-encode.js"},{"name":"reorderItems","sourcePath":"components/data/Sortable.jsx"},{"name":"resolveLang","sourcePath":"components/_i18n/i18n.js"},{"name":"setPath","sourcePath":"components/forms/Form.jsx"},{"name":"strings","sourcePath":"components/_i18n/strings.js"},{"name":"tokens","sourcePath":"tokens/tokens.js"},{"name":"tr","sourcePath":"components/_i18n/i18n.js"},{"name":"useLang","sourcePath":"components/_i18n/i18n.js"},{"name":"useOverlayLayer","sourcePath":"components/overlays/OverlayManager.jsx"}]} */
+/* @ds-bundle: {"format":4,"namespace":"CyberSkillDesignSystem_847b3c","components":[{"name":"SUPPORTED_LANGS","sourcePath":"components/_i18n/i18n.js"},{"name":"THEME_VALUES","sourcePath":"components/_theme/provider.js"},{"name":"CONTRAST_VALUES","sourcePath":"components/_theme/provider.js"},{"name":"ThemeProvider","sourcePath":"components/_theme/provider.js"},{"name":"ALLOWED_URL_SCHEMES","sourcePath":"components/_utils/sanitize-html.js"},{"name":"REMOVED_TAGS","sourcePath":"components/_utils/sanitize-html.js"},{"name":"AIDisclosureBadge","sourcePath":"components/ai/AIDisclosureBadge.jsx"},{"name":"ChatMessage","sourcePath":"components/ai/ChatMessage.jsx"},{"name":"CitationList","sourcePath":"components/ai/CitationList.jsx"},{"name":"ConfidenceMeter","sourcePath":"components/ai/ConfidenceMeter.jsx"},{"name":"HumanReviewGate","sourcePath":"components/ai/HumanReviewGate.jsx"},{"name":"PromptInput","sourcePath":"components/ai/PromptInput.jsx"},{"name":"PromptSuggestions","sourcePath":"components/ai/PromptSuggestions.jsx"},{"name":"TypingIndicator","sourcePath":"components/ai/TypingIndicator.jsx"},{"name":"LumiAvatar","sourcePath":"components/brand/LumiAvatar.jsx"},{"name":"Button","sourcePath":"components/button/Button.jsx"},{"name":"ButtonGroup","sourcePath":"components/button/ButtonGroup.jsx"},{"name":"FloatingActionButton","sourcePath":"components/button/FloatingActionButton.jsx"},{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"AspectRatio","sourcePath":"components/data/AspectRatio.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/data/Avatar.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"CardHeader","sourcePath":"components/data/Card.jsx"},{"name":"CardBody","sourcePath":"components/data/Card.jsx"},{"name":"CardFooter","sourcePath":"components/data/Card.jsx"},{"name":"Carousel","sourcePath":"components/data/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data/Chart.jsx"},{"name":"CodeBlock","sourcePath":"components/data/CodeBlock.jsx"},{"name":"Collapsible","sourcePath":"components/data/Collapsible.jsx"},{"name":"Comment","sourcePath":"components/data/Comment.jsx"},{"name":"DescriptionList","sourcePath":"components/data/DescriptionList.jsx"},{"name":"Divider","sourcePath":"components/data/Divider.jsx"},{"name":"Image","sourcePath":"components/data/Image.jsx"},{"name":"Item","sourcePath":"components/data/Item.jsx"},{"name":"Kbd","sourcePath":"components/data/Kbd.jsx"},{"name":"List","sourcePath":"components/data/List.jsx"},{"name":"ListItem","sourcePath":"components/data/List.jsx"},{"name":"Masonry","sourcePath":"components/data/Masonry.jsx"},{"name":"QRCode","sourcePath":"components/data/QRCode.jsx"},{"name":"ScrollArea","sourcePath":"components/data/ScrollArea.jsx"},{"name":"Sortable","sourcePath":"components/data/Sortable.jsx"},{"name":"Splitter","sourcePath":"components/data/Splitter.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Terminal","sourcePath":"components/data/Terminal.jsx"},{"name":"Timeline","sourcePath":"components/data/Timeline.jsx"},{"name":"Tooltip","sourcePath":"components/data/Tooltip.jsx"},{"name":"Tree","sourcePath":"components/data/Tree.jsx"},{"name":"Watermark","sourcePath":"components/data/Watermark.jsx"},{"name":"DataGrid","sourcePath":"components/datatable/DataGrid.jsx"},{"name":"DataTable","sourcePath":"components/datatable/DataTable.jsx"},{"name":"TreeTable","sourcePath":"components/datatable/TreeTable.jsx"},{"name":"Dialog","sourcePath":"components/dialog/Dialog.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Result","sourcePath":"components/feedback/Result.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"StatusIndicator","sourcePath":"components/feedback/StatusIndicator.jsx"},{"name":"Tag","sourcePath":"components/feedback/Tag.jsx"},{"name":"ToastStack","sourcePath":"components/feedback/Toast.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Calendar","sourcePath":"components/forms/Calendar.jsx"},{"name":"Cascader","sourcePath":"components/forms/Cascader.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"ColorPicker","sourcePath":"components/forms/ColorPicker.jsx"},{"name":"Combobox","sourcePath":"components/forms/Combobox.jsx"},{"name":"DatePicker","sourcePath":"components/forms/DatePicker.jsx"},{"name":"Editor","sourcePath":"components/forms/Editor.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"Form","sourcePath":"components/forms/Form.jsx"},{"name":"FormField","sourcePath":"components/forms/Form.jsx"},{"name":"FormFieldArray","sourcePath":"components/forms/Form.jsx"},{"name":"FormWizard","sourcePath":"components/forms/Form.jsx"},{"name":"InlineEdit","sourcePath":"components/forms/InlineEdit.jsx"},{"name":"InputGroup","sourcePath":"components/forms/InputGroup.jsx"},{"name":"InputOTP","sourcePath":"components/forms/InputOTP.jsx"},{"name":"Mentions","sourcePath":"components/forms/Mentions.jsx"},{"name":"NativeSelect","sourcePath":"components/forms/NativeSelect.jsx"},{"name":"NumberField","sourcePath":"components/forms/NumberField.jsx"},{"name":"Radio","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"Rating","sourcePath":"components/forms/Rating.jsx"},{"name":"SearchField","sourcePath":"components/forms/SearchField.jsx"},{"name":"SegmentedControl","sourcePath":"components/forms/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Slider","sourcePath":"components/forms/Slider.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TagInput","sourcePath":"components/forms/TagInput.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"TimePicker","sourcePath":"components/forms/TimePicker.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Transfer","sourcePath":"components/forms/Transfer.jsx"},{"name":"TreeSelect","sourcePath":"components/forms/TreeSelect.jsx"},{"name":"CS_ICONS","sourcePath":"components/icon/Icon.jsx"},{"name":"Icon","sourcePath":"components/icon/Icon.jsx"},{"name":"Logo","sourcePath":"components/logo/Logo.jsx"},{"name":"CS_LOGO_VIEWBOX","sourcePath":"components/logo/logo-data.js"},{"name":"CS_LOGO_MARK_INNER","sourcePath":"components/logo/logo-data.js"},{"name":"Anchor","sourcePath":"components/navigation/Anchor.jsx"},{"name":"BackTop","sourcePath":"components/navigation/BackTop.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"CommandPalette","sourcePath":"components/navigation/CommandPalette.jsx"},{"name":"Dock","sourcePath":"components/navigation/Dock.jsx"},{"name":"HotKeys","sourcePath":"components/navigation/HotKeys.jsx"},{"name":"Link","sourcePath":"components/navigation/Link.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"MenuItem","sourcePath":"components/navigation/Menu.jsx"},{"name":"Menubar","sourcePath":"components/navigation/Menubar.jsx"},{"name":"NavigationMenu","sourcePath":"components/navigation/NavigationMenu.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"NavItem","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Steps","sourcePath":"components/navigation/Steps.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Tab","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Toolbar","sourcePath":"components/navigation/Toolbar.jsx"},{"name":"AlertDialog","sourcePath":"components/overlays/AlertDialog.jsx"},{"name":"ContextMenu","sourcePath":"components/overlays/ContextMenu.jsx"},{"name":"Drawer","sourcePath":"components/overlays/Drawer.jsx"},{"name":"HoverCard","sourcePath":"components/overlays/HoverCard.jsx"},{"name":"OverlayProvider","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"ThemeProvider","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"Popconfirm","sourcePath":"components/overlays/Popconfirm.jsx"},{"name":"Popover","sourcePath":"components/overlays/Popover.jsx"},{"name":"Tour","sourcePath":"components/overlays/Tour.jsx"},{"name":"TextField","sourcePath":"components/textfield/TextField.jsx"}],"sourceHashes":{"components/_i18n/i18n.js":"88533595bd1b","components/_i18n/strings.js":"bd38ff84cd35","components/_theme/provider.js":"d6fae0a6e4b7","components/_utils/cx.js":"ad6a747ea116","components/_utils/sanitize-html.js":"ebeee94068f8","components/ai/AIDisclosureBadge.jsx":"4c8954aa2d79","components/ai/ChatMessage.jsx":"344e9c13fcfe","components/ai/CitationList.jsx":"4d12ef868ff3","components/ai/ConfidenceMeter.jsx":"68cf2bba3a9e","components/ai/HumanReviewGate.jsx":"922b278dca5c","components/ai/PromptInput.jsx":"7634643dafa5","components/ai/PromptSuggestions.jsx":"02d64117ecfa","components/ai/TypingIndicator.jsx":"149e3a0c7ef8","components/brand/LumiAvatar.jsx":"b6444360cf80","components/button/Button.jsx":"9aa22a54cd67","components/button/ButtonGroup.jsx":"1a1481f6fb93","components/button/FloatingActionButton.jsx":"ce49fe4129a3","components/data/Accordion.jsx":"fed81278cefd","components/data/AspectRatio.jsx":"6c1e8703891e","components/data/Avatar.jsx":"88c8f59334e6","components/data/Card.jsx":"96e1f9ef44a9","components/data/Carousel.jsx":"f7a0392c16f4","components/data/Chart.jsx":"1953e9fef120","components/data/CodeBlock.jsx":"04e0bd2507e2","components/data/Collapsible.jsx":"3d961fef83f8","components/data/Comment.jsx":"81469a910d80","components/data/DescriptionList.jsx":"ce50d72546bb","components/data/Divider.jsx":"2d08b4a7b18e","components/data/Image.jsx":"28b450b7362f","components/data/Item.jsx":"7e1ac68c4e96","components/data/Kbd.jsx":"3b3d867cbdd8","components/data/List.jsx":"5c221b19efe0","components/data/Masonry.jsx":"a65508731d79","components/data/QRCode.jsx":"6acaf577a7fc","components/data/ScrollArea.jsx":"c2e2ec304b1e","components/data/Sortable.jsx":"eb77c5552eff","components/data/Splitter.jsx":"d231064601e9","components/data/Stat.jsx":"35734a801a71","components/data/Terminal.jsx":"9d419686bea8","components/data/Timeline.jsx":"22058a781a98","components/data/Tooltip.jsx":"3f30c6b1bf1d","components/data/Tree.jsx":"a1d33dec0451","components/data/Watermark.jsx":"66b7b71488d8","components/data/qr-encode.js":"14e8de77df5f","components/datatable/DataGrid.jsx":"c84fe5d5b8cc","components/datatable/DataTable.jsx":"2a7c3bda5142","components/datatable/TreeTable.jsx":"597c35135ebb","components/dialog/Dialog.jsx":"8ef7722c37c4","components/feedback/Alert.jsx":"4dbf685af3e1","components/feedback/Badge.jsx":"e691ae1634f8","components/feedback/EmptyState.jsx":"5ba1437e6d81","components/feedback/ProgressBar.jsx":"c63a431e9eed","components/feedback/Result.jsx":"c168f8dcb009","components/feedback/Skeleton.jsx":"86ee345cb412","components/feedback/Spinner.jsx":"cad2ed4008a6","components/feedback/StatusIndicator.jsx":"d27a5fc3db2a","components/feedback/Tag.jsx":"13d288da9f38","components/feedback/Toast.jsx":"6a7832751669","components/forms/Calendar.jsx":"8a66cbe766af","components/forms/Cascader.jsx":"63f35db7101d","components/forms/Checkbox.jsx":"2badb7b3b72b","components/forms/ColorPicker.jsx":"d04db0ee7678","components/forms/Combobox.jsx":"3f2fb4d28922","components/forms/DatePicker.jsx":"7a6c18e1e635","components/forms/Editor.jsx":"a8658e1a31ef","components/forms/FileUpload.jsx":"509dfaff8bea","components/forms/Form.jsx":"6945025a205f","components/forms/InlineEdit.jsx":"5ffb40598769","components/forms/InputGroup.jsx":"06d6c22420d0","components/forms/InputOTP.jsx":"c3a5d02ffebc","components/forms/Mentions.jsx":"3924619137f3","components/forms/NativeSelect.jsx":"d6f6d300f75d","components/forms/NumberField.jsx":"44975fd25721","components/forms/RadioGroup.jsx":"1a64f7600e01","components/forms/Rating.jsx":"bd5c94741d63","components/forms/SearchField.jsx":"2a12c65900ec","components/forms/SegmentedControl.jsx":"1f143c62fb56","components/forms/Select.jsx":"009495d18845","components/forms/Slider.jsx":"213b7b9edec9","components/forms/Switch.jsx":"3cdf185f757c","components/forms/TagInput.jsx":"2d1554422097","components/forms/Textarea.jsx":"cf244fee0e37","components/forms/TimePicker.jsx":"abd6e54b2983","components/forms/Toggle.jsx":"a5378fd66713","components/forms/Transfer.jsx":"dd0c02d1014e","components/forms/TreeSelect.jsx":"a5b1b91d1d6a","components/icon/Icon.jsx":"280fba8477db","components/logo/Logo.jsx":"83e4fcec0bbc","components/logo/logo-data.js":"f1a251a50c8f","components/navigation/Anchor.jsx":"491fb330e718","components/navigation/BackTop.jsx":"5cac0081fc20","components/navigation/Breadcrumb.jsx":"45636f3b0a51","components/navigation/CommandPalette.jsx":"51c25b8416eb","components/navigation/Dock.jsx":"3073e2870c65","components/navigation/HotKeys.jsx":"f0f707a3335d","components/navigation/Link.jsx":"d4fe3fcffd2c","components/navigation/Menu.jsx":"999e1659f8b3","components/navigation/Menubar.jsx":"1aa64f59891e","components/navigation/NavigationMenu.jsx":"020279fd7f79","components/navigation/Pagination.jsx":"a1fc19bfd104","components/navigation/Sidebar.jsx":"d578b013ad33","components/navigation/Steps.jsx":"e26c4a18cdfc","components/navigation/Tabs.jsx":"16964d61f349","components/navigation/Toolbar.jsx":"0f1f25d9e0c5","components/overlays/AlertDialog.jsx":"dcfbb7f61506","components/overlays/ContextMenu.jsx":"e3fb63e7b74f","components/overlays/Drawer.jsx":"a1c719da3f62","components/overlays/HoverCard.jsx":"5cfabde80960","components/overlays/OverlayManager.jsx":"9eb052abce33","components/overlays/Popconfirm.jsx":"55f08dba5f38","components/overlays/Popover.jsx":"1582f7fa5533","components/overlays/Tour.jsx":"707cd7464f0c","components/textfield/TextField.jsx":"c06bd9729f20","tokens/tokens.js":"c4638b1eba09"},"inlinedExternals":[],"unexposedExports":[{"name":"applyPseudo","sourcePath":"components/_i18n/i18n.js"},{"name":"attachFocusTrap","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"cx","sourcePath":"components/_utils/cx.js"},{"name":"focusableSelector","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"formatCurrency","sourcePath":"components/_i18n/i18n.js"},{"name":"formatDate","sourcePath":"components/_i18n/i18n.js"},{"name":"formatNumber","sourcePath":"components/_i18n/i18n.js"},{"name":"getOverlayManager","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"getPath","sourcePath":"components/forms/Form.jsx"},{"name":"getThemeInitScript","sourcePath":"components/_theme/provider.js"},{"name":"getThemeInitScript","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"isAllowedUrl","sourcePath":"components/_utils/sanitize-html.js"},{"name":"localeForLang","sourcePath":"components/_i18n/i18n.js"},{"name":"makeT","sourcePath":"components/_i18n/i18n.js"},{"name":"monthName","sourcePath":"components/_i18n/i18n.js"},{"name":"negotiateLang","sourcePath":"components/_i18n/i18n.js"},{"name":"qrMatrix","sourcePath":"components/data/qr-encode.js"},{"name":"reorderItems","sourcePath":"components/data/Sortable.jsx"},{"name":"resolveLang","sourcePath":"components/_i18n/i18n.js"},{"name":"resolveTheme","sourcePath":"components/_theme/provider.js"},{"name":"sanitizeHtml","sourcePath":"components/_utils/sanitize-html.js"},{"name":"sanitizeHtml","sourcePath":"components/forms/Editor.jsx"},{"name":"setPath","sourcePath":"components/forms/Form.jsx"},{"name":"strings","sourcePath":"components/_i18n/strings.js"},{"name":"tokens","sourcePath":"tokens/tokens.js"},{"name":"tr","sourcePath":"components/_i18n/i18n.js"},{"name":"useLang","sourcePath":"components/_i18n/i18n.js"},{"name":"useOverlayLayer","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"useTheme","sourcePath":"components/_theme/provider.js"},{"name":"useTheme","sourcePath":"components/overlays/OverlayManager.jsx"}]} */
 
 (() => {
 
@@ -126,8 +126,8 @@ const strings = {
     vi: { placeholder: "Thêm ghi chú — gõ @ để nhắc tên" }
   },
   Sortable: {
-    en: { moveUp: "Move up", moveDown: "Move down" },
-    vi: { moveUp: "Di chuyển lên", moveDown: "Di chuyển xuống" }
+    en: { moveUp: "Move up", moveDown: "Move down", moved: "{item} moved to position {position}" },
+    vi: { moveUp: "Di chuyển lên", moveDown: "Di chuyển xuống", moved: "Đã chuyển {item} tới vị trí {position}" }
   },
   Form: {
     en: { summary: "Please fix the following:", required: "required", requiredField: "Enter a value" },
@@ -146,8 +146,8 @@ const strings = {
     vi: { reply: "Trả lời" }
   },
   Image: {
-    en: { preview: "Preview image", close: "Close" },
-    vi: { preview: "Xem ảnh", close: "Đóng" }
+    en: { preview: "Preview image", close: "Close", previewOpen: "Image preview opened" },
+    vi: { preview: "Xem ảnh", close: "Đóng", previewOpen: "Đã mở xem ảnh" }
   },
   Toolbar: {
     en: { more: "More actions" },
@@ -264,22 +264,45 @@ Object.assign(__ds_scope, { strings });
 // components/_i18n/i18n.js
 try { (() => {
 const { strings: STRINGS } = __ds_scope;
+const SUPPORTED_LANGS = Object.freeze(["vi", "en", "ja"]);
+function negotiateLang(requested) {
+  if (!requested) return null;
+  const raw = String(requested).toLowerCase();
+  if (raw === "pseudo" || raw === "en-xa" || raw.startsWith("en-xa")) return "pseudo";
+  if (raw === "ja" || raw.startsWith("ja-")) return "ja";
+  if (raw === "vi" || raw.startsWith("vi")) return "vi";
+  if (raw === "en" || raw.startsWith("en")) return "en";
+  return "en";
+}
+function localeForLang(lang) {
+  if (lang === "vi") return "vi-VN";
+  if (lang === "ja") return "ja-JP";
+  return "en-US";
+}
+function applyPseudo(str) {
+  if (str == null) return str;
+  return "⟦" + String(str) + "⟧";
+}
 function resolveLang(propLang, el) {
-  const norm = (l2) => !l2 ? null : String(l2).toLowerCase().startsWith("vi") ? "vi" : "en";
-  let l = norm(propLang);
+  let l = negotiateLang(propLang);
   if (!l && el && el.closest) {
     const a = el.closest("[lang]");
-    if (a) l = norm(a.getAttribute("lang"));
+    if (a) l = negotiateLang(a.getAttribute("lang"));
   }
-  if (!l && typeof document !== "undefined") l = norm(document.documentElement.getAttribute("lang"));
+  if (!l && typeof document !== "undefined") l = negotiateLang(document.documentElement.getAttribute("lang"));
   return l || "vi";
 }
 function tr(component, key, lang) {
+  const uiLang = lang === "pseudo" || lang === "ja" ? "en" : lang;
   const c = STRINGS[component] || {};
-  const table = c[lang] || c.vi || c.en || {};
-  if (table[key] != null) return table[key];
-  const en = c.en || {};
-  return en[key] != null ? en[key] : key;
+  const table = c[uiLang] || c.vi || c.en || {};
+  let out;
+  if (table[key] != null) out = table[key];
+  else {
+    const en = c.en || {};
+    out = en[key] != null ? en[key] : key;
+  }
+  return lang === "pseudo" ? applyPseudo(out) : out;
 }
 function makeT(component, lang) {
   return (key) => tr(component, key, lang);
@@ -316,7 +339,7 @@ function monthName(i, lang) {
 }
 function formatNumber(n, lang) {
   if (n == null || isNaN(n)) return "";
-  return new Intl.NumberFormat(lang === "vi" ? "vi-VN" : "en-US").format(n);
+  return new Intl.NumberFormat(localeForLang(lang)).format(n);
 }
 function formatCurrency(n, langOrOpts) {
   if (n == null || isNaN(n)) return "";
@@ -324,7 +347,7 @@ function formatCurrency(n, langOrOpts) {
   if (opts && opts.currency) {
     let locale = opts.locale;
     if (!locale) {
-      locale = opts.lang === "vi" ? "vi-VN" : "en-US";
+      locale = localeForLang(opts.lang || "en");
     }
     return new Intl.NumberFormat(locale, {
       style: "currency",
@@ -335,8 +358,122 @@ function formatCurrency(n, langOrOpts) {
   const lang = typeof langOrOpts === "string" ? langOrOpts : opts && opts.lang || "en";
   return lang === "vi" ? new Intl.NumberFormat("vi-VN").format(n) + " ₫" : "$" + new Intl.NumberFormat("en-US").format(n);
 }
-Object.assign(__ds_scope, { resolveLang, tr, makeT, useLang, formatDate, monthName, formatNumber, formatCurrency });
+Object.assign(__ds_scope, { SUPPORTED_LANGS, negotiateLang, localeForLang, applyPseudo, resolveLang, tr, makeT, useLang, formatDate, monthName, formatNumber, formatCurrency });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/_i18n/i18n.js", error: String((e && e.message) || e) }); }
+
+// components/_theme/provider.js
+try { (() => {
+const ThemeContext = React.createContext(null);
+const THEME_VALUES = Object.freeze(["light", "dark", "system"]);
+const CONTRAST_VALUES = Object.freeze(["normal", "high"]);
+function prefersDark() {
+  if (typeof window === "undefined" || !window.matchMedia) return false;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+function resolveTheme(theme) {
+  if (theme === "dark" || theme === "light") return theme;
+  return prefersDark() ? "dark" : "light";
+}
+function getThemeInitScript({
+  storageKey = "cs-theme",
+  contrastKey = "cs-contrast",
+  defaultTheme = "system",
+  defaultContrast = "normal"
+} = {}) {
+  return `(function(){try{var t=localStorage.getItem(${JSON.stringify(storageKey)})||${JSON.stringify(defaultTheme)};var c=localStorage.getItem(${JSON.stringify(contrastKey)})||${JSON.stringify(defaultContrast)};var r=document.documentElement;var resolved=t;if(t==="system"){resolved=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}r.setAttribute("data-theme",t==="system"?"system":resolved);if(t==="system"){r.setAttribute("data-theme","system");}else{r.setAttribute("data-theme",resolved);}r.setAttribute("data-cs-contrast",c==="high"?"high":"normal");}catch(e){}})();`;
+}
+function applyDom(theme, contrast, dir) {
+  if (typeof document === "undefined") return;
+  const root = document.documentElement;
+  root.setAttribute("data-theme", theme === "dark" || theme === "light" || theme === "system" ? theme : "system");
+  root.setAttribute("data-cs-contrast", contrast === "high" ? "high" : "normal");
+  if (dir === "rtl" || dir === "ltr") root.setAttribute("dir", dir);
+}
+function useTheme() {
+  const ctx = React.useContext(ThemeContext);
+  if (!ctx) {
+    return {
+      theme: "system",
+      resolvedTheme: "light",
+      contrast: "normal",
+      dir: "ltr",
+      setTheme() {
+      },
+      setContrast() {
+      }
+    };
+  }
+  return ctx;
+}
+function ThemeProvider({
+  children,
+  theme: themeProp,
+  defaultTheme = "system",
+  contrast: contrastProp,
+  defaultContrast = "normal",
+  dir = "ltr",
+  storageKey = "cs-theme",
+  contrastKey = "cs-contrast",
+  className
+}) {
+  const [themeState, setThemeState] = React.useState(defaultTheme);
+  const [contrastState, setContrastState] = React.useState(defaultContrast);
+  const [hydrated, setHydrated] = React.useState(false);
+  React.useEffect(() => {
+    try {
+      const storedTheme = localStorage.getItem(storageKey);
+      const storedContrast = localStorage.getItem(contrastKey);
+      if (themeProp == null && storedTheme && THEME_VALUES.includes(storedTheme)) {
+        setThemeState(storedTheme);
+      }
+      if (contrastProp == null && storedContrast && CONTRAST_VALUES.includes(storedContrast)) {
+        setContrastState(storedContrast);
+      }
+    } catch {
+    }
+    setHydrated(true);
+  }, [storageKey, contrastKey, themeProp, contrastProp]);
+  const theme = themeProp != null ? themeProp : themeState;
+  const contrast = contrastProp != null ? contrastProp : contrastState;
+  const resolvedTheme = resolveTheme(theme);
+  React.useEffect(() => {
+    applyDom(theme, contrast, dir);
+    if (!hydrated) return;
+    try {
+      if (themeProp == null) localStorage.setItem(storageKey, theme);
+      if (contrastProp == null) localStorage.setItem(contrastKey, contrast);
+    } catch {
+    }
+  }, [theme, contrast, dir, hydrated, storageKey, contrastKey, themeProp, contrastProp]);
+  const setTheme = React.useCallback((next) => {
+    if (!THEME_VALUES.includes(next)) return;
+    setThemeState(next);
+  }, []);
+  const setContrast = React.useCallback((next) => {
+    if (!CONTRAST_VALUES.includes(next)) return;
+    setContrastState(next);
+  }, []);
+  const value = React.useMemo(
+    () => ({ theme, resolvedTheme, contrast, dir, setTheme, setContrast }),
+    [theme, resolvedTheme, contrast, dir, setTheme, setContrast]
+  );
+  return React.createElement(
+    ThemeContext.Provider,
+    { value },
+    React.createElement(
+      "div",
+      {
+        className: ["cs-root", "cs-theme-provider", className].filter(Boolean).join(" "),
+        "data-theme": theme,
+        "data-cs-contrast": contrast,
+        dir
+      },
+      children
+    )
+  );
+}
+Object.assign(__ds_scope, { THEME_VALUES, CONTRAST_VALUES, resolveTheme, getThemeInitScript, useTheme, ThemeProvider });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/_theme/provider.js", error: String((e && e.message) || e) }); }
 
 // components/_utils/cx.js
 try { (() => {
@@ -345,6 +482,83 @@ function cx(...c) {
 }
 Object.assign(__ds_scope, { cx });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/_utils/cx.js", error: String((e && e.message) || e) }); }
+
+// components/_utils/sanitize-html.js
+try { (() => {
+const ALLOWED_URL_SCHEMES = Object.freeze(["http:", "https:", "mailto:", "tel:"]);
+const REMOVED_TAGS = Object.freeze([
+  "script",
+  "style",
+  "iframe",
+  "object",
+  "embed",
+  "link",
+  "meta",
+  "base",
+  "form",
+  "input",
+  "textarea",
+  "select",
+  "button",
+  "svg",
+  "math"
+]);
+const URL_ATTRS = /* @__PURE__ */ new Set(["href", "src", "cite", "action", "formaction", "xlink:href"]);
+function isAllowedUrl(value) {
+  if (value == null) return false;
+  const raw = String(value).trim();
+  if (!raw) return false;
+  if (/^\/(?!\/)/.test(raw) || raw.startsWith("#") || raw.startsWith("?")) return true;
+  if (/^[^a-zA-Z]/.test(raw) && !/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(raw)) return true;
+  if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(raw)) return true;
+  try {
+    const u = new URL(raw, "https://cyberskill.invalid/");
+    return ALLOWED_URL_SCHEMES.includes(u.protocol);
+  } catch {
+    return false;
+  }
+}
+function stripByRegex(html) {
+  let out = String(html);
+  for (const tag of REMOVED_TAGS) {
+    const re = new RegExp(`<${tag}\\b[\\s\\S]*?<\\/${tag}>`, "gi");
+    out = out.replace(re, "");
+    out = out.replace(new RegExp(`<${tag}\\b[^>]*\\/?>`, "gi"), "");
+  }
+  out = out.replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "");
+  out = out.replace(/\s(href|src|cite|action|formaction)\s*=\s*("([^"]*)"|'([^']*)'|([^\s>]+))/gi, (m, attr, _q, d, s, b) => {
+    const val = d != null ? d : s != null ? s : b;
+    return isAllowedUrl(val) ? m : "";
+  });
+  out = out.replace(/javascript:/gi, "");
+  out = out.replace(/data:/gi, "");
+  return out;
+}
+function sanitizeHtml(html) {
+  if (html == null || html === "") return "";
+  if (typeof document === "undefined") return stripByRegex(html);
+  const tpl = document.createElement("template");
+  tpl.innerHTML = String(html);
+  tpl.content.querySelectorAll(REMOVED_TAGS.join(",")).forEach((n) => n.remove());
+  tpl.content.querySelectorAll("*").forEach((n) => {
+    [...n.attributes].forEach((a) => {
+      if (/^on/i.test(a.name)) {
+        n.removeAttribute(a.name);
+        return;
+      }
+      if (URL_ATTRS.has(a.name.toLowerCase()) && !isAllowedUrl(a.value)) {
+        n.removeAttribute(a.name);
+        return;
+      }
+      if (/javascript:/i.test(a.value) || /data:/i.test(a.value)) {
+        n.removeAttribute(a.name);
+      }
+    });
+  });
+  return tpl.innerHTML;
+}
+Object.assign(__ds_scope, { ALLOWED_URL_SCHEMES, REMOVED_TAGS, isAllowedUrl, sanitizeHtml });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/_utils/sanitize-html.js", error: String((e && e.message) || e) }); }
 
 // components/ai/AIDisclosureBadge.jsx
 try { (() => {
@@ -540,7 +754,7 @@ Object.assign(__ds_scope, { LumiAvatar });
 // components/button/Button.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Button({
+const Button = React.forwardRef(function Button2({
   variant = "primary",
   size = "md",
   loading = false,
@@ -551,12 +765,13 @@ function Button({
   className,
   type = "button",
   ...props
-}) {
+}, ref) {
   const isDisabled = disabled || loading;
   return /* @__PURE__ */ React.createElement(
     "button",
     {
       ...props,
+      ref,
       type,
       disabled: isDisabled,
       "aria-busy": loading || void 0,
@@ -574,7 +789,7 @@ function Button({
     /* @__PURE__ */ React.createElement("span", { className: "cs-button__label" }, children),
     loading ? /* @__PURE__ */ React.createElement("span", { className: "cs-button__spinner", "aria-hidden": "true" }) : null
   );
-}
+});
 Object.assign(__ds_scope, { Button });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/button/Button.jsx", error: String((e && e.message) || e) }); }
 
@@ -679,7 +894,48 @@ function Carousel({ children, startIndex = 0, label, lang, className }) {
   const [ref, L] = useLang(lang);
   const t = makeT("Carousel", L);
   const go = (n) => setI((n + slides.length) % slides.length);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-carousel", className), role: "group", "aria-roledescription": "carousel", "aria-label": label }, /* @__PURE__ */ React.createElement("div", { className: "cs-carousel__view" }, /* @__PURE__ */ React.createElement("div", { className: "cs-carousel__track", style: { transform: "translateX(-" + i * 100 + "%)" } }, slides.map((s, j) => /* @__PURE__ */ React.createElement("div", { key: j, className: "cs-carousel__slide", "aria-hidden": j !== i }, s))), /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-carousel__nav prev", "aria-label": t("prev"), onClick: () => go(i - 1) }, "‹"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-carousel__nav next", "aria-label": t("next"), onClick: () => go(i + 1) }, "›")), /* @__PURE__ */ React.createElement("div", { className: "cs-carousel__dots" }, slides.map((_, j) => /* @__PURE__ */ React.createElement("button", { key: j, type: "button", "aria-label": t("slide") + " " + (j + 1) + "/" + slides.length, "aria-current": j === i, onClick: () => setI(j) }))));
+  const onKeyDown = (e) => {
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      go(i + 1);
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      go(i - 1);
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      setI(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      setI(Math.max(0, slides.length - 1));
+    }
+  };
+  return /* @__PURE__ */ React.createElement(
+    "div",
+    {
+      ref,
+      className: cx("cs-carousel", className),
+      role: "region",
+      "aria-roledescription": "carousel",
+      "aria-label": label,
+      onKeyDown
+    },
+    /* @__PURE__ */ React.createElement("div", { className: "cs-sr-only", "aria-live": "polite", "aria-atomic": "true" }, t("slide"), " ", i + 1, "/", slides.length),
+    /* @__PURE__ */ React.createElement("div", { className: "cs-carousel__view" }, /* @__PURE__ */ React.createElement("div", { className: "cs-carousel__track", style: { transform: "translateX(-" + i * 100 + "%)" } }, slides.map((s, j) => /* @__PURE__ */ React.createElement("div", { key: j, className: "cs-carousel__slide", role: "group", "aria-roledescription": "slide", "aria-hidden": j !== i, "aria-label": `${j + 1} / ${slides.length}` }, s))), /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-carousel__nav prev", "aria-label": t("prev"), onClick: () => go(i - 1) }, "‹"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-carousel__nav next", "aria-label": t("next"), onClick: () => go(i + 1) }, "›")),
+    /* @__PURE__ */ React.createElement("div", { className: "cs-carousel__dots", role: "tablist", "aria-label": label || t("slide") }, slides.map((_, j) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: j,
+        type: "button",
+        role: "tab",
+        className: "cs-carousel__dot",
+        "aria-label": t("slide") + " " + (j + 1) + "/" + slides.length,
+        "aria-selected": j === i,
+        "aria-current": j === i ? "true" : void 0,
+        tabIndex: j === i ? 0 : -1,
+        onClick: () => setI(j)
+      }
+    )))
+  );
 }
 Object.assign(__ds_scope, { Carousel });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Carousel.jsx", error: String((e && e.message) || e) }); }
@@ -927,11 +1183,20 @@ function reorderItems(items, from, to) {
 function Sortable({ items = [], onChange, lang, className }) {
   const [dragKey, setDragKey] = React.useState(null);
   const [over, setOver] = React.useState(null);
+  const [live, setLive] = React.useState("");
   const [ref, L] = useLang(lang);
   const t = makeT("Sortable", L);
+  const announce = (from, to) => {
+    const item = items[from];
+    const label = item && item.label != null ? String(item.label) : String(from + 1);
+    setLive(t("moved").replace("{item}", label).replace("{position}", String(to + 1)));
+  };
   const move = (from, to) => {
     const next = reorderItems(items, from, to);
-    if (next !== items) onChange && onChange(next);
+    if (next !== items) {
+      announce(from, to);
+      onChange && onChange(next);
+    }
   };
   const drop = () => {
     if (dragKey == null || over == null || dragKey === over) {
@@ -945,12 +1210,13 @@ function Sortable({ items = [], onChange, lang, className }) {
     setDragKey(null);
     setOver(null);
   };
-  return /* @__PURE__ */ React.createElement("ul", { ref, className: cx("cs-sortable", className) }, items.map((it, idx) => /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-sortable-wrap", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-sr-only", "aria-live": "polite" }, live), /* @__PURE__ */ React.createElement("ul", { ref, className: "cs-sortable" }, items.map((it, idx) => /* @__PURE__ */ React.createElement(
     "li",
     {
       key: it.key,
       draggable: true,
       className: cx("cs-sortable__item", dragKey === it.key && "is-dragging", over === it.key && "is-over"),
+      "aria-grabbed": dragKey === it.key,
       onDragStart: (e) => {
         if (e.target.closest && e.target.closest(".cs-sortable__ops")) {
           e.preventDefault();
@@ -988,7 +1254,7 @@ function Sortable({ items = [], onChange, lang, className }) {
       },
       "↓"
     ))
-  )));
+  ))));
 }
 Object.assign(__ds_scope, { reorderItems, Sortable });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Sortable.jsx", error: String((e && e.message) || e) }); }
@@ -1995,39 +2261,36 @@ Object.assign(__ds_scope, { DatePicker });
 try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
+const { sanitizeHtml: sanitizeUntrustedHtml } = __ds_scope;
 function sanitizeHtml(html) {
-  if (html == null || html === "") return "";
-  if (typeof document === "undefined") {
-    return String(html).replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "").replace(/on\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "").replace(/javascript:/gi, "");
-  }
-  const tpl = document.createElement("template");
-  tpl.innerHTML = String(html);
-  tpl.content.querySelectorAll("script,style,iframe,object,embed,link").forEach((n) => n.remove());
-  tpl.content.querySelectorAll("*").forEach((n) => {
-    [...n.attributes].forEach((a) => {
-      if (/^on/i.test(a.name) || /javascript:/i.test(a.value)) n.removeAttribute(a.name);
-    });
-  });
-  return tpl.innerHTML;
+  return sanitizeUntrustedHtml(html);
 }
-function Editor({ defaultValue = "", onChange, minHeight = 120, lang, className }) {
+function Editor({ defaultValue = "", value, onChange, minHeight = 120, lang, className }) {
   const box = React.useRef(null);
   const seeded = React.useRef(false);
   const [ref, L] = useLang(lang);
   const t = makeT("Editor", L);
+  const controlled = value != null;
   const cmd = (c) => {
     document.execCommand(c);
     box.current && box.current.focus();
     emit();
   };
   const emit = () => {
-    onChange && box.current && onChange(box.current.innerHTML);
+    if (!onChange || !box.current) return;
+    onChange(sanitizeHtml(box.current.innerHTML));
   };
   React.useLayoutEffect(() => {
-    if (!box.current || seeded.current) return;
+    if (!box.current) return;
+    if (controlled) {
+      const next = sanitizeHtml(value);
+      if (box.current.innerHTML !== next) box.current.innerHTML = next;
+      return;
+    }
+    if (seeded.current) return;
     box.current.innerHTML = sanitizeHtml(defaultValue);
     seeded.current = true;
-  }, [defaultValue]);
+  }, [defaultValue, value, controlled]);
   const B = ({ c, label, children }) => /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-toolbar__btn", "aria-label": label, onMouseDown: (e) => {
     e.preventDefault();
     cmd(c);
@@ -2043,11 +2306,12 @@ function Editor({ defaultValue = "", onChange, minHeight = 120, lang, className 
       "aria-multiline": "true",
       "aria-label": t("area"),
       style: { minHeight },
-      onInput: emit
+      onInput: emit,
+      onBlur: emit
     }
   ));
 }
-Object.assign(__ds_scope, { Editor });
+Object.assign(__ds_scope, { sanitizeHtml, Editor });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Editor.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/FileUpload.jsx
@@ -3174,51 +3438,6 @@ function Icon({ name, size = "md", label, className, strokeWidth = 1.75, ...prop
 Object.assign(__ds_scope, { CS_ICONS, Icon });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/icon/Icon.jsx", error: String((e && e.message) || e) }); }
 
-// components/data/Image.jsx
-try { (() => {
-const { makeT, useLang } = __ds_scope;
-const { Icon } = __ds_scope;
-const { cx } = __ds_scope;
-function Image({ src, alt = "", ratio, preview = false, fallback, lang, className, ...props }) {
-  const [state, setState] = React.useState("loading");
-  const [zoom, setZoom] = React.useState(false);
-  const [ref, L] = useLang(lang);
-  const t = makeT("Image", L);
-  React.useEffect(() => {
-    if (!zoom) return;
-    const k = (e) => {
-      if (e.key === "Escape") setZoom(false);
-    };
-    document.addEventListener("keydown", k);
-    return () => document.removeEventListener("keydown", k);
-  }, [zoom]);
-  const openPreview = () => setZoom(true);
-  const onPreviewKey = (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      openPreview();
-    }
-  };
-  const body = state === "error" ? /* @__PURE__ */ React.createElement("span", { className: "cs-image__fallback" }, fallback || /* @__PURE__ */ React.createElement("svg", { width: "28", height: "28", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "3", width: "18", height: "18", rx: "2" }), /* @__PURE__ */ React.createElement("circle", { cx: "9", cy: "9", r: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M21 15l-5-5-9 9" }))) : /* @__PURE__ */ React.createElement("img", { ...props, src, alt, onLoad: () => setState("ok"), onError: () => setState("error") });
-  const canPreview = preview && state === "ok";
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(
-    "span",
-    {
-      ref,
-      className: cx("cs-image", state === "loading" && "is-loading", canPreview && "is-zoomable", className),
-      style: ratio ? { aspectRatio: ratio } : void 0,
-      onClick: canPreview ? openPreview : void 0,
-      onKeyDown: canPreview ? onPreviewKey : void 0,
-      role: canPreview ? "button" : void 0,
-      tabIndex: canPreview ? 0 : void 0,
-      "aria-label": canPreview ? t("preview") + (alt ? ": " + alt : "") : void 0
-    },
-    body
-  ), zoom ? /* @__PURE__ */ React.createElement("span", { className: "cs-image__zoom", role: "dialog", "aria-label": alt || t("preview"), onClick: () => setZoom(false) }, /* @__PURE__ */ React.createElement("img", { src, alt }), /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("close"), onClick: () => setZoom(false) }, /* @__PURE__ */ React.createElement(Icon, { name: "close", size: "sm", style: { verticalAlign: "middle" } }))) : null);
-}
-Object.assign(__ds_scope, { Image });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Image.jsx", error: String((e && e.message) || e) }); }
-
 // components/datatable/DataGrid.jsx
 try { (() => {
 const { makeT, useLang } = __ds_scope;
@@ -4269,6 +4488,9 @@ Object.assign(__ds_scope, { HoverCard });
 
 // components/overlays/OverlayManager.jsx
 try { (() => {
+const { ThemeProvider: ThemeProviderImpl } = __ds_scope;
+const { useTheme: useThemeImpl } = __ds_scope;
+const { getThemeInitScript: getThemeInitScriptImpl } = __ds_scope;
 const focusableSelector = [
   "a[href]",
   "area[href]",
@@ -4440,8 +4662,85 @@ function useOverlayLayer({
   }, [open, kind, trapFocus, lockScroll, mgr, panelRef, preferFocusSelector]);
   return { manager: mgr };
 }
-Object.assign(__ds_scope, { focusableSelector, attachFocusTrap, getOverlayManager, OverlayProvider, useOverlayLayer });
+function ThemeProvider(props) {
+  return ThemeProviderImpl(props);
+}
+function useTheme() {
+  return useThemeImpl();
+}
+function getThemeInitScript(opts) {
+  return getThemeInitScriptImpl(opts);
+}
+Object.assign(__ds_scope, { focusableSelector, attachFocusTrap, getOverlayManager, OverlayProvider, useOverlayLayer, ThemeProvider, useTheme, getThemeInitScript });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/OverlayManager.jsx", error: String((e && e.message) || e) }); }
+
+// components/data/Image.jsx
+try { (() => {
+const { makeT, useLang } = __ds_scope;
+const { Icon } = __ds_scope;
+const { cx } = __ds_scope;
+const { useOverlayLayer } = __ds_scope;
+function Image({ src, alt = "", ratio, preview = false, fallback, lang, className, ...props }) {
+  const [state, setState] = React.useState("loading");
+  const [zoom, setZoom] = React.useState(false);
+  const [ref, L] = useLang(lang);
+  const t = makeT("Image", L);
+  const panel = React.useRef(null);
+  const live = React.useRef(null);
+  useOverlayLayer({
+    open: zoom,
+    kind: "modal",
+    trapFocus: true,
+    onEscape: () => setZoom(false),
+    panelRef: panel
+  });
+  React.useEffect(() => {
+    if (!live.current) return;
+    live.current.textContent = zoom ? t("previewOpen") : "";
+  }, [zoom, t]);
+  const openPreview = () => setZoom(true);
+  const onPreviewKey = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openPreview();
+    }
+  };
+  const body = state === "error" ? /* @__PURE__ */ React.createElement("span", { className: "cs-image__fallback" }, fallback || /* @__PURE__ */ React.createElement("svg", { width: "28", height: "28", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "3", width: "18", height: "18", rx: "2" }), /* @__PURE__ */ React.createElement("circle", { cx: "9", cy: "9", r: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M21 15l-5-5-9 9" }))) : /* @__PURE__ */ React.createElement("img", { ...props, src, alt, onLoad: () => setState("ok"), onError: () => setState("error") });
+  const canPreview = preview && state === "ok";
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(
+    "span",
+    {
+      ref,
+      className: cx("cs-image", state === "loading" && "is-loading", canPreview && "is-zoomable", className),
+      style: ratio ? { aspectRatio: ratio } : void 0,
+      onClick: canPreview ? openPreview : void 0,
+      onKeyDown: canPreview ? onPreviewKey : void 0,
+      role: canPreview ? "button" : void 0,
+      tabIndex: canPreview ? 0 : void 0,
+      "aria-haspopup": canPreview ? "dialog" : void 0,
+      "aria-expanded": canPreview ? zoom : void 0,
+      "aria-label": canPreview ? t("preview") + (alt ? ": " + alt : "") : void 0
+    },
+    body
+  ), /* @__PURE__ */ React.createElement("span", { className: "cs-sr-only", "aria-live": "polite", ref: live }), zoom ? /* @__PURE__ */ React.createElement(
+    "span",
+    {
+      className: "cs-image__zoom",
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-label": alt || t("preview"),
+      ref: panel,
+      onClick: () => setZoom(false)
+    },
+    /* @__PURE__ */ React.createElement("img", { src, alt }),
+    /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("close"), onClick: (e) => {
+      e.stopPropagation();
+      setZoom(false);
+    } }, /* @__PURE__ */ React.createElement(Icon, { name: "close", size: "sm", style: { verticalAlign: "middle" } }))
+  ) : null);
+}
+Object.assign(__ds_scope, { Image });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Image.jsx", error: String((e && e.message) || e) }); }
 
 // components/dialog/Dialog.jsx
 try { (() => {
@@ -5350,6 +5649,18 @@ const tokens = {
 Object.assign(__ds_scope, { tokens, __ds_default_tokens_tokens_9gob35: tokens });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "tokens/tokens.js", error: String((e && e.message) || e) }); }
 
+__ds_ns.SUPPORTED_LANGS = __ds_scope.SUPPORTED_LANGS;
+
+__ds_ns.THEME_VALUES = __ds_scope.THEME_VALUES;
+
+__ds_ns.CONTRAST_VALUES = __ds_scope.CONTRAST_VALUES;
+
+__ds_ns.ThemeProvider = __ds_scope.ThemeProvider;
+
+__ds_ns.ALLOWED_URL_SCHEMES = __ds_scope.ALLOWED_URL_SCHEMES;
+
+__ds_ns.REMOVED_TAGS = __ds_scope.REMOVED_TAGS;
+
 __ds_ns.AIDisclosureBadge = __ds_scope.AIDisclosureBadge;
 
 __ds_ns.ChatMessage = __ds_scope.ChatMessage;
@@ -5585,6 +5896,8 @@ __ds_ns.Drawer = __ds_scope.Drawer;
 __ds_ns.HoverCard = __ds_scope.HoverCard;
 
 __ds_ns.OverlayProvider = __ds_scope.OverlayProvider;
+
+__ds_ns.ThemeProvider = __ds_scope.ThemeProvider;
 
 __ds_ns.Popconfirm = __ds_scope.Popconfirm;
 

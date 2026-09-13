@@ -150,6 +150,12 @@ Quy tắc:
 - Agent vận hành repo này theo `.cyberos/AGENT-ENTRY.md`; người ship DS theo `docs/release-runbook.md`.
 - Không chuyển token/component product vào `.cyberos/`; không publish orchestration CyberOS như một phần của gói npm.
 
+## 14. Tư thế license và phân phối
+
+**Lựa chọn owner: proprietary UNLICENSED + consumer grant** (Th9 2026 / TASK-IMP-025)
+
+Trường `license` npm giữ `UNLICENSED` (pack-hygiene). Root `LICENSE` ghi grant độc quyền CyberSkill. Dùng portfolio được duyệt nằm ở `docs/consumer-grant.md`. `templates/_vendor/deck-stage.js` là bản phái sinh do CyberSkill duy trì từ omelette starter và được ghi trong `THIRD-PARTY-NOTICES.md`. Package workspace (`@cyberskill/tokens`, `@cyberskill/react`, …) cùng tư thế; `@cyberskill/design` vẫn là facade tương thích sáu tháng.
+
 ## Cách đổi một quyết định
 
 Sửa dòng **Lựa chọn owner** tại đây. Người triển khai nối lại CI và docs liên quan trong cùng một change.

@@ -1,0 +1,18 @@
+CyberSkill Proprietary License
+Copyright (c) 2026 CyberSkill
+
+This package is proprietary software. The npm `license` field remains
+UNLICENSED: installing `@cyberskill/design` from the public registry does not
+by itself grant redistribution, sublicensing, or use outside the products
+named in `docs/consumer-grant.md`.
+
+Approved CyberSkill portfolio use is the consumer grant in
+`docs/consumer-grant.md`. Any other use, including publishing a fork or
+shipping this package as a dependency of an unrelated third-party product,
+requires a further written grant recorded in that file (or a superseding
+instrument).
+
+Third-party material listed in `THIRD-PARTY-NOTICES.md` and `fonts/OFL.txt`
+keeps its upstream licenses. This file does not re-license those works.
+
+See also: `docs/decisions.md` §14 (distribution posture).

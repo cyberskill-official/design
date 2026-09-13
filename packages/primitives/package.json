@@ -1,0 +1,10 @@
+{
+  "name": "@cyberskill/primitives",
+  "version": "1.7.2",
+  "private": false,
+  "type": "module",
+  "description": "Focus, overlay, and interaction primitives.",
+  "license": "UNLICENSED",
+  "exports": { ".": "./index.js" },
+  "files": ["index.js", "README.md"]
+}

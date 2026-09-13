@@ -51,6 +51,8 @@ jobs:
         run: npm ci
       - name: Pack dry-run (always)
         run: node _audit/ci/npm-publish.mjs --dry-run
+      - name: Fail-closed release binding
+        run: node scripts/release-bind.mjs
       - name: Publish to npm (OIDC Trusted Publishing)
         # Do not set NODE_AUTH_TOKEN / NPM_TOKEN — package disallows tokens; OIDC only.
         # FIND-095 — soft-skip vs success written to GITHUB_STEP_SUMMARY + annotations.

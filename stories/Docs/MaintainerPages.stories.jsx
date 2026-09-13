@@ -17,6 +17,11 @@ export const Doctrine = {
   render: () => <Page path="docs/doctrine.md" title="Doctrine" />,
 };
 
+export const Governance = {
+  name: 'Governance',
+  render: () => <Page path="docs/governance.md" title="Governance" />,
+};
+
 export const Decisions = {
   name: 'Decisions',
   render: () => <Page path="docs/decisions.md" title="Decisions" />,

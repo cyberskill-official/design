@@ -1,0 +1,10 @@
+{
+  "name": "@cyberskill/icons",
+  "version": "1.7.2",
+  "private": false,
+  "type": "module",
+  "description": "Icon data and React export.",
+  "license": "UNLICENSED",
+  "exports": { ".": "./index.js" },
+  "files": ["index.js", "README.md"]
+}

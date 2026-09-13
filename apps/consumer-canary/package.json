@@ -1,0 +1,11 @@
+{
+  "name": "@cyberskill/consumer-canary",
+  "version": "1.7.2",
+  "private": true,
+  "type": "module",
+  "description": "React 19 + SSR + typecheck canary for @cyberskill/design.",
+  "scripts": {
+    "ssr": "node ssr.mjs",
+    "typecheck": "tsc -p tsconfig.json --pretty false"
+  }
+}

@@ -30,6 +30,17 @@ The expansion rule and verification-depth requirement are in **[`docs/doctrine.m
 - **Card / guideline** — `.html` with `<!-- @dsCard group="…" … -->` first line.
 - **Documentation** — EN + VI for every `docs/*.md`; add the page to the Storybook Docs sidebar (catalog + story) and `docs/viewer.html`. `docs-storybook-coverage` fails if the page exists only in git.
 
+## Local tests and Playwright
+
+`npm test` is an alias of `npm run test:unit` (CyberOS `TEST_CMD`). The first Playwright-using test (`test-subtree-consume`, inclusive matrix) auto-installs Chromium via `scripts/ensure-playwright.mjs` when the browser executable is missing. For a clean machine:
+
+```bash
+npx playwright install --with-deps chromium
+npm test
+```
+
+Firefox and WebKit are installed in the `inclusive-matrix` CI job (nightly / manual). Do not skip `npm test` locally because Chromium is absent — the bootstrap must succeed.
+
 ## Agent MCP (CyberOS)
 
 Tracked `.mcp.json` points at `scripts/mcp/cyberos-mcp.mjs` (not gitignored `.cyberos/` directly). That stub forwards to `.cyberos/mcp/cyberos-mcp.mjs` after `cyberos install`; on a fresh clone it exits cleanly and leaves the server disconnected. Prefer user-level MCP or an unstaged local overlay if you need a private server list — do not reintroduce a tracked path into gitignored `.cyberos/`.
