@@ -17,7 +17,7 @@ Primitive → semantic → component → state. Xuất bản trên Storybook **D
 
 ## Theme provider
 
-`ThemeProvider` (export từ module overlay và `@cyberskill/themes`) gắn `data-theme` (`light` | `dark` | `system`) và `data-cs-contrast` (`normal` | `high`). Gọi `getThemeInitScript()` trong `<head>` để SSR không flash.
+`ThemeProvider` (export từ module overlay và `@cyberskill/themes`) gắn `data-theme` (`light` | `dark` | `system`), `data-cs-contrast` (`standard` | `high`), và `data-cs-density` (`comfortable` | `compact`). Gọi `getThemeInitScript()` trong `<head>` để SSR không flash.
 
 High contrast là chuyển theme/contrast — không phải trục sản phẩm thứ năm. Density vẫn nghỉ (`axis-guard`).
 

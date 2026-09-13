@@ -17,7 +17,7 @@ Do not treat deep `--cs-*` literals as a public API. Prefer semantic roles.
 
 ## Theme provider
 
-`ThemeProvider` (exported from the overlay module and `@cyberskill/themes`) applies `data-theme` (`light` | `dark` | `system`) and `data-cs-contrast` (`normal` | `high`). Call `getThemeInitScript()` in the document head for SSR no-flash.
+`ThemeProvider` (exported from the overlay module and `@cyberskill/themes`) applies `data-theme` (`light` | `dark` | `system`), `data-cs-contrast` (`standard` | `high`), and `data-cs-density` (`comfortable` | `compact`). Call `getThemeInitScript()` in the document head for SSR no-flash.
 
 High contrast is a theme/contrast switch — not a fifth product axis. Density remains retired (`axis-guard`).
 

@@ -1811,6 +1811,7 @@
     "tokens/motion.css",
     "tokens/component-tokens.css",
     "tokens/elements.css",
+    "tokens/styles.css",
     "tokens/theme-attributes.css",
     "base/reset.css",
     "base/typography.css",
@@ -1826,6 +1827,8 @@
     "base/glass.css",
     "base/interaction.css",
     "base/a11y.css",
+    "base/high-contrast.css",
+    "base/scope.css",
     "base/responsive.css",
     "styles.css"
   ],
