@@ -27,7 +27,7 @@ export const DatePicker = React.forwardRef(function DatePicker({ value, onChange
         <span className={value ? undefined : "ph"}>{value ? formatDate(value, L) : ph}</span>
       </button>
       {open ? (
-        <div className="cs-datepicker__pop" role="dialog">
+        <div className="cs-datepicker__pop" role="dialog" aria-label={label || ph}>
           <Calendar value={value} lang={L} onChange={(d) => { onChange && onChange(d); setOpen(false); }} />
         </div>
       ) : null}

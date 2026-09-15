@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Keyboard/AT checks for the audit's high-risk widgets, plus Dialog open p95.
+ * Keyboard/AT checks for the audit's high-risk widgets, plus Dialog open p95
+ * and Chrome accessibility-tree name/role/value (not VoiceOver speech).
  */
 import { createServer } from "node:http";
 import { readFileSync, statSync, existsSync } from "node:fs";
@@ -44,17 +45,61 @@ const page = await browser.newPage();
 await page.goto(`http://127.0.0.1:${port}/_audit/high-risk-at.html`, { waitUntil: "domcontentloaded" });
 await page.waitForFunction(() => window.__highRiskAt, { timeout: 45000 });
 const verdict = await page.evaluate(() => window.__highRiskAt);
-await browser.close();
-server.close();
 
 if (!verdict.pass) {
+  await browser.close();
+  server.close();
   console.error(verdict);
   throw new Error("high-risk AT failed: " + (verdict.results || []).filter((r) => !r.ok).map((r) => r.name).join(", "));
 }
 if (!(verdict.dialogOpenP95 < 100)) {
+  await browser.close();
+  server.close();
   throw new Error("Dialog open p95 " + verdict.dialogOpenP95 + "ms >= 100ms");
 }
+
+const requiredAx = [
+  "Dialog", "AlertDialog", "Menu", "MenuItem", "Combobox", "DataGrid",
+  "Sortable", "Editor", "Carousel", "DatePicker", "DatePickerDialog",
+  "TimePicker", "Image",
+];
+const axSurfaces = (verdict.ax || []).map((row) => row.surface);
+for (const name of requiredAx) {
+  if (!axSurfaces.includes(name)) {
+    await browser.close();
+    server.close();
+    throw new Error("missing AX name/role/value for " + name);
+  }
+}
+
+const ariaSnap = await page.locator("#ax-gallery").ariaSnapshot();
+if (!/dialog/i.test(ariaSnap) || !/Dialog title|When|dot/i.test(ariaSnap)) {
+  await browser.close();
+  server.close();
+  throw new Error("Chrome AX snapshot missing a named dialog");
+}
+if (!/combobox|textbox|text box/i.test(ariaSnap)) {
+  await browser.close();
+  server.close();
+  throw new Error("Chrome AX snapshot missing combobox/textbox");
+}
+
+await page.evaluate(() => {
+  document.documentElement.style.zoom = "4";
+});
+const gallery = await page.locator("#ax-gallery").boundingBox();
+if (!gallery || gallery.width < 1 || gallery.height < 1) {
+  await browser.close();
+  server.close();
+  throw new Error("400% zoom hid the AX gallery");
+}
+
+await browser.close();
+server.close();
+
 console.log("PASS test-high-risk-at", {
   checks: verdict.results.length,
   dialogOpenP95: Number(verdict.dialogOpenP95.toFixed(2)),
+  ax: verdict.ax.length,
+  ariaSnapshotChars: ariaSnap.length,
 });

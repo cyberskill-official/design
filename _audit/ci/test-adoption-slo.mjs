@@ -44,6 +44,20 @@ if (deprecated.length === 0) {
   assert(review.deprecationMigrationRate === 1, "no deprecations ⇒ rate 1");
 }
 
+const tokenBind = [
+  "ui_kits/status-hub/index.html",
+  "ui_kits/website/index.html",
+  "templates/delivery-kickoff/ds-base.js",
+  "templates/bod-memo/ds-base.js",
+  "templates/hr-announcement/ds-base.js",
+];
+for (const rel of tokenBind) {
+  assert(
+    readFileSync(join(root, rel), "utf8").includes("packages/tokens/dist/tokens.css"),
+    rel + " must load @cyberskill/tokens/css",
+  );
+}
+
 const ssr = spawnSync(process.execPath, ["apps/product-fixtures/render.mjs"], {
   cwd: root,
   encoding: "utf8",
@@ -51,6 +65,14 @@ const ssr = spawnSync(process.execPath, ["apps/product-fixtures/render.mjs"], {
 if (ssr.status !== 0) {
   console.error(ssr.stdout || ssr.stderr);
   throw new Error("product fixtures SSR failed");
+}
+
+for (const product of ledger.products) {
+  const host = join(root, "apps/product-hosts", product.id + ".html");
+  assert(existsSync(host), "missing Stable host " + product.id);
+  const hostSrc = readFileSync(host, "utf8");
+  assert(hostSrc.includes("packages/tokens/dist/tokens.css"), product.id + " host must load tokens.css");
+  assert(hostSrc.includes('data-product="' + product.id + '"'), product.id + " host missing SSR tree");
 }
 
 console.log("PASS test-adoption-slo", {

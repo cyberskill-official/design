@@ -33,6 +33,7 @@ for (const dir of expected) {
 
 const tokens = JSON.parse(readFileSync(join(root, "packages/tokens/package.json"), "utf8"));
 assert(tokens.name === "@cyberskill/tokens", "tokens package name");
+assert(tokens.exports["./css"] === "./dist/tokens.css", "tokens css export is layered runtime");
 assert(!readFileSync(join(root, "packages/react/package.json"), "utf8").includes("_audit/"), "react package is slim");
 
 console.log("PASS test-workspace-topology", { packages: expected.length });

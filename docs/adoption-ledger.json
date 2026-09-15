@@ -13,7 +13,7 @@
       "fixture": "apps/product-fixtures/render.mjs",
       "surfaces": ["components/brand/LumiAvatar.jsx", "components/ai/ChatMessage.jsx"],
       "marker": "cs-lumi",
-      "evidence": "SSR LumiAvatar + ChatMessage + PromptInput on hoa/plasma"
+      "evidence": "SSR LumiAvatar + ChatMessage + PromptInput on hoa/plasma; apps/product-hosts/lumi.html"
     },
     {
       "id": "status-hub",
@@ -22,7 +22,7 @@
       "fixture": "apps/product-fixtures/render.mjs",
       "surfaces": ["ui_kits/status-hub/index.html", "ui_kits/status-hub/StatusHub.jsx"],
       "marker": "cs-datagrid",
-      "evidence": "SSR Tabs + DataGrid; kit HTML consumes styles.css tokens"
+      "evidence": "SSR Tabs + DataGrid; kit HTML loads packages/tokens/dist/tokens.css"
     },
     {
       "id": "cyberos",
@@ -49,7 +49,7 @@
       "fixture": "apps/product-fixtures/render.mjs",
       "surfaces": ["ui_kits/website/index.html", "ui_kits/website/Website.jsx"],
       "marker": "cs-lumi",
-      "evidence": "SSR Lumi CTA; website kit consumes styles.css tokens"
+      "evidence": "SSR Lumi CTA; website kit loads packages/tokens/dist/tokens.css"
     },
     {
       "id": "client-delivery",
@@ -58,7 +58,7 @@
       "fixture": "apps/product-fixtures/render.mjs",
       "surfaces": ["templates/delivery-kickoff/DeliveryKickoff.dc.html", "templates/delivery-kickoff/ds-base.js"],
       "marker": "cs-card",
-      "evidence": "SSR Card; kickoff template binds dist/styles.min.css"
+      "evidence": "SSR Card; kickoff ds-base.js binds tokens.css + styles.min.css"
     },
     {
       "id": "board",
@@ -67,7 +67,7 @@
       "fixture": "apps/product-fixtures/render.mjs",
       "surfaces": ["templates/bod-memo/BodMemo.dc.html", "templates/bod-investor-update/BodInvestorUpdate.dc.html"],
       "marker": "cs-stat",
-      "evidence": "SSR Stat; board templates in-repo"
+      "evidence": "SSR Stat; board ds-base.js binds tokens.css"
     },
     {
       "id": "hr",
@@ -76,7 +76,7 @@
       "fixture": "apps/product-fixtures/render.mjs",
       "surfaces": ["templates/hr-announcement/HrAnnouncement.dc.html", "templates/hr-pip/HrPip.dc.html"],
       "marker": "cs-alert",
-      "evidence": "SSR Alert; HR templates in-repo"
+      "evidence": "SSR Alert; HR ds-base.js binds tokens.css"
     }
   ]
 }

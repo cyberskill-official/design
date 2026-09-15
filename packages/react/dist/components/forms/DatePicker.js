@@ -34,7 +34,7 @@ const DatePicker = React.forwardRef(function DatePicker2({ value, onChange, plac
       CAL_ICON,
       /* @__PURE__ */ jsx("span", { className: value ? void 0 : "ph", children: value ? formatDate(value, L) : ph })
     ] }),
-    open ? /* @__PURE__ */ jsx("div", { className: "cs-datepicker__pop", role: "dialog", children: /* @__PURE__ */ jsx(Calendar, { value, lang: L, onChange: (d) => {
+    open ? /* @__PURE__ */ jsx("div", { className: "cs-datepicker__pop", role: "dialog", "aria-label": label || ph, children: /* @__PURE__ */ jsx(Calendar, { value, lang: L, onChange: (d) => {
       onChange && onChange(d);
       setOpen(false);
     } }) }) : null

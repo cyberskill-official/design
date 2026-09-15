@@ -32,7 +32,7 @@ Coi những case sau là nghiệm thu, không phải demo tùy chọn:
 - RTL (`dir="rtl"`)
 - Pseudo-locale `en-XA` / `lang="pseudo"` cho QA giãn chuỗi
 
-CI: `_audit/ci/inclusive-matrix.mjs` cộng harness overflow / zoom / 320 sẵn có. Job `inclusive-matrix` cài Chromium, Firefox, và WebKit. Smoke PR là Chromium; nightly chạy các trình duyệt đã nêu.
+CI: `_audit/ci/inclusive-matrix.mjs` chạy 320 px, zoom 400%, viewport mobile 390 px, forced-colors, reduced-motion, RTL, và `en-XA`, cộng harness overflow / zoom / 320 sẵn có. Job `inclusive-matrix` cài Chromium, Firefox, và WebKit. Smoke PR là Chromium; nightly chạy các trình duyệt đã nêu.
 
 ## Công nghệ hỗ trợ
 

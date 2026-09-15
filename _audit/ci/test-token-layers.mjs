@@ -18,6 +18,10 @@ for (const key of ["knownPrimitiveFiles", "knownSemanticFiles", "knownComponentF
   }
 }
 assert(existsSync(join(root, "base/high-contrast.css")), "high-contrast pack");
+const tokensPkg = JSON.parse(readFileSync(join(root, "packages/tokens/package.json"), "utf8"));
+assert(tokensPkg.exports["./css"] === "./dist/tokens.css", "@cyberskill/tokens/css must be the layered runtime");
+assert(tokensPkg.exports["./css/style-axis"] === "./dist/styles.css", "style-axis pack export");
+assert(tokensPkg.exports["./css/high-contrast"] === "./dist/high-contrast.css", "high-contrast pack export");
 assert(existsSync(join(root, "components/_theme/provider.js")), "ThemeProvider runtime");
 
 const provider = readFileSync(join(root, "components/_theme/provider.js"), "utf8");

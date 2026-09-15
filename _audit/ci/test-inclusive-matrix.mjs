@@ -36,6 +36,8 @@ const i18n = readFileSync(join(root, "components/_i18n/i18n.js"), "utf8");
 assert(i18n.includes("pseudo"), "pseudo-locale resolver");
 assert(i18n.includes("localeForLang"), "locale negotiation");
 
-assert(existsSync(join(root, "_audit/ci/inclusive-matrix.mjs")), "playwright matrix runner");
+const matrix = readFileSync(join(root, "_audit/ci/inclusive-matrix.mjs"), "utf8");
+assert(matrix.includes('zoom = "4"'), "400% zoom is executed, not only documented");
+assert(/isMobile|390/.test(matrix), "mobile viewport is executed");
 
 console.log("PASS test-inclusive-matrix");

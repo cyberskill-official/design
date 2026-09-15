@@ -21,6 +21,14 @@ function mount(el) {
 }
 function assert(c, m) { if (!c) throw new Error(m); }
 function kd(t, key) { t.dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true })); }
+function accName(el) {
+  if (!el) return "";
+  const labelled = el.getAttribute("aria-labelledby");
+  if (labelled) {
+    return labelled.split(/\s+/).map((id) => (document.getElementById(id) || {}).textContent || "").join(" ").replace(/\s+/g, " ").trim();
+  }
+  return (el.getAttribute("aria-label") || el.getAttribute("title") || el.textContent || "").replace(/\s+/g, " ").trim();
+}
 const PIXEL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
 async function until(fn, ms) {
   const t0 = Date.now();
@@ -40,6 +48,7 @@ async function run() {
     Editor, Carousel, DatePicker, TimePicker, Image, PromptInput,
   } = NS || {};
   const times = [];
+  let ax = [];
 
   await test("Dialog keyboard", async () => {
     assert(Dialog, "Dialog");
@@ -60,6 +69,26 @@ async function run() {
       document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
       assert(await until(() => !document.querySelector('[role="dialog"]')), "esc");
     }
+  });
+
+  await test("Dialog focus restore", async () => {
+    function App() {
+      const [o, setO] = React.useState(false);
+      return h("div", null,
+        h("button", { className: "d-restore", onClick: () => setO(true) }, "Open"),
+        o ? h(Dialog, { open: true, title: "Restore", onClose: () => setO(false) }, "body") : null,
+      );
+    }
+    const c = mount(h(App));
+    await wait(40);
+    const trig = c.querySelector(".d-restore");
+    trig.focus();
+    trig.click();
+    assert(await until(() => document.querySelector('[role="dialog"]')), "dialog");
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+    assert(await until(() => !document.querySelector('[role="dialog"]')), "esc");
+    await wait(40);
+    assert(document.activeElement === trig, "focus returned to trigger");
   });
 
   await test("AlertDialog keyboard", async () => {
@@ -219,6 +248,104 @@ async function run() {
     assert(c.querySelector("[aria-live]"), "live");
   });
 
+  await test("AT name/role/value", async () => {
+    const gallery = document.createElement("div");
+    gallery.id = "ax-gallery";
+    stage.appendChild(gallery);
+    function gmount(el) {
+      const c = document.createElement("div");
+      gallery.appendChild(c);
+      ReactDOM.createRoot(c).render(el);
+      return c;
+    }
+    function record(surface, el, fallbackRole, nameHint) {
+      assert(el, surface + " missing");
+      const role = el.getAttribute("role") || el.getAttribute("aria-roledescription") || fallbackRole || el.tagName.toLowerCase();
+      const name = accName(el);
+      assert(role, surface + " role");
+      if (nameHint !== "optional-name") {
+        assert(name.length, surface + " accessible name");
+      }
+      if (nameHint && nameHint !== "optional-name") {
+        assert(name.toLowerCase().includes(String(nameHint).toLowerCase()), surface + " name expected " + nameHint + " got " + name);
+      }
+      ax.push({ surface, role, name: name.slice(0, 80) });
+    }
+
+    const d = gmount(h(Dialog, { open: true, title: "Dialog title", onClose: () => {} }, "body"));
+    await wait(40);
+    record("Dialog", d.querySelector('[role="dialog"]'), "dialog", "Dialog title");
+
+    const a = gmount(h(AlertDialog, { open: true, title: "Del", description: "Sure", onOpenChange: () => {}, onConfirm: () => {} }));
+    await wait(40);
+    record("AlertDialog", a.querySelector('[role="alertdialog"]'), "alertdialog", "Del");
+
+    const m = gmount(h(Menu, { trigger: h(Button, { size: "sm" }, "Open menu") }, h(MenuItem, {}, "Alpha item")));
+    await wait(40);
+    m.querySelector("button").click();
+    assert(await until(() => m.querySelector('[role="menu"]')), "menu");
+    record("Menu", m.querySelector('[role="menu"]'), "menu");
+    record("MenuItem", m.querySelector('[role="menuitem"]'), "menuitem", "Alpha");
+
+    const cb = gmount(h(Combobox, { label: "Pick", options: [{ value: "a", label: "Alpha" }] }));
+    await wait(40);
+    record("Combobox", cb.querySelector("[role=combobox]"), "combobox", "Pick");
+
+    const dg = gmount(h(DataGrid, {
+      columns: [{ key: "n", header: "Name", sortable: true }],
+      rows: [{ k: "1", n: "Row" }],
+      rowKey: "k",
+    }));
+    await wait(40);
+    record("DataGrid", dg.querySelector("table, [role=grid], [role=table]"), "table", "optional-name");
+
+    const so = gmount(h(Sortable, {
+      items: [{ key: "1", label: "One" }, { key: "2", label: "Two" }],
+      onChange: () => {},
+      lang: "en",
+    }));
+    await wait(40);
+    record("Sortable", so.querySelector('button[aria-label="Move down"]'), "button", "Move down");
+
+    const ed = gmount(h(Editor, { defaultValue: "<p>x</p>" }));
+    await wait(40);
+    record("Editor", ed.querySelector('[role="textbox"]'), "textbox");
+
+    const car = gmount(h(Carousel, { label: "Gallery" }, [h("div", { key: 1 }, "S1"), h("div", { key: 2 }, "S2")]));
+    await wait(40);
+    record("Carousel", car.querySelector("[aria-roledescription]"), "region", "Gallery");
+
+    const dp = gmount(h(DatePicker, { label: "When", lang: "en" }));
+    await wait(40);
+    const dpb = dp.querySelector("button[aria-haspopup=dialog]");
+    record("DatePicker", dpb, "button", "When");
+    dpb.click();
+    assert(await until(() => dp.querySelector('[role="dialog"]')), "date dialog");
+    record("DatePickerDialog", dp.querySelector('[role="dialog"]'), "dialog", "When");
+
+    const tp = gmount(h(TimePicker, { label: "At", value: "09:00", lang: "en" }));
+    await wait(40);
+    record("TimePicker", tp.querySelector("select"), "combobox", "At");
+
+    const im = gmount(h(Image, { src: PIXEL, alt: "dot", preview: true, lang: "en" }));
+    await until(() => {
+      const img = im.querySelector("img");
+      if (img && img.complete) img.dispatchEvent(new Event("load", { bubbles: true }));
+      return im.querySelector("[aria-haspopup=dialog]");
+    }, 3000);
+    const host = im.querySelector("[aria-haspopup=dialog]");
+    host.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
+    assert(await until(() => im.querySelector('.cs-image__zoom[role="dialog"]')), "img dialog");
+    record("Image", im.querySelector('.cs-image__zoom[role="dialog"]'), "dialog", "dot");
+
+    const required = [
+      "Dialog", "AlertDialog", "Menu", "MenuItem", "Combobox", "DataGrid",
+      "Sortable", "Editor", "Carousel", "DatePicker", "DatePickerDialog",
+      "TimePicker", "Image",
+    ];
+    for (const s of required) assert(ax.some((x) => x.surface === s), "missing AX " + s);
+  });
+
   const p95 = times.length ? times.slice().sort((a, b) => a - b)[Math.max(0, Math.ceil(times.length * 0.95) - 1)] : 0;
   const failed = results.filter((r) => !r.ok);
   window.__highRiskAt = {
@@ -226,9 +353,10 @@ async function run() {
     results,
     dialogOpenMs: times,
     dialogOpenP95: p95,
+    ax,
   };
   document.getElementById("sum").textContent = window.__highRiskAt.pass
-    ? "PASS " + results.length + " p95=" + p95.toFixed(1) + "ms"
+    ? "PASS " + results.length + " p95=" + p95.toFixed(1) + "ms ax=" + ax.length
     : "FAIL " + failed.map((f) => f.name).join(", ");
 }
 run();

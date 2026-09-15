@@ -90,7 +90,7 @@ jobs:
         run: npm test
 
   inclusive-matrix:
-    # Firefox/WebKit + 320 / forced-colors / reduced-motion / RTL / pseudo-locale.
+    # Firefox/WebKit + 320 / 400% zoom / mobile / forced-colors / reduced-motion / RTL / pseudo-locale.
     # PR/push smoke uses Chromium; nightly and manual install all named browsers.
     runs-on: ubuntu-latest
     timeout-minutes: 20

@@ -57,6 +57,9 @@ const reactBarrel = readFileSync(join(root, "packages/react/index.js"), "utf8");
 assert((reactBarrel.match(/\bThemeProvider\b/g) || []).length === 1, "ThemeProvider exported once");
 const reactMod = await import(pathToFileURL(join(root, "packages/react/index.js")).href);
 assert(typeof reactMod.Button === "function" || typeof reactMod.Button === "object", "react barrel imports");
+const tokensCss = readFileSync(join(root, "packages/tokens/dist/tokens.css"), "utf8");
+assert(tokensCss.includes('@import "./colors.css"'), "tokens.css layers colors");
+assert(existsSync(join(root, "packages/tokens/dist/high-contrast.css")), "high-contrast pack in tokens dist");
 
 const { reportAdoption, reportDeprecation } = await import(
   pathToFileURL(join(root, "packages/primitives/dist/telemetry.js")).href

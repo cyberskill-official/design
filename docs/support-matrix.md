@@ -32,7 +32,7 @@ Treat these as acceptance cases, not optional demos:
 - RTL (`dir="rtl"`)
 - Pseudo-locale `en-XA` / `lang="pseudo"` for string expansion QA
 
-CI: `_audit/ci/inclusive-matrix.mjs` plus the existing 320 / zoom / overflow harnesses. The `inclusive-matrix` job installs Chromium, Firefox, and WebKit. PR smoke is Chromium; nightly runs the named browsers.
+CI: `_audit/ci/inclusive-matrix.mjs` executes 320 px, 400% zoom, a 390 px mobile viewport, forced-colors, reduced-motion, RTL, and `en-XA`, plus the existing 320 / zoom / overflow harnesses. The `inclusive-matrix` job installs Chromium, Firefox, and WebKit. PR smoke is Chromium; nightly runs the named browsers.
 
 ## Assistive technology
 

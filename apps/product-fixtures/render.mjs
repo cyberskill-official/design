@@ -5,7 +5,7 @@
  * and must keep its in-repo surface files. Not a claim of live traffic.
  */
 import { createRequire } from "node:module";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createElement } from "react";
@@ -195,15 +195,11 @@ const catalog = [
   },
 ];
 
+const hostDir = join(root, "apps/product-hosts");
+mkdirSync(hostDir, { recursive: true });
+
 const rendered = [];
 for (const product of catalog) {
-  for (const rel of product.surfaces) {
-    if (!existsSync(join(root, rel))) throw new Error(product.id + " missing surface " + rel);
-    const src = readFileSync(join(root, rel), "utf8");
-    if (!/--cs-|styles\.css|styles\.min\.css|@cyberskill\/|CyberOS|TASK-|cs-[a-z]/.test(src)) {
-      throw new Error(product.id + " surface " + rel + " does not consume tokens or Stable packages");
-    }
-  }
   const html = renderToString(product.render());
   if (!html.includes("data-product=\"" + product.id + "\"")) {
     throw new Error(product.id + " missing data-product");
@@ -214,7 +210,37 @@ for (const product of catalog) {
   if (!html.includes(product.marker)) {
     throw new Error(product.id + " missing marker " + product.marker + " in " + html.slice(0, 200));
   }
-  rendered.push({ id: product.id, marker: product.marker, bytes: html.length });
+  const hostRel = "apps/product-hosts/" + product.id + ".html";
+  writeFileSync(
+    join(root, hostRel),
+    [
+      "<!DOCTYPE html>",
+      '<html lang="en">',
+      "<head>",
+      '<meta charset="utf-8"/>',
+      '<meta name="viewport" content="width=device-width, initial-scale=1"/>',
+      "<title>" + product.name + " · Stable host</title>",
+      '<link rel="stylesheet" href="../../packages/tokens/dist/tokens.css"/>',
+      '<link rel="stylesheet" href="../../styles.css"/>',
+      "</head>",
+      "<body>",
+      '<main id="main" data-stable-host="' + product.id + '">',
+      html,
+      "</main>",
+      "</body>",
+      "</html>",
+      "",
+    ].join("\n"),
+  );
+  const surfaces = product.surfaces.concat([hostRel]);
+  for (const rel of surfaces) {
+    if (!existsSync(join(root, rel))) throw new Error(product.id + " missing surface " + rel);
+    const src = readFileSync(join(root, rel), "utf8");
+    if (!/--cs-|styles\.css|styles\.min\.css|tokens\.css|@cyberskill\/|CyberOS|TASK-|cs-[a-z]/.test(src)) {
+      throw new Error(product.id + " surface " + rel + " does not consume tokens or Stable packages");
+    }
+  }
+  rendered.push({ id: product.id, marker: product.marker, bytes: html.length, host: hostRel });
 }
 
 if (rendered.length !== catalog.length) throw new Error("product fixture count mismatch");

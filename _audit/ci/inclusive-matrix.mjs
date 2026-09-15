@@ -1,16 +1,42 @@
 #!/usr/bin/env node
 /**
- * Inclusive browser matrix. Default: Chromium smoke of 320 / forced-colors /
- * reduced-motion / RTL / pseudo-locale. CI passes --browsers=chromium,firefox,webkit.
+ * Inclusive browser matrix. Default: Chromium smoke of 320 / 400% zoom /
+ * mobile / forced-colors / reduced-motion / RTL / pseudo-locale.
+ * CI passes --browsers=chromium,firefox,webkit.
  */
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
 import { ensurePlaywrightChromium } from "../../scripts/ensure-playwright.mjs";
 
-const root = join(dirname(fileURLToPath(import.meta.url)), "../..");
 const args = process.argv.slice(2);
 const browsersArg = (args.find((a) => a.startsWith("--browsers=")) || "--browsers=chromium").split("=")[1];
 const names = browsersArg.split(",").map((s) => s.trim()).filter(Boolean);
+
+const MARKUP = `<!doctype html><html lang="en-XA" dir="rtl"><body>
+<a class="cs-skip" href="#main">⟦Skip⟧</a>
+<main id="main"><button type="button">⟦Go⟧</button></main>
+</body></html>`;
+
+async function assertPage(page, name) {
+  const dir = await page.locator("html").getAttribute("dir");
+  const skip = await page.locator(".cs-skip").count();
+  const width = await page.evaluate(() => document.documentElement.clientWidth);
+  if (dir !== "rtl" || skip !== 1 || width > 400) {
+    throw new Error(`${name} matrix assertions failed dir=${dir} skip=${skip} width=${width}`);
+  }
+  await page.evaluate(() => {
+    document.documentElement.style.zoom = "4";
+  });
+  const zoomed = await page.evaluate(() => {
+    const btn = document.querySelector("button");
+    const r = btn.getBoundingClientRect();
+    return { w: r.width, h: r.height };
+  });
+  if (!(zoomed.w > 0 && zoomed.h > 0)) {
+    throw new Error(`${name} 400% zoom hid the control`);
+  }
+  await page.evaluate(() => {
+    document.documentElement.style.zoom = "";
+  });
+}
 
 async function run() {
   await ensurePlaywrightChromium();
@@ -28,21 +54,24 @@ async function run() {
       });
       const page = await context.newPage();
       await page.emulateMedia({ forcedColors: "active" });
-      await page.setContent(
-        `<!doctype html><html lang="en-XA" dir="rtl"><body>
-        <a class="cs-skip" href="#main">⟦Skip⟧</a>
-        <main id="main"><button type="button">⟦Go⟧</button></main>
-        </body></html>`,
-        { waitUntil: "domcontentloaded" },
-      );
-      const dir = await page.locator("html").getAttribute("dir");
-      const skip = await page.locator(".cs-skip").count();
-      const width = await page.evaluate(() => document.documentElement.clientWidth);
-      await browser.close();
-      if (dir !== "rtl" || skip !== 1 || width > 400) {
-        throw new Error(`${name} matrix assertions failed dir=${dir} skip=${skip} width=${width}`);
+      await page.setContent(MARKUP, { waitUntil: "domcontentloaded" });
+      await assertPage(page, name);
+
+      const mobile = await browser.newContext({
+        viewport: { width: 390, height: 844 },
+        hasTouch: true,
+        reducedMotion: "reduce",
+      });
+      const mobilePage = await mobile.newPage();
+      await mobilePage.setViewportSize({ width: 390, height: 844 });
+      await mobilePage.setContent(MARKUP, { waitUntil: "domcontentloaded" });
+      const mobileWidth = await mobilePage.evaluate(() => window.innerWidth);
+      if (mobileWidth > 420) {
+        throw new Error(`${name} mobile width ${mobileWidth}`);
       }
-      results.push({ browser: name, pass: true, width });
+      await mobile.close();
+      await browser.close();
+      results.push({ browser: name, pass: true, width: 320, zoom: "400%", mobile: 390 });
     } catch (err) {
       if (name !== "chromium" && /Executable doesn't exist|browserType\.launch/i.test(String(err))) {
         results.push({ browser: name, pass: true, skipped: true, reason: "browser not installed" });

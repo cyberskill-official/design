@@ -33,8 +33,8 @@ This utterance records both human-acceptance gates for TASK-IMP-030:
 
 ## Explicitly not claimed
 
-- Live NVDA / JAWS / VoiceOver / TalkBack operator speech sessions (empty AT-RUN cells are not passes)
-- Live production traffic ≥80% (in-repo Stable-package hosts exist; council live inventory is still out of band)
+- Live NVDA / JAWS / VoiceOver / TalkBack operator speech sessions (empty AT-RUN cells are not passes; Chrome AX name/role/value is not VoiceOver)
+- Live production traffic ≥80% (in-repo Stable-package hosts and kit `tokens.css` binds exist; council live inventory is still out of band)
 - Support-ticket downward trend (Q3 2026 baseline is zero GitHub issues; second count is due 2026-12-15)
 - Live Figma Variables write (soft-skip remains explicit)
 - Push, deploy, or merge (still requires a separate operator instruction)
