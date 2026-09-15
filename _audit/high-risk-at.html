@@ -37,7 +37,7 @@ async function test(name, fn) {
 async function run() {
   const {
     Dialog, AlertDialog, Menu, MenuItem, Button, Combobox, DataGrid, Sortable,
-    Editor, Carousel, DatePicker, TimePicker, Image,
+    Editor, Carousel, DatePicker, TimePicker, Image, PromptInput,
   } = NS || {};
   const times = [];
 
@@ -173,6 +173,35 @@ async function run() {
     await wait(40);
     const sel = c.querySelector("select");
     assert(sel && sel.getAttribute("aria-label"), "labeled select");
+  });
+
+  await test("IME Combobox composition", async () => {
+    assert(Combobox, "Combobox");
+    let picked = null;
+    const c = mount(h(Combobox, { label: "Pick", options: [{ value: "a", label: "Alpha" }], onChange: (v) => { picked = v; } }));
+    await wait(40);
+    const input = c.querySelector("[role=combobox]");
+    assert(input, "input");
+    input.focus();
+    input.dispatchEvent(new CompositionEvent("compositionstart", { data: "", bubbles: true }));
+    input.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", keyCode: 229, bubbles: true }));
+    assert(picked == null, "enter during IME must not commit");
+    input.dispatchEvent(new CompositionEvent("compositionend", { data: "nguyễn", bubbles: true }));
+    const proto = window.HTMLInputElement.prototype;
+    Object.getOwnPropertyDescriptor(proto, "value").set.call(input, "nguyễn");
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    assert(input.value.includes("nguyễn") || input.value.length > 0, "composed text kept");
+  });
+
+  await test("IME PromptInput composition", async () => {
+    assert(PromptInput, "PromptInput");
+    let submitted = null;
+    const c = mount(h(PromptInput, { onSubmit: (v) => { submitted = v; } }));
+    await wait(40);
+    const ta = c.querySelector("textarea");
+    assert(ta, "textarea");
+    ta.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", keyCode: 229, bubbles: true }));
+    assert(submitted == null, "enter during IME must not submit");
   });
 
   await test("Image preview", async () => {

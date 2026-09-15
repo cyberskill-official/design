@@ -15,4 +15,4 @@ instrument).
 Third-party material listed in `THIRD-PARTY-NOTICES.md` and `fonts/OFL.txt`
 keeps its upstream licenses. This file does not re-license those works.
 
-See also: `docs/decisions.md` §14 (distribution posture).
+See also: `docs/decisions.md` §16 (license and distribution posture). Portfolio procurement sign-off for the named products is the consumer grant plus that decision.

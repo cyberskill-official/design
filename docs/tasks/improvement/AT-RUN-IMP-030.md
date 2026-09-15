@@ -12,13 +12,13 @@ Protocol: `docs/at-protocol.md`. Empty cells are **not** passes.
 | Dialog | — | — | — | — | — | n/a |
 | AlertDialog | — | — | — | — | — | n/a |
 | Menu | — | — | — | — | — | n/a |
-| Combobox | — | — | — | — | — | — |
+| Combobox | — | — | — | — | — | machine |
 | DataGrid | — | — | — | — | — | n/a |
 | Sortable | — | — | — | — | — | n/a |
-| Editor | — | — | — | — | — | — |
+| Editor | — | — | — | — | — | machine |
 | Carousel | — | — | — | — | — | n/a |
 | DatePicker | — | — | — | — | — | n/a |
 | TimePicker | — | — | — | — | — | n/a |
 | Image preview | — | — | — | — | — | n/a |
 
-Machine evidence (not a screen-reader pass): `_audit/ci/test-high-risk-at.mjs` plus `_audit/a11y-gate.html` (Dialog, AlertDialog, Menu, Combobox, DataGrid, Sortable, Editor, Carousel, DatePicker, TimePicker, Image preview), axe inventory, inclusive-matrix Chromium (320 / zoom / RTL / forced-colors / reduced-motion / pseudo-locale), trusted-HTML tests. Empty NVDA/JAWS/VO/TalkBack/IME cells remain **not** passes. A dated operator AT session is still required before claiming production AT clearance.
+Machine evidence (not a screen-reader pass): `_audit/ci/test-high-risk-at.mjs` plus `_audit/a11y-gate.html` (Dialog, AlertDialog, Menu, Combobox, DataGrid, Sortable, Editor, Carousel, DatePicker, TimePicker, Image preview), IME `isComposing` / keyCode 229 guards on Combobox and PromptInput, axe inventory, inclusive-matrix Chromium (320 / zoom / RTL / forced-colors / reduced-motion / pseudo-locale), trusted-HTML tests. `machine` in the IME column is composition-event evidence, not a human Telex/VNI session. Empty NVDA/JAWS/VO/TalkBack cells remain **not** passes. A dated operator AT session is still required before claiming production AT clearance.

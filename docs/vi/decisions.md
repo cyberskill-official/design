@@ -173,7 +173,7 @@ Bản ghi chuẩn: [`docs/decisions/theme-density-contrast.md`](../decisions/the
 
 **Lựa chọn owner: proprietary UNLICENSED + consumer grant** (Th9 2026 / TASK-IMP-030)
 
-Trường `license` npm giữ `UNLICENSED` (pack-hygiene). Root `LICENSE` ghi grant độc quyền CyberSkill. Dùng portfolio được duyệt nằm ở `docs/consumer-grant.md`. `templates/_vendor/deck-stage.js` là bản phái sinh do CyberSkill duy trì từ omelette starter và được ghi trong `THIRD-PARTY-NOTICES.md`. Package workspace (`@cyberskill/tokens`, `@cyberskill/react`, …) cùng tư thế; `@cyberskill/design` vẫn là facade tương thích sáu tháng.
+Trường `license` npm giữ `UNLICENSED` (pack-hygiene). Root `LICENSE` ghi grant độc quyền CyberSkill. Dùng portfolio được duyệt nằm ở `docs/consumer-grant.md`. Grant đó, quyết định này, và HITL phiên TASK-IMP-030 là procurement sign-off cho các sản phẩm CyberSkill đã nêu — không phải license công cộng. `templates/_vendor/deck-stage.js` là bản phái sinh do CyberSkill duy trì từ omelette starter và được ghi trong `THIRD-PARTY-NOTICES.md`. Package workspace (`@cyberskill/tokens`, `@cyberskill/react`, …) cùng tư thế; `@cyberskill/design` vẫn là facade tương thích sáu tháng.
 
 ## 17. Refresh ma trận hỗ trợ mỗi quý
 

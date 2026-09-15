@@ -174,7 +174,7 @@ Normative record: [`docs/decisions/theme-density-contrast.md`](./decisions/theme
 
 **Owner choice: proprietary UNLICENSED + consumer grant** (Sep 2026 / TASK-IMP-030)
 
-The npm `license` field stays `UNLICENSED` (pack-hygiene). Root `LICENSE` states the CyberSkill proprietary grant. Approved portfolio use is `docs/consumer-grant.md`. `templates/_vendor/deck-stage.js` is a CyberSkill-maintained derivative of an omelette starter and is attributed in `THIRD-PARTY-NOTICES.md`. Workspace packages (`@cyberskill/tokens`, `@cyberskill/react`, …) share this posture; `@cyberskill/design` remains the six-month compatibility facade.
+The npm `license` field stays `UNLICENSED` (pack-hygiene). Root `LICENSE` states the CyberSkill proprietary grant. Approved portfolio use is `docs/consumer-grant.md`. That grant, this decision, and session HITL for TASK-IMP-030 are the enterprise procurement sign-off for the named CyberSkill products — not a public license. `templates/_vendor/deck-stage.js` is a CyberSkill-maintained derivative of an omelette starter and is attributed in `THIRD-PARTY-NOTICES.md`. Workspace packages (`@cyberskill/tokens`, `@cyberskill/react`, …) share this posture; `@cyberskill/design` remains the six-month compatibility facade.
 
 ## 17. Quarterly support-matrix refresh
 

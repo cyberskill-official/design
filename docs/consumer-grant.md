@@ -4,7 +4,7 @@
 
 ## Grant
 
-CyberSkill grants **CyberSkill** (the company and its product engineering teams under `cyberskill-official`) a **non-exclusive** right to install and use **`@cyberskill/design`** in the products listed in the locked registry `docs/products.md`:
+CyberSkill grants **CyberSkill** (the company and its product engineering teams under `cyberskill-official`) a **non-exclusive** right to install and use **`@cyberskill/design`** and the Stable workspace packages (`@cyberskill/react`, `@cyberskill/tokens`, `@cyberskill/themes`, `@cyberskill/primitives`) in the products listed in the locked registry `docs/products.md`. This grant plus `LICENSE` plus `docs/decisions.md` §16 is the portfolio procurement sign-off:
 
 | Product |
 |---|

@@ -1,4 +1,5 @@
 import { jsx, jsxs } from "react/jsx-runtime";
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -29,6 +30,7 @@ const Combobox = React.forwardRef(function Combobox2({ options = [], value, onCh
     setOpen(false);
   };
   const key = (e) => {
+    if (e.nativeEvent.isComposing || e.keyCode === 229) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setOpen(true);
@@ -45,10 +47,7 @@ const Combobox = React.forwardRef(function Combobox2({ options = [], value, onCh
       setOpen(false);
     }
   };
-  return /* @__PURE__ */ jsxs("div", { ref: (el) => {
-    wrapRef.current = el;
-    ref.current = el;
-  }, className: cx("cs-combobox", className), children: [
+  return /* @__PURE__ */ jsxs("div", { ref: mergeRefs(wrapRef, ref, forwardedRef), className: cx("cs-combobox", className), children: [
     /* @__PURE__ */ jsx(
       "input",
       {

@@ -8,8 +8,10 @@
   "deprecationMigrationRate": 1,
   "duplicateComponentCount": 0,
   "supportTickets": {
-    "source": "out-of-band",
+    "source": "github.com/cyberskill-official/design issues",
+    "measuredAt": "2026-09-15",
     "inRepoCount": 0,
-    "note": "Council ticket trend is not inventable from this repository."
+    "previousCount": null,
+    "note": "Q3 2026 baseline. A downward trend cannot be claimed until the 2026-12-15 review records a second count."
   }
 }

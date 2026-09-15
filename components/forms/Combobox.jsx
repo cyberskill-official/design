@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -24,13 +25,14 @@ export const Combobox = React.forwardRef(function Combobox({ options = [], value
   }, [open]);
   const pick = (o) => { onChange && onChange(o.value); setQ(""); setOpen(false); };
   const key = (e) => {
+    if (e.nativeEvent.isComposing || e.keyCode === 229) return;
     if (e.key === "ArrowDown") { e.preventDefault(); setOpen(true); setHl((h) => Math.min(shown.length - 1, h + 1)); }
     else if (e.key === "ArrowUp") { e.preventDefault(); setHl((h) => Math.max(0, h - 1)); }
     else if (e.key === "Enter") { if (open && shown[hl]) { e.preventDefault(); pick(shown[hl]); } }
     else if (e.key === "Escape") { setOpen(false); }
   };
   return (
-    <div ref={(el) => { wrapRef.current = el; ref.current = el; }} className={cx("cs-combobox", className)}>
+    <div ref={mergeRefs(wrapRef, ref, forwardedRef)} className={cx("cs-combobox", className)}>
       <input role="combobox" aria-expanded={open} aria-controls={id} aria-autocomplete="list" aria-label={label}
         aria-activedescendant={open && shown[hl] ? id + "-" + hl : undefined}
         disabled={disabled} placeholder={ph} value={open ? q : (sel ? sel.label : q)}

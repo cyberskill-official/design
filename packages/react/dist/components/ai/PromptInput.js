@@ -37,6 +37,7 @@ const PromptInput = React.forwardRef(function PromptInput2({
         disabled,
         onChange: (e) => setVal(e.target.value),
         onKeyDown: (e) => {
+          if (e.nativeEvent.isComposing || e.keyCode === 229) return;
           if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             submit();

@@ -30,7 +30,10 @@ export const PromptInput = React.forwardRef(function PromptInput({
       <textarea
         className="cs-prompt__field" rows={1} value={val} placeholder={ph} disabled={disabled}
         onChange={(e) => setVal(e.target.value)}
-        onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); } }}
+        onKeyDown={(e) => {
+          if (e.nativeEvent.isComposing || e.keyCode === 229) return;
+          if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); }
+        }}
       />
       <div className="cs-prompt__bar">
         {ht ? (
