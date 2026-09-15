@@ -1,5 +1,6 @@
 import { jsx } from "react/jsx-runtime";
 import { mergeRefs } from "../_utils/merge-refs.js";
+import { nextRovingIndex } from "../_utils/roving.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -19,7 +20,7 @@ const Rating = React.forwardRef(function Rating2({ value, defaultValue = 0, onCh
   const focusIdx = val > 0 ? Math.min(max, val) - 1 : 0;
   const move = (from, delta) => {
     if (readOnly) return;
-    const next = Math.max(0, Math.min(max - 1, from + delta));
+    const next = nextRovingIndex(from, delta, max);
     commit(next + 1);
     const b = refs.current[next];
     if (b) b.focus();

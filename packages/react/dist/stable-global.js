@@ -3760,6 +3760,12 @@ var CyberSkillReact = (() => {
     ] });
   });
 
+  // packages/react/dist/components/_utils/roving.js
+  function nextRovingIndex(from, delta, max) {
+    if (!max) return 0;
+    return Math.max(0, Math.min(max - 1, from + delta));
+  }
+
   // packages/react/dist/components/forms/Rating.js
   var STAR = "M12 2l2.9 6.2 6.6.8-4.9 4.6 1.3 6.5L12 16.9 6.1 20l1.3-6.5L2.5 9l6.6-.8z";
   var Rating = react_default.forwardRef(function Rating2({ value, defaultValue = 0, onChange, max = 5, readOnly = false, label, lang, className }, forwardedRef) {
@@ -3777,7 +3783,7 @@ var CyberSkillReact = (() => {
     const focusIdx = val > 0 ? Math.min(max, val) - 1 : 0;
     const move = (from, delta) => {
       if (readOnly) return;
-      const next = Math.max(0, Math.min(max - 1, from + delta));
+      const next = nextRovingIndex(from, delta, max);
       commit(next + 1);
       const b = refs.current[next];
       if (b) b.focus();

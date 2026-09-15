@@ -13,7 +13,7 @@ Primitive → semantic → component → state. Xuất bản trên Storybook **D
 | Component | Alias theo component |
 | State | Hover, focus, disabled, invalid |
 
-Đừng coi literal `--cs-*` sâu là API công khai. Ưu tiên vai trò semantic.
+Đừng coi literal `--cs-*` sâu là API công khai. Ưu tiên vai trò semantic. `@cyberskill/tokens/css` (`packages/tokens/dist/tokens.css`) khai báo cascade `@layer primitive, semantic, component, state` và import từng file vào lớp của nó để lớp sau thắng. Pack style-axis (`styles.css`) nằm ở `layer(state)` — slot cascade cuối, không phải file token `--cs-state-*`. Host không chấp nhận style document toàn cục thì import `@cyberskill/tokens/css/scope` (`.cs-root`).
 
 ## Theme provider
 
@@ -25,4 +25,4 @@ High contrast là chuyển theme/contrast — không phải trục sản phẩm 
 
 - File lớp: `tokens/layers.json`
 - High contrast: `base/high-contrast.css`
-- Root scoped: `base/scope.css` và `styles.scoped.css`
+- Root scoped: `base/scope.css`, `styles.scoped.css`, và `@cyberskill/tokens/css/scope`

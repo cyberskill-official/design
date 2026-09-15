@@ -6,7 +6,7 @@ Workspace split and the `@cyberskill/design` compatibility facade. Published on 
 
 ```
 packages/tokens        @cyberskill/tokens
-packages/primitives    @cyberskill/primitives
+packages/primitives    @cyberskill/primitives (focus, overlay, sanitizer, collection/roving)
 packages/react         @cyberskill/react
 packages/themes        @cyberskill/themes
 packages/icons         @cyberskill/icons

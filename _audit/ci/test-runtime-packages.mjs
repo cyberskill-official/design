@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import * as esbuild from "esbuild";
 import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -60,8 +61,10 @@ assert((reactBarrel.match(/\bThemeProvider\b/g) || []).length === 1, "ThemeProvi
 const reactMod = await import(pathToFileURL(join(root, "packages/react/index.js")).href);
 assert(typeof reactMod.Button === "function" || typeof reactMod.Button === "object", "react barrel imports");
 const tokensCss = readFileSync(join(root, "packages/tokens/dist/tokens.css"), "utf8");
-assert(tokensCss.includes('@import "./colors.css"'), "tokens.css layers colors");
+assert(tokensCss.includes("@layer primitive, semantic, component, state;"), "tokens.css cascade layers");
+assert(tokensCss.includes('@import "./colors.css" layer(semantic);'), "tokens.css layers colors");
 assert(existsSync(join(root, "packages/tokens/dist/high-contrast.css")), "high-contrast pack in tokens dist");
+assert(existsSync(join(root, "packages/tokens/dist/scope.css")), "scope.css in tokens dist");
 const catalogSrc = readFileSync(join(root, "apps/product-fixtures/catalog.mjs"), "utf8");
 assert(!catalogSrc.includes("/>"), "product catalog must stay createElement-only (no JSX)");
 const ssr = renderToString(createElement(reactMod.Button, { variant: "primary" }, "stable"));
@@ -95,6 +98,28 @@ assert(!/from ["'].*\.jsx["']/.test(stableSrc), "facade ./stable has no raw JSX 
 const stableMod = await import("@cyberskill/design/stable");
 const stableSsr = renderToString(createElement(stableMod.Button, { variant: "primary" }, "facade-stable"));
 assert(stableSsr.includes("cs-button"), "@cyberskill/design/stable SSRs compiled Button");
+
+const shaken = await esbuild.build({
+  stdin: {
+    contents: 'import { Button } from "@cyberskill/react"; console.log(Button);\n',
+    resolveDir: root,
+    loader: "js",
+  },
+  bundle: true,
+  write: false,
+  format: "esm",
+  platform: "neutral",
+  external: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
+  logLevel: "silent",
+});
+const shakenOut = shaken.outputFiles[0].text;
+assert(shakenOut.includes("cs-button"), "Button-only bundle keeps Button");
+assert(!shakenOut.includes("cs-dialog"), "Button-only bundle tree-shakes Dialog");
+
+const { nextRovingIndex } = await import(pathToFileURL(join(root, "packages/primitives/index.js")).href);
+assert(nextRovingIndex(2, 1, 5) === 3, "roving next");
+assert(nextRovingIndex(0, -1, 5) === 0, "roving clamp low");
+assert(nextRovingIndex(4, 1, 5) === 4, "roving clamp high");
 
 const { reportAdoption, reportDeprecation } = await import(
   pathToFileURL(join(root, "packages/primitives/dist/telemetry.js")).href

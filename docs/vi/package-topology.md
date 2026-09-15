@@ -6,7 +6,7 @@ Tách workspace và facade tương thích `@cyberskill/design`. Xuất bản tr�
 
 ```
 packages/tokens        @cyberskill/tokens
-packages/primitives    @cyberskill/primitives
+packages/primitives    @cyberskill/primitives (focus, overlay, sanitizer, collection/roving)
 packages/react         @cyberskill/react
 packages/themes        @cyberskill/themes
 packages/icons         @cyberskill/icons

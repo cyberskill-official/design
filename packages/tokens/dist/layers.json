@@ -18,7 +18,8 @@
     "tokens/typography.css",
     "tokens/spacing.css",
     "tokens/motion.css",
-    "tokens/elevation.css"
+    "tokens/elevation.css",
+    "tokens/fonts.css"
   ],
   "knownSemanticFiles": [
     "tokens/colors.css",
@@ -28,6 +29,9 @@
   ],
   "knownComponentFiles": [
     "tokens/component-tokens.css"
+  ],
+  "knownStateFiles": [
+    "tokens/styles.css"
   ],
   "deprecations": []
 }
