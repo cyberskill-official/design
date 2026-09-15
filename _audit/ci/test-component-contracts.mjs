@@ -22,7 +22,6 @@ const image = readFileSync(join(root, "components/data/Image.jsx"), "utf8");
 assert(image.includes("useOverlayLayer"), "Image preview uses overlay focus/restore");
 assert(image.includes("aria-live"), "Image announces preview");
 assert(image.includes('aria-modal="true"'), "Image preview is modal");
-
 const sortable = readFileSync(join(root, "components/data/Sortable.jsx"), "utf8");
 assert(sortable.includes("aria-live"), "Sortable live announcements");
 assert(sortable.includes("aria-grabbed"), "Sortable drag semantics");
@@ -37,6 +36,7 @@ assert(/Trusted static markup/.test(logo), "Logo trusted-markup contract");
 
 const overlay = readFileSync(join(root, "components/overlays/OverlayManager.jsx"), "utf8");
 assert(overlay.includes("restoreEl"), "overlay restore-focus");
+assert(overlay.includes("applySiblingInert"), "overlay marks background inert");
 assert(overlay.includes("export function ThemeProvider"), "ThemeProvider on overlay module");
 
 const SKIP_REF = new Set(["ThemeProvider", "OverlayProvider"]);

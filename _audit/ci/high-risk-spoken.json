@@ -132,9 +132,6 @@
   ],
   "chromeAxTreePhrases": [
     "High-risk AT, RootWebArea",
-    "main",
-    "generic",
-    "paragraph",
     "generic",
     "generic",
     "generic",
@@ -152,7 +149,7 @@
     "generic",
     "generic",
     "generic",
-    "PASS 17 p95=42.0ms ax=13 spoken=13, StaticText",
+    "generic",
     "generic",
     "generic",
     "generic",
@@ -174,7 +171,6 @@
     "Send, button",
     "Preview image: dot, button",
     "generic",
-    "dot, dialog",
     "generic",
     "generic",
     "generic",
@@ -186,7 +182,6 @@
     "generic",
     "generic",
     "generic",
-    "PASS 17 p95=42.0ms ax=13 spoken=13, InlineTextBox",
     "Open, button",
     "Open, button",
     "Open, button",
@@ -210,7 +205,12 @@
     "generic",
     "Slide, tablist",
     "When, button",
-    "MenuListPopup"
+    "MenuListPopup",
+    "Pick, combobox, nguyễn",
+    "listbox",
+    "generic",
+    "Lumi replies, then hands clear , InlineTextBox",
+    "wishes to a human., InlineTextBox"
   ],
   "highContrastText": "#1a1108"
 }

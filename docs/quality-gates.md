@@ -104,7 +104,7 @@ Benchmark principles (WCAG · APCA · OKLCH · DTCG · CDS doctrine + style expa
 | Token layers + ThemeProvider | `_audit/ci/test-token-layers.mjs` | Primitive→semantic→component→state map; no Density axis | Exit 0 | Hard | Unit test |
 | Trusted HTML | `_audit/ci/test-trusted-html.mjs` | Sanitizer allowlist + scheme policy | Exit 0 | Hard | Unit test |
 | TypeScript strict + SSR | `_audit/ci/test-typescript-strict.mjs` + `test-ssr-theme.mjs` + `test-react-18-ssr.mjs` | Declaration compile + React 18/19 SSR | Exit 0 | Hard | Unit test |
-| Inclusive matrix policy | `_audit/ci/test-inclusive-matrix.mjs` | engines, browserslist, Firefox/WebKit job | Exit 0 | Hard | Unit test + `inclusive-matrix` job |
+| Inclusive matrix policy | `_audit/ci/test-inclusive-matrix.mjs` | engines, browserslist, Firefox/WebKit job, 200%/400% zoom | Exit 0 | Hard | Unit test + `inclusive-matrix` job |
 | Package budgets / workspaces / Changesets / release-bind | `test-package-budgets` / `test-workspace-topology` / `test-changesets` / `test-release-bind` | Size budgets, workspace split, changeset config, tag/SHA/digest bind | Exit 0 | Hard | Unit test |
 
 `npm test` is an alias of `test:unit` (CyberOS gate). Playwright Chromium auto-installs via `scripts/ensure-playwright.mjs`. The `test:unit` suite is wired into CI. Storybook freshness runs in `storybook-build` with `--require` (not skipped in CI).

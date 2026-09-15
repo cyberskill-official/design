@@ -37,6 +37,8 @@ export function attachFocusTrap(
   opts?: { handleEscape?: boolean; onEscape?: () => void }
 ): () => void;
 
+export function applySiblingInert(panel: HTMLElement | null): () => void;
+
 export const focusableSelector: string;
 
 export {

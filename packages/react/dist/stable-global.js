@@ -1023,20 +1023,37 @@ var CyberSkillReact = (() => {
     return /* @__PURE__ */ jsx("div", { ref: forwardedRef, className: cx("cs-card__footer", className), ...props, children });
   });
 
+  // packages/react/dist/components/_utils/roving.js
+  function nextRovingIndex(from, delta, max) {
+    if (!max) return 0;
+    return Math.max(0, Math.min(max - 1, from + delta));
+  }
+  function wrapIndex(from, delta, max) {
+    if (!max) return 0;
+    return ((from + delta) % max + max) % max;
+  }
+  function reduceListbox(state, action) {
+    const activeIndex = state && state.activeIndex != null ? state.activeIndex : 0;
+    if (action.type === "open") return { open: true, activeIndex: action.index != null ? action.index : 0 };
+    if (action.type === "close") return { open: false, activeIndex };
+    if (action.type === "move") return { open: true, activeIndex: nextRovingIndex(activeIndex, action.delta, action.max || 0) };
+    return { open: !!(state && state.open), activeIndex };
+  }
+
   // packages/react/dist/components/data/Carousel.js
   var Carousel = react_default.forwardRef(function Carousel2({ children, startIndex = 0, label, lang, className }, forwardedRef) {
     const slides = react_default.Children.toArray(children);
     const [i, setI] = react_default.useState(Math.min(startIndex, Math.max(0, slides.length - 1)));
     const [ref, L] = useLang(lang);
     const t = makeT("Carousel", L);
-    const go = (n) => setI((n + slides.length) % slides.length);
+    const go = (delta) => setI((cur) => wrapIndex(cur, delta, slides.length));
     const onKeyDown = (e) => {
       if (e.key === "ArrowRight" || e.key === "ArrowDown") {
         e.preventDefault();
-        go(i + 1);
+        go(1);
       } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
         e.preventDefault();
-        go(i - 1);
+        go(-1);
       } else if (e.key === "Home") {
         e.preventDefault();
         setI(0);
@@ -1064,8 +1081,8 @@ var CyberSkillReact = (() => {
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "cs-carousel__view", children: [
             /* @__PURE__ */ jsx("div", { className: "cs-carousel__track", style: { transform: "translateX(-" + i * 100 + "%)" }, children: slides.map((s, j) => /* @__PURE__ */ jsx("div", { className: "cs-carousel__slide", role: "group", "aria-roledescription": "slide", "aria-hidden": j !== i, "aria-label": `${j + 1} / ${slides.length}`, children: s }, j)) }),
-            /* @__PURE__ */ jsx("button", { type: "button", className: "cs-carousel__nav prev", "aria-label": t("prev"), onClick: () => go(i - 1), children: "\u2039" }),
-            /* @__PURE__ */ jsx("button", { type: "button", className: "cs-carousel__nav next", "aria-label": t("next"), onClick: () => go(i + 1), children: "\u203A" })
+            /* @__PURE__ */ jsx("button", { type: "button", className: "cs-carousel__nav prev", "aria-label": t("prev"), onClick: () => go(-1), children: "\u2039" }),
+            /* @__PURE__ */ jsx("button", { type: "button", className: "cs-carousel__nav next", "aria-label": t("next"), onClick: () => go(1), children: "\u203A" })
           ] }),
           /* @__PURE__ */ jsx("div", { className: "cs-carousel__dots", role: "tablist", "aria-label": label || t("slide"), children: slides.map((_, j) => /* @__PURE__ */ jsx(
             "button",
@@ -1337,6 +1354,30 @@ var CyberSkillReact = (() => {
     document.addEventListener("keydown", k);
     return () => document.removeEventListener("keydown", k);
   }
+  function applySiblingInert(panel) {
+    const marked = [];
+    if (!panel) return () => {
+    };
+    const mark = (el) => {
+      if (!el || el === panel || el.contains(panel) || el.hasAttribute("data-cs-inert")) return;
+      el.setAttribute("inert", "");
+      el.setAttribute("data-cs-inert", "");
+      marked.push(el);
+    };
+    if (typeof document !== "undefined" && document.body) {
+      for (const el of document.body.children) mark(el);
+    }
+    if (panel.parentElement) {
+      for (const sib of panel.parentElement.children) mark(sib);
+    }
+    return () => {
+      for (const el of marked) {
+        if (!el.hasAttribute("data-cs-inert")) continue;
+        el.removeAttribute("inert");
+        el.removeAttribute("data-cs-inert");
+      }
+    };
+  }
   function createOverlayManager() {
     const layers = [];
     let prevOverflow = "";
@@ -1449,14 +1490,18 @@ var CyberSkillReact = (() => {
       });
       let detachTrap = () => {
       };
+      let clearInert = () => {
+      };
       const top = mgr.top();
       const isTop = top && top.panelEl === panel;
       if (trapFocus && panel && isTop) {
         const preferred = preferFocusSelector && panel.querySelector(preferFocusSelector) || panel.querySelector(focusableSelector) || panel;
         preferred && preferred.focus && preferred.focus();
         detachTrap = attachFocusTrap(panel, { handleEscape: false });
+        clearInert = applySiblingInert(panel);
       }
       return () => {
+        clearInert();
         detachTrap();
         unregister();
       };
@@ -2822,9 +2867,10 @@ var CyberSkillReact = (() => {
   // packages/react/dist/components/forms/Combobox.js
   var cbUid = 0;
   var Combobox = react_default.forwardRef(function Combobox2({ options = [], value, onChange, placeholder, label, disabled = false, lang, className }, forwardedRef) {
-    const [open, setOpen] = react_default.useState(false);
+    const [box, setBox] = react_default.useState({ open: false, activeIndex: 0 });
+    const open = box.open;
+    const hl = box.activeIndex;
     const [q, setQ] = react_default.useState("");
-    const [hl, setHl] = react_default.useState(0);
     const [id] = react_default.useState(() => "cs-cb-" + ++cbUid);
     const wrapRef = react_default.useRef(null);
     const [ref, L] = useLang(lang);
@@ -2836,7 +2882,7 @@ var CyberSkillReact = (() => {
     react_default.useEffect(() => {
       if (!open) return;
       const d = (e) => {
-        if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+        if (wrapRef.current && !wrapRef.current.contains(e.target)) setBox((s) => reduceListbox(s, { type: "close" }));
       };
       document.addEventListener("mousedown", d);
       return () => document.removeEventListener("mousedown", d);
@@ -2844,24 +2890,23 @@ var CyberSkillReact = (() => {
     const pick = (o) => {
       onChange && onChange(o.value);
       setQ("");
-      setOpen(false);
+      setBox((s) => reduceListbox(s, { type: "close" }));
     };
     const key = (e) => {
       if (e.nativeEvent.isComposing || e.keyCode === 229) return;
       if (e.key === "ArrowDown") {
         e.preventDefault();
-        setOpen(true);
-        setHl((h) => Math.min(shown.length - 1, h + 1));
+        setBox((s) => reduceListbox(s, { type: "move", delta: 1, max: shown.length }));
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
-        setHl((h) => Math.max(0, h - 1));
+        setBox((s) => reduceListbox(s, { type: "move", delta: -1, max: shown.length }));
       } else if (e.key === "Enter") {
         if (open && shown[hl]) {
           e.preventDefault();
           pick(shown[hl]);
         }
       } else if (e.key === "Escape") {
-        setOpen(false);
+        setBox((s) => reduceListbox(s, { type: "close" }));
       }
     };
     return /* @__PURE__ */ jsxs("div", { ref: mergeRefs(wrapRef, ref, forwardedRef), className: cx("cs-combobox", className), children: [
@@ -2878,13 +2923,11 @@ var CyberSkillReact = (() => {
           placeholder: ph,
           value: open ? q : sel ? sel.label : q,
           onFocus: () => {
-            setOpen(true);
-            setHl(0);
+            setBox((s) => reduceListbox(s, { type: "open", index: 0 }));
           },
           onChange: (e) => {
             setQ(e.target.value);
-            setOpen(true);
-            setHl(0);
+            setBox((s) => reduceListbox(s, { type: "open", index: 0 }));
           },
           onKeyDown: key
         }
@@ -2897,7 +2940,7 @@ var CyberSkillReact = (() => {
           role: "option",
           "aria-selected": o.value === value,
           className: cx("cs-combobox__opt", i === hl && "hl"),
-          onMouseEnter: () => setHl(i),
+          onMouseEnter: () => setBox((s) => reduceListbox(s, { type: "open", index: i })),
           onMouseDown: (e) => {
             e.preventDefault();
             pick(o);
@@ -3759,12 +3802,6 @@ var CyberSkillReact = (() => {
       ))
     ] });
   });
-
-  // packages/react/dist/components/_utils/roving.js
-  function nextRovingIndex(from, delta, max) {
-    if (!max) return 0;
-    return Math.max(0, Math.min(max - 1, from + delta));
-  }
 
   // packages/react/dist/components/forms/Rating.js
   var STAR = "M12 2l2.9 6.2 6.6.8-4.9 4.6 1.3 6.5L12 16.9 6.1 20l1.3-6.5L2.5 9l6.6-.8z";

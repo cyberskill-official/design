@@ -31,15 +31,20 @@ function walk(dir, pred, out = []) {
   return out;
 }
 
+const registry = JSON.parse(readFileSync(join(root, "docs/export-registry.json"), "utf8"));
+const stableSources = registry.exports
+  .filter((e) => e.maturity === "stable" && e.sourcePath)
+  .map((e) => join(root, e.sourcePath));
 const targets = [
   ...walk(join(root, "apps/consumer-canary"), (n) => /\.(js|mjs|jsx)$/.test(n)),
   ...walk(join(root, "packages/codemods"), (n) => /\.(js|mjs)$/.test(n)),
   ...walk(join(root, "packages/primitives/src"), (n) => /\.js$/.test(n)),
+  ...stableSources,
 ];
 
 const hits = [];
 for (const file of targets) {
-  const text = readFileSync(file, "utf8");
+  const text = readFileSync(file, "utf8").replace(/data:(?:image|text)\/[^"'`\s]+/g, "");
   if (HEX.test(text) || RGB.test(text)) hits.push(file.slice(root.length + 1));
 }
 assert(hits.length === 0, "raw color in lint targets: " + hits.join(", "));

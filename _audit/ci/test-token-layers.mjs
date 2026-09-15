@@ -32,8 +32,12 @@ assert(tokensCss.includes('@import "./styles.css" layer(state);'), "state layer 
 assert(existsSync(join(root, "packages/tokens/dist/scope.css")), "scope.css published");
 const rating = readFileSync(join(root, "components/forms/Rating.jsx"), "utf8");
 assert(rating.includes("nextRovingIndex"), "Rating consumes the collection/roving primitive");
+const combo = readFileSync(join(root, "components/forms/Combobox.jsx"), "utf8");
+assert(combo.includes("reduceListbox"), "Combobox consumes the listbox state machine");
+const carousel = readFileSync(join(root, "components/data/Carousel.jsx"), "utf8");
+assert(carousel.includes("wrapIndex"), "Carousel consumes wrapIndex");
 const prim = readFileSync(join(root, "packages/primitives/index.js"), "utf8");
-assert(prim.includes("nextRovingIndex"), "primitives export nextRovingIndex");
+assert(prim.includes("nextRovingIndex") && prim.includes("reduceListbox"), "primitives export collection helpers");
 const themesPkg = JSON.parse(readFileSync(join(root, "packages/themes/package.json"), "utf8"));
 assert(themesPkg.exports["./high-contrast"] === "./dist/high-contrast.css", "themes high-contrast pack export");
 assert(themesPkg.exports["./brand-packs"] === "./dist/brand-packs.json", "themes brand-packs export");

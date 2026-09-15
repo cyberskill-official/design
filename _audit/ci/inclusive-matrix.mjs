@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Inclusive browser matrix. Default: Chromium smoke of 320 / 400% zoom /
+ * Inclusive browser matrix. Default: Chromium smoke of 320 / 200% / 400% zoom /
  * mobile / forced-colors / reduced-motion / RTL / pseudo-locale.
  * CI passes --browsers=chromium,firefox,webkit.
  */
@@ -21,6 +21,17 @@ async function assertPage(page, name) {
   const width = await page.evaluate(() => document.documentElement.clientWidth);
   if (dir !== "rtl" || skip !== 1 || width > 400) {
     throw new Error(`${name} matrix assertions failed dir=${dir} skip=${skip} width=${width}`);
+  }
+  await page.evaluate(() => {
+    document.documentElement.style.zoom = "2";
+  });
+  const zoomed200 = await page.evaluate(() => {
+    const btn = document.querySelector("button");
+    const r = btn.getBoundingClientRect();
+    return { w: r.width, h: r.height };
+  });
+  if (!(zoomed200.w > 0 && zoomed200.h > 0)) {
+    throw new Error(`${name} 200% zoom hid the control`);
   }
   await page.evaluate(() => {
     document.documentElement.style.zoom = "4";
@@ -77,7 +88,7 @@ async function run() {
       }
       await mobile.close();
       await browser.close();
-      results.push({ browser: name, pass: true, width: 320, zoom: "400%", mobile: 390 });
+      results.push({ browser: name, pass: true, width: 320, zoom: "200%/400%", mobile: 390 });
     } catch (err) {
       if (name !== "chromium" && /Executable doesn't exist|browserType\.launch/i.test(String(err))) {
         results.push({ browser: name, pass: true, skipped: true, reason: "browser not installed" });

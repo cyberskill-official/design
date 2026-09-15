@@ -195,6 +195,30 @@ function attachFocusTrap(panelEl, { handleEscape = false, onEscape } = {}) {
   document.addEventListener("keydown", k);
   return () => document.removeEventListener("keydown", k);
 }
+function applySiblingInert(panel) {
+  const marked = [];
+  if (!panel) return () => {
+  };
+  const mark = (el) => {
+    if (!el || el === panel || el.contains(panel) || el.hasAttribute("data-cs-inert")) return;
+    el.setAttribute("inert", "");
+    el.setAttribute("data-cs-inert", "");
+    marked.push(el);
+  };
+  if (typeof document !== "undefined" && document.body) {
+    for (const el of document.body.children) mark(el);
+  }
+  if (panel.parentElement) {
+    for (const sib of panel.parentElement.children) mark(sib);
+  }
+  return () => {
+    for (const el of marked) {
+      if (!el.hasAttribute("data-cs-inert")) continue;
+      el.removeAttribute("inert");
+      el.removeAttribute("data-cs-inert");
+    }
+  };
+}
 function createOverlayManager() {
   const layers = [];
   let prevOverflow = "";
@@ -310,14 +334,18 @@ function useOverlayLayer({
     });
     let detachTrap = () => {
     };
+    let clearInert = () => {
+    };
     const top = mgr.top();
     const isTop = top && top.panelEl === panel;
     if (trapFocus && panel && isTop) {
       const preferred = preferFocusSelector && panel.querySelector(preferFocusSelector) || panel.querySelector(focusableSelector) || panel;
       preferred && preferred.focus && preferred.focus();
       detachTrap = attachFocusTrap(panel, { handleEscape: false });
+      clearInert = applySiblingInert(panel);
     }
     return () => {
+      clearInert();
       detachTrap();
       unregister();
     };
@@ -336,6 +364,7 @@ function getThemeInitScript2(opts) {
 export {
   OverlayProvider,
   ThemeProvider2 as ThemeProvider,
+  applySiblingInert,
   attachFocusTrap,
   focusableSelector,
   getOverlayManager,

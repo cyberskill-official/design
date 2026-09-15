@@ -25,20 +25,34 @@ Refresh danh sách này mỗi quý (hội đồng review). Review gần nhất: 
 
 Coi những case sau là nghiệm thu, không phải demo tùy chọn:
 
-- Chiều rộng 320 px và zoom 400% (WCAG 1.4.10)
+- Chiều rộng 320 px, zoom 200%, và zoom 400% (WCAG 1.4.10)
 - `prefers-reduced-motion: reduce`
 - Forced colors / `forced-colors: active`
 - In
 - RTL (`dir="rtl"`)
 - Pseudo-locale `en-XA` / `lang="pseudo"` cho QA giãn chuỗi
 
-CI: `_audit/ci/inclusive-matrix.mjs` chạy 320 px, zoom 400%, viewport mobile 390 px, forced-colors, reduced-motion, RTL, và `en-XA`, cộng harness overflow / zoom / 320 sẵn có. Job `inclusive-matrix` cài Chromium, Firefox, và WebKit. Smoke PR là Chromium; nightly chạy các trình duyệt đã nêu.
+CI: `_audit/ci/inclusive-matrix.mjs` chạy 320 px, zoom 200% và 400%, viewport mobile 390 px, forced-colors, reduced-motion, RTL, và `en-XA`, cộng harness overflow / zoom / 320 sẵn có. Job `inclusive-matrix` cài Chromium, Firefox, và WebKit. Smoke PR là Chromium; nightly chạy các trình duyệt đã nêu. Gallery Action-9 (`test-high-risk-at.mjs`) lặp 200% và 400% trên `#ax-gallery`.
 
 ## Công nghệ hỗ trợ
 
 AT thủ công vẫn do người review (NVDA, JAWS, VoiceOver, TalkBack, IME). Slot trống không phải pass. Protocol: dialog, menu, combobox, grid, Sortable, Editor, Carousel, và điều khiển ngày/giờ.
 
 WCAG 2.2 AA là baseline tuân thủ bên ngoài. Chữ body nội bộ vẫn dùng APCA Lc ≥ 75.
+
+## Ánh xạ WCAG 2.2 AA
+
+Mỗi tiêu chí gắn một gate máy. Ô AT-RUN trống không phải pass trình đọc màn hình.
+
+| Tiêu chí | Gate |
+|---|---|
+| 1.4.3 / 1.4.6 Contrast | `_audit/contrast-guard.html`, `scripts/generate-contrast-report.mjs`, doctrine APCA Lc ≥75 |
+| 1.4.11 Non-text contrast | contrast-guard, `@cyberskill/themes/high-contrast`, forced-colors trong `inclusive-matrix.mjs` |
+| 2.4.7 / 2.4.11 Focus appearance | `base/a11y.css` `:focus-visible`, `_audit/a11y-gate.html` |
+| 2.5.5 / 2.5.8 Target size | `base/a11y.css` sàn 44px |
+| 1.4.10 Reflow | 320 px + 200% + 400% trong `inclusive-matrix.mjs` và `test-high-risk-at.mjs`; `_audit/zoom-text-spacing.html` |
+| 1.4.12 Text spacing | `_audit/zoom-text-spacing.html` |
+| 2.1.1 Keyboard / 2.4.3 Focus order | `_audit/a11y-gate.html`, `_audit/high-risk-at.html` |
 
 ## Liên quan
 

@@ -1,5 +1,6 @@
 import { jsx, jsxs } from "react/jsx-runtime";
 import { mergeRefs } from "../_utils/merge-refs.js";
+import { wrapIndex } from "../_utils/roving.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -8,14 +9,14 @@ const Carousel = React.forwardRef(function Carousel2({ children, startIndex = 0,
   const [i, setI] = React.useState(Math.min(startIndex, Math.max(0, slides.length - 1)));
   const [ref, L] = useLang(lang);
   const t = makeT("Carousel", L);
-  const go = (n) => setI((n + slides.length) % slides.length);
+  const go = (delta) => setI((cur) => wrapIndex(cur, delta, slides.length));
   const onKeyDown = (e) => {
     if (e.key === "ArrowRight" || e.key === "ArrowDown") {
       e.preventDefault();
-      go(i + 1);
+      go(1);
     } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
       e.preventDefault();
-      go(i - 1);
+      go(-1);
     } else if (e.key === "Home") {
       e.preventDefault();
       setI(0);
@@ -43,8 +44,8 @@ const Carousel = React.forwardRef(function Carousel2({ children, startIndex = 0,
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "cs-carousel__view", children: [
           /* @__PURE__ */ jsx("div", { className: "cs-carousel__track", style: { transform: "translateX(-" + i * 100 + "%)" }, children: slides.map((s, j) => /* @__PURE__ */ jsx("div", { className: "cs-carousel__slide", role: "group", "aria-roledescription": "slide", "aria-hidden": j !== i, "aria-label": `${j + 1} / ${slides.length}`, children: s }, j)) }),
-          /* @__PURE__ */ jsx("button", { type: "button", className: "cs-carousel__nav prev", "aria-label": t("prev"), onClick: () => go(i - 1), children: "\u2039" }),
-          /* @__PURE__ */ jsx("button", { type: "button", className: "cs-carousel__nav next", "aria-label": t("next"), onClick: () => go(i + 1), children: "\u203A" })
+          /* @__PURE__ */ jsx("button", { type: "button", className: "cs-carousel__nav prev", "aria-label": t("prev"), onClick: () => go(-1), children: "\u2039" }),
+          /* @__PURE__ */ jsx("button", { type: "button", className: "cs-carousel__nav next", "aria-label": t("next"), onClick: () => go(1), children: "\u203A" })
         ] }),
         /* @__PURE__ */ jsx("div", { className: "cs-carousel__dots", role: "tablist", "aria-label": label || t("slide"), children: slides.map((_, j) => /* @__PURE__ */ jsx(
           "button",

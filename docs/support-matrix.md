@@ -25,20 +25,34 @@ Refresh this list quarterly (council review). Last review: **2026-09-15**. Next 
 
 Treat these as acceptance cases, not optional demos:
 
-- 320 px width and 400% zoom (WCAG 1.4.10)
+- 320 px width, 200% zoom, and 400% zoom (WCAG 1.4.10)
 - `prefers-reduced-motion: reduce`
 - Forced colors / `forced-colors: active`
 - Print
 - RTL (`dir="rtl"`)
 - Pseudo-locale `en-XA` / `lang="pseudo"` for string expansion QA
 
-CI: `_audit/ci/inclusive-matrix.mjs` executes 320 px, 400% zoom, a 390 px mobile viewport, forced-colors, reduced-motion, RTL, and `en-XA`, plus the existing 320 / zoom / overflow harnesses. The `inclusive-matrix` job installs Chromium, Firefox, and WebKit. PR smoke is Chromium; nightly runs the named browsers.
+CI: `_audit/ci/inclusive-matrix.mjs` executes 320 px, 200% and 400% zoom, a 390 px mobile viewport, forced-colors, reduced-motion, RTL, and `en-XA`, plus the existing 320 / zoom / overflow harnesses. The `inclusive-matrix` job installs Chromium, Firefox, and WebKit. PR smoke is Chromium; nightly runs the named browsers. Action-9 gallery (`test-high-risk-at.mjs`) repeats 200% and 400% on `#ax-gallery`.
 
 ## Assistive technology
 
 Manual AT remains human-reviewed (NVDA, JAWS, VoiceOver, TalkBack, IME). Empty slots are not passes. Protocol: dialogs, menus, comboboxes, grids, Sortable, Editor, Carousel, and date/time controls.
 
 WCAG 2.2 AA is the external compliance baseline. Internal body text still uses APCA Lc ≥ 75.
+
+## WCAG 2.2 AA mapping
+
+Each criterion maps to a machine gate. Empty AT-RUN cells are not screen-reader passes.
+
+| Criterion | Gate |
+|---|---|
+| 1.4.3 / 1.4.6 Contrast | `_audit/contrast-guard.html`, `scripts/generate-contrast-report.mjs`, doctrine APCA Lc ≥75 |
+| 1.4.11 Non-text contrast | contrast-guard, `@cyberskill/themes/high-contrast`, forced-colors in `inclusive-matrix.mjs` |
+| 2.4.7 / 2.4.11 Focus appearance | `base/a11y.css` `:focus-visible`, `_audit/a11y-gate.html` |
+| 2.5.5 / 2.5.8 Target size | `base/a11y.css` 44px floor |
+| 1.4.10 Reflow | 320 px + 200% + 400% in `inclusive-matrix.mjs` and `test-high-risk-at.mjs`; `_audit/zoom-text-spacing.html` |
+| 1.4.12 Text spacing | `_audit/zoom-text-spacing.html` |
+| 2.1.1 Keyboard / 2.4.3 Focus order | `_audit/a11y-gate.html`, `_audit/high-risk-at.html` |
 
 ## Related
 

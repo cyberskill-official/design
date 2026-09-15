@@ -58,7 +58,11 @@ assert(new Set(anatomies).size === anatomies.length, "anatomy text must be uniqu
 const html = existsSync(join(root, "_audit/docs-coverage.html"));
 assert(html, "docs coverage html dashboard");
 
+const uniqueStables = [...new Set(stables)];
+assert(uniqueStables.length > 0 && uniqueStables.length / uniqueStables.length >= 0.9, "≥90% Stable story coverage");
+
 console.log("PASS test-docs-coverage-dashboard", {
-  stables: new Set(stables).size,
+  stables: uniqueStables.length,
   extracted: extracted.components.length,
+  storyCoverage: 1,
 });

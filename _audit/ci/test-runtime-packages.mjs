@@ -116,10 +116,13 @@ const shakenOut = shaken.outputFiles[0].text;
 assert(shakenOut.includes("cs-button"), "Button-only bundle keeps Button");
 assert(!shakenOut.includes("cs-dialog"), "Button-only bundle tree-shakes Dialog");
 
-const { nextRovingIndex } = await import(pathToFileURL(join(root, "packages/primitives/index.js")).href);
+const { nextRovingIndex, wrapIndex, reduceListbox } = await import(pathToFileURL(join(root, "packages/primitives/index.js")).href);
 assert(nextRovingIndex(2, 1, 5) === 3, "roving next");
 assert(nextRovingIndex(0, -1, 5) === 0, "roving clamp low");
 assert(nextRovingIndex(4, 1, 5) === 4, "roving clamp high");
+assert(wrapIndex(4, 1, 5) === 0, "wrap high");
+assert(reduceListbox({ open: false, activeIndex: 0 }, { type: "move", delta: 1, max: 3 }).open === true, "listbox open on move");
+assert(reduceListbox({ open: true, activeIndex: 1 }, { type: "close" }).open === false, "listbox close");
 
 const { reportAdoption, reportDeprecation } = await import(
   pathToFileURL(join(root, "packages/primitives/dist/telemetry.js")).href

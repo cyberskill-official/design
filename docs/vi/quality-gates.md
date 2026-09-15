@@ -103,7 +103,7 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Token layers + ThemeProvider | `_audit/ci/test-token-layers.mjs` | Bản đồ primitive→semantic→component→state; không trục Density | Exit 0 | Hard | Unit test |
 | Trusted HTML | `_audit/ci/test-trusted-html.mjs` | Allowlist sanitizer + chính sách scheme | Exit 0 | Hard | Unit test |
 | TypeScript strict + SSR | `_audit/ci/test-typescript-strict.mjs` + `test-ssr-theme.mjs` + `test-react-18-ssr.mjs` | Compile declaration + SSR React 18/19 | Exit 0 | Hard | Unit test |
-| Inclusive matrix policy | `_audit/ci/test-inclusive-matrix.mjs` | engines, browserslist, job Firefox/WebKit | Exit 0 | Hard | Unit test + job `inclusive-matrix` |
+| Inclusive matrix policy | `_audit/ci/test-inclusive-matrix.mjs` | engines, browserslist, job Firefox/WebKit, zoom 200%/400% | Exit 0 | Hard | Unit test + job `inclusive-matrix` |
 | Package budgets / workspaces / Changesets / release-bind | `test-package-budgets` / `test-workspace-topology` / `test-changesets` / `test-release-bind` | Ngân sách size, tách workspace, changeset, khóa tag/SHA/digest | Exit 0 | Hard | Unit test |
 
 `npm test` là alias của `test:unit` (cổng CyberOS). Playwright Chromium tự cài qua `scripts/ensure-playwright.mjs`. Suite `test:unit` được nối vào CI. Storybook freshness chạy trong `storybook-build` với `--require` (không skip trong CI).

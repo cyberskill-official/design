@@ -248,6 +248,11 @@ async function run() {
     const c = mount(h(Carousel, {}, [h("div", { key: 1 }, "S1"), h("div", { key: 2 }, "S2")]));
     await wait(40);
     assert(c.querySelector("[aria-roledescription]") || c.querySelector("[aria-live]"), "carousel");
+    const region = c.querySelector("[aria-roledescription=carousel]") || c;
+    region.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }));
+    await wait(40);
+    const vis = [...c.querySelectorAll(".cs-carousel__slide")].filter((s) => s.getAttribute("aria-hidden") === "false");
+    assert(vis.length === 1 && vis[0].getAttribute("aria-label") === "2 / 2", "ArrowRight slide 2");
   });
 
   await test("DatePicker escape", async () => {
@@ -310,8 +315,12 @@ async function run() {
     assert(c.querySelector("[aria-haspopup=dialog]"), "zoomable");
     const host = c.querySelector("[aria-haspopup=dialog]");
     host.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
-    assert(await until(() => document.querySelector('.cs-image__zoom[role="dialog"]')), "preview");
+    const dlg = await until(() => document.querySelector('.cs-image__zoom[role="dialog"]'));
+    assert(dlg, "preview");
     assert(c.querySelector("[aria-live]"), "live");
+    assert(host.hasAttribute("inert") || host.closest("[inert]"), "inert");
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    assert(await until(() => !document.querySelector('.cs-image__zoom[role="dialog"]')), "esc");
   });
 
   await test("AT name/role/value", async () => {
@@ -404,6 +413,8 @@ async function run() {
     host.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
     assert(await until(() => im.querySelector('.cs-image__zoom[role="dialog"]')), "img dialog");
     record("Image", im.querySelector('.cs-image__zoom[role="dialog"]'), "dialog", "dot");
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    await until(() => !im.querySelector('.cs-image__zoom[role="dialog"]'));
 
     const required = [
       "Dialog", "AlertDialog", "Menu", "MenuItem", "Combobox", "DataGrid",

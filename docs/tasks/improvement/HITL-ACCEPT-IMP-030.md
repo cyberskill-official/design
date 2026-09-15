@@ -35,12 +35,14 @@ This utterance records both human-acceptance gates for TASK-IMP-030:
 - Facade `@cyberskill/design/stable` is the compiled no-JSX entry (`packages/react/index.js`)
 - Product templates load compiled `@cyberskill/react` via `packages/react/dist/stable-global.js` (not `_ds_bundle.js`)
 - High-risk AT harness and delivery-kickoff mount `window.CyberSkillReact`
-- Chrome `Accessibility.getFullAXTree` phrases plus 320/400% on the action-9 gallery; Firefox/WebKit when installed
+- Chrome `Accessibility.getFullAXTree` phrases plus 320 / 200% / 400% on the action-9 gallery; Firefox/WebKit when installed
 - `@cyberskill/themes/high-contrast` and `@cyberskill/themes/brand-packs` (15 elemental packs) are release-bound; `applyBrandPack` plus ThemeProvider `element`/`variant` apply those packs to `data-cs-element` / `data-cs-variant`
 - Stable + Phase-2 high-risk Storybook contract pages render extracted facts from `docs/stable-contracts.json` (source, prompt, CSS tokens, registry). Generic stub paragraphs are a gate failure. Workspace `@cyberskill/react` deep imports fail closed.
 - `@cyberskill/tokens/css` declares CSS cascade `@layer primitive, semantic, component, state` and publishes `@cyberskill/tokens/css/scope` (`.cs-root`)
 - Button-only esbuild of `@cyberskill/react` keeps `cs-button` and drops `cs-dialog`
-- `@cyberskill/primitives` exports `nextRovingIndex`; Rating uses the same helper
+- `@cyberskill/primitives` exports `nextRovingIndex`, `wrapIndex`, and `reduceListbox`; Rating, Carousel, and Combobox consume them
+- Overlay manager applies sibling `inert` on trapped modals; Image preview a11y-gate asserts trap + restore
+- `docs/support-matrix.md` maps WCAG 2.2 AA criteria to machine gates; Stable sources are gated against raw colors / `--cs-raw-`
 
 ## Explicitly not claimed
 

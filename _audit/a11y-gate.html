@@ -242,7 +242,10 @@ async function run(){
     assert(vis.length===1,'exactly one visible slide');
     assert((c.querySelector('.cs-carousel__nav.prev').getAttribute('aria-label')||'').length>0&&(c.querySelector('.cs-carousel__nav.next').getAttribute('aria-label')||'').length>0,'nav labeled');
     assert([...c.querySelectorAll('.cs-carousel__dots button')].every(d=>(d.getAttribute('aria-label')||'').length>0),'dots labeled');
-    return 'carousel semantics OK';
+    kd(g,'ArrowRight'); await wait(40);
+    const after=[...c.querySelectorAll('.cs-carousel__slide')].filter(s=>s.getAttribute('aria-hidden')==='false');
+    assert(after.length===1&&after[0].getAttribute('aria-label')==='2 / 2','ArrowRight shows slide 2');
+    return 'carousel semantics + ArrowRight';
   });
   await test('Editor — toolbar + multiline textbox',async()=>{
     assert(Editor,'missing');
@@ -522,9 +525,19 @@ async function run(){
     assert(await until(()=>{ const img=c.querySelector('img'); return img&&c.querySelector('[aria-haspopup=dialog]'); },3000),'zoomable');
     const host=c.querySelector('[aria-haspopup=dialog]');
     host.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}));
-    assert(await until(()=>document.querySelector('.cs-image__zoom[role="dialog"]')),'preview');
+    const dlg=await until(()=>document.querySelector('.cs-image__zoom[role="dialog"]'));
+    assert(dlg,'preview');
     assert(c.querySelector('[aria-live]'),'live');
-    return 'image preview';
+    assert(host.hasAttribute('inert')||host.closest('[inert]'),'trigger inert while preview open');
+    const close=dlg.querySelector('button');
+    await fxSure(close);
+    kd(document,'Tab');
+    assert(await until(()=>dlg.contains(document.activeElement)),'Tab stays in preview');
+    const rs=spyRestore(host);
+    escDoc();
+    assert(await until(()=>!document.querySelector('.cs-image__zoom[role="dialog"]')),'Escape closes preview');
+    assert(await until(()=>rs.hit||document.activeElement===host),'focus restored to trigger');
+    return 'image preview trap + restore';
   });
 
   const bad=results.filter(r=>!r.ok);

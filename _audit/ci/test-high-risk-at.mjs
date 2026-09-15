@@ -101,6 +101,13 @@ async function assertVerdict(page, browserName, port) {
   const narrow = await page.locator("#ax-gallery").boundingBox();
   if (!narrow || narrow.width < 1) throw new Error(browserName + " 320px hid the AX gallery");
   await page.evaluate(() => {
+    document.documentElement.style.zoom = "2";
+  });
+  const at200 = await page.locator("#ax-gallery").boundingBox();
+  if (!at200 || at200.width < 1 || at200.height < 1) {
+    throw new Error(browserName + " 200% zoom hid the AX gallery");
+  }
+  await page.evaluate(() => {
     document.documentElement.style.zoom = "4";
   });
   const gallery = await page.locator("#ax-gallery").boundingBox();
