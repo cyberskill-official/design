@@ -2,7 +2,7 @@
 
 Cách mọi project — do người hoặc agent điều khiển — áp dụng design system HTML-first này, và cách nhận update an toàn. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
-**Tên package:** `@cyberskill/design` (xem `package.json`). Không coi `@cyberskill/react` lịch sử là đường cài cho monolith này.
+**Tên package:** `@cyberskill/design` vẫn là facade tương thích trong sáu tháng (xem `package.json`). Sản phẩm mới nên cài `@cyberskill/react` + `@cyberskill/tokens` (ESM đã compile, không JSX thô). Đường monolith lịch sử vẫn chạy và vẫn cần bundler hiểu JSX.
 
 ## Khi nào dùng
 

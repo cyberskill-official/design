@@ -175,6 +175,12 @@ Bản ghi chuẩn: [`docs/decisions/theme-density-contrast.md`](../decisions/the
 
 Trường `license` npm giữ `UNLICENSED` (pack-hygiene). Root `LICENSE` ghi grant độc quyền CyberSkill. Dùng portfolio được duyệt nằm ở `docs/consumer-grant.md`. `templates/_vendor/deck-stage.js` là bản phái sinh do CyberSkill duy trì từ omelette starter và được ghi trong `THIRD-PARTY-NOTICES.md`. Package workspace (`@cyberskill/tokens`, `@cyberskill/react`, …) cùng tư thế; `@cyberskill/design` vẫn là facade tương thích sáu tháng.
 
+## 17. Refresh ma trận hỗ trợ mỗi quý
+
+**Lựa chọn owner: review council có ngày** (Th9 2026 / TASK-IMP-030)
+
+`docs/support-matrix.md` review gần nhất **2026-09-15**; review kế **2026-12-15**. Soft-skip Figma Variables vẫn tường minh và không được coi là artifact gắn SHA cho đến khi plan Enterprise ghi thành công.
+
 ## Cách đổi một quyết định
 
 Sửa dòng **Lựa chọn owner** tại đây. Người triển khai nối lại CI và docs liên quan trong cùng một change.

@@ -1,9 +1,10 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Carousel — slides with prev/next + dots. children = slides. Bilingual aria. */
-export function Carousel({ children, startIndex = 0, label, lang, className }) {
+export const Carousel = React.forwardRef(function Carousel({ children, startIndex = 0, label, lang, className }, forwardedRef) {
   const slides = React.Children.toArray(children);
   const [i, setI] = React.useState(Math.min(startIndex, Math.max(0, slides.length - 1)));
   const [ref, L] = useLang(lang);
@@ -26,7 +27,7 @@ export function Carousel({ children, startIndex = 0, label, lang, className }) {
   };
   return (
     <div
-      ref={ref}
+      ref={mergeRefs(ref, forwardedRef)}
       className={cx("cs-carousel", className)}
       role="region"
       aria-roledescription="carousel"
@@ -62,4 +63,4 @@ export function Carousel({ children, startIndex = 0, label, lang, className }) {
       </div>
     </div>
   );
-}
+});

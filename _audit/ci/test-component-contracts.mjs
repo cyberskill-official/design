@@ -12,7 +12,7 @@ function assert(c, m) {
 
 const button = readFileSync(join(root, "components/button/Button.jsx"), "utf8");
 assert(button.includes("forwardRef"), "Button forwards ref");
-assert(button.includes("ref={ref}"), "Button attaches ref");
+assert(/ref=\{(?:ref|forwardedRef)\}/.test(button), "Button attaches ref");
 
 const editor = readFileSync(join(root, "components/forms/Editor.jsx"), "utf8");
 assert(editor.includes("sanitizeHtml"), "Editor sanitizes");
@@ -39,7 +39,17 @@ const overlay = readFileSync(join(root, "components/overlays/OverlayManager.jsx"
 assert(overlay.includes("restoreEl"), "overlay restore-focus");
 assert(overlay.includes("export function ThemeProvider"), "ThemeProvider on overlay module");
 
+const SKIP_REF = new Set(["ThemeProvider", "OverlayProvider"]);
 const modules = listPublicComponents();
+const missing = [];
+for (const m of modules) {
+  const src = readFileSync(m.file, "utf8");
+  for (const name of m.all) {
+    if (SKIP_REF.has(name)) continue;
+    if (!/forwardRef/.test(src)) missing.push(m.relFromRoot + "#" + name);
+  }
+}
+assert(missing.length === 0, "interactive exports need forwardRef: " + missing.slice(0, 12).join(", "));
 const withRef = modules.filter((m) => /forwardRef/.test(readFileSync(m.file, "utf8")));
 assert(withRef.some((m) => m.primary === "Button"), "Button in ref set");
 

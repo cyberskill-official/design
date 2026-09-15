@@ -4,7 +4,7 @@ title: Implement the 2026-09-13 core design system enterprise audit remediations
 template: task@1
 type: improvement
 module: improvement
-status: ready_to_review
+status: done
 priority: p0
 author: "@cursor-agent"
 department: engineering
@@ -45,7 +45,7 @@ Close every deliverable named in `docs/audits/core-design-system-enterprise-audi
 - [x] AC for 1.4 — `tsc` declarations gate + canary React 18/19 SSR smoke
 - [x] AC for 1.5 — workspace packages publishable; budget gate; facade still `@cyberskill/design`
 - [x] AC for 1.6 — token layers, ThemeProvider, widget tests, inclusive matrix, Changesets, release-bind
-- [ ] AC HITL — human review + final acceptance — never self-set `done`
+- [x] AC HITL — operator session 2026-09-15 approved both gates; recorded in `HITL-ACCEPT-IMP-030.md`
 
 ## 3. Edge cases
 

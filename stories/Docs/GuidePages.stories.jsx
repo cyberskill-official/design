@@ -66,3 +66,18 @@ export const PackageTopology = {
   name: 'Package topology',
   render: () => <Page path="docs/package-topology.md" title="Package topology" />,
 };
+
+export const AtProtocol = {
+  name: 'AT protocol',
+  render: () => <Page path="docs/at-protocol.md" title="AT protocol" />,
+};
+
+export const Slos = {
+  name: 'SLOs',
+  render: () => <Page path="docs/slo.md" title="SLOs" />,
+};
+
+export const Telemetry = {
+  name: 'Telemetry',
+  render: () => <Page path="docs/telemetry.md" title="Telemetry" />,
+};

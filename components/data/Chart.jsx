@@ -2,7 +2,7 @@ import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Chart — token-colored SVG charts: bar | line | spark | pie. data: [{label,value}]. */
-export function Chart({ type = "bar", data = [], height = 160, color = "var(--cs-accent)", showValues = false, label, className }) {
+export const Chart = React.forwardRef(function Chart({ type = "bar", data = [], height = 160, color = "var(--cs-accent)", showValues = false, label, className }, forwardedRef) {
   const W = 320, H = height, max = Math.max(1, ...data.map((d) => d.value));
   let body = null;
   if (type === "pie") {
@@ -40,7 +40,7 @@ export function Chart({ type = "bar", data = [], height = 160, color = "var(--cs
     );
   }
   return (
-    <figure className={cx("cs-chart", className)} role="img" aria-label={label || data.map((d) => d.label + ": " + d.value).join(", ")}>
+    <figure ref={forwardedRef} className={cx("cs-chart", className)} role="img" aria-label={label || data.map((d) => d.label + ": " + d.value).join(", ")}>
       {body}
       {type !== "spark" ? (
         <figcaption className="cs-chart__legend">
@@ -49,4 +49,4 @@ export function Chart({ type = "bar", data = [], height = 160, color = "var(--cs
       ) : null}
     </figure>
   );
-}
+});

@@ -3,5 +3,6 @@ export {
   attachFocusTrap,
   getOverlayManager,
   useOverlayLayer,
-} from "../../components/overlays/OverlayManager.jsx";
-export { sanitizeHtml, isAllowedUrl } from "../../components/_utils/sanitize-html.js";
+} from "./dist/overlay.js";
+export { sanitizeHtml, isAllowedUrl } from "./dist/sanitize-html.js";
+export { reportAdoption, reportDeprecation } from "./dist/telemetry.js";

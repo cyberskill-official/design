@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { Icon } from "../icon/Icon.jsx";
@@ -5,7 +6,7 @@ import { cx } from "../_utils/cx.js";
 import { useOverlayLayer } from "../overlays/OverlayManager.jsx";
 
 /** CyberSkill Image — img with loading skeleton, warm fallback on error, optional click-to-preview lightbox. */
-export function Image({ src, alt = "", ratio, preview = false, fallback, lang, className, ...props }) {
+export const Image = React.forwardRef(function Image({ src, alt = "", ratio, preview = false, fallback, lang, className, ...props }, forwardedRef) {
   const [state, setState] = React.useState("loading");
   const [zoom, setZoom] = React.useState(false);
   const [ref, L] = useLang(lang);
@@ -37,7 +38,7 @@ export function Image({ src, alt = "", ratio, preview = false, fallback, lang, c
   return (
     <>
       <span
-        ref={ref}
+        ref={mergeRefs(ref, forwardedRef)}
         className={cx("cs-image", state === "loading" && "is-loading", canPreview && "is-zoomable", className)}
         style={ratio ? { aspectRatio: ratio } : undefined}
         onClick={canPreview ? openPreview : undefined}
@@ -68,4 +69,4 @@ export function Image({ src, alt = "", ratio, preview = false, fallback, lang, c
       ) : null}
     </>
   );
-}
+});

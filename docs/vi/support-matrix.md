@@ -19,7 +19,7 @@ Trình duyệt, engine, công nghệ hỗ trợ, và nhịp refresh. Xuất bả
 
 Không hỗ trợ: Internet Explorer, Opera Mini, Edge pre-Chromium, và trình duyệt không có CSS custom properties.
 
-Refresh danh sách này mỗi quý (hội đồng review). Ghi ngày trong `docs/decisions.md` khi ma trận đổi.
+Refresh danh sách này mỗi quý (hội đồng review). Review gần nhất: **2026-09-15**. Review kế **2026-12-15**. Ghi ngày trong `docs/decisions.md` khi ma trận đổi.
 
 ## Môi trường nghiệm thu
 

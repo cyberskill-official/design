@@ -3,7 +3,7 @@ import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Splitter — two resizable panes with a draggable (and arrow-key) divider. */
-export function Splitter({ start, end, initial = 50, min = 20, max = 80, height = 240, lang, className }) {
+export const Splitter = React.forwardRef(function Splitter({ start, end, initial = 50, min = 20, max = 80, height = 240, lang, className }, forwardedRef) {
   const [pct, setPct] = React.useState(initial);
   const wrap = React.useRef(null);
   const [ref, L] = useLang(lang);
@@ -28,4 +28,4 @@ export function Splitter({ start, end, initial = 50, min = 20, max = 80, height 
       <div className="cs-splitter__pane" style={{ inlineSize: (100 - pct) + "%" }}>{end}</div>
     </div>
   );
-}
+});

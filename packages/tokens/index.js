@@ -1,3 +1,4 @@
+export { tokens } from "./dist/tokens.js";
 export const packageName = "@cyberskill/tokens";
-export const source = "tokens/tokens.dtcg.json";
-export const layers = "tokens/layers.json";
+export const source = "./dist/tokens.dtcg.json";
+export const layers = "./dist/layers.json";

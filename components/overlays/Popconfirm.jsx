@@ -3,7 +3,7 @@ import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Popconfirm — inline confirm bubble on a destructive/consequential action. */
-export function Popconfirm({ trigger, title, onConfirm, onCancel, okLabel, cancelLabel, lang, className }) {
+export const Popconfirm = React.forwardRef(function Popconfirm({ trigger, title, onConfirm, onCancel, okLabel, cancelLabel, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const wrap = React.useRef(null);
   const [ref, L] = useLang(lang);
@@ -17,7 +17,7 @@ export function Popconfirm({ trigger, title, onConfirm, onCancel, okLabel, cance
     return () => { document.removeEventListener("mousedown", d); document.removeEventListener("keydown", k); };
   }, [open]);
   const toggle = () => setOpen((o) => !o);
-  // ARIA attrs must live on the interactive trigger (button), not a wrapping <span>
+  // ARIA attrs must live on the interactive trigger (button), not a wrapping <span ref={forwardedRef}>
   // — axe aria-allowed-attr flags aria-haspopup/aria-expanded on generic elements.
   const triggerNode = React.isValidElement(trigger)
     ? React.cloneElement(trigger, {
@@ -43,4 +43,4 @@ export function Popconfirm({ trigger, title, onConfirm, onCancel, okLabel, cance
       ) : null}
     </span>
   );
-}
+});

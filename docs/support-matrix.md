@@ -19,7 +19,7 @@ The published `browserslist` is:
 
 Unsupported: Internet Explorer, Opera Mini, pre-Chromium Edge, and browsers that lack CSS custom properties.
 
-Refresh this list quarterly (council review). Record the date in `docs/decisions.md` when the matrix changes.
+Refresh this list quarterly (council review). Last review: **2026-09-15**. Next review due **2026-12-15**. Record the date in `docs/decisions.md` when the matrix changes.
 
 ## Acceptance environments
 

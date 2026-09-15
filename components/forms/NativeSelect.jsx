@@ -6,7 +6,7 @@ import { cx } from "../_utils/cx.js";
  * CS tokens beside Select. Leaner field chrome (size + label + error); pass
  * `options` [{value,label}] (preferred) or <option> children.
  */
-export function NativeSelect({
+export const NativeSelect = React.forwardRef(function NativeSelect({
   id,
   label,
   error,
@@ -19,12 +19,12 @@ export function NativeSelect({
   defaultValue,
   onChange,
   ...props
-}) {
+}, forwardedRef) {
   const gid = React.useId();
   const sid = id ?? gid;
   const errId = error ? sid + "-err" : undefined;
   return (
-    <label className={cx("cs-field", "cs-native-select-field", disabled && "is-disabled", error && "is-invalid", className)} htmlFor={sid}>
+    <label ref={forwardedRef} className={cx("cs-field", "cs-native-select-field", disabled && "is-disabled", error && "is-invalid", className)} htmlFor={sid}>
       {label ? <span className="cs-field__label">{label}</span> : null}
       <span className={cx("cs-native-select", `cs-native-select--${size}`)}>
         <select
@@ -53,4 +53,4 @@ export function NativeSelect({
       {error ? <span id={errId} className="cs-field__error" role="alert">{error}</span> : null}
     </label>
   );
-}
+});

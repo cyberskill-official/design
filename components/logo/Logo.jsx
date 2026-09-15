@@ -12,10 +12,10 @@ import { cx } from "../_utils/cx.js";
  * plus an escaped <title>. Do not pass caller HTML into this component.
  * See docs/trusted-html.md.
  */
-export function Logo({ size = 32, title = "CyberSkill", decorative = false, className, ...props }) {
+export const Logo = React.forwardRef(function Logo({ size = 32, title = "CyberSkill", decorative = false, className, ...props }, forwardedRef) {
   const safeTitle = String(title).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   return (
-    <svg
+    <svg ref={forwardedRef}
       {...props}
       className={cx("cs-logo", className)}
       width={size}
@@ -28,4 +28,4 @@ export function Logo({ size = 32, title = "CyberSkill", decorative = false, clas
       dangerouslySetInnerHTML={{ __html: (decorative ? "" : `<title>${safeTitle}</title>`) + CS_LOGO_MARK_INNER }}
     />
   );
-}
+});

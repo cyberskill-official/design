@@ -2,7 +2,7 @@
 
 How any project — human-driven or agent-driven — adopts this HTML-first design system, and how to take updates safely. Published on Storybook **Docs** at `design.cyberskill.world`.
 
-**Package name:** `@cyberskill/design` (see `package.json`). Do not treat historical `@cyberskill/react` as the install path for this monolith.
+**Package name:** `@cyberskill/design` remains the compatibility facade for six months (see `package.json`). New products should install `@cyberskill/react` + `@cyberskill/tokens` (compiled ESM, no raw JSX). The historical monolith path still works and still requires a JSX-capable bundler.
 
 ## When to use
 

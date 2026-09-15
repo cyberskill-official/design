@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -27,12 +28,12 @@ function Row({ n, depth, columns, expanded, setExpanded }) {
 }
 
 /** CyberSkill TreeTable — table whose first column expands nested rows. nodes: rows with children[]. */
-export function TreeTable({ columns = [], nodes = [], caption, defaultExpanded = [], lang, className }) {
+export const TreeTable = React.forwardRef(function TreeTable({ columns = [], nodes = [], caption, defaultExpanded = [], lang, className }, forwardedRef) {
   const [expanded, setExpanded] = React.useState(defaultExpanded);
   const [ref, L] = useLang(lang);
   const t = makeT("DataGrid", L);
   return (
-    <div ref={ref} className={cx("cs-table-wrap", className)}>
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-table-wrap", className)}>
       <table className="cs-table cs-treetable">
         {caption ? <caption>{caption}</caption> : null}
         <thead><tr>{columns.map((c) => <th key={c.key} scope="col">{c.header}</th>)}</tr></thead>
@@ -44,4 +45,4 @@ export function TreeTable({ columns = [], nodes = [], caption, defaultExpanded =
       </table>
     </div>
   );
-}
+});

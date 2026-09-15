@@ -1,3 +1,3 @@
 # @cyberskill/primitives
 
-Framework-leaning behavior: focus trap, overlay stack, sanitizer. React hooks remain in this package until a DOM-only split is demanded.
+Compiled focus trap, overlay stack, sanitizer, and opt-in `reportAdoption` telemetry. No templates. React hooks remain here until a DOM-only split is demanded.

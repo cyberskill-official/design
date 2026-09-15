@@ -4,7 +4,7 @@ import { cx } from "../_utils/cx.js";
 let cbUid = 0;
 
 /** CyberSkill Combobox — filterable single-select (input + listbox, ARIA combobox pattern). Controlled value/onChange. */
-export function Combobox({ options = [], value, onChange, placeholder, label, disabled = false, lang, className }) {
+export const Combobox = React.forwardRef(function Combobox({ options = [], value, onChange, placeholder, label, disabled = false, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const [q, setQ] = React.useState("");
   const [hl, setHl] = React.useState(0);
@@ -46,4 +46,4 @@ export function Combobox({ options = [], value, onChange, placeholder, label, di
       ) : null}
     </div>
   );
-}
+});

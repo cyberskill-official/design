@@ -3,8 +3,18 @@
   "version": "1.7.2",
   "private": false,
   "type": "module",
-  "description": "ThemeProvider, high-contrast, RTL, reduced-motion hooks.",
+  "description": "Compiled ThemeProvider, high-contrast, RTL, reduced-motion hooks. Not a Density axis.",
   "license": "UNLICENSED",
-  "exports": { ".": "./index.js" },
-  "files": ["index.js", "README.md"]
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["index.js", "index.d.ts", "dist", "README.md"]
 }

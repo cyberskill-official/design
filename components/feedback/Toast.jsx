@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -17,16 +18,16 @@ function DefaultIcon({ variant }) {
 }
 
 /** Fixed-position stack for Toasts (bottom-right). */
-export function ToastStack({ children, lang, className }) {
+export const ToastStack = React.forwardRef(function ToastStack({ children, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
-  return <div ref={ref} className={cx("cs-toast-stack", className)} role="region" aria-label={makeT("Toast", L)("notifications")}>{children}</div>;
-}
+  return <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-toast-stack", className)} role="region" aria-label={makeT("Toast", L)("notifications")}>{children}</div>;
+});
 
 /** CyberSkill Toast — transient notification. variant: default | success | danger. */
-export function Toast({ variant = "default", title, icon, onClose, lang, children, className, ...props }) {
+export const Toast = React.forwardRef(function Toast({ variant = "default", title, icon, onClose, lang, children, className, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   return (
-    <div ref={ref} className={cx("cs-toast", `cs-toast--${variant}`, className)} role="status" {...props}>
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-toast", `cs-toast--${variant}`, className)} role="status" {...props}>
       <span className="cs-toast__icon" aria-hidden="true">
         {icon ?? <DefaultIcon variant={variant} />}
       </span>
@@ -41,4 +42,4 @@ export function Toast({ variant = "default", title, icon, onClose, lang, childre
       ) : null}
     </div>
   );
-}
+});

@@ -21,7 +21,7 @@ Every Stable component story/docs page includes:
 ## Runtime contract
 
 - Semantic host element (button, a, input, dialog — not a clickable `div` without a role)
-- `forwardRef` on the interactive host (Button is the reference implementation)
+- `forwardRef` on every interactive public export (providers skipped). Button remains the reference implementation; `_audit/ci/test-component-contracts.mjs` fails the set if any host is missing.
 - Controlled and uncontrolled rules documented
 - Slots / children policy
 - Event and keyboard model

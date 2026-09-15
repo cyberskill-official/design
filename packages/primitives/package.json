@@ -3,8 +3,15 @@
   "version": "1.7.2",
   "private": false,
   "type": "module",
-  "description": "Focus, overlay, and interaction primitives.",
+  "description": "Compiled focus, overlay, and sanitizer primitives. No templates.",
   "license": "UNLICENSED",
-  "exports": { ".": "./index.js" },
-  "files": ["index.js", "README.md"]
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": ["index.js", "dist", "README.md"]
 }

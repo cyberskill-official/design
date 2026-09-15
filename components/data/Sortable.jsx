@@ -11,7 +11,7 @@ export function reorderItems(items, from, to) {
 }
 
 /** CyberSkill Sortable — reorderable list (move buttons + HTML5 DnD enhancement). items: [{key,label}]; onChange(newItems). */
-export function Sortable({ items = [], onChange, lang, className }) {
+export const Sortable = React.forwardRef(function Sortable({ items = [], onChange, lang, className }, forwardedRef) {
   const [dragKey, setDragKey] = React.useState(null);
   const [over, setOver] = React.useState(null);
   const [live, setLive] = React.useState("");
@@ -37,7 +37,7 @@ export function Sortable({ items = [], onChange, lang, className }) {
     setDragKey(null); setOver(null);
   };
   return (
-    <div className={cx("cs-sortable-wrap", className)}>
+    <div ref={forwardedRef} className={cx("cs-sortable-wrap", className)}>
       <div className="cs-sr-only" aria-live="polite">{live}</div>
       <ul ref={ref} className="cs-sortable">
         {items.map((it, idx) => (
@@ -73,4 +73,4 @@ export function Sortable({ items = [], onChange, lang, className }) {
       </ul>
     </div>
   );
-}
+});

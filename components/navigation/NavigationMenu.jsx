@@ -2,7 +2,7 @@ import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill NavigationMenu — site nav; entries are links or open a rich panel of links. */
-export function NavigationMenu({ items = [], className }) {
+export const NavigationMenu = React.forwardRef(function NavigationMenu({ items = [], className }, forwardedRef) {
   const [open, setOpen] = React.useState(null);
   const wrap = React.useRef(null);
   React.useEffect(() => {
@@ -35,4 +35,4 @@ export function NavigationMenu({ items = [], className }) {
       ))}
     </nav>
   );
-}
+});

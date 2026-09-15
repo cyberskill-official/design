@@ -21,7 +21,7 @@ Mọi trang story/docs component Stable gồm:
 ## Hợp đồng runtime
 
 - Phần tử host đúng ngữ nghĩa (button, a, input, dialog — không `div` bấm được mà thiếu role)
-- `forwardRef` trên host tương tác (Button là implementation tham chiếu)
+- `forwardRef` trên mọi export công khai tương tác (bỏ qua provider). Button vẫn là implementation tham chiếu; `_audit/ci/test-component-contracts.mjs` fail cả tập nếu thiếu host.
 - Quy tắc controlled / uncontrolled được ghi
 - Chính sách slot / children
 - Mô hình event và bàn phím

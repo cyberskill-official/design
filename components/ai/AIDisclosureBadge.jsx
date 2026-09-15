@@ -6,17 +6,17 @@ import { cx } from "../_utils/cx.js";
  * expanded, explains what was generated and lists sources. Never decorative:
  * this is an explainability affordance (info-blue), not a style flourish.
  */
-export function AIDisclosureBadge({
+export const AIDisclosureBadge = React.forwardRef(function AIDisclosureBadge({
   label = "AI assisted",
   details = "This content was generated or transformed with AI assistance.",
   sources = [],
   className,
-}) {
+}, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const panelId = React.useId();
   const sourceList = (sources || []).filter(Boolean);
   return (
-    <span className={cx("cs-ai-disclosure", className)}>
+    <span ref={forwardedRef} className={cx("cs-ai-disclosure", className)}>
       <button
         type="button"
         className="cs-ai-disclosure__badge"
@@ -36,4 +36,4 @@ export function AIDisclosureBadge({
       ) : null}
     </span>
   );
-}
+});

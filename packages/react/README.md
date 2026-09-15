@@ -1,3 +1,3 @@
 # @cyberskill/react
 
-Styled React components. Workspace entry points at the generated `_esm/react.mjs` barrel. `@cyberskill/design` re-exports this surface during migration.
+Compiled CyberSkill React components (`dist/`, no raw JSX, no templates, no `_audit/`). Generate with `npm run build:workspaces`. `@cyberskill/design` remains the time-boxed facade for existing consumers.

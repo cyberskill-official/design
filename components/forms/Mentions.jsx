@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -5,7 +6,7 @@ import { cx } from "../_utils/cx.js";
 let mentionsUid = 0;
 
 /** CyberSkill Mentions — textarea that suggests @users while typing (APG editable combobox). */
-export function Mentions({ value, defaultValue = "", onChange, users = [], placeholder, rows = 3, lang, className }) {
+export const Mentions = React.forwardRef(function Mentions({ value, defaultValue = "", onChange, users = [], placeholder, rows = 3, lang, className }, forwardedRef) {
   const [inner, setInner] = React.useState(defaultValue);
   const val = value != null ? value : inner;
   const set = (v) => { if (value == null) setInner(v); onChange && onChange(v); };
@@ -48,7 +49,7 @@ export function Mentions({ value, defaultValue = "", onChange, users = [], place
     }
   };
   return (
-    <span ref={ref} className={cx("cs-mentions", className)}>
+    <span ref={mergeRefs(ref, forwardedRef)} className={cx("cs-mentions", className)}>
       <textarea
         className="cs-field__control"
         rows={rows}
@@ -80,4 +81,4 @@ export function Mentions({ value, defaultValue = "", onChange, users = [], place
       ) : null}
     </span>
   );
-}
+});

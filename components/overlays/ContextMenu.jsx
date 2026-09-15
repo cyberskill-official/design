@@ -1,9 +1,10 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill ContextMenu — right-click menu scoped to its children. items: {label,onSelect,danger} or "-" separator. */
-export function ContextMenu({ items = [], children, lang, className }) {
+export const ContextMenu = React.forwardRef(function ContextMenu({ items = [], children, lang, className }, forwardedRef) {
   const [pos, setPos] = React.useState(null);
   const [ref, L] = useLang(lang);
   const t = makeT("ContextMenu", L);
@@ -16,7 +17,7 @@ export function ContextMenu({ items = [], children, lang, className }) {
     return () => { document.removeEventListener("click", close); document.removeEventListener("keydown", k); };
   }, [pos]);
   return (
-    <div ref={ref} className={cx("cs-ctxmenu-zone", className)}
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-ctxmenu-zone", className)}
       onContextMenu={(e) => { e.preventDefault(); const r = e.currentTarget.getBoundingClientRect(); setPos({ x: e.clientX - r.left, y: e.clientY - r.top }); }}>
       {children}
       {pos ? (
@@ -28,4 +29,4 @@ export function ContextMenu({ items = [], children, lang, className }) {
       ) : null}
     </div>
   );
-}
+});

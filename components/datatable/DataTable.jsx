@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { Skeleton } from "../feedback/Skeleton.jsx";
@@ -11,7 +12,7 @@ import { cx } from "../_utils/cx.js";
  * data (FIND-020): Skeleton rows while loading, Result on error, empty cell
  * when idle with no rows. Other data surfaces should follow the same triad.
  */
-export function DataTable({
+export const DataTable = React.forwardRef(function DataTable({
   caption,
   columns,
   rows,
@@ -23,7 +24,7 @@ export function DataTable({
   loadingRows = 5,
   lang,
   className,
-}) {
+}, forwardedRef) {
   const normalized = Array.isArray(rows) ? rows : [];
   const [ref, L] = useLang(lang);
   const t = makeT("DataTable", L);
@@ -32,7 +33,7 @@ export function DataTable({
 
   if (state === "loading") {
     return (
-      <div ref={ref} className={cx("cs-table-wrap", className)} aria-busy="true">
+      <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-table-wrap", className)} aria-busy="true">
         <span className="cs-sr-only">{t("loading")}</span>
         {loadingState != null ? (
           loadingState
@@ -112,4 +113,4 @@ export function DataTable({
       </table>
     </div>
   );
-}
+});

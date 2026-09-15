@@ -1,0 +1,47 @@
+/* CyberSkill — component-level tokens (Button, TextField). File: component-tokens.css.
+ * Exact values from @cyberskill/tokens. Buttons carry a full size ramp with a
+ * 44px comfortable default touch target; TextField matches. */
+:root {
+  --cs-focus-ring: 3px; /* @kind other */ /* signature focus outline width */
+  /* Button */
+  --cs-component-button-primary-bg: #45210E;
+  --cs-component-button-primary-fg: #FFFFFF;
+  --cs-component-button-gap: 8px;
+  --cs-component-button-radius: 8px;
+  --cs-component-button-xs-paddingY: 4px;
+  --cs-component-button-xs-paddingX: 10px;
+  --cs-component-button-xs-minHeight: 28px;
+  --cs-component-button-xs-minWidth: 28px;
+  --cs-component-button-xs-minHeight-coarse: 36px;
+  --cs-component-button-sm-paddingY: 8px;
+  --cs-component-button-sm-paddingX: 14px;
+  --cs-component-button-sm-minHeight: 36px;
+  --cs-component-button-sm-minHeight-coarse: 40px;
+  --cs-component-button-md-paddingY: 12px;
+  --cs-component-button-md-paddingX: 20px;
+  --cs-component-button-md-minHeight: 44px;
+  --cs-component-button-md-minHeight-coarse: 44px;
+  --cs-component-button-lg-paddingY: 16px;
+  --cs-component-button-lg-paddingX: 28px;
+  --cs-component-button-lg-minHeight: 52px;
+
+  /* TextField */
+  --cs-component-textfield-border-default: #BFA58F;
+  --cs-component-textfield-paddingY: 10px;
+  --cs-component-textfield-paddingX: 12px;
+  --cs-component-textfield-minHeight: 44px;
+}
+
+/* Dark theme: CTA becomes Ochre-on-dark; field border warms up. */
+[data-theme="dark"] {
+  --cs-component-button-primary-bg: #f4ba17;
+  --cs-component-button-primary-fg: #1a1108;
+  --cs-component-textfield-border-default: #5a4636;
+}
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    --cs-component-button-primary-bg: #f4ba17;
+    --cs-component-button-primary-fg: #1a1108;
+    --cs-component-textfield-border-default: #5a4636;
+  }
+}

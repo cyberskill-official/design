@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang, monthName } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -14,7 +15,7 @@ function grid(year, month) { // Monday week-start (VN convention)
 }
 
 /** CyberSkill Calendar — month grid, Monday week-start, bilingual month/weekday names. Controlled value/onChange (Date). */
-export function Calendar({ value, onChange, lang, className }) {
+export const Calendar = React.forwardRef(function Calendar({ value, onChange, lang, className }, forwardedRef) {
   const sel = value ? new Date(value) : null;
   const today = new Date();
   const [view, setView] = React.useState(() => (sel ? [sel.getFullYear(), sel.getMonth()] : [today.getFullYear(), today.getMonth()]));
@@ -25,7 +26,7 @@ export function Calendar({ value, onChange, lang, className }) {
   const isSel = (d) => sel && d === sel.getDate() && m === sel.getMonth() && y === sel.getFullYear();
   const isToday = (d) => d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
   return (
-    <div ref={ref} className={cx("cs-cal", className)}>
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-cal", className)}>
       <div className="cs-cal__head">
         <button type="button" aria-label={t("prev")} onClick={() => setView(([yy, mm]) => (mm ? [yy, mm - 1] : [yy - 1, 11]))}>‹</button>
         <b>{monthName(m, L)} {y}</b>
@@ -40,4 +41,4 @@ export function Calendar({ value, onChange, lang, className }) {
       </div>
     </div>
   );
-}
+});

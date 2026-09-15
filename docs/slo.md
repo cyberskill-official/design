@@ -1,0 +1,29 @@
+# Accessibility and performance SLOs
+
+Release-blocking service levels for Stable packages. Published on Storybook **Docs** at `design.cyberskill.world`.
+
+## Accessibility
+
+- External baseline: WCAG 2.2 AA
+- Internal body text: APCA Lc ≥ 75
+- Zero critical axe violations on Stable stories in CI
+- Zero critical keyboard or landmark regressions on the inclusive matrix
+- Manual AT protocol (`docs/at-protocol.md`) recorded before a Stable promotion
+
+## Performance
+
+Budgets live in `docs/package-budgets.json` and fail CI on regression.
+
+- Interaction latency p95 target: under 100 ms for primary Button / TextField / Dialog open on the canary host
+- React entry (`_esm/react.mjs`) and `dist/styles.min.css` stay under published byte caps
+- Slim workspace tarballs exclude templates, `_audit/`, and raw JSX
+
+## Adoption
+
+Council tracks product uptake out of band. In-repo hook: `reportAdoption` from `@cyberskill/primitives` (opt-in `globalThis.CS_TELEMETRY`). Target: ≥80% CyberSkill products on Stable packages within two quarters. This repository cannot invent that inventory; it publishes the sink and the SLO.
+
+## Related
+
+- Telemetry: `docs/telemetry.md`
+- Support matrix: `docs/support-matrix.md`
+- Package topology: `docs/package-topology.md`

@@ -1,10 +1,11 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill NumberField — numeric stepper with −/+ buttons and clamping. */
 // `children` is destructured but never rendered on purpose: keeps stray children out of {...props} → void <input>.
-export function NumberField({
+export const NumberField = React.forwardRef(function NumberField({
   id,
   label,
   value,
@@ -17,7 +18,7 @@ export function NumberField({
   className,
   children,
   ...props
-}) {
+}, forwardedRef) {
   const [inner, setInner] = React.useState(0);
   const val = value != null ? value : inner;
   const clamp = (n) => {
@@ -34,7 +35,7 @@ export function NumberField({
   const gid = React.useId();
   const sid = id ?? gid;
   return (
-    <div ref={ref} className={cx("cs-field", disabled && "is-disabled", className)}>
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-field", disabled && "is-disabled", className)}>
       {label ? (
         <label className="cs-field__label" htmlFor={sid}>
           {label}
@@ -62,4 +63,4 @@ export function NumberField({
       </div>
     </div>
   );
-}
+});

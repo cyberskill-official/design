@@ -3,7 +3,7 @@ import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Watermark — repeats rotated text behind children (draft/confidential marking).
  * Fill colour is read from --cs-color-text-primary at render time (data-URIs cannot resolve CSS vars). */
-export function Watermark({ text = "CyberSkill", opacity = 0.09, gap = 140, rotate = -22, children, className }) {
+export const Watermark = React.forwardRef(function Watermark({ text = "CyberSkill", opacity = 0.09, gap = 140, rotate = -22, children, className }, forwardedRef) {
   const host = React.useRef(null);
   const [fill, setFill] = React.useState("#45210E");
   React.useLayoutEffect(() => {
@@ -20,4 +20,4 @@ export function Watermark({ text = "CyberSkill", opacity = 0.09, gap = 140, rota
       <div aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: `url("data:image/svg+xml,${svg}")` }} />
     </div>
   );
-}
+});

@@ -2,7 +2,7 @@ import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Accordion — collapsible sections. Single-open by default; allowMultiple for many. */
-export function Accordion({ items = [], defaultOpen = 0, allowMultiple = false, className }) {
+export const Accordion = React.forwardRef(function Accordion({ items = [], defaultOpen = 0, allowMultiple = false, className }, forwardedRef) {
   const [open, setOpen] = React.useState(() => (allowMultiple ? (defaultOpen != null ? [defaultOpen] : []) : defaultOpen));
   const isOpen = (i) => (allowMultiple ? open.includes(i) : open === i);
   const toggle = (i) => {
@@ -10,7 +10,7 @@ export function Accordion({ items = [], defaultOpen = 0, allowMultiple = false, 
     else setOpen((o) => (o === i ? -1 : i));
   };
   return (
-    <div className={cx("cs-accordion", className)}>
+    <div ref={forwardedRef} className={cx("cs-accordion", className)}>
       {items.map((it, i) => (
         <div className="cs-accordion__item" key={i}>
           <button type="button" className="cs-accordion__trigger" aria-expanded={isOpen(i)} onClick={() => toggle(i)}>
@@ -22,4 +22,4 @@ export function Accordion({ items = [], defaultOpen = 0, allowMultiple = false, 
       ))}
     </div>
   );
-}
+});

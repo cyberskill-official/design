@@ -15,5 +15,7 @@ assert(cfg.baseBranch === "main" || cfg.baseBranch === "master", "changeset base
 assert(Array.isArray(cfg.linked) || cfg.fixed || cfg.ignore, "changeset groups");
 assert(existsSync(join(root, ".changeset/README.md")), "changeset readme");
 assert(readdirSync(join(root, ".changeset")).length >= 2, "changeset dir");
+const notes = readdirSync(join(root, ".changeset")).filter((f) => f.endsWith(".md") && f !== "README.md");
+assert(notes.length >= 1, "at least one changeset note");
 
 console.log("PASS test-changesets");

@@ -3,7 +3,7 @@
   "version": "1.7.2",
   "private": false,
   "type": "module",
-  "description": "CyberSkill React components (compiled entry + declarations).",
+  "description": "Compiled CyberSkill React components (no raw JSX, no templates, no audit fixtures).",
   "license": "UNLICENSED",
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
@@ -11,9 +11,11 @@
   },
   "exports": {
     ".": {
-      "types": "../../_esm/react.d.ts",
-      "import": "../../_esm/react.mjs"
-    }
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    },
+    "./package.json": "./package.json"
   },
-  "files": ["README.md"]
+  "files": ["index.js", "index.d.ts", "dist", "README.md"],
+  "sideEffects": false
 }

@@ -1,0 +1,33 @@
+{
+  "$description": "Primitive → semantic → component → state token layer model. CSS custom properties remain the runtime source; this file is the machine-readable role map enforced by _audit/ci/test-token-layers.mjs.",
+  "version": "1.0.0",
+  "layers": ["primitive", "semantic", "component", "state"],
+  "rules": {
+    "primitive": "Literal values only (hex, px, ms, font stacks). No aliases to semantic or component tokens.",
+    "semantic": "Role aliases that may point at primitives. Stable across themes.",
+    "component": "Component-scoped aliases that may point at semantic or primitive tokens.",
+    "state": "Interactive/state aliases (hover, focus, disabled, invalid) that may point at component or semantic tokens."
+  },
+  "prefixes": {
+    "primitive": ["--cs-raw-", "--cs-font-family-", "--cs-font-size-", "--cs-space-", "--cs-radius-", "--cs-duration-", "--cs-shadow-"],
+    "semantic": ["--cs-color-", "--cs-heading-family", "--cs-text-"],
+    "component": ["--cs-component-"],
+    "state": ["--cs-state-"]
+  },
+  "knownPrimitiveFiles": [
+    "tokens/typography.css",
+    "tokens/spacing.css",
+    "tokens/motion.css",
+    "tokens/elevation.css"
+  ],
+  "knownSemanticFiles": [
+    "tokens/colors.css",
+    "tokens/elements.css",
+    "tokens/theme-attributes.css",
+    "base/high-contrast.css"
+  ],
+  "knownComponentFiles": [
+    "tokens/component-tokens.css"
+  ],
+  "deprecations": []
+}

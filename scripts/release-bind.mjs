@@ -6,7 +6,8 @@
  */
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync, existsSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -42,19 +43,27 @@ if (process.env.GITHUB_SHA && process.env.GITHUB_SHA !== sha && !args.has("--all
   }
 }
 
-const pack = spawnSync("npm", ["pack", "--dry-run", "--json"], {
+const dest = mkdtempSync(join(tmpdir(), "cs-release-bind-"));
+const pack = spawnSync("npm", ["pack", "--json", `--pack-destination=${dest}`], {
   cwd: root,
   encoding: "utf8",
   shell: process.platform === "win32",
   maxBuffer: 32 * 1024 * 1024,
 });
-if (pack.status !== 0) fail((pack.stderr || pack.stdout || "npm pack failed").slice(0, 800));
+if (pack.status !== 0) {
+  rmSync(dest, { recursive: true, force: true });
+  fail((pack.stderr || pack.stdout || "npm pack failed").slice(0, 800));
+}
 const parsed = JSON.parse(pack.stdout || "[]");
 const entry = Array.isArray(parsed) ? parsed[0] : parsed;
 const filename = entry.filename || `cyberskill-design-${pkg.version}.tgz`;
-const digest = createHash("sha256")
-  .update(JSON.stringify({ name: entry.name, version: entry.version, filename, size: entry.size, unpackedSize: entry.unpackedSize, fileCount: (entry.files || []).length }))
-  .digest("hex");
+const tarballPath = join(dest, filename);
+if (!existsSync(tarballPath)) {
+  rmSync(dest, { recursive: true, force: true });
+  fail("packed tarball missing: " + filename);
+}
+const digest = createHash("sha256").update(readFileSync(tarballPath)).digest("hex");
+rmSync(dest, { recursive: true, force: true });
 
 const report = {
   generatedBy: "scripts/release-bind.mjs",

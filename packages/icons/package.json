@@ -3,8 +3,14 @@
   "version": "1.7.2",
   "private": false,
   "type": "module",
-  "description": "Icon data and React export.",
+  "description": "Compiled icon data and React Icon export.",
   "license": "UNLICENSED",
-  "exports": { ".": "./index.js" },
-  "files": ["index.js", "README.md"]
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": ["index.js", "dist", "README.md"]
 }

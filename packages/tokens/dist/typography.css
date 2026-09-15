@@ -1,0 +1,77 @@
+/* CyberSkill — typography tokens.
+ * Family + line-height come straight from @cyberskill/tokens. The size ramp,
+ * weights, and icon sizes are a documented convention layered on top (the token
+ * source ships families + line-heights only); the scale mirrors real in-product
+ * usage (status hub: 11–24px chrome; hero display larger). Vietnamese-safe
+ * line-heights (body 1.5 / heading 1.35) leave room for stacked diacritics. */
+:root {
+  /* Families.
+   * `display` is the opt-in headline face (Space Grotesk, self-hosted 300-700,
+   * Vietnamese subset included) used by cyberskill.world / Lumi. Nothing points
+   * at it by default: opt a scope in with `--cs-heading-family:
+   * var(--cs-font-family-display)` or the `.cs-display-face` utility. Space
+   * Grotesk has no 800, so extrabold headings clamp to 700 within that family
+   * (CSS does not hop to the next stack family for a missing weight); Be
+   * Vietnam Pro in the stack covers glyphs outside Space Grotesk's subsets. */
+  --cs-font-family-ui: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+  --cs-font-family-display: 'Space Grotesk', 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+  --cs-font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Weights */
+  --cs-font-weight-regular: 400;
+  --cs-font-weight-medium: 500;
+  --cs-font-weight-semibold: 600;
+  --cs-font-weight-bold: 700;
+  --cs-font-weight-extrabold: 800;
+
+  /* Line-heights (Vietnamese-safe) */
+  --cs-font-lineHeight-body: 1.5;
+  --cs-font-lineHeight-heading: 1.35;
+  --cs-font-lineHeight-tight: 1.15;
+
+  /* Size ramp (rem-based, 16px root) */
+  --cs-font-size-2xs: 0.6875rem; /* 11 — micro numerals only (documented exception) */
+  --cs-font-size-xs: 0.75rem;    /* 12 — captions, chips */
+  --cs-font-size-sm: 0.875rem;   /* 14 — secondary UI */
+  --cs-font-size-base: 1rem;     /* 16 — body */
+  --cs-font-size-md: 1.125rem;   /* 18 — lead body */
+  --cs-font-size-lg: 1.25rem;    /* 20 — H4 / dialog title */
+  --cs-font-size-xl: 1.5rem;     /* 24 — H3 */
+  --cs-font-size-2xl: 1.875rem;  /* 30 — H2 */
+  --cs-font-size-3xl: 2.25rem;   /* 36 — H1 */
+  --cs-font-size-4xl: 3rem;      /* 48 — display */
+  --cs-font-size-5xl: 3.75rem;   /* 60 — hero display */
+
+  /* Semantic role aliases — write intent, not magic numbers.
+   * Pair each size with the matching line-height + weight (see base/typography.css
+   * for the .cs-display/.cs-h1/… utilities that bundle all three). */
+  --cs-text-display: var(--cs-font-size-5xl);   /* hero display */
+  --cs-text-h1: var(--cs-font-size-3xl);
+  --cs-text-h2: var(--cs-font-size-2xl);
+  --cs-text-h3: var(--cs-font-size-xl);
+  --cs-text-h4: var(--cs-font-size-lg);
+  --cs-text-body-lg: var(--cs-font-size-md);    /* lead paragraphs */
+  --cs-text-body: var(--cs-font-size-base);
+  --cs-text-secondary: var(--cs-font-size-sm);
+  --cs-text-micro: var(--cs-font-size-2xs);
+  --cs-text-caption: var(--cs-font-size-xs);
+  --cs-text-eyebrow: var(--cs-font-size-xs);    /* uppercase, tracked */
+
+  /* Tracking */
+  --cs-letter-spacing-tight: -0.01em;
+  --cs-letter-spacing-normal: 0;
+  --cs-letter-spacing-caps: 0.08em; /* uppercase eyebrows / table headers */
+
+  /* Heading treatment (Expression-overridable — the TYPE half of the treatment axis,
+   * v3 Batch 0). Expressions retune these so headings read Swiss / editorial / luxe /
+   * brutalist, not just via radius+shadow. Base = today's values (extrabold, tight). */
+  --cs-heading-family: var(--cs-font-family-ui);
+  --cs-heading-weight-strong: var(--cs-font-weight-extrabold); /* display · h1 */
+  --cs-heading-weight: var(--cs-font-weight-bold);             /* h2 · h3 */
+  --cs-heading-tracking: var(--cs-letter-spacing-tight);
+
+  /* Icon sizes (line-icon set) */
+  --cs-icon-sm: 16px;
+  --cs-icon-md: 20px;
+  --cs-icon-lg: 24px;
+}

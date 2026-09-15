@@ -1,3 +1,3 @@
 # @cyberskill/tokens
 
-Canonical token package. In this monorepo the CSS/DTCG sources still live at repo `tokens/`. New consumers should depend on this name; `@cyberskill/design/tokens/*` remains the facade path.
+Canonical token package. `npm run build:workspaces` copies CSS/DTCG/JS into `dist/`. New consumers should depend on this name; `@cyberskill/design/tokens/*` remains the facade path.

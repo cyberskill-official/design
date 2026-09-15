@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"CyberSkillDesignSystem_847b3c","components":[{"name":"THEME_VALUES","sourcePath":"components/_theme/provider.js"},{"name":"CONTRAST_VALUES","sourcePath":"components/_theme/provider.js"},{"name":"DENSITY_VALUES","sourcePath":"components/_theme/provider.js"},{"name":"ThemeProvider","sourcePath":"components/_theme/provider.js"},{"name":"ALLOWED_URL_SCHEMES","sourcePath":"components/_utils/sanitize-html.js"},{"name":"REMOVED_TAGS","sourcePath":"components/_utils/sanitize-html.js"},{"name":"AIDisclosureBadge","sourcePath":"components/ai/AIDisclosureBadge.jsx"},{"name":"ChatMessage","sourcePath":"components/ai/ChatMessage.jsx"},{"name":"CitationList","sourcePath":"components/ai/CitationList.jsx"},{"name":"ConfidenceMeter","sourcePath":"components/ai/ConfidenceMeter.jsx"},{"name":"HumanReviewGate","sourcePath":"components/ai/HumanReviewGate.jsx"},{"name":"PromptInput","sourcePath":"components/ai/PromptInput.jsx"},{"name":"PromptSuggestions","sourcePath":"components/ai/PromptSuggestions.jsx"},{"name":"TypingIndicator","sourcePath":"components/ai/TypingIndicator.jsx"},{"name":"LumiAvatar","sourcePath":"components/brand/LumiAvatar.jsx"},{"name":"Button","sourcePath":"components/button/Button.jsx"},{"name":"ButtonGroup","sourcePath":"components/button/ButtonGroup.jsx"},{"name":"FloatingActionButton","sourcePath":"components/button/FloatingActionButton.jsx"},{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"AspectRatio","sourcePath":"components/data/AspectRatio.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/data/Avatar.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"CardHeader","sourcePath":"components/data/Card.jsx"},{"name":"CardBody","sourcePath":"components/data/Card.jsx"},{"name":"CardFooter","sourcePath":"components/data/Card.jsx"},{"name":"Carousel","sourcePath":"components/data/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data/Chart.jsx"},{"name":"CodeBlock","sourcePath":"components/data/CodeBlock.jsx"},{"name":"Collapsible","sourcePath":"components/data/Collapsible.jsx"},{"name":"Comment","sourcePath":"components/data/Comment.jsx"},{"name":"DescriptionList","sourcePath":"components/data/DescriptionList.jsx"},{"name":"Divider","sourcePath":"components/data/Divider.jsx"},{"name":"Image","sourcePath":"components/data/Image.jsx"},{"name":"Item","sourcePath":"components/data/Item.jsx"},{"name":"Kbd","sourcePath":"components/data/Kbd.jsx"},{"name":"List","sourcePath":"components/data/List.jsx"},{"name":"ListItem","sourcePath":"components/data/List.jsx"},{"name":"Masonry","sourcePath":"components/data/Masonry.jsx"},{"name":"QRCode","sourcePath":"components/data/QRCode.jsx"},{"name":"ScrollArea","sourcePath":"components/data/ScrollArea.jsx"},{"name":"Sortable","sourcePath":"components/data/Sortable.jsx"},{"name":"Splitter","sourcePath":"components/data/Splitter.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Terminal","sourcePath":"components/data/Terminal.jsx"},{"name":"Timeline","sourcePath":"components/data/Timeline.jsx"},{"name":"Tooltip","sourcePath":"components/data/Tooltip.jsx"},{"name":"Tree","sourcePath":"components/data/Tree.jsx"},{"name":"Watermark","sourcePath":"components/data/Watermark.jsx"},{"name":"DataGrid","sourcePath":"components/datatable/DataGrid.jsx"},{"name":"DataTable","sourcePath":"components/datatable/DataTable.jsx"},{"name":"TreeTable","sourcePath":"components/datatable/TreeTable.jsx"},{"name":"Dialog","sourcePath":"components/dialog/Dialog.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Result","sourcePath":"components/feedback/Result.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"StatusIndicator","sourcePath":"components/feedback/StatusIndicator.jsx"},{"name":"Tag","sourcePath":"components/feedback/Tag.jsx"},{"name":"ToastStack","sourcePath":"components/feedback/Toast.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Calendar","sourcePath":"components/forms/Calendar.jsx"},{"name":"Cascader","sourcePath":"components/forms/Cascader.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"ColorPicker","sourcePath":"components/forms/ColorPicker.jsx"},{"name":"Combobox","sourcePath":"components/forms/Combobox.jsx"},{"name":"DatePicker","sourcePath":"components/forms/DatePicker.jsx"},{"name":"EDITOR_SCHEMA","sourcePath":"components/forms/Editor.jsx"},{"name":"Editor","sourcePath":"components/forms/Editor.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"Form","sourcePath":"components/forms/Form.jsx"},{"name":"FormField","sourcePath":"components/forms/Form.jsx"},{"name":"FormFieldArray","sourcePath":"components/forms/Form.jsx"},{"name":"FormWizard","sourcePath":"components/forms/Form.jsx"},{"name":"InlineEdit","sourcePath":"components/forms/InlineEdit.jsx"},{"name":"InputGroup","sourcePath":"components/forms/InputGroup.jsx"},{"name":"InputOTP","sourcePath":"components/forms/InputOTP.jsx"},{"name":"Mentions","sourcePath":"components/forms/Mentions.jsx"},{"name":"NativeSelect","sourcePath":"components/forms/NativeSelect.jsx"},{"name":"NumberField","sourcePath":"components/forms/NumberField.jsx"},{"name":"Radio","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"Rating","sourcePath":"components/forms/Rating.jsx"},{"name":"SearchField","sourcePath":"components/forms/SearchField.jsx"},{"name":"SegmentedControl","sourcePath":"components/forms/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Slider","sourcePath":"components/forms/Slider.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TagInput","sourcePath":"components/forms/TagInput.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"TimePicker","sourcePath":"components/forms/TimePicker.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Transfer","sourcePath":"components/forms/Transfer.jsx"},{"name":"TreeSelect","sourcePath":"components/forms/TreeSelect.jsx"},{"name":"EDITOR_SCHEMA","sourcePath":"components/forms/editor-schema.js"},{"name":"CS_ICONS","sourcePath":"components/icon/Icon.jsx"},{"name":"Icon","sourcePath":"components/icon/Icon.jsx"},{"name":"Logo","sourcePath":"components/logo/Logo.jsx"},{"name":"CS_LOGO_VIEWBOX","sourcePath":"components/logo/logo-data.js"},{"name":"CS_LOGO_MARK_INNER","sourcePath":"components/logo/logo-data.js"},{"name":"Anchor","sourcePath":"components/navigation/Anchor.jsx"},{"name":"BackTop","sourcePath":"components/navigation/BackTop.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"CommandPalette","sourcePath":"components/navigation/CommandPalette.jsx"},{"name":"Dock","sourcePath":"components/navigation/Dock.jsx"},{"name":"HotKeys","sourcePath":"components/navigation/HotKeys.jsx"},{"name":"Link","sourcePath":"components/navigation/Link.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"MenuItem","sourcePath":"components/navigation/Menu.jsx"},{"name":"Menubar","sourcePath":"components/navigation/Menubar.jsx"},{"name":"NavigationMenu","sourcePath":"components/navigation/NavigationMenu.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"NavItem","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Steps","sourcePath":"components/navigation/Steps.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Tab","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Toolbar","sourcePath":"components/navigation/Toolbar.jsx"},{"name":"AlertDialog","sourcePath":"components/overlays/AlertDialog.jsx"},{"name":"ContextMenu","sourcePath":"components/overlays/ContextMenu.jsx"},{"name":"Drawer","sourcePath":"components/overlays/Drawer.jsx"},{"name":"HoverCard","sourcePath":"components/overlays/HoverCard.jsx"},{"name":"OverlayProvider","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"ThemeProvider","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"Popconfirm","sourcePath":"components/overlays/Popconfirm.jsx"},{"name":"Popover","sourcePath":"components/overlays/Popover.jsx"},{"name":"Tour","sourcePath":"components/overlays/Tour.jsx"},{"name":"TextField","sourcePath":"components/textfield/TextField.jsx"}],"sourceHashes":{"components/_i18n/i18n.js":"89553e05e2c7","components/_i18n/strings.js":"a33cdc158ecf","components/_theme/provider.js":"811038173052","components/_utils/cx.js":"ad6a747ea116","components/_utils/sanitize-html.js":"ebeee94068f8","components/ai/AIDisclosureBadge.jsx":"4c8954aa2d79","components/ai/ChatMessage.jsx":"344e9c13fcfe","components/ai/CitationList.jsx":"4d12ef868ff3","components/ai/ConfidenceMeter.jsx":"68cf2bba3a9e","components/ai/HumanReviewGate.jsx":"922b278dca5c","components/ai/PromptInput.jsx":"7634643dafa5","components/ai/PromptSuggestions.jsx":"02d64117ecfa","components/ai/TypingIndicator.jsx":"149e3a0c7ef8","components/brand/LumiAvatar.jsx":"b6444360cf80","components/button/Button.jsx":"9aa22a54cd67","components/button/ButtonGroup.jsx":"1a1481f6fb93","components/button/FloatingActionButton.jsx":"ce49fe4129a3","components/data/Accordion.jsx":"fed81278cefd","components/data/AspectRatio.jsx":"6c1e8703891e","components/data/Avatar.jsx":"88c8f59334e6","components/data/Card.jsx":"96e1f9ef44a9","components/data/Carousel.jsx":"f7a0392c16f4","components/data/Chart.jsx":"1953e9fef120","components/data/CodeBlock.jsx":"04e0bd2507e2","components/data/Collapsible.jsx":"3d961fef83f8","components/data/Comment.jsx":"81469a910d80","components/data/DescriptionList.jsx":"ce50d72546bb","components/data/Divider.jsx":"2d08b4a7b18e","components/data/Image.jsx":"28b450b7362f","components/data/Item.jsx":"7e1ac68c4e96","components/data/Kbd.jsx":"3b3d867cbdd8","components/data/List.jsx":"5c221b19efe0","components/data/Masonry.jsx":"a65508731d79","components/data/QRCode.jsx":"6acaf577a7fc","components/data/ScrollArea.jsx":"c2e2ec304b1e","components/data/Sortable.jsx":"eb77c5552eff","components/data/Splitter.jsx":"d231064601e9","components/data/Stat.jsx":"35734a801a71","components/data/Terminal.jsx":"9d419686bea8","components/data/Timeline.jsx":"22058a781a98","components/data/Tooltip.jsx":"3f30c6b1bf1d","components/data/Tree.jsx":"a1d33dec0451","components/data/Watermark.jsx":"66b7b71488d8","components/data/qr-encode.js":"14e8de77df5f","components/datatable/DataGrid.jsx":"c84fe5d5b8cc","components/datatable/DataTable.jsx":"2a7c3bda5142","components/datatable/TreeTable.jsx":"597c35135ebb","components/dialog/Dialog.jsx":"8ef7722c37c4","components/feedback/Alert.jsx":"4dbf685af3e1","components/feedback/Badge.jsx":"e691ae1634f8","components/feedback/EmptyState.jsx":"5ba1437e6d81","components/feedback/ProgressBar.jsx":"c63a431e9eed","components/feedback/Result.jsx":"c168f8dcb009","components/feedback/Skeleton.jsx":"86ee345cb412","components/feedback/Spinner.jsx":"cad2ed4008a6","components/feedback/StatusIndicator.jsx":"d27a5fc3db2a","components/feedback/Tag.jsx":"13d288da9f38","components/feedback/Toast.jsx":"6a7832751669","components/forms/Calendar.jsx":"8a66cbe766af","components/forms/Cascader.jsx":"63f35db7101d","components/forms/Checkbox.jsx":"2badb7b3b72b","components/forms/ColorPicker.jsx":"d04db0ee7678","components/forms/Combobox.jsx":"3f2fb4d28922","components/forms/DatePicker.jsx":"7a6c18e1e635","components/forms/Editor.jsx":"386548b10688","components/forms/FileUpload.jsx":"509dfaff8bea","components/forms/Form.jsx":"6945025a205f","components/forms/InlineEdit.jsx":"5ffb40598769","components/forms/InputGroup.jsx":"06d6c22420d0","components/forms/InputOTP.jsx":"c3a5d02ffebc","components/forms/Mentions.jsx":"3924619137f3","components/forms/NativeSelect.jsx":"d6f6d300f75d","components/forms/NumberField.jsx":"44975fd25721","components/forms/RadioGroup.jsx":"1a64f7600e01","components/forms/Rating.jsx":"bd5c94741d63","components/forms/SearchField.jsx":"2a12c65900ec","components/forms/SegmentedControl.jsx":"1f143c62fb56","components/forms/Select.jsx":"009495d18845","components/forms/Slider.jsx":"213b7b9edec9","components/forms/Switch.jsx":"3cdf185f757c","components/forms/TagInput.jsx":"2d1554422097","components/forms/Textarea.jsx":"cf244fee0e37","components/forms/TimePicker.jsx":"abd6e54b2983","components/forms/Toggle.jsx":"a5378fd66713","components/forms/Transfer.jsx":"dd0c02d1014e","components/forms/TreeSelect.jsx":"a5b1b91d1d6a","components/forms/editor-schema.js":"3a8d906eb287","components/icon/Icon.jsx":"280fba8477db","components/logo/Logo.jsx":"83e4fcec0bbc","components/logo/logo-data.js":"f1a251a50c8f","components/navigation/Anchor.jsx":"491fb330e718","components/navigation/BackTop.jsx":"5cac0081fc20","components/navigation/Breadcrumb.jsx":"45636f3b0a51","components/navigation/CommandPalette.jsx":"51c25b8416eb","components/navigation/Dock.jsx":"3073e2870c65","components/navigation/HotKeys.jsx":"f0f707a3335d","components/navigation/Link.jsx":"d4fe3fcffd2c","components/navigation/Menu.jsx":"999e1659f8b3","components/navigation/Menubar.jsx":"1aa64f59891e","components/navigation/NavigationMenu.jsx":"020279fd7f79","components/navigation/Pagination.jsx":"a1fc19bfd104","components/navigation/Sidebar.jsx":"d578b013ad33","components/navigation/Steps.jsx":"e26c4a18cdfc","components/navigation/Tabs.jsx":"16964d61f349","components/navigation/Toolbar.jsx":"0f1f25d9e0c5","components/overlays/AlertDialog.jsx":"dcfbb7f61506","components/overlays/ContextMenu.jsx":"e3fb63e7b74f","components/overlays/Drawer.jsx":"a1c719da3f62","components/overlays/HoverCard.jsx":"5cfabde80960","components/overlays/OverlayManager.jsx":"9eb052abce33","components/overlays/Popconfirm.jsx":"55f08dba5f38","components/overlays/Popover.jsx":"1582f7fa5533","components/overlays/Tour.jsx":"707cd7464f0c","components/textfield/TextField.jsx":"c06bd9729f20","tokens/tokens.js":"55875bb1a9cd"},"inlinedExternals":[],"unexposedExports":[{"name":"applyPseudo","sourcePath":"components/_i18n/i18n.js"},{"name":"attachFocusTrap","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"cx","sourcePath":"components/_utils/cx.js"},{"name":"focusableSelector","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"formatCurrency","sourcePath":"components/_i18n/i18n.js"},{"name":"formatDate","sourcePath":"components/_i18n/i18n.js"},{"name":"formatNumber","sourcePath":"components/_i18n/i18n.js"},{"name":"getOverlayManager","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"getPath","sourcePath":"components/forms/Form.jsx"},{"name":"getThemeInitScript","sourcePath":"components/_theme/provider.js"},{"name":"getThemeInitScript","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"isAllowedUrl","sourcePath":"components/_utils/sanitize-html.js"},{"name":"knownLocales","sourcePath":"components/_i18n/i18n.js"},{"name":"localeForLang","sourcePath":"components/_i18n/i18n.js"},{"name":"makeT","sourcePath":"components/_i18n/i18n.js"},{"name":"monthName","sourcePath":"components/_i18n/i18n.js"},{"name":"primaryLang","sourcePath":"components/_i18n/i18n.js"},{"name":"qrMatrix","sourcePath":"components/data/qr-encode.js"},{"name":"reorderItems","sourcePath":"components/data/Sortable.jsx"},{"name":"resolveLang","sourcePath":"components/_i18n/i18n.js"},{"name":"resolveTheme","sourcePath":"components/_theme/provider.js"},{"name":"sanitizeHtml","sourcePath":"components/_utils/sanitize-html.js"},{"name":"sanitizeHtml","sourcePath":"components/forms/Editor.jsx"},{"name":"sanitizeHtml","sourcePath":"components/forms/editor-schema.js"},{"name":"setPath","sourcePath":"components/forms/Form.jsx"},{"name":"strings","sourcePath":"components/_i18n/strings.js"},{"name":"tokens","sourcePath":"tokens/tokens.js"},{"name":"tr","sourcePath":"components/_i18n/i18n.js"},{"name":"useLang","sourcePath":"components/_i18n/i18n.js"},{"name":"useOverlayLayer","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"useTheme","sourcePath":"components/_theme/provider.js"},{"name":"useTheme","sourcePath":"components/overlays/OverlayManager.jsx"}]} */
+/* @ds-bundle: {"format":4,"namespace":"CyberSkillDesignSystem_847b3c","components":[{"name":"THEME_VALUES","sourcePath":"components/_theme/provider.js"},{"name":"CONTRAST_VALUES","sourcePath":"components/_theme/provider.js"},{"name":"DENSITY_VALUES","sourcePath":"components/_theme/provider.js"},{"name":"ThemeProvider","sourcePath":"components/_theme/provider.js"},{"name":"ALLOWED_URL_SCHEMES","sourcePath":"components/_utils/sanitize-html.js"},{"name":"REMOVED_TAGS","sourcePath":"components/_utils/sanitize-html.js"},{"name":"AIDisclosureBadge","sourcePath":"components/ai/AIDisclosureBadge.jsx"},{"name":"ChatMessage","sourcePath":"components/ai/ChatMessage.jsx"},{"name":"CitationList","sourcePath":"components/ai/CitationList.jsx"},{"name":"ConfidenceMeter","sourcePath":"components/ai/ConfidenceMeter.jsx"},{"name":"HumanReviewGate","sourcePath":"components/ai/HumanReviewGate.jsx"},{"name":"PromptInput","sourcePath":"components/ai/PromptInput.jsx"},{"name":"PromptSuggestions","sourcePath":"components/ai/PromptSuggestions.jsx"},{"name":"TypingIndicator","sourcePath":"components/ai/TypingIndicator.jsx"},{"name":"LumiAvatar","sourcePath":"components/brand/LumiAvatar.jsx"},{"name":"Button","sourcePath":"components/button/Button.jsx"},{"name":"ButtonGroup","sourcePath":"components/button/ButtonGroup.jsx"},{"name":"FloatingActionButton","sourcePath":"components/button/FloatingActionButton.jsx"},{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"AspectRatio","sourcePath":"components/data/AspectRatio.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/data/Avatar.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"CardHeader","sourcePath":"components/data/Card.jsx"},{"name":"CardBody","sourcePath":"components/data/Card.jsx"},{"name":"CardFooter","sourcePath":"components/data/Card.jsx"},{"name":"Carousel","sourcePath":"components/data/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data/Chart.jsx"},{"name":"CodeBlock","sourcePath":"components/data/CodeBlock.jsx"},{"name":"Collapsible","sourcePath":"components/data/Collapsible.jsx"},{"name":"Comment","sourcePath":"components/data/Comment.jsx"},{"name":"DescriptionList","sourcePath":"components/data/DescriptionList.jsx"},{"name":"Divider","sourcePath":"components/data/Divider.jsx"},{"name":"Image","sourcePath":"components/data/Image.jsx"},{"name":"Item","sourcePath":"components/data/Item.jsx"},{"name":"Kbd","sourcePath":"components/data/Kbd.jsx"},{"name":"List","sourcePath":"components/data/List.jsx"},{"name":"ListItem","sourcePath":"components/data/List.jsx"},{"name":"Masonry","sourcePath":"components/data/Masonry.jsx"},{"name":"QRCode","sourcePath":"components/data/QRCode.jsx"},{"name":"ScrollArea","sourcePath":"components/data/ScrollArea.jsx"},{"name":"Sortable","sourcePath":"components/data/Sortable.jsx"},{"name":"Splitter","sourcePath":"components/data/Splitter.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Terminal","sourcePath":"components/data/Terminal.jsx"},{"name":"Timeline","sourcePath":"components/data/Timeline.jsx"},{"name":"Tooltip","sourcePath":"components/data/Tooltip.jsx"},{"name":"Tree","sourcePath":"components/data/Tree.jsx"},{"name":"Watermark","sourcePath":"components/data/Watermark.jsx"},{"name":"DataGrid","sourcePath":"components/datatable/DataGrid.jsx"},{"name":"DataTable","sourcePath":"components/datatable/DataTable.jsx"},{"name":"TreeTable","sourcePath":"components/datatable/TreeTable.jsx"},{"name":"Dialog","sourcePath":"components/dialog/Dialog.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Result","sourcePath":"components/feedback/Result.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"StatusIndicator","sourcePath":"components/feedback/StatusIndicator.jsx"},{"name":"Tag","sourcePath":"components/feedback/Tag.jsx"},{"name":"ToastStack","sourcePath":"components/feedback/Toast.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Calendar","sourcePath":"components/forms/Calendar.jsx"},{"name":"Cascader","sourcePath":"components/forms/Cascader.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"ColorPicker","sourcePath":"components/forms/ColorPicker.jsx"},{"name":"Combobox","sourcePath":"components/forms/Combobox.jsx"},{"name":"DatePicker","sourcePath":"components/forms/DatePicker.jsx"},{"name":"EDITOR_SCHEMA","sourcePath":"components/forms/Editor.jsx"},{"name":"Editor","sourcePath":"components/forms/Editor.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"Form","sourcePath":"components/forms/Form.jsx"},{"name":"FormField","sourcePath":"components/forms/Form.jsx"},{"name":"FormFieldArray","sourcePath":"components/forms/Form.jsx"},{"name":"FormWizard","sourcePath":"components/forms/Form.jsx"},{"name":"InlineEdit","sourcePath":"components/forms/InlineEdit.jsx"},{"name":"InputGroup","sourcePath":"components/forms/InputGroup.jsx"},{"name":"InputOTP","sourcePath":"components/forms/InputOTP.jsx"},{"name":"Mentions","sourcePath":"components/forms/Mentions.jsx"},{"name":"NativeSelect","sourcePath":"components/forms/NativeSelect.jsx"},{"name":"NumberField","sourcePath":"components/forms/NumberField.jsx"},{"name":"Radio","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"Rating","sourcePath":"components/forms/Rating.jsx"},{"name":"SearchField","sourcePath":"components/forms/SearchField.jsx"},{"name":"SegmentedControl","sourcePath":"components/forms/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Slider","sourcePath":"components/forms/Slider.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TagInput","sourcePath":"components/forms/TagInput.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"TimePicker","sourcePath":"components/forms/TimePicker.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Transfer","sourcePath":"components/forms/Transfer.jsx"},{"name":"TreeSelect","sourcePath":"components/forms/TreeSelect.jsx"},{"name":"EDITOR_SCHEMA","sourcePath":"components/forms/editor-schema.js"},{"name":"CS_ICONS","sourcePath":"components/icon/Icon.jsx"},{"name":"Icon","sourcePath":"components/icon/Icon.jsx"},{"name":"Logo","sourcePath":"components/logo/Logo.jsx"},{"name":"CS_LOGO_VIEWBOX","sourcePath":"components/logo/logo-data.js"},{"name":"CS_LOGO_MARK_INNER","sourcePath":"components/logo/logo-data.js"},{"name":"Anchor","sourcePath":"components/navigation/Anchor.jsx"},{"name":"BackTop","sourcePath":"components/navigation/BackTop.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"CommandPalette","sourcePath":"components/navigation/CommandPalette.jsx"},{"name":"Dock","sourcePath":"components/navigation/Dock.jsx"},{"name":"HotKeys","sourcePath":"components/navigation/HotKeys.jsx"},{"name":"Link","sourcePath":"components/navigation/Link.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"MenuItem","sourcePath":"components/navigation/Menu.jsx"},{"name":"Menubar","sourcePath":"components/navigation/Menubar.jsx"},{"name":"NavigationMenu","sourcePath":"components/navigation/NavigationMenu.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"NavItem","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Steps","sourcePath":"components/navigation/Steps.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Tab","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Toolbar","sourcePath":"components/navigation/Toolbar.jsx"},{"name":"AlertDialog","sourcePath":"components/overlays/AlertDialog.jsx"},{"name":"ContextMenu","sourcePath":"components/overlays/ContextMenu.jsx"},{"name":"Drawer","sourcePath":"components/overlays/Drawer.jsx"},{"name":"HoverCard","sourcePath":"components/overlays/HoverCard.jsx"},{"name":"OverlayProvider","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"ThemeProvider","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"Popconfirm","sourcePath":"components/overlays/Popconfirm.jsx"},{"name":"Popover","sourcePath":"components/overlays/Popover.jsx"},{"name":"Tour","sourcePath":"components/overlays/Tour.jsx"},{"name":"TextField","sourcePath":"components/textfield/TextField.jsx"}],"sourceHashes":{"components/_i18n/i18n.js":"89553e05e2c7","components/_i18n/strings.js":"a33cdc158ecf","components/_theme/provider.js":"811038173052","components/_utils/cx.js":"ad6a747ea116","components/_utils/merge-refs.js":"c865fed1f493","components/_utils/sanitize-html.js":"ebeee94068f8","components/ai/AIDisclosureBadge.jsx":"949f8d5b8ef3","components/ai/ChatMessage.jsx":"e5f30bc47db6","components/ai/CitationList.jsx":"b08fc9a7ba21","components/ai/ConfidenceMeter.jsx":"ebdc863b7547","components/ai/HumanReviewGate.jsx":"f2282fecf4fc","components/ai/PromptInput.jsx":"342eb9831ea9","components/ai/PromptSuggestions.jsx":"43de13bc77c1","components/ai/TypingIndicator.jsx":"4db2e3d28914","components/brand/LumiAvatar.jsx":"dc1a3018c9f7","components/button/Button.jsx":"9aa22a54cd67","components/button/ButtonGroup.jsx":"cce0ea004bd4","components/button/FloatingActionButton.jsx":"d6d39732adb4","components/data/Accordion.jsx":"9b98d1356ac9","components/data/AspectRatio.jsx":"9a1993b3ce50","components/data/Avatar.jsx":"d79f5308823d","components/data/Card.jsx":"5403c12e5eee","components/data/Carousel.jsx":"c13f57a0096f","components/data/Chart.jsx":"f9cfed7c5832","components/data/CodeBlock.jsx":"c533deba4231","components/data/Collapsible.jsx":"31842f1f4041","components/data/Comment.jsx":"22b5637a05b8","components/data/DescriptionList.jsx":"fb75d94b133d","components/data/Divider.jsx":"3c21ea4c2bb4","components/data/Image.jsx":"18716b0e923a","components/data/Item.jsx":"8d88fe6a98c4","components/data/Kbd.jsx":"385c1991d6ae","components/data/List.jsx":"71a1cafc21ca","components/data/Masonry.jsx":"6bbf654de4ba","components/data/QRCode.jsx":"fee8388cf924","components/data/ScrollArea.jsx":"2c93353ace4a","components/data/Sortable.jsx":"8f8293198601","components/data/Splitter.jsx":"4a0c4b66c0ec","components/data/Stat.jsx":"997e9d31808e","components/data/Terminal.jsx":"dd55c8eff1fb","components/data/Timeline.jsx":"35ff2be499b4","components/data/Tooltip.jsx":"e3d5d939b8e3","components/data/Tree.jsx":"114c7f9713fb","components/data/Watermark.jsx":"2ff52c6db26e","components/data/qr-encode.js":"14e8de77df5f","components/datatable/DataGrid.jsx":"aa793d6f347d","components/datatable/DataTable.jsx":"598bafbc5261","components/datatable/TreeTable.jsx":"dce7255cba0b","components/dialog/Dialog.jsx":"736124dbd9d4","components/feedback/Alert.jsx":"c1a02fd58e0f","components/feedback/Badge.jsx":"778192b50ea3","components/feedback/EmptyState.jsx":"a60c7ff87a2d","components/feedback/ProgressBar.jsx":"2982ffac6c10","components/feedback/Result.jsx":"bbba07d70844","components/feedback/Skeleton.jsx":"05deeec0c93f","components/feedback/Spinner.jsx":"4ce28bf9f6c5","components/feedback/StatusIndicator.jsx":"00beee411890","components/feedback/Tag.jsx":"b89f01a1798b","components/feedback/Toast.jsx":"e7f0104289ac","components/forms/Calendar.jsx":"ef97c5698d9e","components/forms/Cascader.jsx":"4712e7706a68","components/forms/Checkbox.jsx":"88d6055f1baf","components/forms/ColorPicker.jsx":"bba8e6fe1b1a","components/forms/Combobox.jsx":"c89b5f0eb158","components/forms/DatePicker.jsx":"95066b319ffb","components/forms/Editor.jsx":"a3be857d5cba","components/forms/FileUpload.jsx":"1d62bd6e0fe3","components/forms/Form.jsx":"30e576043651","components/forms/InlineEdit.jsx":"9e92391df3da","components/forms/InputGroup.jsx":"21790116804f","components/forms/InputOTP.jsx":"7427d8d355d7","components/forms/Mentions.jsx":"2bd0b9c947a1","components/forms/NativeSelect.jsx":"970e199f225f","components/forms/NumberField.jsx":"fc323b02943a","components/forms/RadioGroup.jsx":"b43a2117a34b","components/forms/Rating.jsx":"456f0d9fec25","components/forms/SearchField.jsx":"aa847c1fb2ba","components/forms/SegmentedControl.jsx":"b7a2d877af21","components/forms/Select.jsx":"59ccedfe5e8d","components/forms/Slider.jsx":"e34f2c0c002e","components/forms/Switch.jsx":"c18097153e76","components/forms/TagInput.jsx":"69e9e9786807","components/forms/Textarea.jsx":"515eac4f935c","components/forms/TimePicker.jsx":"79a0364bcb8a","components/forms/Toggle.jsx":"acc603b0a4aa","components/forms/Transfer.jsx":"69c45e73ccea","components/forms/TreeSelect.jsx":"98a551fea24b","components/forms/editor-schema.js":"3a8d906eb287","components/icon/Icon.jsx":"7d6055065bff","components/logo/Logo.jsx":"abfb59c4355e","components/logo/logo-data.js":"f1a251a50c8f","components/navigation/Anchor.jsx":"2d9a3bb91674","components/navigation/BackTop.jsx":"91d71c5df2e7","components/navigation/Breadcrumb.jsx":"a00226c80ec9","components/navigation/CommandPalette.jsx":"7650bdea9d9b","components/navigation/Dock.jsx":"8d0768caef81","components/navigation/HotKeys.jsx":"16a856f3539c","components/navigation/Link.jsx":"66eb1fe6e71a","components/navigation/Menu.jsx":"19f90a77217f","components/navigation/Menubar.jsx":"3d2479c36663","components/navigation/NavigationMenu.jsx":"27a9c287b9e6","components/navigation/Pagination.jsx":"d14fbef39bf4","components/navigation/Sidebar.jsx":"89d0492d9009","components/navigation/Steps.jsx":"ba4084d3e710","components/navigation/Tabs.jsx":"73b154c74064","components/navigation/Toolbar.jsx":"5f0440b59aec","components/overlays/AlertDialog.jsx":"672fcef8a4c7","components/overlays/ContextMenu.jsx":"0cc046d66432","components/overlays/Drawer.jsx":"10b09f958a5c","components/overlays/HoverCard.jsx":"b22a685e350c","components/overlays/OverlayManager.jsx":"9eb052abce33","components/overlays/Popconfirm.jsx":"aba2a3ad7112","components/overlays/Popover.jsx":"e419b9965e61","components/overlays/Tour.jsx":"bbc2e8bdca35","components/textfield/TextField.jsx":"25b5a463638b","tokens/tokens.js":"55875bb1a9cd"},"inlinedExternals":[],"unexposedExports":[{"name":"applyPseudo","sourcePath":"components/_i18n/i18n.js"},{"name":"attachFocusTrap","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"cx","sourcePath":"components/_utils/cx.js"},{"name":"focusableSelector","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"formatCurrency","sourcePath":"components/_i18n/i18n.js"},{"name":"formatDate","sourcePath":"components/_i18n/i18n.js"},{"name":"formatNumber","sourcePath":"components/_i18n/i18n.js"},{"name":"getOverlayManager","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"getPath","sourcePath":"components/forms/Form.jsx"},{"name":"getThemeInitScript","sourcePath":"components/_theme/provider.js"},{"name":"getThemeInitScript","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"isAllowedUrl","sourcePath":"components/_utils/sanitize-html.js"},{"name":"knownLocales","sourcePath":"components/_i18n/i18n.js"},{"name":"localeForLang","sourcePath":"components/_i18n/i18n.js"},{"name":"makeT","sourcePath":"components/_i18n/i18n.js"},{"name":"mergeRefs","sourcePath":"components/_utils/merge-refs.js"},{"name":"monthName","sourcePath":"components/_i18n/i18n.js"},{"name":"primaryLang","sourcePath":"components/_i18n/i18n.js"},{"name":"qrMatrix","sourcePath":"components/data/qr-encode.js"},{"name":"reorderItems","sourcePath":"components/data/Sortable.jsx"},{"name":"resolveLang","sourcePath":"components/_i18n/i18n.js"},{"name":"resolveTheme","sourcePath":"components/_theme/provider.js"},{"name":"sanitizeHtml","sourcePath":"components/_utils/sanitize-html.js"},{"name":"sanitizeHtml","sourcePath":"components/forms/Editor.jsx"},{"name":"sanitizeHtml","sourcePath":"components/forms/editor-schema.js"},{"name":"setPath","sourcePath":"components/forms/Form.jsx"},{"name":"strings","sourcePath":"components/_i18n/strings.js"},{"name":"tokens","sourcePath":"tokens/tokens.js"},{"name":"tr","sourcePath":"components/_i18n/i18n.js"},{"name":"useLang","sourcePath":"components/_i18n/i18n.js"},{"name":"useOverlayLayer","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"useTheme","sourcePath":"components/_theme/provider.js"},{"name":"useTheme","sourcePath":"components/overlays/OverlayManager.jsx"}]} */
 
 (() => {
 
@@ -528,6 +528,19 @@ function cx(...c) {
 Object.assign(__ds_scope, { cx });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/_utils/cx.js", error: String((e && e.message) || e) }); }
 
+// components/_utils/merge-refs.js
+try { (() => {
+function mergeRefs(...refs) {
+  return (node) => {
+    for (const r of refs) {
+      if (typeof r === "function") r(node);
+      else if (r && typeof r === "object") r.current = node;
+    }
+  };
+}
+Object.assign(__ds_scope, { mergeRefs });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/_utils/merge-refs.js", error: String((e && e.message) || e) }); }
+
 // components/_utils/sanitize-html.js
 try { (() => {
 const ALLOWED_URL_SCHEMES = Object.freeze(["http:", "https:", "mailto:", "tel:"]);
@@ -608,16 +621,16 @@ Object.assign(__ds_scope, { ALLOWED_URL_SCHEMES, REMOVED_TAGS, isAllowedUrl, san
 // components/ai/AIDisclosureBadge.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function AIDisclosureBadge({
+const AIDisclosureBadge = React.forwardRef(function AIDisclosureBadge2({
   label = "AI assisted",
   details = "This content was generated or transformed with AI assistance.",
   sources = [],
   className
-}) {
+}, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const panelId = React.useId();
   const sourceList = (sources || []).filter(Boolean);
-  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-ai-disclosure", className) }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("span", { ref: forwardedRef, className: cx("cs-ai-disclosure", className) }, /* @__PURE__ */ React.createElement(
     "button",
     {
       type: "button",
@@ -628,39 +641,41 @@ function AIDisclosureBadge({
     },
     label
   ), open ? /* @__PURE__ */ React.createElement("span", { id: panelId, role: "status", className: "cs-ai-disclosure__panel" }, /* @__PURE__ */ React.createElement("span", { className: "cs-ai-disclosure__details" }, details), sourceList.length ? /* @__PURE__ */ React.createElement("span", { className: "cs-ai-disclosure__sources" }, "Sources: ", sourceList.join(", ")) : null) : null);
-}
+});
 Object.assign(__ds_scope, { AIDisclosureBadge });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/ai/AIDisclosureBadge.jsx", error: String((e && e.message) || e) }); }
 
 // components/ai/ChatMessage.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function ChatMessage({ role = "lumi", name, avatar, lang, className, children }) {
+const ChatMessage = React.forwardRef(function ChatMessage2({ role = "lumi", name, avatar, lang, className, children }, forwardedRef) {
   const isUser = role === "user";
   const [ref, L] = useLang(lang);
   const t = makeT("ChatMessage", L);
   const you = t("you");
   const defaultAvatar = isUser ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, you) : /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.9", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z" }));
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-chat-msg", isUser ? "cs-chat-msg--user" : "cs-chat-msg--lumi", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__avatar" }, avatar ?? defaultAvatar), /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__col" }, /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__name" }, name ?? (isUser ? you : "Lumi")), /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__bubble" }, children)));
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-chat-msg", isUser ? "cs-chat-msg--user" : "cs-chat-msg--lumi", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__avatar" }, avatar ?? defaultAvatar), /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__col" }, /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__name" }, name ?? (isUser ? you : "Lumi")), /* @__PURE__ */ React.createElement("div", { className: "cs-chat-msg__bubble" }, children)));
+});
 Object.assign(__ds_scope, { ChatMessage });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/ai/ChatMessage.jsx", error: String((e && e.message) || e) }); }
 
 // components/ai/CitationList.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function CitationList({ label = "Sources", items = [], className }) {
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-citations", className) }, label ? /* @__PURE__ */ React.createElement("div", { className: "cs-citations__label" }, label) : null, items.map((it, i) => {
+const CitationList = React.forwardRef(function CitationList2({ label = "Sources", items = [], className }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-citations", className) }, label ? /* @__PURE__ */ React.createElement("div", { className: "cs-citations__label" }, label) : null, items.map((it, i) => {
     const inner = /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("span", { className: "cs-citation__num" }, i + 1), /* @__PURE__ */ React.createElement("span", { className: "cs-citation__text" }, it.title, it.source ? /* @__PURE__ */ React.createElement("span", { className: "cs-citation__src" }, " · ", it.source) : null));
     return it.href ? /* @__PURE__ */ React.createElement("a", { key: i, className: "cs-citation", href: it.href, target: "_blank", rel: "noreferrer" }, inner) : /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-citation" }, inner);
   }));
-}
+});
 Object.assign(__ds_scope, { CitationList });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/ai/CitationList.jsx", error: String((e && e.message) || e) }); }
 
 // components/ai/ConfidenceMeter.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const TONE = {
@@ -668,7 +683,7 @@ const TONE = {
   medium: { color: "var(--cs-color-semantic-warning)", label: "Medium", fill: 3 },
   high: { color: "var(--cs-color-semantic-success)", label: "High", fill: 5 }
 };
-function ConfidenceMeter({ value, level, segments = 5, label, lang, className }) {
+const ConfidenceMeter = React.forwardRef(function ConfidenceMeter2({ value, level, segments = 5, label, lang, className }, forwardedRef) {
   let tone, filled;
   const segs = Math.max(1, Number(segments) || 5);
   if (value != null) {
@@ -684,16 +699,17 @@ function ConfidenceMeter({ value, level, segments = 5, label, lang, className })
   const t = makeT("ConfidenceMeter", L);
   const lbl = label != null ? label : t("label");
   const levelText = t(tone);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-confidence", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-confidence__head" }, /* @__PURE__ */ React.createElement("span", null, lbl), /* @__PURE__ */ React.createElement("span", { className: "cs-confidence__level", style: { color: meta.color } }, levelText)), /* @__PURE__ */ React.createElement("div", { className: "cs-confidence__track", role: "meter", "aria-valuemin": 0, "aria-valuemax": segs, "aria-valuenow": filled, "aria-label": lbl + ": " + levelText }, Array.from({ length: segs }).map((_, i) => /* @__PURE__ */ React.createElement("span", { key: i, className: "cs-confidence__seg", style: i < filled ? { background: meta.color } : void 0 }))));
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-confidence", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-confidence__head" }, /* @__PURE__ */ React.createElement("span", null, lbl), /* @__PURE__ */ React.createElement("span", { className: "cs-confidence__level", style: { color: meta.color } }, levelText)), /* @__PURE__ */ React.createElement("div", { className: "cs-confidence__track", role: "meter", "aria-valuemin": 0, "aria-valuemax": segs, "aria-valuenow": filled, "aria-label": lbl + ": " + levelText }, Array.from({ length: segs }).map((_, i) => /* @__PURE__ */ React.createElement("span", { key: i, className: "cs-confidence__seg", style: i < filled ? { background: meta.color } : void 0 }))));
+});
 Object.assign(__ds_scope, { ConfidenceMeter });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/ai/ConfidenceMeter.jsx", error: String((e && e.message) || e) }); }
 
 // components/ai/HumanReviewGate.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function HumanReviewGate({
+const HumanReviewGate = React.forwardRef(function HumanReviewGate2({
   risk,
   summary,
   reviewer,
@@ -703,22 +719,23 @@ function HumanReviewGate({
   rejectLabel,
   lang,
   className
-}) {
+}, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("HumanReviewGate", L);
   const rk = risk != null ? risk : t("risk");
   const al = approveLabel != null ? approveLabel : t("approve");
   const rl = rejectLabel != null ? rejectLabel : t("reject");
-  return /* @__PURE__ */ React.createElement("section", { ref, className: cx("cs-review-gate", className), "aria-label": t("aria") }, /* @__PURE__ */ React.createElement("div", { className: "cs-review-gate__risk" }, rk), /* @__PURE__ */ React.createElement("p", { className: "cs-review-gate__summary" }, summary), reviewer ? /* @__PURE__ */ React.createElement("p", { className: "cs-review-gate__reviewer" }, t("reviewer"), ": ", reviewer) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-review-gate__actions" }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--secondary", onClick: onReject }, rl), /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--primary", onClick: onApprove }, al)));
-}
+  return /* @__PURE__ */ React.createElement("section", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-review-gate", className), "aria-label": t("aria") }, /* @__PURE__ */ React.createElement("div", { className: "cs-review-gate__risk" }, rk), /* @__PURE__ */ React.createElement("p", { className: "cs-review-gate__summary" }, summary), reviewer ? /* @__PURE__ */ React.createElement("p", { className: "cs-review-gate__reviewer" }, t("reviewer"), ": ", reviewer) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-review-gate__actions" }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--secondary", onClick: onReject }, rl), /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--primary", onClick: onApprove }, al)));
+});
 Object.assign(__ds_scope, { HumanReviewGate });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/ai/HumanReviewGate.jsx", error: String((e && e.message) || e) }); }
 
 // components/ai/PromptInput.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function PromptInput({
+const PromptInput = React.forwardRef(function PromptInput2({
   value,
   onChange,
   onSubmit,
@@ -729,7 +746,7 @@ function PromptInput({
   disabled = false,
   busy = false,
   className
-}) {
+}, forwardedRef) {
   const [inner, setInner] = React.useState("");
   const val = value != null ? value : inner;
   const setVal = (v) => onChange ? onChange(v) : setInner(v);
@@ -741,7 +758,7 @@ function PromptInput({
   const ph = placeholder != null ? placeholder : t("placeholder");
   const sl = sendLabel != null ? sendLabel : t("send");
   const ht = hint !== void 0 ? hint : t("hint");
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-prompt", className) }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-prompt", className) }, /* @__PURE__ */ React.createElement(
     "textarea",
     {
       className: "cs-prompt__field",
@@ -758,41 +775,42 @@ function PromptInput({
       }
     }
   ), /* @__PURE__ */ React.createElement("div", { className: "cs-prompt__bar" }, ht ? /* @__PURE__ */ React.createElement("span", { className: "cs-prompt__hint" }, /* @__PURE__ */ React.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z" })), ht) : null, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--primary cs-button--sm", onClick: submit, disabled: disabled || busy }, busy ? /* @__PURE__ */ React.createElement("span", { className: "cs-button__spinner", "aria-hidden": "true" }) : null, sl)));
-}
+});
 Object.assign(__ds_scope, { PromptInput });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/ai/PromptInput.jsx", error: String((e && e.message) || e) }); }
 
 // components/ai/PromptSuggestions.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function PromptSuggestions({ suggestions = [], onSelect, className }) {
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-suggest", className) }, suggestions.map((s, i) => {
+const PromptSuggestions = React.forwardRef(function PromptSuggestions2({ suggestions = [], onSelect, className }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-suggest", className) }, suggestions.map((s, i) => {
     const label = typeof s === "string" ? s : s.label;
     const icon = typeof s === "string" ? null : s.icon;
     return /* @__PURE__ */ React.createElement("button", { key: i, type: "button", onClick: () => onSelect && onSelect(label) }, icon ?? /* @__PURE__ */ React.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z" })), label);
   }));
-}
+});
 Object.assign(__ds_scope, { PromptSuggestions });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/ai/PromptSuggestions.jsx", error: String((e && e.message) || e) }); }
 
 // components/ai/TypingIndicator.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function TypingIndicator({ label, lang, className }) {
+const TypingIndicator = React.forwardRef(function TypingIndicator2({ label, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const lbl = label != null ? label : makeT("TypingIndicator", L)("label");
-  return /* @__PURE__ */ React.createElement("span", { ref, className: cx("cs-typing", className), role: "status", "aria-label": lbl }, /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null));
-}
+  return /* @__PURE__ */ React.createElement("span", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-typing", className), role: "status", "aria-label": lbl }, /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null));
+});
 Object.assign(__ds_scope, { TypingIndicator });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/ai/TypingIndicator.jsx", error: String((e && e.message) || e) }); }
 
 // components/brand/LumiAvatar.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function LumiAvatar({ src, size = "md", ring = false, alt = "Lumi", className, ...props }) {
-  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-lumi", `cs-lumi--${size}`, ring && "cs-lumi--ring", className), ...props }, src ? /* @__PURE__ */ React.createElement("img", { src, alt }) : /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, "✦"));
-}
+const LumiAvatar = React.forwardRef(function LumiAvatar2({ src, size = "md", ring = false, alt = "Lumi", className, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("span", { ref: forwardedRef, className: cx("cs-lumi", `cs-lumi--${size}`, ring && "cs-lumi--ring", className), ...props }, src ? /* @__PURE__ */ React.createElement("img", { src, alt }) : /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, "✦"));
+});
 Object.assign(__ds_scope, { LumiAvatar });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/brand/LumiAvatar.jsx", error: String((e && e.message) || e) }); }
 
@@ -841,99 +859,101 @@ Object.assign(__ds_scope, { Button });
 // components/button/ButtonGroup.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function ButtonGroup({ children, label, className, ...props }) {
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-btngroup", className), role: "group", "aria-label": label, ...props }, children);
-}
+const ButtonGroup = React.forwardRef(function ButtonGroup2({ children, label, className, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-btngroup", className), role: "group", "aria-label": label, ...props }, children);
+});
 Object.assign(__ds_scope, { ButtonGroup });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/button/ButtonGroup.jsx", error: String((e && e.message) || e) }); }
 
 // components/button/FloatingActionButton.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function FloatingActionButton({ icon, label, actions = [], onClick, position = "fixed", className }) {
+const FloatingActionButton = React.forwardRef(function FloatingActionButton2({ icon, label, actions = [], onClick, position = "fixed", className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const main = () => {
     if (actions.length) setOpen((o) => !o);
     else onClick && onClick();
   };
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-fab", position === "static" && "cs-fab--static", className) }, open && actions.length ? /* @__PURE__ */ React.createElement("div", { className: "cs-fab__dial" }, actions.map((a, i) => /* @__PURE__ */ React.createElement("button", { key: i, type: "button", className: "cs-fab__mini", "aria-label": a.label, title: a.label, onClick: () => {
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-fab", position === "static" && "cs-fab--static", className) }, open && actions.length ? /* @__PURE__ */ React.createElement("div", { className: "cs-fab__dial" }, actions.map((a, i) => /* @__PURE__ */ React.createElement("button", { key: i, type: "button", className: "cs-fab__mini", "aria-label": a.label, title: a.label, onClick: () => {
     setOpen(false);
     a.onSelect && a.onSelect();
   } }, a.icon))) : null, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-fab__main", "aria-label": label, "aria-expanded": actions.length ? open : void 0, onClick: main }, icon));
-}
+});
 Object.assign(__ds_scope, { FloatingActionButton });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/button/FloatingActionButton.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Accordion.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Accordion({ items = [], defaultOpen = 0, allowMultiple = false, className }) {
+const Accordion = React.forwardRef(function Accordion2({ items = [], defaultOpen = 0, allowMultiple = false, className }, forwardedRef) {
   const [open, setOpen] = React.useState(() => allowMultiple ? defaultOpen != null ? [defaultOpen] : [] : defaultOpen);
   const isOpen = (i) => allowMultiple ? open.includes(i) : open === i;
   const toggle = (i) => {
     if (allowMultiple) setOpen((o) => o.includes(i) ? o.filter((x) => x !== i) : [...o, i]);
     else setOpen((o) => o === i ? -1 : i);
   };
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-accordion", className) }, items.map((it, i) => /* @__PURE__ */ React.createElement("div", { className: "cs-accordion__item", key: i }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-accordion__trigger", "aria-expanded": isOpen(i), onClick: () => toggle(i) }, it.title, /* @__PURE__ */ React.createElement("span", { className: "cs-accordion__chevron", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 9l6 6 6-6" })))), isOpen(i) ? /* @__PURE__ */ React.createElement("div", { className: "cs-accordion__panel" }, it.content) : null)));
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-accordion", className) }, items.map((it, i) => /* @__PURE__ */ React.createElement("div", { className: "cs-accordion__item", key: i }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-accordion__trigger", "aria-expanded": isOpen(i), onClick: () => toggle(i) }, it.title, /* @__PURE__ */ React.createElement("span", { className: "cs-accordion__chevron", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 9l6 6 6-6" })))), isOpen(i) ? /* @__PURE__ */ React.createElement("div", { className: "cs-accordion__panel" }, it.content) : null)));
+});
 Object.assign(__ds_scope, { Accordion });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Accordion.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/AspectRatio.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function AspectRatio({ ratio = "16 / 9", children, className, style, ...props }) {
+const AspectRatio = React.forwardRef(function AspectRatio2({ ratio = "16 / 9", children, className, style, ...props }, forwardedRef) {
   const ar = typeof ratio === "number" ? String(ratio) : ratio;
   return /* @__PURE__ */ React.createElement(
     "div",
     {
+      ref: forwardedRef,
       className: cx("cs-aspect-ratio", className),
       style: { ...style || {}, aspectRatio: ar },
       ...props
     },
     children
   );
-}
+});
 Object.assign(__ds_scope, { AspectRatio });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/AspectRatio.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Avatar.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Avatar({ src, name = "", size = "md", square = false, className, ...props }) {
+const Avatar = React.forwardRef(function Avatar2({ src, name = "", size = "md", square = false, className, ...props }, forwardedRef) {
   const initials = name ? name.trim().split(/\s+/).map((w) => w[0]).slice(0, 2).join("").toUpperCase() : "";
-  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-avatar", `cs-avatar--${size}`, square && "cs-avatar--square", className), title: name || void 0, ...props }, src ? /* @__PURE__ */ React.createElement("img", { src, alt: name }) : /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, initials));
-}
-function AvatarGroup({ className, children }) {
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-avatar-group", className) }, children);
-}
+  return /* @__PURE__ */ React.createElement("span", { ref: forwardedRef, className: cx("cs-avatar", `cs-avatar--${size}`, square && "cs-avatar--square", className), title: name || void 0, ...props }, src ? /* @__PURE__ */ React.createElement("img", { src, alt: name }) : /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, initials));
+});
+const AvatarGroup = React.forwardRef(function AvatarGroup2({ className, children }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-avatar-group", className) }, children);
+});
 Object.assign(__ds_scope, { Avatar, AvatarGroup });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Avatar.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Card.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Card({ interactive = false, flat = false, as, className, children, ...props }) {
+const Card = React.forwardRef(function Card2({ interactive = false, flat = false, as, className, children, ...props }, forwardedRef) {
   const Tag = as || (interactive ? "button" : "div");
-  return /* @__PURE__ */ React.createElement(Tag, { className: cx("cs-card", flat && "cs-card--flat", interactive && "cs-card--interactive", className), ...props }, children);
-}
-function CardHeader({ title, subtitle, children, className, ...props }) {
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-card__header", className), ...props }, title ? /* @__PURE__ */ React.createElement("h3", { className: "cs-card__title" }, title) : null, subtitle ? /* @__PURE__ */ React.createElement("p", { className: "cs-card__subtitle" }, subtitle) : null, children);
-}
-function CardBody({ className, children, ...props }) {
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-card__body", className), ...props }, children);
-}
-function CardFooter({ className, children, ...props }) {
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-card__footer", className), ...props }, children);
-}
+  return /* @__PURE__ */ React.createElement(Tag, { ref: forwardedRef, className: cx("cs-card", flat && "cs-card--flat", interactive && "cs-card--interactive", className), ...props }, children);
+});
+const CardHeader = React.forwardRef(function CardHeader2({ title, subtitle, children, className, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-card__header", className), ...props }, title ? /* @__PURE__ */ React.createElement("h3", { className: "cs-card__title" }, title) : null, subtitle ? /* @__PURE__ */ React.createElement("p", { className: "cs-card__subtitle" }, subtitle) : null, children);
+});
+const CardBody = React.forwardRef(function CardBody2({ className, children, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-card__body", className), ...props }, children);
+});
+const CardFooter = React.forwardRef(function CardFooter2({ className, children, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-card__footer", className), ...props }, children);
+});
 Object.assign(__ds_scope, { Card, CardHeader, CardBody, CardFooter });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Card.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Carousel.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Carousel({ children, startIndex = 0, label, lang, className }) {
+const Carousel = React.forwardRef(function Carousel2({ children, startIndex = 0, label, lang, className }, forwardedRef) {
   const slides = React.Children.toArray(children);
   const [i, setI] = React.useState(Math.min(startIndex, Math.max(0, slides.length - 1)));
   const [ref, L] = useLang(lang);
@@ -957,7 +977,7 @@ function Carousel({ children, startIndex = 0, label, lang, className }) {
   return /* @__PURE__ */ React.createElement(
     "div",
     {
-      ref,
+      ref: mergeRefs(ref, forwardedRef),
       className: cx("cs-carousel", className),
       role: "region",
       "aria-roledescription": "carousel",
@@ -981,14 +1001,14 @@ function Carousel({ children, startIndex = 0, label, lang, className }) {
       }
     )))
   );
-}
+});
 Object.assign(__ds_scope, { Carousel });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Carousel.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Chart.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Chart({ type = "bar", data = [], height = 160, color = "var(--cs-accent)", showValues = false, label, className }) {
+const Chart = React.forwardRef(function Chart2({ type = "bar", data = [], height = 160, color = "var(--cs-accent)", showValues = false, label, className }, forwardedRef) {
   const W = 320, H = height, max = Math.max(1, ...data.map((d) => d.value));
   let body = null;
   if (type === "pie") {
@@ -1012,15 +1032,15 @@ function Chart({ type = "bar", data = [], height = 160, color = "var(--cs-accent
       return /* @__PURE__ */ React.createElement("rect", { key: i, x: 4 + i * bw + bw * 0.14, y: H - 20 - h, width: bw * 0.72, height: h, rx: "3", fill: color });
     }));
   }
-  return /* @__PURE__ */ React.createElement("figure", { className: cx("cs-chart", className), role: "img", "aria-label": label || data.map((d) => d.label + ": " + d.value).join(", ") }, body, type !== "spark" ? /* @__PURE__ */ React.createElement("figcaption", { className: "cs-chart__legend" }, data.map((d, i) => /* @__PURE__ */ React.createElement("span", { key: i }, d.label, showValues ? /* @__PURE__ */ React.createElement("b", null, " ", d.value) : null))) : null);
-}
+  return /* @__PURE__ */ React.createElement("figure", { ref: forwardedRef, className: cx("cs-chart", className), role: "img", "aria-label": label || data.map((d) => d.label + ": " + d.value).join(", ") }, body, type !== "spark" ? /* @__PURE__ */ React.createElement("figcaption", { className: "cs-chart__legend" }, data.map((d, i) => /* @__PURE__ */ React.createElement("span", { key: i }, d.label, showValues ? /* @__PURE__ */ React.createElement("b", null, " ", d.value) : null))) : null);
+});
 Object.assign(__ds_scope, { Chart });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Chart.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/CodeBlock.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function CodeBlock({ code = "", filename, language = "code", showBar = true, className }) {
+const CodeBlock = React.forwardRef(function CodeBlock2({ code = "", filename, language = "code", showBar = true, className }, forwardedRef) {
   const [copied, setCopied] = React.useState(false);
   const copy = () => {
     try {
@@ -1030,15 +1050,15 @@ function CodeBlock({ code = "", filename, language = "code", showBar = true, cla
     } catch (e) {
     }
   };
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-code", className) }, showBar ? /* @__PURE__ */ React.createElement("div", { className: "cs-code__bar" }, /* @__PURE__ */ React.createElement("span", null, filename || language), /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-code__copy", onClick: copy }, copied ? "Copied ✓" : "Copy")) : null, /* @__PURE__ */ React.createElement("pre", null, /* @__PURE__ */ React.createElement("code", null, code)));
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-code", className) }, showBar ? /* @__PURE__ */ React.createElement("div", { className: "cs-code__bar" }, /* @__PURE__ */ React.createElement("span", null, filename || language), /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-code__copy", onClick: copy }, copied ? "Copied ✓" : "Copy")) : null, /* @__PURE__ */ React.createElement("pre", null, /* @__PURE__ */ React.createElement("code", null, code)));
+});
 Object.assign(__ds_scope, { CodeBlock });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/CodeBlock.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Collapsible.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Collapsible({
+const Collapsible = React.forwardRef(function Collapsible2({
   open,
   defaultOpen = false,
   onOpenChange,
@@ -1047,7 +1067,7 @@ function Collapsible({
   children,
   className,
   ...props
-}) {
+}, forwardedRef) {
   const uncontrolled = open === void 0;
   const [internal, setInternal] = React.useState(!!defaultOpen);
   const isOpen = uncontrolled ? internal : !!open;
@@ -1058,7 +1078,7 @@ function Collapsible({
   const label = title ?? trigger;
   const panelId = React.useId();
   const triggerId = React.useId();
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-collapsible", className), ...props }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-collapsible", className), ...props }, /* @__PURE__ */ React.createElement(
     "button",
     {
       type: "button",
@@ -1071,47 +1091,48 @@ function Collapsible({
     /* @__PURE__ */ React.createElement("span", { className: "cs-collapsible__label" }, label),
     /* @__PURE__ */ React.createElement("span", { className: "cs-collapsible__chevron", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 9l6 6 6-6" })))
   ), isOpen ? /* @__PURE__ */ React.createElement("div", { id: panelId, role: "region", "aria-labelledby": triggerId, className: "cs-collapsible__panel" }, children) : null);
-}
+});
 Object.assign(__ds_scope, { Collapsible });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Collapsible.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Comment.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Comment({ avatar, author, meta, children, actions = [], replies, lang, className }) {
+const Comment = React.forwardRef(function Comment2({ avatar, author, meta, children, actions = [], replies, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Comment", L);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-comment", className) }, avatar ? /* @__PURE__ */ React.createElement("span", { className: "cs-comment__avatar" }, avatar) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-comment__main" }, /* @__PURE__ */ React.createElement("div", { className: "cs-comment__head" }, /* @__PURE__ */ React.createElement("b", null, author), meta ? /* @__PURE__ */ React.createElement("span", { className: "cs-comment__meta" }, meta) : null), /* @__PURE__ */ React.createElement("div", { className: "cs-comment__body" }, children), /* @__PURE__ */ React.createElement("div", { className: "cs-comment__actions" }, (actions.length ? actions : [{ label: t("reply") }]).map((a, i) => /* @__PURE__ */ React.createElement("button", { key: i, type: "button", onClick: () => a.onSelect && a.onSelect() }, a.label))), replies ? /* @__PURE__ */ React.createElement("div", { className: "cs-comment__replies" }, replies) : null));
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-comment", className) }, avatar ? /* @__PURE__ */ React.createElement("span", { className: "cs-comment__avatar" }, avatar) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-comment__main" }, /* @__PURE__ */ React.createElement("div", { className: "cs-comment__head" }, /* @__PURE__ */ React.createElement("b", null, author), meta ? /* @__PURE__ */ React.createElement("span", { className: "cs-comment__meta" }, meta) : null), /* @__PURE__ */ React.createElement("div", { className: "cs-comment__body" }, children), /* @__PURE__ */ React.createElement("div", { className: "cs-comment__actions" }, (actions.length ? actions : [{ label: t("reply") }]).map((a, i) => /* @__PURE__ */ React.createElement("button", { key: i, type: "button", onClick: () => a.onSelect && a.onSelect() }, a.label))), replies ? /* @__PURE__ */ React.createElement("div", { className: "cs-comment__replies" }, replies) : null));
+});
 Object.assign(__ds_scope, { Comment });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Comment.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/DescriptionList.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function DescriptionList({ items = [], className, ...props }) {
-  return /* @__PURE__ */ React.createElement("dl", { className: cx("cs-dl", className), ...props }, items.map((it, i) => /* @__PURE__ */ React.createElement("div", { key: i }, /* @__PURE__ */ React.createElement("dt", null, it.term), /* @__PURE__ */ React.createElement("dd", null, it.value))));
-}
+const DescriptionList = React.forwardRef(function DescriptionList2({ items = [], className, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("dl", { ref: forwardedRef, className: cx("cs-dl", className), ...props }, items.map((it, i) => /* @__PURE__ */ React.createElement("div", { key: i }, /* @__PURE__ */ React.createElement("dt", null, it.term), /* @__PURE__ */ React.createElement("dd", null, it.value))));
+});
 Object.assign(__ds_scope, { DescriptionList });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/DescriptionList.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Divider.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Divider({ vertical = false, label, className, children, ...props }) {
+const Divider = React.forwardRef(function Divider2({ vertical = false, label, className, children, ...props }, forwardedRef) {
   if (label) {
-    return /* @__PURE__ */ React.createElement("div", { className: cx("cs-divider", "cs-divider--label", className), role: "separator", ...props }, label);
+    return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-divider", "cs-divider--label", className), role: "separator", ...props }, label);
   }
   return /* @__PURE__ */ React.createElement("hr", { className: cx("cs-divider", vertical && "cs-divider--vertical", className), "aria-orientation": vertical ? "vertical" : "horizontal", ...props });
-}
+});
 Object.assign(__ds_scope, { Divider });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Divider.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Item.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Item({
+const Item = React.forwardRef(function Item2({
   leading,
   trailing,
   title,
@@ -1123,7 +1144,7 @@ function Item({
   children,
   className,
   ...props
-}) {
+}, forwardedRef) {
   const interactive = !disabled && (href != null || typeof onClick === "function");
   const Tag = href != null && !disabled ? "a" : interactive ? "button" : "div";
   const rowProps = { ...props };
@@ -1144,6 +1165,7 @@ function Item({
   return /* @__PURE__ */ React.createElement(
     Tag,
     {
+      ref: forwardedRef,
       className: cx(
         "cs-item",
         interactive && "cs-item--interactive",
@@ -1157,50 +1179,51 @@ function Item({
     /* @__PURE__ */ React.createElement("span", { className: "cs-item__main" }, title != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-item__title" }, title) : null, description != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-item__description" }, description) : null, mainExtra),
     trailNode != null && trailNode !== false ? /* @__PURE__ */ React.createElement("span", { className: "cs-item__trailing" }, trailNode) : null
   );
-}
+});
 Object.assign(__ds_scope, { Item });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Item.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Kbd.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Kbd({ children, className, ...props }) {
-  return /* @__PURE__ */ React.createElement("kbd", { className: cx("cs-kbd", className), ...props }, children);
-}
+const Kbd = React.forwardRef(function Kbd2({ children, className, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("kbd", { ref: forwardedRef, className: cx("cs-kbd", className), ...props }, children);
+});
 Object.assign(__ds_scope, { Kbd });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Kbd.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/List.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function List({ className, children, ...props }) {
-  return /* @__PURE__ */ React.createElement("div", { role: "list", className: cx("cs-list", className), ...props }, children);
-}
-function ListItem({ lead, title, subtitle, trail, onClick, children, className, ...props }) {
+const List = React.forwardRef(function List2({ className, children, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, role: "list", className: cx("cs-list", className), ...props }, children);
+});
+const ListItem = React.forwardRef(function ListItem2({ lead, title, subtitle, trail, onClick, children, className, ...props }, forwardedRef) {
   const interactive = !!onClick;
   const Tag = interactive ? "button" : "div";
-  return /* @__PURE__ */ React.createElement(Tag, { role: "listitem", className: cx("cs-list__item", interactive && "cs-list__item--button", className), onClick, ...props }, lead != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-list__lead" }, lead) : null, /* @__PURE__ */ React.createElement("span", { className: "cs-list__main" }, title != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-list__title" }, title) : null, subtitle != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-list__sub" }, subtitle) : null, children), trail != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-list__trail" }, trail) : null);
-}
+  return /* @__PURE__ */ React.createElement(Tag, { ref: forwardedRef, role: "listitem", className: cx("cs-list__item", interactive && "cs-list__item--button", className), onClick, ...props }, lead != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-list__lead" }, lead) : null, /* @__PURE__ */ React.createElement("span", { className: "cs-list__main" }, title != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-list__title" }, title) : null, subtitle != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-list__sub" }, subtitle) : null, children), trail != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-list__trail" }, trail) : null);
+});
 Object.assign(__ds_scope, { List, ListItem });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/List.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Masonry.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Masonry({ columns = 3, gap = 16, children, className, style }) {
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-masonry", className), style: { columnCount: columns, columnGap: gap, ...style } }, React.Children.map(children, (c) => /* @__PURE__ */ React.createElement("div", { className: "cs-masonry__item", style: { marginBottom: gap } }, c)));
-}
+const Masonry = React.forwardRef(function Masonry2({ columns = 3, gap = 16, children, className, style }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-masonry", className), style: { columnCount: columns, columnGap: gap, ...style } }, React.Children.map(children, (c) => /* @__PURE__ */ React.createElement("div", { className: "cs-masonry__item", style: { marginBottom: gap } }, c)));
+});
 Object.assign(__ds_scope, { Masonry });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Masonry.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/ScrollArea.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function ScrollArea({ children, maxHeight, className, style, ...props }) {
+const ScrollArea = React.forwardRef(function ScrollArea2({ children, maxHeight, className, style, ...props }, forwardedRef) {
   const max = maxHeight == null ? void 0 : typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight;
   return /* @__PURE__ */ React.createElement(
     "div",
     {
+      ref: forwardedRef,
       className: cx("cs-scroll-area", className),
       tabIndex: 0,
       style: {
@@ -1211,7 +1234,7 @@ function ScrollArea({ children, maxHeight, className, style, ...props }) {
     },
     children
   );
-}
+});
 Object.assign(__ds_scope, { ScrollArea });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/ScrollArea.jsx", error: String((e && e.message) || e) }); }
 
@@ -1225,7 +1248,7 @@ function reorderItems(items, from, to) {
   next.splice(to, 0, next.splice(from, 1)[0]);
   return next;
 }
-function Sortable({ items = [], onChange, lang, className }) {
+const Sortable = React.forwardRef(function Sortable2({ items = [], onChange, lang, className }, forwardedRef) {
   const [dragKey, setDragKey] = React.useState(null);
   const [over, setOver] = React.useState(null);
   const [live, setLive] = React.useState("");
@@ -1255,7 +1278,7 @@ function Sortable({ items = [], onChange, lang, className }) {
     setDragKey(null);
     setOver(null);
   };
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-sortable-wrap", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-sr-only", "aria-live": "polite" }, live), /* @__PURE__ */ React.createElement("ul", { ref, className: "cs-sortable" }, items.map((it, idx) => /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-sortable-wrap", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-sr-only", "aria-live": "polite" }, live), /* @__PURE__ */ React.createElement("ul", { ref, className: "cs-sortable" }, items.map((it, idx) => /* @__PURE__ */ React.createElement(
     "li",
     {
       key: it.key,
@@ -1300,7 +1323,7 @@ function Sortable({ items = [], onChange, lang, className }) {
       "↓"
     ))
   ))));
-}
+});
 Object.assign(__ds_scope, { reorderItems, Sortable });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Sortable.jsx", error: String((e && e.message) || e) }); }
 
@@ -1308,7 +1331,7 @@ Object.assign(__ds_scope, { reorderItems, Sortable });
 try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Splitter({ start, end, initial = 50, min = 20, max = 80, height = 240, lang, className }) {
+const Splitter = React.forwardRef(function Splitter2({ start, end, initial = 50, min = 20, max = 80, height = 240, lang, className }, forwardedRef) {
   const [pct, setPct] = React.useState(initial);
   const wrap = React.useRef(null);
   const [ref, L] = useLang(lang);
@@ -1347,25 +1370,26 @@ function Splitter({ start, end, initial = 50, min = 20, max = 80, height = 240, 
       }
     }
   ), /* @__PURE__ */ React.createElement("div", { className: "cs-splitter__pane", style: { inlineSize: 100 - pct + "%" } }, end));
-}
+});
 Object.assign(__ds_scope, { Splitter });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Splitter.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Stat.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Stat({ label, value, delta, trend = "flat", className, ...props }) {
+const Stat = React.forwardRef(function Stat2({ label, value, delta, trend = "flat", className, ...props }, forwardedRef) {
   const arrow = trend === "up" ? "M12 5v14M6 11l6-6 6 6" : trend === "down" ? "M12 5v14M6 13l6 6 6-6" : "M5 12h14";
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-stat", className), ...props }, /* @__PURE__ */ React.createElement("div", { className: "cs-stat__label" }, label), /* @__PURE__ */ React.createElement("div", { className: "cs-stat__value" }, value), delta != null ? /* @__PURE__ */ React.createElement("div", { className: cx("cs-stat__delta", `cs-stat__delta--${trend}`) }, /* @__PURE__ */ React.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: arrow })), delta) : null);
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-stat", className), ...props }, /* @__PURE__ */ React.createElement("div", { className: "cs-stat__label" }, label), /* @__PURE__ */ React.createElement("div", { className: "cs-stat__value" }, value), delta != null ? /* @__PURE__ */ React.createElement("div", { className: cx("cs-stat__delta", `cs-stat__delta--${trend}`) }, /* @__PURE__ */ React.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: arrow })), delta) : null);
+});
 Object.assign(__ds_scope, { Stat });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Stat.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Terminal.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Terminal({ title, welcome, onCommand, prompt = "➜", lang, className }) {
+const Terminal = React.forwardRef(function Terminal2({ title, welcome, onCommand, prompt = "➜", lang, className }, forwardedRef) {
   const [hist, setHist] = React.useState(() => welcome ? [{ out: welcome }] : []);
   const [q, setQ] = React.useState("");
   const [ref, L] = useLang(lang);
@@ -1377,7 +1401,7 @@ function Terminal({ title, welcome, onCommand, prompt = "➜", lang, className }
     setHist((h) => [...h, { cmd: q }, ...res ? [{ out: res }] : []]);
     setQ("");
   };
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-terminal", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-terminal__bar" }, /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("span", null, barTitle)), /* @__PURE__ */ React.createElement("div", { className: "cs-terminal__body" }, hist.map((l, i) => l.cmd != null ? /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-terminal__line" }, /* @__PURE__ */ React.createElement("span", { className: "p" }, prompt), " ", l.cmd) : /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-terminal__out" }, l.out)), /* @__PURE__ */ React.createElement("div", { className: "cs-terminal__line" }, /* @__PURE__ */ React.createElement("span", { className: "p" }, prompt), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-terminal", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-terminal__bar" }, /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("span", null, barTitle)), /* @__PURE__ */ React.createElement("div", { className: "cs-terminal__body" }, hist.map((l, i) => l.cmd != null ? /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-terminal__line" }, /* @__PURE__ */ React.createElement("span", { className: "p" }, prompt), " ", l.cmd) : /* @__PURE__ */ React.createElement("div", { key: i, className: "cs-terminal__out" }, l.out)), /* @__PURE__ */ React.createElement("div", { className: "cs-terminal__line" }, /* @__PURE__ */ React.createElement("span", { className: "p" }, prompt), /* @__PURE__ */ React.createElement(
     "input",
     {
       value: q,
@@ -1389,28 +1413,29 @@ function Terminal({ title, welcome, onCommand, prompt = "➜", lang, className }
       }
     }
   ))));
-}
+});
 Object.assign(__ds_scope, { Terminal });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Terminal.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Timeline.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Timeline({ items = [], className }) {
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-timeline", className) }, items.map((it, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: cx("cs-timeline__item", it.state === "now" && "cs-timeline__item--now", it.state === "todo" && "cs-timeline__item--todo") }, /* @__PURE__ */ React.createElement("span", { className: "cs-timeline__marker", "aria-hidden": "true" }, it.state === "todo" ? "" : it.state === "now" ? "→" : "✓"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "cs-timeline__title" }, it.title), it.meta ? /* @__PURE__ */ React.createElement("div", { className: "cs-timeline__meta" }, it.meta) : null, it.body ? /* @__PURE__ */ React.createElement("div", { className: "cs-timeline__body" }, it.body) : null))));
-}
+const Timeline = React.forwardRef(function Timeline2({ items = [], className }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-timeline", className) }, items.map((it, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: cx("cs-timeline__item", it.state === "now" && "cs-timeline__item--now", it.state === "todo" && "cs-timeline__item--todo") }, /* @__PURE__ */ React.createElement("span", { className: "cs-timeline__marker", "aria-hidden": "true" }, it.state === "todo" ? "" : it.state === "now" ? "→" : "✓"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "cs-timeline__title" }, it.title), it.meta ? /* @__PURE__ */ React.createElement("div", { className: "cs-timeline__meta" }, it.meta) : null, it.body ? /* @__PURE__ */ React.createElement("div", { className: "cs-timeline__body" }, it.body) : null))));
+});
 Object.assign(__ds_scope, { Timeline });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Timeline.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Tooltip.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Tooltip({ label, children, lang, className }) {
+const Tooltip = React.forwardRef(function Tooltip2({ label, children, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Tooltip", L);
-  return /* @__PURE__ */ React.createElement("span", { ref, className: cx("cs-tooltip", className) }, children, /* @__PURE__ */ React.createElement("span", { className: "cs-tooltip__bubble", role: "tooltip" }, label ?? t("label")));
-}
+  return /* @__PURE__ */ React.createElement("span", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-tooltip", className) }, children, /* @__PURE__ */ React.createElement("span", { className: "cs-tooltip__bubble", role: "tooltip" }, label ?? t("label")));
+});
 Object.assign(__ds_scope, { Tooltip });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Tooltip.jsx", error: String((e && e.message) || e) }); }
 
@@ -1457,7 +1482,7 @@ function seedOpen(nodes, defaultOpen, map = {}) {
   }
   return map;
 }
-function Tree({ nodes = [], selected, onSelect, defaultOpen = false, className }) {
+const Tree = React.forwardRef(function Tree2({ nodes = [], selected, onSelect, defaultOpen = false, className }, forwardedRef) {
   const [openMap, setOpenMap] = React.useState(() => seedOpen(nodes, defaultOpen));
   const [focusKey, setFocusKey] = React.useState(() => {
     if (selected && findNode(nodes, selected)) return selected;
@@ -1526,7 +1551,7 @@ function Tree({ nodes = [], selected, onSelect, defaultOpen = false, className }
   const renderNodes = (list, depth) => list.map((n) => {
     const kids = n.children || [];
     const open = !!openMap[n.key];
-    return /* @__PURE__ */ React.createElement("li", { key: n.key, role: "treeitem", "aria-expanded": kids.length ? open : void 0, "aria-selected": selected === n.key }, /* @__PURE__ */ React.createElement("span", { className: cx("cs-tree__row", selected === n.key && "is-selected"), style: { paddingInlineStart: depth * 18 + 6 } }, kids.length ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-tree__twist", "aria-hidden": "true", tabIndex: -1, onClick: () => toggle(n.key) }, open ? "▾" : "▸") : /* @__PURE__ */ React.createElement("span", { className: "cs-tree__twist", "aria-hidden": "true" }), /* @__PURE__ */ React.createElement(
+    return /* @__PURE__ */ React.createElement("li", { ref: forwardedRef, key: n.key, role: "treeitem", "aria-expanded": kids.length ? open : void 0, "aria-selected": selected === n.key }, /* @__PURE__ */ React.createElement("span", { className: cx("cs-tree__row", selected === n.key && "is-selected"), style: { paddingInlineStart: depth * 18 + 6 } }, kids.length ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-tree__twist", "aria-hidden": "true", tabIndex: -1, onClick: () => toggle(n.key) }, open ? "▾" : "▸") : /* @__PURE__ */ React.createElement("span", { className: "cs-tree__twist", "aria-hidden": "true" }), /* @__PURE__ */ React.createElement(
       "button",
       {
         type: "button",
@@ -1546,14 +1571,14 @@ function Tree({ nodes = [], selected, onSelect, defaultOpen = false, className }
     )), kids.length && open ? /* @__PURE__ */ React.createElement("ul", { role: "group" }, renderNodes(kids, depth + 1)) : null);
   });
   return /* @__PURE__ */ React.createElement("ul", { role: "tree", className: cx("cs-tree", className) }, renderNodes(nodes, 0));
-}
+});
 Object.assign(__ds_scope, { Tree });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Tree.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/Watermark.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Watermark({ text = "CyberSkill", opacity = 0.09, gap = 140, rotate = -22, children, className }) {
+const Watermark = React.forwardRef(function Watermark2({ text = "CyberSkill", opacity = 0.09, gap = 140, rotate = -22, children, className }, forwardedRef) {
   const host = React.useRef(null);
   const [fill, setFill] = React.useState("#45210E");
   React.useLayoutEffect(() => {
@@ -1565,7 +1590,7 @@ function Watermark({ text = "CyberSkill", opacity = 0.09, gap = 140, rotate = -2
     `<svg xmlns="http://www.w3.org/2000/svg" width="${gap}" height="${gap}"><text x="50%" y="50%" font-family="Be Vietnam Pro, sans-serif" font-size="14" font-weight="700" fill="${fill}" fill-opacity="${opacity}" text-anchor="middle" transform="rotate(${rotate} ${gap / 2} ${gap / 2})">${String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;")}</text></svg>`
   );
   return /* @__PURE__ */ React.createElement("div", { ref: host, className: cx("cs-watermark", className), style: { position: "relative" } }, children, /* @__PURE__ */ React.createElement("div", { "aria-hidden": "true", style: { position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: `url("data:image/svg+xml,${svg}")` } }));
-}
+});
 Object.assign(__ds_scope, { Watermark });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Watermark.jsx", error: String((e && e.message) || e) }); }
 
@@ -1687,7 +1712,7 @@ Object.assign(__ds_scope, { qrMatrix });
 try { (() => {
 const { qrMatrix } = __ds_scope;
 const { cx } = __ds_scope;
-function QRCode({ value = "", size = 128, color = "var(--cs-color-text-primary)", label, className }) {
+const QRCode = React.forwardRef(function QRCode2({ value = "", size = 128, color = "var(--cs-color-text-primary)", label, className }, forwardedRef) {
   const m = React.useMemo(() => {
     try {
       return qrMatrix(String(value));
@@ -1699,13 +1724,14 @@ function QRCode({ value = "", size = 128, color = "var(--cs-color-text-primary)"
   const n = m.length, cell = size / n;
   let d = "";
   for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (m[y][x]) d += `M${x * cell} ${y * cell}h${cell}v${cell}h${-cell}z`;
-  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-qrcode", className), role: "img", "aria-label": label || value }, /* @__PURE__ */ React.createElement("svg", { width: size, height: size, viewBox: `0 0 ${size} ${size}`, "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d, fill: color })));
-}
+  return /* @__PURE__ */ React.createElement("span", { ref: forwardedRef, className: cx("cs-qrcode", className), role: "img", "aria-label": label || value }, /* @__PURE__ */ React.createElement("svg", { width: size, height: size, viewBox: `0 0 ${size} ${size}`, "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d, fill: color })));
+});
 Object.assign(__ds_scope, { QRCode });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/QRCode.jsx", error: String((e && e.message) || e) }); }
 
 // components/datatable/TreeTable.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 function Row({ n, depth, columns, expanded, setExpanded }) {
@@ -1713,17 +1739,18 @@ function Row({ n, depth, columns, expanded, setExpanded }) {
   const open = expanded.includes(n.key);
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("tr", null, columns.map((c, i) => /* @__PURE__ */ React.createElement("td", { key: c.key }, i === 0 ? /* @__PURE__ */ React.createElement("span", { className: "cs-treetable__cell", style: { paddingInlineStart: depth * 18 } }, kids.length ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-tree__twist", "aria-expanded": open, onClick: () => setExpanded(open ? expanded.filter((k) => k !== n.key) : [...expanded, n.key]) }, open ? "▾" : "▸") : /* @__PURE__ */ React.createElement("span", { className: "cs-tree__twist", "aria-hidden": "true" }), c.render ? c.render(n) : n[c.key]) : c.render ? c.render(n) : n[c.key]))), open ? kids.map((k) => /* @__PURE__ */ React.createElement(Row, { key: k.key, n: k, depth: depth + 1, columns, expanded, setExpanded })) : null);
 }
-function TreeTable({ columns = [], nodes = [], caption, defaultExpanded = [], lang, className }) {
+const TreeTable = React.forwardRef(function TreeTable2({ columns = [], nodes = [], caption, defaultExpanded = [], lang, className }, forwardedRef) {
   const [expanded, setExpanded] = React.useState(defaultExpanded);
   const [ref, L] = useLang(lang);
   const t = makeT("DataGrid", L);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-table-wrap", className) }, /* @__PURE__ */ React.createElement("table", { className: "cs-table cs-treetable" }, caption ? /* @__PURE__ */ React.createElement("caption", null, caption) : null, /* @__PURE__ */ React.createElement("thead", null, /* @__PURE__ */ React.createElement("tr", null, columns.map((c) => /* @__PURE__ */ React.createElement("th", { key: c.key, scope: "col" }, c.header)))), /* @__PURE__ */ React.createElement("tbody", null, nodes.length === 0 ? /* @__PURE__ */ React.createElement("tr", null, /* @__PURE__ */ React.createElement("td", { colSpan: columns.length, className: "cs-table__empty" }, t("empty"))) : nodes.map((n) => /* @__PURE__ */ React.createElement(Row, { key: n.key, n, depth: 0, columns, expanded, setExpanded })))));
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-table-wrap", className) }, /* @__PURE__ */ React.createElement("table", { className: "cs-table cs-treetable" }, caption ? /* @__PURE__ */ React.createElement("caption", null, caption) : null, /* @__PURE__ */ React.createElement("thead", null, /* @__PURE__ */ React.createElement("tr", null, columns.map((c) => /* @__PURE__ */ React.createElement("th", { key: c.key, scope: "col" }, c.header)))), /* @__PURE__ */ React.createElement("tbody", null, nodes.length === 0 ? /* @__PURE__ */ React.createElement("tr", null, /* @__PURE__ */ React.createElement("td", { colSpan: columns.length, className: "cs-table__empty" }, t("empty"))) : nodes.map((n) => /* @__PURE__ */ React.createElement(Row, { key: n.key, n, depth: 0, columns, expanded, setExpanded })))));
+});
 Object.assign(__ds_scope, { TreeTable });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/datatable/TreeTable.jsx", error: String((e && e.message) || e) }); }
 
 // components/feedback/Alert.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const PATHS = {
@@ -1735,40 +1762,42 @@ const PATHS = {
 function DefaultIcon({ variant }) {
   return /* @__PURE__ */ React.createElement("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.9", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: PATHS[variant] || PATHS.info }));
 }
-function Alert({ variant = "info", title, icon, children, onDismiss, lang, className, ...props }) {
+const Alert = React.forwardRef(function Alert2({ variant = "info", title, icon, children, onDismiss, lang, className, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Alert", L);
-  return /* @__PURE__ */ React.createElement("div", { ref, role: "status", className: cx("cs-alert", `cs-alert--${variant}`, className), ...props }, /* @__PURE__ */ React.createElement("span", { className: "cs-alert__icon" }, icon ?? /* @__PURE__ */ React.createElement(DefaultIcon, { variant })), /* @__PURE__ */ React.createElement("div", null, title ? /* @__PURE__ */ React.createElement("p", { className: "cs-alert__title" }, title) : null, children ? /* @__PURE__ */ React.createElement("div", { className: "cs-alert__body" }, children) : null), onDismiss ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-alert__dismiss", "aria-label": t("dismiss"), onClick: onDismiss }, "×") : null);
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), role: "status", className: cx("cs-alert", `cs-alert--${variant}`, className), ...props }, /* @__PURE__ */ React.createElement("span", { className: "cs-alert__icon" }, icon ?? /* @__PURE__ */ React.createElement(DefaultIcon, { variant })), /* @__PURE__ */ React.createElement("div", null, title ? /* @__PURE__ */ React.createElement("p", { className: "cs-alert__title" }, title) : null, children ? /* @__PURE__ */ React.createElement("div", { className: "cs-alert__body" }, children) : null), onDismiss ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-alert__dismiss", "aria-label": t("dismiss"), onClick: onDismiss }, "×") : null);
+});
 Object.assign(__ds_scope, { Alert });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Alert.jsx", error: String((e && e.message) || e) }); }
 
 // components/feedback/Badge.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Badge({ variant = "neutral", dot = false, children, className, ...props }) {
-  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-badge", variant !== "neutral" && `cs-badge--${variant}`, className), ...props }, dot ? /* @__PURE__ */ React.createElement("span", { className: "cs-badge__dot", "aria-hidden": "true" }) : null, children);
-}
+const Badge = React.forwardRef(function Badge2({ variant = "neutral", dot = false, children, className, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("span", { ref: forwardedRef, className: cx("cs-badge", variant !== "neutral" && `cs-badge--${variant}`, className), ...props }, dot ? /* @__PURE__ */ React.createElement("span", { className: "cs-badge__dot", "aria-hidden": "true" }) : null, children);
+});
 Object.assign(__ds_scope, { Badge });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Badge.jsx", error: String((e && e.message) || e) }); }
 
 // components/feedback/EmptyState.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function EmptyState({ icon, title, children, actions, lang, className }) {
+const EmptyState = React.forwardRef(function EmptyState2({ icon, title, children, actions, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("EmptyState", L);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-empty", className) }, /* @__PURE__ */ React.createElement("span", { className: "cs-empty__icon" }, icon ?? /* @__PURE__ */ React.createElement("svg", { width: "26", height: "26", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M3 8l2-4h14l2 4M3 8v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8M3 8h6l1 3h4l1-3h6" }))), /* @__PURE__ */ React.createElement("div", { className: "cs-empty__title" }, title ?? t("title")), children ? /* @__PURE__ */ React.createElement("div", { className: "cs-empty__body" }, children) : null, actions ? /* @__PURE__ */ React.createElement("div", { className: "cs-empty__actions" }, actions) : null);
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-empty", className) }, /* @__PURE__ */ React.createElement("span", { className: "cs-empty__icon" }, icon ?? /* @__PURE__ */ React.createElement("svg", { width: "26", height: "26", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M3 8l2-4h14l2 4M3 8v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8M3 8h6l1 3h4l1-3h6" }))), /* @__PURE__ */ React.createElement("div", { className: "cs-empty__title" }, title ?? t("title")), children ? /* @__PURE__ */ React.createElement("div", { className: "cs-empty__body" }, children) : null, actions ? /* @__PURE__ */ React.createElement("div", { className: "cs-empty__actions" }, actions) : null);
+});
 Object.assign(__ds_scope, { EmptyState });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/EmptyState.jsx", error: String((e && e.message) || e) }); }
 
 // components/feedback/ProgressBar.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function ProgressBar({ value = 0, max = 100, variant, label, lang, className }) {
+const ProgressBar = React.forwardRef(function ProgressBar2({ value = 0, max = 100, variant, label, lang, className }, forwardedRef) {
   const safeMax = max > 0 ? max : 100;
   const clamped = Math.max(0, Math.min(safeMax, Number(value) || 0));
   const pct = Math.max(0, Math.min(100, clamped / safeMax * 100));
@@ -1777,7 +1806,7 @@ function ProgressBar({ value = 0, max = 100, variant, label, lang, className }) 
   return /* @__PURE__ */ React.createElement(
     "div",
     {
-      ref,
+      ref: mergeRefs(ref, forwardedRef),
       className: cx("cs-progress", variant && `cs-progress--${variant}`, className),
       role: "progressbar",
       "aria-valuenow": Math.round(clamped),
@@ -1787,12 +1816,13 @@ function ProgressBar({ value = 0, max = 100, variant, label, lang, className }) 
     },
     /* @__PURE__ */ React.createElement("span", { className: "cs-progress__fill", style: { inlineSize: pct + "%", width: pct + "%" } })
   );
-}
+});
 Object.assign(__ds_scope, { ProgressBar });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/ProgressBar.jsx", error: String((e && e.message) || e) }); }
 
 // components/feedback/Result.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const ART = {
@@ -1801,21 +1831,21 @@ const ART = {
   warning: /* @__PURE__ */ React.createElement("svg", { width: "28", height: "28", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M12 3l10 18H2z" }), /* @__PURE__ */ React.createElement("path", { d: "M12 10v5M12 18.2v.1" })),
   info: /* @__PURE__ */ React.createElement("svg", { width: "28", height: "28", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "12", cy: "12", r: "9" }), /* @__PURE__ */ React.createElement("path", { d: "M12 11v6M12 7.2v.1" }))
 };
-function Result({ status = "info", title, children, actions, lang, className }) {
+const Result = React.forwardRef(function Result2({ status = "info", title, children, actions, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Result", L);
   const tt = title != null ? title : t(status);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-result", "cs-result--" + status, className), role: "status" }, /* @__PURE__ */ React.createElement("span", { className: "cs-result__icon", "aria-hidden": "true" }, ART[status] || ART.info), /* @__PURE__ */ React.createElement("h2", { className: "cs-result__title" }, tt), children ? /* @__PURE__ */ React.createElement("div", { className: "cs-result__body" }, children) : null, actions ? /* @__PURE__ */ React.createElement("div", { className: "cs-result__actions" }, actions) : null);
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-result", "cs-result--" + status, className), role: "status" }, /* @__PURE__ */ React.createElement("span", { className: "cs-result__icon", "aria-hidden": "true" }, ART[status] || ART.info), /* @__PURE__ */ React.createElement("h2", { className: "cs-result__title" }, tt), children ? /* @__PURE__ */ React.createElement("div", { className: "cs-result__body" }, children) : null, actions ? /* @__PURE__ */ React.createElement("div", { className: "cs-result__actions" }, actions) : null);
+});
 Object.assign(__ds_scope, { Result });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Result.jsx", error: String((e && e.message) || e) }); }
 
 // components/feedback/Skeleton.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Skeleton({ variant = "block", width, height, lines, radius, className, style }) {
+const Skeleton = React.forwardRef(function Skeleton2({ variant = "block", width, height, lines, radius, className, style }, forwardedRef) {
   if (lines) {
-    return /* @__PURE__ */ React.createElement("div", { className, "aria-hidden": "true", role: "presentation" }, Array.from({ length: lines }).map((_, i) => /* @__PURE__ */ React.createElement("span", { key: i, className: "cs-skeleton cs-skeleton--text", style: { width: i === lines - 1 ? "70%" : "100%" } })));
+    return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className, "aria-hidden": "true", role: "presentation" }, Array.from({ length: lines }).map((_, i) => /* @__PURE__ */ React.createElement("span", { key: i, className: "cs-skeleton cs-skeleton--text", style: { width: i === lines - 1 ? "70%" : "100%" } })));
   }
   return /* @__PURE__ */ React.createElement(
     "span",
@@ -1825,17 +1855,18 @@ function Skeleton({ variant = "block", width, height, lines, radius, className, 
       style: { display: "block", width, height, borderRadius: radius, ...style }
     }
   );
-}
+});
 Object.assign(__ds_scope, { Skeleton });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Skeleton.jsx", error: String((e && e.message) || e) }); }
 
 // components/datatable/DataTable.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { Skeleton } = __ds_scope;
 const { Result } = __ds_scope;
 const { cx } = __ds_scope;
-function DataTable({
+const DataTable = React.forwardRef(function DataTable2({
   caption,
   columns,
   rows,
@@ -1847,58 +1878,61 @@ function DataTable({
   loadingRows = 5,
   lang,
   className
-}) {
+}, forwardedRef) {
   const normalized = Array.isArray(rows) ? rows : [];
   const [ref, L] = useLang(lang);
   const t = makeT("DataTable", L);
   const es = emptyState != null ? emptyState : t("empty");
   const colCount = Math.max(1, columns && columns.length || 1);
   if (state === "loading") {
-    return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-table-wrap", className), "aria-busy": "true" }, /* @__PURE__ */ React.createElement("span", { className: "cs-sr-only" }, t("loading")), loadingState != null ? loadingState : /* @__PURE__ */ React.createElement("table", { className: "cs-table" }, caption ? /* @__PURE__ */ React.createElement("caption", null, caption) : null, /* @__PURE__ */ React.createElement("thead", null, /* @__PURE__ */ React.createElement("tr", null, (columns || []).map((c) => /* @__PURE__ */ React.createElement("th", { key: c.key, scope: "col" }, c.header)))), /* @__PURE__ */ React.createElement("tbody", { "aria-hidden": "true" }, Array.from({ length: Math.max(1, loadingRows) }).map((_, i) => /* @__PURE__ */ React.createElement("tr", { key: i }, Array.from({ length: colCount }).map((__, j) => /* @__PURE__ */ React.createElement("td", { key: j }, /* @__PURE__ */ React.createElement(Skeleton, { lines: 1 }))))))));
+    return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-table-wrap", className), "aria-busy": "true" }, /* @__PURE__ */ React.createElement("span", { className: "cs-sr-only" }, t("loading")), loadingState != null ? loadingState : /* @__PURE__ */ React.createElement("table", { className: "cs-table" }, caption ? /* @__PURE__ */ React.createElement("caption", null, caption) : null, /* @__PURE__ */ React.createElement("thead", null, /* @__PURE__ */ React.createElement("tr", null, (columns || []).map((c) => /* @__PURE__ */ React.createElement("th", { key: c.key, scope: "col" }, c.header)))), /* @__PURE__ */ React.createElement("tbody", { "aria-hidden": "true" }, Array.from({ length: Math.max(1, loadingRows) }).map((_, i) => /* @__PURE__ */ React.createElement("tr", { key: i }, Array.from({ length: colCount }).map((__, j) => /* @__PURE__ */ React.createElement("td", { key: j }, /* @__PURE__ */ React.createElement(Skeleton, { lines: 1 }))))))));
   }
   if (state === "error") {
     return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-table-wrap", "cs-table-wrap--status", className), role: "alert" }, errorState != null ? errorState : /* @__PURE__ */ React.createElement(Result, { status: "error", lang: L, title: t("error") }, t("errorHint")));
   }
   return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-table-wrap", className) }, /* @__PURE__ */ React.createElement("table", { className: "cs-table" }, caption ? /* @__PURE__ */ React.createElement("caption", null, caption) : null, /* @__PURE__ */ React.createElement("thead", null, /* @__PURE__ */ React.createElement("tr", null, (columns || []).map((c) => /* @__PURE__ */ React.createElement("th", { key: c.key, scope: "col" }, c.header)))), /* @__PURE__ */ React.createElement("tbody", null, normalized.length === 0 ? /* @__PURE__ */ React.createElement("tr", null, /* @__PURE__ */ React.createElement("td", { colSpan: colCount, className: "cs-table__empty" }, es)) : normalized.map((row, i) => /* @__PURE__ */ React.createElement("tr", { key: row[rowKey] ?? i }, (columns || []).map((c) => /* @__PURE__ */ React.createElement("td", { key: c.key }, c.render ? c.render(row) : row[c.key])))))));
-}
+});
 Object.assign(__ds_scope, { DataTable });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/datatable/DataTable.jsx", error: String((e && e.message) || e) }); }
 
 // components/feedback/Spinner.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Spinner({ size = 20, label, lang, className, style, ...props }) {
+const Spinner = React.forwardRef(function Spinner2({ size = 20, label, lang, className, style, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const lbl = label != null ? label : makeT("Spinner", L)("label");
-  return /* @__PURE__ */ React.createElement("span", { ref, role: "status", "aria-label": lbl, className: cx("cs-spinner", className), style: { inlineSize: size, blockSize: size, width: size, height: size, ...style }, ...props });
-}
+  return /* @__PURE__ */ React.createElement("span", { ref: mergeRefs(ref, forwardedRef), role: "status", "aria-label": lbl, className: cx("cs-spinner", className), style: { inlineSize: size, blockSize: size, width: size, height: size, ...style }, ...props });
+});
 Object.assign(__ds_scope, { Spinner });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Spinner.jsx", error: String((e && e.message) || e) }); }
 
 // components/feedback/StatusIndicator.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function StatusIndicator({ status = "offline", pulse = false, children, className, ...props }) {
-  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-status", `cs-status--${status}`, pulse && "cs-status--pulse", className), ...props }, /* @__PURE__ */ React.createElement("span", { className: "cs-status__dot", "aria-hidden": "true" }), children);
-}
+const StatusIndicator = React.forwardRef(function StatusIndicator2({ status = "offline", pulse = false, children, className, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("span", { ref: forwardedRef, className: cx("cs-status", `cs-status--${status}`, pulse && "cs-status--pulse", className), ...props }, /* @__PURE__ */ React.createElement("span", { className: "cs-status__dot", "aria-hidden": "true" }), children);
+});
 Object.assign(__ds_scope, { StatusIndicator });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/StatusIndicator.jsx", error: String((e && e.message) || e) }); }
 
 // components/feedback/Tag.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Tag({ children, onRemove, removeLabel, lang, className, ...props }) {
+const Tag = React.forwardRef(function Tag2({ children, onRemove, removeLabel, lang, className, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const rl = removeLabel != null ? removeLabel : makeT("Tag", L)("remove");
-  return /* @__PURE__ */ React.createElement("span", { ref, className: cx("cs-tag", className), ...props }, children, onRemove ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-tag__close", "aria-label": rl, onClick: onRemove }, /* @__PURE__ */ React.createElement("svg", { width: "12", height: "12", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 6l12 12M18 6L6 18" }))) : null);
-}
+  return /* @__PURE__ */ React.createElement("span", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-tag", className), ...props }, children, onRemove ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-tag__close", "aria-label": rl, onClick: onRemove }, /* @__PURE__ */ React.createElement("svg", { width: "12", height: "12", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", strokeLinecap: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 6l12 12M18 6L6 18" }))) : null);
+});
 Object.assign(__ds_scope, { Tag });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Tag.jsx", error: String((e && e.message) || e) }); }
 
 // components/feedback/Toast.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const PATHS = {
@@ -1909,19 +1943,20 @@ const PATHS = {
 function DefaultIcon({ variant }) {
   return /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: PATHS[variant] || PATHS.default }));
 }
-function ToastStack({ children, lang, className }) {
+const ToastStack = React.forwardRef(function ToastStack2({ children, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-toast-stack", className), role: "region", "aria-label": makeT("Toast", L)("notifications") }, children);
-}
-function Toast({ variant = "default", title, icon, onClose, lang, children, className, ...props }) {
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-toast-stack", className), role: "region", "aria-label": makeT("Toast", L)("notifications") }, children);
+});
+const Toast = React.forwardRef(function Toast2({ variant = "default", title, icon, onClose, lang, children, className, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-toast", `cs-toast--${variant}`, className), role: "status", ...props }, /* @__PURE__ */ React.createElement("span", { className: "cs-toast__icon", "aria-hidden": "true" }, icon ?? /* @__PURE__ */ React.createElement(DefaultIcon, { variant })), /* @__PURE__ */ React.createElement("div", null, title ? /* @__PURE__ */ React.createElement("div", { className: "cs-toast__title" }, title) : null, children ? /* @__PURE__ */ React.createElement("div", { className: "cs-toast__body" }, children) : null), onClose ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-toast__close", "aria-label": makeT("Toast", L)("dismiss"), onClick: onClose }, /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 6l12 12M18 6L6 18" }))) : null);
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-toast", `cs-toast--${variant}`, className), role: "status", ...props }, /* @__PURE__ */ React.createElement("span", { className: "cs-toast__icon", "aria-hidden": "true" }, icon ?? /* @__PURE__ */ React.createElement(DefaultIcon, { variant })), /* @__PURE__ */ React.createElement("div", null, title ? /* @__PURE__ */ React.createElement("div", { className: "cs-toast__title" }, title) : null, children ? /* @__PURE__ */ React.createElement("div", { className: "cs-toast__body" }, children) : null), onClose ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-toast__close", "aria-label": makeT("Toast", L)("dismiss"), onClick: onClose }, /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 6l12 12M18 6L6 18" }))) : null);
+});
 Object.assign(__ds_scope, { ToastStack, Toast });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Toast.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Calendar.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang, monthName } = __ds_scope;
 const { cx } = __ds_scope;
 const WD = { en: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"], vi: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"] };
@@ -1935,7 +1970,7 @@ function grid(year, month) {
   while (cells.length % 7) cells.push(null);
   return cells;
 }
-function Calendar({ value, onChange, lang, className }) {
+const Calendar = React.forwardRef(function Calendar2({ value, onChange, lang, className }, forwardedRef) {
   const sel = value ? new Date(value) : null;
   const today = /* @__PURE__ */ new Date();
   const [view, setView] = React.useState(() => sel ? [sel.getFullYear(), sel.getMonth()] : [today.getFullYear(), today.getMonth()]);
@@ -1945,7 +1980,7 @@ function Calendar({ value, onChange, lang, className }) {
   const cells = grid(y, m);
   const isSel = (d) => sel && d === sel.getDate() && m === sel.getMonth() && y === sel.getFullYear();
   const isToday = (d) => d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-cal", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-cal__head" }, /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("prev"), onClick: () => setView(([yy, mm]) => mm ? [yy, mm - 1] : [yy - 1, 11]) }, "‹"), /* @__PURE__ */ React.createElement("b", null, monthName(m, L), " ", y), /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("next"), onClick: () => setView(([yy, mm]) => mm === 11 ? [yy + 1, 0] : [yy, mm + 1]) }, "›")), /* @__PURE__ */ React.createElement("div", { className: "cs-cal__wd" }, WD[L === "vi" ? "vi" : "en"].map((w) => /* @__PURE__ */ React.createElement("span", { key: w }, w))), /* @__PURE__ */ React.createElement("div", { className: "cs-cal__grid" }, cells.map((d, i) => d == null ? /* @__PURE__ */ React.createElement("span", { key: i }) : /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-cal", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-cal__head" }, /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("prev"), onClick: () => setView(([yy, mm]) => mm ? [yy, mm - 1] : [yy - 1, 11]) }, "‹"), /* @__PURE__ */ React.createElement("b", null, monthName(m, L), " ", y), /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("next"), onClick: () => setView(([yy, mm]) => mm === 11 ? [yy + 1, 0] : [yy, mm + 1]) }, "›")), /* @__PURE__ */ React.createElement("div", { className: "cs-cal__wd" }, WD[L === "vi" ? "vi" : "en"].map((w) => /* @__PURE__ */ React.createElement("span", { key: w }, w))), /* @__PURE__ */ React.createElement("div", { className: "cs-cal__grid" }, cells.map((d, i) => d == null ? /* @__PURE__ */ React.createElement("span", { key: i }) : /* @__PURE__ */ React.createElement(
     "button",
     {
       key: i,
@@ -1956,7 +1991,7 @@ function Calendar({ value, onChange, lang, className }) {
     },
     d
   ))));
-}
+});
 Object.assign(__ds_scope, { Calendar });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Calendar.jsx", error: String((e && e.message) || e) }); }
 
@@ -1965,7 +2000,7 @@ try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const EMPTY_PATH = [];
-function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder, label, disabled = false, lang, className }) {
+const Cascader = React.forwardRef(function Cascader2({ nodes = [], value = EMPTY_PATH, onChange, placeholder, label, disabled = false, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const [path, setPath] = React.useState(value);
   const wrap = React.useRef(null);
@@ -2090,16 +2125,16 @@ function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder, label
       n.children && n.children.length ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, " ›") : null
     ))
   ))))) : null);
-}
+});
 Object.assign(__ds_scope, { Cascader });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Cascader.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Checkbox.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Checkbox({ label, description, disabled = false, className, children, ...props }) {
-  return /* @__PURE__ */ React.createElement("label", { className: cx("cs-check", disabled && "is-disabled", className) }, /* @__PURE__ */ React.createElement("input", { type: "checkbox", disabled, ...props }), /* @__PURE__ */ React.createElement("span", { className: "cs-check__text" }, /* @__PURE__ */ React.createElement("span", null, label), description ? /* @__PURE__ */ React.createElement("span", { className: "cs-check__desc" }, description) : null));
-}
+const Checkbox = React.forwardRef(function Checkbox2({ label, description, disabled = false, className, children, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("label", { ref: forwardedRef, className: cx("cs-check", disabled && "is-disabled", className) }, /* @__PURE__ */ React.createElement("input", { type: "checkbox", disabled, ...props }), /* @__PURE__ */ React.createElement("span", { className: "cs-check__text" }, /* @__PURE__ */ React.createElement("span", null, label), description ? /* @__PURE__ */ React.createElement("span", { className: "cs-check__desc" }, description) : null));
+});
 Object.assign(__ds_scope, { Checkbox });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Checkbox.jsx", error: String((e && e.message) || e) }); }
 
@@ -2108,7 +2143,7 @@ try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const SWATCHES = ["#F4BA17", "#C77B4A", "#E0632B", "#C43D1F", "#7A9B57", "#3E5A2E", "#4E8E9B", "#2E5E7E", "#BFB29B", "#45210E"];
-function ColorPicker({ value = "#F4BA17", onChange, swatches = SWATCHES, label, lang, className }) {
+const ColorPicker = React.forwardRef(function ColorPicker2({ value = "#F4BA17", onChange, swatches = SWATCHES, label, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const [hex, setHex] = React.useState(value);
   const wrap = React.useRef(null);
@@ -2167,7 +2202,7 @@ function ColorPicker({ value = "#F4BA17", onChange, swatches = SWATCHES, label, 
       onBlur: () => commit(hex)
     }
   ))) : null);
-}
+});
 Object.assign(__ds_scope, { ColorPicker });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/ColorPicker.jsx", error: String((e && e.message) || e) }); }
 
@@ -2176,7 +2211,7 @@ try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 let cbUid = 0;
-function Combobox({ options = [], value, onChange, placeholder, label, disabled = false, lang, className }) {
+const Combobox = React.forwardRef(function Combobox2({ options = [], value, onChange, placeholder, label, disabled = false, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const [q, setQ] = React.useState("");
   const [hl, setHl] = React.useState(0);
@@ -2260,7 +2295,7 @@ function Combobox({ options = [], value, onChange, placeholder, label, disabled 
     },
     o.label
   )) : /* @__PURE__ */ React.createElement("li", { className: "cs-combobox__empty" }, t("empty"))) : null);
-}
+});
 Object.assign(__ds_scope, { Combobox });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Combobox.jsx", error: String((e && e.message) || e) }); }
 
@@ -2270,7 +2305,7 @@ const { makeT, useLang, formatDate } = __ds_scope;
 const { Calendar } = __ds_scope;
 const { cx } = __ds_scope;
 const CAL_ICON = /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "5", width: "18", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 3v4M16 3v4M3 10h18" }));
-function DatePicker({ value, onChange, placeholder, label, disabled = false, lang, className }) {
+const DatePicker = React.forwardRef(function DatePicker2({ value, onChange, placeholder, label, disabled = false, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const wrap = React.useRef(null);
   const [ref, L] = useLang(lang);
@@ -2298,15 +2333,16 @@ function DatePicker({ value, onChange, placeholder, label, disabled = false, lan
     onChange && onChange(d);
     setOpen(false);
   } })) : null);
-}
+});
 Object.assign(__ds_scope, { DatePicker });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/DatePicker.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/FileUpload.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function FileUpload({ title, hint, accept, multiple = false, onFiles, icon, lang, className }) {
+const FileUpload = React.forwardRef(function FileUpload2({ title, hint, accept, multiple = false, onFiles, icon, lang, className }, forwardedRef) {
   const [drag, setDrag] = React.useState(false);
   const inputRef = React.useRef(null);
   const pick = (files) => {
@@ -2320,7 +2356,7 @@ function FileUpload({ title, hint, accept, multiple = false, onFiles, icon, lang
   return /* @__PURE__ */ React.createElement(
     "div",
     {
-      ref,
+      ref: mergeRefs(ref, forwardedRef),
       className: cx("cs-dropzone", drag && "is-dragging", className),
       onDragOver: (e) => {
         e.preventDefault();
@@ -2352,12 +2388,13 @@ function FileUpload({ title, hint, accept, multiple = false, onFiles, icon, lang
       }
     )
   );
-}
+});
 Object.assign(__ds_scope, { FileUpload });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/FileUpload.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Form.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 let FormCtx;
@@ -2391,7 +2428,7 @@ function setPath(obj, path, value) {
   cur[parts[parts.length - 1]] = value;
   return root;
 }
-function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, children, lang, className, ...props }) {
+const Form = React.forwardRef(function Form2({ onSubmit, errors = {}, rules, asyncRules, initialValues, children, lang, className, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Form", L);
   const [values, setValues] = React.useState(() => initialValues || {});
@@ -2437,7 +2474,7 @@ function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, childre
   };
   const ctx = { values, setValue, setValues, errors: merged, pending, runRules, setRuleErrors, t, L };
   const Ctx = getFormCtx();
-  return /* @__PURE__ */ React.createElement(Ctx.Provider, { value: ctx }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement(Ctx.Provider, { ref: forwardedRef, value: ctx }, /* @__PURE__ */ React.createElement(
     "form",
     {
       ...props,
@@ -2475,8 +2512,8 @@ function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, childre
     keys.length ? /* @__PURE__ */ React.createElement("div", { className: "cs-form__summary", role: "alert" }, /* @__PURE__ */ React.createElement("b", null, t("summary")), /* @__PURE__ */ React.createElement("ul", null, keys.map((k) => /* @__PURE__ */ React.createElement("li", { key: k }, merged[k])))) : null,
     children
   ));
-}
-function FormField({ label, name, required = false, hint, error, valueProp = "value", children, lang, className }) {
+});
+const FormField = React.forwardRef(function FormField2({ label, name, required = false, hint, error, valueProp = "value", children, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Form", L);
   const ctx = React.useContext(getFormCtx());
@@ -2493,9 +2530,9 @@ function FormField({ label, name, required = false, hint, error, valueProp = "va
     };
     child = React.cloneElement(children, wire);
   }
-  return /* @__PURE__ */ React.createElement("label", { ref, className: cx("cs-formfield", err && "has-error", className) }, /* @__PURE__ */ React.createElement("span", { className: "cs-formfield__label" }, label, required ? /* @__PURE__ */ React.createElement("em", { "aria-label": t("required") }, " *") : null), child, err ? /* @__PURE__ */ React.createElement("span", { className: "cs-formfield__error", role: "alert" }, err) : hint ? /* @__PURE__ */ React.createElement("span", { className: "cs-formfield__hint" }, hint) : null);
-}
-function FormFieldArray({
+  return /* @__PURE__ */ React.createElement("label", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-formfield", err && "has-error", className) }, /* @__PURE__ */ React.createElement("span", { className: "cs-formfield__label" }, label, required ? /* @__PURE__ */ React.createElement("em", { "aria-label": t("required") }, " *") : null), child, err ? /* @__PURE__ */ React.createElement("span", { className: "cs-formfield__error", role: "alert" }, err) : hint ? /* @__PURE__ */ React.createElement("span", { className: "cs-formfield__hint" }, hint) : null);
+});
+const FormFieldArray = React.forwardRef(function FormFieldArray2({
   name,
   children,
   label,
@@ -2505,7 +2542,7 @@ function FormFieldArray({
   defaultItem,
   className,
   lang
-}) {
+}, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Form", L);
   const ctx = React.useContext(getFormCtx());
@@ -2523,7 +2560,7 @@ function FormFieldArray({
     if (list.length <= min) return;
     setList(list.filter((_, idx) => idx !== i));
   };
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-form-array", className), "data-name": name }, label ? /* @__PURE__ */ React.createElement("div", { className: "cs-formfield__label", style: { marginBottom: 8 } }, label) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-form-array__rows" }, list.map((item, index) => /* @__PURE__ */ React.createElement("div", { className: "cs-form-array__row", key: index, "data-index": index }, typeof children === "function" ? children({
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-form-array", className), "data-name": name }, label ? /* @__PURE__ */ React.createElement("div", { className: "cs-formfield__label", style: { marginBottom: 8 } }, label) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-form-array__rows" }, list.map((item, index) => /* @__PURE__ */ React.createElement("div", { className: "cs-form-array__row", key: index, "data-index": index }, typeof children === "function" ? children({
     index,
     item,
     remove: () => removeAt(index),
@@ -2539,8 +2576,8 @@ function FormFieldArray({
     },
     addLabel || (L === "vi" ? "Thêm dòng" : "Add row")
   ));
-}
-function FormWizard({
+});
+const FormWizard = React.forwardRef(function FormWizard2({
   steps = [],
   initialValues,
   onComplete,
@@ -2549,7 +2586,7 @@ function FormWizard({
   nextLabel,
   backLabel,
   finishLabel
-}) {
+}, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Form", L);
   const [step, setStep] = React.useState(0);
@@ -2601,23 +2638,24 @@ function FormWizard({
     setStep((s) => Math.max(0, s - 1));
   };
   const Ctx = getFormCtx();
-  return /* @__PURE__ */ React.createElement(Ctx.Provider, { value: ctx }, /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-form-wizard", className), "data-step": step }, /* @__PURE__ */ React.createElement("ol", { className: "cs-form-wizard__steps", style: { display: "flex", gap: 10, listStyle: "none", padding: 0, margin: "0 0 16px", flexWrap: "wrap" } }, steps.map((s, i) => /* @__PURE__ */ React.createElement("li", { key: s.id || i, style: {
+  return /* @__PURE__ */ React.createElement(Ctx.Provider, { ref: forwardedRef, value: ctx }, /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-form-wizard", className), "data-step": step }, /* @__PURE__ */ React.createElement("ol", { className: "cs-form-wizard__steps", style: { display: "flex", gap: 10, listStyle: "none", padding: 0, margin: "0 0 16px", flexWrap: "wrap" } }, steps.map((s, i) => /* @__PURE__ */ React.createElement("li", { key: s.id || i, style: {
     font: "700 11px/1 var(--cs-font-family-ui)",
     textTransform: "uppercase",
     letterSpacing: ".06em",
     color: i === step ? "var(--cs-color-brand-umber)" : "var(--cs-color-text-primary)",
     opacity: i === step ? 1 : 0.55
   } }, i + 1, ". ", s.title || s.id || `Step ${i + 1}`))), keys.length ? /* @__PURE__ */ React.createElement("div", { className: "cs-form__summary", role: "alert" }, /* @__PURE__ */ React.createElement("b", null, t("summary")), /* @__PURE__ */ React.createElement("ul", null, keys.map((k) => /* @__PURE__ */ React.createElement("li", { key: k }, ruleErrors[k])))) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-form-wizard__body" }, typeof current.render === "function" ? current.render({ values, step, setValue }) : null), /* @__PURE__ */ React.createElement("div", { className: "cs-form-wizard__nav", style: { display: "flex", gap: 10, marginTop: 16 } }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--secondary cs-button--sm", onClick: goBack, disabled: step === 0 || pending }, backLabel || (L === "vi" ? "Quay lại" : "Back")), /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--sm", onClick: goNext, disabled: pending }, step >= steps.length - 1 ? finishLabel || (L === "vi" ? "Hoàn tất" : "Finish") : nextLabel || (L === "vi" ? "Tiếp" : "Next")))));
-}
+});
 Object.assign(__ds_scope, { getPath, setPath, Form, FormField, FormFieldArray, FormWizard });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Form.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/InlineEdit.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const PEN = /* @__PURE__ */ React.createElement("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.9", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M4 20l4.5-.9L20 7.6a2 2 0 0 0-2.8-2.8L5.7 16.3 4 20z" }));
-function InlineEdit({ value, defaultValue = "", onChange, label, lang, className }) {
+const InlineEdit = React.forwardRef(function InlineEdit2({ value, defaultValue = "", onChange, label, lang, className }, forwardedRef) {
   const [inner, setInner] = React.useState(defaultValue);
   const val = value != null ? value : inner;
   const [edit, setEdit] = React.useState(false);
@@ -2631,7 +2669,7 @@ function InlineEdit({ value, defaultValue = "", onChange, label, lang, className
   };
   const [ref, L] = useLang(lang);
   const t = makeT("InlineEdit", L);
-  return /* @__PURE__ */ React.createElement("span", { ref, className: cx("cs-inline-edit", className) }, edit ? /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("span", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-inline-edit", className) }, edit ? /* @__PURE__ */ React.createElement(
     "input",
     {
       autoFocus: true,
@@ -2651,18 +2689,19 @@ function InlineEdit({ value, defaultValue = "", onChange, label, lang, className
     setDraft(val);
     setEdit(true);
   } }, /* @__PURE__ */ React.createElement("span", { className: val ? void 0 : "ph" }, val || t("empty")), PEN));
-}
+});
 Object.assign(__ds_scope, { InlineEdit });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/InlineEdit.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/InputGroup.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const EYE = /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" }), /* @__PURE__ */ React.createElement("circle", { cx: "12", cy: "12", r: "3" }));
 const EYE_OFF = /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" }), /* @__PURE__ */ React.createElement("circle", { cx: "12", cy: "12", r: "3" }), /* @__PURE__ */ React.createElement("path", { d: "M4 4l16 16" }));
 const X = /* @__PURE__ */ React.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M6 6l12 12M18 6L6 18" }));
-function InputGroup({
+const InputGroup = React.forwardRef(function InputGroup2({
   id,
   label,
   prefix,
@@ -2678,7 +2717,7 @@ function InputGroup({
   className,
   "aria-label": ariaLabel,
   ...props
-}) {
+}, forwardedRef) {
   const [inner, setInner] = React.useState(defaultValue);
   const val = value != null ? value : inner;
   const set = (v) => {
@@ -2690,7 +2729,7 @@ function InputGroup({
   const t = makeT("InputGroup", L);
   const gid = React.useId();
   const sid = id ?? gid;
-  return /* @__PURE__ */ React.createElement("label", { ref, className: cx("cs-field", disabled && "is-disabled", className), htmlFor: sid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, /* @__PURE__ */ React.createElement("span", { className: "cs-igroup" }, prefix != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-igroup__fix" }, prefix) : null, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("label", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-field", disabled && "is-disabled", className), htmlFor: sid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, /* @__PURE__ */ React.createElement("span", { className: "cs-igroup" }, prefix != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-igroup__fix" }, prefix) : null, /* @__PURE__ */ React.createElement(
     "input",
     {
       ...props,
@@ -2703,15 +2742,16 @@ function InputGroup({
       onChange: (e) => set(e.target.value)
     }
   ), clearable && String(val).length ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-igroup__btn", "aria-label": t("clear"), onClick: () => set("") }, X) : null, password ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-igroup__btn", "aria-label": show ? t("hide") : t("show"), "aria-pressed": show, onClick: () => setShow((s) => !s) }, show ? EYE_OFF : EYE) : null, suffix != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-igroup__fix cs-igroup__fix--suffix" }, suffix) : null));
-}
+});
 Object.assign(__ds_scope, { InputGroup });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/InputGroup.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/InputOTP.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function InputOTP({ length = 6, value, onChange, onComplete, label, lang, disabled = false, className }) {
+const InputOTP = React.forwardRef(function InputOTP2({ length = 6, value, onChange, onComplete, label, lang, disabled = false, className }, forwardedRef) {
   const [inner, setInner] = React.useState("");
   const val = (value != null ? value : inner).slice(0, length);
   const boxes = React.useRef([]);
@@ -2723,7 +2763,7 @@ function InputOTP({ length = 6, value, onChange, onComplete, label, lang, disabl
   };
   const [ref, L] = useLang(lang);
   const lbl = label != null ? label : makeT("InputOTP", L)("label");
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-otp", className), role: "group", "aria-label": lbl }, Array.from({ length }).map((_, i) => /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-otp", className), role: "group", "aria-label": lbl }, Array.from({ length }).map((_, i) => /* @__PURE__ */ React.createElement(
     "input",
     {
       key: i,
@@ -2760,16 +2800,17 @@ function InputOTP({ length = 6, value, onChange, onComplete, label, lang, disabl
       }
     }
   )));
-}
+});
 Object.assign(__ds_scope, { InputOTP });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/InputOTP.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Mentions.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 let mentionsUid = 0;
-function Mentions({ value, defaultValue = "", onChange, users = [], placeholder, rows = 3, lang, className }) {
+const Mentions = React.forwardRef(function Mentions2({ value, defaultValue = "", onChange, users = [], placeholder, rows = 3, lang, className }, forwardedRef) {
   const [inner, setInner] = React.useState(defaultValue);
   const val = value != null ? value : inner;
   const set = (v) => {
@@ -2818,7 +2859,7 @@ function Mentions({ value, defaultValue = "", onChange, users = [], placeholder,
       setQ(null);
     }
   };
-  return /* @__PURE__ */ React.createElement("span", { ref, className: cx("cs-mentions", className) }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("span", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-mentions", className) }, /* @__PURE__ */ React.createElement(
     "textarea",
     {
       className: "cs-field__control",
@@ -2851,14 +2892,14 @@ function Mentions({ value, defaultValue = "", onChange, users = [], placeholder,
     "@",
     u
   ))) : null);
-}
+});
 Object.assign(__ds_scope, { Mentions });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Mentions.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/NativeSelect.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function NativeSelect({
+const NativeSelect = React.forwardRef(function NativeSelect2({
   id,
   label,
   error,
@@ -2871,11 +2912,11 @@ function NativeSelect({
   defaultValue,
   onChange,
   ...props
-}) {
+}, forwardedRef) {
   const gid = React.useId();
   const sid = id ?? gid;
   const errId = error ? sid + "-err" : void 0;
-  return /* @__PURE__ */ React.createElement("label", { className: cx("cs-field", "cs-native-select-field", disabled && "is-disabled", error && "is-invalid", className), htmlFor: sid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, /* @__PURE__ */ React.createElement("span", { className: cx("cs-native-select", `cs-native-select--${size}`) }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("label", { ref: forwardedRef, className: cx("cs-field", "cs-native-select-field", disabled && "is-disabled", error && "is-invalid", className), htmlFor: sid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, /* @__PURE__ */ React.createElement("span", { className: cx("cs-native-select", `cs-native-select--${size}`) }, /* @__PURE__ */ React.createElement(
     "select",
     {
       ...props,
@@ -2890,15 +2931,16 @@ function NativeSelect({
     },
     options ? options.map((o) => /* @__PURE__ */ React.createElement("option", { key: o.value, value: o.value, disabled: o.disabled }, o.label)) : children
   ), /* @__PURE__ */ React.createElement("span", { className: "cs-native-select__chevron", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 9l6 6 6-6" })))), error ? /* @__PURE__ */ React.createElement("span", { id: errId, className: "cs-field__error", role: "alert" }, error) : null);
-}
+});
 Object.assign(__ds_scope, { NativeSelect });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/NativeSelect.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/NumberField.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function NumberField({
+const NumberField = React.forwardRef(function NumberField2({
   id,
   label,
   value,
@@ -2911,7 +2953,7 @@ function NumberField({
   className,
   children,
   ...props
-}) {
+}, forwardedRef) {
   const [inner, setInner] = React.useState(0);
   const val = value != null ? value : inner;
   const clamp = (n) => {
@@ -2927,7 +2969,7 @@ function NumberField({
   const t = makeT("NumberField", L);
   const gid = React.useId();
   const sid = id ?? gid;
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-field", disabled && "is-disabled", className) }, label ? /* @__PURE__ */ React.createElement("label", { className: "cs-field__label", htmlFor: sid }, label) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-stepper" }, /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("decrease"), disabled: disabled || min != null && val <= min, onClick: () => set(val - step) }, "−"), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-field", disabled && "is-disabled", className) }, label ? /* @__PURE__ */ React.createElement("label", { className: "cs-field__label", htmlFor: sid }, label) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-stepper" }, /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("decrease"), disabled: disabled || min != null && val <= min, onClick: () => set(val - step) }, "−"), /* @__PURE__ */ React.createElement(
     "input",
     {
       ...props,
@@ -2942,20 +2984,20 @@ function NumberField({
       onChange: (e) => set(Number(e.target.value))
     }
   ), /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("increase"), disabled: disabled || max != null && val >= max, onClick: () => set(val + step) }, "+")));
-}
+});
 Object.assign(__ds_scope, { NumberField });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/NumberField.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/RadioGroup.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Radio({ label, description, disabled = false, className, children, ...props }) {
-  return /* @__PURE__ */ React.createElement("label", { className: cx("cs-radio", disabled && "is-disabled", className) }, /* @__PURE__ */ React.createElement("input", { type: "radio", disabled, ...props }), /* @__PURE__ */ React.createElement("span", { className: "cs-radio__text" }, /* @__PURE__ */ React.createElement("span", null, label), description ? /* @__PURE__ */ React.createElement("span", { className: "cs-radio__desc" }, description) : null));
-}
-function RadioGroup({ legend, name, value, onChange, options = [], className }) {
+const Radio = React.forwardRef(function Radio2({ label, description, disabled = false, className, children, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("label", { ref: forwardedRef, className: cx("cs-radio", disabled && "is-disabled", className) }, /* @__PURE__ */ React.createElement("input", { type: "radio", disabled, ...props }), /* @__PURE__ */ React.createElement("span", { className: "cs-radio__text" }, /* @__PURE__ */ React.createElement("span", null, label), description ? /* @__PURE__ */ React.createElement("span", { className: "cs-radio__desc" }, description) : null));
+});
+const RadioGroup = React.forwardRef(function RadioGroup2({ legend, name, value, onChange, options = [], className }, forwardedRef) {
   const gid = React.useId();
   const nm = name ?? gid;
-  return /* @__PURE__ */ React.createElement("fieldset", { className: cx("cs-radio-group", className) }, legend ? /* @__PURE__ */ React.createElement("legend", null, legend) : null, options.map((o) => /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("fieldset", { ref: forwardedRef, className: cx("cs-radio-group", className) }, legend ? /* @__PURE__ */ React.createElement("legend", null, legend) : null, options.map((o) => /* @__PURE__ */ React.createElement(
     Radio,
     {
       key: o.value,
@@ -2968,16 +3010,17 @@ function RadioGroup({ legend, name, value, onChange, options = [], className }) 
       onChange: () => onChange && onChange(o.value)
     }
   )));
-}
+});
 Object.assign(__ds_scope, { Radio, RadioGroup });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/RadioGroup.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Rating.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const STAR = "M12 2l2.9 6.2 6.6.8-4.9 4.6 1.3 6.5L12 16.9 6.1 20l1.3-6.5L2.5 9l6.6-.8z";
-function Rating({ value, defaultValue = 0, onChange, max = 5, readOnly = false, label, lang, className }) {
+const Rating = React.forwardRef(function Rating2({ value, defaultValue = 0, onChange, max = 5, readOnly = false, label, lang, className }, forwardedRef) {
   const [inner, setInner] = React.useState(defaultValue);
   const val = value != null ? value : inner;
   const commit = (n) => {
@@ -3013,7 +3056,7 @@ function Rating({ value, defaultValue = 0, onChange, max = 5, readOnly = false, 
       move(i, max - 1 - i);
     }
   };
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-rating", className), role: "radiogroup", "aria-label": lbl + ": " + val + " / " + max, "data-readonly": readOnly ? "true" : void 0 }, Array.from({ length: max }).map((_, i) => /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-rating", className), role: "radiogroup", "aria-label": lbl + ": " + val + " / " + max, "data-readonly": readOnly ? "true" : void 0 }, Array.from({ length: max }).map((_, i) => /* @__PURE__ */ React.createElement(
     "button",
     {
       key: i,
@@ -3031,33 +3074,34 @@ function Rating({ value, defaultValue = 0, onChange, max = 5, readOnly = false, 
     },
     /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: i < val ? "currentColor" : "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: STAR }))
   )));
-}
+});
 Object.assign(__ds_scope, { Rating });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Rating.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/SearchField.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function SearchField({ value, onChange, onClear, placeholder, lang, className, children, ...props }) {
+const SearchField = React.forwardRef(function SearchField2({ value, onChange, onClear, placeholder, lang, className, children, ...props }, forwardedRef) {
   const [inner, setInner] = React.useState("");
   const val = value != null ? value : inner;
   const set = (v) => onChange ? onChange(v) : setInner(v);
   const [ref, L] = useLang(lang);
   const t = makeT("SearchField", L);
   const ph = placeholder != null ? placeholder : t("placeholder");
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-search", className) }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "11", cy: "11", r: "7" }), /* @__PURE__ */ React.createElement("path", { d: "M21 21l-4.3-4.3" })), /* @__PURE__ */ React.createElement("input", { ...props, type: "text", role: "searchbox", value: val, placeholder: ph, onChange: (e) => set(e.target.value) }), String(val).length ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-search__clear", "aria-label": t("clear"), onClick: () => {
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-search", className) }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "11", cy: "11", r: "7" }), /* @__PURE__ */ React.createElement("path", { d: "M21 21l-4.3-4.3" })), /* @__PURE__ */ React.createElement("input", { ...props, type: "text", role: "searchbox", value: val, placeholder: ph, onChange: (e) => set(e.target.value) }), String(val).length ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-search__clear", "aria-label": t("clear"), onClick: () => {
     set("");
     onClear && onClear();
   } }, /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 6l12 12M18 6L6 18" }))) : null);
-}
+});
 Object.assign(__ds_scope, { SearchField });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/SearchField.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/SegmentedControl.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function SegmentedControl({ options = [], value, onChange, className, ...props }) {
+const SegmentedControl = React.forwardRef(function SegmentedControl2({ options = [], value, onChange, className, ...props }, forwardedRef) {
   const refs = React.useRef([]);
   const idx = Math.max(0, options.findIndex((o) => o.value === value));
   const key = (e, i) => {
@@ -3072,7 +3116,7 @@ function SegmentedControl({ options = [], value, onChange, className, ...props }
     const b = refs.current[n];
     if (b) b.focus();
   };
-  return /* @__PURE__ */ React.createElement("div", { role: "tablist", className: cx("cs-segmented", className), ...props }, options.map((o, i) => /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, role: "tablist", className: cx("cs-segmented", className), ...props }, options.map((o, i) => /* @__PURE__ */ React.createElement(
     "button",
     {
       key: o.value,
@@ -3087,15 +3131,16 @@ function SegmentedControl({ options = [], value, onChange, className, ...props }
     o.icon ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, o.icon) : null,
     o.label
   )));
-}
+});
 Object.assign(__ds_scope, { SegmentedControl });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/SegmentedControl.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Select.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Select({ id, label, description, error, options, children, disabled = false, lang, className, placeholder, ...props }) {
+const Select = React.forwardRef(function Select2({ id, label, description, error, options, children, disabled = false, lang, className, placeholder, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Select", L);
   const gid = React.useId();
@@ -3103,33 +3148,35 @@ function Select({ id, label, description, error, options, children, disabled = f
   const descId = description ? sid + "-desc" : void 0;
   const errId = error ? sid + "-err" : void 0;
   const describedBy = [descId, errId].filter(Boolean).join(" ") || void 0;
-  return /* @__PURE__ */ React.createElement("label", { ref, className: cx("cs-field", disabled && "is-disabled", error && "is-invalid", className), htmlFor: sid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, description ? /* @__PURE__ */ React.createElement("span", { id: descId, className: "cs-field__description" }, description) : null, /* @__PURE__ */ React.createElement("span", { className: "cs-select" }, /* @__PURE__ */ React.createElement("select", { ...props, id: sid, disabled, "aria-invalid": error ? true : void 0, "aria-describedby": describedBy, className: "cs-field__control" }, placeholder != null || !children ? /* @__PURE__ */ React.createElement("option", { value: "", disabled: true, hidden: true }, placeholder ?? t("placeholder")) : null, options ? options.map((o) => /* @__PURE__ */ React.createElement("option", { key: o.value, value: o.value }, o.label)) : children), /* @__PURE__ */ React.createElement("span", { className: "cs-select__chevron", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 9l6 6 6-6" })))), error ? /* @__PURE__ */ React.createElement("span", { id: errId, className: "cs-field__error", role: "alert" }, error) : null);
-}
+  return /* @__PURE__ */ React.createElement("label", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-field", disabled && "is-disabled", error && "is-invalid", className), htmlFor: sid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, description ? /* @__PURE__ */ React.createElement("span", { id: descId, className: "cs-field__description" }, description) : null, /* @__PURE__ */ React.createElement("span", { className: "cs-select" }, /* @__PURE__ */ React.createElement("select", { ...props, id: sid, disabled, "aria-invalid": error ? true : void 0, "aria-describedby": describedBy, className: "cs-field__control" }, placeholder != null || !children ? /* @__PURE__ */ React.createElement("option", { value: "", disabled: true, hidden: true }, placeholder ?? t("placeholder")) : null, options ? options.map((o) => /* @__PURE__ */ React.createElement("option", { key: o.value, value: o.value }, o.label)) : children), /* @__PURE__ */ React.createElement("span", { className: "cs-select__chevron", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 9l6 6 6-6" })))), error ? /* @__PURE__ */ React.createElement("span", { id: errId, className: "cs-field__error", role: "alert" }, error) : null);
+});
 Object.assign(__ds_scope, { Select });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Select.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Slider.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Slider({ className, children, lang, "aria-label": ariaLabel, ...props }) {
+const Slider = React.forwardRef(function Slider2({ className, children, lang, "aria-label": ariaLabel, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Slider", L);
-  return /* @__PURE__ */ React.createElement("input", { ref, type: "range", className: cx("cs-slider", className), "aria-label": ariaLabel ?? t("label"), ...props });
-}
+  return /* @__PURE__ */ React.createElement("input", { ref: mergeRefs(ref, forwardedRef), type: "range", className: cx("cs-slider", className), "aria-label": ariaLabel ?? t("label"), ...props });
+});
 Object.assign(__ds_scope, { Slider });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Slider.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Switch.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Switch({ label, disabled = false, className, children, lang, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, ...props }) {
+const Switch = React.forwardRef(function Switch2({ label, disabled = false, className, children, lang, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Switch", L);
   const named = !!(label || ariaLabel || ariaLabelledby);
   const fallback = props.checked || props.defaultChecked ? t("on") : t("off");
-  return /* @__PURE__ */ React.createElement("label", { ref, className: cx("cs-switch", disabled && "is-disabled", className) }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("label", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-switch", disabled && "is-disabled", className) }, /* @__PURE__ */ React.createElement(
     "input",
     {
       type: "checkbox",
@@ -3140,15 +3187,16 @@ function Switch({ label, disabled = false, className, children, lang, "aria-labe
       ...props
     }
   ), /* @__PURE__ */ React.createElement("span", { className: "cs-switch__track", "aria-hidden": "true" }), label ? /* @__PURE__ */ React.createElement("span", { className: "cs-switch__label" }, label) : null);
-}
+});
 Object.assign(__ds_scope, { Switch });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Switch.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/TagInput.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function TagInput({
+const TagInput = React.forwardRef(function TagInput2({
   id,
   label,
   value,
@@ -3159,7 +3207,7 @@ function TagInput({
   disabled = false,
   lang,
   className
-}) {
+}, forwardedRef) {
   const [inner, setInner] = React.useState(defaultValue);
   const tags = value != null ? value : inner;
   const [q, setQ] = React.useState("");
@@ -3183,7 +3231,7 @@ function TagInput({
   const ph = placeholder != null ? placeholder : t("placeholder");
   const gid = React.useId();
   const sid = id ?? gid;
-  return /* @__PURE__ */ React.createElement("label", { ref, className: cx("cs-field", disabled && "is-disabled", className), htmlFor: sid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-taginput" }, tags.map((tag) => /* @__PURE__ */ React.createElement("span", { key: tag, className: "cs-tag" }, tag, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("label", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-field", disabled && "is-disabled", className), htmlFor: sid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-taginput" }, tags.map((tag) => /* @__PURE__ */ React.createElement("span", { key: tag, className: "cs-tag" }, tag, /* @__PURE__ */ React.createElement(
     "button",
     {
       type: "button",
@@ -3213,30 +3261,31 @@ function TagInput({
       onBlur: () => add(q)
     }
   )));
-}
+});
 Object.assign(__ds_scope, { TagInput });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/TagInput.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Textarea.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Textarea({ id, label, description, error, disabled = false, rows = 4, className, ...props }) {
+const Textarea = React.forwardRef(function Textarea2({ id, label, description, error, disabled = false, rows = 4, className, ...props }, forwardedRef) {
   const gid = React.useId();
   const tid = id ?? gid;
   const descId = description ? tid + "-desc" : void 0;
   const errId = error ? tid + "-err" : void 0;
   const describedBy = [descId, errId].filter(Boolean).join(" ") || void 0;
-  return /* @__PURE__ */ React.createElement("label", { className: cx("cs-field", disabled && "is-disabled", error && "is-invalid", className), htmlFor: tid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, description ? /* @__PURE__ */ React.createElement("span", { id: descId, className: "cs-field__description" }, description) : null, /* @__PURE__ */ React.createElement("textarea", { ...props, id: tid, rows, disabled, "aria-invalid": error ? true : void 0, "aria-describedby": describedBy, className: "cs-field__control" }), error ? /* @__PURE__ */ React.createElement("span", { id: errId, className: "cs-field__error", role: "alert" }, error) : null);
-}
+  return /* @__PURE__ */ React.createElement("label", { ref: forwardedRef, className: cx("cs-field", disabled && "is-disabled", error && "is-invalid", className), htmlFor: tid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, description ? /* @__PURE__ */ React.createElement("span", { id: descId, className: "cs-field__description" }, description) : null, /* @__PURE__ */ React.createElement("textarea", { ...props, id: tid, rows, disabled, "aria-invalid": error ? true : void 0, "aria-describedby": describedBy, className: "cs-field__control" }), error ? /* @__PURE__ */ React.createElement("span", { id: errId, className: "cs-field__error", role: "alert" }, error) : null);
+});
 Object.assign(__ds_scope, { Textarea });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Textarea.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/TimePicker.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const CLOCK = /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "12", cy: "12", r: "9" }), /* @__PURE__ */ React.createElement("path", { d: "M12 7v5l3 3" }));
-function TimePicker({ value = "09:00", onChange, step = 30, label, disabled = false, lang, className }) {
+const TimePicker = React.forwardRef(function TimePicker2({ value = "09:00", onChange, step = 30, label, disabled = false, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("TimePicker", L);
   const stepMin = Number(step);
@@ -3245,16 +3294,17 @@ function TimePicker({ value = "09:00", onChange, step = 30, label, disabled = fa
   for (let m = 0; m < 24 * 60; m += safeStep) {
     opts.push(String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"));
   }
-  return /* @__PURE__ */ React.createElement("span", { ref, className: cx("cs-timepicker", className) }, CLOCK, /* @__PURE__ */ React.createElement("select", { "aria-label": label != null ? label : t("label"), disabled, value, onChange: (e) => onChange && onChange(e.target.value) }, opts.map((o) => /* @__PURE__ */ React.createElement("option", { key: o, value: o }, o))));
-}
+  return /* @__PURE__ */ React.createElement("span", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-timepicker", className) }, CLOCK, /* @__PURE__ */ React.createElement("select", { "aria-label": label != null ? label : t("label"), disabled, value, onChange: (e) => onChange && onChange(e.target.value) }, opts.map((o) => /* @__PURE__ */ React.createElement("option", { key: o, value: o }, o))));
+});
 Object.assign(__ds_scope, { TimePicker });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/TimePicker.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Toggle.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Toggle({ pressed, defaultPressed = false, onChange, icon, children, disabled = false, lang, className, "aria-label": ariaLabel, ...props }) {
+const Toggle = React.forwardRef(function Toggle2({ pressed, defaultPressed = false, onChange, icon, children, disabled = false, lang, className, "aria-label": ariaLabel, ...props }, forwardedRef) {
   const [inner, setInner] = React.useState(defaultPressed);
   const on = pressed != null ? pressed : inner;
   const [ref, L] = useLang(lang);
@@ -3267,7 +3317,7 @@ function Toggle({ pressed, defaultPressed = false, onChange, icon, children, dis
   return /* @__PURE__ */ React.createElement(
     "button",
     {
-      ref,
+      ref: mergeRefs(ref, forwardedRef),
       type: "button",
       className: cx("cs-toggle", className),
       "aria-pressed": on,
@@ -3279,15 +3329,16 @@ function Toggle({ pressed, defaultPressed = false, onChange, icon, children, dis
     icon ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true", style: { display: "inline-flex" } }, icon) : null,
     children
   );
-}
+});
 Object.assign(__ds_scope, { Toggle });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Toggle.jsx", error: String((e && e.message) || e) }); }
 
 // components/forms/Transfer.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Transfer({ items = [], value = [], onChange, titles, lang, className }) {
+const Transfer = React.forwardRef(function Transfer2({ items = [], value = [], onChange, titles, lang, className }, forwardedRef) {
   const [checked, setChecked] = React.useState([]);
   const [ref, L] = useLang(lang);
   const t = makeT("Transfer", L);
@@ -3301,8 +3352,8 @@ function Transfer({ items = [], value = [], onChange, titles, lang, className })
     setChecked([]);
   };
   const List = ({ target }) => /* @__PURE__ */ React.createElement("div", { className: "cs-transfer__list" }, /* @__PURE__ */ React.createElement("div", { className: "cs-transfer__title" }, target ? tt[1] : tt[0]), /* @__PURE__ */ React.createElement("ul", null, items.filter((it) => inTarget(it.key) === target).map((it) => /* @__PURE__ */ React.createElement("li", { key: it.key }, /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: checked.includes(it.key), onChange: () => toggle(it.key) }), " ", it.label)))));
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-transfer", className) }, /* @__PURE__ */ React.createElement(List, { target: false }), /* @__PURE__ */ React.createElement("div", { className: "cs-transfer__ops" }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--secondary cs-button--xs", "aria-label": t("toTarget"), onClick: () => move(true) }, "›"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--secondary cs-button--xs", "aria-label": t("toSource"), onClick: () => move(false) }, "‹")), /* @__PURE__ */ React.createElement(List, { target: true }));
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-transfer", className) }, /* @__PURE__ */ React.createElement(List, { target: false }), /* @__PURE__ */ React.createElement("div", { className: "cs-transfer__ops" }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--secondary cs-button--xs", "aria-label": t("toTarget"), onClick: () => move(true) }, "›"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--secondary cs-button--xs", "aria-label": t("toSource"), onClick: () => move(false) }, "‹")), /* @__PURE__ */ React.createElement(List, { target: true }));
+});
 Object.assign(__ds_scope, { Transfer });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Transfer.jsx", error: String((e && e.message) || e) }); }
 
@@ -3311,7 +3362,7 @@ try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { Tree } = __ds_scope;
 const { cx } = __ds_scope;
-function TreeSelect({ nodes = [], value, onChange, placeholder, label, disabled = false, lang, className }) {
+const TreeSelect = React.forwardRef(function TreeSelect2({ nodes = [], value, onChange, placeholder, label, disabled = false, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const wrap = React.useRef(null);
   const [ref, L] = useLang(lang);
@@ -3350,7 +3401,7 @@ function TreeSelect({ nodes = [], value, onChange, placeholder, label, disabled 
       setOpen(false);
     }
   } })) : null);
-}
+});
 Object.assign(__ds_scope, { TreeSelect });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/TreeSelect.jsx", error: String((e && e.message) || e) }); }
 
@@ -3403,6 +3454,7 @@ Object.assign(__ds_scope, { EDITOR_SCHEMA, sanitizeHtml });
 
 // components/forms/Editor.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const { EDITOR_SCHEMA: editorSchema, sanitizeHtml: sanitizeEditorHtml } = __ds_scope;
@@ -3410,7 +3462,7 @@ const EDITOR_SCHEMA = editorSchema;
 function sanitizeHtml(html) {
   return sanitizeEditorHtml(html);
 }
-function Editor({ defaultValue = "", value, unsafeHtml, onChange, minHeight = 120, lang, className }) {
+const Editor = React.forwardRef(function Editor2({ defaultValue = "", value, unsafeHtml, onChange, minHeight = 120, lang, className }, forwardedRef) {
   const box = React.useRef(null);
   const seeded = React.useRef(false);
   const [ref, L] = useLang(lang);
@@ -3440,7 +3492,7 @@ function Editor({ defaultValue = "", value, unsafeHtml, onChange, minHeight = 12
     e.preventDefault();
     cmd(c);
   } }, children);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-editor", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-editor__bar", role: "toolbar", "aria-label": t("toolbar") }, /* @__PURE__ */ React.createElement(B, { c: "bold", label: t("bold") }, /* @__PURE__ */ React.createElement("b", null, "B")), /* @__PURE__ */ React.createElement(B, { c: "italic", label: t("italic") }, /* @__PURE__ */ React.createElement("i", null, "I")), /* @__PURE__ */ React.createElement(B, { c: "insertUnorderedList", label: t("list") }, "≔")), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-editor", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-editor__bar", role: "toolbar", "aria-label": t("toolbar") }, /* @__PURE__ */ React.createElement(B, { c: "bold", label: t("bold") }, /* @__PURE__ */ React.createElement("b", null, "B")), /* @__PURE__ */ React.createElement(B, { c: "italic", label: t("italic") }, /* @__PURE__ */ React.createElement("i", null, "I")), /* @__PURE__ */ React.createElement(B, { c: "insertUnorderedList", label: t("list") }, "≔")), /* @__PURE__ */ React.createElement(
     "div",
     {
       ref: box,
@@ -3455,7 +3507,7 @@ function Editor({ defaultValue = "", value, unsafeHtml, onChange, minHeight = 12
       onBlur: emit
     }
   ));
-}
+});
 Object.assign(__ds_scope, { EDITOR_SCHEMA, sanitizeHtml, Editor });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Editor.jsx", error: String((e && e.message) || e) }); }
 
@@ -3507,13 +3559,14 @@ const CS_ICONS = {
   "alert-triangle": { viewBox: "0 0 24 24", els: [["path", { d: "M12 3.5l9 16H3z" }], ["path", { d: "M12 10v4M12 17.5v.01" }]] },
   pin: { viewBox: "0 0 24 24", els: [["path", { d: "M12 21v-7" }], ["path", { d: "M8.5 3.5h7l-1.2 6.5h2.7L12 14.5 6.999 10h2.7z" }]] }
 };
-function Icon({ name, size = "md", label, className, strokeWidth = 1.75, ...props }) {
+const Icon = React.forwardRef(function Icon2({ name, size = "md", label, className, strokeWidth = 1.75, ...props }, forwardedRef) {
   const def = CS_ICONS[name] || CS_ICONS.sparkle;
   const dim = `var(--cs-icon-${size}, 20px)`;
   const a11y = label ? { role: "img", "aria-label": label } : { "aria-hidden": true, focusable: false };
   return /* @__PURE__ */ React.createElement(
     "svg",
     {
+      ref: forwardedRef,
       ...props,
       className,
       viewBox: def.viewBox,
@@ -3527,16 +3580,17 @@ function Icon({ name, size = "md", label, className, strokeWidth = 1.75, ...prop
     },
     def.els.map(([tag, attrs], i) => React.createElement(tag, { key: i, ...attrs }))
   );
-}
+});
 Object.assign(__ds_scope, { CS_ICONS, Icon });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/icon/Icon.jsx", error: String((e && e.message) || e) }); }
 
 // components/datatable/DataGrid.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { Icon } = __ds_scope;
 const { cx } = __ds_scope;
-function DataGrid({
+const DataGrid = React.forwardRef(function DataGrid2({
   columns = [],
   rows = [],
   rowKey = "id",
@@ -3558,7 +3612,7 @@ function DataGrid({
   rowHeight = 36,
   /** localStorage key — when set, column key order is persisted across reloads. */
   persistKey
-}) {
+}, forwardedRef) {
   const [sort, setSort] = React.useState(null);
   const [scrollTop, setScrollTop] = React.useState(0);
   const [colOrder, setColOrder] = React.useState(() => {
@@ -3623,7 +3677,7 @@ function DataGrid({
   return /* @__PURE__ */ React.createElement(
     "div",
     {
-      ref,
+      ref: mergeRefs(ref, forwardedRef),
       className: cx("cs-datagrid", useVirtual && "cs-datagrid--virtual", className),
       style: { maxBlockSize: height, overflow: "auto" },
       onScroll: useVirtual ? (e) => setScrollTop(e.currentTarget.scrollTop) : void 0,
@@ -3656,7 +3710,7 @@ function DataGrid({
       return /* @__PURE__ */ React.createElement("tr", { key: k, className: selected.includes(k) ? "is-selected" : void 0, style: useVirtual ? { height: rowHeight } : void 0 }, selectable ? /* @__PURE__ */ React.createElement("td", { className: "cs-datagrid__selcol" }, /* @__PURE__ */ React.createElement("input", { type: "checkbox", "aria-label": t("selectRow"), checked: selected.includes(k), onChange: () => toggle(k) })) : null, orderedColumns.map((c) => /* @__PURE__ */ React.createElement("td", { key: c.key, className: c.pinned ? "cs-datagrid__pinned" : void 0, style: c.pinned ? { position: "sticky", insetInlineStart: 0, background: "var(--cs-color-surface-panel)" } : void 0 }, c.render ? c.render(r) : r[c.key])));
     }), padBottom > 0 ? /* @__PURE__ */ React.createElement("tr", { "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("td", { colSpan: orderedColumns.length + (selectable ? 1 : 0), style: { height: padBottom, padding: 0, border: 0 } })) : null)))
   );
-}
+});
 Object.assign(__ds_scope, { DataGrid });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/datatable/DataGrid.jsx", error: String((e && e.message) || e) }); }
 
@@ -3880,11 +3934,12 @@ Object.assign(__ds_scope, { CS_LOGO_VIEWBOX, CS_LOGO_MARK_INNER, __ds_default_co
 try { (() => {
 const { CS_LOGO_VIEWBOX, CS_LOGO_MARK_INNER } = __ds_scope;
 const { cx } = __ds_scope;
-function Logo({ size = 32, title = "CyberSkill", decorative = false, className, ...props }) {
+const Logo = React.forwardRef(function Logo2({ size = 32, title = "CyberSkill", decorative = false, className, ...props }, forwardedRef) {
   const safeTitle = String(title).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   return /* @__PURE__ */ React.createElement(
     "svg",
     {
+      ref: forwardedRef,
       ...props,
       className: cx("cs-logo", className),
       width: size,
@@ -3897,14 +3952,14 @@ function Logo({ size = 32, title = "CyberSkill", decorative = false, className, 
       dangerouslySetInnerHTML: { __html: (decorative ? "" : `<title>${safeTitle}</title>`) + CS_LOGO_MARK_INNER }
     }
   );
-}
+});
 Object.assign(__ds_scope, { Logo });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/logo/Logo.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/Anchor.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Anchor({ items = [], title, className }) {
+const Anchor = React.forwardRef(function Anchor2({ items = [], title, className }, forwardedRef) {
   const [act, setAct] = React.useState(items.length ? items[0].id : null);
   React.useEffect(() => {
     const els = items.map((it) => document.getElementById(it.id)).filter(Boolean);
@@ -3916,16 +3971,17 @@ function Anchor({ items = [], title, className }) {
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, [items]);
-  return /* @__PURE__ */ React.createElement("nav", { className: cx("cs-anchor", className), "aria-label": typeof title === "string" ? title : void 0 }, title ? /* @__PURE__ */ React.createElement("div", { className: "cs-anchor__title" }, title) : null, items.map((it) => /* @__PURE__ */ React.createElement("a", { key: it.id, href: "#" + it.id, className: cx("cs-anchor__item", act === it.id && "is-active"), "aria-current": act === it.id ? "location" : void 0 }, it.label)));
-}
+  return /* @__PURE__ */ React.createElement("nav", { ref: forwardedRef, className: cx("cs-anchor", className), "aria-label": typeof title === "string" ? title : void 0 }, title ? /* @__PURE__ */ React.createElement("div", { className: "cs-anchor__title" }, title) : null, items.map((it) => /* @__PURE__ */ React.createElement("a", { key: it.id, href: "#" + it.id, className: cx("cs-anchor__item", act === it.id && "is-active"), "aria-current": act === it.id ? "location" : void 0 }, it.label)));
+});
 Object.assign(__ds_scope, { Anchor });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Anchor.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/BackTop.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function BackTop({ threshold = 320, label, lang, className }) {
+const BackTop = React.forwardRef(function BackTop2({ threshold = 320, label, lang, className }, forwardedRef) {
   const [show, setShow] = React.useState(false);
   const [ref, L] = useLang(lang);
   const lbl = label != null ? label : makeT("BackTop", L)("label");
@@ -3935,7 +3991,7 @@ function BackTop({ threshold = 320, label, lang, className }) {
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, [threshold]);
-  if (!show) return /* @__PURE__ */ React.createElement("span", { ref, style: { display: "none" } });
+  if (!show) return /* @__PURE__ */ React.createElement("span", { ref: mergeRefs(ref, forwardedRef), style: { display: "none" } });
   return /* @__PURE__ */ React.createElement(
     "button",
     {
@@ -3947,30 +4003,31 @@ function BackTop({ threshold = 320, label, lang, className }) {
     },
     /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("path", { d: "M12 19V5M5 12l7-7 7 7" }))
   );
-}
+});
 Object.assign(__ds_scope, { BackTop });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/BackTop.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/Breadcrumb.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Breadcrumb({ items = [], lang, className, ...props }) {
+const Breadcrumb = React.forwardRef(function Breadcrumb2({ items = [], lang, className, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
-  return /* @__PURE__ */ React.createElement("nav", { ref, "aria-label": makeT("Breadcrumb", L)("label"), ...props }, /* @__PURE__ */ React.createElement("ol", { className: cx("cs-breadcrumb", className) }, items.map((it, i) => {
+  return /* @__PURE__ */ React.createElement("nav", { ref: mergeRefs(ref, forwardedRef), "aria-label": makeT("Breadcrumb", L)("label"), ...props }, /* @__PURE__ */ React.createElement("ol", { className: cx("cs-breadcrumb", className) }, items.map((it, i) => {
     const last = i === items.length - 1;
     return /* @__PURE__ */ React.createElement("li", { key: i }, last ? /* @__PURE__ */ React.createElement("span", { className: "cs-breadcrumb__current", "aria-current": "page" }, it.label) : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("a", { href: it.href || "#" }, it.label), /* @__PURE__ */ React.createElement("span", { className: "cs-breadcrumb__sep", "aria-hidden": "true" }, "/")));
   })));
-}
+});
 Object.assign(__ds_scope, { Breadcrumb });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Breadcrumb.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/Dock.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Dock({ items = [], label, className }) {
+const Dock = React.forwardRef(function Dock2({ items = [], label, className }, forwardedRef) {
   const [hov, setHov] = React.useState(null);
-  return /* @__PURE__ */ React.createElement("div", { className: cx("cs-dock", className), role: "toolbar", "aria-label": label, onMouseLeave: () => setHov(null) }, items.map((it, i) => {
+  return /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: cx("cs-dock", className), role: "toolbar", "aria-label": label, onMouseLeave: () => setHov(null) }, items.map((it, i) => {
     const d = hov == null ? 3 : Math.abs(i - hov);
     const scale = d === 0 ? 1.35 : d === 1 ? 1.15 : 1;
     return /* @__PURE__ */ React.createElement(
@@ -3990,12 +4047,13 @@ function Dock({ items = [], label, className }) {
       it.icon
     );
   }));
-}
+});
 Object.assign(__ds_scope, { Dock });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Dock.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/HotKeys.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 function match(combo, e) {
@@ -4006,7 +4064,7 @@ function match(combo, e) {
   const alt = parts.includes("alt") ? e.altKey : !e.altKey;
   return mod && shift && alt && e.key.toLowerCase() === key;
 }
-function HotKeys({ bindings = [], help = true, children, lang, className }) {
+const HotKeys = React.forwardRef(function HotKeys2({ bindings = [], help = true, children, lang, className }, forwardedRef) {
   const [show, setShow] = React.useState(false);
   const [ref, L] = useLang(lang);
   const t = makeT("HotKeys", L);
@@ -4027,18 +4085,19 @@ function HotKeys({ bindings = [], help = true, children, lang, className }) {
     document.addEventListener("keydown", on);
     return () => document.removeEventListener("keydown", on);
   }, [bindings, help]);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-hotkeys", className) }, children, show ? /* @__PURE__ */ React.createElement("div", { className: "cs-hotkeys__sheet", role: "dialog", "aria-label": t("title"), onClick: () => setShow(false) }, /* @__PURE__ */ React.createElement("div", { className: "cs-hotkeys__card", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("b", null, t("title")), /* @__PURE__ */ React.createElement("ul", null, bindings.map((b, i) => /* @__PURE__ */ React.createElement("li", { key: i }, /* @__PURE__ */ React.createElement("span", null, b.description), /* @__PURE__ */ React.createElement("kbd", { className: "cs-kbd" }, b.keys))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("span", null, t("toggle")), /* @__PURE__ */ React.createElement("kbd", { className: "cs-kbd" }, "?"))))) : null);
-}
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-hotkeys", className) }, children, show ? /* @__PURE__ */ React.createElement("div", { className: "cs-hotkeys__sheet", role: "dialog", "aria-label": t("title"), onClick: () => setShow(false) }, /* @__PURE__ */ React.createElement("div", { className: "cs-hotkeys__card", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("b", null, t("title")), /* @__PURE__ */ React.createElement("ul", null, bindings.map((b, i) => /* @__PURE__ */ React.createElement("li", { key: i }, /* @__PURE__ */ React.createElement("span", null, b.description), /* @__PURE__ */ React.createElement("kbd", { className: "cs-kbd" }, b.keys))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("span", null, t("toggle")), /* @__PURE__ */ React.createElement("kbd", { className: "cs-kbd" }, "?"))))) : null);
+});
 Object.assign(__ds_scope, { HotKeys });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/HotKeys.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/Link.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Link({ href = "#", variant = "default", external = false, children, className, ...props }) {
+const Link = React.forwardRef(function Link2({ href = "#", variant = "default", external = false, children, className, ...props }, forwardedRef) {
   return /* @__PURE__ */ React.createElement(
     "a",
     {
+      ref: forwardedRef,
       href,
       className: cx("cs-link", variant !== "default" && "cs-link--" + variant, className),
       target: external ? "_blank" : void 0,
@@ -4048,7 +4107,7 @@ function Link({ href = "#", variant = "default", external = false, children, cla
     children,
     external ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, " ↗") : variant === "standalone" ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, " →") : null
   );
-}
+});
 Object.assign(__ds_scope, { Link });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Link.jsx", error: String((e && e.message) || e) }); }
 
@@ -4056,7 +4115,7 @@ Object.assign(__ds_scope, { Link });
 try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Menu({ trigger, children, align = "start", open: controlledOpen, onOpenChange, lang, className }) {
+const Menu = React.forwardRef(function Menu2({ trigger, children, align = "start", open: controlledOpen, onOpenChange, lang, className }, forwardedRef) {
   const [uOpen, setUOpen] = React.useState(false);
   const open = controlledOpen != null ? controlledOpen : uOpen;
   const set = (v) => {
@@ -4132,17 +4191,17 @@ function Menu({ trigger, children, align = "start", open: controlledOpen, onOpen
     },
     children
   ) : null);
-}
-function MenuItem({ danger = false, icon, children, className, ...props }) {
-  return /* @__PURE__ */ React.createElement("button", { type: "button", role: "menuitem", className: cx("cs-menu__item", danger && "cs-menu__item--danger", className), ...props }, icon ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, icon) : null, children);
-}
+});
+const MenuItem = React.forwardRef(function MenuItem2({ danger = false, icon, children, className, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("button", { ref: forwardedRef, type: "button", role: "menuitem", className: cx("cs-menu__item", danger && "cs-menu__item--danger", className), ...props }, icon ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, icon) : null, children);
+});
 Object.assign(__ds_scope, { Menu, MenuItem });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Menu.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/Menubar.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Menubar({ menus = [], className }) {
+const Menubar = React.forwardRef(function Menubar2({ menus = [], className }, forwardedRef) {
   const [open, setOpen] = React.useState(null);
   const [focusI, setFocusI] = React.useState(0);
   const wrap = React.useRef(null);
@@ -4207,14 +4266,14 @@ function Menubar({ menus = [], className }) {
     setOpen(null);
     it.onSelect && it.onSelect();
   } }, it.label))) : null)));
-}
+});
 Object.assign(__ds_scope, { Menubar });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Menubar.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/NavigationMenu.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function NavigationMenu({ items = [], className }) {
+const NavigationMenu = React.forwardRef(function NavigationMenu2({ items = [], className }, forwardedRef) {
   const [open, setOpen] = React.useState(null);
   const wrap = React.useRef(null);
   React.useEffect(() => {
@@ -4248,12 +4307,13 @@ function NavigationMenu({ items = [], className }) {
     " ",
     /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, "▾")
   ), open === i ? /* @__PURE__ */ React.createElement("span", { className: "cs-navmenu__panel" }, it.panel.map((p, j) => /* @__PURE__ */ React.createElement("a", { key: j, href: p.href || "#", className: "cs-navmenu__card", onClick: () => setOpen(null) }, /* @__PURE__ */ React.createElement("b", null, p.label), p.desc ? /* @__PURE__ */ React.createElement("small", null, p.desc) : null))) : null) : /* @__PURE__ */ React.createElement("a", { key: i, href: it.href || "#", className: "cs-navmenu__top" }, it.label)));
-}
+});
 Object.assign(__ds_scope, { NavigationMenu });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/NavigationMenu.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/Pagination.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 function pages(page, count) {
@@ -4266,50 +4326,52 @@ function pages(page, count) {
   out.push(count);
   return out;
 }
-function Pagination({ page = 1, pageCount = 1, onChange, lang, className, ...props }) {
+const Pagination = React.forwardRef(function Pagination2({ page = 1, pageCount = 1, onChange, lang, className, ...props }, forwardedRef) {
   const go = (p) => onChange && p >= 1 && p <= pageCount && p !== page && onChange(p);
   const [ref, L] = useLang(lang);
   const t = makeT("Pagination", L);
-  return /* @__PURE__ */ React.createElement("nav", { ref, "aria-label": t("label"), className: cx("cs-pagination", className), ...props }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => go(page - 1), disabled: page <= 1, "aria-label": t("prev") }, "‹"), pages(page, pageCount).map(
+  return /* @__PURE__ */ React.createElement("nav", { ref: mergeRefs(ref, forwardedRef), "aria-label": t("label"), className: cx("cs-pagination", className), ...props }, /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => go(page - 1), disabled: page <= 1, "aria-label": t("prev") }, "‹"), pages(page, pageCount).map(
     (p, i) => p === "…" ? /* @__PURE__ */ React.createElement("span", { key: "e" + i, className: "cs-pagination__ellipsis", "aria-hidden": "true" }, "…") : /* @__PURE__ */ React.createElement("button", { key: p, type: "button", "aria-current": p === page ? "page" : void 0, onClick: () => go(p) }, p)
   ), /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => go(page + 1), disabled: page >= pageCount, "aria-label": t("next") }, "›"));
-}
+});
 Object.assign(__ds_scope, { Pagination });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Pagination.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/Sidebar.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Sidebar({ label, children, className, ...props }) {
-  return /* @__PURE__ */ React.createElement("nav", { className: cx("cs-sidebar", className), ...props }, label ? /* @__PURE__ */ React.createElement("div", { className: "cs-sidebar__label" }, label) : null, children);
-}
-function NavItem({ icon, active = false, trail, href, onClick, children, className, ...props }) {
+const Sidebar = React.forwardRef(function Sidebar2({ label, children, className, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("nav", { ref: forwardedRef, className: cx("cs-sidebar", className), ...props }, label ? /* @__PURE__ */ React.createElement("div", { className: "cs-sidebar__label" }, label) : null, children);
+});
+const NavItem = React.forwardRef(function NavItem2({ icon, active = false, trail, href, onClick, children, className, ...props }, forwardedRef) {
   const Tag = href ? "a" : "button";
-  return /* @__PURE__ */ React.createElement(Tag, { className: cx("cs-nav-item", active && "is-active", className), href, "aria-current": active ? "page" : void 0, onClick, ...props }, icon ? /* @__PURE__ */ React.createElement("span", { className: "cs-nav-item__icon" }, icon) : null, /* @__PURE__ */ React.createElement("span", null, children), trail != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-nav-item__trail" }, trail) : null);
-}
+  return /* @__PURE__ */ React.createElement(Tag, { ref: forwardedRef, className: cx("cs-nav-item", active && "is-active", className), href, "aria-current": active ? "page" : void 0, onClick, ...props }, icon ? /* @__PURE__ */ React.createElement("span", { className: "cs-nav-item__icon" }, icon) : null, /* @__PURE__ */ React.createElement("span", null, children), trail != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-nav-item__trail" }, trail) : null);
+});
 Object.assign(__ds_scope, { Sidebar, NavItem });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Sidebar.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/Steps.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Steps({ steps = [], current = 0, lang, className }) {
+const Steps = React.forwardRef(function Steps2({ steps = [], current = 0, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Steps", L);
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-steps", className), role: "list", "aria-label": t("label") }, steps.map((s, i) => {
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: cx("cs-steps", className), role: "list", "aria-label": t("label") }, steps.map((s, i) => {
     const state = i < current ? "done" : i === current ? "active" : "todo";
     return /* @__PURE__ */ React.createElement("div", { key: i, className: cx("cs-step", `cs-step--${state}`), role: "listitem" }, /* @__PURE__ */ React.createElement("span", { className: "cs-step__marker" }, state === "done" ? "✓" : s.n || i + 1), /* @__PURE__ */ React.createElement("span", { className: "cs-step__title" }, s.title), s.body ? /* @__PURE__ */ React.createElement("span", { className: "cs-step__body" }, s.body) : null);
   }));
-}
+});
 Object.assign(__ds_scope, { Steps });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Steps.jsx", error: String((e && e.message) || e) }); }
 
 // components/navigation/Tabs.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Tabs({ tabs = [], value, onChange, lang, className, "aria-label": ariaLabel, ...props }) {
+const Tabs = React.forwardRef(function Tabs2({ tabs = [], value, onChange, lang, className, "aria-label": ariaLabel, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Tabs", L);
   const refs = React.useRef([]);
@@ -4326,7 +4388,7 @@ function Tabs({ tabs = [], value, onChange, lang, className, "aria-label": ariaL
     const b = refs.current[n];
     if (b) b.focus();
   };
-  return /* @__PURE__ */ React.createElement("div", { ref, role: "tablist", "aria-label": ariaLabel ?? t("list"), className: cx("cs-tabs", className), ...props }, tabs.map((t2, i) => /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), role: "tablist", "aria-label": ariaLabel ?? t("list"), className: cx("cs-tabs", className), ...props }, tabs.map((t2, i) => /* @__PURE__ */ React.createElement(
     "button",
     {
       key: t2.value,
@@ -4342,10 +4404,10 @@ function Tabs({ tabs = [], value, onChange, lang, className, "aria-label": ariaL
     t2.label,
     t2.count != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-tab__count" }, t2.count) : null
   )));
-}
-function Tab({ selected = false, count, children, className, ...props }) {
-  return /* @__PURE__ */ React.createElement("button", { type: "button", role: "tab", "aria-selected": selected, className: cx("cs-tab", className), ...props }, children, count != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-tab__count" }, count) : null);
-}
+});
+const Tab = React.forwardRef(function Tab2({ selected = false, count, children, className, ...props }, forwardedRef) {
+  return /* @__PURE__ */ React.createElement("button", { ref: forwardedRef, type: "button", role: "tab", "aria-selected": selected, className: cx("cs-tab", className), ...props }, children, count != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-tab__count" }, count) : null);
+});
 Object.assign(__ds_scope, { Tabs, Tab });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Tabs.jsx", error: String((e && e.message) || e) }); }
 
@@ -4353,7 +4415,7 @@ Object.assign(__ds_scope, { Tabs, Tab });
 try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Toolbar({ items = [], overflowAfter, label, lang, className }) {
+const Toolbar = React.forwardRef(function Toolbar2({ items = [], overflowAfter, label, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const [focusIdx, setFocusIdx] = React.useState(0);
   const wrap = React.useRef(null);
@@ -4509,15 +4571,16 @@ function Toolbar({ items = [], overflowAfter, label, lang, className }) {
       it.label
     ))) : null);
   })() : null);
-}
+});
 Object.assign(__ds_scope, { Toolbar });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Toolbar.jsx", error: String((e && e.message) || e) }); }
 
 // components/overlays/ContextMenu.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function ContextMenu({ items = [], children, lang, className }) {
+const ContextMenu = React.forwardRef(function ContextMenu2({ items = [], children, lang, className }, forwardedRef) {
   const [pos, setPos] = React.useState(null);
   const [ref, L] = useLang(lang);
   const t = makeT("ContextMenu", L);
@@ -4537,7 +4600,7 @@ function ContextMenu({ items = [], children, lang, className }) {
   return /* @__PURE__ */ React.createElement(
     "div",
     {
-      ref,
+      ref: mergeRefs(ref, forwardedRef),
       className: cx("cs-ctxmenu-zone", className),
       onContextMenu: (e) => {
         e.preventDefault();
@@ -4551,14 +4614,14 @@ function ContextMenu({ items = [], children, lang, className }) {
       it.onSelect && it.onSelect();
     } }, it.label))) : null
   );
-}
+});
 Object.assign(__ds_scope, { ContextMenu });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/ContextMenu.jsx", error: String((e && e.message) || e) }); }
 
 // components/overlays/HoverCard.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function HoverCard({ trigger, children, openDelay = 150, closeDelay = 200, className }) {
+const HoverCard = React.forwardRef(function HoverCard2({ trigger, children, openDelay = 150, closeDelay = 200, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const t1 = React.useRef();
   const t2 = React.useRef();
@@ -4574,8 +4637,8 @@ function HoverCard({ trigger, children, openDelay = 150, closeDelay = 200, class
     clearTimeout(t1.current);
     clearTimeout(t2.current);
   }, []);
-  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-hovercard", className), onMouseEnter: show, onMouseLeave: hide, onFocus: show, onBlur: hide }, trigger, open ? /* @__PURE__ */ React.createElement("span", { className: "cs-hovercard__panel", role: "dialog" }, children) : null);
-}
+  return /* @__PURE__ */ React.createElement("span", { ref: forwardedRef, className: cx("cs-hovercard", className), onMouseEnter: show, onMouseLeave: hide, onFocus: show, onBlur: hide }, trigger, open ? /* @__PURE__ */ React.createElement("span", { className: "cs-hovercard__panel", role: "dialog" }, children) : null);
+});
 Object.assign(__ds_scope, { HoverCard });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/HoverCard.jsx", error: String((e && e.message) || e) }); }
 
@@ -4769,11 +4832,12 @@ Object.assign(__ds_scope, { focusableSelector, attachFocusTrap, getOverlayManage
 
 // components/data/Image.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { Icon } = __ds_scope;
 const { cx } = __ds_scope;
 const { useOverlayLayer } = __ds_scope;
-function Image({ src, alt = "", ratio, preview = false, fallback, lang, className, ...props }) {
+const Image = React.forwardRef(function Image2({ src, alt = "", ratio, preview = false, fallback, lang, className, ...props }, forwardedRef) {
   const [state, setState] = React.useState("loading");
   const [zoom, setZoom] = React.useState(false);
   const [ref, L] = useLang(lang);
@@ -4803,7 +4867,7 @@ function Image({ src, alt = "", ratio, preview = false, fallback, lang, classNam
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(
     "span",
     {
-      ref,
+      ref: mergeRefs(ref, forwardedRef),
       className: cx("cs-image", state === "loading" && "is-loading", canPreview && "is-zoomable", className),
       style: ratio ? { aspectRatio: ratio } : void 0,
       onClick: canPreview ? openPreview : void 0,
@@ -4831,17 +4895,18 @@ function Image({ src, alt = "", ratio, preview = false, fallback, lang, classNam
       setZoom(false);
     } }, /* @__PURE__ */ React.createElement(Icon, { name: "close", size: "sm", style: { verticalAlign: "middle" } }))
   ) : null);
-}
+});
 Object.assign(__ds_scope, { Image });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/Image.jsx", error: String((e && e.message) || e) }); }
 
 // components/dialog/Dialog.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { Icon } = __ds_scope;
 const { cx } = __ds_scope;
 const { useOverlayLayer } = __ds_scope;
-function Dialog({
+const Dialog = React.forwardRef(function Dialog2({
   open,
   title,
   children,
@@ -4851,7 +4916,7 @@ function Dialog({
   closeLabel,
   lang,
   ...props
-}) {
+}, forwardedRef) {
   const baseId = React.useId();
   const titleId = baseId + "-title";
   const bodyId = children == null ? void 0 : baseId + "-body";
@@ -4868,7 +4933,7 @@ function Dialog({
   });
   const cl = closeLabel != null ? closeLabel : makeT("Dialog", L)("close");
   if (!open) return null;
-  return /* @__PURE__ */ React.createElement("div", { ref, className: "cs-dialog-layer" }, /* @__PURE__ */ React.createElement("div", { className: "cs-dialog__overlay", onClick: onClose, "aria-hidden": "true" }), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: "cs-dialog-layer" }, /* @__PURE__ */ React.createElement("div", { className: "cs-dialog__overlay", onClick: onClose, "aria-hidden": "true" }), /* @__PURE__ */ React.createElement(
     "section",
     {
       ...props,
@@ -4884,7 +4949,7 @@ function Dialog({
     /* @__PURE__ */ React.createElement("div", { id: bodyId, className: "cs-dialog__body" }, children),
     actions ? /* @__PURE__ */ React.createElement("footer", { className: "cs-dialog__actions" }, actions) : null
   ));
-}
+});
 Object.assign(__ds_scope, { Dialog });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/dialog/Dialog.jsx", error: String((e && e.message) || e) }); }
 
@@ -4893,7 +4958,7 @@ try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const { useOverlayLayer } = __ds_scope;
-function CommandPalette({ open, onClose, placeholder, groups = [], lang, className }) {
+const CommandPalette = React.forwardRef(function CommandPalette2({ open, onClose, placeholder, groups = [], lang, className }, forwardedRef) {
   const [q, setQ] = React.useState("");
   const panel = React.useRef(null);
   const closeRef = React.useRef(onClose);
@@ -4930,16 +4995,17 @@ function CommandPalette({ open, onClose, placeholder, groups = [], lang, classNa
       } }, it.icon ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, it.icon) : null, /* @__PURE__ */ React.createElement("span", null, it.label), it.shortcut ? /* @__PURE__ */ React.createElement("span", { className: "cs-kbd" }, it.shortcut) : null)));
     })))
   );
-}
+});
 Object.assign(__ds_scope, { CommandPalette });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/CommandPalette.jsx", error: String((e && e.message) || e) }); }
 
 // components/overlays/AlertDialog.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const { useOverlayLayer } = __ds_scope;
-function AlertDialog({
+const AlertDialog = React.forwardRef(function AlertDialog2({
   open,
   defaultOpen = false,
   onOpenChange,
@@ -4955,7 +5021,7 @@ function AlertDialog({
   lang,
   className,
   ...props
-}) {
+}, forwardedRef) {
   const baseId = React.useId();
   const titleId = baseId + "-title";
   const descId = baseId + "-desc";
@@ -4992,7 +5058,7 @@ function AlertDialog({
   const body = description ?? children;
   const hasDesc = body != null && body !== false && body !== "";
   if (!isOpen) return null;
-  return /* @__PURE__ */ React.createElement("div", { ref, className: "cs-dialog-layer cs-alert-dialog-layer" }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref: mergeRefs(ref, forwardedRef), className: "cs-dialog-layer cs-alert-dialog-layer" }, /* @__PURE__ */ React.createElement(
     "div",
     {
       className: "cs-dialog__overlay",
@@ -5045,7 +5111,7 @@ function AlertDialog({
       cf
     ))
   ));
-}
+});
 Object.assign(__ds_scope, { AlertDialog });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/AlertDialog.jsx", error: String((e && e.message) || e) }); }
 
@@ -5054,7 +5120,7 @@ try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
 const { useOverlayLayer } = __ds_scope;
-function Drawer({ open, onClose, title, side = "right", children, actions, lang, className }) {
+const Drawer = React.forwardRef(function Drawer2({ open, onClose, title, side = "right", children, actions, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const panel = React.useRef(null);
   const closeRef = React.useRef(onClose);
@@ -5068,7 +5134,7 @@ function Drawer({ open, onClose, title, side = "right", children, actions, lang,
   });
   const t = makeT("Drawer", L);
   if (!open) return null;
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "cs-drawer-scrim", onClick: onClose, "aria-hidden": "true" }), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { ref: forwardedRef, className: "cs-drawer-scrim", onClick: onClose, "aria-hidden": "true" }), /* @__PURE__ */ React.createElement(
     "aside",
     {
       ref: (el) => {
@@ -5085,7 +5151,7 @@ function Drawer({ open, onClose, title, side = "right", children, actions, lang,
     /* @__PURE__ */ React.createElement("div", { className: "cs-drawer__body", tabIndex: 0 }, children),
     actions ? /* @__PURE__ */ React.createElement("div", { className: "cs-drawer__footer" }, actions) : null
   ));
-}
+});
 Object.assign(__ds_scope, { Drawer });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/Drawer.jsx", error: String((e && e.message) || e) }); }
 
@@ -5093,7 +5159,7 @@ Object.assign(__ds_scope, { Drawer });
 try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Popconfirm({ trigger, title, onConfirm, onCancel, okLabel, cancelLabel, lang, className }) {
+const Popconfirm = React.forwardRef(function Popconfirm2({ trigger, title, onConfirm, onCancel, okLabel, cancelLabel, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const wrap = React.useRef(null);
   const [ref, L] = useLang(lang);
@@ -5132,14 +5198,14 @@ function Popconfirm({ trigger, title, onConfirm, onCancel, okLabel, cancelLabel,
     setOpen(false);
     onConfirm && onConfirm();
   } }, okLabel != null ? okLabel : t("ok")))) : null);
-}
+});
 Object.assign(__ds_scope, { Popconfirm });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/Popconfirm.jsx", error: String((e && e.message) || e) }); }
 
 // components/overlays/Popover.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Popover({ trigger, children, align = "start", open: controlled, onOpenChange, className }) {
+const Popover = React.forwardRef(function Popover2({ trigger, children, align = "start", open: controlled, onOpenChange, className }, forwardedRef) {
   const [u, setU] = React.useState(false);
   const open = controlled != null ? controlled : u;
   const set = (v) => onOpenChange ? onOpenChange(v) : setU(v);
@@ -5169,15 +5235,16 @@ function Popover({ trigger, children, align = "start", open: controlled, onOpenC
     }
   }) : /* @__PURE__ */ React.createElement("button", { type: "button", "aria-haspopup": "dialog", "aria-expanded": open, onClick: toggle }, trigger);
   return /* @__PURE__ */ React.createElement("span", { className: cx("cs-popover", className), ref }, triggerNode, open ? /* @__PURE__ */ React.createElement("div", { className: cx("cs-popover__panel", align === "end" && "cs-popover__panel--end"), role: "dialog" }, children) : null);
-}
+});
 Object.assign(__ds_scope, { Popover });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/Popover.jsx", error: String((e && e.message) || e) }); }
 
 // components/overlays/Tour.jsx
 try { (() => {
+const { mergeRefs } = __ds_scope;
 const { makeT, useLang } = __ds_scope;
 const { cx } = __ds_scope;
-function Tour({ steps = [], open, onClose, lang, className }) {
+const Tour = React.forwardRef(function Tour2({ steps = [], open, onClose, lang, className }, forwardedRef) {
   const [i, setI] = React.useState(0);
   const [rect, setRect] = React.useState(null);
   const [pop, setPop] = React.useState({ top: 80, left: 40 });
@@ -5207,18 +5274,18 @@ function Tour({ steps = [], open, onClose, lang, className }) {
     document.addEventListener("keydown", k);
     return () => document.removeEventListener("keydown", k);
   }, [open, i, steps, onClose]);
-  if (!open || !steps.length) return /* @__PURE__ */ React.createElement("span", { ref, style: { display: "none" } });
+  if (!open || !steps.length) return /* @__PURE__ */ React.createElement("span", { ref: mergeRefs(ref, forwardedRef), style: { display: "none" } });
   const s = steps[i];
   const last = i === steps.length - 1;
   return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-tour", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-tour__scrim", onClick: onClose }), rect ? /* @__PURE__ */ React.createElement("div", { className: "cs-tour__hole", style: { left: rect.x, top: rect.y, width: rect.w, height: rect.h } }) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-tour__pop", role: "dialog", "aria-label": typeof s.title === "string" ? s.title : void 0, style: { left: pop.left, top: pop.top } }, /* @__PURE__ */ React.createElement("b", null, s.title), s.body ? /* @__PURE__ */ React.createElement("p", null, s.body) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-tour__bar" }, /* @__PURE__ */ React.createElement("span", { className: "cs-tour__count" }, i + 1 + " / " + steps.length), /* @__PURE__ */ React.createElement("span", { className: "cs-tour__btns" }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--ghost cs-button--xs", onClick: onClose }, t("skip")), i > 0 ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--secondary cs-button--xs", onClick: () => setI(i - 1) }, t("back")) : null, /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--primary cs-button--xs", onClick: () => last ? onClose && onClose() : setI(i + 1) }, last ? t("done") : t("next"))))));
-}
+});
 Object.assign(__ds_scope, { Tour });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/overlays/Tour.jsx", error: String((e && e.message) || e) }); }
 
 // components/textfield/TextField.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function TextField({
+const TextField = React.forwardRef(function TextField2({
   id,
   label,
   description,
@@ -5229,7 +5296,7 @@ function TextField({
   children,
   // never rendered on purpose: keeps stray children out of {...props} → void <input>
   ...props
-}) {
+}, forwardedRef) {
   const generatedId = React.useId();
   const inputId = id ?? generatedId;
   const descriptionId = description ? `${inputId}-description` : void 0;
@@ -5238,6 +5305,7 @@ function TextField({
   return /* @__PURE__ */ React.createElement(
     "label",
     {
+      ref: forwardedRef,
       className: cx("cs-field", disabled && "is-disabled", error && "is-invalid", className),
       htmlFor: inputId
     },
@@ -5257,7 +5325,7 @@ function TextField({
     ),
     error ? /* @__PURE__ */ React.createElement("span", { id: errorId, className: "cs-field__error", role: "alert" }, error) : null
   );
-}
+});
 Object.assign(__ds_scope, { TextField });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/textfield/TextField.jsx", error: String((e && e.message) || e) }); }
 

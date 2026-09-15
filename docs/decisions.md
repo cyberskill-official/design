@@ -176,6 +176,12 @@ Normative record: [`docs/decisions/theme-density-contrast.md`](./decisions/theme
 
 The npm `license` field stays `UNLICENSED` (pack-hygiene). Root `LICENSE` states the CyberSkill proprietary grant. Approved portfolio use is `docs/consumer-grant.md`. `templates/_vendor/deck-stage.js` is a CyberSkill-maintained derivative of an omelette starter and is attributed in `THIRD-PARTY-NOTICES.md`. Workspace packages (`@cyberskill/tokens`, `@cyberskill/react`, …) share this posture; `@cyberskill/design` remains the six-month compatibility facade.
 
+## 17. Quarterly support-matrix refresh
+
+**Owner choice: dated council review** (Sep 2026 / TASK-IMP-030)
+
+`docs/support-matrix.md` last reviewed **2026-09-15**; next review due **2026-12-15**. Soft-skips for Figma Variables remain explicit and are not treated as live SHA-bound artifacts until the Enterprise plan writes succeed.
+
 ## How to change a decision
 
 Edit the **Owner choice** line here. Implementer rewires CI and related docs in the same change.

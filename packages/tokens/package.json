@@ -3,11 +3,14 @@
   "version": "1.7.2",
   "private": false,
   "type": "module",
-  "description": "CyberSkill design tokens (DTCG, CSS, native mirrors).",
+  "description": "CyberSkill design tokens (DTCG, CSS, JS). No templates or vendor runtimes.",
   "license": "UNLICENSED",
   "exports": {
     ".": "./index.js",
-    "./dtcg": "./index.js"
+    "./css": "./dist/styles.css",
+    "./dtcg": "./dist/tokens.dtcg.json",
+    "./layers": "./dist/layers.json",
+    "./package.json": "./package.json"
   },
-  "files": ["index.js", "README.md"]
+  "files": ["index.js", "dist", "README.md"]
 }

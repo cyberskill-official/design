@@ -3,4 +3,7 @@ export {
   useTheme,
   getThemeInitScript,
   resolveTheme,
-} from "../../components/_theme/provider.js";
+  THEME_VALUES,
+  CONTRAST_VALUES,
+  DENSITY_VALUES,
+} from "./dist/provider.js";

@@ -1,3 +1,3 @@
 # @cyberskill/themes
 
-SSR-safe ThemeProvider and contrast/dir helpers. Not a Density axis.
+Compiled SSR-safe ThemeProvider (`dist/provider.js`) plus contrast/dir helpers. Density is a Theme attribute, not a product axis.

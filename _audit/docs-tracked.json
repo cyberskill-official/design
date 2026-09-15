@@ -1,6 +1,7 @@
 {
   "generatedBy": "_audit/ci/test-docs-lang-parity.mjs",
   "tracked": [
+    "at-protocol.md",
     "benchmark-rubric.md",
     "ci-cd.md",
     "component-contract.md",
@@ -21,9 +22,11 @@
     "quality-gates.md",
     "release-notes.md",
     "release-runbook.md",
+    "slo.md",
     "storybook.md",
     "support-matrix.md",
     "sync.md",
+    "telemetry.md",
     "template-schema-v2.md",
     "token-layers.md",
     "trusted-html.md"
