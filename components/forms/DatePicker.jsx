@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang, formatDate } from "../_i18n/i18n.js";
 import { Calendar } from "./Calendar.jsx";
@@ -5,7 +6,7 @@ import { cx } from "../_utils/cx.js";
 const CAL_ICON = <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M8 3v4M16 3v4M3 10h18" /></svg>;
 
 /** CyberSkill DatePicker — field + popover Calendar. VN shows DD/MM/YYYY. Controlled value (Date)/onChange. */
-export function DatePicker({ value, onChange, placeholder, label, disabled = false, lang, className }) {
+export const DatePicker = React.forwardRef(function DatePicker({ value, onChange, placeholder, label, disabled = false, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const wrap = React.useRef(null);
   const [ref, L] = useLang(lang);
@@ -20,16 +21,16 @@ export function DatePicker({ value, onChange, placeholder, label, disabled = fal
     return () => { document.removeEventListener("mousedown", d); document.removeEventListener("keydown", k); };
   }, [open]);
   return (
-    <div ref={(el) => { wrap.current = el; ref.current = el; }} className={cx("cs-datepicker", className)}>
+    <div ref={mergeRefs(wrap, ref, forwardedRef)} className={cx("cs-datepicker", className)}>
       <button type="button" className="cs-datepicker__field" disabled={disabled} aria-haspopup="dialog" aria-expanded={open} aria-label={label} onClick={() => setOpen((o) => !o)}>
         {CAL_ICON}
         <span className={value ? undefined : "ph"}>{value ? formatDate(value, L) : ph}</span>
       </button>
       {open ? (
-        <div className="cs-datepicker__pop" role="dialog">
+        <div className="cs-datepicker__pop" role="dialog" aria-label={label || ph}>
           <Calendar value={value} lang={L} onChange={(d) => { onChange && onChange(d); setOpen(false); }} />
         </div>
       ) : null}
     </div>
   );
-}
+});

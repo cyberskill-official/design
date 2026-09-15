@@ -2,7 +2,7 @@ import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill SegmentedControl — pill toggle group (single select). Matches the Status Hub lens switcher. */
-export function SegmentedControl({ options = [], value, onChange, className, ...props }) {
+export const SegmentedControl = React.forwardRef(function SegmentedControl({ options = [], value, onChange, className, ...props }, forwardedRef) {
   const refs = React.useRef([]);
   const idx = Math.max(0, options.findIndex((o) => o.value === value));
   const key = (e, i) => {
@@ -17,7 +17,7 @@ export function SegmentedControl({ options = [], value, onChange, className, ...
     const b = refs.current[n]; if (b) b.focus();
   };
   return (
-    <div role="tablist" className={cx("cs-segmented", className)} {...props}>
+    <div ref={forwardedRef} role="tablist" className={cx("cs-segmented", className)} {...props}>
       {options.map((o, i) => (
         <button key={o.value} type="button" role="tab" aria-selected={value === o.value}
           tabIndex={i === idx ? 0 : -1} ref={(el) => (refs.current[i] = el)} onKeyDown={(e) => key(e, i)}
@@ -28,4 +28,4 @@ export function SegmentedControl({ options = [], value, onChange, className, ...
       ))}
     </div>
   );
-}
+});

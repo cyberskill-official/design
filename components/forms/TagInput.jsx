@@ -1,9 +1,10 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill TagInput — multi-value token input. Enter/comma adds, Backspace removes last, blur commits. */
-export function TagInput({
+export const TagInput = React.forwardRef(function TagInput({
   id,
   label,
   value,
@@ -14,7 +15,7 @@ export function TagInput({
   disabled = false,
   lang,
   className,
-}) {
+}, forwardedRef) {
   const [inner, setInner] = React.useState(defaultValue);
   const tags = value != null ? value : inner;
   const [q, setQ] = React.useState("");
@@ -39,7 +40,7 @@ export function TagInput({
   const gid = React.useId();
   const sid = id ?? gid;
   return (
-    <label ref={ref} className={cx("cs-field", disabled && "is-disabled", className)} htmlFor={sid}>
+    <label ref={mergeRefs(ref, forwardedRef)} className={cx("cs-field", disabled && "is-disabled", className)} htmlFor={sid}>
       {label ? <span className="cs-field__label">{label}</span> : null}
       <div className="cs-taginput">
         {tags.map((tag) => (
@@ -78,4 +79,4 @@ export function TagInput({
       </div>
     </label>
   );
-}
+});

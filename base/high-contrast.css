@@ -1,0 +1,34 @@
+/* High-contrast theme pack — not a fifth product axis.
+ * Activate with data-cs-contrast="high" (ThemeProvider) or prefers-contrast: more.
+ * Anchors (Umber / Ochre) stay immutable. */
+
+[data-cs-contrast="high"] {
+  --cs-color-border-default: #231a12;
+  --cs-color-text-muted: #3d2a1c;
+  --cs-color-text-primary: #1a1108;
+  --cs-color-surface-page: #fffaf2;
+  --cs-color-surface-panel: #fffaf2;
+  --cs-color-link: #45210e;
+}
+
+[data-theme="dark"][data-cs-contrast="high"],
+[data-theme="system"][data-cs-contrast="high"] {
+  --cs-color-border-default: #f5ead9;
+  --cs-color-text-muted: #e6d4be;
+  --cs-color-text-primary: #fff6e8;
+  --cs-color-surface-page: #1a1108;
+  --cs-color-surface-panel: #221710;
+  --cs-color-link: #f4ba17;
+}
+
+@media (prefers-contrast: more) {
+  :root:not([data-cs-contrast="standard"]) {
+    --cs-color-border-default: #231a12;
+    --cs-color-text-muted: #3d2a1c;
+  }
+  [data-theme="dark"]:not([data-cs-contrast="standard"]),
+  [data-theme="system"]:not([data-cs-contrast="standard"]) {
+    --cs-color-border-default: #f5ead9;
+    --cs-color-text-muted: #e6d4be;
+  }
+}

@@ -2,7 +2,7 @@ import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Collapsible — single expand panel without Accordion chrome. */
-export function Collapsible({
+export const Collapsible = React.forwardRef(function Collapsible({
   open,
   defaultOpen = false,
   onOpenChange,
@@ -11,7 +11,7 @@ export function Collapsible({
   children,
   className,
   ...props
-}) {
+}, forwardedRef) {
   const uncontrolled = open === undefined;
   const [internal, setInternal] = React.useState(!!defaultOpen);
   const isOpen = uncontrolled ? internal : !!open;
@@ -23,7 +23,7 @@ export function Collapsible({
   const panelId = React.useId();
   const triggerId = React.useId();
   return (
-    <div className={cx("cs-collapsible", className)} {...props}>
+    <div ref={forwardedRef} className={cx("cs-collapsible", className)} {...props}>
       <button
         type="button"
         id={triggerId}
@@ -46,4 +46,4 @@ export function Collapsible({
       ) : null}
     </div>
   );
-}
+});

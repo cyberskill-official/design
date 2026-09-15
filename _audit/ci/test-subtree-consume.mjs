@@ -23,6 +23,7 @@ import { createServer } from 'node:http';
 import { readFileSync, statSync } from 'node:fs';
 import { extname } from 'node:path';
 import { chromium } from 'playwright';
+import { ensurePlaywrightChromium } from '../../scripts/ensure-playwright.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -112,6 +113,7 @@ try {
 
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   const { port } = server.address();
+  await ensurePlaywrightChromium();
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
   page.on('pageerror', (e) => console.error('pageerror', e.message));

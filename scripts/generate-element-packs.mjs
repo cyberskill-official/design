@@ -352,6 +352,11 @@ function emitCss(packs) {
   --cs-color-surface-page: color-mix(in oklab, var(--cs-accent) 8%, #1a1108);
   --cs-color-surface-raised: color-mix(in oklab, var(--cs-accent) 14%, #2b1e14);
   --cs-color-border-default: color-mix(in oklab, var(--cs-accent) 40%, #4a3a2c);
+  --cs-component-button-primary-bg: var(--cs-accent-strong);
+  --cs-component-button-primary-fg: var(--cs-accent-on);
+  --cs-color-text-accent: var(--cs-accent-bright);
+  --cs-color-link: var(--cs-accent-bright);
+  --cs-color-link-hover: var(--cs-color-text-primary);
 }
 @media (prefers-color-scheme: dark) {
   [data-theme="system"] [data-cs-element], [data-cs-element][data-theme="system"] {
@@ -359,6 +364,11 @@ function emitCss(packs) {
     --cs-color-surface-page: color-mix(in oklab, var(--cs-accent) 8%, #1a1108);
     --cs-color-surface-raised: color-mix(in oklab, var(--cs-accent) 14%, #2b1e14);
     --cs-color-border-default: color-mix(in oklab, var(--cs-accent) 40%, #4a3a2c);
+    --cs-component-button-primary-bg: var(--cs-accent-strong);
+    --cs-component-button-primary-fg: var(--cs-accent-on);
+    --cs-color-text-accent: var(--cs-accent-bright);
+    --cs-color-link: var(--cs-accent-bright);
+    --cs-color-link-hover: var(--cs-color-text-primary);
   }
 }
 
@@ -375,23 +385,7 @@ function emitCss(packs) {
     css += '\n';
   }
 
-  const ctaRemap = `  --cs-component-button-primary-bg: var(--cs-accent-strong);
-  --cs-component-button-primary-fg: var(--cs-accent-on);
-  --cs-color-text-accent: var(--cs-accent-bright);
-  --cs-color-link: var(--cs-accent-bright);
-  --cs-color-link-hover: var(--cs-color-text-primary);`;
-
-  css += `/* ---- Dark theme CTA remaps inside element scopes ---- */
-[data-theme="dark"] [data-cs-element], [data-cs-element][data-theme="dark"] {
-${ctaRemap}
-}
-@media (prefers-color-scheme: dark) {
-  [data-theme="system"] [data-cs-element], [data-cs-element][data-theme="system"] {
-${ctaRemap}
-  }
-}
-
-/* ---- Aurora washes ---- */
+  css += `/* ---- Aurora washes ---- */
 .cs-aurora-wash { background-image: url("../assets/aurora-tho.webp"); background-size: cover; background-position: center; }
 [data-cs-element="hoa"] .cs-aurora-wash { background-image: url("../assets/aurora-hoa.webp"); }
 [data-cs-element="thuy"] .cs-aurora-wash { background-image: url("../assets/aurora-thuy.webp"); }

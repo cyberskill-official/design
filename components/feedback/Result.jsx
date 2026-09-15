@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -9,16 +10,16 @@ const ART = {
 };
 
 /** CyberSkill Result — full status view (success/error/warning/info): icon, title, body, actions. */
-export function Result({ status = "info", title, children, actions, lang, className }) {
+export const Result = React.forwardRef(function Result({ status = "info", title, children, actions, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Result", L);
   const tt = title != null ? title : t(status);
   return (
-    <div ref={ref} className={cx("cs-result", "cs-result--" + status, className)} role="status">
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-result", "cs-result--" + status, className)} role="status">
       <span className="cs-result__icon" aria-hidden="true">{ART[status] || ART.info}</span>
       <h2 className="cs-result__title">{tt}</h2>
       {children ? <div className="cs-result__body">{children}</div> : null}
       {actions ? <div className="cs-result__actions">{actions}</div> : null}
     </div>
   );
-}
+});

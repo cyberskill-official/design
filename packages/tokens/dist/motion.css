@@ -1,0 +1,25 @@
+/* CyberSkill — motion tokens (convention).
+ * The system favours calm, purposeful motion and always honours
+ * prefers-reduced-motion. Durations are short; easing is a soft
+ * decelerate. These are conventions layered on the doctrine, not raw
+ * source tokens — keep motion subtle (fades, small translate/scale). */
+:root {
+  --cs-duration-instant: 80ms; /* @kind other */
+  --cs-duration-fast: 120ms; /* @kind other */
+  --cs-duration-base: 200ms; /* @kind other */
+  --cs-duration-slow: 320ms; /* @kind other */
+
+  --cs-ease-standard: cubic-bezier(0.2, 0, 0, 1);    /* @kind other */ /* decelerate — most transitions */
+  --cs-ease-entrance: cubic-bezier(0, 0, 0, 1);      /* @kind other */ /* enter */
+  --cs-ease-exit: cubic-bezier(0.4, 0, 1, 1);        /* @kind other */ /* exit */
+  --cs-ease-emphasized: cubic-bezier(0.2, 0, 0, 1);  /* @kind other */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --cs-duration-instant: 0ms; /* @kind other */
+    --cs-duration-fast: 0ms; /* @kind other */
+    --cs-duration-base: 0ms; /* @kind other */
+    --cs-duration-slow: 0ms; /* @kind other */
+  }
+}

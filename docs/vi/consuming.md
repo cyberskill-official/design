@@ -2,7 +2,7 @@
 
 Cách mọi project — do người hoặc agent điều khiển — áp dụng design system HTML-first này, và cách nhận update an toàn. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
-**Tên package:** `@cyberskill/design` (xem `package.json`). Không coi `@cyberskill/react` lịch sử là đường cài cho monolith này.
+**Tên package:** `@cyberskill/design` vẫn là facade tương thích trong sáu tháng (xem `package.json`). Sản phẩm mới nên cài `@cyberskill/react` + `@cyberskill/tokens` (ESM đã compile, không JSX thô). Đường monolith lịch sử vẫn chạy và vẫn cần bundler hiểu JSX.
 
 ## Khi nào dùng
 
@@ -55,10 +55,12 @@ Rồi link styles và import component. **App Next.js / Vite / SSR** dùng entry
 ```ts
 import { Button, TextField } from "@cyberskill/design";
 // tương đương: import { Button } from "@cyberskill/design/react";
-import "@cyberskill/design/styles.css";
+import "@cyberskill/design/styles.scoped.css"; // bọc app trong .cs-root — không reset body tài liệu
 ```
 
-Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng source). Entry mặc định (`_esm/react.mjs`) là **barrel `"use client"`** — Server Component App Router có thể `import { Button } from "@cyberskill/design"` mà không cần shim client từng import. React và react-dom là **peerDependencies** — app của bạn cung cấp. Types publish dùng `export type *` (**TypeScript 5.0+**). **Không** import `_esm/cs.mjs` (hay `@cyberskill/design/legacy`) vào bundler SSR; đường đó self-ensure React qua CDN và side-load `_ds_bundle.js` chỉ cho browser.
+Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng source). App không được transpile JSX thì import component đã compile từ `@cyberskill/design/stable` (cùng API workspace `@cyberskill/react`). Entry mặc định (`_esm/react.mjs`) là **barrel `"use client"`** — Server Component App Router có thể `import { Button } from "@cyberskill/design"` mà không cần shim client từng import. React và react-dom là **peerDependencies** — app của bạn cung cấp. Types publish dùng `export type *` (**TypeScript 5.0+**). **Không** import `_esm/cs.mjs` (hay `@cyberskill/design/legacy`) vào bundler SSR; đường đó self-ensure React qua CDN và side-load `_ds_bundle.js` chỉ cho browser.
+
+Sản phẩm mới nên ưu tiên package workspace (`@cyberskill/react`, `@cyberskill/tokens`, `@cyberskill/themes`) trong `docs/package-topology.md`. `@cyberskill/design` vẫn là facade tương thích sáu tháng. Bọc app trong `ThemeProvider` và đặt `getThemeInitScript()` trong `<head>` (`@cyberskill/design/theme`). **Host embed phải dùng `styles.scoped.css`** (hoặc `@cyberskill/tokens/css` + `.cs-root`) để `base/reset.css` không sơn `body`. Surface full-page CyberSkill vẫn được link `styles.css`. Engines: Node `>=20`. Trình duyệt: xem `docs/support-matrix.md`.
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) hoặc tiếp tục dùng đường cây tĩnh bên dưới. Tarball đã publish là **cả cây portable** (styles, tokens, components, templates, guidelines, docs, UI kits) — không phải subset “chỉ lib” tối thiểu. Tooling chỉ-host (Storybook, `_audit/`) không nằm trong `files[]`.
 
@@ -105,6 +107,8 @@ Consumer bỏ qua `styles.css` để tự kiểm soát font loading (`cyberskill
 - Anchors (Umber/Ochre), tên class `.cs-*`, và tên token `--cs-*` là hợp đồng ổn định — an toàn để phụ thuộc. Đổi tên phá vỡ những hợp đồng đó phải hiếm và được gọi ra trong PR/docs khi xảy ra.
 
 - **Chạy lại smoke test sau nâng cấp.** Mở `_audit/consumer-smoke-test.html` và bảng Health đầy đủ (`_audit/run.html`) trên tip mới — runner chứng minh đường packaged vẫn resolve.
+
+- **Canary vs latest.** Prerelease dùng `npx changeset pre enter canary` và `CS_NPM_DIST_TAG=canary` trên `npm-publish.yml`. Đừng cài `canary` cho sản phẩm production. Rollback rehearsal là `npm run upgrade:rehearse` (<15 phút).
 
 ### ADOPT-001 — bump consumer đã biết lên 1.7.x
 

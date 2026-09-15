@@ -1,0 +1,19 @@
+{
+  "name": "@cyberskill/tokens",
+  "version": "1.7.2",
+  "private": false,
+  "type": "module",
+  "description": "CyberSkill design tokens (DTCG, CSS, JS). No templates or vendor runtimes.",
+  "license": "UNLICENSED",
+  "exports": {
+    ".": "./index.js",
+    "./css": "./dist/tokens.css",
+    "./css/style-axis": "./dist/styles.css",
+    "./css/high-contrast": "./dist/high-contrast.css",
+    "./css/scope": "./dist/scope.css",
+    "./dtcg": "./dist/tokens.dtcg.json",
+    "./layers": "./dist/layers.json",
+    "./package.json": "./package.json"
+  },
+  "files": ["index.js", "dist", "README.md"]
+}

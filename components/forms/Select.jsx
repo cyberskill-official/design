@@ -1,10 +1,11 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Select — native <select> in the .cs-field frame with a chevron.
  *  Pass `options` [{value,label}] or <option> children. */
-export function Select({ id, label, description, error, options, children, disabled = false, lang, className, placeholder, ...props }) {
+export const Select = React.forwardRef(function Select({ id, label, description, error, options, children, disabled = false, lang, className, placeholder, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Select", L);
   const gid = React.useId();
@@ -13,7 +14,7 @@ export function Select({ id, label, description, error, options, children, disab
   const errId = error ? sid + "-err" : undefined;
   const describedBy = [descId, errId].filter(Boolean).join(" ") || undefined;
   return (
-    <label ref={ref} className={cx("cs-field", disabled && "is-disabled", error && "is-invalid", className)} htmlFor={sid}>
+    <label ref={mergeRefs(ref, forwardedRef)} className={cx("cs-field", disabled && "is-disabled", error && "is-invalid", className)} htmlFor={sid}>
       {label ? <span className="cs-field__label">{label}</span> : null}
       {description ? <span id={descId} className="cs-field__description">{description}</span> : null}
       <span className="cs-select">
@@ -28,4 +29,4 @@ export function Select({ id, label, description, error, options, children, disab
       {error ? <span id={errId} className="cs-field__error" role="alert">{error}</span> : null}
     </label>
   );
-}
+});

@@ -10,7 +10,9 @@
     { "story": "Docs/Start/Introduction", "mdx": "stories/Docs/Introduction.mdx" },
     { "story": "Docs/Start/The Four Axes", "mdx": "stories/Docs/TheFourAxes.mdx" },
     { "story": "Docs/Start/Voice & Language", "mdx": "stories/Docs/VoiceAndLanguage.mdx" },
-    { "story": "Docs/Start/Library" }
+    { "story": "Docs/Start/Library" },
+    { "story": "Docs/Start/Coverage dashboard" },
+    { "story": "Docs/Start/Component contract template" }
   ],
   "pages": [
     { "path": "docs/consuming.md", "story": "Docs/Guides/Consuming", "mdx": "stories/Docs/Consuming.mdx", "labelEn": "Consuming & upgrading", "labelVi": "Tiêu thụ & nâng cấp" },
@@ -28,7 +30,16 @@
     { "path": "docs/products.md", "story": "Docs/Guides/Products", "mdx": "stories/Docs/Products.mdx", "labelEn": "Products", "labelVi": "Sản phẩm" },
     { "path": "docs/contrast-report.md", "story": "Docs/Guides/Contrast", "mdx": "stories/Docs/Contrast.mdx", "labelEn": "Contrast report", "labelVi": "Báo cáo contrast" },
     { "path": "docs/figma.md", "story": "Docs/Guides/Figma", "mdx": "stories/Docs/Figma.mdx", "labelEn": "Figma", "labelVi": "Figma" },
+    { "path": "docs/support-matrix.md", "story": "Docs/Guides/Support matrix", "labelEn": "Support matrix", "labelVi": "Ma trận hỗ trợ" },
+    { "path": "docs/component-contract.md", "story": "Docs/Guides/Component contract", "labelEn": "Component contract", "labelVi": "Hợp đồng component" },
+    { "path": "docs/token-layers.md", "story": "Docs/Guides/Token layers", "labelEn": "Token layers", "labelVi": "Lớp token" },
+    { "path": "docs/trusted-html.md", "story": "Docs/Guides/Trusted HTML", "labelEn": "Trusted HTML", "labelVi": "HTML tin cậy" },
+    { "path": "docs/package-topology.md", "story": "Docs/Guides/Package topology", "labelEn": "Package topology", "labelVi": "Topology package" },
+    { "path": "docs/at-protocol.md", "story": "Docs/Guides/AT protocol", "labelEn": "AT protocol", "labelVi": "Giao thức AT" },
+    { "path": "docs/slo.md", "story": "Docs/Guides/SLOs", "labelEn": "SLOs", "labelVi": "SLO" },
+    { "path": "docs/telemetry.md", "story": "Docs/Guides/Telemetry", "labelEn": "Telemetry", "labelVi": "Telemetry" },
     { "path": "docs/doctrine.md", "story": "Docs/Maintainers/Doctrine", "labelEn": "Doctrine", "labelVi": "Học thuyết" },
+    { "path": "docs/governance.md", "story": "Docs/Maintainers/Governance", "labelEn": "Governance", "labelVi": "Quản trị" },
     { "path": "docs/decisions.md", "story": "Docs/Maintainers/Decisions", "labelEn": "Decisions", "labelVi": "Quyết định" },
     { "path": "docs/ci-cd.md", "story": "Docs/Maintainers/CI/CD", "labelEn": "CI/CD automation", "labelVi": "CI/CD" },
     { "path": "docs/quality-gates.md", "story": "Docs/Maintainers/Quality gates", "labelEn": "Quality gates", "labelVi": "Quality gates" },

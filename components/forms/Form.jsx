@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -49,7 +50,7 @@ export function setPath(obj, path, value) {
  * context — value/onChange auto-wired, per-field errors auto-shown, submit blocked until clean.
  * Dotted names (e.g. teammates.0.name) work with FormFieldArray.
  */
-export function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, children, lang, className, ...props }) {
+export const Form = React.forwardRef(function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, children, lang, className, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Form", L);
   const [values, setValues] = React.useState(() => initialValues || {});
@@ -95,7 +96,7 @@ export function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, 
   const ctx = { values, setValue, setValues, errors: merged, pending, runRules, setRuleErrors, t, L };
   const Ctx = getFormCtx();
   return (
-    <Ctx.Provider value={ctx}>
+    <Ctx.Provider ref={forwardedRef} value={ctx}>
       <form {...props} ref={ref} className={cx("cs-form", pending && "is-pending", className)} noValidate
         aria-busy={pending || undefined}
         onSubmit={async (e) => {
@@ -129,7 +130,7 @@ export function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, 
       </form>
     </Ctx.Provider>
   );
-}
+});
 
 /**
  * CyberSkill FormField — label + control + hint/error line. With `name` inside a Form,
@@ -137,7 +138,7 @@ export function Form({ onSubmit, errors = {}, rules, asyncRules, initialValues, 
  * (set valueProp="checked" for Checkbox/Switch/Toggle-shaped children) and the field's
  * context error shows automatically (an explicit `error` prop still wins).
  */
-export function FormField({ label, name, required = false, hint, error, valueProp = "value", children, lang, className }) {
+export const FormField = React.forwardRef(function FormField({ label, name, required = false, hint, error, valueProp = "value", children, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Form", L);
   const ctx = React.useContext(getFormCtx());
@@ -155,19 +156,19 @@ export function FormField({ label, name, required = false, hint, error, valuePro
     child = React.cloneElement(children, wire);
   }
   return (
-    <label ref={ref} className={cx("cs-formfield", err && "has-error", className)}>
+    <label ref={mergeRefs(ref, forwardedRef)} className={cx("cs-formfield", err && "has-error", className)}>
       <span className="cs-formfield__label">{label}{required ? <em aria-label={t("required")}> *</em> : null}</span>
       {child}
       {err ? <span className="cs-formfield__error" role="alert">{err}</span> : hint ? <span className="cs-formfield__hint">{hint}</span> : null}
     </label>
   );
-}
+});
 
 /**
  * FormFieldArray — manage an array of row objects under `name` in the surrounding Form.
  * children: ({ index, item, remove, path }) => ReactNode
  */
-export function FormFieldArray({
+export const FormFieldArray = React.forwardRef(function FormFieldArray({
   name,
   children,
   label,
@@ -177,7 +178,7 @@ export function FormFieldArray({
   defaultItem,
   className,
   lang,
-}) {
+}, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Form", L);
   const ctx = React.useContext(getFormCtx());
@@ -196,7 +197,7 @@ export function FormFieldArray({
     setList(list.filter((_, idx) => idx !== i));
   };
   return (
-    <div ref={ref} className={cx("cs-form-array", className)} data-name={name}>
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-form-array", className)} data-name={name}>
       {label ? <div className="cs-formfield__label" style={{ marginBottom: 8 }}>{label}</div> : null}
       <div className="cs-form-array__rows">
         {list.map((item, index) => (
@@ -223,13 +224,13 @@ export function FormFieldArray({
       </button>
     </div>
   );
-}
+});
 
 /**
  * FormWizard — multi-step controller wrapping Form context without a nested <form>.
  * Each step may declare `rules` and a `render()` body of FormFields.
  */
-export function FormWizard({
+export const FormWizard = React.forwardRef(function FormWizard({
   steps = [],
   initialValues,
   onComplete,
@@ -238,7 +239,7 @@ export function FormWizard({
   nextLabel,
   backLabel,
   finishLabel,
-}) {
+}, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Form", L);
   const [step, setStep] = React.useState(0);
@@ -284,7 +285,7 @@ export function FormWizard({
   };
   const Ctx = getFormCtx();
   return (
-    <Ctx.Provider value={ctx}>
+    <Ctx.Provider ref={forwardedRef} value={ctx}>
       <div ref={ref} className={cx("cs-form-wizard", className)} data-step={step}>
         <ol className="cs-form-wizard__steps" style={{ display: "flex", gap: 10, listStyle: "none", padding: 0, margin: "0 0 16px", flexWrap: "wrap" }}>
           {steps.map((s, i) => (
@@ -321,4 +322,4 @@ export function FormWizard({
       </div>
     </Ctx.Provider>
   );
-}
+});

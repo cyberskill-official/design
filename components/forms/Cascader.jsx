@@ -5,7 +5,7 @@ import { cx } from "../_utils/cx.js";
 const EMPTY_PATH = [];
 
 /** CyberSkill Cascader — column-per-level picker for hierarchies (province → district style). */
-export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder, label, disabled = false, lang, className }) {
+export const Cascader = React.forwardRef(function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder, label, disabled = false, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const [path, setPath] = React.useState(value);
   const wrap = React.useRef(null);
@@ -125,4 +125,4 @@ export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder
       ) : null}
     </div>
   );
-}
+});

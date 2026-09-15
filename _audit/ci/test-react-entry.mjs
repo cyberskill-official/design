@@ -43,6 +43,8 @@ assert(ex["."]?.types === "./_esm/react.d.ts", 'exports["."].types → react.d.t
 assert(ex["./react"]?.import === "./_esm/react.mjs", 'exports["./react"] → react.mjs');
 assert(ex["./react"]?.types === "./_esm/react.d.ts", 'exports["./react"].types → react.d.ts');
 assert(ex["./legacy"]?.import === "./_esm/cs.mjs", 'exports["./legacy"] → cs.mjs');
+assert(ex["./stable"]?.import === "./packages/react/index.js", 'exports["./stable"] → compiled react');
+assert(ex["./stable"]?.types === "./packages/react/index.d.ts", 'exports["./stable"].types → compiled react types');
 assert(ex["./styles.css"], 'exports["./styles.css"] present');
 assert(ex["./components/*"] === "./components/*", 'exports["./components/*"] subpath present (FIND-024)');
 assert(

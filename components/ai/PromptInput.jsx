@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -7,14 +8,14 @@ import { cx } from "../_utils/cx.js";
  * newline). Works controlled (value/onChange) or uncontrolled. The hint states
  * that Lumi replies, then hands clear wishes to a human — keep that disclosure.
  */
-export function PromptInput({
+export const PromptInput = React.forwardRef(function PromptInput({
   value, onChange, onSubmit,
   placeholder,
   sendLabel,
   hint,
   lang,
   disabled = false, busy = false, className,
-}) {
+}, forwardedRef) {
   const [inner, setInner] = React.useState("");
   const val = value != null ? value : inner;
   const setVal = (v) => (onChange ? onChange(v) : setInner(v));
@@ -25,11 +26,14 @@ export function PromptInput({
   const sl = sendLabel != null ? sendLabel : t("send");
   const ht = hint !== undefined ? hint : t("hint");
   return (
-    <div ref={ref} className={cx("cs-prompt", className)}>
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-prompt", className)}>
       <textarea
         className="cs-prompt__field" rows={1} value={val} placeholder={ph} disabled={disabled}
         onChange={(e) => setVal(e.target.value)}
-        onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); } }}
+        onKeyDown={(e) => {
+          if (e.nativeEvent.isComposing || e.keyCode === 229) return;
+          if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); }
+        }}
       />
       <div className="cs-prompt__bar">
         {ht ? (
@@ -45,4 +49,4 @@ export function PromptInput({
       </div>
     </div>
   );
-}
+});

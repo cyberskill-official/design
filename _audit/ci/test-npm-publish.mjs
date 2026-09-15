@@ -10,6 +10,7 @@ import {
   assertRegistryPresence,
   npmErrorSnippet,
   oidcPublishEnv,
+  resolveNpmDistTag,
 } from './npm-publish.mjs';
 import { readFileSync } from 'node:fs';
 
@@ -78,6 +79,21 @@ const presence = assertRegistryPresence({
   spawn: makePresenceSpawn('"1.2.3"\n', '"1.2.3"\n'),
 });
 assert(presence.ok && presence.spec === '@cyberskill/design@1.2.3' && presence.latest === '1.2.3', 'presence ok');
+assert(resolveNpmDistTag({}) === 'latest', 'default dist-tag');
+assert(resolveNpmDistTag({ CS_NPM_DIST_TAG: 'canary' }) === 'canary', 'canary dist-tag');
+const canaryPresence = assertRegistryPresence({
+  name: '@cyberskill/design',
+  version: '1.2.3-canary.0',
+  distTag: 'canary',
+  spawn: (cmd, args) => {
+    assert(cmd === 'npm', 'canary spawn npm');
+    if (args.includes('dist-tags.canary')) {
+      return { status: 0, stdout: '"1.2.3-canary.0"\n', stderr: '' };
+    }
+    return { status: 0, stdout: '"1.2.3-canary.0"\n', stderr: '' };
+  },
+});
+assert(canaryPresence.distTag === 'canary' && canaryPresence.tagged === '1.2.3-canary.0', 'canary presence');
 
 let threw = false;
 try {

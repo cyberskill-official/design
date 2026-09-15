@@ -1,0 +1,2286 @@
+{
+  "generatedBy": "scripts/generate-stable-contracts.mjs",
+  "headings": [
+    "Anatomy",
+    "Usage",
+    "States",
+    "Content",
+    "Keyboard / AT",
+    "Tokens",
+    "Responsive / RTL / dark / high-contrast",
+    "Code",
+    "SSR",
+    "Migration",
+    "Design status"
+  ],
+  "components": [
+    {
+      "name": "Alert",
+      "sourcePath": "components/feedback/Alert.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "svg",
+      "classes": [
+        "cs-alert",
+        "cs-alert__icon",
+        "cs-alert__title",
+        "cs-alert__body",
+        "cs-alert__dismiss"
+      ],
+      "props": [
+        "variant",
+        "title",
+        "icon",
+        "children",
+        "onDismiss",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "title",
+        "icon",
+        "children"
+      ],
+      "aria": [
+        "role=status",
+        "aria-hidden",
+        "aria-label"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-semantic-danger",
+        "--cs-radius-md",
+        "--cs-color-border-default",
+        "--cs-color-surface-panel",
+        "--cs-color-text-primary",
+        "--cs-color-text-accent",
+        "--cs-color-text-muted",
+        "--cs-font-size-sm",
+        "--cs-font-size-md",
+        "--cs-radius-sm",
+        "--cs-color-focus-ring",
+        "--cs-accent-bright",
+        "--cs-color-semantic-info",
+        "--cs-color-semantic-success",
+        "--cs-color-semantic-warning"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [],
+      "prompt": "Alert — inline banner. Semantic `variant` sets the accent border + default icon (override with `icon`). Meaning lives in the text, not colour alone.",
+      "jsdoc": "CyberSkill Alert — inline banner. variant: info | success | warning | danger.",
+      "anatomy": "Alert. CyberSkill Alert — inline banner. variant: info | success | warning | danger. Semantic root <svg>. Host class cs-alert. Slots: title, icon, children.",
+      "usage": "Alert — inline banner. Semantic `variant` sets the accent border + default icon (override with `icon`). Meaning lives in the text, not colour alone.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Alert reflows at 320px, 200%, and 400% zoom (host cs-alert). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "AlertDialog",
+      "sourcePath": "components/overlays/AlertDialog.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": true,
+      "root": "div",
+      "classes": [
+        "cs-dialog",
+        "cs-dialog__overlay",
+        "cs-alert",
+        "cs-dialog__header",
+        "cs-dialog__title",
+        "cs-dialog__body",
+        "cs-dialog__actions",
+        "cs-button"
+      ],
+      "props": [
+        "open",
+        "defaultOpen",
+        "onOpenChange",
+        "title",
+        "description",
+        "children",
+        "confirmLabel",
+        "cancelLabel",
+        "tone",
+        "variant",
+        "onConfirm",
+        "onCancel",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "title",
+        "description",
+        "children"
+      ],
+      "aria": [
+        "role=alertdialog",
+        "aria-hidden",
+        "aria-modal",
+        "aria-labelledby",
+        "aria-describedby"
+      ],
+      "keys": [
+        "Escape"
+      ],
+      "tokens": [
+        "--cs-depth-modal",
+        "--cs-color-surface-panel",
+        "--cs-radius-md",
+        "--cs-shadow-xl",
+        "--cs-color-text-primary",
+        "--cs-space-6",
+        "--cs-color-semantic-danger",
+        "--cs-space-4",
+        "--cs-font-family-ui",
+        "--cs-color-border-default",
+        "--cs-duration-base",
+        "--cs-ease-entrance",
+        "--cs-ease-standard",
+        "--cs-color-text-accent",
+        "--cs-color-text-muted",
+        "--cs-font-size-sm"
+      ],
+      "forwardRef": true,
+      "overlay": true,
+      "i18n": true,
+      "states": [
+        "controlled open"
+      ],
+      "prompt": "AlertDialog — first-class confirm / destructive modal (`role=\"alertdialog\"`). Distinct from Popconfirm (inline bubble) and Dialog (general modal). Bilingual Confirm/Cancel via the registry.",
+      "jsdoc": "CyberSkill AlertDialog — first-class destructive/confirm modal (role=alertdialog). Distinct from Popconfirm (inline bubble) and Dialog (general modal). Focus trap + restore via overlay manager; bilingual confirm/cancel via the registry.",
+      "anatomy": "AlertDialog. CyberSkill AlertDialog — first-class destructive/confirm modal (role=alertdialog). Distinct from Popconfirm (inline bubble) and Dialog (general modal). Focus trap + restore via overlay manager; bilingual confirm/cancel via the registry. Semantic root <div>. Host class cs-dialog. Slots: title, description, children.",
+      "usage": "AlertDialog — first-class confirm / destructive modal (`role=\"alertdialog\"`). Distinct from Popconfirm (inline bubble) and Dialog (general modal). Bilingual Confirm/Cancel via the registry.",
+      "keyboard": "Handles Escape. Overlay manager restores focus and locks scroll.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "AlertDialog reflows at 320px, 200%, and 400% zoom (host cs-dialog). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
+    },
+    {
+      "name": "Avatar",
+      "sourcePath": "components/data/Avatar.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "span",
+      "classes": [
+        "cs-avatar",
+        "cs-avatar--square"
+      ],
+      "props": [
+        "src",
+        "name",
+        "size",
+        "square",
+        "className"
+      ],
+      "slots": [],
+      "aria": [
+        "aria-hidden"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-brand-umber",
+        "--cs-color-brand-ochre",
+        "--cs-font-family-ui",
+        "--cs-font-size-xs",
+        "--cs-font-size-sm",
+        "--cs-font-size-lg",
+        "--cs-radius-md",
+        "--cs-color-surface-panel"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [],
+      "prompt": "Avatar / AvatarGroup — image or auto-initials on Umber. Sizes sm/md/lg; `square` for app tiles; stack several in `AvatarGroup`.",
+      "jsdoc": "CyberSkill Avatar — image or initials on Umber. sizes sm|md|lg; square variant.",
+      "anatomy": "Avatar. CyberSkill Avatar — image or initials on Umber. sizes sm|md|lg; square variant. Semantic root <span>. Host class cs-avatar.",
+      "usage": "Avatar / AvatarGroup — image or auto-initials on Umber. Sizes sm/md/lg; `square` for app tiles; stack several in `AvatarGroup`.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Avatar reflows at 320px, 200%, and 400% zoom (host cs-avatar). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "AvatarGroup",
+      "sourcePath": "components/data/Avatar.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "span",
+      "classes": [
+        "cs-avatar",
+        "cs-avatar--square"
+      ],
+      "props": [
+        "className",
+        "children"
+      ],
+      "slots": [
+        "children"
+      ],
+      "aria": [
+        "aria-hidden"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-brand-umber",
+        "--cs-color-brand-ochre",
+        "--cs-font-family-ui",
+        "--cs-font-size-xs",
+        "--cs-font-size-sm",
+        "--cs-font-size-lg",
+        "--cs-radius-md",
+        "--cs-color-surface-panel"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [],
+      "prompt": "Avatar / AvatarGroup — image or auto-initials on Umber. Sizes sm/md/lg; `square` for app tiles; stack several in `AvatarGroup`.",
+      "jsdoc": "CyberSkill Avatar — image or initials on Umber. sizes sm|md|lg; square variant.",
+      "anatomy": "AvatarGroup. CyberSkill Avatar — image or initials on Umber. sizes sm|md|lg; square variant. Semantic root <span>. Host class cs-avatar. Slots: children.",
+      "usage": "Avatar / AvatarGroup — image or auto-initials on Umber. Sizes sm/md/lg; `square` for app tiles; stack several in `AvatarGroup`.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "AvatarGroup reflows at 320px, 200%, and 400% zoom (host cs-avatar). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Badge",
+      "sourcePath": "components/feedback/Badge.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "span",
+      "classes": [
+        "cs-badge",
+        "cs-badge__dot"
+      ],
+      "props": [
+        "variant",
+        "dot",
+        "children",
+        "className"
+      ],
+      "slots": [
+        "children"
+      ],
+      "aria": [
+        "aria-hidden"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-font-family-ui",
+        "--cs-font-size-xs",
+        "--cs-radius-full",
+        "--cs-color-surface-raised",
+        "--cs-color-text-accent",
+        "--cs-color-border-default",
+        "--cs-color-brand-umber",
+        "--cs-color-brand-ochre",
+        "--cs-color-semantic-success",
+        "--cs-color-text-inverse",
+        "--cs-color-semantic-danger",
+        "--cs-color-semantic-warning",
+        "--cs-color-semantic-info"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [],
+      "prompt": "Badge — compact status label. Neutral by default; `solid`/`ochre` for emphasis; `success`/`danger`/`warning`/`info` for state; optional leading `dot`.",
+      "jsdoc": "CyberSkill Badge — compact status label. variant: neutral | solid | ochre | success | danger | warning | info.",
+      "anatomy": "Badge. CyberSkill Badge — compact status label. variant: neutral | solid | ochre | success | danger | warning | info. Semantic root <span>. Host class cs-badge. Slots: children.",
+      "usage": "Badge — compact status label. Neutral by default; `solid`/`ochre` for emphasis; `success`/`danger`/`warning`/`info` for state; optional leading `dot`.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Badge reflows at 320px, 200%, and 400% zoom (host cs-badge). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Breadcrumb",
+      "sourcePath": "components/navigation/Breadcrumb.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "nav",
+      "classes": [
+        "cs-breadcrumb",
+        "cs-breadcrumb__current",
+        "cs-breadcrumb__sep"
+      ],
+      "props": [
+        "items",
+        "lang",
+        "className"
+      ],
+      "slots": [],
+      "aria": [
+        "aria-label",
+        "aria-current",
+        "aria-hidden"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-font-size-sm",
+        "--cs-font-family-ui",
+        "--cs-color-text-muted",
+        "--cs-color-text-accent",
+        "--cs-color-border-default",
+        "--cs-color-text-primary"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [],
+      "prompt": "Breadcrumb — hierarchical trail; last item is the current page.",
+      "jsdoc": "CyberSkill Breadcrumb — hierarchical trail; last item is current.",
+      "anatomy": "Breadcrumb. CyberSkill Breadcrumb — hierarchical trail; last item is current. Semantic root <nav>. Host class cs-breadcrumb.",
+      "usage": "Breadcrumb — hierarchical trail; last item is the current page.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Breadcrumb reflows at 320px, 200%, and 400% zoom (host cs-breadcrumb). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Button",
+      "sourcePath": "components/button/Button.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "button",
+      "classes": [
+        "cs-button",
+        "cs-button--full",
+        "cs-button__icon",
+        "cs-button__label",
+        "cs-button__spinner"
+      ],
+      "props": [
+        "variant",
+        "size",
+        "loading",
+        "disabled",
+        "fullWidth",
+        "icon",
+        "children",
+        "className",
+        "type"
+      ],
+      "slots": [
+        "icon",
+        "children"
+      ],
+      "aria": [
+        "aria-busy",
+        "aria-hidden"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-component-button-primary-bg",
+        "--cs-component-button-radius",
+        "--cs-radius-md",
+        "--cs-component-button-primary-fg",
+        "--cs-component-button-gap",
+        "--cs-component-button-md-min",
+        "--cs-component-button-md-padding",
+        "--cs-duration-fast",
+        "--cs-ease-standard",
+        "--cs-focus-ring",
+        "--cs-color-accent-ochre",
+        "--cs-color-surface-panel",
+        "--cs-color-brand-umber",
+        "--cs-color-surface-raised",
+        "--cs-color-border-default",
+        "--cs-color-brand-ochre"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [
+        "disabled",
+        "loading"
+      ],
+      "prompt": "Button — the primary action control; Umber-filled by default, Ochre focus ring, 44px touch target. Use for the main action in a view; step down to `secondary` / `tertiary` / `ghost` for lower emphasis, `danger` for destructive actions.",
+      "jsdoc": "CyberSkill Button. Umber primary by default; warm hover; Ochre focus ring; 44px comfortable touch target. Renders a real <button>.",
+      "anatomy": "Button. CyberSkill Button. Umber primary by default; warm hover; Ochre focus ring; 44px comfortable touch target. Renders a real <button>. Semantic root <button>. Host class cs-button. Slots: icon, children.",
+      "usage": "Button — the primary action control; Umber-filled by default, Ochre focus ring, 44px touch target. Use for the main action in a view; step down to `secondary` / `tertiary` / `ghost` for lower emphasis, `danger` for destructive actions.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Button reflows at 320px, 200%, and 400% zoom (host cs-button). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "ButtonGroup",
+      "sourcePath": "components/button/ButtonGroup.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "div",
+      "classes": [
+        "cs-btngroup"
+      ],
+      "props": [
+        "children",
+        "label",
+        "className"
+      ],
+      "slots": [
+        "children",
+        "label"
+      ],
+      "aria": [
+        "role=group",
+        "aria-label"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-component-button-radius"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [],
+      "prompt": "ButtonGroup — segmented cluster of Buttons (shared borders, one rounded outline).",
+      "jsdoc": "CyberSkill ButtonGroup — joins adjacent Buttons into one segmented cluster (role=group).",
+      "anatomy": "ButtonGroup. CyberSkill ButtonGroup — joins adjacent Buttons into one segmented cluster (role=group). Semantic root <div>. Host class cs-btngroup. Slots: children, label.",
+      "usage": "ButtonGroup — segmented cluster of Buttons (shared borders, one rounded outline).",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "ButtonGroup reflows at 320px, 200%, and 400% zoom (host cs-btngroup). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Card",
+      "sourcePath": "components/data/Card.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "div",
+      "classes": [
+        "cs-card",
+        "cs-card--flat",
+        "cs-card--interactive",
+        "cs-card__header",
+        "cs-card__title",
+        "cs-card__subtitle",
+        "cs-card__body",
+        "cs-card__footer"
+      ],
+      "props": [
+        "interactive",
+        "flat",
+        "as",
+        "className",
+        "children"
+      ],
+      "slots": [
+        "children"
+      ],
+      "aria": [],
+      "keys": [],
+      "tokens": [
+        "--cs-color-surface-panel",
+        "--cs-color-border-default",
+        "--cs-radius-lg",
+        "--cs-shadow-sm",
+        "--cs-color-text-primary",
+        "--cs-duration-fast",
+        "--cs-ease-standard",
+        "--cs-color-brand-ochre",
+        "--cs-shadow-md",
+        "--cs-text-h4",
+        "--cs-font-line",
+        "--cs-color-text-muted",
+        "--cs-font-size-sm"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [],
+      "prompt": "Card — warm content panel (14px radius, soft shadow). Compose with `CardHeader` / `CardBody` / `CardFooter`. `interactive` makes it a hoverable button; add `className=\"cs-surface-standard\"` for glass over imagery.",
+      "jsdoc": "CyberSkill Card — warm panel (14px radius, soft shadow). Compose with CardHeader/Body/Footer.",
+      "anatomy": "Card. CyberSkill Card — warm panel (14px radius, soft shadow). Compose with CardHeader/Body/Footer. Semantic root <div>. Host class cs-card. Slots: children.",
+      "usage": "Card — warm content panel (14px radius, soft shadow). Compose with `CardHeader` / `CardBody` / `CardFooter`. `interactive` makes it a hoverable button; add `className=\"cs-surface-standard\"` for glass over imagery.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Card reflows at 320px, 200%, and 400% zoom (host cs-card). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Carousel",
+      "sourcePath": "components/data/Carousel.jsx",
+      "maturity": "beta",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": true,
+      "root": "div",
+      "classes": [
+        "cs-carousel",
+        "cs-sr",
+        "cs-carousel__view",
+        "cs-carousel__track",
+        "cs-carousel__slide",
+        "cs-carousel__nav",
+        "cs-carousel__dots",
+        "cs-carousel__dot"
+      ],
+      "props": [
+        "children",
+        "startIndex",
+        "label",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "children",
+        "label"
+      ],
+      "aria": [
+        "role=region",
+        "role=group",
+        "role=tablist",
+        "role=tab",
+        "aria-roledescription",
+        "aria-label",
+        "aria-live",
+        "aria-atomic",
+        "aria-hidden",
+        "aria-selected",
+        "aria-current"
+      ],
+      "keys": [
+        "ArrowUp",
+        "ArrowDown",
+        "ArrowLeft",
+        "ArrowRight",
+        "Home",
+        "End",
+        " "
+      ],
+      "tokens": [
+        "--cs-radius-lg",
+        "--cs-color-border-default",
+        "--cs-color-surface-panel",
+        "--cs-duration-base",
+        "--cs-color-text-primary",
+        "--cs-font-size-md",
+        "--cs-shadow-sm",
+        "--cs-accent"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [],
+      "prompt": "Carousel — slides + arrows + dots (bilingual aria). Wrap any slide content.",
+      "jsdoc": "CyberSkill Carousel — slides with prev/next + dots. children = slides. Bilingual aria.",
+      "anatomy": "Carousel. CyberSkill Carousel — slides with prev/next + dots. children = slides. Bilingual aria. Semantic root <div>. Host class cs-carousel. Slots: children, label.",
+      "usage": "Carousel — slides + arrows + dots (bilingual aria). Wrap any slide content.",
+      "keyboard": "Handles ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Home, End,  .",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Carousel reflows at 320px, 200%, and 400% zoom (host cs-carousel). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Checkbox",
+      "sourcePath": "components/forms/Checkbox.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "label",
+      "classes": [
+        "cs-check",
+        "cs-check__text",
+        "cs-check__desc"
+      ],
+      "props": [
+        "label",
+        "description",
+        "disabled",
+        "className",
+        "children"
+      ],
+      "slots": [
+        "label",
+        "description",
+        "children"
+      ],
+      "aria": [],
+      "keys": [],
+      "tokens": [
+        "--cs-color-text-primary",
+        "--cs-font-family-ui",
+        "--cs-color-brand-umber",
+        "--cs-font-size-sm",
+        "--cs-color-text-muted",
+        "--cs-color-brand-ochre"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [
+        "disabled"
+      ],
+      "prompt": "Checkbox — native checkbox tinted with the brand accent-color, with label + optional description.",
+      "jsdoc": "CyberSkill Checkbox — native checkbox (brand accent-color) + label/description.",
+      "anatomy": "Checkbox. CyberSkill Checkbox — native checkbox (brand accent-color) + label/description. Semantic root <label>. Host class cs-check. Slots: label, description, children.",
+      "usage": "Checkbox — native checkbox tinted with the brand accent-color, with label + optional description.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Checkbox reflows at 320px, 200%, and 400% zoom (host cs-check). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Combobox",
+      "sourcePath": "components/forms/Combobox.jsx",
+      "maturity": "beta",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": true,
+      "root": "div",
+      "classes": [
+        "cs-cb",
+        "cs-combobox",
+        "cs-combobox__caret",
+        "cs-combobox__list",
+        "cs-combobox__opt",
+        "cs-combobox__empty"
+      ],
+      "props": [
+        "options",
+        "value",
+        "onChange",
+        "placeholder",
+        "label",
+        "disabled",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "label"
+      ],
+      "aria": [
+        "role=combobox",
+        "role=listbox",
+        "role=option",
+        "aria-expanded",
+        "aria-controls",
+        "aria-autocomplete",
+        "aria-label",
+        "aria-activedescendant",
+        "aria-hidden",
+        "aria-selected"
+      ],
+      "keys": [
+        "Escape",
+        "Enter",
+        "ArrowUp",
+        "ArrowDown"
+      ],
+      "tokens": [
+        "--cs-font-family-ui",
+        "--cs-color-text-primary",
+        "--cs-color-surface-panel",
+        "--cs-color-border-default",
+        "--cs-radius-md",
+        "--cs-focus-ring",
+        "--cs-color-accent-ochre",
+        "--cs-color-text-muted",
+        "--cs-depth-dropdown",
+        "--cs-shadow-md",
+        "--cs-radius-sm",
+        "--cs-font-size-sm",
+        "--cs-accent-tint",
+        "--cs-accent-strong",
+        "--cs-accent",
+        "--cs-accent-bright"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [
+        "controlled value/onChange",
+        "disabled"
+      ],
+      "prompt": "Combobox — filterable single-select (typeahead + listbox, arrows/Enter/Escape). Bilingual placeholder + empty state via the registry.",
+      "jsdoc": "CyberSkill Combobox — filterable single-select (input + listbox, ARIA combobox pattern). Controlled value/onChange.",
+      "anatomy": "Combobox. CyberSkill Combobox — filterable single-select (input + listbox, ARIA combobox pattern). Controlled value/onChange. Semantic root <div>. Host class cs-combobox. Slots: label.",
+      "usage": "Combobox — filterable single-select (typeahead + listbox, arrows/Enter/Escape). Bilingual placeholder + empty state via the registry.",
+      "keyboard": "Handles Escape, Enter, ArrowUp, ArrowDown.",
+      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "responsive": "Combobox reflows at 320px, 200%, and 400% zoom (host cs-combobox). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "DataGrid",
+      "sourcePath": "components/datatable/DataGrid.jsx",
+      "maturity": "beta",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": true,
+      "root": "div",
+      "classes": [
+        "cs-datagrid",
+        "cs-datagrid--virtual",
+        "cs-table",
+        "cs-datagrid__selcol",
+        "cs-datagrid__pinned",
+        "cs-datagrid__sort",
+        "cs-datagrid__pin",
+        "cs-table__empty"
+      ],
+      "props": [
+        "columns",
+        "rows",
+        "rowKey",
+        "selectable",
+        "selected",
+        "onSelect",
+        "height",
+        "caption",
+        "empty",
+        "lang",
+        "className",
+        "filterText",
+        "filterKeys",
+        "only",
+        "column"
+      ],
+      "slots": [],
+      "aria": [
+        "aria-label",
+        "aria-sort",
+        "aria-hidden"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-border-default",
+        "--cs-radius-md",
+        "--cs-color-surface-panel",
+        "--cs-color-surface-raised",
+        "--cs-accent-tint",
+        "--cs-accent",
+        "--cs-space-4",
+        "--cs-color-text-primary",
+        "--cs-font-size-xs",
+        "--cs-letter-spacing-caps",
+        "--cs-color-text-muted",
+        "--cs-font-family-ui"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [],
+      "prompt": "DataGrid — sortable + selectable table with sticky header.",
+      "jsdoc": "CyberSkill DataGrid — advanced table: sortable columns, selectable rows, sticky header, optional column pin + client filter + row virtualization + optional column order persistence.",
+      "anatomy": "DataGrid. CyberSkill DataGrid — advanced table: sortable columns, selectable rows, sticky header, optional column pin + client filter + row virtualization + optional column order persistence. Semantic root <div>. Host class cs-datagrid.",
+      "usage": "DataGrid — sortable + selectable table with sticky header.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "DataGrid reflows at 320px, 200%, and 400% zoom (host cs-datagrid). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "DatePicker",
+      "sourcePath": "components/forms/DatePicker.jsx",
+      "maturity": "beta",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": true,
+      "root": "div",
+      "classes": [
+        "cs-datepicker",
+        "cs-datepicker__field",
+        "cs-datepicker__pop"
+      ],
+      "props": [
+        "value",
+        "onChange",
+        "placeholder",
+        "label",
+        "disabled",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "label"
+      ],
+      "aria": [
+        "role=dialog",
+        "aria-hidden",
+        "aria-haspopup",
+        "aria-expanded",
+        "aria-label"
+      ],
+      "keys": [
+        "Escape"
+      ],
+      "tokens": [
+        "--cs-font-family-ui",
+        "--cs-color-text-primary",
+        "--cs-color-surface-panel",
+        "--cs-color-border-default",
+        "--cs-radius-md",
+        "--cs-focus-ring",
+        "--cs-color-accent-ochre",
+        "--cs-color-text-muted",
+        "--cs-depth-dropdown"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [
+        "controlled value/onChange",
+        "disabled"
+      ],
+      "prompt": "DatePicker — field + popover Calendar; VN format DD/MM/YYYY, Monday week-start. The popover is `role=\"dialog\"` and takes its accessible name from `label` (fallback: placeholder).",
+      "jsdoc": "CyberSkill DatePicker — field + popover Calendar. VN shows DD/MM/YYYY. Controlled value (Date)/onChange.",
+      "anatomy": "DatePicker. CyberSkill DatePicker — field + popover Calendar. VN shows DD/MM/YYYY. Controlled value (Date)/onChange. Semantic root <div>. Host class cs-datepicker. Slots: label.",
+      "usage": "DatePicker — field + popover Calendar; VN format DD/MM/YYYY, Monday week-start. The popover is `role=\"dialog\"` and takes its accessible name from `label` (fallback: placeholder).",
+      "keyboard": "Handles Escape.",
+      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "responsive": "DatePicker reflows at 320px, 200%, and 400% zoom (host cs-datepicker). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Dialog",
+      "sourcePath": "components/dialog/Dialog.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": true,
+      "root": "div",
+      "classes": [
+        "cs-dialog",
+        "cs-dialog__overlay",
+        "cs-dialog__header",
+        "cs-dialog__title",
+        "cs-button",
+        "cs-dialog__body",
+        "cs-dialog__actions"
+      ],
+      "props": [
+        "open",
+        "title",
+        "children",
+        "actions",
+        "onClose",
+        "className",
+        "closeLabel",
+        "lang"
+      ],
+      "slots": [
+        "title",
+        "children",
+        "actions"
+      ],
+      "aria": [
+        "role=dialog",
+        "aria-hidden",
+        "aria-modal",
+        "aria-labelledby",
+        "aria-describedby",
+        "aria-label"
+      ],
+      "keys": [
+        "Escape"
+      ],
+      "tokens": [
+        "--cs-depth-modal",
+        "--cs-color-surface-panel",
+        "--cs-radius-md",
+        "--cs-shadow-xl",
+        "--cs-color-text-primary",
+        "--cs-space-6",
+        "--cs-color-semantic-danger",
+        "--cs-space-4",
+        "--cs-font-family-ui",
+        "--cs-color-border-default",
+        "--cs-duration-base",
+        "--cs-ease-entrance",
+        "--cs-ease-standard",
+        "--cs-component-button-primary-bg",
+        "--cs-component-button-radius",
+        "--cs-component-button-primary-fg"
+      ],
+      "forwardRef": true,
+      "overlay": true,
+      "i18n": true,
+      "states": [
+        "controlled open"
+      ],
+      "prompt": "Dialog — modal overlay + centred panel. `aria-modal`, labelled by title, overlay-click closes. Compose footer actions with `Button`s. Goes near-fullscreen on narrow viewports.",
+      "jsdoc": "CyberSkill Dialog — modal overlay + panel. aria-modal, labelled by title and described by its body, scrim click closes. Body scroll is locked while open via the overlay manager (nested-safe). Compose actions in the footer with Buttons.",
+      "anatomy": "Dialog. CyberSkill Dialog — modal overlay + panel. aria-modal, labelled by title and described by its body, scrim click closes. Body scroll is locked while open via the overlay manager (nested-safe). Compose actions in the footer with Buttons. Semantic root <div>. Host class cs-dialog. Slots: title, children, actions.",
+      "usage": "Dialog — modal overlay + centred panel. `aria-modal`, labelled by title, overlay-click closes. Compose footer actions with `Button`s. Goes near-fullscreen on narrow viewports.",
+      "keyboard": "Handles Escape. Overlay manager restores focus and locks scroll.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Dialog reflows at 320px, 200%, and 400% zoom (host cs-dialog). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
+    },
+    {
+      "name": "Divider",
+      "sourcePath": "components/data/Divider.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "div",
+      "classes": [
+        "cs-divider",
+        "cs-divider--label",
+        "cs-divider--vertical"
+      ],
+      "props": [
+        "vertical",
+        "label",
+        "className",
+        "children"
+      ],
+      "slots": [
+        "label",
+        "children"
+      ],
+      "aria": [
+        "role=separator",
+        "aria-orientation"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-border-default",
+        "--cs-space-4",
+        "--cs-color-text-muted",
+        "--cs-font-size-sm"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [],
+      "prompt": "Divider — warm hairline separator. `label` centres text between two rules; `vertical` splits inline content in a flex row.",
+      "jsdoc": "CyberSkill Divider — hairline rule. `label` centres text; `vertical` for inline splits.",
+      "anatomy": "Divider. CyberSkill Divider — hairline rule. `label` centres text; `vertical` for inline splits. Semantic root <div>. Host class cs-divider. Slots: label, children.",
+      "usage": "Divider — warm hairline separator. `label` centres text between two rules; `vertical` splits inline content in a flex row.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Divider reflows at 320px, 200%, and 400% zoom (host cs-divider). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Drawer",
+      "sourcePath": "components/overlays/Drawer.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "",
+      "classes": [
+        "cs-drawer",
+        "cs-drawer--left",
+        "cs-drawer__header",
+        "cs-drawer__title",
+        "cs-drawer__close",
+        "cs-drawer__body",
+        "cs-drawer__footer"
+      ],
+      "props": [
+        "open",
+        "onClose",
+        "title",
+        "side",
+        "children",
+        "actions",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "title",
+        "children",
+        "actions"
+      ],
+      "aria": [
+        "role=dialog",
+        "aria-hidden",
+        "aria-modal",
+        "aria-label"
+      ],
+      "keys": [
+        "Escape"
+      ],
+      "tokens": [
+        "--cs-depth-modal",
+        "--cs-color-surface-page",
+        "--cs-color-border-default",
+        "--cs-duration-base",
+        "--cs-ease-standard",
+        "--cs-color-surface-panel",
+        "--cs-text-h4",
+        "--cs-color-text-muted",
+        "--cs-color-semantic-danger"
+      ],
+      "forwardRef": true,
+      "overlay": true,
+      "i18n": true,
+      "states": [
+        "controlled open"
+      ],
+      "prompt": "Drawer — slide-in side panel + scrim (the Status Hub detail pattern). Escape / scrim-click close; `side=\"left\"` for left.",
+      "jsdoc": "CyberSkill Drawer — slide-in side panel with scrim. side: right (default) | left.",
+      "anatomy": "Drawer. CyberSkill Drawer — slide-in side panel with scrim. side: right (default) | left. Provider or composite root. Host class cs-drawer. Slots: title, children, actions.",
+      "usage": "Drawer — slide-in side panel + scrim (the Status Hub detail pattern). Escape / scrim-click close; `side=\"left\"` for left.",
+      "keyboard": "Handles Escape. Overlay manager restores focus and locks scroll.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Drawer reflows at 320px, 200%, and 400% zoom (host cs-drawer). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
+    },
+    {
+      "name": "Editor",
+      "sourcePath": "components/forms/Editor.jsx",
+      "maturity": "experimental",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": true,
+      "root": "div",
+      "classes": [
+        "cs-toolbar__btn",
+        "cs-editor",
+        "cs-editor__bar",
+        "cs-editor__area"
+      ],
+      "props": [
+        "defaultValue",
+        "value",
+        "unsafeHtml",
+        "onChange",
+        "minHeight",
+        "lang",
+        "className"
+      ],
+      "slots": [],
+      "aria": [
+        "role=toolbar",
+        "role=textbox",
+        "aria-label",
+        "aria-multiline"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-border-default",
+        "--cs-radius-md",
+        "--cs-color-surface-panel",
+        "--cs-color-surface-raised",
+        "--cs-font-family-ui",
+        "--cs-color-text-primary",
+        "--cs-color-accent-ochre",
+        "--cs-radius-sm",
+        "--cs-focus-ring"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [
+        "controlled value/onChange",
+        "uncontrolled defaultValue"
+      ],
+      "prompt": "Editor — light rich-text (B/I/list), HTML `onChange`.",
+      "jsdoc": "CyberSkill Editor — light rich-text (contentEditable): bold · italic · bullet list.  Trust boundary (CDS-SEC-001 / SEC-001): `defaultValue` and controlled `value` are  schema-sanitized. Pass `unsafeHtml` only for already-trusted markup that must",
+      "anatomy": "Editor. CyberSkill Editor — light rich-text (contentEditable): bold · italic · bullet list.  Trust boundary (CDS-SEC-001 / SEC-001): `defaultValue` and controlled `value` are  schema-sanitized. Pass `unsafeHtml` only for already-trusted markup that must Semantic root <div>. Host class cs-editor.",
+      "usage": "Editor — light rich-text (B/I/list), HTML `onChange`.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "responsive": "Editor reflows at 320px, 200%, and 400% zoom (host cs-editor). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "EmptyState",
+      "sourcePath": "components/feedback/EmptyState.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "div",
+      "classes": [
+        "cs-empty",
+        "cs-empty__icon",
+        "cs-empty__title",
+        "cs-empty__body",
+        "cs-empty__actions"
+      ],
+      "props": [
+        "icon",
+        "title",
+        "children",
+        "actions",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "icon",
+        "title",
+        "children",
+        "actions"
+      ],
+      "aria": [
+        "aria-hidden"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-brand-ochre",
+        "--cs-color-surface-panel",
+        "--cs-color-brand-umber",
+        "--cs-text-h4",
+        "--cs-color-text-muted"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [],
+      "prompt": "EmptyState — placeholder for empty views: icon, title, message, optional actions.",
+      "jsdoc": "CyberSkill EmptyState — friendly placeholder for empty views.",
+      "anatomy": "EmptyState. CyberSkill EmptyState — friendly placeholder for empty views. Semantic root <div>. Host class cs-empty. Slots: icon, title, children, actions.",
+      "usage": "EmptyState — placeholder for empty views: icon, title, message, optional actions.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "EmptyState reflows at 320px, 200%, and 400% zoom (host cs-empty). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Icon",
+      "sourcePath": "components/icon/Icon.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "svg",
+      "classes": [],
+      "props": [
+        "name",
+        "size",
+        "label",
+        "className",
+        "strokeWidth"
+      ],
+      "slots": [
+        "label"
+      ],
+      "aria": [],
+      "keys": [],
+      "tokens": [],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [],
+      "prompt": "Icon — the single renderer for CyberSkill's in-repo line-icon set (no external icon library). Icons stroke with `currentColor` at 1.75 weight, round caps/joins, and size from the `--cs-icon-*` tokens. Decorative by default; pass `label` to expose a meaningful icon to assistive tech.",
+      "jsdoc": "CyberSkill line-icon set (in-repo, no external icon library). Each icon is data — a viewBox plus primitive elements — rendered through this one <Icon>. Line icons use currentColor stroke so they follow the surrounding text token.",
+      "anatomy": "Icon. CyberSkill line-icon set (in-repo, no external icon library). Each icon is data — a viewBox plus primitive elements — rendered through this one <Icon>. Line icons use currentColor stroke so they follow the surrounding text token. Semantic root <svg>. Slots: label.",
+      "usage": "Icon — the single renderer for CyberSkill's in-repo line-icon set (no external icon library). Icons stroke with `currentColor` at 1.75 weight, round caps/joins, and size from the `--cs-icon-*` tokens. Decorative by default; pass `label` to expose a meaningful icon to assistive tech.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Icon reflows at 320px, 200%, and 400% zoom (host composite). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Image",
+      "sourcePath": "components/data/Image.jsx",
+      "maturity": "beta",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": true,
+      "root": "",
+      "classes": [
+        "cs-image__fallback",
+        "cs-image",
+        "cs-sr",
+        "cs-image__zoom"
+      ],
+      "props": [
+        "src",
+        "alt",
+        "ratio",
+        "preview",
+        "fallback",
+        "lang",
+        "className"
+      ],
+      "slots": [],
+      "aria": [
+        "role=dialog",
+        "aria-hidden",
+        "aria-haspopup",
+        "aria-expanded",
+        "aria-label",
+        "aria-live",
+        "aria-modal"
+      ],
+      "keys": [
+        "Enter",
+        " ",
+        "Escape"
+      ],
+      "tokens": [
+        "--cs-color-text-muted",
+        "--cs-radius-md",
+        "--cs-color-surface-raised",
+        "--cs-depth-modal",
+        "--cs-shadow-xl",
+        "--cs-font-size-base"
+      ],
+      "forwardRef": true,
+      "overlay": true,
+      "i18n": true,
+      "states": [],
+      "prompt": "Image — img with shimmer, warm error fallback, optional `preview` lightbox. `width` / `height` forward to the underlying `<img>`.",
+      "jsdoc": "CyberSkill Image — img with loading skeleton, warm fallback on error, optional click-to-preview lightbox.",
+      "anatomy": "Image. CyberSkill Image — img with loading skeleton, warm fallback on error, optional click-to-preview lightbox. Provider or composite root. Host class cs-image__fallback.",
+      "usage": "Image — img with shimmer, warm error fallback, optional `preview` lightbox. `width` / `height` forward to the underlying `<img>`.",
+      "keyboard": "Handles Enter,  , Escape. Overlay manager restores focus and locks scroll.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Image reflows at 320px, 200%, and 400% zoom (host cs-image__fallback). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
+    },
+    {
+      "name": "Link",
+      "sourcePath": "components/navigation/Link.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "a",
+      "classes": [
+        "cs-link"
+      ],
+      "props": [
+        "href",
+        "variant",
+        "external",
+        "children",
+        "className"
+      ],
+      "slots": [
+        "children"
+      ],
+      "aria": [
+        "aria-hidden"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-link",
+        "--cs-color-link-hover",
+        "--cs-color-text-muted"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [],
+      "prompt": "Link — brand anchor (default · muted · standalone→, `external` ↗).",
+      "jsdoc": "CyberSkill Link — brand-styled anchor. variant: default | muted | standalone (arrow). external adds ↗ + rel.",
+      "anatomy": "Link. CyberSkill Link — brand-styled anchor. variant: default | muted | standalone (arrow). external adds ↗ + rel. Semantic root <a>. Host class cs-link. Slots: children.",
+      "usage": "Link — brand anchor (default · muted · standalone→, `external` ↗).",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Link reflows at 320px, 200%, and 400% zoom (host cs-link). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Logo",
+      "sourcePath": "components/logo/Logo.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "svg",
+      "classes": [
+        "cs-logo"
+      ],
+      "props": [
+        "size",
+        "title",
+        "decorative",
+        "className"
+      ],
+      "slots": [
+        "title"
+      ],
+      "aria": [
+        "aria-hidden",
+        "aria-label"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-font-family-ui"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [],
+      "prompt": "Logo — the official CyberSkill brand mark (Umber ground, Ochre genie figure), rendered from the exact master artwork. Use whenever a product is for or owned by CyberSkill. Keep clear space ≥ 25% of the mark height; never recolour, rotate, stretch, or place on a low-contrast background.",
+      "jsdoc": "CyberSkill brand mark. Renders the EXACT official master artwork (Umber ground, Ochre genie figure). Use whenever a product is for or owned by CyberSkill. Do not recreate or recolour the mark.",
+      "anatomy": "Logo. CyberSkill brand mark. Renders the EXACT official master artwork (Umber ground, Ochre genie figure). Use whenever a product is for or owned by CyberSkill. Do not recreate or recolour the mark. Semantic root <svg>. Host class cs-logo. Slots: title.",
+      "usage": "Logo — the official CyberSkill brand mark (Umber ground, Ochre genie figure), rendered from the exact master artwork. Use whenever a product is for or owned by CyberSkill. Keep clear space ≥ 25% of the mark height; never recolour, rotate, stretch, or place on a low-contrast background.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Logo reflows at 320px, 200%, and 400% zoom (host cs-logo). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Menu",
+      "sourcePath": "components/navigation/Menu.jsx",
+      "maturity": "beta",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": true,
+      "root": "div",
+      "classes": [
+        "cs-menu",
+        "cs-menu__list",
+        "cs-menu__list--end",
+        "cs-menu__item",
+        "cs-menu__item--danger"
+      ],
+      "props": [
+        "trigger",
+        "children",
+        "align",
+        "open",
+        "onOpenChange",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "trigger",
+        "children"
+      ],
+      "aria": [
+        "role=menuitem",
+        "role=menu",
+        "aria-haspopup",
+        "aria-expanded",
+        "aria-label",
+        "aria-hidden"
+      ],
+      "keys": [
+        "Escape",
+        "ArrowUp",
+        "ArrowDown",
+        "Home",
+        "End"
+      ],
+      "tokens": [
+        "--cs-color-surface-panel",
+        "--cs-color-border-default",
+        "--cs-radius-md",
+        "--cs-font-family-ui",
+        "--cs-color-text-primary",
+        "--cs-radius-sm",
+        "--cs-color-surface-raised",
+        "--cs-shadow-md",
+        "--cs-depth-dropdown",
+        "--cs-font-size-sm",
+        "--cs-focus-ring",
+        "--cs-color-accent-ochre",
+        "--cs-color-semantic-danger",
+        "--cs-font-size-xs",
+        "--cs-letter-spacing-caps",
+        "--cs-color-text-muted"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [
+        "controlled open"
+      ],
+      "prompt": "Menu / MenuItem — dropdown anchored to a `trigger`. Uncontrolled (click toggles; outside-click / Escape close) or controlled via `open`/`onOpenChange`. `align=\"end\"` right-aligns.",
+      "jsdoc": "CyberSkill Menu — dropdown. Provide a `trigger` element; compose MenuItem children.",
+      "anatomy": "Menu. CyberSkill Menu — dropdown. Provide a `trigger` element; compose MenuItem children. Semantic root <div>. Host class cs-menu. Slots: trigger, children.",
+      "usage": "Menu / MenuItem — dropdown anchored to a `trigger`. Uncontrolled (click toggles; outside-click / Escape close) or controlled via `open`/`onOpenChange`. `align=\"end\"` right-aligns.",
+      "keyboard": "Handles Escape, ArrowUp, ArrowDown, Home, End.",
+      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "responsive": "Menu reflows at 320px, 200%, and 400% zoom (host cs-menu). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "OverlayProvider",
+      "sourcePath": "components/overlays/OverlayManager.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "",
+      "classes": [
+        "cs-ov",
+        "cs-overlay"
+      ],
+      "props": [
+        "children"
+      ],
+      "slots": [
+        "children"
+      ],
+      "aria": [],
+      "keys": [
+        "Escape",
+        "Tab"
+      ],
+      "tokens": [],
+      "forwardRef": false,
+      "overlay": true,
+      "i18n": false,
+      "states": [],
+      "prompt": "OverlayProvider / overlay manager — single stack for modal Escape, scroll-lock refcount, and focus restore. Wrap product shells when nesting overlays; Dialog / AlertDialog / Drawer / CommandPalette already register via the module singleton when no provider is mounted.",
+      "jsdoc": "Shared focusable selector for modal traps (Dialog / AlertDialog / Drawer / CommandPalette).",
+      "anatomy": "OverlayProvider. Shared focusable selector for modal traps (Dialog / AlertDialog / Drawer / CommandPalette). Provider or composite root. Host class cs-ov. Slots: children.",
+      "usage": "OverlayProvider / overlay manager — single stack for modal Escape, scroll-lock refcount, and focus restore. Wrap product shells when nesting overlays; Dialog / AlertDialog / Drawer / CommandPalette already register via the module singleton when no provider is mounted.",
+      "keyboard": "Handles Escape, Tab. Overlay manager restores focus and locks scroll.",
+      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "responsive": "OverlayProvider reflows at 320px, 200%, and 400% zoom (host cs-ov). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
+    },
+    {
+      "name": "ProgressBar",
+      "sourcePath": "components/feedback/ProgressBar.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "div",
+      "classes": [
+        "cs-progress",
+        "cs-progress__fill"
+      ],
+      "props": [
+        "value",
+        "max",
+        "variant",
+        "label",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "label"
+      ],
+      "aria": [
+        "role=progressbar",
+        "aria-valuenow",
+        "aria-valuemin",
+        "aria-valuemax",
+        "aria-label"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-radius-full",
+        "--cs-color-surface-raised",
+        "--cs-color-brand-ochre",
+        "--cs-duration-slow",
+        "--cs-ease-standard",
+        "--cs-color-brand-umber",
+        "--cs-color-semantic-success"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [],
+      "prompt": "ProgressBar — determinate progress. Ochre fill by default (`umber`/`success` variants). Always pass `label`.",
+      "jsdoc": "CyberSkill ProgressBar — determinate progress. variant: ochre (default) | umber | success.",
+      "anatomy": "ProgressBar. CyberSkill ProgressBar — determinate progress. variant: ochre (default) | umber | success. Semantic root <div>. Host class cs-progress. Slots: label.",
+      "usage": "ProgressBar — determinate progress. Ochre fill by default (`umber`/`success` variants). Always pass `label`.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "ProgressBar reflows at 320px, 200%, and 400% zoom (host cs-progress). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "RadioGroup",
+      "sourcePath": "components/forms/RadioGroup.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "label",
+      "classes": [
+        "cs-radio",
+        "cs-radio__text",
+        "cs-radio__desc"
+      ],
+      "props": [
+        "legend",
+        "name",
+        "value",
+        "onChange",
+        "options",
+        "className"
+      ],
+      "slots": [],
+      "aria": [],
+      "keys": [],
+      "tokens": [
+        "--cs-color-text-primary",
+        "--cs-font-family-ui",
+        "--cs-color-brand-umber",
+        "--cs-font-size-sm",
+        "--cs-color-text-muted",
+        "--cs-color-brand-ochre"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [
+        "controlled value/onChange"
+      ],
+      "prompt": "RadioGroup / Radio — single-choice radios in a labelled fieldset, controlled by `value`/`onChange`. Brand accent-color.",
+      "jsdoc": "A single labelled radio (brand accent-color). Usually composed via RadioGroup.",
+      "anatomy": "RadioGroup. A single labelled radio (brand accent-color). Usually composed via RadioGroup. Semantic root <label>. Host class cs-radio.",
+      "usage": "RadioGroup / Radio — single-choice radios in a labelled fieldset, controlled by `value`/`onChange`. Brand accent-color.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "RadioGroup reflows at 320px, 200%, and 400% zoom (host cs-radio). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Select",
+      "sourcePath": "components/forms/Select.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "label",
+      "classes": [
+        "cs-field",
+        "cs-field__label",
+        "cs-field__description",
+        "cs-select",
+        "cs-field__control",
+        "cs-select__chevron",
+        "cs-field__error"
+      ],
+      "props": [
+        "id",
+        "label",
+        "description",
+        "error",
+        "options",
+        "children",
+        "disabled",
+        "lang",
+        "className",
+        "placeholder"
+      ],
+      "slots": [
+        "label",
+        "description",
+        "children"
+      ],
+      "aria": [
+        "role=alert",
+        "aria-invalid",
+        "aria-describedby",
+        "aria-hidden"
+      ],
+      "keys": [
+        " "
+      ],
+      "tokens": [
+        "--cs-color-surface-panel",
+        "--cs-color-text-muted",
+        "--cs-focus-ring",
+        "--cs-color-accent-ochre",
+        "--cs-color-brand-ochre",
+        "--cs-color-text-primary",
+        "--cs-component-textfield-border-default",
+        "--cs-radius-md",
+        "--cs-component-textfield-min",
+        "--cs-component-textfield-padding",
+        "--cs-color-semantic-danger",
+        "--cs-font-family-ui",
+        "--cs-font-size-sm",
+        "--cs-font-line"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [
+        "disabled",
+        "invalid"
+      ],
+      "prompt": "Select — labelled native select in the `.cs-field` frame with a custom chevron; same description/error wiring as TextField.",
+      "jsdoc": "CyberSkill Select — native <select> in the .cs-field frame with a chevron.  Pass `options` [{value,label}] or <option> children.",
+      "anatomy": "Select. CyberSkill Select — native <select> in the .cs-field frame with a chevron.  Pass `options` [{value,label}] or <option> children. Semantic root <label>. Host class cs-select. Slots: label, description, children.",
+      "usage": "Select — labelled native select in the `.cs-field` frame with a custom chevron; same description/error wiring as TextField.",
+      "keyboard": "Handles  .",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Select reflows at 320px, 200%, and 400% zoom (host cs-select). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Sortable",
+      "sourcePath": "components/data/Sortable.jsx",
+      "maturity": "beta",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": true,
+      "root": "div",
+      "classes": [
+        "cs-sortable",
+        "cs-sr",
+        "cs-sortable__item",
+        "cs-sortable__grip",
+        "cs-sortable__label",
+        "cs-sortable__ops",
+        "cs-button"
+      ],
+      "props": [
+        "items",
+        "onChange",
+        "lang",
+        "className"
+      ],
+      "slots": [],
+      "aria": [
+        "aria-live",
+        "aria-grabbed",
+        "aria-hidden",
+        "aria-label"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-surface-panel",
+        "--cs-color-border-default",
+        "--cs-radius-md",
+        "--cs-font-size-sm",
+        "--cs-color-text-primary",
+        "--cs-accent",
+        "--cs-color-text-muted",
+        "--cs-component-button-primary-bg",
+        "--cs-component-button-radius",
+        "--cs-component-button-primary-fg",
+        "--cs-component-button-gap",
+        "--cs-component-button-md-min",
+        "--cs-component-button-md-padding",
+        "--cs-duration-fast",
+        "--cs-ease-standard",
+        "--cs-focus-ring"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [],
+      "prompt": "Sortable — reorderable list with move-up/down buttons (keyboard + single-pointer) and optional HTML5 drag. Compose columns of it for a kanban.",
+      "jsdoc": "Move item at `from` to index `to` (shared by drag drop and move buttons).",
+      "anatomy": "Sortable. Move item at `from` to index `to` (shared by drag drop and move buttons). Semantic root <div>. Host class cs-sortable.",
+      "usage": "Sortable — reorderable list with move-up/down buttons (keyboard + single-pointer) and optional HTML5 drag. Compose columns of it for a kanban.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Sortable reflows at 320px, 200%, and 400% zoom (host cs-sortable). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Spinner",
+      "sourcePath": "components/feedback/Spinner.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "span",
+      "classes": [
+        "cs-spinner"
+      ],
+      "props": [
+        "size",
+        "label",
+        "lang",
+        "className",
+        "style"
+      ],
+      "slots": [
+        "label"
+      ],
+      "aria": [
+        "role=status",
+        "aria-label"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-brand-umber",
+        "--cs-color-brand-ochre"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [],
+      "prompt": "Spinner — indeterminate loading indicator, brand-coloured; slows under reduced-motion.",
+      "jsdoc": "CyberSkill Spinner — indeterminate loading indicator.",
+      "anatomy": "Spinner. CyberSkill Spinner — indeterminate loading indicator. Semantic root <span>. Host class cs-spinner. Slots: label.",
+      "usage": "Spinner — indeterminate loading indicator, brand-coloured; slows under reduced-motion.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Spinner reflows at 320px, 200%, and 400% zoom (host cs-spinner). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Switch",
+      "sourcePath": "components/forms/Switch.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "label",
+      "classes": [
+        "cs-switch",
+        "cs-switch__track",
+        "cs-switch__label"
+      ],
+      "props": [
+        "label",
+        "disabled",
+        "className",
+        "children",
+        "lang"
+      ],
+      "slots": [
+        "label",
+        "children"
+      ],
+      "aria": [
+        "role=switch",
+        "aria-label",
+        "aria-labelledby",
+        "aria-hidden"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-font-family-ui",
+        "--cs-color-text-primary",
+        "--cs-color-border-default",
+        "--cs-duration-fast",
+        "--cs-ease-standard",
+        "--cs-color-surface-panel",
+        "--cs-shadow-xs",
+        "--cs-color-brand-umber",
+        "--cs-color-brand-ochre",
+        "--cs-focus-ring",
+        "--cs-color-accent-ochre"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [
+        "disabled"
+      ],
+      "prompt": "Switch — accessible on/off toggle (`role=\"switch\"`), Umber track when on. For instant-apply settings (use Checkbox in forms that submit).",
+      "jsdoc": "CyberSkill Switch — accessible toggle (role=\"switch\"); Umber on, Ochre knob-track in dark.",
+      "anatomy": "Switch. CyberSkill Switch — accessible toggle (role=\"switch\"); Umber on, Ochre knob-track in dark. Semantic root <label>. Host class cs-switch. Slots: label, children.",
+      "usage": "Switch — accessible on/off toggle (`role=\"switch\"`), Umber track when on. For instant-apply settings (use Checkbox in forms that submit).",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Switch reflows at 320px, 200%, and 400% zoom (host cs-switch). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Tabs",
+      "sourcePath": "components/navigation/Tabs.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "div",
+      "classes": [
+        "cs-tabs",
+        "cs-tab",
+        "cs-tab__count"
+      ],
+      "props": [
+        "tabs",
+        "value",
+        "onChange",
+        "lang",
+        "className"
+      ],
+      "slots": [],
+      "aria": [
+        "role=tablist",
+        "role=tab",
+        "aria-label",
+        "aria-selected"
+      ],
+      "keys": [
+        "ArrowLeft",
+        "ArrowRight",
+        "Home",
+        "End"
+      ],
+      "tokens": [
+        "--cs-color-border-default",
+        "--cs-space-4",
+        "--cs-color-text-primary",
+        "--cs-font-size-xs",
+        "--cs-letter-spacing-caps",
+        "--cs-color-text-muted",
+        "--cs-font-family-ui",
+        "--cs-font-size-sm",
+        "--cs-color-brand-umber",
+        "--cs-color-brand-ochre",
+        "--cs-focus-ring",
+        "--cs-color-accent-ochre",
+        "--cs-radius-sm",
+        "--cs-font-family-mono",
+        "--cs-color-surface-raised",
+        "--cs-radius-full"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [
+        "controlled value/onChange"
+      ],
+      "prompt": "Tabs / Tab — underlined tablist (Ochre active indicator), controlled by `value`/`onChange`. Wire your own panels via `aria-controls`.",
+      "jsdoc": "CyberSkill Tabs — data-driven tablist, controlled by value/onChange. Ochre underline on active.",
+      "anatomy": "Tabs. CyberSkill Tabs — data-driven tablist, controlled by value/onChange. Ochre underline on active. Semantic root <div>. Host class cs-tabs.",
+      "usage": "Tabs / Tab — underlined tablist (Ochre active indicator), controlled by `value`/`onChange`. Wire your own panels via `aria-controls`.",
+      "keyboard": "Handles ArrowLeft, ArrowRight, Home, End.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Tabs reflows at 320px, 200%, and 400% zoom (host cs-tabs). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Tag",
+      "sourcePath": "components/feedback/Tag.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "span",
+      "classes": [
+        "cs-tag",
+        "cs-tag__close"
+      ],
+      "props": [
+        "children",
+        "onRemove",
+        "removeLabel",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "children"
+      ],
+      "aria": [
+        "aria-label"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-surface-panel",
+        "--cs-color-border-default",
+        "--cs-radius-md",
+        "--cs-focus-ring",
+        "--cs-color-accent-ochre",
+        "--cs-color-text-primary",
+        "--cs-font-family-ui",
+        "--cs-font-size-sm",
+        "--cs-radius-full",
+        "--cs-color-surface-raised",
+        "--cs-color-text-accent",
+        "--cs-color-brand-umber"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [],
+      "prompt": "Tag — chip for filters, keywords, or selected values. Pass `onRemove` for a close button.",
+      "jsdoc": "CyberSkill Tag — chip with optional remove button.",
+      "anatomy": "Tag. CyberSkill Tag — chip with optional remove button. Semantic root <span>. Host class cs-tag. Slots: children.",
+      "usage": "Tag — chip for filters, keywords, or selected values. Pass `onRemove` for a close button.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Tag reflows at 320px, 200%, and 400% zoom (host cs-tag). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Textarea",
+      "sourcePath": "components/forms/Textarea.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "label",
+      "classes": [
+        "cs-field",
+        "cs-field__label",
+        "cs-field__description",
+        "cs-field__control",
+        "cs-field__error"
+      ],
+      "props": [
+        "id",
+        "label",
+        "description",
+        "error",
+        "disabled",
+        "rows",
+        "className"
+      ],
+      "slots": [
+        "label",
+        "description"
+      ],
+      "aria": [
+        "role=alert",
+        "aria-invalid",
+        "aria-describedby"
+      ],
+      "keys": [
+        " "
+      ],
+      "tokens": [
+        "--cs-focus-ring",
+        "--cs-color-accent-ochre",
+        "--cs-color-text-primary",
+        "--cs-color-text-muted",
+        "--cs-component-textfield-border-default",
+        "--cs-radius-md",
+        "--cs-color-surface-panel",
+        "--cs-component-textfield-min",
+        "--cs-component-textfield-padding",
+        "--cs-color-semantic-danger",
+        "--cs-font-family-ui",
+        "--cs-color-brand-ochre",
+        "--cs-font-size-sm",
+        "--cs-font-line"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [
+        "disabled",
+        "invalid"
+      ],
+      "prompt": "Textarea — multi-line input in the `.cs-field` frame; description + error like TextField, vertically resizable.",
+      "jsdoc": "CyberSkill Textarea — multi-line input in the .cs-field frame; label/description/error.",
+      "anatomy": "Textarea. CyberSkill Textarea — multi-line input in the .cs-field frame; label/description/error. Semantic root <label>. Host class cs-field. Slots: label, description.",
+      "usage": "Textarea — multi-line input in the `.cs-field` frame; description + error like TextField, vertically resizable.",
+      "keyboard": "Handles  .",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Textarea reflows at 320px, 200%, and 400% zoom (host cs-field). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "TextField",
+      "sourcePath": "components/textfield/TextField.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "label",
+      "classes": [
+        "cs-field",
+        "cs-field__label",
+        "cs-field__description",
+        "cs-field__control",
+        "cs-field__error"
+      ],
+      "props": [
+        "id",
+        "label",
+        "description",
+        "error",
+        "disabled",
+        "readOnly",
+        "className",
+        "children"
+      ],
+      "slots": [
+        "label",
+        "description",
+        "children"
+      ],
+      "aria": [
+        "role=alert",
+        "aria-invalid",
+        "aria-describedby"
+      ],
+      "keys": [
+        " "
+      ],
+      "tokens": [
+        "--cs-focus-ring",
+        "--cs-color-accent-ochre",
+        "--cs-color-text-primary",
+        "--cs-color-text-muted",
+        "--cs-component-textfield-border-default",
+        "--cs-radius-md",
+        "--cs-color-surface-panel",
+        "--cs-component-textfield-min",
+        "--cs-component-textfield-padding",
+        "--cs-color-semantic-danger",
+        "--cs-font-family-ui",
+        "--cs-color-brand-ochre",
+        "--cs-font-size-sm",
+        "--cs-font-line"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": false,
+      "states": [
+        "disabled",
+        "invalid"
+      ],
+      "prompt": "TextField — labelled text input with optional description and inline error. The label is always associated; errors announce via `role=\"alert\"`. Vietnamese diacritics and IME composition are preserved.",
+      "jsdoc": "CyberSkill TextField — label + input with optional description and error. Programmatic label association and aria-describedby wiring; IME-safe.",
+      "anatomy": "TextField. CyberSkill TextField — label + input with optional description and error. Programmatic label association and aria-describedby wiring; IME-safe. Semantic root <label>. Host class cs-field. Slots: label, description, children.",
+      "usage": "TextField — labelled text input with optional description and inline error. The label is always associated; errors announce via `role=\"alert\"`. Vietnamese diacritics and IME composition are preserved.",
+      "keyboard": "Handles  .",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "TextField reflows at 320px, 200%, and 400% zoom (host cs-field). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "TimePicker",
+      "sourcePath": "components/forms/TimePicker.jsx",
+      "maturity": "beta",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": true,
+      "root": "span",
+      "classes": [
+        "cs-timepicker"
+      ],
+      "props": [
+        "value",
+        "onChange",
+        "step",
+        "label",
+        "disabled",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "label"
+      ],
+      "aria": [
+        "aria-hidden",
+        "aria-label"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-surface-panel",
+        "--cs-color-border-default",
+        "--cs-radius-md",
+        "--cs-color-text-muted",
+        "--cs-focus-ring",
+        "--cs-color-accent-ochre",
+        "--cs-color-text-primary",
+        "--cs-font-family-mono"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [
+        "controlled value/onChange",
+        "disabled"
+      ],
+      "prompt": "TimePicker — 24h time select in fixed steps (VN-friendly 24h clock).",
+      "jsdoc": "CyberSkill TimePicker — 24h time select in fixed steps. Controlled value (\"HH:MM\")/onChange.",
+      "anatomy": "TimePicker. CyberSkill TimePicker — 24h time select in fixed steps. Controlled value (\"HH:MM\")/onChange. Semantic root <span>. Host class cs-timepicker. Slots: label.",
+      "usage": "TimePicker — 24h time select in fixed steps (VN-friendly 24h clock).",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "TimePicker reflows at 320px, 200%, and 400% zoom (host cs-timepicker). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Toast",
+      "sourcePath": "components/feedback/Toast.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "svg",
+      "classes": [
+        "cs-toast",
+        "cs-toast__icon",
+        "cs-toast__title",
+        "cs-toast__body",
+        "cs-toast__close"
+      ],
+      "props": [
+        "children",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "children"
+      ],
+      "aria": [
+        "role=region",
+        "role=status",
+        "aria-hidden",
+        "aria-label"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-depth-toast",
+        "--cs-radius-md",
+        "--cs-color-surface-panel",
+        "--cs-color-border-default",
+        "--cs-shadow-md",
+        "--cs-color-text-primary",
+        "--cs-duration-base",
+        "--cs-ease-entrance",
+        "--cs-color-text-accent",
+        "--cs-color-semantic-info",
+        "--cs-color-semantic-success",
+        "--cs-color-semantic-danger",
+        "--cs-font-size-sm",
+        "--cs-color-text-muted"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [],
+      "prompt": "Toast / ToastStack — transient notification inside a fixed bottom-right stack. Presentational; manage timing + queue in app state. Variants `default` | `success` | `danger` each ship a distinct glyph (info / check / X) plus a status-coloured start border — never a red check-mark for errors.",
+      "jsdoc": "Variant glyphs — aligned with Alert so status is never colour-alone (FIND-036).",
+      "anatomy": "Toast. Variant glyphs — aligned with Alert so status is never colour-alone (FIND-036). Semantic root <svg>. Host class cs-toast. Slots: children.",
+      "usage": "Toast / ToastStack — transient notification inside a fixed bottom-right stack. Presentational; manage timing + queue in app state. Variants `default` | `success` | `danger` each ship a distinct glyph (info / check / X) plus a status-coloured start border — never a red check-mark for errors.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Toast reflows at 320px, 200%, and 400% zoom (host cs-toast). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    },
+    {
+      "name": "Tooltip",
+      "sourcePath": "components/data/Tooltip.jsx",
+      "maturity": "stable",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor",
+      "package": "@cyberskill/react",
+      "deprecation": null,
+      "highRisk": false,
+      "root": "span",
+      "classes": [
+        "cs-tooltip",
+        "cs-tooltip__bubble"
+      ],
+      "props": [
+        "label",
+        "children",
+        "lang",
+        "className"
+      ],
+      "slots": [
+        "label",
+        "children"
+      ],
+      "aria": [
+        "role=tooltip"
+      ],
+      "keys": [],
+      "tokens": [
+        "--cs-color-brand-umber",
+        "--cs-font-size-xs",
+        "--cs-radius-sm",
+        "--cs-duration-fast",
+        "--cs-ease-standard",
+        "--cs-shadow-md",
+        "--cs-depth-dropdown"
+      ],
+      "forwardRef": true,
+      "overlay": false,
+      "i18n": true,
+      "states": [],
+      "prompt": "Tooltip — small umber bubble on hover/focus of its trigger. Wrap a focusable element; keep the label short.",
+      "jsdoc": "CyberSkill Tooltip — hover/focus bubble above the trigger. Keep label short.",
+      "anatomy": "Tooltip. CyberSkill Tooltip — hover/focus bubble above the trigger. Keep label short. Semantic root <span>. Host class cs-tooltip. Slots: label, children.",
+      "usage": "Tooltip — small umber bubble on hover/focus of its trigger. Wrap a focusable element; keep the label short.",
+      "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Tooltip reflows at 320px, 200%, and 400% zoom (host cs-tooltip). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
+    }
+  ]
+}

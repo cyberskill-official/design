@@ -1,0 +1,10 @@
+{
+  "name": "@cyberskill/storybook-host",
+  "version": "1.7.2",
+  "private": true,
+  "description": "Versioned Storybook docs host. Not a runtime install.",
+  "scripts": {
+    "dev": "npm run storybook --prefix ../..",
+    "build": "npm run build:storybook --prefix ../.."
+  }
+}

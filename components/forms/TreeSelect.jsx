@@ -4,7 +4,7 @@ import { Tree } from "../data/Tree.jsx";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill TreeSelect — field opening a Tree; picking a node sets the value. */
-export function TreeSelect({ nodes = [], value, onChange, placeholder, label, disabled = false, lang, className }) {
+export const TreeSelect = React.forwardRef(function TreeSelect({ nodes = [], value, onChange, placeholder, label, disabled = false, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const wrap = React.useRef(null);
   const [ref, L] = useLang(lang);
@@ -32,4 +32,4 @@ export function TreeSelect({ nodes = [], value, onChange, placeholder, label, di
       ) : null}
     </div>
   );
-}
+});

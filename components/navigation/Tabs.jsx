@@ -1,9 +1,10 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Tabs — data-driven tablist, controlled by value/onChange. Ochre underline on active. */
-export function Tabs({ tabs = [], value, onChange, lang, className, "aria-label": ariaLabel, ...props }) {
+export const Tabs = React.forwardRef(function Tabs({ tabs = [], value, onChange, lang, className, "aria-label": ariaLabel, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Tabs", L);
   const refs = React.useRef([]);
@@ -20,7 +21,7 @@ export function Tabs({ tabs = [], value, onChange, lang, className, "aria-label"
     const b = refs.current[n]; if (b) b.focus();
   };
   return (
-    <div ref={ref} role="tablist" aria-label={ariaLabel ?? t("list")} className={cx("cs-tabs", className)} {...props}>
+    <div ref={mergeRefs(ref, forwardedRef)} role="tablist" aria-label={ariaLabel ?? t("list")} className={cx("cs-tabs", className)} {...props}>
       {tabs.map((t, i) => (
         <button key={t.value} type="button" role="tab" aria-selected={value === t.value} tabIndex={i === idx ? 0 : -1}
           ref={(el) => (refs.current[i] = el)} onKeyDown={(e) => key(e, i)}
@@ -31,14 +32,14 @@ export function Tabs({ tabs = [], value, onChange, lang, className, "aria-label"
       ))}
     </div>
   );
-}
+});
 
 /** A single tab button, for hand-composed tablists. */
-export function Tab({ selected = false, count, children, className, ...props }) {
+export const Tab = React.forwardRef(function Tab({ selected = false, count, children, className, ...props }, forwardedRef) {
   return (
-    <button type="button" role="tab" aria-selected={selected} className={cx("cs-tab", className)} {...props}>
+    <button ref={forwardedRef} type="button" role="tab" aria-selected={selected} className={cx("cs-tab", className)} {...props}>
       {children}
       {count != null ? <span className="cs-tab__count">{count}</span> : null}
     </button>
   );
-}
+});

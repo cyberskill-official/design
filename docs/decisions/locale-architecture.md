@@ -24,7 +24,7 @@ Keep **Language** as the product axis. Locale values are **BCP-47 primary langua
 3. **Optional spike locales** (today: `ja`) may add a third table. When present, keys must match `en` and values must be non-empty.
 4. `resolveLang` normalizes props / `[lang]` / `<html lang>` to a primary subtag. Empty / unset → **`vi`**. Display labels (`Tiếng Việt`, `English`) still resolve.
 5. `tr` / `makeT` lookup order: requested locale → `en` → `vi` → key string. Missing spike copy never breaks EN·VI callers.
-6. Plural / ICU message forms and region variants (`vi-VN` vs marketing `vi-US`) are **out of scope** for this spike; reopen via a follow-on ADR when needed.
+6. Plural categories use `formatPlural(count, { one, other, … }, lang)` via `Intl.PluralRules` (`localeForLang`). Region variants (`vi-VN` vs marketing `vi-US`) stay deferred. `formatDate(d, lang, { timeZone })` accepts an IANA zone or `"UTC"`; omitting `timeZone` keeps local calendar math.
 
 ### Third-locale spike
 

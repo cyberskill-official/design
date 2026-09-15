@@ -1,0 +1,13 @@
+/* Opt-in scoped root. Host products that cannot accept global body/heading
+ * leakage should wrap the design-system tree in .cs-root and prefer
+ * styles.scoped.css (tokens + components without the document reset). */
+
+@layer cs.overrides {
+  .cs-root {
+    font-family: var(--cs-font-family-ui);
+    color: var(--cs-color-text-primary);
+    background: var(--cs-color-surface-page);
+  }
+}
+
+@layer cs.tokens, cs.base, cs.components, cs.a11y, cs.overrides;

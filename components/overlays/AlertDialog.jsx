@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -8,7 +9,7 @@ import { useOverlayLayer } from "./OverlayManager.jsx";
  * Distinct from Popconfirm (inline bubble) and Dialog (general modal). Focus trap +
  * restore via overlay manager; bilingual confirm/cancel via the registry.
  */
-export function AlertDialog({
+export const AlertDialog = React.forwardRef(function AlertDialog({
   open,
   defaultOpen = false,
   onOpenChange,
@@ -24,7 +25,7 @@ export function AlertDialog({
   lang,
   className,
   ...props
-}) {
+}, forwardedRef) {
   const baseId = React.useId();
   const titleId = baseId + "-title";
   const descId = baseId + "-desc";
@@ -65,7 +66,7 @@ export function AlertDialog({
 
   if (!isOpen) return null;
   return (
-    <div ref={ref} className="cs-dialog-layer cs-alert-dialog-layer">
+    <div ref={mergeRefs(ref, forwardedRef)} className="cs-dialog-layer cs-alert-dialog-layer">
       <div
         className="cs-dialog__overlay"
         onClick={() => { setOpen(false); cancelRef.current?.(); }}
@@ -109,4 +110,4 @@ export function AlertDialog({
       </section>
     </div>
   );
-}
+});

@@ -5,7 +5,7 @@ import { cx } from "../_utils/cx.js";
  * CyberSkill Button. Umber primary by default; warm hover; Ochre focus ring;
  * 44px comfortable touch target. Renders a real <button>.
  */
-export function Button({
+export const Button = React.forwardRef(function Button({
   variant = "primary",
   size = "md",
   loading = false,
@@ -16,11 +16,12 @@ export function Button({
   className,
   type = "button",
   ...props
-}) {
+}, ref) {
   const isDisabled = disabled || loading;
   return (
     <button
       {...props}
+      ref={ref}
       type={type}
       disabled={isDisabled}
       aria-busy={loading || undefined}
@@ -39,4 +40,4 @@ export function Button({
       {loading ? <span className="cs-button__spinner" aria-hidden="true" /> : null}
     </button>
   );
-}
+});

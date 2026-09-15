@@ -2,10 +2,10 @@ import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Dock — icon dock with hover magnification. items: {icon,label,onSelect,active}. */
-export function Dock({ items = [], label, className }) {
+export const Dock = React.forwardRef(function Dock({ items = [], label, className }, forwardedRef) {
   const [hov, setHov] = React.useState(null);
   return (
-    <div className={cx("cs-dock", className)} role="toolbar" aria-label={label} onMouseLeave={() => setHov(null)}>
+    <div ref={forwardedRef} className={cx("cs-dock", className)} role="toolbar" aria-label={label} onMouseLeave={() => setHov(null)}>
       {items.map((it, i) => {
         const d = hov == null ? 3 : Math.abs(i - hov);
         const scale = d === 0 ? 1.35 : d === 1 ? 1.15 : 1;
@@ -19,4 +19,4 @@ export function Dock({ items = [], label, className }) {
       })}
     </div>
   );
-}
+});

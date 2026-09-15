@@ -1,0 +1,26 @@
+/* Scoped consumer entry — tokens + component classes without document-level
+ * reset leakage (body/headings/anchors). Wrap the app in .cs-root. */
+
+@import url("tokens/fonts.css");
+@import url("tokens/colors.css");
+@import url("tokens/typography.css");
+@import url("tokens/spacing.css");
+@import url("tokens/elevation.css");
+@import url("tokens/motion.css");
+@import url("tokens/component-tokens.css");
+@import url("tokens/elements.css");
+@import url("tokens/styles.css");
+@import url("base/high-contrast.css");
+@import url("base/components.css");
+@import url("base/forms.css");
+@import url("base/feedback.css");
+@import url("base/data.css");
+@import url("base/navigation.css");
+@import url("base/ai.css");
+@import url("base/controls.css");
+@import url("base/collections.css");
+@import url("base/shell.css");
+@import url("base/glass.css");
+@import url("base/interaction.css");
+@import url("base/a11y.css");
+@import url("base/scope.css");

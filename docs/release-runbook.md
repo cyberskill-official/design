@@ -73,6 +73,13 @@ Use when git/`VERSION`/site are ahead of npm `dist-tags.latest` (e.g. tip `1.3.1
 - Optional: add a repo Actions variable / secret for Slack webhook later; do not require it for green CI.
 - Operators should watch the Actions badge in `docs/ci-cd.md` and enable “Actions” notification for failed workflows.
 
+## Canary channel
+
+- Enter Changesets prerelease with `npx changeset pre enter canary`. Versions become `X.Y.Z-canary.N` and must not be retagged as `latest`.
+- Publish with `CS_NPM_DIST_TAG=canary` (see `.github/workflows/npm-publish.yml` `dist_tag`). Release-bind still requires tag, `VERSION`, HEAD SHA, and tarball digest to match — canary is a channel, not a bind bypass.
+- Rehearse upgrades in `apps/consumer-canary` (React 18 + React 19 + SSR). Rollback is `npm dist-tag add @cyberskill/design@<stable> latest` plus the canary lockfile revert; target under 15 minutes (`test-upgrade-rehearsal.mjs`).
+- Exit with `npx changeset pre exit` before cutting a stable `VERSION`. Never publish a canary tarball to `dist-tags.latest`.
+
 ## Product vs CyberOS
 
 See `docs/decisions.md` §13. The npm package and portable tree are the product; `.cyberos/` is orchestration only.

@@ -1,6 +1,6 @@
 # Container-query migration (G1 / CDS-RESP-001)
 
-Status: **wave 2 in progress** (2026-08-24) — compatibility layer + kit grid CQ.  
+Status: **wave 3 started** (2026-09-15) — interactive shells use named CQ classes; print/deck substring selectors remain as fallback.  
 Owner: design-system maintainer.  
 Task: `TASK-IMP-025`
 
@@ -19,6 +19,7 @@ Begin container-query adoption **behind a compatibility CSS opt-in**, without re
 | 2026-08-08 | Compatibility CSS in `base/responsive.css` (`.cs-cq` + `.cs-cq-stack`) |
 | 2026-08-24 | Low-risk hosts: website `.container`, status-hub `.wrap` |
 | 2026-08-24 | **Wave 2 (TASK-IMP-025):** helpers `.cs-cq-cols-*` / `.cs-cq-hide-narrow`; website home grids + work results; status-hub deck/lenses + settings fields + project `.pd` host |
+| 2026-09-15 | **Wave 3 (TASK-IMP-030):** `.cs-cols-sidebar`; Settings, App Shell, campaign brief, invite, investor update opt in; interactive inline `1fr 1fr` / `248px 1fr` / `repeat(2–6)` grids must carry a named class (`test-template-landmarks.mjs`) |
 
 ### Media-only exceptions (permanent for now)
 

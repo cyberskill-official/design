@@ -1,9 +1,10 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill InputOTP — one-time-code boxes: auto-advance, backspace, paste. Digits only. */
-export function InputOTP({ length = 6, value, onChange, onComplete, label, lang, disabled = false, className }) {
+export const InputOTP = React.forwardRef(function InputOTP({ length = 6, value, onChange, onComplete, label, lang, disabled = false, className }, forwardedRef) {
   const [inner, setInner] = React.useState("");
   const val = (value != null ? value : inner).slice(0, length);
   const boxes = React.useRef([]);
@@ -16,7 +17,7 @@ export function InputOTP({ length = 6, value, onChange, onComplete, label, lang,
   const [ref, L] = useLang(lang);
   const lbl = label != null ? label : makeT("InputOTP", L)("label");
   return (
-    <div ref={ref} className={cx("cs-otp", className)} role="group" aria-label={lbl}>
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-otp", className)} role="group" aria-label={lbl}>
       {Array.from({ length }).map((_, i) => (
         <input key={i} ref={(el) => (boxes.current[i] = el)} inputMode="numeric" pattern="[0-9]*" maxLength={1} disabled={disabled}
           value={val[i] || ""} aria-label={lbl + " " + (i + 1) + "/" + length}
@@ -44,4 +45,4 @@ export function InputOTP({ length = 6, value, onChange, onComplete, label, lang,
       ))}
     </div>
   );
-}
+});

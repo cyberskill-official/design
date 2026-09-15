@@ -4,7 +4,7 @@
 
 ## Grant
 
-CyberSkill cấp cho **CyberSkill** (công ty và các team kỹ thuật sản phẩm dưới `cyberskill-official`) quyền **không độc quyền** cài và dùng **`@cyberskill/design`** trong các sản phẩm liệt kê ở registry đã khóa `docs/products.md`:
+CyberSkill cấp cho **CyberSkill** (công ty và các team kỹ thuật sản phẩm dưới `cyberskill-official`) quyền **không độc quyền** cài và dùng **`@cyberskill/design`** và các package Stable workspace (`@cyberskill/react`, `@cyberskill/tokens`, `@cyberskill/themes`, `@cyberskill/primitives`) trong các sản phẩm liệt kê ở registry đã khóa `docs/products.md`. Grant này cộng `LICENSE` cộng `docs/decisions.md` §16 là procurement sign-off cho portfolio:
 
 | Sản phẩm |
 |---|

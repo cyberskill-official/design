@@ -1,0 +1,10 @@
+{
+  "name": "@cyberskill/web-components",
+  "version": "1.7.2",
+  "private": false,
+  "type": "module",
+  "description": "Demand-led web components. Two non-React pilots must stay green before promotion.",
+  "license": "UNLICENSED",
+  "exports": { ".": "./index.js" },
+  "files": ["index.js", "README.md"]
+}

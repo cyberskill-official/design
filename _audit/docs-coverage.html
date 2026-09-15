@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CyberSkill · Stable docs coverage</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main id="main" class="cs-root">
+    <h1>Stable docs coverage dashboard</h1>
+    <p>Reads <code>docs/export-registry.json</code>. Required sections match <code>stories/Docs/ComponentContractTemplate.mdx</code>.</p>
+    <pre id="out">Loading…</pre>
+  </main>
+  <script type="module">
+    const REQUIRED = ["Anatomy","Usage","States","Keyboard / AT","Tokens","Code","SSR","Migration","Design status"];
+    const res = await fetch("../docs/export-registry.json");
+    const registry = await res.json();
+    const stables = registry.exports.filter((e) => e.maturity === "stable");
+    document.getElementById("out").textContent = JSON.stringify({
+      version: registry.version,
+      stables: stables.length,
+      requiredSections: REQUIRED,
+      rows: stables.map((e) => ({ name: e.name, owner: e.owner, package: e.package, support: e.support })),
+    }, null, 2);
+  </script>
+</body>
+</html>

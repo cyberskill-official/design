@@ -15,13 +15,13 @@
   #stage{position:absolute;left:0;top:-4000px;width:900px}
 </style></head><body>
 <h1>A11y interaction gate</h1>
-<p class="lede">Keyboard + ARIA assertions on the compiled components: <b>focus management</b> (Dialog/Drawer/AlertDialog initial focus, Tab trap, restore-on-close, Escape), <b>roving tabindex</b> (Tabs, SegmentedControl, Menubar arrow keys), <b>combobox pattern</b> (aria-activedescendant), <b>Mentions APG</b> (arrow + activedescendant + Enter/Escape), <b>Sortable</b> move-up/down keyboard path, and <b>Rating / Tree / Toolbar APG</b> (roving + arrows — hard-fail), role/label contracts (Rating, InputOTP, DataGrid aria-sort, Carousel, Popconfirm, live-region roles), plus open-state surfaces also covered by axe (Cascader/TreeSelect Escape, Tour dialog Escape, HoverCard panel, ContextMenu Escape). Loads <code>_ds_bundle.js</code> (compiled end of turn) — re-run on a <b>fresh</b> turn after editing component sources. Verdict on <code>window.__a11y</code>.</p>
+<p class="lede">Keyboard + ARIA assertions on the compiled components: <b>focus management</b> (Dialog/Drawer/AlertDialog initial focus, Tab trap, restore-on-close, Escape), <b>roving tabindex</b> (Tabs, SegmentedControl, Menubar arrow keys), <b>combobox pattern</b> (aria-activedescendant), <b>Mentions APG</b> (arrow + activedescendant + Enter/Escape), <b>Sortable</b> move-up/down keyboard path, and <b>Rating / Tree / Toolbar APG</b> (roving + arrows — hard-fail), role/label contracts (Rating, InputOTP, DataGrid aria-sort, Carousel, Popconfirm, live-region roles), plus DatePicker / TimePicker / Image preview and open-state surfaces also covered by axe (Cascader/TreeSelect Escape, Tour dialog Escape, HoverCard panel, ContextMenu Escape). Loads <code>_ds_bundle.js</code> (compiled end of turn) — re-run on a <b>fresh</b> turn after editing component sources. Verdict on <code>window.__a11y</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <div id="stage"></div>
 <script>
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
-const P=window.__gateProgress={done:0,total:32,current:'boot'};
+const P=window.__gateProgress={done:0,total:35,current:'boot'};
 function setInput(input,val){
   const proto=input.tagName==='TEXTAREA'?window.HTMLTextAreaElement.prototype:window.HTMLInputElement.prototype;
   const set=Object.getOwnPropertyDescriptor(proto,'value').set;
@@ -57,7 +57,7 @@ async function until(fn,ms){ ms=ms||2500; const t0=Date.now(); let r=false; whil
 async function run(){
   if(!h||typeof ReactDOM==='undefined'){ publish({pass:false,total:0,failed:[],error:'React CDN failed to load \u2014 gate cannot run',results:[]}); return; }
   if(!NS){ publish({pass:false,total:0,failed:[],error:'bundle namespace not found \u2014 is _ds_bundle.js compiled?',results:[]}); return; }
-  const {Dialog,Drawer,AlertDialog,Menubar,Tabs,SegmentedControl,Combobox,Menu,MenuItem,Popconfirm,Rating,InputOTP,Toast,Alert,Spinner,Result,DataGrid,Carousel,Editor,Button,Cascader,TreeSelect,Tour,HoverCard,ContextMenu,Mentions,Sortable,Tree,Toolbar,CommandPalette}=NS;
+  const {Dialog,Drawer,AlertDialog,Menubar,Tabs,SegmentedControl,Combobox,Menu,MenuItem,Popconfirm,Rating,InputOTP,Toast,Alert,Spinner,Result,DataGrid,Carousel,Editor,Button,Cascader,TreeSelect,Tour,HoverCard,ContextMenu,Mentions,Sortable,Tree,Toolbar,CommandPalette,DatePicker,TimePicker,Image}=NS;
 
   await test('Dialog — focus moves in on open',async()=>{
     assert(Dialog,'missing');
@@ -242,7 +242,10 @@ async function run(){
     assert(vis.length===1,'exactly one visible slide');
     assert((c.querySelector('.cs-carousel__nav.prev').getAttribute('aria-label')||'').length>0&&(c.querySelector('.cs-carousel__nav.next').getAttribute('aria-label')||'').length>0,'nav labeled');
     assert([...c.querySelectorAll('.cs-carousel__dots button')].every(d=>(d.getAttribute('aria-label')||'').length>0),'dots labeled');
-    return 'carousel semantics OK';
+    kd(g,'ArrowRight'); await wait(40);
+    const after=[...c.querySelectorAll('.cs-carousel__slide')].filter(s=>s.getAttribute('aria-hidden')==='false');
+    assert(after.length===1&&after[0].getAttribute('aria-label')==='2 / 2','ArrowRight shows slide 2');
+    return 'carousel semantics + ArrowRight';
   });
   await test('Editor — toolbar + multiline textbox',async()=>{
     assert(Editor,'missing');
@@ -495,6 +498,47 @@ async function run(){
     escDoc();
     assert(await until(()=>!document.querySelector('.cs-cmdk-scrim')),'Esc closes palette');
     return 'open→filter→Esc';
+  });
+
+  await test('DatePicker — dialog + Escape closes',async()=>{
+    assert(DatePicker,'missing');
+    const c=mount(h(DatePicker,{label:'When',lang:'en'})); await wait(80);
+    const btn=c.querySelector('button[aria-haspopup=dialog]'); assert(btn,'field');
+    btn.click();
+    assert(await until(()=>c.querySelector('[role="dialog"]')),'pop');
+    escDoc();
+    assert(await until(()=>!c.querySelector('[role="dialog"]')),'esc');
+    return 'datepicker esc';
+  });
+
+  await test('TimePicker — labeled select',async()=>{
+    assert(TimePicker,'missing');
+    const c=mount(h(TimePicker,{label:'At',value:'09:00',lang:'en'})); await wait(80);
+    const sel=c.querySelector('select'); assert(sel&&sel.getAttribute('aria-label'),'labeled');
+    return 'timepicker label';
+  });
+
+  await test('Image preview — Enter opens dialog + live region',async()=>{
+    assert(Image,'missing');
+    const pixel='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+    const c=mount(h(Image,{src:pixel,alt:'dot',preview:true,lang:'en'}));
+    assert(await until(()=>{ const img=c.querySelector('img'); return img&&c.querySelector('[aria-haspopup=dialog]'); },3000),'zoomable');
+    const host=c.querySelector('[aria-haspopup=dialog]');
+    await fxSure(host);
+    host.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}));
+    const dlg=await until(()=>document.querySelector('.cs-image__zoom[role="dialog"]'));
+    assert(dlg,'preview');
+    assert(c.querySelector('[aria-live]'),'live');
+    assert(host.hasAttribute('inert')||host.closest('[inert]'),'trigger inert while preview open');
+    const close=dlg.querySelector('button');
+    await fxSure(close);
+    kd(document,'Tab');
+    assert(await until(()=>dlg.contains(document.activeElement)),'Tab stays in preview');
+    const rs=spyRestore(host);
+    escDoc();
+    assert(await until(()=>!document.querySelector('.cs-image__zoom[role="dialog"]')),'Escape closes preview');
+    assert(await until(()=>rs.hit||document.activeElement===host),'focus restored to trigger');
+    return 'image preview trap + restore';
   });
 
   const bad=results.filter(r=>!r.ok);

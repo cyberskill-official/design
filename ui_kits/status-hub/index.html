@@ -5,20 +5,31 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CyberSkill · Status Hub</title>
+<script>
+(function () {
+  var path = location.pathname;
+  if (path.endsWith("/index")) path = path.slice(0, -6);
+  else if (path.endsWith("index.html")) path = path.slice(0, -10);
+  if (!path.endsWith("/")) path += "/";
+  var base = document.createElement("base");
+  base.href = path;
+  document.head.appendChild(base);
+})();
+</script>
 <link rel="icon" href="../../assets/favicon.svg" />
+<link rel="stylesheet" href="../../packages/tokens/dist/tokens.css" />
 <link rel="stylesheet" href="../../styles.css" />
 <link rel="stylesheet" href="status.css" />
 <style>html,body{margin:0;background:var(--cs-color-surface-page);min-height:100vh}</style>
 <script src="../../_vendor/react/react.production.min.js"></script>
 <script src="../../_vendor/react/react-dom.production.min.js"></script>
-<script src="../../_vendor/babel/babel.min.js"></script>
 <script src="data.js"></script>
 </head>
 <body>
 <div id="root"></div>
-<script type="text/babel" src="StatusHub.jsx"></script>
-<script type="text/babel">
-  ReactDOM.createRoot(document.getElementById("root")).render(<StatusHub />);
+<script src="StatusHub.compiled.js"></script>
+<script>
+  ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(window.StatusHub));
 </script>
 </body>
 </html>

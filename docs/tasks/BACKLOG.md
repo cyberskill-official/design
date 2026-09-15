@@ -28,6 +28,7 @@ Lifecycle: draft -> ready_to_implement -> implementing -> ready_to_review -> rev
 
 ## done
 
+- [done] TASK-IMP-030-enterprise-audit-remediation - Close the 2026-09-13 enterprise audit backlog (improvement) — session HITL 2026-09-15
 - [done] TASK-IMP-027-theme-axes - Brand/density/contrast axes (G3 / CDS-THEME-002) (improvement) — operator C: density + contrast one wave
 - [done] TASK-IMP-026-locale-architecture - Locale architecture beyond EN·VI binary (G2 / CDS-I18N-001) (improvement) — operator B: third-locale spike (ja)
 - [done] TASK-IMP-029-editor-schema-richtext - Editor schema-based rich text (SEC-001 / CDS-SEC-001) (improvement)

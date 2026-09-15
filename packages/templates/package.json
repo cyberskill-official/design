@@ -1,0 +1,10 @@
+{
+  "name": "@cyberskill/templates",
+  "version": "1.7.2",
+  "private": false,
+  "type": "module",
+  "description": "Page templates and compiler (not in the slim runtime).",
+  "license": "UNLICENSED",
+  "exports": { ".": "./index.js" },
+  "files": ["index.js", "README.md"]
+}

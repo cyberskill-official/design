@@ -2,7 +2,7 @@ import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Popover — anchored floating panel. Uncontrolled (click toggles) or controlled. */
-export function Popover({ trigger, children, align = "start", open: controlled, onOpenChange, className }) {
+export const Popover = React.forwardRef(function Popover({ trigger, children, align = "start", open: controlled, onOpenChange, className }, forwardedRef) {
   const [u, setU] = React.useState(false);
   const open = controlled != null ? controlled : u;
   const set = (v) => (onOpenChange ? onOpenChange(v) : setU(v));
@@ -16,7 +16,7 @@ export function Popover({ trigger, children, align = "start", open: controlled, 
     return () => { document.removeEventListener("mousedown", d); document.removeEventListener("keydown", k); };
   }, [open]);
   const toggle = () => set(!open);
-  // ARIA attrs must live on the interactive trigger (button), not a wrapping <span>
+  // ARIA attrs must live on the interactive trigger (button), not a wrapping <span ref={forwardedRef}>
   // — axe aria-allowed-attr flags aria-haspopup/aria-expanded on generic elements.
   const triggerNode = React.isValidElement(trigger)
     ? React.cloneElement(trigger, {
@@ -34,4 +34,4 @@ export function Popover({ trigger, children, align = "start", open: controlled, 
       {open ? <div className={cx("cs-popover__panel", align === "end" && "cs-popover__panel--end")} role="dialog">{children}</div> : null}
     </span>
   );
-}
+});

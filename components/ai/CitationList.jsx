@@ -2,9 +2,9 @@ import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill CitationList — numbered provenance sources for AI output. Rows link out when href is set. */
-export function CitationList({ label = "Sources", items = [], className }) {
+export const CitationList = React.forwardRef(function CitationList({ label = "Sources", items = [], className }, forwardedRef) {
   return (
-    <div className={cx("cs-citations", className)}>
+    <div ref={forwardedRef} className={cx("cs-citations", className)}>
       {label ? <div className="cs-citations__label">{label}</div> : null}
       {items.map((it, i) => {
         const inner = (
@@ -19,4 +19,4 @@ export function CitationList({ label = "Sources", items = [], className }) {
       })}
     </div>
   );
-}
+});

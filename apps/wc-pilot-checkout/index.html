@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>WC pilot — checkout</title>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<main id="main">
+  <h1>Checkout pilot</h1>
+  <form id="form">
+    <cs-text-field label="Email" name="email"></cs-text-field>
+    <cs-button type="submit">Pay</cs-button>
+  </form>
+  <p id="status" aria-live="polite"></p>
+</main>
+<script type="module">
+import { defineCyberSkillElements } from "../../packages/web-components/index.js";
+const t0 = performance.now();
+defineCyberSkillElements();
+window.__wcPilot = {
+  name: "checkout",
+  defined: !!customElements.get("cs-button") && !!customElements.get("cs-text-field"),
+  upgradeMs: performance.now() - t0,
+};
+document.getElementById("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  document.getElementById("status").textContent = "queued";
+});
+</script>
+</body></html>
