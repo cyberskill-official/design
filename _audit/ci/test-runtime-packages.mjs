@@ -67,6 +67,15 @@ assert(!catalogSrc.includes("/>"), "product catalog must stay createElement-only
 const ssr = renderToString(createElement(reactMod.Button, { variant: "primary" }, "stable"));
 assert(ssr.includes("cs-button"), "compiled Button SSR without JSX source");
 
+assert(existsSync(join(root, "packages/themes/dist/high-contrast.css")), "themes high-contrast pack");
+assert(existsSync(join(root, "packages/themes/dist/brand-packs.json")), "themes brand-packs registry");
+const brandPacks = JSON.parse(readFileSync(join(root, "packages/themes/dist/brand-packs.json"), "utf8"));
+assert(Array.isArray(brandPacks.packs) && brandPacks.packs.length === 15, "15 elemental brand packs");
+assert(brandPacks.highContrast === "./high-contrast.css", "brand-packs points at high-contrast");
+assert(existsSync(join(root, "packages/themes/dist/apply-brand-pack.js")), "applyBrandPack compiled");
+const themesBarrel = readFileSync(join(root, "packages/themes/index.js"), "utf8");
+assert(themesBarrel.includes("applyBrandPack"), "themes barrel exports applyBrandPack");
+
 assert(existsSync(join(root, "packages/react/dist/stable-global.js")), "stable-global IIFE");
 const stableGlobal = readFileSync(join(root, "packages/react/dist/stable-global.js"), "utf8");
 assert(stableGlobal.includes("CyberSkillReact"), "stable-global exposes CyberSkillReact");

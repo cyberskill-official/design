@@ -27,6 +27,7 @@ if (r.status !== 0) {
 const report = JSON.parse(readFileSync(join(root, "_audit/ci/release-bind-report.json"), "utf8"));
 assert(report.sha && report.digest, "sha + tarball digest");
 assert(report.artifacts && report.artifacts.dtcg && report.artifacts.codeConnectNodeMap, "SHA-bound artifacts");
+assert(report.artifacts.highContrastPack && report.artifacts.brandPacks, "theme/brand packs bound");
 assert(report.artifacts.nativeSwift && report.artifacts.nativeCompose && report.artifacts.nativeFlutter, "native artifacts");
 assert(report.artifacts.sbom && report.artifacts.sbom.sha256, "SBOM bound to release digest");
 assert(existsSync(join(root, "_audit/ci/bom.cdx.json")), "CycloneDX SBOM written");

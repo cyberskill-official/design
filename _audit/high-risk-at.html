@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><title>High-risk AT</title>
 <link rel="stylesheet" href="../packages/tokens/dist/tokens.css">
+<link rel="stylesheet" href="../packages/themes/dist/high-contrast.css">
 <link rel="stylesheet" href="../styles.css">
 <script src="../_vendor/react/react.production.min.js"></script>
 <script src="../_vendor/react/react-dom.production.min.js"></script>
@@ -420,6 +421,10 @@ async function run() {
   const p95 = p95of(times);
   const buttonP95 = p95of(buttonTimes);
   const fieldP95 = p95of(fieldTimes);
+  document.documentElement.setAttribute("data-cs-contrast", "high");
+  const highContrastText = getComputedStyle(document.documentElement).getPropertyValue("--cs-color-text-primary").trim();
+  document.documentElement.removeAttribute("data-cs-contrast");
+  const contrastOk = highContrastText.length > 0;
   const failed = results.filter((r) => !r.ok);
   const spokenOk = [
     ["Dialog", /dialog title/i],
@@ -432,7 +437,7 @@ async function run() {
     ["Image", /dot/i],
   ].every(([surface, re]) => spoken.some((row) => row.surface === surface && re.test(row.phrase)));
   window.__highRiskAt = {
-    pass: failed.length === 0 && p95 < 100 && buttonP95 < 100 && fieldP95 < 100 && spokenOk,
+    pass: failed.length === 0 && p95 < 100 && buttonP95 < 100 && fieldP95 < 100 && spokenOk && contrastOk,
     results,
     dialogOpenMs: times,
     dialogOpenP95: p95,
@@ -440,6 +445,7 @@ async function run() {
     textFieldP95: fieldP95,
     ax,
     spoken,
+    highContrastText,
     package: "CyberSkillReact",
   };
   document.getElementById("sum").textContent = window.__highRiskAt.pass

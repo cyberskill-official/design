@@ -22,7 +22,7 @@
       "fixture": "apps/product-fixtures/render.mjs",
       "surfaces": ["ui_kits/status-hub/index.html", "ui_kits/status-hub/StatusHub.jsx", "ui_kits/status-hub/StatusHub.compiled.js"],
       "marker": "cs-datagrid",
-      "evidence": "Hydrated Tabs + DataGrid from @cyberskill/react; Status Hub kit is compiled JS + tokens.css, no Babel"
+      "evidence": "Product host SSRs/hydrates DataGrid from @cyberskill/react. ui_kits/status-hub stays a Thổ-faithful recreation (compiled JS + tokens.css, no Babel), not a rewrite onto DS components."
     },
     {
       "id": "cyberos",

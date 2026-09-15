@@ -22,6 +22,11 @@ const tokensPkg = JSON.parse(readFileSync(join(root, "packages/tokens/package.js
 assert(tokensPkg.exports["./css"] === "./dist/tokens.css", "@cyberskill/tokens/css must be the layered runtime");
 assert(tokensPkg.exports["./css/style-axis"] === "./dist/styles.css", "style-axis pack export");
 assert(tokensPkg.exports["./css/high-contrast"] === "./dist/high-contrast.css", "high-contrast pack export");
+const themesPkg = JSON.parse(readFileSync(join(root, "packages/themes/package.json"), "utf8"));
+assert(themesPkg.exports["./high-contrast"] === "./dist/high-contrast.css", "themes high-contrast pack export");
+assert(themesPkg.exports["./brand-packs"] === "./dist/brand-packs.json", "themes brand-packs export");
+assert(existsSync(join(root, "packages/themes/dist/brand-packs.json")), "themes brand-packs file");
+assert(existsSync(join(root, "packages/themes/dist/apply-brand-pack.js")), "applyBrandPack runtime");
 assert(existsSync(join(root, "components/_theme/provider.js")), "ThemeProvider runtime");
 
 const provider = readFileSync(join(root, "components/_theme/provider.js"), "utf8");
@@ -29,6 +34,7 @@ assert(provider.includes("getThemeInitScript"), "SSR no-flash script");
 assert(provider.includes("data-theme"), "applies data-theme");
 assert(provider.includes("data-cs-contrast"), "applies contrast Theme attribute");
 assert(provider.includes("data-cs-density"), "applies density Theme attribute (IMP-027)");
+assert(provider.includes("data-cs-element"), "ThemeProvider can apply elemental brand packs");
 assert(!/tokens\/density\.css/.test(provider), "must not import retired density CSS pack");
 
 console.log("PASS test-token-layers", { files: layers.knownSemanticFiles.length });

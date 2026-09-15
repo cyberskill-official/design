@@ -160,6 +160,69 @@ async function buildThemes() {
   resetDir(dist);
   await bundleOne(join(root, "components/_theme/provider.js"), join(dist, "provider.js"));
   cpSync(join(root, "components/_theme/provider.d.ts"), join(dist, "provider.d.ts"));
+  cpSync(join(root, "base/high-contrast.css"), join(dist, "high-contrast.css"));
+  const seeds = JSON.parse(readFileSync(join(root, "tokens/element-seeds.json"), "utf8"));
+  const packs = [];
+  for (const [id, el] of Object.entries(seeds.elements || {})) {
+    packs.push({ element: id, intensity: "soft", name: el.soft, label: el.label });
+    packs.push({ element: id, intensity: "middle", name: el.middleName, label: el.label });
+    packs.push({ element: id, intensity: "deep", name: el.deep, label: el.label });
+  }
+  writeFileSync(
+    join(dist, "brand-packs.json"),
+    JSON.stringify(
+      {
+        generatedBy: "scripts/build-workspace-packages.mjs",
+        highContrast: "./high-contrast.css",
+        styleAxis: "@cyberskill/tokens/css/style-axis",
+        elementRuntime: "@cyberskill/tokens/css",
+        note: "Fifteen elemental identity packs (5 elements × soft/middle/deep). Not a second style-axis brand.",
+        packs,
+      },
+      null,
+      2,
+    ) + "\n",
+  );
+  writeFileSync(
+    join(dist, "apply-brand-pack.js"),
+    `const PACKS = ${JSON.stringify(packs, null, 2)};
+
+export function listBrandPacks() {
+  return PACKS.slice();
+}
+
+export function resolveBrandPack(input) {
+  if (input == null || input === "") return null;
+  if (typeof input === "object") {
+    return (
+      PACKS.find((p) => p.element === input.element && (
+        input.name ? p.name === input.name : input.intensity ? p.intensity === input.intensity : p.intensity === "middle"
+      )) || null
+    );
+  }
+  const key = String(input);
+  return (
+    PACKS.find((p) => p.name === key) ||
+    PACKS.find((p) => p.element + ":" + p.intensity === key) ||
+    PACKS.find((p) => p.element === key && p.intensity === "middle") ||
+    null
+  );
+}
+
+export function applyBrandPack(input, root) {
+  const pack = resolveBrandPack(input);
+  if (!pack || !root || typeof root.setAttribute !== "function") return null;
+  root.setAttribute("data-cs-element", pack.element);
+  if (pack.intensity === "middle") root.removeAttribute("data-cs-variant");
+  else root.setAttribute("data-cs-variant", pack.name);
+  return pack;
+}
+`,
+  );
+  writeFileSync(
+    join(dist, "apply-brand-pack.d.ts"),
+    `export type BrandPack = {\n  element: string;\n  intensity: "soft" | "middle" | "deep";\n  name: string;\n  label: string;\n};\nexport function listBrandPacks(): BrandPack[];\nexport function resolveBrandPack(input: string | { element: string; intensity?: string; name?: string } | null | undefined): BrandPack | null;\nexport function applyBrandPack(input: string | { element: string; intensity?: string; name?: string }, root: { setAttribute: Function; removeAttribute: Function }): BrandPack | null;\n`,
+  );
   writeIndex(join(root, "packages/themes"), [
     "export {",
     "  ThemeProvider,",
@@ -170,10 +233,11 @@ async function buildThemes() {
     "  CONTRAST_VALUES,",
     "  DENSITY_VALUES,",
     "} from \"./dist/provider.js\";",
+    "export { applyBrandPack, resolveBrandPack, listBrandPacks } from \"./dist/apply-brand-pack.js\";",
   ]);
   writeFileSync(
     join(root, "packages/themes/index.d.ts"),
-    `export {\n  ThemeProvider,\n  useTheme,\n  getThemeInitScript,\n  resolveTheme,\n  THEME_VALUES,\n  CONTRAST_VALUES,\n  DENSITY_VALUES,\n} from "./dist/provider";\nexport type * from "./dist/provider";\n`,
+    `export {\n  ThemeProvider,\n  useTheme,\n  getThemeInitScript,\n  resolveTheme,\n  THEME_VALUES,\n  CONTRAST_VALUES,\n  DENSITY_VALUES,\n} from "./dist/provider";\nexport type * from "./dist/provider";\nexport { applyBrandPack, resolveBrandPack, listBrandPacks } from "./dist/apply-brand-pack";\nexport type { BrandPack } from "./dist/apply-brand-pack";\n`,
   );
 }
 

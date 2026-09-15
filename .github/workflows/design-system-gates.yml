@@ -118,8 +118,10 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             node _audit/ci/inclusive-matrix.mjs --browsers=chromium,firefox,webkit
+            node _audit/ci/test-high-risk-at.mjs --browsers=chromium,firefox,webkit
           else
             node _audit/ci/inclusive-matrix.mjs --browsers=chromium
+            node _audit/ci/test-high-risk-at.mjs --browsers=chromium
           fi
 
   node-prechecks:

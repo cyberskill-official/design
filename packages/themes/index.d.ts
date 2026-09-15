@@ -8,3 +8,5 @@ export {
   DENSITY_VALUES,
 } from "./dist/provider";
 export type * from "./dist/provider";
+export { applyBrandPack, resolveBrandPack, listBrandPacks } from "./dist/apply-brand-pack";
+export type { BrandPack } from "./dist/apply-brand-pack";

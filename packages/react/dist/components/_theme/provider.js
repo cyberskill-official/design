@@ -17,17 +17,24 @@ function getThemeInitScript({
   densityKey = "cs-density",
   defaultTheme = "system",
   defaultContrast = "standard",
-  defaultDensity = "comfortable"
+  defaultDensity = "comfortable",
+  defaultElement = "",
+  defaultVariant = ""
 } = {}) {
-  return `(function(){try{var t=localStorage.getItem(${JSON.stringify(storageKey)})||${JSON.stringify(defaultTheme)};var c=localStorage.getItem(${JSON.stringify(contrastKey)})||${JSON.stringify(defaultContrast)};var d=localStorage.getItem(${JSON.stringify(densityKey)})||${JSON.stringify(defaultDensity)};var r=document.documentElement;var resolved=t;if(t==="system"){resolved=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}if(t==="system"){r.setAttribute("data-theme","system");}else{r.setAttribute("data-theme",resolved);}r.setAttribute("data-cs-contrast",c==="high"?"high":"standard");r.setAttribute("data-cs-density",d==="compact"?"compact":"comfortable");}catch(e){}})();`;
+  return `(function(){try{var t=localStorage.getItem(${JSON.stringify(storageKey)})||${JSON.stringify(defaultTheme)};var c=localStorage.getItem(${JSON.stringify(contrastKey)})||${JSON.stringify(defaultContrast)};var d=localStorage.getItem(${JSON.stringify(densityKey)})||${JSON.stringify(defaultDensity)};var r=document.documentElement;var resolved=t;if(t==="system"){resolved=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}if(t==="system"){r.setAttribute("data-theme","system");}else{r.setAttribute("data-theme",resolved);}r.setAttribute("data-cs-contrast",c==="high"?"high":"standard");r.setAttribute("data-cs-density",d==="compact"?"compact":"comfortable");var el=${JSON.stringify(defaultElement || "")};var va=${JSON.stringify(defaultVariant || "")};if(el){r.setAttribute("data-cs-element",el);if(va){r.setAttribute("data-cs-variant",va);}else{r.removeAttribute("data-cs-variant");}}}catch(e){}})();`;
 }
-function applyDom(theme, contrast, density, dir) {
+function applyDom(theme, contrast, density, dir, element, variant) {
   if (typeof document === "undefined") return;
   const root = document.documentElement;
   root.setAttribute("data-theme", theme === "dark" || theme === "light" || theme === "system" ? theme : "system");
   root.setAttribute("data-cs-contrast", contrast === "high" ? "high" : "standard");
   root.setAttribute("data-cs-density", density === "compact" ? "compact" : "comfortable");
   if (dir === "rtl" || dir === "ltr") root.setAttribute("dir", dir);
+  if (element) {
+    root.setAttribute("data-cs-element", element);
+    if (variant) root.setAttribute("data-cs-variant", variant);
+    else root.removeAttribute("data-cs-variant");
+  }
 }
 function useTheme() {
   const ctx = React.useContext(ThemeContext);
@@ -38,6 +45,8 @@ function useTheme() {
       contrast: "standard",
       density: "comfortable",
       dir: "ltr",
+      element: "",
+      variant: "",
       setTheme() {
       },
       setContrast() {
@@ -57,6 +66,8 @@ function ThemeProvider({
   density: densityProp,
   defaultDensity = "comfortable",
   dir = "ltr",
+  element = "",
+  variant = "",
   storageKey = "cs-theme",
   contrastKey = "cs-contrast",
   densityKey = "cs-density",
@@ -89,7 +100,7 @@ function ThemeProvider({
   const density = densityProp != null ? densityProp : densityState;
   const resolvedTheme = resolveTheme(theme);
   React.useEffect(() => {
-    applyDom(theme, contrast, density, dir);
+    applyDom(theme, contrast, density, dir, element, variant);
     if (!hydrated) return;
     try {
       if (themeProp == null) localStorage.setItem(storageKey, theme);
@@ -97,7 +108,7 @@ function ThemeProvider({
       if (densityProp == null) localStorage.setItem(densityKey, density);
     } catch {
     }
-  }, [theme, contrast, density, dir, hydrated, storageKey, contrastKey, densityKey, themeProp, contrastProp, densityProp]);
+  }, [theme, contrast, density, dir, element, variant, hydrated, storageKey, contrastKey, densityKey, themeProp, contrastProp, densityProp]);
   const setTheme = React.useCallback((next) => {
     if (!THEME_VALUES.includes(next)) return;
     setThemeState(next);
@@ -111,8 +122,8 @@ function ThemeProvider({
     setDensityState(next);
   }, []);
   const value = React.useMemo(
-    () => ({ theme, resolvedTheme, contrast, density, dir, setTheme, setContrast, setDensity }),
-    [theme, resolvedTheme, contrast, density, dir, setTheme, setContrast, setDensity]
+    () => ({ theme, resolvedTheme, contrast, density, dir, element, variant, setTheme, setContrast, setDensity }),
+    [theme, resolvedTheme, contrast, density, dir, element, variant, setTheme, setContrast, setDensity]
   );
   return React.createElement(
     ThemeContext.Provider,
@@ -124,6 +135,8 @@ function ThemeProvider({
         "data-theme": theme,
         "data-cs-contrast": contrast,
         "data-cs-density": density,
+        "data-cs-element": element || void 0,
+        "data-cs-variant": variant || void 0,
         dir
       },
       children

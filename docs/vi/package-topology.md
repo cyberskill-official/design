@@ -17,7 +17,7 @@ apps/storybook         docs host (không phải install runtime)
 apps/consumer-canary   smoke React 18/19 + SSR
 ```
 
-Root `@cyberskill/design` vẫn là tên cài trong cửa sổ migration sáu tháng. Sản phẩm mới nên import `@cyberskill/react` + `@cyberskill/tokens` (`dist/` đã compile, không JSX thô, không template). Consumer facade không transpile JSX thì dùng `@cyberskill/design/stable`. Entry mặc định facade vẫn re-export JSX nguồn cho bundler cũ và ghi chú deprecation trên mô tả package. Deep import như `@cyberskill/react/components/*` không có trên export map workspace và phải fail.
+Root `@cyberskill/design` vẫn là tên cài trong cửa sổ migration sáu tháng. Sản phẩm mới nên import `@cyberskill/react` + `@cyberskill/tokens` (`dist/` đã compile, không JSX thô, không template). Consumer facade không transpile JSX thì dùng `@cyberskill/design/stable`. Entry mặc định facade vẫn re-export JSX nguồn cho bundler cũ và ghi chú deprecation trên mô tả package. Deep import như `@cyberskill/react/components/*` không có trên export map workspace và phải fail. `@cyberskill/themes` ship pack high-contrast, registry 15 brand pack ngũ hành, và `applyBrandPack`; CSS của các pack đó vẫn nằm ở `@cyberskill/tokens/css`.
 
 ## Ngân sách
 

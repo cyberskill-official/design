@@ -10,6 +10,8 @@ export type ThemeContextValue = {
   contrast: ContrastName;
   density: DensityName;
   dir: "ltr" | "rtl";
+  element: string;
+  variant: string;
   setTheme: (theme: ThemeName) => void;
   setContrast: (contrast: ContrastName) => void;
   setDensity: (density: DensityName) => void;
@@ -26,6 +28,8 @@ export function getThemeInitScript(opts?: {
   defaultTheme?: ThemeName;
   defaultContrast?: ContrastName;
   defaultDensity?: DensityName;
+  defaultElement?: string;
+  defaultVariant?: string;
 }): string;
 
 export function resolveTheme(theme: ThemeName | string): "light" | "dark";
@@ -41,6 +45,8 @@ export function ThemeProvider(props: {
   density?: DensityName;
   defaultDensity?: DensityName;
   dir?: "ltr" | "rtl";
+  element?: string;
+  variant?: string;
   storageKey?: string;
   contrastKey?: string;
   densityKey?: string;

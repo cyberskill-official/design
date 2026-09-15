@@ -35,6 +35,8 @@ This utterance records both human-acceptance gates for TASK-IMP-030:
 - Facade `@cyberskill/design/stable` is the compiled no-JSX entry (`packages/react/index.js`)
 - Product templates load compiled `@cyberskill/react` via `packages/react/dist/stable-global.js` (not `_ds_bundle.js`)
 - High-risk AT harness and delivery-kickoff mount `window.CyberSkillReact`
+- Chrome `Accessibility.getFullAXTree` phrases plus 320/400% on the action-9 gallery; Firefox/WebKit when installed
+- `@cyberskill/themes/high-contrast` and `@cyberskill/themes/brand-packs` (15 elemental packs) are release-bound; `applyBrandPack` plus ThemeProvider `element`/`variant` apply those packs to `data-cs-element` / `data-cs-variant`
 
 ## Explicitly not claimed
 

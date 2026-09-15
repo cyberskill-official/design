@@ -1,0 +1,99 @@
+{
+  "generatedBy": "scripts/build-workspace-packages.mjs",
+  "highContrast": "./high-contrast.css",
+  "styleAxis": "@cyberskill/tokens/css/style-axis",
+  "elementRuntime": "@cyberskill/tokens/css",
+  "note": "Fifteen elemental identity packs (5 elements × soft/middle/deep). Not a second style-axis brand.",
+  "packs": [
+    {
+      "element": "tho",
+      "intensity": "soft",
+      "name": "sand",
+      "label": "Thổ · Earth"
+    },
+    {
+      "element": "tho",
+      "intensity": "middle",
+      "name": "studio",
+      "label": "Thổ · Earth"
+    },
+    {
+      "element": "tho",
+      "intensity": "deep",
+      "name": "clay",
+      "label": "Thổ · Earth"
+    },
+    {
+      "element": "hoa",
+      "intensity": "soft",
+      "name": "plasma",
+      "label": "Hỏa · Fire"
+    },
+    {
+      "element": "hoa",
+      "intensity": "middle",
+      "name": "ember",
+      "label": "Hỏa · Fire"
+    },
+    {
+      "element": "hoa",
+      "intensity": "deep",
+      "name": "lava",
+      "label": "Hỏa · Fire"
+    },
+    {
+      "element": "thuy",
+      "intensity": "soft",
+      "name": "mist",
+      "label": "Thủy · Water"
+    },
+    {
+      "element": "thuy",
+      "intensity": "middle",
+      "name": "river",
+      "label": "Thủy · Water"
+    },
+    {
+      "element": "thuy",
+      "intensity": "deep",
+      "name": "ocean",
+      "label": "Thủy · Water"
+    },
+    {
+      "element": "moc",
+      "intensity": "soft",
+      "name": "bamboo",
+      "label": "Mộc · Wood"
+    },
+    {
+      "element": "moc",
+      "intensity": "middle",
+      "name": "leaf",
+      "label": "Mộc · Wood"
+    },
+    {
+      "element": "moc",
+      "intensity": "deep",
+      "name": "forest",
+      "label": "Mộc · Wood"
+    },
+    {
+      "element": "kim",
+      "intensity": "soft",
+      "name": "titanium",
+      "label": "Kim · Metal"
+    },
+    {
+      "element": "kim",
+      "intensity": "middle",
+      "name": "champagne",
+      "label": "Kim · Metal"
+    },
+    {
+      "element": "kim",
+      "intensity": "deep",
+      "name": "steel",
+      "label": "Kim · Metal"
+    }
+  ]
+}

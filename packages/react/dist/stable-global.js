@@ -198,13 +198,18 @@ var CyberSkillReact = (() => {
     if (theme === "dark" || theme === "light") return theme;
     return prefersDark() ? "dark" : "light";
   }
-  function applyDom(theme, contrast, density, dir) {
+  function applyDom(theme, contrast, density, dir, element, variant) {
     if (typeof document === "undefined") return;
     const root = document.documentElement;
     root.setAttribute("data-theme", theme === "dark" || theme === "light" || theme === "system" ? theme : "system");
     root.setAttribute("data-cs-contrast", contrast === "high" ? "high" : "standard");
     root.setAttribute("data-cs-density", density === "compact" ? "compact" : "comfortable");
     if (dir === "rtl" || dir === "ltr") root.setAttribute("dir", dir);
+    if (element) {
+      root.setAttribute("data-cs-element", element);
+      if (variant) root.setAttribute("data-cs-variant", variant);
+      else root.removeAttribute("data-cs-variant");
+    }
   }
   function ThemeProvider({
     children,
@@ -215,6 +220,8 @@ var CyberSkillReact = (() => {
     density: densityProp,
     defaultDensity = "comfortable",
     dir = "ltr",
+    element = "",
+    variant = "",
     storageKey = "cs-theme",
     contrastKey = "cs-contrast",
     densityKey = "cs-density",
@@ -247,7 +254,7 @@ var CyberSkillReact = (() => {
     const density = densityProp != null ? densityProp : densityState;
     const resolvedTheme = resolveTheme(theme);
     react_default.useEffect(() => {
-      applyDom(theme, contrast, density, dir);
+      applyDom(theme, contrast, density, dir, element, variant);
       if (!hydrated) return;
       try {
         if (themeProp == null) localStorage.setItem(storageKey, theme);
@@ -255,7 +262,7 @@ var CyberSkillReact = (() => {
         if (densityProp == null) localStorage.setItem(densityKey, density);
       } catch {
       }
-    }, [theme, contrast, density, dir, hydrated, storageKey, contrastKey, densityKey, themeProp, contrastProp, densityProp]);
+    }, [theme, contrast, density, dir, element, variant, hydrated, storageKey, contrastKey, densityKey, themeProp, contrastProp, densityProp]);
     const setTheme = react_default.useCallback((next) => {
       if (!THEME_VALUES.includes(next)) return;
       setThemeState(next);
@@ -269,8 +276,8 @@ var CyberSkillReact = (() => {
       setDensityState(next);
     }, []);
     const value = react_default.useMemo(
-      () => ({ theme, resolvedTheme, contrast, density, dir, setTheme, setContrast, setDensity }),
-      [theme, resolvedTheme, contrast, density, dir, setTheme, setContrast, setDensity]
+      () => ({ theme, resolvedTheme, contrast, density, dir, element, variant, setTheme, setContrast, setDensity }),
+      [theme, resolvedTheme, contrast, density, dir, element, variant, setTheme, setContrast, setDensity]
     );
     return react_default.createElement(
       ThemeContext.Provider,
@@ -282,6 +289,8 @@ var CyberSkillReact = (() => {
           "data-theme": theme,
           "data-cs-contrast": contrast,
           "data-cs-density": density,
+          "data-cs-element": element || void 0,
+          "data-cs-variant": variant || void 0,
           dir
         },
         children

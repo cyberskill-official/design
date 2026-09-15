@@ -90,6 +90,8 @@ const artifacts = {
   nativeFlutter: hashExisting("examples/native/flutter/lib/tokens/cs_tokens.dart"),
   codeConnectNodeMap: hashExisting("code-connect/node-map.json"),
   sbom: hashExisting("_audit/ci/bom.cdx.json"),
+  highContrastPack: hashExisting("packages/themes/dist/high-contrast.css"),
+  brandPacks: hashExisting("packages/themes/dist/brand-packs.json"),
 };
 
 const report = {
