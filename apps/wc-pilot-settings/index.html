@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>WC pilot — settings</title>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<main id="main">
+  <h1>Settings pilot</h1>
+  <cs-text-field label="Display name" name="display"></cs-text-field>
+  <cs-button type="button" id="save">Save</cs-button>
+  <p id="status" aria-live="polite"></p>
+</main>
+<script type="module">
+import { defineCyberSkillElements } from "../../packages/web-components/index.js";
+const t0 = performance.now();
+defineCyberSkillElements();
+window.__wcPilot = {
+  name: "settings",
+  defined: !!customElements.get("cs-button") && !!customElements.get("cs-text-field"),
+  upgradeMs: performance.now() - t0,
+};
+document.getElementById("save").addEventListener("click", () => {
+  document.getElementById("status").textContent = "saved";
+});
+</script>
+</body></html>

@@ -21,4 +21,4 @@ Protocol: `docs/at-protocol.md`. Empty cells are **not** passes.
 | TimePicker | — | — | — | — | — | n/a |
 | Image preview | — | — | — | — | — | n/a |
 
-Machine evidence only: axe inventory, inclusive-matrix Chromium (320 / zoom / RTL / forced-colors / reduced-motion / pseudo-locale), widget contract tests. A dated operator AT session is still required before claiming production AT clearance.
+Machine evidence (not a screen-reader pass): `_audit/ci/test-high-risk-at.mjs` plus `_audit/a11y-gate.html` (Dialog, AlertDialog, Menu, Combobox, DataGrid, Sortable, Editor, Carousel, DatePicker, TimePicker, Image preview), axe inventory, inclusive-matrix Chromium (320 / zoom / RTL / forced-colors / reduced-motion / pseudo-locale), trusted-HTML tests. Empty NVDA/JAWS/VO/TalkBack/IME cells remain **not** passes. A dated operator AT session is still required before claiming production AT clearance.

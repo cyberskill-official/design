@@ -5,7 +5,7 @@
 # (org cyberskill-official / repo design — FIND-088; not the old design-system slug).
 # Soft-skip only already_published + non-GHA
 # missing_secrets; ENEEDAUTH/404/402/403/EOTP fail closed on tag/workflow_dispatch;
-# post-publish npm view verifies version + dist-tags.latest.
+# post-publish npm view verifies version + dist-tags.<latest|canary>.
 # Package Publishing access: Require 2FA and disallow tokens (OIDC exempt).
 # VERSION is auto-bumped on main (version.yml) and tagged v*; this workflow
 # publishes that tag via npm Trusted Publishing. License remains UNLICENSED.
@@ -15,6 +15,14 @@ name: npm-publish
 
 on:
   workflow_dispatch:
+    inputs:
+      dist_tag:
+        description: npm dist-tag (latest is stable; canary is the prerelease channel)
+        type: choice
+        options:
+          - latest
+          - canary
+        default: latest
   push:
     tags:
       - 'v*'
@@ -56,6 +64,8 @@ jobs:
       - name: Publish to npm (OIDC Trusted Publishing)
         # Do not set NODE_AUTH_TOKEN / NPM_TOKEN — package disallows tokens; OIDC only.
         # FIND-095 — soft-skip vs success written to GITHUB_STEP_SUMMARY + annotations.
+        env:
+          CS_NPM_DIST_TAG: ${{ github.event.inputs.dist_tag || 'latest' }}
         run: node _audit/ci/npm-publish.mjs
       - name: Soft-skip honesty annotation (FIND-095)
         if: always()

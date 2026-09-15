@@ -2,9 +2,9 @@ import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
-import { Icon } from "../icon/Icon.jsx";
+import { Icon } from "../icon/Icon.js";
 import { cx } from "../_utils/cx.js";
-import { useOverlayLayer } from "../overlays/OverlayManager.jsx";
+import { useOverlayLayer } from "../overlays/OverlayManager.js";
 const Image = React.forwardRef(function Image2({ src, alt = "", ratio, preview = false, fallback, lang, className, ...props }, forwardedRef) {
   const [state, setState] = React.useState("loading");
   const [zoom, setZoom] = React.useState(false);

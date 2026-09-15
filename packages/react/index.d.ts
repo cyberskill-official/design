@@ -203,7 +203,7 @@ export { Drawer } from "./dist/components/overlays/Drawer";
 export type * from "./dist/components/overlays/Drawer";
 export { HoverCard } from "./dist/components/overlays/HoverCard";
 export type * from "./dist/components/overlays/HoverCard";
-export { OverlayProvider, ThemeProvider } from "./dist/components/overlays/OverlayManager";
+export { OverlayProvider } from "./dist/components/overlays/OverlayManager";
 export type * from "./dist/components/overlays/OverlayManager";
 export { Popconfirm } from "./dist/components/overlays/Popconfirm";
 export type * from "./dist/components/overlays/Popconfirm";

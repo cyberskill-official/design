@@ -14,8 +14,8 @@ globalThis.CS_TELEMETRY = (event) => {
 
 ## Sự kiện
 
-- `type: "adoption"` — sản phẩm, tên package, version
-- `type: "deprecation"` — tên export và replacement
+- `type: "adoption"` — sản phẩm, tên package, version (ledger trong repo: `docs/adoption-ledger.json`)
+- `type: "deprecation"` — tên export và replacement (tỉ lệ trong `docs/governance-review.json`)
 
 Không gửi PII. Facade có thể gọi `reportDeprecation("@cyberskill/design", "@cyberskill/react")` một lần mỗi session nếu sink tồn tại.
 

@@ -108,6 +108,8 @@ State Theme (`data-theme` — light / dark / system), Element (`data-cs-element`
 
 - **Re-run the smoke test after upgrading.** Open `_audit/consumer-smoke-test.html` and the full Health board (`_audit/run.html`) against the new tip — the runner proves the packaged path still resolves.
 
+- **Canary vs latest.** Prerelease uses `npx changeset pre enter canary` and `CS_NPM_DIST_TAG=canary` on `npm-publish.yml`. Do not install `canary` in production products. Rollback rehearsal is `npm run upgrade:rehearse` (<15 minutes).
+
 ### ADOPT-001 — bump known consumers to 1.7.x
 
 Portfolio / sibling products that still pin an older `@cyberskill/design` (or a vendored subtree) should bump to **≥ 1.7.2** on their next integration window. Do this **in each consumer repo** — this design-system tree does not modify sibling checkouts.

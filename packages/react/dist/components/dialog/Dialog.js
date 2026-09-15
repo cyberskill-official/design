@@ -2,9 +2,9 @@ import { jsx, jsxs } from "react/jsx-runtime";
 import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
-import { Icon } from "../icon/Icon.jsx";
+import { Icon } from "../icon/Icon.js";
 import { cx } from "../_utils/cx.js";
-import { useOverlayLayer } from "../overlays/OverlayManager.jsx";
+import { useOverlayLayer } from "../overlays/OverlayManager.js";
 const Dialog = React.forwardRef(function Dialog2({
   open,
   title,

@@ -65,6 +65,24 @@ if (!existsSync(tarballPath)) {
 const digest = createHash("sha256").update(readFileSync(tarballPath)).digest("hex");
 rmSync(dest, { recursive: true, force: true });
 
+function hashExisting(rel) {
+  const abs = join(root, rel);
+  if (!existsSync(abs)) fail("release artifact missing: " + rel);
+  return {
+    path: rel,
+    sha256: createHash("sha256").update(readFileSync(abs)).digest("hex"),
+  };
+}
+
+const artifacts = {
+  dtcg: hashExisting("tokens/tokens.dtcg.json"),
+  workspaceDtcg: hashExisting("packages/tokens/dist/tokens.dtcg.json"),
+  nativeSwift: hashExisting("examples/native/swiftui/Sources/CyberSkillSample/CSTokens.swift"),
+  nativeCompose: hashExisting("examples/native/compose/app/src/main/java/world/cyberskill/sample/tokens/CSTokens.kt"),
+  nativeFlutter: hashExisting("examples/native/flutter/lib/tokens/cs_tokens.dart"),
+  codeConnectNodeMap: hashExisting("code-connect/node-map.json"),
+};
+
 const report = {
   generatedBy: "scripts/release-bind.mjs",
   version: versionFile,
@@ -77,14 +95,25 @@ const report = {
   digest,
   packedBytes: Number(entry.size || 0),
   unpackedBytes: Number(entry.unpackedSize || 0),
+  artifacts,
+  figmaWrite: {
+    status: "soft-skip-explicit",
+    reason: "FIGMA_TOKEN / FIGMA_FILE_KEY write path is Decision 1C; CI skips when secrets are empty",
+  },
 };
 
 const out = join(root, "_audit/ci/release-bind-report.json");
-if (!args.has("--dry-run")) writeFileSync(out, `${JSON.stringify(report, null, 2)}\n`);
+writeFileSync(out, `${JSON.stringify(report, null, 2)}\n`);
 
 if (args.has("--require-tag") && !tagMatch) {
   fail("tag binding required (refs/tags/v*)");
 }
 
-console.log("PASS release-bind", { version: versionFile, sha: sha.slice(0, 12), digest: digest.slice(0, 12) });
+console.log("PASS release-bind", {
+  version: versionFile,
+  sha: sha.slice(0, 12),
+  digest: digest.slice(0, 12),
+  artifacts: Object.keys(artifacts),
+  figmaWrite: report.figmaWrite.status,
+});
 void existsSync;

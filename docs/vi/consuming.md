@@ -108,6 +108,8 @@ Consumer bỏ qua `styles.css` để tự kiểm soát font loading (`cyberskill
 
 - **Chạy lại smoke test sau nâng cấp.** Mở `_audit/consumer-smoke-test.html` và bảng Health đầy đủ (`_audit/run.html`) trên tip mới — runner chứng minh đường packaged vẫn resolve.
 
+- **Canary vs latest.** Prerelease dùng `npx changeset pre enter canary` và `CS_NPM_DIST_TAG=canary` trên `npm-publish.yml`. Đừng cài `canary` cho sản phẩm production. Rollback rehearsal là `npm run upgrade:rehearse` (<15 phút).
+
 ### ADOPT-001 — bump consumer đã biết lên 1.7.x
 
 Sản phẩm portfolio / sibling còn pin `@cyberskill/design` cũ (hoặc subtree vendored) nên bump lên **≥ 1.7.2** ở cửa sổ tích hợp tiếp theo. Làm **trong từng repo consumer** — cây design-system này không sửa checkout sibling.

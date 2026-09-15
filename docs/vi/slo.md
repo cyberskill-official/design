@@ -20,7 +20,7 @@ Ngân sách nằm ở `docs/package-budgets.json` và làm fail CI khi vượt.
 
 ## Adoption
 
-Council theo dõi uptake sản phẩm ngoài repo. Hook trong repo: `reportAdoption` từ `@cyberskill/primitives` (opt-in `globalThis.CS_TELEMETRY`). Mục tiêu: ≥80% sản phẩm CyberSkill dùng package Stable trong hai quý. Repo này không invent inventory đó; nó xuất bản sink và SLO.
+Council theo dõi uptake production ngoài repo. Bằng chứng trong repo: `docs/adoption-ledger.json` cùng `apps/product-fixtures/render.mjs` (`@cyberskill/react` / `@cyberskill/tokens` đã compile) và `docs/governance-review.json` (token-drift = 0, tỉ lệ migration deprecation). Hook telemetry vẫn là `reportAdoption` từ `@cyberskill/primitives` (opt-in `globalThis.CS_TELEMETRY`). Mục tiêu: ≥80% sản phẩm đã đăng ký dùng package Stable trong hai quý. Không invent traffic live ngoài repo.
 
 ## Liên quan
 

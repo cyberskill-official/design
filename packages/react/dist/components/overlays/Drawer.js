@@ -2,7 +2,7 @@ import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
-import { useOverlayLayer } from "./OverlayManager.jsx";
+import { useOverlayLayer } from "./OverlayManager.js";
 const Drawer = React.forwardRef(function Drawer2({ open, onClose, title, side = "right", children, actions, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const panel = React.useRef(null);

@@ -24,4 +24,11 @@ if (r.status !== 0) {
   throw new Error("release-bind --dry-run failed");
 }
 
+const report = JSON.parse(readFileSync(join(root, "_audit/ci/release-bind-report.json"), "utf8"));
+assert(report.sha && report.digest, "sha + tarball digest");
+assert(report.artifacts && report.artifacts.dtcg && report.artifacts.codeConnectNodeMap, "SHA-bound artifacts");
+assert(report.artifacts.nativeSwift && report.artifacts.nativeCompose && report.artifacts.nativeFlutter, "native artifacts");
+assert(report.figmaWrite && report.figmaWrite.status === "soft-skip-explicit", "figma soft-skip explicit");
+assert(workflow.includes("CS_NPM_DIST_TAG") || workflow.includes("dist_tag"), "canary channel in npm-publish.yml");
+
 console.log("PASS test-release-bind");

@@ -52,6 +52,11 @@ assert(existsSync(join(root, "packages/react/dist/components/button/Button.js"))
 const compiled = readFileSync(join(root, "packages/react/dist/components/button/Button.js"), "utf8");
 assert(!compiled.includes("export function Button"), "Button compiled away from source function form or is forwardRef");
 assert(!/from ["'].*\.jsx["']/.test(readFileSync(join(root, "packages/react/index.js"), "utf8")), "react index has no jsx imports");
+assert(!/from ["'].*\.jsx["']/.test(readFileSync(join(root, "packages/react/dist/components/data/Image.js"), "utf8")), "compiled Image has no jsx imports");
+const reactBarrel = readFileSync(join(root, "packages/react/index.js"), "utf8");
+assert((reactBarrel.match(/\bThemeProvider\b/g) || []).length === 1, "ThemeProvider exported once");
+const reactMod = await import(pathToFileURL(join(root, "packages/react/index.js")).href);
+assert(typeof reactMod.Button === "function" || typeof reactMod.Button === "object", "react barrel imports");
 
 const { reportAdoption, reportDeprecation } = await import(
   pathToFileURL(join(root, "packages/primitives/dist/telemetry.js")).href

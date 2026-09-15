@@ -1,7 +1,8 @@
 import { jsx, jsxs } from "react/jsx-runtime";
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang, formatDate } from "../_i18n/i18n.js";
-import { Calendar } from "./Calendar.jsx";
+import { Calendar } from "./Calendar.js";
 import { cx } from "../_utils/cx.js";
 const CAL_ICON = /* @__PURE__ */ jsxs("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true", children: [
   /* @__PURE__ */ jsx("rect", { x: "3", y: "5", width: "18", height: "16", rx: "2" }),
@@ -28,10 +29,7 @@ const DatePicker = React.forwardRef(function DatePicker2({ value, onChange, plac
       document.removeEventListener("keydown", k);
     };
   }, [open]);
-  return /* @__PURE__ */ jsxs("div", { ref: (el) => {
-    wrap.current = el;
-    ref.current = el;
-  }, className: cx("cs-datepicker", className), children: [
+  return /* @__PURE__ */ jsxs("div", { ref: mergeRefs(wrap, ref, forwardedRef), className: cx("cs-datepicker", className), children: [
     /* @__PURE__ */ jsxs("button", { type: "button", className: "cs-datepicker__field", disabled, "aria-haspopup": "dialog", "aria-expanded": open, "aria-label": label, onClick: () => setOpen((o) => !o), children: [
       CAL_ICON,
       /* @__PURE__ */ jsx("span", { className: value ? void 0 : "ph", children: value ? formatDate(value, L) : ph })

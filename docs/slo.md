@@ -20,7 +20,7 @@ Budgets live in `docs/package-budgets.json` and fail CI on regression.
 
 ## Adoption
 
-Council tracks product uptake out of band. In-repo hook: `reportAdoption` from `@cyberskill/primitives` (opt-in `globalThis.CS_TELEMETRY`). Target: ≥80% CyberSkill products on Stable packages within two quarters. This repository cannot invent that inventory; it publishes the sink and the SLO.
+Council tracks live production uptake out of band. In-repo evidence is `docs/adoption-ledger.json` plus `apps/product-fixtures/render.mjs` (compiled `@cyberskill/react` / `@cyberskill/tokens`) and `docs/governance-review.json` (token-drift zero, deprecation-migration rate). The telemetry hook remains `reportAdoption` from `@cyberskill/primitives` (opt-in `globalThis.CS_TELEMETRY`). Target: ≥80% of registered products on Stable packages within two quarters. Live traffic outside this repo is not invented.
 
 ## Related
 

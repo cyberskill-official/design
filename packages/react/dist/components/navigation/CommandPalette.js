@@ -2,7 +2,7 @@ import { jsx, jsxs } from "react/jsx-runtime";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
-import { useOverlayLayer } from "../overlays/OverlayManager.jsx";
+import { useOverlayLayer } from "../overlays/OverlayManager.js";
 const CommandPalette = React.forwardRef(function CommandPalette2({ open, onClose, placeholder, groups = [], lang, className }, forwardedRef) {
   const [q, setQ] = React.useState("");
   const panel = React.useRef(null);

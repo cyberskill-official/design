@@ -22,6 +22,9 @@
 | AT-14 | Status Hub settings — tablist + labeled switches | Product surface probe | [`_audit/at-kit-probe.html`](../../_audit/at-kit-probe.html) | `[role=tablist]`; switches have `aria-label` or visible label association | **Switch on/off state** in speech; tab panel context |
 | AT-15 | Marketing page (VN) — no EN residual | VN EN-leak lexicon | [`_audit/at-kit-probe.html`](../../_audit/at-kit-probe.html) · [`_audit/language-overflow.html`](../../_audit/language-overflow.html) | Forced VI on marketing template; no built-in EN leak strings | **Residual EN** in chrome not in lexicon; natural-language quality |
 | AT-16 | vn-disciplinary-schedule — HT codes legible | HT cells + contrast | [`_audit/at-kit-probe.html`](../../_audit/at-kit-probe.html) · [`_audit/light-contrast.html`](../../_audit/light-contrast.html) | HT1–HT4 badges present; ochre/umber token contrast ratio ≥ 4.5:1 on sample cell | **HT code pronunciation**; table reading order in browse |
+| AT-17 | Image preview — Enter opens, live region | Keyboard + dialog | [`_audit/high-risk-at.html`](../../_audit/high-risk-at.html) · [`_audit/a11y-gate.html`](../../_audit/a11y-gate.html) | Preview dialog + `aria-live` after load | **Preview announced**; zoom reading order |
+| AT-18 | DatePicker — dialog + Escape | Keyboard | [`_audit/high-risk-at.html`](../../_audit/high-risk-at.html) · [`_audit/a11y-gate.html`](../../_audit/a11y-gate.html) | `aria-haspopup=dialog`; Escape closes | **Selected date announced**; calendar browse |
+| AT-19 | TimePicker — labeled select | Name/label | [`_audit/high-risk-at.html`](../../_audit/high-risk-at.html) · [`_audit/a11y-gate.html`](../../_audit/a11y-gate.html) | Native select has `aria-label` | **Time options announced**; IME not applicable |
 
 ## How to run automated proxies
 
@@ -34,7 +37,9 @@ npm run test:audit-probe
 
 # Single gates
 node _audit/ci/run-single-gate.mjs http://127.0.0.1:8790/_audit/a11y-gate.html __a11y 180000
+node _audit/ci/run-single-gate.mjs http://127.0.0.1:8790/_audit/high-risk-at.html __highRiskAt 60000
 node _audit/ci/run-single-gate.mjs http://127.0.0.1:8790/_audit/at-kit-probe.html __atkitprobe 180000
+node _audit/ci/test-high-risk-at.mjs
 
 # Coverage map drift guard (unit)
 node _audit/ci/test-at-coverage-map.mjs

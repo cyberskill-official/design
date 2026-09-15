@@ -2,7 +2,7 @@ import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
-import { Icon } from "../icon/Icon.jsx";
+import { Icon } from "../icon/Icon.js";
 import { cx } from "../_utils/cx.js";
 const DataGrid = React.forwardRef(function DataGrid2({
   columns = [],

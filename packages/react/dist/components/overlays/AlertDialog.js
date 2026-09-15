@@ -3,7 +3,7 @@ import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
-import { useOverlayLayer } from "./OverlayManager.jsx";
+import { useOverlayLayer } from "./OverlayManager.js";
 const AlertDialog = React.forwardRef(function AlertDialog2({
   open,
   defaultOpen = false,

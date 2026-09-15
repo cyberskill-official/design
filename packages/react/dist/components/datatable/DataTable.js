@@ -2,8 +2,8 @@ import { jsx, jsxs } from "react/jsx-runtime";
 import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
-import { Skeleton } from "../feedback/Skeleton.jsx";
-import { Result } from "../feedback/Result.jsx";
+import { Skeleton } from "../feedback/Skeleton.js";
+import { Result } from "../feedback/Result.js";
 import { cx } from "../_utils/cx.js";
 const DataTable = React.forwardRef(function DataTable2({
   caption,

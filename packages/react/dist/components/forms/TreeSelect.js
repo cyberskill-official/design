@@ -1,7 +1,7 @@
 import { jsx, jsxs } from "react/jsx-runtime";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
-import { Tree } from "../data/Tree.jsx";
+import { Tree } from "../data/Tree.js";
 import { cx } from "../_utils/cx.js";
 const TreeSelect = React.forwardRef(function TreeSelect2({ nodes = [], value, onChange, placeholder, label, disabled = false, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);

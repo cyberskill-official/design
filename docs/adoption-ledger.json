@@ -1,0 +1,65 @@
+{
+  "generatedBy": "TASK-IMP-030",
+  "horizon": "two-quarters",
+  "horizonEnds": "2026-12-15",
+  "stablePackages": ["@cyberskill/react", "@cyberskill/tokens", "@cyberskill/themes", "@cyberskill/primitives"],
+  "threshold": 0.8,
+  "products": [
+    {
+      "id": "lumi",
+      "name": "Lumi",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "evidence": "in-repo SSR fixture on compiled Stable packages"
+    },
+    {
+      "id": "status-hub",
+      "name": "Status Hub",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "evidence": "in-repo SSR fixture on compiled Stable packages"
+    },
+    {
+      "id": "cyberos",
+      "name": "CyberOS Agent Spine",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "evidence": "in-repo SSR fixture — not a claim of production CyberOS traffic"
+    },
+    {
+      "id": "design-system",
+      "name": "CyberSkill Design System",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "evidence": "this library consumes its own compiled workspaces"
+    },
+    {
+      "id": "cyberskill-world",
+      "name": "cyberskill.world",
+      "package": "@cyberskill/tokens",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "evidence": "in-repo SSR fixture on Stable tokens + react"
+    },
+    {
+      "id": "client-delivery",
+      "name": "Client delivery suite",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "evidence": "in-repo SSR fixture on compiled Stable packages"
+    },
+    {
+      "id": "board",
+      "name": "Board / investor collateral",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "evidence": "in-repo SSR fixture on compiled Stable packages"
+    },
+    {
+      "id": "hr",
+      "name": "HR / employment instruments",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "evidence": "in-repo SSR fixture on compiled Stable packages"
+    }
+  ]
+}

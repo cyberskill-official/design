@@ -14,8 +14,8 @@ globalThis.CS_TELEMETRY = (event) => {
 
 ## Events
 
-- `type: "adoption"` — product, package name, version
-- `type: "deprecation"` — export name and replacement
+- `type: "adoption"` — product, package name, version (in-repo ledger: `docs/adoption-ledger.json`)
+- `type: "deprecation"` — export name and replacement (rate in `docs/governance-review.json`)
 
 Do not send PII. Facades may call `reportDeprecation("@cyberskill/design", "@cyberskill/react")` once per session if the host sink exists.
 

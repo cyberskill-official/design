@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang, formatDate } from "../_i18n/i18n.js";
 import { Calendar } from "./Calendar.jsx";
@@ -20,7 +21,7 @@ export const DatePicker = React.forwardRef(function DatePicker({ value, onChange
     return () => { document.removeEventListener("mousedown", d); document.removeEventListener("keydown", k); };
   }, [open]);
   return (
-    <div ref={(el) => { wrap.current = el; ref.current = el; }} className={cx("cs-datepicker", className)}>
+    <div ref={mergeRefs(wrap, ref, forwardedRef)} className={cx("cs-datepicker", className)}>
       <button type="button" className="cs-datepicker__field" disabled={disabled} aria-haspopup="dialog" aria-expanded={open} aria-label={label} onClick={() => setOpen((o) => !o)}>
         {CAL_ICON}
         <span className={value ? undefined : "ph"}>{value ? formatDate(value, L) : ph}</span>
