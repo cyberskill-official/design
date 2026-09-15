@@ -4,7 +4,7 @@ The checklist every Stable component must meet. Use this page as the Storybook d
 
 ## Anatomy of a Stable page
 
-Every Stable component story/docs page includes:
+Every Stable component story/docs page includes (facts come from `docs/stable-contracts.json`, generated from source + prompts + registry — not a shared stub paragraph):
 
 1. Anatomy
 2. Usage / do / don’t

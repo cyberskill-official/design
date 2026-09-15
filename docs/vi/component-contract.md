@@ -4,7 +4,7 @@ Checklist mọi component Stable phải đạt. Dùng trang này làm template t
 
 ## Cấu trúc trang Stable
 
-Mọi trang story/docs component Stable gồm:
+Mọi trang story/docs component Stable gồm (sự kiện lấy từ `docs/stable-contracts.json`, sinh từ source + prompt + registry — không phải một đoạn stub dùng chung):
 
 1. Anatomy
 2. Usage / do / don’t

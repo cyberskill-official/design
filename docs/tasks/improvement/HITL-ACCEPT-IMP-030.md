@@ -37,6 +37,7 @@ This utterance records both human-acceptance gates for TASK-IMP-030:
 - High-risk AT harness and delivery-kickoff mount `window.CyberSkillReact`
 - Chrome `Accessibility.getFullAXTree` phrases plus 320/400% on the action-9 gallery; Firefox/WebKit when installed
 - `@cyberskill/themes/high-contrast` and `@cyberskill/themes/brand-packs` (15 elemental packs) are release-bound; `applyBrandPack` plus ThemeProvider `element`/`variant` apply those packs to `data-cs-element` / `data-cs-variant`
+- Stable + Phase-2 high-risk Storybook contract pages render extracted facts from `docs/stable-contracts.json` (source, prompt, CSS tokens, registry). Generic stub paragraphs are a gate failure. Workspace `@cyberskill/react` deep imports fail closed.
 
 ## Explicitly not claimed
 

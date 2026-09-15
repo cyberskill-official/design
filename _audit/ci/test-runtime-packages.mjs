@@ -81,6 +81,13 @@ const stableGlobal = readFileSync(join(root, "packages/react/dist/stable-global.
 assert(stableGlobal.includes("CyberSkillReact"), "stable-global exposes CyberSkillReact");
 assert(stableGlobal.includes("cs-button"), "stable-global includes compiled Button");
 
+try {
+  await import("@cyberskill/react/components/button/Button.js");
+  throw new Error("deep import of @cyberskill/react/components/* must fail");
+} catch (err) {
+  assert(err && err.code === "ERR_PACKAGE_PATH_NOT_EXPORTED", "workspace deep import must be package-not-exported, got " + (err && err.code));
+}
+
 const facadePkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 assert(facadePkg.exports["./stable"]?.import === "./packages/react/index.js", "facade ./stable is compiled");
 const stableSrc = readFileSync(join(root, "packages/react/index.js"), "utf8");
