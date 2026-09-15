@@ -55,12 +55,12 @@ Rồi link styles và import component. **App Next.js / Vite / SSR** dùng entry
 ```ts
 import { Button, TextField } from "@cyberskill/design";
 // tương đương: import { Button } from "@cyberskill/design/react";
-import "@cyberskill/design/styles.css";
+import "@cyberskill/design/styles.scoped.css"; // bọc app trong .cs-root — không reset body tài liệu
 ```
 
 Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng source). App không được transpile JSX thì import component đã compile từ `@cyberskill/design/stable` (cùng API workspace `@cyberskill/react`). Entry mặc định (`_esm/react.mjs`) là **barrel `"use client"`** — Server Component App Router có thể `import { Button } from "@cyberskill/design"` mà không cần shim client từng import. React và react-dom là **peerDependencies** — app của bạn cung cấp. Types publish dùng `export type *` (**TypeScript 5.0+**). **Không** import `_esm/cs.mjs` (hay `@cyberskill/design/legacy`) vào bundler SSR; đường đó self-ensure React qua CDN và side-load `_ds_bundle.js` chỉ cho browser.
 
-Sản phẩm mới nên ưu tiên package workspace (`@cyberskill/react`, `@cyberskill/tokens`, `@cyberskill/themes`) trong `docs/package-topology.md`. `@cyberskill/design` vẫn là facade tương thích sáu tháng. Bọc app trong `ThemeProvider` và đặt `getThemeInitScript()` trong `<head>` (`@cyberskill/design/theme`). Host không được reset `body` có thể link `@cyberskill/design/styles.scoped.css`. Engines: Node `>=20`. Trình duyệt: xem `docs/support-matrix.md`.
+Sản phẩm mới nên ưu tiên package workspace (`@cyberskill/react`, `@cyberskill/tokens`, `@cyberskill/themes`) trong `docs/package-topology.md`. `@cyberskill/design` vẫn là facade tương thích sáu tháng. Bọc app trong `ThemeProvider` và đặt `getThemeInitScript()` trong `<head>` (`@cyberskill/design/theme`). **Host embed phải dùng `styles.scoped.css`** (hoặc `@cyberskill/tokens/css` + `.cs-root`) để `base/reset.css` không sơn `body`. Surface full-page CyberSkill vẫn được link `styles.css`. Engines: Node `>=20`. Trình duyệt: xem `docs/support-matrix.md`.
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) hoặc tiếp tục dùng đường cây tĩnh bên dưới. Tarball đã publish là **cả cây portable** (styles, tokens, components, templates, guidelines, docs, UI kits) — không phải subset “chỉ lib” tối thiểu. Tooling chỉ-host (Storybook, `_audit/`) không nằm trong `files[]`.
 

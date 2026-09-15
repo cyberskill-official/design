@@ -33,7 +33,20 @@ Deprecated exports keep a `deprecation` object: `{ replacement, since, removeAft
 
 ## RFC
 
-New components, tokens, themes, or breaking changes need an RFC in `docs/decisions.md` (or a linked ADR) covering user evidence, alternatives, API, accessibility, localization, responsive and security impact, adoption, and deprecation.
+New components, tokens, themes, or breaking changes need an RFC in `docs/decisions.md` (or a linked ADR). Required sections:
+
+1. User / problem evidence
+2. Alternatives considered
+3. Proposed API
+4. Accessibility impact
+5. Localization / content impact
+6. Responsive / browser impact
+7. Security impact
+8. Adoption plan
+9. Telemetry
+10. Deprecation plan
+
+A component cannot become Stable without design and engineering review plus a11y/content sign-off recorded on that RFC.
 
 ## Related
 

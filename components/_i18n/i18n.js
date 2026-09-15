@@ -101,11 +101,23 @@ export function useLang(propLang) {
 
 const VI_MONTHS = ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"];
 
-/** VN date = DD/MM/YYYY; EN = 02 Jul 2026; JA = 2026/07/02. */
-export function formatDate(d, lang) {
+/** VN date = DD/MM/YYYY; EN = 02 Jul 2026; JA = 2026/07/02.
+ *  Default calendar math is local. Pass `{ timeZone }` (IANA or "UTC") for a fixed zone. */
+export function formatDate(d, lang, opts) {
   const dt = d instanceof Date ? d : new Date(d);
   if (isNaN(dt.getTime())) return "";
   const L = primaryLang(lang) || "vi";
+  const timeZone = opts && opts.timeZone;
+  if (timeZone) {
+    const locale = localeForLang(L === "pseudo" ? "en" : L);
+    if (L === "vi") {
+      return new Intl.DateTimeFormat(locale, { day: "2-digit", month: "2-digit", year: "numeric", timeZone }).format(dt);
+    }
+    if (L === "ja") {
+      return new Intl.DateTimeFormat(locale, { year: "numeric", month: "2-digit", day: "2-digit", timeZone }).format(dt);
+    }
+    return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", timeZone }).format(dt);
+  }
   if (L === "vi") {
     const p = (n) => String(n).padStart(2, "0");
     return p(dt.getDate()) + "/" + p(dt.getMonth() + 1) + "/" + dt.getFullYear();
@@ -114,6 +126,17 @@ export function formatDate(d, lang) {
     return dt.toLocaleDateString("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit" });
   }
   return dt.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+}
+
+/** Pick a plural category via Intl.PluralRules. `forms` needs at least `other`. */
+export function formatPlural(count, forms, lang) {
+  if (!forms || typeof forms !== "object") return "";
+  const n = Number(count);
+  const locale = localeForLang(primaryLang(lang) === "pseudo" ? "en" : lang);
+  const cat = new Intl.PluralRules(locale).select(Number.isFinite(n) ? n : 0);
+  if (forms[cat] != null) return String(forms[cat]);
+  if (forms.other != null) return String(forms.other);
+  return "";
 }
 export function monthName(i, lang) {
   const L = primaryLang(lang) || "vi";

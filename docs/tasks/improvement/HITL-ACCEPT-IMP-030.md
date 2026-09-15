@@ -50,6 +50,8 @@ This utterance records both human-acceptance gates for TASK-IMP-030:
 - High-risk AT: Menu ArrowDown across two items, DatePicker day `onChange`, Editor `<script>` strip on `defaultValue`
 - Canary channel section on `docs/release-runbook.md` (`CS_NPM_DIST_TAG=canary`, Changesets `pre`)
 - Status hub freshness: VERSION match + ancestor lag ≤5 on a full clone (`test-status-freshness.mjs`)
+- `formatPlural` + `formatDate(..., { timeZone })`; host embeds default to `styles.scoped.css`; RFC section list on `docs/governance.md`
+- Interactive shells (App Shell, Settings, campaign brief, invite, investor update) carry named CQ classes; `test:unit` runs Storybook freshness when `storybook-static/` is present
 
 ## Explicitly not claimed
 

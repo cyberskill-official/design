@@ -371,6 +371,11 @@ color-scheme: dark;
 --cs-color-surface-page: color-mix(in oklab, var(--cs-accent) 8%, #1a1108);
 --cs-color-surface-raised: color-mix(in oklab, var(--cs-accent) 14%, #2b1e14);
 --cs-color-border-default: color-mix(in oklab, var(--cs-accent) 40%, #4a3a2c);
+--cs-component-button-primary-bg: var(--cs-accent-strong);
+--cs-component-button-primary-fg: var(--cs-accent-on);
+--cs-color-text-accent: var(--cs-accent-bright);
+--cs-color-link: var(--cs-accent-bright);
+--cs-color-link-hover: var(--cs-color-text-primary);
 }
 @media (prefers-color-scheme: dark) {
 [data-theme="system"] [data-cs-element], [data-cs-element][data-theme="system"] {
@@ -378,6 +383,11 @@ color-scheme: dark;
 --cs-color-surface-page: color-mix(in oklab, var(--cs-accent) 8%, #1a1108);
 --cs-color-surface-raised: color-mix(in oklab, var(--cs-accent) 14%, #2b1e14);
 --cs-color-border-default: color-mix(in oklab, var(--cs-accent) 40%, #4a3a2c);
+--cs-component-button-primary-bg: var(--cs-accent-strong);
+--cs-component-button-primary-fg: var(--cs-accent-on);
+--cs-color-text-accent: var(--cs-accent-bright);
+--cs-color-link: var(--cs-accent-bright);
+--cs-color-link-hover: var(--cs-color-text-primary);
 }
 }
 
@@ -592,23 +602,6 @@ color-scheme: dark;
 --cs-accent-grad-b: #2EDBF7;
 --cs-color-text-accent: #1F1400;
 --cs-color-link: #1F1400;
-}
-
-[data-theme="dark"] [data-cs-element], [data-cs-element][data-theme="dark"] {
---cs-component-button-primary-bg: var(--cs-accent-strong);
---cs-component-button-primary-fg: var(--cs-accent-on);
---cs-color-text-accent: var(--cs-accent-bright);
---cs-color-link: var(--cs-accent-bright);
---cs-color-link-hover: var(--cs-color-text-primary);
-}
-@media (prefers-color-scheme: dark) {
-[data-theme="system"] [data-cs-element], [data-cs-element][data-theme="system"] {
---cs-component-button-primary-bg: var(--cs-accent-strong);
---cs-component-button-primary-fg: var(--cs-accent-on);
---cs-color-text-accent: var(--cs-accent-bright);
---cs-color-link: var(--cs-accent-bright);
---cs-color-link-hover: var(--cs-color-text-primary);
-}
 }
 
 .cs-aurora-wash { background-image: url("../assets/aurora-tho.webp"); background-size: cover; background-position: center; }
@@ -2293,6 +2286,7 @@ background: var(--cs-color-surface-page);
 img, svg, video, canvas { max-width: 100%; height: auto; }
 
 .cs-cq { container-type: inline-size; container-name: cs; }
+.cs-cols-sidebar { display: grid; grid-template-columns: 248px 1fr; }
 @container cs (max-width: 768px) {
 .cs-cq-cols-2,
 .cs-cq-cols-3,
@@ -2324,6 +2318,7 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
 }
 
 @media screen and (max-width: 768px) {
+.cs-cols-sidebar { grid-template-columns: 1fr !important; }
 .cs-sidebar { position: static !important; width: auto !important; height: auto !important;
 display: flex !important; flex-wrap: wrap !important; gap: 4px 10px !important;
 align-items: center !important; border-inline-end: 0 !important;

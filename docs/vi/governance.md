@@ -33,7 +33,20 @@ Export deprecated giữ object `deprecation`: `{ replacement, since, removeAfter
 
 ## RFC
 
-Component, token, theme mới, hoặc breaking change cần RFC trong `docs/decisions.md` (hoặc ADR liên kết) gồm bằng chứng người dùng, phương án khác, API, accessibility, localization, responsive và security, adoption, và deprecation.
+Component, token, theme mới, hoặc breaking change cần RFC trong `docs/decisions.md` (hoặc ADR liên kết). Các mục bắt buộc:
+
+1. Bằng chứng người dùng / vấn đề
+2. Phương án khác đã xét
+3. API đề xuất
+4. Ảnh hưởng accessibility
+5. Ảnh hưởng localization / nội dung
+6. Ảnh hưởng responsive / trình duyệt
+7. Ảnh hưởng security
+8. Kế hoạch adoption
+9. Telemetry
+10. Kế hoạch deprecation
+
+Component không lên Stable nếu thiếu review design + engineering cùng sign-off a11y/nội dung trên RFC đó.
 
 ## Liên quan
 

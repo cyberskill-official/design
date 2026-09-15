@@ -74,10 +74,21 @@ function useLang(propLang) {
   return [ref, lang];
 }
 const VI_MONTHS = ["Th\xE1ng 1", "Th\xE1ng 2", "Th\xE1ng 3", "Th\xE1ng 4", "Th\xE1ng 5", "Th\xE1ng 6", "Th\xE1ng 7", "Th\xE1ng 8", "Th\xE1ng 9", "Th\xE1ng 10", "Th\xE1ng 11", "Th\xE1ng 12"];
-function formatDate(d, lang) {
+function formatDate(d, lang, opts) {
   const dt = d instanceof Date ? d : new Date(d);
   if (isNaN(dt.getTime())) return "";
   const L = primaryLang(lang) || "vi";
+  const timeZone = opts && opts.timeZone;
+  if (timeZone) {
+    const locale = localeForLang(L === "pseudo" ? "en" : L);
+    if (L === "vi") {
+      return new Intl.DateTimeFormat(locale, { day: "2-digit", month: "2-digit", year: "numeric", timeZone }).format(dt);
+    }
+    if (L === "ja") {
+      return new Intl.DateTimeFormat(locale, { year: "numeric", month: "2-digit", day: "2-digit", timeZone }).format(dt);
+    }
+    return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", timeZone }).format(dt);
+  }
   if (L === "vi") {
     const p = (n) => String(n).padStart(2, "0");
     return p(dt.getDate()) + "/" + p(dt.getMonth() + 1) + "/" + dt.getFullYear();
@@ -86,6 +97,15 @@ function formatDate(d, lang) {
     return dt.toLocaleDateString("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit" });
   }
   return dt.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+}
+function formatPlural(count, forms, lang) {
+  if (!forms || typeof forms !== "object") return "";
+  const n = Number(count);
+  const locale = localeForLang(primaryLang(lang) === "pseudo" ? "en" : lang);
+  const cat = new Intl.PluralRules(locale).select(Number.isFinite(n) ? n : 0);
+  if (forms[cat] != null) return String(forms[cat]);
+  if (forms.other != null) return String(forms.other);
+  return "";
 }
 function monthName(i, lang) {
   const L = primaryLang(lang) || "vi";
@@ -118,6 +138,7 @@ export {
   formatCurrency,
   formatDate,
   formatNumber,
+  formatPlural,
   knownLocales,
   localeForLang,
   makeT,

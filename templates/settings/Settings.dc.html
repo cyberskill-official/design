@@ -25,7 +25,7 @@
       <section style="background:var(--cs-color-surface-panel);border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-lg);padding:24px;margin-top:22px">
         <h3 style="margin:0 0 4px;font-size:18px">{{ profileH }}</h3>
         <p style="margin:0 0 18px;color:var(--cs-color-text-muted);font-size:14px">{{ profileP }}</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 24px">
+        <div class="cs-cq cs-cq-cols-2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px 24px">
           <x-import component-from-global-scope="CyberSkillDS.TextField" label="{{ nameL }}" default-value="Nguyễn Hoàng An" hint-size="100%,74px"></x-import>
           <x-import component-from-global-scope="CyberSkillDS.TextField" label="{{ emailL }}" type="email" default-value="an@cyberskill.world" hint-size="100%,74px"></x-import>
           <x-import component-from-global-scope="CyberSkillDS.Select" label="{{ squadL }}" options="{{ squads }}" hint-size="100%,74px"></x-import>

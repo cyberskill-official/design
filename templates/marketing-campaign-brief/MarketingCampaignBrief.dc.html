@@ -31,7 +31,7 @@
         <p style="margin:0;font-size:16px;line-height:1.6;font-weight:600">{{ objP }}</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:26px">
+      <div class="cs-cq cs-cq-cols-2" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:26px">
         <div><h2 style="font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 8px">{{ audL }}</h2><p style="font-size:15px;line-height:1.6;margin:0">{{ audP }}</p></div>
         <div><h2 style="font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 8px">{{ msgL }}</h2><p style="font-size:15px;line-height:1.6;margin:0">{{ msgP }}</p></div>
       </div>
@@ -47,7 +47,7 @@
       </div>
 
       <h2 style="font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 14px">{{ smL }}</h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div class="cs-cq cs-cq-cols-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
         <x-import component-from-global-scope="CyberSkillDS.Stat" label="{{ m1 }}" value="+40%" trend="up" delta="{{ m1d }}" hint-size="150px,72px"></x-import>
         <x-import component-from-global-scope="CyberSkillDS.Stat" label="{{ m2 }}" value="120" trend="up" delta="Q4" hint-size="150px,72px"></x-import>
         <x-import component-from-global-scope="CyberSkillDS.Stat" label="CAC" value="−15%" trend="up" delta="{{ m3d }}" hint-size="150px,72px"></x-import>

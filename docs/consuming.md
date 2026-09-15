@@ -55,12 +55,12 @@ Then link styles and import components. **Next.js / Vite / SSR apps** use the de
 ```ts
 import { Button, TextField } from "@cyberskill/design";
 // equivalent: import { Button } from "@cyberskill/design/react";
-import "@cyberskill/design/styles.css";
+import "@cyberskill/design/styles.scoped.css"; // wrap the app in .cs-root — no document body reset
 ```
 
 Add `transpilePackages: ["@cyberskill/design"]` in Next.js (JSX ships as source). Apps that must not transpile JSX import compiled components from `@cyberskill/design/stable` (same API as workspace `@cyberskill/react`). The default entry (`_esm/react.mjs`) is a **`"use client"` barrel** — App Router Server Components can `import { Button } from "@cyberskill/design"` without per-import client shims. React and react-dom are **peerDependencies** — your app provides them. Published types use `export type *` (**TypeScript 5.0+**). Do **not** import `_esm/cs.mjs` (or `@cyberskill/design/legacy`) into an SSR bundler; that path self-ensures React via CDN and side-loads `_ds_bundle.js` for browsers only.
 
-New products should prefer the workspace packages (`@cyberskill/react`, `@cyberskill/tokens`, `@cyberskill/themes`) documented in `docs/package-topology.md`. `@cyberskill/design` remains the compatibility facade for six months. Wrap the app in `ThemeProvider` and put `getThemeInitScript()` in `<head>` (`@cyberskill/design/theme`). Host apps that must not reset `body` can link `@cyberskill/design/styles.scoped.css`. Engines: Node `>=20`. Browsers: see `docs/support-matrix.md`.
+New products should prefer the workspace packages (`@cyberskill/react`, `@cyberskill/tokens`, `@cyberskill/themes`) documented in `docs/package-topology.md`. `@cyberskill/design` remains the compatibility facade for six months. Wrap the app in `ThemeProvider` and put `getThemeInitScript()` in `<head>` (`@cyberskill/design/theme`). **Host embeds must use `styles.scoped.css`** (or `@cyberskill/tokens/css` + `.cs-root`) so `base/reset.css` does not paint `body`. Full-page CyberSkill surfaces may still link `styles.css`. Engines: Node `>=20`. Browsers: see `docs/support-matrix.md`.
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) or continue with the static tree paths below. The published tarball is the **full portable tree** (styles, tokens, components, templates, guidelines, docs, UI kits) — not a minimal “lib-only” subset. Host-only tooling (Storybook, `_audit/`) is not in `files[]`.
 

@@ -36,4 +36,18 @@ if (missing.length) {
   process.exit(1);
 }
 
+const FRAGILE = /style="[^"]*grid-template-columns:\s*(?:1fr 1fr|248px 1fr|repeat\([2-6])/;
+const named = /cs-cq-cols-|cs-cols-sidebar|cs-cq-stack/;
+const cqMissing = [];
+for (const f of interactive) {
+  const src = readFileSync(f, "utf8");
+  if (/cs-canvas-desk/.test(src) || !FRAGILE.test(src)) continue;
+  if (!named.test(src)) cqMissing.push(f.slice(root.length + 1));
+}
+if (cqMissing.length) {
+  console.error("FAIL test-template-landmarks — interactive inline grids need .cs-cq-cols-* / .cs-cols-sidebar:");
+  for (const m of cqMissing.slice(0, 40)) console.error("  " + m);
+  process.exit(1);
+}
+
 console.log("PASS test-template-landmarks", { interactive: interactive.length, printExempt: files.length - interactive.length });

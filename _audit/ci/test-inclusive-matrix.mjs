@@ -49,6 +49,11 @@ assert(i18n.includes("pseudo"), "pseudo-locale resolver");
 assert(i18n.includes("localeForLang"), "locale negotiation");
 
 const matrix = readFileSync(join(root, "_audit/ci/inclusive-matrix.mjs"), "utf8");
+const scoped = readFileSync(join(root, "styles.scoped.css"), "utf8");
+assert(!scoped.includes("base/reset.css"), "scoped entry omits document reset");
+assert(scoped.includes("base/scope.css"), "scoped entry uses .cs-root scope");
+assert(existsSync(join(root, "base/scope.css")), "scope.css present");
+
 assert(matrix.includes('zoom = "2"'), "200% zoom is executed, not only documented");
 assert(matrix.includes('zoom = "4"'), "400% zoom is executed, not only documented");
 assert(/isMobile|390/.test(matrix), "mobile viewport is executed");

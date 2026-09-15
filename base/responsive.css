@@ -21,6 +21,7 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
  * *parent* is narrow (sidebar / split panes) even if the viewport is wide.
  * Breakpoints ⊆ token scale (sm 640 · md 768). */
 .cs-cq { container-type: inline-size; container-name: cs; }
+.cs-cols-sidebar { display: grid; grid-template-columns: 248px 1fr; }
 @container cs (max-width: 768px) {
   .cs-cq-cols-2,
   .cs-cq-cols-3,
@@ -57,6 +58,7 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
 /* 4 — App shell: the sidebar + main is a fixed two-column inline grid on desktop.
  * Collapse it to a stacked layout; the sidebar becomes a horizontal nav strip. */
 @media screen and (max-width: 768px) {
+  .cs-cols-sidebar { grid-template-columns: 1fr !important; }
   .cs-sidebar { position: static !important; width: auto !important; height: auto !important;
     display: flex !important; flex-wrap: wrap !important; gap: 4px 10px !important;
     align-items: center !important; border-inline-end: 0 !important;

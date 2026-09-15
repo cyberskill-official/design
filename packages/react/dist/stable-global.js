@@ -647,6 +647,12 @@ var CyberSkillReact = (() => {
     const primary = lower.split("-")[0];
     return primary || null;
   }
+  function localeForLang(lang) {
+    const L = primaryLang(lang) || "vi";
+    if (L === "vi") return "vi-VN";
+    if (L === "ja") return "ja-JP";
+    return "en-US";
+  }
   function applyPseudo(str) {
     if (str == null) return str;
     return "\u27E6" + String(str) + "\u27E7";
@@ -699,10 +705,21 @@ var CyberSkillReact = (() => {
     return [ref, lang];
   }
   var VI_MONTHS = ["Th\xE1ng 1", "Th\xE1ng 2", "Th\xE1ng 3", "Th\xE1ng 4", "Th\xE1ng 5", "Th\xE1ng 6", "Th\xE1ng 7", "Th\xE1ng 8", "Th\xE1ng 9", "Th\xE1ng 10", "Th\xE1ng 11", "Th\xE1ng 12"];
-  function formatDate(d, lang) {
+  function formatDate(d, lang, opts) {
     const dt = d instanceof Date ? d : new Date(d);
     if (isNaN(dt.getTime())) return "";
     const L = primaryLang(lang) || "vi";
+    const timeZone = opts && opts.timeZone;
+    if (timeZone) {
+      const locale = localeForLang(L === "pseudo" ? "en" : L);
+      if (L === "vi") {
+        return new Intl.DateTimeFormat(locale, { day: "2-digit", month: "2-digit", year: "numeric", timeZone }).format(dt);
+      }
+      if (L === "ja") {
+        return new Intl.DateTimeFormat(locale, { year: "numeric", month: "2-digit", day: "2-digit", timeZone }).format(dt);
+      }
+      return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", timeZone }).format(dt);
+    }
     if (L === "vi") {
       const p = (n) => String(n).padStart(2, "0");
       return p(dt.getDate()) + "/" + p(dt.getMonth() + 1) + "/" + dt.getFullYear();
