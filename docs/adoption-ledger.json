@@ -29,7 +29,7 @@
       "name": "CyberOS Agent Spine",
       "package": "@cyberskill/react",
       "fixture": "apps/product-fixtures/render.mjs",
-      "surfaces": [".cyberos/AGENT-ENTRY.md", "docs/tasks/BACKLOG.md"],
+      "surfaces": ["AGENTS.md", "docs/tasks/BACKLOG.md"],
       "marker": "cs-field",
       "evidence": "SSR high-contrast ThemeProvider + TextField; CyberOS task spine in-repo"
     },

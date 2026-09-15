@@ -89,7 +89,7 @@ export const catalog = [
     element: "kim",
     variant: "steel",
     package: "@cyberskill/react",
-    surfaces: [".cyberos/AGENT-ENTRY.md", "docs/tasks/BACKLOG.md"],
+    surfaces: ["AGENTS.md", "docs/tasks/BACKLOG.md"],
     marker: "cs-field",
     render: () =>
       wrap(
