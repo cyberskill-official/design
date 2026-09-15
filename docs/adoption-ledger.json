@@ -58,7 +58,7 @@
       "fixture": "apps/product-fixtures/render.mjs",
       "surfaces": ["templates/delivery-kickoff/DeliveryKickoff.dc.html", "templates/delivery-kickoff/ds-base.js"],
       "marker": "cs-card",
-      "evidence": "SSR Card; kickoff ds-base.js binds tokens.css + styles.min.css"
+      "evidence": "SSR Card; kickoff ds-base.js binds tokens.css + compiled @cyberskill/react stable-global.js"
     },
     {
       "id": "board",
@@ -67,7 +67,7 @@
       "fixture": "apps/product-fixtures/render.mjs",
       "surfaces": ["templates/bod-memo/BodMemo.dc.html", "templates/bod-investor-update/BodInvestorUpdate.dc.html"],
       "marker": "cs-stat",
-      "evidence": "SSR Stat; board ds-base.js binds tokens.css"
+      "evidence": "SSR Stat; board ds-base.js binds tokens.css + compiled @cyberskill/react"
     },
     {
       "id": "hr",
@@ -76,7 +76,7 @@
       "fixture": "apps/product-fixtures/render.mjs",
       "surfaces": ["templates/hr-announcement/HrAnnouncement.dc.html", "templates/hr-pip/HrPip.dc.html"],
       "marker": "cs-alert",
-      "evidence": "SSR Alert; HR ds-base.js binds tokens.css"
+      "evidence": "SSR Alert; HR ds-base.js binds tokens.css + compiled @cyberskill/react"
     }
   ]
 }

@@ -67,6 +67,11 @@ assert(!catalogSrc.includes("/>"), "product catalog must stay createElement-only
 const ssr = renderToString(createElement(reactMod.Button, { variant: "primary" }, "stable"));
 assert(ssr.includes("cs-button"), "compiled Button SSR without JSX source");
 
+assert(existsSync(join(root, "packages/react/dist/stable-global.js")), "stable-global IIFE");
+const stableGlobal = readFileSync(join(root, "packages/react/dist/stable-global.js"), "utf8");
+assert(stableGlobal.includes("CyberSkillReact"), "stable-global exposes CyberSkillReact");
+assert(stableGlobal.includes("cs-button"), "stable-global includes compiled Button");
+
 const facadePkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 assert(facadePkg.exports["./stable"]?.import === "./packages/react/index.js", "facade ./stable is compiled");
 const stableSrc = readFileSync(join(root, "packages/react/index.js"), "utf8");

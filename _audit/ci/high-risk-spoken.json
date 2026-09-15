@@ -1,0 +1,127 @@
+{
+  "generatedBy": "test-high-risk-at",
+  "kind": "chrome-ax-speech-script",
+  "note": "Chrome accessibility-tree name/role/value phrases. Not NVDA, JAWS, VoiceOver, or TalkBack.",
+  "package": "CyberSkillReact",
+  "spoken": [
+    {
+      "surface": "Dialog",
+      "phrase": "Dialog title, dialog"
+    },
+    {
+      "surface": "AlertDialog",
+      "phrase": "Del, alertdialog"
+    },
+    {
+      "surface": "Menu",
+      "phrase": "Menu, menu"
+    },
+    {
+      "surface": "MenuItem",
+      "phrase": "Alpha item, menuitem"
+    },
+    {
+      "surface": "Combobox",
+      "phrase": "Pick, combobox"
+    },
+    {
+      "surface": "DataGrid",
+      "phrase": "Name ↕Row, table"
+    },
+    {
+      "surface": "Sortable",
+      "phrase": "Move down, button"
+    },
+    {
+      "surface": "Editor",
+      "phrase": "Rich text, textbox"
+    },
+    {
+      "surface": "Carousel",
+      "phrase": "Gallery, region"
+    },
+    {
+      "surface": "DatePicker",
+      "phrase": "When, button"
+    },
+    {
+      "surface": "DatePickerDialog",
+      "phrase": "When, dialog"
+    },
+    {
+      "surface": "TimePicker",
+      "phrase": "At, combobox"
+    },
+    {
+      "surface": "Image",
+      "phrase": "dot, dialog"
+    }
+  ],
+  "ax": [
+    {
+      "surface": "Dialog",
+      "role": "dialog",
+      "name": "Dialog title"
+    },
+    {
+      "surface": "AlertDialog",
+      "role": "alertdialog",
+      "name": "Del"
+    },
+    {
+      "surface": "Menu",
+      "role": "menu",
+      "name": "Menu"
+    },
+    {
+      "surface": "MenuItem",
+      "role": "menuitem",
+      "name": "Alpha item"
+    },
+    {
+      "surface": "Combobox",
+      "role": "combobox",
+      "name": "Pick"
+    },
+    {
+      "surface": "DataGrid",
+      "role": "table",
+      "name": "Name ↕Row"
+    },
+    {
+      "surface": "Sortable",
+      "role": "button",
+      "name": "Move down"
+    },
+    {
+      "surface": "Editor",
+      "role": "textbox",
+      "name": "Rich text"
+    },
+    {
+      "surface": "Carousel",
+      "role": "region",
+      "name": "Gallery"
+    },
+    {
+      "surface": "DatePicker",
+      "role": "button",
+      "name": "When"
+    },
+    {
+      "surface": "DatePickerDialog",
+      "role": "dialog",
+      "name": "When"
+    },
+    {
+      "surface": "TimePicker",
+      "role": "combobox",
+      "name": "At"
+    },
+    {
+      "surface": "Image",
+      "role": "dialog",
+      "name": "dot"
+    }
+  ]
+}

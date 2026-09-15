@@ -33,6 +33,8 @@ This utterance records both human-acceptance gates for TASK-IMP-030:
 - Product kits compile without Babel (`ui_kits/build.mjs`); Lumi chat mounts compiled `@cyberskill/react`
 - All eight product hosts hydrate and accept interaction; hosts call `reportAdoption`
 - Facade `@cyberskill/design/stable` is the compiled no-JSX entry (`packages/react/index.js`)
+- Product templates load compiled `@cyberskill/react` via `packages/react/dist/stable-global.js` (not `_ds_bundle.js`)
+- High-risk AT harness and delivery-kickoff mount `window.CyberSkillReact`
 
 ## Explicitly not claimed
 

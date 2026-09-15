@@ -52,10 +52,11 @@ const tokenBind = [
   "templates/hr-announcement/ds-base.js",
 ];
 for (const rel of tokenBind) {
-  assert(
-    readFileSync(join(root, rel), "utf8").includes("packages/tokens/dist/tokens.css"),
-    rel + " must load @cyberskill/tokens/css",
-  );
+  const src = readFileSync(join(root, rel), "utf8");
+  assert(src.includes("packages/tokens/dist/tokens.css"), rel + " must load @cyberskill/tokens/css");
+  if (rel.endsWith("ds-base.js")) {
+    assert(src.includes("packages/react/dist/stable-global.js"), rel + " must load compiled @cyberskill/react");
+  }
 }
 
 const ssr = spawnSync(process.execPath, ["apps/product-fixtures/render.mjs"], {

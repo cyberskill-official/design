@@ -14,7 +14,7 @@ Mức dịch vụ chặn release cho package Stable. Xuất bản trên Storyboo
 
 Ngân sách nằm ở `docs/package-budgets.json` và làm fail CI khi vượt.
 
-- Mục tiêu p95 tương tác: dưới 100 ms cho Button / TextField / Dialog open trên canary
+- Mục tiêu p95 tương tác: dưới 100 ms cho Button / TextField / Dialog open, đo trên `@cyberskill/react` đã compile (`_audit/high-risk-at.html` và product hosts)
 - React entry (`_esm/react.mjs`) và `dist/styles.min.css` dưới trần byte đã công bố
 - Tarball workspace gầy loại templates, `_audit/`, và JSX thô
 

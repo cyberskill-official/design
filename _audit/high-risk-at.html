@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><title>High-risk AT</title>
+<link rel="stylesheet" href="../packages/tokens/dist/tokens.css">
 <link rel="stylesheet" href="../styles.css">
 <script src="../_vendor/react/react.production.min.js"></script>
 <script src="../_vendor/react/react-dom.production.min.js"></script>
-<script src="../_ds_bundle.js"></script>
+<script src="../packages/react/dist/stable-global.js"></script>
 </head><body>
 <main id="main"><p id="sum">running…</p></main>
 <div id="stage"></div>
 <script>
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const h = React.createElement;
-const NS = window[Object.keys(window).find((k) => /^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
+const NS = window.CyberSkillReact || window.CyberSkillDS || window[Object.keys(window).find((k) => /^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
 const stage = document.getElementById("stage");
 const results = [];
 function mount(el) {
@@ -29,6 +30,14 @@ function accName(el) {
   }
   return (el.getAttribute("aria-label") || el.getAttribute("title") || el.textContent || "").replace(/\s+/g, " ").trim();
 }
+function spokenPhrase(el, fallbackRole) {
+  if (!el) return "";
+  const role = el.getAttribute("role") || el.getAttribute("aria-roledescription") || fallbackRole || el.tagName.toLowerCase();
+  const name = accName(el);
+  const value = el.getAttribute("aria-valuetext") || el.getAttribute("aria-valuenow") || "";
+  const live = el.getAttribute("aria-live") ? "live " + el.getAttribute("aria-live") : "";
+  return [name, role, value, live].filter(Boolean).join(", ");
+}
 const PIXEL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
 async function until(fn, ms) {
   const t0 = Date.now();
@@ -43,12 +52,29 @@ async function test(name, fn) {
   catch (e) { results.push({ name, ok: false, detail: String(e.message || e).slice(0, 160) }); }
 }
 async function run() {
+  if (!NS || !NS.Button || !NS.Dialog) {
+    window.__highRiskAt = {
+      pass: false,
+      results: [{ name: "compiled CyberSkillReact", ok: false, detail: "missing window.CyberSkillReact" }],
+      dialogOpenP95: 0,
+      buttonClickP95: 0,
+      textFieldP95: 0,
+      ax: [],
+      spoken: [],
+      package: NS && NS.Button ? "CyberSkillReact" : "missing",
+    };
+    document.getElementById("sum").textContent = "FAIL compiled CyberSkillReact missing";
+    return;
+  }
   const {
     Dialog, AlertDialog, Menu, MenuItem, Button, Combobox, DataGrid, Sortable,
-    Editor, Carousel, DatePicker, TimePicker, Image, PromptInput,
-  } = NS || {};
+    Editor, Carousel, DatePicker, TimePicker, Image, PromptInput, TextField,
+  } = NS;
   const times = [];
+  const buttonTimes = [];
+  const fieldTimes = [];
   let ax = [];
+  const spoken = [];
 
   await test("Dialog keyboard", async () => {
     assert(Dialog, "Dialog");
@@ -179,6 +205,36 @@ async function run() {
     assert(await until(() => (live.textContent || "").trim().length > 0), "live announced move");
   });
 
+  await test("Button click p95", async () => {
+    assert(Button, "Button");
+    let n = 0;
+    const c = mount(h(Button, { onClick: () => { n += 1; } }, "Go"));
+    await wait(40);
+    const btn = c.querySelector("button");
+    for (let i = 0; i < 8; i++) {
+      const t0 = performance.now();
+      btn.click();
+      buttonTimes.push(performance.now() - t0);
+    }
+    assert(n === 8 && buttonTimes.length === 8, "clicks");
+  });
+
+  await test("TextField input p95", async () => {
+    assert(TextField, "TextField");
+    const c = mount(h(TextField, { label: "Task id" }));
+    await wait(40);
+    const input = c.querySelector("input");
+    assert(input, "input");
+    for (let i = 0; i < 8; i++) {
+      const t0 = performance.now();
+      input.focus();
+      input.value = "TASK-" + i;
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+      fieldTimes.push(performance.now() - t0);
+    }
+    assert(input.value.includes("TASK") && fieldTimes.length === 8, "value");
+  });
+
   await test("Editor textbox", async () => {
     assert(Editor, "Editor");
     const c = mount(h(Editor, { defaultValue: "<p>x</p>" }));
@@ -279,6 +335,7 @@ async function run() {
         assert(name.toLowerCase().includes(String(nameHint).toLowerCase()), surface + " name expected " + nameHint + " got " + name);
       }
       ax.push({ surface, role, name: name.slice(0, 80) });
+      spoken.push({ surface, phrase: spokenPhrase(el, fallbackRole) });
     }
 
     const d = gmount(h(Dialog, { open: true, title: "Dialog title", onClose: () => {} }, "body"));
@@ -355,17 +412,38 @@ async function run() {
     for (const s of required) assert(ax.some((x) => x.surface === s), "missing AX " + s);
   });
 
-  const p95 = times.length ? times.slice().sort((a, b) => a - b)[Math.max(0, Math.ceil(times.length * 0.95) - 1)] : 0;
+  function p95of(arr) {
+    if (!arr.length) return 0;
+    const s = arr.slice().sort((a, b) => a - b);
+    return s[Math.max(0, Math.ceil(s.length * 0.95) - 1)];
+  }
+  const p95 = p95of(times);
+  const buttonP95 = p95of(buttonTimes);
+  const fieldP95 = p95of(fieldTimes);
   const failed = results.filter((r) => !r.ok);
+  const spokenOk = [
+    ["Dialog", /dialog title/i],
+    ["AlertDialog", /del/i],
+    ["MenuItem", /alpha/i],
+    ["Combobox", /pick/i],
+    ["Sortable", /move down/i],
+    ["Carousel", /gallery/i],
+    ["DatePickerDialog", /when/i],
+    ["Image", /dot/i],
+  ].every(([surface, re]) => spoken.some((row) => row.surface === surface && re.test(row.phrase)));
   window.__highRiskAt = {
-    pass: failed.length === 0 && p95 < 100,
+    pass: failed.length === 0 && p95 < 100 && buttonP95 < 100 && fieldP95 < 100 && spokenOk,
     results,
     dialogOpenMs: times,
     dialogOpenP95: p95,
+    buttonClickP95: buttonP95,
+    textFieldP95: fieldP95,
     ax,
+    spoken,
+    package: "CyberSkillReact",
   };
   document.getElementById("sum").textContent = window.__highRiskAt.pass
-    ? "PASS " + results.length + " p95=" + p95.toFixed(1) + "ms ax=" + ax.length
+    ? "PASS " + results.length + " p95=" + p95.toFixed(1) + "ms ax=" + ax.length + " spoken=" + spoken.length
     : "FAIL " + failed.map((f) => f.name).join(", ");
 }
 run();

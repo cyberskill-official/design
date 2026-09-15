@@ -74,6 +74,11 @@ async function fail(msg) {
   throw new Error(msg);
 }
 
+await page.goto(`http://127.0.0.1:${port}/templates/delivery-kickoff/DeliveryKickoff.dc.html`, { waitUntil: "domcontentloaded" });
+await page.waitForFunction(() => window.CyberSkillDS && window.CyberSkillDS.Logo, { timeout: 15000 });
+const deliveryPkg = await page.evaluate(() => !!(window.CyberSkillReact && window.CyberSkillDS && window.CyberSkillDS.Logo === window.CyberSkillReact.Logo));
+if (!deliveryPkg) await fail("delivery-kickoff is not mounted from compiled @cyberskill/react");
+
 const kitPages = [
   "/ui_kits/status-hub/index.html",
   "/ui_kits/website/index.html",

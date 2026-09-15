@@ -14,7 +14,7 @@ Release-blocking service levels for Stable packages. Published on Storybook **Do
 
 Budgets live in `docs/package-budgets.json` and fail CI on regression.
 
-- Interaction latency p95 target: under 100 ms for primary Button / TextField / Dialog open on the canary host
+- Interaction latency p95 target: under 100 ms for primary Button / TextField / Dialog open, measured on compiled `@cyberskill/react` (`_audit/high-risk-at.html` plus product hosts)
 - React entry (`_esm/react.mjs`) and `dist/styles.min.css` stay under published byte caps
 - Slim workspace tarballs exclude templates, `_audit/`, and raw JSX
 

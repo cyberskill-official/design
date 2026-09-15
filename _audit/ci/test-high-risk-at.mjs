@@ -4,7 +4,7 @@
  * and Chrome accessibility-tree name/role/value (not VoiceOver speech).
  */
 import { createServer } from "node:http";
-import { readFileSync, statSync, existsSync } from "node:fs";
+import { readFileSync, statSync, existsSync, writeFileSync } from "node:fs";
 import { extname, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
@@ -57,6 +57,35 @@ if (!(verdict.dialogOpenP95 < 100)) {
   server.close();
   throw new Error("Dialog open p95 " + verdict.dialogOpenP95 + "ms >= 100ms");
 }
+if (!(verdict.buttonClickP95 < 100)) {
+  await browser.close();
+  server.close();
+  throw new Error("Button click p95 " + verdict.buttonClickP95 + "ms >= 100ms");
+}
+if (!(verdict.textFieldP95 < 100)) {
+  await browser.close();
+  server.close();
+  throw new Error("TextField p95 " + verdict.textFieldP95 + "ms >= 100ms");
+}
+if (verdict.package !== "CyberSkillReact") {
+  await browser.close();
+  server.close();
+  throw new Error("high-risk AT must run against compiled @cyberskill/react");
+}
+const spoken = (verdict.spoken || []).map((row) => row.surface + ": " + row.phrase).join("\n");
+for (const [surface, re] of [
+  ["Dialog", /dialog title.*, *dialog/i],
+  ["Combobox", /pick.*, *combobox/i],
+  ["Sortable", /move down/i],
+  ["Image", /dot/i],
+]) {
+  const row = (verdict.spoken || []).find((s) => s.surface === surface);
+  if (!row || !re.test(row.phrase)) {
+    await browser.close();
+    server.close();
+    throw new Error("spoken AT phrase missing for " + surface + " in " + spoken.slice(0, 400));
+  }
+}
 
 const requiredAx = [
   "Dialog", "AlertDialog", "Menu", "MenuItem", "Combobox", "DataGrid",
@@ -94,12 +123,32 @@ if (!gallery || gallery.width < 1 || gallery.height < 1) {
   throw new Error("400% zoom hid the AX gallery");
 }
 
+writeFileSync(
+  join(root, "_audit/ci/high-risk-spoken.json"),
+  JSON.stringify(
+    {
+      generatedBy: "test-high-risk-at",
+      kind: "chrome-ax-speech-script",
+      note: "Chrome accessibility-tree name/role/value phrases. Not NVDA, JAWS, VoiceOver, or TalkBack.",
+      package: verdict.package,
+      spoken: verdict.spoken,
+      ax: verdict.ax,
+    },
+    null,
+    2,
+  ) + "\n",
+);
+
 await browser.close();
 server.close();
 
 console.log("PASS test-high-risk-at", {
   checks: verdict.results.length,
   dialogOpenP95: Number(verdict.dialogOpenP95.toFixed(2)),
+  buttonClickP95: Number(verdict.buttonClickP95.toFixed(2)),
+  textFieldP95: Number(verdict.textFieldP95.toFixed(2)),
   ax: verdict.ax.length,
+  spoken: (verdict.spoken || []).length,
   ariaSnapshotChars: ariaSnap.length,
+  package: verdict.package,
 });

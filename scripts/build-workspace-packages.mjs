@@ -209,4 +209,5 @@ buildTokens();
 await buildThemes();
 await buildIcons();
 await buildPrimitives();
+await import("./build-stable-global.mjs");
 console.log("PASS build-workspace-packages");
