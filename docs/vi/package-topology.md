@@ -17,11 +17,11 @@ apps/storybook         docs host (không phải install runtime)
 apps/consumer-canary   smoke React 18/19 + SSR
 ```
 
-Root `@cyberskill/design` vẫn là tên cài trong cửa sổ migration sáu tháng. Sản phẩm mới nên import `@cyberskill/react` + `@cyberskill/tokens` (`dist/` đã compile, không JSX thô, không template). Consumer facade không transpile JSX thì dùng `@cyberskill/design/stable`. Entry mặc định facade vẫn re-export JSX nguồn cho bundler cũ và ghi chú deprecation trên mô tả package. Deep import như `@cyberskill/react/components/*` không có trên export map workspace và phải fail. `@cyberskill/themes` ship pack high-contrast, registry 15 brand pack ngũ hành, và `applyBrandPack`; CSS của các pack đó vẫn nằm ở `@cyberskill/tokens/css`.
+Root `@cyberskill/design` vẫn là tên cài trong cửa sổ migration sáu tháng. Sản phẩm mới nên import `@cyberskill/react` + `@cyberskill/tokens` (`dist/` đã compile, không JSX thô, không template). ESM từng component nằm trên export kebab như `@cyberskill/react/button` (`dist/` đã compile); deep `@cyberskill/react/components/*` vẫn không có trên export map và phải fail. Consumer facade không transpile JSX thì dùng `@cyberskill/design/stable`. Entry mặc định facade vẫn re-export JSX nguồn cho bundler cũ và ghi chú deprecation trên mô tả package. `@cyberskill/themes` ship pack high-contrast, registry 15 brand pack ngũ hành, và `applyBrandPack`; CSS của các pack đó vẫn nằm ở `@cyberskill/tokens/css`.
 
 ## Ngân sách
 
-`docs/package-budgets.json` cộng `_audit/ci/test-package-budgets.mjs` chặn regression size. Package workspace gọn không được ship template, runtime compiler, hoặc fixture `_audit/`. Facade vẫn gồm cây portable cho consumer hiện có.
+`docs/package-budgets.json` cộng `_audit/ci/test-package-budgets.mjs` chặn regression size. Snapshot trend thủ công nằm ở `docs/package-budget-trends.json` (không tự ghi mỗi `test:unit`). Package workspace gọn không được ship template, runtime compiler, hoặc fixture `_audit/`. Facade vẫn gồm cây portable cho consumer hiện có.
 
 ## Changeset
 

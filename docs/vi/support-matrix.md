@@ -54,6 +54,19 @@ Mỗi tiêu chí gắn một gate máy. Ô AT-RUN trống không phải pass tr�
 | 1.4.12 Text spacing | `_audit/zoom-text-spacing.html` |
 | 2.1.1 Keyboard / 2.4.3 Focus order | `_audit/a11y-gate.html`, `_audit/high-risk-at.html` |
 
+## Khả năng CSS
+
+Trình duyệt ngoài ma trận này không được hỗ trợ. Feature cần prefix hoặc fallback nằm ở đây; `_audit/ci/test-inclusive-matrix.mjs` và `inclusive-matrix.mjs` khóa nguồn và probe runtime `CSS.supports`.
+
+| Feature | Chính sách | Fallback |
+|---|---|---|
+| Custom properties | Bắt buộc. Trình duyệt không có `--cs-*` nằm ngoài ma trận. | Không — fail closed. |
+| `@layer` | `packages/tokens/dist/tokens.css` xếp `primitive, semantic, component, state`. | Last-wins không layer không phải runtime được hỗ trợ. |
+| `color-mix()` | Wash tiến bộ (aurora / overlay). | `background-color` đặc / `--cs-color-*` vẫn còn. |
+| `backdrop-filter` | Bề mặt glass trong `base/glass.css`. | `@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))` dùng `--cs-color-surface-panel`. |
+| `-webkit-backdrop-filter` | Đi cặp với property chuẩn cho Safari. | Cùng fallback `@supports`. |
+| Container queries | Reflow host ở 320 px / zoom 200% / 400%. | Layout khối; không clip ngang (inclusive-matrix). |
+
 ## Liên quan
 
 - Quality gates: `docs/quality-gates.md`

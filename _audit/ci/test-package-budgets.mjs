@@ -28,6 +28,17 @@ function packStats(cwd) {
   };
 }
 
+const trends = JSON.parse(readFileSync(join(root, "docs/package-budget-trends.json"), "utf8"));
+assert(trends.schema === "package-budget-trends@1", "budget trends schema");
+assert(Array.isArray(trends.series) && trends.series.length >= 1, "budget trends series");
+const lastTrend = trends.series[trends.series.length - 1];
+const version = readFileSync(join(root, "VERSION"), "utf8").trim();
+assert(lastTrend.version === version, `trend version ${lastTrend.version} !== VERSION ${version}`);
+assert(lastTrend.facade?.unpacked <= budgets.facade.unpackedMaxBytes, "trend facade unpacked under ceiling");
+assert(lastTrend.facade?.packed <= budgets.facade.packedMaxBytes, "trend facade packed under ceiling");
+assert(lastTrend.cssMin <= budgets.cssMinMaxBytes, "trend css under ceiling");
+assert(lastTrend.reactEntry <= budgets.reactEntryMaxBytes, "trend react entry under ceiling");
+
 const facade = packStats(root);
 assert(facade.unpacked <= budgets.facade.unpackedMaxBytes, `facade unpacked ${facade.unpacked} > ${budgets.facade.unpackedMaxBytes}`);
 assert(facade.packed <= budgets.facade.packedMaxBytes, `facade packed ${facade.packed} > ${budgets.facade.packedMaxBytes}`);
@@ -45,4 +56,9 @@ for (const [name, spec] of Object.entries(budgets.workspaces || {})) {
   assert(stats.unpacked <= spec.unpackedMaxBytes, `${name} unpacked ${stats.unpacked} > ${spec.unpackedMaxBytes}`);
 }
 
-console.log("PASS test-package-budgets", { facade, css: css.byteLength, reactEntry: reactEntry.byteLength });
+console.log("PASS test-package-budgets", {
+  facade,
+  css: css.byteLength,
+  reactEntry: reactEntry.byteLength,
+  trend: lastTrend.version,
+});

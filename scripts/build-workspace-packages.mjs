@@ -116,6 +116,29 @@ async function buildReact() {
   }
   writeIndex(join(root, "packages/react"), jsLines);
   writeFileSync(join(root, "packages/react/index.d.ts"), `${dtsLines.join("\n")}\n`);
+
+  const pkgPath = join(root, "packages/react/package.json");
+  const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
+  const exports = {
+    ".": { types: "./index.d.ts", import: "./index.js" },
+    "./package.json": "./package.json",
+  };
+  const exported = new Set();
+  for (const sourcePath of [...by.keys()].sort()) {
+    const names = (by.get(sourcePath) || []).filter((n) => !["CS_ICONS", "CS_LOGO_VIEWBOX", "CS_LOGO_MARK_INNER"].includes(n));
+    for (const name of names) {
+      if (exported.has(name)) continue;
+      exported.add(name);
+      const key = "./" + name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+      const compiled = "./dist/" + sourcePath.replace(/\.jsx$/, ".js");
+      const types = "./dist/" + sourcePath.replace(/\.(jsx|js)$/, ".d.ts");
+      exports[key] = existsSync(join(root, "packages/react", types))
+        ? { types, import: compiled }
+        : { import: compiled };
+    }
+  }
+  pkg.exports = exports;
+  writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`);
 }
 
 function buildTokens() {

@@ -17,11 +17,11 @@ apps/storybook         host docs (not a runtime install)
 apps/consumer-canary   React 18/19 + SSR smoke
 ```
 
-Root `@cyberskill/design` remains the install name during a six-month migration window. New products should import `@cyberskill/react` + `@cyberskill/tokens` (compiled `dist/`, no raw JSX, no templates). Facade consumers that cannot transpile JSX use `@cyberskill/design/stable`. The default facade entry still re-exports source JSX for existing bundlers and emits a deprecation note in its package description. Deep imports such as `@cyberskill/react/components/*` are not on the workspace export map and must fail. `@cyberskill/themes` ships the high-contrast pack, the 15 elemental brand-pack registry, and `applyBrandPack`; CSS for those packs stays on `@cyberskill/tokens/css`.
+Root `@cyberskill/design` remains the install name during a six-month migration window. New products should import `@cyberskill/react` + `@cyberskill/tokens` (compiled `dist/`, no raw JSX, no templates). Per-component ESM is on kebab exports such as `@cyberskill/react/button` (compiled `dist/`); deep `@cyberskill/react/components/*` stays off the export map and must fail. Facade consumers that cannot transpile JSX use `@cyberskill/design/stable`. The default facade entry still re-exports source JSX for existing bundlers and emits a deprecation note in its package description. `@cyberskill/themes` ships the high-contrast pack, the 15 elemental brand-pack registry, and `applyBrandPack`; CSS for those packs stays on `@cyberskill/tokens/css`.
 
 ## Budgets
 
-`docs/package-budgets.json` plus `_audit/ci/test-package-budgets.mjs` block size regressions. Slim workspace packages must not ship templates, compiler runtimes, or `_audit/` fixtures. The facade still includes the portable tree for existing consumers.
+`docs/package-budgets.json` plus `_audit/ci/test-package-budgets.mjs` block size regressions. Manual trend snapshots live in `docs/package-budget-trends.json` (not auto-written by `test:unit`). Slim workspace packages must not ship templates, compiler runtimes, or `_audit/` fixtures. The facade still includes the portable tree for existing consumers.
 
 ## Changesets
 

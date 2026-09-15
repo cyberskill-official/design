@@ -36,6 +36,7 @@ assert(/Trusted static markup/.test(logo), "Logo trusted-markup contract");
 
 const overlay = readFileSync(join(root, "components/overlays/OverlayManager.jsx"), "utf8");
 assert(overlay.includes("restoreEl"), "overlay restore-focus");
+assert(overlay.includes("restoreRef"), "overlay accepts an explicit restore target");
 assert(overlay.includes("applySiblingInert"), "overlay marks background inert");
 assert(overlay.includes("export function ThemeProvider"), "ThemeProvider on overlay module");
 

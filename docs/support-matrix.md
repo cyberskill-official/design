@@ -54,6 +54,19 @@ Each criterion maps to a machine gate. Empty AT-RUN cells are not screen-reader 
 | 1.4.12 Text spacing | `_audit/zoom-text-spacing.html` |
 | 2.1.1 Keyboard / 2.4.3 Focus order | `_audit/a11y-gate.html`, `_audit/high-risk-at.html` |
 
+## CSS capabilities
+
+Browsers outside this matrix are unsupported. Features that need a prefix or a fallback are listed here; `_audit/ci/test-inclusive-matrix.mjs` and `inclusive-matrix.mjs` lock the source and the runtime `CSS.supports` probe.
+
+| Feature | Policy | Fallback |
+|---|---|---|
+| Custom properties | Required. Browsers without `--cs-*` are out of matrix. | None — fail closed. |
+| `@layer` | `packages/tokens/dist/tokens.css` orders `primitive, semantic, component, state`. | Unlayered last-wins is not a supported runtime. |
+| `color-mix()` | Progressive wash (aurora / overlays). | Solid `background-color` / `--cs-color-*` remains. |
+| `backdrop-filter` | Glass surfaces in `base/glass.css`. | `@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))` uses `--cs-color-surface-panel`. |
+| `-webkit-backdrop-filter` | Paired with the standard property for Safari. | Same `@supports` fallback. |
+| Container queries | Host reflow at 320 px / 200% / 400% zoom. | Block layout; no horizontal clip (inclusive-matrix). |
+
 ## Related
 
 - Quality gates: `docs/quality-gates.md`

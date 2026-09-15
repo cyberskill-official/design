@@ -524,6 +524,7 @@ async function run(){
     const c=mount(h(Image,{src:pixel,alt:'dot',preview:true,lang:'en'}));
     assert(await until(()=>{ const img=c.querySelector('img'); return img&&c.querySelector('[aria-haspopup=dialog]'); },3000),'zoomable');
     const host=c.querySelector('[aria-haspopup=dialog]');
+    await fxSure(host);
     host.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}));
     const dlg=await until(()=>document.querySelector('.cs-image__zoom[role="dialog"]'));
     assert(dlg,'preview');

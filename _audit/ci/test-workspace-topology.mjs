@@ -35,6 +35,9 @@ const tokens = JSON.parse(readFileSync(join(root, "packages/tokens/package.json"
 assert(tokens.name === "@cyberskill/tokens", "tokens package name");
 assert(tokens.exports["./css"] === "./dist/tokens.css", "tokens css export is layered runtime");
 assert(tokens.exports["./css/scope"] === "./dist/scope.css", "tokens scope export");
-assert(!readFileSync(join(root, "packages/react/package.json"), "utf8").includes("_audit/"), "react package is slim");
+const react = JSON.parse(readFileSync(join(root, "packages/react/package.json"), "utf8"));
+assert(!JSON.stringify(react).includes("_audit/"), "react package is slim");
+assert(react.exports["./button"]?.import?.includes("Button.js"), "react per-component ./button");
+assert(!react.exports["./components/*"], "react must not expose ./components/*");
 
 console.log("PASS test-workspace-topology", { packages: expected.length });

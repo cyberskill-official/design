@@ -60,6 +60,15 @@ const reactBarrel = readFileSync(join(root, "packages/react/index.js"), "utf8");
 assert((reactBarrel.match(/\bThemeProvider\b/g) || []).length === 1, "ThemeProvider exported once");
 const reactMod = await import(pathToFileURL(join(root, "packages/react/index.js")).href);
 assert(typeof reactMod.Button === "function" || typeof reactMod.Button === "object", "react barrel imports");
+const reactPkg = JSON.parse(readFileSync(join(root, "packages/react/package.json"), "utf8"));
+assert(reactPkg.exports["./button"]?.import?.includes("Button.js"), "per-component ESM ./button");
+assert(!reactPkg.exports["./components/*"], "deep ./components/* stays blocked");
+const buttonMod = await import("@cyberskill/react/button");
+assert(typeof buttonMod.Button === "function" || typeof buttonMod.Button === "object", "@cyberskill/react/button exports Button");
+assert(
+  renderToString(createElement(buttonMod.Button, { variant: "primary" }, "chunk")).includes("cs-button"),
+  "per-component Button SSR",
+);
 const tokensCss = readFileSync(join(root, "packages/tokens/dist/tokens.css"), "utf8");
 assert(tokensCss.includes("@layer primitive, semantic, component, state;"), "tokens.css cascade layers");
 assert(tokensCss.includes('@import "./colors.css" layer(semantic);'), "tokens.css layers colors");

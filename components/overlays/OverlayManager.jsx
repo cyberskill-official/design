@@ -200,6 +200,7 @@ export function useOverlayLayer({
   onEscape,
   panelRef,
   preferFocusSelector,
+  restoreRef,
 }) {
   const ctx = React.useContext(OverlayContext);
   const mgr = ctx || defaultManager;
@@ -208,7 +209,9 @@ export function useOverlayLayer({
 
   React.useLayoutEffect(() => {
     if (!open) return undefined;
-    const restoreEl = typeof document !== "undefined" ? document.activeElement : null;
+    const restoreEl =
+      (restoreRef && restoreRef.current)
+      || (typeof document !== "undefined" ? document.activeElement : null);
     const panel = panelRef && panelRef.current;
     const unregister = mgr.register({
       kind,
@@ -239,7 +242,7 @@ export function useOverlayLayer({
       detachTrap();
       unregister();
     };
-  }, [open, kind, trapFocus, lockScroll, mgr, panelRef, preferFocusSelector]);
+  }, [open, kind, trapFocus, lockScroll, mgr, panelRef, preferFocusSelector, restoreRef]);
 
   return { manager: mgr };
 }

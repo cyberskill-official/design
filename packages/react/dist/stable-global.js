@@ -1471,7 +1471,8 @@ var CyberSkillReact = (() => {
     lockScroll,
     onEscape,
     panelRef,
-    preferFocusSelector
+    preferFocusSelector,
+    restoreRef
   }) {
     const ctx = react_default.useContext(OverlayContext);
     const mgr = ctx || defaultManager;
@@ -1479,7 +1480,7 @@ var CyberSkillReact = (() => {
     escapeRef.current = onEscape;
     react_default.useLayoutEffect(() => {
       if (!open) return void 0;
-      const restoreEl = typeof document !== "undefined" ? document.activeElement : null;
+      const restoreEl = restoreRef && restoreRef.current || (typeof document !== "undefined" ? document.activeElement : null);
       const panel = panelRef && panelRef.current;
       const unregister = mgr.register({
         kind,
@@ -1505,7 +1506,7 @@ var CyberSkillReact = (() => {
         detachTrap();
         unregister();
       };
-    }, [open, kind, trapFocus, lockScroll, mgr, panelRef, preferFocusSelector]);
+    }, [open, kind, trapFocus, lockScroll, mgr, panelRef, preferFocusSelector, restoreRef]);
     return { manager: mgr };
   }
 
@@ -1516,13 +1517,15 @@ var CyberSkillReact = (() => {
     const [ref, L] = useLang(lang);
     const t = makeT("Image", L);
     const panel = react_default.useRef(null);
+    const hostRef = react_default.useRef(null);
     const live = react_default.useRef(null);
     useOverlayLayer({
       open: zoom,
       kind: "modal",
       trapFocus: true,
       onEscape: () => setZoom(false),
-      panelRef: panel
+      panelRef: panel,
+      restoreRef: hostRef
     });
     react_default.useEffect(() => {
       if (!live.current) return;
@@ -1545,7 +1548,7 @@ var CyberSkillReact = (() => {
       /* @__PURE__ */ jsx(
         "span",
         {
-          ref: mergeRefs(ref, forwardedRef),
+          ref: mergeRefs(ref, forwardedRef, hostRef),
           className: cx("cs-image", state === "loading" && "is-loading", canPreview && "is-zoomable", className),
           style: ratio ? { aspectRatio: ratio } : void 0,
           onClick: canPreview ? openPreview : void 0,

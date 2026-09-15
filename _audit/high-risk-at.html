@@ -142,12 +142,17 @@ async function run() {
 
   await test("Menu keyboard", async () => {
     assert(Menu && MenuItem && Button, "Menu");
-    const c = mount(h(Menu, { trigger: h(Button, { size: "sm" }, "Open") }, h(MenuItem, {}, "A")));
+    const c = mount(h(Menu, { trigger: h(Button, { size: "sm" }, "Open") }, [h(MenuItem, { key: "a" }, "A"), h(MenuItem, { key: "b" }, "B")]));
     await wait(40);
     const trig = c.querySelector("button");
     trig.focus();
     trig.click();
-    assert(await until(() => c.querySelector('[role="menu"], [role="menuitem"]') || document.querySelector('[role="menu"]')), "menu");
+    assert(await until(() => document.querySelector('[role="menu"]')), "menu");
+    const items = [...document.querySelectorAll('[role="menuitem"]')];
+    assert(items.length >= 2, "two items");
+    assert(await until(() => document.activeElement === items[0] || items[0].contains(document.activeElement)), "first item focused");
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true }));
+    assert(await until(() => document.activeElement === items[1] || items[1].contains(document.activeElement)), "ArrowDown to second item");
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
     assert(await until(() => !document.querySelector('[role="menu"]')), "menu esc");
     await wait(40);
@@ -238,9 +243,11 @@ async function run() {
 
   await test("Editor textbox", async () => {
     assert(Editor, "Editor");
-    const c = mount(h(Editor, { defaultValue: "<p>x</p>" }));
+    const c = mount(h(Editor, { defaultValue: "<p>ok</p><scr" + "ipt>alert(1)</scr" + "ipt>" }));
     await wait(40);
-    assert(c.querySelector('[role="textbox"], [contenteditable], textarea'), "editor");
+    const box = c.querySelector('[role="textbox"], [contenteditable], textarea');
+    assert(box, "editor");
+    assert(!/script/i.test(box.innerHTML || ""), "script stripped from defaultValue");
   });
 
   await test("Carousel semantics", async () => {
@@ -257,12 +264,19 @@ async function run() {
 
   await test("DatePicker escape", async () => {
     assert(DatePicker, "DatePicker");
-    const c = mount(h(DatePicker, { label: "When", lang: "en" }));
+    let picked = null;
+    const c = mount(h(DatePicker, { label: "When", lang: "en", value: new Date(2026, 6, 10), onChange: (d) => { picked = d; } }));
     await wait(40);
     const btn = c.querySelector("button[aria-haspopup=dialog]");
     assert(btn, "field");
     btn.click();
     assert(await until(() => c.querySelector('[role="dialog"]')), "pop");
+    const day = c.querySelector(".cs-cal__grid button");
+    assert(day, "day cell");
+    day.click();
+    assert(await until(() => picked instanceof Date), "picked day");
+    btn.click();
+    assert(await until(() => c.querySelector('[role="dialog"]')), "reopen");
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
     assert(await until(() => !c.querySelector('[role="dialog"]')), "esc");
   });

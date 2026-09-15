@@ -33,5 +33,8 @@ assert(report.artifacts.sbom && report.artifacts.sbom.sha256, "SBOM bound to rel
 assert(existsSync(join(root, "_audit/ci/bom.cdx.json")), "CycloneDX SBOM written");
 assert(report.figmaWrite && report.figmaWrite.status === "soft-skip-explicit", "figma soft-skip explicit");
 assert(workflow.includes("CS_NPM_DIST_TAG") || workflow.includes("dist_tag"), "canary channel in npm-publish.yml");
+const runbook = readFileSync(join(root, "docs/release-runbook.md"), "utf8");
+assert(/## Canary channel/.test(runbook), "canary section in release-runbook");
+assert(/CS_NPM_DIST_TAG=canary/.test(runbook), "canary dist-tag documented");
 
 console.log("PASS test-release-bind");

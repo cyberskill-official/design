@@ -11,13 +11,15 @@ const Image = React.forwardRef(function Image2({ src, alt = "", ratio, preview =
   const [ref, L] = useLang(lang);
   const t = makeT("Image", L);
   const panel = React.useRef(null);
+  const hostRef = React.useRef(null);
   const live = React.useRef(null);
   useOverlayLayer({
     open: zoom,
     kind: "modal",
     trapFocus: true,
     onEscape: () => setZoom(false),
-    panelRef: panel
+    panelRef: panel,
+    restoreRef: hostRef
   });
   React.useEffect(() => {
     if (!live.current) return;
@@ -40,7 +42,7 @@ const Image = React.forwardRef(function Image2({ src, alt = "", ratio, preview =
     /* @__PURE__ */ jsx(
       "span",
       {
-        ref: mergeRefs(ref, forwardedRef),
+        ref: mergeRefs(ref, forwardedRef, hostRef),
         className: cx("cs-image", state === "loading" && "is-loading", canPreview && "is-zoomable", className),
         style: ratio ? { aspectRatio: ratio } : void 0,
         onClick: canPreview ? openPreview : void 0,

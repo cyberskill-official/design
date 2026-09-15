@@ -24,6 +24,18 @@ assert(/200%/.test(support) && /400%/.test(support), "200% and 400% zoom documen
 assert(/forced-colors|Forced colors/i.test(support), "forced-colors documented");
 assert(/pseudo-locale|en-XA/i.test(support), "pseudo-locale documented");
 assert(/RTL|dir="rtl"/i.test(support), "RTL documented");
+assert(/## CSS capabilities/.test(support), "CSS capability matrix documented");
+assert(/backdrop-filter/.test(support) && /@supports/.test(support), "backdrop-filter fallback documented");
+assert(/-webkit-backdrop-filter/.test(support), "webkit backdrop prefix documented");
+assert(/color-mix/.test(support), "color-mix policy documented");
+
+const glass = readFileSync(join(root, "base/glass.css"), "utf8");
+assert(
+  glass.includes("@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))"),
+  "glass.css @supports backdrop fallback",
+);
+assert(glass.includes("-webkit-backdrop-filter"), "glass.css webkit backdrop prefix");
+assert(glass.includes("color-mix"), "glass.css color-mix wash");
 
 const workflow = readFileSync(join(root, ".github/workflows/design-system-gates.yml"), "utf8");
 assert(/firefox/i.test(workflow) && /webkit/i.test(workflow), "CI installs Firefox/WebKit");

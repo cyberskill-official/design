@@ -13,7 +13,7 @@ function ContractPage({ name }) {
     ['Content', row.i18n ? 'Localized via useLang / makeT. Pass lang to override.' : 'Caller-supplied children or label. No baked EN-only chrome besides native host text.'],
     ['Keyboard / AT', [row.keyboard, (row.aria || []).join(', ')].filter(Boolean).join(' ')],
     ['Tokens', (row.tokens || []).join(', ') || 'Semantic roles from @cyberskill/tokens/css.'],
-    ['Responsive / RTL / dark / high-contrast', 'Reflow at 320px and 400% zoom. RTL via ThemeProvider dir. Dark via data-theme. High contrast via data-cs-contrast="high" or @cyberskill/themes/high-contrast.'],
+    ['Responsive / RTL / dark / high-contrast', row.responsive || `${row.name} reflows at 320px and 400% zoom.`],
     ['Code', `import { ${row.name} } from "${row.package}";`],
     ['SSR', row.ssr],
     ['Migration', row.deprecation

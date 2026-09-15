@@ -78,7 +78,8 @@
       "anatomy": "Alert. CyberSkill Alert — inline banner. variant: info | success | warning | danger. Semantic root <svg>. Host class cs-alert. Slots: title, icon, children.",
       "usage": "Alert — inline banner. Semantic `variant` sets the accent border + default icon (override with `icon`). Meaning lives in the text, not colour alone.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Alert reflows at 320px, 200%, and 400% zoom (host cs-alert). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "AlertDialog",
@@ -161,7 +162,8 @@
       "anatomy": "AlertDialog. CyberSkill AlertDialog — first-class destructive/confirm modal (role=alertdialog). Distinct from Popconfirm (inline bubble) and Dialog (general modal). Focus trap + restore via overlay manager; bilingual confirm/cancel via the registry. Semantic root <div>. Host class cs-dialog. Slots: title, description, children.",
       "usage": "AlertDialog — first-class confirm / destructive modal (`role=\"alertdialog\"`). Distinct from Popconfirm (inline bubble) and Dialog (general modal). Bilingual Confirm/Cancel via the registry.",
       "keyboard": "Handles Escape. Overlay manager restores focus and locks scroll.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "AlertDialog reflows at 320px, 200%, and 400% zoom (host cs-dialog). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
     },
     {
       "name": "Avatar",
@@ -209,7 +211,8 @@
       "anatomy": "Avatar. CyberSkill Avatar — image or initials on Umber. sizes sm|md|lg; square variant. Semantic root <span>. Host class cs-avatar.",
       "usage": "Avatar / AvatarGroup — image or auto-initials on Umber. Sizes sm/md/lg; `square` for app tiles; stack several in `AvatarGroup`.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Avatar reflows at 320px, 200%, and 400% zoom (host cs-avatar). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "AvatarGroup",
@@ -256,7 +259,8 @@
       "anatomy": "AvatarGroup. CyberSkill Avatar — image or initials on Umber. sizes sm|md|lg; square variant. Semantic root <span>. Host class cs-avatar. Slots: children.",
       "usage": "Avatar / AvatarGroup — image or auto-initials on Umber. Sizes sm/md/lg; `square` for app tiles; stack several in `AvatarGroup`.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "AvatarGroup reflows at 320px, 200%, and 400% zoom (host cs-avatar). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Badge",
@@ -310,7 +314,8 @@
       "anatomy": "Badge. CyberSkill Badge — compact status label. variant: neutral | solid | ochre | success | danger | warning | info. Semantic root <span>. Host class cs-badge. Slots: children.",
       "usage": "Badge — compact status label. Neutral by default; `solid`/`ochre` for emphasis; `success`/`danger`/`warning`/`info` for state; optional leading `dot`.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Badge reflows at 320px, 200%, and 400% zoom (host cs-badge). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Breadcrumb",
@@ -357,7 +362,8 @@
       "anatomy": "Breadcrumb. CyberSkill Breadcrumb — hierarchical trail; last item is current. Semantic root <nav>. Host class cs-breadcrumb.",
       "usage": "Breadcrumb — hierarchical trail; last item is the current page.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Breadcrumb reflows at 320px, 200%, and 400% zoom (host cs-breadcrumb). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Button",
@@ -427,7 +433,8 @@
       "anatomy": "Button. CyberSkill Button. Umber primary by default; warm hover; Ochre focus ring; 44px comfortable touch target. Renders a real <button>. Semantic root <button>. Host class cs-button. Slots: icon, children.",
       "usage": "Button — the primary action control; Umber-filled by default, Ochre focus ring, 44px touch target. Use for the main action in a view; step down to `secondary` / `tertiary` / `ghost` for lower emphasis, `danger` for destructive actions.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Button reflows at 320px, 200%, and 400% zoom (host cs-button). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "ButtonGroup",
@@ -469,7 +476,8 @@
       "anatomy": "ButtonGroup. CyberSkill ButtonGroup — joins adjacent Buttons into one segmented cluster (role=group). Semantic root <div>. Host class cs-btngroup. Slots: children, label.",
       "usage": "ButtonGroup — segmented cluster of Buttons (shared borders, one rounded outline).",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "ButtonGroup reflows at 320px, 200%, and 400% zoom (host cs-btngroup). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Card",
@@ -528,7 +536,8 @@
       "anatomy": "Card. CyberSkill Card — warm panel (14px radius, soft shadow). Compose with CardHeader/Body/Footer. Semantic root <div>. Host class cs-card. Slots: children.",
       "usage": "Card — warm content panel (14px radius, soft shadow). Compose with `CardHeader` / `CardBody` / `CardFooter`. `interactive` makes it a hoverable button; add `className=\"cs-surface-standard\"` for glass over imagery.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Card reflows at 320px, 200%, and 400% zoom (host cs-card). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Carousel",
@@ -603,7 +612,8 @@
       "anatomy": "Carousel. CyberSkill Carousel — slides with prev/next + dots. children = slides. Bilingual aria. Semantic root <div>. Host class cs-carousel. Slots: children, label.",
       "usage": "Carousel — slides + arrows + dots (bilingual aria). Wrap any slide content.",
       "keyboard": "Handles ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Home, End,  .",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Carousel reflows at 320px, 200%, and 400% zoom (host cs-carousel). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Checkbox",
@@ -654,7 +664,8 @@
       "anatomy": "Checkbox. CyberSkill Checkbox — native checkbox (brand accent-color) + label/description. Semantic root <label>. Host class cs-check. Slots: label, description, children.",
       "usage": "Checkbox — native checkbox tinted with the brand accent-color, with label + optional description.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Checkbox reflows at 320px, 200%, and 400% zoom (host cs-check). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Combobox",
@@ -736,7 +747,8 @@
       "anatomy": "Combobox. CyberSkill Combobox — filterable single-select (input + listbox, ARIA combobox pattern). Controlled value/onChange. Semantic root <div>. Host class cs-combobox. Slots: label.",
       "usage": "Combobox — filterable single-select (typeahead + listbox, arrows/Enter/Escape). Bilingual placeholder + empty state via the registry.",
       "keyboard": "Handles Escape, Enter, ArrowUp, ArrowDown.",
-      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript."
+      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "responsive": "Combobox reflows at 320px, 200%, and 400% zoom (host cs-combobox). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "DataGrid",
@@ -806,7 +818,8 @@
       "anatomy": "DataGrid. CyberSkill DataGrid — advanced table: sortable columns, selectable rows, sticky header, optional column pin + client filter + row virtualization + optional column order persistence. Semantic root <div>. Host class cs-datagrid.",
       "usage": "DataGrid — sortable + selectable table with sticky header.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "DataGrid reflows at 320px, 200%, and 400% zoom (host cs-datagrid). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "DatePicker",
@@ -869,7 +882,8 @@
       "anatomy": "DatePicker. CyberSkill DatePicker — field + popover Calendar. VN shows DD/MM/YYYY. Controlled value (Date)/onChange. Semantic root <div>. Host class cs-datepicker. Slots: label.",
       "usage": "DatePicker — field + popover Calendar; VN format DD/MM/YYYY, Monday week-start. The popover is `role=\"dialog\"` and takes its accessible name from `label` (fallback: placeholder).",
       "keyboard": "Handles Escape.",
-      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript."
+      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "responsive": "DatePicker reflows at 320px, 200%, and 400% zoom (host cs-datepicker). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Dialog",
@@ -946,7 +960,8 @@
       "anatomy": "Dialog. CyberSkill Dialog — modal overlay + panel. aria-modal, labelled by title and described by its body, scrim click closes. Body scroll is locked while open via the overlay manager (nested-safe). Compose actions in the footer with Buttons. Semantic root <div>. Host class cs-dialog. Slots: title, children, actions.",
       "usage": "Dialog — modal overlay + centred panel. `aria-modal`, labelled by title, overlay-click closes. Compose footer actions with `Button`s. Goes near-fullscreen on narrow viewports.",
       "keyboard": "Handles Escape. Overlay manager restores focus and locks scroll.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Dialog reflows at 320px, 200%, and 400% zoom (host cs-dialog). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
     },
     {
       "name": "Divider",
@@ -994,7 +1009,8 @@
       "anatomy": "Divider. CyberSkill Divider — hairline rule. `label` centres text; `vertical` for inline splits. Semantic root <div>. Host class cs-divider. Slots: label, children.",
       "usage": "Divider — warm hairline separator. `label` centres text between two rules; `vertical` splits inline content in a flex row.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Divider reflows at 320px, 200%, and 400% zoom (host cs-divider). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Drawer",
@@ -1062,7 +1078,8 @@
       "anatomy": "Drawer. CyberSkill Drawer — slide-in side panel with scrim. side: right (default) | left. Provider or composite root. Host class cs-drawer. Slots: title, children, actions.",
       "usage": "Drawer — slide-in side panel + scrim (the Status Hub detail pattern). Escape / scrim-click close; `side=\"left\"` for left.",
       "keyboard": "Handles Escape. Overlay manager restores focus and locks scroll.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Drawer reflows at 320px, 200%, and 400% zoom (host cs-drawer). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
     },
     {
       "name": "Editor",
@@ -1121,7 +1138,8 @@
       "anatomy": "Editor. CyberSkill Editor — light rich-text (contentEditable): bold · italic · bullet list.  Trust boundary (CDS-SEC-001 / SEC-001): `defaultValue` and controlled `value` are  schema-sanitized. Pass `unsafeHtml` only for already-trusted markup that must Semantic root <div>. Host class cs-editor.",
       "usage": "Editor — light rich-text (B/I/list), HTML `onChange`.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript."
+      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "responsive": "Editor reflows at 320px, 200%, and 400% zoom (host cs-editor). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "EmptyState",
@@ -1175,7 +1193,8 @@
       "anatomy": "EmptyState. CyberSkill EmptyState — friendly placeholder for empty views. Semantic root <div>. Host class cs-empty. Slots: icon, title, children, actions.",
       "usage": "EmptyState — placeholder for empty views: icon, title, message, optional actions.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "EmptyState reflows at 320px, 200%, and 400% zoom (host cs-empty). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Icon",
@@ -1211,7 +1230,8 @@
       "anatomy": "Icon. CyberSkill line-icon set (in-repo, no external icon library). Each icon is data — a viewBox plus primitive elements — rendered through this one <Icon>. Line icons use currentColor stroke so they follow the surrounding text token. Semantic root <svg>. Slots: label.",
       "usage": "Icon — the single renderer for CyberSkill's in-repo line-icon set (no external icon library). Icons stroke with `currentColor` at 1.75 weight, round caps/joins, and size from the `--cs-icon-*` tokens. Decorative by default; pass `label` to expose a meaningful icon to assistive tech.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Icon reflows at 320px, 200%, and 400% zoom (host composite). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Image",
@@ -1271,7 +1291,8 @@
       "anatomy": "Image. CyberSkill Image — img with loading skeleton, warm fallback on error, optional click-to-preview lightbox. Provider or composite root. Host class cs-image__fallback.",
       "usage": "Image — img with shimmer, warm error fallback, optional `preview` lightbox. `width` / `height` forward to the underlying `<img>`.",
       "keyboard": "Handles Enter,  , Escape. Overlay manager restores focus and locks scroll.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Image reflows at 320px, 200%, and 400% zoom (host cs-image__fallback). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
     },
     {
       "name": "Link",
@@ -1315,7 +1336,8 @@
       "anatomy": "Link. CyberSkill Link — brand-styled anchor. variant: default | muted | standalone (arrow). external adds ↗ + rel. Semantic root <a>. Host class cs-link. Slots: children.",
       "usage": "Link — brand anchor (default · muted · standalone→, `external` ↗).",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Link reflows at 320px, 200%, and 400% zoom (host cs-link). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Logo",
@@ -1357,7 +1379,8 @@
       "anatomy": "Logo. CyberSkill brand mark. Renders the EXACT official master artwork (Umber ground, Ochre genie figure). Use whenever a product is for or owned by CyberSkill. Do not recreate or recolour the mark. Semantic root <svg>. Host class cs-logo. Slots: title.",
       "usage": "Logo — the official CyberSkill brand mark (Umber ground, Ochre genie figure), rendered from the exact master artwork. Use whenever a product is for or owned by CyberSkill. Keep clear space ≥ 25% of the mark height; never recolour, rotate, stretch, or place on a low-contrast background.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Logo reflows at 320px, 200%, and 400% zoom (host cs-logo). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Menu",
@@ -1434,7 +1457,8 @@
       "anatomy": "Menu. CyberSkill Menu — dropdown. Provide a `trigger` element; compose MenuItem children. Semantic root <div>. Host class cs-menu. Slots: trigger, children.",
       "usage": "Menu / MenuItem — dropdown anchored to a `trigger`. Uncontrolled (click toggles; outside-click / Escape close) or controlled via `open`/`onOpenChange`. `align=\"end\"` right-aligns.",
       "keyboard": "Handles Escape, ArrowUp, ArrowDown, Home, End.",
-      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript."
+      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "responsive": "Menu reflows at 320px, 200%, and 400% zoom (host cs-menu). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "OverlayProvider",
@@ -1472,7 +1496,8 @@
       "anatomy": "OverlayProvider. Shared focusable selector for modal traps (Dialog / AlertDialog / Drawer / CommandPalette). Provider or composite root. Host class cs-ov. Slots: children.",
       "usage": "OverlayProvider / overlay manager — single stack for modal Escape, scroll-lock refcount, and focus restore. Wrap product shells when nesting overlays; Dialog / AlertDialog / Drawer / CommandPalette already register via the module singleton when no provider is mounted.",
       "keyboard": "Handles Escape, Tab. Overlay manager restores focus and locks scroll.",
-      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript."
+      "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "responsive": "OverlayProvider reflows at 320px, 200%, and 400% zoom (host cs-ov). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
     },
     {
       "name": "ProgressBar",
@@ -1526,7 +1551,8 @@
       "anatomy": "ProgressBar. CyberSkill ProgressBar — determinate progress. variant: ochre (default) | umber | success. Semantic root <div>. Host class cs-progress. Slots: label.",
       "usage": "ProgressBar — determinate progress. Ochre fill by default (`umber`/`success` variants). Always pass `label`.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "ProgressBar reflows at 320px, 200%, and 400% zoom (host cs-progress). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "RadioGroup",
@@ -1574,7 +1600,8 @@
       "anatomy": "RadioGroup. A single labelled radio (brand accent-color). Usually composed via RadioGroup. Semantic root <label>. Host class cs-radio.",
       "usage": "RadioGroup / Radio — single-choice radios in a labelled fieldset, controlled by `value`/`onChange`. Brand accent-color.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "RadioGroup reflows at 320px, 200%, and 400% zoom (host cs-radio). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Select",
@@ -1650,7 +1677,8 @@
       "anatomy": "Select. CyberSkill Select — native <select> in the .cs-field frame with a chevron.  Pass `options` [{value,label}] or <option> children. Semantic root <label>. Host class cs-select. Slots: label, description, children.",
       "usage": "Select — labelled native select in the `.cs-field` frame with a custom chevron; same description/error wiring as TextField.",
       "keyboard": "Handles  .",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Select reflows at 320px, 200%, and 400% zoom (host cs-select). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Sortable",
@@ -1713,7 +1741,8 @@
       "anatomy": "Sortable. Move item at `from` to index `to` (shared by drag drop and move buttons). Semantic root <div>. Host class cs-sortable.",
       "usage": "Sortable — reorderable list with move-up/down buttons (keyboard + single-pointer) and optional HTML5 drag. Compose columns of it for a kanban.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Sortable reflows at 320px, 200%, and 400% zoom (host cs-sortable). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Spinner",
@@ -1757,7 +1786,8 @@
       "anatomy": "Spinner. CyberSkill Spinner — indeterminate loading indicator. Semantic root <span>. Host class cs-spinner. Slots: label.",
       "usage": "Spinner — indeterminate loading indicator, brand-coloured; slows under reduced-motion.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Spinner reflows at 320px, 200%, and 400% zoom (host cs-spinner). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Switch",
@@ -1817,7 +1847,8 @@
       "anatomy": "Switch. CyberSkill Switch — accessible toggle (role=\"switch\"); Umber on, Ochre knob-track in dark. Semantic root <label>. Host class cs-switch. Slots: label, children.",
       "usage": "Switch — accessible on/off toggle (`role=\"switch\"`), Umber track when on. For instant-apply settings (use Checkbox in forms that submit).",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Switch reflows at 320px, 200%, and 400% zoom (host cs-switch). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Tabs",
@@ -1884,7 +1915,8 @@
       "anatomy": "Tabs. CyberSkill Tabs — data-driven tablist, controlled by value/onChange. Ochre underline on active. Semantic root <div>. Host class cs-tabs.",
       "usage": "Tabs / Tab — underlined tablist (Ochre active indicator), controlled by `value`/`onChange`. Wire your own panels via `aria-controls`.",
       "keyboard": "Handles ArrowLeft, ArrowRight, Home, End.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Tabs reflows at 320px, 200%, and 400% zoom (host cs-tabs). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Tag",
@@ -1938,7 +1970,8 @@
       "anatomy": "Tag. CyberSkill Tag — chip with optional remove button. Semantic root <span>. Host class cs-tag. Slots: children.",
       "usage": "Tag — chip for filters, keywords, or selected values. Pass `onRemove` for a close button.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Tag reflows at 320px, 200%, and 400% zoom (host cs-tag). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Textarea",
@@ -2007,7 +2040,8 @@
       "anatomy": "Textarea. CyberSkill Textarea — multi-line input in the .cs-field frame; label/description/error. Semantic root <label>. Host class cs-field. Slots: label, description.",
       "usage": "Textarea — multi-line input in the `.cs-field` frame; description + error like TextField, vertically resizable.",
       "keyboard": "Handles  .",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Textarea reflows at 320px, 200%, and 400% zoom (host cs-field). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "TextField",
@@ -2078,7 +2112,8 @@
       "anatomy": "TextField. CyberSkill TextField — label + input with optional description and error. Programmatic label association and aria-describedby wiring; IME-safe. Semantic root <label>. Host class cs-field. Slots: label, description, children.",
       "usage": "TextField — labelled text input with optional description and inline error. The label is always associated; errors announce via `role=\"alert\"`. Vietnamese diacritics and IME composition are preserved.",
       "keyboard": "Handles  .",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "TextField reflows at 320px, 200%, and 400% zoom (host cs-field). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "TimePicker",
@@ -2133,7 +2168,8 @@
       "anatomy": "TimePicker. CyberSkill TimePicker — 24h time select in fixed steps. Controlled value (\"HH:MM\")/onChange. Semantic root <span>. Host class cs-timepicker. Slots: label.",
       "usage": "TimePicker — 24h time select in fixed steps (VN-friendly 24h clock).",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "TimePicker reflows at 320px, 200%, and 400% zoom (host cs-timepicker). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Toast",
@@ -2193,7 +2229,8 @@
       "anatomy": "Toast. Variant glyphs — aligned with Alert so status is never colour-alone (FIND-036). Semantic root <svg>. Host class cs-toast. Slots: children.",
       "usage": "Toast / ToastStack — transient notification inside a fixed bottom-right stack. Presentational; manage timing + queue in app state. Variants `default` | `success` | `danger` each ship a distinct glyph (info / check / X) plus a status-coloured start border — never a red check-mark for errors.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Toast reflows at 320px, 200%, and 400% zoom (host cs-toast). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
       "name": "Tooltip",
@@ -2242,7 +2279,8 @@
       "anatomy": "Tooltip. CyberSkill Tooltip — hover/focus bubble above the trigger. Keep label short. Semantic root <span>. Host class cs-tooltip. Slots: label, children.",
       "usage": "Tooltip — small umber bubble on hover/focus of its trigger. Wrap a focusable element; keep the label short.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
-      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider."
+      "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "responsive": "Tooltip reflows at 320px, 200%, and 400% zoom (host cs-tooltip). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     }
   ]
 }

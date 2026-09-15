@@ -54,6 +54,9 @@ for (const name of highRisk) {
 }
 const anatomies = extracted.components.map((c) => c.anatomy);
 assert(new Set(anatomies).size === anatomies.length, "anatomy text must be unique per component");
+const axes = extracted.components.map((c) => c.responsive);
+assert(axes.every(Boolean), "each contract has responsive/RTL/dark/high-contrast facts");
+assert(new Set(axes).size === axes.length, "responsive text must be unique per component");
 
 const html = existsSync(join(root, "_audit/docs-coverage.html"));
 assert(html, "docs coverage html dashboard");

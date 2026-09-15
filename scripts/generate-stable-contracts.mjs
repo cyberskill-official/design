@@ -184,6 +184,14 @@ function build() {
         && !/typeof (?:document|window) === ["']undefined["']/.test(src)
         ? "Guard document/window access; prefer ThemeProvider + getThemeInitScript."
         : "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      responsive: [
+        `${row.name} reflows at 320px, 200%, and 400% zoom (host ${host || "composite"}).`,
+        src.includes("useLang") || src.includes("dir") ? "RTL via lang/dir." : "RTL inherits ThemeProvider dir.",
+        "Dark uses semantic --cs-color-* under data-theme.",
+        src.includes("useOverlayLayer")
+          ? "High contrast + overlay trap/inert stay on the panel."
+          : "High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast.",
+      ].join(" "),
     });
   }
   components.sort((a, b) => a.name.localeCompare(b.name));

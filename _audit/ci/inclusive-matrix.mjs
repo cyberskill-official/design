@@ -72,6 +72,15 @@ async function run() {
       const page = await context.newPage();
       await page.emulateMedia({ forcedColors: "active" });
       await page.setContent(MARKUP, { waitUntil: "domcontentloaded" });
+      const caps = await page.evaluate(() => ({
+        customProps: typeof CSS !== "undefined" && CSS.supports("(--x: 0)"),
+        backdrop:
+          typeof CSS !== "undefined" &&
+          (CSS.supports("backdrop-filter: blur(1px)") || CSS.supports("-webkit-backdrop-filter: blur(1px)")),
+      }));
+      if (!caps.customProps) {
+        throw new Error(`${name} missing CSS custom properties (required by support-matrix)`);
+      }
       await assertPage(page, name);
 
       const mobile = await browser.newContext({

@@ -43,6 +43,13 @@ This utterance records both human-acceptance gates for TASK-IMP-030:
 - `@cyberskill/primitives` exports `nextRovingIndex`, `wrapIndex`, and `reduceListbox`; Rating, Carousel, and Combobox consume them
 - Overlay manager applies sibling `inert` on trapped modals; Image preview a11y-gate asserts trap + restore
 - `docs/support-matrix.md` maps WCAG 2.2 AA criteria to machine gates; Stable sources are gated against raw colors / `--cs-raw-`
+- `@cyberskill/react/button` (and other kebab ESM) is on the workspace export map; `./components/*` stays blocked
+- `docs/support-matrix.md` CSS capability table plus `base/glass.css` `@supports` / `-webkit-backdrop-filter` fallbacks
+- `docs/package-budget-trends.json` (manual snapshots; not auto-written by `test:unit`)
+- Unique per-component `responsive` facts in `docs/stable-contracts.json`
+- High-risk AT: Menu ArrowDown across two items, DatePicker day `onChange`, Editor `<script>` strip on `defaultValue`
+- Canary channel section on `docs/release-runbook.md` (`CS_NPM_DIST_TAG=canary`, Changesets `pre`)
+- Status hub freshness: VERSION match + ancestor lag ≤5 on a full clone (`test-status-freshness.mjs`)
 
 ## Explicitly not claimed
 
