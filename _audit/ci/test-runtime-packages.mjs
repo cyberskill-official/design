@@ -3,6 +3,8 @@ import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { createElement } from "react";
+import { renderToString } from "react-dom/server";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -60,6 +62,10 @@ assert(typeof reactMod.Button === "function" || typeof reactMod.Button === "obje
 const tokensCss = readFileSync(join(root, "packages/tokens/dist/tokens.css"), "utf8");
 assert(tokensCss.includes('@import "./colors.css"'), "tokens.css layers colors");
 assert(existsSync(join(root, "packages/tokens/dist/high-contrast.css")), "high-contrast pack in tokens dist");
+const catalogSrc = readFileSync(join(root, "apps/product-fixtures/catalog.mjs"), "utf8");
+assert(!catalogSrc.includes("/>"), "product catalog must stay createElement-only (no JSX)");
+const ssr = renderToString(createElement(reactMod.Button, { variant: "primary" }, "stable"));
+assert(ssr.includes("cs-button"), "compiled Button SSR without JSX source");
 
 const { reportAdoption, reportDeprecation } = await import(
   pathToFileURL(join(root, "packages/primitives/dist/telemetry.js")).href

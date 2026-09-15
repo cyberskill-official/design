@@ -74,6 +74,14 @@ function hashExisting(rel) {
   };
 }
 
+const sbom = spawnSync(process.execPath, ["scripts/write-sbom.mjs"], {
+  cwd: root,
+  encoding: "utf8",
+});
+if (sbom.status !== 0) {
+  fail("write-sbom failed: " + (sbom.stderr || sbom.stdout || "").slice(0, 400));
+}
+
 const artifacts = {
   dtcg: hashExisting("tokens/tokens.dtcg.json"),
   workspaceDtcg: hashExisting("packages/tokens/dist/tokens.dtcg.json"),
@@ -81,6 +89,7 @@ const artifacts = {
   nativeCompose: hashExisting("examples/native/compose/app/src/main/java/world/cyberskill/sample/tokens/CSTokens.kt"),
   nativeFlutter: hashExisting("examples/native/flutter/lib/tokens/cs_tokens.dart"),
   codeConnectNodeMap: hashExisting("code-connect/node-map.json"),
+  sbom: hashExisting("_audit/ci/bom.cdx.json"),
 };
 
 const report = {

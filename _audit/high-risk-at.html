@@ -104,10 +104,13 @@ async function run() {
     await wait(40);
     const trig = c.querySelector(".a-trig");
     assert(trig, "trigger");
+    trig.focus();
     trig.click();
     assert(await until(() => document.querySelector('[role="alertdialog"], [role="dialog"]')), "alert");
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
     assert(await until(() => !document.querySelector('[role="alertdialog"]')), "esc");
+    await wait(40);
+    assert(document.activeElement === trig, "alert focus restored");
   });
 
   await test("Menu keyboard", async () => {
@@ -115,8 +118,13 @@ async function run() {
     const c = mount(h(Menu, { trigger: h(Button, { size: "sm" }, "Open") }, h(MenuItem, {}, "A")));
     await wait(40);
     const trig = c.querySelector("button");
+    trig.focus();
     trig.click();
     assert(await until(() => c.querySelector('[role="menu"], [role="menuitem"]') || document.querySelector('[role="menu"]')), "menu");
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+    assert(await until(() => !document.querySelector('[role="menu"]')), "menu esc");
+    await wait(40);
+    assert(document.activeElement === trig, "menu focus restored");
   });
 
   await test("Combobox expand", async () => {
@@ -168,6 +176,7 @@ async function run() {
     down.click();
     assert(await until(() => items.map((i) => i.key).join(",") === "2,1"), "reordered");
     assert(live, "live");
+    assert(await until(() => (live.textContent || "").trim().length > 0), "live announced move");
   });
 
   await test("Editor textbox", async () => {

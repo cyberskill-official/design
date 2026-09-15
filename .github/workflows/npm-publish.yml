@@ -61,6 +61,12 @@ jobs:
         run: node _audit/ci/npm-publish.mjs --dry-run
       - name: Fail-closed release binding
         run: node scripts/release-bind.mjs
+      - name: Upload SBOM
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7
+        with:
+          name: cyclonedx-sbom
+          path: _audit/ci/bom.cdx.json
       - name: Publish to npm (OIDC Trusted Publishing)
         # Do not set NODE_AUTH_TOKEN / NPM_TOKEN — package disallows tokens; OIDC only.
         # FIND-095 — soft-skip vs success written to GITHUB_STEP_SUMMARY + annotations.

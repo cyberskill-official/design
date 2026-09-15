@@ -13,7 +13,7 @@
       "fixture": "apps/product-fixtures/render.mjs",
       "surfaces": ["components/brand/LumiAvatar.jsx", "components/ai/ChatMessage.jsx"],
       "marker": "cs-lumi",
-      "evidence": "SSR LumiAvatar + ChatMessage + PromptInput on hoa/plasma; apps/product-hosts/lumi.html"
+      "evidence": "SSR + hydrated @cyberskill/react LumiAvatar/ChatMessage/PromptInput; apps/product-hosts/lumi.html"
     },
     {
       "id": "status-hub",
@@ -22,7 +22,7 @@
       "fixture": "apps/product-fixtures/render.mjs",
       "surfaces": ["ui_kits/status-hub/index.html", "ui_kits/status-hub/StatusHub.jsx"],
       "marker": "cs-datagrid",
-      "evidence": "SSR Tabs + DataGrid; kit HTML loads packages/tokens/dist/tokens.css"
+      "evidence": "Hydrated Tabs + DataGrid from @cyberskill/react; kit HTML loads tokens.css"
     },
     {
       "id": "cyberos",

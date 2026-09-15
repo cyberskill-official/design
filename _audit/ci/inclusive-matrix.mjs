@@ -36,6 +36,12 @@ async function assertPage(page, name) {
   await page.evaluate(() => {
     document.documentElement.style.zoom = "";
   });
+  await page.emulateMedia({ media: "print" });
+  const printed = await page.locator("button").boundingBox();
+  if (!printed || printed.width < 1) {
+    throw new Error(`${name} print media hid the control`);
+  }
+  await page.emulateMedia({ media: "screen" });
 }
 
 async function run() {

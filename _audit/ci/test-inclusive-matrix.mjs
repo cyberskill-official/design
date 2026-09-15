@@ -39,5 +39,6 @@ assert(i18n.includes("localeForLang"), "locale negotiation");
 const matrix = readFileSync(join(root, "_audit/ci/inclusive-matrix.mjs"), "utf8");
 assert(matrix.includes('zoom = "4"'), "400% zoom is executed, not only documented");
 assert(/isMobile|390/.test(matrix), "mobile viewport is executed");
+assert(/media: ["']print["']/.test(matrix), "print media is executed");
 
 console.log("PASS test-inclusive-matrix");

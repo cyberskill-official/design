@@ -46,6 +46,8 @@ _audit/ci/native-store-report.json
 *.tgz
 apps/consumer-canary/react-18/provider.generated.js
 _audit/ci/release-bind-report.json
+_audit/ci/bom.cdx.json
+apps/product-hosts/dist/
 
 # Native sample build outputs
 examples/native/swiftui/.build/
