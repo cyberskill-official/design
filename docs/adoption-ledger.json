@@ -11,18 +11,18 @@
       "name": "Lumi",
       "package": "@cyberskill/react",
       "fixture": "apps/product-fixtures/render.mjs",
-      "surfaces": ["components/brand/LumiAvatar.jsx", "components/ai/ChatMessage.jsx"],
+      "surfaces": ["components/brand/LumiAvatar.jsx", "components/ai/ChatMessage.jsx", "ui_kits/website/chat.html", "ui_kits/website/LumiChat.compiled.js"],
       "marker": "cs-lumi",
-      "evidence": "SSR + hydrated @cyberskill/react LumiAvatar/ChatMessage/PromptInput; apps/product-hosts/lumi.html"
+      "evidence": "SSR + hydrated @cyberskill/react LumiAvatar/ChatMessage/PromptInput; Lumi chat kit compiles to ESM without Babel"
     },
     {
       "id": "status-hub",
       "name": "Status Hub",
       "package": "@cyberskill/react",
       "fixture": "apps/product-fixtures/render.mjs",
-      "surfaces": ["ui_kits/status-hub/index.html", "ui_kits/status-hub/StatusHub.jsx"],
+      "surfaces": ["ui_kits/status-hub/index.html", "ui_kits/status-hub/StatusHub.jsx", "ui_kits/status-hub/StatusHub.compiled.js"],
       "marker": "cs-datagrid",
-      "evidence": "Hydrated Tabs + DataGrid from @cyberskill/react; kit HTML loads tokens.css"
+      "evidence": "Hydrated Tabs + DataGrid from @cyberskill/react; Status Hub kit is compiled JS + tokens.css, no Babel"
     },
     {
       "id": "cyberos",
@@ -47,9 +47,9 @@
       "name": "cyberskill.world",
       "package": "@cyberskill/tokens",
       "fixture": "apps/product-fixtures/render.mjs",
-      "surfaces": ["ui_kits/website/index.html", "ui_kits/website/Website.jsx"],
+      "surfaces": ["ui_kits/website/index.html", "ui_kits/website/Website.jsx", "ui_kits/website/Website.compiled.js"],
       "marker": "cs-lumi",
-      "evidence": "SSR Lumi CTA; website kit loads packages/tokens/dist/tokens.css"
+      "evidence": "SSR Lumi CTA; website kit is compiled JS + tokens.css, no Babel"
     },
     {
       "id": "client-delivery",

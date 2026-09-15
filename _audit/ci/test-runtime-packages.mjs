@@ -67,6 +67,14 @@ assert(!catalogSrc.includes("/>"), "product catalog must stay createElement-only
 const ssr = renderToString(createElement(reactMod.Button, { variant: "primary" }, "stable"));
 assert(ssr.includes("cs-button"), "compiled Button SSR without JSX source");
 
+const facadePkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
+assert(facadePkg.exports["./stable"]?.import === "./packages/react/index.js", "facade ./stable is compiled");
+const stableSrc = readFileSync(join(root, "packages/react/index.js"), "utf8");
+assert(!/from ["'].*\.jsx["']/.test(stableSrc), "facade ./stable has no raw JSX imports");
+const stableMod = await import("@cyberskill/design/stable");
+const stableSsr = renderToString(createElement(stableMod.Button, { variant: "primary" }, "facade-stable"));
+assert(stableSsr.includes("cs-button"), "@cyberskill/design/stable SSRs compiled Button");
+
 const { reportAdoption, reportDeprecation } = await import(
   pathToFileURL(join(root, "packages/primitives/dist/telemetry.js")).href
 );

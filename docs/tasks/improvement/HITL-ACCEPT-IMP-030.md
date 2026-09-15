@@ -30,6 +30,9 @@ This utterance records both human-acceptance gates for TASK-IMP-030:
 - AT protocol, SLO, telemetry docs (EN+VI) + opt-in `reportAdoption`
 - Lint gate: `npm run lint` (`_audit/ci/lint-cyberskill.mjs`)
 - Quarterly support-matrix review dated 2026-09-15
+- Product kits compile without Babel (`ui_kits/build.mjs`); Lumi chat mounts compiled `@cyberskill/react`
+- All eight product hosts hydrate and accept interaction; hosts call `reportAdoption`
+- Facade `@cyberskill/design/stable` is the compiled no-JSX entry (`packages/react/index.js`)
 
 ## Explicitly not claimed
 

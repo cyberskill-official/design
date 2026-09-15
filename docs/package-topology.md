@@ -17,7 +17,7 @@ apps/storybook         host docs (not a runtime install)
 apps/consumer-canary   React 18/19 + SSR smoke
 ```
 
-Root `@cyberskill/design` remains the install name during a six-month migration window. New products should import `@cyberskill/react` + `@cyberskill/tokens` (compiled `dist/`, no raw JSX, no templates). The facade still re-exports source JSX for existing bundlers and emits a deprecation note in its package description. Deep imports such as `@cyberskill/react/components/*` are not on the workspace export map and must fail.
+Root `@cyberskill/design` remains the install name during a six-month migration window. New products should import `@cyberskill/react` + `@cyberskill/tokens` (compiled `dist/`, no raw JSX, no templates). Facade consumers that cannot transpile JSX use `@cyberskill/design/stable`. The default facade entry still re-exports source JSX for existing bundlers and emits a deprecation note in its package description. Deep imports such as `@cyberskill/react/components/*` are not on the workspace export map and must fail.
 
 ## Budgets
 

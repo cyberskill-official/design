@@ -34,6 +34,10 @@
     "./components/*": "./components/*",
     "./styles.css": "./styles.css",
     "./styles.scoped.css": "./styles.scoped.css",
+    "./stable": {
+      "types": "./packages/react/index.d.ts",
+      "import": "./packages/react/index.js"
+    },
     "./theme": {
       "types": "./components/_theme/provider.d.ts",
       "import": "./components/_theme/provider.js"
@@ -75,7 +79,11 @@
     "DESIGN.md",
     "VERSION",
     "dist/styles.min.css",
-    "THIRD-PARTY-NOTICES.md"
+    "THIRD-PARTY-NOTICES.md",
+    "packages/react/index.js",
+    "packages/react/index.d.ts",
+    "packages/react/dist",
+    "packages/react/package.json"
   ],
   "keywords": [
     "design-system",
@@ -106,11 +114,12 @@
   "scripts": {
     "build:bundle": "node scripts/build-bundle.mjs",
     "build:workspaces": "node scripts/build-workspace-packages.mjs",
+    "build:ui-kits": "node ui_kits/build.mjs",
     "build:react-entry": "node scripts/generate-react-entry.mjs",
     "lint": "node _audit/ci/lint-cyberskill.mjs",
     "upgrade:rehearse": "node scripts/upgrade-rehearsal.mjs",
     "build:design-md": "node scripts/generate-design-md.mjs",
-    "prepublishOnly": "npm run build:bundle && npm run build:react-entry && npm run build:workspaces && npm run build:styles && node scripts/generate-design-md.mjs --check && node scripts/flatten-styles.mjs --check && node scripts/generate-contrast-report.mjs --check && npm run version:stamp:check",
+    "prepublishOnly": "npm run build:bundle && npm run build:react-entry && npm run build:workspaces && npm run build:ui-kits && npm run build:styles && node scripts/generate-design-md.mjs --check && node scripts/flatten-styles.mjs --check && node scripts/generate-contrast-report.mjs --check && npm run version:stamp:check",
     "code-connect:generate": "node _audit/ci/generate-code-connect.mjs",
     "code-connect:dry-run": "node _audit/ci/code-connect-publish.mjs --dry-run",
     "npm:pack-dry-run": "node _audit/ci/npm-publish.mjs --dry-run",

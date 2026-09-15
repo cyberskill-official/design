@@ -5,11 +5,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CyberSkill · Turn Your Will Into Real</title>
-<link rel="icon" href="../../assets/favicon.svg" />
-<link rel="stylesheet" href="../../packages/tokens/dist/tokens.css" />
-<link rel="stylesheet" href="../../styles.css" />
-<link rel="stylesheet" href="site.css" />
-<style>html,body{margin:0}</style>
 <script>
 (function () {
   var path = location.pathname;
@@ -21,16 +16,20 @@
   document.head.appendChild(base);
 })();
 </script>
+<link rel="icon" href="../../assets/favicon.svg" />
+<link rel="stylesheet" href="../../packages/tokens/dist/tokens.css" />
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="site.css" />
+<style>html,body{margin:0}</style>
 <script src="../../_vendor/react/react.production.min.js"></script>
 <script src="../../_vendor/react/react-dom.production.min.js"></script>
-<script src="../../_vendor/babel/babel.min.js"></script>
 <script src="copy.js"></script>
 </head>
 <body>
 <div id="root"></div>
-<script type="text/babel" src="Website.jsx"></script>
-<script type="text/babel">
-  ReactDOM.createRoot(document.getElementById("root")).render(<Website />);
+<script src="Website.compiled.js"></script>
+<script>
+  ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(window.Website));
 </script>
 </body>
 </html>
