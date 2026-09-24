@@ -100,6 +100,8 @@ async function assertVerdict(page, browserName, port) {
   await page.setViewportSize({ width: 320, height: 640 });
   const narrow = await page.locator("#ax-gallery").boundingBox();
   if (!narrow || narrow.width < 1) throw new Error(browserName + " 320px hid the AX gallery");
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  if (overflow > 1) throw new Error(browserName + " 320px horizontal overflow " + overflow + "px");
   await page.evaluate(() => {
     document.documentElement.style.zoom = "2";
   });
