@@ -26,7 +26,7 @@ This utterance records both human-acceptance gates for TASK-IMP-030:
 - Compiled workspace packages (`npm run build:workspaces`) with no raw JSX / templates / `_audit/` in slim tarballs
 - `forwardRef` on interactive public exports; providers skipped
 - Changeset note + `scripts/release-bind.mjs` SHA-256 of the real tarball bytes
-- Upgrade rehearsal under 15 minutes
+- Upgrade rehearsal under 15 minutes, including the Vite and Next canary builds
 - AT protocol, SLO, telemetry docs (EN+VI) + opt-in `reportAdoption`
 - Lint gate: `npm run lint` (`_audit/ci/lint-cyberskill.mjs`)
 - Quarterly support-matrix review dated 2026-09-15

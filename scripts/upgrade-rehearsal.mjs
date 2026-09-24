@@ -30,6 +30,8 @@ if (!existsSync(join(root, "packages/react/dist/components/button/Button.js"))) 
 }
 run(["scripts/release-bind.mjs", "--dry-run"]);
 run(["ssr.mjs"], join(root, "apps/consumer-canary"));
+run(["vite-build.mjs"], join(root, "apps/consumer-canary"));
+run(["next-build.mjs"], join(root, "apps/consumer-canary"));
 
 const elapsed = Date.now() - started;
 if (elapsed >= LIMIT_MS) {
