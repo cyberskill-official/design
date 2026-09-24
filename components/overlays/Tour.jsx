@@ -1,9 +1,10 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Tour — spotlight walkthrough over target elements (by CSS selector). Controlled via open/onClose. */
-export function Tour({ steps = [], open, onClose, lang, className }) {
+export const Tour = React.forwardRef(function Tour({ steps = [], open, onClose, lang, className }, forwardedRef) {
   const [i, setI] = React.useState(0);
   const [rect, setRect] = React.useState(null);
   const [pop, setPop] = React.useState({ top: 80, left: 40 });
@@ -29,7 +30,7 @@ export function Tour({ steps = [], open, onClose, lang, className }) {
     document.addEventListener("keydown", k);
     return () => document.removeEventListener("keydown", k);
   }, [open, i, steps, onClose]);
-  if (!open || !steps.length) return <span ref={ref} style={{ display: "none" }} />;
+  if (!open || !steps.length) return <span ref={mergeRefs(ref, forwardedRef)} style={{ display: "none" }} />;
   const s = steps[i];
   const last = i === steps.length - 1;
   return (
@@ -50,4 +51,4 @@ export function Tour({ steps = [], open, onClose, lang, className }) {
       </div>
     </div>
   );
-}
+});

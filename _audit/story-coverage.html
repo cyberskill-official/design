@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><title>CyberSkill — Atomic View story coverage</title>
 <link rel="stylesheet" href="../styles.css">
+<script src="../_vendor/react/react.production.min.js"></script>
+<script src="../_vendor/react/react-dom.production.min.js"></script>
 <script src="../_ds_bundle.js"></script>
 <style>
   body{margin:0;font-family:ui-monospace,monospace;font-size:12.5px;padding:16px 20px;background:#efe6d8;color:#231a12}
@@ -14,7 +16,7 @@
 <p class="lede">Guards <code>guidelines/atomic-view.html</code>: (1) every primary bundle export has a story name presence; (2) tweakable primaries in <code>PLAYGROUND_REQUIRED</code> must appear inside a live <code>controls</code> + <code>renderC</code> playground (not specimen-only). Sub-parts (<code>Tab</code>, <code>MenuItem</code>, …) excluded. <code>window.__storycov.pass</code> must be true.</p>
 <div class="grid" id="out"></div><div id="sum">running…</div>
 <script>
-const EXCLUDE=new Set(['Tab','Radio','MenuItem','ListItem','AvatarGroup','ToastStack','CardHeader','CardBody','CardFooter','CS_ICONS','CS_LOGO_MARK_INNER','CS_LOGO_VIEWBOX','EDITOR_SCHEMA','NavItem','Miss']);
+const EXCLUDE=new Set(['Tab','Radio','MenuItem','ListItem','AvatarGroup','ToastStack','CardHeader','CardBody','CardFooter','CS_ICONS','CS_LOGO_MARK_INNER','CS_LOGO_VIEWBOX','EDITOR_SCHEMA','NavItem','Miss','ThemeProvider','THEME_VALUES','CONTRAST_VALUES','DENSITY_VALUES','ALLOWED_URL_SCHEMES','REMOVED_TAGS']);
 /** Primaries with tweakable props that must ship a Controlled playground (Expansion Rule). */
 const PLAYGROUND_REQUIRED=[
   'Button','Toggle','Icon','Badge','StatusIndicator','ProgressBar','Avatar','AspectRatio','Item','LumiAvatar',

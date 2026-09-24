@@ -6,6 +6,7 @@ export default {
   tags: ['autodocs'],
   argTypes: {
     defaultValue: { control: 'text' },
+    value: { control: 'text' },
     unsafeHtml: { control: 'text', description: 'Trusted HTML only — bypasses sanitization (CDS-SEC-001)' },
     minHeight: { control: 'number' },
     lang: { control: 'text' },

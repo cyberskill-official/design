@@ -40,10 +40,12 @@ function buildMjs(components) {
     "// Re-exports every public component from source. React / react-dom are",
     "// peerDependencies (external) — do not use this entry without a bundler",
     "// that can transpile JSX (Next transpilePackages, Vite, etc.).",
+    "// Compatibility facade: new apps should install @cyberskill/react + @cyberskill/tokens.",
     "// Browser / no-build consumers: import from `@cyberskill/design/legacy`",
     "// (`_esm/cs.mjs`) instead. Styles are NOT injected — link styles.css",
     "// (or dist/styles.min.css for production static).",
     "// Regenerate: node scripts/generate-react-entry.mjs",
+    'import "./facade-window.mjs";',
     "",
   ];
   const by = groupBySource(components);

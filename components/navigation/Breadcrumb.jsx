@@ -1,12 +1,13 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Breadcrumb — hierarchical trail; last item is current. */
-export function Breadcrumb({ items = [], lang, className, ...props }) {
+export const Breadcrumb = React.forwardRef(function Breadcrumb({ items = [], lang, className, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   return (
-    <nav ref={ref} aria-label={makeT("Breadcrumb", L)("label")} {...props}>
+    <nav ref={mergeRefs(ref, forwardedRef)} aria-label={makeT("Breadcrumb", L)("label")} {...props}>
       <ol className={cx("cs-breadcrumb", className)}>
         {items.map((it, i) => {
           const last = i === items.length - 1;
@@ -21,4 +22,4 @@ export function Breadcrumb({ items = [], lang, className, ...props }) {
       </ol>
     </nav>
   );
-}
+});

@@ -99,8 +99,14 @@ Nguyên tắc benchmark (WCAG · APCA · OKLCH · DTCG · doctrine CDS + mở r�
 | Manifest coverage | `_audit/ci/check-manifest-coverage.mjs` | Disk templates/cards/startingPoints ⊆ manifest (`email-safe` allowlist) | Exit 0 | Hard | Unit test |
 | Pack hygiene | `_audit/ci/test-pack-hygiene.mjs` | Tarball loại `docs/tasks|audits|plans|status`; gồm notices + fonts + `_vendor/` (FIND-064) | Exit 0 | Hard | Unit test |
 | CI verdict selftest | `_audit/ci/ci-verdict.mjs --selftest` | Helper annotation soft-skip vs success (FIND-095) | Exit 0 | Hard | Unit test |
+| Export registry | `_audit/ci/test-export-registry.mjs` | Mọi export công khai có owner, maturity, support, deprecation, package | Exit 0 | Hard | Unit test |
+| Token layers + ThemeProvider | `_audit/ci/test-token-layers.mjs` | Bản đồ primitive→semantic→component→state; không trục Density | Exit 0 | Hard | Unit test |
+| Trusted HTML | `_audit/ci/test-trusted-html.mjs` | Allowlist sanitizer + chính sách scheme | Exit 0 | Hard | Unit test |
+| TypeScript strict + SSR | `_audit/ci/test-typescript-strict.mjs` + `test-ssr-theme.mjs` + `test-react-18-ssr.mjs` | Compile declaration + SSR React 18/19 | Exit 0 | Hard | Unit test |
+| Inclusive matrix policy | `_audit/ci/test-inclusive-matrix.mjs` | engines, browserslist, job Firefox/WebKit, zoom 200%/400%, fallback khả năng CSS | Exit 0 | Hard | Unit test + job `inclusive-matrix` |
+| Package budgets / workspaces / Changesets / release-bind | `test-package-budgets` / `test-workspace-topology` / `test-changesets` / `test-release-bind` / `test-status-freshness` | Ngân sách + trend, ESM kebab, changeset/canary, khóa tag/SHA/digest, status VERSION + lag ancestor | Exit 0 | Hard | Unit test |
 
-Suite `test:unit` được nối vào CI workflow như một phần của hardening Th7 2026 (trước đó chỉ chạy local). Storybook freshness chạy trong `storybook-build` với `--require` (không skip trong CI).
+`npm test` là alias của `test:unit` (cổng CyberOS). Playwright Chromium tự cài qua `scripts/ensure-playwright.mjs`. Suite `test:unit` được nối vào CI. Storybook freshness chạy trong `storybook-build` với `--require` (không skip trong CI).
 
 ## Audit probe suite — `npm run test:audit-probe`
 

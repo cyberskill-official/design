@@ -3,7 +3,7 @@ import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Menu — dropdown. Provide a `trigger` element; compose MenuItem children. */
-export function Menu({ trigger, children, align = "start", open: controlledOpen, onOpenChange, lang, className }) {
+export const Menu = React.forwardRef(function Menu({ trigger, children, align = "start", open: controlledOpen, onOpenChange, lang, className }, forwardedRef) {
   const [uOpen, setUOpen] = React.useState(false);
   const open = controlledOpen != null ? controlledOpen : uOpen;
   const set = (v) => { onOpenChange ? onOpenChange(v) : setUOpen(v); };
@@ -57,7 +57,7 @@ export function Menu({ trigger, children, align = "start", open: controlledOpen,
   }, [open]);
 
   const toggle = () => set(!open);
-  // ARIA attrs must live on the interactive trigger (button), not a wrapping <span>
+  // ARIA attrs must live on the interactive trigger (button), not a wrapping <span ref={forwardedRef}>
   // — axe aria-allowed-attr flags aria-haspopup/aria-expanded on generic elements.
   const triggerNode = React.isValidElement(trigger)
     ? React.cloneElement(trigger, {
@@ -90,14 +90,14 @@ export function Menu({ trigger, children, align = "start", open: controlledOpen,
       ) : null}
     </div>
   );
-}
+});
 
 /** An item inside a Menu. */
-export function MenuItem({ danger = false, icon, children, className, ...props }) {
+export const MenuItem = React.forwardRef(function MenuItem({ danger = false, icon, children, className, ...props }, forwardedRef) {
   return (
-    <button type="button" role="menuitem" className={cx("cs-menu__item", danger && "cs-menu__item--danger", className)} {...props}>
+    <button ref={forwardedRef} type="button" role="menuitem" className={cx("cs-menu__item", danger && "cs-menu__item--danger", className)} {...props}>
       {icon ? <span aria-hidden="true">{icon}</span> : null}
       {children}
     </button>
   );
-}
+});

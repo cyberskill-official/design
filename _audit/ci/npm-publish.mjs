@@ -14,7 +14,8 @@
  * Soft-skip (exit 0) is only for expected no-ops: already_published (EPUBLISHCONFLICT)
  * and true non-GHA missing_secrets. On GHA tag / workflow_dispatch, ENEEDAUTH / 404 /
  * 402 are hard_fail (same as 403 / EOTP). A successful publish is followed by
- * `npm view <name>@<version>` plus `dist-tags.latest === VERSION` (FIND-094).
+ * `npm view <name>@<version>` plus `dist-tags.<tag> === VERSION` (FIND-094).
+ * Stable publishes `latest`; prerelease/canary uses `CS_NPM_DIST_TAG=canary`.
  */
 import { readFileSync, writeFileSync, existsSync, mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -33,6 +34,14 @@ const dryRun = args.has('--dry-run');
  * GitHub Actions on workflow_dispatch or a version tag push (npm-publish.yml).
  * @param {NodeJS.ProcessEnv} [env]
  */
+export function resolveNpmDistTag(env = process.env) {
+  const raw = String(env.CS_NPM_DIST_TAG || "latest").trim().toLowerCase();
+  if (raw !== "latest" && raw !== "canary") {
+    throw new Error("CS_NPM_DIST_TAG must be latest or canary, got " + raw);
+  }
+  return raw;
+}
+
 export function isGhaReleasePublish(env = process.env) {
   if (!env.GITHUB_ACTIONS) return false;
   const event = env.GITHUB_EVENT_NAME || '';
@@ -145,8 +154,8 @@ function parseNpmJsonStdout(stdout) {
 
 /**
  * Post-publish registry presence check. Fails if the version is not visible
- * or if dist-tags.latest is not the published VERSION (FIND-094).
- * @param {{ name: string, version: string, cwd?: string, env?: NodeJS.ProcessEnv, spawn?: typeof spawnSync }} opts
+ * or if dist-tags.<tag> is not the published VERSION (FIND-094).
+ * @param {{ name: string, version: string, cwd?: string, env?: NodeJS.ProcessEnv, spawn?: typeof spawnSync, distTag?: string }} opts
  */
 export function assertRegistryPresence(opts) {
   const {
@@ -155,6 +164,7 @@ export function assertRegistryPresence(opts) {
     cwd = root,
     env = process.env,
     spawn = spawnSync,
+    distTag = resolveNpmDistTag(env),
   } = opts;
   const spec = `${name}@${version}`;
   const view = spawn('npm', ['view', spec, 'version', '--json'], {
@@ -174,26 +184,26 @@ export function assertRegistryPresence(opts) {
     );
   }
 
-  const latestView = spawn('npm', ['view', name, 'dist-tags.latest', '--json'], {
+  const tagView = spawn('npm', ['view', name, `dist-tags.${distTag}`, '--json'], {
     cwd,
     encoding: 'utf8',
     env,
     shell: process.platform === 'win32',
   });
-  const latestCombined = `${latestView.stdout || ''}\n${latestView.stderr || ''}`;
-  if (latestView.status !== 0) {
+  const tagCombined = `${tagView.stdout || ''}\n${tagView.stderr || ''}`;
+  if (tagView.status !== 0) {
     throw new Error(
-      `post-publish dist-tags.latest check failed for ${name}: ${latestCombined.slice(0, 800)}`,
+      `post-publish dist-tags.${distTag} check failed for ${name}: ${tagCombined.slice(0, 800)}`,
     );
   }
-  const latest = parseNpmJsonStdout(latestView.stdout);
-  if (String(latest) !== String(version)) {
+  const tagged = parseNpmJsonStdout(tagView.stdout);
+  if (String(tagged) !== String(version)) {
     throw new Error(
-      `post-publish dist-tags.latest check: expected ${version} but npm view reported ${JSON.stringify(latest)}`,
+      `post-publish dist-tags.${distTag} check: expected ${version} but npm view reported ${JSON.stringify(tagged)}`,
     );
   }
 
-  return { ok: true, name, version, spec, latest: String(latest) };
+  return { ok: true, name, version, spec, distTag, tagged: String(tagged), latest: distTag === 'latest' ? String(tagged) : undefined };
 }
 
 function writeReport(payload) {
@@ -323,7 +333,10 @@ function main() {
     console.log('Auth mode: NPM_TOKEN (likely rejected — package disallows tokens)');
   }
 
-  const pub = spawnSync('npm', ['publish', '--access', 'public'], {
+  const distTag = resolveNpmDistTag(env);
+  const publishArgs = ['publish', '--access', 'public'];
+  if (distTag !== 'latest') publishArgs.push('--tag', distTag);
+  const pub = spawnSync('npm', publishArgs, {
     cwd: root,
     encoding: 'utf8',
     env,
@@ -352,8 +365,9 @@ function main() {
       version: pkg.version,
       cwd: root,
       env,
+      distTag,
     });
-    console.log(`Registry presence OK — ${presence.spec} · dist-tags.latest=${presence.latest}`);
+    console.log(`Registry presence OK — ${presence.spec} · dist-tags.${distTag}=${presence.tagged}`);
   } catch (e) {
     hardFail('registry_presence', String(e.message || e), { auth, published: true });
   }
@@ -363,7 +377,8 @@ function main() {
     ok: true,
     published: true,
     registryVerified: true,
-    latestVerified: true,
+    latestVerified: distTag === 'latest',
+    distTag,
     name: pkg.name,
     version: pkg.version,
     auth,

@@ -2,7 +2,7 @@ import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Anchor — in-page table of contents with scrollspy (IntersectionObserver). items: {id,label}. */
-export function Anchor({ items = [], title, className }) {
+export const Anchor = React.forwardRef(function Anchor({ items = [], title, className }, forwardedRef) {
   const [act, setAct] = React.useState(items.length ? items[0].id : null);
   React.useEffect(() => {
     const els = items.map((it) => document.getElementById(it.id)).filter(Boolean);
@@ -15,11 +15,11 @@ export function Anchor({ items = [], title, className }) {
     return () => io.disconnect();
   }, [items]);
   return (
-    <nav className={cx("cs-anchor", className)} aria-label={typeof title === "string" ? title : undefined}>
+    <nav ref={forwardedRef} className={cx("cs-anchor", className)} aria-label={typeof title === "string" ? title : undefined}>
       {title ? <div className="cs-anchor__title">{title}</div> : null}
       {items.map((it) => (
         <a key={it.id} href={"#" + it.id} className={cx("cs-anchor__item", act === it.id && "is-active")} aria-current={act === it.id ? "location" : undefined}>{it.label}</a>
       ))}
     </nav>
   );
-}
+});

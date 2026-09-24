@@ -2,7 +2,7 @@ import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Menubar — app-style horizontal menu bar. menus: [{label, items:[{label,onSelect,danger}|"-"]}]. */
-export function Menubar({ menus = [], className }) {
+export const Menubar = React.forwardRef(function Menubar({ menus = [], className }, forwardedRef) {
   const [open, setOpen] = React.useState(null);
   const [focusI, setFocusI] = React.useState(0);
   const wrap = React.useRef(null);
@@ -45,4 +45,4 @@ export function Menubar({ menus = [], className }) {
       ))}
     </div>
   );
-}
+});

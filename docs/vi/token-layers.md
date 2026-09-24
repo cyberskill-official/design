@@ -1,0 +1,28 @@
+# Lớp token
+
+Primitive → semantic → component → state. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
+
+## Mô hình
+
+`tokens/layers.json` là bản đồ máy đọc. CSS custom properties vẫn là nguồn runtime. CSS, TypeScript, native, Figma, và docs sinh ra phải khớp `tokens/tokens.dtcg.json` (các gate provenance sẵn có).
+
+| Lớp | Vai trò |
+|---|---|
+| Primitive | Giá trị literal (hex, px, ms, stack) |
+| Semantic | Alias vai trò ổn định khi theme đổi |
+| Component | Alias theo component |
+| State | Hover, focus, disabled, invalid |
+
+Đừng coi literal `--cs-*` sâu là API công khai. Ưu tiên vai trò semantic. `@cyberskill/tokens/css` (`packages/tokens/dist/tokens.css`) khai báo cascade `@layer primitive, semantic, component, state` và import từng file vào lớp của nó để lớp sau thắng. Pack style-axis (`styles.css`) nằm ở `layer(state)` — slot cascade cuối, không phải file token `--cs-state-*`. Host không chấp nhận style document toàn cục thì import `@cyberskill/tokens/css/scope` (`.cs-root`).
+
+## Theme provider
+
+`ThemeProvider` (export từ module overlay và `@cyberskill/themes`) gắn `data-theme` (`light` | `dark` | `system`), `data-cs-contrast` (`standard` | `high`), và `data-cs-density` (`comfortable` | `compact`). Gọi `getThemeInitScript()` trong `<head>` để SSR không flash.
+
+High contrast là chuyển theme/contrast — không phải trục sản phẩm thứ năm. Density vẫn nghỉ (`axis-guard`).
+
+## Liên quan
+
+- File lớp: `tokens/layers.json`
+- High contrast: `base/high-contrast.css`
+- Root scoped: `base/scope.css`, `styles.scoped.css`, và `@cyberskill/tokens/css/scope`

@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -17,11 +18,11 @@ function DefaultIcon({ variant }) {
 }
 
 /** CyberSkill Alert — inline banner. variant: info | success | warning | danger. */
-export function Alert({ variant = "info", title, icon, children, onDismiss, lang, className, ...props }) {
+export const Alert = React.forwardRef(function Alert({ variant = "info", title, icon, children, onDismiss, lang, className, ...props }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Alert", L);
   return (
-    <div ref={ref} role="status" className={cx("cs-alert", `cs-alert--${variant}`, className)} {...props}>
+    <div ref={mergeRefs(ref, forwardedRef)} role="status" className={cx("cs-alert", `cs-alert--${variant}`, className)} {...props}>
       <span className="cs-alert__icon">{icon ?? <DefaultIcon variant={variant} />}</span>
       <div>
         {title ? <p className="cs-alert__title">{title}</p> : null}
@@ -32,4 +33,4 @@ export function Alert({ variant = "info", title, icon, children, onDismiss, lang
       ) : null}
     </div>
   );
-}
+});

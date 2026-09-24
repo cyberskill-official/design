@@ -668,7 +668,15 @@ for (const m of modules) {
     }
     if (new RegExp('<' + m.primary + '\\b[^>]*\\bdisabled(?:\\s|=|/|>)').test(body)) {
       const jsx = readFileSync(join(root, m.relFromRoot), 'utf8');
-      const sig = jsx.match(new RegExp('export\\s+function\\s+' + m.primary + '\\s*\\(\\s*\\{([^}]*)\\}'));
+      const sig = jsx.match(
+        new RegExp(
+          '(?:export\\s+function\\s+' +
+            m.primary +
+            '|forwardRef\\(function\\s+' +
+            m.primary +
+            ')\\s*\\(\\s*\\{([^}]*)\\}',
+        ),
+      );
       const params = sig ? sig[1] : '';
       if (!/\bdisabled\b/.test(params)) {
         fail.push(m.primary + ' ' + name + ' uses disabled but prop not in signature');

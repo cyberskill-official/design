@@ -1,8 +1,10 @@
 {
   "generatedBy": "_audit/ci/test-docs-lang-parity.mjs",
   "tracked": [
+    "at-protocol.md",
     "benchmark-rubric.md",
     "ci-cd.md",
+    "component-contract.md",
     "consumer-grant.md",
     "consuming.md",
     "contrast-report.md",
@@ -12,15 +14,22 @@
     "design-styles.md",
     "doctrine.md",
     "figma.md",
+    "governance.md",
     "hr-suite-sources.md",
     "live-hub.md",
+    "package-topology.md",
     "products.md",
     "quality-gates.md",
     "release-notes.md",
     "release-runbook.md",
+    "slo.md",
     "storybook.md",
+    "support-matrix.md",
     "sync.md",
-    "template-schema-v2.md"
+    "telemetry.md",
+    "template-schema-v2.md",
+    "token-layers.md",
+    "trusted-html.md"
   ],
   "enOnly": []
 }

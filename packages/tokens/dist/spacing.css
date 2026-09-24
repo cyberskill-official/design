@@ -1,0 +1,40 @@
+/* CyberSkill — spacing, radius, sizing tokens.
+ * 4px base grid. Section padding floor 64px, ceiling 96px. */
+:root {
+  --cs-space-0: 0px;
+  --cs-space-1: 4px;
+  --cs-space-2: 8px;
+  --cs-space-3: 12px;
+  --cs-space-4: 16px;
+  --cs-space-5: 20px;
+  --cs-space-6: 24px;
+  --cs-space-8: 32px;
+  --cs-space-10: 40px;
+  --cs-space-12: 48px;
+  --cs-space-16: 64px;   /* section padding floor */
+  --cs-space-20: 80px;
+  --cs-space-24: 96px;   /* section padding ceiling */
+
+  /* Radius */
+  --cs-radius-sm: 4px;
+  --cs-radius-md: 8px;   /* default */
+  --cs-radius-lg: 14px;  /* cards/panels in product surfaces */
+  --cs-radius-full: 999px;
+
+  /* Breakpoints (mobile-first). `phone` is the justified 320-reflow stop (UX-003). */
+  --cs-breakpoint-xs: 0px;
+  --cs-breakpoint-phone: 360px;
+  --cs-breakpoint-sm: 640px;
+  --cs-breakpoint-md: 768px;
+  --cs-breakpoint-lg: 1024px;
+  --cs-breakpoint-xl: 1280px;
+  --cs-breakpoint-2xl: 1536px;
+
+  /* Layout */
+  --cs-container-max: 1320px;
+  /* Readable prose measure (UX-024) — ~65–75ch for long-form kit/tool copy */
+  --cs-prose-measure: 45rem;
+  /* Focus-not-obscured scroll offset (WCAG 2.2 AA) — sticky nav / bottom bars */
+  --cs-scroll-padding-block-start: var(--cs-space-4);
+  --cs-scroll-padding-block-end: var(--cs-space-4);
+}

@@ -11,14 +11,23 @@ export function reorderItems(items, from, to) {
 }
 
 /** CyberSkill Sortable — reorderable list (move buttons + HTML5 DnD enhancement). items: [{key,label}]; onChange(newItems). */
-export function Sortable({ items = [], onChange, lang, className }) {
+export const Sortable = React.forwardRef(function Sortable({ items = [], onChange, lang, className }, forwardedRef) {
   const [dragKey, setDragKey] = React.useState(null);
   const [over, setOver] = React.useState(null);
+  const [live, setLive] = React.useState("");
   const [ref, L] = useLang(lang);
   const t = makeT("Sortable", L);
+  const announce = (from, to) => {
+    const item = items[from];
+    const label = item && item.label != null ? String(item.label) : String(from + 1);
+    setLive(t("moved").replace("{item}", label).replace("{position}", String(to + 1)));
+  };
   const move = (from, to) => {
     const next = reorderItems(items, from, to);
-    if (next !== items) onChange && onChange(next);
+    if (next !== items) {
+      announce(from, to);
+      onChange && onChange(next);
+    }
   };
   const drop = () => {
     if (dragKey == null || over == null || dragKey === over) { setDragKey(null); setOver(null); return; }
@@ -28,36 +37,40 @@ export function Sortable({ items = [], onChange, lang, className }) {
     setDragKey(null); setOver(null);
   };
   return (
-    <ul ref={ref} className={cx("cs-sortable", className)}>
-      {items.map((it, idx) => (
-        <li key={it.key} draggable
-          className={cx("cs-sortable__item", dragKey === it.key && "is-dragging", over === it.key && "is-over")}
-          onDragStart={(e) => {
-            if (e.target.closest && e.target.closest(".cs-sortable__ops")) { e.preventDefault(); return; }
-            setDragKey(it.key);
-          }}
-          onDragOver={(e) => { e.preventDefault(); setOver(it.key); }}
-          onDrop={drop} onDragEnd={drop}>
-          <span className="cs-sortable__grip" aria-hidden="true">⠿</span>
-          <span className="cs-sortable__label">{it.label}</span>
-          <span className="cs-sortable__ops" onMouseDown={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              className="cs-button cs-button--secondary cs-button--xs"
-              aria-label={t("moveUp")}
-              disabled={idx === 0}
-              onClick={() => move(idx, idx - 1)}
-            >↑</button>
-            <button
-              type="button"
-              className="cs-button cs-button--secondary cs-button--xs"
-              aria-label={t("moveDown")}
-              disabled={idx === items.length - 1}
-              onClick={() => move(idx, idx + 1)}
-            >↓</button>
-          </span>
-        </li>
-      ))}
-    </ul>
+    <div ref={forwardedRef} className={cx("cs-sortable-wrap", className)}>
+      <div className="cs-sr-only" aria-live="polite">{live}</div>
+      <ul ref={ref} className="cs-sortable">
+        {items.map((it, idx) => (
+          <li key={it.key} draggable
+            className={cx("cs-sortable__item", dragKey === it.key && "is-dragging", over === it.key && "is-over")}
+            aria-grabbed={dragKey === it.key}
+            onDragStart={(e) => {
+              if (e.target.closest && e.target.closest(".cs-sortable__ops")) { e.preventDefault(); return; }
+              setDragKey(it.key);
+            }}
+            onDragOver={(e) => { e.preventDefault(); setOver(it.key); }}
+            onDrop={drop} onDragEnd={drop}>
+            <span className="cs-sortable__grip" aria-hidden="true">⠿</span>
+            <span className="cs-sortable__label">{it.label}</span>
+            <span className="cs-sortable__ops" onMouseDown={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                className="cs-button cs-button--secondary cs-button--xs"
+                aria-label={t("moveUp")}
+                disabled={idx === 0}
+                onClick={() => move(idx, idx - 1)}
+              >↑</button>
+              <button
+                type="button"
+                className="cs-button cs-button--secondary cs-button--xs"
+                aria-label={t("moveDown")}
+                disabled={idx === items.length - 1}
+                onClick={() => move(idx, idx + 1)}
+              >↓</button>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
-}
+});

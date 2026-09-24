@@ -3,9 +3,9 @@ import { cx } from "../_utils/cx.js";
 
 /** A single labelled radio (brand accent-color). Usually composed via RadioGroup. */
 // `children` is destructured but never rendered on purpose: keeps stray children out of {...props} → void <input>.
-export function Radio({ label, description, disabled = false, className, children, ...props }) {
+export const Radio = React.forwardRef(function Radio({ label, description, disabled = false, className, children, ...props }, forwardedRef) {
   return (
-    <label className={cx("cs-radio", disabled && "is-disabled", className)}>
+    <label ref={forwardedRef} className={cx("cs-radio", disabled && "is-disabled", className)}>
       <input type="radio" disabled={disabled} {...props} />
       <span className="cs-radio__text">
         <span>{label}</span>
@@ -13,14 +13,14 @@ export function Radio({ label, description, disabled = false, className, childre
       </span>
     </label>
   );
-}
+});
 
 /** CyberSkill RadioGroup — a fieldset of radios from `options`, controlled by value/onChange. */
-export function RadioGroup({ legend, name, value, onChange, options = [], className }) {
+export const RadioGroup = React.forwardRef(function RadioGroup({ legend, name, value, onChange, options = [], className }, forwardedRef) {
   const gid = React.useId();
   const nm = name ?? gid;
   return (
-    <fieldset className={cx("cs-radio-group", className)}>
+    <fieldset ref={forwardedRef} className={cx("cs-radio-group", className)}>
       {legend ? <legend>{legend}</legend> : null}
       {options.map((o) => (
         <Radio key={o.value} name={nm} value={o.value} label={o.label} description={o.description}
@@ -29,4 +29,4 @@ export function RadioGroup({ legend, name, value, onChange, options = [], classN
       ))}
     </fieldset>
   );
-}
+});

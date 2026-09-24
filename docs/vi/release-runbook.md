@@ -73,6 +73,13 @@ Dùng khi git/`VERSION`/site đi trước npm `dist-tags.latest` (ví dụ tip `
 - Tuỳ chọn: thêm biến/secret Actions cho Slack webhook sau; không bắt buộc để CI xanh.
 - Operator nên theo dõi badge Actions trong `docs/ci-cd.md` và bật thông báo “Actions” cho workflow fail.
 
+## Kênh canary
+
+- Vào prerelease Changesets bằng `npx changeset pre enter canary`. Phiên bản thành `X.Y.Z-canary.N` và không được retag thành `latest`.
+- Publish với `CS_NPM_DIST_TAG=canary` (xem `dist_tag` trong `.github/workflows/npm-publish.yml`). Release-bind vẫn đòi tag, `VERSION`, SHA HEAD, và digest tarball khớp — canary là kênh, không phải cửa tránh bind.
+- Rehearse nâng cấp trong `apps/consumer-canary` (React 18 + React 19 + SSR). Rollback là `npm dist-tag add @cyberskill/design@<stable> latest` cộng revert lockfile canary; mục tiêu dưới 15 phút (`test-upgrade-rehearsal.mjs`).
+- Thoát bằng `npx changeset pre exit` trước khi cắt `VERSION` ổn định. Không bao giờ publish tarball canary lên `dist-tags.latest`.
+
 ## Product vs CyberOS
 
 Xem `docs/decisions.md` §13. Gói npm và cây portable là sản phẩm; `.cyberos/` chỉ là orchestration.

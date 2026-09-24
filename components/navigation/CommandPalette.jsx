@@ -4,7 +4,7 @@ import { cx } from "../_utils/cx.js";
 import { useOverlayLayer } from "../overlays/OverlayManager.jsx";
 
 /** CyberSkill CommandPalette — ⌘K overlay with search + grouped actions. Controlled via open/onClose. */
-export function CommandPalette({ open, onClose, placeholder, groups = [], lang, className }) {
+export const CommandPalette = React.forwardRef(function CommandPalette({ open, onClose, placeholder, groups = [], lang, className }, forwardedRef) {
   const [q, setQ] = React.useState("");
   const panel = React.useRef(null);
   const closeRef = React.useRef(onClose);
@@ -60,4 +60,4 @@ export function CommandPalette({ open, onClose, placeholder, groups = [], lang, 
       </div>
     </div>
   );
-}
+});

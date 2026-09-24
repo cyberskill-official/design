@@ -4,7 +4,7 @@ import { cx } from "../_utils/cx.js";
 import { useOverlayLayer } from "./OverlayManager.jsx";
 
 /** CyberSkill Drawer — slide-in side panel with scrim. side: right (default) | left. */
-export function Drawer({ open, onClose, title, side = "right", children, actions, lang, className }) {
+export const Drawer = React.forwardRef(function Drawer({ open, onClose, title, side = "right", children, actions, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const panel = React.useRef(null);
   const closeRef = React.useRef(onClose);
@@ -22,7 +22,7 @@ export function Drawer({ open, onClose, title, side = "right", children, actions
   if (!open) return null;
   return (
     <>
-      <div className="cs-drawer-scrim" onClick={onClose} aria-hidden="true" />
+      <div ref={forwardedRef} className="cs-drawer-scrim" onClick={onClose} aria-hidden="true" />
       <aside
         ref={(el) => {
           panel.current = el;
@@ -45,4 +45,4 @@ export function Drawer({ open, onClose, title, side = "right", children, actions
       </aside>
     </>
   );
-}
+});

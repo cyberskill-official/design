@@ -1,0 +1,17 @@
+{
+  "generatedBy": "TASK-IMP-030",
+  "lastReview": "2026-09-15",
+  "nextReview": "2026-12-15",
+  "tokenDriftIncidents": 0,
+  "deprecatedExports": 0,
+  "deprecationMigrationsCompleted": 0,
+  "deprecationMigrationRate": 1,
+  "duplicateComponentCount": 0,
+  "supportTickets": {
+    "source": "github.com/cyberskill-official/design issues",
+    "measuredAt": "2026-09-15",
+    "inRepoCount": 0,
+    "previousCount": null,
+    "note": "Q3 2026 baseline. A downward trend cannot be claimed until the 2026-12-15 review records a second count."
+  }
+}

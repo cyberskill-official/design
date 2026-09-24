@@ -3,7 +3,7 @@
  * TASK-IMP-026 — third-locale (ja) spike + BCP-47 primary-subtag resolveLang contract.
  * See docs/decisions/locale-architecture.md.
  */
-import { makeT, primaryLang, resolveLang, tr, knownLocales } from '../../components/_i18n/i18n.js';
+import { makeT, primaryLang, resolveLang, tr, knownLocales, formatPlural, formatDate } from '../../components/_i18n/i18n.js';
 import { strings } from '../../components/_i18n/strings.js';
 
 function assert(cond, msg) {
@@ -54,6 +54,12 @@ assert(
   tr('CommandPalette', 'empty', 'ja') === strings.CommandPalette.en.empty,
   'missing ja table falls back to en',
 );
+
+assert(formatPlural(1, { one: "1 item", other: "n items" }, "en") === "1 item", "plural one");
+assert(formatPlural(2, { one: "1 item", other: "n items" }, "en") === "n items", "plural other");
+assert(formatPlural(1, { other: "mục" }, "vi") === "mục", "plural falls back to other");
+const utc = formatDate("2026-07-10T00:00:00.000Z", "en", { timeZone: "UTC" });
+assert(/10/.test(utc) && /2026/.test(utc), "formatDate UTC: " + utc);
 
 console.log('PASS test-locale-ja-spike', {
   known: knownLocales,

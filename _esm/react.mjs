@@ -6,11 +6,15 @@
 // Re-exports every public component from source. React / react-dom are
 // peerDependencies (external) — do not use this entry without a bundler
 // that can transpile JSX (Next transpilePackages, Vite, etc.).
+// Compatibility facade: new apps should install @cyberskill/react + @cyberskill/tokens.
 // Browser / no-build consumers: import from `@cyberskill/design/legacy`
 // (`_esm/cs.mjs`) instead. Styles are NOT injected — link styles.css
 // (or dist/styles.min.css for production static).
 // Regenerate: node scripts/generate-react-entry.mjs
+import "./facade-window.mjs";
 
+export { THEME_VALUES, CONTRAST_VALUES, DENSITY_VALUES, ThemeProvider } from "../components/_theme/provider.js";
+export { ALLOWED_URL_SCHEMES, REMOVED_TAGS } from "../components/_utils/sanitize-html.js";
 export { AIDisclosureBadge } from "../components/ai/AIDisclosureBadge.jsx";
 export { ChatMessage } from "../components/ai/ChatMessage.jsx";
 export { CitationList } from "../components/ai/CitationList.jsx";
@@ -69,7 +73,7 @@ export { Checkbox } from "../components/forms/Checkbox.jsx";
 export { ColorPicker } from "../components/forms/ColorPicker.jsx";
 export { Combobox } from "../components/forms/Combobox.jsx";
 export { DatePicker } from "../components/forms/DatePicker.jsx";
-export { Editor } from "../components/forms/Editor.jsx";
+export { EDITOR_SCHEMA, Editor } from "../components/forms/Editor.jsx";
 export { FileUpload } from "../components/forms/FileUpload.jsx";
 export { Form, FormField, FormFieldArray, FormWizard } from "../components/forms/Form.jsx";
 export { InlineEdit } from "../components/forms/InlineEdit.jsx";
@@ -114,7 +118,7 @@ export { AlertDialog } from "../components/overlays/AlertDialog.jsx";
 export { ContextMenu } from "../components/overlays/ContextMenu.jsx";
 export { Drawer } from "../components/overlays/Drawer.jsx";
 export { HoverCard } from "../components/overlays/HoverCard.jsx";
-export { OverlayProvider } from "../components/overlays/OverlayManager.jsx";
+export { OverlayProvider, ThemeProvider } from "../components/overlays/OverlayManager.jsx";
 export { Popconfirm } from "../components/overlays/Popconfirm.jsx";
 export { Popover } from "../components/overlays/Popover.jsx";
 export { Tour } from "../components/overlays/Tour.jsx";

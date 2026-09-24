@@ -23,6 +23,9 @@
 </template>
 </head>
 <body>
+<a class="cs-skip" href="#main">Skip to main content</a>
+
+<main id="main">
 <x-dc>
 <div data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" style="background:#efe6d8;padding:32px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary);min-height:100vh">
   <div style="max-width:600px;margin:0 auto;background:var(--cs-color-surface-panel);border-radius:16px;overflow:hidden;box-shadow:var(--cs-shadow-sm)">
@@ -55,5 +58,6 @@ class Component extends DCLogic {
   }
 }
 </script>
+</main>
 </body>
 </html>

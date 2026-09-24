@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -13,7 +14,7 @@ const TONE = {
  * `value` 0–1, or a `level` ("low"|"medium"|"high"). Confidence is stated in
  * words too, never colour alone — pair with AIDisclosureBadge / HumanReviewGate.
  */
-export function ConfidenceMeter({ value, level, segments = 5, label, lang, className }) {
+export const ConfidenceMeter = React.forwardRef(function ConfidenceMeter({ value, level, segments = 5, label, lang, className }, forwardedRef) {
   let tone, filled;
   const segs = Math.max(1, Number(segments) || 5);
   if (value != null) {
@@ -30,7 +31,7 @@ export function ConfidenceMeter({ value, level, segments = 5, label, lang, class
   const lbl = label != null ? label : t("label");
   const levelText = t(tone);
   return (
-    <div ref={ref} className={cx("cs-confidence", className)}>
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-confidence", className)}>
       <div className="cs-confidence__head">
         <span>{lbl}</span>
         <span className="cs-confidence__level" style={{ color: meta.color }}>{levelText}</span>
@@ -42,4 +43,4 @@ export function ConfidenceMeter({ value, level, segments = 5, label, lang, class
       </div>
     </div>
   );
-}
+});

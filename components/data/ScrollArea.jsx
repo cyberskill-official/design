@@ -2,7 +2,7 @@ import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill ScrollArea — focusable overflow region for dense bilingual panels. */
-export function ScrollArea({ children, maxHeight, className, style, ...props }) {
+export const ScrollArea = React.forwardRef(function ScrollArea({ children, maxHeight, className, style, ...props }, forwardedRef) {
   const max =
     maxHeight == null
       ? undefined
@@ -10,7 +10,7 @@ export function ScrollArea({ children, maxHeight, className, style, ...props }) 
         ? `${maxHeight}px`
         : maxHeight;
   return (
-    <div
+    <div ref={forwardedRef}
       className={cx("cs-scroll-area", className)}
       tabIndex={0}
       style={{
@@ -22,4 +22,4 @@ export function ScrollArea({ children, maxHeight, className, style, ...props }) 
       {children}
     </div>
   );
-}
+});

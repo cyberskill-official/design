@@ -1,10 +1,11 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill FileUpload — click-or-drag dropzone. Calls onFiles(File[]) on select/drop.
  * Uses a single labeled <input type="file"> (no nested interactive) for axe name/role. */
-export function FileUpload({ title, hint, accept, multiple = false, onFiles, icon, lang, className }) {
+export const FileUpload = React.forwardRef(function FileUpload({ title, hint, accept, multiple = false, onFiles, icon, lang, className }, forwardedRef) {
   const [drag, setDrag] = React.useState(false);
   const inputRef = React.useRef(null);
   const pick = (files) => { if (files && files.length && onFiles) onFiles(Array.from(files)); };
@@ -15,7 +16,7 @@ export function FileUpload({ title, hint, accept, multiple = false, onFiles, ico
   const id = React.useId();
   return (
     <div
-      ref={ref}
+      ref={mergeRefs(ref, forwardedRef)}
       className={cx("cs-dropzone", drag && "is-dragging", className)}
       onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
       onDragLeave={() => setDrag(false)}
@@ -40,4 +41,4 @@ export function FileUpload({ title, hint, accept, multiple = false, onFiles, ico
       />
     </div>
   );
-}
+});

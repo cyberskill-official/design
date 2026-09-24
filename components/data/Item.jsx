@@ -8,7 +8,7 @@ import { cx } from "../_utils/cx.js";
  * When `title` is set and `trailing` is omitted, `children` render in the
  * trailing slot (handy for DC templates nesting a Switch).
  */
-export function Item({
+export const Item = React.forwardRef(function Item({
   leading,
   trailing,
   title,
@@ -20,7 +20,7 @@ export function Item({
   children,
   className,
   ...props
-}) {
+}, forwardedRef) {
   const interactive = !disabled && (href != null || typeof onClick === "function");
   const Tag = href != null && !disabled ? "a" : interactive ? "button" : "div";
   const rowProps = { ...props };
@@ -41,7 +41,7 @@ export function Item({
   const mainExtra = trailExplicit ? children : title == null ? children : null;
 
   return (
-    <Tag
+    <Tag ref={forwardedRef}
       className={cx(
         "cs-item",
         interactive && "cs-item--interactive",
@@ -60,4 +60,4 @@ export function Item({
       {trailNode != null && trailNode !== false ? <span className="cs-item__trailing">{trailNode}</span> : null}
     </Tag>
   );
-}
+});

@@ -1,0 +1,25 @@
+{
+  "name": "@cyberskill/themes",
+  "version": "1.7.2",
+  "private": false,
+  "type": "module",
+  "description": "Compiled ThemeProvider, applyBrandPack, high-contrast pack, and brand/element pack registry. Not a Density axis.",
+  "license": "UNLICENSED",
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    },
+    "./high-contrast": "./dist/high-contrast.css",
+    "./brand-packs": "./dist/brand-packs.json",
+    "./rtl": "./dist/rtl.css",
+    "./reduced-motion": "./dist/reduced-motion.css",
+    "./axes": "./dist/axes.js",
+    "./package.json": "./package.json"
+  },
+  "files": ["index.js", "index.d.ts", "dist", "README.md"]
+}

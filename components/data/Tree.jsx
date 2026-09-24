@@ -46,7 +46,7 @@ function seedOpen(nodes, defaultOpen, map = {}) {
 }
 
 /** CyberSkill Tree — expandable hierarchy with APG tree keyboard (roving tabindex + arrows). nodes: {key,label,children[]}. Single select via onSelect. */
-export function Tree({ nodes = [], selected, onSelect, defaultOpen = false, className }) {
+export const Tree = React.forwardRef(function Tree({ nodes = [], selected, onSelect, defaultOpen = false, className }, forwardedRef) {
   const [openMap, setOpenMap] = React.useState(() => seedOpen(nodes, defaultOpen));
   const [focusKey, setFocusKey] = React.useState(() => {
     if (selected && findNode(nodes, selected)) return selected;
@@ -120,7 +120,7 @@ export function Tree({ nodes = [], selected, onSelect, defaultOpen = false, clas
     const kids = n.children || [];
     const open = !!openMap[n.key];
     return (
-      <li key={n.key} role="treeitem" aria-expanded={kids.length ? open : undefined} aria-selected={selected === n.key}>
+      <li ref={forwardedRef} key={n.key} role="treeitem" aria-expanded={kids.length ? open : undefined} aria-selected={selected === n.key}>
         <span className={cx("cs-tree__row", selected === n.key && "is-selected")} style={{ paddingInlineStart: depth * 18 + 6 }}>
           {kids.length ? (
             <button type="button" className="cs-tree__twist" aria-hidden="true" tabIndex={-1} onClick={() => toggle(n.key)}>{open ? "▾" : "▸"}</button>
@@ -141,4 +141,4 @@ export function Tree({ nodes = [], selected, onSelect, defaultOpen = false, clas
   });
 
   return <ul role="tree" className={cx("cs-tree", className)}>{renderNodes(nodes, 0)}</ul>;
-}
+});

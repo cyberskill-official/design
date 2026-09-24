@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { Icon } from "../icon/Icon.jsx";
@@ -7,7 +8,7 @@ import { cx } from "../_utils/cx.js";
  * CyberSkill DataGrid — advanced table: sortable columns, selectable rows, sticky header,
  * optional column pin + client filter + row virtualization + optional column order persistence.
  */
-export function DataGrid({
+export const DataGrid = React.forwardRef(function DataGrid({
   columns = [],
   rows = [],
   rowKey = "id",
@@ -29,7 +30,7 @@ export function DataGrid({
   rowHeight = 36,
   /** localStorage key — when set, column key order is persisted across reloads. */
   persistKey,
-}) {
+}, forwardedRef) {
   const [sort, setSort] = React.useState(null); // {key, dir}
   const [scrollTop, setScrollTop] = React.useState(0);
   const [colOrder, setColOrder] = React.useState(() => {
@@ -89,7 +90,7 @@ export function DataGrid({
 
   return (
     <div
-      ref={ref}
+      ref={mergeRefs(ref, forwardedRef)}
       className={cx("cs-datagrid", useVirtual && "cs-datagrid--virtual", className)}
       style={{ maxBlockSize: height, overflow: "auto" }}
       onScroll={useVirtual ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}
@@ -155,4 +156,4 @@ export function DataGrid({
       </table>
     </div>
   );
-}
+});

@@ -1,0 +1,16 @@
+{
+  "name": "@cyberskill/consumer-canary",
+  "version": "1.7.2",
+  "private": true,
+  "type": "module",
+  "description": "React 19 SSR + Vite + Next canary upgraded onto @cyberskill/react, @cyberskill/tokens, and @cyberskill/themes.",
+  "scripts": {
+    "ssr": "node ssr.mjs",
+    "vite": "node vite-build.mjs",
+    "next": "node next-build.mjs",
+    "typecheck": "tsc -p tsconfig.json --pretty false"
+  },
+  "dependencies": {
+    "next": "15.5.9"
+  }
+}

@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -11,7 +12,7 @@ function match(combo, e) {
 }
 
 /** CyberSkill HotKeys — global keymap: bindings [{keys:"mod+k",description,onTrigger}]. "?" opens a bilingual cheat-sheet. */
-export function HotKeys({ bindings = [], help = true, children, lang, className }) {
+export const HotKeys = React.forwardRef(function HotKeys({ bindings = [], help = true, children, lang, className }, forwardedRef) {
   const [show, setShow] = React.useState(false);
   const [ref, L] = useLang(lang);
   const t = makeT("HotKeys", L);
@@ -26,7 +27,7 @@ export function HotKeys({ bindings = [], help = true, children, lang, className 
     return () => document.removeEventListener("keydown", on);
   }, [bindings, help]);
   return (
-    <div ref={ref} className={cx("cs-hotkeys", className)}>
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-hotkeys", className)}>
       {children}
       {show ? (
         <div className="cs-hotkeys__sheet" role="dialog" aria-label={t("title")} onClick={() => setShow(false)}>
@@ -41,4 +42,4 @@ export function HotKeys({ bindings = [], help = true, children, lang, className 
       ) : null}
     </div>
   );
-}
+});

@@ -3,6 +3,7 @@
  * `lang` prop → nearest [lang] ancestor → document <html lang> → 'vi'.
  * Language axis values are BCP-47 primary subtags (en · vi · ja spike). Built-in UI
  * strings live in strings.js (EN + VI required; optional locales gated by bilingual-parity).
+ * Pseudo-locale (`pseudo` / `en-XA`) wraps strings for inclusive-matrix expansion.
  * Import from a component:  import { makeT, resolveLang, formatDate } from "../_i18n/i18n.js"; */
 import React from "react";
 import { strings as STRINGS } from "./strings.js";
@@ -14,12 +15,14 @@ export const knownLocales = Object.freeze(["vi", "en", "ja"]);
 /**
  * Normalize a lang / BCP-47 / display label to a primary language subtag.
  * Returns null when empty so callers can fall through to Vietnamese-first default.
+ * `pseudo` / `en-XA` stay a harness locale (TASK-IMP-030 inclusive matrix).
  */
 export function primaryLang(tag) {
   if (tag == null) return null;
   const raw = String(tag).trim();
   if (!raw) return null;
   const lower = raw.toLowerCase().replace(/_/g, "-");
+  if (lower === "pseudo" || lower === "en-xa" || lower.startsWith("en-xa")) return "pseudo";
   if (lower === "tiếng việt" || lower === "tieng viet") return "vi";
   if (lower === "english") return "en";
   if (lower === "日本語" || lower === "japanese") return "ja";
@@ -28,6 +31,18 @@ export function primaryLang(tag) {
   if (lower.startsWith("ja")) return "ja";
   const primary = lower.split("-")[0];
   return primary || null;
+}
+
+export function localeForLang(lang) {
+  const L = primaryLang(lang) || "vi";
+  if (L === "vi") return "vi-VN";
+  if (L === "ja") return "ja-JP";
+  return "en-US";
+}
+
+export function applyPseudo(str) {
+  if (str == null) return str;
+  return "⟦" + String(str) + "⟧";
 }
 
 export function resolveLang(propLang, el) {
@@ -44,13 +59,19 @@ export function resolveLang(propLang, el) {
 
 export function tr(component, key, lang) {
   const c = STRINGS[component] || {};
-  const want = primaryLang(lang) || "vi";
+  const want = primaryLang(lang) === "pseudo" ? "en" : (primaryLang(lang) || "vi");
   const table = c[want] || c.en || c.vi || {};
-  if (table[key] != null) return table[key];
-  const en = c.en || {};
-  if (en[key] != null) return en[key];
-  const vi = c.vi || {};
-  return vi[key] != null ? vi[key] : key;
+  let out;
+  if (table[key] != null) out = table[key];
+  else {
+    const en = c.en || {};
+    if (en[key] != null) out = en[key];
+    else {
+      const vi = c.vi || {};
+      out = vi[key] != null ? vi[key] : key;
+    }
+  }
+  return primaryLang(lang) === "pseudo" ? applyPseudo(out) : out;
 }
 
 /** Bind a component + language once: const t = makeT("Pagination", lang); t("next"). */
@@ -80,11 +101,23 @@ export function useLang(propLang) {
 
 const VI_MONTHS = ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"];
 
-/** VN date = DD/MM/YYYY; EN = 02 Jul 2026; JA = 2026/07/02. */
-export function formatDate(d, lang) {
+/** VN date = DD/MM/YYYY; EN = 02 Jul 2026; JA = 2026/07/02.
+ *  Default calendar math is local. Pass `{ timeZone }` (IANA or "UTC") for a fixed zone. */
+export function formatDate(d, lang, opts) {
   const dt = d instanceof Date ? d : new Date(d);
   if (isNaN(dt.getTime())) return "";
   const L = primaryLang(lang) || "vi";
+  const timeZone = opts && opts.timeZone;
+  if (timeZone) {
+    const locale = localeForLang(L === "pseudo" ? "en" : L);
+    if (L === "vi") {
+      return new Intl.DateTimeFormat(locale, { day: "2-digit", month: "2-digit", year: "numeric", timeZone }).format(dt);
+    }
+    if (L === "ja") {
+      return new Intl.DateTimeFormat(locale, { year: "numeric", month: "2-digit", day: "2-digit", timeZone }).format(dt);
+    }
+    return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", timeZone }).format(dt);
+  }
   if (L === "vi") {
     const p = (n) => String(n).padStart(2, "0");
     return p(dt.getDate()) + "/" + p(dt.getMonth() + 1) + "/" + dt.getFullYear();
@@ -94,6 +127,17 @@ export function formatDate(d, lang) {
   }
   return dt.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 }
+
+/** Pick a plural category via Intl.PluralRules. `forms` needs at least `other`. */
+export function formatPlural(count, forms, lang) {
+  if (!forms || typeof forms !== "object") return "";
+  const n = Number(count);
+  const locale = localeForLang(primaryLang(lang) === "pseudo" ? "en" : lang);
+  const cat = new Intl.PluralRules(locale).select(Number.isFinite(n) ? n : 0);
+  if (forms[cat] != null) return String(forms[cat]);
+  if (forms.other != null) return String(forms.other);
+  return "";
+}
 export function monthName(i, lang) {
   const L = primaryLang(lang) || "vi";
   if (L === "vi") return VI_MONTHS[i];
@@ -102,9 +146,7 @@ export function monthName(i, lang) {
 }
 export function formatNumber(n, lang) {
   if (n == null || isNaN(n)) return "";
-  const L = primaryLang(lang) || "vi";
-  const locale = L === "vi" ? "vi-VN" : L === "ja" ? "ja-JP" : "en-US";
-  return new Intl.NumberFormat(locale).format(n);
+  return new Intl.NumberFormat(localeForLang(lang)).format(n);
 }
 
 /**
@@ -122,10 +164,7 @@ export function formatCurrency(n, langOrOpts) {
   const opts = langOrOpts && typeof langOrOpts === "object" ? langOrOpts : null;
   if (opts && opts.currency) {
     let locale = opts.locale;
-    if (!locale) {
-      const L = primaryLang(opts.lang) || "en";
-      locale = L === "vi" ? "vi-VN" : L === "ja" ? "ja-JP" : "en-US";
-    }
+    if (!locale) locale = localeForLang(opts.lang || "en");
     return new Intl.NumberFormat(locale, {
       style: "currency",
       currency: String(opts.currency).toUpperCase(),

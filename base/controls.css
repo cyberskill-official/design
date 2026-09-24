@@ -210,8 +210,9 @@
 .cs-carousel__nav.next { inset-inline-end: 10px; }
 .cs-carousel__dots { display: flex; gap: 6px; justify-content: center; }
 .cs-carousel__dots button { inline-size: 9px; block-size: 9px; border-radius: 999px; border: 0; background: var(--cs-color-border-default); cursor: pointer; padding: 0; position: relative; }
-.cs-carousel__dots button::before { content: ""; position: absolute; inset: -7.5px; /* expand hit area to ≥24×24 (WCAG 2.5.8) */ }
-.cs-carousel__dots button[aria-current="true"] { background: var(--cs-accent); }
+.cs-carousel__dots button::before { content: ""; position: absolute; inset: -17.5px; /* expand hit area to ≥44×44 (doctrine touch floor) */ }
+.cs-carousel__dots button[aria-current="true"],
+.cs-carousel__dots button[aria-selected="true"] { background: var(--cs-accent); }
 @media (prefers-reduced-motion: reduce) { .cs-carousel__track { transition: none; } }
 .cs-comment { display: flex; gap: 10px; }
 .cs-comment__main { flex: 1; min-inline-size: 0; }

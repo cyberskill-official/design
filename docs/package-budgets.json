@@ -1,0 +1,16 @@
+{
+  "generatedBy": "TASK-IMP-030 enterprise audit",
+  "facade": {
+    "unpackedMaxBytes": 18000000,
+    "packedMaxBytes": 6500000
+  },
+  "cssMinMaxBytes": 200000,
+  "reactEntryMaxBytes": 20000,
+  "workspaces": {
+    "@cyberskill/tokens": { "dir": "packages/tokens", "unpackedMaxBytes": 800000 },
+    "@cyberskill/primitives": { "dir": "packages/primitives", "unpackedMaxBytes": 200000 },
+    "@cyberskill/react": { "dir": "packages/react", "unpackedMaxBytes": 2500000 },
+    "@cyberskill/themes": { "dir": "packages/themes", "unpackedMaxBytes": 150000 },
+    "@cyberskill/icons": { "dir": "packages/icons", "unpackedMaxBytes": 200000 }
+  }
+}

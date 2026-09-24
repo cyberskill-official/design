@@ -29,6 +29,9 @@
   .note code{font-family:var(--cs-font-family-mono);font-size:11.5px;background:var(--cs-color-surface-raised);border-radius:4px;padding:0 4px}
 </style></head>
 <body>
+<a class="cs-skip" href="#main">Skip to main content</a>
+
+<main id="main">
 <h1><b>CyberSkill</b> · Real imagery pattern</h1>
 <p class="sub">Drop your own images onto any slot below (they persist). This shows the layout-safe ways to add real photography to templates — full-bleed hero, avatar, and card image — without breaking the warm brand treatment.</p>
 
@@ -54,4 +57,5 @@
 </div>
 
 <p class="note">Pattern: put <code>&lt;image-slot&gt;</code> in a sized wrapper. For full-bleed over the brand ink, layer <code>.cs-aurora-wash</code> (opacity ~.5, <code>pointer-events:none</code>) and a warm umber scrim above it, content on top and click-through, so the empty drop-tile never dominates and text stays legible on any photo. Circle for avatars, fixed-height rect for cards. Slots persist via a sibling sidecar. In DC templates load the component with <code>&lt;x-import component-from-global-scope="image-slot" from="../../image-slot.js"&gt;</code> in the helmet. Best applied to: marketing-page hero, marketing-case-study, marketing-social-kit, culture-event-invite, article hero, and any team/about section.</p>
+</main>
 </body></html>

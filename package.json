@@ -15,6 +15,7 @@
     "**/*.css",
     "./_ds_bundle.js",
     "./_esm/cs.mjs",
+    "./_esm/facade-window.mjs",
     "./image-slot.js",
     "./ui_kits/**/*.js",
     "./ui_kits/**/*.jsx"
@@ -33,19 +34,30 @@
     },
     "./components/*": "./components/*",
     "./styles.css": "./styles.css",
+    "./styles.scoped.css": "./styles.scoped.css",
+    "./stable": {
+      "types": "./packages/react/index.d.ts",
+      "import": "./packages/react/index.js"
+    },
+    "./theme": {
+      "types": "./components/_theme/provider.d.ts",
+      "import": "./components/_theme/provider.js"
+    },
     "./tokens/*": "./tokens/*",
     "./_ds_bundle.js": "./_ds_bundle.js",
     "./_ds_manifest.json": "./_ds_manifest.json",
     "./styles.min.css": "./dist/styles.min.css"
   },
-  "description": "CyberSkill Design System \u2014 HTML-first, Vietnamese-first (EN\u00b7VI). Anchors: Umber #45210E \u00b7 Ochre #F4BA17. Axes: Theme \u00d7 Element \u00d7 Language \u00d7 Style. Bundler React entry (`_esm/react.mjs`) + browser legacy (`_esm/cs.mjs`) + styles.css / _ds_bundle.js. Storybook is host-only playground.",
+  "description": "CyberSkill Design System compatibility facade (six-month window). Prefer @cyberskill/react + @cyberskill/tokens for new apps. HTML-first, Vietnamese-first (EN·VI). Anchors: Umber #45210E · Ochre #F4BA17. Axes: Theme × Element × Language × Style.",
   "style": "styles.css",
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "files": [
+    "LICENSE",
     "styles.css",
+    "styles.scoped.css",
     "_esm/",
     "tokens/",
     "base/",
@@ -56,6 +68,8 @@
     "llms.txt",
     "SKILL.md",
     "docs/*.md",
+    "docs/export-registry.json",
+    "docs/package-budgets.json",
     "docs/vi/",
     "docs/viewer.html",
     "components/",
@@ -66,7 +80,11 @@
     "DESIGN.md",
     "VERSION",
     "dist/styles.min.css",
-    "THIRD-PARTY-NOTICES.md"
+    "THIRD-PARTY-NOTICES.md",
+    "packages/react/index.js",
+    "packages/react/index.d.ts",
+    "packages/react/dist",
+    "packages/react/package.json"
   ],
   "keywords": [
     "design-system",
@@ -77,11 +95,34 @@
   ],
   "license": "UNLICENSED",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Edge versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "iOS >= 16",
+    "Android >= 13"
+  ],
+  "workspaces": [
+    "packages/*",
+    "apps/storybook",
+    "apps/consumer-canary",
+    "apps/consumer-canary/next-host",
+    "apps/consumer-canary/react-18"
+  ],
   "scripts": {
     "build:bundle": "node scripts/build-bundle.mjs",
+    "build:workspaces": "node scripts/build-workspace-packages.mjs",
+    "build:stable-global": "node scripts/build-stable-global.mjs",
+    "build:ui-kits": "node ui_kits/build.mjs",
     "build:react-entry": "node scripts/generate-react-entry.mjs",
+    "lint": "node _audit/ci/lint-cyberskill.mjs",
+    "upgrade:rehearse": "node scripts/upgrade-rehearsal.mjs",
     "build:design-md": "node scripts/generate-design-md.mjs",
-    "prepublishOnly": "npm run build:bundle && npm run build:react-entry && npm run build:styles && node scripts/generate-design-md.mjs --check && node scripts/flatten-styles.mjs --check && node scripts/generate-contrast-report.mjs --check && npm run version:stamp:check",
+    "prepublishOnly": "npm run build:bundle && npm run build:react-entry && npm run build:workspaces && npm run build:ui-kits && npm run build:styles && node scripts/generate-design-md.mjs --check && node scripts/flatten-styles.mjs --check && node scripts/generate-contrast-report.mjs --check && npm run version:stamp:check",
     "code-connect:generate": "node _audit/ci/generate-code-connect.mjs",
     "code-connect:dry-run": "node _audit/ci/code-connect-publish.mjs --dry-run",
     "npm:pack-dry-run": "node _audit/ci/npm-publish.mjs --dry-run",
@@ -95,7 +136,12 @@
     "test:nav-model": "node _audit/ci/test-nav-model.mjs",
     "test:ui-contracts": "node _audit/ci/test-health-tokens-contract.mjs",
     "test:form-paths": "node _audit/ci/test-form-paths.mjs",
-    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-docs-consistency.mjs && node _audit/ci/test-base-hex-allowlist.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-axe-coverage.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-npm-publish.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs && node _audit/ci/test-element-packs.mjs && node _audit/ci/test-i18n-builtins.mjs && node _audit/ci/test-format-currency.mjs && node _audit/ci/test-locale-ja-spike.mjs && node _audit/ci/test-theme-attributes.mjs && node _audit/ci/test-editor-sanitize.mjs && node _audit/ci/test-component-lifecycle.mjs && node _audit/ci/check-manifest-coverage.mjs && node _audit/ci/ci-verdict.mjs --selftest && node _audit/ci/test-pack-hygiene.mjs && npm run version:stamp:check && node _audit/ci/test-docs-lang-parity.mjs && node _audit/ci/test-docs-storybook-coverage.mjs && node _audit/ci/test-docs-link-check.mjs && node _audit/ci/test-email-safe.mjs && node _audit/ci/test-prop-parity.mjs && node _audit/ci/test-support-no-eval.mjs && node _audit/ci/test-docx-source-parity.mjs && node _audit/ci/test-doc-export.mjs && node _audit/ci/test-at-coverage-map.mjs",
+    "test": "npm run test:unit",
+    "test:unit": "node _audit/ci/test-nav-model.mjs && node _audit/ci/test-health-tokens-contract.mjs && node _audit/ci/test-docs-consistency.mjs && node _audit/ci/test-base-hex-allowlist.mjs && node _audit/ci/test-form-paths.mjs && node _audit/ci/test-storybook-contract.mjs && node _audit/ci/test-axe-coverage.mjs && node _audit/ci/test-figma-push-helpers.mjs && node _audit/ci/test-native-samples.mjs && node _audit/ci/test-code-connect.mjs && node _audit/ci/test-npm-publish.mjs && node _audit/ci/test-subtree-consume.mjs && node _audit/ci/test-react-entry.mjs && node _audit/ci/test-element-packs.mjs && node _audit/ci/test-i18n-builtins.mjs && node _audit/ci/test-format-currency.mjs && node _audit/ci/test-locale-ja-spike.mjs && node _audit/ci/test-theme-attributes.mjs && node _audit/ci/test-editor-sanitize.mjs && node _audit/ci/test-component-lifecycle.mjs && node _audit/ci/check-manifest-coverage.mjs && node _audit/ci/ci-verdict.mjs --selftest && node _audit/ci/test-pack-hygiene.mjs && npm run version:stamp:check && node _audit/ci/test-docs-lang-parity.mjs && node _audit/ci/test-docs-storybook-coverage.mjs && node _audit/ci/test-storybook-freshness.mjs && node _audit/ci/test-docs-link-check.mjs && node _audit/ci/test-email-safe.mjs && node _audit/ci/test-prop-parity.mjs && node _audit/ci/test-support-no-eval.mjs && node _audit/ci/test-docx-source-parity.mjs && node _audit/ci/test-doc-export.mjs && node _audit/ci/test-at-coverage-map.mjs && node scripts/generate-export-registry.mjs --check && node scripts/generate-stable-contracts.mjs --check && node _audit/ci/test-export-registry.mjs && node _audit/ci/test-token-layers.mjs && node _audit/ci/test-stable-semantic-tokens.mjs && node _audit/ci/test-trusted-html.mjs && node _audit/ci/test-component-contracts.mjs && node _audit/ci/test-runtime-packages.mjs && node scripts/build-stable-global.mjs --check && node _audit/ci/lint-cyberskill.mjs && node _audit/ci/test-package-budgets.mjs && node _audit/ci/test-status-freshness.mjs && node _audit/ci/test-typescript-strict.mjs && node _audit/ci/test-ssr-theme.mjs && node _audit/ci/test-inclusive-matrix.mjs && node _audit/ci/test-template-landmarks.mjs && node _audit/ci/test-docs-coverage-dashboard.mjs && node _audit/ci/test-changesets.mjs && node _audit/ci/test-release-bind.mjs && node _audit/ci/test-workspace-topology.mjs && node _audit/ci/test-react-18-ssr.mjs && node _audit/ci/test-upgrade-rehearsal.mjs && node _audit/ci/test-high-risk-at.mjs && node _audit/ci/test-brand-packs.mjs && node _audit/ci/test-wc-pilots.mjs && node _audit/ci/test-adoption-slo.mjs && node _audit/ci/test-product-hosts.mjs && node _audit/ci/test-codemods.mjs && node _audit/ci/inclusive-matrix.mjs --browsers=chromium",
+    "test:inclusive-matrix": "node _audit/ci/inclusive-matrix.mjs",
+    "registry:generate": "node scripts/generate-export-registry.mjs",
+    "registry:check": "node scripts/generate-export-registry.mjs --check",
+    "release:bind": "node scripts/release-bind.mjs",
     "test:support-no-eval": "node _audit/ci/test-support-no-eval.mjs",
     "test:docx-source-parity": "node _audit/ci/test-docx-source-parity.mjs",
     "test:audit-probe": "node _audit/ci/audit-probe-suite.mjs",
@@ -125,6 +171,7 @@
     "test:doc-export": "node _audit/ci/test-doc-export.mjs"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.8",
     "@figma/code-connect": "^1.4.9",
     "@storybook/addon-a11y": "^10.5.4",
     "@storybook/addon-docs": "^10.5.4",
@@ -136,6 +183,7 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "storybook": "^10.5.4",
+    "typescript": "^5.9.3",
     "vite": "^8.1.5"
   }
 }

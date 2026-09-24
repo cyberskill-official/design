@@ -5,7 +5,7 @@ import { cx } from "../_utils/cx.js";
  * CyberSkill TextField — label + input with optional description and error.
  * Programmatic label association and aria-describedby wiring; IME-safe.
  */
-export function TextField({
+export const TextField = React.forwardRef(function TextField({
   id,
   label,
   description,
@@ -15,7 +15,7 @@ export function TextField({
   className,
   children, // never rendered on purpose: keeps stray children out of {...props} → void <input>
   ...props
-}) {
+}, forwardedRef) {
   const generatedId = React.useId();
   const inputId = id ?? generatedId;
   const descriptionId = description ? `${inputId}-description` : undefined;
@@ -23,7 +23,7 @@ export function TextField({
   const describedBy = [descriptionId, errorId].filter(Boolean).join(" ") || undefined;
 
   return (
-    <label
+    <label ref={forwardedRef}
       className={cx("cs-field", disabled && "is-disabled", error && "is-invalid", className)}
       htmlFor={inputId}
     >
@@ -41,4 +41,4 @@ export function TextField({
       {error ? <span id={errorId} className="cs-field__error" role="alert">{error}</span> : null}
     </label>
   );
-}
+});

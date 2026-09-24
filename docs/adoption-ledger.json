@@ -1,0 +1,82 @@
+{
+  "generatedBy": "TASK-IMP-030",
+  "horizon": "two-quarters",
+  "horizonEnds": "2026-12-15",
+  "stablePackages": ["@cyberskill/react", "@cyberskill/tokens", "@cyberskill/themes", "@cyberskill/primitives"],
+  "threshold": 0.8,
+  "note": "In-repo product hosts on compiled Stable packages plus each product's checked-in surface. Not a claim of live production traffic.",
+  "products": [
+    {
+      "id": "lumi",
+      "name": "Lumi",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "surfaces": ["components/brand/LumiAvatar.jsx", "components/ai/ChatMessage.jsx", "ui_kits/website/chat.html", "ui_kits/website/LumiChat.compiled.js"],
+      "marker": "cs-lumi",
+      "evidence": "SSR + hydrated @cyberskill/react LumiAvatar/ChatMessage/PromptInput; Lumi chat kit compiles to ESM without Babel"
+    },
+    {
+      "id": "status-hub",
+      "name": "Status Hub",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "surfaces": ["ui_kits/status-hub/index.html", "ui_kits/status-hub/StatusHub.jsx", "ui_kits/status-hub/StatusHub.compiled.js"],
+      "marker": "cs-datagrid",
+      "evidence": "Product host SSRs/hydrates DataGrid from @cyberskill/react. ui_kits/status-hub stays a Thổ-faithful recreation (compiled JS + tokens.css, no Babel), not a rewrite onto DS components."
+    },
+    {
+      "id": "cyberos",
+      "name": "CyberOS Agent Spine",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "surfaces": ["AGENTS.md", "docs/tasks/BACKLOG.md"],
+      "marker": "cs-field",
+      "evidence": "SSR high-contrast ThemeProvider + TextField; CyberOS task spine in-repo"
+    },
+    {
+      "id": "design-system",
+      "name": "CyberSkill Design System",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "surfaces": ["packages/react/package.json", "packages/tokens/package.json"],
+      "marker": "cs-button",
+      "evidence": "this library's compiled workspaces"
+    },
+    {
+      "id": "cyberskill-world",
+      "name": "cyberskill.world",
+      "package": "@cyberskill/tokens",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "surfaces": ["ui_kits/website/index.html", "ui_kits/website/Website.jsx", "ui_kits/website/Website.compiled.js"],
+      "marker": "cs-lumi",
+      "evidence": "SSR Lumi CTA; website kit is compiled JS + tokens.css, no Babel"
+    },
+    {
+      "id": "client-delivery",
+      "name": "Client delivery suite",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "surfaces": ["templates/delivery-kickoff/DeliveryKickoff.dc.html", "templates/delivery-kickoff/ds-base.js"],
+      "marker": "cs-card",
+      "evidence": "SSR Card; kickoff ds-base.js binds tokens.css + compiled @cyberskill/react stable-global.js"
+    },
+    {
+      "id": "board",
+      "name": "Board / investor collateral",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "surfaces": ["templates/bod-memo/BodMemo.dc.html", "templates/bod-investor-update/BodInvestorUpdate.dc.html"],
+      "marker": "cs-stat",
+      "evidence": "SSR Stat; board ds-base.js binds tokens.css + compiled @cyberskill/react"
+    },
+    {
+      "id": "hr",
+      "name": "HR / employment instruments",
+      "package": "@cyberskill/react",
+      "fixture": "apps/product-fixtures/render.mjs",
+      "surfaces": ["templates/hr-announcement/HrAnnouncement.dc.html", "templates/hr-pip/HrPip.dc.html"],
+      "marker": "cs-alert",
+      "evidence": "SSR Alert; HR ds-base.js binds tokens.css + compiled @cyberskill/react"
+    }
+  ]
+}

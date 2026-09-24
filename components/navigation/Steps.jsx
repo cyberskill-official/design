@@ -1,13 +1,14 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Steps — horizontal progress stepper. Steps before `current` are done, `current` is active. */
-export function Steps({ steps = [], current = 0, lang, className }) {
+export const Steps = React.forwardRef(function Steps({ steps = [], current = 0, lang, className }, forwardedRef) {
   const [ref, L] = useLang(lang);
   const t = makeT("Steps", L);
   return (
-    <div ref={ref} className={cx("cs-steps", className)} role="list" aria-label={t("label")}>
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-steps", className)} role="list" aria-label={t("label")}>
       {steps.map((s, i) => {
         const state = i < current ? "done" : i === current ? "active" : "todo";
         return (
@@ -20,4 +21,4 @@ export function Steps({ steps = [], current = 0, lang, className }) {
       })}
     </div>
   );
-}
+});

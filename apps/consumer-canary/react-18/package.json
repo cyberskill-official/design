@@ -1,0 +1,11 @@
+{
+  "name": "@cyberskill/consumer-canary-react-18",
+  "version": "1.7.2",
+  "private": true,
+  "type": "module",
+  "description": "Pinned React 18 SSR fixture.",
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}

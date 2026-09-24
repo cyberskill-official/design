@@ -4,7 +4,7 @@ import { cx } from "../_utils/cx.js";
 const SWATCHES = ["#F4BA17", "#C77B4A", "#E0632B", "#C43D1F", "#7A9B57", "#3E5A2E", "#4E8E9B", "#2E5E7E", "#BFB29B", "#45210E"];
 
 /** CyberSkill ColorPicker — curated brand swatches + custom hex input. */
-export function ColorPicker({ value = "#F4BA17", onChange, swatches = SWATCHES, label, lang, className }) {
+export const ColorPicker = React.forwardRef(function ColorPicker({ value = "#F4BA17", onChange, swatches = SWATCHES, label, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const [hex, setHex] = React.useState(value);
   const wrap = React.useRef(null);
@@ -41,4 +41,4 @@ export function ColorPicker({ value = "#F4BA17", onChange, swatches = SWATCHES, 
       ) : null}
     </span>
   );
-}
+});

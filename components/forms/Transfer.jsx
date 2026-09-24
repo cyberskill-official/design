@@ -1,9 +1,10 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Transfer — move items between two lists (checkbox select + ⇄ buttons). */
-export function Transfer({ items = [], value = [], onChange, titles, lang, className }) {
+export const Transfer = React.forwardRef(function Transfer({ items = [], value = [], onChange, titles, lang, className }, forwardedRef) {
   const [checked, setChecked] = React.useState([]);
   const [ref, L] = useLang(lang);
   const t = makeT("Transfer", L);
@@ -29,7 +30,7 @@ export function Transfer({ items = [], value = [], onChange, titles, lang, class
     </div>
   );
   return (
-    <div ref={ref} className={cx("cs-transfer", className)}>
+    <div ref={mergeRefs(ref, forwardedRef)} className={cx("cs-transfer", className)}>
       <List target={false} />
       <div className="cs-transfer__ops">
         <button type="button" className="cs-button cs-button--secondary cs-button--xs" aria-label={t("toTarget")} onClick={() => move(true)}>›</button>
@@ -38,4 +39,4 @@ export function Transfer({ items = [], value = [], onChange, titles, lang, class
       <List target={true} />
     </div>
   );
-}
+});

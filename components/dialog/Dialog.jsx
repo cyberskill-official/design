@@ -1,3 +1,4 @@
+import { mergeRefs } from "../_utils/merge-refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { Icon } from "../icon/Icon.jsx";
@@ -9,7 +10,7 @@ import { useOverlayLayer } from "../overlays/OverlayManager.jsx";
  * described by its body, scrim click closes. Body scroll is locked while open
  * via the overlay manager (nested-safe). Compose actions in the footer with Buttons.
  */
-export function Dialog({
+export const Dialog = React.forwardRef(function Dialog({
   open,
   title,
   children,
@@ -19,7 +20,7 @@ export function Dialog({
   closeLabel,
   lang,
   ...props
-}) {
+}, forwardedRef) {
   const baseId = React.useId();
   const titleId = baseId + "-title";
   const bodyId = children == null ? undefined : baseId + "-body";
@@ -39,7 +40,7 @@ export function Dialog({
   const cl = closeLabel != null ? closeLabel : makeT("Dialog", L)("close");
   if (!open) return null;
   return (
-    <div ref={ref} className="cs-dialog-layer">
+    <div ref={mergeRefs(ref, forwardedRef)} className="cs-dialog-layer">
       <div className="cs-dialog__overlay" onClick={onClose} aria-hidden="true" />
       <section
         {...props}
@@ -64,4 +65,4 @@ export function Dialog({
       </section>
     </div>
   );
-}
+});

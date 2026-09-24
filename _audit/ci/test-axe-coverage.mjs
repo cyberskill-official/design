@@ -43,4 +43,9 @@ assert(smoke.includes('__axeFixtures'), 'axe-smoke uses __axeFixtures');
 assert(/every public primary|all public primar/i.test(smoke), 'axe-smoke lede claims full primary coverage');
 assert(!/\b40-component\b/.test(smoke), 'axe-smoke no longer claims 40-component cluster');
 
-console.log('PASS test-axe-coverage', { primaries: inventory.length });
+const registry = JSON.parse(readFileSync(join(root, 'docs/export-registry.json'), 'utf8'));
+const stables = [...new Set(registry.exports.filter((e) => e.maturity === 'stable').map((e) => e.name))];
+const covered = stables.filter((n) => fixtureNames.includes(n));
+assert(stables.length > 0 && covered.length / stables.length >= 0.9, `stable axe coverage ${covered.length}/${stables.length} must be ≥90%`);
+
+console.log('PASS test-axe-coverage', { primaries: inventory.length, stableAxe: covered.length, stables: stables.length });

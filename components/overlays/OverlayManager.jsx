@@ -1,4 +1,7 @@
 import React from "react";
+import { ThemeProvider as ThemeProviderImpl } from "../_theme/provider.js";
+import { useTheme as useThemeImpl } from "../_theme/provider.js";
+import { getThemeInitScript as getThemeInitScriptImpl } from "../_theme/provider.js";
 
 /** Shared focusable selector for modal traps (Dialog / AlertDialog / Drawer / CommandPalette). */
 export const focusableSelector = [
@@ -49,6 +52,31 @@ export function attachFocusTrap(panelEl, { handleEscape = false, onEscape } = {}
   };
   document.addEventListener("keydown", k);
   return () => document.removeEventListener("keydown", k);
+}
+
+/** Inert body chrome that does not contain the panel, plus the panel's immediate siblings (trigger). */
+export function applySiblingInert(panel) {
+  const marked = [];
+  if (!panel) return () => {};
+  const mark = (el) => {
+    if (!el || el === panel || el.contains(panel) || el.hasAttribute("data-cs-inert")) return;
+    el.setAttribute("inert", "");
+    el.setAttribute("data-cs-inert", "");
+    marked.push(el);
+  };
+  if (typeof document !== "undefined" && document.body) {
+    for (const el of document.body.children) mark(el);
+  }
+  if (panel.parentElement) {
+    for (const sib of panel.parentElement.children) mark(sib);
+  }
+  return () => {
+    for (const el of marked) {
+      if (!el.hasAttribute("data-cs-inert")) continue;
+      el.removeAttribute("inert");
+      el.removeAttribute("data-cs-inert");
+    }
+  };
 }
 
 function createOverlayManager() {
@@ -172,6 +200,7 @@ export function useOverlayLayer({
   onEscape,
   panelRef,
   preferFocusSelector,
+  restoreRef,
 }) {
   const ctx = React.useContext(OverlayContext);
   const mgr = ctx || defaultManager;
@@ -180,7 +209,9 @@ export function useOverlayLayer({
 
   React.useLayoutEffect(() => {
     if (!open) return undefined;
-    const restoreEl = typeof document !== "undefined" ? document.activeElement : null;
+    const restoreEl =
+      (restoreRef && restoreRef.current)
+      || (typeof document !== "undefined" ? document.activeElement : null);
     const panel = panelRef && panelRef.current;
     const unregister = mgr.register({
       kind,
@@ -193,6 +224,7 @@ export function useOverlayLayer({
     // Only the innermost (top) layer should move focus / trap Tab — outer parents
     // run layout effects after children and must not steal focus from nested alerts.
     let detachTrap = () => {};
+    let clearInert = () => {};
     const top = mgr.top();
     const isTop = top && top.panelEl === panel;
     if (trapFocus && panel && isTop) {
@@ -202,13 +234,25 @@ export function useOverlayLayer({
         panel;
       preferred && preferred.focus && preferred.focus();
       detachTrap = attachFocusTrap(panel, { handleEscape: false });
+      clearInert = applySiblingInert(panel);
     }
 
     return () => {
+      clearInert();
       detachTrap();
       unregister();
     };
-  }, [open, kind, trapFocus, lockScroll, mgr, panelRef, preferFocusSelector]);
+  }, [open, kind, trapFocus, lockScroll, mgr, panelRef, preferFocusSelector, restoreRef]);
 
   return { manager: mgr };
+}
+
+export function ThemeProvider(props) {
+  return ThemeProviderImpl(props);
+}
+export function useTheme() {
+  return useThemeImpl();
+}
+export function getThemeInitScript(opts) {
+  return getThemeInitScriptImpl(opts);
 }

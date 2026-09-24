@@ -1,0 +1,4 @@
+/* Opt-in direction pack. Hosts set dir="rtl" on the theme root. */
+[dir="rtl"] {
+  --cs-direction: rtl;
+}

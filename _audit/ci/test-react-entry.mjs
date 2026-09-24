@@ -43,6 +43,8 @@ assert(ex["."]?.types === "./_esm/react.d.ts", 'exports["."].types → react.d.t
 assert(ex["./react"]?.import === "./_esm/react.mjs", 'exports["./react"] → react.mjs');
 assert(ex["./react"]?.types === "./_esm/react.d.ts", 'exports["./react"].types → react.d.ts');
 assert(ex["./legacy"]?.import === "./_esm/cs.mjs", 'exports["./legacy"] → cs.mjs');
+assert(ex["./stable"]?.import === "./packages/react/index.js", 'exports["./stable"] → compiled react');
+assert(ex["./stable"]?.types === "./packages/react/index.d.ts", 'exports["./stable"].types → compiled react types');
 assert(ex["./styles.css"], 'exports["./styles.css"] present');
 assert(ex["./components/*"] === "./components/*", 'exports["./components/*"] subpath present (FIND-024)');
 assert(
@@ -69,6 +71,12 @@ assert(!/_ds_bundle\.js/.test(reactMjs), "react.mjs must not side-load _ds_bundl
 assert(!/document\./.test(reactMjs), "react.mjs must not touch document (SSR-safe source)");
 assert(!/ensureScript/.test(reactMjs), "react.mjs must not self-ensure scripts");
 assert(/^export \{ /m.test(reactMjs), "react.mjs must use export { } from");
+assert(reactMjs.includes('import "./facade-window.mjs"'), "facade entry warns on import");
+const windowDoc = JSON.parse(readFileSync(join(root, "docs/facade-migration.json"), "utf8"));
+const facadeWindow = readFileSync(join(root, "_esm/facade-window.mjs"), "utf8");
+assert(windowDoc.windowEnd === "2027-03-13", "six-month facade window end");
+assert(facadeWindow.includes(windowDoc.windowEnd), "runtime warning uses the window end");
+assert(facadeWindow.includes("CYBERSKILL_FACADE"), "deprecation warning code");
 
 // --- export parity with bundle header ---
 const reexported = [];

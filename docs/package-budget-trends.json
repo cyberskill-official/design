@@ -1,0 +1,19 @@
+{
+  "generatedBy": "TASK-IMP-030 enterprise audit",
+  "schema": "package-budget-trends@1",
+  "unit": "bytes",
+  "note": "Manual snapshots per release. Do not auto-write from test:unit.",
+  "series": [
+    {
+      "version": "1.7.2",
+      "measuredAt": "2026-09-15",
+      "commit": "64bb9aa",
+      "facade": {
+        "unpacked": 16946016,
+        "packed": 5693109
+      },
+      "cssMin": 154928,
+      "reactEntry": 8056
+    }
+  ]
+}

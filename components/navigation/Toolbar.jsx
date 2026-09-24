@@ -3,7 +3,7 @@ import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Toolbar — horizontal action bar (APG toolbar arrows); overflow items collapse into a menubutton + popup menu. items: {label,icon,onSelect} or "-". */
-export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
+export const Toolbar = React.forwardRef(function Toolbar({ items = [], overflowAfter, label, lang, className }, forwardedRef) {
   const [open, setOpen] = React.useState(false);
   const [focusIdx, setFocusIdx] = React.useState(0);
   const wrap = React.useRef(null);
@@ -136,4 +136,4 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
       })() : null}
     </div>
   );
-}
+});
