@@ -16,7 +16,7 @@ const args = process.argv.slice(2);
 const browsersArg = (args.find((a) => a.startsWith("--browsers=")) || "--browsers=chromium").split("=")[1];
 const names = browsersArg.split(",").map((s) => s.trim()).filter(Boolean);
 
-const MARKUP = `<!doctype html><html lang="en-XA" dir="rtl" data-theme="dark" data-cs-contrast="high"><head><style>${css}</style></head><body>
+const MARKUP = `<!doctype html><html lang="en-XA" dir="rtl" data-theme="dark" data-cs-contrast="high"><head><title>Inclusive matrix</title><style>${css}</style></head><body>
 <a class="cs-skip" href="#main">⟦Skip⟧</a>
 <main id="main"><button type="button" class="cs-button cs-button--primary cs-button--md"><span class="cs-button__label">⟦Go⟧</span></button></main>
 </body></html>`;
@@ -93,6 +93,18 @@ async function run() {
       if (!caps.customProps) {
         throw new Error(`${name} missing CSS custom properties (required by support-matrix)`);
       }
+      await page.emulateMedia({ forcedColors: "none" });
+      await page.addScriptTag({ path: join(root, "_audit/vendor/axe.min.js") });
+      const violations = await page.evaluate(async () => {
+        const res = await axe.run(document, { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa"] } });
+        return res.violations
+          .filter((v) => v.impact === "serious" || v.impact === "critical")
+          .map((v) => v.id + ":" + v.help);
+      });
+      if (violations.length) {
+        throw new Error(`${name} axe serious/critical: ${violations.join("; ")}`);
+      }
+      await page.emulateMedia({ forcedColors: "active" });
       await assertPage(page, name);
 
       const mobile = await browser.newContext({
