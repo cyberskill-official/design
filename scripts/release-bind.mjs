@@ -111,6 +111,32 @@ const report = {
     status: "soft-skip-explicit",
     reason: "FIGMA_TOKEN / FIGMA_FILE_KEY write path is Decision 1C; CI skips when secrets are empty",
   },
+  binding: {
+    protectedBranch: {
+      name: "main",
+      refProtected: process.env.CS_REF_PROTECTED === "true",
+      status: process.env.CS_REF_PROTECTED === "true" ? "protected" : "not-attested-on-this-run",
+    },
+    gateReport: {
+      id: process.env.GITHUB_RUN_ID || null,
+      url: process.env.GITHUB_RUN_ID
+        ? `https://github.com/cyberskill-official/design/actions/runs/${process.env.GITHUB_RUN_ID}`
+        : null,
+      status: process.env.GITHUB_RUN_ID ? "actions-run" : "local",
+    },
+    browserMatrix: hashExisting("docs/support-matrix.md"),
+    visualBaseline: existsSync(join(root, "_audit/ci/pixel-diff-report.json"))
+      ? hashExisting("_audit/ci/pixel-diff-report.json")
+      : { path: "_audit/ci/pixel-diff-report.json", status: "absent-until-pixel-diff" },
+    provenance: {
+      tokens: hashExisting("tokens/provenance.json"),
+      npm: process.env.ACTIONS_ID_TOKEN_REQUEST_URL ? "oidc-available" : "soft-skip-until-oidc-publish",
+    },
+    releaseNotes: hashExisting("docs/release-notes.md"),
+    migrationGuide: hashExisting("docs/package-topology.md"),
+    npmVerification: { status: "pending-until-publish", procedure: "_audit/ci/npm-publish.mjs" },
+    rollback: { path: "docs/release-runbook.md", section: "Failure / recovery" },
+  },
 };
 
 const out = join(root, "_audit/ci/release-bind-report.json");

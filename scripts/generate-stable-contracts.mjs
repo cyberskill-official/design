@@ -184,6 +184,12 @@ function build() {
         && !/typeof (?:document|window) === ["']undefined["']/.test(src)
         ? "Guard document/window access; prefer ThemeProvider + getThemeInitScript."
         : "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      code: `import { ${row.name} } from "${row.package}";`,
+      content: prompt
+        ? prompt.slice(0, 240)
+        : "Copy lives in components/_i18n when this component calls makeT.",
+      migration: `Prefer ${row.package} ${row.name}. @cyberskill/design remains the facade until 2027-03-13.`,
+      designStatus: row.maturity,
       responsive: [
         `${row.name} reflows at 320px, 200%, and 400% zoom (host ${host || "composite"}).`,
         src.includes("useLang") || src.includes("dir") ? "RTL via lang/dir." : "RTL inherits ThemeProvider dir.",

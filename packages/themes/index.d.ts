@@ -10,3 +10,4 @@ export {
 export type * from "./dist/provider";
 export { applyBrandPack, resolveBrandPack, listBrandPacks } from "./dist/apply-brand-pack";
 export type { BrandPack } from "./dist/apply-brand-pack";
+export { THEME_AXES } from "./dist/axes";

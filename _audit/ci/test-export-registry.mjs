@@ -28,6 +28,10 @@ for (const row of registry.exports) {
   assert("deprecation" in row, `${row.name}: deprecation field`);
 }
 
+assert(Array.isArray(registry.packages) && registry.packages.length >= 9, "package owner rows");
+for (const pkgRow of registry.packages) {
+  assert(pkgRow.owner && pkgRow.backup && pkgRow.support, pkgRow.name + " owner+backup");
+}
 const stables = registry.exports.filter((e) => e.maturity === "stable");
 assert(stables.length > 0, "at least one stable export");
 assert(stables.every((e) => e.owner && e.support && e.package), "stable rows complete");

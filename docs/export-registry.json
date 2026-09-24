@@ -1457,5 +1457,61 @@
       "package": "@cyberskill/react",
       "contract": false
     }
+  ],
+  "packages": [
+    {
+      "name": "@cyberskill/tokens",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor"
+    },
+    {
+      "name": "@cyberskill/primitives",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor"
+    },
+    {
+      "name": "@cyberskill/react",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor"
+    },
+    {
+      "name": "@cyberskill/themes",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor"
+    },
+    {
+      "name": "@cyberskill/icons",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor"
+    },
+    {
+      "name": "@cyberskill/templates",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor"
+    },
+    {
+      "name": "@cyberskill/eslint-plugin",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor"
+    },
+    {
+      "name": "@cyberskill/codemods",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor"
+    },
+    {
+      "name": "@cyberskill/web-components",
+      "owner": "design-system-council",
+      "backup": "stephencheng",
+      "support": "current-and-previous-minor"
+    }
   ]
 }

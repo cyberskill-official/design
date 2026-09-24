@@ -17,7 +17,7 @@ apps/storybook         docs host (không phải install runtime)
 apps/consumer-canary   smoke React 18/19 + SSR
 ```
 
-Root `@cyberskill/design` vẫn là tên cài trong cửa sổ migration sáu tháng. Sản phẩm mới nên import `@cyberskill/react` + `@cyberskill/tokens` (`dist/` đã compile, không JSX thô, không template). ESM từng component nằm trên export kebab như `@cyberskill/react/button` (`dist/` đã compile); deep `@cyberskill/react/components/*` vẫn không có trên export map và phải fail. Consumer facade không transpile JSX thì dùng `@cyberskill/design/stable`. Entry mặc định facade vẫn re-export JSX nguồn cho bundler cũ và ghi chú deprecation trên mô tả package. `@cyberskill/themes` ship pack high-contrast, registry 15 brand pack ngũ hành, và `applyBrandPack`; CSS của các pack đó vẫn nằm ở `@cyberskill/tokens/css`.
+Root `@cyberskill/design` vẫn là tên cài trong cửa sổ migration sáu tháng. Sản phẩm mới nên import `@cyberskill/react` + `@cyberskill/tokens` (`dist/` đã compile, không JSX thô, không template). ESM từng component nằm trên export kebab như `@cyberskill/react/button` (`dist/` đã compile); deep `@cyberskill/react/components/*` vẫn không có trên export map và phải fail. Consumer facade không transpile JSX thì dùng `@cyberskill/design/stable`. Entry mặc định facade vẫn re-export JSX nguồn cho bundler cũ và cảnh báo một lần khi import (`CYBERSKILL_FACADE`, cửa sổ đến 2027-03-13 trong `docs/facade-migration.json`). `@cyberskill/themes` ship light/dark/system qua `THEME_AXES`, `./high-contrast`, `./brand-packs`, `./rtl`, và `./reduced-motion`, cộng `applyBrandPack`. CSS ngũ hành vẫn nằm ở `@cyberskill/tokens/css`.
 
 ## Ngân sách
 

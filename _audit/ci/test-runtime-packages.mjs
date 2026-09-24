@@ -87,6 +87,12 @@ assert(brandPacks.highContrast === "./high-contrast.css", "brand-packs points at
 assert(existsSync(join(root, "packages/themes/dist/apply-brand-pack.js")), "applyBrandPack compiled");
 const themesBarrel = readFileSync(join(root, "packages/themes/index.js"), "utf8");
 assert(themesBarrel.includes("applyBrandPack"), "themes barrel exports applyBrandPack");
+assert(themesBarrel.includes("THEME_AXES"), "themes barrel exports axes");
+const themesPkg = JSON.parse(readFileSync(join(root, "packages/themes/package.json"), "utf8"));
+assert(themesPkg.exports["./rtl"] === "./dist/rtl.css", "themes rtl export");
+assert(themesPkg.exports["./reduced-motion"] === "./dist/reduced-motion.css", "themes reduced-motion export");
+assert(readFileSync(join(root, "packages/themes/dist/rtl.css"), "utf8").includes('[dir="rtl"]'), "rtl css");
+assert(readFileSync(join(root, "packages/themes/dist/reduced-motion.css"), "utf8").includes("prefers-reduced-motion"), "reduced-motion css");
 
 assert(existsSync(join(root, "packages/react/dist/stable-global.js")), "stable-global IIFE");
 const stableGlobal = readFileSync(join(root, "packages/react/dist/stable-global.js"), "utf8");

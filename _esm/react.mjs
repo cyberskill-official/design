@@ -11,6 +11,7 @@
 // (`_esm/cs.mjs`) instead. Styles are NOT injected — link styles.css
 // (or dist/styles.min.css for production static).
 // Regenerate: node scripts/generate-react-entry.mjs
+import "./facade-window.mjs";
 
 export { THEME_VALUES, CONTRAST_VALUES, DENSITY_VALUES, ThemeProvider } from "../components/_theme/provider.js";
 export { ALLOWED_URL_SCHEMES, REMOVED_TAGS } from "../components/_utils/sanitize-html.js";

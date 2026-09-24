@@ -71,6 +71,12 @@ assert(!/_ds_bundle\.js/.test(reactMjs), "react.mjs must not side-load _ds_bundl
 assert(!/document\./.test(reactMjs), "react.mjs must not touch document (SSR-safe source)");
 assert(!/ensureScript/.test(reactMjs), "react.mjs must not self-ensure scripts");
 assert(/^export \{ /m.test(reactMjs), "react.mjs must use export { } from");
+assert(reactMjs.includes('import "./facade-window.mjs"'), "facade entry warns on import");
+const windowDoc = JSON.parse(readFileSync(join(root, "docs/facade-migration.json"), "utf8"));
+const facadeWindow = readFileSync(join(root, "_esm/facade-window.mjs"), "utf8");
+assert(windowDoc.windowEnd === "2027-03-13", "six-month facade window end");
+assert(facadeWindow.includes(windowDoc.windowEnd), "runtime warning uses the window end");
+assert(facadeWindow.includes("CYBERSKILL_FACADE"), "deprecation warning code");
 
 // --- export parity with bundle header ---
 const reexported = [];

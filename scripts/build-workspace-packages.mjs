@@ -186,6 +186,10 @@ async function buildThemes() {
   await bundleOne(join(root, "components/_theme/provider.js"), join(dist, "provider.js"));
   cpSync(join(root, "components/_theme/provider.d.ts"), join(dist, "provider.d.ts"));
   cpSync(join(root, "base/high-contrast.css"), join(dist, "high-contrast.css"));
+  writeFileSync(join(dist, "rtl.css"), `/* Opt-in direction pack. Hosts set dir="rtl" on the theme root. */\n[dir="rtl"] {\n  --cs-direction: rtl;\n}\n`);
+  writeFileSync(join(dist, "reduced-motion.css"), `/* Opt-in motion pack. Zeroes the duration tokens from tokens/motion.css. */\n@media (prefers-reduced-motion: reduce) {\n  :root,\n  .cs-root {\n    --cs-duration-instant: 0ms;\n    --cs-duration-fast: 0ms;\n    --cs-duration-base: 0ms;\n    --cs-duration-slow: 0ms;\n  }\n}\n`);
+  writeFileSync(join(dist, "axes.js"), `/** First-class theme axes. Density is not a product axis. */\nexport const THEME_AXES = Object.freeze({\n  colorScheme: Object.freeze(["light", "dark", "system"]),\n  contrast: Object.freeze(["standard", "high"]),\n  direction: Object.freeze(["ltr", "rtl"]),\n  motion: Object.freeze(["no-preference", "reduce"]),\n  brand: "brand-packs",\n  highContrast: "./high-contrast.css",\n  rtl: "./rtl.css",\n  reducedMotion: "./reduced-motion.css",\n});\n`);
+  writeFileSync(join(dist, "axes.d.ts"), `export declare const THEME_AXES: {\n  readonly colorScheme: readonly ["light", "dark", "system"];\n  readonly contrast: readonly ["standard", "high"];\n  readonly direction: readonly ["ltr", "rtl"];\n  readonly motion: readonly ["no-preference", "reduce"];\n  readonly brand: "brand-packs";\n  readonly highContrast: "./high-contrast.css";\n  readonly rtl: "./rtl.css";\n  readonly reducedMotion: "./reduced-motion.css";\n};\n`);
   const seeds = JSON.parse(readFileSync(join(root, "tokens/element-seeds.json"), "utf8"));
   const packs = [];
   for (const [id, el] of Object.entries(seeds.elements || {})) {
@@ -259,10 +263,11 @@ export function applyBrandPack(input, root) {
     "  DENSITY_VALUES,",
     "} from \"./dist/provider.js\";",
     "export { applyBrandPack, resolveBrandPack, listBrandPacks } from \"./dist/apply-brand-pack.js\";",
+    "export { THEME_AXES } from \"./dist/axes.js\";",
   ]);
   writeFileSync(
     join(root, "packages/themes/index.d.ts"),
-    `export {\n  ThemeProvider,\n  useTheme,\n  getThemeInitScript,\n  resolveTheme,\n  THEME_VALUES,\n  CONTRAST_VALUES,\n  DENSITY_VALUES,\n} from "./dist/provider";\nexport type * from "./dist/provider";\nexport { applyBrandPack, resolveBrandPack, listBrandPacks } from "./dist/apply-brand-pack";\nexport type { BrandPack } from "./dist/apply-brand-pack";\n`,
+    `export {\n  ThemeProvider,\n  useTheme,\n  getThemeInitScript,\n  resolveTheme,\n  THEME_VALUES,\n  CONTRAST_VALUES,\n  DENSITY_VALUES,\n} from "./dist/provider";\nexport type * from "./dist/provider";\nexport { applyBrandPack, resolveBrandPack, listBrandPacks } from "./dist/apply-brand-pack";\nexport type { BrandPack } from "./dist/apply-brand-pack";\nexport { THEME_AXES } from "./dist/axes";\n`,
   );
 }
 

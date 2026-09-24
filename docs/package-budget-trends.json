@@ -9,11 +9,11 @@
       "measuredAt": "2026-09-15",
       "commit": "64bb9aa",
       "facade": {
-        "unpacked": 16943462,
-        "packed": 5692670
+        "unpacked": 16946016,
+        "packed": 5693109
       },
       "cssMin": 154928,
-      "reactEntry": 8026
+      "reactEntry": 8056
     }
   ]
 }

@@ -8,3 +8,4 @@ export {
   DENSITY_VALUES,
 } from "./dist/provider.js";
 export { applyBrandPack, resolveBrandPack, listBrandPacks } from "./dist/apply-brand-pack.js";
+export { THEME_AXES } from "./dist/axes.js";

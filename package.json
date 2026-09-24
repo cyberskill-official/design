@@ -15,6 +15,7 @@
     "**/*.css",
     "./_ds_bundle.js",
     "./_esm/cs.mjs",
+    "./_esm/facade-window.mjs",
     "./image-slot.js",
     "./ui_kits/**/*.js",
     "./ui_kits/**/*.jsx"

@@ -41,4 +41,13 @@ if (rootSsr.status !== 0) {
   throw new Error("react-19 canary SSR smoke failed");
 }
 
+const vite = spawnSync(process.execPath, ["vite-build.mjs"], {
+  cwd: join(root, "apps/consumer-canary"),
+  encoding: "utf8",
+});
+if (vite.status !== 0) {
+  console.error(vite.stdout || vite.stderr);
+  throw new Error("vite canary build failed");
+}
+
 console.log("PASS test-react-18-ssr");

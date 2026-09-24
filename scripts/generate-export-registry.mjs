@@ -78,6 +78,22 @@ function build() {
       release: "stephencheng",
     },
     exports,
+    packages: [
+      "@cyberskill/tokens",
+      "@cyberskill/primitives",
+      "@cyberskill/react",
+      "@cyberskill/themes",
+      "@cyberskill/icons",
+      "@cyberskill/templates",
+      "@cyberskill/eslint-plugin",
+      "@cyberskill/codemods",
+      "@cyberskill/web-components",
+    ].map((name) => ({
+      name,
+      owner: COUNCIL.owner,
+      backup: COUNCIL.backup,
+      support: COUNCIL.support,
+    })),
   };
 }
 

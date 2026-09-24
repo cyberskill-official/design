@@ -1,0 +1,10 @@
+/* Opt-in motion pack. Zeroes the duration tokens from tokens/motion.css. */
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  .cs-root {
+    --cs-duration-instant: 0ms;
+    --cs-duration-fast: 0ms;
+    --cs-duration-base: 0ms;
+    --cs-duration-slow: 0ms;
+  }
+}

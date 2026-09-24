@@ -1,0 +1,8 @@
+{
+  "package": "@cyberskill/design",
+  "windowStart": "2026-09-13",
+  "windowEnd": "2027-03-13",
+  "prefer": ["@cyberskill/react", "@cyberskill/tokens", "@cyberskill/themes"],
+  "removalPlan": "docs/package-topology.md",
+  "warningCode": "CYBERSKILL_FACADE"
+}

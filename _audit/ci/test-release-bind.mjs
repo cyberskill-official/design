@@ -36,5 +36,14 @@ assert(workflow.includes("CS_NPM_DIST_TAG") || workflow.includes("dist_tag"), "c
 const runbook = readFileSync(join(root, "docs/release-runbook.md"), "utf8");
 assert(/## Canary channel/.test(runbook), "canary section in release-runbook");
 assert(/CS_NPM_DIST_TAG=canary/.test(runbook), "canary dist-tag documented");
+assert(report.binding && report.binding.protectedBranch && report.binding.gateReport, "bind ids");
+assert(report.binding.browserMatrix && report.binding.browserMatrix.sha256, "browser matrix hash");
+assert(report.binding.visualBaseline, "visual baseline slot");
+assert(report.binding.provenance && report.binding.provenance.tokens.sha256, "token provenance bound");
+assert(report.binding.releaseNotes.sha256 && report.binding.migrationGuide.sha256, "notes + migration bound");
+assert(report.binding.npmVerification.status === "pending-until-publish", "npm verify is pre-publish");
+assert(report.binding.rollback.section === "Failure / recovery", "rollback section");
+assert(runbook.includes(report.binding.rollback.section), "rollback section exists");
+assert(workflow.includes("CS_REF_PROTECTED"), "publish workflow records branch protection");
 
 console.log("PASS test-release-bind");

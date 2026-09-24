@@ -60,6 +60,8 @@ jobs:
       - name: Pack dry-run (always)
         run: node _audit/ci/npm-publish.mjs --dry-run
       - name: Fail-closed release binding
+        env:
+          CS_REF_PROTECTED: ${{ github.ref_protected }}
         run: node scripts/release-bind.mjs
       - name: Upload SBOM
         if: always()

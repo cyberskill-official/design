@@ -79,6 +79,10 @@
       "usage": "Alert — inline banner. Semantic `variant` sets the accent border + default icon (override with `icon`). Meaning lives in the text, not colour alone.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Alert } from \"@cyberskill/react\";",
+      "content": "Alert — inline banner. Semantic `variant` sets the accent border + default icon (override with `icon`). Meaning lives in the text, not colour alone.",
+      "migration": "Prefer @cyberskill/react Alert. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Alert reflows at 320px, 200%, and 400% zoom (host cs-alert). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -163,6 +167,10 @@
       "usage": "AlertDialog — first-class confirm / destructive modal (`role=\"alertdialog\"`). Distinct from Popconfirm (inline bubble) and Dialog (general modal). Bilingual Confirm/Cancel via the registry.",
       "keyboard": "Handles Escape. Overlay manager restores focus and locks scroll.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { AlertDialog } from \"@cyberskill/react\";",
+      "content": "AlertDialog — first-class confirm / destructive modal (`role=\"alertdialog\"`). Distinct from Popconfirm (inline bubble) and Dialog (general modal). Bilingual Confirm/Cancel via the registry.",
+      "migration": "Prefer @cyberskill/react AlertDialog. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "AlertDialog reflows at 320px, 200%, and 400% zoom (host cs-dialog). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
     },
     {
@@ -212,6 +220,10 @@
       "usage": "Avatar / AvatarGroup — image or auto-initials on Umber. Sizes sm/md/lg; `square` for app tiles; stack several in `AvatarGroup`.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Avatar } from \"@cyberskill/react\";",
+      "content": "Avatar / AvatarGroup — image or auto-initials on Umber. Sizes sm/md/lg; `square` for app tiles; stack several in `AvatarGroup`.",
+      "migration": "Prefer @cyberskill/react Avatar. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Avatar reflows at 320px, 200%, and 400% zoom (host cs-avatar). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -260,6 +272,10 @@
       "usage": "Avatar / AvatarGroup — image or auto-initials on Umber. Sizes sm/md/lg; `square` for app tiles; stack several in `AvatarGroup`.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { AvatarGroup } from \"@cyberskill/react\";",
+      "content": "Avatar / AvatarGroup — image or auto-initials on Umber. Sizes sm/md/lg; `square` for app tiles; stack several in `AvatarGroup`.",
+      "migration": "Prefer @cyberskill/react AvatarGroup. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "AvatarGroup reflows at 320px, 200%, and 400% zoom (host cs-avatar). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -315,6 +331,10 @@
       "usage": "Badge — compact status label. Neutral by default; `solid`/`ochre` for emphasis; `success`/`danger`/`warning`/`info` for state; optional leading `dot`.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Badge } from \"@cyberskill/react\";",
+      "content": "Badge — compact status label. Neutral by default; `solid`/`ochre` for emphasis; `success`/`danger`/`warning`/`info` for state; optional leading `dot`.",
+      "migration": "Prefer @cyberskill/react Badge. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Badge reflows at 320px, 200%, and 400% zoom (host cs-badge). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -363,6 +383,10 @@
       "usage": "Breadcrumb — hierarchical trail; last item is the current page.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Breadcrumb } from \"@cyberskill/react\";",
+      "content": "Breadcrumb — hierarchical trail; last item is the current page.",
+      "migration": "Prefer @cyberskill/react Breadcrumb. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Breadcrumb reflows at 320px, 200%, and 400% zoom (host cs-breadcrumb). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -434,6 +458,10 @@
       "usage": "Button — the primary action control; Umber-filled by default, Ochre focus ring, 44px touch target. Use for the main action in a view; step down to `secondary` / `tertiary` / `ghost` for lower emphasis, `danger` for destructive actions.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Button } from \"@cyberskill/react\";",
+      "content": "Button — the primary action control; Umber-filled by default, Ochre focus ring, 44px touch target. Use for the main action in a view; step down to `secondary` / `tertiary` / `ghost` for lower emphasis, `danger` for destructive actions.",
+      "migration": "Prefer @cyberskill/react Button. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Button reflows at 320px, 200%, and 400% zoom (host cs-button). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -477,6 +505,10 @@
       "usage": "ButtonGroup — segmented cluster of Buttons (shared borders, one rounded outline).",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { ButtonGroup } from \"@cyberskill/react\";",
+      "content": "ButtonGroup — segmented cluster of Buttons (shared borders, one rounded outline).",
+      "migration": "Prefer @cyberskill/react ButtonGroup. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "ButtonGroup reflows at 320px, 200%, and 400% zoom (host cs-btngroup). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -537,6 +569,10 @@
       "usage": "Card — warm content panel (14px radius, soft shadow). Compose with `CardHeader` / `CardBody` / `CardFooter`. `interactive` makes it a hoverable button; add `className=\"cs-surface-standard\"` for glass over imagery.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Card } from \"@cyberskill/react\";",
+      "content": "Card — warm content panel (14px radius, soft shadow). Compose with `CardHeader` / `CardBody` / `CardFooter`. `interactive` makes it a hoverable button; add `className=\"cs-surface-standard\"` for glass over imagery.",
+      "migration": "Prefer @cyberskill/react Card. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Card reflows at 320px, 200%, and 400% zoom (host cs-card). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -613,6 +649,10 @@
       "usage": "Carousel — slides + arrows + dots (bilingual aria). Wrap any slide content.",
       "keyboard": "Handles ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Home, End,  .",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Carousel } from \"@cyberskill/react\";",
+      "content": "Carousel — slides + arrows + dots (bilingual aria). Wrap any slide content.",
+      "migration": "Prefer @cyberskill/react Carousel. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "beta",
       "responsive": "Carousel reflows at 320px, 200%, and 400% zoom (host cs-carousel). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -665,6 +705,10 @@
       "usage": "Checkbox — native checkbox tinted with the brand accent-color, with label + optional description.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Checkbox } from \"@cyberskill/react\";",
+      "content": "Checkbox — native checkbox tinted with the brand accent-color, with label + optional description.",
+      "migration": "Prefer @cyberskill/react Checkbox. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Checkbox reflows at 320px, 200%, and 400% zoom (host cs-check). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -748,6 +792,10 @@
       "usage": "Combobox — filterable single-select (typeahead + listbox, arrows/Enter/Escape). Bilingual placeholder + empty state via the registry.",
       "keyboard": "Handles Escape, Enter, ArrowUp, ArrowDown.",
       "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "code": "import { Combobox } from \"@cyberskill/react\";",
+      "content": "Combobox — filterable single-select (typeahead + listbox, arrows/Enter/Escape). Bilingual placeholder + empty state via the registry.",
+      "migration": "Prefer @cyberskill/react Combobox. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "beta",
       "responsive": "Combobox reflows at 320px, 200%, and 400% zoom (host cs-combobox). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -819,6 +867,10 @@
       "usage": "DataGrid — sortable + selectable table with sticky header.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { DataGrid } from \"@cyberskill/react\";",
+      "content": "DataGrid — sortable + selectable table with sticky header.",
+      "migration": "Prefer @cyberskill/react DataGrid. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "beta",
       "responsive": "DataGrid reflows at 320px, 200%, and 400% zoom (host cs-datagrid). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -883,6 +935,10 @@
       "usage": "DatePicker — field + popover Calendar; VN format DD/MM/YYYY, Monday week-start. The popover is `role=\"dialog\"` and takes its accessible name from `label` (fallback: placeholder).",
       "keyboard": "Handles Escape.",
       "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "code": "import { DatePicker } from \"@cyberskill/react\";",
+      "content": "DatePicker — field + popover Calendar; VN format DD/MM/YYYY, Monday week-start. The popover is `role=\"dialog\"` and takes its accessible name from `label` (fallback: placeholder).",
+      "migration": "Prefer @cyberskill/react DatePicker. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "beta",
       "responsive": "DatePicker reflows at 320px, 200%, and 400% zoom (host cs-datepicker). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -961,6 +1017,10 @@
       "usage": "Dialog — modal overlay + centred panel. `aria-modal`, labelled by title, overlay-click closes. Compose footer actions with `Button`s. Goes near-fullscreen on narrow viewports.",
       "keyboard": "Handles Escape. Overlay manager restores focus and locks scroll.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Dialog } from \"@cyberskill/react\";",
+      "content": "Dialog — modal overlay + centred panel. `aria-modal`, labelled by title, overlay-click closes. Compose footer actions with `Button`s. Goes near-fullscreen on narrow viewports.",
+      "migration": "Prefer @cyberskill/react Dialog. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Dialog reflows at 320px, 200%, and 400% zoom (host cs-dialog). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
     },
     {
@@ -1010,6 +1070,10 @@
       "usage": "Divider — warm hairline separator. `label` centres text between two rules; `vertical` splits inline content in a flex row.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Divider } from \"@cyberskill/react\";",
+      "content": "Divider — warm hairline separator. `label` centres text between two rules; `vertical` splits inline content in a flex row.",
+      "migration": "Prefer @cyberskill/react Divider. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Divider reflows at 320px, 200%, and 400% zoom (host cs-divider). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1079,6 +1143,10 @@
       "usage": "Drawer — slide-in side panel + scrim (the Status Hub detail pattern). Escape / scrim-click close; `side=\"left\"` for left.",
       "keyboard": "Handles Escape. Overlay manager restores focus and locks scroll.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Drawer } from \"@cyberskill/react\";",
+      "content": "Drawer — slide-in side panel + scrim (the Status Hub detail pattern). Escape / scrim-click close; `side=\"left\"` for left.",
+      "migration": "Prefer @cyberskill/react Drawer. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Drawer reflows at 320px, 200%, and 400% zoom (host cs-drawer). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
     },
     {
@@ -1139,6 +1207,10 @@
       "usage": "Editor — light rich-text (B/I/list), HTML `onChange`.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "code": "import { Editor } from \"@cyberskill/react\";",
+      "content": "Editor — light rich-text (B/I/list), HTML `onChange`.",
+      "migration": "Prefer @cyberskill/react Editor. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "experimental",
       "responsive": "Editor reflows at 320px, 200%, and 400% zoom (host cs-editor). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1194,6 +1266,10 @@
       "usage": "EmptyState — placeholder for empty views: icon, title, message, optional actions.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { EmptyState } from \"@cyberskill/react\";",
+      "content": "EmptyState — placeholder for empty views: icon, title, message, optional actions.",
+      "migration": "Prefer @cyberskill/react EmptyState. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "EmptyState reflows at 320px, 200%, and 400% zoom (host cs-empty). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1231,6 +1307,10 @@
       "usage": "Icon — the single renderer for CyberSkill's in-repo line-icon set (no external icon library). Icons stroke with `currentColor` at 1.75 weight, round caps/joins, and size from the `--cs-icon-*` tokens. Decorative by default; pass `label` to expose a meaningful icon to assistive tech.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Icon } from \"@cyberskill/react\";",
+      "content": "Icon — the single renderer for CyberSkill's in-repo line-icon set (no external icon library). Icons stroke with `currentColor` at 1.75 weight, round caps/joins, and size from the `--cs-icon-*` tokens. Decorative by default; pass `label` to ",
+      "migration": "Prefer @cyberskill/react Icon. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Icon reflows at 320px, 200%, and 400% zoom (host composite). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1292,6 +1372,10 @@
       "usage": "Image — img with shimmer, warm error fallback, optional `preview` lightbox. `width` / `height` forward to the underlying `<img>`.",
       "keyboard": "Handles Enter,  , Escape. Overlay manager restores focus and locks scroll.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Image } from \"@cyberskill/react\";",
+      "content": "Image — img with shimmer, warm error fallback, optional `preview` lightbox. `width` / `height` forward to the underlying `<img>`.",
+      "migration": "Prefer @cyberskill/react Image. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "beta",
       "responsive": "Image reflows at 320px, 200%, and 400% zoom (host cs-image__fallback). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
     },
     {
@@ -1337,6 +1421,10 @@
       "usage": "Link — brand anchor (default · muted · standalone→, `external` ↗).",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Link } from \"@cyberskill/react\";",
+      "content": "Link — brand anchor (default · muted · standalone→, `external` ↗).",
+      "migration": "Prefer @cyberskill/react Link. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Link reflows at 320px, 200%, and 400% zoom (host cs-link). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1380,6 +1468,10 @@
       "usage": "Logo — the official CyberSkill brand mark (Umber ground, Ochre genie figure), rendered from the exact master artwork. Use whenever a product is for or owned by CyberSkill. Keep clear space ≥ 25% of the mark height; never recolour, rotate, stretch, or place on a low-contrast background.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Logo } from \"@cyberskill/react\";",
+      "content": "Logo — the official CyberSkill brand mark (Umber ground, Ochre genie figure), rendered from the exact master artwork. Use whenever a product is for or owned by CyberSkill. Keep clear space ≥ 25% of the mark height; never recolour, rotate, s",
+      "migration": "Prefer @cyberskill/react Logo. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Logo reflows at 320px, 200%, and 400% zoom (host cs-logo). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1458,6 +1550,10 @@
       "usage": "Menu / MenuItem — dropdown anchored to a `trigger`. Uncontrolled (click toggles; outside-click / Escape close) or controlled via `open`/`onOpenChange`. `align=\"end\"` right-aligns.",
       "keyboard": "Handles Escape, ArrowUp, ArrowDown, Home, End.",
       "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "code": "import { Menu } from \"@cyberskill/react\";",
+      "content": "Menu / MenuItem — dropdown anchored to a `trigger`. Uncontrolled (click toggles; outside-click / Escape close) or controlled via `open`/`onOpenChange`. `align=\"end\"` right-aligns.",
+      "migration": "Prefer @cyberskill/react Menu. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "beta",
       "responsive": "Menu reflows at 320px, 200%, and 400% zoom (host cs-menu). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1497,6 +1593,10 @@
       "usage": "OverlayProvider / overlay manager — single stack for modal Escape, scroll-lock refcount, and focus restore. Wrap product shells when nesting overlays; Dialog / AlertDialog / Drawer / CommandPalette already register via the module singleton when no provider is mounted.",
       "keyboard": "Handles Escape, Tab. Overlay manager restores focus and locks scroll.",
       "ssr": "Guard document/window access; prefer ThemeProvider + getThemeInitScript.",
+      "code": "import { OverlayProvider } from \"@cyberskill/react\";",
+      "content": "OverlayProvider / overlay manager — single stack for modal Escape, scroll-lock refcount, and focus restore. Wrap product shells when nesting overlays; Dialog / AlertDialog / Drawer / CommandPalette already register via the module singleton ",
+      "migration": "Prefer @cyberskill/react OverlayProvider. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "OverlayProvider reflows at 320px, 200%, and 400% zoom (host cs-ov). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast + overlay trap/inert stay on the panel."
     },
     {
@@ -1552,6 +1652,10 @@
       "usage": "ProgressBar — determinate progress. Ochre fill by default (`umber`/`success` variants). Always pass `label`.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { ProgressBar } from \"@cyberskill/react\";",
+      "content": "ProgressBar — determinate progress. Ochre fill by default (`umber`/`success` variants). Always pass `label`.",
+      "migration": "Prefer @cyberskill/react ProgressBar. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "ProgressBar reflows at 320px, 200%, and 400% zoom (host cs-progress). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1601,6 +1705,10 @@
       "usage": "RadioGroup / Radio — single-choice radios in a labelled fieldset, controlled by `value`/`onChange`. Brand accent-color.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { RadioGroup } from \"@cyberskill/react\";",
+      "content": "RadioGroup / Radio — single-choice radios in a labelled fieldset, controlled by `value`/`onChange`. Brand accent-color.",
+      "migration": "Prefer @cyberskill/react RadioGroup. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "RadioGroup reflows at 320px, 200%, and 400% zoom (host cs-radio). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1678,6 +1786,10 @@
       "usage": "Select — labelled native select in the `.cs-field` frame with a custom chevron; same description/error wiring as TextField.",
       "keyboard": "Handles  .",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Select } from \"@cyberskill/react\";",
+      "content": "Select — labelled native select in the `.cs-field` frame with a custom chevron; same description/error wiring as TextField.",
+      "migration": "Prefer @cyberskill/react Select. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Select reflows at 320px, 200%, and 400% zoom (host cs-select). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1742,6 +1854,10 @@
       "usage": "Sortable — reorderable list with move-up/down buttons (keyboard + single-pointer) and optional HTML5 drag. Compose columns of it for a kanban.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Sortable } from \"@cyberskill/react\";",
+      "content": "Sortable — reorderable list with move-up/down buttons (keyboard + single-pointer) and optional HTML5 drag. Compose columns of it for a kanban.",
+      "migration": "Prefer @cyberskill/react Sortable. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "beta",
       "responsive": "Sortable reflows at 320px, 200%, and 400% zoom (host cs-sortable). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1787,6 +1903,10 @@
       "usage": "Spinner — indeterminate loading indicator, brand-coloured; slows under reduced-motion.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Spinner } from \"@cyberskill/react\";",
+      "content": "Spinner — indeterminate loading indicator, brand-coloured; slows under reduced-motion.",
+      "migration": "Prefer @cyberskill/react Spinner. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Spinner reflows at 320px, 200%, and 400% zoom (host cs-spinner). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1848,6 +1968,10 @@
       "usage": "Switch — accessible on/off toggle (`role=\"switch\"`), Umber track when on. For instant-apply settings (use Checkbox in forms that submit).",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Switch } from \"@cyberskill/react\";",
+      "content": "Switch — accessible on/off toggle (`role=\"switch\"`), Umber track when on. For instant-apply settings (use Checkbox in forms that submit).",
+      "migration": "Prefer @cyberskill/react Switch. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Switch reflows at 320px, 200%, and 400% zoom (host cs-switch). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1916,6 +2040,10 @@
       "usage": "Tabs / Tab — underlined tablist (Ochre active indicator), controlled by `value`/`onChange`. Wire your own panels via `aria-controls`.",
       "keyboard": "Handles ArrowLeft, ArrowRight, Home, End.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Tabs } from \"@cyberskill/react\";",
+      "content": "Tabs / Tab — underlined tablist (Ochre active indicator), controlled by `value`/`onChange`. Wire your own panels via `aria-controls`.",
+      "migration": "Prefer @cyberskill/react Tabs. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Tabs reflows at 320px, 200%, and 400% zoom (host cs-tabs). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -1971,6 +2099,10 @@
       "usage": "Tag — chip for filters, keywords, or selected values. Pass `onRemove` for a close button.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Tag } from \"@cyberskill/react\";",
+      "content": "Tag — chip for filters, keywords, or selected values. Pass `onRemove` for a close button.",
+      "migration": "Prefer @cyberskill/react Tag. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Tag reflows at 320px, 200%, and 400% zoom (host cs-tag). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -2041,6 +2173,10 @@
       "usage": "Textarea — multi-line input in the `.cs-field` frame; description + error like TextField, vertically resizable.",
       "keyboard": "Handles  .",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Textarea } from \"@cyberskill/react\";",
+      "content": "Textarea — multi-line input in the `.cs-field` frame; description + error like TextField, vertically resizable.",
+      "migration": "Prefer @cyberskill/react Textarea. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Textarea reflows at 320px, 200%, and 400% zoom (host cs-field). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -2113,6 +2249,10 @@
       "usage": "TextField — labelled text input with optional description and inline error. The label is always associated; errors announce via `role=\"alert\"`. Vietnamese diacritics and IME composition are preserved.",
       "keyboard": "Handles  .",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { TextField } from \"@cyberskill/react\";",
+      "content": "TextField — labelled text input with optional description and inline error. The label is always associated; errors announce via `role=\"alert\"`. Vietnamese diacritics and IME composition are preserved.",
+      "migration": "Prefer @cyberskill/react TextField. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "TextField reflows at 320px, 200%, and 400% zoom (host cs-field). RTL inherits ThemeProvider dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -2169,6 +2309,10 @@
       "usage": "TimePicker — 24h time select in fixed steps (VN-friendly 24h clock).",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { TimePicker } from \"@cyberskill/react\";",
+      "content": "TimePicker — 24h time select in fixed steps (VN-friendly 24h clock).",
+      "migration": "Prefer @cyberskill/react TimePicker. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "beta",
       "responsive": "TimePicker reflows at 320px, 200%, and 400% zoom (host cs-timepicker). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -2230,6 +2374,10 @@
       "usage": "Toast / ToastStack — transient notification inside a fixed bottom-right stack. Presentational; manage timing + queue in app state. Variants `default` | `success` | `danger` each ship a distinct glyph (info / check / X) plus a status-coloured start border — never a red check-mark for errors.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Toast } from \"@cyberskill/react\";",
+      "content": "Toast / ToastStack — transient notification inside a fixed bottom-right stack. Presentational; manage timing + queue in app state. Variants `default` | `success` | `danger` each ship a distinct glyph (info / check / X) plus a status-coloure",
+      "migration": "Prefer @cyberskill/react Toast. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Toast reflows at 320px, 200%, and 400% zoom (host cs-toast). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     },
     {
@@ -2280,6 +2428,10 @@
       "usage": "Tooltip — small umber bubble on hover/focus of its trigger. Wrap a focusable element; keep the label short.",
       "keyboard": "Tab and native host keyboard. No custom key handlers in source.",
       "ssr": "No module-scope document. Safe on React 18/19 with ThemeProvider.",
+      "code": "import { Tooltip } from \"@cyberskill/react\";",
+      "content": "Tooltip — small umber bubble on hover/focus of its trigger. Wrap a focusable element; keep the label short.",
+      "migration": "Prefer @cyberskill/react Tooltip. @cyberskill/design remains the facade until 2027-03-13.",
+      "designStatus": "stable",
       "responsive": "Tooltip reflows at 320px, 200%, and 400% zoom (host cs-tooltip). RTL via lang/dir. Dark uses semantic --cs-color-* under data-theme. High contrast via data-cs-contrast=high / @cyberskill/themes/high-contrast."
     }
   ]

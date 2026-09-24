@@ -45,6 +45,7 @@ function buildMjs(components) {
     "// (`_esm/cs.mjs`) instead. Styles are NOT injected — link styles.css",
     "// (or dist/styles.min.css for production static).",
     "// Regenerate: node scripts/generate-react-entry.mjs",
+    'import "./facade-window.mjs";',
     "",
   ];
   const by = groupBySource(components);

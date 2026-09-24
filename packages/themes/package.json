@@ -16,6 +16,9 @@
     },
     "./high-contrast": "./dist/high-contrast.css",
     "./brand-packs": "./dist/brand-packs.json",
+    "./rtl": "./dist/rtl.css",
+    "./reduced-motion": "./dist/reduced-motion.css",
+    "./axes": "./dist/axes.js",
     "./package.json": "./package.json"
   },
   "files": ["index.js", "index.d.ts", "dist", "README.md"]
