@@ -110,6 +110,7 @@
     "packages/*",
     "apps/storybook",
     "apps/consumer-canary",
+    "apps/consumer-canary/next-host",
     "apps/consumer-canary/react-18"
   ],
   "scripts": {
