@@ -4,23 +4,35 @@
  * mobile / forced-colors / reduced-motion / RTL / pseudo-locale.
  * CI passes --browsers=chromium,firefox,webkit.
  */
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { ensurePlaywrightChromium } from "../../scripts/ensure-playwright.mjs";
+
+const root = join(dirname(fileURLToPath(import.meta.url)), "../..");
+const css = readFileSync(join(root, "dist/styles.min.css"), "utf8");
 
 const args = process.argv.slice(2);
 const browsersArg = (args.find((a) => a.startsWith("--browsers=")) || "--browsers=chromium").split("=")[1];
 const names = browsersArg.split(",").map((s) => s.trim()).filter(Boolean);
 
-const MARKUP = `<!doctype html><html lang="en-XA" dir="rtl"><body>
+const MARKUP = `<!doctype html><html lang="en-XA" dir="rtl" data-theme="dark" data-cs-contrast="high"><head><style>${css}</style></head><body>
 <a class="cs-skip" href="#main">⟦Skip⟧</a>
-<main id="main"><button type="button">⟦Go⟧</button></main>
+<main id="main"><button type="button" class="cs-button cs-button--primary cs-button--md"><span class="cs-button__label">⟦Go⟧</span></button></main>
 </body></html>`;
 
 async function assertPage(page, name) {
   const dir = await page.locator("html").getAttribute("dir");
   const skip = await page.locator(".cs-skip").count();
+  const buttons = await page.locator(".cs-button").count();
   const width = await page.evaluate(() => document.documentElement.clientWidth);
-  if (dir !== "rtl" || skip !== 1 || width > 400) {
-    throw new Error(`${name} matrix assertions failed dir=${dir} skip=${skip} width=${width}`);
+  const painted = await page.evaluate(() => {
+    const btn = document.querySelector(".cs-button");
+    const cs = getComputedStyle(btn);
+    return cs.fontFamily.includes("Be Vietnam") || cs.getPropertyValue("--cs-font-family-ui").includes("Be Vietnam");
+  });
+  if (dir !== "rtl" || skip !== 1 || buttons !== 1 || width > 400 || !painted) {
+    throw new Error(`${name} matrix assertions failed dir=${dir} skip=${skip} buttons=${buttons} width=${width} painted=${painted}`);
   }
   await page.evaluate(() => {
     document.documentElement.style.zoom = "2";
