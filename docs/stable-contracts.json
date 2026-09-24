@@ -72,7 +72,12 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": true,
-      "states": [],
+      "states": [
+        "status",
+        "decorative",
+        "hover",
+        "focus-visible"
+      ],
       "prompt": "Alert — inline banner. Semantic `variant` sets the accent border + default icon (override with `icon`). Meaning lives in the text, not colour alone.",
       "jsdoc": "CyberSkill Alert — inline banner. variant: info | success | warning | danger.",
       "anatomy": "Alert. CyberSkill Alert — inline banner. variant: info | success | warning | danger. Semantic root <svg>. Host class cs-alert. Slots: title, icon, children.",
@@ -159,7 +164,8 @@
       "overlay": true,
       "i18n": true,
       "states": [
-        "controlled open"
+        "controlled open",
+        "decorative"
       ],
       "prompt": "AlertDialog — first-class confirm / destructive modal (`role=\"alertdialog\"`). Distinct from Popconfirm (inline bubble) and Dialog (general modal). Bilingual Confirm/Cancel via the registry.",
       "jsdoc": "CyberSkill AlertDialog — first-class destructive/confirm modal (role=alertdialog). Distinct from Popconfirm (inline bubble) and Dialog (general modal). Focus trap + restore via overlay manager; bilingual confirm/cancel via the registry.",
@@ -213,7 +219,10 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": false,
-      "states": [],
+      "states": [
+        "decorative",
+        "initials"
+      ],
       "prompt": "Avatar / AvatarGroup — image or auto-initials on Umber. Sizes sm/md/lg; `square` for app tiles; stack several in `AvatarGroup`.",
       "jsdoc": "CyberSkill Avatar — image or initials on Umber. sizes sm|md|lg; square variant.",
       "anatomy": "Avatar. CyberSkill Avatar — image or initials on Umber. sizes sm|md|lg; square variant. Semantic root <span>. Host class cs-avatar.",
@@ -265,7 +274,10 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": false,
-      "states": [],
+      "states": [
+        "decorative",
+        "initials"
+      ],
       "prompt": "Avatar / AvatarGroup — image or auto-initials on Umber. Sizes sm/md/lg; `square` for app tiles; stack several in `AvatarGroup`.",
       "jsdoc": "CyberSkill Avatar — image or initials on Umber. sizes sm|md|lg; square variant.",
       "anatomy": "AvatarGroup. CyberSkill Avatar — image or initials on Umber. sizes sm|md|lg; square variant. Semantic root <span>. Host class cs-avatar. Slots: children.",
@@ -324,7 +336,9 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": false,
-      "states": [],
+      "states": [
+        "decorative"
+      ],
       "prompt": "Badge — compact status label. Neutral by default; `solid`/`ochre` for emphasis; `success`/`danger`/`warning`/`info` for state; optional leading `dot`.",
       "jsdoc": "CyberSkill Badge — compact status label. variant: neutral | solid | ochre | success | danger | warning | info.",
       "anatomy": "Badge. CyberSkill Badge — compact status label. variant: neutral | solid | ochre | success | danger | warning | info. Semantic root <span>. Host class cs-badge. Slots: children.",
@@ -376,7 +390,10 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": true,
-      "states": [],
+      "states": [
+        "decorative",
+        "hover"
+      ],
       "prompt": "Breadcrumb — hierarchical trail; last item is the current page.",
       "jsdoc": "CyberSkill Breadcrumb — hierarchical trail; last item is current.",
       "anatomy": "Breadcrumb. CyberSkill Breadcrumb — hierarchical trail; last item is current. Semantic root <nav>. Host class cs-breadcrumb.",
@@ -450,7 +467,11 @@
       "i18n": false,
       "states": [
         "disabled",
-        "loading"
+        "loading",
+        "decorative",
+        "hover",
+        "focus-visible",
+        "active"
       ],
       "prompt": "Button — the primary action control; Umber-filled by default, Ochre focus ring, 44px touch target. Use for the main action in a view; step down to `secondary` / `tertiary` / `ghost` for lower emphasis, `danger` for destructive actions.",
       "jsdoc": "CyberSkill Button. Umber primary by default; warm hover; Ochre focus ring; 44px comfortable touch target. Renders a real <button>.",
@@ -498,7 +519,9 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": false,
-      "states": [],
+      "states": [
+        "grouped"
+      ],
       "prompt": "ButtonGroup — segmented cluster of Buttons (shared borders, one rounded outline).",
       "jsdoc": "CyberSkill ButtonGroup — joins adjacent Buttons into one segmented cluster (role=group).",
       "anatomy": "ButtonGroup. CyberSkill ButtonGroup — joins adjacent Buttons into one segmented cluster (role=group). Semantic root <div>. Host class cs-btngroup. Slots: children, label.",
@@ -562,7 +585,10 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": false,
-      "states": [],
+      "states": [
+        "hover",
+        "active"
+      ],
       "prompt": "Card — warm content panel (14px radius, soft shadow). Compose with `CardHeader` / `CardBody` / `CardFooter`. `interactive` makes it a hoverable button; add `className=\"cs-surface-standard\"` for glass over imagery.",
       "jsdoc": "CyberSkill Card — warm panel (14px radius, soft shadow). Compose with CardHeader/Body/Footer.",
       "anatomy": "Card. CyberSkill Card — warm panel (14px radius, soft shadow). Compose with CardHeader/Body/Footer. Semantic root <div>. Host class cs-card. Slots: children.",
@@ -642,7 +668,11 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": true,
-      "states": [],
+      "states": [
+        "selected",
+        "decorative",
+        "grouped"
+      ],
       "prompt": "Carousel — slides + arrows + dots (bilingual aria). Wrap any slide content.",
       "jsdoc": "CyberSkill Carousel — slides with prev/next + dots. children = slides. Bilingual aria.",
       "anatomy": "Carousel. CyberSkill Carousel — slides with prev/next + dots. children = slides. Bilingual aria. Semantic root <div>. Host class cs-carousel. Slots: children, label.",
@@ -784,7 +814,11 @@
       "i18n": true,
       "states": [
         "controlled value/onChange",
-        "disabled"
+        "disabled",
+        "expanded",
+        "selected",
+        "decorative",
+        "focus-visible"
       ],
       "prompt": "Combobox — filterable single-select (typeahead + listbox, arrows/Enter/Escape). Bilingual placeholder + empty state via the registry.",
       "jsdoc": "CyberSkill Combobox — filterable single-select (input + listbox, ARIA combobox pattern). Controlled value/onChange.",
@@ -860,7 +894,11 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": true,
-      "states": [],
+      "states": [
+        "selected",
+        "sorted",
+        "decorative"
+      ],
       "prompt": "DataGrid — sortable + selectable table with sticky header.",
       "jsdoc": "CyberSkill DataGrid — advanced table: sortable columns, selectable rows, sticky header, optional column pin + client filter + row virtualization + optional column order persistence.",
       "anatomy": "DataGrid. CyberSkill DataGrid — advanced table: sortable columns, selectable rows, sticky header, optional column pin + client filter + row virtualization + optional column order persistence. Semantic root <div>. Host class cs-datagrid.",
@@ -927,7 +965,10 @@
       "i18n": true,
       "states": [
         "controlled value/onChange",
-        "disabled"
+        "disabled",
+        "expanded",
+        "decorative",
+        "focus-visible"
       ],
       "prompt": "DatePicker — field + popover Calendar; VN format DD/MM/YYYY, Monday week-start. The popover is `role=\"dialog\"` and takes its accessible name from `label` (fallback: placeholder).",
       "jsdoc": "CyberSkill DatePicker — field + popover Calendar. VN shows DD/MM/YYYY. Controlled value (Date)/onChange.",
@@ -1009,7 +1050,8 @@
       "overlay": true,
       "i18n": true,
       "states": [
-        "controlled open"
+        "controlled open",
+        "decorative"
       ],
       "prompt": "Dialog — modal overlay + centred panel. `aria-modal`, labelled by title, overlay-click closes. Compose footer actions with `Button`s. Goes near-fullscreen on narrow viewports.",
       "jsdoc": "CyberSkill Dialog — modal overlay + panel. aria-modal, labelled by title and described by its body, scrim click closes. Body scroll is locked while open via the overlay manager (nested-safe). Compose actions in the footer with Buttons.",
@@ -1063,7 +1105,9 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": false,
-      "states": [],
+      "states": [
+        "orientation"
+      ],
       "prompt": "Divider — warm hairline separator. `label` centres text between two rules; `vertical` splits inline content in a flex row.",
       "jsdoc": "CyberSkill Divider — hairline rule. `label` centres text; `vertical` for inline splits.",
       "anatomy": "Divider. CyberSkill Divider — hairline rule. `label` centres text; `vertical` for inline splits. Semantic root <div>. Host class cs-divider. Slots: label, children.",
@@ -1135,7 +1179,9 @@
       "overlay": true,
       "i18n": true,
       "states": [
-        "controlled open"
+        "controlled open",
+        "decorative",
+        "hover"
       ],
       "prompt": "Drawer — slide-in side panel + scrim (the Status Hub detail pattern). Escape / scrim-click close; `side=\"left\"` for left.",
       "jsdoc": "CyberSkill Drawer — slide-in side panel with scrim. side: right (default) | left.",
@@ -1199,7 +1245,8 @@
       "i18n": true,
       "states": [
         "controlled value/onChange",
-        "uncontrolled defaultValue"
+        "uncontrolled defaultValue",
+        "focus-visible"
       ],
       "prompt": "Editor — light rich-text (B/I/list), HTML `onChange`.",
       "jsdoc": "CyberSkill Editor — light rich-text (contentEditable): bold · italic · bullet list.  Trust boundary (CDS-SEC-001 / SEC-001): `defaultValue` and controlled `value` are  schema-sanitized. Pass `unsafeHtml` only for already-trusted markup that must",
@@ -1259,7 +1306,9 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": true,
-      "states": [],
+      "states": [
+        "decorative"
+      ],
       "prompt": "EmptyState — placeholder for empty views: icon, title, message, optional actions.",
       "jsdoc": "CyberSkill EmptyState — friendly placeholder for empty views.",
       "anatomy": "EmptyState. CyberSkill EmptyState — friendly placeholder for empty views. Semantic root <div>. Host class cs-empty. Slots: icon, title, children, actions.",
@@ -1300,7 +1349,9 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": false,
-      "states": [],
+      "states": [
+        "decorative"
+      ],
       "prompt": "Icon — the single renderer for CyberSkill's in-repo line-icon set (no external icon library). Icons stroke with `currentColor` at 1.75 weight, round caps/joins, and size from the `--cs-icon-*` tokens. Decorative by default; pass `label` to expose a meaningful icon to assistive tech.",
       "jsdoc": "CyberSkill line-icon set (in-repo, no external icon library). Each icon is data — a viewBox plus primitive elements — rendered through this one <Icon>. Line icons use currentColor stroke so they follow the surrounding text token.",
       "anatomy": "Icon. CyberSkill line-icon set (in-repo, no external icon library). Each icon is data — a viewBox plus primitive elements — rendered through this one <Icon>. Line icons use currentColor stroke so they follow the surrounding text token. Semantic root <svg>. Slots: label.",
@@ -1365,7 +1416,11 @@
       "forwardRef": true,
       "overlay": true,
       "i18n": true,
-      "states": [],
+      "states": [
+        "loading",
+        "expanded",
+        "decorative"
+      ],
       "prompt": "Image — img with shimmer, warm error fallback, optional `preview` lightbox. `width` / `height` forward to the underlying `<img>`.",
       "jsdoc": "CyberSkill Image — img with loading skeleton, warm fallback on error, optional click-to-preview lightbox.",
       "anatomy": "Image. CyberSkill Image — img with loading skeleton, warm fallback on error, optional click-to-preview lightbox. Provider or composite root. Host class cs-image__fallback.",
@@ -1414,7 +1469,10 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": false,
-      "states": [],
+      "states": [
+        "decorative",
+        "hover"
+      ],
       "prompt": "Link — brand anchor (default · muted · standalone→, `external` ↗).",
       "jsdoc": "CyberSkill Link — brand-styled anchor. variant: default | muted | standalone (arrow). external adds ↗ + rel.",
       "anatomy": "Link. CyberSkill Link — brand-styled anchor. variant: default | muted | standalone (arrow). external adds ↗ + rel. Semantic root <a>. Host class cs-link. Slots: children.",
@@ -1461,7 +1519,9 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": false,
-      "states": [],
+      "states": [
+        "decorative"
+      ],
       "prompt": "Logo — the official CyberSkill brand mark (Umber ground, Ochre genie figure), rendered from the exact master artwork. Use whenever a product is for or owned by CyberSkill. Keep clear space ≥ 25% of the mark height; never recolour, rotate, stretch, or place on a low-contrast background.",
       "jsdoc": "CyberSkill brand mark. Renders the EXACT official master artwork (Umber ground, Ochre genie figure). Use whenever a product is for or owned by CyberSkill. Do not recreate or recolour the mark.",
       "anatomy": "Logo. CyberSkill brand mark. Renders the EXACT official master artwork (Umber ground, Ochre genie figure). Use whenever a product is for or owned by CyberSkill. Do not recreate or recolour the mark. Semantic root <svg>. Host class cs-logo. Slots: title.",
@@ -1542,7 +1602,12 @@
       "overlay": false,
       "i18n": true,
       "states": [
-        "controlled open"
+        "controlled open",
+        "disabled",
+        "expanded",
+        "decorative",
+        "hover",
+        "focus-visible"
       ],
       "prompt": "Menu / MenuItem — dropdown anchored to a `trigger`. Uncontrolled (click toggles; outside-click / Escape close) or controlled via `open`/`onOpenChange`. `align=\"end\"` right-aligns.",
       "jsdoc": "CyberSkill Menu — dropdown. Provide a `trigger` element; compose MenuItem children.",
@@ -1586,7 +1651,9 @@
       "forwardRef": false,
       "overlay": true,
       "i18n": false,
-      "states": [],
+      "states": [
+        "disabled"
+      ],
       "prompt": "OverlayProvider / overlay manager — single stack for modal Escape, scroll-lock refcount, and focus restore. Wrap product shells when nesting overlays; Dialog / AlertDialog / Drawer / CommandPalette already register via the module singleton when no provider is mounted.",
       "jsdoc": "Shared focusable selector for modal traps (Dialog / AlertDialog / Drawer / CommandPalette).",
       "anatomy": "OverlayProvider. Shared focusable selector for modal traps (Dialog / AlertDialog / Drawer / CommandPalette). Provider or composite root. Host class cs-ov. Slots: children.",
@@ -1645,7 +1712,9 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": true,
-      "states": [],
+      "states": [
+        "determinate"
+      ],
       "prompt": "ProgressBar — determinate progress. Ochre fill by default (`umber`/`success` variants). Always pass `label`.",
       "jsdoc": "CyberSkill ProgressBar — determinate progress. variant: ochre (default) | umber | success.",
       "anatomy": "ProgressBar. CyberSkill ProgressBar — determinate progress. variant: ochre (default) | umber | success. Semantic root <div>. Host class cs-progress. Slots: label.",
@@ -1697,7 +1766,8 @@
       "overlay": false,
       "i18n": false,
       "states": [
-        "controlled value/onChange"
+        "controlled value/onChange",
+        "disabled"
       ],
       "prompt": "RadioGroup / Radio — single-choice radios in a labelled fieldset, controlled by `value`/`onChange`. Brand accent-color.",
       "jsdoc": "A single labelled radio (brand accent-color). Usually composed via RadioGroup.",
@@ -1778,7 +1848,9 @@
       "i18n": true,
       "states": [
         "disabled",
-        "invalid"
+        "invalid",
+        "decorative",
+        "focus-visible"
       ],
       "prompt": "Select — labelled native select in the `.cs-field` frame with a custom chevron; same description/error wiring as TextField.",
       "jsdoc": "CyberSkill Select — native <select> in the .cs-field frame with a chevron.  Pass `options` [{value,label}] or <option> children.",
@@ -1847,7 +1919,10 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": true,
-      "states": [],
+      "states": [
+        "disabled",
+        "decorative"
+      ],
       "prompt": "Sortable — reorderable list with move-up/down buttons (keyboard + single-pointer) and optional HTML5 drag. Compose columns of it for a kanban.",
       "jsdoc": "Move item at `from` to index `to` (shared by drag drop and move buttons).",
       "anatomy": "Sortable. Move item at `from` to index `to` (shared by drag drop and move buttons). Semantic root <div>. Host class cs-sortable.",
@@ -1896,7 +1971,9 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": true,
-      "states": [],
+      "states": [
+        "status"
+      ],
       "prompt": "Spinner — indeterminate loading indicator, brand-coloured; slows under reduced-motion.",
       "jsdoc": "CyberSkill Spinner — indeterminate loading indicator.",
       "anatomy": "Spinner. CyberSkill Spinner — indeterminate loading indicator. Semantic root <span>. Host class cs-spinner. Slots: label.",
@@ -1960,7 +2037,9 @@
       "overlay": false,
       "i18n": true,
       "states": [
-        "disabled"
+        "disabled",
+        "decorative",
+        "focus-visible"
       ],
       "prompt": "Switch — accessible on/off toggle (`role=\"switch\"`), Umber track when on. For instant-apply settings (use Checkbox in forms that submit).",
       "jsdoc": "CyberSkill Switch — accessible toggle (role=\"switch\"); Umber on, Ochre knob-track in dark.",
@@ -2032,7 +2111,8 @@
       "overlay": false,
       "i18n": true,
       "states": [
-        "controlled value/onChange"
+        "controlled value/onChange",
+        "selected"
       ],
       "prompt": "Tabs / Tab — underlined tablist (Ochre active indicator), controlled by `value`/`onChange`. Wire your own panels via `aria-controls`.",
       "jsdoc": "CyberSkill Tabs — data-driven tablist, controlled by value/onChange. Ochre underline on active.",
@@ -2092,7 +2172,10 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": true,
-      "states": [],
+      "states": [
+        "hover",
+        "focus-visible"
+      ],
       "prompt": "Tag — chip for filters, keywords, or selected values. Pass `onRemove` for a close button.",
       "jsdoc": "CyberSkill Tag — chip with optional remove button.",
       "anatomy": "Tag. CyberSkill Tag — chip with optional remove button. Semantic root <span>. Host class cs-tag. Slots: children.",
@@ -2165,7 +2248,8 @@
       "i18n": false,
       "states": [
         "disabled",
-        "invalid"
+        "invalid",
+        "focus-visible"
       ],
       "prompt": "Textarea — multi-line input in the `.cs-field` frame; description + error like TextField, vertically resizable.",
       "jsdoc": "CyberSkill Textarea — multi-line input in the .cs-field frame; label/description/error.",
@@ -2241,7 +2325,8 @@
       "i18n": false,
       "states": [
         "disabled",
-        "invalid"
+        "invalid",
+        "focus-visible"
       ],
       "prompt": "TextField — labelled text input with optional description and inline error. The label is always associated; errors announce via `role=\"alert\"`. Vietnamese diacritics and IME composition are preserved.",
       "jsdoc": "CyberSkill TextField — label + input with optional description and error. Programmatic label association and aria-describedby wiring; IME-safe.",
@@ -2301,7 +2386,9 @@
       "i18n": true,
       "states": [
         "controlled value/onChange",
-        "disabled"
+        "disabled",
+        "decorative",
+        "focus-visible"
       ],
       "prompt": "TimePicker — 24h time select in fixed steps (VN-friendly 24h clock).",
       "jsdoc": "CyberSkill TimePicker — 24h time select in fixed steps. Controlled value (\"HH:MM\")/onChange.",
@@ -2367,7 +2454,10 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": true,
-      "states": [],
+      "states": [
+        "status",
+        "decorative"
+      ],
       "prompt": "Toast / ToastStack — transient notification inside a fixed bottom-right stack. Presentational; manage timing + queue in app state. Variants `default` | `success` | `danger` each ship a distinct glyph (info / check / X) plus a status-coloured start border — never a red check-mark for errors.",
       "jsdoc": "Variant glyphs — aligned with Alert so status is never colour-alone (FIND-036).",
       "anatomy": "Toast. Variant glyphs — aligned with Alert so status is never colour-alone (FIND-036). Semantic root <svg>. Host class cs-toast. Slots: children.",
@@ -2421,7 +2511,10 @@
       "forwardRef": true,
       "overlay": false,
       "i18n": true,
-      "states": [],
+      "states": [
+        "hover",
+        "focus-visible"
+      ],
       "prompt": "Tooltip — small umber bubble on hover/focus of its trigger. Wrap a focusable element; keep the label short.",
       "jsdoc": "CyberSkill Tooltip — hover/focus bubble above the trigger. Keep label short.",
       "anatomy": "Tooltip. CyberSkill Tooltip — hover/focus bubble above the trigger. Keep label short. Semantic root <span>. Host class cs-tooltip. Slots: label, children.",

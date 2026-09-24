@@ -53,6 +53,8 @@ This utterance records both human-acceptance gates for TASK-IMP-030:
 - `formatPlural` + `formatDate(..., { timeZone })`; host embeds default to `styles.scoped.css`; RFC section list on `docs/governance.md`
 - Interactive shells (App Shell, Settings, campaign brief, invite, investor update) carry named CQ classes; `test:unit` runs Storybook freshness when `storybook-static/` is present
 - Facade import emits `CYBERSKILL_FACADE` until 2027-03-13 (`docs/facade-migration.json`); themes export `./rtl`, `./reduced-motion`, and `THEME_AXES`; release-bind records branch, gate, matrix, provenance, notes, and rollback; Vite and Next canaries render `@cyberskill/react` Button
+- Inclusive matrix loads `dist/styles.min.css` and a `.cs-button` under RTL, high contrast, 320/200%/400%, and a 390px touch viewport
+- Every stable contract `states` list is extracted from that component's source (props, ARIA, and host CSS)
 
 ## Explicitly not claimed
 

@@ -112,15 +112,32 @@ function slotsOf(props) {
   );
 }
 
-function stateModel(props, src) {
+function stateModel(props, src, css, host) {
   const bits = [];
   if (props.includes("value") && props.includes("onChange")) bits.push("controlled value/onChange");
   if (props.includes("defaultValue")) bits.push("uncontrolled defaultValue");
   if (props.includes("open") && (props.includes("onClose") || props.includes("onOpenChange"))) bits.push("controlled open");
-  if (props.includes("disabled")) bits.push("disabled");
-  if (props.includes("loading")) bits.push("loading");
+  if (props.includes("disabled") || src.includes("disabled")) bits.push("disabled");
+  if (props.includes("loading") || src.includes("is-loading")) bits.push("loading");
   if (src.includes("aria-invalid") || props.includes("invalid") || props.includes("error")) bits.push("invalid");
-  return bits;
+  if (src.includes("aria-expanded")) bits.push("expanded");
+  if (src.includes("aria-pressed") || src.includes("aria-checked")) bits.push("pressed");
+  if (src.includes("aria-selected") || src.includes("is-selected")) bits.push("selected");
+  if (src.includes("aria-sort")) bits.push("sorted");
+  if (src.includes('role="progressbar"')) bits.push("determinate");
+  if (src.includes('role="status"')) bits.push("status");
+  if (src.includes("aria-orientation")) bits.push("orientation");
+  if (src.includes("decorative") || src.includes("aria-hidden")) bits.push("decorative");
+  if (src.includes('role="group"') || src.includes("role=\"group\"")) bits.push("grouped");
+  if (src.includes("initials")) bits.push("initials");
+  const hostCss = host
+    ? (css.match(new RegExp(`\\.${host.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[^\\n]{0,180}`, "g")) || []).join("\n")
+    : "";
+  const probe = src + "\n" + hostCss;
+  if (/:hover/.test(probe)) bits.push("hover");
+  if (/:focus-visible|:focus\b/.test(probe)) bits.push("focus-visible");
+  if (/:active/.test(probe)) bits.push("active");
+  return [...new Set(bits)];
 }
 
 function build() {
@@ -174,7 +191,7 @@ function build() {
       forwardRef: /forwardRef/.test(src),
       overlay: src.includes("useOverlayLayer"),
       i18n: /useLang|makeT/.test(src),
-      states: stateModel(props, src),
+      states: stateModel(props, src, css, host),
       prompt,
       jsdoc,
       anatomy,

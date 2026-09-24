@@ -57,6 +57,7 @@ assert(new Set(anatomies).size === anatomies.length, "anatomy text must be uniqu
 const axes = extracted.components.map((c) => c.responsive);
 assert(axes.every(Boolean), "each contract has responsive/RTL/dark/high-contrast facts");
 assert(extracted.components.every((c) => c.code && c.migration && c.designStatus && c.content), "code/migration/design status");
+assert(extracted.components.every((c) => Array.isArray(c.states) && c.states.length > 0), "every contract lists states from source");
 assert(new Set(axes).size === axes.length, "responsive text must be unique per component");
 
 const html = existsSync(join(root, "_audit/docs-coverage.html"));
