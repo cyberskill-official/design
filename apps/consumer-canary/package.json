@@ -3,9 +3,16 @@
   "version": "1.7.2",
   "private": true,
   "type": "module",
-  "description": "React 19 + SSR canary upgraded onto @cyberskill/react, @cyberskill/tokens, and @cyberskill/themes (facade remains install-compatible).",
+  "description": "React 19 SSR + Vite + Next canary upgraded onto @cyberskill/react, @cyberskill/tokens, and @cyberskill/themes.",
   "scripts": {
     "ssr": "node ssr.mjs",
+    "vite": "node vite-build.mjs",
+    "next": "node next-build.mjs",
     "typecheck": "tsc -p tsconfig.json --pretty false"
+  },
+  "dependencies": {
+    "next": "15.5.9",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   }
 }

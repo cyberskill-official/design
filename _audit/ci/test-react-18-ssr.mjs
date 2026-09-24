@@ -50,4 +50,13 @@ if (vite.status !== 0) {
   throw new Error("vite canary build failed");
 }
 
+const next = spawnSync(process.execPath, ["next-build.mjs"], {
+  cwd: join(root, "apps/consumer-canary"),
+  encoding: "utf8",
+});
+if (next.status !== 0) {
+  console.error(next.stdout || next.stderr);
+  throw new Error("next canary build failed");
+}
+
 console.log("PASS test-react-18-ssr");

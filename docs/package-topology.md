@@ -14,7 +14,7 @@ packages/templates     @cyberskill/templates
 packages/eslint        @cyberskill/eslint-plugin
 packages/codemods      @cyberskill/codemods
 apps/storybook         host docs (not a runtime install)
-apps/consumer-canary   React 18/19 + SSR smoke
+apps/consumer-canary   React 18/19 + SSR + Vite/Next smoke
 ```
 
 Root `@cyberskill/design` remains the install name during a six-month migration window. New products should import `@cyberskill/react` + `@cyberskill/tokens` (compiled `dist/`, no raw JSX, no templates). Per-component ESM is on kebab exports such as `@cyberskill/react/button` (compiled `dist/`); deep `@cyberskill/react/components/*` stays off the export map and must fail. Facade consumers that cannot transpile JSX use `@cyberskill/design/stable`. The default facade entry still re-exports source JSX for existing bundlers and warns once on import (`CYBERSKILL_FACADE`, window through 2027-03-13 in `docs/facade-migration.json`). `@cyberskill/themes` ships light/dark/system via `THEME_AXES`, `./high-contrast`, `./brand-packs`, `./rtl`, and `./reduced-motion`, plus `applyBrandPack`. Element CSS stays on `@cyberskill/tokens/css`.
