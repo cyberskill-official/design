@@ -52,7 +52,7 @@ This utterance records both human-acceptance gates for TASK-IMP-030:
 - Status hub freshness: VERSION match + ancestor lag ≤5 on a full clone (`test-status-freshness.mjs`)
 - `formatPlural` + `formatDate(..., { timeZone })`; host embeds default to `styles.scoped.css`; RFC section list on `docs/governance.md`
 - Interactive shells (App Shell, Settings, campaign brief, invite, investor update) carry named CQ classes; `test:unit` runs Storybook freshness when `storybook-static/` is present
-- Facade import emits `CYBERSKILL_FACADE` until 2027-03-13 (`docs/facade-migration.json`); themes export `./rtl`, `./reduced-motion`, and `THEME_AXES`; release-bind records branch, gate, matrix, provenance, notes, and rollback; Vite and Next canaries render `@cyberskill/react` Button
+- Facade import emits `CYBERSKILL_FACADE` until 2027-03-13 (`docs/facade-migration.json`); themes export `./rtl`, `./reduced-motion`, and `THEME_AXES`; release-bind records branch, gate, matrix, provenance, notes, and rollback; Vite and Next canaries render `@cyberskill/react` Button inside ThemeProvider (`data-theme`, `.cs-root`, no-flash script)
 - Inclusive matrix loads `dist/styles.min.css` and a `.cs-button` under RTL, high contrast, 320/200%/400%, and a 390px touch viewport, and fails on axe-core serious/critical WCAG 2 A/AA
 - High-risk gallery fails when the document scrolls horizontally at 320px, and still requires the gallery to stay visible at 200% and 400% zoom
 - Every stable contract `states` list is extracted from that component's source (props, ARIA, and host CSS)

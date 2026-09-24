@@ -23,4 +23,7 @@ const html = readFileSync(join(here, ".next-canary/server/app/index.html"), "utf
 if (!html.includes("cs-button cs-button--primary") || !html.includes("next-canary")) {
   throw new Error("next SSR HTML did not render @cyberskill/react Button");
 }
+if (!html.includes("data-theme") || !html.includes("cs-root") || !html.includes("prefers-color-scheme")) {
+  throw new Error("next SSR HTML missing theme root or no-flash script");
+}
 console.log("PASS consumer-canary next", { bytes: Buffer.byteLength(html) });
