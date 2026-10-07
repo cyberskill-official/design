@@ -39,14 +39,14 @@ void main() {
                 await tester.tap(find.text('Compact spacing'));
                 await tester.pumpAndSettle();
               }
-              expect(tester.takeException(), isNull, reason: name);
+              // Leave framework exceptions unconsumed so failures retain full render diagnostics.
               await expectLater(find.byType(MaterialApp), matchesGoldenFile('rendered/$name.png'));
               if (route == '/settings') {
                 final signOut = find.widgetWithText(FilledButton, 'Sign out');
                 await tester.ensureVisible(signOut);
                 await tester.pumpAndSettle();
                 expect(signOut.hitTestable(), findsOneWidget);
-                expect(tester.takeException(), isNull);
+
                 await expectLater(find.byType(MaterialApp), matchesGoldenFile('rendered/$name-end.png'));
               }
             });
