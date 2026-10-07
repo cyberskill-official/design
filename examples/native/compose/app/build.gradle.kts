@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
   id("com.android.application")
   id("org.jetbrains.kotlin.android")
@@ -17,7 +19,7 @@ android {
   // Absent file = debug signing only (sample scaffold; CI soft-skips without keystore secrets).
   val signingPropsFile = rootProject.file("signing.properties")
   if (signingPropsFile.exists()) {
-    val props = java.util.Properties().apply {
+    val props = Properties().apply {
       signingPropsFile.inputStream().use { load(it) }
     }
     signingConfigs {
