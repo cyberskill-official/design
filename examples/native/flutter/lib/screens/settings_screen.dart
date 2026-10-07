@@ -22,7 +22,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final colors = sampleTheme.colors;
     return Scaffold(
       body: SafeArea(
-        child: Padding(
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -103,6 +107,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ],
           ),
+              ),
+            ),
+          ],
         ),
       ),
     );

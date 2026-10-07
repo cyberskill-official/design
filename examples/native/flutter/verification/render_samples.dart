@@ -41,6 +41,14 @@ void main() {
               }
               expect(tester.takeException(), isNull, reason: name);
               await expectLater(find.byType(MaterialApp), matchesGoldenFile('rendered/$name.png'));
+              if (route == '/settings') {
+                final signOut = find.widgetWithText(FilledButton, 'Sign out');
+                await tester.ensureVisible(signOut);
+                await tester.pumpAndSettle();
+                expect(signOut.hitTestable(), findsOneWidget);
+                expect(tester.takeException(), isNull);
+                await expectLater(find.byType(MaterialApp), matchesGoldenFile('rendered/$name-end.png'));
+              }
             });
           }
         }
