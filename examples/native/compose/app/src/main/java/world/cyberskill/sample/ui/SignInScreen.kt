@@ -27,19 +27,20 @@ import world.cyberskill.sample.tokens.CSTokens
 
 @Composable
 fun SignInScreen(onSuccess: () -> Unit) {
+  val colors = LocalSampleColors.current
   var email by remember { mutableStateOf("you@cyberskill.world") }
   var password by remember { mutableStateOf("") }
   Column(
     modifier = Modifier
       .fillMaxSize()
-      .background(CSTokens.colorSurfacePage)
+      .background(colors.colorSurfacePage)
       .padding(24.dp),
     verticalArrangement = Arrangement.spacedBy(16.dp),
   ) {
-    Text("Sign in", color = CSTokens.colorTextPrimary, fontSize = 28.sp)
+    Text("Sign in", color = colors.colorTextPrimary, fontSize = 28.sp)
     Text(
       "Welcome back. Đăng nhập để tiếp tục.",
-      color = CSTokens.colorTextMuted,
+      color = colors.colorTextMuted,
       fontSize = 15.sp,
     )
     OutlinedTextField(
@@ -61,8 +62,8 @@ fun SignInScreen(onSuccess: () -> Unit) {
         .fillMaxWidth()
         .height(CSTokens.componentButtonMdMinHeight),
       colors = ButtonDefaults.buttonColors(
-        containerColor = CSTokens.componentButtonPrimaryBg,
-        contentColor = CSTokens.componentButtonPrimaryFg,
+        containerColor = colors.componentButtonPrimaryBg,
+        contentColor = colors.componentButtonPrimaryFg,
       ),
       shape = RoundedCornerShape(CSTokens.componentButtonRadius),
     ) {

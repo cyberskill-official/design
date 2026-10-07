@@ -18,6 +18,7 @@ enum AppScreen: Hashable {
 }
 
 struct RootView: View {
+  @StateObject private var preferences = SamplePreferences()
   @State private var path: [AppScreen] = []
   @State private var signedIn = false
 
@@ -50,6 +51,9 @@ struct RootView: View {
         }
       }
     }
+    .environmentObject(preferences)
+    .preferredColorScheme(preferences.dark ? .dark : .light)
+    .tint(preferences.colors.colorLink)
     .frame(minWidth: 360, minHeight: 520)
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../tokens/cs_tokens.dart';
+import '../sample_theme.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -9,7 +10,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool dark = false;
   bool compact = false;
 
   double get controlGap => compact ? CSTokens.densityControlGapCompact : CSTokens.densityControlGapComfortable;
@@ -18,6 +18,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final sampleTheme = SampleTheme.of(context);
+    final colors = sampleTheme.colors;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -31,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text(
                     '← Back',
-                    style: TextStyle(color: CSTokens.colorLink),
+                    style: TextStyle(color: colors.colorLink),
                   ),
                 ),
               ),
@@ -40,32 +42,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w800,
-                  color: CSTokens.colorTextPrimary,
+                  color: colors.colorTextPrimary,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
                 'Third screen — brand swatches from CSTokens.',
-                style: TextStyle(fontSize: 13, color: CSTokens.colorTextMuted),
+                style: TextStyle(fontSize: 13, color: colors.colorTextMuted),
               ),
               const SizedBox(height: 16),
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: CSTokens.colorSurfacePanel,
+                  color: colors.colorSurfacePanel,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: CSTokens.colorBorderDefault),
+                  border: Border.all(color: colors.colorBorderDefault),
                 ),
                 child: Column(
                   children: [
                     SwitchListTile(
                       title: Text(
                         'Prefer dark theme',
-                        style: TextStyle(color: CSTokens.colorTextPrimary),
+                        style: TextStyle(color: colors.colorTextPrimary),
                       ),
-                      value: dark,
+                      value: sampleTheme.dark,
                       activeColor: CSTokens.colorBrandOchre,
-                      onChanged: (v) => setState(() => dark = v),
+                      onChanged: sampleTheme.onDarkChanged,
                     ),
                     SwitchListTile(
                       title: const Text('Compact spacing'),
@@ -86,8 +88,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: FilledButton(
                   style: FilledButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: buttonPaddingX, vertical: buttonPaddingY),
-                    backgroundColor: CSTokens.colorSemanticDanger,
-                    foregroundColor: CSTokens.colorTextInverse,
+                    backgroundColor: colors.colorSemanticDanger,
+                    foregroundColor: colors.colorTextInverse,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                         CSTokens.componentButtonRadius,
@@ -107,6 +109,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget _swatch(String label, Color color) {
+    final colors = SampleTheme.of(context).colors;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Row(
@@ -114,7 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Expanded(
             child: Text(
               label,
-              style: TextStyle(color: CSTokens.colorTextPrimary),
+              style: TextStyle(color: colors.colorTextPrimary),
             ),
           ),
           Container(

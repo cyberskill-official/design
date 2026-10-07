@@ -101,3 +101,17 @@ Expected logical dimensions (SwiftUI points, Compose dp, Flutter logical pixels)
 | Medium button vertical padding | 12 | 10 |
 
 Run `npm run test:density-exports` from the repository root to compare generated metrics against computed browser CSS. `npm run test:native-samples` checks source structure and token references; it does not compile or render the apps. With each platform toolchain, build the sample, open Settings, toggle compact on/off, and verify the spacing and padding change while the button retains its token minimum height. These runtime checks remain required for native parity acceptance.
+
+## Theme preference
+
+**Prefer dark theme** selects the generated light/dark color roles for Sign in,
+Home and Settings, and the corresponding Material or SwiftUI control appearance.
+The preference is owned above navigation: it survives leaving and reopening
+Settings, including sign-out navigation. It starts light when the sample app is
+restarted and is not persisted to a device setting or backend. Brand swatches
+retain their immutable Umber and Ochre colors. Compact spacing remains local to
+Settings as described above; it does not reset the theme preference.
+
+Flutter widget regressions exercise theme switching, navigation retention and
+compact button padding/minimum height. Native compilation and these tests do
+not establish cross-platform visual, device or assistive-technology parity.

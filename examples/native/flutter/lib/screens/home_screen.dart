@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../tokens/cs_tokens.dart';
+import '../sample_theme.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,6 +13,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sampleTheme = SampleTheme.of(context);
+    final colors = sampleTheme.colors;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -26,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w800,
-                      color: CSTokens.colorTextPrimary,
+                      color: colors.colorTextPrimary,
                     ),
                   ),
                   const Spacer(),
@@ -35,21 +38,21 @@ class HomeScreen extends StatelessWidget {
                         Navigator.of(context).pushNamed('/settings'),
                     child: Text(
                       'Settings',
-                      style: TextStyle(color: CSTokens.colorLink),
+                      style: TextStyle(color: colors.colorLink),
                     ),
                   ),
                 ],
               ),
               Text(
                 'List screen — Flutter consumes generated CSTokens.',
-                style: TextStyle(fontSize: 13, color: CSTokens.colorTextMuted),
+                style: TextStyle(fontSize: 13, color: colors.colorTextMuted),
               ),
               const SizedBox(height: 16),
               Container(
                 decoration: BoxDecoration(
-                  color: CSTokens.colorSurfacePanel,
+                  color: colors.colorSurfacePanel,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: CSTokens.colorBorderDefault),
+                  border: Border.all(color: colors.colorBorderDefault),
                 ),
                 child: Column(
                   children: [
@@ -58,13 +61,13 @@ class HomeScreen extends StatelessWidget {
                         title: Text(
                           w.$1,
                           style: TextStyle(
-                            color: CSTokens.colorTextPrimary,
+                            color: colors.colorTextPrimary,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         subtitle: Text(
                           w.$2,
-                          style: TextStyle(color: CSTokens.colorTextMuted),
+                          style: TextStyle(color: colors.colorTextMuted),
                         ),
                         trailing: Container(
                           width: 10,
@@ -84,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                     Navigator.of(context).pushReplacementNamed('/sign-in'),
                 child: Text(
                   'Sign out',
-                  style: TextStyle(color: CSTokens.colorSemanticDanger),
+                  style: TextStyle(color: colors.colorSemanticDanger),
                 ),
               ),
             ],

@@ -35,8 +35,8 @@ import androidx.compose.ui.unit.sp
 import world.cyberskill.sample.tokens.CSTokens
 
 @Composable
-fun SettingsScreen(onSignOut: () -> Unit, onBack: () -> Unit) {
-  var dark by remember { mutableStateOf(false) }
+fun SettingsScreen(dark: Boolean, onDarkChanged: (Boolean) -> Unit, onSignOut: () -> Unit, onBack: () -> Unit) {
+  val colors = LocalSampleColors.current
   var compact by remember { mutableStateOf(false) }
   val controlGap = if (compact) CSTokens.densityControlGapCompact else CSTokens.densityControlGapComfortable
   val buttonPaddingX = if (compact) CSTokens.componentButtonMdPaddingXCompact else CSTokens.componentButtonMdPaddingXComfortable
@@ -44,41 +44,41 @@ fun SettingsScreen(onSignOut: () -> Unit, onBack: () -> Unit) {
   Column(
     modifier = Modifier
       .fillMaxSize()
-      .background(CSTokens.colorSurfacePage)
+      .background(colors.colorSurfacePage)
       .padding(24.dp),
     verticalArrangement = Arrangement.spacedBy(16.dp),
   ) {
     TextButton(onClick = onBack) {
-      Text("← Back", color = CSTokens.colorLink)
+      Text("← Back", color = colors.colorLink)
     }
-    Text("Settings", color = CSTokens.colorTextPrimary, fontSize = 24.sp)
+    Text("Settings", color = colors.colorTextPrimary, fontSize = 24.sp)
     Text(
       "Third screen — brand swatches from CSTokens.",
-      color = CSTokens.colorTextMuted,
+      color = colors.colorTextMuted,
       fontSize = 13.sp,
     )
     Column(
       modifier = Modifier
         .fillMaxWidth()
         .clip(RoundedCornerShape(12.dp))
-        .border(1.dp, CSTokens.colorBorderDefault, RoundedCornerShape(12.dp))
-        .background(CSTokens.colorSurfacePanel)
+        .border(1.dp, colors.colorBorderDefault, RoundedCornerShape(12.dp))
+        .background(colors.colorSurfacePanel)
         .padding(16.dp),
       verticalArrangement = Arrangement.spacedBy(controlGap),
     ) {
       Row(verticalAlignment = Alignment.CenterVertically) {
-        Text("Prefer dark theme", color = CSTokens.colorTextPrimary, modifier = Modifier.weight(1f))
+        Text("Prefer dark theme", color = colors.colorTextPrimary, modifier = Modifier.weight(1f))
         Switch(
           checked = dark,
-          onCheckedChange = { dark = it },
+          onCheckedChange = onDarkChanged,
           colors = SwitchDefaults.colors(checkedTrackColor = CSTokens.colorBrandOchre),
         )
       }
       Row(verticalAlignment = Alignment.CenterVertically) {
-        Text("Compact spacing", color = CSTokens.colorTextPrimary, modifier = Modifier.weight(1f))
+        Text("Compact spacing", color = colors.colorTextPrimary, modifier = Modifier.weight(1f))
         Switch(checked = compact, onCheckedChange = { compact = it })
       }
-      Text(if (compact) "Compact" else "Comfortable", color = CSTokens.colorTextPrimary)
+      Text(if (compact) "Compact" else "Comfortable", color = colors.colorTextPrimary)
       SwatchRow("Brand umber", CSTokens.colorBrandUmber)
       SwatchRow("Brand ochre", CSTokens.colorBrandOchre)
     }
@@ -90,8 +90,8 @@ fun SettingsScreen(onSignOut: () -> Unit, onBack: () -> Unit) {
         .heightIn(min = CSTokens.componentButtonMdMinHeight),
       contentPadding = PaddingValues(horizontal = buttonPaddingX, vertical = buttonPaddingY),
       colors = ButtonDefaults.buttonColors(
-        containerColor = CSTokens.colorSemanticDanger,
-        contentColor = CSTokens.colorTextInverse,
+        containerColor = colors.colorSemanticDanger,
+        contentColor = colors.colorTextInverse,
       ),
       shape = RoundedCornerShape(CSTokens.componentButtonRadius),
     ) {
@@ -102,8 +102,9 @@ fun SettingsScreen(onSignOut: () -> Unit, onBack: () -> Unit) {
 
 @Composable
 private fun SwatchRow(label: String, color: androidx.compose.ui.graphics.Color) {
+  val colors = LocalSampleColors.current
   Row(verticalAlignment = Alignment.CenterVertically) {
-    Text(label, color = CSTokens.colorTextPrimary, modifier = Modifier.weight(1f))
+    Text(label, color = colors.colorTextPrimary, modifier = Modifier.weight(1f))
     Box(
       modifier = Modifier
         .width(36.dp)

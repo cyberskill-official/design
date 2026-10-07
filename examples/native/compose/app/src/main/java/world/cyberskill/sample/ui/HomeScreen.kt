@@ -26,6 +26,7 @@ private data class Wish(val title: String, val status: String)
 
 @Composable
 fun HomeScreen(onOpenSettings: () -> Unit, onSignOut: () -> Unit) {
+  val colors = LocalSampleColors.current
   val wishes = listOf(
     Wish("Status hub refresh", "In build"),
     Wish("VN labor contract pack", "Open"),
@@ -34,28 +35,28 @@ fun HomeScreen(onOpenSettings: () -> Unit, onSignOut: () -> Unit) {
   Column(
     modifier = Modifier
       .fillMaxSize()
-      .background(CSTokens.colorSurfacePage)
+      .background(colors.colorSurfacePage)
       .padding(24.dp),
     verticalArrangement = Arrangement.spacedBy(12.dp),
   ) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-      Text("Wishes", color = CSTokens.colorTextPrimary, fontSize = 24.sp)
+      Text("Wishes", color = colors.colorTextPrimary, fontSize = 24.sp)
       Spacer(modifier = Modifier.weight(1f))
       TextButton(onClick = onOpenSettings) {
-        Text("Settings", color = CSTokens.colorLink)
+        Text("Settings", color = colors.colorLink)
       }
     }
     Text(
       "List screen — Compose consumes generated CSTokens.",
-      color = CSTokens.colorTextMuted,
+      color = colors.colorTextMuted,
       fontSize = 13.sp,
     )
     Column(
       modifier = Modifier
         .fillMaxWidth()
         .clip(RoundedCornerShape(12.dp))
-        .border(1.dp, CSTokens.colorBorderDefault, RoundedCornerShape(12.dp))
-        .background(CSTokens.colorSurfacePanel),
+        .border(1.dp, colors.colorBorderDefault, RoundedCornerShape(12.dp))
+        .background(colors.colorSurfacePanel),
     ) {
       wishes.forEach { wish ->
         Row(
@@ -65,8 +66,8 @@ fun HomeScreen(onOpenSettings: () -> Unit, onSignOut: () -> Unit) {
           verticalAlignment = Alignment.CenterVertically,
         ) {
           Column(modifier = Modifier.weight(1f)) {
-            Text(wish.title, color = CSTokens.colorTextPrimary, fontSize = 15.sp)
-            Text(wish.status, color = CSTokens.colorTextMuted, fontSize = 12.sp)
+            Text(wish.title, color = colors.colorTextPrimary, fontSize = 15.sp)
+            Text(wish.status, color = colors.colorTextMuted, fontSize = 12.sp)
           }
           Spacer(
             modifier = Modifier
@@ -79,7 +80,7 @@ fun HomeScreen(onOpenSettings: () -> Unit, onSignOut: () -> Unit) {
     }
     Spacer(modifier = Modifier.weight(1f))
     TextButton(onClick = onSignOut) {
-      Text("Sign out", color = CSTokens.colorSemanticDanger)
+      Text("Sign out", color = colors.colorSemanticDanger)
     }
   }
 }

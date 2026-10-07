@@ -5,6 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import world.cyberskill.sample.ui.SampleTheme
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -28,38 +33,43 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun CyberSkillSampleApp() {
+  var dark by remember { mutableStateOf(false) }
   val nav = rememberNavController()
-  NavHost(
-    navController = nav,
-    startDestination = "sign_in",
-    modifier = Modifier.fillMaxSize(),
-  ) {
-    composable("sign_in") {
-      SignInScreen(onSuccess = {
-        nav.navigate("home") {
-          popUpTo("sign_in") { inclusive = true }
-        }
-      })
-    }
-    composable("home") {
-      HomeScreen(
-        onOpenSettings = { nav.navigate("settings") },
-        onSignOut = {
-          nav.navigate("sign_in") {
-            popUpTo(0) { inclusive = true }
+  SampleTheme(dark = dark) {
+    NavHost(
+      navController = nav,
+      startDestination = "sign_in",
+      modifier = Modifier.fillMaxSize(),
+    ) {
+      composable("sign_in") {
+        SignInScreen(onSuccess = {
+          nav.navigate("home") {
+            popUpTo("sign_in") { inclusive = true }
           }
-        },
-      )
-    }
-    composable("settings") {
-      SettingsScreen(
-        onSignOut = {
-          nav.navigate("sign_in") {
-            popUpTo(0) { inclusive = true }
-          }
-        },
-        onBack = { nav.popBackStack() },
-      )
+        })
+      }
+      composable("home") {
+        HomeScreen(
+          onOpenSettings = { nav.navigate("settings") },
+          onSignOut = {
+            nav.navigate("sign_in") {
+              popUpTo(0) { inclusive = true }
+            }
+          },
+        )
+      }
+      composable("settings") {
+        SettingsScreen(
+          dark = dark,
+          onDarkChanged = { dark = it },
+          onSignOut = {
+            nav.navigate("sign_in") {
+              popUpTo(0) { inclusive = true }
+            }
+          },
+          onBack = { nav.popBackStack() },
+        )
+      }
     }
   }
 }

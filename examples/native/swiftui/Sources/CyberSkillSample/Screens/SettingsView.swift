@@ -1,8 +1,9 @@
 import SwiftUI
 
 struct SettingsView: View {
+  @EnvironmentObject private var preferences: SamplePreferences
+  private var colors: SampleColors { preferences.colors }
   var onSignOut: () -> Void
-  @State private var dark = false
   @State private var compact = false
 
   private var controlGap: CGFloat { compact ? CSTokens.densityControlGapCompact : CSTokens.densityControlGapComfortable }
@@ -14,22 +15,22 @@ struct SettingsView: View {
     VStack(alignment: .leading, spacing: 20) {
       Text("Settings")
         .font(.system(size: 24, weight: .heavy))
-        .foregroundStyle(CSTokens.colorTextPrimary)
+        .foregroundStyle(colors.colorTextPrimary)
       Text("Third screen — identity & session.")
         .font(.system(size: 13))
-        .foregroundStyle(CSTokens.colorTextMuted)
+        .foregroundStyle(colors.colorTextMuted)
 
       VStack(alignment: .leading, spacing: controlGap) {
-        Toggle(isOn: $dark) {
+        Toggle(isOn: $preferences.dark) {
           Text("Prefer dark theme")
-            .foregroundStyle(CSTokens.colorTextPrimary)
+            .foregroundStyle(colors.colorTextPrimary)
         }
         .tint(CSTokens.colorBrandOchre)
 
         Toggle("Compact spacing", isOn: $compact)
           .tint(CSTokens.colorBrandOchre)
         Text(compact ? "Compact" : "Comfortable")
-          .foregroundStyle(CSTokens.colorTextPrimary)
+          .foregroundStyle(colors.colorTextPrimary)
 
         Picker("Language", selection: $language) {
           Text("English").tag("English")
@@ -39,7 +40,7 @@ struct SettingsView: View {
 
         HStack {
           Text("Brand umber")
-            .foregroundStyle(CSTokens.colorTextPrimary)
+            .foregroundStyle(colors.colorTextPrimary)
           Spacer()
           RoundedRectangle(cornerRadius: 6)
             .fill(CSTokens.colorBrandUmber)
@@ -47,7 +48,7 @@ struct SettingsView: View {
         }
         HStack {
           Text("Brand ochre")
-            .foregroundStyle(CSTokens.colorTextPrimary)
+            .foregroundStyle(colors.colorTextPrimary)
           Spacer()
           RoundedRectangle(cornerRadius: 6)
             .fill(CSTokens.colorBrandOchre)
@@ -55,11 +56,11 @@ struct SettingsView: View {
         }
       }
       .padding(16)
-      .background(CSTokens.colorSurfacePanel)
+      .background(colors.colorSurfacePanel)
       .clipShape(RoundedRectangle(cornerRadius: 12))
       .overlay(
         RoundedRectangle(cornerRadius: 12)
-          .stroke(CSTokens.colorBorderDefault, lineWidth: 1)
+          .stroke(colors.colorBorderDefault, lineWidth: 1)
       )
 
       Spacer()
@@ -69,14 +70,14 @@ struct SettingsView: View {
           .padding(.vertical, buttonPaddingY)
           .frame(maxWidth: .infinity)
           .frame(minHeight: CSTokens.componentButtonMdMinHeight)
-          .foregroundStyle(CSTokens.colorTextInverse)
-          .background(CSTokens.colorSemanticDanger)
+          .foregroundStyle(colors.colorTextInverse)
+          .background(colors.colorSemanticDanger)
           .clipShape(RoundedRectangle(cornerRadius: CSTokens.componentButtonRadius))
       }
       .buttonStyle(.plain)
     }
     .padding(24)
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-    .background(CSTokens.colorSurfacePage)
+    .background(colors.colorSurfacePage)
   }
 }

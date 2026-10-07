@@ -7,6 +7,8 @@ struct WishRow: Identifiable {
 }
 
 struct HomeView: View {
+  @EnvironmentObject private var preferences: SamplePreferences
+  private var colors: SampleColors { preferences.colors }
   var onOpenSettings: () -> Void
   var onSignOut: () -> Void
 
@@ -21,15 +23,15 @@ struct HomeView: View {
       HStack {
         Text("Wishes")
           .font(.system(size: 24, weight: .heavy))
-          .foregroundStyle(CSTokens.colorTextPrimary)
+          .foregroundStyle(colors.colorTextPrimary)
         Spacer()
         Button("Settings", action: onOpenSettings)
-          .foregroundStyle(CSTokens.colorLink)
+          .foregroundStyle(colors.colorLink)
       }
 
       Text("List screen — token colours only, no hand hex.")
         .font(.system(size: 13))
-        .foregroundStyle(CSTokens.colorTextMuted)
+        .foregroundStyle(colors.colorTextMuted)
 
       VStack(spacing: 0) {
         ForEach(wishes) { wish in
@@ -37,10 +39,10 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 4) {
               Text(wish.title)
                 .font(.system(size: 15, weight: .semibold))
-                .foregroundStyle(CSTokens.colorTextPrimary)
+                .foregroundStyle(colors.colorTextPrimary)
               Text(wish.status)
                 .font(.system(size: 12))
-                .foregroundStyle(CSTokens.colorTextMuted)
+                .foregroundStyle(colors.colorTextMuted)
             }
             Spacer()
             Circle()
@@ -48,22 +50,22 @@ struct HomeView: View {
               .frame(width: 10, height: 10)
           }
           .padding(14)
-          .background(CSTokens.colorSurfacePanel)
-          Divider().overlay(CSTokens.colorBorderDefault)
+          .background(colors.colorSurfacePanel)
+          Divider().overlay(colors.colorBorderDefault)
         }
       }
       .clipShape(RoundedRectangle(cornerRadius: 12))
       .overlay(
         RoundedRectangle(cornerRadius: 12)
-          .stroke(CSTokens.colorBorderDefault, lineWidth: 1)
+          .stroke(colors.colorBorderDefault, lineWidth: 1)
       )
 
       Spacer()
       Button("Sign out", action: onSignOut)
-        .foregroundStyle(CSTokens.colorSemanticDanger)
+        .foregroundStyle(colors.colorSemanticDanger)
     }
     .padding(24)
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-    .background(CSTokens.colorSurfacePage)
+    .background(colors.colorSurfacePage)
   }
 }
