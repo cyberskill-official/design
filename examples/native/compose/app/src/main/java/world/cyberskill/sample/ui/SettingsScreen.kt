@@ -2,6 +2,8 @@ package world.cyberskill.sample.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,6 +37,10 @@ import world.cyberskill.sample.tokens.CSTokens
 @Composable
 fun SettingsScreen(onSignOut: () -> Unit, onBack: () -> Unit) {
   var dark by remember { mutableStateOf(false) }
+  var compact by remember { mutableStateOf(false) }
+  val controlGap = if (compact) CSTokens.densityControlGapCompact else CSTokens.densityControlGapComfortable
+  val buttonPaddingX = if (compact) CSTokens.componentButtonMdPaddingXCompact else CSTokens.componentButtonMdPaddingXComfortable
+  val buttonPaddingY = if (compact) CSTokens.componentButtonMdPaddingYCompact else CSTokens.componentButtonMdPaddingYComfortable
   Column(
     modifier = Modifier
       .fillMaxSize()
@@ -58,7 +64,7 @@ fun SettingsScreen(onSignOut: () -> Unit, onBack: () -> Unit) {
         .border(1.dp, CSTokens.colorBorderDefault, RoundedCornerShape(12.dp))
         .background(CSTokens.colorSurfacePanel)
         .padding(16.dp),
-      verticalArrangement = Arrangement.spacedBy(12.dp),
+      verticalArrangement = Arrangement.spacedBy(controlGap),
     ) {
       Row(verticalAlignment = Alignment.CenterVertically) {
         Text("Prefer dark theme", color = CSTokens.colorTextPrimary, modifier = Modifier.weight(1f))
@@ -68,6 +74,11 @@ fun SettingsScreen(onSignOut: () -> Unit, onBack: () -> Unit) {
           colors = SwitchDefaults.colors(checkedTrackColor = CSTokens.colorBrandOchre),
         )
       }
+      Row(verticalAlignment = Alignment.CenterVertically) {
+        Text("Compact spacing", color = CSTokens.colorTextPrimary, modifier = Modifier.weight(1f))
+        Switch(checked = compact, onCheckedChange = { compact = it })
+      }
+      Text(if (compact) "Compact" else "Comfortable", color = CSTokens.colorTextPrimary)
       SwatchRow("Brand umber", CSTokens.colorBrandUmber)
       SwatchRow("Brand ochre", CSTokens.colorBrandOchre)
     }
@@ -76,7 +87,8 @@ fun SettingsScreen(onSignOut: () -> Unit, onBack: () -> Unit) {
       onClick = onSignOut,
       modifier = Modifier
         .fillMaxWidth()
-        .height(CSTokens.componentButtonMdMinHeight),
+        .heightIn(min = CSTokens.componentButtonMdMinHeight),
+      contentPadding = PaddingValues(horizontal = buttonPaddingX, vertical = buttonPaddingY),
       colors = ButtonDefaults.buttonColors(
         containerColor = CSTokens.colorSemanticDanger,
         contentColor = CSTokens.colorTextInverse,

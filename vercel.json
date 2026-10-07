@@ -66,5 +66,10 @@
         }
       ]
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "codex/native-validation-20261007": false
+    }
+  }
 }

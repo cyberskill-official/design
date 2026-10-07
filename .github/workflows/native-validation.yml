@@ -1,0 +1,41 @@
+# Compilation/widget evidence only; no signing, publication or deployment.
+name: native-validation
+on:
+  workflow_dispatch:
+  push:
+    branches: ['codex/native-validation-*']
+permissions:
+  contents: read
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: swiftui
+            runner: macos-15
+          - platform: compose
+            runner: ubuntu-24.04
+          - platform: flutter
+            runner: ubuntu-24.04
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Validate native sample
+        env:
+          NATIVE_PLATFORM: ${{ matrix.platform }}
+        shell: bash
+        run: |
+          mkdir -p native-evidence
+          set -o pipefail
+          bash scripts/ci/native-validation.sh 2>&1 | tee native-evidence/build.log
+      - name: Retain source and environment evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: native-${{ matrix.platform }}-${{ github.sha }}-${{ github.run_attempt }}
+          path: native-evidence/
+          if-no-files-found: error

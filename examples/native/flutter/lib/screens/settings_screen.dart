@@ -10,6 +10,11 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool dark = false;
+  bool compact = false;
+
+  double get controlGap => compact ? CSTokens.densityControlGapCompact : CSTokens.densityControlGapComfortable;
+  double get buttonPaddingX => compact ? CSTokens.componentButtonMdPaddingXCompact : CSTokens.componentButtonMdPaddingXComfortable;
+  double get buttonPaddingY => compact ? CSTokens.componentButtonMdPaddingYCompact : CSTokens.componentButtonMdPaddingYComfortable;
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +67,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       activeColor: CSTokens.colorBrandOchre,
                       onChanged: (v) => setState(() => dark = v),
                     ),
+                    SwitchListTile(
+                      title: const Text('Compact spacing'),
+                      value: compact,
+                      onChanged: (v) => setState(() => compact = v),
+                    ),
+                    Text(compact ? 'Compact' : 'Comfortable'),
+                    SizedBox(height: controlGap),
                     _swatch('Brand umber', CSTokens.colorBrandUmber),
+                    SizedBox(height: controlGap),
                     _swatch('Brand ochre', CSTokens.colorBrandOchre),
                   ],
                 ),
               ),
               const Spacer(),
-              SizedBox(
-                height: CSTokens.componentButtonMdMinHeight,
+              ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: CSTokens.componentButtonMdMinHeight),
                 child: FilledButton(
                   style: FilledButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: buttonPaddingX, vertical: buttonPaddingY),
                     backgroundColor: CSTokens.colorSemanticDanger,
                     foregroundColor: CSTokens.colorTextInverse,
                     shape: RoundedRectangleBorder(

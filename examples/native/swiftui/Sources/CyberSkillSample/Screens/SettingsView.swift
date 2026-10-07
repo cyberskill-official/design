@@ -3,6 +3,11 @@ import SwiftUI
 struct SettingsView: View {
   var onSignOut: () -> Void
   @State private var dark = false
+  @State private var compact = false
+
+  private var controlGap: CGFloat { compact ? CSTokens.densityControlGapCompact : CSTokens.densityControlGapComfortable }
+  private var buttonPaddingX: CGFloat { compact ? CSTokens.componentButtonMdPaddingXCompact : CSTokens.componentButtonMdPaddingXComfortable }
+  private var buttonPaddingY: CGFloat { compact ? CSTokens.componentButtonMdPaddingYCompact : CSTokens.componentButtonMdPaddingYComfortable }
   @State private var language = "English"
 
   var body: some View {
@@ -14,12 +19,17 @@ struct SettingsView: View {
         .font(.system(size: 13))
         .foregroundStyle(CSTokens.colorTextMuted)
 
-      VStack(alignment: .leading, spacing: 12) {
+      VStack(alignment: .leading, spacing: controlGap) {
         Toggle(isOn: $dark) {
           Text("Prefer dark theme")
             .foregroundStyle(CSTokens.colorTextPrimary)
         }
         .tint(CSTokens.colorBrandOchre)
+
+        Toggle("Compact spacing", isOn: $compact)
+          .tint(CSTokens.colorBrandOchre)
+        Text(compact ? "Compact" : "Comfortable")
+          .foregroundStyle(CSTokens.colorTextPrimary)
 
         Picker("Language", selection: $language) {
           Text("English").tag("English")
@@ -55,6 +65,8 @@ struct SettingsView: View {
       Spacer()
       Button(action: onSignOut) {
         Text("Sign out")
+          .padding(.horizontal, buttonPaddingX)
+          .padding(.vertical, buttonPaddingY)
           .frame(maxWidth: .infinity)
           .frame(minHeight: CSTokens.componentButtonMdMinHeight)
           .foregroundStyle(CSTokens.colorTextInverse)
