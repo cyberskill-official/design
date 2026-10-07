@@ -1,7 +1,6 @@
 // Render evidence, not accepted golden baselines. Run with --update-goldens.
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -24,8 +23,6 @@ void main() {
           for (final compact in route == '/settings' ? [false, true] : [false]) {
             final name = '${size.width.toInt()}x${size.height.toInt()}-text$scale-${dark ? 'dark' : 'light'}-${route.substring(1)}-${compact ? 'compact' : 'comfortable'}';
             testWidgets(name, (tester) async {
-              debugDefaultTargetPlatformOverride = TargetPlatform.android;
-              addTearDown(() => debugDefaultTargetPlatformOverride = null);
               tester.view.physicalSize = size;
               tester.view.devicePixelRatio = 1;
               tester.platformDispatcher.textScaleFactorTestValue = scale;
