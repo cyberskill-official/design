@@ -96,10 +96,10 @@ object CSTokens {
   val durationFastMs = 120
   val durationBaseMs = 200
   val durationSlowMs = 320
-  val easeStandard = doubleArrayOf(0.2, 0, 0, 1)
-  val easeEntrance = doubleArrayOf(0, 0, 0, 1)
-  val easeExit = doubleArrayOf(0.4, 0, 1, 1)
-  val easeEmphasized = doubleArrayOf(0.2, 0, 0, 1)
+  val easeStandard = doubleArrayOf(0.2, 0.0, 0.0, 1.0)
+  val easeEntrance = doubleArrayOf(0.0, 0.0, 0.0, 1.0)
+  val easeExit = doubleArrayOf(0.4, 0.0, 1.0, 1.0)
+  val easeEmphasized = doubleArrayOf(0.2, 0.0, 0.0, 1.0)
   val space0 = 0.dp
   val space1 = 4.dp
   val space2 = 8.dp
