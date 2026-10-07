@@ -21,7 +21,8 @@ case "$NATIVE_PLATFORM" in
     export JAVA_HOME="$JAVA_HOME_17_X64"
     export PATH="$JAVA_HOME/bin:$PATH"
     java -version
-    cmp tokens/native/CSTokens.kt examples/native/compose/app/src/main/java/world/cyberskill/sample/tokens/CSTokens.kt
+    sed 's/^package world\.cyberskill\.tokens$/package world.cyberskill.sample.tokens/' tokens/native/CSTokens.kt > "$RUNNER_TEMP/CSTokens-sample.kt"
+    cmp "$RUNNER_TEMP/CSTokens-sample.kt" examples/native/compose/app/src/main/java/world/cyberskill/sample/tokens/CSTokens.kt
     "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-34' 'build-tools;34.0.0'
     curl --fail --location --retry 3 https://services.gradle.org/distributions/gradle-8.2.1-bin.zip -o "$RUNNER_TEMP/gradle.zip"
     printf '%s  %s\n' '03ec176d388f2aa99defcadc3ac6adf8dd2bce5145a129659537c0874dea5ad1' "$RUNNER_TEMP/gradle.zip" | sha256sum --check
