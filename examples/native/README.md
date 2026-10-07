@@ -130,3 +130,21 @@ copy set and language/theme state independence. Native CI builds the screens and
 runs these tests; live picker interaction and device accessibility still require
 verification. Compose and Flutter currently retain their English sample copy;
 this SwiftUI repair does not certify their bilingual coverage.
+
+
+## Flutter rendered layout evidence
+
+Native CI runs `flutter test --update-goldens verification/render_samples.dart`
+with `CS_FLUTTER_SDK` pointing to its pinned Flutter installation. This captures
+48 cases: Sign in, Home and Settings at 360×800 and 800×600, light/dark,
+100%/150%/200% text, and both Settings spacing modes. Settings also records the
+view after bringing Sign out into view and checks that the button is hit-testable.
+Framework layout exceptions fail the run. Settings content can scroll while its
+bottom action retains the generated minimum height and density padding.
+
+The generated PNGs are review evidence, not approved pixel baselines. They use
+the pinned SDK's Roboto Regular font (its hash is retained), not a certified
+CyberSkill font bundle or device fallback stack. The text back-arrow glyph is
+missing in this restricted test font. These captures do not verify native glyph
+fallback, assistive technology, translated layout, SwiftUI/Compose appearance,
+or human acceptance. Images and logs are retained as CI artifacts.

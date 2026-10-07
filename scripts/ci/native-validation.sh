@@ -42,6 +42,7 @@ case "$NATIVE_PLATFORM" in
     flutter analyze --no-fatal-infos
     flutter test
     export CS_FLUTTER_SDK="$RUNNER_TEMP/flutter"
+    sha256sum "$CS_FLUTTER_SDK/bin/cache/artifacts/material_fonts/Roboto-Regular.ttf" > "$evidence_dir/flutter-font.txt"
     # Always retain any completed renders, including when a later layout fails.
     render_status=0
     flutter test --update-goldens verification/render_samples.dart || render_status=$?

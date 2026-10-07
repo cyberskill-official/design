@@ -98,23 +98,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: SizedBox(
                     width: double.infinity,
                     child: ConstrainedBox(
-  constraints: const BoxConstraints(minHeight: CSTokens.componentButtonMdMinHeight),
-  child: FilledButton(
-    style: FilledButton.styleFrom(
-      padding: EdgeInsets.symmetric(horizontal: buttonPaddingX, vertical: buttonPaddingY),
-      backgroundColor: colors.colorSemanticDanger,
-      foregroundColor: colors.colorTextInverse,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          CSTokens.componentButtonRadius,
-        ),
-      ),
-    ),
-    onPressed: () =>
-        Navigator.of(context).pushReplacementNamed('/sign-in'),
-    child: const Text('Sign out'),
-  ),
-),
+                      constraints: const BoxConstraints(minHeight: CSTokens.componentButtonMdMinHeight),
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          padding: EdgeInsets.symmetric(horizontal: buttonPaddingX, vertical: buttonPaddingY),
+                          backgroundColor: colors.colorSemanticDanger,
+                          foregroundColor: colors.colorTextInverse,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              CSTokens.componentButtonRadius,
+                            ),
+                          ),
+                        ),
+                        onPressed: () =>
+                            Navigator.of(context).pushReplacementNamed('/sign-in'),
+                        child: const Text('Sign out'),
+                      ),
+                    ),
                   ),
                 ),
               ),
