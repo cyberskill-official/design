@@ -17,7 +17,7 @@ void main() {
     await loader.load();
   });
   for (final size in [const Size(360, 800), const Size(800, 600)]) {
-    for (final scale in [1.0, 1.5]) {
+    for (final scale in [1.0, 1.5, 2.0]) {
       for (final dark in [false, true]) {
         for (final route in ['/sign-in', '/home', '/settings']) {
           for (final compact in route == '/settings' ? [false, true] : [false]) {
