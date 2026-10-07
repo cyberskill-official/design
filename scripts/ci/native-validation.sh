@@ -41,6 +41,12 @@ case "$NATIVE_PLATFORM" in
     cp pubspec.lock "$evidence_dir/flutter-pubspec.lock"
     flutter analyze --no-fatal-infos
     flutter test
+    export CS_FLUTTER_SDK="$RUNNER_TEMP/flutter"
+    # Always retain any completed renders, including when a later layout fails.
+    render_status=0
+    flutter test --update-goldens verification/render_samples.dart || render_status=$?
+    if test -d verification/rendered; then cp -R verification/rendered "$evidence_dir/flutter-rendered"; fi
+    test "$render_status" = 0
     ;;
   *) printf 'Unsupported native platform: %s\n' "$NATIVE_PLATFORM" >&2; exit 2 ;;
 esac
