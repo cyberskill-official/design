@@ -15,5 +15,9 @@ let package = Package(
       name: "CyberSkillSample",
       path: "Sources/CyberSkillSample"
     ),
+    .testTarget(
+      name: "CyberSkillSampleTests",
+      dependencies: ["CyberSkillSample"]
+    ),
   ]
 )

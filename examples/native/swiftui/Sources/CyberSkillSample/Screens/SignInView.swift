@@ -9,15 +9,15 @@ struct SignInView: View {
 
   var body: some View {
     VStack(alignment: .leading, spacing: 20) {
-      Text("Sign in")
+      Text(preferences.text(.signIn))
         .font(.system(size: 28, weight: .heavy))
         .foregroundStyle(colors.colorTextPrimary)
-      Text("Welcome back. Đăng nhập để tiếp tục.")
+      Text(preferences.text(.welcome))
         .font(.system(size: 15))
         .foregroundStyle(colors.colorTextMuted)
 
       VStack(alignment: .leading, spacing: 8) {
-        Text("Work email")
+        Text(preferences.text(.workEmail))
           .font(.system(size: 13, weight: .semibold))
           .foregroundStyle(colors.colorTextPrimary)
         TextField("you@cyberskill.world", text: $email)
@@ -33,7 +33,7 @@ struct SignInView: View {
       }
 
       VStack(alignment: .leading, spacing: 8) {
-        Text("Password")
+        Text(preferences.text(.password))
           .font(.system(size: 13, weight: .semibold))
           .foregroundStyle(colors.colorTextPrimary)
         SecureField("••••••••", text: $password)
@@ -49,7 +49,7 @@ struct SignInView: View {
       }
 
       Button(action: onSuccess) {
-        Text("Sign in")
+        Text(preferences.text(.signIn))
           .font(.system(size: 15, weight: .semibold))
           .frame(maxWidth: .infinity)
           .frame(minHeight: CSTokens.componentButtonMdMinHeight)

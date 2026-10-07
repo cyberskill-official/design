@@ -52,6 +52,7 @@ struct RootView: View {
       }
     }
     .environmentObject(preferences)
+    .environment(\.locale, preferences.language.locale)
     .preferredColorScheme(preferences.dark ? .dark : .light)
     .tint(preferences.colors.colorLink)
     .frame(minWidth: 360, minHeight: 520)

@@ -115,3 +115,18 @@ Settings as described above; it does not reset the theme preference.
 Flutter widget regressions exercise theme switching, navigation retention and
 compact button padding/minimum height. Native compilation and these tests do
 not establish cross-platform visual, device or assistive-technology parity.
+
+## SwiftUI language selection
+
+The SwiftUI sample starts in Vietnamese. Settings selects Tiếng Việt or English
+for all three screens, including sample wish titles and statuses. This preference
+is owned above navigation, independently of theme and density, and resets to
+Vietnamese on app restart. The selected locale is also passed to SwiftUI's
+locale environment. The sample has no date, number or currency formatting fields;
+this does not establish locale-formatting parity across platforms.
+
+`swift test --package-path examples/native/swiftui` checks the complete sample
+copy set and language/theme state independence. Native CI builds the screens and
+runs these tests; live picker interaction and device accessibility still require
+verification. Compose and Flutter currently retain their English sample copy;
+this SwiftUI repair does not certify their bilingual coverage.

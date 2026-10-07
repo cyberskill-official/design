@@ -2,6 +2,8 @@ import SwiftUI
 
 final class SamplePreferences: ObservableObject {
   @Published var dark = false
+  @Published var language: SampleLanguage = .vi
+  func text(_ key: SampleText) -> String { key.value(in: language) }
   var colors: SampleColors { SampleColors(dark: dark) }
 }
 

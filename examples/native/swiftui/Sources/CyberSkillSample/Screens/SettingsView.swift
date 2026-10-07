@@ -9,37 +9,36 @@ struct SettingsView: View {
   private var controlGap: CGFloat { compact ? CSTokens.densityControlGapCompact : CSTokens.densityControlGapComfortable }
   private var buttonPaddingX: CGFloat { compact ? CSTokens.componentButtonMdPaddingXCompact : CSTokens.componentButtonMdPaddingXComfortable }
   private var buttonPaddingY: CGFloat { compact ? CSTokens.componentButtonMdPaddingYCompact : CSTokens.componentButtonMdPaddingYComfortable }
-  @State private var language = "English"
 
   var body: some View {
     VStack(alignment: .leading, spacing: 20) {
-      Text("Settings")
+      Text(preferences.text(.settings))
         .font(.system(size: 24, weight: .heavy))
         .foregroundStyle(colors.colorTextPrimary)
-      Text("Third screen — identity & session.")
+      Text(preferences.text(.settingsDescription))
         .font(.system(size: 13))
         .foregroundStyle(colors.colorTextMuted)
 
       VStack(alignment: .leading, spacing: controlGap) {
         Toggle(isOn: $preferences.dark) {
-          Text("Prefer dark theme")
+          Text(preferences.text(.preferDark))
             .foregroundStyle(colors.colorTextPrimary)
         }
         .tint(CSTokens.colorBrandOchre)
 
-        Toggle("Compact spacing", isOn: $compact)
+        Toggle(preferences.text(.compactSpacing), isOn: $compact)
           .tint(CSTokens.colorBrandOchre)
-        Text(compact ? "Compact" : "Comfortable")
+        Text(compact ? preferences.text(.compact) : preferences.text(.comfortable))
           .foregroundStyle(colors.colorTextPrimary)
 
-        Picker("Language", selection: $language) {
-          Text("English").tag("English")
-          Text("Tiếng Việt").tag("Tiếng Việt")
+        Picker(preferences.text(.language), selection: $preferences.language) {
+          Text("English").tag(SampleLanguage.en)
+          Text("Tiếng Việt").tag(SampleLanguage.vi)
         }
         .pickerStyle(.segmented)
 
         HStack {
-          Text("Brand umber")
+          Text(preferences.text(.brandUmber))
             .foregroundStyle(colors.colorTextPrimary)
           Spacer()
           RoundedRectangle(cornerRadius: 6)
@@ -47,7 +46,7 @@ struct SettingsView: View {
             .frame(width: 36, height: 24)
         }
         HStack {
-          Text("Brand ochre")
+          Text(preferences.text(.brandOchre))
             .foregroundStyle(colors.colorTextPrimary)
           Spacer()
           RoundedRectangle(cornerRadius: 6)
@@ -65,7 +64,7 @@ struct SettingsView: View {
 
       Spacer()
       Button(action: onSignOut) {
-        Text("Sign out")
+        Text(preferences.text(.signOut))
           .padding(.horizontal, buttonPaddingX)
           .padding(.vertical, buttonPaddingY)
           .frame(maxWidth: .infinity)

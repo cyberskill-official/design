@@ -16,6 +16,7 @@ case "$NATIVE_PLATFORM" in
     swift --version
     cmp tokens/native/CSTokens.swift examples/native/swiftui/Sources/CyberSkillSample/CSTokens.swift
     swift build --package-path examples/native/swiftui --scratch-path "$RUNNER_TEMP/native-swift-build"
+    swift test --package-path examples/native/swiftui --scratch-path "$RUNNER_TEMP/native-swift-build"
     ;;
   compose)
     export JAVA_HOME="$JAVA_HOME_17_X64"

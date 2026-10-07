@@ -12,24 +12,24 @@ struct HomeView: View {
   var onOpenSettings: () -> Void
   var onSignOut: () -> Void
 
-  private let wishes: [WishRow] = [
-    WishRow(id: "1", title: "Status hub refresh", status: "In build"),
-    WishRow(id: "2", title: "VN labor contract pack", status: "Open"),
-    WishRow(id: "3", title: "BOD investor update", status: "Done"),
-  ]
+  private var wishes: [WishRow] { [
+    WishRow(id: "1", title: preferences.text(.statusHub), status: preferences.text(.inBuild)),
+    WishRow(id: "2", title: preferences.text(.laborContract), status: preferences.text(.open)),
+    WishRow(id: "3", title: preferences.text(.investorUpdate), status: preferences.text(.done)),
+  ] }
 
   var body: some View {
     VStack(alignment: .leading, spacing: 16) {
       HStack {
-        Text("Wishes")
+        Text(preferences.text(.wishes))
           .font(.system(size: 24, weight: .heavy))
           .foregroundStyle(colors.colorTextPrimary)
         Spacer()
-        Button("Settings", action: onOpenSettings)
+        Button(preferences.text(.settings), action: onOpenSettings)
           .foregroundStyle(colors.colorLink)
       }
 
-      Text("List screen — token colours only, no hand hex.")
+      Text(preferences.text(.listDescription))
         .font(.system(size: 13))
         .foregroundStyle(colors.colorTextMuted)
 
@@ -61,7 +61,7 @@ struct HomeView: View {
       )
 
       Spacer()
-      Button("Sign out", action: onSignOut)
+      Button(preferences.text(.signOut), action: onSignOut)
         .foregroundStyle(colors.colorSemanticDanger)
     }
     .padding(24)
