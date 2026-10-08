@@ -2,7 +2,7 @@
   "system": "CyberSkill Design System",
   "release": "1.7.2",
   "source": "tokens/tokens.dtcg.json",
-  "sourceSha256": "f2b02e5472293bb499c3c0c39ada45801bb149a954bab1ce01560047a4222d67",
+  "sourceSha256": "2ff6e5cf0ba1bb3cc15e98e29a5642c89884111a1345bdc733674ed9b21bcd04",
   "dtcgStamp": {
     "version": "1.7.2",
     "generated": "2026-07-23"
@@ -12,23 +12,27 @@
     "emSuffix": "Em (relative)",
     "alphaToArgbByte": "round(a*255)",
     "durationsUnit": "ms",
-    "densitySuffix": "Compact (fine-pointer only)",
-    "darkPackSuffix": "<Scope>Dark (APCA-derived)"
+    "densitySuffix": "Compact / Comfortable (Theme attribute)",
+    "lightPackSuffix": "<Scope>Light",
+    "darkPackSuffix": "<Scope>Dark (authored dark deltas plus inherited light roles)"
   },
   "counts": {
-    "baseTokens": 164,
+    "baseTokens": 171,
     "byType": {
       "color": 38,
-      "dimension": 82,
-      "number": 27,
+      "dimension": 86,
+      "number": 30,
       "shadow": 5,
       "duration": 4,
       "cubicBezier": 4,
       "fontFamily": 4
     },
     "darkColorOverrides": 21,
-    "densityCompactOverrides": 0,
-    "darkPackConstants": 105,
+    "darkCssOverrides": 5,
+    "densityCompactOverrides": 18,
+    "densityComfortableOverrides": 18,
+    "lightPackConstants": 178,
+    "darkPackConstants": 178,
     "skipped": 0
   },
   "skipped": [],
@@ -36,17 +40,17 @@
     {
       "file": "tokens/native/CSTokens.swift",
       "lang": "swift",
-      "sha256": "e9d8fbee1f5211b73694052021f3d8296eea4ec73b37ae026ccf8fa7e6693926"
+      "sha256": "9fe1069cc32e9df715948592bb07a40f889afcf3ce864a3a8991ff3563eed176"
     },
     {
       "file": "tokens/native/CSTokens.kt",
       "lang": "kotlin",
-      "sha256": "1c37b8b21e43b203344b847114db2f8ef504a54f931de0749a7256a4b59d0d68"
+      "sha256": "f54ea01e4d8fe92a1f146c0d9327874963c44a8ebe96f22ab3cd14ba5e931b96"
     },
     {
       "file": "tokens/native/cs_tokens.dart",
       "lang": "dart",
-      "sha256": "3f306edf28ae5c7f8447cf6957da96ab1c929e9c4c24eb2072285123d4e2ee66"
+      "sha256": "2eee1189963e6015012b102fecfea1e2d7a34500f202442f1314bc0fd355b233"
     }
   ]
 }

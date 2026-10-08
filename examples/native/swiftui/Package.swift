@@ -13,7 +13,8 @@ let package = Package(
   targets: [
     .executableTarget(
       name: "CyberSkillSample",
-      path: "Sources/CyberSkillSample"
+      path: "Sources/CyberSkillSample",
+      resources: [.copy("Fonts")]
     ),
     .testTarget(
       name: "CyberSkillSampleTests",

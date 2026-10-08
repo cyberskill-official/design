@@ -1,9 +1,9 @@
+// Generated from examples/native/sample-copy.json; run npm run native:copy.
 import Foundation
 
 enum SampleLanguage: String, CaseIterable {
   case vi
   case en
-
   var locale: Locale { Locale(identifier: rawValue) }
 }
 
@@ -30,6 +30,8 @@ enum SampleText: CaseIterable {
   case language
   case brandUmber
   case brandOchre
+  case back
+  case sampleTitle
 
   func value(in language: SampleLanguage) -> String {
     switch self {
@@ -55,6 +57,8 @@ enum SampleText: CaseIterable {
     case .language: return language == .vi ? "Ngôn ngữ" : "Language"
     case .brandUmber: return language == .vi ? "Nâu thương hiệu" : "Brand umber"
     case .brandOchre: return language == .vi ? "Vàng thương hiệu" : "Brand ochre"
+    case .back: return language == .vi ? "Quay lại" : "Back"
+    case .sampleTitle: return language == .vi ? "Mẫu CyberSkill" : "CyberSkill sample"
     }
   }
 }

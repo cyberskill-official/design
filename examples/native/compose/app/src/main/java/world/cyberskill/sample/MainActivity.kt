@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import world.cyberskill.sample.ui.SampleTheme
+import world.cyberskill.sample.ui.SampleLanguage
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -34,8 +35,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun CyberSkillSampleApp() {
   var dark by remember { mutableStateOf(false) }
+  var language by remember { mutableStateOf(SampleLanguage.Vi) }
   val nav = rememberNavController()
-  SampleTheme(dark = dark) {
+  SampleTheme(dark = dark, language = language) {
     NavHost(
       navController = nav,
       startDestination = "sign_in",
@@ -61,6 +63,8 @@ fun CyberSkillSampleApp() {
       composable("settings") {
         SettingsScreen(
           dark = dark,
+          language = language,
+          onLanguageChanged = { language = it },
           onDarkChanged = { dark = it },
           onSignOut = {
             nav.navigate("sign_in") {

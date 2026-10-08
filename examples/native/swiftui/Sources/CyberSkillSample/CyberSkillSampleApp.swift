@@ -51,6 +51,7 @@ struct RootView: View {
         }
       }
     }
+    .font(SampleFonts.font(size: CSTokens.fontSizeBase))
     .environmentObject(preferences)
     .environment(\.locale, preferences.language.locale)
     .preferredColorScheme(preferences.dark ? .dark : .light)

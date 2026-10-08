@@ -27,26 +27,36 @@ swift build
 
 ### Compose (Android Studio — supported path)
 
-Open `examples/native/compose/` in **Android Studio** (Hedgehog+ / AGP 8.2-compatible). Android Studio supplies the JDK; use **Run** on the `app` configuration for the supported path.
+Open `examples/native/compose/` in **Android Studio** (Hedgehog+ / AGP 8.2-compatible). Select **JDK 17** as the Gradle JDK for this sample's Gradle 8.2.1 / AGP 8.2.2 toolchain, then use **Run** on the `app` configuration. Newer Android Studio installations can bundle a different Java version; the bundled runtime alone does not establish build compatibility.
 
-There is **no committed `gradlew`** in this sample. First sync does **not** create the wrapper scripts — those come from the Gradle `wrapper` task. A fresh clone therefore needs an explicit bootstrap (`gradle wrapper` with **JDK 17+**) before `./gradlew :app:assembleDebug` is usable, and `assembleDebug` still needs an Android SDK (`ANDROID_HOME` / `ANDROID_SDK_ROOT`). Without those, use Android Studio.
+There is **no committed `gradlew`** in this sample. First sync does **not** create the wrapper scripts — those come from the Gradle `wrapper` task. A fresh clone therefore needs an explicit bootstrap (`gradle wrapper --gradle-version 8.2.1` with **JDK 17**) before `./gradlew :app:assembleDebug` is usable, and `assembleDebug` still needs an Android SDK (`ANDROID_HOME` / `ANDROID_SDK_ROOT`). Android Studio can provide the SDK and a compatible configured Gradle JDK.
 
-Optional CLI (only when JDK 17+ and `ANDROID_HOME` / `ANDROID_SDK_ROOT` are already set):
+Optional CLI (when JDK 17, Gradle 8.2.1 and `ANDROID_HOME` / `ANDROID_SDK_ROOT` are already set):
 
 ```bash
 cd examples/native/compose
-# Fresh clone: generate the wrapper first (JDK 17+), then assemble:
-gradle wrapper
+# Fresh clone: generate the wrapper first (JDK 17), then assemble:
+gradle wrapper --gradle-version 8.2.1
 ./gradlew :app:assembleDebug
 ```
 
-### Flutter
+### Flutter (Android runner)
+
+The Android runner is committed, using the pinned Flutter 3.24.5 template with
+AGP 8.1.0, Kotlin 1.8.22 and checksum-verified Gradle 8.3. Use JDK 17 and Android
+SDK 34. Flutter may select Android Studio's SDK/JDK ahead of shell environment
+variables; configure the intended paths with `flutter config --jdk-dir ...
+--android-sdk ...`. For isolated verification, set `XDG_CONFIG_HOME` to a task
+configuration directory first. Debug builds use the local Android debug key;
+release signing and store submission are not configured. This runner does not
+provide an iOS build host.
 
 ```bash
 cd examples/native/flutter
 flutter pub get
 flutter analyze
-flutter run
+flutter build apk --debug
+flutter run -d <selected-android-device>
 ```
 
 ## Store packaging scaffolds (Fastlane)
@@ -116,35 +126,133 @@ Flutter widget regressions exercise theme switching, navigation retention and
 compact button padding/minimum height. Native compilation and these tests do
 not establish cross-platform visual, device or assistive-technology parity.
 
-## SwiftUI language selection
+## Shared sample copy and language selection
 
-The SwiftUI sample starts in Vietnamese. Settings selects Tiếng Việt or English
-for all three screens, including sample wish titles and statuses. This preference
-is owned above navigation, independently of theme and density, and resets to
-Vietnamese on app restart. The selected locale is also passed to SwiftUI's
-locale environment. The sample has no date, number or currency formatting fields;
-this does not establish locale-formatting parity across platforms.
+All three samples start in Vietnamese and offer Tiếng Việt / English in Settings.
+The 24 copy pairs live in `sample-copy.json`; `npm run native:copy` generates the
+Swift, Kotlin and Dart enums. `npm run test:native-copy` checks the projections
+and rejects missing/empty translations, duplicate keys, unsupported languages,
+non-NFC text and invalid literals. It does not certify rendered layout or speech.
 
-`swift test --package-path examples/native/swiftui` checks the complete sample
-copy set and language/theme state independence. Native CI builds the screens and
-runs these tests; live picker interaction and device accessibility still require
-verification. Compose and Flutter currently retain their English sample copy;
-this SwiftUI repair does not certify their bilingual coverage.
+Language is owned above navigation, independently of theme and density. It
+survives returning Home and signing out, and resets to Vietnamese when the app
+restarts. Settings density remains local to that screen. All labels, sample wish
+titles and statuses use the shared copy. Flutter configures its supported locales
+and Material localization delegates; SwiftUI receives the selected locale in its
+environment. Compose changes the sample copy without changing the device locale.
+The samples contain no date, number or currency formatting fields; those are not
+claimed as cross-platform formatting evidence.
 
+Flutter widget tests and Compose instrumented tests exercise live language changes,
+theme retention, density reset and navigation. The Flutter test also preserves a
+sign-in draft when Settings is pushed above it. Swift tests check the copy and
+preference state; execution still requires a compatible SwiftUI toolchain.
+
+## Bundled native typography
+
+All three samples bundle Be Vietnam Pro at weights 400, 500, 600 and 800, with the
+complete OFL notice in each platform resource bundle. `fonts/manifest.json`
+records the upstream commit, exact TTF hashes, weights and PostScript names from
+the repository's pinned `fonts/subset-recipe.json`. These are the original,
+unmodified full TTFs; web WOFF2 subsets and their CSS bindings are unchanged.
+`npm run native:fonts` projects the byte-identical files and notices; its check
+rejects changed source bytes or missing resources. The native UI-family token
+binds to Be Vietnam Pro; Flutter and SwiftUI resolve the resource family from
+that generated token, and Compose uses the corresponding resource FontFamily
+for all Material typography styles.
+
+SwiftUI registers the resource fonts for its process and requests scalable custom
+fonts. Failure to load a bundle resource is reported rather than silently treated
+as success. A separate macOS CoreText resource probe can verify registration,
+face names and all 24 EN/VI strings in NFC/NFD. That probe does not build or render
+the SwiftUI app. The local SwiftUI app build still requires the unavailable
+SwiftUIMacros plugin; a configured Xcode build/test remains necessary.
+
+Android's instrumented font test resolves all four resource weights, rejects the
+system default typeface and checks the sample characters. Flutter render tests
+explicitly load all four bundled faces. Font-table checks cover sample NFC/NFD
+characters, exact weights and names. These bounded checks do not establish
+arbitrary Unicode coverage, all shaping/fallback cases, matched platform line
+metrics, device assistive technology or human visual acceptance.
 
 ## Flutter rendered layout evidence
 
 Native CI runs `flutter test --update-goldens verification/render_samples.dart`
-with `CS_FLUTTER_SDK` pointing to its pinned Flutter installation. This captures
-48 cases: Sign in, Home and Settings at 360×800 and 800×600, light/dark,
-100%/150%/200% text, and both Settings spacing modes. Settings also records the
-view after bringing Sign out into view and checks that the button is hit-testable.
+with the pinned Flutter 3.24.5 installation. This captures
+96 cases in both EN/VI: Sign in, Home and Settings at 360×800 and 800×600, light/dark,
+100%/150%/200% text, and both Settings spacing modes. Home and Settings also record the
+view after bringing Sign out into view, check that the control is hit-testable
+and activate it to verify return to Sign in.
 Framework layout exceptions fail the run. Settings content can scroll while its
 bottom action retains the generated minimum height and density padding.
 
 The generated PNGs are review evidence, not approved pixel baselines. They use
-the pinned SDK's Roboto Regular font (its hash is retained), not a certified
-CyberSkill font bundle or device fallback stack. The text back-arrow glyph is
-missing in this restricted test font. These captures do not verify native glyph
-fallback, assistive technology, translated layout, SwiftUI/Compose appearance,
-or human acceptance. Images and logs are retained as CI artifacts.
+the bundled Be Vietnam Pro weights with retained hashes. Paragraph-layout
+checks reject constrained/truncated text; font glyph boxes may overhang tight
+line boxes without actual clipping. Home content scrolls and its heading wraps
+at enlarged text. Settings' language selector grows with its label. These
+captures do not verify arbitrary fallback, assistive technology, SwiftUI/Compose
+visual parity or human acceptance. Images and logs are retained as CI artifacts.
+
+Flutter Sign in scrolls when keyboard insets reduce the viewport and uses the
+button token as a minimum height. Sixteen widget checks include twelve keyboard
+fixtures (EN/VI, both sizes, text 1/1.5/2) with the actual bundled fonts; entered
+drafts, password obscuring, named semantics, action reachability and navigation
+are checked. The rendered matrix produces 168 PNGs including Home/Settings end
+views. These checks retain the distinction between widget rendering and a
+running Android application.
+
+A local debug APK was also installed on the owned Android 14/API34 arm64 emulator.
+Two actual windows, 360×800 and 800×600 at OS font setting 200%, exercised EN/VI,
+both themes, preference retention, density reset, Sign out and submitting with
+the real Android keyboard open. The installed APK digest matches the final
+build and its font resources match the manifest. This finite device run does
+not certify TalkBack speech, every OS scaling curve, iOS or human appearance
+acceptance. Logs, captures and source hashes are recorded in the revision
+checkpoint `w13-language-font-runtime-20261008.json`.
+
+## Compose rendered layout and control semantics
+
+Compose Sign in uses the generated button minimum height while allowing its
+label to grow at larger text sizes. Settings keeps its Sign out action at the
+bottom and gives the other controls a scrolling region. The theme and spacing
+rows expose their visible labels, switch roles and checked states as one
+interactive control per row; tapping the label or switch uses the same callback.
+
+On a dedicated API 34 emulator, the instrumented tests exercise 96 rendered
+cases in both EN/VI: three screens, 360×800/800×600 content regions, light/dark, uniform test
+text scales 1/1.5/2, and both Settings spacing modes. They check native text-line
+bounds, full label/action reachability, filled-button minimum height, Home's
+44dp effective hit area, and action callbacks. Three additional tests check the
+actual app's navigation, theme/language retention, density reset, password
+semantics and Settings control names. A fourth checks bundled font resolution
+and the sample glyphs at all declared weights. Text measurement allows one physical pixel for rounding;
+paragraph maximum constraints are not treated as painted glyph widths.
+
+With JDK 17, Gradle 8.2.1, API 34 SDK/build tools and a dedicated running emulator:
+
+```bash
+cd examples/native/compose
+# Compilation of the app and instrumented test APKs:
+gradle :app:assembleDebug :app:assembleDebugAndroidTest
+# Runtime checks; select the intended emulator with ANDROID_SERIAL:
+gradle :app:connectedDebugAndroidTest
+# Captures survive the test runner's removal of its app:
+adb -s "$ANDROID_SERIAL" pull /sdcard/Download/cs-native-language-evidence ./native-rendered
+```
+
+The native CI Compose job compiles both APKs; its compilation verdict does not
+claim execution of the instrumented tests. The Flutter CI job builds a debug
+Android APK as well as running widget and rendered-layout checks; APK compilation
+does not establish device execution. Runtime receipts and source hashes
+are retained in the repository-only revision checkpoints. The local 2026-10-08
+run used Android 14/API 34 arm64 and captured 192 matrix PNGs after the bilingual/font revision. Earlier system-font
+checks used the actual system font setting at 200% and physical windows of
+360×800/800×600 in both themes, checking named/checkable controls and Sign out
+navigation. Those checks predate this bilingual/font revision. The latest captures use the bundled Be Vietnam Pro faces and are review
+evidence rather than approved baselines. Earlier system-font captures remain
+historical evidence. Uniform
+`LocalDensity` overrides in the matrix do not certify every OS font-scaling
+curve. Device/TalkBack behavior,
+SwiftUI application build/appearance, cross-platform line metrics/locale
+formatting and human acceptance remain separate requirements.

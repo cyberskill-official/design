@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "defaultLanguage": "vi",
+  "languages": [
+    "vi",
+    "en"
+  ],
+  "strings": [
+    {
+      "key": "signIn",
+      "vi": "Đăng nhập",
+      "en": "Sign in"
+    },
+    {
+      "key": "welcome",
+      "vi": "Chào mừng bạn trở lại. Đăng nhập để tiếp tục.",
+      "en": "Welcome back. Sign in to continue."
+    },
+    {
+      "key": "workEmail",
+      "vi": "Email công việc",
+      "en": "Work email"
+    },
+    {
+      "key": "password",
+      "vi": "Mật khẩu",
+      "en": "Password"
+    },
+    {
+      "key": "wishes",
+      "vi": "Mong muốn",
+      "en": "Wishes"
+    },
+    {
+      "key": "settings",
+      "vi": "Cài đặt",
+      "en": "Settings"
+    },
+    {
+      "key": "listDescription",
+      "vi": "Mong muốn của nhóm và tiến độ thực hiện.",
+      "en": "Your team’s wishes and their progress."
+    },
+    {
+      "key": "statusHub",
+      "vi": "Cập nhật trung tâm trạng thái",
+      "en": "Status hub refresh"
+    },
+    {
+      "key": "laborContract",
+      "vi": "Bộ hợp đồng lao động Việt Nam",
+      "en": "VN labor contract pack"
+    },
+    {
+      "key": "investorUpdate",
+      "vi": "Cập nhật cho hội đồng quản trị và nhà đầu tư",
+      "en": "BOD investor update"
+    },
+    {
+      "key": "inBuild",
+      "vi": "Đang thực hiện",
+      "en": "In build"
+    },
+    {
+      "key": "open",
+      "vi": "Mới",
+      "en": "Open"
+    },
+    {
+      "key": "done",
+      "vi": "Hoàn thành",
+      "en": "Done"
+    },
+    {
+      "key": "signOut",
+      "vi": "Đăng xuất",
+      "en": "Sign out"
+    },
+    {
+      "key": "settingsDescription",
+      "vi": "Quản lý tùy chọn và phiên làm việc.",
+      "en": "Manage your preferences and session."
+    },
+    {
+      "key": "preferDark",
+      "vi": "Ưu tiên giao diện tối",
+      "en": "Prefer dark theme"
+    },
+    {
+      "key": "compactSpacing",
+      "vi": "Khoảng cách gọn",
+      "en": "Compact spacing"
+    },
+    {
+      "key": "compact",
+      "vi": "Gọn",
+      "en": "Compact"
+    },
+    {
+      "key": "comfortable",
+      "vi": "Thoải mái",
+      "en": "Comfortable"
+    },
+    {
+      "key": "language",
+      "vi": "Ngôn ngữ",
+      "en": "Language"
+    },
+    {
+      "key": "brandUmber",
+      "vi": "Nâu thương hiệu",
+      "en": "Brand umber"
+    },
+    {
+      "key": "brandOchre",
+      "vi": "Vàng thương hiệu",
+      "en": "Brand ochre"
+    },
+    {
+      "key": "back",
+      "vi": "Quay lại",
+      "en": "Back"
+    },
+    {
+      "key": "sampleTitle",
+      "vi": "Mẫu CyberSkill",
+      "en": "CyberSkill sample"
+    }
+  ]
+}

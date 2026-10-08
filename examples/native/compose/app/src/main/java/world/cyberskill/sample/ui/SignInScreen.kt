@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -31,6 +32,7 @@ import world.cyberskill.sample.tokens.CSTokens
 @Composable
 fun SignInScreen(onSuccess: () -> Unit) {
   val colors = LocalSampleColors.current
+  val language = LocalSampleLanguage.current
   var email by remember { mutableStateOf("you@cyberskill.world") }
   var password by remember { mutableStateOf("") }
   Column(
@@ -40,22 +42,22 @@ fun SignInScreen(onSuccess: () -> Unit) {
       .padding(24.dp),
     verticalArrangement = Arrangement.spacedBy(16.dp),
   ) {
-    Text("Sign in", color = colors.colorTextPrimary, fontSize = 28.sp)
+    Text(SampleText.SignIn.value(language), color = colors.colorTextPrimary, fontSize = 28.sp)
     Text(
-      "Welcome back. Đăng nhập để tiếp tục.",
+      SampleText.Welcome.value(language),
       color = colors.colorTextMuted,
       fontSize = 15.sp,
     )
     OutlinedTextField(
       value = email,
       onValueChange = { email = it },
-      label = { Text("Work email") },
+      label = { Text(SampleText.WorkEmail.value(language)) },
       modifier = Modifier.fillMaxWidth(),
     )
     OutlinedTextField(
       value = password,
       onValueChange = { password = it },
-      label = { Text("Password") },
+      label = { Text(SampleText.Password.value(language)) },
       visualTransformation = PasswordVisualTransformation(),
       keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
       singleLine = true,
@@ -66,14 +68,14 @@ fun SignInScreen(onSuccess: () -> Unit) {
       onClick = onSuccess,
       modifier = Modifier
         .fillMaxWidth()
-        .height(CSTokens.componentButtonMdMinHeight),
+        .heightIn(min = CSTokens.componentButtonMdMinHeight),
       colors = ButtonDefaults.buttonColors(
         containerColor = colors.componentButtonPrimaryBg,
         contentColor = colors.componentButtonPrimaryFg,
       ),
       shape = RoundedCornerShape(CSTokens.componentButtonRadius),
     ) {
-      Text("Sign in")
+      Text(SampleText.SignIn.value(language))
     }
   }
 }

@@ -13,10 +13,10 @@ struct SettingsView: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 20) {
       Text(preferences.text(.settings))
-        .font(.system(size: 24, weight: .heavy))
+        .font(SampleFonts.font(size: 24, weight: .extraBold, relativeTo: .title))
         .foregroundStyle(colors.colorTextPrimary)
       Text(preferences.text(.settingsDescription))
-        .font(.system(size: 13))
+        .font(SampleFonts.font(size: 13))
         .foregroundStyle(colors.colorTextMuted)
 
       VStack(alignment: .leading, spacing: controlGap) {

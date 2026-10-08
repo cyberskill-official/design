@@ -10,15 +10,15 @@ struct SignInView: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 20) {
       Text(preferences.text(.signIn))
-        .font(.system(size: 28, weight: .heavy))
+        .font(SampleFonts.font(size: 28, weight: .extraBold, relativeTo: .largeTitle))
         .foregroundStyle(colors.colorTextPrimary)
       Text(preferences.text(.welcome))
-        .font(.system(size: 15))
+        .font(SampleFonts.font(size: 15))
         .foregroundStyle(colors.colorTextMuted)
 
       VStack(alignment: .leading, spacing: 8) {
         Text(preferences.text(.workEmail))
-          .font(.system(size: 13, weight: .semibold))
+          .font(SampleFonts.font(size: 13, weight: .semibold))
           .foregroundStyle(colors.colorTextPrimary)
         TextField("you@cyberskill.world", text: $email)
           .textFieldStyle(.plain)
@@ -34,7 +34,7 @@ struct SignInView: View {
 
       VStack(alignment: .leading, spacing: 8) {
         Text(preferences.text(.password))
-          .font(.system(size: 13, weight: .semibold))
+          .font(SampleFonts.font(size: 13, weight: .semibold))
           .foregroundStyle(colors.colorTextPrimary)
         SecureField("••••••••", text: $password)
           .textFieldStyle(.plain)
@@ -50,7 +50,7 @@ struct SignInView: View {
 
       Button(action: onSuccess) {
         Text(preferences.text(.signIn))
-          .font(.system(size: 15, weight: .semibold))
+          .font(SampleFonts.font(size: 15, weight: .semibold))
           .frame(maxWidth: .infinity)
           .frame(minHeight: CSTokens.componentButtonMdMinHeight)
           .foregroundStyle(colors.componentButtonPrimaryFg)

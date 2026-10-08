@@ -1,5 +1,7 @@
 package world.cyberskill.sample.ui
 
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -27,10 +29,11 @@ private data class Wish(val title: String, val status: String)
 @Composable
 fun HomeScreen(onOpenSettings: () -> Unit, onSignOut: () -> Unit) {
   val colors = LocalSampleColors.current
+  val language = LocalSampleLanguage.current
   val wishes = listOf(
-    Wish("Status hub refresh", "In build"),
-    Wish("VN labor contract pack", "Open"),
-    Wish("BOD investor update", "Done"),
+    Wish(SampleText.StatusHub.value(language), SampleText.InBuild.value(language)),
+    Wish(SampleText.LaborContract.value(language), SampleText.Open.value(language)),
+    Wish(SampleText.InvestorUpdate.value(language), SampleText.Done.value(language)),
   )
   Column(
     modifier = Modifier
@@ -39,48 +42,51 @@ fun HomeScreen(onOpenSettings: () -> Unit, onSignOut: () -> Unit) {
       .padding(24.dp),
     verticalArrangement = Arrangement.spacedBy(12.dp),
   ) {
-    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-      Text("Wishes", color = colors.colorTextPrimary, fontSize = 24.sp)
-      Spacer(modifier = Modifier.weight(1f))
-      TextButton(onClick = onOpenSettings) {
-        Text("Settings", color = colors.colorLink)
-      }
-    }
-    Text(
-      "List screen — Compose consumes generated CSTokens.",
-      color = colors.colorTextMuted,
-      fontSize = 13.sp,
-    )
     Column(
-      modifier = Modifier
-        .fillMaxWidth()
-        .clip(RoundedCornerShape(12.dp))
-        .border(1.dp, colors.colorBorderDefault, RoundedCornerShape(12.dp))
-        .background(colors.colorSurfacePanel),
+      modifier = Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
+      verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-      wishes.forEach { wish ->
-        Row(
-          modifier = Modifier
-            .fillMaxWidth()
-            .padding(14.dp),
-          verticalAlignment = Alignment.CenterVertically,
-        ) {
-          Column(modifier = Modifier.weight(1f)) {
-            Text(wish.title, color = colors.colorTextPrimary, fontSize = 15.sp)
-            Text(wish.status, color = colors.colorTextMuted, fontSize = 12.sp)
-          }
-          Spacer(
+      Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Text(SampleText.Wishes.value(language), color = colors.colorTextPrimary, fontSize = 24.sp, modifier = Modifier.weight(1f))
+        TextButton(onClick = onOpenSettings) {
+          Text(SampleText.Settings.value(language), color = colors.colorLink)
+        }
+      }
+      Text(
+        SampleText.ListDescription.value(language),
+        color = colors.colorTextMuted,
+        fontSize = 13.sp,
+      )
+      Column(
+        modifier = Modifier
+          .fillMaxWidth()
+          .clip(RoundedCornerShape(12.dp))
+          .border(1.dp, colors.colorBorderDefault, RoundedCornerShape(12.dp))
+          .background(colors.colorSurfacePanel),
+      ) {
+        wishes.forEach { wish ->
+          Row(
             modifier = Modifier
-              .size(10.dp)
-              .clip(CircleShape)
-              .background(CSTokens.colorBrandOchre),
-          )
+              .fillMaxWidth()
+              .padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+          ) {
+            Column(modifier = Modifier.weight(1f)) {
+              Text(wish.title, color = colors.colorTextPrimary, fontSize = 15.sp)
+              Text(wish.status, color = colors.colorTextMuted, fontSize = 12.sp)
+            }
+            Spacer(
+              modifier = Modifier
+                .size(10.dp)
+                .clip(CircleShape)
+                .background(CSTokens.colorBrandOchre),
+            )
+          }
         }
       }
     }
-    Spacer(modifier = Modifier.weight(1f))
     TextButton(onClick = onSignOut) {
-      Text("Sign out", color = colors.colorSemanticDanger)
+      Text(SampleText.SignOut.value(language), color = colors.colorSemanticDanger)
     }
   }
 }

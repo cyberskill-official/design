@@ -22,7 +22,7 @@ struct HomeView: View {
     VStack(alignment: .leading, spacing: 16) {
       HStack {
         Text(preferences.text(.wishes))
-          .font(.system(size: 24, weight: .heavy))
+          .font(SampleFonts.font(size: 24, weight: .extraBold, relativeTo: .title))
           .foregroundStyle(colors.colorTextPrimary)
         Spacer()
         Button(preferences.text(.settings), action: onOpenSettings)
@@ -30,7 +30,7 @@ struct HomeView: View {
       }
 
       Text(preferences.text(.listDescription))
-        .font(.system(size: 13))
+        .font(SampleFonts.font(size: 13))
         .foregroundStyle(colors.colorTextMuted)
 
       VStack(spacing: 0) {
@@ -38,10 +38,10 @@ struct HomeView: View {
           HStack {
             VStack(alignment: .leading, spacing: 4) {
               Text(wish.title)
-                .font(.system(size: 15, weight: .semibold))
+                .font(SampleFonts.font(size: 15, weight: .semibold))
                 .foregroundStyle(colors.colorTextPrimary)
               Text(wish.status)
-                .font(.system(size: 12))
+                .font(SampleFonts.font(size: 12))
                 .foregroundStyle(colors.colorTextMuted)
             }
             Spacer()

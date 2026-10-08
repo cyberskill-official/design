@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "family": "BeVietnamPro",
+  "upstreamCommit": "9710da1eacb3be272583c3224dcb70f9da6eadbb",
+  "licenseSha256": "6b7f8f73609a25ea78c891e34cf37b06f8a676b7ea986e941e43b009110f2a85",
+  "fonts": [
+    {
+      "file": "BeVietnamPro-Regular.ttf",
+      "weight": 400,
+      "sha256": "cd1ef6e9d7db28ad5cdb88a65ccbe693870e60d340b791f349d248342b4fe4c3",
+      "upstreamPath": "ofl/bevietnampro/BeVietnamPro-Regular.ttf",
+      "postscriptName": "BeVietnamPro-Regular"
+    },
+    {
+      "file": "BeVietnamPro-Medium.ttf",
+      "weight": 500,
+      "sha256": "b60832bfa0fcd015158112c64d7e3fdad3b0c6287d1823f85a3103636e845268",
+      "upstreamPath": "ofl/bevietnampro/BeVietnamPro-Medium.ttf",
+      "postscriptName": "BeVietnamPro-Medium"
+    },
+    {
+      "file": "BeVietnamPro-SemiBold.ttf",
+      "weight": 600,
+      "sha256": "bd8e27eb02720b9d91e59e4f10a90878643219f25ce6a8d9a4f06a8a88d3bb71",
+      "upstreamPath": "ofl/bevietnampro/BeVietnamPro-SemiBold.ttf",
+      "postscriptName": "BeVietnamPro-SemiBold"
+    },
+    {
+      "file": "BeVietnamPro-ExtraBold.ttf",
+      "weight": 800,
+      "sha256": "44dbfa01553d227bec76ba6446c5618870a76a4a3297f41630dde859d0650d02",
+      "upstreamPath": "ofl/bevietnampro/BeVietnamPro-ExtraBold.ttf",
+      "postscriptName": "BeVietnamPro-ExtraBold"
+    }
+  ],
+  "tokenFamily": "Be Vietnam Pro",
+  "sourceToken": "fontFamilyUi"
+}
