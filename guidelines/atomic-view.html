@@ -63,7 +63,7 @@
   .icells{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:9px}
   .icell{display:grid;place-items:center;gap:7px;padding:12px 4px;border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-md);background:var(--cs-color-surface-panel)}
   .icell span{font-family:var(--cs-font-family-mono);font-size:10.5px;color:var(--cs-color-text-muted)}
-  .miss{color:var(--cs-color-semantic-danger);font-size:13px;font-family:var(--cs-font-family-mono)}
+  .miss{color:var(--cs-color-semantic-danger-text);font-size:13px;font-family:var(--cs-font-family-mono)}
   .pglabel{font:700 10px/1 var(--cs-font-family-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--cs-color-text-muted);margin-bottom:8px}
   .controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;padding:10px 12px;margin-bottom:14px;border:1px dashed var(--cs-color-border-default);border-radius:var(--cs-radius-md);background:var(--cs-color-surface-raised)}
   .controls label{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--cs-color-text-muted)}
@@ -133,6 +133,7 @@ function CalD({L}){ const [d,setD]=useState(()=>new Date(2026,6,18)); return has
 function ColorD({L}){ const [c,setC]=useState("#F4BA17"); return has(ColorPicker)?<div style={{minHeight:210}}><ColorPicker value={c} onChange={setC}/></div>:<Miss n="ColorPicker"/>; }
 function TourD({L}){ const [on,setOn]=useState(false); return has(Tour,Button)?<div><Button size="sm" variant="secondary" onClick={()=>setOn(true)}>{L==="vi"?"Bắt đầu hướng dẫn":"Start tour"}</Button><Tour open={on} onClose={()=>setOn(false)} steps={L==="vi"?[{target:"#toggle",title:"Toggle",body:"Nút bật/tắt đứng độc lập."},{target:"#rating",title:"Rating",body:"Đánh giá sao màu Ochre."}]:[{target:"#toggle",title:"Toggle",body:"A standalone pressable button."},{target:"#rating",title:"Rating",body:"Ochre star rating."}]}/></div>:<Miss n="Tour"/>; }
 function AlertDialogD({L}){ const [on,setOn]=useState(false); const V=L==="vi"; return has(AlertDialog,Button)?<div><Button variant="danger-ghost" size="sm" onClick={()=>setOn(true)}>{V?"Xoá không gian":"Delete workspace"}</Button><AlertDialog open={on} onOpenChange={setOn} title={V?"Xoá không gian làm việc?":"Delete workspace?"} description={V?"Xoá mọi dự án. Không thể hoàn tác.":"Removes every project. This cannot be undone."} tone="destructive" onConfirm={()=>{}}/></div>:<Miss n="AlertDialog"/>; }
+function CommandPaletteD({L,groups}){ const [on,setOn]=useState(false); return <div><Button onClick={()=>setOn(true)}>{L==="vi"?"Mở bảng lệnh":"Open command palette"}</Button><CommandPalette lang={L} open={on} onClose={()=>setOn(false)} groups={groups}/></div>; }
 function DialogDemo({title,startOpen=false}){ const [on,setOn]=useState(!!startOpen); return <div><Button size="sm" onClick={()=>setOn(true)}>Open dialog</Button><Dialog open={on} title={title} onClose={()=>setOn(false)} actions={<><Button variant="secondary" onClick={()=>setOn(false)}>Not now</Button><Button onClick={()=>setOn(false)}>Send wish</Button></>}>A real person on the team replies within one business day.</Dialog></div>; }
 function DrawerDemo({title,L,startOpen=false}){ const [on,setOn]=useState(!!startOpen); const V=L==="vi"; return <div><Button size="sm" variant="secondary" onClick={()=>setOn(true)}>{V?"Mở ngăn kéo":"Open drawer"}</Button><Drawer open={on} onClose={()=>setOn(false)} title={title} actions={has(Button)?<Button size="sm">{V?"Mở dự án":"Open project"}</Button>:null}>{has(Badge)&&<Badge variant="ochre">{V?"Đang làm":"In progress"}</Badge>}<p style={{color:"var(--cs-color-text-muted)",fontSize:13}}>{V?"Liên kết component Liquid Glass + 15 gói Ngũ Hành.":"Liquid Glass component bindings + 15 element packs."}</p></Drawer></div>; }
 function GridD({L}){ const [sel,setSel]=useState(["CDS"]); const V=L==="vi"; return has(DataGrid)?<DataGrid selectable selected={sel} onSelect={setSel} rowKey="key" height={220} columns={[{key:"key",header:V?"Mã":"Key",sortable:true},{key:"name",header:V?"Dự án":"Project",sortable:true},{key:"pct",header:V?"Tiến độ":"Progress",sortable:true,render:(r)=>r.pct+"%"}]} rows={[{key:"CDS",name:"Design System",pct:72},{key:"GENIE",name:"Lumi Genie",pct:58},{key:"SITE",name:"cyberskill.world",pct:84}]}/>:<Miss n="DataGrid"/>; }
@@ -280,7 +281,7 @@ const STORIES = [
   { tier:"Organism", name:"Carousel", grp:"Data", render:(L)=> has(Carousel)?<div style={{maxWidth:460}}><Carousel label={L==="vi"?"Dự án":"Cases"}>{[1,2,3].map(n=><div key={n} style={{padding:"44px 24px",textAlign:"center",fontWeight:700}}>{(L==="vi"?"Trang ":"Slide ")+n}</div>)}</Carousel></div>:<Miss n="Carousel"/> },
   { tier:"Organism", name:"Comment", grp:"Data", render:(L)=> has(Comment,Avatar)?<div style={{maxWidth:460}}><Comment avatar={<Avatar name="An Le" size="sm"/>} author="An Lê" meta={L==="vi"?"2 giờ trước":"2h ago"} replies={<Comment avatar={<Avatar name="Bao Vu" size="sm"/>} author="Bảo Vũ" meta={L==="vi"?"1 giờ trước":"1h ago"}>{L==="vi"?"Đồng ý, giao tuần này.":"Agreed — shipping this week."}</Comment>}>{L==="vi"?"Trông ổn rồi — giao thôi.":"Looks good — ship it."}</Comment></div>:<Miss n="Comment"/> },
   { tier:"Organism", name:"Sidebar + NavItem", grp:"Navigation", render:(L)=> has(Sidebar,NavItem)?<div style={{width:240,border:"1px solid var(--cs-color-border-default)",borderRadius:"var(--cs-radius-lg)",overflow:"hidden"}}><Sidebar label={L==="vi"?"Không gian":"Workspace"}><NavItem active>{L==="vi"?"Tổng quan":"Overview"}</NavItem><NavItem trail={has(Badge)?<Badge>3</Badge>:"3"}>{L==="vi"?"Dự án":"Projects"}</NavItem><NavItem>{L==="vi"?"Phát hành":"Releases"}</NavItem><NavItem>{L==="vi"?"Cài đặt":"Settings"}</NavItem></Sidebar></div>:<Miss n="Sidebar"/> },
-  { tier:"Organism", name:"CommandPalette", grp:"Navigation", framed:true, render:(L)=> has(CommandPalette)?<CommandPalette open={true} onClose={()=>{}} groups={L==="vi"?[{label:"Đi tới",items:[{label:"Bảng điều khiển",shortcut:"G D"},{label:"Phát hành",shortcut:"G R"}]},{label:"Hành động",items:[{label:"Dự án mới",shortcut:"N"},{label:"Trò chuyện với Lumi",shortcut:"L"}]}]:[{label:"Go to",items:[{label:"Dashboard",shortcut:"G D"},{label:"Releases",shortcut:"G R"}]},{label:"Actions",items:[{label:"New project",shortcut:"N"},{label:"Talk to Lumi",shortcut:"L"}]}]}/>:<Miss n="CommandPalette"/> },
+  { tier:"Organism", name:"CommandPalette", grp:"Navigation", framed:true, render:(L)=> has(CommandPalette)?<CommandPaletteD L={L} groups={L==="vi"?[{label:"Đi tới",items:[{label:"Bảng điều khiển",shortcut:"G D"},{label:"Phát hành",shortcut:"G R"}]},{label:"Hành động",items:[{label:"Dự án mới",shortcut:"N"},{label:"Trò chuyện với Lumi",shortcut:"L"}]}]:[{label:"Go to",items:[{label:"Dashboard",shortcut:"G D"},{label:"Releases",shortcut:"G R"}]},{label:"Actions",items:[{label:"New project",shortcut:"N"},{label:"Talk to Lumi",shortcut:"L"}]}]}/>:<Miss n="CommandPalette"/> },
   { tier:"Organism", name:"DataTable", grp:"Data", render:(L)=> has(DataTable)?<DataTable caption={L==="vi"?"Phát hành":"Releases"} rowKey="ver" columns={[{key:"ver",header:L==="vi"?"Phiên bản":"Version",render:(r)=><span style={{fontFamily:"var(--cs-font-family-mono)",fontWeight:600}}>{r.ver}</span>},{key:"ships",header:L==="vi"?"Ra mắt":"Ships"},{key:"note",header:L==="vi"?"Ghi chú":"Notes"},{key:"status",header:L==="vi"?"Trạng thái":"Status"}]} rows={L==="vi"?[{ver:"v1.5.1",ships:"Đã ra mắt",status:"done",note:"Gói Ngũ Hành"},{ver:"v1.6.0",ships:"Tuần này",status:"active",note:"Liên kết Glass"},{ver:"v1.7.0",ships:"Q3 2026",status:"hold",note:"Chờ RFC"}]:[{ver:"v1.5.1",ships:"Shipped",status:"done",note:"Element packs"},{ver:"v1.6.0",ships:"This week",status:"active",note:"Glass bindings"},{ver:"v1.7.0",ships:"Q3 2026",status:"hold",note:"Awaiting RFC"}]}/>:<Miss n="DataTable"/> },
   { tier:"Organism", name:"Accordion", grp:"Data", controls:[{k:"allowMultiple",type:"toggle",def:false}], renderC:(v)=> has(Accordion)?<div style={{maxWidth:460}}><Accordion allowMultiple={v.allowMultiple} items={[{title:"What is a wish?",content:"A clear outcome stated in a sentence or two."},{title:"How fast do you reply?",content:"Within one business day."},{title:"Do you ship bilingual?",content:"Every deliverable ships EN + VN."}]}/></div>:<Miss n="Accordion"/>, render:(L)=> has(Accordion)?<div style={{maxWidth:460}}><Accordion items={L==="vi"?[{title:"Điều ước là gì?",content:"Một kết quả rõ ràng, nói trong một hai câu."},{title:"Bao lâu thì trả lời?",content:"Trong một ngày làm việc."},{title:"Có giao song ngữ không?",content:"Mọi sản phẩm đều giao EN + VN."}]:[{title:"What is a wish?",content:"A clear outcome stated in a sentence or two."},{title:"How fast do you reply?",content:"Within one business day."},{title:"Do you ship bilingual?",content:"Every deliverable ships EN + VN."}]}/></div>:<Miss n="Accordion"/> },
   { tier:"Organism", name:"Timeline", grp:"Data", render:(L)=> has(Timeline)?<div style={{maxWidth:420}}><Timeline items={L==="vi"?[{title:"v1.6.0",meta:"Tuần này",state:"now",body:"Liên kết Glass"},{title:"v1.5.1",meta:"04/07/2026",body:"15 gói Ngũ Hành"},{title:"v1.4.0",meta:"13/06/2026",body:"Liquid Glass trong mã"}]:[{title:"v1.6.0",meta:"This week",state:"now",body:"Glass bindings"},{title:"v1.5.1",meta:"04 Jul 2026",body:"15 element packs"},{title:"v1.4.0",meta:"13 Jun 2026",body:"Liquid Glass in code"}]}/></div>:<Miss n="Timeline"/> },
@@ -320,13 +321,13 @@ const PAGES = [
 function applyAxis(ifr, ax){
   try{
     const d=ifr.contentDocument, h=d&&d.documentElement; if(!h) return;
-    (ax.theme&&ax.theme!=="light")?h.setAttribute("data-theme",ax.theme):h.removeAttribute("data-theme");
+    h.setAttribute("data-theme",ax.theme||"light");
     if(ax.style) h.setAttribute("data-cs-style",ax.style); else h.setAttribute("data-cs-style","liquid-glass");
     ax.elm?h.setAttribute("data-cs-element",ax.elm):h.removeAttribute("data-cs-element");
     ax.elv?h.setAttribute("data-cs-variant",ax.elv):h.removeAttribute("data-cs-variant");
     if(ax.lang) h.setAttribute("lang", ax.lang);
-    (ax.density&&ax.density!=="comfortable")?h.setAttribute("data-cs-density",ax.density):h.removeAttribute("data-cs-density");
-    (ax.contrast&&ax.contrast!=="standard")?h.setAttribute("data-cs-contrast",ax.contrast):h.removeAttribute("data-cs-contrast");
+    h.setAttribute("data-cs-density",ax.density||"comfortable");
+    h.setAttribute("data-cs-contrast",ax.contrast||"standard");
     const w=ifr.contentWindow;
     if(ax.lang && w && w.__dcSetProps && w.__dcRootName){
       const r=w.__dcRootName&&w.__dcRootName();
@@ -389,13 +390,13 @@ function App(){
   const storyTree = (NM.groupStories||((xs)=>{const m=new Map(); xs.forEach(s=>{if(!m.has(s.tier))m.set(s.tier,new Map());const g=m.get(s.tier);if(!g.has(s.grp))g.set(s.grp,[]);g.get(s.grp).push(s);});return m;}))(shown);
   const [elm,elv]=el.split("|");
   const axis={};
-  if(theme!=="light") axis["data-theme"]=theme;
+  axis["data-theme"]=theme;
   if(style) axis["data-cs-style"]=style;
   if(elm) axis["data-cs-element"]=elm;
   if(elv) axis["data-cs-variant"]=elv;
   if(lang) axis.lang=lang;
-  if(density&&density!=="comfortable") axis["data-cs-density"]=density;
-  if(contrast&&contrast!=="standard") axis["data-cs-contrast"]=contrast;
+  axis["data-cs-density"]=density;
+  axis["data-cs-contrast"]=contrast;
   const artifactAx={theme,style,elm,elv,lang,density,contrast};
   const shownTpls=tpls.filter(t=>!nq||t.name.toLowerCase().includes(nq)||(NM.classifyTemplate&&NM.classifyTemplate(t.name).toLowerCase().includes(nq)));
   const tplGroups=(NM.groupTemplates||((xs)=>[{category:"All",items:xs}]))(shownTpls);

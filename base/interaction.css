@@ -46,8 +46,10 @@
 .cs-rise-in--2 { animation-delay: 80ms; }
 .cs-rise-in--3 { animation-delay: 160ms; }
 .cs-rise-in--4 { animation-delay: 240ms; }
-.cs-dialog { animation: cs-pop-in var(--cs-duration-base) var(--cs-ease-entrance) both; }
+.cs-dialog { animation: cs-fade-in var(--cs-duration-base) var(--cs-ease-entrance) both; }
 .cs-dialog__overlay { animation: cs-fade-in var(--cs-duration-base) var(--cs-ease-standard) both; }
+
+/* Fade preserves target size and avoids a containing block for nested overlays. */
 
 @media (prefers-reduced-motion: reduce) {
   .cs-button--primary:hover, .cs-button--danger:hover { transform: none; }

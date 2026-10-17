@@ -29,16 +29,16 @@ export default {
   },
 };
 
-export const Default = { render: () => (<Popover trigger={<Button variant="secondary">Open</Button>}><div style={{ padding: 8 }}>Popover body</div></Popover>) };
+export const Default = { render: () => (<Popover aria-label="Popover body" trigger={<Button variant="secondary">Open</Button>}><div style={{ padding: 8 }}>Popover body</div></Popover>) };
 
 export const Matrix = {
   name: 'Matrix / Align open',
   render: () => (
     <div style={{ display: 'flex', gap: 24, minHeight: 120 }}>
-      <Popover trigger={<Button variant="secondary">Start</Button>} align="start" open>
+      <Popover aria-label="Start panel" trigger={<Button variant="secondary">Start</Button>} align="start" open>
         <div style={{ padding: 8 }}>Start panel</div>
       </Popover>
-      <Popover trigger={<Button variant="secondary">End</Button>} align="end" open>
+      <Popover aria-label="End panel" trigger={<Button variant="secondary">End</Button>} align="end" open>
         <div style={{ padding: 8 }}>End panel</div>
       </Popover>
     </div>

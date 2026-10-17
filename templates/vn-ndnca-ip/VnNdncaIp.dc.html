@@ -13,9 +13,10 @@
 <helmet>
 <script src="./ds-base.js"></script>
 <style>@page{size:A4;margin:23mm 20mm 20mm 20mm}@media print{html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important;padding:0!important}.cs-avoid{break-inside:avoid}}</style>
+<style>@media print{.cs-sheet [data-cs-print-leading]{padding-top:3px!important}.cs-sheet [data-cs-print-leading-group]{margin-bottom:9px!important}}</style>
 </helmet>
 <div lang="vi" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-doc-ink)">
-  <div class="cs-sheet" style="max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left">
+  <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left" data-theme="light">
     <div style="display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--cs-color-text-muted);padding-bottom:6px;border-bottom:1px solid var(--cs-color-border-default);margin-bottom:14px">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="18" hint-size="18px,18px"></x-import>
       <b style="color:var(--cs-color-brand-umber)">CyberSkill</b><span>· Thỏa thuận Bảo mật, KCT &amp; SHTT</span><span style="margin-left:auto;font-family:var(--cs-font-family-mono)">Số/No. 02/2026/TTBM-CYBERSKILL</span>
@@ -27,7 +28,7 @@
     <div class="cs-avoid" style="text-align:center;margin-bottom:14px">
       <h1 style="font-size:21px;font-weight:800;color:var(--cs-color-brand-umber);letter-spacing:-0.01em;margin:0 0 3px;line-height:1.3">THỎA THUẬN BẢO MẬT, KHÔNG CẠNH TRANH VÀ SỞ HỮU TRÍ TUỆ</h1>
       <div style="font-size:13px;color:var(--cs-doc-slate);font-style:italic">Non-Disclosure, Non-Compete and Intellectual Property Agreement</div>
-      <div style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
+      <div aria-hidden="true" style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
     </div>
     <p style="font-size:13.5px;line-height:1.5;margin:0 0 1px">Thỏa Thuận này được lập và giao kết tại Thành phố Hồ Chí Minh vào ngày 01/01/2026, bởi và giữa:</p>
     <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 12px">This Agreement is made and entered into in Ho Chi Minh City on 01/01/2026 (January 1st, 2026), by and between:</p>
@@ -60,8 +61,8 @@
       </table>
     </div>
 
-    <div style="margin-bottom:12px">
-      <p style="font-size:13px;line-height:1.5;margin:0 0 1px"><b>XÉT RẰNG,</b> Bên Nhận Thông Tin được tuyển dụng hoặc hợp tác với Công ty ở vị trí công việc liên quan trực tiếp đến bí mật kinh doanh, bí mật công nghệ của Công ty theo quy định tại khoản 2 Điều 21 Bộ luật Lao động số 45/2019/QH14 và Điều 4 Thông tư số 10/2020/TT-BLĐTBXH;</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 4px"><b>WHEREAS,</b> the Receiving Party is employed by or engaged with the Company in a position directly related to the Company's business secrets and technological secrets pursuant to Article 21.2 of the Labor Code No. 45/2019/QH14 and Article 4 of Circular No. 10/2020/TT-BLDTBXH;</p>
+    <div data-cs-print-leading-group style="margin-bottom:12px">
+      <p data-cs-print-leading style="font-size:13px;line-height:1.5;margin:0 0 1px"><b>XÉT RẰNG,</b> Bên Nhận Thông Tin được tuyển dụng hoặc hợp tác với Công ty ở vị trí công việc liên quan trực tiếp đến bí mật kinh doanh, bí mật công nghệ của Công ty theo quy định tại khoản 2 Điều 21 Bộ luật Lao động số 45/2019/QH14 và Điều 4 Thông tư số 10/2020/TT-BLĐTBXH;</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 4px"><b>WHEREAS,</b> the Receiving Party is employed by or engaged with the Company in a position directly related to the Company's business secrets and technological secrets pursuant to Article 21.2 of the Labor Code No. 45/2019/QH14 and Article 4 of Circular No. 10/2020/TT-BLDTBXH;</p>
       <p style="font-size:13px;line-height:1.5;margin:0 0 1px"><b>XÉT RẰNG,</b> Thỏa Thuận này được ký kết nhằm bảo vệ Thông Tin Bảo Mật, Quyền Sở Hữu Trí Tuệ, dữ liệu cá nhân và duy trì lợi thế cạnh tranh chính đáng của Công ty liên quan đến Sản phẩm/Dịch vụ: phát triển và thiết kế phần mềm, bao gồm nhưng không giới hạn ở ứng dụng web, ứng dụng di động và các hệ thống phần mềm nội bộ (&ldquo;Sản Phẩm/Dịch Vụ&rdquo;);</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 4px"><b>WHEREAS,</b> this Agreement is executed to protect Confidential Information, Intellectual Property Rights and personal data, and to maintain the Company's legitimate competitive advantage in relation to its Products/Services: software development and design, including but not limited to web applications, mobile applications and internal software systems (the &ldquo;Products/Services&rdquo;);</p>
       <p style="font-size:13px;line-height:1.5;margin:0 0 1px"><b>DO ĐÓ,</b> trên cơ sở tự nguyện, bình đẳng và thiện chí, Các Bên thỏa thuận như sau:</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0"><b>NOW, THEREFORE,</b> on a voluntary, equal, and good-faith basis, the Parties agree as follows:</p>
     </div>

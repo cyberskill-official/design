@@ -13,29 +13,31 @@ import {
 } from '../lib/live-tokens.jsx';
 
 function FocusRingPage() {
-  const [ref, values] = useLiveTokenValues(['--cs-color-accent-ochre']);
+  const [ref, values] = useLiveTokenValues(['--cs-color-text-primary', '--cs-color-accent-ochre']);
   return (
     <div ref={ref} style={{ maxWidth: 920 }}>
       <PageTitle>Focus ring</PageTitle>
       <Lede>
-        The 3px Ochre focus ring (2px offset) is the studio's accessibility signature on
-        every product. It is always visible, never removed, and never remapped by element
-        packs or dark theme — Ochre in every scope.
+        The composite focus indicator combines a 2px text-primary contour at a 2px
+        offset with a 5px Ochre halo. The contour follows the theme; the halo keeps
+        the brand anchor across element packs. Native controls use a filter fallback
+        where their browser appearance does not paint a box shadow.
       </Lede>
       <p className="cs-caption" style={{ margin: '0 0 16px' }}>
-        Ring colour, live from the cascade: <Mono>--cs-color-accent-ochre</Mono> ={' '}
-        <Mono muted>{values['--cs-color-accent-ochre']}</Mono>. Interactive components set a
-        3px outline; the global fallback in base/reset.css guarantees at least a 2px ring
-        on anything focusable.
+        Contour, live from the cascade: <Mono>--cs-color-text-primary</Mono> ={' '}
+        <Mono muted>{values['--cs-color-text-primary']}</Mono>; halo: <Mono>--cs-color-accent-ochre</Mono> ={' '}
+        <Mono muted>{values['--cs-color-accent-ochre']}</Mono>. Computed-style checks
+        cover the authored selectors; visible paint, clipping and keyboard behavior
+        still require review in the rendered product.
       </p>
 
       <SectionTitle>Keyboard walkthrough</SectionTitle>
       <ol className="cs-body" style={{ maxWidth: '72ch', paddingLeft: 20, display: 'grid', gap: 6 }}>
         <li>Click once in this preview area (or press Tab from the address bar) to move focus into the story.</li>
-        <li>Press <kbd className="cs-kbd">Tab</kbd> to walk forward through the samples below — every stop must show the Ochre ring.</li>
+        <li>Press <kbd className="cs-kbd">Tab</kbd> to walk forward through the samples below — check the composite indicator at each stop.</li>
         <li>Press <kbd className="cs-kbd">Shift</kbd>+<kbd className="cs-kbd">Tab</kbd> to walk backwards.</li>
         <li>On buttons, <kbd className="cs-kbd">Enter</kbd> or <kbd className="cs-kbd">Space</kbd> activates; on the switch and checkbox, <kbd className="cs-kbd">Space</kbd> toggles.</li>
-        <li>The ring appears on keyboard focus (focus-visible) — mouse clicks intentionally do not paint it.</li>
+        <li>The indicator follows focus-visible. Browsers may also show it after pointer focus on text-entry controls.</li>
       </ol>
 
       <SectionTitle>Real components — Tab through them</SectionTitle>
@@ -60,9 +62,9 @@ function FocusRingPage() {
 
       <SectionTitle>Rules</SectionTitle>
       <ul className="cs-body" style={{ maxWidth: '72ch', paddingLeft: 20, display: 'grid', gap: 6 }}>
-        <li>Never remove or restyle the ring — <Mono>outline: none</Mono> without a replacement is a defect.</li>
-        <li>The ring is never elemental: inside any <Mono>data-cs-element</Mono> scope it stays Ochre (flip the Element toolbar and Tab again to verify).</li>
-        <li>The interaction layer adds a soft ochre glow on top of the ring for key controls — additive, never a replacement.</li>
+        <li>Preserve the composite indicator — <Mono>outline: none</Mono> without a replacement is a defect.</li>
+        <li>The halo is never elemental; the text-primary contour follows the resolved theme. Flip the Theme and Element toolbar items and review each focused sample.</li>
+        <li>Wrapper controls may show the indicator through focus-within. Check that the focused control remains identifiable.</li>
       </ul>
     </div>
   );
@@ -74,7 +76,7 @@ export default {
     docs: {
       description: {
         component:
-          'The immutable 3px Ochre focus ring on real components, with a keyboard walkthrough. Never removed, never elemental.',
+          'The composite text-primary contour and Ochre halo on real components, with a keyboard review walkthrough.',
       },
     },
   },

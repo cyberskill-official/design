@@ -3,6 +3,12 @@
   "template": "marketing-case-study",
   "slots": [
     {
+      "id": "imagePlaceholder",
+      "type": "text",
+      "label": "Image authoring placeholder",
+      "maxLength": 80
+    },
+    {
       "id": "kicker",
       "type": "text",
       "label": "Header eyebrow",

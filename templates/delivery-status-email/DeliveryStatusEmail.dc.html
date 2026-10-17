@@ -14,10 +14,10 @@
 </helmet>
 <div lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" style="background:#efe6d8;padding:32px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary);min-height:100vh">
   <div style="max-width:620px;margin:0 auto;background:var(--cs-color-surface-panel);border-radius:16px;overflow:hidden;box-shadow:var(--cs-shadow-sm)">
-    <div style="background:var(--cs-accent-strong);padding:22px 32px;display:flex;align-items:center;gap:12px">
+    <div style="background:var(--cs-accent-strong);padding:22px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:12px">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="28" hint-size="28px,28px"></x-import>
       <span style="color:var(--cs-accent-on-strong);font-weight:800;font-size:16px">CyberSkill · Delivery</span>
-      <span style="margin-left:auto;background:var(--cs-accent-bright);color:var(--cs-accent-on);font-weight:700;font-size:11.5px;padding:4px 12px;border-radius:var(--cs-radius-full)">On track</span>
+      <span style="margin-left:auto;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);font-weight:700;font-size:13px;white-space:nowrap;flex-shrink:0;padding:4px 12px;border-radius:var(--cs-radius-full)">On track</span>
     </div>
     <div style="padding:30px 32px">
       <sc-if value="{{ isEN }}" hint-placeholder-val="{{ true }}">
@@ -26,9 +26,9 @@
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px"><div style="flex:1;height:8px;border-radius:var(--cs-radius-full);background:var(--cs-color-surface-raised);overflow:hidden"><span style="display:block;height:100%;width:72%;background:var(--cs-accent);border-radius:var(--cs-radius-full)"></span></div><span style="font-family:var(--cs-font-family-mono);font-size:13px;color:var(--cs-color-text-muted)">72%</span></div>
       <h2 style="font-size:12.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 8px">Shipped this week</h2>
       <div style="display:grid;gap:6px;margin-bottom:18px;font-size:14.5px;line-height:1.55">
-        <div style="display:flex;gap:10px"><span style="color:var(--cs-color-semantic-success);font-weight:700">✓</span><span>Payment step rebuilt behind the flag — p95 at 780ms on staging.</span></div>
-        <div style="display:flex;gap:10px"><span style="color:var(--cs-color-semantic-success);font-weight:700">✓</span><span>Cart-recovery emails drafted and in review with your team.</span></div>
-        <div style="display:flex;gap:10px"><span style="color:var(--cs-color-semantic-success);font-weight:700">✓</span><span>Ops console: refunds flow shipped to your support sandbox.</span></div>
+        <div style="display:flex;gap:10px"><span style="color:var(--cs-color-semantic-success-text);font-weight:700">✓</span><span>Payment step rebuilt behind the flag — p95 at 780ms on staging.</span></div>
+        <div style="display:flex;gap:10px"><span style="color:var(--cs-color-semantic-success-text);font-weight:700">✓</span><span>Cart-recovery emails drafted and in review with your team.</span></div>
+        <div style="display:flex;gap:10px"><span style="color:var(--cs-color-semantic-success-text);font-weight:700">✓</span><span>Ops console: refunds flow shipped to your support sandbox.</span></div>
       </div>
       <h2 style="font-size:12.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 8px">Next week</h2>
       <div style="display:grid;gap:6px;margin-bottom:20px;font-size:14.5px;line-height:1.55">
@@ -36,7 +36,7 @@
         <div style="display:flex;gap:10px"><span style="color:var(--cs-color-text-accent);font-weight:700">→</span><span>Funnel events wired to your warehouse.</span></div>
       </div>
       <div style="background:var(--cs-accent-tint);border-radius:var(--cs-radius-md);padding:14px 18px;margin-bottom:22px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);font-weight:700;margin-bottom:3px">We need from you</div><div style="font-size:14px;line-height:1.55">A yes/no on the recovery-email copy by <b>Wednesday</b> keeps the canary on schedule. One click in the Hub does it.</div></div>
-      <a href="#" style="display:inline-block;background:var(--cs-accent-bright);color:var(--cs-accent-on);font-weight:700;font-size:14.5px;text-decoration:none;padding:13px 24px;border-radius:var(--cs-radius-full)">Open your Status Hub →</a>
+      <a class="cs-touch-target" href="#" style="display:inline-block;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);font-weight:700;font-size:14.5px;text-decoration:none;padding:13px 24px;border-radius:var(--cs-radius-full)">Open your Status Hub →</a>
       </sc-if>
       <sc-if value="{{ isVN }}"><div lang="vi" style="display:contents">
       <sc-if value="{{ isBoth }}"><div style="border-top:1px solid var(--cs-color-border-default);margin:26px 0 24px"></div></sc-if>
@@ -45,9 +45,9 @@
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px"><div style="flex:1;height:8px;border-radius:var(--cs-radius-full);background:var(--cs-color-surface-raised);overflow:hidden"><span style="display:block;height:100%;width:72%;background:var(--cs-accent);border-radius:var(--cs-radius-full)"></span></div><span style="font-family:var(--cs-font-family-mono);font-size:13px;color:var(--cs-color-text-muted)">72%</span></div>
       <h2 style="font-size:12.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 8px">Đã ship tuần này</h2>
       <div style="display:grid;gap:6px;margin-bottom:18px;font-size:14.5px;line-height:1.6">
-        <div style="display:flex;gap:10px"><span style="color:var(--cs-color-semantic-success);font-weight:700">✓</span><span>Bước thanh toán đã xây lại sau feature flag — p95 đạt 780ms trên staging.</span></div>
-        <div style="display:flex;gap:10px"><span style="color:var(--cs-color-semantic-success);font-weight:700">✓</span><span>Email khôi phục giỏ hàng đã soạn, đang chờ đội bạn duyệt.</span></div>
-        <div style="display:flex;gap:10px"><span style="color:var(--cs-color-semantic-success);font-weight:700">✓</span><span>Ops console: luồng hoàn tiền đã lên sandbox hỗ trợ của bạn.</span></div>
+        <div style="display:flex;gap:10px"><span style="color:var(--cs-color-semantic-success-text);font-weight:700">✓</span><span>Bước thanh toán đã xây lại sau feature flag — p95 đạt 780ms trên staging.</span></div>
+        <div style="display:flex;gap:10px"><span style="color:var(--cs-color-semantic-success-text);font-weight:700">✓</span><span>Email khôi phục giỏ hàng đã soạn, đang chờ đội bạn duyệt.</span></div>
+        <div style="display:flex;gap:10px"><span style="color:var(--cs-color-semantic-success-text);font-weight:700">✓</span><span>Ops console: luồng hoàn tiền đã lên sandbox hỗ trợ của bạn.</span></div>
       </div>
       <h2 style="font-size:12.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 8px">Tuần tới</h2>
       <div style="display:grid;gap:6px;margin-bottom:20px;font-size:14.5px;line-height:1.6">
@@ -55,10 +55,10 @@
         <div style="display:flex;gap:10px"><span style="color:var(--cs-color-text-accent);font-weight:700">→</span><span>Nối sự kiện phễu vào warehouse của bạn.</span></div>
       </div>
       <div style="background:var(--cs-accent-tint);border-radius:var(--cs-radius-md);padding:14px 18px;margin-bottom:22px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);font-weight:700;margin-bottom:3px">Cần từ phía bạn</div><div style="font-size:14px;line-height:1.6">Một cái gật/lắc cho nội dung email khôi phục trước <b>thứ Tư</b> giữ canary đúng lịch. Một cú nhấp trong Hub là xong.</div></div>
-      <a href="#" style="display:inline-block;background:var(--cs-accent-bright);color:var(--cs-accent-on);font-weight:700;font-size:14.5px;text-decoration:none;padding:13px 24px;border-radius:var(--cs-radius-full)">Mở Status Hub của bạn →</a>
+      <a class="cs-touch-target" href="#" style="display:inline-block;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);font-weight:700;font-size:14.5px;text-decoration:none;padding:13px 24px;border-radius:var(--cs-radius-full)">Mở Status Hub của bạn →</a>
       </div></sc-if>
     </div>
-    <div style="border-top:1px solid var(--cs-color-border-default);padding:18px 32px;background:var(--cs-color-surface-raised);font-size:12px;color:var(--cs-color-text-muted)">CyberSkill · Delivery · Hiện Thực Hoá Ý Chí · <a href="#" style="color:var(--cs-color-link)">Status Hub</a></div>
+    <div style="border-top:1px solid var(--cs-color-border-default);padding:18px 32px;background:var(--cs-color-surface-raised);font-size:12px;color:var(--cs-color-text-muted)">CyberSkill · Delivery · Hiện Thực Hoá Ý Chí · <a class="cs-touch-target" href="#" style="color:var(--cs-color-link)">Status Hub</a></div>
   </div>
 </div>
 </x-dc>

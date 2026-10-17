@@ -85,10 +85,11 @@ function storyCovered(title) {
 const missingStories = [...catalogStories].filter((t) => !storyCovered(t));
 assert(missingStories.length === 0, 'Storybook missing titles: ' + missingStories.join(', '));
 
-const main = read('.storybook/main.js');
-assert(/from:\s*['"]\.\.\/docs['"]/.test(main) || /to:\s*['"]\/docs['"]/.test(main), 'Storybook staticDirs must publish docs/');
+const { default: config } = await import('../../.storybook/main.js');
+const { storybookRootFiles } = await import('../../scripts/storybook-inputs.mjs');
+for (const path of catalogPaths) assert(config.staticDirs.some(entry => entry.to === '/' && existsSync(join(entry.from,path))), `Public staging must include catalog page ${path}`);
 for (const ent of ['README.md', 'SKILL.md', 'llms.txt', 'CONTRIBUTING.md']) {
-  assert(main.includes(`'/${ent}'`) || main.includes(`"/${ent}"`), `dsRootFilesPlugin must publish /${ent}`);
+  assert(storybookRootFiles[`/${ent}`] === ent, `dsRootFilesPlugin must publish /${ent}`);
 }
 
 const preview = read('.storybook/preview.jsx');

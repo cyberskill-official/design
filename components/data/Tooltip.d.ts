@@ -3,10 +3,12 @@ import type { ReactNode } from "react";
 
 /**
  * Small umber bubble shown on hover/focus of its trigger. Wrap a focusable
- * element so keyboard users get it too. Keep the label to a few words.
+ * element forwarding aria-describedby so keyboard users get it too. Escape
+ * dismisses without closing a parent overlay. Non-element content gets a focusable wrapper.
+ * Keep the label to a few words; do not place interactive controls in the bubble.
  */
 export interface TooltipProps {
-  label: ReactNode;
+  label?: ReactNode;
   children: ReactNode;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;

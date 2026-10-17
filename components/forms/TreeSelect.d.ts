@@ -8,6 +8,7 @@ export interface TreeSelectProps {
   /** Default from the registry ("Select…" / "Chọn…"). */
   placeholder?: string;
   label?: string;
+  /** Disables the field and closes an open popup; reenabling does not reopen it. */
   disabled?: boolean;
   lang?: string;
   className?: string;

@@ -38,7 +38,7 @@
   <script type="module">
     import { Button } from '@cyberskill/design';
     const root = document.getElementById('root');
-    // React / ReactDOM are ensured by legacy _esm/cs.mjs (unpkg pinned; skipped if already present).
+    // Legacy _esm/cs.mjs supplies each missing React global from local _vendor/react first; pinned CDN fallback runs only after a local load fails.
     ReactDOM.createRoot(root).render(
       React.createElement(
         React.Fragment,

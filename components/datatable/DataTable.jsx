@@ -3,6 +3,7 @@ import { makeT, useLang } from "../_i18n/i18n.js";
 import { Skeleton } from "../feedback/Skeleton.jsx";
 import { Result } from "../feedback/Result.jsx";
 import { cx } from "../_utils/cx.js";
+import { renderCount } from "../_utils/renderCount.js";
 
 /**
  * CyberSkill DataTable — semantic table with caption, column scope headers,
@@ -20,11 +21,12 @@ export function DataTable({
   state = "idle",
   errorState,
   loadingState,
-  loadingRows = 5,
+  loadingRows: requestedLoadingRows = 5,
   lang,
   className,
 }) {
   const normalized = Array.isArray(rows) ? rows : [];
+  const loadingRows = renderCount(requestedLoadingRows, 5, 1);
   const [ref, L] = useLang(lang);
   const t = makeT("DataTable", L);
   const es = emptyState != null ? emptyState : t("empty");
@@ -38,7 +40,7 @@ export function DataTable({
           loadingState
         ) : (
           <table className="cs-table">
-            {caption ? <caption>{caption}</caption> : null}
+            {(caption || caption === 0) ? <caption>{caption}</caption> : null}
             <thead>
               <tr>
                 {(columns || []).map((c) => (
@@ -49,7 +51,7 @@ export function DataTable({
               </tr>
             </thead>
             <tbody aria-hidden="true">
-              {Array.from({ length: Math.max(1, loadingRows) }).map((_, i) => (
+              {Array.from({ length: loadingRows }).map((_, i) => (
                 <tr key={i}>
                   {Array.from({ length: colCount }).map((__, j) => (
                     <td key={j}>
@@ -82,7 +84,7 @@ export function DataTable({
   return (
     <div ref={ref} className={cx("cs-table-wrap", className)}>
       <table className="cs-table">
-        {caption ? <caption>{caption}</caption> : null}
+        {(caption || caption === 0) ? <caption>{caption}</caption> : null}
         <thead>
           <tr>
             {(columns || []).map((c) => (

@@ -3,7 +3,7 @@
  * Sole pack today: liquid-glass ≡ current elevation + base/glass.css materials.
  * Absent attribute ≡ liquid-glass (same default pattern as light theme / Thổ middle).
  * Future packs override glass scalars / material composition only and must consume
- * the existing 9 --cs-accent-* roles — never invent parallel Element packs.
+ * the existing 10 --cs-accent-* roles (including on-strong) — never invent parallel Element packs.
  */
 
 :root {

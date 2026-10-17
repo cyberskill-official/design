@@ -5,13 +5,17 @@ import type { ReactNode } from "react";
 export interface ChartDatum { label: string; value: number; }
 export interface ChartProps {
   type?: "bar" | "line" | "spark" | "pie";
+  /** Pie: a positive full-total datum draws a circle; zero-valued data have no sector. Legend/name retain all data. */
   data: ChartDatum[];
   /** px. Default 160. */
   height?: number;
   /** CSS color. Default accent. */
   color?: string;
   showValues?: boolean;
+  /** Nonblank accessible name override. Otherwise derives from data; empty data uses localized no-data text. */
   label?: string;
+  /** EN/VI no-data text: explicit lang, nearest language scope, document, Vietnamese default. */
+  lang?: string;
   className?: string;
 }
 export function Chart(props: ChartProps): React.ReactElement;

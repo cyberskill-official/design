@@ -13,19 +13,35 @@
 <helmet>
 <script src="./ds-base.js"></script>
 <script src="../../image-slot.js"></script>
+<style>
+/* Keep the authoring hint above image overlays and clear of the template copy. */
+#cs-case-hero[data-authoring]::part(empty){
+  inset:auto var(--cs-space-3) var(--cs-space-2) auto;z-index:3;
+  width:264px;max-width:calc(100% - 2 * var(--cs-space-3));gap:2px;
+  min-height:44px;padding:var(--cs-space-2);
+  color:var(--cs-color-text-primary);background:var(--cs-color-surface-panel);
+  border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-md);
+}
+#cs-case-hero[data-authoring]{--image-slot-hint-color:var(--cs-color-text-primary)}
+#cs-case-hero[data-authoring]:not([data-filled]){z-index:auto!important}
+div:has(> #cs-case-hero[data-authoring]:not([data-filled])){padding-bottom:112px!important}
+@media print{#cs-case-hero[data-authoring]::part(empty){display:none}div:has(> #cs-case-hero[data-authoring]:not([data-filled])){padding-bottom:36px!important}}
+</style>
 <style>@page{size:letter;margin:0}@media print{html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important}.cs-avoid{break-inside:avoid}}</style>
+
+<style>@media screen and (max-width:640px){.cs-case-cta{flex-direction:column!important;align-items:flex-start!important}.cs-case-cta>div{flex:none!important;inline-size:100%;min-inline-size:0}.cs-case-cta>span{max-inline-size:100%;box-sizing:border-box;white-space:normal!important}}</style>
 </helmet>
 <div lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary)">
-  <div class="cs-sheet" style="max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);overflow:hidden">
+  <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);overflow:hidden" data-theme="light">
     <div style="position:relative;overflow:hidden;background:var(--cs-color-brand-umber);color:#FFFDF8;padding:40px 56px 36px">
-      <image-slot id="cs-case-hero" shape="rect" placeholder="Drop a result or product image" style="position:absolute;inset:0;z-index:0"></image-slot>
+      <image-slot id="cs-case-hero" shape="rect" lang="{{ langAttr }}" placeholder="{{ imagePlaceholder }}" placeholder-vi="Thả ảnh kết quả hoặc sản phẩm" style="position:absolute;inset:0;z-index:0"></image-slot>
       <div class="cs-aurora-wash" style="position:absolute;inset:0;opacity:0.45;z-index:1;pointer-events:none"></div>
       <div style="position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(42,26,13,0.86),rgba(42,26,13,0.52) 60%,rgba(42,26,13,0.34))"></div>
       <div style="position:relative;z-index:2">
         <div style="display:flex;align-items:center;gap:11px;margin-bottom:22px">
           <x-import component-from-global-scope="CyberSkillDS.Logo" size="32" hint-size="32px,32px"></x-import>
           <span style="font-weight:800;font-size:16px">CyberSkill</span>
-          <span style="margin-left:auto;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-accent-bright)">{{ kicker }}</span>
+          <span style="margin-left:auto;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-inverse)">{{ kicker }}</span>
         </div>
         <sc-if value="{{ isEN }}" hint-placeholder-val="{{ true }}"><h1 style="font-size:32px;font-weight:800;letter-spacing:-0.02em;line-height:1.12;margin:0 0 10px;max-width:600px">Checkout that stopped losing carts — <span style="color:var(--cs-accent-bright)">+31% completed orders</span></h1><p style="font-size:14.5px;line-height:1.6;opacity:0.9;margin:0;max-width:560px">Retailer A · e-commerce · wished for a faster path to purchase. Shipped in one quarter.</p></sc-if>
         <sc-if value="{{ isVN }}"><div lang="vi" style="display:contents"><h1 style="font-size:32px;font-weight:800;letter-spacing:-0.02em;line-height:1.16;margin:0 0 10px;max-width:600px">Trang thanh toán thôi đánh rơi giỏ hàng — <span style="color:var(--cs-accent-bright)">+31% đơn hoàn tất</span></h1><p style="font-size:14.5px;line-height:1.65;opacity:0.9;margin:0;max-width:560px">Retailer A · thương mại điện tử · ước một lối mua nhanh hơn. Hoàn thành trong một quý.</p></div></sc-if>
@@ -43,9 +59,9 @@
       <sc-if value="{{ showQuote }}" hint-placeholder-val="{{ true }}">
       <blockquote class="cs-avoid" style="margin:0 0 24px;background:var(--cs-color-surface-raised);border-left:4px solid var(--cs-accent);border-radius:var(--cs-radius-md);padding:16px 20px;font-size:14px;line-height:1.65;font-style:italic">{{ quote }}<br><span style="font-style:normal;font-size:12px;color:var(--cs-color-text-muted)">— {{ quoteWho }}</span></blockquote>
       </sc-if>
-      <div class="cs-avoid" style="display:flex;align-items:center;gap:20px;background:var(--cs-color-brand-umber);border-radius:12px;padding:18px 24px">
-        <div style="flex:1;color:#FFFDF8"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-accent-bright);font-weight:700;margin-bottom:2px">{{ ctaKicker }}</div><div style="font-size:13.5px;line-height:1.55">{{ ctaBody }}</div></div>
-        <span style="display:inline-block;background:var(--cs-accent-bright);color:var(--cs-accent-on);font-weight:700;font-size:13.5px;padding:11px 20px;border-radius:var(--cs-radius-full);white-space:nowrap">{{ ctaBtn }}</span>
+      <div class="cs-avoid cs-case-cta" style="display:flex;align-items:center;gap:20px;background:var(--cs-color-brand-umber);border-radius:12px;padding:18px 24px">
+        <div style="flex:1;color:#FFFDF8"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-inverse);font-weight:700;margin-bottom:2px">{{ ctaKicker }}</div><div style="font-size:13.5px;line-height:1.55">{{ ctaBody }}</div></div>
+        <span style="display:inline-block;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);font-weight:700;font-size:13.5px;padding:11px 20px;border-radius:var(--cs-radius-full);white-space:nowrap">{{ ctaBtn }}</span>
       </div>
     </div>
   </div>
@@ -75,7 +91,7 @@ class Component extends DCLogic {
       h3:"Điều còn lại", p3:"Email khôi phục nay kéo về một phần năm số giỏ bị bỏ. Console xử lý hoàn tiền mà không cần đến kỹ thuật. Tài liệu, runbook và analytics được bàn giao gọn gàng — làm để chạy được, làm để bền lâu.",
       quote:"\u201cChúng tôi mô tả kết quả trong hai câu. Mười hai tuần sau nó đã chạy — và tự vận hành đến giờ.\u201d", quoteWho:"Trưởng sản phẩm, Retailer A",
       ctaKicker:"Bạn cũng có một điều ước như vậy?", ctaBody:"Kể cho chúng tôi kết quả trong một câu. Chúng tôi phản hồi trong một ngày làm việc.", ctaBtn:"Gửi điều ước →"};
-    return Object.assign({ langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, isEN: !vn, isVN: vn, showQuote: this.props.showQuote ?? true }, vn ? vi : en);
+    return Object.assign({ imagePlaceholder: vn ? "Thả ảnh kết quả hoặc sản phẩm" : "Drop a result or product image", langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, isEN: !vn, isVN: vn, showQuote: this.props.showQuote ?? true }, vn ? vi : en);
   }
 }
 </script>

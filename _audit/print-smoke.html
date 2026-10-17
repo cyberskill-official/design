@@ -2,46 +2,45 @@
 <html lang="en"><head><meta charset="utf-8"><title>CyberSkill — print smoke</title>
 <link rel="stylesheet" href="../styles.css">
 <style>
-  body{margin:0;font-family:var(--cs-font-family-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
-  h1{font-size:16px;margin:0 0 6px}.lede{font-size:13px;color:#6b5d4f;max-width:900px;line-height:1.5}
-  .row{font:12.5px ui-monospace,monospace;padding:4px 8px;border-radius:5px;margin:2px 0}
-  .ok{background:#dcfce7;color:#166534}.bad{background:#FEE2E2;color:#B42318;font-weight:700}
-  #sum{font-size:15px;font-weight:800;margin:12px 0}
+body{margin:0;font-family:var(--cs-font-family-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
+h1{font-size:16px;margin:0 0 6px}.lede{font-size:13px;color:#6b5d4f;max-width:900px;line-height:1.5}
+.row{font:12.5px ui-monospace,monospace;padding:4px 8px;border-radius:5px;margin:2px 0;overflow-wrap:anywhere}
+.ok{background:#dcfce7;color:#166534}.bad{background:#FEE2E2;color:#B42318;font-weight:700}
+#sum{font-size:15px;font-weight:800;margin:12px 0;overflow-wrap:anywhere}
 </style></head><body>
 <h1>Print smoke</h1>
-<p class="lede">Fetches <b>every</b> document-style template that declares print ownership (<code>omelette-owns-print</code>) and asserts the meta plus A4/Letter <code>@page</code> hooks the export path relies on. Verdict: <code>window.__printsmoke.pass</code>.</p>
+<p class="lede">Checks manifest template sources against the explicit print path/page-size contract used by Node export tests. Missing sources, missing/disabled/duplicate ownership, comment-only hooks, unsupported page sizes and unlisted print owners fail. Sources are parsed inertly; this does not prove pagination, exported-file fidelity or human acceptance. Verdict: <code>window.__printsmoke.pass</code>.</p>
 <div id="list"></div><div id="sum">running…</div>
 <script>
-const list=document.getElementById('list');
+const list=document.getElementById('list'),sum=document.getElementById('sum');
 const P=window.__gateProgress={done:0,total:2,current:'boot'};
-function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?'ok':'bad');d.textContent=(ok?'✓ ':'✗ ')+t;list.appendChild(d);}
+function row(ok,text){const node=document.createElement('div');node.className='row '+(ok?'ok':'bad');node.textContent=(ok?'✓ ':'✗ ')+text;list.appendChild(node);}
+let timer;
+function publish(verdict){if(window.__printsmoke)return;clearTimeout(timer);window.__printsmoke=verdict;P.current='done';P.done=P.total;sum.textContent=verdict.pass?'✓ PASS — '+verdict.ok+'/'+verdict.expected+' contracted print templates':'✗ FAIL — '+(verdict.error||verdict.fails.join('; '));sum.style.color=verdict.pass?'#166534':'#B42318';}
+timer=setTimeout(()=>publish({pass:false,error:'Print source probe timed out',fails:[],total:0,ok:0}),25000);
+async function readSource(path,json=false){const response=await fetch(path,{cache:'no-store'});if(!response.ok)throw Error(path+' returned HTTP '+response.status);return json?response.json():response.text();}
 (async()=>{
-  P.current='manifest'; const M=await (await fetch('../_ds_manifest.json',{cache:'no-store'})).json();
-  // Whole set: every template whose entry HTML declares omelette-owns-print (not a curated sample).
-  const candidates=M.templates||[];
-  P.total=candidates.length+1;
-  const docs=[];
-  for(const t of candidates){
-    P.current=t.entryPath||t.folder;
-    try{
-      const html=await (await fetch('../'+t.entryPath,{cache:'no-store'})).text();
-      if(/omelette-owns-print|name=["']omelette-owns-print/i.test(html)) docs.push({t,html});
-    }catch(e){ /* fetch errors counted below if listed as print */ }
-    P.done++;
-  }
-  P.current='assert';
-  const fails=[]; let okc=0;
-  for(const {t,html} of docs){
-    const owns=/omelette-owns-print|name=["']omelette-owns-print/i.test(html);
-    const page=/@page\s*\{[^}]*size:\s*(A4|letter)/i.test(html);
-    if(owns && page){ okc++; row(true, (t.name||t.entryPath)+' · '+(html.match(/size:\s*(A4|letter)/i)||[])[1]); }
-    else { fails.push(t.entryPath); row(false, (t.name||t.entryPath)+' missing print meta/@page size'); }
-  }
-  P.done=P.total; P.current='done';
-  const pass=fails.length===0 && docs.length>=60;
-  window.__printsmoke={pass,ok:okc,total:docs.length,fails};
-  const s=document.getElementById('sum');
-  s.textContent=pass?('✓ PASS — '+okc+'/'+docs.length+' print-ready docs (whole set)'):('✗ FAIL — '+fails.length+' · scanned '+docs.length);
-  s.style.color=pass?'#166534':'#B42318';
-})().catch(e=>{ window.__printsmoke={pass:false,error:String(e)}; document.getElementById('sum').textContent='✗ '+e; });
+ const {inspectPrintTemplate,printContractEntries}=await import('./lib/print-template-contract.mjs');
+ P.current='manifest and print contract';
+ const manifest=await readSource('../_ds_manifest.json',true),expected=printContractEntries(await readSource('./fixtures/print-template-contract.json',true));
+ if(!Array.isArray(manifest.templates)||!manifest.templates.length)throw Error('Manifest contains no templates');
+ const paths=new Set();
+ for(const item of manifest.templates){const path=item?.entryPath;if(typeof path!=='string'||!/^templates\/[^/]+\/[^/]+\.dc\.html$/.test(path)||path.split('/').some(p=>p==='.'||p==='..')||paths.has(path))throw Error('Invalid or duplicate manifest template path');paths.add(path);}
+ for(const path of expected.keys())if(!paths.has(path))throw Error('Contracted print path absent from manifest: '+path);
+ P.total=paths.size+2;P.done=2;const fails=[],results=[];let ok=0,total=0;
+ for(const path of paths){
+  P.current=path;
+  try{
+   const inspected=inspectPrintTemplate(await readSource('../'+path)),required=expected.get(path);
+   if(inspected.ownsPrint)total++;
+   if(required&&!inspected.ownsPrint)throw Error('Contracted print ownership marker missing');
+   if(inspected.ownsPrint&&!required)throw Error('Unlisted print owner; review the explicit contract');
+   if(required&&inspected.format!==required.format)throw Error('Parsed page size differs from contract: '+inspected.format+' / '+required.format);
+   if(required){ok++;row(true,path+' · '+inspected.format);}
+   results.push({path,...inspected,pass:true});
+  }catch(error){const message=path+': '+String(error.message||error);fails.push(message);results.push({path,pass:false,error:String(error.message||error)});row(false,message);}
+  P.done++;
+ }
+ publish({pass:fails.length===0&&ok===expected.size&&total===expected.size,ok,total,expected:expected.size,scanned:paths.size,fails,results});
+})().catch(error=>publish({pass:false,error:String(error.message||error),fails:[],total:0,ok:0}));
 </script></body></html>

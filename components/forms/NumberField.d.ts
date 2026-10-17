@@ -10,6 +10,7 @@ export interface NumberFieldProps {
   onChange?: (value: number) => void;
   min?: number;
   max?: number;
+  /** Native number-input step. Buttons use native decimal arithmetic and step-base alignment within min/max. */
   step?: number;
   disabled?: boolean;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */

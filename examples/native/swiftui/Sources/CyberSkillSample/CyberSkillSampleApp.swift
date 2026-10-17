@@ -18,6 +18,8 @@ enum AppScreen: Hashable {
 }
 
 struct RootView: View {
+  @Environment(\.colorSchemeContrast) private var systemContrast
+  @StateObject private var preferences = SamplePreferences()
   @State private var path: [AppScreen] = []
   @State private var signedIn = false
 
@@ -50,6 +52,13 @@ struct RootView: View {
         }
       }
     }
+    .font(SampleFonts.font(size: CSTokens.fontSizeBase))
+    .environmentObject(preferences)
+    .onAppear { preferences.systemHighContrast = systemContrast == .increased }
+    .onChange(of: systemContrast) { preferences.systemHighContrast = $0 == .increased }
+    .environment(\.locale, preferences.language.locale)
+    .preferredColorScheme(preferences.dark ? .dark : .light)
+    .tint(preferences.colors.colorLink)
     .frame(minWidth: 360, minHeight: 520)
   }
 }

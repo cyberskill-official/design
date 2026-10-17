@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {buildReview,generate} from '../../scripts/generate-component-review.mjs';
+const entries=[{name:'Alpha',sourcePath:'a.jsx',kind:'component'},{name:'AlphaExtra',sourcePath:'a.jsx',kind:'component'},{name:'CONST',kind:'constant'}];
+const source={'a.jsx':'React.useState([]); React.useRef(null)'};
+const tests={'test.mjs':'CS.AlphaExtra;\nCS.Alpha;\nCS.AlphaExtra;'};
+const rows=buildReview(entries,source,tests);
+assert.deepEqual(rows[0].browserFixtureReferences,[{path:'test.mjs',line:2}],'Component prefixes must not invent references');
+assert.equal(rows.length,2);assert.deepEqual(rows[0].sourceFileSignals,['useRef','useState']);
+assert.throws(()=>buildReview(entries,{},tests),/Missing source/);
+assert.throws(()=>buildReview([entries[0],entries[0]],source,tests),/Duplicate/);
+const changed=buildReview(entries,{'a.jsx':source['a.jsx']+';'},tests);
+assert.notEqual(changed[0].sourceSha256,rows[0].sourceSha256);
+const inventory=generate();
+assert.ok(inventory.components.length>0);
+assert.ok(inventory.components.every(c=>c.reviewState==='requires_contract_review'),'References must never imply completed review');
+console.log('PASS component review: exact names, missing/duplicate rejection, source drift and no inferred certification');

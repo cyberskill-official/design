@@ -47,7 +47,7 @@
 .wish input { flex: 1 1 300px; min-height: 52px; border-radius: var(--cs-radius-full); border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.1); backdrop-filter: blur(8px); color: #fff; padding: 0 22px; font: 400 15px/1 var(--cs-font-family-ui); }
 .wish input::placeholder { color: rgba(255,255,255,.72); }
 .wish input:focus { outline: 3px solid var(--cs-color-brand-ochre); outline-offset: 1px; }
-.btn-gold { background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); border: 0; border-radius: var(--cs-radius-full); min-height: 52px; padding: 0 26px; font: 700 15px/1 var(--cs-font-family-ui); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+.site a.btn-gold, .btn-gold { background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); border: 0; border-radius: var(--cs-radius-full); min-height: 52px; padding: 0 26px; font: 700 15px/1 var(--cs-font-family-ui); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
 .btn-gold:hover { filter: brightness(1.06); }
 .btn-ghost-light { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.4); border-radius: var(--cs-radius-full); min-height: 52px; padding: 0 22px; font: 700 15px/1 var(--cs-font-family-ui); cursor: pointer; }
 .btn-ghost-light:hover { background: rgba(255,255,255,.1); }
@@ -95,7 +95,7 @@
 .form .cs-field__control, .form textarea.cs-field__control { width: 100%; }
 .form textarea.cs-field__control { min-height: 96px; resize: vertical; }
 .trust { font-size: 13px; color: var(--cs-color-text-muted); display: flex; gap: 8px; align-items: center; }
-.sent { background: color-mix(in oklab, var(--cs-color-semantic-success) 10%, var(--cs-color-surface-panel)); border: 1px solid var(--cs-color-semantic-success); color: var(--cs-color-semantic-success); border-radius: var(--cs-radius-md); padding: 20px; font-weight: 600; }
+.sent { background: color-mix(in oklab, var(--cs-color-semantic-success) 10%, var(--cs-color-surface-panel)); border: 1px solid var(--cs-color-semantic-success); color: var(--cs-color-semantic-success-text); border-radius: var(--cs-radius-md); padding: 20px; font-weight: 600; }
 
 /* footer */
 .ft { background: var(--cs-color-brand-umber); color: rgba(255,255,255,.82); padding: 48px 0 40px; }
@@ -103,8 +103,8 @@
 .ft .brand { color: #fff; }
 .ft-links { display: flex; gap: var(--cs-space-5); }
 .ft-links a { color: rgba(255,255,255,.82); font-size: 14px; }
-.ft-links a:hover { color: var(--cs-color-brand-ochre); }
-.ft small { color: rgba(255,255,255,.6); font-size: 13px; }
+.ft-links a:hover { color: #fff; text-decoration: underline; text-decoration-color: var(--cs-color-brand-ochre); }
+.ft small { color: #fff; font-size: 13px; }
 
 /* Lumi chat */
 .fab { position: fixed; right: 22px; bottom: 22px; z-index: var(--cs-depth-toast); background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); border: 0; border-radius: var(--cs-radius-full); height: 56px; padding: 0 22px 0 18px; font: 700 15px/1 var(--cs-font-family-ui); cursor: pointer; display: inline-flex; align-items: center; gap: 10px; box-shadow: var(--cs-shadow-lg); }
@@ -123,7 +123,7 @@
 .chips button { border: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); border-radius: var(--cs-radius-full); padding: 7px 12px; font: 600 13px/1 var(--cs-font-family-ui); color: var(--cs-color-text-accent); cursor: pointer; }
 .chips button:hover { border-color: var(--cs-color-brand-ochre); }
 .chat-f { display: flex; gap: 8px; padding: 12px; background: var(--cs-color-surface-panel); border-top: 1px solid var(--cs-color-border-default); }
-.chat-f input { flex: 1; border: 1px solid var(--cs-component-textfield-border-default); border-radius: var(--cs-radius-full); padding: 0 14px; min-height: 42px; font: inherit; font-size: 14px; color: var(--cs-color-text-primary); background: var(--cs-color-surface-page); }
+.chat-f input { flex: 1; min-width: 0; border: 1px solid var(--cs-component-textfield-border-default); border-radius: var(--cs-radius-full); padding: 0 14px; min-height: 42px; font: inherit; font-size: 14px; color: var(--cs-color-text-primary); background: var(--cs-color-surface-page); }
 .chat-f input:focus { outline: 2px solid var(--cs-color-brand-ochre); }
 .chat-f button { background: var(--cs-color-brand-umber); color: #fff; border: 0; border-radius: var(--cs-radius-full); padding: 0 16px; font: 700 13px/1 var(--cs-font-family-ui); cursor: pointer; }
 
@@ -138,4 +138,9 @@
   .hero-in { grid-template-columns: 1fr; }
   .hero-art { display: none; }
   .svc-grid, .steps, .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* Keep native header controls reachable on narrow phones. */
+@media (max-width: 360px) {
+  .hdr-in { flex-wrap: wrap; gap: var(--cs-space-3); }
 }

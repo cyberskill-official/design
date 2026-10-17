@@ -7,7 +7,8 @@ import { cx } from "../_utils/cx.js";
 export function Switch({ label, disabled = false, className, children, lang, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, ...props }) {
   const [ref, L] = useLang(lang);
   const t = makeT("Switch", L);
-  const named = !!(label || ariaLabel || ariaLabelledby);
+  const hasLabel = Boolean(label) || label === 0;
+  const named = !!(hasLabel || ariaLabel || ariaLabelledby);
   const fallback = props.checked || props.defaultChecked ? t("on") : t("off");
   return (
     <label ref={ref} className={cx("cs-switch", disabled && "is-disabled", className)}>
@@ -20,7 +21,7 @@ export function Switch({ label, disabled = false, className, children, lang, "ar
         {...props}
       />
       <span className="cs-switch__track" aria-hidden="true" />
-      {label ? <span className="cs-switch__label">{label}</span> : null}
+      {hasLabel ? <span className="cs-switch__label">{label}</span> : null}
     </label>
   );
 }

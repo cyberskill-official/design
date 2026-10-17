@@ -10,18 +10,17 @@
   body{margin:0;font-family:var(--cs-font-family-ui);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);display:flex;flex-direction:column}
   .bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:12px 16px;background:var(--cs-color-surface-panel);border-block-end:1px solid var(--cs-color-border-default)}
   .bar h1{font-size:15px;font-weight:800;margin:0;letter-spacing:-.01em}
-  .bar h1 b{color:var(--cs-color-brand-umber)}
-  [data-theme="dark"] .bar h1 b{color:var(--cs-color-brand-ochre)}
+  .bar h1 b{color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre))}
   .modes{display:flex;gap:4px;padding:3px;border-radius:999px;background:var(--cs-color-surface-page);border:1px solid var(--cs-color-border-default)}
   .modes button{appearance:none;border:0;background:transparent;font:600 12.5px var(--cs-font-family-ui);padding:6px 12px;border-radius:999px;cursor:pointer;color:var(--cs-color-text-primary)}
-  .modes button[aria-pressed="true"]{background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse)}
+  .modes button[aria-pressed="true"]{background:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre));color:var(--_cs-light,var(--cs-color-text-inverse)) var(--_cs-dark,var(--cs-color-brand-umber))}
   .filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-inline-start:auto}
   .filters input,.filters select{font:inherit;font-size:12.5px;padding:6px 10px;border-radius:8px;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);min-width:0}
   .filters input{width:min(220px,40vw)}
   .meta{font:12px/1.4 var(--cs-font-family-mono);font-weight:600;color:var(--cs-color-text-primary)}
   .chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;background:var(--cs-color-surface-panel);border-block-end:1px solid var(--cs-color-border-default)}
   .chips button{appearance:none;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);font:600 11.5px var(--cs-font-family-ui);padding:5px 10px;border-radius:999px;cursor:pointer}
-  .chips button[aria-pressed="true"]{background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse);border-color:var(--cs-color-brand-umber)}
+  .chips button[aria-pressed="true"]{background:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre));color:var(--_cs-light,var(--cs-color-text-inverse)) var(--_cs-dark,var(--cs-color-brand-umber));border-color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre))}
   .chips button .n{font-family:var(--cs-font-family-mono);font-size:10px;opacity:.85;margin-inline-start:4px}
   .panel{flex:1;min-height:0;overflow:auto}
   .panel.hide{display:none}
@@ -32,8 +31,8 @@
   .swatch{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid var(--cs-color-border-default);vertical-align:middle;margin-inline-end:6px}
   code{font-family:var(--cs-font-family-mono);font-size:12px}
   .path{font-family:var(--cs-font-family-mono);font-size:12px;word-break:break-all}
-  .group{color:var(--cs-color-text-primary);opacity:.72;font-size:12px;font-weight:600}
-  .copy{appearance:none;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-page);color:var(--cs-color-brand-umber);font:700 10.5px var(--cs-font-family-mono);padding:3px 7px;border-radius:6px;cursor:pointer;margin-inline-start:6px}
+  .group{color:var(--cs-color-text-primary);font-size:12px;font-weight:600}
+  .copy{appearance:none;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-page);color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-text-primary));font:700 10.5px var(--cs-font-family-mono);padding:3px 7px;border-radius:6px;cursor:pointer;margin-inline-start:6px}
   .copy:hover{border-color:var(--cs-color-brand-ochre)}
   .copy.ok{background:#dcfce7;color:#166534;border-color:#16a34a55}
   #raw{margin:0;padding:16px 18px;font:12px/1.5 var(--cs-font-family-mono);white-space:pre;overflow:auto;min-height:100%;background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary)}
@@ -44,6 +43,12 @@
   .src-help code{font-family:var(--cs-font-family-mono);font-size:11.5px}
   .toast{position:fixed;inset-block-end:16px;inset-inline-end:16px;background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse);font:600 12.5px var(--cs-font-family-ui);padding:8px 12px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .15s}
   .toast.on{opacity:1}
+  @media(pointer:coarse){
+    button,input,select{min-inline-size:44px;min-block-size:44px}
+    select{block-size:44px}
+    body{height:auto;min-block-size:100vh}
+    .panel{flex:none;block-size:50vh}
+  }
 </style>
 </head>
 <body data-chrome="tokens-viewer">
@@ -54,7 +59,7 @@
     <button type="button" id="modeRaw" aria-pressed="false">Raw</button>
   </div>
   <div class="filters" id="tableFilters">
-    <input id="q" type="search" placeholder="Filter path or value…" autocomplete="off">
+    <input id="q" type="search" aria-label="Filter tokens" placeholder="Filter path or value…" autocomplete="off">
     <span class="meta" id="count"></span>
   </div>
   <div class="src">
@@ -66,13 +71,15 @@
   </div>
 </div>
 <p class="src-help" id="srcHelp">DTCG is the design-tool + native-regen interchange. <code>tokens.json</code> is the CSS-oriented grouped export for agents. Runtime UI still resolves from <code>styles.css</code> / <code>tokens/*.css</code>. Keeping both files is intentional — see <code>docs/decisions.md</code> §5.</p>
+<p class="src-help" id="sourceStatus" role="status" hidden></p>
+<p class="src-help" id="sourceError" role="alert" hidden></p>
 <div class="chips" id="chips" aria-label="Token groups"></div>
 <div class="panel" id="tablePanel">
   <table>
     <thead><tr><th>Token</th><th>Group</th><th>Value</th><th>Type</th><th>Copy</th></tr></thead>
     <tbody id="tbody"></tbody>
   </table>
-  <p class="empty hide" id="empty">No tokens match this filter.</p>
+  <p class="empty" id="empty" hidden>No tokens match this filter.</p>
 </div>
 <pre class="panel hide" id="raw"></pre>
 <div class="toast" id="toast" role="status">Copied</div>
@@ -89,12 +96,20 @@ const modeTable=document.getElementById('modeTable');
 const modeRaw=document.getElementById('modeRaw');
 const chipsEl=document.getElementById('chips');
 const toast=document.getElementById('toast');
+const sourceStatus=document.getElementById('sourceStatus');
+const sourceError=document.getElementById('sourceError');
 
 let rows=[];
 let rawText='';
 let mode='table';
 let activeGroup='';
 let lastCopied='';
+let loadGeneration=0;
+let loadController;
+let loadState='loading';
+function updateDiagnostics(){
+  window.__csTokensViewer={rows:rows.length,filtered:filteredRows().length,group:activeGroup||null,mode,lastCopied,state:loadState,source:sourceEl.value};
+}
 
 function isColor(v){
   if(typeof v!=='string') return false;
@@ -143,7 +158,7 @@ function flattenTokensJson(data){
       }
     }
   }
-  for(const scope of ['themes','elements']){
+  for(const scope of ['themes','elements','densities','contrasts']){
     const block = data[scope];
     if(!block || typeof block!=='object') continue;
     for(const [scopeName, bag] of Object.entries(block)){
@@ -163,6 +178,7 @@ function setMode(next){
   rawEl.classList.toggle('hide', mode!=='raw');
   tableFilters.style.visibility = mode==='table'?'visible':'hidden';
   chipsEl.style.display = mode==='table'?'flex':'none';
+  updateDiagnostics();
 }
 function showToast(msg){
   toast.textContent=msg;
@@ -174,13 +190,19 @@ async function copyText(text, label){
   lastCopied=text;
   let ok=false;
   try{ await navigator.clipboard.writeText(text); ok=true; }catch(e){
+    const previousFocus=document.activeElement;
+    const ta=document.createElement('textarea');
     try{
-      const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select();
-      ok=document.execCommand('copy'); ta.remove();
-    }catch(e2){}
+      ta.value=text; document.body.appendChild(ta); ta.select();
+      ok=document.execCommand('copy');
+    }catch(e2){}finally{
+      ta.remove();
+      if(previousFocus?.isConnected)previousFocus.focus({preventScroll:true});
+    }
   }
-  showToast(ok?('Copied '+label):'Copy blocked — value selected in memory');
+  showToast(ok?('Copied '+label):'Could not copy. Select the token text and copy it manually.');
   window.__csTokensLastCopy={ok, text, label, at:Date.now()};
+  updateDiagnostics();
   return ok;
 }
 function filteredRows(){
@@ -196,6 +218,7 @@ function renderChips(){
   for(const r of rows) counts.set(r.group, (counts.get(r.group)||0)+1);
   const groups=[...counts.keys()].sort();
   chipsEl.innerHTML='';
+  if(!rows.length)return;
   const all=document.createElement('button');
   all.type='button'; all.setAttribute('aria-pressed', activeGroup===''?'true':'false');
   all.innerHTML='All<span class="n">'+rows.length+'</span>';
@@ -213,7 +236,7 @@ function renderTable(){
   const filtered=filteredRows();
   countEl.textContent = filtered.length+' / '+rows.length;
   tbody.innerHTML='';
-  empty.classList.toggle('hide', filtered.length>0);
+  empty.hidden=loadState!=='ready'||filtered.length>0;
   const frag=document.createDocumentFragment();
   for(const r of filtered){
     const tr=document.createElement('tr');
@@ -234,28 +257,48 @@ function renderTable(){
       if(ok){ btn.classList.add('ok'); setTimeout(()=>btn.classList.remove('ok'),900); }
     });
   });
-  window.__csTokensViewer={rows:rows.length, filtered:filtered.length, group:activeGroup||null, mode, lastCopied};
+  updateDiagnostics();
 }
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 async function load(){
   const file=sourceEl.value;
-  const r=await fetch('./'+file,{cache:'no-store'});
-  rawText=await r.text();
-  rawEl.textContent=rawText;
-  let data;
-  try{ data=JSON.parse(rawText); }catch(e){ rows=[]; renderChips(); renderTable(); return; }
-  rows = file.includes('dtcg') ? flattenDtcg(data) : flattenTokensJson(data);
-  rows.sort((a,b)=>a.path.localeCompare(b.path) || a.group.localeCompare(b.group));
-  activeGroup='';
-  renderChips();
-  renderTable();
+  const generation=++loadGeneration;
+  loadController?.abort();
+  const controller=new AbortController();loadController=controller;
+  const current=()=>generation===loadGeneration&&file===sourceEl.value;
+  rows=[];rawText='';rawEl.textContent='';activeGroup='';loadState='loading';
+  sourceError.hidden=true;sourceError.textContent='';
+  sourceStatus.textContent='Loading '+file+'…';sourceStatus.hidden=false;
+  tablePanel.setAttribute('aria-busy','true');rawEl.setAttribute('aria-busy','true');
+  renderChips();renderTable();
+  try{
+    const response=await fetch('./'+file,{cache:'no-store',signal:controller.signal});
+    if(!response.ok)throw new Error('HTTP '+response.status);
+    const text=await response.text();
+    if(!current())return;
+    const data=JSON.parse(text);
+    const nextRows=file.includes('dtcg')?flattenDtcg(data):flattenTokensJson(data);
+    nextRows.sort((a,b)=>a.path.localeCompare(b.path)||a.group.localeCompare(b.group));
+    rows=nextRows;rawText=text;rawEl.textContent=text;loadState='ready';
+  }catch(error){
+    if(!current())return;
+    loadState='error';
+    sourceError.textContent='Could not load '+file+': '+String(error.message||error)+'. Select another source to retry.';
+    sourceError.hidden=false;
+  }finally{
+    if(current()){
+      sourceStatus.hidden=true;sourceStatus.textContent='';
+      tablePanel.setAttribute('aria-busy','false');rawEl.setAttribute('aria-busy','false');
+      renderChips();renderTable();
+    }
+  }
 }
 modeTable.onclick=()=>setMode('table');
 modeRaw.onclick=()=>setMode('raw');
 qEl.addEventListener('input',()=>{ clearTimeout(qEl._t); qEl._t=setTimeout(renderTable,120); });
 sourceEl.addEventListener('change',load);
 setMode('table');
-load().catch(e=>{ rawEl.textContent=String(e); rows=[]; renderChips(); renderTable(); });
+load();
 </script>
 </body>
 </html>

@@ -12,10 +12,10 @@
 <!-- @template name="Legal · Statement of work" description="CyberSkill SOW — scope, deliverables & milestone tables, fees, acceptance. Hangs off the MSA. Letter-sized, print-ready." -->
 <helmet>
 <script src="./ds-base.js"></script>
-<style>@page{size:letter;margin:0.6in}@media print{html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important;padding:0!important}.cs-avoid{break-inside:avoid}}</style>
+<style>@page{size:letter;margin:0.6in}@media print{.cs-sheet h2{break-after:avoid}html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important;padding:0!important}.cs-avoid{break-inside:avoid}}</style>
 </helmet>
 <div lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary)">
-  <div class="cs-sheet" style="max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 64px">
+  <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 64px" data-theme="light">
     <header style="display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--cs-color-brand-umber);padding-bottom:18px;margin-bottom:26px">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="34" hint-size="34px,34px"></x-import>
       <div><div style="font-weight:800;font-size:17px;color:var(--cs-color-brand-umber);line-height:1.1">CyberSkill</div><div style="font-size:11px;color:var(--cs-color-text-muted)">Hiện Thực Hoá Ý Chí · Turn Your Will Into Real</div></div>
@@ -64,7 +64,7 @@
     </sc-if>
     </sc-if>
     <sc-if value="{{ isVN }}"><div lang="vi" style="display:contents">
-    <div class="cs-avoid" style="border:1.5px solid var(--cs-color-semantic-warning);background:#FDF6EC;border-radius:var(--cs-radius-md);padding:10px 14px;margin-bottom:20px;font-size:12px;line-height:1.6;color:var(--cs-color-semantic-warning);font-weight:600">Bản dịch nháp — chưa được luật sư rà soát. Trong trường hợp có khác biệt, bản tiếng Anh có giá trị áp dụng. <span style="font-weight:400">· Unreviewed draft translation — the English version governs.</span></div>
+    <div class="cs-avoid" style="border:1.5px solid var(--cs-color-semantic-warning);background:#FDF6EC;border-radius:var(--cs-radius-md);padding:10px 14px;margin-bottom:20px;font-size:12px;line-height:1.6;color:var(--cs-color-semantic-warning-text);font-weight:600">Bản dịch nháp — chưa được luật sư rà soát. Trong trường hợp có khác biệt, bản tiếng Anh có giá trị áp dụng. <span style="font-weight:400">· Unreviewed draft translation — the English version governs.</span></div>
     <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-accent)">Bản mô tả công việc</div>
     <h1 style="font-size:27px;font-weight:800;letter-spacing:-0.02em;margin:6px 0 8px">Xây lại thanh toán &amp; ops console</h1>
     <p style="font-size:13.5px;line-height:1.75;margin:0 0 22px">Bản Mô tả Công việc này được lập theo, và chịu sự điều chỉnh của, Hợp đồng Dịch vụ Khung giữa <b>Công ty TNHH CyberSkill</b> và <b>[Công ty khách hàng]</b> ngày 12/06/2026. Nó ghi lại điều ước, những gì chúng tôi sẽ giao, và cách xác nhận hoàn thành.</p>

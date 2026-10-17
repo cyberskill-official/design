@@ -1,0 +1,63 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {join} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {withBrowserFixture} from './lib/browser-fixture.mjs';
+import {strings} from '../../components/_i18n/strings.js';
+const root=fileURLToPath(new URL('../../',import.meta.url));
+const kinds=['strings','rich','zeroRoot','zeroLeaf','fragment','array','empty','false','null'];const rows=[];
+for(const browserName of ['chromium','firefox','webkit'])await withBrowserFixture(async page=>{
+  const css=await page.evaluate(()=>[...document.styleSheets[0].cssRules].filter(rule=>rule.type===CSSRule.IMPORT_RULE).map(rule=>({href:rule.href,rules:rule.styleSheet?.cssRules.length||0})));
+  const expectedImports=[...readFileSync(join(root,'styles.css'),'utf8').matchAll(/@import\s+url\("([^"]+)"\)/g)].map(match=>match[1]);
+  if(JSON.stringify(css.map(row=>row.href))!==JSON.stringify(expectedImports)||css.some(row=>!row.rules))throw Error('Incomplete Cascader CSS closure '+JSON.stringify(css));
+ for(const lang of ['en','vi'])for(const kind of kinds){
+  const names=lang==='vi'?{parent:'Thành phố',child:'Quận 1',sibling:'Quận 2'}:{parent:'City',child:'District 1',sibling:'District 2'};
+  const first=kind==='zeroRoot'?'0':['empty','false','null'].includes(kind)?'':names.parent;
+  const second=kind==='zeroLeaf'?'0':names.child;
+  await page.evaluate(({lang,kind,names})=>{
+   const h=React.createElement;
+   const node=(text,position)=>kind==='rich'?h(position==='parent'?'strong':'em',null,text):kind==='fragment'?h(React.Fragment,null,text.slice(0,2),h('span',null,text.slice(2))):kind==='array'?[text.slice(0,2),h('em',{key:'tail'},text.slice(2))]:text;
+   let parent=node(names.parent,'parent'),child=node(names.child,'child');
+   if(kind==='zeroRoot')parent=0;if(kind==='zeroLeaf')child=0;
+   if(kind==='empty')parent='';if(kind==='false')parent=false;if(kind==='null')parent=null;
+   window.changes=[];window.initialNodes=[{key:'p',label:parent,children:[{key:'c',label:child},{key:'s',label:names.sibling}]}];
+   window.drawPath=(value,nodes=initialNodes,named=true)=>renderFixture(h(CS.Cascader,{key:lang+'-'+kind,lang,label:named?'Area':undefined,value,nodes,onChange:path=>changes.push(path)}));
+   drawPath(['p','c']);
+  },{lang,kind,names});
+  const field=page.locator('.cs-treeselect__field');
+  const content=page.locator('.cs-treeselect__field > span').first();
+  const initial=first+' / '+second;assert.equal(await content.textContent(),initial);
+  assert.equal(await field.evaluate(el=>[...el.querySelectorAll('[aria-hidden="true"]')].filter(node=>node.textContent==='/').length),1,'The path slash is decorative');
+  await page.evaluate(()=>drawPath(['p','c'],initialNodes,false));
+  const accessiblePath=(first+' '+second).trim();
+  assert.equal(await page.getByRole('button',{name:accessiblePath,exact:true}).count(),1,'Unnamed field name retains words and excludes its decorative slash');
+  await page.evaluate(()=>drawPath(['p','c']));
+  if(kind==='rich'){assert.equal(await field.locator('strong').textContent(),names.parent);assert.equal(await field.locator('em').textContent(),names.child);}
+  await field.click();
+  assert.equal(await page.locator('[role="listbox"]').count(),2);
+  await page.locator('[role="listbox"]').nth(1).getByRole('option').nth(1).click();
+  assert.deepEqual(await page.evaluate(()=>changes),[['p','s']]);
+  assert.equal(await content.textContent(),initial,'Fixed controlled value retains its field display');
+  assert.equal(await field.getAttribute('aria-expanded'),'false');
+  await page.evaluate(()=>drawPath(['p','s']));
+  assert.equal(await content.textContent(),first+' / '+names.sibling);
+  await page.evaluate(({names})=>drawPath(['p','c'],[{key:'p',label:React.createElement('strong',null,names.parent+' updated'),children:[{key:'c',label:React.createElement('em',null,names.child+' updated')}]}]),{names});
+  assert.equal(await content.textContent(),names.parent+' updated / '+names.child+' updated','Label updates with unchanged selected keys render directly');
+  await field.click();
+  const parent=page.locator('[role="listbox"]').nth(0).getByRole('option').first();
+  await page.locator('[role="listbox"]').nth(1).getByRole('option').first().focus();
+  await page.keyboard.press('ArrowLeft');
+  assert.equal(await page.locator('[role="listbox"]').count(),1);
+  assert(await parent.evaluate(el=>el===document.activeElement),'Left collapse retains selected-parent focus');
+  await page.keyboard.press('ArrowRight');
+  assert.equal(await page.locator('[role="listbox"]').count(),2);
+  await page.keyboard.press('Escape');
+  assert.equal(await field.getAttribute('aria-expanded'),'false');
+  assert.deepEqual(await page.evaluate(()=>changes),[['p','s']],'Expansion, dismissal and label updates do not emit selection');
+  await page.evaluate(()=>drawPath([]));
+  assert.equal(await content.textContent(),strings.Cascader[lang].placeholder);
+  rows.push({browserName,lang,kind,pass:true});
+ }
+},{browserName});
+const result={recordedAt:new Date().toISOString(),exitCode:0,cases:rows.length,rows,scope:'Actual selected-path content, native option activation, fixed controlled ownership, changed values/labels, three-engine/bilingual paths, decorative separators, ArrowLeft/Right, Escape and localized empty-value display. No manual AT acceptance or whole-system certification.'};
+if(process.env.CS_CASCADER_REPORT)writeFileSync(process.env.CS_CASCADER_REPORT,JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({exitCode:0,cases:rows.length,scope:result.scope}));

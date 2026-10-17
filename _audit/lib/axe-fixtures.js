@@ -171,7 +171,8 @@
       h(c('Card'), null, h(c('CardHeader'), { title: L('Card', 'Thẻ'), subtitle: L('Axe sample', 'Mẫu axe') }), h(c('CardBody'), null, L('Panel body', 'Nội dung panel'))),
       h(c('Carousel'), { label: L('Highlights', 'Điểm nổi bật') }, h('div', null, L('Slide A', 'Trang A')), h('div', null, L('Slide B', 'Trang B'))),
       h(c('Cascader'), { label: L('Region', 'Khu vực'), nodes: CASCADE, lang: lang }),
-      h(c('Chart'), { type: 'bar', height: 120, data: [{ label: 'A', value: 12 }, { label: 'B', value: 20 }], 'aria-label': L('Sample chart', 'Biểu đồ mẫu') }),
+      h(c('Chart'), { type: 'bar', height: 120, data: [{ label: 'A', value: 12 }, { label: 'B', value: 20 }], label: L('Sample chart', 'Biểu đồ mẫu') }),
+      h(c('Chart'), { type: 'bar', height: 120, data: [], lang: lang }),
       h(c('ChatMessage'), { role: 'lumi', name: 'Lumi', children: L('Wish received.', 'Đã nhận ước.') }),
       h(c('Checkbox'), { label: L('Agree', 'Đồng ý'), lang: lang }),
       h(c('CitationList'), { label: L('Sources', 'Nguồn'), items: [{ title: 'Doctrine', href: '#' }] }),
@@ -227,7 +228,7 @@
       h(c('FloatingActionButton'), { position: 'static', label: L('Make a wish', 'Ước một điều'), icon: h(c('Icon'), { name: 'sparkle' }) }),
       h(c('Form'), { onSubmit: function (e) { stop(e); } }, h(c('TextField'), { label: L('Name', 'Tên'), name: 'name', lang: lang })),
       h(c('HotKeys'), { bindings: [{ keys: '⌘K', description: L('Open palette', 'Mở bảng lệnh') }], lang: lang }, h('span', null, L('Hotkey host', 'Vùng phím tắt'))),
-      h(c('HoverCard'), { openDelay: 0, closeDelay: 99999, trigger: h('button', { type: 'button' }, '@anle'), children: h('div', null, h('b', null, 'An Le'), h('br'), L('Platform lead', 'Trưởng nhóm Nền tảng')) }),
+      h(c('HoverCard'), { 'aria-label': 'An Le', openDelay: 0, closeDelay: 99999, trigger: h('button', { type: 'button' }, '@anle'), children: h('div', null, h('b', null, 'An Le'), h('br'), L('Platform lead', 'Trưởng nhóm Nền tảng')) }),
       h(c('HumanReviewGate'), {
         risk: 'high',
         summary: L('Outbound email needs review.', 'Email gửi đi cần duyệt.'),
@@ -262,7 +263,7 @@
       h(c('OverlayProvider'), null, h('span', null, L('Overlay root host', 'Vùng gốc overlay'))),
       h(c('Pagination'), { page: 2, pageCount: 5, onChange: function () {} }),
       h(c('Popconfirm'), { title: L('Delete this draft?', 'Xóa bản nháp này?'), onConfirm: function () {}, trigger: h(c('Button'), { variant: 'danger-ghost', size: 'sm', children: L('Delete', 'Xóa') }) }),
-      h(c('Popover'), { trigger: h('button', { type: 'button' }, L('Open panel', 'Mở panel')), children: h('div', null, L('Popover content', 'Nội dung popover')) }),
+      h(c('Popover'), { 'aria-label': L('Popover content', 'Nội dung popover'), trigger: h('button', { type: 'button' }, L('Open panel', 'Mở panel')), children: h('div', null, L('Popover content', 'Nội dung popover')) }),
       h(c('ProgressBar'), { value: 72, label: L('v1.0 progress', 'Tiến độ v1.0') }),
       h(c('PromptInput'), { placeholder: L('Describe your wish…', 'Mô tả ước của bạn…'), 'aria-label': L('Prompt', 'Lời nhắc'), lang: lang }),
       h(c('PromptSuggestions'), { suggestions: [L('Ship tokens', 'Xuất token'), L('Audit contrast', 'Kiểm tra tương phản')], onSelect: function () {} }),
@@ -420,10 +421,100 @@
     return { ok: ok, detail: detail.join(' · ') };
   }
 
+  /** Preserve cluster fixtures for existing consumers; isolate smoke scenes. */
+  function buildScene(h, NS, name, opts) {
+    if (NAMES.indexOf(name) < 0) throw new Error('Unknown primary: ' + name);
+    var cluster = buildCluster(h, NS, opts);
+    if (cluster.missing.length) throw new Error('Missing fixture exports: ' + cluster.missing.join(','));
+    var nodes = cluster.nodes.filter(function (node) { return node.type === NS[name]; });
+    // Toast requires its stack host; Tour requires its linked anchor.
+    if (name === 'Toast') nodes = cluster.nodes.filter(function (node) { return node.type === NS.ToastStack; });
+    if (name === 'Tour') nodes.unshift(cluster.nodes.find(function (node) { return node.props.id === 'axe-tour-anchor-' + opts.lang; }));
+    if (!nodes.length || nodes.some(function (node) { return !node; })) throw new Error('No scene for ' + name);
+    return { name: name, nodes: nodes };
+  }
+
+  /** Static scans wait for fonts and finite entry motion; continuous effects keep running. */
+  async function settleSceneForScan(stage) {
+    var timer, cancelled = false;
+    try {
+      await Promise.race([
+        (async function () {
+          await new Promise(requestAnimationFrame);
+          await document.fonts.ready;
+          for (var pass = 0; pass < 8 && !cancelled; pass++) {
+            await new Promise(requestAnimationFrame);
+            if (cancelled) return;
+            var finite = stage.getAnimations({ subtree: true }).filter(function (animation) {
+              return animation.playState !== 'finished' && animation.playState !== 'idle' &&
+                Number.isFinite(animation.effect.getComputedTiming().endTime);
+            });
+            if (!finite.length) return;
+            if (finite.some(function (animation) { return animation.playState === 'paused'; })) throw new Error('Paused finite scene animation cannot settle');
+            await Promise.all(finite.map(function (animation) { return animation.finished.catch(function () {}); }));
+          }
+          if (!cancelled) throw new Error('Finite scene animations did not settle');
+        })(),
+        new Promise(function (_, reject) {
+          timer = setTimeout(function () { reject(new Error('Scene fonts/finite entry animation readiness timed out')); }, 5000);
+        }),
+      ]);
+    } finally {
+      cancelled = true;
+      clearTimeout(timer);
+    }
+  }
+
+  /** Expand only the selected primary and assert its required exposed surface. */
+  async function expandSceneForScan(stage, name) {
+    var detail = 'default fixture';
+    function requireNode(selector) {
+      var node = stage.querySelector(selector);
+      if (!node) throw new Error(name + ': missing ' + selector);
+      return node;
+    }
+    var selector;
+    if (name === 'Cascader' || name === 'TreeSelect') {
+      requireNode('button.cs-treeselect__field').click();
+      selector = name === 'Cascader' ? '.cs-cascader__pop' : '.cs-treeselect__pop';
+    } else if (name === 'Menubar') {
+      requireNode('.cs-menubar__top').click(); selector = '.cs-menubar [role="menu"]';
+    } else if (name === 'Combobox') {
+      requireNode('input[role="combobox"]').focus(); selector = '[role="listbox"]';
+    } else if (name === 'DatePicker' || name === 'ColorPicker') {
+      requireNode(name === 'DatePicker' ? '.cs-datepicker__field' : '.cs-colorpicker__field').click();
+      selector = name === 'DatePicker' ? '.cs-datepicker__pop' : '.cs-colorpicker__pop';
+    } else if (name === 'ContextMenu') {
+      requireNode('.cs-ctxmenu-zone').dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 20, clientY: 20 }));
+      selector = '.cs-ctxmenu-zone [role="menu"]';
+    } else if (name === 'HoverCard') {
+      requireNode('.cs-hovercard').dispatchEvent(new MouseEvent('mouseover', { bubbles: true, cancelable: true, relatedTarget: document.body }));
+      selector = '.cs-hovercard__panel';
+    } else if (name === 'Popover' || name === 'Popconfirm') {
+      requireNode(name === 'Popover' ? '.cs-popover > button' : '.cs-popconfirm > button').click();
+      selector = name === 'Popover' ? '.cs-popover__panel' : '.cs-popconfirm__panel';
+    } else if (name === 'Tooltip') {
+      requireNode('.cs-tooltip button').focus();
+      selector = '[role="tooltip"]';
+    } else if (['Dialog', 'AlertDialog', 'Drawer', 'CommandPalette', 'Tour'].indexOf(name) >= 0) {
+      selector = '[role="dialog"], [role="alertdialog"]';
+    } else if (name === 'Menu') selector = '.cs-menu [role="menu"]';
+    if (selector) {
+      await wait(120);
+      var surface = requireNode(selector);
+      if (surface.closest('[inert], [hidden], [aria-hidden="true"]') || !surface.getClientRects().length || getComputedStyle(surface).visibility === 'hidden' || Number(getComputedStyle(surface).opacity) === 0) throw new Error(name + ': surface not exposed: ' + selector);
+      detail = 'exposed ' + selector;
+    }
+    return { ok: true, detail: detail };
+  }
+
   global.__axeFixtures = {
-    version: 1,
+    version: 2,
     names: NAMES,
     buildCluster: buildCluster,
+    buildScene: buildScene,
+    expandSceneForScan: expandSceneForScan,
+    settleSceneForScan: settleSceneForScan,
     expandForScan: expandForScan,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

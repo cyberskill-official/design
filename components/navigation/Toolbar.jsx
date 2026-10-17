@@ -1,5 +1,6 @@
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
+import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Toolbar — horizontal action bar (APG toolbar arrows); overflow items collapse into a menubutton + popup menu. items: {label,icon,onSelect} or "-". */
@@ -23,6 +24,7 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
   });
   if (hasMore) controlMeta.push({ kind: "more" });
 
+  const { scope } = useOverlayLayer({ open: open && hasMore, kind: "dropdown", panelRef: wrap, onEscape: () => setOpen(false) });
   React.useEffect(() => {
     if (!open) return;
     const d = (e) => { if (wrap.current && !wrap.current.contains(e.target)) setOpen(false); };
@@ -49,7 +51,6 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
     else if (e.key === "ArrowLeft") { e.preventDefault(); focusControl(i - 1); }
     else if (e.key === "Home") { e.preventDefault(); focusControl(0); }
     else if (e.key === "End") { e.preventDefault(); focusControl(controlMeta.length - 1); }
-    else if (e.key === "Escape" && open) { e.preventDefault(); setOpen(false); }
   };
 
   const onMenuKeyDown = (e, i) => {
@@ -62,11 +63,6 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
       e.preventDefault();
       const n = Math.max(0, i - 1);
       const el = menuRefs.current[n]; if (el) el.focus();
-    } else if (e.key === "Escape") {
-      e.preventDefault();
-      setOpen(false);
-      const moreIdx = controlMeta.findIndex((c) => c.kind === "more");
-      if (moreIdx >= 0) focusControl(moreIdx);
     } else if (e.key === "Home") {
       e.preventDefault();
       const el = menuRefs.current[0]; if (el) el.focus();
@@ -78,6 +74,7 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
 
   let controlI = 0;
   return (
+    <overlayScopeContext.Provider value={scope}>
     <div ref={(el) => { wrap.current = el; ref.current = el; }} className={cx("cs-toolbar", className)} role="toolbar" aria-label={label} aria-orientation="horizontal">
       {head.map((it, i) => {
         if (it === "-") return <span key={"sep-" + i} className="cs-toolbar__sep" aria-hidden="true" />;
@@ -92,7 +89,7 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
             onFocus={() => setFocusIdx(ci)}
             onKeyDown={(e) => onToolbarKeyDown(e, ci)}
             onClick={() => it.onSelect && it.onSelect()}
-          >{it.icon}{it.label ? <span>{it.label}</span> : null}</button>
+          >{it.icon}{(it.label || it.label === 0) ? <span>{it.label}</span> : null}</button>
         );
       })}
       {hasMore ? (() => {
@@ -135,5 +132,6 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
         );
       })() : null}
     </div>
+    </overlayScopeContext.Provider>
   );
 }

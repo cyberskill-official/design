@@ -26,9 +26,11 @@ const FORBIDDEN_PREFIXES = [
 
 const REQUIRED_SUBSTRINGS = [
   'THIRD-PARTY-NOTICES.md',
+  'image-slot.js',
   'fonts/',
   '_vendor/',
   'docs/consuming.md',
+  'docs/reference-catalog.json',
   'docs/conventions.md',
 ];
 

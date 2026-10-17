@@ -17,11 +17,6 @@ export const ConsumerGrant = {
   render: () => <Page path="docs/consumer-grant.md" title="Consumer grant" />,
 };
 
-export const ReleaseRunbook = {
-  name: 'Release runbook',
-  render: () => <Page path="docs/release-runbook.md" title="Release runbook" />,
-};
-
 export const Storybook = {
   name: 'Storybook',
   render: () => <Page path="docs/storybook.md" title="Storybook" />,

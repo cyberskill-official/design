@@ -25,6 +25,12 @@ body {
   outline-offset: 2px;
   box-shadow: 0 0 0 5px var(--cs-color-accent-ochre, #f4ba17);
 }
+/* WebKit can suppress box-shadow on native button/range/check/radio surfaces.
+ * Keep their browser-owned appearance and use a painted Ochre glow fallback;
+ * the solid text-primary outline remains the contrast-bearing contour. */
+:where(button, input[type="range"], input[type="checkbox"], input[type="radio"]):focus-visible {
+  filter: drop-shadow(0 0 2px var(--cs-color-accent-ochre, #f4ba17));
+}
 
 /* Skip link — shared by templates, kits, and product shells (UX-002). */
 .cs-skip {
@@ -52,5 +58,5 @@ body {
   border: 2px solid var(--cs-color-brand-ochre);
   border-radius: var(--cs-radius-md, 8px);
   overflow: visible;
-  box-shadow: var(--cs-shadow-md);
+  box-shadow: 0 0 0 5px var(--cs-color-accent-ochre), var(--cs-shadow-md);
 }

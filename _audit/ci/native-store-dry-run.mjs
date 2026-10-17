@@ -6,15 +6,20 @@
  *   node _audit/ci/native-store-dry-run.mjs --dry-run   # scaffold + metadata only (no secrets)
  *   node _audit/ci/native-store-dry-run.mjs             # same + soft-skip when ASC_* / Play JSON absent
  *
+ *   --report-path=<path> sends diagnostics to that file instead of the default.
+ *
  * Never submits to App Store / Play Store. Samples remain samples until product need.
  */
 import { existsSync, readFileSync, writeFileSync, statSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { recordCiVerdict } from './ci-verdict.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
-const REPORT = join(root, '_audit/ci/native-store-report.json');
+// Callers can isolate diagnostics; the ordinary CLI destination is unchanged.
+const reportArgument = process.argv.slice(2).find(argument => argument.startsWith('--report-path='));
+if (reportArgument === '--report-path=') throw new Error('--report-path requires a nonempty path');
+const REPORT = reportArgument ? resolve(reportArgument.slice('--report-path='.length)) : join(root, '_audit/ci/native-store-report.json');
 const args = new Set(process.argv.slice(2));
 const dryRun = args.has('--dry-run');
 
@@ -217,6 +222,7 @@ function main() {
     skipped: false,
     ok: true,
     dryRun: false,
+    kind: 'readiness',
     secretsPresent: true,
     platforms,
     submit: false,
@@ -226,8 +232,8 @@ function main() {
   });
   recordCiVerdict({
     channel: 'native-store',
-    kind: 'success',
-    detail: 'signing secrets present; submit still disabled',
+    kind: 'readiness',
+    detail: 'scaffolds and secret presence checked; no signed build or store upload',
   });
 }
 

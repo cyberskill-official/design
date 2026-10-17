@@ -4,8 +4,10 @@ import { cx } from "../_utils/cx.js";
 
 /**
  * CyberSkill PromptInput — the AI-native ask box. Enter submits (Shift+Enter =
- * newline). Works controlled (value/onChange) or uncontrolled. The hint states
- * that Lumi replies, then hands clear wishes to a human — keep that disclosure.
+ * newline). Works controlled (value/onChange) or uncontrolled. The localized
+ * default hint describes a Lumi-to-human handoff; use it only when the consumer
+ * implements that workflow, otherwise supply an accurate hint. Submission
+ * invokes the caller callback; model replies and human review are caller-owned.
  */
 export function PromptInput({
   value, onChange, onSubmit,
@@ -17,7 +19,7 @@ export function PromptInput({
 }) {
   const [inner, setInner] = React.useState("");
   const val = value != null ? value : inner;
-  const setVal = (v) => (onChange ? onChange(v) : setInner(v));
+  const setVal = (v) => { if (value == null) setInner(v); onChange?.(v); };
   const submit = () => { if (!disabled && !busy && String(val).trim()) onSubmit && onSubmit(val); };
   const [ref, L] = useLang(lang);
   const t = makeT("PromptInput", L);
@@ -29,10 +31,10 @@ export function PromptInput({
       <textarea
         className="cs-prompt__field" rows={1} value={val} placeholder={ph} disabled={disabled}
         onChange={(e) => setVal(e.target.value)}
-        onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); } }}
+        onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing && e.keyCode !== 229) { e.preventDefault(); submit(); } }}
       />
       <div className="cs-prompt__bar">
-        {ht ? (
+        {(ht || ht === 0) ? (
           <span className="cs-prompt__hint">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z" /></svg>
             {ht}

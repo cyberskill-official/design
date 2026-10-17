@@ -13,9 +13,10 @@
 <helmet>
 <script src="./ds-base.js"></script>
 <style>@page{size:A4;margin:23mm 20mm 20mm 20mm}@media print{html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important;padding:0!important}.cs-avoid{break-inside:avoid}}</style>
+<style>@media print{.cs-sheet h2{padding-top:3px!important;padding-bottom:max(0px,calc(var(--_cs-print-heading-padding) - 3px))!important;margin-bottom:calc(var(--_cs-print-heading-after) - max(0px,calc(3px - var(--_cs-print-heading-padding))))!important}}</style>
 </helmet>
 <div lang="vi" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-doc-ink)">
-  <div class="cs-sheet" style="max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left">
+  <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left" data-theme="light">
     <div style="display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--cs-color-text-muted);padding-bottom:6px;border-bottom:1px solid var(--cs-color-border-default);margin-bottom:14px">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="18" hint-size="18px,18px"></x-import>
       <b style="color:var(--cs-color-brand-umber)">CyberSkill</b><span>· Hồ sơ lao động người nước ngoài</span><span style="margin-left:auto;font-family:var(--cs-font-family-mono)">Số/No. <span style="background:var(--cs-doc-fill);padding:0 3px">.....</span>/2026/HSNN-CYBERSKILL</span>
@@ -29,7 +30,7 @@
       <div style="font-size:14px;color:var(--cs-doc-slate);font-style:italic">Foreign Employee Work Permit Pack</div>
       <div style="font-size:12.5px;margin-top:8px">Số / No.: <span style="background:var(--cs-doc-fill);padding:0 3px">......</span>/2026/HSNN-CYBERSKILL</div>
       <div style="font-size:12px;margin-top:2px">Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: <span style="background:var(--cs-doc-fill);padding:0 3px">......</span> / <span style="background:var(--cs-doc-fill);padding:0 3px">......</span> / <span style="background:var(--cs-doc-fill);padding:0 3px">......</span></div>
-      <div style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
+      <div aria-hidden="true" style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
     </div>
     <p style="font-size:13.5px;line-height:1.5;margin:0 0 1px">Hồ sơ này áp dụng khi Công ty tuyển dụng người lao động nước ngoài. Căn cứ Bộ luật Lao động (Điều 151 đến Điều 158) và Nghị định số 152/2020/NĐ-CP (sửa đổi bởi Nghị định 70/2023/NĐ-CP).</p>
     <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 8px">This pack applies when the Company hires a foreign national. Pursuant to the Labor Code (Articles 151 to 158) and Decree No. 152/2020/ND-CP (as amended by Decree 70/2023/ND-CP).</p>
@@ -38,7 +39,7 @@
       <p style="font-size:11px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0"><b>Drafting note:</b> A foreign national working in Vietnam without a work permit is deported and the Company is fined. The labor contract must NOT be signed before the work permit is issued.</p>
     </div>
 
-    <h2 class="cs-avoid" style="font-size:13px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px">ĐIỀU 1 · TRÌNH TỰ, THEO ĐÚNG THỨ TỰ <span style="font-weight:400;font-size:11.5px;color:var(--cs-doc-slate);font-style:italic">Article 1 · The sequence, in order</span></h2>
+    <h2 class="cs-avoid" style="font-size:13px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:8px">ĐIỀU 1 · TRÌNH TỰ, THEO ĐÚNG THỨ TỰ <span style="font-weight:400;font-size:11.5px;color:var(--cs-doc-slate);font-style:italic">Article 1 · The sequence, in order</span></h2>
     <table class="cs-avoid" style="width:100%;border-collapse:collapse;font-size:12px;margin:0 0 18px">
       <thead><tr style="background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse,#fff)"><th style="text-align:left;padding:5px 9px;font-size:10px;width:38px">Bước <i style="font-weight:400">Step</i></th><th style="text-align:left;padding:5px 9px;font-size:10px">Nội dung <i style="font-weight:400">What happens</i></th><th style="text-align:left;padding:5px 9px;font-size:10px;width:150px">Thời hạn <i style="font-weight:400">Timing</i></th></tr></thead>
       <tbody>
@@ -48,7 +49,7 @@
       </tbody>
     </table>
 
-    <h2 class="cs-avoid" style="font-size:13px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px">ĐIỀU 2 · DANH MỤC HỒ SƠ XIN GIẤY PHÉP LAO ĐỘNG <span style="font-weight:400;font-size:11.5px;color:var(--cs-doc-slate);font-style:italic">Article 2 · Work permit application checklist</span></h2>
+    <h2 class="cs-avoid" style="font-size:13px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:8px">ĐIỀU 2 · DANH MỤC HỒ SƠ XIN GIẤY PHÉP LAO ĐỘNG <span style="font-weight:400;font-size:11.5px;color:var(--cs-doc-slate);font-style:italic">Article 2 · Work permit application checklist</span></h2>
     <div style="display:grid;gap:6px;margin-bottom:8px">
       <sc-for list="{{ checklist }}" as="c" hint-placeholder-count="8">
       <div style="display:flex;gap:9px;align-items:flex-start"><span style="font-size:14px;line-height:1.3">☐</span><div><div style="font-size:13px;line-height:1.4">{{ c.vi }}</div><div style="font-size:11.5px;line-height:1.35;color:var(--cs-doc-slate);font-style:italic">{{ c.en }}</div></div></div>
@@ -59,7 +60,7 @@
       <p style="font-size:11px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0"><b>Drafting note:</b> Every foreign-issued document must be consular-legalized and translated into Vietnamese by a certified translator. This is the slowest step — start it early.</p>
     </div>
 
-    <h2 class="cs-avoid" style="font-size:13px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 6px">ĐIỀU 3 · TRƯỜNG HỢP MIỄN GIẤY PHÉP LAO ĐỘNG <span style="font-weight:400;font-size:11.5px;color:var(--cs-doc-slate);font-style:italic">Article 3 · Work permit exemptions</span></h2>
+    <h2 class="cs-avoid" style="font-size:13px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 6px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:6px">ĐIỀU 3 · TRƯỜNG HỢP MIỄN GIẤY PHÉP LAO ĐỘNG <span style="font-weight:400;font-size:11.5px;color:var(--cs-doc-slate);font-style:italic">Article 3 · Work permit exemptions</span></h2>
     <p style="font-size:13px;line-height:1.5;margin:0 0 1px">Một số trường hợp được miễn giấy phép lao động, nhưng vẫn phải làm thủ tục XÁC NHẬN MIỄN với Sở Lao động - Thương binh và Xã hội ít nhất 10 ngày trước ngày bắt đầu làm việc. Miễn giấy phép KHÔNG có nghĩa là miễn thủ tục.</p>
     <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 8px">Some cases are exempt from the work permit, but an EXEMPTION CONFIRMATION must still be obtained from the provincial labour department at least 10 days before the start date. Exempt does not mean no paperwork.</p>
     <div style="display:grid;gap:6px;margin-bottom:18px">
@@ -68,7 +69,7 @@
       </sc-for>
     </div>
 
-    <h2 class="cs-avoid" style="font-size:13px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 6px">ĐIỀU 4 · SAU KHI ĐƯỢC CẤP PHÉP <span style="font-weight:400;font-size:11.5px;color:var(--cs-doc-slate);font-style:italic">Article 4 · After the permit is issued</span></h2>
+    <h2 class="cs-avoid" style="font-size:13px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 6px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:6px">ĐIỀU 4 · SAU KHI ĐƯỢC CẤP PHÉP <span style="font-weight:400;font-size:11.5px;color:var(--cs-doc-slate);font-style:italic">Article 4 · After the permit is issued</span></h2>
     <div style="display:grid;gap:5px;margin-bottom:16px">
       <div><p style="font-size:13px;line-height:1.5;margin:0">a) Thời hạn hợp đồng lao động không được vượt quá thời hạn của giấy phép lao động (Điều 151 khoản 2).</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:1px 0 0">a) The term of the labor contract may not exceed the term of the work permit (Article 151.2).</p></div>
       <div><p style="font-size:13px;line-height:1.5;margin:0">b) Người lao động nước ngoài tham gia bảo hiểm xã hội bắt buộc theo quy định hiện hành.</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:1px 0 0">b) A foreign employee participates in compulsory social insurance as currently required.</p></div>

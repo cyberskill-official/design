@@ -32,3 +32,5 @@ export const Matrix = {
     </div>
   ),
 };
+
+export const ExistingDescription = { render: () => (<div><p id="tooltip-story-help">Persistent help remains associated.</p><Tooltip label="Additional detail"><Button aria-describedby="tooltip-story-help">Focus or hover</Button></Tooltip></div>) };

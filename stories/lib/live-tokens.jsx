@@ -4,9 +4,8 @@ import { Icon } from '../../components/icon/Icon.jsx';
 /**
  * Shared helpers for the Foundations / A11y / Status docs pages.
  *
- * Drift-proofing doctrine: pages import token NAMES (from tokens/tokens.js or
- * enumerated groups) but always render VALUES read live from the CSS cascade
- * via getComputedStyle, so the docs can never disagree with shipped styles.css.
+ * Pages import token NAMES (from tokens/tokens.js or enumerated groups) and
+ * render VALUES read from the current CSS cascade via getComputedStyle.
  * Reads are taken from a node INSIDE the story tree so the toolbar axes
  * (data-theme / data-cs-element / data-cs-variant on the preview wrapper)
  * are honoured.
@@ -15,27 +14,52 @@ import { Icon } from '../../components/icon/Icon.jsx';
 /**
  * Read live computed values for a list of --cs-* custom properties.
  * Attach the returned ref to any element inside the scope you want to read.
- * Re-reads after every render and converges (setState is skipped when values
- * are unchanged), so toolbar theme/element switches are picked up.
- * Third tuple item reports the resolved scope: { dark } (nearest data-theme).
+ * Re-reads after renders, ancestor attribute changes, relevant OS preferences
+ * and window resizes. This is a preview readout, not a CSS/visual certification.
+ * Third tuple item reports the computed color scheme and a revision for consumers
+ * that measure their own descendants (including callers with no token names).
  */
 export function useLiveTokenValues(names) {
   const ref = React.useRef(null);
   const [values, setValues] = React.useState({});
-  const [scope, setScope] = React.useState({ dark: false });
+  const [scope, setScope] = React.useState({ dark: false, revision: 0 });
   React.useEffect(() => {
-    if (!ref.current) return;
-    const cs = getComputedStyle(ref.current);
-    const next = {};
-    for (const n of names) next[n] = cs.getPropertyValue(n).trim();
-    setValues((prev) => {
-      const same =
-        Object.keys(prev).length === names.length &&
-        names.every((n) => prev[n] === next[n]);
-      return same ? prev : next;
-    });
-    const dark = !!ref.current.closest('[data-theme="dark"]');
-    setScope((prev) => (prev.dark === dark ? prev : { dark }));
+    const node = ref.current;
+    if (!node) return;
+    const read = (external = false) => {
+      const cs = getComputedStyle(node);
+      const next = {};
+      for (const n of names) next[n] = cs.getPropertyValue(n).trim();
+      setValues((prev) => Object.keys(prev).length === Object.keys(next).length &&
+        names.every((n) => prev[n] === next[n]) ? prev : next);
+      // color-scheme follows the actual nearest explicit/system CSS scope.
+      const dark = cs.colorScheme === 'dark';
+      setScope((prev) => !external && prev.dark === dark ? prev :
+        { dark, revision: prev.revision + (external ? 1 : 0) });
+    };
+    read();
+    let frame = null;
+    const schedule = () => {
+      if (frame !== null) return;
+      frame = requestAnimationFrame(() => { frame = null; read(true); });
+    };
+    const observer = new MutationObserver(schedule);
+    for (let ancestor = node; ancestor; ancestor = ancestor.parentElement) {
+      observer.observe(ancestor, { attributes: true, attributeFilter: [
+        'data-theme', 'data-cs-element', 'data-cs-variant', 'data-cs-style',
+        'data-cs-density', 'data-cs-contrast', 'style', 'class', 'lang', 'dir',
+      ] });
+    }
+    const preferences = ['(prefers-color-scheme: dark)', '(prefers-contrast: more)',
+      '(prefers-reduced-motion: reduce)'].map((query) => matchMedia(query));
+    for (const preference of preferences) preference.addEventListener('change', schedule);
+    window.addEventListener('resize', schedule);
+    return () => {
+      observer.disconnect();
+      for (const preference of preferences) preference.removeEventListener('change', schedule);
+      window.removeEventListener('resize', schedule);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
   });
   return [ref, values, scope];
 }
@@ -76,7 +100,7 @@ export function rgbToHex(rgb) {
 
 /** Normalize a duration to ms for display ('.12s' → '120ms'); a faithful unit conversion. */
 export function prettyDuration(v) {
-  const m = /^(\d*\.?\d+)s$/.exec(String(v || '').trim());
+  const m = /^(\d*\.?\d+(?:e[+-]?\d+)?)s$/i.exec(String(v || '').trim());
   if (m) {
     const ms = parseFloat(m[1]) * 1000;
     return `${Math.round(ms * 100) / 100}ms`;
@@ -192,8 +216,8 @@ export function LiveNote() {
   return (
     <p className="cs-caption" style={{ margin: '0 0 16px' }}>
       Values on this page are read live from the CSS cascade (getComputedStyle) inside the
-      preview scope — flip the Theme / Element toolbar and they follow. The docs cannot
-      drift from shipped styles.css.
+      preview scope. Theme / Element toolbar changes and supported OS preference
+      changes refresh these readings; inspect the rendered product separately.
     </p>
   );
 }

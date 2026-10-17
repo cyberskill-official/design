@@ -1,4 +1,4 @@
-**HumanReviewGate** — an AI-native checkpoint that keeps a human in the loop before a high-stakes action. Warning-bordered card with a risk label, plain-language summary, optional reviewer, and Approve / Reject.
+**HumanReviewGate** — a human-review control for an AI-assisted workflow. Warning-bordered card with a risk label, plain-language summary, optional reviewer, and Approve / Reject.
 
 ```jsx
 <HumanReviewGate
@@ -10,4 +10,14 @@
 />
 ```
 
-- Risk is stated in words, never colour alone. Pair with `AIDisclosureBadge` for full provenance.
+- Risk is stated in words, never colour alone. Pair with `AIDisclosureBadge` to display AI involvement and caller-supplied source information.
+
+The component renders the review card and calls `onApprove` or `onReject`; it does not authenticate a reviewer, persist approval, or prevent an action outside these callbacks. The consumer must enforce the required authorization before executing the action and supply accurate risk, summary and reviewer content.
+
+The reviewer slots preserve numeric `0`; `null`, `false` and empty strings continue to omit those slots.
+
+Keyboard: Tab reaches Reject and Approve; native Enter/Space activation invokes the corresponding caller callback. This UI does not enforce approval.
+
+Localization: Built-in EN/VI copy follows explicit `lang` or the inherited DOM language scope (Vietnamese fallback). Caller-supplied content is not translated.
+
+Source evidence: `HumanReviewGate.jsx` and `HumanReviewGate.d.ts` define this contract. These source pointers do not establish manual assistive-technology or consumer acceptance.

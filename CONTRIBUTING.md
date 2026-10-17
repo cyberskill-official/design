@@ -14,7 +14,7 @@ This file does not replace doctrine, the product registry, or the consume guide.
 
 - **Anchors are immutable** — Umber `#45210E`, Ochre `#F4BA17`. One accent per surface (Ochre on core; a product's element accent inside its `data-cs-element` scope). Every neutral warmed toward umber — no cold grey.
 - **Vietnamese-first & bilingual** — ship EN + VN, preserve diacritics, VN-safe line-heights. Every bilingual template carries a root `lang` (see conventions → Screen-reader language).
-- **Accessibility floor** — never remove the 3px Ochre `:focus-visible` ring; ≥44px touch targets on coarse pointers; body text APCA Lc ≥ 75; honour `prefers-reduced-motion`/`prefers-contrast`. All in `base/a11y.css` — don't regress it.
+- **Accessibility floor** — preserve the composite focus indicator (text-primary contour plus Ochre halo); ≥44px touch targets on coarse pointers; body text APCA Lc ≥ 75; honour `prefers-reduced-motion`/`prefers-contrast`. Focus styles live in `base/reset.css` and the component CSS; `base/a11y.css` covers coarse-pointer sizing and preference safety nets. Verify the rendered focus state after changes.
 - **Grammar** — Theme × Element × Language × Style are independent axes. Style pack is liquid-glass (sole pack; absent ≡ default).
 - **Voice** — warm / direct / honest / respectful. Products are "wishes" Lumi helps grant. Lumi stays golden in every element.
 
@@ -30,9 +30,9 @@ The expansion rule and verification-depth requirement are in **[`docs/doctrine.m
 - **Card / guideline** — `.html` with `<!-- @dsCard group="…" … -->` first line.
 - **Documentation** — EN + VI for every `docs/*.md`; add the page to the Storybook Docs sidebar (catalog + story) and `docs/viewer.html`. `docs-storybook-coverage` fails if the page exists only in git.
 
-## Agent MCP (CyberOS)
+## Agent workflow
 
-Tracked `.mcp.json` points at `scripts/mcp/cyberos-mcp.mjs` (not gitignored `.cyberos/` directly). That stub forwards to `.cyberos/mcp/cyberos-mcp.mjs` after `cyberos install`; on a fresh clone it exits cleanly and leaves the server disconnected. Prefer user-level MCP or an unstaged local overlay if you need a private server list — do not reintroduce a tracked path into gitignored `.cyberos/`.
+CyberOS orchestration, its MCP launcher and its two acceptance gates were retired by operator decision on 2026-10-08. The tracked `.mcp.json` has no required servers. Follow `AGENTS.md`, `SKILL.md` and the documented npm/browser checks. Product visual review, manual accessibility evidence and explicit operator instructions before push/merge/deploy remain required. Historical task records retain their original context.
 
 ## Documented scope boundaries (not gaps)
 

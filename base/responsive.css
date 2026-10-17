@@ -151,9 +151,9 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
 
 /* ---- 320 reflow (UX-003 / WCAG 1.4.10) ---- */
 @media (max-width: 360px) {
-  .cs-tabs { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; }
+  .cs-tabs { overflow-x: auto; overscroll-behavior-x: contain; }
   .cs-pagination { flex-wrap: wrap; max-inline-size: 100%; }
-  .cs-pagination button { min-inline-size: 32px; }
+  /* Keep the inherited 44px coarse-pointer floor; wrap controls instead of shrinking targets. */
   .cs-otp { gap: 4px; }
   .cs-otp__box { inline-size: 36px; block-size: 40px; font-size: var(--cs-font-size-base); }
   .cs-dl { grid-template-columns: 1fr; }
@@ -162,4 +162,9 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
   .card, button.card, article.case { min-width: 0 !important; }
   [style*="minmax(320px"] { grid-template-columns: 1fr !important; }
   [style*="grid-template-columns: 248px 1fr"] { grid-template-columns: 1fr !important; }
+}
+
+/* Preserve the narrow fine-pointer scrollbar without overriding coarse hit regions. */
+@media (max-width: 360px) and (pointer: fine) {
+  .cs-tabs { scrollbar-width: thin; }
 }

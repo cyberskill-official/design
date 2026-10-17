@@ -9,7 +9,7 @@
 This is the **entrance document** for the CyberSkill Design System — VERSION **1.7.2** (see `VERSION`). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Operator documentation is published in the Storybook **Docs** sidebar (and the Documentation Library at `/docs/viewer.html`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves four independent axes — **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
 
 **Quick start by audience**
-- **Designers** — open Storybook (**Foundations / Components / Templates / Pages / Docs**). **Templates** lists all 85 starting points (Gallery → Atomic View, plus category stories including the 38-document VN A4 suite (Employment Suite + commercial framework) under **Templates → HR**). Flip Theme × Element × Language × Style live via the Storybook toolbar, Atomic View, and the Elements Geometry specimen.
+- **Designers** — open Storybook (**Foundations / Components / Templates / Pages / Docs**). **Templates** lists all <!-- cs-count:templates -->85<!-- /cs-count --> starting points (Gallery → Atomic View, plus category stories including the 38-document VN A4 suite (Employment Suite + commercial framework) under **Templates → HR**). Flip Theme × Element × Language × Style live via the Storybook toolbar, Atomic View, and the Elements Geometry specimen.
 
 - **DC-capable authoring** (Design Components compiler present) — read `SKILL.md` (normative Hard rules + orientation), then the guide below; compose with `styles.css` + bundler `@cyberskill/design` (`_esm/react.mjs`) / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). DC `*.dc.html` templates only when the session has the compiler. Component contracts live beside each component (`.d.ts` + `.prompt.md`).
 
@@ -30,7 +30,6 @@ This is the **entrance document** for the CyberSkill Design System — VERSION *
 | `docs/consumer-grant.md` | Written npm consumer grant (CyberSkill portfolio; UNLICENSED + named products) |
 | `docs/conventions.md` | How to extend the system (naming grammar, checklists, the four axes) |
 | `docs/release-notes.md` | Curated product highlights (not a changelog) |
-| `docs/release-runbook.md` | Authoritative release trigger → publish → verify |
 | `docs/design-styles.md` | The live styling axes (Theme × Element × Language × Style) and the fixed liquid-glass treatment |
 | `docs/products.md` | Product → element registry (**locked** — do not invent assignments) |
 | `docs/contrast-report.md` | Generated APCA elemental sweep — 0 failures at its Lc ≥ 60 UI-label floor. Body text authors to the stricter Lc ≥ 75 floor (see Anchor immutables); the sweep's Lc ≥ 60 rows are accent/label pairings, not body text. |
@@ -46,11 +45,10 @@ This is the **entrance document** for the CyberSkill Design System — VERSION *
 | Doc | What it answers |
 |---|---|
 | `docs/doctrine.md` | Expansion rule, verification depth, immutables (host files such as `CLAUDE.md` are shims) |
-| `docs/decisions.md` | Recorded owner decisions + open maintainer tasks (Code Connect deferred) |
+| `docs/decisions.md` | Recorded owner decisions + open maintainer tasks |
 | `docs/ci-cd.md` | CI/CD automation — GitHub Actions workflow, headless gate runner, token-provenance pre-check, badge |
 | `docs/quality-gates.md` | Benchmark reference — every quality gate, what it asserts, pass criterion, where it runs |
 | `docs/sync.md` | Repo ↔ authoring-environment round-trip fidelity & two-way sync |
-| `_audit/archive/` | Historical audit notes (not public docs) |
 
 ---
 
@@ -103,7 +101,7 @@ Related CyberSkill repos (not in this tree — explore for product/marketing fid
 
 ## VISUAL FOUNDATIONS
 
-**Palette — warm earth, never cold.** Umber `#45210E` grounds everything (it *is* the primary text colour); Ochre `#F4BA17` is the single accent — CTAs on dark, focus rings, highlights, the genie. Surfaces are warm paper: page `#FFFDF8`, panel `#FFFFFF`, raised `#FBF4E9`. Every neutral is warmed toward umber — borders are `#E7D9C6`, muted text `#6E5A4C`. Semantic colours (success `#166534`, danger `#B42318`, warning `#92400E`, info `#1D4ED8`) are used sparingly and never as the only signal. **Max one accent per surface** — on core surfaces that accent is Ochre; a *product* may swap in its element accent (see Elemental identity below), never add a second hue beside it. No bluish-purple gradients.
+**Palette — warm earth, never cold.** Umber `#45210E` grounds everything (it *is* the primary text colour); Ochre `#F4BA17` is the single accent — CTAs on dark, focus rings, highlights, the genie. Surfaces are warm paper: page `#FFFDF8`, panel `#FFFFFF`, raised `#FBF4E9`. Every neutral is warmed toward umber — borders are `#E7D9C6`, muted text `#3F2D21`. Semantic colours (success `#166534`, danger `#B42318`, warning `#92400E`, info `#1D4ED8`) are used sparingly and never as the only signal. **Max one accent per surface** — on core surfaces that accent is Ochre; a *product* may swap in its element accent (see Elemental identity below), never add a second hue beside it. No bluish-purple gradients.
 
 **Typography.** UI: **Be Vietnam Pro** (300–800; a Vietnamese-first Google family) — the default for every surface, headings included. Display/headline: **Space Grotesk** (variable 300–700), the **opt-in** face behind `--cs-font-family-display`; nothing points at it until a scope opts in with `.cs-display-face`, which retargets `--cs-heading-family` and leaves body copy on the UI face. Code/data: **JetBrains Mono**. Display headings are heavy (800 on the UI face; under `.cs-display-face`, Space Grotesk tops out at 700 so 800 clamps within that family), tight tracking (−0.02em); body is 400/500 at 1.5. Uppercase eyebrows at 0.08–0.12em tracking. The size ramp runs xs 12 → 5xl 60 on a 16px base.
 
@@ -125,9 +123,9 @@ Related CyberSkill repos (not in this tree — explore for product/marketing fid
 
 
 
-**Motion** is calm and purposeful: short durations (120–320ms), a soft decelerate `cubic-bezier(0.2,0,0,1)`, small translate/scale and fades (e.g. the hero mascot's gentle float). No bounce, no flash. Everything collapses to 0 under `prefers-reduced-motion`.
+**Motion** is calm and purposeful: short durations (120–320ms), a soft decelerate `cubic-bezier(0.2,0,0,1)`, small translate/scale and fades (e.g. the hero mascot's gentle float). No bounce, no flash. Under `prefers-reduced-motion`, the global safety net reduces animation and transition durations to 0.01ms and disables smooth scrolling; individual components can disable animation entirely.
 
-**Interaction states.** Hover: brighten ~8% (filled) or fill to `surface-raised` (subtle). Press: a 0.5–1px nudge. Focus: a **3px Ochre ring, 2px offset** — always visible, never removed. Disabled: opacity 0.58. Touch targets ≥ 44px on coarse pointers.
+**Interaction states.** Hover: brighten ~8% (filled) or fill to `surface-raised` (subtle). Press: a 0.5–1px nudge. Focus: preserve the **composite indicator** — a 2px text-primary contour plus an Ochre halo, as specified in `docs/doctrine.md`; component rules keep the contour visible when their focus indicator is inset or displayed by a wrapper. Native buttons, ranges, checks and radios retain their browser appearance and an Ochre glow fallback where box shadows are suppressed. Disabled presentation follows each component’s contract. Touch targets ≥ 44px on coarse pointers.
 
 **Transparency & blur** appear only on glass surfaces and the hero wish-input — deliberate, backed by fallbacks — never as decoration.
 
@@ -142,7 +140,7 @@ Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official mas
 
 ## Components
 
-**A comprehensive library — 122 exports across 8 groups.** 106 of these are primary component files, and every primary ships the full contract trio — a `.jsx`, a `.d.ts` props contract, a `.prompt.md` — plus a Design-System card. The other 16 are co-exports (sub-parts such as `CardHeader`, `Tab`, `MenuItem`, `Radio`, and data consts such as `CS_ICONS`) documented inside their parent's files rather than with files of their own. Mount from the compiled bundle. The bundle's global is `window.CyberSkillDesignSystem_<projectId>` — the 6-hex suffix is assigned by the compiler and **changes when this system is imported into another project**, so resolve it by prefix rather than hardcoding it: `const CS = window[Object.keys(window).find(k => /^CyberSkillDesignSystem_/.test(k))]; const { Button } = CS;`
+**A comprehensive library — <!-- cs-count:publicExports -->123<!-- /cs-count --> exports across 8 groups.** <!-- cs-count:componentSourceFiles -->106<!-- /cs-count --> of these are primary component files, and every primary ships the full contract trio — a `.jsx`, a `.d.ts` props contract, a `.prompt.md` — plus a Design-System card. The other <!-- cs-count:coExports -->17<!-- /cs-count --> are co-exports (sub-parts such as `CardHeader`, `Tab`, `MenuItem`, `Radio`, and data consts such as `CS_ICONS`) documented inside their parent's files rather than with files of their own. Mount from the compiled bundle. The bundle's global is `window.CyberSkillDesignSystem_<projectId>` — the 6-hex suffix is assigned by the compiler and **changes when this system is imported into another project**, so resolve it by prefix rather than hardcoding it: `const CS = window[Object.keys(window).find(k => /^CyberSkillDesignSystem_/.test(k))]; const { Button } = CS;`
 
 - **Core — actions & overlays** — `Button`, `ButtonGroup`, `FloatingActionButton`, `Dialog`
 
@@ -160,7 +158,7 @@ Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official mas
 
 - **Brand** — `Logo` (+ the `CS_LOGO_MARK_INNER` / `CS_LOGO_VIEWBOX` data consts), `Icon` (+ the `CS_ICONS` data const), `LumiAvatar`
 
-**Atomic tiers** — the same 122 exports seen through the design-composition lens (browsable live in `guidelines/atomic-view.html`, where one toolbar reskins every tier across Theme × Element × Language × Style). The eight groups above are the *functional/import* grouping (how the bundle is organized); these tiers are the *composition* grouping — same components, two lenses.
+**Atomic tiers** — the same <!-- cs-count:publicExports -->123<!-- /cs-count --> exports seen through the design-composition lens (browsable live in `guidelines/atomic-view.html`, where one toolbar reskins every tier across Theme × Element × Language × Style). The eight groups above are the *functional/import* grouping (how the bundle is organized); these tiers are the *composition* grouping — same components, two lenses.
 
 - **Atoms** (indivisible primitives) — `Button`, `Icon`, `Badge`, `Tag`, `StatusIndicator`, `Spinner`, `ProgressBar`, `Skeleton`, `Avatar` (+ `AvatarGroup`), `Divider`, `AspectRatio`, `Item`, `Kbd`, `Logo`, `LumiAvatar`, `Toggle`, `Link`
 
@@ -170,7 +168,7 @@ Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official mas
 
 Highlights: **Button** — Umber primary; variants primary/secondary/tertiary/ghost/danger/danger-ghost; sizes xs–lg; loading, icon, fullWidth. **TextField / Textarea / Select / NativeSelect** share one `.cs-field` frame (label + description/error; diacritic/IME-safe). **DataTable** — caption, scoped headers, per-column render, idle/loading/error/empty triad. **Card** — warm panel + header/body/footer. **Logo** renders the exact official mark; **Icon** drives the in-repo line-icon set. The **AI-native** family carries the brand's explainability doctrine — disclosure, human review, wish capture, and confidence, all stated in words (never colour alone).
 
-**Install / package name.** This monolith publishes as **`@cyberskill/design`** (live at **1.7.2**; grant in `docs/consumer-grant.md` governs *use* — package remains UNLICENSED). Do **not** install `@cyberskill/react` for this tree — that name is historical marketing-site inventory, not this package.
+**Install / package name.** This monolith publishes as **`@cyberskill/design`** (VERSION **1.7.2**; grant in `docs/consumer-grant.md` governs *use* — package remains UNLICENSED). Do **not** install `@cyberskill/react` for this tree — that name is historical marketing-site inventory, not this package.
 
 **Source inventory vs. extensions.** An earlier CyberSkill surface shipped six primitives — `Button`, `TextField`, `Dialog`, `DataTable`, `AIDisclosureBadge`, `HumanReviewGate` — plus a brand `Logo`. Everything else in **this** package is an **intentional extension** built in the brand's own token vocabulary so consumers have a complete working kit: `Icon` (the marketing site's real in-repo line-icon set), the standard Forms / Feedback / Data / Navigation / Overlays primitives (search, stepper, slider, file upload, list, description list, timeline, accordion, kbd, code block, sidebar, steps, command palette, popover, drawer, and more), added AI-native pieces (`PromptInput`, `ChatMessage`, `ConfidenceMeter`, `PromptSuggestions`, `TypingIndicator`, `CitationList`) that formalise the Lumi wish-flow, and the `LumiAvatar` mascot. None invent new visual language — they reuse the anchors, surfaces, type, and motion already defined.
 
@@ -196,7 +194,7 @@ Copyable starting points for consuming projects (the **Templates** picker — th
 
 - **Email** (`templates/email/`) — centred 600px announcement: umber header, ochre CTA, footer.
 
-Every template exposes the **Element (Ngũ Hành)** tweak (15 variants) plus a behavior toggle; screen templates also carry theme light/dark, and the letter-print business docs are **light-only** (no theme tweak — print doctrine).
+Every template declares the **Element (Ngũ Hành)** selector (15 variants). The source catalog declares <!-- cs-count:templatesWithBooleanControl -->15<!-- /cs-count --> templates with at least one boolean control and <!-- cs-count:templatesWithoutBooleanControl -->70<!-- /cs-count --> without one; behavior controls vary by template. <!-- cs-count:templatesWithThemeControl -->16<!-- /cs-count --> templates declare a Theme control, while <!-- cs-count:templatesWithoutThemeControl -->69<!-- /cs-count --> do not. These counts describe declared controls; inspect the chosen artifact’s actual states and print behavior. Letter-print business documents remain light-only under the print doctrine.
 
 ### Team artifact templates
 
@@ -207,7 +205,7 @@ Branded documents, emails, reports, and decks per department — each a copyable
 - **Team** — `team-meeting-agenda` (time-boxed items, owners, decisions log, ground rules).
 
 - **HR** — `hr-announcement` (team-news email). *(The offer letter, onboarding checklist, and job description now live in the client-supplied Employment Suite below as `vn-offer-letter`, `vn-onboarding-checklist`, and `vn-job-description`.)*
-- **Board** — `bod-report` (quarterly review: KPI stats, portfolio table, risks, AI-assisted disclosure), `bod-deck` (16:9 board deck — stacked slides, PDF/PPTX-exportable), `bod-memo` (one-page exec memo with a single ask).
+- **Board** — `bod-report` (quarterly review: KPI stats, portfolio table, risks, AI-assisted disclosure), `bod-deck` (16:9 board deck — stacked slides, browser print styling and host-dependent PPTX capture), `bod-memo` (one-page exec memo with a single ask).
 
 - **Marketing** — `marketing-campaign-brief` (objective, audience, channels, metrics), `marketing-newsletter` (“The Lamp” issue email), `marketing-launch` (product launch announcement), `marketing-case-study` (result hero, proof stats, quote — print-ready), `marketing-press-release` (dateline, boilerplate, media contact — print-ready).
 
@@ -220,12 +218,12 @@ Print-ready letter documents and client decks — the paperwork a studio actuall
 
 - **Sales** — `sales-one-pager` (leave-behind: umber hero, services, proof stats, the wish process, contact CTA), `sales-proposal-deck` (8-slide 16:9 client proposal — the wish, understanding, approach, scope, timeline, team, investment, next steps).
 
-**Bilingual — full coverage.** Every one of the 85 templates is bilingual. The 38 `vn-*` A4 instruments and the three `doc-*` references are Vietnamese-first with English stacked beneath (Ink/Slate). Every other template carries a **Language** tweak (*English · Tiếng Việt*) that swaps the entire body between the two; several emails (`email`, `marketing-launch`, `tech-release-notes`, `delivery-status-email`, `finance-dunning-email`) add a *Both* mode that stacks them. Where doctrine says **EN-first** (client/media collateral), that means English is the *default* Language value — still with a full bilingual Language tweak — not an English-only exemption. Legal and finance docs (MSA, SOW, invoice, quote) print their Vietnamese side as an **unreviewed draft** behind a warning banner stating the English governs — have counsel review before real use. As of Jul 2026 the last English-only holdouts — board & comms (`bod-report`, `bod-deck`, `bod-investor-update`, `bod-resolution`) and the client decks/docs (`sales-proposal-deck`, `tech-rfc`, `delivery-kickoff`, `delivery-qbr-deck`) — carry the tweak too.
+**Template language is scoped.** The source catalog declares <!-- cs-count:templatesWithLanguageControl -->44<!-- /cs-count --> entries with a Language control and <!-- cs-count:templatesWithoutLanguageControl -->41<!-- /cs-count --> without one. Static stacked documents and switchable content are different contracts. A declared language option does not certify complete or accurate translation; inspect the selected template, its source content and the applicable language checks. Caller-provided content remains the caller's translation responsibility. Legal and finance documents expose Vietnamese text as an **unreviewed draft** where indicated; retain the governing-language warning and obtain content-owner review before real use.
 
 ### Reference documents (govern EVERY template)
 
 Three suite-wide reference documents define and catalogue the whole template library — legal, HR, finance, sales, client-facing paperwork, and EN-first communications alike. They live in `templates/doc-*/` and print as A4 bilingual documents themselves:
-- **Documents · Style Guide** (`templates/doc-style-guide/`) — the presentation standard: palette, type ramp, bilingual Ink/Slate rule, tables, fill-ins, tick-boxes, signing blocks, data hygiene, header/footer (Articles 1–10, verbatim from the client-supplied original), plus **Article 11 — scope & archetypes**, mapping the A4 rules onto Letter-print, email, product-screen, deck and social archetypes.
+- **Documents · Style Guide** (`templates/doc-style-guide/`) — the presentation standard: palette, type ramp, bilingual Ink/Slate rule, tables, fill-ins, tick-boxes, signing blocks, data hygiene, header/footer (Articles 1–10 from the recorded client-supplied source; complete current text identity requires source comparison), plus **Article 11 — scope & archetypes**, mapping the A4 rules onto Letter-print, email, product-screen, deck and social archetypes.
 
 - **Documents · Suite Index & Usage Guide** (`templates/doc-suite-index/`) — Part I catalogues every template by group (HR suite, legal, finance, sales, product, comms); Part II is the usage guide (employment lifecycle, which documents carry disciplinary force, the eight house presentation rules, and the 8-step “add a new template” workflow).
 
@@ -233,7 +231,7 @@ Three suite-wide reference documents define and catalogue the whole template lib
 
 ### HR & Employment Suite (client-supplied)
 
-Thirty-eight bilingual A4 instruments (**thirty-seven** Employment Suite docs supplied by the client, plus **`vn-framework-agreement`** commercial framework) (built on an earlier version of the system) were **converted one-by-one into templates, content preserved verbatim**, and re-skinned to the latest design system. They live under the **HR Suite** group (`templates/vn-*/`) and follow the house standard set out in the reference documents above: **A4, Vietnamese-first bilingual** (Ink `#1A1614` VN over Slate `#3F4C55` italic EN pairs), state-motto header, umber table title bars, yellow fill-in blanks, PDPL data-hygiene (Party B always blank), and signing blocks that never split. Every one carries the Element (15) tweaks like all templates; none carries a language tweak (they are inherently bilingual). Because these are client-supplied instruments (keep content verbatim; counsel must review before real use), **`vn-labor-contract` supersedes the earlier fictional `legal-employment-contract`**, and `vn-mutual-nda` / `vn-offer-letter` / `vn-onboarding-checklist` / `vn-job-description` supersede the fictional `legal-nda` / `hr-offer-letter` / `hr-onboarding` / `hr-job-description` (all removed); the remaining fictional templates are EN-first comms (announcements, newsletters, press releases) and client-facing sales/finance paperwork — a different purpose, so they stay.
+Thirty-eight bilingual A4 instruments (**thirty-seven** Employment Suite docs supplied by the client, plus **`vn-framework-agreement`** commercial framework) (built on an earlier version of the system) were **converted one-by-one into templates and re-skinned to the latest design system**. The recorded Word-source inventory and retained normalized-text fixtures are described in `docs/hr-suite-sources.md`; the current phrase guard does not establish complete clause identity or current Word-source identity. They live under the **HR Suite** group (`templates/vn-*/`) and follow the house standard set out in the reference documents above: **A4, Vietnamese-first bilingual** (Ink `#1A1614` VN over Slate `#26323A` italic EN pairs), state-motto header, umber table title bars, yellow fill-in blanks, PDPL data-hygiene (Party B always blank), and signing blocks that never split. Every one carries the Element (15) tweaks like all templates; none carries a language tweak (they are inherently bilingual). Because these are client-supplied instruments (keep content verbatim; counsel must review before real use), **`vn-labor-contract` supersedes the earlier fictional `legal-employment-contract`**, and `vn-mutual-nda` / `vn-offer-letter` / `vn-onboarding-checklist` / `vn-job-description` supersede the fictional `legal-nda` / `hr-offer-letter` / `hr-onboarding` / `hr-job-description` (all removed); the remaining fictional templates are EN-first comms (announcements, newsletters, press releases) and client-facing sales/finance paperwork — a different purpose, so they stay.
 
 - **Compensation & rewards** — `vn-total-rewards-appendix`, `vn-phantom-stock`, `vn-salary-scale`, `vn-compensation-regulation`.
 
@@ -249,7 +247,7 @@ Thirty-eight bilingual A4 instruments (**thirty-seven** Employment Suite docs su
 
 - **Discipline & exit** — `vn-disciplinary-case-file` (4-part A→D), `vn-resignation-letter`, `vn-certificate-of-employment` (deliberately neutral), `vn-training-commitment`.
 
-These are the client's validated legal text; keep the content as-is and have counsel review any edits before real use.
+These instruments have recorded client-supplied provenance. The current phrase guard does not establish complete text identity or content-owner acceptance; keep the content as-is and obtain counsel review before real use or source updates.
 
 ### Component coverage map
 
@@ -275,7 +273,7 @@ Every template resolves to one of six archetypes, framed by `templates/doc-templ
 | **Letter print doc** | Letter, 0.6in margins, desk + sheet, clean Print/PDF | `finance-invoice` · `finance-quote` · `finance-expense-report` · `legal-msa` · `legal-sow` · `sales-one-pager` · `bod-*` docs |
 | **Email (600px)** | Centred body, system header/CTA, no motto/signing; bilingual via Language tweak | `email` · `hr-announcement` · `marketing-newsletter` · `tech-release-notes` · `delivery-status-email` · `finance-dunning-email` |
 | **Product screen** | Components + tokens; Theme × Element × Language × Style; no print geometry | `marketing-page` · `dashboard` · `app-shell` · `auth` · `settings` · `article` |
-| **Deck (16:9)** | Stacked 16:9 slides, umber cover, element accent, bilingual via Language tweak, PDF/PPTX | `slide-deck` · `bod-deck` · `sales-proposal-deck` · `delivery-qbr-deck` |
+| **Deck (16:9)** | Stacked 16:9 slides, umber cover, element accent, bilingual via Language tweak, browser print / host-dependent PPTX | `slide-deck` · `bod-deck` · `sales-proposal-deck` · `delivery-qbr-deck` |
 | **Social image** | Fixed per-channel size (1080² · 1200×630 · 1080×1920) | `marketing-social-kit` |
 
 ---
@@ -293,10 +291,10 @@ templates/                 marketing-page · dashboard · slide-deck · auth · 
                            + team artifacts — tech (release/incident/rfc) · team (meeting-agenda) · hr (announcement) · board (report/deck/memo) · marketing (brief/newsletter/launch/case-study/press-release)
                            + business — legal (vn-mutual-nda / msa / sow; fictional legal-nda retired) · finance (invoice/quote) · sales (one-pager/proposal-deck) — letter print docs + client deck
                            + Documents (reference, govern all templates) — doc-style-guide · doc-suite-index (index & usage) · doc-templates (archetypes)
-                           + VN A4 suite — 38 bilingual instruments (`vn-*`): 37 Employment Suite + 1 commercial framework agreement (`vn-framework-agreement`); counsel review before real use
+                           + VN A4 suite — bilingual Employment Suite + commercial framework agreement (`vn-framework-agreement`); counsel review before real use
 ui_kits/status-hub/        Status Hub recreation (index · login · settings · project + status.css · data.js · StatusHub.jsx)
 ui_kits/website/           cyberskill.world recreation (index · work · careers · chat + site.css · copy.js · Website.jsx)
-ui_kits/deck/              brand deck on deck-stage (index.html; deck-stage runtime lives in templates/_vendor/, outside the compiled bundle; export PPTX/PDF on demand)
+ui_kits/deck/              brand deck on deck-stage (index.html; deck-stage runtime lives in templates/_vendor/, outside the compiled bundle; browser print; PPTX requires a compatible host exporter)
 assets/                    logo-mark.svg/png · favicon.svg · aurora-{tho,hoa,thuy,moc,kim}.webp (+ sample aurora-gold.jpg) · lumi-poster.webp
 docs/                      the full doc set (see Document map above) + viewer.html reader (EN|VI)
 docs/vi/                   Vietnamese translations of every operator-facing docs/*.md
@@ -305,21 +303,31 @@ thumbnail.html             project tile
 SKILL.md                   Agent-Skills-compatible entry
 ```
 
-**UI kits** (product recreations, composing the tokens + `.cs-*` classes): **Status Hub** (portfolio dashboard — KPIs, board/table/releases lenses, drawer — plus **sign-in**, **settings**, **project detail**). Live axis demos: Storybook toolbar · Atomic View · Elements Geometry specimen, **cyberskill.world** (bilingual marketing home with Lumi chat — plus **Work**, **Careers**, and a full-page **Lumi assistant**), and a **Brand deck** (16:9, `deck-stage`, PDF/PPTX-ready). See each kit's `README.md`.
+The VN A4 source inventory contains <!-- cs-count:vietnameseInstrumentTemplates -->38<!-- /cs-count --> bilingual instruments (`vn-*`), covering the Employment Suite and the commercial framework agreement. Obtain counsel review before real use.
 
-**Storybook** renders every card: Components (122 exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), **Templates** (85 starting points from the manifest, including HR Suite / VN A4), **Pages** (Status Hub, Website, Deck), plus Maintainer mirrors for gates.
+**UI kits** (product recreations, composing the tokens + `.cs-*` classes): **Status Hub** (portfolio dashboard — KPIs, board/table/releases lenses, drawer — plus **sign-in**, **settings**, **project detail**). Live axis demos: Storybook toolbar · Atomic View · Elements Geometry specimen, **cyberskill.world** (bilingual marketing home with Lumi chat — plus **Work**, **Careers**, and a full-page **Lumi assistant**), and a **Brand deck** (16:9, `deck-stage`, browser print and host capture hooks). See each kit's `README.md`.
+
+**Storybook** renders every card: Components (<!-- cs-count:publicExports -->123<!-- /cs-count --> exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), **Templates** (<!-- cs-count:templates -->85<!-- /cs-count --> starting points from the manifest, including HR Suite / VN A4), **Pages** (Status Hub, Website, Deck), plus Maintainer mirrors for gates.
 
 ---
 
 
 ## Substitutions & caveats
 
-- **Fonts:** Be Vietnam Pro (300–800 + italics), Space Grotesk (variable 300–700), and JetBrains Mono are **self-hosted** in `fonts/` as subset-split woff2 (latin · latin-ext · vietnamese) — no CDN dependency. Same families as the source (which ships them via `next/font`); no visual substitution. `_audit/font-face-integrity.html` is the gate: it proves every face is local, subset-split, Vietnamese-covered, and mirrored in the manifest.
+- **Fonts:** Be Vietnam Pro (300–800 + italics), Space Grotesk (variable 300–700), and JetBrains Mono are **self-hosted** in `fonts/` as subset-split woff2 (latin · latin-ext · vietnamese) — no CDN dependency. The declared families match the recorded product recreation. `_audit/font-face-integrity.html` checks local WOFF2 sources, subset declarations, manifest parity, a Vietnamese subset per brand family, sample loading and the display-face scope. It does not establish identical rendering to another product, every glyph or exported-file font fidelity.
 
 - **Display face is opt-in, not a second default.** `--cs-font-family-display` (Space Grotesk) exists so a product with a headline face — cyberskill.world / Lumi — consumes a DS token instead of hand-rolling its own `@font-face`. Nothing in the DS points at it: opt a subtree in with `.cs-display-face`. Product → element mappings are unaffected (`docs/products.md` stays locked).
 
-- **Type size ramp & motion tokens** are a documented convention layered on the doctrine (the token source ships families + line-heights only); they mirror real in-product usage. The ramp also carries semantic role aliases (`--cs-text-h1`…) and `.cs-h1` / `.cs-body` / … utilities in `base/typography.css`.
+- **Type size ramp & motion tokens** are local conventions layered on the doctrine and are shipped in `tokens/typography.css` and `tokens/motion.css`. The typography source records the family/line-height provenance separately from the local size, weight and icon conventions. The ramp also carries semantic role aliases (`--cs-text-h1`…) and `.cs-h1` / `.cs-body` / … utilities in `base/typography.css`.
 
 - **UI kits are cosmetic recreations** — data is fictional, interactions are shallow, and the marketing site's production 3D/genie layer is not reproduced (the HTML-first base is).
 
 *Welcome. Hiện Thực Hoá Ý Chí.*
+
+Current declared counts and public document roles are generated in [the reference catalog](docs/reference-catalog.json). They describe inventory and source authority, not human acceptance or runtime capability.
+
+The accessibility fixture gate (`_audit/a11y-harness.html`) checks actual accessible names with the pinned local axe engine and an explicit 20-control inventory. `npm run test:a11y-harness` exercises broken names, references, fixtures and audit-engine failures across Chromium, Firefox and WebKit. These checks cover fixture naming and declared CSS rules; screen-reader speech and human acceptance remain separate.
+
+Semantic statuses expose separate fill, paired foreground (`-fg`) and surface-text (`-text`) roles. Use the text role for messages and labels on page/panel/raised surfaces. Fixed white print sheets use an explicit Light scope with their own primary text color; adaptive sheets follow the selected theme.
+
+`--cs-accent-on-strong` is the paired foreground for strong callout fills, with body APCA75 and WCAG4.5 in both modes. The generator targets78; see the contrast report and `test:strong-text-contrast` for their declared scopes.

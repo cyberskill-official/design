@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><title>CyberSkill — a11y interaction gate</title>
 <link rel="stylesheet" href="../styles.css">
-<script src="https://unpkg.com/umd-react@19.2.8/dist/react.development.js" integrity="sha384-r22tQd8qRIHDPIkmdXZcVtvPi1Tj2x1QaW2tmFQHEvHscATUnHQ5siTyxWw5PMUs" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/umd-react@19.2.8/dist/react-dom.development.js" integrity="sha384-gJZYmumEmwqVmX3JVsLZq+4QrxoPGh/BW47Rk7SqNPCPFpTGnRtvmeRPJ7//ZDPk" crossorigin="anonymous"></script>
+<script src="../_vendor/react/react.production.min.js" integrity="sha384-/nh8CKeV7Pk42Gpda6L4DM1JtZ2bwPOi+eh9O7+a1Y22UkGs8+mw3aW1shQ9FV30"></script>
+<script src="../_vendor/react/react-dom.production.min.js" integrity="sha384-rhLCB72qrpcezgY2QW0panvW9IeO32m94nvuDVRD/iEGHXoUbjtijL6Xi/Z5/mzu"></script>
 <script src="../_ds_bundle.js"></script>
 <style>
   body{margin:0;font-family:var(--cs-font-family-ui,system-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
@@ -34,10 +34,13 @@ const h=(typeof React!=='undefined')?React.createElement:null;
 const NS=window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
 const list=document.getElementById('list'), stage=document.getElementById('stage');
 const results=[];
-function mount(el){ const c=document.createElement('div'); stage.appendChild(c); ReactDOM.createRoot(c).render(el); return c; }
+const mountedRoots=[];
+function mount(el){ const c=document.createElement('div'); stage.appendChild(c); const root=ReactDOM.createRoot(c); mountedRoots.push({root,container:c}); root.render(el); return c; }
+function cleanupFixtures(){ for(const {root,container} of mountedRoots.splice(0)){ root.unmount(); container.remove(); } }
+
 function record(name,ok,detail){ results.push({name,ok,detail}); const r=document.createElement('div'); r.className='row '+(ok?'ok':'bad'); r.innerHTML='<span>'+(ok?'\u2713 ':'\u2717 ')+name+'</span><span class="d">'+detail+'</span>'; list.appendChild(r); }
 const tmo=ms=>new Promise((_,rej)=>setTimeout(()=>rej(new Error('watchdog: no verdict in '+ms/1000+'s')),ms));
-async function test(name,fn){ P.current=name; try{ const d=await Promise.race([fn(),tmo(30000)]); record(name,true,d); }catch(e){ record(name,false,String(e.message||e).slice(0,110)); } P.done=results.length; }
+async function test(name,fn){ P.current=name; try{ const d=await Promise.race([fn(),tmo(30000)]); record(name,true,d); }catch(e){ record(name,false,String(e.message||e).slice(0,110)); } finally { cleanupFixtures(); } P.done=results.length; }
 function assert(c,msg){ if(!c) throw new Error(msg); }
 const kd=(t,key,init)=>t.dispatchEvent(new KeyboardEvent('keydown',Object.assign({key,bubbles:true},init||{})));
 const escDoc=()=>document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}));
@@ -55,6 +58,12 @@ function spyRestore(el){ const s={hit:false}; const orig=el.focus.bind(el); el.f
 async function until(fn,ms){ ms=ms||2500; const t0=Date.now(); let r=false; while(Date.now()-t0<ms){ try{ r=fn(); }catch(e){ r=false; } if(r) return r; await wait(40); } try{ return fn(); }catch(e){ return false; } }
 
 async function run(){
+  const rootStyle=getComputedStyle(document.documentElement);
+  const modalDepth=parseFloat(rootStyle.getPropertyValue('--cs-depth-modal'));
+  const toastDepth=parseFloat(rootStyle.getPropertyValue('--cs-depth-toast'));
+  if(!(modalDepth>0 && toastDepth>modalDepth)){
+    publish({pass:false,total:0,failed:[],error:'Stylesheet preflight failed: modal/toast depth tokens unavailable or invalid; no behavior verdict',results:[]}); return;
+  }
   if(!h||typeof ReactDOM==='undefined'){ publish({pass:false,total:0,failed:[],error:'React CDN failed to load \u2014 gate cannot run',results:[]}); return; }
   if(!NS){ publish({pass:false,total:0,failed:[],error:'bundle namespace not found \u2014 is _ds_bundle.js compiled?',results:[]}); return; }
   const {Dialog,Drawer,AlertDialog,Menubar,Tabs,SegmentedControl,Combobox,Menu,MenuItem,Popconfirm,Rating,InputOTP,Toast,Alert,Spinner,Result,DataGrid,Carousel,Editor,Button,Cascader,TreeSelect,Tour,HoverCard,ContextMenu,Mentions,Sortable,Tree,Toolbar,CommandPalette}=NS;
@@ -173,11 +182,13 @@ async function run(){
   });
   await test('Popconfirm — alertdialog is labeled',async()=>{
     assert(Popconfirm&&Button,'missing');
-    const c=mount(h(Popconfirm,{title:'Delete this?',onConfirm:()=>{},trigger:h(Button,{size:'sm'},'Del')})); await wait(80);
+    const c=mount(h(Popconfirm,{title:h('strong',null,'Delete this?'),onConfirm:()=>{},trigger:h(Button,{size:'sm'},'Del')})); await wait(80);
     c.querySelector('.cs-button').click(); await wait(60);
     const d=c.querySelector('[role="alertdialog"]'); assert(d,'open');
-    assert((d.getAttribute('aria-label')||'').length>0,'has accessible name');
-    return 'labeled: '+d.getAttribute('aria-label');
+    const id=d.getAttribute('aria-labelledby');
+    const label=id&&document.getElementById(id);
+    assert(label&&c.contains(label)&&label.textContent.trim()==='Delete this?','rich title reference resolves to expected name');
+    return 'labeled: '+label.textContent;
   });
   await test('AlertDialog — focus in, labelledby, Escape restores',async()=>{
     assert(AlertDialog&&Button,'missing');
@@ -299,7 +310,7 @@ async function run(){
 
   await test('HoverCard — focus opens dialog panel',async()=>{
     assert(HoverCard,'missing');
-    const c=mount(h(HoverCard,{openDelay:0,closeDelay:99999,trigger:h('button',{type:'button',className:'hc'},'@host'),children:h('div',null,'Panel')})); await wait(70);
+    const c=mount(h(HoverCard,{'aria-label':'Panel',openDelay:0,closeDelay:99999,trigger:h('button',{type:'button',className:'hc'},'@host'),children:h('div',null,'Panel')})); await wait(70);
     assert(!c.querySelector('.cs-hovercard__panel'),'closed');
     await fxSure(c.querySelector('.hc'));
     assert(await until(()=>c.querySelector('.cs-hovercard__panel[role="dialog"]')),'panel role=dialog');
@@ -444,19 +455,19 @@ async function run(){
   await test('Tree — APG ArrowDown + ArrowRight expand',async()=>{
     assert(Tree,'missing'); let sel=null;
     const nodes=[{key:'p',label:'Platform',children:[{key:'ds',label:'Design System'},{key:'tok',label:'Tokens'}]},{key:'ai',label:'AI'}];
-    function TH(){const[s,setS]=React.useState(null);sel=s;return h(Tree,{nodes,selected:s,onSelect:setS});}
+    function TH(){const[s,setS]=React.useState(null);sel=s;return h(Tree,{nodes,selected:s,onSelect:setS,'aria-label':'Platform navigation'});}
     const c=mount(h(TH)); await wait(80);
-    const labels=[...c.querySelectorAll('.cs-tree__label')];
-    assert(labels.length>=2,'visible labels');
-    assert(labels.filter(b=>b.tabIndex===0).length===1,'one tree tab stop');
+    const labels=[...c.querySelectorAll('[role="treeitem"]')];
+    assert(labels.length>=2,'visible treeitems');
+    assert(labels.filter(b=>b.tabIndex===0).length===1,'one semantic treeitem tab stop');
     labels[0].focus();
     kd(labels[0],'ArrowDown'); await wait(40);
-    assert(document.activeElement===labels[1]||c.querySelectorAll('.cs-tree__label')[1]===document.activeElement,'ArrowDown moves');
+    assert(document.activeElement===labels[1]||c.querySelectorAll('[role="treeitem"]')[1]===document.activeElement,'ArrowDown moves');
     // focus first parent again and expand
-    const first=c.querySelector('.cs-tree__label');
+    const first=c.querySelector('[role="treeitem"]');
     first.focus();
     kd(first,'ArrowRight'); await wait(60);
-    assert(await until(()=>c.querySelectorAll('.cs-tree__label').length>=3),'ArrowRight expands children');
+    assert(await until(()=>c.querySelectorAll('[role="treeitem"]').length>=3),'ArrowRight expands children');
     kd(first,'Enter'); await wait(40);
     assert(sel==='p','Enter selects');
     return 'tree APG';
@@ -470,10 +481,10 @@ async function run(){
     assert(btns.length===3,'2 head + more');
     assert(btns.filter(b=>b.tabIndex===0).length===1,'one toolbar tab stop');
     btns[0].focus();
-    kd(btns[0],'ArrowRight'); await wait(40);
-    assert(document.activeElement===btns[1],'ArrowRight to second');
-    kd(btns[1],'ArrowRight'); await wait(40);
-    assert(document.activeElement===btns[2],'ArrowRight to more');
+    kd(btns[0],'ArrowRight');
+    assert(await until(()=>document.activeElement===btns[1]),'ArrowRight to second');
+    kd(btns[1],'ArrowRight');
+    assert(await until(()=>document.activeElement===btns[2]),'ArrowRight to more');
     kd(btns[2],'ArrowDown'); await wait(60);
     assert(await until(()=>c.querySelector('[role="menu"]')),'overflow menu open');
     assert(c.querySelector('[role="menuitem"]'),'menuitem present');
@@ -492,9 +503,13 @@ async function run(){
     const input=document.querySelector('.cs-cmdk__search input'); assert(input,'no search input');
     setInput(input,'bet');
     assert(await until(()=>document.querySelectorAll('.cs-cmdk__item').length===1),'filter to 1 item');
+    const status=document.querySelector('.cs-cmdk [role="status"]'); assert(status,'missing result feedback');
+    assert(status.getAttribute('aria-live')==='polite'&&status.getAttribute('aria-atomic')==='true','result feedback must be polite and atomic');
+    setInput(input,'zzz');
+    assert(await until(()=>document.querySelectorAll('.cs-cmdk__item').length===0&&status.textContent==='No results'),'empty search feedback');
     escDoc();
     assert(await until(()=>!document.querySelector('.cs-cmdk-scrim')),'Esc closes palette');
-    return 'open→filter→Esc';
+    return 'open→filter→empty feedback→Esc (actual speech remains manual)';
   });
 
   const bad=results.filter(r=>!r.ok);

@@ -42,21 +42,45 @@
   .screen{position:relative;overflow:hidden;background:#fff}
   .screen iframe{border:0;display:block;transform-origin:top left;background:#fff}
   .empty{color:var(--muted);font-size:13px;padding:40px 0}
+
+  /* Preview shell only: frame viewport widths remain independent of chrome. */
+  :root{--desk:var(--cs-color-surface-page);--muted:var(--cs-color-text-primary)}
+  body{grid-template-columns:288px minmax(0,1fr)}
+  header,aside,main,.now,.row{min-inline-size:0}
+  header{overflow-wrap:anywhere}
+  header h1 b,.cap .tag{color:var(--cs-color-text-primary)}
+  header .count{max-inline-size:100%;white-space:normal}
+  .item{overflow-wrap:anywhere}
+  .search input::placeholder{color:var(--cs-color-text-primary);opacity:1}
+  aside{scroll-padding-block-start:78px}
+  .item:hover{background:var(--cs-color-surface-raised)}
+  .item[aria-current="true"]{background:var(--cs-color-surface-raised);color:var(--cs-color-text-primary);border-left-color:var(--ochre)}
+  .device{flex-shrink:0;border:0;outline:1px solid var(--line);outline-offset:-1px}
+  .item:focus-visible,.search input:focus-visible,main:focus-visible{outline:2px solid var(--cs-color-text-primary);outline-offset:-2px;box-shadow:inset 0 0 0 5px var(--cs-color-accent-ochre);filter:none}
+  /* One CSS pixel guards the 44px floor against integer scroll rounding. */
+  @media(pointer:coarse){.item,.search input{min-block-size:45px;min-inline-size:44px}}
+  @media(max-width:800px){
+    body{height:auto;min-block-size:100vh;overflow:visible;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(180px,35vh) auto;grid-template-areas:"head" "side" "main"}
+    header{padding:12px 16px;gap:8px}
+    aside{border-right:0;border-bottom:1px solid var(--line);padding-bottom:16px}
+    main{padding:16px 16px 60px}
+    .now{flex-wrap:wrap}
+  }
 </style>
 </head>
 <body>
 <header>
   <h1><b>CyberSkill</b> · Responsive preview</h1>
-  <p class="sub">Every template, live, at three real viewport widths. Media queries fire off each iframe's width — a true device check.</p>
+  <p class="sub">Every template, live, at three real viewport widths. Media queries fire off each iframe's width — browser previews, not physical-device validation.</p>
   <span class="count" id="count">…</span>
 </header>
 <aside>
-  <div class="search"><input id="q" type="search" placeholder="Filter templates…" autocomplete="off"></div>
+  <div class="search"><input id="q" aria-label="Filter templates" type="search" placeholder="Filter templates…" autocomplete="off"></div>
   <div id="list"></div>
 </aside>
-<main>
+<main tabindex="0" aria-label="Template previews, horizontal scrolling with arrow keys">
   <div class="now"><h2 id="nowName">Loading…</h2><span class="desc" id="nowDesc"></span></div>
-  <p class="hint">Mobile reflows to a single column; wide tables scroll inside their panel; the app-shell sidebar becomes a top strip; decks &amp; social canvases scroll horizontally to keep exact export geometry (they never squish). Desktop matches production.</p>
+  <p class="hint">The navigation stacks above the previews on narrow screens. Focus this preview pane and use Left/Right, Home or End to scroll horizontally. Each frame keeps its native viewport width and is scaled only for display; its caption records the actual frame dimensions. Validate each template's responsive behavior, interactions and exports separately.</p>
   <div class="row" id="row"></div>
 </main>
 <script>
@@ -84,7 +108,7 @@ function renderList(filter){
     const h=document.createElement('div'); h.className='grp'; h.textContent=g; listEl.appendChild(h);
     for(const t of groups[g]){
       const b=document.createElement('button');
-      b.className='item'; b.textContent=t.name.replace(/^[^·]+·\s*/,''); b.title=t.name;
+      b.className='item'; b.setAttribute('aria-label',t.name); b.dataset.templateSrc=t.src; b.textContent=t.name.replace(/^[^·]+·\s*/,''); b.title=t.name;
       b.setAttribute('aria-current', current&&current.src===t.src?'true':'false');
       b.onclick=()=>select(t);
       listEl.appendChild(b);
@@ -100,15 +124,29 @@ function select(t){
   [...listEl.querySelectorAll('.item')].forEach(b=>b.setAttribute('aria-current', b.title===t.name?'true':'false'));
   rowEl.innerHTML='';
   for(const d of DEVICES){
-    const scale=d.dispW/d.w, ifrH=Math.round(DISPLAY_H/scale);
+    const displayW=d.dispW, scale=displayW/d.w, ifrH=Math.round(DISPLAY_H/scale);
     const dev=document.createElement('div'); dev.className='device'; dev.style.width=d.dispW+'px';
-    dev.innerHTML='<div class="cap"><b>'+d.label+'</b><span>'+d.w+'×'+DISPLAY_H+'</span><span class="tag">'+d.tag+'px</span></div>'+
-      '<div class="screen" style="width:'+d.dispW+'px;height:'+DISPLAY_H+'px">'+
+    dev.innerHTML='<div class="cap"><b>'+d.label+'</b><span>'+d.w+'×'+ifrH+'</span><span class="tag">'+d.tag+'px</span></div>'+
+      '<div class="screen" style="width:'+displayW+'px;height:'+DISPLAY_H+'px">'+
         '<iframe src="'+t.src+'" style="width:'+d.w+'px;height:'+ifrH+'px;transform:scale('+scale+')"></iframe>'+
       '</div>';
     rowEl.appendChild(dev);
   }
 }
+
+const navigationPane=document.querySelector('aside'),searchPanel=document.querySelector('.search');
+const updateSearchInset=()=>navigationPane.style.scrollPaddingBlockStart=Math.ceil(searchPanel.getBoundingClientRect().height+8)+'px';
+new ResizeObserver(updateSearchInset).observe(searchPanel);updateSearchInset();
+const previewPane=document.querySelector('main');
+previewPane.addEventListener('keydown',event=>{
+  if(event.target!==previewPane||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey)return;
+  const limit=Math.max(0,previewPane.scrollWidth-previewPane.clientWidth);
+  if(!limit)return;
+  const step=Math.max(44,Math.round(previewPane.clientWidth/2));
+  const positions={ArrowLeft:Math.max(0,previewPane.scrollLeft-step),ArrowRight:Math.min(limit,previewPane.scrollLeft+step),Home:0,End:limit};
+  if(!Object.hasOwn(positions,event.key))return;
+  event.preventDefault();previewPane.scrollLeft=positions[event.key];
+});
 
 (async()=>{
   const M=await (await fetch('../_ds_manifest.json')).json();

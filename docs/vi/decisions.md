@@ -37,26 +37,9 @@ Giữ plan Figma hiện tại. Variables REST API chỉ Enterprise — job ghi *
 
 | File | Vai trò |
 |---|---|
-| `tokens/tokens.dtcg.json` | Interchange W3C DTCG / regen native |
+| `tokens/tokens.dtcg.json` | Interchange DTCG 2025.10 / regen native |
 | `tokens/tokens.json` | Export nhóm theo hướng CSS |
 | `tokens/*.css` + `styles.css` | UI runtime |
-
-## 6. Code Connect — đường đã ship; **hoãn** trên Figma free
-
-**Trạng thái: provisional / soft-skip — không phải publish library live** (Th7 2026; hoãn Th7 2026)
-
-- Job CI `code-connect` + `figma.config.json` + 105 mapping `*.figma.tsx` đã trong repo (snippet import dùng `@cyberskill/design`).
-- Publish soft-skip khi thiếu secret hoặc API trả 403/404/429. Soft-skip ≠ publish Code Connect thành công.
-- **Owner hoãn:** giữ **Figma free / non-Org** — không theo đuổi Code Connect live đến khi có ghế Org/Enterprise và team library đã publish. Khi đó thay stub `9999:*` trong `code-connect/node-map.json` bằng `nodeId` thật. Xem `docs/figma.md`.
-
-## 7. npm publish — live qua Trusted Publishing (OIDC)
-
-**Trạng thái: LAUNCH `@cyberskill/design@1.1.0`; sau đó `VERSION` auto-bump trên main (từ Th8 2026); CI publish dùng npm Trusted Publishing; token bị cấm** (Th7 2026; LAUNCH 2026-07-27)
-
-- `package.json` là `private: false`; tên package **`@cyberskill/design`** (`publishConfig.access: public`); `repository.url` khớp repo GitHub này cho provenance.
-- Workflow `.github/workflows/npm-publish.yml`: `id-token: write` + runner GitHub-hosted; **không** đặt `NPM_TOKEN` / `NODE_AUTH_TOKEN` trên bước publish (OIDC). Trusted Publisher trên npm phải liệt kê filename workflow **`npm-publish.yml`** cho `cyberskill-official/design` (FIND-088). Soft-skip chỉ no-op mong đợi (`already_published` / EPUBLISHCONFLICT, và `missing_secrets` thật sự ngoài GHA). Trên GHA tag / `workflow_dispatch`, **ENEEDAUTH** / **404** / **402** / **403** / **EOTP** fail job; publish thành công được khóa bởi `npm view @cyberskill/design@VERSION` **và** `dist-tags.latest === VERSION` (FIND-020 / FIND-094).
-- **Publishing access** trên npmjs: **Require two-factor authentication and disallow tokens** (Trusted Publishing OIDC vẫn hoạt động; token publish classic / granular bị từ chối). Secret `NPM_TOKEN` dài hạn đã thu hồi.
-- License giữ **UNLICENSED**; phiên bản theo root `VERSION`. Dùng đã duyệt ghi tại **`docs/consumer-grant.md`** (sản phẩm portfolio CyberSkill). Cài từ registry một mình không phải license công khai.
 
 ## 8. Đóng gói store native — scaffold đã ship; submit tắt
 
@@ -77,31 +60,28 @@ Giữ plan Figma hiện tại. Variables REST API chỉ Enterprise — job ghi *
 Ghi nhận Th7 2026 — mặc định mở khóa (cập nhật khi bước vận hành xong):
 
 - **Figma Variables** — giữ Tokens Studio / non-Enterprise (quyết định §3). Soft-skip Variables REST vẫn trung thực.
-- **Code Connect** — **bỏ qua khi còn Figma free**; chỉ xem lại sau Org + library đã publish + `nodeId` thật (quyết định §6). Soft-skip ≠ publish.
-- **npm** — **LAUNCH `@cyberskill/design@1.1.0`**; sau đó `VERSION` auto-bump trên `main` → tag `v*` → Trusted Publishing; CI dùng **Trusted Publishing (OIDC)** qua `npm-publish.yml`; npmjs **disallow tokens**; grant consumer có hiệu lực tại `docs/consumer-grant.md` (quyết định §7). Entry package mặc định là bundler-native `_esm/react.mjs` (React peer); đường browser là `@cyberskill/design/legacy` → `_esm/cs.mjs` (quyết định §10).
+- **npm** — grant consumer có hiệu lực tại `docs/consumer-grant.md`. Entry package mặc định là bundler-native `_esm/react.mjs` (React peer); đường browser là `@cyberskill/design/legacy` → `_esm/cs.mjs` (quyết định §10).
 
 ## 10. Export React bundler-native (Next / SSR)
 
 **Lựa chọn owner: ship `_esm/react.mjs` làm mặc định `exports["."]`** (Th7 2026; host React 19 Th7 2026)
 
 - React / react-dom là **peerDependencies** (`^18 || ^19`); entry re-export JSX source (consumer transpile — ví dụ Next `transpilePackages`). Storybook / CI **devDependencies** pin **react@19.2.8** / **react-dom@19.2.8**.
-- Browser / no-build giữ `_esm/cs.mjs` tại `exports["./legacy"]` (CDN self-ensure + `_ds_bundle.js`). React 19 chính thức bỏ UMD — đường CDN load **`umd-react@19.2.8`** (pin SRI) để tạo `window.React` / `window.ReactDOM` cho `_ds_bundle.js`. Cùng pin dùng trong audit HTML, specimen card, UI kit, và runtime `templates/*/support.js` byte-identical.
-- Alias `@cyberskill/design/react` mirror entry mặc định. VERSION auto-bump trên `main`; republish qua Trusted Publishing khi `version.yml` đẩy tag `v*`.
+- Browser / no-build giữ `_esm/cs.mjs` tại `exports["./legacy"]` (CDN self-ensure + `_ds_bundle.js`). React 19 chính thức bỏ UMD — đường CDN load **`umd-react@19.2.8`** (pin SRI) để tạo `window.React` / `window.ReactDOM` cho `_ds_bundle.js`. Cùng pin bản phân phối wrapper dùng trong audit HTML, specimen card, UI kit, và runtime `templates/*/support.js` byte-identical. Các file trình duyệt được lưu báo phiên bản runtime React và ReactDOM `19.2.4`; phiên bản package wrapper khác với các phiên bản được báo này và dependency build `19.2.8`.
+- Alias `@cyberskill/design/react` mirror entry mặc định.
 - Docs: `docs/consuming.md` (+ VI); gate: `package-exports-integrity` + `test:react-entry`.
 
 ## Việc maintainer (đang mở)
 
 Theo dõi vận hành — không phải marketing sản phẩm, không phải backlog công khai:
 
-1. **Code Connect** — hoãn (Figma free). Khi lên Org: thay stub `9999:*` trong `code-connect/node-map.json` bằng node ID library đã publish.
-
-~~2. Grant consumer npm~~ — **xong** (Th7 2026): Trusted Publishing + `docs/consumer-grant.md` (+ VI) cho sản phẩm portfolio CyberSkill.
+~~2. Grant consumer npm~~ — **xong** (Th7 2026): `docs/consumer-grant.md` (+ VI) cho sản phẩm portfolio CyberSkill.
 
 ~~3. Chốt registry products~~ — **xong** (Th7 2026): xem quyết định §9; `docs/products.md` đã khóa.
 
-~~4. Đường consumer registry đầu tiên~~ — **xong** (Th7 2026): `examples/npm-hello/` cài `@cyberskill/design` cho identity **Lumi** đã khóa; ghi trong `docs/consuming.md` (+ VI) và `docs/release-notes.md`. Nay target **1.1.1** post-LAUNCH.
+~~4. Đường consumer registry đầu tiên~~ — **xong** (Th7 2026): `examples/npm-hello/` cài `@cyberskill/design` cho identity **Lumi** đã khóa; ghi trong `docs/consuming.md` (+ VI) và `docs/release-notes.md`. Pin theo `VERSION` của repository.
 
-5. **Drift native + element-pack trên PR là fail-closed** (Th7 2026; FIND-021 re-gate Th8 2026) — `regenerate-tokens` chạy read-only trên pull request và exit 1 thay vì push; chỉ `regenerate-tokens-push` (main / schedule / thủ công) giữ `contents: write`. Khi PR fail, chạy `npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs` rồi commit packs + natives. Auto-commit từ `regenerate-tokens-push` **không** được dùng `[skip ci]` để tip chạy lại bảng gate (TASK-IMP-008); freshness fail-closed trên PR vẫn là đường chính cho contributor. Thực tế required-check branch protection là NV-18.1 (ngoài repo). Xem `docs/ci-cd.md`.
+5. **Drift native + element-pack trên PR là fail-closed** (Th7 2026; FIND-021 re-gate Th8 2026) — `regenerate-tokens` chạy read-only trên pull request và exit 1 thay vì push; chỉ `regenerate-tokens-push` (main / schedule / thủ công) giữ `contents: write`. Khi PR fail, chạy `npm run tokens:generate` rồi review/commit đầy đủ thay đổi token, native, bundle và reference đã sinh. Auto-commit từ `regenerate-tokens-push` **không** được dùng `[skip ci]` để tip chạy lại bảng gate (TASK-IMP-008); freshness fail-closed trên PR vẫn là đường chính cho contributor. Thực tế required-check branch protection là NV-18.1 (ngoài repo). Xem `docs/ci-cd.md`.
 
 6. **Shadcn gap / Wave 2** (Th7 2026) — CyberSkill đã phủ ~53/62 primitive shadcn dưới dạng CS-native (forms / overlays / nav / data). Đã ship: pilot `ScrollArea`, `Collapsible`, `AspectRatio`; Wave 2 `AlertDialog` (vs Popconfirm), `Item` row primitive, `NativeSelect`. Phần còn lại của shadcn là non-port có chủ đích (block, Tailwind, Radix CLI). **Không** port những thứ đó — map pattern sang `templates/` + `ui_kits/` hiện có.
 
@@ -113,46 +93,23 @@ Theo dõi vận hành — không phải marketing sản phẩm, không phải ba
 
 Storybook `FullMatrix` bắt buộc khi public primary có ≥1 trong {size enums, variant enums, state keys} (sàn contract ≥28 story). Schema sidecar đã đủ cho template content-hole; template chỉ-axis bỏ qua theo thiết kế. Xem `docs/quality-gates.md` và `docs/storybook.md`.
 
-## 11. Giấy tờ audit — lưu trữ, không xóa
-
-**Lựa chọn owner: archive-don't-delete** (Th8 2026; TASK-IMP-001 / assessment FIND-001)
-
-- Artifact audit UX / AT / chất lượng đã đóng MUST còn tái dựng được từ clone mới. Ưu tiên `_audit/archive/` và/hoặc `docs/audits/` thay vì xóa im lặng.
-- Commit `8646dbf` đã xóa plan UX audit 8/8, AT matrix, README archive, và `TASK-UX-AUDIT-20260808` “không để lại bản ghi vĩnh viễn.” Nội dung được khôi phục tại `docs/audits/ux-audit-2026-08-08/` (kèm pointer `_audit/archive/ux-audit-2026-08-08/`). Các quyết định D1–D6 lịch sử trong plan đã khôi phục **không** ủy quyền xóa audit trail trong tương lai.
-- Chỉnh status-feed / ledger để che công việc audit đã làm nên tránh; nếu commit phải ledger-exempt, ghi exemption và đường dẫn archive trong cùng change.
-- Claim cần provenance (ví dụ “AT complete”, “lawyer-validated”) đòi bản ghi có ngày trong cây hoặc mục quyết định tường minh — không chỉ attestation miệng.
-
-## 12. Kế hoạch tiến hóa 12 tháng — trạng thái adoption
-
-**Lựa chọn owner: partially superseded (gần); giữ plan làm tham chiếu dài hạn** (Th8 2026; TASK-IMP-001 / assessment FIND-002)
-
-Nguồn: `docs/plans/cyberskill-design-system-audit-and-12-month-evolution-plan.md` (ngày audit 2026-07-28). PLAN `task-author` trước đó đã APPROVED (manifest `docs/tasks/.workflow/task-author.design-system-evolution.manifest.json`) nhưng hầu hết artefact chưa land vào `docs/tasks/`.
-
-| Tầm | Trạng thái | Ghi chú |
-|-----|------------|---------|
-| Assessment Phases 0–2 (tập con FIND-001…025) | **Adopted** — hàng đợi improvement CyberOS đang chạy | `TASK-IMP-001`…`TASK-IMP-008` trong `docs/tasks/improvement/`; index `docs/tasks/BACKLOG.md` |
-| Materialize đủ phase 0–6 của plan 12 tháng | **Deferred** | Không tự bung artefact PENDING trong manifest cho tới khi operator triage với tip `1.2.1` / hậu assessment |
-| Việc đã ship ngoài backlog (vd. commit remediation UX 8/8) | **Superseded** với tư cách task sống | Bằng chứng ở `docs/audits/ux-audit-2026-08-08/` + git history; không mở lại trùng trừ khi có finding mới |
-
-Phases 3–5 của **roadmap assessment** (RSC `"use client"`, APG Rating/Tree/Toolbar, CSP, SBOM, …) vẫn là follow-on hoãn — chưa author trong tranche này trừ khi operator yêu cầu.
-
 ## 13. Ranh giới Product vs CyberOS
 
-**Lựa chọn owner: hàng rào tường minh** (Th8 2026; assessment area 28 / TASK-IMP-020)
+**Lựa chọn owner: hàng rào tường minh** (Th8 2026; assessment area 28)
 
 | Lớp | Ship tới consumer? | Nằm ở đâu | Mục đích |
 |-------|---------------------|-------------|---------|
 | **Product design system** | Có — `@cyberskill/design`, cây portable (`styles.css`, `tokens/`, `components/`, `templates/`, gates `_audit/`, host Storybook) | root repo (không-`.cyberos`) | Token, component, template, kit, quality gate xác định |
-| **CyberOS orchestration** | Không (gitignored / agent kit cài được) | `.cyberos/`, `docs/tasks/`, BRAIN dưới `.cyberos/memory/` | Vòng đời task, cổng HITL, agent entry, workflow ship-tasks |
+| **CyberOS orchestration** | Không (đã ngừng) | `.cyberos/` | Điều phối agent lịch sử |
 
 Quy tắc:
 - Tiêu chí chấp nhận product không được đòi `.cyberos/` có mặt cho consumer hoặc cho `npm` publish.
-- Agent vận hành repo này theo `.cyberos/AGENT-ENTRY.md`; người ship DS theo `docs/release-runbook.md`.
+- Quyết định thay thế của chủ sở hữu (2026-10-08): ngừng dùng CyberOS và hai cổng nghiệm thu của CyberOS. Agent theo `AGENTS.md` và `SKILL.md`. Vẫn cần rà soát trực quan, bằng chứng kiểm thử công nghệ hỗ trợ thủ công và chỉ thị rõ ràng trước khi push/deploy/merge.
 - Không chuyển token/component product vào `.cyberos/`; không publish orchestration CyberOS như một phần của gói npm.
 
 ## 14. Kiến trúc locale ngoài EN·VI
 
-**Lựa chọn owner: B — spike locale thứ ba (`ja`); trục Language dùng primary subtag BCP-47** (Th8 2026; TASK-IMP-026 / CDS-I18N-001)
+**Lựa chọn owner: B — spike locale thứ ba (`ja`); trục Language dùng primary subtag BCP-47** (Th8 2026; CDS-I18N-001)
 
 Bản ghi chuẩn: [`docs/decisions/locale-architecture.md`](../decisions/locale-architecture.md) (EN).
 
@@ -162,12 +119,34 @@ Bản ghi chuẩn: [`docs/decisions/locale-architecture.md`](../decisions/locale
 
 ## 15. Thuộc tính Theme — density + contrast
 
-**Lựa chọn owner: C — density và contrast một đợt, là thuộc tính Theme** (Th8 2026; TASK-IMP-027 / CDS-THEME-002)
+**Lựa chọn owner: C — density và contrast một đợt, là thuộc tính Theme** (Th8 2026; CDS-THEME-002)
 
 Bản ghi chuẩn: [`docs/decisions/theme-density-contrast.md`](../decisions/theme-density-contrast.md) (EN).
 
 - `data-cs-density` (`comfortable` | `compact`) và `data-cs-contrast` (`standard` | `high`) là **thuộc tính dưới Theme**, không phải trục danh tính sản phẩm thứ năm.
 - Trục sản phẩm vẫn Theme × Element × Language × Style. Sàn APCA body Lc ≥ 75 và touch target ≥44px bất biến dưới compact.
+
+## 16. Parser HTML của Editor — triển khai đang chờ review
+
+**Trạng thái: đã triển khai cục bộ; chưa có human review và final acceptance.**
+
+DOM walk trong trình duyệt và regex trong Node có hành vi khác nhau, để lọt phần
+tử con có thể chạy mã bên trong thẻ lạ. Bản sửa dùng parse5 8.0.1 ở cả hai môi
+trường rồi tạo fragment mới chỉ với mười một thẻ hiện có và văn bản đã escape.
+Mọi thuộc tính, subtree thuộc namespace khác và raw-text đều bị loại bỏ. Đây là
+chính sách hẹp cho nội dung HTML, không phải bộ lọc URL, CSS hay thuộc tính.
+
+Parser và dependency có giấy phép MIT được ghim phiên bản, sinh thành module
+cục bộ cho consumer không dùng bundler. Chi phí tăng khoảng 153 KB mã parser
+minified trước nén HTTP. Kiểm tra
+unit và prepublish xác minh provenance và đầu ra sinh. Node không cần dependency
+mô phỏng DOM. Dán/kéo thả được lọc trước khi chèn; `unsafeHtml` vẫn chỉ dành cho
+nội dung đáng tin cậy.
+
+Bằng chứng gồm test đối kháng Node/trình duyệt, tái hiện lỗi trên source đã audit,
+và test seed/dán/kéo thả/bàn phím. Kết quả không thay thế human acceptance và không
+khẳng định đã chuyển sang schema editor. Giới hạn contentEditable/execCommand
+vẫn được ghi rõ.
 
 ## Cách đổi một quyết định
 

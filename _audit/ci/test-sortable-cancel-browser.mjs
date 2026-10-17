@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import {withBrowserFixture} from './lib/browser-fixture.mjs';
+import {execFileSync} from 'node:child_process';
+execFileSync(process.execPath,['_audit/ci/check-bundle-freshness.mjs'],{stdio:'pipe'});
+await withBrowserFixture(async page=>{
+ const mount=()=>page.evaluate(()=>{window.moves=[];renderFixture(React.createElement(CS.Sortable,{key:window.sortableMount=(window.sortableMount||0)+1,lang:'en',items:[{key:'a',label:'A'},{key:'b',label:'B'}],onChange:items=>moves.push(items.map(x=>x.key))}))});
+ await mount();
+ const items=page.locator('.cs-sortable__item');
+ await items.nth(0).dispatchEvent('dragstart');
+ await items.nth(1).dispatchEvent('dragover');
+ await items.nth(0).dispatchEvent('dragend');
+ assert.deepEqual(await page.evaluate(()=>moves),[],'ending without a drop must not commit the hovered order');
+ assert.equal(await page.locator('.is-dragging,.is-over').count(),0,'cancel clears drag presentation');
+ await mount();
+ await items.nth(0).dragTo(items.nth(1));
+ assert.deepEqual(await page.evaluate(()=>moves),[['b','a']],'real browser drag/drop emits exactly one reorder');
+ assert.equal(await page.locator('.is-dragging,.is-over').count(),0);
+ await mount();
+ await page.getByRole('button',{name:'Move down',exact:true}).first().click();
+ assert.deepEqual(await page.evaluate(()=>moves),[['b','a']],'keyboard-accessible move remains available');
+ console.log('PASS Sortable: cancel without drop, real drag/drop single emission, cleanup and move button');
+},{browserName:process.env.CS_TEST_BROWSER||'chromium'});

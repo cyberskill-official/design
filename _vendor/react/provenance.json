@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "package": "umd-react",
+  "version": "19.2.8",
+  "license": "MIT",
+  "registryMetadata": "https://registry.npmjs.org/umd-react/19.2.8",
+  "tarball": "https://registry.npmjs.org/umd-react/-/umd-react-19.2.8.tgz",
+  "integrity": "sha512-C5My1057AYMsVlgRQ7FAStmuV5FQPqOERnZ7ls4qdhyDUUBlLfL5CTPRXJC4tVBJIUArJpyIihlcIdWrgIr4RQ==",
+  "verification": "Exact file bytes matched the integrity-verified registry tarball. Hashes alone do not establish broader licensing or support acceptance.",
+  "files": [
+    {
+      "path": "react.production.min.js",
+      "upstreamPath": "package/dist/react.production.min.js",
+      "sha256": "b44127a2f9a1fd436609558e459f22be4ab83c14ee3960e86c5fc03e9f984648"
+    },
+    {
+      "path": "react-dom.production.min.js",
+      "upstreamPath": "package/dist/react-dom.production.min.js",
+      "sha256": "03d4ef4236ce942c03bc1c17211a802023a3861a6891330e9415bd25fb0af874"
+    },
+    {
+      "path": "LICENSE",
+      "upstreamPath": "package/LICENSE",
+      "sha256": "32f0b2d0ab3bc3f9b7a89d8017ff7891428d97fddd04f0ffeccb5c926cfc9479"
+    }
+  ],
+  "embeddedProjectNotices": [
+    {
+      "package": "react",
+      "version": "19.2.8",
+      "registryMetadata": "https://registry.npmjs.org/react/19.2.8",
+      "tarball": "https://registry.npmjs.org/react/-/react-19.2.8.tgz",
+      "integrity": "sha512-PWaYA1L/q9u2u7xYQi+Y3L3Yfnie7XyLeaJICV1MGD6LprsBxcAqGjYyr0eY3p+QdsA+x/Irkt4Qif8D63+Sbw==",
+      "files": [
+        {
+          "path": "react-LICENSE",
+          "upstreamPath": "package/LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+        }
+      ]
+    },
+    {
+      "package": "react-dom",
+      "version": "19.2.8",
+      "registryMetadata": "https://registry.npmjs.org/react-dom/19.2.8",
+      "tarball": "https://registry.npmjs.org/react-dom/-/react-dom-19.2.8.tgz",
+      "integrity": "sha512-rVprimfGBG3DR+Tq0IQG2DT5PxKth1WIGDmj5yPmlzr4YBe7uyE+Du4oVqTDXZSHGGGXRtTJEGSSePyQCMBglQ==",
+      "files": [
+        {
+          "path": "react-dom-LICENSE",
+          "upstreamPath": "package/LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+        }
+      ]
+    }
+  ]
+}

@@ -16,29 +16,31 @@ export function TextField({
   children, // never rendered on purpose: keeps stray children out of {...props} → void <input>
   ...props
 }) {
+  const hasError = Boolean(error) || error === 0;
+  const hasDescription = Boolean(description) || description === 0;
   const generatedId = React.useId();
   const inputId = id ?? generatedId;
-  const descriptionId = description ? `${inputId}-description` : undefined;
-  const errorId = error ? `${inputId}-error` : undefined;
-  const describedBy = [descriptionId, errorId].filter(Boolean).join(" ") || undefined;
+  const descriptionId = hasDescription ? `${inputId}-description` : undefined;
+  const errorId = hasError ? `${inputId}-error` : undefined;
+  const describedBy = [props["aria-describedby"], descriptionId, errorId].filter(Boolean).join(" ") || undefined;
 
   return (
     <label
-      className={cx("cs-field", disabled && "is-disabled", error && "is-invalid", className)}
+      className={cx("cs-field", disabled && "is-disabled", hasError && "is-invalid", className)}
       htmlFor={inputId}
     >
       <span className="cs-field__label">{label}</span>
-      {description ? <span id={descriptionId} className="cs-field__description">{description}</span> : null}
+      {hasDescription ? <span id={descriptionId} className="cs-field__description">{description}</span> : null}
       <input
         {...props}
         id={inputId}
         disabled={disabled}
         readOnly={readOnly}
-        aria-invalid={error ? true : undefined}
+        aria-invalid={hasError ? true : props["aria-invalid"]}
         aria-describedby={describedBy}
         className="cs-field__control"
       />
-      {error ? <span id={errorId} className="cs-field__error" role="alert">{error}</span> : null}
+      {hasError ? <span id={errorId} className="cs-field__error" role="alert">{error}</span> : null}
     </label>
   );
 }

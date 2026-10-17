@@ -13,9 +13,10 @@
 <helmet>
 <script src="./ds-base.js"></script>
 <style>@page{size:A4;margin:23mm 20mm 20mm 20mm}@media print{html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important;padding:0!important}.cs-avoid{break-inside:avoid}}</style>
+<style>@media print{.cs-sheet h2{padding-top:3px!important;padding-bottom:max(0px,calc(var(--_cs-print-heading-padding) - 3px))!important;margin-bottom:calc(var(--_cs-print-heading-after) - max(0px,calc(3px - var(--_cs-print-heading-padding))))!important}}</style>
 </helmet>
 <div lang="vi" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-doc-ink)">
-  <div class="cs-sheet" style="max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left">
+  <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left" data-theme="light">
     <div style="display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--cs-color-text-muted);padding-bottom:6px;border-bottom:1px solid var(--cs-color-border-default);margin-bottom:14px">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="18" hint-size="18px,18px"></x-import>
       <b style="color:var(--cs-color-brand-umber)">CyberSkill</b><span>· Hợp đồng nguyên tắc (dịch vụ &amp; tài khoản phần mềm)</span><span style="margin-left:auto;font-family:var(--cs-font-family-mono)">Số/No. <span style="background:var(--cs-doc-fill);padding:0 3px">.....</span>/2026/HĐNT-CYBERSKILL</span>
@@ -30,7 +31,7 @@
       <h1 style="font-size:20px;font-weight:800;color:var(--cs-color-brand-umber);letter-spacing:-0.01em;margin:0 0 3px;line-height:1.25">HỢP ĐỒNG NGUYÊN TẮC</h1>
       <div style="font-size:13px;font-weight:700;color:var(--cs-color-brand-umber);margin:0 0 4px">VỀ CUNG CẤP DỊCH VỤ VÀ TÀI KHOẢN PHẦN MỀM</div>
       <div style="font-size:12.5px;color:var(--cs-doc-slate);font-style:italic">Framework Agreement — Software services &amp; account provisioning</div>
-      <div style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
+      <div aria-hidden="true" style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
     </div>
 
     <p style="font-size:13px;line-height:1.5;margin:0 0 1px">Căn cứ Luật Thương mại số 36/2005/QH11; Bộ luật Dân sự số 91/2015/QH13 và các quy định pháp luật có liên quan;</p>
@@ -77,13 +78,13 @@
     <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 12px">Having agreed, the Parties enter into this Framework Agreement on the following terms.</p>
 
     <div style="display:grid;gap:11px">
-      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px">ĐIỀU 1 · NỘI DUNG HỢP ĐỒNG <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 1 · Subject matter</span></h2>
+      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:5px">ĐIỀU 1 · NỘI DUNG HỢP ĐỒNG <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 1 · Subject matter</span></h2>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">1.1. Bên A cung cấp và cấp quyền truy cập các tài khoản/dịch vụ phần mềm cho Bên B, bao gồm tài khoản Google Earth Professional Advanced và các sản phẩm phần mềm trí tuệ nhân tạo (AI) theo đề nghị cung cấp dịch vụ của Bên B.</p>
         <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 6px">1.1. Party A provisions and grants access to software accounts/services for Party B, including Google Earth Professional Advanced and AI software products per Party B’s service request.</p>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">1.2. Số lượng, chủng loại, thời hạn và đơn giá chi tiết theo từng Báo giá/Đơn hàng được hai Bên xác nhận (bao gồm Gói Google Earth Professional Advanced, đơn giá <b>5.000.000 VNĐ</b> đã gồm VAT cho thời hạn <b>01 tháng</b>, trừ khi Báo giá khác ghi khác).</p>
         <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0">1.2. Quantity, SKU, term, and unit price follow each confirmed Quotation/Order (including Google Earth Professional Advanced at <b>VND 5,000,000</b> incl. VAT for a <b>one-month</b> term, unless a Quotation states otherwise).</p></div>
 
-      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px">ĐIỀU 2 · PHƯƠNG THỨC THANH TOÁN <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 2 · Delivery &amp; payment</span></h2>
+      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:5px">ĐIỀU 2 · PHƯƠNG THỨC THANH TOÁN <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 2 · Delivery &amp; payment</span></h2>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">2.1. Căn cứ Báo giá/Đề nghị của Bên B, Bên A khởi tạo và cấp quyền truy cập tài khoản phần mềm qua địa chỉ email công việc của Bên B.</p>
         <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 6px">2.1. Based on Party B’s Quotation/request, Party A activates and grants account access via Party B’s work email.</p>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">2.2. Khi tiếp nhận quyền truy cập, Bên B kiểm tra số lượng, tính năng, thời hạn và ký Biên bản bàn giao/nghiệm thu với Bên A.</p>
@@ -93,13 +94,13 @@
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">2.4. Bên B thanh toán trong vòng <b>10 ngày làm việc</b> sau khi nhận đủ quyền truy cập, biên bản bàn giao và hóa đơn hợp lệ. Hình thức: chuyển khoản.</p>
         <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0">2.4. Party B pays within <b>10 business days</b> after receiving access, the handover minute, and a valid invoice. Method: bank transfer.</p></div>
 
-      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px">ĐIỀU 3 · TRÁCH NHIỆM CÁC BÊN <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 3 · Responsibilities</span></h2>
+      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:5px">ĐIỀU 3 · TRÁCH NHIỆM CÁC BÊN <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 3 · Responsibilities</span></h2>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px"><b>Bên A.</b> Bảo đảm tài khoản chính chủ, đúng chủng loại, thời hạn và gói đã thỏa thuận (kể cả Google Earth Professional Advanced với dung lượng lưu trữ đám mây 20 GB, dữ liệu lịch sử ảnh vệ tinh &amp; Street View, trợ lý AI Ask Google Earth, hỗ trợ kỹ thuật 24/5). Nếu lỗi kỹ thuật từ nhà cung cấp, Bên A xử lý hoặc cấp tài khoản thay thế trong 24 giờ; duy trì ổn định quyền truy cập và hỗ trợ trong suốt thời hạn dịch vụ. Phương thức giao nhận: cấp quyền qua email công việc của Bên B. Bộ chứng từ: hóa đơn điện tử (GTGT); biên bản bàn giao/cấp quyền; bảng báo giá đã xác nhận.</p>
         <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 6px"><b>Party A.</b> Warrants genuine accounts matching the agreed SKU, term, and pack (including Google Earth Professional Advanced with 20 GB cloud storage, historical satellite imagery &amp; Street View, Ask Google Earth AI assistant, and 24/5 technical support). On vendor-side technical faults, remediates or replaces within 24 hours; maintains access and support for the term. Delivery via Party B’s work email. Payment pack: e-VAT invoice; handover/access minute; confirmed quotation.</p>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px"><b>Bên B.</b> Cung cấp danh sách email công việc của nhân sự tiếp nhận, số điện thoại và thông tin liên hệ; cử nhân viên phối hợp kiểm tra và tiếp nhận bàn giao; thanh quyết toán đúng hạn.</p>
         <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0"><b>Party B.</b> Provides recipient work emails, phone numbers, and contacts; assigns staff to verify and accept handover; settles payment on time.</p></div>
 
-      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px">ĐIỀU 4 · ĐIỀU KHOẢN CHUNG <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 4 · General</span></h2>
+      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:5px">ĐIỀU 4 · ĐIỀU KHOẢN CHUNG <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 4 · General</span></h2>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">4.1. Hai Bên thực hiện nghiêm các điều khoản trên cơ sở pháp luật Việt Nam. Mọi sửa đổi chỉ có hiệu lực khi có văn bản đồng ý của cả hai Bên.</p>
         <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 6px">4.1. The Parties perform under Vietnamese law. Amendments are valid only if agreed in writing by both Parties.</p>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">4.2. Khó khăn phát sinh được thương lượng thiện chí. Nếu không thỏa thuận được, tranh chấp giải quyết tại Trọng tài kinh tế hoặc Tòa án có thẩm quyền tại Thành phố Hồ Chí Minh; chi phí do bên có lỗi chịu.</p>

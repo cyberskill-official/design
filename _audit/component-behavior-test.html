@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><title>CyberSkill — component behavior smoke test</title>
 <link rel="stylesheet" href="../styles.css">
-<script src="https://unpkg.com/umd-react@19.2.8/dist/react.development.js" integrity="sha384-r22tQd8qRIHDPIkmdXZcVtvPi1Tj2x1QaW2tmFQHEvHscATUnHQ5siTyxWw5PMUs" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/umd-react@19.2.8/dist/react-dom.development.js" integrity="sha384-gJZYmumEmwqVmX3JVsLZq+4QrxoPGh/BW47Rk7SqNPCPFpTGnRtvmeRPJ7//ZDPk" crossorigin="anonymous"></script>
+<script src="../_vendor/react/react.production.min.js" integrity="sha384-/nh8CKeV7Pk42Gpda6L4DM1JtZ2bwPOi+eh9O7+a1Y22UkGs8+mw3aW1shQ9FV30"></script>
+<script src="../_vendor/react/react-dom.production.min.js" integrity="sha384-rhLCB72qrpcezgY2QW0panvW9IeO32m94nvuDVRD/iEGHXoUbjtijL6Xi/Z5/mzu"></script>
 <script src="../_ds_bundle.js"></script>
 <style>
   body{margin:0;font-family:var(--cs-font-family-ui,system-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
@@ -28,7 +28,10 @@ const h=(typeof React!=='undefined')?React.createElement:null;
 const NS=window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
 const list=document.getElementById('list'), stage=document.getElementById('stage');
 const results=[];
-function mount(el){ const c=document.createElement('div'); stage.appendChild(c); const root=ReactDOM.createRoot(c); root.render(el); return c; }
+const mountedRoots=[];
+function mount(el){ const c=document.createElement('div'); stage.appendChild(c); const root=ReactDOM.createRoot(c); mountedRoots.push({root,container:c}); root.render(el); return c; }
+function cleanupFixtures(){ for(const {root,container} of mountedRoots.splice(0)){ root.unmount(); container.remove(); } }
+
 function setInput(input,val){
   const proto=input.tagName==='TEXTAREA'?window.HTMLTextAreaElement.prototype:window.HTMLInputElement.prototype;
   const set=Object.getOwnPropertyDescriptor(proto,'value').set;
@@ -38,12 +41,18 @@ function setInput(input,val){
 }
 function record(name,ok,detail){ results.push({name,ok,detail}); const r=document.createElement('div'); r.className='row '+(ok?'ok':'bad'); r.innerHTML='<span>'+(ok?'✓ ':'✗ ')+name+'</span><span class="d">'+detail+'</span>'; list.appendChild(r); }
 const tmo=ms=>new Promise((_,rej)=>setTimeout(()=>rej(new Error('watchdog: no verdict in '+ms/1000+'s')),ms));
-async function test(name,fn){ P.current=name; try{ const d=await Promise.race([fn(),tmo(30000)]); record(name,true,d); }catch(e){ record(name,false,String(e.message||e).slice(0,90)); } P.done=results.length; }
+async function test(name,fn){ P.current=name; try{ const d=await Promise.race([fn(),tmo(30000)]); record(name,true,d); }catch(e){ record(name,false,String(e.message||e).slice(0,90)); } finally { cleanupFixtures(); } P.done=results.length; }
 function assert(c,msg){ if(!c) throw new Error(msg); }
 // Poll an assertion-ish fn (absorbs render timing under load — same pattern as a11y-gate); returns last value.
 async function until(fn,ms){ ms=ms||2500; const t0=Date.now(); let r=false; while(Date.now()-t0<ms){ try{ r=fn(); }catch(e){ r=false; } if(r) return r; await wait(40); } try{ return fn(); }catch(e){ return false; } }
 
 async function run(){
+  const rootStyle=getComputedStyle(document.documentElement);
+  const modalDepth=parseFloat(rootStyle.getPropertyValue('--cs-depth-modal'));
+  const toastDepth=parseFloat(rootStyle.getPropertyValue('--cs-depth-toast'));
+  if(!(modalDepth>0 && toastDepth>modalDepth)){
+    publish({pass:false,total:0,failed:[],error:'Stylesheet preflight failed: modal/toast depth tokens unavailable or invalid; no behavior verdict',results:[]}); return;
+  }
   if(!h||typeof ReactDOM==='undefined'){ publish({pass:false,total:0,failed:[],error:'React CDN failed to load (unpkg unreachable?) \u2014 gate cannot run',results:[]}); return; }
   if(!NS){ publish({pass:false,total:0,failed:[],error:'bundle namespace not found \u2014 is _ds_bundle.js compiled?',results:[]}); return; }
   const {Switch,Checkbox,Accordion,Collapsible,Tabs,CommandPalette,Menu,MenuItem,Popover,Dialog,Drawer,AlertDialog,Pagination,SegmentedControl,Toggle,Rating,InputOTP,Combobox,TagInput,InlineEdit,Popconfirm,Carousel,DataGrid,Button,Form,FormField,TextField,Textarea,Tree,Splitter,DatePicker,ColorPicker,TreeSelect,Sortable,Cascader,Transfer,Tour,HotKeys,Mentions,Calendar,Item,NativeSelect,Tooltip,HoverCard,ContextMenu,Slider,Select,TreeTable,InputGroup,Menubar,Toast,ToastStack,RadioGroup,NumberField,SearchField,TimePicker,FileUpload,NavigationMenu,Sidebar,NavItem,PromptInput,Tag,Dock,FloatingActionButton,HumanReviewGate,PromptSuggestions,Toolbar,AIDisclosureBadge,Comment,List,ListItem,Terminal,Card,CardBody,Link,Editor,CodeBlock,CitationList,Breadcrumb,Image,BackTop,Anchor}=NS;
@@ -149,9 +158,15 @@ async function run(){
     const input=document.querySelector('.cs-cmdk__search input'); assert(input,'no search input');
     setInput(input,'alph');
     assert(await until(()=>document.querySelectorAll('.cs-cmdk__item').length===1),'want 1 filtered item, got '+document.querySelectorAll('.cs-cmdk__item').length);
+    const status=document.querySelector('.cs-cmdk [role="status"]'); assert(status,'missing result feedback');
+    assert(status.getAttribute('aria-live')==='polite'&&status.getAttribute('aria-atomic')==='true','result feedback must be polite and atomic');
+    setInput(input,'zzz');
+    assert(await until(()=>document.querySelectorAll('.cs-cmdk__item').length===0&&status.textContent==='No results'),'empty search feedback');
+    setInput(input,'');
+    assert(await until(()=>document.querySelectorAll('.cs-cmdk__item').length===3&&status.textContent==='3 results'),'clearing restores result feedback');
     document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
     assert(await until(()=>!document.querySelector('.cs-cmdk-scrim')),'palette closes so later Escape tests stay clean');
-    return '3→1 on "alph"';
+    return '3→1→0→3 with visible result feedback';
   });
 
   await test('Menu — trigger opens list, Esc closes',async()=>{
@@ -167,7 +182,7 @@ async function run(){
 
   await test('Popover — trigger opens panel, Esc closes',async()=>{
     assert(Popover,'Popover export missing');
-    const c=mount(h(Popover,{trigger:h('button',{className:'pt'},'Open')},h('div',{},'panel'))); await wait(80);
+    const c=mount(h(Popover,{'aria-label':'panel',trigger:h('button',{className:'pt'},'Open')},h('div',{},'panel'))); await wait(80);
     assert(!c.querySelector('.cs-popover__panel'),'popover closed initially');
     c.querySelector('.pt').click();
     assert(await until(()=>c.querySelector('.cs-popover__panel')),'popover opens on click');
@@ -529,7 +544,7 @@ async function run(){
 
   await test('HoverCard — focus opens panel',async()=>{
     assert(HoverCard,'HoverCard export missing');
-    const c=mount(h(HoverCard,{openDelay:0,closeDelay:99999,trigger:h('button',{type:'button'},'@host'),children:h('div',null,'Card body')})); await wait(70);
+    const c=mount(h(HoverCard,{'aria-label':'Card body',openDelay:0,closeDelay:99999,trigger:h('button',{type:'button'},'@host'),children:h('div',null,'Card body')})); await wait(70);
     assert(!c.querySelector('.cs-hovercard__panel'),'closed initially');
     c.querySelector('button').focus();
     assert(await until(()=>c.querySelector('.cs-hovercard__panel')),'panel opens on focus');

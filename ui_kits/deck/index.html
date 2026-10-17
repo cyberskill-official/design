@@ -1,10 +1,22 @@
-<!-- @dsCard group="Deck" viewport="1280x720" name="Brand deck — CyberSkill" subtitle="16:9 presentation on deck-stage — PDF & PPTX ready" -->
+<!-- @dsCard group="Deck" viewport="1280x720" name="Brand deck — CyberSkill" subtitle="16:9 presentation — browser print and host capture hooks" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CyberSkill · Brand deck</title>
+<!-- Preserve relative assets for literal/clean entry URLs and nested mounts. -->
+<script>
+(function () {
+  var path = location.pathname;
+  if (path.endsWith("/index")) path = path.slice(0, -6);
+  else if (path.endsWith("index.html")) path = path.slice(0, -10);
+  if (!path.endsWith("/")) path += "/";
+  var base = document.createElement("base");
+  base.href = path;
+  document.head.appendChild(base);
+})();
+</script>
 <link rel="icon" href="../../assets/favicon.svg" />
 <link rel="stylesheet" href="../../styles.css" />
 <style>

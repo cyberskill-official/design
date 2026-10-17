@@ -9,7 +9,7 @@ export function Checkbox({ label, description, disabled = false, className, chil
       <input type="checkbox" disabled={disabled} {...props} />
       <span className="cs-check__text">
         <span>{label}</span>
-        {description ? <span className="cs-check__desc">{description}</span> : null}
+        {(description || description === 0) ? <span className="cs-check__desc">{description}</span> : null}
       </span>
     </label>
   );

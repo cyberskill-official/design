@@ -18,6 +18,7 @@ export function InputGroup({
   defaultValue = "",
   placeholder,
   disabled = false,
+  readOnly = false,
   lang,
   className,
   "aria-label": ariaLabel,
@@ -25,7 +26,7 @@ export function InputGroup({
 }) {
   const [inner, setInner] = React.useState(defaultValue);
   const val = value != null ? value : inner;
-  const set = (v) => { if (value == null) setInner(v); onChange && onChange(v); };
+  const set = (v) => { if (disabled || readOnly) return; if (value == null) setInner(v); onChange && onChange(v); };
   const [show, setShow] = React.useState(false);
   const [ref, L] = useLang(lang);
   const t = makeT("InputGroup", L);
@@ -43,11 +44,12 @@ export function InputGroup({
           value={val}
           placeholder={placeholder}
           disabled={disabled}
+          readOnly={readOnly}
           aria-label={label ? undefined : (ariaLabel || placeholder || t("input"))}
           onChange={(e) => set(e.target.value)}
         />
-        {clearable && String(val).length ? <button type="button" className="cs-igroup__btn" aria-label={t("clear")} onClick={() => set("")}>{X}</button> : null}
-        {password ? <button type="button" className="cs-igroup__btn" aria-label={show ? t("hide") : t("show")} aria-pressed={show} onClick={() => setShow((s) => !s)}>{show ? EYE_OFF : EYE}</button> : null}
+        {clearable && String(val).length ? <button type="button" className="cs-igroup__btn" aria-label={t("clear")} disabled={disabled || readOnly} onClick={() => set("")}>{X}</button> : null}
+        {password ? <button type="button" className="cs-igroup__btn" aria-label={show ? t("hide") : t("show")} aria-pressed={show} disabled={disabled} onClick={() => setShow((s) => !s)}>{show ? EYE_OFF : EYE}</button> : null}
         {suffix != null ? <span className="cs-igroup__fix cs-igroup__fix--suffix">{suffix}</span> : null}
       </span>
     </label>

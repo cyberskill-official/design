@@ -7,3 +7,16 @@
   sources={["release-notes.md", "task backlog"]}
 />
 ```
+
+The open surface participates in the shared overlay stack: Escape closes it before its parent modal. Existing keyboard selection and editing commands remain local to the widget.
+
+Default label, explanation and source heading follow inherited EN/VI or explicit
+`lang`. Caller-supplied label/details remain caller-owned content. The consumer
+must provide accurate disclosure and sources; the badge displays that information
+and does not detect AI involvement, verify sources or establish human approval.
+
+Keyboard: Tab reaches the disclosure button; Enter/Space toggles it. Escape dismisses the open disclosure through the shared overlay stack.
+
+Localization: Built-in EN/VI copy follows explicit `lang` or the inherited DOM language scope (Vietnamese fallback). Caller-supplied content is not translated.
+
+Source evidence: `AIDisclosureBadge.jsx` and `AIDisclosureBadge.d.ts` define this contract. These source pointers do not establish manual assistive-technology or consumer acceptance.

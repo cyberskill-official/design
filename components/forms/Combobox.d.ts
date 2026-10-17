@@ -9,6 +9,7 @@ export interface ComboboxProps {
   placeholder?: string;
   /** Accessible label for the input. */
   label?: string;
+  /** Disables the field and closes an open popup; reenabling does not reopen it. */
   disabled?: boolean;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;

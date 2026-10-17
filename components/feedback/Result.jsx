@@ -17,8 +17,8 @@ export function Result({ status = "info", title, children, actions, lang, classN
     <div ref={ref} className={cx("cs-result", "cs-result--" + status, className)} role="status">
       <span className="cs-result__icon" aria-hidden="true">{ART[status] || ART.info}</span>
       <h2 className="cs-result__title">{tt}</h2>
-      {children ? <div className="cs-result__body">{children}</div> : null}
-      {actions ? <div className="cs-result__actions">{actions}</div> : null}
+      {(children || children === 0) ? <div className="cs-result__body">{children}</div> : null}
+      {(actions || actions === 0) ? <div className="cs-result__actions">{actions}</div> : null}
     </div>
   );
 }

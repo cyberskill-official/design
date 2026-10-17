@@ -12,10 +12,11 @@
 <!-- @template name="HR Suite · Biểu mẫu đánh giá kết quả công việc — Performance Review Form" description="Lawyer-validated CyberSkill performance review — cycle info, weighted scoring, 5-level rating with P3 bonus consequences, self/manager assessment, next-cycle objectives, appeal right. A4, VN·EN, print-ready. Content verbatim." -->
 <helmet>
 <script src="./ds-base.js"></script>
-<style>@page{size:A4;margin:23mm 20mm 20mm 20mm}@media print{html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important;padding:0!important}.cs-avoid{break-inside:avoid}}</style>
+<style>@page{size:A4;margin:23mm 20mm 20mm 20mm}@media print{.cs-sheet h2{break-after:avoid}html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important;padding:0!important}.cs-avoid{break-inside:avoid}}</style>
+<style>@media print{.cs-sheet h2{padding-top:3px!important;padding-bottom:max(0px,calc(var(--_cs-print-heading-padding) - 3px))!important;margin-bottom:calc(var(--_cs-print-heading-after) - max(0px,calc(3px - var(--_cs-print-heading-padding))))!important}}</style>
 </helmet>
 <div lang="vi" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-doc-ink)">
-  <div class="cs-sheet" style="max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left">
+  <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left" data-theme="light">
     <div style="display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--cs-color-text-muted);padding-bottom:6px;border-bottom:1px solid var(--cs-color-border-default);margin-bottom:14px">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="18" hint-size="18px,18px"></x-import>
       <b style="color:var(--cs-color-brand-umber)">CyberSkill</b><span>· Biểu mẫu đánh giá kết quả công việc</span><span style="margin-left:auto;font-family:var(--cs-font-family-mono)">Số/No. <span style="background:var(--cs-doc-fill);padding:0 3px">.....</span>/2026/BMĐG-CYBERSKILL</span>
@@ -29,12 +30,12 @@
       <div style="font-size:13.5px;color:var(--cs-doc-slate);font-style:italic">Performance Review Form</div>
       <div style="font-size:12.5px;margin-top:8px">Số / No.: <span style="background:var(--cs-doc-fill);padding:0 3px">......</span>/2026/BMĐG-CYBERSKILL</div>
       <div style="font-size:12px;margin-top:2px">Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: <span style="background:var(--cs-doc-fill);padding:0 3px">......</span> / <span style="background:var(--cs-doc-fill);padding:0 3px">......</span> / <span style="background:var(--cs-doc-fill);padding:0 3px">......</span></div>
-      <div style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
+      <div aria-hidden="true" style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
     </div>
     <p style="font-size:13px;line-height:1.5;margin:0 0 1px">Biểu mẫu này thực hiện Quy chế đánh giá mức độ hoàn thành công việc. Kết quả đánh giá là căn cứ để xét nâng lương, thưởng, bổ nhiệm — và, khi đủ điều kiện tại Điều 6 Quy chế, là căn cứ áp dụng điểm a khoản 1 Điều 36 Bộ luật Lao động.</p>
     <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 14px">This form gives effect to the Performance Evaluation Regulation. The rating founds decisions on pay, bonus and promotion — and, where the conditions in Article 6 of that Regulation are met, founds the application of Article 36.1(a) of the Labor Code.</p>
 
-    <h2 class="cs-avoid" style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px">PHẦN 1 · THÔNG TIN KỲ ĐÁNH GIÁ <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Part 1 · The cycle</span></h2>
+    <h2 class="cs-avoid" style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:8px">PHẦN 1 · THÔNG TIN KỲ ĐÁNH GIÁ <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Part 1 · The cycle</span></h2>
     <table class="cs-avoid" style="width:100%;border-collapse:collapse;font-size:12.5px;margin:0 0 8px">
       <tbody>
         <tr style="border-bottom:1px solid var(--cs-color-border-default)"><td style="padding:5px 10px;width:230px;vertical-align:top">Người lao động<div style="color:var(--cs-doc-slate);font-style:italic;font-size:11px">Employee</div></td><td style="padding:5px 10px"><span style="background:var(--cs-doc-fill);padding:0 3px">..............................</span></td></tr>
@@ -49,7 +50,7 @@
       <p style="font-size:11px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0"><b>Drafting note:</b> If the answer to the last line is NO, a rating of 1 or 2 may NOT be given this cycle (Article 3.1 of the Regulation). With no written objectives there is no basis for concluding that work was not completed.</p>
     </div>
 
-    <h2 class="cs-avoid" style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px">PHẦN 2 · CHẤM ĐIỂM THEO TIÊU CHÍ <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Part 2 · Scoring against the criteria</span></h2>
+    <h2 class="cs-avoid" style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:8px">PHẦN 2 · CHẤM ĐIỂM THEO TIÊU CHÍ <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Part 2 · Scoring against the criteria</span></h2>
     <table class="cs-avoid" style="width:100%;border-collapse:collapse;font-size:12px;margin:0 0 10px">
       <thead><tr style="background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse,#fff)"><th style="text-align:left;padding:5px 9px;font-size:10px">Nhóm tiêu chí <i style="font-weight:400">Criterion</i></th><th style="text-align:left;padding:5px 9px;font-size:10px;width:60px">Trọng số <i style="font-weight:400">Weight</i></th><th style="text-align:left;padding:5px 9px;font-size:10px;width:60px">Điểm 1-5 <i style="font-weight:400">Score</i></th><th style="text-align:left;padding:5px 9px;font-size:10px">Bằng chứng cụ thể <i style="font-weight:400">Evidence</i></th></tr></thead>
       <tbody>
@@ -71,13 +72,13 @@
       </tbody>
     </table>
 
-    <h2 class="cs-avoid" style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px">PHẦN 3 · TỰ ĐÁNH GIÁ CỦA NGƯỜI LAO ĐỘNG <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Part 3 · The employee's self-assessment</span></h2>
+    <h2 class="cs-avoid" style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:5px">PHẦN 3 · TỰ ĐÁNH GIÁ CỦA NGƯỜI LAO ĐỘNG <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Part 3 · The employee's self-assessment</span></h2>
     <p style="font-size:14px;line-height:1.9;margin:0 0 14px;color:#6B5E52">..............................................................................................................<br>..............................................................................................................</p>
 
-    <h2 class="cs-avoid" style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px">PHẦN 4 · NHẬN XÉT CỦA QUẢN LÝ TRỰC TIẾP <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Part 4 · The line manager's assessment</span></h2>
+    <h2 class="cs-avoid" style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:5px">PHẦN 4 · NHẬN XÉT CỦA QUẢN LÝ TRỰC TIẾP <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Part 4 · The line manager's assessment</span></h2>
     <p style="font-size:14px;line-height:1.9;margin:0 0 14px;color:#6B5E52">..............................................................................................................<br>..............................................................................................................</p>
 
-    <h2 class="cs-avoid" style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px">PHẦN 5 · MỤC TIÊU KỲ TỚI <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Part 5 · Objectives for the next cycle</span></h2>
+    <h2 class="cs-avoid" style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:8px">PHẦN 5 · MỤC TIÊU KỲ TỚI <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Part 5 · Objectives for the next cycle</span></h2>
     <table class="cs-avoid" style="width:100%;border-collapse:collapse;font-size:12px;margin:0 0 16px">
       <thead><tr style="background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse,#fff)"><th style="text-align:left;padding:5px 9px;font-size:10px;width:40px">STT <i style="font-weight:400">No.</i></th><th style="text-align:left;padding:5px 9px;font-size:10px">Mục tiêu (cụ thể, đo lường được) <i style="font-weight:400">Objective (specific, measurable)</i></th><th style="text-align:left;padding:5px 9px;font-size:10px;width:110px">Thời hạn <i style="font-weight:400">Due</i></th></tr></thead>
       <tbody>
@@ -88,7 +89,7 @@
       </tbody>
     </table>
 
-    <h2 class="cs-avoid" style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px">PHẦN 6 · MỨC ĐÁNH GIÁ CUỐI CÙNG <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Part 6 · Final rating</span></h2>
+    <h2 class="cs-avoid" style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:8px">PHẦN 6 · MỨC ĐÁNH GIÁ CUỐI CÙNG <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Part 6 · Final rating</span></h2>
     <table class="cs-avoid" style="width:100%;border-collapse:collapse;font-size:12.5px;margin:0 0 8px">
       <tbody>
         <tr style="border-bottom:1px solid var(--cs-color-border-default)"><td style="padding:5px 10px;width:300px;vertical-align:top">Mức do quản lý đề xuất<div style="color:var(--cs-doc-slate);font-style:italic;font-size:11px">Rating proposed by the manager</div></td><td style="padding:5px 10px"><span style="background:var(--cs-doc-fill);padding:0 3px">......</span></td></tr>

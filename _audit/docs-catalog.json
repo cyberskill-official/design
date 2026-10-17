@@ -19,7 +19,6 @@
     { "path": "docs/template-schema-v2.md", "story": "Docs/Guides/Schema", "mdx": "stories/Docs/Schema.mdx", "labelEn": "Template content-schema v2", "labelVi": "Template schema v2" },
     { "path": "docs/conventions.md", "story": "Docs/Guides/Conventions", "mdx": "stories/Docs/Conventions.mdx", "labelEn": "Conventions", "labelVi": "Conventions" },
     { "path": "docs/release-notes.md", "story": "Release Notes/Overview", "mdx": "stories/ReleaseNotes/ReleaseNotes.mdx", "labelEn": "Release Notes", "labelVi": "Ghi chú phát hành" },
-    { "path": "docs/release-runbook.md", "story": "Docs/Guides/Release runbook", "labelEn": "Release runbook", "labelVi": "Runbook phát hành" },
     { "path": "docs/storybook.md", "story": "Docs/Guides/Storybook", "labelEn": "Storybook (product at /)", "labelVi": "Storybook (sản phẩm tại /)" },
     { "path": "docs/live-hub.md", "story": "Docs/Guides/Live hub", "labelEn": "Live hub (Storybook at /)", "labelVi": "Live hub (Storybook tại /)" },
     { "path": "docs/hr-suite-sources.md", "story": "Docs/Guides/HR Suite sources", "labelEn": "HR Suite sources (DOCX ↔ templates)", "labelVi": "Nguồn HR Suite (DOCX ↔ templates)" },

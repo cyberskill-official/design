@@ -1,49 +1,34 @@
-# Repo ↔ môi trường authoring — round-trip fidelity & đồng bộ hai chiều
+# Repo ↔ môi trường authoring — đồng bộ có kiểm chứng
 
-Repo GitHub (`cyberskill-official/design`) là **nguồn chân lý**. Session compiler (ví dụ Claude Design) là filesystem project tạm — tài liệu này nói cách chúng giữ sync mà không mất việc. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
+Bắt đầu từ snapshot repo đã chọn cho tác vụ, ghi lại commit và thay đổi local. Snapshot Git giữ nguyên byte của các file được track. Việc khôi phục hành vi compiler, tích hợp host hay export có thể chỉnh sửa cần bằng chứng riêng từ công cụ thực tế. Một archive không tự chứng minh các khả năng đó.
 
-## Repo có khôi phục nguyên hệ thống không?
+Đọc [SKILL.md](../../SKILL.md), [doctrine](../doctrine.md) và [hướng dẫn consumer](./consuming.md) trước khi chọn runtime. Session compiler, kể cả Claude Design, là môi trường authoring có điều kiện. Kiểm tra DC compiler và thao tác import/export cần dùng có sẵn; không suy ra `github_copy_files`, compiler tự nhận diện hay round trip không mất dữ liệu chỉ từ một clone.
 
-**Trong session compiler DC-capable — có.** Mọi thứ định nghĩa hệ thống là file text/asset thuần và round-trip lossless:
-- `styles.css` + `tokens/` + `base/` (mọi CSS + `tokens.json`/`tokens.js`)
-- `components/**` (`.jsx` + `.d.ts` + `.prompt.md` + `*.card.html`)
-- `templates/**/*.dc.html` (+ `ds-base.js`, `support.js`)
-- `guidelines/`, `ui_kits/`, `fonts/` (woff2), `assets/`, `docs/`, `_audit/*.html`
+## Giữ input được author cùng output đã commit
 
-- **`_esm/react.mjs`** — entry React bundler-native (export package mặc định; React peer). Regenerated qua `npm run build:react-entry`.
-- **`_esm/cs.mjs`** — entry ESM browser / no-build legacy (`@cyberskill/design/legacy`). Tiền tố underscore **không** nghĩa là build artifact hay gitignored ở đây (chỉ `uploads/`, `scraps/`, `_audit/exports/` là — xem Hygiene bên dưới); `_esm/` là source, cùng tầng với `templates/` hoặc `docs/`. Một lần port trước đã bỏ nó đúng vì giả định đó và làm gãy ESM smoke gate — nếu bạn port/copy cây này bằng tay, **explicit include mọi thư mục top-level danh sách này đặt tên**, đừng suy từ tiền tố `_`.
+Giữ trọn cây đã review: input CSS/token, JSX/declaration/prompt của component, header card được author, template và runtime, guideline, kit, font, asset, docs, audit harness, package/lock file và adapter host. Giữ thông báo giấy phép bắt buộc. Tiền tố underscore không xác định một path là authored, generated, committed hay transient.
 
-- `README.md`, `CONTRIBUTING.md`, `SKILL.md`, `docs/doctrine.md`, shim host (`CLAUDE.md`), `VERSION`, `DESIGN.md` (open-spec surface generate — commit, chỉ regen qua `npm run build:design-md`, khóa bởi gate `design-md-parity`)
+| Deliverable | Ownership và regeneration |
+|---|---|
+| `_esm/react.mjs`, `_esm/react.d.ts` | Generate từ header export của bundle bằng `scripts/generate-react-entry.mjs` (`npm run build:react-entry`). Sửa contract component sở hữu dữ liệu, rồi regenerate. |
+| `_esm/cs.mjs` | Ownership hỗn hợp: bootstrap browser trước `export const VERSION` được author; phần version/export phía sau do `scripts/generate-export-catalog.mjs` generate. `npm run build:exports` regenerate catalog, bundle và entry React. |
+| `_ds_manifest.json` | Components/cards thuộc generator export catalog; tokens/globalCssPaths thuộc `scripts/generate-token-declarations.mjs`. Field khác giữ ownership authoring/compiler đã ghi. Không thay toàn bộ manifest bằng output từ công cụ khác. |
+| `_ds_bundle.js`, `dist/styles.min.css`, `DESIGN.md` | Output consumer đã commit. Regenerate bằng `npm run build:bundle`, `npm run build:styles` và `npm run build:design-md`. Generated không có nghĩa là có thể bỏ. |
+| Export token và bản sao trong sample native | `npm run tokens:generate` chạy toàn bộ pipeline token/export của repo và đồng bộ bản sao native. Source parity không chứng minh native compile hay hành vi trên thiết bị. |
+| Bản sao runtime standalone | Giữ byte vendor canonical và chạy generator sao chép đã ghi. Bản sao khớp không chứng minh authored source upstream, quyền phân phối lại hay khả năng rebuild toàn bộ runtime. |
 
-Kéo chúng vào project mới (xem bên dưới) và compiler nhận lại như design system — nó khóa vào `styles.css`, cặp `.d.ts`/`.jsx`, HTML `@dsCard`, và `templates/`. Artifact compile đã commit (`_ds_bundle.js`, `_ds_manifest.json`, `_adherence.oxlintrc.json`, `dist/styles.min.css`, `DESIGN.md`) là một phần hợp đồng consumer — giữ trong cây và regenerate bằng npm script đã ghi, đừng coi chúng là disposable.
+`_esm/` và artifact consumer đã commit ở trên phải được giữ cho consumer. Xem `.gitignore` để biết path transient thực tế, gồm upload, scrap, bằng chứng export, cache dependency và output build Storybook/site. Giữ compiler graph và hồ sơ review riêng tư ngoài payload public/npm theo policy xuất bản.
 
-**Ở agent khác (Google Stitch, LLM tool generic) — một phần.** Chúng tiêu thụ được lớp **portable** — `tokens/tokens.json` + `tokens.js`, raw CSS, component `.jsx`, fonts, và Markdown docs — nhưng **không** hiểu format Design-Component `.dc.html` hay compiler điều khiển nó. Vậy agent không-compiler nhận tokens, styles, và source component như file, không phải hành vi DC/tweak/compile live. Hướng những tool đó vào root **`DESIGN.md`** trước (open-spec kiểu Stitch generate: doctrine + mọi giá trị token + inventory, regen từ DTCG qua `npm run build:design-md` và khóa bởi gate `design-md-parity`), rồi `tokens.json` / `tokens.dtcg.json` và CSS cho hợp đồng máy; coi `.dc.html` + compiler là native DC.
+## Nhập công việc của session qua diff đã review
 
-## Đồng bộ hai chiều (repo = nguồn chân lý)
+1. Ghi commit đã chọn, `git status`, công cụ có sẵn và output dự kiến. Giữ công việc local hiện có trước khi nhập thay đổi từ session khác.
+2. Export hoặc copy session vào thư mục riêng. So sánh path và hash với snapshot đã chọn; kiểm tra file thiếu, deletion và thay đổi generated trước khi áp dụng patch. Giữ `.git/`, workflow repo và thông báo giấy phép dưới ownership hiện có.
+3. Chỉ áp dụng thay đổi đã được cho phép trong branch local phù hợp, thường là `codex/<topic>`. Regenerate mỗi output qua nguồn sở hữu. Tránh sửa độc lập hai bản sao của cùng contract rồi ghi đè cả hai.
+4. Kiểm tra toàn bộ diff, chạy targeted check và `npm run test:unit`. Theo [hướng dẫn audit](../../_audit/README.md) cho prerequisite browser/pixel. Test riêng runtime đã import và artifact export được yêu cầu; giữ source identity, lệnh, failure/skip và giới hạn công cụ.
+5. Chuẩn bị các path đã review để commit. Push, xuất bản, deploy và merge cần operator cho phép rõ ràng; local check thành công hay diff PR không phải sự cho phép đó.
 
-Session compiler có thể **đọc/copy từ** GitHub nhưng thường **không push tới** nó. Vậy sync là *pull tự động, push thủ công*:
-**Bắt đầu session — pull (tin cậy, tự động):** bảo agent load repo. Nó copy cây vào project mới (đường `github_copy_files`), compiler validate, và bạn tiếp từ chân lý đã commit — không bao giờ từ project state cũ. Luôn bắt đầu đây; đừng resume từ project nửa nhớ.
+## Ranh giới consumer
 
-**Kết thúc session — push (thủ công, review):** tải project, rồi từ clone:
-```
-git checkout -b session/<date-or-topic>
+Consumer HTML static dùng `DESIGN.md`, CSS/class và asset đã kiểm chứng. Consumer React bundler dùng `_esm/react.mjs` với peer React và transpilation JSX. Consumer browser legacy dùng `_esm/cs.mjs` và `_ds_bundle.js`. Authoring DC còn cần compiler có sẵn. Giữ và kiểm tra đường sử dụng được yêu cầu thay vì suy ra support tương đương từ file đã copy.
 
-# copy file đã tải lên working tree (giữ .git/, .github/, LICENSE)
-git add -A && git commit -m "DS <VERSION> — <summary>"
-git push -u origin session/<date-or-topic>   # branch, không bao giờ --force, không bao giờ thẳng main
-
-# mở PR, review diff, merge
-```
-Diff PR là lưới an toàn — nó hiện đúng những gì đổi kể từ chân lý commit lần trước.
-
-## Hygiene giữ round-trip sạch
-- **`.gitignore`** transient (`uploads/`, `scraps/`, `_audit/exports/`); commit mọi thứ khác, **kể cả `_esm/`** (xem trên — nó là source, không phải build artifact, dù có tiền tố `_`). Compiled `_ds_bundle.js`/manifest được commit cho consumer không có bước build, nhưng kỳ vọng churn — hoặc ignore và để mỗi session regenerate.
-
-- **`VERSION` bằng root VERSION** (auto-bump khi push lên `main` qua `.github/workflows/version.yml` → tag `v*` → `npm-publish.yml`; owner vẫn có thể force bump). Không maintain file changelog. Continuity là git history; việc maintainer đang mở nằm ở `docs/decisions.md`.
-
-- **Một nguồn chân lý tại một thời điểm.** Đừng sửa repo và project Claude Design song song rồi push cả hai — pull, làm việc, push, theo thứ tự đó, để repo luôn là điểm merge.
-
-- **Commit nhỏ, thường xuyên** hơn một dump khổng lồ cuối project — diff nhỏ an toàn hơn để review và ít khả năng lặng lẽ bỏ file.
-
-## TL;DR
-Push project này → repo là archive trung thành, khôi phục được **cho Claude Design** (pull lúc bắt đầu, compiler rebuild file derived). Agent khác nhận lớp token/style/JSX portable, không runtime DC. Làm hai chiều bằng **pull từ repo đầu mọi session và commit lại qua PR cuối** — repo giữ nguồn chân lý và không mất việc giữa session tạm.
+CyberOS orchestration và hai acceptance gate đã được bỏ ngày 2026-10-08. Product visual review, bằng chứng accessibility thủ công và cho phép phát hành rõ ràng vẫn là yêu cầu riêng. Bản sao khớp byte, generator pass hay preview local thành công không chứng minh toàn hệ thống hoặc human acceptance.

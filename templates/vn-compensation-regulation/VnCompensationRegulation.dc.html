@@ -13,9 +13,10 @@
 <helmet>
 <script src="./ds-base.js"></script>
 <style>@page{size:A4;margin:23mm 20mm 20mm 20mm}@media print{html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important;padding:0!important}.cs-avoid{break-inside:avoid}}</style>
+<style>@media print{.cs-sheet h2{padding-top:3px!important;padding-bottom:max(0px,calc(var(--_cs-print-heading-padding) - 3px))!important;margin-bottom:calc(var(--_cs-print-heading-after) - max(0px,calc(3px - var(--_cs-print-heading-padding))))!important}}</style>
 </helmet>
 <div lang="vi" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-doc-ink)">
-  <div class="cs-sheet" style="max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left">
+  <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left" data-theme="light">
     <div style="display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--cs-color-text-muted);padding-bottom:6px;border-bottom:1px solid var(--cs-color-border-default);margin-bottom:14px">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="18" hint-size="18px,18px"></x-import>
       <b style="color:var(--cs-color-brand-umber)">CyberSkill</b><span>· Quy chế Lương, Thưởng &amp; Phúc lợi</span><span style="margin-left:auto;font-family:var(--cs-font-family-mono)">Số/No. <span style="background:var(--cs-doc-fill);padding:0 3px">.....</span>/2026/QCLT-CYBERSKILL</span>
@@ -29,7 +30,7 @@
       <div style="font-size:14px;color:var(--cs-doc-slate);font-style:italic">Compensation and Reward Regulation</div>
       <div style="font-size:12.5px;margin-top:8px">Số / No.: <span style="background:var(--cs-doc-fill);padding:0 3px">......</span>/2026/QCLT-CYBERSKILL</div>
       <div style="font-size:12px;margin-top:2px">Phiên bản / Version 1.0 · Hiệu lực từ / Effective from: <span style="background:var(--cs-doc-fill);padding:0 3px">......</span> / <span style="background:var(--cs-doc-fill);padding:0 3px">......</span> / <span style="background:var(--cs-doc-fill);padding:0 3px">......</span></div>
-      <div style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
+      <div aria-hidden="true" style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
     </div>
     <p style="font-size:13.5px;line-height:1.5;margin:0 0 1px">Căn cứ Điều 93 và Điều 104 Bộ luật Lao động số 45/2019/QH14; sau khi tham khảo ý kiến của tổ chức đại diện người lao động tại cơ sở, Công ty ban hành Quy chế Lương, Thưởng và Phúc lợi như sau.</p>
     <p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 8px">Pursuant to Articles 93 and 104 of the Labor Code No. 45/2019/QH14, and having consulted the grassroots employee representative organization, the Company issues this Compensation and Reward Regulation.</p>
@@ -39,7 +40,7 @@
     </div>
 
     <div style="display:grid;gap:13px">
-      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 6px">ĐIỀU 1 · CẤU TRÚC ĐÃI NGỘ <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 1 · The reward structure</span></h2>
+      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 6px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:6px">ĐIỀU 1 · CẤU TRÚC ĐÃI NGỘ <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 1 · The reward structure</span></h2>
         <table style="width:100%;border-collapse:collapse;font-size:12px">
           <thead><tr style="background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse,#fff)"><th style="text-align:left;padding:5px 9px;font-size:10px;width:130px">Cấu phần <i style="font-weight:400">Component</i></th><th style="text-align:left;padding:5px 9px;font-size:10px">Bản chất <i style="font-weight:400">Nature</i></th><th style="text-align:left;padding:5px 9px;font-size:10px">Quy định tại đâu <i style="font-weight:400">Where governed</i></th></tr></thead>
           <tbody>
@@ -51,7 +52,7 @@
           </tbody>
         </table></div>
 
-      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 6px">ĐIỀU 2 · LƯƠNG 3P <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 2 · The 3P salary</span></h2>
+      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 6px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:6px">ĐIỀU 2 · LƯƠNG 3P <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 2 · The 3P salary</span></h2>
         <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:6px">
           <thead><tr style="background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse,#fff)"><th style="text-align:left;padding:5px 9px;font-size:10px;width:120px">Cấu phần <i style="font-weight:400">Component</i></th><th style="text-align:left;padding:5px 9px;font-size:10px;width:64px">Trọng số <i style="font-weight:400">Weight</i></th><th style="text-align:left;padding:5px 9px;font-size:10px">Cách xác định <i style="font-weight:400">How it is set</i></th></tr></thead>
           <tbody>
@@ -64,7 +65,7 @@
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">2.2. Kỳ xét lương thường niên: một lần mỗi năm, hiệu lực từ ngày 01/04, theo Điều 4 Thang lương, Bảng lương.</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 3px">2.2. The annual salary review runs once a year, effective 1 April, under Article 4 of the Salary Scale.</p>
         <div style="background:#FBF4E9;border:1px solid var(--cs-color-border-default);border-radius:6px;padding:7px 11px"><p style="font-size:12px;line-height:1.45;margin:0 0 1px"><b>Ghi chú soạn thảo:</b> Trọng số 60/20/20 và bảng hệ số P3 ở trên là đề xuất mặc định. Xác nhận trước khi ban hành.</p><p style="font-size:11px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0"><b>Drafting note:</b> The 60/20/20 weighting and the P3 multiplier table above are the suggested defaults. Confirm before issue.</p></div></div>
 
-      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px">ĐIỀU 3 · BONUS POINTS <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 3 · Bonus Points</span></h2>
+      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:5px">ĐIỀU 3 · BONUS POINTS <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 3 · Bonus Points</span></h2>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">3.1. Bonus Points là số dư tích lũy bằng tiền của người lao động tại Công ty, phát sinh từ phần thưởng và phần hiệu suất chưa rút. Bonus Points là nghĩa vụ thanh toán của Công ty, không phải cổ phần.</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 3px">3.1. Bonus Points is an accruing cash balance held for an employee, arising from rewards and undrawn performance pay. It is a payment obligation of the Company, not an equity interest.</p>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">a) Lợi tức: số dư Bonus Points sinh lời theo lãi suất tiền gửi tiết kiệm VNĐ kỳ hạn 12 tháng của Ngân hàng ACB, cộng biên độ khích lệ do Ban Giám đốc công bố hằng năm.</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 3px">a) Yield: the Bonus Points balance earns interest at ACB's 12-month VND savings deposit rate, plus an incentive margin announced annually by the Board of Management.</p>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">b) Rút tiền: người lao động được rút tối đa 100% một tháng lương P1 mỗi tháng, bằng lệnh rút bằng văn bản.</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 3px">b) Withdrawal: an employee may withdraw up to one month's P1 salary per month, by written withdrawal order.</p>
@@ -73,13 +74,13 @@
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">e) Nghỉ việc do vi phạm: số dư chưa tất toán bị hủy. Điều kiện mất quyền này được giải thích đầy đủ và xác nhận trước khi ký.</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 3px">e) Bad leaver: the unsettled balance lapses. This forfeiture condition is explained in full and acknowledged before signature.</p>
         <div style="background:#FBF4E9;border:1px solid var(--cs-color-border-default);border-radius:6px;padding:7px 11px"><p style="font-size:12px;line-height:1.45;margin:0 0 1px"><b>Ghi chú soạn thảo:</b> Điều kiện mất quyền tại điểm (e) là điều khoản rủi ro pháp lý cao nhất trong toàn bộ cơ chế đãi ngộ. Cần luật sư lao động Việt Nam rà soát trước khi áp dụng.</p><p style="font-size:11px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0"><b>Drafting note:</b> The forfeiture condition in (e) is the highest legal-risk term in the whole reward mechanism. It needs review by a Vietnamese employment lawyer before use.</p></div></div>
 
-      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px">ĐIỀU 4 · THƯỞNG <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 4 · Bonus</span></h2>
+      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:5px">ĐIỀU 4 · THƯỞNG <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 4 · Bonus</span></h2>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">4.1. Thưởng theo Điều 104 Bộ luật Lao động là khoản KHÔNG CỐ ĐỊNH, do Công ty quyết định căn cứ kết quả kinh doanh và mức độ hoàn thành công việc. Thưởng không phải là quyền lợi đương nhiên và không cấu thành tiền lương.</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 3px">4.1. A bonus under Article 104 of the Labor Code is NOT a fixed entitlement. The Company decides it on the basis of business results and the individual's performance. It is not an automatic right and does not form part of salary.</p>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">a) Thưởng tháng 13: chi trước Tết Nguyên đán, căn cứ kết quả kinh doanh của năm và thời gian làm việc thực tế trong năm.</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 3px">a) 13th-month bonus: paid before Tết, based on the year's business results and actual service during the year.</p>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">b) Thưởng theo dự án hoặc thành tích đột xuất: do Tổng Giám đốc quyết định.</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0 0 3px">b) Project or spot bonuses: decided by the CEO.</p>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">c) Người bị kỷ luật chưa được xóa không được xét thưởng trong kỳ đó.</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0">c) An employee with unspent discipline is not considered for a bonus in that period.</p></div>
 
-      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 6px">ĐIỀU 5 · PHÚC LỢI <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 5 · Benefits</span></h2>
+      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 6px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:6px">ĐIỀU 5 · PHÚC LỢI <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 5 · Benefits</span></h2>
         <table style="width:100%;border-collapse:collapse;font-size:12px">
           <thead><tr style="background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse,#fff)"><th style="text-align:left;padding:5px 9px;font-size:10px;width:180px">Phúc lợi <i style="font-weight:400">Benefit</i></th><th style="text-align:left;padding:5px 9px;font-size:10px">Nội dung <i style="font-weight:400">Detail</i></th></tr></thead>
           <tbody>
@@ -91,7 +92,7 @@
           </tbody>
         </table></div>
 
-      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px">ĐIỀU 6 · CÔNG KHAI VÀ HIỆU LỰC <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 6 · Publication and effect</span></h2>
+      <div class="cs-avoid"><h2 style="font-size:12.5px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px;--_cs-print-heading-padding:0px;--_cs-print-heading-after:5px">ĐIỀU 6 · CÔNG KHAI VÀ HIỆU LỰC <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 6 · Publication and effect</span></h2>
         <p style="font-size:13px;line-height:1.5;margin:0 0 1px">Quy chế được công khai tại nơi làm việc theo Điều 104 khoản 2 Bộ luật Lao động, có hiệu lực kể từ ngày ký, và được xem xét lại ít nhất một lần mỗi năm.</p><p style="font-size:12px;line-height:1.4;color:var(--cs-doc-slate);font-style:italic;margin:0">This Regulation is published at the workplace under Article 104.2 of the Labor Code, takes effect on signature, and is reviewed at least once a year.</p></div>
     </div>
 

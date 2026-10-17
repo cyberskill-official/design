@@ -55,7 +55,7 @@ function assert(c,m){ if(!c) throw new Error(m); }
   await test('front matter version + inventory counts current',async()=>{
     const vm=onDisk.match(/^version:\s*"([^"]+)"/m);
     assert(vm&&vm[1]===version,'front-matter version '+(vm?vm[1]:'(missing)')+' \u2260 VERSION '+version);
-    assert(onDisk.indexOf(manifest.templates.length+' copyable bilingual templates')>=0,'template count stale');
+    assert(onDisk.indexOf(manifest.templates.length+' templates with explicitly scoped language support')>=0,'template count stale');
     assert(onDisk.indexOf(manifest.components.length+' exports')>=0,'export count stale');
     return 'v'+version+' \u00b7 '+manifest.templates.length+' templates \u00b7 '+manifest.components.length+' exports';
   });

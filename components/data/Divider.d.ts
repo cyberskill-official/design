@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
  */
 export interface DividerProps extends React.HTMLAttributes<HTMLElement> {
   vertical?: boolean;
+  /** Labelled horizontal separator content; numeric zero is retained. Empty/null/false use the unlabelled rule. */
   label?: ReactNode;
 }
 

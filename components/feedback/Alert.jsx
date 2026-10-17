@@ -24,8 +24,8 @@ export function Alert({ variant = "info", title, icon, children, onDismiss, lang
     <div ref={ref} role="status" className={cx("cs-alert", `cs-alert--${variant}`, className)} {...props}>
       <span className="cs-alert__icon">{icon ?? <DefaultIcon variant={variant} />}</span>
       <div>
-        {title ? <p className="cs-alert__title">{title}</p> : null}
-        {children ? <div className="cs-alert__body">{children}</div> : null}
+        {(title || title === 0) ? <p className="cs-alert__title">{title}</p> : null}
+        {(children || children === 0) ? <div className="cs-alert__body">{children}</div> : null}
       </div>
       {onDismiss ? (
         <button type="button" className="cs-alert__dismiss" aria-label={t("dismiss")} onClick={onDismiss}>×</button>

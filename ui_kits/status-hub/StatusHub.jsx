@@ -1,4 +1,4 @@
-const { useState, useMemo } = React;
+const { useState, useMemo, useRef, useLayoutEffect } = React;
 
 const ICON = {
   search: "M11 4a7 7 0 1 0 4.2 12.6L20 21l1.4-1.4-4.4-4.4A7 7 0 0 0 11 4zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z",
@@ -59,12 +59,28 @@ function Segments({ seg, className }) {
 }
 
 function Drawer({ p, onClose, t }) {
+  const dialog = useRef(null);
+  const open = Boolean(p);
+  useLayoutEffect(() => {
+    if (!open) return;
+    const node = dialog.current;
+    const restore = document.activeElement;
+    node.showModal();
+    return () => {
+      node.close();
+      if (restore?.isConnected) restore.focus({ preventScroll: true });
+    };
+  }, [open]);
   if (!p) return null;
   const SL = statusLabels(t);
   return (
-    <>
-      <div className="scrim" onClick={onClose} />
-      <aside className="drawer" role="dialog" aria-modal="true" aria-label={p.name}>
+      <dialog ref={dialog} className="drawer" aria-label={p.name}
+        onCancel={(event) => { event.preventDefault(); onClose(); }}
+        onClick={(event) => {
+          if (event.target !== event.currentTarget) return;
+          const rect = event.currentTarget.getBoundingClientRect();
+          if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) onClose();
+        }}>
         <div className="dw-h">
           <div className="row">
             <span className="mono muted" style={{ fontWeight: 700 }}>{p.key}</span>
@@ -91,8 +107,7 @@ function Drawer({ p, onClose, t }) {
           </div>
           {p.risk ? <div className="sect"><h3>{t.risk}</h3><div className="risk">{p.risk}</div></div> : null}
         </div>
-      </aside>
-    </>
+      </dialog>
   );
 }
 
@@ -218,6 +233,8 @@ function StatusHub() {
               {["board", "table", "releases"].map((l) => (
                 <button
                   key={l}
+                  id={`lens-${l}`}
+                  aria-controls="lens-panel"
                   className="ln"
                   role="tab"
                   aria-selected={lens === l}
@@ -236,10 +253,11 @@ function StatusHub() {
           </div>
         </div>
 
+        <div id="lens-panel" role="tabpanel" aria-labelledby={`lens-${lens}`} tabIndex={0}>
         {lens === "board" && (
           <div className="grid">
             {shown.map((p0) => { const p = loc(p0); return (
-              <button className={"card" + (p.status === "active" ? " hot" : "")} key={p.key} onClick={() => setSel(p0)}>
+              <button className={"card" + (p.status === "active" ? " hot" : "")} key={p.key} aria-haspopup="dialog" onClick={() => setSel(p0)}>
                 <div className="card-h"><h3><span className="k mono">{p.key}</span> · {p.name}</h3><span className="pct">{p.pct}%</span></div>
                 <p>{p.blurb}</p>
                 <Segments seg={p.seg} className="minibar" />
@@ -260,7 +278,7 @@ function StatusHub() {
                 {shown.map((p0) => { const p = loc(p0); return (
                   <tr key={p.key} onClick={() => setSel(p0)}>
                     <td className="mono" style={{ fontWeight: 700 }}>{p.key}</td>
-                    <td>{p.name}</td><td>{p.squad}</td><td>{p.owner}</td><td>{p.pct}%</td>
+                    <td><button type="button" className="project-open" aria-haspopup="dialog">{p.name}</button></td><td>{p.squad}</td><td>{p.owner}</td><td>{p.pct}%</td>
                     <td><span className={"pill " + p.status}>{SL[p.status]}</span></td>
                   </tr>
                 ); })}
@@ -283,6 +301,7 @@ function StatusHub() {
           </div>
         )}
 
+        </div>
         <p className="ft">{lang === "vi"
           ? <>CyberSkill Status Hub — bản tái hiện UI kit của design system. Dựng trên token <span className="mono">styles.css</span>. Turn Your Will Into Real.</>
           : <>CyberSkill Status Hub — a design-system UI kit recreation. Built on <span className="mono">styles.css</span> tokens. Turn Your Will Into Real.</>}</p>

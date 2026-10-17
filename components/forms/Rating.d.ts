@@ -1,11 +1,12 @@
 /** Whole-star rating (APG radiogroup: roving tabindex + arrow keys). Controlled
  *  (value/onChange) or uncontrolled (defaultValue). Clicking the current value
- *  clears to 0. readOnly for display. */
+ *  clears to 0. Only the radio for the exact score is checked; preceding stars
+ *  are visually filled. readOnly for display. */
 export interface RatingProps {
   value?: number;
   defaultValue?: number;
   onChange?: (value: number) => void;
-  /** Star count. Default 5. */
+  /** Whole star count. Finite fractions round down; nonpositive counts render no stars. Nonfinite or unrepresentable counts use 5. */
   max?: number;
   readOnly?: boolean;
   /** Accessible label. Default from the bilingual registry ("Rating" / "Đánh giá"). */

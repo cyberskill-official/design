@@ -8,10 +8,11 @@ export function Tabs({ tabs = [], value, onChange, lang, className, "aria-label"
   const t = makeT("Tabs", L);
   const refs = React.useRef([]);
   const idx = Math.max(0, tabs.findIndex((tab) => tab.value === value));
+  const vertical = props["aria-orientation"] === "vertical";
   const key = (e, i) => {
     let n = null;
-    if (e.key === "ArrowRight") n = (i + 1) % tabs.length;
-    else if (e.key === "ArrowLeft") n = (i - 1 + tabs.length) % tabs.length;
+    if (e.key === (vertical ? "ArrowDown" : "ArrowRight")) n = (i + 1) % tabs.length;
+    else if (e.key === (vertical ? "ArrowUp" : "ArrowLeft")) n = (i - 1 + tabs.length) % tabs.length;
     else if (e.key === "Home") n = 0;
     else if (e.key === "End") n = tabs.length - 1;
     if (n == null) return;
@@ -22,7 +23,7 @@ export function Tabs({ tabs = [], value, onChange, lang, className, "aria-label"
   return (
     <div ref={ref} role="tablist" aria-label={ariaLabel ?? t("list")} className={cx("cs-tabs", className)} {...props}>
       {tabs.map((t, i) => (
-        <button key={t.value} type="button" role="tab" aria-selected={value === t.value} tabIndex={i === idx ? 0 : -1}
+        <button key={t.value} type="button" role="tab" id={t.id} aria-controls={t["aria-controls"]} aria-selected={value === t.value} tabIndex={i === idx ? 0 : -1}
           ref={(el) => (refs.current[i] = el)} onKeyDown={(e) => key(e, i)}
           className="cs-tab" onClick={() => onChange && onChange(t.value)}>
           {t.label}

@@ -44,3 +44,20 @@ export const Matrix = {
     );
   },
 };
+
+export const WithPanels = {
+  render: function LinkedPanels() {
+    const prefix = React.useId();
+    const [value, setValue] = React.useState('a');
+    const items = [{value:'a',label:'Overview'},{value:'b',label:'Activity'}].map(item => ({
+      ...item, id:prefix+'-'+item.value+'-tab', 'aria-controls':prefix+'-'+item.value+'-panel',
+    }));
+    return <div>
+      <SegmentedControl options={items} value={value} onChange={setValue} aria-label="Workspace views" />
+      {items.map(item => <section key={item.value} id={item['aria-controls']} role="tabpanel"
+        aria-labelledby={item.id} hidden={value!==item.value} tabIndex={0}>
+        <p>{item.label} content</p>
+      </section>)}
+    </div>;
+  },
+};

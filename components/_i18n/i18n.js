@@ -5,6 +5,7 @@
  * strings live in strings.js (EN + VI required; optional locales gated by bilingual-parity).
  * Import from a component:  import { makeT, resolveLang, formatDate } from "../_i18n/i18n.js"; */
 import React from "react";
+import { useClientLayoutEffect } from "../_utils/use-client-layout-effect.js";
 import { strings as STRINGS } from "./strings.js";
 
 /** Locales with known registry tables or formatting branches. Spike: ja (TASK-IMP-026).
@@ -23,9 +24,6 @@ export function primaryLang(tag) {
   if (lower === "tiếng việt" || lower === "tieng viet") return "vi";
   if (lower === "english") return "en";
   if (lower === "日本語" || lower === "japanese") return "ja";
-  if (lower.startsWith("vi")) return "vi";
-  if (lower.startsWith("en")) return "en";
-  if (lower.startsWith("ja")) return "ja";
   const primary = lower.split("-")[0];
   return primary || null;
 }
@@ -61,20 +59,31 @@ export function makeT(component, lang) { return (key) => tr(component, key, lang
  * Corrects to the ancestor value in a layout effect (before paint). */
 export function useLang(propLang) {
   const ref = React.useRef(null);
+  const binding = React.useRef(null);
   const [lang, setLang] = React.useState(() => resolveLang(propLang, null));
-  React.useLayoutEffect(() => {
+  useClientLayoutEffect(() => {
     const el = ref.current;
     setLang(resolveLang(propLang, el));
-    if (!el || propLang) return undefined;
+    const ancestors = [];
+    for (let node = el; node; node = node.parentElement) ancestors.push(node);
+    const previous = binding.current;
+    if (previous && previous.propLang === propLang && previous.ancestors.length === ancestors.length && previous.ancestors.every((node, i) => node === ancestors[i])) return;
+    previous?.observer?.disconnect();
+    binding.current = { propLang, ancestors, observer: null };
+    // Use the same normalization as resolveLang: blank props inherit and
+    // must keep observing the surrounding language scope.
+    if (!el || primaryLang(propLang)) return;
     // Re-resolve when an ancestor [lang] changes (template Language axis / __dcSetProps).
     const obs = new MutationObserver(() => setLang(resolveLang(propLang, el)));
-    let node = el.parentElement;
-    while (node) {
+    for (const node of ancestors) {
       obs.observe(node, { attributes: true, attributeFilter: ["lang"] });
-      node = node.parentElement;
     }
-    return () => obs.disconnect();
-  }, [propLang]);
+    binding.current.observer = obs;
+  }); // Recheck after every commit: a previously null ref may now be mounted.
+  useClientLayoutEffect(() => () => {
+    binding.current?.observer?.disconnect();
+    binding.current = null;
+  }, []);
   return [ref, lang];
 }
 

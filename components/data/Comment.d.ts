@@ -1,3 +1,4 @@
+/** The avatar, meta and replies slots preserve numeric zero; null/false/empty string omit those slots. */
 import type { ReactNode } from "react";
 
 /** Discussion entry (avatar · author · meta · body · action row · nested

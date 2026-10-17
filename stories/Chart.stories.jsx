@@ -26,6 +26,10 @@ export default {
   "showValues": {
     "control": "boolean"
   },
+  "lang": {
+    "control": "select",
+    "options": ["vi", "en"]
+  },
   "label": {
     "control": "text"
   }
@@ -51,3 +55,6 @@ export const Matrix = {
     </div>
   ),
 };
+
+export const EmptyData = { args: { data: [] } };
+export const WhitespaceLabel = { args: { label: "   " } };

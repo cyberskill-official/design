@@ -15,7 +15,7 @@
 <style>@page{size:letter;margin:0.6in}@media print{html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important;padding:0!important}.cs-avoid{break-inside:avoid}}</style>
 </helmet>
 <div lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary)">
-  <div class="cs-sheet" style="max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 64px">
+  <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 64px" data-theme="light">
     <header style="display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--cs-color-brand-umber);padding-bottom:18px;margin-bottom:24px">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="34" hint-size="34px,34px"></x-import>
       <div><div style="font-weight:800;font-size:17px;color:var(--cs-color-brand-umber);line-height:1.1">CyberSkill</div><div style="font-size:11px;color:var(--cs-color-text-muted)">Hiện Thực Hoá Ý Chí · Turn Your Will Into Real</div></div>
@@ -27,20 +27,20 @@
     <p style="font-size:13px;line-height:1.7;margin:0 0 20px;color:var(--cs-color-text-muted)">People leave; warmth stays. This list makes the exit as careful as the welcome — knowledge handed over, access closed cleanly, and the door left open.</p>
     <h2 class="cs-avoid" style="font-size:12.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 10px">Two weeks before · with your lead</h2>
     <div style="display:grid;gap:7px;margin-bottom:20px;font-size:14px">
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Handover doc written (owned work, state, where things live)</span></label>
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Successor named per project; pairing sessions booked</span></label>
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Clients you face are told, warmly, with the new contact</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Handover doc written (owned work, state, where things live)</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Successor named per project; pairing sessions booked</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Clients you face are told, warmly, with the new contact</span></label>
     </div>
     <h2 class="cs-avoid" style="font-size:12.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 10px">Last day · People team + IT</h2>
     <div style="display:grid;gap:7px;margin-bottom:20px;font-size:14px">
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Exit conversation — honest, both ways; we take notes and act</span></label>
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Hardware returned · access &amp; accounts closed (checklist in IT)</span></label>
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Team farewell — the warm kind</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Exit conversation — honest, both ways; we take notes and act</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Hardware returned · access &amp; accounts closed (checklist in IT)</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Team farewell — the warm kind</span></label>
     </div>
     <h2 class="cs-avoid" style="font-size:12.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 10px">After · within two weeks</h2>
     <div style="display:grid;gap:7px;margin-bottom:22px;font-size:14px">
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Final pay &amp; paperwork per contract and law</span></label>
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Reference letter offered; alumni channel invite sent</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Final pay &amp; paperwork per contract and law</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.5">Reference letter offered; alumni channel invite sent</span></label>
     </div>
     <div class="cs-avoid" style="background:var(--cs-accent-tint);border-radius:10px;padding:14px 18px;font-size:13px;line-height:1.6">The door stays open. Good people orbit back — treat the last day like a first impression.</div>
     </sc-if>
@@ -50,20 +50,20 @@
     <p style="font-size:13px;line-height:1.75;margin:0 0 20px;color:var(--cs-color-text-muted)">Người rời đi; sự ấm áp ở lại. Danh sách này giúp cuộc chia tay chu đáo như lời chào đón — kiến thức được bàn giao, quyền truy cập đóng gọn gàng, và cánh cửa vẫn mở.</p>
     <h2 class="cs-avoid" style="font-size:12.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 10px">Hai tuần trước · cùng lead</h2>
     <div style="display:grid;gap:7px;margin-bottom:20px;font-size:14px">
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Viết tài liệu bàn giao (việc đang giữ, trạng thái, mọi thứ nằm ở đâu)</span></label>
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Chỉ định người kế nhiệm từng dự án; đặt lịch pair</span></label>
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Khách hàng bạn phụ trách được báo, ấm áp, kèm đầu mối mới</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Viết tài liệu bàn giao (việc đang giữ, trạng thái, mọi thứ nằm ở đâu)</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Chỉ định người kế nhiệm từng dự án; đặt lịch pair</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Khách hàng bạn phụ trách được báo, ấm áp, kèm đầu mối mới</span></label>
     </div>
     <h2 class="cs-avoid" style="font-size:12.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 10px">Ngày cuối · Đội People + IT</h2>
     <div style="display:grid;gap:7px;margin-bottom:20px;font-size:14px">
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Trò chuyện chia tay — thành thật, hai chiều; chúng tôi ghi chú và hành động</span></label>
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Trả thiết bị · đóng quyền truy cập &amp; tài khoản (checklist bên IT)</span></label>
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Chia tay cùng đội — theo kiểu ấm áp</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Trò chuyện chia tay — thành thật, hai chiều; chúng tôi ghi chú và hành động</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Trả thiết bị · đóng quyền truy cập &amp; tài khoản (checklist bên IT)</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Chia tay cùng đội — theo kiểu ấm áp</span></label>
     </div>
     <h2 class="cs-avoid" style="font-size:12.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);margin:0 0 10px">Sau đó · trong hai tuần</h2>
     <div style="display:grid;gap:7px;margin-bottom:22px;font-size:14px">
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Lương cuối &amp; giấy tờ theo hợp đồng và pháp luật</span></label>
-      <label style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Đề nghị thư giới thiệu; mời vào kênh alumni</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Lương cuối &amp; giấy tờ theo hợp đồng và pháp luật</span></label>
+      <label class="cs-check" style="display:flex;gap:12px;align-items:flex-start"><input type="checkbox" style="width:19px;height:19px;margin:0;accent-color:var(--cs-color-brand-umber)" /><span style="line-height:1.6">Đề nghị thư giới thiệu; mời vào kênh alumni</span></label>
     </div>
     <div class="cs-avoid" style="background:var(--cs-accent-tint);border-radius:10px;padding:14px 18px;font-size:13px;line-height:1.65">Cánh cửa luôn mở. Người tốt sẽ quay lại — hãy xem ngày cuối như một ấn tượng đầu tiên.</div>
     </div></sc-if>

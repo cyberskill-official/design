@@ -16,13 +16,13 @@
 <div id="list"></div>
 <div id="sum">running…</div>
 <div id="cov"></div>
-<script>
+<script type="module">
+import validateSchema, {sourceSchema} from "./lib/content-schema-validator.mjs";
 const results=[]; const list=document.getElementById('list');
 function record(name,ok,detail){ results.push({name,ok,detail}); const r=document.createElement('div'); r.className='row '+(ok?'ok':'bad'); r.innerHTML='<span>'+(ok?'\u2713 ':'\u2717 ')+name+'</span><span class="d">'+detail+'</span>'; list.appendChild(r); }
 function publish(v){ if(window.__schemav2) return; window.__schemav2=v; const s=document.getElementById('sum'); s.textContent=v.pass?('\u2713 all '+v.total+' declared schemas valid'):('\u2717 '+(v.error?v.error:(v.failed.length+'/'+v.total+' failed: '+v.failed.join(', ')))); s.style.color=v.pass?'#166534':'#B42318'; console.log('SCHEMAV2 VERDICT '+JSON.stringify({pass:v.pass,failed:v.failed||[],error:v.error||null,coverage:v.coverage})); }
 async function test(name,fn){ try{ const d=await fn(); record(name,true,d); }catch(e){ record(name,false,String(e.message||e).slice(0,140)); } }
 function assert(c,m){ if(!c) throw new Error(m); }
-const TYPES=['text','richtext','image','link','list','table','date'];
 // Hole taxonomy (docs/template-schema-v2.md). Only *content* holes are schema-eligible:
 // axis / control-flow, boolean tweaks, and runtime-control holes stay out of schema.
 const AXIS_HOLES=new Set(['rootTheme','langAttr','elAttr','vaAttr','dirAttr','true','false']);
@@ -34,23 +34,17 @@ const isContentHole=(h)=>!isAxisHole(h)&&!isBooleanTweakHole(h)&&!isRuntimeContr
 const holesOf=(dc)=>[...new Set([...dc.matchAll(/\{\{\s*(\w+)\s*\}\}/g)].map(m=>m[1]))];
 
 function validateShape(schema,path){
-  assert(schema.$schemaVersion==='2.0', path+': $schemaVersion must be "2.0"');
-  assert(typeof schema.template==='string'&&/^[a-z0-9-]+$/.test(schema.template), path+': template must be a lowercase slug');
-  assert(Array.isArray(schema.slots)&&schema.slots.length>0, path+': slots must be a non-empty array');
-  for(const s of schema.slots){
-    assert(typeof s.id==='string'&&/^[A-Za-z_][A-Za-z0-9_]*$/.test(s.id), path+': bad slot id '+JSON.stringify(s.id));
-    assert(TYPES.includes(s.type), path+': slot '+s.id+' has invalid type '+s.type);
-    assert(typeof s.label==='string'&&s.label.length>0, path+': slot '+s.id+' missing label');
-    if(s.maxLength!==undefined) assert(Number.isInteger(s.maxLength)&&s.maxLength>0, path+': slot '+s.id+' bad maxLength');
-    if(s.required!==undefined) assert(typeof s.required==='boolean', path+': slot '+s.id+' required must be boolean');
-  }
+  assert(validateSchema(schema),path+': '+JSON.stringify(validateSchema.errors));
+  assert(new Set(schema.slots.map(s=>s.id)).size===schema.slots.length,path+': duplicate slot ids');
 }
 
 (async()=>{
   let M;
   await test('manifest + schema-of-schema fetch',async()=>{
     M=await (await fetch('../_ds_manifest.json')).json();
-    await (await fetch('../templates/schema/content-schema.schema.json')).json(); // just prove it's valid JSON
+    assert(Array.isArray(M.templates)&&M.templates.length>0,'Empty template manifest');
+    const declared = await (await fetch('../templates/schema/content-schema.schema.json')).json();
+    assert(JSON.stringify(declared)===JSON.stringify(sourceSchema),'Compiled validator is stale for current JSON Schema');
     return 'manifest + JSON-Schema-of-schema OK';
   });
   if(!M) { publish({pass:false,total:results.length,failed:results.filter(r=>!r.ok).map(r=>r.name),error:'fetch failed'}); return; }

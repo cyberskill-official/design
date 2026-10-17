@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — APCA dark-pack preview (proposal)</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CyberSkill — APCA dark-pack preview (proposal)</title>
 <link rel="stylesheet" href="../styles.css">
 <style>
   body{margin:0;font-family:var(--cs-font-family-ui,system-ui);background:#efe6d8;color:#231a12;padding:18px 22px}
@@ -18,13 +18,38 @@
   textarea{width:100%;max-width:1100px;height:200px;font:11px ui-monospace,monospace;border:1px solid #c9b79c;border-radius:8px;padding:10px;background:#fff;color:#231a12}
   button.copy{display:block;margin:14px 0 6px;padding:8px 14px;border-radius:7px;border:1px solid #45210E;background:#45210E;color:#fff;font:600 13px system-ui;cursor:pointer}
   .note{font-size:12px;color:#6b5d4f;max-width:980px;line-height:1.6;margin-top:12px;border-top:1px dashed #c9b79c;padding-top:10px}
+
+  /* Diagnostic chrome only; measured fixture/sample paint remains independent. */
+  body{box-sizing:border-box;overflow-wrap:anywhere}
+  .row{flex-wrap:wrap}
+  .row>span{min-inline-size:0;max-inline-size:100%}
+  a[href],button,textarea{box-sizing:border-box}
+  @media(pointer:coarse){button,a[href]{min-inline-size:44px;min-block-size:44px}a[href]{display:inline-flex;align-items:center}}
+
+  .pack{grid-template-columns:130px minmax(0,1fr) minmax(0,1fr);box-sizing:border-box}
+  .panel,.pk{min-inline-size:0}
+  .chip{max-inline-size:100%;box-sizing:border-box;line-height:1.4;overflow-wrap:anywhere}
+  textarea{box-sizing:border-box}
+  @media(max-width:640px){.pack{grid-template-columns:minmax(0,1fr)}}
+
+  body{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary)}
+  .lede,.note{color:var(--cs-color-text-primary)}
+  #sum{color:var(--cs-color-text-primary)!important}
+  .row.ok{background:var(--cs-color-semantic-success);color:var(--cs-color-semantic-success-fg)}
+  .row.bad{background:var(--cs-color-semantic-danger);color:var(--cs-color-semantic-danger-fg)}
+  .row .d{color:inherit}
+
+  .pack{background:var(--cs-color-surface-panel);border-color:var(--cs-color-border-default)}
+  .pk small{color:var(--cs-color-text-primary)}
+  textarea{background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);border-color:var(--cs-color-border-default);font-family:var(--cs-font-family-mono)}
+  button.copy{background:var(--cs-component-button-primary-bg);color:var(--cs-component-button-primary-fg);border-color:var(--cs-color-border-default);font-family:var(--cs-font-family-ui)}
 </style></head><body>
 <h1>APCA-derived dark elemental packs — <em>proposal preview, nothing applied</em></h1>
-<p class="lede">For each of the 15 element×variant packs this page shows <b>current dark rendering</b> next to an <b>APCA-derived proposal</b>: hue and character kept (oklch — only lightness/chroma nudged), lightness solved so <code>accent-bright</code> reads as text on the dark panel (<b>Lc ≥ 75</b>), <code>accent</code> holds UI contrast (<b>Lc ≥ 60</b>), button ink stays readable on <code>accent-strong</code> (<b>Lc ≥ 75</b>), and <code>ink</code>-on-<code>tint</code> stays ≥ 75 with a dark-native tint. Where current already passes, the proposal is identical (stability). Approving = pasting the generated CSS into <code>tokens/elements.css</code> in a follow-up cut; until then tokens are untouched.</p>
+<p class="lede">For each of the 15 element×variant packs this page shows <b>current dark rendering</b> next to an <b>APCA-derived proposal</b>: hue and character kept (oklch — only lightness/chroma nudged), lightness solved so <code>accent-bright</code> reads as text on the dark panel (<b>Lc ≥ 75</b>), <code>accent</code> holds UI contrast (<b>Lc ≥ 60</b>), paired <code>accent-on-strong</code> stays readable on <code>accent-strong</code> (<b>Lc ≥ 75</b>), and <code>ink</code>-on-<code>tint</code> stays ≥ 75 with a dark-native tint. Where current already passes, the proposal is identical (stability). This page is a local proposal tool. Apply a reviewed change through the owned generator and regenerate its projections; copying CSS here does not update authored sources or establish acceptance.</p>
 <div id="sum">computing…</div>
 <div id="list"></div>
 <button class="copy" id="copy">Copy proposed CSS</button>
-<textarea id="css" readonly></textarea>
+<textarea id="css" aria-label="Proposed dark-pack CSS" readonly></textarea>
 <p class="note">Derivation: sRGB↔OKLab per Björn Ottosson's matrices; contrast per APCA-W3 (SAPC-4g: Y with 2.4 TRC, black-soften 0.022/1.414, polarity exponents 0.56/0.57 normal · 0.65/0.62 reverse, ×1.14, clamp 0.1/offset 0.027). Dark surfaces from <code>tokens/colors.css</code> dark scope (panel <code>#221710</code>, page <code>#1a1108</code>, text <code>#f5ead9</code>). Verdict global <code>window.__apcaPreview</code> carries per-pack pass/fail for both sets.</p>
 <script>
 // ---- color math ----
@@ -80,7 +105,7 @@ const chip=(lc,t)=>'<span class="lc '+(lc>=t?'ok':(lc>=t-10?'warn':'bad'))+'">Lc
   const roleOf=(p,r)=>p.dark[r]!==undefined?p.dark[r]:p.light[r];
   for(const [k,p] of Object.entries(packs)){
     const [el,va]=k.split('|');
-    const cur={ accent:roleOf(p,'accent'), bright:roleOf(p,'bright'), strong:roleOf(p,'strong'), on:roleOf(p,'on'), tint:roleOf(p,'tint'), ink:roleOf(p,'ink') };
+    const cur={ accent:roleOf(p,'accent'), bright:roleOf(p,'bright'), strong:roleOf(p,'strong'), on:roleOf(p,'on-strong'), tint:roleOf(p,'tint'), ink:roleOf(p,'ink') };
     if(!cur.accent||!hex2rgb(cur.accent||'')) { continue; }
     // current Lc
     const curLc={ bright:apca(cur.bright,DARK.panel), accent:apca(cur.accent,DARK.panel), on:apca(cur.on,cur.strong), ink:apca(cur.ink,cur.tint) };
@@ -124,7 +149,7 @@ const chip=(lc,t)=>'<span class="lc '+(lc>=t?'ok':(lc>=t-10?'warn':'bad'))+'">Lc
     row.innerHTML='<div class="pk">'+el+(va?' · '+va:'')+'<small>'+(verdict.packs[k].changed?'proposal differs':'already passing — unchanged')+'</small></div>'+P('Current dark',cur,curLc)+P('Proposed (APCA-derived)',pr,prLc);
     list.appendChild(row);
     if(diff.length){
-      out.push('[data-theme="dark"]'+('[data-cs-element="'+el+'"]')+(va?'[data-cs-variant="'+va+'"]':'')+' {'+diff.map(r=>'\n  --cs-accent'+(r==='accent'?'':'-'+r)+': '+pr[r]+';').join('')+'\n}');
+      out.push('[data-theme="dark"]'+('[data-cs-element="'+el+'"]')+(va?'[data-cs-variant="'+va+'"]':'')+' {'+diff.map(r=>'\n  --cs-accent'+(r==='accent'?'':r==='on'?'-on-strong':'-'+r)+': '+pr[r]+';').join('')+'\n}');
     }
   }
   const n=Object.keys(verdict.packs).length;

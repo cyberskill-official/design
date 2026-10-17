@@ -13,13 +13,13 @@ import {
 /**
  * Foundations/Colors — token NAMES enumerated from tokens/tokens.js, VALUES read
  * live from the cascade so theme/element toolbar switches are reflected and the
- * page can never drift from shipped CSS.
+ * page reports the current preview scope.
  */
 
 const COLOR_NAMES = Object.keys(tokens.root.color);
 
 const GROUPS = [
-  { id: 'brand', title: 'Brand anchors', match: (n) => n.includes('-brand-') || n === '--cs-color-accent-ochre', note: 'Immutable: Umber grounds every surface (it is the primary text colour); Ochre is the single accent — CTAs on dark, focus rings, highlights.' },
+  { id: 'brand', title: 'Brand anchors', match: (n) => n.includes('-brand-') || n === '--cs-color-accent-ochre', note: 'Umber and Ochre are brand anchors. Semantic text roles follow the theme; element scopes may replace accent roles. The focus halo keeps Ochre.' },
   { id: 'surface', title: 'Surfaces', match: (n) => n.includes('-surface-'), note: 'Warm paper, never cold: page, panel, raised.' },
   { id: 'text', title: 'Text', match: (n) => n.includes('-text-'), note: 'Primary is Umber in light theme; every neutral is warmed toward umber.' },
   { id: 'semantic', title: 'Semantic status', match: (n) => n.includes('-semantic-'), note: 'Used sparingly and never as the only signal — meaning is always carried in words too.' },
@@ -81,7 +81,7 @@ export default {
     docs: {
       description: {
         component:
-          'Brand anchors, surfaces, text, semantic and link colours — names from tokens.js, values read live from the cascade (drift-proof).',
+          'Brand anchors, surfaces, text, semantic and link colours — names from tokens.js, values read live from the cascade (live computed values).',
       },
     },
   },

@@ -5,8 +5,8 @@ const EC = { 1: 7, 2: 10, 3: 15, 4: 20 };            // EC codewords (L)
 const TOTAL = { 1: 26, 2: 44, 3: 70, 4: 100 };        // total codewords
 const CAP = { 1: 17, 2: 32, 3: 53, 4: 78 };           // data bytes (byte mode, L)
 const ALIGN = { 1: [], 2: [6, 18], 3: [6, 22], 4: [6, 26] };
-// format info for EC L + mask 0 (15 bits, MSB first)
-const FORMAT = [1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0];
+// EC L + mask 0 format word. The placement coordinates consume LSB first.
+const FORMAT = Array.from({ length: 15 }, (_, i) => (0x77c4 >> i) & 1);
 
 const EXP = new Array(512), LOG = new Array(256);
 (function () { let x = 1; for (let i = 0; i < 255; i++) { EXP[i] = x; LOG[x] = i; x <<= 1; if (x & 0x100) x ^= 0x11d; } for (let i = 255; i < 512; i++) EXP[i] = EXP[i - 255]; })();
@@ -15,8 +15,9 @@ function rs(data, ecLen) {
   for (let i = 0; i < ecLen; i++) {
     const next = new Array(gen.length + 1).fill(0);
     for (let j = 0; j < gen.length; j++) {
-      next[j] ^= EXP[(LOG[gen[j]] + i) % 255];
-      next[j + 1] ^= gen[j];
+      // Coefficients are highest power first: multiply by (x + alpha^i).
+      next[j] ^= gen[j];
+      if (gen[j]) next[j + 1] ^= EXP[(LOG[gen[j]] + i) % 255];
     }
     gen = next;
   }
@@ -24,7 +25,7 @@ function rs(data, ecLen) {
   for (let i = 0; i < data.length; i++) {
     const f = res[i];
     if (f === 0) continue;
-    for (let j = 0; j < gen.length; j++) res[i + j] ^= EXP[(LOG[gen[j]] + LOG[f]) % 255];
+    for (let j = 0; j < gen.length; j++) if (gen[j]) res[i + j] ^= EXP[(LOG[gen[j]] + LOG[f]) % 255];
   }
   return res.slice(data.length);
 }
@@ -58,7 +59,7 @@ export function qrMatrix(text) {
   }
   M[n - 8][8] = 1; // dark module
   const fpos1 = [[8, 0], [8, 1], [8, 2], [8, 3], [8, 4], [8, 5], [8, 7], [8, 8], [7, 8], [5, 8], [4, 8], [3, 8], [2, 8], [1, 8], [0, 8]];
-  const fpos2 = [[n - 1, 8], [n - 2, 8], [n - 3, 8], [n - 4, 8], [n - 5, 8], [n - 6, 8], [n - 7, 8], [8, n - 8], [8, n - 7], [8, n - 6], [8, n - 5], [8, n - 4], [8, n - 3], [8, n - 2], [8, n - 1]];
+  const fpos2 = [[n - 1, 8], [n - 2, 8], [n - 3, 8], [n - 4, 8], [n - 5, 8], [n - 6, 8], [n - 7, 8], [n - 8, 8], [8, n - 7], [8, n - 6], [8, n - 5], [8, n - 4], [8, n - 3], [8, n - 2], [8, n - 1]];
   FORMAT.forEach((b, i) => { const [x1, y1] = fpos1[i]; M[y1][x1] = b; const [x2, y2] = fpos2[i]; M[y2][x2] = b; });
   // place data, mask 0 ((r+c)%2===0 flips)
   let bi = 0;

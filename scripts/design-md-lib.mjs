@@ -60,7 +60,7 @@ export function buildDesignMd({ dtcg, manifest, version }) {
   const SECTION_OF = {
     color: "colors", accent: "colors", doc: "colors",
     font: "typography", text: "typography", letter: "typography", heading: "typography",
-    space: "spacing", radius: "spacing", breakpoint: "spacing", container: "spacing", icon: "spacing",
+    density: "spacing", space: "spacing", radius: "spacing", breakpoint: "spacing", container: "spacing", icon: "spacing",
     shadow: "elevation", depth: "elevation", glass: "elevation",
     duration: "motion", ease: "motion",
     component: "component",
@@ -99,7 +99,7 @@ export function buildDesignMd({ dtcg, manifest, version }) {
   L.push("");
   L.push("# CyberSkill Design System — open spec");
   L.push("");
-  L.push("> GENERATED FILE — do not edit by hand. Regenerate with `npm run build:design-md` after any token change; the `design-md-parity` gate fails on drift. This is the single-file open-spec surface for design tools and agents that read a root `DESIGN.md` (e.g. Google Stitch); the deep machine contract stays `tokens/tokens.dtcg.json`.");
+  L.push("> GENERATED FILE — do not edit by hand. Regenerate with `npm run build:design-md` after any token change; the `design-md-parity` gate fails on drift. This is the single-file open-spec surface for design tools and agents that read a root `DESIGN.md` (e.g. Google Stitch); The base typed projection is `tokens/tokens.dtcg.json`; its hashed `tokens/declarations.json` companion preserves the remaining declarations and source conditions. Read both for the repository adapter; use canonical CSS for runtime cascade behavior. This document is a selected token/inventory guide, not a complete conditional-mode or native rendering contract.");
   L.push("");
   L.push("> **Stitch / non-DC consumers:** do **not** treat `templates/**/*.dc.html` as source of truth — those files need the Design Components compiler (tweaks, `__dcSetProps`). Generate static UI from this file + DTCG + `styles.css` / `.cs-*` / `templates/kitchen-sink.html` / `examples/static-hello/`. DC-capable authoring starts at `SKILL.md` and may use bundler `_esm/react.mjs` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). Dual path: `docs/consuming.md`. Operator docs are published on the Storybook Docs sidebar at `design.cyberskill.world`.");
   L.push("");
@@ -108,8 +108,8 @@ export function buildDesignMd({ dtcg, manifest, version }) {
   L.push("- **Slogan:** *Turn Your Will Into Real — Hiện Thực Hoá Ý Chí*.");
   L.push("- **Immutable anchors:** Umber `#45210E` (primary brand) · Ochre `#F4BA17` (accent). Never remap; the composite focus indicator (text-primary contour + ochre halo) is a studio-wide accessibility signature.");
   L.push("- **Four axes:** Theme (light · dark · system) × Element (Ngũ Hành — Kim · Mộc · Thủy · Hỏa · Thổ, 15 element×variant packs) × Language (EN · VI) × Style (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).");
-  L.push("- **Bilingual EN·VN rule:** Vietnamese-first — every UI string ships an EN + VN pair, diacritics preserved.");
-  L.push("- **Text never sits on the mid-tone `-accent`:** text goes on `-bright` or `-tint` only; `-accent` is for bars, borders, progress fills, and large non-text fills.");
+  L.push("- **Language scope:** Vietnamese-first; registered component strings require EN + VI pairs. Template language capabilities are declared per template, and consumer-provided content needs its own translation and review. Preserve diacritics; declared pairs do not certify translation quality or screen-reader pronunciation.");
+  L.push("- **Text never sits on the mid-tone `-accent`:** use `-bright` or `-tint`, or pair a `-strong` fill with `--cs-accent-on-strong` for body text. `-accent` is for bars, borders, progress fills, and large non-text fills.");
   L.push("- **Accessibility floor:** APCA Lc ≥ 75 body text · ≥ 44px touch targets · focus rings never removed · honour `prefers-reduced-motion` / `prefers-contrast`.");
   L.push("- **Voice:** warm · direct · honest · respectful — all four at once, never \"fun/playful/edgy\".");
   L.push("");
@@ -133,7 +133,7 @@ export function buildDesignMd({ dtcg, manifest, version }) {
   L.push("");
   L.push("## Typography");
   L.push("");
-  L.push("Families ship self-hosted (Be Vietnam Pro · Space Grotesk · JetBrains Mono, full Vietnamese unicode ranges). `--cs-font-family-display` is the opt-in headline face; nothing points at it by default.");
+  L.push("Families ship self-hosted (Be Vietnam Pro · Space Grotesk · JetBrains Mono) with declared style/weight/subset faces. The bounded Vietnamese NFC/NFD repertoire is recorded in `fonts/subset-recipe.json`; it does not certify every Unicode sequence, shaping engine or native installation. `--cs-font-family-display` is the opt-in headline face; nothing points at it by default.");
   L.push("");
   L.push(table(twoCol("Token", "Value"), rowsOf("font", false)));
   L.push("");
@@ -155,6 +155,15 @@ export function buildDesignMd({ dtcg, manifest, version }) {
   L.push("");
   L.push(table(twoCol("Token", "Value"), rowsOf("radius", false)));
   L.push("");
+  L.push("### Density (Theme attribute)");
+  L.push("");
+  L.push(table(threeCol("Token", "CSS form", "Resolves to"), Object.keys(groups.density).map(k => aliasRow(k, groups.density[k]))));
+  L.push("");
+  L.push("Scoped overrides (distinct from the base token rows):");
+  L.push("");
+  L.push(table(threeCol("Scope", "Token", "CSS override"), ["compact", "comfortable"].flatMap(scope =>
+    Object.entries(meta.overrides.densities[scope]).map(([k,v]) => `| ${q('data-cs-density="' + scope + '"')} | ${q(k)} | ${q(v)} |`))));
+  L.push("");
   L.push("### Layout & iconography");
   L.push("");
   L.push(table(twoCol("Token", "Value"), rowsOf("breakpoint", false).concat(rowsOf("container", false), rowsOf("icon", false))));
@@ -171,7 +180,7 @@ export function buildDesignMd({ dtcg, manifest, version }) {
   L.push("");
   L.push("## Motion");
   L.push("");
-  L.push("Calm, purposeful motion; `prefers-reduced-motion` collapses durations to 0ms at runtime only — these exported values are the real ones (80/120/200/320ms).");
+  L.push("Calm, purposeful motion; the global `prefers-reduced-motion` safety net reduces animation/transition durations to 0.01ms and disables smooth scrolling at runtime; components can disable animation entirely — these exported values are the real ones (80/120/200/320ms).");
   L.push("");
   L.push(table(twoCol("Token", "Value"), rowsOf("duration", false).concat(rowsOf("ease", false))));
   L.push("");
@@ -189,7 +198,7 @@ export function buildDesignMd({ dtcg, manifest, version }) {
   L.push("");
   L.push("## Templates");
   L.push("");
-  L.push(`${manifest.templates.length} copyable bilingual templates in \`templates/*/\` (each a \`.dc.html\` + byte-identical \`support.js\` runtime; see \`docs/template-schema-v2.md\` for typed content slots). **DC-capable authoring / full-clone only** — Stitch must not consume \`*.dc.html\` as SoT; use kitchen-sink / \`.cs-*\` / static examples instead.`);
+  L.push(`${manifest.templates.length} templates with explicitly scoped language support in \`templates/*/\` (each a \`.dc.html\` + byte-identical \`support.js\` runtime; see \`docs/template-schema-v2.md\` for typed source-content slots; these are not automatically runtime props). **DC-capable authoring / full-clone only** — Stitch must not consume \`*.dc.html\` as SoT; use kitchen-sink / \`.cs-*\` / static examples instead.`);
   L.push("");
   L.push("## Links");
   L.push("");
@@ -199,7 +208,7 @@ export function buildDesignMd({ dtcg, manifest, version }) {
   L.push("- [docs/consuming.md](docs/consuming.md) — adopt/upgrade + DC-capable vs static dual path");
   L.push("- [docs/doctrine.md](docs/doctrine.md) — expansion rule, verification depth, immutables");
   L.push("- [docs/sync.md](docs/sync.md) — repo ↔ authoring-environment round-trip & what non-DC agents can consume");
-  L.push("- [tokens/](tokens/) — CSS custom properties + `tokens.json` / `tokens.js` (ESM) / `tokens.dtcg.json` (W3C DTCG) / `native/` (SwiftUI · Compose · Flutter)");
+  L.push("- [tokens/](tokens/) — CSS custom properties + `tokens.json` / `tokens.js` (ESM) / `tokens.dtcg.json` (DTCG 2025.10 emitted-value profile) / `native/` (SwiftUI · Compose · Flutter)");
   L.push("- [docs/quality-gates.md](docs/quality-gates.md) — every deterministic gate incl. `design-md-parity`, which pins this file to the DTCG source");
   L.push("");
   return L.join("\n") + "\n";

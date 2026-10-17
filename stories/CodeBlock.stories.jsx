@@ -5,6 +5,7 @@ export default {
   component: CodeBlock,
   tags: ['autodocs'],
   argTypes: {
+  lang: { control: "select", options: [undefined, "en", "vi"] },
   "code": {
     "control": "text"
   },

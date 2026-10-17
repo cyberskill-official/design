@@ -2,7 +2,7 @@ import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /**
- * CyberSkill Button. Umber primary by default; warm hover; Ochre focus ring;
+ * CyberSkill Button. Umber primary by default; warm hover; composite focus indicator (text-primary contour + Ochre halo);
  * 44px comfortable touch target. Renders a real <button>.
  */
 export function Button({
@@ -34,7 +34,7 @@ export function Button({
         className
       )}
     >
-      {icon ? <span className="cs-button__icon" aria-hidden="true">{icon}</span> : null}
+      {(icon || icon === 0) ? <span className="cs-button__icon" aria-hidden="true">{icon}</span> : null}
       <span className="cs-button__label">{children}</span>
       {loading ? <span className="cs-button__spinner" aria-hidden="true" /> : null}
     </button>

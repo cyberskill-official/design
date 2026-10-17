@@ -20,7 +20,7 @@ export default {
       },
     },
   },
-  args: { nodes: NODES, defaultOpen: true },
+  args: { nodes: NODES, defaultOpen: true, "aria-label": "Design system navigation" },
 };
 
 export const Default = {};

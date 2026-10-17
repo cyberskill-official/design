@@ -9,6 +9,18 @@
  * replacing hardcoded English. Export is lowercase so the DS compiler does NOT expose
  * it on the component namespace. See docs/decisions/locale-architecture.md. */
 export const strings = {
+  Chart: {
+    en: { empty: "Chart with no data" },
+    vi: { empty: "Biểu đồ chưa có dữ liệu" },
+  },
+  AIDisclosureBadge: {
+    en: { label: "AI assisted", details: "This content was generated or transformed with AI assistance.", sources: "Sources" },
+    vi: { label: "Có AI hỗ trợ", details: "Nội dung này được tạo hoặc chuyển đổi với sự hỗ trợ của AI.", sources: "Nguồn" },
+  },
+  CodeBlock: {
+    en: { code: "code", copy: "Copy", copied: "Copied ✓" },
+    vi: { code: "mã", copy: "Sao chép", copied: "Đã sao chép ✓" },
+  },
   Pagination: {
     en: { label: "Pagination", prev: "Previous page", next: "Next page" },
     vi: { label: "Phân trang", prev: "Trang trước", next: "Trang sau" },
@@ -20,8 +32,8 @@ export const strings = {
     ja: { label: "パンくずリスト" },
   },
   CommandPalette: {
-    en: { placeholder: "Type a command or search…", empty: "No results", aria: "Command palette", esc: "Esc" },
-    vi: { placeholder: "Nhập lệnh hoặc tìm kiếm…", empty: "Không có kết quả", aria: "Bảng lệnh", esc: "Esc" },
+    en: { placeholder: "Type a command or search…", empty: "No results", oneResult: "{count} result", results: "{count} results", aria: "Command palette", esc: "Esc" },
+    vi: { placeholder: "Nhập lệnh hoặc tìm kiếm…", empty: "Không có kết quả", oneResult: "{count} kết quả", results: "{count} kết quả", aria: "Bảng lệnh", esc: "Esc" },
   },
   SearchField: {
     en: { placeholder: "Search…", clear: "Clear search" },
@@ -48,6 +60,10 @@ export const strings = {
   Drawer: {
     en: { close: "Close", panel: "Side panel" },
     vi: { close: "Đóng", panel: "Bảng bên" },
+  },
+  TreeTable: {
+    en: { empty: "No results", expand: "Expand", collapse: "Collapse" },
+    vi: { empty: "Không có kết quả", expand: "Mở rộng", collapse: "Thu gọn" },
   },
   DataTable: {
     en: {
@@ -132,8 +148,8 @@ export const strings = {
     vi: { moveUp: "Di chuyển lên", moveDown: "Di chuyển xuống" },
   },
   Form: {
-    en: { summary: "Please fix the following:", required: "required", requiredField: "Enter a value" },
-    vi: { summary: "Vui lòng sửa các mục sau:", required: "bắt buộc", requiredField: "Vui lòng nhập giá trị" },
+    en: { summary: "Please fix the following:", required: "required", requiredField: "Enter a value", arrayContext: "FormFieldArray must be used inside Form", addRow: "Add row", back: "Back", finish: "Finish", next: "Next", step: "Step" },
+    vi: { summary: "Vui lòng sửa các mục sau:", required: "bắt buộc", requiredField: "Vui lòng nhập giá trị", arrayContext: "FormFieldArray phải được đặt bên trong Form", addRow: "Thêm dòng", back: "Quay lại", finish: "Hoàn tất", next: "Tiếp", step: "Bước" },
   },
   BackTop: {
     en: { label: "Back to top" },
@@ -251,6 +267,10 @@ export const strings = {
   Tooltip: {
     en: { label: "Tooltip" },
     vi: { label: "Chú thích" },
+  },
+  CitationList: {
+    en: { sources: "Sources" },
+    vi: { sources: "Nguồn" },
   },
   ProgressBar: {
     en: { label: "Progress" },

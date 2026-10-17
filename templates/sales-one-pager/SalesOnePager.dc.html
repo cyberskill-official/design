@@ -13,14 +13,15 @@
 <helmet>
 <script src="./ds-base.js"></script>
 <style>@page{size:letter;margin:0}@media print{html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important}.cs-avoid{break-inside:avoid}}</style>
+<style>@media screen and (max-width:640px){.cs-sales-cta{flex-direction:column!important;align-items:flex-start!important}.cs-sales-cta>div{inline-size:100%;min-inline-size:0}.cs-sales-cta>span{max-inline-size:100%;box-sizing:border-box;white-space:normal!important}}</style>
 </helmet>
 <div lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary)">
-  <div class="cs-sheet" style="max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);overflow:hidden">
+  <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);overflow:hidden" data-theme="light">
     <div style="background:var(--cs-color-brand-umber);color:#FFFDF8;padding:44px 56px 40px;position:relative;overflow:hidden">
       <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 88% -10%, color-mix(in srgb, var(--cs-accent-glow) 56%, transparent), transparent 60%);pointer-events:none"></div>
       <div style="position:relative;display:flex;align-items:center;gap:12px;margin-bottom:26px">
         <x-import component-from-global-scope="CyberSkillDS.Logo" size="40" hint-size="40px,40px"></x-import>
-        <div><div style="font-weight:800;font-size:19px;letter-spacing:-0.01em">CyberSkill</div><div style="font-size:11px;color:var(--cs-accent-bright)">{{ heroKicker }}</div></div>
+        <div><div style="font-weight:800;font-size:19px;letter-spacing:-0.01em">CyberSkill</div><div style="font-size:11px;color:inherit">{{ heroKicker }}</div></div>
       </div>
       <h1 style="position:relative;font-size:38px;font-weight:800;letter-spacing:-0.02em;line-height:1.08;margin:0 0 12px;max-width:640px">Turn your will into real.<br><span style="color:var(--cs-accent-bright)">Hiện Thực Hoá Ý Chí.</span></h1>
       <sc-if value="{{ isEN }}" hint-placeholder-val="{{ true }}"><p style="position:relative;font-size:16px;line-height:1.6;opacity:0.9;margin:0;max-width:600px">We&rsquo;re a small, senior team that takes a clear wish and hands it back as software that ships — and lasts. No armies of juniors, no hedging. Just the thing you needed, built well.</p></sc-if>
@@ -67,9 +68,9 @@
         </div></sc-if>
       </div>
     </div>
-    <div class="cs-avoid" style="display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--cs-color-brand-umber);color:#FFFDF8;padding:22px 56px;margin-top:6px">
+    <div class="cs-avoid cs-sales-cta" style="display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--cs-color-brand-umber);color:#FFFDF8;padding:22px 56px;margin-top:6px">
       <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#FFFDF8;font-weight:700">{{ ctaKicker }}</div><div style="font-size:15px;margin-top:2px">hello@cyberskill.world · cyberskill.world · {{ ctaPlace }}</div></div>
-      <span style="display:inline-block;background:var(--cs-accent-bright);color:var(--cs-accent-on);font-weight:700;font-size:14px;padding:12px 24px;border-radius:var(--cs-radius-full);white-space:nowrap">{{ ctaBtn }}</span>
+      <span style="display:inline-block;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);font-weight:700;font-size:14px;padding:12px 24px;border-radius:var(--cs-radius-full);white-space:nowrap">{{ ctaBtn }}</span>
     </div>
   </div>
 </div>

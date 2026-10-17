@@ -11,7 +11,7 @@ gate: "_audit/design-md-parity.html (window.__designmd)"
 
 # CyberSkill Design System — open spec
 
-> GENERATED FILE — do not edit by hand. Regenerate with `npm run build:design-md` after any token change; the `design-md-parity` gate fails on drift. This is the single-file open-spec surface for design tools and agents that read a root `DESIGN.md` (e.g. Google Stitch); the deep machine contract stays `tokens/tokens.dtcg.json`.
+> GENERATED FILE — do not edit by hand. Regenerate with `npm run build:design-md` after any token change; the `design-md-parity` gate fails on drift. This is the single-file open-spec surface for design tools and agents that read a root `DESIGN.md` (e.g. Google Stitch); The base typed projection is `tokens/tokens.dtcg.json`; its hashed `tokens/declarations.json` companion preserves the remaining declarations and source conditions. Read both for the repository adapter; use canonical CSS for runtime cascade behavior. This document is a selected token/inventory guide, not a complete conditional-mode or native rendering contract.
 
 > **Stitch / non-DC consumers:** do **not** treat `templates/**/*.dc.html` as source of truth — those files need the Design Components compiler (tweaks, `__dcSetProps`). Generate static UI from this file + DTCG + `styles.css` / `.cs-*` / `templates/kitchen-sink.html` / `examples/static-hello/`. DC-capable authoring starts at `SKILL.md` and may use bundler `_esm/react.mjs` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). Dual path: `docs/consuming.md`. Operator docs are published on the Storybook Docs sidebar at `design.cyberskill.world`.
 
@@ -20,8 +20,8 @@ gate: "_audit/design-md-parity.html (window.__designmd)"
 - **Slogan:** *Turn Your Will Into Real — Hiện Thực Hoá Ý Chí*.
 - **Immutable anchors:** Umber `#45210E` (primary brand) · Ochre `#F4BA17` (accent). Never remap; the composite focus indicator (text-primary contour + ochre halo) is a studio-wide accessibility signature.
 - **Four axes:** Theme (light · dark · system) × Element (Ngũ Hành — Kim · Mộc · Thủy · Hỏa · Thổ, 15 element×variant packs) × Language (EN · VI) × Style (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
-- **Bilingual EN·VN rule:** Vietnamese-first — every UI string ships an EN + VN pair, diacritics preserved.
-- **Text never sits on the mid-tone `-accent`:** text goes on `-bright` or `-tint` only; `-accent` is for bars, borders, progress fills, and large non-text fills.
+- **Language scope:** Vietnamese-first; registered component strings require EN + VI pairs. Template language capabilities are declared per template, and consumer-provided content needs its own translation and review. Preserve diacritics; declared pairs do not certify translation quality or screen-reader pronunciation.
+- **Text never sits on the mid-tone `-accent`:** use `-bright` or `-tint`, or pair a `-strong` fill with `--cs-accent-on-strong` for body text. `-accent` is for bars, borders, progress fills, and large non-text fills.
 - **Accessibility floor:** APCA Lc ≥ 75 body text · ≥ 44px touch targets · focus rings never removed · honour `prefers-reduced-motion` / `prefers-contrast`.
 - **Voice:** warm · direct · honest · respectful — all four at once, never "fun/playful/edgy".
 
@@ -38,20 +38,24 @@ Core semantic colours. Dark values are the `[data-theme="dark"]` overrides (the 
 | `--cs-color-surface-raised` | `#FBF4E9` | `#2b1e14` |
 | `--cs-color-text-primary` | `#45210E` | `#f5ead9` |
 | `--cs-color-text-inverse` | `#FFFFFF` | `#1a1108` |
-| `--cs-color-text-accent` | `#6E3B0E` | `#f4ba17` |
-| `--cs-color-text-muted` | `#6E5A4C` | `#c9b7a3` |
+| `--cs-color-text-accent` | `#6E3B0E` | `#FECD5D` |
+| `--cs-color-text-muted` | `#3F2D21` | `#E9D6C2` |
 | `--cs-color-semantic-success` | `#166534` | `#4ADE80` |
-| `--cs-color-semantic-danger` | `#B42318` | `#F87171` |
+| `--cs-color-semantic-danger` | `#B42318` | `#FC9895` |
 | `--cs-color-semantic-warning` | `#92400E` | `#FBBF24` |
-| `--cs-color-semantic-info` | `#1D4ED8` | `#7CB2FB` |
+| `--cs-color-semantic-info` | `#1D4ED8` | `#B5D4FD` |
 | `--cs-color-accent-ochre` | `#F4BA17` | — |
 | `--cs-color-border-default` | `#E7D9C6` | `#4a3a2c` |
-| `--cs-color-link` | `#6E3B0E` | `#f4ba17` |
+| `--cs-color-link` | `#6E3B0E` | `#FECD5D` |
 | `--cs-color-link-hover` | `#45210E` | `#f5ead9` |
 | `--cs-color-semantic-success-fg` | `#FFFFFF` | `#1a1108` |
 | `--cs-color-semantic-danger-fg` | `#FFFFFF` | `#1a1108` |
 | `--cs-color-semantic-warning-fg` | `#FFFFFF` | `#1a1108` |
 | `--cs-color-semantic-info-fg` | `#FFFFFF` | `#1a1108` |
+| `--cs-color-semantic-success-text` | `#042D13` | `#68F798` |
+| `--cs-color-semantic-danger-text` | `#4B0502` | `#FFD2CF` |
+| `--cs-color-semantic-warning-text` | `#441801` | `#FFD887` |
+| `--cs-color-semantic-info-text` | `#000A75` | `#C7DFFF` |
 
 ### Accent roles (Ngũ Hành)
 
@@ -60,7 +64,7 @@ Default accent pack = Thổ (the studio's own element). All 15 element×variant 
 | Token | Value |
 |---|---|
 | `--cs-accent` | `#F4BA17` |
-| `--cs-accent-strong` | `#A47D17` |
+| `--cs-accent-strong` | `#916D10` |
 | `--cs-accent-bright` | `#F4BA17` |
 | `--cs-accent-on` | `#45210E` |
 | `--cs-accent-tint` | `#FBF4E9` |
@@ -68,7 +72,7 @@ Default accent pack = Thổ (the studio's own element). All 15 element×variant 
 | `--cs-accent-glow` | `rgba(244, 186, 23, 0.48)` |
 | `--cs-accent-grad-a` | `#F4BA17` |
 | `--cs-accent-grad-b` | `#F3B958` |
-| `--cs-accent-on-strong` | `#1A1108` |
+| `--cs-accent-on-strong` | `#FFFFFF` |
 
 ### Document palette
 
@@ -77,13 +81,13 @@ Shared ink / paper / rule colours for print-leaning instruments (`--cs-doc-*`). 
 | Token | Value |
 |---|---|
 | `--cs-doc-ink` | `#1A1614` |
-| `--cs-doc-slate` | `#3F4C55` |
+| `--cs-doc-slate` | `#26323A` |
 | `--cs-doc-fill` | `#FDE68A` |
 | `--cs-doc-fill-ink` | `#1A1614` |
 
 ## Typography
 
-Families ship self-hosted (Be Vietnam Pro · Space Grotesk · JetBrains Mono, full Vietnamese unicode ranges). `--cs-font-family-display` is the opt-in headline face; nothing points at it by default.
+Families ship self-hosted (Be Vietnam Pro · Space Grotesk · JetBrains Mono) with declared style/weight/subset faces. The bounded Vietnamese NFC/NFD repertoire is recorded in `fonts/subset-recipe.json`; it does not certify every Unicode sequence, shaping engine or native installation. `--cs-font-family-display` is the opt-in headline face; nothing points at it by default.
 
 | Token | Value |
 |---|---|
@@ -168,6 +172,59 @@ Semantic aliases into the ramp — write intent, not magic numbers. `Resolves to
 | `--cs-radius-lg` | `14px` |
 | `--cs-radius-full` | `999px` |
 
+### Density (Theme attribute)
+
+| Token | CSS form | Resolves to |
+|---|---|---|
+| `--cs-density-space-1` | `var(--cs-space-1)` | `4px` |
+| `--cs-density-space-2` | `var(--cs-space-2)` | `8px` |
+| `--cs-density-space-3` | `var(--cs-space-3)` | `12px` |
+| `--cs-density-space-4` | `var(--cs-space-4)` | `16px` |
+| `--cs-density-space-5` | `var(--cs-space-5)` | `20px` |
+| `--cs-density-space-6` | `var(--cs-space-6)` | `24px` |
+| `--cs-density-control-gap` | `var(--cs-component-button-gap)` | `8px` |
+
+Scoped overrides (distinct from the base token rows):
+
+| Scope | Token | CSS override |
+|---|---|---|
+| `data-cs-density="compact"` | `--cs-density-space-1` | `3px` |
+| `data-cs-density="compact"` | `--cs-density-space-2` | `6px` |
+| `data-cs-density="compact"` | `--cs-density-space-3` | `9px` |
+| `data-cs-density="compact"` | `--cs-density-space-4` | `12px` |
+| `data-cs-density="compact"` | `--cs-density-space-5` | `16px` |
+| `data-cs-density="compact"` | `--cs-density-space-6` | `18px` |
+| `data-cs-density="compact"` | `--cs-density-control-gap` | `6px` |
+| `data-cs-density="compact"` | `--cs-component-button-gap` | `6px` |
+| `data-cs-density="compact"` | `--cs-component-button-xs-paddingY` | `3px` |
+| `data-cs-density="compact"` | `--cs-component-button-xs-paddingX` | `8px` |
+| `data-cs-density="compact"` | `--cs-component-button-sm-paddingY` | `6px` |
+| `data-cs-density="compact"` | `--cs-component-button-sm-paddingX` | `12px` |
+| `data-cs-density="compact"` | `--cs-component-button-md-paddingY` | `10px` |
+| `data-cs-density="compact"` | `--cs-component-button-md-paddingX` | `16px` |
+| `data-cs-density="compact"` | `--cs-component-button-lg-paddingY` | `12px` |
+| `data-cs-density="compact"` | `--cs-component-button-lg-paddingX` | `22px` |
+| `data-cs-density="compact"` | `--cs-component-textfield-paddingY` | `8px` |
+| `data-cs-density="compact"` | `--cs-component-textfield-paddingX` | `10px` |
+| `data-cs-density="comfortable"` | `--cs-density-space-1` | `var(--cs-space-1)` |
+| `data-cs-density="comfortable"` | `--cs-density-space-2` | `var(--cs-space-2)` |
+| `data-cs-density="comfortable"` | `--cs-density-space-3` | `var(--cs-space-3)` |
+| `data-cs-density="comfortable"` | `--cs-density-space-4` | `var(--cs-space-4)` |
+| `data-cs-density="comfortable"` | `--cs-density-space-5` | `var(--cs-space-5)` |
+| `data-cs-density="comfortable"` | `--cs-density-space-6` | `var(--cs-space-6)` |
+| `data-cs-density="comfortable"` | `--cs-density-control-gap` | `var(--cs-component-button-gap)` |
+| `data-cs-density="comfortable"` | `--cs-component-button-gap` | `8px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-xs-paddingY` | `4px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-xs-paddingX` | `10px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-sm-paddingY` | `8px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-sm-paddingX` | `14px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-md-paddingY` | `12px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-md-paddingX` | `20px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-lg-paddingY` | `16px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-lg-paddingX` | `28px` |
+| `data-cs-density="comfortable"` | `--cs-component-textfield-paddingY` | `10px` |
+| `data-cs-density="comfortable"` | `--cs-component-textfield-paddingX` | `12px` |
+
 ### Layout & iconography
 
 | Token | Value |
@@ -226,7 +283,7 @@ Shadow values are the raw CSS box-shadow strings from `$extensions["com.cyberski
 
 ## Motion
 
-Calm, purposeful motion; `prefers-reduced-motion` collapses durations to 0ms at runtime only — these exported values are the real ones (80/120/200/320ms).
+Calm, purposeful motion; the global `prefers-reduced-motion` safety net reduces animation/transition durations to 0.01ms and disables smooth scrolling at runtime; components can disable animation entirely — these exported values are the real ones (80/120/200/320ms).
 
 | Token | Value |
 |---|---|
@@ -253,11 +310,11 @@ Component-level design decisions (button · textfield). Dark values are theme ov
 | `--cs-component-button-xs-paddingX` | `10px` | — |
 | `--cs-component-button-xs-minHeight` | `28px` | — |
 | `--cs-component-button-xs-minWidth` | `28px` | — |
-| `--cs-component-button-xs-minHeight-coarse` | `36px` | — |
+| `--cs-component-button-xs-minHeight-coarse` | `44px` | — |
 | `--cs-component-button-sm-paddingY` | `8px` | — |
 | `--cs-component-button-sm-paddingX` | `14px` | — |
 | `--cs-component-button-sm-minHeight` | `36px` | — |
-| `--cs-component-button-sm-minHeight-coarse` | `40px` | — |
+| `--cs-component-button-sm-minHeight-coarse` | `44px` | — |
 | `--cs-component-button-md-paddingY` | `12px` | — |
 | `--cs-component-button-md-paddingX` | `20px` | — |
 | `--cs-component-button-md-minHeight` | `44px` | — |
@@ -273,13 +330,13 @@ Component-level design decisions (button · textfield). Dark values are theme ov
 
 ## Components inventory
 
-106 component files · 122 exports (from `_ds_manifest.json`). Every primary ships `.jsx` + `.d.ts` + `.prompt.md`.
+106 component files · 123 exports (from `_ds_manifest.json`). Every primary ships `.jsx` + `.d.ts` + `.prompt.md`.
 
-`AIDisclosureBadge` · `Accordion` · `Alert` · `AlertDialog` · `Anchor` · `AspectRatio` · `Avatar` · `AvatarGroup` · `BackTop` · `Badge` · `Breadcrumb` · `Button` · `ButtonGroup` · `CS_ICONS` · `CS_LOGO_MARK_INNER` · `CS_LOGO_VIEWBOX` · `Calendar` · `Card` · `CardBody` · `CardFooter` · `CardHeader` · `Carousel` · `Cascader` · `Chart` · `ChatMessage` · `Checkbox` · `CitationList` · `CodeBlock` · `Collapsible` · `ColorPicker` · `Combobox` · `CommandPalette` · `Comment` · `ConfidenceMeter` · `ContextMenu` · `DataGrid` · `DataTable` · `DatePicker` · `DescriptionList` · `Dialog` · `Divider` · `Dock` · `Drawer` · `Editor` · `EmptyState` · `FileUpload` · `FloatingActionButton` · `Form` · `FormField` · `FormFieldArray` · `FormWizard` · `HotKeys` · `HoverCard` · `HumanReviewGate` · `Icon` · `Image` · `InlineEdit` · `InputGroup` · `InputOTP` · `Item` · `Kbd` · `Link` · `List` · `ListItem` · `Logo` · `LumiAvatar` · `Masonry` · `Mentions` · `Menu` · `MenuItem` · `Menubar` · `NativeSelect` · `NavItem` · `NavigationMenu` · `NumberField` · `OverlayProvider` · `Pagination` · `Popconfirm` · `Popover` · `ProgressBar` · `PromptInput` · `PromptSuggestions` · `QRCode` · `Radio` · `RadioGroup` · `Rating` · `Result` · `ScrollArea` · `SearchField` · `SegmentedControl` · `Select` · `Sidebar` · `Skeleton` · `Slider` · `Sortable` · `Spinner` · `Splitter` · `Stat` · `StatusIndicator` · `Steps` · `Switch` · `Tab` · `Tabs` · `Tag` · `TagInput` · `Terminal` · `TextField` · `Textarea` · `TimePicker` · `Timeline` · `Toast` · `ToastStack` · `Toggle` · `Toolbar` · `Tooltip` · `Tour` · `Transfer` · `Tree` · `TreeSelect` · `TreeTable` · `TypingIndicator` · `Watermark`
+`AIDisclosureBadge` · `Accordion` · `Alert` · `AlertDialog` · `Anchor` · `AspectRatio` · `Avatar` · `AvatarGroup` · `BackTop` · `Badge` · `Breadcrumb` · `Button` · `ButtonGroup` · `CS_ICONS` · `CS_LOGO_MARK_INNER` · `CS_LOGO_VIEWBOX` · `Calendar` · `Card` · `CardBody` · `CardFooter` · `CardHeader` · `Carousel` · `Cascader` · `Chart` · `ChatMessage` · `Checkbox` · `CitationList` · `CodeBlock` · `Collapsible` · `ColorPicker` · `Combobox` · `CommandPalette` · `Comment` · `ConfidenceMeter` · `ContextMenu` · `DataGrid` · `DataTable` · `DatePicker` · `DescriptionList` · `Dialog` · `Divider` · `Dock` · `Drawer` · `EDITOR_SCHEMA` · `Editor` · `EmptyState` · `FileUpload` · `FloatingActionButton` · `Form` · `FormField` · `FormFieldArray` · `FormWizard` · `HotKeys` · `HoverCard` · `HumanReviewGate` · `Icon` · `Image` · `InlineEdit` · `InputGroup` · `InputOTP` · `Item` · `Kbd` · `Link` · `List` · `ListItem` · `Logo` · `LumiAvatar` · `Masonry` · `Mentions` · `Menu` · `MenuItem` · `Menubar` · `NativeSelect` · `NavItem` · `NavigationMenu` · `NumberField` · `OverlayProvider` · `Pagination` · `Popconfirm` · `Popover` · `ProgressBar` · `PromptInput` · `PromptSuggestions` · `QRCode` · `Radio` · `RadioGroup` · `Rating` · `Result` · `ScrollArea` · `SearchField` · `SegmentedControl` · `Select` · `Sidebar` · `Skeleton` · `Slider` · `Sortable` · `Spinner` · `Splitter` · `Stat` · `StatusIndicator` · `Steps` · `Switch` · `Tab` · `Tabs` · `Tag` · `TagInput` · `Terminal` · `TextField` · `Textarea` · `TimePicker` · `Timeline` · `Toast` · `ToastStack` · `Toggle` · `Toolbar` · `Tooltip` · `Tour` · `Transfer` · `Tree` · `TreeSelect` · `TreeTable` · `TypingIndicator` · `Watermark`
 
 ## Templates
 
-85 copyable bilingual templates in `templates/*/` (each a `.dc.html` + byte-identical `support.js` runtime; see `docs/template-schema-v2.md` for typed content slots). **DC-capable authoring / full-clone only** — Stitch must not consume `*.dc.html` as SoT; use kitchen-sink / `.cs-*` / static examples instead.
+85 templates with explicitly scoped language support in `templates/*/` (each a `.dc.html` + byte-identical `support.js` runtime; see `docs/template-schema-v2.md` for typed source-content slots; these are not automatically runtime props). **DC-capable authoring / full-clone only** — Stitch must not consume `*.dc.html` as SoT; use kitchen-sink / `.cs-*` / static examples instead.
 
 ## Links
 
@@ -289,6 +346,6 @@ Component-level design decisions (button · textfield). Dark values are theme ov
 - [docs/consuming.md](docs/consuming.md) — adopt/upgrade + DC-capable vs static dual path
 - [docs/doctrine.md](docs/doctrine.md) — expansion rule, verification depth, immutables
 - [docs/sync.md](docs/sync.md) — repo ↔ authoring-environment round-trip & what non-DC agents can consume
-- [tokens/](tokens/) — CSS custom properties + `tokens.json` / `tokens.js` (ESM) / `tokens.dtcg.json` (W3C DTCG) / `native/` (SwiftUI · Compose · Flutter)
+- [tokens/](tokens/) — CSS custom properties + `tokens.json` / `tokens.js` (ESM) / `tokens.dtcg.json` (DTCG 2025.10 emitted-value profile) / `native/` (SwiftUI · Compose · Flutter)
 - [docs/quality-gates.md](docs/quality-gates.md) — every deterministic gate incl. `design-md-parity`, which pins this file to the DTCG source
 

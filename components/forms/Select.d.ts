@@ -1,3 +1,6 @@
+/** ReactNode content preserves numeric zero; optional empty content remains omitted. */
+/** Caller aria-describedby is combined with local help/error IDs. Local errors
+ *  force aria-invalid=true; otherwise the supplied aria-invalid is preserved. */
 import type * as React from "react";
 import type { ReactNode } from "react";
 
@@ -13,6 +16,9 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
   error?: ReactNode;
   /** Options as data; alternatively pass <option> children. */
   options?: SelectOption[];
+  /** Text for the disabled, hidden empty-value option. Without option children,
+   * defaults to the locale registry; with children, only an explicit placeholder inserts it. */
+  placeholder?: string;
   children?: ReactNode;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;

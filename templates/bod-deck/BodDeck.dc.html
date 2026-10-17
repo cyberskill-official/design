@@ -28,22 +28,22 @@
     </section>
 
     <section style="position:relative;width:100%;aspect-ratio:16/9;background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);border-radius:var(--cs-radius-lg);overflow:hidden;box-shadow:var(--cs-shadow-xl);padding:64px 88px;display:flex;flex-direction:column;justify-content:center">
-      <div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-accent)">{{ s2kicker }}</div>
+      <div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-primary)">{{ s2kicker }}</div>
       <h2 style="font-size:44px;font-weight:800;letter-spacing:-0.02em;margin:10px 0 40px">{{ s2h }}</h2>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px">
-        <div><div style="font-size:60px;font-weight:800;color:var(--cs-accent-strong);line-height:1;letter-spacing:-0.02em">+18%</div><div style="font-size:19px;color:var(--cs-color-text-muted);margin-top:10px">{{ n1 }}</div></div>
-        <div><div style="font-size:60px;font-weight:800;color:var(--cs-accent-strong);line-height:1;letter-spacing:-0.02em">14</div><div style="font-size:19px;color:var(--cs-color-text-muted);margin-top:10px">{{ n2 }}</div></div>
-        <div><div style="font-size:60px;font-weight:800;color:var(--cs-accent-strong);line-height:1;letter-spacing:-0.02em">{{ runway }}</div><div style="font-size:19px;color:var(--cs-color-text-muted);margin-top:10px">{{ n3 }}</div></div>
-        <div><div style="font-size:60px;font-weight:800;color:var(--cs-accent-strong);line-height:1;letter-spacing:-0.02em">38</div><div style="font-size:19px;color:var(--cs-color-text-muted);margin-top:10px">{{ n4 }}</div></div>
+        <div><div style="font-size:60px;font-weight:800;color:var(--cs-color-text-accent);line-height:1;letter-spacing:-0.02em">+18%</div><div style="font-size:19px;color:var(--cs-color-text-muted);margin-top:10px">{{ n1 }}</div></div>
+        <div><div style="font-size:60px;font-weight:800;color:var(--cs-color-text-accent);line-height:1;letter-spacing:-0.02em">14</div><div style="font-size:19px;color:var(--cs-color-text-muted);margin-top:10px">{{ n2 }}</div></div>
+        <div><div style="font-size:60px;font-weight:800;color:var(--cs-color-text-accent);line-height:1;letter-spacing:-0.02em">{{ runway }}</div><div style="font-size:19px;color:var(--cs-color-text-muted);margin-top:10px">{{ n3 }}</div></div>
+        <div><div style="font-size:60px;font-weight:800;color:var(--cs-color-text-accent);line-height:1;letter-spacing:-0.02em">38</div><div style="font-size:19px;color:var(--cs-color-text-muted);margin-top:10px">{{ n4 }}</div></div>
       </div>
       <sc-if value="{{ showNumbers }}"><div style="position:absolute;bottom:40px;right:88px;font-family:var(--cs-font-family-mono);font-size:14px;color:var(--cs-color-text-muted)">02 / 05</div></sc-if>
     </section>
 
     <section style="position:relative;width:100%;aspect-ratio:16/9;background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);border-radius:var(--cs-radius-lg);overflow:hidden;box-shadow:var(--cs-shadow-xl);padding:64px 88px;display:flex;flex-direction:column;justify-content:center">
-      <div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-accent)">{{ s3kicker }}</div>
+      <div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-primary)">{{ s3kicker }}</div>
       <h2 style="font-size:44px;font-weight:800;letter-spacing:-0.02em;margin:10px 0 34px">{{ s3h }}</h2>
       <div style="display:grid;gap:16px;font-size:22px">
-        <div style="display:flex;align-items:center;gap:20px;border-top:3px solid var(--cs-accent);padding-top:16px"><b style="flex:1">{{ p1n }}</b><span style="color:var(--cs-color-semantic-success);font-weight:700">{{ p1s }}</span><span style="width:140px;text-align:right;font-family:var(--cs-font-family-mono)">₫3.1B</span></div>
+        <div style="display:flex;align-items:center;gap:20px;border-top:3px solid var(--cs-accent);padding-top:16px"><b style="flex:1">{{ p1n }}</b><span style="color:var(--cs-color-semantic-success-text);font-weight:700">{{ p1s }}</span><span style="width:140px;text-align:right;font-family:var(--cs-font-family-mono)">₫3.1B</span></div>
         <div style="display:flex;align-items:center;gap:20px;border-top:1px solid var(--cs-color-border-default);padding-top:16px"><b style="flex:1">{{ p2n }}</b><span style="color:var(--cs-color-text-accent);font-weight:700">{{ p2s }}</span><span style="width:140px;text-align:right;font-family:var(--cs-font-family-mono)">₫2.4B</span></div>
         <div style="display:flex;align-items:center;gap:20px;border-top:1px solid var(--cs-color-border-default);padding-top:16px"><b style="flex:1">{{ p3n }}</b><span style="color:var(--cs-color-text-accent);font-weight:700">{{ p3s }}</span><span style="width:140px;text-align:right;font-family:var(--cs-font-family-mono)">—</span></div>
       </div>
@@ -54,8 +54,8 @@
       <div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--cs-accent-bright)">{{ s4kicker }}</div>
       <h2 style="font-size:44px;font-weight:800;letter-spacing:-0.02em;color:var(--cs-accent-bright);margin:10px 0 34px">{{ s4h }}</h2>
       <div style="display:grid;gap:22px;font-size:24px;line-height:1.4;max-width:1000px">
-        <div style="display:flex;gap:16px"><span style="color:var(--cs-accent-strong);font-weight:800">1.</span><div><b>{{ r1b }}</b> <span style="opacity:0.85">{{ r1t }}</span></div></div>
-        <div style="display:flex;gap:16px"><span style="color:var(--cs-accent-strong);font-weight:800">2.</span><div><b>{{ r2b }}</b> <span style="opacity:0.85">{{ r2t }}</span></div></div>
+        <div style="display:flex;gap:16px"><span style="color:var(--cs-accent-bright);font-weight:800">1.</span><div><b>{{ r1b }}</b> <span style="opacity:0.85">{{ r1t }}</span></div></div>
+        <div style="display:flex;gap:16px"><span style="color:var(--cs-accent-bright);font-weight:800">2.</span><div><b>{{ r2b }}</b> <span style="opacity:0.85">{{ r2t }}</span></div></div>
       </div>
       <sc-if value="{{ showNumbers }}"><div style="position:absolute;bottom:40px;right:88px;font-family:var(--cs-font-family-mono);font-size:14px;color:var(--cs-accent-bright)">04 / 05</div></sc-if>
     </section>

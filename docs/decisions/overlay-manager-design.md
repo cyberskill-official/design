@@ -3,6 +3,16 @@
 Status: **landed in Phase 3** (operator decision D5=A, 2026-08-08) — see `components/overlays/OverlayManager.jsx`.  
 Owner: design-system maintainer · Related: UX-009 depth tokens, CDS-A11Y-003 keyboard models.
 
+## September revision — implementation under review
+
+The API sketch and migration list below describe the original design. All source-identified custom dismissible surfaces now register: Dialog, AlertDialog, Drawer, CommandPalette, Popover, Menu, Combobox, DatePicker, ColorPicker, TreeSelect, Popconfirm, Tooltip, Cascader, NavigationMenu, Menubar, Toolbar, Mentions, InlineEdit, ContextMenu, HoverCard, Tour, Image preview, HotKeys help, FloatingActionButton dial and AIDisclosureBadge. Native Select/NativeSelect menus remain browser-owned. Toast notifications register as nonmodal notification scopes: they remain accessible above modal isolation and do not consume Escape.
+
+Providers share a document manager. Only the top registered layer handles Escape, with IME composition ignored. Tab and focus containment follow the active modal and its registered portal scopes. React ownership orders portalled children correctly even when their layout effects precede the parent; a closed portalled trigger remains part of its modal scope. Consumers supply portal positioning and depth tokens. This does not automatically portal component DOM.
+
+Background branches become inert while a modal is active. Newly inserted background nodes are observed; pre-existing inert values are preserved. Explicit backdrop refs preserve the active backdrop; nested modal closure reactivates the parent. Scroll overflow is restored after the last modal closes. Restoration requires a connected target and focus still owned by the closing layer. Development React tests assert StrictMode effect replay, nested/parent removal, initial and delayed portal mounting, Tab, backdrop dismissal and dynamic background insertion.
+
+Automated Chromium evidence now covers eight initial overlay families plus thirteen additional families, Tooltip and modal/portal focus contracts. Cross-browser, real IME/native-popup behavior and manual assistive-technology validation remain required. No human acceptance is recorded by this note.
+
 ## Problem
 
 Overlays (Dialog, AlertDialog, Drawer, Popover, Menu, CommandPalette, Toast, Tour) currently each own:

@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "interpretation": "Explicit existing print-export coverage and page-size contract. Update deliberately when adding or retiring support; do not regenerate as part of routine tests. This is not visual or content-owner acceptance.",
+  "templates": [
+    {
+      "folder": "bod-memo",
+      "entry": "templates/bod-memo/BodMemo.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "bod-minutes",
+      "entry": "templates/bod-minutes/BodMinutes.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "bod-report",
+      "entry": "templates/bod-report/BodReport.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "bod-resolution",
+      "entry": "templates/bod-resolution/BodResolution.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "delivery-change-note",
+      "entry": "templates/delivery-change-note/DeliveryChangeNote.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "delivery-kickoff",
+      "entry": "templates/delivery-kickoff/DeliveryKickoff.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "delivery-runbook",
+      "entry": "templates/delivery-runbook/DeliveryRunbook.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "doc-style-guide",
+      "entry": "templates/doc-style-guide/DocStyleGuide.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "doc-suite-index",
+      "entry": "templates/doc-suite-index/DocSuiteIndex.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "doc-templates",
+      "entry": "templates/doc-templates/DocTemplates.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "finance-expense-report",
+      "entry": "templates/finance-expense-report/FinanceExpenseReport.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "finance-invoice",
+      "entry": "templates/finance-invoice/FinanceInvoice.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "finance-quote",
+      "entry": "templates/finance-quote/FinanceQuote.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "hr-interview-kit",
+      "entry": "templates/hr-interview-kit/HrInterviewKit.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "hr-offboarding",
+      "entry": "templates/hr-offboarding/HrOffboarding.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "hr-performance-review",
+      "entry": "templates/hr-performance-review/HrPerformanceReview.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "hr-pip",
+      "entry": "templates/hr-pip/HrPip.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "legal-msa",
+      "entry": "templates/legal-msa/LegalMsa.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "legal-sow",
+      "entry": "templates/legal-sow/LegalSow.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "marketing-case-study",
+      "entry": "templates/marketing-case-study/MarketingCaseStudy.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "marketing-press-release",
+      "entry": "templates/marketing-press-release/MarketingPressRelease.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "sales-one-pager",
+      "entry": "templates/sales-one-pager/SalesOnePager.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "team-meeting-agenda",
+      "entry": "templates/team-meeting-agenda/TeamMeetingAgenda.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "tech-retro",
+      "entry": "templates/tech-retro/TechRetro.dc.html",
+      "format": "Letter"
+    },
+    {
+      "folder": "vn-appointment-transfer",
+      "entry": "templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-certificate-of-employment",
+      "entry": "templates/vn-certificate-of-employment/VnCertificateOfEmployment.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-code-of-conduct",
+      "entry": "templates/vn-code-of-conduct/VnCodeOfConduct.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-compensation-regulation",
+      "entry": "templates/vn-compensation-regulation/VnCompensationRegulation.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-contract-amendment",
+      "entry": "templates/vn-contract-amendment/VnContractAmendment.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-contractor-agreement",
+      "entry": "templates/vn-contractor-agreement/VnContractorAgreement.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-data-protection-policy",
+      "entry": "templates/vn-data-protection-policy/VnDataProtectionPolicy.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-disciplinary-case-file",
+      "entry": "templates/vn-disciplinary-case-file/VnDisciplinaryCaseFile.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-disciplinary-schedule",
+      "entry": "templates/vn-disciplinary-schedule/VnDisciplinarySchedule.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-employee-request",
+      "entry": "templates/vn-employee-request/VnEmployeeRequest.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-exit-handover",
+      "entry": "templates/vn-exit-handover/VnExitHandover.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-foreign-employee-pack",
+      "entry": "templates/vn-foreign-employee-pack/VnForeignEmployeePack.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-framework-agreement",
+      "entry": "templates/vn-framework-agreement/VnFrameworkAgreement.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-grassroots-democracy",
+      "entry": "templates/vn-grassroots-democracy/VnGrassrootsDemocracy.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-infosec-policy",
+      "entry": "templates/vn-infosec-policy/VnInfosecPolicy.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-internal-labor-regulations",
+      "entry": "templates/vn-internal-labor-regulations/VnInternalLaborRegulations.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-internship-agreement",
+      "entry": "templates/vn-internship-agreement/VnInternshipAgreement.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-job-description",
+      "entry": "templates/vn-job-description/VnJobDescription.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-labor-contract",
+      "entry": "templates/vn-labor-contract/VnLaborContract.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-labour-management-book",
+      "entry": "templates/vn-labour-management-book/VnLabourManagementBook.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-mutual-nda",
+      "entry": "templates/vn-mutual-nda/VnMutualNda.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-ndnca-ip",
+      "entry": "templates/vn-ndnca-ip/VnNdncaIp.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-offer-letter",
+      "entry": "templates/vn-offer-letter/VnOfferLetter.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-onboarding-checklist",
+      "entry": "templates/vn-onboarding-checklist/VnOnboardingChecklist.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-pdpl-consent",
+      "entry": "templates/vn-pdpl-consent/VnPdplConsent.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-performance-evaluation-regulation",
+      "entry": "templates/vn-performance-evaluation-regulation/VnPerformanceEvaluationRegulation.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-performance-review-form",
+      "entry": "templates/vn-performance-review-form/VnPerformanceReviewForm.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-phantom-stock",
+      "entry": "templates/vn-phantom-stock/VnPhantomStock.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-probation-contract",
+      "entry": "templates/vn-probation-contract/VnProbationContract.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-receipt-acknowledgement",
+      "entry": "templates/vn-receipt-acknowledgement/VnReceiptAcknowledgement.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-remote-work-policy",
+      "entry": "templates/vn-remote-work-policy/VnRemoteWorkPolicy.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-resignation-letter",
+      "entry": "templates/vn-resignation-letter/VnResignationLetter.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-salary-scale",
+      "entry": "templates/vn-salary-scale/VnSalaryScale.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-sow-appendix",
+      "entry": "templates/vn-sow-appendix/VnSowAppendix.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-termination-decision",
+      "entry": "templates/vn-termination-decision/VnTerminationDecision.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-total-rewards-appendix",
+      "entry": "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-training-commitment",
+      "entry": "templates/vn-training-commitment/VnTrainingCommitment.dc.html",
+      "format": "A4"
+    },
+    {
+      "folder": "vn-travel-expense-policy",
+      "entry": "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html",
+      "format": "A4"
+    }
+  ]
+}

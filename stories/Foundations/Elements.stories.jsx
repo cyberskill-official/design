@@ -13,7 +13,7 @@ import {
 
 /**
  * Foundations/Elements — the 15 Ngũ Hành element×variant packs. Pack keys and the
- * 9 accent role NAMES come from tokens/tokens.js; every VALUE is read live from a
+ * 10 accent role NAMES come from tokens/tokens.js; every VALUE is read live from a
  * node inside its own data-cs-element/data-cs-variant scope, so this page shows
  * exactly what tokens/elements.css ships.
  */
@@ -122,15 +122,15 @@ function ElementsPage() {
       <Lede>
         The studio itself is Thổ (Umber + Ochre). Each CyberSkill product may take one
         element via data-cs-element (+ data-cs-variant); inside that scope the pack sets
-        the nine accent role tokens and fully takes Ochre’s accent roles. Semantic
-        statuses and the 3px Ochre focus ring are never elemental.
+        the ten accent role tokens. Semantic
+        statuses and the composite focus indicator are never elemental.
       </Lede>
       <LiveNote />
 
-      <SectionTitle>The 9 accent roles (your current toolbar scope)</SectionTitle>
+      <SectionTitle>The 10 accent roles (your current toolbar scope)</SectionTitle>
       <p className="cs-caption" style={{ margin: '0 0 10px' }}>
         This table reads from the page’s ambient scope — switch the Element toolbar item
-        and the same nine names re-resolve. Text sits on bright or tint only, never on the
+        and the same ten names re-resolve. CTA text sits on bright (light), strong (dark), or tint, never on the
         mid-tone accent.
       </p>
       <div ref={ref}>
@@ -176,7 +176,7 @@ export default {
     docs: {
       description: {
         component:
-          'The 15 Ngũ Hành element×variant packs with the 9 accent roles resolving live inside pinned data-cs-element/data-cs-variant scopes.',
+          'The 15 Ngũ Hành element×variant packs with the 10 accent roles resolving live inside pinned data-cs-element/data-cs-variant scopes.',
       },
     },
   },

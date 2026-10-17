@@ -13,9 +13,10 @@
 <helmet>
 <script src="./ds-base.js"></script>
 <style>@page{size:A4;margin:23mm 20mm 20mm 20mm}@media print{html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important;padding:0!important}.cs-avoid{break-inside:avoid}.cs-break{break-before:page}}</style>
+<style>@media print{.cs-sheet h2{padding-top:3px!important;padding-bottom:max(0px,calc(var(--_cs-print-heading-padding) - 3px))!important;margin-bottom:calc(var(--_cs-print-heading-after) - max(0px,calc(3px - var(--_cs-print-heading-padding))))!important}}</style>
 </helmet>
 <div data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-doc-ink)">
-  <div class="cs-sheet" style="max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left">
+  <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left" data-theme="light">
     <div style="display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--cs-color-text-muted);padding-bottom:6px;border-bottom:1px solid var(--cs-color-border-default);margin-bottom:14px">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="18" hint-size="18px,18px"></x-import>
       <b style="color:var(--cs-color-brand-umber)">CyberSkill</b><span>· Mẫu tài liệu</span><span style="margin-left:auto;font-family:var(--cs-font-family-mono)">Số/No. MT-01/2026/CYBERSKILL</span>
@@ -29,18 +30,18 @@
       <div style="font-size:14.5px;color:var(--cs-doc-slate);font-style:italic">Document Templates</div>
       <div style="font-size:12.5px;margin-top:8px">Số / No.: MT-01/2026/CYBERSKILL</div>
       <div style="font-size:12px;margin-top:2px">Phiên bản / Version 2.0 · Hiệu lực từ / Effective from: <span style="background:var(--cs-doc-fill);padding:0 3px">......</span> / <span style="background:var(--cs-doc-fill);padding:0 3px">......</span> / <span style="background:var(--cs-doc-fill);padding:0 3px">......</span></div>
-      <div style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
+      <div aria-hidden="true" style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
     </div>
     <p style="font-size:13.5px;line-height:1.5;margin:0 0 2px">Tài liệu này gồm hai phần. Phần A là <b>khung trắng khổ A4 song ngữ</b> — điểm khởi đầu cho mọi hợp đồng, quy chế, chính sách, quyết định và biểu mẫu. Phần B là <b>bản đồ các dạng khung</b> cho toàn hệ thống và cách thêm mẫu mới. Quy tắc trình bày đầy đủ nằm trong Cẩm nang Trình bày.</p>
     <p style="font-size:12px;line-height:1.45;color:var(--cs-doc-slate);font-style:italic;margin:0 0 16px">This document has two parts. Part A is the <b>blank A4 bilingual shell</b> — the starting point for any contract, regulation, policy, decision or form. Part B is the <b>archetype map</b> for the whole system and how to add a new template. The full presentation rules are in the Style Guide.</p>
 
-    <h2 class="cs-avoid" style="font-size:16px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 10px;padding-bottom:4px;border-bottom:2px solid var(--cs-color-brand-umber)">PHẦN A · KHUNG TRẮNG A4 <span style="font-weight:400;font-size:12px;color:var(--cs-doc-slate);font-style:italic">Part A · Blank A4 shell</span></h2>
+    <h2 class="cs-avoid" style="font-size:16px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 10px;padding-bottom:4px;border-bottom:2px solid var(--cs-color-brand-umber);--_cs-print-heading-padding:4px;--_cs-print-heading-after:10px">PHẦN A · KHUNG TRẮNG A4 <span style="font-weight:400;font-size:12px;color:var(--cs-doc-slate);font-style:italic">Part A · Blank A4 shell</span></h2>
     <div class="cs-avoid" style="border:1px dashed #C9B79E;border-radius:10px;padding:22px 24px;background:#fffdf8">
       <div class="cs-avoid" style="text-align:center;margin-bottom:16px">
         <h3 style="font-size:22px;font-weight:800;color:var(--cs-color-brand-umber);letter-spacing:-0.01em;margin:0 0 3px;line-height:1.25">TÊN TÀI LIỆU</h3>
         <div style="font-size:13px;color:var(--cs-doc-slate);font-style:italic">DOCUMENT TITLE</div>
         <div style="font-size:12px;margin-top:6px">Số / No.: <span style="background:var(--cs-doc-fill);padding:0 3px">......</span>/2026/MÃ-CYBERSKILL</div>
-        <div style="color:var(--cs-accent);font-size:12px;letter-spacing:0.5em;margin-top:8px">◆ ◆ ◆</div>
+        <div aria-hidden="true" style="color:var(--cs-accent);font-size:12px;letter-spacing:0.5em;margin-top:8px">◆ ◆ ◆</div>
       </div>
       <h4 class="cs-avoid" style="font-size:13px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 4px">ĐIỀU 1 · TIÊU ĐỀ ĐIỀU KHOẢN <span style="font-weight:400;font-size:11px;color:var(--cs-doc-slate);font-style:italic">Article 1 · Clause heading</span></h4>
       <p style="font-size:13px;line-height:1.5;margin:0 0 1px">Câu tiếng Việt viết ở đây. Đây là đoạn văn bản chuẩn của tài liệu.</p>
@@ -83,7 +84,7 @@
     <p style="font-size:12px;line-height:1.45;color:var(--cs-doc-slate);font-style:italic;margin:8px 0 0">↑ Khối trong khung nét đứt là mẫu khởi đầu — sao chép rồi thay tiêu đề, số hiệu và nội dung. / The dashed block is the starting shell — copy it, then replace the title, number and content.</p>
 
     <div class="cs-break"></div>
-    <h2 class="cs-avoid" style="font-size:16px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 10px;padding-bottom:4px;border-bottom:2px solid var(--cs-color-brand-umber)">PHẦN B · CÁC DẠNG KHUNG <span style="font-weight:400;font-size:12px;color:var(--cs-doc-slate);font-style:italic">Part B · Template archetypes</span></h2>
+    <h2 class="cs-avoid" style="font-size:16px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 10px;padding-bottom:4px;border-bottom:2px solid var(--cs-color-brand-umber);--_cs-print-heading-padding:4px;--_cs-print-heading-after:10px">PHẦN B · CÁC DẠNG KHUNG <span style="font-weight:400;font-size:12px;color:var(--cs-doc-slate);font-style:italic">Part B · Template archetypes</span></h2>
     <table class="cs-avoid" style="width:100%;border-collapse:collapse;font-size:12px;margin:0 0 16px">
       <thead><tr style="background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse,#fff)"><th style="text-align:left;padding:6px 9px;font-size:10px;width:130px">Dạng <i style="font-weight:400">Archetype</i></th><th style="text-align:left;padding:6px 9px;font-size:10px">Khung &amp; khi nào dùng <i style="font-weight:400">Frame &amp; when to use</i></th><th style="text-align:left;padding:6px 9px;font-size:10px;width:120px">Ví dụ <i style="font-weight:400">Examples</i></th></tr></thead>
       <tbody>

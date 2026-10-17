@@ -1,122 +1,338 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — pixel CI (hard)</title>
-<link rel="stylesheet" href="../styles.css">
-<style>
-  body{margin:0;font-family:var(--cs-font-family-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
-  h1{font-size:16px;margin:0 0 6px}.lede{font-size:13px;color:#6b5d4f;max-width:960px;line-height:1.5}
-  .row{font:12.5px ui-monospace,monospace;padding:4px 8px;border-radius:5px;margin:2px 0}
-  .ok{background:#dcfce7;color:#166534}.bad{background:#FEE2E2;color:#B42318;font-weight:700}
-  .warn{background:#FEF3C7;color:#92400E}
-  #sum{font-size:15px;font-weight:800;margin:12px 0}
-  table{border-collapse:collapse;font:12px ui-monospace,monospace;margin-top:8px}
-  td,th{padding:3px 10px 3px 0;text-align:left} th{color:#6b5d4f;font-weight:600}
-  .y{color:#166534}.n{color:#92400E}.e{color:#B42318}
-</style></head><body>
-<h1>Pixel CI — real Playwright compare (hard)</h1>
-<p class="lede">Hard quality check: <code>_audit/ci/pixel-diff.mjs</code> captures 909×540 screenshots, diffs against <code>_audit/baselines/</code>, and fails when <code>drifted[]</code> is non-empty or capture fails. Board pass requires baselines + harness + compare script <em>and</em> a clean last compare report (no drift). Verdict: <code>window.__pixelci.pass</code>.</p>
-<div id="list"></div>
-<div id="diff"></div>
-<div id="sum">running…</div>
-<script>
-const list=document.getElementById('list');
-const diffEl=document.getElementById('diff');
-const P=window.__gateProgress={done:0,total:4,current:'boot'};
-function row(ok,t,cls){const d=document.createElement('div');d.className='row '+(cls||(ok?'ok':'bad'));d.textContent=(ok?'✓ ':'✗ ')+t;list.appendChild(d);}
-// Keep in lockstep with TARGETS in _audit/ci/pixel-diff.mjs
-const NAMES=[
-  'kitchen-sink','auth','app-shell','settings','dashboard','dashboard-dark','delivery-kickoff',
-  'bod-report','slide-deck','marketing-page','email','vn-labor-contract','tech-incident-report',
-  'status-hub','website'
-];
-(async()=>{
-  const fails=[];
-  P.current='baselines';
-  let found=0;
-  for(const n of NAMES){
-    try{
-      const r=await fetch('./baselines/'+n+'.png',{method:'HEAD',cache:'no-store'});
-      if(r.ok){ found++; row(true,'baseline '+n+'.png'); }
-      else { fails.push(n); row(false,'missing baseline '+n); }
-    }catch(e){ fails.push(n+':'+e); row(false,String(e)); }
-  }
-  P.done=1; P.current='harness';
-  try{
-    const vd=await (await fetch('./visual-diff.html',{cache:'no-store'})).text();
-    const ok=/__visualdiff|BASE/.test(vd);
-    row(ok,'visual-diff.html harness present');
-    if(!ok) fails.push('visual-diff missing');
-  }catch(e){ fails.push(String(e)); row(false,String(e)); }
-  P.done=2; P.current='ci-script';
-  let scriptOk=false;
-  try{
-    const sc=await (await fetch('./ci/pixel-diff.mjs',{cache:'no-store'})).text();
-    scriptOk=/decodePng|diffImages|drifted|maxDiff|playwright/i.test(sc) && /DRIFT_PCT|CHANNEL_TOLERANCE/.test(sc) && !/advisory:\s*true/.test(sc);
-    row(scriptOk,'ci/pixel-diff.mjs hard compare present');
-    if(!scriptOk) fails.push('pixel-diff.mjs missing hard compare');
-  }catch(e){ fails.push('pixel-diff.mjs: '+e); row(false,'pixel-diff.mjs missing — '+e); }
-  P.done=3; P.current='report';
-  let drifted=[], maxDiff=null, report=null, reportNote='no report yet — run node _audit/ci/pixel-diff.mjs';
-  let compareOk=false;
-  try{
-    const r=await fetch('./ci/pixel-diff-report.json',{cache:'no-store'});
-    if(r.ok){
-      report=await r.json();
-      drifted=Array.isArray(report.drifted)?report.drifted:[];
-      maxDiff=typeof report.maxDiff==='number'?report.maxDiff:null;
-      const captureFails=report.captureFails|0;
-      compareOk=drifted.length===0 && captureFails===0 && !report.updated;
-      // Fresh --update report is not a compare; treat as needing a compare pass.
-      if(report.updated){
-        reportNote='report is from --update — re-run without --update to compare';
-        row(false, reportNote);
-        fails.push('report is update-only; re-run compare');
-      }else{
-        reportNote='report '+ (report.generatedAt||'') + ' · maxDiff='+maxDiff+'% · drifted=['+drifted.join(', ')+']';
-        row(compareOk, reportNote, compareOk?'ok':'bad');
-        if(!compareOk){
-          if(drifted.length) fails.push('drift: '+drifted.join(', '));
-          if(captureFails) fails.push('captureFails='+captureFails);
-        }
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CyberSkill — pixel CI (hard)</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: var(--cs-font-family-ui);
+        background: #efe6d8;
+        color: #231a12;
+        padding: 16px 20px;
       }
-      if(report.results && report.results.length){
-        let html='<h3 style="font-size:13px;margin:14px 0 4px">Last compare</h3><table><tr><th>slug</th><th>diff %</th><th>status</th></tr>';
-        for(const rowR of report.results){
-          const pct=typeof rowR.pct==='number'?rowR.pct.toFixed(3)+'%':(rowR.error||'—');
-          const st=rowR.error?'error':rowR.updated?'updated':rowR.drifted?'drifted':'match';
-          const cls=rowR.error?'e':rowR.drifted?'n':'y';
-          html+='<tr><td>'+rowR.slug+'</td><td>'+pct+'</td><td class="'+cls+'">'+st+'</td></tr>';
-        }
-        html+='</table>';
-        diffEl.innerHTML=html;
+      h1 {
+        font-size: 16px;
+        margin: 0 0 6px;
       }
-    }else{
-      row(false, reportNote);
-      fails.push('missing pixel-diff-report.json — run pixel-diff.mjs');
-    }
-  }catch(e){
-    row(false, reportNote);
-    fails.push('missing pixel-diff-report.json — run pixel-diff.mjs');
-  }
-  P.done=4; P.current='done';
-  // Hard pass = contract + clean compare report (no drift).
-  const pass=fails.length===0 && scriptOk && compareOk;
-  window.__pixelci={
-    pass,
-    advisory:false,
-    hard:true,
-    found,
-    total:NAMES.length,
-    fails,
-    drifted,
-    maxDiff,
-    report: report?{generatedAt:report.generatedAt,maxDiff:report.maxDiff,drifted:report.drifted}:null,
-    note:'Hard gate. pass = baselines + harness + real compare script + clean last report (no drift).'
-  };
-  const s=document.getElementById('sum');
-  s.textContent=pass
-    ?('✓ PASS — pixel compare clean · '+found+'/'+NAMES.length+' baselines'+(maxDiff!=null?(' · maxDiff '+maxDiff+'%'):''))
-    :('✗ FAIL — '+fails.join('; '));
-  s.style.color=pass?'#166534':'#B42318';
-  console.log('PIXELCI VERDICT '+JSON.stringify(window.__pixelci));
-})();
-</script></body></html>
+      .lede {
+        font-size: 13px;
+        color: #6b5d4f;
+        max-width: 960px;
+        line-height: 1.5;
+      }
+      .row {
+        font: 12.5px ui-monospace, monospace;
+        padding: 4px 8px;
+        border-radius: 5px;
+        margin: 2px 0;
+      }
+      .ok {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .bad {
+        background: #fee2e2;
+        color: #b42318;
+        font-weight: 700;
+      }
+      .warn {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      #sum {
+        font-size: 15px;
+        font-weight: 800;
+        margin: 12px 0;
+      }
+      table {
+        border-collapse: collapse;
+        font: 12px ui-monospace, monospace;
+        margin-top: 8px;
+      }
+      td,
+      th {
+        padding: 3px 10px 3px 0;
+        text-align: left;
+      }
+      th {
+        color: #6b5d4f;
+        font-weight: 600;
+      }
+      .y {
+        color: #166534;
+      }
+      .n {
+        color: #92400e;
+      }
+      .e {
+        color: #b42318;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Pixel CI — real Playwright compare (hard)</h1>
+    <p class="lede">
+      Hard quality check: <code>_audit/ci/pixel-diff.mjs</code> captures 909×540
+      screenshots, diffs against <code>_audit/baselines/</code>, and fails when
+      <code>drifted[]</code> is non-empty or capture fails. Board pass requires
+      all declared comparison rows, fixed settings, no drift, and current
+      source/baseline byte identity. Legacy or incomplete receipts fail. This
+      repository check needs source access; a deployed webroot alone cannot
+      certify it. Verdict: <code>window.__pixelci.pass</code>.
+    </p>
+    <div id="list"></div>
+    <div id="diff"></div>
+    <div id="sum">running…</div>
+    <script>
+      const list = document.getElementById("list");
+      const diffEl = document.getElementById("diff");
+      const P = (window.__gateProgress = {
+        done: 0,
+        total: 5,
+        current: "boot",
+      });
+      function row(ok, text) {
+        const el = document.createElement("div");
+        el.className = "row " + (ok ? "ok" : "bad");
+        el.textContent = (ok ? "✓ " : "✗ ") + text;
+        list.appendChild(el);
+      }
+      function finish(result) {
+        P.done = P.total;
+        P.current = "done";
+        window.__pixelci = result;
+        const sum = document.getElementById("sum");
+        sum.textContent = result.pass
+          ? "✓ PASS — complete same-input compare receipt · " +
+            result.found +
+            "/" +
+            result.total +
+            " baselines"
+          : "✗ FAIL — " + result.fails.join("; ");
+        sum.style.color = result.pass ? "#166534" : "#B42318";
+        console.log("PIXELCI VERDICT " + JSON.stringify(result));
+      }
+      (async () => {
+        let contract;
+        try {
+          contract = await import("./lib/pixel-report-contract.mjs");
+        } catch (error) {
+          finish({
+            pass: false,
+            hard: true,
+            advisory: false,
+            found: 0,
+            total: 0,
+            fails: ["Report contract unavailable: " + error.message],
+            reportState: "unavailable",
+            sourceState: "not_checked",
+          });
+          return;
+        }
+        const names = contract.PIXEL_TARGETS.map((target) => target.slug),
+          fails = [];
+        let found = 0,
+          scriptOk = false,
+          compareOk = false,
+          sourceState = "not_checked",
+          reportState = "missing",
+          report = null,
+          receipt = null;
+        P.current = "baselines";
+        for (const name of names) {
+          try {
+            const response = await fetch("./baselines/" + name + ".png", {
+              method: "HEAD",
+              cache: "no-store",
+            });
+            if (response.ok) {
+              found++;
+              row(true, "baseline " + name + ".png");
+            } else {
+              fails.push("Missing baseline: " + name);
+              row(false, "Missing baseline: " + name);
+            }
+          } catch (error) {
+            fails.push("Baseline unavailable: " + name);
+            row(false, error.message);
+          }
+        }
+        P.done = 1;
+        P.current = "harness";
+        try {
+          const response = await fetch("./visual-diff.html", {
+            cache: "no-store",
+          });
+          const text = await response.text();
+          const ok = response.ok && /__visualdiff|BASE/.test(text);
+          row(ok, "visual-diff.html harness present");
+          if (!ok) fails.push("Visual-review harness missing");
+        } catch (error) {
+          fails.push("Visual-review harness unavailable");
+          row(false, error.message);
+        }
+        P.done = 2;
+        P.current = "ci-script";
+        try {
+          const response = await fetch("./ci/pixel-diff.mjs", {
+            cache: "no-store",
+          });
+          const text = await response.text();
+          scriptOk =
+            response.ok &&
+            /diffImages/.test(text) &&
+            /validatePixelReport/.test(text) &&
+            /verifyPixelInputs/.test(text);
+          row(scriptOk, "Comparator and source-verification runner present");
+          if (!scriptOk) fails.push("Pixel comparator unavailable");
+        } catch (error) {
+          fails.push("Pixel comparator unavailable");
+          row(false, error.message);
+        }
+        P.done = 3;
+        P.current = "report";
+        try {
+          const response = await fetch("./ci/pixel-diff-report.json", {
+            cache: "no-store",
+          });
+          if (!response.ok)
+            throw Error(
+              "Missing compare receipt; run pixel-diff.mjs in the repository"
+            );
+          report = await response.json();
+          receipt = contract.validatePixelReport(report);
+          reportState = "valid";
+          compareOk = receipt.pass;
+          row(
+            compareOk,
+            "Complete compare: " +
+              receipt.compared +
+              "/" +
+              names.length +
+              " captures; max difference " +
+              report.maxDiff +
+              "%; renderer " +
+              report.renderer.platform +
+              " " +
+              report.renderer.version
+          );
+          fails.push(...receipt.failures);
+          const table = document.createElement("table");
+          const header = table.insertRow();
+          for (const text of ["slug", "diff %", "status"]) {
+            const cell = document.createElement("th");
+            cell.textContent = text;
+            header.appendChild(cell);
+          }
+          for (const result of report.results) {
+            const tr = table.insertRow();
+            for (const text of [
+              result.slug,
+              result.error || result.pct.toFixed(3) + "%",
+              result.error
+                ? "capture failed"
+                : result.drifted
+                ? "drifted"
+                : "match",
+            ]) {
+              const cell = tr.insertCell();
+              cell.textContent = text;
+            }
+          }
+          diffEl.appendChild(table);
+        } catch (error) {
+          reportState = report ? "invalid" : "missing";
+          fails.push(error.message);
+          row(false, error.message);
+        }
+        P.done = 4;
+        P.current = "source";
+        if (reportState === "valid") {
+          try {
+            const identity = await contract.verifyPixelInputs(
+              report.sourceInputs,
+              {
+                readBytes: async (path) => {
+                  const response = await fetch(
+                    new URL("../" + path, location.href),
+                    { cache: "no-store", signal: AbortSignal.timeout(30000) }
+                  );
+                  if (!response.ok) {
+                    const error = Error(
+                      "Input unavailable: " +
+                        path +
+                        " (HTTP " +
+                        response.status +
+                        ")"
+                    );
+                    if (response.status === 404) error.code = "ENOENT";
+                    throw error;
+                  }
+                  return new Uint8Array(await response.arrayBuffer());
+                },
+                sha256: async (bytes) =>
+                  [
+                    ...new Uint8Array(
+                      await crypto.subtle.digest("SHA-256", bytes)
+                    ),
+                  ]
+                    .map((value) => value.toString(16).padStart(2, "0"))
+                    .join(""),
+              }
+            );
+            sourceState = identity.state;
+            row(
+              true,
+              "Current canonical input bytes match (" +
+                identity.files +
+                " files)"
+            );
+          } catch (error) {
+            sourceState = "not_current";
+            fails.push(error.message);
+            row(false, error.message);
+          }
+        }
+        finish({
+          pass:
+            fails.length === 0 &&
+            scriptOk &&
+            compareOk &&
+            sourceState === "matches",
+          hard: true,
+          advisory: false,
+          found,
+          total: names.length,
+          fails,
+          reportState,
+          sourceState,
+          compared: receipt?.compared ?? 0,
+          drifted: receipt?.drifted ?? [],
+          maxDiff: reportState === "valid" ? report.maxDiff : null,
+          report:
+            reportState === "valid"
+              ? {
+                  generatedAt: report.generatedAt,
+                  renderer: report.renderer,
+                  sourceHash: report.sourceInputs.hash,
+                }
+              : null,
+          note: "Complete same-input comparison receipt only. Static target scope and renderer are recorded; CI/job outcome and human baseline acceptance remain separate. Repository source access is required.",
+        });
+      })().catch((error) =>
+        finish({
+          pass: false,
+          hard: true,
+          advisory: false,
+          found: 0,
+          total: 0,
+          fails: [error.message],
+          reportState: "error",
+          sourceState: "not_checked",
+        })
+      );
+    </script>
+  </body>
+</html>

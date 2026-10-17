@@ -13,9 +13,10 @@
 <helmet>
 <script src="./ds-base.js"></script>
 <style>@page{size:A4;margin:23mm 20mm 20mm 20mm}@media print{html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important;padding:0!important}.cs-avoid{break-inside:avoid}.cs-break{break-before:page}}</style>
+<style>@media print{.cs-sheet h2{padding-top:3px!important;padding-bottom:max(0px,calc(var(--_cs-print-heading-padding) - 3px))!important;margin-bottom:calc(var(--_cs-print-heading-after) - max(0px,calc(3px - var(--_cs-print-heading-padding))))!important}}</style>
 </helmet>
 <div data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-doc-ink)">
-  <div class="cs-sheet" style="max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left">
+  <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:794px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 60px;text-align:left" data-theme="light">
     <div style="display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--cs-color-text-muted);padding-bottom:6px;border-bottom:1px solid var(--cs-color-border-default);margin-bottom:14px">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="18" hint-size="18px,18px"></x-import>
       <b style="color:var(--cs-color-brand-umber)">CyberSkill</b><span>· Danh mục &amp; hướng dẫn sử dụng tài liệu</span><span style="margin-left:auto;font-family:var(--cs-font-family-mono)">Số/No. DS-01/2026/CYBERSKILL</span>
@@ -29,7 +30,7 @@
       <div style="font-size:14px;color:var(--cs-doc-slate);font-style:italic">Document Suite Index &amp; Usage Guide</div>
       <div style="font-size:12.5px;margin-top:8px">Số / No.: DS-01/2026/CYBERSKILL</div>
       <div style="font-size:12px;margin-top:2px">Phiên bản / Version 2.0 · Hiệu lực từ / Effective from: <span style="background:var(--cs-doc-fill);padding:0 3px">......</span> / <span style="background:var(--cs-doc-fill);padding:0 3px">......</span> / <span style="background:var(--cs-doc-fill);padding:0 3px">......</span></div>
-      <div style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
+      <div aria-hidden="true" style="color:var(--cs-accent);font-size:13px;letter-spacing:0.5em;margin-top:10px">◆ ◆ ◆</div>
     </div>
     <p style="font-size:13.5px;line-height:1.5;margin:0 0 2px">Tài liệu này gộp Danh mục và Hướng dẫn sử dụng thành một. Phần I liệt kê mọi mẫu trong hệ thống, chia theo nhóm. Phần II hướng dẫn cách dùng: vòng đời lao động, tài liệu nào có hiệu lực kỷ luật, quy tắc trình bày, và cách thêm mẫu mới. Chi tiết trình bày nằm trong <i>Cẩm nang Trình bày</i>; các dạng khung nằm trong <i>Mẫu tài liệu</i>.</p>
     <p style="font-size:12px;line-height:1.45;color:var(--cs-doc-slate);font-style:italic;margin:0 0 10px">This document merges the Suite Index and the Usage Guide. Part I lists every template in the system, by group. Part II covers how to use them: the employment lifecycle, which documents carry disciplinary force, the presentation rules, and how to add a new template. Presentation detail lives in the <i>Style Guide</i>; the frames live in <i>Document Templates</i>.</p>
@@ -38,7 +39,7 @@
     <p style="font-size:12.5px;line-height:1.5;margin:0 0 2px"><b>I · CÒN THIẾU — ƯU TIÊN BỔ SUNG</b> / <i style="color:var(--cs-doc-slate)">I · Gaps — to be added, by priority</i>: không còn mẫu trống trong bộ — <i style="color:var(--cs-doc-slate)">No templates outstanding</i>. Priority A is a legal must-have in the suite where counsel so marks it.</p>
     <p style="font-size:11.5px;line-height:1.45;color:var(--cs-doc-slate);font-style:italic;margin:0 0 16px">Source DOCX gap list closed; catalogue above is the live inventory.</p>
 
-    <h2 class="cs-avoid" style="font-size:16px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px;padding-bottom:4px;border-bottom:2px solid var(--cs-color-brand-umber)">PHẦN I · DANH MỤC TÀI LIỆU <span style="font-weight:400;font-size:12px;color:var(--cs-doc-slate);font-style:italic">Part I · Document catalogue</span></h2>
+    <h2 class="cs-avoid" style="font-size:16px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px;padding-bottom:4px;border-bottom:2px solid var(--cs-color-brand-umber);--_cs-print-heading-padding:4px;--_cs-print-heading-after:8px">PHẦN I · DANH MỤC TÀI LIỆU <span style="font-weight:400;font-size:12px;color:var(--cs-doc-slate);font-style:italic">Part I · Document catalogue</span></h2>
     <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="10">
     <div class="cs-avoid" style="margin-bottom:14px">
       <h3 style="font-size:13px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 5px">{{ sec.vi }} <span style="font-weight:400;font-size:11.5px;color:var(--cs-doc-slate);font-style:italic">{{ sec.en }}</span></h3>
@@ -54,7 +55,7 @@
     </sc-for>
 
     <div class="cs-break"></div>
-    <h2 class="cs-avoid" style="font-size:16px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px;padding-bottom:4px;border-bottom:2px solid var(--cs-color-brand-umber)">PHẦN II · HƯỚNG DẪN SỬ DỤNG <span style="font-weight:400;font-size:12px;color:var(--cs-doc-slate);font-style:italic">Part II · Usage guide</span></h2>
+    <h2 class="cs-avoid" style="font-size:16px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px;padding-bottom:4px;border-bottom:2px solid var(--cs-color-brand-umber);--_cs-print-heading-padding:4px;--_cs-print-heading-after:8px">PHẦN II · HƯỚNG DẪN SỬ DỤNG <span style="font-weight:400;font-size:12px;color:var(--cs-doc-slate);font-style:italic">Part II · Usage guide</span></h2>
 
     <h3 class="cs-avoid" style="font-size:14px;font-weight:800;color:var(--cs-color-brand-umber);margin:0 0 8px">ĐIỀU 1 · VÒNG ĐỜI LAO ĐỘNG VÀ TÀI LIỆU <span style="font-weight:400;font-size:11.5px;color:var(--cs-doc-slate);font-style:italic">Article 1 · The employment lifecycle and its documents</span></h3>
     <table class="cs-avoid" style="width:100%;border-collapse:collapse;font-size:12px;margin:0 0 18px">

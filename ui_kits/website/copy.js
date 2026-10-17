@@ -1,9 +1,12 @@
-// cyberskill.world — real bilingual copy (EN + VN) lifted from the product
-// i18n dictionaries + content. window.SITE_COPY[locale]. Vietnamese-first.
+// CyberSkill website kit — checked-in EN/VI copy. Historical source comments
+// attribute it to product i18n dictionaries/content; current upstream sync is
+// not established by this clone. window.SITE_COPY[locale]. Home starts in English.
 window.SITE_COPY = {
   en: {
     nav: ["Services", "Work", "Process", "Careers", "Contact"],
     langLabel: "Tiếng Việt",
+    theme: "Toggle theme",
+    heroAlt: "Lumi, the golden genie",
     eyebrow: "A Saigon studio that turns will into working software. Since 2020.",
     slogan: "Turn Your Will Into Real",
     sub: "Hiện Thực Hoá Ý Chí",
@@ -22,7 +25,7 @@ window.SITE_COPY = {
     processTitle: "The arc of a wish",
     processLead: "Every project follows one arc: from a clear wish to software running in the real world.",
     steps: [
-      { n: "01", t: "Make a wish", s: "Tell us the outcome in a sentence or two. We reply within one business day." },
+      { n: "01", t: "Make a wish", s: "Tell us the outcome in a sentence or two. This preview does not send it." },
       { n: "02", t: "Shape it", s: "A small senior team scopes the work and is honest about trade-offs." },
       { n: "03", t: "Build to ship", s: "Short cycles, real software you can run — not slideware." },
       { n: "04", t: "Built to last", s: "Tested, documented, handed over. It keeps running after we leave." },
@@ -31,15 +34,17 @@ window.SITE_COPY = {
     careersLead: "We hire for craft and care — senior, small, and honest about trade-offs.",
     careersCta: "See open roles",
     contactTitle: "Tell us your wish",
-    contactLead: "Send a short note. We reply within one business day.",
-    form: { name: "Your name", email: "Work email", company: "Company", message: "Anything we should know?", submit: "Send", optional: "optional", trust: "Your details go straight to the team. We never share them." },
-    genie: { title: "Lumi · CyberSkill’s golden genie", greeting: "Hello, I’m Lumi. Think of me as a friendly guide: tell me a wish, and I’ll share plain advice before asking for anything. When a wish is clear, it goes to a real person on the team.", placeholder: "Type your wish…", send: "Send", chips: ["A web app", "An internal tool", "A design system"] },
+    contactLead: "Try a short note. This preview does not send it.",
+    form: { name: "Your name", email: "Work email", company: "Company", message: "Anything we should know?", submit: "Send", optional: "optional", trust: "This is a local preview. This form does not send your details to the team.", receipt: "Demo complete. No message was sent." },
+    genie: { title: "Lumi · CyberSkill’s golden genie", greeting: "Hello, I’m Lumi in this scripted preview. You can try sharing a wish; this sample does not send it to the team.", close: "Close chat", reply: "This is a scripted preview. Your wish has not been sent to the team. What should I call you?", placeholder: "Type your wish…", send: "Send", chips: ["A web app", "An internal tool", "A design system"] },
     footerRights: "All rights reserved.",
     footerLinks: ["Privacy", "Accessibility", "Terms"],
   },
   vi: {
     nav: ["Dịch vụ", "Dự án", "Quy trình", "Tuyển dụng", "Liên hệ"],
     langLabel: "English",
+    theme: "Đổi giao diện",
+    heroAlt: "Lumi, thần đèn vàng",
     eyebrow: "Studio Sài Gòn. Biến ý chí thành phần mềm chạy thật. Từ năm 2020.",
     slogan: "Hiện Thực Hoá Ý Chí",
     sub: "Turn Your Will Into Real",
@@ -58,7 +63,7 @@ window.SITE_COPY = {
     processTitle: "Hành trình của một điều ước",
     processLead: "Mỗi dự án một hành trình: từ điều ước rõ đến phần mềm chạy giữa đời thật.",
     steps: [
-      { n: "01", t: "Ước một điều", s: "Kể kết quả bạn muốn trong một hai câu. Chúng tôi phản hồi trong một ngày làm việc." },
+      { n: "01", t: "Ước một điều", s: "Kể kết quả bạn muốn trong một hai câu. Bản xem trước này chưa gửi điều ước." },
       { n: "02", t: "Định hình", s: "Đội nhỏ, kinh nghiệm bóc tách công việc và nói thẳng về đánh đổi." },
       { n: "03", t: "Xây để bàn giao", s: "Chu kỳ ngắn, phần mềm chạy thật — không phải slide." },
       { n: "04", t: "Dùng lâu được", s: "Kiểm thử, tài liệu, bàn giao. Vẫn chạy tốt sau khi chúng tôi rời đi." },
@@ -67,9 +72,9 @@ window.SITE_COPY = {
     careersLead: "Tuyển người có tay nghề và chỉn chu — đội gọn, kinh nghiệm, nói thẳng đánh đổi.",
     careersCta: "Xem vị trí đang mở",
     contactTitle: "Kể chúng tôi nghe điều bạn ước",
-    contactLead: "Một lời nhắn ngắn là đủ. Chúng tôi phản hồi trong một ngày làm việc.",
-    form: { name: "Tên của bạn", email: "Email công việc", company: "Công ty", message: "Bạn muốn chia sẻ thêm điều gì?", submit: "Gửi", optional: "không bắt buộc", trust: "Thông tin của bạn được gửi thẳng đến đội ngũ. Chúng tôi không chia sẻ cho bên thứ ba." },
-    genie: { title: "Lumi · thần đèn vàng CyberSkill", greeting: "Chào bạn, mình là Lumi. Cứ kể mình một điều ước; mình tư vấn trước, chỉ xin thông tin khi bạn muốn gửi. Điều ước rõ sẽ được chuyển cho người thật trong đội.", placeholder: "Viết điều ước của bạn…", send: "Gửi", chips: ["Một ứng dụng web", "Công cụ nội bộ", "Hệ thống thiết kế"] },
+    contactLead: "Thử viết một lời nhắn ngắn. Bản xem trước này chưa gửi lời nhắn.",
+    form: { name: "Tên của bạn", email: "Email công việc", company: "Công ty", message: "Bạn muốn chia sẻ thêm điều gì?", submit: "Gửi", optional: "không bắt buộc", trust: "Đây là bản xem trước cục bộ. Biểu mẫu này chưa gửi thông tin đến đội ngũ.", receipt: "Đã hoàn tất bản mẫu. Chưa gửi lời nhắn." },
+    genie: { title: "Lumi · thần đèn vàng CyberSkill", greeting: "Chào bạn, mình là Lumi trong bản xem trước theo kịch bản. Bạn có thể thử kể một điều ước; bản mẫu này chưa gửi điều ước đến đội ngũ.", close: "Đóng trò chuyện", reply: "Đây là bản xem trước theo kịch bản. Điều ước của bạn chưa được gửi đến đội ngũ. Mình nên gọi bạn là gì?", placeholder: "Viết điều ước của bạn…", send: "Gửi", chips: ["Một ứng dụng web", "Công cụ nội bộ", "Hệ thống thiết kế"] },
     footerRights: "Bảo lưu mọi quyền.",
     footerLinks: ["Quyền riêng tư", "Khả năng tiếp cận", "Điều khoản"],
   },

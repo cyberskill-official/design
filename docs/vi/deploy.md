@@ -4,7 +4,7 @@ Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 Hai track:
 
-1. **Design system portable (consumers)** — vẫn là cây file tĩnh: không cần bundler. Link `styles.css` + tùy chọn `_ds_bundle.js` / ESM. Claude Design, Google Stitch, và product app không cần Node hay Storybook.
+1. **Design system portable (consumers)** — consumer HTML có thể link `styles.css` đã review và `_ds_bundle.js` tùy chọn, hoặc dùng entry legacy cho trình duyệt `_esm/cs.mjs`, mà không cần bundler. Import npm mặc định (`_esm/react.mjs`) dùng React peer và JSX nguồn; app React cần công cụ build tương thích. Storybook là công cụ của host. Payload npm portable theo `package.json` → `files`; hosting public dùng allowlist đã review trong `scripts/public-site-policy.json`.
 2. **Host site (`design.cyberskill.world`)** — output tĩnh đóng gói cho Vercel. Packaging **có** chạy Node một lần lúc deploy để Storybook ship làm bề mặt sản phẩm tại `/`. Vẫn không có app server chạy dài.
 
 Production **`/`** là build tĩnh Storybook. Legacy `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, và `/playground/:path*` redirect về `/`.
@@ -27,7 +27,7 @@ Production **`/`** là build tĩnh Storybook. Legacy `/dashboard`, `/dashboard/`
 | `outputDirectory` | `.vercel-static` | Webroot đóng gói (cây portable + Storybook overlay ở root) |
 | `redirects` | `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` → `/` | Nghỉ hub HTML cũ và path Storybook subdirectory |
 
-Tương đương local: `npm install && npm run build:site`, rồi serve `.vercel-static/`.
+Review local: `npm install && npm run build:site`, rồi serve `.vercel-static/`. Đóng gói local không phải phê duyệt phân phối.
 
 Consumer clone repo vẫn mở file trực tiếp — họ **không** chạy `build:site`.
 
@@ -42,13 +42,13 @@ Ship cho production (`design.cyberskill.world`):
 
 Nếu host dưới **domain khác**, đổi absolute URL trong các meta tag cho khớp origin, hoặc re-export PNG và giữ path `assets/og-dashboard.png`.
 
-**Misconfig thường gặp:** chọn preset JS framework (Next/CRA) — Vercel chạy đồ thị build sai và có thể 404 root docs. Preset phải giữ **"Other"** và `vercel.json` phải sở hữu install/build/output (xem bảng trên). `package.json` có thể publish (`"private": false`) cho đường npm; nó cũng mang script **chỉ-host** (`build:storybook`, `build:site`, verify/test) mà product app không nên phụ thuộc (xem `docs/consuming.md` và `docs/storybook.md`). Packaging copy webroot portable rồi overlay Storybook tại root `.vercel-static/` (path portable như `/styles.css`, `/_audit/`, `/guidelines/` vẫn cạnh asset Storybook). **`_audit/` cố ý giữ public** — Storybook Status nhúng `_audit/run.html` full-bleed; gỡ đi sẽ phá surface sản phẩm. **Phân biệt misconfig hosting với bug docs thật:** mở `/_audit/docs-consistency.html` trên URL *đã deploy* — gate phát hiện body HTML/error nơi lẽ ra là raw `.md`/`.json` và báo "hosting is intercepting this path".
+**Misconfig thường gặp:** chọn preset JS framework (Next/CRA) — Vercel chạy đồ thị build sai và có thể 404 root docs. Preset phải giữ **"Other"** và `vercel.json` phải sở hữu install/build/output (xem bảng trên). `package.json` có thể publish (`"private": false`) cho đường npm; nó cũng mang script **chỉ-host** (`build:storybook`, `build:site`, verify/test) mà product app không nên phụ thuộc (xem `docs/consuming.md` và `docs/storybook.md`). Packaging kiểm tra Storybook build mới từ danh sách tệp tại `scripts/public-site-policy.json`, rồi ghi `.vercel-static/` cùng manifest đối tượng/hash từng tệp. Path portable có trong danh sách như `/styles.css`, audit gate và guidelines vẫn cạnh asset Storybook; hồ sơ tác vụ/lịch sử/revision và script bảo trì nội bộ bị loại. Chạy `npm run test:public-site` với đầu ra đóng gói trước khi triển khai. **Các trang audit trong danh sách cố ý giữ public** — Storybook Status nhúng `_audit/run.html` full-bleed; gỡ đi sẽ phá surface sản phẩm. **Phân biệt misconfig hosting với bug docs thật:** mở `/_audit/docs-consistency.html` trên URL *đã deploy* — gate phát hiện body HTML/error nơi lẽ ra là raw `.md`/`.json` và báo "hosting is intercepting this path".
 
 ## VPS generic / nginx / mọi static host
 
-**Không Storybook:** serve root repo làm webroot (chỉ cây portable).
+**Không Storybook:** sau review nguồn gốc và phê duyệt triển khai rõ ràng, serve danh sách portable đã duyệt làm webroot.
 
-**Có Storybook tại `/`:** chạy `npm run build:site` trên host hoặc CI, rồi serve `.vercel-static/` làm webroot. Cấu hình cùng redirect như `vercel.json` (`/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` → `/`) nếu host hỗ trợ.
+**Có Storybook tại `/`:** chạy `npm run build:site` trên host hoặc CI trước khi hosting được phê duyệt, rồi serve `.vercel-static/` làm webroot. Cấu hình cùng redirect như `vercel.json` (`/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` → `/`) nếu host hỗ trợ.
 
 Ví dụ Nginx (`.vercel-static` làm `root`) — **cùng security headers với `vercel.json`** (FIND-019):
 ```nginx
@@ -79,9 +79,9 @@ Path portable vẫn là file thật (`guidelines/atomic-view.html`, `_audit/run.
 5. Xác nhận `/dashboard.html` và `/playground/` redirect về `/`, và một story vẫn render (ví dụ Components/Button).
 
 ## Việc KHÔNG làm
-- Đừng ép **consumer** qua Storybook hoặc app bundler — hợp đồng của họ vẫn là clone-and-link `styles.css` (+ bundle tùy chọn). Host-site packaging (`build:site`) chỉ cho shell Storybook `/` của site live này và layout package tĩnh.
+- Dùng đúng đường thiết lập consumer: HTML tĩnh link CSS đã review và browser bundle tùy chọn; consumer React theo thiết lập build và transpilation trong `docs/consuming.md`. Host-site packaging (`build:site`) chuẩn bị shell Storybook tại `/` và layout host tĩnh.
 - Đừng đổi Vercel framework preset khỏi "Other" / `framework: null`.
-- Đừng gitignore bất kỳ thư mục top-level nào ngoài những gì `.gitignore` đã liệt kê (`uploads/`, `scraps/`, `_audit/exports/`, `storybook-static/`, `.vercel-static/`) — mọi thư mục khác, **kể cả tiền tố underscore như `_esm/`**, là source và phải ship trong cây portable. Xem `docs/sync.md`.
+- Giữ các file nguồn cần thiết trong Git, **kể cả đường dẫn có tiền tố underscore như `_esm/`**; đừng thêm rule ignore để che thay đổi nguồn. Theo dõi trong Git không cấp quyền xuất bản: nội dung npm theo `package.json` → `files`, còn hosting public theo `scripts/public-site-policy.json`. Xem `docs/sync.md`.
 - Đừng đặt Storybook dưới `/playground/` nữa — `base: '/'` trong `.storybook/main.js` kỳ vọng asset tại domain root.
 
 
@@ -104,7 +104,7 @@ Lý do:
 - **Đã bỏ CDN script/connect** (`unpkg.com`, `cdnjs.cloudflare.com`) — local-first React / `_ds_bundle.js`.
 - **Giữ `unsafe-inline`** — shell Storybook vẫn emit inline script/style; migrate nonce/hash là follow-on.
 - Ưu tiên self-host React cạnh `_ds_bundle.js` cho cài air-gapped.
-- Header thật trên production đã xác nhận 2026-08-09 qua `curl -sSI https://design.cyberskill.world/` (OQ-003 đóng — xem `docs/audits/nv-rendered-inrepo-2026-08-09.md`).
+- Header thật trên production đã xác nhận qua `curl -sSI https://design.cyberskill.world/`.
 
 ## OG đa domain
 

@@ -8,7 +8,9 @@ export function TimePicker({ value = "09:00", onChange, step = 30, label, disabl
   const [ref, L] = useLang(lang);
   const t = makeT("TimePicker", L);
   const stepMin = Number(step);
-  const safeStep = Number.isFinite(stepMin) && stepMin > 0 ? stepMin : 30;
+  // A minute-resolution day has at most 1440 options. Fractions can otherwise
+  // create malformed HH:MM values or an effectively unbounded render-time loop.
+  const safeStep = Number.isInteger(stepMin) && stepMin >= 1 && stepMin <= 1440 ? stepMin : 30;
   const opts = [];
   for (let m = 0; m < 24 * 60; m += safeStep) {
     opts.push(String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"));

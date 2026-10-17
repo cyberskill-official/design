@@ -4,7 +4,16 @@ export const tokens = {
     "system": "CyberSkill Design System",
     "version": "1.7.2",
     "generated": "2026-07-23",
-    "note": "Generated from tokens/*.css. Root grouped by category; theme/element scopes carry overrides only. Regenerate after any token change (see docs/conventions.md)."
+    "note": "Generated from tokens/*.css. Root grouped by category; theme/element scopes carry overrides only. Regenerate after any token change (see docs/conventions.md).",
+    "declarationGraph": {
+      "path": "declarations.json",
+      "schemaVersion": 1,
+      "sha256": "a404b69c1c8508d5c0898a143200874aa8b378ecd4d67de997cebbc7f34e28cf",
+      "declarations": 1504,
+      "publicDeclarations": 826,
+      "publicNames": 194,
+      "privateDeclarations": 678
+    }
   },
   "root": {
     "color": {
@@ -16,7 +25,7 @@ export const tokens = {
       "--cs-color-text-primary": "#45210E",
       "--cs-color-text-inverse": "#FFFFFF",
       "--cs-color-text-accent": "#6E3B0E",
-      "--cs-color-text-muted": "#6E5A4C",
+      "--cs-color-text-muted": "#3F2D21",
       "--cs-color-semantic-success": "#166534",
       "--cs-color-semantic-danger": "#B42318",
       "--cs-color-semantic-warning": "#92400E",
@@ -28,7 +37,11 @@ export const tokens = {
       "--cs-color-accent-ochre": "#F4BA17",
       "--cs-color-border-default": "#E7D9C6",
       "--cs-color-link": "#6E3B0E",
-      "--cs-color-link-hover": "#45210E"
+      "--cs-color-link-hover": "#45210E",
+      "--cs-color-semantic-success-text": "#042D13",
+      "--cs-color-semantic-danger-text": "#4B0502",
+      "--cs-color-semantic-warning-text": "#441801",
+      "--cs-color-semantic-info-text": "#000A75"
     },
     "component": {
       "--cs-component-button-primary-bg": "#45210E",
@@ -39,11 +52,11 @@ export const tokens = {
       "--cs-component-button-xs-paddingX": "10px",
       "--cs-component-button-xs-minHeight": "28px",
       "--cs-component-button-xs-minWidth": "28px",
-      "--cs-component-button-xs-minHeight-coarse": "36px",
+      "--cs-component-button-xs-minHeight-coarse": "44px",
       "--cs-component-button-sm-paddingY": "8px",
       "--cs-component-button-sm-paddingX": "14px",
       "--cs-component-button-sm-minHeight": "36px",
-      "--cs-component-button-sm-minHeight-coarse": "40px",
+      "--cs-component-button-sm-minHeight-coarse": "44px",
       "--cs-component-button-md-paddingY": "12px",
       "--cs-component-button-md-paddingX": "20px",
       "--cs-component-button-md-minHeight": "44px",
@@ -59,7 +72,7 @@ export const tokens = {
     },
     "accent": {
       "--cs-accent": "#F4BA17",
-      "--cs-accent-strong": "#A47D17",
+      "--cs-accent-strong": "#916D10",
       "--cs-accent-bright": "#F4BA17",
       "--cs-accent-on": "#45210E",
       "--cs-accent-tint": "#FBF4E9",
@@ -67,7 +80,7 @@ export const tokens = {
       "--cs-accent-glow": "rgba(244, 186, 23, 0.48)",
       "--cs-accent-grad-a": "#F4BA17",
       "--cs-accent-grad-b": "#F3B958",
-      "--cs-accent-on-strong": "#1A1108"
+      "--cs-accent-on-strong": "#FFFFFF"
     },
     "depth": {
       "--cs-depth-bg": "0",
@@ -203,9 +216,18 @@ export const tokens = {
     },
     "doc": {
       "--cs-doc-ink": "#1A1614",
-      "--cs-doc-slate": "#3F4C55",
+      "--cs-doc-slate": "#26323A",
       "--cs-doc-fill": "#FDE68A",
       "--cs-doc-fill-ink": "#1A1614"
+    },
+    "density": {
+      "--cs-density-space-1": "var(--cs-space-1)",
+      "--cs-density-space-2": "var(--cs-space-2)",
+      "--cs-density-space-3": "var(--cs-space-3)",
+      "--cs-density-space-4": "var(--cs-space-4)",
+      "--cs-density-space-5": "var(--cs-space-5)",
+      "--cs-density-space-6": "var(--cs-space-6)",
+      "--cs-density-control-gap": "var(--cs-component-button-gap)"
     }
   },
   "themes": {
@@ -215,18 +237,22 @@ export const tokens = {
       "--cs-color-surface-raised": "#2b1e14",
       "--cs-color-text-primary": "#f5ead9",
       "--cs-color-text-inverse": "#1a1108",
-      "--cs-color-text-accent": "#f4ba17",
-      "--cs-color-text-muted": "#c9b7a3",
+      "--cs-color-text-accent": "#FECD5D",
+      "--cs-color-text-muted": "#E9D6C2",
       "--cs-color-semantic-success": "#4ADE80",
-      "--cs-color-semantic-danger": "#F87171",
+      "--cs-color-semantic-danger": "#FC9895",
       "--cs-color-semantic-warning": "#FBBF24",
-      "--cs-color-semantic-info": "#7CB2FB",
+      "--cs-color-semantic-info": "#B5D4FD",
       "--cs-color-semantic-success-fg": "#1a1108",
       "--cs-color-semantic-danger-fg": "#1a1108",
       "--cs-color-semantic-warning-fg": "#1a1108",
       "--cs-color-semantic-info-fg": "#1a1108",
+      "--cs-color-semantic-success-text": "#68F798",
+      "--cs-color-semantic-danger-text": "#FFD2CF",
+      "--cs-color-semantic-warning-text": "#FFD887",
+      "--cs-color-semantic-info-text": "#C7DFFF",
       "--cs-color-border-default": "#4a3a2c",
-      "--cs-color-link": "#f4ba17",
+      "--cs-color-link": "#FECD5D",
       "--cs-color-link-hover": "#f5ead9",
       "--cs-component-button-primary-bg": "#f4ba17",
       "--cs-component-button-primary-fg": "#1a1108",
@@ -243,18 +269,22 @@ export const tokens = {
       "--cs-color-surface-raised": "#2b1e14",
       "--cs-color-text-primary": "#f5ead9",
       "--cs-color-text-inverse": "#1a1108",
-      "--cs-color-text-accent": "#f4ba17",
-      "--cs-color-text-muted": "#c9b7a3",
+      "--cs-color-text-accent": "#FECD5D",
+      "--cs-color-text-muted": "#E9D6C2",
       "--cs-color-semantic-success": "#4ADE80",
-      "--cs-color-semantic-danger": "#F87171",
+      "--cs-color-semantic-danger": "#FC9895",
       "--cs-color-semantic-warning": "#FBBF24",
-      "--cs-color-semantic-info": "#7CB2FB",
+      "--cs-color-semantic-info": "#B5D4FD",
       "--cs-color-semantic-success-fg": "#1a1108",
       "--cs-color-semantic-danger-fg": "#1a1108",
       "--cs-color-semantic-warning-fg": "#1a1108",
       "--cs-color-semantic-info-fg": "#1a1108",
+      "--cs-color-semantic-success-text": "#68F798",
+      "--cs-color-semantic-danger-text": "#FFD2CF",
+      "--cs-color-semantic-warning-text": "#FFD887",
+      "--cs-color-semantic-info-text": "#C7DFFF",
       "--cs-color-border-default": "#4a3a2c",
-      "--cs-color-link": "#f4ba17",
+      "--cs-color-link": "#FECD5D",
       "--cs-color-link-hover": "#f5ead9",
       "--cs-component-button-primary-bg": "#f4ba17",
       "--cs-component-button-primary-fg": "#1a1108",
@@ -269,29 +299,31 @@ export const tokens = {
   "elements": {
     "tho.sand": {
       "--cs-accent": "#F8E9C0",
-      "--cs-accent-strong": "#90825E",
+      "--cs-accent-strong": "#80724E",
       "--cs-accent-bright": "#F6EBCC",
       "--cs-accent-on": "#292414",
-      "--cs-accent-on-strong": "#1A1108",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#FBF7EA",
       "--cs-accent-ink": "#292414",
       "--cs-accent-glow": "rgba(248, 233, 192, 0.48)",
       "--cs-accent-grad-a": "#F8E9C0",
       "--cs-accent-grad-b": "#F3B958",
-      "--cs-color-text-accent": "#90825E",
-      "--cs-color-link": "#7B6D4A"
+      "--cs-color-text-accent": "#625431",
+      "--cs-color-link": "#625431"
     },
     "tho": {
       "--cs-accent": "#F4BA17",
-      "--cs-accent-strong": "#A47D17",
+      "--cs-accent-strong": "#916D10",
       "--cs-accent-bright": "#F4BA17",
       "--cs-accent-on": "#45210E",
-      "--cs-accent-on-strong": "#1A1108",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#FBF4E9",
       "--cs-accent-ink": "#45210E",
       "--cs-accent-glow": "rgba(244, 186, 23, 0.48)",
       "--cs-accent-grad-a": "#F4BA17",
-      "--cs-accent-grad-b": "#F3B958"
+      "--cs-accent-grad-b": "#F3B958",
+      "--cs-color-text-accent": "#6E3B0E",
+      "--cs-color-link": "#644A05"
     },
     "tho.clay": {
       "--cs-accent": "#513801",
@@ -309,31 +341,31 @@ export const tokens = {
     },
     "hoa.plasma": {
       "--cs-accent": "#FFE1D8",
-      "--cs-accent-strong": "#967C75",
+      "--cs-accent-strong": "#856E68",
       "--cs-accent-bright": "#FCE6DF",
       "--cs-accent-on": "#2C211E",
-      "--cs-accent-on-strong": "#1A1108",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#FEF4F2",
       "--cs-accent-ink": "#2C211E",
       "--cs-accent-glow": "rgba(255, 225, 216, 0.48)",
       "--cs-accent-grad-a": "#FFE1D8",
       "--cs-accent-grad-b": "#F4BA17",
-      "--cs-color-text-accent": "#967C75",
-      "--cs-color-link": "#846B64"
+      "--cs-color-text-accent": "#66504B",
+      "--cs-color-link": "#66504B"
     },
     "hoa": {
       "--cs-accent": "#FCAF91",
-      "--cs-accent-strong": "#B47054",
+      "--cs-accent-strong": "#A46146",
       "--cs-accent-bright": "#FED3C3",
       "--cs-accent-on": "#381B10",
-      "--cs-accent-on-strong": "#1A1108",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#FFF4F0",
       "--cs-accent-ink": "#381B10",
       "--cs-accent-glow": "rgba(252, 175, 145, 0.48)",
       "--cs-accent-grad-a": "#FCAF91",
       "--cs-accent-grad-b": "#F4BA17",
-      "--cs-color-text-accent": "#B47054",
-      "--cs-color-link": "#A15E43"
+      "--cs-color-text-accent": "#793B20",
+      "--cs-color-link": "#793B20"
     },
     "hoa.lava": {
       "--cs-accent": "#622B06",
@@ -351,31 +383,31 @@ export const tokens = {
     },
     "thuy.mist": {
       "--cs-accent": "#C0F5FC",
-      "--cs-accent-strong": "#5A8A90",
+      "--cs-accent-strong": "#4B7B81",
       "--cs-accent-bright": "#CDF4F9",
       "--cs-accent-on": "#13282B",
-      "--cs-accent-on-strong": "#1A1108",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#EBFAFC",
       "--cs-accent-ink": "#13282B",
       "--cs-accent-glow": "rgba(192, 245, 252, 0.48)",
       "--cs-accent-grad-a": "#C0F5FC",
       "--cs-accent-grad-b": "#A3D768",
-      "--cs-color-text-accent": "#5A8A90",
-      "--cs-color-link": "#48787E"
+      "--cs-color-text-accent": "#2E5E64",
+      "--cs-color-link": "#2E5E64"
     },
     "thuy": {
       "--cs-accent": "#2EDBF7",
-      "--cs-accent-strong": "#108EA0",
+      "--cs-accent-strong": "#0B7E8E",
       "--cs-accent-bright": "#99EEFF",
       "--cs-accent-on": "#012A30",
-      "--cs-accent-on-strong": "#1A1108",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#E7FBFF",
       "--cs-accent-ink": "#012A30",
       "--cs-accent-glow": "rgba(46, 219, 247, 0.48)",
       "--cs-accent-grad-a": "#2EDBF7",
       "--cs-accent-grad-b": "#A3D768",
-      "--cs-color-text-accent": "#108EA0",
-      "--cs-color-link": "#027B8B"
+      "--cs-color-text-accent": "#035763",
+      "--cs-color-link": "#035763"
     },
     "thuy.ocean": {
       "--cs-accent": "#004554",
@@ -393,31 +425,31 @@ export const tokens = {
     },
     "moc.bamboo": {
       "--cs-accent": "#E1F1C8",
-      "--cs-accent-strong": "#7C8965",
+      "--cs-accent-strong": "#6B7754",
       "--cs-accent-bright": "#E5F1D2",
       "--cs-accent-on": "#212617",
-      "--cs-accent-on-strong": "#1A1108",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#F4F9ED",
       "--cs-accent-ink": "#212617",
       "--cs-accent-glow": "rgba(225, 241, 200, 0.48)",
       "--cs-accent-grad-a": "#E1F1C8",
       "--cs-accent-grad-b": "#FCAF91",
-      "--cs-color-text-accent": "#7C8965",
-      "--cs-color-link": "#687451"
+      "--cs-color-text-accent": "#505C3A",
+      "--cs-color-link": "#505C3A"
     },
     "moc": {
       "--cs-accent": "#A3D768",
-      "--cs-accent-strong": "#629122",
+      "--cs-accent-strong": "#528003",
       "--cs-accent-bright": "#C5ED9C",
       "--cs-accent-on": "#182A00",
-      "--cs-accent-on-strong": "#1A1108",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#EFFCE3",
       "--cs-accent-ink": "#182A00",
       "--cs-accent-glow": "rgba(163, 215, 104, 0.48)",
       "--cs-accent-grad-a": "#A3D768",
       "--cs-accent-grad-b": "#FCAF91",
-      "--cs-color-text-accent": "#629122",
-      "--cs-color-link": "#517B13"
+      "--cs-color-text-accent": "#38570C",
+      "--cs-color-link": "#38570C"
     },
     "moc.forest": {
       "--cs-accent": "#1A4A01",
@@ -435,31 +467,31 @@ export const tokens = {
     },
     "kim.titanium": {
       "--cs-accent": "#FEE5C7",
-      "--cs-accent-strong": "#947F65",
+      "--cs-accent-strong": "#847058",
       "--cs-accent-bright": "#FBE8D2",
       "--cs-accent-on": "#2B2217",
-      "--cs-accent-on-strong": "#1A1108",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#FDF5ED",
       "--cs-accent-ink": "#2B2217",
       "--cs-accent-glow": "rgba(254, 229, 199, 0.48)",
       "--cs-accent-grad-a": "#FEE5C7",
       "--cs-accent-grad-b": "#2EDBF7",
-      "--cs-color-text-accent": "#947F65",
-      "--cs-color-link": "#826D54"
+      "--cs-color-text-accent": "#67543D",
+      "--cs-color-link": "#67543D"
     },
     "kim": {
       "--cs-accent": "#F3B958",
-      "--cs-accent-strong": "#AC780B",
+      "--cs-accent-strong": "#996A08",
       "--cs-accent-bright": "#FDD89F",
       "--cs-accent-on": "#312002",
-      "--cs-accent-on-strong": "#1A1108",
+      "--cs-accent-on-strong": "#FFFFFF",
       "--cs-accent-tint": "#FFF5E7",
       "--cs-accent-ink": "#312002",
       "--cs-accent-glow": "rgba(243, 185, 88, 0.48)",
       "--cs-accent-grad-a": "#F3B958",
       "--cs-accent-grad-b": "#2EDBF7",
-      "--cs-color-text-accent": "#AC780B",
-      "--cs-color-link": "#966700"
+      "--cs-color-text-accent": "#65460B",
+      "--cs-color-link": "#65460B"
     },
     "kim.steel": {
       "--cs-accent": "#503901",
@@ -474,6 +506,58 @@ export const tokens = {
       "--cs-accent-grad-b": "#2EDBF7",
       "--cs-color-text-accent": "#1F1400",
       "--cs-color-link": "#1F1400"
+    }
+  },
+  "densities": {
+    "compact": {
+      "--cs-density-space-1": "3px",
+      "--cs-density-space-2": "6px",
+      "--cs-density-space-3": "9px",
+      "--cs-density-space-4": "12px",
+      "--cs-density-space-5": "16px",
+      "--cs-density-space-6": "18px",
+      "--cs-density-control-gap": "6px",
+      "--cs-component-button-gap": "6px",
+      "--cs-component-button-xs-paddingY": "3px",
+      "--cs-component-button-xs-paddingX": "8px",
+      "--cs-component-button-sm-paddingY": "6px",
+      "--cs-component-button-sm-paddingX": "12px",
+      "--cs-component-button-md-paddingY": "10px",
+      "--cs-component-button-md-paddingX": "16px",
+      "--cs-component-button-lg-paddingY": "12px",
+      "--cs-component-button-lg-paddingX": "22px",
+      "--cs-component-textfield-paddingY": "8px",
+      "--cs-component-textfield-paddingX": "10px"
+    },
+    "comfortable": {
+      "--cs-density-space-1": "var(--cs-space-1)",
+      "--cs-density-space-2": "var(--cs-space-2)",
+      "--cs-density-space-3": "var(--cs-space-3)",
+      "--cs-density-space-4": "var(--cs-space-4)",
+      "--cs-density-space-5": "var(--cs-space-5)",
+      "--cs-density-space-6": "var(--cs-space-6)",
+      "--cs-density-control-gap": "var(--cs-component-button-gap)",
+      "--cs-component-button-gap": "8px",
+      "--cs-component-button-xs-paddingY": "4px",
+      "--cs-component-button-xs-paddingX": "10px",
+      "--cs-component-button-sm-paddingY": "8px",
+      "--cs-component-button-sm-paddingX": "14px",
+      "--cs-component-button-md-paddingY": "12px",
+      "--cs-component-button-md-paddingX": "20px",
+      "--cs-component-button-lg-paddingY": "16px",
+      "--cs-component-button-lg-paddingX": "28px",
+      "--cs-component-textfield-paddingY": "10px",
+      "--cs-component-textfield-paddingX": "12px"
+    }
+  },
+  "contrasts": {
+    "high-light": {
+      "--cs-color-border-default": "#9a8060",
+      "--cs-color-text-muted": "#45210E"
+    },
+    "high-dark": {
+      "--cs-color-border-default": "#7a6450",
+      "--cs-color-text-muted": "#F5EAD9"
     }
   }
 };

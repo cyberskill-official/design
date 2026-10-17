@@ -1,8 +1,12 @@
 import React from "react";
+import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Chart — token-colored SVG charts: bar | line | spark | pie. data: [{label,value}]. */
-export function Chart({ type = "bar", data = [], height = 160, color = "var(--cs-accent)", showValues = false, label, className }) {
+export function Chart({ type = "bar", data = [], height = 160, color = "var(--cs-accent)", showValues = false, label, lang, className }) {
+  const [ref, L] = useLang(lang);
+  const dataName = data.map((d) => d.label + ": " + d.value).join(", ");
+  const accessibleName = typeof label === "string" && label.trim() ? label : dataName || makeT("Chart", L)("empty");
   const W = 320, H = height, max = Math.max(1, ...data.map((d) => d.value));
   let body = null;
   if (type === "pie") {
@@ -12,6 +16,8 @@ export function Chart({ type = "bar", data = [], height = 160, color = "var(--cs
     body = (
       <svg viewBox="0 0 120 120" width={H} height={H} aria-hidden="true">
         {data.map((d, i) => {
+          if (d.value === 0) return null;
+          if (d.value === total) return <circle key={i} cx="60" cy="60" r="50" fill={cols[i % cols.length]} stroke="var(--cs-color-surface-panel)" strokeWidth="1.5" />;
           const a1 = a0 + (d.value / total) * Math.PI * 2;
           const large = a1 - a0 > Math.PI ? 1 : 0;
           const p = `M60 60 L${60 + 50 * Math.cos(a0)} ${60 + 50 * Math.sin(a0)} A50 50 0 ${large} 1 ${60 + 50 * Math.cos(a1)} ${60 + 50 * Math.sin(a1)} Z`;
@@ -40,7 +46,7 @@ export function Chart({ type = "bar", data = [], height = 160, color = "var(--cs
     );
   }
   return (
-    <figure className={cx("cs-chart", className)} role="img" aria-label={label || data.map((d) => d.label + ": " + d.value).join(", ")}>
+    <figure ref={ref} className={cx("cs-chart", className)} role="img" aria-label={accessibleName}>
       {body}
       {type !== "spark" ? (
         <figcaption className="cs-chart__legend">

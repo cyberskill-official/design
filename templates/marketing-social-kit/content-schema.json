@@ -3,6 +3,12 @@
   "template": "marketing-social-kit",
   "slots": [
     {
+      "id": "imagePlaceholder",
+      "type": "text",
+      "label": "Image authoring placeholder",
+      "maxLength": 80
+    },
+    {
       "id": "sqKicker",
       "type": "text",
       "label": "Square canvas eyebrow",

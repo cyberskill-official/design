@@ -128,6 +128,34 @@
     return bg && /rgb\(\s*253\s*,\s*230\s*,\s*138\s*\)/i.test(bg);
   }
 
+  function docxBackground(el) {
+    // Word has no CSS ancestor backgrounds. Preserve the flat color beneath
+    // each run, compositing translucent layers onto the document's white paper.
+    const element = el.nodeType === 3 ? el.parentElement : el;
+    const sheet = element?.closest?.('.cs-sheet');
+    const cell = element?.closest?.('td,th');
+    const ancestors = [];
+    for (let node = element; node; node = node.parentElement) {
+      ancestors.push(node);
+      if (node === sheet) break;
+    }
+    let rgb = [255, 255, 255];
+    let cellBackground = null;
+    for (const node of ancestors.reverse()) {
+      const bg = getComputedStyle(node).backgroundColor;
+      const match = bg && bg.match(/^rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)(?:\s*,\s*([\d.]+))?\s*\)$/);
+      if (!match) continue;
+      const alpha = match[4] == null ? 1 : Math.min(1, Math.max(0, Number(match[4])));
+      rgb = rgb.map((value, i) => Number(match[i + 1]) * alpha + value * (1 - alpha));
+      if (node === cell) cellBackground = rgb.slice();
+    }
+    const hex = rgb.map(value => Math.round(value).toString(16).padStart(2, '0')).join('').toUpperCase();
+    if (hex !== 'FFFFFF') return hex;
+    // A white child must paint over Word's shaded table cell, whereas an
+    // unshaded paragraph already uses white paper without an explicit fill.
+    return cellBackground?.some(value => Math.round(value) !== 255) ? hex : null;
+  }
+
   function rgbToHex(rgb) {
     const m = rgb && String(rgb).match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
     if (!m) return null;
@@ -176,7 +204,7 @@
       } else {
         nextColor = rgbToHex(st.color) || color;
       }
-      const nextFill = fill || (isDocFillColor(st.backgroundColor) ? DOC_FILL : null);
+      const nextFill = docxBackground(node);
       const nextSize = halfPt(st.fontSize) || size;
       const kids = [...node.childNodes];
       for (let i = 0; i < kids.length; i++) {
@@ -199,7 +227,11 @@
         }
       }
     };
-    walk(el, false, false, null, null, null);
+    const inherited = el.nodeType === 3 && el.parentElement ? getComputedStyle(el.parentElement) : null;
+    walk(el, inherited?.fontStyle === 'italic', inherited ? Number(inherited.fontWeight) >= 600 : false,
+      inherited ? rgbToHex(inherited.color) : null,
+      inherited ? docxBackground(el) : null,
+      inherited ? halfPt(inherited.fontSize) : null);
     const merged = [];
     for (const r of parts) {
       const prev = merged[merged.length - 1];
@@ -229,7 +261,10 @@
         if (r.bold) rPr.push('<w:b/>');
         if (r.italic) rPr.push('<w:i/>');
         if (r.color) rPr.push(`<w:color w:val="${r.color}"/>`);
-        if (r.fill) rPr.push(`<w:shd w:val="clear" w:fill="${r.fill}"/><w:highlight w:val="yellow"/>`);
+        if (r.fill) {
+          rPr.push(`<w:shd w:val="clear" w:fill="${r.fill}"/>`);
+          if (r.fill === DOC_FILL) rPr.push('<w:highlight w:val="yellow"/>');
+        }
         if (r.size) rPr.push(`<w:sz w:val="${r.size}"/><w:szCs w:val="${r.size}"/>`);
         rPr.push('<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>');
         const pr = rPr.length ? `<w:rPr>${rPr.join('')}</w:rPr>` : '';
@@ -259,13 +294,78 @@
     return `<w:p>${pPrXml(el, style)}${runsToXml(runs)}</w:p>`;
   }
 
-  function cellInnerXml(cell, fillWhite) {
+  function listContentXml(container, bag, depth, numbering = null, fillWhite = false) {
+    let xml = '', pending = [], numbered = false;
+    const flush = (force = false) => {
+      if (!pending.some(r => r.t.trim()) && !force) { pending = []; return; }
+      const num = numbering && !numbered ? `<w:numPr><w:ilvl w:val="${depth}"/><w:numId w:val="${numbering}"/></w:numPr>` : '';
+      const indent = numbering ? `<w:ind w:left="${(depth + 1) * 360}"${num ? ' w:hanging="180"' : ''}/>` : '';
+      const runs = fillWhite ? pending.map(r => ({...r,color:r.color || 'FFFFFF'})) : pending;
+      xml += `<w:p><w:pPr>${num}${indent}</w:pPr>${runsToXml(runs)}</w:p>`;
+      pending = []; numbered = true;
+    };
+    const visit = nodes => {
+      for (const node of nodes) {
+        if (node.nodeType === 3) { pending.push(...textRuns(node)); continue; }
+        if (node.nodeType !== 1 || isChrome(node)) continue;
+        const tag = node.tagName.toLowerCase();
+        if (tag === 'ul' || tag === 'ol') {
+          flush(!!numbering && !numbered);
+          xml += listXml(node, bag, numbering ? depth + 1 : depth, fillWhite);
+        } else if (tag === 'table') {
+          flush(!!numbering && !numbered); xml += tableXml(node, bag);
+        } else if (/^(div|section|p|h[1-6])$/.test(tag) || node.querySelector('ul,ol')) {
+          flush(); visit([...node.childNodes]); flush();
+        } else pending.push(...textRuns(node));
+      }
+    };
+    visit([...container.childNodes]); flush(!!numbering && !numbered);
+    return xml || '<w:p/>';
+  }
+
+  function listXml(list, bag, depth = 0, fillWhite = false) {
+    if (depth > 8) throw new Error('DOCX supports at most nine nested list levels');
+    const ordered = list.tagName.toLowerCase() === 'ol';
+    const items = [...list.children].filter(n => n.tagName.toLowerCase() === 'li');
+    const style = getComputedStyle(list).listStyleType;
+    const formats = {decimal:'decimal','decimal-leading-zero':'decimalZero','lower-alpha':'lowerLetter','lower-latin':'lowerLetter','upper-alpha':'upperLetter','upper-latin':'upperLetter','lower-roman':'lowerRoman','upper-roman':'upperRoman',disc:'bullet',circle:'bullet',square:'bullet',none:'none'};
+    const format = formats[style];
+    if (!format) throw new Error('Unsupported DOCX list style: ' + style);
+    const reversed = ordered && list.hasAttribute('reversed');
+    let value = ordered && list.hasAttribute('start') ? list.start : reversed ? items.length : 1;
+    let id;
+    const register = start => {
+      const id = bag.numbering.length + 1;
+      bag.numbering.push({id,depth,start,format,marker:style==='circle'?'○':style==='square'?'▪':'•'});
+      return id;
+    };
+    return items.map((item,index) => {
+      const reset = ordered && item.hasAttribute('value');
+      if (reset) value = item.value;
+      if (!index || reset || reversed) id = register(value);
+      const xml = listContentXml(item,bag,depth,id,fillWhite);
+      value += reversed ? -1 : 1;
+      return xml;
+    }).join('');
+  }
+
+  function numberingXml(records) {
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:numbering xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">` +
+      records.map(r => `<w:abstractNum w:abstractNumId="${r.id}"><w:multiLevelType w:val="multilevel"/>` +
+        Array.from({length:9},(_,level)=>`<w:lvl w:ilvl="${level}"><w:start w:val="1"/><w:numFmt w:val="${r.format}"/><w:lvlText w:val="${r.format==='bullet'?r.marker:r.format==='none'?'':'%'+(level+1)+'.'}"/><w:lvlJc w:val="left"/><w:pPr><w:tabs><w:tab w:val="num" w:pos="${(level+1)*360}"/></w:tabs><w:ind w:left="${(level+1)*360}" w:hanging="180"/></w:pPr></w:lvl>`).join('') + '</w:abstractNum>').join('') +
+      records.map(r=>`<w:num w:numId="${r.id}"><w:abstractNumId w:val="${r.id}"/><w:lvlOverride w:ilvl="${r.depth}"><w:startOverride w:val="${r.start}"/></w:lvlOverride></w:num>`).join('') + '</w:numbering>';
+  }
+
+  function cellInnerXml(cell, fillWhite, bag) {
+    if (cell.matches('ul,ol')) return listXml(cell,bag,0,fillWhite);
+    if (cell.querySelector('ul,ol')) return listContentXml(cell,bag,0,null,fillWhite);
     const blocks = [...cell.children].filter((c) =>
       /^(DIV|P|UL|OL|H1|H2|H3|H4|H5|H6)$/.test(c.tagName),
     );
     const paint = (runs) =>
       runs.map((r) => (fillWhite ? { ...r, color: r.color || 'FFFFFF' } : r));
-    if (blocks.length && blocks.length === cell.children.length) {
+    if (blocks.length && blocks.length === cell.children.length &&
+        ![...cell.childNodes].some(node => node.nodeType === 3 && node.textContent.trim())) {
       const paras = blocks
         .map((b) => {
           const runs = paint(textRuns(b));
@@ -278,22 +378,48 @@
   }
 
   function cellColSpan(cell) {
-    return Math.max(1, Number(cell.getAttribute('colspan')) || 1);
+    return cell.colSpan;
   }
 
-  function rowColCount(tr) {
-    return [...tr.children].reduce((n, c) => n + cellColSpan(c), 0);
+  function tableLayout(rows) {
+    let group = null, active = [];
+    return rows.map((row, index) => {
+      if (row.parentElement !== group) { group = row.parentElement; active = []; }
+      active = active.filter(entry => entry.end >= index);
+      const entries = active.map(entry => ({...entry, continuation:true}));
+      const occupied = new Set(entries.flatMap(e => Array.from({length:e.span},(_,i)=>e.column+i)));
+      let column = 0;
+      for (const cell of row.cells) {
+        while (occupied.has(column)) column++;
+        const span = cellColSpan(cell);
+        for (let i=0;i<span;i++) {
+          if (occupied.has(column+i)) throw new Error('Overlapping HTML table spans cannot be exported to DOCX');
+          occupied.add(column+i);
+        }
+        let available = 1;
+        while (rows[index+available]?.parentElement === group) available++;
+        const height = cell.rowSpan === 0 ? available : Math.min(cell.rowSpan, available);
+        const entry = {cell,column,span,height,end:index+height-1,continuation:false};
+        entries.push(entry);
+        if (height > 1) active.push(entry);
+        column += span;
+      }
+      return entries.sort((a,b)=>a.column-b.column);
+    });
   }
 
-  function tableXml(table) {
-    const rows = [...table.querySelectorAll(':scope > tbody > tr, :scope > thead > tr, :scope > tr')];
+  function tableXml(table, bag) {
+    // HTMLTableElement.rows provides header/body/footer order even when tfoot
+    // precedes tbody in source, and excludes rows belonging to nested tables.
+    const rows = [...table.rows];
     if (!rows.length) return '';
-    const gridCols = Math.max(...rows.map(rowColCount), 1);
+    const layout = tableLayout(rows);
+    const gridCols = Math.max(...layout.flat().map(e=>e.column+e.span), 1);
     let colWidths;
     if (gridCols === 2) {
       const tableW = table.getBoundingClientRect().width || 1;
-      const sample = rows.find((r) => r.children.length >= 2) || rows[0];
-      const c0 = sample && sample.children[0];
+      const sample = rows.find((r) => r.cells.length >= 2) || rows[0];
+      const c0 = sample && sample.cells[0];
       const ratio = c0 ? c0.getBoundingClientRect().width / tableW : 0.28;
       const col0 = Math.round(9000 * Math.min(0.42, Math.max(0.18, ratio)));
       colWidths = [col0, 9000 - col0];
@@ -302,7 +428,6 @@
       colWidths = Array.from({ length: gridCols }, () => even);
     }
     const gridColsXml = colWidths.map((w) => `<w:gridCol w:w="${w}"/>`).join('');
-    const colW = colWidths[0];
     let xml = `<w:tbl><w:tblPr><w:tblW w:w="5000" w:type="pct"/><w:tblBorders>
       <w:top w:val="single" w:sz="4" w:color="C9B8A8"/>
       <w:left w:val="single" w:sz="4" w:color="C9B8A8"/>
@@ -311,22 +436,31 @@
       <w:insideH w:val="single" w:sz="4" w:color="C9B8A8"/>
       <w:insideV w:val="single" w:sz="4" w:color="C9B8A8"/>
     </w:tblBorders></w:tblPr><w:tblGrid>${gridColsXml}</w:tblGrid>`;
-    for (const tr of rows) {
+    const emptyCell = (column, span) => {
+      const width = colWidths.slice(column,column+span).reduce((a,b)=>a+b,0);
+      return `<w:tc><w:tcPr><w:tcW w:w="${width}" w:type="dxa"/>${span>1?`<w:gridSpan w:val="${span}"/>`:''}</w:tcPr><w:p/></w:tc>`;
+    };
+    for (const entries of layout) {
       xml += '<w:tr>';
-      for (const cell of tr.children) {
+      let nextColumn = 0;
+      for (const entry of entries) {
+        const {cell,column,span,continuation,height} = entry;
+        if (column > nextColumn) xml += emptyCell(nextColumn,column-nextColumn);
+        nextColumn = column + span;
         const bg = window.getComputedStyle(cell).backgroundColor;
         const umberFill = bg && /rgb\(\s*69\s*,\s*33\s*,\s*14\s*\)/.test(bg);
         const yellowFill = isDocFillColor(bg);
-        const span = cellColSpan(cell);
         const spanXml = span > 1 ? `<w:gridSpan w:val="${span}"/>` : '';
         const fillXml = umberFill
           ? `<w:shd w:val="clear" w:fill="${UMBER}"/>`
           : yellowFill
             ? `<w:shd w:val="clear" w:fill="${DOC_FILL}"/>`
             : '';
-        const tw = colWidths.slice(0, span).reduce((n, w) => n + w, 0);
-        xml += `<w:tc><w:tcPr>${fillXml}${spanXml}<w:tcW w:w="${tw}" w:type="dxa"/></w:tcPr>${cellInnerXml(cell, umberFill)}</w:tc>`;
+        const tw = colWidths.slice(column, column + span).reduce((n, w) => n + w, 0);
+        const mergeXml = continuation ? '<w:vMerge w:val="continue"/>' : height > 1 ? '<w:vMerge w:val="restart"/>' : '';
+        xml += `<w:tc><w:tcPr><w:tcW w:w="${tw}" w:type="dxa"/>${spanXml}${mergeXml}${fillXml}</w:tcPr>${continuation ? '<w:p/>' : cellInnerXml(cell, umberFill, bag)}</w:tc>`;
       }
+      if (nextColumn < gridCols) xml += emptyCell(nextColumn,gridCols-nextColumn);
       xml += '</w:tr>';
     }
     xml += '</w:tbl>';
@@ -341,13 +475,27 @@
     return parts.length >= 2 ? parts.length : 0;
   }
 
-  function gridAsTable(el) {
+  function gridAsTable(el, bag) {
     const cols = gridColCount(el);
     if (!cols) return '';
     const kids = [...el.children].filter((c) => c.nodeType === 1 && !isChrome(c));
     if (kids.length < 2) return '';
-    const colW = Math.floor(9000 / cols);
-    const gridColsXml = Array.from({ length: cols }, () => `<w:gridCol w:w="${colW}"/>`).join('');
+    // Preserve numeric, browser-resolved track proportions; other track syntax
+    // keeps the historical equal-column fallback. This does not model spans.
+    const tracks = window.getComputedStyle(el).gridTemplateColumns.trim().split(/\s+/);
+    const pixels = tracks.map(track => /^\d+(?:\.\d+)?px$/.test(track) ? parseFloat(track) : NaN);
+    const total = pixels.reduce((sum, value) => sum + value, 0);
+    let colWidths = Array.from({ length: cols }, () => Math.floor(9000 / cols));
+    if (pixels.length === cols && pixels.every(Number.isFinite) && total > 0) {
+      const scaled = pixels.map(value => 9000 * value / total);
+      colWidths = scaled.map(Math.floor);
+      const remainder = 9000 - colWidths.reduce((sum, value) => sum + value, 0);
+      const ranked = scaled.map((value, index) => ({ index, fraction: value - colWidths[index] }))
+        .filter(({ index }) => pixels[index] > 0)
+        .sort((a, b) => b.fraction - a.fraction || a.index - b.index);
+      for (let i = 0; i < remainder; i++) colWidths[ranked[i].index] += 1;
+    }
+    const gridColsXml = colWidths.map(width => `<w:gridCol w:w="${width}"/>`).join('');
     let xml = `<w:tbl><w:tblPr><w:tblW w:w="5000" w:type="pct"/><w:tblBorders>
       <w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/>
       <w:insideH w:val="nil"/><w:insideV w:val="nil"/>
@@ -356,8 +504,8 @@
       xml += '<w:tr>';
       for (let c = 0; c < cols; c++) {
         const src = kids[i + c];
-        const inner = src ? cellInnerXml(src, false) : `<w:p>${runsToXml([])}</w:p>`;
-        xml += `<w:tc><w:tcPr><w:tcW w:w="${colW}" w:type="dxa"/></w:tcPr>${inner}</w:tc>`;
+        const inner = src ? cellInnerXml(src, false, bag) : `<w:p>${runsToXml([])}</w:p>`;
+        xml += `<w:tc><w:tcPr><w:tcW w:w="${colWidths[c]}" w:type="dxa"/></w:tcPr>${inner}</w:tc>`;
       }
       xml += '</w:tr>';
     }
@@ -472,6 +620,7 @@
   }
 
   async function flexAsTable(el, bag) {
+    if (el.querySelector('ul,ol')) return '';
     const st = window.getComputedStyle(el);
     if (st.display !== 'flex' && st.display !== 'inline-flex') return '';
     const dir = st.flexDirection || 'row';
@@ -512,9 +661,14 @@
     const blocks = [];
     const visit = async (nodes) => {
       for (const el of nodes) {
+        if (el.nodeType === 3) {
+          if (el.textContent.trim()) blocks.push(`<w:p>${pPrXml(el.parentElement)}${runsToXml(textRuns(el))}</w:p>`);
+          continue;
+        }
         if (el.nodeType !== 1) continue;
         if (isChrome(el)) continue;
         const tag = el.tagName.toLowerCase();
+        if (tag === 'ul' || tag === 'ol') { blocks.push(listXml(el,bag)); continue; }
         const svg = findSvg(el);
         if (svg && (tag === 'svg' || !textRuns(el).length)) {
           const drawing = await addSvgPng(svg, bag);
@@ -522,14 +676,14 @@
           continue;
         }
         if (tag === 'table') {
-          blocks.push(tableXml(el));
+          blocks.push(tableXml(el, bag));
           continue;
         }
         if (/^h[1-6]$/.test(tag)) {
           blocks.push(paraXml(el, tag === 'h1' ? 'Heading1' : 'Heading2'));
           continue;
         }
-        const gridXml = gridAsTable(el);
+        const gridXml = gridAsTable(el, bag);
         if (gridXml) {
           blocks.push(gridXml);
           continue;
@@ -544,23 +698,19 @@
             /^(DIV|TABLE|SECTION|UL|OL|H1|H2|H3|H4|H5|H6|X-IMPORT)$/.test(c.tagName),
           );
           if (hasBlock && tag !== 'p') {
-            await visit([...el.children]);
+            await visit([...el.childNodes]);
           } else {
             const px = paraXml(el);
             if (px) blocks.push(px);
           }
           continue;
         }
-        if (tag === 'ul' || tag === 'ol') {
-          await visit([...el.children]);
-          continue;
-        }
         const leftover = paraXml(el);
         if (leftover) blocks.push(leftover);
-        else await visit([...el.children]);
+        else await visit([...el.childNodes]);
       }
     };
-    await visit([...sheet.children]);
+    await visit([...sheet.childNodes]);
     return blocks.filter(Boolean).join('');
   }
 
@@ -574,7 +724,7 @@
     const page = pageSizeFromCss();
     const enc = new TextEncoder();
     const { header, footer } = headerFooterText();
-    const bag = { media: [] };
+    const bag = { media: [], numbering: [] };
     const body = await sheetBodyXml(sheet, bag);
 
     const pngDefault = bag.media.length
@@ -585,6 +735,7 @@
   <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
   <Default Extension="xml" ContentType="application/xml"/>${pngDefault}
   <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
+  <Override PartName="/word/numbering.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.numbering+xml"/>
   <Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>
   <Override PartName="/word/header1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml"/>
   <Override PartName="/word/footer1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/>
@@ -606,6 +757,7 @@
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
   <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/header" Target="header1.xml"/>
   <Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer1.xml"/>
+<Relationship Id="rIdNumbering" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering" Target="numbering.xml"/>
 ${mediaRels}
 </Relationships>`;
 
@@ -658,6 +810,7 @@ ${mediaRels}
       { name: 'word/document.xml', bytes: enc.encode(documentXml) },
       { name: 'word/_rels/document.xml.rels', bytes: enc.encode(docRels) },
       { name: 'word/styles.xml', bytes: enc.encode(styles) },
+      { name: 'word/numbering.xml', bytes: enc.encode(numberingXml(bag.numbering)) },
       { name: 'word/header1.xml', bytes: enc.encode(headerXml) },
       { name: 'word/footer1.xml', bytes: enc.encode(footerXml) },
       ...bag.media.map((m) => ({ name: m.name, bytes: m.bytes })),
@@ -1090,6 +1243,9 @@ ${mediaRels}
       [data-cs-export="menu"][hidden]{display:none!important}
       [data-cs-export="menu"] button{
         display:block;width:100%;border:0;border-radius:6px;box-shadow:none;text-align:left;font-weight:650;
+      }
+      @media (pointer: coarse){
+        [data-omelette-chrome="export"] button{min-width:44px;min-height:44px}
       }
       @media print{
         [data-omelette-chrome="export"],[data-omelette-chrome="export-style"]{display:none!important}

@@ -7,6 +7,7 @@ export interface StepItem { title: ReactNode; body?: ReactNode; n?: ReactNode; }
  *  render done (umber check), `current` is active (ochre), the rest are to-do. */
 export interface StepsProps {
   steps: StepItem[];
+  /** Zero-based active index; steps.length marks every item done. Exposed as aria-current="step". */
   current?: number;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;

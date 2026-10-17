@@ -5,6 +5,7 @@ export default {
   component: AIDisclosureBadge,
   tags: ['autodocs'],
   argTypes: {
+  lang: { control: "select", options: [undefined, "en", "vi"] },
   "label": {
     "control": "text"
   },

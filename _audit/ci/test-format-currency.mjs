@@ -1,28 +1,18 @@
-#!/usr/bin/env node
-/**
- * FIND-025 — formatCurrency currency independent of language.
- */
-import { formatCurrency } from '../../components/_i18n/i18n.js';
-
-function assert(cond, msg) {
-  if (!cond) throw new Error(msg);
-}
-
-assert(formatCurrency(null, 'en') === '', 'null → empty');
-assert(formatCurrency(NaN, 'vi') === '', 'NaN → empty');
-
-// Legacy string-lang shape (unchanged presentation class)
-const enLegacy = formatCurrency(1234567, 'en');
-const viLegacy = formatCurrency(1234567, 'vi');
-assert(enLegacy.startsWith('$') && enLegacy.includes('1,234,567'), 'legacy EN USD-style: ' + enLegacy);
-assert(viLegacy.includes('₫') && /1\.234\.567/.test(viLegacy), 'legacy VI VND-style: ' + viLegacy);
-
-// Explicit currency ≠ language
-const vndEn = formatCurrency(1234567, { currency: 'VND', locale: 'en-US' });
-const usdVi = formatCurrency(1234567, { currency: 'USD', locale: 'vi-VN' });
-assert(/VND|₫|₫/.test(vndEn) || vndEn.includes('1,234,567'), 'VND in EN locale: ' + vndEn);
-assert(/USD|US\$|\$/.test(usdVi), 'USD in VI locale: ' + usdVi);
-assert(vndEn !== enLegacy || true, 'explicit path exercised');
-assert(!usdVi.startsWith('$') || usdVi.includes('USD') || /1[.,]234[.,]567/.test(usdVi), 'usdVi shaped: ' + usdVi);
-
-console.log('PASS test-format-currency', { enLegacy, viLegacy, vndEn, usdVi });
+// Explicit currency is independent of display language (TASK-IMP-015/F21).
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {formatCurrency} from '../../components/_i18n/i18n.js';
+import {verifyCurrencyContract} from '../lib/currency-contract.mjs';
+const fixtures = JSON.parse(readFileSync(new URL('../../examples/native/verification/locale-formatting.json',import.meta.url)));
+const cases = verifyCurrencyContract(formatCurrency,fixtures);
+// Prove the same assertion set detects ignored currency and language/locale
+// conflation. The old test accepted the always-USD implementation.
+const mutants = [
+  (amount,options)=>formatCurrency(amount,typeof options==='object' && options?.currency?{...options,currency:'USD'}:options),
+  (amount,options)=>formatCurrency(amount,typeof options==='object' && options?.currency?{...options,currency:'VND'}:options),
+  (amount,options)=>formatCurrency(amount,typeof options==='object' && options?.currency?{...options,locale:'en-US'}:options),
+  (amount,options)=>formatCurrency(amount,typeof options==='object' && options?.currency?{...options,locale:'vi-VN'}:options),
+  (amount,options)=>formatCurrency(amount,typeof options==='object' && options?.currency?{...options,currency:options.lang==='vi'?'VND':'USD'}:options),
+];
+for (const mutant of mutants) assert.throws(()=>verifyCurrencyContract(mutant,fixtures),assert.AssertionError);
+console.log(`PASS currency contract: ${cases} explicit/legacy/invalid cases; ${mutants.length} ignored-currency/locale-conflation mutants rejected.`);

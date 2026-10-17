@@ -1,8 +1,8 @@
 # Template content-schema v2 — typed content slots
 
-Purely additive, opt-in metadata: a sidecar `templates/<slug>/content-schema.json` next to a template's `.dc.html`, declaring the **type** of each `{{ hole }}` already in the template — so an agent or pipeline can populate/validate real client content programmatically without parsing HTML or guessing. Published on Storybook **Docs** at `design.cyberskill.world`.
+Purely additive, opt-in metadata: a sidecar `templates/<slug>/content-schema.json` next to a template's `.dc.html`, declaring the **type** of each `{{ hole }}` already in the template — so an agent can identify source content holes and their metadata before editing a template. The sidecar does not itself bind supplied values to the runtime. Published on Storybook **Docs** at `design.cyberskill.world`.
 
-**Zero template-markup changes required.** The slot `id` is the hole name already used in the `.dc.html` (e.g. `{{ heroH }}`) and already bound in the logic class's `renderVals()` — the schema just describes it.
+**Adding metadata requires no template-markup changes.** The slot `id` is the hole name already used in the `.dc.html` (e.g. `{{ heroH }}`) and already bound in the logic class's `renderVals()` — the schema just describes it.
 
 ## Shape
 
@@ -45,4 +45,24 @@ Those are runtime axes, not typed content slots, and stay out of schema.
 
 This shipped **intentionally incomplete** at first: three exemplars (one per major archetype) proved the pattern end-to-end — `marketing-page` (product), `bod-report` (document), `slide-deck` (deck) — and it was then swept across hole-driven templates.
 
-That sweep is now **finished and locked**. As of Jul 2026 the split is **39 content-hole-driven templates, all 39 with a sidecar**, and **45 templates that expose only axis/boolean holes** (bilingual copy hardcoded per `sc-if` branch), which correctly omit one. `_audit/template-schema-test.html` no longer merely reports this — it **fails** if any template exposing a content hole lacks a sidecar. So the rule for authors is mechanical: a template that gains an authorable `{{ hole }}` gains a sidecar in the same change, or the board goes red.
+That sweep is now **finished and locked**. At the current source inventory the split is **40 content-hole-driven templates, all 40 with a sidecar**, and **45 templates that expose only axis/boolean holes** (content is authored directly in the template; language support follows each template’s contract), which correctly omit one. `_audit/template-schema-test.html` no longer merely reports this — it **fails** if any template exposing a content hole lacks a sidecar. So the rule for authors is mechanical: a template that gains an authorable `{{ hole }}` gains a sidecar in the same change, or the board goes red.
+
+The gate uses a generated draft-07 validator compiled by pinned Ajv during maintenance, not runtime compilation. Unknown properties and malformed translations fail according to the formal schema; duplicate slot ids also fail. Run `npm run build:content-schema-validator` after schema edits and `npm run test:content-schema` to check all sidecars, browser CSP compatibility and failure paths. Schema validity describes metadata, not export fidelity or approval of business content.
+
+## Source slots and runtime props
+
+The current 40 sidecars describe 512 source-content slots. None is a declared
+`data-props` runtime input. For example, App shell declares `language`, `element`
+and `theme`; its `h1` slot is computed by `renderVals()`. The runtime combines
+props with computed values, with computed values taking precedence. Passing
+`{h1: "Custom title"}` to `__dcSetProps` therefore does not customize that heading.
+
+Agents should read the sidecar, locate the corresponding source hole and
+`renderVals()` value or localized content, then edit the authorized source and
+verify both preview and export. Keep language variants aligned and obtain the
+proper content-owner approval for substantive business/legal changes. Use only
+declared runtime props as candidate controls, and test their actual effect.
+The internal template inventory records this distinction per slot; metadata
+validation does not validate client payloads, sanitize rich text, or enforce
+`maxLength` in the DC runtime. A generic content-injection API would be a new
+public contract requiring explicit binding, validation and precedence rules.

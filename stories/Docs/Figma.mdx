@@ -8,7 +8,6 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 - Design tokens in CSS + DTCG (`tokens/tokens.dtcg.json`) with native Swift/Kotlin/Flutter mirrors
 - UI kits under `ui_kits/` — Thổ-faithful HTML recreations
-- **Code Connect** mappings for public primaries (`components/**/*.figma.tsx`)
 
 ## Tokens Studio (recommended hand-sync)
 
@@ -23,9 +22,5 @@ Until the design org is on Figma Enterprise (Variables REST), treat **code → d
 ## Automated colour push (maintainers)
 
 CI can push **colour** leaves from DTCG into a Figma local variable collection when `FIGMA_TOKEN` + `FIGMA_FILE_KEY` are present and the PAT has Variables scopes (**Enterprise**). Non-Enterprise plans soft-skip; Tokens Studio remains the default path.
-
-## Code Connect
-
-Publish mappings are wired with soft-skip when secrets or published library nodes are missing. Fill `code-connect/node-map.json` when real library components exist.
 
 Maintainer depth (secrets, scopes, checklists): `docs/figma.md`.

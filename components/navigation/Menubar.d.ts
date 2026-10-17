@@ -1,3 +1,4 @@
+/** Keyboard arrows navigate named submenus and restore focus on Escape. */
 import type { ReactNode } from "react";
 
 /** App-style horizontal menu bar; hover switches menus while one is open. */

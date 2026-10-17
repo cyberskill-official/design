@@ -19,7 +19,7 @@ When anything grows — element/variant, icon, component, token role, language, 
 | **Language** | `lang` | EN · VI copy |
 | **Style** | `data-cs-style` | sole pack **liquid-glass** (absent ≡ default) |
 
-Immutable under all axes: Umber/Ochre anchors, voice, type families, semantic status colors, the 3px Ochre focus ring, APCA floors, ≥44px targets.
+Immutable under all axes: Umber/Ochre anchors, voice, type families, semantic status colors, the composite focus indicator (theme-aware text-primary contour + Ochre halo), APCA floors, ≥44px targets.
 
 ## Naming
 
@@ -30,14 +30,14 @@ Immutable under all axes: Umber/Ochre anchors, voice, type families, semantic st
 ## Quick checklists
 
 - **New component** — `.jsx` + `.d.ts` + `.prompt.md`; resolve bundle namespace by prefix; tokens only (no hex outside `tokens/`)
-- **New template** — `templates/<slug>/` with `ds-base.js` path rebind; mount via `CyberSkillDS.…`; bilingual EN·VN
-- **Ship** — compiler clean + Status gate board green + docs consistency
+- **New template** — `templates/<slug>/` with `ds-base.js` path rebind; mount via `CyberSkillDS.…`; declare supported language/theme controls and documented static-content boundaries
+- **Verify** — compiler clean + Status gate board + docs consistency, with scope and exclusions recorded. Product visual review, manual accessibility evidence and operator authorization for push, deploy or merge remain separate
 
 ## Decision highlights
 
 - Axes are Theme × Element × Language × Style
 - Text never sits on the mid-tone `-accent`
 - Namespace is resolved, never hardcoded
-- Language variants render fully separated (EN or VI — not mixed)
+- Where language switching is supported, selectable variants render fully separated. Static stacked bilingual documents are recorded separately in the template inventory
 
 Canonical long form: `docs/conventions.md`. Voice summary: **Docs → Voice & Language**. Axes walkthrough: **Docs → The Four Axes**.

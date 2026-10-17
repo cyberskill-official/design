@@ -16,11 +16,12 @@
   #sum{font-family:system-ui;font-size:14px;font-weight:800;margin:10px 0}
 </style></head><body>
 <h1>Language overflow audit — every template forced to Tiếng Việt @ mobile 390</h1>
-<p class="lede">Whole-set language pass (owner doctrine: language gets its OWN pass). Fresh single-navigation iframe per template — race-free, mirroring <code>responsive-overflow.html</code> — then <code>__dcSetProps(root,{language:"Tiếng Việt"})</code>, settle, and measure. Fails if VN introduces document horizontal overflow (<code>over</code>) or clips text inside a fixed-height/nowrap box (<code>clip</code> — the real VN risk: diacritics + longer strings). ⚑ = VN did not apply (no Language tweak reached). ◇ = canvas deck/social (scrolls inside <code>.cs-canvas-desk</code>; 0 document overflow).</p>
+<p class="lede">Whole-set language pass (owner doctrine: language gets its OWN pass). A bounded single-navigation iframe waits for the mounted template, stylesheet imports and fonts, then <code>__dcSetProps(root,{language:"Tiếng Việt"})</code>, settle, and measure. Fails if VN introduces document horizontal overflow (<code>over</code>) or clips text inside a fixed-height/nowrap box (<code>clip</code> — the real VN risk: diacritics + longer strings). Switchable templates must visibly apply Vietnamese; static-content templates are counted separately. Loading and measurement errors fail the gate. ◇ = canvas deck/social (scrolls inside <code>.cs-canvas-desk</code>; 0 document overflow).</p>
 <div id="busy">loading manifest…</div>
 <div class="grid" id="grid"></div>
 <div id="sum"></div>
 <div id="pool"></div>
+<script src="./lib/frame-probe.js"></script>
 <script>
 const W=390, GROUP=5, BOOT_TRIES=45, BOOT_STEP=120, RENDER=1500, SETTLE=1000;
 const DIA=/[ăâđêôơưĂÂĐÊÔƠƯàáảãạằắẳẵặầấẩẫậèéẻẽẹềếểễệìíỉĩịòóỏõọồốổỗộờớởỡợùúủũụừứửữựỳýỷỹỵ]/;
@@ -48,31 +49,20 @@ function measure(doc){
       const hClip=(ox==='hidden'||o==='hidden') && cs.whiteSpace==='nowrap' && (el.scrollWidth-el.clientWidth)>3;
       if(vClip||hClip){ clip++; if(!clipEx) clipEx=el.tagName.toLowerCase()+' "'+(el.innerText||'').slice(0,30).replace(/\s+/g,' ').trim()+'"'; }
     }
-  }catch(e){ clipEx='ERR '+String(e).slice(0,40); }
+  }catch(e){ return {error:'Measurement failed: '+String(e),over:0,canvas:false,vn:false,clip:0,leaks:[]}; }
   return {over,canvas,vn,clip,clipEx,leaks};
 }
 function probeOne(src){
-  return new Promise(res=>{
-    const f=document.createElement('iframe');
-    f.style.cssText='width:'+W+'px;height:1100px;border:0;display:block';
-    f.src=src; pool.appendChild(f);
-    f.onload=async()=>{
-      const win=f.contentWindow;
-      try{ await f.contentDocument.fonts.ready; }catch(e){}
-      for(let i=0;i<BOOT_TRIES && !(win.__dcRootName && win.__dcRootName());i++) await wait(BOOT_STEP);
-      let forced=false;
-      try{
-        const root=win.__dcRootName && win.__dcRootName();
-        if(win.__dcSetProps && root){ win.__dcSetProps(root,{language:'Tiếng Việt'}); forced=true; }
-      }catch(e){}
-      await wait(forced?RENDER:SETTLE);
-      const m=measure(f.contentDocument); m.forced=forced;
-      f.remove(); res(m);
-    };
-  });
+  return csProbeFrame(src,{parent:pool,width:W,measure:async({doc,win,rootName,props,wait})=>{
+    const expectsLanguage=!!props.language?.options?.includes('Tiếng Việt');
+    if(expectsLanguage)win.__dcSetProps(rootName,{language:'Tiếng Việt'});
+    await wait(expectsLanguage?RENDER:SETTLE);
+    return {...measure(doc),forced:expectsLanguage,expectsLanguage,languageMode:expectsLanguage?'switchable':'static-content'};
+  }});
 }
 (async()=>{
   const M=await (await fetch('../_ds_manifest.json')).json();
+  if(!Array.isArray(M.templates)||!M.templates.length)throw new Error('Manifest contains no templates');
   const tpls=M.templates.map(t=>({name:t.name,src:'../'+t.entryPath}));
   busy.textContent='forcing Tiếng Việt on '+tpls.length+' templates in groups of '+GROUP+'…';
   for(let i=0;i<tpls.length;i+=GROUP){
@@ -80,13 +70,14 @@ function probeOne(src){
     const measured=await Promise.all(batch.map(t=>probeOne(t.src)));
     batch.forEach((t,j)=>{
       const m=measured[j];
-      const fail=m.over>0 || m.clip>0 || (m.leaks&&m.leaks.length>0);
+      const fail=!!m.error || (m.expectsLanguage && (!m.forced || !m.vn)) || m.over>0 || m.clip>0 || (m.leaks&&m.leaks.length>0);
       results.push({name:t.name,...m,fail});
       const cls=fail?'bad':(!m.vn?'warn':(m.canvas?'exp':'ok'));
-      const detail=fail?((m.over>0?'+'+m.over+'px ':'')+(m.clip>0?'clip×'+m.clip+' ':'')+(m.leaks&&m.leaks.length?'EN×'+m.leaks.length:'')):(!m.vn?'⚑ no-VN':'0');
+      const detail=m.error?'ERROR: '+m.error:m.expectsLanguage&&!m.vn?'Vietnamese switch not observed':fail?((m.over>0?'+'+m.over+'px ':'')+(m.clip>0?'clip×'+m.clip+' ':'')+(m.leaks&&m.leaks.length?'EN×'+m.leaks.length:'')):(!m.vn?'⚑ no-VN':'0');
       const row=document.createElement('div');
       row.className='r '+cls;
-      row.innerHTML='<span>'+t.name+(m.canvas?' ◇':'')+'</span><span>'+detail+'</span>';
+      const label=document.createElement('span'),status=document.createElement('span');
+      label.textContent=t.name+(m.canvas?' ◇':'');status.textContent=detail;row.append(label,status);
       row.title=(m.clipEx||'')+(m.leaks&&m.leaks.length?(' | EN: '+m.leaks.join('; ')):'');
       grid.appendChild(row);
     });
@@ -97,12 +88,16 @@ function probeOne(src){
   const noVN=results.filter(r=>!r.vn);
   const leakHits=results.filter(r=>r.leaks&&r.leaks.length);
   window.__language={done:tpls.length,total:tpls.length,results,
-    fail:bad.map(r=>r.name+' '+(r.over>0?'+'+r.over:'')+(r.clip>0?' clip×'+r.clip:'')+(r.leaks&&r.leaks.length?' EN×'+r.leaks.length:'')),
-    noVN:noVN.map(r=>r.name), leaks:leakHits.map(r=>r.name+': '+r.leaks.join('; ')), pass:bad.length===0};
+    fail:bad.map(r=>r.name+' '+(r.error?'ERROR: '+r.error:r.expectsLanguage&&!r.vn?'Vietnamese switch not observed':'')+(r.over>0?'+'+r.over:'')+(r.clip>0?' clip×'+r.clip:'')+(r.leaks&&r.leaks.length?' EN×'+r.leaks.length:'')),
+    switchable:results.filter(r=>r.expectsLanguage).length,staticContent:results.filter(r=>r.languageMode==='static-content').length,
+    noVN:noVN.map(r=>r.name), leaks:leakHits.map(r=>r.name+': '+r.leaks.join('; ')), pass:tpls.length>0 && bad.length===0};
   window.__all=window.__language;
   busy.textContent='done — '+tpls.length+' templates';
   const sum=document.getElementById('sum');
   sum.textContent=bad.length?('✗ '+bad.length+' VN overflow/clip/EN-leak: '+window.__language.fail.join(', ')):('✓ NO VN overflow, clipping, or EN built-in leaks across all '+tpls.length+' templates @390'+(noVN.length?(' — ⚑ '+noVN.length+' did not apply VN'):''));
   sum.style.color=bad.length?'#B42318':'#166534';
-})();
+})().catch(error=>{
+  window.__language={pass:false,error:String(error),done:results.length,results};
+  busy.textContent='Audit failed: '+String(error);
+});
 </script></body></html>

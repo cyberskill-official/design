@@ -10,5 +10,6 @@ export interface SortableProps {
 }
 /** Pure reorder helper shared by drag and move-button paths. */
 export function reorderItems<T>(items: T[], from: number, to: number): T[];
-/** Reorderable list — move-up/down buttons (WCAG 2.5.7) plus HTML5 DnD enhancement. */
+/** Reorderable list — move-up/down buttons (WCAG 2.5.7) plus HTML5 DnD enhancement.
+ * A completed drop emits a reorder; a cancelled drag only clears drag state. */
 export function Sortable(props: SortableProps): React.ReactElement;

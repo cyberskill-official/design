@@ -1,39 +1,51 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — Status · gate board</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CyberSkill — Status · gate board</title>
 <link rel="stylesheet" href="../styles.css">
 <style>
   body{margin:0;font-family:var(--cs-font-family-ui);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);padding:24px 28px;max-width:960px;margin:0 auto}
-  h1{font-size:20px;letter-spacing:-.01em;margin:0 0 2px}h1 b{color:var(--cs-color-brand-umber)}
-  .sub{color:var(--cs-color-text-primary);font-size:13px;line-height:1.55;margin:0 0 16px;max-width:820px;opacity:.88}
+  h1{font-size:20px;letter-spacing:-.01em;margin:0 0 2px}h1 b{color:var(--cs-color-text-primary)}
+  .sub{color:var(--cs-color-text-primary);font-size:13px;line-height:1.55;margin:0 0 16px;max-width:820px;}
   .toolbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:0 0 14px}
-  .toolbar button{font:700 13px var(--cs-font-family-ui);color:var(--cs-color-text-inverse);background:var(--cs-color-brand-umber);border:0;border-radius:8px;padding:9px 14px;cursor:pointer}
+  .toolbar button{font:700 13px var(--cs-font-family-ui);color:var(--cs-component-button-primary-fg);background:var(--cs-component-button-primary-bg);border:0;border-radius:8px;padding:9px 14px;cursor:pointer}
   .toolbar button:disabled{opacity:.55;cursor:not-allowed}
-  .toolbar button.secondary{background:var(--cs-color-surface-page);color:var(--cs-color-brand-umber);border:1px solid var(--cs-color-border-default)}
-  .meta{font-size:12.5px;line-height:1.5;color:var(--cs-color-text-primary);opacity:.8}
+  .toolbar button.secondary{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);border:1px solid var(--cs-color-border-default)}
+  .meta{font-size:12.5px;line-height:1.5;color:var(--cs-color-text-primary);}
   .meta strong{font-weight:700;opacity:1}
   .legend{display:grid;gap:6px;margin:0 0 16px;padding:12px 14px;border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-md);background:var(--cs-color-surface-panel);font-size:12.5px;line-height:1.5}
-  .legend h2{margin:0 0 4px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--cs-color-brand-umber)}
+  .legend h2{margin:0 0 4px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--cs-color-text-primary)}
   .legend p{margin:0}
   #overall{font-size:16px;font-weight:800;padding:12px 14px;border-radius:var(--cs-radius-md);margin-bottom:14px;background:var(--cs-color-surface-panel);border:1px solid var(--cs-color-border-default);color:var(--cs-color-text-primary)}
-  .progress{font:600 12.5px/1.45 var(--cs-font-family-mono);margin:0 0 14px;color:var(--cs-color-text-primary);opacity:.85}
+  .progress{font:600 12.5px/1.45 var(--cs-font-family-mono);margin:0 0 14px;color:var(--cs-color-text-primary);}
   .wholeset{display:grid;gap:8px;margin:0 0 16px;padding:12px 14px;border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-md);background:var(--cs-color-surface-panel)}
-  .wholeset h2{margin:0;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--cs-color-brand-umber)}
+  .wholeset h2{margin:0;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--cs-color-text-primary)}
   .wholeset p{margin:0;font-size:12.5px;line-height:1.5;color:var(--cs-color-text-primary)}
   .wholeset .links{display:flex;flex-wrap:wrap;gap:8px}
-  .wholeset a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font:600 12.5px var(--cs-font-family-ui);color:var(--cs-color-text-inverse);background:var(--cs-color-brand-umber);padding:7px 11px;border-radius:8px}
-  .wholeset a.secondary{background:var(--cs-color-surface-page);color:var(--cs-color-brand-umber);border:1px solid var(--cs-color-border-default)}
-  .g{display:grid;grid-template-columns:24px 1fr auto auto;gap:10px 12px;align-items:center;padding:10px 14px;border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-md);background:var(--cs-color-surface-panel);margin-bottom:8px}
-  .g .n{font-weight:700;font-size:14px;color:var(--cs-color-text-primary)}.g .n small{display:block;font-weight:500;color:var(--cs-color-text-primary);opacity:.72;font-size:12px}
-  .g .open{font:700 11px/1 var(--cs-font-family-mono);color:var(--cs-color-brand-umber);text-decoration:none;padding:6px 8px;border-radius:6px;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-page)}
+  .wholeset a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font:600 12.5px var(--cs-font-family-ui);color:var(--cs-component-button-primary-fg);background:var(--cs-component-button-primary-bg);padding:7px 11px;border-radius:8px}
+  .wholeset a.secondary{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);border:1px solid var(--cs-color-border-default)}
+  .g{display:grid;grid-template-columns:24px minmax(0,1fr) auto auto;gap:10px 12px;align-items:center;padding:10px 14px;border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-md);background:var(--cs-color-surface-panel);margin-bottom:8px}
+  .g .n{font-weight:700;font-size:14px;color:var(--cs-color-text-primary)}.g .n small{display:block;font-weight:500;color:var(--cs-color-text-primary);font-size:12px}
+  .g .open{font:700 11px/1 var(--cs-font-family-mono);color:var(--cs-color-text-primary);text-decoration:none;padding:6px 8px;border-radius:6px;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-page)}
   .g .open:hover{border-color:var(--cs-color-brand-ochre)}
   .badge{font:700 11px/1 var(--cs-font-family-mono);text-transform:uppercase;letter-spacing:.06em;padding:5px 10px;border-radius:999px}
   .pass{background:#dcfce7;color:#166534}.fail{background:#FEE2E2;color:#B42318}.run{background:#FEF3C7;color:#92400E}
   .pending{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);border:1px solid var(--cs-color-border-default)}
   .dot{width:11px;height:11px;border-radius:50%;background:var(--cs-color-border-default)}
   .dot.pass{background:#16a34a}.dot.fail{background:#dc2626}.dot.run{background:var(--cs-color-brand-ochre)}.dot.pending{background:var(--cs-color-border-default)}
-  .note{margin-top:16px;font-size:12.5px;color:var(--cs-color-text-primary);line-height:1.6;border-top:1px dashed var(--cs-color-border-default);padding-top:12px;opacity:.88}
+  .note{margin-top:16px;font-size:12.5px;color:var(--cs-color-text-primary);line-height:1.6;border-top:1px dashed var(--cs-color-border-default);padding-top:12px;}
   .note a{color:var(--cs-color-link)} a:hover{color:var(--cs-color-link-hover)}
   #pool{position:fixed;left:-6000px;top:0;width:1000px;height:800px}
+  /* Diagnostic chrome follows the same reflow and coarse target floor as products. */
+  body{box-sizing:border-box;overflow-wrap:anywhere}
+  button,a[href]{box-sizing:border-box}
+  .g .n,.meta{min-inline-size:0}
+  .g .open{display:inline-flex;align-items:center;justify-content:center}
+  @media(max-width:560px){
+    body{padding:20px 16px}
+    .g{grid-template-columns:14px minmax(0,1fr);gap:10px}
+    .g .open{grid-column:2;justify-self:start}
+    .g .badge{grid-column:2;justify-self:start}
+  }
+  @media(pointer:coarse){button,a[href]{min-inline-size:44px;min-block-size:44px}}
 </style></head><body data-chrome="health-runner">
 <h1><b>CyberSkill</b> · Status · gate board</h1>
 <p class="sub">Runs every <b>fast</b> deterministic gate <b>in sequence</b> (fresh iframe each) and reads its verdict global. Auto-runs on first load. Storybook Status embeds this page full-bleed; navigating away and back may keep a cached iframe — use <b>Re-run</b> for a fresh pass (never a silent re-run on every sidebar click).</p>
@@ -59,7 +71,7 @@
 <div id="overall">queued…</div>
 <p class="progress" id="progress">Progress: idle</p>
 <div id="list"></div>
-<p class="note">Green board = the system is internally consistent: dark-contrast safe, docs match the compiler, namespace portable, tokens resolve, consumer path works, components mount + behave, and every component has a story. <code>window.__run.pass</code> holds the aggregate over <b>hard</b> gates only. Open any row to inspect that gate page. Gates that load <code>_ds_bundle.js</code> reflect the <b>last compiled</b> bundle.</p>
+<p class="note">A green board means the listed hard checks passed within their declared scopes. It does not certify every rendered state, screen-reader behavior, human visual acceptance, release rights, or deployment readiness. <code>window.__run.pass</code> holds the aggregate over <b>hard</b> gates only. Open any row to inspect that gate page. Gates that load <code>_ds_bundle.js</code> reflect the <b>last compiled</b> bundle.</p>
 <div id="pool"></div>
 <script>
 const GATES=[
@@ -112,7 +124,7 @@ const progressEl=document.getElementById('progress'), timestampsEl=document.getE
 const rows=GATES.map(g=>{
   const el=document.createElement('div');el.className='g';
   const kind=g.advisory?'advisory':'hard';
-  el.innerHTML='<span class="dot pending"></span><span class="n">'+g.name+'<small>'+g.sub+'</small></span><a class="open" href="./'+g.file+'" target="_blank" rel="noopener">open</a><span class="badge pending">pending</span>';
+  el.innerHTML='<span class="dot pending"></span><span class="n">'+g.name+'<small>'+g.sub+'</small></span><a class="open" aria-label="Open '+g.name+'" href="./'+g.file+'" target="_blank" rel="noopener">open</a><span class="badge pending">pending</span>';
   el.dataset.kind=kind;
   list.appendChild(el); return el;
 });

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
-/** Slides with prev/next arrows + dot nav (bilingual aria). children = slides. */
+/** Slides with prev/next arrows + dot nav (bilingual aria). children = slides.
+ * Inactive slides are inert; empty/single collections disable navigation. */
 export interface CarouselProps {
   children?: ReactNode;
   startIndex?: number;

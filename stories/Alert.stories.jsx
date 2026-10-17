@@ -6,6 +6,7 @@ export default {
   component: Alert,
   tags: ['autodocs'],
   argTypes: {
+    onDismiss: { action: 'dismiss' },
     lang: { control: 'select', options: ['en', 'vi'] },
 
   "variant": {

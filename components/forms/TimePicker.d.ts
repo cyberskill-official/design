@@ -4,7 +4,8 @@ export interface TimePickerProps {
   /** "HH:MM" 24h. Default "09:00". */
   value?: string;
   onChange?: (time: string) => void;
-  /** Minute step. Default 30. */
+  /** Whole-minute step from 1 through 1440. Invalid, fractional or out-of-range
+   *  values use 30. At most 1440 options; values remain "HH:MM". Default 30. */
   step?: number;
   /** Accessible label. Default from the registry ("Time" / "Giờ"). */
   label?: string;

@@ -37,26 +37,9 @@ Stay on the current Figma plan. Variables REST API is Enterprise-only — write 
 
 | File | Role |
 |---|---|
-| `tokens/tokens.dtcg.json` | W3C DTCG interchange / native regen |
+| `tokens/tokens.dtcg.json` | DTCG 2025.10 interchange / native regen |
 | `tokens/tokens.json` | CSS-oriented grouped export |
 | `tokens/*.css` + `styles.css` | Runtime UI |
-
-## 6. Code Connect — path shipped; **deferred** on free Figma
-
-**Status: provisional / soft-skip — not a live library publish** (Jul 2026; deferred Jul 2026)
-
-- CI job `code-connect` + `figma.config.json` + 105 `*.figma.tsx` mappings are in-repo (import snippets use `@cyberskill/design`).
-- Publish soft-skips when secrets are missing or the API returns 403/404/429. Soft-skip ≠ successful Code Connect publish.
-- **Owner deferral:** stay on **Figma free / non-Org** for now — do not pursue live Code Connect until an Org/Enterprise seat with a published team library is available. Then replace synthetic `9999:*` stubs in `code-connect/node-map.json` with real `nodeId`s. See `docs/figma.md`.
-
-## 7. npm publish — live via Trusted Publishing (OIDC)
-
-**Status: LAUNCHED `@cyberskill/design@1.1.0`; thereafter `VERSION` auto-bumps on main (since Aug 2026); CI publish uses npm Trusted Publishing; tokens disallowed** (Jul 2026; LAUNCH 2026-07-27)
-
-- `package.json` is `private: false`; package name **`@cyberskill/design`** (`publishConfig.access: public`); `repository.url` matches this GitHub repo for provenance.
-- Workflow `.github/workflows/npm-publish.yml`: `id-token: write` + GitHub-hosted runner; **no** `NPM_TOKEN` / `NODE_AUTH_TOKEN` on the publish step (OIDC). npm Trusted Publisher must list workflow filename **`npm-publish.yml`** for `cyberskill-official/design` (FIND-088). Soft-skip only for expected no-ops (`already_published` / EPUBLISHCONFLICT, and true non-GHA `missing_secrets`). On GHA tag / `workflow_dispatch`, **ENEEDAUTH** / **404** / **402** / **403** / **EOTP** fail the job; a successful publish is gated by post-publish `npm view @cyberskill/design@VERSION` **and** `dist-tags.latest === VERSION` (FIND-020 / FIND-094).
-- Package **Publishing access** on npmjs: **Require two-factor authentication and disallow tokens** (OIDC Trusted Publishing still works; classic / granular publish tokens are rejected). Long-lived `NPM_TOKEN` secrets are revoked.
-- License stays **UNLICENSED**; version tracks root `VERSION`. Approved use is recorded in **`docs/consumer-grant.md`** (CyberSkill portfolio products). Registry install alone is not a public license.
 
 ## 8. Native store packaging — scaffolds shipped; submit disabled
 
@@ -77,31 +60,28 @@ Stay on the current Figma plan. Variables REST API is Enterprise-only — write 
 Recorded Jul 2026 — unlock defaults (updated as operator steps land):
 
 - **Figma Variables** — stay Tokens Studio / non-Enterprise (decision §3). Soft-skip on Variables REST remains honest.
-- **Code Connect** — **skipped while on Figma free**; revisit only after Org + published library + real `nodeId`s (decision §6). Soft-skip ≠ publish.
-- **npm** — **LAUNCH `@cyberskill/design@1.1.0`**; thereafter `VERSION` auto-bumps on `main` → tag `v*` → Trusted Publishing; CI uses **Trusted Publishing (OIDC)** via `npm-publish.yml`; npmjs **disallow tokens**; consumer grant in force at `docs/consumer-grant.md` (decision §7). Default package entry is bundler-native `_esm/react.mjs` (React peer); browser path is `@cyberskill/design/legacy` → `_esm/cs.mjs` (decision §10).
+- **npm** — consumer grant in force at `docs/consumer-grant.md`. Default package entry is bundler-native `_esm/react.mjs` (React peer); browser path is `@cyberskill/design/legacy` → `_esm/cs.mjs` (decision §10).
 
 ## 10. Bundler-native React export (Next / SSR)
 
 **Owner choice: ship `_esm/react.mjs` as default `exports["."]`** (Jul 2026; React 19 host Jul 2026)
 
 - React / react-dom are **peerDependencies** (`^18 || ^19`); the entry re-exports source JSX (consumer transpiles — e.g. Next `transpilePackages`). Host Storybook / CI **devDependencies** pin **react@19.2.8** / **react-dom@19.2.8**.
-- Browser / no-build keeps `_esm/cs.mjs` at `exports["./legacy"]` (CDN self-ensure + `_ds_bundle.js`). Official React 19 dropped UMD builds — the CDN path loads **`umd-react@19.2.8`** (SRI-pinned) to populate `window.React` / `window.ReactDOM` for `_ds_bundle.js`. Same pin is used in audit HTML, specimen cards, UI kits, and the byte-identical `templates/*/support.js` runtime.
-- Alias `@cyberskill/design/react` mirrors the default entry. VERSION auto-bumps on `main` post-LAUNCH; republish via Trusted Publishing when `version.yml` pushes tag `v*`.
+- Browser / no-build keeps `_esm/cs.mjs` at `exports["./legacy"]` (CDN self-ensure + `_ds_bundle.js`). Official React 19 dropped UMD builds — the CDN path loads **`umd-react@19.2.8`** (SRI-pinned) to populate `window.React` / `window.ReactDOM` for `_ds_bundle.js`. Same wrapper-distribution pin is used in audit HTML, specimen cards, UI kits, and the byte-identical `templates/*/support.js` runtime. The retained browser files report React and ReactDOM runtime version `19.2.4`; the wrapper package version is distinct from those reported versions and the `19.2.8` build dependencies.
+- Alias `@cyberskill/design/react` mirrors the default entry.
 - Docs: `docs/consuming.md` (+ VI); gates: `package-exports-integrity` + `test:react-entry`.
 
 ## Maintainer tasks (open)
 
 Operational follow-ups — not product marketing, not a backlog surface:
 
-1. **Code Connect** — deferred (Figma free). When upgrading to Org: replace `9999:*` stubs in `code-connect/node-map.json` with real published-library node IDs.
-
-~~2. npm consumer grant~~ — **done** (Jul 2026): Trusted Publishing + `docs/consumer-grant.md` (+ VI) for CyberSkill portfolio products.
+~~2. npm consumer grant~~ — **done** (Jul 2026): `docs/consumer-grant.md` (+ VI) for CyberSkill portfolio products.
 
 ~~3. Finalize products registry~~ — **done** (Jul 2026): see decision §9; `docs/products.md` is locked.
 
 ~~4. First registry consumer path~~ — **done** (Jul 2026): `examples/npm-hello/` installs `@cyberskill/design` for locked **Lumi** identity; documented in `docs/consuming.md` (+ VI) and `docs/release-notes.md`. Pin follows repo `VERSION`.
 
-5. **Native + element-pack drift on PRs is fail-closed** (Jul 2026; FIND-021 re-gate Aug 2026) — `regenerate-tokens` runs read-only on pull requests and exits 1 instead of pushing; only `regenerate-tokens-push` (main / schedule / manual) holds `contents: write`. When a PR fails it, run `npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs` and commit packs + natives. Auto-commits from `regenerate-tokens-push` **must not** use `[skip ci]` so the tip re-enters the gate board (TASK-IMP-008); PR fail-closed freshness remains the primary contributor path. Branch-protection required-check reality is NV-18.1 (out-of-band). See `docs/ci-cd.md`.
+5. **Native + element-pack drift on PRs is fail-closed** (Jul 2026; FIND-021 re-gate Aug 2026) — `regenerate-tokens` runs read-only on pull requests and exits 1 instead of pushing; only `regenerate-tokens-push` (main / schedule / manual) holds `contents: write`. When a PR fails it, run `npm run tokens:generate` and review/commit the complete generated token, native, bundle and reference changes. Auto-commits from `regenerate-tokens-push` **must not** use `[skip ci]` so the tip re-enters the gate board (TASK-IMP-008); PR fail-closed freshness remains the primary contributor path. Branch-protection required-check reality is NV-18.1 (out-of-band). See `docs/ci-cd.md`.
 
 6. **Shadcn gap / Wave 2** (Jul 2026) — CyberSkill already covers ~53 of shadcn’s 62 primitives as CS-native (forms / overlays / nav / data). Shipped: pilot `ScrollArea`, `Collapsible`, `AspectRatio`; Wave 2 `AlertDialog` (vs Popconfirm), `Item` row primitive, `NativeSelect`. Residual shadcn gaps are intentional non-ports (blocks, Tailwind, Radix CLI). Do **not** port those — map patterns to existing `templates/` + `ui_kits/`.
 
@@ -113,47 +93,23 @@ Operational follow-ups — not product marketing, not a backlog surface:
 
 Storybook `FullMatrix` is required whenever a public primary has ≥1 of {size enums, variant enums, state keys} (contract floor ≥28 stories). Schema sidecars remain complete for content-hole templates; axis-only templates omit by design. See `docs/quality-gates.md` and `docs/storybook.md`.
 
-## 11. Audit paper trails — archive, do not delete
-
-**Owner choice: archive-don't-delete** (Aug 2026; TASK-IMP-001 / assessment FIND-001)
-
-- Closed UX / AT / quality-audit artifacts MUST remain reconstructable from a fresh clone. Prefer `_audit/archive/` and/or `docs/audits/` over silent deletion.
-- Commit `8646dbf` deleted the Aug-8 UX audit plan, AT matrix, archive README, and `TASK-UX-AUDIT-20260808` “with no permanent record.” Those bodies are restored under `docs/audits/ux-audit-2026-08-08/` (plus `_audit/archive/ux-audit-2026-08-08/` pointer). Historical D1–D6 operator choices that drove that remediation stay in the restored plan; they do **not** authorize future deletion of audit trails.
-- Status-feed / ledger edits that hide completed audit work are discouraged; if a commit must be ledger-exempted, record the exemption and the archived path in the same change.
-- Claims that need provenance (e.g. “AT complete”, “lawyer-validated”) require a dated in-tree record or an explicit decision entry — not oral attestation alone.
-
-## 12. 12-month evolution plan — adoption status
-
-**Owner choice: partially superseded (near-term); plan retained as long-horizon reference** (Aug 2026; TASK-IMP-001 / assessment FIND-002)
-
-Source: `docs/plans/cyberskill-design-system-audit-and-12-month-evolution-plan.md` (audit date 2026-07-28). A prior `task-author` PLAN for that document was approved (manifest `docs/tasks/.workflow/task-author.design-system-evolution.manifest.json`) but most artefacts were never landed in `docs/tasks/`.
-
-| Horizon | Status | Notes |
-|---------|--------|-------|
-| Assessment Phases 0–3 | **Adopted** (HITL 2026-08-09) | `TASK-IMP-001`…`TASK-IMP-012` |
-| Assessment Phases 4–5 | **Implemented → ready_to_review** | `TASK-IMP-013`…`TASK-IMP-020` |
-| Full 12-month plan phases 0–6 task materialization | **Deferred** | Do not auto-expand the pending manifest artefacts until operator triages against tip `1.2.1` / post-assessment state |
-| Items already shipped outside backlog (e.g. Aug-8 UX remediation commits) | **Superseded as live tasks** | Evidence lives in `docs/audits/ux-audit-2026-08-08/` + git history; do not re-open as duplicate ready work without a fresh finding |
-
-Phases 3–5 of the **assessment** roadmap are authored as `TASK-IMP-009`…`020`; Phase 3 accepted HITL 2026-08-09; Phases 4–5 await final HITL at `ready_to_review`.
-
 ## 13. Product vs CyberOS boundary
 
-**Owner choice: explicit fence** (Aug 2026; assessment area 28 / TASK-IMP-020)
+**Owner choice: explicit fence** (Aug 2026; assessment area 28)
 
 | Layer | Ships to consumers? | Lives where | Purpose |
 |-------|---------------------|-------------|---------|
 | **Product design system** | Yes — `@cyberskill/design`, portable tree (`styles.css`, `tokens/`, `components/`, `templates/`, `_audit/` gates, Storybook host) | repo root (non-`.cyberos`) | Tokens, components, templates, kits, deterministic quality gates |
-| **CyberOS orchestration** | No (gitignored / installable agent kit) | `.cyberos/`, `docs/tasks/`, BRAIN under `.cyberos/memory/` | Task lifecycle, HITL gates, agent entry, ship-tasks workflow |
+| **CyberOS orchestration** | No (retired) | `.cyberos/` | Historical agent orchestration |
 
 Rules:
 - Product acceptance criteria must not require `.cyberos/` to be present for consumers or for `npm` publish.
-- Agents operating this repo follow `.cyberos/AGENT-ENTRY.md`; humans shipping the DS follow `docs/release-runbook.md`.
+- Superseding operator decision (2026-10-08): CyberOS orchestration and its two acceptance gates are retired. Agents follow `AGENTS.md` and `SKILL.md`. Product visual review, manual accessibility evidence and explicit push/deploy/merge authorization remain required.
 - Do not move product tokens/components into `.cyberos/`; do not publish CyberOS orchestration as part of the npm package.
 
 ## 14. Locale architecture beyond EN·VI
 
-**Owner choice: B — third-locale spike (`ja`); Language axis uses BCP-47 primary subtags** (Aug 2026; TASK-IMP-026 / CDS-I18N-001)
+**Owner choice: B — third-locale spike (`ja`); Language axis uses BCP-47 primary subtags** (Aug 2026; CDS-I18N-001)
 
 Normative record: [`docs/decisions/locale-architecture.md`](./decisions/locale-architecture.md).
 
@@ -163,12 +119,35 @@ Normative record: [`docs/decisions/locale-architecture.md`](./decisions/locale-a
 
 ## 15. Theme attributes — density + contrast
 
-**Owner choice: C — density and contrast in one wave, as Theme attributes** (Aug 2026; TASK-IMP-027 / CDS-THEME-002)
+**Owner choice: C — density and contrast in one wave, as Theme attributes** (Aug 2026; CDS-THEME-002)
 
 Normative record: [`docs/decisions/theme-density-contrast.md`](./decisions/theme-density-contrast.md).
 
 - `data-cs-density` (`comfortable` | `compact`) and `data-cs-contrast` (`standard` | `high`) are **attributes under Theme**, not a fifth product identity axis.
 - Product axes remain Theme × Element × Language × Style. APCA body floor Lc ≥ 75 and ≥44px touch targets stay immutable under compact.
+
+## 16. Editor HTML parser — implementation under review
+
+**Status: implemented locally; human review and final acceptance pending.**
+
+The browser-only DOM walk and Node regex policy diverged and allowed executable
+descendants under unknown wrappers. The revision uses parse5 8.0.1 in both
+environments, then constructs a fresh fragment using only the existing eleven
+allowed tags and escaped text. All attributes and foreign/raw-text subtrees are
+discarded. This is a deliberately narrow HTML-content policy, not a general URL,
+CSS or attribute sanitizer.
+
+The pinned parser and its MIT-licensed dependency are generated into a local
+module for the existing no-build consumer path. This adds approximately 153 KB
+of minified parser source before HTTP compression. Generation/provenance is checked in unit and
+prepublish checks. A DOM-emulation dependency for Node is not required. Paste
+and drop are sanitized before insertion; `unsafeHtml` remains trusted-only.
+
+Evidence: adversarial Node/browser parity, a regression demonstration against
+the audited source, and browser seed/paste/drop/keyboard tests. This does not
+replace the human acceptance gates or claim that a schema editor migration has
+been completed. The existing contentEditable/execCommand compatibility surface
+remains explicit.
 
 ## How to change a decision
 

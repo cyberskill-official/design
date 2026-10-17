@@ -1,19 +1,19 @@
-<!-- @dsCard group="Colors" viewport="700x170" name="Semantic" subtitle="Success, danger, warning, info" -->
+<!-- @dsCard group="Colors" viewport="700x170" name="Semantic" subtitle="Separate status fills, paired foregrounds and text" -->
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8" />
 <link rel="stylesheet" href="../styles.css" />
 <style>
   body { margin: 0; background: var(--cs-color-surface-page); padding: 22px 24px; font-family: var(--cs-font-family-ui); }
   .row { display: flex; gap: 14px; }
-  .sw { flex: 1; border-radius: var(--cs-radius-md); min-height: 92px; display: flex; flex-direction: column; justify-content: flex-end; padding: 12px; color: #fff; }
-  .nm { font-weight: 700; font-size: 13px; }
-  .hex { font-family: var(--cs-font-family-mono); font-size: 12px; opacity: .9; margin-top: 2px; }
+  .item { flex: 1; min-width: 0; }
+  .sw { border-radius: var(--cs-radius-md); min-height: 62px; display: flex; align-items: flex-end; padding: 12px; font-weight: 700; font-size: 13px; }
+  .tx { margin-top: 8px; font-size: 13px; line-height: 1.4; }
 </style></head>
 <body>
 <div class="row">
-  <div class="sw" style="background:#166534"><div class="nm">success</div><div class="hex">#166534</div></div>
-  <div class="sw" style="background:#B42318"><div class="nm">danger</div><div class="hex">#B42318</div></div>
-  <div class="sw" style="background:#92400E"><div class="nm">warning</div><div class="hex">#92400E</div></div>
-  <div class="sw" style="background:#1D4ED8"><div class="nm">info</div><div class="hex">#1D4ED8</div></div>
+  <div class="item"><div class="sw" style="background:var(--cs-color-semantic-success);color:var(--cs-color-semantic-success-fg)">success</div><div class="tx" style="color:var(--cs-color-semantic-success-text)">success text</div></div>
+  <div class="item"><div class="sw" style="background:var(--cs-color-semantic-danger);color:var(--cs-color-semantic-danger-fg)">danger</div><div class="tx" style="color:var(--cs-color-semantic-danger-text)">danger text</div></div>
+  <div class="item"><div class="sw" style="background:var(--cs-color-semantic-warning);color:var(--cs-color-semantic-warning-fg)">warning</div><div class="tx" style="color:var(--cs-color-semantic-warning-text)">warning text</div></div>
+  <div class="item"><div class="sw" style="background:var(--cs-color-semantic-info);color:var(--cs-color-semantic-info-fg)">info</div><div class="tx" style="color:var(--cs-color-semantic-info-text)">info text</div></div>
 </div>
 </body></html>

@@ -2,7 +2,9 @@
  * Anchors are IMMUTABLE: Umber #45210E (primary brand), Ochre #F4BA17 (accent).
  * Warm earth palette; every neutral is warmed toward umber, never cold grey.
  * Light is the default theme; dark/system are opt-in via [data-theme]. */
-:root {
+/* Literal neutral palette and reset fallback. elements.css composes this with
+ * inherited element and contrast channels at each explicit scope boundary. */
+[data-theme="light"], [data-theme="system"], :root {
   color-scheme: light;
 
   /* ---- Anchor brand (immutable) ---- */
@@ -18,7 +20,7 @@
   --cs-color-text-primary: #45210E;  /* = Umber */
   --cs-color-text-inverse: #FFFFFF;
   --cs-color-text-accent: #6E3B0E;   /* accessible ochre-adjacent link/accent text */
-  --cs-color-text-muted: #6E5A4C;    /* APCA-safe secondary text on page */
+  --cs-color-text-muted: #3F2D21;    /* Secondary text: APCA75 on page/panel/raised, including all element variants */
 
   /* ---- Semantic fills + paired foregrounds (literal-on-semantic, UX-008) ---- */
   --cs-color-semantic-success: #166534;
@@ -29,10 +31,15 @@
   --cs-color-semantic-danger-fg: #FFFFFF;
   --cs-color-semantic-warning-fg: #FFFFFF;
   --cs-color-semantic-info-fg: #FFFFFF;
+  /* Semantic text is separate from fills; target APCA75 on actual element surfaces. */
+  --cs-color-semantic-success-text: #042D13;
+  --cs-color-semantic-danger-text: #4B0502;
+  --cs-color-semantic-warning-text: #441801;
+  --cs-color-semantic-info-text: #000A75;
 
   /* ---- Document palette (Style Guide Articles · legal A4 instruments) ---- */
   --cs-doc-ink: #1A1614;
-  --cs-doc-slate: #3F4C55;
+  --cs-doc-slate: #26323A;
   --cs-doc-fill: #FDE68A;
   --cs-doc-fill-ink: #1A1614;
 
@@ -56,18 +63,23 @@ a:hover { color: var(--cs-color-link-hover); }
   --cs-color-surface-raised: #2b1e14;
   --cs-color-text-primary: #f5ead9;
   --cs-color-text-inverse: #1a1108;
-  --cs-color-text-accent: #f4ba17;
-  --cs-color-text-muted: #c9b7a3;
+  --cs-color-text-accent: #FECD5D;
+  --cs-color-text-muted: #E9D6C2;
   --cs-color-semantic-success: #4ADE80;
-  --cs-color-semantic-danger: #F87171;
+  --cs-color-semantic-danger: #FC9895;
   --cs-color-semantic-warning: #FBBF24;
-  --cs-color-semantic-info: #7CB2FB;
+  --cs-color-semantic-info: #B5D4FD; /* paired small text: APCA78.6 on this fill */
   --cs-color-semantic-success-fg: #1a1108;
   --cs-color-semantic-danger-fg: #1a1108;
   --cs-color-semantic-warning-fg: #1a1108;
   --cs-color-semantic-info-fg: #1a1108;
+  /* Semantic text is separate from fills; target APCA75 on actual element surfaces. */
+  --cs-color-semantic-success-text: #68F798;
+  --cs-color-semantic-danger-text: #FFD2CF;
+  --cs-color-semantic-warning-text: #FFD887;
+  --cs-color-semantic-info-text: #C7DFFF;
   --cs-color-border-default: #4a3a2c;
-  --cs-color-link: #f4ba17;
+  --cs-color-link: #FECD5D;
   --cs-color-link-hover: #f5ead9;
 }
 @media (prefers-color-scheme: dark) {
@@ -78,18 +90,23 @@ a:hover { color: var(--cs-color-link-hover); }
     --cs-color-surface-raised: #2b1e14;
     --cs-color-text-primary: #f5ead9;
     --cs-color-text-inverse: #1a1108;
-    --cs-color-text-accent: #f4ba17;
-    --cs-color-text-muted: #c9b7a3;
+    --cs-color-text-accent: #FECD5D;
+    --cs-color-text-muted: #E9D6C2;
     --cs-color-semantic-success: #4ADE80;
-    --cs-color-semantic-danger: #F87171;
+    --cs-color-semantic-danger: #FC9895;
     --cs-color-semantic-warning: #FBBF24;
-    --cs-color-semantic-info: #7CB2FB;
+    --cs-color-semantic-info: #B5D4FD; /* paired small text: APCA78.6 on this fill */
     --cs-color-semantic-success-fg: #1a1108;
     --cs-color-semantic-danger-fg: #1a1108;
     --cs-color-semantic-warning-fg: #1a1108;
     --cs-color-semantic-info-fg: #1a1108;
+    /* Semantic text is separate from fills; target APCA75 on actual element surfaces. */
+    --cs-color-semantic-success-text: #68F798;
+    --cs-color-semantic-danger-text: #FFD2CF;
+    --cs-color-semantic-warning-text: #FFD887;
+    --cs-color-semantic-info-text: #C7DFFF;
     --cs-color-border-default: #4a3a2c;
-    --cs-color-link: #f4ba17;
+    --cs-color-link: #FECD5D;
     --cs-color-link-hover: #f5ead9;
   }
 }

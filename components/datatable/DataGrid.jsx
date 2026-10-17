@@ -2,6 +2,7 @@ import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { Icon } from "../icon/Icon.jsx";
 import { cx } from "../_utils/cx.js";
+import { useClientLayoutEffect } from "../_utils/use-client-layout-effect.js";
 
 /**
  * CyberSkill DataGrid — advanced table: sortable columns, selectable rows, sticky header,
@@ -31,7 +32,11 @@ export function DataGrid({
   persistKey,
 }) {
   const [sort, setSort] = React.useState(null); // {key, dir}
+  const nameId = React.useId();
   const [scrollTop, setScrollTop] = React.useState(0);
+  const estimate = Number.isFinite(rowHeight) && rowHeight > 0 ? rowHeight : 36;
+  const [measuredRowHeight, setMeasuredRowHeight] = React.useState(estimate);
+  const effectiveRowHeight = Math.max(estimate, measuredRowHeight);
   const [colOrder, setColOrder] = React.useState(() => {
     if (!persistKey) return null;
     try {
@@ -68,12 +73,49 @@ export function DataGrid({
 
   const useVirtual = virtual || sorted.length >= virtualThreshold;
   const bodyH = Math.max(0, height - 40);
-  const start = useVirtual ? Math.max(0, Math.floor(scrollTop / rowHeight) - 4) : 0;
-  const visibleCount = useVirtual ? Math.ceil(bodyH / rowHeight) + 8 : sorted.length;
+  const visibleCount = useVirtual ? Math.ceil(bodyH / effectiveRowHeight) + 8 : sorted.length;
+  // Data/filter changes can leave the old scroll offset beyond the new rows.
+  // Keep a populated final window; removing stale padding lets the browser
+  // clamp its physical scroll position to the new content height as well.
+  const start = useVirtual ? Math.min(Math.max(0, sorted.length - visibleCount), Math.max(0, Math.floor(scrollTop / effectiveRowHeight) - 4)) : 0;
   const end = useVirtual ? Math.min(sorted.length, start + visibleCount) : sorted.length;
   const slice = sorted.slice(start, end);
-  const padTop = useVirtual ? start * rowHeight : 0;
-  const padBottom = useVirtual ? Math.max(0, (sorted.length - end) * rowHeight) : 0;
+  const padTop = useVirtual ? start * effectiveRowHeight : 0;
+  const padBottom = useVirtual ? Math.max(0, (sorted.length - end) * effectiveRowHeight) : 0;
+
+  // CSS (including larger touch controls) can exceed the caller's estimate.
+  // Measure natural rendered rows before paint, without retaining the previous
+  // inline floor: switching back to a denser layout must be able to shrink.
+  useClientLayoutEffect(() => {
+    const host = ref.current;
+    if (!host || !useVirtual) return;
+    const rows = [...host.querySelectorAll('tbody > tr:not([aria-hidden="true"])')];
+    if (!slice.length || !rows.length) return;
+    const measure = () => {
+      const old = rows.map(row => row.style.height);
+      rows.forEach(row => { row.style.height = ""; });
+      const next = Math.max(estimate, ...rows.map(row => row.getBoundingClientRect().height));
+      rows.forEach((row, i) => { row.style.height = old[i]; });
+      setMeasuredRowHeight(previous => Math.abs(previous - next) > 0.01 ? next : previous);
+    };
+    measure();
+    const resize = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(measure);
+    resize?.observe(host);
+    rows.forEach(row => resize?.observe(row));
+    const ancestors = new MutationObserver(measure);
+    for (let node = host; node; node = node.parentElement) {
+      ancestors.observe(node, { attributes: true, attributeFilter: ["class", "style", "lang", "data-cs-density", "data-cs-element", "data-cs-variant"] });
+    }
+    const coarse = window.matchMedia("(pointer: coarse)");
+    coarse.addEventListener("change", measure);
+    document.fonts?.addEventListener("loadingdone", measure);
+    return () => {
+      resize?.disconnect();
+      ancestors.disconnect();
+      coarse.removeEventListener("change", measure);
+      document.fonts?.removeEventListener("loadingdone", measure);
+    };
+  }, [useVirtual, slice, estimate, ref]);
 
   const allSel = selectable && filtered.length && filtered.every((r) => selected.includes(r[rowKey]));
   const toggleAll = () => onSelect && onSelect(allSel ? [] : filtered.map((r) => r[rowKey]));
@@ -95,13 +137,14 @@ export function DataGrid({
       onScroll={useVirtual ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}
       data-virtual={useVirtual ? "true" : "false"}
       data-row-count={sorted.length}
+      data-row-height={useVirtual ? effectiveRowHeight : undefined}
     >
       <table className="cs-table">
-        {caption ? <caption>{caption}</caption> : null}
+        {(caption || caption === 0) ? <caption>{caption}</caption> : null}
         <thead>
           <tr>
-            {selectable ? <th scope="col" className="cs-datagrid__selcol"><input type="checkbox" aria-label={t("selectAll")} checked={!!allSel} onChange={toggleAll} /></th> : null}
-            {orderedColumns.map((c) => (
+            {selectable ? <th scope="col" className="cs-datagrid__selcol"><label className="cs-datagrid__check"><input type="checkbox" aria-label={t("selectAll")} checked={!!allSel} onChange={toggleAll} /></label></th> : null}
+            {orderedColumns.map((c, columnIndex) => (
               <th
                 key={c.key}
                 scope="col"
@@ -111,18 +154,21 @@ export function DataGrid({
               >
                 {c.sortable ? (
                   <button type="button" className="cs-datagrid__sort" onClick={() => setSort((s) => (!s || s.key !== c.key ? { key: c.key, dir: "asc" } : s.dir === "asc" ? { key: c.key, dir: "desc" } : null))}>
-                    {c.header}<span aria-hidden="true">{sort && sort.key === c.key ? (sort.dir === "asc" ? " ▲" : " ▼") : " ↕"}</span>
+                    <span id={nameId + "-header-" + columnIndex}>{c.header}</span><span aria-hidden="true">{sort && sort.key === c.key ? (sort.dir === "asc" ? " ▲" : " ▼") : " ↕"}</span>
                   </button>
-                ) : c.header}
+                ) : <span id={nameId + "-header-" + columnIndex}>{c.header}</span>}
                 {persistKey ? (
                   <button
                     type="button"
                     className="cs-datagrid__pin"
                     title={t("pin")}
                     onClick={() => pinColumn(c.key)}
-                    aria-label={t("pinNamed").replace("{name}", String(c.header != null ? c.header : c.key))}
+                    aria-label={c.header == null ? t("pinNamed").replace("{name}", c.key) : undefined}
+                    aria-labelledby={c.header == null ? undefined : nameId + "-pin-start-" + columnIndex + " " + nameId + "-header-" + columnIndex + " " + nameId + "-pin-end-" + columnIndex}
                   >
+                    <span className="cs-sr-only" id={nameId + "-pin-start-" + columnIndex}>{t("pinNamed").split("{name}")[0]}</span>
                     <Icon name="pin" size="sm" />
+                    <span className="cs-sr-only" id={nameId + "-pin-end-" + columnIndex}>{t("pinNamed").split("{name}")[1]}</span>
                   </button>
                 ) : null}
               </th>
@@ -138,8 +184,8 @@ export function DataGrid({
               {slice.map((r, i) => {
                 const k = r[rowKey] != null ? r[rowKey] : start + i;
                 return (
-                  <tr key={k} className={selected.includes(k) ? "is-selected" : undefined} style={useVirtual ? { height: rowHeight } : undefined}>
-                    {selectable ? <td className="cs-datagrid__selcol"><input type="checkbox" aria-label={t("selectRow")} checked={selected.includes(k)} onChange={() => toggle(k)} /></td> : null}
+                  <tr key={k} className={selected.includes(k) ? "is-selected" : undefined} style={useVirtual ? { height: effectiveRowHeight } : undefined}>
+                    {selectable ? <td className="cs-datagrid__selcol"><label className="cs-datagrid__check"><input type="checkbox" aria-label={`${t("selectRow")}: ${String(orderedColumns.map(c => r[c.key]).find(v => typeof v === "string" && v.trim()) ?? k)}`} checked={selected.includes(k)} onChange={() => toggle(k)} /></label></td> : null}
                     {orderedColumns.map((c) => (
                       <td key={c.key} className={c.pinned ? "cs-datagrid__pinned" : undefined} style={c.pinned ? { position: "sticky", insetInlineStart: 0, background: "var(--cs-color-surface-panel)" } : undefined}>
                         {c.render ? c.render(r) : r[c.key]}

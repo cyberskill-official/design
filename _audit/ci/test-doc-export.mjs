@@ -4,11 +4,13 @@
  * no EvalError, export toolbar present, PDF magic + page size, DOCX ZIP + OOXML.
  */
 import { createServer } from 'node:http';
-import { readFileSync, readdirSync, statSync, existsSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { readFileSync, statSync, existsSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { join, dirname, extname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
-import { inflateRawSync } from 'node:zlib';
+import { unzipEntries } from './lib/docx-zip.mjs';
+import { listPrintTemplates } from './lib/print-template-contract.mjs';
+import { readLiveDocExport } from './lib/doc-export-readiness.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const CSP =
@@ -32,54 +34,6 @@ function assert(cond, msg) {
   if (!cond) throw new Error(msg || 'assert failed');
 }
 
-function listPrintTemplates() {
-  const out = [];
-  for (const name of readdirSync(join(root, 'templates'))) {
-    if (name === '_vendor') continue;
-    const dir = join(root, 'templates', name);
-    if (!statSync(dir).isDirectory()) continue;
-    const dc = readdirSync(dir).find((f) => f.endsWith('.dc.html'));
-    if (!dc) continue;
-    const html = readFileSync(join(dir, dc), 'utf8');
-    if (!/omelette-owns-print/i.test(html)) continue;
-    const letter = /@page\s*\{[^}]*size:\s*letter/i.test(html);
-    out.push({
-      folder: name,
-      entry: `templates/${name}/${dc}`,
-      format: letter ? 'Letter' : 'A4',
-    });
-  }
-  return out.sort((a, b) => a.folder.localeCompare(b.folder));
-}
-
-function unzipEntries(buf) {
-  // Minimal ZIP local-file walker (deflate or store).
-  const u8 = buf instanceof Uint8Array ? buf : new Uint8Array(buf);
-  const entries = {};
-  let i = 0;
-  const dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength);
-  while (i + 30 <= u8.length) {
-    const sig = dv.getUint32(i, true);
-    if (sig !== 0x04034b50) break;
-    const method = dv.getUint16(i + 8, true);
-    const comp = dv.getUint32(i + 18, true);
-    const uncomp = dv.getUint32(i + 22, true);
-    const nameLen = dv.getUint16(i + 26, true);
-    const extraLen = dv.getUint16(i + 28, true);
-    const name = new TextDecoder().decode(u8.subarray(i + 30, i + 30 + nameLen));
-    const start = i + 30 + nameLen + extraLen;
-    const data = u8.subarray(start, start + comp);
-    let raw;
-    if (method === 0) raw = data;
-    else if (method === 8) raw = inflateRawSync(data);
-    else throw new Error(`unsupported zip method ${method} for ${name}`);
-    entries[name] = Buffer.from(raw);
-    assert(entries[name].length === uncomp || method === 8, `size mismatch ${name}`);
-    i = start + comp;
-  }
-  return entries;
-}
-
 function pdfPageCount(pdf) {
   const s = pdf.toString('latin1');
   const m = s.match(/\/Type\s*\/Pages[^>]*\/Count\s+(\d+)/);
@@ -99,8 +53,8 @@ function pdfMediaBox(pdf) {
   };
 }
 
-const templates = listPrintTemplates();
-assert(templates.length >= 60, `expected ≥60 print templates, got ${templates.length}`);
+const templates = listPrintTemplates(root);
+
 
 const server = createServer((req, res) => {
   let p = decodeURIComponent((req.url || '/').split('?')[0]);
@@ -140,40 +94,11 @@ try {
 
     try {
       await page.goto(`${base}/${t.entry}`, { waitUntil: 'domcontentloaded', timeout: 90000 });
-      // Wait for DC boot + export chrome
-      await page.waitForFunction(
-        () =>
-          !!document.querySelector('[data-omelette-chrome="export"]') &&
-          typeof window.__csDocExport?.buildDocxBlob === 'function' &&
-          !!document.querySelector('.cs-sheet'),
-        null,
-        { timeout: 90000 },
-      );
-      // Extra settle for React paint
-      await page.waitForTimeout(400);
-
+      // One atomic snapshot waits through DC remounts and unresolved source holes.
+      const live = await readLiveDocExport(page);
       const evalBlocked = errors.some((e) => /EvalError|unsafe-eval|Content Security Policy.*eval/i.test(e));
       assert(!evalBlocked, `${t.folder}: EvalError under CSP — ${errors.filter((e) => /eval/i.test(e)).join('; ')}`);
 
-      const live = await page.evaluate(() => {
-        const sheet = document.querySelector('.cs-sheet');
-        const text = (sheet || document.body).innerText || '';
-        const bar = document.querySelector('[data-omelette-chrome="export"]');
-        const trigger = bar && bar.querySelector('[data-cs-export="trigger"]');
-        const menu = bar && bar.querySelector('[data-cs-export="menu"]');
-        const topButtons = bar ? [...bar.querySelectorAll(':scope > button')] : [];
-        return {
-          toolbar: !!bar,
-          trigger: !!(trigger && /Tải|Download/i.test(trigger.textContent || '')),
-          menuPdf: !!(menu && menu.querySelector('[data-cs-export="pdf"]')),
-          menuDocx: !!(menu && menu.querySelector('[data-cs-export="docx"]')),
-          dualTopButtons: topButtons.length === 2,
-          counselBanner: /Counsel review required before real use — commercial framework/.test(text),
-          hasVn: /[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]/i.test(text),
-          hasEn: /the|and|agreement|party|cyberSkill|CyberSkill/i.test(text),
-          sample: text.replace(/\s+/g, ' ').trim().slice(0, 240),
-        };
-      });
       assert(live.toolbar, `${t.folder}: export toolbar missing`);
       assert(live.trigger, `${t.folder}: missing Tải / Download trigger`);
       assert(live.menuPdf && live.menuDocx, `${t.folder}: menu must list PDF and DOCX`);
@@ -260,25 +185,29 @@ try {
         assert(tableCountDocx > 0, `${t.folder}: DOM has tables but DOCX has none`);
       }
 
-      const sheetWords = await page.evaluate(() => {
-        const text = (document.querySelector('.cs-sheet') || document.body).innerText || '';
-        return text
-          .normalize('NFC')
-          .split(/\s+/)
-          .filter((w) => w.length >= 6)
-          .slice(0, 40);
-      });
-      const docPlain = docXml.replace(/<[^>]+>/g, ' ');
-      if (sheetWords.length >= 10) {
-        let hits = 0;
-        for (const w of sheetWords) {
-          if (docPlain.includes(w)) hits += 1;
+      // Compare all rendered text, including trailing clauses, rather than a
+      // sample of the first forty long words. XML parsing decodes entities and
+      // joins split formatting runs; whitespace does not carry content here.
+      const textParity = await page.evaluate(xml => {
+        const parsed = new DOMParser().parseFromString(xml, 'application/xml');
+        if (parsed.querySelector('parsererror')) throw Error('Invalid DOCX XML');
+        const plain = [...parsed.getElementsByTagNameNS('http://schemas.openxmlformats.org/wordprocessingml/2006/main', 't')].map(n => n.textContent).join('');
+        const normalize = value => value.normalize('NFC').replace(/\s+/gu, '');
+        const sheet = document.querySelector('.cs-sheet');
+        const walker = document.createTreeWalker(sheet, NodeFilter.SHOW_TEXT);
+        let text = '', node;
+        while ((node = walker.nextNode())) {
+          if (node.parentElement.closest('script,style,noscript,svg,[data-omelette-chrome]')) continue;
+          const range = document.createRange(); range.selectNodeContents(node);
+          if ([...range.getClientRects()].some(r => r.width && r.height) && getComputedStyle(node.parentElement).visibility !== 'hidden') text += node.textContent;
         }
-        assert(
-          hits / sheetWords.length >= 0.7,
-          `${t.folder}: DOCX missing sheet text (${hits}/${sheetWords.length})`,
-        );
-      }
+        const expected = normalize(text);
+        const actual = normalize(plain);
+        let at = 0;
+        while (at < expected.length && expected[at] === actual[at]) at++;
+        return {equal:expected === actual, expected:expected.length, actual:actual.length, mismatch:at, expectedNear:expected.slice(Math.max(0,at-30),at+60), actualNear:actual.slice(Math.max(0,at-30),at+60)};
+      }, docXml);
+      assert(textParity.equal, `${t.folder}: full DOCX text differs: ${JSON.stringify(textParity)}`);
       if (t.folder === 'vn-framework-agreement') {
         assert(
           !/Counsel review required before real use/.test(docXml),

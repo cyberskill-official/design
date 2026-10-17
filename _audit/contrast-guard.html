@@ -146,8 +146,20 @@ function parseRules(css){ // strip comments, split into {sel,body}; unwrap @medi
   try{
     const ecss=await (await fetch('../tokens/elements.css',{cache:'no-store'})).text();
     const erules=parseRules(ecss).filter(r=>/^\[data-cs-element="\w+"\](\[data-cs-variant="\w+"\])?$/.test(r.sel.trim()));
+    const {apca}=await import('../scripts/lib/oklch.mjs');
     const pageL=light['--cs-color-surface-page']||'#FFFDF8', pageD=dark['--cs-color-surface-page']||'#1a1108';
     const raisedL=light['--cs-color-surface-raised']||'#FBF4E9';
+    // Strong callouts can contain regular body text in either declared theme.
+    const strongRules=parseRules(ecss).filter(r=>/^\[data-cs-element="\w+"\](\[data-cs-variant="\w+"\])?$/.test(r.sel.trim()) || /^\[data-theme="dark"\]\[data-cs-element="\w+"\](\[data-cs-variant="\w+"\])?$/.test(r.sel.trim()));
+    if(strongRules.length!==30) throw new Error('Expected all 15 Light and 15 Dark strong pairs');
+    for(const r of strongRules){
+      const strong=r.body.match(/--cs-accent-strong\s*:\s*(#[0-9a-f]{6})/i)?.[1];
+      const on=r.body.match(/--cs-accent-on-strong\s*:\s*(#[0-9a-f]{6})/i)?.[1];
+      if(!strong || !on) throw new Error('Missing strong pair '+r.sel);
+      const lc=apca(on,strong), ok=lc>=75;
+      if(!ok) matrixFails.push(r.sel+' strong body Lc '+lc+' (<75)');
+      row(ok?'ok':'bad',(ok?'✓ ':'✗ ')+lc+' strong body Lc',r.sel);
+    }
     for(const r of erules){
       const g=p=>{const m=r.body.match(new RegExp('--cs-accent'+p+'\\s*:\\s*([^;]+)'));return m?m[1].trim():null;};
       const linkM=r.body.match(/--cs-color-link\s*:\s*([^;]+)/);

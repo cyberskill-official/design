@@ -1,0 +1,43 @@
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {withBrowserFixture} from './lib/browser-fixture.mjs';
+execFileSync(process.execPath,['_audit/ci/check-bundle-freshness.mjs'],{stdio:'pipe'});
+await withBrowserFixture(async page=>{
+ await page.evaluate(()=>{
+  window.writes=[];window.pending=[];
+  Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:text=>{writes.push(text);return new Promise((resolve,reject)=>pending.push({resolve,reject}))}}});
+  window.drawCode=code=>renderFixture(React.createElement(CS.CodeBlock,{code}));drawCode('alpha');
+ });
+ const button=page.getByRole('button');
+ await button.click();
+ assert.equal(await button.textContent(),'Copy','Pending clipboard write is not success');
+ await page.evaluate(()=>pending[0].reject(new Error('Denied')));
+ assert.equal(await button.textContent(),'Copy','Rejected write never announces success');
+ await button.click();await page.evaluate(()=>pending[1].resolve());
+ await page.waitForFunction(()=>document.querySelector('.cs-code__copy').textContent==='Copied ✓');
+ await button.click();
+ assert.equal(await button.textContent(),'Copy');
+ await page.evaluate(()=>drawCode('beta'));
+ await page.evaluate(()=>pending[2].resolve());
+ assert.equal(await button.textContent(),'Copy','Completion for old code cannot claim new code copied');
+ await button.click();await page.evaluate(()=>pending[3].resolve());
+ await page.waitForFunction(()=>document.querySelector('.cs-code__copy').textContent==='Copied ✓');
+ await page.waitForFunction(()=>document.querySelector('.cs-code__copy').textContent==='Copy');
+ assert.deepEqual(await page.evaluate(()=>writes),['alpha','alpha','alpha','beta']);
+ await button.click();await page.evaluate(()=>renderFixture(null));await page.evaluate(()=>pending[4].resolve());
+ await page.evaluate(()=>{
+  Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:()=>Promise.resolve()}});
+  window.localizedCode=lang=>renderFixture(React.createElement('section',{lang:'vi'},React.createElement(CS.CodeBlock,{code:'sample',language:'javascript',lang})));
+  localizedCode(undefined);
+ });
+ assert.equal(await button.textContent(),'Sao chép','Built-in copy label inherits Vietnamese');
+ await button.click();await page.waitForFunction(()=>document.querySelector('.cs-code__copy').textContent==='Đã sao chép ✓');
+ await page.locator('section').evaluate(el=>el.lang='en');
+ await page.waitForFunction(()=>document.querySelector('.cs-code__copy').textContent==='Copied ✓');
+ await page.evaluate(()=>localizedCode('vi'));
+ await page.waitForFunction(()=>document.querySelector('.cs-code__copy').textContent==='Đã sao chép ✓');
+ assert.equal(await page.locator('.cs-code__bar > span').textContent(),'javascript','UI locale does not overwrite code language');
+ await page.evaluate(()=>renderFixture(React.createElement(CS.CodeBlock,{code:'sample',lang:'vi'})));
+ assert.equal(await page.locator('.cs-code__bar > span').textContent(),'mã','Built-in generic code label inherits Vietnamese');
+ console.log('PASS CodeBlock: pending/rejected/successful clipboard writes, changed code, timer reset and unmount');
+},{browserName:process.env.CS_TEST_BROWSER||'chromium'});

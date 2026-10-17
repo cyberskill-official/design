@@ -20,7 +20,7 @@
   .crumb .cur { color: var(--cs-color-text-primary); font-weight: 600; }
   .pd-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 8px; }
   .pd-head h1 { font-size: 30px; font-weight: 800; letter-spacing: -.02em; margin: 0 0 6px; }
-  .pd-head h1 .k { font-family: var(--cs-font-family-mono); color: var(--cs-color-brand-umber); }
+  .pd-head h1 .k { font-family: var(--cs-font-family-mono); color: var(--cs-color-text-primary); }
   .pd-head p { margin: 0; color: var(--cs-color-text-muted); max-width: 560px; }
   .pd-actions { display: flex; gap: 10px; }
   .pd-stats { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 20px; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: 14px; padding: 20px 22px; margin: 20px 0; }
@@ -31,7 +31,7 @@
   .steps-wrap { margin: 6px 0 4px; }
   .task { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid var(--cs-color-border-default); }
   .task:first-of-type { border-top: 0; }
-  .task .mono { font-family: var(--cs-font-family-mono); font-size: 12.5px; color: var(--cs-color-text-accent); }
+  .task .mono { font-family: var(--cs-font-family-mono); font-size: 12.5px; color: var(--cs-color-text-primary); }
   .task .nm { flex: 1; font-size: 14px; }
   .toggle { position: fixed; right: 20px; bottom: 20px; z-index: 60; border: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); color: var(--cs-color-text-primary); width: 44px; height: 44px; border-radius: 999px; cursor: pointer; box-shadow: var(--cs-shadow-md); display: grid; place-items: center; }
   @media (max-width: 820px) { .pd-grid { grid-template-columns: 1fr; } }
@@ -39,50 +39,50 @@
 </style>
 </head>
 <body>
-<a class="cs-skip" href="#main">Bỏ qua đến nội dung</a>
-<main id="main">
+<a class="cs-skip" href="#main" data-vi="Bỏ qua đến nội dung">Skip to content</a>
+<main id="main" tabindex="-1">
 
 <div class="sh">
   <header class="hd">
     <div class="hd-in">
       <div class="hd-id">
         <span class="hd-mark"><img src="../../assets/logo-mark.svg" alt="" /></span>
-        <div><h1>Status Hub</h1><p class="hd-sub">CyberSkill · project detail</p></div>
+        <div><h1>Status Hub</h1><p class="hd-sub" data-vi="CyberSkill · chi tiết dự án">CyberSkill · project detail</p></div>
       </div>
-      <div class="hd-side"><p class="hd-meta">Updated<br />2h ago · An Le</p></div>
+      <div class="hd-side"><button type="button" class="cs-button cs-button--secondary cs-button--sm" data-preview-language-toggle>Tiếng Việt</button><p class="hd-meta"><span data-vi="Dữ liệu minh họa">Sample data</span><br /><span data-vi="2 giờ trước · An Le">2h ago · An Le</span></p></div>
     </div>
   </header>
 
   <div class="pd">
-    <nav class="crumb" aria-label="Breadcrumb">
-      <a href="index.html">Status Hub</a><span class="sep">/</span>
-      <a href="index.html">Platform</a><span class="sep">/</span>
-      <span class="cur">Design System v1.6</span>
+    <nav class="crumb" aria-label="Breadcrumb" data-vi-aria-label="Đường dẫn điều hướng">
+      <a href="index.html">Status Hub</a><span class="sep" aria-hidden="true">/</span>
+      <a href="index.html" data-vi="Nền tảng">Platform</a><span class="sep" aria-hidden="true">/</span>
+      <span class="cur" lang="en">Design System v1.6</span>
     </nav>
 
     <div class="pd-head">
       <div>
-        <h1><span class="k">CDS</span> · Design System v1.6</h1>
-        <p>Liquid Glass component bindings + 15 element packs, verified. Ships this week.</p>
+        <h1 lang="en"><span class="k">CDS</span> · Design System v1.6</h1>
+        <p data-vi="Dữ liệu dự án minh họa. Bản xem trước này chưa chứng minh trạng thái kiểm chứng hay phát hành.">Illustrative project data. This preview does not establish verification or release status.</p>
       </div>
       <div class="pd-actions">
-        <button class="cs-button cs-button--secondary cs-button--sm">Share</button>
-        <button class="cs-button cs-button--primary cs-button--sm">Open board</button>
+        <button type="button" disabled class="cs-button cs-button--secondary cs-button--sm" data-vi="Chia sẻ">Share</button>
+        <a class="cs-button cs-button--primary cs-button--sm" href="index.html" data-vi="Mở bảng công việc">Open board</a>
       </div>
     </div>
 
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px">
-      <span class="pill active">In progress</span>
-      <span class="cs-badge">Platform</span>
-      <span class="cs-badge">Owner · An Le</span>
+      <span class="pill active" data-vi="Đang làm">In progress</span>
+      <span class="cs-badge" data-vi="Nền tảng">Platform</span>
+      <span class="cs-badge" data-vi="Phụ trách · An Le">Owner · An Le</span>
       <span class="cs-badge cs-badge--info">AI-native</span>
     </div>
 
     <div class="pd-stats">
-      <div class="stat"><div class="l">Progress</div><div class="v">72%</div></div>
-      <div class="stat"><div class="l">Tasks</div><div class="v">18</div></div>
-      <div class="stat"><div class="l">Shipped</div><div class="v">13</div></div>
-      <div class="stat"><div class="l">Target</div><div class="v" style="font-size:18px;padding-top:6px">This week</div></div>
+      <div class="stat"><div class="l" data-vi="Tiến độ">Progress</div><div class="v">72%</div></div>
+      <div class="stat"><div class="l" data-vi="Công việc">Tasks</div><div class="v">18</div></div>
+      <div class="stat"><div class="l" data-vi="Đã ra mắt">Shipped</div><div class="v">13</div></div>
+      <div class="stat"><div class="l" data-vi="Mục tiêu">Target</div><div class="v" style="font-size:18px;padding-top:6px" data-vi="Tuần này">This week</div></div>
     </div>
 
     <div style="margin:8px 0 22px">
@@ -91,46 +91,46 @@
 
     <div class="pd-grid">
       <section class="panel">
-        <h2 class="sec">Tasks</h2>
-        <div class="task"><span class="mono">TASK-DS-041</span><span class="nm">Glass surface bindings</span><span class="pill done">Shipped</span></div>
-        <div class="task"><span class="mono">TASK-DS-047</span><span class="nm">Element-pack verifier v2</span><span class="pill active">In progress</span></div>
-        <div class="task"><span class="mono">TASK-DS-052</span><span class="nm">Dark-mode APCA re-check</span><span class="pill active">In progress</span></div>
-        <div class="task"><span class="mono">TASK-DS-055</span><span class="nm">Figma variable sync</span><span class="pill todo">Planned</span></div>
+        <h2 class="sec" data-vi="Công việc">Tasks</h2>
+        <div class="task"><span class="mono">TASK-DS-041</span><span class="nm" lang="en">Glass surface bindings</span><span class="pill done" data-vi="Đã ra mắt">Shipped</span></div>
+        <div class="task"><span class="mono">TASK-DS-047</span><span class="nm" lang="en">Element-pack verifier v2</span><span class="pill active" data-vi="Đang làm">In progress</span></div>
+        <div class="task"><span class="mono">TASK-DS-052</span><span class="nm" lang="en">Dark-mode APCA re-check</span><span class="pill active" data-vi="Đang làm">In progress</span></div>
+        <div class="task"><span class="mono">TASK-DS-055</span><span class="nm" lang="en">Figma variable sync</span><span class="pill todo" data-vi="Dự kiến">Planned</span></div>
 
-        <h2 class="sec" style="margin-top:26px">The arc of this release</h2>
+        <h2 class="sec" style="margin-top:26px" data-vi="Hành trình phát hành này">The arc of this release</h2>
         <div class="steps-wrap">
           <div class="cs-steps">
-            <div class="cs-step cs-step--done"><span class="cs-step__marker">✓</span><span class="cs-step__title">Shape</span><span class="cs-step__body">Scoped</span></div>
-            <div class="cs-step cs-step--done"><span class="cs-step__marker">✓</span><span class="cs-step__title">Build</span><span class="cs-step__body">In code</span></div>
-            <div class="cs-step cs-step--active"><span class="cs-step__marker">3</span><span class="cs-step__title">Verify</span><span class="cs-step__body">Now</span></div>
-            <div class="cs-step"><span class="cs-step__marker">4</span><span class="cs-step__title">Ship</span><span class="cs-step__body">This week</span></div>
+            <div class="cs-step cs-step--done"><span class="cs-step__marker">✓</span><span class="cs-step__title" data-vi="Định hình">Shape</span><span class="cs-step__body" data-vi="Đã xác định phạm vi">Scoped</span></div>
+            <div class="cs-step cs-step--done"><span class="cs-step__marker">✓</span><span class="cs-step__title" data-vi="Xây dựng">Build</span><span class="cs-step__body" data-vi="Trong mã nguồn">In code</span></div>
+            <div class="cs-step cs-step--active"><span class="cs-step__marker">3</span><span class="cs-step__title" data-vi="Kiểm chứng">Verify</span><span class="cs-step__body" data-vi="Hiện tại">Now</span></div>
+            <div class="cs-step"><span class="cs-step__marker">4</span><span class="cs-step__title" data-vi="Phát hành">Ship</span><span class="cs-step__body" data-vi="Tuần này">This week</span></div>
           </div>
         </div>
       </section>
 
       <aside style="display:grid;gap:20px">
         <section class="panel">
-          <h2 class="sec">Details</h2>
+          <h2 class="sec" data-vi="Chi tiết">Details</h2>
           <dl class="cs-dl">
-            <div><dt>Owner</dt><dd>An Le</dd></div>
-            <div><dt>Squad</dt><dd>Platform</dd></div>
-            <div><dt>Started</dt><dd>02 Jun 2026</dd></div>
-            <div><dt>Target</dt><dd>This week</dd></div>
+            <div><dt data-vi="Phụ trách">Owner</dt><dd>An Le</dd></div>
+            <div><dt data-vi="Nhóm">Squad</dt><dd data-vi="Nền tảng">Platform</dd></div>
+            <div><dt data-vi="Bắt đầu">Started</dt><dd>02 Jun 2026</dd></div>
+            <div><dt data-vi="Mục tiêu">Target</dt><dd data-vi="Tuần này">This week</dd></div>
           </dl>
         </section>
         <section class="panel">
-          <h2 class="sec">Recent releases</h2>
+          <h2 class="sec" data-vi="Các lần phát hành gần đây">Recent releases</h2>
           <div class="cs-timeline">
-            <div class="cs-timeline__item cs-timeline__item--now"><span class="cs-timeline__marker">→</span><div><div class="cs-timeline__title">v1.6.0</div><div class="cs-timeline__meta">This week</div><div class="cs-timeline__body">Glass bindings + verifier v2</div></div></div>
-            <div class="cs-timeline__item"><span class="cs-timeline__marker">✓</span><div><div class="cs-timeline__title">v1.5.1</div><div class="cs-timeline__meta">04 Jul 2026</div><div class="cs-timeline__body">15 element packs ship</div></div></div>
-            <div class="cs-timeline__item"><span class="cs-timeline__marker">✓</span><div><div class="cs-timeline__title">v1.4.0</div><div class="cs-timeline__meta">13 Jun 2026</div><div class="cs-timeline__body">Liquid Glass in code</div></div></div>
+            <div class="cs-timeline__item cs-timeline__item--now"><span class="cs-timeline__marker">→</span><div><div class="cs-timeline__title">v1.6.0</div><div class="cs-timeline__meta" data-vi="Tuần này">This week</div><div class="cs-timeline__body" lang="en">Glass bindings + verifier v2</div></div></div>
+            <div class="cs-timeline__item"><span class="cs-timeline__marker">✓</span><div><div class="cs-timeline__title">v1.5.1</div><div class="cs-timeline__meta">04 Jul 2026</div><div class="cs-timeline__body" lang="en">15 element packs ship</div></div></div>
+            <div class="cs-timeline__item"><span class="cs-timeline__marker">✓</span><div><div class="cs-timeline__title">v1.4.0</div><div class="cs-timeline__meta">13 Jun 2026</div><div class="cs-timeline__body" lang="en">Liquid Glass in code</div></div></div>
           </div>
         </section>
       </aside>
     </div>
   </div>
 </div>
-<button class="toggle" id="themeToggle" aria-label="Toggle theme">☾</button>
+<button class="toggle" id="themeToggle" aria-label="Toggle theme" data-vi-aria-label="Đổi giao diện">☾</button>
 <script>
   document.getElementById("themeToggle").addEventListener("click", function () {
     var el = document.documentElement;
@@ -140,5 +140,6 @@
   });
 </script>
 </main>
+<script src="static-locale.js"></script>
 </body>
 </html>

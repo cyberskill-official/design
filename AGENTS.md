@@ -1,14 +1,10 @@
 # AGENTS.md
 
-This repository runs **CyberOS**. Canonical agent instructions: `.cyberos/AGENT-ENTRY.md`.
+Shared design-system entrypoint: [SKILL.md](SKILL.md). Read it for runtime routing, source authority and capability limits before following task-specific design guidance.
 
-Design-system doctrine (expansion, verification, immutables): `docs/doctrine.md`.
+Design-system doctrine: [docs/doctrine.md](docs/doctrine.md). Use the revision plan, source-bound verification records, and documented npm/browser checks for repository work.
 
-Work is tasks; HITL is required at the two human-acceptance gates; run gates with `bash .cyberos/cuo/gates/run-gates.sh`. Never push, deploy, or merge without an explicit operator instruction.
-
-Memory (BRAIN): protocol at `.cyberos/memory/AGENTS.md`; store at `.cyberos/memory/store/`.
-
-<!-- cyberos-agent-spine (managed by cyberos install; edit above/below this marker) -->
+CyberOS orchestration and its two acceptance gates were retired by operator decision on 2026-10-08. They are not prerequisites for this repository. Product visual review, manual accessibility evidence, and explicit operator authorization for push, deploy, or merge remain separate requirements.
 
 ## Cursor Cloud specific instructions
 
@@ -26,4 +22,3 @@ Non-obvious gotchas:
 - **`serve` strips the `.html` extension** and issues a `301` (`/_audit/run.html` → `/_audit/run`). This is expected; Playwright and browsers follow the redirect, so use the `.html` URLs as written in CI.
 - **The "Pixel CI" hard gate fails on a cold checkout** until `node _audit/ci/pixel-diff.mjs http://127.0.0.1:8080` has been run once — it generates `_audit/ci/pixel-diff-report.json` that the board reads. Run `pixel-diff.mjs` before `run-gates.mjs` (this mirrors CI job ordering).
 - The `ghost`/`secondary` Button variants render with no fill, so on Storybook's white canvas they can look "invisible" — that is expected styling, not a crash.
-- CyberOS acceptance gates (`bash .cyberos/cuo/gates/run-gates.sh`) live under the gitignored `.cyberos/` directory and are absent on a fresh clone; they are separate from the npm/audit checks above.

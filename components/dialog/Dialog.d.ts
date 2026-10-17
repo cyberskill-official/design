@@ -1,10 +1,12 @@
+/** The actions slots preserve numeric zero; null/false/empty string omit those slots. */
 import type { ReactNode } from "react";
 import type * as React from "react";
 
 /**
  * Modal dialog: dimmed overlay + centred panel, aria-modal and labelled by its
  * title. Overlay click calls onClose. Put Buttons in `actions`. On narrow
- * viewports it goes near-fullscreen and actions stack.
+ * viewports it goes near-fullscreen; actions grow and wrap as space permits.
+ * Coarse pointers use a fade entrance to preserve touch-target dimensions.
  */
 export interface DialogProps {
   open: boolean;
@@ -14,6 +16,8 @@ export interface DialogProps {
   actions?: ReactNode;
   onClose?: () => void;
   closeLabel?: string;
+  /** Override the body description with a short description ID; an empty string opts out for structured content. */
+  "aria-describedby"?: string;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;
   className?: string;

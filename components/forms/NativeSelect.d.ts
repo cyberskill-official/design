@@ -1,3 +1,7 @@
+/** ReactNode content preserves numeric zero; optional empty content remains omitted. */
+/** Caller aria-describedby is combined with the local error ID; there is no
+ *  built-in help/description slot. Caller help elements must exist in the document. Local errors
+ *  force aria-invalid=true; otherwise the supplied aria-invalid is preserved. */
 import type * as React from "react";
 import type { ReactNode } from "react";
 

@@ -1,4 +1,4 @@
-<!-- @dsCard group="Motion" viewport="720x250" name="Interaction states" subtitle="Warm hover lift · layered ochre focus glow · staggered entrance — all collapse under reduced motion" -->
+<!-- @dsCard group="Motion" viewport="720x250" name="Interaction states" subtitle="Warm hover lift · composite focus indicator · staggered entrance; reduced motion shortens transitions" -->
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <link rel="stylesheet" href="../styles.css">
@@ -15,8 +15,8 @@ body{margin:0;background:var(--cs-color-surface-page);padding:22px 24px;font-fam
   <div class="note">Filled controls rise 1px on an umber-tinted shadow; press returns them flat. 120–200ms, soft decelerate.</div>
 </div>
 <div class="box"><div class="lbl">Focus — layered glow</div>
-  <span class="demo-btn" style="outline:3px solid var(--cs-color-accent-ochre);outline-offset:2px;box-shadow:0 0 0 5px color-mix(in oklab,var(--cs-color-accent-ochre) 26%,transparent)">Make a wish</span>
-  <div class="note">A soft 5px ochre glow layers on the immutable 3px ring — never replaces it.</div>
+  <span class="demo-btn" style="outline:2px solid var(--cs-color-text-primary);outline-offset:2px;box-shadow:0 0 0 5px var(--cs-color-accent-ochre)">Make a wish</span>
+  <div class="note">A 2px text-primary contour combines with the invariant Ochre halo. Preserve both when changing component states.</div>
 </div>
 <div class="box"><div class="lbl">Entrance — staggered rise</div>
   <div style="display:grid;gap:6px">
@@ -24,6 +24,6 @@ body{margin:0;background:var(--cs-color-surface-page);padding:22px 24px;font-fam
     <span class="cs-rise-in cs-rise-in--2" style="display:block;height:14px;border-radius:99px;background:var(--cs-color-surface-raised);border:1px solid var(--cs-color-border-default)"></span>
     <span class="cs-rise-in cs-rise-in--3" style="display:block;height:14px;border-radius:99px;background:var(--cs-color-surface-raised);border:1px solid var(--cs-color-border-default)"></span>
   </div>
-  <div class="note"><b>.cs-rise-in</b> + <b>--2/--3/--4</b> (80ms steps); dialogs pop via <b>cs-pop-in</b>. All animation is 0 under prefers-reduced-motion.</div>
+  <div class="note"><b>.cs-rise-in</b> + <b>--2/--3/--4</b> (80ms steps); dialogs fade without transforming their nested overlay coordinate space. Reduced motion: none.</div>
 </div>
 </body></html>

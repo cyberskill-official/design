@@ -1,10 +1,13 @@
+/** The reviewer slots preserve numeric zero; null/false/empty string omit those slots. */
 import type { ReactNode } from "react";
 import type * as React from "react";
 
 /**
- * AI-native human-in-the-loop checkpoint: warning-bordered card with a risk
+ * Human-review control for an AI-assisted workflow: warning-bordered card with a risk
  * label, plain-language summary, optional reviewer, and Approve / Reject
- * actions. Risk is never communicated by colour alone.
+ * actions. Risk is never communicated by colour alone. This UI invokes caller
+ * callbacks; it does not authenticate reviewers, persist approval or enforce
+ * authorization before an action. The consumer owns that workflow.
  */
 export interface HumanReviewGateProps {
   risk?: ReactNode;

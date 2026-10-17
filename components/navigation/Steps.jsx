@@ -11,10 +11,10 @@ export function Steps({ steps = [], current = 0, lang, className }) {
       {steps.map((s, i) => {
         const state = i < current ? "done" : i === current ? "active" : "todo";
         return (
-          <div key={i} className={cx("cs-step", `cs-step--${state}`)} role="listitem">
-            <span className="cs-step__marker">{state === "done" ? "✓" : s.n || i + 1}</span>
+          <div key={i} className={cx("cs-step", `cs-step--${state}`)} role="listitem" aria-current={state === "active" ? "step" : undefined}>
+            <span className="cs-step__marker">{state === "done" ? "✓" : s.n ?? i + 1}</span>
             <span className="cs-step__title">{s.title}</span>
-            {s.body ? <span className="cs-step__body">{s.body}</span> : null}
+            {s.body != null ? <span className="cs-step__body">{s.body}</span> : null}
           </div>
         );
       })}

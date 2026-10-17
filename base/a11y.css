@@ -7,7 +7,7 @@
  *   2. Reduced motion — honour the OS "reduce motion" setting globally, so every
  *      animation/transition across components and templates calms down at once.
  * Focus rings are NOT here — they are already systematic (global :focus-visible in
- * reset.css + per-component 3px ochre rings in components/forms/navigation/controls). */
+ * reset.css + component rules preserve a text-primary contour and ochre halo). */
 
 /* Visually hidden but available to AT / file inputs (FileUpload keyboard path). */
 .cs-sr-only {
@@ -24,30 +24,104 @@
 
 /* ---- 1. Touch targets: 44px minimum on coarse pointers ---- */
 @media (pointer: coarse) {
+  /* Authored template links opt in without changing desktop prose spacing. */
+  .cs-touch-target {
+    display: inline-flex; align-items: center; box-sizing: border-box;
+    min-inline-size: 44px; min-block-size: 44px;
+  }
+
   /* Primary navigation & action targets → full 44px */
-  .cs-tab { min-height: 44px; }
+  .cs-tab { min-height: 44px; min-inline-size: 44px; }
   .cs-pagination button { block-size: 44px; min-inline-size: 44px; }
-  .cs-menu__item { min-height: 44px; }
+  .cs-menu__item { min-height: 44px; min-inline-size: 44px; }
   .cs-stepper button { min-block-size: 44px; }
   .cs-stepper input { min-height: 44px; }
-  .cs-breadcrumb a { display: inline-flex; align-items: center; min-height: 40px; }
+  .cs-breadcrumb a { display: inline-flex; align-items: center; min-height: 44px; min-inline-size: 44px; }
 
-  /* Compact toggles sit in a padded track — 40px inner clears 44px outer */
-  .cs-segmented button { min-height: 40px; }
+  /* The button itself is the target; track padding does not enlarge its hit area. */
+  .cs-segmented button { min-height: 44px; min-inline-size: 44px; }
 
   /* Selection controls: enlarge the native box; the label extends the target */
   .cs-check input, .cs-radio input { inline-size: 24px; block-size: 24px; }
-  .cs-check, .cs-radio { min-height: 44px; align-items: center; }
-  .cs-switch { min-height: 44px; }
+  .cs-check, .cs-radio { min-inline-size: 44px; min-height: 44px; align-items: center; }
+  .cs-switch { min-height: 44px; min-inline-size: 44px; }
 
   /* Icon-only affordances inside a larger row */
-  .cs-search__clear { min-inline-size: 32px; min-block-size: 32px; }
-  .cs-ai-disclosure__badge { min-height: 32px; }
+  .cs-search__clear { min-inline-size: 44px; min-block-size: 44px; flex-shrink: 0; }
+  .cs-ai-disclosure__badge { min-height: 44px; min-inline-size: 44px; }
+
+  /* Tree expansion and selection are separate pointer actions. */
+  .cs-tree__twist { min-inline-size: 44px; min-block-size: 44px; flex-shrink: 0; }
+  .cs-tree__label { min-inline-size: 44px; min-block-size: 44px; display: inline-flex; align-items: center; }
+
+  /* Keep the actual control boxes disjoint. Expanding pseudo-elements alone
+   * can steal taps from neighboring actions in compact rows. */
+  .cs-button, .cs-button--sm, .cs-button--xs,
+  .cs-anchor__item, .cs-code__copy, .cs-cmdk__item,
+  .cs-fab__mini, .cs-list__item--button, .cs-image[role="button"],
+  .cs-ctxmenu-zone, .cs-menu > button, .cs-popconfirm > button,
+  .cs-cmdk__search input, .cs-comment__actions button,
+  .cs-drawer__close, .cs-toolbar__btn, .cs-inline-edit__view,
+  .cs-alert__dismiss, .cs-toast__close, .cs-image__zoom button,
+  .cs-datagrid__check, .cs-datagrid__sort, .cs-datagrid__pin,
+  .cs-igroup__btn, .cs-menubar__top, .cs-navmenu__top, .cs-navmenu__card,
+  .cs-stepper button, .cs-rating button, .cs-tag__close,
+  .cs-taginput > input, .cs-terminal__line input, .cs-timepicker select,
+  .cs-toggle, .cs-cal button, .cs-carousel__nav,
+  .cs-suggest button, .cs-colorpicker__grid button, .cs-colorpicker__hex input,
+  .cs-cascader__opt, .cs-combobox__opt, .cs-inline-edit input, .cs-mentions__pop button,
+  .cs-search input, .cs-search select, .cs-nav-item,
+  .cs-field__control, .cs-native-select--sm select.cs-field__control,
+  .cs-ctxmenu-zone > button, .cs-hovercard > button,
+  .cs-popover > button, .cs-tooltip > button {
+    min-inline-size: 44px;
+    min-block-size: 44px;
+  }
+  /* Touch and keyboard focus scroll the tablist; an overlay scrollbar must not
+   * intercept the required action disk immediately after a horizontal scroll. */
+  .cs-tabs { scrollbar-width: none; }
+  .cs-tabs::-webkit-scrollbar { display: none; }
+  /* Adjacent InputGroup actions/addons can win fractional border hit tests.
+   * Reserve 1px at each inline edge around the required 44px action disk. */
+  .cs-igroup__btn { min-inline-size: 46px; }
+  /* Text fallbacks and focusable native/custom trigger roots may be inline.
+   * Minimum dimensions require a layout box; do not target the popup panels. */
+  :is(.cs-menu, .cs-popover, .cs-popconfirm, .cs-tooltip, .cs-hovercard)
+    > :is(a[href], [role="button"], [tabindex="0"]) {
+    display: inline-flex; align-items: center;
+    min-inline-size: 44px; min-block-size: 44px;
+  }
+  /* WebKit native selects ignore min-block-size under automatic appearance. */
+  .cs-timepicker select { block-size: 44px; }
+  .cs-colorpicker__grid { grid-template-columns: repeat(5, 44px); }
+  .cs-transfer__list label { min-block-size: 44px; }
+  .cs-link, .cs-citation {
+    display: inline-flex; align-items: center;
+    min-inline-size: 44px; min-block-size: 44px;
+  }
+  /* Seven real day targets need 308px before gaps. Keep a narrow host usable
+   * through local scrolling rather than overlapping adjacent dates. */
+  .cs-cal { min-inline-size: 0; max-inline-size: 100%; overflow-x: auto; box-sizing: border-box; }
+  .cs-cal__wd, .cs-cal__grid { grid-template-columns: repeat(7, 44px); }
+  .cs-cal__head { min-inline-size: 0; position: sticky; inset-inline-start: 0; }
+  .cs-carousel__view { min-block-size: 64px; padding-inline: 64px; }
+  .cs-carousel__dots { flex-wrap: wrap; }
+  .cs-carousel__dots button {
+    inline-size: 44px; block-size: 44px; flex: 0 0 44px;
+    background: radial-gradient(circle, var(--cs-color-border-default) 4.5px, transparent 5px);
+  }
+  .cs-carousel__dots button[aria-current="true"] {
+    background: radial-gradient(circle, var(--cs-accent) 4.5px, transparent 5px);
+  }
+  .cs-carousel__dots button::before { content: none; }
+  /* The container's two 1px borders must not clip a short requested divider. */
+  .cs-splitter { min-block-size: 46px; }
+  .cs-splitter__bar { min-inline-size: 44px; min-block-size: 44px; flex-shrink: 0; }
 
   /* Slider: native <input type=range> thumb size is browser-controlled (no custom
    * ::-webkit-slider-thumb here) so an exact 44px hit region can't be guaranteed —
    * widen the track's rendered band to give the thumb more room to land. */
-  .cs-slider { block-size: 32px !important; }
+  .cs-slider { min-inline-size: 44px; block-size: 44px !important; }
 }
 
 /* ---- 2. Reduced motion: honour the user's OS setting everywhere ---- */
@@ -65,11 +139,11 @@
  * Only activates on user request; anchors (Umber/Ochre) and focus rings are
  * already high-contrast and untouched. ---- */
 @media (prefers-contrast: more) {
-  :root { --cs-color-border-default: #9a8060; --cs-color-text-muted: #5a4638; }
+  [data-theme="light"], [data-theme="system"], :root { --cs-color-border-default: #9a8060; --cs-color-text-muted: #5a4638; }
   [data-theme="dark"] { --cs-color-border-default: #7a6450; --cs-color-text-muted: #d8c9b6; }
 }
 
-/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
-@media (prefers-color-scheme: dark) {
+/* System dark gets stronger contrast only when the user requests it, just like explicit dark. */
+@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
   [data-theme="system"] { --cs-color-border-default: #7a6450; --cs-color-text-muted: #d8c9b6; }
 }

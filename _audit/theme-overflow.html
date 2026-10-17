@@ -8,8 +8,6 @@
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px 20px;max-width:1180px}
   .r{display:flex;justify-content:space-between;gap:8px;padding:2px 8px;border-radius:4px}
   .r.bad{background:#FEE2E2;color:#B42318;font-weight:700}
-  .r.warn{background:#FEF9C3;color:#854d0e}
-  .r.reviewed{background:#E0F2FE;color:#075985}
   .r.na{color:#8b8378}
   .r.ok{color:#166534}
   .r span:last-child{white-space:nowrap}
@@ -18,24 +16,16 @@
   #adv{font-family:system-ui;font-size:12px;color:#6b5d4f;margin-top:8px;max-width:1100px;line-height:1.5}
 </style></head><body>
 <h1>Dark-theme audit — every template forced to dark @ mobile 390</h1>
-<p class="lede" id="hard-note" style="font-weight:700;color:#166534">HARD GATE (<code>window.__theme.pass</code>): dark applies where a Theme tweak exists · zero document overflow in dark · zero reproducible solid-bg leaf-text contrast fails outside the allowlist. Allowlisted rows are REVIEWED_OK (confirmed DOM-walk noise or APCA-ok branded near-misses). Light-only templates are <b>n/a</b> — not force-themed.</p>
-<p class="lede">Whole-set theme pass (owner doctrine: theme gets its OWN pass). Fresh single-navigation iframe per template — race-free — then <code>__dcSetProps(root,{theme:"dark"})</code>, settle, and check dark. <b>HARD GATE:</b> (1) no document horizontal overflow in dark, (2) dark actually applies where a Theme tweak exists, (3) reproducible WCAG AA fails on leaf text over a resolvable solid, image/gradient-free background — except templates in <code>REVIEWED_OK</code>. Each contrast measurement runs twice 350ms apart and only counts a fail that reproduces both times (filters transient mid-paint reads). <code>parseColor</code> converts non-<code>rgb()</code> computed backgrounds (oklab / color-mix) via a 1×1 canvas so element-pack surfaces are not mistaken for the light <code>body</code> fallback. <b>Allowlist policy:</b> canvas decks whose eyebrow ochre-on-strong sits ~4.2:1 (APCA-ok, WCAG body near-miss on 14px labels). Do <b>not</b> allowlist a themeable screen/email whose cream-on-bright CTA is a real dark-pack bug — those use <code>--cs-accent-strong</code> + <code>--cs-accent-on</code>. Authoritative token proof stays <code>docs/contrast-report.md</code> + contrast-guard + APCA dark preview. <b>n/a</b> = light-only by design (print / VN legal / stacked instruments). ◇ = canvas deck/social.</p>
+<p class="lede" id="hard-note" style="font-weight:700;color:#166534">HARD GATE (<code>window.__theme.pass</code>): declared dark themes must apply, documents must not overflow, and every reproducible measured contrast failure blocks the verdict. No template-wide waivers.</p>
+<p class="lede">Whole-set dark pass at 390px. Each template loads in a fresh iframe. Theme support comes from its declared Theme tweak; light-only print/legal documents remain n/a. Solid-background leaf text is measured twice, 350ms apart, matched by DOM position and full text. All failures count; only the displayed details are capped. Images/gradients and complex paint still need visual review. Loading, bootstrap, stylesheet and measurement errors fail closed. Companion token proofs: contrast-guard, APCA dark preview and docs/contrast-report.md.</p>
 <div id="busy">loading manifest…</div>
 <div class="grid" id="grid"></div>
 <div id="sum"></div>
 <div id="adv"></div>
 <div id="pool"></div>
+<script src="./lib/frame-probe.js"></script>
 <script>
 const W=390, GROUP=4, BOOT_TRIES=45, BOOT_STEP=120, RENDER=2400, SETTLE=1200, MAXFAILS=6;
-// Allowlist — REVIEWED_OK: reproducible WCAG fails that are confirmed non-bugs for this DOM gate.
-// - Canvas decks: accent-bright eyebrows on accent-strong sections (~4.22:1 vs 4.5 body AA). APCA dark
-//   packs pass (bright≥75); do not retune tokens to chase WCAG on branded 14px kickers.
-// Removing an entry re-exposes it to the hard contrast fail list — only add after a double-run + screenshot.
-const REVIEWED_OK=new Set([
-  'Board · Meeting deck',
-  'Sales · Proposal deck',
-  'Slide deck',
-]);
 const pool=document.getElementById('pool'), grid=document.getElementById('grid'), busy=document.getElementById('busy');
 const results=[];
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
@@ -63,7 +53,7 @@ function parseColor(c, doc){
     return {r:d[0],g:d[1],b:d[2],a:d[3]/255};
   }catch(e){ return null; }
 }
-function relLum({r,g,b}){ const f=v=>{v/=255; return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);}; return 0.2126*f(r)+0.7152*f(g)+0.0722*f(b); }
+function relLum({r,g,b}){ const f=v=>{v/=255; return v<=0.04045?v/12.92:Math.pow((v+0.055)/1.055,2.4);}; return 0.2126*f(r)+0.7152*f(g)+0.0722*f(b); }
 function contrast(a,b){ const l1=relLum(a),l2=relLum(b),hi=Math.max(l1,l2),lo=Math.min(l1,l2); return (hi+0.05)/(lo+0.05); }
 function composite(fg,bg){ const a=fg.a; return {r:fg.r*a+bg.r*(1-a),g:fg.g*a+bg.g*(1-a),b:fg.b*a+bg.b*(1-a),a:1}; }
 // Resolve the painted background BEHIND an element's own box, walking real ancestors.
@@ -88,17 +78,18 @@ function resolveBg(el,win){
 }
 // Leaf text only: no element children, so the element's OWN computed color paints its text directly
 // (avoids reading a container's inherited UA color while a styled child holds the real color).
-function isLeafText(el){ if(el.children.length) return false; return (el.textContent||'').trim().length>1; }
-function measure(doc){
+function isLeafText(el){ if(el.children.length) return false; return (el.textContent||'').trim().length>0; }
+function measure(doc, {allThemes=false}={}){
   const win=doc.defaultView;
-  let over=0, canvas=false, dark=false, fails=[], checked=0, skipped=0;
+  let over=0, canvas=false, dark=false, fails=[], checked=0, skipped=0, error=null;
   try{
     over=doc.documentElement.scrollWidth-W;
     canvas=!!doc.querySelector('.cs-canvas-desk');
     dark=!!doc.querySelector('[data-theme="dark"]');
-    if(dark){
-      for(const el of doc.querySelectorAll('p,span,a,button,h1,h2,h3,h4,h5,li,td,th,label,dt,dd,strong,em,small,figcaption')){
-        if(!isLeafText(el)) continue;
+    if(dark || allThemes){
+      for(const el of doc.body.querySelectorAll('*')){
+        if(el.namespaceURI!=='http://www.w3.org/1999/xhtml' || /^(SCRIPT|STYLE|NOSCRIPT|TEMPLATE)$/.test(el.tagName)) continue;
+        if(!isLeafText(el) || !el.getClientRects().length) continue;
         const cs=win.getComputedStyle(el);
         if(cs.visibility==='hidden'||cs.display==='none'||parseFloat(cs.opacity)<0.15) continue;
         if(el.closest('[disabled],.is-disabled,[aria-disabled="true"]')) continue;
@@ -110,62 +101,64 @@ function measure(doc){
         const need=(size>=24||(size>=18.66&&wght>=700))?3.0:4.5;
         const ratio=contrast(fg,r.color);
         checked++;
-        if(ratio < need-0.05) fails.push({t:(el.innerText||'').slice(0,22).replace(/\s+/g,' ').trim(),r:+ratio.toFixed(2),need,size:Math.round(size),fg:cs.color,bg:'rgb('+Math.round(r.color.r)+','+Math.round(r.color.g)+','+Math.round(r.color.b)+')'});
+        if(ratio < need-0.000001) fails.push({key:nodeKey(el),t:(el.innerText||'').slice(0,80).replace(/\s+/g,' ').trim(),r:+ratio.toFixed(2),need,size:Math.round(size),fg:cs.color,bg:'rgb('+Math.round(r.color.r)+','+Math.round(r.color.g)+','+Math.round(r.color.b)+')'});
       }
     }
-  }catch(e){ fails.push({t:'ERR '+String(e).slice(0,30),r:0,need:0}); }
+  }catch(e){ error=String(e); }
   fails.sort((a,b)=>a.r-b.r);
-  return {over,canvas,dark,checked,skipped,failN:fails.length,fails:fails.slice(0,MAXFAILS)};
+  return {over,canvas,dark,checked,skipped,error,failN:fails.length,fails};
+}
+// Keep identity separate from the shortened display text; repeated labels must not match each other.
+function nodeKey(el){
+  const path=[];
+  for(let n=el;n && n.parentElement;n=n.parentElement) path.push(Array.prototype.indexOf.call(n.parentElement.children,n));
+  return path.reverse().join('.')+'|'+el.textContent;
+}
+function stableMeasurement(first, second){
+  const keys=new Set(second.fails.map(x=>x.key));
+  const fails=first.fails.filter(x=>keys.has(x.key));
+  return {...second,error:first.error||second.error,fails,failN:fails.length};
+}
+function verdict(m){
+  const overflowFail=m.over>0;
+  const contrastFail=m.dark && m.failN>0;
+  const themeFail=!!m.expectsDark && !m.dark;
+  const error=m.error || (m.expectsDark && m.dark && m.checked===0 ? 'No measurable contrast nodes in declared dark template' : null);
+  return {...m,fails:m.fails||[],failN:m.failN||0,error,overflowFail,contrastFail,themeFail,reviewed:false,
+    fail:!!(error||overflowFail||contrastFail||themeFail)};
 }
 function probeOne(src){
-  return new Promise(res=>{
-    const f=document.createElement('iframe');
-    f.style.cssText='width:'+W+'px;height:1100px;border:0;display:block';
-    f.src=src; pool.appendChild(f);
-    f.onload=async()=>{
-      const win=f.contentWindow;
-      try{ await f.contentDocument.fonts.ready; }catch(e){}
-      for(let i=0;i<BOOT_TRIES && !(win.__dcRootName && win.__dcRootName());i++) await wait(BOOT_STEP);
-      let forced=false;
-      try{ const root=win.__dcRootName && win.__dcRootName(); if(win.__dcSetProps && root){ win.__dcSetProps(root,{theme:'dark'}); forced=true; } }catch(e){}
-      await wait(forced?RENDER:SETTLE);
-      const m1=measure(f.contentDocument);
-      await wait(350);
-      const m2=measure(f.contentDocument);
-      // Stability filter: a contrast fail only counts if it reproduces across two measurements 350ms apart —
-      // filters out transient mid-transition/mid-paint reads (the actual source of run-to-run flake).
-      const stableTexts=new Set(m2.fails.map(x=>x.t));
-      const m={...m1, fails:m1.fails.filter(x=>stableTexts.has(x.t))};
-      m.failN=m.fails.length;
-      f.remove(); res(m);
-    };
-  });
+  return csProbeFrame(src,{parent:pool,width:W,measure:async({doc,win,rootName,props,wait})=>{
+    const expectsDark=!!props.theme?.options?.includes('dark');
+    if(expectsDark)win.__dcSetProps(rootName,{theme:'dark'});
+    await wait(expectsDark?RENDER:SETTLE);
+    const first=measure(doc);await wait(350);const second=measure(doc);
+    return {...stableMeasurement(first,second),expectsDark};
+  }});
 }
 (async()=>{
   const M=await (await fetch('../_ds_manifest.json')).json();
+  if(!Array.isArray(M.templates) || !M.templates.length) throw new Error('Manifest contains no templates');
   const tpls=M.templates.map(t=>({name:t.name,src:'../'+t.entryPath}));
   busy.textContent='forcing dark on '+tpls.length+' templates in groups of '+GROUP+'…';
   for(let i=0;i<tpls.length;i+=GROUP){
     const batch=tpls.slice(i,i+GROUP);
     const measured=await Promise.all(batch.map(t=>probeOne(t.src)));
     batch.forEach((t,j)=>{
-      const m=measured[j];
-      const overflowFail=m.over>0;
-      const rawContrast=m.dark && m.failN>0;
-      const reviewed=rawContrast && REVIEWED_OK.has(t.name);
-      const contrastFail=rawContrast && !reviewed; // hard: open contrast outside allowlist
-      const fail=overflowFail || contrastFail;
-      results.push({name:t.name,...m,fail,overflowFail,contrastFail,advise:contrastFail,reviewed});
-      const cls=overflowFail||contrastFail?'bad':(reviewed?'reviewed':(m.dark?'ok':'na'));
+      const m=verdict(measured[j]);
+      results.push({name:t.name,...m,fails:m.fails.slice(0,MAXFAILS)});
+      const cls=m.fail?'bad':(m.dark?'ok':'na');
       let detail;
-      if(overflowFail) detail='+'+m.over+'px overflow';
-      else if(contrastFail) detail='✗ '+m.failN+' contrast';
-      else if(reviewed) detail='✓ reviewed (⚠'+m.failN+' allowlisted)';
+      if(m.error) detail='✗ '+m.error;
+      else if(m.themeFail) detail='✗ declared dark theme did not apply';
+      else if(m.overflowFail) detail='+'+m.over+'px overflow';
+      else if(m.contrastFail) detail='✗ '+m.failN+' contrast';
       else if(!m.dark) detail='n/a light-only';
       else detail='dark ✓ ('+m.checked+' AA ok)';
       const row=document.createElement('div');
       row.className='r '+cls;
-      row.innerHTML='<span>'+t.name+(m.canvas?' ◇':'')+'</span><span>'+detail+'</span>';
+      const label=document.createElement('span'), status=document.createElement('span');
+      label.textContent=t.name+(m.canvas?' ◇':''); status.textContent=detail; row.append(label,status);
       row.title=m.fails.map(x=>x.r+':1 '+x.size+'px  fg '+x.fg+' / bg '+x.bg+'  "'+x.t+'"').join('\n');
       grid.appendChild(row);
     });
@@ -175,26 +168,32 @@ function probeOne(src){
   const bad=results.filter(r=>r.fail);
   const overflowBad=results.filter(r=>r.overflowFail);
   const contrastBad=results.filter(r=>r.contrastFail);
-  const reviewedRows=results.filter(r=>r.reviewed);
+  const errorRows=results.filter(r=>r.error||r.themeFail);
   const darkN=results.filter(r=>r.dark).length;
+  const lightOnly=results.filter(r=>r.expectsDark===false && !r.error).length;
   const totChecked=results.reduce((a,r)=>a+(r.checked||0),0), totSkipped=results.reduce((a,r)=>a+(r.skipped||0),0);
-  window.__theme={done:tpls.length,total:tpls.length,results,darkApplied:darkN,lightOnly:tpls.length-darkN,
+  window.__theme={done:tpls.length,total:tpls.length,results,darkApplied:darkN,lightOnly,
     contrastChecked:totChecked,contrastSkipped:totSkipped,
     advisory:[], // retained key for CI/readers; contrast is hard now — open fails live in `fail`
     contrastFail:contrastBad.map(r=>r.name+' ✗'+r.failN),
-    reviewed:reviewedRows.map(r=>r.name+' ⚠'+r.failN),
-    fail:bad.map(r=>r.overflowFail?(r.name+' +'+r.over):(r.name+' ✗contrast'+r.failN)),
-    pass:bad.length===0};
+    reviewed:[],
+    errors:errorRows.map(r=>r.name+': '+(r.error||'dark theme did not apply')),
+    fail:bad.map(r=>r.name+': '+(r.error||(r.themeFail?'dark theme did not apply':r.overflowFail?'overflow +'+r.over:'contrast '+r.failN))),
+    pass:tpls.length>0 && bad.length===0};
   window.__all=window.__theme;
   busy.textContent='done — '+tpls.length+' templates';
   const sum=document.getElementById('sum');
-  if(bad.length){
-    sum.textContent='✗ HARD GATE FAIL — '+bad.length+' ('+overflowBad.length+' overflow, '+contrastBad.length+' contrast): '+window.__theme.fail.join(', ');
+  if(!window.__theme.pass){
+    sum.textContent='✗ HARD GATE FAIL — '+bad.length+' ('+overflowBad.length+' overflow, '+contrastBad.length+' contrast, '+errorRows.length+' errors): '+window.__theme.fail.join(', ');
     sum.style.color='#B42318';
   }else{
-    sum.textContent='✓ HARD GATE PASS — '+darkN+' themed templates: 0 dark overflow, 0 open contrast fails; '+(tpls.length-darkN)+' light-only (n/a)'+(reviewedRows.length?(' · '+reviewedRows.length+' allowlisted REVIEWED_OK'):'')+'.';
+    sum.textContent='✓ HARD GATE PASS — '+darkN+' themed templates: 0 dark overflow, 0 open contrast fails; '+lightOnly+' light-only (n/a)'+'.';
     sum.style.color='#166534';
   }
-  document.getElementById('adv').textContent='Contrast (hard, allowlisted exceptions): '+totChecked+' leaf text/solid-bg nodes measured (double-checked 350ms apart), '+totSkipped+' skipped (branded/pseudo/gradient — uncomputable via DOM). '+(contrastBad.length?('Open contrast fails: '+window.__theme.contrastFail.join(', ')+'. Hover a row for fg/bg. '):'No open contrast fails this run. ')+(reviewedRows.length?(reviewedRows.length+' allowlisted (REVIEWED_OK): '+window.__theme.reviewed.join(', ')+'. '):'')+'Companion proofs: contrast-guard + apca-dark-preview + docs/contrast-report.md.';
-})();
+  document.getElementById('adv').textContent='Contrast: '+totChecked+' solid-background leaf nodes measured; '+totSkipped+' complex-background nodes skipped. All stable failures count, including those beyond the '+MAXFAILS+' displayed examples per row. No template-wide exceptions. Token proofs and visual review remain separate.';
+})().catch(error=>{
+  window.__theme={pass:false,error:String(error),done:results.length,results};
+  window.__all=window.__theme;
+  busy.textContent='Audit failed: '+String(error);
+});
 </script></body></html>

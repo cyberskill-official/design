@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {withBrowserFixture} from './lib/browser-fixture.mjs';
+execFileSync(process.execPath,['_audit/ci/check-bundle-freshness.mjs'],{stdio:'pipe'});
+await withBrowserFixture(async page=>{
+ await page.evaluate(()=>{window.commands=[];window.submits=0;renderFixture(React.createElement('form',{onSubmit:e=>{e.preventDefault();submits++}},React.createElement(CS.Terminal,{lang:'en',welcome:0,onCommand:c=>{commands.push(c);return 0}})))});
+ const input=page.getByRole('textbox');
+ await input.fill('  tiếng Việt  ');
+ for(const props of [{isComposing:true},{keyCode:229}])await input.dispatchEvent('keydown',{key:'Enter',bubbles:true,...props});
+ assert.deepEqual(await page.evaluate(()=>commands),[],'IME confirmation must not execute commands');
+ assert.equal(await input.inputValue(),'  tiếng Việt  ');
+ assert.equal(await page.locator('.cs-terminal__out').first().textContent(),'0','Numeric welcome is renderable');
+ await input.press('Enter');
+ assert.deepEqual(await page.evaluate(()=>commands),['tiếng Việt']);
+ assert.equal(await page.evaluate(()=>submits),0,'Command Enter must not submit enclosing form');
+ assert.equal(await input.inputValue(),'');
+ assert.deepEqual(await page.locator('.cs-terminal__out').allTextContents(),['0','0'],'Zero command output is preserved');
+ await input.fill('   ');await input.press('Enter');
+ assert.equal(await page.evaluate(()=>commands.length),1,'Blank commands are ignored');
+ assert.equal(await page.evaluate(()=>submits),0);
+ console.log('PASS Terminal: IME/229 guards, trimmed commands, form isolation, zero welcome/output and blank input');
+},{browserName:process.env.CS_TEST_BROWSER||'chromium'});

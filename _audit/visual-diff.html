@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — visual-diff review</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CyberSkill — visual-diff review</title>
+<link rel="stylesheet" href="../styles.css">
 <style>
   :root{--dw:560px}
   body{margin:0;font-family:system-ui;background:#efe6d8;color:#231a12;padding:14px 18px}
@@ -22,9 +23,39 @@
   .y{color:#166534}.n{color:#9a8a78}
   .note{margin-top:16px;font-size:12px;color:#6b5d4f;max-width:1000px;line-height:1.6;border-top:1px dashed #c9b79c;padding-top:10px}
   code{background:#e2d5c0;border-radius:4px;padding:0 4px}
+
+  /* Diagnostic chrome only; measured fixture/sample paint remains independent. */
+  body{box-sizing:border-box;overflow-wrap:anywhere}
+  .row{flex-wrap:wrap}
+  .row>span{min-inline-size:0;max-inline-size:100%}
+  a[href],button,textarea{box-sizing:border-box}
+  @media(pointer:coarse){button,a[href]{min-inline-size:44px;min-block-size:44px}a[href]{display:inline-flex;align-items:center}}
+
+  body{font-family:var(--cs-font-family-ui)}
+  .bar,.ctl{min-inline-size:0;max-inline-size:100%}
+  .ctl{flex-wrap:wrap;box-sizing:border-box}
+  .pane{min-inline-size:0;max-inline-size:100%;overflow-x:auto}
+  .pane:focus-visible{outline:2px solid var(--cs-color-text-primary);outline-offset:2px;box-shadow:0 0 0 5px var(--cs-color-accent-ochre)}
+  #cov{max-inline-size:100%;overflow-x:auto}
+  @media(pointer:coarse){label.ctl,input[type=range],input[type=number]{min-inline-size:44px;min-block-size:44px;box-sizing:border-box}label.ctl:has(input[type=radio]){padding:4px}}
+
+  body{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary)}
+  .lede,.note{color:var(--cs-color-text-primary)}
+  #sum{color:var(--cs-color-text-primary)!important}
+  .row.ok{background:var(--cs-color-semantic-success);color:var(--cs-color-semantic-success-fg)}
+  .row.bad{background:var(--cs-color-semantic-danger);color:var(--cs-color-semantic-danger-fg)}
+  .row .d{color:inherit}
+
+  button.pick{background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);border-color:var(--cs-color-border-default);font-family:var(--cs-font-family-ui)}
+  button.pick.on{background:var(--cs-component-button-primary-bg);color:var(--cs-component-button-primary-fg)}
+  .ctl,.cap,#cov td{color:var(--cs-color-text-primary)}
+  code{background:var(--cs-color-surface-raised)}
+  .box{box-sizing:content-box}
+  label.ctl{color:var(--cs-color-text-primary)}
+  .y{white-space:nowrap}
 </style></head><body>
 <h1>Visual-diff review — live template vs. stored baseline</h1>
-<p class="lede">Deep visual-regression <b>review assist</b>, not a numeric gate: this environment can't rasterize nested-iframe content (html-to-image limitation) and the baselines in <code>_audit/baselines/</code> are downscaled 909×540 references — so drift is judged by eye. Pick a baseline, then compare side-by-side, or <b>Overlay (difference)</b> — where the live render matches the baseline the blend goes black; anything that lights up has moved. Adjust native width if the overlay is misregistered. The runner includes this page as an <b>advisory</b> row (baseline freshness: every declared baseline exists + its live source resolves — <code>window.__visualdiff</code>).</p>
+<p class="lede">Visual-regression <b>review assist</b>, not a numeric gate: this environment can't rasterize nested-iframe content (html-to-image limitation) and the baselines in <code>_audit/baselines/</code> are downscaled 909×540 references — so drift is judged by eye. Pick a baseline, then compare side-by-side, or <b>Overlay (difference)</b> — where the live render matches the baseline the blend goes black; anything that lights up has moved. Adjust native width if the overlay is misregistered. The dark Dashboard pick applies its requested theme before reporting the live rendering ready; The ready status checks stylesheet tokens, the mounted DC root where applicable, the requested theme, font loading and two animation frames; it does not certify every style or visual correctness. Loading or failed rendering is reported separately from advisory baseline freshness. The runner includes this page as an <b>advisory</b> row (baseline freshness: every declared baseline exists + its live source resolves — <code>window.__visualdiff</code>).</p>
 <div class="bar" id="picks"></div>
 <div class="bar">
   <label class="ctl"><input type="radio" name="mode" value="side" checked> Side-by-side</label>
@@ -32,10 +63,11 @@
   <label class="ctl">baseline opacity <input id="op" type="range" min="0" max="1" step="0.05" value="1"></label>
   <label class="ctl">native width <input id="nw" type="number" style="width:72px" step="20"></label>
 </div>
+<p id="live-status" role="status">Loading live rendering…</p>
 <div class="stage" id="stage"></div>
 <h3 style="margin:18px 0 2px;font-size:13px">Baseline coverage</h3>
 <div id="cov"></div>
-<p class="note"><b>Add a baseline:</b> open the template directly, capture it at its native width into a 16:9 frame, save as <code>_audit/baselines/&lt;slug&gt;.png</code>, then add <code>&lt;slug&gt;</code> here. Baselines are intentionally few (product · document · deck exemplars) — they anchor the archetypes, not every template. Regenerate after an intentional redesign so the baseline reflects the new truth.</p>
+<p class="note">On narrow screens, focus a comparison and use Left/Right, Home or End to scroll. <b>Add a baseline:</b> open the template directly, capture it at its native width into a 16:9 frame, save as <code>_audit/baselines/&lt;slug&gt;.png</code>, then add <code>&lt;slug&gt;</code> here. Baselines are intentionally few (product · document · deck exemplars) — they anchor the archetypes, not every template. Regenerate after an intentional redesign so the baseline reflects the new truth.</p>
 <script>
 const BASE={
   'dashboard':{w:1280}, 'slide-deck':{w:1280}, 'bod-report':{w:1000},
@@ -45,7 +77,7 @@ const BASE={
   'settings':{w:1280,src:'../templates/settings/Settings.dc.html'},
   'delivery-kickoff':{w:1000,src:'../templates/delivery-kickoff/DeliveryKickoff.dc.html'},
   'tech-incident-report':{w:909,src:'../templates/tech-incident-report/TechIncidentReport.dc.html'},
-  'dashboard-dark':{w:1280,src:'../templates/dashboard/Dashboard.dc.html'},
+  'dashboard-dark':{w:1280,theme:'dark',src:'../templates/dashboard/Dashboard.dc.html'},
   'kitchen-sink':{w:909,src:'../templates/kitchen-sink.html'},
   'status-hub':{w:909,src:'../ui_kits/status-hub/index.html'},
   'website':{w:909,src:'../ui_kits/website/index.html'}
@@ -54,19 +86,87 @@ const picks=document.getElementById('picks'), stage=document.getElementById('sta
 let manifest=null, cur=Object.keys(BASE)[0];
 function mode(){ return document.querySelector('input[name=mode]:checked').value; }
 function entryFor(slug){ if(BASE[slug]&&BASE[slug].src) return BASE[slug].src; const t=manifest.templates.find(t=>t.entryPath.includes('/'+slug+'/')); return t?('../'+t.entryPath):null; }
+let renderGeneration=0;
+async function settleLive(frame,slug,generation){
+  const status=document.getElementById('live-status');
+  const current=()=>generation===renderGeneration&&frame.isConnected;
+  const requestedTheme=BASE[slug]?.theme;
+  const deadline=performance.now()+15000;
+  const wait=predicate=>new Promise((resolve,reject)=>{
+    const poll=()=>{
+      if(!current()){resolve(false);return;}
+      try{if(predicate()){resolve(true);return;}}catch(error){reject(error);return;}
+      if(performance.now()>deadline){reject(new Error('live rendering did not settle'));return;}
+      setTimeout(poll,25);
+    };poll();
+  });
+  try{
+    const win=frame.contentWindow,doc=frame.contentDocument;
+    if(!win||!doc)throw new Error('live document unavailable');
+    const isDc=/\.dc\.html(?:$|[?#])/.test(frame.getAttribute('src')||'');
+    if(!await wait(()=>{
+      const style=win.getComputedStyle(doc.documentElement);
+      const modalDepth=parseFloat(style.getPropertyValue('--cs-depth-modal'));
+      const toastDepth=parseFloat(style.getPropertyValue('--cs-depth-toast'));
+      if(!style.getPropertyValue('--cs-color-brand-umber').trim()||!(modalDepth>0&&toastDepth>modalDepth))return false;
+      if(!isDc){
+        if(slug==='website'&&!doc.getElementById('root')?.childElementCount)return false;
+        return true;
+      }
+      if(typeof win.__dcRootName!=='function'||typeof win.__dcSetProps!=='function')return false;
+      const name=win.__dcRootName();return typeof name==='string'&&[...doc.querySelectorAll('[data-sc-name]')].some(el=>el.dataset.scName===name);
+    }))return;
+    let actualTheme=null;
+    if(requestedTheme){
+      const name=win.__dcRootName();win.__dcSetProps(name,{theme:requestedTheme});
+      if(!await wait(()=>{
+        const root=[...doc.querySelectorAll('[data-sc-name]')].find(el=>el.dataset.scName===name);
+        const surface=root?.matches('[data-theme]')?root:root?.querySelector(':scope>[data-theme]');
+        actualTheme=surface?.getAttribute('data-theme');
+        return actualTheme===requestedTheme||(requestedTheme==='light'&&actualTheme==='');
+      }))return;
+    }
+    if(!await wait(()=>doc.fonts.status==='loaded'))return;
+    await new Promise(resolve=>win.requestAnimationFrame(()=>win.requestAnimationFrame(resolve)));
+    if(!current())return;
+    window.__visualLive={state:'ready',slug,requestedTheme:requestedTheme||'default',actualTheme,generation};
+    status.textContent='Live rendering ready: '+slug+(requestedTheme?' · '+requestedTheme:'');
+  }catch(error){
+    if(!current())return;
+    window.__visualLive={state:'error',slug,requestedTheme:requestedTheme||'default',generation,error:String(error.message||error)};
+    status.textContent='Live rendering unavailable: '+slug+' · '+String(error.message||error);
+  }
+}
 function render(){
+  const generation=++renderGeneration,slug=cur;
+  window.__visualLive={state:'loading',slug,requestedTheme:BASE[slug]?.theme||'default',generation};
+  document.getElementById('live-status').textContent='Loading live rendering: '+slug;
+
   const nativeW=+nw.value||BASE[cur].w||1280;
   const dw=560, scale=dw/nativeW, ratio=540/909, boxH=Math.round(dw*ratio), frameH=Math.round(boxH/scale);
   const src=entryFor(cur), img='./baselines/'+cur+'.png';
   stage.innerHTML='';
-  const live=`<div class="pane"><p class="cap">live · ${cur} @ ${nativeW}px → ${dw}px</p><div class="box" style="height:${boxH}px"><iframe src="${src}" style="width:${nativeW}px;height:${frameH}px;transform:scale(${scale.toFixed(4)})"></iframe>__OV__</div></div>`;
-  const base=`<div class="pane"><p class="cap">baseline · ${cur}.png (909×540)</p><div class="box" style="height:${boxH}px"><img src="${img}" alt=""></div></div>`;
+  const live=`<div class="pane" tabindex="0" role="region" aria-label="Live comparison, horizontal scrolling with arrow keys"><p class="cap">live · ${cur} @ ${nativeW}px → ${dw}px</p><div class="box" style="height:${boxH}px"><iframe src="${src}" style="width:${nativeW}px;height:${frameH}px;transform:scale(${scale.toFixed(4)})"></iframe>__OV__</div></div>`;
+  const base=`<div class="pane" tabindex="0" role="region" aria-label="Baseline comparison, horizontal scrolling with arrow keys"><p class="cap">baseline · ${cur}.png (909×540)</p><div class="box" style="height:${boxH}px"><img src="${img}" alt=""></div></div>`;
   if(mode()==='diff'){
     const ov=`<div class="ov" style="mix-blend-mode:difference;opacity:${op.value}"><img src="${img}" alt=""></div>`;
     stage.innerHTML=live.replace('__OV__',ov);
   }else{
     stage.innerHTML=live.replace('__OV__','')+base;
   }
+  const liveFrame=stage.querySelector('iframe');
+  let settling=false;const settle=()=>{if(settling)return;settling=true;settleLive(liveFrame,slug,generation)};
+  liveFrame.addEventListener('load',settle,{once:true});
+  if(liveFrame.contentDocument?.readyState==='complete'&&liveFrame.contentDocument?.URL!=='about:blank')settle();
+  for(const pane of stage.querySelectorAll('.pane'))pane.addEventListener('keydown',event=>{
+    if(event.target!==pane||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey)return;
+    const limit=Math.max(0,pane.scrollWidth-pane.clientWidth);
+    if(!limit)return;
+    const step=Math.max(44,Math.round(pane.clientWidth/2));
+    const positions={ArrowLeft:Math.max(0,pane.scrollLeft-step),ArrowRight:Math.min(limit,pane.scrollLeft+step),Home:0,End:limit};
+    if(!Object.hasOwn(positions,event.key))return;
+    event.preventDefault();pane.scrollLeft=positions[event.key];
+  });
 }
 function drawPicks(){
   picks.innerHTML='';
@@ -88,7 +188,11 @@ function drawCoverage(){
   nw.value=BASE[cur].w;
   drawPicks(); render(); drawCoverage();
   document.querySelectorAll('input[name=mode]').forEach(r=>r.onchange=render);
-  op.oninput=render; nw.onchange=render;
+  op.oninput=()=>{
+    const overlay=stage.querySelector('.ov');
+    if(overlay)overlay.style.opacity=op.value;
+  };
+  nw.onchange=render;
   // Advisory freshness verdict for the gate runner: every declared baseline image exists
   // and its live source resolves. Drift itself stays judged by eye (documented limitation).
   const missing=[];

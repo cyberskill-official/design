@@ -64,13 +64,15 @@ jobs:
         run: node _audit/ci/check-token-provenance.mjs
 
   unit-tests:
-    # npm run test:unit — plain-Node contract tests (nav model, health/tokens UI,
-    # form paths, Storybook contract, Figma helpers, Code Connect helpers, native samples)
-    # plus subtree-consume (Playwright Chromium smoke for the portable copy).
+    # npm run test:unit combines Node contracts, three-engine interactions, document
+    # exports and packed-consumer tests. package.json is the executable inventory.
+    # Chromium, Firefox and WebKit are required beyond the subtree smoke.
     # Wired into CI by the Jul 2026 hardening (previously local-only).
     # Storybook freshness runs in storybook-build (FIND-074/075), not here.
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # The complete local suite takes about 15 minutes before runner setup and
+    # browser downloads. Allow a conservative buffer; hosted timing is separate.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
@@ -83,11 +85,16 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium-firefox-webkit
+      - name: Install Playwright unit-test browsers
+        run: npx playwright install --with-deps chromium firefox webkit
       - name: Run unit tests
         run: npm run test:unit
+      - name: Verify pinned Style Dictionary interchange adapter
+        run: |
+          SD_FIXTURE="$RUNNER_TEMP/cyberskill-style-dictionary"
+          npm install --prefix "$SD_FIXTURE" --ignore-scripts --no-audit --no-fund --save-exact style-dictionary@5.5.5
+          npm run test:dtcg-style-dictionary -- "$SD_FIXTURE/node_modules/style-dictionary"
 
   node-prechecks:
     # Browser-free Node gates that the run.html board does not own:
@@ -107,6 +114,8 @@ jobs:
           cache: npm
       - name: Install npm dependencies (esbuild needed by the bundle checker)
         run: npm ci
+      - name: Canonical CI jobs declare every required browser
+        run: node _audit/ci/check-ci-browser-prerequisites.mjs
       - name: _ds_bundle.js built from current sources
         run: node _audit/ci/check-bundle-freshness.mjs
       - name: DESIGN.md is a fresh regeneration
@@ -130,8 +139,14 @@ jobs:
           cache: npm
       - name: Install npm dependencies
         run: npm ci
-      - name: Build Storybook (+ freshness stamp)
-        run: npm run build:storybook
+      - name: Install browser for public-site checks
+        run: npx playwright install --with-deps chromium
+      - name: Build reviewed public site (+ freshness stamp)
+        run: npm run build:site
+      - name: Verify isolated public webroot
+        run: npm run test:public-site
+      - name: Measure distribution costs
+        run: node scripts/measure-distribution-costs.mjs --output "$RUNNER_TEMP/distribution-costs.json"
       - name: Storybook static freshness (--require)
         run: node _audit/ci/test-storybook-freshness.mjs --require
 
@@ -263,7 +278,7 @@ jobs:
             echo "No usable base SHA — always regenerate."
             exit 0
           fi
-          if git diff --name-only "$BASE" HEAD | grep -E '^(tokens/element-seeds\.json|tokens/elements\.css|tokens/tokens\.json|tokens/tokens\.js|tokens/tokens\.dtcg\.json|tokens/native/|scripts/generate-element-packs\.mjs|scripts/lib/oklch\.mjs|_audit/ci/generate-native-tokens\.mjs|VERSION)$' >/dev/null; then
+          if git diff --name-only "$BASE" HEAD | grep -E '^(tokens/|base/|styles\.css$|scripts/(generate-(element-packs|theme-exports|token-declarations|export-catalog|dtcg|design-md|contrast-report)|build-bundle|flatten-styles|design-md-lib)\.mjs$|scripts/lib/|_audit/ci/generate-native-tokens\.mjs$|components/|VERSION$|package\.json$)' >/dev/null; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             echo "Token-related paths changed."
           else
@@ -273,24 +288,22 @@ jobs:
       - name: Regenerate element packs from seeds + native mirrors from DTCG
         if: steps.filter.outputs.run == 'true'
         run: |
-          npm run tokens:elements
-          node _audit/ci/generate-native-tokens.mjs
+          npm run tokens:generate
       - name: Fail when committed packs or natives drift
         if: steps.filter.outputs.run == 'true'
         run: |
-          TRACKED='tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json'
-          if git diff --quiet -- $TRACKED; then
+          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
+          if git diff --quiet -- "${TRACKED[@]}"; then
             echo "Element packs + native tokens already match seeds/DTCG — nothing to regenerate."
             exit 0
           fi
-          git --no-pager diff --stat -- $TRACKED
-          echo "::error::Element packs and/or natives are stale. Run 'npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs' locally and commit — pull request runs never push."
+          git --no-pager diff --stat -- "${TRACKED[@]}"
+          echo "::error::Element packs and/or natives are stale. Run 'npm run tokens:generate' locally and commit — pull request runs never push."
           exit 1
 
   regenerate-tokens-push:
     # Auto-commit path — main pushes, nightly schedule, manual dispatch only.
     # Deterministic output → no-op commit when clean.
-    # FIND-089 / FIND-130 — serialize with version.yml (both push to main).
     if: |
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'schedule' ||
@@ -298,7 +311,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     concurrency:
-      group: design-system-version
+      group: design-system-regenerate-tokens
       cancel-in-progress: false
     permissions:
       contents: write
@@ -322,7 +335,7 @@ jobs:
             echo "No usable base SHA — always regenerate."
             exit 0
           fi
-          if git diff --name-only "$BASE" HEAD | grep -E '^(tokens/element-seeds\.json|tokens/elements\.css|tokens/tokens\.json|tokens/tokens\.js|tokens/tokens\.dtcg\.json|tokens/native/|scripts/generate-element-packs\.mjs|scripts/lib/oklch\.mjs|_audit/ci/generate-native-tokens\.mjs|VERSION)$' >/dev/null; then
+          if git diff --name-only "$BASE" HEAD | grep -E '^(tokens/|base/|styles\.css$|scripts/(generate-(element-packs|theme-exports|token-declarations|export-catalog|dtcg|design-md|contrast-report)|build-bundle|flatten-styles|design-md-lib)\.mjs$|scripts/lib/|_audit/ci/generate-native-tokens\.mjs$|components/|VERSION$|package\.json$)' >/dev/null; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             echo "Token-related paths changed."
           else
@@ -332,19 +345,18 @@ jobs:
       - name: Regenerate element packs from seeds + native mirrors from DTCG
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
         run: |
-          npm run tokens:elements
-          node _audit/ci/generate-native-tokens.mjs
+          npm run tokens:generate
       - name: Check for generated drift
         id: drift
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
         run: |
-          TRACKED='tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json'
-          if git diff --quiet -- $TRACKED; then
+          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
+          if git diff --quiet -- "${TRACKED[@]}"; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Element packs + natives already match seeds/DTCG — nothing to commit."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            git --no-pager diff --stat -- $TRACKED
+            git --no-pager diff --stat -- "${TRACKED[@]}"
           fi
       - name: Commit regenerated files if they changed
         if: steps.drift.outputs.changed == 'true'
@@ -355,17 +367,15 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin "$BRANCH"
           git reset --hard "origin/$BRANCH"
-          npm run tokens:elements
-          node _audit/ci/generate-native-tokens.mjs
-          TRACKED='tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json'
-          if git diff --quiet -- $TRACKED; then
+          npm run tokens:generate
+          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
+          if git diff --quiet -- "${TRACKED[@]}"; then
             echo "After sync, packs + natives already match remote — nothing to push."
             exit 0
           fi
-          git add tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json \
-            tokens/native/CSTokens.swift tokens/native/CSTokens.kt tokens/native/cs_tokens.dart tokens/provenance.json
+          git add "${TRACKED[@]}"
           # No [skip ci]: the pushed tip must re-enter the gate board (FIND-021 / TASK-IMP-008).
-          # Deterministic regen → second run is a no-op commit (same loop-safety idea as version.yml).
+          # Deterministic regen → second run is a no-op commit.
           git commit -m "chore: regenerate element packs + tokens/native/* from seeds/DTCG"
           if git push origin "HEAD:$BRANCH"; then
             echo "Pushed regenerated packs/natives to ${BRANCH}." >> "$GITHUB_STEP_SUMMARY"
@@ -373,8 +383,8 @@ jobs:
             {
               echo "### Token regenerate commit NOT pushed"
               echo "Push to \`${BRANCH}\` was rejected (branch protection / token scope)."
-              echo "Set repository secret \`PUSH_TOKEN\` (contents:write) — same pattern as \`version.yml\`."
-              echo "Or commit locally: \`npm run tokens:elements && node _audit/ci/generate-native-tokens.mjs\`."
+              echo "Set repository secret \`PUSH_TOKEN\` (contents:write)."
+              echo "Or commit locally: \`npm run tokens:generate\`."
             } >> "$GITHUB_STEP_SUMMARY"
             echo "::warning::Token regenerate commit blocked by branch protection — not pushed."
             # Soft-exit: content drift is still enforced by token-provenance / fast-gates.
@@ -382,8 +392,8 @@ jobs:
           fi
 
   figma-variables-push:
-    # Soft-skips when secrets missing (same honesty as Code Connect) or Variables API is
-    # Enterprise-only (owner decision A: non-Enterprise for now). Soft-skip ≠ live sync.
+    # Soft-skips when secrets missing or Variables API is Enterprise-only (owner decision A:
+    # non-Enterprise for now). Soft-skip ≠ live sync.
     # FIND-095 — soft-skip emits step summary + ::error:: on main (not silent green).
     if: |
       github.event_name == 'workflow_dispatch' ||
@@ -416,7 +426,7 @@ jobs:
           fi
           if [ "$missing" -ne 0 ]; then
             echo "SOFT SKIP — FIGMA_TOKEN and/or FIGMA_FILE_KEY empty; no Variables push attempted."
-            echo "Same honesty as Code Connect: missing secrets exit 0 (not a live sync)."
+            echo "Missing secrets exit 0 (not a live sync)."
             echo "Add repository secrets FIGMA_TOKEN and FIGMA_FILE_KEY when ready. See docs/figma.md."
             printf '%s\n' '{"skipped":true,"reason":"missing_secrets","message":"FIGMA_TOKEN and/or FIGMA_FILE_KEY empty — no Variables push attempted.","channel":"figma-variables"}' > _audit/ci/figma-push-report.json
             node _audit/ci/ci-verdict.mjs --assert-report _audit/ci/figma-push-report.json
@@ -441,44 +451,6 @@ jobs:
         with:
           name: figma-push-report
           path: _audit/ci/figma-push-report.json
-          if-no-files-found: ignore
-
-  code-connect:
-    # Decision 1C: live Code Connect path; soft-skip when secrets missing or API 403/404/429.
-    # FIND-095 — soft-skip writes GITHUB_STEP_SUMMARY + distinct CI annotations.
-    if: |
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
-      github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
-        with:
-          node-version: '22'
-          cache: npm
-      - name: Install npm dependencies
-        run: npm ci
-      - name: Code Connect dry-run (config + 99 mappings, no secrets)
-        run: node _audit/ci/code-connect-publish.mjs --dry-run
-      - name: Code Connect publish (soft-skip without secrets / on 403·404·429)
-        env:
-          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
-          FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
-        run: node _audit/ci/code-connect-publish.mjs
-      - name: Soft-skip honesty annotation (FIND-095)
-        if: always()
-        run: |
-          if [ -f _audit/ci/code-connect-report.json ]; then
-            node _audit/ci/ci-verdict.mjs --assert-report _audit/ci/code-connect-report.json
-          fi
-      - name: Upload Code Connect report
-        if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7
-        with:
-          name: code-connect-report
-          path: _audit/ci/code-connect-report.json
           if-no-files-found: ignore
 
   npm-hello-smoke:
@@ -545,7 +517,7 @@ jobs:
             if [ "${NPM_HELLO_ALLOW_LOCAL_PACK}" = "true" ] && [ "${GITHUB_REPOSITORY_NAME}" != "cyberskill-official/design" ]; then
               echo "Fork opt-in NPM_HELLO_ALLOW_LOCAL_PACK — proving local npm pack (≠ published)."
               npm pack ../.. --pack-destination .
-              TARBALL="$(ls -1 cyberskill-design-*.tgz | head -1)"
+              TARBALL="cyberskill-design-${EXPECTED}.tgz"
               npm install "./${TARBALL}" --no-save
               rm -f "./${TARBALL}"
               {
@@ -556,7 +528,7 @@ jobs:
               } >> "$GITHUB_STEP_SUMMARY"
               echo "::warning title=LOCAL-PACK::npm-hello-smoke used local pack (≠ registry) for @${EXPECTED}"
             else
-              echo "::error::FAIL — @cyberskill/design@${EXPECTED} is not on the npm registry. npm-hello-smoke is fail-closed (FIND-087). Publish ${EXPECTED} via npm-publish.yml (operator-gated), or set repo variable NPM_HELLO_ALLOW_LOCAL_PACK=true on a fork only."
+              echo "::error::FAIL — @cyberskill/design@${EXPECTED} is not on the npm registry. npm-hello-smoke is fail-closed (FIND-087). Publish ${EXPECTED} to the npm registry (operator-gated), or set repo variable NPM_HELLO_ALLOW_LOCAL_PACK=true on a fork only."
               exit 1
             fi
           fi
@@ -586,5 +558,6 @@ jobs:
     steps:
       - name: Annotate nightly failure
         run: |
-          echo "::error::Nightly design-system-gates schedule failed. Open https://github.com/${{ github.repository }}/actions and re-run via workflow_dispatch after triage. See docs/release-runbook.md."
+          echo "::error::Nightly design-system-gates schedule failed. Open https://github.com/${{ github.repository }}/actions and re-run via workflow_dispatch after triage. See docs/ci-cd.md."
           exit 1
+

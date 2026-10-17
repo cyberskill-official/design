@@ -1,12 +1,16 @@
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
+import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
 import { cx } from "../_utils/cx.js";
 
 const EMPTY_PATH = [];
 
 /** CyberSkill Cascader — column-per-level picker for hierarchies (province → district style). */
 export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder, label, disabled = false, lang, className }) {
-  const [open, setOpen] = React.useState(false);
+  const [requestedOpen, setOpen] = React.useState(false);
+  // Disable the mounted surface immediately and discard its previous open state.
+  const open = requestedOpen && !disabled;
+  React.useEffect(() => { if (disabled) setOpen(false); }, [disabled]);
   const [path, setPath] = React.useState(value);
   const wrap = React.useRef(null);
   const fieldId = React.useId();
@@ -17,17 +21,14 @@ export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder
   // Depend on a stable key — default `[]` must not reset path every render.
   const valueKey = Array.isArray(value) ? value.join("\0") : "";
   React.useEffect(() => { setPath(Array.isArray(value) ? value : EMPTY_PATH); }, [valueKey]);
+  const { manager, scope } = useOverlayLayer({ open, kind: "dropdown", panelRef: wrap, onEscape: () => setOpen(false) });
   React.useEffect(() => {
     if (!open) return;
     const d = (e) => { if (wrap.current && !wrap.current.contains(e.target)) setOpen(false); };
     const k = (e) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        const field = wrap.current && wrap.current.querySelector(".cs-treeselect__field");
-        field && field.focus && field.focus();
-        return;
-      }
-      if (!wrap.current) return;
+      if (manager.topDismissible()?.panelEl !== wrap.current) return;
+      if (e.defaultPrevented || e.isComposing || e.keyCode === 229) return;
+      if (!wrap.current?.contains(e.target)) return;
       const opts = [...wrap.current.querySelectorAll('[role="option"]')];
       if (!opts.length) return;
       const active = document.activeElement;
@@ -50,8 +51,14 @@ export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
         if (path.length) {
-          const next = path.slice(0, -1);
-          setPath(next);
+          const columns = [...wrap.current.querySelectorAll('[role="listbox"]')];
+          const column = active?.closest('[role="listbox"]');
+          const depth = columns.indexOf(column);
+          const parentDepth = depth > 0 ? depth - 1 : Math.max(0, path.length - 1);
+          const parent = columns[parentDepth]?.querySelector('[role="option"][aria-selected="true"]');
+          // Move focus before unmounting the child column.
+          parent?.focus();
+          setPath(path.slice(0, parentDepth));
         } else {
           setOpen(false);
           const field = wrap.current.querySelector(".cs-treeselect__field");
@@ -76,6 +83,7 @@ export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder
   const labels = [];
   { let lv = nodes; for (const k of value) { const n = (lv || []).find((x) => x.key === k); if (!n) break; labels.push(n.label); lv = n.children; } }
   return (
+    <overlayScopeContext.Provider value={scope}>
     <div ref={(el) => { wrap.current = el; ref.current = el; }} className={cx("cs-cascader", className)}>
       <button
         type="button"
@@ -87,13 +95,16 @@ export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder
         aria-label={label}
         onClick={() => setOpen((o) => !o)}
         onKeyDown={(e) => {
+          if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;
+          // Once open, the document handler owns arrows from this trigger too.
+          if (open && e.key === "ArrowDown") return;
           if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
             e.preventDefault();
             setOpen(true);
           }
         }}
       >
-        <span className={labels.length ? undefined : "ph"}>{labels.length ? labels.join(" / ") : ph}</span><span aria-hidden="true">▾</span>
+        <span className={labels.length ? undefined : "ph"}>{labels.length ? labels.map((label, index) => <React.Fragment key={index}>{index ? <React.Fragment>{" "}<span aria-hidden="true">/</span>{" "}</React.Fragment> : null}{label}</React.Fragment>) : ph}</span><span aria-hidden="true">▾</span>
       </button>
       {open ? (
         <div className="cs-cascader__pop">
@@ -124,5 +135,6 @@ export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder
         </div>
       ) : null}
     </div>
+    </overlayScopeContext.Provider>
   );
 }

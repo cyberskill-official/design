@@ -8,6 +8,8 @@
  *   node scripts/generate-element-packs.mjs --check   # exit 1 if committed outputs are stale
  */
 import fs from 'node:fs';
+import { colorFromCss } from './lib/dtcg-values.mjs';
+import { emitThemeResolver } from './lib/theme-resolver.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -20,6 +22,8 @@ import {
   lchDegToHex,
   lchToHex,
   rgb2oklab,
+  oklab2rgb,
+  rgb2hex,
   solveL,
   toLCH,
 } from './lib/oklch.mjs';
@@ -53,20 +57,22 @@ function ensureStrongOnPage(strongHex, pageHex = '#FFFFFF', minRatio = 3.05, min
   return hex;
 }
 /**
- * Body-link colour: darken seed until WCAG AA (≥4.5:1) on every light surface the pack
- * paints (white, page cream, tint, raised). text-accent may stay on the looser bold floor.
+ * Body links meet WCAG4.5 and APCA78 on actual page/panel/raised plus tint.
+ * Tune only link lightness; preserve the ten accent roles and text-accent.
  */
 function ensureLinkOnSurfaces(
   seedHex,
   surfaces = ['#FFFFFF', '#FFFDF8', '#FBF4E9', '#F8F1E4'],
   minRatio = 4.5,
+  minLc = 78,
+  mode = 'light',
 ) {
   let hex = seedHex;
   const lch = hexToLCH(hex);
   let L = lch.L;
   for (let i = 0; i < 140; i++) {
-    if (surfaces.every((bg) => wcagRatio(hex, bg) >= minRatio)) break;
-    L = clamp(L - 0.01, 0.08, 0.9);
+    if (surfaces.every((bg) => wcagRatio(hex, bg) >= minRatio && apca(hex, bg) >= minLc)) break;
+    L = clamp(L + (mode === 'dark' ? 0.005 : -0.005), 0.04, 0.98);
     hex = lchDegToHex(L, lch.C, lch.Hdeg);
   }
   return hex;
@@ -269,6 +275,50 @@ function deriveDarkRoles(seeds, light) {
   };
 }
 
+// Match the authored OKLab surface mixes in theme-resolver.mjs. Rounded sRGB
+// matches browser paint; the APCA78 target leaves slack above the body75 floor.
+function bodyLinkSurfaces(roles, mode) {
+  const css = fs.readFileSync(path.join(ROOT, 'tokens/colors.css'), 'utf8');
+  const selector = mode === 'dark' ? '[data-theme="dark"]' : ':root';
+  const start = css.indexOf(selector + ' {');
+  const block = css.slice(start, css.indexOf('}', start));
+  const accent = rgb2oklab(hex2rgb(roles['--cs-accent']));
+  return [['page',8,8],['panel',4,10],['raised',15,14]].map(([surface,lo,hi]) => {
+    const match = block.match(new RegExp('--cs-color-surface-' + surface + ':\\s*(#[0-9a-f]{6})', 'i'));
+    if (!match) throw Error('Missing neutral surface ' + mode + '.' + surface);
+    const neutral = rgb2oklab(hex2rgb(match[1]));
+    const weight = (mode === 'dark' ? hi : lo) / 100;
+    return rgb2hex(...oklab2rgb(accent.map((v,i) => v * weight + neutral[i] * (1-weight))));
+  }).concat(roles['--cs-accent-tint']);
+}
+
+// A strong callout can contain regular body text as well as bold labels.
+// WCAG-only foreground selection can choose an APCA-weak pair; tune only
+// strong lightness, preserving the source hue and all other accent roles.
+function ensureBodyOnStrong(roles) {
+  const seed = roles['--cs-accent-strong'];
+  const lch = hexToLCH(seed);
+  const candidates = ['#FFFDF8', '#FFFFFF', '#1A1108', '#45210E'];
+  const choose = hex => candidates.filter(fg => wcagRatio(fg, hex) >= 4.5 && apca(fg, hex) >= 78)
+    .sort((a,b) => apca(b, hex) - apca(a, hex))[0];
+  let strong = seed, on = choose(strong), L = lch.L;
+  for (let i = 0; i < 180 && !on; i++) {
+    L -= 0.005;
+    if (L < 0.04) throw Error('Cannot solve body-on-strong pair');
+    let C = lch.C;
+    strong = lchDegToHex(L, C, lch.Hdeg);
+    for (let g = 0; g < 150 && deltaHueDeg(hexToLCH(strong).Hdeg,lch.Hdeg) > 1; g++) {
+      C *= 0.98;
+      strong = lchDegToHex(L, C, lch.Hdeg);
+    }
+    if (deltaHueDeg(hexToLCH(strong).Hdeg,lch.Hdeg) > 1) throw Error('Strong hue drift exceeds1degree');
+    on = choose(strong);
+  }
+  if (!on) throw Error('Unresolved body-on-strong foreground');
+  roles['--cs-accent-strong'] = strong;
+  roles['--cs-accent-on-strong'] = on;
+}
+
 function buildAllPacks(seeds) {
   const packs = [];
   const middleAccent = {};
@@ -287,17 +337,15 @@ function buildAllPacks(seeds) {
       const gradB = middleAccent[neighbor] || accent.hex;
       const pinThoStudio = elKey === 'tho' && !s.variant;
       const light = deriveLightRoles(seeds, accent, gradB, { pinThoStudio });
-      if (!pinThoStudio) {
-        light['--cs-color-text-accent'] = light['--cs-accent-strong'];
-        // Links are regular-weight body text — darker than bold-label text-accent (FIND-031).
-        light['--cs-color-link'] = ensureLinkOnSurfaces(light['--cs-accent-strong'], [
-          '#FFFFFF',
-          '#FFFDF8',
-          light['--cs-accent-tint'],
-          '#FBF4E9',
-        ]);
-      }
-      const dark = deriveDarkRoles(seeds, light);
+      const darkSeedLight = { ...light };
+      ensureBodyOnStrong(light);
+      light['--cs-color-link'] = ensureLinkOnSurfaces(light['--cs-accent-strong'], bodyLinkSurfaces(light, 'light'));
+      // Semantic accent text supports small body copy on the same surfaces as links.
+      light['--cs-color-text-accent'] = pinThoStudio ? '#6E3B0E' : light['--cs-color-link'];
+      const dark = deriveDarkRoles(seeds, darkSeedLight);
+      ensureBodyOnStrong(dark);
+      dark['--cs-color-link'] = ensureLinkOnSurfaces(dark['--cs-accent-bright'], bodyLinkSurfaces(dark, 'dark'), 4.5, 78, 'dark');
+      dark['--cs-color-text-accent'] = dark['--cs-color-link'];
       packs.push({
         el: elKey,
         variant: s.variant,
@@ -330,7 +378,8 @@ function emitCss(packs) {
  *   --cs-accent · --cs-accent-strong · --cs-accent-bright · --cs-accent-on
  *   --cs-accent-on-strong · --cs-accent-tint · --cs-accent-ink
  *   --cs-accent-glow · --cs-accent-grad-a/b
- * TEXT RULE: text sits on -bright or -tint only — never on the mid-tone -accent.
+ * TEXT RULE: body accent text uses --cs-color-text-accent; strong fills pair with on-strong.
+ * The ten accent roles retain their palette duties; never assume -bright supports small text.
  * Text on -strong uses --cs-accent-on-strong (WCAG AA ≥4.5:1 light and dark).
  * Focus indicator (text-primary contour + ochre halo) and semantic status tokens NEVER remap.
  * Generative cycle (Tương sinh) only for grad-b: Mộc→Hỏa→Thổ→Kim→Thủy→Mộc. */
@@ -376,9 +425,7 @@ function emitCss(packs) {
   }
 
   const ctaRemap = `  --cs-component-button-primary-bg: var(--cs-accent-strong);
-  --cs-component-button-primary-fg: var(--cs-accent-on);
-  --cs-color-text-accent: var(--cs-accent-bright);
-  --cs-color-link: var(--cs-accent-bright);
+  --cs-component-button-primary-fg: var(--cs-accent-on-strong);
   --cs-color-link-hover: var(--cs-color-text-primary);`;
 
   css += `/* ---- Dark theme CTA remaps inside element scopes ---- */
@@ -401,7 +448,7 @@ ${ctaRemap}
 /* ---- APCA-derived DARK elemental packs (generated; hue-locked to light) ---- */
 `;
 
-  const darkKeys = ['--cs-accent', '--cs-accent-bright', '--cs-accent-strong', '--cs-accent-on', '--cs-accent-on-strong', '--cs-accent-tint', '--cs-accent-ink'];
+  const darkKeys = ['--cs-accent', '--cs-accent-bright', '--cs-accent-strong', '--cs-accent-on', '--cs-accent-on-strong', '--cs-accent-tint', '--cs-accent-ink', '--cs-color-text-accent', '--cs-color-link'];
   for (const el of EL_ORDER) {
     for (const p of packs.filter((x) => x.el === el)) {
       const darkSel = p.variant
@@ -414,7 +461,7 @@ ${ctaRemap}
       css += `@media (prefers-color-scheme: dark) {\n  ${sysSel} {\n${decls(p.dark, darkKeys).split('\n').map((l) => (l ? '  ' + l : l)).join('\n')}\n  }\n}\n`;
     }
   }
-  return css;
+  return css + emitThemeResolver(new URL('../', import.meta.url), packs, ROLE_KEYS);
 }
 
 function patchJsonElements(packs) {
@@ -427,8 +474,8 @@ function patchJsonElements(packs) {
     for (const k of ROLE_KEYS) light[k] = p.light[k];
     if (p.light['--cs-color-text-accent']) {
       light['--cs-color-text-accent'] = p.light['--cs-color-text-accent'];
-      light['--cs-color-link'] = p.light['--cs-color-link'];
     }
+    light['--cs-color-link'] = p.light['--cs-color-link'];
     elements[lightKey] = light;
     elementsDark[darkKey] = { ...p.dark };
   }
@@ -476,8 +523,9 @@ function buildDtcg(elements, elementsDark) {
   if (!j.accent) j.accent = {};
   for (const k of ROLE_KEYS) {
     if (tho[k] == null) continue;
-    if (!j.accent[k]) j.accent[k] = { $type: 'color', $value: tho[k] };
-    else j.accent[k].$value = tho[k];
+    if (!j.accent[k]) j.accent[k] = { $type: 'color' };
+    j.accent[k].$value = colorFromCss(tho[k]);
+    j.accent[k].$extensions = {...j.accent[k].$extensions, 'com.cyberskill': {...j.accent[k].$extensions?.['com.cyberskill'], css:tho[k]}};
   }
   return JSON.stringify(j, null, 2) + '\n';
 }
@@ -506,7 +554,7 @@ function selfCheck(seeds, packs) {
     const checks = [
       ['bright', apca(p.dark['--cs-accent-bright'], D.panel), T.bright],
       ['accent', apca(p.dark['--cs-accent'], D.panel), T.accent],
-      ['on', apca(p.dark['--cs-accent-on'], p.dark['--cs-accent-strong']), T.on],
+      ['on-strong (body)', apca(p.dark['--cs-accent-on-strong'], p.dark['--cs-accent-strong']), 78],
       ['ink', apca(p.dark['--cs-accent-ink'], p.dark['--cs-accent-tint']), T.ink],
     ];
     for (const [name, lc, t] of checks) {

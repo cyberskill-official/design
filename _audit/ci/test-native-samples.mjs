@@ -3,8 +3,10 @@
  * Asserts SwiftUI / Compose / Flutter each have ≥3 screens and reference generated CSTokens.
  * Also asserts App Store / Play Store Fastlane scaffolds (Phase 7).
  */
-import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync, readdirSync, statSync, mkdtempSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
+import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { missingSecrets, ASC_SECRETS, PLAY_SECRETS } from './native-store-dry-run.mjs';
@@ -26,6 +28,16 @@ function walk(dir, out = []) {
 
 function read(rel) {
   return readFileSync(join(root, rel), 'utf8');
+}
+
+// Samples are projections of the canonical generated tokens, not independent
+// token sources. Compare the whole file so stale non-brand values cannot pass.
+for (const [source, destination, transform] of [
+  ['tokens/native/CSTokens.swift', 'examples/native/swiftui/Sources/CyberSkillSample/CSTokens.swift', text => text],
+  ['tokens/native/CSTokens.kt', 'examples/native/compose/app/src/main/java/world/cyberskill/sample/tokens/CSTokens.kt', text => text.replace(/package world\.cyberskill\.tokens/, 'package world.cyberskill.sample.tokens')],
+  ['tokens/native/cs_tokens.dart', 'examples/native/flutter/lib/tokens/cs_tokens.dart', text => text],
+]) {
+  assert(read(destination) === transform(read(source)), 'Stale native sample token copy: ' + destination + '; run npm run native:sync-tokens');
 }
 
 // --- SwiftUI ---
@@ -95,6 +107,19 @@ assert(
   'Flutter ships synced CSTokens',
 );
 
+// A widget fixture is not an Android application. The sample must ship its
+// runner and checked wrapper so a fresh checkout can build a debug APK.
+for (const rel of ['android/app/src/main/AndroidManifest.xml',
+  'android/app/src/main/kotlin/world/cyberskill/cyberskill_sample/MainActivity.kt',
+  'android/settings.gradle', 'android/app/build.gradle', 'android/gradlew',
+  'android/gradle/wrapper/gradle-wrapper.jar', 'android/gradle/wrapper/gradle-wrapper.properties']) {
+  assert(existsSync(join(root, flutterRoot, rel)), 'Flutter Android runner missing '+rel);
+}
+assert(read(join(flutterRoot,'android/gradle/wrapper/gradle-wrapper.properties')).includes('distributionSha256Sum=591855b517fc635b9e04de1d05d5e76ada3f89f5fc76f87978d1b245b4f69225'), 'Flutter wrapper distribution checksum missing');
+assert(createHash('sha256').update(readFileSync(join(root,flutterRoot,'android/gradle/wrapper/gradle-wrapper.jar'))).digest('hex') === '0336f591bc0ec9aa0c9988929b93ecc916b3c1d52aed202c7381db144aa0ef15', 'Flutter Gradle wrapper must match official Gradle 8.3 checksum');
+assert(!read(join(flutterRoot,'android/app/build.gradle')).includes('signingConfig = signingConfigs.debug'), 'Flutter release must not use debug signing');
+assert(read('scripts/ci/native-validation.sh').includes('flutter build apk --debug'), 'Native Flutter CI must build the actual Android runner');
+
 // Sync script exists
 assert(existsSync(join(root, 'examples/native/sync-tokens.mjs')), 'sync-tokens.mjs');
 
@@ -150,6 +175,23 @@ assert(missingSecrets(ASC_SECRETS, {}).length === ASC_SECRETS.length, 'ASC secre
 assert(missingSecrets(PLAY_SECRETS, { PLAY_SERVICE_ACCOUNT_JSON: 'x' }).length === 0, 'Play secret present');
 assert(missingSecrets(ASC_SECRETS, { ASC_KEY_ID: 'a', ASC_ISSUER_ID: 'b', ASC_KEY_P8: 'c' }).length === 0, 'ASC complete');
 
+// Check consumer references against the shipped API; this catches misspelled or
+// stale token names but does not replace a compiler or rendered-device test.
+for (const [directory, screens, tokenPath] of [
+  [swiftRoot, swiftScreens, 'Sources/CyberSkillSample/CSTokens.swift'],
+  [composeRoot, composeScreens, 'app/src/main/java/world/cyberskill/sample/tokens/CSTokens.kt'],
+  [flutterRoot, flutterScreens, 'lib/tokens/cs_tokens.dart'],
+]) {
+  const declarations = read(join(directory, tokenPath));
+  for (const screen of screens) for (const [,name] of read(join(directory, screen)).matchAll(/CSTokens\.(\w+)/g)) {
+    assert(new RegExp('\\b'+name+'\\b').test(declarations), screen+' references missing token '+name);
+  }
+  const settings = read(join(directory, screens[2]));
+  for (const metric of ['densityControlGap','componentButtonMdPaddingX','componentButtonMdPaddingY']) {
+    for (const mode of ['Compact','Comfortable']) assert(settings.includes('CSTokens.'+metric+mode), directory+' Settings must consume '+metric+mode);
+  }
+}
+
 // Inventory size
 const swiftFiles = walk(join(root, swiftRoot)).filter((f) => f.endsWith('.swift'));
 const ktFiles = walk(join(root, composeRoot)).filter((f) => f.endsWith('.kt'));
@@ -159,11 +201,27 @@ assert(ktFiles.length >= 5, 'kotlin multi-file');
 assert(dartFiles.length >= 4, 'dart multi-file');
 
 // Dry-run must stay green without secrets (FIND Phase 5 native verification).
-const dry = spawnSync(process.execPath, [join(root, '_audit/ci/native-store-dry-run.mjs'), '--dry-run'], {
-  cwd: root,
-  encoding: 'utf8',
-});
-assert(dry.status === 0, 'native-store-dry-run --dry-run failed: ' + (dry.stderr || dry.stdout));
+// Unit validation must not rewrite a report that Storybook fingerprints.
+const canonicalReport = join(root, '_audit/ci/native-store-report.json');
+const canonicalBefore = existsSync(canonicalReport) ? readFileSync(canonicalReport) : null;
+const reportDirectory = mkdtempSync(join(tmpdir(), 'cs-native-store-test-'));
+try {
+  const reportPath = join(reportDirectory, 'report.json');
+  const dry = spawnSync(process.execPath, [join(root, '_audit/ci/native-store-dry-run.mjs'), '--dry-run', '--report-path=' + reportPath], {
+    cwd: root,
+    encoding: 'utf8',
+  });
+  assert(dry.status === 0, 'native-store-dry-run --dry-run failed: ' + (dry.stderr || dry.stdout));
+  const report = JSON.parse(readFileSync(reportPath, 'utf8'));
+  assert(report.ok === true && report.skipped === false && report.dryRun === true && report.submit === false,
+    'Native sample validation requires an executed scaffold dry-run, not readiness or soft skip');
+  assert(report.platforms.length === 3 && report.platforms.every(platform => platform.ok === true), 'All native scaffolds must pass');
+  assert(report.tokens.length === 3 && report.tokens.every(token => token.ok === true), 'All canonical native tokens must pass');
+} finally {
+  rmSync(reportDirectory, {recursive: true, force: true});
+}
+assert(canonicalBefore === null ? !existsSync(canonicalReport) : readFileSync(canonicalReport).equals(canonicalBefore),
+  'Native sample unit check changed the canonical diagnostic report');
 
 console.log('PASS test-native-samples', {
   swiftScreens: 3,

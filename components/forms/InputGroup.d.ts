@@ -15,7 +15,10 @@ export interface InputGroupProps {
   defaultValue?: string;
   onChange?: (value: string) => void;
   placeholder?: string;
+  /** Disables the input, clear action and password reveal. */
   disabled?: boolean;
+  /** Prevents value editing and clearing; password visibility may still change. */
+  readOnly?: boolean;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;
   className?: string;

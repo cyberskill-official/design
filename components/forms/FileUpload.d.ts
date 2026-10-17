@@ -6,6 +6,7 @@ export interface FileUploadProps {
   title?: ReactNode;
   hint?: ReactNode;
   accept?: string;
+  /** Default false: emit only the first selected/dropped file. True preserves all files. */
   multiple?: boolean;
   onFiles?: (files: File[]) => void;
   icon?: ReactNode;

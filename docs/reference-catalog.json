@@ -1,0 +1,1118 @@
+{
+  "schemaVersion": 1,
+  "generator": {
+    "path": "scripts/generate-reference-catalog.mjs",
+    "sha256": "6a9a7005b67be4b0c7dd6b1dd9ce8fd621b2d6d49f9f44219bc3adadf0e0810d"
+  },
+  "version": "1.7.2",
+  "interpretation": "The document inventory covers Git-listed Markdown and llms.txt; HTML count surfaces are tracked separately. Audience follows the website publication policy, not npm membership. Source paths locate repository evidence and need not all be packaged. Roles describe source routing and audience, not approval, factual freshness of every sentence, translation quality or capability certification.",
+  "countScope": "Counts describe declared inventory only. Declared language/theme/boolean controls are inventory facts, not proof of complete content, working behavior or every supported state; token declarations and typed base values are distinct counts.",
+  "counts": {
+    "visualBaselines": 15,
+    "templates": 85,
+    "vietnameseInstrumentTemplates": 38,
+    "publicExports": 123,
+    "components": 119,
+    "constants": 4,
+    "componentSourceFiles": 106,
+    "coExports": 17,
+    "cards": 57,
+    "publicTokenDeclarations": 826,
+    "typedBaseTokens": 175,
+    "templatesWithLanguageControl": 44,
+    "templatesWithoutLanguageControl": 41,
+    "templatesWithThemeControl": 16,
+    "templatesWithoutThemeControl": 69,
+    "templatesWithBooleanControl": 15,
+    "templatesWithoutBooleanControl": 70
+  },
+  "sourceHashes": {
+    "_audit/visual-diff.html": "648e2698f16900ce2dc929eb0f67efa3478a882cb2d1922ddc6e179c1ea6b2b8",
+    "_ds_manifest.json": "94cf122cb157b11ca48f8326f39ebf783a92eeac327a37ac10b81270d9213a87",
+    "scripts/public-site-policy.json": "6b4c5a56fd67ef1a242aee0c9349766f131b67328b0679be4e4488ad1109eb9a",
+    "templates/app-shell/AppShell.dc.html": "806c90114a3ba89442dda3bf1608fdcf0116eedf3be5e1d45c21a8d0402d8b01",
+    "templates/article/Article.dc.html": "07e81ab1ce7592592a5b4fda49993fde3e9bdb417cb00a828fd9a334c055405b",
+    "templates/auth/Auth.dc.html": "6207b90b5fb55cdd05835e93d4638934ed12a8eb8af3a797232080a9f88a55da",
+    "templates/bod-deck/BodDeck.dc.html": "bc20ce5a71412e7b0342ce5b43fc20c7ed17be3dd176266ebafa0def999c5d62",
+    "templates/bod-investor-update/BodInvestorUpdate.dc.html": "c0754d2fe68d8793720a1847503adec52202ff3fed075d2e20aec34debc4ba5c",
+    "templates/bod-memo/BodMemo.dc.html": "79aae8bb25566687bd44b469ee18a79ffbc7cbfe1d4a6908681f2c897d1604b0",
+    "templates/bod-minutes/BodMinutes.dc.html": "848403901970417935fffdd8a5d3688a06c509d6154075f7d92895854416b742",
+    "templates/bod-report/BodReport.dc.html": "6515c4bd3a9ca160775e33d9513130eacd922810af07af294e9190f2d63d8f39",
+    "templates/bod-resolution/BodResolution.dc.html": "4b6be89614fb59eb2cfbb7a1343c7a788b3e4595330e69a8f370e4e6cddcc152",
+    "templates/culture-event-invite/CultureEventInvite.dc.html": "0cc4e752f4e1228a714257bbae8918f96053a3cc2f7ae324658027cb529ad5a6",
+    "templates/dashboard/Dashboard.dc.html": "27579dd2a88ed834df25cb0db4d5ff8e264b9c2e45de06ec9910de4bd4b63a0b",
+    "templates/delivery-change-note/DeliveryChangeNote.dc.html": "920970cb9286e59d81f8a6687c0066184b373b0b745fca57fcb7526cfa480cbb",
+    "templates/delivery-kickoff/DeliveryKickoff.dc.html": "0d22e00792ea301e8a7f06c927546a0dc1615a8ea2739403b3a1ab3d4c165ca9",
+    "templates/delivery-qbr-deck/DeliveryQbrDeck.dc.html": "bb20db9fa45fc2c0e2fd273be83f16dbf61fe9bf68a78e61dc819bf56fdc182a",
+    "templates/delivery-runbook/DeliveryRunbook.dc.html": "3f21674a6be846ad2a9ff052531391d096f7bf72c95814792ca01b54a5b7ffec",
+    "templates/delivery-status-email/DeliveryStatusEmail.dc.html": "50a75d793753f4a85a208373ada7235bc297b987950bdb4912b993bf4b93797c",
+    "templates/doc-style-guide/DocStyleGuide.dc.html": "d479e19fe7686e62e51f37820e664fffe60460ef420078b41335b4825c698a51",
+    "templates/doc-suite-index/DocSuiteIndex.dc.html": "62977a927c7d5c45426769bab0ec9617660feb9d3cc84f54130f9dfd4718ee4f",
+    "templates/doc-templates/DocTemplates.dc.html": "d392fbd0cc72426082f227cad0d61b612bd3cd1fe6a4bf953954d8c1713ba4f3",
+    "templates/email/Email.dc.html": "45cc3d90f2015ad6fef01b4ec9d505698d17e2ea3fbf9d27c0b13f93fd7f161b",
+    "templates/finance-dunning-email/FinanceDunningEmail.dc.html": "e83acb9edd09fd52c06a614b144f4ce6d41996c890d21bbd4a0caa3e4481ab62",
+    "templates/finance-expense-report/FinanceExpenseReport.dc.html": "ada75069f2b3ecdd531f1cbc19d2558c7e1a1705c080e7342e7c84548722d2ea",
+    "templates/finance-invoice/FinanceInvoice.dc.html": "13ed624a64e486c82dbbf76bd97a150bf5828cb31d39b2186c25ced28f09ddeb",
+    "templates/finance-quote/FinanceQuote.dc.html": "d745e87ab5065914f4862c09c9cf22945541809cd95b9880734eec560f2ce7a6",
+    "templates/hr-announcement/HrAnnouncement.dc.html": "4318e76add88a2ce3883aa79e97beff4b6e665b661ba5d4887d8a4c64e036821",
+    "templates/hr-interview-kit/HrInterviewKit.dc.html": "7a602fc9ddfdcd9bcf091c3e5dd80728afc25b7a49278749ab1edfdc5f68fbaf",
+    "templates/hr-offboarding/HrOffboarding.dc.html": "c2abb9040f046c42349aab4bf56ba4e4d0be3b736b6a9567de090235a1c16f01",
+    "templates/hr-performance-review/HrPerformanceReview.dc.html": "c3929e28896c68541cfc9e0ea27c3c5afc0216946a3a86bcdcc1898851729216",
+    "templates/hr-pip/HrPip.dc.html": "591d05d5ec2199ec50a5f301291f090237080dbfd5fc92def616323984e4b269",
+    "templates/legal-msa/LegalMsa.dc.html": "dd759b2127a44e2cbbc23937ef661a0207a67510f82e941b1945ad665826723c",
+    "templates/legal-sow/LegalSow.dc.html": "4557b6ae051c7be1b3cedf6c428c719e5dbead3af1210557f1fd01c8c8450fc4",
+    "templates/marketing-campaign-brief/MarketingCampaignBrief.dc.html": "38911c78dba8e867afeb643241dcb49c25ccf54d63ca2b226945a842cbf460d1",
+    "templates/marketing-case-study/MarketingCaseStudy.dc.html": "096a4e2259bff4187c9234ac6d0f46f27fabb26690129475787f9206fd17e70e",
+    "templates/marketing-launch/MarketingLaunch.dc.html": "2fd4d4af3c64c601896f379dfe539027b04225f6f61c25c9d736d204cd7b8f1a",
+    "templates/marketing-newsletter/MarketingNewsletter.dc.html": "ea036a9988e4862837912d283aa408bcd2a195496b947e3aa71e5e7573dddf00",
+    "templates/marketing-page/MarketingPage.dc.html": "43ae1cd8374d82996d9da9bc3d6fde6186e91054cda25709718d8db3ffd70abe",
+    "templates/marketing-press-release/MarketingPressRelease.dc.html": "b7fd622c720f0fc197f71a385116ac27158d09496e081cbd4e96f1d969f4617f",
+    "templates/marketing-social-kit/MarketingSocialKit.dc.html": "4278891b9d70ea0bcc5242c2d5c60927c193c5d4c213a7a148449840a243b9f4",
+    "templates/sales-one-pager/SalesOnePager.dc.html": "a6c96ccaa9f0ff66d8315748281471857e3b2f9a0e9d012f02e48155cdbc9b1f",
+    "templates/sales-proposal-deck/SalesProposalDeck.dc.html": "15ca5f94080251477c87fdb14f9f4d986b18b308b5b7418122e4ecbdfa73edd9",
+    "templates/settings/Settings.dc.html": "5261d25ed2f7b40ddbffdf663139d948530736b8fca2ac660468bf2f5f08d590",
+    "templates/slide-deck/SlideDeck.dc.html": "ebb54981e321e3f5b4ed7a2bb09c31312f547bca8b73083d2ce73861390e521e",
+    "templates/team-meeting-agenda/TeamMeetingAgenda.dc.html": "a234a5e3099e9a357a312eaa2193e35a646345c428bebff96e0fb0aefdf90ea2",
+    "templates/tech-incident-report/TechIncidentReport.dc.html": "a43c97b14469545a5e6ce40ae9bf5ff8a40d4a5dc6decbdb1cae9ed90817f037",
+    "templates/tech-release-notes/TechReleaseNotes.dc.html": "88efe1647d2354d44bb02484384c6a8762c31882dd106755515ee9a09fa181c1",
+    "templates/tech-retro/TechRetro.dc.html": "8f2af8ce59df9283e334ed6148a52bb3efbadc78b10780972a8b62d798f6220b",
+    "templates/tech-rfc/TechRfc.dc.html": "91b165e6acc13b2556b3d214e36d31c6d93f7cd7727b6f15bdf018e25fd91493",
+    "templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html": "47a67e8171b2d256e22c1e1f25426c384ec6306bad8009b35dacb1e80917497f",
+    "templates/vn-certificate-of-employment/VnCertificateOfEmployment.dc.html": "fa683bd504a3a83dc3e2163cf2daabfee0279ec9e3531338c5acfd8e3366d37a",
+    "templates/vn-code-of-conduct/VnCodeOfConduct.dc.html": "ec125b286427aa40eb70f51381ea57b0e605f56c640efe64270632d5af76c471",
+    "templates/vn-compensation-regulation/VnCompensationRegulation.dc.html": "33dfe571d5eb232af39753f03bc79aca73e1360074a2289825049b04895e0189",
+    "templates/vn-contract-amendment/VnContractAmendment.dc.html": "04c50c21072a79133e4d9bfef938021353f9359c449c383fb9e99fcea8cd52d5",
+    "templates/vn-contractor-agreement/VnContractorAgreement.dc.html": "d2d1ae546d0767cdb9ec41d689ef630b441d10a49c288562ee11f5fae9b4beb2",
+    "templates/vn-data-protection-policy/VnDataProtectionPolicy.dc.html": "18d5f76a9db0c6c1d592c06790f559684da9f6a52c37b9b1c6e219f834a90704",
+    "templates/vn-disciplinary-case-file/VnDisciplinaryCaseFile.dc.html": "ad36b18349c5d071e82fc502da30d54fa4bcd314eb74710111a35fe205e7f259",
+    "templates/vn-disciplinary-schedule/VnDisciplinarySchedule.dc.html": "27d3d5087eaadfcfe2d5dc014bad9dfc460321a9efacf4b427117e45824ecad4",
+    "templates/vn-employee-request/VnEmployeeRequest.dc.html": "3655fbc8bdf76b3f2d1c2c310ddd8575cc469e82132bac9054bde109d2cce707",
+    "templates/vn-exit-handover/VnExitHandover.dc.html": "57cc240ab3f4fe949d2fe674403c064544499de59523170d85d96a5205bdf27b",
+    "templates/vn-foreign-employee-pack/VnForeignEmployeePack.dc.html": "7e7b9176b6399e1a33310cf1d46641237585f46eb89884cc9a53ee94da14efad",
+    "templates/vn-framework-agreement/VnFrameworkAgreement.dc.html": "cc202289b6b6888cb8b2e09872a9ff63fe8d56e088074e784ddab43cfcf09881",
+    "templates/vn-grassroots-democracy/VnGrassrootsDemocracy.dc.html": "815bd2a34005bf8c5be49620bfc8052751045fdb40e418fcae8cf8d96ea68797",
+    "templates/vn-infosec-policy/VnInfosecPolicy.dc.html": "86b7c2399020f2338beb51cdf61a22d7884e1a0e7f0716e5cee7aa34c537b070",
+    "templates/vn-internal-labor-regulations/VnInternalLaborRegulations.dc.html": "96ab3e4001e4544fee8da3ea48aba249a1ae20cadb92261545a8af3c72e0514d",
+    "templates/vn-internship-agreement/VnInternshipAgreement.dc.html": "55bd1ad0773810d9b9c0075087661ae50cc27d7d66f09734f581bd7e5453ec10",
+    "templates/vn-job-description/VnJobDescription.dc.html": "ee8396ffa7752ad3f33201977c416fd8f749d9d1653e3dc080b3d94319cad76d",
+    "templates/vn-labor-contract/VnLaborContract.dc.html": "9812ebf87444448b6ec9cdadf800b9a5f19769303a5261fbfd9f0ab3cc9134c7",
+    "templates/vn-labour-management-book/VnLabourManagementBook.dc.html": "23785df32dd87aa9b672fc8e091809a1ad8aab9b98643374ca9911062c68796a",
+    "templates/vn-mutual-nda/VnMutualNda.dc.html": "65c7ccc9ce1a33224d6fac460de6ff1a1884190f34a91195ed773e9e68b22d64",
+    "templates/vn-ndnca-ip/VnNdncaIp.dc.html": "9bda80a866ace8ddf728875ca55d59b513b3270b9397d051feadb83bcfa7a894",
+    "templates/vn-offer-letter/VnOfferLetter.dc.html": "fe73ba04337f3cfb9f3c92c0bc33db38f5d8175c79c8035dc22fc9f9135f7d75",
+    "templates/vn-onboarding-checklist/VnOnboardingChecklist.dc.html": "bd9c172cb73d2c0fd47f17b72c461094007fc1d2b4469d5952c89c5f1771d62c",
+    "templates/vn-pdpl-consent/VnPdplConsent.dc.html": "cb2c1459a6a0718ae85f984bda2844950ff0de4f3b9e022ed4ad276e70b48ae9",
+    "templates/vn-performance-evaluation-regulation/VnPerformanceEvaluationRegulation.dc.html": "91d8b3d07e5314875f54705e022075b4d57021c54820ed71f6cbf5c901c6f118",
+    "templates/vn-performance-review-form/VnPerformanceReviewForm.dc.html": "7a521b9086f3851318db99e93916611873f870ed069157e6f9d630ec357eb315",
+    "templates/vn-phantom-stock/VnPhantomStock.dc.html": "e09d7b850a328979641a7b92b49f004b58c1c13dd26c089d92ab53939079047e",
+    "templates/vn-probation-contract/VnProbationContract.dc.html": "ba1490facb8fa95f6e5e0665d4a6ca8761648049435cc3554c25e9cc7acf8777",
+    "templates/vn-receipt-acknowledgement/VnReceiptAcknowledgement.dc.html": "a59b25f6254af5a489a70c3b46b7bccd1ef156e45f005ef803610770768a81df",
+    "templates/vn-remote-work-policy/VnRemoteWorkPolicy.dc.html": "c40d7ccff04b74ab106f1ea1e6c807f08ca30ff9f7449f4c1d7b6e0860998588",
+    "templates/vn-resignation-letter/VnResignationLetter.dc.html": "07bdc1ea8bf2c3ece3ca73d9a8c60db26023fe654709602b0e50912f358c8d8e",
+    "templates/vn-salary-scale/VnSalaryScale.dc.html": "0522326ce7cf2c2bc611e7ddaaadfd5a2e565d9c1633b0443f41a686e77665cc",
+    "templates/vn-sow-appendix/VnSowAppendix.dc.html": "c37b88f5873652af1b7b6f6f787ef65d215932a73b65a71019d8b432ba8b406d",
+    "templates/vn-termination-decision/VnTerminationDecision.dc.html": "364836049fa797976ea58adf571816b6cf4f17978dd79c654a7986ce781d28ba",
+    "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html": "9b26fde39b0b5eae7a99e307781e36f129b39b578f4e6d9e0d795f3532d8ef23",
+    "templates/vn-training-commitment/VnTrainingCommitment.dc.html": "55bface30bfc3747ec751354291465cc900bdd6e0b8cdf130ab99411ee76647c",
+    "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html": "ec4a01cd6403da156341bde35b634d6f1ddcd83bd8e3858036da13f9c22669d2",
+    "tokens/tokens.dtcg.json": "0789d9e18807b90618b4249bdad830506a99defde2517fcbb8d5949a6e02b222"
+  },
+  "documents": [
+    {
+      "path": "CONTRIBUTING.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "21f012cddc4858dcddfce166b67dfc4e5d52a079a666ad51283366522c43d630"
+    },
+    {
+      "path": "DESIGN.md",
+      "audience": "documentation",
+      "role": "generated_reference",
+      "sha256": "745d9f606854fb3b172d8ac9154ec6d33bfc4f10268150ddcf4c1e1941e439e1"
+    },
+    {
+      "path": "README.md",
+      "audience": "documentation",
+      "role": "human_orientation",
+      "sha256": "9865f6495be41597e25e374dcdd65949751eb04a758cd1f6143710887f60f4d9"
+    },
+    {
+      "path": "SKILL.md",
+      "audience": "documentation",
+      "role": "shared_agent_router",
+      "sha256": "ae1c524fe48f0bab46e73e0946bb1c776182a29636263dd7c707e828469dc7d7"
+    },
+    {
+      "path": "THIRD-PARTY-NOTICES.md",
+      "audience": "documentation",
+      "role": "attribution_or_distribution_record",
+      "sha256": "e410603db66cb89702161ff59fbaa03905c06fb0d84b4e71ad9e94e40c175ff4"
+    },
+    {
+      "path": "_audit/README.md",
+      "audience": "diagnostics",
+      "role": "diagnostic_operator_guide",
+      "sha256": "435c8551eeba2306363f6924ba3b4be9f2d18ef654a7d734507b8acb8ec9af52"
+    },
+    {
+      "path": "_audit/baselines/README.md",
+      "audience": "diagnostics",
+      "role": "visual_baseline_method",
+      "sha256": "95fb6ab0f4bc638bec09815b840e528b85fec9e44c700c2af2c2b9a4bc538d63"
+    },
+    {
+      "path": "_audit/baselines/components/README.md",
+      "audience": "diagnostics",
+      "role": "visual_baseline_method",
+      "sha256": "c10ad81d179861972dff66ee19032945063f4d5f7485ce89e8b55a4d87bc5f7a"
+    },
+    {
+      "path": "_audit/vendor/README.md",
+      "audience": "diagnostics",
+      "role": "attribution_or_distribution_record",
+      "sha256": "42017d1c6c10b9b1cc98a66093a41f7182aad7df1de0e6f7c9f5ae9a6743da6e"
+    },
+    {
+      "path": "_vendor/NOTICE.md",
+      "audience": "runtime",
+      "role": "attribution_or_distribution_record",
+      "sha256": "50981e7d401f17c5a0a52aa0531ca81ce7e76ae20d267db95339c4ef95bcd6ac"
+    },
+    {
+      "path": "_vendor/babel/README.md",
+      "audience": "runtime",
+      "role": "attribution_or_distribution_record",
+      "sha256": "00f17681039b21d28e8c9d73438dbf95a83a2ca3fe29b9829795f1595958e732"
+    },
+    {
+      "path": "_vendor/react/README.md",
+      "audience": "runtime",
+      "role": "attribution_or_distribution_record",
+      "sha256": "da010c5048910cfb84012756033ec03cbb7fbb11b98794131ec712d6d40a0589"
+    },
+    {
+      "path": "components/ai/AIDisclosureBadge.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "628ad8679a5a05f3c46b4d7e90bff7220b79fa7ac6cd7e1fbf7aa1a7afe72b12"
+    },
+    {
+      "path": "components/ai/ChatMessage.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "eb1cc565153e811b280873e051757bcec43e2685345ff04395ac875d6ce30376"
+    },
+    {
+      "path": "components/ai/CitationList.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "afe25041d5f1a5d7ea6d1c6925feb279bcfba8dbb1fceb1f7a219eb6a5fcd28e"
+    },
+    {
+      "path": "components/ai/ConfidenceMeter.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "9bfff746b7dd3ad7dc4a56e13b1777caf305a24c58d8af3c0ad88181917cc8e6"
+    },
+    {
+      "path": "components/ai/HumanReviewGate.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "c6ef19d79b1c50e5fe08bc5a4d15ee420dd040e0ef499c83cce1c57459378324"
+    },
+    {
+      "path": "components/ai/PromptInput.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "99ac347fd8c3fb06cf689e5cd3bf5a58f3a8ddb8146ab51109cbbf64a8889bbe"
+    },
+    {
+      "path": "components/ai/PromptSuggestions.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "c89197426f9fe2aaee2e5712dad2483882f4bb3f4b5389dc43a8af7a92a767fe"
+    },
+    {
+      "path": "components/ai/TypingIndicator.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "296b86043420d9e97d88be5bf5d2209eb94c1ec55ad001cb812083952a3dcdd5"
+    },
+    {
+      "path": "components/brand/LumiAvatar.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "44dfbc4d08ae5161ee31d1b0f463ff8ab0b061f24477df156203a47c53cf8718"
+    },
+    {
+      "path": "components/button/Button.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "6b4519b6a2fbd478ddb516a7d3583b03f5fb12be3e5da7949858733c4ead8a3d"
+    },
+    {
+      "path": "components/button/ButtonGroup.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "b63f1886e61cc4a3cd3e1556602bc5f71ea34ece83c775b5920c9190bf2d94ff"
+    },
+    {
+      "path": "components/button/FloatingActionButton.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "f5c5e57dd9e6657dbda10ec23a3eb90294f2780e84ca3481b21a2cbc0f5dd897"
+    },
+    {
+      "path": "components/data/Accordion.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "5df8dd1a1eb34fbf9e2e336dac8bae081d753d6a8aefd6d6357740ef899eea95"
+    },
+    {
+      "path": "components/data/AspectRatio.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "70ccc036fca331d43733bf791372f72da67e483bba16fd5209fedbc91f2ef9a8"
+    },
+    {
+      "path": "components/data/Avatar.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "11eb5ad225f562ea00e38ff03e2b4d3a25a8d9673aa3b40e55c61e28a0d93c8f"
+    },
+    {
+      "path": "components/data/Card.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "3e15e15c92b179a0e67e17f8c71ec2f1c617f62237024c3065dbb46155c8dce9"
+    },
+    {
+      "path": "components/data/Carousel.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "856499f0da1c874cd1ffca989cdb16239253eaf944bd901e001dce08a452ccdc"
+    },
+    {
+      "path": "components/data/Chart.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "b76b45c079003a3d563a24332b881260aa008719441792fa1308962aaab09c2e"
+    },
+    {
+      "path": "components/data/CodeBlock.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "df265a94fb79c885caef03b76e82847d18cbcc3166ec1835be11226fe4406155"
+    },
+    {
+      "path": "components/data/Collapsible.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "2c7fe034036fae7ec517097fb8d4511d802301598258a8b675be8bebc3d4c33f"
+    },
+    {
+      "path": "components/data/Comment.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "1b887dde6d9a02f00a8134f28ae12c2db4928ba908797b10f4ebf0bd316e8b2f"
+    },
+    {
+      "path": "components/data/DescriptionList.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "9a57ecd08b68c573cb306d12d46ff485b1779fc19e08fd3fab027b66805776c9"
+    },
+    {
+      "path": "components/data/Divider.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "7e85a918eaf84e56f8b7b17f14874ef22d22a322751bd51fe7368ddc967f5876"
+    },
+    {
+      "path": "components/data/Image.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "997f5803e7874edc44c88636a8f1ccce1886d105041a00abf6efe4eb9bb22172"
+    },
+    {
+      "path": "components/data/Item.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "7bfbf71796018edaa9cf6ad6ad80b91ad6ccbdd805d8439cabd346bc28b61b22"
+    },
+    {
+      "path": "components/data/Kbd.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "1d31c5d8bae7c47e0f7578ff3023b805a7536e95581b02a6ac857e076be6a054"
+    },
+    {
+      "path": "components/data/List.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "d22b7ff7645627669ead692dcdf3c439efbaadc8d9832c5d3ee2956b93c12cc1"
+    },
+    {
+      "path": "components/data/Masonry.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "99b6b3a40466863d531519bf845710835c1d02effc664aa0911cbce1f5b3edc6"
+    },
+    {
+      "path": "components/data/QRCode.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "afec2dd3d6e70e0faffeb4168e53623ec1d165f3b748a39173440621ce5ddc3c"
+    },
+    {
+      "path": "components/data/ScrollArea.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "294002ed9c77194b597c25d86f0c9be6cdccb48b231c4b2db768abbce477d358"
+    },
+    {
+      "path": "components/data/Sortable.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "85f18119e99d7fcbfdf3b475045f8637bf5c7214b7f1e5b2d902e2eaece1bd0d"
+    },
+    {
+      "path": "components/data/Splitter.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "2250fd4804cb1755f78d3d9eef9e620043ffb7f8ad0ef33762f5a4469390d8e4"
+    },
+    {
+      "path": "components/data/Stat.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "9b614b384276241df87888353ca936db4124ce321afa8950a5f370d457e4c10b"
+    },
+    {
+      "path": "components/data/Terminal.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "7818c748e3b9d59060dc804583d52baf8257a9f9fc051ed5856099983a6dd68e"
+    },
+    {
+      "path": "components/data/Timeline.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "bde4a53ede310c79cb504c9add5c9ea37e249b2cd712484126c0e25f32d86d2c"
+    },
+    {
+      "path": "components/data/Tooltip.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "b12aa5f1c122aa222bf95fcec893ffd56548cf91ab76917ca27134a520d73c1b"
+    },
+    {
+      "path": "components/data/Tree.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "957fbae61f19ef20780341c2e126ef408252f2c0a0c4709ba9c5db6ebb8dd564"
+    },
+    {
+      "path": "components/data/Watermark.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "b98dcbbe057304d315e6234c8c5649acb46205190c3a632c3b562a8e764efabb"
+    },
+    {
+      "path": "components/datatable/DataGrid.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "8e218664a03580c3d209f1ac6ad8426250974eb6ac8a42403def3ce5cff15eb6"
+    },
+    {
+      "path": "components/datatable/DataTable.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "6dfe4bc6cc4fc89fde894eaddc3ef498c98124af2eb2f7ab817e0d2de8c0993d"
+    },
+    {
+      "path": "components/datatable/TreeTable.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "871a3852b469bfd1de830bd8f665ed5237f0d0dccdcc6af7964581ad5e3c3309"
+    },
+    {
+      "path": "components/dialog/Dialog.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "b9e3230f77539473608b325f1c386d96e648eed377473acf483ff131347e2066"
+    },
+    {
+      "path": "components/feedback/Alert.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "31645798ed08e0e426c201adbf2a44bd6acd5808299ee2e8d1dd5972d85f911b"
+    },
+    {
+      "path": "components/feedback/Badge.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "1507e1e8e41cf4a3af9b9a3969b195fbdc7098d8152ab742c16dee13e3602a43"
+    },
+    {
+      "path": "components/feedback/EmptyState.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "5c5ca990627967ca77f93e42c664dec6cd6dc14de7e62524d545f1e9264b0535"
+    },
+    {
+      "path": "components/feedback/ProgressBar.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "e86939a2075d4b0f7ccafadc146d2e8401729da388eb4e55fc4d599828d18bf3"
+    },
+    {
+      "path": "components/feedback/Result.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "2681919ce40a9ae1adde717b4063742c06575a31c23d8a85e54e7d71d1a0c2cf"
+    },
+    {
+      "path": "components/feedback/Skeleton.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "b29dc69039a0064926e028d4e018fb25bb63a0e4125063cd46a1067333688eb6"
+    },
+    {
+      "path": "components/feedback/Spinner.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "59fa8030147dcd0ff6e46be95a6214b6ed7292f255eef007b6a3652d666b54a3"
+    },
+    {
+      "path": "components/feedback/StatusIndicator.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "479285397b3e76f99c6568ff962fd4b125d04c17bf9d5d184ffe717c8a59d0f9"
+    },
+    {
+      "path": "components/feedback/Tag.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "c7634a33dc5dd6c33f48b19d85b9b3a5b4f054ef73ee0770f3e00e5e90dccc4c"
+    },
+    {
+      "path": "components/feedback/Toast.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "606cce564a5ccd523af1b7ce5fd14d900372564642519be1859f7b88d9296ecc"
+    },
+    {
+      "path": "components/forms/Calendar.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "458a5925147b43ef58a1daf2a04e19f731b9d412726d01ac2c83b1810a24cecc"
+    },
+    {
+      "path": "components/forms/Cascader.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "e015f2b34a0d202206c3a494445b7addd0c1a443b78fd32bccb5608602df51c6"
+    },
+    {
+      "path": "components/forms/Checkbox.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "6c22c4626ee6d720c44fb02405920ba7e7e2828f67ed97a79f3d0074e32fc5a7"
+    },
+    {
+      "path": "components/forms/ColorPicker.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "ddbca419f8e4e4ade057c693b89ec9f03e72aba7a9ec3564192346f1273c18fe"
+    },
+    {
+      "path": "components/forms/Combobox.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "fffeee9a644d876bac9d1b9db251d6450a6586723c2a0eee120840c0e02960d4"
+    },
+    {
+      "path": "components/forms/DatePicker.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "5e80ad0558dd2a50b25551933e15022751872d506048c64e99496d7dd8642f8f"
+    },
+    {
+      "path": "components/forms/Editor.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "9489c4269830fff675d684e22a1fd9107fe1b479ef644079b52411cec5b34641"
+    },
+    {
+      "path": "components/forms/FileUpload.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "d08d70d784ef6544b7324b2f2e568123d48ff123bad582643086a9873633c54c"
+    },
+    {
+      "path": "components/forms/Form.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "7690e267d1ffbfbef63cce3e6663cc846b4e97de010c06804f095bfde338f46b"
+    },
+    {
+      "path": "components/forms/InlineEdit.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "81c9a5f1e9ea7f2ec18730c210209e0efbc94350899cecacc09c65a0245d27a4"
+    },
+    {
+      "path": "components/forms/InputGroup.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "ff66d237cf2fc5f2684ce23abb55d888ea3bca6124cbc054e53599a7a9c29d47"
+    },
+    {
+      "path": "components/forms/InputOTP.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "d1500da017ece2d6a6310379852c92d247e84a88f0959884e525eb4569e4aa47"
+    },
+    {
+      "path": "components/forms/Mentions.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "992a45128fe5b1b697cf12dec2b03ad4433c27ead25caf9c9c287d5f470b933d"
+    },
+    {
+      "path": "components/forms/NativeSelect.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "017bc3b268b7c565c7c2de557b58282e83ad399ebd71a3e37a4799b246e34731"
+    },
+    {
+      "path": "components/forms/NumberField.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "4c3974b19fb413fffb3f921ca83f6bce080d76286d2e203ef27887fffcdfd7ba"
+    },
+    {
+      "path": "components/forms/RadioGroup.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "b7d7b03e8714861374731ac72dc089374df667ecfb1bdfd2bb31805cd74aeca7"
+    },
+    {
+      "path": "components/forms/Rating.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "e9ef565b712d030b4a9a86e26c06da80ab13f86d8ce2938be3011cda89392320"
+    },
+    {
+      "path": "components/forms/SearchField.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "009bf76d8ea4891928d09c808e9c43810bb50822dd9ddae518052b0407457f5e"
+    },
+    {
+      "path": "components/forms/SegmentedControl.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "2c77428ca7eee15383b0d4819c2755eb7b6e5f44e3f1addc567da848eb84c93e"
+    },
+    {
+      "path": "components/forms/Select.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "48f53e1f5d71b1e2494fbca3024199b22e1a6908c19204f468e355980208f685"
+    },
+    {
+      "path": "components/forms/Slider.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "b77058374fb5eaa467ebb0b82aa6a4babecbb5798b9286f12ed84b0681c654c7"
+    },
+    {
+      "path": "components/forms/Switch.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "ec0608bad51e81a64b8b30d9427a77ca69b5420f02fafcee299187b046b83a91"
+    },
+    {
+      "path": "components/forms/TagInput.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "cc915f20decbe8044967647106fc31e04e1bdb1c4b0213d872b1414660a5a003"
+    },
+    {
+      "path": "components/forms/Textarea.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "4792a60cba34877e1ad9fc0c2e8b3ea3c28b3a78a0064e8438ab5c2d8aa514a3"
+    },
+    {
+      "path": "components/forms/TimePicker.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "9324eaec9787f9e38c62def74243b6fa60ecfab5f277eb178531dbb58decbf9d"
+    },
+    {
+      "path": "components/forms/Toggle.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "7e1706d490cb3d96492ea1a779f42a8883a953bc2bda184072a5722dc03ebf84"
+    },
+    {
+      "path": "components/forms/Transfer.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "cfa136ffc73bad7af1408097046f13c61704e9041f706402cb5d24b1705b40f5"
+    },
+    {
+      "path": "components/forms/TreeSelect.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "88d6a79cfe8708ed34e336ff39063a75547c5eb6a03df41cfd800e41a8cf24a1"
+    },
+    {
+      "path": "components/icon/Icon.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "906db9d86eec76d8b686e13f6c210d374aae17981504b8e8235fa8e3513180b9"
+    },
+    {
+      "path": "components/logo/Logo.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "b315cd00988ccb206858e8628a00f936d945f5a937c861f96319080849f075e5"
+    },
+    {
+      "path": "components/navigation/Anchor.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "b2457e6058f4577dd9910cc16021f66d7f42e067edac399cd8125e271b0e01b8"
+    },
+    {
+      "path": "components/navigation/BackTop.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "9112d0c444cdcf1be40129eb09f2c84f843887ced4346ccd342be55c9bf8f392"
+    },
+    {
+      "path": "components/navigation/Breadcrumb.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "84f3818f7d513e9563aebe98428fe6757f29ee5b32772c3ca1b895faad450514"
+    },
+    {
+      "path": "components/navigation/CommandPalette.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "e99089ecf4240d22c5e79c8d0e31292c510bbe9aeca529798f3b4beb2d683727"
+    },
+    {
+      "path": "components/navigation/Dock.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "cc0e3b0a80e18ce755c6919396ec1e9b16cf0acf3ea80af396507c4b47008d8f"
+    },
+    {
+      "path": "components/navigation/HotKeys.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "882fa3add576c9d08e11619d16d73114f49450fc67d5fb4db807a364a8e29fb2"
+    },
+    {
+      "path": "components/navigation/Link.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "a4d8e682bf7d77327459bbd462623adfe688298157515a8371141e54e4f6375f"
+    },
+    {
+      "path": "components/navigation/Menu.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "def2f9ce984dfe9f0fa4e45aed1c84615a710af4267a8399d311d6d262bca5cf"
+    },
+    {
+      "path": "components/navigation/Menubar.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "a984be3ea0b8faf2b3da863a0590f13484442b593b9c24a031e2302bef7e6435"
+    },
+    {
+      "path": "components/navigation/NavigationMenu.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "d714af86a5a0e2a164f9fff7375c44bed89732994c1cbb8ad596749ed3737d06"
+    },
+    {
+      "path": "components/navigation/Pagination.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "605667e1da2c4aec8a402ab1da41943dc357a691d1b52e539ed52b358305cad8"
+    },
+    {
+      "path": "components/navigation/Sidebar.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "8a347b33b94d97775cf6e441c5f3cd110b8306778dd24fb99c5db2b9ffd714f0"
+    },
+    {
+      "path": "components/navigation/Steps.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "79d9991919e4243e06e15bab7c0e5621e75e26684926be347abca629e4d5ef7a"
+    },
+    {
+      "path": "components/navigation/Tabs.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "0c672124d8a572fd3679f816262876f39ab94e57e500bdfafcad9acd2db7d322"
+    },
+    {
+      "path": "components/navigation/Toolbar.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "b64612fbe7cfdcd8c791ad6dcfc6f411d7e6d5881cd876720397c48ab1fc1ca2"
+    },
+    {
+      "path": "components/overlays/AlertDialog.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "b913183f6faa71aeb48b8fdcf6affcea710e6787bf6a36b1f22c6e8d3b0805d8"
+    },
+    {
+      "path": "components/overlays/ContextMenu.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "133c6b5a1b4958f164cdd148a75b495c8ceb3d5f58f2844062ec2fa8dcc589ec"
+    },
+    {
+      "path": "components/overlays/Drawer.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "59ced067353a61ac6a5b5ea9f6bd53b3484f470c0754da9273bfaed7f821b6c2"
+    },
+    {
+      "path": "components/overlays/HoverCard.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "545a6b4adb7bcbaf46cea1ba77f4e5c1236f70ffbf975730e4bd87f57914b1b6"
+    },
+    {
+      "path": "components/overlays/OverlayManager.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "38f3db65044832cc109a13a0d0f9cab449549a07c58fd2f445999a75df58ca32"
+    },
+    {
+      "path": "components/overlays/Popconfirm.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "2409a67440d5aadd6646fbc4359de05d999edfad5b0a68a8c01e889c974a2c64"
+    },
+    {
+      "path": "components/overlays/Popover.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "5726e52e265aede8fdb044eaf6cef58f80959b8d609ad0d1cf4ef624088a3a81"
+    },
+    {
+      "path": "components/overlays/Tour.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "9e17e9981018d99afc89e7bbf99457c44585e9a704df23db363fd2ef093b31d5"
+    },
+    {
+      "path": "components/textfield/TextField.prompt.md",
+      "audience": "runtime",
+      "role": "implementation_contract",
+      "sha256": "e44ab234b5484967e3759d515bc849d5db719cd447da6fd0f0999c3cee56644c"
+    },
+    {
+      "path": "docs/benchmark-rubric.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "79f97f4383197142dec43abb78cb26eb349234a665d793c5b6d354d430e14808"
+    },
+    {
+      "path": "docs/ci-cd.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "9c4b195d3e92539292c6a82a70eca8a4e6b86e8ebaf1825de521bbe55d0fa3d2"
+    },
+    {
+      "path": "docs/consumer-grant.md",
+      "audience": "documentation",
+      "role": "usage_grant_record",
+      "sha256": "920308f7256f034a25ab3dda34af424aad30ecea4f217da5c7c119bd25decaf5"
+    },
+    {
+      "path": "docs/consuming.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "ef12d15cb686ebd9d74e0a0f7039629aadafcedf8b244175d3b36749e94d26bf"
+    },
+    {
+      "path": "docs/contrast-report.md",
+      "audience": "documentation",
+      "role": "generated_measurement",
+      "sha256": "3727b3f5e2b38ed56be332249fb9b7cecfe7b21909e96374d96fe3d7f79eaf13"
+    },
+    {
+      "path": "docs/conventions.md",
+      "audience": "documentation",
+      "role": "normative_repository_contract",
+      "sha256": "0adef0a72e2a449091388a113502dc35b44e8d0c678a6bc67c17fa5eb0ca14b3"
+    },
+    {
+      "path": "docs/decisions.md",
+      "audience": "documentation",
+      "role": "decision_record",
+      "sha256": "127cf8f79693c0e1ae56e438280855c17525338dc4cc09272decdd8871d92ae7"
+    },
+    {
+      "path": "docs/decisions/locale-architecture.md",
+      "audience": "documentation",
+      "role": "decision_record",
+      "sha256": "7e8ee34fe16570df38a7a0e58c9ae7ade988bf8e7de9275f4a5143c8d7b158af"
+    },
+    {
+      "path": "docs/decisions/theme-density-contrast.md",
+      "audience": "documentation",
+      "role": "decision_record",
+      "sha256": "62ac0d3bbb5a1b483abaeef98492f9c8dcc353460409a0afc2e7f2c14f2580e7"
+    },
+    {
+      "path": "docs/deploy.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "2d42d4089b964edfb6312d3d39e0fbe2d445112a2b0ca1aa1a0b185fe206ca73"
+    },
+    {
+      "path": "docs/design-styles.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "7152e1686273baf4ac05d2399a4b8834483a26812a2c89d0bbce200158f0b144"
+    },
+    {
+      "path": "docs/doctrine.md",
+      "audience": "documentation",
+      "role": "normative_repository_contract",
+      "sha256": "cabc62fbe899246996dc4367d28fc5467662b45f534ef30162fc31276cda0864"
+    },
+    {
+      "path": "docs/figma.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "421e30deff247be00cb19a6d75936f081951e6873737ead072e5219588fcd438"
+    },
+    {
+      "path": "docs/hr-suite-sources.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "daf93485511c478328e8051901c3d042c28e9d8ccd32d37f5889b6679940df30"
+    },
+    {
+      "path": "docs/live-hub.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "f565c83eb4b4d4392b33bfe438d7f296868284acb4b9e0794283fdbbf75805bf"
+    },
+    {
+      "path": "docs/products.md",
+      "audience": "documentation",
+      "role": "normative_repository_contract",
+      "sha256": "82bbd1fea7c8d3bfb16969321c5de3c14b6876fac21f6e07e2b4471e28c89bb1"
+    },
+    {
+      "path": "docs/quality-gates.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "077ba5975922df358d01b8edae598571e8ce6862fd718e0b30068daae9d90c37"
+    },
+    {
+      "path": "docs/release-notes.md",
+      "audience": "documentation",
+      "role": "release_history",
+      "sha256": "08bb2cc2f1620ad641db75cb69f18180f2a1b5a25302aa75f5ffa16d8af71a8f"
+    },
+    {
+      "path": "docs/storybook.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "cd91e6eb7145e13dc4c305b1a38a13cf8829e10dbed88bb7fb551c08eb4fbb34"
+    },
+    {
+      "path": "docs/sync.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "41090ae4285fb1c872376c51fd275ee77ac5fffe093e5af8f22f3447ef331c97"
+    },
+    {
+      "path": "docs/template-schema-v2.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "a9eeefc67d6d49d902ad46ae893f886cbbdb5706fd2d15c007ebcf3562d08043"
+    },
+    {
+      "path": "docs/vi/benchmark-rubric.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "c66c69c4d271d19e99b184327e80918fcfa932cc2c938d940e47aabdd705c07a"
+    },
+    {
+      "path": "docs/vi/ci-cd.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "d65fe7ee6ce12e4aa1978bd6b0d8c4979683b650fef30cd2ff2cc33c0827451f"
+    },
+    {
+      "path": "docs/vi/consumer-grant.md",
+      "audience": "documentation",
+      "role": "usage_grant_record",
+      "sha256": "da0760b6360df3640a3babdcc6c5220ce3035d67a41226f204d21bd056b570a4"
+    },
+    {
+      "path": "docs/vi/consuming.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "775c4e868c7b5d0eeb481dcdb9650d6bd27774706a5d38c6376bf7d4100c9987"
+    },
+    {
+      "path": "docs/vi/contrast-report.md",
+      "audience": "documentation",
+      "role": "generated_measurement",
+      "sha256": "5387b5db54f3714f2ad71d0d85129b9c8fe1c985683ddf5cf87bd60cea8bc664"
+    },
+    {
+      "path": "docs/vi/conventions.md",
+      "audience": "documentation",
+      "role": "normative_repository_contract",
+      "sha256": "0ea9c7c777c88604c47c6a115581f6ee7c8c5ce38a1cd253402ea4c859365320"
+    },
+    {
+      "path": "docs/vi/decisions.md",
+      "audience": "documentation",
+      "role": "decision_record",
+      "sha256": "eed6a84749fba9cb2450109d188b8e9233a0be1b94cfb98bb207be6673971f39"
+    },
+    {
+      "path": "docs/vi/deploy.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "877586cad7baf5dce51472ecd556c4ab66a79cfa7b3a65826203ff2dc5efc1d2"
+    },
+    {
+      "path": "docs/vi/design-styles.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "5235e7e0e97331a53211bc3fac476b13bb4c29cd38817f5d7840a458d825a69d"
+    },
+    {
+      "path": "docs/vi/doctrine.md",
+      "audience": "documentation",
+      "role": "normative_repository_contract",
+      "sha256": "1ad060ae482719a9880a2fae422cc240a4befae83730c65e5c640740e01e8160"
+    },
+    {
+      "path": "docs/vi/figma.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "f51a7deadb1a5131959e51f1494995de0cffb2de50cd39866414604b3b08179b"
+    },
+    {
+      "path": "docs/vi/hr-suite-sources.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "4c9a83ec70727eaf3446c08c715ef21b12ac960db0458c1706d8ace0fda7939e"
+    },
+    {
+      "path": "docs/vi/live-hub.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "c50d8c538850133bbe57cb50e78236f7bb1a8ba55aac6bcb22c3b170d37798ac"
+    },
+    {
+      "path": "docs/vi/products.md",
+      "audience": "documentation",
+      "role": "normative_repository_contract",
+      "sha256": "147f2ba90176b7a1be97d1f6e0baaedf5da951a2a5418af7ba7f0e45ac35591f"
+    },
+    {
+      "path": "docs/vi/quality-gates.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "1a2c34490f799a2b993d7dac2d1d2f279841eae4d18907fb18021dd190ea47a1"
+    },
+    {
+      "path": "docs/vi/release-notes.md",
+      "audience": "documentation",
+      "role": "release_history",
+      "sha256": "c775f5537767e140577ea1bcafdbaebcf505005ae803108f5c709ae070bc2f47"
+    },
+    {
+      "path": "docs/vi/storybook.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "c5d56516c43d03cd267408dd27ef7dd4b83d299614e0adda4ace593d82db5136"
+    },
+    {
+      "path": "docs/vi/sync.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "be938f72dbb6a164fe10c8c6955accd96bd32e0f64b7de1d1a2ea03a97611293"
+    },
+    {
+      "path": "docs/vi/template-schema-v2.md",
+      "audience": "documentation",
+      "role": "operator_guide",
+      "sha256": "9a3e235646117578bc0488d4257cfc71123e29e100e8dc751b931146d3ddb8c8"
+    },
+    {
+      "path": "examples/native/README.md",
+      "audience": "authoring",
+      "role": "consumer_example_guide",
+      "sha256": "bdf0279689b0ae3ac179c9857fb58e29d564c6510c873847176506bed0c1692d"
+    },
+    {
+      "path": "examples/npm-hello/README.md",
+      "audience": "authoring",
+      "role": "consumer_example_guide",
+      "sha256": "b2708df8afb179d142c13d37c32b9837164c3716683fe4efb812c0b8288c6a2e"
+    },
+    {
+      "path": "examples/static-hello/README.md",
+      "audience": "authoring",
+      "role": "consumer_example_guide",
+      "sha256": "d1bae08ccf5f2514bedaee9fbd5b99bf78b3f39072c4c74eef26b137bd00b867"
+    },
+    {
+      "path": "llms.txt",
+      "audience": "documentation",
+      "role": "discovery_index",
+      "sha256": "95dcdbe646baafb1ce20a39d8caf91aa4ad60f3acf03049764f064fb6c03fd2e"
+    },
+    {
+      "path": "templates/email-safe/README.md",
+      "audience": "authoring",
+      "role": "consumer_example_guide",
+      "sha256": "fae6c7e4cc7ce001307b019ad987378aa029658bbc8fa3f56789aaa243cee61d"
+    },
+    {
+      "path": "ui_kits/deck/README.md",
+      "audience": "authoring",
+      "role": "consumer_example_guide",
+      "sha256": "479d9ba2ff23cbdddb5c3138136a42ef5042360afc587fcc292e64da87ff6ac8"
+    },
+    {
+      "path": "ui_kits/status-hub/README.md",
+      "audience": "authoring",
+      "role": "consumer_example_guide",
+      "sha256": "1d8e2ee9784ea5a5a0b083a147f8ebc4eaf52d7835fc2bbb4a70e77e26150ead"
+    },
+    {
+      "path": "ui_kits/website/README.md",
+      "audience": "authoring",
+      "role": "consumer_example_guide",
+      "sha256": "02d7db6864c4f484b42399019f729a1b1d0d5671113cf057ae653abda78c5f6b"
+    }
+  ]
+}

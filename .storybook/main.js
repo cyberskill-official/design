@@ -1,25 +1,18 @@
 import path from 'node:path';
+import { stagePublicFiles, loadPublicPolicy, assertRegularSource } from '../scripts/public-site.mjs';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { mergeConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { storybookRootFiles } from '../scripts/storybook-inputs.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..');
+const publicStage = stagePublicFiles(repoRoot);
 
 /** Serve/copy root portable files so Live/* iframes resolve /styles.css etc. */
 function dsRootFilesPlugin() {
-  const map = {
-    '/styles.css': 'styles.css',
-    '/_ds_bundle.js': '_ds_bundle.js',
-    '/_ds_manifest.json': '_ds_manifest.json',
-    '/image-slot.js': 'image-slot.js',
-    '/VERSION': 'VERSION',
-    '/README.md': 'README.md',
-    '/SKILL.md': 'SKILL.md',
-    '/llms.txt': 'llms.txt',
-    '/CONTRIBUTING.md': 'CONTRIBUTING.md',
-  };
+  const map = storybookRootFiles;
   const mime = (rel) => {
     if (rel.endsWith('.css')) return 'text/css; charset=utf-8';
     if (rel.endsWith('.js')) return 'application/javascript; charset=utf-8';
@@ -28,6 +21,26 @@ function dsRootFilesPlugin() {
     return 'text/plain; charset=utf-8';
   };
   const attach = (server) => {
+    // Keep allowlisted iframe assets live during authoring without publishing new
+    // paths implicitly. Changes to the policy/config restart Storybook.
+    if (server.watcher) {
+      const policy = loadPublicPolicy(repoRoot);
+      server.watcher.add([...policy.keys()].map(p => path.join(repoRoot,p)));
+      const syncPublicFile = file => {
+        const rel = path.relative(repoRoot,file).split(path.sep).join('/');
+        if (!policy.has(rel)) return;
+        const source = assertRegularSource(repoRoot,rel);
+        const dest = path.join(publicStage,rel);
+        fs.mkdirSync(path.dirname(dest),{recursive:true});
+        fs.copyFileSync(source,dest);
+      };
+      server.watcher.on('change',syncPublicFile);
+      server.watcher.on('add',syncPublicFile);
+      server.watcher.on('unlink',file => {
+        const rel=path.relative(repoRoot,file).split(path.sep).join('/');
+        if (policy.has(rel)) fs.rmSync(path.join(publicStage,rel),{force:true});
+      });
+    }
     server.middlewares.use((req, res, next) => {
       const raw = req.url || '';
       // Vite module graph uses query strings (?import, ?direct, t=…).
@@ -73,20 +86,7 @@ const config = {
     name: '@storybook/react-vite',
     options: {},
   },
-  staticDirs: [
-    { from: '../fonts', to: '/fonts' },
-    { from: '../assets', to: '/assets' },
-    { from: '../base', to: '/base' },
-    { from: '../tokens', to: '/tokens' },
-    { from: '../guidelines', to: '/guidelines' },
-    { from: '../templates', to: '/templates' },
-    { from: '../ui_kits', to: '/ui_kits' },
-    // Do NOT static-serve `components/` — raw `.jsx` is served as MIME `text/jsx` and
-    // breaks the preview when anything loads those URLs as ES modules. Stories import
-    // via Vite (`../components/...` / `@cs`); Live iframes use `_ds_bundle.js`.
-    { from: '../_audit', to: '/_audit' },
-    { from: '../docs', to: '/docs' },
-  ],
+  staticDirs: [{ from: publicStage, to: '/' }],
   // Allow 127.0.0.1 (Storybook core → Vite server.allowedHosts). Prefer opening
   // http://localhost:6006 — iframe.html treats non-localhost as a hard preview error.
   core: {

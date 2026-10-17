@@ -8,7 +8,7 @@ export interface SkeletonProps {
   variant?: "block" | "circle";
   width?: number | string;
   height?: number | string;
-  /** Render N text lines (last one 70% width). */
+  /** Whole text-line count, with the final rendered line at 70% width. Finite fractions round down; nonpositive, nonfinite or unrepresentable counts use the single block/circle view. */
   lines?: number;
   radius?: number | string;
   className?: string;

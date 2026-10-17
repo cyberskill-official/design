@@ -9,68 +9,64 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
   #stage{position:fixed;left:-6000px;top:0;width:800px}
 </style>
-<script src="https://unpkg.com/umd-react@19.2.8/dist/react.development.js" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/umd-react@19.2.8/dist/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="../_vendor/react/react.production.min.js" integrity="sha384-/nh8CKeV7Pk42Gpda6L4DM1JtZ2bwPOi+eh9O7+a1Y22UkGs8+mw3aW1shQ9FV30"></script>
+<script src="../_vendor/react/react-dom.production.min.js" integrity="sha384-rhLCB72qrpcezgY2QW0panvW9IeO32m94nvuDVRD/iEGHXoUbjtijL6Xi/Z5/mzu"></script>
 <script src="../_ds_bundle.js"></script>
 <script src="./vendor/axe.min.js"></script>
 <script src="./lib/axe-fixtures.js"></script>
 </head><body>
 <h1>Axe smoke</h1>
-<p class="lede">Mounts <b>every public primary</b> (inventory-locked via <code>_audit/lib/axe-fixtures.js</code> + <code>test-axe-coverage.mjs</code>) in a bilingual EN·VI cluster and runs <b>axe-core</b> 4.10.0 (vendored at <code>_audit/vendor/axe.min.js</code>) serious/critical WCAG 2 A/AA rules. Open overlays (Dialog, AlertDialog, Drawer, Tour, CommandPalette, Menu) plus expanded Cascader/TreeSelect/Menubar/Combobox, force-open Tooltip bubbles, and asserted HoverCard/ContextMenu panels are in the tree before the scan. Hard gate on the fast board — Storybook a11y enforcement without a separate test-runner. Verdict: <code>window.__axesmoke.pass</code>.</p>
+<p class="lede">Scans <b>every public primary</b> in separate EN and VI scenes, with default and expanded fixture states. Inventory is locked by <code>test-axe-coverage.mjs</code>. Vendored axe-core 4.10.0 applies WCAG 2 A/AA tags; serious/critical violations fail this smoke gate. Static scans wait for fonts and finite entry animations while continuous effects keep running. Isolated scenes avoid modal inertness and focus dismissal hiding neighboring fixtures. This finite automated smoke is separate from manual accessibility and conformance evidence. Verdict: <code>window.__axesmoke.pass</code>.</p>
 <div id="list"></div><div id="sum">running…</div><div id="stage"></div>
 <script>
 const list=document.getElementById('list'), stage=document.getElementById('stage');
-const P=window.__gateProgress={done:0,total:4,current:'boot'};
+const P=window.__gateProgress={done:0,total:1,current:'preflight'};
 function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?'ok':'bad');d.textContent=(ok?'✓ ':'✗ ')+t;list.appendChild(d);}
 (async()=>{
-  const fails=[];
-  P.current='preflight'; P.done=0;
-  if(typeof axe==='undefined'){ fails.push('axe-core vendor failed to load (_audit/vendor/axe.min.js)'); }
-  if(!window.__axeFixtures){ fails.push('axe fixtures missing (_audit/lib/axe-fixtures.js)'); }
-  const NS=window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
-  if(!NS) fails.push('bundle namespace missing');
-  if(fails.length){ finish(false,fails); return; }
-  const names=window.__axeFixtures.names;
-  const missingExports=names.filter(n=>!NS[n]);
-  row(missingExports.length===0, 'bundle exports: '+names.length+' primaries'+(missingExports.length?(' · missing '+missingExports.join(',')):'') );
-  if(missingExports.length){ finish(false,missingExports.map(n=>'missing export:'+n)); return; }
-
-  P.current='mount'; P.done=1;
-  const h=React.createElement;
-  const en=window.__axeFixtures.buildCluster(h, NS, {lang:'en'});
-  const vi=window.__axeFixtures.buildCluster(h, NS, {lang:'vi'});
-  row(en.missing.length===0 && vi.missing.length===0,
-    'cluster mount: '+names.length+' primaries (+VI twin cluster)'+(en.missing.length||vi.missing.length?(' · missing '+[...new Set(en.missing.concat(vi.missing))].join(',')):'') );
-  if(en.missing.length||vi.missing.length){
-    finish(false,[...new Set(en.missing.concat(vi.missing))].map(n=>'missing:'+n));
-    return;
+  const fails=[], scenes=[];
+  let names=[], root;
+  const compact = values => values.map(v=>({id:v.id,impact:v.impact,targets:(v.nodes||[]).map(n=>n.target)}));
+  function finish(){
+    const pass=fails.length===0;
+    P.current='done'; P.done=P.total;
+    window.__axesmoke={pass,fails,components:names.length,scenes,scans:scenes.reduce((sum,s)=>sum+s.scans.length,0)};
+    const sum=document.getElementById('sum');
+    sum.textContent=pass?'✓ PASS — '+scenes.length+' EN/VI scenes, no serious/critical axe hits':'✗ FAIL — '+fails.join(', ');
+    sum.style.color=pass?'#166534':'#B42318';
   }
-  const root=ReactDOM.createRoot(stage);
-  root.render(h('div',{className:'cs-stack'},
-    h('div',{lang:'en','data-axe-lang':'en'},...en.nodes),
-    h('div',{lang:'vi','data-axe-lang':'vi'},...vi.nodes)
-  ));
-  await new Promise(r=>setTimeout(r,300));
-
-  P.current='expand'; P.done=2;
-  const expanded=await window.__axeFixtures.expandForScan(stage);
-  row(expanded.ok, 'surfaces expanded for scanning: '+expanded.detail);
-  if(!expanded.ok){ finish(false,['expand failed: '+expanded.detail]); return; }
-
-  P.current='axe'; P.done=3;
   try{
-    const res=await axe.run(stage,{ runOnly:{type:'tag',values:['wcag2a','wcag2aa']}});
-    const serious=(res.violations||[]).filter(v=>v.impact==='serious'||v.impact==='critical');
-    row(serious.length===0, 'axe serious/critical: '+serious.length+' (total violations '+(res.violations||[]).length+')');
-    serious.slice(0,20).forEach(v=>row(false, v.id+': '+v.help+' · '+(v.nodes||[]).slice(0,2).map(n=>(n.target||[]).join(' ')).join(' | ')));
-    finish(serious.length===0, serious.map(v=>v.id));
-  }catch(e){ finish(false,[String(e)]); }
-  function finish(pass, fails){
-    P.current='done'; P.done=4;
-    window.__axesmoke={pass,fails:fails||[],components:names.length};
-    const s=document.getElementById('sum');
-    s.textContent=pass?'✓ PASS — no serious/critical axe hits ('+names.length+' primaries)':'✗ FAIL — '+(fails||[]).join(', ');
-    s.style.color=pass?'#166534':'#B42318';
-  }
+    if(typeof axe==='undefined') throw new Error('axe-core vendor failed to load');
+    if(!window.__axeFixtures) throw new Error('axe fixtures missing');
+    const NS=window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
+    if(!NS) throw new Error('bundle namespace missing');
+    names=window.__axeFixtures.names.slice();
+    const missing=names.filter(n=>!NS[n]);
+    if(missing.length) throw new Error('missing exports: '+missing.join(','));
+    P.total=names.length*2;
+    const h=React.createElement;
+    root=ReactDOM.createRoot(stage);
+    for(const lang of ['en','vi']) for(const name of names){
+      const scene={name,lang,scans:[],expansion:null,error:null};
+      scenes.push(scene); P.current=lang+':'+name;
+      try{
+        ReactDOM.flushSync(()=>root.render(null));
+        const fixture=window.__axeFixtures.buildScene(h,NS,name,{lang});
+        ReactDOM.flushSync(()=>root.render(h('section',{lang,'data-axe-lang':lang,'data-axe-primary':name},...fixture.nodes)));
+        await window.__axeFixtures.settleSceneForScan(stage);
+        for(const state of ['default','expanded']){
+          if(state==='expanded') scene.expansion=await window.__axeFixtures.expandSceneForScan(stage,name);
+          await window.__axeFixtures.settleSceneForScan(stage);
+          const res=await axe.run(stage,{runOnly:{type:'tag',values:['wcag2a','wcag2aa']}});
+          const serious=res.violations.filter(v=>v.impact==='serious'||v.impact==='critical');
+          scene.scans.push({state,seriousCritical:compact(serious),violations:compact(res.violations),incomplete:compact(res.incomplete),passes:res.passes.length,inertNodes:stage.querySelectorAll('[inert]').length});
+          serious.forEach(v=>fails.push(lang+':'+name+':'+state+':'+v.id));
+        }
+      }catch(error){scene.error=String(error); fails.push(lang+':'+name+':'+String(error));}
+      row(!scene.error && scene.scans.length===2 && scene.scans.every(s=>s.seriousCritical.length===0),lang+':'+name+' · '+scene.scans.length+' scans'+(scene.error?' · '+scene.error:''));
+      P.done++;
+    }
+    if(scenes.length!==names.length*2 || scenes.some(s=>s.scans.length!==2)) fails.push('incomplete primary/language/state coverage');
+  }catch(error){fails.push(String(error));}
+  finally{if(root) ReactDOM.flushSync(()=>root.render(null)); finish();}
 })();
 </script></body></html>

@@ -13,10 +13,12 @@
 <helmet>
 <script src="./ds-base.js"></script>
 <style>@page{size:letter;margin:0.6in}@media print{html,body{background:#fff!important}.cs-desk{background:#fff!important;padding:0!important;min-height:0!important}.cs-sheet{box-shadow:none!important;border:none!important;max-width:none!important;border-radius:0!important;padding:0!important}.cs-avoid{break-inside:avoid}}</style>
+<style>@media screen and (max-width:640px){.cs-quote-cta{flex-direction:column!important;align-items:flex-start!important}.cs-quote-cta>div{inline-size:100%;min-inline-size:0}.cs-quote-cta>span{max-inline-size:100%;box-sizing:border-box;white-space:normal!important}}</style>
+<style>.cs-quote-table>table{margin-bottom:0!important}@media screen and (max-width:768px){.cs-quote-table{max-inline-size:100%;overflow-x:auto}.cs-quote-table>table{display:table!important;min-inline-size:560px}.cs-quote-table td:last-child,.cs-quote-total>div:last-child>div:last-child{white-space:nowrap}}@media screen and (max-width:640px){.cs-quote-header,.cs-quote-total{flex-direction:column!important;align-items:flex-start!important;gap:16px!important}.cs-quote-header>div:last-child,.cs-quote-total>div:last-child{text-align:left!important}}</style>
 </helmet>
 <div lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary)">
-  <div class="cs-sheet" style="max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 64px">
-    <header style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:30px">
+  <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 64px" data-theme="light">
+    <header class="cs-quote-header" style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:30px">
       <div style="display:flex;align-items:center;gap:12px">
         <x-import component-from-global-scope="CyberSkillDS.Logo" size="38" hint-size="38px,38px"></x-import>
         <div><div style="font-weight:800;font-size:18px;color:var(--cs-color-brand-umber);line-height:1.1">CyberSkill</div><div style="font-size:11px;color:var(--cs-color-text-muted)">Hiện Thực Hoá Ý Chí · Turn Your Will Into Real</div></div>
@@ -27,6 +29,9 @@
     <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-accent)">Prepared for [Client Ltd]</div>
     <h1 style="font-size:26px;font-weight:800;letter-spacing:-0.02em;margin:6px 0 8px">Your wish, priced honestly</h1>
     <p style="font-size:13.5px;line-height:1.7;margin:0 0 26px">Here&rsquo;s what it takes to rebuild checkout and stand up an ops console. Senior, small, and honest about trade-offs — no line here is padding.</p>
+    
+    
+    <div class="cs-table-wrap cs-quote-table" role="region" tabindex="0" onkeydown="{{ setQuoteScroll }}" aria-label="Quote scope and prices">
     <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:8px">
       <thead><tr style="border-bottom:2px solid var(--cs-color-brand-umber)"><th style="text-align:left;padding:9px 10px;font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted)">Scope</th><th style="text-align:left;padding:9px 10px;font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted)">Included</th><th style="text-align:right;padding:9px 10px;font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted)">Price</th></tr></thead>
       <tbody>
@@ -36,21 +41,23 @@
         <tr style="border-bottom:1px solid var(--cs-color-border-default)"><td style="padding:11px 10px;font-weight:700;color:var(--cs-color-text-muted)">Optional · A/B kit<span style="font-weight:400"> </span></td><td style="padding:11px 10px;color:var(--cs-color-text-muted)">Experiment framework + first two tests</td><td style="padding:11px 10px;text-align:right;font-family:var(--cs-font-family-mono);color:var(--cs-color-text-muted)">+₫220,000,000</td></tr>
       </tbody>
     </table>
-    <div class="cs-avoid" style="display:flex;justify-content:space-between;align-items:center;gap:24px;margin:22px 0 26px">
+    </div>
+    <div class="cs-avoid cs-quote-total" style="display:flex;justify-content:space-between;align-items:center;gap:24px;margin:22px 0 26px">
       <div style="font-size:12.5px;color:var(--cs-color-text-muted);line-height:1.6;max-width:360px">Prices exclude 10% VAT. Fixed scope; changes handled by a signed change note. This quote is valid for <b style="color:var(--cs-color-text-primary)">30 days</b>. <span style="color:var(--cs-color-text-muted)">Currency</span> <b>VND</b> <span style="color:var(--cs-color-text-muted)">(transaction — independent of Language)</span>.</div>
       <div style="text-align:right"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);font-weight:700">Total (core scope)</div><div style="font-family:var(--cs-font-family-mono);font-weight:800;font-size:26px;color:var(--cs-color-brand-umber);margin-top:2px">₫3,100,000,000</div></div>
     </div>
-    <div class="cs-avoid" style="display:flex;align-items:center;gap:20px;background:var(--cs-accent-strong);border-radius:12px;padding:20px 26px">
+    <div class="cs-avoid cs-quote-cta" style="display:flex;align-items:center;gap:20px;background:var(--cs-accent-strong);border-radius:12px;padding:20px 26px">
       <div style="flex:1"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-accent-on-strong);font-weight:700;margin-bottom:3px">Ready when you are</div><div style="color:var(--cs-accent-on-strong);font-size:14px;line-height:1.55">Say yes and we&rsquo;ll send the SOW and a start date within one business day.</div></div>
-      <span style="display:inline-block;background:var(--cs-accent-bright);color:var(--cs-accent-on);font-weight:700;font-size:14px;padding:12px 22px;border-radius:var(--cs-radius-full);white-space:nowrap">Accept this quote →</span>
+      <span style="display:inline-block;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);font-weight:700;font-size:14px;padding:12px 22px;border-radius:var(--cs-radius-full);white-space:nowrap">Accept this quote →</span>
     </div>
     <div style="font-size:12px;color:var(--cs-color-text-muted);margin-top:20px">Prepared by Minh Trần · CyberSkill · Valid until <b style="color:var(--cs-color-text-primary)">17 Aug 2026</b></div>
     </sc-if>
     <sc-if value="{{ isVN }}"><div lang="vi" style="display:contents">
-    <div class="cs-avoid" style="border:1.5px solid var(--cs-color-semantic-warning);background:#FDF6EC;border-radius:var(--cs-radius-md);padding:10px 14px;margin-bottom:22px;font-size:12px;line-height:1.6;color:var(--cs-color-semantic-warning);font-weight:600">Bản dịch nháp — chưa được rà soát kế toán/pháp lý. Trong trường hợp có khác biệt, bản tiếng Anh có giá trị áp dụng. <span style="font-weight:400">· Unreviewed draft — the English version governs.</span></div>
+    <div class="cs-avoid" style="border:1.5px solid var(--cs-color-semantic-warning);background:#FDF6EC;border-radius:var(--cs-radius-md);padding:10px 14px;margin-bottom:22px;font-size:12px;line-height:1.6;color:var(--cs-color-semantic-warning-text);font-weight:600">Bản dịch nháp — chưa được rà soát kế toán/pháp lý. Trong trường hợp có khác biệt, bản tiếng Anh có giá trị áp dụng. <span style="font-weight:400">· Unreviewed draft — the English version governs.</span></div>
     <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-accent)">Chuẩn bị cho [Công ty khách hàng]</div>
     <h1 style="font-size:26px;font-weight:800;letter-spacing:-0.02em;margin:6px 0 8px">Điều ước của bạn, báo giá thành thật</h1>
     <p style="font-size:13.5px;line-height:1.75;margin:0 0 26px">Đây là chi phí để xây lại trang thanh toán và dựng một ops console. Cấp cao, tinh gọn, và thành thật về đánh đổi — không dòng nào là phần đệm.</p>
+    <div class="cs-table-wrap cs-quote-table" role="region" tabindex="0" onkeydown="{{ setQuoteScroll }}" aria-label="Phạm vi và giá báo giá">
     <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:8px">
       <thead><tr style="border-bottom:2px solid var(--cs-color-brand-umber)"><th style="text-align:left;padding:9px 10px;font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted)">Phạm vi</th><th style="text-align:left;padding:9px 10px;font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted)">Bao gồm</th><th style="text-align:right;padding:9px 10px;font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted)">Giá</th></tr></thead>
       <tbody>
@@ -60,13 +67,14 @@
         <tr style="border-bottom:1px solid var(--cs-color-border-default)"><td style="padding:11px 10px;font-weight:700;color:var(--cs-color-text-muted)">Tuỳ chọn · Bộ A/B</td><td style="padding:11px 10px;color:var(--cs-color-text-muted)">Khung thử nghiệm + hai test đầu tiên</td><td style="padding:11px 10px;text-align:right;font-family:var(--cs-font-family-mono);color:var(--cs-color-text-muted)">+₫220.000.000</td></tr>
       </tbody>
     </table>
-    <div class="cs-avoid" style="display:flex;justify-content:space-between;align-items:center;gap:24px;margin:22px 0 26px">
+    </div>
+    <div class="cs-avoid cs-quote-total" style="display:flex;justify-content:space-between;align-items:center;gap:24px;margin:22px 0 26px">
       <div style="font-size:12.5px;color:var(--cs-color-text-muted);line-height:1.65;max-width:360px">Giá chưa gồm 10% thuế GTGT. Phạm vi cố định; thay đổi qua văn bản điều chỉnh có chữ ký. Báo giá có hiệu lực <b style="color:var(--cs-color-text-primary)">30 ngày. <span style="color:var(--cs-color-text-muted)">Tiền tệ</span> <b>VND</b> <span style="color:var(--cs-color-text-muted)">(giao dịch — độc lập với Language)</span></b>.</div>
       <div style="text-align:right"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);font-weight:700">Tổng (phạm vi chính)</div><div style="font-family:var(--cs-font-family-mono);font-weight:800;font-size:26px;color:var(--cs-color-brand-umber);margin-top:2px">₫3.100.000.000</div></div>
     </div>
-    <div class="cs-avoid" style="display:flex;align-items:center;gap:20px;background:var(--cs-accent-strong);border-radius:12px;padding:20px 26px">
+    <div class="cs-avoid cs-quote-cta" style="display:flex;align-items:center;gap:20px;background:var(--cs-accent-strong);border-radius:12px;padding:20px 26px">
       <div style="flex:1"><div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-accent-on-strong);font-weight:700;margin-bottom:3px">Sẵn sàng khi bạn sẵn sàng</div><div style="color:var(--cs-accent-on-strong);font-size:14px;line-height:1.6">Đồng ý, và chúng tôi sẽ gửi SOW cùng ngày bắt đầu trong vòng một ngày làm việc.</div></div>
-      <span style="display:inline-block;background:var(--cs-accent-bright);color:var(--cs-accent-on);font-weight:700;font-size:14px;padding:12px 22px;border-radius:var(--cs-radius-full);white-space:nowrap">Chấp nhận báo giá →</span>
+      <span style="display:inline-block;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);font-weight:700;font-size:14px;padding:12px 22px;border-radius:var(--cs-radius-full);white-space:nowrap">Chấp nhận báo giá →</span>
     </div>
     <div style="font-size:12px;color:var(--cs-color-text-muted);margin-top:20px">Soạn bởi Minh Trần · CyberSkill · Hiệu lực đến <b style="color:var(--cs-color-text-primary)">17/08/2026</b></div>
     </div></sc-if>
@@ -79,7 +87,7 @@ class Component extends DCLogic {
     const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
     const lang = this.props.language ?? "English";
-    return { langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, isEN: lang !== "Tiếng Việt", isVN: lang === "Tiếng Việt" };
+    return { setQuoteScroll: event => { if (event.target !== event.currentTarget || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return; const region = event.currentTarget; if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return; event.preventDefault(); if (event.key === "Home") region.scrollLeft = 0; else if (event.key === "End") region.scrollLeft = region.scrollWidth - region.clientWidth; else region.scrollLeft += event.key === "ArrowRight" ? 64 : -64; }, langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, isEN: lang !== "Tiếng Việt", isVN: lang === "Tiếng Việt" };
   }
 }
 </script>

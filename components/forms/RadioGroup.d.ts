@@ -1,3 +1,4 @@
+/** ReactNode content preserves numeric zero; optional empty content remains omitted. */
 import type * as React from "react";
 import type { ReactNode } from "react";
 

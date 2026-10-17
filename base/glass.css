@@ -123,3 +123,17 @@
   /* ---- 5. Dark-mode border tuning ---- */
 [data-theme="system"] { --cs-color-border-default: #4a3a2c; }
 }
+
+/* Modal material backings are siblings of content: filters must not capture
+ * fixed nested layers, and scrolling content must not move the backing away. */
+.cs-dialog[data-cs-overlay-material][data-cs-overlay-surface-ready],
+.cs-drawer[data-cs-overlay-material][data-cs-overlay-surface-ready] {
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.cs-dialog[data-cs-overlay-material] { position: absolute; }
+.cs-drawer[data-cs-overlay-material] { position: fixed; }
+.cs-overlay-surface {
+  position: absolute; inset: auto; margin: 0; box-sizing: border-box;
+  pointer-events: none; border: 0; box-shadow: none; background: transparent;
+}
+.cs-overlay-surface::before { display: none; }

@@ -10,8 +10,8 @@ export function Timeline({ items = [], className }) {
           <span className="cs-timeline__marker" aria-hidden="true">{it.state === "todo" ? "" : it.state === "now" ? "→" : "✓"}</span>
           <div>
             <div className="cs-timeline__title">{it.title}</div>
-            {it.meta ? <div className="cs-timeline__meta">{it.meta}</div> : null}
-            {it.body ? <div className="cs-timeline__body">{it.body}</div> : null}
+            {(it.meta || it.meta === 0) ? <div className="cs-timeline__meta">{it.meta}</div> : null}
+            {(it.body || it.body === 0) ? <div className="cs-timeline__body">{it.body}</div> : null}
           </div>
         </div>
       ))}

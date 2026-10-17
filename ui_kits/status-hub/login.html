@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CyberSkill · Sign in</title>
+<title data-vi="CyberSkill · Đăng nhập">CyberSkill · Sign in</title>
 <link rel="icon" href="../../assets/favicon.svg" />
 <link rel="stylesheet" href="../../styles.css" />
 <style>
@@ -25,59 +25,60 @@
   form { display: grid; gap: 16px; }
   .rowbetween { display: flex; align-items: center; justify-content: space-between; }
   .fine { text-align: center; font-size: 13px; color: var(--cs-color-text-muted); margin-top: 4px; }
-  .state-bar { position: fixed; left: 20px; bottom: 20px; z-index: 60; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 10px 12px; border: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); border-radius: 12px; box-shadow: var(--cs-shadow-md); font-size: 13px; }
-  .state-bar label { display: flex; align-items: center; gap: 6px; color: var(--cs-color-text-muted); }
+  .state-bar { max-width: calc(100vw - 96px); position: fixed; left: 20px; bottom: 20px; z-index: 60; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 10px 12px; border: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); border-radius: 12px; box-shadow: var(--cs-shadow-md); font-size: 13px; }
+  .state-bar label { flex-wrap: wrap; display: flex; align-items: center; gap: 6px; color: var(--cs-color-text-muted); }
   .state-bar select { font: inherit; }
   [hidden] { display: none !important; }
-  @media (max-width: 820px) { .login { grid-template-columns: 1fr; } .pane-brand { display: none; } }
+  @media (max-width: 820px) { .state-bar { position: static; margin: 0 76px 20px 20px; } .login { grid-template-columns: 1fr; } .pane-brand { display: none; } }
 </style>
 </head>
 <body>
-<a class="cs-skip" href="#main">Bỏ qua đến nội dung</a>
-<main id="main">
+<a class="cs-skip" href="#main" data-vi="Bỏ qua đến nội dung">Skip to content</a>
+<main id="main" tabindex="-1">
 
 <div class="login">
   <div class="pane-brand">
     <div class="brand-lock"><img src="../../assets/logo-mark.svg" alt="" />CyberSkill</div>
-    <p class="brand-headline">Turn Your Will Into Real</p>
-    <p>Sign in to the Status Hub — one page, three lenses across every wish in flight.</p>
+    <p class="brand-headline" data-vi="Hiện Thực Hoá Ý Chí">Turn Your Will Into Real</p>
+    <p data-vi="Bản mẫu đăng nhập Status Hub — một trang, ba lăng kính cho các điều ước đang thực hiện.">Sign in to the Status Hub — one page, three lenses across every wish in flight.</p>
   </div>
   <div class="pane-form">
     <div class="box">
-      <h1>Sign in</h1>
-      <p class="sub">Welcome back. Đăng nhập để tiếp tục.</p>
+      <button type="button" class="cs-button cs-button--secondary cs-button--sm" style="margin-bottom:12px" data-preview-language-toggle>Tiếng Việt</button>
+      <h1 data-vi="Đăng nhập">Sign in</h1>
+      <p class="sub" data-vi="Bản xem trước đăng nhập cục bộ. Chưa gửi yêu cầu xác thực.">Local sign-in preview. No authentication request is made.</p>
       <form id="loginForm" onsubmit="return false">
         <div id="errBanner" class="cs-alert cs-alert--danger" role="status" hidden>
           <span class="cs-alert__icon" aria-hidden="true">!</span>
           <div>
-            <p class="cs-alert__title">Sign-in failed</p>
-            <div class="cs-alert__body">Check your email and password, then try again.</div>
+            <p class="cs-alert__title" data-vi="Đăng nhập thất bại">Sign-in failed</p>
+            <div class="cs-alert__body" data-vi="Kiểm tra email và mật khẩu rồi thử lại.">Check your email and password, then try again.</div>
           </div>
         </div>
-        <label id="emailField" class="cs-field"><span class="cs-field__label">Work email</span><input id="emailInput" class="cs-field__control" type="email" placeholder="you@cyberskill.world" /><span id="emailError" class="cs-field__error" role="alert" hidden>Enter a valid work email.</span></label>
-        <label class="cs-field"><span class="cs-field__label">Password</span><input class="cs-field__control" type="password" placeholder="••••••••" value="" /></label>
+        <label id="emailField" class="cs-field"><span id="emailLabel" class="cs-field__label" data-vi="Email công việc">Work email</span><input aria-labelledby="emailLabel" id="emailInput" class="cs-field__control" type="email" placeholder="you@cyberskill.world" /><span id="emailError" class="cs-field__error" role="alert" hidden data-vi="Nhập email công việc hợp lệ.">Enter a valid work email.</span></label>
+        <label class="cs-field"><span class="cs-field__label" data-vi="Mật khẩu">Password</span><input class="cs-field__control" type="password" placeholder="••••••••" value="" /></label>
         <div class="rowbetween">
-          <label class="cs-switch"><input type="checkbox" role="switch" /><span class="cs-switch__track"></span><span class="cs-switch__label">Remember me</span></label>
-          <a href="#">Forgot password?</a>
+          <label class="cs-switch"><input type="checkbox" role="switch" /><span class="cs-switch__track"></span><span class="cs-switch__label" data-vi="Ghi nhớ tôi">Remember me</span></label>
+          <button type="button" class="cs-button cs-button--ghost cs-button--sm" disabled data-vi="Quên mật khẩu?">Forgot password?</button>
         </div>
-        <button id="submitBtn" type="submit" class="cs-button cs-button--primary cs-button--full">Sign in</button>
-        <button type="button" class="cs-button cs-button--ghost cs-button--full">✦ Talk to Lumi instead</button>
+        <button id="submitBtn" type="submit" class="cs-button cs-button--primary cs-button--full" data-vi="Đăng nhập">Sign in</button>
+        <button type="button" class="cs-button cs-button--ghost cs-button--full" disabled data-vi="✦ Trò chuyện với Lumi">✦ Talk to Lumi instead</button>
       </form>
-      <p class="fine">New here? <a href="#">Ask for access</a></p>
+      <p class="fine"><span data-vi="Chỉ là điều khiển minh họa.">Sample controls only.</span> <button type="button" class="cs-button cs-button--ghost cs-button--sm" disabled data-vi="Yêu cầu quyền truy cập">Ask for access</button></p>
     </div>
   </div>
 </div>
-<div class="state-bar" aria-label="Demo form state">
-  <label>Form state
+<div class="state-bar" aria-label="Demo form state" data-vi-aria-label="Trạng thái biểu mẫu minh họa">
+  <label><span data-vi="Trạng thái biểu mẫu">Form state</span>
     <select id="formState">
-      <option value="default" selected>default</option>
-      <option value="loading">loading</option>
-      <option value="error">error</option>
-      <option value="invalid">invalid</option>
+      <option value="default" selected data-vi="mặc định">default</option>
+      <option value="loading" data-vi="đang tải">loading</option>
+      <option value="error" data-vi="lỗi">error</option>
+      <option value="invalid" data-vi="không hợp lệ">invalid</option>
     </select>
   </label>
 </div>
-<button id="themeToggle" aria-label="Toggle theme" style="position:fixed;right:20px;bottom:20px;z-index:60;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);width:44px;height:44px;border-radius:999px;cursor:pointer;box-shadow:var(--cs-shadow-md)">☾</button>
+<button id="themeToggle" aria-label="Toggle theme" data-vi-aria-label="Đổi giao diện" style="position:fixed;right:20px;bottom:20px;z-index:60;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);width:44px;height:44px;border-radius:999px;cursor:pointer;box-shadow:var(--cs-shadow-md)">☾</button>
 <script>
   document.getElementById("themeToggle").addEventListener("click", function () {
     var el = document.documentElement, dark = el.getAttribute("data-theme") === "dark";
@@ -96,16 +97,22 @@
     emailInput.setAttribute("aria-invalid", invalid ? "true" : "false");
     if (!invalid) emailInput.removeAttribute("aria-invalid");
     emailError.hidden = !invalid;
+    if (invalid) emailInput.setAttribute("aria-describedby", "emailError");
+    else emailInput.removeAttribute("aria-describedby");
     var loading = state === "loading";
     btn.classList.toggle("is-loading", loading);
     btn.disabled = loading;
     btn.setAttribute("aria-busy", loading ? "true" : "false");
-    btn.textContent = loading ? "Signing in…" : "Sign in";
+    btn.dataset.en = loading ? "Signing in…" : "Sign in";
+    btn.dataset.vi = loading ? "Đang đăng nhập…" : "Đăng nhập";
+    btn.textContent = document.documentElement.lang === "vi" ? btn.dataset.vi : btn.dataset.en;
   }
   var sel = document.getElementById("formState");
   sel.addEventListener("change", function () { applyState(sel.value); });
+  document.addEventListener("cs:status-preview-language", function () { applyState(sel.value); });
   applyState(sel.value);
 </script>
 </main>
+<script src="static-locale.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+/** Panel-link descriptions preserve numeric zero; null, false and empty strings omit the description. */
 import type { ReactNode } from "react";
 
 /** Site navigation with optional rich panels (mega-menu style). */

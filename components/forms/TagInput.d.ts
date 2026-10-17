@@ -1,5 +1,6 @@
 /** Multi-value token input: Enter/comma adds a tag, Backspace removes the last,
- *  blur commits, duplicates ignored. Controlled (value/onChange) or uncontrolled. */
+ *  blur commits while enabled, duplicates ignored. IME composition confirmation
+ *  does not commit a tag. Controlled (value/onChange) or uncontrolled. */
 export interface TagInputProps {
   id?: string;
   /** Visible field label (associates via htmlFor). When omitted, the input uses the placeholder as aria-label. */

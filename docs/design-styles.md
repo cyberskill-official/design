@@ -1,26 +1,26 @@
 # Design styles
 
-The live styling axes are **Theme × Element × Language × Style**. Style’s sole pack today is **liquid-glass** (absent `data-cs-style` ≡ liquid-glass — same default pattern as light theme / Thổ middle). Published on Storybook **Docs** at `design.cyberskill.world`.
+The live styling axes are **Theme × Element × Language × Style**. Style’s sole pack today is **liquid-glass**. An absent style attribute selects that pack. Unmarked descendants inherit their nearest theme and element scopes; the neutral root defaults to light with the studio brand anchors. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 | Axis | How to set it | What it changes |
 |---|---|---|
-| **Theme** | light = attribute absent; `data-theme="dark"` | light/dark semantic colours (product UI axis). Token-level `data-theme="system"` follows the OS (`prefers-color-scheme`) and mirrors dark — Storybook toolbar and Atomic View expose a system control |
+| **Theme** | `data-theme="light"`, `"dark"` or `"system"`; absence inherits the nearest scope (light at the neutral root) | light/dark semantic colours (product UI axis). Explicit light resets a dark ancestor. System follows the OS light/dark preference; Storybook toolbar and Atomic View expose all three values |
 | **Element** | `data-cs-element` + optional `data-cs-variant` | Ngũ Hành product identity (**15 packs** = 5 elements × soft/middle/deep) |
-| **Language** | `lang` / Language tweak | EN · VI copy |
+| **Language** | `lang` / Language tweak | EN · VI built-in copy, Vietnamese by default; optional `ja` is a bounded Pagination spike, not full Japanese coverage |
 | **Style** | `data-cs-style` (optional; absent ≡ `liquid-glass`) | Surface material pack. Sole pack today: **liquid-glass** (`tokens/styles.css` + `base/glass.css`) |
 
 ## Element colour contract
 
-Source of truth: [`tokens/element-seeds.json`](../tokens/element-seeds.json) → `npm run tokens:elements` → [`tokens/elements.css`](../tokens/elements.css) (+ JSON / JS / DTCG / native mirrors). **Do not hand-edit pack hexes.**
+Source of truth: [`tokens/element-seeds.json`](../tokens/element-seeds.json) → `npm run tokens:generate` → [`tokens/elements.css`](../tokens/elements.css) (+ JSON / JS / DTCG / native mirrors). **Do not hand-edit pack hexes.**
 
 | Rule | Detail |
 |---|---|
-| **Default** | Thổ **middle** (studio) — logo ochre `#F4BA17` on `:root` when no element attribute is set |
+| **Default** | An unmarked root uses the neutral studio palette with logo ochre `#F4BA17`. Explicit `data-cs-element="tho"` selects Thổ **middle** (studio); its complete palette differs from neutral. Unmarked descendants inherit their nearest element |
 | **Intensity ladder** | Every element has **soft · middle · deep** with shared OKLCH L targets (C scaled per element). Middle is the default (no `data-cs-variant`) |
 | **Names preserved** | Public variants stay `sand/clay`, `plasma/lava`, `mist/ocean`, `bamboo/forest`, `titanium/steel` — mapped onto the ladder (see [`docs/products.md`](products.md) Slot column) |
 | **Character offsets** | Small explicit `dh`/`dc` in the seed file only (e.g. Hỏa·plasma, Kim·steel) — not freehand drift |
 | **Light ↔ dark** | Same hue family (Δh locked); roles remapped + APCA-solved — 15 × 2 = **30 colour sets** |
-| **Text rule** | Text on `-bright` or `-tint` only — never on mid-tone `-accent` |
+| **Text rule** | Use `-bright` or `-tint`, or pair a `-strong` fill with `--cs-accent-on-strong` for body text; never use mid-tone `-accent` behind text |
 | **Never remap** | composite focus indicator (text-primary contour + ochre halo) · semantic status colours |
 | **Geometry gate** | [`_audit/element-geometry.html`](../_audit/element-geometry.html) — intensity sync · variant distinctness · hue identity |
 

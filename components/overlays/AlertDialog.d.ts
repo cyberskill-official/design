@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 /**
  * First-class confirm / destructive modal — role="alertdialog", focus trap + restore.
  * Distinct from Popconfirm (inline bubble) and Dialog (general modal).
+ * Coarse pointers use a fade entrance to preserve touch-target dimensions.
  */
 export interface AlertDialogProps {
   open?: boolean;
@@ -16,7 +17,7 @@ export interface AlertDialogProps {
   confirmLabel?: string;
   /** Defaults from the registry ("Cancel" / "Hủy"). */
   cancelLabel?: string;
-  /** `destructive` styles the confirm action as danger. Alias: `variant`. */
+  /** `destructive` styles the confirm action as danger and initially focuses Cancel. Alias: `variant`. */
   tone?: "default" | "destructive";
   variant?: "default" | "destructive";
   onConfirm?: () => void;

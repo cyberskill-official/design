@@ -19,10 +19,12 @@ export function TagInput({
   const tags = value != null ? value : inner;
   const [q, setQ] = React.useState("");
   const set = (arr) => {
+    if (disabled) return;
     if (value == null) setInner(arr);
     onChange && onChange(arr);
   };
   const add = (s) => {
+    if (disabled) return;
     s = s.trim();
     if (!s) return;
     if (tags.includes(s)) {
@@ -66,6 +68,7 @@ export function TagInput({
           aria-label={label ? undefined : ph}
           onChange={(e) => setQ(e.target.value)}
           onKeyDown={(e) => {
+            if (disabled || e.nativeEvent.isComposing || e.keyCode === 229) return;
             if (e.key === "Enter" || e.key === ",") {
               e.preventDefault();
               add(q);

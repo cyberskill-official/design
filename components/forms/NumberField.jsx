@@ -19,6 +19,7 @@ export function NumberField({
   ...props
 }) {
   const [inner, setInner] = React.useState(0);
+  const inputRef = React.useRef(null);
   const val = value != null ? value : inner;
   const clamp = (n) => {
     if (min != null) n = Math.max(min, n);
@@ -27,7 +28,18 @@ export function NumberField({
   };
   const set = (n) => {
     const c = clamp(n);
-    onChange ? onChange(c) : setInner(c);
+    if (value == null) setInner(c);
+    onChange?.(c);
+  };
+  const stepBy = (direction) => {
+    const input = inputRef.current;
+    if (!input) return;
+    // Delegate decimal arithmetic and step-base alignment to the same native
+    // control. A detached copy keeps controlled DOM ownership with the caller.
+    const probe = input.cloneNode(false);
+    probe.value = input.value;
+    probe.stepUp(direction);
+    if (Number.isFinite(probe.valueAsNumber)) set(probe.valueAsNumber);
   };
   const [ref, L] = useLang(lang);
   const t = makeT("NumberField", L);
@@ -41,11 +53,12 @@ export function NumberField({
         </label>
       ) : null}
       <div className="cs-stepper">
-        <button type="button" aria-label={t("decrease")} disabled={disabled || (min != null && val <= min)} onClick={() => set(val - step)}>
+        <button type="button" aria-label={t("decrease")} disabled={disabled || (min != null && val <= min)} onClick={() => stepBy(-1)}>
           −
         </button>
         <input
           {...props}
+          ref={inputRef}
           id={sid}
           type="number"
           value={val}
@@ -56,7 +69,7 @@ export function NumberField({
           aria-label={label ? undefined : t("value")}
           onChange={(e) => set(Number(e.target.value))}
         />
-        <button type="button" aria-label={t("increase")} disabled={disabled || (max != null && val >= max)} onClick={() => set(val + step)}>
+        <button type="button" aria-label={t("increase")} disabled={disabled || (max != null && val >= max)} onClick={() => stepBy(1)}>
           +
         </button>
       </div>

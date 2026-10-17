@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CyberSkill · Docs</title>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CyberSkill · Docs</title>
 <link rel="stylesheet" href="../styles.css">
 <style>
   *{box-sizing:border-box}html,body{height:100%}
@@ -46,6 +46,11 @@
   html.embed body{grid-template-columns:1fr}
   html.embed aside{display:none}
   html.embed main{padding:24px 32px}
+  @media (pointer:coarse){
+    .langtog button,#docsearch,aside a{min-inline-size:44px;min-block-size:44px}
+    #navlinks a[data-p]{display:flex;align-items:center}
+    article a{display:inline-flex;align-items:center;min-inline-size:44px;min-block-size:44px;max-inline-size:100%;overflow-wrap:anywhere}
+  }
   @media (max-width:640px){
     body{grid-template-columns:1fr}
     aside{border-inline-end:0;border-block-end:1px solid var(--cs-color-border-default);max-height:38vh}
@@ -61,33 +66,47 @@
 </script>
 </head>
 <body>
-<aside id="nav"><h1>CyberSkill Docs</h1>
-<div class="langtog" role="group" aria-label="Doc language"><button type="button" id="lang-en" data-lang="en">EN</button><button type="button" id="lang-vi" data-lang="vi">VI</button></div>
-<p class="langhint" id="langhint">Operator docs under docs/ · entrance docs stay EN</p>
-<input id="docsearch" type="search" placeholder="Search all docs…"><div id="navlinks"></div></aside>
-<main><article id="doc"><p style="color:var(--cs-color-text-muted)">Loading…</p></article><p id="err" hidden></p></main>
+<aside id="nav" lang="vi"><h1 id="doctitle">Tài liệu CyberSkill</h1>
+<div class="langtog" role="group" aria-label="Ngôn ngữ tài liệu"><button type="button" id="lang-en" data-lang="en" lang="en">EN</button><button type="button" id="lang-vi" data-lang="vi" lang="vi">VI</button></div>
+<p class="langhint" id="langhint">docs/*.md → docs/vi/ · README/SKILL/llms/CONTRIBUTING vẫn EN</p>
+<input id="docsearch" type="search" placeholder="Tìm mọi tài liệu…" aria-label="Tìm mọi tài liệu"><div id="navlinks"></div></aside>
+<main><article id="doc" lang="vi" data-state="loading" aria-busy="true"><p style="color:var(--cs-color-text-muted)">Đang tải…</p></article><p id="err" hidden></p></main>
 <script>
 const DOCS_EN=[
  ['Start',[['README.md','README'],['SKILL.md','SKILL (agent rules)'],['llms.txt','llms.txt'],['CONTRIBUTING.md','Contributing']]],
- ['Guides',[['docs/consuming.md','Consuming & upgrading'],['docs/consumer-grant.md','Consumer grant (npm · UNLICENSED)'],['docs/deploy.md','Deploy (Vercel/VPS)'],['docs/template-schema-v2.md','Template content-schema v2'],['docs/conventions.md','Conventions'],['docs/release-notes.md','Release Notes'],['docs/release-runbook.md','Release runbook'],['docs/storybook.md','Storybook (product at /)'],['docs/live-hub.md','Live hub (Storybook at /)'],['docs/hr-suite-sources.md','HR Suite sources (DOCX ↔ templates)'],['docs/design-styles.md','Design styles'],['docs/benchmark-rubric.md','Benchmark rubric'],['docs/products.md','Products'],['docs/contrast-report.md','Contrast report'],['docs/figma.md','Figma']]],
+ ['Guides',[['docs/consuming.md','Consuming & upgrading'],['docs/consumer-grant.md','Consumer grant (npm · UNLICENSED)'],['docs/deploy.md','Deploy (Vercel/VPS)'],['docs/template-schema-v2.md','Template content-schema v2'],['docs/conventions.md','Conventions'],['docs/release-notes.md','Release Notes'],['docs/storybook.md','Storybook (product at /)'],['docs/live-hub.md','Live hub (Storybook at /)'],['docs/hr-suite-sources.md','HR Suite sources (DOCX ↔ templates)'],['docs/design-styles.md','Design styles'],['docs/benchmark-rubric.md','Benchmark rubric'],['docs/products.md','Products'],['docs/contrast-report.md','Contrast report'],['docs/figma.md','Figma']]],
  ['Maintainers',[['docs/doctrine.md','Doctrine'],['docs/decisions.md','Decisions'],['docs/ci-cd.md','CI/CD automation'],['docs/quality-gates.md','Quality gates'],['docs/sync.md','Git sync & hygiene']]]
 ];
 const DOCS_VI=[
- ['Bắt đầu',[['README.md','README (EN)'],['SKILL.md','SKILL (EN)'],['llms.txt','llms.txt (EN)'],['CONTRIBUTING.md','Contributing (EN)']]],
- ['Hướng dẫn',[['docs/consuming.md','Tiêu thụ & nâng cấp'],['docs/consumer-grant.md','Grant consumer (npm · UNLICENSED)'],['docs/deploy.md','Deploy (Vercel/VPS)'],['docs/template-schema-v2.md','Template schema v2'],['docs/conventions.md','Conventions'],['docs/release-notes.md','Ghi chú phát hành'],['docs/release-runbook.md','Runbook phát hành'],['docs/storybook.md','Storybook (sản phẩm tại /)'],['docs/live-hub.md','Live hub (Storybook tại /)'],['docs/hr-suite-sources.md','Nguồn HR Suite (DOCX ↔ templates)'],['docs/design-styles.md','Phong cách'],['docs/benchmark-rubric.md','Rubric benchmark'],['docs/products.md','Sản phẩm'],['docs/contrast-report.md','Báo cáo contrast'],['docs/figma.md','Figma']]],
- ['Maintainer',[['docs/doctrine.md','Học thuyết'],['docs/decisions.md','Quyết định'],['docs/ci-cd.md','CI/CD'],['docs/quality-gates.md','Quality gates'],['docs/sync.md','Đồng bộ Git']]]
+ ['Bắt đầu',[['README.md','README (EN)'],['SKILL.md','SKILL (EN)'],['llms.txt','llms.txt (EN)'],['CONTRIBUTING.md','Đóng góp (EN)']]],
+ ['Hướng dẫn',[['docs/consuming.md','Tiêu thụ & nâng cấp'],['docs/consumer-grant.md','Grant consumer (npm · UNLICENSED)'],['docs/deploy.md','Deploy (Vercel/VPS)'],['docs/template-schema-v2.md','Template schema v2'],['docs/conventions.md','Conventions'],['docs/release-notes.md','Ghi chú phát hành'],['docs/storybook.md','Storybook (sản phẩm tại /)'],['docs/live-hub.md','Live hub (Storybook tại /)'],['docs/hr-suite-sources.md','Nguồn HR Suite (DOCX ↔ templates)'],['docs/design-styles.md','Phong cách'],['docs/benchmark-rubric.md','Rubric benchmark'],['docs/products.md','Sản phẩm'],['docs/contrast-report.md','Báo cáo contrast'],['docs/figma.md','Figma']]],
+ ['Bảo trì',[['docs/doctrine.md','Học thuyết'],['docs/decisions.md','Quyết định'],['docs/ci-cd.md','CI/CD'],['docs/quality-gates.md','Quality gates'],['docs/sync.md','Đồng bộ Git']]]
 ];
-let lang=(localStorage.getItem('cs-docs-lang')==='vi')?'vi':'en';
+const UI={
+  en:{title:'CyberSkill Docs',group:'Doc language',search:'Search all docs',loading:'Loading…',failure:'Could not load ',matches:(count,q)=>count+' match'+(count===1?'':'es')+' for “'+q+'”'},
+  vi:{title:'Tài liệu CyberSkill',group:'Ngôn ngữ tài liệu',search:'Tìm mọi tài liệu',loading:'Đang tải…',failure:'Không thể tải ',matches:(count,q)=>count+' kết quả cho “'+q+'”'},
+};
+// Language persistence is optional; privacy settings can expose null storage.
+function savedLanguage(){ try{ return localStorage.getItem('cs-docs-lang'); }catch{ return null; } }
+function saveLanguage(value){ try{ localStorage.setItem('cs-docs-lang',value); }catch{} }
+let lang=savedLanguage()==='en'?'en':'vi';
+function contentLanguage(path,language=lang){ return path.startsWith('docs/')?language:'en'; }
 function DOCS(){ return lang==='vi'?DOCS_VI:DOCS_EN; }
 const ALL=DOCS_EN.flatMap(g=>g[1].map(d=>d[0]));
 const nav=document.getElementById('navlinks');
 function syncLangUi(){
-  document.getElementById('lang-en').classList.toggle('on',lang==='en');
-  document.getElementById('lang-vi').classList.toggle('on',lang==='vi');
+  for(const button of document.querySelectorAll('.langtog button')){
+    const selected=button.dataset.lang===lang;
+    button.classList.toggle('on',selected); button.setAttribute('aria-pressed',String(selected));
+  }
+  document.getElementById('nav').lang=lang;
+  document.getElementById('doctitle').textContent=UI[lang].title;
+  document.querySelector('.langtog').setAttribute('aria-label',UI[lang].group);
   document.getElementById('langhint').textContent=lang==='vi'
     ? 'docs/*.md → docs/vi/ · README/SKILL/llms/CONTRIBUTING vẫn EN'
     : 'Operator docs under docs/ · entrance docs stay EN';
-  document.getElementById('docsearch').placeholder=lang==='vi'?'Tìm mọi docs…':'Search all docs…';
+  document.getElementById('docsearch').placeholder=UI[lang].search+'…';
+  document.getElementById('docsearch').setAttribute('aria-label',UI[lang].search);
   document.documentElement.lang=lang==='vi'?'vi':'en';
 }
 function renderNav(){ nav.innerHTML=''; for(const [g,items] of DOCS()){ const h=document.createElement('div'); h.className='grp'; h.textContent=g; nav.appendChild(h);
@@ -95,36 +114,48 @@ function renderNav(){ nav.innerHTML=''; for(const [g,items] of DOCS()){ const h=
 syncLangUi(); renderNav();
 document.querySelector('.langtog').addEventListener('click',(e)=>{
   const b=e.target.closest('button[data-lang]'); if(!b) return;
-  lang=b.dataset.lang; localStorage.setItem('cs-docs-lang',lang);
+  lang=b.dataset.lang; saveLanguage(lang);
   syncLangUi(); renderNav(); markActive();
   docCache=null; // refetch under new language
+  cancelSearch();
   load(cur||'README.md');
+  const q=searchBox.value.trim();
+  if(q.length>=2) runSearch(q);
 });
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function labelsNow(){ const L={}; for(const [,items] of DOCS()) for(const [p,l] of items) L[p]=l; return L; }
 /** Logical nav path (docs/foo.md) → fetch path (docs/vi/foo.md when VI). Entrance docs stay EN. */
-function fetchPath(p){
-  if(lang==='vi' && p.startsWith('docs/') && !p.startsWith('docs/vi/')) return 'docs/vi/'+p.slice(5);
+function fetchPath(p,language=lang){
+  if(language==='vi' && p.startsWith('docs/') && !p.startsWith('docs/vi/')) return 'docs/vi/'+p.slice(5);
   return p;
 }
 let docCache=null;
-async function ensureCache(){ if(docCache) return docCache; docCache={}; await Promise.all(ALL.map(async p=>{ try{ docCache[p]=await fetchDoc(fetchPath(p)); }catch(e){ docCache[p]=''; } })); return docCache; }
+async function ensureCache(language){
+  if(docCache && docCache.language===language) return docCache.promise;
+  const cache={};
+  const promise=Promise.all(ALL.map(async p=>{ try{ cache[p]=await fetchDoc(fetchPath(p,language)); }catch(e){ cache[p]=''; } })).then(()=>cache);
+  docCache={language,promise};
+  return promise;
+}
 function snippet(text,q){ const i=text.toLowerCase().indexOf(q.toLowerCase()); if(i<0) return ''; const s=Math.max(0,i-30), e=Math.min(text.length,i+q.length+50); return (s>0?'…':'')+esc(text.slice(s,e)).replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>')+(e<text.length?'…':''); }
 function highlightIn(q){ if(!q) return; const doc=document.getElementById('doc'); const walker=document.createTreeWalker(doc,NodeFilter.SHOW_TEXT); const re=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'i'); let node; while((node=walker.nextNode())){ if(re.test(node.nodeValue)){ const span=document.createElement('span'); const idx=node.nodeValue.search(re); const before=node.nodeValue.slice(0,idx), match=node.nodeValue.slice(idx,idx+q.length), after=node.nodeValue.slice(idx+q.length); span.innerHTML=esc(before)+'<mark>'+esc(match)+'</mark>'+esc(after); node.replaceWith(span); span.scrollIntoView({block:'center'}); break; } } }
 async function runSearch(q){
-  const cache=await ensureCache();
+  const revision=++searchRevision, language=lang;
+  const cache=await ensureCache(language);
+  if(revision!==searchRevision || language!==lang || searchBox.value.trim()!==q) return;
   const LABEL=labelsNow();
   const hits=ALL.filter(p=>cache[p] && cache[p].toLowerCase().includes(q.toLowerCase()));
   nav.innerHTML='';
-  const res=document.createElement('div'); res.className='searchres'; res.textContent=hits.length+' match'+(hits.length===1?'':'es')+' for “'+q+'”'; nav.appendChild(res);
+  const res=document.createElement('div'); res.className='searchres'; res.textContent=UI[language].matches(hits.length,q); nav.appendChild(res);
   for(const p of hits){ const a=document.createElement('a'); a.className='searchhit'; a.href='#'+p;
-    a.innerHTML='<b>'+esc(LABEL[p]||p)+'</b><span class="snip">'+snippet(cache[p],q)+'</span>';
+    a.innerHTML='<b>'+esc(LABEL[p]||p)+'</b><span class="snip" lang="'+contentLanguage(p,language)+'">'+snippet(cache[p],q)+'</span>';
     a.addEventListener('click',()=>{ setTimeout(()=>highlightIn(q),200); });
     nav.appendChild(a); }
 }
 const searchBox=document.getElementById('docsearch');
-let searchT=null;
-searchBox.addEventListener('input',()=>{ clearTimeout(searchT); const q=searchBox.value.trim(); searchT=setTimeout(()=>{ if(q.length<2){ renderNav(); markActive(); } else { runSearch(q); } },150); });
+let searchT=null,searchRevision=0;
+function cancelSearch(){ clearTimeout(searchT); searchT=null; searchRevision++; }
+searchBox.addEventListener('input',()=>{ cancelSearch(); const q=searchBox.value.trim(); searchT=setTimeout(()=>{ if(q.length<2){ renderNav(); markActive(); } else { runSearch(q); } },150); });
 function markActive(){ document.querySelectorAll('#navlinks a').forEach(a=>a.classList.toggle('on',a.dataset.p===cur)); }
 function inline(s){ return esc(s)
   .replace(/`([^`]+)`/g,(m,c)=>'<code>'+c+'</code>')
@@ -192,7 +223,7 @@ function md(src){
   return out.join('\n').replace(/@@F(\d+)@@/g,(m,n)=>fences[+n]);
 }
 function resolve(href,cur){ if(href.startsWith('./')) href=href.slice(2); const base=cur.includes('/')?cur.slice(0,cur.lastIndexOf('/')+1):''; let p=base+href; for(let k=0;k<6&&/(^|\/)\.\.\//.test(p);k++){ p=p.replace(/(^|\/)[^\/]+\/\.\.\//,'$1'); } return p.replace(/^\.\//,'').replace(/^\/+/,''); }
-let cur='';
+let cur='',loadRevision=0;
 function docUrls(p){
   // Prefer relative-to-viewer (../README.md when viewer is in docs/), then root-relative, then same-dir.
   const base = new URL('.', location.href);
@@ -214,19 +245,34 @@ async function fetchDoc(p){
         lastErr = new Error('hosting intercepted '+u+' (got HTML, not markdown)');
         continue;
       }
-      return text;
+      // Count metadata is generated source syntax, not visible prose. Strip only
+      // complete numeric markers before rendering and indexing search snippets.
+      return text.replace(/<!-- cs-count:[A-Za-z]+ -->(\d+)<!-- \/cs-count -->/g, '$1');
     }catch(e){ lastErr = e; }
   }
   throw lastErr || new Error('all fetch paths failed');
 }
 async function load(p){
+  const revision=++loadRevision, language=lang, path=fetchPath(p,language);
   cur=p; document.title='CyberSkill · '+p+(lang==='vi' && p.startsWith('docs/')?' · VI':'');
   markActive();
   const doc=document.getElementById('doc'), err=document.getElementById('err');
   err.hidden=true;
-  doc.innerHTML='<p style="color:var(--cs-color-text-muted)">Loading…</p>';
-  try{ doc.innerHTML=md(await fetchDoc(fetchPath(p))); document.querySelector('main').scrollTop=0; }
-  catch(e){ doc.innerHTML=''; err.hidden=false; err.textContent='Could not load '+fetchPath(p)+' — '+(e && e.message || e); }
+  doc.lang=language; doc.dataset.state='loading'; doc.setAttribute('aria-busy','true');
+  const loading=document.createElement('p'); loading.style.color='var(--cs-color-text-muted)'; loading.textContent=UI[language].loading; doc.replaceChildren(loading);
+  try{
+    const text=await fetchDoc(path);
+    if(revision!==loadRevision || language!==lang) return;
+    doc.lang=contentLanguage(p,language); doc.innerHTML=md(text);
+    doc.dataset.state='ready'; doc.setAttribute('aria-busy','false'); document.querySelector('main').scrollTop=0;
+  }
+  catch(e){
+    if(revision!==loadRevision || language!==lang) return;
+    doc.replaceChildren(); doc.dataset.state='error'; doc.setAttribute('aria-busy','false');
+    err.hidden=false; err.lang=language;
+    const detail=document.createElement('span'); detail.lang='en'; detail.textContent=String(e && e.message || e);
+    err.replaceChildren(document.createTextNode(UI[language].failure+path+' — '),detail);
+  }
 }
 document.getElementById('doc').addEventListener('click',(e)=>{
   const a=e.target.closest('a'); if(!a) return; const href=a.getAttribute('href')||'';

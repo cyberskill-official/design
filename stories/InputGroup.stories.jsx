@@ -16,6 +16,7 @@ export default {
     onChange: { control: false },
     placeholder: { control: 'text' },
     disabled: { control: 'boolean' },
+    readOnly: { control: 'boolean' },
     lang: { control: 'select', options: ['en', 'vi'] },
   },
   parameters: {
@@ -56,6 +57,7 @@ export const States = {
     <div style={{ display: 'grid', gap: 12, maxWidth: 420 }}>
       <InputGroup label="Amount" placeholder="Amount" defaultValue="100" />
       <InputGroup label="Amount" placeholder="Amount" defaultValue="100" disabled />
+      <InputGroup label="Read only" defaultValue="100" clearable readOnly />
     </div>
   ),
 };

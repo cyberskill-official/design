@@ -1,3 +1,4 @@
+/** Item meta and body preserve numeric zero; null, false and empty strings omit those slots. */
 import type * as React from "react";
 import type { ReactNode } from "react";
 

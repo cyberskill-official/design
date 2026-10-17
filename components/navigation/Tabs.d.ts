@@ -1,7 +1,12 @@
 import type * as React from "react";
 import type { ReactNode } from "react";
 
-export interface TabItem { value: string; label: ReactNode; count?: number; }
+export interface TabItem { value: string; label: ReactNode; count?: number;
+  /** Unique tab ID, also referenced by the panel's aria-labelledby. */
+  id?: string;
+  /** ID of the caller-rendered panel controlled by this tab. */
+  "aria-controls"?: string;
+ }
 
 /**
  * Underlined tablist (Ochre indicator on the active tab), controlled by
@@ -9,6 +14,8 @@ export interface TabItem { value: string; label: ReactNode; count?: number; }
  */
 export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   tabs: TabItem[];
+  /** Vertical uses Up/Down; horizontal uses Left/Right. Caller supplies matching visual layout. */
+  "aria-orientation"?: "horizontal" | "vertical";
   value?: string;
   onChange?: (value: string) => void;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */

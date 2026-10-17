@@ -1,66 +1,75 @@
 import SwiftUI
 
 struct SignInView: View {
+  @EnvironmentObject private var preferences: SamplePreferences
+  private var colors: SampleColors { preferences.colors }
   var onSuccess: () -> Void
   @State private var email = "you@cyberskill.world"
   @State private var password = ""
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 20) {
-      Text("Sign in")
-        .font(.system(size: 28, weight: .heavy))
-        .foregroundStyle(CSTokens.colorTextPrimary)
-      Text("Welcome back. Đăng nhập để tiếp tục.")
-        .font(.system(size: 15))
-        .foregroundStyle(CSTokens.colorTextMuted)
+    ScrollView {
+      VStack(alignment: .leading, spacing: 20) {
+        Text(preferences.text(.signIn))
+          .font(SampleFonts.font(size: 28, weight: .extraBold, relativeTo: .largeTitle))
+          .foregroundStyle(colors.colorTextPrimary)
+          .fixedSize(horizontal: false, vertical: true)
+        Text(preferences.text(.welcome))
+          .font(SampleFonts.font(size: 15))
+          .foregroundStyle(colors.colorTextMuted)
+          .fixedSize(horizontal: false, vertical: true)
 
-      VStack(alignment: .leading, spacing: 8) {
-        Text("Work email")
-          .font(.system(size: 13, weight: .semibold))
-          .foregroundStyle(CSTokens.colorTextPrimary)
-        TextField("you@cyberskill.world", text: $email)
-          .textFieldStyle(.plain)
-          .padding(.horizontal, CSTokens.componentTextfieldPaddingX)
-          .padding(.vertical, CSTokens.componentTextfieldPaddingY)
-          .frame(minHeight: CSTokens.componentTextfieldMinHeight)
-          .background(CSTokens.colorSurfacePanel)
-          .overlay(
-            RoundedRectangle(cornerRadius: 8)
-              .stroke(CSTokens.componentTextfieldBorderDefault, lineWidth: 1)
-          )
+        VStack(alignment: .leading, spacing: 8) {
+          Text(preferences.text(.workEmail))
+            .font(SampleFonts.font(size: 13, weight: .semibold))
+            .foregroundStyle(colors.colorTextPrimary)
+          TextField("you@cyberskill.world", text: $email)
+            .accessibilityLabel(preferences.text(.workEmail))
+            .textFieldStyle(.plain)
+            .padding(.horizontal, CSTokens.componentTextfieldPaddingX)
+            .padding(.vertical, CSTokens.componentTextfieldPaddingY)
+            .frame(minHeight: CSTokens.componentTextfieldMinHeight)
+            .background(colors.colorSurfacePanel)
+            .overlay(
+              RoundedRectangle(cornerRadius: 8)
+                .stroke(colors.componentTextfieldBorderDefault, lineWidth: 1)
+            )
+        }
+
+        VStack(alignment: .leading, spacing: 8) {
+          Text(preferences.text(.password))
+            .font(SampleFonts.font(size: 13, weight: .semibold))
+            .foregroundStyle(colors.colorTextPrimary)
+          SecureField("••••••••", text: $password)
+            .accessibilityLabel(preferences.text(.password))
+            .textFieldStyle(.plain)
+            .padding(.horizontal, CSTokens.componentTextfieldPaddingX)
+            .padding(.vertical, CSTokens.componentTextfieldPaddingY)
+            .frame(minHeight: CSTokens.componentTextfieldMinHeight)
+            .background(colors.colorSurfacePanel)
+            .overlay(
+              RoundedRectangle(cornerRadius: 8)
+                .stroke(colors.componentTextfieldBorderDefault, lineWidth: 1)
+            )
+        }
       }
-
-      VStack(alignment: .leading, spacing: 8) {
-        Text("Password")
-          .font(.system(size: 13, weight: .semibold))
-          .foregroundStyle(CSTokens.colorTextPrimary)
-        SecureField("••••••••", text: $password)
-          .textFieldStyle(.plain)
-          .padding(.horizontal, CSTokens.componentTextfieldPaddingX)
-          .padding(.vertical, CSTokens.componentTextfieldPaddingY)
-          .frame(minHeight: CSTokens.componentTextfieldMinHeight)
-          .background(CSTokens.colorSurfacePanel)
-          .overlay(
-            RoundedRectangle(cornerRadius: 8)
-              .stroke(CSTokens.componentTextfieldBorderDefault, lineWidth: 1)
-          )
-      }
-
+      .padding(24)
+      .frame(maxWidth: .infinity, alignment: .topLeading)
+    }
+    .safeAreaInset(edge: .bottom, spacing: 0) {
       Button(action: onSuccess) {
-        Text("Sign in")
-          .font(.system(size: 15, weight: .semibold))
+        Text(preferences.text(.signIn))
+          .font(SampleFonts.font(size: 15, weight: .semibold))
           .frame(maxWidth: .infinity)
           .frame(minHeight: CSTokens.componentButtonMdMinHeight)
-          .foregroundStyle(CSTokens.componentButtonPrimaryFg)
-          .background(CSTokens.componentButtonPrimaryBg)
+          .foregroundStyle(colors.componentButtonPrimaryFg)
+          .background(colors.componentButtonPrimaryBg)
           .clipShape(RoundedRectangle(cornerRadius: CSTokens.componentButtonRadius))
       }
       .buttonStyle(.plain)
-
-      Spacer(minLength: 0)
+      .padding(24)
+      .background(colors.colorSurfacePage)
     }
-    .padding(24)
-    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-    .background(CSTokens.colorSurfacePage)
+    .background(colors.colorSurfacePage)
   }
 }

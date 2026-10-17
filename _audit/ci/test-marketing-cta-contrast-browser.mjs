@@ -1,0 +1,67 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+import {resolve} from 'node:path';
+import {inflateSync} from 'node:zlib';
+import {withBrowserFixture} from './lib/browser-fixture.mjs';
+import {apca} from '../../scripts/lib/oklch.mjs';
+const root=fileURLToPath(new URL('../../',import.meta.url));
+const sha=p=>createHash('sha256').update(readFileSync(root+'/'+p)).digest('hex');
+// Reuse the maintained decoder on our own Playwright screenshots; bind its source below.
+const pixelSource=readFileSync(root+'/_audit/ci/pixel-diff.mjs','utf8');
+const start=pixelSource.indexOf('function readChunk('),end=pixelSource.indexOf('\nfunction diffImages(',start);assert(start>=0&&end>start);
+const decodePng=Function('inflateSync',pixelSource.slice(start,end)+';return decodePng;')(inflateSync);
+const decode=bytes=>{const image=decodePng(bytes);return{...image,data:image.rgba}};
+const sourceFiles=['templates/marketing-page/MarketingPage.dc.html','scripts/lib/oklch.mjs','_audit/ci/pixel-diff.mjs'];
+const sourceBefore=Object.fromEntries(sourceFiles.map(p=>[p,sha(p)]));
+const browserName=process.env.CS_BROWSER||'chromium';
+const evidence=process.argv.find(x=>x.startsWith('--evidence='))?.slice(11);
+const captures=process.argv.find(x=>x.startsWith('--captures='))?.slice(11);
+if(captures)mkdirSync(captures,{recursive:true});
+const report={browserName,node:process.version,sourceBefore,status:'running',contexts:[],scope:'Actual lower marketing CTA paired text/background screenshots. All15declared element choices at390px, plus320/1280defaultThostudio; bothdeclared themes/languages. Heading floor60 at>=24px/bold700, body75, opacity-aware actual interior glyphs with minimum30pixels, coverage tolerance0.015 and RGB residual<=1.5. Source unchanged. No arbitrary caller content, other templates, real host/AT/operator acceptance.'};
+const hex=v=>'#'+v.slice(0,3).map(x=>Math.round(x).toString(16).padStart(2,'0')).join('');
+function glyphs(original,background,row){
+ assert.equal(original.width,background.width);assert.equal(original.height,background.height);
+ const opacity=row.opacity*row.foreground[3]/255;const pairs=new Map();let pixels=0,maxResidual=0;
+ for(let y=Math.max(0,row.rect.y);y<Math.min(original.height,row.rect.y+row.rect.height);y++)for(let x=Math.max(0,row.rect.x);x<Math.min(original.width,row.rect.x+row.rect.width);x++){
+  const off=(y*original.width+x)*4;const a=[...original.data.subarray(off,off+3)],b=[...background.data.subarray(off,off+3)],delta=b.map((v,i)=>row.foreground[i]-v),den=delta.reduce((n,v)=>n+v*v,0);if(den<=100)continue;
+  const coverage=delta.reduce((n,v,i)=>n+(a[i]-b[i])*v,0)/den;const residual=Math.max(...delta.map((v,i)=>Math.abs(a[i]-b[i]-coverage*v)));
+  if(coverage<opacity-.015||coverage>opacity+.015||residual>1.5)continue;
+  pixels++;maxResidual=Math.max(maxResidual,residual);const fg=hex(a),bg=hex(b),key=fg+'/'+bg;const prev=pairs.get(key);if(prev)prev.pixels++;else pairs.set(key,{fg,bg,pixels:1,apca:apca(fg,bg)});
+ }
+ const values=[...pairs.values()];return{...row,fullGlyphPixels:pixels,maximumModelResidual:maxResidual,pairs:values,minimumApca:values.length?Math.min(...values.map(x=>x.apca)):null,adequateGlyphEvidence:pixels>=30};
+}
+try{
+ await withBrowserFixture(async page=>{
+  const url=new URL('/templates/marketing-page/MarketingPage.dc.html',page.url()).href;
+  await page.goto(url);await page.waitForFunction(()=>typeof __dcSetProps==='function');
+  const elements=await page.evaluate(()=>JSON.parse(document.querySelector('script[data-props]').getAttribute('data-props')).element.options);assert.equal(elements.length,15);
+  for(const width of [320,390,1280])for(const element of width===390?elements:[elements[0]])for(const language of ['English','Tiếng Việt'])for(const theme of ['light','dark']){
+   await page.setViewportSize({width,height:1000});await page.evaluate(props=>__dcSetProps(__dcRootName(),props),{language,theme,element});
+   await page.evaluate(()=>document.fonts.ready);await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
+   const panel=page.locator('#process > div');await panel.scrollIntoViewIfNeeded();
+   const rows=await panel.evaluate(panel=>{
+    const b=panel.getBoundingClientRect();const canvas=document.createElement('canvas');canvas.width=canvas.height=1;const c=canvas.getContext('2d');
+    const colour=v=>{c.clearRect(0,0,1,1);c.fillStyle=v;c.fillRect(0,0,1,1);return [...c.getImageData(0,0,1,1).data]};
+    return [...panel.querySelectorAll('h2,p')].map(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{tag:el.tagName,text:el.textContent.trim(),foreground:colour(s.color),opacity:Number(s.opacity),fontSize:parseFloat(s.fontSize),fontWeight:parseInt(s.fontWeight),floor:parseFloat(s.fontSize)>=24&&parseInt(s.fontWeight)>=700?60:75,rect:{x:Math.floor(r.x-b.x),y:Math.floor(r.y-b.y),width:Math.ceil(r.width),height:Math.ceil(r.height)}}});
+   });assert.equal(rows.length,2);
+   const prefix=String(report.contexts.length).padStart(3,'0');
+   const originalBytes=await panel.screenshot({animations:'disabled'});
+   await panel.locator('h2,p').evaluateAll(els=>els.forEach(el=>el.style.visibility='hidden'));
+   const backgroundBytes=await panel.screenshot({animations:'disabled'});
+   await panel.locator('h2,p').evaluateAll(els=>els.forEach(el=>el.style.removeProperty('visibility')));
+   if(captures){writeFileSync(resolve(captures,prefix+'-text.png'),originalBytes);writeFileSync(resolve(captures,prefix+'-background.png'),backgroundBytes);}
+   const original=decode(originalBytes),background=decode(backgroundBytes);
+   const samples=rows.map(row=>glyphs(original,background,row));
+   const context={width,element,language,theme,prefix,textPngSha256:createHash('sha256').update(originalBytes).digest('hex'),backgroundPngSha256:createHash('sha256').update(backgroundBytes).digest('hex'),samples};report.contexts.push(context);
+   for(const sample of samples){assert(sample.adequateGlyphEvidence,'Insufficient CTA interior glyph evidence: '+JSON.stringify({width,element,language,theme,sample}));assert(sample.minimumApca>=sample.floor,'Marketing CTA contrast below floor: '+JSON.stringify({width,element,language,theme,tag:sample.tag,text:sample.text,minimumApca:sample.minimumApca,floor:sample.floor}));}
+  }
+ },{browserName});
+ report.status='passed';
+}catch(error){report.status='failed';report.error=String(error);throw error;}
+finally{
+ report.recordedAt=new Date().toISOString();report.sourceAfter=Object.fromEntries(sourceFiles.map(p=>[p,sha(p)]));report.changedSources=sourceFiles.filter(p=>sourceBefore[p]!==report.sourceAfter[p]);
+ if(evidence)writeFileSync(evidence,JSON.stringify(report,null,2)+'\n');assert.equal(report.changedSources.length,0,'Source changed during CTA check');
+}
+console.log(JSON.stringify({browserName,contexts:report.contexts.length,textSamples:report.contexts.reduce((n,c)=>n+c.samples.length,0),minimumApca:Math.min(...report.contexts.flatMap(c=>c.samples.map(x=>x.minimumApca))),sourceUnchanged:true}));

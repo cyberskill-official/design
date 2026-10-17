@@ -22,7 +22,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting CommandPalette. Portable consumers use styles.css + bundle, not Storybook.',
+        component: 'Host Live CSF — Default plus an interactive control matrix. Search shows a localized result count or empty message in a polite status region; actual screen-reader announcements require human testing. Portable consumers use styles.css + bundle, not Storybook.',
       },
     },
   },

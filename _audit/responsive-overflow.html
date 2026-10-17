@@ -17,29 +17,21 @@
 <div class="grid" id="grid"></div>
 <div id="sum"></div>
 <div id="pool"></div>
+<script src="./lib/frame-probe.js"></script>
 <script>
 const W=390, GROUP=7, SETTLE=3200;
 const pool=document.getElementById('pool'), grid=document.getElementById('grid'), busy=document.getElementById('busy');
 const results=[];
 function probeOne(src){
-  return new Promise(res=>{
-    const f=document.createElement('iframe');
-    f.style.cssText='width:'+W+'px;height:1000px;border:0;display:block';
-    f.src=src; pool.appendChild(f);
-    f.onload=async()=>{
-      const doc=f.contentDocument;
-      try{await doc.fonts.ready;}catch(e){}
-      setTimeout(()=>{
-        let over=0, canvas=false;
-        try{ over=doc.documentElement.scrollWidth-W; canvas=!!doc.querySelector('.cs-canvas-desk'); }catch(e){}
-        f.remove();
-        res({over,canvas});
-      }, SETTLE);
-    };
-  });
+  return csProbeFrame(src,{parent:pool,width:W,height:1000,template:src.includes('.dc.html'),ready:csKitReadiness(src),measure:async({doc,wait})=>{
+    await wait(SETTLE);
+    const over=doc.documentElement.scrollWidth-W,canvas=!!doc.querySelector('.cs-canvas-desk');
+    return {over,canvas};
+  }});
 }
 (async()=>{
   const M=await (await fetch('../_ds_manifest.json')).json();
+  if(!Array.isArray(M.templates)||!M.templates.length)throw new Error('Manifest contains no templates');
   const tpls=M.templates.map(t=>({name:t.name,src:'../'+t.entryPath}))
     .concat([{name:'Kit · Status Hub',src:'../ui_kits/status-hub/index.html'},{name:'Kit · Website',src:'../ui_kits/website/index.html'},{name:'Kit · Deck',src:'../ui_kits/deck/index.html'}]);
   busy.textContent='probing '+tpls.length+' templates in groups of '+GROUP+'…';
@@ -48,22 +40,26 @@ function probeOne(src){
     const measured=await Promise.all(batch.map(t=>probeOne(t.src)));
     batch.forEach((t,j)=>{
       const m=measured[j];
-      results.push({name:t.name,over:m.over,canvas:m.canvas});
-      const cls=m.over<=0?'ok':(m.canvas?'exp':'bad');
+      results.push({name:t.name,...m});
+      const cls=m.error?'bad':m.over<=0?'ok':(m.canvas?'exp':'bad');
       const row=document.createElement('div');
       row.className='r '+cls;
-      row.innerHTML='<span>'+t.name+(m.canvas?' ◇':'')+'</span><span>'+(m.over<=0?'0':'+'+m.over)+'</span>';
+      const label=document.createElement('span'),status=document.createElement('span');
+      label.textContent=t.name+(m.canvas?' ◇':'');status.textContent=m.error?'ERROR: '+m.error:m.over<=0?'0':'+'+m.over;row.append(label,status);
       grid.appendChild(row);
     });
     busy.textContent='probed '+results.length+'/'+tpls.length+'…';
     window.__all={done:results.length,total:tpls.length,results};
   }
-  const bad=results.filter(r=>r.over>0);
-  window.__all={done:tpls.length,total:tpls.length,results,over:bad.map(r=>r.name+(r.canvas?'◇':'')+' +'+r.over),pass:bad.length===0};
+  const bad=results.filter(r=>r.error||r.over>0);
+  window.__all={done:tpls.length,total:tpls.length,results,over:bad.map(r=>r.name+(r.error?' ERROR: '+r.error:(r.canvas?'◇':'')+' +'+r.over)),pass:tpls.length>0 && bad.length===0};
   window.__overflow=window.__all; // audit-suite verdict alias
   busy.textContent='done — '+tpls.length+' templates';
   const sum=document.getElementById('sum');
-  sum.textContent=bad.length?('✗ '+bad.length+' overflow: '+bad.map(r=>r.name+' +'+r.over).join(', ')):'✓ NO horizontal overflow at 390 across all 85 templates';
+  sum.textContent=bad.length?('✗ '+bad.length+' overflow: '+bad.map(r=>r.name+' +'+r.over).join(', ')):'✓ NO horizontal overflow at 390 across all '+tpls.length+' templates/kits';
   sum.style.color=bad.length?'#B42318':'#166534';
-})();
+})().catch(error=>{
+  window.__overflow={pass:false,error:String(error),done:results.length,results};
+  busy.textContent='Audit failed: '+String(error);
+});
 </script></body></html>

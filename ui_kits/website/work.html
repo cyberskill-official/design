@@ -1,4 +1,4 @@
-<!-- @dsCard group="Website" viewport="1200x820" name="cyberskill.world — work" subtitle="Case-study grid, results band, CTA" -->
+<!-- @dsCard group="Website" viewport="1200x820" name="cyberskill.world — work" subtitle="Sample case-study grid, results band and contact-preview link" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,34 +27,36 @@
   .case-b h3 { margin: 0 0 6px; font-size: 20px; }
   .case-b p { margin: 0 0 14px; color: var(--cs-color-text-muted); font-size: 14.5px; line-height: 1.5; }
   .case-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .case-tags span { font-size: 12px; font-weight: 600; background: var(--cs-color-surface-raised); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-full); padding: 4px 10px; color: var(--cs-color-text-accent); }
+  .case-tags span { font-size: 12px; font-weight: 600; background: var(--cs-color-surface-raised); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-full); padding: 4px 10px; color: var(--cs-color-text-primary); }
   .results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-  .results .n { font-size: 44px; font-weight: 800; letter-spacing: -.02em; color: var(--cs-color-brand-umber); }
+  .results .n { font-size: 44px; font-weight: 800; letter-spacing: -.02em; color: var(--cs-color-text-primary); }
   .results .l { color: var(--cs-color-text-muted); font-size: 14px; margin-top: 2px; }
   @media (max-width: 760px) { .results { grid-template-columns: 1fr 1fr; } .nav { display: none; } }
   /* G1 / TASK-IMP-025 — results band from `.container` width. */
   @container cs (max-width: 768px) { .results { grid-template-columns: 1fr 1fr; } }
   @container cs (max-width: 640px) { .results { grid-template-columns: 1fr; } .case-grid { grid-template-columns: 1fr; } }
+  /* Fixed44px theme button sits20px above the edge; reserve20px clearance. */
+  .ft { padding-bottom: 84px; }
 </style>
 </head>
 <body>
-<a class="cs-skip" href="#main">Bỏ qua đến nội dung</a>
-<main id="main">
+<a class="cs-skip" href="#main" data-vi="Bỏ qua đến nội dung">Skip to content</a>
+<main id="main" tabindex="-1">
 
 <div class="site">
   <header class="hdr cs-surface-light">
     <div class="container hdr-in">
       <a class="brand" href="index.html"><img src="../../assets/logo-mark.svg" alt="" />CyberSkill</a>
-      <nav class="nav"><a href="index.html" data-vi="Dịch vụ">Services</a><a href="work.html" data-vi="Dự án">Work</a><a href="careers.html" data-vi="Tuyển dụng">Careers</a><a href="index.html" data-vi="Liên hệ">Contact</a></nav>
-      <div class="hdr-side"><a class="mini" href="#" id="langToggle">Tiếng Việt</a><a class="mini" style="background:var(--cs-color-brand-umber);color:#fff;border-color:transparent" href="index.html" data-vi="Trò chuyện với Lumi">Talk to Lumi</a></div>
+      <nav class="nav"><a href="index.html#services" data-vi="Dịch vụ">Services</a><a href="work.html" data-vi="Dự án">Work</a><a href="careers.html" data-vi="Tuyển dụng">Careers</a><a href="index.html#contact" data-vi="Liên hệ">Contact</a></nav>
+      <div class="hdr-side"><a class="mini" href="#" id="langToggle">Tiếng Việt</a><a class="mini" style="background:var(--cs-color-brand-umber);color:#fff;border-color:transparent" href="index.html#top" data-vi="Trò chuyện với Lumi">Talk to Lumi</a></div>
     </div>
   </header>
 
   <section class="work-hero">
     <div class="container">
-      <div class="eyebrow" style="color:var(--cs-color-brand-ochre)" data-vi="Dự án tiêu biểu">Selected work</div>
-      <h1 data-vi="Những điều ước đã thành hiện thực">Wishes we've granted</h1>
-      <p data-vi="Một vài sản phẩm chúng tôi đã giao từ 2020 — từ ứng dụng cho khách hàng đến hệ thống nội bộ mà các đội ngũ dùng hằng ngày.">A few of the products we've shipped since 2020 — from customer-facing apps to the internal systems teams run on.</p>
+      <div class="eyebrow" style="color:var(--cs-color-brand-ochre)" data-vi="Dự án minh họa">Sample work</div>
+      <h1 data-vi="Những điều ước minh họa">Sample wishes</h1>
+      <p data-vi="Nội dung minh họa giao diện. Xác minh dự án, kết quả và số liệu trước khi công bố.">Illustrative interface content. Verify projects, results and figures before publishing.</p>
     </div>
   </section>
 
@@ -73,7 +75,7 @@
       <div class="results">
         <div><div class="n">2020</div><div class="l" data-vi="Thành lập tại Sài Gòn">Founded in Saigon</div></div>
         <div><div class="n">40+</div><div class="l" data-vi="Điều ước đã thực hiện">Wishes granted</div></div>
-        <div><div class="n">1 day</div><div class="l" data-vi="Thời gian phản hồi">Reply time</div></div>
+        <div><div class="n" data-vi="Bản mẫu">Demo</div><div class="l" data-vi="Chưa gửi lời nhắn">No message sent</div></div>
         <div><div class="n">EN·VN</div><div class="l" data-vi="Song ngữ mặc định">Bilingual by default</div></div>
       </div>
     </div>
@@ -82,8 +84,8 @@
   <section class="sec">
     <div class="container">
       <div class="band">
-        <div><h2 data-vi="Bạn cũng có một điều ước?">Have a wish of your own?</h2><p data-vi="Nói kết quả bạn muốn trong một câu. Chúng tôi trả lời trong một ngày làm việc.">Tell us the outcome in a sentence. We reply within one business day.</p></div>
-        <a class="btn-gold" href="index.html" data-vi="Ước một điều →">Make a wish →</a>
+        <div><h2 data-vi="Bạn cũng có một điều ước?">Have a wish of your own?</h2><p data-vi="Thử bản xem trước liên hệ. Bản mẫu này chưa gửi lời nhắn.">Try the contact preview. This sample does not send a message.</p></div>
+        <a class="btn-gold" href="index.html#contact" data-vi="Ước một điều →">Make a wish →</a>
       </div>
     </div>
   </section>
@@ -96,7 +98,7 @@
     </div>
   </footer>
 </div>
-<button id="themeToggle" aria-label="Toggle theme" style="position:fixed;right:20px;bottom:20px;z-index:60;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);width:44px;height:44px;border-radius:999px;cursor:pointer;box-shadow:var(--cs-shadow-md)">☾</button>
+<button id="themeToggle" aria-label="Toggle theme" data-vi-aria-label="Đổi giao diện" style="position:fixed;right:20px;bottom:20px;z-index:60;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);width:44px;height:44px;border-radius:999px;cursor:pointer;box-shadow:var(--cs-shadow-md)">☾</button>
 <script>
   document.getElementById("themeToggle").addEventListener("click", function () {
     var el = document.documentElement, dark = el.getAttribute("data-theme") === "dark";
@@ -113,11 +115,15 @@
       if(!el.dataset.en) el.dataset.en=el.textContent;
       el.textContent = vi ? el.dataset.vi : el.dataset.en;
     });
+    document.querySelectorAll("[data-vi-aria-label]").forEach(function(el){
+      if(!el.dataset.enAriaLabel) el.dataset.enAriaLabel=el.getAttribute("aria-label");
+      el.setAttribute("aria-label", vi ? el.dataset.viAriaLabel : el.dataset.enAriaLabel);
+    });
     if(link) link.textContent = vi ? "English" : "Tiếng Việt";
     try{localStorage.setItem(KEY, vi?"vi":"en");}catch(e){}
   }
   var vi=false; try{vi=localStorage.getItem(KEY)==="vi";}catch(e){}
-  if(vi) apply(true);
+  apply(vi);
   if(link) link.addEventListener("click", function(e){e.preventDefault(); apply(document.documentElement.getAttribute("lang")!=="vi");});
 })();
 </script>

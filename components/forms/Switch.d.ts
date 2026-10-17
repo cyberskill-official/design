@@ -1,8 +1,10 @@
+/** A numeric 0 label remains visible and supplies the accessible name. Explicit ARIA naming retains precedence; absent/empty labels retain the localized fallback. */
 import type * as React from "react";
 import type { ReactNode } from "react";
 
 /**
- * Accessible on/off toggle (`role="switch"`). Track fills Umber when on.
+ * On/off toggle (`role="switch"`). Checked track fills Umber in Light and
+ * Ochre in Dark.
  * Use for instant-apply settings; use Checkbox inside forms that submit.
  */
 export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {

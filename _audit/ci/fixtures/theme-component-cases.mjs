@@ -1,0 +1,31 @@
+// Every component selector family that previously had dark/system ancestor rules.
+// Markup uses the public CSS contract so nested-theme styling is tested separately
+// from React ownership/interaction tests.
+export const themeComponentCases = [
+ ['button-secondary','<button class="cs-button cs-button--secondary">Action</button>','button'],
+ ['button-tertiary','<button class="cs-button cs-button--tertiary">Action</button>','button'],
+ ['button-ghost','<button class="cs-button cs-button--ghost">Action</button>','button'],
+ ['empty-icon','<span class="cs-empty__icon">Icon</span>','span'],
+ ['tab-selected','<button class="cs-tab" aria-selected="true">Tab</button>','button'],
+ ['pagination-current','<nav class="cs-pagination"><button aria-current="page">1</button></nav>','button'],
+ ['checkbox','<label class="cs-check"><input type="checkbox" checked></label>','input'],
+ ['radio','<label class="cs-radio"><input type="radio" checked></label>','input'],
+ ['switch-checked','<label class="cs-switch"><input type="checkbox" checked><span class="cs-switch__track"></span></label>','.cs-switch__track'],
+ ['spinner','<span class="cs-spinner"></span>','span'],
+ ['nav-active','<a class="cs-nav-item is-active"><span class="cs-nav-item__icon">Icon</span>Item</a>','a'],
+ ['nav-active-icon','<a class="cs-nav-item is-active"><span class="cs-nav-item__icon">Icon</span>Item</a>','span'],
+ ['slider','<input type="range" class="cs-slider">','input'],
+ ['segmented-pressed','<span class="cs-segmented"><button aria-pressed="true">A</button></span>','button'],
+ ['segmented-selected','<span class="cs-segmented"><button aria-selected="true">A</button></span>','button'],
+ ['toggle-pressed','<button class="cs-toggle" aria-pressed="true">Toggle</button>','button'],
+ ['combobox-selected','<div class="cs-combobox__opt" aria-selected="true">Option</div>','div'],
+ ['combobox-highlighted','<div class="cs-combobox__opt hl">Option</div>','div'],
+ ['anchor-active','<a class="cs-anchor__item is-active">Section</a>','a'],
+ ['tree-selected','<div class="cs-tree__row is-selected"><button class="cs-tree__label">Node</button></div>','button'],
+ ['cascader-selected','<button class="cs-cascader__opt on">Option</button>','button'],
+ ['mentions-highlighted','<span class="cs-mentions__pop"><button class="hl">User</button></span>','button'],
+ ['mentions-selected','<span class="cs-mentions__pop"><button aria-selected="true">User</button></span>','button'],
+ ['datagrid-selected','<table class="cs-datagrid"><tbody><tr class="is-selected"><td>Cell</td></tr></tbody></table>','td'],
+ ['textfield','<input class="cs-field__control">','input'],
+ ['card-shadow','<section class="cs-card">Card</section>','section'],
+];

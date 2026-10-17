@@ -1,3 +1,4 @@
+/** The actions slots preserve numeric zero; null/false/empty string omit those slots. */
 import type * as React from "react";
 import type { ReactNode } from "react";
 

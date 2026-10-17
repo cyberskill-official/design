@@ -4,7 +4,7 @@ Published on Storybook **Docs** at `design.cyberskill.world`.
 
 Two tracks:
 
-1. **Portable design system (consumers)** — still a static file tree: no bundler required. Link `styles.css` + optionally `_ds_bundle.js` / ESM. Claude Design, Google Stitch, and product apps never need Node or Storybook.
+1. **Portable design system (consumers)** — HTML consumers can link the reviewed `styles.css` and optional `_ds_bundle.js`, or use the browser legacy entry `_esm/cs.mjs`, without a bundler. The default npm import (`_esm/react.mjs`) uses a React peer and source JSX; React apps need a compatible build tool. Storybook is host tooling. The npm portable payload follows `package.json` → `files`; public hosting uses the reviewed allowlist in `scripts/public-site-policy.json`.
 2. **Host site (`design.cyberskill.world`)** — static output packaged for Vercel. Packaging **does** run Node once at deploy time so Storybook ships as the product surface at `/`. There is still no long-running app server.
 
 Production **`/`** is the Storybook static build. Legacy `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, and `/playground/:path*` redirect to `/`.
@@ -27,7 +27,7 @@ Production **`/`** is the Storybook static build. Legacy `/dashboard`, `/dashboa
 | `outputDirectory` | `.vercel-static` | Packaged webroot (portable tree + Storybook overlaid at root) |
 | `redirects` | `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` → `/` | Retire the old HTML hub and subdirectory Storybook path |
 
-Local equivalent: `npm install && npm run build:site`, then serve `.vercel-static/`.
+Local review: `npm install && npm run build:site`, then serve `.vercel-static/`. Local packaging is not redistribution approval.
 
 Consumers cloning this repo still open files directly — they do **not** run `build:site`.
 
@@ -42,13 +42,13 @@ Shipped for production (`design.cyberskill.world`):
 
 If you host under a **different** domain, change the absolute URLs in those meta tags to match your origin, or re-export the PNG and keep the path `assets/og-dashboard.png`.
 
-**Common misconfig:** picking a JS framework preset (Next/CRA) — Vercel then runs the wrong build graph and may 404 root docs. The preset must stay **"Other"** and `vercel.json` must own install/build/output (see table above). `package.json` is publishable (`"private": false`) for the npm path; it also carries **host-only** scripts (`build:storybook`, `build:site`, verify/test) that product apps should not depend on (see `docs/consuming.md` and `docs/storybook.md`). Packaging copies the portable webroot then overlays Storybook at `.vercel-static/` root (portable paths like `/styles.css`, `/_audit/`, `/guidelines/` stay available beside Storybook assets). **`_audit/` stays public on purpose** — Storybook Status embeds `_audit/run.html` full-bleed; removing it would break the product surface. **How to tell a hosting misconfig from a real docs bug:** open `/_audit/docs-consistency.html` on the *deployed* URL — the gate detects an HTML/error body where a raw `.md`/`.json` was expected and reports "hosting is intercepting this path".
+**Common misconfig:** picking a JS framework preset (Next/CRA) — Vercel then runs the wrong build graph and may 404 root docs. The preset must stay **"Other"** and `vercel.json` must own install/build/output (see table above). `package.json` is publishable (`"private": false`) for the npm path; it also carries **host-only** scripts (`build:storybook`, `build:site`, verify/test) that product apps should not depend on (see `docs/consuming.md` and `docs/storybook.md`). Packaging validates a fresh Storybook build staged from the explicit inventory in `scripts/public-site-policy.json`, then writes `.vercel-static/` with a per-file audience/hash manifest. Listed portable paths such as `/styles.css`, audit gates and guidelines stay available beside Storybook assets; internal task/history/revision records and maintenance scripts are excluded. Run `npm run test:public-site` against this packaged output before deployment. **Allowlisted audit pages stay public on purpose** — Storybook Status embeds `_audit/run.html` full-bleed; removing it would break the product surface. **How to tell a hosting misconfig from a real docs bug:** open `/_audit/docs-consistency.html` on the *deployed* URL — the gate detects an HTML/error body where a raw `.md`/`.json` was expected and reports "hosting is intercepting this path".
 
 ## Generic VPS / nginx / any static host
 
-**Without Storybook:** serve the repo root as the webroot (portable tree only).
+**Without Storybook:** after provenance review and explicit deployment approval, serve the reviewed portable inventory as the webroot.
 
-**With Storybook at `/`:** run `npm run build:site` on the host or CI, then serve `.vercel-static/` as the webroot. Configure the same redirects as `vercel.json` (`/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` → `/`) if your host supports them.
+**With Storybook at `/`:** run `npm run build:site` on the host or CI before approved hosting, then serve `.vercel-static/` as the webroot. Configure the same redirects as `vercel.json` (`/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` → `/`) if your host supports them.
 
 Nginx example (`.vercel-static` as `root`) — **same security headers as `vercel.json`** (FIND-019):
 ```nginx
@@ -79,9 +79,9 @@ Portable paths remain real files (`guidelines/atomic-view.html`, `_audit/run.htm
 5. Confirm `/dashboard.html` and `/playground/` redirect to `/`, and a story still renders (e.g. Components/Button).
 
 ## What NOT to do
-- Don't force **consumers** through a Storybook or app bundler — their contract remains clone-and-link `styles.css` (+ optional bundle). Host-site packaging (`build:site`) is only for this live site's `/` Storybook shell and static package layout.
+- Use the chosen consumer route: static HTML links reviewed CSS and an optional browser bundle; React consumers follow the build and transpilation setup in `docs/consuming.md`. Host-site packaging (`build:site`) prepares the Storybook shell at `/` and the static host layout.
 - Don't switch Vercel framework preset away from "Other" / `framework: null`.
-- Don't gitignore any top-level folder beyond what `.gitignore` already lists (`uploads/`, `scraps/`, `_audit/exports/`, `storybook-static/`, `.vercel-static/`) — every other folder, **including underscore-prefixed ones like `_esm/`**, is source and must ship in the portable tree. See `docs/sync.md`.
+- Keep required source files tracked, **including underscore-prefixed paths such as `_esm/`**; do not use new ignore rules to hide source changes. Source tracking does not grant publication: npm contents follow `package.json` → `files`, and public hosting follows `scripts/public-site-policy.json`. See `docs/sync.md`.
 - Don't put Storybook under `/playground/` again — `base: '/'` in `.storybook/main.js` expects domain-root assets.
 
 
@@ -104,7 +104,7 @@ Rationale:
 - **CDN script/connect origins removed** (`unpkg.com`, `cdnjs.cloudflare.com`) — local-first React / `_ds_bundle.js`.
 - **`unsafe-inline` retained** — Storybook’s static shell still emits inline scripts/styles; a nonce/hash migration is a follow-on. Do not re-add open CDN allowlists without pinning.
 - Prefer self-hosting React next to `_ds_bundle.js` for air-gapped installs.
-- Live served-header truth confirmed 2026-08-09 via operator `curl -sSI https://design.cyberskill.world/` (OQ-003 closed — see `docs/audits/nv-rendered-inrepo-2026-08-09.md`).
+- Live served-header truth confirmed via operator `curl -sSI https://design.cyberskill.world/`.
 
 ## Multi-domain OG
 

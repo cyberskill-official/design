@@ -1,8 +1,7 @@
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
+import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
 import { cx } from "../_utils/cx.js";
-
-let mentionsUid = 0;
 
 /** CyberSkill Mentions — textarea that suggests @users while typing (APG editable combobox). */
 export function Mentions({ value, defaultValue = "", onChange, users = [], placeholder, rows = 3, lang, className }) {
@@ -11,13 +10,14 @@ export function Mentions({ value, defaultValue = "", onChange, users = [], place
   const set = (v) => { if (value == null) setInner(v); onChange && onChange(v); };
   const [q, setQ] = React.useState(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const [listId] = React.useState(() => "cs-mentions-" + (++mentionsUid));
+  const listId = React.useId();
   const [ref, L] = useLang(lang);
   const t = makeT("Mentions", L);
   const ph = placeholder != null ? placeholder : t("placeholder");
   const hits = q == null ? [] : users.filter((u) => u.toLowerCase().includes(q)).slice(0, 6);
   const open = hits.length > 0;
 
+  const { scope } = useOverlayLayer({ open, kind: "dropdown", panelRef: ref, restoreFocus: false, onEscape: () => setQ(null) });
   React.useEffect(() => {
     setActiveIndex((i) => (hits.length ? Math.min(i, hits.length - 1) : 0));
   }, [q, users]);
@@ -42,12 +42,10 @@ export function Mentions({ value, defaultValue = "", onChange, users = [], place
       setActiveIndex((i) => Math.max(0, i - 1));
     } else if (e.key === "Enter") {
       if (hits[activeIndex]) { e.preventDefault(); pick(hits[activeIndex]); }
-    } else if (e.key === "Escape") {
-      e.preventDefault();
-      setQ(null);
     }
   };
   return (
+    <overlayScopeContext.Provider value={scope}>
     <span ref={ref} className={cx("cs-mentions", className)}>
       <textarea
         className="cs-field__control"
@@ -79,5 +77,6 @@ export function Mentions({ value, defaultValue = "", onChange, users = [], place
         </span>
       ) : null}
     </span>
+    </overlayScopeContext.Provider>
   );
 }

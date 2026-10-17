@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 export interface TransferItem { key: string; label: ReactNode; }
 export interface TransferProps {
   items: TransferItem[];
+  /** Caller-controlled target keys. Internal checkbox selection drops removed items. */
   value?: string[];
   onChange?: (targetKeys: string[]) => void;
   /** [sourceTitle, targetTitle]; bilingual defaults from the registry. */

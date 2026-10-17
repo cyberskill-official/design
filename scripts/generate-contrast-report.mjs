@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Regenerate docs/contrast-report.md (+ VI header twin) from tokens/elements.css. */
+/** Regenerate the EN/VI contrast reports from tokens/elements.css. */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -61,7 +61,7 @@ function main() {
   lines.push('');
   lines.push('Published on Storybook **Docs** at `design.cyberskill.world`.');
   lines.push('');
-  lines.push('**Doctrine encoded by this sweep:** text sits on `-bright` or `-tint`, never on the mid-tone `-accent` — at any size. The accent is for bars, borders, progress fills, and non-text fills only. (Rule stated in `tokens/elements.css` and conventions.)');
+  lines.push('**Doctrine encoded by this sweep:** text uses `-bright` or `-tint`, or a `-strong` fill paired with `--cs-accent-on-strong`; never the mid-tone `-accent` — at any size. The accent is for bars, borders, progress fills, and non-text fills only. Read the pairing and floor recorded for each row; `test:strong-text-contrast` separately checks rendered body text on strong fills. (Rule stated in `tokens/elements.css` and conventions.)');
   lines.push('');
   lines.push('Packs are generated from `tokens/element-seeds.json` (soft / middle / deep ladder, light↔dark hue lock). Geometry gate: `_audit/element-geometry.html`.');
   lines.push('| Scope | Pairing | fg / bg | Lc | Verdict |');
@@ -123,23 +123,23 @@ function main() {
     }
     const link = p.light['--cs-color-link'];
     if (link && hex2rgb(link)) {
-      const pageApprox = '#FFFDF8';
-      const raisedApprox = '#FBF4E9';
+      const referencePage = '#FFFDF8';
+      const referenceRaised = '#FBF4E9';
       for (const [pair, bg] of [
         ['link on white (body)', '#FFFFFF'],
-        ['link on element page (body)', pageApprox],
-        ['link on tint (body)', tint || raisedApprox],
-        ['link on raised cream (body)', raisedApprox],
+        ['link on reference page (body)', referencePage],
+        ['link on tint (body)', tint || referenceRaised],
+        ['link on reference raised cream (body)', referenceRaised],
       ]) {
         const r = wcagRatio(link, bg);
         const ok = r >= 4.5;
         linkRows.push(`| ${scope} | ${pair} | ${link} / ${bg} | ${r.toFixed(2)}:1 | ${ok ? '✓' : '✗'} |`);
         if (!ok) linkFails++;
       }
-      const linkDark = brightDark;
+      const linkDark = role(p, '--cs-color-link', true);
       const rDark = wcagRatio(linkDark, DARK_PANEL);
       const okDark = rDark >= 4.5;
-      linkRows.push(`| ${scope} | link on dark panel (body) | ${linkDark} / ${DARK_PANEL} | ${rDark.toFixed(2)}:1 | ${okDark ? '✓' : '✗'} |`);
+      linkRows.push(`| ${scope} | link on reference dark panel (body) | ${linkDark} / ${DARK_PANEL} | ${rDark.toFixed(2)}:1 | ${okDark ? '✓' : '✗'} |`);
       if (!okDark) linkFails++;
     }
   }
@@ -150,22 +150,39 @@ function main() {
   lines.push('## Element-pack link contrast (WCAG AA · body text)');
   lines.push('');
   lines.push('`--cs-color-link` is scored at **4.5:1** (regular-weight body). `--cs-color-text-accent` remains on the APCA Lc ≥ 60 bold-label floor above.');
+  lines.push('');
+  lines.push("Rows use the declared light or dark `--cs-color-link` colour. White, reference-page, reference-raised and reference-dark-panel backgrounds are fixed literals; element surface roles use `color-mix()` and are not measured by these rows. Rendered surface, preference and interaction checks have separate scopes.");
   lines.push('| Scope | Pairing | fg / bg | Ratio | Verdict |');
   lines.push('|---|---|---|---|---|');
   lines.push(...linkRows);
   lines.push('');
   lines.push(`**Link failures: ${linkFails}.**`);
   lines.push('');
+  lines.push('## Strong callout text (body APCA)');
+  lines.push('');
+  lines.push('Pair `--cs-accent-strong` with `--cs-accent-on-strong`: both light and dark packs must meet body Lc ≥ 75 (generator target 78) and WCAG ≥ 4.5:1. Dark primary buttons consume this paired foreground. Brand anchors and the other eight accent roles retain their values.');
+  lines.push('| Scope | Mode | fg / bg | Lc | Verdict |');
+  lines.push('|---|---|---|---|---|');
+  let strongBodyFails = 0;
+  for (const [scope,p] of Object.entries(packs)) for (const dark of [false,true]) {
+    const strong = role(p,'--cs-accent-strong',dark), onStrong = role(p,'--cs-accent-on-strong',dark);
+    const lc = apca(onStrong,strong), ok = lc >= 75 && wcagRatio(onStrong,strong) >= 4.5;
+    if (!ok) strongBodyFails++;
+    lines.push(`| ${scope} | ${dark ? 'dark' : 'light'} | ${onStrong} / ${strong} | ${lc.toFixed(1)} | ${ok ? '✓' : '✗'} |`);
+  }
+  lines.push('');
+  lines.push(`**Strong body failures: ${strongBodyFails}.** Static declared-pair calculation; the browser regressions and actual template/raster checks establish their separate scopes. Opacity, gradients, transitions and arbitrary overlaps are not implied by this table.`);
+  lines.push('');
   lines.push('## Dark pack APCA floors (gate twin)');
   lines.push('');
-  lines.push('Targets match `_audit/apca-dark-preview.html`: bright ≥ 75 · accent ≥ 60 · on/strong ≥ 75 · ink-on-tint ≥ 75.');
+  lines.push('Proposal targets in `_audit/apca-dark-preview.html`: bright ≥ 75 · accent ≥ 60 · on-strong/strong ≥ 75 · ink-on-tint ≥ 75. Accent and bright are not unrestricted regular-body roles.');
   lines.push('| Pack | bright | accent | on | ink |');
   lines.push('|---|---|---|---|---|');
   for (const [scope, p] of Object.entries(packs)) {
     const bright = role(p, '--cs-accent-bright', true);
     const accent = role(p, '--cs-accent', true);
     const strong = role(p, '--cs-accent-strong', true);
-    const on = role(p, '--cs-accent-on', true);
+    const on = role(p, '--cs-accent-on-strong', true);
     const tint = role(p, '--cs-accent-tint', true);
     const ink = role(p, '--cs-accent-ink', true);
     lines.push(
@@ -175,7 +192,44 @@ function main() {
   lines.push('');
 
   const enBody = lines.join('\n') + '\n';
-  // VI twin: keep Vietnamese intro, same table
+  // Translate presentation only; both locales use the same calculated rows.
+  // An added prose line must have an explicit translation rather than falling
+  // back to the English report unnoticed.
+  const viProse = new Map([
+    ["Rows use the declared light or dark `--cs-color-link` colour. White, reference-page, reference-raised and reference-dark-panel backgrounds are fixed literals; element surface roles use `color-mix()` and are not measured by these rows. Rendered surface, preference and interaction checks have separate scopes.", "Các dòng dùng màu `--cs-color-link` đã khai báo cho light hoặc dark. Nền trắng, trang tham chiếu, nền nâng tham chiếu và panel tối tham chiếu là các màu cố định; vai trò nền của element dùng `color-mix()` và không được đo trong những dòng này. Kiểm tra nền đã render, tùy chọn và tương tác có phạm vi riêng."],
+    [`**Failures: ${fails}.** All text pairings ${fails ? 'reviewed above' : 'pass Lc ≥ 60'}.`, `**Số cặp không đạt: ${fails}.** ${fails ? 'Xem các cặp chữ đã kiểm tra ở trên' : 'Mọi cặp chữ đều đạt Lc ≥ 60'}.`],
+    ['## Element-pack link contrast (WCAG AA · body text)', '## Tương phản liên kết của element pack (WCAG AA · chữ thân)'],
+    ['`--cs-color-link` is scored at **4.5:1** (regular-weight body). `--cs-color-text-accent` remains on the APCA Lc ≥ 60 bold-label floor above.', '`--cs-color-link` được đánh giá ở ngưỡng **4.5:1** (chữ thân có độ đậm thông thường). `--cs-color-text-accent` vẫn áp dụng ngưỡng APCA Lc ≥ 60 cho nhãn đậm ở trên.'],
+    [`**Link failures: ${linkFails}.**`, `**Số cặp liên kết không đạt: ${linkFails}.**`],
+    ['## Strong callout text (body APCA)', '## Chữ trên nền strong (APCA cho chữ thân)'],
+    ['Pair `--cs-accent-strong` with `--cs-accent-on-strong`: both light and dark packs must meet body Lc ≥ 75 (generator target 78) and WCAG ≥ 4.5:1. Dark primary buttons consume this paired foreground. Brand anchors and the other eight accent roles retain their values.', 'Ghép `--cs-accent-strong` với `--cs-accent-on-strong`: cả pack light và dark phải đạt ngưỡng chữ thân Lc ≥ 75 (mục tiêu của generator là 78) và WCAG ≥ 4.5:1. Nút primary ở chế độ dark dùng màu chữ đi cặp này. Các màu neo thương hiệu và tám vai trò accent còn lại giữ nguyên giá trị.'],
+    [`**Strong body failures: ${strongBodyFails}.** Static declared-pair calculation; the browser regressions and actual template/raster checks establish their separate scopes. Opacity, gradients, transitions and arbitrary overlaps are not implied by this table.`, `**Số cặp chữ thân trên nền strong không đạt: ${strongBodyFails}.** Đây là phép tính tĩnh cho cặp màu đã khai báo; kiểm tra hồi quy browser và kiểm tra template/raster thực tế có phạm vi riêng. Bảng này không chứng minh tương phản khi có độ trong suốt, gradient, chuyển tiếp hay lớp phủ tùy ý.`],
+    ['## Dark pack APCA floors (gate twin)', '## Ngưỡng APCA của pack dark (đối chiếu gate)'],
+    ['Proposal targets in `_audit/apca-dark-preview.html`: bright ≥ 75 · accent ≥ 60 · on-strong/strong ≥ 75 · ink-on-tint ≥ 75. Accent and bright are not unrestricted regular-body roles.', 'Các ngưỡng đề xuất trong `_audit/apca-dark-preview.html`: bright ≥ 75 · accent ≥ 60 · on-strong/strong ≥ 75 · ink-on-tint ≥ 75. Accent và bright không phải vai trò chữ thân thông thường dùng được trên mọi nền.'],
+  ]);
+  const viLabels = new Map([
+    ['Scope', 'Phạm vi'], ['Pairing', 'Cặp màu'], ['fg / bg', 'chữ / nền'], ['Verdict', 'Kết quả'], ['Ratio', 'Tỷ lệ'], ['Mode', 'Chế độ'], ['Pack', 'Pack'],
+    ['root (Thổ default)', 'root (Thổ mặc định)'], ['light', 'sáng'], ['dark', 'tối'],
+    ['text-accent on white (bold labels)', 'text-accent trên trắng (nhãn đậm)'],
+    ['text-accent on tint (bold labels)', 'text-accent trên tint (nhãn đậm)'],
+    ['accent-bright on ink (headings)', 'accent-bright trên ink (tiêu đề)'],
+    ['accent-on on accent-bright (CTA text)', 'accent-on trên accent-bright (chữ CTA)'],
+    ['accent-bright on dark panel (dark labels)', 'accent-bright trên panel tối (nhãn dark)'],
+    ['link on white (body)', 'liên kết trên trắng (chữ thân)'],
+    ['link on reference page (body)', 'liên kết trên trang tham chiếu (chữ thân)'],
+    ['link on tint (body)', 'liên kết trên tint (chữ thân)'],
+    ['link on reference raised cream (body)', 'liên kết trên nền kem nâng tham chiếu (chữ thân)'],
+    ['link on reference dark panel (body)', 'liên kết trên panel tối tham chiếu (chữ thân)'],
+  ]);
+  const viLine = (line) => {
+    if (!line) return line;
+    if (line.startsWith('|')) return line.split('|').map(cell => {
+      const label = viLabels.get(cell.trim());
+      return label === undefined ? cell : ` ${label} `;
+    }).join('|');
+    if (!viProse.has(line)) throw new Error(`Missing Vietnamese contrast-report prose: ${line}`);
+    return viProse.get(line);
+  };
   const tableIdx = lines.findIndex((l) => l.startsWith('| Scope | Pairing |'));
   const vi = [
     '# Báo cáo contrast — cặp elemental (APCA)',
@@ -184,10 +238,10 @@ function main() {
     '',
     'Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.',
     '',
-    '**Doctrine của sweep này:** chữ ngồi trên `-bright` hoặc `-tint`, không bao giờ trên mid-tone `-accent`. Accent chỉ cho bar, border, progress, fill không chữ. (Rule trong `tokens/elements.css` và conventions.)',
+    '**Doctrine của sweep này:** chữ dùng nền `-bright` hoặc `-tint`, hoặc nền `-strong` đi cặp với `--cs-accent-on-strong`; không bao giờ trên mid-tone `-accent`. Accent chỉ cho bar, border, progress, fill không chữ. Đọc cặp màu và ngưỡng ghi ở từng dòng; `test:strong-text-contrast` kiểm tra riêng chữ thân đã render trên nền strong. (Rule trong `tokens/elements.css` và conventions.)',
     '',
     'Pack được generate từ `tokens/element-seeds.json` (thang soft / middle / deep, khóa hue light↔dark). Gate hình học: `_audit/element-geometry.html`.',
-    ...lines.slice(tableIdx),
+    ...lines.slice(tableIdx).map(viLine),
   ];
   const viBody = vi.join('\n') + '\n';
   const enPath = path.join(ROOT, 'docs/contrast-report.md');

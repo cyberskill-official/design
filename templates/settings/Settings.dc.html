@@ -90,7 +90,7 @@ const tab = this.tab;
       tabs: [{ value: "profile", label: t.pfL }, { value: "notifications", label: t.ntL }],
       setTab: (v) => this.setState({ tab: v }),
       dangerOpen: this.state.dangerOpen,
-      openDanger: () => this.setState({ dangerOpen: true }),
+      openDanger: (event) => { event?.currentTarget?.focus(); this.setState({ dangerOpen: true }); },
       setDangerOpen: (v) => this.setState({ dangerOpen: !!v }),
       closeDanger: () => this.setState({ dangerOpen: false }),
       squads: [{ value: "platform", label: "Platform" }, { value: "ai", label: "AI" }, { value: "growth", label: "Growth" }],

@@ -185,22 +185,19 @@ const preview = {
       const fullscreen = context.parameters.layout === 'fullscreen';
       if (typeof document !== 'undefined') {
         const root = document.documentElement;
-        if (theme === 'dark' || theme === 'system') root.setAttribute('data-theme', theme);
-        else root.removeAttribute('data-theme');
+        root.setAttribute('data-theme', theme);
         root.setAttribute('data-cs-style', style);
-        if (density && density !== 'comfortable') root.setAttribute('data-cs-density', density);
-        else root.removeAttribute('data-cs-density');
-        if (contrast && contrast !== 'standard') root.setAttribute('data-cs-contrast', contrast);
-        else root.removeAttribute('data-cs-contrast');
+        root.setAttribute('data-cs-density', density);
+        root.setAttribute('data-cs-contrast', contrast);
       }
       return (
         <div
-          data-theme={theme === 'dark' || theme === 'system' ? theme : undefined}
+          data-theme={theme}
           data-cs-element={element || undefined}
           data-cs-variant={variant || undefined}
           data-cs-style={style}
-          data-cs-density={density !== 'comfortable' ? density : undefined}
-          data-cs-contrast={contrast !== 'standard' ? contrast : undefined}
+          data-cs-density={density}
+          data-cs-contrast={contrast}
           lang={language}
           style={{
             minHeight: '100%',

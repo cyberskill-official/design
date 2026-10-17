@@ -3,11 +3,14 @@ import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Accordion — collapsible sections. Single-open by default; allowMultiple for many. */
 export function Accordion({ items = [], defaultOpen = 0, allowMultiple = false, className }) {
-  const [open, setOpen] = React.useState(() => (allowMultiple ? (defaultOpen != null ? [defaultOpen] : []) : defaultOpen));
-  const isOpen = (i) => (allowMultiple ? open.includes(i) : open === i);
+  const [open, setOpen] = React.useState(() => (defaultOpen != null && defaultOpen >= 0 ? [defaultOpen] : []));
+  React.useEffect(() => {
+    if (!allowMultiple) setOpen(current => current.length > 1 ? current.slice(0, 1) : current);
+  }, [allowMultiple]);
+  const isOpen = (i) => (allowMultiple ? open.includes(i) : open[0] === i);
   const toggle = (i) => {
     if (allowMultiple) setOpen((o) => (o.includes(i) ? o.filter((x) => x !== i) : [...o, i]));
-    else setOpen((o) => (o === i ? -1 : i));
+    else setOpen((o) => (o[0] === i ? [] : [i]));
   };
   return (
     <div className={cx("cs-accordion", className)}>

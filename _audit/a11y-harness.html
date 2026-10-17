@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — a11y CSSOM gate</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CyberSkill — a11y CSSOM gate</title>
 <link rel="stylesheet" href="../styles.css">
 <style>
   body{margin:0;font-family:var(--cs-font-family-ui,system-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
@@ -12,37 +12,56 @@
   #stage{position:absolute;left:0;top:-4000px}
   fieldset{border:1px solid var(--cs-color-border-default);border-radius:8px;padding:12px}
   .rw{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+
+  /* Diagnostic chrome only; measured fixture/sample paint remains independent. */
+  body{box-sizing:border-box;overflow-wrap:anywhere}
+  .row{flex-wrap:wrap}
+  .row>span{min-inline-size:0;max-inline-size:100%}
+  a[href],button,textarea{box-sizing:border-box}
+  @media(pointer:coarse){button,a[href]{min-inline-size:44px;min-block-size:44px}a[href]{display:inline-flex;align-items:center}}
+
+  body{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary)}
+  .lede,.note{color:var(--cs-color-text-primary)}
+  #sum{color:var(--cs-color-text-primary)!important}
+  .row.ok{background:var(--cs-color-semantic-success);color:var(--cs-color-semantic-success-fg)}
+  .row.bad{background:var(--cs-color-semantic-danger);color:var(--cs-color-semantic-danger-fg)}
+  .row .d{color:inherit}
+
+  .row{border:1px solid var(--cs-color-border-default);border-inline-start-width:4px}
+  .row.ok,.row.bad{background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary)}
+  .row.ok{border-inline-start-color:var(--cs-color-semantic-success)}
+  .row.bad{border-inline-start-color:var(--cs-color-semantic-danger)}
 </style></head><body>
 <h1>A11y CSSOM gate</h1>
-<p class="lede">Deterministic checks on the global a11y layer (<code>base/a11y.css</code>): every interactive `.cs-*` control gets a real ≥44px hit target under a simulated coarse pointer (but each control's own <b>documented floor</b> (44px default; icon affordances/segmented/native-range are deliberately tiered lower per the CSS's own comments) reparsed via a brace-depth walk of <code>base/a11y.css</code> + button-size rules in <code>base/components.css</code>. Focus-visible is proven via <b>static source scan</b>, not live DOM focus (confirmed unreliable in this offscreen-iframe context — same class of issue documented in <code>theme-overflow.html</code>/<code>contrast-guard.html</code>): the universal rule in <code>reset.css</code> is real, and no base file silently strips outline without a replacement box-shadow. <code>prefers-reduced-motion</code> / <code>prefers-contrast: more</code> blocks are present and touch the expected selectors; every control keeps a real accessible name. Companion to <code>a11y-gate.html</code> (keyboard/ARIA interaction). Verdict on <code>window.__a11ycss</code>.</p>
+<p class="lede">Bounded checks on the global accessibility CSS: declared coarse-pointer floors, static focus-ring rules, reduced-motion and high-contrast selectors. These source checks do not prove actual hit areas or rendered focus behavior. The pinned local axe engine checks accessible naming of the 20 mounted fixture controls; empty labels, broken references, missing fixtures or an unavailable engine fail. This is not a complete WCAG or screen-reader assessment. Use the interaction and touch regressions plus human review for their separate scopes. Verdict on <code>window.__a11ycss</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <div id="stage">
   <button class="cs-button" id="btn">Make a wish</button>
   <button class="cs-button cs-button--sm" id="btnsm">Small</button>
   <input class="cs-field__control" id="tf" placeholder="Text" aria-label="Text">
-  <div class="cs-select"><select class="cs-field__control" id="sel"><option>A</option></select></div>
-  <div class="cs-search" id="search"><input placeholder="Search"><button class="cs-search__clear" id="clear">×</button></div>
+  <div class="cs-select"><select class="cs-field__control" id="sel" aria-label="Selection"><option>A</option></select></div>
+  <div class="cs-search" id="search"><input placeholder="Search" aria-label="Search"><button class="cs-search__clear" id="clear" aria-label="Clear search">×</button></div>
   <label class="cs-check" id="check"><input type="checkbox"><span class="cs-check__text">Check</span></label>
   <label class="cs-radio" id="radio"><input type="radio" name="r"><span class="cs-radio__text">Radio</span></label>
-  <label class="cs-switch" id="switch"><input type="checkbox"><span class="cs-switch__track"></span></label>
+  <label class="cs-switch" id="switch"><input type="checkbox"><span class="cs-switch__track"></span><span>Dark theme</span></label>
   <div class="cs-tabs"><button class="cs-tab" id="tab" aria-selected="true">Tab one</button><button class="cs-tab">Tab two</button></div>
   <div class="cs-pagination"><button id="page">1</button><button aria-current="page">2</button></div>
   <div class="cs-menu__list" style="position:static"><button class="cs-menu__item" id="menu">Menu item</button></div>
-  <div class="cs-stepper"><button id="stepdn">−</button><input value="1"><button>+</button></div>
+  <div class="cs-stepper"><button id="stepdn" aria-label="Decrease value">−</button><input value="1" aria-label="Amount"><button aria-label="Increase value">+</button></div>
   <div class="cs-segmented"><button id="seg" aria-pressed="true">Table</button><button>Board</button></div>
   <input type="range" class="cs-slider" id="slider" style="width:180px" aria-label="Volume">
 </div>
+<script src="./vendor/axe.min.js"></script>
 <script>
 const results=[]; const list=document.getElementById('list');
-function record(name,ok,detail){ results.push({name,ok,detail}); const r=document.createElement('div'); r.className='row '+(ok?'ok':'bad'); r.innerHTML='<span>'+(ok?'\u2713 ':'\u2717 ')+name+'</span><span class="d">'+detail+'</span>'; list.appendChild(r); }
+function record(name,ok,detail){ results.push({name,ok,detail}); const r=document.createElement('div'); r.className='row '+(ok?'ok':'bad'); const title=document.createElement('span');title.textContent=(ok?'\u2713 ':'\u2717 ')+name;const description=document.createElement('span');description.className='d';description.textContent=detail;r.append(title,description);list.appendChild(r); }
 function publish(v){ if(window.__a11ycss) return; window.__a11ycss=v; const s=document.getElementById('sum'); s.textContent=v.pass?('\u2713 all '+v.total+' a11y CSSOM checks pass'):('\u2717 '+(v.error?v.error:(v.failed.length+'/'+v.total+' failed: '+v.failed.join(', ')))); s.style.color=v.pass?'#166534':'#B42318'; console.log('A11YCSS VERDICT '+JSON.stringify({pass:v.pass,failed:v.failed||[],error:v.error||null})); }
 function test(name,fn){ try{ const d=fn(); record(name,true,d); }catch(e){ record(name,false,String(e.message||e).slice(0,120)); } }
 async function atest(name,fn){ try{ const d=await fn(); record(name,true,d); }catch(e){ record(name,false,String(e.message||e).slice(0,140)); } }
 function assert(c,m){ if(!c) throw new Error(m); }
 
 window.addEventListener('load',()=>setTimeout(async()=>{
-  const TARGETS=['#btn','#btnsm','#tf','#sel','#search .cs-search__clear','#check','#radio','#switch','#tab','#page button','#menu','#stepdn','#seg button','#slider'];
   // 1) focus-visible ring: STATIC source scan, not a live DOM read. Programmatic focus()
   // in this iframe never satisfies the browser's :focus-visible heuristic (confirmed: even
   // .matches(':focus-visible') and plain .matches(':focus') read false here — the doctrine's
@@ -85,62 +104,49 @@ window.addEventListener('load',()=>setTimeout(async()=>{
     assert(/\.cs-prompt:focus-within\s*\{[^}]*outline\s*:\s*(?!none|0\b)/.test(ai),'PromptInput missing composite :focus-within');
     return 'composite ring real · Terminal/CommandPalette/Search/Number/Prompt focus-within · 0 silent removals';
   });
-  // 2) coarse-pointer floor: per-class DOCUMENTED floor (not a blanket 44 — this design
-  // deliberately tiers icon-affordances/segmented-toggles lower, and native range/select
-  // controls can't be forced to an exact box) — reparses both a11y.css and components.css
-  // (button size variants live in the latter) with pointer:coarse forced true.
-  await atest('coarse-pointer floor holds at each control\'s documented minimum (static source)',async()=>{
-    // Static text parse, not a live DOM re-render — a DOM re-render of an extracted media-query
-    // block proved unreliable here for logical sizing props on replaced/native elements
-    // (cascade artifacts even with !important), the same class of issue this doctrine already
-    // downgrades to static analysis for elsewhere (contrast-guard's dark lint, vs. theme-overflow's
-    // DOM-walk-is-unreliable note). Each control's rule is looked up by selector text and its
-    // declared px value read directly from source.
-    const FLOOR={'.cs-button':44,'.cs-button--sm':40,'.cs-search__clear':32,
-      '.cs-check, .cs-radio':44,'.cs-switch':44,'.cs-tab':44,'.cs-pagination button':44,'.cs-menu__item':44,
-      '.cs-stepper button':44,'.cs-segmented button':40,'.cs-slider':32};
+  // Bounded source declaration check, not a cascade/geometry or native-input proof.
+  await atest('reviewed coarse-pointer height declarations resolve to at least 44px (static source)',async()=>{
+    const selectors=['.cs-button','.cs-button--sm','.cs-button--xs','.cs-search__clear',
+      '.cs-check','.cs-radio','.cs-switch','.cs-tab','.cs-pagination button','.cs-menu__item',
+      '.cs-stepper button','.cs-segmented button','.cs-slider'];
     let css=''; for(const f of ['../base/a11y.css','../base/components.css']){
       const r=await fetch(f);
       if(!r.ok) throw new Error('failed to load '+f+' (HTTP '+r.status+')');
-      css+=await r.text();
+      css+=(await r.text()).replace(/\/\*[\s\S]*?\*\//g,'');
     }
     const blocks=[...css.matchAll(/@media\s*\(pointer:\s*coarse\)\s*\{/g)];
-    assert(blocks.length>0,'no pointer:coarse block found in a11y.css/components.css');
-    let combined=''; for(const b of blocks){ let depth=1,i=b.index+b[0].length; const start=i; for(;i<css.length&&depth>0;i++){ if(css[i]==='{')depth++; else if(css[i]==='}')depth--; } combined+=css.slice(start,i-1)+'\n'; }
-    // Tokenized coarse floors (Jul 2026 hub polish) use var(--token, NNpx) /
-    // nested var(--a, var(--b, NNpx)). Resolve the innermost px fallback as the
-    // guaranteed floor; if the rule only names a custom property, look it up in
-    // component-tokens.css.
-    const ctokRes=await fetch('../tokens/component-tokens.css');
-    if(!ctokRes.ok) throw new Error('failed to load ../tokens/component-tokens.css (HTTP '+ctokRes.status+')');
-    const ctok=await ctokRes.text();
-    const tokenPx=(name)=>{
-      const re=new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\s*:\\s*(\\d+(?:\\.\\d+)?)px');
-      const tm=re.exec(ctok);
-      return tm?parseFloat(tm[1]):null;
-    };
-    const declaredPx=(body)=>{
-      const sizeDecl=/(?:min-height|min-block-size|block-size)\s*:\s*([^;]+)/.exec(body);
-      if(!sizeDecl) return null;
-      const val=sizeDecl[1].trim();
-      const pxHits=[...val.matchAll(/(\d+(?:\.\d+)?)px/g)];
-      if(pxHits.length) return parseFloat(pxHits[pxHits.length-1][1]); // innermost fallback
-      const varOnly=/var\(\s*(--[A-Za-z0-9_-]+)/.exec(val);
-      if(varOnly) return tokenPx(varOnly[1]);
-      return null;
-    };
-    const bad=[];
-    for(const [sel,floor] of Object.entries(FLOOR)){
-      const escaped=sel.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-      const re=new RegExp(escaped+'\\s*\\{([^}]*)\\}');
-      const m=re.exec(combined);
-      if(!m){ bad.push(sel+' (no coarse-pointer rule found)'); continue; }
-      const v=declaredPx(m[1]);
-      if(v==null){ bad.push(sel+' (no px size declared)'); continue; }
-      if(v<floor) bad.push(sel+' ('+v+'px < '+floor+'px)');
+    assert(blocks.length>0,'no pointer:coarse block found');
+    let combined=''; for(const b of blocks){let depth=1,i=b.index+b[0].length,start=i;for(;i<css.length&&depth;i++){if(css[i]==='{')depth++;else if(css[i]==='}')depth--;}assert(depth===0,'unclosed coarse block');combined+=css.slice(start,i-1)+'\n';}
+    const response=await fetch('../tokens/component-tokens.css');
+    assert(response.ok,'component tokens unavailable');
+    const tokenSource=(await response.text()).replace(/\/\*[\s\S]*?\*\//g,'');
+    const definitions=new Map();
+    for(const [,name,value] of tokenSource.matchAll(/(--[A-Za-z0-9_-]+)\s*:\s*([^;{}]+)/g)){
+      if(!definitions.has(name))definitions.set(name,[]);definitions.get(name).push(value.trim());
     }
-    assert(bad.length===0,'below documented floor: '+bad.join(', '));
-    return Object.keys(FLOOR).length+' selectors meet their documented coarse-pointer floor';
+    // Defined values override var() fallback. Review every declared token value
+    // conservatively; unsupported expressions/cycles fail rather than imply a floor.
+    function resolvePx(raw,chain=[]){
+      const value=raw.replace(/\s*!important\s*$/,'').trim();
+      if(/^(?:\d+(?:\.\d+)?|\.\d+)px$/.test(value))return Number.parseFloat(value);
+      const variable=/^var\(\s*(--[A-Za-z0-9_-]+)\s*(?:,([\s\S]*))?\)$/.exec(value);
+      assert(variable,'unsupported height expression: '+value);
+      const [,name,fallback]=variable;assert(!chain.includes(name),'cyclic height token: '+name);
+      const values=definitions.get(name);
+      if(values)return Math.min(...values.map(v=>resolvePx(v,[...chain,name])));
+      assert(fallback!==undefined,'undefined height token: '+name);
+      return resolvePx(fallback,[...chain,name]);
+    }
+    const rules=[...combined.matchAll(/([^{}]+)\{([^{}]*)\}/g)];
+    const bad=[];
+    for(const selector of selectors){
+      const declarations=rules.filter(([,list])=>list.split(',').some(s=>s.trim()===selector))
+        .flatMap(([,list,body])=>[...body.matchAll(/(?:^|;)\s*(?:min-height|min-block-size|block-size)\s*:\s*([^;]+)/g)].map(m=>m[1]));
+      if(!declarations.length){bad.push(selector+' (no height floor declaration)');continue;}
+      for(const value of declarations){const px=resolvePx(value);if(px<44)bad.push(selector+' ('+px+'px < 44px)');}
+    }
+    assert(!bad.length,'below 44px source floor: '+bad.join(', '));
+    return selectors.length+' reviewed selectors declare height floors of at least 44px; rendered ownership is separate';
   });
   await atest('TextField/Select 44px floor holds by default (component token >= 44)',async()=>{
     const ctok=await (await fetch('../tokens/component-tokens.css')).text();
@@ -165,16 +171,20 @@ window.addEventListener('load',()=>setTimeout(async()=>{
     assert(/\[data-theme="dark"\]/.test(m[1]),'no dark-theme companion override');
     return 'light + dark high-contrast overrides present';
   });
-  // 4) every labelled control has a real accessible name (not just aria-label absent silently)
-  test('every control has an accessible name',()=>{
-    const bad=[];
-    const named=(el)=>!!(el.getAttribute('aria-label')||el.getAttribute('aria-labelledby')||(el.id&&document.querySelector('label[for="'+el.id+'"]'))||el.closest('label')||(el.textContent||'').trim().length>0);
-    for(const sel of TARGETS){ const el=document.querySelector(sel); if(el&&!named(el)) bad.push(sel); }
-    assert(bad.length===0,'no accessible name: '+bad.join(', '));
-    return 'all '+TARGETS.length+' controls named';
+  // Presence of a label element or an aria-labelledby string is insufficient.
+  await atest('mounted fixture controls have accessible names',async()=>{
+    const stage=document.getElementById('stage');assert(stage,'missing fixture stage');
+    const controls=stage.querySelectorAll('button,input,select,textarea');
+    assert(controls.length===20,'fixture control inventory changed or empty: '+controls.length);
+    assert(window.axe&&typeof axe.run==='function','local axe engine unavailable');
+    const naming=await axe.run(stage,{runOnly:{type:'rule',values:['label','button-name','link-name','select-name','aria-toggle-field-name','input-button-name']}});
+    assert(Array.isArray(naming.violations)&&Array.isArray(naming.incomplete),'invalid naming result');
+    const unresolved=[...naming.violations,...naming.incomplete];
+    assert(unresolved.length===0,'unresolved names: '+unresolved.map(row=>row.id+': '+row.nodes.map(node=>node.target.join(' ')).join(', ')).join('; '));
+    return controls.length+' fixture controls; name rules resolved; '+naming.inapplicable.length+' inapplicable rules';
   });
   const bad=results.filter(r=>!r.ok);
-  publish({pass:bad.length===0,total:results.length,failed:bad.map(r=>r.name)});
+  publish({pass:bad.length===0,total:results.length,failed:bad.map(r=>r.name),results});
 },150));
 setTimeout(()=>{ if(!window.__a11ycss){ const bad=results.filter(r=>!r.ok); publish({pass:false,total:results.length,failed:bad.map(r=>r.name),error:'watchdog (20s)'}); } },20000);
 </script></body></html>

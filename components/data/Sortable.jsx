@@ -37,7 +37,7 @@ export function Sortable({ items = [], onChange, lang, className }) {
             setDragKey(it.key);
           }}
           onDragOver={(e) => { e.preventDefault(); setOver(it.key); }}
-          onDrop={drop} onDragEnd={drop}>
+          onDrop={drop} onDragEnd={() => { setDragKey(null); setOver(null); }}>
           <span className="cs-sortable__grip" aria-hidden="true">⠿</span>
           <span className="cs-sortable__label">{it.label}</span>
           <span className="cs-sortable__ops" onMouseDown={(e) => e.stopPropagation()}>

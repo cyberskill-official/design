@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-/** Round floating primary action (Ochre). With `actions`, the main press opens a
+/** Round floating action using the active element accent and paired foreground. With `actions`, the main press opens a
  *  speed-dial of mini actions. position="static" embeds it in flow (demos). */
 export interface FabAction { icon: ReactNode; label: string; onSelect?: () => void; }
 export interface FloatingActionButtonProps {

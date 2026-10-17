@@ -1,7 +1,8 @@
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
-import { useOverlayLayer } from "./OverlayManager.jsx";
+import { overlaySurfaceClass, useOverlaySurface } from "../_utils/use-overlay-surface.js";
+import { useOverlayLayer, overlayScopeContext } from "./OverlayManager.jsx";
 
 /**
  * CyberSkill AlertDialog — first-class destructive/confirm modal (role=alertdialog).
@@ -31,9 +32,12 @@ export function AlertDialog({
   const [ref, L] = useLang(lang);
   const t = makeT("AlertDialog", L);
   const panel = React.useRef(null);
+  const backdrop = React.useRef(null);
   const uncontrolled = open === undefined;
   const [internal, setInternal] = React.useState(!!defaultOpen);
   const isOpen = uncontrolled ? internal : !!open;
+  const material = overlaySurfaceClass(className);
+  const surface = useOverlaySurface(isOpen, panel, material);
   const setOpen = (next) => {
     if (uncontrolled) setInternal(next);
     onOpenChange?.(next);
@@ -46,16 +50,17 @@ export function AlertDialog({
   const setOpenRef = React.useRef(setOpen);
   setOpenRef.current = setOpen;
 
-  useOverlayLayer({
+  const { scope } = useOverlayLayer({
     open: isOpen,
     kind: "modal",
     trapFocus: true,
-    preferFocusSelector: ".cs-alert-dialog__confirm",
+    preferFocusSelector: destructive ? ".cs-alert-dialog__cancel" : ".cs-alert-dialog__confirm",
     onEscape: () => {
       setOpenRef.current(false);
       cancelRef.current?.();
     },
     panelRef: panel,
+    backdropRef: backdrop,
   });
 
   const cl = cancelLabel != null ? cancelLabel : t("cancel");
@@ -65,15 +70,18 @@ export function AlertDialog({
 
   if (!isOpen) return null;
   return (
+    <overlayScopeContext.Provider value={scope}>
     <div ref={ref} className="cs-dialog-layer cs-alert-dialog-layer">
       <div
-        className="cs-dialog__overlay"
+        ref={backdrop} className="cs-dialog__overlay"
         onClick={() => { setOpen(false); cancelRef.current?.(); }}
         aria-hidden="true"
       />
+      {material ? <div ref={surface} className={cx("cs-overlay-surface", material)} aria-hidden="true" /> : null}
       <section
         {...props}
         ref={panel}
+        data-cs-overlay-material={material || undefined}
         tabIndex={-1}
         role="alertdialog"
         aria-modal="true"
@@ -88,7 +96,7 @@ export function AlertDialog({
         <footer className="cs-dialog__actions">
           <button
             type="button"
-            className="cs-button cs-button--ghost cs-button--md"
+            className="cs-button cs-button--ghost cs-button--md cs-alert-dialog__cancel"
             onClick={() => { setOpen(false); cancelRef.current?.(); }}
           >
             {cl}
@@ -108,5 +116,6 @@ export function AlertDialog({
         </footer>
       </section>
     </div>
+    </overlayScopeContext.Provider>
   );
 }

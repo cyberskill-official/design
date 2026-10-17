@@ -22,7 +22,7 @@
 .cs-item--interactive { cursor: pointer; font: inherit; inline-size: 100%; }
 button.cs-item--interactive { border: 1px solid transparent; background: var(--cs-color-surface-panel); }
 .cs-item--interactive:hover { background: var(--cs-color-surface-raised); border-color: var(--cs-color-border-default); }
-.cs-item--interactive:focus-visible { outline: var(--cs-focus-ring, 3px) solid var(--cs-color-accent-ochre); outline-offset: 2px; }
+.cs-item--interactive:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-item.is-selected { border-color: var(--cs-color-brand-ochre); background: var(--cs-accent-tint, var(--cs-color-surface-raised)); }
 .cs-item.is-disabled, .cs-item[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 .cs-item__leading { flex: none; display: grid; place-items: center; color: var(--cs-color-text-accent); }
@@ -83,13 +83,7 @@ button.cs-item--interactive { border: 1px solid transparent; background: var(--c
 
 /* EmptyState */
 .cs-empty { text-align: center; padding: 48px 24px; display: grid; gap: 8px; justify-items: center; }
-.cs-empty__icon { inline-size: 56px; block-size: 56px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in oklab, var(--cs-color-brand-ochre) 24%, var(--cs-color-surface-panel)); color: var(--cs-color-brand-umber); margin-block-end: 6px; }
-[data-theme="dark"] .cs-empty__icon { color: var(--cs-color-brand-ochre); }
+.cs-empty__icon { inline-size: 56px; block-size: 56px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in oklab, var(--cs-color-brand-ochre) 24%, var(--cs-color-surface-panel)); color: var(--_cs-light, var(--cs-color-brand-umber)) var(--_cs-dark, var(--cs-color-brand-ochre)); margin-block-end: 6px; }
 .cs-empty__title { font-size: var(--cs-text-h4); font-weight: 700; }
 .cs-empty__body { color: var(--cs-color-text-muted); max-inline-size: 380px; }
 .cs-empty__actions { margin-block-start: 12px; display: flex; gap: 10px; }
-
-/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
-@media (prefers-color-scheme: dark) {
-  [data-theme="system"] .cs-empty__icon { color: var(--cs-color-brand-ochre); }
-}

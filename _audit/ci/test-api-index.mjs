@@ -1,0 +1,51 @@
+import assert from 'node:assert/strict';
+import {execFileSync,spawnSync} from 'node:child_process';
+import {readFileSync,writeFileSync,mkdtempSync,mkdirSync,copyFileSync,symlinkSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join,resolve} from 'node:path';
+execFileSync(process.execPath,['scripts/generate-api-index.mjs','--check'],{stdio:'inherit'});
+const index=JSON.parse(readFileSync('components/api-index.json','utf8'));
+const manifest=JSON.parse(readFileSync('_ds_manifest.json','utf8'));
+const lifecycle=JSON.parse(readFileSync('components/lifecycle.json','utf8'));
+assert.deepEqual(index.exports.map(e=>e.name),manifest.components.map(e=>e.name).sort());
+for(const item of index.exports)assert.deepEqual(item.support,lifecycle.components[item.name].support,'Support metadata must remain explicit and unchanged');
+for(const item of index.exports)for(const prop of item.props){
+  const definition=index.propDefinitions[prop.definition];
+  assert.equal(definition.name,prop.name);assert.equal(typeof definition.optional,'boolean');assert(definition.type);
+}
+const binding=index.exports.find(e=>e.name==='FormField').props.find(p=>p.name==='valueProp');
+assert(index.propDefinitions[binding.definition].type.includes('pressed'));
+assert.equal(index.exports.find(e=>e.name==='CS_LOGO_VIEWBOX').declarationPath,'_esm/react.d.ts');
+const temp=mkdtempSync(join(tmpdir(),'cs-api-index-test-'));
+try {
+  for(const path of ['scripts','components','_esm'])mkdirSync(join(temp,path));
+  copyFileSync('scripts/generate-api-index.mjs',join(temp,'scripts/generate-api-index.mjs'));
+  mkdirSync(join(temp,'scripts/lib'));
+  copyFileSync('scripts/lib/component-support.mjs',join(temp,'scripts/lib/component-support.mjs'));
+  symlinkSync(resolve('node_modules'),join(temp,'node_modules'));
+  const put=(path,value)=>writeFileSync(join(temp,path),value);
+  put('_esm/react.d.ts','export { Widget } from "../components/Widget";');
+  put('components/Widget.jsx','export function Widget() {}');
+  put('components/Widget.d.ts','export declare function Widget(props: { label?: string }): unknown;');
+  put('_ds_manifest.json',JSON.stringify({components:[{name:'Widget',kind:'component',sourcePath:'components/Widget.jsx'}]}));
+  const fixtureLifecycle={components:{Widget:{status:'preview',support:{reviewState:'unreviewed',owner:'Stephen Cheng',environments:[],axes:[],evidence:[],reviewedAt:null,reviewedBy:null,limitations:['Fixture unreviewed support record'],deprecation:null}}}};
+  put('components/lifecycle.json',JSON.stringify(fixtureLifecycle));
+  const run=(check=false)=>spawnSync(process.execPath,[join(temp,'scripts/generate-api-index.mjs'),...(check?['--check']:[])],{cwd:temp,encoding:'utf8'});
+  assert.equal(run().status,0);assert.equal(run(true).status,0);
+  fixtureLifecycle.components.Widget.support.reviewState='reviewed';
+  put('components/lifecycle.json',JSON.stringify(fixtureLifecycle));
+  const beforeInvalidSupport=readFileSync(join(temp,'components/api-index.json'),'utf8');
+  assert.notEqual(run().status,0,'Unsubstantiated support review must fail generation');
+  assert.equal(readFileSync(join(temp,'components/api-index.json'),'utf8'),beforeInvalidSupport);
+  fixtureLifecycle.components.Widget.support.reviewState='unreviewed';
+  put('components/lifecycle.json',JSON.stringify(fixtureLifecycle));
+  put('components/Widget.d.ts','export declare function Widget(props: { label: string }): unknown;');
+  assert.notEqual(run(true).status,0,'changed declaration must invalidate index');
+  const previous=readFileSync(join(temp,'components/api-index.json'),'utf8');
+  put('components/Widget.d.ts','export declare function Widget(props: MissingType): unknown;');
+  assert.notEqual(run().status,0,'invalid declaration must fail');
+  assert.equal(readFileSync(join(temp,'components/api-index.json'),'utf8'),previous,'failure must preserve output');
+  put('components/Widget.d.ts','export declare const Other: string;');
+  assert.notEqual(run().status,0,'missing export must fail');
+} finally {rmSync(temp,{recursive:true,force:true})}
+console.log('PASS declared API index: complete export references, shared prop definitions, typed binding, inline constant declaration and isolated failure cases');

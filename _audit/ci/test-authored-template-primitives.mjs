@@ -1,0 +1,20 @@
+/** The authored primitive verifier must not conceal drift or fabricate approval. */
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {verifyAuthoredTemplatePrimitives} from '../../scripts/lib/authored-template-primitives.mjs';
+const root=fileURLToPath(new URL('../../',import.meta.url));
+const read=path=>readFileSync(root+path);
+const actual=verifyAuthoredTemplatePrimitives(read);
+const manifest=JSON.parse(read('_ds_manifest.json'));
+assert.equal(actual.size,manifest.templates.length+6);
+assert([...actual.values()].every(row=>row.state.endsWith('_pending_distribution_review')),'Source binding cannot infer distribution approval');
+const run=changes=>verifyAuthoredTemplatePrimitives(path=>changes.has(path)?changes.get(path):read(path));
+const producer='scripts/build-template-primitives.mjs';
+assert.throws(()=>run(new Map([[producer,Buffer.alloc(0)]])),/Missing primitive producer/);
+const input='scripts/template-runtime/primitives/support.js',output='templates/_vendor/support.js';
+assert.throws(()=>run(new Map([[input,Buffer.from('changed source')]])),/not generated from its recorded source/);
+const bytes=Buffer.from(read(output).toString()+'\n// forged output\n');
+assert.throws(()=>run(new Map([[output,bytes]])),/not generated from its recorded source/);
+assert.throws(()=>run(new Map([[manifest.templates[0].folder+'/support.js',Buffer.from('changed copied artifact')]])),/Changed authored primitive copy/);
+console.log('PASS authored primitive verification: all sources, outputs and '+manifest.templates.length+' copies; producer/source/output/copy drift rejected. Distribution remains pending.');

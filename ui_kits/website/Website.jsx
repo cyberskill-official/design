@@ -14,7 +14,7 @@ function I({ name, size = 20, stroke = 1.9 }) {
 }
 
 function Chat({ t, seed, onClose }) {
-  const [msgs, setMsgs] = useState([{ who: "bot", text: t.genie.greeting }]);
+  const [msgs, setMsgs] = useState([{ who: "bot", key: "greeting" }]);
   const [val, setVal] = useState("");
   const bodyRef = useRef(null);
   useEffect(() => { if (seed) send(seed); }, []);
@@ -23,23 +23,23 @@ function Chat({ t, seed, onClose }) {
     const m = (text || "").trim(); if (!m) return;
     setMsgs((cur) => [...cur, { who: "me", text: m }]);
     setVal("");
-    setTimeout(() => setMsgs((cur) => [...cur, { who: "bot", text: "A wish worth granting. I’ll hand it to the team — first, what should I call you?" }]), 500);
+    setTimeout(() => setMsgs((cur) => [...cur, { who: "bot", key: "reply" }]), 500);
   }
   return (
     <div className="chat">
       <div className="chat-h">
         <img src="../../assets/lumi-poster.webp" alt="" />
         <b>{t.genie.title}</b>
-        <button onClick={onClose} aria-label="Close chat"><I name="close" size={18} /></button>
+        <button onClick={onClose} aria-label={t.genie.close}><I name="close" size={18} /></button>
       </div>
       <div className="chat-b" ref={bodyRef}>
-        {msgs.map((m, i) => <div key={i} className={"msg " + m.who}>{m.text}</div>)}
+        {msgs.map((m, i) => <div key={i} className={"msg " + m.who}>{m.key ? t.genie[m.key] : m.text}</div>)}
         {msgs.length === 1 && (
           <div className="chips">{t.genie.chips.map((c) => <button key={c} onClick={() => send(c)}>{c}</button>)}</div>
         )}
       </div>
       <div className="chat-f">
-        <input value={val} onChange={(e) => setVal(e.target.value)} onKeyDown={(e) => e.key === "Enter" && send(val)} placeholder={t.genie.placeholder} />
+        <input aria-label={t.genie.placeholder} value={val} onChange={(e) => setVal(e.target.value)} onKeyDown={(e) => e.key === "Enter" && !e.nativeEvent.isComposing && e.keyCode !== 229 && send(val)} placeholder={t.genie.placeholder} />
         <button onClick={() => send(val)}>{t.genie.send}</button>
       </div>
     </div>
@@ -66,20 +66,20 @@ function Website() {
   }, []);
 
   return (
-    <div className="site" data-theme={dark ? "dark" : undefined}>
-      <a className="cs-skip" href="#main">{loc === "vi" ? "Bỏ qua đến nội dung" : "Skip to content"}</a>
+    <div className="site" lang={loc} data-theme={dark ? "dark" : undefined}>
+      <a className="cs-skip" href="#main" onClick={e => { e.preventDefault(); document.getElementById("main")?.focus(); }}>{loc === "vi" ? "Bỏ qua đến nội dung" : "Skip to content"}</a>
       <header className="hdr cs-surface-light">
         <div className="container hdr-in">
           <a className="brand" href="#top"><img src="../../assets/logo-mark.svg" alt="" />CyberSkill</a>
-          <nav className="nav">{t.nav.map((n, i) => <a key={i} href={"#" + ["services","work","process","careers","contact"][i]}>{n}</a>)}</nav>
+          <nav className="nav">{t.nav.map((n, i) => <a key={i} href={i === 1 ? "work.html" : "#" + ["services","work","process","careers","contact"][i]}>{n}</a>)}</nav>
           <div className="hdr-side">
             <button className="mini" onClick={() => setLoc(loc === "en" ? "vi" : "en")}>{t.langLabel}</button>
-            <button className="mini icon" onClick={() => setDark(!dark)} aria-label="Toggle theme"><I name={dark ? "sun" : "moon"} size={18} /></button>
-            <button className="mini" style={{ background: "var(--cs-color-brand-umber)", color: "var(--cs-color-text-inverse,#fff)", borderColor: "transparent" }} onClick={() => openChat("")}>{t.talk}</button>
+            <button className="mini icon" onClick={() => setDark(!dark)} aria-label={t.theme}><I name={dark ? "sun" : "moon"} size={18} /></button>
+            <button className="mini" style={{ background: "var(--cs-color-brand-umber)", color: "#fff", borderColor: "transparent" }} onClick={() => openChat("")}>{t.talk}</button>
           </div>
         </div>
       </header>
-      <main id="main">
+      <main id="main" tabIndex={-1}>
 
       <section className="hero" id="top">
         <div className="container hero-in">
@@ -89,11 +89,11 @@ function Website() {
             <div className="vn">{t.sub}</div>
             <p className="lead">{t.lead}</p>
             <div className="wish">
-              <input value={wish} onChange={(e) => setWish(e.target.value)} onKeyDown={(e) => e.key === "Enter" && openChat(wish)} placeholder={t.wishPlaceholder} aria-label={t.wishPlaceholder} />
+              <input value={wish} onChange={(e) => setWish(e.target.value)} onKeyDown={(e) => e.key === "Enter" && !e.nativeEvent.isComposing && e.keyCode !== 229 && openChat(wish)} placeholder={t.wishPlaceholder} aria-label={t.wishPlaceholder} />
               <button className="btn-gold" onClick={() => openChat(wish)}><I name="sparkle" size={18} />{t.wishCta}</button>
             </div>
           </div>
-          <div className="hero-art"><img src="../../assets/lumi-poster.webp" alt="Lumi, the golden genie" /></div>
+          <div className="hero-art"><img src="../../assets/lumi-poster.webp" alt={t.heroAlt} /></div>
         </div>
       </section>
       <div className="marq"><div className="container marq-in">{t.marquee.map((m, i) => <React.Fragment key={i}>{i > 0 && <b>·</b>}<span>{m}</span></React.Fragment>)}</div></div>
@@ -146,7 +146,7 @@ function Website() {
             <p className="trust"><I name="check" size={16} />{t.form.trust}</p>
           </div>
           {sent ? (
-            <div className="sent"><I name="check" size={18} /> {loc === "vi" ? "Đã nhận được lời nhắn. Cảm ơn bạn!" : "Message received. Thank you!"}</div>
+            <div className="sent"><I name="check" size={18} /> {t.form.receipt}</div>
           ) : (
             <form className="form" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
               <label className="cs-field"><span className="cs-field__label">{t.form.name}</span><input className="cs-field__control" required /></label>

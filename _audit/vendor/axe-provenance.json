@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "package": "axe-core",
+  "version": "4.10.0",
+  "license": "MPL-2.0",
+  "registryMetadata": "https://registry.npmjs.org/axe-core/4.10.0",
+  "tarball": "https://registry.npmjs.org/axe-core/-/axe-core-4.10.0.tgz",
+  "integrity": "sha512-Mr2ZakwQ7XUAjp7pAwQWRhhK8mQQ6JAaNWSjmjxil0R8BPioMtQsTLOolGYkji1rcL++3dCqZA3zWqpT+9Ew6g==",
+  "verification": "Exact file bytes matched the integrity-verified registry tarball. Hashes alone do not establish broader licensing or support acceptance.",
+  "files": [
+    {
+      "path": "axe.min.js",
+      "upstreamPath": "package/axe.min.js",
+      "sha256": "483a4fed4b2fe56cfd94a58565020c863983f8415e2827f3481dce35e70effb5"
+    },
+    {
+      "path": "axe-LICENSE",
+      "upstreamPath": "package/LICENSE",
+      "sha256": "af175b9d96ee93c21a036152e1b905b0b95304d4ae8c2c921c7609100ba8df7e"
+    },
+    {
+      "path": "axe-LICENSE-3RD-PARTY.txt",
+      "upstreamPath": "package/LICENSE-3RD-PARTY.txt",
+      "sha256": "4f8563870d0fca38bbc3e00b6f670cb7fa9f380ba9f26a7f7d1184a6b18b1653"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "scope": "Fixed demonstration values for web/native API comparison; not app UI, money arithmetic, user data or a region-axis contract.",
+  "languages": [
+    { "language": "vi", "numberLocale": "vi-VN", "dateLocale": "vi-VN", "datePattern": "dd/MM/yyyy" },
+    { "language": "en", "numberLocale": "en-US", "dateLocale": "en-GB", "datePattern": "dd MMM yyyy" }
+  ],
+  "currencies": ["VND", "USD", "EUR", "JPY"],
+  "currencyAmounts": [1234567, 1234.56, -1234.56, 0, 0.125],
+  "numberAmounts": [1234567, 1234.5678, -1234.5678, 0.0019],
+  "dates": ["2026-07-02T12:00:00Z", "2026-12-31T12:00:00Z"],
+  "timeZone": "UTC",
+  "comparison": "Record exact text and Unicode code points. Currency/number/date semantics and whitespace, symbol, rounding or CLDR differences are reviewed separately; do not silently normalize them into an equality pass. Preferred explicit currency only; legacy web currency presentation is tested separately."
+}

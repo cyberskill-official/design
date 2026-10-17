@@ -41,6 +41,12 @@ try{
     const M=await (await fetch('../_ds_manifest.json')).json();
     const want=[...new Set(M.components.map(c=>c.name))].filter(n=>/^[A-Z]/.test(n));
     const haveKeys=Object.keys(mod);
+    const live=Object.keys(mod.CS).filter(k=>/^[A-Z]/.test(k));
+    assert(live.length===want.length&&live.every(k=>want.includes(k)), 'Manifest differs from live bundle exports');
+    for(const row of M.components){
+      assert(['component','constant'].includes(row.kind),'Missing explicit export kind: '+row.name);
+      assert(mod[row.name]===mod.CS[row.name], 'Legacy identity differs from bundle: '+row.name);
+    }
     const missing=want.filter(n=>!haveKeys.includes(n));
     const stale=haveKeys.filter(k=>/^[A-Z]/.test(k)&&k!=='CS'&&k!=='VERSION'&&!want.includes(k));
     assert(missing.length===0,'missing from _esm/cs.mjs: '+missing.slice(0,6).join(', '));

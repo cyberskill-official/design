@@ -1,4 +1,4 @@
-<!-- @dsCard group="Website" viewport="1200x820" name="cyberskill.world — Lumi chat" subtitle="Full-page AI assistant: prompt, messages, citations, review gate" -->
+<!-- @dsCard group="Website" viewport="1200x820" name="cyberskill.world — Lumi chat" subtitle="Scripted EN/VI chat preview: prompt, sample messages and disclosures" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,13 +12,16 @@
   html, body { margin: 0; height: 100%; }
   .lumi-page { display: grid; grid-template-columns: 288px 1fr; height: 100vh; background: var(--cs-color-surface-page); font-family: var(--cs-font-family-ui); color: var(--cs-color-text-primary); }
   .lumi-side { border-right: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); display: flex; flex-direction: column; padding: 16px 14px; gap: 4px; }
-  .lumi-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; color: var(--cs-color-brand-umber); padding: 6px 10px 14px; }
+  .lumi-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; color: var(--cs-color-text-primary); padding: 6px 10px 14px; }
   .lumi-brand img { width: 30px; height: 30px; }
   .lumi-new { margin: 0 4px 12px; }
+  .lumi-new .cs-button { min-height: 44px; }
+  .lumi-mobile-new { display: none; min-height: 44px; }
   .lumi-conv-label { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--cs-color-text-muted); padding: 10px 12px 4px; }
   .lumi-side-foot { margin-top: auto; padding: 12px 8px 4px; border-top: 1px solid var(--cs-color-border-default); }
   .lumi-main { display: flex; flex-direction: column; min-width: 0; }
   .lumi-top { display: flex; align-items: center; gap: 12px; padding: 14px 28px; border-bottom: 1px solid var(--cs-color-border-default); background: color-mix(in oklab, var(--cs-color-surface-panel) 82%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .lumi-top { flex-wrap: wrap; }
   .lumi-top h1 { font-size: 17px; margin: 0; }
   .lumi-top .sub { font-size: 12.5px; color: var(--cs-color-text-muted); }
   .lumi-thread { flex: 1; overflow: auto; padding: 28px; }
@@ -26,9 +29,10 @@
   .lumi-compose { border-top: 1px solid var(--cs-color-border-default); padding: 16px 28px 22px; background: var(--cs-color-surface-page); }
   .lumi-compose-inner { max-width: 760px; margin: 0 auto; display: grid; gap: 12px; }
   .lumi-answer-card { background: var(--cs-color-surface-raised); border: 1px solid var(--cs-color-border-default); border-radius: 14px; padding: 16px 18px; display: grid; gap: 14px; }
+  .lumi-page .cs-suggest button { color: var(--cs-color-text-primary); }
   .lumi-answer-card p { margin: 0; font-size: 15px; line-height: 1.6; }
   .lumi-answer-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-  @media (max-width: 820px) { .lumi-page { grid-template-columns: 1fr; } .lumi-side { display: none; } }
+  @media (max-width: 820px) { .lumi-page { grid-template-columns: 1fr; } .lumi-side { display: none; } .lumi-mobile-new { display: inline-flex; } }
 </style>
 <script src="../../_vendor/react/react.production.min.js"></script>
 <script src="../../_vendor/react/react-dom.production.min.js"></script>
@@ -36,7 +40,7 @@
 <script src="../../_ds_bundle.js"></script>
 </head>
 <body>
-<a class="cs-skip" href="#main">Bỏ qua đến nội dung</a>
+<a class="cs-skip" href="#main">Skip to content</a>
 
 <div id="root"></div>
 <script type="text/babel">
@@ -44,7 +48,56 @@ const CS = window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{
 const { LumiAvatar, PromptInput, PromptSuggestions, ChatMessage, TypingIndicator, CitationList, AIDisclosureBadge, ConfidenceMeter, Button, Sidebar, NavItem, Badge } = CS;
 const { useState, useRef, useEffect } = React;
 
+const CHAT_COPY = {
+  en: {
+    skip: "Skip to content", newWish: "New wish", recent: "Sample conversations",
+    checkout: "A faster checkout", ops: "Internal ops console", design: "Bilingual design system",
+    mode: "Lumi · preview mode", subtitle: "Scripted preview · no model or team delivery",
+    badge: "Demo", intro: "Hello, I’m Lumi in this scripted preview. Try a wish; this sample does not send it to a model or the team.",
+    suggestions: ["A web app", "An internal tool", "A design system"],
+    answerBefore: "This is a scripted preview for “", answerAfter: "”. A sample next step is a shaping sprint: scope, a clickable prototype, and an estimate. No message has been sent.",
+    confidence: "Sample confidence", disclosure: "Scripted sample",
+    details: "This fixed sample illustrates the interface. No model or human review is involved; confidence and references are illustrative.",
+    services: "Services", process: "Process", citations: "Sample references", what: "What we build", arc: "The arc of a wish",
+    handoff: "Demo only — no handoff", refine: "Keep refining", placeholder: "Make a wish…", send: "Send",
+    hint: "Scripted preview; does not send your wish to a model or the team."
+  },
+  vi: {
+    skip: "Bỏ qua đến nội dung", newWish: "Điều ước mới", recent: "Hội thoại minh họa",
+    checkout: "Thanh toán nhanh hơn", ops: "Bảng điều hành nội bộ", design: "Hệ thống thiết kế song ngữ",
+    mode: "Lumi · chế độ xem trước", subtitle: "Bản xem trước theo kịch bản · chưa gửi đến mô hình hay đội ngũ",
+    badge: "Bản mẫu", intro: "Chào bạn, mình là Lumi trong bản xem trước theo kịch bản. Thử kể một điều ước; bản mẫu này chưa gửi điều ước đến mô hình hay đội ngũ.",
+    suggestions: ["Ứng dụng web", "Công cụ nội bộ", "Hệ thống thiết kế"],
+    answerBefore: "Đây là bản xem trước theo kịch bản cho “", answerAfter: "”. Bước tiếp theo minh họa là đợt định hình: phạm vi, bản mẫu tương tác và ước tính. Chưa gửi lời nhắn.",
+    confidence: "Độ tin cậy minh họa", disclosure: "Mẫu theo kịch bản",
+    details: "Mẫu cố định này minh họa giao diện. Không có mô hình hay người kiểm duyệt tham gia; độ tin cậy và tài liệu chỉ để minh họa.",
+    services: "Dịch vụ", process: "Quy trình", citations: "Tài liệu minh họa", what: "Những gì chúng tôi xây", arc: "Hành trình của điều ước",
+    handoff: "Bản mẫu — chưa chuyển giao", refine: "Tiếp tục điều chỉnh", placeholder: "Kể một điều ước…", send: "Gửi",
+    hint: "Bản xem trước theo kịch bản; chưa gửi điều ước đến mô hình hay đội ngũ."
+  }
+};
+
 function LumiPage() {
+  const [loc, setLoc] = useState("en"), t = CHAT_COPY[loc];
+  const [draft, setDraft] = useState("");
+  const pending = useRef(new Set());
+  const composerRef = useRef(null);
+  function cancelPending() {
+    pending.current.forEach(clearTimeout);
+    pending.current.clear();
+  }
+  useEffect(() => () => cancelPending(), []);
+  useEffect(() => {
+    document.documentElement.lang = loc;
+    document.querySelector(".cs-skip").textContent = t.skip;
+  }, [loc]);
+  function newWish() {
+    cancelPending();
+    setTyping(false);
+    setMsgs([{ who: "lumi", kind: "intro" }]);
+    setDraft("");
+    composerRef.current?.querySelector("textarea")?.focus();
+  }
   const [msgs, setMsgs] = useState([
     { who: "lumi", kind: "intro" },
   ]);
@@ -56,73 +109,78 @@ function LumiPage() {
     const m = (text || "").trim(); if (!m) return;
     setMsgs((c) => [...c, { who: "user", text: m }]);
     setTyping(true);
-    setTimeout(() => {
-      setTyping(false);
+    setDraft("");
+    const timer = setTimeout(() => {
+      pending.current.delete(timer);
+      setTyping(pending.current.size > 0);
       setMsgs((c) => [...c, { who: "lumi", kind: "answer", text: m }]);
     }, 1100);
+    pending.current.add(timer);
   }
 
   return (
-    <div className="lumi-page">
+    <div className="lumi-page" lang={loc}>
       <aside className="lumi-side">
         <div className="lumi-brand"><img src="../../assets/logo-mark.svg" alt="" />CyberSkill</div>
-        <div className="lumi-new"><Button variant="primary" size="sm" fullWidth onClick={() => setMsgs([{ who: "lumi", kind: "intro" }])}>✦ New wish</Button></div>
-        <div className="lumi-conv-label">Recent</div>
+        <div className="lumi-new"><Button variant="primary" size="sm" fullWidth onClick={newWish}>✦ {t.newWish}</Button></div>
+        <div className="lumi-conv-label">{t.recent}</div>
         <Sidebar>
-          <NavItem active>A faster checkout</NavItem>
-          <NavItem>Internal ops console</NavItem>
-          <NavItem>Bilingual design system</NavItem>
+          <NavItem disabled>{t.checkout}</NavItem>
+          <NavItem disabled>{t.ops}</NavItem>
+          <NavItem disabled>{t.design}</NavItem>
         </Sidebar>
         <div className="lumi-side-foot">
-          <NavItem icon={<LumiAvatar size="sm" />}>Lumi · genie mode</NavItem>
+          <NavItem disabled icon={<LumiAvatar size="sm" />}>{t.mode}</NavItem>
         </div>
       </aside>
 
-      <main className="lumi-main">
+      <main id="main" className="lumi-main" tabIndex={-1}>
         <header className="lumi-top">
           <LumiAvatar src="../../assets/lumi-poster.webp" size="md" ring />
-          <div><h1>Lumi</h1><div className="sub">Golden genie · replies, then hands clear wishes to a human</div></div>
-          <span style={{ marginLeft: "auto" }}><Badge variant="info">AI-native</Badge></span>
+          <div><h1>Lumi</h1><div className="sub">{t.subtitle}</div></div>
+          <button type="button" className="cs-button cs-button--secondary cs-button--sm lumi-language" style={{ marginLeft: "auto" }} onClick={() => setLoc(loc === "en" ? "vi" : "en")}>{loc === "en" ? "Tiếng Việt" : "English"}</button>
+          <Badge variant="info">{t.badge}</Badge>
+          <button type="button" className="cs-button cs-button--secondary cs-button--sm lumi-mobile-new" onClick={newWish}>✦ {t.newWish}</button>
         </header>
 
         <div className="lumi-thread" ref={threadRef}>
           <div className="lumi-thread-inner">
             {msgs.map((m, i) => {
-              if (m.who === "user") return <ChatMessage key={i} role="user">{m.text}</ChatMessage>;
+              if (m.who === "user") return <ChatMessage key={i} role="user" lang={loc}>{m.text}</ChatMessage>;
               if (m.kind === "intro") return (
                 <div key={i}>
-                  <ChatMessage role="lumi" avatar={<LumiAvatar size="sm" />}>
-                    Hello, I’m Lumi. Tell me a wish, and I’ll share plain advice before asking for anything. When a wish is clear, it goes to a real person on the team.
+                  <ChatMessage role="lumi" lang={loc} avatar={<LumiAvatar size="sm" />}>
+                    {t.intro}
                   </ChatMessage>
                   <div style={{ marginTop: 12, marginLeft: 42 }}>
-                    <PromptSuggestions suggestions={["A web app", "An internal tool", "A design system"]} onSelect={ask} />
+                    <PromptSuggestions suggestions={t.suggestions} onSelect={ask} />
                   </div>
                 </div>
               );
               return (
-                <ChatMessage key={i} role="lumi" avatar={<LumiAvatar size="sm" />}>
+                <ChatMessage key={i} role="lumi" lang={loc} avatar={<LumiAvatar size="sm" />}>
                   <div className="lumi-answer-card">
-                    <p>A wish worth granting. For “{m.text}”, I’d start with a two-week shaping sprint — scope, a clickable prototype, and an honest estimate. Shall I hand this to the team?</p>
+                    <p>{t.answerBefore}{m.text}{t.answerAfter}</p>
                     <div className="lumi-answer-meta">
-                      <ConfidenceMeter value={0.82} label="Confidence" />
-                      <AIDisclosureBadge label="AI assisted" details="Draft plan generated by Lumi from your wish, reviewed before handoff." sources={["Services", "Process"]} />
+                      <ConfidenceMeter value={0.82} label={t.confidence} lang={loc} />
+                      <AIDisclosureBadge label={t.disclosure} details={t.details} sources={[t.services, t.process]} lang={loc} />
                     </div>
-                    <CitationList label="Grounded in" items={[{ title: "What we build", source: "Services" }, { title: "The arc of a wish", source: "Process" }]} />
+                    <CitationList label={t.citations} lang={loc} items={[{ title: t.what, source: t.services }, { title: t.arc, source: t.process }]} />
                     <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                      <Button size="sm">Hand to the team</Button>
-                      <Button variant="secondary" size="sm">Keep refining</Button>
+                      <Button size="sm" disabled>{t.handoff}</Button>
+                      <Button variant="secondary" size="sm" onClick={() => composerRef.current?.querySelector("textarea")?.focus()}>{t.refine}</Button>
                     </div>
                   </div>
                 </ChatMessage>
               );
             })}
-            {typing && <ChatMessage role="lumi" avatar={<LumiAvatar size="sm" />}><TypingIndicator /></ChatMessage>}
+            {typing && <ChatMessage role="lumi" lang={loc} avatar={<LumiAvatar size="sm" />}><TypingIndicator lang={loc} /></ChatMessage>}
           </div>
         </div>
 
-        <div className="lumi-compose">
+        <div className="lumi-compose" ref={composerRef}>
           <div className="lumi-compose-inner">
-            <PromptInput onSubmit={ask} placeholder="Make a wish…" sendLabel="Send" />
+            <PromptInput value={draft} onChange={setDraft} onSubmit={ask} placeholder={t.placeholder} sendLabel={t.send} hint={t.hint} lang={loc} />
           </div>
         </div>
       </main>

@@ -14,7 +14,9 @@ mkdir -p scraps/hr-suite-docx
 unzip -O UTF-8 /path/to/Templates.zip -d scraps/hr-suite-docx
 ```
 
-## Inventory (Templates.zip, Th7 2026)
+Giữ bản gốc lâu dài ngoài git. Extractor hiện tại chỉ đọc `scraps/hr-suite-docx/Templates/`; đặt bản input đã review tại đó trước khi chạy. Bản sao ở path khác không được tự tìm. Ghi identity file/archive nguồn và review diff fixture tạo ra.
+
+## Inventory nguồn đã ghi (Templates.zip, Th7 2026)
 
 | Số | Loại |
 |---|---|
@@ -40,8 +42,10 @@ Bảng đầy đủ (tiêu đề EN → path repo) nằm ở bản EN: `docs/hr-
 - **Templates → HR** — mọi instrument HR Suite / HR ops
 - **Templates → Documents** — suite index / style guide / document template
 
-## Trạng thái sync (Th8 2026)
+## Sync đã ghi và phạm vi kiểm tra hiện tại
 
-Zip ngày **2026-07-11**. **Th8 2026: pass đối chiếu DOCX↔DC toàn bộ** — fixture plain text chuẩn hóa cho mọi instrument đã map (cộng hợp đồng nguyên tắc) nằm tại `_audit/fixtures/hr-suite-docx-text/`, kèm CI `_audit/ci/test-docx-source-parity.mjs` (overlap cụm từ ≥85%). Cây `.dc.html` vẫn là instrument sống canonical; file Word không vào git (chỉ giải nén `scraps/`). Sync lại khi counsel/ops xác nhận Word lệch — sửa `templates/vn-*/` (hoặc `doc-*`), chạy lại `node scripts/extract-hr-suite-docx-fixtures.mjs`, và regen CSF Storybook nếu đổi tên (`node scripts/generate-template-stories.mjs`).
+Ngày archive đã ghi là **2026-07-11**; sync **Th8 2026** trước đây là provenance lịch sử, không phải verdict toàn bộ text hiện tại. Fixture text chuẩn hóa đã giữ nằm ở `_audit/fixtures/hr-suite-docx-text/`. `npm run test:docx-source-parity` đối chiếu template hiện tại với fixture mà không mở file Word: chọn tối đa 80 cụm từ đáng kể mỗi fixture, yêu cầu ≥85% khớp, và cho phép fallback từ theo thứ tự với ≥75% từ đủ điều kiện. Text thêm mới và thay đổi trong ngưỡng này vẫn có thể pass. Kết quả pass không chứng minh identity toàn bộ điều khoản/text, fidelity định dạng/export, identity nguồn Word hiện tại hay content-owner acceptance.
+
+Cây `.dc.html` vẫn là instrument sống canonical; file Word không vào git. Khi counsel/ops cho phép cập nhật nguồn, đặt input đã review tại `scraps/hr-suite-docx/Templates/`, sửa thư mục `templates/vn-*/` (hoặc `doc-*`) tương ứng, chạy `node scripts/extract-hr-suite-docx-fixtures.mjs`, và review diff đầy đủ source/template/fixture. Chạy phrase guard cùng kiểm tra render/export áp dụng riêng. Regen CSF Storybook nếu đổi tên (`node scripts/generate-template-stories.mjs`).
 
 Vẫn cần counsel review trước khi dùng thật (instrument do client cung cấp; xem README / SKILL).

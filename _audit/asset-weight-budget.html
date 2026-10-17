@@ -15,7 +15,7 @@
 </style>
 </head><body>
 <h1><b>CyberSkill</b> · Asset-weight budget</h1>
-<p class="sub">Regression budget for the elemental aurora WebPs (<code>assets/aurora-{tho,hoa,thuy,moc,kim}.webp</code>, FIND-016 / FIND-058). Each file ≤&nbsp;300&nbsp;KB and the set ≤&nbsp;1.2&nbsp;MB. Legacy aurora PNGs, the heavy Thổ JPEG wash path, or unexpected aurora WebP names fail. Verdict on <code>window.__assetweight</code>.</p>
+<p class="sub">Regression budget for the elemental aurora WebPs (<code>assets/aurora-{tho,hoa,thuy,moc,kim}.webp</code>, FIND-016 / FIND-058). Each file ≤&nbsp;300&nbsp;KB and the set ≤&nbsp;1.2&nbsp;MB. The eight named legacy PNG paths must return HTTP 404; unavailable resources and use of the heavy Thổ JPEG wash path fail. Unlisted asset names are outside this browser probe. Verdict on <code>window.__assetweight</code>.</p>
 <div id="report">running…</div>
 <script>
 /** Post-FIND-016 / FIND-058 ceilings: WebP decorative washes (target well under 300 KB each). */
@@ -52,20 +52,21 @@ function fmt(n){ return (n/1024).toFixed(1) + ' KB (' + n + ' B)'; }
   out.total = total;
   step('aurora set total ≤ ' + fmt(TOTAL_MAX), total > 0 && total <= TOTAL_MAX, fmt(total));
 
-  // Fail closed if a legacy/extra aurora PNG remains, or if the heavy Thổ JPEG is still used as a wash source of truth.
+  // Require HTTP 404 for each named legacy PNG path; check the Thổ wash CSS separately.
   const EXTRA_PNG = ['aurora-hoa.png','aurora-thuy.png','aurora-moc.png','aurora-kim.png','aurora-tho.png','aurora-gold.png','aurora.png','aurora-wash.png'];
   for (const name of EXTRA_PNG) {
     try {
       const r = await fetch('../assets/' + name, { cache: 'no-store' });
-      if (r.ok) {
-        const buf = await r.arrayBuffer();
-        if (buf.byteLength > 0) step('no legacy/unexpected ' + name, false, 'present (' + fmt(buf.byteLength) + ')');
-        else step('no legacy/unexpected ' + name, true, '');
+      if (r.status === 404) {
+        step('no legacy/unexpected ' + name, true, 'HTTP 404');
+      } else if (!r.ok) {
+        step('no legacy/unexpected ' + name, false, 'HTTP ' + r.status);
       } else {
-        step('no legacy/unexpected ' + name, true, 'absent');
+        const buf = await r.arrayBuffer();
+        step('no legacy/unexpected ' + name, false, 'present (' + fmt(buf.byteLength) + ')');
       }
     } catch (e) {
-      step('no legacy/unexpected ' + name, true, 'absent');
+      step('no legacy/unexpected ' + name, false, String(e).slice(0, 80));
     }
   }
   // FIND-058 — wash CSS must reference aurora-tho.webp, not aurora-gold.jpg.

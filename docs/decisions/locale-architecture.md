@@ -22,7 +22,7 @@ Keep **Language** as the product axis. Locale values are **BCP-47 primary langua
    ```
 2. **Required:** every registered component keeps `en` + `vi` with identical key sets (Vietnamese-first doctrine; `bilingual-parity` unchanged floor).
 3. **Optional spike locales** (today: `ja`) may add a third table. When present, keys must match `en` and values must be non-empty.
-4. `resolveLang` normalizes props / `[lang]` / `<html lang>` to a primary subtag. Empty / unset → **`vi`**. Display labels (`Tiếng Việt`, `English`) still resolve.
+4. `resolveLang` normalizes language values to a primary subtag and resolves an explicit prop → nearest DOM `[lang]` scope → document language → **`vi`**. Empty and whitespace-only props are absent, so inherited language changes remain observable. Distinct primary subtags remain distinct: `jam`, `vif` and `ena` do not resolve to `ja`, `vi` or `en`; a missing translation table follows the documented fallback order. Display labels (`Tiếng Việt`, `English`) still resolve. Delayed component roots resolve when mounted; portals inherit their destination DOM scope.
 5. `tr` / `makeT` lookup order: requested locale → `en` → `vi` → key string. Missing spike copy never breaks EN·VI callers.
 6. Plural / ICU message forms and region variants (`vi-VN` vs marketing `vi-US`) are **out of scope** for this spike; reopen via a follow-on ADR when needed.
 

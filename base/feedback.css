@@ -4,10 +4,10 @@
 .cs-badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--cs-font-family-ui); font-size: var(--cs-font-size-xs); font-weight: 700; line-height: 1; padding: 4px 9px; border-radius: var(--cs-radius-full); text-transform: uppercase; letter-spacing: 0.04em; background: var(--cs-color-surface-raised); color: var(--cs-color-text-accent); border: 1px solid var(--cs-color-border-default); }
 .cs-badge--solid { border-color: transparent; color: #fff; /* on-brand-umber ink (allowlisted; text-inverse flips in dark) */ background: var(--cs-color-brand-umber); }
 .cs-badge--ochre { background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); border-color: transparent; }
-.cs-badge--success { background: var(--cs-color-semantic-success); color: var(--cs-color-text-inverse); border-color: transparent; }
-.cs-badge--danger { background: var(--cs-color-semantic-danger); color: var(--cs-color-text-inverse); border-color: transparent; }
-.cs-badge--warning { background: var(--cs-color-semantic-warning); color: var(--cs-color-text-inverse); border-color: transparent; }
-.cs-badge--info { background: var(--cs-color-semantic-info); color: var(--cs-color-text-inverse); border-color: transparent; }
+.cs-badge--success { background: var(--cs-color-semantic-success); color: var(--cs-color-semantic-success-fg); border-color: transparent; }
+.cs-badge--danger { background: var(--cs-color-semantic-danger); color: var(--cs-color-semantic-danger-fg); border-color: transparent; }
+.cs-badge--warning { background: var(--cs-color-semantic-warning); color: var(--cs-color-semantic-warning-fg); border-color: transparent; }
+.cs-badge--info { background: var(--cs-color-semantic-info); color: var(--cs-color-semantic-info-fg); border-color: transparent; }
 .cs-badge__dot { inline-size: 7px; block-size: 7px; border-radius: 50%; background: currentColor; }
 
 /* Tag / Chip — removable */
@@ -22,26 +22,26 @@
 .cs-alert__body { margin: 0; color: var(--cs-color-text-muted); font-size: var(--cs-font-size-sm); }
 .cs-alert__dismiss { appearance: none; border: 0; background: transparent; color: var(--cs-color-text-muted); cursor: pointer; font-size: var(--cs-font-size-md, 1.125rem); line-height: 1; padding: 0 2px; border-radius: var(--cs-radius-sm); }
 .cs-alert__dismiss:hover { color: var(--cs-color-text-primary); }
-.cs-alert__dismiss:focus-visible { outline: 2px solid var(--cs-color-focus-ring, var(--cs-accent-bright)); outline-offset: 2px; }
+.cs-alert__dismiss:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-alert--info { border-inline-start: 4px solid var(--cs-color-semantic-info); }
-.cs-alert--info .cs-alert__icon { color: var(--cs-color-semantic-info); }
+.cs-alert--info .cs-alert__icon { color: var(--cs-color-semantic-info-text); }
 .cs-alert--success { border-inline-start: 4px solid var(--cs-color-semantic-success); }
-.cs-alert--success .cs-alert__icon { color: var(--cs-color-semantic-success); }
+.cs-alert--success .cs-alert__icon { color: var(--cs-color-semantic-success-text); }
 .cs-alert--warning { border-inline-start: 4px solid var(--cs-color-semantic-warning); }
-.cs-alert--warning .cs-alert__icon { color: var(--cs-color-semantic-warning); }
+.cs-alert--warning .cs-alert__icon { color: var(--cs-color-semantic-warning-text); }
 .cs-alert--danger { border-inline-start: 4px solid var(--cs-color-semantic-danger); }
-.cs-alert--danger .cs-alert__icon { color: var(--cs-color-semantic-danger); }
+.cs-alert--danger .cs-alert__icon { color: var(--cs-color-semantic-danger-text); }
 
 /* Toast */
 .cs-toast-stack { position: fixed; inset-block-end: 20px; inset-inline-end: 20px; z-index: var(--cs-depth-toast); display: grid; gap: 10px; max-inline-size: min(380px, calc(100vw - 40px)); }
 .cs-toast { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: start; padding: 12px 14px; border-radius: var(--cs-radius-md); background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); box-shadow: var(--cs-shadow-md); color: var(--cs-color-text-primary); animation: cs-toast-in var(--cs-duration-base) var(--cs-ease-entrance); }
 .cs-toast__icon { color: var(--cs-color-text-accent); }
 .cs-toast--default { border-inline-start: 4px solid var(--cs-color-semantic-info); }
-.cs-toast--default .cs-toast__icon { color: var(--cs-color-semantic-info); }
+.cs-toast--default .cs-toast__icon { color: var(--cs-color-semantic-info-text); }
 .cs-toast--success { border-inline-start: 4px solid var(--cs-color-semantic-success); }
-.cs-toast--success .cs-toast__icon { color: var(--cs-color-semantic-success); }
+.cs-toast--success .cs-toast__icon { color: var(--cs-color-semantic-success-text); }
 .cs-toast--danger { border-inline-start: 4px solid var(--cs-color-semantic-danger); }
-.cs-toast--danger .cs-toast__icon { color: var(--cs-color-semantic-danger); }
+.cs-toast--danger .cs-toast__icon { color: var(--cs-color-semantic-danger-text); }
 .cs-toast__title { font-weight: 700; font-size: var(--cs-font-size-sm); }
 .cs-toast__body { font-size: var(--cs-font-size-sm); color: var(--cs-color-text-muted); margin-block-start: 2px; }
 .cs-toast__close { border: 0; background: transparent; cursor: pointer; color: var(--cs-color-text-muted); padding: 0; display: grid; place-items: center; }
@@ -49,13 +49,12 @@
 @media (prefers-reduced-motion: reduce) { .cs-toast { animation: none; } }
 
 /* Spinner */
-.cs-spinner { display: inline-block; inline-size: 20px; block-size: 20px; border-radius: 50%; border: 2.5px solid color-mix(in oklab, var(--cs-color-brand-umber) 22%, transparent); border-top-color: var(--cs-color-brand-umber); animation: cs-spin 0.62s linear infinite; }
-[data-theme="dark"] .cs-spinner { border-color: color-mix(in oklab, var(--cs-color-brand-ochre) 26%, transparent); border-top-color: var(--cs-color-brand-ochre); }
+.cs-spinner { display: inline-block; inline-size: 20px; block-size: 20px; border-radius: 50%; border: 2.5px solid color-mix(in oklab, var(--cs-color-brand-umber) 22%, transparent); border-color: var(--_cs-light, color-mix(in oklab, var(--cs-color-brand-umber) 22%, transparent)) var(--_cs-dark, color-mix(in oklab, var(--cs-color-brand-ochre) 26%, transparent)); border-top-color: var(--_cs-light, var(--cs-color-brand-umber)) var(--_cs-dark, var(--cs-color-brand-ochre)); animation: cs-spin 0.62s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .cs-spinner { animation-duration: 1.5s; } }
 
 /* Progress bar */
 .cs-progress { inline-size: 100%; block-size: 10px; border-radius: var(--cs-radius-full); background: var(--cs-color-surface-raised); overflow: hidden; }
-.cs-progress__fill { block-size: 100%; border-radius: inherit; background: var(--cs-color-brand-ochre); transition: inline-size var(--cs-duration-slow) var(--cs-ease-standard); }
+.cs-progress__fill { display: block; block-size: 100%; border-radius: inherit; background: var(--cs-color-brand-ochre); transition: inline-size var(--cs-duration-slow) var(--cs-ease-standard); }
 .cs-progress--umber .cs-progress__fill { background: var(--cs-color-brand-umber); }
 .cs-progress--success .cs-progress__fill { background: var(--cs-color-semantic-success); }
 
@@ -65,8 +64,3 @@
 .cs-skeleton--circle { border-radius: 50%; }
 @keyframes cs-shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (prefers-reduced-motion: reduce) { .cs-skeleton { animation: none; } }
-
-/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
-@media (prefers-color-scheme: dark) {
-  [data-theme="system"] .cs-spinner { border-color: color-mix(in oklab, var(--cs-color-brand-ochre) 26%, transparent); border-top-color: var(--cs-color-brand-ochre); }
-}

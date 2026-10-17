@@ -34,7 +34,7 @@ function findNode(nodes, key) {
   return null;
 }
 
-function seedOpen(nodes, defaultOpen, map = {}) {
+function seedOpen(nodes, defaultOpen, map = Object.create(null)) {
   for (const n of nodes) {
     const kids = n.children || [];
     if (kids.length) {
@@ -46,18 +46,19 @@ function seedOpen(nodes, defaultOpen, map = {}) {
 }
 
 /** CyberSkill Tree — expandable hierarchy with APG tree keyboard (roving tabindex + arrows). nodes: {key,label,children[]}. Single select via onSelect. */
-export function Tree({ nodes = [], selected, onSelect, defaultOpen = false, className }) {
+export function Tree({ nodes = [], selected, onSelect, defaultOpen = false, className, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy }) {
   const [openMap, setOpenMap] = React.useState(() => seedOpen(nodes, defaultOpen));
   const [focusKey, setFocusKey] = React.useState(() => {
-    if (selected && findNode(nodes, selected)) return selected;
+    if (selected != null && findNode(nodes, selected)) return selected;
     return nodes[0] ? nodes[0].key : null;
   });
-  const itemRefs = React.useRef({});
+  const itemRefs = React.useRef(new Map());
+  const treeId = React.useId();
 
   React.useEffect(() => {
     setOpenMap((prev) => {
       const next = seedOpen(nodes, defaultOpen);
-      for (const k of Object.keys(next)) if (k in prev) next[k] = prev[k];
+      for (const k of Object.keys(next)) if (Object.hasOwn(prev, k)) next[k] = prev[k];
       return next;
     });
   }, [nodes, defaultOpen]);
@@ -65,21 +66,23 @@ export function Tree({ nodes = [], selected, onSelect, defaultOpen = false, clas
   const visible = React.useMemo(() => collectVisible(nodes, openMap), [nodes, openMap]);
   React.useEffect(() => {
     if (!visible.length) { setFocusKey(null); return; }
-    if (!focusKey || !visible.some((n) => n.key === focusKey)) setFocusKey(visible[0].key);
+    if (focusKey == null || !visible.some((n) => n.key === focusKey)) setFocusKey(visible[0].key);
   }, [visible, focusKey]);
 
-  const toggle = (key) => setOpenMap((m) => ({ ...m, [key]: !m[key] }));
+  const toggle = (key) => setOpenMap((m) => Object.assign(Object.create(null), m, { [key]: !m[key] }));
 
   const focusItem = (key) => {
     setFocusKey(key);
     requestAnimationFrame(() => {
-      const el = itemRefs.current[key];
+      const el = itemRefs.current.get(key);
       if (el) el.focus();
     });
   };
 
   const onKeyDown = (e, key) => {
+    if (e.target !== e.currentTarget) return;
     if (e.nativeEvent.isComposing || e.keyCode === 229) return;
+    if (["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End", "Enter", " "].includes(e.key)) e.stopPropagation();
     const idx = visible.findIndex((n) => n.key === key);
     if (idx < 0) return;
     const node = visible[idx];
@@ -119,26 +122,25 @@ export function Tree({ nodes = [], selected, onSelect, defaultOpen = false, clas
   const renderNodes = (list, depth) => list.map((n) => {
     const kids = n.children || [];
     const open = !!openMap[n.key];
+    const selectNode = (e) => { e.stopPropagation(); focusItem(n.key); onSelect && onSelect(n.key, n); if (kids.length) toggle(n.key); };
     return (
-      <li key={n.key} role="treeitem" aria-expanded={kids.length ? open : undefined} aria-selected={selected === n.key}>
-        <span className={cx("cs-tree__row", selected === n.key && "is-selected")} style={{ paddingInlineStart: depth * 18 + 6 }}>
+      <li key={n.key} role="treeitem" aria-expanded={kids.length ? open : undefined} aria-selected={selected === n.key}
+        aria-labelledby={treeId + "-" + encodeURIComponent(n.key)}
+        tabIndex={focusKey === n.key ? 0 : -1}
+        ref={(el) => { if (el) itemRefs.current.set(n.key, el); else itemRefs.current.delete(n.key); }}
+        onKeyDown={(e) => onKeyDown(e, n.key)}
+        onFocus={(e) => { if (e.target === e.currentTarget) setFocusKey(n.key); }}>
+        <span className={cx("cs-tree__row", selected === n.key && "is-selected")} style={{ paddingInlineStart: depth * 18 + 6 }}
+          onClick={selectNode}>
           {kids.length ? (
-            <button type="button" className="cs-tree__twist" aria-hidden="true" tabIndex={-1} onClick={() => toggle(n.key)}>{open ? "▾" : "▸"}</button>
+            <span className="cs-tree__twist" aria-hidden="true" onClick={(e) => { e.stopPropagation(); focusItem(n.key); toggle(n.key); }}>{open ? "▾" : "▸"}</span>
           ) : <span className="cs-tree__twist" aria-hidden="true" />}
-          <button
-            type="button"
-            className="cs-tree__label"
-            tabIndex={focusKey === n.key ? 0 : -1}
-            ref={(el) => { itemRefs.current[n.key] = el; }}
-            onClick={() => { onSelect && onSelect(n.key, n); if (kids.length) toggle(n.key); }}
-            onKeyDown={(e) => onKeyDown(e, n.key)}
-            onFocus={() => setFocusKey(n.key)}
-          >{n.label}</button>
+          <span id={treeId + "-" + encodeURIComponent(n.key)} className="cs-tree__label" onClick={selectNode}>{n.label}</span>
         </span>
         {kids.length && open ? <ul role="group">{renderNodes(kids, depth + 1)}</ul> : null}
       </li>
     );
   });
 
-  return <ul role="tree" className={cx("cs-tree", className)}>{renderNodes(nodes, 0)}</ul>;
+  return <ul role="tree" aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} className={cx("cs-tree", className)}>{renderNodes(nodes, 0)}</ul>;
 }

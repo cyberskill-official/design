@@ -1,3 +1,4 @@
+/** Visible action labels preserve numeric zero, including the accessible action name. Null, false and empty strings omit the label span. */
 import type { ReactNode } from "react";
 
 /** Horizontal action bar (APG toolbar: arrow-key roving among controls).

@@ -27,7 +27,7 @@ function Demo() {
     <div className="cols">
       <div>
         <div className="lbl">Popover (open)</div>
-        <Popover open={true} onOpenChange={()=>{}} trigger={<Button variant="secondary" size="sm">Filter ▾</Button>}>
+        <Popover aria-label="Status" open={true} onOpenChange={()=>{}} trigger={<Button variant="secondary" size="sm">Filter ▾</Button>}>
           <RadioGroup legend="Status" value={s} onChange={setS} options={[{value:"active",label:"In progress"},{value:"done",label:"Shipped"},{value:"hold",label:"Blocked"}]} />
         </Popover>
       </div>

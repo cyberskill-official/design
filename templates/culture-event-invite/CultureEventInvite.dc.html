@@ -12,11 +12,24 @@
 <helmet>
 <script src="./ds-base.js"></script>
 <script src="../../image-slot.js"></script>
+<style>
+/* Keep the authoring hint above image overlays and clear of the template copy. */
+#cs-culture-hero[data-authoring]::part(empty){
+  inset:auto var(--cs-space-3) var(--cs-space-2) auto;z-index:3;
+  width:264px;max-width:calc(100% - 2 * var(--cs-space-3));gap:2px;
+  min-height:44px;padding:var(--cs-space-2);
+  color:var(--cs-color-text-primary);background:var(--cs-color-surface-panel);
+  border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-md);
+}
+#cs-culture-hero[data-authoring]{--image-slot-hint-color:var(--cs-color-text-primary)}
+div:has(> #cs-culture-hero[data-authoring]:not([data-filled])){padding-bottom:112px!important}
+@media print{#cs-culture-hero[data-authoring]::part(empty){display:none}div:has(> #cs-culture-hero[data-authoring]:not([data-filled])){padding-bottom:34px!important}}
+</style>
 </helmet>
 <div lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" style="background:#efe6d8;padding:32px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary);min-height:100vh">
   <div style="max-width:600px;margin:0 auto;background:var(--cs-color-surface-panel);border-radius:16px;overflow:hidden;box-shadow:var(--cs-shadow-sm)">
     <div style="position:relative;overflow:hidden;background:var(--cs-accent-strong);padding:34px 32px;text-align:center;color:var(--cs-accent-on-strong)">
-      <image-slot id="cs-culture-hero" shape="rect" placeholder="Drop an event photo" style="position:absolute;inset:0"></image-slot>
+      <image-slot id="cs-culture-hero" shape="rect" lang="{{ langAttr }}" placeholder="{{ imagePlaceholder }}" placeholder-vi="Thả ảnh sự kiện" style="position:absolute;inset:0"></image-slot>
       <div class="cs-aurora-wash" style="position:absolute;inset:0;opacity:0.5;pointer-events:none"></div>
       <div style="position:absolute;inset:0;pointer-events:none;background:rgba(42,26,13,0.5)"></div>
       <div style="position:relative;display:inline-flex;align-items:center;gap:10px;margin-bottom:14px"><x-import component-from-global-scope="CyberSkillDS.Logo" size="30" hint-size="30px,30px"></x-import><span style="font-weight:800;font-size:16px">CyberSkill · People</span></div>
@@ -40,7 +53,7 @@
         <div style="padding:13px 16px"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--cs-color-text-muted)">Bring</div><div style="font-weight:700;font-size:13.5px;margin-top:3px">Family welcome</div></div>
       </div>
       <p style="font-size:14.5px;line-height:1.6;margin:0 0 22px">Food and lanterns on us. Demo hour is open to anything — a feature, a side project, a song. Five minutes each, warm crowd guaranteed.</p>
-      <div style="text-align:center"><a href="#" style="display:inline-block;background:var(--cs-accent-bright);color:var(--cs-accent-on);font-weight:700;font-size:15px;text-decoration:none;padding:13px 26px;border-radius:var(--cs-radius-full)">RSVP by 18 Sep →</a></div>
+      <div style="text-align:center"><a href="#" style="display:inline-block;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);font-weight:700;font-size:15px;text-decoration:none;padding:13px 26px;border-radius:var(--cs-radius-full)">RSVP by 18 Sep →</a></div>
       </sc-if>
       <sc-if value="{{ isVN }}"><div lang="vi" style="display:contents">
       <sc-if value="{{ isBoth }}"><div style="border-top:1px solid var(--cs-color-border-default);margin:24px 0 22px"></div></sc-if>
@@ -50,7 +63,7 @@
         <div style="padding:13px 16px"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--cs-color-text-muted)">Mang theo</div><div style="font-weight:700;font-size:13.5px;margin-top:3px">Cả gia đình</div></div>
       </div>
       <p style="font-size:14.5px;line-height:1.65;margin:0 0 22px">Đồ ăn và lồng đèn studio lo. Giờ demo mở cho mọi thứ — một tính năng, một side project, một bài hát. Mỗi người năm phút, khán giả ấm áp bảo đảm.</p>
-      <div style="text-align:center"><a href="#" style="display:inline-block;background:var(--cs-accent-bright);color:var(--cs-accent-on);font-weight:700;font-size:15px;text-decoration:none;padding:13px 26px;border-radius:var(--cs-radius-full)">Xác nhận trước 18/09 →</a></div>
+      <div style="text-align:center"><a href="#" style="display:inline-block;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);font-weight:700;font-size:15px;text-decoration:none;padding:13px 26px;border-radius:var(--cs-radius-full)">Xác nhận trước 18/09 →</a></div>
       </div></sc-if>
     </div>
     <div style="padding:16px 32px;background:var(--cs-color-surface-raised);font-size:12px;color:var(--cs-color-text-muted);text-align:center">CyberSkill · People · Hiện Thực Hoá Ý Chí</div>
@@ -66,7 +79,7 @@ class Component extends DCLogic {
     const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
 const lang = this.props.language ?? "English";
-    return { langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, isEN: lang === "English" || lang === "Both", isVN: lang === "Tiếng Việt" || lang === "Both", isBoth: lang === "Both" };
+    return { imagePlaceholder: lang === "Both" ? "Drop an event photo / Thả ảnh sự kiện" : lang === "Tiếng Việt" ? "Thả ảnh sự kiện" : "Drop an event photo", langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, isEN: lang === "English" || lang === "Both", isVN: lang === "Tiếng Việt" || lang === "Both", isBoth: lang === "Both" };
   }
 }
 </script>

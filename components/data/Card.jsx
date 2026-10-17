@@ -5,7 +5,7 @@ import { cx } from "../_utils/cx.js";
 export function Card({ interactive = false, flat = false, as, className, children, ...props }) {
   const Tag = as || (interactive ? "button" : "div");
   return (
-    <Tag className={cx("cs-card", flat && "cs-card--flat", interactive && "cs-card--interactive", className)} {...props}>
+    <Tag type={Tag === "button" ? "button" : undefined} className={cx("cs-card", flat && "cs-card--flat", interactive && "cs-card--interactive", className)} {...props}>
       {children}
     </Tag>
   );
@@ -13,8 +13,8 @@ export function Card({ interactive = false, flat = false, as, className, childre
 export function CardHeader({ title, subtitle, children, className, ...props }) {
   return (
     <div className={cx("cs-card__header", className)} {...props}>
-      {title ? <h3 className="cs-card__title">{title}</h3> : null}
-      {subtitle ? <p className="cs-card__subtitle">{subtitle}</p> : null}
+      {(title || title === 0) ? <h3 className="cs-card__title">{title}</h3> : null}
+      {(subtitle || subtitle === 0) ? <p className="cs-card__subtitle">{subtitle}</p> : null}
       {children}
     </div>
   );

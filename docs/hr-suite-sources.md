@@ -14,9 +14,9 @@ mkdir -p scraps/hr-suite-docx
 unzip -O UTF-8 /path/to/Templates.zip -d scraps/hr-suite-docx
 ```
 
-If you keep a long-lived local copy outside git, use any path you like — the mapping table below is the contract.
+Keep long-lived originals outside git. The current extractor reads only `scraps/hr-suite-docx/Templates/`; place the reviewed input copy there before running it. A copy elsewhere is not discovered automatically. Record source file/archive identity and review the resulting fixture diff.
 
-## Inventory (Templates.zip, Jul 2026)
+## Recorded source inventory (Templates.zip, Jul 2026)
 
 | Count | Kind |
 |---|---|
@@ -84,8 +84,10 @@ All **37** Employment Suite `templates/vn-*` folders from the zip map 1:1 to a z
 - **Templates → HR** — every HR Suite / HR ops instrument iframe
 - **Templates → Documents** — suite index / style guide / document template
 
-## Sync status (Aug 2026)
+## Recorded sync and current check scope
 
-Zip dated **2026-07-11**. **Aug 2026 full DOCX↔DC text pass** completed: normalized plain-text fixtures for every mapped instrument (plus framework agreement) live under `_audit/fixtures/hr-suite-docx-text/`, with CI guard `_audit/ci/test-docx-source-parity.mjs` (substantial phrase overlap ≥85%). Repo `.dc.html` trees remain the canonical live instruments; Word files stay out of git (`scraps/` unpack only). Re-sync when counsel or ops confirm Word content drifted — update the matching `templates/vn-*/` (or `doc-*`) folder, refresh the fixture via `node scripts/extract-hr-suite-docx-fixtures.mjs`, and regenerate Storybook CSF if names change (`node scripts/generate-template-stories.mjs`).
+The recorded archive date is **2026-07-11**; the earlier **Aug 2026** sync is historical provenance, not a current whole-text verdict. Retained normalized text fixtures live under `_audit/fixtures/hr-suite-docx-text/`. `npm run test:docx-source-parity` checks the current templates against those fixtures without opening Word files: it selects at most 80 significant phrases per fixture, requires ≥85% matches, and allows an ordered-word fallback with ≥75% of eligible words. Added text and changes within that tolerance can pass. A passing result does not prove complete clause/text identity, formatting/export fidelity, current Word-source identity or content-owner acceptance.
+
+Repo `.dc.html` trees remain the canonical live instruments; Word files stay out of git. When counsel or ops authorize a source update, place the reviewed inputs in `scraps/hr-suite-docx/Templates/`, update the matching `templates/vn-*/` (or `doc-*`) folder, run `node scripts/extract-hr-suite-docx-fixtures.mjs`, and review the complete source/template/fixture diff. Run the phrase guard plus the applicable rendered/export checks separately. Regenerate Storybook CSF if names change (`node scripts/generate-template-stories.mjs`).
 
 Counsel review remains required before real-world use (client-supplied instruments; see README / SKILL).

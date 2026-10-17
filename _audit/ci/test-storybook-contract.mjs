@@ -23,9 +23,13 @@ const mainPath = existsSync(join(root, '.storybook/main.js'))
   ? join(root, '.storybook/main.js')
   : join(root, '.storybook/main.cjs');
 const main = readFileSync(mainPath, 'utf8');
+const { default: config } = await import('../../.storybook/main.js');
+const { loadPublicPolicy } = await import('../../scripts/public-site.mjs');
+const publicFiles = loadPublicPolicy(root);
+const serves = name => [...publicFiles.keys()].some(path => path.startsWith(name + '/')) && config.staticDirs.some(entry => entry.to === '/' && existsSync(join(entry.from,name)));
 assert(main.includes('../stories/'), 'stories glob');
-assert(main.includes('guidelines') || main.includes('/guidelines'), 'staticDirs include guidelines for Maintainer iframes');
-assert(main.includes('_audit') || main.includes('/_audit'), 'staticDirs include _audit for Status iframe');
+assert(serves('guidelines'), 'staticDirs include guidelines for Maintainer iframes');
+assert(serves('_audit'), 'staticDirs include _audit for Status iframe');
 assert(main.includes('@storybook/addon-docs') || main.includes('addon-docs'), 'SB10 addon-docs');
 assert(main.includes('@storybook/addon-a11y') || main.includes('addon-a11y'), 'addon-a11y');
 assert(!main.includes('addon-essentials'), 'no addon-essentials (removed in SB10)');
@@ -56,8 +60,8 @@ for (const pack of ['light', 'dark', 'system']) {
 const themeToolbarValueCount = (themeToolbarBlock[1].match(/value:\s*['"][^'"]+['"]/g) || []).length;
 assert(themeToolbarValueCount === 3, `Theme toolbar has exactly 3 values, got ${themeToolbarValueCount}`);
 assert(
-  /theme === 'dark' \|\| theme === 'system'|theme === "dark" \|\| theme === "system"/.test(preview),
-  'decorator sets data-theme for dark and system',
+  /root\.setAttribute\(['"]data-theme['"], theme\)/.test(preview) && /data-theme=\{theme\}/.test(preview),
+  'decorator explicitly applies every selected theme, including the light reset',
 );
 
 /** Canonical 15 packs — same order/keys as atomic-view, tokens.elements, template EL maps. */
@@ -139,7 +143,7 @@ assert(previewSort.includes("'Library'") && previewSort.includes("'Doctrine'"), 
 assert(previewSort.includes("'Templates'") && previewSort.includes("'Pages'"), 'storySort has public Templates + Pages');
 assert(previewSort.includes("'Maintainer'"), 'storySort keeps Maintainer for gates');
 assert(!previewSort.includes("'Guidelines'"), 'Guidelines merged into Docs');
-assert(main.includes("from: '../docs'") || main.includes('to: \'/docs\''), 'staticDirs publish docs/');
+assert(serves('docs'), 'staticDirs publish docs/');
 
 const statusStory = readFileSync(join(root, 'stories/Status/Status.stories.jsx'), 'utf8');
 assert(statusStory.includes('/_audit/run.html'), 'Status story embeds run.html');

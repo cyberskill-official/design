@@ -1,77 +1,59 @@
 ---
 name: cyberskill-design
-user-invocable: true
+description: Build and maintain CyberSkill interfaces and branded artifacts using this repository's components, tokens, assets and templates. Use for CyberSkill design-system consumption or revision across static HTML, React and supported document workflows.
+---
 
-Read the `README.md` file within this skill, and explore the other available files.
-If creating visual artifacts (slides, mocks, throwaway prototypes, etc), copy assets out and create static HTML files for the user to view. If working on production code, you can copy assets and read the rules here to become an expert in designing with this brand.
-If the user invokes this skill without any other guidance, ask them what they want to build or design, ask some questions, and act as an expert designer who outputs HTML artifacts _or_ production code, depending on the need.
+# CyberSkill design
 
-## Fast orientation
+Read [README.md](README.md) for brand and system orientation, then load only the references relevant to the requested work. This file is the shared design-system entrypoint for agent hosts; [docs/doctrine.md](docs/doctrine.md) governs expansion, verification and immutables. [docs/consuming.md](docs/consuming.md) defines consumer setup. Component source, declarations and adjacent `.prompt.md` files establish implementation details; inspect all three when changing a public contract.
 
-**Which front door?**
+For repository maintenance, follow the repository-only `AGENTS.md`, the active revision plan and documented npm/browser checks. CyberOS orchestration and its two acceptance gates were retired by operator decision on 2026-10-08; no local CyberOS installation is required. Preserve product visual review and manual accessibility acceptance. Never push, deploy or merge without explicit operator instruction.
 
-| Capability | Start here | Runtime |
-|---|---|---|
-| **DC-capable authoring** (Design Components compiler present — e.g. Claude Design, or a full clone with the compiler) | this `SKILL.md` → `README.md` | `styles.css` + bundler `@cyberskill/design` (`_esm/react.mjs`) / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). Optional `*.dc.html` templates. |
-| **Static / open-spec consumers** (e.g. Google Stitch, DESIGN.md readers, plain HTML) | root `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` | `styles.css` + `.cs-*` / kitchen-sink / `examples/static-hello/`. **Never** treat `templates/**/*.dc.html` as source of truth (no tweaks / `__dcSetProps` / DC runtime outside a compiler session). |
-| **Bundler React (Next/Vite/SSR)** | `docs/consuming.md` | `import { Button } from "@cyberskill/design"` + `styles.css`. React is a peer. |
-| **Maintainers** | `docs/doctrine.md` | Expansion + verification; Storybook Docs at `design.cyberskill.world`. |
+## Choose the supported path
 
-Dual-path detail: `docs/consuming.md`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.7.2**; no CHANGELOG).
+This root file is the shared repository router. Discoverable task skills live under `.agents/skills/` and `.cursor/skills/` and route here. For skill maintenance, run `npm run test:repository-skills` to validate YAML metadata, linked local resources and adapter parity. These checks do not prove successful loading or behavior in every agent host.
 
-- **`README.md`** — the entrance + design guide + manifest: anchor immutables, CONTENT FUNDAMENTALS (voice = warm/direct/honest/respectful, Vietnamese-first, the "wish" metaphor), VISUAL FOUNDATIONS, ICONOGRAPHY, and the component/kit index. Read it first.
+| Task | Source and runtime |
+|---|---|
+| Static HTML, including Stitch | [DESIGN.md](DESIGN.md), [styles.css](styles.css), `.cs-*` classes and [kitchen-sink](templates/kitchen-sink.html). Stitch/static consumers must not treat `*.dc.html` as source of truth; those templates require the Design Components compiler. |
+| Bundler React, including Next/Vite/SSR | `@cyberskill/design` resolves to [_esm/react.mjs](_esm/react.mjs), which imports source JSX and uses peer React. Follow [consumer setup](docs/consuming.md), including transpilation and CSS loading. |
+| Legacy no-build browser | [_esm/cs.mjs](_esm/cs.mjs) loads [_ds_bundle.js](_ds_bundle.js). Resolve `window.CyberSkillDesignSystem_*` by prefix, never a fixed compiler suffix. This entry is browser-only, not an SSR entry. |
+| DC authoring and exports | Use the selected template's source and supporting files only after confirming the compiler/export tools are available. See [export conventions](docs/conventions.md). A clone alone does not establish compiler availability. |
+| System revision | [Doctrine](docs/doctrine.md), [conventions](docs/conventions.md), [audit instructions](_audit/README.md) and the active task specification. Preserve source/generated-artifact relationships. |
 
-- **`styles.css`** — the single stylesheet to link. It `@import`s all tokens (`tokens/`) and base styles (`base/`, incl. the `.cs-*` component classes and the Liquid Glass surfaces). Link this one file and you have the whole system.
+Generated [DESIGN.md](DESIGN.md) is refreshed by `npm run build:design-md`; do not hand-edit it. CSS tokens live in [tokens](tokens/); machine exports include `tokens.json`, `tokens.js` and `tokens.dtcg.json`. Their presence does not establish complete format conformance or native-platform support: verify the required value types, axes and consuming toolchain. Use [VERSION](VERSION) and [release notes](docs/release-notes.md) for release identity rather than copying version/count claims into instructions.
 
-- **`_esm/react.mjs`** — bundler-native React entry (default `exports["."]` / `@cyberskill/design/react`): re-exports every component from source JSX; React is a **peerDependency**. Use with Next/Vite (`transpilePackages`). Still link `styles.css`.
+## Design constraints
 
-- **`_esm/cs.mjs`** — browser / no-build legacy (`exports["./legacy"]`): self-ensures React, side-loads `_ds_bundle.js`, re-exports every component. Bundle path: `_ds_bundle.js` → resolve `window.CyberSkillDesignSystem_*` **by prefix**, never hardcode the compiler suffix. **Not for Next/SSR.**
+- Preserve Umber `#45210E`, Ochre `#F4BA17`, the official logo assets, golden Lumi, and the bilingual slogan: “Turn Your Will Into Real” / “Hiện Thực Hoá Ý Chí”.
+- Theme × Element × Language × Style are intended independent axes; defaults are `light · tho · vi · liquid-glass`. Test actual scope composition for the requested use. Use the 10-role `--cs-accent-*` pack including `on-strong`; product assignments are in [docs/products.md](docs/products.md). Semantic statuses and the composite focus indicator (text-primary contour + ochre halo) are never elemental.
+- Liquid-glass is the sole style pack. Reuse existing components and tokens before introducing a new visual vocabulary or framework. Generic skills bundled under `.cursor/skills` do not override this contract or authorize framework installation.
+- Keep the voice warm, direct, honest and respectful. UI is Vietnamese-first with EN/VI pairs and preserved diacritics. Check the documented language scope of business templates before claiming bilingual coverage.
+- Consume font-family tokens for Be Vietnam Pro, JetBrains Mono and the opt-in display face; use official assets rather than recreating them. Copy required resources with standalone artifacts and verify their relative paths offline.
+- Preserve focus visibility, at least 44px touch targets, reduced-motion and contrast preferences; body text must meet APCA Lc ≥ 75. Verify contrast on actual surfaces and interaction states. A theme name or passing token matrix is not proof that every rendered pairing passes.
 
-- **`tokens/`** — every design decision as a CSS custom property (`--cs-*`): colors, type, spacing, elevation/glass, motion, component tokens, **`elements.css`** — the Ngũ Hành product-identity packs (`data-cs-element="kim|moc|thuy|hoa|tho"` + `data-cs-variant`; role tokens `--cs-accent-*` (10-role pack incl. `on-strong`)) — Grammar: **Theme × Element × Language × Style** are independent; state them or accept defaults (`light · tho · vi · liquid-glass`; set `lang="en"` for EN surfaces; Theme may be `system` for OS `prefers-color-scheme`). Style pack is liquid-glass (sole pack; absent ≡ default). Generated machine-readable exports live at **`tokens/tokens.json`**, **`tokens/tokens.js`** (ESM), and **`tokens/tokens.dtcg.json`** (**W3C DTCG**) — root tokens grouped by category, plus theme/element override maps — for native/mobile/tooling consumers. The root **`DESIGN.md`** is the generated single-file open-spec view of the same source (doctrine + every token value + inventory; regenerate via `npm run build:design-md`, never hand-edit — the `design-md-parity` gate pins it).
+## Verify the delivered scope
 
-- **`docs/`** — `doctrine.md` (expansion + verification), `conventions.md` (authoring rules — the four axes: Theme × Element × Language × Style — plus the decision log), `products.md` (element registry, **locked**), `contrast-report.md` (generated APCA sweep), `consuming.md` (DC-capable vs static dual path). Read them on the live Storybook **Docs** sidebar (`design.cyberskill.world`) or via `docs/viewer.html`.
+For repository changes, run the relevant targeted regressions and `npm run test:unit`; follow [_audit/README.md](_audit/README.md) for browser gates and pixel-check prerequisites. Apply doctrine's whole-set checks when a shared contract changes. Identify tested source/runtime, state, language, theme and viewport coverage, plus any unavailable tools or manual checks.
 
-- **`components/`** — 122 exports across 8 groups — Core (Button, Dialog), Forms, Data/Layout, Feedback, Navigation, Overlays, AI-native, and Brand (Logo, Icon, LumiAvatar). Each has a `.d.ts` contract and a `.prompt.md`. In production compose these; in static HTML use the `.cs-*` classes from `styles.css`.
+For a consumer artifact, exercise its actual imports, referenced assets, interactions and export path. Validate exported output separately from the source view. Compiler-only tools such as `gen_pptx` and `super_inline_html` are conditional capabilities, not assumed commands. Do not infer editable PPTX/DOCX, offline HTML, native, Figma or deployed support from a scaffold or file extension.
 
-- **`templates/`** — ~85 copyable starting points (**Design Components** — DC-capable authoring only) spanning the full operations map: **product** — marketing-page, dashboard, slide-deck, auth, settings, app-shell, article, email; **teams** — Tech (release-notes, incident-report, rfc, retro), Team (meeting-agenda), HR (announcement, offboarding, interview-kit, performance-review, PIP⚠), Board (report, deck, memo, minutes, resolution⚠, investor-update), Marketing (brief, newsletter, launch, case-study, press-release, social-kit), Culture (event-invite), Delivery (status-email, kickoff, change-note, runbook, qbr-deck); **business** — Legal (msa, sow), Finance (invoice, quote, expense-report, dunning-email), Sales (one-pager, proposal-deck); **VN A4 suite** — 38 bilingual A4 instruments (counsel review required before real use) (`templates/vn-*`: 37 Employment Suite + `vn-framework-agreement` commercial framework), converted verbatim from `.docx` and re-skinned to the latest system; `vn-labor-contract` supersedes the former `legal-employment-contract`. Three suite-wide **reference documents** (`templates/doc-style-guide`, `doc-suite-index`, `doc-templates`) define, catalogue, and frame EVERY template — Style Guide (Articles 1–10 + archetype map), Suite Index & Usage Guide, and the blank archetype shells. ⚠ = counsel-gated, banner-marked drafts; the HR Suite is client-validated legal text — keep verbatim and have counsel review edits. Every template carries Element ×15 tweaks and is **bilingual**: the 38 `vn-*` A4 docs and 3 `doc-*` references stack Vietnamese-first (no tweak), and every other template carries an EN·VN Language tweak (several emails add *Both*) — as of Jul 2026 there are no English-only templates left. Each loads the system via a sibling `ds-base.js` (one `base` line to rebind — validated end-to-end Jul 2026). **Stitch / static consumers:** use `templates/kitchen-sink.html`, `examples/static-hello/`, and `.cs-*` classes — not `*.dc.html`.
+Keep confirmed defects, proposed improvements, local test success and human acceptance distinct. Historic audits and generic bundled references are supporting evidence, not current normative instructions.
 
-- **`guidelines/`** — foundation specimen cards (colors, type, spacing, surfaces, brand, motion, elements, and Responsive & Bilingual) — handy visual references. Plus **`atomic-view.html`** — a Storybook-style browser of every component grouped by Atomic tier (Atoms/Molecules/Organisms), reskinnable live across Theme × Element × Language × Style.
+## Declared API lookup
 
-- **`ui_kits/`** — full product recreations to copy patterns from: **status-hub** (portfolio dashboard + sign-in + settings + project detail), **website** (bilingual marketing home + Work + Careers + full Lumi chat), and **deck** (16:9 brand deck on deck-stage, PDF/PPTX-ready).
+`components/api-index.json` is generated from the public TypeScript declarations. Find an export by name, then resolve each `props[].definition` through `propDefinitions` for its declared type, optionality and documentation, including inherited native props. Source/declaration paths and hashes locate the authoritative contracts. Type display strings can retain aliases or abbreviate complex types. Lifecycle labels are copied declarations, not proven support, assigned ownership or human acceptance. Regenerate with `npm run build:api-index`; check with `npm run test:api-index`.
 
-- **`assets/`** — `logo-mark.svg`/`png` (official master mark — never recreate/recolour), `favicon.svg`, `aurora-{tho,hoa,thuy,moc,kim}.webp` (element washes; Thổ default), `aurora-gold.jpg` (sample still), `lumi-poster.webp` (Lumi mascot).
+For template content, read `docs/template-schema-v2.md`: sidecar slots describe source holes, not automatically writable runtime props. Inspect `data-props` and `renderVals()` before using `__dcSetProps`; computed values can override supplied props. Edit authorized source content and verify preview/export unless an explicit runtime binding is declared and tested.
 
-## Exporting
+For token maintenance, run `npm run tokens:coverage` alongside
+the declaration graph: base typed membership, scoped literal colors, unresolved
+expressions and style metadata have different portability boundaries. Preserve
+selectors/conditions; never promote a scoped value to a root default solely to
+complete a token count. See `docs/conventions.md` for regeneration and checks.
 
-Every artifact exports, all paths preserving Vietnamese Unicode (see `docs/conventions.md` → Export paths). Decks → **editable PPTX** (`gen_pptx`, force VN per slide via `__dcSetProps`); documents (any with `@page{size}` / `omelette-owns-print`) → **PDF + editable DOCX** from one **Tải / Download** menu (`templates/_vendor/doc-export.js`, live `.cs-sheet`, Flate PDF + OOXML walk, no CDN; CI PDF via Playwright); emails / product pages / any DC → **standalone offline HTML** (make a same-folder `*-standalone.html` copy with static `<link>`/`<script>` resource tags, then `super_inline_html`). Contribution/expansion process is **`docs/doctrine.md`** + the decision log in `docs/conventions.md`; deep-verification harnesses live in `_audit/` (see `_audit/README.md`).
+Use [the generated reference catalog](docs/reference-catalog.json) for declared counts and public document roles. It identifies routing authority, guides and evidence without treating inventory or historical reports as current capability acceptance.
 
-## Hard rules
+Semantic status fills use `--cs-color-semantic-{role}` with their matching `-fg`; text on page/panel/raised uses `--cs-color-semantic-{role}-text`. Muted text and regular body links must clear the body floor on each actual surface. Fixed white print sheets start an explicit Light scope and declare their own primary text color; adaptive sheets follow their theme.
 
-- Never redefine the anchors: Umber `#45210E`, Ochre `#F4BA17`. One accent per surface — Ochre on core surfaces; a product's element accent inside its `data-cs-element` scope.
-
-- Elemental identity: one element per product; consume `--cs-accent-*` roles (never raw element hex); semantic statuses and the composite focus indicator (text-primary contour + ochre halo) are NEVER elemental; secondary elements only as gradient endpoints along Tương sinh (Mộc→Hỏa→Thổ→Kim→Thủy→Mộc); Lumi stays golden in every element.
-
-- Style pack is liquid-glass (sole pack; absent ≡ default). Do not invent styles ad hoc (neon/cyberpunk, memphis, and full skeuomorphism are rejected by doctrine).
-
-- Keep it warm — every neutral warmed toward umber; no cold grey, no bluish-purple gradients, no emoji in UI.
-
-- Vietnamese-first: ship EN + VN copy; preserve diacritics; use Vietnamese-safe line-heights.
-
-- Type families come from tokens, never from a hand-rolled `@font-face`: `--cs-font-family-ui` (Be Vietnam Pro) for UI and headings, `--cs-font-family-mono` (JetBrains Mono) for code/data, and the **opt-in** `--cs-font-family-display` (Space Grotesk, variable 300–700, Vietnamese subset included) for a product headline face — opt a subtree in with `.cs-display-face` rather than overriding `font-family` by hand.
-
-- Never remove focus outlines (3px Ochre ring); keep touch targets ≥ 44px (enforced on coarse pointers via `base/a11y.css`); honour `prefers-reduced-motion` and `prefers-contrast`; body text APCA Lc ≥ 75. Dark theme has full semantic overrides (all pairings pass AA).
-
-- Voice stays warm/direct/honest/respectful — never fun/playful/edgy. Products are "wishes" that Lumi helps grant.
-
-- Expansion rule: when any set grows (element/variant, icon, component, language), update every deliverable in the same change — tokens, cards + related guidelines, contract trio, all template enums, Storybook toolbar / Atomic View, docs incl. every related document/README — and grep the old list to prove it. Full text: `docs/doctrine.md`. VERSION **1.7.2** (auto-bumps on `main`; owner may still force a bump; no changelog).
-
-- **Stitch / non-DC tools must not consume `*.dc.html` as source of truth.** Those files need the Design Components compiler (tweaks, `x-import`, `__dcSetProps`). Generate static UI from `DESIGN.md` / DTCG / `styles.css` + `.cs-*` / kitchen-sink / `examples/static-hello/` instead. DC authoring requires a compiler session (Claude Design, or a full clone with the compiler).
-
-- Use the official `Logo` / `logo-mark.svg` for CyberSkill; swap the tenant's own logo for third parties.
-
-## Building an artifact
-
-1. Link `styles.css` (relative path). You now have tokens + `.cs-*` classes + Liquid Glass.
-2. Copy any assets you reference (`assets/*`) alongside your file.
-3. Compose with tokens and the `.cs-*` classes (static HTML) or the React components (production). Study `ui_kits/` for real layout patterns.
-4. Keep surfaces mostly solid; opt into `cs-surface-*` glass for nav/cards/modals after an APCA check.
+Strong callouts pair `--cs-accent-strong` with `--cs-accent-on-strong`; both mode packs clear body APCA75 (generator target78) and WCAG4.5. Dark primary buttons consume `on-strong`. Preserve the two brand anchors and the other eight accent roles. Mark purely decorative separators explicitly hidden from the accessibility tree while preserving their visible glyphs.

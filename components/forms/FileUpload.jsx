@@ -7,7 +7,7 @@ import { cx } from "../_utils/cx.js";
 export function FileUpload({ title, hint, accept, multiple = false, onFiles, icon, lang, className }) {
   const [drag, setDrag] = React.useState(false);
   const inputRef = React.useRef(null);
-  const pick = (files) => { if (files && files.length && onFiles) onFiles(Array.from(files)); };
+  const pick = (files) => { if (files && files.length && onFiles) onFiles(multiple ? Array.from(files) : [files[0]]); };
   const [ref, L] = useLang(lang);
   const t = makeT("FileUpload", L);
   const tt = title != null ? title : t("title");

@@ -8,7 +8,8 @@ export interface SplitterProps {
   initial?: number;
   min?: number;
   max?: number;
-  /** px. Default 240. */
+  /** Requested container height in px. Default 240. Coarse pointers retain a
+   *  46px container minimum so the divider remains at least 44px after borders. */
   height?: number;
   lang?: string;
   className?: string;

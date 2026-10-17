@@ -32,18 +32,21 @@ const argb=c=>hex2(Math.round(c.a*255))+hex2(c.r)+hex2(c.g)+hex2(c.b);
 const px=v=>{ let m=/^(-?[\d.]+)px$/.exec(v); if(m)return +m[1]; m=/^(-?[\d.]+)rem$/.exec(v); if(m)return +m[1]*16; return null; };
 const em=v=>{ const m=/^(-?[\d.]+)em$/.exec(v); return m?+m[1]:null; };
 // expected literal per target for one token; null = represented as plain string constant.
-// cssRaw = $extensions["com.cyberskill"].css — structured DTCG values (shadow composites, var() aliases,
-// percentage scalars) ship to natives as that raw CSS string (same rule as generate-native-tokens.mjs).
-function expected(name,type,value,cssRaw){
+// nativeFormat=css retains legacy alias/shadow/percentage strings; nativeFormat=em
+// retains relative ...Em numbers. Other constants consume typed values.
+function expected(name,type,value,cssRaw,nativeFormat){
+  if(nativeFormat==='em'){type='dimension';value=value+'em';}
+  if(type==='dimension'&&value&&typeof value==='object')value=value.value+value.unit;
+  if(type==='duration'&&value&&typeof value==='object')value=(value.value*(value.unit==='s'?1000:1))+'ms';
   if(cssRaw!==undefined){ const s=JSON.stringify(String(cssRaw)); return { swift:'let '+name+': String = '+s, kt:'val '+name+' = '+s, dart:'const String '+name+' = '+s+';' }; }
-  if(type==='color'){ const c=parseColor(String(value)); if(!c) return null;
+  if(type==='color'){ const c=value&&typeof value==='object'?{r:Math.round(value.components[0]*255),g:Math.round(value.components[1]*255),b:Math.round(value.components[2]*255),a:value.alpha===undefined?1:value.alpha}:parseColor(String(value)); if(!c) return null;
     const hex6=(c.r<<16|c.g<<8|c.b).toString(16).toUpperCase().padStart(6,'0');
     return { swift:'let '+name+' = color(0x'+hex6+(c.a!==1?', alpha: '+c.a:'')+')', kt:'val '+name+' = Color(0x'+argb(c)+')', dart:'const Color '+name+' = Color(0x'+argb(c)+');' }; }
   if(type==='dimension'){ const n=px(String(value)); if(n!==null) return { swift:'let '+name+': CGFloat = '+n, kt:'val '+name+' = '+n+'.dp', dart:'const double '+name+' = '+n+';' };
     const e=em(String(value)); if(e!==null) return { swift:'let '+name+'Em: Double = '+e, kt:'val '+name+'Em = '+e+(Number.isInteger(e)?'':'f'), dart:'const double '+name+'Em = '+e+';' }; return null; }
   if(type==='number'){ const n=+value; if(isNaN(n)) return null; return { swift:'let '+name+': Double = '+n, kt:'val '+name+' = '+n+(Number.isInteger(n)?'':'f'), dart:'const double '+name+' = '+n+';' }; }
   if(type==='duration'){ const m=/^([\d.]+)ms$/.exec(String(value)); if(!m) return null; const n=+m[1]; return { swift:'let '+name+'Ms: Double = '+n, kt:'val '+name+'Ms = '+n+(Number.isInteger(n)?'':'f'), dart:'const double '+name+'Ms = '+n+';' }; }
-  if(type==='cubicBezier'&&Array.isArray(value)){ const a=value.join(', '); return { swift:'let '+name+': [Double] = ['+a+']', kt:'val '+name+' = doubleArrayOf('+a+')', dart:'const List<double> '+name+' = ['+a+'];' }; }
+  if(type==='cubicBezier'&&Array.isArray(value)){ const a=value.join(', '); const kotlin=value.map(n=>Number.isInteger(n)?n.toFixed(1):String(n)).join(', '); return { swift:'let '+name+': [Double] = ['+a+']', kt:'val '+name+' = doubleArrayOf('+kotlin+')', dart:'const List<double> '+name+' = ['+a+'];' }; }
   if(type==='fontFamily'&&Array.isArray(value)){ const s=JSON.stringify(value.join(', ')); return { swift:'let '+name+': String = '+s, kt:'val '+name+' = '+s, dart:'const String '+name+' = '+s+';' }; }
   const s=JSON.stringify(String(value)); return { swift:'let '+name+': String = '+s, kt:'val '+name+' = '+s, dart:'const String '+name+' = '+s+';' };
 }
@@ -67,10 +70,16 @@ function expected(name,type,value,cssRaw){
     for(const t of prov.targets){ const s=await sha256(map[t.file]); assert(s===t.sha256,t.file+' drifted from provenance'); }
     return prov.targets.length+' targets pinned';
   });
-  const toks=[]; for(const [g,entries] of Object.entries(dtcg)){ if(g.startsWith('$'))continue; for(const [css,def] of Object.entries(entries)){ if(css.startsWith('$')||!def||def.$value===undefined)continue; toks.push({css,name:camel(css),value:def.$value,type:def.$type||'string',cssRaw:def.$extensions&&def.$extensions['com.cyberskill']?def.$extensions['com.cyberskill'].css:undefined}); } }
+  function resolveAlias(value,seen=[]){
+    if(typeof value!=='string'||!/^\{[^{}]+\}$/.test(value))return value;
+    const key=value.slice(1,-1);assert(!seen.includes(key),'Alias cycle '+key);
+    const def=key.split('.').reduce((n,k)=>n&&n[k],dtcg);assert(def,'Missing alias '+key);
+    return resolveAlias(def.$value,seen.concat(key));
+  }
+  const toks=[]; for(const [g,entries] of Object.entries(dtcg)){ if(g.startsWith('$'))continue; for(const [css,def] of Object.entries(entries)){ if(css.startsWith('$')||!def||def.$value===undefined)continue; toks.push({css,name:camel(css),value:g==='density'?resolveAlias(def.$value):def.$value,type:def.$type||'string',cssRaw:def.$extensions?.['com.cyberskill']?.nativeFormat==='css'?def.$extensions['com.cyberskill'].css:undefined,nativeFormat:def.$extensions?.['com.cyberskill']?.nativeFormat,sourceCss:def.$extensions?.['com.cyberskill']?.css}); } }
   await test('every base token present in all 3 targets',async()=>{
     const miss=[];
-    for(const t of toks){ const e=expected(t.name,t.type,t.value,t.cssRaw); if(!e){ miss.push(t.css+' (unconvertible)'); continue; }
+    for(const t of toks){ const e=expected(t.name,t.type,t.value,t.cssRaw,t.nativeFormat); if(!e){ miss.push(t.css+' (unconvertible)'); continue; }
       if(swift.indexOf(e.swift)<0) miss.push(t.css+' [swift]');
       if(kt.indexOf(e.kt)<0) miss.push(t.css+' [kotlin]');
       if(dart.indexOf(e.dart)<0) miss.push(t.css+' [dart]');
@@ -93,9 +102,69 @@ function expected(name,type,value,cssRaw){
     return n+' dark overrides \u00d7 3 targets';
   });
   
-  await test('densityCompact overrides stay zero (no Density axis)',async()=>{
-    assert(Number(prov.counts.densityCompactOverrides||0)===0,'densityCompactOverrides must be 0, got '+prov.counts.densityCompactOverrides);
-    return '0 compact density constants';
+  await test('dark shadow expressions present in all 3 targets',async()=>{
+    const entries=Object.entries(dtcg.$extensions['com.cyberskill'].overrides.themes.dark).filter(([,value])=>!parseColor(value));
+    for(const [key,value] of entries){
+      const e=expected(camel(key)+'Dark','shadow',value,value);
+      assert(swift.includes(e.swift)&&kt.includes(e.kt)&&dart.includes(e.dart),'Missing dark expression '+key);
+    }
+    assert(entries.length===prov.counts.darkCssOverrides,'Dark expression count drift');
+    return entries.length+' CSS strings × 3 targets; no native shadow renderer';
+  });
+  await test('complete light and dark elemental packs present in all 3 targets',async()=>{
+    const overrides=dtcg.$extensions['com.cyberskill'].overrides;
+    const counts={light:0,dark:0};
+    for(const [scope,light] of Object.entries(overrides.elements)){
+      const dark=overrides.elementsDark[scope.replaceAll('.','-')];
+      assert(dark,'Missing dark pack '+scope);
+      const suffix=scope.split('.').map(p=>p[0].toUpperCase()+p.slice(1)).join('');
+      for(const [mode,values] of [['light',light],['dark',{...light,...dark}]])for(const [key,value] of Object.entries(values)){
+        const e=expected(camel(key)+suffix+(mode==='light'?'Light':'Dark'),'color',value);
+        assert(e&&swift.includes(e.swift)&&kt.includes(e.kt)&&dart.includes(e.dart),'Missing '+scope+' '+mode+' '+key);
+        counts[mode]++;
+      }
+    }
+    assert(counts.light===prov.counts.lightPackConstants&&counts.dark===prov.counts.darkPackConstants,'Element pack count drift');
+    return counts.light+' light + '+counts.dark+' dark values × 3 targets';
+  });
+
+  await test('both density scopes present in all 3 targets',async()=>{
+    const root=Object.fromEntries(toks.map(t=>[t.css,t.sourceCss??t.value]));
+    const scopes=dtcg.$extensions['com.cyberskill'].overrides.densities;
+    for(const scope of ['compact','comfortable']){
+      const entries=scopes?.[scope];assert(entries&&Object.keys(entries).length,'Missing density '+scope);
+      const merged={...root,...entries};
+      function resolve(value,seen=[]){
+        const m=/^var\((--cs-[\w-]+)\)$/.exec(value);if(!m)return value;
+        assert(!seen.includes(m[1])&&merged[m[1]]!==undefined,'Invalid density alias '+m[1]);
+        return resolve(merged[m[1]],seen.concat(m[1]));
+      }
+      for(const [key,value] of Object.entries(entries)){
+        const name=camel(key)+scope[0].toUpperCase()+scope.slice(1);
+        const e=expected(name,'dimension',resolve(value));assert(e,'Unconvertible '+key);
+        assert(swift.includes(e.swift)&&kt.includes(e.kt)&&dart.includes(e.dart),'Missing density '+name);
+      }
+      const countKey='density'+scope[0].toUpperCase()+scope.slice(1)+'Overrides';
+      assert(prov.counts[countKey]===Object.keys(entries).length,'Density count drift '+scope);
+    }
+    return 'compact and comfortable metrics × 3 targets';
+  });
+
+  await test('both high-contrast maps present in all 3 targets',async()=>{
+    const scopes=dtcg.$extensions['com.cyberskill'].overrides.contrasts;
+    assert(scopes&&Object.keys(scopes).length===2,'Missing or unknown contrast maps');
+    let count=0;
+    for(const scope of ['high-light','high-dark']){
+      const entries=scopes[scope];assert(entries&&Object.keys(entries).length===2,'Incomplete contrast '+scope);
+      const suffix=scope.split('-').map(p=>p[0].toUpperCase()+p.slice(1)).join('');
+      for(const key of ['--cs-color-border-default','--cs-color-text-muted']){
+        const value=entries[key];assert(/^#[0-9a-f]{6}$/i.test(value),'Invalid contrast '+key);
+        const e=expected(camel(key)+suffix,'color',value);
+        assert(e&&swift.includes(e.swift)&&kt.includes(e.kt)&&dart.includes(e.dart),'Missing contrast '+scope+' '+key);count++;
+      }
+    }
+    assert(count===prov.counts.highContrastOverrides,'Contrast count drift');
+    return count+' contrast deltas × 3 targets';
   });
 
   await test('counts match provenance',async()=>{

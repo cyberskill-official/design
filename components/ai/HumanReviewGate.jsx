@@ -5,7 +5,8 @@ import { cx } from "../_utils/cx.js";
 /**
  * CyberSkill HumanReviewGate — an AI-native checkpoint: a risk label, a
  * plain-language summary, an optional reviewer, and Approve / Reject actions.
- * Keeps a human in the loop before a high-stakes AI action proceeds.
+ * Renders review controls and invokes caller callbacks. The consumer owns
+ * reviewer authorization, recorded approval and execution of the action.
  */
 export function HumanReviewGate({
   risk,
@@ -27,7 +28,7 @@ export function HumanReviewGate({
     <section ref={ref} className={cx("cs-review-gate", className)} aria-label={t("aria")}>
       <div className="cs-review-gate__risk">{rk}</div>
       <p className="cs-review-gate__summary">{summary}</p>
-      {reviewer ? <p className="cs-review-gate__reviewer">{t("reviewer")}: {reviewer}</p> : null}
+      {(reviewer || reviewer === 0) ? <p className="cs-review-gate__reviewer">{t("reviewer")}: {reviewer}</p> : null}
       <div className="cs-review-gate__actions">
         <button type="button" className="cs-button cs-button--secondary" onClick={onReject}>{rl}</button>
         <button type="button" className="cs-button cs-button--primary" onClick={onApprove}>{al}</button>

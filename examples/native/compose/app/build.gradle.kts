@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
   id("com.android.application")
   id("org.jetbrains.kotlin.android")
@@ -12,12 +14,13 @@ android {
     targetSdk = 34
     versionCode = 1
     versionName = "1.0.0"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
   // Optional release signing — copy ../signing.properties.example → ../signing.properties.
   // Absent file = debug signing only (sample scaffold; CI soft-skips without keystore secrets).
   val signingPropsFile = rootProject.file("signing.properties")
   if (signingPropsFile.exists()) {
-    val props = java.util.Properties().apply {
+    val props = Properties().apply {
       signingPropsFile.inputStream().use { load(it) }
     }
     signingConfigs {
@@ -52,4 +55,10 @@ dependencies {
   implementation("androidx.compose.ui:ui-tooling-preview")
   implementation("androidx.activity:activity-compose:1.8.2")
   implementation("androidx.navigation:navigation-compose:2.7.7")
+  androidTestImplementation(composeBom)
+  androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+  androidTestImplementation("androidx.test:runner:1.5.2")
+  androidTestImplementation("androidx.test.ext:junit:1.1.5")
+  androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
+  debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

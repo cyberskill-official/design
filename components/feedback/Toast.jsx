@@ -1,5 +1,6 @@
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
+import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
 import { cx } from "../_utils/cx.js";
 
 /** Variant glyphs — aligned with Alert so status is never colour-alone (FIND-036). */
@@ -25,14 +26,16 @@ export function ToastStack({ children, lang, className }) {
 /** CyberSkill Toast — transient notification. variant: default | success | danger. */
 export function Toast({ variant = "default", title, icon, onClose, lang, children, className, ...props }) {
   const [ref, L] = useLang(lang);
+  const { scope } = useOverlayLayer({ open: true, kind: "toast", panelRef: ref, restoreFocus: false });
   return (
+    <overlayScopeContext.Provider value={scope}>
     <div ref={ref} className={cx("cs-toast", `cs-toast--${variant}`, className)} role="status" {...props}>
       <span className="cs-toast__icon" aria-hidden="true">
         {icon ?? <DefaultIcon variant={variant} />}
       </span>
       <div>
-        {title ? <div className="cs-toast__title">{title}</div> : null}
-        {children ? <div className="cs-toast__body">{children}</div> : null}
+        {(title || title === 0) ? <div className="cs-toast__title">{title}</div> : null}
+        {(children || children === 0) ? <div className="cs-toast__body">{children}</div> : null}
       </div>
       {onClose ? (
         <button type="button" className="cs-toast__close" aria-label={makeT("Toast", L)("dismiss")} onClick={onClose}>
@@ -40,5 +43,6 @@ export function Toast({ variant = "default", title, icon, onClose, lang, childre
         </button>
       ) : null}
     </div>
+    </overlayScopeContext.Provider>
   );
 }

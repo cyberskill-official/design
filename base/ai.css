@@ -59,7 +59,7 @@
 .cs-citations__label { font-size: var(--cs-font-size-xs); text-transform: uppercase; letter-spacing: var(--cs-letter-spacing-caps); color: var(--cs-color-text-muted); }
 .cs-citation { display: flex; align-items: flex-start; gap: 9px; font-size: var(--cs-font-size-sm); color: var(--cs-color-text-primary); text-decoration: none; }
 a.cs-citation:hover .cs-citation__text { color: var(--cs-color-text-accent); }
-.cs-citation__num { flex: none; inline-size: 20px; block-size: 20px; border-radius: 6px; background: color-mix(in oklab, var(--cs-color-semantic-info) 14%, var(--cs-color-surface-panel)); color: var(--cs-color-semantic-info); font-family: var(--cs-font-family-mono); font-size: var(--cs-font-size-2xs); font-weight: 700; display: grid; place-items: center; }
+.cs-citation__num { flex: none; inline-size: 20px; block-size: 20px; border-radius: 6px; background: color-mix(in oklab, var(--cs-color-semantic-info) 14%, var(--cs-color-surface-panel)); color: var(--cs-color-semantic-info-text); font-family: var(--cs-font-family-mono); font-size: var(--cs-font-size-2xs); font-weight: 700; display: grid; place-items: center; }
 .cs-citation__text { line-height: 1.4; }
 .cs-citation__src { color: var(--cs-color-text-muted); font-size: var(--cs-font-size-xs); }
 

@@ -1,17 +1,19 @@
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
+import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Menu — dropdown. Provide a `trigger` element; compose MenuItem children. */
 export function Menu({ trigger, children, align = "start", open: controlledOpen, onOpenChange, lang, className }) {
   const [uOpen, setUOpen] = React.useState(false);
   const open = controlledOpen != null ? controlledOpen : uOpen;
-  const set = (v) => { onOpenChange ? onOpenChange(v) : setUOpen(v); };
+  const set = (v) => { if (controlledOpen == null) setUOpen(v); onOpenChange?.(v); };
   const [ref, L] = useLang(lang);
   const t = makeT("Menu", L);
   const triggerRef = React.useRef(null);
   const listRef = React.useRef(null);
 
+  const { manager, scope } = useOverlayLayer({ open, kind: "dropdown", panelRef: ref, onEscape: () => set(false) });
   React.useEffect(() => {
     if (!open) return;
     const items = () => listRef.current
@@ -23,14 +25,10 @@ export function Menu({ trigger, children, align = "start", open: controlledOpen,
 
     const onDoc = (e) => { if (ref.current && !ref.current.contains(e.target)) set(false); };
     const onKey = (e) => {
+      if (e.defaultPrevented || e.isComposing || e.keyCode === 229) return;
+      if (!ref.current?.contains(e.target)) return;
       const opts = items();
-      if (e.key === "Escape") {
-        e.preventDefault();
-        set(false);
-        const el = triggerRef.current;
-        if (el && el.focus) el.focus();
-        return;
-      }
+      if (manager.topDismissible()?.panelEl !== ref.current) return;
       if (!opts.length) return;
       const active = document.activeElement;
       const idx = opts.indexOf(active);
@@ -56,14 +54,19 @@ export function Menu({ trigger, children, align = "start", open: controlledOpen,
     };
   }, [open]);
 
-  const toggle = () => set(!open);
+  const toggle = (event) => {
+    // Pointer activation does not focus buttons in every browser. Establish
+    // the opener before the layer records its return-focus target.
+    if (!open) event.currentTarget.focus();
+    set(!open);
+  };
   // ARIA attrs must live on the interactive trigger (button), not a wrapping <span>
   // — axe aria-allowed-attr flags aria-haspopup/aria-expanded on generic elements.
   const triggerNode = React.isValidElement(trigger)
     ? React.cloneElement(trigger, {
         ref: (node) => {
           triggerRef.current = node;
-          const r = trigger.ref;
+          const r = Number(React.version.split(".")[0]) >= 19 ? trigger.props.ref : trigger.ref;
           if (typeof r === "function") r(node);
           else if (r && typeof r === "object") r.current = node;
         },
@@ -71,11 +74,12 @@ export function Menu({ trigger, children, align = "start", open: controlledOpen,
         "aria-expanded": open,
         onClick: (e) => {
           if (typeof trigger.props.onClick === "function") trigger.props.onClick(e);
-          if (!e.defaultPrevented) toggle();
+          if (!e.defaultPrevented) toggle(e);
         },
       })
     : <button type="button" ref={triggerRef} aria-haspopup="menu" aria-expanded={open} onClick={toggle}>{trigger}</button>;
   return (
+    <overlayScopeContext.Provider value={scope}>
     <div className={cx("cs-menu", className)} ref={ref}>
       {triggerNode}
       {open ? (
@@ -89,6 +93,7 @@ export function Menu({ trigger, children, align = "start", open: controlledOpen,
         </div>
       ) : null}
     </div>
+    </overlayScopeContext.Provider>
   );
 }
 
@@ -96,7 +101,7 @@ export function Menu({ trigger, children, align = "start", open: controlledOpen,
 export function MenuItem({ danger = false, icon, children, className, ...props }) {
   return (
     <button type="button" role="menuitem" className={cx("cs-menu__item", danger && "cs-menu__item--danger", className)} {...props}>
-      {icon ? <span aria-hidden="true">{icon}</span> : null}
+      {(icon || icon === 0) ? <span aria-hidden="true">{icon}</span> : null}
       {children}
     </button>
   );

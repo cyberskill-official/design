@@ -2,7 +2,7 @@
 /**
  * Push colour tokens from tokens/tokens.dtcg.json into a Figma file as local Variables.
  *
- * Env (required for live push; omit for --dry-run / --check-only helpers):
+ * Env (required for authenticated --check and live push; omit for --dry-run / pure helpers):
  *   FIGMA_TOKEN      personal access token
  *   FIGMA_FILE_KEY   file key from figma.com/design/<KEY>/...
  *
@@ -11,10 +11,11 @@
  *   node _audit/ci/push-figma-variables.mjs --check   # GET file + list collections only
  *   node _audit/ci/push-figma-variables.mjs           # create/update CyberSkill color variables
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, realpathSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { recordCiVerdict } from './ci-verdict.mjs';
+import { srgbToRgba } from '../../scripts/lib/dtcg-values.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const DTCG = join(root, 'tokens/tokens.dtcg.json');
@@ -30,7 +31,7 @@ const checkOnly = args.has('--check');
 export function hexToFigmaColor(hex) {
   let h = String(hex || '').trim().replace(/^#/, '');
   if (h.length === 3) h = h.split('').map((c) => c + c).join('');
-  if (h.length !== 6 && h.length !== 8) throw new Error('bad hex: ' + hex);
+  if (!/^(?:[0-9a-f]{6}|[0-9a-f]{8})$/i.test(h)) throw new Error('bad hex: ' + hex);
   const n = parseInt(h.slice(0, 6), 16);
   const a = h.length === 8 ? parseInt(h.slice(6, 8), 16) / 255 : 1;
   return {
@@ -81,10 +82,19 @@ export function toFigmaName(path) {
 }
 
 export function pickColorLeaves(leaves) {
-  return leaves.filter((L) => {
-    if (L.type === 'color') return typeof L.value === 'string' && L.value.startsWith('#');
-    return typeof L.value === 'string' && /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(L.value);
-  });
+  const byPath=new Map(leaves.map(leaf=>[leaf.path,leaf]));
+  function resolve(leaf,seen=new Set()){
+    if(seen.has(leaf.path))throw Error('Color alias cycle: '+leaf.path);
+    const ref=typeof leaf.value==='string'&&/^\{([^{}]+)\}$/.exec(leaf.value);
+    if(ref){
+      const target=byPath.get(ref[1]);
+      if(!target||target.type!=='color')throw Error('Missing or non-color alias: '+leaf.value);
+      return resolve(target,new Set([...seen,leaf.path]));
+    }
+    // Compatibility for legacy hex inputs; invalid/unsupported colors fail loudly.
+    return typeof leaf.value==='string'?hexToFigmaColor(leaf.value):srgbToRgba(leaf.value);
+  }
+  return leaves.filter(leaf=>leaf.type==='color').map(leaf=>({...leaf,color:resolve(leaf)}));
 }
 
 async function figma(path, { method = 'GET', body } = {}) {
@@ -103,7 +113,9 @@ async function figma(path, { method = 'GET', body } = {}) {
   try { json = JSON.parse(text); } catch { json = { raw: text }; }
   if (!res.ok) {
     const msg = json?.err || json?.message || text.slice(0, 400);
-    throw new Error(`Figma ${method} ${path} → ${res.status}: ${msg}`);
+    const error = new Error(`Figma ${method} ${path} → ${res.status}: ${msg}`);
+    error.figmaRequest = Object.freeze({ method, path, status: res.status });
+    throw error;
   }
   return json;
 }
@@ -115,8 +127,8 @@ function loadColors() {
   return colors.map((c) => ({
     path: c.path,
     name: toFigmaName(c.path),
-    hex: c.value,
-    color: hexToFigmaColor(c.value),
+    value: c.value,
+    color: c.color,
   }));
 }
 
@@ -128,7 +140,7 @@ async function main() {
   if (dryRun) {
     console.log('Dry-run sample (first 8):');
     for (const c of colors.slice(0, 8)) {
-      console.log(`  ${c.name}  ${c.hex}`);
+      console.log(`  ${c.name}  ${JSON.stringify(c.color)}`);
     }
     console.log('Dry-run complete — no API calls.');
     recordCiVerdict({
@@ -286,17 +298,34 @@ async function main() {
   return report;
 }
 
-/** Figma Variables REST API is Enterprise-only (file_variables:read/write). Soft-skip for CI. */
-export function isEnterpriseVariablesBlock(err) {
-  const msg = String(err?.message || err || '');
-  return /file_variables:(read|write)/i.test(msg)
-    || /Invalid scope\(s\)/i.test(msg)
-    || /Enterprise plan only/i.test(msg)
-    || (/variables\/local/i.test(msg) && /\b403\b/.test(msg));
+/** Actual requests carry metadata; recognize tagged messages for legacy helper callers. */
+function figmaRequestFromError(err) {
+  if (err?.figmaRequest) return err.figmaRequest;
+  const match = String(err?.message || err || '').match(/^Figma ([A-Z]+) (\S+) → (\d{3}):/);
+  return match ? { method: match[1], path: match[2], status: Number(match[3]) } : null;
 }
 
-/** Rate-limit or unavailable endpoint — soft-skip in CI (non-Enterprise plans hit these). */
+/** Variables-only access restrictions; other endpoint scope failures are hard failures. */
+export function isEnterpriseVariablesBlock(err) {
+  const msg = String(err?.message || err || '');
+  const request = figmaRequestFromError(err);
+  if (request) {
+    const localRead = request.method === 'GET' && /^\/files\/[^/?]+\/variables\/local(?:\?|$)/.test(request.path);
+    const variablesWrite = request.method === 'POST' && /^\/files\/[^/?]+\/variables(?:\?|$)/.test(request.path);
+    if ((!localRead && !variablesWrite) || request.status !== 403) return false;
+    // Preserve the existing unavailable local-read policy. Other write access
+    // failures remain hard failures unless the response identifies Variables
+    // scopes or the Enterprise API restriction.
+    return localRead || /file_variables:(read|write)|Enterprise plan only/i.test(msg);
+  }
+  return /file_variables:(read|write)/i.test(msg)
+    || /Enterprise plan only/i.test(msg);
+}
+
+/** Known HTTP unavailability; status-like text in an invalid token is not an API result. */
 export function isSoftSkippableFigmaError(err) {
+  const request = figmaRequestFromError(err);
+  if (request) return [429, 503, 404].includes(request.status);
   const msg = String(err?.message || err || '');
   return /\b429\b/.test(msg)
     || /\b503\b/.test(msg)
@@ -306,20 +335,23 @@ export function isSoftSkippableFigmaError(err) {
 }
 
 // Run when executed as CLI (skip when imported for unit tests)
-const invoked = process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url;
+let invoked = false;
+try {
+  invoked = Boolean(process.argv[1]) && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url);
+} catch { /* Import/stdin callers without a real argv entry never run the CLI. */ }
 if (invoked) {
   main().catch((e) => {
     const msg = e.message || String(e);
     console.error(msg);
-    if (isEnterpriseVariablesBlock(e)) {
+    if (e.figmaRequest && isEnterpriseVariablesBlock(e)) {
       console.error('');
-      console.error('SOFT SKIP — Figma Variables REST API requires an Enterprise plan.');
-      console.error('Scopes file_variables:read and file_variables:write only appear when generating a PAT on Enterprise.');
-      console.error('Your token scopes (file_content, comments, webhooks, …) cannot call /variables/local.');
-      console.error('Options: upgrade to Figma Enterprise, or hand-sync / Tokens Studio. See docs/figma.md.');
+      console.error('SOFT SKIP — Figma Variables API access is unavailable for this request.');
+      console.error('Check Enterprise membership, Full seat/edit access for writes, and file_variables:read/write scopes.');
+      console.error('Token scopes do not override file permissions; file preflight does not prove Variables access.');
+      console.error('Verify account and file access, or use the documented hand-sync path. See docs/figma.md.');
       const report = {
         skipped: true,
-        reason: 'enterprise_variables_api',
+        reason: 'variables_api_access',
         message: msg,
         channel: 'figma-variables',
         at: new Date().toISOString(),
@@ -330,16 +362,16 @@ if (invoked) {
       recordCiVerdict({
         channel: 'figma-variables',
         kind: 'soft_skip',
-        reason: 'enterprise_variables_api',
+        reason: 'variables_api_access',
         detail: msg,
       });
       process.exit(0);
     }
-    if (isSoftSkippableFigmaError(e)) {
+    if (e.figmaRequest && isSoftSkippableFigmaError(e)) {
       console.error('');
-      console.error(`SOFT SKIP — Figma API returned ${e.message.match(/\b(429|503|404)\b/)?.[0] || 'a non-success'} (rate limit / unavailable / endpoint not found).`);
-      console.error('Non-Enterprise plans do not have access to the Variables REST API (404) and are subject to rate limits.');
-      console.error('Options: retry later, upgrade to Figma Enterprise, or hand-sync / Tokens Studio. See docs/figma.md.');
+      console.error(`SOFT SKIP — Figma API returned ${e.figmaRequest.status} (rate limit / unavailable / endpoint not found).`);
+      console.error('Check the file key and endpoint access; retry rate limits or service unavailability when appropriate.');
+      console.error('This response does not establish a plan restriction or a successful sync. See docs/figma.md.');
       const report = {
         skipped: true,
         reason: 'figma_api_unavailable',

@@ -7,6 +7,8 @@
  */
 import { readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
+import { jsxUiLiterals } from './lib/jsx-ui-literals.mjs';
+const ALLOW_RENDERED_LITERAL = new Set(['Editor:B', 'Editor:I', 'ChatMessage:Lumi']);
 
 const root = new URL('../..', import.meta.url).pathname;
 const ATTR_RE = /\b(?:aria-label|title|placeholder)\s*=\s*\{?\s*["']([^"']{2,})["']/g;
@@ -37,6 +39,9 @@ const allJsxSrc = [];
 for (const { name, path } of walkJsx()) {
   const src = readFileSync(path, 'utf8');
   allJsxSrc.push(src);
+  for (const literal of jsxUiLiterals(src)) {
+    if (!ALLOW_RENDERED_LITERAL.has(`${name}:${literal.text}`)) offenders.push(`${name}:${literal.line}: rendered ${JSON.stringify(literal.text)}`);
+  }
   ATTR_RE.lastIndex = 0;
   let m;
   while ((m = ATTR_RE.exec(src))) {

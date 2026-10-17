@@ -1,0 +1,53 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { withBrowserFixture } from './lib/browser-fixture.mjs';
+
+const colors = await readFile(new URL('../../tokens/colors.css', import.meta.url), 'utf8');
+await withBrowserFixture(async page => {
+  const origin = new URL(page.url()).origin;
+  async function run(css = colors) {
+    await page.unroute('**/tokens/colors.css');
+    await page.route('**/tokens/colors.css', route => route.fulfill({contentType:'text/css', body:css}));
+    await page.goto(`${origin}/_audit/token-format-parity.html`);
+    await page.waitForFunction(() => window.__tokenformat);
+    return page.evaluate(() => window.__tokenformat);
+  }
+  assert.equal((await run()).pass, true, 'Actual grouped root palette must match all mirrors');
+  const reordered = colors.replace(/(\[data-theme="light"\][\s\S]*?), :root \{/, ':root, $1 {');
+  assert.notEqual(reordered, colors);
+  assert.equal((await run(reordered)).pass, true, 'Root branch order must not affect exports');
+  const split = await page.evaluate(() => splitSelectors(':is(.a, :root), [data-x="a,b"], .escaped\\,comma, :root'));
+  assert.deepEqual(split, [':is(.a, :root)', '[data-x="a,b"]', '.escaped\\,comma', ':root']);
+  const contextual = colors + '\n:not(.a, :root) { --cs-color-brand-umber: #111111; }';
+  assert.equal((await run(contextual)).pass, true, 'Nested root text is not an unconditional root declaration');
+  const wrongValue = await run(colors.replace('--cs-color-brand-umber: #45210E;', '--cs-color-brand-umber: #111111;'));
+  assert.equal(wrongValue.pass, false, 'Actual token drift must still fail');
+  assert(wrongValue.failed.some(name => name.includes('tokens.json root')));
+  assert(wrongValue.failed.some(name => name.includes('DTCG leaves')));
+  const extra = await run(colors.replace('color-scheme: light;', 'color-scheme: light; --cs-unexported-probe: 1px;'));
+  assert.equal(extra.pass, false, 'Unexported root key must fail');
+  assert(extra.failed.includes('base count sane (matches tokens/provenance.json)'));
+  const densityCss=await readFile(new URL('../../tokens/theme-attributes.css',import.meta.url),'utf8');
+  await page.route('**/tokens/theme-attributes.css',route=>route.fulfill({contentType:'text/css',body:densityCss.replace('--cs-density-space-1: 3px;','--cs-density-space-1: 33px;')}));
+  const densityDrift=await run();
+  assert.equal(densityDrift.pass,false,'Scoped density drift must fail even if base aliases agree');
+  assert(densityDrift.failed.includes('css density scopes ↔ JSON and DTCG overrides'));
+  await page.unroute('**/tokens/theme-attributes.css');
+  const typed=JSON.parse(await readFile(new URL('../../tokens/tokens.dtcg.json',import.meta.url),'utf8'));
+  typed.color['--cs-color-brand-umber'].$value.components[0]=1;
+  await page.route('**/tokens/tokens.dtcg.json',route=>route.fulfill({json:typed}));
+  const typedDrift=await run();
+  assert.equal(typedDrift.pass,false,'Valid typed values must not hide behind stale CSS metadata');
+  assert(typedDrift.failed.includes('DTCG typed values match exact CSS metadata'));
+  await page.unroute('**/tokens/tokens.dtcg.json');
+  const manifest=JSON.parse(await readFile(new URL('../../_ds_manifest.json',import.meta.url),'utf8'));
+  manifest.tokens.find(t=>t.name==='--cs-accent-strong'&&!t.scope).value='#000000';
+  await page.route('**/_ds_manifest.json',route=>route.fulfill({json:manifest}));
+  const accentDrift=await run();
+  assert.equal(accentDrift.pass,false,'Stale root manifest accents must fail');
+  assert(accentDrift.failed.includes('manifest root accents match CSS roles'));
+  await page.unroute('**/_ds_manifest.json');
+  const noRoot = await run(colors.replace(', :root {', ' {'));
+  assert.equal(noRoot.pass, false, 'Contextual aliases cannot substitute for the root contract');
+});
+console.log('Token format gate: grouped selectors, nested/escaped commas, drift, missing and extra root keys pass.');

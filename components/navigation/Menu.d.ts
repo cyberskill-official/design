@@ -1,3 +1,4 @@
+/** MenuItem icon preserves numeric zero; null, false and empty strings omit the icon slot. */
 import type * as React from "react";
 import type { ReactNode } from "react";
 

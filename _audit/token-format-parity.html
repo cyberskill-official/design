@@ -11,11 +11,11 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>Token format parity gate</h1>
-<p class="lede">Whole-set proof that <b>every</b> <code>--cs-*</code> declaration in <code>tokens/*.css</code> (the source of truth) equals its mirror in <code>tokens/tokens.json</code>, <code>tokens/tokens.js</code> (live ESM import + deep-equal vs the JSON), and <code>tokens/tokens.dtcg.json</code> — base <code>:root</code> set, <code>[data-theme="dark"|"system"]</code> theme overrides, all 15 element×variant packs, and the 15 dark elemental packs. DTCG values compare via <code>$extensions["com.cyberskill"].css</code> where present, else the typed transform (cubic-bezier join · fontFamily quote/join · numbers). Also asserts the 4 <code>_ds_manifest.json</code> duration values equal <code>motion.css</code> (guards the reduced-motion 0ms compiler bug found in the Jul 2026 audit). The <code>@media (prefers-reduced-motion)</code> re-declarations and the <code>color-mix</code> element-interplay blocks are runtime rules, not token exports — classified and skipped, never compared. Verdict on <code>window.__tokenformat</code>.</p>
+<p class="lede">Parity check for the nine explicitly listed CSS token sources against their mirrors in <code>tokens/tokens.json</code>, <code>tokens/tokens.js</code> (live ESM import + deep-equal vs the JSON), and <code>tokens/tokens.dtcg.json</code> — base <code>:root</code> set, <code>[data-theme="dark"|"system"]</code> theme overrides, all 15 element×variant packs, and the 15 dark elemental packs. DTCG values compare via <code>$extensions["com.cyberskill"].css</code> where present, else the typed transform (cubic-bezier join · fontFamily quote/join · numbers). Also asserts the 4 <code>_ds_manifest.json</code> duration values equal <code>motion.css</code> (guards the reduced-motion 0ms compiler bug found in the Jul 2026 audit). Density aliases and both compact/comfortable scopes are included. Contrast composition and other runtime rules are not a complete typed export contract; F12 remains open. Grouped selectors are classified individually; scope-reset aliases are contextual rules. The <code>@media (prefers-reduced-motion)</code> re-declarations and the <code>color-mix</code> element-interplay blocks are runtime rules, not token exports — classified and skipped, never compared. Verdict on <code>window.__tokenformat</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <script>
-const P=window.__gateProgress={done:0,total:9,current:'boot'};
+const P=window.__gateProgress={done:0,total:13,current:'boot'};
 const results=[]; const list=document.getElementById('list');
 function record(name,ok,detail){ results.push({name,ok,detail}); const r=document.createElement('div'); r.className='row '+(ok?'ok':'bad'); r.innerHTML='<span>'+(ok?'\u2713 ':'\u2717 ')+name+'</span><span class="d">'+String(detail).slice(0,220)+'</span>'; list.appendChild(r); }
 function publish(v){ if(window.__tokenformat) return; window.__tokenformat=v; const s=document.getElementById('sum'); s.textContent=v.pass?('\u2713 all '+v.total+' parity checks pass'):('\u2717 '+(v.error?v.error:(v.failed.length+'/'+v.total+' failed: '+v.failed.join(', ')))); s.style.color=v.pass?'#166534':'#B42318'; console.log('TOKENFORMAT VERDICT '+JSON.stringify({pass:v.pass,failed:v.failed||[],error:v.error||null})); }
@@ -38,6 +38,24 @@ function parseCss(css){
     if(c===';'){ flushDecl(); continue; }
     buf+=c; }
   return out;
+}
+// Split only top-level selector commas, never commas inside :is/:not, quoted
+// attribute values, or escaped identifiers. A root branch may share a rule with
+// contextual reset aliases without changing its exported token declarations.
+function splitSelectors(selector){
+  const parts=[]; let start=0, depth=0, quote=null, escaped=false;
+  for(let i=0;i<selector.length;i++){
+    const c=selector[i];
+    if(escaped){ escaped=false; continue; }
+    if(c==='\\'){ escaped=true; continue; }
+    if(quote){ if(c===quote) quote=null; continue; }
+    if(c==='"'||c==="'"){ quote=c; continue; }
+    if(c==='('||c==='[') depth++;
+    else if(c===')'||c===']') depth--;
+    else if(c===','&&depth===0){ parts.push(selector.slice(start,i).trim()); start=i+1; }
+  }
+  parts.push(selector.slice(start).trim());
+  return parts;
 }
 // DTCG display: raw CSS extension wins; else typed transform (same rules the token workstream proved).
 function dtcgDisplay(def){
@@ -62,26 +80,29 @@ function diffFlat(label,cssSet,mirrorSet){
 }
 
 (async()=>{
-  const CSS_FILES=['colors.css','component-tokens.css','elements.css','elevation.css','fonts.css','motion.css','spacing.css','typography.css'];
+  const CSS_FILES=['colors.css','component-tokens.css','elements.css','elevation.css','fonts.css','motion.css','spacing.css','typography.css','theme-attributes.css'];
   let J,D,M,jsTokens,motionCssText;
-  const base={},dark={},system={},elements={},elementsDark={}; const contextual=[];
+  const base={},dark={},system={},elements={},elementsDark={},densities={}; const contextual=[];
   await test('sources fetch + parse',async()=>{
     for(const f of CSS_FILES){
       const r=await fetch('../tokens/'+f,{cache:'no-store'}); assert(r.ok,'HTTP '+r.status+' on tokens/'+f);
       const t=await r.text(); if(f==='motion.css') motionCssText=t;
       for(const b of parseCss(t)){
         if(!Object.keys(b.decls).length) continue;
-        const sel=b.selector.replace(/\s+/g,' ');
+        for(const sel of splitSelectors(b.selector)){
         if(sel===':root'&&!b.media) Object.assign(base,b.decls);
         else if(sel===':root'&&/prefers-reduced-motion/.test(b.media)) {/* runtime collapse — never exported */}
         else if(sel==='[data-theme="dark"]'&&!b.media) Object.assign(dark,b.decls);
         else if(sel==='[data-theme="system"]'&&/prefers-color-scheme: dark/.test(b.media)) Object.assign(system,b.decls);
         else{
+          const density=sel.match(/^\[data-cs-density="(compact|comfortable)"\]$/);
+          if(density&&!b.media){ densities[density[1]]=b.decls; continue; }
           let m=sel.match(/^\[data-cs-element="(\w+)"\](?:\[data-cs-variant="(\w+)"\])?$/);
           if(m&&!b.media){ const k=m[2]?m[1]+'.'+m[2]:m[1]; elements[k]=Object.assign(elements[k]||{},b.decls); continue; }
           m=sel.match(/^\[data-theme="dark"\]\[data-cs-element="(\w+)"\](?:\[data-cs-variant="(\w+)"\])?$/);
           if(m&&!b.media){ const k=m[2]?m[1]+'-'+m[2]:m[1]; elementsDark[k]=Object.assign(elementsDark[k]||{},b.decls); continue; }
           contextual.push(sel);
+        }
         }
       }
     }
@@ -89,7 +110,7 @@ function diffFlat(label,cssSet,mirrorSet){
     D=JSON.parse(await (await fetch('../tokens/tokens.dtcg.json',{cache:'no-store'})).text());
     M=JSON.parse(await (await fetch('../_ds_manifest.json',{cache:'no-store'})).text());
     jsTokens=(await import('../tokens/tokens.js?t='+Date.now())).tokens;
-    return CSS_FILES.length+' css files \u00b7 '+Object.keys(base).length+' base \u00b7 '+contextual.length+' contextual blocks skipped (color-mix interplay)';
+    return CSS_FILES.length+' css files \u00b7 '+Object.keys(base).length+' base \u00b7 '+contextual.length+' contextual selectors skipped (scope resets / interplay)';
   });
   if(!J){ publish({pass:false,total:results.length,failed:results.filter(r=>!r.ok).map(r=>r.name),error:'fetch failed'}); return; }
 
@@ -99,6 +120,7 @@ function diffFlat(label,cssSet,mirrorSet){
     assert(d.length===0,d.length+' diffs: '+d.slice(0,4).join(' | '));
     return Object.keys(base).length+' tokens identical';
   });
+  await test('DTCG typed values match exact CSS metadata',async()=>{ const {assertCssProjection}=await import('../scripts/lib/dtcg-values.mjs'); return assertCssProjection(D)+' leaves'; });
   await test('tokens.js ESM deep-equals tokens.json',async()=>{
     assert(canonical(jsTokens)===canonical(J),'tokens.js object drifted from tokens.json');
     return 'meta + root + themes + elements all equal ('+Object.keys(jsTokens.root).length+' groups)';
@@ -132,13 +154,32 @@ function diffFlat(label,cssSet,mirrorSet){
     assert(d.length===0,d.length+' diffs: '+d.slice(0,4).join(' | '));
     return 'dark + system + '+Object.keys(elements).length+' packs + '+Object.keys(elementsDark).length+' dark packs identical';
   });
+  await test('css density scopes ↔ JSON and DTCG overrides',async()=>{
+    const mirrors=[J.densities,D.$extensions['com.cyberskill'].overrides.densities];
+    for(const mirror of mirrors){
+      const keys=new Set([...Object.keys(densities),...Object.keys(mirror||{})]);
+      const diffs=[...keys].flatMap(k=>diffFlat(k,densities[k]||{},mirror?.[k]||{}));
+      assert(diffs.length===0,diffs.slice(0,4).join(' | '));
+    }
+    assert(Object.keys(densities).length===2,'Missing compact/comfortable density scope');
+    return 'compact and comfortable aliases/control metrics match both mirrors';
+  });
   await test('base count sane (matches tokens/provenance.json)',async()=>{
     const prov=JSON.parse(await (await fetch('../tokens/provenance.json',{cache:'no-store'})).text());
     assert(Object.keys(base).length===prov.counts.baseTokens,'css base '+Object.keys(base).length+' vs provenance '+prov.counts.baseTokens);
     return Object.keys(base).length+' base tokens';
   });
+  await test('manifest root accents match CSS roles',async()=>{
+    const want=Object.fromEntries(Object.entries(base).filter(([key])=>key.startsWith('--cs-accent')));
+    const rows=M.tokens.filter(t=>t.definedIn==='tokens/elements.css'&&!t.scope&&t.name.startsWith('--cs-accent'));
+    assert(rows.length===Object.keys(want).length,'Missing or duplicate root accent roles');
+    const actual=Object.fromEntries(rows.map(t=>[t.name,t.value]));
+    const drift=diffFlat('manifest root accents',want,actual);
+    assert(drift.length===0,drift.join(' | '));
+    return rows.length+' roles';
+  });
   await test('manifest durations match motion.css (reduced-motion bug guard)',async()=>{
-    const mDur=M.tokens.filter(t=>/^--cs-duration-/.test(t.name));
+    const mDur=M.tokens.filter(t=>/^--cs-duration-/.test(t.name)&&!t.scope&&!t.conditions);
     assert(mDur.length===4,'expected 4 manifest duration tokens, got '+mDur.length);
     const bad=mDur.filter(t=>base[t.name]!==t.value);
     assert(bad.length===0,bad.map(t=>t.name+' manifest='+t.value+' css='+base[t.name]).join(' | '));
@@ -147,7 +188,9 @@ function diffFlat(label,cssSet,mirrorSet){
   });
   await test('reduced-motion @media block still collapses at runtime only',async()=>{
     assert(/@media \(prefers-reduced-motion: reduce\)/.test(motionCssText),'reduced-motion block missing from motion.css');
-    return 'runtime block present, excluded from exports';
+    const reduced=M.tokens.filter(t=>/^--cs-duration-/.test(t.name)&&t.conditions?.some(c=>c.name==='media'&&c.params==='(prefers-reduced-motion: reduce)'));
+    assert(reduced.length===4&&reduced.every(t=>t.value==='0ms'&&t.scope===':root'),'Reduced-motion declarations must retain media context');
+    return 'runtime block retained with conditions, excluded from base values';
   });
   const bad=results.filter(r=>!r.ok);
   publish({pass:bad.length===0,total:results.length,failed:bad.map(r=>r.name),results:results.map(r=>(r.ok?'+':'-')+r.name)});

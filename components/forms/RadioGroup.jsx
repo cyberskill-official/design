@@ -9,7 +9,7 @@ export function Radio({ label, description, disabled = false, className, childre
       <input type="radio" disabled={disabled} {...props} />
       <span className="cs-radio__text">
         <span>{label}</span>
-        {description ? <span className="cs-radio__desc">{description}</span> : null}
+        {(description || description === 0) ? <span className="cs-radio__desc">{description}</span> : null}
       </span>
     </label>
   );
@@ -21,7 +21,7 @@ export function RadioGroup({ legend, name, value, onChange, options = [], classN
   const nm = name ?? gid;
   return (
     <fieldset className={cx("cs-radio-group", className)}>
-      {legend ? <legend>{legend}</legend> : null}
+      {(legend || legend === 0) ? <legend>{legend}</legend> : null}
       {options.map((o) => (
         <Radio key={o.value} name={nm} value={o.value} label={o.label} description={o.description}
           disabled={o.disabled} checked={value === o.value}

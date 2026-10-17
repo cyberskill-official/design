@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><title>CyberSkill — QR reader-scan sanity</title>
 <link rel="stylesheet" href="../styles.css">
-<script src="https://unpkg.com/umd-react@19.2.8/dist/react.development.js" integrity="sha384-r22tQd8qRIHDPIkmdXZcVtvPi1Tj2x1QaW2tmFQHEvHscATUnHQ5siTyxWw5PMUs" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/umd-react@19.2.8/dist/react-dom.development.js" integrity="sha384-gJZYmumEmwqVmX3JVsLZq+4QrxoPGh/BW47Rk7SqNPCPFpTGnRtvmeRPJ7//ZDPk" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"></script>
+<script src="../_vendor/react/react.production.min.js" integrity="sha384-/nh8CKeV7Pk42Gpda6L4DM1JtZ2bwPOi+eh9O7+a1Y22UkGs8+mw3aW1shQ9FV30"></script>
+<script src="../_vendor/react/react-dom.production.min.js" integrity="sha384-rhLCB72qrpcezgY2QW0panvW9IeO32m94nvuDVRD/iEGHXoUbjtijL6Xi/Z5/mzu"></script>
+<script src="./vendor/jsqr/jsQR.js" integrity="sha384-b5Ya4Bq3qCyz39m2ISh+4DxjAIljdeFwK/BsXLuj9gugaNwAcj/ia15fxNZL9Nlx"></script>
 <script src="../_ds_bundle.js"></script>
 <style>
   body{margin:0;font-family:var(--cs-font-family-ui,system-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
@@ -16,7 +16,7 @@
   #stage{position:fixed;left:-6000px;top:0}
 </style></head><body>
 <h1>QR reader-scan sanity check</h1>
-<p class="lede">Renders the <code>QRCode</code> component (SVG, byte mode, EC-L), rasterizes it onto a white canvas with a proper quiet zone, and decodes it with an independent reader (<b>jsQR</b>) — asserting the decoded bytes round-trip exactly, including Vietnamese UTF-8. <b>Advisory</b> (depends on a CDN decoder), not part of the fast gate board. Verdict on <code>window.__qrscan</code>.</p>
+<p class="lede">Renders the <code>QRCode</code> component (SVG, byte mode, EC-L), rasterizes it onto a white canvas with a proper quiet zone, and decodes it with an independent reader (<b>jsQR</b>) — asserting the decoded bytes round-trip exactly, including Vietnamese UTF-8. <b>Advisory</b>, not part of the fast gate board. Uses the pinned local decoder without network access. Verdict on <code>window.__qrscan</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <div id="stage"></div>
@@ -43,8 +43,8 @@ async function scanOne(NS,name,text){
   return 'decoded '+hit.binaryData.length+' bytes OK';
 }
 (async()=>{
-  if(typeof React==='undefined'||typeof ReactDOM==='undefined'){ publish({pass:false,total:0,failed:[],error:'React CDN failed'}); return; }
-  if(typeof jsQR==='undefined'){ publish({pass:false,total:0,failed:[],error:'jsQR CDN failed (advisory check needs network)'}); return; }
+  if(typeof React==='undefined'||typeof ReactDOM==='undefined'){ publish({pass:false,total:0,failed:[],error:'Local React runtime failed'}); return; }
+  if(typeof jsQR==='undefined'){ publish({pass:false,total:0,failed:[],error:'Local jsQR decoder failed'}); return; }
   const NS=window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
   if(!NS||!NS.QRCode){ publish({pass:false,total:0,failed:[],error:'bundle/QRCode not found'}); return; }
   const CASES=[

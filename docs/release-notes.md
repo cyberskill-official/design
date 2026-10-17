@@ -1,6 +1,31 @@
 # Release Notes
 
-Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. VERSION **1.7.2** (auto-bumps on push to `main` from Conventional Commits; owner may still force a bump). Technical continuity is the repo tip; product-facing continuity is this page (mirrored in Storybook **Release Notes**). Published on Storybook **Docs** at `design.cyberskill.world`.
+Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. VERSION **1.7.2** identifies the repository version. This page supplies Storybook **Release Notes**; local edits do not establish what is deployed at `design.cyberskill.world`.
+
+## Unreleased revision — local implementation, acceptance pending
+
+These changes belong to the current revision working tree. They are not a published package, deployed site or accepted release. The exact dated Practice FAQ and DOCX pilot artifacts have separate owner acceptance. Changed builds and unreviewed scopes need their own verdict. VERSION remains the repository version.
+
+- Component repairs cover Editor HTML handling, declared types and state ownership, IME-safe submission, nested dismissal/focus, Carousel hidden-slide focus, Tooltip descriptions, and scoped theme/language behavior. Each result is limited to its recorded test scope; native input and assistive-technology checks remain separate.
+- Portable package and public-site checks cover asset closure, private-file exclusions and build freshness. Generated token declarations preserve source conditions; generated native files alone do not prove native rendering parity.
+- Status Hub project details now use a modal dialog with keyboard opening, Escape dismissal and focus return. This kit repair is not evidence of adoption in a consuming product.
+
+- The DOCX exporter retains supported flat ancestor and table-cell backgrounds, keeping white header text visible and allowing explicit white cells to reset inherited shading. The original document repair and scoped three-browser checks are retained as dated evidence. Gradients, background images and group opacity are outside this paint contract; compare the required export in its target application.
+- DOCX exports preserve browser-resolved grid-column proportions so wide callout prose does not collapse into equal-width cells. Three-engine regression cases and dated English/Vietnamese office renders retain the evidence; unresolved syntax and broader CSS layout fidelity remain outside this contract. Fractional rounding also keeps narrow trailing columns nonnegative while conserving the table width.
+- The current local Practice FAQ pilot uses an exact retained package, with rollback and migration records. Its dated checks cover 36 browser cases, 18 flat-body contrast scopes, 12 coarse-pointer axe scans and four cold resource trials against approved local ceilings. Those results do not establish field performance, human speech behavior, visual acceptance or production deployment.
+
+- Stephen Cheng approved the support and maintenance policy on 14 October 2026 and is assigned as owner of all 123 support records. Monthly and quarterly responsibilities are documented in [Conventions](conventions.md). Every support review remains `unreviewed`; ownership does not establish platform or release acceptance.
+
+- Destructive AlertDialogs initially focus Cancel; ordinary confirmations initially focus Confirm. The existing `tone`/`variant` precedence, callbacks, Escape dismissal and focus return are retained. This operator-approved policy still requires its current browser and assistive-technology evidence.
+
+### Before adopting this revision
+
+1. Select a reviewed candidate and record its source commit and package hash; retain the previous package or subtree commit for rollback. Do not install a presumed registry version for these unreleased changes.
+2. Audit state ownership against [Consuming & upgrading](consuming.md#component-state-ownership): a callback alone no longer makes a dual-mode input controlled. Supply `value`, `checked`, `pressed` or `open` only where declared, and update parent-owned values in response to callbacks. Native wrappers retain native event callbacks.
+3. Recheck stored Editor content and paste/drop flows against the declared HTML trust boundary. `unsafeHtml` is not permission to insert executable markup. Verify allowed formatting in the actual editing workflow.
+4. Recheck nested overlays, delayed and portalled language scopes, light/dark/system themes, coarse-pointer targets, and error/loading states in the actual product. For documents, compare content, assets, pagination and the required export in its target application. Record the candidate, environment, evidence and owner verdict for both pilots.
+
+Release remains pending human acceptance, required native/manual checks, provenance decisions, acceptance of changed pilot artifacts and reviewed per-export support scopes. EN/VI is the intended language scope; Japanese remains a partial spike. No support expansion, deprecation or removal is authorized by this note.
 
 ## Release — `@cyberskill/design@1.3.10`
 
@@ -20,7 +45,7 @@ Assessment remediation Phases 0–5 and gap closure (TASK-IMP-001…021): contra
 
 ## Release — `@cyberskill/design@1.2.0`
 
-`VERSION` **auto-bumps on `main`** (Conventional Commits → tag `v*` → `npm-publish.yml` Trusted Publishing). Owner may still force a bump via `Release-As:` / `workflow_dispatch`. Curated continuity stays on this page — still **no** root `CHANGELOG.md`.
+`VERSION` tracks the repository release version. Curated continuity stays on this page — still **no** root `CHANGELOG.md`.
 
 ## Patch — `@cyberskill/design@1.1.1`
 
@@ -52,7 +77,7 @@ The **Status** story embeds the fast gate board (`_audit/run.html`). Hard gates 
 
 ## Bilingual docs and templates
 
-Public operator docs ship EN·VI pairs under `docs/` / `docs/vi/`. Templates remain bilingual EN·VN with fully separated language modes. Component strings resolve from the central registry.
+Tracked operator docs have EN·VI pairs under `docs/` / `docs/vi/`. Template language capabilities and limitations are declared per template. Registered component strings use the locale contract; consumer-provided content requires its own translation and review.
 
 ## Foundations and CSF library
 
@@ -60,7 +85,7 @@ Theme × Element × Language × Style toolbar globals mirror production template
 
 ## Tokens and native mirrors
 
-CSS tokens, DTCG (`tokens/tokens.dtcg.json`), and pre-generated SwiftUI / Compose / Flutter mirrors stay in lockstep via the token pipeline. Text never sits on mid-tone `-accent` — APCA doctrine is gate-enforced.
+CSS tokens and generated JSON/DTCG/native outputs have different representational limits. See [conventions](conventions.md) for source conditions and export scope. Generated parity checks do not establish native toolchain or rendering parity. Text contrast must be measured on the actual surface and state; a passing token matrix does not certify every composition.
 
 ## What we never ship
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
+import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
 import { cx } from "../_utils/cx.js";
 const SWATCHES = ["#F4BA17", "#C77B4A", "#E0632B", "#C43D1F", "#7A9B57", "#3E5A2E", "#4E8E9B", "#2E5E7E", "#BFB29B", "#45210E"];
 
@@ -11,16 +12,16 @@ export function ColorPicker({ value = "#F4BA17", onChange, swatches = SWATCHES, 
   const [ref, L] = useLang(lang);
   const t = makeT("ColorPicker", L);
   React.useEffect(() => setHex(value), [value]);
+  const { scope } = useOverlayLayer({ open, kind: "popover", panelRef: wrap, onEscape: () => setOpen(false) });
   React.useEffect(() => {
     if (!open) return;
     const d = (e) => { if (wrap.current && !wrap.current.contains(e.target)) setOpen(false); };
-    const k = (e) => { if (e.key === "Escape") setOpen(false); };
     document.addEventListener("mousedown", d);
-    document.addEventListener("keydown", k);
-    return () => { document.removeEventListener("mousedown", d); document.removeEventListener("keydown", k); };
+    return () => { document.removeEventListener("mousedown", d); };
   }, [open]);
   const commit = (v) => { if (/^#[0-9a-fA-F]{6}$/.test(v)) { onChange && onChange(v); } };
   return (
+    <overlayScopeContext.Provider value={scope}>
     <span ref={(el) => { wrap.current = el; ref.current = el; }} className={cx("cs-colorpicker", className)}>
       <button type="button" className="cs-colorpicker__field" aria-label={(label || t("label")) + ": " + value} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
         <i style={{ background: value }} /><code>{value}</code>
@@ -35,10 +36,11 @@ export function ColorPicker({ value = "#F4BA17", onChange, swatches = SWATCHES, 
           </span>
           <span className="cs-colorpicker__hex">
             <input value={hex} aria-label={t("hex")} onChange={(e) => setHex(e.target.value)}
-              onKeyDown={(e) => { if (e.key === "Enter") { commit(hex); setOpen(false); } }} onBlur={() => commit(hex)} />
+              onKeyDown={(e) => { if (e.nativeEvent.isComposing || e.keyCode === 229) return; if (e.key === "Enter") { e.preventDefault(); commit(hex); setOpen(false); } }} onBlur={() => commit(hex)} />
           </span>
         </span>
       ) : null}
     </span>
+    </overlayScopeContext.Provider>
   );
 }

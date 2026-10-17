@@ -7,7 +7,7 @@ import { IframeSurface } from '../Maintainer/IframeSurface.jsx';
  * - First load of the iframe auto-runs every fast gate in sequence.
  * - Storybook navigation that keeps the iframe cached does not silently re-run;
  *   use the board's **Re-run** control for a fresh pass.
- * - Doctrine: VERSION pinned 1.1.0; no CHANGELOG.md — see Release Notes for product prose.
+ * - Release identity follows VERSION; see Release Notes for curated product prose.
  */
 export default {
   title: 'Status/Gate board',

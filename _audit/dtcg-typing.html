@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — DTCG typing gate</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CyberSkill — DTCG typing gate</title>
 <link rel="stylesheet" href="../styles.css">
 <style>
   body{margin:0;font-family:var(--cs-font-family-ui,system-ui);background:#efe6d8;color:#231a12;padding:16px 20px}
@@ -9,101 +9,66 @@
   .row.ok{background:#dcfce7;color:#166534}.row.bad{background:#FEE2E2;color:#B42318;font-weight:700}
   .row .d{color:#6b5d4f;font-weight:400}
   #sum{font-size:15px;font-weight:800;margin:12px 0}
+
+  /* Diagnostic chrome only; measured fixture/sample paint remains independent. */
+  body{box-sizing:border-box;overflow-wrap:anywhere}
+  .row{flex-wrap:wrap}
+  .row>span{min-inline-size:0;max-inline-size:100%}
+  a[href],button,textarea{box-sizing:border-box}
+  @media(pointer:coarse){button,a[href]{min-inline-size:44px;min-block-size:44px}a[href]{display:inline-flex;align-items:center}}
+
+  body{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary)}
+  .lede,.note{color:var(--cs-color-text-primary)}
+  #sum{color:var(--cs-color-text-primary)!important}
+  .row.ok{background:var(--cs-color-semantic-success);color:var(--cs-color-semantic-success-fg)}
+  .row.bad{background:var(--cs-color-semantic-danger);color:var(--cs-color-semantic-danger-fg)}
+  .row .d{color:inherit}
+  .lede a[href]{color:var(--cs-color-text-primary);text-decoration:underline}
+
+  .row{border:1px solid var(--cs-color-border-default);border-inline-start-width:4px}
+  .row.ok,.row.bad{background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary)}
+  .row.ok{border-inline-start-color:var(--cs-color-semantic-success)}
+  .row.bad{border-inline-start-color:var(--cs-color-semantic-danger)}
 </style></head><body>
 <h1>DTCG typing gate</h1>
-<p class="lede">Whole-set structural proof over <code>tokens/tokens.dtcg.json</code>: every node carrying <code>$value</code> has a <code>$type</code> from the W3C DTCG set; every alias <code>{group.token}</code> resolves to an existing token (chains followed, cycles fail); every <code>shadow</code> token is a structured object / array of layer objects (never a raw CSS string — raw strings live only in <code>$extensions["com.cyberskill"].css</code>), each layer carrying color/offsetX/offsetY/blur/spread; and the per-type counts equal <code>tokens/provenance.json</code> byType. Guards the 23-untyped-leaves finding from the Jul 2026 audit. Verdict on <code>window.__dtcgtyping</code>.</p>
+<p class="lede">CyberSkill emitted-value profile pinned to <a href="https://www.designtokens.org/tr/2025.10/format/">DTCG 2025.10 Format</a> and Color Community Group reports. Checks all token values, typed aliases (including shadow fields), cycles and provenance counts. Supports the seven emitted types and sRGB; unsupported types, $ref and $extends fail. This is not general reader conformance or proof of a design-tool import. Scope overrides and raw CSS extensions require separate adapters. Verdict on <code>window.__dtcgtyping</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <script>
-const P=window.__gateProgress={done:0,total:5,current:'boot'};
-const results=[]; const list=document.getElementById('list');
-function record(name,ok,detail){ results.push({name,ok,detail}); const r=document.createElement('div'); r.className='row '+(ok?'ok':'bad'); r.innerHTML='<span>'+(ok?'\u2713 ':'\u2717 ')+name+'</span><span class="d">'+String(detail).slice(0,220)+'</span>'; list.appendChild(r); }
-function publish(v){ if(window.__dtcgtyping) return; window.__dtcgtyping=v; const s=document.getElementById('sum'); s.textContent=v.pass?('\u2713 '+v.leaves+' leaves \u00b7 all typed, aliases resolve, shadows structured'):('\u2717 '+(v.error?v.error:(v.failed.length+'/'+v.total+' failed: '+v.failed.join(', ')))); s.style.color=v.pass?'#166534':'#B42318'; console.log('DTCGTYPING VERDICT '+JSON.stringify({pass:v.pass,leaves:v.leaves,failed:v.failed||[],error:v.error||null})); }
-async function test(name,fn){ P.current=name; try{ const d=await fn(); record(name,true,d); }catch(e){ record(name,false,String(e.message||e).slice(0,220)); } P.done=results.length; }
-function assert(c,m){ if(!c) throw new Error(m); }
-// design-tokens.github.io/format — $type values (composite types included)
-const W3C_TYPES=['color','dimension','fontFamily','fontWeight','duration','cubicBezier','number','strokeStyle','border','transition','shadow','gradient','typography'];
-(async()=>{
-  let D;
-  await test('fetch + parse tokens.dtcg.json',async()=>{
-    D=JSON.parse(await (await fetch('../tokens/tokens.dtcg.json',{cache:'no-store'})).text());
-    return 'parsed';
-  });
-  if(!D){ publish({pass:false,total:results.length,leaves:0,failed:results.filter(r=>!r.ok).map(r=>r.name),error:'fetch failed'}); return; }
-  // collect leaves: walk every non-$ group recursively; a token is any object with $value
-  const leaves=[]; // {path, group, name, def}
-  (function walk(node,path,group){
-    for(const k of Object.keys(node)){
-      if(k.charAt(0)==='$') continue;
-      const v=node[k];
-      if(!v||typeof v!=='object') continue;
-      if(v.$value!==undefined) leaves.push({path:path.concat(k).join('.'),group:group||k,name:k,def:v});
-      else walk(v,path.concat(k),group||k);
-    }
-  })(D,[],null);
-
-  await test('every $value node carries a W3C $type',async()=>{
-    const untyped=leaves.filter(l=>l.def.$type===undefined).map(l=>l.path);
-    const alien=leaves.filter(l=>l.def.$type!==undefined&&W3C_TYPES.indexOf(l.def.$type)<0).map(l=>l.path+':'+l.def.$type);
-    assert(untyped.length===0,untyped.length+' untyped: '+untyped.slice(0,6).join(', '));
-    assert(alien.length===0,'non-W3C $type: '+alien.slice(0,6).join(', '));
-    return leaves.length+' leaves, all typed from the W3C set';
-  });
-  await test('every alias {group.token} resolves (chains followed)',async()=>{
-    const byPath={}; for(const l of leaves) byPath[l.group+'.'+l.name]=l;
-    let aliases=0; const bad=[];
-    function resolve(ref,seen){
-      const inner=ref.slice(1,-1);
-      const dot=inner.indexOf('.');
-      const key=dot<0?inner:inner.slice(0,dot)+'.'+inner.slice(dot+1);
-      const target=byPath[key];
-      if(!target) return 'dangling \u2192 '+inner;
-      if(seen.indexOf(key)>=0) return 'cycle via '+key;
-      const tv=target.def.$value;
-      if(typeof tv==='string'&&/^\{[^{}]+\}$/.test(tv)) return resolve(tv,seen.concat(key));
-      return null;
-    }
-    for(const l of leaves){
-      const v=l.def.$value;
-      if(typeof v==='string'&&/^\{[^{}]+\}$/.test(v)){
-        aliases++;
-        const err=resolve(v,[l.group+'.'+l.name]);
-        if(err) bad.push(l.path+' '+err);
-      }
-    }
-    assert(bad.length===0,bad.slice(0,6).join(' | '));
-    return aliases+' aliases all resolve to real tokens';
-  });
-  await test('every shadow token is structured (object/array, full layer fields)',async()=>{
-    const shadows=leaves.filter(l=>l.def.$type==='shadow');
-    const FIELDS=['color','offsetX','offsetY','blur','spread'];
-    const bad=[];
-    for(const s of shadows){
-      const v=s.def.$value;
-      if(typeof v==='string'){ bad.push(s.path+': raw string'); continue; }
-      const layers=Array.isArray(v)?v:[v];
-      if(layers.length===0){ bad.push(s.path+': empty'); continue; }
-      for(const L of layers){
-        if(!L||typeof L!=='object'){ bad.push(s.path+': non-object layer'); break; }
-        const miss=FIELDS.filter(f=>typeof L[f]!=='string');
-        if(miss.length){ bad.push(s.path+': layer missing '+miss.join(',')); break; }
-      }
-    }
-    assert(shadows.length>0,'no shadow tokens found — parse drift?');
-    assert(bad.length===0,bad.slice(0,6).join(' | '));
-    return shadows.length+' shadow tokens structured (incl. the 2-layer -sm array)';
-  });
-  await test('byType counts equal tokens/provenance.json',async()=>{
-    const prov=JSON.parse(await (await fetch('../tokens/provenance.json',{cache:'no-store'})).text());
-    const counts={}; for(const l of leaves) counts[l.def.$type]=(counts[l.def.$type]||0)+1;
-    const want=prov.counts.byType; const diffs=[];
-    for(const k of new Set(Object.keys(counts).concat(Object.keys(want)))) if((counts[k]||0)!==(want[k]||0)) diffs.push(k+': derived '+(counts[k]||0)+' vs provenance '+(want[k]||0));
-    assert(leaves.length===prov.counts.baseTokens,'leaf count '+leaves.length+' vs provenance '+prov.counts.baseTokens);
-    assert(diffs.length===0,diffs.join(' | '));
-    return Object.keys(want).map(k=>k+' '+want[k]).join(' \u00b7 ');
-  });
-  const bad=results.filter(r=>!r.ok);
-  publish({pass:bad.length===0,total:results.length,leaves:leaves.length,failed:bad.map(r=>r.name)});
-})().catch(e=>publish({pass:false,total:results.length,leaves:0,failed:results.filter(r=>!r.ok).map(r=>r.name),error:String(e&&e.message||e).slice(0,160)}));
-setTimeout(()=>{ if(!window.__dtcgtyping) publish({pass:false,total:results.length,leaves:0,failed:results.filter(r=>!r.ok).map(r=>r.name),error:'watchdog (20s) \u2014 stalled at "'+P.current+'"'}); },20000);
+setTimeout(()=>{
+ if(window.__dtcgtyping)return;
+ window.__dtcgtyping={pass:false,total:0,failed:['module/bootstrap timeout'],error:'DTCG gate did not complete within 20s'};
+ document.getElementById('sum').textContent='✗ '+window.__dtcgtyping.error;
+},20000);
+</script>
+<script type="module">
+import {validateDtcgProfile} from './lib/dtcg-profile.mjs';
+const P=window.__gateProgress={done:0,total:3,current:'fetch'};
+const results=[];
+function record(name,ok,detail){
+  results.push({name,ok,detail});
+  const row=document.createElement('div'); row.className='row '+(ok?'ok':'bad');
+  row.textContent=(ok?'✓ ':'✗ ')+name+': '+detail;
+  document.getElementById('list').append(row); P.done=results.length;
+}
+function publish(extra={}){
+  if(window.__dtcgtyping)return;
+  const failed=results.filter(r=>!r.ok).map(r=>r.name);
+  const verdict={pass:failed.length===0&&!extra.error,total:results.length,failed,...extra};
+  window.__dtcgtyping=verdict;
+  document.getElementById('sum').textContent=verdict.pass?'✓ DTCG emitted-value profile passes':'✗ '+(verdict.error||failed.join(', '));
+  console.log('DTCGTYPING VERDICT '+JSON.stringify(verdict));
+}
+async function json(path){const response=await fetch(path,{cache:'no-store'});if(!response.ok)throw Error(path+': HTTP '+response.status);return response.json();}
+try{
+  const [doc,provenance]=await Promise.all([json('../tokens/tokens.dtcg.json'),json('../tokens/provenance.json')]);
+  record('fetch + parse',true,'tokens and provenance'); P.current='value profile';
+  const report=validateDtcgProfile(doc);
+  record('DTCG 2025.10 emitted values and aliases',report.pass,report.errors.length?report.errors.length+' errors; '+report.errors.slice(0,3).map(e=>e.path+': '+e.message).join(' | '):report.leaves+' leaves');
+  P.current='provenance';
+  const want=provenance.counts.byType;
+  const parity=report.leaves===provenance.counts.baseTokens&&[...new Set([...Object.keys(want),...Object.keys(report.counts)])].every(k=>(want[k]||0)===(report.counts[k]||0));
+  record('provenance counts',parity,JSON.stringify(report.counts));
+  publish({leaves:report.leaves,profile:report});
+}catch(error){publish({error:String(error)});}
 </script></body></html>

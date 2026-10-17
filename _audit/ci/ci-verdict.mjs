@@ -11,7 +11,44 @@
  * steps can fail closed when green-must-mean-live (optional integrations keep
  * exit 0 from their softSkip helpers; workflow honesty steps enforce).
  */
-import { appendFileSync, existsSync, readFileSync } from 'node:fs';
+import { appendFileSync, existsSync, readFileSync, realpathSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const verdictKinds = new Set(['success', 'soft_skip', 'hard_fail', 'dry_run', 'local_pack', 'readiness']);
+const escapeAnnotation = value => value.replaceAll('%', '%25').replaceAll('\r', '%0D').replaceAll('\n', '%0A');
+
+/** Interpret explicit results; missing or contradictory flags cannot become success. */
+export function classifyCiReport(report) {
+  if (!report || typeof report !== 'object' || Array.isArray(report)) throw Error('Report must be an object');
+  for (const key of ['skipped', 'ok', 'dryRun', 'localPack']) {
+    if (key in report && typeof report[key] !== 'boolean') throw Error(`Report ${key} must be boolean`);
+  }
+  for (const key of ['channel', 'reason', 'message']) {
+    if (key in report && (typeof report[key] !== 'string' || !report[key].trim())) throw Error(`Report ${key} must be a nonempty string`);
+  }
+  if ('kind' in report && !verdictKinds.has(report.kind)) throw Error('Unsupported report kind');
+  let kind;
+  if (report.skipped === true) {
+    if (!report.reason) throw Error('Skipped report requires a reason');
+    if (report.ok === true || report.dryRun === true || report.localPack === true || (report.kind && report.kind !== 'soft_skip')) throw Error('Skipped report has a contradictory outcome');
+    kind = 'soft_skip';
+  } else {
+    if (typeof report.ok !== 'boolean') throw Error('Executed report requires an explicit ok result');
+    if (report.ok === false) {
+      if (report.kind && report.kind !== 'hard_fail') throw Error('Failed report has a contradictory kind');
+      kind = 'hard_fail';
+    } else {
+      if (report.dryRun === true && report.localPack === true) throw Error('Report has conflicting execution modes');
+      kind = report.kind || (report.dryRun === true ? 'dry_run' : report.localPack === true ? 'local_pack' : 'success');
+      if (kind === 'soft_skip' || kind === 'hard_fail') throw Error('Successful report has a contradictory kind');
+      if (report.dryRun === true && kind !== 'dry_run') throw Error('Dry-run report has a contradictory kind');
+      if (report.localPack === true && kind !== 'local_pack') throw Error('Local-pack report has a contradictory kind');
+      if (kind === 'dry_run' && report.dryRun !== true) throw Error('Dry-run kind requires dryRun: true');
+      if (kind === 'local_pack' && report.localPack !== true) throw Error('Local-pack kind requires localPack: true');
+    }
+  }
+  return { channel: report.channel || 'report', kind, reason: report.reason, detail: report.message };
+}
 
 /**
  * @param {NodeJS.ProcessEnv} [env]
@@ -25,7 +62,7 @@ export function isProtectedCiRef(env = process.env) {
 }
 
 /**
- * @typedef {'success' | 'soft_skip' | 'hard_fail' | 'dry_run' | 'local_pack'} VerdictKind
+ * @typedef {'success' | 'soft_skip' | 'hard_fail' | 'dry_run' | 'local_pack' | 'readiness'} VerdictKind
  */
 
 /**
@@ -39,6 +76,12 @@ export function isProtectedCiRef(env = process.env) {
  * @returns {{ line: string, protectedSoftSkip: boolean }}
  */
 export function recordCiVerdict(opts) {
+  if (!verdictKinds.has(opts.kind)) throw Error('Unsupported verdict kind');
+  if (typeof opts.channel !== 'string' || !opts.channel.trim()) throw Error('Verdict requires a channel');
+  for (const key of ['reason', 'detail']) {
+    if (opts[key] !== undefined && typeof opts[key] !== 'string') throw Error(`Verdict ${key} must be a string`);
+  }
+  if (opts.kind === 'soft_skip' && !opts.reason?.trim()) throw Error('Soft-skip verdict requires a reason');
   const env = opts.env || process.env;
   const reason = opts.reason ? ` (${opts.reason})` : '';
   const detail = opts.detail ? ` — ${opts.detail}` : '';
@@ -55,7 +98,9 @@ export function recordCiVerdict(opts) {
             ? '### Live success\n\n'
             : opts.kind === 'dry_run'
               ? '### Dry-run OK\n\n'
-              : opts.kind === 'local_pack'
+              : opts.kind === 'readiness'
+                ? '### Readiness check (no live operation)\n\n'
+                : opts.kind === 'local_pack'
                 ? '### Local-pack proof (not registry)\n\n'
                 : '### Failure\n\n';
       appendFileSync(env.GITHUB_STEP_SUMMARY, `${banner}${line}\n\n`, 'utf8');
@@ -70,16 +115,20 @@ export function recordCiVerdict(opts) {
       // On schedule/main use ::error:: so the run is not a silent green success;
       // Decision 1C still exits 0 (soft-skip), but the annotation is distinct.
       if (protectedSoftSkip) {
-        console.error(`::error title=SOFT-SKIP (not success)::${msg}`);
+        console.error(`::error title=SOFT-SKIP (not success)::${escapeAnnotation(msg)}`);
       } else {
-        console.error(`::warning title=SOFT-SKIP::${msg}`);
+        console.error(`::warning title=SOFT-SKIP::${escapeAnnotation(msg)}`);
       }
     } else if (opts.kind === 'success') {
-      console.error(`::notice title=SUCCESS::${opts.channel} live success${reason}${detail}`);
+      console.error(`::notice title=SUCCESS::${escapeAnnotation(`${opts.channel} live success${reason}${detail}`)}`);
     } else if (opts.kind === 'dry_run') {
-      console.error(`::notice title=DRY-RUN::${opts.channel} dry-run OK${reason}${detail}`);
+      console.error(`::notice title=DRY-RUN::${escapeAnnotation(`${opts.channel} dry-run OK${reason}${detail}`)}`);
     } else if (opts.kind === 'local_pack') {
-      console.error(`::warning title=LOCAL-PACK::${opts.channel} used local pack (≠ registry)${reason}${detail}`);
+      console.error(`::warning title=LOCAL-PACK::${escapeAnnotation(`${opts.channel} used local pack (≠ registry)${reason}${detail}`)}`);
+    } else if (opts.kind === 'readiness') {
+      console.error(`::notice title=READINESS::${escapeAnnotation(`${opts.channel} readiness check; no live operation${reason}${detail}`)}`);
+    } else if (opts.kind === 'hard_fail') {
+      console.error(`::error title=HARD-FAIL::${escapeAnnotation(`${opts.channel} failed${reason}${detail}`)}`);
     }
   }
 
@@ -87,10 +136,11 @@ export function recordCiVerdict(opts) {
 }
 
 /**
- * Workflow helper: exit 1 when a report JSON records soft-skip on schedule/main.
+ * Workflow helper: invalid/failed reports exit 1; explicit optional soft-skips
+ * retain Decision 1C's exit 0 and distinct annotations.
  * Usage: node _audit/ci/ci-verdict.mjs --assert-report path/to/report.json
  */
-const isMain = process.argv[1] && /ci-verdict\.mjs$/.test(process.argv[1]);
+const isMain = process.argv[1] && existsSync(process.argv[1]) && realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url));
 if (isMain) {
   const args = process.argv.slice(2);
   if (args[0] === '--selftest') {
@@ -113,19 +163,20 @@ if (isMain) {
       console.error(`FAIL ci-verdict --assert-report: missing ${path || '(no path)'}`);
       process.exit(1);
     }
-    const report = JSON.parse(readFileSync(path, 'utf8'));
-    // Report mode only — does not fail the job. Soft-skip honesty is via
-    // ::error:: annotations from recordCiVerdict (Decision 1C keeps exit 0).
-    recordCiVerdict({
-      channel: report.channel || 'report',
-      kind: report.skipped ? 'soft_skip' : report.ok === false ? 'hard_fail' : report.dryRun ? 'dry_run' : 'success',
-      reason: report.reason,
-      detail: report.message,
-    });
-    console.log(
-      `PASS ci-verdict --assert-report { skipped: ${Boolean(report.skipped)}, protected: ${isProtectedCiRef(process.env)} }`,
-    );
-    process.exit(0);
+    try {
+      let report;
+      try { report = JSON.parse(readFileSync(path, 'utf8')); }
+      catch { throw Error('Cannot read valid report JSON'); }
+      const verdict = classifyCiReport(report);
+      recordCiVerdict(verdict);
+      const label = verdict.kind === 'success' ? 'PASS' : verdict.kind.toUpperCase().replaceAll('_', '-');
+      console.log(`${label} ci-verdict --assert-report { kind: ${verdict.kind}, protected: ${isProtectedCiRef(process.env)} }`);
+      process.exit(verdict.kind === 'hard_fail' ? 1 : 0);
+    } catch (error) {
+      recordCiVerdict({ channel: 'ci-verdict', kind: 'hard_fail', reason: 'invalid_report', detail: error.message });
+      console.error(`FAIL ci-verdict --assert-report: ${error.message}`);
+      process.exit(1);
+    }
   }
   console.error('Usage: node _audit/ci/ci-verdict.mjs --selftest | --assert-report <report.json>');
   process.exit(2);

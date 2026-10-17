@@ -3,7 +3,8 @@ export interface ColorPickerProps {
   /** #RRGGBB. Default Ochre. */
   value?: string;
   onChange?: (hex: string) => void;
-  /** Defaults to the Ngũ Hành accent set. */
+  /** Defaults to ten fixed literal swatches from this component, not the current
+   * generated element packs. Does not adapt to the element axis. */
   swatches?: string[];
   label?: string;
   lang?: string;

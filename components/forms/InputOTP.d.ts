@@ -1,7 +1,7 @@
-/** One-time-code input: N digit boxes with auto-advance, backspace and paste.
- *  Controlled (value/onChange) or uncontrolled. onComplete fires at full length. */
+/** One-time-code input: N digit boxes with auto-advance, backspace, native deletion/cut and paste.
+ *  Deletion compacts the remaining digits. Controlled (value/onChange) or uncontrolled. onComplete fires at full length. */
 export interface InputOTPProps {
-  /** Box count. Default 6. */
+  /** Whole box count. Finite fractions round down; nonpositive counts render no boxes. Nonfinite or unrepresentable counts use 6. */
   length?: number;
   value?: string;
   onChange?: (code: string) => void;

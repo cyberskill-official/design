@@ -9,6 +9,7 @@ export default {
     lang: { control: 'select', options: ['en', 'vi'] },
 
     label: { control: 'text' },
+    placeholder: { control: 'text' },
     description: { control: 'text' },
     error: { control: 'text' },
     options: { control: 'object' },

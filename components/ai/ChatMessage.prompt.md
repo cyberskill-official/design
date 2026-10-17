@@ -6,3 +6,9 @@
   <ChatMessage role="user">A faster checkout.</ChatMessage>
 </div>
 ```
+
+Keyboard: The message frame has no keyboard commands. Interactive child content retains its own keyboard behavior.
+
+Localization: The default user name is localized through `lang` or the inherited language scope; Lumi is a fixed name. Supplied names, avatars and message content are caller-owned.
+
+Source evidence: `ChatMessage.jsx` and `ChatMessage.d.ts` define this contract. These source pointers do not establish manual assistive-technology or consumer acceptance.

@@ -10,8 +10,8 @@ export function List({ className, children, ...props }) {
 export function ListItem({ lead, title, subtitle, trail, onClick, children, className, ...props }) {
   const interactive = !!onClick;
   const Tag = interactive ? "button" : "div";
-  return (
-    <Tag role="listitem" className={cx("cs-list__item", interactive && "cs-list__item--button", className)} onClick={onClick} {...props}>
+  const row = (
+    <Tag type={Tag === "button" ? "button" : undefined} role={interactive ? undefined : "listitem"} className={cx("cs-list__item", interactive && "cs-list__item--button", className)} onClick={onClick} {...props}>
       {lead != null ? <span className="cs-list__lead">{lead}</span> : null}
       <span className="cs-list__main">
         {title != null ? <span className="cs-list__title">{title}</span> : null}
@@ -21,4 +21,5 @@ export function ListItem({ lead, title, subtitle, trail, onClick, children, clas
       {trail != null ? <span className="cs-list__trail">{trail}</span> : null}
     </Tag>
   );
+  return interactive ? <div role="listitem">{row}</div> : row;
 }

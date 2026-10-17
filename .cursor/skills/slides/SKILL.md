@@ -1,40 +1,16 @@
 ---
 name: slides
-description: Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.
-argument-hint: "[topic] [slide-count]"
+description: Create or revise CyberSkill presentations using existing deck patterns
+  and verified export capabilities.
 metadata:
   author: claudekit
-  version: "1.0.0"
+  version: 1.0.0
 ---
 
-# Slides
+# CyberSkill slides
 
-Strategic HTML presentation design with data visualization.
+Read the [shared CyberSkill entrypoint](../../../SKILL.md) first, then [design doctrine](../../../docs/doctrine.md). These are the canonical design contract; repository governance and user authorization still apply.
 
-## When to Use
+Inspect [the deck kit](../../../ui_kits/deck/) and the relevant [template](../../../templates/). Confirm whether the selected source needs a DC compiler. Establish output requirements from the request, check actual export-tool availability and inspect rendered/exported results. Do not assume editable PPTX or offline behavior from an HTML preview.
 
-- Marketing presentations and pitch decks
-- Data-driven slides with Chart.js
-- Strategic slide design with layout patterns
-- Copywriting-optimized presentation content
-
-## Subcommands
-
-| Subcommand | Description | Reference |
-|------------|-------------|-----------|
-| `create` | Create strategic presentation slides | `references/create.md` |
-
-## References (Knowledge Base)
-
-| Topic | File |
-|-------|------|
-| Layout Patterns | `references/layout-patterns.md` |
-| HTML Template | `references/html-template.md` |
-| Copywriting Formulas | `references/copywriting-formulas.md` |
-| Slide Strategies | `references/slide-strategies.md` |
-
-## Routing
-
-1. Parse subcommand from `$ARGUMENTS` (first word)
-2. Load corresponding `references/{subcommand}.md`
-3. Execute with remaining arguments
+The other scripts, data, templates and references in this skill directory are retained upstream resources, not CyberSkill defaults or normative instructions. Consult them only for a task-specific need after checking compatibility with the shared contract. Their installation, external-tool and framework commands are not prerequisites for this adapter. Existing upstream license and attribution files remain applicable.

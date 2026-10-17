@@ -1,3 +1,4 @@
+/** The caption in idle and default loading tables slots preserve numeric zero; null/false/empty string omit those slots. */
 import type { ReactNode } from "react";
 import type * as React from "react";
 
@@ -29,7 +30,7 @@ export interface DataTableProps<Row extends Record<string, unknown>> {
   emptyState?: ReactNode;
   /**
    * Async data ownership. Default `"idle"`.
-   * - `loading` — Skeleton rows (or `loadingState`) + polite status text
+   * - `loading` — Skeleton rows (or `loadingState`) + aria-busy and hidden loading text
    * - `error` — Result (or `errorState`) with `role="alert"`
    * - `idle` — rows or empty cell
    */
@@ -38,7 +39,7 @@ export interface DataTableProps<Row extends Record<string, unknown>> {
   errorState?: ReactNode;
   /** Override the default Skeleton-row loading view. */
   loadingState?: ReactNode;
-  /** Skeleton row count when `state="loading"` and no `loadingState`. Default 5. */
+  /** Whole skeleton-row count for the default loading view. Finite fractions round down, minimum 1. Nonfinite or unrepresentable counts use 5. */
   loadingRows?: number;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;

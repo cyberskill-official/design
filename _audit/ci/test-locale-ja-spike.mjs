@@ -3,7 +3,7 @@
  * TASK-IMP-026 — third-locale (ja) spike + BCP-47 primary-subtag resolveLang contract.
  * See docs/decisions/locale-architecture.md.
  */
-import { makeT, primaryLang, resolveLang, tr, knownLocales } from '../../components/_i18n/i18n.js';
+import { makeT, primaryLang, resolveLang, tr, knownLocales, formatDate, formatNumber, formatCurrency, monthName } from '../../components/_i18n/i18n.js';
 import { strings } from '../../components/_i18n/strings.js';
 
 function assert(cond, msg) {
@@ -59,3 +59,20 @@ console.log('PASS test-locale-ja-spike', {
   known: knownLocales,
   paginationJaKeys: Object.keys(pag.ja).length,
 });
+
+// Distinct primary subtags must not become a supported locale just because their
+// spelling shares a prefix. Intl.Locale independently parses these BCP-47 tags.
+for (const tag of ['jam','vif','ena','jam-JM','vif-CM','ena-PG']) {
+  const primary = new Intl.Locale(tag).language;
+  assert(primaryLang(tag) === primary, `${tag}: preserve primary ${primary}`);
+  assert(resolveLang(tag,null) === primary, `${tag}: preserve explicit unknown locale`);
+  assert(tr('Pagination','next',tag) === pag.en.next, `${tag}: English fallback`);
+  assert(formatNumber(1234.5,tag) === formatNumber(1234.5,'en'), `${tag}: number fallback`);
+  assert(formatDate(new Date(2026,6,2),tag) === formatDate(new Date(2026,6,2),'en'), `${tag}: date fallback`);
+  assert(monthName(6,tag) === monthName(6,'en'), `${tag}: month fallback`);
+  assert(formatCurrency(1234.5,{currency:'VND',lang:tag}) === formatCurrency(1234.5,{currency:'VND',lang:'en'}), `${tag}: explicit currency fallback`);
+}
+for (const [tag,primary] of [[' EN_us ','en'],['JA_jp','ja'],['vi_VN','vi'],['Tieng Viet','vi'],['Japanese','ja']]) {
+  assert(primaryLang(tag) === primary, `${tag}: supported alias/region preserved`);
+}
+console.log('PASS distinct primary subtags: 6 BCP-47 tags; translation, number, date, month and currency fallbacks; 5 alias/region cases');

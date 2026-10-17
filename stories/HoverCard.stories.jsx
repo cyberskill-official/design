@@ -25,14 +25,14 @@ export default {
   },
 };
 
-export const Default = { render: () => (<HoverCard trigger={<Button variant="ghost">Hover</Button>}>Lumi the golden genie</HoverCard>) };
+export const Default = { render: () => (<HoverCard aria-label="Lumi the golden genie" trigger={<Button variant="ghost">Hover</Button>}>Lumi the golden genie</HoverCard>) };
 
 export const Matrix = {
   name: 'Matrix / Content',
   render: () => (
     <div style={{ display: 'flex', gap: 16 }}>
-      <HoverCard trigger={<Button variant="ghost">A</Button>}>Short</HoverCard>
-      <HoverCard trigger={<Button variant="ghost">B</Button>}>Longer preview body</HoverCard>
+      <HoverCard aria-label="Short" trigger={<Button variant="ghost">A</Button>}>Short</HoverCard>
+      <HoverCard aria-label="Longer preview body" trigger={<Button variant="ghost">B</Button>}>Longer preview body</HoverCard>
     </div>
   ),
 };

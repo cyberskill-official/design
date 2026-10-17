@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "template": {
+    "upstream": "https://github.com/flutter/flutter",
+    "tag": "3.24.5",
+    "commit": "dec2ee5c1f98f8e84a7d5380c05eb8a3d0a81668",
+    "command": "flutter create --platforms android --org world.cyberskill --project-name cyberskill_sample <scratch>"
+  },
+  "adaptations": [
+    "Keep Android runner only; preserve authored Dart UI",
+    "Sample label and identifier; neutral platform launch background; omit generated Flutter icon",
+    "Do not configure release signing",
+    "Replace old template wrapper with verified Gradle 8.3 wrapper; pin binary distribution checksum",
+    "Bound local build memory and workers"
+  ],
+  "wrapper": {
+    "version": "8.3",
+    "jarSha256": "0336f591bc0ec9aa0c9988929b93ecc916b3c1d52aed202c7381db144aa0ef15",
+    "jarChecksumSource": "https://services.gradle.org/distributions/gradle-8.3-wrapper.jar.sha256",
+    "distribution": "gradle-8.3-bin.zip",
+    "distributionSha256": "591855b517fc635b9e04de1d05d5e76ada3f89f5fc76f87978d1b245b4f69225",
+    "distributionChecksumSource": "https://services.gradle.org/distributions/gradle-8.3-bin.zip.sha256",
+    "license": "GRADLE-LICENSE.txt"
+  }
+}

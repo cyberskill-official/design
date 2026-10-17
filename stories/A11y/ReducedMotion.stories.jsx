@@ -21,11 +21,12 @@ function DemoTile({ title, note, duration, children }) {
   );
 }
 
-function Track({ on, transition }) {
+function Track({ on, transition, trackRef }) {
   return (
     <div style={{ position: 'relative', height: 24, borderRadius: 12, background: 'var(--cs-color-surface-raised)' }}>
       <span
         aria-hidden="true"
+        ref={trackRef}
         style={{
           position: 'absolute',
           top: 3,
@@ -43,7 +44,14 @@ function Track({ on, transition }) {
 
 function ReducedMotionPage() {
   const reduced = useReducedMotionPref();
-  const [ref, values] = useLiveTokenValues(['--cs-duration-base', '--cs-ease-standard']);
+  const [ref, values, scope] = useLiveTokenValues(['--cs-duration-base', '--cs-ease-standard']);
+  const tokenTrack = React.useRef(null);
+  const forcedTrack = React.useRef(null);
+  const [durations, setDurations] = React.useState(['', '']);
+  React.useEffect(() => {
+    const next = [tokenTrack, forcedTrack].map((track) => prettyDuration(getComputedStyle(track.current).transitionDuration));
+    setDurations((prev) => prev.every((value, i) => value === next[i]) ? prev : next);
+  }, [reduced, scope.revision, values]);
   const [on, setOn] = React.useState(false);
   const liveDuration = prettyDuration(values['--cs-duration-base'] || '');
   return (
@@ -51,28 +59,30 @@ function ReducedMotionPage() {
       <PageTitle>Reduced motion</PageTitle>
       <Lede>
         Motion is opt-out by construction: durations are tokens, and the tokens themselves
-        collapse to 0ms under prefers-reduced-motion — plus a global safety net kills any
-        stray animation. Nothing needs to check the preference in JavaScript.
+        become 0ms under prefers-reduced-motion. The global CSS safety net sets animation
+        and transition durations to 0.01ms, with one animation iteration and automatic
+        scrolling. CSS effects settle almost immediately; JavaScript-driven motion must
+        also respect the preference.
       </Lede>
       <p className="cs-caption" style={{ margin: '0 0 16px' }}>
-        Your OS setting right now: {reduced ? 'reduce motion — the token side below is frozen for you, exactly as shipped' : 'full motion — flip “reduce motion” in OS accessibility settings and the left tile freezes with no code change'}.
+        Your OS setting right now: {reduced ? 'reduce motion — CSS transitions settle almost immediately' : 'full motion — flip “reduce motion” in OS accessibility settings and the computed durations refresh'}.
       </p>
 
       <SectionTitle>Side by side</SectionTitle>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, marginBottom: 16 }}>
         <DemoTile
           title="Token-driven (what ships)"
-          note="transition uses var(--cs-duration-base) var(--cs-ease-standard); the media query zeroes the duration for reduce-motion users."
-          duration={liveDuration + (reduced ? ' (reduced)' : '')}
+          note="transition uses var(--cs-duration-base) var(--cs-ease-standard); the token becomes 0ms under reduced motion; the global rule sets the computed duration to 0.01ms."
+          duration={durations[0] + ' (token: ' + liveDuration + ')'}
         >
-          <Track on={on} transition="left var(--cs-duration-base) var(--cs-ease-standard)" />
+          <Track trackRef={tokenTrack} on={on} transition="left var(--cs-duration-base) var(--cs-ease-standard)" />
         </DemoTile>
         <DemoTile
           title="Simulated reduce-motion"
-          note="the same movement with the duration hard-forced to 0ms — this is what reduce-motion users always experience: state changes land instantly."
-          duration="0ms (forced)"
+          note="an inline 0ms comparison; the global reduced-motion rule takes precedence under that OS preference."
+          duration={durations[1]}
         >
-          <Track on={on} transition="left 0ms linear" />
+          <Track trackRef={forcedTrack} on={on} transition="left 0ms linear" />
         </DemoTile>
       </div>
       <Button variant="secondary" size="sm" onClick={() => setOn((v) => !v)}>
@@ -87,7 +97,7 @@ function ReducedMotionPage() {
         </li>
         <li>
           <Mono>base/a11y.css</Mono> — global safety net: every animation/transition is
-          collapsed under the same media query, covering hand-written CSS too.
+          set to 0.01ms under the same media query, covering hand-written CSS too.
         </li>
         <li>
           Content is never motion-dependent: a transition landing instantly must leave the
@@ -104,7 +114,7 @@ export default {
     docs: {
       description: {
         component:
-          'Side-by-side token-driven motion vs the 0ms experience, with the live OS preference read out.',
+          'Side-by-side CSS motion comparisons with computed transition durations and the live OS preference.',
       },
     },
   },

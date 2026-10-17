@@ -31,46 +31,44 @@
 .cs-button:focus-visible,
 .cs-field__control:focus-visible,
 .cs-ai-disclosure__badge:focus-visible {
-  outline: var(--cs-focus-ring, 3px) solid var(--cs-color-accent-ochre, #f4ba17);
+  outline: 2px solid var(--cs-color-text-primary);
   outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--cs-color-accent-ochre);
 }
 
 .cs-button--secondary {
   background: var(--cs-color-surface-panel, #ffffff);
-  border-color: var(--cs-color-brand-umber, #45210e);
-  color: var(--cs-color-brand-umber, #45210e);
+  border-color: var(--_cs-light, var(--cs-color-brand-umber, #45210e)) var(--_cs-dark, var(--cs-color-brand-ochre));
+  color: var(--_cs-light, var(--cs-color-brand-umber, #45210e)) var(--_cs-dark, var(--cs-color-brand-ochre));
 }
 .cs-button--secondary:hover { background: var(--cs-color-surface-raised, #fbf4e9); filter: none; }
 
 .cs-button--tertiary {
   background: var(--cs-color-surface-raised, #fbf4e9);
   border-color: transparent;
-  color: var(--cs-color-brand-umber, #45210e);
+  color: var(--_cs-light, var(--cs-color-brand-umber, #45210e)) var(--_cs-dark, var(--cs-color-text-primary));
 }
 .cs-button--tertiary:hover { filter: none; border-color: var(--cs-color-border-default, #e7d9c6); }
 
 .cs-button--ghost {
   background: transparent;
-  color: var(--cs-color-brand-umber, #45210e);
+  color: var(--_cs-light, var(--cs-color-brand-umber, #45210e)) var(--_cs-dark, var(--cs-color-text-primary));
 }
 .cs-button--ghost:hover { background: var(--cs-color-surface-raised, #fbf4e9); filter: none; }
 
 /* Dark theme: umber text/border on the low-emphasis buttons is invisible on dark surfaces —
    remap so secondary reads as an ochre outline and tertiary/ghost use the light body colour. */
-[data-theme="dark"] .cs-button--secondary { color: var(--cs-color-brand-ochre); border-color: var(--cs-color-brand-ochre); }
-[data-theme="dark"] .cs-button--tertiary { color: var(--cs-color-text-primary); }
-[data-theme="dark"] .cs-button--ghost { color: var(--cs-color-text-primary); }
 
 .cs-button--danger {
   background: var(--cs-color-semantic-danger, #b42318);
-  color: var(--cs-color-text-inverse, #ffffff);
+  color: var(--cs-color-semantic-danger-fg, #ffffff);
 }
 
 .cs-button--danger-ghost {
   background: transparent;
-  color: var(--cs-color-semantic-danger, #b42318);
+  color: var(--cs-color-semantic-danger-text, #b42318);
 }
-.cs-button--danger-ghost:hover { background: color-mix(in oklab, var(--cs-color-semantic-danger, #b42318) 10%, transparent); filter: none; }
+.cs-button--danger-ghost:hover { background: color-mix(in oklab, var(--cs-color-semantic-danger, #b42318) 3%, transparent); filter: none; }
 
 .cs-button--xs {
   min-height: var(--cs-component-button-xs-minHeight, 28px);
@@ -107,8 +105,8 @@
 /* Touch ergonomics: bump small sizes on coarse pointers (tokenized). */
 @media (pointer: coarse) {
   .cs-button { min-height: var(--cs-component-button-md-minHeight-coarse, var(--cs-component-button-md-minHeight, 44px)); }
-  .cs-button--sm { min-height: var(--cs-component-button-sm-minHeight-coarse, 40px); }
-  .cs-button--xs { min-height: var(--cs-component-button-xs-minHeight-coarse, 36px); }
+  .cs-button--sm { min-height: var(--cs-component-button-sm-minHeight-coarse, 44px); }
+  .cs-button--xs { min-height: var(--cs-component-button-xs-minHeight-coarse, 44px); }
 }
 
 /* ---- TextField ---- */
@@ -127,7 +125,7 @@
 }
 .cs-field__control::placeholder { color: var(--cs-color-text-muted, #6e5a4c); opacity: 0.7; }
 .cs-field.is-invalid .cs-field__control { border-color: var(--cs-color-semantic-danger, #b42318); }
-.cs-field__error { color: var(--cs-color-semantic-danger, #b42318); font-size: 0.875rem; }
+.cs-field__error { color: var(--cs-color-semantic-danger-text, #b42318); font-size: 0.875rem; }
 
 /* ---- Dialog ---- */
 .cs-dialog-layer { inset: 0; position: fixed; z-index: var(--cs-depth-modal); }
@@ -137,14 +135,17 @@
   border-radius: var(--cs-radius-md, 8px);
   box-shadow: var(--cs-shadow-xl, 0 24px 80px rgba(31, 19, 11, 0.26));
   color: var(--cs-color-text-primary, #45210e);
-  left: 50%;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  z-index: 2;
   max-inline-size: min(42rem, calc(100vw - 2rem));
   max-block-size: min(80vh, calc(100vh - 4rem));
   overflow: auto;
   padding: var(--cs-space-6, 24px);
   position: absolute;
   top: 12vh;
-  transform: translateX(-50%);
+  /* Transforms/translate would capture and clip fixed nested overlay layers. */
   width: 100%;
 }
 .cs-dialog__header,
@@ -157,7 +158,7 @@
 .cs-dialog__body { margin-block: 1rem; }
 /* AlertDialog — confirm/destructive modal (shares dialog layer; tighter panel) */
 .cs-alert-dialog { max-inline-size: min(28rem, calc(100vw - 2rem)); }
-.cs-alert-dialog--destructive .cs-dialog__title { color: var(--cs-color-semantic-danger, #b42318); }
+.cs-alert-dialog--destructive .cs-dialog__title { color: var(--cs-color-semantic-danger-text, #b42318); }
 @media (max-width: 640px) {
   .cs-dialog { max-inline-size: calc(100vw - 1rem); top: 4vh; padding: var(--cs-space-4, 16px); }
   .cs-dialog__actions .cs-button, .cs-review-gate__actions .cs-button { flex: 1 1 auto; }
@@ -202,7 +203,7 @@
   background: color-mix(in oklab, var(--cs-color-semantic-warning, #92400e) 5%, var(--cs-color-surface-panel, #fff));
 }
 .cs-review-gate__risk {
-  color: var(--cs-color-semantic-warning, #92400e); font-weight: 700;
+  color: var(--cs-color-semantic-warning-text, #92400e); font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.8125rem;
 }
 .cs-review-gate__summary { margin: 0; }
@@ -216,12 +217,7 @@
 .cs-ai-disclosure, .cs-review-gate, .cs-logo {
   font-family: var(--cs-font-family-ui, ui-sans-serif, system-ui);
 }
-
-/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
 @media (prefers-color-scheme: dark) {
   /* Dark theme: umber text/border on the low-emphasis buttons is invisible on dark surfaces —
    remap so secondary reads as an ochre outline and tertiary/ghost use the light body colour. */
-  [data-theme="system"] .cs-button--secondary { color: var(--cs-color-brand-ochre); border-color: var(--cs-color-brand-ochre); }
-  [data-theme="system"] .cs-button--tertiary { color: var(--cs-color-text-primary); }
-  [data-theme="system"] .cs-button--ghost { color: var(--cs-color-text-primary); }
 }

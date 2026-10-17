@@ -14,9 +14,10 @@ import {
  * A11y/Contrast — the APCA floors, demonstrated on the key token pairings with the
  * SAME SAPC-4g math the audit harness uses (_audit/apca-dark-preview.html).
  *
- * Measurement is taken from the PAINTED sample chip: computed color/background-color
+ * Measurement reads the sample chip’s computed color/background-color
  * are fully resolved by the browser (element scopes wash surfaces via color-mix, so
- * reading the raw custom property string would not be measurable). Flip the Theme or
+ * reading the raw custom property string would not be measurable). These color-pair
+ * readings do not inspect raster paint, clipping or every product backdrop. Flip Theme or
  * Element toolbar and every row re-audits itself.
  */
 
@@ -55,19 +56,36 @@ const td = {
   verticalAlign: 'middle',
 };
 
-/** One audited pairing: paints fg on bg, then measures the painted result. */
+/** One diagnostic pairing: renders fg on bg, then reads computed colors. */
 function PairRow({ fgToken, bgToken, role, tokensLabel, floor, note }) {
   const chipRef = React.useRef(null);
   const [measured, setMeasured] = React.useState({ fg: null, bg: null });
   React.useEffect(() => {
-    if (!chipRef.current) return;
-    const cs = getComputedStyle(chipRef.current);
-    const fg = resolveColorToRgb(cs.color);
-    const bg = resolveColorToRgb(cs.backgroundColor);
-    setMeasured((prev) => {
-      const same = rgbToHex(prev.fg) === rgbToHex(fg) && rgbToHex(prev.bg) === rgbToHex(bg);
-      return same ? prev : { fg, bg };
-    });
+    const chip = chipRef.current;
+    if (!chip) return;
+    const read = () => {
+      const cs = getComputedStyle(chip);
+      const fg = resolveColorToRgb(cs.color);
+      const bg = resolveColorToRgb(cs.backgroundColor);
+      setMeasured((prev) => {
+        const same = rgbToHex(prev.fg) === rgbToHex(fg) && rgbToHex(prev.bg) === rgbToHex(bg);
+        return same ? prev : { fg, bg };
+      });
+    };
+    read();
+    // Theme colors may still be transitioning at the first effect read. This
+    // includes the global 0.01ms reduced-motion duration. Refresh after paint
+    // and on completion instead of leaving an intermediate pairing displayed.
+    const frame = requestAnimationFrame(read);
+    chip.addEventListener('transitionend', read);
+    chip.addEventListener('transitioncancel', read);
+    chip.addEventListener('animationend', read);
+    return () => {
+      cancelAnimationFrame(frame);
+      chip.removeEventListener('transitionend', read);
+      chip.removeEventListener('transitioncancel', read);
+      chip.removeEventListener('animationend', read);
+    };
   });
   const lc = measured.fg && measured.bg ? apcaLc(measured.fg, measured.bg) : null;
   const pass = lc != null && lc >= floor;
@@ -123,12 +141,12 @@ function ContrastPage() {
     <div ref={ref} style={{ maxWidth: 1000 }}>
       <PageTitle>Contrast — APCA</PageTitle>
       <Lede>
-        The accessibility floor is APCA (Accessible Perceptual Contrast Algorithm):
+        These token-pair diagnostics use APCA (Accessible Perceptual Contrast Algorithm):
         body text holds Lc ≥ 75; secondary text, links and semibold CTA ink hold Lc ≥ 60.
         Verdicts below are stated in words — colour is never the only signal.
       </Lede>
       <p className="cs-caption" style={{ margin: '0 0 16px' }}>
-        Each row paints its real token pair, then measures the painted result and computes
+        Each row renders its real token pair, then reads computed colors and computes
         Lc with the same SAPC-4g math as the audit harness. Flip Theme or Element in the
         toolbar and the table re-audits — element scopes wash surfaces via color-mix, and
         the measured values follow.
@@ -169,7 +187,7 @@ function ContrastPage() {
       <ul className="cs-body" style={{ maxWidth: '76ch', paddingLeft: 20, display: 'grid', gap: 6 }}>
         <li><strong>Lc ≥ 75</strong> — body text; ink-on-tint. The anchor immutable (README): APCA Lc ≥ 75 body text.</li>
         <li><strong>Lc ≥ 60</strong> — secondary/muted text, links, accent text and semibold CTA ink; the generated report audits every elemental pairing at this floor.</li>
-        <li>Text never sits on the mid-tone accent — only on bright or tint (see Foundations/Elements).</li>
+        <li>Text never sits on the mid-tone accent — CTA ink uses bright in light, strong in dark, or tint (see Foundations/Elements).</li>
         <li>accent-strong as accent text is APCA-validated but WCAG-borderline for a few packs — reserved for semibold/large accent text (conventions decision log).</li>
       </ul>
 
@@ -196,7 +214,7 @@ export default {
     docs: {
       description: {
         component:
-          'APCA floors (body Lc ≥ 75, secondary/CTA Lc ≥ 60) demonstrated on key token pairs — painted, measured, and recomputed live.',
+          'APCA floors (body Lc ≥ 75, secondary/CTA Lc ≥ 60) demonstrated on key token pairs — computed-color diagnostics refreshed within the preview scope.',
       },
     },
   },

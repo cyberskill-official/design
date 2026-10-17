@@ -5,6 +5,7 @@ export default {
   component: CitationList,
   tags: ['autodocs'],
   argTypes: {
+  "lang": { "control": "select", "options": ["vi", "en"] },
   "label": {
     "control": "object"
   },
@@ -23,6 +24,10 @@ export default {
 };
 
 export const Default = {};
+
+export const Languages = {
+  render: (args) => <div style={{ display: 'grid', gap: 12 }}><CitationList {...args} lang="vi"/><CitationList {...args} lang="en"/></div>,
+};
 
 export const Matrix = {
   name: 'Matrix / Items',

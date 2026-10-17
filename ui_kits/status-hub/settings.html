@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CyberSkill · Settings</title>
+<title data-vi="CyberSkill · Cài đặt">CyberSkill · Settings</title>
 <link rel="icon" href="../../assets/favicon.svg" />
 <link rel="stylesheet" href="../../styles.css" />
 <link rel="stylesheet" href="status.css" />
@@ -22,67 +22,77 @@
   .danger .t { font-weight: 700; }
   .actions { display: flex; gap: 10px; justify-content: flex-end; }
   @media (max-width: 700px) { .field-row { grid-template-columns: 1fr; } }
+  [role="tabpanel"][hidden] { display: none; }
   /* G1 / TASK-IMP-025 — settings fields from `.wrap` container. */
   @container cs (max-width: 640px) { .field-row { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
-<a class="cs-skip" href="#main">Bỏ qua đến nội dung</a>
+<a class="cs-skip" href="#main" data-vi="Bỏ qua đến nội dung">Skip to content</a>
 <div class="sh">
   <header class="hd">
     <div class="hd-in">
       <div class="hd-id">
         <span class="hd-mark"><img src="../../assets/logo-mark.svg" alt="" /></span>
-        <div><h1>Settings</h1><p class="hd-sub">CyberSkill · workspace &amp; preferences</p></div>
+        <div><h1 data-vi="Cài đặt">Settings</h1><p class="hd-sub" data-vi="CyberSkill · không gian làm việc và tùy chọn">CyberSkill · workspace &amp; preferences</p></div>
       </div>
-      <div class="hd-side"><p class="hd-meta">Signed in as<br />an@cyberskill.world</p></div>
+      <div class="hd-side"><p class="hd-meta"><span data-vi="Hồ sơ minh họa">Sample profile</span><br />an@cyberskill.world</p></div>
     </div>
   </header>
 
-  <main id="main" class="wrap">
-    <div class="cs-tabs" style="margin-top:24px;overflow-x:auto" role="tablist" aria-label="Settings sections">
-      <button type="button" class="cs-tab" role="tab" aria-selected="true" tabindex="0" id="tab-profile" aria-controls="panel-settings">Profile</button>
-      <button type="button" class="cs-tab" role="tab" aria-selected="false" tabindex="-1" id="tab-notifications" aria-controls="panel-settings">Notifications</button>
-      <button type="button" class="cs-tab" role="tab" aria-selected="false" tabindex="-1" id="tab-appearance" aria-controls="panel-settings">Appearance</button>
-      <button type="button" class="cs-tab" role="tab" aria-selected="false" tabindex="-1" id="tab-team" aria-controls="panel-settings">Team <span class="cs-tab__count">6</span></button>
+  <main id="main" class="wrap" tabindex="-1">
+    <div class="cs-tabs" style="margin-top:24px;overflow-x:auto" role="tablist" aria-label="Settings sections" data-vi-aria-label="Các mục cài đặt">
+      <button type="button" class="cs-tab" role="tab" aria-selected="true" tabindex="0" id="tab-profile" aria-controls="panel-profile" data-vi="Hồ sơ">Profile</button>
+      <button type="button" class="cs-tab" role="tab" aria-selected="false" tabindex="-1" id="tab-notifications" aria-controls="panel-notifications" data-vi="Thông báo">Notifications</button>
+      <button type="button" class="cs-tab" role="tab" aria-selected="false" tabindex="-1" id="tab-appearance" aria-controls="panel-appearance" data-vi="Giao diện">Appearance</button>
+      <button type="button" class="cs-tab" role="tab" aria-selected="false" tabindex="-1" id="tab-team" aria-controls="panel-team" data-vi="Đội ngũ">Team</button>
     </div>
 
-    <div class="set-grid" id="panel-settings" role="tabpanel" aria-labelledby="tab-profile">
-      <section class="panel">
-        <h3 class="sec">Profile</h3>
-        <p class="hint">This is how you appear across the Status Hub.</p>
+    <form class="set-grid" id="settingsPreview" onsubmit="return false">
+      <section class="panel" id="panel-profile" role="tabpanel" aria-labelledby="tab-profile" tabindex="0">
+        <h3 class="sec" data-vi="Hồ sơ">Profile</h3>
+        <p class="hint" data-vi="Bản xem trước cục bộ. Thay đổi chưa được lưu vào tài khoản.">Local preview. Changes are not saved to an account.</p>
         <div class="field-row">
-          <label class="cs-field"><span class="cs-field__label">Full name</span><input class="cs-field__control" value="Nguyễn Hoàng An" /></label>
-          <label class="cs-field"><span class="cs-field__label">Work email</span><input class="cs-field__control" type="email" value="an@cyberskill.world" /></label>
-          <label class="cs-field"><span class="cs-field__label">Squad</span><span class="cs-select"><select class="cs-field__control"><option>Platform</option><option>AI</option><option>Growth</option></select><span class="cs-select__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></span></label>
-          <label class="cs-field"><span class="cs-field__label">Interface language</span><span class="cs-select"><select class="cs-field__control"><option>English</option><option>Tiếng Việt</option></select><span class="cs-select__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></span></label>
+          <label class="cs-field"><span class="cs-field__label" data-vi="Họ và tên">Full name</span><input class="cs-field__control" value="Nguyễn Hoàng An" /></label>
+          <label class="cs-field"><span class="cs-field__label" data-vi="Email công việc">Work email</span><input class="cs-field__control" type="email" value="an@cyberskill.world" /></label>
+          <label class="cs-field"><span class="cs-field__label" data-vi="Nhóm">Squad</span><span class="cs-select"><select class="cs-field__control"><option value="Platform" data-vi="Nền tảng">Platform</option><option value="AI">AI</option><option value="Growth" data-vi="Tăng trưởng">Growth</option></select><span class="cs-select__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></span></label>
+          <label class="cs-field"><span class="cs-field__label" data-vi="Ngôn ngữ giao diện">Interface language</span><span class="cs-select"><select class="cs-field__control" data-preview-language-select><option value="en">English</option><option value="vi">Tiếng Việt</option></select><span class="cs-select__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></span></label>
         </div>
       </section>
 
-      <section class="panel">
-        <h3 class="sec">Notifications</h3>
-        <p class="hint">We keep it quiet — only what you ask for.</p>
-        <div class="cs-scroll-area" style="max-block-size:220px;padding-inline-end:6px" tabindex="0" aria-label="Notification preferences">
-          <div class="toggle-row"><div><div class="t" id="lbl-release">Release notes</div><div class="d">A summary each time a project ships. Bilingual (EN + VN).</div></div><label class="cs-switch"><input type="checkbox" role="switch" checked aria-labelledby="lbl-release" /><span class="cs-switch__track"></span></label></div>
-          <div class="toggle-row"><div><div class="t" id="lbl-blocked">Blocked-project alerts</div><div class="d">Get pinged when a project moves to Blocked.</div></div><label class="cs-switch"><input type="checkbox" role="switch" checked aria-labelledby="lbl-blocked" /><span class="cs-switch__track"></span></label></div>
-          <div class="toggle-row"><div><div class="t" id="lbl-digest">Weekly velocity digest</div><div class="d">Tasks shipped per week, every Monday morning.</div></div><label class="cs-switch"><input type="checkbox" role="switch" aria-labelledby="lbl-digest" /><span class="cs-switch__track"></span></label></div>
-          <div class="toggle-row"><div><div class="t" id="lbl-quiet">Quiet hours</div><div class="d">No pings between 22:00 and 07:00 local time.</div></div><label class="cs-switch"><input type="checkbox" role="switch" checked aria-labelledby="lbl-quiet" /><span class="cs-switch__track"></span></label></div>
+      <section class="panel" id="panel-notifications" role="tabpanel" aria-labelledby="tab-notifications" tabindex="0" hidden>
+        <h3 class="sec" data-vi="Thông báo">Notifications</h3>
+        <p class="hint" data-vi="Giữ yên lặng — chỉ những gì bạn yêu cầu.">We keep it quiet — only what you ask for.</p>
+        <div class="cs-scroll-area" style="max-block-size:220px;padding-inline-end:6px" tabindex="0" aria-label="Notification preferences" data-vi-aria-label="Tùy chọn thông báo">
+          <div class="toggle-row"><div><div class="t" id="lbl-release" data-vi="Ghi chú phát hành">Release notes</div><div class="d" data-vi="Bản tóm tắt mỗi lần phát hành dự án. Song ngữ (EN + VI).">A summary each time a project ships. Bilingual (EN + VN).</div></div><label class="cs-switch"><input type="checkbox" role="switch" checked aria-labelledby="lbl-release" /><span class="cs-switch__track"></span></label></div>
+          <div class="toggle-row"><div><div class="t" id="lbl-blocked" data-vi="Cảnh báo dự án bị chặn">Blocked-project alerts</div><div class="d" data-vi="Thông báo khi dự án chuyển sang trạng thái Bị chặn.">Get pinged when a project moves to Blocked.</div></div><label class="cs-switch"><input type="checkbox" role="switch" checked aria-labelledby="lbl-blocked" /><span class="cs-switch__track"></span></label></div>
+          <div class="toggle-row"><div><div class="t" id="lbl-digest" data-vi="Tóm tắt tiến độ hằng tuần">Weekly velocity digest</div><div class="d" data-vi="Công việc đã giao mỗi tuần, vào sáng thứ Hai.">Tasks shipped per week, every Monday morning.</div></div><label class="cs-switch"><input type="checkbox" role="switch" aria-labelledby="lbl-digest" /><span class="cs-switch__track"></span></label></div>
+          <div class="toggle-row"><div><div class="t" id="lbl-quiet" data-vi="Giờ yên lặng">Quiet hours</div><div class="d" data-vi="Không thông báo từ 22:00 đến 07:00 giờ địa phương.">No pings between 22:00 and 07:00 local time.</div></div><label class="cs-switch"><input type="checkbox" role="switch" checked aria-labelledby="lbl-quiet" /><span class="cs-switch__track"></span></label></div>
         </div>
       </section>
 
+      <section class="panel" id="panel-appearance" role="tabpanel" aria-labelledby="tab-appearance" tabindex="0" hidden>
+        <h3 class="sec" data-vi="Giao diện">Appearance</h3>
+        <p class="hint" data-vi="Chọn giao diện màu cho bản xem trước này.">Choose the color theme for this preview.</p>
+        <button type="button" class="cs-button" id="appearance-theme" data-vi="Đổi sáng / tối">Toggle light / dark</button>
+      </section>
+      <section class="panel" id="panel-team" role="tabpanel" aria-labelledby="tab-team" tabindex="0" hidden>
+        <h3 class="sec" data-vi="Đội ngũ">Team</h3>
+        <p class="hint" data-vi="Bản xem trước tĩnh này không kết nối danh bạ đội ngũ.">This static preview does not connect to a team directory.</p>
+      </section>
       <section class="danger">
-        <div><div class="t">Delete workspace</div><div class="d" style="color:var(--cs-color-text-muted);font-size:13.5px;margin-top:2px">Removes every project and release. This cannot be undone.</div></div>
-        <button class="cs-button cs-button--danger-ghost">Delete workspace</button>
+        <div><div class="t" data-vi="Xóa không gian làm việc">Delete workspace</div><div class="d" style="color:var(--cs-color-text-muted);font-size:13.5px;margin-top:2px" data-vi="Chức năng chưa có trong bản xem trước cục bộ. Chưa kết nối không gian làm việc.">Unavailable in this local preview. No workspace is connected.</div></div>
+        <button type="button" disabled class="cs-button cs-button--danger-ghost" data-vi="Xóa không gian làm việc">Delete workspace</button>
       </section>
 
       <div class="actions">
-        <button class="cs-button cs-button--ghost">Cancel</button>
-        <button class="cs-button cs-button--primary">Save changes</button>
+        <button type="reset" class="cs-button cs-button--ghost" data-vi="Hủy">Cancel</button>
+        <button type="button" disabled class="cs-button cs-button--primary" data-vi="Lưu thay đổi">Save changes</button>
       </div>
-    </div>
+    </form>
   </main>
 </div>
-<button id="themeToggle" aria-label="Toggle theme" style="position:fixed;right:20px;bottom:20px;z-index:60;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);width:44px;height:44px;border-radius:999px;cursor:pointer;box-shadow:var(--cs-shadow-md)">☾</button>
+<button id="themeToggle" aria-label="Toggle theme" data-vi-aria-label="Đổi giao diện" style="position:fixed;right:20px;bottom:20px;z-index:60;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);width:44px;height:44px;border-radius:999px;cursor:pointer;box-shadow:var(--cs-shadow-md)">☾</button>
 <script>
   document.getElementById("themeToggle").addEventListener("click", function () {
     var el = document.documentElement, dark = el.getAttribute("data-theme") === "dark";
@@ -90,11 +100,15 @@
     this.textContent = dark ? "☾" : "☀";
   });
 
+  document.getElementById("appearance-theme").addEventListener("click", function(){ document.getElementById("themeToggle").click(); });
+  document.getElementById("settingsPreview").addEventListener("reset", function () {
+    requestAnimationFrame(function () { window.CSStatusPreviewLocale.apply(document.querySelector("[data-preview-language-select]").value); });
+  });
   (function(){
     var tabs=[].slice.call(document.querySelectorAll('[role="tablist"] [role="tab"]'));
     tabs.forEach(function(tab,i){
       tab.addEventListener('click',function(){
-        tabs.forEach(function(x,j){ x.setAttribute('aria-selected', j===i?'true':'false'); x.tabIndex=j===i?0:-1; });
+        tabs.forEach(function(x,j){ x.setAttribute('aria-selected', j===i?'true':'false'); x.tabIndex=j===i?0:-1; document.getElementById(x.getAttribute('aria-controls')).hidden = j!==i; });
       });
       tab.addEventListener('keydown',function(e){
         var cur=tabs.indexOf(document.activeElement); if(cur<0) return;
@@ -104,10 +118,11 @@
         else if(e.key==='Home') next=0;
         else if(e.key==='End') next=tabs.length-1;
         else return;
-        e.preventDefault(); tabs[next].focus(); tabs[next].click();
+        e.preventDefault(); tabs[next].focus(); tabs[next].click(); tabs[next].scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
       });
     });
   })();
 </script>
+<script src="static-locale.js"></script>
 </body>
 </html>

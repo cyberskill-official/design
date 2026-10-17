@@ -1,3 +1,5 @@
+import { parseEditorFragment } from "./editor-parser.js";
+
 /**
  * Editor HTML schema + sanitizer (CDS-SEC-001 / TASK-IMP-029).
  * Plain ESM — importable from Node gates and from Editor.jsx.
@@ -10,46 +12,40 @@ export const EDITOR_SCHEMA = Object.freeze({
 });
 
 const ALLOWED = new Set(EDITOR_SCHEMA.tags);
+const HTML_NAMESPACE = "http://www.w3.org/1999/xhtml";
+const DROP_CONTENT = new Set([
+  "script", "style", "iframe", "object", "embed", "link", "meta", "base",
+  "template", "noscript", "noframes", "xmp", "plaintext", "textarea", "title",
+]);
 
-/** Strip disallowed nodes/attrs and dangerous markup before inject or emit. */
+/** Escape text for HTML element content, never for attributes, URLs or scripts. */
+export function escapeEditorText(text) {
+  return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/**
+ * Parse inertly, then construct a new attribute-free HTML fragment. Node and
+ * browsers use identical parsing and policy. Unknown HTML containers unwrap
+ * only after their descendants have been visited; foreign/raw-text subtrees
+ * are discarded. No input markup is copied into the result.
+ */
 export function sanitizeHtml(html) {
   if (html == null || html === "") return "";
-  const raw = String(html);
-  if (typeof document === "undefined") {
-    let s = raw
-      .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
-      .replace(/<style[\s\S]*?>[\s\S]*?<\/style>/gi, "")
-      .replace(/<(iframe|object|embed|link|meta|base)[\s\S]*?>/gi, "")
-      .replace(/on\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
-      .replace(/javascript:/gi, "");
-    s = s.replace(/<\/?([a-z0-9:-]+)(\s[^>]*)?>/gi, (m, tag) => {
-      const t = tag.toLowerCase();
-      if (!ALLOWED.has(t)) return "";
-      if (t === "br") return "<br>";
-      const close = m.startsWith("</");
-      return close ? `</${t}>` : `<${t}>`;
-    });
-    return s;
-  }
-  const tpl = document.createElement("template");
-  tpl.innerHTML = raw;
-  tpl.content.querySelectorAll("script,style,iframe,object,embed,link,meta,base").forEach((n) => n.remove());
-  const walk = (node) => {
-    const kids = [...node.childNodes];
-    for (const child of kids) {
-      if (child.nodeType === 1) {
-        const el = child;
-        const tag = el.tagName.toLowerCase();
-        if (!ALLOWED.has(tag)) {
-          while (el.firstChild) el.parentNode.insertBefore(el.firstChild, el);
-          el.remove();
-          continue;
-        }
-        [...el.attributes].forEach((a) => el.removeAttribute(a.name));
-        walk(el);
-      }
+  const fragment = parseEditorFragment(String(html), { scriptingEnabled: true });
+  const pending = [...fragment.childNodes].reverse();
+  const output = [];
+  while (pending.length) {
+    const node = pending.pop();
+    if (typeof node === "string") { output.push(node); continue; }
+    if (node.nodeName === "#text") { output.push(escapeEditorText(node.value)); continue; }
+    const tag = node.tagName;
+    if (!tag || node.namespaceURI !== HTML_NAMESPACE || DROP_CONTENT.has(tag)) continue;
+    if (ALLOWED.has(tag)) {
+      output.push(`<${tag}>`);
+      if (tag === "br") continue;
+      pending.push(`</${tag}>`);
     }
-  };
-  walk(tpl.content);
-  return tpl.innerHTML;
+    for (let i = (node.childNodes?.length || 0) - 1; i >= 0; i--) pending.push(node.childNodes[i]);
+  }
+  return output.join("");
 }
