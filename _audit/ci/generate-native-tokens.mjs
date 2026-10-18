@@ -262,10 +262,6 @@ function buildDart() {
 }
 
 const swift = buildSwift(), kt = buildKt(), dart = buildDart();
-await write('tokens/native/CSTokens.swift', swift);
-await write('tokens/native/CSTokens.kt', kt);
-await write('tokens/native/cs_tokens.dart', dart);
-
 const provenance = {
   system: ext.system,
   release: VERSION,
@@ -281,6 +277,29 @@ const provenance = {
     { file: 'tokens/native/cs_tokens.dart', lang: 'dart', sha256: sha256(dart) },
   ],
 };
-await write('tokens/provenance.json', JSON.stringify(provenance, null, 2) + '\n');
-
-console.log(`Regenerated tokens/native/* — ${base.length} base + ${darkOverrides.length} dark + ${densityCompact.length} compact + ${densityComfortable.length} comfortable + ${contrasts.length} high-contrast + ${elementsLight.length} light-pack + ${elementsDark.length} dark-pack tokens.`);
+const provenanceJson = JSON.stringify(provenance, null, 2) + '\n';
+const summary = `${base.length} base + ${darkOverrides.length} dark + ${densityCompact.length} compact + ${densityComfortable.length} comfortable + ${contrasts.length} high-contrast + ${elementsLight.length} light-pack + ${elementsDark.length} dark-pack tokens.`;
+if (process.argv.includes('--check')) {
+  const expectedFiles = [
+    ['tokens/native/CSTokens.swift', swift],
+    ['tokens/native/CSTokens.kt', kt],
+    ['tokens/native/cs_tokens.dart', dart],
+    ['tokens/provenance.json', provenanceJson],
+  ];
+  const stale = [];
+  for (const [rel, expectedText] of expectedFiles) {
+    if ((await read(rel)) !== expectedText) stale.push(rel);
+  }
+  if (stale.length) {
+    console.error('Stale native token outputs: ' + stale.join(', '));
+    process.exitCode = 1;
+  } else {
+    console.log(`PASS native token freshness: ${summary}`);
+  }
+} else {
+  await write('tokens/native/CSTokens.swift', swift);
+  await write('tokens/native/CSTokens.kt', kt);
+  await write('tokens/native/cs_tokens.dart', dart);
+  await write('tokens/provenance.json', provenanceJson);
+  console.log(`Regenerated tokens/native/* — ${summary}`);
+}

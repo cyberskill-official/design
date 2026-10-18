@@ -97,6 +97,19 @@ for (const needle of ['Start', 'Guides', 'Maintainers', 'Library', 'Doctrine']) 
   assert(preview.includes(`'${needle}'`) || preview.includes(`"${needle}"`), `storySort missing ${needle}`);
 }
 
+const releaseNotesDoc = read('docs/release-notes.md');
+const releaseNotesMdx = read('stories/ReleaseNotes/ReleaseNotes.mdx');
+for (const m of releaseNotesDoc.matchAll(/^##\s+(.+)$/gm)) {
+  assert(releaseNotesMdx.includes(`## ${m[1].trim()}`), `ReleaseNotes.mdx missing section: ## ${m[1].trim()}`);
+}
+
+const manifest = JSON.parse(read('_ds_manifest.json'));
+const galleryStory = read('stories/Templates/Gallery.stories.jsx');
+assert(
+  galleryStory.includes(`${manifest.templates.length} starting points`),
+  `Gallery.stories.jsx must cite ${manifest.templates.length} starting points`,
+);
+
 console.log('PASS test-docs-storybook-coverage', {
   docs: enDocs.length,
   stories: catalogStories.size,

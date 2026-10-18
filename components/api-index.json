@@ -10,7 +10,7 @@
     "scripts/generate-api-index.mjs": "0c623757f8d7a8d5ec1ebb22c2ac9fabddd155c3f1b3bb2503aba7987c1517c9",
     "scripts/lib/component-support.mjs": "6626078ffaaa91cb3a43d87858577fc5d405e5bfb474e7519abf50d4797b2eb1",
     "_esm/react.d.ts": "6089ef8bb3d72554f59da8ca1aea0edc1c2ad770d30141c1e25061bda1f81e85",
-    "components/lifecycle.json": "00e6fd92e60329a32741f9d9cd9b0b0ae97691db8590b528e8bb4c6b96a8a037"
+    "components/lifecycle.json": "35c406c3a33a82824c73073aac188a25a6d87d4a893972fd432ed8d69d8de93a"
   },
   "propDefinitions": {
     "p-0005bc1a1248e02c": {
@@ -15477,7 +15477,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "60d8fc169a76bb1a6dce8497d3b3403434d1b5da6782a73fdc19480a8803bc83"
       },
       "signature": "(props: AIDisclosureBadgeProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -15558,7 +15559,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "9765030a11e0fcb0ec4be8e5eb86399acf4c4152b3e5cf4180dd2920705c391f"
       },
       "signature": "(props: AccordionProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -15635,7 +15637,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "08e19c6eee49cfd07e4a761520725edee885e4e1d8c1f60c53a1ef0cf85a7be0"
       },
       "signature": "(props: AlertProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -16820,7 +16823,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "caa8b2883a6133900ba12f93a8d97da504708363cabf962501ef90ba67eb83e8"
       },
       "signature": "(props: AlertDialogProps) => ReactElement<unknown, string | JSXElementConstructor<any>> | null",
       "props": [
@@ -18033,7 +18037,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "34b8de9b510c72f57be414c5b4821c57f377d7784b9eb0b98891f7557fe8817f"
       },
       "signature": "(props: AnchorProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -19210,7 +19215,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "6c1e8703891e947fa2ecece29b2f38a1f6333d0eb293b98070cb7f8c047c0005"
       },
       "signature": "(props: AspectRatioProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -20387,7 +20393,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "0178eaabfb7ed368c38d0b1df1f8967d58ea13b3e3621427cfb3fc6ef60588e5"
       },
       "signature": "(props: AvatarProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -21576,7 +21583,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "0178eaabfb7ed368c38d0b1df1f8967d58ea13b3e3621427cfb3fc6ef60588e5"
       },
       "signature": "(props: AvatarGroupProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -21645,7 +21653,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "cc4b6a028381aa3a0d80e39d774492323b2d3b00055f4a0183ad698a526b3e83"
       },
       "signature": "(props: BackTopProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -21722,7 +21731,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "e691ae1634f842bdf9d5d6b4a2ba2e4f4f31690ef717ce6638b5b2cbcf566636"
       },
       "signature": "(props: BadgeProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -22903,7 +22913,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "45636f3b0a518ac3232af02fcba27a6872bc33496b97455f4181d8bb856a518a"
       },
       "signature": "(props: BreadcrumbProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -24080,7 +24091,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "108246d3d50b68931281103d2ea47e646d5f65587b6ec896391f92340ac0eb10"
       },
       "signature": "(props: ButtonProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -25313,7 +25325,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "1a1481f6fb93169a888868301d32962cd3ab452af4a827944d4d99b9eea6aef3"
       },
       "signature": "(props: ButtonGroupProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -26479,7 +26492,8 @@
         "limitations": [
           "Constant export verified for declaration, bundle/ESM export parity, and runtime integrity; does not establish standalone interactive UI or manual assistive-technology scope."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "280fba8477dbc312e6bc22c715aae893379ebb2d7f2a97f4bfcf2efd42371fe8"
       },
       "signature": "Readonly<Record<string, string>>",
       "props": [],
@@ -26522,7 +26536,8 @@
         "limitations": [
           "Constant export verified for declaration, bundle/ESM export parity, and runtime integrity; does not establish standalone interactive UI or manual assistive-technology scope."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "f1a251a50c8f88e45cb2de252df24fe0940c4b62df99e0ea21c7e81067e75708"
       },
       "signature": "string",
       "props": [],
@@ -26565,7 +26580,8 @@
         "limitations": [
           "Constant export verified for declaration, bundle/ESM export parity, and runtime integrity; does not establish standalone interactive UI or manual assistive-technology scope."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "f1a251a50c8f88e45cb2de252df24fe0940c4b62df99e0ea21c7e81067e75708"
       },
       "signature": "string",
       "props": [],
@@ -26577,7 +26593,7 @@
       "sourcePath": "components/forms/Calendar.jsx",
       "declarationPath": "components/forms/Calendar.d.ts",
       "promptPath": "components/forms/Calendar.prompt.md",
-      "sourceSha256": "34ed9ce0fb39389b9de7729e7eb8747be49d0fb1bed309eb9956f6cec6bfdc11",
+      "sourceSha256": "8c95d39b7a18a9b178e760ddf303b86abb790bc29a8880ebf27783aee2786db9",
       "declarationSha256": "3524727c68bbbdbf9894beb6ee7fb5e0b46303c8fcd5deac0c4da17f3a640bae",
       "declaredLifecycle": "stable",
       "support": {
@@ -26596,7 +26612,7 @@
         "evidence": [
           {
             "path": "components/forms/Calendar.jsx",
-            "sha256": "34ed9ce0fb39389b9de7729e7eb8747be49d0fb1bed309eb9956f6cec6bfdc11",
+            "sha256": "8c95d39b7a18a9b178e760ddf303b86abb790bc29a8880ebf27783aee2786db9",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -26625,7 +26641,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "8c95d39b7a18a9b178e760ddf303b86abb790bc29a8880ebf27783aee2786db9"
       },
       "signature": "(props: CalendarProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -26702,7 +26719,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "c28db5e40ba4c515c7900ec1850f1a948d19e9b0114c435acf7b25c6c612d0e9"
       },
       "signature": "(props: CardProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -27887,7 +27905,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "c28db5e40ba4c515c7900ec1850f1a948d19e9b0114c435acf7b25c6c612d0e9"
       },
       "signature": "(props: HTMLAttributes<HTMLDivElement>) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -29060,7 +29079,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "c28db5e40ba4c515c7900ec1850f1a948d19e9b0114c435acf7b25c6c612d0e9"
       },
       "signature": "(props: HTMLAttributes<HTMLDivElement>) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -30233,7 +30253,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "c28db5e40ba4c515c7900ec1850f1a948d19e9b0114c435acf7b25c6c612d0e9"
       },
       "signature": "(props: CardHeaderProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -31410,7 +31431,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "16f649cc44c4946f923d23e5ca5982fe1982cd5a45915fc3421de1e69bf39f80"
       },
       "signature": "(props: CarouselProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -31491,7 +31513,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "673737f94cf4e63946f7eed1dfa5aaf618bc6d32745c3c6fcec906fbf04e7cfe"
       },
       "signature": "(props: CascaderProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -31536,7 +31559,7 @@
       "sourcePath": "components/data/Chart.jsx",
       "declarationPath": "components/data/Chart.d.ts",
       "promptPath": "components/data/Chart.prompt.md",
-      "sourceSha256": "fa7ef115eedf3fcc4ebd6192cff9c3fe2520306de5e6b0fc6845e2a12a9a14fb",
+      "sourceSha256": "d07fd52dc43952d861985b382d3e6a3d4d9cc494b9604527fa0b804b8fe2c50c",
       "declarationSha256": "0753a8b08827ff6459e7754e1735df56494177b96056675024ccebb6717b20ca",
       "declaredLifecycle": "stable",
       "support": {
@@ -31555,7 +31578,7 @@
         "evidence": [
           {
             "path": "components/data/Chart.jsx",
-            "sha256": "fa7ef115eedf3fcc4ebd6192cff9c3fe2520306de5e6b0fc6845e2a12a9a14fb",
+            "sha256": "d07fd52dc43952d861985b382d3e6a3d4d9cc494b9604527fa0b804b8fe2c50c",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -31584,7 +31607,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "d07fd52dc43952d861985b382d3e6a3d4d9cc494b9604527fa0b804b8fe2c50c"
       },
       "signature": "(props: ChartProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -31677,7 +31701,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "344e9c13fcfed8651145bcbfe51ce296483a1ed3dc73865084e263b4eaf51dfe"
       },
       "signature": "(props: ChatMessageProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -31762,7 +31787,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "432d120e7a1ff8850e9b439de8175f0b4e5109d5d76a631d176d24d336a9897d"
       },
       "signature": "(props: CheckboxProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -33063,7 +33089,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "a80aeeccad4a8385a217f63bbb09997f65a760268a82c269327fcb3db38aef51"
       },
       "signature": "(props: CitationListProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -33140,7 +33167,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "04a9be22152d23ff45515296202eaf436dc4be618c7ce667eae6fd07111db08b"
       },
       "signature": "(props: CodeBlockProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -33225,7 +33253,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "6e06080e5f64514a1e4d95d0c8346efdfd6bf676a30ddf44ec93e4fbebebeb2a"
       },
       "signature": "(props: CollapsibleProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -34414,7 +34443,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "793fa4c479fe825a3aacf24cb0d2e0b2f10c93a4e12c49bc2c0d9e21e26390fc"
       },
       "signature": "(props: ColorPickerProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -34499,7 +34529,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "388cb600740d2f0143b9002fb1ce88cb70841dbb061d39a0d4a47539de306c78"
       },
       "signature": "(props: ComboboxProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -34592,7 +34623,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "794167f0501331e4f90e1f034a5925e2b7ed3c874a2d4cf70ce29b8a1c90cf21"
       },
       "signature": "(props: CommandPaletteProps) => ReactElement<unknown, string | JSXElementConstructor<any>> | null",
       "props": [
@@ -34677,7 +34709,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "906891548814d7a360105da40e19723f2df10a82f488cb990fe04490bb261d91"
       },
       "signature": "(props: CommentProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -34770,7 +34803,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "d841425313d3a5c5b071cfc6649487f9814e49dfab74d1deface0f548d35df6e"
       },
       "signature": "(props: ConfidenceMeterProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -34855,7 +34889,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "4a19c27d62cd437e6c4b25e2d6f5d6014209cb32518ae07a675ca5a927a1d22d"
       },
       "signature": "(props: ContextMenuProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -34936,7 +34971,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "d44ff4be5b72db630142173303885c91d5d246909a775510c1eb1d9daf2423cb"
       },
       "signature": "(props: DataGridProps<any>) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -35065,7 +35101,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "deaef9e25121bd1781c3f6e0e3b4b207b119e6f0865f955f3066479ca50ab7aa"
       },
       "signature": "<Row extends Record<string, unknown>>(props: DataTableProps<Row>) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -35170,7 +35207,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "cdec2d2db8cfeddc253777db28edcb473387e626070bfe4869f231aad683108a"
       },
       "signature": "(props: DatePickerProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -35259,7 +35297,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "ce50d72546bbaee6533b341f928d75bbfd447b7356fa821d162997ff25904062"
       },
       "signature": "(props: DescriptionListProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -36436,7 +36475,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "79a1fe051a4c28cdc5e5b8679c5587c46e3dc67adf3bf654eca4d76e7abcef31"
       },
       "signature": "(props: DialogProps) => ReactElement<unknown, string | JSXElementConstructor<any>> | null",
       "props": [
@@ -37625,7 +37665,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "d1e5cca0c57c118d1faf71ac8708c3f6dd4872d0aa739857d63fe501a2933471"
       },
       "signature": "(props: DividerProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -38806,7 +38847,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "3073e2870c6561d7e51b730002bdc66f0ed3bed833c3e6c8ebd55b864546a99a"
       },
       "signature": "(props: DockProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -38879,7 +38921,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "139dc6b2483b19592d8257027de0380c3b29d2647b52c38598d1b6d0ad4aba63"
       },
       "signature": "(props: DrawerProps) => ReactElement<unknown, string | JSXElementConstructor<any>> | null",
       "props": [
@@ -38956,7 +38999,8 @@
           "Preview constant: follows Editor preview lifecycle status and schema-allowlisted HTML model boundaries (TASK-IMP-029).",
           "Automated sanitizer and declaration checks do not imply stable API acceptance or whole-platform certification."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "a996ec9b4b885c2d6b0e15b85d930d8a1270ba395c69b0238bd352986dfb2077"
       },
       "signature": "{ readonly tags: readonly string[]; readonly attrs: Readonly<Record<string, never>>; }",
       "props": [],
@@ -39016,7 +39060,8 @@
           "Preview export: HTML value model is schema-allowlisted via pinned parse5 in Node and browser runtimes while contentEditable remains until a full schema editor lands (TASK-IMP-029).",
           "Sanitized output is restricted to HTML element content and never certified for URL, attribute, CSS, or script contexts; automated multi-engine checks do not substitute for manual assistive-technology listening or physical mobile device testing."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "4339142c67e7f6ac5767374336fd138a5e0f15baa144b8ee1b4bac75497f12d1"
       },
       "signature": "(props: EditorProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -39101,7 +39146,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "c9dfd36a5cb488cf007232929186973a5116ee72985d4cfd4ab21bbe57a09274"
       },
       "signature": "(props: EmptyStateProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -39186,7 +39232,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "e99f67c66aa3d8b6f314b74eaae8ee835ce5d953fee3dfe0f60b4a1df34e99d7"
       },
       "signature": "(props: FileUploadProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -39279,7 +39326,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "73c0a2ed540d577c8b7a2183b233ec56a7cb56c3b61340a5f130acface7f0f6c"
       },
       "signature": "(props: FloatingActionButtonProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -39364,7 +39412,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "75b35b2bd15251927c0eddd995c2e154230c7b6484293164396287df8221ea27"
       },
       "signature": "(props: FormProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -40585,7 +40634,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "75b35b2bd15251927c0eddd995c2e154230c7b6484293164396287df8221ea27"
       },
       "signature": "(props: FormFieldProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -40682,7 +40732,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "75b35b2bd15251927c0eddd995c2e154230c7b6484293164396287df8221ea27"
       },
       "signature": "(props: FormFieldArrayProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -40779,7 +40830,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "75b35b2bd15251927c0eddd995c2e154230c7b6484293164396287df8221ea27"
       },
       "signature": "(props: FormWizardProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -40872,7 +40924,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "a99225b88f936a34e4450773e01d363e64260a7aea0a68466f95a9613105ece6"
       },
       "signature": "(props: HotKeysProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -40953,7 +41006,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "f6686064cc761962a7e51e163c35b05fa18f4ac00826ad878e16fb60f3d96230"
       },
       "signature": "(props: HoverCardProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -41042,7 +41096,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "701abb885a41371a353d91c0b509808b7fe6674f857d58aa719358a999396a32"
       },
       "signature": "(props: HumanReviewGateProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -41139,7 +41194,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "280fba8477dbc312e6bc22c715aae893379ebb2d7f2a97f4bfcf2efd42371fe8"
       },
       "signature": "(props: IconProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -43152,7 +43208,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "afafaf2adb81b6c6b76461a1968cb25cf3936266ce96ccdc2f28c7325f1fa20b"
       },
       "signature": "(props: ImageProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -44353,7 +44410,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "db30ac35d9017a532d7159325d8eae235b109942c38649efd07b8a3d35effa14"
       },
       "signature": "(props: InlineEditProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -44438,7 +44496,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "3b0a5ae116fdebe480ed88f010125f6da018b065f1fde691808a3d94367a8622"
       },
       "signature": "(props: InputGroupProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -45747,7 +45806,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "c9b9b150b5d6a877ffa63312edf70b2fa193664b4fab5e2547b1dde9a2400bd4"
       },
       "signature": "(props: InputOTPProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -45840,7 +45900,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "0ca11cdd2dabe8e7c5e7685329f9040bc907ab0e3da184ff5b66e91a242b5e9a"
       },
       "signature": "(props: ItemProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -47037,7 +47098,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "3b3d867cbdd8b6bd4c107ea5fee6b3cebf90e35380b7d0ddbe09acc97a638c9b"
       },
       "signature": "(props: KbdProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -48210,7 +48272,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "d4fe3fcffd2c9079ddc61f69bd037a5e507930887a3350dfaed99d5e54ff9a79"
       },
       "signature": "(props: LinkProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -49423,7 +49486,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "ac7d9243c7ea1f16b4e462f5dc35517011f7e20f63f011bb387e866b854eba43"
       },
       "signature": "(props: ListProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -50596,7 +50660,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "ac7d9243c7ea1f16b4e462f5dc35517011f7e20f63f011bb387e866b854eba43"
       },
       "signature": "(props: ListItemProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -51781,7 +51846,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "445c5f5fbd403c1c7292286661cde8204a3c9cb40c716f77fc7fb8e25c9f1a2c"
       },
       "signature": "(props: LogoProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -53798,7 +53864,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "da877ee4bf245f784d99f390f4609049744acea3bffaeddfa4ae5253479353c4"
       },
       "signature": "(props: LumiAvatarProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -54987,7 +55054,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "a65508731d79a9a7d53dd52a39ec960cde4a08dd1da4413c452df314b6705d83"
       },
       "signature": "(props: MasonryProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -55068,7 +55136,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "1b4e12ee3076ff7bfd2d3e2eaac61059fc30c142e969978d26ae38f1af907b7c"
       },
       "signature": "(props: MentionsProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -55165,7 +55234,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "908b1562daa726a64e50f87780fd21fe6f7df9688ca618e108805c5ebde7c16d"
       },
       "signature": "(props: MenuProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -55254,7 +55324,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "908b1562daa726a64e50f87780fd21fe6f7df9688ca618e108805c5ebde7c16d"
       },
       "signature": "(props: MenuItemProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -56475,7 +56546,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "3f36fa3c2e3a6c8d5d796e598651e13a4bf4bf228115b747a4668d70d8cbaeeb"
       },
       "signature": "(props: MenubarProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -56544,7 +56616,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "7eafb326cf9ca32b4f0ae33ea17892edeb936924a6d8c2eda2f0e72e61645119"
       },
       "signature": "(props: NativeSelectProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -57761,7 +57834,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "d5c8ebe6e2c583a1fae098b164a5155e38584c6150e4e6a2e3089c0789ea8e40"
       },
       "signature": "(props: NavItemProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -58950,7 +59024,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "c5a69167b8c3316626a267f53e05cf17cd0e88f88303532ca990ed3565d766f8"
       },
       "signature": "(props: NavigationMenuProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -60127,7 +60202,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "0708c03c7bb5c20b59d4695e2b5f815ffe512b0bacc6178d7609e32f0e5f5a71"
       },
       "signature": "(props: NumberFieldProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -61424,7 +61500,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "1619b46fa953d1168e423d3f3fdccdb8122988d194c0f7c463532d7b25d18dad"
       },
       "signature": "(props: { children?: ReactNode; }) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -61489,7 +61566,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "a1fc19bfd1046bb421413b243b5825230de26befa8e4cf21381a92798f0bcb06"
       },
       "signature": "(props: PaginationProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -62670,7 +62748,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "31c8d5b96d6795d19226554c7a27cb2dc8524a07b4a8854515e1ee8516464db9"
       },
       "signature": "(props: PopconfirmProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -62763,7 +62842,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "7f2417c3da0cbb5a90398745d16702c794017186cb994566419723b909df5fc1"
       },
       "signature": "(props: PopoverProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -62856,7 +62936,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "d1420ae640db991b51fa4f5a35b4bf1846a589e11a154476d7000f54c4557ebc"
       },
       "signature": "(props: ProgressBarProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -62941,7 +63022,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "30235351a39df12ede900ae4b43bb3bb719d6d54fe1822d33330bfc1d6d19d96"
       },
       "signature": "(props: PromptInputProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -63046,7 +63128,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "02d64117ecfa856c8dcf17960698cf4844bd4308216e91a8ac0fd2d6a6719080"
       },
       "signature": "(props: PromptSuggestionsProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -63119,7 +63202,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "6acaf577a7fcd4fecdbbd60b61ef1a279168a80dfddb2ab8ff10d2f3f71a6022"
       },
       "signature": "(props: QRCodeProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -63200,7 +63284,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "fcfe091de3014a8224fa5da41121e6f18f290960e592a27720c1297b543b3284"
       },
       "signature": "(props: RadioProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -64501,7 +64586,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "fcfe091de3014a8224fa5da41121e6f18f290960e592a27720c1297b543b3284"
       },
       "signature": "(props: RadioGroupProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -64586,7 +64672,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "3695a677b3e455ec42d2c4ee0cc630ae0461951872f0dc2516f6ddca7a566369"
       },
       "signature": "(props: RatingProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -64679,7 +64766,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "de025a44d5aeb0f47cd2ea7c073e35144812d00448b0cfc39dae8c69540e3f64"
       },
       "signature": "(props: ResultProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -64764,7 +64852,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "c2e2ec304b1ec18ceac151615cbc046ae80dcc2b2d16760f63ffa64fabc0b3fc"
       },
       "signature": "(props: ScrollAreaProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -65941,7 +66030,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "b4135f14ad12834993ad07071ec5cd1b12ebdfcc6cccdf64efd146a8eb8ca3c0"
       },
       "signature": "(props: SearchFieldProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -67238,7 +67328,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "f8aa663531483fa623881fa2ea6b40f5cbae5f247f498c8f2254692dc787e6bd"
       },
       "signature": "(props: SegmentedControlProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -68419,7 +68510,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "a121841412ee1b32f71aaebe746fc2bd7b59552554d06098d821f8f5749cfcfa"
       },
       "signature": "(props: SelectProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -69644,7 +69736,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "d5c8ebe6e2c583a1fae098b164a5155e38584c6150e4e6a2e3089c0789ea8e40"
       },
       "signature": "(props: SidebarProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -70821,7 +70914,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "edac38ecdca2771853ca970ae96bac02a48af23611443083450d2d021802ec98"
       },
       "signature": "(props: SkeletonProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -70910,7 +71004,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "213b7b9edec9b347fe344cf4c20b347ec8e2c56b9ec11fdf1ccedc04e7d502ea"
       },
       "signature": "(props: SliderProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -72203,7 +72298,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "16ade18d20922b96cdad27409fe4aa2ba1c2aef96a25ab9c57712a2321e200e8"
       },
       "signature": "(props: SortableProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -72280,7 +72376,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "cad2ed4008a63c42519e15a8220b469fbb8dd520a03cec6e10b48d3fb4ab9037"
       },
       "signature": "(props: SpinnerProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -73461,7 +73558,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "88c8097a533d7b51254b55e16e2856faecc35dd297e589335770fe6325cea25f"
       },
       "signature": "(props: SplitterProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -73554,7 +73652,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "35734a801a713447ed5b1b268196bfddb9abbcb413e236d02d0f468fdfa7bddd"
       },
       "signature": "(props: StatProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -74743,7 +74842,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "d27a5fc3db2a0bb659703133fea14d61103e839d8f532ecb18d7234923ca8b65"
       },
       "signature": "(props: StatusIndicatorProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -75924,7 +76024,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "fcd7eb09a30e44ba0b6c9415634177f2810090e528e54e681ae533bddb5c6133"
       },
       "signature": "(props: StepsProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -76001,7 +76102,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "a2b0f7f08bf81f36163ae20494afafcf2a55498d9162414d2b24ea6043b37727"
       },
       "signature": "(props: SwitchProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -77294,7 +77396,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "3002e0104b9b6360bf100dc1fe1561cb7b17ca62ad30f3cbdd3e1711791207d0"
       },
       "signature": "(props: TabProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -78515,7 +78618,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "3002e0104b9b6360bf100dc1fe1561cb7b17ca62ad30f3cbdd3e1711791207d0"
       },
       "signature": "(props: TabsProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -79696,7 +79800,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "13d288da9f3816ee8f8dcafdd21bfd6b3affae5566d31059943e4dd94488b599"
       },
       "signature": "(props: TagProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -80877,7 +80982,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "3ad9429f903cfdc8860e4c0131960df1856639208dc2602f98ab832c43c38bdd"
       },
       "signature": "(props: TagInputProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -80978,7 +81084,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "f916a9cbab09a60d87cfac5320cd28ba26d9db34ccc357493da90305e86d1921"
       },
       "signature": "(props: TerminalProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -81063,7 +81170,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "b48e8bdbbdde5439ac90895f8f12a50872ca2fbac4eff235a49332e8691bbc96"
       },
       "signature": "(props: TextFieldProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -82368,7 +82476,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "9abd7066796b748cff847ec307c3d9d79ee775b51957c4387ac5eb4cbe333553"
       },
       "signature": "(props: TextareaProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -83609,7 +83718,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "b9368b62c891be213693a80ff0b995e1ee06aea4ac7bdda70557420b14dc6943"
       },
       "signature": "(props: TimePickerProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -83698,7 +83808,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "807f08176ba1e1c8b6602441c0f1142870e652f33b01191905aaf761fb6b2ad0"
       },
       "signature": "(props: TimelineProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -83767,7 +83878,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "4a3e1a791fe0372bbfdf2f1f65b379efa91f4068466ba0fed7765f86c3512c97"
       },
       "signature": "(props: ToastProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -84952,7 +85064,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "4a3e1a791fe0372bbfdf2f1f65b379efa91f4068466ba0fed7765f86c3512c97"
       },
       "signature": "(props: ToastStackProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -85025,7 +85138,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "8ba7620a30ce3cc32bd852f29b4574d1dab59d6b99d79d719e357cd30a9bdaba"
       },
       "signature": "(props: ToggleProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -86250,7 +86364,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "fbdea367ece7d74409ecac3f810551d9d94de8a0127f95681840cc8fab309bae"
       },
       "signature": "(props: ToolbarProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -86331,7 +86446,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "5aa823814a22fd1329bfcb5000105eac08364d9757d2806e08f6cdea329992b4"
       },
       "signature": "(props: TooltipProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -86408,7 +86524,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "eb9bbddb51808580180baaeae86350b1851631bb66426f2264ab121b76e614f3"
       },
       "signature": "(props: TourProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -86489,7 +86606,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "37e06695b421614750fbe06a39ccd1fe0d1bb9da27d02ec4ad78cb13e0aa0502"
       },
       "signature": "(props: TransferProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -86574,7 +86692,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "fdca890e872a9f3ee39e3b5a63957fed70c6ee442e058b9febcf4afd3ed2857e"
       },
       "signature": "(props: TreeProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -86663,7 +86782,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "bb9d3b9968391169d973c8b36b031d4222c75669700656b4817bd1abdd916d26"
       },
       "signature": "(props: TreeSelectProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -86756,7 +86876,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "5ff421280cd695c5cbfb0d2d8b7069195800605687299c7da4b3dae1dfecca3d"
       },
       "signature": "(props: TreeTableProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -86841,7 +86962,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "149e3a0c7ef8c2362e40406173eb96d3e58bbba9154f7b73cb5449aa85d5f328"
       },
       "signature": "(props: TypingIndicatorProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
@@ -86914,7 +87036,8 @@
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
         ],
-        "deprecation": null
+        "deprecation": null,
+        "sourceSha256": "4b25b320f2519a14d630dc4d8d1ad810176ef04576112bc12b04753901946426"
       },
       "signature": "(props: WatermarkProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [

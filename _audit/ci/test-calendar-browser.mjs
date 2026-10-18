@@ -34,5 +34,14 @@ await withBrowserFixture(async page=>{
  await page.waitForFunction(()=>document.querySelector('.cs-cal__head b').textContent==='January 99');
  await page.locator('.cs-cal__grid button').filter({hasText:/^1$/}).click();
  assert.deepEqual(await page.evaluate(()=>calendarChanges.at(-1)),[99,0,1]);
- console.log('PASS Calendar: epoch zero, external month updates, leap year, controlled callbacks and year navigation');
+ await page.locator('.cs-cal__grid button').filter({hasText:/^1$/}).focus();
+ await page.keyboard.press('ArrowRight');
+ assert.equal(await page.evaluate(()=>document.activeElement?.textContent),'2');
+ await page.keyboard.press('ArrowDown');
+ assert.equal(await page.evaluate(()=>document.activeElement?.textContent),'9');
+ await page.keyboard.press('End');
+ assert.equal(await page.evaluate(()=>document.activeElement?.textContent),'31');
+ await page.keyboard.press('Home');
+ assert.equal(await page.evaluate(()=>document.activeElement?.textContent),'1');
+ console.log('PASS Calendar: epoch zero, external month updates, leap year, controlled callbacks, keyboard grid navigation and year navigation');
 },{browserName:process.env.CS_TEST_BROWSER||'chromium',contextOptions:{timezoneId:'UTC'}});

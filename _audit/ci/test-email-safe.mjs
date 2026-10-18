@@ -46,7 +46,13 @@ for (const name of files) {
     problems.push(`${name}: missing lang="en" on English blocks`);
   }
   if (!/\blang\s*=\s*["']vi["']/i.test(text.replace(rootLang?.[0] || '', ''))) {
-    // VI blocks beyond root — optional if whole doc is vi-dominant with en islands
+    problems.push(`${name}: missing explicit lang="vi" content block`);
+  }
+  if (!/@media\s*\(\s*prefers-color-scheme\s*:\s*dark\s*\)[\s\S]*\.container\b/i.test(text)) {
+    problems.push(`${name}: missing dark-mode .container rule`);
+  }
+  if (!/@media\s*\(\s*prefers-color-scheme\s*:\s*dark\s*\)[\s\S]*\.(?:foot-cell|card|raise)\b/i.test(text)) {
+    problems.push(`${name}: missing dark-mode footer/card surface rule`);
   }
   for (const lex of LEXICON) {
     let from = 0;

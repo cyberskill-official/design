@@ -36,11 +36,16 @@ export function Chart({ type = "bar", data = [], height = 160, color = "var(--cs
     );
   } else {
     const bw = (W - 8) / data.length;
+    const min = Math.min(0, ...data.map((d) => Number(d.value) || 0));
+    const span = (max - min) || 1;
+    const zeroY = min < 0 ? 6 + (max / span) * (H - 26) : H - 20;
     body = (
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={H} preserveAspectRatio="none" aria-hidden="true">
         {data.map((d, i) => {
-          const h = Math.max(0, (Math.max(0, Number(d.value) || 0) / max) * (H - 26));
-          return <rect key={i} x={4 + i * bw + bw * 0.14} y={H - 20 - h} width={bw * 0.72} height={h} rx="3" fill={color} />;
+          const val = Number(d.value) || 0;
+          const h = min < 0 ? (Math.abs(val) / span) * (H - 26) : Math.max(0, (Math.max(0, val) / max) * (H - 26));
+          const y = min < 0 ? (val >= 0 ? zeroY - h : zeroY) : H - 20 - h;
+          return <rect key={i} x={4 + i * bw + bw * 0.14} y={y} width={bw * 0.72} height={h} rx="3" fill={color} />;
         })}
       </svg>
     );

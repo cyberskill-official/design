@@ -83,7 +83,7 @@
     "build:bundle": "node scripts/build-bundle.mjs",
     "build:react-entry": "node scripts/generate-react-entry.mjs",
     "build:design-md": "node scripts/generate-design-md.mjs",
-    "prepublishOnly": "node scripts/build-template-primitives.mjs --check && node scripts/generate-base-token-exports.mjs --check && node scripts/generate-editor-parser.mjs --check && npm run build:bundle && node scripts/generate-export-catalog.mjs --check && npm run build:react-entry && node scripts/generate-api-index.mjs --check && npm run build:styles && node scripts/generate-design-md.mjs --check && node scripts/flatten-styles.mjs --check && node scripts/generate-contrast-report.mjs --check",
+    "prepublishOnly": "node scripts/build-template-primitives.mjs --check && node scripts/generate-base-token-exports.mjs --check && node _audit/ci/generate-native-tokens.mjs --check && node scripts/generate-editor-parser.mjs --check && npm run build:bundle && node scripts/generate-export-catalog.mjs --check && npm run build:react-entry && node scripts/generate-api-index.mjs --check && npm run build:styles && node scripts/generate-design-md.mjs --check && node scripts/flatten-styles.mjs --check && node scripts/generate-contrast-report.mjs --check",
     "native:store-dry-run": "node _audit/ci/native-store-dry-run.mjs --dry-run",
     "storybook": "storybook dev -p 6006 --host 127.0.0.1",
     "build:storybook": "node scripts/build-storybook.mjs",

@@ -43,10 +43,26 @@ export function Calendar({ value, onChange, lang, className }) {
         <button type="button" aria-label={t("next")} onClick={() => setView(([yy, mm]) => (mm === 11 ? [yy + 1, 0] : [yy, mm + 1]))}>›</button>
       </div>
       <div className="cs-cal__wd">{WD[WD[L] ? L : "en"].map((w) => <span key={w}>{w}</span>)}</div>
-      <div className="cs-cal__grid">
+      <div className="cs-cal__grid" onKeyDown={(e) => {
+        const btn = e.target.closest("button[data-day]");
+        if (!btn) return;
+        const cur = Number(btn.getAttribute("data-day"));
+        const maxDay = localDate(y, m + 1, 0).getDate();
+        let next = null;
+        if (e.key === "ArrowLeft") next = Math.max(1, cur - 1);
+        else if (e.key === "ArrowRight") next = Math.min(maxDay, cur + 1);
+        else if (e.key === "ArrowUp") next = Math.max(1, cur - 7);
+        else if (e.key === "ArrowDown") next = Math.min(maxDay, cur + 7);
+        else if (e.key === "Home") next = 1;
+        else if (e.key === "End") next = maxDay;
+        if (next != null) {
+          e.preventDefault();
+          e.currentTarget.querySelector(`button[data-day="${next}"]`)?.focus();
+        }
+      }}>
         {cells.map((d, i) => d == null
           ? <span key={i} />
-          : <button key={i} type="button" className={cx(isSel(d) && "sel", isToday(d) && "today")} aria-pressed={isSel(d) || undefined} aria-current={isToday(d) ? "date" : undefined} aria-label={`${monthName(m, L)} ${d}, ${y}`}
+          : <button key={i} type="button" data-day={d} className={cx(isSel(d) && "sel", isToday(d) && "today")} aria-pressed={isSel(d) || undefined} aria-current={isToday(d) ? "date" : undefined} aria-label={`${monthName(m, L)} ${d}, ${y}`}
               onClick={() => onChange && onChange(localDate(y, m, d))}>{d}</button>)}
       </div>
     </div>
