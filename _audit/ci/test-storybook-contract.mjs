@@ -398,9 +398,10 @@ function propsFromDts(dtsText, primary) {
 
 function propCoveredInStory(text, prop) {
   if (hasArgTypeKey(text, prop)) return true;
+  const code = text.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/\/\/[^\n]*/g, ' ');
   const esc = prop.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  if (new RegExp('\\b' + esc + '\\s*=').test(text)) return true;
-  if (new RegExp('\\b' + esc + '\\s*:').test(text)) return true;
+  if (new RegExp('\\b' + esc + '\\s*=').test(code)) return true;
+  if (new RegExp('\\b' + esc + '\\s*:').test(code)) return true;
   return false;
 }
 

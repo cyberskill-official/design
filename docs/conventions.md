@@ -262,7 +262,7 @@ Run `npm run tokens:coverage` after source/type inventory changes and
 `npm run test:token-coverage` to validate coverage and scope preservation. This
 internal inventory is not a public-site asset or a general DTCG interchange file.
 
-Component review discovery is generated via `npm run components:review` (`--output <path>`) after component or test edits, and checked via `npm run test:component-review`. File-level hooks and direct `CS.Name` mentions locate candidate evidence; they do not prove executed behavior, complete state coverage or acceptance. Inspect indirect fixtures and shared source files before classifying a gap.
+Component review discovery is verified via `npm run components:review` after component or test edits, and checked via `npm run test:component-review`. File-level hooks and direct `CS.Name` mentions locate candidate evidence; they do not prove executed behavior, complete state coverage or acceptance. Inspect indirect fixtures and shared source files before classifying a gap.
 
 ### Rebuilding Vietnamese font subsets
 

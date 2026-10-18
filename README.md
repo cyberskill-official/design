@@ -105,7 +105,7 @@ Related CyberSkill repos (not in this tree — explore for product/marketing fid
 
 **Typography.** UI: **Be Vietnam Pro** (300–800; a Vietnamese-first Google family) — the default for every surface, headings included. Display/headline: **Space Grotesk** (variable 300–700), the **opt-in** face behind `--cs-font-family-display`; nothing points at it until a scope opts in with `.cs-display-face`, which retargets `--cs-heading-family` and leaves body copy on the UI face. Code/data: **JetBrains Mono**. Display headings are heavy (800 on the UI face; under `.cs-display-face`, Space Grotesk tops out at 700 so 800 clamps within that family), tight tracking (−0.02em); body is 400/500 at 1.5. Uppercase eyebrows at 0.08–0.12em tracking. The size ramp runs xs 12 → 5xl 60 on a 16px base.
 
-**Spacing & layout.** 4px base grid (`--cs-space-*`); section padding lives between 64 and 96px; content max-width ~1200–1320px. Generous, calm whitespace.
+**Spacing & layout.** 4px base grid; section padding lives between 64 and 96px; content max-width ~1200–1320px. Generous, calm whitespace.
 
 **Corners & cards.** Radii: sm 4, md 8 (default), **lg 14 (cards/panels)**, full 999 (pills, inputs, chips). A default card = white panel, 1px warm border `#E7D9C6`, 14px radius, soft warm shadow. No coloured-left-border cards.
 

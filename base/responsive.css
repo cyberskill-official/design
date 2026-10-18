@@ -154,8 +154,7 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
   .cs-tabs { overflow-x: auto; overscroll-behavior-x: contain; }
   .cs-pagination { flex-wrap: wrap; max-inline-size: 100%; }
   /* Keep the inherited 44px coarse-pointer floor; wrap controls instead of shrinking targets. */
-  .cs-otp { gap: 4px; }
-  .cs-otp__box { inline-size: 36px; block-size: 40px; font-size: var(--cs-font-size-base); }
+  .cs-otp { flex-wrap: wrap; gap: 4px; }
   .cs-dl { grid-template-columns: 1fr; }
   .cs-field { min-inline-size: 0; }
   .cs-field__control { min-inline-size: 0; }
@@ -167,4 +166,5 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
 /* Preserve the narrow fine-pointer scrollbar without overriding coarse hit regions. */
 @media (max-width: 360px) and (pointer: fine) {
   .cs-tabs { scrollbar-width: thin; }
+  .cs-otp input { inline-size: 36px; block-size: 40px; font-size: var(--cs-font-size-base); }
 }

@@ -16,6 +16,7 @@ export function PromptInput({
   hint,
   lang,
   disabled = false, busy = false, className,
+  "aria-label": ariaLabel,
 }) {
   const [inner, setInner] = React.useState("");
   const val = value != null ? value : inner;
@@ -29,7 +30,7 @@ export function PromptInput({
   return (
     <div ref={ref} className={cx("cs-prompt", className)}>
       <textarea
-        className="cs-prompt__field" rows={1} value={val} placeholder={ph} disabled={disabled}
+        className="cs-prompt__field" rows={1} value={val} placeholder={ph} aria-label={ariaLabel || ph} disabled={disabled}
         onChange={(e) => setVal(e.target.value)}
         onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing && e.keyCode !== 229) { e.preventDefault(); submit(); } }}
       />

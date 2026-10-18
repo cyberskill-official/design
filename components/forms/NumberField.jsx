@@ -53,7 +53,7 @@ export function NumberField({
         </label>
       ) : null}
       <div className="cs-stepper">
-        <button type="button" aria-label={t("decrease")} disabled={disabled || (min != null && val <= min)} onClick={() => stepBy(-1)}>
+        <button type="button" aria-label={t("decrease")} disabled={disabled || (min != null && val !== "" && val <= min)} onClick={() => stepBy(-1)}>
           −
         </button>
         <input
@@ -67,9 +67,21 @@ export function NumberField({
           step={step}
           disabled={disabled}
           aria-label={label ? undefined : t("value")}
-          onChange={(e) => set(Number(e.target.value))}
+          onChange={(e) => {
+            const raw = e.target.value;
+            if (raw === "") {
+              if (value == null) setInner("");
+              return;
+            }
+            const num = Number(raw);
+            if (Number.isFinite(num)) set(num);
+          }}
+          onBlur={(e) => {
+            if (inner === "" && value == null) setInner(clamp(0));
+            props.onBlur?.(e);
+          }}
         />
-        <button type="button" aria-label={t("increase")} disabled={disabled || (max != null && val >= max)} onClick={() => stepBy(1)}>
+        <button type="button" aria-label={t("increase")} disabled={disabled || (max != null && val !== "" && val >= max)} onClick={() => stepBy(1)}>
           +
         </button>
       </div>

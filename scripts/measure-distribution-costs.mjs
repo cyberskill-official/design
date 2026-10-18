@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Inventory materialized bytes and enforce separately approved fixed growth ceilings. */
+/** Inventory materialized bytes and verify working-tree, npm pack, and public-site membership and hashes. */
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, existsSync, lstatSync, mkdtempSync, mkdirSync, rmSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';

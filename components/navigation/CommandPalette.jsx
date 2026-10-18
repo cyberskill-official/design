@@ -19,6 +19,10 @@ export function CommandPalette({ open, onClose, placeholder, groups = [], lang, 
     panelRef: panel,
   });
 
+  React.useEffect(() => {
+    if (!open) setQ("");
+  }, [open]);
+
   const [ref, L] = useLang(lang);
   const t = makeT("CommandPalette", L);
   const ph = placeholder != null ? placeholder : t("placeholder");
@@ -44,7 +48,7 @@ export function CommandPalette({ open, onClose, placeholder, groups = [], lang, 
       <div className={cx("cs-cmdk", className)} role="dialog" aria-modal="true" aria-label={t("aria")} onClick={(e) => e.stopPropagation()}>
         <div className="cs-cmdk__search">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={ph} />
+          <input aria-label={ph} value={q} onChange={(e) => setQ(e.target.value)} placeholder={ph} />
           <span className="cs-kbd">{t("esc")}</span>
         </div>
         <div className="cs-cmdk__list">
@@ -56,7 +60,7 @@ export function CommandPalette({ open, onClose, placeholder, groups = [], lang, 
               <React.Fragment key={gi}>
                 {(g.label || g.label === 0) ? <div className="cs-cmdk__label">{g.label}</div> : null}
                 {items.map((it, ii) => (
-                  <button key={ii} type="button" className="cs-cmdk__item" onClick={() => { it.onSelect && it.onSelect(); onClose && onClose(); }}>
+                  <button key={ii} type="button" className="cs-cmdk__item" onClick={() => { it.onSelect && it.onSelect(); setQ(""); onClose && onClose(); }}>
                     {(it.icon || it.icon === 0) ? <span aria-hidden="true">{it.icon}</span> : null}
                     <span>{it.label}</span>
                     {(it.shortcut || it.shortcut === 0) ? <span className="cs-kbd">{it.shortcut}</span> : null}

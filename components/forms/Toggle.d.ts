@@ -4,7 +4,7 @@ import type * as React from "react";
 
 /** A single pressable on/off button (aria-pressed). Not a form Switch and not a
  *  SegmentedControl — use it for standalone style/state toggles (e.g. Bold). */
-export interface ToggleProps extends React.AriaAttributes {
+export interface ToggleProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onChange" | "onClick"> {
   /** Controlled pressed state. */
   pressed?: boolean;
   /** Uncontrolled initial state. Default false. */

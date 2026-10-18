@@ -22,6 +22,7 @@ export interface PromptInputProps {
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;
   className?: string;
+  "aria-label"?: string;
 }
 
 export function PromptInput(props: PromptInputProps): React.ReactElement;

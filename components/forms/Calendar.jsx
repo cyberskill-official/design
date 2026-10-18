@@ -1,7 +1,7 @@
 import React from "react";
 import { makeT, useLang, monthName } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
-const WD = { en: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"], vi: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"] };
+const WD = { en: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"], vi: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"], ja: ["月", "火", "水", "木", "金", "土", "日"] };
 function localDate(year, month, day) {
   const date = new Date(0);
   date.setFullYear(year, month, day);
@@ -42,11 +42,11 @@ export function Calendar({ value, onChange, lang, className }) {
         <b>{monthName(m, L)} {y}</b>
         <button type="button" aria-label={t("next")} onClick={() => setView(([yy, mm]) => (mm === 11 ? [yy + 1, 0] : [yy, mm + 1]))}>›</button>
       </div>
-      <div className="cs-cal__wd">{WD[L === "vi" ? "vi" : "en"].map((w) => <span key={w}>{w}</span>)}</div>
+      <div className="cs-cal__wd">{WD[WD[L] ? L : "en"].map((w) => <span key={w}>{w}</span>)}</div>
       <div className="cs-cal__grid">
         {cells.map((d, i) => d == null
           ? <span key={i} />
-          : <button key={i} type="button" className={cx(isSel(d) && "sel", isToday(d) && "today")} aria-pressed={isSel(d) || undefined}
+          : <button key={i} type="button" className={cx(isSel(d) && "sel", isToday(d) && "today")} aria-pressed={isSel(d) || undefined} aria-current={isToday(d) ? "date" : undefined} aria-label={`${monthName(m, L)} ${d}, ${y}`}
               onClick={() => onChange && onChange(localDate(y, m, d))}>{d}</button>)}
       </div>
     </div>

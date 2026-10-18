@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {stringify} from 'yaml';
 import {chromium, firefox, webkit} from 'playwright';
@@ -25,6 +24,8 @@ for (const steps of [
   [install, {...unit, env: {CS_TEST_BROWSER: 'chromium'}}],
   [install, {run: 'CS_TEST_BROWSER=chromium npm run test:unit'}],
   [install, {run: 'export CS_TEST_BROWSER=chromium\nnpm run test:unit'}],
+  [{run: 'npm run test:public-site'}],
+  [{run: 'node _audit/ci/run-gates.mjs http://127.0.0.1:8080/_audit/run.html'}],
   ...requiredBrowsers.map(omit => [{run: 'npx playwright install --with-deps ' + requiredBrowsers.filter(browser => browser !== omit).join(' ')}, unit]),
 ]) assert.throws(() => probe(steps), /install required browsers|must not select a single engine/);
 

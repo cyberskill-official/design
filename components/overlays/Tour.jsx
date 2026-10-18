@@ -19,11 +19,16 @@ export function Tour({ steps = [], open, onClose, lang, className }) {
   React.useEffect(() => { if (open) setI(0); }, [open]);
   const target = steps[i]?.target;
   React.useEffect(() => {
-    if (!open || !target) return undefined;
+    if (!open || !target) {
+      setRect(null);
+      setPop({ top: 80, left: 40 });
+      return undefined;
+    }
     let frame;
     let previous;
     const measure = () => {
-      const el = document.querySelector(target);
+      let el = null;
+      try { el = document.querySelector(target); } catch (e) { el = null; }
       const r = el?.getBoundingClientRect();
       const next = r ? { x: r.left - 6, y: r.top - 6, w: r.width + 12, h: r.height + 12 } : null;
       const position = next ? {

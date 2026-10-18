@@ -200,27 +200,36 @@ export function Form({ onSubmit, onReset, errors = {}, rules, asyncRules, initia
 export function FormField({ label, name, required = false, hint, error, valueProp = "value", children, lang, className }) {
   const [ref, L] = useLang(lang);
   const t = makeT("Form", L);
+  const autoId = React.useId();
   const ctx = React.useContext(getFormCtx());
   const err = error !== undefined && error !== null ? error : (name && ctx ? ctx.errors[name] : undefined);
   const hasError = Boolean(err) || err === 0;
+  const singleElement = React.isValidElement(children) && React.Children.count(children) === 1;
+  const isNativeControl = singleElement && typeof children.type === "string" && /^(input|select|textarea)$/i.test(children.type);
+  const controlId = isNativeControl ? (children.props.id ?? autoId) : undefined;
   let child = children;
-  if (name && ctx && React.isValidElement(children) && React.Children.count(children) === 1) {
-    const cur = String(name).includes(".") ? getPath(ctx.values, name) : ctx.values[name];
-    const wire = { name };
-    wire[valueProp] = cur !== undefined ? cur : (valueProp === "checked" || valueProp === "pressed" ? false : "");
-    wire.onChange = (ev) => {
-      const val = ev && ev.target ? (valueProp === "checked" ? ev.target.checked : ev.target.value) : ev;
-      ctx.setValue(name, val);
-      if (children.props.onChange) children.props.onChange(ev);
-    };
-    child = React.cloneElement(children, wire);
+  if (singleElement) {
+    const wire = {};
+    if (isNativeControl && children.props.id === undefined) wire.id = controlId;
+    if (name && ctx) {
+      const cur = String(name).includes(".") ? getPath(ctx.values, name) : ctx.values[name];
+      wire.name = name;
+      wire[valueProp] = cur !== undefined ? cur : (valueProp === "checked" || valueProp === "pressed" ? false : "");
+      wire.onChange = (ev) => {
+        const val = ev && ev.target ? (valueProp === "checked" ? ev.target.checked : ev.target.value) : ev;
+        ctx.setValue(name, val);
+        if (children.props.onChange) children.props.onChange(ev);
+      };
+    }
+    if (Object.keys(wire).length) child = React.cloneElement(children, wire);
   }
+  const LabelTag = controlId ? "label" : "span";
   return (
-    <label ref={ref} className={cx("cs-formfield", hasError && "has-error", className)}>
-      <span className="cs-formfield__label">{label}{required ? <em aria-label={t("required")}> *</em> : null}</span>
+    <div ref={ref} className={cx("cs-formfield", hasError && "has-error", className)}>
+      <LabelTag className="cs-formfield__label" htmlFor={controlId}>{label}{required ? <em aria-label={t("required")}> *</em> : null}</LabelTag>
       {child}
       {hasError ? <span className="cs-formfield__error" role="alert">{err}</span> : (hint || hint === 0) ? <span className="cs-formfield__hint">{hint}</span> : null}
-    </label>
+    </div>
   );
 }
 

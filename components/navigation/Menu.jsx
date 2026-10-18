@@ -88,6 +88,11 @@ export function Menu({ trigger, children, align = "start", open: controlledOpen,
           className={cx("cs-menu__list", align === "end" && "cs-menu__list--end")}
           role="menu"
           aria-label={t("menu")}
+          onClick={(e) => {
+            if (e.defaultPrevented) return;
+            const item = e.target.closest?.('[role="menuitem"]:not([disabled])');
+            if (item && listRef.current?.contains(item)) set(false);
+          }}
         >
           {children}
         </div>

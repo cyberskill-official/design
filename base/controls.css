@@ -74,8 +74,8 @@
 .cs-otp input:disabled { opacity: .5; }
 .cs-btngroup { display: inline-flex; }
 .cs-btngroup .cs-button { border-radius: 0; }
-.cs-btngroup .cs-button:first-child { border-start-start-radius: var(--cs-component-button-radius, 10px); border-end-start-radius: var(--cs-component-button-radius, 10px); }
-.cs-btngroup .cs-button:last-child { border-start-end-radius: var(--cs-component-button-radius, 10px); border-end-end-radius: var(--cs-component-button-radius, 10px); }
+.cs-btngroup .cs-button:first-child { border-start-start-radius: var(--cs-component-button-radius, 8px); border-end-start-radius: var(--cs-component-button-radius, 8px); }
+.cs-btngroup .cs-button:last-child { border-start-end-radius: var(--cs-component-button-radius, 8px); border-end-end-radius: var(--cs-component-button-radius, 8px); }
 .cs-btngroup .cs-button + .cs-button { margin-inline-start: -1px; }
 
 /* ---- v3 Batch 2 part 2 (Jul 2026): Combobox · InputGroup · TagInput ---- */

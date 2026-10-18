@@ -17,7 +17,7 @@
     "componentSourceFiles": 106,
     "coExports": 17,
     "cards": 57,
-    "publicTokenDeclarations": 826,
+    "publicTokenDeclarations": 823,
     "typedBaseTokens": 175,
     "templatesWithLanguageControl": 44,
     "templatesWithoutLanguageControl": 41,
@@ -28,11 +28,11 @@
   },
   "sourceHashes": {
     "_audit/visual-diff.html": "648e2698f16900ce2dc929eb0f67efa3478a882cb2d1922ddc6e179c1ea6b2b8",
-    "_ds_manifest.json": "94cf122cb157b11ca48f8326f39ebf783a92eeac327a37ac10b81270d9213a87",
-    "scripts/public-site-policy.json": "6b4c5a56fd67ef1a242aee0c9349766f131b67328b0679be4e4488ad1109eb9a",
+    "_ds_manifest.json": "a2f5076c575d00a454566de48c2eb3753ea24dc38b2034addf950ddda65135bb",
+    "scripts/public-site-policy.json": "46fe5ae88ff53c77dae40dd9dce3e0a5ec28099a0f8c7befccbe846fdb8d7878",
     "templates/app-shell/AppShell.dc.html": "806c90114a3ba89442dda3bf1608fdcf0116eedf3be5e1d45c21a8d0402d8b01",
     "templates/article/Article.dc.html": "07e81ab1ce7592592a5b4fda49993fde3e9bdb417cb00a828fd9a334c055405b",
-    "templates/auth/Auth.dc.html": "6207b90b5fb55cdd05835e93d4638934ed12a8eb8af3a797232080a9f88a55da",
+    "templates/auth/Auth.dc.html": "2dd64b9150c95603f645ca3c40dda6e0a234c0df2a4f25bb1c8ecf4fc556d471",
     "templates/bod-deck/BodDeck.dc.html": "bc20ce5a71412e7b0342ce5b43fc20c7ed17be3dd176266ebafa0def999c5d62",
     "templates/bod-investor-update/BodInvestorUpdate.dc.html": "c0754d2fe68d8793720a1847503adec52202ff3fed075d2e20aec34debc4ba5c",
     "templates/bod-memo/BodMemo.dc.html": "79aae8bb25566687bd44b469ee18a79ffbc7cbfe1d4a6908681f2c897d1604b0",
@@ -65,7 +65,7 @@
     "templates/marketing-case-study/MarketingCaseStudy.dc.html": "096a4e2259bff4187c9234ac6d0f46f27fabb26690129475787f9206fd17e70e",
     "templates/marketing-launch/MarketingLaunch.dc.html": "2fd4d4af3c64c601896f379dfe539027b04225f6f61c25c9d736d204cd7b8f1a",
     "templates/marketing-newsletter/MarketingNewsletter.dc.html": "ea036a9988e4862837912d283aa408bcd2a195496b947e3aa71e5e7573dddf00",
-    "templates/marketing-page/MarketingPage.dc.html": "43ae1cd8374d82996d9da9bc3d6fde6186e91054cda25709718d8db3ffd70abe",
+    "templates/marketing-page/MarketingPage.dc.html": "ee0c992bddce526f80f8a4021696ce4dae77d2fb25c15f9dbf647d726dd5b54f",
     "templates/marketing-press-release/MarketingPressRelease.dc.html": "b7fd622c720f0fc197f71a385116ac27158d09496e081cbd4e96f1d969f4617f",
     "templates/marketing-social-kit/MarketingSocialKit.dc.html": "4278891b9d70ea0bcc5242c2d5c60927c193c5d4c213a7a148449840a243b9f4",
     "templates/sales-one-pager/SalesOnePager.dc.html": "a6c96ccaa9f0ff66d8315748281471857e3b2f9a0e9d012f02e48155cdbc9b1f",
@@ -115,7 +115,7 @@
     "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html": "9b26fde39b0b5eae7a99e307781e36f129b39b578f4e6d9e0d795f3532d8ef23",
     "templates/vn-training-commitment/VnTrainingCommitment.dc.html": "55bface30bfc3747ec751354291465cc900bdd6e0b8cdf130ab99411ee76647c",
     "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html": "ec4a01cd6403da156341bde35b634d6f1ddcd83bd8e3858036da13f9c22669d2",
-    "tokens/tokens.dtcg.json": "0789d9e18807b90618b4249bdad830506a99defde2517fcbb8d5949a6e02b222"
+    "tokens/tokens.dtcg.json": "ad87e281370faef2d304c9f8aaf7a1eafb837ffad671038f44c1a6032d09931d"
   },
   "documents": [
     {
@@ -134,7 +134,7 @@
       "path": "README.md",
       "audience": "documentation",
       "role": "human_orientation",
-      "sha256": "9865f6495be41597e25e374dcdd65949751eb04a758cd1f6143710887f60f4d9"
+      "sha256": "c58c76d38b56cd04eb864983c79ca56345e60cfc86d4de82c81ec85147ac7430"
     },
     {
       "path": "SKILL.md",
@@ -146,13 +146,13 @@
       "path": "THIRD-PARTY-NOTICES.md",
       "audience": "documentation",
       "role": "attribution_or_distribution_record",
-      "sha256": "e410603db66cb89702161ff59fbaa03905c06fb0d84b4e71ad9e94e40c175ff4"
+      "sha256": "8c202b586afbf120698a2af8f5991f29cfe88b586d65f91bf3ff6a39f8750e23"
     },
     {
       "path": "_audit/README.md",
       "audience": "diagnostics",
       "role": "diagnostic_operator_guide",
-      "sha256": "435c8551eeba2306363f6924ba3b4be9f2d18ef654a7d734507b8acb8ec9af52"
+      "sha256": "530453716cef4a34f0ad48d12b1b4f6401fac527466c83a865389c0b2f412b11"
     },
     {
       "path": "_audit/baselines/README.md",
@@ -836,7 +836,7 @@
       "path": "docs/ci-cd.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "9c4b195d3e92539292c6a82a70eca8a4e6b86e8ebaf1825de521bbe55d0fa3d2"
+      "sha256": "aba124c60d92571c2ab099eb71266178d36e1a8b07181294a9bbc2e2421cf2d9"
     },
     {
       "path": "docs/consumer-grant.md",
@@ -860,7 +860,7 @@
       "path": "docs/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "0adef0a72e2a449091388a113502dc35b44e8d0c678a6bc67c17fa5eb0ca14b3"
+      "sha256": "16fdf698d207c6048e0fdb014fb78f75ed5822f63ce0037b4b1cd93ce2b4a930"
     },
     {
       "path": "docs/decisions.md",
@@ -869,10 +869,22 @@
       "sha256": "127cf8f79693c0e1ae56e438280855c17525338dc4cc09272decdd8871d92ae7"
     },
     {
+      "path": "docs/decisions/container-query-migration.md",
+      "audience": "documentation",
+      "role": "decision_record",
+      "sha256": "37c405587fd21753f7afe6025ba60e0075c15801e8b7da8f427547d5ca46712b"
+    },
+    {
       "path": "docs/decisions/locale-architecture.md",
       "audience": "documentation",
       "role": "decision_record",
       "sha256": "7e8ee34fe16570df38a7a0e58c9ae7ade988bf8e7de9275f4a5143c8d7b158af"
+    },
+    {
+      "path": "docs/decisions/overlay-manager-design.md",
+      "audience": "documentation",
+      "role": "decision_record",
+      "sha256": "dbcdd0bdad9c6bc39275f687de4193575a2947f71b6e82a96563e42c65000f03"
     },
     {
       "path": "docs/decisions/theme-density-contrast.md",
@@ -884,7 +896,7 @@
       "path": "docs/deploy.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "2d42d4089b964edfb6312d3d39e0fbe2d445112a2b0ca1aa1a0b185fe206ca73"
+      "sha256": "62a5f8b4e01128c2a6a17b3d0d6d7a458f3515c5f0d1133ae4062ffaf0178853"
     },
     {
       "path": "docs/design-styles.md",
@@ -914,7 +926,7 @@
       "path": "docs/live-hub.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "f565c83eb4b4d4392b33bfe438d7f296868284acb4b9e0794283fdbbf75805bf"
+      "sha256": "97259e488352788df2718148637d45c61e1854a8b03fcafdae94719d70324874"
     },
     {
       "path": "docs/products.md",
@@ -932,7 +944,7 @@
       "path": "docs/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "08bb2cc2f1620ad641db75cb69f18180f2a1b5a25302aa75f5ffa16d8af71a8f"
+      "sha256": "420d77f74d86a6c3031412e79cdcc87dfafeb54080ac84840f1fd328da9eb0c2"
     },
     {
       "path": "docs/storybook.md",
@@ -962,7 +974,7 @@
       "path": "docs/vi/ci-cd.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "d65fe7ee6ce12e4aa1978bd6b0d8c4979683b650fef30cd2ff2cc33c0827451f"
+      "sha256": "96bb61002434177d2d42fd8207bc21cecac8f63617e0dde14d3cf603677e7847"
     },
     {
       "path": "docs/vi/consumer-grant.md",
@@ -986,7 +998,7 @@
       "path": "docs/vi/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "0ea9c7c777c88604c47c6a115581f6ee7c8c5ce38a1cd253402ea4c859365320"
+      "sha256": "aa9310a6cd9b5eec1d7f67f21069ca3b8f69c3ccad987406c45f3d76e13e65b5"
     },
     {
       "path": "docs/vi/decisions.md",
@@ -998,7 +1010,7 @@
       "path": "docs/vi/deploy.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "877586cad7baf5dce51472ecd556c4ab66a79cfa7b3a65826203ff2dc5efc1d2"
+      "sha256": "827eb59c35218cd9065c87856c364374f8b4f55472382b95501e104db3ef5cff"
     },
     {
       "path": "docs/vi/design-styles.md",
@@ -1028,7 +1040,7 @@
       "path": "docs/vi/live-hub.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "c50d8c538850133bbe57cb50e78236f7bb1a8ba55aac6bcb22c3b170d37798ac"
+      "sha256": "2ad4a27dfbb1d6cc0238b69a92c39fba846fcbad78e97229f53b933c44f4d32c"
     },
     {
       "path": "docs/vi/products.md",
@@ -1046,7 +1058,7 @@
       "path": "docs/vi/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "c775f5537767e140577ea1bcafdbaebcf505005ae803108f5c709ae070bc2f47"
+      "sha256": "01d680fa43df503bbd0bd838e807e1a472658fce88002528f2e7914b1a37df10"
     },
     {
       "path": "docs/vi/storybook.md",
@@ -1058,7 +1070,7 @@
       "path": "docs/vi/sync.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "be938f72dbb6a164fe10c8c6955accd96bd32e0f64b7de1d1a2ea03a97611293"
+      "sha256": "af873c52e882b2e2bd16120d3ae3b5e63044d48750de4902112f13eb531c38ff"
     },
     {
       "path": "docs/vi/template-schema-v2.md",

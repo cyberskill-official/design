@@ -81,9 +81,9 @@ const run=async(page,browserName,strict=false)=>{
  assert.match(await page.locator('#fixture').innerText(),/The 10 accent roles/);
  await page.evaluate(()=>document.documentElement.setAttribute('data-theme','dark'));
  await page.waitForFunction(()=>!document.querySelector('#fixture').textContent.includes('on / bright'));
- assert.equal(await page.getByText('on / strong',{exact:true}).count(),packs.length);
+ assert.equal(await page.getByText('on-strong / strong',{exact:true}).count(),packs.length);
  await page.evaluate(()=>window.renderFixture(window.StoryRenders.contrast()));
- await page.waitForFunction(()=>document.querySelector('#fixture').textContent.includes('accent-on / accent-strong'));
+ await page.waitForFunction(()=>document.querySelector('#fixture').textContent.includes('accent-on-strong / accent-strong'));
  await page.evaluate(()=>document.documentElement.setAttribute('data-theme','light'));
  await page.waitForFunction(()=>document.querySelector('#fixture').textContent.includes('accent-on / accent-bright'));
  const pairsMatch=()=>page.waitForFunction(()=>[...document.querySelectorAll('#fixture tbody tr')].every(row=>{const cs=getComputedStyle(row.querySelector('td span'));return row.cells[2].textContent===window.readHex(cs.color)+'on '+window.readHex(cs.backgroundColor)}));

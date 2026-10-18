@@ -278,7 +278,12 @@ document.getElementById('doc').addEventListener('click',(e)=>{
   const a=e.target.closest('a'); if(!a) return; const href=a.getAttribute('href')||'';
   if(/^(https?:|mailto:)/.test(href)){ a.target='_blank'; a.rel='noopener'; return; }
   if(href.startsWith('#')) return;
-  e.preventDefault(); const p=resolve(href,cur);
+  e.preventDefault();
+  const basePath=fetchPath(cur,lang);
+  const raw=resolve(href,basePath);
+  const mapped=raw.startsWith('docs/vi/')?'docs/'+raw.slice(8):raw;
+  const fallback=resolve(href,cur);
+  const p=ALL.includes(mapped)?mapped:(ALL.includes(fallback)?fallback:mapped);
   if(ALL.includes(p)) location.hash=p; else window.open('../'+p,'_blank','noopener');
 });
 function route(){ const p=decodeURIComponent((location.hash||'').slice(1)); load(ALL.includes(p)?p:'README.md'); }

@@ -5,3 +5,8 @@ docs/audits/
 docs/plans/
 docs/status/
 docs/decisions/
+_audit/
+stories/
+.storybook/
+scripts/
+

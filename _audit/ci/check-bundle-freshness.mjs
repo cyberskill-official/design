@@ -8,8 +8,9 @@
 // the header. Any edited, added, or deleted source without a matching
 // `npm run build:bundle` rebuild fails with a per-file diff.
 //
-// Standalone by design: NOT wired into run.html or any workflow yet (a later
-// phase does that). Run manually: node _audit/ci/check-bundle-freshness.mjs
+// Wired into CI (`node-prechecks` in `.github/workflows/design-system-gates.yml`),
+// with browser counterpart `_audit/bundle-freshness.html` in `_audit/run.html`.
+// Run manually: node _audit/ci/check-bundle-freshness.mjs
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";

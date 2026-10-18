@@ -28,9 +28,9 @@ const PAIRS = [
   { fg: '--cs-color-text-primary', bg: '--cs-color-surface-page', role: 'Body text on page', floor: 75 },
   { fg: '--cs-color-text-primary', bg: '--cs-color-surface-panel', role: 'Body text on panel', floor: 75 },
   { fg: '--cs-color-text-primary', bg: '--cs-color-surface-raised', role: 'Body text on raised', floor: 75 },
-  { fg: '--cs-color-text-muted', bg: '--cs-color-surface-page', role: 'Muted / secondary text', floor: 60 },
-  { fg: '--cs-color-link', bg: '--cs-color-surface-page', role: 'Link on page', floor: 60 },
-  { fg: '--cs-color-text-accent', bg: '--cs-color-surface-page', role: 'Accent text on page', floor: 60 },
+  { fg: '--cs-color-text-muted', bg: '--cs-color-surface-page', role: 'Muted / secondary text', floor: 75 },
+  { fg: '--cs-color-link', bg: '--cs-color-surface-page', role: 'Link on page', floor: 75 },
+  { fg: '--cs-color-text-accent', bg: '--cs-color-surface-page', role: 'Accent text on page', floor: 60, note: 'bold/semibold accent labels — APCA Lc ≥ 60 floor' },
   {
     fg: '--cs-component-button-primary-fg',
     bg: '--cs-component-button-primary-bg',
@@ -39,13 +39,14 @@ const PAIRS = [
     note: 'button labels are semibold — APCA fluent-text floor 60',
   },
   {
-    fg: '--cs-accent-on',
+    fgLight: '--cs-accent-on',
+    fgDark: '--cs-accent-on-strong',
     bgLight: '--cs-accent-bright',
     bgDark: '--cs-accent-strong',
     role: 'Elemental CTA ink',
     floor: 60,
     floorDark: 75,
-    note: 'light packs validate on/bright ≥ 60; dark packs re-solve on/strong ≥ 75',
+    note: 'light packs validate on/bright ≥ 60; dark packs re-solve on-strong/strong ≥ 75',
   },
   { fg: '--cs-accent-ink', bg: '--cs-accent-tint', role: 'Ink on tint chip', floor: 75 },
 ];
@@ -142,7 +143,7 @@ function ContrastPage() {
       <PageTitle>Contrast — APCA</PageTitle>
       <Lede>
         These token-pair diagnostics use APCA (Accessible Perceptual Contrast Algorithm):
-        body text holds Lc ≥ 75; secondary text, links and semibold CTA ink hold Lc ≥ 60.
+        body text, muted text, and body links hold Lc ≥ 75; bold accent labels and semibold light CTA ink hold Lc ≥ 60 (dark CTA ink holds Lc ≥ 75).
         Verdicts below are stated in words — colour is never the only signal.
       </Lede>
       <p className="cs-caption" style={{ margin: '0 0 16px' }}>
@@ -166,15 +167,16 @@ function ContrastPage() {
         </thead>
         <tbody>
           {PAIRS.map((p) => {
+            const fgToken = p.fg || (scope.dark ? p.fgDark : p.fgLight);
             const bgToken = p.bg || (scope.dark ? p.bgDark : p.bgLight);
             const floor = scope.dark && p.floorDark ? p.floorDark : p.floor;
             return (
               <PairRow
                 key={p.role}
-                fgToken={p.fg}
+                fgToken={fgToken}
                 bgToken={bgToken}
                 role={p.role}
-                tokensLabel={`${p.fg.replace('--cs-', '')} / ${bgToken.replace('--cs-', '')}`}
+                tokensLabel={`${fgToken.replace('--cs-', '')} / ${bgToken.replace('--cs-', '')}`}
                 floor={floor}
                 note={p.note}
               />
@@ -185,8 +187,8 @@ function ContrastPage() {
 
       <SectionTitle>The floors</SectionTitle>
       <ul className="cs-body" style={{ maxWidth: '76ch', paddingLeft: 20, display: 'grid', gap: 6 }}>
-        <li><strong>Lc ≥ 75</strong> — body text; ink-on-tint. The anchor immutable (README): APCA Lc ≥ 75 body text.</li>
-        <li><strong>Lc ≥ 60</strong> — secondary/muted text, links, accent text and semibold CTA ink; the generated report audits every elemental pairing at this floor.</li>
+        <li><strong>Lc ≥ 75</strong> — body text, muted text, body links, dark-mode CTA ink (<code>--cs-accent-on-strong</code> on <code>--cs-accent-strong</code>), and ink-on-tint.</li>
+        <li><strong>Lc ≥ 60</strong> — bold/semibold accent labels (<code>--cs-color-text-accent</code>) and semibold light CTA ink (<code>--cs-accent-on</code> on <code>--cs-accent-bright</code>).</li>
         <li>Text never sits on the mid-tone accent — CTA ink uses bright in light, strong in dark, or tint (see Foundations/Elements).</li>
         <li>accent-strong as accent text is APCA-validated but WCAG-borderline for a few packs — reserved for semibold/large accent text (conventions decision log).</li>
       </ul>
@@ -214,7 +216,7 @@ export default {
     docs: {
       description: {
         component:
-          'APCA floors (body Lc ≥ 75, secondary/CTA Lc ≥ 60) demonstrated on key token pairs — computed-color diagnostics refreshed within the preview scope.',
+          'APCA floors (body/muted/link Lc ≥ 75, bold accent/light CTA Lc ≥ 60) demonstrated on key token pairs — computed-color diagnostics refreshed within the preview scope.',
       },
     },
   },

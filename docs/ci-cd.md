@@ -18,8 +18,10 @@
 5. **`docs-consistency-blocker`** — `docs-consistency` + `bilingual-parity` merge blockers.
 6. **`whole-set-audits`** — owner decision B: every push/PR, plus nightly `0 3 * * *` and `workflow_dispatch` (responsive + language + theme overflow, ~15–20 min).
 7. **`figma-variables-push`** — on `main` push + manual. **Empty `FIGMA_TOKEN` / `FIGMA_FILE_KEY` soft-skip** (exit 0 + report). Owner decision A keeps this integration optional. With credentials, only the Variables access and API-unavailability responses documented in `docs/figma.md` may soft-skip. File-preflight scope errors, ordinary write-permission failures and invalid local token data remain hard failures. Soft-skip does not establish live Variables sync.
+8. **`pixel-diff`** — Playwright Chromium screenshot comparison (`_audit/ci/pixel-diff.mjs`) against the 15 curated baselines in `_audit/baselines/*.png`; uploads `pixel-baselines-linux` and `_audit/ci/pixel-diff-report.json`.
 9. **`regenerate-tokens`** (pull requests) + **`regenerate-tokens-push`** (push to `main` / schedule / manual) — path filter covers element seeds/packs (`element-seeds.json`, `elements.css`, JSON/JS/DTCG mirrors, `generate-element-packs.mjs`) plus natives / `VERSION`. Regeneration runs `npm run tokens:generate`, including the complete token exports, native copies and dependent outputs/catalog. On a **pull request** the job runs with `contents: read`, never pushes, and **exits 1** on drift: run this pipeline locally and prepare the reviewed diff (PR-required freshness). Only the push/schedule/manual twin holds `contents: write` and may auto-commit with `PUSH_TOKEN` (or `github.token`). Auto-commits **do not** use `[skip ci]` — the pushed tip re-enters the gate board (FIND-021 / TASK-IMP-008); a deterministic second pass is a no-op.
 10. **`npm-hello-smoke`** — registry consumer proof for `@cyberskill/design@$VERSION` (**fail-closed**, FIND-087): `examples/npm-hello` → registry `npm install` + `npm run smoke`. If the exact VERSION is **not** on the registry, the job **fails** (no soft-skip pack proof on `cyberskill-official/design`). Forks may opt into local-pack proof only by setting repo variable **`NPM_HELLO_ALLOW_LOCAL_PACK=true`**. Path-filtered on push/PR when `examples/npm-hello/**`, package publish surface, or this workflow changes; always on schedule / `workflow_dispatch`.
+11. **`notify-schedule-failure`** — opens or updates a `ci-failure` issue when a scheduled nightly run fails.
 
 Separate workflow **`native-store`** (`.github/workflows/native-store.yml`): PR + `main` (path-filtered) + `workflow_dispatch`; scaffold dry-run always; signed-release check soft-skips without `ASC_KEY_ID` / `ASC_ISSUER_ID` / `ASC_KEY_P8` / `PLAY_SERVICE_ACCOUNT_JSON`. **Never submits** to App Store / Play — samples remain samples. See `examples/native/README.md`.
 
@@ -29,7 +31,7 @@ Gate jobs use Node **22**. The Playwright cache key includes `package-lock.json`
 
 ```yaml
 - run: npm ci
-- uses: actions/cache@v4
+- uses: actions/cache@v6
   with:
     path: ~/.cache/ms-playwright
     key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium-firefox-webkit
@@ -82,7 +84,7 @@ A green `figma-variables-push` job still exits 0 on Decision 1C soft-skip, but F
 ## Soft-skip dry-runs (local)
 
 ```bash
-npm run npm:pack-dry-run              # tarball inventory; no auth
+npm run test:pack-hygiene             # tarball inventory; no auth
 npm run native:store-dry-run          # Fastlane scaffolds + metadata; no ASC_*/Play JSON
 node _audit/ci/native-store-dry-run.mjs   # without secrets → SOFT SKIP missing_secrets
 ```

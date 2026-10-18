@@ -2,7 +2,7 @@
 
 Bắt đầu từ snapshot repo đã chọn cho tác vụ, ghi lại commit và thay đổi local. Snapshot Git giữ nguyên byte của các file được track. Việc khôi phục hành vi compiler, tích hợp host hay export có thể chỉnh sửa cần bằng chứng riêng từ công cụ thực tế. Một archive không tự chứng minh các khả năng đó.
 
-Đọc [SKILL.md](../../SKILL.md), [doctrine](../doctrine.md) và [hướng dẫn consumer](./consuming.md) trước khi chọn runtime. Session compiler, kể cả Claude Design, là môi trường authoring có điều kiện. Kiểm tra DC compiler và thao tác import/export cần dùng có sẵn; không suy ra `github_copy_files`, compiler tự nhận diện hay round trip không mất dữ liệu chỉ từ một clone.
+Đọc [SKILL.md](../../SKILL.md), [doctrine](./doctrine.md) và [hướng dẫn consumer](./consuming.md) trước khi chọn runtime. Session compiler, kể cả Claude Design, là môi trường authoring có điều kiện. Kiểm tra DC compiler và thao tác import/export cần dùng có sẵn; không suy ra `github_copy_files`, compiler tự nhận diện hay round trip không mất dữ liệu chỉ từ một clone.
 
 ## Giữ input được author cùng output đã commit
 

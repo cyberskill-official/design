@@ -39,7 +39,7 @@ export function Chart({ type = "bar", data = [], height = 160, color = "var(--cs
     body = (
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={H} preserveAspectRatio="none" aria-hidden="true">
         {data.map((d, i) => {
-          const h = (d.value / max) * (H - 26);
+          const h = Math.max(0, (Math.max(0, Number(d.value) || 0) / max) * (H - 26));
           return <rect key={i} x={4 + i * bw + bw * 0.14} y={H - 20 - h} width={bw * 0.72} height={h} rx="3" fill={color} />;
         })}
       </svg>

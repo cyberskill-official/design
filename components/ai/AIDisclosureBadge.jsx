@@ -31,7 +31,7 @@ export function AIDisclosureBadge({
         type="button"
         className="cs-ai-disclosure__badge"
         aria-expanded={open}
-        aria-controls={panelId}
+        aria-controls={open ? panelId : undefined}
         onClick={() => setOpen((v) => !v)}
       >
         {label ?? t("label")}

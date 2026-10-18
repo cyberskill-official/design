@@ -129,7 +129,7 @@
     "test:theme-composition": "node _audit/ci/test-theme-composition-browser.mjs",
     "tokens:theme": "node scripts/generate-theme-exports.mjs",
     "test:density-exports": "node scripts/generate-theme-exports.mjs --check && node _audit/ci/test-density-export-generator.mjs && node _audit/ci/test-density-exports.mjs",
-    "tokens:generate": "npm run tokens:elements && npm run tokens:base && npm run tokens:dtcg && npm run tokens:declarations && npm run tokens:coverage && node _audit/ci/generate-native-tokens.mjs && npm run native:sync-tokens && npm run build:exports && npm run build:styles && npm run tokens:contrast && npm run docs:reference",
+    "tokens:generate": "npm run tokens:elements && npm run tokens:base && npm run tokens:dtcg && npm run tokens:declarations && npm run tokens:coverage && node _audit/ci/generate-native-tokens.mjs && npm run native:sync-tokens && npm run build:exports && npm run build:styles && npm run tokens:contrast",
     "test:dtcg-profile": "node scripts/generate-dtcg.mjs --check && node _audit/ci/test-dtcg-profile.mjs && node _audit/ci/test-dtcg-roundtrip.mjs && node _audit/ci/test-style-dictionary-adapter.mjs",
     "tokens:validate:dtcg": "node _audit/ci/check-dtcg-profile.mjs",
     "tokens:dtcg": "node scripts/generate-dtcg.mjs",

@@ -186,6 +186,7 @@ export const strings = {
   Calendar: {
     en: { prev: "Previous month", next: "Next month" },
     vi: { prev: "Tháng trước", next: "Tháng sau" },
+    ja: { prev: "前の月", next: "次の月" },
   },
   DatePicker: {
     en: { placeholder: "Select a date" },

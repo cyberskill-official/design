@@ -1,10 +1,11 @@
+import type * as React from "react";
 import type { ReactNode, MouseEventHandler } from "react";
 
 /**
  * Shared list / settings / nav row: leading · title · description · trailing,
  * with selected / disabled and href-or-button semantics when interactive.
  */
-export interface ItemProps {
+export interface ItemProps extends Omit<React.HTMLAttributes<HTMLElement>, "title" | "onClick"> {
   leading?: ReactNode;
   trailing?: ReactNode;
   title?: ReactNode;

@@ -21,18 +21,23 @@ export function Item({
   className,
   ...props
 }) {
-  const interactive = !disabled && (href != null || typeof onClick === "function");
-  const Tag = href != null && !disabled ? "a" : interactive ? "button" : "div";
+  const interactive = href != null || typeof onClick === "function";
+  const Tag = href != null ? "a" : interactive ? "button" : "div";
   const rowProps = { ...props };
   if (Tag === "a") {
-    rowProps.href = href;
-    if (disabled) rowProps["aria-disabled"] = true;
+    if (disabled) {
+      rowProps["aria-disabled"] = "true";
+      rowProps.tabIndex = -1;
+      rowProps.role = rowProps.role ?? "link";
+      rowProps.onClick = (e) => e.preventDefault();
+    } else {
+      rowProps.href = href;
+      rowProps.onClick = onClick;
+    }
   } else if (Tag === "button") {
     rowProps.type = "button";
     rowProps.disabled = disabled || undefined;
-    rowProps.onClick = onClick;
-  } else if (disabled) {
-    rowProps["aria-disabled"] = true;
+    rowProps.onClick = !disabled ? onClick : undefined;
   }
   if (selected) rowProps["aria-current"] = rowProps["aria-current"] ?? "true";
 
@@ -44,7 +49,7 @@ export function Item({
     <Tag
       className={cx(
         "cs-item",
-        interactive && "cs-item--interactive",
+        interactive && !disabled && "cs-item--interactive",
         selected && "is-selected",
         disabled && "is-disabled",
         className

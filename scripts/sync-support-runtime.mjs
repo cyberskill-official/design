@@ -57,6 +57,14 @@ export function syncTemplateRuntimes(root = defaultRoot, { check = false } = {})
     return { path, target, bytes, matches: existsSync(target) && readFileSync(target).equals(bytes) };
   }));
   const stale = outputs.filter(item => !item.matches);
+  const canonicalBase = resolve(root, 'templates/_ds-base.canonical.js');
+  const dsBaseBytes = sources.find(s => s.name === 'ds-base.js')?.bytes;
+  if (dsBaseBytes && existsSync(canonicalBase)) {
+    assert(!lstatSync(canonicalBase).isSymbolicLink(), 'Linked runtime path: templates/_ds-base.canonical.js');
+    const canonicalMatches = readFileSync(canonicalBase).equals(dsBaseBytes);
+    if (check) assert(canonicalMatches, 'Stale or missing template runtime copies: templates/_ds-base.canonical.js');
+    else if (!canonicalMatches) writeFileSync(canonicalBase, dsBaseBytes);
+  }
   if (check) assert(!stale.length, `Stale or missing template runtime copies: ${stale.map(item => item.path).join(', ')}`);
   else for (const item of stale) writeFileSync(item.target, item.bytes);
   return { copies: outputs.length, changed: check ? 0 : stale.length };

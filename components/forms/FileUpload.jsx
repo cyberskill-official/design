@@ -36,7 +36,7 @@ export function FileUpload({ title, hint, accept, multiple = false, onFiles, ico
         className="cs-sr-only"
         aria-describedby={id + "-hint"}
         onChange={(e) => pick(e.target.files)}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => { e.stopPropagation(); e.currentTarget.value = ""; }}
       />
     </div>
   );

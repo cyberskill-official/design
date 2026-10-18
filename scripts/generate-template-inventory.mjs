@@ -1,5 +1,5 @@
 // Source declarations only: this inventory does not certify rendering or exports.
-import {readFileSync,writeFileSync,readdirSync,existsSync} from 'node:fs';
+import {readFileSync,readdirSync,existsSync} from 'node:fs';
 import {resolve,relative,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';

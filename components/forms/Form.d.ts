@@ -1,4 +1,5 @@
 /** FormField error/hint and FormFieldArray label preserve numeric 0. An explicit zero error takes precedence over the hint and context error and applies error styling. Empty error content retains the existing hint fallback. */
+import type * as React from "react";
 import type { ReactNode, FormEventHandler } from "react";
 
 /** One validation rule: "required" (bilingual default message) or fn(value, values) → message | null. */
@@ -8,7 +9,7 @@ export type FormRule = "required" | ((value: unknown, values: Record<string, unk
  *  FormData into onSubmit(values); `errors` renders the bilingual summary. Controller mode:
  *  `rules` validate on submit (blocking until clean); FormField children with `name`
  *  auto-wire value/onChange + per-field errors via context. Dotted paths work with FormFieldArray. */
-export interface FormProps {
+export interface FormProps extends Omit<React.FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "onReset"> {
   /** Pending lasts through the returned promise; rejection appears in the summary and permits retry. */
   onSubmit?: (values: Record<string, unknown>) => void;
   /** Native reset restores the mount-time controller seed and clears internal errors.

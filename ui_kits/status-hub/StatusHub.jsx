@@ -210,7 +210,7 @@ function StatusHub() {
 
         <div className="bar">
           <div className="bar-top">
-            <label className="srch"><SearchGlyph /><input placeholder={t.search} value={q} onChange={(e) => setQ(e.target.value)} /></label>
+            <label className="srch"><SearchGlyph /><input aria-label={t.search} placeholder={t.search} value={q} onChange={(e) => setQ(e.target.value)} /></label>
             <div
               className="lenses"
               role="tablist"

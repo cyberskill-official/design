@@ -18,8 +18,10 @@
 5. **`docs-consistency-blocker`** — merge blocker `docs-consistency` + `bilingual-parity`.
 6. **`whole-set-audits`** — quyết định B của owner: mọi push/PR, cộng nightly `0 3 * * *` và `workflow_dispatch` (responsive + language + theme overflow, ~15–20 phút).
 7. **`figma-variables-push`** — trên push `main` + thủ công. **`FIGMA_TOKEN` / `FIGMA_FILE_KEY` trống → soft-skip** (exit 0 + report). Quyết định A giữ tích hợp này ở trạng thái tùy chọn. Khi có thông tin xác thực, chỉ phản hồi giới hạn truy cập Variables và API không khả dụng đã mô tả trong `docs/figma.md` mới được soft-skip. Lỗi scope khi kiểm tra file, lỗi quyền ghi thông thường và dữ liệu token local không hợp lệ vẫn là lỗi cứng. Soft-skip không chứng minh đã đồng bộ Variables live.
+8. **`pixel-diff`** — so sánh ảnh chụp màn hình Playwright Chromium (`_audit/ci/pixel-diff.mjs`) với 15 baseline chọn lọc trong `_audit/baselines/*.png`; upload `pixel-baselines-linux` và `_audit/ci/pixel-diff-report.json`.
 9. **`regenerate-tokens`** (pull request) + **`regenerate-tokens-push`** (push `main` / schedule / thủ công) — path filter phủ element seeds/packs (`element-seeds.json`, `elements.css`, mirror JSON/JS/DTCG, `generate-element-packs.mjs`) cộng natives / `VERSION`. Regenerate chạy `npm run tokens:generate`, gồm toàn bộ export token, bản sao native và output/catalog phụ thuộc. Trên **pull request** job chạy với `contents: read`, không bao giờ push, và **exit 1** khi có drift: chạy pipeline này ở local rồi chuẩn bị diff đã review (freshness bắt buộc trên PR). Chỉ job song sinh push/schedule/thủ công giữ `contents: write` và có thể auto-commit với `PUSH_TOKEN` (hoặc `github.token`). Auto-commit **không** dùng `[skip ci]` — tip được push phải chạy lại bảng gate (FIND-021 / TASK-IMP-008); lần chạy thứ hai deterministic là no-op.
 10. **`npm-hello-smoke`** — chứng minh consumer registry cho `@cyberskill/design@$VERSION` (**fail-closed**, FIND-087): `examples/npm-hello` → `npm install` từ registry + `npm run smoke`. Nếu VERSION **không** có trên registry, job **fail** (không soft-skip pack proof trên `cyberskill-official/design`). Fork chỉ được opt-in pack local khi đặt biến repo **`NPM_HELLO_ALLOW_LOCAL_PACK=true`**. Path-filtered trên push/PR khi `examples/npm-hello/**`, bề mặt publish package, hoặc workflow này đổi; luôn chạy trên schedule / `workflow_dispatch`.
+11. **`notify-schedule-failure`** — mở hoặc cập nhật issue `ci-failure` khi lượt chạy lịch trình hàng đêm bị lỗi.
 
 Workflow riêng **`native-store`** (`.github/workflows/native-store.yml`): PR + `main` (path-filtered) + `workflow_dispatch`; dry-run scaffold luôn; kiểm signed-release soft-skip khi thiếu `ASC_KEY_ID` / `ASC_ISSUER_ID` / `ASC_KEY_P8` / `PLAY_SERVICE_ACCOUNT_JSON`. **Không bao giờ submit** lên App Store / Play — sample vẫn là sample. Xem `examples/native/README.md`.
 
@@ -29,7 +31,7 @@ Job gate dùng Node **22**. Cache key Playwright gồm `package-lock.json` và e
 
 ```yaml
 - run: npm ci
-- uses: actions/cache@v4
+- uses: actions/cache@v6
   with:
     path: ~/.cache/ms-playwright
     key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium-firefox-webkit
@@ -82,7 +84,7 @@ Job `figma-variables-push` vẫn exit 0 khi soft-skip (Quyết định 1C), như
 ## Soft-skip dry-run (local)
 
 ```bash
-npm run npm:pack-dry-run              # inventory tarball; không auth
+npm run test:pack-hygiene             # inventory tarball; không auth
 npm run native:store-dry-run          # scaffold Fastlane + metadata; không ASC_*/Play JSON
 node _audit/ci/native-store-dry-run.mjs   # thiếu secret → SOFT SKIP missing_secrets
 ```

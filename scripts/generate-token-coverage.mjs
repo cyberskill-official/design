@@ -1,5 +1,5 @@
 // Observed typed-export coverage. This does not resolve the CSS cascade or certify consumers.
-import {readFileSync,writeFileSync} from 'node:fs';
+import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {collectTokenDeclarations} from './lib/token-declarations.mjs';

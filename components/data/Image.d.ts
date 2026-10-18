@@ -1,9 +1,10 @@
 /** Custom fallback content preserves numeric zero and rich React nodes. Null, false and empty strings retain the default error illustration. */
+import type * as React from "react";
 import type { ReactNode } from "react";
 
 /** Image with loading shimmer, warm fallback on error, and optional
  *  click-to-preview lightbox (Escape/click closes). */
-export interface ImageProps {
+export interface ImageProps extends React.HTMLAttributes<HTMLElement> {
   /** Changing the source restarts loading and closes any preview. */
   src: string;
   alt?: string;

@@ -36,6 +36,9 @@
 .cs-switch input:focus-visible + .cs-switch__track {
   box-shadow: 0 0 0 5px var(--cs-color-accent-ochre);
 }
+.cs-cmdk__search:focus-within {
+  box-shadow: 0 0 0 5px var(--cs-color-accent-ochre), inset 0 0 0 4px var(--cs-color-accent-ochre);
+}
 
 /* ---- 3. Entrance motion utilities (opt-in) + a gentle Dialog entrance ---- */
 @keyframes cs-fade-in { from { opacity: 0; } to { opacity: 1; } }

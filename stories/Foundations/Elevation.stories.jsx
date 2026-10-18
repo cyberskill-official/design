@@ -59,7 +59,7 @@ function ElevationPage() {
 
       <SectionTitle>Z-depth scale</SectionTitle>
       <p className="cs-caption" style={{ margin: '0 0 10px' }}>
-        bg 0 → section 5 → card 10 → nav 50 → modal 100 → toast 200 — every layered
+        bg 0 → section 5 → card 10 → nav 50 → dropdown 60 → overlay 80 → modal 100 → toast 200 — every layered
         surface takes its z-index from this ladder.
       </p>
       <TokenTable

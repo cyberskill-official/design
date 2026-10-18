@@ -80,5 +80,7 @@ try {
  browserConditions,
  tools:{platform:process.platform,architecture:process.arch,node:process.version,esbuild:esbuildVersion,chromium:browser.version(),react:JSON.parse(readFileSync(join(temp,'node_modules/react/package.json'))).version},
  productionOutputs:Object.entries(built.metafile.outputs).map(([path,data])=>({path:relative(join(temp,'production'),resolve(temp,path)),bytes:data.bytes})),results};
+ const args=process.argv.slice(2);assert(args.length===0||(args.length===2&&args[0]==='--output'),'Usage: node scripts/measure-consumer-costs.mjs [--output /path/to/report.json]');
+ if(args.length)writeFileSync(resolve(args[1]),JSON.stringify(report,null,2)+'\n');
  console.log(JSON.stringify(results.map(({path,requests,bodyBytes,gzipBytes,byType})=>({path,requests,bodyBytes,gzipBytes,byType})),null,2));
 }finally{if(browser)await browser.close();if(server)await new Promise(resolve=>server.close(resolve));rmSync(temp,{recursive:true,force:true});}

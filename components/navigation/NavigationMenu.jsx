@@ -4,7 +4,7 @@ import { cx } from "../_utils/cx.js";
 import { useViewportPanel } from "../_utils/use-viewport-panel.js";
 
 /** CyberSkill NavigationMenu — site nav; entries are links or open a rich panel of links. */
-export function NavigationMenu({ items = [], className }) {
+export function NavigationMenu({ items = [], className, ...props }) {
   const [open, setOpen] = React.useState(null);
   const wrap = React.useRef(null);
   const popup = React.useRef(null);
@@ -18,7 +18,7 @@ export function NavigationMenu({ items = [], className }) {
   }, [open]);
   return (
     <overlayScopeContext.Provider value={scope}>
-    <nav ref={wrap} className={cx("cs-navmenu", className)}>
+    <nav ref={wrap} className={cx("cs-navmenu", className)} {...props}>
       {items.map((it, i) => it.panel ? (
         <span key={i} className="cs-navmenu__wrap">
           <button type="button" className={cx("cs-navmenu__top", open === i && "is-open")} aria-expanded={open === i} aria-haspopup="true"

@@ -29,7 +29,7 @@ export function Collapsible({
         id={triggerId}
         className="cs-collapsible__trigger"
         aria-expanded={isOpen}
-        aria-controls={panelId}
+        aria-controls={isOpen ? panelId : undefined}
         onClick={() => setOpen(!isOpen)}
       >
         <span className="cs-collapsible__label">{label}</span>

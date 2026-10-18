@@ -6,7 +6,7 @@
       "id": "s1kicker",
       "type": "text",
       "label": "Slide 1 eyebrow",
-      "maxLength": 40
+      "maxLength": 60
     },
     {
       "id": "s1h",
@@ -122,13 +122,13 @@
       "id": "s4h",
       "type": "text",
       "label": "Slide 4 title",
-      "maxLength": 40
+      "maxLength": 60
     },
     {
       "id": "n1b",
       "type": "text",
       "label": "Next-quarter item 1 bold",
-      "maxLength": 30
+      "maxLength": 50
     },
     {
       "id": "n1t",
@@ -140,7 +140,7 @@
       "id": "n2b",
       "type": "text",
       "label": "Next-quarter item 2 bold",
-      "maxLength": 30
+      "maxLength": 50
     },
     {
       "id": "n2t",
@@ -152,7 +152,7 @@
       "id": "n3b",
       "type": "text",
       "label": "Next-quarter item 3 bold",
-      "maxLength": 30
+      "maxLength": 50
     },
     {
       "id": "n3t",

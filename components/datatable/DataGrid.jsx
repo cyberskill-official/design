@@ -37,14 +37,15 @@ export function DataGrid({
   const estimate = Number.isFinite(rowHeight) && rowHeight > 0 ? rowHeight : 36;
   const [measuredRowHeight, setMeasuredRowHeight] = React.useState(estimate);
   const effectiveRowHeight = Math.max(estimate, measuredRowHeight);
-  const [colOrder, setColOrder] = React.useState(() => {
-    if (!persistKey) return null;
+  const [colOrder, setColOrder] = React.useState(null);
+  useClientLayoutEffect(() => {
+    if (!persistKey) { setColOrder(null); return; }
     try {
       const raw = localStorage.getItem("cs:datagrid:cols:" + persistKey);
       const arr = raw ? JSON.parse(raw) : null;
-      return Array.isArray(arr) ? arr : null;
-    } catch (e) { return null; }
-  });
+      setColOrder(Array.isArray(arr) ? arr : null);
+    } catch (e) { setColOrder(null); }
+  }, [persistKey]);
   const [ref, L] = useLang(lang);
   const t = makeT("DataGrid", L);
 

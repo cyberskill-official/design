@@ -72,11 +72,7 @@
 .cs-depth-modal { z-index: var(--cs-depth-modal, 100); }
 .cs-depth-toast { z-index: var(--cs-depth-toast, 200); }
 
-/* ---- 5. Dark-mode border tuning ---- */
-[data-theme="dark"] { --cs-color-border-default: #4a3a2c; }
-@media (prefers-color-scheme: dark) { [data-theme="system"] { --cs-color-border-default: #4a3a2c; } }
-
-/* ---- 6. Accessibility + capability fallbacks ---- */
+/* ---- 5. Accessibility + capability fallbacks ---- */
 @media (prefers-reduced-transparency: reduce) {
   .cs-surface-whisper, .cs-surface-light, .cs-surface-standard, .cs-surface-heavy,
   .cs-glass-card, .cs-dialog, .cs-ai-disclosure__panel {
@@ -104,7 +100,7 @@
   .cs-glass-card, .cs-dialog, .cs-ai-disclosure__panel { background: var(--cs-color-surface-panel, #fff); }
 }
 
-/* ---- 7. Brand aurora wash — the signature warm-gold-on-umber hero glow.
+/* ---- 6. Brand aurora wash — the signature warm-gold-on-umber hero glow.
  * A CSS-only stand-in for aurora-gold.jpg: layer .cs-aurora on any full-bleed
  * hero/section. Text on it is #fff; keep an umber protection overlay if content
  * gets busy. .cs-aurora--photo layers the real asset when you have the path. */
@@ -117,12 +113,6 @@
   color: #fff; /* on-aurora wash */
 }
 .cs-aurora--photo { background-size: cover; background-position: center; }
-
-/* ---- system-theme dark parity (UX-010 / CDS-THEME-001) ---- */
-@media (prefers-color-scheme: dark) {
-  /* ---- 5. Dark-mode border tuning ---- */
-[data-theme="system"] { --cs-color-border-default: #4a3a2c; }
-}
 
 /* Modal material backings are siblings of content: filters must not capture
  * fixed nested layers, and scrolling content must not move the backing away. */

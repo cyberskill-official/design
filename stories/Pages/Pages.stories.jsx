@@ -12,7 +12,7 @@ export default {
     docs: {
       description: {
         component:
-          'Full product recreations (UI kits). Same Theme × Element × Language × Style axes as templates; portable HTML under ui_kits/.',
+          'Full product recreations (UI kits) under ui_kits/: Thổ-pinned studio surfaces with native Theme (light · dark) and Language (EN · VI) controls.',
       },
     },
   },

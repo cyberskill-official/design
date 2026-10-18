@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Bounded local cmap + CSS range evidence; no font rendering or rights approval."""
 import argparse
 import hashlib
@@ -6,7 +7,6 @@ from pathlib import Path
 import re
 import subprocess
 import unicodedata
-import fontTools
 from fontTools.ttLib import TTFont
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -40,7 +40,7 @@ for invalid in ['U+100-0FF', 'U+110000', 'all']:
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--check', action='store_true', help='Verify font glyph coverage')
-args = parser.parse_args()
+parser.parse_args()
 subprocess.run(['node', 'scripts/sync-font-manifest.mjs', '--check'], cwd=ROOT, check=True)
 required = set('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 Đđ₫')
 for vowel in 'aăâeêioôơuưyAĂÂEÊIOÔƠUƯY':

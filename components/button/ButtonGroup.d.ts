@@ -1,8 +1,9 @@
+import type * as React from "react";
 import type { ReactNode } from "react";
 
 /** Joins adjacent Buttons into one segmented cluster (shared borders, single
  *  rounded outline). Compose with <Button variant="secondary"> children. */
-export interface ButtonGroupProps {
+export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   /** Accessible group label. */
   label?: string;

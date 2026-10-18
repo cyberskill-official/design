@@ -12,7 +12,7 @@ Thứ tự duyệt atomic trên site sản phẩm: **Foundations → Components 
 
 | Nhóm | Vai trò |
 |---|---|
-| **Docs** | Docs operator đã xuất bản: **Start** (Introduction, README, SKILL, Contributing, llms, Library) · **Guides** (consuming, grant, deploy, schema, conventions, styles, products, Figma, contrast, storybook, live-hub, nguồn HR Suite, runbook phát hành, benchmark, …) · **Maintainers** (học thuyết, decisions, CI/CD, quality gates, sync). MDX curated cộng một mục sidebar mỗi trang tracked. EN·VI qua Thư viện tài liệu (`/docs/viewer.html`) |
+| **Docs** | Docs operator đã xuất bản: **Start** (Introduction, README, SKILL, Contributing, llms, Library) · **Guides** (consuming, grant, deploy, schema, conventions, styles, products, Figma, contrast, storybook, live-hub, nguồn HR Suite, benchmark, …) · **Maintainers** (học thuyết, decisions, CI/CD, quality gates, sync). MDX curated cộng một mục sidebar mỗi trang tracked. EN·VI qua Thư viện tài liệu (`/docs/viewer.html`) |
 | **Foundations** | Màu, chữ, spacing, elevation, motion, elements |
 | **Components** | Thư viện CSF đầy đủ |
 | **Templates** | Điểm bắt đầu công khai: **Gallery** (Atomic View → tier Templates, kitchen-sink, playground) cộng mọi template `_ds_manifest.json` nhóm như Atomic View (Product · Board · … · **HR** Suite · Documents). Gồm cả 38 instrument `vn-*` A4 (Employment Suite + hợp đồng nguyên tắc thương mại) |

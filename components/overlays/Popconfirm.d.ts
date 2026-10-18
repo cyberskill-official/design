@@ -7,7 +7,7 @@ export interface PopconfirmProps {
   title: ReactNode;
   onConfirm?: () => void;
   onCancel?: () => void;
-  /** Defaults from the registry ("OK" / "Đồng ý"). */
+  /** Defaults from the registry ("Confirm" / "Xác nhận"). */
   okLabel?: string;
   /** Defaults from the registry ("Cancel" / "Hủy"). */
   cancelLabel?: string;

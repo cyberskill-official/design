@@ -94,8 +94,6 @@ is covered; arbitrary compositing, native and manual acceptance remain separate.
 
 - **`qr-scan-test.html`** — **advisory** QR reader-scan sanity: renders `QRCode`, rasterizes with a quiet zone, decodes with pinned local jsQR 1.4.0, asserts exact UTF-8 byte round-trip (incl. Vietnamese). `window.__qrscan`. Hosted regression checks run under deployment CSP without network access. `npm run test:qr` also decodes every supported byte length/version and damaged modules independently.
 
-- **`exports/`** — retained export artifacts, when available (VN PPTX decks, standalone VN email). Bind each result to its source and producer before citing it; historical files do not certify every current export path.
-
 ## Forcing states for verification (from a frame's own context)
 - **Language:** `win.__dcSetProps(win.__dcRootName(), { language: "Tiếng Việt" })`
 

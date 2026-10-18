@@ -1,6 +1,6 @@
 # Third-party notices — `@cyberskill/design`
 
-The package license is **UNLICENSED** (see `package.json` and `docs/consumer-grant.md`). That assertion applies to **CyberSkill-authored** material only. Redistributed third-party assets retain their upstream licenses; CyberSkill does not re-license them. Available license/copyright texts for Storybook preview/manager dependencies and copied Nunito Sans fonts are retained in the generated host file `third-party-licenses.txt`.
+The package license is **UNLICENSED** (see `package.json` and `docs/consumer-grant.md`). That assertion applies to **CyberSkill-authored** material only. Redistributed third-party assets retain their upstream licenses; CyberSkill does not re-license them. Available license/copyright texts for Storybook addon bundles are emitted alongside those bundles in `sb-addons/*.js.LEGAL.txt`.
 
 ## Fonts (`fonts/`)
 

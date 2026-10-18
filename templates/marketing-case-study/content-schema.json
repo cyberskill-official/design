@@ -12,7 +12,7 @@
       "id": "kicker",
       "type": "text",
       "label": "Header eyebrow",
-      "maxLength": 20
+      "maxLength": 30
     },
     {
       "id": "stat1",

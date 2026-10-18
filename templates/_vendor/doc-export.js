@@ -1299,10 +1299,24 @@ ${mediaRels}
       }
     });
     menu.addEventListener('keydown', (e) => {
+      const items = [pdfItem, docxItem];
+      const idx = items.indexOf(document.activeElement);
       if (e.key === 'Escape') {
         e.preventDefault();
         setOpen(false);
         trigger.focus();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        items[(idx + 1) % items.length].focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        items[(idx - 1 + items.length) % items.length].focus();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        items[0].focus();
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        items[items.length - 1].focus();
       }
     });
     document.addEventListener('click', (e) => {

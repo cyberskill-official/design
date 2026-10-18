@@ -9,5 +9,6 @@ export interface MentionsProps {
   rows?: number;
   lang?: string;
   className?: string;
+  "aria-label"?: string;
 }
 export function Mentions(props: MentionsProps): React.ReactElement;

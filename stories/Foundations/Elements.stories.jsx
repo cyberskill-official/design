@@ -88,14 +88,14 @@ function PackCard({ packKey }) {
         <span
           style={{
             background: scope.dark ? 'var(--cs-accent-strong)' : 'var(--cs-accent-bright)',
-            color: 'var(--cs-accent-on)',
+            color: scope.dark ? 'var(--cs-accent-on-strong)' : 'var(--cs-accent-on)',
             borderRadius: 'var(--cs-radius-md)',
             padding: '6px 12px',
             fontWeight: 600,
             fontSize: 'var(--cs-font-size-sm)',
           }}
         >
-          {scope.dark ? 'on / strong' : 'on / bright'}
+          {scope.dark ? 'on-strong / strong' : 'on / bright'}
         </span>
         <span
           style={{
@@ -130,7 +130,7 @@ function ElementsPage() {
       <SectionTitle>The 10 accent roles (your current toolbar scope)</SectionTitle>
       <p className="cs-caption" style={{ margin: '0 0 10px' }}>
         This table reads from the page’s ambient scope — switch the Element toolbar item
-        and the same ten names re-resolve. CTA text sits on bright (light), strong (dark), or tint, never on the
+        and the same ten names re-resolve. CTA text sits on bright (light, accent-on), strong (dark, accent-on-strong), or tint (accent-ink), never on the
         mid-tone accent.
       </p>
       <div ref={ref}>
@@ -150,7 +150,7 @@ function ElementsPage() {
         shown at once regardless of the toolbar (theme still applies — in dark the
         APCA-derived dark packs take over). The gradient bar runs grad-a → grad-b
         (secondary elements only along Tương sinh). Chips demonstrate the legal CTA-ink
-        pairings: accent-on on accent-bright in light (on accent-strong in dark), and
+        pairings: accent-on on accent-bright in light (accent-on-strong on accent-strong in dark), and
         accent-ink on accent-tint.
       </p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 16 }}>

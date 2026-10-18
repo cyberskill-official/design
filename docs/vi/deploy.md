@@ -74,7 +74,7 @@ Path portable vẫn là file thật (`guidelines/atomic-view.html`, `_audit/run.
 ## Checklist sau deploy
 1. Mở `/` — xác nhận Storybook load (không 404, directory listing, hay shell dashboard cũ).
 2. Mở `/_audit/run.html` — để board chạy xong, xác nhận mọi fast gate pass trên bản *đã deploy* (CDN cache, MIME type, hoặc file thiếu có thể lộ ở đây dù check local sạch).
-3. Nếu có đỏ, đọc hàng gate fail và mở trang gate đó để chi tiết — xem `docs/consuming.md` → "After import — prove health".
+3. Nếu có đỏ, đọc hàng gate fail và mở trang gate đó để chi tiết — xem `docs/consuming.md` → "After import — run the checks."
 4. Kiểm `/guidelines/atomic-view.html` load trực tiếp (trang nặng nhất — React + compiled bundle qua mạng).
 5. Xác nhận `/dashboard.html` và `/playground/` redirect về `/`, và một story vẫn render (ví dụ Components/Button).
 
@@ -88,9 +88,9 @@ Path portable vẫn là file thật (`guidelines/atomic-view.html`, `_audit/run.
 ## Protocol re-run Health sau deploy (release gate)
 
 Sau mỗi deploy production:
-2. Mở `docs/viewer.html#README.md` — body không được kẹt ở Loading…
-3. `curl -sS https://<host>/VERSION` phải trả plain semver text, không HTML.
-4. `curl -sS -I https://<host>/package.json` phải là `application/json` hoặc `text/plain`, không SPA shell.
+1. Mở `docs/viewer.html#README.md` — body không được kẹt ở Loading…
+2. `curl -sS https://<host>/VERSION` phải trả plain semver text, không HTML.
+3. `curl -sS -I https://<host>/package.json` phải là `application/json` hoặc `text/plain`, không SPA shell.
 
 
 ## Ghi chú Content-Security-Policy

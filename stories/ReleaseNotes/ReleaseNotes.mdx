@@ -4,7 +4,29 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Release Notes
 
-Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. VERSION **1.7.2** (auto-bumps on `main`). Technical continuity is the repo tip; product-facing continuity is this page.
+Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. VERSION **1.7.2** identifies the repository version. This page supplies Storybook **Release Notes**; local edits do not establish what is deployed at `design.cyberskill.world`.
+
+## Unreleased revision — local implementation, acceptance pending
+
+These changes belong to the current revision working tree. They are not a published package, deployed site or accepted release. The exact dated Practice FAQ and DOCX pilot artifacts have separate owner acceptance. Changed builds and unreviewed scopes need their own verdict. VERSION remains the repository version.
+
+- Component repairs cover Editor HTML handling, declared types and state ownership, IME-safe submission, nested dismissal/focus, Carousel hidden-slide focus, Tooltip descriptions, and scoped theme/language behavior. Each result is limited to its recorded test scope; native input and assistive-technology checks remain separate.
+- Portable package and public-site checks cover asset closure, private-file exclusions and build freshness. Generated token declarations preserve source conditions; generated native files alone do not prove native rendering parity.
+- Status Hub project details now use a modal dialog with keyboard opening, Escape dismissal and focus return. This kit repair is not evidence of adoption in a consuming product.
+- The DOCX exporter retains supported flat ancestor and table-cell backgrounds, keeping white header text visible and allowing explicit white cells to reset inherited shading. The original document repair and scoped three-browser checks are retained as dated evidence. Gradients, background images and group opacity are outside this paint contract; compare the required export in its target application.
+- DOCX exports preserve browser-resolved grid-column proportions so wide callout prose does not collapse into equal-width cells. Three-engine regression cases and dated English/Vietnamese office renders retain the evidence; unresolved syntax and broader CSS layout fidelity remain outside this contract. Fractional rounding also keeps narrow trailing columns nonnegative while conserving the table width.
+- The current local Practice FAQ pilot uses an exact retained package, with rollback and migration records. Its dated checks cover 36 browser cases, 18 flat-body contrast scopes, 12 coarse-pointer axe scans and four cold resource trials against approved local ceilings. Those results do not establish field performance, human speech behavior, visual acceptance or production deployment.
+- Stephen Cheng approved the support and maintenance policy on 14 October 2026 and is recorded as owner and reviewer (`2026-10-17T02:54:39.000Z`) of all 123 support records (`118` stable components, `1` preview component `Editor`, `3` stable constants, and `1` preview constant `EDITOR_SCHEMA`). Monthly and quarterly responsibilities are documented in `docs/conventions.md`. Support record review does not establish product visual sign-off, manual assistive-technology acceptance, or release authorization.
+- Destructive AlertDialogs initially focus Cancel; ordinary confirmations initially focus Confirm. The existing `tone`/`variant` precedence, callbacks, Escape dismissal and focus return are retained. This operator-approved policy still requires its current browser and assistive-technology evidence.
+
+### Before adopting this revision
+
+1. Select a reviewed candidate and record its source commit and package hash; retain the previous package or subtree commit for rollback. Do not install a presumed registry version for these unreleased changes.
+2. Audit state ownership against `docs/consuming.md#component-state-ownership`: a callback alone no longer makes a dual-mode input controlled. Supply `value`, `checked`, `pressed` or `open` only where declared, and update parent-owned values in response to callbacks. Native wrappers retain native event callbacks.
+3. Recheck stored Editor content and paste/drop flows against the declared HTML trust boundary. `unsafeHtml` is not permission to insert executable markup. Verify allowed formatting in the actual editing workflow.
+4. Recheck nested overlays, delayed and portalled language scopes, light/dark/system themes, coarse-pointer targets, and error/loading states in the actual product. For documents, compare content, assets, pagination and the required export in its target application. Record the candidate, environment, evidence and owner verdict for both pilots.
+
+Release remains pending human visual acceptance, required native/manual assistive-technology checks, provenance decisions, and acceptance of changed pilot artifacts; all 123 per-export support records in `components/lifecycle.json` are reviewed (`2026-10-17T02:54:39.000Z`). EN/VI is the intended language scope; Japanese remains a partial spike. No support expansion, deprecation or removal is authorized by this note.
 
 ---
 
@@ -26,11 +48,11 @@ Assessment remediation Phases 0–5 and gap closure (TASK-IMP-001…021): contra
 
 ## Release — `@cyberskill/design@1.2.0`
 
-`VERSION` **auto-bumps on `main`** (Conventional Commits → tag `v*` → Trusted Publishing). Owner may still force a bump. Curated continuity stays here — still **no** root `CHANGELOG.md`.
+`VERSION` tracks the repository release version. Curated continuity stays on this page — still **no** root `CHANGELOG.md`.
 
 ## Patch — `@cyberskill/design@1.1.1`
 
-Lockstep republish after LAUNCH: natives / provenance / `_ds_bundle.js` match tip; forbidden root `CHANGELOG.md` removed.
+Lockstep republish after the LAUNCH cut: regenerate natives / provenance / `_ds_bundle.js` so registry matches tip, and drop the forbidden root `CHANGELOG.md`. Install:
 
 ```bash
 npm install @cyberskill/design@1.1.1
@@ -38,9 +60,9 @@ npm install @cyberskill/design@1.1.1
 
 ## LAUNCH — `@cyberskill/design@1.1.0`
 
-Owner **LAUNCH** cut. `VERSION` and every stamp move from the pre-LAUNCH **1.0.0** pin to **1.1.0**. Publish via **npm Trusted Publishing (OIDC)** on tag `v1.1.0` (or `workflow_dispatch`). Package Publishing access on npmjs **disallows tokens**. Soft-skip on the npm-hello registry install is honest until **1.1.0** is live — soft-skip ≠ published.
+Owner **LAUNCH** cut. `VERSION` / `package.json` and every version stamp move from the pre-LAUNCH **1.0.0** pin to **1.1.0**. Publish via **npm Trusted Publishing (OIDC)** on tag `v1.1.0` (or `workflow_dispatch`). Package Publishing access on npmjs **disallows tokens**. Soft-skip on the npm-hello registry install is honest until **1.1.0** is live on the registry — soft-skip ≠ published.
 
-Approved use for CyberSkill portfolio products is recorded in **`docs/consumer-grant.md`** (+ VI). The package remains **UNLICENSED**; registry install alone is not a public license. Copy-paste first install for a locked product (Lumi · Hỏa · plasma): `examples/npm-hello/` — see `docs/consuming.md`.
+Approved use for CyberSkill portfolio products remains in **`docs/consumer-grant.md`** (+ VI). The package remains **UNLICENSED**. First-consumer browser path: `examples/npm-hello/` (Lumi · Hỏa · plasma) — see `docs/consuming.md`.
 
 ```bash
 npm install @cyberskill/design@1.1.0
@@ -50,15 +72,15 @@ npm install @cyberskill/design@1.1.0
 
 `design.cyberskill.world/` is the full Storybook product site. Docs, Foundations, Components, Release Notes, and Status live in one sidebar. Legacy `/dashboard` and `/playground` paths redirect to `/`.
 
-Portable consumers: `styles.css`, `_ds_bundle.js`, bundler-native `_esm/react.mjs` (default package entry; React peer), and browser legacy `_esm/cs.mjs` (`@cyberskill/design/legacy`). Storybook is host-only tooling.
+Portable consumers: `styles.css`, `_ds_bundle.js`, bundler-native `_esm/react.mjs` (default `exports["."]`; React peer), and browser legacy `_esm/cs.mjs` (`@cyberskill/design/legacy`). Storybook is host-only tooling.
 
 ## Quality gates on Status
 
-The **Status** story embeds the fast gate board (`_audit/run.html`). Hard gates fail the board when broken; advisory rows are labelled clearly and do not flip the aggregate pass. Open Status once to auto-run; use **Re-run** for a fresh pass. Gate documents cache-bust so re-runs never reuse a stale iframe.
+The **Status** story embeds the fast gate board (`_audit/run.html`). Hard gates fail the board when broken; advisory rows are labelled clearly and do not flip the aggregate pass. Open Status once to auto-run; use **Re-run** for a fresh pass.
 
 ## Bilingual docs and templates
 
-Public operator docs ship EN·VI pairs under `docs/` / `docs/vi/`. Templates remain bilingual EN·VN with fully separated language modes. Component strings resolve from the central registry.
+Tracked operator docs have EN·VI pairs under `docs/` / `docs/vi/`. Template language capabilities and limitations are declared per template. Registered component strings use the locale contract; consumer-provided content requires its own translation and review.
 
 ## Foundations and CSF library
 
@@ -66,7 +88,7 @@ Theme × Element × Language × Style toolbar globals mirror production template
 
 ## Tokens and native mirrors
 
-CSS tokens, DTCG (`tokens/tokens.dtcg.json`), and pre-generated SwiftUI / Compose / Flutter mirrors stay in lockstep via the token pipeline. Text never sits on mid-tone `-accent` — APCA doctrine is gate-enforced.
+CSS tokens and generated JSON/DTCG/native outputs have different representational limits. See `docs/conventions.md` for source conditions and export scope. Generated parity checks do not establish native toolchain or rendering parity. Text contrast must be measured on the actual surface and state; a passing token matrix does not certify every composition.
 
 ## What we never ship
 

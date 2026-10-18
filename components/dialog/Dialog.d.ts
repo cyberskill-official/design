@@ -8,7 +8,7 @@ import type * as React from "react";
  * viewports it goes near-fullscreen; actions grow and wrap as space permits.
  * Coarse pointers use a fade entrance to preserve touch-target dimensions.
  */
-export interface DialogProps {
+export interface DialogProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   open: boolean;
   title: ReactNode;
   children?: ReactNode;

@@ -86,6 +86,7 @@ async function scanHtmlRefs(rel, text, problems){
   const required=[
     ...(catalog.entrance||[]).map(p=>p.path),
     ...(catalog.pages||[]).map(p=>p.path),
+    ...(catalog.pages||[]).filter(p=>p.vi).map(p=>p.vi),
   ];
   P.total=required.length+1;
   let scanned=0;

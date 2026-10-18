@@ -29,7 +29,7 @@
         "evidence": [
           {
             "path": "components/ai/AIDisclosureBadge.jsx",
-            "sha256": "c0bbd141a4ab7d450bf560c4f505f5c4bcd5adcf2bc03c2e6269c7ca39ee74c4",
+            "sha256": "60d8fc169a76bb1a6dce8497d3b3403434d1b5da6782a73fdc19480a8803bc83",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -191,7 +191,7 @@
           },
           {
             "path": "components/overlays/AlertDialog.d.ts",
-            "sha256": "f00d8cb20c2d51e5b7b0ab8784440e2628fc5a37b70fefb33d75f059b6b117dc",
+            "sha256": "0fd47f1622de1ec92c7ae79761d7401b932e900cb80bfa63142950a34f06f599",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -237,13 +237,13 @@
         "evidence": [
           {
             "path": "components/navigation/Anchor.jsx",
-            "sha256": "f0768176ce9449d16fac8c59f77951eef59ff84e524dfae804a70cef6d3ceb13",
+            "sha256": "34b8de9b510c72f57be414c5b4821c57f377d7784b9eb0b98891f7557fe8817f",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/navigation/Anchor.d.ts",
-            "sha256": "d6f34d7267ac220fb44e33b72b1aadebefa1d4948a02385ba56ca2a83216f014",
+            "sha256": "6d2cadb3cf5a97753a051a3c79a2b8a4ce4e373b8e1ba7aadb75631a1b2d1db0",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -341,7 +341,7 @@
         "evidence": [
           {
             "path": "components/data/Avatar.jsx",
-            "sha256": "88c8f59334e6c25a640203d8ccacc84a384585f167d9455a223b91e0d639d6ac",
+            "sha256": "0178eaabfb7ed368c38d0b1df1f8967d58ea13b3e3621427cfb3fc6ef60588e5",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -393,7 +393,7 @@
         "evidence": [
           {
             "path": "components/data/Avatar.jsx",
-            "sha256": "88c8f59334e6c25a640203d8ccacc84a384585f167d9455a223b91e0d639d6ac",
+            "sha256": "0178eaabfb7ed368c38d0b1df1f8967d58ea13b3e3621427cfb3fc6ef60588e5",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -659,7 +659,7 @@
           },
           {
             "path": "components/button/ButtonGroup.d.ts",
-            "sha256": "c47eb16dbe14b404ce497292fe2633fbac56006b4833fb64150fe115e829d9ea",
+            "sha256": "f6f08fad55590e449bd7ce8a95639471e19f65b50deb3155bbdce3571ac49f75",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -816,7 +816,7 @@
         "evidence": [
           {
             "path": "components/forms/Calendar.jsx",
-            "sha256": "a3d0d01d69c7b1fe89804db7a61e7d864afb6eb592833fb4cb3ba978979e0669",
+            "sha256": "34ed9ce0fb39389b9de7729e7eb8747be49d0fb1bed309eb9956f6cec6bfdc11",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -1180,7 +1180,7 @@
         "evidence": [
           {
             "path": "components/data/Chart.jsx",
-            "sha256": "6e75b143aaceac9d3c141a9be833cd2441cce9c9ccb670658f125f460c6481aa",
+            "sha256": "fa7ef115eedf3fcc4ebd6192cff9c3fe2520306de5e6b0fc6845e2a12a9a14fb",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -1440,7 +1440,7 @@
         "evidence": [
           {
             "path": "components/data/Collapsible.jsx",
-            "sha256": "3d961fef83f8df82bfb37e1ca8f866a06b0bed9009c599af953b91e1e53204fa",
+            "sha256": "6e06080e5f64514a1e4d95d0c8346efdfd6bf676a30ddf44ec93e4fbebebeb2a",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -1544,7 +1544,7 @@
         "evidence": [
           {
             "path": "components/forms/Combobox.jsx",
-            "sha256": "c912a7b3910c8535f7809ebd79993ac179d2ff42ab1ee49e8eda987b320984fc",
+            "sha256": "388cb600740d2f0143b9002fb1ce88cb70841dbb061d39a0d4a47539de306c78",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -1596,7 +1596,7 @@
         "evidence": [
           {
             "path": "components/navigation/CommandPalette.jsx",
-            "sha256": "16072cc4e8f42b5aafcfef944637f8f58b091349c02e716f5efc5c9671c9241b",
+            "sha256": "794167f0501331e4f90e1f034a5925e2b7ed3c874a2d4cf70ce29b8a1c90cf21",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -1804,7 +1804,7 @@
         "evidence": [
           {
             "path": "components/datatable/DataGrid.jsx",
-            "sha256": "8a0f04cae9e7ae4513972d07a0b02a620e68c4682ed4949618561dcd53e4c86f",
+            "sha256": "d44ff4be5b72db630142173303885c91d5d246909a775510c1eb1d9daf2423cb",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -2018,7 +2018,7 @@
           },
           {
             "path": "components/dialog/Dialog.d.ts",
-            "sha256": "2b42213d47409730c2194e5a779e102180cd713a7ed9f75d33019032e17d1a26",
+            "sha256": "83cfaf8a56cdf509cf9467954568d3d50f30a3b3e1321a7477c29ca4f5f140ae",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -2362,7 +2362,7 @@
         "evidence": [
           {
             "path": "components/forms/FileUpload.jsx",
-            "sha256": "c1f76aca57deb9aa5093d3408408c06b6295ffdc829bc209b1d9affbad9b3813",
+            "sha256": "e99f67c66aa3d8b6f314b74eaae8ee835ce5d953fee3dfe0f60b4a1df34e99d7",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -2466,13 +2466,13 @@
         "evidence": [
           {
             "path": "components/forms/Form.jsx",
-            "sha256": "6c2b8a17a330df8fa2ce4be40e88a523b3d4c733e8fa8a2852c66fc85104b830",
+            "sha256": "75b35b2bd15251927c0eddd995c2e154230c7b6484293164396287df8221ea27",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/Form.d.ts",
-            "sha256": "a593beade849cac8d7f8b3c914c0cfe171d83b8529005c67a195884f3b9d9b3e",
+            "sha256": "c3304cf876075eef0af200e45b516e6f0690a666cf229152c6bd7c9f066a64e0",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -2518,13 +2518,13 @@
         "evidence": [
           {
             "path": "components/forms/Form.jsx",
-            "sha256": "6c2b8a17a330df8fa2ce4be40e88a523b3d4c733e8fa8a2852c66fc85104b830",
+            "sha256": "75b35b2bd15251927c0eddd995c2e154230c7b6484293164396287df8221ea27",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/Form.d.ts",
-            "sha256": "a593beade849cac8d7f8b3c914c0cfe171d83b8529005c67a195884f3b9d9b3e",
+            "sha256": "c3304cf876075eef0af200e45b516e6f0690a666cf229152c6bd7c9f066a64e0",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -2570,13 +2570,13 @@
         "evidence": [
           {
             "path": "components/forms/Form.jsx",
-            "sha256": "6c2b8a17a330df8fa2ce4be40e88a523b3d4c733e8fa8a2852c66fc85104b830",
+            "sha256": "75b35b2bd15251927c0eddd995c2e154230c7b6484293164396287df8221ea27",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/Form.d.ts",
-            "sha256": "a593beade849cac8d7f8b3c914c0cfe171d83b8529005c67a195884f3b9d9b3e",
+            "sha256": "c3304cf876075eef0af200e45b516e6f0690a666cf229152c6bd7c9f066a64e0",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -2622,13 +2622,13 @@
         "evidence": [
           {
             "path": "components/forms/Form.jsx",
-            "sha256": "6c2b8a17a330df8fa2ce4be40e88a523b3d4c733e8fa8a2852c66fc85104b830",
+            "sha256": "75b35b2bd15251927c0eddd995c2e154230c7b6484293164396287df8221ea27",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/Form.d.ts",
-            "sha256": "a593beade849cac8d7f8b3c914c0cfe171d83b8529005c67a195884f3b9d9b3e",
+            "sha256": "c3304cf876075eef0af200e45b516e6f0690a666cf229152c6bd7c9f066a64e0",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -2674,7 +2674,7 @@
         "evidence": [
           {
             "path": "components/navigation/HotKeys.jsx",
-            "sha256": "3e09f50e99460632e6b5ad047a56ec6697796adf53dbb8d3a76f7ce1ffd97e48",
+            "sha256": "a99225b88f936a34e4450773e01d363e64260a7aea0a68466f95a9613105ece6",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -2882,13 +2882,13 @@
         "evidence": [
           {
             "path": "components/data/Image.jsx",
-            "sha256": "d73122324e34e01e9d3a10744cff34cd58f1d6417897973b5012a95d7ed3ff1b",
+            "sha256": "afafaf2adb81b6c6b76461a1968cb25cf3936266ce96ccdc2f28c7325f1fa20b",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/data/Image.d.ts",
-            "sha256": "2c9db8842229197bd344ca0d21c4492479e8f41ca933ae713eaba8b499036fdd",
+            "sha256": "5519e7d1635bdb876ac1b1ddd26ab2440932eb6d63c307b4532ca4616ed72f86",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -2934,7 +2934,7 @@
         "evidence": [
           {
             "path": "components/forms/InlineEdit.jsx",
-            "sha256": "0e3486edb0a511af14e9eb1c577910bf681984bf9481da8a014b682331cad207",
+            "sha256": "db30ac35d9017a532d7159325d8eae235b109942c38649efd07b8a3d35effa14",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -2986,13 +2986,13 @@
         "evidence": [
           {
             "path": "components/forms/InputGroup.jsx",
-            "sha256": "f701e1380293ca1badf1a5e163a41331ac555c4bbd8c398c8e34317a219ee482",
+            "sha256": "3b0a5ae116fdebe480ed88f010125f6da018b065f1fde691808a3d94367a8622",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/InputGroup.d.ts",
-            "sha256": "9ab0b274b8983babdaf2d588b6036bdecc295b3639932335fb8f5befab7d3306",
+            "sha256": "8b95376a20e47651dc6c8b176a7f5f0a7832e55668fca056abb92bd203f2afae",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -3090,13 +3090,13 @@
         "evidence": [
           {
             "path": "components/data/Item.jsx",
-            "sha256": "7e1ac68c4e9626e46bdb7508744c130b11fc010864359bd0f0c2317451af8701",
+            "sha256": "0ca11cdd2dabe8e7c5e7685329f9040bc907ab0e3da184ff5b66e91a242b5e9a",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/data/Item.d.ts",
-            "sha256": "42502a1e2096bd2182226ecb9b56c2fc4d31c52cc34f08ac1a56394a3f3d7b22",
+            "sha256": "ce7b3c0d22e3f11e0560a58e62ae3035b5f9284eb755db38605fd0d8d763bfb6",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -3200,7 +3200,7 @@
           },
           {
             "path": "components/navigation/Link.d.ts",
-            "sha256": "12b52c8fa8263a2b17600d282d9efbf7fcc25bd1678ff372d4535754ceca581d",
+            "sha256": "ab99e90b03a2d015b29b0c187bdad11fdd9c4771c849c1ccf153758781878910",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -3402,7 +3402,7 @@
         "evidence": [
           {
             "path": "components/brand/LumiAvatar.jsx",
-            "sha256": "b6444360cf804ce474c8e168712acbe8d4dfd49833ac08f6609eb9a8502519ce",
+            "sha256": "da877ee4bf245f784d99f390f4609049744acea3bffaeddfa4ae5253479353c4",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -3506,13 +3506,13 @@
         "evidence": [
           {
             "path": "components/forms/Mentions.jsx",
-            "sha256": "54bbbc6408572256603b06d5c496a2d83656577332c4d0e419ab9eb16f3e9b8d",
+            "sha256": "1b4e12ee3076ff7bfd2d3e2eaac61059fc30c142e969978d26ae38f1af907b7c",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/Mentions.d.ts",
-            "sha256": "a6493e413919308efe87baccc2862a39c90f8c8ce7055ad6aeb89580497fabcc",
+            "sha256": "bf71f454de73ef6fe9709d4ac92b04a0c1717220d8d0afef7c11dcf2dc31cdf5",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -3558,7 +3558,7 @@
         "evidence": [
           {
             "path": "components/navigation/Menu.jsx",
-            "sha256": "bdacf740dbc48fc5f9a5b54bef5ac483c48e888e2c34bcd323472e5f26e1f3f4",
+            "sha256": "908b1562daa726a64e50f87780fd21fe6f7df9688ca618e108805c5ebde7c16d",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -3610,7 +3610,7 @@
         "evidence": [
           {
             "path": "components/navigation/Menu.jsx",
-            "sha256": "bdacf740dbc48fc5f9a5b54bef5ac483c48e888e2c34bcd323472e5f26e1f3f4",
+            "sha256": "908b1562daa726a64e50f87780fd21fe6f7df9688ca618e108805c5ebde7c16d",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -3766,7 +3766,7 @@
         "evidence": [
           {
             "path": "components/navigation/Sidebar.jsx",
-            "sha256": "89c0606a4cdf0a70f6223c0accc0b8f6783a7bc6e935dffbf198fb3f0b3e538a",
+            "sha256": "d5c8ebe6e2c583a1fae098b164a5155e38584c6150e4e6a2e3089c0789ea8e40",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -3818,13 +3818,13 @@
         "evidence": [
           {
             "path": "components/navigation/NavigationMenu.jsx",
-            "sha256": "d4b8e8e76b910e0a865b71383ad0e41de1bdad8949d19444e0ec30413d91217c",
+            "sha256": "c5a69167b8c3316626a267f53e05cf17cd0e88f88303532ca990ed3565d766f8",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/navigation/NavigationMenu.d.ts",
-            "sha256": "971cfe8dc323defbbecbef4b20f3f480c26868b8188ea34bd62b54af1690f355",
+            "sha256": "93002b60c91881652d5371fe5b83561f1e204811aa57b5a3d71b0e23e2251d1c",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -3870,13 +3870,13 @@
         "evidence": [
           {
             "path": "components/forms/NumberField.jsx",
-            "sha256": "38591461742f43357bbe8a63821e22954abae77b9a8eaf162a90c9c416ca1665",
+            "sha256": "0708c03c7bb5c20b59d4695e2b5f815ffe512b0bacc6178d7609e32f0e5f5a71",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/NumberField.d.ts",
-            "sha256": "f9223488ddcd9d90db22fa7e65d7f07c60a3b2eb2014cc55db45ee69b12753d1",
+            "sha256": "e0a3fbba22d42e1c833a06f580c0903416e9a0c588c8cf94d3f1ee3b65ebcbe1",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -4032,7 +4032,7 @@
           },
           {
             "path": "components/overlays/Popconfirm.d.ts",
-            "sha256": "59adf39eb436543a8c054cb296d6148904a871c0c6f255d334bb881e7b7c985c",
+            "sha256": "ae48ab1b1fa05112d25a3370b82410b79e2162735181f298a5da45a9f9db8165",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -4182,13 +4182,13 @@
         "evidence": [
           {
             "path": "components/ai/PromptInput.jsx",
-            "sha256": "2908de36721654d5fea1118f7fc75d0d75294f59082e4aeeb7143bcae45688cb",
+            "sha256": "30235351a39df12ede900ae4b43bb3bb719d6d54fe1822d33330bfc1d6d19d96",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/ai/PromptInput.d.ts",
-            "sha256": "c91fa29f04f6bd1d17f39e815ca179389cc08ad301f02f0a14a648c11aaaa4c3",
+            "sha256": "9d8986da86db2e002817f6e11dd5c078a0103b24bbb6bf92bfbcda5f66641fe7",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -4598,7 +4598,7 @@
         "evidence": [
           {
             "path": "components/forms/SearchField.jsx",
-            "sha256": "376d8bc6b1c8c93bd7bc6f1bb9dafb906580fcad5023598bd74b73979ca42e6a",
+            "sha256": "b4135f14ad12834993ad07071ec5cd1b12ebdfcc6cccdf64efd146a8eb8ca3c0",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -4754,7 +4754,7 @@
         "evidence": [
           {
             "path": "components/navigation/Sidebar.jsx",
-            "sha256": "89c0606a4cdf0a70f6223c0accc0b8f6783a7bc6e935dffbf198fb3f0b3e538a",
+            "sha256": "d5c8ebe6e2c583a1fae098b164a5155e38584c6150e4e6a2e3089c0789ea8e40",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -4910,7 +4910,7 @@
         "evidence": [
           {
             "path": "components/data/Sortable.jsx",
-            "sha256": "1fcb7f885aea5827a7b29cedf781261df63369a2f24f3e65622d9948bd33299f",
+            "sha256": "16ade18d20922b96cdad27409fe4aa2ba1c2aef96a25ab9c57712a2321e200e8",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -5222,7 +5222,7 @@
         "evidence": [
           {
             "path": "components/forms/Switch.jsx",
-            "sha256": "4873e5d7e2145ab3766753d639d7a5d9eef7f534b03b28cb5fc909599b0df39f",
+            "sha256": "a2b0f7f08bf81f36163ae20494afafcf2a55498d9162414d2b24ea6043b37727",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -5430,7 +5430,7 @@
         "evidence": [
           {
             "path": "components/forms/TagInput.jsx",
-            "sha256": "aefdf0f7e59e74e7ac0ba876946fe5c29417aee184da77ee5898a337ca47701d",
+            "sha256": "3ad9429f903cfdc8860e4c0131960df1856639208dc2602f98ab832c43c38bdd",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -5852,7 +5852,7 @@
           },
           {
             "path": "components/forms/Toggle.d.ts",
-            "sha256": "38aabc4dd81c168347a8e216906ae834dd18b4a61c3a43ba84d28a2b8c973c3b",
+            "sha256": "2b025e45f4d8b0db6df70f26eaf88b0ede7f2d645a125359f1eed07dea9a009c",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -6002,7 +6002,7 @@
         "evidence": [
           {
             "path": "components/overlays/Tour.jsx",
-            "sha256": "4783bdfb864ed358162656cd3e49c7b570dc699a5ddbbd1dda70c76e91fc26d2",
+            "sha256": "eb9bbddb51808580180baaeae86350b1851631bb66426f2264ab121b76e614f3",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },

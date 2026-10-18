@@ -14,8 +14,11 @@ on:
     branches: [main]
     paths:
       - 'examples/native/**'
+      - 'tokens/native/**'
+      - 'fonts/subset-recipe.json'
       - '_audit/ci/native-store-dry-run.mjs'
       - '_audit/ci/test-native-samples.mjs'
+      - '_audit/ci/ci-verdict.mjs'
       - '.github/workflows/native-store.yml'
       - 'package.json'
 
@@ -25,7 +28,7 @@ permissions:
 # FIND-089
 concurrency:
   group: native-store-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   store-dry-run:

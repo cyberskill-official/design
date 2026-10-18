@@ -3,9 +3,11 @@ import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Sidebar — vertical app-shell navigation. Compose NavItem children; optional label groups. */
 export function Sidebar({ label, children, className, ...props }) {
+  const labelId = React.useId();
+  const hasLabel = Boolean(label) || label === 0;
   return (
-    <nav className={cx("cs-sidebar", className)} {...props}>
-      {(label || label === 0) ? <div className="cs-sidebar__label">{label}</div> : null}
+    <nav className={cx("cs-sidebar", className)} aria-labelledby={hasLabel ? labelId : undefined} {...props}>
+      {hasLabel ? <div id={labelId} className="cs-sidebar__label">{label}</div> : null}
       {children}
     </nav>
   );

@@ -14,7 +14,7 @@ Các thay đổi này thuộc working tree đang sửa đổi. Đây chưa phả
 - Bản xuất DOCX giữ tỉ lệ cột grid đã được trình duyệt tính, tránh ép đoạn nội dung rộng vào các ô bằng nhau. Các ca hồi quy trên ba trình duyệt và bản render văn phòng EN/VI theo ngày được giữ làm bằng chứng; cú pháp chưa được tính và độ trung thực của toàn bộ bố cục CSS nằm ngoài hợp đồng này. Việc làm tròn phần lẻ giữ độ rộng cột cuối rất hẹp không âm và bảo toàn tổng độ rộng bảng.
 - Pilot FAQ cục bộ hiện tại của Practice dùng package có dấu vân tay chính xác, kèm hồ sơ chuyển đổi và rollback. Bằng chứng theo ngày gồm 36 trường hợp trình duyệt, 18 phạm vi tương phản chữ trên nền phẳng, 12 lần quét axe cho con trỏ thô và bốn lần đo tài nguyên khi tải nguội theo ngưỡng cục bộ đã được phê duyệt. Các kết quả này không xác nhận hiệu năng thực tế, lời đọc của công nghệ hỗ trợ, nghiệm thu hình ảnh hay triển khai production.
 
-- Stephen Cheng phê duyệt chính sách hỗ trợ và bảo trì ngày 14 tháng 10 năm 2026 và là owner của cả 123 hồ sơ hỗ trợ. Trách nhiệm hằng tháng và hằng quý được ghi trong [Quy ước](conventions.md). Mọi review hỗ trợ vẫn là `unreviewed`; giao owner không xác nhận hỗ trợ nền tảng hay nghiệm thu phát hành.
+- Stephen Cheng phê duyệt chính sách hỗ trợ và bảo trì ngày 14 tháng 10 năm 2026 và được ghi nhận là owner kiêm reviewer (`2026-10-17T02:54:39.000Z`) của cả 123 hồ sơ hỗ trợ (`118` component `stable`, `1` component `preview` là `Editor`, `3` hằng số `stable`, và `1` hằng số `preview` là `EDITOR_SCHEMA`). Trách nhiệm hằng tháng và hằng quý được ghi trong [Quy ước](conventions.md). Việc review hồ sơ hỗ trợ không xác nhận nghiệm thu thị giác sản phẩm, công nghệ hỗ trợ thủ công hay phê duyệt phát hành.
 
 - AlertDialog cho thao tác phá hủy đặt focus ban đầu vào Hủy; hộp xác nhận thông thường đặt focus vào Xác nhận. Thứ tự ưu tiên `tone`/`variant`, callback, đóng bằng Escape và trả focus được giữ lại. Chính sách đã được operator phê duyệt vẫn cần bằng chứng kiểm tra hiện tại trên trình duyệt và công nghệ hỗ trợ.
 
@@ -25,7 +25,7 @@ Các thay đổi này thuộc working tree đang sửa đổi. Đây chưa phả
 3. Kiểm tra nội dung Editor đã lưu cùng luồng paste/drop theo ranh giới tin cậy HTML đã khai báo. `unsafeHtml` không cho phép chèn markup thực thi mã. Kiểm tra định dạng được phép trong quy trình soạn thảo thực tế.
 4. Kiểm tra overlay lồng nhau, phạm vi ngôn ngữ khi mount trễ hoặc dùng portal, theme light/dark/system, vùng chạm và trạng thái lỗi/loading trong sản phẩm thực tế. Với tài liệu, so sánh nội dung, tài nguyên, phân trang và bản export trong ứng dụng đích. Ghi candidate, môi trường, bằng chứng và kết luận của owner cho cả hai pilot.
 
-Release vẫn chờ nghiệm thu, kiểm tra native/thủ công bắt buộc, quyết định về nguồn gốc tài nguyên, nghiệm thu hiện vật pilot đã thay đổi và review phạm vi hỗ trợ của từng export. EN/VI là phạm vi ngôn ngữ mục tiêu; tiếng Nhật vẫn là spike chưa đầy đủ. Ghi chú này không cho phép mở rộng cam kết hỗ trợ, deprecate hay loại bỏ API.
+Release vẫn chờ nghiệm thu thị giác của con người, kiểm tra native/công nghệ hỗ trợ thủ công bắt buộc, quyết định về nguồn gốc tài nguyên và nghiệm thu hiện vật pilot đã thay đổi; toàn bộ 123 hồ sơ hỗ trợ theo từng export trong `components/lifecycle.json` đã được review (`2026-10-17T02:54:39.000Z`). EN/VI là phạm vi ngôn ngữ mục tiêu; tiếng Nhật vẫn là spike chưa đầy đủ. Ghi chú này không cho phép mở rộng cam kết hỗ trợ, deprecate hay loại bỏ API.
 
 ## Release — `@cyberskill/design@1.3.10`
 

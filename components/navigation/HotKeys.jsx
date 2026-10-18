@@ -26,19 +26,23 @@ export function HotKeys({ bindings = [], help = true, children, lang, className 
       if (e.defaultPrevented || e.isComposing || e.keyCode === 229) return;
       const path = e.composedPath?.() || [e.target];
       if (path.some(node => node?.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(node?.tagName))) return;
-      if (help && e.key === "?") { setShow((s) => !s); return; }
+      if (help && e.key === "?" && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        if (!show && document.querySelector('[role="dialog"][aria-modal="true"], [role="alertdialog"][aria-modal="true"]')) return;
+        setShow((s) => !s);
+        return;
+      }
       for (const b of bindings) if (match(b.keys, e)) { e.preventDefault(); b.onTrigger && b.onTrigger(); return; }
     };
     document.addEventListener("keydown", on);
     return () => document.removeEventListener("keydown", on);
-  }, [bindings, help]);
+  }, [bindings, help, show]);
   return (
     <overlayScopeContext.Provider value={scope}>
     <div ref={ref} className={cx("cs-hotkeys", className)}>
       {children}
       {show ? (
-        <div ref={backdrop} className="cs-hotkeys__sheet" role="dialog" aria-modal="true" aria-label={t("title")} onClick={() => setShow(false)}>
-          <div ref={panel} tabIndex={-1} className="cs-hotkeys__card" onClick={(e) => e.stopPropagation()}>
+        <div ref={backdrop} className="cs-hotkeys__sheet" onClick={() => setShow(false)}>
+          <div ref={panel} tabIndex={-1} className="cs-hotkeys__card" role="dialog" aria-modal="true" aria-label={t("title")} onClick={(e) => e.stopPropagation()}>
             <b>{t("title")}</b>
             <ul>
               {bindings.map((b, i) => <li key={i}><span>{b.description}</span><kbd className="cs-kbd">{b.keys}</kbd></li>)}

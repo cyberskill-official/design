@@ -2,7 +2,7 @@ import type * as React from "react";
 
 /** Numeric stepper with −/+ buttons, keyboard entry, and min/max clamping.
  *  Controlled via value/onChange or uncontrolled. */
-export interface NumberFieldProps {
+export interface NumberFieldProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "min" | "max" | "step"> {
   id?: string;
   /** Visible field label (associates via htmlFor). When omitted, the input uses the bilingual "value" aria-label. */
   label?: string;

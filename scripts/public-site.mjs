@@ -72,7 +72,7 @@ function writePublicDirectoryIndexes(root) {
   }
 }
 
-const generatedRoot = new Set(['index.html','iframe.html','index.json','project.json','favicon.svg','favicon-wrapper.svg','vite-inject-mocker-entry.js','.cs-freshness.json','third-party-licenses.txt',
+const generatedRoot = new Set(['index.html','iframe.html','index.json','project.json','favicon.svg','favicon-wrapper.svg','vite-inject-mocker-entry.js','.cs-freshness.json',
   'nunito-sans-regular.woff2','nunito-sans-italic.woff2','nunito-sans-bold.woff2','nunito-sans-bold-italic.woff2']);
 export function publicOutputEntry(path, policy) {
   if (policy.has(path)) return policy.get(path);

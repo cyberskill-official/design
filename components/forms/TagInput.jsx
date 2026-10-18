@@ -41,8 +41,8 @@ export function TagInput({
   const gid = React.useId();
   const sid = id ?? gid;
   return (
-    <label ref={ref} className={cx("cs-field", disabled && "is-disabled", className)} htmlFor={sid}>
-      {label ? <span className="cs-field__label">{label}</span> : null}
+    <div ref={ref} className={cx("cs-field", disabled && "is-disabled", className)}>
+      {label ? <label className="cs-field__label" htmlFor={sid}>{label}</label> : null}
       <div className="cs-taginput">
         {tags.map((tag) => (
           <span key={tag} className="cs-tag">
@@ -79,6 +79,6 @@ export function TagInput({
           onBlur={() => add(q)}
         />
       </div>
-    </label>
+    </div>
   );
 }

@@ -12,7 +12,7 @@ Atomic browse order on the product site: **Foundations → Components → Templa
 
 | Group | Role |
 |---|---|
-| **Docs** | Published operator docs: **Start** (Introduction, README, SKILL, Contributing, llms, Library) · **Guides** (consuming, grant, deploy, schema, conventions, styles, products, Figma, contrast, storybook, live-hub, HR Suite sources, release runbook, benchmark, …) · **Maintainers** (doctrine, decisions, CI/CD, quality gates, sync). Curated MDX plus one sidebar entry per tracked page. EN·VI via the Documentation Library (`/docs/viewer.html`) |
+| **Docs** | Published operator docs: **Start** (Introduction, README, SKILL, Contributing, llms, Library) · **Guides** (consuming, grant, deploy, schema, conventions, styles, products, Figma, contrast, storybook, live-hub, HR Suite sources, benchmark, …) · **Maintainers** (doctrine, decisions, CI/CD, quality gates, sync). Curated MDX plus one sidebar entry per tracked page. EN·VI via the Documentation Library (`/docs/viewer.html`) |
 | **Foundations** | Colors, typography, spacing, elevation, motion, elements |
 | **Components** | Full CSF library |
 | **Templates** | Public starting points: **Gallery** (Atomic View → Templates tier, kitchen-sink, playground) plus every `_ds_manifest.json` template grouped like Atomic View (Product · Board · … · **HR** Suite · Documents). Includes all 38 `vn-*` A4 instruments (Employment Suite + commercial framework) |

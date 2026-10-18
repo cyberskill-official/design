@@ -29,14 +29,18 @@ export function Combobox({ options = [], value, onChange, placeholder, label, di
   const pick = (o) => { onChange && onChange(o.value); setQ(""); setOpen(false); };
   const key = (e) => {
     if (e.nativeEvent.isComposing || e.keyCode === 229) return;
-    if (e.key === "ArrowDown") { e.preventDefault(); setOpen(true); setHl((h) => Math.min(shown.length - 1, h + 1)); }
+    if (e.key === "ArrowDown") { e.preventDefault(); setOpen(true); setHl((h) => (shown.length ? Math.min(shown.length - 1, h + 1) : 0)); }
     else if (e.key === "ArrowUp") { e.preventDefault(); setHl((h) => Math.max(0, h - 1)); }
     else if (e.key === "Enter") { if (open && shown[hl]) { e.preventDefault(); pick(shown[hl]); } }
   };
   return (
     <overlayScopeContext.Provider value={scope}>
-    <div ref={(el) => { wrapRef.current = el; ref.current = el; }} className={cx("cs-combobox", className)}>
-      <input role="combobox" aria-expanded={open} aria-controls={id} aria-autocomplete="list" aria-label={label}
+    <div
+      ref={(el) => { wrapRef.current = el; ref.current = el; }}
+      className={cx("cs-combobox", className)}
+      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false); }}
+    >
+      <input role="combobox" aria-expanded={open} aria-controls={open ? id : undefined} aria-autocomplete="list" aria-label={label || ph}
         aria-activedescendant={open && shown[hl] ? id + "-" + hl : undefined}
         disabled={disabled} placeholder={ph} value={open ? q : (sel ? sel.label : q)}
         onClick={() => { if (!disabled) setOpen(true); }}
@@ -47,7 +51,7 @@ export function Combobox({ options = [], value, onChange, placeholder, label, di
           {shown.length ? shown.map((o, i) => (
             <li key={o.value} id={id + "-" + i} role="option" aria-selected={o.value === value} className={cx("cs-combobox__opt", i === hl && "hl")}
               onMouseEnter={() => setHl(i)} onMouseDown={(e) => { e.preventDefault(); pick(o); }}>{o.label}</li>
-          )) : <li className="cs-combobox__empty">{t("empty")}</li>}
+          )) : <li role="option" aria-disabled="true" className="cs-combobox__empty">{t("empty")}</li>}
         </ul>
       ) : null}
     </div>

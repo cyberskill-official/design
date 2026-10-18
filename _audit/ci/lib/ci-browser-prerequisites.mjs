@@ -4,8 +4,9 @@ import {join} from 'node:path';
 import {parse} from 'yaml';
 
 // Minimum engine set for the complete canonical suite. Individual jobs that
-// only run Chromium gates do not inherit this requirement.
+// only run Chromium gates require Chromium before executing those commands.
 export const requiredBrowsers = ['chromium', 'firefox', 'webkit'];
+const chromiumCommandPattern = /\b(?:npm\s+run\s+test:public-site|node\s+_audit\/ci\/(?:pixel-diff|run-gates|run-single-gate)\.mjs)\b/;
 
 export function inspectWorkflow(text, name) {
   const workflow = parse(text), checks = [];
@@ -27,6 +28,9 @@ export function inspectWorkflow(text, name) {
           const missing = requiredBrowsers.filter(browser => !installed.has(browser));
           assert.equal(missing.length, 0, `${location}: install required browsers before canonical checks: ${missing.join(', ')}`);
           checks.push({workflow: name, job: jobName, step: index + 1, browsers: [...installed].sort()});
+        } else if (chromiumCommandPattern.test(line)) {
+          const location = `${name}:${jobName}:step ${index + 1}`;
+          assert(installed.has('chromium'), `${location}: install required browsers before Chromium checks: chromium`);
         }
         if (!Object.hasOwn(step, 'if') && !step['continue-on-error'] && straightLine && /^npx playwright install(?: --with-deps)?(?: (?:chromium|firefox|webkit))+$/.test(line)) {
           for (const browser of line.split(' ').filter(token => requiredBrowsers.includes(token))) installed.add(browser);

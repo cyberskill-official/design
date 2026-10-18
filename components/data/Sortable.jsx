@@ -46,14 +46,22 @@ export function Sortable({ items = [], onChange, lang, className }) {
               className="cs-button cs-button--secondary cs-button--xs"
               aria-label={t("moveUp")}
               disabled={idx === 0}
-              onClick={() => move(idx, idx - 1)}
+              onClick={(e) => {
+                const sibling = idx - 1 === 0 ? e.currentTarget.nextElementSibling : null;
+                move(idx, idx - 1);
+                if (sibling) requestAnimationFrame(() => sibling.focus());
+              }}
             >↑</button>
             <button
               type="button"
               className="cs-button cs-button--secondary cs-button--xs"
               aria-label={t("moveDown")}
               disabled={idx === items.length - 1}
-              onClick={() => move(idx, idx + 1)}
+              onClick={(e) => {
+                const sibling = idx + 1 === items.length - 1 ? e.currentTarget.previousElementSibling : null;
+                move(idx, idx + 1);
+                if (sibling) requestAnimationFrame(() => sibling.focus());
+              }}
             >↓</button>
           </span>
         </li>

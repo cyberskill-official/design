@@ -139,11 +139,13 @@
  * Only activates on user request; anchors (Umber/Ochre) and focus rings are
  * already high-contrast and untouched. ---- */
 @media (prefers-contrast: more) {
-  [data-theme="light"], [data-theme="system"], :root { --cs-color-border-default: #9a8060; --cs-color-text-muted: #5a4638; }
-  [data-theme="dark"] { --cs-color-border-default: #7a6450; --cs-color-text-muted: #d8c9b6; }
+  [data-theme="light"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)),
+  [data-theme="system"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)),
+  :root:where(:not([data-cs-contrast="standard"])) { --cs-color-border-default: #9a8060; --cs-color-text-muted: #45210e; }
+  [data-theme="dark"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)) { --cs-color-border-default: #7a6450; --cs-color-text-muted: #f5ead9; }
 }
 
 /* System dark gets stronger contrast only when the user requests it, just like explicit dark. */
 @media (prefers-color-scheme: dark) and (prefers-contrast: more) {
-  [data-theme="system"] { --cs-color-border-default: #7a6450; --cs-color-text-muted: #d8c9b6; }
+  [data-theme="system"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)) { --cs-color-border-default: #7a6450; --cs-color-text-muted: #f5ead9; }
 }

@@ -74,7 +74,7 @@ Portable paths remain real files (`guidelines/atomic-view.html`, `_audit/run.htm
 ## Post-deploy checklist
 1. Open `/` — confirm Storybook loads (not a 404, directory listing, or the old dashboard shell).
 2. Open `/_audit/run.html` — let the board finish, confirm all fast gates pass on the *deployed* copy (CDN caching, MIME types, or a missed file can surface here even when local checks were clean).
-3. If anything is red, read the failed gate row and open that gate page for detail — see `docs/consuming.md` → "After import — prove health".
+3. If anything is red, read the failed gate row and open that gate page for detail — see `docs/consuming.md` → "After import — run the checks."
 4. Check `/guidelines/atomic-view.html` directly loads (it's the heaviest page — React + the compiled bundle over the network).
 5. Confirm `/dashboard.html` and `/playground/` redirect to `/`, and a story still renders (e.g. Components/Button).
 
@@ -88,9 +88,9 @@ Portable paths remain real files (`guidelines/atomic-view.html`, `_audit/run.htm
 ## Post-deploy Health re-run protocol (release gate)
 
 After every production deploy:
-2. Open `docs/viewer.html#README.md` — body must not stay on Loading…
-3. `curl -sS https://<host>/VERSION` must return plain semver text, not HTML.
-4. `curl -sS -I https://<host>/package.json` must be `application/json` or `text/plain`, not an SPA shell.
+1. Open `docs/viewer.html#README.md` — body must not stay on Loading…
+2. `curl -sS https://<host>/VERSION` must return plain semver text, not HTML.
+3. `curl -sS -I https://<host>/package.json` must be `application/json` or `text/plain`, not an SPA shell.
 
 
 ## Content-Security-Policy notes

@@ -57,7 +57,7 @@
     },
     {
       "path": "base/components.css",
-      "sha256": "315100a848bd9d99ef6b8dc6ba426472ba42b9503bed47d18621f2a48bd3527f"
+      "sha256": "10c2b47be077a81919f5ac04372c1f77118f72c5bf7bde649cdd618ffdce91a0"
     },
     {
       "path": "base/forms.css",
@@ -81,7 +81,7 @@
     },
     {
       "path": "base/controls.css",
-      "sha256": "448d63b6ae0e812c93543b414257317af664c6209cd6d2b04c935493c8ef7f70"
+      "sha256": "75de88179acf621856adf9f99db0d4986b7122aca0ee36e468ee0d3087533de6"
     },
     {
       "path": "base/collections.css",
@@ -89,23 +89,23 @@
     },
     {
       "path": "base/shell.css",
-      "sha256": "901aca4087d65d618cd719f783d6a547a5ad6df5d3125a62f3c69d11f337e654"
+      "sha256": "1d6f9fe366fb2f5164fe79f611ed2afe3f59e755b1b487409b75686e2ce681d3"
     },
     {
       "path": "base/glass.css",
-      "sha256": "3c7721a393ef7a4e7e6345607fee98165e6a64007ed7e8451ef91d91d5dbe1a2"
+      "sha256": "c9bb2a39244841311aaf61f98fb410a0f7cafa37d10a8283d682c558e33ef78b"
     },
     {
       "path": "base/interaction.css",
-      "sha256": "5fe69edfd97eaa7e04d4a58389155aadf53e917264929759d3fe9de60647e389"
+      "sha256": "b102b30ed712e912ab61d6c63d74f23dbaec7f2a5d7e74ac1b5953f12012437d"
     },
     {
       "path": "base/a11y.css",
-      "sha256": "abe0951dd82f9cc699a11d20a107ae4c6d055e6568368c2536408f1cd8db5b50"
+      "sha256": "650db357d97552603f8d1c96658ededa1d1f766fec2c9215ec160c836d02299c"
     },
     {
       "path": "base/responsive.css",
-      "sha256": "f9ce983e5f9b123d180384d023b8eb76da606949f8ec23e0d9e790cc8c5e768c"
+      "sha256": "305dd64edf14e1a1dedb75a93762554166318042e7118c2b66709af3635af063"
     }
   ],
   "declarations": [
@@ -24941,67 +24941,9 @@
     },
     {
       "order": 1495,
-      "sourcePath": "base/glass.css",
-      "line": 76,
-      "column": 23,
-      "name": "--cs-color-border-default",
-      "value": "#4a3a2c",
-      "important": false,
-      "visibility": "public",
-      "context": [
-        {
-          "kind": "rule",
-          "selector": "[data-theme=\"dark\"]"
-        }
-      ]
-    },
-    {
-      "order": 1496,
-      "sourcePath": "base/glass.css",
-      "line": 77,
-      "column": 63,
-      "name": "--cs-color-border-default",
-      "value": "#4a3a2c",
-      "important": false,
-      "visibility": "public",
-      "context": [
-        {
-          "kind": "at-rule",
-          "name": "media",
-          "params": "(prefers-color-scheme: dark)"
-        },
-        {
-          "kind": "rule",
-          "selector": "[data-theme=\"system\"]"
-        }
-      ]
-    },
-    {
-      "order": 1497,
-      "sourcePath": "base/glass.css",
-      "line": 124,
-      "column": 25,
-      "name": "--cs-color-border-default",
-      "value": "#4a3a2c",
-      "important": false,
-      "visibility": "public",
-      "context": [
-        {
-          "kind": "at-rule",
-          "name": "media",
-          "params": "(prefers-color-scheme: dark)"
-        },
-        {
-          "kind": "rule",
-          "selector": "[data-theme=\"system\"]"
-        }
-      ]
-    },
-    {
-      "order": 1498,
       "sourcePath": "base/a11y.css",
-      "line": 142,
-      "column": 56,
+      "line": 144,
+      "column": 54,
       "name": "--cs-color-border-default",
       "value": "#9a8060",
       "important": false,
@@ -25014,80 +24956,101 @@
         },
         {
           "kind": "rule",
-          "selector": "[data-theme=\"light\"], [data-theme=\"system\"], :root"
+          "selector": "[data-theme=\"light\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *)),\n  [data-theme=\"system\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *)),\n  :root:where(:not([data-cs-contrast=\"standard\"]))"
+        }
+      ]
+    },
+    {
+      "order": 1496,
+      "sourcePath": "base/a11y.css",
+      "line": 144,
+      "column": 90,
+      "name": "--cs-color-text-muted",
+      "value": "#45210e",
+      "important": false,
+      "visibility": "public",
+      "context": [
+        {
+          "kind": "at-rule",
+          "name": "media",
+          "params": "(prefers-contrast: more)"
+        },
+        {
+          "kind": "rule",
+          "selector": "[data-theme=\"light\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *)),\n  [data-theme=\"system\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *)),\n  :root:where(:not([data-cs-contrast=\"standard\"]))"
+        }
+      ]
+    },
+    {
+      "order": 1497,
+      "sourcePath": "base/a11y.css",
+      "line": 145,
+      "column": 101,
+      "name": "--cs-color-border-default",
+      "value": "#7a6450",
+      "important": false,
+      "visibility": "public",
+      "context": [
+        {
+          "kind": "at-rule",
+          "name": "media",
+          "params": "(prefers-contrast: more)"
+        },
+        {
+          "kind": "rule",
+          "selector": "[data-theme=\"dark\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *))"
+        }
+      ]
+    },
+    {
+      "order": 1498,
+      "sourcePath": "base/a11y.css",
+      "line": 145,
+      "column": 137,
+      "name": "--cs-color-text-muted",
+      "value": "#f5ead9",
+      "important": false,
+      "visibility": "public",
+      "context": [
+        {
+          "kind": "at-rule",
+          "name": "media",
+          "params": "(prefers-contrast: more)"
+        },
+        {
+          "kind": "rule",
+          "selector": "[data-theme=\"dark\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *))"
         }
       ]
     },
     {
       "order": 1499,
       "sourcePath": "base/a11y.css",
-      "line": 142,
-      "column": 92,
-      "name": "--cs-color-text-muted",
-      "value": "#5a4638",
+      "line": 150,
+      "column": 103,
+      "name": "--cs-color-border-default",
+      "value": "#7a6450",
       "important": false,
       "visibility": "public",
       "context": [
         {
           "kind": "at-rule",
           "name": "media",
-          "params": "(prefers-contrast: more)"
+          "params": "(prefers-color-scheme: dark) and (prefers-contrast: more)"
         },
         {
           "kind": "rule",
-          "selector": "[data-theme=\"light\"], [data-theme=\"system\"], :root"
+          "selector": "[data-theme=\"system\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *))"
         }
       ]
     },
     {
       "order": 1500,
       "sourcePath": "base/a11y.css",
-      "line": 143,
-      "column": 25,
-      "name": "--cs-color-border-default",
-      "value": "#7a6450",
-      "important": false,
-      "visibility": "public",
-      "context": [
-        {
-          "kind": "at-rule",
-          "name": "media",
-          "params": "(prefers-contrast: more)"
-        },
-        {
-          "kind": "rule",
-          "selector": "[data-theme=\"dark\"]"
-        }
-      ]
-    },
-    {
-      "order": 1501,
-      "sourcePath": "base/a11y.css",
-      "line": 143,
-      "column": 61,
+      "line": 150,
+      "column": 139,
       "name": "--cs-color-text-muted",
-      "value": "#d8c9b6",
-      "important": false,
-      "visibility": "public",
-      "context": [
-        {
-          "kind": "at-rule",
-          "name": "media",
-          "params": "(prefers-contrast: more)"
-        },
-        {
-          "kind": "rule",
-          "selector": "[data-theme=\"dark\"]"
-        }
-      ]
-    },
-    {
-      "order": 1502,
-      "sourcePath": "base/a11y.css",
-      "line": 148,
-      "column": 27,
-      "name": "--cs-color-border-default",
-      "value": "#7a6450",
+      "value": "#f5ead9",
       "important": false,
       "visibility": "public",
       "context": [
@@ -25098,28 +25061,7 @@
         },
         {
           "kind": "rule",
-          "selector": "[data-theme=\"system\"]"
-        }
-      ]
-    },
-    {
-      "order": 1503,
-      "sourcePath": "base/a11y.css",
-      "line": 148,
-      "column": 63,
-      "name": "--cs-color-text-muted",
-      "value": "#d8c9b6",
-      "important": false,
-      "visibility": "public",
-      "context": [
-        {
-          "kind": "at-rule",
-          "name": "media",
-          "params": "(prefers-color-scheme: dark) and (prefers-contrast: more)"
-        },
-        {
-          "kind": "rule",
-          "selector": "[data-theme=\"system\"]"
+          "selector": "[data-theme=\"system\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *))"
         }
       ]
     }

@@ -268,6 +268,7 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
+          cache: npm
       - name: Detect token-related path changes
         id: filter
         run: |
@@ -278,13 +279,16 @@ jobs:
             echo "No usable base SHA — always regenerate."
             exit 0
           fi
-          if git diff --name-only "$BASE" HEAD | grep -E '^(tokens/|base/|styles\.css$|scripts/(generate-(element-packs|theme-exports|token-declarations|export-catalog|dtcg|design-md|contrast-report)|build-bundle|flatten-styles|design-md-lib)\.mjs$|scripts/lib/|_audit/ci/generate-native-tokens\.mjs$|components/|VERSION$|package\.json$)' >/dev/null; then
+          if git diff --name-only "$BASE" HEAD | grep -E '^(tokens/|base/|styles\.css$|scripts/(generate-(element-packs|theme-exports|base-token-exports|token-declarations|token-coverage|export-catalog|react-entry|api-index|component-review|reference-catalog|dtcg|design-md|contrast-report)|build-bundle|flatten-styles|design-md-lib)\.mjs$|scripts/lib/|_audit/ci/generate-native-tokens\.mjs$|examples/native/sync-tokens\.mjs$|components/|VERSION$|package\.json$)' >/dev/null; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             echo "Token-related paths changed."
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
             echo "No token-related path changes — skip regenerate."
           fi
+      - name: Install npm dependencies
+        if: steps.filter.outputs.run == 'true'
+        run: npm ci --ignore-scripts
       - name: Regenerate element packs from seeds + native mirrors from DTCG
         if: steps.filter.outputs.run == 'true'
         run: |
@@ -292,7 +296,7 @@ jobs:
       - name: Fail when committed packs or natives drift
         if: steps.filter.outputs.run == 'true'
         run: |
-          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
+          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json examples/native/swiftui/Sources/CSTokens.swift examples/native/compose/src/main/kotlin/vn/cyberskill/sample/CSTokens.kt examples/native/flutter/lib/cs_tokens.dart components/api-index.json _audit/token-coverage.json _audit/component-review.json _audit/contrast-report.json docs/reference-catalog.json _audit/docs-catalog.json _audit/docs-tracked.json _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
           if git diff --quiet -- "${TRACKED[@]}"; then
             echo "Element packs + native tokens already match seeds/DTCG — nothing to regenerate."
             exit 0
@@ -324,6 +328,7 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: '22'
+          cache: npm
       - name: Detect token-related path changes
         id: filter
         if: github.event_name == 'push'
@@ -335,13 +340,16 @@ jobs:
             echo "No usable base SHA — always regenerate."
             exit 0
           fi
-          if git diff --name-only "$BASE" HEAD | grep -E '^(tokens/|base/|styles\.css$|scripts/(generate-(element-packs|theme-exports|token-declarations|export-catalog|dtcg|design-md|contrast-report)|build-bundle|flatten-styles|design-md-lib)\.mjs$|scripts/lib/|_audit/ci/generate-native-tokens\.mjs$|components/|VERSION$|package\.json$)' >/dev/null; then
+          if git diff --name-only "$BASE" HEAD | grep -E '^(tokens/|base/|styles\.css$|scripts/(generate-(element-packs|theme-exports|base-token-exports|token-declarations|token-coverage|export-catalog|react-entry|api-index|component-review|reference-catalog|dtcg|design-md|contrast-report)|build-bundle|flatten-styles|design-md-lib)\.mjs$|scripts/lib/|_audit/ci/generate-native-tokens\.mjs$|examples/native/sync-tokens\.mjs$|components/|VERSION$|package\.json$)' >/dev/null; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             echo "Token-related paths changed."
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
             echo "No token-related path changes — skip regenerate."
           fi
+      - name: Install npm dependencies
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
+        run: npm ci --ignore-scripts
       - name: Regenerate element packs from seeds + native mirrors from DTCG
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
         run: |
@@ -350,7 +358,7 @@ jobs:
         id: drift
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
         run: |
-          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
+          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json examples/native/swiftui/Sources/CSTokens.swift examples/native/compose/src/main/kotlin/vn/cyberskill/sample/CSTokens.kt examples/native/flutter/lib/cs_tokens.dart components/api-index.json _audit/token-coverage.json _audit/component-review.json _audit/contrast-report.json docs/reference-catalog.json _audit/docs-catalog.json _audit/docs-tracked.json _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
           if git diff --quiet -- "${TRACKED[@]}"; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Element packs + natives already match seeds/DTCG — nothing to commit."
@@ -368,7 +376,7 @@ jobs:
           git fetch origin "$BRANCH"
           git reset --hard "origin/$BRANCH"
           npm run tokens:generate
-          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
+          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json examples/native/swiftui/Sources/CSTokens.swift examples/native/compose/src/main/kotlin/vn/cyberskill/sample/CSTokens.kt examples/native/flutter/lib/cs_tokens.dart components/api-index.json _audit/token-coverage.json _audit/component-review.json _audit/contrast-report.json docs/reference-catalog.json _audit/docs-catalog.json _audit/docs-tracked.json _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
           if git diff --quiet -- "${TRACKED[@]}"; then
             echo "After sync, packs + natives already match remote — nothing to push."
             exit 0
@@ -429,7 +437,6 @@ jobs:
             echo "Missing secrets exit 0 (not a live sync)."
             echo "Add repository secrets FIGMA_TOKEN and FIGMA_FILE_KEY when ready. See docs/figma.md."
             printf '%s\n' '{"skipped":true,"reason":"missing_secrets","message":"FIGMA_TOKEN and/or FIGMA_FILE_KEY empty — no Variables push attempted.","channel":"figma-variables"}' > _audit/ci/figma-push-report.json
-            node _audit/ci/ci-verdict.mjs --assert-report _audit/ci/figma-push-report.json
             echo "ready=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -443,8 +450,11 @@ jobs:
           FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
         run: node _audit/ci/push-figma-variables.mjs
       - name: Soft-skip honesty annotation (FIND-095)
-        if: always() && steps.figma_secrets.outputs.ready == 'false'
-        run: node _audit/ci/ci-verdict.mjs --assert-report _audit/ci/figma-push-report.json
+        if: always()
+        run: |
+          if [ -f _audit/ci/figma-push-report.json ]; then
+            node _audit/ci/ci-verdict.mjs --assert-report _audit/ci/figma-push-report.json
+          fi
       - name: Upload Figma push report
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7

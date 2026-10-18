@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"CyberSkillDesignSystem_847b3c","components":[{"name":"AIDisclosureBadge","sourcePath":"components/ai/AIDisclosureBadge.jsx"},{"name":"ChatMessage","sourcePath":"components/ai/ChatMessage.jsx"},{"name":"CitationList","sourcePath":"components/ai/CitationList.jsx"},{"name":"ConfidenceMeter","sourcePath":"components/ai/ConfidenceMeter.jsx"},{"name":"HumanReviewGate","sourcePath":"components/ai/HumanReviewGate.jsx"},{"name":"PromptInput","sourcePath":"components/ai/PromptInput.jsx"},{"name":"PromptSuggestions","sourcePath":"components/ai/PromptSuggestions.jsx"},{"name":"TypingIndicator","sourcePath":"components/ai/TypingIndicator.jsx"},{"name":"LumiAvatar","sourcePath":"components/brand/LumiAvatar.jsx"},{"name":"Button","sourcePath":"components/button/Button.jsx"},{"name":"ButtonGroup","sourcePath":"components/button/ButtonGroup.jsx"},{"name":"FloatingActionButton","sourcePath":"components/button/FloatingActionButton.jsx"},{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"AspectRatio","sourcePath":"components/data/AspectRatio.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/data/Avatar.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"CardHeader","sourcePath":"components/data/Card.jsx"},{"name":"CardBody","sourcePath":"components/data/Card.jsx"},{"name":"CardFooter","sourcePath":"components/data/Card.jsx"},{"name":"Carousel","sourcePath":"components/data/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data/Chart.jsx"},{"name":"CodeBlock","sourcePath":"components/data/CodeBlock.jsx"},{"name":"Collapsible","sourcePath":"components/data/Collapsible.jsx"},{"name":"Comment","sourcePath":"components/data/Comment.jsx"},{"name":"DescriptionList","sourcePath":"components/data/DescriptionList.jsx"},{"name":"Divider","sourcePath":"components/data/Divider.jsx"},{"name":"Image","sourcePath":"components/data/Image.jsx"},{"name":"Item","sourcePath":"components/data/Item.jsx"},{"name":"Kbd","sourcePath":"components/data/Kbd.jsx"},{"name":"List","sourcePath":"components/data/List.jsx"},{"name":"ListItem","sourcePath":"components/data/List.jsx"},{"name":"Masonry","sourcePath":"components/data/Masonry.jsx"},{"name":"QRCode","sourcePath":"components/data/QRCode.jsx"},{"name":"ScrollArea","sourcePath":"components/data/ScrollArea.jsx"},{"name":"Sortable","sourcePath":"components/data/Sortable.jsx"},{"name":"Splitter","sourcePath":"components/data/Splitter.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Terminal","sourcePath":"components/data/Terminal.jsx"},{"name":"Timeline","sourcePath":"components/data/Timeline.jsx"},{"name":"Tooltip","sourcePath":"components/data/Tooltip.jsx"},{"name":"Tree","sourcePath":"components/data/Tree.jsx"},{"name":"Watermark","sourcePath":"components/data/Watermark.jsx"},{"name":"DataGrid","sourcePath":"components/datatable/DataGrid.jsx"},{"name":"DataTable","sourcePath":"components/datatable/DataTable.jsx"},{"name":"TreeTable","sourcePath":"components/datatable/TreeTable.jsx"},{"name":"Dialog","sourcePath":"components/dialog/Dialog.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Result","sourcePath":"components/feedback/Result.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"StatusIndicator","sourcePath":"components/feedback/StatusIndicator.jsx"},{"name":"Tag","sourcePath":"components/feedback/Tag.jsx"},{"name":"ToastStack","sourcePath":"components/feedback/Toast.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Calendar","sourcePath":"components/forms/Calendar.jsx"},{"name":"Cascader","sourcePath":"components/forms/Cascader.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"ColorPicker","sourcePath":"components/forms/ColorPicker.jsx"},{"name":"Combobox","sourcePath":"components/forms/Combobox.jsx"},{"name":"DatePicker","sourcePath":"components/forms/DatePicker.jsx"},{"name":"Editor","sourcePath":"components/forms/Editor.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"Form","sourcePath":"components/forms/Form.jsx"},{"name":"FormField","sourcePath":"components/forms/Form.jsx"},{"name":"FormFieldArray","sourcePath":"components/forms/Form.jsx"},{"name":"FormWizard","sourcePath":"components/forms/Form.jsx"},{"name":"InlineEdit","sourcePath":"components/forms/InlineEdit.jsx"},{"name":"InputGroup","sourcePath":"components/forms/InputGroup.jsx"},{"name":"InputOTP","sourcePath":"components/forms/InputOTP.jsx"},{"name":"Mentions","sourcePath":"components/forms/Mentions.jsx"},{"name":"NativeSelect","sourcePath":"components/forms/NativeSelect.jsx"},{"name":"NumberField","sourcePath":"components/forms/NumberField.jsx"},{"name":"Radio","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"Rating","sourcePath":"components/forms/Rating.jsx"},{"name":"SearchField","sourcePath":"components/forms/SearchField.jsx"},{"name":"SegmentedControl","sourcePath":"components/forms/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Slider","sourcePath":"components/forms/Slider.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TagInput","sourcePath":"components/forms/TagInput.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"TimePicker","sourcePath":"components/forms/TimePicker.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Transfer","sourcePath":"components/forms/Transfer.jsx"},{"name":"TreeSelect","sourcePath":"components/forms/TreeSelect.jsx"},{"name":"EDITOR_SCHEMA","sourcePath":"components/forms/editor-schema.js"},{"name":"CS_ICONS","sourcePath":"components/icon/Icon.jsx"},{"name":"Icon","sourcePath":"components/icon/Icon.jsx"},{"name":"Logo","sourcePath":"components/logo/Logo.jsx"},{"name":"CS_LOGO_VIEWBOX","sourcePath":"components/logo/logo-data.js"},{"name":"CS_LOGO_MARK_INNER","sourcePath":"components/logo/logo-data.js"},{"name":"Anchor","sourcePath":"components/navigation/Anchor.jsx"},{"name":"BackTop","sourcePath":"components/navigation/BackTop.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"CommandPalette","sourcePath":"components/navigation/CommandPalette.jsx"},{"name":"Dock","sourcePath":"components/navigation/Dock.jsx"},{"name":"HotKeys","sourcePath":"components/navigation/HotKeys.jsx"},{"name":"Link","sourcePath":"components/navigation/Link.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"MenuItem","sourcePath":"components/navigation/Menu.jsx"},{"name":"Menubar","sourcePath":"components/navigation/Menubar.jsx"},{"name":"NavigationMenu","sourcePath":"components/navigation/NavigationMenu.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"NavItem","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Steps","sourcePath":"components/navigation/Steps.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Tab","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Toolbar","sourcePath":"components/navigation/Toolbar.jsx"},{"name":"AlertDialog","sourcePath":"components/overlays/AlertDialog.jsx"},{"name":"ContextMenu","sourcePath":"components/overlays/ContextMenu.jsx"},{"name":"Drawer","sourcePath":"components/overlays/Drawer.jsx"},{"name":"HoverCard","sourcePath":"components/overlays/HoverCard.jsx"},{"name":"OverlayProvider","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"Popconfirm","sourcePath":"components/overlays/Popconfirm.jsx"},{"name":"Popover","sourcePath":"components/overlays/Popover.jsx"},{"name":"Tour","sourcePath":"components/overlays/Tour.jsx"},{"name":"TextField","sourcePath":"components/textfield/TextField.jsx"}],"sourceHashes":{"components/_i18n/i18n.js":"743e1eddb486","components/_i18n/strings.js":"0c5353d204b2","components/_utils/cx.js":"ad6a747ea116","components/_utils/renderCount.js":"bee2dce5fdd6","components/_utils/use-client-layout-effect.js":"ad9fb69fd4a4","components/_utils/use-overlay-surface.js":"3e73a204593b","components/_utils/use-viewport-panel.js":"bb2cacd8a4c2","components/ai/AIDisclosureBadge.jsx":"c0bbd141a4ab","components/ai/ChatMessage.jsx":"344e9c13fcfe","components/ai/CitationList.jsx":"a80aeeccad4a","components/ai/ConfidenceMeter.jsx":"d841425313d3","components/ai/HumanReviewGate.jsx":"701abb885a41","components/ai/PromptInput.jsx":"2908de367216","components/ai/PromptSuggestions.jsx":"02d64117ecfa","components/ai/TypingIndicator.jsx":"149e3a0c7ef8","components/brand/LumiAvatar.jsx":"b6444360cf80","components/button/Button.jsx":"108246d3d50b","components/button/ButtonGroup.jsx":"1a1481f6fb93","components/button/FloatingActionButton.jsx":"73c0a2ed540d","components/data/Accordion.jsx":"9765030a11e0","components/data/AspectRatio.jsx":"6c1e8703891e","components/data/Avatar.jsx":"88c8f59334e6","components/data/Card.jsx":"c28db5e40ba4","components/data/Carousel.jsx":"16f649cc44c4","components/data/Chart.jsx":"6e75b143aace","components/data/CodeBlock.jsx":"04a9be22152d","components/data/Collapsible.jsx":"3d961fef83f8","components/data/Comment.jsx":"906891548814","components/data/DescriptionList.jsx":"ce50d72546bb","components/data/Divider.jsx":"d1e5cca0c57c","components/data/Image.jsx":"d73122324e34","components/data/Item.jsx":"7e1ac68c4e96","components/data/Kbd.jsx":"3b3d867cbdd8","components/data/List.jsx":"ac7d9243c7ea","components/data/Masonry.jsx":"a65508731d79","components/data/QRCode.jsx":"6acaf577a7fc","components/data/ScrollArea.jsx":"c2e2ec304b1e","components/data/Sortable.jsx":"1fcb7f885aea","components/data/Splitter.jsx":"88c8097a533d","components/data/Stat.jsx":"35734a801a71","components/data/Terminal.jsx":"f916a9cbab09","components/data/Timeline.jsx":"807f08176ba1","components/data/Tooltip.jsx":"5aa823814a22","components/data/Tree.jsx":"fdca890e872a","components/data/Watermark.jsx":"4b25b320f251","components/data/qr-encode.js":"844b78fabee5","components/datatable/DataGrid.jsx":"8a0f04cae9e7","components/datatable/DataTable.jsx":"deaef9e25121","components/datatable/TreeTable.jsx":"5ff421280cd6","components/dialog/Dialog.jsx":"79a1fe051a4c","components/feedback/Alert.jsx":"08e19c6eee49","components/feedback/Badge.jsx":"e691ae1634f8","components/feedback/EmptyState.jsx":"c9dfd36a5cb4","components/feedback/ProgressBar.jsx":"d1420ae640db","components/feedback/Result.jsx":"de025a44d5ae","components/feedback/Skeleton.jsx":"edac38ecdca2","components/feedback/Spinner.jsx":"cad2ed4008a6","components/feedback/StatusIndicator.jsx":"d27a5fc3db2a","components/feedback/Tag.jsx":"13d288da9f38","components/feedback/Toast.jsx":"4a3e1a791fe0","components/forms/Calendar.jsx":"a3d0d01d69c7","components/forms/Cascader.jsx":"673737f94cf4","components/forms/Checkbox.jsx":"432d120e7a1f","components/forms/ColorPicker.jsx":"793fa4c479fe","components/forms/Combobox.jsx":"c912a7b3910c","components/forms/DatePicker.jsx":"cdec2d2db8cf","components/forms/Editor.jsx":"4339142c67e7","components/forms/FileUpload.jsx":"c1f76aca57de","components/forms/Form.jsx":"6c2b8a17a330","components/forms/InlineEdit.jsx":"0e3486edb0a5","components/forms/InputGroup.jsx":"f701e1380293","components/forms/InputOTP.jsx":"c9b9b150b5d6","components/forms/Mentions.jsx":"54bbbc640857","components/forms/NativeSelect.jsx":"7eafb326cf9c","components/forms/NumberField.jsx":"38591461742f","components/forms/RadioGroup.jsx":"fcfe091de301","components/forms/Rating.jsx":"3695a677b3e4","components/forms/SearchField.jsx":"376d8bc6b1c8","components/forms/SegmentedControl.jsx":"f8aa66353148","components/forms/Select.jsx":"a121841412ee","components/forms/Slider.jsx":"213b7b9edec9","components/forms/Switch.jsx":"4873e5d7e214","components/forms/TagInput.jsx":"aefdf0f7e59e","components/forms/Textarea.jsx":"9abd7066796b","components/forms/TimePicker.jsx":"b9368b62c891","components/forms/Toggle.jsx":"8ba7620a30ce","components/forms/Transfer.jsx":"37e06695b421","components/forms/TreeSelect.jsx":"bb9d3b996839","components/forms/editor-parser.js":"6b6956bd08fd","components/forms/editor-schema.js":"a996ec9b4b88","components/icon/Icon.jsx":"280fba8477db","components/logo/Logo.jsx":"445c5f5fbd40","components/logo/logo-data.js":"f1a251a50c8f","components/navigation/Anchor.jsx":"f0768176ce94","components/navigation/BackTop.jsx":"cc4b6a028381","components/navigation/Breadcrumb.jsx":"45636f3b0a51","components/navigation/CommandPalette.jsx":"16072cc4e8f4","components/navigation/Dock.jsx":"3073e2870c65","components/navigation/HotKeys.jsx":"3e09f50e9946","components/navigation/Link.jsx":"d4fe3fcffd2c","components/navigation/Menu.jsx":"bdacf740dbc4","components/navigation/Menubar.jsx":"3f36fa3c2e3a","components/navigation/NavigationMenu.jsx":"d4b8e8e76b91","components/navigation/Pagination.jsx":"a1fc19bfd104","components/navigation/Sidebar.jsx":"89c0606a4cdf","components/navigation/Steps.jsx":"fcd7eb09a30e","components/navigation/Tabs.jsx":"3002e0104b9b","components/navigation/Toolbar.jsx":"fbdea367ece7","components/overlays/AlertDialog.jsx":"caa8b2883a61","components/overlays/ContextMenu.jsx":"4a19c27d62cd","components/overlays/Drawer.jsx":"139dc6b2483b","components/overlays/HoverCard.jsx":"f6686064cc76","components/overlays/OverlayManager.jsx":"1619b46fa953","components/overlays/Popconfirm.jsx":"31c8d5b96d67","components/overlays/Popover.jsx":"7f2417c3da0c","components/overlays/Tour.jsx":"4783bdfb864e","components/textfield/TextField.jsx":"b48e8bdbbdde","tokens/tokens.js":"7b70dc040911"},"inlinedExternals":[],"unexposedExports":[{"name":"attachFocusTrap","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"cx","sourcePath":"components/_utils/cx.js"},{"name":"escapeEditorText","sourcePath":"components/forms/editor-schema.js"},{"name":"focusableSelector","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"formatCurrency","sourcePath":"components/_i18n/i18n.js"},{"name":"formatDate","sourcePath":"components/_i18n/i18n.js"},{"name":"formatNumber","sourcePath":"components/_i18n/i18n.js"},{"name":"getOverlayManager","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"getPath","sourcePath":"components/forms/Form.jsx"},{"name":"knownLocales","sourcePath":"components/_i18n/i18n.js"},{"name":"makeT","sourcePath":"components/_i18n/i18n.js"},{"name":"monthName","sourcePath":"components/_i18n/i18n.js"},{"name":"overlayScopeContext","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"overlaySurfaceClass","sourcePath":"components/_utils/use-overlay-surface.js"},{"name":"parseEditorFragment","sourcePath":"components/forms/editor-parser.js"},{"name":"primaryLang","sourcePath":"components/_i18n/i18n.js"},{"name":"qrMatrix","sourcePath":"components/data/qr-encode.js"},{"name":"renderCount","sourcePath":"components/_utils/renderCount.js"},{"name":"reorderItems","sourcePath":"components/data/Sortable.jsx"},{"name":"resolveLang","sourcePath":"components/_i18n/i18n.js"},{"name":"sanitizeHtml","sourcePath":"components/forms/editor-schema.js"},{"name":"setPath","sourcePath":"components/forms/Form.jsx"},{"name":"strings","sourcePath":"components/_i18n/strings.js"},{"name":"tokens","sourcePath":"tokens/tokens.js"},{"name":"tr","sourcePath":"components/_i18n/i18n.js"},{"name":"useClientLayoutEffect","sourcePath":"components/_utils/use-client-layout-effect.js"},{"name":"useLang","sourcePath":"components/_i18n/i18n.js"},{"name":"useOverlayLayer","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"useOverlaySurface","sourcePath":"components/_utils/use-overlay-surface.js"},{"name":"useViewportPanel","sourcePath":"components/_utils/use-viewport-panel.js"}]} */
+/* @ds-bundle: {"format":4,"namespace":"CyberSkillDesignSystem_847b3c","components":[{"name":"AIDisclosureBadge","sourcePath":"components/ai/AIDisclosureBadge.jsx"},{"name":"ChatMessage","sourcePath":"components/ai/ChatMessage.jsx"},{"name":"CitationList","sourcePath":"components/ai/CitationList.jsx"},{"name":"ConfidenceMeter","sourcePath":"components/ai/ConfidenceMeter.jsx"},{"name":"HumanReviewGate","sourcePath":"components/ai/HumanReviewGate.jsx"},{"name":"PromptInput","sourcePath":"components/ai/PromptInput.jsx"},{"name":"PromptSuggestions","sourcePath":"components/ai/PromptSuggestions.jsx"},{"name":"TypingIndicator","sourcePath":"components/ai/TypingIndicator.jsx"},{"name":"LumiAvatar","sourcePath":"components/brand/LumiAvatar.jsx"},{"name":"Button","sourcePath":"components/button/Button.jsx"},{"name":"ButtonGroup","sourcePath":"components/button/ButtonGroup.jsx"},{"name":"FloatingActionButton","sourcePath":"components/button/FloatingActionButton.jsx"},{"name":"Accordion","sourcePath":"components/data/Accordion.jsx"},{"name":"AspectRatio","sourcePath":"components/data/AspectRatio.jsx"},{"name":"Avatar","sourcePath":"components/data/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/data/Avatar.jsx"},{"name":"Card","sourcePath":"components/data/Card.jsx"},{"name":"CardHeader","sourcePath":"components/data/Card.jsx"},{"name":"CardBody","sourcePath":"components/data/Card.jsx"},{"name":"CardFooter","sourcePath":"components/data/Card.jsx"},{"name":"Carousel","sourcePath":"components/data/Carousel.jsx"},{"name":"Chart","sourcePath":"components/data/Chart.jsx"},{"name":"CodeBlock","sourcePath":"components/data/CodeBlock.jsx"},{"name":"Collapsible","sourcePath":"components/data/Collapsible.jsx"},{"name":"Comment","sourcePath":"components/data/Comment.jsx"},{"name":"DescriptionList","sourcePath":"components/data/DescriptionList.jsx"},{"name":"Divider","sourcePath":"components/data/Divider.jsx"},{"name":"Image","sourcePath":"components/data/Image.jsx"},{"name":"Item","sourcePath":"components/data/Item.jsx"},{"name":"Kbd","sourcePath":"components/data/Kbd.jsx"},{"name":"List","sourcePath":"components/data/List.jsx"},{"name":"ListItem","sourcePath":"components/data/List.jsx"},{"name":"Masonry","sourcePath":"components/data/Masonry.jsx"},{"name":"QRCode","sourcePath":"components/data/QRCode.jsx"},{"name":"ScrollArea","sourcePath":"components/data/ScrollArea.jsx"},{"name":"Sortable","sourcePath":"components/data/Sortable.jsx"},{"name":"Splitter","sourcePath":"components/data/Splitter.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Terminal","sourcePath":"components/data/Terminal.jsx"},{"name":"Timeline","sourcePath":"components/data/Timeline.jsx"},{"name":"Tooltip","sourcePath":"components/data/Tooltip.jsx"},{"name":"Tree","sourcePath":"components/data/Tree.jsx"},{"name":"Watermark","sourcePath":"components/data/Watermark.jsx"},{"name":"DataGrid","sourcePath":"components/datatable/DataGrid.jsx"},{"name":"DataTable","sourcePath":"components/datatable/DataTable.jsx"},{"name":"TreeTable","sourcePath":"components/datatable/TreeTable.jsx"},{"name":"Dialog","sourcePath":"components/dialog/Dialog.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"Badge","sourcePath":"components/feedback/Badge.jsx"},{"name":"EmptyState","sourcePath":"components/feedback/EmptyState.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Result","sourcePath":"components/feedback/Result.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"StatusIndicator","sourcePath":"components/feedback/StatusIndicator.jsx"},{"name":"Tag","sourcePath":"components/feedback/Tag.jsx"},{"name":"ToastStack","sourcePath":"components/feedback/Toast.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Calendar","sourcePath":"components/forms/Calendar.jsx"},{"name":"Cascader","sourcePath":"components/forms/Cascader.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"ColorPicker","sourcePath":"components/forms/ColorPicker.jsx"},{"name":"Combobox","sourcePath":"components/forms/Combobox.jsx"},{"name":"DatePicker","sourcePath":"components/forms/DatePicker.jsx"},{"name":"Editor","sourcePath":"components/forms/Editor.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"Form","sourcePath":"components/forms/Form.jsx"},{"name":"FormField","sourcePath":"components/forms/Form.jsx"},{"name":"FormFieldArray","sourcePath":"components/forms/Form.jsx"},{"name":"FormWizard","sourcePath":"components/forms/Form.jsx"},{"name":"InlineEdit","sourcePath":"components/forms/InlineEdit.jsx"},{"name":"InputGroup","sourcePath":"components/forms/InputGroup.jsx"},{"name":"InputOTP","sourcePath":"components/forms/InputOTP.jsx"},{"name":"Mentions","sourcePath":"components/forms/Mentions.jsx"},{"name":"NativeSelect","sourcePath":"components/forms/NativeSelect.jsx"},{"name":"NumberField","sourcePath":"components/forms/NumberField.jsx"},{"name":"Radio","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"RadioGroup","sourcePath":"components/forms/RadioGroup.jsx"},{"name":"Rating","sourcePath":"components/forms/Rating.jsx"},{"name":"SearchField","sourcePath":"components/forms/SearchField.jsx"},{"name":"SegmentedControl","sourcePath":"components/forms/SegmentedControl.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Slider","sourcePath":"components/forms/Slider.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"TagInput","sourcePath":"components/forms/TagInput.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"TimePicker","sourcePath":"components/forms/TimePicker.jsx"},{"name":"Toggle","sourcePath":"components/forms/Toggle.jsx"},{"name":"Transfer","sourcePath":"components/forms/Transfer.jsx"},{"name":"TreeSelect","sourcePath":"components/forms/TreeSelect.jsx"},{"name":"EDITOR_SCHEMA","sourcePath":"components/forms/editor-schema.js"},{"name":"CS_ICONS","sourcePath":"components/icon/Icon.jsx"},{"name":"Icon","sourcePath":"components/icon/Icon.jsx"},{"name":"Logo","sourcePath":"components/logo/Logo.jsx"},{"name":"CS_LOGO_VIEWBOX","sourcePath":"components/logo/logo-data.js"},{"name":"CS_LOGO_MARK_INNER","sourcePath":"components/logo/logo-data.js"},{"name":"Anchor","sourcePath":"components/navigation/Anchor.jsx"},{"name":"BackTop","sourcePath":"components/navigation/BackTop.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"CommandPalette","sourcePath":"components/navigation/CommandPalette.jsx"},{"name":"Dock","sourcePath":"components/navigation/Dock.jsx"},{"name":"HotKeys","sourcePath":"components/navigation/HotKeys.jsx"},{"name":"Link","sourcePath":"components/navigation/Link.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"MenuItem","sourcePath":"components/navigation/Menu.jsx"},{"name":"Menubar","sourcePath":"components/navigation/Menubar.jsx"},{"name":"NavigationMenu","sourcePath":"components/navigation/NavigationMenu.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Sidebar","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"NavItem","sourcePath":"components/navigation/Sidebar.jsx"},{"name":"Steps","sourcePath":"components/navigation/Steps.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Tab","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Toolbar","sourcePath":"components/navigation/Toolbar.jsx"},{"name":"AlertDialog","sourcePath":"components/overlays/AlertDialog.jsx"},{"name":"ContextMenu","sourcePath":"components/overlays/ContextMenu.jsx"},{"name":"Drawer","sourcePath":"components/overlays/Drawer.jsx"},{"name":"HoverCard","sourcePath":"components/overlays/HoverCard.jsx"},{"name":"OverlayProvider","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"Popconfirm","sourcePath":"components/overlays/Popconfirm.jsx"},{"name":"Popover","sourcePath":"components/overlays/Popover.jsx"},{"name":"Tour","sourcePath":"components/overlays/Tour.jsx"},{"name":"TextField","sourcePath":"components/textfield/TextField.jsx"}],"sourceHashes":{"components/_i18n/i18n.js":"743e1eddb486","components/_i18n/strings.js":"ed62ded0cfb4","components/_utils/cx.js":"ad6a747ea116","components/_utils/renderCount.js":"bee2dce5fdd6","components/_utils/use-client-layout-effect.js":"ad9fb69fd4a4","components/_utils/use-overlay-surface.js":"3e73a204593b","components/_utils/use-viewport-panel.js":"bb2cacd8a4c2","components/ai/AIDisclosureBadge.jsx":"60d8fc169a76","components/ai/ChatMessage.jsx":"344e9c13fcfe","components/ai/CitationList.jsx":"a80aeeccad4a","components/ai/ConfidenceMeter.jsx":"d841425313d3","components/ai/HumanReviewGate.jsx":"701abb885a41","components/ai/PromptInput.jsx":"30235351a39d","components/ai/PromptSuggestions.jsx":"02d64117ecfa","components/ai/TypingIndicator.jsx":"149e3a0c7ef8","components/brand/LumiAvatar.jsx":"da877ee4bf24","components/button/Button.jsx":"108246d3d50b","components/button/ButtonGroup.jsx":"1a1481f6fb93","components/button/FloatingActionButton.jsx":"73c0a2ed540d","components/data/Accordion.jsx":"9765030a11e0","components/data/AspectRatio.jsx":"6c1e8703891e","components/data/Avatar.jsx":"0178eaabfb7e","components/data/Card.jsx":"c28db5e40ba4","components/data/Carousel.jsx":"16f649cc44c4","components/data/Chart.jsx":"fa7ef115eedf","components/data/CodeBlock.jsx":"04a9be22152d","components/data/Collapsible.jsx":"6e06080e5f64","components/data/Comment.jsx":"906891548814","components/data/DescriptionList.jsx":"ce50d72546bb","components/data/Divider.jsx":"d1e5cca0c57c","components/data/Image.jsx":"afafaf2adb81","components/data/Item.jsx":"0ca11cdd2dab","components/data/Kbd.jsx":"3b3d867cbdd8","components/data/List.jsx":"ac7d9243c7ea","components/data/Masonry.jsx":"a65508731d79","components/data/QRCode.jsx":"6acaf577a7fc","components/data/ScrollArea.jsx":"c2e2ec304b1e","components/data/Sortable.jsx":"16ade18d2092","components/data/Splitter.jsx":"88c8097a533d","components/data/Stat.jsx":"35734a801a71","components/data/Terminal.jsx":"f916a9cbab09","components/data/Timeline.jsx":"807f08176ba1","components/data/Tooltip.jsx":"5aa823814a22","components/data/Tree.jsx":"fdca890e872a","components/data/Watermark.jsx":"4b25b320f251","components/data/qr-encode.js":"844b78fabee5","components/datatable/DataGrid.jsx":"d44ff4be5b72","components/datatable/DataTable.jsx":"deaef9e25121","components/datatable/TreeTable.jsx":"5ff421280cd6","components/dialog/Dialog.jsx":"79a1fe051a4c","components/feedback/Alert.jsx":"08e19c6eee49","components/feedback/Badge.jsx":"e691ae1634f8","components/feedback/EmptyState.jsx":"c9dfd36a5cb4","components/feedback/ProgressBar.jsx":"d1420ae640db","components/feedback/Result.jsx":"de025a44d5ae","components/feedback/Skeleton.jsx":"edac38ecdca2","components/feedback/Spinner.jsx":"cad2ed4008a6","components/feedback/StatusIndicator.jsx":"d27a5fc3db2a","components/feedback/Tag.jsx":"13d288da9f38","components/feedback/Toast.jsx":"4a3e1a791fe0","components/forms/Calendar.jsx":"34ed9ce0fb39","components/forms/Cascader.jsx":"673737f94cf4","components/forms/Checkbox.jsx":"432d120e7a1f","components/forms/ColorPicker.jsx":"793fa4c479fe","components/forms/Combobox.jsx":"388cb600740d","components/forms/DatePicker.jsx":"cdec2d2db8cf","components/forms/Editor.jsx":"4339142c67e7","components/forms/FileUpload.jsx":"e99f67c66aa3","components/forms/Form.jsx":"75b35b2bd152","components/forms/InlineEdit.jsx":"db30ac35d901","components/forms/InputGroup.jsx":"3b0a5ae116fd","components/forms/InputOTP.jsx":"c9b9b150b5d6","components/forms/Mentions.jsx":"1b4e12ee3076","components/forms/NativeSelect.jsx":"7eafb326cf9c","components/forms/NumberField.jsx":"0708c03c7bb5","components/forms/RadioGroup.jsx":"fcfe091de301","components/forms/Rating.jsx":"3695a677b3e4","components/forms/SearchField.jsx":"b4135f14ad12","components/forms/SegmentedControl.jsx":"f8aa66353148","components/forms/Select.jsx":"a121841412ee","components/forms/Slider.jsx":"213b7b9edec9","components/forms/Switch.jsx":"a2b0f7f08bf8","components/forms/TagInput.jsx":"3ad9429f903c","components/forms/Textarea.jsx":"9abd7066796b","components/forms/TimePicker.jsx":"b9368b62c891","components/forms/Toggle.jsx":"8ba7620a30ce","components/forms/Transfer.jsx":"37e06695b421","components/forms/TreeSelect.jsx":"bb9d3b996839","components/forms/editor-parser.js":"6b6956bd08fd","components/forms/editor-schema.js":"a996ec9b4b88","components/icon/Icon.jsx":"280fba8477db","components/logo/Logo.jsx":"445c5f5fbd40","components/logo/logo-data.js":"f1a251a50c8f","components/navigation/Anchor.jsx":"34b8de9b510c","components/navigation/BackTop.jsx":"cc4b6a028381","components/navigation/Breadcrumb.jsx":"45636f3b0a51","components/navigation/CommandPalette.jsx":"794167f05013","components/navigation/Dock.jsx":"3073e2870c65","components/navigation/HotKeys.jsx":"a99225b88f93","components/navigation/Link.jsx":"d4fe3fcffd2c","components/navigation/Menu.jsx":"908b1562daa7","components/navigation/Menubar.jsx":"3f36fa3c2e3a","components/navigation/NavigationMenu.jsx":"c5a69167b8c3","components/navigation/Pagination.jsx":"a1fc19bfd104","components/navigation/Sidebar.jsx":"d5c8ebe6e2c5","components/navigation/Steps.jsx":"fcd7eb09a30e","components/navigation/Tabs.jsx":"3002e0104b9b","components/navigation/Toolbar.jsx":"fbdea367ece7","components/overlays/AlertDialog.jsx":"caa8b2883a61","components/overlays/ContextMenu.jsx":"4a19c27d62cd","components/overlays/Drawer.jsx":"139dc6b2483b","components/overlays/HoverCard.jsx":"f6686064cc76","components/overlays/OverlayManager.jsx":"1619b46fa953","components/overlays/Popconfirm.jsx":"31c8d5b96d67","components/overlays/Popover.jsx":"7f2417c3da0c","components/overlays/Tour.jsx":"eb9bbddb5180","components/textfield/TextField.jsx":"b48e8bdbbdde","tokens/tokens.js":"446fa6fe5315"},"inlinedExternals":[],"unexposedExports":[{"name":"attachFocusTrap","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"cx","sourcePath":"components/_utils/cx.js"},{"name":"escapeEditorText","sourcePath":"components/forms/editor-schema.js"},{"name":"focusableSelector","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"formatCurrency","sourcePath":"components/_i18n/i18n.js"},{"name":"formatDate","sourcePath":"components/_i18n/i18n.js"},{"name":"formatNumber","sourcePath":"components/_i18n/i18n.js"},{"name":"getOverlayManager","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"getPath","sourcePath":"components/forms/Form.jsx"},{"name":"knownLocales","sourcePath":"components/_i18n/i18n.js"},{"name":"makeT","sourcePath":"components/_i18n/i18n.js"},{"name":"monthName","sourcePath":"components/_i18n/i18n.js"},{"name":"overlayScopeContext","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"overlaySurfaceClass","sourcePath":"components/_utils/use-overlay-surface.js"},{"name":"parseEditorFragment","sourcePath":"components/forms/editor-parser.js"},{"name":"primaryLang","sourcePath":"components/_i18n/i18n.js"},{"name":"qrMatrix","sourcePath":"components/data/qr-encode.js"},{"name":"renderCount","sourcePath":"components/_utils/renderCount.js"},{"name":"reorderItems","sourcePath":"components/data/Sortable.jsx"},{"name":"resolveLang","sourcePath":"components/_i18n/i18n.js"},{"name":"sanitizeHtml","sourcePath":"components/forms/editor-schema.js"},{"name":"setPath","sourcePath":"components/forms/Form.jsx"},{"name":"strings","sourcePath":"components/_i18n/strings.js"},{"name":"tokens","sourcePath":"tokens/tokens.js"},{"name":"tr","sourcePath":"components/_i18n/i18n.js"},{"name":"useClientLayoutEffect","sourcePath":"components/_utils/use-client-layout-effect.js"},{"name":"useLang","sourcePath":"components/_i18n/i18n.js"},{"name":"useOverlayLayer","sourcePath":"components/overlays/OverlayManager.jsx"},{"name":"useOverlaySurface","sourcePath":"components/_utils/use-overlay-surface.js"},{"name":"useViewportPanel","sourcePath":"components/_utils/use-viewport-panel.js"}]} */
 
 (() => {
 
@@ -187,7 +187,8 @@ const strings = {
   },
   Calendar: {
     en: { prev: "Previous month", next: "Next month" },
-    vi: { prev: "Tháng trước", next: "Tháng sau" }
+    vi: { prev: "Tháng trước", next: "Tháng sau" },
+    ja: { prev: "前の月", next: "次の月" }
   },
   DatePicker: {
     en: { placeholder: "Select a date" },
@@ -613,7 +614,8 @@ function PromptInput({
   lang,
   disabled = false,
   busy = false,
-  className
+  className,
+  "aria-label": ariaLabel
 }) {
   const [inner, setInner] = React.useState("");
   const val = value != null ? value : inner;
@@ -636,6 +638,7 @@ function PromptInput({
       rows: 1,
       value: val,
       placeholder: ph,
+      "aria-label": ariaLabel || ph,
       disabled,
       onChange: (e) => setVal(e.target.value),
       onKeyDown: (e) => {
@@ -679,7 +682,7 @@ Object.assign(__ds_scope, { TypingIndicator });
 try { (() => {
 const { cx } = __ds_scope;
 function LumiAvatar({ src, size = "md", ring = false, alt = "Lumi", className, ...props }) {
-  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-lumi", `cs-lumi--${size}`, ring && "cs-lumi--ring", className), ...props }, src ? /* @__PURE__ */ React.createElement("img", { src, alt }) : /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, "✦"));
+  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-lumi", `cs-lumi--${size}`, ring && "cs-lumi--ring", className), role: !src && alt ? "img" : void 0, "aria-label": !src && alt ? alt : void 0, ...props }, src ? /* @__PURE__ */ React.createElement("img", { src, alt }) : /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, "✦"));
 }
 Object.assign(__ds_scope, { LumiAvatar });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/brand/LumiAvatar.jsx", error: String((e && e.message) || e) }); }
@@ -775,7 +778,7 @@ try { (() => {
 const { cx } = __ds_scope;
 function Avatar({ src, name = "", size = "md", square = false, className, ...props }) {
   const initials = name ? name.trim().split(/\s+/).map((w) => w[0]).slice(0, 2).join("").toUpperCase() : "";
-  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-avatar", `cs-avatar--${size}`, square && "cs-avatar--square", className), title: name || void 0, ...props }, src ? /* @__PURE__ */ React.createElement("img", { src, alt: name }) : /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, initials));
+  return /* @__PURE__ */ React.createElement("span", { className: cx("cs-avatar", `cs-avatar--${size}`, square && "cs-avatar--square", className), role: !src && name ? "img" : void 0, "aria-label": !src && name ? name : void 0, title: name || void 0, ...props }, src ? /* @__PURE__ */ React.createElement("img", { src, alt: name }) : /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, initials));
 }
 function AvatarGroup({ className, children }) {
   return /* @__PURE__ */ React.createElement("div", { className: cx("cs-avatar-group", className) }, children);
@@ -853,7 +856,7 @@ function Chart({ type = "bar", data = [], height = 160, color = "var(--cs-accent
   } else {
     const bw = (W - 8) / data.length;
     body = /* @__PURE__ */ React.createElement("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", height: H, preserveAspectRatio: "none", "aria-hidden": "true" }, data.map((d, i) => {
-      const h = d.value / max * (H - 26);
+      const h = Math.max(0, Math.max(0, Number(d.value) || 0) / max * (H - 26));
       return /* @__PURE__ */ React.createElement("rect", { key: i, x: 4 + i * bw + bw * 0.14, y: H - 20 - h, width: bw * 0.72, height: h, rx: "3", fill: color });
     }));
   }
@@ -929,7 +932,7 @@ function Collapsible({
       id: triggerId,
       className: "cs-collapsible__trigger",
       "aria-expanded": isOpen,
-      "aria-controls": panelId,
+      "aria-controls": isOpen ? panelId : void 0,
       onClick: () => setOpen(!isOpen)
     },
     /* @__PURE__ */ React.createElement("span", { className: "cs-collapsible__label" }, label),
@@ -988,18 +991,23 @@ function Item({
   className,
   ...props
 }) {
-  const interactive = !disabled && (href != null || typeof onClick === "function");
-  const Tag = href != null && !disabled ? "a" : interactive ? "button" : "div";
+  const interactive = href != null || typeof onClick === "function";
+  const Tag = href != null ? "a" : interactive ? "button" : "div";
   const rowProps = { ...props };
   if (Tag === "a") {
-    rowProps.href = href;
-    if (disabled) rowProps["aria-disabled"] = true;
+    if (disabled) {
+      rowProps["aria-disabled"] = "true";
+      rowProps.tabIndex = -1;
+      rowProps.role = rowProps.role ?? "link";
+      rowProps.onClick = (e) => e.preventDefault();
+    } else {
+      rowProps.href = href;
+      rowProps.onClick = onClick;
+    }
   } else if (Tag === "button") {
     rowProps.type = "button";
     rowProps.disabled = disabled || void 0;
-    rowProps.onClick = onClick;
-  } else if (disabled) {
-    rowProps["aria-disabled"] = true;
+    rowProps.onClick = !disabled ? onClick : void 0;
   }
   if (selected) rowProps["aria-current"] = rowProps["aria-current"] ?? "true";
   const trailExplicit = trailing !== void 0;
@@ -1010,7 +1018,7 @@ function Item({
     {
       className: cx(
         "cs-item",
-        interactive && "cs-item--interactive",
+        interactive && !disabled && "cs-item--interactive",
         selected && "is-selected",
         disabled && "is-disabled",
         className
@@ -1143,7 +1151,11 @@ function Sortable({ items = [], onChange, lang, className }) {
         className: "cs-button cs-button--secondary cs-button--xs",
         "aria-label": t("moveUp"),
         disabled: idx === 0,
-        onClick: () => move(idx, idx - 1)
+        onClick: (e) => {
+          const sibling = idx - 1 === 0 ? e.currentTarget.nextElementSibling : null;
+          move(idx, idx - 1);
+          if (sibling) requestAnimationFrame(() => sibling.focus());
+        }
       },
       "↑"
     ), /* @__PURE__ */ React.createElement(
@@ -1153,7 +1165,11 @@ function Sortable({ items = [], onChange, lang, className }) {
         className: "cs-button cs-button--secondary cs-button--xs",
         "aria-label": t("moveDown"),
         disabled: idx === items.length - 1,
-        onClick: () => move(idx, idx + 1)
+        onClick: (e) => {
+          const sibling = idx + 1 === items.length - 1 ? e.currentTarget.previousElementSibling : null;
+          move(idx, idx + 1);
+          if (sibling) requestAnimationFrame(() => sibling.focus());
+        }
       },
       "↓"
     ))
@@ -1800,7 +1816,7 @@ Object.assign(__ds_scope, { Tag });
 try { (() => {
 const { makeT, useLang, monthName } = __ds_scope;
 const { cx } = __ds_scope;
-const WD = { en: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"], vi: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"] };
+const WD = { en: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"], vi: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"], ja: ["月", "火", "水", "木", "金", "土", "日"] };
 function localDate(year, month, day) {
   const date = /* @__PURE__ */ new Date(0);
   date.setFullYear(year, month, day);
@@ -1832,13 +1848,15 @@ function Calendar({ value, onChange, lang, className }) {
   const cells = grid(y, m);
   const isSel = (d) => sel && d === sel.getDate() && m === sel.getMonth() && y === sel.getFullYear();
   const isToday = (d) => d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-cal", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-cal__head" }, /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("prev"), onClick: () => setView(([yy, mm]) => mm ? [yy, mm - 1] : [yy - 1, 11]) }, "‹"), /* @__PURE__ */ React.createElement("b", null, monthName(m, L), " ", y), /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("next"), onClick: () => setView(([yy, mm]) => mm === 11 ? [yy + 1, 0] : [yy, mm + 1]) }, "›")), /* @__PURE__ */ React.createElement("div", { className: "cs-cal__wd" }, WD[L === "vi" ? "vi" : "en"].map((w) => /* @__PURE__ */ React.createElement("span", { key: w }, w))), /* @__PURE__ */ React.createElement("div", { className: "cs-cal__grid" }, cells.map((d, i) => d == null ? /* @__PURE__ */ React.createElement("span", { key: i }) : /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-cal", className) }, /* @__PURE__ */ React.createElement("div", { className: "cs-cal__head" }, /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("prev"), onClick: () => setView(([yy, mm]) => mm ? [yy, mm - 1] : [yy - 1, 11]) }, "‹"), /* @__PURE__ */ React.createElement("b", null, monthName(m, L), " ", y), /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("next"), onClick: () => setView(([yy, mm]) => mm === 11 ? [yy + 1, 0] : [yy, mm + 1]) }, "›")), /* @__PURE__ */ React.createElement("div", { className: "cs-cal__wd" }, WD[WD[L] ? L : "en"].map((w) => /* @__PURE__ */ React.createElement("span", { key: w }, w))), /* @__PURE__ */ React.createElement("div", { className: "cs-cal__grid" }, cells.map((d, i) => d == null ? /* @__PURE__ */ React.createElement("span", { key: i }) : /* @__PURE__ */ React.createElement(
     "button",
     {
       key: i,
       type: "button",
       className: cx(isSel(d) && "sel", isToday(d) && "today"),
       "aria-pressed": isSel(d) || void 0,
+      "aria-current": isToday(d) ? "date" : void 0,
+      "aria-label": `${monthName(m, L)} ${d}, ${y}`,
       onClick: () => onChange && onChange(localDate(y, m, d))
     },
     d
@@ -1902,7 +1920,10 @@ function FileUpload({ title, hint, accept, multiple = false, onFiles, icon, lang
         className: "cs-sr-only",
         "aria-describedby": id + "-hint",
         onChange: (e) => pick(e.target.files),
-        onClick: (e) => e.stopPropagation()
+        onClick: (e) => {
+          e.stopPropagation();
+          e.currentTarget.value = "";
+        }
       }
     )
   );
@@ -2092,22 +2113,31 @@ function Form({ onSubmit, onReset, errors = {}, rules, asyncRules, initialValues
 function FormField({ label, name, required = false, hint, error, valueProp = "value", children, lang, className }) {
   const [ref, L] = useLang(lang);
   const t = makeT("Form", L);
+  const autoId = React.useId();
   const ctx = React.useContext(getFormCtx());
   const err = error !== void 0 && error !== null ? error : name && ctx ? ctx.errors[name] : void 0;
   const hasError = Boolean(err) || err === 0;
+  const singleElement = React.isValidElement(children) && React.Children.count(children) === 1;
+  const isNativeControl = singleElement && typeof children.type === "string" && /^(input|select|textarea)$/i.test(children.type);
+  const controlId = isNativeControl ? children.props.id ?? autoId : void 0;
   let child = children;
-  if (name && ctx && React.isValidElement(children) && React.Children.count(children) === 1) {
-    const cur = String(name).includes(".") ? getPath(ctx.values, name) : ctx.values[name];
-    const wire = { name };
-    wire[valueProp] = cur !== void 0 ? cur : valueProp === "checked" || valueProp === "pressed" ? false : "";
-    wire.onChange = (ev) => {
-      const val = ev && ev.target ? valueProp === "checked" ? ev.target.checked : ev.target.value : ev;
-      ctx.setValue(name, val);
-      if (children.props.onChange) children.props.onChange(ev);
-    };
-    child = React.cloneElement(children, wire);
+  if (singleElement) {
+    const wire = {};
+    if (isNativeControl && children.props.id === void 0) wire.id = controlId;
+    if (name && ctx) {
+      const cur = String(name).includes(".") ? getPath(ctx.values, name) : ctx.values[name];
+      wire.name = name;
+      wire[valueProp] = cur !== void 0 ? cur : valueProp === "checked" || valueProp === "pressed" ? false : "";
+      wire.onChange = (ev) => {
+        const val = ev && ev.target ? valueProp === "checked" ? ev.target.checked : ev.target.value : ev;
+        ctx.setValue(name, val);
+        if (children.props.onChange) children.props.onChange(ev);
+      };
+    }
+    if (Object.keys(wire).length) child = React.cloneElement(children, wire);
   }
-  return /* @__PURE__ */ React.createElement("label", { ref, className: cx("cs-formfield", hasError && "has-error", className) }, /* @__PURE__ */ React.createElement("span", { className: "cs-formfield__label" }, label, required ? /* @__PURE__ */ React.createElement("em", { "aria-label": t("required") }, " *") : null), child, hasError ? /* @__PURE__ */ React.createElement("span", { className: "cs-formfield__error", role: "alert" }, err) : hint || hint === 0 ? /* @__PURE__ */ React.createElement("span", { className: "cs-formfield__hint" }, hint) : null);
+  const LabelTag = controlId ? "label" : "span";
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-formfield", hasError && "has-error", className) }, /* @__PURE__ */ React.createElement(LabelTag, { className: "cs-formfield__label", htmlFor: controlId }, label, required ? /* @__PURE__ */ React.createElement("em", { "aria-label": t("required") }, " *") : null), child, hasError ? /* @__PURE__ */ React.createElement("span", { className: "cs-formfield__error", role: "alert" }, err) : hint || hint === 0 ? /* @__PURE__ */ React.createElement("span", { className: "cs-formfield__hint" }, hint) : null);
 }
 function FormFieldArray({
   name,
@@ -2286,7 +2316,7 @@ function InputGroup({
   const t = makeT("InputGroup", L);
   const gid = React.useId();
   const sid = id ?? gid;
-  return /* @__PURE__ */ React.createElement("label", { ref, className: cx("cs-field", disabled && "is-disabled", className), htmlFor: sid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, /* @__PURE__ */ React.createElement("span", { className: "cs-igroup" }, prefix != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-igroup__fix" }, prefix) : null, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-field", disabled && "is-disabled", className) }, label ? /* @__PURE__ */ React.createElement("label", { className: "cs-field__label", htmlFor: sid }, label) : null, /* @__PURE__ */ React.createElement("span", { className: "cs-igroup" }, prefix != null ? /* @__PURE__ */ React.createElement("span", { className: "cs-igroup__fix" }, prefix) : null, /* @__PURE__ */ React.createElement(
     "input",
     {
       ...props,
@@ -2452,7 +2482,7 @@ function NumberField({
   const t = makeT("NumberField", L);
   const gid = React.useId();
   const sid = id ?? gid;
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-field", disabled && "is-disabled", className) }, label ? /* @__PURE__ */ React.createElement("label", { className: "cs-field__label", htmlFor: sid }, label) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-stepper" }, /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("decrease"), disabled: disabled || min != null && val <= min, onClick: () => stepBy(-1) }, "−"), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-field", disabled && "is-disabled", className) }, label ? /* @__PURE__ */ React.createElement("label", { className: "cs-field__label", htmlFor: sid }, label) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-stepper" }, /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("decrease"), disabled: disabled || min != null && val !== "" && val <= min, onClick: () => stepBy(-1) }, "−"), /* @__PURE__ */ React.createElement(
     "input",
     {
       ...props,
@@ -2465,9 +2495,21 @@ function NumberField({
       step,
       disabled,
       "aria-label": label ? void 0 : t("value"),
-      onChange: (e) => set(Number(e.target.value))
+      onChange: (e) => {
+        const raw = e.target.value;
+        if (raw === "") {
+          if (value == null) setInner("");
+          return;
+        }
+        const num = Number(raw);
+        if (Number.isFinite(num)) set(num);
+      },
+      onBlur: (e) => {
+        if (inner === "" && value == null) setInner(clamp(0));
+        props.onBlur?.(e);
+      }
     }
-  ), /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("increase"), disabled: disabled || max != null && val >= max, onClick: () => stepBy(1) }, "+")));
+  ), /* @__PURE__ */ React.createElement("button", { type: "button", "aria-label": t("increase"), disabled: disabled || max != null && val !== "" && val >= max, onClick: () => stepBy(1) }, "+")));
 }
 Object.assign(__ds_scope, { NumberField });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/NumberField.jsx", error: String((e && e.message) || e) }); }
@@ -2578,7 +2620,7 @@ function SearchField({ value, defaultValue = "", onChange, onClear, disabled = f
   const [ref, L] = useLang(lang);
   const t = makeT("SearchField", L);
   const ph = placeholder != null ? placeholder : t("placeholder");
-  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-search", className) }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "11", cy: "11", r: "7" }), /* @__PURE__ */ React.createElement("path", { d: "M21 21l-4.3-4.3" })), /* @__PURE__ */ React.createElement("input", { ...props, type: "text", role: "searchbox", value: val, disabled, readOnly, placeholder: ph, onChange: (e) => set(e.target.value) }), String(val).length ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-search__clear", "aria-label": t("clear"), disabled: disabled || readOnly, onClick: () => {
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-search", className) }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "11", cy: "11", r: "7" }), /* @__PURE__ */ React.createElement("path", { d: "M21 21l-4.3-4.3" })), /* @__PURE__ */ React.createElement("input", { "aria-label": props["aria-label"] || (props["aria-labelledby"] ? void 0 : ph), ...props, type: "text", role: "searchbox", value: val, disabled, readOnly, placeholder: ph, onChange: (e) => set(e.target.value) }), String(val).length ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-search__clear", "aria-label": t("clear"), disabled: disabled || readOnly, onClick: () => {
     if (disabled || readOnly) return;
     set("");
     onClear && onClear();
@@ -2665,9 +2707,12 @@ const { cx } = __ds_scope;
 function Switch({ label, disabled = false, className, children, lang, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, ...props }) {
   const [ref, L] = useLang(lang);
   const t = makeT("Switch", L);
+  const [uChecked, setUChecked] = React.useState(() => Boolean(props.defaultChecked));
   const hasLabel = Boolean(label) || label === 0;
   const named = !!(hasLabel || ariaLabel || ariaLabelledby);
-  const fallback = props.checked || props.defaultChecked ? t("on") : t("off");
+  const isOn = props.checked !== void 0 ? Boolean(props.checked) : uChecked;
+  const fallback = isOn ? t("on") : t("off");
+  const { onChange, ...rest } = props;
   return /* @__PURE__ */ React.createElement("label", { ref, className: cx("cs-switch", disabled && "is-disabled", className) }, /* @__PURE__ */ React.createElement(
     "input",
     {
@@ -2676,7 +2721,11 @@ function Switch({ label, disabled = false, className, children, lang, "aria-labe
       disabled,
       "aria-label": ariaLabel ?? (named ? void 0 : fallback),
       "aria-labelledby": ariaLabelledby,
-      ...props
+      onChange: (e) => {
+        if (props.checked === void 0) setUChecked(e.target.checked);
+        if (onChange) onChange(e);
+      },
+      ...rest
     }
   ), /* @__PURE__ */ React.createElement("span", { className: "cs-switch__track", "aria-hidden": "true" }), hasLabel ? /* @__PURE__ */ React.createElement("span", { className: "cs-switch__label" }, label) : null);
 }
@@ -2724,7 +2773,7 @@ function TagInput({
   const ph = placeholder != null ? placeholder : t("placeholder");
   const gid = React.useId();
   const sid = id ?? gid;
-  return /* @__PURE__ */ React.createElement("label", { ref, className: cx("cs-field", disabled && "is-disabled", className), htmlFor: sid }, label ? /* @__PURE__ */ React.createElement("span", { className: "cs-field__label" }, label) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-taginput" }, tags.map((tag) => /* @__PURE__ */ React.createElement("span", { key: tag, className: "cs-tag" }, tag, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-field", disabled && "is-disabled", className) }, label ? /* @__PURE__ */ React.createElement("label", { className: "cs-field__label", htmlFor: sid }, label) : null, /* @__PURE__ */ React.createElement("div", { className: "cs-taginput" }, tags.map((tag) => /* @__PURE__ */ React.createElement("span", { key: tag, className: "cs-tag" }, tag, /* @__PURE__ */ React.createElement(
     "button",
     {
       type: "button",
@@ -7804,16 +7853,20 @@ function DataGrid({
   const estimate = Number.isFinite(rowHeight) && rowHeight > 0 ? rowHeight : 36;
   const [measuredRowHeight, setMeasuredRowHeight] = React.useState(estimate);
   const effectiveRowHeight = Math.max(estimate, measuredRowHeight);
-  const [colOrder, setColOrder] = React.useState(() => {
-    if (!persistKey) return null;
+  const [colOrder, setColOrder] = React.useState(null);
+  useClientLayoutEffect(() => {
+    if (!persistKey) {
+      setColOrder(null);
+      return;
+    }
     try {
       const raw = localStorage.getItem("cs:datagrid:cols:" + persistKey);
       const arr = raw ? JSON.parse(raw) : null;
-      return Array.isArray(arr) ? arr : null;
+      setColOrder(Array.isArray(arr) ? arr : null);
     } catch (e) {
-      return null;
+      setColOrder(null);
     }
-  });
+  }, [persistKey]);
   const [ref, L] = useLang(lang);
   const t = makeT("DataGrid", L);
   const orderedColumns = React.useMemo(() => {
@@ -8185,7 +8238,7 @@ Object.assign(__ds_scope, { Logo });
 // components/navigation/Anchor.jsx
 try { (() => {
 const { cx } = __ds_scope;
-function Anchor({ items = [], title, className }) {
+function Anchor({ items = [], title, className, ...props }) {
   const titleId = React.useId();
   const hasTitle = Boolean(title) || title === 0;
   const [act, setAct] = React.useState(items.length ? items[0].id : null);
@@ -8204,7 +8257,7 @@ function Anchor({ items = [], title, className }) {
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, [items]);
-  return /* @__PURE__ */ React.createElement("nav", { className: cx("cs-anchor", className), "aria-labelledby": hasTitle ? titleId : void 0 }, hasTitle ? /* @__PURE__ */ React.createElement("div", { id: titleId, className: "cs-anchor__title" }, title) : null, items.map((it) => /* @__PURE__ */ React.createElement("a", { key: it.id, href: "#" + it.id, className: cx("cs-anchor__item", act === it.id && "is-active"), "aria-current": act === it.id ? "location" : void 0 }, it.label)));
+  return /* @__PURE__ */ React.createElement("nav", { className: cx("cs-anchor", className), "aria-labelledby": hasTitle ? titleId : void 0, ...props }, hasTitle ? /* @__PURE__ */ React.createElement("div", { id: titleId, className: "cs-anchor__title" }, title) : null, items.map((it) => /* @__PURE__ */ React.createElement("a", { key: it.id, href: "#" + it.id, className: cx("cs-anchor__item", act === it.id && "is-active"), "aria-current": act === it.id ? "location" : void 0 }, it.label)));
 }
 Object.assign(__ds_scope, { Anchor });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Anchor.jsx", error: String((e && e.message) || e) }); }
@@ -8331,7 +8384,9 @@ Object.assign(__ds_scope, { Pagination });
 try { (() => {
 const { cx } = __ds_scope;
 function Sidebar({ label, children, className, ...props }) {
-  return /* @__PURE__ */ React.createElement("nav", { className: cx("cs-sidebar", className), ...props }, label || label === 0 ? /* @__PURE__ */ React.createElement("div", { className: "cs-sidebar__label" }, label) : null, children);
+  const labelId = React.useId();
+  const hasLabel = Boolean(label) || label === 0;
+  return /* @__PURE__ */ React.createElement("nav", { className: cx("cs-sidebar", className), "aria-labelledby": hasLabel ? labelId : void 0, ...props }, hasLabel ? /* @__PURE__ */ React.createElement("div", { id: labelId, className: "cs-sidebar__label" }, label) : null, children);
 }
 function NavItem({ icon, active = false, trail, href, onClick, children, className, ...props }) {
   const Tag = href ? "a" : "button";
@@ -8719,7 +8774,7 @@ function AIDisclosureBadge({
       type: "button",
       className: "cs-ai-disclosure__badge",
       "aria-expanded": open,
-      "aria-controls": panelId,
+      "aria-controls": open ? panelId : void 0,
       onClick: () => setOpen((v) => !v)
     },
     label ?? t("label")
@@ -8754,10 +8809,19 @@ const { makeT, useLang } = __ds_scope;
 const { Icon } = __ds_scope;
 const { useOverlayLayer, overlayScopeContext } = __ds_scope;
 const { cx } = __ds_scope;
+const { useClientLayoutEffect } = __ds_scope;
 function Image({ src, alt = "", ratio, preview = false, fallback, lang, className, ...props }) {
   const [load, setLoad] = React.useState({ src, state: "loading" });
+  const imgRef = React.useRef(null);
   if (load.src !== src) setLoad({ src, state: "loading" });
   const state = load.src === src ? load.state : "loading";
+  useClientLayoutEffect(() => {
+    const img = imgRef.current;
+    if (!img || !img.complete || !img.getAttribute("src")) return;
+    if (img.naturalWidth > 0) {
+      setLoad((cur) => cur.src === src && cur.state === "ok" ? cur : { src, state: "ok" });
+    }
+  }, [src]);
   const [zoom, setZoom] = React.useState(false);
   React.useEffect(() => setZoom(false), [src, preview]);
   const previewOpen = zoom && preview && state === "ok";
@@ -8772,7 +8836,7 @@ function Image({ src, alt = "", ratio, preview = false, fallback, lang, classNam
       openPreview();
     }
   };
-  const body = state === "error" ? /* @__PURE__ */ React.createElement("span", { className: "cs-image__fallback" }, fallback || fallback === 0 ? fallback : /* @__PURE__ */ React.createElement("svg", { width: "28", height: "28", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "3", width: "18", height: "18", rx: "2" }), /* @__PURE__ */ React.createElement("circle", { cx: "9", cy: "9", r: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M21 15l-5-5-9 9" }))) : /* @__PURE__ */ React.createElement("img", { ...props, key: src, src, alt, onLoad: () => setLoad({ src, state: "ok" }), onError: () => setLoad({ src, state: "error" }) });
+  const body = state === "error" ? /* @__PURE__ */ React.createElement("span", { className: "cs-image__fallback" }, fallback || fallback === 0 ? fallback : /* @__PURE__ */ React.createElement("svg", { width: "28", height: "28", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "3", width: "18", height: "18", rx: "2" }), /* @__PURE__ */ React.createElement("circle", { cx: "9", cy: "9", r: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M21 15l-5-5-9 9" }))) : /* @__PURE__ */ React.createElement("img", { ...props, ref: imgRef, key: src, src, alt, onLoad: () => setLoad({ src, state: "ok" }), onError: () => setLoad({ src, state: "error" }) });
   const canPreview = preview && state === "ok";
   return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(
     "span",
@@ -9168,7 +9232,7 @@ function Combobox({ options = [], value, onChange, placeholder, label, disabled 
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setOpen(true);
-      setHl((h) => Math.min(shown.length - 1, h + 1));
+      setHl((h) => shown.length ? Math.min(shown.length - 1, h + 1) : 0);
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setHl((h) => Math.max(0, h - 1));
@@ -9179,51 +9243,63 @@ function Combobox({ options = [], value, onChange, placeholder, label, disabled 
       }
     }
   };
-  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("div", { ref: (el) => {
-    wrapRef.current = el;
-    ref.current = el;
-  }, className: cx("cs-combobox", className) }, /* @__PURE__ */ React.createElement(
-    "input",
+  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement(
+    "div",
     {
-      role: "combobox",
-      "aria-expanded": open,
-      "aria-controls": id,
-      "aria-autocomplete": "list",
-      "aria-label": label,
-      "aria-activedescendant": open && shown[hl] ? id + "-" + hl : void 0,
-      disabled,
-      placeholder: ph,
-      value: open ? q : sel ? sel.label : q,
-      onClick: () => {
-        if (!disabled) setOpen(true);
+      ref: (el) => {
+        wrapRef.current = el;
+        ref.current = el;
       },
-      onFocus: () => {
-        setOpen(true);
-        setHl(0);
-      },
-      onChange: (e) => {
-        setQ(e.target.value);
-        setOpen(true);
-        setHl(0);
-      },
-      onKeyDown: key
-    }
-  ), /* @__PURE__ */ React.createElement("span", { className: "cs-combobox__caret", "aria-hidden": "true" }, "▾"), open ? /* @__PURE__ */ React.createElement("ul", { className: "cs-combobox__list", role: "listbox", id }, shown.length ? shown.map((o, i) => /* @__PURE__ */ React.createElement(
-    "li",
-    {
-      key: o.value,
-      id: id + "-" + i,
-      role: "option",
-      "aria-selected": o.value === value,
-      className: cx("cs-combobox__opt", i === hl && "hl"),
-      onMouseEnter: () => setHl(i),
-      onMouseDown: (e) => {
-        e.preventDefault();
-        pick(o);
+      className: cx("cs-combobox", className),
+      onBlur: (e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false);
       }
     },
-    o.label
-  )) : /* @__PURE__ */ React.createElement("li", { className: "cs-combobox__empty" }, t("empty"))) : null));
+    /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        role: "combobox",
+        "aria-expanded": open,
+        "aria-controls": open ? id : void 0,
+        "aria-autocomplete": "list",
+        "aria-label": label || ph,
+        "aria-activedescendant": open && shown[hl] ? id + "-" + hl : void 0,
+        disabled,
+        placeholder: ph,
+        value: open ? q : sel ? sel.label : q,
+        onClick: () => {
+          if (!disabled) setOpen(true);
+        },
+        onFocus: () => {
+          setOpen(true);
+          setHl(0);
+        },
+        onChange: (e) => {
+          setQ(e.target.value);
+          setOpen(true);
+          setHl(0);
+        },
+        onKeyDown: key
+      }
+    ),
+    /* @__PURE__ */ React.createElement("span", { className: "cs-combobox__caret", "aria-hidden": "true" }, "▾"),
+    open ? /* @__PURE__ */ React.createElement("ul", { className: "cs-combobox__list", role: "listbox", id }, shown.length ? shown.map((o, i) => /* @__PURE__ */ React.createElement(
+      "li",
+      {
+        key: o.value,
+        id: id + "-" + i,
+        role: "option",
+        "aria-selected": o.value === value,
+        className: cx("cs-combobox__opt", i === hl && "hl"),
+        onMouseEnter: () => setHl(i),
+        onMouseDown: (e) => {
+          e.preventDefault();
+          pick(o);
+        }
+      },
+      o.label
+    )) : /* @__PURE__ */ React.createElement("li", { role: "option", "aria-disabled": "true", className: "cs-combobox__empty" }, t("empty"))) : null
+  ));
 }
 Object.assign(__ds_scope, { Combobox });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Combobox.jsx", error: String((e && e.message) || e) }); }
@@ -9283,7 +9359,12 @@ function InlineEdit({ value, defaultValue = "", onChange, label, lang, className
   const val = value != null ? value : inner;
   const [edit, setEdit] = React.useState(false);
   const [draft, setDraft] = React.useState(val);
+  const cancellingRef = React.useRef(false);
   const commit = () => {
+    if (cancellingRef.current) {
+      cancellingRef.current = false;
+      return;
+    }
     setEdit(false);
     if (draft !== val) {
       if (value == null) setInner(draft);
@@ -9293,6 +9374,7 @@ function InlineEdit({ value, defaultValue = "", onChange, label, lang, className
   const [ref, L] = useLang(lang);
   const t = makeT("InlineEdit", L);
   const { scope } = useOverlayLayer({ open: edit, kind: "popover", panelRef: ref, restoreFocus: false, onEscape: () => {
+    cancellingRef.current = true;
     setDraft(val);
     setEdit(false);
     requestAnimationFrame(() => ref.current?.querySelector("button")?.focus());
@@ -9302,7 +9384,7 @@ function InlineEdit({ value, defaultValue = "", onChange, label, lang, className
     {
       autoFocus: true,
       value: draft,
-      "aria-label": label,
+      "aria-label": label || t("edit"),
       onChange: (e) => setDraft(e.target.value),
       onBlur: commit,
       onKeyDown: (e) => {
@@ -9310,6 +9392,7 @@ function InlineEdit({ value, defaultValue = "", onChange, label, lang, className
       }
     }
   ) : /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-inline-edit__view", "aria-label": t("edit") + (label ? ": " + label : ""), onClick: () => {
+    cancellingRef.current = false;
     setDraft(val);
     setEdit(true);
   } }, /* @__PURE__ */ React.createElement("span", { className: val ? void 0 : "ph" }, val || t("empty")), PEN)));
@@ -9322,7 +9405,7 @@ try { (() => {
 const { makeT, useLang } = __ds_scope;
 const { useOverlayLayer, overlayScopeContext } = __ds_scope;
 const { cx } = __ds_scope;
-function Mentions({ value, defaultValue = "", onChange, users = [], placeholder, rows = 3, lang, className }) {
+function Mentions({ value, defaultValue = "", onChange, users = [], placeholder, rows = 3, lang, className, "aria-label": ariaLabel }) {
   const [inner, setInner] = React.useState(defaultValue);
   const val = value != null ? value : inner;
   const set = (v) => {
@@ -9331,6 +9414,7 @@ function Mentions({ value, defaultValue = "", onChange, users = [], placeholder,
   };
   const [q, setQ] = React.useState(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const caretRef = React.useRef(null);
   const listId = React.useId();
   const [ref, L] = useLang(lang);
   const t = makeT("Mentions", L);
@@ -9339,17 +9423,32 @@ function Mentions({ value, defaultValue = "", onChange, users = [], placeholder,
   const open = hits.length > 0;
   const { scope } = useOverlayLayer({ open, kind: "dropdown", panelRef: ref, restoreFocus: false, onEscape: () => setQ(null) });
   React.useEffect(() => {
+    if (!open) return;
+    const onDoc = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setQ(null);
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, [open]);
+  React.useEffect(() => {
     setActiveIndex((i) => hits.length ? Math.min(i, hits.length - 1) : 0);
   }, [q, users]);
-  const onInput = (v) => {
+  const onInput = (e) => {
+    const v = e.target.value;
     set(v);
-    const m = /(^|\s)@(\w*)$/.exec(v);
+    const caret = typeof e.target.selectionStart === "number" ? e.target.selectionStart : v.length;
+    caretRef.current = caret;
+    const head = v.slice(0, caret);
+    const m = /(^|\s)@(\w*)$/.exec(head);
     const next = m ? m[2].toLowerCase() : null;
     setQ(next);
     if (next != null) setActiveIndex(0);
   };
   const pick = (u) => {
-    set(val.replace(/(^|\s)@\w*$/, "$1@" + u + " "));
+    const caret = typeof caretRef.current === "number" ? caretRef.current : val.length;
+    const head = val.slice(0, caret);
+    const tail = val.slice(caret);
+    set(head.replace(/(^|\s)@\w*$/, "$1@" + u + " ") + tail);
     setQ(null);
   };
   const optionId = (i) => listId + "-opt-" + i;
@@ -9369,39 +9468,51 @@ function Mentions({ value, defaultValue = "", onChange, users = [], placeholder,
       }
     }
   };
-  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("span", { ref, className: cx("cs-mentions", className) }, /* @__PURE__ */ React.createElement(
-    "textarea",
+  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement(
+    "span",
     {
-      className: "cs-field__control",
-      rows,
-      value: val,
-      placeholder: ph,
-      role: "combobox",
-      "aria-autocomplete": "list",
-      "aria-expanded": open,
-      "aria-controls": listId,
-      "aria-activedescendant": open && hits[activeIndex] ? optionId(activeIndex) : void 0,
-      onChange: (e) => onInput(e.target.value),
-      onKeyDown
-    }
-  ), open ? /* @__PURE__ */ React.createElement("span", { className: "cs-mentions__pop", role: "listbox", id: listId }, hits.map((u, i) => /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      key: u,
-      type: "button",
-      id: optionId(i),
-      role: "option",
-      "aria-selected": i === activeIndex,
-      className: cx(i === activeIndex && "hl"),
-      onMouseEnter: () => setActiveIndex(i),
-      onMouseDown: (e) => {
-        e.preventDefault();
-        pick(u);
+      ref,
+      className: cx("cs-mentions", className),
+      onBlur: (e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setQ(null);
       }
     },
-    "@",
-    u
-  ))) : null));
+    /* @__PURE__ */ React.createElement(
+      "textarea",
+      {
+        className: "cs-field__control",
+        rows,
+        value: val,
+        placeholder: ph,
+        "aria-label": ariaLabel || ph,
+        role: "combobox",
+        "aria-autocomplete": "list",
+        "aria-expanded": open,
+        "aria-controls": open ? listId : void 0,
+        "aria-activedescendant": open && hits[activeIndex] ? optionId(activeIndex) : void 0,
+        onChange: onInput,
+        onKeyDown
+      }
+    ),
+    open ? /* @__PURE__ */ React.createElement("span", { className: "cs-mentions__pop", role: "listbox", id: listId }, hits.map((u, i) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: u,
+        type: "button",
+        id: optionId(i),
+        role: "option",
+        "aria-selected": i === activeIndex,
+        className: cx(i === activeIndex && "hl"),
+        onMouseEnter: () => setActiveIndex(i),
+        onMouseDown: (e) => {
+          e.preventDefault();
+          pick(u);
+        }
+      },
+      "@",
+      u
+    ))) : null
+  ));
 }
 Object.assign(__ds_scope, { Mentions });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Mentions.jsx", error: String((e && e.message) || e) }); }
@@ -9473,6 +9584,9 @@ function CommandPalette({ open, onClose, placeholder, groups = [], lang, classNa
     onEscape: () => closeRef.current && closeRef.current(),
     panelRef: panel
   });
+  React.useEffect(() => {
+    if (!open) setQ("");
+  }, [open]);
   const [ref, L] = useLang(lang);
   const t = makeT("CommandPalette", L);
   const ph = placeholder != null ? placeholder : t("placeholder");
@@ -9494,11 +9608,12 @@ function CommandPalette({ open, onClose, placeholder, groups = [], lang, classNa
       className: "cs-cmdk-scrim",
       onClick: onClose
     },
-    /* @__PURE__ */ React.createElement("div", { className: cx("cs-cmdk", className), role: "dialog", "aria-modal": "true", "aria-label": t("aria"), onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__search" }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "11", cy: "11", r: "7" }), /* @__PURE__ */ React.createElement("path", { d: "M21 21l-4.3-4.3" })), /* @__PURE__ */ React.createElement("input", { value: q, onChange: (e) => setQ(e.target.value), placeholder: ph }), /* @__PURE__ */ React.createElement("span", { className: "cs-kbd" }, t("esc"))), /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__list" }, /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__status", role: "status", "aria-live": "polite", "aria-atomic": "true" }, resultStatus), filteredGroups.map((g, gi) => {
+    /* @__PURE__ */ React.createElement("div", { className: cx("cs-cmdk", className), role: "dialog", "aria-modal": "true", "aria-label": t("aria"), onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__search" }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "11", cy: "11", r: "7" }), /* @__PURE__ */ React.createElement("path", { d: "M21 21l-4.3-4.3" })), /* @__PURE__ */ React.createElement("input", { "aria-label": ph, value: q, onChange: (e) => setQ(e.target.value), placeholder: ph }), /* @__PURE__ */ React.createElement("span", { className: "cs-kbd" }, t("esc"))), /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__list" }, /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__status", role: "status", "aria-live": "polite", "aria-atomic": "true" }, resultStatus), filteredGroups.map((g, gi) => {
       const items = g.items;
       if (!items.length) return null;
       return /* @__PURE__ */ React.createElement(React.Fragment, { key: gi }, g.label || g.label === 0 ? /* @__PURE__ */ React.createElement("div", { className: "cs-cmdk__label" }, g.label) : null, items.map((it, ii) => /* @__PURE__ */ React.createElement("button", { key: ii, type: "button", className: "cs-cmdk__item", onClick: () => {
         it.onSelect && it.onSelect();
+        setQ("");
         onClose && onClose();
       } }, it.icon || it.icon === 0 ? /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, it.icon) : null, /* @__PURE__ */ React.createElement("span", null, it.label), it.shortcut || it.shortcut === 0 ? /* @__PURE__ */ React.createElement("span", { className: "cs-kbd" }, it.shortcut) : null)));
     })))
@@ -9532,7 +9647,8 @@ function HotKeys({ bindings = [], help = true, children, lang, className }) {
       if (e.defaultPrevented || e.isComposing || e.keyCode === 229) return;
       const path = e.composedPath?.() || [e.target];
       if (path.some((node) => node?.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(node?.tagName))) return;
-      if (help && e.key === "?") {
+      if (help && e.key === "?" && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        if (!show && document.querySelector('[role="dialog"][aria-modal="true"], [role="alertdialog"][aria-modal="true"]')) return;
         setShow((s) => !s);
         return;
       }
@@ -9544,8 +9660,8 @@ function HotKeys({ bindings = [], help = true, children, lang, className }) {
     };
     document.addEventListener("keydown", on);
     return () => document.removeEventListener("keydown", on);
-  }, [bindings, help]);
-  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-hotkeys", className) }, children, show ? /* @__PURE__ */ React.createElement("div", { ref: backdrop, className: "cs-hotkeys__sheet", role: "dialog", "aria-modal": "true", "aria-label": t("title"), onClick: () => setShow(false) }, /* @__PURE__ */ React.createElement("div", { ref: panel, tabIndex: -1, className: "cs-hotkeys__card", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("b", null, t("title")), /* @__PURE__ */ React.createElement("ul", null, bindings.map((b, i) => /* @__PURE__ */ React.createElement("li", { key: i }, /* @__PURE__ */ React.createElement("span", null, b.description), /* @__PURE__ */ React.createElement("kbd", { className: "cs-kbd" }, b.keys))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("span", null, t("toggle")), /* @__PURE__ */ React.createElement("kbd", { className: "cs-kbd" }, "?"))))) : null));
+  }, [bindings, help, show]);
+  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("div", { ref, className: cx("cs-hotkeys", className) }, children, show ? /* @__PURE__ */ React.createElement("div", { ref: backdrop, className: "cs-hotkeys__sheet", onClick: () => setShow(false) }, /* @__PURE__ */ React.createElement("div", { ref: panel, tabIndex: -1, className: "cs-hotkeys__card", role: "dialog", "aria-modal": "true", "aria-label": t("title"), onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("b", null, t("title")), /* @__PURE__ */ React.createElement("ul", null, bindings.map((b, i) => /* @__PURE__ */ React.createElement("li", { key: i }, /* @__PURE__ */ React.createElement("span", null, b.description), /* @__PURE__ */ React.createElement("kbd", { className: "cs-kbd" }, b.keys))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("span", null, t("toggle")), /* @__PURE__ */ React.createElement("kbd", { className: "cs-kbd" }, "?"))))) : null));
 }
 Object.assign(__ds_scope, { HotKeys });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/HotKeys.jsx", error: String((e && e.message) || e) }); }
@@ -9628,7 +9744,12 @@ function Menu({ trigger, children, align = "start", open: controlledOpen, onOpen
       ref: listRef,
       className: cx("cs-menu__list", align === "end" && "cs-menu__list--end"),
       role: "menu",
-      "aria-label": t("menu")
+      "aria-label": t("menu"),
+      onClick: (e) => {
+        if (e.defaultPrevented) return;
+        const item = e.target.closest?.('[role="menuitem"]:not([disabled])');
+        if (item && listRef.current?.contains(item)) set(false);
+      }
     },
     children
   ) : null));
@@ -9753,7 +9874,7 @@ try { (() => {
 const { useOverlayLayer, overlayScopeContext } = __ds_scope;
 const { cx } = __ds_scope;
 const { useViewportPanel } = __ds_scope;
-function NavigationMenu({ items = [], className }) {
+function NavigationMenu({ items = [], className, ...props }) {
   const [open, setOpen] = React.useState(null);
   const wrap = React.useRef(null);
   const popup = React.useRef(null);
@@ -9769,7 +9890,7 @@ function NavigationMenu({ items = [], className }) {
       document.removeEventListener("mousedown", d);
     };
   }, [open]);
-  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("nav", { ref: wrap, className: cx("cs-navmenu", className) }, items.map((it, i) => it.panel ? /* @__PURE__ */ React.createElement("span", { key: i, className: "cs-navmenu__wrap" }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("nav", { ref: wrap, className: cx("cs-navmenu", className), ...props }, items.map((it, i) => it.panel ? /* @__PURE__ */ React.createElement("span", { key: i, className: "cs-navmenu__wrap" }, /* @__PURE__ */ React.createElement(
     "button",
     {
       type: "button",
@@ -10400,11 +10521,20 @@ function Tour({ steps = [], open, onClose, lang, className }) {
   }, [open]);
   const target = steps[i]?.target;
   React.useEffect(() => {
-    if (!open || !target) return void 0;
+    if (!open || !target) {
+      setRect(null);
+      setPop({ top: 80, left: 40 });
+      return void 0;
+    }
     let frame;
     let previous;
     const measure = () => {
-      const el = document.querySelector(target);
+      let el = null;
+      try {
+        el = document.querySelector(target);
+      } catch (e) {
+        el = null;
+      }
       const r = el?.getBoundingClientRect();
       const next = r ? { x: r.left - 6, y: r.top - 6, w: r.width + 12, h: r.height + 12 } : null;
       const position = next ? {
@@ -10489,9 +10619,9 @@ const tokens = {
     "declarationGraph": {
       "path": "declarations.json",
       "schemaVersion": 1,
-      "sha256": "a404b69c1c8508d5c0898a143200874aa8b378ecd4d67de997cebbc7f34e28cf",
-      "declarations": 1504,
-      "publicDeclarations": 826,
+      "sha256": "37e8ec480df9cfc64677a13cf1c27755cc53679621b019c2303dc1c16d4f88fb",
+      "declarations": 1501,
+      "publicDeclarations": 823,
       "publicNames": 194,
       "privateDeclarations": 678
     }

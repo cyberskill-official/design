@@ -33,8 +33,8 @@ export function InputGroup({
   const gid = React.useId();
   const sid = id ?? gid;
   return (
-    <label ref={ref} className={cx("cs-field", disabled && "is-disabled", className)} htmlFor={sid}>
-      {label ? <span className="cs-field__label">{label}</span> : null}
+    <div ref={ref} className={cx("cs-field", disabled && "is-disabled", className)}>
+      {label ? <label className="cs-field__label" htmlFor={sid}>{label}</label> : null}
       <span className="cs-igroup">
         {prefix != null ? <span className="cs-igroup__fix">{prefix}</span> : null}
         <input
@@ -52,6 +52,6 @@ export function InputGroup({
         {password ? <button type="button" className="cs-igroup__btn" aria-label={show ? t("hide") : t("show")} aria-pressed={show} disabled={disabled} onClick={() => setShow((s) => !s)}>{show ? EYE_OFF : EYE}</button> : null}
         {suffix != null ? <span className="cs-igroup__fix cs-igroup__fix--suffix">{suffix}</span> : null}
       </span>
-    </label>
+    </div>
   );
 }

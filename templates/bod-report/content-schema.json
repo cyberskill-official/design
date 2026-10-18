@@ -16,7 +16,7 @@
     { "id": "hlBody", "type": "richtext", "label": "Highlights body", "maxLength": 400 },
     { "id": "aiLabel", "type": "text", "label": "AI-disclosure label", "maxLength": 40 },
     { "id": "aiDetails", "type": "text", "label": "AI-disclosure details", "maxLength": 200 },
-    { "id": "sources", "type": "text", "label": "AI-disclosure sources", "maxLength": 200 },
+    { "id": "sources", "type": "list", "label": "AI-disclosure sources" },
     { "id": "portH", "type": "text", "label": "Portfolio table heading", "maxLength": 50 },
     { "id": "cols", "type": "table", "label": "Portfolio table columns" },
     { "id": "rows", "type": "table", "label": "Portfolio table rows" },

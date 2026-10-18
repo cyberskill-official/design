@@ -1,3 +1,4 @@
+import type * as React from "react";
 import type { ReactNode } from "react";
 
 /**
@@ -5,7 +6,7 @@ import type { ReactNode } from "react";
  * Distinct from Popconfirm (inline bubble) and Dialog (general modal).
  * Coarse pointers use a fade entrance to preserve touch-target dimensions.
  */
-export interface AlertDialogProps {
+export interface AlertDialogProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;

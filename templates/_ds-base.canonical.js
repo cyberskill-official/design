@@ -9,18 +9,51 @@
     l.rel = 'stylesheet'; l.href = base + '/' + p;
     document.head.appendChild(l);
   }
-  const s = document.createElement('script');
-  s.src = base + '/_ds_bundle.js';
-  s.onload = () => {
-    // Expose a STABLE, project-id-independent alias. The compiler names the bundle
-    // global CyberSkillDesignSystem_<6-hex-project-id>, which changes whenever this
-    // system is re-imported into another project. Templates/cards read window.CyberSkillDS
-    // so no file ever has to be rewritten on re-import.
-    const k = Object.keys(window).find((k) => /^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k));
-    if (k) window.CyberSkillDS = window[k];
-  };
-  s.onerror = () => console.error('ds-base.js: failed to load ' + s.src + ' — if this is a consuming project, point the base line in ds-base.js at the bound _ds/<folder> tree relative to this page (e.g. _ds/<folder> at the project root, ../_ds/<folder> one level down); in a fresh design system this can just mean the bundle is not compiled yet');
-  document.head.appendChild(s);
+  // Raw <helmet> scripts can execute while the HTML parser is still running,
+  // before support.js finishes loading React. The DC runtime mounts them again.
+  // Share one load per resolved URL and never evaluate the bundle before React.
+  const bundleUrl = new URL(base + '/_ds_bundle.js', document.baseURI).href;
+  const loads = window.__csTemplateBundleLoads || (window.__csTemplateBundleLoads = Object.create(null));
+  if (!loads[bundleUrl]) {
+    loads[bundleUrl] = new Promise((resolve, reject) => {
+      const started = Date.now();
+      const waitForReact = () => {
+        if (typeof window.React?.useLayoutEffect !== 'function' || typeof window.ReactDOM?.createRoot !== 'function') {
+          if (Date.now() - started >= 30000) {
+            reject(new Error('React and ReactDOM were not ready before loading ' + bundleUrl));
+            return;
+          }
+          setTimeout(waitForReact, 25);
+          return;
+        }
+        const script = document.createElement('script');
+        script.src = bundleUrl;
+        script.onload = () => {
+          // The compiler namespace varies by project; the public alias is stable.
+          const key = Object.keys(window).find(k => /^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k));
+          const namespace = key && window[key];
+          if (!namespace || namespace.__errors?.length) {
+            reject(new Error('Design-system bundle failed to initialize: ' + JSON.stringify(namespace?.__errors || [])));
+            return;
+          }
+          resolve(namespace);
+        };
+        script.onerror = () => reject(new Error('Failed to load ' + bundleUrl + '; check the base path in ds-base.js'));
+        document.head.appendChild(script);
+      };
+      waitForReact();
+    });
+  }
+  loads[bundleUrl].then(namespace => { window.CyberSkillDS = namespace; })
+    .catch(error => console.error('ds-base.js:', error.message));
+
+  // Print documents: PDF (window.print) + editable DOCX toolbar (TASK-IMP-022).
+  // Path is relative to this template folder → templates/_vendor/doc-export.js
+  if (document.querySelector('meta[name="omelette-owns-print"]')) {
+    const ex = document.createElement('script');
+    ex.src = '../_vendor/doc-export.js';
+    document.head.appendChild(ex);
+  }
 
   const syncLang = () => {
     try {
@@ -31,6 +64,29 @@
       else if (!document.documentElement.getAttribute('lang')) document.documentElement.setAttribute('lang', 'en');
     } catch (e) { /* authoring host may sandbox */ }
   };
+
+  const ensureLandmark = () => {
+    try {
+      const authored = document.querySelector('main, [role="main"]:not([data-cs-auto-main]), #main:not([data-cs-auto-main])');
+      if (authored) {
+        document.querySelectorAll('[data-cs-auto-main]').forEach(el => {
+          el.removeAttribute('role'); el.removeAttribute('data-cs-auto-main');
+          if (el.id === 'main') el.removeAttribute('id');
+        });
+        return true;
+      }
+      if (document.querySelector('[data-cs-auto-main]')) return true;
+      const sheet = document.querySelector('.cs-sheet');
+      const desk = document.querySelector('.cs-desk');
+      const host = sheet || desk || document.body;
+      // Mark the fallback as owned so a later authored main removes it.
+      if (!host) return false;
+      host.setAttribute('data-cs-auto-main', '');
+      if (!host.id) host.id = 'main';
+      if (host.tagName !== 'MAIN' && !host.getAttribute('role')) host.setAttribute('role', 'main');
+      return true;
+    } catch (e) { return false; }
+  };
   const ensureHead = () => {
     try {
       if (!document.title || !document.title.trim()) {
@@ -39,12 +95,24 @@
         if (m) document.title = m[1] + ' · CyberSkill';
       }
       syncLang();
-      const obs = new MutationObserver(syncLang);
+      ensureLandmark();
+      const obs = new MutationObserver(() => {
+        syncLang();
+        if (ensureLandmark()) { /* keep observing lang; landmark is sticky once set */ }
+      });
       obs.observe(document.body || document.documentElement, {
         attributes: true,
         attributeFilter: ['lang'],
+        childList: true,
         subtree: true,
       });
+      // DC helmet mounts after first paint — retry briefly for print sheets.
+      let n = 0;
+      const tick = () => {
+        if (ensureLandmark() || ++n > 20) return;
+        setTimeout(tick, 100);
+      };
+      setTimeout(tick, 50);
     } catch (e) { /* authoring host may sandbox */ }
   };
   if (document.readyState === 'loading') {

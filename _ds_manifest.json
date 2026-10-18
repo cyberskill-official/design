@@ -11043,52 +11043,58 @@
     },
     {
       "name": "--cs-color-border-default",
-      "value": "#4a3a2c",
+      "value": "#9a8060",
       "kind": "color",
-      "definedIn": "base/glass.css",
-      "scope": "[data-theme=\"dark\"]",
-      "important": false,
-      "declarationOrder": 1495,
-      "sourceLine": 76
-    },
-    {
-      "name": "--cs-color-border-default",
-      "value": "#4a3a2c",
-      "kind": "color",
-      "definedIn": "base/glass.css",
-      "scope": "[data-theme=\"system\"]",
+      "definedIn": "base/a11y.css",
+      "scope": "[data-theme=\"light\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *)),\n  [data-theme=\"system\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *)),\n  :root:where(:not([data-cs-contrast=\"standard\"]))",
       "conditions": [
         {
           "name": "media",
-          "params": "(prefers-color-scheme: dark)"
+          "params": "(prefers-contrast: more)"
+        }
+      ],
+      "important": false,
+      "declarationOrder": 1495,
+      "sourceLine": 144
+    },
+    {
+      "name": "--cs-color-text-muted",
+      "value": "#45210e",
+      "kind": "color",
+      "definedIn": "base/a11y.css",
+      "scope": "[data-theme=\"light\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *)),\n  [data-theme=\"system\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *)),\n  :root:where(:not([data-cs-contrast=\"standard\"]))",
+      "conditions": [
+        {
+          "name": "media",
+          "params": "(prefers-contrast: more)"
         }
       ],
       "important": false,
       "declarationOrder": 1496,
-      "sourceLine": 77
+      "sourceLine": 144
     },
     {
       "name": "--cs-color-border-default",
-      "value": "#4a3a2c",
+      "value": "#7a6450",
       "kind": "color",
-      "definedIn": "base/glass.css",
-      "scope": "[data-theme=\"system\"]",
+      "definedIn": "base/a11y.css",
+      "scope": "[data-theme=\"dark\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *))",
       "conditions": [
         {
           "name": "media",
-          "params": "(prefers-color-scheme: dark)"
+          "params": "(prefers-contrast: more)"
         }
       ],
       "important": false,
       "declarationOrder": 1497,
-      "sourceLine": 124
+      "sourceLine": 145
     },
     {
-      "name": "--cs-color-border-default",
-      "value": "#9a8060",
+      "name": "--cs-color-text-muted",
+      "value": "#f5ead9",
       "kind": "color",
       "definedIn": "base/a11y.css",
-      "scope": "[data-theme=\"light\"], [data-theme=\"system\"], :root",
+      "scope": "[data-theme=\"dark\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *))",
       "conditions": [
         {
           "name": "media",
@@ -11097,87 +11103,39 @@
       ],
       "important": false,
       "declarationOrder": 1498,
-      "sourceLine": 142
+      "sourceLine": 145
     },
     {
-      "name": "--cs-color-text-muted",
-      "value": "#5a4638",
+      "name": "--cs-color-border-default",
+      "value": "#7a6450",
       "kind": "color",
       "definedIn": "base/a11y.css",
-      "scope": "[data-theme=\"light\"], [data-theme=\"system\"], :root",
+      "scope": "[data-theme=\"system\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *))",
       "conditions": [
         {
           "name": "media",
-          "params": "(prefers-contrast: more)"
+          "params": "(prefers-color-scheme: dark) and (prefers-contrast: more)"
         }
       ],
       "important": false,
       "declarationOrder": 1499,
-      "sourceLine": 142
+      "sourceLine": 150
     },
     {
-      "name": "--cs-color-border-default",
-      "value": "#7a6450",
+      "name": "--cs-color-text-muted",
+      "value": "#f5ead9",
       "kind": "color",
       "definedIn": "base/a11y.css",
-      "scope": "[data-theme=\"dark\"]",
+      "scope": "[data-theme=\"system\"]:where(:not([data-cs-contrast=\"standard\"], [data-cs-contrast=\"standard\"] *))",
       "conditions": [
         {
           "name": "media",
-          "params": "(prefers-contrast: more)"
+          "params": "(prefers-color-scheme: dark) and (prefers-contrast: more)"
         }
       ],
       "important": false,
       "declarationOrder": 1500,
-      "sourceLine": 143
-    },
-    {
-      "name": "--cs-color-text-muted",
-      "value": "#d8c9b6",
-      "kind": "color",
-      "definedIn": "base/a11y.css",
-      "scope": "[data-theme=\"dark\"]",
-      "conditions": [
-        {
-          "name": "media",
-          "params": "(prefers-contrast: more)"
-        }
-      ],
-      "important": false,
-      "declarationOrder": 1501,
-      "sourceLine": 143
-    },
-    {
-      "name": "--cs-color-border-default",
-      "value": "#7a6450",
-      "kind": "color",
-      "definedIn": "base/a11y.css",
-      "scope": "[data-theme=\"system\"]",
-      "conditions": [
-        {
-          "name": "media",
-          "params": "(prefers-color-scheme: dark) and (prefers-contrast: more)"
-        }
-      ],
-      "important": false,
-      "declarationOrder": 1502,
-      "sourceLine": 148
-    },
-    {
-      "name": "--cs-color-text-muted",
-      "value": "#d8c9b6",
-      "kind": "color",
-      "definedIn": "base/a11y.css",
-      "scope": "[data-theme=\"system\"]",
-      "conditions": [
-        {
-          "name": "media",
-          "params": "(prefers-color-scheme: dark) and (prefers-contrast: more)"
-        }
-      ],
-      "important": false,
-      "declarationOrder": 1503,
-      "sourceLine": 148
+      "sourceLine": 150
     }
   ],
   "themes": [

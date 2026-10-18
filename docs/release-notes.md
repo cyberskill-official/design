@@ -14,7 +14,7 @@ These changes belong to the current revision working tree. They are not a publis
 - DOCX exports preserve browser-resolved grid-column proportions so wide callout prose does not collapse into equal-width cells. Three-engine regression cases and dated English/Vietnamese office renders retain the evidence; unresolved syntax and broader CSS layout fidelity remain outside this contract. Fractional rounding also keeps narrow trailing columns nonnegative while conserving the table width.
 - The current local Practice FAQ pilot uses an exact retained package, with rollback and migration records. Its dated checks cover 36 browser cases, 18 flat-body contrast scopes, 12 coarse-pointer axe scans and four cold resource trials against approved local ceilings. Those results do not establish field performance, human speech behavior, visual acceptance or production deployment.
 
-- Stephen Cheng approved the support and maintenance policy on 14 October 2026 and is assigned as owner of all 123 support records. Monthly and quarterly responsibilities are documented in [Conventions](conventions.md). Every support review remains `unreviewed`; ownership does not establish platform or release acceptance.
+- Stephen Cheng approved the support and maintenance policy on 14 October 2026 and is recorded as owner and reviewer (`2026-10-17T02:54:39.000Z`) of all 123 support records (`118` stable components, `1` preview component `Editor`, `3` stable constants, and `1` preview constant `EDITOR_SCHEMA`). Monthly and quarterly responsibilities are documented in [Conventions](conventions.md). Support record review does not establish product visual sign-off, manual assistive-technology acceptance, or release authorization.
 
 - Destructive AlertDialogs initially focus Cancel; ordinary confirmations initially focus Confirm. The existing `tone`/`variant` precedence, callbacks, Escape dismissal and focus return are retained. This operator-approved policy still requires its current browser and assistive-technology evidence.
 
@@ -25,7 +25,7 @@ These changes belong to the current revision working tree. They are not a publis
 3. Recheck stored Editor content and paste/drop flows against the declared HTML trust boundary. `unsafeHtml` is not permission to insert executable markup. Verify allowed formatting in the actual editing workflow.
 4. Recheck nested overlays, delayed and portalled language scopes, light/dark/system themes, coarse-pointer targets, and error/loading states in the actual product. For documents, compare content, assets, pagination and the required export in its target application. Record the candidate, environment, evidence and owner verdict for both pilots.
 
-Release remains pending human acceptance, required native/manual checks, provenance decisions, acceptance of changed pilot artifacts and reviewed per-export support scopes. EN/VI is the intended language scope; Japanese remains a partial spike. No support expansion, deprecation or removal is authorized by this note.
+Release remains pending human visual acceptance, required native/manual assistive-technology checks, provenance decisions, and acceptance of changed pilot artifacts; all 123 per-export support records in `components/lifecycle.json` are reviewed (`2026-10-17T02:54:39.000Z`). EN/VI is the intended language scope; Japanese remains a partial spike. No support expansion, deprecation or removal is authorized by this note.
 
 ## Release — `@cyberskill/design@1.3.10`
 

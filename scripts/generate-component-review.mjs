@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Discovery coverage only: lexical references do not establish behavior coverage.
-import {readFileSync,writeFileSync,readdirSync} from 'node:fs';
+import {readFileSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';

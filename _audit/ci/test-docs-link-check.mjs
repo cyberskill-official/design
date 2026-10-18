@@ -5,7 +5,7 @@
  * Also scans unpublished MDX href=/src= (git tree). Live HTML twin
  * (_audit/docs-link-check.html) scans published markdown + viewer only — never stories/.
  */
-import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, existsSync, statSync } from 'node:fs';
 import { dirname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -28,6 +28,7 @@ const catalog = JSON.parse(read('_audit/docs-catalog.json'));
 const required = [
   ...catalog.entrance.map((p) => p.path),
   ...catalog.pages.map((p) => p.path),
+  ...catalog.pages.filter((p) => p.vi).map((p) => p.vi),
   ...catalog.pages.filter((p) => p.mdx).map((p) => p.mdx),
   ...catalog.curated.filter((p) => p.mdx).map((p) => p.mdx),
 ];

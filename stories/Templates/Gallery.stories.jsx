@@ -12,7 +12,7 @@ export default {
     docs: {
       description: {
         component:
-          'Browse all 84 starting points (including HR Suite) via Atomic View, or open Kitchen Sink / Playground demos. Category stories under Templates/* iframe each .dc.html from the manifest.',
+          'Browse all 85 starting points (including HR Suite) via Atomic View, or open Kitchen Sink / Playground demos. Category stories under Templates/* iframe each .dc.html from the manifest.',
       },
     },
   },

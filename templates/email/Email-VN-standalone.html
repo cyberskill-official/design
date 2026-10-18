@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<title>Email · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../styles.css">
-<script src="../../_ds_bundle.js"></script>
-<script>window.CyberSkillDS=window[Object.keys(window).find(function(k){return /^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k);})]||{};</script>
 <script src="./support.js"></script>
 <template id="__bundler_thumbnail" data-bg-color="#2a1a0d">
   <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
@@ -24,6 +22,9 @@
 </head>
 <body>
 <x-dc>
+<helmet>
+<script src="./ds-base.js"></script>
+</helmet>
 <div data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" style="background:#efe6d8;padding:32px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary);min-height:100vh">
   <div style="max-width:600px;margin:0 auto;background:var(--cs-color-surface-panel);border-radius:16px;overflow:hidden;box-shadow:var(--cs-shadow-sm)">
     <div style="background:var(--cs-accent-strong);padding:28px 32px;display:flex;align-items:center;gap:12px">
@@ -37,11 +38,11 @@
       <h1 style="font-size:28px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;margin:10px 0 14px">Chúng tôi đã bắt đầu điều ước của bạn, An.</h1>
       <p style="font-size:16px;line-height:1.65;margin:0 0 16px">Một người thật trong đội đã tiếp nhận yêu cầu thanh toán nhanh hơn của bạn. Chúng tôi sẽ gửi bản hình dung đầu tiên trong vòng một ngày làm việc — làm để chạy được, và làm để bền lâu.</p>
       <p style="font-size:16px;line-height:1.65;margin:0 0 28px;color:var(--cs-color-text-muted)">Trong lúc chờ, bạn có thể theo dõi tiến độ trên Status Hub của mình.</p>
-      <a href="#" style="display:inline-block;background:var(--cs-accent-bright);color:var(--cs-accent-on);font-weight:700;font-size:15px;text-decoration:none;padding:14px 26px;border-radius:var(--cs-radius-full)">Xem Status Hub của bạn →</a>
+      <a class="cs-touch-target" href="#" style="display:inline-block;background:var(--cs-accent-bright);color:var(--cs-accent-ink);font-weight:700;font-size:15px;text-decoration:none;padding:14px 26px;border-radius:var(--cs-radius-full)">Xem Status Hub của bạn →</a>
     </div>
     <div style="border-top:1px solid var(--cs-color-border-default);padding:22px 32px;background:var(--cs-color-surface-raised)">
       <p style="margin:0 0 6px;font-size:13px;color:var(--cs-color-text-muted)">Hiện Thực Hoá Ý Chí · Turn Your Will Into Real</p>
-      <p style="margin:0;font-size:12px;color:var(--cs-color-text-muted)">CyberSkill · Saigon · <a href="#" style="color:var(--cs-color-link)">Huỷ đăng ký</a> · <a href="#" style="color:var(--cs-color-link)">Tuỳ chọn</a></p>
+      <p style="margin:0;font-size:12px;color:var(--cs-color-text-muted)">CyberSkill · Saigon · <a class="cs-touch-target" href="#" style="color:var(--cs-color-link)">Huỷ đăng ký</a> · <a class="cs-touch-target" href="#" style="color:var(--cs-color-link)">Tuỳ chọn</a></p>
     </div>
   </div>
 </div>
