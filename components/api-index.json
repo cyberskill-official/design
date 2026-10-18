@@ -10,7 +10,7 @@
     "scripts/generate-api-index.mjs": "0c623757f8d7a8d5ec1ebb22c2ac9fabddd155c3f1b3bb2503aba7987c1517c9",
     "scripts/lib/component-support.mjs": "6626078ffaaa91cb3a43d87858577fc5d405e5bfb474e7519abf50d4797b2eb1",
     "_esm/react.d.ts": "6089ef8bb3d72554f59da8ca1aea0edc1c2ad770d30141c1e25061bda1f81e85",
-    "components/lifecycle.json": "35c406c3a33a82824c73073aac188a25a6d87d4a893972fd432ed8d69d8de93a"
+    "components/lifecycle.json": "4ea26386ce3c4dc3b09b2452fe27c3ec9c755e5664e6d41e8d71059c73bed5a1"
   },
   "propDefinitions": {
     "p-0005bc1a1248e02c": {
@@ -40876,7 +40876,7 @@
       "sourcePath": "components/navigation/HotKeys.jsx",
       "declarationPath": "components/navigation/HotKeys.d.ts",
       "promptPath": "components/navigation/HotKeys.prompt.md",
-      "sourceSha256": "a99225b88f936a34e4450773e01d363e64260a7aea0a68466f95a9613105ece6",
+      "sourceSha256": "e387c74c12cf54ba1657083aa716ccb20569f737050d93f60898319736b4dbff",
       "declarationSha256": "512e51409adb237adfa7718c0c62611b04e1fff51da322e04eb5533f2ebac11f",
       "declaredLifecycle": "stable",
       "support": {
@@ -40895,7 +40895,7 @@
         "evidence": [
           {
             "path": "components/navigation/HotKeys.jsx",
-            "sha256": "a99225b88f936a34e4450773e01d363e64260a7aea0a68466f95a9613105ece6",
+            "sha256": "e387c74c12cf54ba1657083aa716ccb20569f737050d93f60898319736b4dbff",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },

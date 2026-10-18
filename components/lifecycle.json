@@ -2726,7 +2726,7 @@
         "evidence": [
           {
             "path": "components/navigation/HotKeys.jsx",
-            "sha256": "a99225b88f936a34e4450773e01d363e64260a7aea0a68466f95a9613105ece6",
+            "sha256": "e387c74c12cf54ba1657083aa716ccb20569f737050d93f60898319736b4dbff",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },

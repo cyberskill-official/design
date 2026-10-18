@@ -27,7 +27,7 @@ export function HotKeys({ bindings = [], help = true, children, lang, className 
       const path = e.composedPath?.() || [e.target];
       if (path.some(node => node?.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(node?.tagName))) return;
       if (help && e.key === "?" && !e.ctrlKey && !e.metaKey && !e.altKey) {
-        if (!show && document.querySelector('[role="dialog"][aria-modal="true"], [role="alertdialog"][aria-modal="true"]')) return;
+        if (!show && [...document.querySelectorAll('[role="dialog"][aria-modal="true"], [role="alertdialog"][aria-modal="true"]')].some((m) => m !== panel.current && !m.contains(ref.current))) return;
         setShow((s) => !s);
         return;
       }
