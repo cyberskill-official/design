@@ -13,14 +13,14 @@ permissions:
 # FIND-089 — cancel superseded PR/push runs; serialize write-capable paths separately.
 concurrency:
   group: design-system-gates-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
 
 # Reusable Node + Playwright install (browser cache).
 # Jobs below copy the same steps so each job stays self-contained.
 
 jobs:
   fast-gates:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
@@ -52,7 +52,7 @@ jobs:
         with: { name: import-report, path: _audit/ci/import-report.txt }
 
   token-provenance:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
@@ -68,10 +68,12 @@ jobs:
     # Chromium, Firefox and WebKit are required beyond the subtree smoke.
     # Wired into CI by the Jul 2026 hardening (previously local-only).
     # Storybook freshness runs in storybook-build (FIND-074/075), not here.
-    runs-on: ubuntu-latest
-    # The complete local suite takes about 15 minutes before runner setup and
-    # browser downloads. Allow a conservative buffer; hosted timing is separate.
-    timeout-minutes: 150
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ['1/4', '2/4', '3/4', '4/4']
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
@@ -88,8 +90,11 @@ jobs:
       - name: Install Playwright unit-test browsers
         run: npx playwright install --with-deps chromium firefox webkit
       - name: Run unit tests
+        env:
+          CS_UNIT_SHARD: ${{ matrix.shard }}
         run: npm run test:unit
       - name: Verify pinned Style Dictionary interchange adapter
+        if: matrix.shard == '1/4'
         run: |
           SD_FIXTURE="$RUNNER_TEMP/cyberskill-style-dictionary"
           npm install --prefix "$SD_FIXTURE" --ignore-scripts --no-audit --no-fund --save-exact style-dictionary@5.5.5
@@ -103,7 +108,7 @@ jobs:
     #   • DESIGN.md freshness — byte-identical regeneration from DTCG + manifest
     #   • dist/styles.min.css + contrast-report freshness (FIND-026)
     #   • _ds_manifest.json templates/cards/startingPoints coverage (FIND-078)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
@@ -128,7 +133,7 @@ jobs:
 
   storybook-build:
     # FIND-074 / FIND-075 — build Storybook in CI; freshness gate can fail for real.
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
@@ -138,6 +143,11 @@ jobs:
           cache: npm
       - name: Install npm dependencies
         run: npm ci
+      - name: Cache Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
       - name: Install browser for public-site checks
         run: npx playwright install --with-deps chromium
       - name: Build reviewed public site (+ freshness stamp)
@@ -150,7 +160,7 @@ jobs:
         run: node _audit/ci/test-storybook-freshness.mjs --require
 
   docs-consistency-blocker:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     needs: fast-gates
     steps:
@@ -179,7 +189,7 @@ jobs:
 
   whole-set-audits:
     # Owner decision B: every push/PR + nightly + manual. ~15–20 min wall time.
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
@@ -209,7 +219,7 @@ jobs:
 
   pixel-diff:
     # Hard gate: % drift above threshold fails the job (and blocks merge).
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
@@ -255,7 +265,7 @@ jobs:
     # job never pushes and never asks for contents: write; drift is the contributor's
     # job to fix locally. Auto-commit lives in regenerate-tokens-push below.
     if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       contents: read
@@ -311,7 +321,7 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'schedule' ||
       github.event_name == 'push'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     concurrency:
       group: design-system-regenerate-tokens
@@ -405,7 +415,7 @@ jobs:
     if: |
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'push' && github.ref == 'refs/heads/main')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
@@ -472,7 +482,7 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'schedule' ||
       (github.event_name == 'push' || github.event_name == 'pull_request')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
@@ -560,7 +570,7 @@ jobs:
       - pixel-diff
       - regenerate-tokens-push
       - npm-hello-smoke
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
       contents: read

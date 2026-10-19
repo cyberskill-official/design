@@ -1,0 +1,58 @@
+# OIDC Trusted Publishing for @cyberskill/design on npmjs.com (--provenance).
+# Triggered when a GitHub Release is published or manually via workflow_dispatch.
+# Idempotent: skips cleanly if @cyberskill/design@VERSION is already on the registry.
+name: npm Publish (OIDC Trusted Publishing)
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          cache: npm
+      - name: Check registry version (idempotent guard)
+        id: registry_check
+        run: |
+          set -euo pipefail
+          EXPECTED="$(tr -d '[:space:]' < VERSION)"
+          echo "version=${EXPECTED}" >> "$GITHUB_OUTPUT"
+          if npm view "@cyberskill/design@${EXPECTED}" version >/dev/null 2>&1; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+            echo "@cyberskill/design@${EXPECTED} is already published on registry.npmjs.org — nothing to publish."
+            {
+              echo "### Already published"
+              echo ""
+              echo "\`@cyberskill/design@${EXPECTED}\` is already live on \`registry.npmjs.org\`."
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            echo "@cyberskill/design@${EXPECTED} not yet on registry — proceeding with OIDC publish."
+          fi
+      - name: Install npm dependencies
+        if: steps.registry_check.outputs.published == 'false'
+        run: npm ci
+      - name: Verify package hygiene and prepublish gates
+        if: steps.registry_check.outputs.published == 'false'
+        run: |
+          npm run prepublishOnly
+          npm run test:pack-hygiene
+      - name: Publish to npm via OIDC Trusted Publishing (--provenance)
+        if: steps.registry_check.outputs.published == 'false'
+        run: npm publish --provenance --access public
