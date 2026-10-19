@@ -85,7 +85,7 @@ The command combines Node checks with browser, document-export and packed-consum
 
 | Test | File | What it asserts | Pass criterion | Type | Where it runs |
 |---|---|---|---|---|---|
-| Nav model | `_audit/ci/test-nav-model.mjs` | The shipped `guidelines/nav-model.js` classify/group logic behaves (drives the real module) | All assertions pass (exit 0) | Hard | Unit test |
+| Nav model | `_audit/ci/test-nav-model.mjs` | The shipped `guidelines/nav-model.cjs` classify/group logic behaves (drives the real module) | All assertions pass (exit 0) | Hard | Unit test |
 | Health/Tokens UI contract | `_audit/ci/test-health-tokens-contract.mjs` | Structural contracts of the Health + Tokens HTML entry points hold | All assertions pass (exit 0) | Hard | Unit test |
 | Docs consistency (Node twin) | `_audit/ci/test-docs-consistency.mjs` | Doctrine↔source parity (roles/depth/lang/breakpoints/fallbacks) + aurora asset-weight ceilings | All assertions pass (exit 0) | Hard | Unit test |
 | Docs count claims (real browser gate) | `_audit/ci/test-doc-count-claims-browser.mjs` | Named generated total/subset fields, recognized unmarked totals, invalid markers and explicit catalog fetch/parse failures in Chromium, Firefox and WebKit; catalog source freshness is checked separately | All positive/rejection cases pass; no arbitrary-prose or control-behavior certification | Hard | Unit test |

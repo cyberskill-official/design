@@ -47,7 +47,7 @@ export function toLCH(lab) {
   return [lab[0], Math.hypot(lab[1], lab[2]), Math.atan2(lab[2], lab[1])];
 }
 
-export function fromLCH([L, C, H]) {
+function fromLCH([L, C, H]) {
   return [L, C * Math.cos(H), C * Math.sin(H)];
 }
 
@@ -58,7 +58,7 @@ export function hexToLCH(hex) {
   return { L, C, H, Hdeg: ((H * 180) / Math.PI + 360) % 360 };
 }
 
-export function inGamut(rgb) {
+function inGamut(rgb) {
   return rgb.every((v) => v >= -0.5 && v <= 255.5);
 }
 

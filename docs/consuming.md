@@ -83,7 +83,7 @@ Add `transpilePackages: ["@cyberskill/design"]` in Next.js (JSX ships as source)
 
 **First real install (Lumi).** Copy-paste working **browser** consumer: `examples/npm-hello/` — installs `@cyberskill/design` at the repo `VERSION` from the registry, links `styles.css`, mounts `Button` via the **legacy** browser entry (`_esm/cs.mjs`), scopes **Lumi** with `data-cs-element="hoa" data-cs-variant="plasma"` (locked row in `docs/products.md`). From that folder: `npm install && npm run smoke && npm start` → open `http://127.0.0.1:8766/`. Status Hub teams use the same install and swap to `data-cs-element="thuy"` — do not invent mappings. For Next/SSR product apps (e.g. Lumi landing), use `import { Button } from "@cyberskill/design"` as above — not the npm-hello import map.
 
-**Package contents check (maintainers):** `npm run npm:pack-dry-run` lists package contents without publishing. See `docs/ci-cd.md`.
+**Package contents check (maintainers):** `npm run test:pack-hygiene` checks and validates package contents without publishing. See `docs/ci-cd.md`.
 
 ## Adopt (two paths, plus a module shortcut)
 

@@ -323,7 +323,7 @@ export function isEnterpriseVariablesBlock(err) {
 }
 
 /** Known HTTP unavailability; status-like text in an invalid token is not an API result. */
-export function isSoftSkippableFigmaError(err) {
+function isSoftSkippableFigmaError(err) {
   const request = figmaRequestFromError(err);
   if (request) return [429, 503, 404].includes(request.status);
   const msg = String(err?.message || err || '');

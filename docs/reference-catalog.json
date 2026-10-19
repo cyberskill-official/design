@@ -115,7 +115,7 @@
     "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html": "9b26fde39b0b5eae7a99e307781e36f129b39b578f4e6d9e0d795f3532d8ef23",
     "templates/vn-training-commitment/VnTrainingCommitment.dc.html": "55bface30bfc3747ec751354291465cc900bdd6e0b8cdf130ab99411ee76647c",
     "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html": "ec4a01cd6403da156341bde35b634d6f1ddcd83bd8e3858036da13f9c22669d2",
-    "tokens/tokens.dtcg.json": "ad87e281370faef2d304c9f8aaf7a1eafb837ffad671038f44c1a6032d09931d"
+    "tokens/tokens.dtcg.json": "588f0c3c8906b520972fe423101e5e3487046a03d6ead1e545ec60504b6a9d95"
   },
   "documents": [
     {
@@ -848,7 +848,7 @@
       "path": "docs/consuming.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "ef12d15cb686ebd9d74e0a0f7039629aadafcedf8b244175d3b36749e94d26bf"
+      "sha256": "30c39576e9b3eb138448fe071fd18ac7ad5efc9d1958575781782bad0592c402"
     },
     {
       "path": "docs/contrast-report.md",
@@ -938,7 +938,7 @@
       "path": "docs/quality-gates.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "077ba5975922df358d01b8edae598571e8ce6862fd718e0b30068daae9d90c37"
+      "sha256": "ed603437e7d3f25c0501c108f88df1d98f6ff4520f06263f220d6cfda417bbf2"
     },
     {
       "path": "docs/release-notes.md",
@@ -986,7 +986,7 @@
       "path": "docs/vi/consuming.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "775c4e868c7b5d0eeb481dcdb9650d6bd27774706a5d38c6376bf7d4100c9987"
+      "sha256": "932ee1852c2f2baef9c4291a04a14336085445f1970ad7fc0d520347e7c13627"
     },
     {
       "path": "docs/vi/contrast-report.md",
@@ -1052,7 +1052,7 @@
       "path": "docs/vi/quality-gates.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "1a2c34490f799a2b993d7dac2d1d2f279841eae4d18907fb18021dd190ea47a1"
+      "sha256": "4c8c42b85f9f72c6ba7abdd7c26315d6faa9e9c9b704c5f63c7c00018f1e935b"
     },
     {
       "path": "docs/vi/release-notes.md",

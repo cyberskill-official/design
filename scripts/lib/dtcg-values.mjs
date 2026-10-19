@@ -16,12 +16,12 @@ export function colorFromCss(css) {
   if(channels.some(c=>c<0||c>255)||alpha<0||alpha>1)throw Error(`Out of range CSS color: ${css}`);
   return {colorSpace:'srgb',components:channels.map(c=>c/255),alpha};
 }
-export function dimensionFromCss(css,units=['px','rem']) {
+function dimensionFromCss(css,units=['px','rem']) {
   const m=/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))([a-z]+)$/.exec(css);
   if(!m||!units.includes(m[2]))throw Error(`Unsupported CSS dimension/duration: ${css}`);
   return {value:numberFromCss(m[1]),unit:m[2]};
 }
-export function splitCssList(css) {
+function splitCssList(css) {
   const result=[];let start=0,depth=0,quote=null;
   for(let i=0;i<css.length;i++){
     const c=css[i];

@@ -83,7 +83,7 @@ Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng
 
 **Cài thật đầu tiên (Lumi).** Consumer **browser** copy-paste: `examples/npm-hello/` — cài `@cyberskill/design` đúng `VERSION` repo từ registry, link `styles.css`, mount `Button` qua entry **legacy** (`_esm/cs.mjs`), scope **Lumi** với `data-cs-element="hoa" data-cs-variant="plasma"` (hàng đã khóa trong `docs/products.md`). Trong thư mục đó: `npm install && npm run smoke && npm start` → mở `http://127.0.0.1:8766/`. Team Status Hub dùng cùng install và đổi sang `data-cs-element="thuy"` — không invent ánh xạ. Cho app Next/SSR (ví dụ Lumi landing), dùng `import { Button } from "@cyberskill/design"` như trên — không dùng import map của npm-hello.
 
-**Kiểm tra nội dung package (maintainer):** `npm run npm:pack-dry-run` liệt kê nội dung package mà không publish. Xem `docs/ci-cd.md`.
+**Kiểm tra nội dung package (maintainer):** `npm run test:pack-hygiene` kiểm tra nội dung package mà không publish. Xem `docs/ci-cd.md`.
 
 ## Adopt (hai đường, cộng shortcut module)
 

@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import {createHash} from 'node:crypto';
 import {readFileSync,readdirSync} from 'node:fs';
 import {strings} from '../../components/_i18n/strings.js';
 import {localeKeyUsage} from './lib/locale-key-usage.mjs';
@@ -8,7 +7,7 @@ const dynamicDomains = {
   'ai/ConfidenceMeter.jsx:tone':['low','medium','high'],
   'feedback/Result.jsx:status':['success','error','warning','info'],
 };
-export function validateCalls(calls,tables,domains,path) {
+function validateCalls(calls,tables,domains,path) {
   const used=[];
   for(const call of calls) {
     const keys=call.keys || domains[path+':'+call.expression];

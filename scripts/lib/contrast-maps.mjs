@@ -3,7 +3,7 @@
 import {readFileSync} from 'node:fs';
 import postcss from 'postcss';
 
-export const contrastRoles = ['--cs-color-border-default', '--cs-color-text-muted'];
+const contrastRoles = ['--cs-color-border-default', '--cs-color-text-muted'];
 const selectors = {
   light: '[data-cs-contrast="high"]',
   dark: '[data-theme="dark"][data-cs-contrast="high"], [data-cs-contrast="high"][data-theme="dark"]',

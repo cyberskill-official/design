@@ -30,7 +30,6 @@
 .cs-search:focus-within,
 .cs-stepper:focus-within,
 .cs-prompt:focus-within,
-.cs-cmdk__search:focus-within,
 .cs-terminal:focus-within,
 .cs-ai-disclosure__badge:focus-visible,
 .cs-switch input:focus-visible + .cs-switch__track {
@@ -43,7 +42,6 @@
 /* ---- 3. Entrance motion utilities (opt-in) + a gentle Dialog entrance ---- */
 @keyframes cs-fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes cs-rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-@keyframes cs-pop-in { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
 .cs-fade-in { animation: cs-fade-in var(--cs-duration-slow) var(--cs-ease-entrance) both; }
 .cs-rise-in { animation: cs-rise-in var(--cs-duration-slow) var(--cs-ease-entrance) both; }
 .cs-rise-in--2 { animation-delay: 80ms; }

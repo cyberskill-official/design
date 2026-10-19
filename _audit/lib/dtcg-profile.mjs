@@ -3,7 +3,6 @@
 // colors must be implemented and tested before this repository emits them.
 export const FORMAT = 'https://www.designtokens.org/tr/2025.10/format/';
 export const COLOR = 'https://www.designtokens.org/tr/2025.10/color/';
-export const TYPES = ['color', 'dimension', 'number', 'duration', 'cubicBezier', 'fontFamily', 'shadow'];
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const own = (value, key) => Object.hasOwn(value, key);
 const finite = value => typeof value === 'number' && Number.isFinite(value);

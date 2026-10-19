@@ -76,7 +76,7 @@ export function portableRuntimeCosts(base, inventories) {
   return {canonical:runtimes,requiredCopies:templates.length*runtimes.length,distributions,templates};
 }
 
-export function measureDistributions(base=root) {
+function measureDistributions(base=root) {
   const scratch=mkdtempSync(join(tmpdir(),'cs-distribution-costs-'));
   try {
     // A working-tree inventory includes pending files and omits operator-deleted paths.

@@ -97,7 +97,7 @@
     },
     {
       "path": "base/interaction.css",
-      "sha256": "b102b30ed712e912ab61d6c63d74f23dbaec7f2a5d7e74ac1b5953f12012437d"
+      "sha256": "28bf4d61047ace8f40c569e9167eab9fca640147f2b9a6afc1e47810db0621d8"
     },
     {
       "path": "base/a11y.css",
@@ -105,7 +105,7 @@
     },
     {
       "path": "base/responsive.css",
-      "sha256": "305dd64edf14e1a1dedb75a93762554166318042e7118c2b66709af3635af063"
+      "sha256": "e9b3a8cceb46e9ab839898c505afa8f37a388c749a909807d983ddfbcd553624"
     }
   ],
   "declarations": [

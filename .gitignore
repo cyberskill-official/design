@@ -12,7 +12,10 @@ uploads/
 scraps/
 .remember/
 .tmp-doc-export/
-.tmp-subtree-*/
+bom.cdx.json
+playwright-report/
+test-results/
+coverage/
 # heavy generated PPTX / standalone HTML proofs
 _audit/exports/
 
@@ -53,6 +56,7 @@ _audit/ci/native-store-report.json
 
 # Native sample build outputs
 examples/native/swiftui/.build/
+examples/native/swiftui/.swiftpm/
 examples/native/compose/.gradle/
 examples/native/compose/**/build/
 examples/native/compose/signing.properties

@@ -3,9 +3,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { sourceFingerprint, verifyFreshness } from '../../scripts/storybook-fingerprint.mjs';
+import { verifyFreshness } from '../../scripts/storybook-fingerprint.mjs';
 const root = fileURLToPath(new URL('../../', import.meta.url));
-export function hashStorySources(repoRoot = root) { return sourceFingerprint(repoRoot).hash; }
 if (process.argv[1]?.endsWith('/test-storybook-freshness.mjs')) {
   try {
     if (!existsSync(join(root, 'storybook-static'))) {

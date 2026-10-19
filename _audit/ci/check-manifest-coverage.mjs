@@ -36,10 +36,6 @@ function listDirs(dir) {
 
 function hasTemplateContent(dir) {
   for (const name of readdirSync(dir)) {
-    if (name.endsWith('.dc.html') || (name.endsWith('.html') && name !== 'index.html')) {
-      return true;
-    }
-    // Prefer .dc.html presence; also accept folder with any .html content file
     if (name.endsWith('.html')) return true;
   }
   return false;
@@ -132,5 +128,3 @@ function main() {
 
 const isMain = process.argv[1] && /check-manifest-coverage\.mjs$/.test(process.argv[1]);
 if (isMain) main();
-
-export { TEMPLATE_DIR_ALLOWLIST, main as checkManifestCoverage };

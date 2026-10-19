@@ -225,9 +225,7 @@ assert(consuming.includes('host-only') || consuming.includes('Storybook'), 'cons
 assert(!consuming.includes('must use Storybook') && !consuming.includes('require Storybook'), 'no required storybook for consumers');
 assert(!consuming.includes('/playground/'), 'consuming does not advertise /playground/ product path');
 
-const surfacesPath = existsSync(join(root, 'stories/Maintainer/Surfaces.stories.jsx'))
-  ? join(root, 'stories/Maintainer/Surfaces.stories.jsx')
-  : join(root, 'stories/Live/Surfaces.stories.jsx');
+const surfacesPath = join(root, 'stories/Maintainer/Surfaces.stories.jsx');
 const surfaces = readFileSync(surfacesPath, 'utf8');
 for (const needle of [
   'atomic-view.html',

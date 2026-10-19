@@ -4,8 +4,8 @@ import { readFileSync, lstatSync, readdirSync, mkdirSync, rmSync, copyFileSync, 
 import { join, dirname } from 'node:path';
 import { createHash } from 'node:crypto';
 
-export const POLICY_PATH = 'scripts/public-site-policy.json';
-export const STAGING_DIR = '.storybook-public';
+const POLICY_PATH = 'scripts/public-site-policy.json';
+const STAGING_DIR = '.storybook-public';
 export const legacyRedirectFiles = ['dashboard.html','dashboard/index.html','playground/index.html'];
 export const legacyRedirectHtml = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>CyberSkill Design System</title><meta http-equiv="refresh" content="0; url=/"><link rel="canonical" href="https://design.cyberskill.world/"></head><body><p>The design system is at <a href="/">Storybook</a>.</p><script>location.replace('/');</script></body></html>\n`;
 export function loadPublicPolicy(root) {

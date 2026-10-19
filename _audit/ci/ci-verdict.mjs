@@ -54,7 +54,7 @@ export function classifyCiReport(report) {
  * @param {NodeJS.ProcessEnv} [env]
  * @returns {boolean}
  */
-export function isProtectedCiRef(env = process.env) {
+function isProtectedCiRef(env = process.env) {
   if (!env.GITHUB_ACTIONS) return false;
   if (env.GITHUB_EVENT_NAME === 'schedule') return true;
   if (env.GITHUB_EVENT_NAME === 'push' && env.GITHUB_REF === 'refs/heads/main') return true;

@@ -52,9 +52,7 @@ assert(tokens.includes('__csTokensLastCopy'), 'last copy observability');
 
 // Live hub is Storybook only — no live-view.html shell or redirect.
 assert(!existsSync(join(root, 'guidelines/live-view.html')), 'live-view.html removed');
-const surfacesPath = existsSync(join(root, 'stories/Maintainer/Surfaces.stories.jsx'))
-  ? join(root, 'stories/Maintainer/Surfaces.stories.jsx')
-  : join(root, 'stories/Live/Surfaces.stories.jsx');
+const surfacesPath = join(root, 'stories/Maintainer/Surfaces.stories.jsx');
 const liveSurfaces = readFileSync(surfacesPath, 'utf8');
 assert(liveSurfaces.includes('motion.html'), 'motion surface in Storybook Maintainer');
 assert(liveSurfaces.includes('rtl-preview.html'), 'rtl surface in Storybook Maintainer');
@@ -65,7 +63,7 @@ assert(existsSync(join(root, 'guidelines/motion.html')), 'motion.html still port
 assert(existsSync(join(root, 'guidelines/rtl-preview.html')), 'rtl-preview still portable');
 
 const atomic = readFileSync(join(root, 'guidelines/atomic-view.html'), 'utf8');
-assert(atomic.includes('nav-model.cjs') || atomic.includes('nav-model.js'), 'nav-model loaded');
+assert(atomic.includes('nav-model.cjs'), 'nav-model loaded');
 assert(atomic.includes('groupStories') || atomic.includes('NM.groupStories'), 'groupStories used');
 assert(atomic.includes('groupTemplates') || atomic.includes('NM.groupTemplates'), 'groupTemplates used');
 assert(atomic.includes('foundation-motion'), 'motion foundation anchor');

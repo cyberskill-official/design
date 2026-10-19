@@ -35,7 +35,7 @@ export function collectGroups(dtcg) {
 }
 
 /** Resolve an alias chain {group.--cs-*} to its final display value. */
-export function resolveAlias(groups, def) {
+function resolveAlias(groups, def) {
   let cur = def, hops = 0;
   while (typeof cur.$value === "string" && /^\{[^{}]+\}$/.test(cur.$value) && hops < 10) {
     const inner = cur.$value.slice(1, -1);

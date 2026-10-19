@@ -38,7 +38,7 @@
     "./_ds_manifest.json": "./_ds_manifest.json",
     "./styles.min.css": "./dist/styles.min.css"
   },
-  "description": "CyberSkill Design System \u2014 HTML-first, Vietnamese-first (EN\u00b7VI). Anchors: Umber #45210E \u00b7 Ochre #F4BA17. Axes: Theme \u00d7 Element \u00d7 Language \u00d7 Style. Bundler React entry (`_esm/react.mjs`) + browser legacy (`_esm/cs.mjs`) + styles.css / _ds_bundle.js. Storybook is host-only playground.",
+  "description": "CyberSkill Design System — HTML-first, Vietnamese-first (EN·VI). Anchors: Umber #45210E · Ochre #F4BA17. Axes: Theme × Element × Language × Style. Bundler React entry (`_esm/react.mjs`) + browser legacy (`_esm/cs.mjs`) + styles.css / _ds_bundle.js. Storybook is host-only playground.",
   "style": "styles.css",
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
@@ -83,7 +83,7 @@
     "build:bundle": "node scripts/build-bundle.mjs",
     "build:react-entry": "node scripts/generate-react-entry.mjs",
     "build:design-md": "node scripts/generate-design-md.mjs",
-    "prepublishOnly": "node scripts/build-template-primitives.mjs --check && node scripts/generate-base-token-exports.mjs --check && node _audit/ci/generate-native-tokens.mjs --check && node scripts/generate-editor-parser.mjs --check && npm run build:bundle && node scripts/generate-export-catalog.mjs --check && npm run build:react-entry && node scripts/generate-api-index.mjs --check && npm run build:styles && node scripts/generate-design-md.mjs --check && node scripts/flatten-styles.mjs --check && node scripts/generate-contrast-report.mjs --check",
+    "prepublishOnly": "node scripts/build-template-primitives.mjs --check && node scripts/generate-base-token-exports.mjs --check && node _audit/ci/generate-native-tokens.mjs --check && node scripts/generate-editor-parser.mjs --check && npm run build:bundle && node scripts/generate-export-catalog.mjs --check && npm run build:react-entry && node scripts/generate-api-index.mjs --check && npm run build:styles && node scripts/generate-design-md.mjs --check && node scripts/generate-contrast-report.mjs --check",
     "native:store-dry-run": "node _audit/ci/native-store-dry-run.mjs --dry-run",
     "storybook": "storybook dev -p 6006 --host 127.0.0.1",
     "build:storybook": "node scripts/build-storybook.mjs",
@@ -107,7 +107,6 @@
     "test:subtree-consume": "node _audit/ci/test-subtree-consume.mjs",
     "native:sync-tokens": "node examples/native/sync-tokens.mjs",
     "test:storybook-contract": "node _audit/ci/test-storybook-contract.mjs",
-    "test:storybook-coverage": "node _audit/ci/test-storybook-contract.mjs",
     "test:figma-helpers": "node _audit/ci/test-figma-push-helpers.mjs",
     "test:native-samples": "node _audit/ci/test-native-samples.mjs",
     "test:storybook-freshness": "node _audit/ci/test-storybook-freshness.mjs",
@@ -335,7 +334,6 @@
   },
   "devDependencies": {
     "@babel/parser": "7.29.7",
-    "@figma/code-connect": "^1.4.9",
     "@storybook/addon-a11y": "^10.5.4",
     "@storybook/addon-docs": "^10.5.4",
     "@storybook/react": "^10.5.4",

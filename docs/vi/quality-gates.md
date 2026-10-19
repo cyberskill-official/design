@@ -85,7 +85,7 @@ Lệnh này kết hợp kiểm tra Node với kiểm tra trình duyệt, xuất 
 
 | Test | File | Assert gì | Tiêu chí pass | Loại | Chạy ở đâu |
 |---|---|---|---|---|---|
-| Nav model | `_audit/ci/test-nav-model.mjs` | Logic classify/group của `guidelines/nav-model.js` đã ship hành xử đúng (chạy module thật) | Mọi assert pass (exit 0) | Hard | Unit test |
+| Nav model | `_audit/ci/test-nav-model.mjs` | Logic classify/group của `guidelines/nav-model.cjs` đã ship hành xử đúng (chạy module thật) | Mọi assert pass (exit 0) | Hard | Unit test |
 | Health/Tokens UI contract | `_audit/ci/test-health-tokens-contract.mjs` | Hợp đồng cấu trúc của entry HTML Health + Tokens giữ | Mọi assert pass (exit 0) | Hard | Unit test |
 | Docs consistency (Node twin) | `_audit/ci/test-docs-consistency.mjs` | Parity doctrine↔source (role/depth/ngôn ngữ/breakpoint/fallback) và trần kích thước aurora | Mọi assert pass (exit 0) | Hard | Unit test |
 | Claim số lượng (gate trình duyệt thật) | `_audit/ci/test-doc-count-claims-browser.mjs` | Trường tổng/nhóm con có marker, mẫu tổng không có marker được nhận diện, marker không hợp lệ và lỗi fetch/parse catalog trong Chromium, Firefox và WebKit; freshness từ source của catalog được kiểm tra riêng | Mọi ca hợp lệ/từ chối pass; không chứng nhận mọi câu văn hay hành vi control | Hard | Unit test |

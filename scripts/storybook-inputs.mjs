@@ -13,7 +13,7 @@ export const storybookRootFiles = {
   '/llms.txt': 'llms.txt',
   '/CONTRIBUTING.md': 'CONTRIBUTING.md',
 };
-export const storybookStaticDirs = ['fonts', 'assets', 'base', 'tokens', 'guidelines', 'templates', 'ui_kits', '_audit', 'docs'];
+const storybookStaticDirs = ['fonts', 'assets', 'base', 'tokens', 'guidelines', 'templates', 'ui_kits', '_audit', 'docs'];
 export const storybookBuildInputs = [
   ...publicSources,
   ...Object.values(storybookRootFiles), ...storybookStaticDirs,

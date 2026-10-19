@@ -1,5 +1,5 @@
 /**
- * Unit tests for the shipped nav model (guidelines/nav-model.js).
+ * Unit tests for the shipped nav model (guidelines/nav-model.cjs).
  * Drives the real module — no reimplementation of classify/group logic here.
  */
 import { createRequire } from 'node:module';

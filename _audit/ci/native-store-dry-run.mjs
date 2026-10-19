@@ -26,18 +26,12 @@ const dryRun = args.has('--dry-run');
 /** Secrets required for a signed store-bound build (not for submit — submit stays disabled). */
 export const ASC_SECRETS = ['ASC_KEY_ID', 'ASC_ISSUER_ID', 'ASC_KEY_P8'];
 export const PLAY_SECRETS = ['PLAY_SERVICE_ACCOUNT_JSON'];
-/** Optional Android keystore secrets (Compose / Flutter Android release). */
-export const ANDROID_KEYSTORE_SECRETS = [
-  'ANDROID_KEYSTORE_PASSWORD',
-  'ANDROID_KEY_ALIAS',
-  'ANDROID_KEY_PASSWORD',
-];
 
 export function missingSecrets(names, env = process.env) {
   return names.filter((n) => !String(env[n] || '').trim());
 }
 
-export function hasAnyKeystoreMaterial(env = process.env) {
+function hasAnyKeystoreMaterial(env = process.env) {
   return Boolean(
     String(env.ANDROID_KEYSTORE_BASE64 || '').trim()
     || String(env.ANDROID_KEYSTORE_PATH || '').trim(),

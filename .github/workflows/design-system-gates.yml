@@ -200,11 +200,11 @@ jobs:
         run: npx --yes serve@14.2.6 -l 8080 . &
       - name: Wait for server
         run: npx --yes wait-on@7.2.0 http://127.0.0.1:8080/dashboard.html
-      - name: responsive-overflow (all 84 templates)
+      - name: responsive-overflow (all 85 templates)
         run: node _audit/ci/run-single-gate.mjs http://127.0.0.1:8080/_audit/responsive-overflow.html __overflow 360000
-      - name: language-overflow (all 84 templates, forced VN)
+      - name: language-overflow (all 85 templates, forced VN)
         run: node _audit/ci/run-single-gate.mjs http://127.0.0.1:8080/_audit/language-overflow.html __language 360000
-      - name: theme-overflow (all 84 templates, forced dark — overflow + contrast hard; REVIEWED_OK allowlist)
+      - name: theme-overflow (all 85 templates, forced dark — overflow + contrast hard)
         run: node _audit/ci/run-single-gate.mjs http://127.0.0.1:8080/_audit/theme-overflow.html __theme 360000
 
   pixel-diff:
@@ -295,7 +295,7 @@ jobs:
       - name: Fail when committed packs or natives drift
         if: steps.filter.outputs.run == 'true'
         run: |
-          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json examples/native/swiftui/Sources/CSTokens.swift examples/native/compose/src/main/kotlin/vn/cyberskill/sample/CSTokens.kt examples/native/flutter/lib/cs_tokens.dart components/api-index.json _audit/token-coverage.json _audit/component-review.json _audit/contrast-report.json docs/reference-catalog.json _audit/docs-catalog.json _audit/docs-tracked.json _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
+          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json examples/native/swiftui/Sources/CyberSkillSample/CSTokens.swift examples/native/compose/app/src/main/java/world/cyberskill/sample/tokens/CSTokens.kt examples/native/flutter/lib/tokens/cs_tokens.dart components/api-index.json docs/reference-catalog.json README.md _audit/README.md _audit/index.html _audit/namespace-portability.html docs/figma.md docs/vi/figma.md docs/conventions.md docs/vi/conventions.md _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
           if git diff --quiet -- "${TRACKED[@]}"; then
             echo "Element packs + native tokens already match seeds/DTCG — nothing to regenerate."
             exit 0
@@ -357,7 +357,7 @@ jobs:
         id: drift
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
         run: |
-          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json examples/native/swiftui/Sources/CSTokens.swift examples/native/compose/src/main/kotlin/vn/cyberskill/sample/CSTokens.kt examples/native/flutter/lib/cs_tokens.dart components/api-index.json _audit/token-coverage.json _audit/component-review.json _audit/contrast-report.json docs/reference-catalog.json _audit/docs-catalog.json _audit/docs-tracked.json _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
+          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json examples/native/swiftui/Sources/CyberSkillSample/CSTokens.swift examples/native/compose/app/src/main/java/world/cyberskill/sample/tokens/CSTokens.kt examples/native/flutter/lib/tokens/cs_tokens.dart components/api-index.json docs/reference-catalog.json README.md _audit/README.md _audit/index.html _audit/namespace-portability.html docs/figma.md docs/vi/figma.md docs/conventions.md docs/vi/conventions.md _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
           if git diff --quiet -- "${TRACKED[@]}"; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Element packs + natives already match seeds/DTCG — nothing to commit."
@@ -375,7 +375,7 @@ jobs:
           git fetch origin "$BRANCH"
           git reset --hard "origin/$BRANCH"
           npm run tokens:generate
-          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json examples/native/swiftui/Sources/CSTokens.swift examples/native/compose/src/main/kotlin/vn/cyberskill/sample/CSTokens.kt examples/native/flutter/lib/cs_tokens.dart components/api-index.json _audit/token-coverage.json _audit/component-review.json _audit/contrast-report.json docs/reference-catalog.json _audit/docs-catalog.json _audit/docs-tracked.json _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
+          TRACKED=(tokens/declarations.json tokens/elements.css tokens/tokens.json tokens/tokens.js tokens/tokens.dtcg.json tokens/native tokens/provenance.json examples/native/swiftui/Sources/CyberSkillSample/CSTokens.swift examples/native/compose/app/src/main/java/world/cyberskill/sample/tokens/CSTokens.kt examples/native/flutter/lib/tokens/cs_tokens.dart components/api-index.json docs/reference-catalog.json README.md _audit/README.md _audit/index.html _audit/namespace-portability.html docs/figma.md docs/vi/figma.md docs/conventions.md docs/vi/conventions.md _ds_manifest.json _ds_bundle.js _esm/cs.mjs _esm/react.mjs _esm/react.d.ts dist/styles.min.css DESIGN.md docs/contrast-report.md docs/vi/contrast-report.md)
           if git diff --quiet -- "${TRACKED[@]}"; then
             echo "After sync, packs + natives already match remote — nothing to push."
             exit 0
