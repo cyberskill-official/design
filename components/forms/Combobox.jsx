@@ -4,7 +4,7 @@ import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Combobox — filterable single-select (input + listbox, ARIA combobox pattern). Controlled value/onChange. */
-export function Combobox({ options = [], value, onChange, placeholder, label, disabled = false, lang, className }) {
+export function Combobox({ options = [], value, onChange, placeholder, label, "aria-labelledby": ariaLabelledBy, disabled = false, lang, className }) {
   const [requestedOpen, setOpen] = React.useState(false);
   // Disable the mounted surface immediately and discard its previous open state.
   const open = requestedOpen && !disabled;
@@ -40,14 +40,15 @@ export function Combobox({ options = [], value, onChange, placeholder, label, di
       className={cx("cs-combobox", className)}
       onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false); }}
     >
-      <input role="combobox" aria-expanded={open} aria-controls={open ? id : undefined} aria-autocomplete="list" aria-label={label || ph}
+      <input role="combobox" aria-expanded={open} aria-controls={open ? id : undefined} aria-autocomplete="list"
+        aria-label={label || (ariaLabelledBy ? undefined : ph)} aria-labelledby={ariaLabelledBy}
         aria-activedescendant={open && shown[hl] ? id + "-" + hl : undefined}
         disabled={disabled} placeholder={ph} value={open ? q : (sel ? sel.label : q)}
         onClick={() => { if (!disabled) setOpen(true); }}
         onFocus={() => { setOpen(true); setHl(0); }} onChange={(e) => { setQ(e.target.value); setOpen(true); setHl(0); }} onKeyDown={key} />
       <span className="cs-combobox__caret" aria-hidden="true">▾</span>
       {open ? (
-        <ul className="cs-combobox__list" role="listbox" id={id}>
+        <ul className="cs-combobox__list" role="listbox" id={id} aria-label={label || (ariaLabelledBy ? undefined : ph)} aria-labelledby={ariaLabelledBy}>
           {shown.length ? shown.map((o, i) => (
             <li key={o.value} id={id + "-" + i} role="option" aria-selected={o.value === value} className={cx("cs-combobox__opt", i === hl && "hl")}
               onMouseEnter={() => setHl(i)} onMouseDown={(e) => { e.preventDefault(); pick(o); }}>{o.label}</li>

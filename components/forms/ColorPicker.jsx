@@ -5,7 +5,7 @@ import { cx } from "../_utils/cx.js";
 const SWATCHES = ["#F4BA17", "#C77B4A", "#E0632B", "#C43D1F", "#7A9B57", "#3E5A2E", "#4E8E9B", "#2E5E7E", "#BFB29B", "#45210E"];
 
 /** CyberSkill ColorPicker — curated brand swatches + custom hex input. */
-export function ColorPicker({ value = "#F4BA17", onChange, swatches = SWATCHES, label, lang, className }) {
+export function ColorPicker({ value = "#F4BA17", onChange, swatches = SWATCHES, label, "aria-labelledby": ariaLabelledBy, lang, className }) {
   const [open, setOpen] = React.useState(false);
   const [hex, setHex] = React.useState(value);
   const wrap = React.useRef(null);
@@ -23,11 +23,11 @@ export function ColorPicker({ value = "#F4BA17", onChange, swatches = SWATCHES, 
   return (
     <overlayScopeContext.Provider value={scope}>
     <span ref={(el) => { wrap.current = el; ref.current = el; }} className={cx("cs-colorpicker", className)}>
-      <button type="button" className="cs-colorpicker__field" aria-label={(label || t("label")) + ": " + value} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+      <button type="button" className="cs-colorpicker__field" aria-label={ariaLabelledBy && !label ? undefined : (label || t("label")) + ": " + value} aria-labelledby={ariaLabelledBy} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
         <i style={{ background: value }} /><code>{value}</code>
       </button>
       {open ? (
-        <span className="cs-colorpicker__pop" role="dialog" aria-label={label || t("label")}>
+        <span className="cs-colorpicker__pop" role="dialog" aria-label={ariaLabelledBy && !label ? undefined : (label || t("label"))} aria-labelledby={ariaLabelledBy}>
           <span className="cs-colorpicker__grid">
             {swatches.map((s) => (
               <button key={s} type="button" aria-label={s} aria-pressed={s.toLowerCase() === String(value).toLowerCase()} style={{ background: s }} className={s.toLowerCase() === String(value).toLowerCase() ? "on" : undefined}

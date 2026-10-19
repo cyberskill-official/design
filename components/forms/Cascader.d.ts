@@ -12,6 +12,8 @@ export interface CascaderProps {
   onChange?: (path: string[]) => void;
   placeholder?: string;
   label?: string;
+  /** External label element IDs for the trigger button and listbox columns. */
+  "aria-labelledby"?: string;
   /** Disables the field and closes an open popup; reenabling does not reopen it. */
   disabled?: boolean;
   lang?: string;

@@ -9,6 +9,8 @@ export interface TimePickerProps {
   step?: number;
   /** Accessible label. Default from the registry ("Time" / "Giờ"). */
   label?: string;
+  /** External label element IDs for the time select. */
+  "aria-labelledby"?: string;
   disabled?: boolean;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;

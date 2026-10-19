@@ -7,6 +7,8 @@ export interface ColorPickerProps {
    * generated element packs. Does not adapt to the element axis. */
   swatches?: string[];
   label?: string;
+  /** External label element IDs for the field and popup dialog. */
+  "aria-labelledby"?: string;
   lang?: string;
   className?: string;
 }

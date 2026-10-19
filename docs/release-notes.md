@@ -17,6 +17,7 @@ These changes belong to the current revision working tree. They are not a publis
 - Stephen Cheng approved the support and maintenance policy on 14 October 2026 and is recorded as owner and reviewer (`2026-10-17T02:54:39.000Z`) of all 123 support records (`118` stable components, `1` preview component `Editor`, `3` stable constants, and `1` preview constant `EDITOR_SCHEMA`). Monthly and quarterly responsibilities are documented in [Conventions](conventions.md). Support record review does not establish product visual sign-off, manual assistive-technology acceptance, or release authorization.
 
 - Destructive AlertDialogs initially focus Cancel; ordinary confirmations initially focus Confirm. The existing `tone`/`variant` precedence, callbacks, Escape dismissal and focus return are retained. This operator-approved policy still requires its current browser and assistive-technology evidence.
+- Custom popup form controls (`Combobox`, `DatePicker`, `TimePicker`, `ColorPicker`, `Cascader`, and `TreeSelect`) accept `"aria-labelledby"` on both the trigger control and open popup surface so external field headings can name them without duplicate `aria-label` strings.
 
 ### Before adopting this revision
 
@@ -26,6 +27,14 @@ These changes belong to the current revision working tree. They are not a publis
 4. Recheck nested overlays, delayed and portalled language scopes, light/dark/system themes, coarse-pointer targets, and error/loading states in the actual product. For documents, compare content, assets, pagination and the required export in its target application. Record the candidate, environment, evidence and owner verdict for both pilots.
 
 Release remains pending human visual acceptance, required native/manual assistive-technology checks, provenance decisions, and acceptance of changed pilot artifacts; all 123 per-export support records in `components/lifecycle.json` are reviewed (`2026-10-17T02:54:39.000Z`). EN/VI is the intended language scope; Japanese remains a partial spike. No support expansion, deprecation or removal is authorized by this note.
+
+## Release — `@cyberskill/design@1.7.2`
+
+Independent five-domain audit closure, complete review of all 123 component/constant support records in `components/lifecycle.json`, Linux visual baseline alignment (`_audit/baselines/`), custom form picker `"aria-labelledby"` support, and concurrent three-browser CI execution across Chromium, Firefox and WebKit.
+
+```bash
+npm install @cyberskill/design@1.7.2
+```
 
 ## Release — `@cyberskill/design@1.3.10`
 

@@ -9,6 +9,8 @@ export interface ComboboxProps {
   placeholder?: string;
   /** Accessible label for the input. */
   label?: string;
+  /** External label element IDs for the combobox input and listbox. */
+  "aria-labelledby"?: string;
   /** Disables the field and closes an open popup; reenabling does not reopen it. */
   disabled?: boolean;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */

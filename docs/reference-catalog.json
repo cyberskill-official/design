@@ -944,7 +944,7 @@
       "path": "docs/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "420d77f74d86a6c3031412e79cdcc87dfafeb54080ac84840f1fd328da9eb0c2"
+      "sha256": "56658d8b46d309dd20b63dd52cd5fd9ebd5dc4a4cbe78b8c29e6a6e3a53e53d8"
     },
     {
       "path": "docs/storybook.md",
@@ -1058,7 +1058,7 @@
       "path": "docs/vi/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "01d680fa43df503bbd0bd838e807e1a472658fce88002528f2e7914b1a37df10"
+      "sha256": "09146f1252b2d1e1e1575fdf0d3f646bb93685433557eb547030349aea4c9af6"
     },
     {
       "path": "docs/vi/storybook.md",

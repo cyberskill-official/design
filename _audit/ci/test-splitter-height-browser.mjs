@@ -14,10 +14,11 @@ for (const cssMode of ['imports', 'flat']) await withBrowserFixture(async page =
   await page.addScriptTag({ content: 'window.inspectCoarseHitRegion = ' + inspectCoarseHitRegion.toString() });
   assert.equal(await page.evaluate(() => matchMedia('(pointer:coarse)').matches), true);
   const touch = browserName === 'chromium' ? await page.context().newCDPSession(page) : null;
-  for (const width of [320, 390, 1280]) for (const density of ['comfortable', 'compact'])
-    for (const lang of ['en', 'vi']) for (const theme of ['light', 'dark'])
-      for (const dir of ['ltr', 'rtl']) for (const height of heights) {
-        await page.setViewportSize({ width, height: 800 });
+  for (const width of [320, 390, 1280]) {
+    await page.setViewportSize({ width, height: 800 });
+    for (const density of ['comfortable', 'compact'])
+      for (const lang of ['en', 'vi']) for (const theme of ['light', 'dark'])
+        for (const dir of ['ltr', 'rtl']) for (const height of heights) {
         await page.evaluate(({ height, density, lang, theme, dir }) => {
           renderFixture(null); window.splitterPointers = [];
           document.onpointerdown = event => splitterPointers.push({ trusted: event.isTrusted, type: event.pointerType, bar: event.target.matches('.cs-splitter__bar') });
@@ -66,7 +67,8 @@ for (const cssMode of ['imports', 'flat']) await withBrowserFixture(async page =
         }
         rows.push({ cssMode, width, density, lang, theme, dir, height, bar: geometry.bar, wrapperHeight: geometry.parent.height, nativeTaps: pointers.length, drag: touch ? 'native_chromium_touch' : 'native_touch_delivery_and_mouse_drag', value: 60 });
         if (rows.length % 128 === 0) console.log(`Splitter height ${browserName}: ${rows.length} cases complete (${cssMode})`);
-      }
+        }
+  }
   await touch?.detach();
 }, { browserName, contextOptions: { viewport: { width: 390, height: 800 }, hasTouch: true } });
 

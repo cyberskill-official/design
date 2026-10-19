@@ -9,6 +9,8 @@ export interface DatePickerProps {
   /** Accessible label for the field and popup dialog. The dialog falls back to
    *  a nonblank placeholder, then the bilingual default. */
   label?: string;
+  /** External label element IDs for the field and popup dialog. */
+  "aria-labelledby"?: string;
   /** Disables the field and closes an open popup; reenabling does not reopen it. */
   disabled?: boolean;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */

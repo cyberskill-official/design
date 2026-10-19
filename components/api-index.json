@@ -10,7 +10,7 @@
     "scripts/generate-api-index.mjs": "0c623757f8d7a8d5ec1ebb22c2ac9fabddd155c3f1b3bb2503aba7987c1517c9",
     "scripts/lib/component-support.mjs": "6626078ffaaa91cb3a43d87858577fc5d405e5bfb474e7519abf50d4797b2eb1",
     "_esm/react.d.ts": "6089ef8bb3d72554f59da8ca1aea0edc1c2ad770d30141c1e25061bda1f81e85",
-    "components/lifecycle.json": "4ea26386ce3c4dc3b09b2452fe27c3ec9c755e5664e6d41e8d71059c73bed5a1"
+    "components/lifecycle.json": "2b2f72c5749c49ef1c4a21d5858ea58668c98ce430394bc2ad438a5be7075b92"
   },
   "propDefinitions": {
     "p-0005bc1a1248e02c": {
@@ -1584,6 +1584,12 @@
       "optional": true,
       "type": "DragEventHandler<HTMLInputElement> | undefined",
       "description": ""
+    },
+    "p-1abd6791cded44fc": {
+      "name": "aria-labelledby",
+      "optional": true,
+      "type": "string | undefined",
+      "description": "External label element IDs for the trigger button and popup tree."
     },
     "p-1ad5ddc6ddb0d31b": {
       "name": "onContextMenuCapture",
@@ -5125,6 +5131,12 @@
       "type": "InputEventHandler<HTMLSpanElement> | undefined",
       "description": ""
     },
+    "p-5472b3ef0696ac88": {
+      "name": "aria-labelledby",
+      "optional": true,
+      "type": "string | undefined",
+      "description": "External label element IDs for the time select."
+    },
     "p-5476667934c3605f": {
       "name": "onChange",
       "optional": true,
@@ -7909,6 +7921,12 @@
       "type": "CompositionEventHandler<HTMLTextAreaElement> | undefined",
       "description": ""
     },
+    "p-83afadf74b772518": {
+      "name": "aria-labelledby",
+      "optional": true,
+      "type": "string | undefined",
+      "description": "External label element IDs for the field and popup dialog."
+    },
     "p-83d127f8ec2bbf1d": {
       "name": "onBeforeInput",
       "optional": true,
@@ -8185,6 +8203,12 @@
       "type": "ReactEventHandler<HTMLElement> | undefined",
       "description": ""
     },
+    "p-881f702cd3700e77": {
+      "name": "aria-labelledby",
+      "optional": true,
+      "type": "string | undefined",
+      "description": "External label element IDs for the trigger button and listbox columns."
+    },
     "p-881fff28ec8d2f1f": {
       "name": "onWaiting",
       "optional": true,
@@ -8412,6 +8436,12 @@
       "optional": true,
       "type": "InputEventHandler<HTMLSelectElement> | undefined",
       "description": ""
+    },
+    "p-8b130d765be83fc1": {
+      "name": "aria-labelledby",
+      "optional": true,
+      "type": "string | undefined",
+      "description": "External label element IDs for the combobox input and listbox."
     },
     "p-8b1c30292eacccf0": {
       "name": "onPointerDown",
@@ -31465,8 +31495,8 @@
       "sourcePath": "components/forms/Cascader.jsx",
       "declarationPath": "components/forms/Cascader.d.ts",
       "promptPath": "components/forms/Cascader.prompt.md",
-      "sourceSha256": "673737f94cf4e63946f7eed1dfa5aaf618bc6d32745c3c6fcec906fbf04e7cfe",
-      "declarationSha256": "803bb5c5e1835ff1eae58b75c1f51c74d5ad86f1bad6929ffc3f85c28cced2a1",
+      "sourceSha256": "1ddcb2898a8cc49e7864760930fd1c58f1a1b917307659041248a9db2080f69d",
+      "declarationSha256": "2260bead7bb6fadf9674aa353c7b79fdab88cd0e1dd01a797b15e52bcddd0d70",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -31484,13 +31514,13 @@
         "evidence": [
           {
             "path": "components/forms/Cascader.jsx",
-            "sha256": "673737f94cf4e63946f7eed1dfa5aaf618bc6d32745c3c6fcec906fbf04e7cfe",
+            "sha256": "1ddcb2898a8cc49e7864760930fd1c58f1a1b917307659041248a9db2080f69d",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/Cascader.d.ts",
-            "sha256": "803bb5c5e1835ff1eae58b75c1f51c74d5ad86f1bad6929ffc3f85c28cced2a1",
+            "sha256": "2260bead7bb6fadf9674aa353c7b79fdab88cd0e1dd01a797b15e52bcddd0d70",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -31518,6 +31548,10 @@
       },
       "signature": "(props: CascaderProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
+        {
+          "name": "aria-labelledby",
+          "definition": "p-881f702cd3700e77"
+        },
         {
           "name": "className",
           "definition": "p-953074c883798082"
@@ -34395,8 +34429,8 @@
       "sourcePath": "components/forms/ColorPicker.jsx",
       "declarationPath": "components/forms/ColorPicker.d.ts",
       "promptPath": "components/forms/ColorPicker.prompt.md",
-      "sourceSha256": "793fa4c479fe825a3aacf24cb0d2e0b2f10c93a4e12c49bc2c0d9e21e26390fc",
-      "declarationSha256": "766af1fce12ff6abc8b935b5b61181f6591fc8b4979bd16a2a6259eb589b9c89",
+      "sourceSha256": "2f3026c39ed52d1ed71b668fec738f6d89ee3c5f4a66d2c1fc97882b3ddaccb6",
+      "declarationSha256": "862283061ba6975001d456c259d655396dbf24b3fe5fd12189e50296603fc85b",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -34414,13 +34448,13 @@
         "evidence": [
           {
             "path": "components/forms/ColorPicker.jsx",
-            "sha256": "793fa4c479fe825a3aacf24cb0d2e0b2f10c93a4e12c49bc2c0d9e21e26390fc",
+            "sha256": "2f3026c39ed52d1ed71b668fec738f6d89ee3c5f4a66d2c1fc97882b3ddaccb6",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/ColorPicker.d.ts",
-            "sha256": "766af1fce12ff6abc8b935b5b61181f6591fc8b4979bd16a2a6259eb589b9c89",
+            "sha256": "862283061ba6975001d456c259d655396dbf24b3fe5fd12189e50296603fc85b",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -34448,6 +34482,10 @@
       },
       "signature": "(props: ColorPickerProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
+        {
+          "name": "aria-labelledby",
+          "definition": "p-83afadf74b772518"
+        },
         {
           "name": "className",
           "definition": "p-953074c883798082"
@@ -34481,8 +34519,8 @@
       "sourcePath": "components/forms/Combobox.jsx",
       "declarationPath": "components/forms/Combobox.d.ts",
       "promptPath": "components/forms/Combobox.prompt.md",
-      "sourceSha256": "388cb600740d2f0143b9002fb1ce88cb70841dbb061d39a0d4a47539de306c78",
-      "declarationSha256": "b05fad38fb9d3ce4e36a0a6f84a39dbc44b5315f3e854c2454f57b1d26e49777",
+      "sourceSha256": "bd7b2f08b58d9e2644e25b2f050c48ba7260161739184a4d0db55d289b6ef93f",
+      "declarationSha256": "c6582f70c44501f49f144845f83aeda2146719c8a39eeeb6826e033171002995",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -34500,13 +34538,13 @@
         "evidence": [
           {
             "path": "components/forms/Combobox.jsx",
-            "sha256": "388cb600740d2f0143b9002fb1ce88cb70841dbb061d39a0d4a47539de306c78",
+            "sha256": "bd7b2f08b58d9e2644e25b2f050c48ba7260161739184a4d0db55d289b6ef93f",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/Combobox.d.ts",
-            "sha256": "b05fad38fb9d3ce4e36a0a6f84a39dbc44b5315f3e854c2454f57b1d26e49777",
+            "sha256": "c6582f70c44501f49f144845f83aeda2146719c8a39eeeb6826e033171002995",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -34534,6 +34572,10 @@
       },
       "signature": "(props: ComboboxProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
+        {
+          "name": "aria-labelledby",
+          "definition": "p-8b130d765be83fc1"
+        },
         {
           "name": "className",
           "definition": "p-953074c883798082"
@@ -35159,8 +35201,8 @@
       "sourcePath": "components/forms/DatePicker.jsx",
       "declarationPath": "components/forms/DatePicker.d.ts",
       "promptPath": "components/forms/DatePicker.prompt.md",
-      "sourceSha256": "cdec2d2db8cfeddc253777db28edcb473387e626070bfe4869f231aad683108a",
-      "declarationSha256": "e5866d8501664d1cf241d8dc4ab43f7b5c4e1053329567a5f4de3b674ec5ac84",
+      "sourceSha256": "d81c7d0a5edea7eac25aa2e4f07829af69511e0baad03c7f7bcc00fe423848b1",
+      "declarationSha256": "57ac4623dc937bc9bb66e0f7a299854e8b850a666f6a2c7b475eee41745c070b",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -35178,13 +35220,13 @@
         "evidence": [
           {
             "path": "components/forms/DatePicker.jsx",
-            "sha256": "cdec2d2db8cfeddc253777db28edcb473387e626070bfe4869f231aad683108a",
+            "sha256": "d81c7d0a5edea7eac25aa2e4f07829af69511e0baad03c7f7bcc00fe423848b1",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/DatePicker.d.ts",
-            "sha256": "e5866d8501664d1cf241d8dc4ab43f7b5c4e1053329567a5f4de3b674ec5ac84",
+            "sha256": "57ac4623dc937bc9bb66e0f7a299854e8b850a666f6a2c7b475eee41745c070b",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -35212,6 +35254,10 @@
       },
       "signature": "(props: DatePickerProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
+        {
+          "name": "aria-labelledby",
+          "definition": "p-83afadf74b772518"
+        },
         {
           "name": "className",
           "definition": "p-953074c883798082"
@@ -83670,8 +83716,8 @@
       "sourcePath": "components/forms/TimePicker.jsx",
       "declarationPath": "components/forms/TimePicker.d.ts",
       "promptPath": "components/forms/TimePicker.prompt.md",
-      "sourceSha256": "b9368b62c891be213693a80ff0b995e1ee06aea4ac7bdda70557420b14dc6943",
-      "declarationSha256": "7e574b2cb3e80a88568dadae3e6b976fcb3a4cd7ce890ac03928eb466a16fb61",
+      "sourceSha256": "e7380c9d454a4a07f0a24b8126f81602e5d38ad4fdb344a3fdebc20d5d827c15",
+      "declarationSha256": "fc818d061ee25052c20450484043776fa949a478985f72ab0300b8d73f223db4",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -83689,13 +83735,13 @@
         "evidence": [
           {
             "path": "components/forms/TimePicker.jsx",
-            "sha256": "b9368b62c891be213693a80ff0b995e1ee06aea4ac7bdda70557420b14dc6943",
+            "sha256": "e7380c9d454a4a07f0a24b8126f81602e5d38ad4fdb344a3fdebc20d5d827c15",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/TimePicker.d.ts",
-            "sha256": "7e574b2cb3e80a88568dadae3e6b976fcb3a4cd7ce890ac03928eb466a16fb61",
+            "sha256": "fc818d061ee25052c20450484043776fa949a478985f72ab0300b8d73f223db4",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -83723,6 +83769,10 @@
       },
       "signature": "(props: TimePickerProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
+        {
+          "name": "aria-labelledby",
+          "definition": "p-5472b3ef0696ac88"
+        },
         {
           "name": "className",
           "definition": "p-953074c883798082"
@@ -86734,8 +86784,8 @@
       "sourcePath": "components/forms/TreeSelect.jsx",
       "declarationPath": "components/forms/TreeSelect.d.ts",
       "promptPath": "components/forms/TreeSelect.prompt.md",
-      "sourceSha256": "bb9d3b9968391169d973c8b36b031d4222c75669700656b4817bd1abdd916d26",
-      "declarationSha256": "ed2a37f69e09f2f5e1254310185e3a3c8293c080a8ac82a6194756a2a403f468",
+      "sourceSha256": "4e2f5fe3081774940bd184be1824730bb5b74f6ce6ed787181f1ab5afa487c4a",
+      "declarationSha256": "6ab89931242ca110c9ce6ba12e72709da040d0534c491e96fd84baa0d192f75e",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -86753,13 +86803,13 @@
         "evidence": [
           {
             "path": "components/forms/TreeSelect.jsx",
-            "sha256": "bb9d3b9968391169d973c8b36b031d4222c75669700656b4817bd1abdd916d26",
+            "sha256": "4e2f5fe3081774940bd184be1824730bb5b74f6ce6ed787181f1ab5afa487c4a",
             "scope": "Authoritative export implementation source",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
           {
             "path": "components/forms/TreeSelect.d.ts",
-            "sha256": "ed2a37f69e09f2f5e1254310185e3a3c8293c080a8ac82a6194756a2a403f468",
+            "sha256": "6ab89931242ca110c9ce6ba12e72709da040d0534c491e96fd84baa0d192f75e",
             "scope": "Public TypeScript declaration contract",
             "checkedAt": "2026-10-17T02:54:39.000Z"
           },
@@ -86787,6 +86837,10 @@
       },
       "signature": "(props: TreeSelectProps) => ReactElement<unknown, string | JSXElementConstructor<any>>",
       "props": [
+        {
+          "name": "aria-labelledby",
+          "definition": "p-1abd6791cded44fc"
+        },
         {
           "name": "className",
           "definition": "p-953074c883798082"

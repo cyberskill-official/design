@@ -8,6 +8,8 @@ export interface TreeSelectProps {
   /** Default from the registry ("Select…" / "Chọn…"). */
   placeholder?: string;
   label?: string;
+  /** External label element IDs for the trigger button and popup tree. */
+  "aria-labelledby"?: string;
   /** Disables the field and closes an open popup; reenabling does not reopen it. */
   disabled?: boolean;
   lang?: string;

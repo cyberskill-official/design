@@ -6,7 +6,7 @@ import { cx } from "../_utils/cx.js";
 const EMPTY_PATH = [];
 
 /** CyberSkill Cascader — column-per-level picker for hierarchies (province → district style). */
-export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder, label, disabled = false, lang, className }) {
+export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder, label, "aria-labelledby": ariaLabelledBy, disabled = false, lang, className }) {
   const [requestedOpen, setOpen] = React.useState(false);
   // Disable the mounted surface immediately and discard its previous open state.
   const open = requestedOpen && !disabled;
@@ -93,6 +93,7 @@ export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={label}
+        aria-labelledby={ariaLabelledBy}
         onClick={() => setOpen((o) => !o)}
         onKeyDown={(e) => {
           if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;
@@ -109,7 +110,7 @@ export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder
       {open ? (
         <div className="cs-cascader__pop">
           {cols.map((col, i) => (
-            <ul key={i} role="listbox" aria-labelledby={fieldId} className="cs-cascader__col">
+            <ul key={i} role="listbox" aria-labelledby={ariaLabelledBy || fieldId} className="cs-cascader__col">
               {col.map((n) => (
                 // role="none" — the <li> wrapper must not sit between listbox and option.
                 <li key={n.key} role="none">
