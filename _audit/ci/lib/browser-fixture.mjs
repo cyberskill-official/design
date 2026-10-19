@@ -29,7 +29,7 @@ export async function withBrowserFixture(run, { development = false, contextOpti
       if (path === '/react-development.js' && runtime) { res.setHeader('Content-Type', 'text/javascript'); res.end(runtime); return; }
       const file = resolve(root, '.' + path);
       if (!file.startsWith(root.replace(/\/$/, '') + sep)) { res.writeHead(403); res.end(); return; }
-      const type = { '.js':'text/javascript', '.mjs':'text/javascript', '.css':'text/css', '.html':'text/html', '.json':'application/json', '.woff2':'font/woff2' }[extname(file)] || 'application/octet-stream';
+      const type = { '.js':'text/javascript', '.mjs':'text/javascript', '.css':'text/css', '.html':'text/html', '.json':'application/json', '.woff2':'font/woff2', '.svg':'image/svg+xml', '.webp':'image/webp', '.png':'image/png' }[extname(file)] || 'application/octet-stream';
       res.setHeader('Content-Type', type);
       res.end(await readFile(file));
     } catch { res.writeHead(404); res.end(); }
@@ -42,7 +42,7 @@ export async function withBrowserFixture(run, { development = false, contextOpti
     const effectiveLaunchOptions = browserName === 'chromium' && process.platform === 'linux'
       ? { ...launchOptions, args: ['--disable-dev-shm-usage', ...(launchOptions.args || [])] }
       : launchOptions;
-    for (let attempt = 0; attempt < 2; attempt++) {
+    for (let attempt = 0; attempt < 3; attempt++) {
       const errors = [];
       try {
         browser = await engine.launch(effectiveLaunchOptions);
@@ -63,7 +63,7 @@ export async function withBrowserFixture(run, { development = false, contextOpti
         if (errors.length) throw new Error(`Uncaught browser errors: ${errors.join('\n')}`);
         break;
       } catch (error) {
-        if (attempt === 0 && /(?:Page|Target|Browser|Context) (?:crashed|closed)|Connection closed/i.test(String(error?.message || error))) {
+        if (attempt < 2 && /crashed|has been closed|(?:Page|Target|Browser|Context) closed|Connection closed/i.test(String(error?.message || error))) {
           await browser?.close().catch(() => {});
           browser = undefined;
           continue;
