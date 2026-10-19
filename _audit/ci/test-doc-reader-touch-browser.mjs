@@ -9,31 +9,30 @@ const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const title=p=>read(p).toString().match(/^# (.*)$/m)[1].replaceAll('`','');
 const headers=Object.fromEntries(JSON.parse(read('vercel.json')).headers.find(r=>r.source==='/(.*)').headers.map(({key,value})=>[key,value]));
 const report={scope:'Actual 46 EN/VI reader routes per coarse context; 320/390/1280px, light/dark, comfortable/compact in each engine. Every sidebar control, active navigation link, article link and full CyberSkill search-result set has 44px box/clipped floor and existing integer CSS 42px inset-disk ownership checks after scrolling. Native pointer/keyboard route activation, Tab/Option-Tab focus and intercepted native center event targeting are separate checks. No continuous/subpixel guard ownership, OS finger adjustment, external link correctness, arbitrary Markdown or AT/human acceptance.',sourceHashes:{'docs/viewer.html':sha(read('docs/viewer.html'))},rows:[],nativeCenters:0,routes:0};
-for(const browserName of process.env.CS_TEST_BROWSER?[process.env.CS_TEST_BROWSER]:['chromium','firefox','webkit']){
+await Promise.all((process.env.CS_TEST_BROWSER?[process.env.CS_TEST_BROWSER]:['chromium','firefox','webkit']).map(async browserName=>{
  await withBrowserFixture(async page=>{
+  const bRows=[];let bNativeCenters=0,bRoutes=0;
   const base=new URL(page.url()).origin;
   await page.route('**/docs/viewer.html*',async route=>{const response=await route.fetch();await route.fulfill({response,headers:{...response.headers(),...headers}})});
   const ready=()=>page.waitForFunction(()=>document.querySelector('#doc')?.dataset.state==='ready'&&document.querySelector('#err').hidden);
   const measure=async(selector,context)=>{
    const count=await page.locator(selector).count();
    for(let index=0;index<count;index++){
-    const target=page.locator(selector).nth(index);await target.scrollIntoViewIfNeeded();
+    const target=page.locator(selector).nth(index);
+    // Capture only event targeting; prevent document links from opening external
+    // destinations. Actual navigation behavior is exercised independently below.
     const result=await target.evaluate((target)=>{
      target.scrollIntoView({block:'center',inline:'center',behavior:'instant'});
      const region=csInspectCoarseHitRegion(target);
-     return {id:target.id,href:target.getAttribute('href'),text:target.textContent.slice(0,90),region};
-    });
-    const row={...context,selector,index,...result};report.rows.push(row);
-    assert.equal(result.region.pass,true,JSON.stringify(row));
-    // Capture only event targeting; prevent document links from opening external
-    // destinations. Actual navigation behavior is exercised independently below.
-    await target.evaluate(target=>{
      window.csTouchCenter=null;
      const observe=event=>{event.preventDefault();event.stopImmediatePropagation();window.csTouchCenter=target===event.target||target.contains(event.target);};
      document.addEventListener('click',observe,{capture:true,once:true});
+     return {id:target.id,href:target.getAttribute('href'),text:target.textContent.slice(0,90),region};
     });
+    const row={...context,selector,index,...result};bRows.push(row);
+    assert.equal(result.region.pass,true,JSON.stringify(row));
     await page.mouse.click(result.region.chosenCenter.x,result.region.chosenCenter.y);
-    assert.equal(await page.evaluate(()=>csTouchCenter),true,JSON.stringify(row));report.nativeCenters++;
+    assert.equal(await page.evaluate(()=>csTouchCenter),true,JSON.stringify(row));bNativeCenters++;
    }
   };
   await page.goto(base+'/docs/viewer.html?touch=1#touch-reset');await ready();
@@ -64,7 +63,7 @@ for(const browserName of process.env.CS_TEST_BROWSER?[process.env.CS_TEST_BROWSE
      await ready();assert.equal(await page.locator('#doc h1').innerText(),title(fetched));
      assert.equal(await page.locator('#doc').getAttribute('lang'),path.startsWith('docs/')?language:'en');
      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),true,'Reader must not cause document overflow');
-     await measure(`#navlinks a[data-p="${path}"],#doc a[href]`,{...context,state:'article',path,fetched});report.routes++;
+     await measure(`#navlinks a[data-p="${path}"],#doc a[href]`,{...context,state:'article',path,fetched});bRoutes++;
     }
     await page.locator('#docsearch').fill('CyberSkill');
     await page.waitForFunction(()=>document.querySelector('.searchres')?.textContent.includes('CyberSkill'));
@@ -74,6 +73,7 @@ for(const browserName of process.env.CS_TEST_BROWSER?[process.env.CS_TEST_BROWSE
     console.log(`Reader touch ${browserName}: ${width}px ${theme} ${density} ${language} complete`);
    }
   }
+  report.rows.push(...bRows);report.nativeCenters+=bNativeCenters;report.routes+=bRoutes;
  },{browserName,contextOptions:{viewport:{width:390,height:900},hasTouch:true,...(browserName==='firefox'?{}:{isMobile:true})}});
  // Fine-pointer controls preserve the pre-repair source dimensions. The new
  // rules are conditional; do not make desktop prose/navigation artificially tall.
@@ -86,7 +86,7 @@ for(const browserName of process.env.CS_TEST_BROWSER?[process.env.CS_TEST_BROWSE
   assert.equal(await page.locator('#doc a[href]').first().evaluate(el=>getComputedStyle(el).display),'inline');
  },{browserName});
  console.log(`PASS ${browserName} reader touch: 552 source-bound route activations; complete sidebar/article/search target geometry and clipped ownership, native center targeting, keyboard focus and unchanged fine-pointer control dimensions.`);
-}
+}));
 const output=process.argv.find(arg=>arg.startsWith('--evidence='))?.slice(11);
 if(output)writeFileSync(output,output.endsWith('.gz')?gzipSync(JSON.stringify(report)):JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({routes:report.routes,targets:report.rows.length,nativeCenters:report.nativeCenters,scope:report.scope}));

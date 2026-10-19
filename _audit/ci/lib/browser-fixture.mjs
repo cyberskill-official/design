@@ -39,25 +39,40 @@ export async function withBrowserFixture(run, { development = false, contextOpti
   try {
     const engine = {chromium, firefox, webkit}[browserName];
     if (!engine) throw new Error(`Unsupported browser fixture engine: ${browserName}`);
-    browser = await engine.launch(launchOptions);
-    const page = await browser.newPage(contextOptions);
-    const errors = [];
-    page.on('pageerror', error => errors.push(String(error)));
-    await page.goto(`http://127.0.0.1:${server.address().port}/`);
-    await page.evaluate(() => {
-      const name = Object.keys(window).find(k => /^CyberSkillDesignSystem_[a-f0-9]{6}$/.test(k));
-      if (!name || window[name].__errors.length) throw new Error('Component bundle failed to load');
-      window.CS = window[name];
-      window.fixtureRoot = ReactDOM.createRoot(document.getElementById('fixture'));
-      window.renderFixture = element => ReactDOM.flushSync(() => fixtureRoot.render(element));
-    });
-    try { await run(page); } catch (error) {
-      if (errors.length) error.message += `\nUncaught browser errors: ${errors.join("\n")}`;
-      throw error;
+    const effectiveLaunchOptions = browserName === 'chromium' && process.platform === 'linux'
+      ? { ...launchOptions, args: ['--disable-dev-shm-usage', ...(launchOptions.args || [])] }
+      : launchOptions;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const errors = [];
+      try {
+        browser = await engine.launch(effectiveLaunchOptions);
+        const page = await browser.newPage(contextOptions);
+        page.on('pageerror', error => errors.push(String(error)));
+        await page.goto(`http://127.0.0.1:${server.address().port}/`);
+        await page.evaluate(() => {
+          const name = Object.keys(window).find(k => /^CyberSkillDesignSystem_[a-f0-9]{6}$/.test(k));
+          if (!name || window[name].__errors.length) throw new Error('Component bundle failed to load');
+          window.CS = window[name];
+          window.fixtureRoot = ReactDOM.createRoot(document.getElementById('fixture'));
+          window.renderFixture = element => ReactDOM.flushSync(() => fixtureRoot.render(element));
+        });
+        try { await run(page); } catch (error) {
+          if (errors.length) error.message += `\nUncaught browser errors: ${errors.join("\n")}`;
+          throw error;
+        }
+        if (errors.length) throw new Error(`Uncaught browser errors: ${errors.join('\n')}`);
+        break;
+      } catch (error) {
+        if (attempt === 0 && /(?:Page|Target|Browser|Context) (?:crashed|closed)|Connection closed/i.test(String(error?.message || error))) {
+          await browser?.close().catch(() => {});
+          browser = undefined;
+          continue;
+        }
+        throw error;
+      }
     }
-    if (errors.length) throw new Error(`Uncaught browser errors: ${errors.join('\n')}`);
   } finally {
-    await browser?.close();
+    await browser?.close().catch(() => {});
     await new Promise(resolve => server.close(resolve));
   }
 }
