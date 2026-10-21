@@ -18,16 +18,16 @@ export const focusableSelector = [
 ].join(",");
 
 function visibleFocusables(roots) {
-  return [...new Set(roots.flatMap((root) => [...root.querySelectorAll(focusableSelector)]))].filter((el) =>
-    el.tabIndex >= 0 && !el.disabled && !el.closest('[inert], [hidden], [aria-hidden="true"]') &&
+  return [...new Set(roots.flatMap((root) => [...(root.matches?.(focusableSelector) ? [root] : []), ...root.querySelectorAll(focusableSelector)]))].filter((el) =>
+    el.tabIndex >= 0 && !el.disabled && !el.matches(":disabled") && !el.closest('[inert], [hidden], [aria-hidden="true"]') &&
     el.getClientRects().length > 0 && getComputedStyle(el).visibility !== "hidden");
 }
 
 /** Tab wrapping and focus containment for an active modal and its registered portals. */
-export function attachFocusTrap(panelEl, { handleEscape = false, onEscape, isActive = () => true, scopeElements = () => [panelEl] } = {}) {
+export function attachFocusTrap(panelEl, { handleEscape = false, onEscape, isActive = () => true, scopeElements = () => [panelEl], focusOrder } = {}) {
   if (!panelEl) return () => {};
   const inside = (el) => scopeElements().some((root) => root?.contains(el));
-  const focusables = () => visibleFocusables(scopeElements());
+  const focusables = (backwards = false) => focusOrder ? focusOrder(backwards) : visibleFocusables(scopeElements());
   const focusFirst = () => (focusables()[0] || panelEl).focus();
   const onFocus = (e) => { if (isActive() && !inside(e.target)) focusFirst(); };
   const k = (e) => {
@@ -38,7 +38,7 @@ export function attachFocusTrap(panelEl, { handleEscape = false, onEscape, isAct
       return;
     }
     if (e.key !== "Tab") return;
-    const f = focusables();
+    const f = focusables(e.shiftKey);
     if (!f.length) { e.preventDefault(); panelEl.focus(); return; }
     const active = document.activeElement;
     // Own intermediate movement too: WebKit can leave focus on body when
@@ -58,6 +58,7 @@ export function attachFocusTrap(panelEl, { handleEscape = false, onEscape, isAct
 function createOverlayManager() {
   const layers = [];
   let prevOverflow = "";
+  let prevOverflowPriority = "";
   let locked = false;
   let escapeBound = false;
   const inertBefore = new Map();
@@ -87,10 +88,11 @@ function createOverlayManager() {
     const need = layers.some((l) => l.kind === "modal" && l.lockScroll !== false);
     if (need && !locked) {
       prevOverflow = document.body.style.overflow;
+      prevOverflowPriority = document.body.style.getPropertyPriority("overflow");
       document.body.style.overflow = "hidden";
       locked = true;
     } else if (!need && locked) {
-      document.body.style.overflow = prevOverflow;
+      document.body.style.setProperty("overflow", prevOverflow, prevOverflowPriority);
       locked = false;
     }
   };
@@ -113,6 +115,15 @@ function createOverlayManager() {
         }
       }
     }
+    // Preserve logical trigger-before-panel order when an owned trigger itself
+    // lives in a consumer portal and the floating panel uses a separate host.
+    const belowScope = (ancestor, descendant, visited = new Set()) => {
+      if (!ancestor || !descendant || ancestor === descendant || visited.has(descendant)) return false;
+      if (ancestor.contains(descendant)) return true;
+      visited.add(descendant);
+      return [...ownedScopes].some(scope => scope.panelEl === descendant && (ancestor.contains(scope.parentEl) || belowScope(ancestor, scope.parentEl, new Set(visited))));
+    };
+    roots.sort((a, b) => belowScope(a, b) ? -1 : belowScope(b, a) ? 1 : 0);
     return roots;
   };
   const applyInert = () => {
@@ -168,7 +179,8 @@ function createOverlayManager() {
     },
     register(layer) {
       ensureEscape();
-      const id = layer.id || `cs-ov-${++seq}`;
+      let id = layer.id;
+      if (!id) do { id = `cs-ov-${++seq}`; } while (layers.some(entry => entry.id === id));
       const entry = { ...layer, id, seq: ++seq };
       layers.push(entry);
       resort();
@@ -176,9 +188,9 @@ function createOverlayManager() {
       applyInert();
       return () => {
         resort();
-        const i = layers.findIndex((l) => l.id === id);
+        const i = layers.indexOf(entry);
         // Toasts neither own dismissal nor suppress returning focus from it.
-        const wasTop = [...layers].reverse().find((layer) => layer.kind !== "toast")?.id === id;
+        const wasTop = [...layers].reverse().find((layer) => layer.kind !== "toast") === entry;
         if (i >= 0) layers.splice(i, 1);
         applyScroll();
         applyInert();
@@ -205,6 +217,39 @@ function createOverlayManager() {
       resort();
       return [...layers].reverse().find((layer) => layer.kind !== "toast") || null;
     },
+    /** Portal descendants are logically inside their registered ancestor surface. */
+    containsOwned(panelEl, target) {
+      if (!panelEl || !target) return false;
+      const roots = [...new Set([panelEl, ...layers.filter(layer => isBelow({ panelEl }, layer)).map(layer => layer.panelEl)].filter(Boolean))];
+      let added = true;
+      while (added) {
+        added = false;
+        for (const scope of ownedScopes) if (scope.panelEl?.isConnected && !roots.includes(scope.panelEl) && roots.some(root => root.contains(scope.parentEl))) { roots.push(scope.panelEl); added = true; }
+      }
+      return roots.some(root => root.contains(target));
+    },
+    /** Native sequential order with registered portal contents at their logical anchor. */
+    focusOrder({ backwards = false, roots, logical = true } = {}) {
+      const containerRoots = roots || (activeModal() ? focusScope() : [document.body]);
+      let controls = visibleFocusables(containerRoots);
+      for (const scope of logical ? ownedScopes : []) {
+        const anchor = scope.anchorEl;
+        if (!anchor || !scope.panelEl?.isConnected) continue;
+        const anchors = controls.filter(el => el === anchor || anchor.contains(el));
+        if (!anchors.length) continue;
+        const moving = controls.filter(el => !anchors.includes(el) && this.containsOwned(scope.panelEl, el));
+        if (!moving.length) continue;
+        controls = controls.filter(el => !moving.includes(el));
+        const index = scope.tabOrder === "before" ? controls.indexOf(anchors[0]) : controls.indexOf(anchors[anchors.length - 1]) + 1;
+        controls.splice(index, 0, ...moving);
+      }
+      controls.sort((a, b) => (a.tabIndex > 0 ? a.tabIndex : Infinity) - (b.tabIndex > 0 ? b.tabIndex : Infinity));
+      return controls.filter(el => {
+        if (el.tagName !== "INPUT" || el.type !== "radio" || !el.name) return true;
+        const group = controls.filter(other => other.tagName === "INPUT" && other.type === "radio" && other.name === el.name && other.form === el.form && other.getRootNode() === el.getRootNode());
+        return el === (group.find(radio => radio.checked) || (backwards ? group[group.length - 1] : group[0]));
+      });
+    },
     activeModal,
     focusScope,
     get scrollLocked() {
@@ -216,25 +261,81 @@ function createOverlayManager() {
   };
 }
 
-const defaultManager = createOverlayManager();
-const OverlayContext = React.createContext(null);
-/** Internal React ownership crosses portals; lowercase export stays out of the browser API. */
-export const overlayScopeContext = React.createContext(null);
+// One document owns one compatible stack, even when the source was compiled
+// independently by separate consumers. A different private protocol fails closed.
+const registryKey = Symbol.for("@cyberskill/design/overlay-manager");
+const registryProtocol = "cyberskill.overlay-manager/1";
+const serverManager = createOverlayManager();
+const serverContexts = { manager: React.createContext(null), scope: React.createContext(null) };
 
-/** Return the active manager (context or module singleton). */
+function documentRegistry() {
+  if (typeof document === "undefined") return null;
+  const descriptor = Object.getOwnPropertyDescriptor(document, registryKey);
+  if (descriptor) {
+    if (!("value" in descriptor)) throw new Error("Incompatible CyberSkill overlay registry: accessor records are unsupported");
+    const record = descriptor.value;
+    const value = (name) => Object.getOwnPropertyDescriptor(record || {}, name)?.value;
+    const manager = value("manager"), contexts = value("contexts");
+    const methods = ["register", "registerScope", "top", "topDismissible", "activeModal", "focusScope", "containsOwned", "focusOrder"];
+    if (value("protocol") !== registryProtocol || !manager || methods.some(name => typeof manager[name] !== "function") ||
+      !(contexts instanceof WeakMap) || typeof value("nextProviderId") !== "function" ||
+      !Number.isSafeInteger(manager.depth) || manager.depth < 0 || typeof manager.scrollLocked !== "boolean") {
+      throw new Error("Incompatible CyberSkill overlay registry: expected " + registryProtocol + "; align compiled runtime copies before mounting overlays");
+    }
+    return record;
+  }
+  let providerSequence = 0;
+  const record = Object.freeze({ protocol: registryProtocol, manager: createOverlayManager(), contexts: new WeakMap(),
+    nextProviderId: () => {
+      let id;
+      do { id = "cs-overlay-root-" + (++providerSequence); } while (document.getElementById(id));
+      return id;
+    } });
+  Object.defineProperty(document, registryKey, { value: record, configurable: false, writable: false });
+  return record;
+}
+
+function sharedContexts() {
+  const registry = documentRegistry();
+  if (!registry) return serverContexts;
+  // Context identity is shared only for the same React peer instance. Different
+  // React renderers may coordinate a document stack, not mix their hook trees.
+  let contexts = registry.contexts.get(React);
+  if (!contexts) {
+    contexts = { manager: React.createContext(null), scope: React.createContext(null) };
+    registry.contexts.set(React, contexts);
+  }
+  if (!contexts.manager?.Provider || !contexts.scope?.Provider) throw new Error("Incompatible CyberSkill overlay registry: invalid React ownership contexts");
+  return contexts;
+}
+
+const contexts = sharedContexts();
+const OverlayContext = contexts.manager;
+/** Internal React ownership crosses compatible bundles and portals. */
+export const overlayScopeContext = contexts.scope;
+
+/** Return the current document manager; SSR receives an inert module fallback. */
 export function getOverlayManager() {
-  return defaultManager;
+  return documentRegistry()?.manager || serverManager;
 }
 
 /**
- * Optional provider — mounts `#cs-overlay-root` for portals and supplies a
+ * Optional provider — mounts a uniquely identified `[data-cs-overlay-root]` for portals and supplies a
  * shared document manager. Providers share ordering, Escape and scroll ownership.
  */
 export function OverlayProvider({ children }) {
-  const api = defaultManager;
+  const marker = React.useRef(null);
+  const api = getOverlayManager();
+  useClientLayoutEffect(() => {
+    const element = marker.current;
+    if (!element) return;
+    const id = documentRegistry().nextProviderId();
+    element.id = id;
+    return () => { if (element.id === id) element.removeAttribute("id"); };
+  }, []);
   return (
     <OverlayContext.Provider value={api}>
-      <div id="cs-overlay-root" data-cs-overlay-root="" />
+      <div ref={marker} data-cs-overlay-root="" />
       {children}
     </OverlayContext.Provider>
   );
@@ -254,10 +355,11 @@ export function useOverlayLayer({
   backdropRef,
   preferFocusSelector,
   restoreFocus = true,
+  surfaceKey,
 }) {
   const ctx = React.useContext(OverlayContext);
   const parentScope = React.useContext(overlayScopeContext);
-  const mgr = ctx || defaultManager;
+  const mgr = ctx || getOverlayManager();
   const escapeRef = React.useRef(onEscape);
   escapeRef.current = onEscape;
 
@@ -302,13 +404,13 @@ export function useOverlayLayer({
     }
 
     if (trapFocus && panel) {
-      detachTrap = attachFocusTrap(panel, { isActive: () => mgr.activeModal()?.panelEl === panel, scopeElements: () => mgr.focusScope() });
+      detachTrap = attachFocusTrap(panel, { isActive: () => mgr.activeModal()?.panelEl === panel, scopeElements: () => mgr.focusScope(), focusOrder: backwards => mgr.focusOrder({ backwards }) });
     }
     return () => {
       detachTrap();
       unregister();
     };
-  }, [open, kind, trapFocus, lockScroll, mgr, panelRef, backdropRef, parentScope, preferFocusSelector, restoreFocus]);
+  }, [open, kind, trapFocus, lockScroll, mgr, panelRef, backdropRef, parentScope, preferFocusSelector, restoreFocus, surfaceKey]);
 
   return { manager: mgr, scope: open && panelRef ? panelRef : parentScope };
 }

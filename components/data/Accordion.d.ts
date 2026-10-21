@@ -1,3 +1,4 @@
+import type { RootTargetProps } from "../_utils/target-props";
 import type * as React from "react";
 import type { ReactNode } from "react";
 
@@ -8,9 +9,11 @@ export interface AccordionEntry { title: ReactNode; content: ReactNode; }
  *  Changing allowMultiple preserves the first opened section; returning to
  *  single mode discards any other open sections. */
 export interface AccordionProps {
+  /** Attributes for the existing div root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: RootTargetProps<HTMLDivElement>;
   items: AccordionEntry[];
   defaultOpen?: number;
   allowMultiple?: boolean;
   className?: string;
 }
-export function Accordion(props: AccordionProps): React.ReactElement;
+export const Accordion: React.ForwardRefExoticComponent<React.PropsWithoutRef<AccordionProps> & React.RefAttributes<HTMLDivElement>>;

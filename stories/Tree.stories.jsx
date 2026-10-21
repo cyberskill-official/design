@@ -7,18 +7,11 @@ export default {
   component: Tree,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     nodes: { control: 'object' },
     selected: { control: 'text' },
     onSelect: { control: false },
     defaultOpen: { control: 'boolean' },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting Tree. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
   },
   args: { nodes: NODES, defaultOpen: true, "aria-label": "Design system navigation" },
 };

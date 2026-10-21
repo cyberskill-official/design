@@ -6,7 +6,7 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   label?: ReactNode;
   children?: ReactNode;
 }
-export function Sidebar(props: SidebarProps): React.ReactElement;
+export const Sidebar: React.ForwardRefExoticComponent<React.PropsWithoutRef<SidebarProps> & React.RefAttributes<HTMLElement>>;
 
 /** A sidebar row. Renders <a> when href is set, otherwise <button>. `active`
  *  applies the ochre-tint current state. */
@@ -18,4 +18,4 @@ export interface NavItemProps extends React.HTMLAttributes<HTMLElement> {
   onClick?: () => void;
   children?: ReactNode;
 }
-export function NavItem(props: NavItemProps): React.ReactElement;
+export const NavItem: React.ForwardRefExoticComponent<React.PropsWithoutRef<NavItemProps> & React.RefAttributes<HTMLButtonElement | HTMLAnchorElement>>;

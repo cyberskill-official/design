@@ -4,7 +4,9 @@ export default {
   title: 'Components/Data/Watermark',
   component: Watermark,
   tags: ['autodocs'],
+  args: { className: '' },
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "text": {
     "control": "text"
   },
@@ -18,16 +20,9 @@ export default {
     "control": "number"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Watermark. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
 };
 
-export const Default = { render: () => (<Watermark text="CyberSkill"><div style={{ minHeight: 120, padding: 24 }}>Content under watermark</div></Watermark>) };
+export const Default = { render: (args) => (<Watermark text="CyberSkill" {...args}><div style={{ minHeight: 120, padding: 24 }}>Content under watermark</div></Watermark>) };
 
 export const Matrix = {
   name: 'Matrix / Text',

@@ -1,6 +1,8 @@
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
+import { fieldAssociationContext, associateFieldProps, mergeTargetProps } from "../_utils/field-association.js";
 
 // Lazy context — bundle evaluates modules before React is loaded on some gate pages.
 let FormCtx;
@@ -88,9 +90,10 @@ function useFormController(seed) {
  * context — value/onChange auto-wired, per-field errors auto-shown, submit blocked until clean.
  * Dotted names (e.g. teammates.0.name) work with FormFieldArray.
  */
-export function Form({ onSubmit, onReset, errors = {}, rules, asyncRules, initialValues, children, lang, className, ...props }) {
-  const [ref, L] = useLang(lang);
-  const t = makeT("Form", L);
+export const Form = React.forwardRef(function Form({ onSubmit, onReset, errors = {}, rules, asyncRules, initialValues, children, lang, className, ...props }, forwardedRef) {
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("Form", L, localeMessages);
   const initialSeed = React.useRef(initialValues || {});
   const { values, ruleErrors, setValues, setRuleErrors, updateArray } = useFormController(initialSeed.current);
   const [pending, setPending] = React.useState(false);
@@ -139,7 +142,7 @@ export function Form({ onSubmit, onReset, errors = {}, rules, asyncRules, initia
   const Ctx = getFormCtx();
   return (
     <Ctx.Provider value={ctx}>
-      <form {...props} ref={ref} className={cx("cs-form", pending && "is-pending", className)} noValidate
+      <form {...props} ref={mergedNativeRef} className={cx("cs-form", pending && "is-pending", className)} noValidate
         aria-busy={pending || undefined}
         onReset={(event) => {
           onReset?.(event);
@@ -189,7 +192,8 @@ export function Form({ onSubmit, onReset, errors = {}, rules, asyncRules, initia
       </form>
     </Ctx.Provider>
   );
-}
+});
+Form.displayName = "Form";
 
 /**
  * CyberSkill FormField — label + control + hint/error line. With `name` inside a Form,
@@ -197,16 +201,20 @@ export function Form({ onSubmit, onReset, errors = {}, rules, asyncRules, initia
  * (set valueProp="checked" for Checkbox/Switch, "pressed" for Toggle) and the field's
  * context error shows automatically (an explicit `error` prop still wins).
  */
-export function FormField({ label, name, required = false, hint, error, valueProp = "value", children, lang, className }) {
-  const [ref, L] = useLang(lang);
-  const t = makeT("Form", L);
+export const FormField = React.forwardRef(function FormField({ label, name, required = false, hint, error, valueProp = "value", children, lang, className, rootProps }, forwardedRef) {
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("Form", L, localeMessages);
   const autoId = React.useId();
   const ctx = React.useContext(getFormCtx());
   const err = error !== undefined && error !== null ? error : (name && ctx ? ctx.errors[name] : undefined);
   const hasError = Boolean(err) || err === 0;
   const singleElement = React.isValidElement(children) && React.Children.count(children) === 1;
   const isNativeControl = singleElement && typeof children.type === "string" && /^(input|select|textarea)$/i.test(children.type);
-  const controlId = isNativeControl ? (children.props.id ?? autoId) : undefined;
+  const controlId = singleElement ? (children.props.controlProps?.id ?? children.props.id ?? autoId) : autoId;
+  const hasLabel = typeof label === "string" ? label.trim().length > 0 : Boolean(label) || label === 0;
+  const field = { controlId, labelId: hasLabel ? autoId + "-field-label" : undefined, descriptionId: !hasError && (hint || hint === 0) ? autoId + "-field-hint" : undefined, errorId: hasError ? autoId + "-field-error" : undefined, invalid: hasError, required };
+  const Association = fieldAssociationContext();
   let child = children;
   if (singleElement) {
     const wire = {};
@@ -221,23 +229,25 @@ export function FormField({ label, name, required = false, hint, error, valuePro
         if (children.props.onChange) children.props.onChange(ev);
       };
     }
+    if (isNativeControl) Object.assign(wire, associateFieldProps({ ...children.props, ...wire }, field, { nativeRequired: true }));
     if (Object.keys(wire).length) child = React.cloneElement(children, wire);
   }
-  const LabelTag = controlId ? "label" : "span";
+  const LabelTag = isNativeControl ? "label" : "span";
   return (
-    <div ref={ref} className={cx("cs-formfield", hasError && "has-error", className)}>
-      <LabelTag className="cs-formfield__label" htmlFor={controlId}>{label}{required ? <em aria-label={t("required")}> *</em> : null}</LabelTag>
-      {child}
-      {hasError ? <span className="cs-formfield__error" role="alert">{err}</span> : (hint || hint === 0) ? <span className="cs-formfield__hint">{hint}</span> : null}
+    <div {...mergeTargetProps({ className: cx("cs-formfield", hasError && "has-error", className) }, rootProps)} ref={mergedNativeRef} >
+      <LabelTag id={field.labelId} className="cs-formfield__label" htmlFor={isNativeControl ? controlId : undefined}>{label}{required ? <> <em aria-label={t("required")}>*</em></> : null}</LabelTag>
+      <Association.Provider value={field}>{typeof children === "function" ? children(associateFieldProps({}, field)) : child}</Association.Provider>
+      {hasError ? <span id={field.errorId} className="cs-formfield__error" role="alert">{err}</span> : (hint || hint === 0) ? <span id={field.descriptionId} className="cs-formfield__hint">{hint}</span> : null}
     </div>
   );
-}
+});
+FormField.displayName = "FormField";
 
 /**
  * FormFieldArray — manage an array of row objects under `name` in the surrounding Form.
  * children: ({ index, item, remove, path }) => ReactNode
  */
-export function FormFieldArray({
+export const FormFieldArray = React.forwardRef(function FormFieldArray({
   name,
   children,
   label,
@@ -246,13 +256,15 @@ export function FormFieldArray({
   addLabel,
   defaultItem,
   className,
+  rootProps,
   lang,
-}) {
-  const [ref, L] = useLang(lang);
-  const t = makeT("Form", L);
+}, forwardedRef) {
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("Form", L, localeMessages);
   const ctx = React.useContext(getFormCtx());
   if (!ctx) {
-    return <div ref={ref} className="cs-formfield__error" role="alert">{t("arrayContext")}</div>;
+    return <div ref={mergedNativeRef} className="cs-formfield__error" role="alert">{t("arrayContext")}</div>;
   }
   const list = Array.isArray(getPath(ctx.values, name)) ? getPath(ctx.values, name) : [];
   const blank = () => (defaultItem != null ? (typeof defaultItem === "function" ? defaultItem() : { ...defaultItem }) : {});
@@ -280,7 +292,7 @@ export function FormFieldArray({
     });
   };
   return (
-    <div ref={ref} className={cx("cs-form-array", className)} data-name={name}>
+    <div {...mergeTargetProps({ className: cx("cs-form-array", className), "data-name": name }, rootProps, ["data-name"])} ref={mergedNativeRef} >
       {(label || label === 0) ? <div className="cs-formfield__label" style={{ marginBottom: 8 }}>{label}</div> : null}
       <div className="cs-form-array__rows">
         {list.map((item, index) => (
@@ -307,24 +319,27 @@ export function FormFieldArray({
       </button>
     </div>
   );
-}
+});
+FormFieldArray.displayName = "FormFieldArray";
 
 /**
  * FormWizard — multi-step controller wrapping Form context without a nested <form>.
  * Each step may declare `rules` and a `render()` body of FormFields.
  */
-export function FormWizard({
+export const FormWizard = React.forwardRef(function FormWizard({
   steps = [],
   initialValues,
   onComplete,
   lang,
   className,
+  rootProps,
   nextLabel,
   backLabel,
   finishLabel,
-}) {
-  const [ref, L] = useLang(lang);
-  const t = makeT("Form", L);
+}, forwardedRef) {
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("Form", L, localeMessages);
   const [step, setStep] = React.useState(0);
   const { values, ruleErrors, setValues, setRuleErrors, updateArray } = useFormController(initialValues);
   const [pending, setPending] = React.useState(false);
@@ -376,15 +391,15 @@ export function FormWizard({
   const Ctx = getFormCtx();
   return (
     <Ctx.Provider value={ctx}>
-      <div ref={ref} className={cx("cs-form-wizard", className)} data-step={step} aria-busy={pending || undefined}>
+      <div {...mergeTargetProps({ className: cx("cs-form-wizard", className), "data-step": step, "aria-busy": pending || undefined }, rootProps, ["data-step", "aria-busy"])} ref={mergedNativeRef} >
         <ol className="cs-form-wizard__steps" style={{ display: "flex", gap: 10, listStyle: "none", padding: 0, margin: "0 0 16px", flexWrap: "wrap" }}>
           {steps.map((s, i) => (
-            <li key={s.id || i} style={{
+            <li key={s.id || i} aria-current={i === step ? "step" : undefined} style={{
               font: "700 11px/1 var(--cs-font-family-ui)",
+              fontWeight: i === step ? 700 : 500,
               textTransform: "uppercase",
               letterSpacing: ".06em",
-              color: i === step ? "var(--cs-color-brand-umber)" : "var(--cs-color-text-primary)",
-              opacity: i === step ? 1 : 0.55,
+              color: i === step ? "var(--cs-color-text-primary)" : "var(--cs-color-text-secondary)",
             }}>
               {i + 1}. {s.title || s.id || `${t("step")} ${i + 1}`}
             </li>
@@ -414,4 +429,5 @@ export function FormWizard({
       </div>
     </Ctx.Provider>
   );
-}
+});
+FormWizard.displayName = "FormWizard";

@@ -16,13 +16,13 @@
   #stage{position:fixed;left:-6000px;top:0}
 </style></head><body>
 <h1>Component behavior smoke test</h1>
-<p class="lede">Beyond mount (<code>component-children-test</code>): <b>83</b> real interaction assertions covering every interactive public primary with a user-driven contract — toggles, overlays, Form rules, Tree/pickers, menus, form fields, AI gates (PromptInput/Suggestions/HumanReviewGate/AIDisclosureBadge), shell chrome (NavigationMenu/NavItem/Dock/Toolbar/FAB/BackTop/Anchor), media (Image preview, CodeBlock copy, Editor, Terminal), and dismissible Tag. Display-only primaries (Alert, Steps, DataTable, ScrollArea, …) stay out by design. Loads <code>_ds_bundle.js</code> (regenerated at end of turn), so re-run on a <b>fresh</b> turn after editing component sources. <code>window.__behavior.pass</code> must be true. Hardened: React/bundle preflight, per-test + suite watchdogs — the gate always publishes a verdict naming the stalled test instead of hanging (progress on <code>window.__behaviorProgress</code>).</p>
+<p class="lede">Beyond mount (<code>component-children-test</code>): <b>87</b> real interaction assertions covering every interactive public primary with a user-driven contract — toggles, overlays, Form rules, Tree/pickers, menus, form fields, AI gates (PromptInput/Suggestions/HumanReviewGate/AIDisclosureBadge), shell chrome (NavigationMenu/NavItem/Dock/Toolbar/FAB/BackTop/Anchor), media (Image preview, CodeBlock copy, Editor, Terminal), and dismissible Tag. Display-only primaries (Steps, DataTable, ScrollArea, …) stay out by design. Loads <code>_ds_bundle.js</code> (regenerated at end of turn), so re-run on a <b>fresh</b> turn after editing component sources. <code>window.__behavior.pass</code> must be true. Hardened: React/bundle preflight, per-test + suite watchdogs — the gate always publishes a verdict naming the stalled test instead of hanging (progress on <code>window.__behaviorProgress</code>).</p>
 <div id="list"></div>
 <div id="sum">running…</div>
 <div id="stage"></div>
 <script>
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
-const P=window.__behaviorProgress={done:0,total:83,current:'boot'};
+const P=window.__behaviorProgress={done:0,total:87,current:'boot'};
 function publish(v){ if(window.__behavior) return; window.__behavior=v; const s=document.getElementById('sum'); s.textContent=v.pass?('\u2713 all '+v.total+' behavior checks pass'):('\u2717 '+(v.error?v.error:(v.failed.length+'/'+v.total+' failed: '+v.failed.join(', ')))); s.style.color=v.pass?'#166534':'#B42318'; }
 const h=(typeof React!=='undefined')?React.createElement:null;
 const NS=window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
@@ -172,22 +172,22 @@ async function run(){
   await test('Menu — trigger opens list, Esc closes',async()=>{
     assert(Menu&&MenuItem,'Menu export missing');
     const c=mount(h(Menu,{trigger:h('button',{className:'mt'},'Open')},h(MenuItem,{},'A'),h(MenuItem,{},'B'))); await wait(80);
-    assert(!c.querySelector('[role="menu"]'),'menu should start closed');
+    assert(!document.querySelector('[role="menu"]'),'menu should start closed');
     c.querySelector('.mt').click();
-    assert(await until(()=>c.querySelector('[role="menu"]')),'menu should open on trigger click');
+    assert(await until(()=>document.querySelector('[role="menu"]')),'menu should open on trigger click');
     document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}));
-    assert(await until(()=>!c.querySelector('[role="menu"]')),'Escape should close menu');
+    assert(await until(()=>!document.querySelector('[role="menu"]')),'Escape should close menu');
     return 'open→Esc close OK';
   });
 
   await test('Popover — trigger opens panel, Esc closes',async()=>{
     assert(Popover,'Popover export missing');
     const c=mount(h(Popover,{'aria-label':'panel',trigger:h('button',{className:'pt'},'Open')},h('div',{},'panel'))); await wait(80);
-    assert(!c.querySelector('.cs-popover__panel'),'popover closed initially');
+    assert(!document.querySelector('.cs-popover__panel'),'popover closed initially');
     c.querySelector('.pt').click();
-    assert(await until(()=>c.querySelector('.cs-popover__panel')),'popover opens on click');
+    assert(await until(()=>document.querySelector('.cs-popover__panel')),'popover opens on click');
     document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}));
-    assert(await until(()=>!c.querySelector('.cs-popover__panel')),'Escape closes popover');
+    assert(await until(()=>!document.querySelector('.cs-popover__panel')),'Escape closes popover');
     return 'open→Esc close OK';
   });
 
@@ -223,11 +223,12 @@ async function run(){
 
   await test('SegmentedControl — click moves selection',async()=>{
     assert(SegmentedControl,'SegmentedControl export missing');
-    function SH(){const[v,setV]=React.useState('a');return h(SegmentedControl,{value:v,onChange:setV,options:[{value:'a',label:'A'},{value:'b',label:'B'},{value:'c',label:'C'}]});}
+    function SH(){const[v,setV]=React.useState('a');return h(SegmentedControl,{'aria-label':'Pick one',value:v,onChange:setV,options:[{value:'a',label:'A'},{value:'b',label:'B'},{value:'c',label:'C'}]});}
     const c=mount(h(SH)); await wait(80);
-    const btns=c.querySelectorAll('[role="tab"]'); assert(btns[0].getAttribute('aria-selected')==='true','A selected initially');
+    assert(c.querySelector('[role="radiogroup"]'),'default value picker is a radiogroup');
+    const btns=c.querySelectorAll('[role="radio"]'); assert(btns[0].getAttribute('aria-checked')==='true','A selected initially');
     btns[2].click(); await wait(60);
-    assert(btns[2].getAttribute('aria-selected')==='true'&&btns[0].getAttribute('aria-selected')==='false','C selected after click');
+    assert(btns[2].getAttribute('aria-checked')==='true'&&btns[0].getAttribute('aria-checked')==='false','C selected after click');
     return 'A→C';
   });
 
@@ -242,15 +243,29 @@ async function run(){
     r[3].click(); await wait(50); assert(r[3].getAttribute('aria-checked')==='true'&&r[4].getAttribute('aria-checked')==='false','4 checked'); return '0→4';
   });
   await test('InputOTP — digit fills box',async()=>{
-    assert(InputOTP,'missing'); const c=mount(h(InputOTP,{length:4})); await wait(70);
-    const ins=c.querySelectorAll('.cs-otp input'); setInput(ins[0],'7'); await wait(60);
-    assert(c.querySelectorAll('.cs-otp input')[0].value==='7','box0=7'); return 'typed 7';
+    assert(InputOTP,'missing');
+    function CodeDemo(){
+      const [code,setCode]=React.useState('');
+      return h('div',null,h(InputOTP,{length:4,value:code,onChange:setCode,label:'Code',lang:'en'}),h('output',{'data-code-status':''},code||'empty'));
+    }
+    const c=mount(h(CodeDemo)); await wait(70);
+    const ins=c.querySelectorAll('.cs-otp input'); ins[0].focus();
+    const clipboard=new DataTransfer(); clipboard.setData('text','7');
+    // Firefox does not retain constructor-provided synthetic clipboard data.
+    // Attach the same real DataTransfer explicitly; no input value is assigned.
+    const paste=new Event('paste',{bubbles:true,cancelable:true});
+    Object.defineProperty(paste,'clipboardData',{value:clipboard});
+    ins[0].dispatchEvent(paste);
+    assert(await until(()=>c.querySelector('[data-code-status]').textContent==='7'),'paste updates controlled application value');
+    assert(c.querySelectorAll('.cs-otp input')[0].value==='7','controlled rerender fills first box');
+    assert(document.activeElement===ins[1],'paste advances focus to second box');
+    return 'pasted 7 → controlled value and focus';
   });
   await test('Combobox — filter narrows + pick selects',async()=>{
     assert(Combobox,'missing'); let got=null;
     const c=mount(h(Combobox,{options:[{value:'a',label:'Alpha'},{value:'b',label:'Beta'}],onChange:(v)=>{got=v;}})); await wait(70);
     const inp=c.querySelector('input'); setInput(inp,'Be'); await wait(70);
-    const opts=c.querySelectorAll('.cs-combobox__opt'); assert(opts.length===1,'filtered to 1, got '+opts.length);
+    const opts=document.querySelectorAll('.cs-combobox__opt'); assert(opts.length===1,'filtered to 1, got '+opts.length);
     opts[0].dispatchEvent(new MouseEvent('mousedown',{bubbles:true})); await wait(50);
     assert(got==='b','picked b'); return 'Be→Beta';
   });
@@ -274,9 +289,9 @@ async function run(){
     assert(Popconfirm&&Button,'missing'); let ok=false;
     const c=mount(h(Popconfirm,{title:'Sure?',onConfirm:()=>{ok=true;},trigger:h(Button,{size:'sm'},'Del')})); await wait(70);
     c.querySelector('.cs-button').click();
-    assert(await until(()=>c.querySelector('[role="alertdialog"]')),'bubble open');
-    c.querySelector('.cs-popconfirm__actions .cs-button--primary').click();
-    assert(await until(()=>ok&&!c.querySelector('[role="alertdialog"]')),'confirmed+closed'); return 'confirm OK';
+    assert(await until(()=>document.querySelector('[role="alertdialog"]')),'bubble open');
+    document.querySelector('.cs-popconfirm__actions .cs-button--primary').click();
+    assert(await until(()=>ok&&!document.querySelector('[role="alertdialog"]')),'confirmed+closed'); return 'confirm OK';
   });
   await test('Carousel — next advances slide',async()=>{
     assert(Carousel,'missing'); const c=mount(h(Carousel,{},[h('div',{key:1},'S1'),h('div',{key:2},'S2')])); await wait(70);
@@ -337,32 +352,32 @@ async function run(){
     assert(DatePicker,'missing'); let got=null;
     const c=mount(h(DatePicker,{value:new Date(2026,6,10),onChange:(d)=>{got=d;}})); await wait(80);
     c.querySelector('.cs-datepicker__field').click();
-    assert(await until(()=>c.querySelector('.cs-datepicker__pop')),'popover opens');
-    const days=[...c.querySelectorAll('.cs-cal__grid button')].filter(b=>b.textContent==='15');
+    assert(await until(()=>document.querySelector('.cs-datepicker__pop')),'popover opens');
+    const days=[...document.querySelectorAll('.cs-cal__grid button')].filter(b=>b.textContent==='15');
     assert(days.length,'no day 15 button'); days[0].click(); await wait(70);
     assert(got&&got.getDate()===15,'onChange fired with day 15');
-    assert(await until(()=>!c.querySelector('.cs-datepicker__pop')),'popover closes after pick'); return 'picked 15, closed';
+    assert(await until(()=>!document.querySelector('.cs-datepicker__pop')),'popover closes after pick'); return 'picked 15, closed';
   });
   await test('ColorPicker — swatch click commits + closes',async()=>{
     assert(ColorPicker,'missing'); let got=null;
     const c=mount(h(ColorPicker,{value:'#F4BA17',onChange:(v)=>{got=v;}})); await wait(80);
     c.querySelector('.cs-colorpicker__field').click();
-    assert(await until(()=>c.querySelector('.cs-colorpicker__pop')),'popover opens');
-    const sw=c.querySelector('.cs-colorpicker__grid button:not([aria-pressed="true"])'); assert(sw,'no unselected swatch');
+    assert(await until(()=>document.querySelector('.cs-colorpicker__pop')),'popover opens');
+    const sw=document.querySelector('.cs-colorpicker__grid button:not([aria-pressed="true"])'); assert(sw,'no unselected swatch');
     sw.click(); await wait(70);
     assert(got&&got.toLowerCase()===sw.getAttribute('aria-label').toLowerCase(),'onChange fired with clicked swatch hex');
-    assert(await until(()=>!c.querySelector('.cs-colorpicker__pop')),'popover closes after pick'); return 'swatch picked, closed';
+    assert(await until(()=>!document.querySelector('.cs-colorpicker__pop')),'popover closes after pick'); return 'swatch picked, closed';
   });
   await test('TreeSelect — pick leaf sets value + closes',async()=>{
     assert(TreeSelect,'missing'); let got=null;
     const nodes=[{key:'x',label:'X',children:[{key:'x1',label:'X1'}]}];
     const c=mount(h(TreeSelect,{nodes,onChange:(k)=>{got=k;}})); await wait(80);
     c.querySelector('.cs-treeselect__field').click();
-    assert(await until(()=>c.querySelector('.cs-treeselect__pop')),'tree popover opens');
-    const leaf=[...c.querySelectorAll('.cs-tree__label')].find(b=>b.textContent==='X1'); assert(leaf,'no X1 leaf (defaultOpen should expand X)');
+    assert(await until(()=>document.querySelector('.cs-treeselect__pop')),'tree popover opens');
+    const leaf=[...document.querySelectorAll('.cs-tree__label')].find(b=>b.textContent==='X1'); assert(leaf,'no X1 leaf (defaultOpen should expand X)');
     leaf.click(); await wait(70);
     assert(got==='x1','onChange fired with leaf key');
-    assert(await until(()=>!c.querySelector('.cs-treeselect__pop')),'popover closes on leaf pick'); return 'picked x1, closed';
+    assert(await until(()=>!document.querySelector('.cs-treeselect__pop')),'popover closes on leaf pick'); return 'picked x1, closed';
   });
   await test('Sortable — HTML5 drag reorders items',async()=>{
     assert(Sortable,'missing'); let items=null;
@@ -397,9 +412,9 @@ async function run(){
     const nodes=[{key:'p',label:'Prov',children:[{key:'d',label:'Dist',children:[{key:'w',label:'Ward'}]}]}];
     const c=mount(h(Cascader,{nodes,onChange:(v)=>{got=v;},label:'casc'})); await wait(80);
     c.querySelector('.cs-treeselect__field').click();
-    assert(await until(()=>c.querySelector('.cs-cascader__pop')),'pop opens');
+    assert(await until(()=>document.querySelector('.cs-cascader__pop')),'pop opens');
     const pickInCol=(i,label)=>{
-      const col=c.querySelectorAll('.cs-cascader__col')[i];
+      const col=document.querySelectorAll('.cs-cascader__col')[i];
       if(!col) return null;
       return [...col.querySelectorAll('button[role="option"]')].find(el=>(el.textContent||'').includes(label));
     };
@@ -437,14 +452,18 @@ async function run(){
   });
 
   await test('HotKeys — binding fires handler',async()=>{
-    assert(HotKeys,'missing'); let fired=false;
-    const c=mount(h(HotKeys,{bindings:[{keys:'mod+k',label:'CmdK',handler:()=>{fired=true;}}],help:false}, h('div',null,'pad'))); await wait(80);
-    const ev=new KeyboardEvent('keydown',{key:'k',metaKey:true,ctrlKey:true,bubbles:true});
-    document.dispatchEvent(ev); await wait(60);
-    // Some implementations listen on window
-    window.dispatchEvent(new KeyboardEvent('keydown',{key:'k',metaKey:true,bubbles:true})); await wait(60);
-    assert(fired||c.querySelector('.cs-hotkeys, [data-hotkeys]'),'handler or hotkeys root present');
-    return fired?'fired':'root present';
+    assert(HotKeys,'missing');
+    function CommandDemo(){
+      const [status,setStatus]=React.useState('waiting');
+      return h(HotKeys,{bindings:[{keys:'mod+k',description:'Open command',onTrigger:()=>setStatus('command open')}],help:false},h('output',{'data-command-status':''},status));
+    }
+    const c=mount(h(CommandDemo)); await wait(80);
+    assert(c.querySelector('[data-command-status]').textContent==='waiting','command starts idle');
+    const event=new KeyboardEvent('keydown',{key:'k',ctrlKey:true,bubbles:true,cancelable:true});
+    document.dispatchEvent(event);
+    assert(await until(()=>c.querySelector('[data-command-status]').textContent==='command open'),'binding updates application state');
+    assert(event.defaultPrevented,'matched command consumes its key');
+    return 'waiting → command open';
   });
 
   await test('Mentions — type @ filters suggestions',async()=>{
@@ -453,8 +472,8 @@ async function run(){
     const input=c.querySelector('textarea.cs-field__control, textarea');
     assert(input,'no mention textarea');
     setInput(input,'@a');
-    assert(await until(()=>c.querySelector('.cs-mentions__pop [role="option"]')),'suggestions open');
-    const hit=c.querySelector('.cs-mentions__pop [role="option"]');
+    assert(await until(()=>document.querySelector('.cs-mentions__pop [role="option"]')),'suggestions open');
+    const hit=document.querySelector('.cs-mentions__pop [role="option"]');
     assert(/alice/i.test(hit.textContent||''),'alice suggested');
     return 'suggestions open for @a';
   });
@@ -465,13 +484,14 @@ async function run(){
     const input=c.querySelector('textarea.cs-field__control, textarea');
     assert(input,'no mention textarea');
     setInput(input,'@');
-    assert(await until(()=>c.querySelectorAll('.cs-mentions__pop [role="option"]').length>=2),'listbox open');
-    assert(input.getAttribute('aria-expanded')==='true','aria-expanded');
+    assert(await until(()=>document.querySelectorAll('.cs-mentions__pop [role="option"]').length>=2),'listbox open');
+    assert(!input.hasAttribute('role')&&!input.hasAttribute('aria-expanded'),'native textbox host without unsupported role/state');
+    assert(document.getElementById(input.getAttribute('aria-controls'))?.getAttribute('role')==='listbox','controls suggestion listbox');
     assert(input.getAttribute('aria-activedescendant'),'aria-activedescendant set');
     input.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowDown',bubbles:true,cancelable:true})); await wait(40);
     input.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true,cancelable:true})); await wait(80);
     assert(await until(()=>got&&/@bob\s/.test(got)),'picked bob via keyboard, got '+got);
-    assert(await until(()=>!c.querySelector('.cs-mentions__pop')),'popup closed');
+    assert(await until(()=>!document.querySelector('.cs-mentions__pop')),'popup closed');
     return 'keyboard pick '+got;
   });
 
@@ -480,9 +500,9 @@ async function run(){
     const c=mount(h(Mentions,{users:['alice','bob']})); await wait(80);
     const input=c.querySelector('textarea');
     setInput(input,'@a');
-    assert(await until(()=>c.querySelector('.cs-mentions__pop')),'open');
+    assert(await until(()=>document.querySelector('.cs-mentions__pop')),'open');
     input.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true})); await wait(60);
-    assert(await until(()=>!c.querySelector('.cs-mentions__pop')),'closed on Escape');
+    assert(await until(()=>!document.querySelector('.cs-mentions__pop')),'closed on Escape');
     return 'escape closes';
   });
 
@@ -533,7 +553,7 @@ async function run(){
   await test('Tooltip — focus-within shows bubble',async()=>{
     assert(Tooltip,'Tooltip export missing');
     const c=mount(h(Tooltip,{label:'Hint'},h('button',{type:'button'},'Tip'))); await wait(70);
-    const bubble=c.querySelector('[role="tooltip"]'); assert(bubble,'tooltip bubble');
+    const bubble=document.querySelector('[role="tooltip"]'); assert(bubble,'tooltip bubble');
     assert(/Hint/.test(bubble.textContent||''),'label text');
     const btn=c.querySelector('button'); assert(btn,'trigger');
     btn.focus(); await wait(60);
@@ -545,10 +565,10 @@ async function run(){
   await test('HoverCard — focus opens panel',async()=>{
     assert(HoverCard,'HoverCard export missing');
     const c=mount(h(HoverCard,{'aria-label':'Card body',openDelay:0,closeDelay:99999,trigger:h('button',{type:'button'},'@host'),children:h('div',null,'Card body')})); await wait(70);
-    assert(!c.querySelector('.cs-hovercard__panel'),'closed initially');
+    assert(!document.querySelector('.cs-hovercard__panel'),'closed initially');
     c.querySelector('button').focus();
-    assert(await until(()=>c.querySelector('.cs-hovercard__panel')),'panel opens on focus');
-    assert(/Card body/.test(c.querySelector('.cs-hovercard__panel').textContent||''),'panel content');
+    assert(await until(()=>document.querySelector('.cs-hovercard__panel')),'panel opens on focus');
+    assert(/Card body/.test(document.querySelector('.cs-hovercard__panel').textContent||''),'panel content');
     return 'focus→panel';
   });
 
@@ -556,13 +576,13 @@ async function run(){
     assert(ContextMenu,'ContextMenu export missing');
     let hit=false;
     const c=mount(h(ContextMenu,{items:[{label:'Copy',onSelect:()=>{hit=true;}},{label:'Paste'}]},h('button',{type:'button'},'Zone'))); await wait(70);
-    assert(!c.querySelector('[role="menu"]'),'closed initially');
+    assert(!document.querySelector('[role="menu"]'),'closed initially');
     const zone=c.querySelector('.cs-ctxmenu-zone'); assert(zone,'zone');
     zone.dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true,clientX:12,clientY:12}));
-    assert(await until(()=>c.querySelector('[role="menu"]')),'menu opens');
-    const item=[...c.querySelectorAll('[role="menuitem"]')].find(b=>/Copy/.test(b.textContent||''));
+    assert(await until(()=>document.querySelector('[role="menu"]')),'menu opens');
+    const item=[...document.querySelectorAll('[role="menuitem"]')].find(b=>/Copy/.test(b.textContent||''));
     assert(item,'Copy item'); item.click();
-    assert(await until(()=>hit&&!c.querySelector('[role="menu"]')),'onSelect+closed');
+    assert(await until(()=>hit&&!document.querySelector('[role="menu"]')),'onSelect+closed');
     return 'open→Copy→close';
   });
 
@@ -624,10 +644,10 @@ async function run(){
     const c=mount(h(Menubar,{menus})); await wait(70);
     const tops=c.querySelectorAll('.cs-menubar__top'); assert(tops.length===2,'2 tops');
     tops[0].click();
-    assert(await until(()=>c.querySelector('[role="menu"]')),'menu open');
-    const save=[...c.querySelectorAll('[role="menuitem"]')].find(b=>/Save/.test(b.textContent||''));
+    assert(await until(()=>document.querySelector('[role="menu"]')),'menu open');
+    const save=[...document.querySelectorAll('[role="menuitem"]')].find(b=>/Save/.test(b.textContent||''));
     assert(save,'Save item'); save.click();
-    assert(await until(()=>hit&&!c.querySelector('.cs-menubar [role="menu"]')),'selected+closed');
+    assert(await until(()=>hit&&!document.querySelector('.cs-menu__list[role="menu"]')),'selected+closed');
     return 'File→Save';
   });
 
@@ -737,9 +757,9 @@ async function run(){
     const c=mount(h(NavigationMenu,{items})); await wait(70);
     const top=c.querySelector('button.cs-navmenu__top'); assert(top,'top');
     top.click();
-    assert(await until(()=>c.querySelector('.cs-navmenu__panel')&&top.getAttribute('aria-expanded')==='true'),'panel open');
+    assert(await until(()=>document.querySelector('.cs-navmenu__panel')&&top.getAttribute('aria-expanded')==='true'),'panel open');
     document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
-    assert(await until(()=>!c.querySelector('.cs-navmenu__panel')),'Esc closes');
+    assert(await until(()=>!document.querySelector('.cs-navmenu__panel')),'Esc closes');
     return 'open→Esc';
   });
 
@@ -831,8 +851,8 @@ async function run(){
     let hit=false;
     const c=mount(h(FloatingActionButton,{label:'More',position:'static',icon:'+',actions:[{icon:'A',label:'Alpha',onSelect:()=>{hit=true;}}]})); await wait(70);
     const main=c.querySelector('.cs-fab__main'); assert(main,'main'); main.click();
-    assert(await until(()=>main.getAttribute('aria-expanded')==='true'&&c.querySelector('.cs-fab__mini')),'dial open');
-    c.querySelector('.cs-fab__mini').click();
+    assert(await until(()=>main.getAttribute('aria-expanded')==='true'&&document.querySelector('.cs-fab__mini')),'dial open');
+    document.querySelector('.cs-fab__mini').click();
     assert(await until(()=>hit),'onSelect');
     return 'dial→select';
   });
@@ -843,8 +863,8 @@ async function run(){
     const c=mount(h(Toolbar,{overflowAfter:1,items:[{label:'Save',onSelect:()=>{hit=true;}},{label:'Export',onSelect:()=>{more=true;}}]})); await wait(70);
     c.querySelectorAll('.cs-toolbar__btn')[0].click(); assert(hit,'head');
     const moreBtn=c.querySelector('[aria-haspopup="menu"]'); assert(moreBtn,'overflow'); moreBtn.click();
-    assert(await until(()=>c.querySelector('[role="menuitem"]')),'menu');
-    c.querySelector('[role="menuitem"]').click();
+    assert(await until(()=>document.querySelector('[role="menuitem"]')),'menu');
+    document.querySelector('[role="menuitem"]').click();
     assert(await until(()=>more),'tail');
     return 'head+overflow';
   });
@@ -855,7 +875,7 @@ async function run(){
     const b=c.querySelector('.cs-ai-disclosure__badge'); assert(b,'badge');
     assert(b.getAttribute('aria-expanded')==='false','starts closed');
     b.click();
-    assert(await until(()=>c.querySelector('.cs-ai-disclosure__panel')&&b.getAttribute('aria-expanded')==='true'),'panel');
+    assert(await until(()=>document.querySelector('.cs-ai-disclosure__panel')&&b.getAttribute('aria-expanded')==='true'),'panel');
     return 'expanded';
   });
 
@@ -982,6 +1002,45 @@ async function run(){
     assert(links[0].classList.contains('is-active')||links[0].getAttribute('aria-current')==='location','active');
     host.remove();
     return 'toc';
+  });
+
+  await test('LocaleProvider — scoped copy update and sibling isolation',async()=>{
+    assert(NS.LocaleProvider&&NS.useMessages,'locale exports missing');
+    function Copy(){const t=NS.useMessages('BehaviorCopy','en');return h('output',{'data-message-copy':true},t('label'));}
+    function Demo(){const [copy,setCopy]=React.useState('Before');return h(React.Fragment,null,h(NS.LocaleProvider,{messages:{BehaviorCopy:{en:{label:copy}}}},h(Copy)),h(Copy),h('button',{'data-message-update':true,onClick:()=>setCopy('After')},'Update'));}
+    const c=mount(h(Demo));await until(()=>c.querySelectorAll('output').length===2);
+    assert(c.querySelectorAll('output')[0].textContent==='Before','initial scoped value');assert(c.querySelectorAll('output')[1].textContent==='label','sibling fallback');
+    c.querySelector('[data-message-update]').click();await until(()=>c.querySelectorAll('output')[0].textContent==='After');assert(c.querySelectorAll('output')[1].textContent==='label','sibling stays independent');return 'immutable scope update';
+  });
+
+
+  await test('Alert — dismiss updates application state',async()=>{
+    assert(NS.Alert,'Alert export missing');
+    function Demo(){const[visible,setVisible]=React.useState(true);return h('div',null,visible?h(NS.Alert,{lang:'en',title:'Notice',onDismiss:()=>setVisible(false)},'Saved'):h('output',null,'Dismissed'));}
+    const c=mount(h(Demo));assert(await until(()=>c.querySelector('.cs-alert__dismiss')),'dismiss control mounted');
+    assert(c.querySelector('[role="status"]').textContent.includes('Saved'),'notice initially visible');
+    c.querySelector('.cs-alert__dismiss').click();
+    assert(await until(()=>c.querySelector('output')?.textContent==='Dismissed'),'dismiss callback updates application state');
+    assert(!c.querySelector('.cs-alert'),'application removed dismissed notice');return 'visible notice → caller-owned dismissal';
+  });
+
+  await test('FormFieldArray — add remove preserve controller rows',async()=>{
+    assert(NS.FormFieldArray&&NS.Form,'array exports missing');
+    const c=mount(h(NS.Form,{initialValues:{people:[{name:'First'}]}},h(NS.FormFieldArray,{name:'people',lang:'en',label:'People',addLabel:'Add person',min:0,max:2,defaultItem:{name:'New'}},({item,remove})=>h('div',null,h('output',{'data-array-person':true},item.name),h('button',{type:'button',onClick:remove},'Remove '+item.name)))));
+    assert(await until(()=>c.querySelectorAll('[data-array-person]').length===1),'initial controller row');
+    const add=c.querySelector('.cs-form-array > button');assert(add&&!add.disabled,'add initially enabled');add.click();
+    assert(await until(()=>c.querySelectorAll('[data-array-person]').length===2),'add creates second controller row');assert(add.disabled,'max disables add');
+    const remove=[...c.querySelectorAll('.cs-form-array__row button')].find(b=>b.textContent==='Remove First');assert(remove,'first row removal control');remove.click();
+    assert(await until(()=>c.querySelectorAll('[data-array-person]').length===1),'remove deletes selected row');assert(c.querySelector('[data-array-person]').textContent==='New','remaining row retains its controller value');assert(!add.disabled,'removal enables add');return 'one → two/max → remaining New row';
+  });
+
+  await test('FormWizard — navigation and finish use current values',async()=>{
+    assert(NS.FormWizard,'wizard export missing');
+    function Demo(){const[done,setDone]=React.useState(null);return done?h('output',null,done.name):h(NS.FormWizard,{lang:'en',initialValues:{name:'An'},nextLabel:'Next step',backLabel:'Previous step',finishLabel:'Finish steps',onComplete:setDone,steps:[{id:'one',title:'First',render:()=>h('p',null,'First body')},{id:'two',title:'Second',render:()=>h('p',null,'Second body')}]});}
+    const c=mount(h(Demo));assert(await until(()=>c.querySelector('.cs-form-wizard__nav')),'wizard mounted');
+    const buttons=()=>c.querySelectorAll('.cs-form-wizard__nav button');assert(buttons()[0].disabled,'back disabled at first step');buttons()[1].click();
+    assert(await until(()=>c.querySelector('.cs-form-wizard__body')?.textContent==='Second body'),'next renders second step');assert(!buttons()[0].disabled,'back enabled at second step');buttons()[0].click();
+    assert(await until(()=>c.querySelector('.cs-form-wizard__body')?.textContent==='First body'),'back restores first step');buttons()[1].click();assert(await until(()=>buttons()[1]?.textContent==='Finish steps'),'last step offers finish');buttons()[1].click();assert(await until(()=>c.querySelector('output')?.textContent==='An'),'finish delivers controller values to application');return 'next/back/finish with controller value';
   });
 
   const bad=results.filter(r=>!r.ok);

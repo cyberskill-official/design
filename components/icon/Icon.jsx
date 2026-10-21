@@ -1,3 +1,4 @@
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 
 /**
@@ -52,7 +53,8 @@ export const CS_ICONS = {
   pin: { viewBox: "0 0 24 24", els: [["path", { d: "M12 21v-7" }], ["path", { d: "M8.5 3.5h7l-1.2 6.5h2.7L12 14.5 6.999 10h2.7z" }]] },
 };
 
-export function Icon({ name, size = "md", label, className, strokeWidth = 1.75, ...props }) {
+export const Icon = React.forwardRef(function Icon({ name, size = "md", label, className, strokeWidth = 1.75, ...props }, forwardedRef) {
+  const mergedNativeRef = useComposedRefs(forwardedRef);
   const def = CS_ICONS[name] || CS_ICONS.sparkle;
   const dim = `var(--cs-icon-${size}, 20px)`;
   const a11y = label ? { role: "img", "aria-label": label } : { "aria-hidden": true, focusable: false };
@@ -68,8 +70,9 @@ export function Icon({ name, size = "md", label, className, strokeWidth = 1.75, 
       strokeLinecap="round"
       strokeLinejoin="round"
       {...a11y}
-    >
+     ref={mergedNativeRef} >
       {def.els.map(([tag, attrs], i) => React.createElement(tag, { key: i, ...attrs }))}
     </svg>
   );
-}
+});
+Icon.displayName = "Icon";

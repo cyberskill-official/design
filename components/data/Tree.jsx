@@ -1,3 +1,5 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { cx } from "../_utils/cx.js";
 
@@ -46,7 +48,8 @@ function seedOpen(nodes, defaultOpen, map = Object.create(null)) {
 }
 
 /** CyberSkill Tree — expandable hierarchy with APG tree keyboard (roving tabindex + arrows). nodes: {key,label,children[]}. Single select via onSelect. */
-export function Tree({ nodes = [], selected, onSelect, defaultOpen = false, className, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy }) {
+export const Tree = React.forwardRef(function Tree({ nodes = [], selected, onSelect, defaultOpen = false, className, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy , rootProps }, forwardedRef) {
+  const mergedNativeRef = useComposedRefs(forwardedRef);
   const [openMap, setOpenMap] = React.useState(() => seedOpen(nodes, defaultOpen));
   const [focusKey, setFocusKey] = React.useState(() => {
     if (selected != null && findNode(nodes, selected)) return selected;
@@ -54,6 +57,7 @@ export function Tree({ nodes = [], selected, onSelect, defaultOpen = false, clas
   });
   const itemRefs = React.useRef(new Map());
   const treeId = React.useId();
+  const search = React.useRef({ text: "", time: 0 });
 
   React.useEffect(() => {
     setOpenMap((prev) => {
@@ -89,7 +93,25 @@ export function Tree({ nodes = [], selected, onSelect, defaultOpen = false, clas
     const kids = node.children || [];
     const open = !!openMap[key];
 
-    if (e.key === "ArrowDown") {
+    if (e.key === "*") {
+      e.preventDefault();
+      const parent = parentOf(nodes, key);
+      const siblings = parent ? parent.children : nodes;
+      setOpenMap(current => {
+        const next = Object.assign(Object.create(null), current);
+        for (const sibling of siblings) if (sibling.children?.length) next[sibling.key] = true;
+        return next;
+      });
+    } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && e.key !== " ") {
+      const now = Date.now();
+      const char = e.key.toLocaleLowerCase();
+      const text = now - search.current.time < 500 ? search.current.text + char : char;
+      search.current = { text, time: now };
+      const needle = [...text].every(letter => letter === char) ? char : text;
+      const ordered = [...visible.slice(idx + 1), ...visible.slice(0, idx + 1)];
+      const found = ordered.find(n => itemRefs.current.get(n.key)?.querySelector('.cs-tree__label')?.textContent?.trim().toLocaleLowerCase().startsWith(needle));
+      if (found) { e.preventDefault(); focusItem(found.key); }
+    } else if (e.key === "ArrowDown") {
       e.preventDefault();
       if (idx < visible.length - 1) focusItem(visible[idx + 1].key);
     } else if (e.key === "ArrowUp") {
@@ -142,5 +164,6 @@ export function Tree({ nodes = [], selected, onSelect, defaultOpen = false, clas
     );
   });
 
-  return <ul role="tree" aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} className={cx("cs-tree", className)}>{renderNodes(nodes, 0)}</ul>;
-}
+  return <ul role="tree" aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} {...mergeTargetProps({ "className": cx("cs-tree", className) }, rootProps, ["role","aria-label","aria-labelledby"])} ref={mergedNativeRef} >{renderNodes(nodes, 0)}</ul>;
+});
+Tree.displayName = "Tree";

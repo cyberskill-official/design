@@ -1,3 +1,5 @@
+import {parse} from '@babel/parser';
+import {exportedFunction} from '../../scripts/lib/component-export.mjs';
 /**
  * Host Storybook contract:
  * - Live hub = Storybook only (guidelines/live-view.html must not exist)
@@ -671,9 +673,11 @@ for (const m of modules) {
     }
     if (new RegExp('<' + m.primary + '\\b[^>]*\\bdisabled(?:\\s|=|/|>)').test(body)) {
       const jsx = readFileSync(join(root, m.relFromRoot), 'utf8');
-      const sig = jsx.match(new RegExp('export\\s+function\\s+' + m.primary + '\\s*\\(\\s*\\{([^}]*)\\}'));
-      const params = sig ? sig[1] : '';
-      if (!/\bdisabled\b/.test(params)) {
+      const fn = exportedFunction(parse(jsx,{sourceType:'module',plugins:['jsx']}),m.primary)?.node;
+      let parameter=fn?.params[0];if(parameter?.type==='AssignmentPattern')parameter=parameter.left;
+      assert(parameter?.type==='ObjectPattern',m.primary+': unsupported runtime declaration');
+      const sig=parameter.properties.filter(p=>p.type==='ObjectProperty').map(p=>p.key.name??p.key.value);
+      if (!sig.includes('disabled')) {
         fail.push(m.primary + ' ' + name + ' uses disabled but prop not in signature');
       }
     }

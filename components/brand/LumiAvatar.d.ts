@@ -11,4 +11,4 @@ export interface LumiAvatarProps extends React.HTMLAttributes<HTMLSpanElement> {
   ring?: boolean;
   alt?: string;
 }
-export function LumiAvatar(props: LumiAvatarProps): React.ReactElement;
+export const LumiAvatar: React.ForwardRefExoticComponent<React.PropsWithoutRef<LumiAvatarProps> & React.RefAttributes<HTMLSpanElement>>;

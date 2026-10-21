@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { ChatMessage } from '../components/ai/ChatMessage.jsx';
 
 export default {
@@ -5,14 +6,12 @@ export default {
   component: ChatMessage,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     lang: { control: 'select', options: ['en', 'vi'] },
 
   "role": {
     "control": "select",
-    "options": [
-      "lumi",
-      "user"
-    ]
+    "options": DECLARED_DOMAINS.ChatMessage["role"]
   },
   "name": {
     "control": "object"
@@ -21,13 +20,6 @@ export default {
     "control": "object"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting ChatMessage. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { lang: 'vi', role: 'lumi', children: 'Turn your will into real.' },
 };
 

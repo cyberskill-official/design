@@ -36,3 +36,9 @@ export const BenchmarkRubric = {
   name: 'Benchmark rubric',
   render: () => <Page path="docs/benchmark-rubric.md" title="Benchmark rubric" />,
 };
+
+export const ComponentApi = {name: "Current component API",render: () => <Page path="docs/component-api.md" title="Current component API" />};
+
+export const LocaleMessages = {name: "Scoped UI messages",render: () => <Page path="docs/locale-messages.md" title="Scoped UI messages" />};
+
+export const RuntimeApi = {name: "Runtime API foundation",render: () => <Page path="docs/runtime-api.md" title="Runtime API foundation" />};

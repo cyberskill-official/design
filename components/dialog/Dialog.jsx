@@ -1,3 +1,4 @@
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { Icon } from "../icon/Icon.jsx";
@@ -10,7 +11,7 @@ import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager
  * described by its body, scrim click closes. Body scroll is locked while open
  * via the overlay manager (nested-safe). Compose actions in the footer with Buttons.
  */
-export function Dialog({
+export const Dialog = React.forwardRef(function Dialog({
   open,
   title,
   children,
@@ -20,12 +21,13 @@ export function Dialog({
   closeLabel,
   lang,
   ...props
-}) {
+}, forwardedRef) {
   const baseId = React.useId();
   const titleId = baseId + "-title";
   const bodyId = children == null ? undefined : baseId + "-body";
-  const [ref, L] = useLang(lang);
+  const [ref, L, localeMessages] = useLang(lang);
   const panel = React.useRef(null);
+  const mergedNativeRef = useComposedRefs(panel, forwardedRef);
   const backdrop = React.useRef(null);
   const material = overlaySurfaceClass(className);
   const surface = useOverlaySurface(!!open, panel, material);
@@ -41,7 +43,7 @@ export function Dialog({
     backdropRef: backdrop,
   });
 
-  const cl = closeLabel != null ? closeLabel : makeT("Dialog", L)("close");
+  const cl = closeLabel != null ? closeLabel : makeT("Dialog", L, localeMessages)("close");
   if (!open) return null;
   return (
     <overlayScopeContext.Provider value={scope}>
@@ -50,7 +52,7 @@ export function Dialog({
       {material ? <div ref={surface} className={cx("cs-overlay-surface", material)} aria-hidden="true" /> : null}
       <section
         {...props}
-        ref={panel}
+        ref={mergedNativeRef}
         data-cs-overlay-material={material || undefined}
         tabIndex={-1}
         role="dialog"
@@ -73,4 +75,5 @@ export function Dialog({
     </div>
     </overlayScopeContext.Provider>
   );
-}
+});
+Dialog.displayName = "Dialog";

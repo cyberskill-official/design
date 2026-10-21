@@ -6,4 +6,4 @@ export interface SliderProps extends React.InputHTMLAttributes<HTMLInputElement>
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;
 }
-export function Slider(props: SliderProps): React.ReactElement;
+export const Slider: React.ForwardRefExoticComponent<React.PropsWithoutRef<SliderProps> & React.RefAttributes<HTMLInputElement>>;

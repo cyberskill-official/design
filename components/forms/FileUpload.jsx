@@ -1,26 +1,30 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill FileUpload — click-or-drag dropzone. Calls onFiles(File[]) on select/drop.
  * Uses a single labeled <input type="file"> (no nested interactive) for axe name/role. */
-export function FileUpload({ title, hint, accept, multiple = false, onFiles, icon, lang, className }) {
+export const FileUpload = React.forwardRef(function FileUpload({ controlRef, title, hint, accept, multiple = false, onFiles, icon, lang, className , rootProps }, forwardedRef) {
   const [drag, setDrag] = React.useState(false);
   const inputRef = React.useRef(null);
+  const mergedControlRef = useComposedRefs(inputRef, controlRef);
   const pick = (files) => { if (files && files.length && onFiles) onFiles(multiple ? Array.from(files) : [files[0]]); };
-  const [ref, L] = useLang(lang);
-  const t = makeT("FileUpload", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("FileUpload", L, localeMessages);
   const tt = title != null ? title : t("title");
   const hh = hint != null ? hint : t("hint");
   const id = React.useId();
   return (
     <div
-      ref={ref}
-      className={cx("cs-dropzone", drag && "is-dragging", className)}
-      onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
-      onDragLeave={() => setDrag(false)}
-      onDrop={(e) => { e.preventDefault(); setDrag(false); pick(e.dataTransfer.files); }}
-      onClick={() => inputRef.current && inputRef.current.click()}
+      ref={mergedNativeRef}
+      {...mergeTargetProps({ "className": cx("cs-dropzone", drag && "is-dragging", className), "onDragOver": (e) => { e.preventDefault(); setDrag(true); }, "onDragLeave": () => setDrag(false), "onDrop": (e) => { e.preventDefault(); setDrag(false); pick(e.dataTransfer.files); }, "onClick": () => inputRef.current && inputRef.current.click() }, rootProps, [])}
+
+
+
+
     >
       <span className="cs-dropzone__icon" aria-hidden="true">
         {icon ?? <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 16V4M7 9l5-5 5 5" /><path d="M5 16v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3" /></svg>}
@@ -29,7 +33,7 @@ export function FileUpload({ title, hint, accept, multiple = false, onFiles, ico
       <span className="cs-dropzone__hint" id={id + "-hint"}>{hh}</span>
       <input
         id={id}
-        ref={inputRef}
+        ref={mergedControlRef}
         type="file"
         accept={accept}
         multiple={multiple}
@@ -40,4 +44,5 @@ export function FileUpload({ title, hint, accept, multiple = false, onFiles, ico
       />
     </div>
   );
-}
+});
+FileUpload.displayName = "FileUpload";

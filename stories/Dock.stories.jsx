@@ -5,6 +5,7 @@ export default {
   component: Dock,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "items": {
     "control": "object"
   },
@@ -12,13 +13,6 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Dock. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { items: [{ id: 'home', label: 'Home' }, { id: 'search', label: 'Search' }] },
 };
 

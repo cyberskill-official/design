@@ -1,3 +1,5 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { Icon } from "../icon/Icon.jsx";
@@ -8,7 +10,7 @@ import { useClientLayoutEffect } from "../_utils/use-client-layout-effect.js";
  * CyberSkill DataGrid — advanced table: sortable columns, selectable rows, sticky header,
  * optional column pin + client filter + row virtualization + optional column order persistence.
  */
-export function DataGrid({
+export const DataGrid = React.forwardRef(function DataGrid({
   columns = [],
   rows = [],
   rowKey = "id",
@@ -20,6 +22,7 @@ export function DataGrid({
   empty,
   lang,
   className,
+  rootProps,
   filterText,
   filterKeys,
   /** When true (or rows exceed virtualThreshold), only paint a window of rows. */
@@ -30,7 +33,7 @@ export function DataGrid({
   rowHeight = 36,
   /** localStorage key — when set, column key order is persisted across reloads. */
   persistKey,
-}) {
+}, forwardedRef) {
   const [sort, setSort] = React.useState(null); // {key, dir}
   const nameId = React.useId();
   const [scrollTop, setScrollTop] = React.useState(0);
@@ -46,8 +49,9 @@ export function DataGrid({
       setColOrder(Array.isArray(arr) ? arr : null);
     } catch (e) { setColOrder(null); }
   }, [persistKey]);
-  const [ref, L] = useLang(lang);
-  const t = makeT("DataGrid", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("DataGrid", L, localeMessages);
 
   const orderedColumns = React.useMemo(() => {
     if (!colOrder || !colOrder.length) return columns;
@@ -132,18 +136,20 @@ export function DataGrid({
 
   return (
     <div
-      ref={ref}
-      className={cx("cs-datagrid", useVirtual && "cs-datagrid--virtual", className)}
-      style={{ maxBlockSize: height, overflow: "auto" }}
-      onScroll={useVirtual ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}
+      ref={mergedNativeRef}
+      {...mergeTargetProps({
+        className: cx("cs-datagrid", useVirtual && "cs-datagrid--virtual", className),
+        onScroll: useVirtual ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined,
+      }, rootProps, ["data-virtual", "data-row-count", "data-row-height"])}
+      style={{ ...rootProps?.style, maxBlockSize: height, overflow: "auto" }}
       data-virtual={useVirtual ? "true" : "false"}
       data-row-count={sorted.length}
       data-row-height={useVirtual ? effectiveRowHeight : undefined}
     >
-      <table className="cs-table">
+      <table className="cs-table" aria-rowcount={useVirtual ? Math.max(2, sorted.length + 1) : undefined}>
         {(caption || caption === 0) ? <caption>{caption}</caption> : null}
         <thead>
-          <tr>
+          <tr aria-rowindex={useVirtual ? 1 : undefined}>
             {selectable ? <th scope="col" className="cs-datagrid__selcol"><label className="cs-datagrid__check"><input type="checkbox" aria-label={t("selectAll")} checked={!!allSel} onChange={toggleAll} /></label></th> : null}
             {orderedColumns.map((c, columnIndex) => (
               <th
@@ -178,14 +184,14 @@ export function DataGrid({
         </thead>
         <tbody>
           {sorted.length === 0 ? (
-            <tr><td colSpan={orderedColumns.length + (selectable ? 1 : 0)} className="cs-table__empty">{empty != null ? empty : t("empty")}</td></tr>
+            <tr aria-rowindex={useVirtual ? 2 : undefined}><td colSpan={orderedColumns.length + (selectable ? 1 : 0)} className="cs-table__empty">{empty != null ? empty : t("empty")}</td></tr>
           ) : (
             <>
               {padTop > 0 ? <tr aria-hidden="true"><td colSpan={orderedColumns.length + (selectable ? 1 : 0)} style={{ height: padTop, padding: 0, border: 0 }} /></tr> : null}
               {slice.map((r, i) => {
                 const k = r[rowKey] != null ? r[rowKey] : start + i;
                 return (
-                  <tr key={k} className={selected.includes(k) ? "is-selected" : undefined} style={useVirtual ? { height: effectiveRowHeight } : undefined}>
+                  <tr key={k} aria-rowindex={useVirtual ? start + i + 2 : undefined} className={selected.includes(k) ? "is-selected" : undefined} style={useVirtual ? { height: effectiveRowHeight } : undefined}>
                     {selectable ? <td className="cs-datagrid__selcol"><label className="cs-datagrid__check"><input type="checkbox" aria-label={`${t("selectRow")}: ${String(orderedColumns.map(c => r[c.key]).find(v => typeof v === "string" && v.trim()) ?? k)}`} checked={selected.includes(k)} onChange={() => toggle(k)} /></label></td> : null}
                     {orderedColumns.map((c) => (
                       <td key={c.key} className={c.pinned ? "cs-datagrid__pinned" : undefined} style={c.pinned ? { position: "sticky", insetInlineStart: 0, background: "var(--cs-color-surface-panel)" } : undefined}>
@@ -202,4 +208,5 @@ export function DataGrid({
       </table>
     </div>
   );
-}
+});
+DataGrid.displayName = "DataGrid";

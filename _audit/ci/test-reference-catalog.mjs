@@ -19,7 +19,7 @@ const write = (path, value) => { const target = join(root, path); mkdirSync(dirn
 try {
   execFileSync('git', ['init', '-q', root]);
   mkdirSync(join(root, 'ui_kits'));
-  const manifest = { components: [{ name: 'Example', kind: 'component', sourcePath: 'components/Example.jsx' }, { name: 'VALUE', kind: 'constant', sourcePath: 'components/constants.js' }], cards: [], tokens: [{}], templates: [{ name: 'First', folder: 'templates/first', entryPath: 'templates/first/First.dc.html' }] };
+  const manifest = { components: [{ name: 'Example', kind: 'component', sourcePath: 'components/Example.jsx' }, { name: 'VALUE', kind: 'constant', sourcePath: 'components/constants.js' }, { name: 'useExample', kind: 'hook', sourcePath: 'components/example-hook.js' }], cards: [], tokens: [{}], templates: [{ name: 'First', folder: 'templates/first', entryPath: 'templates/first/First.dc.html' }] };
   write('_ds_manifest.json', manifest);
   write('templates/first/First.dc.html', '<div data-props=\'{"language":{"options":["English","Tiếng Việt"]}}\'>First</div>');
   write('tokens/tokens.dtcg.json', { example: { $type: 'number', $value: 1 } });
@@ -33,7 +33,7 @@ try {
   assert.equal(output.counts.visualBaselines,1);
   write('_audit/visual-diff.html','<script>const BASE={first:{w:909},second:{w:1280}};</script>');
   output=buildReferenceCatalog(root);assert.equal(output.counts.visualBaselines,2);
-  assert.equal(output.counts.templates, 1); assert.equal(output.counts.components, 1); assert.equal(output.counts.constants, 1);
+  assert.equal(output.counts.templates, 1); assert.equal(output.counts.components, 1); assert.equal(output.counts.constants, 1); assert.equal(output.counts.hooks, 1); assert.equal(output.counts.publicExports, 3);
   assert.equal(output.counts.templatesWithThemeControl, 0); assert.equal(output.counts.templatesWithBooleanControl, 0);
   assert.equal(output.counts.templatesWithLanguageControl, 1);
   assert.equal(JSON.parse(output.updates.get('docs/reference-catalog.json')).documents.length, 1, 'Repository-only files must not leak into public catalog');
@@ -62,6 +62,6 @@ const actual = buildReferenceCatalog();
 for (const [path, text] of actual.updates) assert.equal(readFileSync(path, 'utf8'), text, 'Stale projection: ' + path);
 const current = JSON.parse(readFileSync('docs/reference-catalog.json', 'utf8'));
 assert(current.documents.every(item => item.audience !== 'repository_only' && item.role !== 'unclassified_requires_review'));
-assert.equal(current.counts.components + current.counts.constants, current.counts.publicExports);
+assert.equal(current.counts.components + current.counts.constants + current.counts.hooks, current.counts.publicExports);
 for (const control of ['Language','Theme','Boolean']) assert.equal(current.counts['templatesWith'+control+'Control'] + current.counts['templatesWithout'+control+'Control'], current.counts.templates);
 console.log('PASS reference catalog: source-derived counts, document roles, projection freshness, repository-only exclusion and mutation failures');

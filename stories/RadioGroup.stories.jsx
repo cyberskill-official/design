@@ -5,6 +5,7 @@ export default {
   component: RadioGroup,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "legend": {
     "control": "object"
   },
@@ -15,7 +16,7 @@ export default {
     "control": "text"
   },
   "onChange": {
-    "control": "text"
+    "control": false
   },
   "options": {
     "control": "object"
@@ -27,13 +28,6 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting RadioGroup. Portable consumers use styles.css + bundle, not Storybook. Per-option disabled lives on options[].disabled (Radio companion).',
-      },
-    },
-  },
   args: {
     name: 'theme',
     legend: 'Theme',

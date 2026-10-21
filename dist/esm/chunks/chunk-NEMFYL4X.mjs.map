@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/feedback/Spinner.jsx"],
+  "sourcesContent": ["import { useComposedRefs } from \"../_utils/refs.js\";\nimport React from \"react\";\nimport { makeT, useLang } from \"../_i18n/i18n.js\";\nimport { cx } from \"../_utils/cx.js\";\n\n/** CyberSkill Spinner — indeterminate loading indicator. */\nexport const Spinner = React.forwardRef(function Spinner({ size = 20, label, lang, className, style, ...props }, forwardedRef) {\n  const [ref, L, localeMessages] = useLang(lang);\n  const mergedNativeRef = useComposedRefs(ref, forwardedRef);\n  const lbl = label != null ? label : makeT(\"Spinner\", L, localeMessages)(\"label\");\n  return <span ref={mergedNativeRef} role=\"status\" aria-label={lbl} className={cx(\"cs-spinner\", className)} style={{ inlineSize: size, blockSize: size, width: size, height: size, ...style }} {...props} />;\n});\nSpinner.displayName = \"Spinner\";\n"],
+  "mappings": ";;;;;;;;;;;;;AACA,OAAO,WAAW;AAKX,IAAM,UAAU,MAAM,WAAW,SAASA,SAAQ,EAAE,OAAO,IAAI,OAAO,MAAM,WAAW,OAAO,GAAG,MAAM,GAAG,cAAc;AAC7H,QAAM,CAAC,KAAK,GAAG,cAAc,IAAI,QAAQ,IAAI;AAC7C,QAAM,kBAAkB,gBAAgB,KAAK,YAAY;AACzD,QAAM,MAAM,SAAS,OAAO,QAAQ,MAAM,WAAW,GAAG,cAAc,EAAE,OAAO;AAC/E,SAAO,oCAAC,UAAK,KAAK,iBAAiB,MAAK,UAAS,cAAY,KAAK,WAAW,GAAG,cAAc,SAAS,GAAG,OAAO,EAAE,YAAY,MAAM,WAAW,MAAM,OAAO,MAAM,QAAQ,MAAM,GAAG,MAAM,GAAI,GAAG,OAAO;AAC1M,CAAC;AACD,QAAQ,cAAc;",
+  "names": ["Spinner"]
+}

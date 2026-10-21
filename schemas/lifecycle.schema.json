@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Component lifecycle record structure",
+  "description": "Support evidence byte integrity, authorized ownership and review acceptance remain fail-closed in test-component-lifecycle.",
+  "type": "object",
+  "required": [
+    "version",
+    "supportContractVersion",
+    "statuses",
+    "components"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "supportContractVersion": {
+      "const": 1
+    },
+    "statuses": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "stable",
+          "preview",
+          "deprecated"
+        ]
+      }
+    },
+    "components": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "status",
+          "sourcePath",
+          "kind",
+          "support"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "stable",
+              "preview",
+              "deprecated"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "component",
+              "constant",
+              "hook"
+            ]
+          },
+          "sourcePath": {
+            "type": "string"
+          },
+          "support": {
+            "type": "object",
+            "required": [
+              "reviewState",
+              "owner",
+              "reviewedBy",
+              "reviewedAt",
+              "evidence",
+              "environments",
+              "axes",
+              "limitations",
+              "deprecation"
+            ],
+            "properties": {
+              "reviewState": {
+                "enum": [
+                  "reviewed",
+                  "unreviewed"
+                ]
+              },
+              "owner": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reviewedBy": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reviewedAt": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "path",
+                    "sha256",
+                    "scope",
+                    "checkedAt"
+                  ],
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "scope": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "checkedAt": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "environments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "axes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "limitations": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "deprecation": {
+                "type": [
+                  "object",
+                  "null"
+                ]
+              },
+              "reviewHistory": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "evidence",
+                    "reviewedBy",
+                    "reviewedAt"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -16,6 +16,7 @@ await withBrowserFixture(async page => {
     await page.mouse.move(590,590);
     await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
     await page.evaluate(({name,observed})=>{
+      if(document.querySelector('[data-cs-floating-root]'))throw Error('Previous internal-state fixture leaked a floating root');
       const e = React.createElement;
       window.internalActions = [];
       const action = observed ? ()=>internalActions.push('action') : undefined;
@@ -53,6 +54,15 @@ await withBrowserFixture(async page => {
       };
       window.readInternalState = ()=>{
         const count=selector=>document.querySelectorAll(selector).length;
+        // One isolated owner is mounted per case; previous owned hosts must be
+        // gone above. Count its actual body panel, never an inline ancestor path.
+        const floatingMenu=owner=>{
+          if(!document.querySelector(owner))throw Error('Missing current menu owner: '+owner);
+          const menus=[...document.querySelectorAll('[data-cs-floating-root] > .cs-menu__list[role="menu"]')];
+          if(menus.length>1)throw Error('Unexpected foreign menu in isolated state fixture');
+          if(owner==='.cs-menubar'&&menus.some(menu=>menu.getAttribute('aria-labelledby')!==document.querySelector('.cs-menubar__top')?.id))throw Error('Menubar panel is not labelled by the current owner');
+          return menus.length;
+        };
         switch(name) {
           case 'AIDisclosureBadge': return count('.cs-ai-disclosure__panel');
           case 'Accordion': return count('.cs-accordion__panel');
@@ -60,18 +70,18 @@ await withBrowserFixture(async page => {
           case 'BackTop': return count('.cs-backtop');
           case 'Carousel': return document.querySelector('.cs-carousel__slide[aria-hidden="false"]')?.textContent;
           case 'CodeBlock': return document.querySelector('.cs-code__copy')?.textContent;
-          case 'ContextMenu': return count('.cs-ctxmenu-zone [role="menu"]');
+          case 'ContextMenu': return floatingMenu('.cs-ctxmenu-zone');
           case 'Dock': return document.querySelector('.cs-dock__item')?.style.transform.includes('1.35');
           case 'FloatingActionButton': return count('.cs-fab__dial');
           case 'HotKeys': return count('.cs-hotkeys__sheet');
           case 'HoverCard': return count('.cs-hovercard__panel');
           case 'Image': return count('.cs-image__zoom');
-          case 'Menubar': return count('.cs-menubar [role="menu"]');
+          case 'Menubar': return floatingMenu('.cs-menubar');
           case 'NavigationMenu': return count('.cs-navmenu__panel');
           case 'Popconfirm': return count('.cs-popconfirm__panel');
           case 'Splitter': return document.querySelector('[role="separator"]')?.getAttribute('aria-valuenow');
           case 'Terminal': return count('.cs-terminal__body > .cs-terminal__line')-1;
-          case 'Toolbar': return count('.cs-toolbar [role="menu"]');
+          case 'Toolbar': return floatingMenu('.cs-toolbar');
           case 'Tooltip': return document.querySelector('.cs-tooltip')?.dataset.open;
           case 'TreeTable': return count('.cs-treetable tbody tr');
         }

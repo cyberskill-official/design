@@ -1,8 +1,10 @@
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Anchor — in-page table of contents with scrollspy (IntersectionObserver). items: {id,label}. */
-export function Anchor({ items = [], title, className, ...props }) {
+export const Anchor = React.forwardRef(function Anchor({ items = [], title, className, ...props }, forwardedRef) {
+  const mergedNativeRef = useComposedRefs(forwardedRef);
   const titleId = React.useId();
   const hasTitle = Boolean(title) || title === 0;
   const [act, setAct] = React.useState(items.length ? items[0].id : null);
@@ -22,11 +24,12 @@ export function Anchor({ items = [], title, className, ...props }) {
     return () => io.disconnect();
   }, [items]);
   return (
-    <nav className={cx("cs-anchor", className)} aria-labelledby={hasTitle ? titleId : undefined} {...props}>
+    <nav className={cx("cs-anchor", className)} aria-labelledby={hasTitle ? titleId : undefined} {...props} ref={mergedNativeRef} >
       {hasTitle ? <div id={titleId} className="cs-anchor__title">{title}</div> : null}
       {items.map((it) => (
         <a key={it.id} href={"#" + it.id} className={cx("cs-anchor__item", act === it.id && "is-active")} aria-current={act === it.id ? "location" : undefined}>{it.label}</a>
       ))}
     </nav>
   );
-}
+});
+Anchor.displayName = "Anchor";

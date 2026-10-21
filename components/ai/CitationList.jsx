@@ -1,13 +1,16 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { cx } from "../_utils/cx.js";
 import { makeT, useLang } from "../_i18n/i18n.js";
 
 /** CyberSkill CitationList — numbered provenance sources for AI output. Rows link out when href is set. */
-export function CitationList({ label, items = [], lang, className }) {
-  const [ref, L] = useLang(lang);
-  const heading = label !== undefined ? label : makeT("CitationList", L)("sources");
+export const CitationList = React.forwardRef(function CitationList({ label, items = [], lang, className , rootProps }, forwardedRef) {
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const heading = label !== undefined ? label : makeT("CitationList", L, localeMessages)("sources");
   return (
-    <div ref={ref} className={cx("cs-citations", className)}>
+    <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-citations", className) }, rootProps, [])}>
       {(heading || heading === 0) ? <div className="cs-citations__label">{heading}</div> : null}
       {items.map((it, i) => {
         const inner = (
@@ -22,4 +25,5 @@ export function CitationList({ label, items = [], lang, className }) {
       })}
     </div>
   );
-}
+});
+CitationList.displayName = "CitationList";

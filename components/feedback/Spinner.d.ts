@@ -8,4 +8,4 @@ export interface SpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
   label?: string;
 }
 
-export function Spinner(props: SpinnerProps): React.ReactElement;
+export const Spinner: React.ForwardRefExoticComponent<React.PropsWithoutRef<SpinnerProps> & React.RefAttributes<HTMLSpanElement>>;

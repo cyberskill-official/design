@@ -12,4 +12,4 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   children?: ReactNode;
 }
 
-export function Badge(props: BadgeProps): React.ReactElement;
+export const Badge: React.ForwardRefExoticComponent<React.PropsWithoutRef<BadgeProps> & React.RefAttributes<HTMLSpanElement>>;

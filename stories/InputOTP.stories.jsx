@@ -6,6 +6,11 @@ export default {
   component: InputOTP,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
+  "controlProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
+  "description": {"control":"text"},
+  "error": {"control":"text"},
+  "required": {"control":"boolean"},
   "length": {
     "control": "number"
   },
@@ -13,10 +18,10 @@ export default {
     "control": "text"
   },
   "onChange": {
-    "control": "text"
+    "control": false
   },
   "onComplete": {
-    "control": "text"
+    "control": false
   },
   "label": {
     "control": "text"
@@ -28,13 +33,6 @@ export default {
     "control": "boolean"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting InputOTP. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { length: 6, label: 'One-time code' },
 };
 
@@ -65,14 +63,15 @@ export const FullMatrix = {
   name: 'Full matrix / state',
   render: (args) => {
     const cells = cartesian({  }).flatMap((combo) =>
-      stateCombos(["disabled"]).map((state) => {
+      stateCombos(["disabled","error"]).map((state) => {
         const props = { ...combo, ...state };
-        const label = comboLabel(props, ['disabled']);
+        const label = comboLabel(props, ["disabled","error"]);
         return (
           <InputOTP
             key={label}
             {...args}
             disabled={!!state.disabled}
+           error={state.error ? "Example field error" : undefined}
           />
         );
       }),

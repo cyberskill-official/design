@@ -7,18 +7,11 @@ export default {
   component: EmptyState,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     lang: { control: 'select', options: ['en', 'vi'] },
 
     title: { control: 'text' },
     children: { control: 'text' },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting EmptyState. Portable consumers use styles.css + bundle, not Storybook. `icon` and `actions` are composition slots.',
-      },
-    },
   },
   args: { lang: 'vi', title: 'No wishes yet', children: 'Capture the first one.' },
 };

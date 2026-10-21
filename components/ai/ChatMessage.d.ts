@@ -1,3 +1,4 @@
+import type { RootTargetProps } from "../_utils/target-props";
 import type * as React from "react";
 import type { ReactNode } from "react";
 
@@ -7,6 +8,8 @@ import type { ReactNode } from "react";
  * image where available.
  */
 export interface ChatMessageProps {
+  /** Attributes for the existing div root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: RootTargetProps<HTMLDivElement>;
   role?: "lumi" | "user";
   name?: ReactNode;
   avatar?: ReactNode;
@@ -16,4 +19,4 @@ export interface ChatMessageProps {
   className?: string;
 }
 
-export function ChatMessage(props: ChatMessageProps): React.ReactElement;
+export const ChatMessage: React.ForwardRefExoticComponent<React.PropsWithoutRef<ChatMessageProps> & React.RefAttributes<HTMLDivElement>>;

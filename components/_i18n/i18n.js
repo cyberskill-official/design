@@ -40,24 +40,64 @@ export function resolveLang(propLang, el) {
   return l || "vi";
 }
 
-export function tr(component, key, lang) {
-  const c = STRINGS[component] || {};
+const forbiddenMessageKeys = new Set(["__proto__", "prototype", "constructor"]);
+let MessageContext;
+/** Internal lazy context; the provider carries immutable snapshots, never a global registry override. */
+export function localeMessagesContext() {
+  if (!MessageContext) MessageContext = React.createContext(null);
+  return MessageContext;
+}
+function messageEntries(value, label) {
+  if (!value || typeof value !== "object" || Array.isArray(value) || ![Object.prototype, null].includes(Object.getPrototypeOf(value))) throw new TypeError(label + " must be a plain message record");
+  return Reflect.ownKeys(value).map(key => {
+    if (typeof key !== "string" || !key.trim() || forbiddenMessageKeys.has(key)) throw new TypeError("Unsafe message key");
+    const descriptor = Object.getOwnPropertyDescriptor(value, key);
+    if (!descriptor || !Object.prototype.hasOwnProperty.call(descriptor, "value")) throw new TypeError("Message accessors are not supported");
+    return [key, descriptor.value];
+  });
+}
+/** Snapshot caller dictionaries without invoking accessors or mutating caller/built-in data. */
+export function snapshotLocaleMessages(messages) {
+  const result = Object.create(null);
+  for (const [namespace, locales] of messageEntries(messages, "messages")) {
+    const normalized = Object.create(null);
+    for (const [tag, values] of messageEntries(locales, namespace)) {
+      const locale = primaryLang(tag);
+      if (!locale || forbiddenMessageKeys.has(locale)) throw new TypeError("Unsafe message locale");
+      if (Object.prototype.hasOwnProperty.call(normalized, locale)) throw new TypeError("Message locale aliases collide in " + namespace + ": " + locale);
+      const table = Object.create(null);
+      for (const [key, value] of messageEntries(values, namespace + "." + tag)) {
+        if (typeof value !== "string") throw new TypeError("Messages must be strings");
+        table[key] = value;
+      }
+      normalized[locale] = Object.freeze(table);
+    }
+    result[namespace] = Object.freeze(normalized);
+  }
+  return Object.freeze(result);
+}
+export function tr(component, key, lang, messages = null) {
+  const c = Object.prototype.hasOwnProperty.call(STRINGS, component) ? STRINGS[component] : {};
   const want = primaryLang(lang) || "vi";
-  const table = c[want] || c.en || c.vi || {};
-  if (table[key] != null) return table[key];
-  const en = c.en || {};
-  if (en[key] != null) return en[key];
-  const vi = c.vi || {};
-  return vi[key] != null ? vi[key] : key;
+  for (const locale of new Set([want, "en", "vi"])) {
+    for (let layer = messages; layer; layer = layer.parent) {
+      const table = layer.messages[component]?.[locale];
+      if (table && Object.prototype.hasOwnProperty.call(table, key)) return table[key];
+    }
+    const table = c[locale];
+    if (table && Object.prototype.hasOwnProperty.call(table, key) && table[key] != null) return table[key];
+  }
+  return key;
 }
 
-/** Bind a component + language once: const t = makeT("Pagination", lang); t("next"). */
-export function makeT(component, lang) { return (key) => tr(component, key, lang); }
+/** Pure binding; React consumers pass their scoped snapshot from useLang/useMessages. */
+export function makeT(component, lang, messages = null) { return (key) => tr(component, key, lang, messages); }
 
 /** React hook: attach the returned ref to the component root; resolves language from an
  * explicit prop → nearest [lang] ancestor (e.g. a template's VN wrapper) → <html lang> → 'vi'.
  * Corrects to the ancestor value in a layout effect (before paint). */
 export function useLang(propLang) {
+  const messages = React.useContext(localeMessagesContext());
   const ref = React.useRef(null);
   const binding = React.useRef(null);
   const [lang, setLang] = React.useState(() => resolveLang(propLang, null));
@@ -84,7 +124,7 @@ export function useLang(propLang) {
     binding.current?.observer?.disconnect();
     binding.current = null;
   }, []);
-  return [ref, lang];
+  return [ref, lang, messages];
 }
 
 const VI_MONTHS = ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"];

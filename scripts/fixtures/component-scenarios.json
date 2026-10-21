@@ -1,0 +1,714 @@
+{
+  "schemaVersion": 1,
+  "fixtureSource": "scripts/fixtures/static-html-reference.json",
+  "interpretation": "Bounded actual DOM/ARIA scenarios; not Cartesian API coverage, manual AT acceptance or support approval.",
+  "baseOverrides": {
+    "SegmentedControl": {
+      "props": {
+        "aria-label": "Scenario choice"
+      }
+    },
+    "Tab": {
+      "wrapper": {
+        "tag": "div",
+        "props": {
+          "role": "tablist",
+          "aria-label": "Scenario tabs"
+        }
+      }
+    }
+  },
+  "finite": {
+    "Alert": {
+      "kind": "class-prefix",
+      "selector": ".cs-alert",
+      "prefix": "cs-alert--",
+      "sourceEvidence": {
+        "components/feedback/Alert.jsx": "b9c0a4e67f41118230fec5abdad7f22e8a98a2a8c46420cde54c1a46759f9d91",
+        "components/feedback/Alert.d.ts": "874625a12e07ab58639a7bd1e01607d907d668706663a96f11242e2c1dbf0d66"
+      },
+      "defaultValues": {
+        "variant": "info"
+      }
+    },
+    "Avatar": {
+      "kind": "class-prefix",
+      "selector": ".cs-avatar",
+      "prefix": "cs-avatar--",
+      "sourceEvidence": {
+        "components/data/Avatar.jsx": "9088033b579770c1160213545feebdf291cad8bb8a4f3f539168c61f4df16964",
+        "components/data/Avatar.d.ts": "f0a2094573c27ec8366b4673614c879ae9801ceeee7552ebed3eec6527b9807f"
+      },
+      "defaultValues": {
+        "size": "md"
+      }
+    },
+    "Button": {
+      "kind": "class-prefix",
+      "selector": ".cs-button",
+      "prefix": "cs-button--",
+      "sourceEvidence": {
+        "components/button/Button.jsx": "198c46d2c90a065d8510c5a64c38f292075483fdf65d05f36b671082934f3d4d",
+        "components/button/Button.d.ts": "d2de8fecaf5d8001a0293c2c40b56d915046ce49be126b955338bb8ccfba1904"
+      },
+      "defaultValues": {
+        "variant": "primary",
+        "size": "md"
+      }
+    },
+    "LumiAvatar": {
+      "kind": "class-prefix",
+      "selector": ".cs-lumi",
+      "prefix": "cs-lumi--",
+      "sourceEvidence": {
+        "components/brand/LumiAvatar.jsx": "aef2a9a8be4e4d6eb240d2a4bd6ca32b396fab995663750c812e3b38d228901c",
+        "components/brand/LumiAvatar.d.ts": "955af96a1311731719eeebdeaee88e1d1d99f4efcf14ec6e2eadbe3933957ec6"
+      },
+      "defaultValues": {
+        "size": "md"
+      }
+    },
+    "NativeSelect": {
+      "kind": "class-prefix",
+      "selector": ".cs-native-select",
+      "prefix": "cs-native-select--",
+      "sourceEvidence": {
+        "components/forms/NativeSelect.jsx": "fc49d3ff729ccca1bee0a8e59737256266f37cdb1fcbf0acfa2129a17ca098b1",
+        "components/forms/NativeSelect.d.ts": "ae665fa65532fd335ecdf8d8c2cce0f2bbbbe490df1e3c247b39fc3077ee588e"
+      },
+      "defaultValues": {
+        "size": "md"
+      }
+    },
+    "ProgressBar": {
+      "kind": "class-prefix",
+      "selector": ".cs-progress",
+      "prefix": "cs-progress--",
+      "sourceEvidence": {
+        "components/feedback/ProgressBar.jsx": "6b5e69900ba76d274dbe25dac4b7d75bb5fde9f2231e2cac08902171994fd8d1",
+        "components/feedback/ProgressBar.d.ts": "bdf35b1d48f748ea770bab60b9414d6069a5fdc42cad9817fa9b674c67546e52"
+      },
+      "defaultValues": {
+        "variant": null
+      }
+    },
+    "Toast": {
+      "kind": "class-prefix",
+      "selector": ".cs-toast",
+      "prefix": "cs-toast--",
+      "sourceEvidence": {
+        "components/feedback/Toast.jsx": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
+        "components/feedback/Toast.d.ts": "9d49bd59876f958c4a82a15725edcd6fd4a03087d5c740c9eecdbf35b9584faf"
+      },
+      "defaultValues": {
+        "variant": "default"
+      }
+    },
+    "Result": {
+      "kind": "class-prefix",
+      "selector": ".cs-result",
+      "prefix": "cs-result--",
+      "sourceEvidence": {
+        "components/feedback/Result.jsx": "3977aaa50e38a5b569112dc42e8706db0365e8c6c682de805048e1e554c8bb40",
+        "components/feedback/Result.d.ts": "f2806c8a292d1b2091fbfd8b4413eb733645015cd67e20d924bba7abfc369b41"
+      },
+      "defaultValues": {
+        "status": "info"
+      }
+    },
+    "StatusIndicator": {
+      "kind": "class-prefix",
+      "selector": ".cs-status",
+      "prefix": "cs-status--",
+      "sourceEvidence": {
+        "components/feedback/StatusIndicator.jsx": "b969e7713b3e478b6ed83349472be50553328f98071fc8844da575ef3623a51c",
+        "components/feedback/StatusIndicator.d.ts": "299545807b3a10f3bff4b9dec023faf17d9b9e441ae115a2cf307fd54315217b"
+      },
+      "defaultValues": {
+        "status": "offline"
+      },
+      "props": {
+        "children": "Connection status"
+      }
+    },
+    "Badge": {
+      "kind": "conditional-class",
+      "selector": ".cs-badge",
+      "prop": "variant",
+      "absentValue": "neutral",
+      "prefix": "cs-badge--",
+      "sourceEvidence": {
+        "components/feedback/Badge.jsx": "6eeac438173e1d489ae503957d6049d4ae4b009350b7ed7a1a0bc789911d2feb",
+        "components/feedback/Badge.d.ts": "da7458730ed7772a94eeb95673bf9caf86061c090f92d3d9711efa34dc410ca3"
+      },
+      "defaultValues": {
+        "variant": "neutral"
+      }
+    },
+    "Link": {
+      "kind": "conditional-class",
+      "selector": ".cs-link",
+      "prop": "variant",
+      "absentValue": "default",
+      "prefix": "cs-link--",
+      "sourceEvidence": {
+        "components/navigation/Link.jsx": "d4406a6a38f0b586176fa40bab51db654b277bdd4600663357ef0defc695c0a6",
+        "components/navigation/Link.d.ts": "2724cf2c68b4535f9f0f43d5ac6a9b4f17665cd5cdcaae7a349e9e42e9029b33"
+      },
+      "defaultValues": {
+        "variant": "default"
+      }
+    },
+    "AlertDialog": {
+      "kind": "destructive",
+      "selector": ".cs-alert-dialog",
+      "sourceEvidence": {
+        "components/overlays/AlertDialog.jsx": "4da78ce1d38abb6659a45b501abc08310f2fd525b7cae7fb20bb4e293bb8c82d",
+        "components/overlays/AlertDialog.d.ts": "b691abfc7e6cc1a3b702a930356b7f06df7d28fa52f6cfeaa16a07ad061b6086"
+      },
+      "defaultValues": {
+        "tone": "default",
+        "variant": "default"
+      }
+    },
+    "Icon": {
+      "kind": "icon-size",
+      "selector": "svg",
+      "sourceEvidence": {
+        "components/icon/Icon.jsx": "c1d7d63c73094053718fd92bef441ff9f13e20023a642f07ecbaf8563eda7d05",
+        "components/icon/Icon.d.ts": "b7a2a05353efa106ea1758bfccfa1281d14ba58f2d9eac48c2cce3b026cf9b8c"
+      },
+      "defaultValues": {
+        "size": "md"
+      }
+    },
+    "Skeleton": {
+      "kind": "skeleton",
+      "selector": ".cs-skeleton",
+      "props": {
+        "width": 40,
+        "height": 40,
+        "lines": 0
+      },
+      "sourceEvidence": {
+        "components/feedback/Skeleton.jsx": "56b00bf55c72eac2c65d57d24ae01520830ff2f2f8e5896e879f3c56fe420e83",
+        "components/feedback/Skeleton.d.ts": "13e227cc75775e6ac9609e19fe3bef0c09817cf312604e5038b26a515014c681"
+      },
+      "defaultValues": {
+        "variant": "block"
+      }
+    },
+    "DataTable": {
+      "kind": "table-state",
+      "selector": ".cs-table-wrap",
+      "sourceEvidence": {
+        "components/datatable/DataTable.jsx": "2982f89295d11775882a2411e5bf0eb6fdea123af9431f67bb44a45efe4cbb2c",
+        "components/datatable/DataTable.d.ts": "9bda60486320628f2cc08204de69dc41c30250c2c18eb213cdca5a9b1116fed8"
+      },
+      "defaultValues": {
+        "state": "idle"
+      }
+    },
+    "SegmentedControl": {
+      "kind": "segmented-mode",
+      "selector": ".cs-segmented",
+      "sourceEvidence": {
+        "components/forms/SegmentedControl.jsx": "acf7e576e1680065c505039b2599f0a8f1b49584d112efa3f4dc892f4cb5cd93",
+        "components/forms/SegmentedControl.d.ts": "ec1f9a05ce0dc920a6aed7a6a7d2e3d25e8331343dac7d8522234284193a288f"
+      },
+      "defaultValues": {
+        "mode": "radio"
+      }
+    }
+  },
+  "disabled": {
+    "Button": {
+      "kind": "native-disabled",
+      "selector": ".cs-button",
+      "sourceEvidence": {
+        "components/button/Button.jsx": "198c46d2c90a065d8510c5a64c38f292075483fdf65d05f36b671082934f3d4d",
+        "components/button/Button.d.ts": "d2de8fecaf5d8001a0293c2c40b56d915046ce49be126b955338bb8ccfba1904"
+      }
+    },
+    "Cascader": {
+      "kind": "native-disabled",
+      "selector": ".cs-treeselect__field",
+      "sourceEvidence": {
+        "components/forms/Cascader.jsx": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+        "components/forms/Cascader.d.ts": "33edbc198353ed41f05867be9e1c04830d5033cf2cf4ceda3e1ba13adef27aea"
+      }
+    },
+    "Checkbox": {
+      "kind": "native-disabled",
+      "selector": ".cs-check input",
+      "sourceEvidence": {
+        "components/forms/Checkbox.jsx": "19491fd53a0a7c5a4fa3c9d449ee3c0b7f39af18565413a012a7a8f5e25425ee",
+        "components/forms/Checkbox.d.ts": "733214d012dc9dfea6066211d2fcc9bf6c0e76f897c6d38f7505849754c2fcbf"
+      }
+    },
+    "Combobox": {
+      "kind": "native-disabled",
+      "selector": "input[role=\"combobox\"]",
+      "sourceEvidence": {
+        "components/forms/Combobox.jsx": "bae42bd629700dcdb3173636184df3aa0181a4e4d5f0ae7447a630f6404e84d3",
+        "components/forms/Combobox.d.ts": "21e214b53ce8edeb9210a6ea375233d11ddecdad906c90248dfd3d456375761a"
+      }
+    },
+    "DatePicker": {
+      "kind": "native-disabled",
+      "selector": ".cs-datepicker__field",
+      "sourceEvidence": {
+        "components/forms/DatePicker.jsx": "7a2fadb7759ddd31d574114d8e967406dbf82117251b65b14adcab6e21996b32",
+        "components/forms/DatePicker.d.ts": "fdbddac69a2e2ffca64699c59cb0b3e2fb8108e0bfd77e45f7e3be344129fd2e"
+      }
+    },
+    "InputGroup": {
+      "kind": "native-disabled",
+      "selector": ".cs-igroup input",
+      "sourceEvidence": {
+        "components/forms/InputGroup.jsx": "0bd2e8f408f1942386857b64244211049aa9c31636e881ef2e06c5eb5cc60f56",
+        "components/forms/InputGroup.d.ts": "5e7c7b98399e2a4a9383ba0ab9ac4e71831a85e019fb7fb2598b504d2e64c6b2"
+      }
+    },
+    "InputOTP": {
+      "kind": "native-disabled",
+      "selector": ".cs-otp input",
+      "sourceEvidence": {
+        "components/forms/InputOTP.jsx": "fe278664ea6bc07ac293ff28fe2ab6e6d8d2e0fc1cc6ddd3c3e59e68c088dacc",
+        "components/forms/InputOTP.d.ts": "4d09ceabc1430f16eb349eabbe24233233dffece6c56efca634f339d206e579c"
+      }
+    },
+    "Item": {
+      "kind": "anchor-disabled",
+      "selector": ".cs-item",
+      "props": {
+        "href": "#disabled-scenario"
+      },
+      "sourceEvidence": {
+        "components/data/Item.jsx": "525c6e1034e561d702305379d47debd81939294452a4c7485d4af2636d7a9ca1",
+        "components/data/Item.d.ts": "11927c57235741de6c0341872447219ee186165cdfbac27590712e2002921485"
+      }
+    },
+    "MenuItem": {
+      "kind": "native-disabled",
+      "selector": ".cs-menu__item",
+      "sourceEvidence": {
+        "components/navigation/Menu.jsx": "d52fc45cfca5febb4d775d9dd10ae771e5333b3ba1c9a97a3eb44fd6ea1f5873",
+        "components/navigation/Menu.d.ts": "bb7e9397025be7fcbf2938c4c3dd40b0e6d4f1ca4e3af606ac3d81cce1d7dfcb"
+      }
+    },
+    "NativeSelect": {
+      "kind": "native-disabled",
+      "selector": "select",
+      "sourceEvidence": {
+        "components/forms/NativeSelect.jsx": "fc49d3ff729ccca1bee0a8e59737256266f37cdb1fcbf0acfa2129a17ca098b1",
+        "components/forms/NativeSelect.d.ts": "ae665fa65532fd335ecdf8d8c2cce0f2bbbbe490df1e3c247b39fc3077ee588e"
+      }
+    },
+    "NumberField": {
+      "kind": "native-disabled",
+      "selector": ".cs-stepper input",
+      "sourceEvidence": {
+        "components/forms/NumberField.jsx": "f2dfbf219d37f79f31a96b70240fc5946a7bb440006c4101356579044d50f350",
+        "components/forms/NumberField.d.ts": "350a4a88815be8db94f37b7d0f8967e8ead12721e31d88c290f035a2c1b3c79d"
+      }
+    },
+    "PromptInput": {
+      "kind": "native-disabled",
+      "selector": "textarea",
+      "sourceEvidence": {
+        "components/ai/PromptInput.jsx": "af962b0e65d405a27e7742ebc0d76be3db0b92b90ac1f91e4eb0393b0caa0f97",
+        "components/ai/PromptInput.d.ts": "14f9176fc787303204b679e3b89813616df616e1f47f8d2321721f892c4d49ce"
+      }
+    },
+    "Radio": {
+      "kind": "native-disabled",
+      "selector": "input[type=\"radio\"]",
+      "sourceEvidence": {
+        "components/forms/RadioGroup.jsx": "b72f446770714b8032ebaeaf060418dae4133c882ea1c69412b87c0c6a1823d3",
+        "components/forms/RadioGroup.d.ts": "e0ddb6fc1612855357ee1c452e976b08826bc912dcca6181be9b50a0bfbda9a4"
+      }
+    },
+    "SearchField": {
+      "kind": "native-disabled",
+      "selector": ".cs-search input",
+      "sourceEvidence": {
+        "components/forms/SearchField.jsx": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+        "components/forms/SearchField.d.ts": "16b63c44bbdf6d4f9f8f05f0612cbcd8d92b6d4af5800d90fd120a5f1f60a5fa"
+      }
+    },
+    "Select": {
+      "kind": "native-disabled",
+      "selector": "select",
+      "sourceEvidence": {
+        "components/forms/Select.jsx": "a87c83c2783177fdaa135bb576e772b2c10fd8517d574622d8b15ceb611452b1",
+        "components/forms/Select.d.ts": "3131838de8601d1aa7e59a691bd548b2db1ee421a1274d11b5a71233f65ee5e7"
+      }
+    },
+    "Slider": {
+      "kind": "native-disabled",
+      "selector": "input[type=\"range\"]",
+      "sourceEvidence": {
+        "components/forms/Slider.jsx": "409856d4cdba4dff50810000c4b00350d65c801ec7f54a6dd74eef14dd01ca05",
+        "components/forms/Slider.d.ts": "7eb5faafbb8a37346cf82bd598abc215d14bc9ccde64c8e91ae66f4e24d39776"
+      }
+    },
+    "Switch": {
+      "kind": "native-disabled",
+      "selector": "[role=\"switch\"]",
+      "sourceEvidence": {
+        "components/forms/Switch.jsx": "a321971bc38a64494273a464da2e184d058737fe04e8ef936005fe2b7580235e",
+        "components/forms/Switch.d.ts": "0234ea8753c984d39af658a5d065fbf29228414395d4222227077ad93afe1cb4"
+      }
+    },
+    "Tab": {
+      "kind": "native-disabled",
+      "selector": ".cs-tab",
+      "sourceEvidence": {
+        "components/navigation/Tabs.jsx": "551a0dc725d8bd64a5736228d487fe303e02ba46925299a4ce8511b16f680188",
+        "components/navigation/Tabs.d.ts": "98d8571c92276440f98775ebabd833181f0da191bac193c5b1bc8086263eca8d"
+      }
+    },
+    "TagInput": {
+      "kind": "native-disabled",
+      "selector": ".cs-taginput input",
+      "sourceEvidence": {
+        "components/forms/TagInput.jsx": "775a7e22922619577b27bbd0bfc2cc4b193e938fd4b2dc7dc44e997e219c41a3",
+        "components/forms/TagInput.d.ts": "4fb776216f431ed5c9d9ffde7407b3a4d5c979f57b91f7b80b32523f272df7d7"
+      }
+    },
+    "TextField": {
+      "kind": "native-disabled",
+      "selector": ".cs-field__control",
+      "sourceEvidence": {
+        "components/textfield/TextField.jsx": "878810214bb342d85d933884b5b19984b57f7281e4560c18280b8f4c021c5f99",
+        "components/textfield/TextField.d.ts": "b4762c2a83d9de17f64c6ab61d7291a4e58a32dbd432206464ed56b8d358d54c"
+      }
+    },
+    "Textarea": {
+      "kind": "native-disabled",
+      "selector": "textarea",
+      "sourceEvidence": {
+        "components/forms/Textarea.jsx": "8a7c960a4b7b3b9e8cf6d69e21c44f49067bbc35a404f010471720e34f70a263",
+        "components/forms/Textarea.d.ts": "b4d33c5eb14ac5ae991714bd73090c3d8761b42e4fc34dc99145a67a91a6ca0a"
+      }
+    },
+    "TimePicker": {
+      "kind": "native-disabled",
+      "selector": "select",
+      "sourceEvidence": {
+        "components/forms/TimePicker.jsx": "0537c564b214b46fd3ddaa44caefc05b7accb1873987ade73b69c18d2456718e",
+        "components/forms/TimePicker.d.ts": "93cc5fda4cdab861d32f476c3f7f57b29cdb8a71c871cecfe6455e735f2ca224"
+      }
+    },
+    "Toggle": {
+      "kind": "native-disabled",
+      "selector": ".cs-toggle",
+      "sourceEvidence": {
+        "components/forms/Toggle.jsx": "0527c953307239cbd54847c3516833f53069540bd5a9ef3135792f4638c65006",
+        "components/forms/Toggle.d.ts": "5fcb8625779946be1dcaae5a11007c1876e260b7ec92a9bb375421d0b612c7bd"
+      }
+    },
+    "TreeSelect": {
+      "kind": "native-disabled",
+      "selector": ".cs-treeselect__field",
+      "sourceEvidence": {
+        "components/forms/TreeSelect.jsx": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+        "components/forms/TreeSelect.d.ts": "3623e81530a0900556a713346f5ea7a96c02dc185a1481589d45190f5b09c33e"
+      }
+    }
+  },
+  "errors": {
+    "Cascader": {
+      "kind": "associated-error",
+      "props": {
+        "error": "Cascader scenario validation error"
+      },
+      "marker": "Cascader scenario validation error",
+      "sourceEvidence": {
+        "components/forms/Cascader.jsx": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+        "components/forms/Cascader.d.ts": "33edbc198353ed41f05867be9e1c04830d5033cf2cf4ceda3e1ba13adef27aea"
+      }
+    },
+    "ColorPicker": {
+      "kind": "associated-error",
+      "props": {
+        "error": "ColorPicker scenario validation error"
+      },
+      "marker": "ColorPicker scenario validation error",
+      "sourceEvidence": {
+        "components/forms/ColorPicker.jsx": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+        "components/forms/ColorPicker.d.ts": "a0a3d9c005fc6f8ddc4fdc85f132aedfcb10dee745ae1706eb6b924814531e2d"
+      }
+    },
+    "Combobox": {
+      "kind": "associated-error",
+      "props": {
+        "error": "Combobox scenario validation error"
+      },
+      "marker": "Combobox scenario validation error",
+      "sourceEvidence": {
+        "components/forms/Combobox.jsx": "bae42bd629700dcdb3173636184df3aa0181a4e4d5f0ae7447a630f6404e84d3",
+        "components/forms/Combobox.d.ts": "21e214b53ce8edeb9210a6ea375233d11ddecdad906c90248dfd3d456375761a"
+      }
+    },
+    "DatePicker": {
+      "kind": "associated-error",
+      "props": {
+        "error": "DatePicker scenario validation error"
+      },
+      "marker": "DatePicker scenario validation error",
+      "sourceEvidence": {
+        "components/forms/DatePicker.jsx": "7a2fadb7759ddd31d574114d8e967406dbf82117251b65b14adcab6e21996b32",
+        "components/forms/DatePicker.d.ts": "fdbddac69a2e2ffca64699c59cb0b3e2fb8108e0bfd77e45f7e3be344129fd2e"
+      }
+    },
+    "Form": {
+      "kind": "form-error",
+      "props": {
+        "errors": {
+          "name": "Form scenario validation error"
+        }
+      },
+      "marker": "Form scenario validation error",
+      "sourceEvidence": {
+        "components/forms/Form.jsx": "fc33716feb9f7496abd4ab9a21af27920cf78d014bc33f8e79a7fbae5ba3ec3f",
+        "components/forms/Form.d.ts": "dce76f3cac30ca17235b0aa694f2647061f8db00743179fb69347bda6c86dacc"
+      }
+    },
+    "FormField": {
+      "kind": "associated-error",
+      "props": {
+        "error": "FormField scenario validation error"
+      },
+      "marker": "FormField scenario validation error",
+      "sourceEvidence": {
+        "components/forms/Form.jsx": "fc33716feb9f7496abd4ab9a21af27920cf78d014bc33f8e79a7fbae5ba3ec3f",
+        "components/forms/Form.d.ts": "dce76f3cac30ca17235b0aa694f2647061f8db00743179fb69347bda6c86dacc"
+      }
+    },
+    "InputOTP": {
+      "kind": "associated-error",
+      "props": {
+        "error": "InputOTP scenario validation error"
+      },
+      "marker": "InputOTP scenario validation error",
+      "sourceEvidence": {
+        "components/forms/InputOTP.jsx": "fe278664ea6bc07ac293ff28fe2ab6e6d8d2e0fc1cc6ddd3c3e59e68c088dacc",
+        "components/forms/InputOTP.d.ts": "4d09ceabc1430f16eb349eabbe24233233dffece6c56efca634f339d206e579c"
+      }
+    },
+    "NativeSelect": {
+      "kind": "associated-error",
+      "props": {
+        "error": "NativeSelect scenario validation error"
+      },
+      "marker": "NativeSelect scenario validation error",
+      "sourceEvidence": {
+        "components/forms/NativeSelect.jsx": "fc49d3ff729ccca1bee0a8e59737256266f37cdb1fcbf0acfa2129a17ca098b1",
+        "components/forms/NativeSelect.d.ts": "ae665fa65532fd335ecdf8d8c2cce0f2bbbbe490df1e3c247b39fc3077ee588e"
+      }
+    },
+    "NumberField": {
+      "kind": "associated-error",
+      "props": {
+        "error": "NumberField scenario validation error"
+      },
+      "marker": "NumberField scenario validation error",
+      "sourceEvidence": {
+        "components/forms/NumberField.jsx": "f2dfbf219d37f79f31a96b70240fc5946a7bb440006c4101356579044d50f350",
+        "components/forms/NumberField.d.ts": "350a4a88815be8db94f37b7d0f8967e8ead12721e31d88c290f035a2c1b3c79d"
+      }
+    },
+    "Rating": {
+      "kind": "associated-error",
+      "props": {
+        "error": "Rating scenario validation error"
+      },
+      "marker": "Rating scenario validation error",
+      "sourceEvidence": {
+        "components/forms/Rating.jsx": "3d545ce0192b31427088bfa3f5d8f29ff49e6eec2e5369cc8e72ef87645abdd3",
+        "components/forms/Rating.d.ts": "6d7b4bde103acdaaeda61799f5c08790a0d6eac379cba6debf45933e7b99b62f"
+      }
+    },
+    "Select": {
+      "kind": "associated-error",
+      "props": {
+        "error": "Select scenario validation error"
+      },
+      "marker": "Select scenario validation error",
+      "sourceEvidence": {
+        "components/forms/Select.jsx": "a87c83c2783177fdaa135bb576e772b2c10fd8517d574622d8b15ceb611452b1",
+        "components/forms/Select.d.ts": "3131838de8601d1aa7e59a691bd548b2db1ee421a1274d11b5a71233f65ee5e7"
+      }
+    },
+    "TagInput": {
+      "kind": "associated-error",
+      "props": {
+        "error": "TagInput scenario validation error"
+      },
+      "marker": "TagInput scenario validation error",
+      "sourceEvidence": {
+        "components/forms/TagInput.jsx": "775a7e22922619577b27bbd0bfc2cc4b193e938fd4b2dc7dc44e997e219c41a3",
+        "components/forms/TagInput.d.ts": "4fb776216f431ed5c9d9ffde7407b3a4d5c979f57b91f7b80b32523f272df7d7"
+      }
+    },
+    "TextField": {
+      "kind": "associated-error",
+      "props": {
+        "error": "TextField scenario validation error"
+      },
+      "marker": "TextField scenario validation error",
+      "sourceEvidence": {
+        "components/textfield/TextField.jsx": "878810214bb342d85d933884b5b19984b57f7281e4560c18280b8f4c021c5f99",
+        "components/textfield/TextField.d.ts": "b4762c2a83d9de17f64c6ab61d7291a4e58a32dbd432206464ed56b8d358d54c"
+      }
+    },
+    "Textarea": {
+      "kind": "associated-error",
+      "props": {
+        "error": "Textarea scenario validation error"
+      },
+      "marker": "Textarea scenario validation error",
+      "sourceEvidence": {
+        "components/forms/Textarea.jsx": "8a7c960a4b7b3b9e8cf6d69e21c44f49067bbc35a404f010471720e34f70a263",
+        "components/forms/Textarea.d.ts": "b4d33c5eb14ac5ae991714bd73090c3d8761b42e4fc34dc99145a67a91a6ca0a"
+      }
+    },
+    "TreeSelect": {
+      "kind": "associated-error",
+      "props": {
+        "error": "TreeSelect scenario validation error"
+      },
+      "marker": "TreeSelect scenario validation error",
+      "sourceEvidence": {
+        "components/forms/TreeSelect.jsx": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+        "components/forms/TreeSelect.d.ts": "3623e81530a0900556a713346f5ea7a96c02dc185a1481589d45190f5b09c33e"
+      }
+    },
+    "DataTable": {
+      "kind": "table-error",
+      "props": {
+        "state": "error",
+        "errorState": "DataTable scenario validation error"
+      },
+      "marker": "DataTable scenario validation error",
+      "sourceEvidence": {
+        "components/datatable/DataTable.jsx": "2982f89295d11775882a2411e5bf0eb6fdea123af9431f67bb44a45efe4cbb2c",
+        "components/datatable/DataTable.d.ts": "9bda60486320628f2cc08204de69dc41c30250c2c18eb213cdca5a9b1116fed8"
+      }
+    }
+  },
+  "empty": {
+    "DataGrid": {
+      "kind": "empty-collection",
+      "props": {
+        "rows": []
+      },
+      "collectionProp": "rows",
+      "selector": ".cs-table__empty",
+      "noItems": "tbody tr:not(:has(.cs-table__empty))",
+      "sourceEvidence": {
+        "components/datatable/DataGrid.jsx": "f98b241da97de25b2014cc1e28d84d1f35e4f16aeaa64d0e92961eabbc9499c5",
+        "components/datatable/DataGrid.d.ts": "fe6c38c69ddf62249fa9d9920a713386b661f2d500b52e0db13de7f6fa246eb9"
+      }
+    },
+    "DataTable": {
+      "kind": "empty-collection",
+      "props": {
+        "rows": []
+      },
+      "collectionProp": "rows",
+      "selector": ".cs-table__empty",
+      "noItems": "tbody tr:not(:has(.cs-table__empty))",
+      "sourceEvidence": {
+        "components/datatable/DataTable.jsx": "2982f89295d11775882a2411e5bf0eb6fdea123af9431f67bb44a45efe4cbb2c",
+        "components/datatable/DataTable.d.ts": "9bda60486320628f2cc08204de69dc41c30250c2c18eb213cdca5a9b1116fed8"
+      }
+    },
+    "TreeTable": {
+      "kind": "empty-collection",
+      "props": {
+        "nodes": []
+      },
+      "collectionProp": "nodes",
+      "selector": ".cs-table__empty",
+      "noItems": "tbody tr:not(:has(.cs-table__empty))",
+      "sourceEvidence": {
+        "components/datatable/TreeTable.jsx": "0f050c7e325b0c8fdaf425ba35ddfa89565c4816205d79391828efef24d9e2b4",
+        "components/datatable/TreeTable.d.ts": "35a0f878a1b69f7076545ffc4a929bf779847e41f4b7981b4c676d0158272c07"
+      }
+    },
+    "Combobox": {
+      "kind": "empty-collection",
+      "props": {
+        "options": []
+      },
+      "collectionProp": "options",
+      "selector": ".cs-combobox__empty",
+      "openBy": "focus",
+      "trigger": "input[role=\"combobox\"]",
+      "noItems": "[role=\"option\"]",
+      "sourceEvidence": {
+        "components/forms/Combobox.jsx": "bae42bd629700dcdb3173636184df3aa0181a4e4d5f0ae7447a630f6404e84d3",
+        "components/forms/Combobox.d.ts": "21e214b53ce8edeb9210a6ea375233d11ddecdad906c90248dfd3d456375761a"
+      }
+    },
+    "Cascader": {
+      "kind": "empty-collection",
+      "props": {
+        "nodes": []
+      },
+      "collectionProp": "nodes",
+      "selector": ".cs-cascader__pop",
+      "openBy": "click",
+      "trigger": ".cs-treeselect__field",
+      "noItems": "[role=\"option\"]",
+      "sourceEvidence": {
+        "components/forms/Cascader.jsx": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+        "components/forms/Cascader.d.ts": "33edbc198353ed41f05867be9e1c04830d5033cf2cf4ceda3e1ba13adef27aea"
+      }
+    },
+    "TreeSelect": {
+      "kind": "empty-collection",
+      "props": {
+        "nodes": []
+      },
+      "collectionProp": "nodes",
+      "selector": ".cs-treeselect__pop",
+      "openBy": "click",
+      "trigger": ".cs-treeselect__field",
+      "noItems": "[role=\"treeitem\"]",
+      "sourceEvidence": {
+        "components/forms/TreeSelect.jsx": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+        "components/forms/TreeSelect.d.ts": "3623e81530a0900556a713346f5ea7a96c02dc185a1481589d45190f5b09c33e"
+      }
+    },
+    "Transfer": {
+      "kind": "empty-collection",
+      "props": {
+        "items": []
+      },
+      "collectionProp": "items",
+      "selector": ".cs-transfer",
+      "noItems": "input[type=\"checkbox\"]",
+      "sourceEvidence": {
+        "components/forms/Transfer.jsx": "2a1c824ff9a0bf3afa0c4b617832c4316322a3a1885ceb5b2dbf3a67b8ce05f4",
+        "components/forms/Transfer.d.ts": "aded47b75a52a772ce7b2f00dba02618a644595cce6fac7cbce671d2bf99014b"
+      }
+    },
+    "CommandPalette": {
+      "kind": "empty-collection",
+      "props": {
+        "groups": []
+      },
+      "collectionProp": "groups",
+      "selector": ".cs-cmdk__status",
+      "noItems": ".cs-cmdk__item",
+      "sourceEvidence": {
+        "components/navigation/CommandPalette.jsx": "7572bc9c884cc84b46d289947aad5d23a6b59bb222a207f7e49e4ce385eb5771",
+        "components/navigation/CommandPalette.d.ts": "d19b4eb7a083a8b4057884a25562272bbbb81345c875d50e70ec3d673ae76893"
+      }
+    }
+  }
+}

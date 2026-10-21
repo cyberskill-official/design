@@ -1,3 +1,6 @@
+import type * as React from "react";
+import type { RootTargetProps, InputControlTargetProps } from "../_utils/target-props";
+import type { ReactNode } from "react";
 /** Multi-value token input: Enter/comma adds a tag, Backspace removes the last,
  *  blur commits while enabled, duplicates ignored. IME composition confirmation
  *  does not commit a tag. Controlled (value/onChange) or uncontrolled. */
@@ -16,5 +19,16 @@ export interface TagInputProps {
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;
   className?: string;
+  /** Explicit outer target; Rating/OTP use the same semantic group as controlProps. No ref forwarding. */
+  rootProps?: RootTargetProps;
+  /** Explicit primary target. Owned role, state, value and change handling cannot be replaced. */
+  controlProps?: Omit<InputControlTargetProps, "name" | "required">;
+  description?: ReactNode;
+  error?: ReactNode;
+  /** Field requirement semantics; does not add native submission serialization. */
+  required?: boolean;
+
+  /** Native input control; while component control is mounted. Separate from ref's primary target. */
+  controlRef?: React.Ref<HTMLInputElement>;
 }
-export function TagInput(props: TagInputProps): React.ReactElement;
+export const TagInput: React.ForwardRefExoticComponent<React.PropsWithoutRef<TagInputProps> & React.RefAttributes<HTMLDivElement>>;

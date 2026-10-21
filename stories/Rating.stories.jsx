@@ -5,6 +5,11 @@ export default {
   component: Rating,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
+  "controlProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
+  "description": {"control":"text"},
+  "error": {"control":"text"},
+  "required": {"control":"boolean"},
   "value": {
     "control": "number"
   },
@@ -12,7 +17,7 @@ export default {
     "control": "number"
   },
   "onChange": {
-    "control": "text"
+    "control": false
   },
   "max": {
     "control": "number"
@@ -27,13 +32,6 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Rating. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { value: 4, max: 5, label: 'Satisfaction' },
 };
 
@@ -45,6 +43,17 @@ export const Matrix = {
     <div style={{ display: 'grid', gap: 12 }}>
       <Rating {...args} value={1} max={5} label="Low" />
       <Rating {...args} value={5} max={5} label="High" />
+    </div>
+  ),
+};
+
+/** Both error states are rendered as actual field messages. */
+export const FullMatrix = {
+  name: 'Full matrix / error',
+  render: (args) => (
+    <div style={{ display: 'grid', gap: 12 }}>
+      <Rating {...args} error={undefined} />
+      <Rating {...args} error="Example field error" />
     </div>
   ),
 };

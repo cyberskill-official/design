@@ -1,3 +1,5 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -9,16 +11,18 @@ const ART = {
 };
 
 /** CyberSkill Result — full status view (success/error/warning/info): icon, title, body, actions. */
-export function Result({ status = "info", title, children, actions, lang, className }) {
-  const [ref, L] = useLang(lang);
-  const t = makeT("Result", L);
+export const Result = React.forwardRef(function Result({ status = "info", title, children, actions, lang, className, rootProps }, forwardedRef) {
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("Result", L, localeMessages);
   const tt = title != null ? title : t(status);
   return (
-    <div ref={ref} className={cx("cs-result", "cs-result--" + status, className)} role="status">
+    <div ref={mergedNativeRef} {...mergeTargetProps({ className: cx("cs-result", "cs-result--" + status, className) }, rootProps, ["role"])} role="status">
       <span className="cs-result__icon" aria-hidden="true">{ART[status] || ART.info}</span>
       <h2 className="cs-result__title">{tt}</h2>
       {(children || children === 0) ? <div className="cs-result__body">{children}</div> : null}
       {(actions || actions === 0) ? <div className="cs-result__actions">{actions}</div> : null}
     </div>
   );
-}
+});
+Result.displayName = "Result";

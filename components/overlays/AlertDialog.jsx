@@ -1,3 +1,4 @@
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -9,7 +10,7 @@ import { useOverlayLayer, overlayScopeContext } from "./OverlayManager.jsx";
  * Distinct from Popconfirm (inline bubble) and Dialog (general modal). Focus trap +
  * restore via overlay manager; bilingual confirm/cancel via the registry.
  */
-export function AlertDialog({
+export const AlertDialog = React.forwardRef(function AlertDialog({
   open,
   defaultOpen = false,
   onOpenChange,
@@ -25,13 +26,14 @@ export function AlertDialog({
   lang,
   className,
   ...props
-}) {
+}, forwardedRef) {
   const baseId = React.useId();
   const titleId = baseId + "-title";
   const descId = baseId + "-desc";
-  const [ref, L] = useLang(lang);
-  const t = makeT("AlertDialog", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const t = makeT("AlertDialog", L, localeMessages);
   const panel = React.useRef(null);
+  const mergedNativeRef = useComposedRefs(panel, forwardedRef);
   const backdrop = React.useRef(null);
   const uncontrolled = open === undefined;
   const [internal, setInternal] = React.useState(!!defaultOpen);
@@ -80,7 +82,7 @@ export function AlertDialog({
       {material ? <div ref={surface} className={cx("cs-overlay-surface", material)} aria-hidden="true" /> : null}
       <section
         {...props}
-        ref={panel}
+        ref={mergedNativeRef}
         data-cs-overlay-material={material || undefined}
         tabIndex={-1}
         role="alertdialog"
@@ -118,4 +120,5 @@ export function AlertDialog({
     </div>
     </overlayScopeContext.Provider>
   );
-}
+});
+AlertDialog.displayName = "AlertDialog";

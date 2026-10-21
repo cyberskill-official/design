@@ -61,6 +61,7 @@
   "Link",
   "List",
   "Logo",
+  "LocaleProvider",
   "LumiAvatar",
   "Masonry",
   "Mentions",
@@ -147,6 +148,10 @@
     var L = function (en, vn) { return vi ? vn : en; };
     var stop = function (e) { if (e && e.preventDefault) e.preventDefault(); };
 
+    function ScopedMessage() {
+      var t = NS.useMessages('AxeFixture', lang);
+      return h('p', null, t('message'));
+    }
     var nodes = [
       h(c('Accordion'), { items: [{ title: L('Details', 'Chi tiết'), content: L('Body copy for axe.', 'Nội dung axe.') }], defaultOpen: 0 }),
       h(c('AIDisclosureBadge'), { label: L('AI assisted', 'Có hỗ trợ AI') }),
@@ -247,6 +252,7 @@
       h(c('Link'), { href: '#', onClick: stop, children: L('Privacy', 'Riêng tư') }),
       h(c('List'), null, h(c('ListItem'), null, L('First item', 'Mục một')), h(c('ListItem'), null, L('Second item', 'Mục hai'))),
       h(c('Logo'), { size: 32, title: 'CyberSkill' }),
+      h(c('LocaleProvider'), { messages: { AxeFixture: { en: { message: 'Scoped message for accessibility review' }, vi: { message: 'Nội dung trong phạm vi kiểm tra trợ năng' } } } }, h(ScopedMessage)),
       h(c('LumiAvatar'), { size: 'md' }),
       h(c('Masonry'), { columns: 2, gap: 8 }, h('div', null, 'A'), h('div', null, 'B'), h('div', null, 'C')),
       h(c('Mentions'), { label: L('Mentions', 'Nhắc đến'), placeholder: L('Type @…', 'Gõ @…'), users: [{ id: '1', label: 'An Le' }], lang: lang, 'aria-label': L('Mentions', 'Nhắc đến') }),
@@ -345,7 +351,7 @@
       if (b.getAttribute('aria-expanded') !== 'true') b.click();
     });
     await wait(150);
-    var popups = stage.querySelectorAll('.cs-cascader__pop, .cs-treeselect__pop').length;
+    var popups = document.querySelectorAll('.cs-cascader__pop, .cs-treeselect__pop').length;
     var hierOk = openers.length > 0 && popups === openers.length;
     detail.push('hierarchy popups ' + popups + '/' + openers.length);
     if (!hierOk) ok = false;
@@ -355,7 +361,7 @@
     if (tops[0]) {
       if (tops[0].getAttribute('aria-expanded') !== 'true') tops[0].click();
       await wait(80);
-      var menuOpen = !!stage.querySelector('.cs-menubar [role="menu"]');
+      var menuOpen = Array.from(document.querySelectorAll('[role="menu"]')).some(function (menu) { return menu.getAttribute('aria-labelledby') === tops[0].id; });
       detail.push('menubar menu ' + (menuOpen ? 'open' : 'closed'));
       if (!menuOpen) ok = false;
     }
@@ -377,7 +383,7 @@
     // Tooltip — force bubbles open for axe (inline style survives later focus moves to HoverCard)
     var tips = stage.querySelectorAll('.cs-tooltip');
     tips.forEach(function (tip) {
-      var bubble = tip.querySelector('[role="tooltip"]');
+      var bubble = document.getElementById(tip.querySelector('[aria-describedby]')?.getAttribute('aria-describedby'));
       if (bubble) {
         bubble.style.opacity = '1';
         bubble.style.transform = 'translateX(-50%) translateY(0)';
@@ -389,19 +395,20 @@
     await wait(80);
     var tipVisible = 0;
     tips.forEach(function (tip) {
-      var bubble = tip.querySelector('[role="tooltip"][data-axe-forced-open="1"]');
+      var bubble = document.getElementById(tip.querySelector('[aria-describedby]')?.getAttribute('aria-describedby'));
       if (bubble && Number(getComputedStyle(bubble).opacity) > 0.5) tipVisible++;
     });
     detail.push('tooltip visible ' + tipVisible + '/' + tips.length);
     if (tips.length && tipVisible !== tips.length) ok = false;
 
     // Context menu zone — open on the zone (React listens there); assert menu in tree
+    var priorMenus = new Set(document.querySelectorAll('[role="menu"]'));
     var zones = stage.querySelectorAll('.cs-ctxmenu-zone');
     zones.forEach(function (z) {
       z.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 20, clientY: 20 }));
     });
     await wait(80);
-    var ctxMenus = stage.querySelectorAll('.cs-ctxmenu-zone [role="menu"]').length;
+    var ctxMenus = Array.from(document.querySelectorAll('[role="menu"]')).filter(function (menu) { return !priorMenus.has(menu); }).length;
     detail.push('context menus ' + ctxMenus + '/' + zones.length);
     if (zones.length && ctxMenus !== zones.length) ok = false;
 
@@ -414,7 +421,7 @@
       await wait(40);
     }
     await wait(100);
-    var panels = stage.querySelectorAll('.cs-hovercard__panel').length;
+    var panels = document.querySelectorAll('.cs-hovercard__panel').length;
     detail.push('hovercard panels ' + panels + '/' + cards.length);
     if (cards.length && panels !== cards.length) ok = false;
 
@@ -434,6 +441,8 @@
     return { name: name, nodes: nodes };
   }
 
+  function sceneRoots(stage) { return [stage].concat(Array.from(document.querySelectorAll("[data-cs-floating-root]"))); }
+
   /** Static scans wait for fonts and finite entry motion; continuous effects keep running. */
   async function settleSceneForScan(stage) {
     var timer, cancelled = false;
@@ -445,7 +454,7 @@
           for (var pass = 0; pass < 8 && !cancelled; pass++) {
             await new Promise(requestAnimationFrame);
             if (cancelled) return;
-            var finite = stage.getAnimations({ subtree: true }).filter(function (animation) {
+            var finite = sceneRoots(stage).flatMap(function (root) { return root.getAnimations({ subtree: true }); }).filter(function (animation) {
               return animation.playState !== 'finished' && animation.playState !== 'idle' &&
                 Number.isFinite(animation.effect.getComputedTiming().endTime);
             });
@@ -469,7 +478,7 @@
   async function expandSceneForScan(stage, name) {
     var detail = 'default fixture';
     function requireNode(selector) {
-      var node = stage.querySelector(selector);
+      var node = sceneRoots(stage).map(function (root) { return root.querySelector(selector); }).find(Boolean);
       if (!node) throw new Error(name + ': missing ' + selector);
       return node;
     }
@@ -478,7 +487,7 @@
       requireNode('button.cs-treeselect__field').click();
       selector = name === 'Cascader' ? '.cs-cascader__pop' : '.cs-treeselect__pop';
     } else if (name === 'Menubar') {
-      requireNode('.cs-menubar__top').click(); selector = '.cs-menubar [role="menu"]';
+      requireNode('.cs-menubar__top').click(); selector = '.cs-menu__list[role="menu"]';
     } else if (name === 'Combobox') {
       requireNode('input[role="combobox"]').focus(); selector = '[role="listbox"]';
     } else if (name === 'DatePicker' || name === 'ColorPicker') {
@@ -486,7 +495,7 @@
       selector = name === 'DatePicker' ? '.cs-datepicker__pop' : '.cs-colorpicker__pop';
     } else if (name === 'ContextMenu') {
       requireNode('.cs-ctxmenu-zone').dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 20, clientY: 20 }));
-      selector = '.cs-ctxmenu-zone [role="menu"]';
+      selector = '.cs-menu__list[role="menu"]';
     } else if (name === 'HoverCard') {
       requireNode('.cs-hovercard').dispatchEvent(new MouseEvent('mouseover', { bubbles: true, cancelable: true, relatedTarget: document.body }));
       selector = '.cs-hovercard__panel';
@@ -498,7 +507,7 @@
       selector = '[role="tooltip"]';
     } else if (['Dialog', 'AlertDialog', 'Drawer', 'CommandPalette', 'Tour'].indexOf(name) >= 0) {
       selector = '[role="dialog"], [role="alertdialog"]';
-    } else if (name === 'Menu') selector = '.cs-menu [role="menu"]';
+    } else if (name === 'Menu') selector = '.cs-menu__list[role="menu"]';
     if (selector) {
       await wait(120);
       var surface = requireNode(selector);
@@ -515,6 +524,7 @@
     buildScene: buildScene,
     expandSceneForScan: expandSceneForScan,
     settleSceneForScan: settleSceneForScan,
+    sceneRoots: sceneRoots,
     expandForScan: expandForScan,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

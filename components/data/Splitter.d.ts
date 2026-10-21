@@ -1,7 +1,11 @@
+import type * as React from "react";
+import type { RootTargetProps } from "../_utils/target-props";
 import type { ReactNode } from "react";
 
 /** Two resizable panes with a draggable divider (pointer + arrow keys; bilingual aria). */
 export interface SplitterProps {
+  /** Attributes for the existing div root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: RootTargetProps<HTMLDivElement>;
   start: ReactNode;
   end: ReactNode;
   /** Initial start-pane %. Default 50. */
@@ -14,4 +18,4 @@ export interface SplitterProps {
   lang?: string;
   className?: string;
 }
-export function Splitter(props: SplitterProps): React.ReactElement;
+export const Splitter: React.ForwardRefExoticComponent<React.PropsWithoutRef<SplitterProps> & React.RefAttributes<HTMLDivElement>>;

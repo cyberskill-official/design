@@ -327,6 +327,11 @@
       "kind": "component"
     },
     {
+      "name": "LocaleProvider",
+      "sourcePath": "components/i18n/LocaleProvider.jsx",
+      "kind": "component"
+    },
+    {
       "name": "Logo",
       "sourcePath": "components/logo/Logo.jsx",
       "kind": "component"
@@ -615,6 +620,11 @@
       "name": "Watermark",
       "sourcePath": "components/data/Watermark.jsx",
       "kind": "component"
+    },
+    {
+      "name": "useMessages",
+      "sourcePath": "components/i18n/LocaleProvider.jsx",
+      "kind": "hook"
     }
   ],
   "startingPoints": [
@@ -680,400 +690,407 @@
       "path": "components/ai/ai-conversation.card.html",
       "group": "Components",
       "viewport": "700x420",
-      "subtitle": "PromptInput, ChatMessage (Lumi), ConfidenceMeter",
-      "name": "AI-native \u2014 conversation"
+      "name": "AI-native \u2014 conversation",
+      "subtitle": "PromptInput, ChatMessage (Lumi), ConfidenceMeter"
     },
     {
       "path": "components/ai/ai-lumi.card.html",
       "group": "Components",
       "viewport": "700x320",
-      "subtitle": "PromptSuggestions, TypingIndicator, CitationList",
-      "name": "AI-native \u2014 Lumi conversation"
+      "name": "AI-native \u2014 Lumi conversation",
+      "subtitle": "PromptSuggestions, TypingIndicator, CitationList"
     },
     {
       "path": "components/ai/ai.card.html",
       "group": "Components",
       "viewport": "700x340",
-      "subtitle": "Explainable AI badge + human-in-the-loop approval",
-      "name": "AI-native \u2014 Disclosure & Review Gate"
+      "name": "AI-native \u2014 Disclosure & Review Gate",
+      "subtitle": "Explainable AI badge + human-in-the-loop approval"
     },
     {
       "path": "components/brand/brand.card.html",
       "group": "Components",
       "viewport": "700x200",
-      "subtitle": "Golden-genie mascot avatar \u2014 sizes + ring",
-      "name": "LumiAvatar"
+      "name": "LumiAvatar",
+      "subtitle": "Golden-genie mascot avatar \u2014 sizes + ring"
     },
     {
       "path": "components/button/buttons.card.html",
       "group": "Components",
       "viewport": "700x300",
-      "subtitle": "Variants, sizes, states \u2014 Umber primary, composite focus",
-      "name": "Button"
+      "name": "Button",
+      "subtitle": "Variants, sizes, states \u2014 Umber primary, composite focus"
     },
     {
       "path": "components/data/collections.card.html",
       "group": "Components",
       "viewport": "700x520",
-      "subtitle": "List, Item, DescriptionList, Timeline, Accordion, Collapsible, Kbd, CodeBlock",
-      "name": "Collections & content"
+      "name": "Collections & content",
+      "subtitle": "List, Item, DescriptionList, Timeline, Accordion, Collapsible, Kbd, CodeBlock"
     },
     {
       "path": "components/data/data.card.html",
       "group": "Components",
       "viewport": "700x420",
-      "subtitle": "Card, Stat, Avatar, Tooltip, Divider, ScrollArea, AspectRatio",
-      "name": "Data & layout"
+      "name": "Data & layout",
+      "subtitle": "Card, Stat, Avatar, Tooltip, Divider, ScrollArea, AspectRatio"
     },
     {
       "path": "components/datatable/datatable.card.html",
       "group": "Components",
       "viewport": "700x420",
-      "subtitle": "Caption, scoped headers, idle / loading / error / empty",
-      "name": "DataTable"
+      "name": "DataTable",
+      "subtitle": "Caption, scoped headers, idle / loading / error / empty"
     },
     {
       "path": "components/dialog/dialog.card.html",
       "group": "Components",
       "viewport": "700x320",
-      "subtitle": "Modal overlay + panel with footer actions",
-      "name": "Dialog"
+      "name": "Dialog",
+      "subtitle": "Modal overlay + panel with footer actions"
     },
     {
       "path": "components/feedback/feedback-2.card.html",
       "group": "Components",
       "viewport": "700x320",
-      "subtitle": "StatusIndicator, EmptyState",
-      "name": "Status & empty state"
+      "name": "Status & empty state",
+      "subtitle": "StatusIndicator, EmptyState"
     },
     {
       "path": "components/feedback/feedback.card.html",
       "group": "Components",
       "viewport": "700x420",
-      "subtitle": "Badge, Tag, Alert, Toast, Spinner, Progress, Skeleton",
-      "name": "Feedback & status"
+      "name": "Feedback & status",
+      "subtitle": "Badge, Tag, Alert, Toast, Spinner, Progress, Skeleton"
     },
     {
       "path": "components/forms/forms-2.card.html",
       "group": "Components",
       "viewport": "700x360",
-      "subtitle": "Search, NumberField, Slider, FileUpload, SegmentedControl",
-      "name": "Form controls II"
+      "name": "Form controls II",
+      "subtitle": "Search, NumberField, Slider, FileUpload, SegmentedControl"
     },
     {
       "path": "components/forms/forms.card.html",
       "group": "Components",
       "viewport": "700x360",
-      "subtitle": "Select, NativeSelect, Checkbox, Radio, Switch, Textarea \u2014 brand accent",
-      "name": "Form controls"
+      "name": "Form controls",
+      "subtitle": "Select, NativeSelect, Checkbox, Radio, Switch, Textarea \u2014 brand accent"
+    },
+    {
+      "path": "components/i18n/i18n.card.html",
+      "group": "Components",
+      "viewport": "700x360",
+      "name": "Scoped UI messages",
+      "subtitle": "LocaleProvider is context-only; useMessages reads scoped copy"
     },
     {
       "path": "components/icon/icon.card.html",
       "group": "Components",
       "viewport": "700x180",
-      "subtitle": "In-repo line-icon set \u2014 currentColor, 1.75 stroke",
-      "name": "Icon"
+      "name": "Icon",
+      "subtitle": "In-repo line-icon set \u2014 currentColor, 1.75 stroke"
     },
     {
       "path": "components/logo/logo.card.html",
       "group": "Components",
       "viewport": "700x220",
-      "subtitle": "Official mark \u2014 Umber ground, Ochre genie. Never recolour.",
-      "name": "Logo"
+      "name": "Logo",
+      "subtitle": "Official mark \u2014 Umber ground, Ochre genie. Never recolour."
     },
     {
       "path": "components/navigation/navigation.card.html",
       "group": "Components",
       "viewport": "700x300",
-      "subtitle": "Tabs, Breadcrumb, Pagination, Menu",
-      "name": "Navigation"
+      "name": "Navigation",
+      "subtitle": "Tabs, Breadcrumb, Pagination, Menu"
     },
     {
       "path": "components/navigation/shell.card.html",
       "group": "Components",
       "viewport": "700x420",
-      "subtitle": "Sidebar + NavItem, Steps, CommandPalette",
-      "name": "App shell \u2014 Sidebar, Steps, Command"
+      "name": "App shell \u2014 Sidebar, Steps, Command",
+      "subtitle": "Sidebar + NavItem, Steps, CommandPalette"
     },
     {
       "path": "components/overlays/alertdialog.card.html",
       "group": "Components",
       "viewport": "700x320",
-      "subtitle": "Confirm / destructive modal (alertdialog)",
-      "name": "AlertDialog"
+      "name": "AlertDialog",
+      "subtitle": "Confirm / destructive modal (alertdialog)"
     },
     {
       "path": "components/overlays/overlays.card.html",
       "group": "Components",
       "viewport": "700x360",
-      "subtitle": "Anchored popover + slide-in drawer",
-      "name": "Overlays \u2014 Popover & Drawer"
+      "name": "Overlays \u2014 Popover & Drawer",
+      "subtitle": "Anchored popover + slide-in drawer"
     },
     {
       "path": "components/textfield/textfield.card.html",
       "group": "Components",
       "viewport": "700x260",
-      "subtitle": "Label, description, error \u2014 diacritic-safe",
-      "name": "TextField"
+      "name": "TextField",
+      "subtitle": "Label, description, error \u2014 diacritic-safe"
     },
     {
       "path": "guidelines/atomic-view.html",
       "group": "Atomic View",
       "viewport": "1280x820",
-      "subtitle": "Storybook-style browser \u2014 every component + variants, live across Theme \u00d7 Element \u00d7 Language \u00d7 Style",
-      "name": "Atomic View"
+      "name": "Atomic View",
+      "subtitle": "Storybook-style browser \u2014 every component + variants, live across Theme \u00d7 Element \u00d7 Language \u00d7 Style"
     },
     {
       "path": "guidelines/brand-iconography.html",
       "group": "Brand",
       "viewport": "720x360",
-      "subtitle": "In-repo line set (27) \u2014 currentColor \u00b7 1.75 stroke \u00b7 round caps \u00b7 24\u00d724 \u00b7 sparkle is the wish glyph",
-      "name": "Iconography"
+      "name": "Iconography",
+      "subtitle": "In-repo line set (27) \u2014 currentColor \u00b7 1.75 stroke \u00b7 round caps \u00b7 24\u00d724 \u00b7 sparkle is the wish glyph"
     },
     {
       "path": "guidelines/brand-imagery.html",
       "group": "Brand",
       "viewport": "700x260",
-      "subtitle": "Warm gold particle light \u00b7 Lumi the golden genie",
-      "name": "Imagery & mascot"
+      "name": "Imagery & mascot",
+      "subtitle": "Warm gold particle light \u00b7 Lumi the golden genie"
     },
     {
       "path": "guidelines/brand-interaction.html",
       "group": "Brand",
       "viewport": "700x200",
-      "subtitle": "Hover brighten \u00b7 press nudge \u00b7 composite focus indicator",
-      "name": "Interaction states"
+      "name": "Interaction states",
+      "subtitle": "Hover brighten \u00b7 press nudge \u00b7 composite focus indicator"
     },
     {
       "path": "guidelines/brand-voice.html",
       "group": "Brand",
       "viewport": "700x260",
-      "subtitle": "Turn Your Will Into Real \u00b7 warm/direct/honest/respectful",
-      "name": "Slogan & voice"
+      "name": "Slogan & voice",
+      "subtitle": "Turn Your Will Into Real \u00b7 warm/direct/honest/respectful"
     },
     {
       "path": "guidelines/colors-anchors.html",
       "group": "Colors",
       "viewport": "700x210",
-      "subtitle": "Umber + Ochre \u2014 immutable",
-      "name": "Brand anchors"
+      "name": "Brand anchors",
+      "subtitle": "Umber + Ochre \u2014 immutable"
     },
     {
       "path": "guidelines/colors-semantic.html",
       "group": "Colors",
       "viewport": "700x170",
-      "subtitle": "Separate status fills, paired foregrounds and text",
-      "name": "Semantic"
+      "name": "Semantic",
+      "subtitle": "Separate status fills, paired foregrounds and text"
     },
     {
       "path": "guidelines/colors-surfaces.html",
       "group": "Colors",
       "viewport": "700x180",
-      "subtitle": "Warm paper \u2192 panel \u2192 raised",
-      "name": "Surfaces"
+      "name": "Surfaces",
+      "subtitle": "Warm paper \u2192 panel \u2192 raised"
     },
     {
       "path": "guidelines/colors-text.html",
       "group": "Colors",
       "viewport": "700x180",
-      "subtitle": "Primary, muted, accent, inverse",
-      "name": "Text colours"
+      "name": "Text colours",
+      "subtitle": "Primary, muted, accent, inverse"
     },
     {
       "path": "guidelines/documents.html",
       "group": "Documents",
       "viewport": "1280x560",
-      "subtitle": "3 reference docs govern every template \u00b7 A4 VN-first \u00b7 Ink/Slate pairs \u00b7 umber table bars \u00b7 yellow fill-ins \u00b7 blank Party B \u00b7 non-splitting signing blocks",
-      "name": "Document system"
+      "name": "Document system",
+      "subtitle": "3 reference docs govern every template \u00b7 A4 VN-first \u00b7 Ink/Slate pairs \u00b7 umber table bars \u00b7 yellow fill-ins \u00b7 blank Party B \u00b7 non-splitting signing blocks"
     },
     {
       "path": "guidelines/elements-components.html",
       "group": "Elements",
       "viewport": "1280x420",
-      "subtitle": "Same markup, five identities \u2014 CTAs, labels, badges, progress, links all follow --cs-accent-* automatically",
-      "name": "Components under each element"
+      "name": "Components under each element",
+      "subtitle": "Same markup, five identities \u2014 CTAs, labels, badges, progress, links all follow --cs-accent-* automatically"
     },
     {
       "path": "guidelines/elements-concept.html",
       "group": "Elements",
       "viewport": "1280x660",
-      "subtitle": "v1 shipped \u2014 tokens/elements.css \u00b7 --cs-accent-* contract \u00b7 data-cs-element scopes \u00b7 mixing per T\u01b0\u01a1ng sinh",
-      "name": "Ng\u0169 H\u00e0nh \u2014 elemental identity"
+      "name": "Ng\u0169 H\u00e0nh \u2014 elemental identity",
+      "subtitle": "v1 shipped \u2014 tokens/elements.css \u00b7 --cs-accent-* contract \u00b7 data-cs-element scopes \u00b7 mixing per T\u01b0\u01a1ng sinh"
     },
     {
       "path": "guidelines/elements-geometry.html",
       "group": "Elements",
       "viewport": "1280x720",
-      "subtitle": "Soft / middle / deep \u00d7 light/dark \u2014 shared intensity \u00b7 hue-locked themes",
-      "name": "Geometry \u00b7 30 sets"
+      "name": "Geometry \u00b7 30 sets",
+      "subtitle": "Soft / middle / deep \u00d7 light/dark \u2014 shared intensity \u00b7 hue-locked themes"
     },
     {
       "path": "guidelines/elements-variants.html",
       "group": "Elements",
       "viewport": "1280x560",
-      "subtitle": "Soft / middle / deep names \u00b7 aurora washes \u00b7 live packs from element-seeds (see Geometry \u00b7 30 sets)",
-      "name": "Variants & washes"
+      "name": "Variants & washes",
+      "subtitle": "Soft / middle / deep names \u00b7 aurora washes \u00b7 live packs from element-seeds (see Geometry \u00b7 30 sets)"
     },
     {
       "path": "guidelines/motion-interaction.html",
       "group": "Motion",
       "viewport": "720x250",
-      "subtitle": "Warm hover lift \u00b7 composite focus indicator \u00b7 staggered entrance; reduced motion shortens transitions",
-      "name": "Interaction states"
+      "name": "Interaction states",
+      "subtitle": "Warm hover lift \u00b7 composite focus indicator \u00b7 staggered entrance; reduced motion shortens transitions"
     },
     {
       "path": "guidelines/motion.html",
       "group": "Motion",
       "viewport": "700x300",
-      "subtitle": "Calm, short, decelerated \u2014 live easings, reduced-motion honoured",
-      "name": "Motion"
+      "name": "Motion",
+      "subtitle": "Calm, short, decelerated \u2014 live easings, reduced-motion honoured"
     },
     {
       "path": "guidelines/responsive-bilingual.html",
       "group": "Responsive & Bilingual",
       "viewport": "860x600",
-      "subtitle": "Reflow across device widths \u00b7 complete language separation",
-      "name": "Adaptation rules"
+      "name": "Adaptation rules",
+      "subtitle": "Reflow across device widths \u00b7 complete language separation"
     },
     {
       "path": "guidelines/spacing-breakpoints.html",
       "group": "Spacing",
       "viewport": "700x150",
-      "subtitle": "Mobile-first \u00b7 phone \u2192 2xl",
-      "name": "Breakpoints"
+      "name": "Breakpoints",
+      "subtitle": "Mobile-first \u00b7 phone \u2192 2xl"
     },
     {
       "path": "guidelines/spacing-radius.html",
       "group": "Spacing",
       "viewport": "700x170",
-      "subtitle": "sm 4 \u00b7 md 8 \u00b7 lg 14 \u00b7 full",
-      "name": "Radius"
+      "name": "Radius",
+      "subtitle": "sm 4 \u00b7 md 8 \u00b7 lg 14 \u00b7 full"
     },
     {
       "path": "guidelines/spacing-scale.html",
       "group": "Spacing",
       "viewport": "700x210",
-      "subtitle": "4px base grid \u00b7 0\u201396",
-      "name": "Spacing scale"
+      "name": "Spacing scale",
+      "subtitle": "4px base grid \u00b7 0\u201396"
     },
     {
       "path": "guidelines/surfaces-aurora.html",
       "group": "Surfaces",
       "viewport": "700x200",
-      "subtitle": "Signature warm-gold hero background (.cs-aurora)",
-      "name": "Aurora wash"
+      "name": "Aurora wash",
+      "subtitle": "Signature warm-gold hero background (.cs-aurora)"
     },
     {
       "path": "guidelines/surfaces-depth.html",
       "group": "Surfaces",
       "viewport": "700x210",
-      "subtitle": "bg \u2192 toast \u00b7 glass tier per layer",
-      "name": "Depth / z-index"
+      "name": "Depth / z-index",
+      "subtitle": "bg \u2192 toast \u00b7 glass tier per layer"
     },
     {
       "path": "guidelines/surfaces-glass.html",
       "group": "Surfaces",
       "viewport": "700x230",
-      "subtitle": "Whisper \u00b7 Light \u00b7 Standard \u00b7 Heavy \u00b7 Solid",
-      "name": "Liquid Glass materials"
+      "name": "Liquid Glass materials",
+      "subtitle": "Whisper \u00b7 Light \u00b7 Standard \u00b7 Heavy \u00b7 Solid"
     },
     {
       "path": "guidelines/surfaces-shadow.html",
       "group": "Surfaces",
       "viewport": "700x180",
-      "subtitle": "Warm, umber-tinted elevation",
-      "name": "Shadows"
+      "name": "Shadows",
+      "subtitle": "Warm, umber-tinted elevation"
     },
     {
       "path": "guidelines/type-families.html",
       "group": "Type",
       "viewport": "700x330",
-      "subtitle": "Be Vietnam Pro (UI) \u00b7 Space Grotesk (display) \u00b7 JetBrains Mono (code)",
-      "name": "Typefaces"
+      "name": "Typefaces",
+      "subtitle": "Be Vietnam Pro (UI) \u00b7 Space Grotesk (display) \u00b7 JetBrains Mono (code)"
     },
     {
       "path": "guidelines/type-lineheight.html",
       "group": "Type",
       "viewport": "700x210",
-      "subtitle": "body 1.5 \u00b7 heading 1.35 (room for diacritics)",
-      "name": "Line-height \u2014 Vietnamese-safe"
+      "name": "Line-height \u2014 Vietnamese-safe",
+      "subtitle": "body 1.5 \u00b7 heading 1.35 (room for diacritics)"
     },
     {
       "path": "guidelines/type-scale.html",
       "group": "Type",
       "viewport": "700x330",
-      "subtitle": "xs \u2192 5xl, 16px base",
-      "name": "Type scale"
+      "name": "Type scale",
+      "subtitle": "xs \u2192 5xl, 16px base"
     },
     {
       "path": "guidelines/type-weights.html",
       "group": "Type",
       "viewport": "700x180",
-      "subtitle": "Regular \u2192 Extrabold",
-      "name": "Weights"
+      "name": "Weights",
+      "subtitle": "Regular \u2192 Extrabold"
     },
     {
       "path": "ui_kits/deck/index.html",
       "group": "Deck",
       "viewport": "1280x720",
-      "subtitle": "16:9 presentation \u2014 browser print and host capture hooks",
-      "name": "Brand deck \u2014 CyberSkill"
+      "name": "Brand deck \u2014 CyberSkill",
+      "subtitle": "16:9 presentation \u2014 browser print and host capture hooks"
     },
     {
       "path": "ui_kits/status-hub/index.html",
       "group": "Status Hub",
       "viewport": "1320x860",
-      "subtitle": "KPIs, board / table / releases lenses, detail drawer",
-      "name": "Status Hub \u2014 portfolio dashboard"
+      "name": "Status Hub \u2014 portfolio dashboard",
+      "subtitle": "KPIs, board / table / releases lenses, detail drawer"
     },
     {
       "path": "ui_kits/status-hub/login.html",
       "group": "Status Hub",
       "viewport": "1280x760",
-      "subtitle": "Umber split login with brand panel + form controls (default / loading / error / invalid)",
-      "name": "Status Hub \u2014 sign in"
+      "name": "Status Hub \u2014 sign in",
+      "subtitle": "Umber split login with brand panel + form controls (default / loading / error / invalid)"
     },
     {
       "path": "ui_kits/status-hub/project.html",
       "group": "Status Hub",
       "viewport": "1280x900",
-      "subtitle": "Full project view: breadcrumb, steps, tasks, timeline, risk",
-      "name": "Status Hub \u2014 project detail"
+      "name": "Status Hub \u2014 project detail",
+      "subtitle": "Full project view: breadcrumb, steps, tasks, timeline, risk"
     },
     {
       "path": "ui_kits/status-hub/settings.html",
       "group": "Status Hub",
       "viewport": "1280x840",
-      "subtitle": "Tabs, form controls, switches, danger zone",
-      "name": "Status Hub \u2014 settings"
+      "name": "Status Hub \u2014 settings",
+      "subtitle": "Tabs, form controls, switches, danger zone"
     },
     {
       "path": "ui_kits/website/careers.html",
       "group": "Website",
       "viewport": "1200x820",
-      "subtitle": "Sample values and roles with contact-preview links",
-      "name": "cyberskill.world \u2014 careers"
+      "name": "cyberskill.world \u2014 careers",
+      "subtitle": "Sample values and roles with contact-preview links"
     },
     {
       "path": "ui_kits/website/chat.html",
       "group": "Website",
       "viewport": "1200x820",
-      "subtitle": "Scripted EN/VI chat preview: prompt, sample messages and disclosures",
-      "name": "cyberskill.world \u2014 Lumi chat"
+      "name": "cyberskill.world \u2014 Lumi chat",
+      "subtitle": "Scripted EN/VI chat preview: prompt, sample messages and disclosures"
     },
     {
       "path": "ui_kits/website/index.html",
       "group": "Website",
       "viewport": "1200x820",
-      "subtitle": "Bilingual hero, services, process, Lumi chat",
-      "name": "cyberskill.world \u2014 marketing home"
+      "name": "cyberskill.world \u2014 marketing home",
+      "subtitle": "Bilingual hero, services, process, Lumi chat"
     },
     {
       "path": "ui_kits/website/work.html",
       "group": "Website",
       "viewport": "1200x820",
-      "subtitle": "Sample case-study grid, results band and contact-preview link",
-      "name": "cyberskill.world \u2014 work"
+      "name": "cyberskill.world \u2014 work",
+      "subtitle": "Sample case-study grid, results band and contact-preview link"
     }
   ],
   "templates": [
@@ -6624,5 +6641,6 @@
       "path": "tokens/fonts.css"
     }
   ],
-  "source": "spa"
+  "source": "spa",
+  "schemaVersion": 1
 }

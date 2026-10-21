@@ -1,13 +1,15 @@
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Tag — chip with optional remove button. */
-export function Tag({ children, onRemove, removeLabel, lang, className, ...props }) {
-  const [ref, L] = useLang(lang);
-  const rl = removeLabel != null ? removeLabel : makeT("Tag", L)("remove");
+export const Tag = React.forwardRef(function Tag({ children, onRemove, removeLabel, lang, className, ...props }, forwardedRef) {
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const rl = removeLabel != null ? removeLabel : makeT("Tag", L, localeMessages)("remove");
   return (
-    <span ref={ref} className={cx("cs-tag", className)} {...props}>
+    <span ref={mergedNativeRef} className={cx("cs-tag", className)} {...props}>
       {children}
       {onRemove ? (
         <button type="button" className="cs-tag__close" aria-label={rl} onClick={onRemove}>
@@ -16,4 +18,5 @@ export function Tag({ children, onRemove, removeLabel, lang, className, ...props
       ) : null}
     </span>
   );
-}
+});
+Tag.displayName = "Tag";

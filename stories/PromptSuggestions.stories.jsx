@@ -5,16 +5,9 @@ export default {
   component: PromptSuggestions,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     suggestions: { control: 'object' },
     onSelect: { control: false },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting PromptSuggestions. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
   },
   args: { suggestions: ['Draft a BOD memo', 'VN labor contract'] },
 };

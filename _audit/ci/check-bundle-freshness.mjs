@@ -15,13 +15,17 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
+  buildBundle,
   BUNDLE_PATH,
+  BUNDLE_MAP_PATH,
   REPO_ROOT,
   collectSources,
   parseBundleHeader,
 } from "../../scripts/build-bundle.mjs";
 
 const shortHash = (buf) => createHash("sha256").update(buf).digest("hex").slice(0, 12);
+
+import { assertBundleBytes } from './lib/bundle-bytes.mjs';
 
 let header;
 try {
@@ -74,5 +78,9 @@ if (problems.length) {
   console.error("Rebuild with: npm run build:bundle");
   process.exit(1);
 }
+
+const built=buildBundle();
+assertBundleBytes(readFileSync(BUNDLE_PATH, 'utf8'), built.text);
+assertBundleBytes(readFileSync(BUNDLE_MAP_PATH, 'utf8'), built.mapText);
 
 console.log(`✓ bundle fresh — ${current.length} sources match the _ds_bundle.js header hashes`);

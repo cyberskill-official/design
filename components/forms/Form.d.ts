@@ -1,3 +1,4 @@
+import type { RootTargetProps } from "../_utils/target-props";
 /** FormField error/hint and FormFieldArray label preserve numeric 0. An explicit zero error takes precedence over the hint and context error and applies error styling. Empty error content retains the existing hint fallback. */
 import type * as React from "react";
 import type { ReactNode, FormEventHandler } from "react";
@@ -10,8 +11,8 @@ export type FormRule = "required" | ((value: unknown, values: Record<string, unk
  *  `rules` validate on submit (blocking until clean); FormField children with `name`
  *  auto-wire value/onChange + per-field errors via context. Dotted paths work with FormFieldArray. */
 export interface FormProps extends Omit<React.FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "onReset"> {
-  /** Pending lasts through the returned promise; rejection appears in the summary and permits retry. */
-  onSubmit?: (values: Record<string, unknown>) => void;
+  /** Synchronous return values are ignored; returned promises are awaited. Pending lasts through the promise; rejection appears in the summary and permits retry. */
+  onSubmit?: (values: Record<string, unknown>) => unknown;
   /** Native reset restores the mount-time controller seed and clears internal errors.
    * preventDefault cancels both native and controller reset. */
   onReset?: FormEventHandler<HTMLFormElement>;
@@ -31,7 +32,7 @@ export interface FormProps extends Omit<React.FormHTMLAttributes<HTMLFormElement
   lang?: string;
   className?: string;
 }
-export function Form(props: FormProps): React.ReactElement;
+export const Form: React.ForwardRefExoticComponent<React.PropsWithoutRef<FormProps> & React.RefAttributes<HTMLFormElement>>;
 
 /** Label + control + hint/error line. With `name` inside a Form, registers with the
  *  controller: single element child cloned with value/onChange (valueProp="checked"
@@ -46,11 +47,13 @@ export interface FormFieldProps {
   /** Prop carrying the value ("value" default; "checked" for Checkbox/Switch; "pressed" for Toggle).
    *  Unset checked/pressed fields receive false. */
   valueProp?: "value" | "checked" | "pressed";
-  children?: ReactNode;
+  /** Custom-control escape hatch; spread these association attributes onto its actual control. */
+  children?: ReactNode | ((associations: React.HTMLAttributes<HTMLElement>) => ReactNode);
+  rootProps?: RootTargetProps;
   lang?: string;
   className?: string;
 }
-export function FormField(props: FormFieldProps): React.ReactElement;
+export const FormField: React.ForwardRefExoticComponent<React.PropsWithoutRef<FormFieldProps> & React.RefAttributes<HTMLDivElement>>;
 
 export interface FormFieldArrayRenderArgs {
   index: number;
@@ -73,10 +76,12 @@ export interface FormFieldArrayProps {
   max?: number;
   addLabel?: ReactNode;
   defaultItem?: Record<string, unknown> | (() => Record<string, unknown>);
+  /** Attributes for the outer div; owned array/step/pending metadata is protected. */
+  rootProps?: Omit<RootTargetProps, "data-name"> & { "data-name"?: never };
   className?: string;
   lang?: string;
 }
-export function FormFieldArray(props: FormFieldArrayProps): React.ReactElement;
+export const FormFieldArray: React.ForwardRefExoticComponent<React.PropsWithoutRef<FormFieldArrayProps> & React.RefAttributes<HTMLDivElement>>;
 
 export interface FormWizardStep {
   id?: string;
@@ -91,15 +96,17 @@ export interface FormWizardStep {
 export interface FormWizardProps {
   steps: FormWizardStep[];
   initialValues?: Record<string, unknown>;
-  /** Pending lasts through the returned promise; rejection appears in the summary and permits retry. */
-  onComplete?: (values: Record<string, unknown>) => void;
+  /** Synchronous return values are ignored; returned promises are awaited. Pending lasts through the promise; rejection appears in the summary and permits retry. */
+  onComplete?: (values: Record<string, unknown>) => unknown;
   lang?: string;
+  /** Attributes for the outer div; owned array/step/pending metadata is protected. */
+  rootProps?: Omit<RootTargetProps, "aria-busy" | "data-step"> & { "data-step"?: never };
   className?: string;
   nextLabel?: ReactNode;
   backLabel?: ReactNode;
   finishLabel?: ReactNode;
 }
-export function FormWizard(props: FormWizardProps): React.ReactElement;
+export const FormWizard: React.ForwardRefExoticComponent<React.PropsWithoutRef<FormWizardProps> & React.RefAttributes<HTMLDivElement>>;
 
 export function getPath(obj: unknown, path: string): unknown;
 export function setPath(obj: unknown, path: string, value: unknown): unknown;

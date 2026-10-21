@@ -1,3 +1,5 @@
+import type * as React from "react";
+import type { RootTargetProps } from "../_utils/target-props";
 import type { ReactNode } from "react";
 
 /** Expandable hierarchy (APG tree: roving tabindex + arrow navigate/expand).
@@ -5,6 +7,8 @@ import type { ReactNode } from "react";
 /** Unique string keys, including the empty string, identify nodes across updates. */
 export interface TreeNode { key: string; label: ReactNode; children?: TreeNode[]; }
 export interface TreeProps {
+  /** Attributes for the existing ul root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: Omit<RootTargetProps<HTMLUListElement>, "role" | "aria-label" | "aria-labelledby">;
   nodes: TreeNode[];
   /** Accessible tree name; alternatively reference a visible heading. */
   "aria-label"?: string;
@@ -15,4 +19,4 @@ export interface TreeProps {
   defaultOpen?: boolean;
   className?: string;
 }
-export function Tree(props: TreeProps): React.ReactElement;
+export const Tree: React.ForwardRefExoticComponent<React.PropsWithoutRef<TreeProps> & React.RefAttributes<HTMLUListElement>>;

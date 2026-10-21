@@ -1,18 +1,21 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { useOverlayLayer, overlayScopeContext } from "./OverlayManager.jsx";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Tour — spotlight walkthrough over target elements (by CSS selector). Controlled via open/onClose. */
-export function Tour({ steps = [], open, onClose, lang, className }) {
+export const Tour = React.forwardRef(function Tour({ steps = [], open, onClose, lang, className , rootProps }, forwardedRef) {
   const [storedIndex, setI] = React.useState(0);
   const i = Math.max(0, Math.min(storedIndex, steps.length - 1));
   if (storedIndex !== i) setI(i);
   const [rect, setRect] = React.useState(null);
   const [pop, setPop] = React.useState({ top: 80, left: 40 });
-  const [ref, L] = useLang(lang);
-  const t = makeT("Tour", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const t = makeT("Tour", L, localeMessages);
   const panel = React.useRef(null);
+  const mergedNativeRef = useComposedRefs(panel, forwardedRef);
   const titleId = React.useId();
   const backdrop = React.useRef(null);
   const { scope } = useOverlayLayer({ open: !!open && steps.length > 0, kind: "modal", trapFocus: true, panelRef: panel, backdropRef: backdrop, onEscape: onClose });
@@ -52,10 +55,10 @@ export function Tour({ steps = [], open, onClose, lang, className }) {
   const last = i === steps.length - 1;
   return (
     <overlayScopeContext.Provider value={scope}>
-    <div ref={ref} className={cx("cs-tour", className)}>
+    <div ref={ref} {...mergeTargetProps({ "className": cx("cs-tour", className) }, rootProps, [])}>
       <div ref={backdrop} className="cs-tour__scrim" onClick={onClose} />
       {rect ? <div className="cs-tour__hole" style={{ left: rect.x, top: rect.y, width: rect.w, height: rect.h }} /> : null}
-      <div ref={panel} tabIndex={-1} className="cs-tour__pop" role="dialog" aria-modal="true" aria-labelledby={titleId} style={{ left: pop.left, top: pop.top }}>
+      <div ref={mergedNativeRef} tabIndex={-1} className="cs-tour__pop" role="dialog" aria-modal="true" aria-labelledby={titleId} style={{ left: pop.left, top: pop.top }}>
         <b id={titleId}>{s.title}</b>
         {(s.body || s.body === 0) ? <p>{s.body}</p> : null}
         <div className="cs-tour__bar">
@@ -70,4 +73,5 @@ export function Tour({ steps = [], open, onClose, lang, className }) {
     </div>
     </overlayScopeContext.Provider>
   );
-}
+});
+Tour.displayName = "Tour";

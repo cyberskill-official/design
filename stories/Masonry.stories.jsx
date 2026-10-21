@@ -24,16 +24,9 @@ export default {
   component: Masonry,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     columns: { control: 'number' },
     gap: { control: 'number' },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting Masonry. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
   },
   args: { columns: 3, gap: 12 },
 };

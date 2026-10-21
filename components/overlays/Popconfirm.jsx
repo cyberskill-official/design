@@ -1,19 +1,25 @@
+import { useFloatingPanel } from "../_utils/floating-panel.js";
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { useOverlayLayer, overlayScopeContext } from "./OverlayManager.jsx";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Popconfirm — inline confirm bubble on a destructive/consequential action. */
-export function Popconfirm({ trigger, title, onConfirm, onCancel, okLabel, cancelLabel, lang, className }) {
+export const Popconfirm = React.forwardRef(function Popconfirm({ portal = true, placement, trigger, title, onConfirm, onCancel, okLabel, cancelLabel, lang, className , rootProps }, forwardedRef) {
+  const floatingRef = React.useRef(null);
+  const mergedNativeRef = useComposedRefs(floatingRef, forwardedRef);
   const [open, setOpen] = React.useState(false);
   const titleId = React.useId();
   const wrap = React.useRef(null);
-  const [ref, L] = useLang(lang);
-  const t = makeT("Popconfirm", L);
-  const { scope } = useOverlayLayer({ open, kind: "popover", panelRef: wrap, onEscape: () => setOpen(false) });
+  const [ref, L, localeMessages] = useLang(lang);
+  const t = makeT("Popconfirm", L, localeMessages);
+  const floating = useFloatingPanel({ open: open, anchorRef: wrap, panelRef: floatingRef, portal, placement: placement ?? "bottom-start", gap: 8, getAnchor: ()=>wrap.current?.querySelector('[aria-haspopup="dialog"]'), lang });
+  const { scope } = useOverlayLayer({ open: (open) && floating.ready, kind: "popover", panelRef: floatingRef, surfaceKey: floating.surfaceKey, onEscape: () => setOpen(false) });
   React.useEffect(() => {
     if (!open) return;
-    const d = (e) => { if (wrap.current && !wrap.current.contains(e.target)) setOpen(false); };
+    const d = (e) => { if (!floating.contains(e.target)) setOpen(false); };
     document.addEventListener("mousedown", d);
     return () => { document.removeEventListener("mousedown", d); };
   }, [open]);
@@ -37,18 +43,19 @@ export function Popconfirm({ trigger, title, onConfirm, onCancel, okLabel, cance
     : <button type="button" aria-haspopup="dialog" aria-expanded={open} onClick={toggle}>{trigger}</button>;
   return (
     <overlayScopeContext.Provider value={scope}>
-    <span ref={(el) => { wrap.current = el; ref.current = el; }} className={cx("cs-popconfirm", className)}>
+    <span ref={(el) => { wrap.current = el; ref.current = el; }} {...mergeTargetProps({ "className": cx("cs-popconfirm", className) }, rootProps, [])}>
       {triggerNode}
       {open ? (
-        <span className="cs-popconfirm__panel" role="alertdialog" aria-labelledby={titleId}>
+        floating.render(<span className="cs-popconfirm__panel" role="alertdialog" aria-labelledby={titleId} ref={mergedNativeRef} >
           <span id={titleId} className="cs-popconfirm__title">{title}</span>
           <span className="cs-popconfirm__actions">
             <button type="button" className="cs-button cs-button--ghost cs-button--xs" onClick={() => { setOpen(false); onCancel && onCancel(); }}>{cancelLabel != null ? cancelLabel : t("cancel")}</button>
             <button type="button" className="cs-button cs-button--primary cs-button--xs" onClick={() => { setOpen(false); onConfirm && onConfirm(); }}>{okLabel != null ? okLabel : t("ok")}</button>
           </span>
-        </span>
+        </span>)
       ) : null}
     </span>
     </overlayScopeContext.Provider>
   );
-}
+});
+Popconfirm.displayName = "Popconfirm";

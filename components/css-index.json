@@ -1,0 +1,4038 @@
+{
+  "schemaVersion": 1,
+  "generator": "scripts/generate-css-index.mjs",
+  "scope": "Literal cs-* hooks observed in component source; dynamic suffixes, inherited hooks, generated classes and external consumer styles require source inspection. An unmatched hook can be a structural or accessibility hook, not a missing rule.",
+  "components": [
+    {
+      "sourcePath": "components/ai/AIDisclosureBadge.jsx",
+      "hooks": [
+        {
+          "name": "cs-ai-disclosure",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-ai-disclosure__badge",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-ai-disclosure__details",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-ai-disclosure__panel",
+          "stylesheets": [
+            "base/components.css",
+            "base/glass.css"
+          ]
+        },
+        {
+          "name": "cs-ai-disclosure__sources",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/glass.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/ai/ChatMessage.jsx",
+      "hooks": [
+        {
+          "name": "cs-chat-msg",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-chat-msg--lumi",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-chat-msg--user",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-chat-msg__avatar",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-chat-msg__bubble",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-chat-msg__col",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-chat-msg__name",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/ai.css"
+      ]
+    },
+    {
+      "sourcePath": "components/ai/CitationList.jsx",
+      "hooks": [
+        {
+          "name": "cs-citation",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-citation__num",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-citation__src",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-citation__text",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-citations",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-citations__label",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/ai.css"
+      ]
+    },
+    {
+      "sourcePath": "components/ai/ConfidenceMeter.jsx",
+      "hooks": [
+        {
+          "name": "cs-color-semantic-danger",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-color-semantic-danger-text",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-color-semantic-success",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-color-semantic-success-text",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-color-semantic-warning",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-color-semantic-warning-text",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-confidence",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-confidence__head",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-confidence__level",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-confidence__seg",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-confidence__track",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/ai.css"
+      ]
+    },
+    {
+      "sourcePath": "components/ai/HumanReviewGate.jsx",
+      "hooks": [
+        {
+          "name": "cs-button",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/controls.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--primary",
+          "stylesheets": [
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--secondary",
+          "stylesheets": [
+            "base/components.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-review-gate",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-review-gate__actions",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-review-gate__reviewer",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-review-gate__risk",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-review-gate__summary",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/ai/PromptInput.jsx",
+      "hooks": [
+        {
+          "name": "cs-button",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/controls.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--primary",
+          "stylesheets": [
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--sm",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-button__spinner",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-prompt",
+          "stylesheets": [
+            "base/ai.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-prompt__bar",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-prompt__field",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-prompt__hint",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/ai.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/ai/PromptSuggestions.jsx",
+      "hooks": [
+        {
+          "name": "cs-suggest",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/ai.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/ai.css"
+      ]
+    },
+    {
+      "sourcePath": "components/ai/TypingIndicator.jsx",
+      "hooks": [
+        {
+          "name": "cs-typing",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/ai.css"
+      ]
+    },
+    {
+      "sourcePath": "components/brand/LumiAvatar.jsx",
+      "hooks": [
+        {
+          "name": "cs-lumi",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        },
+        {
+          "name": "cs-lumi--ring",
+          "stylesheets": [
+            "base/ai.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/ai.css"
+      ]
+    },
+    {
+      "sourcePath": "components/button/Button.jsx",
+      "hooks": [
+        {
+          "name": "cs-button",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/controls.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--full",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-button__icon",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-button__label",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-button__spinner",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/button/ButtonGroup.jsx",
+      "hooks": [
+        {
+          "name": "cs-btngroup",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/button/FloatingActionButton.jsx",
+      "hooks": [
+        {
+          "name": "cs-fab",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-fab--static",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-fab__dial",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-fab__dial--static",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-fab__main",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-fab__mini",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Accordion.jsx",
+      "hooks": [
+        {
+          "name": "cs-accordion",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-accordion__chevron",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-accordion__item",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-accordion__panel",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-accordion__trigger",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/collections.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/AspectRatio.jsx",
+      "hooks": [
+        {
+          "name": "cs-aspect-ratio",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/data.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Avatar.jsx",
+      "hooks": [
+        {
+          "name": "cs-avatar",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-avatar--square",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-avatar-group",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/data.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Card.jsx",
+      "hooks": [
+        {
+          "name": "cs-card",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-card--flat",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-card--interactive",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-card__body",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-card__footer",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-card__header",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-card__subtitle",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-card__title",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/data.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Carousel.jsx",
+      "hooks": [
+        {
+          "name": "cs-carousel",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-carousel__dots",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-carousel__nav",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-carousel__slide",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-carousel__track",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-carousel__view",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-carousel__window",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-sr-only",
+          "stylesheets": [
+            "base/a11y.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Chart.jsx",
+      "hooks": [
+        {
+          "name": "cs-accent",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-accent-grad-b",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-accent-strong",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-chart",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-chart__legend",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-color-border-default",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-color-surface-panel",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-color-text-muted",
+          "stylesheets": []
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/CodeBlock.jsx",
+      "hooks": [
+        {
+          "name": "cs-code",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-code__bar",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-code__copy",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/collections.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/collections.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Collapsible.jsx",
+      "hooks": [
+        {
+          "name": "cs-collapsible",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-collapsible__chevron",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-collapsible__label",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-collapsible__panel",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-collapsible__trigger",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/collections.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Comment.jsx",
+      "hooks": [
+        {
+          "name": "cs-comment",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-comment__actions",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-comment__avatar",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-comment__body",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-comment__head",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-comment__main",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-comment__meta",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-comment__replies",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/DescriptionList.jsx",
+      "hooks": [
+        {
+          "name": "cs-dl",
+          "stylesheets": [
+            "base/collections.css",
+            "base/responsive.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/collections.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Divider.jsx",
+      "hooks": [
+        {
+          "name": "cs-divider",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-divider--label",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-divider--vertical",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/data.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Image.jsx",
+      "hooks": [
+        {
+          "name": "cs-image",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-image__fallback",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-image__zoom",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Item.jsx",
+      "hooks": [
+        {
+          "name": "cs-item",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-item--interactive",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-item__description",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-item__leading",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-item__main",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-item__title",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-item__trailing",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/collections.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Kbd.jsx",
+      "hooks": [
+        {
+          "name": "cs-kbd",
+          "stylesheets": [
+            "base/controls.css",
+            "base/shell.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css",
+        "base/shell.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/List.jsx",
+      "hooks": [
+        {
+          "name": "cs-list",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-list__item",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-list__item--button",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-list__lead",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-list__main",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-list__sub",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-list__title",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-list__trail",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/collections.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Masonry.jsx",
+      "hooks": [
+        {
+          "name": "cs-masonry",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-masonry__item",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/QRCode.jsx",
+      "hooks": [
+        {
+          "name": "cs-color-text-primary",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-qrcode",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/ScrollArea.jsx",
+      "hooks": [
+        {
+          "name": "cs-scroll-area",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/data.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Sortable.jsx",
+      "hooks": [
+        {
+          "name": "cs-button",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/controls.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--secondary",
+          "stylesheets": [
+            "base/components.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--xs",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-sortable",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-sortable__grip",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-sortable__item",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-sortable__label",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-sortable__ops",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Splitter.jsx",
+      "hooks": [
+        {
+          "name": "cs-splitter",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-splitter__bar",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-splitter__pane",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Stat.jsx",
+      "hooks": [
+        {
+          "name": "cs-stat",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-stat__delta",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-stat__label",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-stat__value",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/data.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Terminal.jsx",
+      "hooks": [
+        {
+          "name": "cs-terminal",
+          "stylesheets": [
+            "base/controls.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-terminal__bar",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-terminal__body",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-terminal__line",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-terminal__out",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Timeline.jsx",
+      "hooks": [
+        {
+          "name": "cs-timeline",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-timeline__body",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-timeline__item",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-timeline__item--now",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-timeline__item--todo",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-timeline__marker",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-timeline__meta",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-timeline__title",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/collections.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Tooltip.jsx",
+      "hooks": [
+        {
+          "name": "cs-tooltip",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/data.css"
+          ]
+        },
+        {
+          "name": "cs-tooltip__bubble",
+          "stylesheets": [
+            "base/data.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/data.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Tree.jsx",
+      "hooks": [
+        {
+          "name": "cs-tree",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-tree__label",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-tree__row",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-tree__twist",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/data/Watermark.jsx",
+      "hooks": [
+        {
+          "name": "cs-color-text-primary",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-watermark",
+          "stylesheets": []
+        }
+      ],
+      "stylesheets": []
+    },
+    {
+      "sourcePath": "components/datatable/DataGrid.jsx",
+      "hooks": [
+        {
+          "name": "cs-color-surface-panel",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-datagrid",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-datagrid--virtual",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-datagrid__check",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-datagrid__pin",
+          "stylesheets": [
+            "base/a11y.css"
+          ]
+        },
+        {
+          "name": "cs-datagrid__pinned",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-datagrid__selcol",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-datagrid__sort",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-density",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-element",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-sr-only",
+          "stylesheets": [
+            "base/a11y.css"
+          ]
+        },
+        {
+          "name": "cs-table",
+          "stylesheets": [
+            "base/components.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-table__empty",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-variant",
+          "stylesheets": []
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/datatable/DataTable.jsx",
+      "hooks": [
+        {
+          "name": "cs-sr-only",
+          "stylesheets": [
+            "base/a11y.css"
+          ]
+        },
+        {
+          "name": "cs-table",
+          "stylesheets": [
+            "base/components.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-table-wrap",
+          "stylesheets": [
+            "base/components.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-table-wrap--status",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-table__empty",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/datatable/TreeTable.jsx",
+      "hooks": [
+        {
+          "name": "cs-sr-only",
+          "stylesheets": [
+            "base/a11y.css"
+          ]
+        },
+        {
+          "name": "cs-table",
+          "stylesheets": [
+            "base/components.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-table-wrap",
+          "stylesheets": [
+            "base/components.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-table__empty",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-tree__twist",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-treetable",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-treetable__cell",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/dialog/Dialog.jsx",
+      "hooks": [
+        {
+          "name": "cs-button",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/controls.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--ghost",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-button--sm",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-dialog",
+          "stylesheets": [
+            "base/components.css",
+            "base/glass.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-dialog-layer",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-dialog__actions",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-dialog__body",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-dialog__header",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-dialog__overlay",
+          "stylesheets": [
+            "base/components.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-dialog__title",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-overlay-material",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-overlay-surface",
+          "stylesheets": [
+            "base/glass.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/glass.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/feedback/Alert.jsx",
+      "hooks": [
+        {
+          "name": "cs-alert",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-alert__body",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-alert__dismiss",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-alert__icon",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-alert__title",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/feedback.css"
+      ]
+    },
+    {
+      "sourcePath": "components/feedback/Badge.jsx",
+      "hooks": [
+        {
+          "name": "cs-badge",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-badge__dot",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/feedback.css"
+      ]
+    },
+    {
+      "sourcePath": "components/feedback/EmptyState.jsx",
+      "hooks": [
+        {
+          "name": "cs-empty",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-empty__actions",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-empty__body",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-empty__icon",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        },
+        {
+          "name": "cs-empty__title",
+          "stylesheets": [
+            "base/collections.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/collections.css"
+      ]
+    },
+    {
+      "sourcePath": "components/feedback/ProgressBar.jsx",
+      "hooks": [
+        {
+          "name": "cs-progress",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-progress__fill",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/feedback.css"
+      ]
+    },
+    {
+      "sourcePath": "components/feedback/Result.jsx",
+      "hooks": [
+        {
+          "name": "cs-result",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-result__actions",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-result__body",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-result__icon",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-result__title",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/feedback/Skeleton.jsx",
+      "hooks": [
+        {
+          "name": "cs-skeleton",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-skeleton--circle",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-skeleton--text",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/feedback.css"
+      ]
+    },
+    {
+      "sourcePath": "components/feedback/Spinner.jsx",
+      "hooks": [
+        {
+          "name": "cs-spinner",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/feedback.css"
+      ]
+    },
+    {
+      "sourcePath": "components/feedback/StatusIndicator.jsx",
+      "hooks": [
+        {
+          "name": "cs-status",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-status--pulse",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-status__dot",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/feedback/Tag.jsx",
+      "hooks": [
+        {
+          "name": "cs-tag",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-tag__close",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/feedback.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/feedback.css"
+      ]
+    },
+    {
+      "sourcePath": "components/feedback/Toast.jsx",
+      "hooks": [
+        {
+          "name": "cs-toast",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-toast-stack",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-toast__body",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-toast__close",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-toast__icon",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-toast__title",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/feedback.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Calendar.jsx",
+      "hooks": [
+        {
+          "name": "cs-cal",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-cal__grid",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-cal__head",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-cal__wd",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Cascader.jsx",
+      "hooks": [
+        {
+          "name": "cs-cascader",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-cascader__col",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-cascader__opt",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-cascader__pop",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-focusable",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-treeselect__field",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Checkbox.jsx",
+      "hooks": [
+        {
+          "name": "cs-check",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/forms.css"
+          ]
+        },
+        {
+          "name": "cs-check__desc",
+          "stylesheets": [
+            "base/forms.css"
+          ]
+        },
+        {
+          "name": "cs-check__text",
+          "stylesheets": [
+            "base/forms.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/forms.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/ColorPicker.jsx",
+      "hooks": [
+        {
+          "name": "cs-colorpicker",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-colorpicker__field",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-colorpicker__grid",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-colorpicker__hex",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-colorpicker__pop",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Combobox.jsx",
+      "hooks": [
+        {
+          "name": "cs-combobox",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-combobox__caret",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-combobox__empty",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-combobox__list",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-combobox__opt",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-combobox__popup",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/DatePicker.jsx",
+      "hooks": [
+        {
+          "name": "cs-datepicker",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-datepicker__field",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-datepicker__pop",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Editor.jsx",
+      "hooks": [
+        {
+          "name": "cs-editor",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-editor__area",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-editor__bar",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-toolbar__btn",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/FileUpload.jsx",
+      "hooks": [
+        {
+          "name": "cs-dropzone",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-dropzone__hint",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-dropzone__icon",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-dropzone__title",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-sr-only",
+          "stylesheets": [
+            "base/a11y.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Form.jsx",
+      "hooks": [
+        {
+          "name": "cs-button",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/controls.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--secondary",
+          "stylesheets": [
+            "base/components.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--sm",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-color-text-primary",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-color-text-secondary",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-font-family-ui",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-form",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-form-array",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-form-array__row",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-form-array__rows",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-form-wizard",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-form-wizard__body",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-form-wizard__nav",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-form-wizard__steps",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-form__summary",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-formfield",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-formfield__error",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-formfield__hint",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-formfield__label",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/InlineEdit.jsx",
+      "hooks": [
+        {
+          "name": "cs-inline-edit",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-inline-edit__view",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/InputGroup.jsx",
+      "hooks": [
+        {
+          "name": "cs-field",
+          "stylesheets": [
+            "base/components.css",
+            "base/controls.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-field__label",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-igroup",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-igroup__btn",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-igroup__fix",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-igroup__fix--suffix",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/InputOTP.jsx",
+      "hooks": [
+        {
+          "name": "cs-otp",
+          "stylesheets": [
+            "base/controls.css",
+            "base/responsive.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Mentions.jsx",
+      "hooks": [
+        {
+          "name": "cs-field__control",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/forms.css",
+            "base/interaction.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-mentions",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-mentions__pop",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/forms.css",
+        "base/interaction.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/NativeSelect.jsx",
+      "hooks": [
+        {
+          "name": "cs-field",
+          "stylesheets": [
+            "base/components.css",
+            "base/controls.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-field__control",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/forms.css",
+            "base/interaction.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-field__error",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-field__label",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-native-select",
+          "stylesheets": [
+            "base/forms.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-native-select-field",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-native-select__chevron",
+          "stylesheets": [
+            "base/forms.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/forms.css",
+        "base/interaction.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/NumberField.jsx",
+      "hooks": [
+        {
+          "name": "cs-field",
+          "stylesheets": [
+            "base/components.css",
+            "base/controls.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-field__label",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-stepper",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css",
+            "base/interaction.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/interaction.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/RadioGroup.jsx",
+      "hooks": [
+        {
+          "name": "cs-radio",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/forms.css"
+          ]
+        },
+        {
+          "name": "cs-radio-group",
+          "stylesheets": [
+            "base/forms.css"
+          ]
+        },
+        {
+          "name": "cs-radio__desc",
+          "stylesheets": [
+            "base/forms.css"
+          ]
+        },
+        {
+          "name": "cs-radio__text",
+          "stylesheets": [
+            "base/forms.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/forms.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Rating.jsx",
+      "hooks": [
+        {
+          "name": "cs-rating",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/SearchField.jsx",
+      "hooks": [
+        {
+          "name": "cs-search",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css",
+            "base/interaction.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-search__clear",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css",
+        "base/interaction.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/SegmentedControl.jsx",
+      "hooks": [
+        {
+          "name": "cs-segmented",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Select.jsx",
+      "hooks": [
+        {
+          "name": "cs-field",
+          "stylesheets": [
+            "base/components.css",
+            "base/controls.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-field__control",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/forms.css",
+            "base/interaction.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-field__description",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-field__error",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-field__label",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-select",
+          "stylesheets": [
+            "base/forms.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-select__chevron",
+          "stylesheets": [
+            "base/forms.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/forms.css",
+        "base/interaction.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Slider.jsx",
+      "hooks": [
+        {
+          "name": "cs-slider",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Switch.jsx",
+      "hooks": [
+        {
+          "name": "cs-switch",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/forms.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-switch__label",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-switch__track",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/forms.css",
+            "base/interaction.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/forms.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/TagInput.jsx",
+      "hooks": [
+        {
+          "name": "cs-field",
+          "stylesheets": [
+            "base/components.css",
+            "base/controls.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-field__label",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-tag",
+          "stylesheets": [
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-tag__close",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/feedback.css"
+          ]
+        },
+        {
+          "name": "cs-taginput",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/feedback.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Textarea.jsx",
+      "hooks": [
+        {
+          "name": "cs-field",
+          "stylesheets": [
+            "base/components.css",
+            "base/controls.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-field__control",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/forms.css",
+            "base/interaction.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-field__description",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-field__error",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-field__label",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/forms.css",
+        "base/interaction.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/TimePicker.jsx",
+      "hooks": [
+        {
+          "name": "cs-timepicker",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Toggle.jsx",
+      "hooks": [
+        {
+          "name": "cs-toggle",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/Transfer.jsx",
+      "hooks": [
+        {
+          "name": "cs-button",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/controls.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--secondary",
+          "stylesheets": [
+            "base/components.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--xs",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-transfer",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-transfer__list",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-transfer__ops",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-transfer__title",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/forms/TreeSelect.jsx",
+      "hooks": [
+        {
+          "name": "cs-treeselect",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-treeselect__field",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-treeselect__pop",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/i18n/LocaleProvider.jsx",
+      "hooks": [],
+      "stylesheets": []
+    },
+    {
+      "sourcePath": "components/icon/Icon.jsx",
+      "hooks": [
+        {
+          "name": "cs-icon",
+          "stylesheets": []
+        }
+      ],
+      "stylesheets": []
+    },
+    {
+      "sourcePath": "components/logo/Logo.jsx",
+      "hooks": [
+        {
+          "name": "cs-logo",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/components.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/Anchor.jsx",
+      "hooks": [
+        {
+          "name": "cs-anchor",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-anchor__item",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-anchor__title",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/BackTop.jsx",
+      "hooks": [
+        {
+          "name": "cs-backtop",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/Breadcrumb.jsx",
+      "hooks": [
+        {
+          "name": "cs-breadcrumb",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-breadcrumb__current",
+          "stylesheets": [
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-breadcrumb__sep",
+          "stylesheets": [
+            "base/navigation.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/navigation.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/CommandPalette.jsx",
+      "hooks": [
+        {
+          "name": "cs-cmdk",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-cmdk-scrim",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-cmdk__item",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-cmdk__label",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-cmdk__list",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-cmdk__search",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/interaction.css",
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-cmdk__status",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-kbd",
+          "stylesheets": [
+            "base/controls.css",
+            "base/shell.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css",
+        "base/interaction.css",
+        "base/shell.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/Dock.jsx",
+      "hooks": [
+        {
+          "name": "cs-dock",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-dock__item",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/HotKeys.jsx",
+      "hooks": [
+        {
+          "name": "cs-hotkeys",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-hotkeys__card",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-hotkeys__sheet",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-kbd",
+          "stylesheets": [
+            "base/controls.css",
+            "base/shell.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/controls.css",
+        "base/shell.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/Link.jsx",
+      "hooks": [
+        {
+          "name": "cs-link",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/Menu.jsx",
+      "hooks": [
+        {
+          "name": "cs-menu",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-menu__item",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-menu__item--danger",
+          "stylesheets": [
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-menu__list",
+          "stylesheets": [
+            "base/controls.css",
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-menu__list--end",
+          "stylesheets": [
+            "base/navigation.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css",
+        "base/navigation.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/Menubar.jsx",
+      "hooks": [
+        {
+          "name": "cs-menu__item",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-menu__item--danger",
+          "stylesheets": [
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-menu__list",
+          "stylesheets": [
+            "base/controls.css",
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-menu__sep",
+          "stylesheets": [
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-menubar",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-menubar__top",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-menubar__wrap",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css",
+        "base/navigation.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/NavigationMenu.jsx",
+      "hooks": [
+        {
+          "name": "cs-navmenu",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-navmenu__card",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-navmenu__panel",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-navmenu__top",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-navmenu__wrap",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/Pagination.jsx",
+      "hooks": [
+        {
+          "name": "cs-pagination",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/navigation.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-pagination__ellipsis",
+          "stylesheets": [
+            "base/navigation.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/navigation.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/Sidebar.jsx",
+      "hooks": [
+        {
+          "name": "cs-nav-item",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/responsive.css",
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-nav-item__icon",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-nav-item__trail",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-sidebar",
+          "stylesheets": [
+            "base/responsive.css",
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-sidebar__label",
+          "stylesheets": [
+            "base/responsive.css",
+            "base/shell.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/responsive.css",
+        "base/shell.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/Steps.jsx",
+      "hooks": [
+        {
+          "name": "cs-step",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-step__body",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-step__marker",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-step__title",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-steps",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/shell.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/Tabs.jsx",
+      "hooks": [
+        {
+          "name": "cs-tab",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-tab__count",
+          "stylesheets": [
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-tabs",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/navigation.css",
+            "base/responsive.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/navigation.css",
+        "base/responsive.css"
+      ]
+    },
+    {
+      "sourcePath": "components/navigation/Toolbar.jsx",
+      "hooks": [
+        {
+          "name": "cs-menu__item",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-menu__list",
+          "stylesheets": [
+            "base/controls.css",
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-toolbar",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-toolbar__btn",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-toolbar__more",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-toolbar__sep",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css",
+        "base/navigation.css"
+      ]
+    },
+    {
+      "sourcePath": "components/overlays/AlertDialog.jsx",
+      "hooks": [
+        {
+          "name": "cs-alert-dialog",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-alert-dialog--destructive",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-alert-dialog-layer",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-alert-dialog__cancel",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-alert-dialog__confirm",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-button",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/controls.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--danger",
+          "stylesheets": [
+            "base/components.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--ghost",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-button--md",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-button--primary",
+          "stylesheets": [
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-dialog",
+          "stylesheets": [
+            "base/components.css",
+            "base/glass.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-dialog-layer",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-dialog__actions",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-dialog__body",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-dialog__header",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-dialog__overlay",
+          "stylesheets": [
+            "base/components.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-dialog__title",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-overlay-material",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-overlay-surface",
+          "stylesheets": [
+            "base/glass.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/glass.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/overlays/ContextMenu.jsx",
+      "hooks": [
+        {
+          "name": "cs-ctxmenu-zone",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-menu__item",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-menu__item--danger",
+          "stylesheets": [
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-menu__list",
+          "stylesheets": [
+            "base/controls.css",
+            "base/navigation.css"
+          ]
+        },
+        {
+          "name": "cs-menu__sep",
+          "stylesheets": [
+            "base/navigation.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css",
+        "base/navigation.css"
+      ]
+    },
+    {
+      "sourcePath": "components/overlays/Drawer.jsx",
+      "hooks": [
+        {
+          "name": "cs-drawer",
+          "stylesheets": [
+            "base/glass.css",
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-drawer--left",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-drawer-scrim",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-drawer__body",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-drawer__close",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-drawer__footer",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-drawer__header",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-drawer__title",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-overlay-material",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-overlay-surface",
+          "stylesheets": [
+            "base/glass.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/glass.css",
+        "base/shell.css"
+      ]
+    },
+    {
+      "sourcePath": "components/overlays/HoverCard.jsx",
+      "hooks": [
+        {
+          "name": "cs-hovercard",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-hovercard__panel",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/controls.css"
+      ]
+    },
+    {
+      "sourcePath": "components/overlays/OverlayManager.jsx",
+      "hooks": [
+        {
+          "name": "cs-ov",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-overlay-root",
+          "stylesheets": []
+        }
+      ],
+      "stylesheets": []
+    },
+    {
+      "sourcePath": "components/overlays/Popconfirm.jsx",
+      "hooks": [
+        {
+          "name": "cs-button",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/controls.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--ghost",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-button--primary",
+          "stylesheets": [
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--xs",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-popconfirm",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-popconfirm__actions",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-popconfirm__panel",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-popconfirm__title",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/overlays/Popover.jsx",
+      "hooks": [
+        {
+          "name": "cs-popover",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-popover__panel",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        },
+        {
+          "name": "cs-popover__panel--end",
+          "stylesheets": [
+            "base/shell.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/shell.css"
+      ]
+    },
+    {
+      "sourcePath": "components/overlays/Tour.jsx",
+      "hooks": [
+        {
+          "name": "cs-button",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/controls.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--ghost",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-button--primary",
+          "stylesheets": [
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--secondary",
+          "stylesheets": [
+            "base/components.css",
+            "base/interaction.css"
+          ]
+        },
+        {
+          "name": "cs-button--xs",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-tour",
+          "stylesheets": []
+        },
+        {
+          "name": "cs-tour__bar",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-tour__btns",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-tour__count",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-tour__hole",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-tour__pop",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        },
+        {
+          "name": "cs-tour__scrim",
+          "stylesheets": [
+            "base/controls.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/interaction.css"
+      ]
+    },
+    {
+      "sourcePath": "components/textfield/TextField.jsx",
+      "hooks": [
+        {
+          "name": "cs-field",
+          "stylesheets": [
+            "base/components.css",
+            "base/controls.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-field__control",
+          "stylesheets": [
+            "base/a11y.css",
+            "base/components.css",
+            "base/forms.css",
+            "base/interaction.css",
+            "base/responsive.css"
+          ]
+        },
+        {
+          "name": "cs-field__description",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-field__error",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        },
+        {
+          "name": "cs-field__label",
+          "stylesheets": [
+            "base/components.css"
+          ]
+        }
+      ],
+      "stylesheets": [
+        "base/a11y.css",
+        "base/components.css",
+        "base/controls.css",
+        "base/forms.css",
+        "base/interaction.css",
+        "base/responsive.css"
+      ]
+    }
+  ]
+}

@@ -1,13 +1,15 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { ProgressBar } from '../components/feedback/ProgressBar.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
-const VARIANTS = ['ochre', 'umber', 'success'];
+const VARIANTS = DECLARED_DOMAINS.ProgressBar["variant"];
 
 export default {
   title: 'Components/Feedback/ProgressBar',
   component: ProgressBar,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     lang: { control: 'select', options: ['en', 'vi'] },
 
     value: {
@@ -22,14 +24,6 @@ export default {
     },
     label: {
       control: 'text',
-    },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus exhaustive variant matrix mounting ProgressBar. Portable consumers use styles.css + bundle, not Storybook.',
-      },
     },
   },
   args: { lang: 'vi', value: 45, label: 'Build progress' },
@@ -54,7 +48,7 @@ export const Matrix = {
 export const FullMatrix = {
   name: 'Full matrix / variant',
   render: (args) => {
-    const cells = cartesian({ variant: ["ochre","umber","success"] }).flatMap((combo) =>
+    const cells = cartesian({ variant: DECLARED_DOMAINS.ProgressBar["variant"] }).flatMap((combo) =>
       stateCombos([]).map((state) => {
         const props = { ...combo, ...state };
         const label = comboLabel(props, ['variant']);

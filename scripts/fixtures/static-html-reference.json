@@ -1,0 +1,1903 @@
+{
+  "schemaVersion": 1,
+  "description": "Authored, JSON-only minimal render fixtures based on each public declaration. Element descriptors decode only allowlisted native tags or declared component exports; no executable code.",
+  "components": [
+    {
+      "name": "AIDisclosureBadge",
+      "sourcePath": "components/ai/AIDisclosureBadge.jsx",
+      "props": {
+        "label": "AI assisted",
+        "details": "Reference disclosure",
+        "sources": [
+          "Reference source"
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/ai/AIDisclosureBadge.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Accordion",
+      "sourcePath": "components/data/Accordion.jsx",
+      "props": {
+        "items": [
+          {
+            "title": "Alpha",
+            "content": "Reference content"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Accordion.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Alert",
+      "sourcePath": "components/feedback/Alert.jsx",
+      "props": {
+        "title": "Reference notice",
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/feedback/Alert.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "AlertDialog",
+      "sourcePath": "components/overlays/AlertDialog.jsx",
+      "props": {
+        "open": true,
+        "title": "Reference confirmation",
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Controlled open=true fixture; snapshot is not a standalone usable overlay.",
+      "fixtureAuthority": "components/overlays/AlertDialog.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Anchor",
+      "sourcePath": "components/navigation/Anchor.jsx",
+      "props": {
+        "items": [
+          {
+            "id": "reference-anchor",
+            "label": "Reference section"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/Anchor.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "AspectRatio",
+      "sourcePath": "components/data/AspectRatio.jsx",
+      "props": {
+        "children": {
+          "$element": {
+            "tag": "div",
+            "props": {},
+            "children": "Reference <example> & \"quoted\" text"
+          }
+        }
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/AspectRatio.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Avatar",
+      "sourcePath": "components/data/Avatar.jsx",
+      "props": {
+        "name": "An Nguyen"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Avatar.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "AvatarGroup",
+      "sourcePath": "components/data/Avatar.jsx",
+      "props": {
+        "children": [
+          {
+            "$element": {
+              "component": "Avatar",
+              "props": {
+                "name": "An Nguyen"
+              },
+              "children": null
+            }
+          },
+          {
+            "$element": {
+              "component": "Avatar",
+              "props": {
+                "name": "Binh Tran"
+              },
+              "children": null
+            }
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Avatar.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "BackTop",
+      "sourcePath": "components/navigation/BackTop.jsx",
+      "props": {
+        "threshold": -1
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/BackTop.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Badge",
+      "sourcePath": "components/feedback/Badge.jsx",
+      "props": {
+        "children": "Reference"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/feedback/Badge.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Breadcrumb",
+      "sourcePath": "components/navigation/Breadcrumb.jsx",
+      "props": {
+        "items": [
+          {
+            "label": "Home",
+            "href": "#home"
+          },
+          {
+            "label": "Reference"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/Breadcrumb.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Button",
+      "sourcePath": "components/button/Button.jsx",
+      "props": {
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/button/Button.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "ButtonGroup",
+      "sourcePath": "components/button/ButtonGroup.jsx",
+      "props": {
+        "children": [
+          {
+            "$element": {
+              "component": "Button",
+              "props": {},
+              "children": "One"
+            }
+          },
+          {
+            "$element": {
+              "component": "Button",
+              "props": {},
+              "children": "Two"
+            }
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/button/ButtonGroup.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Calendar",
+      "sourcePath": "components/forms/Calendar.jsx",
+      "props": {
+        "value": "2026-10-20"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Calendar.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Card",
+      "sourcePath": "components/data/Card.jsx",
+      "props": {
+        "children": {
+          "$element": {
+            "component": "CardBody",
+            "props": {},
+            "children": "Reference <example> & \"quoted\" text"
+          }
+        }
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Card.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "CardBody",
+      "sourcePath": "components/data/Card.jsx",
+      "props": {
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Card.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "CardFooter",
+      "sourcePath": "components/data/Card.jsx",
+      "props": {
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Card.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "CardHeader",
+      "sourcePath": "components/data/Card.jsx",
+      "props": {
+        "title": "Reference card",
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Card.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Carousel",
+      "sourcePath": "components/data/Carousel.jsx",
+      "props": {
+        "children": [
+          {
+            "$element": {
+              "tag": "div",
+              "props": {},
+              "children": "One"
+            }
+          },
+          {
+            "$element": {
+              "tag": "div",
+              "props": {},
+              "children": "Two"
+            }
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Carousel.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Cascader",
+      "sourcePath": "components/forms/Cascader.jsx",
+      "props": {
+        "nodes": [
+          {
+            "key": "a",
+            "label": "Alpha"
+          },
+          {
+            "key": "b",
+            "label": "Beta"
+          }
+        ],
+        "value": [
+          "a"
+        ],
+        "label": "Region"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Cascader.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Chart",
+      "sourcePath": "components/data/Chart.jsx",
+      "props": {
+        "data": [
+          {
+            "label": "Alpha",
+            "value": 2
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Chart.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "ChatMessage",
+      "sourcePath": "components/ai/ChatMessage.jsx",
+      "props": {
+        "role": "user",
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/ai/ChatMessage.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Checkbox",
+      "sourcePath": "components/forms/Checkbox.jsx",
+      "props": {
+        "label": "Reference choice",
+        "defaultChecked": true
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Checkbox.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "CitationList",
+      "sourcePath": "components/ai/CitationList.jsx",
+      "props": {
+        "items": [
+          {
+            "title": "Reference source",
+            "href": "#source"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/ai/CitationList.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "CodeBlock",
+      "sourcePath": "components/data/CodeBlock.jsx",
+      "props": {
+        "code": "const reference = \"<safe>\";",
+        "language": "js"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/CodeBlock.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Collapsible",
+      "sourcePath": "components/data/Collapsible.jsx",
+      "props": {
+        "title": "Reference section",
+        "defaultOpen": true,
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Collapsible.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "ColorPicker",
+      "sourcePath": "components/forms/ColorPicker.jsx",
+      "props": {
+        "label": "Accent",
+        "value": "#F4BA17"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/ColorPicker.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Combobox",
+      "sourcePath": "components/forms/Combobox.jsx",
+      "props": {
+        "options": [
+          {
+            "value": "a",
+            "label": "Alpha"
+          },
+          {
+            "value": "b",
+            "label": "Beta"
+          }
+        ],
+        "label": "Project",
+        "value": "a"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Combobox.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "CommandPalette",
+      "sourcePath": "components/navigation/CommandPalette.jsx",
+      "props": {
+        "open": true,
+        "groups": [
+          {
+            "label": "Reference commands",
+            "items": [
+              {
+                "label": "Reference command"
+              }
+            ]
+          }
+        ]
+      },
+      "state": "Controlled open=true fixture; snapshot is not a standalone usable overlay.",
+      "fixtureAuthority": "components/navigation/CommandPalette.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Comment",
+      "sourcePath": "components/data/Comment.jsx",
+      "props": {
+        "author": "An Nguyen",
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Comment.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "ConfidenceMeter",
+      "sourcePath": "components/ai/ConfidenceMeter.jsx",
+      "props": {
+        "value": 0.75
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/ai/ConfidenceMeter.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "ContextMenu",
+      "sourcePath": "components/overlays/ContextMenu.jsx",
+      "props": {
+        "items": [
+          {
+            "label": "Reference action"
+          }
+        ],
+        "children": {
+          "$element": {
+            "tag": "div",
+            "props": {},
+            "children": "Reference <example> & \"quoted\" text"
+          }
+        }
+      },
+      "state": "Initial closed/help-hidden fixture; only initial DOM is referenced, hidden interactive surfaces are not claimed.",
+      "fixtureAuthority": "components/overlays/ContextMenu.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "DataGrid",
+      "sourcePath": "components/datatable/DataGrid.jsx",
+      "props": {
+        "columns": [
+          {
+            "key": "name",
+            "header": "Name"
+          }
+        ],
+        "rows": [
+          {
+            "id": "a",
+            "name": "Alpha"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/datatable/DataGrid.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "DataTable",
+      "sourcePath": "components/datatable/DataTable.jsx",
+      "props": {
+        "columns": [
+          {
+            "key": "name",
+            "header": "Name"
+          }
+        ],
+        "rows": [
+          {
+            "id": "a",
+            "name": "Alpha"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/datatable/DataTable.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "DatePicker",
+      "sourcePath": "components/forms/DatePicker.jsx",
+      "props": {
+        "value": "2026-10-20",
+        "label": "Date"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/DatePicker.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "DescriptionList",
+      "sourcePath": "components/data/DescriptionList.jsx",
+      "props": {
+        "items": [
+          {
+            "term": "Name",
+            "value": "Alpha"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/DescriptionList.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Dialog",
+      "sourcePath": "components/dialog/Dialog.jsx",
+      "props": {
+        "open": true,
+        "title": "Reference dialog",
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Controlled open=true fixture; snapshot is not a standalone usable overlay.",
+      "fixtureAuthority": "components/dialog/Dialog.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Divider",
+      "sourcePath": "components/data/Divider.jsx",
+      "props": {},
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Divider.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Dock",
+      "sourcePath": "components/navigation/Dock.jsx",
+      "props": {
+        "items": [
+          {
+            "label": "Home",
+            "icon": "H"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/Dock.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Drawer",
+      "sourcePath": "components/overlays/Drawer.jsx",
+      "props": {
+        "open": true,
+        "title": "Reference drawer",
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Controlled open=true fixture; snapshot is not a standalone usable overlay.",
+      "fixtureAuthority": "components/overlays/Drawer.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Editor",
+      "sourcePath": "components/forms/Editor.jsx",
+      "props": {
+        "defaultValue": "<p>Reference note</p>"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Editor.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "EmptyState",
+      "sourcePath": "components/feedback/EmptyState.jsx",
+      "props": {
+        "title": "Nothing here",
+        "children": "Reference empty state"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/feedback/EmptyState.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "FileUpload",
+      "sourcePath": "components/forms/FileUpload.jsx",
+      "props": {
+        "title": "Upload a file"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/FileUpload.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "FloatingActionButton",
+      "sourcePath": "components/button/FloatingActionButton.jsx",
+      "props": {
+        "label": "Create",
+        "icon": "+"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/button/FloatingActionButton.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Form",
+      "sourcePath": "components/forms/Form.jsx",
+      "props": {
+        "children": {
+          "$element": {
+            "component": "TextField",
+            "props": {
+              "label": "Name",
+              "name": "name",
+              "defaultValue": "Alpha"
+            },
+            "children": null
+          }
+        }
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Form.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "FormField",
+      "sourcePath": "components/forms/Form.jsx",
+      "props": {
+        "label": "Name",
+        "hint": "Reference hint",
+        "children": {
+          "$element": {
+            "component": "TextField",
+            "props": {
+              "label": "Reference input"
+            },
+            "children": null
+          }
+        }
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Form.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "FormFieldArray",
+      "sourcePath": "components/forms/Form.jsx",
+      "props": {
+        "name": "rows",
+        "label": "People",
+        "children": {
+          "$render": {
+            "$element": {
+              "component": "TextField",
+              "props": {
+                "label": "Name"
+              },
+              "children": null
+            }
+          }
+        }
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Form.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior.",
+      "wrapper": {
+        "component": "Form",
+        "props": {
+          "rules": {},
+          "initialValues": {
+            "rows": [
+              {
+                "name": "Alpha"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "FormWizard",
+      "sourcePath": "components/forms/Form.jsx",
+      "props": {
+        "steps": [
+          {
+            "title": "Details",
+            "render": {
+              "$render": {
+                "$element": {
+                  "tag": "p",
+                  "props": {},
+                  "children": "Reference <example> & \"quoted\" text"
+                }
+              }
+            }
+          },
+          {
+            "title": "Review",
+            "render": {
+              "$render": "Review"
+            }
+          }
+        ]
+      },
+      "state": "Initial step zero with fixed render-prop descriptors; navigation/validation behavior is not part of the snapshot.",
+      "fixtureAuthority": "components/forms/Form.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "HotKeys",
+      "sourcePath": "components/navigation/HotKeys.jsx",
+      "props": {
+        "bindings": [
+          {
+            "keys": "mod+k",
+            "description": "Reference shortcut"
+          }
+        ],
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Initial closed/help-hidden fixture; only initial DOM is referenced, hidden interactive surfaces are not claimed.",
+      "fixtureAuthority": "components/navigation/HotKeys.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "HoverCard",
+      "sourcePath": "components/overlays/HoverCard.jsx",
+      "props": {
+        "trigger": {
+          "$element": {
+            "tag": "button",
+            "props": {
+              "type": "button"
+            },
+            "children": "Hover reference"
+          }
+        },
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Initial closed/help-hidden fixture; only initial DOM is referenced, hidden interactive surfaces are not claimed.",
+      "fixtureAuthority": "components/overlays/HoverCard.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "HumanReviewGate",
+      "sourcePath": "components/ai/HumanReviewGate.jsx",
+      "props": {
+        "summary": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/ai/HumanReviewGate.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Icon",
+      "sourcePath": "components/icon/Icon.jsx",
+      "props": {
+        "name": "check",
+        "label": "Complete"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/icon/Icon.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Image",
+      "sourcePath": "components/data/Image.jsx",
+      "props": {
+        "src": "data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"1\" height=\"1\"/%3E",
+        "alt": "Reference pixel"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Image.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "InlineEdit",
+      "sourcePath": "components/forms/InlineEdit.jsx",
+      "props": {
+        "value": "Reference value"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/InlineEdit.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "InputGroup",
+      "sourcePath": "components/forms/InputGroup.jsx",
+      "props": {
+        "label": "Reference input",
+        "defaultValue": "Alpha"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/InputGroup.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "InputOTP",
+      "sourcePath": "components/forms/InputOTP.jsx",
+      "props": {
+        "length": 4,
+        "value": "1234",
+        "label": "Verification"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/InputOTP.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Item",
+      "sourcePath": "components/data/Item.jsx",
+      "props": {
+        "title": "Reference item",
+        "description": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Item.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Kbd",
+      "sourcePath": "components/data/Kbd.jsx",
+      "props": {
+        "children": "Enter"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Kbd.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Link",
+      "sourcePath": "components/navigation/Link.jsx",
+      "props": {
+        "href": "#reference",
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/Link.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "List",
+      "sourcePath": "components/data/List.jsx",
+      "props": {
+        "children": {
+          "$element": {
+            "component": "ListItem",
+            "props": {},
+            "children": "Reference <example> & \"quoted\" text"
+          }
+        }
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/List.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "ListItem",
+      "sourcePath": "components/data/List.jsx",
+      "props": {
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/List.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior.",
+      "wrapper": {
+        "tag": "ul",
+        "props": {}
+      }
+    },
+    {
+      "name": "LocaleProvider",
+      "sourcePath": "components/i18n/LocaleProvider.jsx",
+      "props": {
+        "messages": {
+          "Pagination": {
+            "en": {
+              "next": "Reference next"
+            }
+          }
+        },
+        "children": {
+          "$element": {
+            "component": "Pagination",
+            "props": {
+              "lang": "en",
+              "pageCount": 10
+            }
+          }
+        }
+      },
+      "state": "Context-only provider with explicit English child and scoped copy; no user interaction.",
+      "fixtureAuthority": "components/i18n/LocaleProvider.d.ts",
+      "referenceKind": "context-only",
+      "boundary": "Context provider adds no DOM root. Captured child markup does not retain context, message lookup or interactive behavior."
+    },
+    {
+      "name": "Logo",
+      "sourcePath": "components/logo/Logo.jsx",
+      "props": {
+        "title": "CyberSkill"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/logo/Logo.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "LumiAvatar",
+      "sourcePath": "components/brand/LumiAvatar.jsx",
+      "props": {
+        "size": "md"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/brand/LumiAvatar.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Masonry",
+      "sourcePath": "components/data/Masonry.jsx",
+      "props": {
+        "children": [
+          {
+            "$element": {
+              "tag": "div",
+              "props": {},
+              "children": "Alpha"
+            }
+          },
+          {
+            "$element": {
+              "tag": "div",
+              "props": {},
+              "children": "Beta"
+            }
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Masonry.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Mentions",
+      "sourcePath": "components/forms/Mentions.jsx",
+      "props": {
+        "users": [
+          "anna"
+        ],
+        "aria-label": "Message"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Mentions.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Menu",
+      "sourcePath": "components/navigation/Menu.jsx",
+      "props": {
+        "open": true,
+        "trigger": {
+          "$element": {
+            "tag": "button",
+            "props": {
+              "type": "button"
+            },
+            "children": "Reference menu"
+          }
+        },
+        "children": {
+          "$element": {
+            "component": "MenuItem",
+            "props": {},
+            "children": "Reference item"
+          }
+        }
+      },
+      "state": "Controlled open=true fixture; snapshot is not a standalone usable overlay.",
+      "fixtureAuthority": "components/navigation/Menu.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "MenuItem",
+      "sourcePath": "components/navigation/Menu.jsx",
+      "props": {
+        "children": "Reference item"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/Menu.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior.",
+      "wrapper": {
+        "component": "Menu",
+        "props": {
+          "open": true,
+          "trigger": {
+            "$element": {
+              "tag": "button",
+              "props": {
+                "type": "button"
+              },
+              "children": "Reference menu"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Menubar",
+      "sourcePath": "components/navigation/Menubar.jsx",
+      "props": {
+        "menus": [
+          {
+            "label": "File",
+            "items": [
+              {
+                "label": "Open"
+              }
+            ]
+          }
+        ]
+      },
+      "state": "Initial closed/help-hidden fixture; only initial DOM is referenced, hidden interactive surfaces are not claimed.",
+      "fixtureAuthority": "components/navigation/Menubar.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "NativeSelect",
+      "sourcePath": "components/forms/NativeSelect.jsx",
+      "props": {
+        "label": "Project",
+        "options": [
+          {
+            "value": "a",
+            "label": "Alpha"
+          },
+          {
+            "value": "b",
+            "label": "Beta"
+          }
+        ],
+        "defaultValue": "a"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/NativeSelect.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "NavItem",
+      "sourcePath": "components/navigation/Sidebar.jsx",
+      "props": {
+        "href": "#home",
+        "children": "Home"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/Sidebar.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "NavigationMenu",
+      "sourcePath": "components/navigation/NavigationMenu.jsx",
+      "props": {
+        "items": [
+          {
+            "label": "Reference",
+            "href": "#reference"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/NavigationMenu.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "NumberField",
+      "sourcePath": "components/forms/NumberField.jsx",
+      "props": {
+        "label": "Quantity",
+        "defaultValue": 3
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/NumberField.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "OverlayProvider",
+      "sourcePath": "components/overlays/OverlayManager.jsx",
+      "props": {
+        "children": {
+          "$element": {
+            "tag": "span",
+            "props": {},
+            "children": "Context child"
+          }
+        }
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/overlays/OverlayManager.d.ts",
+      "referenceKind": "context-only",
+      "boundary": "Context provider has no own native element. Any rendered markup belongs to its fixture child."
+    },
+    {
+      "name": "Pagination",
+      "sourcePath": "components/navigation/Pagination.jsx",
+      "props": {
+        "pageCount": 3,
+        "page": 1
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/Pagination.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Popconfirm",
+      "sourcePath": "components/overlays/Popconfirm.jsx",
+      "props": {
+        "trigger": {
+          "$element": {
+            "tag": "button",
+            "props": {
+              "type": "button"
+            },
+            "children": "Confirm reference"
+          }
+        },
+        "title": "Continue?"
+      },
+      "state": "Initial closed/help-hidden fixture; only initial DOM is referenced, hidden interactive surfaces are not claimed.",
+      "fixtureAuthority": "components/overlays/Popconfirm.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Popover",
+      "sourcePath": "components/overlays/Popover.jsx",
+      "props": {
+        "open": true,
+        "trigger": {
+          "$element": {
+            "tag": "button",
+            "props": {
+              "type": "button"
+            },
+            "children": "Reference details"
+          }
+        },
+        "children": "Reference <example> & \"quoted\" text",
+        "aria-label": "Reference details"
+      },
+      "state": "Controlled open=true fixture; snapshot is not a standalone usable overlay.",
+      "fixtureAuthority": "components/overlays/Popover.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "ProgressBar",
+      "sourcePath": "components/feedback/ProgressBar.jsx",
+      "props": {
+        "value": 60,
+        "label": "Progress"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/feedback/ProgressBar.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "PromptInput",
+      "sourcePath": "components/ai/PromptInput.jsx",
+      "props": {
+        "placeholder": "Ask a question"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/ai/PromptInput.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "PromptSuggestions",
+      "sourcePath": "components/ai/PromptSuggestions.jsx",
+      "props": {
+        "suggestions": [
+          "Explain this"
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/ai/PromptSuggestions.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "QRCode",
+      "sourcePath": "components/data/QRCode.jsx",
+      "props": {
+        "value": "reference"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/QRCode.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior. This fixture emits SVG paths, not a canvas bitmap."
+    },
+    {
+      "name": "Radio",
+      "sourcePath": "components/forms/RadioGroup.jsx",
+      "props": {
+        "label": "Reference choice",
+        "value": "a",
+        "defaultChecked": true
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/RadioGroup.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "RadioGroup",
+      "sourcePath": "components/forms/RadioGroup.jsx",
+      "props": {
+        "options": [
+          {
+            "value": "a",
+            "label": "Alpha"
+          },
+          {
+            "value": "b",
+            "label": "Beta"
+          }
+        ],
+        "legend": "Project",
+        "value": "a"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/RadioGroup.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Rating",
+      "sourcePath": "components/forms/Rating.jsx",
+      "props": {
+        "label": "Rating",
+        "defaultValue": 3
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Rating.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Result",
+      "sourcePath": "components/feedback/Result.jsx",
+      "props": {
+        "title": "Reference result",
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/feedback/Result.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "ScrollArea",
+      "sourcePath": "components/data/ScrollArea.jsx",
+      "props": {
+        "children": {
+          "$element": {
+            "tag": "p",
+            "props": {},
+            "children": "Reference <example> & \"quoted\" text"
+          }
+        }
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/ScrollArea.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "SearchField",
+      "sourcePath": "components/forms/SearchField.jsx",
+      "props": {
+        "defaultValue": "Alpha",
+        "aria-label": "Search"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/SearchField.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "SegmentedControl",
+      "sourcePath": "components/forms/SegmentedControl.jsx",
+      "props": {
+        "options": [
+          {
+            "value": "a",
+            "label": "Alpha"
+          },
+          {
+            "value": "b",
+            "label": "Beta"
+          }
+        ],
+        "value": "a"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/SegmentedControl.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Select",
+      "sourcePath": "components/forms/Select.jsx",
+      "props": {
+        "label": "Project",
+        "options": [
+          {
+            "value": "a",
+            "label": "Alpha"
+          },
+          {
+            "value": "b",
+            "label": "Beta"
+          }
+        ],
+        "defaultValue": "a"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Select.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Sidebar",
+      "sourcePath": "components/navigation/Sidebar.jsx",
+      "props": {
+        "children": {
+          "$element": {
+            "component": "NavItem",
+            "props": {
+              "href": "#home"
+            },
+            "children": "Home"
+          }
+        }
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/Sidebar.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Skeleton",
+      "sourcePath": "components/feedback/Skeleton.jsx",
+      "props": {
+        "lines": 2
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/feedback/Skeleton.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Slider",
+      "sourcePath": "components/forms/Slider.jsx",
+      "props": {
+        "defaultValue": 40,
+        "aria-label": "Progress"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Slider.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Sortable",
+      "sourcePath": "components/data/Sortable.jsx",
+      "props": {
+        "items": [
+          {
+            "key": "a",
+            "label": "Alpha"
+          },
+          {
+            "key": "b",
+            "label": "Beta"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Sortable.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Spinner",
+      "sourcePath": "components/feedback/Spinner.jsx",
+      "props": {},
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/feedback/Spinner.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Splitter",
+      "sourcePath": "components/data/Splitter.jsx",
+      "props": {
+        "start": "Left pane",
+        "end": "Right pane",
+        "initial": 50
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Splitter.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Stat",
+      "sourcePath": "components/data/Stat.jsx",
+      "props": {
+        "label": "Reference count",
+        "value": "42"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Stat.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "StatusIndicator",
+      "sourcePath": "components/feedback/StatusIndicator.jsx",
+      "props": {
+        "status": "online",
+        "children": "Online"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/feedback/StatusIndicator.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Steps",
+      "sourcePath": "components/navigation/Steps.jsx",
+      "props": {
+        "steps": [
+          {
+            "title": "Details"
+          },
+          {
+            "title": "Review"
+          }
+        ],
+        "current": 0
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/Steps.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Switch",
+      "sourcePath": "components/forms/Switch.jsx",
+      "props": {
+        "label": "Enable reference",
+        "defaultChecked": true
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Switch.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Tab",
+      "sourcePath": "components/navigation/Tabs.jsx",
+      "props": {
+        "children": "Reference tab",
+        "selected": true
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/Tabs.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Tabs",
+      "sourcePath": "components/navigation/Tabs.jsx",
+      "props": {
+        "tabs": [
+          {
+            "value": "a",
+            "label": "Alpha"
+          },
+          {
+            "value": "b",
+            "label": "Beta"
+          }
+        ],
+        "value": "a"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/Tabs.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Tag",
+      "sourcePath": "components/feedback/Tag.jsx",
+      "props": {
+        "children": "Reference"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/feedback/Tag.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "TagInput",
+      "sourcePath": "components/forms/TagInput.jsx",
+      "props": {
+        "label": "Tags",
+        "defaultValue": [
+          "Alpha"
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/TagInput.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Terminal",
+      "sourcePath": "components/data/Terminal.jsx",
+      "props": {
+        "welcome": "Reference output"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Terminal.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "TextField",
+      "sourcePath": "components/textfield/TextField.jsx",
+      "props": {
+        "label": "Name",
+        "defaultValue": "Alpha",
+        "description": "Reference hint"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/textfield/TextField.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Textarea",
+      "sourcePath": "components/forms/Textarea.jsx",
+      "props": {
+        "label": "Notes",
+        "defaultValue": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Textarea.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "TimePicker",
+      "sourcePath": "components/forms/TimePicker.jsx",
+      "props": {
+        "label": "Time",
+        "value": "09:30"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/TimePicker.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Timeline",
+      "sourcePath": "components/data/Timeline.jsx",
+      "props": {
+        "items": [
+          {
+            "title": "Reference event",
+            "body": "Reference <example> & \"quoted\" text"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Timeline.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Toast",
+      "sourcePath": "components/feedback/Toast.jsx",
+      "props": {
+        "title": "Reference notice",
+        "children": "Reference <example> & \"quoted\" text"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/feedback/Toast.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "ToastStack",
+      "sourcePath": "components/feedback/Toast.jsx",
+      "props": {
+        "children": {
+          "$element": {
+            "component": "Toast",
+            "props": {
+              "title": "Reference notice"
+            },
+            "children": "Reference <example> & \"quoted\" text"
+          }
+        }
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/feedback/Toast.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Toggle",
+      "sourcePath": "components/forms/Toggle.jsx",
+      "props": {
+        "children": "B",
+        "aria-label": "Bold"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Toggle.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Toolbar",
+      "sourcePath": "components/navigation/Toolbar.jsx",
+      "props": {
+        "items": [
+          {
+            "label": "Reference action"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/navigation/Toolbar.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Tooltip",
+      "sourcePath": "components/data/Tooltip.jsx",
+      "props": {
+        "label": "Reference help",
+        "children": {
+          "$element": {
+            "tag": "button",
+            "props": {
+              "type": "button"
+            },
+            "children": "Reference action"
+          }
+        }
+      },
+      "state": "Initial closed/help-hidden fixture; only initial DOM is referenced, hidden interactive surfaces are not claimed.",
+      "fixtureAuthority": "components/data/Tooltip.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Tour",
+      "sourcePath": "components/overlays/Tour.jsx",
+      "props": {
+        "open": true,
+        "steps": [
+          {
+            "target": "#reference-anchor",
+            "title": "Reference tour",
+            "body": "Reference <example> & \"quoted\" text"
+          }
+        ]
+      },
+      "state": "Controlled open=true fixture; snapshot is not a standalone usable overlay.",
+      "fixtureAuthority": "components/overlays/Tour.d.ts",
+      "referenceKind": "interactive-dom-snapshot",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Transfer",
+      "sourcePath": "components/forms/Transfer.jsx",
+      "props": {
+        "items": [
+          {
+            "key": "a",
+            "label": "Alpha"
+          },
+          {
+            "key": "b",
+            "label": "Beta"
+          }
+        ],
+        "value": [
+          "a"
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/Transfer.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Tree",
+      "sourcePath": "components/data/Tree.jsx",
+      "props": {
+        "nodes": [
+          {
+            "key": "a",
+            "label": "Alpha"
+          },
+          {
+            "key": "b",
+            "label": "Beta"
+          }
+        ],
+        "selected": "a"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Tree.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "TreeSelect",
+      "sourcePath": "components/forms/TreeSelect.jsx",
+      "props": {
+        "nodes": [
+          {
+            "key": "a",
+            "label": "Alpha"
+          },
+          {
+            "key": "b",
+            "label": "Beta"
+          }
+        ],
+        "value": "a",
+        "label": "Region"
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/forms/TreeSelect.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "TreeTable",
+      "sourcePath": "components/datatable/TreeTable.jsx",
+      "props": {
+        "columns": [
+          {
+            "key": "name",
+            "header": "Name"
+          }
+        ],
+        "nodes": [
+          {
+            "key": "a",
+            "name": "Alpha"
+          }
+        ]
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/datatable/TreeTable.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "TypingIndicator",
+      "sourcePath": "components/ai/TypingIndicator.jsx",
+      "props": {},
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/ai/TypingIndicator.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    },
+    {
+      "name": "Watermark",
+      "sourcePath": "components/data/Watermark.jsx",
+      "props": {
+        "text": "Reference",
+        "children": {
+          "$element": {
+            "tag": "p",
+            "props": {},
+            "children": "Reference <example> & \"quoted\" text"
+          }
+        }
+      },
+      "state": "Explicit fixture mount; no user interaction performed.",
+      "fixtureAuthority": "components/data/Watermark.d.ts",
+      "referenceKind": "rendered-dom-reference",
+      "boundary": "DOM snapshot only. Copying HTML does not install React state, handlers, focus management or accessibility behavior."
+    }
+  ]
+}

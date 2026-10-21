@@ -10,4 +10,4 @@ export interface SearchFieldProps extends Omit<React.InputHTMLAttributes<HTMLInp
   onClear?: () => void;
   placeholder?: string;
 }
-export function SearchField(props: SearchFieldProps): React.ReactElement;
+export const SearchField: React.ForwardRefExoticComponent<React.PropsWithoutRef<SearchFieldProps> & React.RefAttributes<HTMLInputElement>>;

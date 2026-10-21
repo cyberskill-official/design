@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { ConfidenceMeter } from '../components/ai/ConfidenceMeter.jsx';
 
 export default {
@@ -5,6 +6,7 @@ export default {
   component: ConfidenceMeter,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     lang: { control: 'select', options: ['en', 'vi'] },
 
   "value": {
@@ -12,11 +14,7 @@ export default {
   },
   "level": {
     "control": "select",
-    "options": [
-      "low",
-      "medium",
-      "high"
-    ]
+    "options": DECLARED_DOMAINS.ConfidenceMeter["level"]
   },
   "segments": {
     "control": "number"
@@ -25,13 +23,6 @@ export default {
     "control": "object"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting ConfidenceMeter. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { lang: 'vi', value: 0.82, label: 'Confidence' },
 };
 

@@ -5,6 +5,7 @@ export default {
   component: QRCode,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "value": {
     "control": "text"
   },
@@ -18,13 +19,6 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting QRCode. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { value: 'https://design.cyberskill.world', size: 128 },
 };
 

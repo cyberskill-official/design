@@ -140,7 +140,7 @@ Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official mas
 
 ## Components
 
-**A comprehensive library — <!-- cs-count:publicExports -->123<!-- /cs-count --> exports across 8 groups.** <!-- cs-count:componentSourceFiles -->106<!-- /cs-count --> of these are primary component files, and every primary ships the full contract trio — a `.jsx`, a `.d.ts` props contract, a `.prompt.md` — plus a Design-System card. The other <!-- cs-count:coExports -->17<!-- /cs-count --> are co-exports (sub-parts such as `CardHeader`, `Tab`, `MenuItem`, `Radio`, and data consts such as `CS_ICONS`) documented inside their parent's files rather than with files of their own. Mount from the compiled bundle. The bundle's global is `window.CyberSkillDesignSystem_<projectId>` — the 6-hex suffix is assigned by the compiler and **changes when this system is imported into another project**, so resolve it by prefix rather than hardcoding it: `const CS = window[Object.keys(window).find(k => /^CyberSkillDesignSystem_/.test(k))]; const { Button } = CS;`
+**A comprehensive library — <!-- cs-count:publicExports -->125<!-- /cs-count --> exports across 8 groups.** <!-- cs-count:componentSourceFiles -->107<!-- /cs-count --> of these are primary component files, and every primary ships the full contract trio — a `.jsx`, a `.d.ts` props contract, a `.prompt.md` — plus a Design-System card. The other <!-- cs-count:coExports -->18<!-- /cs-count --> are co-exports (sub-parts such as `CardHeader`, `Tab`, `MenuItem`, `Radio`, and data consts such as `CS_ICONS`) documented inside their parent's files rather than with files of their own. Mount from the compiled bundle. The bundle's global is `window.CyberSkillDesignSystem_<projectId>` — the 6-hex suffix is assigned by the compiler and **changes when this system is imported into another project**, so resolve it by prefix rather than hardcoding it: `const CS = window[Object.keys(window).find(k => /^CyberSkillDesignSystem_/.test(k))]; const { Button } = CS;`
 
 - **Core — actions & overlays** — `Button`, `ButtonGroup`, `FloatingActionButton`, `Dialog`
 
@@ -158,7 +158,7 @@ Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official mas
 
 - **Brand** — `Logo` (+ the `CS_LOGO_MARK_INNER` / `CS_LOGO_VIEWBOX` data consts), `Icon` (+ the `CS_ICONS` data const), `LumiAvatar`
 
-**Atomic tiers** — the same <!-- cs-count:publicExports -->123<!-- /cs-count --> exports seen through the design-composition lens (browsable live in `guidelines/atomic-view.html`, where one toolbar reskins every tier across Theme × Element × Language × Style). The eight groups above are the *functional/import* grouping (how the bundle is organized); these tiers are the *composition* grouping — same components, two lenses.
+**Atomic tiers** — the same <!-- cs-count:publicExports -->125<!-- /cs-count --> exports seen through the design-composition lens (browsable live in `guidelines/atomic-view.html`, where one toolbar reskins every tier across Theme × Element × Language × Style). The eight groups above are the *functional/import* grouping (how the bundle is organized); these tiers are the *composition* grouping — same components, two lenses.
 
 - **Atoms** (indivisible primitives) — `Button`, `Icon`, `Badge`, `Tag`, `StatusIndicator`, `Spinner`, `ProgressBar`, `Skeleton`, `Avatar` (+ `AvatarGroup`), `Divider`, `AspectRatio`, `Item`, `Kbd`, `Logo`, `LumiAvatar`, `Toggle`, `Link`
 
@@ -307,7 +307,7 @@ The VN A4 source inventory contains <!-- cs-count:vietnameseInstrumentTemplates 
 
 **UI kits** (product recreations, composing the tokens + `.cs-*` classes): **Status Hub** (portfolio dashboard — KPIs, board/table/releases lenses, drawer — plus **sign-in**, **settings**, **project detail**). Live axis demos: Storybook toolbar · Atomic View · Elements Geometry specimen, **cyberskill.world** (bilingual marketing home with Lumi chat — plus **Work**, **Careers**, and a full-page **Lumi assistant**), and a **Brand deck** (16:9, `deck-stage`, browser print and host capture hooks). See each kit's `README.md`.
 
-**Storybook** renders every card: Components (<!-- cs-count:publicExports -->123<!-- /cs-count --> exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), **Templates** (<!-- cs-count:templates -->85<!-- /cs-count --> starting points from the manifest, including HR Suite / VN A4), **Pages** (Status Hub, Website, Deck), plus Maintainer mirrors for gates.
+**Storybook** renders every card: Components (<!-- cs-count:publicExports -->125<!-- /cs-count --> exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), **Templates** (<!-- cs-count:templates -->85<!-- /cs-count --> starting points from the manifest, including HR Suite / VN A4), **Pages** (Status Hub, Website, Deck), plus Maintainer mirrors for gates.
 
 ---
 

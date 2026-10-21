@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { Chart } from '../components/data/Chart.jsx';
 
 export default {
@@ -5,14 +6,10 @@ export default {
   component: Chart,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "type": {
     "control": "select",
-    "options": [
-      "bar",
-      "line",
-      "spark",
-      "pie"
-    ]
+    "options": DECLARED_DOMAINS.Chart["type"]
   },
   "data": {
     "control": "object"
@@ -34,13 +31,6 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Chart. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { type: 'bar', data: [{ label: 'Mon', value: 4 }, { label: 'Tue', value: 7 }] },
 };
 

@@ -1,3 +1,4 @@
+import type { RootTargetProps } from "../_utils/target-props";
 import type * as React from "react";
 import type { ReactNode } from "react";
 
@@ -10,6 +11,8 @@ export interface EmptyStateProps {
   actions?: ReactNode;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;
+  /** Attributes for the existing outer div. Internal handlers run before consumer handlers; owned semantics remain controlled. */
+  rootProps?: RootTargetProps<HTMLDivElement>;
   className?: string;
 }
-export function EmptyState(props: EmptyStateProps): React.ReactElement;
+export const EmptyState: React.ForwardRefExoticComponent<React.PropsWithoutRef<EmptyStateProps> & React.RefAttributes<HTMLDivElement>>;

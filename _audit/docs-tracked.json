@@ -3,6 +3,7 @@
   "tracked": [
     "benchmark-rubric.md",
     "ci-cd.md",
+    "component-api.md",
     "consumer-grant.md",
     "consuming.md",
     "contrast-report.md",
@@ -14,9 +15,11 @@
     "figma.md",
     "hr-suite-sources.md",
     "live-hub.md",
+    "locale-messages.md",
     "products.md",
     "quality-gates.md",
     "release-notes.md",
+    "runtime-api.md",
     "storybook.md",
     "sync.md",
     "template-schema-v2.md"

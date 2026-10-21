@@ -18,8 +18,9 @@ export interface AlertDialogProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   confirmLabel?: string;
   /** Defaults from the registry ("Cancel" / "Hủy"). */
   cancelLabel?: string;
-  /** `destructive` styles the confirm action as danger and initially focuses Cancel. Alias: `variant`. */
+  /** `destructive` styles the confirm action as danger and initially focuses Cancel. `tone` wins when both are supplied, including `tone="default"` with `variant="destructive"`. `variant` is a retained compatibility alias; omission of both is non-destructive. */
   tone?: "default" | "destructive";
+  /** Compatibility alias used only when tone is undefined. No removal notice is in force. */
   variant?: "default" | "destructive";
   onConfirm?: () => void;
   onCancel?: () => void;
@@ -28,4 +29,4 @@ export interface AlertDialogProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   className?: string;
 }
 
-export function AlertDialog(props: AlertDialogProps): React.ReactElement | null;
+export const AlertDialog: React.ForwardRefExoticComponent<React.PropsWithoutRef<AlertDialogProps> & React.RefAttributes<HTMLElement>>;

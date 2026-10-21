@@ -11,4 +11,4 @@ export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
   items: BreadcrumbItem[];
 }
 
-export function Breadcrumb(props: BreadcrumbProps): React.ReactElement;
+export const Breadcrumb: React.ForwardRefExoticComponent<React.PropsWithoutRef<BreadcrumbProps> & React.RefAttributes<HTMLElement>>;

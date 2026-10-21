@@ -13,4 +13,4 @@ export interface ScrollAreaProps extends React.HTMLAttributes<HTMLDivElement> {
   style?: CSSProperties;
 }
 
-export function ScrollArea(props: ScrollAreaProps): React.ReactElement;
+export const ScrollArea: React.ForwardRefExoticComponent<React.PropsWithoutRef<ScrollAreaProps> & React.RefAttributes<HTMLDivElement>>;

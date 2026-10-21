@@ -1,9 +1,12 @@
+import type { RootTargetProps } from "../_utils/target-props";
 import type * as React from "react";
 import type { ReactNode } from "react";
 
 /** Fixed bottom-right container that stacks Toasts. */
-export interface ToastStackProps { children?: ReactNode; className?: string; lang?: string; }
-export function ToastStack(props: ToastStackProps): React.ReactElement;
+export interface ToastStackProps {
+  /** Attributes for the existing div root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: Omit<RootTargetProps<HTMLDivElement>, "role" | "aria-label">; children?: ReactNode; className?: string; lang?: string; }
+export const ToastStack: React.ForwardRefExoticComponent<React.PropsWithoutRef<ToastStackProps> & React.RefAttributes<HTMLDivElement>>;
 
 /**
  * Transient notification. Compose inside a ToastStack. Manage timing/queue in
@@ -16,4 +19,4 @@ export interface ToastProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "
   onClose?: () => void;
   children?: ReactNode;
 }
-export function Toast(props: ToastProps): React.ReactElement;
+export const Toast: React.ForwardRefExoticComponent<React.PropsWithoutRef<ToastProps> & React.RefAttributes<HTMLDivElement>>;

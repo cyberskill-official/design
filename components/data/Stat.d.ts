@@ -12,4 +12,4 @@ export interface StatProps extends React.HTMLAttributes<HTMLDivElement> {
   trend?: "up" | "down" | "flat";
 }
 
-export function Stat(props: StatProps): React.ReactElement;
+export const Stat: React.ForwardRefExoticComponent<React.PropsWithoutRef<StatProps> & React.RefAttributes<HTMLDivElement>>;

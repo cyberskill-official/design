@@ -23,4 +23,4 @@ export interface NativeSelectProps extends Omit<React.SelectHTMLAttributes<HTMLS
   children?: ReactNode;
 }
 
-export function NativeSelect(props: NativeSelectProps): React.ReactElement;
+export const NativeSelect: React.ForwardRefExoticComponent<React.PropsWithoutRef<NativeSelectProps> & React.RefAttributes<HTMLSelectElement>>;

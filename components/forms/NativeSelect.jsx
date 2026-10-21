@@ -1,3 +1,5 @@
+import { mergeIds } from "../_utils/field-association.js";
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 import { cx } from "../_utils/cx.js";
 
@@ -6,7 +8,7 @@ import { cx } from "../_utils/cx.js";
  * CS tokens beside Select. Leaner field chrome (size + label + error); pass
  * `options` [{value,label}] (preferred) or <option> children.
  */
-export function NativeSelect({
+export const NativeSelect = React.forwardRef(function NativeSelect({
   id,
   label,
   error,
@@ -19,15 +21,19 @@ export function NativeSelect({
   defaultValue,
   onChange,
   ...props
-}) {
+}, forwardedRef) {
+  const mergedNativeRef = useComposedRefs(forwardedRef);
   const hasError = Boolean(error) || error === 0;
   const gid = React.useId();
   const sid = id ?? gid;
+  const hasLabel = Boolean(label) || label === 0;
+  const labelId = hasLabel ? sid + "-label" : undefined;
+  const labelledBy = props["aria-labelledby"] ?? (props["aria-label"] == null ? labelId : undefined);
   const errId = hasError ? sid + "-err" : undefined;
-  const describedBy = [props["aria-describedby"], errId].filter(Boolean).join(" ") || undefined;
+  const describedBy = mergeIds(props["aria-describedby"], errId);
   return (
     <label className={cx("cs-field", "cs-native-select-field", disabled && "is-disabled", hasError && "is-invalid", className)} htmlFor={sid}>
-      {(label || label === 0) ? <span className="cs-field__label">{label}</span> : null}
+      {(label || label === 0) ? <span id={labelId} className="cs-field__label">{label}</span> : null}
       <span className={cx("cs-native-select", `cs-native-select--${size}`)}>
         <select
           {...props}
@@ -37,9 +43,9 @@ export function NativeSelect({
           defaultValue={defaultValue}
           onChange={onChange}
           aria-invalid={hasError ? true : props["aria-invalid"]}
-          aria-describedby={describedBy}
+          aria-labelledby={labelledBy} aria-describedby={describedBy}
           className="cs-field__control"
-        >
+         ref={mergedNativeRef} >
           {options
             ? options.map((o) => (
                 <option key={o.value} value={o.value} disabled={o.disabled}>
@@ -55,4 +61,5 @@ export function NativeSelect({
       {hasError ? <span id={errId} className="cs-field__error" role="alert">{error}</span> : null}
     </label>
   );
-}
+});
+NativeSelect.displayName = "NativeSelect";

@@ -1,11 +1,13 @@
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Stat — labelled metric with optional delta. trend: up | down | flat. */
-export function Stat({ label, value, delta, trend = "flat", className, ...props }) {
+export const Stat = React.forwardRef(function Stat({ label, value, delta, trend = "flat", className, ...props }, forwardedRef) {
+  const mergedNativeRef = useComposedRefs(forwardedRef);
   const arrow = trend === "up" ? "M12 5v14M6 11l6-6 6 6" : trend === "down" ? "M12 5v14M6 13l6 6 6-6" : "M5 12h14";
   return (
-    <div className={cx("cs-stat", className)} {...props}>
+    <div className={cx("cs-stat", className)} {...props} ref={mergedNativeRef} >
       <div className="cs-stat__label">{label}</div>
       <div className="cs-stat__value">{value}</div>
       {delta != null ? (
@@ -16,4 +18,5 @@ export function Stat({ label, value, delta, trend = "flat", className, ...props 
       ) : null}
     </div>
   );
-}
+});
+Stat.displayName = "Stat";

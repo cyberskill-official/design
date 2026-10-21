@@ -1,10 +1,13 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill PromptSuggestions — tappable "wish" starter chips for a chat/prompt. */
-export function PromptSuggestions({ suggestions = [], onSelect, className }) {
+export const PromptSuggestions = React.forwardRef(function PromptSuggestions({ suggestions = [], onSelect, className , rootProps }, forwardedRef) {
+  const mergedNativeRef = useComposedRefs(forwardedRef);
   return (
-    <div className={cx("cs-suggest", className)}>
+    <div {...mergeTargetProps({ "className": cx("cs-suggest", className) }, rootProps, [])} ref={mergedNativeRef} >
       {suggestions.map((s, i) => {
         const label = typeof s === "string" ? s : s.label;
         const icon = typeof s === "string" ? null : s.icon;
@@ -17,4 +20,5 @@ export function PromptSuggestions({ suggestions = [], onSelect, className }) {
       })}
     </div>
   );
-}
+});
+PromptSuggestions.displayName = "PromptSuggestions";

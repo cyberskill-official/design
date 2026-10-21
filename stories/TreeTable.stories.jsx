@@ -19,19 +19,12 @@ export default {
   component: TreeTable,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     columns: { control: 'object' },
     nodes: { control: 'object' },
     caption: { control: 'text' },
     defaultExpanded: { control: 'object' },
     lang: { control: 'select', options: ['en', 'vi'] },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting TreeTable. Portable consumers use styles.css + bundle, not Storybook. Rows are `nodes` with `key` (not `rows`/`id`).',
-      },
-    },
   },
   args: {
     columns: COLUMNS,

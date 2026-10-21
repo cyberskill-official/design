@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/button/ButtonGroup.jsx"],
+  "sourcesContent": ["import { useComposedRefs } from \"../_utils/refs.js\";\nimport React from \"react\";\nimport { cx } from \"../_utils/cx.js\";\n\n/** CyberSkill ButtonGroup — joins adjacent Buttons into one segmented cluster (role=group). */\nexport const ButtonGroup = React.forwardRef(function ButtonGroup({ children, label, className, ...props }, forwardedRef) {\n  const mergedNativeRef = useComposedRefs(forwardedRef);\n  return <div className={cx(\"cs-btngroup\", className)} role=\"group\" aria-label={label} {...props} ref={mergedNativeRef} >{children}</div>;\n});\nButtonGroup.displayName = \"ButtonGroup\";\n"],
+  "mappings": ";;;;;;;;;AACA,OAAO,WAAW;AAIX,IAAM,cAAc,MAAM,WAAW,SAASA,aAAY,EAAE,UAAU,OAAO,WAAW,GAAG,MAAM,GAAG,cAAc;AACvH,QAAM,kBAAkB,gBAAgB,YAAY;AACpD,SAAO,oCAAC,SAAI,WAAW,GAAG,eAAe,SAAS,GAAG,MAAK,SAAQ,cAAY,OAAQ,GAAG,OAAO,KAAK,mBAAmB,QAAS;AACnI,CAAC;AACD,YAAY,cAAc;",
+  "names": ["ButtonGroup"]
+}

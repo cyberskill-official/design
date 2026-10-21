@@ -1,13 +1,16 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill EmptyState — friendly placeholder for empty views. */
-export function EmptyState({ icon, title, children, actions, lang, className }) {
-  const [ref, L] = useLang(lang);
-  const t = makeT("EmptyState", L);
+export const EmptyState = React.forwardRef(function EmptyState({ icon, title, children, actions, lang, className, rootProps }, forwardedRef) {
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("EmptyState", L, localeMessages);
   return (
-    <div ref={ref} className={cx("cs-empty", className)}>
+    <div ref={mergedNativeRef} {...mergeTargetProps({ className: cx("cs-empty", className) }, rootProps)}>
       <span className="cs-empty__icon">
         {icon ?? <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 8l2-4h14l2 4M3 8v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8M3 8h6l1 3h4l1-3h6" /></svg>}
       </span>
@@ -16,4 +19,5 @@ export function EmptyState({ icon, title, children, actions, lang, className }) 
       {(actions || actions === 0) ? <div className="cs-empty__actions">{actions}</div> : null}
     </div>
   );
-}
+});
+EmptyState.displayName = "EmptyState";

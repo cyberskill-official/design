@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/data/Divider.jsx"],
+  "sourcesContent": ["import { useComposedRefs } from \"../_utils/refs.js\";\nimport React from \"react\";\nimport { cx } from \"../_utils/cx.js\";\n\n/** CyberSkill Divider — hairline rule. `label` centres text; `vertical` for inline splits. */\n// `children` is destructured but never rendered on purpose: keeps stray children out of {...props} → void <hr> / label <div>.\nexport const Divider = React.forwardRef(function Divider({ vertical = false, label, className, children, ...props }, forwardedRef) {\n  const mergedNativeRef = useComposedRefs(forwardedRef);\n  if (label || label === 0) {\n    return <div className={cx(\"cs-divider\", \"cs-divider--label\", className)} role=\"separator\" {...props} ref={mergedNativeRef} >{label}</div>;\n  }\n  return <hr className={cx(\"cs-divider\", vertical && \"cs-divider--vertical\", className)} aria-orientation={vertical ? \"vertical\" : \"horizontal\"} {...props}  ref={mergedNativeRef} />;\n});\nDivider.displayName = \"Divider\";\n"],
+  "mappings": ";;;;;;;;;AACA,OAAO,WAAW;AAKX,IAAM,UAAU,MAAM,WAAW,SAASA,SAAQ,EAAE,WAAW,OAAO,OAAO,WAAW,UAAU,GAAG,MAAM,GAAG,cAAc;AACjI,QAAM,kBAAkB,gBAAgB,YAAY;AACpD,MAAI,SAAS,UAAU,GAAG;AACxB,WAAO,oCAAC,SAAI,WAAW,GAAG,cAAc,qBAAqB,SAAS,GAAG,MAAK,aAAa,GAAG,OAAO,KAAK,mBAAmB,KAAM;AAAA,EACrI;AACA,SAAO,oCAAC,QAAG,WAAW,GAAG,cAAc,YAAY,wBAAwB,SAAS,GAAG,oBAAkB,WAAW,aAAa,cAAe,GAAG,OAAQ,KAAK,iBAAiB;AACnL,CAAC;AACD,QAAQ,cAAc;",
+  "names": ["Divider"]
+}

@@ -1,3 +1,4 @@
+import type { RootTargetProps } from "../_utils/target-props";
 /** An explicit numeric 0 hint remains visible. null, false and empty strings omit the hint; only undefined selects the localized default. */
 import type * as React from "react";
 import type { ReactNode } from "react";
@@ -11,6 +12,8 @@ import type { ReactNode } from "react";
  * an accurate hint. Model replies and human review are consumer-owned.
  */
 export interface PromptInputProps {
+  /** Attributes for the existing div root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: RootTargetProps<HTMLDivElement>;
   value?: string;
   onChange?: (value: string) => void;
   onSubmit?: (value: string) => void;
@@ -23,6 +26,8 @@ export interface PromptInputProps {
   lang?: string;
   className?: string;
   "aria-label"?: string;
+  /** Native textarea control; while component control is mounted. Separate from ref's primary target. */
+  controlRef?: React.Ref<HTMLTextAreaElement>;
 }
 
-export function PromptInput(props: PromptInputProps): React.ReactElement;
+export const PromptInput: React.ForwardRefExoticComponent<React.PropsWithoutRef<PromptInputProps> & React.RefAttributes<HTMLDivElement>>;

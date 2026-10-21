@@ -1,17 +1,20 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Splitter — two resizable panes with a draggable (and arrow-key) divider. */
-export function Splitter({ start, end, initial = 50, min = 20, max = 80, height = 240, lang, className }) {
+export const Splitter = React.forwardRef(function Splitter({ start, end, initial = 50, min = 20, max = 80, height = 240, lang, className , rootProps }, forwardedRef) {
   const clamp = value => Math.min(max, Math.max(min, value));
   const [storedPct, setPct] = React.useState(() => clamp(initial));
   const pct = clamp(storedPct);
   const stopDrag = React.useRef(null);
   React.useEffect(() => () => stopDrag.current?.(), [min, max]);
   const wrap = React.useRef(null);
-  const [ref, L] = useLang(lang);
-  const t = makeT("Splitter", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(wrap, ref, forwardedRef);
+  const t = makeT("Splitter", L, localeMessages);
   const drag = (e) => {
     if (e.button !== 0) return;
     e.preventDefault();
@@ -41,7 +44,7 @@ export function Splitter({ start, end, initial = 50, min = 20, max = 80, height 
     document.addEventListener("pointercancel", up);
   };
   return (
-    <div ref={(el) => { wrap.current = el; ref.current = el; }} className={cx("cs-splitter", className)} style={{ height, display: "grid", gridTemplateColumns: `minmax(0, ${pct}fr) auto minmax(0, ${100 - pct}fr)` }}>
+    <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-splitter", className) }, rootProps, [])} style={{ ...rootProps?.style, ...({ height, display: "grid", gridTemplateColumns: `minmax(0, ${pct}fr) auto minmax(0, ${100 - pct}fr)` }) }} >
       <div className="cs-splitter__pane">{start}</div>
       <div className="cs-splitter__bar" role="separator" aria-orientation="vertical" aria-label={t("label")} aria-valuenow={pct} aria-valuemin={min} aria-valuemax={max} tabIndex={0}
         onPointerDown={drag}
@@ -55,4 +58,5 @@ export function Splitter({ start, end, initial = 50, min = 20, max = 80, height 
       <div className="cs-splitter__pane">{end}</div>
     </div>
   );
-}
+});
+Splitter.displayName = "Splitter";

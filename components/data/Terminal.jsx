@@ -1,3 +1,5 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -5,11 +7,12 @@ import { cx } from "../_utils/cx.js";
 const hasOutput = value => value != null && typeof value !== "boolean" && value !== "";
 
 /** CyberSkill Terminal — command console: history + prompt input; onCommand returns output (string or lines). */
-export function Terminal({ title, welcome, onCommand, prompt = "➜", lang, className }) {
+export const Terminal = React.forwardRef(function Terminal({ title, welcome, onCommand, prompt = "➜", lang, className , rootProps }, forwardedRef) {
   const [hist, setHist] = React.useState(() => (hasOutput(welcome) ? [{ out: welcome }] : []));
   const [q, setQ] = React.useState("");
-  const [ref, L] = useLang(lang);
-  const t = makeT("Terminal", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("Terminal", L, localeMessages);
   const barTitle = title ?? t("title");
   const run = () => {
     if (!q.trim()) return;
@@ -18,7 +21,7 @@ export function Terminal({ title, welcome, onCommand, prompt = "➜", lang, clas
     setQ("");
   };
   return (
-    <div ref={ref} className={cx("cs-terminal", className)}>
+    <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-terminal", className) }, rootProps, [])}>
       <div className="cs-terminal__bar"><i /><i /><i /><span>{barTitle}</span></div>
       <div className="cs-terminal__body">
         {hist.map((l, i) => l.cmd != null
@@ -35,4 +38,5 @@ export function Terminal({ title, welcome, onCommand, prompt = "➜", lang, clas
       </div>
     </div>
   );
-}
+});
+Terminal.displayName = "Terminal";

@@ -14,4 +14,4 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   error?: ReactNode;
 }
 
-export function Textarea(props: TextareaProps): React.ReactElement;
+export const Textarea: React.ForwardRefExoticComponent<React.PropsWithoutRef<TextareaProps> & React.RefAttributes<HTMLTextAreaElement>>;

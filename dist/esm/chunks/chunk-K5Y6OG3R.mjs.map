@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/data/AspectRatio.jsx"],
+  "sourcesContent": ["import { useComposedRefs } from \"../_utils/refs.js\";\nimport React from \"react\";\nimport { cx } from \"../_utils/cx.js\";\n\n/** CyberSkill AspectRatio — CSS aspect-ratio lock for media and framed content. */\nexport const AspectRatio = React.forwardRef(function AspectRatio({ ratio = \"16 / 9\", children, className, style, ...props }, forwardedRef) {\n  const mergedNativeRef = useComposedRefs(forwardedRef);\n  const ar = typeof ratio === \"number\" ? String(ratio) : ratio;\n  return (\n    <div\n      className={cx(\"cs-aspect-ratio\", className)}\n      style={{ ...(style || {}), aspectRatio: ar }}\n      {...props}\n     ref={mergedNativeRef} >\n      {children}\n    </div>\n  );\n});\nAspectRatio.displayName = \"AspectRatio\";\n"],
+  "mappings": ";;;;;;;;;AACA,OAAO,WAAW;AAIX,IAAM,cAAc,MAAM,WAAW,SAASA,aAAY,EAAE,QAAQ,UAAU,UAAU,WAAW,OAAO,GAAG,MAAM,GAAG,cAAc;AACzI,QAAM,kBAAkB,gBAAgB,YAAY;AACpD,QAAM,KAAK,OAAO,UAAU,WAAW,OAAO,KAAK,IAAI;AACvD,SACE;AAAA,IAAC;AAAA;AAAA,MACC,WAAW,GAAG,mBAAmB,SAAS;AAAA,MAC1C,OAAO,EAAE,GAAI,SAAS,CAAC,GAAI,aAAa,GAAG;AAAA,MAC1C,GAAG;AAAA,MACL,KAAK;AAAA;AAAA,IACH;AAAA,EACH;AAEJ,CAAC;AACD,YAAY,cAAc;",
+  "names": ["AspectRatio"]
+}

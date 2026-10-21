@@ -4,7 +4,7 @@
  * CDN/React self-ensure leakage, peerDependencies, and dual-entry map
  * (`.` / `./react` → react.mjs; `./legacy` → cs.mjs).
  *
- * Plain Node — does not execute JSX (consumer bundlers transpile).
+ * Source-barrel parity gate; compiled import/SSR/identity tests run separately.
  */
 import { spawnSync } from "node:child_process";
 import { readFileSync, existsSync } from "node:fs";
@@ -33,14 +33,17 @@ const rootVersion = readFileSync(join(root, "VERSION"), "utf8").trim();
 assert(pkg.version === rootVersion, "package.json version must equal VERSION file");
 assert(/^\d+\.\d+\.\d+$/.test(pkg.version), "VERSION must be semver X.Y.Z (tracks VERSION; auto-bump on main)");
 assert(pkg.types === "_esm/react.d.ts", 'package.json types must be _esm/react.d.ts');
-assert(pkg.module === "_esm/react.mjs", 'package.json module must be _esm/react.mjs');
+assert(pkg.module === "dist/esm/_esm/react.mjs", 'package.json module must be _esm/react.mjs');
 assert(pkg.peerDependencies?.react, "peerDependencies.react required");
 assert(pkg.peerDependencies?.["react-dom"], "peerDependencies.react-dom required");
 
 const ex = pkg.exports || {};
-assert(ex["."]?.import === "./_esm/react.mjs", 'exports["."] → react.mjs');
+assert(ex["./source"]?.import === "./_esm/react.mjs", "explicit source JSX entry retained");
+assert(ex["./components/*.jsx"]?.import === "./dist/esm/components/*.mjs", "granular JSX paths use shared compiled graph");
+assert(ex["./components/*.jsx"]?.types === "./components/*.d.ts", "granular imports retain authored declarations");
+assert(ex["."]?.import === "./dist/esm/_esm/react.mjs", 'exports["."] → react.mjs');
 assert(ex["."]?.types === "./_esm/react.d.ts", 'exports["."].types → react.d.ts');
-assert(ex["./react"]?.import === "./_esm/react.mjs", 'exports["./react"] → react.mjs');
+assert(ex["./react"]?.import === "./dist/esm/_esm/react.mjs", 'exports["./react"] → react.mjs');
 assert(ex["./react"]?.types === "./_esm/react.d.ts", 'exports["./react"].types → react.d.ts');
 assert(ex["./legacy"]?.import === "./_esm/cs.mjs", 'exports["./legacy"] → cs.mjs');
 assert(ex["./styles.css"], 'exports["./styles.css"] present');

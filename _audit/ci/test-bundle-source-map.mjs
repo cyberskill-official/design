@@ -1,0 +1,42 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync,mkdtempSync,mkdirSync,cpSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import vm from 'node:vm';
+import React from 'react';
+import {TraceMap,originalPositionFor} from '@jridgewell/trace-mapping';
+import {buildBundle,collectSources,REPO_ROOT,parseBundleHeader} from '../../scripts/build-bundle.mjs';
+import {assertBundleBytes} from './lib/bundle-bytes.mjs';
+const built=buildBundle(),again=buildBundle();
+assert.equal(built.text,again.text);assert.equal(built.mapText,again.mapText);
+assert.deepEqual(parseBundleHeader(built.text),built.header);
+assert(built.text.endsWith('//# sourceMappingURL=_ds_bundle.js.map\n'));
+const map=JSON.parse(built.mapText);assert.equal(map.version,3);assert.equal(map.file,'_ds_bundle.js');
+assert.deepEqual([...map.sources].sort(),collectSources());
+for(let i=0;i<map.sources.length;i++)assert.equal(map.sourcesContent[i],readFileSync(join(REPO_ROOT,map.sources[i]),'utf8'),'Map must contain exact authored source '+map.sources[i]);
+assert.throws(()=>assertBundleBytes(built.mapText+' ',built.mapText),/Bundle bytes differ/);
+const run=(text,context={})=>{const window={};Object.assign(context,{window,React,console});new vm.Script(text,{filename:'_ds_bundle.js'}).runInNewContext(context);return window[parseBundleHeader(text).namespace]};
+const live=run(built.text);assert.deepEqual(Array.from(live.__errors),[]);assert.deepEqual(Object.keys(live).filter(k=>k!=='__errors').sort(),built.header.components.map(c=>c.name).sort());
+const temp=mkdtempSync(join(tmpdir(),'cs-authored-map-'));
+try{
+ cpSync(join(REPO_ROOT,'components'),join(temp,'components'),{recursive:true});mkdirSync(join(temp,'tokens'));cpSync(join(REPO_ROOT,'tokens/tokens.js'),join(temp,'tokens/tokens.js'));mkdirSync(join(temp,'scripts'));cpSync(join(REPO_ROOT,'scripts/catalog-source.json'),join(temp,'scripts/catalog-source.json'));
+ const source='components/_utils/source-map-probe.js',original='// Original authored line one.\nexport function SourceMapProbe() { throw new Error("mapped-probe"); }\n';
+ writeFileSync(join(temp,source),original);
+ writeFileSync(join(temp,'components/_utils/literal-probe.js'),'export const LiteralWhitespaceProbe = `first  \nsecond\t \n`;\n');
+ writeFileSync(join(temp,'components/_utils/error-boundary-probe.js'),'throw new Error("isolated-module-failure");\n');
+ writeFileSync(join(temp,'components/_utils/portal-peer-probe.js'),'import { createPortal } from "react-dom";\nexport function PortalPeerProbe(value) { return createPortal(value, {id: "target"}); }\n');
+ const context={};const fixture=buildBundle(temp),namespace=run(fixture.text,context);
+ assert.throws(()=>namespace.PortalPeerProbe('value'),/ReactDOM.createPortal peer is required/);
+ context.ReactDOM={createPortal:(value,container)=>({value,containerId:container.id})};
+ const portal=namespace.PortalPeerProbe('value');assert.equal(portal.value,'value');assert.equal(portal.containerId,'target');
+ writeFileSync(join(temp,'components/_utils/unsupported-peer-probe.js'),'import { createRoot } from "react-dom";\n');
+ assert.throws(()=>buildBundle(temp),/only the named createPortal/);rmSync(join(temp,'components/_utils/unsupported-peer-probe.js'));
+
+ assert.equal(namespace.LiteralWhitespaceProbe,'first  \nsecond\t \n');
+ assert.equal(namespace.__errors.length,1);assert.equal(namespace.__errors[0].path,'components/_utils/error-boundary-probe.js');assert(namespace.Button,'Unrelated module exports survive one initialization failure');
+ let thrown;try{namespace.SourceMapProbe()}catch(error){thrown=error}assert(thrown?.message==='mapped-probe');
+ const frame=String(thrown.stack).match(/_ds_bundle\.js:(\d+):(\d+)/);assert(frame,'Actual compact runtime stack must provide a generated location');
+ const location=originalPositionFor(new TraceMap(JSON.parse(fixture.mapText)),{line:+frame[1],column:+frame[2]-1});
+ assert.equal(location.source,source);assert.equal(location.line,2,'Chained map resolves actual thrown error to original authored line');
+}finally{rmSync(temp,{recursive:true,force:true})}
+console.log('PASS legacy bundle: deterministic whitespace compaction, exact authored source maps, actual exception mapping, complete exports and isolated module failures');

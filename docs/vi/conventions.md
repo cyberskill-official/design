@@ -220,7 +220,7 @@ Phiên bản đã kiểm tra là Style Dictionary 5.5.5. Hai vòng nhập/xuất
 
 ### Danh mục export công khai
 
-`npm run build:exports` tạo lại bundle, danh mục export trong manifest, ESM legacy, entry React và DESIGN.md. Tên export và đường dẫn nguồn lấy từ mô hình bundle của mã nguồn hiện tại; `components/lifecycle.json` cung cấp loại `component`/`constant` và trạng thái vòng đời rõ ràng. Thiếu loại hoặc sai đường dẫn làm trình sinh thất bại; không trình sinh nào tự nâng export mới lên stable. Trường `components` cũ trong manifest chứa cả hai loại: hiện có <!-- cs-count:components -->119<!-- /cs-count --> export component và <!-- cs-count:constants -->4<!-- /cs-count --> hằng. `EDITOR_SCHEMA` là hằng preview, cùng trạng thái với Editor. Gate ESM so sánh bundle thực với manifest và entry legacy, nên hai danh mục cùng thiếu dữ liệu không thể vượt qua.
+`npm run build:exports` tạo lại bundle, danh mục export trong manifest, ESM legacy, entry React và DESIGN.md. Tên export và đường dẫn nguồn lấy từ mô hình bundle của mã nguồn hiện tại; `components/lifecycle.json` cung cấp loại `component`/`constant` và trạng thái vòng đời rõ ràng. Thiếu loại hoặc sai đường dẫn làm trình sinh thất bại; không trình sinh nào tự nâng export mới lên stable. Trường `components` cũ trong manifest chứa cả hai loại: hiện có <!-- cs-count:components -->120<!-- /cs-count --> export component và <!-- cs-count:constants -->4<!-- /cs-count --> hằng. `EDITOR_SCHEMA` là hằng preview, cùng trạng thái với Editor. Gate ESM so sánh bundle thực với manifest và entry legacy, nên hai danh mục cùng thiếu dữ liệu không thể vượt qua.
 
 Trình sinh khai báo quản lý các dòng token root và theo phạm vi trong manifest, gồm đủ mười vai trò accent root. Trình sinh element và mật độ không còn ghi các phần manifest cạnh tranh nhau.
 
@@ -333,3 +333,5 @@ Dùng `--cs-color-semantic-{role}-text` cho chữ trên bề mặt và ghép m�
 
 
 Renderer tương thích do dự án duy trì khôi phục cấu trúc điều khiển bảng từ HTML nguồn khi trình duyệt đã di chuyển vòng lặp hoặc điều kiện ra khỏi các dòng. Bảng DC thô bị mất cấu trúc cần bản xem trước HTTP(S) và tài liệu nguồn còn truy xuất được, khớp với logic đang tải; nguồn thiếu hoặc thay đổi sẽ báo lỗi hiển thị bằng VI/EN. Tài liệu thông thường hoặc đã kết xuất đầy đủ trong môi trường không phải HTTP tiếp tục dùng DOM hiện có. Phạm vi này không chứng nhận đủ tài nguyên HTML ngoại tuyến hay bản xuất từ host DC thực tế. `test:template-control-content` kiểm tra sáu nguồn điều khiển bảng, mọi trục đã khai báo,toàn bộ template khởi tạo trong mỗi engine và các tình huống điều kiện/lỗi giao thức.
+
+Khi gọi trực tiếp bằng `node scripts/prepare-release.mjs`, bước tái sinh của quy trình chuẩn bị phát hành vẫn dùng trình chạy npm đã khóa. Chạy bootstrap toolchain đã khóa trước; npm khác trong shell không được thay đổi toolchain hay checkout của bản ứng viên. Quy trình giữ nguyên bản ghi phê duyệt và không công bố bản phát hành.

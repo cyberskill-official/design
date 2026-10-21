@@ -42,7 +42,7 @@ Built-in language resolves from an explicit `lang` prop, then the nearest DOM `[
 
 ## Quick path for AI agents (DC-capable authoring, or driving one)
 
-**What you get:** `styles.css` (public CSS tokens + `.cs-*` classes + Liquid Glass surfaces, `@import`s `tokens/` + `base/`) · `_ds_bundle.js` (compiled React components, no build step) · `_esm/react.mjs` (bundler-native React entry — React as peerDependency; default `exports["."]`) · `_esm/cs.mjs` (browser / no-build legacy via `exports["./legacy"]`) · `_ds_manifest.json` (machine-readable inventory) · per-component `Name.d.ts` (API) + `Name.prompt.md` (usage brief) · `tokens/tokens.dtcg.json` (DTCG 2025.10) + `tokens.json`/`tokens.js`.
+**What you get:** `styles.css` (public CSS tokens + `.cs-*` classes + Liquid Glass surfaces, `@import`s `tokens/` + `base/`) · `_ds_bundle.js` (compiled React components, no build step) · `dist/esm/_esm/react.mjs` (bundler-native React entry — React as peerDependency; default `exports["."]`) · `_esm/cs.mjs` (browser / no-build legacy via `exports["./legacy"]`) · `_ds_manifest.json` (machine-readable inventory) · per-component `Name.d.ts` (API) + `Name.prompt.md` (usage brief) · `tokens/tokens.dtcg.json` (DTCG 2025.10) + `tokens.json`/`tokens.js`.
 
 **Repo checkout** — clone or copy the whole tree; everything is relative-path static. Entry points: Storybook on the host site (`/` / `npm run storybook`) · `guidelines/atomic-view.html` (every component live, portable) · `templates/<slug>/` (copyable starting points — DC when a compiler is present; kitchen-sink / `.cs-*` for Stitch / static). Read `SKILL.md` before authoring anything on-brand; Stitch readers start at `DESIGN.md`. Deeper maps live in `llms.txt` (inventory) and this file (full adoption + upgrade guide below).
 
@@ -77,7 +77,7 @@ import { Button, TextField } from "@cyberskill/design";
 import "@cyberskill/design/styles.css";
 ```
 
-Add `transpilePackages: ["@cyberskill/design"]` in Next.js (JSX ships as source). The default entry (`_esm/react.mjs`) is a **`"use client"` barrel** — App Router Server Components can `import { Button } from "@cyberskill/design"` without per-import client shims. React and react-dom are **peerDependencies** — your app provides them. Published types use `export type *` (**TypeScript 5.0+**). Do **not** import `_esm/cs.mjs` (or `@cyberskill/design/legacy`) into an SSR bundler; that browser path supplies missing React globals from local `_vendor/react/` first, falls back to a pinned CDN only after a local load fails, and side-loads `_ds_bundle.js`.
+The default package entry is compiled ESM at `dist/esm/_esm/react.mjs`; Next.js does not need package JSX transpilation for this entry. The generated entry retains `"use client"`. Explicit `@cyberskill/design/source` resolves to source JSX at `_esm/react.mjs` and requires transpilation (Next.js: `transpilePackages: ["@cyberskill/design"]`). React and react-dom remain peer dependencies. Published types require TypeScript 5.0+. Keep `_esm/cs.mjs` / `@cyberskill/design/legacy` in browsers; it loads React globals and the classic bundle and is not an SSR import. See the [runtime API contract](runtime-api.md).
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) or continue with the static tree paths below. The published tarball is the **full portable tree** (styles, tokens, components, templates, guidelines, docs, UI kits) — not a minimal “lib-only” subset. Host-only tooling (Storybook, `_audit/`) is not in `files[]`.
 
@@ -110,7 +110,7 @@ Add `transpilePackages: ["@cyberskill/design"]` in Next.js (JSX ships as source)
 ```
 The template helper `ds-base.js` also waits for both runtime globals before loading the bundle, then exposes `window.CyberSkillDS`. The classic-script example above is a browser path; bundler consumers use the package entry in 2b.
 
-**2b. Bundler-native React (Next / Vite / SSR) — default package entry.** `import { Button, TextField } from "@cyberskill/design"` resolves to `_esm/react.mjs` (also exported as `@cyberskill/design/react`). The generated file starts with `"use client"` so App Router / RSC consumers import interactive components directly. Re-exports every component from source JSX with **React as an external peer** — no CDN, no `_ds_bundle.js` side-load. Your bundler must transpile the package (Next: `transpilePackages: ["@cyberskill/design"]`). Still link styles yourself (`styles.min.css` recommended for production static sheets). Regenerated with `npm run build:react-entry`; parity is gated by `package-exports-integrity` + `test:react-entry`.
+**2b. Bundler React (Next / Vite / SSR) — default package entry.** `@cyberskill/design` and `@cyberskill/design/react` share compiled ESM at `dist/esm/_esm/react.mjs`. Root and compiled component imports share context and component identity. React/react-dom remain external peers; no CDN or classic bundle is loaded by this path. The explicit `@cyberskill/design/source` and `@cyberskill/design/source/components/*` entries retain a separate source module family for JSX-aware builds. Use one family consistently within a component tree. Link CSS separately. Regenerate source entries with `build:react-entry`, then compiled entries with `build:compiled`; compiled freshness and actual packed SSR tests cover the generated graph.
 
 **2c. Browser ESM legacy — one import, no build.** `import { Button, TextField } from "@cyberskill/design/legacy"` (or `"<path>/_esm/cs.mjs"`) — the module checks `window.React` and `window.ReactDOM` separately, loads missing globals from local `_vendor/react/` production files first, and falls back to **umd-react@19.2.8** on the SRI-pinned CDN only when a local load fails, side-loads `_ds_bundle.js` once, resolves the namespace by prefix, and re-exports all components (`_audit/esm-smoke-test.html` keeps the export list in lockstep with the manifest). For a copied subtree, retain `_vendor/react/` with its provided licenses, `_esm/`, `_ds_bundle.js`, CSS and the referenced token/base/font paths; preserve applicable notices. External fallback is not an offline guarantee. `npm run test:subtree-consume` verifies this declared copy and the EN/VI classic-script examples with external requests rejected. Still link `styles.css` yourself. **Not for Next/SSR.** Bundler apps should keep providing their own `react` / `react-dom` peers (`^18 || ^19`).
 
@@ -223,7 +223,7 @@ For multiple independently hydrated roots on one page, choose a distinct
 `identifierPrefix` for each root and use that same value on the server and client:
 
 ```jsx
-// Server (after transpiling the package JSX as described above).
+// Server: the default package entry is already compiled ESM.
 const markup = renderToString(<App />, { identifierPrefix: 'account-' });
 // Client, with the same initial component tree and content.
 hydrateRoot(document.getElementById('account'), <App />, {

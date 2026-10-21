@@ -1,17 +1,25 @@
+import { useFloatingPanel } from "../_utils/floating-panel.js";
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { useOverlayLayer, overlayScopeContext } from "./OverlayManager.jsx";
+import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Popover — anchored floating panel. Uncontrolled (click toggles) or controlled. */
-export function Popover({ trigger, children, align = "start", open: controlled, onOpenChange, className, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy }) {
+export const Popover = React.forwardRef(function Popover({ portal = true, placement, trigger, children, align = "start", open: controlled, onOpenChange, className, rootProps, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy }, forwardedRef) {
+  const floatingRef = React.useRef(null);
+  const mergedNativeRef = useComposedRefs(floatingRef, forwardedRef);
   const [u, setU] = React.useState(false);
   const open = controlled != null ? controlled : u;
   const set = (v) => { if (controlled == null) setU(v); onOpenChange?.(v); };
-  const ref = React.useRef(null);
-  const { scope } = useOverlayLayer({ open, kind: "popover", panelRef: ref, onEscape: () => set(false) });
+  const [ref, L, localeMessages] = useLang();
+  const t = makeT("Popover", L, localeMessages);
+  const floating = useFloatingPanel({ open: open, anchorRef: ref, panelRef: floatingRef, portal, placement: placement ?? (align === "end" ? "bottom-end" : "bottom-start"), gap: 8, getAnchor: ()=>ref.current?.querySelector('[aria-haspopup="dialog"]') });
+  const { scope } = useOverlayLayer({ open: (open) && floating.ready, kind: "popover", panelRef: floatingRef, surfaceKey: floating.surfaceKey, onEscape: () => set(false) });
   React.useEffect(() => {
     if (!open) return;
-    const d = (e) => { if (ref.current && !ref.current.contains(e.target)) set(false); };
+    const d = (e) => { if (!floating.contains(e.target)) set(false); };
     document.addEventListener("mousedown", d);
     return () => { document.removeEventListener("mousedown", d); };
   }, [open]);
@@ -35,10 +43,11 @@ export function Popover({ trigger, children, align = "start", open: controlled, 
     : <button type="button" aria-haspopup="dialog" aria-expanded={open} onClick={toggle}>{trigger}</button>;
   return (
     <overlayScopeContext.Provider value={scope}>
-    <span className={cx("cs-popover", className)} ref={ref}>
+    <span {...mergeTargetProps({ className: cx("cs-popover", className) }, rootProps)} ref={ref}>
       {triggerNode}
-      {open ? <div className={cx("cs-popover__panel", align === "end" && "cs-popover__panel--end")} role="dialog" aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>{children}</div> : null}
+      {open ? floating.render(<div className={cx("cs-popover__panel", align === "end" && "cs-popover__panel--end")} role="dialog" aria-label={ariaLabel ?? (ariaLabelledBy ? undefined : t("panel"))} aria-labelledby={ariaLabelledBy} ref={mergedNativeRef} >{children}</div>) : null}
     </span>
     </overlayScopeContext.Provider>
   );
-}
+});
+Popover.displayName = "Popover";

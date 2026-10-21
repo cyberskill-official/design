@@ -25,4 +25,4 @@ export interface InputGroupProps extends Omit<React.InputHTMLAttributes<HTMLInpu
   className?: string;
   "aria-label"?: string;
 }
-export function InputGroup(props: InputGroupProps): React.ReactElement;
+export const InputGroup: React.ForwardRefExoticComponent<React.PropsWithoutRef<InputGroupProps> & React.RefAttributes<HTMLDivElement>>;

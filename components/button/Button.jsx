@@ -1,3 +1,4 @@
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 import { cx } from "../_utils/cx.js";
 
@@ -5,7 +6,7 @@ import { cx } from "../_utils/cx.js";
  * CyberSkill Button. Umber primary by default; warm hover; composite focus indicator (text-primary contour + Ochre halo);
  * 44px comfortable touch target. Renders a real <button>.
  */
-export function Button({
+export const Button = React.forwardRef(function Button({
   variant = "primary",
   size = "md",
   loading = false,
@@ -16,7 +17,8 @@ export function Button({
   className,
   type = "button",
   ...props
-}) {
+}, forwardedRef) {
+  const mergedNativeRef = useComposedRefs(forwardedRef);
   const isDisabled = disabled || loading;
   return (
     <button
@@ -33,10 +35,11 @@ export function Button({
         loading && "is-loading",
         className
       )}
-    >
+     ref={mergedNativeRef} >
       {(icon || icon === 0) ? <span className="cs-button__icon" aria-hidden="true">{icon}</span> : null}
       <span className="cs-button__label">{children}</span>
       {loading ? <span className="cs-button__spinner" aria-hidden="true" /> : null}
     </button>
   );
-}
+});
+Button.displayName = "Button";

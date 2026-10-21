@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/data/Masonry.jsx"],
+  "sourcesContent": ["import { useComposedRefs } from \"../_utils/refs.js\";\nimport { mergeTargetProps } from \"../_utils/field-association.js\";\nimport React from \"react\";\nimport { cx } from \"../_utils/cx.js\";\n\n/** CyberSkill Masonry — column-packed gallery (CSS columns). */\nexport const Masonry = React.forwardRef(function Masonry({ columns = 3, gap = 16, children, className, style , rootProps }, forwardedRef) {\n  const mergedNativeRef = useComposedRefs(forwardedRef);\n  return (\n    <div {...mergeTargetProps({ \"className\": cx(\"cs-masonry\", className) }, rootProps, [])} style={{ ...rootProps?.style, ...({ columnCount: columns, columnGap: gap, ...style }) }}  ref={mergedNativeRef} >\n      {React.Children.map(children, (c) => <div className=\"cs-masonry__item\" style={{ marginBottom: gap }}>{c}</div>)}\n    </div>\n  );\n});\nMasonry.displayName = \"Masonry\";\n"],
+  "mappings": ";;;;;;;;;;;;AAEA,OAAO,WAAW;AAIX,IAAM,UAAU,MAAM,WAAW,SAASA,SAAQ,EAAE,UAAU,GAAG,MAAM,IAAI,UAAU,WAAW,OAAQ,UAAU,GAAG,cAAc;AACxI,QAAM,kBAAkB,gBAAgB,YAAY;AACpD,SACE,oCAAC,SAAK,GAAG,iBAAiB,EAAE,aAAa,GAAG,cAAc,SAAS,EAAE,GAAG,WAAW,CAAC,CAAC,GAAG,OAAO,EAAE,GAAG,WAAW,OAAO,GAAI,EAAE,aAAa,SAAS,WAAW,KAAK,GAAG,MAAM,EAAG,GAAI,KAAK,mBACpL,MAAM,SAAS,IAAI,UAAU,CAAC,MAAM,oCAAC,SAAI,WAAU,oBAAmB,OAAO,EAAE,cAAc,IAAI,KAAI,CAAE,CAAM,CAChH;AAEJ,CAAC;AACD,QAAQ,cAAc;",
+  "names": ["Masonry"]
+}

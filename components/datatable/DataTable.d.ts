@@ -1,3 +1,4 @@
+import type { RootTargetProps } from "../_utils/target-props";
 /** The caption in idle and default loading tables slots preserve numeric zero; null/false/empty string omit those slots. */
 import type { ReactNode } from "react";
 import type * as React from "react";
@@ -22,6 +23,8 @@ export type DataTableState = "idle" | "loading" | "error";
  * surface (no glass).
  */
 export interface DataTableProps<Row extends Record<string, unknown>> {
+  /** Attributes for the existing div root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: Omit<RootTargetProps<HTMLDivElement>, "aria-busy" | "role">;
   caption?: ReactNode;
   columns: DataTableColumn<Row>[];
   rows: Row[];
@@ -46,4 +49,4 @@ export interface DataTableProps<Row extends Record<string, unknown>> {
   className?: string;
 }
 
-export function DataTable<Row extends Record<string, unknown>>(props: DataTableProps<Row>): React.ReactElement;
+export function DataTable<Row extends Record<string, unknown>>(props: DataTableProps<Row> & React.RefAttributes<HTMLDivElement>): React.ReactElement;

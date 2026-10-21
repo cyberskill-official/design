@@ -13,4 +13,4 @@ export interface AspectRatioProps extends React.HTMLAttributes<HTMLDivElement> {
   style?: CSSProperties;
 }
 
-export function AspectRatio(props: AspectRatioProps): React.ReactElement;
+export const AspectRatio: React.ForwardRefExoticComponent<React.PropsWithoutRef<AspectRatioProps> & React.RefAttributes<HTMLDivElement>>;

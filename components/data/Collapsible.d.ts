@@ -16,6 +16,8 @@ export interface CollapsibleProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   trigger?: ReactNode;
   children?: ReactNode;
   className?: string;
+  /** Native button control; while component control is mounted. Separate from ref's primary target. */
+  controlRef?: React.Ref<HTMLButtonElement>;
 }
 
-export function Collapsible(props: CollapsibleProps): React.ReactElement;
+export const Collapsible: React.ForwardRefExoticComponent<React.PropsWithoutRef<CollapsibleProps> & React.RefAttributes<HTMLDivElement>>;

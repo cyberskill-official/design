@@ -20,7 +20,7 @@ await withBrowserFixture(async page=>{
   await page.goto(origin+'/'+t.entryPath);
   await page.waitForFunction(()=>window.__dcRootName?.()&&document.querySelector('[data-sc-name]')&&window.__bundleStarts?.length);
   await page.waitForTimeout(100);
-  const row=await page.evaluate(()=>({starts:window.__bundleStarts,errors:window.CyberSkillDS?.__errors||[],renderError:document.querySelector('.sc-logic-error,.sc-placeholder-error')?.textContent,hasBundle:typeof window.CyberSkillDS?.Button==='function'}));
+  const row=await page.evaluate(()=>({starts:window.__bundleStarts,errors:window.CyberSkillDS?.__errors||[],renderError:document.querySelector('.sc-logic-error,.sc-placeholder-error')?.textContent,hasBundle:window.CyberSkillDS?.Button?.$$typeof===Symbol.for('react.forward_ref')&&typeof window.CyberSkillDS.Button.render==='function'}));
   evidence.push({path:t.entryPath,...row});
   assert.equal(row.starts.length,1,JSON.stringify(evidence.at(-1)));assert.deepEqual(row.starts,[{react:true,reactDOM:true}],JSON.stringify(evidence.at(-1)));
   assert.equal(row.errors.length,0,JSON.stringify(evidence.at(-1)));assert(!row.renderError,JSON.stringify(evidence.at(-1)));assert(row.hasBundle);

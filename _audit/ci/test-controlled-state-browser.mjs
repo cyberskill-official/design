@@ -33,7 +33,8 @@ await withBrowserFixture(async page => {
       case 'ColorPicker': return page.locator('.cs-colorpicker__field code').textContent();
       case 'Combobox': return page.locator('input').inputValue();
       case 'RadioGroup': return page.locator('input:checked').inputValue();
-      case 'SegmentedControl': case 'Tabs': return page.getByRole('tab',{selected:true}).textContent();
+      case 'SegmentedControl': return page.getByRole('radio',{checked:true}).textContent();
+      case 'Tabs': return page.getByRole('tab',{selected:true}).textContent();
       case 'TimePicker': return page.locator('select').inputValue();
       case 'Transfer': return page.locator('.cs-transfer__list').last().locator('label').allTextContents().then(values=>values.map(value=>value.trim()));
       case 'Tree': return page.getByRole('treeitem',{selected:true}).locator('.cs-tree__label').textContent();
@@ -52,7 +53,8 @@ await withBrowserFixture(async page => {
       case 'ColorPicker': await page.locator('.cs-colorpicker__field').click(); return page.getByRole('button',{name:'#45210E',exact:true}).click();
       case 'Combobox': await page.locator('input').click(); return page.getByRole('option',{name:'Beta',exact:true}).click();
       case 'RadioGroup': return page.getByRole('radio',{name:'Beta',exact:true}).click();
-      case 'SegmentedControl': case 'Tabs': return page.getByRole('tab',{name:'Beta',exact:true}).click();
+      case 'SegmentedControl': return page.getByRole('radio',{name:'Beta',exact:true}).click();
+      case 'Tabs': return page.getByRole('tab',{name:'Beta',exact:true}).click();
       case 'TimePicker': return page.locator('select').selectOption('10:00');
       case 'Transfer': await page.getByRole('checkbox',{name:'Beta',exact:true}).check(); return page.locator('.cs-transfer__ops button').first().click();
       case 'TreeSelect': await page.locator('.cs-treeselect__field').click();

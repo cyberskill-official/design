@@ -1,11 +1,14 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill CodeBlock — dark mono code panel with a filename bar + copy button. */
-export function CodeBlock({ code = "", filename, language, showBar = true, lang, className }) {
-  const [ref, L] = useLang(lang);
-  const t = makeT("CodeBlock", L);
+export const CodeBlock = React.forwardRef(function CodeBlock({ code = "", filename, language, showBar = true, lang, className , rootProps }, forwardedRef) {
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("CodeBlock", L, localeMessages);
   const [copied, setCopied] = React.useState(false);
   const attempt = React.useRef(0);
   const timer = React.useRef(null);
@@ -26,7 +29,7 @@ export function CodeBlock({ code = "", filename, language, showBar = true, lang,
     } catch { /* Failed or unavailable clipboard writes must not announce success. */ }
   };
   return (
-    <div ref={ref} className={cx("cs-code", className)}>
+    <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-code", className) }, rootProps, [])}>
       {showBar ? (
         <div className="cs-code__bar">
           <span>{filename || (language === undefined ? t("code") : language)}</span>
@@ -36,4 +39,5 @@ export function CodeBlock({ code = "", filename, language, showBar = true, lang,
       <pre><code>{code}</code></pre>
     </div>
   );
-}
+});
+CodeBlock.displayName = "CodeBlock";

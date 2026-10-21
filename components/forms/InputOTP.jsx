@@ -1,10 +1,13 @@
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
+import { useFieldAssociation, mergeTargetProps, fieldMessages } from "../_utils/field-association.js";
+
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 import { renderCount } from "../_utils/renderCount.js";
 
 /** CyberSkill InputOTP — one-time-code boxes: auto-advance, backspace, paste. Digits only. */
-export function InputOTP({ length: requestedLength = 6, value, onChange, onComplete, label, lang, disabled = false, className }) {
+export const InputOTP = React.forwardRef(function InputOTP({ length: requestedLength = 6, value, onChange, onComplete, label, lang, disabled = false, className, id, description, error, required = false, rootProps, controlProps }, forwardedRef) {
   const length = renderCount(requestedLength, 6);
   const [inner, setInner] = React.useState("");
   const val = (value != null ? value : inner).slice(0, length);
@@ -16,13 +19,24 @@ export function InputOTP({ length: requestedLength = 6, value, onChange, onCompl
     onChange && onChange(v);
     if (v.length === length && onComplete) onComplete(v);
   };
-  const [ref, L] = useLang(lang);
-  const lbl = label != null ? label : makeT("InputOTP", L)("label");
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const lbl = label != null ? label : makeT("InputOTP", L, localeMessages)("label");
+  // Both bags address the semantic group; owned digit/radio props stay on items.
+  const group = mergeTargetProps(mergeTargetProps({}, rootProps, ["role", "name", "value", "required", "aria-required"]), controlProps, ["role", "name", "value", "required", "aria-required"]);
+  const requiredDescription = required ? makeT("Form", L, localeMessages)("required") : undefined;
+  const control = useFieldAssociation({ id: group.id ?? id, "aria-label": group["aria-label"] ?? (group["aria-labelledby"] ? undefined : (label)),
+    "aria-labelledby": group["aria-labelledby"], "aria-describedby": group["aria-describedby"],
+    "aria-invalid": group["aria-invalid"] },
+    { fallbackLabel: lbl, description, error, required, requiredSupported: false, requiredDescription });
   return (
-    <div ref={ref} className={cx("cs-otp", className)} role="group" aria-label={lbl}>
+    <React.Fragment>
+    <div {...group} {...control} ref={mergedNativeRef} className={cx("cs-otp", className, group.className)} role="group">
       {Array.from({ length }).map((_, i) => (
-        <input key={i} ref={(el) => (boxes.current[i] = el)} inputMode="numeric" pattern="[0-9]*" maxLength={1} disabled={disabled}
-          value={val[i] || ""} aria-label={lbl + " " + (i + 1) + "/" + length}
+        <React.Fragment key={i}>
+        <span id={control.id + "-digit-" + (i + 1)} style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clipPath: "inset(50%)" }}>{(i + 1) + "/" + length}</span>
+        <input aria-labelledby={control["aria-labelledby"] ? control["aria-labelledby"] + " " + control.id + "-digit-" + (i + 1) : undefined} id={control.id + "-" + (i + 1)} aria-describedby={control["aria-describedby"]} aria-invalid={control["aria-invalid"]} ref={(el) => (boxes.current[i] = el)} inputMode="numeric" pattern="[0-9]*" maxLength={1} disabled={disabled}
+          value={val[i] || ""} aria-label={(control["aria-label"] || lbl) + " " + (i + 1) + "/" + length}
           onChange={(e) => {
             // Native Delete/cut/clear produces an empty input, unlike invalid text.
             if (e.target.value === "") { set(val.slice(0, i) + val.slice(i + 1)); return; }
@@ -46,7 +60,11 @@ export function InputOTP({ length: requestedLength = 6, value, onChange, onCompl
             const nb = boxes.current[Math.min(length - 1, p.length)]; if (nb) nb.focus();
           }}
         />
+        </React.Fragment>
       ))}
     </div>
+    {fieldMessages(control, description, error, requiredDescription)}
+    </React.Fragment>
   );
-}
+});
+InputOTP.displayName = "InputOTP";

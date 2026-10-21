@@ -42,7 +42,7 @@ Ngôn ngữ của chuỗi UI có sẵn được xác định theo thứ tự: pr
 
 ## Đường nhanh cho AI agent (DC-capable authoring, hoặc điều khiển một agent)
 
-**Bạn nhận:** `styles.css` (token CSS công khai + class `.cs-*` + bề mặt Liquid Glass, `@import` `tokens/` + `base/`) · `_ds_bundle.js` (React component đã compile, không cần build) · `_esm/react.mjs` (entry React bundler-native — React là peerDependency; mặc định `exports["."]`) · `_esm/cs.mjs` (browser / no-build legacy qua `exports["./legacy"]`) · `_ds_manifest.json` (inventory máy đọc được) · mỗi component `Name.d.ts` (API) + `Name.prompt.md` (brief dùng) · `tokens/tokens.dtcg.json` (DTCG 2025.10) + `tokens.json`/`tokens.js`.
+**Bạn nhận:** `styles.css` (token CSS công khai + class `.cs-*` + bề mặt Liquid Glass, `@import` `tokens/` + `base/`) · `_ds_bundle.js` (React component đã compile, không cần build) · `dist/esm/_esm/react.mjs` (entry React bundler-native — React là peerDependency; mặc định `exports["."]`) · `_esm/cs.mjs` (browser / no-build legacy qua `exports["./legacy"]`) · `_ds_manifest.json` (inventory máy đọc được) · mỗi component `Name.d.ts` (API) + `Name.prompt.md` (brief dùng) · `tokens/tokens.dtcg.json` (DTCG 2025.10) + `tokens.json`/`tokens.js`.
 
 **Checkout repo** — clone hoặc copy cả cây; mọi thứ là static đường dẫn tương đối. Điểm vào: Storybook trên host site (`/` / `npm run storybook`) · `guidelines/atomic-view.html` (mọi component live, portable) · `templates/<slug>/` (điểm bắt đầu copy được — DC khi có compiler; kitchen-sink / `.cs-*` cho Stitch / static). Đọc `SKILL.md` trước khi author bất kỳ thứ gì on-brand; reader Stitch bắt đầu tại `DESIGN.md`. Bản đồ sâu hơn ở `llms.txt` (inventory) và file này (hướng dẫn adopt + upgrade đầy đủ bên dưới).
 
@@ -77,7 +77,7 @@ import { Button, TextField } from "@cyberskill/design";
 import "@cyberskill/design/styles.css";
 ```
 
-Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng source). Entry mặc định (`_esm/react.mjs`) là **barrel `"use client"`** — Server Component App Router có thể `import { Button } from "@cyberskill/design"` mà không cần shim client từng import. React và react-dom là **peerDependencies** — app của bạn cung cấp. Types publish dùng `export type *` (**TypeScript 5.0+**). **Không** import `_esm/cs.mjs` (hay `@cyberskill/design/legacy`) vào bundler SSR; đường browser đó nạp global React còn thiếu từ `_vendor/react/` local trước, chỉ fallback sang CDN đã pin khi tải local lỗi, rồi side-load `_ds_bundle.js`.
+Entry package mặc định là ESM đã biên dịch tại `dist/esm/_esm/react.mjs`; Next.js không cần transpile JSX của package khi dùng entry này. Entry generated giữ `"use client"`. Entry tường minh `@cyberskill/design/source` trỏ tới JSX nguồn `_esm/react.mjs` và cần transpile (Next.js: `transpilePackages: ["@cyberskill/design"]`). React và react-dom vẫn là peer dependency. Types cần TypeScript 5.0+. Chỉ dùng `_esm/cs.mjs` / `@cyberskill/design/legacy` trong trình duyệt; đường này nạp React global và bundle cổ điển, không phải import SSR. Xem [hợp đồng API runtime](runtime-api.md).
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) hoặc tiếp tục dùng đường cây tĩnh bên dưới. Tarball đã publish là **cả cây portable** (styles, tokens, components, templates, guidelines, docs, UI kits) — không phải subset “chỉ lib” tối thiểu. Tooling chỉ-host (Storybook, `_audit/`) không nằm trong `files[]`.
 
@@ -110,7 +110,7 @@ Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng
 ```
 Helper `ds-base.js` của template cũng đợi cả hai global runtime trước khi nạp bundle, rồi expose `window.CyberSkillDS`. Ví dụ script thường là đường browser; consumer bundler dùng entry package ở 2b.
 
-**2b. React bundler-native (Next / Vite / SSR) — entry package mặc định.** `import { Button, TextField } from "@cyberskill/design"` resolve tới `_esm/react.mjs` (cũng export như `@cyberskill/design/react`). File generated bắt đầu bằng `"use client"` để consumer App Router / RSC import component tương tác trực tiếp. Re-export mọi component từ JSX source với **React là peer external** — không CDN, không side-load `_ds_bundle.js`. Bundler của bạn phải transpile package (Next: `transpilePackages: ["@cyberskill/design"]`). Vẫn tự link styles (`styles.min.css` khuyến nghị cho sheet static production). Regenerated bằng `npm run build:react-entry`; parity được gate bởi `package-exports-integrity` + `test:react-entry`.
+**2b. React với bundler (Next / Vite / SSR) — entry package mặc định.** `@cyberskill/design` và `@cyberskill/design/react` dùng chung ESM đã biên dịch tại `dist/esm/_esm/react.mjs`. Import gốc và component đã biên dịch dùng chung context và danh tính component. React/react-dom vẫn là peer external; đường này không nạp CDN hay bundle cổ điển. Các entry tường minh `@cyberskill/design/source` và `@cyberskill/design/source/components/*` giữ họ module nguồn riêng cho build hiểu JSX. Dùng nhất quán một họ trong cây component. Tự link CSS. Chạy `build:react-entry`, sau đó `build:compiled`; kiểm tra freshness và SSR từ package thực kiểm tra đồ thị generated.
 
 **2c. ESM browser legacy — một import, không build.** `import { Button, TextField } from "@cyberskill/design/legacy"` (hoặc `"<path>/_esm/cs.mjs"`) — module kiểm tra `window.React` và `window.ReactDOM` riêng, nạp global còn thiếu từ file production local trong `_vendor/react/` trước, và chỉ fallback sang CDN **umd-react@19.2.8** pin SRI khi tải local lỗi, side-load `_ds_bundle.js` một lần, resolve namespace theo prefix, và re-export mọi component (`_audit/esm-smoke-test.html` giữ danh sách export khóa với manifest). Nếu copy subtree, giữ `_vendor/react/` cùng các license được cung cấp, `_esm/`, `_ds_bundle.js`, CSS và các đường token/base/font được tham chiếu; giữ notice áp dụng. Fallback bên ngoài không phải bảo đảm offline. `npm run test:subtree-consume` kiểm tra bản copy đã khai báo và ví dụ script thường EN/VI với mọi request bên ngoài bị chặn. Vẫn tự link `styles.css`. **Không dùng cho Next/SSR.** App bundler vẫn cung cấp peer `react` / `react-dom` (`^18 || ^19`).
 
@@ -219,7 +219,7 @@ Khi hydrate nhiều root độc lập trên cùng trang, chọn `identifierPrefi
 cho mỗi root và dùng đúng giá trị đó ở cả server lẫn client:
 
 ```jsx
-// Server, sau khi transpile JSX của package theo hướng dẫn ở trên.
+// Server: entry package mặc định đã là ESM được biên dịch.
 const markup = renderToString(<App />, { identifierPrefix: 'account-' });
 // Client dùng cùng cây component và dữ liệu ban đầu.
 hydrateRoot(document.getElementById('account'), <App />, {

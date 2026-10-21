@@ -82,6 +82,7 @@ export function buildReferenceCatalog(base = root) {
     publicExports: manifest.components.length,
     components: manifest.components.filter(item => item.kind === 'component').length,
     constants: manifest.components.filter(item => item.kind === 'constant').length,
+    hooks: manifest.components.filter(item => item.kind === 'hook').length,
     componentSourceFiles: new Set(manifest.components.map(item => item.sourcePath).filter(path => /\.(jsx|tsx)$/.test(path))).size,
     coExports: manifest.components.length - new Set(manifest.components.map(item => item.sourcePath).filter(path => /\.(jsx|tsx)$/.test(path))).size,
     cards: manifest.cards.length,

@@ -16,7 +16,7 @@ This root file is the shared repository router. Discoverable task skills live un
 | Task | Source and runtime |
 |---|---|
 | Static HTML, including Stitch | [DESIGN.md](DESIGN.md), [styles.css](styles.css), `.cs-*` classes and [kitchen-sink](templates/kitchen-sink.html). Stitch/static consumers must not treat `*.dc.html` as source of truth; those templates require the Design Components compiler. |
-| Bundler React, including Next/Vite/SSR | `@cyberskill/design` resolves to [_esm/react.mjs](_esm/react.mjs), which imports source JSX and uses peer React. Follow [consumer setup](docs/consuming.md), including transpilation and CSS loading. |
+| Bundler React, including Next/Vite/SSR | `@cyberskill/design` resolves to compiled `dist/esm/_esm/react.mjs` with peer React. Explicit `@cyberskill/design/source` retains source JSX for transpiling bundlers. Follow [consumer setup](docs/consuming.md) and the [runtime API contract](docs/runtime-api.md); load CSS separately. |
 | Legacy no-build browser | [_esm/cs.mjs](_esm/cs.mjs) loads [_ds_bundle.js](_ds_bundle.js). Resolve `window.CyberSkillDesignSystem_*` by prefix, never a fixed compiler suffix. This entry is browser-only, not an SSR entry. |
 | DC authoring and exports | Use the selected template's source and supporting files only after confirming the compiler/export tools are available. See [export conventions](docs/conventions.md). A clone alone does not establish compiler availability. |
 | System revision | [Doctrine](docs/doctrine.md), [conventions](docs/conventions.md), [audit instructions](_audit/README.md) and the active task specification. Preserve source/generated-artifact relationships. |

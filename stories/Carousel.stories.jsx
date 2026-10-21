@@ -4,7 +4,9 @@ export default {
   title: 'Components/Data/Carousel',
   component: Carousel,
   tags: ['autodocs'],
+  args: { className: '' },
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "startIndex": {
     "control": "number"
   },
@@ -15,16 +17,9 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Carousel. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
 };
 
-export const Default = { render: () => (<Carousel label="Demo"><div style={{ padding: 24 }}>Slide one</div><div style={{ padding: 24 }}>Slide two</div></Carousel>) };
+export const Default = { render: (args) => (<Carousel label="Demo" {...args}><div style={{ padding: 24 }}>Slide one</div><div style={{ padding: 24 }}>Slide two</div></Carousel>) };
 
 export const Matrix = {
   name: 'Matrix / Slides',

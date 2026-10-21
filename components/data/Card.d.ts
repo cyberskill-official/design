@@ -13,12 +13,12 @@ export interface CardProps extends React.HTMLAttributes<HTMLElement> {
   as?: keyof React.JSX.IntrinsicElements;
   children?: ReactNode;
 }
-export function Card(props: CardProps): React.ReactElement;
+export const Card: React.ForwardRefExoticComponent<React.PropsWithoutRef<CardProps> & React.RefAttributes<Element>>;
 
 export interface CardHeaderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   title?: ReactNode;
   subtitle?: ReactNode;
 }
-export function CardHeader(props: CardHeaderProps): React.ReactElement;
-export function CardBody(props: React.HTMLAttributes<HTMLDivElement>): React.ReactElement;
-export function CardFooter(props: React.HTMLAttributes<HTMLDivElement>): React.ReactElement;
+export const CardHeader: React.ForwardRefExoticComponent<React.PropsWithoutRef<CardHeaderProps> & React.RefAttributes<HTMLDivElement>>;
+export const CardBody: React.ForwardRefExoticComponent<React.PropsWithoutRef<React.HTMLAttributes<HTMLDivElement>> & React.RefAttributes<HTMLDivElement>>;
+export const CardFooter: React.ForwardRefExoticComponent<React.PropsWithoutRef<React.HTMLAttributes<HTMLDivElement>> & React.RefAttributes<HTMLDivElement>>;
