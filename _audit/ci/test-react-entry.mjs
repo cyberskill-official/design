@@ -1,3 +1,4 @@
+import {parseReleaseVersion} from '../../scripts/lib/release-version.mjs';
 /**
  * Unit test — bundler-native React entry (`_esm/react.mjs` + types + package
  * exports). Asserts export/manifest parity with the bundle header, no browser
@@ -31,7 +32,12 @@ const exposed = header.components.map((c) => c.name);
 // --- package.json surface ---
 const rootVersion = readFileSync(join(root, "VERSION"), "utf8").trim();
 assert(pkg.version === rootVersion, "package.json version must equal VERSION file");
-assert(/^\d+\.\d+\.\d+$/.test(pkg.version), "VERSION must be semver X.Y.Z (tracks VERSION; auto-bump on main)");
+parseReleaseVersion(pkg.version); // Same canonical stable/prerelease identity as manual preparation.
+for (const value of ["1.7.2", "2.0.0-alpha.0"]) parseReleaseVersion(value);
+for (const value of ["1.2", "01.2.3", "2.0.0-alpha.01", "2.0.0+metadata"]) {
+  let rejected = false; try { parseReleaseVersion(value); } catch { rejected = true; }
+  assert(rejected, "Noncanonical release identity must reject: " + value);
+}
 assert(pkg.types === "_esm/react.d.ts", 'package.json types must be _esm/react.d.ts');
 assert(pkg.module === "dist/esm/_esm/react.mjs", 'package.json module must be _esm/react.mjs');
 assert(pkg.peerDependencies?.react, "peerDependencies.react required");
