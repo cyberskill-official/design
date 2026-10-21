@@ -19,7 +19,7 @@ const json = (root, path) => JSON.parse(read(root, path));
 const write = (root, path, data) => writeFileSync(join(root, path), data);
 
 export function git(root, args) {
-  const result = spawnSync('git', args, { cwd: root, encoding: 'utf8' });
+  const result = spawnSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
   if (result.error || result.signal || result.status !== 0) throw Error(`git ${args[0]} failed: ${result.error?.message || result.stderr || result.signal}`);
   return args[0] === 'diff' ? result.stdout : result.stdout.trim();
 }

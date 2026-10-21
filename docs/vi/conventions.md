@@ -365,3 +365,5 @@ Chuẩn bị bản phát hành chỉ cập nhật tập marker định danh ngu�
 ### Khung trang chiếu cố định và lưới đáp ứng thông thường
 
 Bên trong `.cs-canvas-desk`, lưới có số cột cố định do tác giả khai báo giữ nguyên số cột, kể cả `repeat(4,minmax(0,1fr))`. Vùng nền cho phép cuộn ngang khi cửa sổ hẹp hơn khung cố định; lưới màn hình thông thường nằm ngoài vùng nền vẫn giảm số cột tại các điểm ngắt đáp ứng đã ghi nhận. Giữ nội dung trang chiếu trong giới hạn 16:9 đã khai báo ở cả hai ngôn ngữ, thay vì xếp chồng các cột bên trong ở độ rộng điện thoại.
+
+Chuẩn bị phát hành thu nhận đầu ra Git với bộ đệm giới hạn64MiB để patch nhị phân sinh tự động lớn hơn1MiB được giữ đầy đủ; lỗi subprocess và kiểm tra hash patch chính xác vẫn chặn quy trình.

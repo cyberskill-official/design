@@ -307,3 +307,25 @@ assert(commands.includes('playwright install --with-deps chromium firefox webkit
 assert(!/\b(?:git\s+(?:commit|push)|npm\s+publish|gh\s+release)\b/.test(commands), 'Preparation cannot publish or change remote identities');
 assert(!/\$\{\{\s*inputs\./.test(commands), 'Untrusted dispatch inputs must use quoted environment variables, not shell interpolation');
 console.log('PASS release preparation: read-only planning, exact identity, review/staleness/dirty/tag guards, deterministic version/stamps, preserved history, evidence integrity, candidate drift, immutable tag check and read-only externally SHA-pinned workflow with exact reviewed local bootstrap');
+
+// Generated release patches can exceed spawnSync's default one-megabyte buffer.
+{
+  const {git: releaseGit} = await import('../../scripts/prepare-release.mjs');
+  const {mkdtempSync,writeFileSync,rmSync} = await import('node:fs');
+  const {tmpdir} = await import('node:os');
+  const {join} = await import('node:path');
+  const {execFileSync} = await import('node:child_process');
+  const fixture=mkdtempSync(join(tmpdir(),'cs-release-large-patch-'));
+  try {
+    execFileSync('git',['init','--quiet',fixture]);
+    writeFileSync(join(fixture,'generated.txt'),'baseline\n');
+    execFileSync('git',['-C',fixture,'add','generated.txt']);
+    execFileSync('git',['-C',fixture,'-c','user.name=Fixture','-c','user.email=fixture@example.invalid','commit','--quiet','-m','fixture']);
+    const content=Array.from({length:24000},(_,i)=>`row-${i}: ${'x'.repeat(60)}`).join('\n')+'\n';
+    writeFileSync(join(fixture,'generated.txt'),content);
+    const expected=execFileSync('git',['diff','--binary','HEAD'],{cwd:fixture,encoding:'utf8',maxBuffer:64*1024*1024});
+    assert(expected.length>1024*1024,'Fixture exceeds the former capture limit');
+    assert.equal(releaseGit(fixture,['diff','--binary','HEAD']),expected,'Complete patch bytes retain identity without truncation');
+    assert.throws(()=>releaseGit(fixture,['rev-parse','--verify','missing-fixture-ref']));
+  } finally {rmSync(fixture,{recursive:true,force:true});}
+}
