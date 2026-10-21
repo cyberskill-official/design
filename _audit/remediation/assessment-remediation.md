@@ -1284,7 +1284,7 @@ Revalidation and retained evidence (historical where superseded):
 
 Remediation:
 
-- Completed bounded category records with explicit native/passive/provider applicability and reviewed exact source snippets. No completeBehavior/completeAccessibility flag was promoted. 
+- Completed bounded category records with explicit native/passive/provider applicability and reviewed exact source snippets. No completeBehavior/completeAccessibility flag was promoted.
 
 Validation receipts:
 
