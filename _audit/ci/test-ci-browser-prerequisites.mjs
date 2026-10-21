@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
-import {stringify} from 'yaml';
+import {stringify,parse} from 'yaml';
 import {chromium, firefox, webkit} from 'playwright';
-import {inspectWorkflow, inspectRepository, requiredBrowsers} from './lib/ci-browser-prerequisites.mjs';
+import {inspectWorkflow, inspectRepository, requiredBrowsers, chromiumDependentScripts} from './lib/ci-browser-prerequisites.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const checks = inspectRepository(root);
@@ -36,6 +36,26 @@ for (const flag of ['--yes', '--install', '--no', '--no-install --no-install']) 
  assert.throws(() => probe([{run:'npx '+flag+' playwright install --with-deps chromium firefox webkit'},unit]), /install required browsers/);
 }
 
+const packageScripts=JSON.parse((await import('node:fs')).readFileSync(new URL('../../package.json',import.meta.url),'utf8')).scripts;
+assert(chromiumDependentScripts(packageScripts).has('tokens:generate'),'Actual aggregate token generation transitively captures Chromium');
+const aliases={capture:'node scripts/generate-token-modes.mjs --check',alias:'npm run capture',outer:'npm run alias',unrelated:'node plain.mjs'};
+assert.deepEqual([...chromiumDependentScripts(aliases)].sort(),['alias','capture','outer']);
+const captureProbe=steps=>inspectWorkflow(stringify({jobs:{fixture:{steps}}}),'token-fixture.yml',{scripts:aliases});
+for(const command of ['node scripts/generate-token-modes.mjs','node scripts/generate-token-modes.mjs --check','npm run outer']) {
+ const capture={run:command},install={run:'npx --no-install playwright install --with-deps chromium'};
+ for(const steps of [[capture],[capture,install],[{...install,if:'condition-a'},capture],[{...install,if:'condition-a'},{...capture,if:'condition-b'}],[{...install,'continue-on-error':true},capture]])assert.throws(()=>captureProbe(steps),/install required browsers/);
+ assert.doesNotThrow(()=>captureProbe([install,capture]));
+ assert.doesNotThrow(()=>captureProbe([{...install,if:'condition-a'},{...capture,if:'condition-a'}]));
+}
+const actualWorkflow=parse((await import('node:fs')).readFileSync(new URL('../../.github/workflows/design-system-gates.yml',import.meta.url),'utf8'));
+let tokenInstallations=0;
+for(const [jobName,job]of Object.entries(actualWorkflow.jobs))for(const [index,step]of (job.steps||[]).entries()) {
+ if(!step.name?.startsWith('Install Chromium for resolved token')&&!step.name?.startsWith('Install Chromium before post-sync token'))continue;
+ tokenInstallations++;
+ const missing=structuredClone(actualWorkflow);missing.jobs[jobName].steps.splice(index,1);
+ assert.throws(()=>inspectWorkflow(stringify(missing),'real-token-installer-mutant.yml',{scripts:packageScripts}),/install required browsers/,'Every actual token producer invocation retains its browser prerequisite');
+}
+assert.equal(tokenInstallations,3,'Both jobs and post-sync regeneration need explicit browser installation');
 // Real launches, separate from the YAML contract: installed/cache availability
 // cannot be inferred from a passing source check. Never skip a missing engine.
 for (const name of requiredBrowsers) {

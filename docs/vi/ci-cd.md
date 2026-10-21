@@ -94,3 +94,11 @@ Bộ `npm run test:unit` cần Chromium, Firefox và WebKit. `node _audit/ci/che
 ## Cố định npm trước khi cache dependency
 
 Mọi bước `actions/setup-node` đều tắt cả cache npm tường minh và cache package-manager tự động. Action thiết lập npm dùng chung bootstrap CLI đã khóa trước, sau đó xác định đường dẫn cache qua `node scripts/npm.mjs config get cache` và khôi phục các lượt tải npm bằng action cache đã cố định hiện có. `devEngines` và kiểm tra phiên bản chính xác vẫn được thực thi. npm đi kèm Node có thể bootstrap trong fixture CLI riêng; nó không được xác định cache trong project trước khi phiên bản npm bắt buộc hoạt động.
+
+## Thu thập token bằng trình duyệt và consumer độc lập
+
+`tokens:generate` chạy gián tiếp bộ sinh mode đã phân giải, cần Chromium được cài ngay cả với `--check`. Hai job sinh lại đều cài Chromium với đúng điều kiện của bước sinh; guard tiền điều kiện lần theo alias npm-script và từ chối thiếu cài đặt, cài muộn, khác điều kiện hoặc cho phép lỗi. Kiểm tra token truyền tùy chọn riêng từng trình duyệt: cờ shared-memory trên Linux chỉ dành cho Chromium, không dành cho Firefox hay WebKit. Kiểm thử Vite consumer gọi CLI npm đã khóa của project bằng đúng Node đang chạy ở cả thư mục producer và consumer riêng, nên PATH trỏ đến thư mục Node không thể âm thầm chọn npm đi kèm. `devEngines` chính xác, lock sạch và các kiểm tra tương tác production vẫn được thực thi.
+
+## Trạng thái sẵn sàng của fixture trình duyệt
+
+Hàm đặt trạng thái React của fixture được commit trước khi đọc quan hệ TreeTable; kiểm thử vẫn xác minh định danh hàng, focus, giá trị input, khả năng tiếp cận và cả hai biến thể lỗi hành vi. Kiểm thử cuộn panel nổi đợi thao tác cuộn gốc thực sự bắt đầu trước khoảng đo hiện có, giữ nguyên các khẳng định về vị trí cuộn, resize, khả năng tới phần tử bằng bàn phím và vòng lặp đo; probe trì hoãn vị trí cuộn kiểm tra trạng thái sẵn sàng riêng với thao tác wheel thật. So sánh CSS phân lớp thiết lập cùng trạng thái con trỏ và focus, rồi so sánh HoverCard ở cả trạng thái đóng và mở bằng focus trong các mode hiện có, giữ mọi phép so sánh và thuộc tính tính toán ban đầu.

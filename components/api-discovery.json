@@ -3,7 +3,7 @@
   "interpretation": "Discovery projection: every public export and authored prop definition, with inherited prop counts. Inherited native props, full signatures, support evidence/history and compiler metadata remain in components/api-index.json. Declarations remain authoritative; this projection does not establish runtime, semantic or human acceptance.",
   "completeIndex": {
     "path": "components/api-index.json",
-    "sha256": "4998051a2861175651af2e838d8b8e85e59050d2e4524a2d111ea8155d8b3cb2"
+    "sha256": "6debff3d5be5f06879cb09cc06db5d2b8a184b345a0489f52a3c0837e9f928d1"
   },
   "exports": [
     {
@@ -15,7 +15,7 @@
       "sourceSha256": "3b9d3255135196a708489bb0d0f3424f007d1c9255ae8791d034defd7a8da740",
       "declarationSha256": "caf55aa7c6c15a421156e8b6c68710a5ced5b2073d4d9a7055089dd5de9161ba",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -65,7 +65,7 @@
       "sourceSha256": "2bd0ed6b7ddb3daa85f941a0260ef3f08a7a261de3336eabff49c6cade44791b",
       "declarationSha256": "0c5b1140bba3076f0642ae9c23701fbdae406e01f9a08a7beb7ddaeac8aa903f",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "allowMultiple",
@@ -99,7 +99,7 @@
       "sourceSha256": "b9c0a4e67f41118230fec5abdad7f22e8a98a2a8c46420cde54c1a46759f9d91",
       "declarationSha256": "874625a12e07ab58639a7bd1e01607d907d668706663a96f11242e2c1dbf0d66",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -137,7 +137,7 @@
       "sourceSha256": "4da78ce1d38abb6659a45b501abc08310f2fd525b7cae7fb20bb4e293bb8c82d",
       "declarationSha256": "b691abfc7e6cc1a3b702a930356b7f06df7d28fa52f6cfeaa16a07ad061b6086",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "cancelLabel",
@@ -207,7 +207,7 @@
       "sourceSha256": "8907d6bfe9ae45869c74c5d419f7a04116379f84f5992ac248418515df3bb500",
       "declarationSha256": "fe9b559457826b1404303ca0f687478c5692e5e7af9985a3f711faea3e3d2291",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -233,7 +233,7 @@
       "sourceSha256": "702957661817b7230bbe8bdb7951497aaee4c92495256487cc3e20d7c94a9a9c",
       "declarationSha256": "75f34236be17ee357f35338dc4ec759e05713eb823c55c925db87572eca6642e",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -263,7 +263,7 @@
       "sourceSha256": "9088033b579770c1160213545feebdf291cad8bb8a4f3f539168c61f4df16964",
       "declarationSha256": "f0a2094573c27ec8366b4673614c879ae9801ceeee7552ebed3eec6527b9807f",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "name",
@@ -293,7 +293,7 @@
       "sourceSha256": "9088033b579770c1160213545feebdf291cad8bb8a4f3f539168c61f4df16964",
       "declarationSha256": "f0a2094573c27ec8366b4673614c879ae9801ceeee7552ebed3eec6527b9807f",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -319,7 +319,7 @@
       "sourceSha256": "d8ad1e190a8601a55fec8ee5812e0b30d7d5444e82147d1604c86412a8280a1e",
       "declarationSha256": "856242627450c363c0ddf2829f446868c83cee42554cf99226b9ea811884a59d",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -353,7 +353,7 @@
       "sourceSha256": "6eeac438173e1d489ae503957d6049d4ae4b009350b7ed7a1a0bc789911d2feb",
       "declarationSha256": "da7458730ed7772a94eeb95673bf9caf86061c090f92d3d9711efa34dc410ca3",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -379,7 +379,7 @@
       "sourceSha256": "205de44c5157c6d543f403520f8ba6f0e1a5b0930696eebd5f762ea3b8da6f98",
       "declarationSha256": "5cc08095cf636892fcdc0f058a1b0188aed566cf45d82cead05d97d41ec421da",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "items",
@@ -397,7 +397,7 @@
       "sourceSha256": "198c46d2c90a065d8510c5a64c38f292075483fdf65d05f36b671082934f3d4d",
       "declarationSha256": "d2de8fecaf5d8001a0293c2c40b56d915046ce49be126b955338bb8ccfba1904",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -439,7 +439,7 @@
       "sourceSha256": "64726fc0b33a51126a02749314a5aa699da12afe0f9702472e3cdd3f4407f5e6",
       "declarationSha256": "5af7b70816fbbeceee4742ebf5dceb1154ed3b2bf624af5bfe1748633fbb2dae",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -465,7 +465,7 @@
       "sourceSha256": "c1d7d63c73094053718fd92bef441ff9f13e20023a642f07ecbaf8563eda7d05",
       "declarationSha256": "56e221d6eb875cf7c3a4de841372ba0b70389836957d8538b1d5a276848db95d",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [],
       "inheritedPropCount": 0
     },
@@ -478,7 +478,7 @@
       "sourceSha256": "f1a251a50c8f88e45cb2de252df24fe0940c4b62df99e0ea21c7e81067e75708",
       "declarationSha256": "56e221d6eb875cf7c3a4de841372ba0b70389836957d8538b1d5a276848db95d",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [],
       "inheritedPropCount": 0
     },
@@ -491,7 +491,7 @@
       "sourceSha256": "f1a251a50c8f88e45cb2de252df24fe0940c4b62df99e0ea21c7e81067e75708",
       "declarationSha256": "56e221d6eb875cf7c3a4de841372ba0b70389836957d8538b1d5a276848db95d",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [],
       "inheritedPropCount": 0
     },
@@ -504,7 +504,7 @@
       "sourceSha256": "9300c818b4a4de7425600d8b54f8be62e3ca3e7a7e2c0f25fc3cff1b12dad2ce",
       "declarationSha256": "034dc545cd270d0be426cd3eab940142318192c133813c93bd495add8e1552bd",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -538,7 +538,7 @@
       "sourceSha256": "37a0eb43b0fdff92a3eec629b6136750c93c37128b8f2858d3098373103f9469",
       "declarationSha256": "61ffae1b6a05a939d8f25b52d3a67893d26c91ca59fc2e81947f8af2158fcde3",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "as",
@@ -568,7 +568,7 @@
       "sourceSha256": "37a0eb43b0fdff92a3eec629b6136750c93c37128b8f2858d3098373103f9469",
       "declarationSha256": "61ffae1b6a05a939d8f25b52d3a67893d26c91ca59fc2e81947f8af2158fcde3",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [],
       "inheritedPropCount": 280
     },
@@ -581,7 +581,7 @@
       "sourceSha256": "37a0eb43b0fdff92a3eec629b6136750c93c37128b8f2858d3098373103f9469",
       "declarationSha256": "61ffae1b6a05a939d8f25b52d3a67893d26c91ca59fc2e81947f8af2158fcde3",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [],
       "inheritedPropCount": 280
     },
@@ -594,7 +594,7 @@
       "sourceSha256": "37a0eb43b0fdff92a3eec629b6136750c93c37128b8f2858d3098373103f9469",
       "declarationSha256": "61ffae1b6a05a939d8f25b52d3a67893d26c91ca59fc2e81947f8af2158fcde3",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "subtitle",
@@ -616,7 +616,7 @@
       "sourceSha256": "21422bad1971eff2365e424acd05ac342fa16c2617fb1dfd512bcb8927489e68",
       "declarationSha256": "6babd330457e6ab84c657e89d9994d0ea9bf1101a21dc7d2bb05759cd652925e",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -654,7 +654,7 @@
       "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
       "declarationSha256": "33edbc198353ed41f05867be9e1c04830d5033cf2cf4ceda3e1ba13adef27aea",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-labelledby",
@@ -740,7 +740,7 @@
       "sourceSha256": "04ada47476df79edcc46604557c862545eb4d4433c43afa826fff2b744c1693e",
       "declarationSha256": "2f54ca63c2131131c476ccd4d98c6e581d4802372f4cac4cb893afbe68326b34",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -790,7 +790,7 @@
       "sourceSha256": "b6fe36ea61af0acb22566844b528a30895c51f0d4fbc3b26e5aa0497e9ef3ec0",
       "declarationSha256": "664717e46d0d56932ac04586d58f002a4958326e9b69fb0a6b4ea1cdfdc564e0",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "avatar",
@@ -832,7 +832,7 @@
       "sourceSha256": "19491fd53a0a7c5a4fa3c9d449ee3c0b7f39af18565413a012a7a8f5e25425ee",
       "declarationSha256": "733214d012dc9dfea6066211d2fcc9bf6c0e76f897c6d38f7505849754c2fcbf",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "description",
@@ -854,7 +854,7 @@
       "sourceSha256": "dc3f9e04b71611502234cd03a1967aeed46b6274d6f4e205a4ebd228fcceeb6a",
       "declarationSha256": "0e8377e7ee2c37835e1bf91304cff0bf44f0447a08fbcb3f73e1cd03d96408dc",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -888,7 +888,7 @@
       "sourceSha256": "a0bbfb0874c129fe739b58129419e87171c2f97c2ada62ae3e90e24465973530",
       "declarationSha256": "07e40674a5cf7a683e9d57f35e53c1d1c544ef63527ae225bb9d44140d962d1c",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -930,7 +930,7 @@
       "sourceSha256": "6dfb148c5938cb6467d28286f70878c7de59eb057adf2a54ff1b61e0f5ab0aaf",
       "declarationSha256": "d7140299a0d10617269d31e66f0fab054610719152a0c958323d03acc80c6610",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -976,7 +976,7 @@
       "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
       "declarationSha256": "a0a3d9c005fc6f8ddc4fdc85f132aedfcb10dee745ae1706eb6b924814531e2d",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-labelledby",
@@ -1054,7 +1054,7 @@
       "sourceSha256": "bae42bd629700dcdb3173636184df3aa0181a4e4d5f0ae7447a630f6404e84d3",
       "declarationSha256": "21e214b53ce8edeb9210a6ea375233d11ddecdad906c90248dfd3d456375761a",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-labelledby",
@@ -1136,7 +1136,7 @@
       "sourceSha256": "7572bc9c884cc84b46d289947aad5d23a6b59bb222a207f7e49e4ce385eb5771",
       "declarationSha256": "d19b4eb7a083a8b4057884a25562272bbbb81345c875d50e70ec3d673ae76893",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -1182,7 +1182,7 @@
       "sourceSha256": "08be70ef29102a87005d120e3aa828ef5b06ecb0fc17bb84607fa783d109475b",
       "declarationSha256": "b0c65a92038642680dfccad4c9b1a8643042fb0b9500f10eb6bc43d0bd7a808c",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "actions",
@@ -1232,7 +1232,7 @@
       "sourceSha256": "90ee1079775f7879cbf1e7c85f6b95098a81a5d1b414721abc19c63966a43421",
       "declarationSha256": "fb4d9684a6647f979a649a0ebd5f65dac025eabb4a2477a6318e8e7a4f1e1837",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -1274,7 +1274,7 @@
       "sourceSha256": "31ac2665583bd13108b5c5f105e14d2a1ff3f105edbbfdfd91852b002826d499",
       "declarationSha256": "3349e7ed1f00edcc6027abc3db0521b6bcf41e113da132dad740a7dfe69a94fa",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -1320,7 +1320,7 @@
       "sourceSha256": "f98b241da97de25b2014cc1e28d84d1f35e4f16aeaa64d0e92961eabbc9499c5",
       "declarationSha256": "fe6c38c69ddf62249fa9d9920a713386b661f2d500b52e0db13de7f6fa246eb9",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "caption",
@@ -1406,7 +1406,7 @@
       "sourceSha256": "2982f89295d11775882a2411e5bf0eb6fdea123af9431f67bb44a45efe4cbb2c",
       "declarationSha256": "9bda60486320628f2cc08204de69dc41c30250c2c18eb213cdca5a9b1116fed8",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "caption",
@@ -1468,7 +1468,7 @@
       "sourceSha256": "7a2fadb7759ddd31d574114d8e967406dbf82117251b65b14adcab6e21996b32",
       "declarationSha256": "fdbddac69a2e2ffca64699c59cb0b3e2fb8108e0bfd77e45f7e3be344129fd2e",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-labelledby",
@@ -1546,7 +1546,7 @@
       "sourceSha256": "8aed2b747130fe0b1a66428211e0893913cb0c1662c0902a4524c4f183b4d35b",
       "declarationSha256": "3f84a71191cad761f5bca6e6e0e7e2e2f18b052ee24640565895c346634d5b69",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "items",
@@ -1564,7 +1564,7 @@
       "sourceSha256": "975f4e5ad0d0d9eb972f3f6e2eb6bd7ecd9ee00c3520268b8355998ab801c240",
       "declarationSha256": "a60c36dcd189c52bd40e8935cfaaf52829dc43db79941ff642360ffe34445a29",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "actions",
@@ -1614,7 +1614,7 @@
       "sourceSha256": "28239cea9e76e7d4d7092a2bdce6286e842814dd862fb460327b0d6708a9b567",
       "declarationSha256": "94aeebcb33de59f64342d249dc4f28639621486c24481ba4a380c2a5c5a9317f",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "label",
@@ -1636,7 +1636,7 @@
       "sourceSha256": "77956d94bda2e3eb7e7514926c8adf86da964d59eba49d70368cc63888b3ad2b",
       "declarationSha256": "64256c51d10ca1a2864a22e43a78b77e965e2264142048f66e0a0f5c41dcb34f",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -1666,7 +1666,7 @@
       "sourceSha256": "a98fc2c5e5bcfc3c8ff69005bcc5018a54685bfb971690e79cd483d8ce9e1bca",
       "declarationSha256": "0ee655f846d77574a82c65378dac2424bb16d5ce6bd9732a71655a5107dff8f9",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "actions",
@@ -1729,7 +1729,7 @@
       "sourceSha256": "dcb9dd625cac6e80c96e3e5eca5e8e06e215c6151a8dbbfc63fc3754b4a7b4b9",
       "declarationSha256": "d3c43a90afe514cdc579daf63bd2d1c6c5a2c9cd83d48e9d3b51e5c298320650",
       "declaredLifecycle": "preview",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -1775,7 +1775,7 @@
       "sourceSha256": "324d3ac33620dec1ea597d620f902e7e77bfff55b36235291c66a4eb62651e21",
       "declarationSha256": "76724d8dadc7169e61a5f28cd2433b1c414264404fd4317e60d5251fdaadaf01",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "actions",
@@ -1817,7 +1817,7 @@
       "sourceSha256": "5a37afe44694bfe5c53fa199374d02ceddb20fc0f4a02eb2b427079254a0b0cb",
       "declarationSha256": "c9809a49ee808be8a8641713b9ed2a722c90d7f163455877ef566f0457e73235",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "accept",
@@ -1871,7 +1871,7 @@
       "sourceSha256": "2c13907fa52c618377dd1aab15c46f73b2ce22c563b54bf0f5aefb16e3829943",
       "declarationSha256": "ef227b7981571aa815ca1d874db3458feb33428a79aef949ee770d8ecc13ee00",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "actions",
@@ -1925,7 +1925,7 @@
       "sourceSha256": "fc33716feb9f7496abd4ab9a21af27920cf78d014bc33f8e79a7fbae5ba3ec3f",
       "declarationSha256": "dce76f3cac30ca17235b0aa694f2647061f8db00743179fb69347bda6c86dacc",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "asyncRules",
@@ -1975,7 +1975,7 @@
       "sourceSha256": "fc33716feb9f7496abd4ab9a21af27920cf78d014bc33f8e79a7fbae5ba3ec3f",
       "declarationSha256": "dce76f3cac30ca17235b0aa694f2647061f8db00743179fb69347bda6c86dacc",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -2029,7 +2029,7 @@
       "sourceSha256": "fc33716feb9f7496abd4ab9a21af27920cf78d014bc33f8e79a7fbae5ba3ec3f",
       "declarationSha256": "dce76f3cac30ca17235b0aa694f2647061f8db00743179fb69347bda6c86dacc",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "addLabel",
@@ -2083,7 +2083,7 @@
       "sourceSha256": "fc33716feb9f7496abd4ab9a21af27920cf78d014bc33f8e79a7fbae5ba3ec3f",
       "declarationSha256": "dce76f3cac30ca17235b0aa694f2647061f8db00743179fb69347bda6c86dacc",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "backLabel",
@@ -2133,7 +2133,7 @@
       "sourceSha256": "bcdf9afdf1b9416987b43e993b8126d9420bee2de5bd8bd08910091bc9e66e6e",
       "declarationSha256": "dc15f68d6de36d6d4f061c9d871264e27dc9accd88bc1be598df20f361cac96b",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "bindings",
@@ -2171,7 +2171,7 @@
       "sourceSha256": "575ff663edf9f4556de55e5eb839dddba27650cf890fee204f8e6ba4d24d6f48",
       "declarationSha256": "df155042374dd3bc0dac4d4c031663b84cc4b3407c5ac5764de1baaf3259f497",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-label",
@@ -2225,7 +2225,7 @@
       "sourceSha256": "0b0ce36ffa114d5ea40fc39405e44623740d2a6ae0c17acbab2973a789947b32",
       "declarationSha256": "35be85ab59b6dfb477863bf131193e1cee9886f1c2c31860c7f76dbda25f15d4",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "approveLabel",
@@ -2279,7 +2279,7 @@
       "sourceSha256": "c1d7d63c73094053718fd92bef441ff9f13e20023a642f07ecbaf8563eda7d05",
       "declarationSha256": "b7a2a05353efa106ea1758bfccfa1281d14ba58f2d9eac48c2cce3b026cf9b8c",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -2313,7 +2313,7 @@
       "sourceSha256": "7341c2593dfb031fabd0ae5f82c5ad830c0ec436cc8977e4c24d50956ada7001",
       "declarationSha256": "92ad7f0fe2b7190b3fdb73d6d91e9f47118ff6012b09dcb6083b2bc48a528c95",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "alt",
@@ -2363,7 +2363,7 @@
       "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
       "declarationSha256": "9fdf8c29720cd8d015ea42edfb4ee39ce74964feaafd43b044183ca5ef504b1c",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -2409,7 +2409,7 @@
       "sourceSha256": "0bd2e8f408f1942386857b64244211049aa9c31636e881ef2e06c5eb5cc60f56",
       "declarationSha256": "5e7c7b98399e2a4a9383ba0ab9ac4e71831a85e019fb7fb2598b504d2e64c6b2",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-label",
@@ -2483,7 +2483,7 @@
       "sourceSha256": "fe278664ea6bc07ac293ff28fe2ab6e6d8d2e0fc1cc6ddd3c3e59e68c088dacc",
       "declarationSha256": "4d09ceabc1430f16eb349eabbe24233233dffece6c56efca634f339d206e579c",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -2553,7 +2553,7 @@
       "sourceSha256": "525c6e1034e561d702305379d47debd81939294452a4c7485d4af2636d7a9ca1",
       "declarationSha256": "11927c57235741de6c0341872447219ee186165cdfbac27590712e2002921485",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -2607,7 +2607,7 @@
       "sourceSha256": "f171f19f669a24d32222fb73288d28771c263b05b0a11487d4d51ca230a12db7",
       "declarationSha256": "09098d539a264eb07e8290cea7ac72737985abd2036831b1cbb51b2ad4e75e44",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -2625,7 +2625,7 @@
       "sourceSha256": "d4406a6a38f0b586176fa40bab51db654b277bdd4600663357ef0defc695c0a6",
       "declarationSha256": "2724cf2c68b4535f9f0f43d5ac6a9b4f17665cd5cdcaae7a349e9e42e9029b33",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -2659,7 +2659,7 @@
       "sourceSha256": "f33cd6ae9b7c93ca0f79dd41a892e110af8f1cc448d760f53281ef2c89b16a69",
       "declarationSha256": "ded7fedbabf7bd4a7ffae6e3078e847dc809da83dbfc5bdc14d9ffac80a36f15",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -2677,7 +2677,7 @@
       "sourceSha256": "f33cd6ae9b7c93ca0f79dd41a892e110af8f1cc448d760f53281ef2c89b16a69",
       "declarationSha256": "ded7fedbabf7bd4a7ffae6e3078e847dc809da83dbfc5bdc14d9ffac80a36f15",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "lead",
@@ -2711,7 +2711,7 @@
       "sourceSha256": "5545f338df720c75bb9cf6c421edd17d491411c60e0d6727189d184740074e96",
       "declarationSha256": "2bdd8d12b161bc893522c59be5d810d8eaeb5f89c2527c9984d2ff60d2faf54e",
       "declaredLifecycle": "preview",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -2733,7 +2733,7 @@
       "sourceSha256": "a4c5fe0cf5cbbde1d8110134af730c47a69e94593453b824bafb9a80973cbc8b",
       "declarationSha256": "18cf2a41a20295c7065d4ada293719903b5f58cf886f6560a337dcedaeb3dd01",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "decorative",
@@ -2759,7 +2759,7 @@
       "sourceSha256": "aef2a9a8be4e4d6eb240d2a4bd6ca32b396fab995663750c812e3b38d228901c",
       "declarationSha256": "955af96a1311731719eeebdeaee88e1d1d99f4efcf14ec6e2eadbe3933957ec6",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "alt",
@@ -2789,7 +2789,7 @@
       "sourceSha256": "86ffb4c1e1fbdfe44286b5a3099786eddf134cbf66873119b6bdfa082b3d2375",
       "declarationSha256": "04f0b20f4ecbfd11b273efc89e249d6c3f4dec3b51cc404f42987887afa28fa8",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -2827,7 +2827,7 @@
       "sourceSha256": "324a1ef9e7b9adf50454063acffb19ec15adcbcec9ff1f760a15cae56f167f32",
       "declarationSha256": "2f6604d9dc5ff0f464ae4a8bb0256fa35e2cfff5e3eb5ce948865760d1f8a17f",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-label",
@@ -2889,7 +2889,7 @@
       "sourceSha256": "d52fc45cfca5febb4d775d9dd10ae771e5333b3ba1c9a97a3eb44fd6ea1f5873",
       "declarationSha256": "bb7e9397025be7fcbf2938c4c3dd40b0e6d4f1ca4e3af606ac3d81cce1d7dfcb",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "align",
@@ -2943,7 +2943,7 @@
       "sourceSha256": "d52fc45cfca5febb4d775d9dd10ae771e5333b3ba1c9a97a3eb44fd6ea1f5873",
       "declarationSha256": "bb7e9397025be7fcbf2938c4c3dd40b0e6d4f1ca4e3af606ac3d81cce1d7dfcb",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "danger",
@@ -2965,7 +2965,7 @@
       "sourceSha256": "21b8409d336182e0706de0d4ece24d2304d1978eea42dbc313949d9a46819ea9",
       "declarationSha256": "4785192d3a6c96b7162d22d2f2148dc4d9b4352b545e96c1f74bba4b5987a5a2",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-label",
@@ -3007,7 +3007,7 @@
       "sourceSha256": "fc49d3ff729ccca1bee0a8e59737256266f37cdb1fcbf0acfa2129a17ca098b1",
       "declarationSha256": "ae665fa65532fd335ecdf8d8c2cce0f2bbbbe490df1e3c247b39fc3077ee588e",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -3041,7 +3041,7 @@
       "sourceSha256": "f2a96bdbab2d0136e1a4ff6c8f209b8dccca9d25ddbdb68819eef65c532e1b1b",
       "declarationSha256": "247efd346a24c774719eb2bffd73aed3bd25c2d58d50e16b26ed354be8ffa85b",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "active",
@@ -3079,7 +3079,7 @@
       "sourceSha256": "2d8e2f9cc80d24827b4b070517b1d69609bf842b9c26fc06912e51a273f2fd98",
       "declarationSha256": "d1bc18f0a2991167cc4b556ef10cdf09f061992be6b6733945447503bd768dbc",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -3109,7 +3109,7 @@
       "sourceSha256": "f2dfbf219d37f79f31a96b70240fc5946a7bb440006c4101356579044d50f350",
       "declarationSha256": "350a4a88815be8db94f37b7d0f8967e8ead12721e31d88c290f035a2c1b3c79d",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -3183,7 +3183,7 @@
       "sourceSha256": "32ffa7dcba2916ef473d4d9a40acb706b9f1209d61adf0305891703516612a06",
       "declarationSha256": "efa3861eec46a9cbb2d0a4d305ba8db25fb72675dee39677b5d3e803f868d4b2",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -3201,7 +3201,7 @@
       "sourceSha256": "1f8c7370a149dd4007e0cfecda0ab968767b2000cf54c477a982dbf0d1b5c751",
       "declarationSha256": "cc398d0ae9c3fc0c0d29728e375accec0d5acd73ce266e30d7fd9ae4ab5a589f",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "onChange",
@@ -3227,7 +3227,7 @@
       "sourceSha256": "53d59355a4426bc59fae7d360118908827ace22c63ee74476535d77a40a75732",
       "declarationSha256": "7ea64ba1a7f41319227b0170c2d74a42f808f8e998ef17e9bb021f28a5bb4c0c",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "cancelLabel",
@@ -3285,7 +3285,7 @@
       "sourceSha256": "1ca5d2905995cc8166566625208a95e8838815d3abe1298312df71eab90b2679",
       "declarationSha256": "2d6e2bde7df987580b6002bcf500fd7eb67b6fa2cffb475c16b35cc262631d1c",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "align",
@@ -3343,7 +3343,7 @@
       "sourceSha256": "6b5e69900ba76d274dbe25dac4b7d75bb5fde9f2231e2cac08902171994fd8d1",
       "declarationSha256": "bdf35b1d48f748ea770bab60b9414d6069a5fdc42cad9817fa9b674c67546e52",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -3385,7 +3385,7 @@
       "sourceSha256": "af962b0e65d405a27e7742ebc0d76be3db0b92b90ac1f91e4eb0393b0caa0f97",
       "declarationSha256": "14f9176fc787303204b679e3b89813616df616e1f47f8d2321721f892c4d49ce",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-label",
@@ -3451,7 +3451,7 @@
       "sourceSha256": "c4c6fca2eb27fd7eb7357a75bc3df9191973eddb051bb0db4eb95a3fe9970345",
       "declarationSha256": "008c5a0d4bdbbb0dc586ebd1acf3e614200c4c2517fe166a427779132e3f338c",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -3481,7 +3481,7 @@
       "sourceSha256": "0df916a87ae5fdf9c8c8b46efbc69c84856b3a45cef0af1a9b5a72a13666b149",
       "declarationSha256": "82342eb37c0429bf037cc8cf2070436e070bbeb34ff66d4e4f2e6a5e316ffcdb",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -3519,7 +3519,7 @@
       "sourceSha256": "b72f446770714b8032ebaeaf060418dae4133c882ea1c69412b87c0c6a1823d3",
       "declarationSha256": "e0ddb6fc1612855357ee1c452e976b08826bc912dcca6181be9b50a0bfbda9a4",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "description",
@@ -3541,7 +3541,7 @@
       "sourceSha256": "b72f446770714b8032ebaeaf060418dae4133c882ea1c69412b87c0c6a1823d3",
       "declarationSha256": "e0ddb6fc1612855357ee1c452e976b08826bc912dcca6181be9b50a0bfbda9a4",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -3583,7 +3583,7 @@
       "sourceSha256": "3d545ce0192b31427088bfa3f5d8f29ff49e6eec2e5369cc8e72ef87645abdd3",
       "declarationSha256": "6d7b4bde103acdaaeda61799f5c08790a0d6eac379cba6debf45933e7b99b62f",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -3653,7 +3653,7 @@
       "sourceSha256": "3977aaa50e38a5b569112dc42e8706db0365e8c6c682de805048e1e554c8bb40",
       "declarationSha256": "f2806c8a292d1b2091fbfd8b4413eb733645015cd67e20d924bba7abfc369b41",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "actions",
@@ -3695,7 +3695,7 @@
       "sourceSha256": "2bdf99b2f7c2bb2658f2a59337919e35646b50aee282ce90d0ba21c39a8d25c3",
       "declarationSha256": "c650cd7b28ec448bbae56b49194bfde52a357f6d30a3c2c32af1709127ef2719",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -3725,7 +3725,7 @@
       "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
       "declarationSha256": "16b63c44bbdf6d4f9f8f05f0612cbcd8d92b6d4af5800d90fd120a5f1f60a5fa",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "onChange",
@@ -3755,7 +3755,7 @@
       "sourceSha256": "acf7e576e1680065c505039b2599f0a8f1b49584d112efa3f4dc892f4cb5cd93",
       "declarationSha256": "ec1f9a05ce0dc920a6aed7a6a7d2e3d25e8331343dac7d8522234284193a288f",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-orientation",
@@ -3793,7 +3793,7 @@
       "sourceSha256": "a87c83c2783177fdaa135bb576e772b2c10fd8517d574622d8b15ceb611452b1",
       "declarationSha256": "3131838de8601d1aa7e59a691bd548b2db1ee421a1274d11b5a71233f65ee5e7",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -3835,7 +3835,7 @@
       "sourceSha256": "f2a96bdbab2d0136e1a4ff6c8f209b8dccca9d25ddbdb68819eef65c532e1b1b",
       "declarationSha256": "247efd346a24c774719eb2bffd73aed3bd25c2d58d50e16b26ed354be8ffa85b",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -3857,7 +3857,7 @@
       "sourceSha256": "56b00bf55c72eac2c65d57d24ae01520830ff2f2f8e5896e879f3c56fe420e83",
       "declarationSha256": "13e227cc75775e6ac9609e19fe3bef0c09817cf312604e5038b26a515014c681",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -3903,7 +3903,7 @@
       "sourceSha256": "409856d4cdba4dff50810000c4b00350d65c801ec7f54a6dd74eef14dd01ca05",
       "declarationSha256": "7eb5faafbb8a37346cf82bd598abc215d14bc9ccde64c8e91ae66f4e24d39776",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "lang",
@@ -3921,7 +3921,7 @@
       "sourceSha256": "de39e14bb0655473e483b6878f4ddbd399ab0f6c7b5c757a01f2f895782c713c",
       "declarationSha256": "f6a98218ec87776fb7be05e7fb9c3420f184358975c4f8a784bd12f3de17bbde",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -3955,7 +3955,7 @@
       "sourceSha256": "dc4addb99ec3c60b9b7f55c245a68a7270c7d562f8cf45a8eef6398ab71a5a91",
       "declarationSha256": "7ee0dc6747e7dbf96a298378e8254baaa601ee21cf0a9c39081d8ff947cf7fb5",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "label",
@@ -3977,7 +3977,7 @@
       "sourceSha256": "dba77796d22d57cd83dd9687ba5fb05f06de74257c4b6ad5cdf9f84115bbbdb8",
       "declarationSha256": "6616789ed60d36a19d15274296335369f35d9fc3cb20b7f11de14c09d92b6c17",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -4027,7 +4027,7 @@
       "sourceSha256": "748ee679d2fc83054d046cded45156bca1e712fb4f4bcd0b0c64c8c667f3f90d",
       "declarationSha256": "30495d057587941a74e9dbb7dbf708b85c6aede759a18959aa0ecbf3e9ba490e",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "delta",
@@ -4057,7 +4057,7 @@
       "sourceSha256": "b969e7713b3e478b6ed83349472be50553328f98071fc8844da575ef3623a51c",
       "declarationSha256": "299545807b3a10f3bff4b9dec023faf17d9b9e441ae115a2cf307fd54315217b",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -4083,7 +4083,7 @@
       "sourceSha256": "82b14258d351ed61301057c7599f10ec3f250e62d19378ac93f15b93c5432cec",
       "declarationSha256": "7e76048504b5bd2a6b5f8424e949b2f5703b7077ec9e81d5557249cea91ad27a",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -4117,7 +4117,7 @@
       "sourceSha256": "a321971bc38a64494273a464da2e184d058737fe04e8ef936005fe2b7580235e",
       "declarationSha256": "0234ea8753c984d39af658a5d065fbf29228414395d4222227077ad93afe1cb4",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "label",
@@ -4139,7 +4139,7 @@
       "sourceSha256": "551a0dc725d8bd64a5736228d487fe303e02ba46925299a4ce8511b16f680188",
       "declarationSha256": "98d8571c92276440f98775ebabd833181f0da191bac193c5b1bc8086263eca8d",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "count",
@@ -4161,7 +4161,7 @@
       "sourceSha256": "551a0dc725d8bd64a5736228d487fe303e02ba46925299a4ce8511b16f680188",
       "declarationSha256": "98d8571c92276440f98775ebabd833181f0da191bac193c5b1bc8086263eca8d",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-orientation",
@@ -4195,7 +4195,7 @@
       "sourceSha256": "8b6415fd3811a97a82edb62391b0b78059f31ae09b93c92ac55868ca1b68f281",
       "declarationSha256": "ecce937a006d75910ae2963856f8be8a9de740a085b36f51a3d277c88c051708",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -4221,7 +4221,7 @@
       "sourceSha256": "775a7e22922619577b27bbd0bfc2cc4b193e938fd4b2dc7dc44e997e219c41a3",
       "declarationSha256": "4fb776216f431ed5c9d9ffde7407b3a4d5c979f57b91f7b80b32523f272df7d7",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -4299,7 +4299,7 @@
       "sourceSha256": "0e3c5aff1c9dbc1eaf5863c5ffe7c7f9d1c5ca5f74fbc50fb62f3061c471d19b",
       "declarationSha256": "ce4003636105e8b64fccff6f40b4d128974c464a5add985c874794a6ec8f9473",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -4341,7 +4341,7 @@
       "sourceSha256": "878810214bb342d85d933884b5b19984b57f7281e4560c18280b8f4c021c5f99",
       "declarationSha256": "b4762c2a83d9de17f64c6ab61d7291a4e58a32dbd432206464ed56b8d358d54c",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "description",
@@ -4367,7 +4367,7 @@
       "sourceSha256": "8a7c960a4b7b3b9e8cf6d69e21c44f49067bbc35a404f010471720e34f70a263",
       "declarationSha256": "b4d33c5eb14ac5ae991714bd73090c3d8761b42e4fc34dc99145a67a91a6ca0a",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "description",
@@ -4393,7 +4393,7 @@
       "sourceSha256": "0537c564b214b46fd3ddaa44caefc05b7accb1873987ade73b69c18d2456718e",
       "declarationSha256": "93cc5fda4cdab861d32f476c3f7f57b29cdb8a71c871cecfe6455e735f2ca224",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-labelledby",
@@ -4447,7 +4447,7 @@
       "sourceSha256": "3289633a572917bb68be42e8143436d22c1d2085a73a4bb2a0f1c5860124efa0",
       "declarationSha256": "92565564d921a6df708e107de8fcf7cd491950dfdf5eda2a42242ce25c8f5acd",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -4473,7 +4473,7 @@
       "sourceSha256": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
       "declarationSha256": "9d49bd59876f958c4a82a15725edcd6fd4a03087d5c740c9eecdbf35b9584faf",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -4507,7 +4507,7 @@
       "sourceSha256": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
       "declarationSha256": "9d49bd59876f958c4a82a15725edcd6fd4a03087d5c740c9eecdbf35b9584faf",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -4537,7 +4537,7 @@
       "sourceSha256": "0527c953307239cbd54847c3516833f53069540bd5a9ef3135792f4638c65006",
       "declarationSha256": "5fcb8625779946be1dcaae5a11007c1876e260b7ec92a9bb375421d0b612c7bd",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -4587,7 +4587,7 @@
       "sourceSha256": "37051ca58d60ed2f950fd58530a0cf99bb25b34f1d15577c323aa89d8bb82bf4",
       "declarationSha256": "c2002c5e48ab6ac5e2a2d043c0f5b474e5b0e172120781ee5312af37a0fc1e55",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -4633,7 +4633,7 @@
       "sourceSha256": "092338240216260d7bd3eeb58dd2bde9e949a12e1c3d04038408076c2edfdddc",
       "declarationSha256": "163618c4e9a5617cc12b43a39766578f35574eb013971a593d3c6816110e2cb7",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -4675,7 +4675,7 @@
       "sourceSha256": "83459a653179098a298cbdbba807e2544ad3ed8ce2222934d3a61d0529fc8421",
       "declarationSha256": "cb41b40137c56919b2db4c7732296410d3b8a047bba0dd27c36bc6bfdc780831",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -4713,7 +4713,7 @@
       "sourceSha256": "2a1c824ff9a0bf3afa0c4b617832c4316322a3a1885ceb5b2dbf3a67b8ce05f4",
       "declarationSha256": "aded47b75a52a772ce7b2f00dba02618a644595cce6fac7cbce671d2bf99014b",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -4755,7 +4755,7 @@
       "sourceSha256": "09a331fb604898984c78952308513ec92a7da6a0d664ee2467925cefec21b498",
       "declarationSha256": "d05697bfc43018cc87d08e8ed933877e10f74b90c09561b942d9f7ae150acb72",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-label",
@@ -4801,7 +4801,7 @@
       "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
       "declarationSha256": "3623e81530a0900556a713346f5ea7a96c02dc185a1481589d45190f5b09c33e",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "aria-labelledby",
@@ -4887,7 +4887,7 @@
       "sourceSha256": "0f050c7e325b0c8fdaf425ba35ddfa89565c4816205d79391828efef24d9e2b4",
       "declarationSha256": "35a0f878a1b69f7076545ffc4a929bf779847e41f4b7981b4c676d0158272c07",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "caption",
@@ -4929,7 +4929,7 @@
       "sourceSha256": "a367cad658005f314bb3e59a191c6edb5f464a65bc1f48e7e4769165ba35b39c",
       "declarationSha256": "7ec84442d341918431dcf9421910895203d7cf52bbf8b3fbfee61fa69404ceaa",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "className",
@@ -4959,7 +4959,7 @@
       "sourceSha256": "1f478e37babe1ba79265402764f7127ffcd66d1a53e0097526390c78d56e902e",
       "declarationSha256": "285d9f3340c65ed835a6793f929be0201667bf7ae61d252ee78545c06e0d236b",
       "declaredLifecycle": "stable",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [
         {
           "name": "children",
@@ -5001,7 +5001,7 @@
       "sourceSha256": "5545f338df720c75bb9cf6c421edd17d491411c60e0d6727189d184740074e96",
       "declarationSha256": "2bdd8d12b161bc893522c59be5d810d8eaeb5f89c2527c9984d2ff60d2faf54e",
       "declaredLifecycle": "preview",
-      "supportReviewState": "unreviewed",
+      "supportReviewState": "reviewed",
       "authoredProps": [],
       "inheritedPropCount": 0
     }

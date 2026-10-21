@@ -4,10 +4,19 @@ import {resolve,join,dirname} from 'node:path';
 import {tmpdir} from 'node:os';
 import {spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {modeInputs,modeColor,sourceModeColor,projectTokenMode,projectModeBundle} from '../../scripts/lib/token-modes.mjs';
+import {modeInputs,tokenModeLaunchOptions,captureTokenModes,modeColor,sourceModeColor,projectTokenMode,projectModeBundle} from '../../scripts/lib/token-modes.mjs';
 import {valueFromCss,assertCssProjection} from '../../scripts/lib/dtcg-values.mjs';
 import {validateDtcgProfile} from '../lib/dtcg-profile.mjs';
 import {createStyleDictionaryAdapter} from '../../scripts/lib/style-dictionary-adapter.mjs';
+for(const platform of ['linux','darwin','win32'])for(const name of ['chromium','firefox','webkit']) {
+ const type={name:()=>name};
+ assert.deepEqual(tokenModeLaunchOptions(type,platform),platform==='linux'&&name==='chromium'?{args:['--disable-dev-shm-usage']}:{});
+}
+for(const name of ['chromium','firefox','webkit']) {
+ const sentinel=new Error('launch boundary fixture');
+ const browserType={name:()=>name,launch:async options=>{assert.deepEqual(options,tokenModeLaunchOptions({name:()=>name}));throw sentinel;}};
+ await assert.rejects(()=>captureTokenModes({}, {browserType}),error=>error===sentinel,'Real capture delegates reviewed per-engine launch options');
+}
 const root=resolve('.'),inputs=modeInputs(root),index=JSON.parse(readFileSync('tokens/modes/index.json','utf8'));
 const hash=text=>createHash('sha256').update(text).digest('hex');
 assert.equal(index.schemaVersion,1);assert.equal(index.modes.length,256);assert.equal(new Set(index.modes.map(m=>m.id)).size,256);

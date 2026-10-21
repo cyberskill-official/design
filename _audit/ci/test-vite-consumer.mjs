@@ -2,13 +2,13 @@ import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,mkdtempSync,mkdirSync,cpSync,rmSync,readdirSync} from 'node:fs';
 import {resolve,join} from 'node:path';
 import {tmpdir} from 'node:os';
-import {execFileSync} from 'node:child_process';
+import {runConsumerCommand} from './lib/consumer-command.mjs';
 import {createHash} from 'node:crypto';
 import {chromium,firefox,webkit} from 'playwright';
 import {createVerificationServer} from '../../scripts/lib/verification-server.mjs';
 const root=resolve('.'),temp=mkdtempSync(join(tmpdir(),'cs-vite-consumer-')),consumer=join(temp,'consumer');
 const hash=path=>createHash('sha256').update(readFileSync(path)).digest('hex');
-const run=(executable,args,cwd=consumer)=>execFileSync(executable,args,{cwd,encoding:'utf8',maxBuffer:32*1024*1024,env:{...process.env,PATH:join(process.execPath,'..')+':'+process.env.PATH}});
+const run=(executable,args,cwd=consumer)=>runConsumerCommand(root,executable,args,{cwd});
 let server;
 try {
  let tarball=process.argv[2]&&resolve(process.argv[2]);

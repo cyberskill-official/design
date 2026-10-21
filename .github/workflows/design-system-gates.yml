@@ -356,6 +356,9 @@ jobs:
       - name: Install npm dependencies
         if: steps.filter.outputs.run == 'true'
         run: npm ci --ignore-scripts
+      - name: Install Chromium for resolved token mode generation
+        if: steps.filter.outputs.run == 'true'
+        run: npx --no-install playwright install --with-deps chromium
       - name: Regenerate element packs from seeds + native mirrors from DTCG
         if: steps.filter.outputs.run == 'true'
         run: |
@@ -418,6 +421,9 @@ jobs:
       - name: Install npm dependencies
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
         run: npm ci --ignore-scripts
+      - name: Install Chromium for resolved token mode generation
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
+        run: npx --no-install playwright install --with-deps chromium
       - name: Regenerate element packs from seeds + native mirrors from DTCG
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
         run: |
@@ -434,6 +440,9 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
             git --no-pager diff --stat -- "${TRACKED[@]}"
           fi
+      - name: Install Chromium before post-sync token regeneration
+        if: steps.drift.outputs.changed == 'true'
+        run: npx --no-install playwright install --with-deps chromium
       - name: Commit regenerated files if they changed
         if: steps.drift.outputs.changed == 'true'
         run: |

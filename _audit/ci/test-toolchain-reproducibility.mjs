@@ -1,3 +1,4 @@
+import {runConsumerCommand} from './lib/consumer-command.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,mkdtempSync,mkdirSync,rmSync,symlinkSync,chmodSync,readdirSync} from 'node:fs';
 import {tmpdir} from 'node:os';
@@ -79,6 +80,21 @@ assert(pinnedCache.stdout.trim() && !/[\r\n]/.test(pinnedCache.stdout.trim()));
 assert.equal(read('package.json'), packageBeforeCacheProbe, 'Cache regression must not weaken actual devEngines');
 console.log(`PASS all ${nodeContexts} setup-node contexts disable early caching; actual npm rejects a controlled package mismatch and accepts the restored ${expected} pin`);
 
+// Separate consumer directories must retain exact npm/Node despite conflicting PATH tools.
+const consumerCommandFixture=mkdtempSync(join(tmpdir(),'cs-consumer-command-'));
+try {
+ const rogue=join(consumerCommandFixture,'rogue');mkdirSync(rogue);
+ writeFileSync(join(rogue,'npm'),'#!/bin/sh\nexit 91\n');chmodSync(join(rogue,'npm'),0o755);
+ writeFileSync(join(rogue,'npm.cmd'),'@exit /b 91\r\n');
+ const env={...process.env,PATH:rogue};
+ writeFileSync(join(consumerCommandFixture,'package.json'),JSON.stringify({...pkg,devEngines:{...pkg.devEngines,packageManager:{name:'npm',version:'0.0.0',onFail:'error'}}}));
+ assert.throws(()=>runConsumerCommand(root,'npm',['config','get','cache'],{cwd:consumerCommandFixture,env}),error=>error.stderr?.includes('EBADDEVENGINES'),'Pinned CLI must still enforce consumer devEngines');
+ writeFileSync(join(consumerCommandFixture,'package.json'),JSON.stringify(pkg));
+ assert.equal(runConsumerCommand(root,'npm',['--version'],{cwd:consumerCommandFixture,env}).trim(),expected);
+ assert(runConsumerCommand(root,'npm',['config','get','cache'],{cwd:consumerCommandFixture,env}).trim());
+ const observed=JSON.parse(runConsumerCommand(root,process.execPath,['-e','console.log(JSON.stringify({node:process.execPath,cwd:process.cwd()}))'],{cwd:consumerCommandFixture,env}));
+ assert.equal(observed.node,process.execPath);assert.equal(observed.cwd,await import('node:fs').then(fs=>fs.realpathSync(consumerCommandFixture)));
+} finally {rmSync(consumerCommandFixture,{recursive:true,force:true})}
 // Both documented script names are supported CLI entrypoints for the same producer.
 function assertCssIndexEntrypoints(scripts) {
  assert.equal(scripts['build:css-index'], 'node scripts/generate-css-index.mjs');

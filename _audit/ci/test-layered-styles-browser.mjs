@@ -12,7 +12,7 @@ const {
 } = buildLayeredCss(new URL('../../', import.meta.url).pathname);
 assert.equal(readFileSync(new URL('styles.layered.css', root), 'utf8'), css);
 const results = [];
-const keyNames = new Set(['Button', 'TextField', 'Checkbox', 'RadioGroup', 'Switch', 'Toggle', 'SegmentedControl', 'Tabs', 'Menu', 'Popover', 'Tooltip', 'Combobox', 'DatePicker', 'TagInput', 'Drawer', 'AlertDialog', 'Skeleton', 'ProgressBar', 'FileUpload', 'Card', 'DataTable', 'TreeTable', 'Cascader']);
+const keyNames = new Set(['Button', 'TextField', 'Checkbox', 'RadioGroup', 'Switch', 'Toggle', 'SegmentedControl', 'Tabs', 'Menu', 'Popover', 'Tooltip', 'Combobox', 'DatePicker', 'TagInput', 'Drawer', 'AlertDialog', 'Skeleton', 'ProgressBar', 'FileUpload', 'Card', 'DataTable', 'TreeTable', 'Cascader', 'HoverCard']);
 async function mount(page, fixture) {
   await page.evaluate(async fixture => {
     const decode = value => {
@@ -90,6 +90,31 @@ async function sheet(page, layered) {
     await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
   }, layered);
 }
+async function establishHoverCardState(page, state) {
+  // The authored reference is initially closed. A pointer/focus timer must not
+  // turn the stylesheet comparison into a comparison of two interaction states.
+  await page.mouse.move(-10, -10);
+  const trigger = page.getByRole('button', { name: 'Hover reference', exact: true });
+  await trigger.focus(); // Prime the real delayed-open path for the closed guard too.
+  if (state === 'closed') await page.locator('#reference-anchor').focus();
+  else await page.locator('.cs-hovercard__panel').waitFor({ state: 'visible', timeout: 3000 });
+  await assertHoverCardState(page, state);
+  await page.evaluate(async () => {
+    await Promise.all([...document.body.querySelectorAll('*')].map(node => {
+      const style = getComputedStyle(node);
+      return document.fonts.load(`${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`, node.textContent || ' ');
+    }));
+    await document.fonts.ready;
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  });
+}
+async function assertHoverCardState(page, state) {
+  const actual = await page.evaluate(() => {
+    const trigger = [...document.querySelectorAll('button')].find(node => node.textContent === 'Hover reference');
+    return { panels: document.querySelectorAll('.cs-hovercard__panel').length, focused: document.activeElement === trigger, hovered: trigger.closest('.cs-hovercard').matches(':hover') };
+  });
+  assert.deepEqual(actual, { panels: state === 'closed' ? 0 : 1, focused: state !== 'closed', hovered: false }, 'HoverCard stylesheet snapshots use the same explicit interaction state');
+}
 async function snapshot(page) {
   return page.evaluate(() => {
     const roots = [document.querySelector('[data-layer-fixture]'), ...[...document.body.children].filter(el => el.hasAttribute('data-cs-floating-root') || el.hasAttribute('data-cs-floating-host'))].filter(Boolean);
@@ -158,9 +183,10 @@ for (const config of [{
   assert.equal(context.coarse, config.coarse);
   assert.equal(context.forced, config.forcedColors === 'active');
   assert.equal(context.reduced, config.reducedMotion === 'reduce');
-  for (const fixture of config.name === 'default' ? fixtures : fixtures.filter(f => keyNames.has(f.name))) {
+  for (const fixture of (config.name === 'default' ? fixtures : fixtures.filter(f => keyNames.has(f.name))).flatMap(f => f.name === 'HoverCard' ? [{ ...f, layeredState: 'closed' }, { ...f, layeredState: 'focus-open' }] : [f])) {
     await sheet(page, false);
     await mount(page, fixture);
+    if (fixture.name === 'HoverCard') await establishHoverCardState(page, fixture.layeredState);
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(40);
     await page.evaluate(() => {
@@ -175,8 +201,13 @@ for (const config of [{
       window.dispatchEvent(new Event('resize'));
       await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
     });
+    if (fixture.name === 'HoverCard') await assertHoverCardState(page, fixture.layeredState);
     const before = await snapshot(page);
+    // A pending authored 150ms open timer must not escape the closed-state
+    // precondition. The focus-open case separately includes the actual panel.
+    if (fixture.name === 'HoverCard' && fixture.layeredState === 'closed') await page.waitForTimeout(175);
     await sheet(page, true);
+    if (fixture.name === 'HoverCard') await assertHoverCardState(page, fixture.layeredState);
     const after = await snapshot(page);
     try {
       assert.deepEqual(after, before, `${browserName}/${config.name}/${fixture.name}: layered computed defaults changed`);
@@ -195,6 +226,7 @@ for (const config of [{
     results.push({
       config: config.name,
       component: fixture.name,
+      state: fixture.layeredState || 'declared-default',
       nodes: before.length,
       status: 'PASS'
     });

@@ -116,7 +116,7 @@
     "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html": "ee941a6d26aa525bba779015ca01f4bdb7246571db2c3558499d7bc2fee3c2aa",
     "templates/vn-training-commitment/VnTrainingCommitment.dc.html": "49b2b4459bf2a900ddfafe679b6f3b088c78a31f611ae76dc3ac276e05a14c46",
     "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html": "1e585bd53ec6fb41322082bddfb7eed4ac811bfabb1ad2d639b9babba6c0e212",
-    "tokens/tokens.dtcg.json": "5389a3151b76a039b5fc8a5bb3aa3a5087fa41e1b02a6bc3d5903038796cf6a8"
+    "tokens/tokens.dtcg.json": "87b8b100947a5533cfb6d8402b75f136b31b544f49ea15f2e3c517defe71ae1f"
   },
   "documents": [
     {
@@ -867,7 +867,7 @@
       "path": "docs/ci-cd.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "e47fb6b51f8ef158d02cb6d1e8bcdde385136fefd7b2446c46e33100f926ad6a"
+      "sha256": "ce03819411ef27b81eacaab5cda543af4991738a7bd95e7b69e55de9e3c04456"
     },
     {
       "path": "docs/component-api.md",
@@ -921,7 +921,7 @@
       "path": "docs/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "d61af5b024b7ad35e22ebfa12a39027b1d458a5ceac8865428dba34f8795cee8"
+      "sha256": "dbb5c27e5b2935c371f91e27a3e757295b90f2db31cd52c300b4a3c2d7a97334"
     },
     {
       "path": "docs/decisions.md",
@@ -1077,7 +1077,7 @@
       "path": "docs/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "37332c3f62b120de3f2df7ade2f440485b0e1e74ec9874b2f3c4da87e62ce014"
+      "sha256": "647e47a8b2711bee32343902a6380de9f0f58c75f56e18d4228bf53d0f92a864"
     },
     {
       "path": "docs/storybook.md",
@@ -1143,7 +1143,7 @@
       "path": "docs/vi/ci-cd.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "eca94000e3bd9632993eb2d2de401997351f04623363fcfb575df63136bce6bf"
+      "sha256": "368996fe76dd5acfafdd5cdadab2682b8ce54fcd4ef816d31cc10ffdc1d75aa0"
     },
     {
       "path": "docs/vi/component-api.md",
@@ -1197,7 +1197,7 @@
       "path": "docs/vi/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "320d8e41bb173b19f770272f041aefa7b0173daa2d9f8fbfb4904689722fd540"
+      "sha256": "79ce7409480635f40600ef99e24481e860da88b853ad1d93a2dc2aeffcad2021"
     },
     {
       "path": "docs/vi/decisions.md",
@@ -1353,7 +1353,7 @@
       "path": "docs/vi/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "4d6c63ede2cefd81b1a71b119b89d3c9feedc7c7422871037f73f73adee5db77"
+      "sha256": "2729aff02ca50cfccc7a19340d7fdee454c09b92be4ae4c272f38ce098d0a234"
     },
     {
       "path": "docs/vi/storybook.md",

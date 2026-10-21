@@ -94,3 +94,11 @@ The complete `npm run test:unit` suite requires Chromium, Firefox and WebKit. `n
 ## Pinned npm before dependency caching
 
 Every `actions/setup-node` step disables both explicit npm caching and its automatic package-manager cache. The shared npm setup action first bootstraps the locked CLI, then discovers the cache path through `node scripts/npm.mjs config get cache` and restores npm downloads with the existing pinned cache action. `devEngines` and exact-version checks remain enforced. The bundled npm can bootstrap in the isolated CLI fixture; it must not run project cache discovery before the required npm version is active.
+
+## Browser-backed token capture and isolated consumers
+
+`tokens:generate` transitively runs the resolved-mode producer, which needs installed Chromium even with `--check`. Both regeneration jobs install Chromium under the same exact condition as generation; the prerequisite guard follows npm-script aliases and rejects missing, late, mismatched-condition or tolerated-failure installers. Token parity passes browser-specific launch options: the Linux shared-memory flag belongs only to Chromium, never Firefox or WebKit. The Vite consumer test invokes the project-pinned npm CLI with the invoking Node executable in both producer and separate consumer directories, so a Node-bin PATH entry cannot silently select bundled npm. Exact `devEngines`, clean locks and production interaction checks remain enforced.
+
+## Browser fixture readiness
+
+A fixture-owned React state setter commits before TreeTable relationship reads; the test still verifies row identity, focus, input values, accessibility and both behavior mutants. Floating-panel wheel tests wait for actual native scrolling to start before the existing measurement window, retaining offset, resize, keyboard-reachability and scheduling-loop assertions; a controlled delayed-offset probe checks readiness separately from trusted wheel input. Layered-CSS comparisons establish matching pointer/focus state and compare both closed and focus-open HoverCard panels across the existing modes, preserving all original comparisons and computed properties.

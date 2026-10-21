@@ -361,3 +361,7 @@ Khi retry lỗi hạ tầng trình duyệt, log của test giữ record có cấ
 Khi gọi trực tiếp bằng `node scripts/prepare-release.mjs`, bước tái sinh của quy trình chuẩn bị phát hành vẫn dùng trình chạy npm đã khóa. Chạy bootstrap toolchain đã khóa trước; npm khác trong shell không được thay đổi toolchain hay checkout của bản ứng viên. Quy trình giữ nguyên bản ghi phê duyệt và không công bố bản phát hành.
 
 Chuẩn bị bản phát hành chỉ cập nhật tập marker định danh nguồn hữu hạn trong danh sách tài liệu đã rà soát. Marker thiếu, trùng, sai dạng hoặc lỗi thời chặn mọi thao tác ghi phiên bản. Lệnh cài registry, inventory sibling và phần lịch sử phát hành giữ nguyên định danh đã công bố. Checkout chưa công bố hoặc tarball cục bộ đã rà soát không xác nhận phiên bản có trên registry và không cấp quyền công bố.
+
+### Khung trang chiếu cố định và lưới đáp ứng thông thường
+
+Bên trong `.cs-canvas-desk`, lưới có số cột cố định do tác giả khai báo giữ nguyên số cột, kể cả `repeat(4,minmax(0,1fr))`. Vùng nền cho phép cuộn ngang khi cửa sổ hẹp hơn khung cố định; lưới màn hình thông thường nằm ngoài vùng nền vẫn giảm số cột tại các điểm ngắt đáp ứng đã ghi nhận. Giữ nội dung trang chiếu trong giới hạn 16:9 đã khai báo ở cả hai ngôn ngữ, thay vì xếp chồng các cột bên trong ở độ rộng điện thoại.

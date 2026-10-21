@@ -14,6 +14,11 @@ async function compile(helperSource){
 }
 const programs={current:await compile(source)};
 for(const[name,mutate]of mutations){const changed=mutate(source);assert.notEqual(changed,source,name+' mutation still matches source');programs[name]=await compile(changed);}
+// wheel() dispatches input but does not await native scroll completion. Keep the
+// existing post-start measurement window and behavior assertions unchanged.
+async function waitForScrollStart(page, selector) {
+ await page.waitForFunction(selector=>document.querySelector(selector)?.scrollTop>100,selector,{timeout:3000});
+}
 const rows=[];
 await withBrowserFixture(async page=>{
  await page.setViewportSize({width:500,height:300});
@@ -30,10 +35,21 @@ await withBrowserFixture(async page=>{
  }
  async function scrollCase(){
   await page.evaluate(()=>{const h=React.createElement;renderFixture(h(LiveFloating.Popover,{open:true,trigger:h('button',null,'Open'),'aria-label':'Long'},Array.from({length:50},(_,i)=>h('button',{key:i,style:{display:'block',height:30}},'Item '+i))));});
-  const panel=page.getByRole('dialog',{name:'Long'});await panel.waitFor();await page.waitForTimeout(100);await panel.hover();await page.mouse.wheel(0,500);await page.waitForTimeout(200);assert.ok(await panel.evaluate(n=>n.scrollTop)>100,'actual wheel scroll survives positioning measurement');
+  const panel=page.getByRole('dialog',{name:'Long'});await panel.waitFor();await page.waitForTimeout(100);await panel.hover();await page.mouse.wheel(0,500);await waitForScrollStart(page,'[role="dialog"][aria-label="Long"]');await page.waitForTimeout(200);assert.ok(await panel.evaluate(n=>n.scrollTop)>100,'actual wheel scroll survives positioning measurement');
   await panel.evaluate(n=>n.scrollTop=700);await page.waitForTimeout(80);const before=await panel.evaluate(n=>n.scrollTop);assert.ok(before>=699,'programmatic scrolling remains');await page.evaluate(()=>dispatchEvent(new Event('resize')));await page.waitForTimeout(80);assert.ok(Math.abs(await panel.evaluate(n=>n.scrollTop)-before)<2,'resize retains current scrolling');
   await page.getByRole('button',{name:'Item 49',exact:true}).focus();await page.waitForTimeout(100);assert.ok(await panel.evaluate(n=>n.scrollTop)>1000,'keyboard focus can reach final content');await page.evaluate(()=>dispatchEvent(new Event('resize')));await page.waitForTimeout(80);const reach=await page.getByRole('button',{name:'Item 49',exact:true}).evaluate(n=>{const p=n.parentElement,r=n.getBoundingClientRect(),pr=p.getBoundingClientRect();return{focused:document.activeElement===n,visible:r.top>=pr.top&&r.bottom<=pr.bottom+1};});assert.deepEqual(reach,{focused:true,visible:true},'last focused item stays visible after resize');const settledPasses=await page.evaluate(()=>window.__floatingPositionPasses);await page.waitForTimeout(150);assert.ok((await page.evaluate(()=>window.__floatingPositionPasses))-settledPasses<=2,'measurement writes settle without a scroll scheduling loop');
  }
+ // A controlled delayed native DOM offset proves readiness cannot be replaced
+ // by the old 200ms sleep. This probe is not claimed as trusted wheel input;
+ // scrollCase below still sends a real wheel and retains both behavior mutants.
+ await page.evaluate(()=>renderFixture(React.createElement('div',{id:'scroll-start-probe',style:{height:40,overflow:'auto'}},React.createElement('div',{style:{height:500}},'Readiness probe'))));
+ let completed=false,readinessError;
+ const pendingScroll=waitForScrollStart(page,'#scroll-start-probe').then(()=>{completed=true;},error=>{completed=true;readinessError=error;});
+ await page.waitForTimeout(250);
+ assert.equal(completed,false,'Scroll readiness must wait for the actual offset, not a fixed delay');
+ await page.locator('#scroll-start-probe').evaluate(node=>{node.scrollTop=150;});
+ await pendingScroll;if(readinessError)throw readinessError;
+ rows.push({case:'scroll-start-readiness',status:'PASS',controlledRelease:true});
  await load('current');await styleCase();rows.push({case:'current-caller-style',status:'PASS'});await load('current');await scrollCase();rows.push({case:'current-scroll',status:'PASS'});
  for(const name of Object.keys(programs).filter(n=>n!=='current')){await load(name);let failure;try{await(name==='stale-caller-styles'?styleCase():scrollCase());}catch(error){failure=error.message;}assert.ok(failure,name+' mutation must fail real behavioral oracle');rows.push({case:name,status:'REJECTED',failure});}
  await page.evaluate(()=>renderFixture(null));

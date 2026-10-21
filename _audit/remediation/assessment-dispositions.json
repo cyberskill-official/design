@@ -879,16 +879,17 @@
       "disposition": "fixed",
       "evidence": [
         "Changed source-bound reviews are invalidated while approved historical hashes, reviewers, dates and environments remain preserved.",
-        "The current lifecycle file has 125 records: 124 unreviewed and 1 reviewed; 122 records contain review history. These counts are an observed integration snapshot, not a final reapproval verdict."
+        "Historical preapproval integration snapshot:125records with124unreviewed/1reviewed and122archived histories. Explicit owner approval subsequently produced125reviewed current records while retaining all123prior approvals."
       ],
       "changes": [
         "Idempotent invalidation archives prior evidence and requires fresh authorized review rather than transferring approval."
       ],
       "validation": [
         "test-support-invalidation",
-        "components/lifecycle.json current inspection"
+        "components/lifecycle.json current inspection",
+        "Post-approval lifecycle/invalidation/owner-routing PASS; independent exact124record/433file review: test-results/partial11-owner-support-application-review.json."
       ],
-      "blocker": "Fresh authorized support review remains required; the lifecycle gate must remain fail-closed. The final source freeze may invalidate additional records.",
+      "blocker": "Current bounded source/support review is applied. Any later change to covered evidence must invalidate the affected approval and retain its historical hashes; final source-freeze verification remains required.",
       "status": "fixed",
       "scopedEvidence": [
         {
@@ -1078,7 +1079,7 @@
       "validation": [
         "Inspected design-system-gates.yml npm-hello-smoke."
       ],
-      "blocker": "Publishing/version workflow decision remains separate; do not make registry smoke permissive.",
+      "blocker": "The manual release workflow is prepared. Exact-source checks and explicit authorization remain required for tags/publication; registry smoke remains fail-closed.",
       "status": "documented-boundary",
       "scopedEvidence": [
         {
@@ -9401,6 +9402,25 @@
       "releaseToolingReview": "test-results/alpha-doc-stamping/independent-review.json",
       "finalSuiteRegistered": 429,
       "newFullSuiteStarted": false
+    },
+    "postApprovalCI": {
+      "state": "independent-remediation-batches-integrating; final-full-suite-and-exact-head-CI-pending",
+      "baselineHead": "35adeacd8469a1c8fcee1e6293d25694e373f8fd",
+      "rawEvidence": "test-results/hosted-approval-ci/",
+      "toolingManifest": "test-results/hosted-approval-ci/tooling-fix/files.json",
+      "toolingManifestSha256": "6c8e38b92e3d57dbb458d9bd46e5a936b09c522ddaae25a049bfb04a767f6a5f",
+      "toolingExecutionReceipt": "test-results/hosted-approval-ci/tooling-fix/final.json",
+      "responsiveManifest": "test-results/partial11-bod-overflow/files.json",
+      "responsiveManifestSha256": "7a84c9f306b2a7551276aba8ab6032d2f6a87e79f0c39e88e2b21d3e3226ccc7",
+      "responsiveEvidence": "test-results/partial11-bod-overflow/",
+      "approvalBoundary": "No current approved direct evidence changed by tooling or responsive batches; exact125record/hash verification required after coherent regeneration.",
+      "scope": [
+        "Per-engine token launch flags",
+        "Pinned npm and invoking Node in isolated Vite consumer",
+        "Explicit Chromium dependency before all token generation paths",
+        "Fixed canvas retains authored grid columns while ordinary pages reflow",
+        "React fixture commit and browser interaction readiness; original assertions retained"
+      ]
     }
   },
   "supplementaryRoadmapObservations": [
@@ -9438,8 +9458,8 @@
       "countsAsAdditionalFinding": false,
       "remainingOrBoundary": "D1: No remaining source remediation identified; current validation/human acceptance recorded separately.; G9: No remaining source remediation identified; current validation/human acceptance recorded separately.; G10: No remaining source remediation identified; current validation/human acceptance recorded separately.; G60: Adding open PPTX export or changing template strategy remains owner/product choice; existing external capabilities not claimed local",
       "currentFindingStatuses": {
-        "fixed": 3,
-        "documented-boundary": 1
+        "documented-boundary": 1,
+        "fixed": 3
       }
     },
     {
@@ -9457,11 +9477,10 @@
         "G13"
       ],
       "countsAsAdditionalFinding": false,
-      "remainingOrBoundary": "D2: No remaining source remediation identified; current validation/human acceptance recorded separately.; D5: No remaining source remediation identified; current validation/human acceptance recorded separately.; D6: Host capabilities remain explicit; no invented tool availability or weakened manual/approval requirements.; D7: No remaining source remediation identified; current validation/human acceptance recorded separately.; D8: No remaining source remediation identified; current validation/human acceptance recorded separately.; G8: A portable contract does not create absent host tools, human reviews or release authorization.; G9: No remaining source remediation identified; current validation/human acceptance recorded separately.; G12: No authoritative historical ticket registry was supplied; identifiers retained rather than inventing resolutions; G13: The original finding also includes English-only entry files and component prompt files. Those remain English under the explicit authoring boundary; no full-repository translation or unanswered owner decision is invented. The nine decision mirrors and recursive 40-pair authored-document check resolve that subclause only. Final aggregate validation is reported separately.",
+      "remainingOrBoundary": "D2: No remaining source remediation identified; current validation/human acceptance recorded separately.; D5: No remaining source remediation identified; current validation/human acceptance recorded separately.; D6: Host capabilities remain explicit; no invented tool availability or weakened manual/approval requirements.; D7: No remaining source remediation identified; current validation/human acceptance recorded separately.; D8: No remaining source remediation identified; current validation/human acceptance recorded separately.; G8: A portable contract does not create absent host tools, human reviews or release authorization.; G9: No remaining source remediation identified; current validation/human acceptance recorded separately.; G12: No authoritative historical ticket registry was supplied; identifiers retained rather than inventing resolutions; G13: All107component prompts/767prose blocks and10entry/operator pairs now have Vietnamese-first guidance with source-bound parity checks. Human linguistic acceptance and final aggregate validation remain separate.",
       "currentFindingStatuses": {
-        "fixed": 7,
         "documented-boundary": 1,
-        "partial": 1
+        "fixed": 8
       }
     },
     {
@@ -9504,8 +9523,8 @@
       "countsAsAdditionalFinding": false,
       "remainingOrBoundary": "G3: The guide documents current heterogeneous APIs; API normalization remains separately tracked.; G14: Final post-portal/label combined proof remains pending. Context-only providers intentionally expose no DOM ref.; G15: No arbitrary content bag or universal native FormData serialization is promised. Final full-suite acceptance remains separate.; G16: Automatic ancestor detection uses MutationObserver, so moving a node and synchronously submitting or reading FormData in the same task is not atomic. Requested portal content remains absent from SSR/first hydration; explicit portal prop changes can remount as documented. Caller removal can prevent focus restoration, and disabled controls are not refocused. These are documented boundaries, not unresolved compatibility choices. Final combined validation and manual/physical browser acceptance remain separate.; G17: Bounded declared scenarios resolve the missing-guard claim; exhaustive combinations of every inherited HTML prop are not promised.; G18: Logical date/object/tag/rating/OTP FormData serialization is not introduced. Button-like controls do not receive unsupported aria-required or native required attributes; manual AT and full combined checks remain separate.; G20: The approved extension is UI copy only; no full locale formatting or RTL expansion is claimed. Final integrated aggregate validation remains pending.; D25: No remaining source remediation identified; current validation/human acceptance recorded separately.; D26: Current heterogeneous public APIs are retained and documented. Optional API normalization requires a compatibility and versioned migration contract; no supported callback or collection API is renamed speculatively.; D27: Current heterogeneous public APIs are retained and documented. Optional API normalization requires a compatibility and versioned migration contract; no supported callback or collection API is renamed speculatively.; D28: No remaining source remediation identified; current validation/human acceptance recorded separately.; D29: Vocabulary uniformity is an optional compatibility migration, not a reproduced remaining defect.",
       "currentFindingStatuses": {
-        "fixed": 10,
-        "documented-boundary": 2
+        "documented-boundary": 2,
+        "fixed": 10
       }
     },
     {
@@ -9529,8 +9548,8 @@
       "countsAsAdditionalFinding": false,
       "remainingOrBoundary": "D30: Actual Windows High Contrast and human assistive-technology acceptance are still separate; emulated media coverage is not OS acceptance.; D31: Existing Home/End month-boundary contract is explicitly preserved, so no claim of exact APG week-boundary Home/End behavior.; D32: No remaining source remediation identified; current validation/human acceptance recorded separately.; D33: No remaining source remediation identified; current validation/human acceptance recorded separately.; D34: No remaining source remediation identified; current validation/human acceptance recorded separately.; D35: No remaining source remediation identified; current validation/human acceptance recorded separately.; D36: No remaining source remediation identified; current validation/human acceptance recorded separately.; D37: No remaining source remediation identified; current validation/human acceptance recorded separately.; D38: Automated semantics/focus proof does not establish human AT acceptance.; D39: Physical assistive-technology acceptance remains separate.; G21: Combobox/listbox conversion needs an approved component interaction contract and compatibility tests; reported item was downgraded as a documented boundary.; G22: Final current combined Storybook/site/full-suite/Linux scans remain pending. Automated gates do not grant manual AT or product visual acceptance.; G23: No remaining source remediation identified; current validation/human acceptance recorded separately.",
       "currentFindingStatuses": {
-        "fixed": 12,
-        "documented-boundary": 1
+        "documented-boundary": 1,
+        "fixed": 12
       }
     },
     {
@@ -9556,9 +9575,8 @@
       "countsAsAdditionalFinding": false,
       "remainingOrBoundary": "G37: No remaining source remediation identified; current validation/human acceptance recorded separately.; G38: No remaining source remediation identified; current validation/human acceptance recorded separately.; G39: A particular test-framework brand or exhaustive tag taxonomy is not required for the source-bound custom runner. Historical duration data is an estimate, not a runtime deadline.; G40: Changing merge authority requires policy approval; no gate was downgraded.; G41: Hosted Swift/Compose/Flutter compilation results remain unverified until CI runs; no CI push authorized.; G42: Bounded coverage metrics are not branch coverage, exhaustive interaction coverage or full manual acceptance; no framework migration is imposed.; G43: High/critical all-class audit gate remains fail-closed; current actual ROOT audit and toolchain/consumer/site followups are recorded in final-validation.json. Endor health/malware risk was unavailable and remains unknown; advisory/registry verification is not a malware or rights clearance. No hosted enforcement or publication implied.; G44: Broader axes/template visual acceptance remains open engineering work with human baseline review.; G45: Native hosted CI execution remains separate from prepared configuration and local execution.; D3: No remaining source remediation identified; current validation/human acceptance recorded separately.; D4: No remaining source remediation identified; current validation/human acceptance recorded separately.; D14: Descriptive prose does not replace the executable board registry.; D47: No remaining source remediation identified; current validation/human acceptance recorded separately.; D51: Linux Chromium pixel baselines cannot be accepted or replaced from a macOS run.; D53: No remaining source remediation identified; current validation/human acceptance recorded separately.",
       "currentFindingStatuses": {
-        "fixed": 12,
         "documented-boundary": 2,
-        "partial": 1
+        "fixed": 13
       }
     },
     {
@@ -9580,12 +9598,12 @@
         "G53"
       ],
       "countsAsAdditionalFinding": false,
-      "remainingOrBoundary": "D16: Historical remote release/registry records and a new accepted version were not rewritten; publishing/tagging requires separate operator authorization and fresh support review.; D17: No remaining source remediation identified; current validation/human acceptance recorded separately.; D18: No delegate or additional authorized reviewer was invented; appointment requires owner decision. Bulk historical review quality remains unverified.; D19: Explicit governance policy/delegate and authorization required before changing live branch protections.; D20: Fresh authorized support review remains required; the lifecycle gate must remain fail-closed. The final source freeze may invalidate additional records.; D21: No remaining source remediation identified; current validation/human acceptance recorded separately.; D22: Rights-holder origin/rights review of retained payload and reconstructed runtimes remains pending; no new outward rights granted; D23: Current VERSION remains1.7.2; no accepted prerelease/new version/tag/publication created.; D24: Publishing/version workflow decision remains separate; do not make registry smoke permissive.; G50: Actual physical/latest-two browser execution, release publication and support acceptance remain separate. Planned breaking changes cannot ship as1.7.3 or1.8.0 under the selected policy.; G51: No delegate or independent reviewer was invented, and no live protection setting was changed.; G52: This fixes the demonstrated enforcement omissions. It does not infer every semantic impact from a file edit, certify every prop/state or replace existing whole-template, kit, source-search, product visual and manual accessibility obligations. Final source-bound aggregate validation after late integrations remains pending.; G53: Owner must appoint a delegate; automation cannot invent a person or authority.",
+      "remainingOrBoundary": "D16: Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending clean-checkout preparation gates; bounded source/support approval is now applied.; D17: No remaining source remediation identified; current validation and human acceptance remain separately recorded.; D18: Current bounded source review is authorized; historical review quality and manual/device/product/translation/rights acceptance remain separate and are not promoted.; D19: Explicit governance policy/delegate and authorization required before changing live branch protections.; D20: Current bounded source/support review is applied. Any later change to covered evidence must invalidate the affected approval and retain its historical hashes; final source-freeze verification remains required.; D21: No remaining source remediation identified; current validation and human acceptance remain separately recorded.; D22: Verified bounded upstream/package byte matches and corrected entities8.1.0 attribution to BSD-2-Clause. Rights-chain conflicts and reconstructed runtime origin remain unresolved.; D23: Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still requires a clean source checkout; bounded source/support approval is now applied; no VERSION/tag/publication written.; D24: The manual release workflow is prepared. Exact-source checks and explicit authorization remain required for tags/publication; registry smoke remains fail-closed.; G50: Actual physical/latest-two browser execution, release publication and support acceptance remain separate. Planned breaking changes cannot ship as1.7.3 or1.8.0 under the selected policy.; G51: No delegate or independent reviewer was invented, and no live protection setting was changed.; G52: This fixes the demonstrated enforcement omissions. It does not infer every semantic impact from a file edit, certify every prop/state or replace existing whole-template, kit, source-search, product visual and manual accessibility obligations. Final source-bound aggregate validation after late integrations remains pending.; G53: Owner must appoint a delegate; automation cannot invent a person or authority.",
       "currentFindingStatuses": {
-        "partial": 4,
-        "fixed": 6,
         "decision-dependent": 2,
-        "documented-boundary": 1
+        "documented-boundary": 1,
+        "fixed": 7,
+        "partial": 3
       }
     },
     {
@@ -9654,8 +9672,8 @@
       "countsAsAdditionalFinding": false,
       "remainingOrBoundary": "G57: All original bounded engineering clauses are integrated:832adopted slots. Root21affected checks passed across3engines with697capturedinputs/no drift. The full418baseline retained one stale numeric inventory expectation, subsequently corrected with exact finite-slot and rejection controls. Current followup evidence is in final-validation.json. No arithmetic, arbitrary row counts or legal/organization policy editing implied; doc-style-guide remains fixed instruction. Office fidelity and human acceptance remain separate.; G58: Verified equivalent owners now share authored maintenance sources; deliberate localized/structural variants remain authored. Root45view structural/export/mutation checks passed with32sourcehashes unchanged. WebKit raster reproducibility remains explicitly unverified from retained same-input controls, including when one run happens to match. Stable-reference mismatch still fails. No tolerance/baseline/existing pixel gate weakened.; G59: HTML image-slot shadow content fails closed pending dedicated serializer; PDF printing Chromium only by Playwright capability; G60: Adding open PPTX export or changing template strategy remains owner/product choice; existing external capabilities not claimed local; G61: Observed static markup does not supply interactive behavior, stable authored anatomy, all states or manual accessibility acceptance. No fake usable menu/modal snippet promise.; D15: No remaining source remediation identified; current validation/human acceptance recorded separately.; D41: No remaining source remediation identified; current validation/human acceptance recorded separately.; D44: Fixed paper/on-fill/email-client/specimen colors are intentionally preserved; these exceptions do not approve future occurrences or certify overall contrast.",
       "currentFindingStatuses": {
-        "fixed": 7,
-        "documented-boundary": 1
+        "documented-boundary": 1,
+        "fixed": 7
       }
     },
     {
@@ -9690,8 +9708,8 @@
       "countsAsAdditionalFinding": false,
       "remainingOrBoundary": "D54: No remaining source remediation identified; current validation/human acceptance recorded separately.; G11: No structural quarantine blocker remains. Upstream-origin/license completeness and outward distribution rights remain unverified separately under D22; no permission or license was expanded.; G12: No authoritative historical ticket registry was supplied; identifiers retained rather than inventing resolutions; A07: History retention is deliberate; actual security response performance, supported publication identity and maintainer appointments remain human/remote matters.; A09: The current local built static output passed its script-CSP browser checks. Inline style policy is unchanged; deployed platform acceptance, a full security audit and release authorization remain separate.; G54: Actual final package measurement and its hash are recorded in final-validation.json/consumer-costs.json. Single loopback samples are not percentiles, Lighthouse scores, real-product adoption, hardware presentation or a performance SLA.; U08: No general file:// viewer support is claimed; final navigation source changes do not establish file-protocol fetch support.",
       "currentFindingStatuses": {
-        "fixed": 5,
-        "documented-boundary": 2
+        "documented-boundary": 2,
+        "fixed": 5
       }
     }
   ],

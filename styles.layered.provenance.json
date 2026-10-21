@@ -112,7 +112,7 @@
     },
     {
       "path": "base/responsive.css",
-      "sha256": "020b296fa0f54660b5c6fa3edf69f98ac5bd86c8714c8ae5015c4f40f3110b0b"
+      "sha256": "68e0c66ee9eccfb681e5345e0800a00869a9deec14900dcc262fed2a6ab1f918"
     }
   ],
   "assets": [
@@ -156,5 +156,5 @@
     "fonts/spacegrotesk-var-vietnamese.woff2"
   ],
   "importantCount": 46,
-  "sha256": "e37bbdf1c798ec63e0707f84196820a24464955d9bcec8b39e16d3b8bc5d5e74"
+  "sha256": "d193a333e25e1f4119f1bdf9b616d1f2cd224b2ba492db9a90e2ac221c0a77bf"
 }

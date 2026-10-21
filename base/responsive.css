@@ -84,40 +84,41 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
  * repeat(auto-fit/auto-fill,…) grids are never matched (they read `repeat(a`).
  * Tablet: 3+ cols → 2. Phone: everything → 1 (declared after, so it wins at the
  * narrow width). Print is unaffected — the @page is wide, so these screen
- * breakpoints never fire during print/export. */
+ * breakpoints never fire during print/export. Fixed canvas descendants keep their
+ * authored columns because the canvas track scrolls independently (see §5). */
 @media screen and (max-width: 768px) {
-  [style*="grid-template-columns: repeat(3"],
-  [style*="grid-template-columns:repeat(3"],
-  [style*="grid-template-columns: repeat(4"],
-  [style*="grid-template-columns:repeat(4"],
-  [style*="grid-template-columns: repeat(5"],
-  [style*="grid-template-columns:repeat(5"],
-  [style*="grid-template-columns: repeat(6"],
-  [style*="grid-template-columns:repeat(6"] { grid-template-columns: repeat(2, 1fr) !important; }
+  [style*="grid-template-columns: repeat(3"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:repeat(3"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: repeat(4"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:repeat(4"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: repeat(5"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:repeat(5"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: repeat(6"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:repeat(6"]:where(:not(.cs-canvas-desk *)) { grid-template-columns: repeat(2, 1fr) !important; }
 }
 @media screen and (max-width: 640px) {
-  [style*="grid-template-columns: repeat(2"],
-  [style*="grid-template-columns:repeat(2"],
-  [style*="grid-template-columns: repeat(3"],
-  [style*="grid-template-columns:repeat(3"],
-  [style*="grid-template-columns: repeat(4"],
-  [style*="grid-template-columns:repeat(4"],
-  [style*="grid-template-columns: repeat(5"],
-  [style*="grid-template-columns:repeat(5"],
-  [style*="grid-template-columns: repeat(6"],
-  [style*="grid-template-columns:repeat(6"],
-  [style*="grid-template-columns: 1fr 1fr"],
-  [style*="grid-template-columns:1fr 1fr"],
-  [style*="grid-template-columns: 1.15fr 1fr"],
-  [style*="grid-template-columns:1.15fr 1fr"],
-  [style*="grid-template-columns: 1fr 1.15fr"],
-  [style*="grid-template-columns:1fr 1.15fr"],
-  [style*="grid-template-columns: 2fr 1fr"],
-  [style*="grid-template-columns:2fr 1fr"],
-  [style*="grid-template-columns: 1fr 2fr"],
-  [style*="grid-template-columns:1fr 2fr"],
-  [style*="grid-template-columns: auto 1fr"],
-  [style*="grid-template-columns:auto 1fr"] { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: repeat(2"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:repeat(2"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: repeat(3"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:repeat(3"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: repeat(4"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:repeat(4"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: repeat(5"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:repeat(5"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: repeat(6"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:repeat(6"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: 1fr 1fr"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:1fr 1fr"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: 1.15fr 1fr"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:1.15fr 1fr"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: 1fr 1.15fr"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:1fr 1.15fr"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: 2fr 1fr"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:2fr 1fr"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: 1fr 2fr"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:1fr 2fr"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns: auto 1fr"]:where(:not(.cs-canvas-desk *)),
+  [style*="grid-template-columns:auto 1fr"]:where(:not(.cs-canvas-desk *)) { grid-template-columns: 1fr !important; }
 }
 /* Decks & social canvases keep their authored columns — they scroll (see §5), so their
  * internal grids must not collapse. Unscoped + higher specificity, so they win at every width. */

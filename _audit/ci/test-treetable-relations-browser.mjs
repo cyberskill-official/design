@@ -205,7 +205,13 @@ await withBrowserFixture(async page => {
     name: 'Child value',
     exact: true
   }).elementHandle();
-  await page.evaluate(() => treeRelationReorder());
+  // This is a fixture state setter, not a user action that Playwright can await.
+  // Commit it in the same turn before reading either DOM order or ARIA IDs.
+  const committedControls = await page.evaluate(() => {
+    ReactDOM.flushSync(() => treeRelationReorder());
+    return document.querySelector('#tree-relations-A button[aria-expanded="true"]').getAttribute('aria-controls');
+  });
+  assert.deepEqual(committedControls.split(' '), [initial.siblingId, initial.childId], 'Fixture reorder commits before relational inspection');
   const reorderedRoot = a.getByRole('button', {
     name: 'Collapse Root',
     exact: true

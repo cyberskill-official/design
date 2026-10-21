@@ -64,8 +64,11 @@ export function modeInputs(root) {
   const sources=Object.fromEntries([...new Set([...included,...helperPaths])].sort().map(path=>[path,sha(readFileSync(resolve(root,path),'utf8'))]));
   return {inventory,css,modes:modeList(metadata),sources,sourceHash:sha(JSON.stringify(sources)),names:[...known]};
 }
+export function tokenModeLaunchOptions(browserType,platform=process.platform) {
+  return platform==='linux'&&browserType.name()==='chromium'?{args:['--disable-dev-shm-usage']}:{};
+}
 export async function captureTokenModes(inputs,{browserType=chromium,implicit=false}={}) {
-  const browser=await browserType.launch(process.platform==='linux'?{args:['--disable-dev-shm-usage']}:{ });
+  const browser=await browserType.launch(tokenModeLaunchOptions(browserType));
   try {
     const context=await browser.newContext({viewport:{width:1280,height:900},reducedMotion:'no-preference',forcedColors:'none'});
     const page=await context.newPage();await page.route('**/*',route=>route.abort());

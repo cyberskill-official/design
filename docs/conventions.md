@@ -356,3 +356,7 @@ Browser infrastructure retries retain structured `CS_BROWSER_RETRY` records with
 Release preparation invoked directly with `node scripts/prepare-release.mjs` uses the same pinned npm runner for its regeneration stage. Run the locked toolchain bootstrap first; a conflicting shell npm must not change the candidate toolchain or checkout. Preparation preserves approval records and never publishes.
 
 Release preparation updates only the finite source-identity markers in its reviewed document list. Missing, duplicate, malformed or stale markers block every version write. Registry install commands, sibling inventories and historical release sections retain their published identities. An unpublished checkout or reviewed local tarball does not establish registry availability or authorize publication.
+
+### Fixed slide canvases and ordinary responsive grids
+
+Inside `.cs-canvas-desk`, authored fixed-column grids retain their columns, including `repeat(4,minmax(0,1fr))`. The desk provides horizontal scrolling below its fixed canvas width; ordinary screen grids outside the desk still collapse at the documented responsive breakpoints. Keep slide content within its authored 16:9 bounds in both languages rather than stacking its internal columns at phone widths.
