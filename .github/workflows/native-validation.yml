@@ -2,8 +2,10 @@
 name: native-validation
 on:
   workflow_dispatch:
+  pull_request:
+    paths: ['tokens/**', 'examples/native/**', 'scripts/ci/native-validation.sh', 'scripts/generate-native-sample-*.mjs', '.github/workflows/native-validation.yml', 'scripts/generate-native-mode-packs.mjs', 'scripts/lib/native-mode-*.mjs', '_audit/ci/test-native-mode-*.mjs', '_audit/ci/lib/native-mode-*.mjs']
   push:
-    branches: ['codex/native-validation-*']
+    branches: ['main', 'codex/native-validation-*']
 permissions:
   contents: read
 jobs:
