@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "authorities": {
+    "entry": "SKILL.md",
+    "doctrine": "docs/doctrine.md",
+    "consuming": "docs/consuming.md",
+    "templateGrammar": "docs/template-grammar.md",
+    "catalog": "docs/reference-catalog.json",
+    "workflow": "AGENTS.md"
+  },
+  "retirement": {
+    "system": "CyberOS orchestration and its two acceptance gates",
+    "date": "2026-10-08",
+    "state": "retired",
+    "installationRequired": false
+  },
+  "acceptance": {
+    "productVisualReview": "separate-required",
+    "manualAccessibility": "separate-required",
+    "pushDeployMerge": "explicit-operator-instruction"
+  },
+  "portableValidation": {
+    "unit": "npm run test:unit",
+    "board": "_audit/run.html",
+    "pixelBeforeBoard": true,
+    "externalCompiler": "supplemental-when-available",
+    "wholeSet": "docs/doctrine.md#verification-depth"
+  },
+  "runtimeRoutes": [
+    {"id":"static-html","entry":"styles.css","guide":"DESIGN.md","limit":"Use .cs-* classes; .dc.html additionally requires the shipped interpreter or a verified grammar-aware runtime."},
+    {"id":"react","entry":"@cyberskill/design","guide":"docs/consuming.md","limit":"Compiled ESM with peer React; explicit @cyberskill/design/source is raw JSX. CommonJS is not promised."},
+    {"id":"legacy-browser","entry":"_esm/cs.mjs","guide":"docs/consuming.md","limit":"Browser-only; resolve the CyberSkillDesignSystem_ global by prefix, not a fixed suffix. Not an SSR entry."},
+    {"id":"document-templates","entry":"templates/_vendor/support.js","guide":"docs/template-grammar.md","limit":"Serve relative resources. Browser preview, declared controls/content and PDF/DOCX have scoped checks; host authoring tools, PPTX and super_inline_html remain external."}
+  ]
+}

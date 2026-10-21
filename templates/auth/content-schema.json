@@ -7,105 +7,165 @@
       "type": "text",
       "label": "Skip-to-content link label",
       "maxLength": 40,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "brandH",
       "type": "text",
       "label": "Brand panel headline",
       "maxLength": 40,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "brandP",
       "type": "text",
       "label": "Brand panel paragraph",
-      "maxLength": 140
+      "maxLength": 140,
+      "runtimeBinding": "text"
     },
     {
       "id": "title",
       "type": "text",
       "label": "Form title",
       "maxLength": 24,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "sub",
       "type": "text",
       "label": "Form subtitle",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "emailL",
       "type": "text",
       "label": "Email field label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.TextField",
+          "attribute": "label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "pwL",
       "type": "text",
       "label": "Password field label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.TextField",
+          "attribute": "label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "rememberL",
       "type": "text",
       "label": "Remember-me label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Switch",
+          "attribute": "label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "signInBtn",
       "type": "text",
       "label": "Sign-in button label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "lumiBtn",
       "type": "text",
       "label": "Secondary button label",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "newHere",
       "type": "text",
       "label": "\"New here?\" prompt",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "askAccess",
       "type": "text",
       "label": "Ask-for-access link label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "resetHint",
       "type": "text",
       "label": "Password-reset hint",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "resetLink",
       "type": "text",
       "label": "Password-reset action link",
-      "maxLength": 64
+      "maxLength": 64,
+      "runtimeBinding": "text"
     },
     {
       "id": "errTitle",
       "type": "text",
       "label": "Sign-in error alert title (error/invalid states)",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Alert",
+          "attribute": "title"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "errBody",
       "type": "text",
       "label": "Sign-in error alert body",
-      "maxLength": 120
+      "maxLength": 120,
+      "runtimeBinding": "text"
     },
     {
       "id": "emailError",
       "type": "text",
       "label": "Email field validation error (invalid state)",
-      "maxLength": 64
+      "maxLength": 64,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.TextField",
+          "attribute": "error"
+        }
+      ]
     }
   ]
 }

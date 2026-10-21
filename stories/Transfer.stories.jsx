@@ -32,3 +32,18 @@ export const Matrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioTransferEmpty = {
+  name: "Transfer: Empty collection",
+  args: {
+  "items": [],
+  "value": [
+    "a"
+  ]
+},
+  render: args => renderComponentScenario("Transfer--empty",args),
+  play: ({canvasElement}) => playComponentScenario("Transfer--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

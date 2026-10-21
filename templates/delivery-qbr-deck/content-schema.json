@@ -6,172 +6,200 @@
       "id": "s1kicker",
       "type": "text",
       "label": "Slide 1 eyebrow",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "s1h",
       "type": "text",
       "label": "Slide 1 title",
       "maxLength": 40,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "s1p",
       "type": "text",
       "label": "Slide 1 subtitle",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "s2kicker",
       "type": "text",
       "label": "Slide 2 eyebrow",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "s2h",
       "type": "text",
       "label": "Slide 2 title",
       "maxLength": 40,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "k1",
       "type": "text",
       "label": "KPI 1 label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "k2",
       "type": "text",
       "label": "KPI 2 label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "k3",
       "type": "text",
       "label": "KPI 3 label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "k4",
       "type": "text",
       "label": "KPI 4 label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "s3kicker",
       "type": "text",
       "label": "Slide 3 eyebrow",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "s3h",
       "type": "text",
       "label": "Slide 3 title",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "h1n",
       "type": "text",
       "label": "Health row 1 name",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "h1s",
       "type": "text",
       "label": "Health row 1 status",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "h2n",
       "type": "text",
       "label": "Health row 2 name",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "h2s",
       "type": "text",
       "label": "Health row 2 status",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "h3n",
       "type": "text",
       "label": "Health row 3 name",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "h3s",
       "type": "text",
       "label": "Health row 3 status",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "note",
       "type": "richtext",
       "label": "Honest note",
-      "maxLength": 220
+      "maxLength": 220,
+      "runtimeBinding": "text"
     },
     {
       "id": "s4kicker",
       "type": "text",
       "label": "Slide 4 eyebrow",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "s4h",
       "type": "text",
       "label": "Slide 4 title",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "n1b",
       "type": "text",
       "label": "Next-quarter item 1 bold",
-      "maxLength": 50
+      "maxLength": 50,
+      "runtimeBinding": "text"
     },
     {
       "id": "n1t",
       "type": "text",
       "label": "Next-quarter item 1 text",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     },
     {
       "id": "n2b",
       "type": "text",
       "label": "Next-quarter item 2 bold",
-      "maxLength": 50
+      "maxLength": 50,
+      "runtimeBinding": "text"
     },
     {
       "id": "n2t",
       "type": "text",
       "label": "Next-quarter item 2 text",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     },
     {
       "id": "n3b",
       "type": "text",
       "label": "Next-quarter item 3 bold",
-      "maxLength": 50
+      "maxLength": 50,
+      "runtimeBinding": "text"
     },
     {
       "id": "n3t",
       "type": "text",
       "label": "Next-quarter item 3 text",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     },
     {
       "id": "closeH",
       "type": "text",
       "label": "Closing title",
       "maxLength": 30,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "closeP",
       "type": "richtext",
       "label": "Closing body",
-      "maxLength": 220
+      "maxLength": 220,
+      "runtimeBinding": "text"
     }
   ]
 }

@@ -1,0 +1,106 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "delivery-status-email",
+  "slots": [
+    {
+      "id": "reportTitleEn",
+      "type": "text",
+      "label": "Report Title En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "reportTitleVi",
+      "type": "text",
+      "label": "Report Title Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "reportingPeriodEn",
+      "type": "text",
+      "label": "Reporting Period En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "reportingPeriodVi",
+      "type": "text",
+      "label": "Reporting Period Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "shippedPerformanceEn",
+      "type": "text",
+      "label": "Shipped performance en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "shippedPerformanceVi",
+      "type": "text",
+      "label": "Shipped performance vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "nextCanaryEn",
+      "type": "text",
+      "label": "Next canary en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "nextCanaryVi",
+      "type": "text",
+      "label": "Next canary vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "responseDeadlineEn",
+      "type": "text",
+      "label": "Response deadline en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "responseDeadlineVi",
+      "type": "text",
+      "label": "Response deadline vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "completionPercent",
+      "type": "number",
+      "label": "Completion percent (0–100)",
+      "required": true,
+      "minimum": 0,
+      "maximum": 100,
+      "runtimeBinding": "number",
+      "runtimeProjection": "percent-width",
+      "runtimeTargets": [
+        {
+          "tag": "span",
+          "attribute": "data-dc-percent-width"
+        },
+        {
+          "tag": "span",
+          "attribute": "data-dc-percent-width"
+        }
+      ]
+    }
+  ]
+}

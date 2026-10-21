@@ -57,3 +57,17 @@ export const FullMatrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioRatingError = {
+  name: "Rating: Validation error",
+  args: {
+  "label": "Rating",
+  "defaultValue": 3,
+  "error": "Rating scenario validation error"
+},
+  render: args => renderComponentScenario("Rating--error",args),
+  play: ({canvasElement}) => playComponentScenario("Rating--error",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

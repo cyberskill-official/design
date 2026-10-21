@@ -1,0 +1,34 @@
+# Voice & Language
+
+Working summary. Canonical source: README **CONTENT FUNDAMENTALS**, with extension rules in `docs/conventions.md`.
+
+## The voice is a chord
+
+**Warm · direct · honest · respectful — all four at once.** Never "fun / playful / edgy"; that is explicitly off-brand.
+
+- **Warm, human, second-person.** Speak to "you"; the studio is "we"; Lumi speaks as "I".
+- **Direct and concrete.** Short sentences, plain outcomes, no hedging.
+- **Honest about trade-offs.** Risks are stated in words, never hidden or colour-only.
+- **Respectful of consent and privacy.** Ask before contacting; promise not to share.
+
+**The "wish" metaphor is the spine.** Products are *wishes*; Lumi *grants* them by handing them to a real human team. Verbs: *make a wish, grant, shape it, ship, last.*
+
+## Casing & mechanics
+
+- Sentence case for headings and buttons (*"Make a wish"*)
+- UPPERCASE + wide tracking only for small eyebrows, labels, table headers
+- Titles avoid trailing punctuation; body uses full stops
+- Numerals as digits for concrete SLAs (*"3 business days"*)
+
+## Vietnamese-first
+
+Every user-facing string ships an EN + VN pair, or carries an explicit deferral note. Vietnamese is a first-class citizen:
+
+- Diacritics preserved everywhere
+- Vietnamese-safe line-heights (body 1.5 / heading 1.35) — see **Foundations/Typography**
+- Components resolve built-in strings from the nearest `lang` via `components/_i18n/strings.js`
+- Scope boundary: emails + team/legal/finance docs are EN·VN; client/media collateral is EN-first
+
+## No emoji
+
+Emoji are **not used** in product UI or brand copy. Meaning is carried by words and the in-repo line-icon set.

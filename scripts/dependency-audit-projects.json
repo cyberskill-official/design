@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "projects": [
+    {
+      "id": "root",
+      "directory": ".",
+      "purpose": "Design-system runtime and maintenance dependencies"
+    },
+    {
+      "id": "vite-consumer",
+      "directory": "examples/vite-consumer",
+      "purpose": "Maintained compiled-package consumer example"
+    },
+    {
+      "id": "react18-consumer",
+      "directory": "_audit/ci/fixtures/react18-consumer",
+      "purpose": "Maintained React 18 compatibility fixture"
+    },
+    {
+      "id": "npm-cli",
+      "directory": "_audit/ci/fixtures/npm-cli",
+      "purpose": "Exact npm CLI bootstrap, installed with lifecycle scripts disabled"
+    },
+    {
+      "id": "style-dictionary",
+      "directory": "_audit/ci/fixtures/style-dictionary",
+      "purpose": "Pinned real Style Dictionary interoperability tool"
+    }
+  ]
+}

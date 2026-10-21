@@ -24,13 +24,13 @@ API open-state khác nhau: một số overlay yêu cầu `open` và dùng `onClo
 
 `children`, slot có tên, `label`, render callback có kiểu riêng từng component. Export chấp nhận `className` không tự động forward `id`, `style`, `data-*`, `aria-*`, handler native hoặc rest prop tùy ý. Xác nhận khai báo rõ ràng và runtime forward tới đúng DOM node trước khi phụ thuộc. Text lỗi hiển thị trong FormField không tự thiết lập quan hệ described-by cho composite input.
 
-Export có phần tử native chuyển tiếp `ref` tới đích được mô tả; control riêng do component quản lý có `controlRef`. Provider chỉ có context không có ref DOM. Xem [ref native](runtime-api.md) về đích, trạng thái null và callback React 18/19. Panel theo phần tử neo có [hợp đồng portal và vị trí tránh va chạm](runtime-api.md), cùng tùy chọn inline. Overlay manager hiện tại điều phối một stack toàn document; xem [quyết định overlay](../decisions/overlay-manager-design.md) trước khi dùng nhiều bundle hoặc root document độc lập.
+Export có phần tử native chuyển tiếp `ref` tới đích được mô tả; control riêng do component quản lý có `controlRef`. Provider chỉ có context không có ref DOM. Xem [ref native](native-refs.md) về đích, trạng thái null và callback React 18/19. Panel theo phần tử neo có [hợp đồng portal và vị trí tránh va chạm](floating-panels.md), cùng tùy chọn inline. Overlay manager hiện tại điều phối một stack toàn document; xem [quyết định overlay](../decisions/overlay-manager-design.md) trước khi dùng nhiều bundle hoặc root document độc lập.
 
 ## Tên, enum và accessibility
 
 Từ vựng enum và size hiện tại khác nhau theo export. `danger`, `destructive`, `error` không phải alias thay thế tùy ý; `empty`/`emptyState` và `tone`/`variant` cũng vậy. Khi có alias, source xác định ưu tiên. Không đổi tên hay chuẩn hóa prop công khai thiếu quyết định tương thích/deprecation và contract test có mục tiêu.
 
-Mỗi prop mới hoặc đổi cần source, declaration, prompt, ví dụ và kiểm tra hành vi khớp nhau. Giữ tên truy cập, role, keyboard và quyền focus qua thay đổi state. Tóm tắt keyboard trong prompt là bằng chứng mô tả; kiểm chứng với implementation và test. Lifecycle record và API inventory không thay kiểm tra accessibility trạng thái render hoặc chấp nhận công nghệ hỗ trợ thủ công.
+Mỗi prop mới hoặc đổi cần source, declaration, prompt, ví dụ và kiểm tra hành vi khớp nhau. Giữ tên truy cập, role, keyboard và quyền focus qua thay đổi state. Tóm tắt keyboard trong prompt là bằng chứng mô tả; kiểm chứng với implementation và test. Lifecycle record và API inventory không thay kiểm tra accessibility trạng thái render hoặc [chấp nhận AT thủ công](manual-at-matrix.md).
 
 [Hợp đồng source component](../../components/contracts.json) được sinh tách prop authored/kế thừa, giữ biểu thức default literal, khai báo keyboard từ prompt và định vị CSS hook cùng hash source. Sinh bằng `npm run build:component-contracts`; kiểm bằng `npm run test:component-contracts`. Đây là sự kiện source quan sát được, không phải anatomy authored đầy đủ, ngữ nghĩa ARIA hay hợp đồng accessibility đã kiểm chứng.
 
@@ -71,14 +71,18 @@ Các trường tham gia dùng độc lập nhận `description`, `error`, `requi
 
 Input/select/textarea native trong FormField nhận liên kết label và mô tả thật. Với custom control khác, FormField nhận hàm render cung cấp các attribute liên kết; áp dụng chúng vào control semantic. Cách này cung cấp liên kết, không tạo giao thức mới cho giá trị Form hay serialization.
 
-Kiểm tra đích native bằng `test-native-refs-browser.mjs`, declaration công khai bằng `test-types.mjs`, liên kết Form/trường giữa các entry bằng `test-compiled-esm-packed.mjs`. Các kiểm tra tự động có giới hạn này không thay thế nghiệm thu thủ công với công nghệ hỗ trợ.
+Kiểm tra bằng `test-field-associations-browser.mjs`, `test-composite-field-targets-browser.mjs`, `test-native-root-targets-browser.mjs` và fixture kiểu/packed tương ứng. Kiểm tra tự động về liên kết và bàn phím không thay thế nghiệm thu thủ công với công nghệ hỗ trợ.
 
 ## Thông điệp theo scope và tham chiếu DOM
 
-Dùng [thông điệp UI theo scope](locale-messages.md) để ghi đè nội dung và thêm namespace; fallback định dạng ngày/số và hướng chữ vẫn là hợp đồng riêng. Kiểm chứng DOM thực tế và các trạng thái liên quan; inventory API không phải widget độc lập hoặc đặc tả đầy đủ mọi trạng thái/khả năng tiếp cận.
+Dùng [thông điệp UI theo scope](locale-messages.md) để ghi đè nội dung và thêm namespace; fallback định dạng ngày/số và hướng chữ vẫn là hợp đồng riêng. [Tham chiếu HTML đã render](static-html-reference.md) ghi DOM fixture gắn với nguồn, gồm context và snapshot portal được mô tả; đây không phải widget tương tác độc lập hay đặc tả đầy đủ mọi trạng thái/khả năng tiếp cận.
 
-## Dữ kiện nguồn và giới hạn bằng chứng
+## Bằng chứng sinh tự động và giới hạn phạm vi
 
-`components/contracts.json` ghi prop tự khai báo/kế thừa, biểu thức default nguyên văn, class hook quan sát được và mô tả bàn phím theo nguồn. Sau API index và CSS index, sinh bằng `npm run build:component-contracts`; kiểm tra parser nguồn chặt chẽ bằng `npm run test:component-contracts`. Dữ kiện này không chứng nhận hành vi, phạm vi trợ năng đầy đủ hay sự chấp nhận của con người. Đọc nguồn và declaration liền kề, kiểm tra trạng thái thực tế và lưu nghiệm thu thủ công riêng.
+`components/prompt-api.json` và mục Declared API có fence trong prompt tham chiếu prop/default từ inventory khai báo và runtime chuẩn. `components/specifications.json` tách quan sát JSX chính xác, ngữ nghĩa đã review có giới hạn và assertion được ánh xạ khỏi phần chưa xác minh. Slot ứng viên, chuỗi phím quan sát và fixture chạy thành công không chứng minh đặc tả hành vi hay trợ năng đầy đủ. Sau khi rebuild API/contracts, chạy `npm run build:prompt-api` rồi `npm run build:component-specifications`. Chạy `npm run test:component-behavior-evidence` riêng để thu và xác minh bằng chứng runtime; quyết định trong repo `docs/decisions/component-specification-evidence.md` ghi rõ giới hạn.
+
+## Bản chiếu khám phá gọn
+
+Bắt đầu khám phá bằng `components/api-discovery.json`: mọi export công khai, toàn bộ định nghĩa prop tự khai báo, đường dẫn/hash nguồn và declaration, nhãn lifecycle và trạng thái review hỗ trợ hiện tại. Bản chiếu giữ số prop kế thừa nhưng không chép định nghĩa kế thừa, signature dài hay lịch sử hỗ trợ; theo tham chiếu SHA-256 chính xác đến `components/api-index.json` và đọc declaration để có kiểu đầy đủ. Chạy `npm run build:api-discovery` sau khi tạo API index; `node scripts/generate-compact-api.mjs --check` từ chối đầu ra lỗi thời. Bản chiếu giảm chi phí đọc, không thay thế kiểm tra đầy đủ hay bằng chứng chấp nhận.
 
 AlertDialog dùng tên chuẩn `tone` và giữ `variant` như alias tương thích. `tone` tường minh được ưu tiên; khi thiếu mới dùng `variant`. `destructive` chọn màu hành động nguy hiểm và focus ban đầu vào Cancel. `tone="default"` ưu tiên hơn `variant="destructive"`. Button `danger`, validation `error` và tên size riêng từng component vẫn là các miền giá trị khác nhau; dùng control Storybook sinh từ declaration, không tự đổi giá trị theo suy đoán. Không lên lịch bỏ alias nếu chưa tuân chính sách thông báo phía trên.

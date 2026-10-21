@@ -14,13 +14,6 @@ export default {
     height: { control: 'number' },
     lang: { control: 'select', options: ['en', 'vi'] },
   },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Image. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { src: '/assets/logo-mark.svg', alt: 'CyberSkill mark', width: 64, height: 64 },
 };
 

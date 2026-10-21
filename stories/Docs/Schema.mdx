@@ -1,35 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import { IframeSurface } from '../Maintainer/IframeSurface.jsx';
 
 <Meta title="Docs/Guides/Schema" />
 
-# Template content-schema v2
-
-Purely additive, opt-in metadata: a sidecar `templates/<slug>/content-schema.json` next to a template's `.dc.html`, declaring the **type** of each `{{ hole }}` already in the template — so an agent or pipeline can populate/validate client content without parsing HTML.
-
-**Zero template-markup changes required.** The slot `id` is the hole name already used in the `.dc.html`.
-
-## Shape
-
-```json
-{
-  "$schemaVersion": "2.0",
-  "template": "marketing-page",
-  "slots": [
-    { "id": "heroH", "type": "text", "label": "Hero headline", "maxLength": 70, "required": true },
-    { "id": "heroP", "type": "richtext", "label": "Hero paragraph" }
-  ]
-}
-```
-
-| Field | Required | Notes |
-|---|---|---|
-| `$schemaVersion` | yes | `"2.0"` |
-| `template` | yes | matches `templates/<slug>/` |
-| `slots[].id` | yes | equals a real `{{ id }}` hole |
-| `slots[].type` | yes | `text` · `richtext` · `image` · `link` · `list` · `table` · `date` |
-| `slots[].label` | yes | human-readable |
-| `slots[].maxLength` | no | soft authoring guide |
-| `slots[].required` | no | default `false` |
-| `slots[].i18n` | no | `{ "en", "vi" }` for bilingual templates |
-
-Machine-checkable shape: `templates/schema/content-schema.schema.json`. Gate: `_audit/template-schema-test.html`, which validates each sidecar bidirectionally against content holes **and enforces coverage** — a template exposing an authorable content hole must ship a sidecar or the board goes red. Axis / control-flow holes (`rootTheme`, `langAttr`, `elAttr`, `vaAttr`, `dirAttr`, `true`, `false`, `is*`, numeric literals), boolean tweak holes (`show*`, `hide*`, `has*`, `enable*`, `with*`), and runtime-control holes (`tabs` / `tab` / `lens` / `chatOpen` / `closeChat`, `set*` / `open*` handlers) are not typed slots, and stay out of schema; templates exposing only those correctly have no sidecar. The gate prints the live split instead of a hardcoded count. Full prose: `docs/template-schema-v2.md`.
+<IframeSurface src="/docs/viewer.html?embed=1#docs/template-schema-v2.md" title="Template content-schema v2" fullBleed />

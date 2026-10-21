@@ -8,14 +8,6 @@ export default {
     vertical: { control: 'boolean' },
     label: { control: 'text' },
   },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting Divider. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
 };
 
 export const Default = {};

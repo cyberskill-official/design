@@ -1,0 +1,254 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "finance-expense-report",
+  "slots": [
+    {
+      "id": "expenseReference",
+      "type": "text",
+      "label": "Expense Reference",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "claimSummaryEn",
+      "type": "text",
+      "label": "Claim Summary En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "claimSummaryVi",
+      "type": "text",
+      "label": "Claim Summary Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "reportingTitleEn",
+      "type": "text",
+      "label": "Reporting title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "reportingTitleVi",
+      "type": "text",
+      "label": "Reporting title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "totalClaimedEn",
+      "type": "text",
+      "label": "Total claimed en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "totalClaimedVi",
+      "type": "text",
+      "label": "Total claimed vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense1DateEn",
+      "type": "text",
+      "label": "Expense1date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense1ItemEn",
+      "type": "text",
+      "label": "Expense1item en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense1CategoryEn",
+      "type": "text",
+      "label": "Expense1category en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense1AmountEn",
+      "type": "text",
+      "label": "Expense1amount en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense2DateEn",
+      "type": "text",
+      "label": "Expense2date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense2ItemEn",
+      "type": "text",
+      "label": "Expense2item en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense2CategoryEn",
+      "type": "text",
+      "label": "Expense2category en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense2AmountEn",
+      "type": "text",
+      "label": "Expense2amount en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense3DateEn",
+      "type": "text",
+      "label": "Expense3date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense3ItemEn",
+      "type": "text",
+      "label": "Expense3item en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense3CategoryEn",
+      "type": "text",
+      "label": "Expense3category en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense3AmountEn",
+      "type": "text",
+      "label": "Expense3amount en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense1DateVi",
+      "type": "text",
+      "label": "Expense1date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense1ItemVi",
+      "type": "text",
+      "label": "Expense1item vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense1CategoryVi",
+      "type": "text",
+      "label": "Expense1category vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense1AmountVi",
+      "type": "text",
+      "label": "Expense1amount vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense2DateVi",
+      "type": "text",
+      "label": "Expense2date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense2ItemVi",
+      "type": "text",
+      "label": "Expense2item vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense2CategoryVi",
+      "type": "text",
+      "label": "Expense2category vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense2AmountVi",
+      "type": "text",
+      "label": "Expense2amount vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense3DateVi",
+      "type": "text",
+      "label": "Expense3date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense3ItemVi",
+      "type": "text",
+      "label": "Expense3item vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense3CategoryVi",
+      "type": "text",
+      "label": "Expense3category vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "expense3AmountVi",
+      "type": "text",
+      "label": "Expense3amount vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

@@ -1,3 +1,7 @@
+<!-- BEGIN GENERATED ENTRY LANGUAGE ROUTE v1 -->
+**Tiếng Việt:** [Đọc hướng dẫn đầy đủ](docs/vi/entrypoints/SECURITY.md) · **English:** full original guidance follows below.
+<!-- END GENERATED ENTRY LANGUAGE ROUTE v1 -->
+
 # Security policy
 
 ## Scope

@@ -6,6 +6,7 @@ export default {
   component: Select,
   tags: ['autodocs'],
   argTypes: {
+  "required": {"control":"boolean"},
     lang: { control: 'select', options: ['en', 'vi'] },
 
     label: { control: 'text' },
@@ -15,13 +16,6 @@ export default {
     options: { control: 'object' },
     defaultValue: { control: 'text' },
     disabled: { control: 'boolean' },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Select. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
   },
   args: { lang: 'vi', label: 'Element', options: [{ value: 'tho', label: 'Thổ' }, { value: 'hoa', label: 'Hỏa' }], defaultValue: 'tho' },
 };
@@ -73,3 +67,27 @@ export const FullMatrix = {
     );
   },
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioSelectError = {
+  name: "Select: Validation error",
+  args: {
+  "label": "Project",
+  "options": [
+    {
+      "value": "a",
+      "label": "Alpha"
+    },
+    {
+      "value": "b",
+      "label": "Beta"
+    }
+  ],
+  "defaultValue": "a",
+  "error": "Select scenario validation error"
+},
+  render: args => renderComponentScenario("Select--error",args),
+  play: ({canvasElement}) => playComponentScenario("Select--error",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

@@ -3,6 +3,7 @@ import { mkdtempSync,mkdirSync,writeFileSync,readFileSync,rmSync,symlinkSync } f
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { summarizeFiles,readInventory,verifyWebsite,portableRuntimeCosts,assertCurrentInventory } from '../../scripts/measure-distribution-costs.mjs';
+import {dcLogicScriptSource} from '../../scripts/template-runtime/dc-logic-source.mjs';
 import { syncTemplateRuntimes } from '../../scripts/sync-support-runtime.mjs';
 
 const root=mkdtempSync(join(tmpdir(),'cs-distribution-test-'));
@@ -42,8 +43,13 @@ try {
   assert.equal(portable.canonical.find(item=>item.name==='support.js').sourceOriginState,undefined);
   mkdirSync(join(root,'scripts/template-runtime/primitives'),{recursive:true});
   const producer='scripts/build-template-primitives.mjs';write(producer,'// fixture generator');
+  const serializer='scripts/template-runtime/dc-logic-source.mjs';
+  write(serializer,readFileSync(new URL('../../'+serializer,import.meta.url)));
   const entries=Object.entries({'support.js':'templates/_vendor/support.js','deck-stage.js':'templates/_vendor/deck-stage.js','image-slot.js':'image-slot.js'}).map(([name,output])=>{
-    const input='scripts/template-runtime/primitives/'+name,content='// fixture '+name+'\n',generated='// Generated from '+input+' by '+producer+'.\n'+content;
+    const input='scripts/template-runtime/primitives/'+name;
+    const content=name==='support.js'?'const dcLogicScriptSource = null; // @cs-dc-source-serializer\n':'// fixture '+name+'\n';
+    const projected=name==='support.js'?content.replace('null; // @cs-dc-source-serializer',dcLogicScriptSource.toString()+'; // projected from '+serializer):content;
+    const generated='// Generated from '+input+' by '+producer+'.\n'+projected;
     write(input,content);write(output,generated);return {input,output};
   });
   syncTemplateRuntimes(root);const authoredInventory=readInventory(root,paths);
@@ -51,6 +57,11 @@ try {
   assert.match(authored.repositoryRole,/local authored compatibility candidate; distribution review pending/);
   assert.equal(authored.sourceOriginState,'generated_from_repository_source_candidate_pending_distribution_review');
   assert(authored.sourceOriginEvidence.includes('scripts/template-runtime/primitives/support.js'));
+  assert(authored.sourceOriginEvidence.includes(serializer),'Serializer projection must remain part of source provenance');
+  const serializerBytes=readFileSync(join(root,serializer));
+  write(serializer,serializerBytes.toString().replace("return '(() => {","return '/*changed*/(() => {"));
+  assert.throws(()=>portableRuntimeCosts(root,{checkout:authoredInventory}),/not generated from its recorded source/,'Altered shared serializer must be rejected');
+  write(serializer,serializerBytes);
   const source=readFileSync(join(root,entries[0].input));write(entries[0].input,'changed source');
   assert.throws(()=>portableRuntimeCosts(root,{checkout:authoredInventory}),/not generated from its recorded source/,'Altered source must be rejected');
   write(entries[0].input,source);

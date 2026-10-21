@@ -15,13 +15,6 @@ export default {
     "control": "boolean"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Logo. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { size: 40 },
 };
 

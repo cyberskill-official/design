@@ -49,5 +49,5 @@ await withBrowserFixture(async page => {
   await page.unroute('**/_ds_manifest.json');
   const noRoot = await run(colors.replace(', :root {', ' {'));
   assert.equal(noRoot.pass, false, 'Contextual aliases cannot substitute for the root contract');
-});
+}, {browserName:process.env.CS_TEST_BROWSER||'chromium'});
 console.log('Token format gate: grouped selectors, nested/escaped commas, drift, missing and extra root keys pass.');

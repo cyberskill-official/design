@@ -1,37 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import { IframeSurface } from '../Maintainer/IframeSurface.jsx';
 
 <Meta title="Docs/Guides/Deploy" />
 
-# Deploy
-
-Two tracks:
-
-1. **Portable design system (consumers)** — static file tree; no bundler required. Link `styles.css` + optionally `_ds_bundle.js` / ESM.
-2. **Host site (`design.cyberskill.world`)** — `npm run build:site` packages Storybook as the product surface at `/`.
-
-Production **`/`** is Storybook. Legacy `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, and `/playground/:path*` redirect to `/`.
-
-## Vercel (recommended)
-
-1. Import the repo; framework preset **Other** (trust `vercel.json`).
-2. Deploy. `/` serves Storybook.
-3. Custom domain → point DNS per Vercel.
-
-| Field | Value |
-|---|---|
-| `installCommand` | `npm install` |
-| `buildCommand` | `npm run build:site` |
-| `outputDirectory` | `.vercel-static` |
-| `redirects` | `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, `/playground/:path*` → `/` |
-
-Local: `npm run build:site`, then serve `.vercel-static/`. Consumers cloning the repo open files directly — they do **not** run `build:site`.
-
-## Generic static host
-
-Serve `.vercel-static/` after `build:site`, with the same redirects. Portable paths (`/styles.css`, `/_audit/`, `/guidelines/`) remain beside Storybook assets.
-
-## Social preview
-
-`.storybook/manager-head.html` ships `og:image` / Twitter card meta for `design.cyberskill.world`. Change absolute URLs if you host under another domain.
-
-Full detail: `docs/deploy.md`.
+<IframeSurface src="/docs/viewer.html?embed=1#docs/deploy.md" title="Deploy (Vercel/VPS)" fullBleed />

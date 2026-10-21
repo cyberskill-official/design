@@ -1,0 +1,50 @@
+import assert from 'node:assert/strict';
+import {mkdtempSync,readFileSync,rmSync,writeFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {extractPdfText} from './lib/pdf-text.mjs';
+import {chromium} from 'playwright';
+import {pathToFileURL} from 'node:url';
+import {parseOptions,renderTemplate} from '../../scripts/render-template.mjs';
+const directory=mkdtempSync(join(tmpdir(),'cs-render-test-'));
+try {
+ const props=join(directory,'props.json');writeFileSync(props,JSON.stringify({language:'Tiếng Việt'}));
+ assert.throws(()=>parseOptions(['../../escape','--output',directory]));
+ assert.throws(()=>parseOptions(['finance-invoice','--output',directory,'--format','docx']));
+ assert.throws(()=>parseOptions(['finance-invoice','--output',directory,'--format','pdf','--browser','webkit']));
+ const content=join(directory,'content.json');writeFileSync(content,JSON.stringify({clientName:'Công ty Kiểm Chứng',invoiceReference:'VERIFY-CONTENT-01'}));
+ const options=parseOptions(['finance-invoice','--output',join(directory,'html'),'--props',props,'--content',content]);
+ await assert.rejects(()=>renderTemplate({...options,props:{language:'unsupported'}}),/Invalid enum/);
+ await assert.rejects(()=>renderTemplate({...options,props:{invented:'text'}}),/Undeclared/);
+ await assert.rejects(()=>renderTemplate({...options,output:directory}),/already exists/);
+ const receipt=await renderTemplate(options);
+ assert.equal(receipt.language,'vi');
+ const html=readFileSync(join(options.output,'template.html'),'utf8');
+ assert(html.includes('HÓA ĐƠN'));assert(html.includes('Công ty Kiểm Chứng'));assert(html.includes('VERIFY-CONTENT-01'));assert(!html.includes('<script'));assert(html.includes('resources/dist/styles.min.css'));
+ const browser=await chromium.launch();
+ try {
+  const page=await browser.newPage();const failures=[];
+  page.on('requestfailed',request=>failures.push(request.url()));
+  await page.goto(pathToFileURL(join(options.output,'template.html')).href);
+  await page.evaluate(()=>document.fonts.ready);
+  assert.equal(await page.locator('html').getAttribute('lang'),'vi');
+  assert.equal(await page.locator('body').evaluate(body=>getComputedStyle(body).fontFamily.includes('Be Vietnam Pro')),true);
+  assert.deepEqual(failures,[],'Frozen HTML must load all copied resources offline');
+ }finally{await browser.close()}
+ const pdf=await renderTemplate({...options,format:'pdf',output:join(directory,'pdf')});
+ assert.equal(pdf.language,'vi');
+ assert.equal(readFileSync(join(directory,'pdf/template.pdf')).subarray(0,5).toString(),'%PDF-');
+ const extraContent=join(directory,'deck-content.json');writeFileSync(extraContent,JSON.stringify({runway:'<b>É8</b>abcdefg',n4:'METRIC_FOUR'}));
+ const deck=parseOptions(['bod-deck','--output',join(directory,'deck-html'),'--props',props,'--content',extraContent]);
+ await renderTemplate(deck);const deckHtml=readFileSync(join(deck.output,'template.html'),'utf8');assert(deckHtml.includes('&lt;b&gt;É8&lt;/b&gt;abcdefg'),'CLI HTML must retain escaped literal content');
+ await renderTemplate({...deck,format:'pdf',output:join(directory,'deck-pdf')});
+ const parsed=extractPdfText(readFileSync(join(directory,'deck-pdf/template.pdf')));assert(parsed.text.replace(/\s+/gu,'').includes('METRIC_FOUR'),'Actual CLI PDF must preserve custom fourth metric');
+ await assert.rejects(()=>renderTemplate({...deck,output:join(directory,'invalid-content'),content:{unknown:'copy'}}),/Invalid content slot/);
+ const structuredContent=join(directory,'structured-content.json');writeFileSync(structuredContent,JSON.stringify({grades:[{n:'1',vi:'Vai trò tùy chỉnh É',en:'Custom display role'}]}));
+ const structured=parseOptions(['vn-salary-scale','--output',join(directory,'structured-html'),'--content',structuredContent]);
+ await renderTemplate(structured);const structuredHtml=readFileSync(join(structured.output,'template.html'),'utf8');assert(structuredHtml.includes('Vai trò tùy chỉnh É'));assert(structuredHtml.includes('Custom display role'));assert(!structuredHtml.includes('<script'));
+ await renderTemplate({...structured,format:'pdf',output:join(directory,'structured-pdf')});
+ const structuredPdf=extractPdfText(readFileSync(join(directory,'structured-pdf/template.pdf')));assert(structuredPdf.text.replace(/\s+/gu,'').includes('VaitròtùychỉnhÉ'));assert(structuredPdf.text.includes('Custom display role'));
+ await assert.rejects(()=>renderTemplate({...structured,output:join(directory,'unsafe-structured'),content:{grades:[{n:'1',vi:'Role',en:'Role',href:'javascript:alert(1)'}]}}),/structured|unknown|property|field/i);
+ console.log('PASS template render CLI: declared props, invoice defaults/content, new deck content escaped in Vietnamese HTML and parsed actual PDF, structured static-Logo HTML/PDF records, output protection and unsupported input rejection');
+}finally{rmSync(directory,{recursive:true,force:true})}

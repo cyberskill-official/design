@@ -1,0 +1,2844 @@
+{
+  "schemaVersion": 1,
+  "interpretation": "Canonical definition/default-key references and generated prompt inventory, not a second type system, behavioral specification, accessibility certification or acceptance record.",
+  "sourceHashes": {
+    "components/api-index.json": "4998051a2861175651af2e838d8b8e85e59050d2e4524a2d111ea8155d8b3cb2",
+    "components/contracts.json": "191d23738a712d7adc6e0d146534d0dc09821d7cf24ae33de8367c196c935fad",
+    "_ds_manifest.json": "9fef7ed2af64995319f08b6ac45a93870a0a99ae3a739316eddf9a6f2ad25421",
+    "scripts/generate-component-contracts.mjs": "a94d0d58b3d0b6f629bf2cdc2a53bdfc8b43b8fa1479434b770f0cd8dc53187c",
+    "scripts/lib/component-export.mjs": "9f6fd3df4a9e0366fef8c384a0926e050bd8fbcb3887bf5e6ffaed5c0622cd15",
+    "scripts/generate-prompt-api.mjs": "e67709ad813a46330d2825912334244050422c16f05021890cc6b41b73acd602"
+  },
+  "prompts": [
+    {
+      "path": "components/ai/AIDisclosureBadge.prompt.md",
+      "proseSha256": "ee04605b158c902f21b404166ad3da7658bc908bf48d8ff964c6559746e0beef",
+      "sectionSha256": "4b5bf0cb03ad33c0aba5c406c6688b36f128a31ea07dc00c87282160e834b5c9",
+      "exports": [
+        {
+          "name": "AIDisclosureBadge",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-90e4b68b5ae32ac1",
+            "p-88b187c42cf2fe64",
+            "p-00bc9bcc3507e8ea",
+            "p-0e1afcfd9e244a83",
+            "p-3404c8170687cc29",
+            "p-8f733a15edd20e3e",
+            "p-a6e50611734d8821",
+            "p-ebe17342f95cd277"
+          ],
+          "defaultExpressionNames": [
+            "portal",
+            "sources"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/ai/ChatMessage.prompt.md",
+      "proseSha256": "7cc20a1d56f276669b79a464ed41a5c3b0969b1413e8ceefe931c6ca132d80d4",
+      "sectionSha256": "f22146518f0c1926b208e74c4b5c9741331a31a38cf64adac3ddacf790cdb01b",
+      "exports": [
+        {
+          "name": "ChatMessage",
+          "authoredPropDefinitions": [
+            "p-f9eafbbfa3e52bfa",
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-ec6b967c01b03950",
+            "p-9d16fa383ebcd548",
+            "p-2962655fb421e409",
+            "p-54c1ff74645c33ec"
+          ],
+          "defaultExpressionNames": [
+            "role"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/ai/CitationList.prompt.md",
+      "proseSha256": "82719ea2ffff66bd79a1bce84b1326de35a2722af73e46e15035fd1d7f8378b7",
+      "sectionSha256": "0c2398739d85a2e140c05809d4e2e2090425a23899a72a1660473bd053b625bd",
+      "exports": [
+        {
+          "name": "CitationList",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-626f73332a30a1b9",
+            "p-6b1b155b2cab34b4",
+            "p-cb1048254f87075e",
+            "p-54c1ff74645c33ec"
+          ],
+          "defaultExpressionNames": [
+            "items"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/ai/ConfidenceMeter.prompt.md",
+      "proseSha256": "32e65bce322377639894cec9e01696c3945c38e64fb9a1917660fbaea288bec7",
+      "sectionSha256": "7641b2082832ea5f08a2a3288cf824b9f24f215cafbf2000fb50fec6ff7bfccf",
+      "exports": [
+        {
+          "name": "ConfidenceMeter",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-61d92d3ffefcad9c",
+            "p-ec6b967c01b03950",
+            "p-bff1aa1b63b1ee52",
+            "p-54c1ff74645c33ec",
+            "p-353586571fd9223f",
+            "p-1903450cdcffaa4e"
+          ],
+          "defaultExpressionNames": [
+            "segments"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/ai/HumanReviewGate.prompt.md",
+      "proseSha256": "1adc8d342ed72389c774e64b494d3df2b3aa2c852008f299ce91677ecae325ca",
+      "sectionSha256": "c825fe71cd9f342a1bd953e08310e24802bef410a844c72dae58b8fed6a1a571",
+      "exports": [
+        {
+          "name": "HumanReviewGate",
+          "authoredPropDefinitions": [
+            "p-584da2102090d75e",
+            "p-49bab479fadb4c98",
+            "p-ec6b967c01b03950",
+            "p-ccb971b425e6befe",
+            "p-fc05cddaace34a09",
+            "p-8182871e12f95f19",
+            "p-b33ee2f30fa54325",
+            "p-afac6962f8f1a28f",
+            "p-0348dc9792fd046a",
+            "p-9d5ebfb46d2ca164"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/ai/PromptInput.prompt.md",
+      "proseSha256": "4bef2418c6be28d184ddc2d1bd7517983f5830d4fb6a84c6aed0b667a564abdd",
+      "sectionSha256": "514b7ac795cb31c4b17eeaf9762d4658c70210387564fa8ea6a9ed736536b702",
+      "exports": [
+        {
+          "name": "PromptInput",
+          "authoredPropDefinitions": [
+            "p-821d0d689fc36b46",
+            "p-6178541164cef28b",
+            "p-49bab479fadb4c98",
+            "p-acb835935f1f37ab",
+            "p-67c6d3f518d3e085",
+            "p-374a1881ca382f16",
+            "p-ec6b967c01b03950",
+            "p-3ab4d8eb161688a4",
+            "p-d7ec6c231a82e69a",
+            "p-5243bafbc21f8015",
+            "p-54c1ff74645c33ec",
+            "p-ee94fddcb3f73308",
+            "p-f688c9b39be30b3c"
+          ],
+          "defaultExpressionNames": [
+            "busy",
+            "disabled"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/ai/PromptSuggestions.prompt.md",
+      "proseSha256": "c15bc9138b3c9e347c1070b797f311a654a74744324e828c5d62fa9a12b6d7be",
+      "sectionSha256": "2ac2e281673df1e823dc4ffde257c36bed0d4f8ab5bcf142bd8217abd916f1e1",
+      "exports": [
+        {
+          "name": "PromptSuggestions",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-de80b9f4f2fde986",
+            "p-54c1ff74645c33ec",
+            "p-1635179c419f53df"
+          ],
+          "defaultExpressionNames": [
+            "suggestions"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/ai/TypingIndicator.prompt.md",
+      "proseSha256": "879559f243cbbdcac6ff9c3f8127e9626e22565e797555189775df38b68ee0e3",
+      "sectionSha256": "b05ba23f051f24f1e47202b040e5a7ee944b93a0cb35f879a29ffd94774be109",
+      "exports": [
+        {
+          "name": "TypingIndicator",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-00bc9bcc3507e8ea",
+            "p-ec6b967c01b03950",
+            "p-7dca53ec642c6c85"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/brand/LumiAvatar.prompt.md",
+      "proseSha256": "ab2107d5433dfe299e2829c1209cd4872e4d930d3176f91bfb0064000991b0c5",
+      "sectionSha256": "62c403c7c9ee6cbe5f323c02f3cabb3e61f5a14c385c6398e8bfa533779b0e46",
+      "exports": [
+        {
+          "name": "LumiAvatar",
+          "authoredPropDefinitions": [
+            "p-63e3893cad4f0c72",
+            "p-19fa518c21e84f83",
+            "p-6add6e3d67a613b3",
+            "p-0126a890a5c28813"
+          ],
+          "defaultExpressionNames": [
+            "alt",
+            "ring",
+            "size"
+          ],
+          "inheritedPropCount": 280,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/button/Button.prompt.md",
+      "proseSha256": "faa36f04fee64588166319d1eca1edaccf92bd4bd9e7e9ec23579489022d6593",
+      "sectionSha256": "640e5bdda844cbac8ce63decda3a29104867b5ebb3be5753d37f1d46bb8ce23f",
+      "exports": [
+        {
+          "name": "Button",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-67c6d3f518d3e085",
+            "p-9cc2dedf6bbdb2e4",
+            "p-ff0033e10b753fe8",
+            "p-5fd6ba1577b83e5a",
+            "p-fd74ce772e257256",
+            "p-9140e03cbb2ebd71"
+          ],
+          "defaultExpressionNames": [
+            "disabled",
+            "fullWidth",
+            "loading",
+            "size",
+            "type",
+            "variant"
+          ],
+          "inheritedPropCount": 288,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/button/ButtonGroup.prompt.md",
+      "proseSha256": "1fef83cab1243fa7e3a54bfe4b8c08ed4a6cd13e56af432b7081579e3ad6a316",
+      "sectionSha256": "acccedd33f53508c1aa8edeca6e37c1a341410351b75d0a779bce9e0191b9bb5",
+      "exports": [
+        {
+          "name": "ButtonGroup",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-0b41763dfbe582dc"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 278,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/button/FloatingActionButton.prompt.md",
+      "proseSha256": "9308e74e66ca4a30179df2a6c453107a80cf995d2e1e3ec134e327ff03c07cf7",
+      "sectionSha256": "bc25d99eda26576eae32075eb17d7797e934464493fc8d99be08d3201daa5cb6",
+      "exports": [
+        {
+          "name": "FloatingActionButton",
+          "authoredPropDefinitions": [
+            "p-2dac77b87ad5307e",
+            "p-49bab479fadb4c98",
+            "p-90e4b68b5ae32ac1",
+            "p-80a5acd8a018f0c9",
+            "p-47754c353fd619ab",
+            "p-b2441bf8bff3d3dc",
+            "p-3ca3ed0bb6744259",
+            "p-8f733a15edd20e3e",
+            "p-29e9233d07b99548",
+            "p-54c1ff74645c33ec"
+          ],
+          "defaultExpressionNames": [
+            "actions",
+            "portal",
+            "position"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Accordion.prompt.md",
+      "proseSha256": "b3ca1b699c43203ddf3bd2d796f5f47ef1654e1d6f4a006291a2563256045fc1",
+      "sectionSha256": "24758f367d4642373827b0ef49bd8100560b065e4052821d5ced781d97014177",
+      "exports": [
+        {
+          "name": "Accordion",
+          "authoredPropDefinitions": [
+            "p-d20dcb51c6c079a2",
+            "p-49bab479fadb4c98",
+            "p-870e0500babeef6e",
+            "p-a722c77fc2155026",
+            "p-54c1ff74645c33ec"
+          ],
+          "defaultExpressionNames": [
+            "allowMultiple",
+            "defaultOpen",
+            "items"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/AspectRatio.prompt.md",
+      "proseSha256": "61a2bc4abd1053560e6e55691c91685cb1ead7bdfe71b871bf402728cd54a491",
+      "sectionSha256": "43e9d3a9fbc402f1be9647cfa99a4b991bcc30c99a48038d824d0abe93addeea",
+      "exports": [
+        {
+          "name": "AspectRatio",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-19695e12da91b889",
+            "p-b04c5a97e600e404"
+          ],
+          "defaultExpressionNames": [
+            "ratio"
+          ],
+          "inheritedPropCount": 277,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Avatar.prompt.md",
+      "proseSha256": "a7bcf6fa47d51da63e6eb07e3a310acb7d515d737525b1ce28777db204746faa",
+      "sectionSha256": "20034703f5883327238ff6c5a3da50f091a352c4721b365b8995770a840b6402",
+      "exports": [
+        {
+          "name": "Avatar",
+          "authoredPropDefinitions": [
+            "p-9f6b4aa70b27bb02",
+            "p-6add6e3d67a613b3",
+            "p-a54a07a247e32241",
+            "p-0126a890a5c28813"
+          ],
+          "defaultExpressionNames": [
+            "name",
+            "size",
+            "square"
+          ],
+          "inheritedPropCount": 280,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "AvatarGroup",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-54c1ff74645c33ec"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Card.prompt.md",
+      "proseSha256": "69e2924825d6e1a0f45426ffd1685a3cfc74b0186a803764b1e1aaf366600547",
+      "sectionSha256": "540e6ee2433ebde4fe1c376d57cfa109edd5edb8dbe2f0f9a930e9f0fe8bc0c1",
+      "exports": [
+        {
+          "name": "Card",
+          "authoredPropDefinitions": [
+            "p-d330c1ac4f45b344",
+            "p-cef86355a67e06ab",
+            "p-bd900c245c79c64a",
+            "p-f9091e383b5d66dc"
+          ],
+          "defaultExpressionNames": [
+            "flat",
+            "interactive"
+          ],
+          "inheritedPropCount": 279,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "CardBody",
+          "authoredPropDefinitions": [],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 280,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "CardFooter",
+          "authoredPropDefinitions": [],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 280,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "CardHeader",
+          "authoredPropDefinitions": [
+            "p-b6904e1c20827de7",
+            "p-194398030531e630"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 279,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Carousel.prompt.md",
+      "proseSha256": "454a8cdaf332b71a0ea3555d1e5b83a14cdf46ef8b484c5ca5b80cac9f0fed74",
+      "sectionSha256": "bc17f631a9025cc319d7f2d0918b7836b4c876f9fb993245b85503fcf642b2db",
+      "exports": [
+        {
+          "name": "Carousel",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-514029686aeef743",
+            "p-ec6b967c01b03950",
+            "p-bb97e0917654318c",
+            "p-67a5e291e366d20f"
+          ],
+          "defaultExpressionNames": [
+            "startIndex"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Chart.prompt.md",
+      "proseSha256": "155fffe819e92b2310b140db9475bfd8af45388dce8b6e0fb4d528b6b23524ec",
+      "sectionSha256": "d299ae1d2c78854456fd324b6ff0a4e1d542d3450b6d59f801fdf99acba8afb0",
+      "exports": [
+        {
+          "name": "Chart",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-ce89a47795621a09",
+            "p-84dec071f680222d",
+            "p-ea1b3ec571936ade",
+            "p-c062906503a83a73",
+            "p-b6295ae002c6a5e5",
+            "p-3f02ae2a793642ca",
+            "p-307c2455bdc75451",
+            "p-4165c0703310c1dd"
+          ],
+          "defaultExpressionNames": [
+            "color",
+            "data",
+            "height",
+            "showValues",
+            "type"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/CodeBlock.prompt.md",
+      "proseSha256": "41b96190e0b9d959f93a394e01254393f49ffd01d7a9a29c4b480619a2c74c6b",
+      "sectionSha256": "98c32e46b6dbaba3c39fe8d34494251f0d2c42fab6a2aa0a51cc08bc523037bf",
+      "exports": [
+        {
+          "name": "CodeBlock",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-dd6f97ad6cace200",
+            "p-90f1448254ad7121",
+            "p-5eba29cc63704bdb",
+            "p-622e0cb429c811c6",
+            "p-54c1ff74645c33ec",
+            "p-1b3c3e0ed526c922"
+          ],
+          "defaultExpressionNames": [
+            "code",
+            "showBar"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Collapsible.prompt.md",
+      "proseSha256": "31f5631ac5605c6eb87bba653dfe0afae8e7d472578d2cdef6fee63e67c09453",
+      "sectionSha256": "853549c2b1f24a70ad2f271bc94fa01e342da18096996ae544ae3434b6249c79",
+      "exports": [
+        {
+          "name": "Collapsible",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-90e4b68b5ae32ac1",
+            "p-43322b3a91442593",
+            "p-7cdd29388032c2c9",
+            "p-019d6939ade0891f",
+            "p-411171037e97b268",
+            "p-0ae2e1b4f700817b"
+          ],
+          "defaultExpressionNames": [
+            "defaultOpen"
+          ],
+          "inheritedPropCount": 277,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Comment.prompt.md",
+      "proseSha256": "25235419fa2b7dc610fd1c45fb199109f35da3e5650a9fa5b26901efaf268858",
+      "sectionSha256": "06516bf5c5eca811648b9216205eefd4d2a332a981d20d1862f5607a05007466",
+      "exports": [
+        {
+          "name": "Comment",
+          "authoredPropDefinitions": [
+            "p-85eecc2ae7fa613d",
+            "p-4adba9db4ea931f6",
+            "p-f9eafbbfa3e52bfa",
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-ec6b967c01b03950",
+            "p-f7a71b11ab6b0b5e",
+            "p-61c4eac59b5ac7d0",
+            "p-54c1ff74645c33ec"
+          ],
+          "defaultExpressionNames": [
+            "actions"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/DescriptionList.prompt.md",
+      "proseSha256": "b0e237c5e66f30dd194cd68c366ff78103132a545ccd369f0b25ef99b9a4211b",
+      "sectionSha256": "12eb5de006e61607fa41fc9c72778a8f8c2dd53ae2c68925a765b69bf6f1f9b4",
+      "exports": [
+        {
+          "name": "DescriptionList",
+          "authoredPropDefinitions": [
+            "p-f24efa6e42a6898f"
+          ],
+          "defaultExpressionNames": [
+            "items"
+          ],
+          "inheritedPropCount": 280,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Divider.prompt.md",
+      "proseSha256": "964bf275fee5061dcde5e6cb0018ccb9838ca6a17eddd9fe5b6b0f106bf42ba9",
+      "sectionSha256": "087177b31d4ea3a4316d929ff76ef36d2c9bcff8b0fb587e6dd8f52d92acae8a",
+      "exports": [
+        {
+          "name": "Divider",
+          "authoredPropDefinitions": [
+            "p-1e53d62e153203ae",
+            "p-654b5c07c9af74a5"
+          ],
+          "defaultExpressionNames": [
+            "vertical"
+          ],
+          "inheritedPropCount": 280,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Image.prompt.md",
+      "proseSha256": "9a817f3fa6735603664a41bb869ac1cd84560ecc9d9a24256732a2454084e9b3",
+      "sectionSha256": "9630bb428a5096e7c2e15fda222aaaa006186599cce47f40a28ef9c42f4c1a88",
+      "exports": [
+        {
+          "name": "Image",
+          "authoredPropDefinitions": [
+            "p-63e3893cad4f0c72",
+            "p-49bab479fadb4c98",
+            "p-3c87c684ad6619dc",
+            "p-e65478800ef2ac03",
+            "p-ec6b967c01b03950",
+            "p-63c4aa5792b6f687",
+            "p-c85c09a8ac6e5f44",
+            "p-f4ac031e86b6c510",
+            "p-83b2e58c7fd02eef"
+          ],
+          "defaultExpressionNames": [
+            "alt",
+            "preview"
+          ],
+          "inheritedPropCount": 278,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Item.prompt.md",
+      "proseSha256": "d21070486f0ea3163a10adf29f97193e15844993f55ffd7f059eabeb8263a0f0",
+      "sectionSha256": "f5f3c3aa2a8eadcb6bf03e687fca772c00c0fa98707e43ccd92777955aa6d003",
+      "exports": [
+        {
+          "name": "Item",
+          "authoredPropDefinitions": [
+            "p-65bbfaaa47fd61c9",
+            "p-49bab479fadb4c98",
+            "p-21f33c258942d496",
+            "p-67c6d3f518d3e085",
+            "p-1bfa83da13c1b663",
+            "p-5a0f17e27aea27db",
+            "p-246a6ce7cff014af",
+            "p-2b79ab971e4458e5",
+            "p-194398030531e630",
+            "p-3fd311ddccd3046b"
+          ],
+          "defaultExpressionNames": [
+            "disabled",
+            "selected"
+          ],
+          "inheritedPropCount": 276,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Kbd.prompt.md",
+      "proseSha256": "62bd283d7765ccecfb37ebce3930a42d9572fe1ef20c9efcc26f6a9aba775e6a",
+      "sectionSha256": "e9110c665dbb9954a5076352769207de1197c5f50d763b505af9c9cf2fae1703",
+      "exports": [
+        {
+          "name": "Kbd",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 279,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/List.prompt.md",
+      "proseSha256": "4f2c5865cb2d06520247b7c7befeacf5ee84de73035f2c1971d113559fa80963",
+      "sectionSha256": "bd1b0e99afbb5a2bdcb72fe8736c4acfc5a508c18395e6519d4343819169c3d1",
+      "exports": [
+        {
+          "name": "List",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 279,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "ListItem",
+          "authoredPropDefinitions": [
+            "p-0c0fca14fe3a0361",
+            "p-b2441bf8bff3d3dc",
+            "p-b6904e1c20827de7",
+            "p-194398030531e630",
+            "p-0abc47870199d63c"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 278,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Masonry.prompt.md",
+      "proseSha256": "68107faf51643c70791e0e3895f41188dccdbdd48bad76febe9c7ec716209789",
+      "sectionSha256": "50a7a4887d982eb3fd02a6ba02c828362cd365fb0523ca20029e587c8e924ddc",
+      "exports": [
+        {
+          "name": "Masonry",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-58f6b49d1999df92",
+            "p-45f1d902a22b4980",
+            "p-54c1ff74645c33ec",
+            "p-b04c5a97e600e404"
+          ],
+          "defaultExpressionNames": [
+            "columns",
+            "gap"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/QRCode.prompt.md",
+      "proseSha256": "3119fd24707d970c1ec03356f9abf82371c911d08e737aa2070cac1260d1a5d9",
+      "sectionSha256": "07f765a5f46b1d43b527d3fb384aefcf6fbc7fac82b36e0270f20ff6498f77db",
+      "exports": [
+        {
+          "name": "QRCode",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-e001f40118897e52",
+            "p-2fb43888e76f1024",
+            "p-6ccb7ab3193f13c5",
+            "p-3fda3e165eb1cf25",
+            "p-64c1f7c408833b10"
+          ],
+          "defaultExpressionNames": [
+            "color",
+            "size",
+            "value"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/ScrollArea.prompt.md",
+      "proseSha256": "866a75cb3951fb6a9977b5ad173d37c5fe518acbfa0f083fe38cdf784bdafa04",
+      "sectionSha256": "61b2d9f7d3bef167512fe9aa3553a30d406c12746bac4d8f6fc1ba17830d9c51",
+      "exports": [
+        {
+          "name": "ScrollArea",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-963bbe95d72f562f",
+            "p-b04c5a97e600e404"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 277,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Sortable.prompt.md",
+      "proseSha256": "8bdc17c500793bf858a62c1f9bdf6e1d1b7f55ee94623b2ea09f5ab28574a5fa",
+      "sectionSha256": "ab6a070a325daedad15b54245f34ad8fd20c74845027e69bc02bda48b0a54bca",
+      "exports": [
+        {
+          "name": "Sortable",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-2c38df5b07d78423",
+            "p-9db160296252f528",
+            "p-55f4516c59ede6c7",
+            "p-5ccfdad5a63a9d1f"
+          ],
+          "defaultExpressionNames": [
+            "items"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Splitter.prompt.md",
+      "proseSha256": "8bbc514a418c8bbe5ba73f716e082c59d93e30e59e42763dcabda92314d9f8ff",
+      "sectionSha256": "b4bbc140e36de4619c99abf83ee90e78bd0debc5593cfd0734e9c87dc0a11e45",
+      "exports": [
+        {
+          "name": "Splitter",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-a14026c2cd0bfee6",
+            "p-b1055e108af1b7e5",
+            "p-970f8f34eee286b6",
+            "p-9db160296252f528",
+            "p-de9524260e3e66cc",
+            "p-8f9fbed3bff42c19",
+            "p-54c1ff74645c33ec",
+            "p-33ef4db9962ebae1"
+          ],
+          "defaultExpressionNames": [
+            "height",
+            "initial",
+            "max",
+            "min"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Stat.prompt.md",
+      "proseSha256": "3de11478d3f94510ee812cee0f55ee1c1d30388258fd6f4fb6d3669f68c02673",
+      "sectionSha256": "d56212541c1fc74de21e7d05350c4e2ca10abc7b926c6abcb5513e0ea7858190",
+      "exports": [
+        {
+          "name": "Stat",
+          "authoredPropDefinitions": [
+            "p-7e179c2c5d7da10a",
+            "p-c8eaca87f3bf855c",
+            "p-d533a2ff24c50a8a",
+            "p-3c97f90d1d288acf"
+          ],
+          "defaultExpressionNames": [
+            "trend"
+          ],
+          "inheritedPropCount": 280,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Terminal.prompt.md",
+      "proseSha256": "d79f59a65c0c83433fe7cd7660afc54b45671f418436b468f4725d0fc313f076",
+      "sectionSha256": "c2fadd4bd4f654dccdfbcb50f3a68a68a122de653850ad31f0fc2aca2cc89e33",
+      "exports": [
+        {
+          "name": "Terminal",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-9db160296252f528",
+            "p-a9c0786bb41dc93b",
+            "p-91f3ac07783a51bf",
+            "p-54c1ff74645c33ec",
+            "p-3cf43a78a5f310b2",
+            "p-de59a5b58b0b2e2c"
+          ],
+          "defaultExpressionNames": [
+            "prompt"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Timeline.prompt.md",
+      "proseSha256": "69c109fc6bc95ac30ec416fb0fbafb68ed857a33e09a473f62b208de73052587",
+      "sectionSha256": "b1f13bd1db4ccbb0adc9bf91392f663ee1c530067e138f5525443ab6079b36b7",
+      "exports": [
+        {
+          "name": "Timeline",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-0cf30458be731d79",
+            "p-b310dd2183dbe4ea"
+          ],
+          "defaultExpressionNames": [
+            "items"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Tooltip.prompt.md",
+      "proseSha256": "2b979151762a282ed6d44e731d63b3d4af9f32d98fa0c531fd5158b59cd7071d",
+      "sectionSha256": "1a4f132df28bf54bf13538e7470467e43cc18076609c88f6d612628e00166251",
+      "exports": [
+        {
+          "name": "Tooltip",
+          "authoredPropDefinitions": [
+            "p-973979113b1629cb",
+            "p-49bab479fadb4c98",
+            "p-6b1b155b2cab34b4",
+            "p-ec6b967c01b03950",
+            "p-59f07e71c084b013",
+            "p-8f733a15edd20e3e",
+            "p-06305bbf017b17f7"
+          ],
+          "defaultExpressionNames": [
+            "portal"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Tree.prompt.md",
+      "proseSha256": "c7a81601bf40488e6141e90941d60098add0dc9a34222b34ca5b59edc50b49fd",
+      "sectionSha256": "c63fdcbc8db79e7de7378f7db7dcb72510026ade19f563df973db197891a0331",
+      "exports": [
+        {
+          "name": "Tree",
+          "authoredPropDefinitions": [
+            "p-cfbf6f9e037e629e",
+            "p-7fbeeac956fb0ac5",
+            "p-49bab479fadb4c98",
+            "p-ec651892a260d31e",
+            "p-e81fbeb8c4ffed4d",
+            "p-4c9c9c3b70f30c99",
+            "p-bab9e7214975ca90",
+            "p-ccec61ddef7fae60"
+          ],
+          "defaultExpressionNames": [
+            "defaultOpen",
+            "nodes"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/data/Watermark.prompt.md",
+      "proseSha256": "134e32d0df3ce081aae3a4251bbdf97c004b255e03e9b3ff937aa17b77f3a083",
+      "sectionSha256": "c6dcfd0d8b6fdd2ffdfa4c5663815491acd795f258e542d36263571db9fcac68",
+      "exports": [
+        {
+          "name": "Watermark",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-b5682b8ff78433d2",
+            "p-cf7680c3786fc629",
+            "p-b310dd2183dbe4ea",
+            "p-43f24bdbf7380abf",
+            "p-62df24f116b70db0"
+          ],
+          "defaultExpressionNames": [
+            "gap",
+            "opacity",
+            "rotate",
+            "text"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/datatable/DataGrid.prompt.md",
+      "proseSha256": "ef8b57b2292f326ad31854b901d95fc4e834cb401fc732460d153e8e2fbefa87",
+      "sectionSha256": "6cb7a0b097a5ec73ec6cdd887e64c49a02a240b3abbfd822998e1828c4fdd4aa",
+      "exports": [
+        {
+          "name": "DataGrid",
+          "authoredPropDefinitions": [
+            "p-f47663c5f7275831",
+            "p-49bab479fadb4c98",
+            "p-fe2f13ab1a24181a",
+            "p-7e40a7c5455dbdf5",
+            "p-90e5cc9d0e183eaf",
+            "p-cbd0341ee5f0e423",
+            "p-8dbd202ac0e4d1f2",
+            "p-9db160296252f528",
+            "p-a7da54414bba674d",
+            "p-8c6e47a32c1a4b00",
+            "p-a3600aeec8a9cb53",
+            "p-01caa39cf1dab417",
+            "p-6b3408da975faf39",
+            "p-fc518101f1c94ded",
+            "p-09a4d067c91b9a47",
+            "p-23724092e78748e0",
+            "p-2f1efc808e334882",
+            "p-9b756d5bf3df01b1"
+          ],
+          "defaultExpressionNames": [
+            "columns",
+            "height",
+            "rowHeight",
+            "rowKey",
+            "rows",
+            "selectable",
+            "selected",
+            "virtual",
+            "virtualThreshold"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/datatable/DataTable.prompt.md",
+      "proseSha256": "6f10374a8c4cb120f7653b9416e1ff27febfe5520aaeaa9719c6c796228c7a88",
+      "sectionSha256": "c72af44c2844947382f6d41c0d82a7d319dedd7e60c979c31bb5476d992c168c",
+      "exports": [
+        {
+          "name": "DataTable",
+          "authoredPropDefinitions": [
+            "p-f47663c5f7275831",
+            "p-49bab479fadb4c98",
+            "p-ad751f9492bbd2bd",
+            "p-75ef4aae538b3de0",
+            "p-a7e16a9f944eaa0b",
+            "p-ec6b967c01b03950",
+            "p-6d1c10d8d0f2f8ab",
+            "p-6e5f592b3cf3a47d",
+            "p-2f14adef1131afaf",
+            "p-969a0a254ccb4dde",
+            "p-f83ffb03d660eef6",
+            "p-c9abeb5b528be9b6"
+          ],
+          "defaultExpressionNames": [
+            "loadingRows",
+            "rowKey",
+            "state"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/datatable/TreeTable.prompt.md",
+      "proseSha256": "3e34fe3cc2540bf38f27467bcf8e344d1da6f8dbcad3ab9e11632d45d31e838b",
+      "sectionSha256": "392aea6796b851995b1a52fd715adcef69a596462abf6d90dd1b352982d7924d",
+      "exports": [
+        {
+          "name": "TreeTable",
+          "authoredPropDefinitions": [
+            "p-f47663c5f7275831",
+            "p-49bab479fadb4c98",
+            "p-b4c5007c9055f639",
+            "p-d627735322fddacc",
+            "p-9db160296252f528",
+            "p-a51bbd6230b5c69e",
+            "p-54c1ff74645c33ec"
+          ],
+          "defaultExpressionNames": [
+            "columns",
+            "defaultExpanded",
+            "nodes"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/dialog/Dialog.prompt.md",
+      "proseSha256": "148b27d6d5188c9fe361ac7a1a3c87e83aa53e6ed733914aa164856fc63f156a",
+      "sectionSha256": "3bdca4c232c4dd3d3119c489dfb4b5dd0ef34653dde32320f099bdd353993104",
+      "exports": [
+        {
+          "name": "Dialog",
+          "authoredPropDefinitions": [
+            "p-555a7f4478792edc",
+            "p-10a8b0cdb8e63516",
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-acb6c67ff7317f3f",
+            "p-ec6b967c01b03950",
+            "p-2284375ab0ebe0bd",
+            "p-4406abb730948cd0",
+            "p-681b79b82148a038"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 275,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/feedback/Alert.prompt.md",
+      "proseSha256": "417d1166817059a4c7eac2b2fb16e58a157a5f88e16acf46d331f33bfd64c924",
+      "sectionSha256": "517ba192ee4b651c32c70249de7ce8ff67c3f86fb694b63c20ccd7e8d8229974",
+      "exports": [
+        {
+          "name": "Alert",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-dc44c6296108324a",
+            "p-ec6b967c01b03950",
+            "p-3ff5af9835c625c0",
+            "p-194398030531e630",
+            "p-853b7e452998d5b5"
+          ],
+          "defaultExpressionNames": [
+            "variant"
+          ],
+          "inheritedPropCount": 277,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/feedback/Badge.prompt.md",
+      "proseSha256": "a6937d264732de945ca5e28c0d6e25ea29963512e833850d9bed41698c422f85",
+      "sectionSha256": "c42635b555e4048aa16b586d899b8dcfe43f7acc51c1876c23b213625bfaadcf",
+      "exports": [
+        {
+          "name": "Badge",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-16596abcdb3a6423",
+            "p-9d29988724370b69"
+          ],
+          "defaultExpressionNames": [
+            "dot",
+            "variant"
+          ],
+          "inheritedPropCount": 279,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/feedback/EmptyState.prompt.md",
+      "proseSha256": "8949a1b5b6ec1f6e2e4271343364c07aae5e54205968c63c6823e3076ba35656",
+      "sectionSha256": "caa52d2943df2991a1cd369996b54f22ece285285d7ddd2772b4b0f182e6b6aa",
+      "exports": [
+        {
+          "name": "EmptyState",
+          "authoredPropDefinitions": [
+            "p-7f69336c299273ae",
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-dc44c6296108324a",
+            "p-ec6b967c01b03950",
+            "p-b310dd2183dbe4ea",
+            "p-194398030531e630"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/feedback/ProgressBar.prompt.md",
+      "proseSha256": "441c732b035c31f1be08fe4a2cf7f7a46f6775ee4576e003940ef23ea978ac80",
+      "sectionSha256": "076c0e5f221a6fab6eeb741fa90eea671de0071b01adb4aa741e8e17daaa99d4",
+      "exports": [
+        {
+          "name": "ProgressBar",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-00bc9bcc3507e8ea",
+            "p-ec6b967c01b03950",
+            "p-734c563b02e3cb65",
+            "p-724718e1010df9c9",
+            "p-62ff55cc1dcf0056",
+            "p-e4fb85fbf0afa3c8"
+          ],
+          "defaultExpressionNames": [
+            "max",
+            "value"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/feedback/Result.prompt.md",
+      "proseSha256": "dbdd27edfc614e37cdb441eaccd82fc82672126fba669f30d8d0fc4218b60a9c",
+      "sectionSha256": "a85888c7b3ff04d223e7ed3e5f877105068f1fa8dbdb1649133d3475a4049cae",
+      "exports": [
+        {
+          "name": "Result",
+          "authoredPropDefinitions": [
+            "p-58a25a97b2bad72c",
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-ec6b967c01b03950",
+            "p-7db5f9fbaac7648e",
+            "p-4408d7b137844be0",
+            "p-194398030531e630"
+          ],
+          "defaultExpressionNames": [
+            "status"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/feedback/Skeleton.prompt.md",
+      "proseSha256": "48af3507ec8fbec85ec4ea6f85fd6504c1085cbc458f0becf1a2d17690ee73f6",
+      "sectionSha256": "aab7481f3e817729e663f26474066541458fa687c5930afe72eb00ae6f51ccb3",
+      "exports": [
+        {
+          "name": "Skeleton",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-d52ab77884848b0d",
+            "p-6cb2e63b527afc9b",
+            "p-ec9fb6c729494702",
+            "p-2900dd992c572681",
+            "p-b04c5a97e600e404",
+            "p-8db091ed4415cf0f",
+            "p-7fd6589d68c61ae5"
+          ],
+          "defaultExpressionNames": [
+            "variant"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/feedback/Spinner.prompt.md",
+      "proseSha256": "7b4cb8fe6c63b466c5eaf9545fa6f3edf8a9e6711131570e8be1bf0b640c5541",
+      "sectionSha256": "4a7f3d3d7122c3a27b132308ce822eca7b04962f68fbd584d930cb0753878368",
+      "exports": [
+        {
+          "name": "Spinner",
+          "authoredPropDefinitions": [
+            "p-976ef2ec31e57653",
+            "p-739978bb653d5a52"
+          ],
+          "defaultExpressionNames": [
+            "size"
+          ],
+          "inheritedPropCount": 280,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/feedback/StatusIndicator.prompt.md",
+      "proseSha256": "ac2dbbe093349182b6889677ed8630e515b8dc24f993c3d2d1ee62655c135842",
+      "sectionSha256": "d62599d8cc8152f5bfd4b4c5cc07e71f64f9f4fb99c85bdc7846b524624a0840",
+      "exports": [
+        {
+          "name": "StatusIndicator",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-6dab6ff70b6513eb",
+            "p-a2aa29e75aeae064"
+          ],
+          "defaultExpressionNames": [
+            "pulse",
+            "status"
+          ],
+          "inheritedPropCount": 279,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/feedback/Tag.prompt.md",
+      "proseSha256": "2dccc592b3b2eeb6c144601bbcb164a427066d1df0024a86341800e00a5e272f",
+      "sectionSha256": "ef818e806b003eb0a087594f9da6d32824fb50f5f9c80efab361c4c400f06813",
+      "exports": [
+        {
+          "name": "Tag",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-500c06dc7c306d0b",
+            "p-f0e72a505e62691b"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 279,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/feedback/Toast.prompt.md",
+      "proseSha256": "8c50c3fa6fa239137f673b9c8b0eaf71da67e47f3317c997fc175b245e51b399",
+      "sectionSha256": "55223ddd56b02d3791bb94bbdc5d9c514450446289deee5218eb88d957b63bf6",
+      "exports": [
+        {
+          "name": "Toast",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-dc44c6296108324a",
+            "p-2284375ab0ebe0bd",
+            "p-194398030531e630",
+            "p-5602fdd850aab03b"
+          ],
+          "defaultExpressionNames": [
+            "variant"
+          ],
+          "inheritedPropCount": 278,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "ToastStack",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-9db160296252f528",
+            "p-840169aecf26377f"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Calendar.prompt.md",
+      "proseSha256": "8aaa52eeae9a59b82b9dc6c07ad8f3f745950d37aa7db649a0324ec1fd370e61",
+      "sectionSha256": "d4eb597f74e6659c7c852732be0755cd82b8ab0af2a63aacab09709a59110f51",
+      "exports": [
+        {
+          "name": "Calendar",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-ec6b967c01b03950",
+            "p-ffba4df482c84b8d",
+            "p-54c1ff74645c33ec",
+            "p-e656eca30892032b"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Cascader.prompt.md",
+      "proseSha256": "3afe2d296265e1b009ade842c10421b3ee6739a2856332ff18b134b8ffc1b5fe",
+      "sectionSha256": "3cc56a1449330ae99700983cb14a3cc659760566ff2350a92ea0d8c1e38c6631",
+      "exports": [
+        {
+          "name": "Cascader",
+          "authoredPropDefinitions": [
+            "p-c314c04c031c0510",
+            "p-49bab479fadb4c98",
+            "p-d295d841d99a80ea",
+            "p-90e4b68b5ae32ac1",
+            "p-21f33c258942d496",
+            "p-557afc06c0e48416",
+            "p-00ed7e0fc57686c0",
+            "p-444c11d92deb4ac9",
+            "p-00bc9bcc3507e8ea",
+            "p-9db160296252f528",
+            "p-6c2283c85f94e604",
+            "p-47b620a25544962a",
+            "p-5243bafbc21f8015",
+            "p-3404c8170687cc29",
+            "p-8f733a15edd20e3e",
+            "p-bc04ae28deff1d7b",
+            "p-3cd33b98b589b65f",
+            "p-6f3f01e31d56dee1"
+          ],
+          "defaultExpressionNames": [
+            "disabled",
+            "nodes",
+            "portal",
+            "required",
+            "value"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Checkbox.prompt.md",
+      "proseSha256": "975341b122840b0e11e379be9dc1a8ee8ef048e11f368a0e8e172de403cb2908",
+      "sectionSha256": "1869edad2df223948d4fc0c0eae8c625179119cbec232b78812e15ce47ddf764",
+      "exports": [
+        {
+          "name": "Checkbox",
+          "authoredPropDefinitions": [
+            "p-21f33c258942d496",
+            "p-c8eaca87f3bf855c"
+          ],
+          "defaultExpressionNames": [
+            "disabled"
+          ],
+          "inheritedPropCount": 310,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/ColorPicker.prompt.md",
+      "proseSha256": "0fc6d743e7ac0272c287a3d6c1f2c4e37956084ae43957c7efee0dab80cef876",
+      "sectionSha256": "95846f7286d487705aac35f34951651fe8352b92e6c68eb15e69dc2be24bafb1",
+      "exports": [
+        {
+          "name": "ColorPicker",
+          "authoredPropDefinitions": [
+            "p-59c312de49529953",
+            "p-49bab479fadb4c98",
+            "p-d295d841d99a80ea",
+            "p-90e4b68b5ae32ac1",
+            "p-21f33c258942d496",
+            "p-00ed7e0fc57686c0",
+            "p-444c11d92deb4ac9",
+            "p-00bc9bcc3507e8ea",
+            "p-9db160296252f528",
+            "p-07973967f8ff7fdd",
+            "p-3404c8170687cc29",
+            "p-8f733a15edd20e3e",
+            "p-bc04ae28deff1d7b",
+            "p-e6467eed1f0f8dfb",
+            "p-a02d1d26b192d889",
+            "p-2cdba0e7cde1f7d0"
+          ],
+          "defaultExpressionNames": [
+            "portal",
+            "required",
+            "swatches",
+            "value"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Combobox.prompt.md",
+      "proseSha256": "06c4c73fd0ea220019e262b623d01d92566dcc56139d628e00600b2fc824c2df",
+      "sectionSha256": "e672429e9ec84efbf5f0185d218323dbb07e4521edf5a11e8f10791908c9b966",
+      "exports": [
+        {
+          "name": "Combobox",
+          "authoredPropDefinitions": [
+            "p-e34456549bb909aa",
+            "p-49bab479fadb4c98",
+            "p-a9892cad149ada53",
+            "p-7aa5aeb8f3c002fe",
+            "p-21f33c258942d496",
+            "p-557afc06c0e48416",
+            "p-00ed7e0fc57686c0",
+            "p-2a8db8b45be4ac99",
+            "p-ec6b967c01b03950",
+            "p-3ab4d8eb161688a4",
+            "p-605e651abd21df5d",
+            "p-adb2dd7361a4f6a1",
+            "p-3404c8170687cc29",
+            "p-8f733a15edd20e3e",
+            "p-274ae32d97f31adc",
+            "p-a75cfb0065da427d",
+            "p-f688c9b39be30b3c"
+          ],
+          "defaultExpressionNames": [
+            "disabled",
+            "options",
+            "portal",
+            "required"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/DatePicker.prompt.md",
+      "proseSha256": "bde69e311ef08055e203aaebaccafd4cfc7a5f38fe1550b4c1bfab0eeff05615",
+      "sectionSha256": "e1f3f9addb7f0e97ea512e77c0063327789d04642d2c4ed142ce19fe75190434",
+      "exports": [
+        {
+          "name": "DatePicker",
+          "authoredPropDefinitions": [
+            "p-59c312de49529953",
+            "p-49bab479fadb4c98",
+            "p-514df09149ea1d9f",
+            "p-90e4b68b5ae32ac1",
+            "p-21f33c258942d496",
+            "p-557afc06c0e48416",
+            "p-00ed7e0fc57686c0",
+            "p-4cf3975682591816",
+            "p-ec6b967c01b03950",
+            "p-ffba4df482c84b8d",
+            "p-900cbd300ea2d73e",
+            "p-3404c8170687cc29",
+            "p-8f733a15edd20e3e",
+            "p-274ae32d97f31adc",
+            "p-a75cfb0065da427d",
+            "p-34220d37e18f3f38"
+          ],
+          "defaultExpressionNames": [
+            "disabled",
+            "portal",
+            "required"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Editor.prompt.md",
+      "proseSha256": "0f6a92a01810933d66f654ff0bec143495d9c715149ebf57c2227268c6d6f99e",
+      "sectionSha256": "ed2004e8b1d7489fb5fb13ef17356134038b4100651c775064846b62ee2440ec",
+      "exports": [
+        {
+          "name": "Editor",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-f7ab247af1a3c3ce",
+            "p-25dace4ca808a4da",
+            "p-9db160296252f528",
+            "p-4c12ec69939b6de3",
+            "p-ef4c1270dce6d75a",
+            "p-54c1ff74645c33ec",
+            "p-efd388074c07922f"
+          ],
+          "defaultExpressionNames": [
+            "defaultValue",
+            "minHeight"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/FileUpload.prompt.md",
+      "proseSha256": "3ed21c511196de3c2827fe27874e46f84098da55336c2a83a16fed878155b4f8",
+      "sectionSha256": "0a84f88030b2ffa8d0d3b265052e13a7ef9fdb7751032169b8bacb0c6a5eff90",
+      "exports": [
+        {
+          "name": "FileUpload",
+          "authoredPropDefinitions": [
+            "p-c69f65f8699d60d2",
+            "p-49bab479fadb4c98",
+            "p-7aa5aeb8f3c002fe",
+            "p-374a1881ca382f16",
+            "p-dc44c6296108324a",
+            "p-ec6b967c01b03950",
+            "p-249816ebbb22e06f",
+            "p-12b53be16bd9a416",
+            "p-54c1ff74645c33ec",
+            "p-194398030531e630"
+          ],
+          "defaultExpressionNames": [
+            "multiple"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Form.prompt.md",
+      "proseSha256": "914e1567405f31323737cbd401c89160eb7fe16b54b4d5e292eb11c53879bbcf",
+      "sectionSha256": "0dcee157f9da3444a02ec3f59691ca752ef3618c27afc012467f325ed40550d3",
+      "exports": [
+        {
+          "name": "Form",
+          "authoredPropDefinitions": [
+            "p-663e3e40103274bc",
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-5e438fe2a852a456",
+            "p-04baff14d02c6d89",
+            "p-9db160296252f528",
+            "p-c8779240f8267201",
+            "p-1cdd2c77eba54c61",
+            "p-1bb33565beaa4f76"
+          ],
+          "defaultExpressionNames": [
+            "errors"
+          ],
+          "inheritedPropCount": 283,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "FormField",
+          "authoredPropDefinitions": [
+            "p-39bee2a0ebea407d",
+            "p-49bab479fadb4c98",
+            "p-00ed7e0fc57686c0",
+            "p-374a1881ca382f16",
+            "p-c8eaca87f3bf855c",
+            "p-9db160296252f528",
+            "p-ca02d057e49592c5",
+            "p-85e95de33095f297",
+            "p-3c0cf8931bc8e3c0",
+            "p-16957a590cc2360b"
+          ],
+          "defaultExpressionNames": [
+            "required",
+            "valueProp"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "FormFieldArray",
+          "authoredPropDefinitions": [
+            "p-eaba881894960287",
+            "p-e868bdf54d345d4e",
+            "p-49bab479fadb4c98",
+            "p-4774244bdf0adc67",
+            "p-6b1b155b2cab34b4",
+            "p-9db160296252f528",
+            "p-de9524260e3e66cc",
+            "p-8f9fbed3bff42c19",
+            "p-622c1a8d22161e89",
+            "p-9fd0a67c19932d98"
+          ],
+          "defaultExpressionNames": [
+            "max",
+            "min"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "FormWizard",
+          "authoredPropDefinitions": [
+            "p-1dc175e927bf6dd5",
+            "p-49bab479fadb4c98",
+            "p-465169f538730606",
+            "p-71120aa4d0888265",
+            "p-9db160296252f528",
+            "p-eeb2bcea2a933118",
+            "p-aaf1dd62be47cf25",
+            "p-24c33eb708c28b36",
+            "p-7581eec8ee65c419"
+          ],
+          "defaultExpressionNames": [
+            "steps"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/InlineEdit.prompt.md",
+      "proseSha256": "fa183cb69057bb90afa2186a180f55b9da7efc8cd80e73d50bedcb67db8dfc1d",
+      "sectionSha256": "181b215f7c585408d07bea58a4076d437b63f3d4267b431685de3019535897a0",
+      "exports": [
+        {
+          "name": "InlineEdit",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-3e4eb5b4f76a9eea",
+            "p-cdf24efb694485ab",
+            "p-60ccec46f757339b",
+            "p-ec6b967c01b03950",
+            "p-3ab4d8eb161688a4",
+            "p-a6e50611734d8821",
+            "p-f688c9b39be30b3c"
+          ],
+          "defaultExpressionNames": [
+            "defaultValue"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/InputGroup.prompt.md",
+      "proseSha256": "b8108a7ab2ac32ed5b7a1d2fbd4de94640dbbb4cd3a333c63fcd1568941c090f",
+      "sectionSha256": "32a95932e1098460015b40b08a4905da3bca9e0490888bf00ba62198ac5797c8",
+      "exports": [
+        {
+          "name": "InputGroup",
+          "authoredPropDefinitions": [
+            "p-821d0d689fc36b46",
+            "p-49bab479fadb4c98",
+            "p-ebd05184673fe2f0",
+            "p-cdf24efb694485ab",
+            "p-9067d337eae2a9ca",
+            "p-444c11d92deb4ac9",
+            "p-29bbf8663286658c",
+            "p-ec6b967c01b03950",
+            "p-3ab4d8eb161688a4",
+            "p-f226644886f0325e",
+            "p-5243bafbc21f8015",
+            "p-53d623732a52a147",
+            "p-6859cf3620f2cd33",
+            "p-8cf0107c06fe19d4",
+            "p-f688c9b39be30b3c"
+          ],
+          "defaultExpressionNames": [
+            "clearable",
+            "defaultValue",
+            "disabled",
+            "password",
+            "readOnly"
+          ],
+          "inheritedPropCount": 299,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/InputOTP.prompt.md",
+      "proseSha256": "631f9d9a557363b7faec8278d279d6737aa063090e21546fd8778e701ce98f0c",
+      "sectionSha256": "6ca799d3e7191255eca464edcfc1381c9142099955f9f413ba3f4d09300a37f2",
+      "exports": [
+        {
+          "name": "InputOTP",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-cf6a3ae4ce040a40",
+            "p-21f33c258942d496",
+            "p-67c6d3f518d3e085",
+            "p-00ed7e0fc57686c0",
+            "p-444c11d92deb4ac9",
+            "p-5314c01f4454385e",
+            "p-ec6b967c01b03950",
+            "p-a6a36136fee7e892",
+            "p-0be125affcb937e7",
+            "p-3bb792f138cbe63c",
+            "p-bc04ae28deff1d7b",
+            "p-17859fac3136c6a9",
+            "p-f688c9b39be30b3c"
+          ],
+          "defaultExpressionNames": [
+            "disabled",
+            "length",
+            "required"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Mentions.prompt.md",
+      "proseSha256": "4d9b58074225afaf08fb412d23c2248d6551cc422aeb3d552239f254d01e553b",
+      "sectionSha256": "3059074264cd73abd2169886b1423e5c9d9100115a6f1bc1a45f7e19d9d72476",
+      "exports": [
+        {
+          "name": "Mentions",
+          "authoredPropDefinitions": [
+            "p-821d0d689fc36b46",
+            "p-49bab479fadb4c98",
+            "p-cdf24efb694485ab",
+            "p-9db160296252f528",
+            "p-3ab4d8eb161688a4",
+            "p-5243bafbc21f8015",
+            "p-3404c8170687cc29",
+            "p-8f733a15edd20e3e",
+            "p-a6e50611734d8821",
+            "p-174adfb31104a81a",
+            "p-cfffae5b45fae3ea",
+            "p-f688c9b39be30b3c"
+          ],
+          "defaultExpressionNames": [
+            "defaultValue",
+            "portal",
+            "rows",
+            "users"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/NativeSelect.prompt.md",
+      "proseSha256": "d7b84b2537f3f214e57ed13ccd03d520a5fd55da0530c51a545c6c432e03a7e8",
+      "sectionSha256": "7fa0467f88d1face3fa3fc4def2d9634df476c0269c0276907ec7cf57a8fe936",
+      "exports": [
+        {
+          "name": "NativeSelect",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-00ed7e0fc57686c0",
+            "p-6b1b155b2cab34b4",
+            "p-ef314fcfa711a9c4",
+            "p-9962f3df02e93961"
+          ],
+          "defaultExpressionNames": [
+            "disabled",
+            "size"
+          ],
+          "inheritedPropCount": 286,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/NumberField.prompt.md",
+      "proseSha256": "c8efcc384047cba2c8c0b7d22412f4a23d8dabf25a0f8a7b58523773fb93497d",
+      "sectionSha256": "e91cd80079f262b2f6eed1f5c36ddfdd589241da64d505ae8bdb0232bb43159d",
+      "exports": [
+        {
+          "name": "NumberField",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-ac8f544f34902c43",
+            "p-fd3794e93b351425",
+            "p-21f33c258942d496",
+            "p-67c6d3f518d3e085",
+            "p-00ed7e0fc57686c0",
+            "p-444c11d92deb4ac9",
+            "p-f9d6844c58b110c7",
+            "p-ec6b967c01b03950",
+            "p-de9524260e3e66cc",
+            "p-8f9fbed3bff42c19",
+            "p-a04ddf7fe1255040",
+            "p-a75cfb0065da427d",
+            "p-aea4ce4ffffc9458",
+            "p-1903450cdcffaa4e"
+          ],
+          "defaultExpressionNames": [
+            "defaultValue",
+            "disabled",
+            "required",
+            "step"
+          ],
+          "inheritedPropCount": 300,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/RadioGroup.prompt.md",
+      "proseSha256": "8e92a7f2a98f2145b8fa6038751d971d5731333b5732a911c8688fd8540fd3ad",
+      "sectionSha256": "d8ca0697055f4cc4801c307285dd6f677226e0566d2a5c38c371547bd11cd35c",
+      "exports": [
+        {
+          "name": "Radio",
+          "authoredPropDefinitions": [
+            "p-21f33c258942d496",
+            "p-c8eaca87f3bf855c"
+          ],
+          "defaultExpressionNames": [
+            "disabled"
+          ],
+          "inheritedPropCount": 310,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "RadioGroup",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-9fca589fb33ec70b",
+            "p-098a39f961d0aa6d",
+            "p-3ab4d8eb161688a4",
+            "p-138303b212ed14d9",
+            "p-27dc6a581f50a274",
+            "p-f688c9b39be30b3c"
+          ],
+          "defaultExpressionNames": [
+            "options"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Rating.prompt.md",
+      "proseSha256": "c68eaddf3c3491be5d48d5bd8fabeda74980765c90b60db638fed079609a5392",
+      "sectionSha256": "0121dac64b4e027cd148fee19596618e9c4b9af40dd2618b18e6ac8aa1a261dc",
+      "exports": [
+        {
+          "name": "Rating",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-4855257f5a89d78b",
+            "p-8ecc52536cf8c9fc",
+            "p-21f33c258942d496",
+            "p-00ed7e0fc57686c0",
+            "p-444c11d92deb4ac9",
+            "p-78146967eeedece6",
+            "p-ec6b967c01b03950",
+            "p-9ff0293def427180",
+            "p-a04ddf7fe1255040",
+            "p-dbf6dca99f1f126b",
+            "p-bc04ae28deff1d7b",
+            "p-dd9aee625e3599d2",
+            "p-1903450cdcffaa4e"
+          ],
+          "defaultExpressionNames": [
+            "defaultValue",
+            "max",
+            "readOnly",
+            "required"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/SearchField.prompt.md",
+      "proseSha256": "4da526e2b03122f56a7651fbd8c7327b5ffdf100270e41f6ee4872f44d84c972",
+      "sectionSha256": "49674a3395045fd7882c6e5d98f8990e20f6198726ca1a164f72d36bd315ca61",
+      "exports": [
+        {
+          "name": "SearchField",
+          "authoredPropDefinitions": [
+            "p-3ab4d8eb161688a4",
+            "p-e87d23dc5960624e",
+            "p-5243bafbc21f8015",
+            "p-f688c9b39be30b3c"
+          ],
+          "defaultExpressionNames": [
+            "defaultValue",
+            "disabled",
+            "readOnly"
+          ],
+          "inheritedPropCount": 307,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/SegmentedControl.prompt.md",
+      "proseSha256": "1acf0585550f27c88de121939b1f2dc71fc60ef57b5a550d41e57364e4735208",
+      "sectionSha256": "9bb9a190f5da3af9be26780897a1a230d62b4ec59bfd6b5b5b1e150ef6e310ce",
+      "exports": [
+        {
+          "name": "SegmentedControl",
+          "authoredPropDefinitions": [
+            "p-00db7ce7738d9831",
+            "p-8612c22d65f2c384",
+            "p-3ab4d8eb161688a4",
+            "p-d615bbb9f12fa4d2",
+            "p-8ddcd4e7304d9d4a",
+            "p-f688c9b39be30b3c"
+          ],
+          "defaultExpressionNames": [
+            "options"
+          ],
+          "inheritedPropCount": 277,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Select.prompt.md",
+      "proseSha256": "ce5c5b3609ea95a6b0511bd9ac40a21a10852e13486b168c601d1f047443301b",
+      "sectionSha256": "5c68ff61cbd5eadaa6ab8e39198142e77cd7e7819631dd2c683ca96c6723e57c",
+      "exports": [
+        {
+          "name": "Select",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-21f33c258942d496",
+            "p-00ed7e0fc57686c0",
+            "p-6b1b155b2cab34b4",
+            "p-ec6b967c01b03950",
+            "p-3601b9e0ebc95147",
+            "p-535a868602eef346"
+          ],
+          "defaultExpressionNames": [
+            "disabled"
+          ],
+          "inheritedPropCount": 286,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Slider.prompt.md",
+      "proseSha256": "61be23eaeba5e35b90f55a6b6c6993e294c59a6e14c8d8f88ebaa5bcab8683d6",
+      "sectionSha256": "a978f2803c3df70561d16fbbbba43314e0f5b528f81454f1f515676b43ab4b85",
+      "exports": [
+        {
+          "name": "Slider",
+          "authoredPropDefinitions": [
+            "p-ec6b967c01b03950"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 309,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Switch.prompt.md",
+      "proseSha256": "47d212ae50ab6c11c6e903502b4ae1930a93e329fc8a2597fd2c0dda152e80f1",
+      "sectionSha256": "573f0a84795811ce5dadc24b219e115c98f05eb1b2b1f768e4c0d3af43975d14",
+      "exports": [
+        {
+          "name": "Switch",
+          "authoredPropDefinitions": [
+            "p-6b1b155b2cab34b4",
+            "p-ec6b967c01b03950"
+          ],
+          "defaultExpressionNames": [
+            "disabled"
+          ],
+          "inheritedPropCount": 308,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/TagInput.prompt.md",
+      "proseSha256": "59a670d90db266938c2549009749787fdb5bdcfaea4a52ef6529bb4d6e7459d4",
+      "sectionSha256": "3e18f76ec5fb7c8bec5113fd0d7201340541857bc4db17d9a5899cb4efc86c52",
+      "exports": [
+        {
+          "name": "TagInput",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-bee96c643e802c8a",
+            "p-7aa5aeb8f3c002fe",
+            "p-9f2ba586db8acec7",
+            "p-21f33c258942d496",
+            "p-67c6d3f518d3e085",
+            "p-00ed7e0fc57686c0",
+            "p-444c11d92deb4ac9",
+            "p-fa6fe5688fd94a8a",
+            "p-ec6b967c01b03950",
+            "p-75b75ffcd42d4eae",
+            "p-2c4006c4782413a9",
+            "p-dc5c007b311463a2",
+            "p-bc04ae28deff1d7b",
+            "p-3cd33b98b589b65f",
+            "p-19dfa82720c2a89c"
+          ],
+          "defaultExpressionNames": [
+            "defaultValue",
+            "disabled",
+            "required"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Textarea.prompt.md",
+      "proseSha256": "a1e24c0a89f64ab10f2fb74b2f1d4c3babd581cc457148fa1e42b0abb8ad19d6",
+      "sectionSha256": "eb23639461f868de1d035db45e325f4cf5ea16176ebf2bd8824791953ba1bc14",
+      "exports": [
+        {
+          "name": "Textarea",
+          "authoredPropDefinitions": [
+            "p-21f33c258942d496",
+            "p-00ed7e0fc57686c0",
+            "p-6b1b155b2cab34b4"
+          ],
+          "defaultExpressionNames": [
+            "disabled",
+            "rows"
+          ],
+          "inheritedPropCount": 294,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/TimePicker.prompt.md",
+      "proseSha256": "e2ecf4c1ed471f0ae1ca35d19e6e0bdda140b3019147f70f7ada4b5a48fc98c0",
+      "sectionSha256": "81540109b179f1fd77655974f83363650f382ce9763b573001531f614892fa0b",
+      "exports": [
+        {
+          "name": "TimePicker",
+          "authoredPropDefinitions": [
+            "p-66fbe618407591e3",
+            "p-49bab479fadb4c98",
+            "p-9b845a6b04ed77cf",
+            "p-67c6d3f518d3e085",
+            "p-987ca7a90ae3ac60",
+            "p-ec6b967c01b03950",
+            "p-dbf058dfd485cf8d",
+            "p-a6e50611734d8821",
+            "p-a99a669dce201d33",
+            "p-7b641182d855eedc"
+          ],
+          "defaultExpressionNames": [
+            "disabled",
+            "step",
+            "value"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Toggle.prompt.md",
+      "proseSha256": "96bf685df5aefd9f8fdc006831d79d25617f27ab6c469334bc0735ba3d03c833",
+      "sectionSha256": "d062a1c7615f3557533c4d1aa8c8dc34b61e17c7cc906f927bfe45b5c3b762df",
+      "exports": [
+        {
+          "name": "Toggle",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-3838f7bbbbd5564b",
+            "p-67c6d3f518d3e085",
+            "p-dc44c6296108324a",
+            "p-ec6b967c01b03950",
+            "p-5ccb010246ce151e",
+            "p-f50686fed6582f07",
+            "p-090479f03ce2e64d"
+          ],
+          "defaultExpressionNames": [
+            "defaultPressed",
+            "disabled"
+          ],
+          "inheritedPropCount": 284,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/Transfer.prompt.md",
+      "proseSha256": "49fd066787e053b963ada271d9e1ffbea76f350c9fb68c35b5f2955927fffb48",
+      "sectionSha256": "7748ab8d5c0a46f9d4fff60604401243add5bd857e7b1a9c2c7d383624ea25f4",
+      "exports": [
+        {
+          "name": "Transfer",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-02d1af8446d6813c",
+            "p-9db160296252f528",
+            "p-e7c90e53c2520c79",
+            "p-54c1ff74645c33ec",
+            "p-94cce9a2a6259db7",
+            "p-720d2a26ec62bdb3"
+          ],
+          "defaultExpressionNames": [
+            "items",
+            "value"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/forms/TreeSelect.prompt.md",
+      "proseSha256": "1013fee4bdf505ee5a93c2add3292f1d13b23c227a6188d07746603cdda02fba",
+      "sectionSha256": "6ee154733db8481382c245a7d33c6a7040b7216d122d00887680ae0e823e421d",
+      "exports": [
+        {
+          "name": "TreeSelect",
+          "authoredPropDefinitions": [
+            "p-a3dce7aac0820e64",
+            "p-49bab479fadb4c98",
+            "p-d295d841d99a80ea",
+            "p-90e4b68b5ae32ac1",
+            "p-21f33c258942d496",
+            "p-557afc06c0e48416",
+            "p-00ed7e0fc57686c0",
+            "p-444c11d92deb4ac9",
+            "p-00bc9bcc3507e8ea",
+            "p-9db160296252f528",
+            "p-e81fbeb8c4ffed4d",
+            "p-9b38655a0dbe17e4",
+            "p-a22458e27ac88416",
+            "p-3404c8170687cc29",
+            "p-8f733a15edd20e3e",
+            "p-bc04ae28deff1d7b",
+            "p-3cd33b98b589b65f",
+            "p-f688c9b39be30b3c"
+          ],
+          "defaultExpressionNames": [
+            "disabled",
+            "nodes",
+            "portal",
+            "required"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/i18n/LocaleProvider.prompt.md",
+      "proseSha256": "fbe9e66c4030c3ecf45083b05149d88942b0437fa68db7a183d37f5dfca65659",
+      "sectionSha256": "0bbe5b492478eb426773711c7d7f3ee76e0741bd09fb4d2e90faa2b072ba8516",
+      "exports": [
+        {
+          "name": "LocaleProvider",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-142aba9dddf3b0bb"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 0,
+          "defaultAnalysis": "direct-export-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/icon/Icon.prompt.md",
+      "proseSha256": "c3a9471d368a57806fd12723ac8e29cbbc78b6c52d26c3b8aec6cb3dd80fd46f",
+      "sectionSha256": "97514955d8d44a6ce219d9d721ce01e537161b72d1e82d17772ff4a3b12da643",
+      "exports": [
+        {
+          "name": "Icon",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-66245f4c32776183",
+            "p-a65ceba05e8f4ad0",
+            "p-ff5f72d650c0f956",
+            "p-29582a944dae4cd8"
+          ],
+          "defaultExpressionNames": [
+            "size",
+            "strokeWidth"
+          ],
+          "inheritedPropCount": 485,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/logo/Logo.prompt.md",
+      "proseSha256": "0bb7a7b4acef65079f1469aedcfd58f08c897564ccc61efca4609c6c0402244f",
+      "sectionSha256": "9ad6f2fe97115399b1a6fcf0f2733fc000c1338fefcc3deb889db2c2bcef713d",
+      "exports": [
+        {
+          "name": "Logo",
+          "authoredPropDefinitions": [
+            "p-9f841d5eb11b5af9",
+            "p-343a1a4604af9a47",
+            "p-72cde797921c9752"
+          ],
+          "defaultExpressionNames": [
+            "decorative",
+            "size",
+            "title"
+          ],
+          "inheritedPropCount": 488,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/Anchor.prompt.md",
+      "proseSha256": "cce6a2c9026e2cef3b174c171fe377bcf7d39b8d4af18b693e335ecb25850896",
+      "sectionSha256": "f039ec0de0d09b47e7dfa874385efd6afa1aed55c783886c2894af4adb64f838",
+      "exports": [
+        {
+          "name": "Anchor",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-eaeb8529e143e87d",
+            "p-194398030531e630"
+          ],
+          "defaultExpressionNames": [
+            "items"
+          ],
+          "inheritedPropCount": 278,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/BackTop.prompt.md",
+      "proseSha256": "e0e6a08553a444f4fe4c1e9d09218e33f6585965fbf9c50a75528371892f0f89",
+      "sectionSha256": "4a7bbecadb00ed6fc95d0565f4de87ead5f3caebd2ad6c51d022cc066263778a",
+      "exports": [
+        {
+          "name": "BackTop",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-00bc9bcc3507e8ea",
+            "p-9db160296252f528",
+            "p-00b46f616273e6d3",
+            "p-7ba217ffc05f5bd1"
+          ],
+          "defaultExpressionNames": [
+            "threshold"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/Breadcrumb.prompt.md",
+      "proseSha256": "45742197ba3b6b073355d717519326ab3d4c42e4b247d6c7850ea0d2ebb64a23",
+      "sectionSha256": "c5d4f0c5f74fc26175ad35fb79122a015a7fd88eac3538d2ba78240fa31386b3",
+      "exports": [
+        {
+          "name": "Breadcrumb",
+          "authoredPropDefinitions": [
+            "p-47ee57ceca1cb26d"
+          ],
+          "defaultExpressionNames": [
+            "items"
+          ],
+          "inheritedPropCount": 280,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/CommandPalette.prompt.md",
+      "proseSha256": "4a667cd863ae895208d7364de6fccd2beceee455136a298d429f8e321cda0103",
+      "sectionSha256": "1382bf5b2ea0887c22daa07afe460012ee156589b690c6c48049cd8c4797ab13",
+      "exports": [
+        {
+          "name": "CommandPalette",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-9cf2da877d944462",
+            "p-e6372a1f36b90947",
+            "p-ec6b967c01b03950",
+            "p-2284375ab0ebe0bd",
+            "p-4406abb730948cd0",
+            "p-5243bafbc21f8015",
+            "p-8f6b90aa38da1461"
+          ],
+          "defaultExpressionNames": [
+            "groups"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/Dock.prompt.md",
+      "proseSha256": "f547813f4a1ab0bedda1f7847576d350d8d41adccc17bc1a0898fe24640e61af",
+      "sectionSha256": "2590518204ddeb7ae94b5d855b0f98a6cce1da940d645e69b95ab32fb81f9e31",
+      "exports": [
+        {
+          "name": "Dock",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-a1ced86d9bf80a0e",
+            "p-00bc9bcc3507e8ea",
+            "p-840169aecf26377f"
+          ],
+          "defaultExpressionNames": [
+            "items"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/HotKeys.prompt.md",
+      "proseSha256": "f651137742b88f4f43e197621d992e939b2481c98f19ae581ad4ac11331e2a4b",
+      "sectionSha256": "98597b157db91b4f20cce01fed3dd49c69aa11ccfb10ddf174d3bc46de71db8d",
+      "exports": [
+        {
+          "name": "HotKeys",
+          "authoredPropDefinitions": [
+            "p-b501dd130c715ebc",
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-e2b4127189b53b6b",
+            "p-9db160296252f528",
+            "p-54c1ff74645c33ec"
+          ],
+          "defaultExpressionNames": [
+            "bindings",
+            "help"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/Link.prompt.md",
+      "proseSha256": "e1c10832f9421ce3b02b544b6718b59d905fa2b44e6ed93620895e395f294a5d",
+      "sectionSha256": "4a12126a2659a832ec8be40f19a315bf35c3f2e2ffe44318cc789cbbfa28f0ee",
+      "exports": [
+        {
+          "name": "Link",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-5f665f4412394aa0",
+            "p-d548516acea4d07f",
+            "p-d4c8541362e98e60"
+          ],
+          "defaultExpressionNames": [
+            "external",
+            "href",
+            "variant"
+          ],
+          "inheritedPropCount": 285,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/Menu.prompt.md",
+      "proseSha256": "476314a1b03c3d269095cd4140ca79b0021e2e66e2377cf354431f1bc0a5bcf9",
+      "sectionSha256": "cef196135abdae2ed5bb114ca1d23f8e1f5fb2e598c8cb01783af255a00a4fe6",
+      "exports": [
+        {
+          "name": "Menu",
+          "authoredPropDefinitions": [
+            "p-40cc3048d96f4419",
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-ec6b967c01b03950",
+            "p-7cdd29388032c2c9",
+            "p-019d6939ade0891f",
+            "p-1ceab71ca9e391ae",
+            "p-8f733a15edd20e3e",
+            "p-54c1ff74645c33ec",
+            "p-9009a4ed780a85d6"
+          ],
+          "defaultExpressionNames": [
+            "align",
+            "portal"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "MenuItem",
+          "authoredPropDefinitions": [
+            "p-ec463212488d9269",
+            "p-dc44c6296108324a"
+          ],
+          "defaultExpressionNames": [
+            "danger"
+          ],
+          "inheritedPropCount": 290,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/Menubar.prompt.md",
+      "proseSha256": "52b1da28ce1867a83a2721509217089e0a1f8b550644ef655eacc2f55f8974f9",
+      "sectionSha256": "1e9867982bec1126e6e4bebeb080828876fece1f8b6454c093ab6369ffa4b808",
+      "exports": [
+        {
+          "name": "Menubar",
+          "authoredPropDefinitions": [
+            "p-821d0d689fc36b46",
+            "p-7fbeeac956fb0ac5",
+            "p-49bab479fadb4c98",
+            "p-cd99474d97fe86ad",
+            "p-3404c8170687cc29",
+            "p-8f733a15edd20e3e",
+            "p-4df64f6a5f6305fd"
+          ],
+          "defaultExpressionNames": [
+            "menus",
+            "portal"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/NavigationMenu.prompt.md",
+      "proseSha256": "225b430d2b56126c3f35e1542b42ae22ef5b5b9e8acc5f34d15bfee47d8238c2",
+      "sectionSha256": "858a077d71d30faf3ea950d1920ad649d7369817511d94d7bfae4a08c28fc499",
+      "exports": [
+        {
+          "name": "NavigationMenu",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-19d8f920a8edc8df",
+            "p-3404c8170687cc29",
+            "p-8f733a15edd20e3e"
+          ],
+          "defaultExpressionNames": [
+            "items",
+            "portal"
+          ],
+          "inheritedPropCount": 279,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/Pagination.prompt.md",
+      "proseSha256": "24f35325e5ee5241af12edbd1ac7014164d49b5843b0b99e1e3b7cbab272fa3f",
+      "sectionSha256": "07ac084fab245ac74058cb30ce46c49cf8f4f5ecf1894b6f0b07c5d947dceb76",
+      "exports": [
+        {
+          "name": "Pagination",
+          "authoredPropDefinitions": [
+            "p-924d8cff54b4f227",
+            "p-f28063da01679137",
+            "p-188b2b85d897d17f"
+          ],
+          "defaultExpressionNames": [
+            "page",
+            "pageCount"
+          ],
+          "inheritedPropCount": 279,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/Sidebar.prompt.md",
+      "proseSha256": "c3af00d7309ed5fd5cb4e1e036c9c354b68e34f533eee4930be44b65e8e07a12",
+      "sectionSha256": "c0c2216d7ecafe54bc4d86dd2ac542dfb9d4afc7213224d6fb7a736e5da2345d",
+      "exports": [
+        {
+          "name": "NavItem",
+          "authoredPropDefinitions": [
+            "p-947ac59d98f8057e",
+            "p-cef86355a67e06ab",
+            "p-d548516acea4d07f",
+            "p-dc44c6296108324a",
+            "p-b2441bf8bff3d3dc",
+            "p-0abc47870199d63c"
+          ],
+          "defaultExpressionNames": [
+            "active"
+          ],
+          "inheritedPropCount": 278,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "Sidebar",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-6b1b155b2cab34b4"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 279,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/Steps.prompt.md",
+      "proseSha256": "b7f6d22852d102b8b1bebdb0b1398dab1ffa98ba2ecf88e94ef8990b4be231fd",
+      "sectionSha256": "8e548a364278f416e8feff1de928bea801863674d0b50cf81817a4caab768f63",
+      "exports": [
+        {
+          "name": "Steps",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-0ca06aad20d04528",
+            "p-ec6b967c01b03950",
+            "p-840169aecf26377f",
+            "p-f9ee8e7101786836"
+          ],
+          "defaultExpressionNames": [
+            "current",
+            "steps"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/Tabs.prompt.md",
+      "proseSha256": "1d828b69c47f16456b339c3dff2ad0972ea861f9bba2126d647f76e56e14ee78",
+      "sectionSha256": "8b93c6f0b58b06af38d81df4d5875a6e4ac4ee4fc858f5808d59465a7b86df5d",
+      "exports": [
+        {
+          "name": "Tab",
+          "authoredPropDefinitions": [
+            "p-57d049853a71ed98",
+            "p-2b79ab971e4458e5"
+          ],
+          "defaultExpressionNames": [
+            "selected"
+          ],
+          "inheritedPropCount": 290,
+          "defaultAnalysis": "forward-ref-destructuring"
+        },
+        {
+          "name": "Tabs",
+          "authoredPropDefinitions": [
+            "p-00db7ce7738d9831",
+            "p-ec6b967c01b03950",
+            "p-3ab4d8eb161688a4",
+            "p-1ab0b72d7bd86050",
+            "p-f688c9b39be30b3c"
+          ],
+          "defaultExpressionNames": [
+            "tabs"
+          ],
+          "inheritedPropCount": 277,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/navigation/Toolbar.prompt.md",
+      "proseSha256": "488a665b64d625d071659de26c23f23839f85a02ffd3d54c3c872db10b54e593",
+      "sectionSha256": "41545f7fcb64ce2ec4bd5fb784062a7a795902eb8a667beca4a9fd81fb7d42d7",
+      "exports": [
+        {
+          "name": "Toolbar",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-227c7fa3f308fabb",
+            "p-3c8d4ffa8a0173f9",
+            "p-ec6b967c01b03950",
+            "p-eeba1ea41dc79e17",
+            "p-9280b611aeef6017",
+            "p-8f733a15edd20e3e",
+            "p-a63fe54220df4ece"
+          ],
+          "defaultExpressionNames": [
+            "items",
+            "portal"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/overlays/AlertDialog.prompt.md",
+      "proseSha256": "5854ef67f6ad8dd9aee6d1d60827f84c4aaa61f0fa605ab41d179d8de1aacedf",
+      "sectionSha256": "bc85cb46505bfe0f9359380dad7fde326d05d76b60545a1b9377b6026da9a5e0",
+      "exports": [
+        {
+          "name": "AlertDialog",
+          "authoredPropDefinitions": [
+            "p-44203a5aafb8ecbd",
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-eceb8b56dd7cd2cb",
+            "p-43322b3a91442593",
+            "p-ab3d66c4467526d3",
+            "p-ec6b967c01b03950",
+            "p-edc070235997e7b6",
+            "p-4ccf46b3d4668a03",
+            "p-7cdd29388032c2c9",
+            "p-019d6939ade0891f",
+            "p-681b79b82148a038",
+            "p-e87d5650d432e2e7",
+            "p-490a6d478af1da8d"
+          ],
+          "defaultExpressionNames": [
+            "defaultOpen"
+          ],
+          "inheritedPropCount": 276,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/overlays/ContextMenu.prompt.md",
+      "proseSha256": "8f6260202903da839e81a0b4d8a1146ff87a6ce95fb15a5d3ca400306fd21676",
+      "sectionSha256": "531c80ca89cb635d2b2d80de03a5a93e57562f5090fe058019ea3a6be3bc3bb3",
+      "exports": [
+        {
+          "name": "ContextMenu",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-fe33d0158a779738",
+            "p-ec6b967c01b03950",
+            "p-3404c8170687cc29",
+            "p-8f733a15edd20e3e",
+            "p-454cc6866647186a",
+            "p-cd7c93901bf72ae2"
+          ],
+          "defaultExpressionNames": [
+            "items",
+            "portal",
+            "tabIndex"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/overlays/Drawer.prompt.md",
+      "proseSha256": "573b6754204b35c47fe3ce4e6297bd837e6c532eecc14347adc7de751c9425c3",
+      "sectionSha256": "7ff4962187abb862a5002fe6ce92eee2833eeb91f4b9d71c0f66b930ef9c89e1",
+      "exports": [
+        {
+          "name": "Drawer",
+          "authoredPropDefinitions": [
+            "p-7f69336c299273ae",
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-ec6b967c01b03950",
+            "p-2284375ab0ebe0bd",
+            "p-4406abb730948cd0",
+            "p-a785ddcc06d4ea7e",
+            "p-17e984cb2c20b727",
+            "p-194398030531e630"
+          ],
+          "defaultExpressionNames": [
+            "side"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/overlays/HoverCard.prompt.md",
+      "proseSha256": "f0a646740c844391d29dba661043b5567566a7cf6788c0b2d7be3a111f7af1d6",
+      "sectionSha256": "192e760eeec4e9e20cbdf887f77c5ac346112b2a51e75bb343d064f6b63cffbc",
+      "exports": [
+        {
+          "name": "HoverCard",
+          "authoredPropDefinitions": [
+            "p-2bf1542471f7a7f5",
+            "p-f376acd9178835f6",
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-5d788e5fd742c7f7",
+            "p-89841d9f67d1c9e1",
+            "p-3404c8170687cc29",
+            "p-8f733a15edd20e3e",
+            "p-a6e50611734d8821",
+            "p-9009a4ed780a85d6"
+          ],
+          "defaultExpressionNames": [
+            "closeDelay",
+            "openDelay",
+            "portal"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/overlays/OverlayManager.prompt.md",
+      "proseSha256": "38bef0041b968ecc29c95e63df460ff3d6d0e4949bec1572acb042a17ddcb2e3",
+      "sectionSha256": "e5a1230d00d7c6c4444b44021b995c462e3e2f4464841c917e59e46e1f67340e",
+      "exports": [
+        {
+          "name": "OverlayProvider",
+          "authoredPropDefinitions": [
+            "p-cef86355a67e06ab"
+          ],
+          "defaultExpressionNames": [],
+          "inheritedPropCount": 0,
+          "defaultAnalysis": "direct-export-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/overlays/Popconfirm.prompt.md",
+      "proseSha256": "7e9b31a0b6bfccb56cdfdd9cdeecccd3a946aca0766e7f73bb6476093db971c0",
+      "sectionSha256": "0421387a5591989aa5676ec86cebbf3925e9e5bb0286abce12e7012d59d835a5",
+      "exports": [
+        {
+          "name": "Popconfirm",
+          "authoredPropDefinitions": [
+            "p-44203a5aafb8ecbd",
+            "p-49bab479fadb4c98",
+            "p-ec6b967c01b03950",
+            "p-5cb4af5ec68f70eb",
+            "p-edc070235997e7b6",
+            "p-4ccf46b3d4668a03",
+            "p-3404c8170687cc29",
+            "p-8f733a15edd20e3e",
+            "p-a6e50611734d8821",
+            "p-681b79b82148a038",
+            "p-9009a4ed780a85d6"
+          ],
+          "defaultExpressionNames": [
+            "portal"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/overlays/Popover.prompt.md",
+      "proseSha256": "bcec3e254ad2e2813a6af9fae852c967bfa77de83a709e2aff4ee0a5379f27fd",
+      "sectionSha256": "3502e9bfb5047b6cc7afa059bae8d5eace1850ebe4af9365d7c14d6a433297cb",
+      "exports": [
+        {
+          "name": "Popover",
+          "authoredPropDefinitions": [
+            "p-40cc3048d96f4419",
+            "p-385982e3f95d5a79",
+            "p-f376acd9178835f6",
+            "p-cef86355a67e06ab",
+            "p-49bab479fadb4c98",
+            "p-7cdd29388032c2c9",
+            "p-019d6939ade0891f",
+            "p-1ceab71ca9e391ae",
+            "p-8f733a15edd20e3e",
+            "p-a1e384f9513d369a",
+            "p-9009a4ed780a85d6"
+          ],
+          "defaultExpressionNames": [
+            "align",
+            "portal"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/overlays/Tour.prompt.md",
+      "proseSha256": "1b433cc876ddd70d7a4a8344a39edf97994b0f3ca19534255e5ccd41b1d880a4",
+      "sectionSha256": "7fe7310def7e82884976ee913a902fae3dcdda0ecb1ee4e9a41286df4d2e7cf0",
+      "exports": [
+        {
+          "name": "Tour",
+          "authoredPropDefinitions": [
+            "p-49bab479fadb4c98",
+            "p-9db160296252f528",
+            "p-2284375ab0ebe0bd",
+            "p-4406abb730948cd0",
+            "p-54c1ff74645c33ec",
+            "p-56cfcfc4e09b4914"
+          ],
+          "defaultExpressionNames": [
+            "steps"
+          ],
+          "inheritedPropCount": 2,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    },
+    {
+      "path": "components/textfield/TextField.prompt.md",
+      "proseSha256": "81b9599613d5dd872d7f8727ab6a14e6e02724e98c3142658102a11a5096761a",
+      "sectionSha256": "17da00662ca6b802e36cbbde95ea8f0c0d9ec542347d9be9f80b377022d972a8",
+      "exports": [
+        {
+          "name": "TextField",
+          "authoredPropDefinitions": [
+            "p-8436ae65652802c2",
+            "p-acbeca1dd7866ce6",
+            "p-0757ec0747f9b955"
+          ],
+          "defaultExpressionNames": [
+            "disabled",
+            "readOnly"
+          ],
+          "inheritedPropCount": 310,
+          "defaultAnalysis": "forward-ref-destructuring"
+        }
+      ]
+    }
+  ]
+}

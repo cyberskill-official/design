@@ -6,16 +6,17 @@ export default {
   component: PromptInput,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     lang: { control: 'select', options: ['en', 'vi'] },
 
   "value": {
     "control": "text"
   },
   "onChange": {
-    "control": "text"
+    "control": false
   },
   "onSubmit": {
-    "control": "text"
+    "control": false
   },
   "placeholder": {
     "control": "text"
@@ -33,13 +34,6 @@ export default {
     "control": "boolean"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting PromptInput. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { lang: 'vi', placeholder: 'Describe your wish…' },
 };
 

@@ -14,14 +14,6 @@ export default {
     disabled: { control: 'boolean' },
     children: { control: 'text' },
   },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting Toggle. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { lang: 'vi', children: 'Notifications', defaultPressed: true },
 };
 

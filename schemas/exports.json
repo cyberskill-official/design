@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "exports": [
+    {
+      "path": "components/api-index.json",
+      "schema": "schemas/api-index.schema.json"
+    },
+    {
+      "path": "_ds_manifest.json",
+      "schema": "schemas/manifest.schema.json"
+    },
+    {
+      "path": "tokens/tokens.json",
+      "schema": "schemas/tokens.schema.json"
+    },
+    {
+      "path": "tokens/declarations.json",
+      "schema": "schemas/token-declarations.schema.json"
+    },
+    {
+      "path": "tokens/provenance.json",
+      "schema": "schemas/token-provenance.schema.json"
+    },
+    {
+      "path": "components/lifecycle.json",
+      "schema": "schemas/lifecycle.schema.json"
+    }
+  ]
+}

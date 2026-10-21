@@ -24,13 +24,13 @@ Open-state APIs vary: some overlays require `open` and use `onClose`; others dec
 
 `children`, named slots, `label` and render callbacks have component-specific types. An export accepting `className` does not automatically forward `id`, `style`, `data-*`, `aria-*`, native handlers or arbitrary rest props. Confirm explicit declaration and runtime forwarding to the intended DOM node before depending on them. Error text visible in FormField does not automatically establish a composite input's described-by relationship.
 
-Native component exports forward `ref` to their documented native target, with `controlRef` for a distinct owned control. Context-only providers have no DOM ref. See [native refs](runtime-api.md) for targets, null availability and React 18/19 callback behavior. Anchored panels share the [body portal and collision placement contract](runtime-api.md), with an inline opt-out. The current overlay manager coordinates one document-wide stack; consult [the overlay decision](decisions/overlay-manager-design.md) before using multiple bundles or independent document roots.
+Native component exports forward `ref` to their documented native target, with `controlRef` for a distinct owned control. Context-only providers have no DOM ref. See [native refs](native-refs.md) for targets, null availability and React 18/19 callback behavior. Anchored panels share the [body portal and collision placement contract](floating-panels.md), with an inline opt-out. The current overlay manager coordinates one document-wide stack; consult [the overlay decision](decisions/overlay-manager-design.md) before using multiple bundles or independent document roots.
 
 ## Names, enums and accessibility
 
 Existing enum vocabularies and sizes vary by export. `danger`, `destructive` and `error` are not interchangeable aliases; neither are `empty` and `emptyState`, or `tone` and `variant`. Where aliases exist, source defines precedence. Do not rename or normalize public props without a compatibility/deprecation decision and targeted contract tests.
 
-Every new or changed prop needs matching source, declaration, prompt, examples and behavioral checks. Preserve accessible names, roles, keyboard behavior and focus ownership through state changes. A prompt's keyboard summary is descriptive evidence; validate it against implementation and tests. The lifecycle record and API inventory do not replace rendered-state accessibility checks or manual assistive-technology acceptance.
+Every new or changed prop needs matching source, declaration, prompt, examples and behavioral checks. Preserve accessible names, roles, keyboard behavior and focus ownership through state changes. A prompt's keyboard summary is descriptive evidence; validate it against implementation and tests. The lifecycle record and API inventory do not replace rendered-state accessibility checks or [manual AT acceptance](manual-at-matrix.md).
 
 The generated [component source contracts](../components/contracts.json) separate authored and inherited props, preserve literal default expressions and prompt keyboard declarations, and locate CSS hooks with source hashes. Regenerate with `npm run build:component-contracts`; check with `npm run test:component-contracts`. These are observed source facts, not complete authored anatomy, ARIA semantics or verified accessibility contracts.
 
@@ -71,14 +71,18 @@ Standalone participating fields accept `description`, `error` and `required`. Na
 
 Native input/select/textarea children of FormField receive actual label and description associations. For another custom control, FormField accepts a render function receiving association attributes; apply those to its semantic control. This escape hatch supplies associations, not a new form-value or serialization protocol.
 
-Check native targets with `test-native-refs-browser.mjs`, public declarations with `test-types.mjs`, and cross-entry Form/field associations with `test-compiled-esm-packed.mjs`. These bounded automated checks do not replace manual assistive-technology acceptance.
+Validate with `test-field-associations-browser.mjs`, `test-composite-field-targets-browser.mjs`, `test-native-root-targets-browser.mjs` and their packed/type fixtures. Automated association and keyboard checks do not replace manual assistive-technology acceptance.
 
 ## Scoped messages and rendered references
 
-Use [scoped UI messages](locale-messages.md) for consumer overrides and additional copy namespaces; date/number formatter fallbacks and directionality remain separate contracts. Verify actual rendered DOM and relevant states; an API inventory is neither a standalone widget nor a complete state/accessibility specification.
+Use [scoped UI messages](locale-messages.md) for consumer overrides and additional copy namespaces; date/number formatter fallbacks and directionality remain separate contracts. [Rendered HTML references](static-html-reference.md) show explicit source-bound fixture DOM, including documented context and portal snapshots; they are not standalone interactive widgets or complete state/accessibility specifications.
 
-## Source facts and evidence limits
+## Generated evidence and coverage limits
 
-`components/contracts.json` records source-bound authored/inherited props, literal default expressions, observed class hooks and declared keyboard prose. Generate it with `npm run build:component-contracts` after the API and CSS indexes, and check its strict source parser with `npm run test:component-contracts`. These facts do not certify behavior, complete accessibility coverage or human acceptance. Inspect the adjacent source and declarations, exercise the actual state and retain manual acceptance separately.
+`components/prompt-api.json` and the fenced Declared API sections in component prompts project authored prop/default references from the canonical declaration and runtime inventories. `components/specifications.json` separates exact JSX observations, bounded reviewed semantics and mapped test assertions from unverified coverage. Candidate slots, observed key literals and passing fixture references do not establish a complete behavior or accessibility specification. Run `npm run build:prompt-api` then `npm run build:component-specifications` after rebuilding the canonical API/contracts; runtime evidence is captured and verified separately with `npm run test:component-behavior-evidence`. The repository decision `docs/decisions/component-specification-evidence.md` records these limits.
+
+## Compact discovery projection
+
+Start agent discovery with `components/api-discovery.json`: every public export, all authored prop definitions, source/declaration paths and hashes, lifecycle label and current support-review state. It retains inherited-prop counts but omits inherited definitions, long signatures and support history; follow its exact SHA-256 reference to `components/api-index.json` and read the declarations for complete types. Generate with `npm run build:api-discovery` after API-index generation; `node scripts/generate-compact-api.mjs --check` rejects stale output. The projection reduces reading cost without replacing complete validation or acceptance evidence.
 
 AlertDialog uses `tone` as its canonical spelling and retains `variant` as a compatibility alias. Explicit `tone` wins; when it is omitted, `variant` applies. `destructive` means danger action paint plus initial Cancel focus. `tone="default"` overrides `variant="destructive"`. Button `danger`, validation `error` and component-specific size names remain distinct declared domains; consult the declaration-derived story controls rather than translating values by analogy. No alias is scheduled for removal without the notice policy above.

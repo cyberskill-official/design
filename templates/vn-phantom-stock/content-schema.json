@@ -6,12 +6,110 @@
       "id": "articles",
       "type": "list",
       "label": "Articles",
-      "required": true
+      "required": true,
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "paras": {
+              "type": "array",
+              "minItems": 0,
+              "maxItems": 100,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "vi": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1878
+                  },
+                  "en": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1916
+                  }
+                },
+                "required": [
+                  "vi",
+                  "en"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "vi",
+            "en",
+            "paras"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "runtimeTargets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
     },
     {
       "id": "defs",
       "type": "list",
-      "label": "Definitions"
+      "label": "Definitions",
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "term": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 780
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 840
+            }
+          },
+          "required": [
+            "term",
+            "vi",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "runtimeTargets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
     }
   ]
 }

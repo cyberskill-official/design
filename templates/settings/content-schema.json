@@ -7,168 +7,421 @@
       "type": "text",
       "label": "Skip-to-content link label",
       "maxLength": 40,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "title",
       "type": "text",
       "label": "Page title",
       "maxLength": 24,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "sub",
       "type": "text",
       "label": "Page subtitle",
-      "maxLength": 80
+      "maxLength": 80,
+      "runtimeBinding": "text"
     },
     {
       "id": "profileH",
       "type": "text",
       "label": "Profile section heading",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "profileP",
       "type": "text",
       "label": "Profile section body",
-      "maxLength": 100
+      "maxLength": 100,
+      "runtimeBinding": "text"
     },
     {
       "id": "nameL",
       "type": "text",
       "label": "Name field label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.TextField",
+          "attribute": "label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "emailL",
       "type": "text",
       "label": "Email field label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.TextField",
+          "attribute": "label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "squadL",
       "type": "text",
       "label": "Squad field label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Select",
+          "attribute": "label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "ifaceL",
       "type": "text",
       "label": "Interface language field label",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.NativeSelect",
+          "attribute": "label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "squads",
       "type": "list",
-      "label": "Squad select options"
+      "label": "Squad select options",
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "value",
+            "label"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "value"
+      },
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "attribute": "options",
+          "component": "CyberSkillDS.Select"
+        }
+      ]
     },
     {
       "id": "langs",
       "type": "list",
-      "label": "Interface language select options"
+      "label": "Interface language select options",
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "enum": [
+                "en",
+                "vi"
+              ]
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "value",
+            "label"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "value"
+      },
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "attribute": "options",
+          "component": "CyberSkillDS.NativeSelect"
+        }
+      ]
     },
     {
       "id": "notifH",
       "type": "text",
       "label": "Notifications section heading",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.ScrollArea",
+          "attribute": "aria-label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "notifP",
       "type": "text",
       "label": "Notifications section body",
-      "maxLength": 100
+      "maxLength": 100,
+      "runtimeBinding": "text"
     },
     {
       "id": "n1t",
       "type": "text",
       "label": "Notification 1 title",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Item",
+          "attribute": "title"
+        },
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Switch",
+          "attribute": "aria-label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "n1d",
       "type": "text",
       "label": "Notification 1 description",
-      "maxLength": 80
+      "maxLength": 80,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Item",
+          "attribute": "description"
+        }
+      ]
     },
     {
       "id": "n2t",
       "type": "text",
       "label": "Notification 2 title",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Item",
+          "attribute": "title"
+        },
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Switch",
+          "attribute": "aria-label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "n2d",
       "type": "text",
       "label": "Notification 2 description",
-      "maxLength": 80
+      "maxLength": 80,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Item",
+          "attribute": "description"
+        }
+      ]
     },
     {
       "id": "n3t",
       "type": "text",
       "label": "Notification 3 title",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Item",
+          "attribute": "title"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "n3d",
       "type": "text",
       "label": "Notification 3 description",
-      "maxLength": 80
+      "maxLength": 80,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Item",
+          "attribute": "description"
+        }
+      ]
     },
     {
       "id": "n4t",
       "type": "text",
       "label": "Notification 4 title",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Item",
+          "attribute": "title"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "n4d",
       "type": "text",
       "label": "Notification 4 description",
-      "maxLength": 80
+      "maxLength": 80,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Item",
+          "attribute": "description"
+        }
+      ]
     },
     {
       "id": "advT",
       "type": "text",
       "label": "Advanced preferences collapsible title",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Collapsible",
+          "attribute": "title"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "advD",
       "type": "text",
       "label": "Advanced preferences collapsible body",
-      "maxLength": 100
+      "maxLength": 100,
+      "runtimeBinding": "text"
     },
     {
       "id": "dangerT",
       "type": "text",
       "label": "Danger-zone title",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.AlertDialog",
+          "attribute": "title"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "dangerD",
       "type": "text",
       "label": "Danger-zone description",
-      "maxLength": 100
+      "maxLength": 100,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.AlertDialog",
+          "attribute": "description"
+        }
+      ]
     },
     {
       "id": "dangerBtn",
       "type": "text",
       "label": "Danger-zone button label",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.AlertDialog",
+          "attribute": "confirm-label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "cancelBtn",
       "type": "text",
       "label": "Cancel button label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "saveBtn",
       "type": "text",
       "label": "Save button label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     }
   ]
 }

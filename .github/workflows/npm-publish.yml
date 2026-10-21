@@ -1,58 +1,125 @@
-# OIDC Trusted Publishing for @cyberskill/design on npmjs.com (--provenance).
-# Triggered when a GitHub Release is published or manually via workflow_dispatch.
-# Idempotent: skips cleanly if @cyberskill/design@VERSION is already on the registry.
+# Exact-tag validation only on release events. Publication requires explicit manual evidence review.
 name: npm Publish (OIDC Trusted Publishing)
-
 on:
   release:
     types: [published]
-  workflow_dispatch: {}
-
+  workflow_dispatch:
+    inputs:
+      accept_evidence_review:
+        description: 'I checked the exact tag source-bound support, visual and manual acceptance evidence; this creates no approvals'
+        required: true
+        type: boolean
+        default: false
 permissions:
   contents: read
-  id-token: write
-
 concurrency:
   group: npm-publish-${{ github.ref }}
   cancel-in-progress: false
-
 jobs:
-  publish:
+  validate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 180
+    permissions:
+      contents: read
+    outputs:
+      published: ${{ steps.registry.outputs.published }}
+      source_sha: ${{ steps.validation.outputs.source_sha }}
+      receipt_sha256: ${{ steps.validation.outputs.receipt_sha256 }}
+      artifact_id: ${{ steps.artifact.outputs.artifact-id }}
+    env:
+      CS_PUBLICATION_MANUAL_ACCEPTANCE: ${{ github.event_name == 'workflow_dispatch' && inputs.accept_evidence_review && 'true' || 'false' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: ./.github/actions/setup-npm
+      - name: Check exact registry version, failing closed on service errors
+        id: registry
+        run: node scripts/validate-publication.mjs --registry
+      - name: Install locked dependencies
+        if: steps.registry.outputs.published == 'false'
+        run: npm ci
+      - name: Install all pinned Playwright browsers
+        if: steps.registry.outputs.published == 'false'
+        run: npx --no-install playwright install --with-deps chromium firefox webkit
+      - name: Set up isolated Python font and PDF test dependencies
+        if: steps.registry.outputs.published == 'false'
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6
+        with:
+          python-version: '3.12'
+      - name: Install hash-pinned Python test tools
+        if: steps.registry.outputs.published == 'false'
+        run: |
+          python -m venv "$RUNNER_TEMP/publication-python"
+          "$RUNNER_TEMP/publication-python/bin/python" -m pip install --require-hashes --only-binary=:all: --no-deps -r scripts/requirements-fonts.txt -r _audit/ci/requirements-pdf.txt
+          echo "$RUNNER_TEMP/publication-python/bin" >> "$GITHUB_PATH"
+          echo "CS_PDF_PYTHON=$RUNNER_TEMP/publication-python/bin/python" >> "$GITHUB_ENV"
+      - name: Validate exact tag, approvals, notices and all required gates, then pack exact bytes
+        if: steps.registry.outputs.published == 'false'
+        id: validation
+        run: node scripts/validate-publication.mjs --run --directory "$RUNNER_TEMP/publication-candidate"
+      - name: Retain immutable candidate, receipt and diagnostics
+        if: always() && steps.registry.outputs.published == 'false'
+        id: artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7
+        with:
+          name: publication-candidate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/publication-candidate/
+          if-no-files-found: warn
+      - name: Retain full diagnostic gate evidence
+        if: always() && steps.registry.outputs.published == 'false'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7
+        with:
+          name: publication-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            test-results/
+            _audit/ci/pixel-diff-report.json
+            _audit/ci/import-report.json
+          if-no-files-found: warn
+  publish:
+    needs: validate
+    if: github.event_name == 'workflow_dispatch' && inputs.accept_evidence_review && needs.validate.result == 'success' && needs.validate.outputs.published == 'false'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      CS_PUBLICATION_MANUAL_ACCEPTANCE: 'true'
+      PUBLICATION_RECEIPT_SHA256: ${{ needs.validate.outputs.receipt_sha256 }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          ref: ${{ needs.validate.outputs.source_sha }}
+          fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
-          cache: npm
-      - name: Check registry version (idempotent guard)
-        id: registry_check
-        run: |
-          set -euo pipefail
-          EXPECTED="$(tr -d '[:space:]' < VERSION)"
-          echo "version=${EXPECTED}" >> "$GITHUB_OUTPUT"
-          if npm view "@cyberskill/design@${EXPECTED}" version >/dev/null 2>&1; then
-            echo "published=true" >> "$GITHUB_OUTPUT"
-            echo "@cyberskill/design@${EXPECTED} is already published on registry.npmjs.org — nothing to publish."
-            {
-              echo "### Already published"
-              echo ""
-              echo "\`@cyberskill/design@${EXPECTED}\` is already live on \`registry.npmjs.org\`."
-            } >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "published=false" >> "$GITHUB_OUTPUT"
-            echo "@cyberskill/design@${EXPECTED} not yet on registry — proceeding with OIDC publish."
-          fi
-      - name: Install npm dependencies
-        if: steps.registry_check.outputs.published == 'false'
-        run: npm ci
-      - name: Verify package hygiene and prepublish gates
-        if: steps.registry_check.outputs.published == 'false'
-        run: |
-          npm run prepublishOnly
-          npm run test:pack-hygiene
-      - name: Publish to npm via OIDC Trusted Publishing (--provenance)
-        if: steps.registry_check.outputs.published == 'false'
-        run: npm publish --provenance --access public
+      - uses: ./.github/actions/setup-npm
+      - name: Download only this validation job's immutable artifact
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8; official tag verified
+        with:
+          artifact-ids: ${{ needs.validate.outputs.artifact_id }}
+          path: ${{ runner.temp }}/validated-publication
+          digest-mismatch: error
+      - name: Revalidate receipt, exact source, support, notices and tarball bytes
+        id: identity
+        run: node scripts/validate-publication.mjs --check --receipt "$RUNNER_TEMP/validated-publication/receipt.json" --expected-sha256 "$PUBLICATION_RECEIPT_SHA256"
+      - name: Recheck registry immediately before publication
+        id: registry
+        run: node scripts/validate-publication.mjs --registry
+      - name: Publish the exact validated tarball via OIDC
+        if: steps.registry.outputs.published == 'false'
+        env:
+          PUBLICATION_PACKAGE_FILENAME: ${{ steps.identity.outputs.package_filename }}
+        # All prepublish/source/unit/browser gates ran in the read-only job on these exact bytes.
+        # Tarball hooks cannot execute new source or rebuild a different artifact in the OIDC job.
+        run: npm publish "$RUNNER_TEMP/validated-publication/$PUBLICATION_PACKAGE_FILENAME" --ignore-scripts --provenance --access public

@@ -1,0 +1,349 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "finance-invoice",
+  "slots": [
+    {
+      "id": "invoiceReference",
+      "type": "text",
+      "label": "Document reference",
+      "maxLength": 80,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "clientName",
+      "type": "text",
+      "label": "Client name",
+      "maxLength": 120,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "clientAddress",
+      "type": "text",
+      "label": "Client address",
+      "maxLength": 240,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "issuedDateEn",
+      "type": "text",
+      "label": "Issued date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "dueDateEn",
+      "type": "text",
+      "label": "Due date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1TitleEn",
+      "type": "text",
+      "label": "Line1title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1DescriptionEn",
+      "type": "text",
+      "label": "Line1description en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1QuantityEn",
+      "type": "text",
+      "label": "Line1quantity en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1RateEn",
+      "type": "text",
+      "label": "Line1rate en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1AmountEn",
+      "type": "text",
+      "label": "Line1amount en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2TitleEn",
+      "type": "text",
+      "label": "Line2title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2DescriptionEn",
+      "type": "text",
+      "label": "Line2description en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2QuantityEn",
+      "type": "text",
+      "label": "Line2quantity en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2RateEn",
+      "type": "text",
+      "label": "Line2rate en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2AmountEn",
+      "type": "text",
+      "label": "Line2amount en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3TitleEn",
+      "type": "text",
+      "label": "Line3title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3DescriptionEn",
+      "type": "text",
+      "label": "Line3description en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3QuantityEn",
+      "type": "text",
+      "label": "Line3quantity en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3RateEn",
+      "type": "text",
+      "label": "Line3rate en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3AmountEn",
+      "type": "text",
+      "label": "Line3amount en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "subtotalEn",
+      "type": "text",
+      "label": "Subtotal en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "taxAmountEn",
+      "type": "text",
+      "label": "Tax amount en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "totalDueEn",
+      "type": "text",
+      "label": "Total due en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "issuedDateVi",
+      "type": "text",
+      "label": "Issued date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "dueDateVi",
+      "type": "text",
+      "label": "Due date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1TitleVi",
+      "type": "text",
+      "label": "Line1title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1DescriptionVi",
+      "type": "text",
+      "label": "Line1description vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1QuantityVi",
+      "type": "text",
+      "label": "Line1quantity vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1RateVi",
+      "type": "text",
+      "label": "Line1rate vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1AmountVi",
+      "type": "text",
+      "label": "Line1amount vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2TitleVi",
+      "type": "text",
+      "label": "Line2title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2DescriptionVi",
+      "type": "text",
+      "label": "Line2description vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2QuantityVi",
+      "type": "text",
+      "label": "Line2quantity vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2RateVi",
+      "type": "text",
+      "label": "Line2rate vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2AmountVi",
+      "type": "text",
+      "label": "Line2amount vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3TitleVi",
+      "type": "text",
+      "label": "Line3title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3DescriptionVi",
+      "type": "text",
+      "label": "Line3description vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3QuantityVi",
+      "type": "text",
+      "label": "Line3quantity vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3RateVi",
+      "type": "text",
+      "label": "Line3rate vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3AmountVi",
+      "type": "text",
+      "label": "Line3amount vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "subtotalVi",
+      "type": "text",
+      "label": "Subtotal vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "taxAmountVi",
+      "type": "text",
+      "label": "Tax amount vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "totalDueVi",
+      "type": "text",
+      "label": "Total due vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

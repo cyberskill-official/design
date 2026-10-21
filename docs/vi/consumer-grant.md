@@ -36,5 +36,5 @@ Package vẫn **UNLICENSED**. Cài từ npm registry **không** tự cấp quy�
 ## Liên quan
 
 - Adopt / cài: `docs/consuming.md`
-- Biên bản quyết định: `docs/decisions.md` §7
+- Biên bản quyết định: `docs/decisions.md` (Roadmap defaults / npm)
 - Registry product → element: `docs/products.md`

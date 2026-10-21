@@ -1,0 +1,446 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "legal-sow",
+  "slots": [
+    {
+      "id": "statementReference",
+      "type": "text",
+      "label": "Statement Reference",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "projectTitleEn",
+      "type": "text",
+      "label": "Project Title En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "projectTitleVi",
+      "type": "text",
+      "label": "Project Title Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "clientNameEn",
+      "type": "text",
+      "label": "Client Name En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "clientNameVi",
+      "type": "text",
+      "label": "Client Name Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "agreementDateEn",
+      "type": "text",
+      "label": "Agreement date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "agreementDateVi",
+      "type": "text",
+      "label": "Agreement date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "startDateEn",
+      "type": "text",
+      "label": "Start date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "targetDateEn",
+      "type": "text",
+      "label": "Target date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone1DateEn",
+      "type": "text",
+      "label": "Milestone1date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone2DateEn",
+      "type": "text",
+      "label": "Milestone2date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone3DateEn",
+      "type": "text",
+      "label": "Milestone3date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone1FeeEn",
+      "type": "text",
+      "label": "Milestone1fee en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone2FeeEn",
+      "type": "text",
+      "label": "Milestone2fee en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone3FeeEn",
+      "type": "text",
+      "label": "Milestone3fee en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "totalFeeEn",
+      "type": "text",
+      "label": "Total fee en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable1TitleEn",
+      "type": "text",
+      "label": "Deliverable1title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable1DescriptionEn",
+      "type": "text",
+      "label": "Deliverable1description en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable1OwnerEn",
+      "type": "text",
+      "label": "Deliverable1owner en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable2TitleEn",
+      "type": "text",
+      "label": "Deliverable2title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable2DescriptionEn",
+      "type": "text",
+      "label": "Deliverable2description en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable2OwnerEn",
+      "type": "text",
+      "label": "Deliverable2owner en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable3TitleEn",
+      "type": "text",
+      "label": "Deliverable3title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable3DescriptionEn",
+      "type": "text",
+      "label": "Deliverable3description en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable3OwnerEn",
+      "type": "text",
+      "label": "Deliverable3owner en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable4TitleEn",
+      "type": "text",
+      "label": "Deliverable4title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable4DescriptionEn",
+      "type": "text",
+      "label": "Deliverable4description en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable4OwnerEn",
+      "type": "text",
+      "label": "Deliverable4owner en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone1TitleEn",
+      "type": "text",
+      "label": "Milestone1title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone2TitleEn",
+      "type": "text",
+      "label": "Milestone2title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone3TitleEn",
+      "type": "text",
+      "label": "Milestone3title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "startDateVi",
+      "type": "text",
+      "label": "Start date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "targetDateVi",
+      "type": "text",
+      "label": "Target date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone1DateVi",
+      "type": "text",
+      "label": "Milestone1date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone2DateVi",
+      "type": "text",
+      "label": "Milestone2date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone3DateVi",
+      "type": "text",
+      "label": "Milestone3date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone1FeeVi",
+      "type": "text",
+      "label": "Milestone1fee vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone2FeeVi",
+      "type": "text",
+      "label": "Milestone2fee vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone3FeeVi",
+      "type": "text",
+      "label": "Milestone3fee vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "totalFeeVi",
+      "type": "text",
+      "label": "Total fee vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable1TitleVi",
+      "type": "text",
+      "label": "Deliverable1title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable1DescriptionVi",
+      "type": "text",
+      "label": "Deliverable1description vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable1OwnerVi",
+      "type": "text",
+      "label": "Deliverable1owner vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable2TitleVi",
+      "type": "text",
+      "label": "Deliverable2title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable2DescriptionVi",
+      "type": "text",
+      "label": "Deliverable2description vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable2OwnerVi",
+      "type": "text",
+      "label": "Deliverable2owner vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable3TitleVi",
+      "type": "text",
+      "label": "Deliverable3title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable3DescriptionVi",
+      "type": "text",
+      "label": "Deliverable3description vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable3OwnerVi",
+      "type": "text",
+      "label": "Deliverable3owner vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable4TitleVi",
+      "type": "text",
+      "label": "Deliverable4title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable4DescriptionVi",
+      "type": "text",
+      "label": "Deliverable4description vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "deliverable4OwnerVi",
+      "type": "text",
+      "label": "Deliverable4owner vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone1TitleVi",
+      "type": "text",
+      "label": "Milestone1title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone2TitleVi",
+      "type": "text",
+      "label": "Milestone2title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "milestone3TitleVi",
+      "type": "text",
+      "label": "Milestone3title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

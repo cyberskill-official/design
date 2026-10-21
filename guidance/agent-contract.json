@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "interpretation": "Generated policy/routing projection, not runtime, host-loading, human acceptance or release certification.",
+  "sourceHashes": {
+    "scripts/guidance-source.json": "bc5a38c55150db896a2e93d47da1f3a8811ddedd6bed73e306f5abc21dd205eb",
+    "docs/doctrine.md": "25b5c51ba0bb38b8486b625124dcf6b90af8ac97e7518ab2cd92ff10b84eef54"
+  },
+  "authorities": {
+    "entry": "SKILL.md",
+    "doctrine": "docs/doctrine.md",
+    "consuming": "docs/consuming.md",
+    "templateGrammar": "docs/template-grammar.md",
+    "catalog": "docs/reference-catalog.json",
+    "workflow": "AGENTS.md"
+  },
+  "retirement": {
+    "system": "CyberOS orchestration and its two acceptance gates",
+    "date": "2026-10-08",
+    "state": "retired",
+    "installationRequired": false
+  },
+  "acceptance": {
+    "productVisualReview": "separate-required",
+    "manualAccessibility": "separate-required",
+    "pushDeployMerge": "explicit-operator-instruction"
+  },
+  "portableValidation": {
+    "unit": "npm run test:unit",
+    "board": "_audit/run.html",
+    "pixelBeforeBoard": true,
+    "externalCompiler": "supplemental-when-available",
+    "wholeSet": "docs/doctrine.md#verification-depth"
+  },
+  "runtimeRoutes": [
+    {
+      "id": "static-html",
+      "entry": "styles.css",
+      "guide": "DESIGN.md",
+      "limit": "Use .cs-* classes; .dc.html additionally requires the shipped interpreter or a verified grammar-aware runtime."
+    },
+    {
+      "id": "react",
+      "entry": "@cyberskill/design",
+      "guide": "docs/consuming.md",
+      "limit": "Compiled ESM with peer React; explicit @cyberskill/design/source is raw JSX. CommonJS is not promised."
+    },
+    {
+      "id": "legacy-browser",
+      "entry": "_esm/cs.mjs",
+      "guide": "docs/consuming.md",
+      "limit": "Browser-only; resolve the CyberSkillDesignSystem_ global by prefix, not a fixed suffix. Not an SSR entry."
+    },
+    {
+      "id": "document-templates",
+      "entry": "templates/_vendor/support.js",
+      "guide": "docs/template-grammar.md",
+      "limit": "Serve relative resources. Browser preview, declared controls/content and PDF/DOCX have scoped checks; host authoring tools, PPTX and super_inline_html remain external."
+    }
+  ],
+  "immutables": {
+    "Slogan": "*Turn Your Will Into Real* / *Hiện Thực Hoá Ý Chí*",
+    "Primary brand": "Umber `#45210E`",
+    "Primary accent": "Ochre `#F4BA17`",
+    "Voice": "warm · direct · honest · respectful (all four at once)",
+    "Language": "Vietnamese-first; every UI string ships an EN + VN pair",
+    "Accessibility floor": "APCA Lc ≥ 75 body text; focus rings never removed; ≥ 44px touch targets",
+    "Axes": "Theme × Element × Language × Style (independent)",
+    "Style pack": "liquid-glass (sole pack; absent ≡ default)"
+  },
+  "normative": {
+    "Expansion rule": "When **anything** in this system grows, update **every deliverable in the same change**:\n\n1. Tokens and source (`tokens/`, component `.jsx` + `.d.ts` + `.prompt.md`).\n2. Specimen cards (guidelines plus the component group card) **and any related guideline pages**.\n3. **All** templates (tweak enums, EL/EX maps, swept accents).\n4. UI kits — Thổ-faithful kit pages; axis demos via Storybook toolbar and Atomic View (Identity Lab is retired).\n5. Docs: README (counts follow `docs/reference-catalog.json`), `SKILL.md`, this file, `docs/conventions.md`, **and every related document the change touches** (kit READMEs, `docs/products.md`, `docs/contrast-report.md` regeneration after token changes). Publish the same pages through Storybook Docs (see `docs/storybook.md`). **Do not maintain a changelog file** — track `VERSION`. Continuity is git history plus curated Release Notes.\n6. Browsable and health surfaces: a new or changed component gets an Atomic View story in `guidelines/atomic-view.html` (plus a live playground if it has tweakable props — `_audit/story-coverage.html` enforces the story) and behavior coverage in `_audit/component-behavior-test.html` if interactive; any new axis, tool, or tab is wired into `_audit/index.html` and Storybook **Status** (full-bleed `_audit/run.html` — `dashboard.html` is redirect-only); the matching deterministic gate is added or updated (`contrast-guard` for new colour rules, `token-contract` plus the contrast matrix for tokens, `story-coverage` for components, `docs-storybook-coverage` for published docs).\n\n**Gate:** `_audit/run.html` (all fast gates, including `docs-consistency`) green **plus** `npm run test:unit` **plus** a source search for the old enum or list to prove nothing was left behind. Sessions with an external Design Components compiler additionally run its `check_design_system`; this is not an in-repository command.\n\nDocumented scope boundaries (doctrine, not gaps): UI-kit pages remain Thổ-faithful recreations; bilingual EN·VN covers emails plus team, legal, and finance docs (client and media collateral is EN-first); text never sits on the mid-tone `-accent`.",
+    "Verification depth": "Deep checks, never surface spot-checks. Cover the **whole set and every relevant state** — not a sample. Prefer deterministic, programmatic scans that touch **every** item (for example EN/VI key-parity, hole-coverage, and leak scan across all templates; computed-style and overflow probes at every breakpoint via the `_audit/` harnesses using `__dcSetProps` for each declared language/theme prop and verifying the rendered state; `__dc_theme` changes only the optional authoring canvas background), then add representative visual or export confirmation on top. A few screenshots are evidence, not proof. Never call work verified because it was “spot-checked” when a complete check is feasible; if a full check truly is not feasible, say so explicitly and state what was and was not covered. Language, theme, and responsive states each get their own pass — one language, width, or theme rendering cleanly is not evidence for the others.",
+    "Immutables": "| Immutable | Value |\n|---|---|\n| Slogan | *Turn Your Will Into Real* / *Hiện Thực Hoá Ý Chí* |\n| Primary brand | Umber `#45210E` |\n| Primary accent | Ochre `#F4BA17` |\n| Voice | warm · direct · honest · respectful (all four at once) |\n| Language | Vietnamese-first; every UI string ships an EN + VN pair |\n| Accessibility floor | APCA Lc ≥ 75 body text; focus rings never removed; ≥ 44px touch targets |\n| Axes | Theme × Element × Language × Style (independent) |\n| Style pack | liquid-glass (sole pack; absent ≡ default) |\n\nOne accent per surface. Semantic statuses and the composite focus indicator (text-primary contour + ochre halo) are never elemental. Lumi stays golden in every element."
+  }
+}

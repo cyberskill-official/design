@@ -1,0 +1,54 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-labor-contract",
+  "slots": [
+    {
+      "id": "employeeName",
+      "type": "text",
+      "label": "Ông/BàFull name",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "nationality",
+      "type": "text",
+      "label": "Quốc tịchNationality",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "residentialAddress",
+      "type": "text",
+      "label": "Nơi cư trúPlace of residence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "citizenId",
+      "type": "text",
+      "label": "Số CCCDCitizen ID no.",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "telephone",
+      "type": "text",
+      "label": "Điện thoạiTel",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "email",
+      "type": "text",
+      "label": "Thư điện tửEmail",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "interpretation": "Regression ceilings derived from the 2026-10-20 remediated artifacts. Increasing a ceiling requires an explicit reviewed rationale; these are not performance or Lighthouse acceptance.",
+  "files": [
+    {
+      "path": "_ds_bundle.js",
+      "maxBytes": 600000
+    },
+    {
+      "path": "dist/styles.min.css",
+      "maxBytes": 220000
+    },
+    {
+      "path": "assets/aurora-gold.jpg",
+      "maxBytes": 103424
+    },
+    {
+      "path": "assets/aurora-hoa.webp",
+      "maxBytes": 13312
+    },
+    {
+      "path": "assets/aurora-kim.webp",
+      "maxBytes": 12288
+    },
+    {
+      "path": "assets/aurora-moc.webp",
+      "maxBytes": 12288
+    },
+    {
+      "path": "assets/aurora-tho.webp",
+      "maxBytes": 28672
+    },
+    {
+      "path": "assets/aurora-thuy.webp",
+      "maxBytes": 11264
+    },
+    {
+      "path": "assets/favicon.svg",
+      "maxBytes": 7168
+    },
+    {
+      "path": "assets/logo-mark.png",
+      "maxBytes": 183296
+    },
+    {
+      "path": "assets/logo-mark.svg",
+      "maxBytes": 15360
+    },
+    {
+      "path": "assets/lumi-poster.webp",
+      "maxBytes": 84992
+    },
+    {
+      "path": "assets/og-dashboard.png",
+      "maxBytes": 32768
+    },
+    {
+      "path": "tokens/variables.css",
+      "maxBytes": 90000
+    },
+    {
+      "path": "_ds_bundle.js.map",
+      "maxBytes": 1200000
+    }
+  ],
+  "trees": [
+    {
+      "path": "dist/esm",
+      "maxBytes": 1800000,
+      "maxFiles": 500
+    },
+    {
+      "path": "tokens/modes",
+      "maxBytes": 12000000,
+      "maxFiles": 257
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { TreeSelect } from '../components/forms/TreeSelect.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
@@ -17,6 +18,13 @@ export default {
   component: TreeSelect,
   tags: ['autodocs'],
   argTypes: {
+    portal: {control: 'boolean', description: 'Body portal after client mount by default; false keeps inline/server markup and ancestor clipping.'},
+    placement: {control: 'select', options: DECLARED_DOMAINS.TreeSelect["placement"], description: 'Preferred physical side; flips/shifts within the visual viewport. Top/bottom start/end follow inline direction.'},
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
+  "controlProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
+  "description": {"control":"text"},
+  "error": {"control":"text"},
+  "required": {"control":"boolean"},
     nodes: { control: 'object' },
     value: { control: 'text' },
     placeholder: { control: 'text' },
@@ -24,15 +32,7 @@ export default {
     disabled: { control: 'boolean' },
     lang: { control: 'text' },
   },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting TreeSelect. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
-  args: { label: 'Folder', nodes: NODES, placeholder: 'Select…' },
+  args: { portal: true, label: 'Folder', nodes: NODES, placeholder: 'Select…' },
 };
 
 export const Default = {};
@@ -66,10 +66,11 @@ export const FullMatrix = {
   name: 'Full matrix / state',
   render: (args) => {
     const cells = cartesian({}).flatMap((combo) =>
-      stateCombos(['disabled']).map((state) => {
+      stateCombos(["disabled","error"]).map((state) => {
         const props = { ...combo, ...state };
-        const label = comboLabel(props, ['disabled']);
-        return <TreeSelect key={label} {...args} disabled={!!state.disabled} />;
+        const label = comboLabel(props, ["disabled","error"]);
+        return <TreeSelect key={label} {...args} disabled={!!state.disabled}  error={state.error ? "Example field error" : undefined}
+           portal={args.portal} placement={args.placement} />;
       }),
     );
     return (
@@ -79,3 +80,39 @@ export const FullMatrix = {
     );
   },
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioTreeSelectError = {
+  name: "TreeSelect: Validation error",
+  args: {
+  "nodes": [
+    {
+      "key": "a",
+      "label": "Alpha"
+    },
+    {
+      "key": "b",
+      "label": "Beta"
+    }
+  ],
+  "value": "a",
+  "label": "Region",
+  "error": "TreeSelect scenario validation error"
+},
+  render: args => renderComponentScenario("TreeSelect--error",args),
+  play: ({canvasElement}) => playComponentScenario("TreeSelect--error",canvasElement),
+};
+
+export const ScenarioTreeSelectEmpty = {
+  name: "TreeSelect: Empty collection",
+  args: {
+  "nodes": [],
+  "value": "a",
+  "label": "Region",
+  "portal": false
+},
+  render: args => renderComponentScenario("TreeSelect--empty",args),
+  play: ({canvasElement}) => playComponentScenario("TreeSelect--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

@@ -68,20 +68,14 @@
 <body>
 <aside id="nav" lang="vi"><h1 id="doctitle">Tài liệu CyberSkill</h1>
 <div class="langtog" role="group" aria-label="Ngôn ngữ tài liệu"><button type="button" id="lang-en" data-lang="en" lang="en">EN</button><button type="button" id="lang-vi" data-lang="vi" lang="vi">VI</button></div>
-<p class="langhint" id="langhint">docs/*.md → docs/vi/ · README/SKILL/llms/CONTRIBUTING vẫn EN</p>
+<p class="langhint" id="langhint">Hướng dẫn và tài liệu đầu vào có bản VI · EN giữ nguyên nguồn</p>
 <input id="docsearch" type="search" placeholder="Tìm mọi tài liệu…" aria-label="Tìm mọi tài liệu"><div id="navlinks"></div></aside>
 <main><article id="doc" lang="vi" data-state="loading" aria-busy="true"><p style="color:var(--cs-color-text-muted)">Đang tải…</p></article><p id="err" hidden></p></main>
 <script>
-const DOCS_EN=[
- ['Start',[['README.md','README'],['SKILL.md','SKILL (agent rules)'],['llms.txt','llms.txt'],['CONTRIBUTING.md','Contributing']]],
- ['Guides',[['docs/component-api.md',"Current component API"],['docs/locale-messages.md',"Scoped UI messages"],['docs/runtime-api.md',"Runtime API foundation"],['docs/consuming.md','Consuming & upgrading'],['docs/consumer-grant.md','Consumer grant (npm · UNLICENSED)'],['docs/deploy.md','Deploy (Vercel/VPS)'],['docs/template-schema-v2.md','Template content-schema v2'],['docs/conventions.md','Conventions'],['docs/release-notes.md','Release Notes'],['docs/storybook.md','Storybook (product at /)'],['docs/live-hub.md','Live hub (Storybook at /)'],['docs/hr-suite-sources.md','HR Suite sources (DOCX ↔ templates)'],['docs/design-styles.md','Design styles'],['docs/benchmark-rubric.md','Benchmark rubric'],['docs/products.md','Products'],['docs/contrast-report.md','Contrast report'],['docs/figma.md','Figma']]],
- ['Maintainers',[['docs/doctrine.md','Doctrine'],['docs/decisions.md','Decisions'],['docs/ci-cd.md','CI/CD automation'],['docs/quality-gates.md','Quality gates'],['docs/sync.md','Git sync & hygiene']]]
-];
-const DOCS_VI=[
- ['Bắt đầu',[['README.md','README (EN)'],['SKILL.md','SKILL (EN)'],['llms.txt','llms.txt (EN)'],['CONTRIBUTING.md','Đóng góp (EN)']]],
- ['Hướng dẫn',[['docs/component-api.md',"API component hiện tại"],['docs/locale-messages.md',"Thông điệp UI theo scope"],['docs/runtime-api.md',"Nền tảng API runtime"],['docs/consuming.md','Tiêu thụ & nâng cấp'],['docs/consumer-grant.md','Grant consumer (npm · UNLICENSED)'],['docs/deploy.md','Deploy (Vercel/VPS)'],['docs/template-schema-v2.md','Template schema v2'],['docs/conventions.md','Conventions'],['docs/release-notes.md','Ghi chú phát hành'],['docs/storybook.md','Storybook (sản phẩm tại /)'],['docs/live-hub.md','Live hub (Storybook tại /)'],['docs/hr-suite-sources.md','Nguồn HR Suite (DOCX ↔ templates)'],['docs/design-styles.md','Phong cách'],['docs/benchmark-rubric.md','Rubric benchmark'],['docs/products.md','Sản phẩm'],['docs/contrast-report.md','Báo cáo contrast'],['docs/figma.md','Figma']]],
- ['Bảo trì',[['docs/doctrine.md','Học thuyết'],['docs/decisions.md','Quyết định'],['docs/ci-cd.md','CI/CD'],['docs/quality-gates.md','Quality gates'],['docs/sync.md','Đồng bộ Git']]]
-];
+// Generated from _audit/docs-catalog.json; run npm run build:doc-navigation.
+const DOCS_EN=[["Start",[["docs/introduction.md","Introduction"],["docs/four-axes.md","The Four Axes"],["docs/voice-and-language.md","Voice & Language"],["README.md","README"],["SKILL.md","SKILL"],["llms.txt","llms.txt"],["CONTRIBUTING.md","Contributing"],["DESIGN.md","DESIGN (generated spec)"]]],["Guides",[["docs/consuming.md","Consuming & upgrading"],["docs/consumer-grant.md","Consumer grant (npm · UNLICENSED)"],["docs/deploy.md","Deploy (Vercel/VPS)"],["docs/template-schema-v2.md","Template content-schema v2"],["docs/conventions.md","Conventions"],["docs/release-notes.md","Release Notes"],["docs/storybook.md","Storybook (product at /)"],["docs/live-hub.md","Live hub (Storybook at /)"],["docs/hr-suite-sources.md","HR Suite sources (DOCX ↔ templates)"],["docs/design-styles.md","Design styles"],["docs/benchmark-rubric.md","Benchmark rubric"],["docs/products.md","Products"],["docs/contrast-report.md","Contrast report"],["docs/figma.md","Figma"],["docs/template-grammar.md","Template grammar"],["docs/component-api.md","Component API"],["docs/runtime-api.md","Runtime API"],["docs/browser-support.md","Browser support"],["docs/static-html-reference.md","Static HTML reference"],["docs/locale-messages.md","Scoped UI messages"],["docs/component-semantics.md","Component semantics"],["docs/native-refs.md","Native refs"],["docs/template-content.md","Template content"],["docs/floating-panels.md","Floating panels"],["docs/layered-css.md","Layered CSS (opt-in)"],["docs/component-css.md","Component CSS"],["docs/guideline-language.md","Guideline language"],["docs/component-scenarios.md","Component state scenarios"],["docs/template-archetypes.md","Template archetypes"],["docs/component-semantic-contracts.md","Component semantic contracts"],["docs/template-shared-layouts.md","Shared template layouts"]]],["Maintainers",[["docs/doctrine.md","Doctrine"],["docs/decisions.md","Decisions"],["docs/ci-cd.md","CI/CD automation"],["docs/quality-gates.md","Quality gates"],["docs/sync.md","Git sync & hygiene"],["docs/manual-at-matrix.md","Manual AT matrix"],["docs/validation.md","Validation"],["docs/releasing.md","Release preparation"]]]];
+const DOCS_VI=[["Bắt đầu",[["docs/introduction.md","Giới thiệu"],["docs/four-axes.md","Bốn trục"],["docs/voice-and-language.md","Giọng điệu và ngôn ngữ"],["README.md","README"],["SKILL.md","SKILL"],["llms.txt","llms.txt"],["CONTRIBUTING.md","Contributing"],["DESIGN.md","DESIGN (đặc tả được sinh)"]]],["Hướng dẫn",[["docs/consuming.md","Tiêu thụ & nâng cấp"],["docs/consumer-grant.md","Grant consumer (npm · UNLICENSED)"],["docs/deploy.md","Deploy (Vercel/VPS)"],["docs/template-schema-v2.md","Template schema v2"],["docs/conventions.md","Conventions"],["docs/release-notes.md","Ghi chú phát hành"],["docs/storybook.md","Storybook (sản phẩm tại /)"],["docs/live-hub.md","Live hub (Storybook tại /)"],["docs/hr-suite-sources.md","Nguồn HR Suite (DOCX ↔ templates)"],["docs/design-styles.md","Phong cách"],["docs/benchmark-rubric.md","Rubric benchmark"],["docs/products.md","Sản phẩm"],["docs/contrast-report.md","Báo cáo contrast"],["docs/figma.md","Figma"],["docs/template-grammar.md","Ngữ pháp template"],["docs/component-api.md","API component"],["docs/runtime-api.md","API runtime"],["docs/browser-support.md","Hỗ trợ trình duyệt"],["docs/static-html-reference.md","Tham chiếu HTML tĩnh"],["docs/locale-messages.md","Thông điệp UI theo scope"],["docs/component-semantics.md","Ngữ nghĩa component"],["docs/native-refs.md","Ref đến phần tử native"],["docs/template-content.md","Nội dung mẫu"],["docs/floating-panels.md","Panel nổi"],["docs/layered-css.md","CSS theo layer (tùy chọn)"],["docs/component-css.md","CSS theo component"],["docs/guideline-language.md","Ngôn ngữ guideline"],["docs/component-scenarios.md","Kịch bản trạng thái component"],["docs/template-archetypes.md","Mẫu cấu trúc tài liệu"],["docs/component-semantic-contracts.md","Contract ngữ nghĩa component"],["docs/template-shared-layouts.md","Bố cục mẫu dùng chung"]]],["Bảo trì",[["docs/doctrine.md","Học thuyết"],["docs/decisions.md","Quyết định"],["docs/ci-cd.md","CI/CD"],["docs/quality-gates.md","Quality gates"],["docs/sync.md","Đồng bộ Git"],["docs/manual-at-matrix.md","Ma trận AT thủ công"],["docs/validation.md","Kiểm chứng"],["docs/releasing.md","Chuẩn bị phát hành"]]]];
+const ENTRANCE_VI={"README.md":"docs/vi/entrypoints/README.md","SKILL.md":"docs/vi/entrypoints/SKILL.md","llms.txt":"docs/vi/entrypoints/llms.txt","CONTRIBUTING.md":"docs/vi/entrypoints/CONTRIBUTING.md","DESIGN.md":"docs/vi/entrypoints/DESIGN.md"};
 const UI={
   en:{title:'CyberSkill Docs',group:'Doc language',search:'Search all docs',loading:'Loading…',failure:'Could not load ',matches:(count,q)=>count+' match'+(count===1?'':'es')+' for “'+q+'”'},
   vi:{title:'Tài liệu CyberSkill',group:'Ngôn ngữ tài liệu',search:'Tìm mọi tài liệu',loading:'Đang tải…',failure:'Không thể tải ',matches:(count,q)=>count+' kết quả cho “'+q+'”'},
@@ -90,7 +84,7 @@ const UI={
 function savedLanguage(){ try{ return localStorage.getItem('cs-docs-lang'); }catch{ return null; } }
 function saveLanguage(value){ try{ localStorage.setItem('cs-docs-lang',value); }catch{} }
 let lang=savedLanguage()==='en'?'en':'vi';
-function contentLanguage(path,language=lang){ return path.startsWith('docs/')?language:'en'; }
+function contentLanguage(path,language=lang){ return path.startsWith('docs/') || Object.hasOwn(ENTRANCE_VI,path) ? language : 'en'; }
 function DOCS(){ return lang==='vi'?DOCS_VI:DOCS_EN; }
 const ALL=DOCS_EN.flatMap(g=>g[1].map(d=>d[0]));
 const nav=document.getElementById('navlinks');
@@ -103,8 +97,8 @@ function syncLangUi(){
   document.getElementById('doctitle').textContent=UI[lang].title;
   document.querySelector('.langtog').setAttribute('aria-label',UI[lang].group);
   document.getElementById('langhint').textContent=lang==='vi'
-    ? 'docs/*.md → docs/vi/ · README/SKILL/llms/CONTRIBUTING vẫn EN'
-    : 'Operator docs under docs/ · entrance docs stay EN';
+    ? 'Hướng dẫn và tài liệu đầu vào có bản VI · EN giữ nguyên nguồn'
+    : 'Guides and entrance documents have paired VI/EN views';
   document.getElementById('docsearch').placeholder=UI[lang].search+'…';
   document.getElementById('docsearch').setAttribute('aria-label',UI[lang].search);
   document.documentElement.lang=lang==='vi'?'vi':'en';
@@ -124,8 +118,9 @@ document.querySelector('.langtog').addEventListener('click',(e)=>{
 });
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function labelsNow(){ const L={}; for(const [,items] of DOCS()) for(const [p,l] of items) L[p]=l; return L; }
-/** Logical nav path (docs/foo.md) → fetch path (docs/vi/foo.md when VI). Entrance docs stay EN. */
+/** Canonical bookmarks remain stable; language selects the declared guide/entrance mirror. */
 function fetchPath(p,language=lang){
+  if(language==='vi' && Object.hasOwn(ENTRANCE_VI,p)) return ENTRANCE_VI[p];
   if(language==='vi' && p.startsWith('docs/') && !p.startsWith('docs/vi/')) return 'docs/vi/'+p.slice(5);
   return p;
 }
@@ -164,7 +159,10 @@ function inline(s){ return esc(s)
   .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,'<a href="$2">$1</a>'); }
 function md(src){
   src=src.replace(/\r/g,''); const fences=[];
-  src=src.replace(/```[\w-]*\n([\s\S]*?)```/g,(m,c)=>{ fences.push('<pre><code>'+esc(c)+'</code></pre>'); return '@@F'+(fences.length-1)+'@@'; });
+  const metadata=src.match(/^---\n[\s\S]*?\n---(?:\n|$)/)?.[0] || '';
+  if(metadata)src=src.slice(metadata.length);
+  const metadataHtml=metadata?'<pre lang="en" data-source-metadata=""><code>'+esc(metadata)+'</code></pre>':'';
+  src=src.replace(/```[\w-]*\n([\s\S]*?)```/g,(m,c)=>{ fences.push('<pre lang="en"><code>'+esc(c)+'</code></pre>'); return '@@F'+(fences.length-1)+'@@'; });
   const lines=src.split('\n'); const out=[]; let i=0;
   const grab=(re)=>{ const acc=[]; while(i<lines.length&&re.test(lines[i])){ acc.push(lines[i]); i++; } return acc; };
   while(i<lines.length){ const L=lines[i];
@@ -220,7 +218,7 @@ function md(src){
     // Soft-wrapped prose: join with a single space so mid-sentence hard wraps never render as breaks.
     out.push('<p>'+p.map(l=>l.trim()).filter(Boolean).map(inline).join(' ')+'</p>');
   }
-  return out.join('\n').replace(/@@F(\d+)@@/g,(m,n)=>fences[+n]);
+  return metadataHtml+out.join('\n').replace(/@@F(\d+)@@/g,(m,n)=>fences[+n]);
 }
 function resolve(href,cur){ if(href.startsWith('./')) href=href.slice(2); const base=cur.includes('/')?cur.slice(0,cur.lastIndexOf('/')+1):''; let p=base+href; for(let k=0;k<6&&/(^|\/)\.\.\//.test(p);k++){ p=p.replace(/(^|\/)[^\/]+\/\.\.\//,'$1'); } return p.replace(/^\.\//,'').replace(/^\/+/,''); }
 let cur='',loadRevision=0;
@@ -254,7 +252,7 @@ async function fetchDoc(p){
 }
 async function load(p){
   const revision=++loadRevision, language=lang, path=fetchPath(p,language);
-  cur=p; document.title='CyberSkill · '+p+(lang==='vi' && p.startsWith('docs/')?' · VI':'');
+  cur=p; document.title='CyberSkill · '+p+(contentLanguage(p,lang)==='vi'?' · VI':'');
   markActive();
   const doc=document.getElementById('doc'), err=document.getElementById('err');
   err.hidden=true;
@@ -281,9 +279,15 @@ document.getElementById('doc').addEventListener('click',(e)=>{
   e.preventDefault();
   const basePath=fetchPath(cur,lang);
   const raw=resolve(href,basePath);
-  const mapped=raw.startsWith('docs/vi/')?'docs/'+raw.slice(8):raw;
+  const entrance=Object.entries(ENTRANCE_VI).find(([,mirror])=>mirror===raw)?.[0];
+  const mapped=entrance || (raw.startsWith('docs/vi/')?'docs/'+raw.slice(8):raw);
   const fallback=resolve(href,cur);
   const p=ALL.includes(mapped)?mapped:(ALL.includes(fallback)?fallback:mapped);
+  if(entrance && lang!=='vi'){
+    document.getElementById('lang-vi').click();
+    if(cur!==p)location.hash=p;
+    return;
+  }
   if(ALL.includes(p)) location.hash=p; else window.open('../'+p,'_blank','noopener');
 });
 function route(){ const p=decodeURIComponent((location.hash||'').slice(1)); load(ALL.includes(p)?p:'README.md'); }

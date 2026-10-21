@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import postcss from 'postcss';
+import {sourcePaths,variableStyles} from '../../scripts/generate-token-css-entry.mjs';
+const read=path=>readFileSync(path,'utf8');
+const output=read('tokens/variables.css');assert.equal(output,variableStyles(read));
+const expected=[];for(const path of sourcePaths(read))postcss.parse(read(path)).walkDecls(decl=>{if(decl.prop.startsWith('--'))expected.push([decl.prop,decl.value,decl.important||false])});
+const actual=[];postcss.parse(output).walkDecls(decl=>{assert(decl.prop.startsWith('--'),'Ordinary styles cannot leak');actual.push([decl.prop,decl.value,decl.important||false])});assert.deepEqual(actual,expected,'Every declaration retains order, value and priority');
+assert(!/@font-face|@import/.test(output));
+assert.throws(()=>variableStyles(()=> '@import "external.css";'),/Unsupported CSS entry import/);
+assert.throws(()=>variableStyles(path=>path==='styles.css'?'@import url("tokens/unknown.css");':'@property --unsafe { syntax: "*"; --fake: 1; }'),/Unsupported token rule/);
+assert.notEqual(variableStyles(path=>read(path).replace('#45210E','#123456')),output,'Authored value drift changes output');
+console.log('PASS token-only entry: complete ordered custom declarations, no ordinary styles/fonts/imports/assets, unknown-rule rejection and source mutation');

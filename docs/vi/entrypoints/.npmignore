@@ -1,0 +1,6 @@
+# Match the repository-only scope of the original host instruction files.
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+MAINTAINERS.md
+SECURITY.md

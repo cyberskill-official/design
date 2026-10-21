@@ -2,34 +2,274 @@
   "$schemaVersion": "2.0",
   "template": "marketing-page",
   "slots": [
-    { "id": "heroImagePlaceholder", "type": "text", "label": "Hero image authoring placeholder", "maxLength": 80 },
-    { "id": "closeLabel", "type": "text", "label": "Chat close button label", "maxLength": 24, "required": true },
-    { "id": "skipLabel", "type": "text", "label": "Skip-to-content link label", "maxLength": 40, "required": true },
-    { "id": "heroKicker", "type": "text", "label": "Hero eyebrow", "maxLength": 40, "i18n": {"en": "Eyebrow above the headline", "vi": "Nhãn nhỏ phía trên tiêu đề"} },
-    { "id": "heroH", "type": "text", "label": "Hero headline", "maxLength": 70, "required": true },
-    { "id": "heroSub", "type": "text", "label": "Hero subhead", "maxLength": 90 },
-    { "id": "heroP", "type": "richtext", "label": "Hero paragraph", "maxLength": 220 },
-    { "id": "promptPh", "type": "text", "label": "Prompt input placeholder", "maxLength": 60 },
-    { "id": "svcKicker", "type": "text", "label": "Services section eyebrow", "maxLength": 40 },
-    { "id": "svcH", "type": "text", "label": "Services headline", "maxLength": 60, "required": true },
-    { "id": "svcP", "type": "richtext", "label": "Services intro paragraph", "maxLength": 160 },
-    { "id": "c1h", "type": "text", "label": "Service card 1 title", "maxLength": 40 },
-    { "id": "c1p", "type": "richtext", "label": "Service card 1 body", "maxLength": 140 },
-    { "id": "c2h", "type": "text", "label": "Service card 2 title", "maxLength": 40 },
-    { "id": "c2p", "type": "richtext", "label": "Service card 2 body", "maxLength": 140 },
-    { "id": "c3h", "type": "text", "label": "Service card 3 title", "maxLength": 40 },
-    { "id": "c3p", "type": "richtext", "label": "Service card 3 body", "maxLength": 140 },
-    { "id": "ctaH", "type": "text", "label": "Closing CTA headline", "maxLength": 60, "required": true },
-    { "id": "ctaP", "type": "richtext", "label": "Closing CTA paragraph", "maxLength": 160 },
-    { "id": "talkBtn", "type": "text", "label": "Primary CTA button label", "maxLength": 24, "required": true },
-    { "id": "footer", "type": "text", "label": "Footer line", "maxLength": 80 },
-    { "id": "navServices", "type": "text", "label": "Nav · Services", "maxLength": 24 },
-    { "id": "navProcess", "type": "text", "label": "Nav · Process", "maxLength": 24 },
-    { "id": "navContact", "type": "text", "label": "Nav · Contact", "maxLength": 24 },
-    { "id": "promptSend", "type": "text", "label": "Hero prompt send label", "maxLength": 24 },
-    { "id": "genieLabel", "type": "text", "label": "Chat launcher label", "maxLength": 24 },
-    { "id": "chatHello", "type": "richtext", "label": "Chat greeting", "maxLength": 160 },
-    { "id": "chatPh", "type": "text", "label": "Chat input placeholder", "maxLength": 60 },
-    { "id": "chatSend", "type": "text", "label": "Chat send label", "maxLength": 24 }
+    {
+      "id": "heroImagePlaceholder",
+      "type": "text",
+      "label": "Hero image authoring placeholder",
+      "maxLength": 80,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "image-slot",
+          "attribute": "placeholder"
+        },
+        {
+          "tag": "image-slot",
+          "attribute": "placeholder-vi"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
+    },
+    {
+      "id": "closeLabel",
+      "type": "text",
+      "label": "Chat close button label",
+      "maxLength": 24,
+      "required": true,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "button",
+          "attribute": "aria-label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
+    },
+    {
+      "id": "skipLabel",
+      "type": "text",
+      "label": "Skip-to-content link label",
+      "maxLength": 40,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "heroKicker",
+      "type": "text",
+      "label": "Hero eyebrow",
+      "maxLength": 40,
+      "i18n": {
+        "en": "Eyebrow above the headline",
+        "vi": "Nhãn nhỏ phía trên tiêu đề"
+      },
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "heroH",
+      "type": "text",
+      "label": "Hero headline",
+      "maxLength": 70,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "heroSub",
+      "type": "text",
+      "label": "Hero subhead",
+      "maxLength": 90,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "heroP",
+      "type": "richtext",
+      "label": "Hero paragraph",
+      "maxLength": 220,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "promptPh",
+      "type": "text",
+      "label": "Prompt input placeholder",
+      "maxLength": 60,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.PromptInput",
+          "attribute": "placeholder"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
+    },
+    {
+      "id": "svcKicker",
+      "type": "text",
+      "label": "Services section eyebrow",
+      "maxLength": 40,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "svcH",
+      "type": "text",
+      "label": "Services headline",
+      "maxLength": 60,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "svcP",
+      "type": "richtext",
+      "label": "Services intro paragraph",
+      "maxLength": 160,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "c1h",
+      "type": "text",
+      "label": "Service card 1 title",
+      "maxLength": 40,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "c1p",
+      "type": "richtext",
+      "label": "Service card 1 body",
+      "maxLength": 140,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "c2h",
+      "type": "text",
+      "label": "Service card 2 title",
+      "maxLength": 40,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "c2p",
+      "type": "richtext",
+      "label": "Service card 2 body",
+      "maxLength": 140,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "c3h",
+      "type": "text",
+      "label": "Service card 3 title",
+      "maxLength": 40,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "c3p",
+      "type": "richtext",
+      "label": "Service card 3 body",
+      "maxLength": 140,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "ctaH",
+      "type": "text",
+      "label": "Closing CTA headline",
+      "maxLength": 60,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "ctaP",
+      "type": "richtext",
+      "label": "Closing CTA paragraph",
+      "maxLength": 160,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "talkBtn",
+      "type": "text",
+      "label": "Primary CTA button label",
+      "maxLength": 24,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "footer",
+      "type": "text",
+      "label": "Footer line",
+      "maxLength": 80,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "navServices",
+      "type": "text",
+      "label": "Nav · Services",
+      "maxLength": 24,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "navProcess",
+      "type": "text",
+      "label": "Nav · Process",
+      "maxLength": 24,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "navContact",
+      "type": "text",
+      "label": "Nav · Contact",
+      "maxLength": 24,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "promptSend",
+      "type": "text",
+      "label": "Hero prompt send label",
+      "maxLength": 24,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.PromptInput",
+          "attribute": "send-label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
+    },
+    {
+      "id": "genieLabel",
+      "type": "text",
+      "label": "Chat launcher label",
+      "maxLength": 24,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "chatHello",
+      "type": "richtext",
+      "label": "Chat greeting",
+      "maxLength": 160,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "chatPh",
+      "type": "text",
+      "label": "Chat input placeholder",
+      "maxLength": 60,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.PromptInput",
+          "attribute": "placeholder"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
+    },
+    {
+      "id": "chatSend",
+      "type": "text",
+      "label": "Chat send label",
+      "maxLength": 24,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.PromptInput",
+          "attribute": "send-label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
+    }
   ]
 }

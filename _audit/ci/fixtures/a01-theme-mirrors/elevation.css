@@ -1,0 +1,52 @@
+/* CyberSkill — elevation: depth (z), Liquid Glass material scalars, shadows.
+ * Liquid Glass (DESIGN.md Part 21) is the default surface treatment — five
+ * materials (Whisper / Light / Standard / Heavy / Solid). Scalars live here;
+ * the material composition + classes live in base/glass.css.
+ * Shadow values are warm (umber-tinted), taken from the shipped surfaces. */
+:root {
+  /* ---- Depth (z-index) ----
+   * Order (low → high): bg < section < card < nav < dropdown < overlay < modal < toast.
+   * Toasts intentionally stack above modals so save-confirmation feedback stays visible
+   * while a dialog is open (UX-009). Dropdown sits above sticky nav; overlay (scrims
+   * that are not modal-owned) sits between dropdown and modal. */
+  --cs-depth-bg: 0;        /* @kind other */ /* page background / hero washes */
+  --cs-depth-section: 5;   /* @kind other */ /* major sections (matte, no glass) */
+  --cs-depth-card: 10;     /* @kind other */ /* cards/panels (Standard Glass) */
+  --cs-depth-nav: 50;      /* @kind other */ /* sticky nav (Light Glass) */
+  --cs-depth-dropdown: 60; /* @kind other */ /* menus, combobox, datepicker pops */
+  --cs-depth-overlay: 80;  /* @kind other */ /* non-modal scrims / light overlays */
+  --cs-depth-modal: 100;   /* @kind other */ /* modals, command palette (Heavy Glass) */
+  --cs-depth-toast: 200;   /* @kind other */ /* toasts above modals (Heavy Glass) */
+
+  /* ---- Glass material scalars (blur / saturate / surface opacity) ---- */
+  --cs-glass-whisper-blur: 8px;   --cs-glass-whisper-saturate: 110%; --cs-glass-whisper-opacity: 60%;
+  --cs-glass-light-blur: 12px;    --cs-glass-light-saturate: 130%;   --cs-glass-light-opacity: 70%;
+  --cs-glass-standard-blur: 16px; --cs-glass-standard-saturate: 150%; --cs-glass-standard-opacity: 80%;
+  --cs-glass-heavy-blur: 24px;    --cs-glass-heavy-saturate: 180%;   --cs-glass-heavy-opacity: 90%;
+
+  /* ---- Shadow scale (warm; umber-tinted) ---- */
+  --cs-shadow-xs: 0 1px 2px rgba(69, 33, 14, 0.06);
+  --cs-shadow-sm: 0 1px 3px rgba(69, 33, 14, 0.04), 0 8px 24px rgba(69, 33, 14, 0.06); /* standard glass card */
+  --cs-shadow-md: 0 12px 30px rgba(31, 19, 11, 0.18);   /* popover / AI panel */
+  --cs-shadow-lg: 0 20px 60px rgba(69, 33, 14, 0.18);   /* heavy glass */
+  --cs-shadow-xl: 0 24px 80px rgba(31, 19, 11, 0.26);   /* dialog */
+}
+
+/* Dark theme: warm-umber shadows vanish on dark surfaces, so switch to deeper
+ * near-black shadows that actually read as elevation. Opt-in with the light ones. */
+[data-theme="dark"] {
+  --cs-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.40);
+  --cs-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.34), 0 8px 24px rgba(0, 0, 0, 0.42);
+  --cs-shadow-md: 0 12px 30px rgba(0, 0, 0, 0.50);
+  --cs-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.55);
+  --cs-shadow-xl: 0 24px 80px rgba(0, 0, 0, 0.62);
+}
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    --cs-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.40);
+    --cs-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.34), 0 8px 24px rgba(0, 0, 0, 0.42);
+    --cs-shadow-md: 0 12px 30px rgba(0, 0, 0, 0.50);
+    --cs-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.55);
+    --cs-shadow-xl: 0 24px 80px rgba(0, 0, 0, 0.62);
+  }
+}

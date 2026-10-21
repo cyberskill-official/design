@@ -7,14 +7,6 @@ export default {
   argTypes: {
     maxHeight: { control: 'number' },
   },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting ScrollArea. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { maxHeight: 160 },
 };
 

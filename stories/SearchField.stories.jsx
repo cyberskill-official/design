@@ -5,16 +5,9 @@ export default {
   component: SearchField,
   tags: ['autodocs'],
   argTypes: {
+  "required": {"control":"boolean"},
     value: { control: 'text' },
     placeholder: { control: 'text' },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting SearchField. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
   },
   args: { placeholder: 'Search…' },
 };

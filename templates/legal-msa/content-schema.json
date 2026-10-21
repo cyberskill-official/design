@@ -10,7 +10,8 @@
       "i18n": {
         "en": "Header document label",
         "vi": "Nhãn tài liệu phần đầu"
-      }
+      },
+      "runtimeBinding": "text"
     }
   ]
 }

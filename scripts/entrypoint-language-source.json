@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "interpretation": "Authored complete entrance translation pairs, bound to original English and literal code/metadata/link identities; no human linguistic acceptance or publication of repository-only instructions is implied.",
+  "entries": [
+    {
+      "source": "README.md",
+      "mirror": "docs/vi/entrypoints/README.md",
+      "sourceSha256": "e6d22b09d51b05f0efb900c1c446d1830fc84ef9e72081998f93df08d007e760",
+      "mirrorSha256": "4adf6f08a2741c41eb648c4c10b8f6c2d4d3a082654cb2c2d185119d9d06ad4d"
+    },
+    {
+      "source": "SKILL.md",
+      "mirror": "docs/vi/entrypoints/SKILL.md",
+      "sourceSha256": "ddaffc0a6e316c3d274341b7de039f7e739815860bbb7f861903a8c26a59cc08",
+      "mirrorSha256": "ba9d7405c60de8e65731885b808c2b12528bedb18352738f5ba96e86fe10de9e"
+    },
+    {
+      "source": "AGENTS.md",
+      "mirror": "docs/vi/entrypoints/AGENTS.md",
+      "sourceSha256": "edce25550302349e03e5f0a4c488f82a0725b6df7dc8f0bd3b749261ba5f8da6",
+      "mirrorSha256": "61c28ecaae11a770819fb096671626bf4b16bfc30dedc3b9b0953a69c693bc35"
+    },
+    {
+      "source": "CLAUDE.md",
+      "mirror": "docs/vi/entrypoints/CLAUDE.md",
+      "sourceSha256": "67a210307eca14704601e3ebc8af7769772f4082a06a80d0e25e40236da018a2",
+      "mirrorSha256": "269f90cec9517ae8654a7a2370752bc2f613c725815df31729edc397427fad73"
+    },
+    {
+      "source": "GEMINI.md",
+      "mirror": "docs/vi/entrypoints/GEMINI.md",
+      "sourceSha256": "2840d75ec8706780197e0269093b69639da5c3a7b97908945a89fae804b6ea74",
+      "mirrorSha256": "c0ebe697c3cd0ed42324623584fea840e648a89b5f1ce3ed6ac0259bd7b1d9ad"
+    },
+    {
+      "source": "CONTRIBUTING.md",
+      "mirror": "docs/vi/entrypoints/CONTRIBUTING.md",
+      "sourceSha256": "851ba16b59e5b3c1ee2235ad7400a08b6339cc0c25db049026cbaf6d0d5dd398",
+      "mirrorSha256": "cf7020e45ea9e947a57c836c7ebb1fbf670110753cfd9e9d360652b0bec80e23"
+    },
+    {
+      "source": "llms.txt",
+      "mirror": "docs/vi/entrypoints/llms.txt",
+      "sourceSha256": "543d6b048b47ff561a956f4ef893117cca9965ebb378295387b0eb7f61640302",
+      "mirrorSha256": "117ad95dfb4aaab9a8e3fa320051a856b887b8fb29c54248d8a207852c5a86cb"
+    },
+    {
+      "source": "MAINTAINERS.md",
+      "mirror": "docs/vi/entrypoints/MAINTAINERS.md",
+      "sourceSha256": "71d4ed30d8e6ea9347ab48cad706ddb285ecac184929580f045eb66b1e372236",
+      "mirrorSha256": "0bd67fb89a807477c4d8cb523097b86f289f4cc5dca27d7fae1123eeb51bd82f"
+    },
+    {
+      "source": "SECURITY.md",
+      "mirror": "docs/vi/entrypoints/SECURITY.md",
+      "sourceSha256": "5c163580d9455afd9a665749d747727aed212ae39b3ac0ea712d5aae34d13b96",
+      "mirrorSha256": "3e27f53d92f2f4f1901e13760491f5bd1b1750e32f75e9d37943271766fa4c70"
+    }
+  ],
+  "generatedEntries": [
+    {
+      "source": "DESIGN.md",
+      "mirror": "docs/vi/entrypoints/DESIGN.md",
+      "generator": "scripts/generate-design-md.mjs"
+    }
+  ]
+}

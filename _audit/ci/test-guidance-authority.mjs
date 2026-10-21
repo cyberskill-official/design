@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {parse} from 'yaml';
+import {outputs} from '../../scripts/generate-guidance.mjs';
 const root=new URL('../../',import.meta.url),read=path=>readFileSync(new URL(path,root),'utf8');
 const gates=parse(read('.github/workflows/design-system-gates.yml'));
 const runs=job=>job.steps.filter(step=>typeof step.run==='string').map(step=>step.run).join('\n');
@@ -13,17 +14,17 @@ assert(pkg.scripts['tokens:generate'].includes('npm run native:sync-tokens'));
 assert(read('scripts/generate-react-entry.mjs').includes('writeFileSync(OUT_MJS, mjs)'));
 assert(read('scripts/generate-export-catalog.mjs').includes("legacy.indexOf('export const VERSION =')"));
 assert(read('.gitignore').includes('COMMITS its compiled artifacts'));
-assert(read('AGENTS.md').includes('2026-10-08'));
+for(const [path, expected] of outputs(read)) assert.equal(read(path), expected, `Generated guidance authority: ${path}`);
+const portable=JSON.parse(read('guidance/agent-contract.json'));
+assert.equal(portable.retirement.state,'retired');
+assert.equal(portable.retirement.installationRequired,false);
 
 function retrieval(text){
- assert(text.includes('CyberOS orchestration and its two acceptance gates were retired'));
- assert(text.includes('no CyberOS installation is required'));
- assert(text.includes('manual accessibility'));
- assert(text.includes('explicit authorization for push, deploy or merge'));
+ assert(text.includes('guidance/agent-contract.json'),'Discovery index must route to the generated portable contract');
  assert(!text.includes('CyberOS, the DC compiler'));
 }
 function sync(text){
- for(const item of ['_esm/react.mjs','_esm/react.d.ts','scripts/generate-react-entry.mjs','_esm/cs.mjs','export const VERSION','scripts/generate-export-catalog.mjs','scripts/generate-token-declarations.mjs','npm run tokens:generate','npm run test:unit','2026-10-08','CyberOS'])assert(text.includes(item),item);
+ for(const item of ['_esm/react.mjs','_esm/react.d.ts','scripts/generate-react-entry.mjs','_esm/cs.mjs','export const VERSION','scripts/generate-export-catalog.mjs','scripts/generate-token-declarations.mjs','npm run tokens:generate','npm run test:unit'])assert(text.includes(item),item);
  assert(!/round-trips losslessly|round-trip lossless|_esm\/.*is source|_esm\/.*là source|it is source, not a build artifact|nó là source, không phải build artifact|hoặc ignore và để mỗi session regenerate/.test(text));
 }
 function ci(text){
@@ -60,5 +61,5 @@ for(const broken of [
  currentCi.replace('node _audit/ci/pixel-diff.mjs','swap-placeholder').replace('node _audit/ci/run-gates.mjs','node _audit/ci/pixel-diff.mjs').replace('swap-placeholder','node _audit/ci/run-gates.mjs'),
 ])assert.throws(()=>ci(broken));
 for(const broken of [currentSync.replaceAll('scripts/generate-react-entry.mjs','missing-generator'),currentSync.replaceAll('_esm/react.d.ts','missing-type-output')])assert.throws(()=>sync(broken));
-assert.throws(()=>retrieval(currentIndex.replace('no CyberOS installation is required','install CyberOS first')));
+assert.throws(()=>retrieval(currentIndex.replaceAll('guidance/agent-contract.json','missing-contract')));
 console.log('PASS guidance authority: actual owning workflow/generator/retirement facts and current-guide mutations; EN/VI quality build/browser prerequisites. Named text assertions are not complete prose semantics, host behavior, compiler restoration, upstream runtime rights or human acceptance.');

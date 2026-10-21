@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="cs-template-library" content="static-logo">
 <title>Delivery · QBR deck · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +19,7 @@
     <section style="position:relative;width:100%;aspect-ratio:16/9;background:var(--cs-color-brand-umber);color:#FFFDF8;border-radius:var(--cs-radius-lg);overflow:hidden;box-shadow:var(--cs-shadow-xl);display:flex;flex-direction:column;justify-content:center;padding:0 88px">
       <div class="cs-aurora-wash" style="position:absolute;inset:0;opacity:0.45;pointer-events:none"></div>
       <div style="position:relative;display:flex;align-items:center;gap:14px;margin-bottom:26px">
-        <x-import component-from-global-scope="CyberSkillDS.Logo" size="46" hint-size="46px,46px"></x-import>
+        <img data-cs-official-logo="" class="cs-logo" width="46" height="46" role="img" alt="CyberSkill" title="CyberSkill">
         <span style="font-weight:800;font-size:22px;letter-spacing:-0.01em">CyberSkill</span>
       </div>
       <div style="position:relative;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--cs-accent-bright)">{{ s1kicker }}</div>
@@ -63,7 +64,7 @@
     </section>
 
     <section style="position:relative;width:100%;aspect-ratio:16/9;background:var(--cs-color-brand-umber);color:#FFFDF8;border-radius:var(--cs-radius-lg);overflow:hidden;box-shadow:var(--cs-shadow-xl);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 88px">
-      <x-import component-from-global-scope="CyberSkillDS.Logo" size="66" hint-size="66px,66px"></x-import>
+      <img data-cs-official-logo="" class="cs-logo" width="66" height="66" role="img" alt="CyberSkill" title="CyberSkill">
       <h2 style="font-size:50px;font-weight:800;letter-spacing:-0.02em;color:var(--cs-accent-strong);margin:24px 0 10px">{{ closeH }}</h2>
       <p style="font-size:22px;opacity:0.9;margin:0 0 8px;max-width:860px">{{ closeP }}</p>
       <p style="font-size:17px;opacity:0.7;margin:0">vu@cyberskill.world · Status Hub</p>
@@ -73,44 +74,44 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
+<script type="text/x-dc" data-dc-script data-content-schema="./content-schema.json" data-props="{
   &quot;language&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;},
   &quot;element&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;},
   &quot;showPageNumbers&quot;: {&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}
 }">
 class Component extends DCLogic {
   renderVals() {
-    const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
+    const EL = /* @generated template-literal:axis.element-map */ {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]} /* @endgenerated template-literal:axis.element-map */;
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
 const vn = this.props.language === "Tiếng Việt";
     const en = {
-      s1kicker:"Quarterly business review · [Client]", s1h:"Q3 together, honestly", s1p:"What shipped, what it did, and where we go next",
-      s2kicker:"The quarter in numbers", s2h:"What your investment did",
-      k1:"Completed orders", k2:"Time to pay", k3:"Sev-1 incidents", k4:"Milestones on time",
-      s3kicker:"Shipped & health", s3h:"Delivered, and holding",
-      h1n:"Checkout v2 — live at 100% traffic", h1s:"Healthy",
-      h2n:"Ops console — support self-serve, zero eng tickets", h2s:"Healthy",
-      h3n:"Recovery emails — 19% of abandoned carts returned", h3s:"Watch: volume",
-      note:"Honest note: one Sev-2 (48 min, July). Root-caused, canary now covers the pricing path — the fix is in your runbook.",
-      s4kicker:"Next quarter", s4h:"Where the next đồng works hardest",
-      n1b:"A/B kit results → roll winners.", n1t:"Two tests live; shipping-threshold banner is promising.",
-      n2b:"Mobile checkout polish.", n2t:"60% of your traffic; the next biggest lever.",
-      n3b:"Quarterly load test + runbook drill.", n3t:"Keep \u201cbuilt to last\u201d true.",
-      closeH:"Shall we keep going?", closeP:"Renewal proposal for Q4 is in your inbox — same team, fixed scope, honest as ever. A yes this week keeps the squad intact."};
+      s1kicker:/* @generated template-literal:dictionary.en.73316b69636b6572 */ "Quarterly business review · [Client]" /* @endgenerated template-literal:dictionary.en.73316b69636b6572 */, s1h:/* @generated template-literal:dictionary.en.733168 */ "Q3 together, honestly" /* @endgenerated template-literal:dictionary.en.733168 */, s1p:/* @generated template-literal:dictionary.en.733170 */ "What shipped, what it did, and where we go next" /* @endgenerated template-literal:dictionary.en.733170 */,
+      s2kicker:/* @generated template-literal:dictionary.en.73326b69636b6572 */ "The quarter in numbers" /* @endgenerated template-literal:dictionary.en.73326b69636b6572 */, s2h:/* @generated template-literal:dictionary.en.733268 */ "What your investment did" /* @endgenerated template-literal:dictionary.en.733268 */,
+      k1:/* @generated template-literal:copy.completed-orders.en */ "Completed orders" /* @endgenerated template-literal:copy.completed-orders.en */, k2:/* @generated template-literal:copy.time-to-pay.en */ "Time to pay" /* @endgenerated template-literal:copy.time-to-pay.en */, k3:/* @generated template-literal:dictionary.en.6b33 */ "Sev-1 incidents" /* @endgenerated template-literal:dictionary.en.6b33 */, k4:/* @generated template-literal:dictionary.en.6b34 */ "Milestones on time" /* @endgenerated template-literal:dictionary.en.6b34 */,
+      s3kicker:/* @generated template-literal:dictionary.en.73336b69636b6572 */ "Shipped & health" /* @endgenerated template-literal:dictionary.en.73336b69636b6572 */, s3h:/* @generated template-literal:dictionary.en.733368 */ "Delivered, and holding" /* @endgenerated template-literal:dictionary.en.733368 */,
+      h1n:/* @generated template-literal:dictionary.en.68316e */ "Checkout v2 — live at 100% traffic" /* @endgenerated template-literal:dictionary.en.68316e */, h1s:/* @generated template-literal:copy.healthy.en */ "Healthy" /* @endgenerated template-literal:copy.healthy.en */,
+      h2n:/* @generated template-literal:dictionary.en.68326e */ "Ops console — support self-serve, zero eng tickets" /* @endgenerated template-literal:dictionary.en.68326e */, h2s:/* @generated template-literal:copy.healthy.en */ "Healthy" /* @endgenerated template-literal:copy.healthy.en */,
+      h3n:/* @generated template-literal:dictionary.en.68336e */ "Recovery emails — 19% of abandoned carts returned" /* @endgenerated template-literal:dictionary.en.68336e */, h3s:/* @generated template-literal:dictionary.en.683373 */ "Watch: volume" /* @endgenerated template-literal:dictionary.en.683373 */,
+      note:/* @generated template-literal:dictionary.en.6e6f7465 */ "Honest note: one Sev-2 (48 min, July). Root-caused, canary now covers the pricing path — the fix is in your runbook." /* @endgenerated template-literal:dictionary.en.6e6f7465 */,
+      s4kicker:/* @generated template-literal:dictionary.en.73346b69636b6572 */ "Next quarter" /* @endgenerated template-literal:dictionary.en.73346b69636b6572 */, s4h:/* @generated template-literal:dictionary.en.733468 */ "Where the next đồng works hardest" /* @endgenerated template-literal:dictionary.en.733468 */,
+      n1b:/* @generated template-literal:dictionary.en.6e3162 */ "A/B kit results → roll winners." /* @endgenerated template-literal:dictionary.en.6e3162 */, n1t:/* @generated template-literal:dictionary.en.6e3174 */ "Two tests live; shipping-threshold banner is promising." /* @endgenerated template-literal:dictionary.en.6e3174 */,
+      n2b:/* @generated template-literal:dictionary.en.6e3262 */ "Mobile checkout polish." /* @endgenerated template-literal:dictionary.en.6e3262 */, n2t:/* @generated template-literal:dictionary.en.6e3274 */ "60% of your traffic; the next biggest lever." /* @endgenerated template-literal:dictionary.en.6e3274 */,
+      n3b:/* @generated template-literal:dictionary.en.6e3362 */ "Quarterly load test + runbook drill." /* @endgenerated template-literal:dictionary.en.6e3362 */, n3t:/* @generated template-literal:dictionary.en.6e3374 */ "Keep \u201cbuilt to last\u201d true." /* @endgenerated template-literal:dictionary.en.6e3374 */,
+      closeH:/* @generated template-literal:dictionary.en.636c6f736548 */ "Shall we keep going?" /* @endgenerated template-literal:dictionary.en.636c6f736548 */, closeP:/* @generated template-literal:dictionary.en.636c6f736550 */ "Renewal proposal for Q4 is in your inbox — same team, fixed scope, honest as ever. A yes this week keeps the squad intact." /* @endgenerated template-literal:dictionary.en.636c6f736550 */};
     const vi = {
-      s1kicker:"Đánh giá kinh doanh hằng quý · [Khách hàng]", s1h:"Quý 3 cùng nhau, thẳng thắn", s1p:"Đã ra mắt gì, mang lại điều gì, và đi tiếp về đâu",
-      s2kicker:"Quý này qua con số", s2h:"Đầu tư của bạn đã làm được gì",
-      k1:"Đơn hoàn tất", k2:"Thời gian thanh toán", k3:"Sự cố Sev-1", k4:"Mốc đúng hạn",
-      s3kicker:"Đã ra mắt & sức khỏe", s3h:"Đã giao, và đang vững",
-      h1n:"Checkout v2 — chạy 100% lưu lượng", h1s:"Khỏe",
-      h2n:"Bảng điều hành — hỗ trợ tự phục vụ, không ticket kỹ thuật", h2s:"Khỏe",
-      h3n:"Email thu hồi — 19% giỏ bỏ quên quay lại", h3s:"Theo dõi: sản lượng",
-      note:"Nói thẳng: một Sev-2 (48 phút, tháng 7). Đã tìm ra gốc rễ, canary nay phủ đường giá — bản vá đã nằm trong runbook của bạn.",
-      s4kicker:"Quý tới", s4h:"Nơi đồng vốn tiếp theo làm việc chăm nhất",
-      n1b:"Kết quả bộ A/B → nhân rộng cái thắng.", n1t:"Hai thử nghiệm đang chạy; banner ngưỡng phí ship rất hứa hẹn.",
-      n2b:"Tinh chỉnh checkout trên di động.", n2t:"60% lưu lượng của bạn; đòn bẩy lớn kế tiếp.",
-      n3b:"Kiểm tải hằng quý + diễn tập runbook.", n3t:"Giữ đúng lời hứa \u201clàm để bền lâu\u201d.",
-      closeH:"Chúng ta đi tiếp chứ?", closeP:"Đề xuất gia hạn Q4 đã ở hộp thư của bạn — vẫn đội đó, phạm vi cố định, thẳng thắn như mọi khi. Một cái gật tuần này giữ nguyên đội hình."};
+      s1kicker:/* @generated template-literal:dictionary.vi.73316b69636b6572 */ "Đánh giá kinh doanh hằng quý · [Khách hàng]" /* @endgenerated template-literal:dictionary.vi.73316b69636b6572 */, s1h:/* @generated template-literal:dictionary.vi.733168 */ "Quý 3 cùng nhau, thẳng thắn" /* @endgenerated template-literal:dictionary.vi.733168 */, s1p:/* @generated template-literal:dictionary.vi.733170 */ "Đã ra mắt gì, mang lại điều gì, và đi tiếp về đâu" /* @endgenerated template-literal:dictionary.vi.733170 */,
+      s2kicker:/* @generated template-literal:dictionary.vi.73326b69636b6572 */ "Quý này qua con số" /* @endgenerated template-literal:dictionary.vi.73326b69636b6572 */, s2h:/* @generated template-literal:dictionary.vi.733268 */ "Đầu tư của bạn đã làm được gì" /* @endgenerated template-literal:dictionary.vi.733268 */,
+      k1:/* @generated template-literal:copy.completed-orders.vi */ "Đơn hoàn tất" /* @endgenerated template-literal:copy.completed-orders.vi */, k2:/* @generated template-literal:copy.time-to-pay.vi */ "Thời gian thanh toán" /* @endgenerated template-literal:copy.time-to-pay.vi */, k3:/* @generated template-literal:dictionary.vi.6b33 */ "Sự cố Sev-1" /* @endgenerated template-literal:dictionary.vi.6b33 */, k4:/* @generated template-literal:dictionary.vi.6b34 */ "Mốc đúng hạn" /* @endgenerated template-literal:dictionary.vi.6b34 */,
+      s3kicker:/* @generated template-literal:dictionary.vi.73336b69636b6572 */ "Đã ra mắt & sức khỏe" /* @endgenerated template-literal:dictionary.vi.73336b69636b6572 */, s3h:/* @generated template-literal:dictionary.vi.733368 */ "Đã giao, và đang vững" /* @endgenerated template-literal:dictionary.vi.733368 */,
+      h1n:/* @generated template-literal:dictionary.vi.68316e */ "Checkout v2 — chạy 100% lưu lượng" /* @endgenerated template-literal:dictionary.vi.68316e */, h1s:/* @generated template-literal:copy.healthy.vi */ "Khỏe" /* @endgenerated template-literal:copy.healthy.vi */,
+      h2n:/* @generated template-literal:dictionary.vi.68326e */ "Bảng điều hành — hỗ trợ tự phục vụ, không ticket kỹ thuật" /* @endgenerated template-literal:dictionary.vi.68326e */, h2s:/* @generated template-literal:copy.healthy.vi */ "Khỏe" /* @endgenerated template-literal:copy.healthy.vi */,
+      h3n:/* @generated template-literal:dictionary.vi.68336e */ "Email thu hồi — 19% giỏ bỏ quên quay lại" /* @endgenerated template-literal:dictionary.vi.68336e */, h3s:/* @generated template-literal:dictionary.vi.683373 */ "Theo dõi: sản lượng" /* @endgenerated template-literal:dictionary.vi.683373 */,
+      note:/* @generated template-literal:dictionary.vi.6e6f7465 */ "Nói thẳng: một Sev-2 (48 phút, tháng 7). Đã tìm ra gốc rễ, canary nay phủ đường giá — bản vá đã nằm trong runbook của bạn." /* @endgenerated template-literal:dictionary.vi.6e6f7465 */,
+      s4kicker:/* @generated template-literal:dictionary.vi.73346b69636b6572 */ "Quý tới" /* @endgenerated template-literal:dictionary.vi.73346b69636b6572 */, s4h:/* @generated template-literal:dictionary.vi.733468 */ "Nơi đồng vốn tiếp theo làm việc chăm nhất" /* @endgenerated template-literal:dictionary.vi.733468 */,
+      n1b:/* @generated template-literal:dictionary.vi.6e3162 */ "Kết quả bộ A/B → nhân rộng cái thắng." /* @endgenerated template-literal:dictionary.vi.6e3162 */, n1t:/* @generated template-literal:dictionary.vi.6e3174 */ "Hai thử nghiệm đang chạy; banner ngưỡng phí ship rất hứa hẹn." /* @endgenerated template-literal:dictionary.vi.6e3174 */,
+      n2b:/* @generated template-literal:dictionary.vi.6e3262 */ "Tinh chỉnh checkout trên di động." /* @endgenerated template-literal:dictionary.vi.6e3262 */, n2t:/* @generated template-literal:dictionary.vi.6e3274 */ "60% lưu lượng của bạn; đòn bẩy lớn kế tiếp." /* @endgenerated template-literal:dictionary.vi.6e3274 */,
+      n3b:/* @generated template-literal:dictionary.vi.6e3362 */ "Kiểm tải hằng quý + diễn tập runbook." /* @endgenerated template-literal:dictionary.vi.6e3362 */, n3t:/* @generated template-literal:dictionary.vi.6e3374 */ "Giữ đúng lời hứa \u201clàm để bền lâu\u201d." /* @endgenerated template-literal:dictionary.vi.6e3374 */,
+      closeH:/* @generated template-literal:dictionary.vi.636c6f736548 */ "Chúng ta đi tiếp chứ?" /* @endgenerated template-literal:dictionary.vi.636c6f736548 */, closeP:/* @generated template-literal:dictionary.vi.636c6f736550 */ "Đề xuất gia hạn Q4 đã ở hộp thư của bạn — vẫn đội đó, phạm vi cố định, thẳng thắn như mọi khi. Một cái gật tuần này giữ nguyên đội hình." /* @endgenerated template-literal:dictionary.vi.636c6f736550 */};
     return Object.assign({ langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, showNumbers: this.props.showPageNumbers ?? true }, vn ? vi : en);
   }
 }

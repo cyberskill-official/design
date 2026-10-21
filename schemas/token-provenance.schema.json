@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "token-provenance structural export contract",
+  "description": "Structural shape only. Existing semantic, byte-freshness and provenance gates remain authoritative.",
+  "type": "object",
+  "required": [
+    "system",
+    "release",
+    "source",
+    "sourceSha256",
+    "conversions",
+    "counts",
+    "skipped",
+    "targets"
+  ],
+  "properties": {
+    "system": {
+      "type": "string"
+    },
+    "release": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "sourceSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "conversions": {
+      "type": "object"
+    },
+    "counts": {
+      "type": "object"
+    },
+    "skipped": {
+      "type": "array"
+    },
+    "targets": {
+      "type": "array"
+    }
+  }
+}

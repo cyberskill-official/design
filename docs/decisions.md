@@ -2,6 +2,23 @@
 
 Owner choices that shape CI, Figma sync, and distribution. How-tos live in `docs/figma.md` and `docs/ci-cd.md` — this file is the decision record only. Not a consumer guide. Published on Storybook **Docs** at `design.cyberskill.world`.
 
+Historical decision numbers are stable identifiers; gaps are retained to preserve existing citations. The numbered maintainer task list is a separate historical sequence, not decision IDs. Accepted decisions and outstanding acceptance evidence are distinct.
+
+## Current contracts and historical records
+
+The numbered sections below preserve dated decisions and stable citation IDs; their historical paths, versions and completion notes are not current validation receipts. For present behavior, read the source-owned contracts below. An older decision does not override a later approved contract.
+
+| Subject | Current source |
+|---|---|
+| Package entry and React compatibility | `docs/component-api.md`, `docs/consuming.md`, `package.json` |
+| Versioning, breaking changes and deprecation notice | `components/release-compatibility.json`, `docs/component-api.md` |
+| Security release window and acknowledgement target | `SECURITY.md` |
+| Support acceptance and retained approvals | `components/lifecycle.json`, `docs/conventions.md` |
+| Release preparation and separate authorization | `docs/release-notes.md`, `.github/workflows/release.yml` |
+| Validation and current finding dispositions | `_audit/remediation/assessment-remediation.md`, `test-results/final-validation.json` |
+
+Published release notes remain historical records. A local build, a prepared candidate, an approved support record and a published release are distinct states.
+
 ## 1. Whole-set audits on every PR
 
 **Owner choice: B — Enable on every PR** (Jul 2026)

@@ -3348,7 +3348,7 @@
         "restBinding": null,
         "analysis": "forward-ref-destructuring"
       },
-      "declaredKeyboard": "Tab reaches month navigation and each rendered day button; Enter/Space activates them. This implementation does not provide arrow-key date-grid navigation.",
+      "declaredKeyboard": "Tab reaches month navigation and one active day within the semantic grid. Enter/Space selects. Arrow keys move by day/week across month boundaries; PageUp/PageDown moves by month (Shift moves by year), clamping the day in shorter months. Home/End retains the established first/last day of month contract. Selection is exposed on the gridcell; aria-pressed remains on its native button for compatibility. Full localized date labels use Intl.DateTimeFormat.",
       "classHooks": [
         {
           "name": "cs-cal",
@@ -13548,7 +13548,7 @@
         "restBinding": null,
         "analysis": "forward-ref-destructuring"
       },
-      "declaredKeyboard": "Native trigger activation toggles the menu and focuses the first enabled menuitem. Up/Down and Home/End move among enabled items, stopping at the ends. Navigation ignores native isComposing, legacy keyCode 229, and events already prevented by a caller handler. These commands apply only to events from the Menu wrapper; after native Tab moves to a neighboring field, its native keys remain available even while the menu stays open. Escape requests closure through the shared layer. MenuItem activation calls its native onClick; it does not automatically close Menu, so a caller needing selection-to-close should control open. Custom triggers must forward events, ARIA and a focusable root.",
+      "declaredKeyboard": "Enter/Space or pointer activation opens and focuses the first enabled item. ArrowDown/ArrowUp on the trigger opens and focuses the first/last enabled item. Within the menu Up/Down wrap; Home/End reach the first/last item. Focus roves across enabled items, and printable keys perform prefix typeahead (500ms buffer; repeated letters cycle matches). Tab/Shift+Tab requests closure and continues sequential focus movement from the trigger, including within a parent modal. Escape requests closure through the shared layer and restores the trigger. Activation calls the item handler and requests closure unless its default was prevented. Composition, keyCode 229 and caller-prevented events are ignored. Custom triggers must forward keyboard/click events, ARIA and a focusable root.",
       "classHooks": [
         {
           "name": "cs-menu",
@@ -13901,7 +13901,7 @@
         "restBinding": "props",
         "analysis": "forward-ref-destructuring"
       },
-      "declaredKeyboard": "Native trigger activation toggles the menu and focuses the first enabled menuitem. Up/Down and Home/End move among enabled items, stopping at the ends. Navigation ignores native isComposing, legacy keyCode 229, and events already prevented by a caller handler. These commands apply only to events from the Menu wrapper; after native Tab moves to a neighboring field, its native keys remain available even while the menu stays open. Escape requests closure through the shared layer. MenuItem activation calls its native onClick; it does not automatically close Menu, so a caller needing selection-to-close should control open. Custom triggers must forward events, ARIA and a focusable root.",
+      "declaredKeyboard": "Enter/Space or pointer activation opens and focuses the first enabled item. ArrowDown/ArrowUp on the trigger opens and focuses the first/last enabled item. Within the menu Up/Down wrap; Home/End reach the first/last item. Focus roves across enabled items, and printable keys perform prefix typeahead (500ms buffer; repeated letters cycle matches). Tab/Shift+Tab requests closure and continues sequential focus movement from the trigger, including within a parent modal. Escape requests closure through the shared layer and restores the trigger. Activation calls the item handler and requests closure unless its default was prevented. Composition, keyCode 229 and caller-prevented events are ignored. Custom triggers must forward keyboard/click events, ARIA and a focusable root.",
       "classHooks": [
         {
           "name": "cs-menu",
@@ -15491,7 +15491,7 @@
         "restBinding": null,
         "analysis": "direct-export-destructuring"
       },
-      "declaredKeyboard": "OverlayProvider provides a shared document manager and an empty portal host; it does not portal its children. Registered layers route Escape to the top non-toast layer, while the active modal contains Tab across registered owned scopes. Providers share the singleton, and consumers own portal placement and token stacking.",
+      "declaredKeyboard": "OverlayProvider provides a shared document manager and an empty portal host; it does not portal its children. Registered layers route Escape to the top non-toast layer, while the active modal contains Tab across registered owned scopes. Providers share the singleton. The 17 documented anchored panels use the shared body-portal/collision helper by default with an inline opt-out; custom consumer-created portals and modal placement remain caller-owned and require registered ownership for manager integration.",
       "classHooks": [
         {
           "name": "cs-ov",
@@ -21999,7 +21999,7 @@
         "restBinding": "props",
         "analysis": "forward-ref-destructuring"
       },
-      "declaredKeyboard": "Uses native input editing, focus, disabled/readOnly and IME behavior; it adds no custom keyboard handler. Provide a visible label and contextual native input attributes.",
+      "declaredKeyboard": "Uses native input editing, focus, disabled/readOnly and IME behavior; it adds no custom keyboard handler. Provide an accessible name through the local label, enclosing FormField or explicit ARIA naming, plus contextual native input attributes.",
       "classHooks": [
         {
           "name": "cs-field",

@@ -5,21 +5,15 @@ export default {
   title: 'Components/Button/ButtonGroup',
   component: ButtonGroup,
   tags: ['autodocs'],
+  args: { className: '' },
   argTypes: {
   "label": {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting ButtonGroup. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
 };
 
-export const Default = { render: () => (<ButtonGroup><Button variant="secondary">Cancel</Button><Button>Confirm</Button></ButtonGroup>) };
+export const Default = { render: (args) => (<ButtonGroup {...args}><Button variant="secondary">Cancel</Button><Button>Confirm</Button></ButtonGroup>) };
 
 export const Matrix = {
   name: 'Matrix / Sizes',

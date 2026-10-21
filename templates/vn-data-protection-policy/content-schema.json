@@ -1,0 +1,22 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-data-protection-policy",
+  "slots": [
+    {
+      "id": "headerReferenceSequence",
+      "type": "text",
+      "label": "Số/No. · existing placeholder sequence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "documentReferenceSequence",
+      "type": "text",
+      "label": "Số/No. · existing placeholder sequence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

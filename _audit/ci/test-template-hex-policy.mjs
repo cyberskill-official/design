@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFileSync,readdirSync} from 'node:fs';
+import {join} from 'node:path';
+import {templateHexLiterals,checkTemplateHexPolicy} from '../../scripts/lib/template-hex-policy.mjs';
+const files=directory=>readdirSync(directory,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()&&entry.name!=='_vendor'?files(join(directory,entry.name)):entry.isFile()&&entry.name.endsWith('.html')?[join(directory,entry.name)]:[]).sort();
+const source='<div style="color:#fff">&#8363;</div><style>@media print{body{background:#fff}}</style><pre>#F4BA17</pre>';
+const fixture=[['templates/fixture.html',source]],exceptions=templateHexLiterals(source).map(row=>({path:'templates/fixture.html',...row,reason:'Fixture fixed export ink/print paper and literal token specimen'}));
+assert.equal(exceptions.reduce((total,row)=>total+row.count,0),3,'Numeric HTML entities are not CSS colors');
+const policy={schemaVersion:1,exceptions};assert.equal(checkTemplateHexPolicy(fixture,policy).pass,true);
+for(const changed of [source.replace('#fff','#123456'),source+'<div style="color:#fff"></div>',source.replace('<pre>#F4BA17</pre>','')])assert.equal(checkTemplateHexPolicy([['templates/fixture.html',changed]],policy).pass,false);
+assert.throws(()=>checkTemplateHexPolicy(fixture,{schemaVersion:1,exceptions:[{...exceptions[0],reason:''}]}),/Invalid template hex exception/);
+const paths=files('templates'),result=checkTemplateHexPolicy(paths.map(path=>[path,readFileSync(path,'utf8')]),JSON.parse(readFileSync('scripts/template-hex-policy.json','utf8')));
+assert.equal(result.pass,true,JSON.stringify(result.problems,null,2));
+console.log(`PASS template hex policy: ${result.files} authored HTML entries, ${result.contexts} exact justified contexts/${result.literals} literals; new/changed/duplicate/stale literals rejected.`);

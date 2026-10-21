@@ -4,7 +4,7 @@
 <!-- DOCS-CONSISTENCY CHECK — reads the compiler's own _ds_manifest.json + VERSION
      (the source of truth), checks generated count markers against reference-catalog.json,
      and recognizes selected unmarked whole-inventory count patterns in live prose.
-     VERSION tracks auto-bump on main — no CHANGELOG.md. Scope: README, SKILL.md, llms.txt. -->
+     VERSION tracks explicit release edits — no CHANGELOG.md. Scope: README, SKILL.md, llms.txt. -->
 <link rel="stylesheet" href="../styles.css">
 <style>
   body{margin:0;font-family:var(--cs-font-family-ui);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);padding:26px 30px;max-width:900px}
@@ -66,7 +66,7 @@ function ctx(s, i, n){ return s.slice(Math.max(0,i-4), i+n+18).replace(/\s+/g," 
   document.getElementById('truth').textContent =
     "compiler truth \u2014 VERSION "+VERSION+" \u00b7 templates "+truth.templates+" \u00b7 "+truth.files+" component files / "+truth.exports+" exports \u00b7 tokens "+truth.tokens+" \u00b7 cards "+truth.cards;
 
-  // VERSION tracks auto-bump on main — no CHANGELOG.md surface
+  // VERSION tracks explicit release edits — no CHANGELOG.md surface
   step('VERSION is semver X.Y.Z', /^\d+\.\d+\.\d+$/.test(VERSION), 'reads '+VERSION);
   try {
     const P = JSON.parse(F['package.json']);
@@ -85,11 +85,14 @@ function ctx(s, i, n){ return s.slice(Math.max(0,i-4), i+n+18).replace(/\s+/g," 
   const catalog = JSON.parse(F['docs/reference-catalog.json']);
   const counts = catalog.counts;
   const totalFields = {templates:truth.templates, publicExports:truth.exports,
-    componentSourceFiles:truth.files, publicTokenDeclarations:truth.tokens, cards:truth.cards};
+    componentSourceFiles:truth.files, publicTokenDeclarations:truth.tokens, cards:truth.cards,
+    components:M.components.filter(item=>item.kind==='component').length,
+    constants:M.components.filter(item=>item.kind==='constant').length,
+    hooks:M.components.filter(item=>item.kind==='hook').length};
   const catalogOk = catalog.version === VERSION && counts &&
     Object.values(counts).every(n => Number.isSafeInteger(n) && n >= 0) &&
     Object.entries(totalFields).every(([key, n]) => counts[key] === n) &&
-    counts.components + counts.constants === counts.publicExports &&
+    counts.components + counts.constants + counts.hooks === counts.publicExports &&
     counts.componentSourceFiles + counts.coExports === counts.publicExports &&
     ['Language','Theme','Boolean'].every(control =>
       counts['templatesWith'+control+'Control'] + counts['templatesWithout'+control+'Control'] === truth.templates);
@@ -212,17 +215,17 @@ function ctx(s, i, n){ return s.slice(Math.max(0,i-4), i+n+18).replace(/\s+/g," 
   const llms = F['llms.txt'] || '';
   const readme = F['README.md'] || '';
   const consuming = F['docs/consuming.md'] || '';
-  const stitchSurfaces = skill + '\n' + llms + '\n' + dm + '\n' + consuming;
-  const stitchDcBan = /must not[^\n]{0,80}\*\.?dc\.html|do\s+\*\*not\*\*[^\n]{0,80}\*\.?dc\.html|not treat[^\n]{0,60}\*\.?dc\.html|không[^\n]{0,40}\*\.?dc\.html/i.test(stitchSurfaces)
-    || (/Stitch/i.test(stitchSurfaces) && /\*\.?dc\.html/i.test(stitchSurfaces) && /source of truth|SoT|không/i.test(stitchSurfaces));
-  step('Stitch path forbids *.dc.html as SoT (SKILL / llms / DESIGN.md / consuming)', stitchDcBan,
-    stitchDcBan ? '' : 'missing explicit Stitch must-not-consume *.dc.html warning');
+  const templateRouting = skill.includes('support.js') && consuming.includes('support.js')
+    && consuming.includes('__dcSetProps') && consuming.includes('PPTX')
+    && consuming.includes('external') && consuming.includes('Plain HTML');
+  step('Browser interpreter, plain HTML and external host capabilities are distinguished', templateRouting,
+    templateRouting ? '' : 'missing portable template runtime or explicit external-tool boundary');
   step('SKILL.md cites _esm/cs.mjs', /_esm\/cs\.mjs/.test(skill), /_esm\/cs\.mjs/.test(skill) ? '' : 'missing _esm/cs.mjs');
   step('SKILL or llms cite bundle prefix resolve', /CyberSkillDesignSystem_/.test(skill + '\n' + llms), '');
   const pkgNameOk = readme.includes('@cyberskill/design') && consuming.includes('@cyberskill/design')
     && !/(?:^|[^\w-])npm install @cyberskill\/react\b/.test(readme + '\n' + consuming);
   step('package name @cyberskill/design (README + consuming; no @cyberskill/react install)', pkgNameOk, '');
-  step('consuming.md dual path mentions Claude Code and Stitch', /Claude Code/i.test(consuming) && /Stitch/i.test(consuming), '');
+  step('consuming.md names runtime capability paths', /Browser templates/.test(consuming) && /Plain HTML/.test(consuming) && /Host-assisted/.test(consuming), '');
 
   // ---- Doctrine ↔ source parity (FIND-003/005/008/009 + FIND-018)
   const elementsCss = F['tokens/elements.css'] || '';

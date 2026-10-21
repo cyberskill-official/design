@@ -5,6 +5,7 @@ export default {
   component: Slider,
   tags: ['autodocs'],
   argTypes: {
+  "required": {"control":"boolean"},
     lang: { control: 'select', options: ['en', 'vi'] },
 
   "min": {
@@ -20,13 +21,6 @@ export default {
     "control": "number"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Slider. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { lang: 'vi', 'aria-label': 'Opacity', defaultValue: 50, min: 0, max: 100, step: 1 },
 };
 

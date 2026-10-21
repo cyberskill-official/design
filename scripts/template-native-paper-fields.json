@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "scope": "Explicit existing bilingual fill-only identity/display records; no legal, date, amount, calculation or eligibility validation.",
+  "templates": [
+    {
+      "template": "vn-certificate-of-employment",
+      "path": "templates/vn-certificate-of-employment/VnCertificateOfEmployment.dc.html",
+      "baselineSha256": "fa1424c67b8886dc072c9dd4a404a90a2fc4210ea1736c5e0e048fef1d8bfd73",
+      "fields": [
+        {
+          "id": "employeeName",
+          "rowLabel": "Full name",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Họ và tênFull name"
+        },
+        {
+          "id": "citizenId",
+          "rowLabel": "Citizen ID no.",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Số CCCDCitizen ID no."
+        },
+        {
+          "id": "position",
+          "rowLabel": "Position on leaving",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Chức danh khi nghỉ việcPosition on leaving"
+        },
+        {
+          "id": "department",
+          "rowLabel": "Department",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Bộ phậnDepartment"
+        }
+      ]
+    },
+    {
+      "template": "vn-employee-request",
+      "path": "templates/vn-employee-request/VnEmployeeRequest.dc.html",
+      "baselineSha256": "a06798a8e0e3e82e22c77ecc5dad4ced9bcad128b322f280279b2cef317db322",
+      "fields": [
+        {
+          "id": "employeeName",
+          "rowLabel": "Full name",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Họ và tênFull name"
+        },
+        {
+          "id": "positionDepartment",
+          "rowLabel": "Position / Department",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Chức danh / Bộ phậnPosition / Department"
+        },
+        {
+          "id": "lineManager",
+          "rowLabel": "Line manager",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Quản lý trực tiếpLine manager"
+        },
+        {
+          "id": "workHandoverRecipient",
+          "rowLabel": "Work handed over to",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Người bàn giao công việcWork handed over to"
+        }
+      ]
+    },
+    {
+      "template": "vn-resignation-letter",
+      "path": "templates/vn-resignation-letter/VnResignationLetter.dc.html",
+      "baselineSha256": "d9e5cffe2181c47a03b2c5372a49eceeac33cd9d6a7ac09db470657bfb919e2d",
+      "fields": [
+        {
+          "id": "employeeName",
+          "rowLabel": "Full name",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Họ và tênFull name"
+        },
+        {
+          "id": "departmentPosition",
+          "rowLabel": "Department / Position",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Bộ phận / Chức danhDepartment / Position"
+        },
+        {
+          "id": "laborContractReference",
+          "rowLabel": "Labor Contract No.",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Hợp đồng lao động sốLabor Contract No."
+        }
+      ]
+    },
+    {
+      "template": "vn-labor-contract",
+      "path": "templates/vn-labor-contract/VnLaborContract.dc.html",
+      "baselineSha256": "08d89b36ee282ae444836a9530bace03f7a31e444f18e85651d2d46dcab6f688",
+      "fields": [
+        {
+          "id": "employeeName",
+          "rowLabel": "Ông/BàFull name",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Ông/BàFull name"
+        },
+        {
+          "id": "nationality",
+          "rowLabel": "Quốc tịchNationality",
+          "default": "...............",
+          "maxLength": 256,
+          "anchorLabel": "Quốc tịchNationality"
+        },
+        {
+          "id": "residentialAddress",
+          "rowLabel": "Nơi cư trúPlace of residence",
+          "default": "............................................................",
+          "maxLength": 256,
+          "anchorLabel": "Nơi cư trúPlace of residence"
+        },
+        {
+          "id": "citizenId",
+          "rowLabel": "Số CCCDCitizen ID no.",
+          "default": "...............",
+          "maxLength": 256,
+          "anchorLabel": "Số CCCDCitizen ID no."
+        },
+        {
+          "id": "telephone",
+          "rowLabel": "Điện thoạiTel",
+          "default": "...............",
+          "maxLength": 256,
+          "anchorLabel": "Điện thoạiTel"
+        },
+        {
+          "id": "email",
+          "rowLabel": "Thư điện tửEmail",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Thư điện tửEmail"
+        }
+      ]
+    },
+    {
+      "template": "vn-probation-contract",
+      "path": "templates/vn-probation-contract/VnProbationContract.dc.html",
+      "baselineSha256": "9b43988f34e1f1d97a1d1a02b571ec1ba151be807204beadcb1d36dd60cef9ea",
+      "fields": [
+        {
+          "id": "employeeName",
+          "rowLabel": "Họ và tênFull name",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Họ và tênFull name"
+        },
+        {
+          "id": "citizenId",
+          "rowLabel": "Số CCCDCitizen ID no.",
+          "default": "...............................",
+          "maxLength": 256,
+          "anchorLabel": "Số CCCDCitizen ID no."
+        },
+        {
+          "id": "residentialAddress",
+          "rowLabel": "Nơi cư trúPlace of residence",
+          "default": "............................................................",
+          "maxLength": 256,
+          "anchorLabel": "Nơi cư trúPlace of residence"
+        },
+        {
+          "id": "telephone",
+          "rowLabel": "Điện thoạiTel",
+          "default": "...............................",
+          "maxLength": 256,
+          "anchorLabel": "Điện thoạiTel"
+        },
+        {
+          "id": "email",
+          "rowLabel": "Thư điện tửEmail",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Thư điện tửEmail"
+        }
+      ]
+    },
+    {
+      "template": "vn-internship-agreement",
+      "path": "templates/vn-internship-agreement/VnInternshipAgreement.dc.html",
+      "baselineSha256": "839f1d56bdd23670e6140b2eb7901eab968ed6bd1ffbad9e28c4480df2298c88",
+      "fields": [
+        {
+          "id": "internName",
+          "rowLabel": "Họ và tênFull name",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Họ và tênFull name"
+        },
+        {
+          "id": "residentialAddress",
+          "rowLabel": "Nơi cư trúPlace of residence",
+          "default": "............................................................",
+          "maxLength": 256,
+          "anchorLabel": "Nơi cư trúPlace of residence"
+        },
+        {
+          "id": "schoolAndMajor",
+          "rowLabel": "Trường / Chuyên ngànhSchool / Major",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Trường / Chuyên ngànhSchool / Major"
+        }
+      ]
+    },
+    {
+      "template": "vn-contractor-agreement",
+      "path": "templates/vn-contractor-agreement/VnContractorAgreement.dc.html",
+      "baselineSha256": "cac7eedcbe4d91df7a908946e4ee48481c8da43eae2cd0ed7abf3799aee7fa52",
+      "fields": [
+        {
+          "id": "contractorName",
+          "rowLabel": "Họ và tênFull name",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Họ và tênFull name"
+        },
+        {
+          "id": "residentialAddress",
+          "rowLabel": "Nơi cư trúPlace of residence",
+          "default": "............................................................",
+          "maxLength": 256,
+          "anchorLabel": "Nơi cư trúPlace of residence"
+        },
+        {
+          "id": "personalTaxCode",
+          "rowLabel": "Mã số thuế cá nhânPersonal tax code",
+          "default": "...............................",
+          "maxLength": 256,
+          "anchorLabel": "Mã số thuế cá nhânPersonal tax code"
+        },
+        {
+          "id": "bankAccountAndBank",
+          "rowLabel": "Số tài khoản / Ngân hàngBank account / Bank",
+          "default": "...............................",
+          "maxLength": 256,
+          "anchorLabel": "Số tài khoản / Ngân hàngBank account / Bank"
+        }
+      ]
+    },
+    {
+      "template": "vn-mutual-nda",
+      "path": "templates/vn-mutual-nda/VnMutualNda.dc.html",
+      "baselineSha256": "d003bcef260c1b7a2befd5b7e796c585655fa4c7ae4d4d0d759d6254d19953ca",
+      "fields": [
+        {
+          "id": "organizationName",
+          "rowLabel": "Tên tổ chứcOrganization",
+          "default": "..............................",
+          "maxLength": 256,
+          "anchorLabel": "Tên tổ chứcOrganization"
+        },
+        {
+          "id": "taxCode",
+          "rowLabel": "Mã số thuếTax code",
+          "default": "...............................",
+          "maxLength": 256,
+          "anchorLabel": "Mã số thuếTax code"
+        },
+        {
+          "id": "address",
+          "rowLabel": "Địa chỉAddress",
+          "default": "............................................................",
+          "maxLength": 256,
+          "anchorLabel": "Địa chỉAddress"
+        },
+        {
+          "id": "telephoneAndEmail",
+          "rowLabel": "Điện thoại · EmailTel · Email",
+          "default": "...............................",
+          "maxLength": 256,
+          "anchorLabel": "Điện thoại · EmailTel · Email"
+        }
+      ]
+    }
+  ]
+}

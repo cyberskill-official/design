@@ -24,13 +24,13 @@
     <div style="padding:26px 52px 48px">
       <sc-if value="{{ isEN }}" hint-placeholder-val="{{ true }}">
       <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-accent)">Executive memo</div>
-      <h1 style="font-size:28px;font-weight:800;letter-spacing:-0.02em;margin:8px 0 22px">Second senior hire for the AI squad</h1>
+      <h1 style="font-size:28px;font-weight:800;letter-spacing:-0.02em;margin:8px 0 22px">{{ memoTitleEn }}</h1>
 
       <div style="border-top:1px solid var(--cs-color-border-default);border-bottom:1px solid var(--cs-color-border-default);padding:16px 0;margin-bottom:24px;display:grid;grid-template-columns:auto 1fr;gap:8px 20px;font-size:14px">
-        <span style="font-weight:700;color:var(--cs-color-text-muted)">TO</span><span>Board of Directors</span>
-        <span style="font-weight:700;color:var(--cs-color-text-muted)">FROM</span><span>CEO, CyberSkill</span>
-        <span style="font-weight:700;color:var(--cs-color-text-muted)">DATE</span><span>18 July 2026</span>
-        <span style="font-weight:700;color:var(--cs-color-text-muted)">RE</span><span>Approval to hire a second senior AI engineer</span>
+        <span style="font-weight:700;color:var(--cs-color-text-muted)">TO</span><span>{{ recipientEn }}</span>
+        <span style="font-weight:700;color:var(--cs-color-text-muted)">FROM</span><span>{{ sender }}</span>
+        <span style="font-weight:700;color:var(--cs-color-text-muted)">DATE</span><span>{{ memoDateEn }}</span>
+        <span style="font-weight:700;color:var(--cs-color-text-muted)">RE</span><span>{{ subjectEn }}</span>
       </div>
 
       <div style="background:var(--cs-color-surface-raised);border-left:4px solid var(--cs-accent);border-radius:var(--cs-radius-md);padding:16px 20px;margin-bottom:24px">
@@ -51,12 +51,12 @@
       </sc-if>
       <sc-if value="{{ isVN }}"><div lang="vi" style="display:contents">
       <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-accent)">Bản ghi điều hành</div>
-      <h1 style="font-size:28px;font-weight:800;letter-spacing:-0.02em;margin:8px 0 22px">Tuyển thêm một senior cho đội AI</h1>
+      <h1 style="font-size:28px;font-weight:800;letter-spacing:-0.02em;margin:8px 0 22px">{{ memoTitleVi }}</h1>
       <div style="border-top:1px solid var(--cs-color-border-default);border-bottom:1px solid var(--cs-color-border-default);padding:16px 0;margin-bottom:24px;display:grid;grid-template-columns:auto 1fr;gap:8px 20px;font-size:14px">
-        <span style="font-weight:700;color:var(--cs-color-text-muted)">GỬI</span><span>Hội đồng Quản trị</span>
-        <span style="font-weight:700;color:var(--cs-color-text-muted)">TỪ</span><span>CEO, CyberSkill</span>
-        <span style="font-weight:700;color:var(--cs-color-text-muted)">NGÀY</span><span>18 tháng 7, 2026</span>
-        <span style="font-weight:700;color:var(--cs-color-text-muted)">V/V</span><span>Phê duyệt tuyển thêm một kỹ sư AI cấp cao</span>
+        <span style="font-weight:700;color:var(--cs-color-text-muted)">GỬI</span><span>{{ recipientVi }}</span>
+        <span style="font-weight:700;color:var(--cs-color-text-muted)">TỪ</span><span>{{ sender }}</span>
+        <span style="font-weight:700;color:var(--cs-color-text-muted)">NGÀY</span><span>{{ memoDateVi }}</span>
+        <span style="font-weight:700;color:var(--cs-color-text-muted)">V/V</span><span>{{ subjectVi }}</span>
       </div>
       <div style="background:var(--cs-color-surface-raised);border-left:4px solid var(--cs-accent);border-radius:var(--cs-radius-md);padding:16px 20px;margin-bottom:24px">
         <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--cs-color-text-muted);font-weight:700;margin-bottom:4px">Đề xuất</div>
@@ -75,13 +75,13 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;language&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;element&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;language&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;element&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;}}" data-content-schema="./content-schema.json">
 class Component extends DCLogic {
   renderVals() {
-    const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
+    const EL = /* @generated template-literal:axis.element-map */ {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]} /* @endgenerated template-literal:axis.element-map */;
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
     const lang = this.props.language ?? "English";
-    return { langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, isEN: lang !== "Tiếng Việt", isVN: lang === "Tiếng Việt" }; }
+    return {/* @generated display-content:defaults */"memoTitleEn":"Second senior hire for the AI squad","memoTitleVi":"Tuyển thêm một senior cho đội AI","recipientEn":"Board of Directors","recipientVi":"Hội đồng Quản trị","sender":"CEO, CyberSkill","subjectEn":"Approval to hire a second senior AI engineer","subjectVi":"Phê duyệt tuyển thêm một kỹ sư AI cấp cao","memoDateEn":"18 July 2026","memoDateVi":"18 tháng 7, 2026",/* @endgenerated display-content:defaults */ langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, isEN: lang !== "Tiếng Việt", isVN: lang === "Tiếng Việt" }; }
 }
 </script>
 </body>

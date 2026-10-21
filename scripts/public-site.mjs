@@ -15,7 +15,7 @@ export function loadPublicPolicy(root) {
   function add(path, details) {
     assert(path && !path.includes('\\') && !path.startsWith('/') && path.split('/').every(p => p && p !== '.' && p !== '..'), `Unsafe public path: ${path}`);
     assert(!/^(?:\.|docs\/(?:tasks|audits|plans|status)\/|_audit\/(?:archive|revision|exports)\/)/.test(path) && !/(^|\/)package-lock\.json$/.test(path), `Private/maintenance path cannot be public: ${path}`);
-    assert(!path.startsWith('scripts/') || ['scripts/design-md-lib.mjs','scripts/lib/oklch.mjs','scripts/lib/dtcg-values.mjs'].includes(path), `Unreviewed public script: ${path}`);
+    assert(!path.startsWith('scripts/') || ['scripts/design-md-lib.mjs','scripts/design-md-language.mjs','scripts/lib/oklch.mjs','scripts/lib/dtcg-values.mjs'].includes(path), `Unreviewed public script: ${path}`);
     assert(!files.has(path), `Duplicate public path: ${path}`);
     assert(details.purpose && details.audience, `Missing audience/purpose: ${path}`);
     files.set(path, details);

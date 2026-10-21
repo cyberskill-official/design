@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { NavigationMenu } from '../components/navigation/NavigationMenu.jsx';
 
 export default {
@@ -5,18 +6,13 @@ export default {
   component: NavigationMenu,
   tags: ['autodocs'],
   argTypes: {
+    portal: {control: 'boolean', description: 'Body portal after client mount by default; false keeps inline/server markup and ancestor clipping.'},
+    placement: {control: 'select', options: DECLARED_DOMAINS.NavigationMenu["placement"], description: 'Preferred physical side; flips/shifts within the visual viewport. Top/bottom start/end follow inline direction.'},
   "items": {
     "control": "object"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting NavigationMenu. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
-  args: { items: [{ label: 'Product', href: '#' }, { label: 'Docs', href: '#' }] },
+  args: { portal: true, items: [{ label: 'Product', href: '#' }, { label: 'Docs', href: '#' }] },
 };
 
 export const Default = {};

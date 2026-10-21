@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { FloatingActionButton } from '../components/button/FloatingActionButton.jsx';
 
 export default {
@@ -5,6 +6,9 @@ export default {
   component: FloatingActionButton,
   tags: ['autodocs'],
   argTypes: {
+    portal: {control: 'boolean', description: 'Body portal after client mount by default; false keeps inline/server markup and ancestor clipping.'},
+    placement: {control: 'select', options: DECLARED_DOMAINS.FloatingActionButton["placement"], description: 'Preferred physical side; flips/shifts within the visual viewport. Top/bottom start/end follow inline direction.'},
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "icon": {
     "control": "object"
   },
@@ -16,20 +20,10 @@ export default {
   },
   "position": {
     "control": "select",
-    "options": [
-      "fixed",
-      "static"
-    ]
+    "options": DECLARED_DOMAINS.FloatingActionButton["position"]
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting FloatingActionButton. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
-  args: { 'aria-label': 'New wish', children: '+' },
+  args: { portal: true, label: 'New wish', icon: '+', position: 'static' },
 };
 
 export const Default = {};
@@ -38,8 +32,8 @@ export const Matrix = {
   name: 'Matrix / Labels',
   render: (args) => (
     <div style={{ display: 'flex', gap: 12 }}>
-      <FloatingActionButton {...args} aria-label="Add">+</FloatingActionButton>
-      <FloatingActionButton {...args} aria-label="Wish">✦</FloatingActionButton>
+      <FloatingActionButton {...args} label="Add" icon="+" />
+      <FloatingActionButton {...args} label="Wish" icon="✦" />
     </div>
   ),
 };

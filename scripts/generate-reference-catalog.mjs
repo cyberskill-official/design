@@ -27,6 +27,9 @@ export function replaceCounts(text, counts) {
   return { text: output, markers: seen };
 }
 export function documentRole(path) {
+  const entrances=['DESIGN.md','README.md','SKILL.md','AGENTS.md','CLAUDE.md','GEMINI.md','CONTRIBUTING.md','llms.txt','MAINTAINERS.md','SECURITY.md'];
+  const mirrored=entrances.find(name=>path==='docs/vi/entrypoints/'+name);
+  if(mirrored)return documentRole(mirrored);
   const english = path.replace(/^docs\/vi\//, 'docs/');
   if (['docs/doctrine.md', 'docs/products.md', 'docs/conventions.md'].includes(english)) return 'normative_repository_contract';
   if (english === 'docs/consumer-grant.md') return 'usage_grant_record';
@@ -34,6 +37,18 @@ export function documentRole(path) {
   if (path === 'SKILL.md') return 'shared_agent_router';
   if (['AGENTS.md', 'CLAUDE.md', 'GEMINI.md'].includes(path) || /^\.(?:agents|cursor)\/skills\//.test(path)) return 'host_adapter';
   if (path.startsWith('.agents/rules/')) return 'host_adapter';
+  if (path.startsWith('vendor/skill-resources/')) return 'retained_vendor_resource';
+  if (['base/README.md','tokens/README.md','tokens/modes.md'].includes(path)) return 'source_maintenance_guide';
+  const reviewedRoles = {
+    '.github/pull_request_template.md': 'contribution_template',
+    '_audit/remediation/assessment-source.md': 'retained_assessment_source',
+    '_audit/remediation/assessment-remediation.md': 'remediation_report',
+    '_audit/remediation/decision-template.md': 'decision_template',
+    '_audit/remediation/release-v1.7.2-notes-proposal.md': 'private_owner_review_release_metadata_proposal',
+    'scripts/lib/compiler-and-story-domains.md': 'source_maintenance_guide',
+    'scripts/template-hex-policy.md': 'source_maintenance_guide',
+  };
+  if (Object.hasOwn(reviewedRoles, path)) return reviewedRoles[path];
   if (path === 'SECURITY.md') return 'security_reporting_policy';
   if (path === 'llms.txt') return 'discovery_index';
   if (path === 'README.md') return 'human_orientation';
@@ -45,7 +60,7 @@ export function documentRole(path) {
   if (path.startsWith('_audit/baselines/')) return 'visual_baseline_method';
   if (path === '_audit/README.md') return 'diagnostic_operator_guide';
   if (path.startsWith('examples/') || path.startsWith('ui_kits/') || path.startsWith('templates/')) return 'consumer_example_guide';
-  if (path === 'CONTRIBUTING.md' || /^docs\/(?:vi\/)?[^/]+\.md$/.test(path)) return 'operator_guide';
+  if (['CONTRIBUTING.md', 'MAINTAINERS.md'].includes(path) || /^docs\/(?:vi\/)?[^/]+\.md$/.test(path)) return 'operator_guide';
   return 'unclassified_requires_review';
 }
 export function visualBaselineNames(html) {
@@ -97,7 +112,7 @@ export function buildReferenceCatalog(base = root) {
   };
   const policy = JSON.parse(read('scripts/public-site-policy.json'));
   const audiences = new Map(Object.entries(policy.audiences).flatMap(([audience, group]) => group.files.map(path => [path, audience])));
-  const paths = [...new Set(execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { cwd: base, encoding: 'utf8' }).split('\0'))].filter(path => (path.endsWith('.md') || path === 'llms.txt') && existsSync(resolve(base, path))).sort();
+  const paths = [...new Set(execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { cwd: base, encoding: 'utf8' }).split('\0'))].filter(path => (path.endsWith('.md') || path === 'llms.txt' || path === 'docs/vi/entrypoints/llms.txt') && existsSync(resolve(base, path))).sort();
   const updates = new Map();
   for (const path of countSurfaces) {
     const result = replaceCounts(read(path), counts);

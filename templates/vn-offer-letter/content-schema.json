@@ -1,0 +1,38 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-offer-letter",
+  "slots": [
+    {
+      "id": "headerReferenceSequence",
+      "type": "text",
+      "label": "Số/No. · existing placeholder sequence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "position",
+      "type": "text",
+      "label": "Vị tríPosition",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "department",
+      "type": "text",
+      "label": "Bộ phậnDepartment",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "lineManager",
+      "type": "text",
+      "label": "Cấp báo cáoReports to",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

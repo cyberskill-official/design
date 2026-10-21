@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "path": "templates/_vendor/doc-export.js",
+  "sha256": "7aceef9bafdcbaeb7f150f6d80f9557f76fe4401da35c4f0cb736657c60aa920",
+  "recordedAt": "2026-10-20",
+  "localModification": "Recognize only explicitly marked official same-origin logo artwork in existing document grouping and size-specific rasterization; retain SVG export handling.",
+  "originVerification": "not-established",
+  "rightsReview": "pending",
+  "distributionApproval": false,
+  "validation": [
+    "test-results/template-batch2/final.json",
+    "test-results/static-template-logos/chromium.json",
+    "test-results/static-template-logos/firefox.json",
+    "test-results/static-template-logos/webkit.json"
+  ],
+  "boundary": "Exact local byte and regression record only; not authenticated upstream origin, legal rights approval or target Office acceptance."
+}

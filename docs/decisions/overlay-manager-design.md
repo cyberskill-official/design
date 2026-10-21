@@ -94,7 +94,7 @@ function useOverlayLayer(opts: Omit<LayerRegistration, 'id'>): { id: string };
 <div id="cs-overlay-root" data-cs-overlay-root></div>
 ```
 
-Components portal into `#cs-overlay-root` when present; otherwise document.body (today’s behavior). Kits and Atomic View mount the root once.
+Components portal into `[data-cs-overlay-root]` when present; otherwise document.body (today’s behavior). Kits and Atomic View mount the root once.
 
 ## Migration (Phase 3)
 

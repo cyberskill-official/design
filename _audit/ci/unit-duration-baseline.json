@@ -1,0 +1,2460 @@
+{
+  "schemaVersion": 1,
+  "scope": "Completed local406-suite baseline on Node22.23.3/darwin-arm64, before final focused corrections. All406 observations retained; only379 passing unchanged command identities provide timing estimates. Failed/missing/changed/new commands use observed75th-percentile fallback. Local concurrent routing evidence, not current correctness, hosted CI latency or final validation. Prior333 baseline retained separately.",
+  "reports": [
+    {
+      "path": "test-results/continuation43-unit-1/unit-results.json",
+      "sha256": "a67f014f3f1a1c0b32eaaa0463ed795e8ac986e32ddf4a02db86faecbda13d04"
+    },
+    {
+      "path": "test-results/continuation43-unit-2/unit-results.json",
+      "sha256": "d915ffce9b0e5dbcbf2ea00887afd46e61fb6af73c3ad3623b2b54fc7b806796"
+    },
+    {
+      "path": "test-results/continuation43-unit-3/unit-results.json",
+      "sha256": "4eb5e1a6f8bfd43ebe8f43ce36307bedc3295948a3ec021192a6baf50e0ac4d9"
+    },
+    {
+      "path": "test-results/continuation43-unit-4/unit-results.json",
+      "sha256": "342d62cfa577de1286a9a99dd2d216bd9d08ee628f76dd34eda8c2feb39f1c8d"
+    }
+  ],
+  "records": [
+    {
+      "id": "alert-aliases",
+      "command": "npm run test:alert-aliases",
+      "durationMs": 3139,
+      "pass": true
+    },
+    {
+      "id": "api-discovery",
+      "command": "npm run test:api-discovery",
+      "durationMs": 261,
+      "pass": true
+    },
+    {
+      "id": "api-domains",
+      "command": "npm run test:api-domains",
+      "durationMs": 4597,
+      "pass": true
+    },
+    {
+      "id": "api-fact-comparison",
+      "command": "npm run test:api-fact-comparison",
+      "durationMs": 193,
+      "pass": true
+    },
+    {
+      "id": "approved-01",
+      "command": "npm run test:doc-navigation",
+      "durationMs": 625,
+      "pass": true
+    },
+    {
+      "id": "approved-02",
+      "command": "npm run test:browser-capabilities",
+      "durationMs": 3464,
+      "pass": true
+    },
+    {
+      "id": "approved-03",
+      "command": "npm run test:packed-templates",
+      "durationMs": 32557,
+      "pass": false
+    },
+    {
+      "id": "approved-04",
+      "command": "npm run test:template-content",
+      "durationMs": 3591,
+      "pass": true
+    },
+    {
+      "id": "attribute-targets-browser",
+      "command": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-native-root-targets-browser.mjs",
+      "durationMs": 3532,
+      "pass": true
+    },
+    {
+      "id": "attribute-targets-types",
+      "command": "node _audit/ci/test-native-root-target-types.mjs",
+      "durationMs": 685,
+      "pass": true
+    },
+    {
+      "id": "bilingual-start-docs",
+      "command": "npm run test:bilingual-start-docs",
+      "durationMs": 228,
+      "pass": true
+    },
+    {
+      "id": "browser-performance",
+      "command": "npm run test:browser-performance",
+      "durationMs": 1704,
+      "pass": true
+    },
+    {
+      "id": "browser-retry-evidence",
+      "command": "npm run test:browser-retry-evidence",
+      "durationMs": 14494,
+      "pass": true
+    },
+    {
+      "id": "bundle-runtime-order",
+      "command": "npm run test:bundle-runtime-order",
+      "durationMs": 706,
+      "pass": true
+    },
+    {
+      "id": "bundle-source-map",
+      "command": "npm run test:bundle-source-map",
+      "durationMs": 4560,
+      "pass": true
+    },
+    {
+      "id": "collection-spacing",
+      "command": "npm run test:collection-spacing",
+      "durationMs": 13342,
+      "pass": true
+    },
+    {
+      "id": "compiled-esm",
+      "command": "npm run test:compiled-esm",
+      "durationMs": 527,
+      "pass": true
+    },
+    {
+      "id": "compiled-esm-packed18",
+      "command": "npm run test:compiled-esm-packed-react18",
+      "durationMs": 2998,
+      "pass": true
+    },
+    {
+      "id": "compiled-esm-packed19",
+      "command": "npm run test:compiled-esm-packed",
+      "durationMs": 6792,
+      "pass": true
+    },
+    {
+      "id": "compiled-export-gate",
+      "command": "npm run test:compiled-export-gate",
+      "durationMs": 868,
+      "pass": true
+    },
+    {
+      "id": "component-api-behavior",
+      "command": "npm run test:component-api-behavior",
+      "durationMs": 16935,
+      "pass": true
+    },
+    {
+      "id": "component-behavior-evidence",
+      "command": "npm run test:component-behavior-evidence",
+      "durationMs": 68646,
+      "pass": true
+    },
+    {
+      "id": "component-inventory",
+      "command": "npm run test:component-inventory",
+      "durationMs": 478,
+      "pass": true
+    },
+    {
+      "id": "component-scenarios",
+      "command": "npm run test:component-scenarios",
+      "durationMs": 17872,
+      "pass": true
+    },
+    {
+      "id": "component-scenarios-browser",
+      "command": "npm run test:component-scenarios:browser",
+      "durationMs": 30758,
+      "pass": true
+    },
+    {
+      "id": "component-scenarios-browser-firefox",
+      "command": "npm run test:component-scenarios:browser:firefox",
+      "durationMs": 42720,
+      "pass": true
+    },
+    {
+      "id": "component-scenarios-browser-webkit",
+      "command": "npm run test:component-scenarios:browser:webkit",
+      "durationMs": 58508,
+      "pass": true
+    },
+    {
+      "id": "component-semantic-hosts",
+      "command": "npm run test:component-semantic-hosts",
+      "durationMs": 3615,
+      "pass": true
+    },
+    {
+      "id": "component-specifications",
+      "command": "npm run test:component-specifications",
+      "durationMs": 6021,
+      "pass": true
+    },
+    {
+      "id": "composite-fields-browser",
+      "command": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-composite-field-targets-browser.mjs",
+      "durationMs": 3945,
+      "pass": true
+    },
+    {
+      "id": "composite-fields-types",
+      "command": "node _audit/ci/test-composite-field-targets-types.mjs",
+      "durationMs": 920,
+      "pass": true
+    },
+    {
+      "id": "dependency-audit-policy",
+      "command": "npm run test:dependency-audit-policy",
+      "durationMs": 248,
+      "pass": true
+    },
+    {
+      "id": "disabled-information",
+      "command": "npm run test:disabled-information",
+      "durationMs": 465,
+      "pass": false
+    },
+    {
+      "id": "docs-recursive-parity",
+      "command": "npm run test:docs-recursive-parity",
+      "durationMs": 452,
+      "pass": true
+    },
+    {
+      "id": "element-legacy-equivalence",
+      "command": "npm run test:element-legacy-equivalence",
+      "durationMs": 34893,
+      "pass": true
+    },
+    {
+      "id": "element-version-ownership",
+      "command": "npm run test:element-version-ownership",
+      "durationMs": 580,
+      "pass": true
+    },
+    {
+      "id": "expansion-coverage",
+      "command": "npm run test:expansion-coverage",
+      "durationMs": 1892,
+      "pass": true
+    },
+    {
+      "id": "expansion-coverage-browser",
+      "command": "npm run test:expansion-coverage-browser",
+      "durationMs": 28118,
+      "pass": true
+    },
+    {
+      "id": "export-schemas",
+      "command": "node _audit/ci/test-export-schemas.mjs",
+      "durationMs": 206,
+      "pass": true
+    },
+    {
+      "id": "field-associations",
+      "command": "node _audit/ci/test-field-associations-browser.mjs",
+      "durationMs": 4434,
+      "pass": true
+    },
+    {
+      "id": "final-01",
+      "command": "node _audit/ci/test-token-clean-build.mjs",
+      "durationMs": 1474,
+      "pass": true
+    },
+    {
+      "id": "final-02",
+      "command": "npm run test:css-lint",
+      "durationMs": 334,
+      "pass": true
+    },
+    {
+      "id": "final-03",
+      "command": "node _audit/ci/test-bundle-bytes.mjs",
+      "durationMs": 1189,
+      "pass": true
+    },
+    {
+      "id": "floating-boards",
+      "command": "npm run test:floating-boards",
+      "durationMs": 20466,
+      "pass": true
+    },
+    {
+      "id": "floating-live-style",
+      "command": "npm run test:floating-live-style",
+      "durationMs": 4987,
+      "pass": true
+    },
+    {
+      "id": "floating-native-form",
+      "command": "npm run test:floating-native-form",
+      "durationMs": 11242,
+      "pass": true
+    },
+    {
+      "id": "floating-native-form-ssr-react18",
+      "command": "npm run test:floating-native-form-ssr-react18",
+      "durationMs": 6932,
+      "pass": true
+    },
+    {
+      "id": "floating-native-form-ssr-react19",
+      "command": "npm run test:floating-native-form-ssr-react19",
+      "durationMs": 5625,
+      "pass": true
+    },
+    {
+      "id": "floating-panels",
+      "command": "npm run test:floating-panels",
+      "durationMs": 10931,
+      "pass": true
+    },
+    {
+      "id": "floating-placement",
+      "command": "npm run test:floating-placement",
+      "durationMs": 6532,
+      "pass": false
+    },
+    {
+      "id": "floating-position",
+      "command": "npm run test:floating-position",
+      "durationMs": 164,
+      "pass": true
+    },
+    {
+      "id": "floating-scope",
+      "command": "npm run test:floating-scope",
+      "durationMs": 3456,
+      "pass": true
+    },
+    {
+      "id": "floating-ssr-react18",
+      "command": "npm run test:floating-ssr-react18",
+      "durationMs": 9105,
+      "pass": true
+    },
+    {
+      "id": "floating-ssr-react19",
+      "command": "npm run test:floating-ssr-react19",
+      "durationMs": 5132,
+      "pass": true
+    },
+    {
+      "id": "floating-tab-order",
+      "command": "npm run test:floating-tab-order",
+      "durationMs": 9359,
+      "pass": true
+    },
+    {
+      "id": "floating-types",
+      "command": "npm run test:floating-types",
+      "durationMs": 551,
+      "pass": true
+    },
+    {
+      "id": "font-glyphs",
+      "command": "npm run test:font-glyphs",
+      "durationMs": 465,
+      "pass": false
+    },
+    {
+      "id": "image-slot-capabilities",
+      "command": "npm run test:image-slot-capabilities",
+      "durationMs": 5166,
+      "pass": true
+    },
+    {
+      "id": "integration-01",
+      "command": "npm run test:assessment-keyboard",
+      "durationMs": 2898,
+      "pass": true
+    },
+    {
+      "id": "integration-02",
+      "command": "npm run test:menu-apg",
+      "durationMs": 8394,
+      "pass": true
+    },
+    {
+      "id": "integration-03",
+      "command": "npm run test:manual-at-matrix",
+      "durationMs": 195,
+      "pass": true
+    },
+    {
+      "id": "integration-04",
+      "command": "npm run test:component-contracts",
+      "durationMs": 448,
+      "pass": true
+    },
+    {
+      "id": "integration-05",
+      "command": "npm run test:distribution-budgets",
+      "durationMs": 143,
+      "pass": true
+    },
+    {
+      "id": "integration-06",
+      "command": "node _audit/ci/test-remediation-infrastructure.mjs",
+      "durationMs": 139,
+      "pass": true
+    },
+    {
+      "id": "integration-07",
+      "command": "node _audit/ci/test-catalog-source.mjs",
+      "durationMs": 96,
+      "pass": true
+    },
+    {
+      "id": "locale-message-browsers",
+      "command": "npm run test:locale-message-browsers",
+      "durationMs": 3583,
+      "pass": true
+    },
+    {
+      "id": "locale-message-consumers",
+      "command": "npm run test:locale-message-consumers",
+      "durationMs": 809,
+      "pass": true
+    },
+    {
+      "id": "locale-message-ssr",
+      "command": "npm run test:locale-message-ssr",
+      "durationMs": 1074,
+      "pass": true
+    },
+    {
+      "id": "locale-message-ssr18",
+      "command": "npm run test:locale-message-ssr18",
+      "durationMs": 2111,
+      "pass": true
+    },
+    {
+      "id": "locale-message-surfaces",
+      "command": "npm run test:locale-message-surfaces",
+      "durationMs": 17761,
+      "pass": true
+    },
+    {
+      "id": "locale-messages",
+      "command": "npm run test:locale-messages",
+      "durationMs": 191,
+      "pass": true
+    },
+    {
+      "id": "manifest-bootstrap",
+      "command": "node _audit/ci/test-manifest-bootstrap.mjs",
+      "durationMs": 173,
+      "pass": true
+    },
+    {
+      "id": "native-field-labels",
+      "command": "npm run test:native-field-labels",
+      "durationMs": 4217,
+      "pass": true
+    },
+    {
+      "id": "native-mode-packs",
+      "command": "npm run test:native-mode-packs",
+      "durationMs": 16948,
+      "pass": true
+    },
+    {
+      "id": "native-paper-fields",
+      "command": "npm run test:native-paper-fields",
+      "durationMs": 2143,
+      "pass": true
+    },
+    {
+      "id": "native-paper-fields-browser",
+      "command": "npm run test:native-paper-fields-browser",
+      "durationMs": 9747,
+      "pass": true
+    },
+    {
+      "id": "native-ref-contracts",
+      "command": "npm run test:native-ref-contracts",
+      "durationMs": 262,
+      "pass": true
+    },
+    {
+      "id": "native-refs",
+      "command": "npm run test:native-refs",
+      "durationMs": 3203,
+      "pass": true
+    },
+    {
+      "id": "native-refs-react18",
+      "command": "npm run test:native-refs-react18",
+      "durationMs": 8394,
+      "pass": true
+    },
+    {
+      "id": "native-refs-types",
+      "command": "npm run test:native-refs-types",
+      "durationMs": 870,
+      "pass": true
+    },
+    {
+      "id": "overlay-multibundle",
+      "command": "npm run test:overlay-multibundle",
+      "durationMs": 3550,
+      "pass": true
+    },
+    {
+      "id": "overlay-multibundle-ssr",
+      "command": "npm run test:overlay-multibundle-ssr",
+      "durationMs": 7813,
+      "pass": true
+    },
+    {
+      "id": "owner-routing",
+      "command": "npm run test:owner-routing",
+      "durationMs": 618,
+      "pass": true
+    },
+    {
+      "id": "pdf-text",
+      "command": "npm run test:pdf-text",
+      "durationMs": 1034,
+      "pass": true
+    },
+    {
+      "id": "portable-guidance",
+      "command": "npm run test:portable-guidance",
+      "durationMs": 267,
+      "pass": true
+    },
+    {
+      "id": "progressive-viewport",
+      "command": "npm run test:progressive-viewport",
+      "durationMs": 59136,
+      "pass": true
+    },
+    {
+      "id": "prompt-api",
+      "command": "npm run test:prompt-api",
+      "durationMs": 1350,
+      "pass": true
+    },
+    {
+      "id": "public-hook-membership",
+      "command": "npm run test:public-hook-membership",
+      "durationMs": 10265,
+      "pass": true
+    },
+    {
+      "id": "python-audit-policy",
+      "command": "npm run test:python-audit-policy",
+      "durationMs": 211,
+      "pass": true
+    },
+    {
+      "id": "release-compatibility",
+      "command": "npm run test:release-compatibility",
+      "durationMs": 177,
+      "pass": true
+    },
+    {
+      "id": "release-preparation",
+      "command": "npm run test:prepare-release",
+      "durationMs": 187,
+      "pass": true
+    },
+    {
+      "id": "remediation-01",
+      "command": "node _audit/ci/test-token-inventory.mjs",
+      "durationMs": 196,
+      "pass": true
+    },
+    {
+      "id": "remediation-02",
+      "command": "node _audit/ci/test-css-remediation-browser.mjs",
+      "durationMs": 660,
+      "pass": true
+    },
+    {
+      "id": "remediation-03",
+      "command": "node _audit/ci/test-apca.mjs",
+      "durationMs": 49,
+      "pass": true
+    },
+    {
+      "id": "remediation-04",
+      "command": "npm run test:css-index",
+      "durationMs": 214,
+      "pass": true
+    },
+    {
+      "id": "remediation-05",
+      "command": "npm run test:assessment-runtime",
+      "durationMs": 6761,
+      "pass": true
+    },
+    {
+      "id": "remediation-06",
+      "command": "npm run test:assessment-stories",
+      "durationMs": 220,
+      "pass": true
+    },
+    {
+      "id": "remediation-07",
+      "command": "npm run test:responsive-breakpoints",
+      "durationMs": 89023,
+      "pass": true
+    },
+    {
+      "id": "remediation-08",
+      "command": "node scripts/generate-template-inventory.mjs --check",
+      "durationMs": 473,
+      "pass": true
+    },
+    {
+      "id": "remediation-09",
+      "command": "npm run test:template-render-cli",
+      "durationMs": 8050,
+      "pass": true
+    },
+    {
+      "id": "required-field-names",
+      "command": "npm run test:required-field-names",
+      "durationMs": 2015,
+      "pass": true
+    },
+    {
+      "id": "security-support",
+      "command": "npm run test:security-support",
+      "durationMs": 209,
+      "pass": true
+    },
+    {
+      "id": "segmented-modes",
+      "command": "npm run test:segmented-modes",
+      "durationMs": 10748,
+      "pass": false
+    },
+    {
+      "id": "site-csp-contracts",
+      "command": "npm run test:site-csp",
+      "durationMs": 606,
+      "pass": true
+    },
+    {
+      "id": "spacing-role-preservation",
+      "command": "npm run test:spacing-roles",
+      "durationMs": 19560,
+      "pass": true
+    },
+    {
+      "id": "static-reference",
+      "command": "npm run test:static-reference",
+      "durationMs": 466,
+      "pass": true
+    },
+    {
+      "id": "static-reference-browsers",
+      "command": "npm run test:static-reference-browser",
+      "durationMs": 8288,
+      "pass": true
+    },
+    {
+      "id": "static-reference-types",
+      "command": "npm run test:static-reference-types",
+      "durationMs": 1004,
+      "pass": true
+    },
+    {
+      "id": "story-domains",
+      "command": "npm run test:story-domains",
+      "durationMs": 9106,
+      "pass": true
+    },
+    {
+      "id": "story-domains-browser",
+      "command": "npm run test:story-domains-browser",
+      "durationMs": 6786,
+      "pass": true
+    },
+    {
+      "id": "storybook-remediation",
+      "command": "npm run test:storybook-remediation",
+      "durationMs": 7338,
+      "pass": true
+    },
+    {
+      "id": "storybook-runtime-controls",
+      "command": "npm run test:storybook-runtime-controls",
+      "durationMs": 803,
+      "pass": false
+    },
+    {
+      "id": "styles-layered",
+      "command": "npm run test:styles-layered",
+      "durationMs": 684,
+      "pass": true
+    },
+    {
+      "id": "styles-layered-browser",
+      "command": "npm run test:styles-layered-browser",
+      "durationMs": 87958,
+      "pass": false
+    },
+    {
+      "id": "styles-layered-interactions",
+      "command": "npm run test:styles-layered-interactions",
+      "durationMs": 9800,
+      "pass": true
+    },
+    {
+      "id": "suite-001",
+      "command": "npm run test:website-chat-mobile-reset",
+      "durationMs": 123810,
+      "pass": true
+    },
+    {
+      "id": "suite-002",
+      "command": "npm run test:doc-reader",
+      "durationMs": 36025,
+      "pass": true
+    },
+    {
+      "id": "suite-003",
+      "command": "npm run test:doc-reader-touch",
+      "durationMs": 360862,
+      "pass": true
+    },
+    {
+      "id": "suite-004",
+      "command": "npm run test:token-viewer",
+      "durationMs": 389400,
+      "pass": true
+    },
+    {
+      "id": "suite-005",
+      "command": "npm run test:guidance-authority",
+      "durationMs": 454,
+      "pass": true
+    },
+    {
+      "id": "suite-006",
+      "command": "npm run test:ci-browser-prerequisites",
+      "durationMs": 4334,
+      "pass": true
+    },
+    {
+      "id": "suite-007",
+      "command": "npm run test:storybook-live-css",
+      "durationMs": 7044,
+      "pass": true
+    },
+    {
+      "id": "suite-008",
+      "command": "npm run test:card-metadata",
+      "durationMs": 4120,
+      "pass": true
+    },
+    {
+      "id": "suite-009",
+      "command": "node _audit/ci/test-nav-model.mjs",
+      "durationMs": 55,
+      "pass": true
+    },
+    {
+      "id": "suite-010",
+      "command": "node _audit/ci/test-health-tokens-contract.mjs",
+      "durationMs": 36,
+      "pass": true
+    },
+    {
+      "id": "suite-011",
+      "command": "node _audit/ci/test-docs-consistency.mjs",
+      "durationMs": 35,
+      "pass": true
+    },
+    {
+      "id": "suite-012",
+      "command": "npm run test:asset-weight",
+      "durationMs": 4216,
+      "pass": true
+    },
+    {
+      "id": "suite-013",
+      "command": "npm run test:doc-count-claims",
+      "durationMs": 14151,
+      "pass": true
+    },
+    {
+      "id": "suite-014",
+      "command": "npm run test:reference-catalog",
+      "durationMs": 661,
+      "pass": false
+    },
+    {
+      "id": "suite-015",
+      "command": "npm run test:repository-skills",
+      "durationMs": 2712,
+      "pass": true
+    },
+    {
+      "id": "suite-016",
+      "command": "node _audit/ci/test-base-hex-allowlist.mjs",
+      "durationMs": 55,
+      "pass": true
+    },
+    {
+      "id": "suite-017",
+      "command": "node _audit/ci/test-form-paths.mjs",
+      "durationMs": 106,
+      "pass": true
+    },
+    {
+      "id": "suite-018",
+      "command": "node _audit/ci/test-storybook-contract.mjs",
+      "durationMs": 1707,
+      "pass": false
+    },
+    {
+      "id": "suite-019",
+      "command": "node _audit/ci/test-axe-coverage.mjs",
+      "durationMs": 76,
+      "pass": true
+    },
+    {
+      "id": "suite-020",
+      "command": "npm run test:axe-scenes",
+      "durationMs": 20884,
+      "pass": true
+    },
+    {
+      "id": "suite-021",
+      "command": "node _audit/ci/test-figma-push-helpers.mjs",
+      "durationMs": 41,
+      "pass": true
+    },
+    {
+      "id": "suite-022",
+      "command": "npm run test:figma-variables-errors",
+      "durationMs": 870,
+      "pass": true
+    },
+    {
+      "id": "suite-023",
+      "command": "node _audit/ci/test-native-samples.mjs",
+      "durationMs": 86,
+      "pass": true
+    },
+    {
+      "id": "suite-024",
+      "command": "node _audit/ci/test-subtree-consume.mjs",
+      "durationMs": 6405,
+      "pass": true
+    },
+    {
+      "id": "suite-025",
+      "command": "node _audit/ci/test-react-entry.mjs",
+      "durationMs": 275,
+      "pass": true
+    },
+    {
+      "id": "suite-026",
+      "command": "node _audit/ci/test-element-packs.mjs",
+      "durationMs": 150,
+      "pass": true
+    },
+    {
+      "id": "suite-027",
+      "command": "node _audit/ci/test-i18n-builtins.mjs",
+      "durationMs": 163,
+      "pass": true
+    },
+    {
+      "id": "suite-028",
+      "command": "npm run test:locale-keys",
+      "durationMs": 467,
+      "pass": true
+    },
+    {
+      "id": "suite-029",
+      "command": "npm run test:locale-render",
+      "durationMs": 3230,
+      "pass": true
+    },
+    {
+      "id": "suite-030",
+      "command": "npm run test:currency-format",
+      "durationMs": 255,
+      "pass": true
+    },
+    {
+      "id": "suite-031",
+      "command": "npm run test:locale-primary",
+      "durationMs": 6927,
+      "pass": true
+    },
+    {
+      "id": "suite-032",
+      "command": "node _audit/ci/test-theme-attributes.mjs",
+      "durationMs": 51,
+      "pass": true
+    },
+    {
+      "id": "suite-033",
+      "command": "node _audit/ci/test-theme-density-browser.mjs",
+      "durationMs": 1444,
+      "pass": true
+    },
+    {
+      "id": "suite-034",
+      "command": "node scripts/generate-editor-parser.mjs --check",
+      "durationMs": 185,
+      "pass": true
+    },
+    {
+      "id": "suite-035",
+      "command": "node _audit/ci/test-editor-sanitize.mjs",
+      "durationMs": 71,
+      "pass": true
+    },
+    {
+      "id": "suite-036",
+      "command": "node _audit/ci/test-editor-browser.mjs",
+      "durationMs": 1990,
+      "pass": true
+    },
+    {
+      "id": "suite-037",
+      "command": "node _audit/ci/test-component-lifecycle.mjs",
+      "durationMs": 41,
+      "pass": false
+    },
+    {
+      "id": "suite-038",
+      "command": "node _audit/ci/check-manifest-coverage.mjs",
+      "durationMs": 64,
+      "pass": true
+    },
+    {
+      "id": "suite-039",
+      "command": "node _audit/ci/ci-verdict.mjs --selftest",
+      "durationMs": 43,
+      "pass": true
+    },
+    {
+      "id": "suite-040",
+      "command": "npm run test:ci-verdict",
+      "durationMs": 5589,
+      "pass": true
+    },
+    {
+      "id": "suite-041",
+      "command": "node _audit/ci/test-pack-hygiene.mjs",
+      "durationMs": 2518,
+      "pass": true
+    },
+    {
+      "id": "suite-042",
+      "command": "node _audit/ci/test-docs-lang-parity.mjs",
+      "durationMs": 46,
+      "pass": true
+    },
+    {
+      "id": "suite-043",
+      "command": "node _audit/ci/test-docs-storybook-coverage.mjs",
+      "durationMs": 975,
+      "pass": true
+    },
+    {
+      "id": "suite-044",
+      "command": "node _audit/ci/test-docs-link-check.mjs",
+      "durationMs": 48,
+      "pass": true
+    },
+    {
+      "id": "suite-045",
+      "command": "node _audit/ci/test-email-safe.mjs",
+      "durationMs": 52,
+      "pass": true
+    },
+    {
+      "id": "suite-046",
+      "command": "node _audit/ci/test-prop-parity.mjs",
+      "durationMs": 56,
+      "pass": true
+    },
+    {
+      "id": "suite-047",
+      "command": "node _audit/ci/test-support-no-eval.mjs",
+      "durationMs": 52,
+      "pass": true
+    },
+    {
+      "id": "suite-048",
+      "command": "npm run test:template-runtimes",
+      "durationMs": 263,
+      "pass": true
+    },
+    {
+      "id": "suite-049",
+      "command": "npm run test:template-primitives",
+      "durationMs": 3355,
+      "pass": true
+    },
+    {
+      "id": "suite-050",
+      "command": "npm run test:template-control-content",
+      "durationMs": 66702,
+      "pass": true
+    },
+    {
+      "id": "suite-051",
+      "command": "npm run test:distribution-costs",
+      "durationMs": 301,
+      "pass": true
+    },
+    {
+      "id": "suite-052",
+      "command": "node _audit/ci/test-docx-source-parity.mjs",
+      "durationMs": 148,
+      "pass": true
+    },
+    {
+      "id": "suite-053",
+      "command": "node _audit/ci/test-print-template-contract.mjs",
+      "durationMs": 730,
+      "pass": true
+    },
+    {
+      "id": "suite-054",
+      "command": "npm run test:print-smoke",
+      "durationMs": 8393,
+      "pass": true
+    },
+    {
+      "id": "suite-055",
+      "command": "node _audit/ci/test-docx-rowspans.mjs",
+      "durationMs": 591,
+      "pass": true
+    },
+    {
+      "id": "suite-056",
+      "command": "node _audit/ci/test-docx-tables.mjs",
+      "durationMs": 913,
+      "pass": true
+    },
+    {
+      "id": "suite-057",
+      "command": "node _audit/ci/test-docx-lists.mjs",
+      "durationMs": 670,
+      "pass": true
+    },
+    {
+      "id": "suite-058",
+      "command": "node _audit/ci/test-docx-mixed-content.mjs",
+      "durationMs": 591,
+      "pass": true
+    },
+    {
+      "id": "suite-059",
+      "command": "npm run test:doc-export",
+      "durationMs": 35280,
+      "pass": true
+    },
+    {
+      "id": "suite-060",
+      "command": "node _audit/ci/test-types.mjs",
+      "durationMs": 3079,
+      "pass": true
+    },
+    {
+      "id": "suite-061",
+      "command": "npm run test:state",
+      "durationMs": 12049,
+      "pass": true
+    },
+    {
+      "id": "suite-062",
+      "command": "node _audit/ci/test-locale-carousel-browser.mjs",
+      "durationMs": 1584,
+      "pass": true
+    },
+    {
+      "id": "suite-063",
+      "command": "npm run test:locale-scope",
+      "durationMs": 3272,
+      "pass": true
+    },
+    {
+      "id": "suite-064",
+      "command": "node _audit/ci/test-storybook-freshness-regression.mjs",
+      "durationMs": 4801,
+      "pass": true
+    },
+    {
+      "id": "suite-065",
+      "command": "npm run test:overlays",
+      "durationMs": 7777,
+      "pass": true
+    },
+    {
+      "id": "suite-066",
+      "command": "npm run test:dialog-panel-names",
+      "durationMs": 10398,
+      "pass": true
+    },
+    {
+      "id": "suite-067",
+      "command": "npm run test:context-menu-keyboard",
+      "durationMs": 20376,
+      "pass": true
+    },
+    {
+      "id": "suite-068",
+      "command": "npm run test:overlay-composition",
+      "durationMs": 15356,
+      "pass": true
+    },
+    {
+      "id": "suite-069",
+      "command": "npm run test:combobox-composition",
+      "durationMs": 14874,
+      "pass": true
+    },
+    {
+      "id": "suite-070",
+      "command": "npm run test:menu-key-scope",
+      "durationMs": 13502,
+      "pass": true
+    },
+    {
+      "id": "suite-071",
+      "command": "npm run test:menu-key-guards",
+      "durationMs": 7324,
+      "pass": true
+    },
+    {
+      "id": "suite-072",
+      "command": "npm run test:cascader-key-guards",
+      "durationMs": 36748,
+      "pass": true
+    },
+    {
+      "id": "suite-073",
+      "command": "npm run test:cascader-entry",
+      "durationMs": 9612,
+      "pass": true
+    },
+    {
+      "id": "suite-074",
+      "command": "node _audit/ci/test-dialog-position-browser.mjs",
+      "durationMs": 25398,
+      "pass": true
+    },
+    {
+      "id": "suite-075",
+      "command": "node _audit/ci/test-gate-style-preflight.mjs",
+      "durationMs": 913,
+      "pass": true
+    },
+    {
+      "id": "suite-076",
+      "command": "node _audit/ci/test-theme-gate.mjs",
+      "durationMs": 12935,
+      "pass": true
+    },
+    {
+      "id": "suite-077",
+      "command": "npm run test:pixel-theme",
+      "durationMs": 2755,
+      "pass": true
+    },
+    {
+      "id": "suite-078",
+      "command": "npm run test:pixel-report",
+      "durationMs": 82182,
+      "pass": true
+    },
+    {
+      "id": "suite-079",
+      "command": "node _audit/ci/test-deck-contrast-browser.mjs",
+      "durationMs": 8162,
+      "pass": true
+    },
+    {
+      "id": "suite-080",
+      "command": "node _audit/ci/test-touch-targets-browser.mjs",
+      "durationMs": 864,
+      "pass": true
+    },
+    {
+      "id": "suite-081",
+      "command": "npm run test:touch-inventory",
+      "durationMs": 69009,
+      "pass": true
+    },
+    {
+      "id": "suite-082",
+      "command": "npm run test:touch-region",
+      "durationMs": 2687,
+      "pass": true
+    },
+    {
+      "id": "suite-083",
+      "command": "npm run test:tabs-touch-clip",
+      "durationMs": 28944,
+      "pass": true
+    },
+    {
+      "id": "suite-084",
+      "command": "npm run test:touch-border",
+      "durationMs": 39286,
+      "pass": true
+    },
+    {
+      "id": "suite-085",
+      "command": "npm run test:touch-actions",
+      "durationMs": 4262,
+      "pass": true
+    },
+    {
+      "id": "suite-086",
+      "command": "npm run test:touch-optional",
+      "durationMs": 3760,
+      "pass": true
+    },
+    {
+      "id": "suite-087",
+      "command": "npm run test:touch-supplemental",
+      "durationMs": 6103,
+      "pass": true
+    },
+    {
+      "id": "suite-088",
+      "command": "npm run test:trigger-touch",
+      "durationMs": 33746,
+      "pass": true
+    },
+    {
+      "id": "suite-089",
+      "command": "npm run test:module-resources",
+      "durationMs": 169,
+      "pass": true
+    },
+    {
+      "id": "suite-090",
+      "command": "node _audit/ci/test-packed-assets.mjs",
+      "durationMs": 5167,
+      "pass": true
+    },
+    {
+      "id": "suite-091",
+      "command": "node _audit/ci/test-public-site-policy.mjs",
+      "durationMs": 2007,
+      "pass": true
+    },
+    {
+      "id": "suite-092",
+      "command": "node _audit/ci/test-qr-decode.mjs",
+      "durationMs": 1982,
+      "pass": true
+    },
+    {
+      "id": "suite-093",
+      "command": "node _audit/ci/test-hosted-diagnostics.mjs",
+      "durationMs": 1357,
+      "pass": true
+    },
+    {
+      "id": "suite-094",
+      "command": "node _audit/ci/test-progress-browser.mjs",
+      "durationMs": 647,
+      "pass": true
+    },
+    {
+      "id": "suite-095",
+      "command": "node _audit/ci/test-theme-palette-browser.mjs",
+      "durationMs": 1313,
+      "pass": true
+    },
+    {
+      "id": "suite-096",
+      "command": "node _audit/ci/test-frame-probe.mjs",
+      "durationMs": 74846,
+      "pass": true
+    },
+    {
+      "id": "suite-097",
+      "command": "npm run test:kit-entrypoints",
+      "durationMs": 49618,
+      "pass": true
+    },
+    {
+      "id": "suite-098",
+      "command": "node _audit/ci/test-token-format-gate.mjs",
+      "durationMs": 665,
+      "pass": false
+    },
+    {
+      "id": "suite-099",
+      "command": "node _audit/ci/test-theme-composition-browser.mjs",
+      "durationMs": 895,
+      "pass": true
+    },
+    {
+      "id": "suite-100",
+      "command": "node _audit/ci/test-native-generation-failure.mjs",
+      "durationMs": 749,
+      "pass": true
+    },
+    {
+      "id": "suite-101",
+      "command": "node scripts/generate-theme-exports.mjs --check",
+      "durationMs": 94,
+      "pass": true
+    },
+    {
+      "id": "suite-102",
+      "command": "node _audit/ci/test-density-exports.mjs",
+      "durationMs": 659,
+      "pass": true
+    },
+    {
+      "id": "suite-103",
+      "command": "node _audit/ci/test-density-export-generator.mjs",
+      "durationMs": 765,
+      "pass": true
+    },
+    {
+      "id": "suite-104",
+      "command": "npm run test:contrast-exports",
+      "durationMs": 7144,
+      "pass": true
+    },
+    {
+      "id": "suite-105",
+      "command": "npm run test:dtcg-profile",
+      "durationMs": 2102,
+      "pass": false
+    },
+    {
+      "id": "suite-106",
+      "command": "node scripts/generate-export-catalog.mjs --check",
+      "durationMs": 603,
+      "pass": true
+    },
+    {
+      "id": "suite-107",
+      "command": "node _audit/ci/test-export-catalog.mjs",
+      "durationMs": 1979,
+      "pass": true
+    },
+    {
+      "id": "suite-108",
+      "command": "npm run test:token-declarations",
+      "durationMs": 402,
+      "pass": false
+    },
+    {
+      "id": "suite-109",
+      "command": "npm run test:state-transitions",
+      "durationMs": 1607,
+      "pass": true
+    },
+    {
+      "id": "suite-110",
+      "command": "npm run test:input-editing",
+      "durationMs": 1265,
+      "pass": true
+    },
+    {
+      "id": "suite-111",
+      "command": "npm run test:editable-composition",
+      "durationMs": 17878,
+      "pass": true
+    },
+    {
+      "id": "suite-112",
+      "command": "npm run test:datagrid-updates",
+      "durationMs": 2460,
+      "pass": true
+    },
+    {
+      "id": "suite-113",
+      "command": "npm run test:datagrid-touch",
+      "durationMs": 1560,
+      "pass": true
+    },
+    {
+      "id": "suite-114",
+      "command": "npm run test:sortable-cancel",
+      "durationMs": 1848,
+      "pass": true
+    },
+    {
+      "id": "suite-115",
+      "command": "npm run test:treetable-names",
+      "durationMs": 1589,
+      "pass": true
+    },
+    {
+      "id": "suite-116",
+      "command": "npm run test:vendor-provenance",
+      "durationMs": 186,
+      "pass": true
+    },
+    {
+      "id": "suite-117",
+      "command": "npm run test:accordion-mode",
+      "durationMs": 1285,
+      "pass": true
+    },
+    {
+      "id": "suite-118",
+      "command": "npm run test:toggle-contract",
+      "durationMs": 1492,
+      "pass": true
+    },
+    {
+      "id": "suite-119",
+      "command": "npm run test:searchfield-contract",
+      "durationMs": 1806,
+      "pass": true
+    },
+    {
+      "id": "suite-120",
+      "command": "npm run test:form-submit",
+      "durationMs": 2444,
+      "pass": true
+    },
+    {
+      "id": "suite-121",
+      "command": "npm run test:formfield-boolean",
+      "durationMs": 2072,
+      "pass": true
+    },
+    {
+      "id": "suite-122",
+      "command": "npm run test:form-array",
+      "durationMs": 2922,
+      "pass": true
+    },
+    {
+      "id": "suite-123",
+      "command": "npm run test:form-unmount",
+      "durationMs": 1066,
+      "pass": true
+    },
+    {
+      "id": "suite-124",
+      "command": "npm run test:api-index",
+      "durationMs": 7210,
+      "pass": true
+    },
+    {
+      "id": "suite-125",
+      "command": "npm run test:field-aria",
+      "durationMs": 1700,
+      "pass": true
+    },
+    {
+      "id": "suite-126",
+      "command": "npm run test:template-inventory",
+      "durationMs": 551,
+      "pass": true
+    },
+    {
+      "id": "suite-127",
+      "command": "node _audit/ci/test-template-bootstrap-browser.mjs --browser=webkit --only=marketing-page",
+      "durationMs": 1781,
+      "pass": true
+    },
+    {
+      "id": "suite-128",
+      "command": "node _audit/ci/test-template-state-actions-browser.mjs --browser=webkit",
+      "durationMs": 27655,
+      "pass": true
+    },
+    {
+      "id": "suite-129",
+      "command": "npm run test:marketing-chat-touch",
+      "durationMs": 3672,
+      "pass": true
+    },
+    {
+      "id": "suite-130",
+      "command": "npm run test:marketing-caption",
+      "durationMs": 14508,
+      "pass": true
+    },
+    {
+      "id": "suite-131",
+      "command": "npm run test:marketing-cta-contrast",
+      "durationMs": 15245,
+      "pass": true
+    },
+    {
+      "id": "suite-132",
+      "command": "npm run test:template-image-caption",
+      "durationMs": 111484,
+      "pass": true
+    },
+    {
+      "id": "suite-133",
+      "command": "npm run test:template-cta-contrast",
+      "durationMs": 62298,
+      "pass": true
+    },
+    {
+      "id": "suite-134",
+      "command": "npm run test:content-schema",
+      "durationMs": 3411,
+      "pass": true
+    },
+    {
+      "id": "suite-135",
+      "command": "npm run test:packed-ssr",
+      "durationMs": 13658,
+      "pass": true
+    },
+    {
+      "id": "suite-136",
+      "command": "npm run test:form-reset",
+      "durationMs": 1158,
+      "pass": true
+    },
+    {
+      "id": "suite-137",
+      "command": "npm run test:token-coverage",
+      "durationMs": 152,
+      "pass": false
+    },
+    {
+      "id": "suite-138",
+      "command": "npm run test:tab-orientation",
+      "durationMs": 1599,
+      "pass": true
+    },
+    {
+      "id": "suite-139",
+      "command": "npm run test:tree-keyboard",
+      "durationMs": 1754,
+      "pass": true
+    },
+    {
+      "id": "suite-140",
+      "command": "npm run test:transfer",
+      "durationMs": 1386,
+      "pass": true
+    },
+    {
+      "id": "suite-141",
+      "command": "npm run test:narrow-forms",
+      "durationMs": 33713,
+      "pass": true
+    },
+    {
+      "id": "suite-142",
+      "command": "npm run test:component-review",
+      "durationMs": 554,
+      "pass": true
+    },
+    {
+      "id": "suite-143",
+      "command": "npm run test:fileupload",
+      "durationMs": 1440,
+      "pass": true
+    },
+    {
+      "id": "suite-144",
+      "command": "npm run test:calendar",
+      "durationMs": 1427,
+      "pass": true
+    },
+    {
+      "id": "suite-145",
+      "command": "npm run test:splitter",
+      "durationMs": 1664,
+      "pass": true
+    },
+    {
+      "id": "suite-146",
+      "command": "npm run test:splitter-fractional",
+      "durationMs": 3626,
+      "pass": true
+    },
+    {
+      "id": "suite-147",
+      "command": "npm run test:splitter-touch",
+      "durationMs": 2435,
+      "pass": true
+    },
+    {
+      "id": "suite-148",
+      "command": "npm run test:splitter-height",
+      "durationMs": 99486,
+      "pass": true
+    },
+    {
+      "id": "suite-149",
+      "command": "npm run test:codeblock",
+      "durationMs": 2992,
+      "pass": true
+    },
+    {
+      "id": "suite-150",
+      "command": "npm run test:terminal",
+      "durationMs": 1075,
+      "pass": true
+    },
+    {
+      "id": "suite-151",
+      "command": "npm run test:form-locale",
+      "durationMs": 2006,
+      "pass": true
+    },
+    {
+      "id": "suite-152",
+      "command": "npm run test:jsx-ui-literals",
+      "durationMs": 167,
+      "pass": true
+    },
+    {
+      "id": "suite-153",
+      "command": "npm run test:image",
+      "durationMs": 1954,
+      "pass": true
+    },
+    {
+      "id": "suite-154",
+      "command": "npm run test:hotkeys",
+      "durationMs": 984,
+      "pass": true
+    },
+    {
+      "id": "suite-155",
+      "command": "npm run test:hovercard",
+      "durationMs": 1266,
+      "pass": true
+    },
+    {
+      "id": "suite-156",
+      "command": "npm run test:tour",
+      "durationMs": 1395,
+      "pass": true
+    },
+    {
+      "id": "suite-157",
+      "command": "npm run test:watermark",
+      "durationMs": 983,
+      "pass": true
+    },
+    {
+      "id": "suite-158",
+      "command": "npm run test:backtop",
+      "durationMs": 1212,
+      "pass": true
+    },
+    {
+      "id": "suite-159",
+      "command": "npm run test:steps",
+      "durationMs": 1184,
+      "pass": true
+    },
+    {
+      "id": "suite-160",
+      "command": "npm run test:feedback-content",
+      "durationMs": 1018,
+      "pass": true
+    },
+    {
+      "id": "suite-161",
+      "command": "npm run test:runtime-props",
+      "durationMs": 3782,
+      "pass": true
+    },
+    {
+      "id": "suite-162",
+      "command": "npm run test:rich-titles",
+      "durationMs": 1148,
+      "pass": true
+    },
+    {
+      "id": "suite-163",
+      "command": "npm run test:anchor",
+      "durationMs": 1008,
+      "pass": true
+    },
+    {
+      "id": "suite-164",
+      "command": "npm run test:action-button-types",
+      "durationMs": 1543,
+      "pass": true
+    },
+    {
+      "id": "suite-165",
+      "command": "npm run test:list-semantics",
+      "durationMs": 1004,
+      "pass": true
+    },
+    {
+      "id": "suite-166",
+      "command": "npm run test:field-content",
+      "durationMs": 1473,
+      "pass": true
+    },
+    {
+      "id": "suite-167",
+      "command": "npm run test:display-content",
+      "durationMs": 1020,
+      "pass": true
+    },
+    {
+      "id": "suite-168",
+      "command": "npm run test:derived-content",
+      "durationMs": 1462,
+      "pass": true
+    },
+    {
+      "id": "suite-169",
+      "command": "npm run test:divider-label",
+      "durationMs": 2498,
+      "pass": true
+    },
+    {
+      "id": "suite-170",
+      "command": "npm run test:cascader-path",
+      "durationMs": 10134,
+      "pass": true
+    },
+    {
+      "id": "suite-171",
+      "command": "npm run test:progressbar-numeric",
+      "durationMs": 2366,
+      "pass": true
+    },
+    {
+      "id": "suite-172",
+      "command": "npm run test:website-readiness",
+      "durationMs": 5446,
+      "pass": true
+    },
+    {
+      "id": "suite-173",
+      "command": "npm run test:website-kit-contract",
+      "durationMs": 5581,
+      "pass": true
+    },
+    {
+      "id": "suite-174",
+      "command": "npm run test:website-ime",
+      "durationMs": 4223,
+      "pass": true
+    },
+    {
+      "id": "suite-175",
+      "command": "npm run test:website-layout",
+      "durationMs": 4994,
+      "pass": true
+    },
+    {
+      "id": "suite-176",
+      "command": "npm run test:website-header-contrast",
+      "durationMs": 6893,
+      "pass": true
+    },
+    {
+      "id": "suite-177",
+      "command": "npm run test:website-chat",
+      "durationMs": 12274,
+      "pass": true
+    },
+    {
+      "id": "suite-178",
+      "command": "npm run test:website-chat-layout",
+      "durationMs": 4490,
+      "pass": true
+    },
+    {
+      "id": "suite-179",
+      "command": "npm run test:website-secondary",
+      "durationMs": 3518,
+      "pass": true
+    },
+    {
+      "id": "suite-180",
+      "command": "npm run test:website-secondary-layout",
+      "durationMs": 8721,
+      "pass": true
+    },
+    {
+      "id": "suite-181",
+      "command": "npm run test:website-footer-occlusion",
+      "durationMs": 8134,
+      "pass": true
+    },
+    {
+      "id": "suite-182",
+      "command": "npm run test:status-secondary",
+      "durationMs": 4917,
+      "pass": true
+    },
+    {
+      "id": "suite-183",
+      "command": "npm run test:status-secondary-layout",
+      "durationMs": 11010,
+      "pass": true
+    },
+    {
+      "id": "suite-184",
+      "command": "npm run test:secondary-kit-contrast",
+      "durationMs": 54100,
+      "pass": true
+    },
+    {
+      "id": "suite-185",
+      "command": "npm run test:nested-content",
+      "durationMs": 1412,
+      "pass": true
+    },
+    {
+      "id": "suite-186",
+      "command": "npm run test:fallback-content",
+      "durationMs": 1320,
+      "pass": true
+    },
+    {
+      "id": "suite-187",
+      "command": "npm run test:datepicker-value",
+      "durationMs": 1582,
+      "pass": true
+    },
+    {
+      "id": "suite-188",
+      "command": "npm run test:font-rendering",
+      "durationMs": 7548,
+      "pass": true
+    },
+    {
+      "id": "suite-189",
+      "command": "npm run test:numberfield-step",
+      "durationMs": 4872,
+      "pass": true
+    },
+    {
+      "id": "suite-190",
+      "command": "npm run test:axis-scopes",
+      "durationMs": 3149,
+      "pass": true
+    },
+    {
+      "id": "suite-191",
+      "command": "npm run test:axis-controls",
+      "durationMs": 31626,
+      "pass": false
+    },
+    {
+      "id": "suite-192",
+      "command": "npm run test:theme-component-scopes",
+      "durationMs": 493,
+      "pass": false
+    },
+    {
+      "id": "suite-193",
+      "command": "npm run test:base-token-exports",
+      "durationMs": 258,
+      "pass": false
+    },
+    {
+      "id": "suite-194",
+      "command": "npm run test:native-element-values",
+      "durationMs": 485,
+      "pass": true
+    },
+    {
+      "id": "suite-195",
+      "command": "npm run test:timepicker-step",
+      "durationMs": 1347,
+      "pass": true
+    },
+    {
+      "id": "suite-196",
+      "command": "npm run test:status-kit-dialog",
+      "durationMs": 3623,
+      "pass": true
+    },
+    {
+      "id": "suite-197",
+      "command": "npm run test:at-review",
+      "durationMs": 32178,
+      "pass": false
+    },
+    {
+      "id": "suite-198",
+      "command": "npm run test:image-slot-contract",
+      "durationMs": 7471,
+      "pass": true
+    },
+    {
+      "id": "suite-199",
+      "command": "npm run test:image-state-boundaries",
+      "durationMs": 34425,
+      "pass": true
+    },
+    {
+      "id": "suite-200",
+      "command": "npm run test:command-feedback",
+      "durationMs": 1208,
+      "pass": true
+    },
+    {
+      "id": "suite-201",
+      "command": "npm run test:a11y-harness",
+      "durationMs": 10578,
+      "pass": true
+    },
+    {
+      "id": "suite-202",
+      "command": "npm run test:health-chrome",
+      "durationMs": 95586,
+      "pass": true
+    },
+    {
+      "id": "suite-203",
+      "command": "npm run test:diagnostic-pages",
+      "durationMs": 30404,
+      "pass": true
+    },
+    {
+      "id": "suite-204",
+      "command": "npm run test:visual-review",
+      "durationMs": 5960,
+      "pass": true
+    },
+    {
+      "id": "suite-205",
+      "command": "npm run test:image-slot-resize",
+      "durationMs": 2884,
+      "pass": true
+    },
+    {
+      "id": "suite-206",
+      "command": "npm run test:responsive-preview",
+      "durationMs": 92223,
+      "pass": true
+    },
+    {
+      "id": "suite-207",
+      "command": "npm run test:diagnostic-paint",
+      "durationMs": 1823,
+      "pass": true
+    },
+    {
+      "id": "suite-208",
+      "command": "npm run test:component-review-chrome",
+      "durationMs": 8329,
+      "pass": true
+    },
+    {
+      "id": "suite-209",
+      "command": "npm run test:health-claims",
+      "durationMs": 180,
+      "pass": true
+    },
+    {
+      "id": "suite-210",
+      "command": "npm run test:native-copy",
+      "durationMs": 199,
+      "pass": true
+    },
+    {
+      "id": "suite-211",
+      "command": "npm run test:native-fonts",
+      "durationMs": 189,
+      "pass": true
+    },
+    {
+      "id": "suite-212",
+      "command": "npm run test:rich-aria-names",
+      "durationMs": 3728,
+      "pass": true
+    },
+    {
+      "id": "suite-213",
+      "command": "npm run test:render-counts",
+      "durationMs": 3200,
+      "pass": true
+    },
+    {
+      "id": "suite-214",
+      "command": "npm run test:focus-indicator",
+      "durationMs": 18521,
+      "pass": true
+    },
+    {
+      "id": "suite-215",
+      "command": "npm run test:chart-name",
+      "durationMs": 3552,
+      "pass": true
+    },
+    {
+      "id": "suite-216",
+      "command": "npm run test:chart-pie",
+      "durationMs": 64734,
+      "pass": true
+    },
+    {
+      "id": "suite-217",
+      "command": "npm run test:body-text-contrast",
+      "durationMs": 11990,
+      "pass": true
+    },
+    {
+      "id": "suite-218",
+      "command": "npm run test:strong-text-contrast",
+      "durationMs": 4225,
+      "pass": true
+    },
+    {
+      "id": "suite-219",
+      "command": "npm run test:text-contrast-floor",
+      "durationMs": 2616,
+      "pass": true
+    },
+    {
+      "id": "suite-220",
+      "command": "npm run test:paper-text-contrast",
+      "durationMs": 106630,
+      "pass": true
+    },
+    {
+      "id": "suite-221",
+      "command": "npm run test:case-closing-layout",
+      "durationMs": 8154,
+      "pass": true
+    },
+    {
+      "id": "suite-222",
+      "command": "npm run test:remaining-template-label-contrast",
+      "durationMs": 32181,
+      "pass": false
+    },
+    {
+      "id": "suite-223",
+      "command": "npm run test:quote-financial-layout",
+      "durationMs": 32474,
+      "pass": false
+    },
+    {
+      "id": "suite-224",
+      "command": "npm run test:invoice-expense-financial-layout",
+      "durationMs": 32799,
+      "pass": false
+    },
+    {
+      "id": "suite-225",
+      "command": "npm run test:dunning-reference-layout",
+      "durationMs": 32473,
+      "pass": false
+    },
+    {
+      "id": "suite-226",
+      "command": "npm run test:element-geometry-text",
+      "durationMs": 7332,
+      "pass": false
+    },
+    {
+      "id": "suite-227",
+      "command": "npm run test:nested-modal-geometry",
+      "durationMs": 124052,
+      "pass": true
+    },
+    {
+      "id": "suite-228",
+      "command": "npm run test:overlay-material",
+      "durationMs": 55160,
+      "pass": true
+    },
+    {
+      "id": "suite-229",
+      "command": "npm run test:template-touch",
+      "durationMs": 288152,
+      "pass": true
+    },
+    {
+      "id": "suite-230",
+      "command": "npm run test:template-touch-actions",
+      "durationMs": 74682,
+      "pass": true
+    },
+    {
+      "id": "suite-231",
+      "command": "node _audit/ci/test-unit-runner.mjs",
+      "durationMs": 43,
+      "pass": true
+    },
+    {
+      "id": "suite-370",
+      "command": "npm run test:component-css",
+      "durationMs": 6927,
+      "pass": true
+    },
+    {
+      "id": "suite-371",
+      "command": "npm run test:component-css-browser",
+      "durationMs": 193186,
+      "pass": false
+    },
+    {
+      "id": "suite-372",
+      "command": "npm run test:component-css-interactions",
+      "durationMs": 51135,
+      "pass": true
+    },
+    {
+      "id": "suite-373",
+      "command": "npm run test:carousel-tree-accessibility",
+      "durationMs": 6632,
+      "pass": true
+    },
+    {
+      "id": "suite-374",
+      "command": "npm run test:guidelines",
+      "durationMs": 7441,
+      "pass": true
+    },
+    {
+      "id": "suite-375",
+      "command": "npm run test:guidelines-browser",
+      "durationMs": 42805,
+      "pass": true
+    },
+    {
+      "id": "suite-385",
+      "command": "node _audit/ci/test-template-display-fields.mjs",
+      "durationMs": 234,
+      "pass": true
+    },
+    {
+      "id": "suite-386",
+      "command": "node _audit/ci/test-template-archetypes.mjs",
+      "durationMs": 1761,
+      "pass": true
+    },
+    {
+      "id": "suite-387",
+      "command": "CS_TEST_BROWSER=chromium node _audit/ci/test-template-display-fields-browser.mjs",
+      "durationMs": 61490,
+      "pass": true
+    },
+    {
+      "id": "suite-388",
+      "command": "CS_TEST_BROWSER=firefox node _audit/ci/test-template-display-fields-browser.mjs",
+      "durationMs": 52805,
+      "pass": true
+    },
+    {
+      "id": "suite-389",
+      "command": "CS_TEST_BROWSER=webkit node _audit/ci/test-template-display-fields-browser.mjs",
+      "durationMs": 51802,
+      "pass": true
+    },
+    {
+      "id": "suite-390",
+      "command": "CS_TEST_BROWSER=chromium node _audit/ci/test-template-native-contract-fields-browser.mjs",
+      "durationMs": 12687,
+      "pass": true
+    },
+    {
+      "id": "suite-391",
+      "command": "CS_TEST_BROWSER=firefox node _audit/ci/test-template-native-contract-fields-browser.mjs",
+      "durationMs": 4305,
+      "pass": true
+    },
+    {
+      "id": "suite-392",
+      "command": "CS_TEST_BROWSER=webkit node _audit/ci/test-template-native-contract-fields-browser.mjs",
+      "durationMs": 6480,
+      "pass": true
+    },
+    {
+      "id": "suite-393",
+      "command": "CS_TEST_BROWSER=chromium node _audit/ci/test-template-archetypes-browser.mjs",
+      "durationMs": 10516,
+      "pass": true
+    },
+    {
+      "id": "suite-394",
+      "command": "CS_TEST_BROWSER=firefox node _audit/ci/test-template-archetypes-browser.mjs",
+      "durationMs": 8577,
+      "pass": true
+    },
+    {
+      "id": "suite-395",
+      "command": "CS_TEST_BROWSER=webkit node _audit/ci/test-template-archetypes-browser.mjs",
+      "durationMs": 3461,
+      "pass": true
+    },
+    {
+      "id": "suite-396",
+      "command": "node _audit/ci/test-native-store-paths.mjs",
+      "durationMs": 88,
+      "pass": true
+    },
+    {
+      "id": "suite-397",
+      "command": "CS_TEST_BROWSER=chromium node _audit/ci/test-newsletter-heading-contrast-browser.mjs",
+      "durationMs": 9609,
+      "pass": true
+    },
+    {
+      "id": "suite-398",
+      "command": "CS_TEST_BROWSER=firefox node _audit/ci/test-newsletter-heading-contrast-browser.mjs",
+      "durationMs": 17433,
+      "pass": true
+    },
+    {
+      "id": "suite-399",
+      "command": "CS_TEST_BROWSER=webkit node _audit/ci/test-newsletter-heading-contrast-browser.mjs",
+      "durationMs": 6409,
+      "pass": true
+    },
+    {
+      "id": "suite-400",
+      "command": "node _audit/ci/test-logo-owned-content-types.mjs",
+      "durationMs": 994,
+      "pass": true
+    },
+    {
+      "id": "suite-401",
+      "command": "node _audit/ci/test-semantic-keyboard-contracts-browser.mjs",
+      "durationMs": 3422,
+      "pass": true
+    },
+    {
+      "id": "suite-402",
+      "command": "node _audit/ci/test-logo-owned-content-browser.mjs",
+      "durationMs": 8312,
+      "pass": true
+    },
+    {
+      "id": "suite-403",
+      "command": "CS_TEST_BROWSER=firefox node _audit/ci/test-semantic-keyboard-contracts-browser.mjs",
+      "durationMs": 2263,
+      "pass": true
+    },
+    {
+      "id": "suite-404",
+      "command": "CS_TEST_BROWSER=firefox node _audit/ci/test-logo-owned-content-browser.mjs",
+      "durationMs": 7142,
+      "pass": true
+    },
+    {
+      "id": "suite-405",
+      "command": "CS_TEST_BROWSER=webkit node _audit/ci/test-semantic-keyboard-contracts-browser.mjs",
+      "durationMs": 3679,
+      "pass": true
+    },
+    {
+      "id": "suite-406",
+      "command": "CS_TEST_BROWSER=webkit node _audit/ci/test-logo-owned-content-browser.mjs",
+      "durationMs": 4557,
+      "pass": true
+    },
+    {
+      "id": "support-invalidation",
+      "command": "node _audit/ci/test-support-invalidation.mjs",
+      "durationMs": 30,
+      "pass": true
+    },
+    {
+      "id": "targeted-keyboard",
+      "command": "npm run test:targeted-keyboard",
+      "durationMs": 4260,
+      "pass": true
+    },
+    {
+      "id": "template-brand-swatches",
+      "command": "node _audit/ci/test-template-brand-swatches-browser.mjs",
+      "durationMs": 6381,
+      "pass": true
+    },
+    {
+      "id": "template-content-adoption",
+      "command": "npm run test:template-content-adoption",
+      "durationMs": 540,
+      "pass": true
+    },
+    {
+      "id": "template-content-projections",
+      "command": "npm run test:template-content-projections",
+      "durationMs": 4245,
+      "pass": false
+    },
+    {
+      "id": "template-content-targets",
+      "command": "npm run test:template-content-targets",
+      "durationMs": 4110,
+      "pass": false
+    },
+    {
+      "id": "template-hex-policy",
+      "command": "node _audit/ci/test-template-hex-policy.mjs",
+      "durationMs": 438,
+      "pass": true
+    },
+    {
+      "id": "template-literals",
+      "command": "npm run test:template-literals",
+      "durationMs": 4652,
+      "pass": true
+    },
+    {
+      "id": "template-metric-layout",
+      "command": "npm run test:template-metric-layout",
+      "durationMs": 1628,
+      "pass": true
+    },
+    {
+      "id": "template-static-logos",
+      "command": "npm run test:template-static-logos",
+      "durationMs": 641,
+      "pass": true
+    },
+    {
+      "id": "template-static-logos-browser",
+      "command": "npm run test:template-static-logos-browser",
+      "durationMs": 80571,
+      "pass": true
+    },
+    {
+      "id": "template-structured-content",
+      "command": "npm run test:template-structured-content",
+      "durationMs": 474,
+      "pass": true
+    },
+    {
+      "id": "template-structured-content-browser",
+      "command": "npm run test:template-structured-content-browser",
+      "durationMs": 32202,
+      "pass": true
+    },
+    {
+      "id": "textfield-field-browser",
+      "command": "npm run test:textfield-field:browser",
+      "durationMs": 2575,
+      "pass": true
+    },
+    {
+      "id": "textfield-field-browser-firefox",
+      "command": "npm run test:textfield-field:browser:firefox",
+      "durationMs": 6300,
+      "pass": true
+    },
+    {
+      "id": "textfield-field-browser-webkit",
+      "command": "npm run test:textfield-field:browser:webkit",
+      "durationMs": 2723,
+      "pass": true
+    },
+    {
+      "id": "textfield-field-types",
+      "command": "npm run test:textfield-field-types",
+      "durationMs": 632,
+      "pass": true
+    },
+    {
+      "id": "theme-palette-projection",
+      "command": "npm run test:theme-palette-projection",
+      "durationMs": 1969,
+      "pass": true
+    },
+    {
+      "id": "token-css-entry",
+      "command": "npm run test:token-css-entry",
+      "durationMs": 212,
+      "pass": true
+    },
+    {
+      "id": "token-css-entry-browser",
+      "command": "npm run test:token-css-entry-browser",
+      "durationMs": 42413,
+      "pass": true
+    },
+    {
+      "id": "token-legacy-aliases",
+      "command": "npm run test:token-legacy-aliases",
+      "durationMs": 205,
+      "pass": true
+    },
+    {
+      "id": "token-legacy-aliases-browser",
+      "command": "npm run test:token-legacy-aliases-browser",
+      "durationMs": 1978,
+      "pass": true
+    },
+    {
+      "id": "token-mode-aliases",
+      "command": "npm run test:token-mode-aliases",
+      "durationMs": 817,
+      "pass": true
+    },
+    {
+      "id": "token-mode-browsers",
+      "command": "npm run test:token-modes-browser",
+      "durationMs": 53410,
+      "pass": true
+    },
+    {
+      "id": "token-mode-documents",
+      "command": "npm run test:token-modes",
+      "durationMs": 1606,
+      "pass": false
+    },
+    {
+      "id": "token-native-aliases",
+      "command": "npm run test:token-native-aliases",
+      "durationMs": 496,
+      "pass": true
+    },
+    {
+      "id": "toolchain-reproducibility",
+      "command": "npm run test:toolchain-reproducibility",
+      "durationMs": 3582,
+      "pass": true
+    },
+    {
+      "id": "treetable-relations",
+      "command": "npm run test:treetable-relations",
+      "durationMs": 6656,
+      "pass": true
+    },
+    {
+      "id": "typescript-api-adapter",
+      "command": "npm run test:typescript-api-adapter",
+      "durationMs": 2340,
+      "pass": true
+    },
+    {
+      "id": "unit-shards",
+      "command": "npm run test:unit-shards",
+      "durationMs": 560,
+      "pass": true
+    },
+    {
+      "id": "verification-server",
+      "command": "node _audit/ci/test-verification-server.mjs",
+      "durationMs": 86,
+      "pass": true
+    },
+    {
+      "id": "vite-consumer",
+      "command": "npm run test:vite-consumer",
+      "durationMs": 12984,
+      "pass": true
+    }
+  ]
+}

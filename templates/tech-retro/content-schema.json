@@ -6,7 +6,8 @@
       "id": "hdrLabel",
       "type": "text",
       "label": "Header retrospective label",
-      "maxLength": 28
+      "maxLength": 28,
+      "runtimeBinding": "text"
     }
   ]
 }

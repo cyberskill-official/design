@@ -7,26 +7,19 @@ export default {
   title: 'Components/Overlays/OverlayProvider',
   component: OverlayProvider,
   tags: ['autodocs'],
+  args: { className: '' },
   argTypes: {
     children: {
       control: 'object',
     },
   },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting OverlayProvider. Portable consumers use styles.css + bundle, not Storybook. Provider mounts `#cs-overlay-root` and stacks Escape/scroll-lock for nested modals.',
-      },
-    },
-  },
 };
 
 export const Default = {
-  render: function D() {
+  render: function D(args) {
     const [open, setOpen] = React.useState(false);
     return (
-      <OverlayProvider>
+      <OverlayProvider {...args}>
         <Button onClick={() => setOpen(true)}>Open dialog</Button>
         <Dialog open={open} title="Managed dialog" onClose={() => setOpen(false)}>
           Nested overlays register with the provider stack.

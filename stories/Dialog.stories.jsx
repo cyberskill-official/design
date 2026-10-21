@@ -6,6 +6,7 @@ export default {
   title: 'Components/Overlays/Dialog',
   component: Dialog,
   tags: ['autodocs'],
+  args: { className: '' },
   argTypes: {
     open: { control: 'boolean' },
     title: { control: 'text' },
@@ -14,16 +15,9 @@ export default {
     lang: { control: 'select', options: ['en', 'vi'] },
     onClose: { control: false },
   },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Dialog. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
 };
 
-export const Default = { render: function OpenDialog() { const [open, setOpen] = React.useState(true); return (<><Button onClick={() => setOpen(true)}>Open</Button><Dialog open={open} title="Confirm" onClose={() => setOpen(false)} actions={<Button onClick={() => setOpen(false)}>OK</Button>}><p style={{ margin: 0 }}>Host Live matrix.</p></Dialog></>); } };
+export const Default = { render: function OpenDialog(args) { const [open, setOpen] = React.useState(true); return (<><Button onClick={() => setOpen(true)}>Open</Button><Dialog open={open} title="Confirm" onClose={() => setOpen(false)} actions={<Button onClick={() => setOpen(false)}>OK</Button>} {...args}><p style={{ margin: 0 }}>Host Live matrix.</p></Dialog></>); } };
 
 export const Matrix = {
   name: 'Matrix / Open states',

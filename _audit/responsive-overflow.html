@@ -19,7 +19,10 @@
 <div id="pool"></div>
 <script src="./lib/frame-probe.js"></script>
 <script>
-const W=390, GROUP=7, SETTLE=3200;
+// Keep the board's 390 default; the Node suite also probes tablet/desktop stops.
+const W=Number(new URLSearchParams(location.search).get('width')||390), GROUP=7, SETTLE=3200;
+if(![390,768,1280].includes(W))throw Error('Unsupported responsive audit width');
+document.querySelector('h1').textContent='Responsive overflow audit — every template @ '+W;
 const pool=document.getElementById('pool'), grid=document.getElementById('grid'), busy=document.getElementById('busy');
 const results=[];
 function probeOne(src){
@@ -40,7 +43,7 @@ function probeOne(src){
     const measured=await Promise.all(batch.map(t=>probeOne(t.src)));
     batch.forEach((t,j)=>{
       const m=measured[j];
-      results.push({name:t.name,...m});
+      results.push({name:t.name,width:W,...m});
       const cls=m.error?'bad':m.over<=0?'ok':(m.canvas?'exp':'bad');
       const row=document.createElement('div');
       row.className='r '+cls;
@@ -56,7 +59,7 @@ function probeOne(src){
   window.__overflow=window.__all; // audit-suite verdict alias
   busy.textContent='done — '+tpls.length+' templates';
   const sum=document.getElementById('sum');
-  sum.textContent=bad.length?('✗ '+bad.length+' overflow: '+bad.map(r=>r.name+' +'+r.over).join(', ')):'✓ NO horizontal overflow at 390 across all '+tpls.length+' templates/kits';
+  sum.textContent=bad.length?('✗ '+bad.length+' overflow: '+bad.map(r=>r.name+' +'+r.over).join(', ')):'✓ NO horizontal overflow at '+W+' across all '+tpls.length+' templates/kits';
   sum.style.color=bad.length?'#B42318':'#166534';
 })().catch(error=>{
   window.__overflow={pass:false,error:String(error),done:results.length,results};

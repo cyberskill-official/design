@@ -6,6 +6,7 @@ export default {
   component: Textarea,
   tags: ['autodocs'],
   argTypes: {
+  "required": {"control":"boolean"},
   "label": {
     "control": "object"
   },
@@ -22,13 +23,6 @@ export default {
     "control": "number"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Textarea. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { label: 'Notes', placeholder: 'Context…', rows: 4 },
 };
 
@@ -80,3 +74,17 @@ export const FullMatrix = {
     );
   },
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioTextareaError = {
+  name: "Textarea: Validation error",
+  args: {
+  "label": "Notes",
+  "defaultValue": "Reference <example> & \"quoted\" text",
+  "error": "Textarea scenario validation error"
+},
+  render: args => renderComponentScenario("Textarea--error",args),
+  play: ({canvasElement}) => playComponentScenario("Textarea--error",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

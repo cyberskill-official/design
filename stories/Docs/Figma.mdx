@@ -1,26 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import { IframeSurface } from '../Maintainer/IframeSurface.jsx';
 
 <Meta title="Docs/Guides/Figma" />
 
-# Figma (consumer-facing)
-
-## What ships in-repo
-
-- Design tokens in CSS + DTCG (`tokens/tokens.dtcg.json`) with native Swift/Kotlin/Flutter mirrors
-- UI kits under `ui_kits/` — Thổ-faithful HTML recreations
-
-## Tokens Studio (recommended hand-sync)
-
-Until the design org is on Figma Enterprise (Variables REST), treat **code → design** as the source of truth:
-
-1. Open the target Figma file
-2. Install **[Tokens Studio](https://tokens.studio/)**
-3. **Import** W3C DTCG / JSON from `tokens/tokens.dtcg.json`
-4. Map token sets to a collection (keep slash groups close to CSS-var keys)
-5. Re-import after token PRs — do not round-trip design edits back into DTCG unless you intentionally own that change in code
-
-## Automated colour push (maintainers)
-
-CI can push **colour** leaves from DTCG into a Figma local variable collection when `FIGMA_TOKEN` + `FIGMA_FILE_KEY` are present and the PAT has Variables scopes (**Enterprise**). Non-Enterprise plans soft-skip; Tokens Studio remains the default path.
-
-Maintainer depth (secrets, scopes, checklists): `docs/figma.md`.
+<IframeSurface src="/docs/viewer.html?embed=1#docs/figma.md" title="Figma" fullBleed />

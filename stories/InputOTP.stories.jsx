@@ -83,3 +83,18 @@ export const FullMatrix = {
     );
   },
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioInputOTPError = {
+  name: "InputOTP: Validation error",
+  args: {
+  "length": 4,
+  "value": "1234",
+  "label": "Verification",
+  "error": "InputOTP scenario validation error"
+},
+  render: args => renderComponentScenario("InputOTP--error",args),
+  play: ({canvasElement}) => playComponentScenario("InputOTP--error",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

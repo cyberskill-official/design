@@ -1,0 +1,9 @@
+# Cải tiến viewport và vai trò khoảng cách
+
+Dialog và AlertDialog giữ các khai báo `vh` dự phòng hiện có. Feature query bổ sung chiều cao viewport động và giới hạn vùng an toàn theo cạnh vật lý, giữ cuộn nội bộ và hình học khi inset bằng 0. Inset trái/phải thể hiện cạnh thiết bị, không đổi theo hướng chữ. Kiểm thử ba engine so sánh hai loại dialog, LTR/RTL, bốn kích thước viewport, thay đổi viewport trực tiếp, nhánh feature query không khớp và inset giả lập khác 0. Giá trị giả lập kiểm tra phép tính; không chứng minh hoạt động trên thanh trình duyệt, bàn phím hoặc notch iOS thật. Ứng dụng vẫn chịu trách nhiệm cấu hình viewport, kể cả `viewport-fit` khi phù hợp. Tham khảo [biến môi trường CSS](https://www.w3.org/TR/css-env-1/) và [đơn vị viewport động](https://www.w3.org/TR/css-values-4/#viewport-relative-lengths).
+
+Ba quy tắc màu hover riêng của collection chỉ áp dụng khi `(hover: hover)`. Trạng thái chọn, focus native, bàn phím và disabled vẫn độc lập. Kiểm thử dùng media query fine/coarse thực tế và tương tác con trỏ, đồng thời giữ khả năng focus bàn phím.
+
+Năm khai báo collection bổ sung dùng `--cs-space-3` hoặc `--cs-space-5`: gap và padding ngang của ListItem, padding dọc của Item, khoảng cuối Timeline và gap của nút Accordion. Giá trị số vẫn 12px và 20px ở cả hai mật độ. Bốn component thực được đo trong 24 phạm vi theme/hướng chữ/mật độ, ba engine, con trỏ fine/coarse, CSS nguồn và bản thu gọn khoảng trắng của cùng tệp. Thay đổi token có kiểm soát xác nhận việc sử dụng token; padding ngang 14px của Item giữ nguyên. Đây là gán vai trò tương đương, không mở rộng thiết kế mật độ compact.
+
+`test-progressive-viewport-browser.mjs` và `test-collection-spacing-browser.mjs` ghi bằng chứng gắn với nguồn trong `test-results/`. CSS in đã có ở `base/glass.css`. Typography linh hoạt và thang mật độ mới cần quyết định thiết kế; đợt này không tự đưa ra các quyết định đó.

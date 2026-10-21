@@ -1,6 +1,7 @@
 // Bind the authored replacement candidate to exact local source and outputs.
 // This provides reviewable origin evidence, not distribution approval.
 import assert from 'node:assert/strict';
+import {Script} from 'node:vm';
 const producer='scripts/build-template-primitives.mjs';
 const sources={'support.js':'templates/_vendor/support.js','deck-stage.js':'templates/_vendor/deck-stage.js','image-slot.js':'image-slot.js'};
 export function verifyAuthoredTemplatePrimitives(read) {
@@ -10,9 +11,19 @@ export function verifyAuthoredTemplatePrimitives(read) {
  for(const [name,output]of Object.entries(sources)){
   const input='scripts/template-runtime/primitives/'+name;
   const source=read(input),bytes=read(output);
-  const expected=Buffer.from('// Generated from '+input+' by '+producer+'.\n'+source.toString());
+  let projected=source.toString();
+  const serializer='scripts/template-runtime/dc-logic-source.mjs';
+  if(name==='support.js'){
+   const marker='null; // @cs-dc-source-serializer';
+   assert.equal(projected.split(marker).length,2,'Primitive output is not generated from its recorded source: missing/duplicate shared DC serializer marker');
+   const sourceText=read(serializer).toString();
+   assert(sourceText.includes('export function dcLogicScriptSource('),'Missing shared DC serializer');
+   const fn=new Script(sourceText.replace('export function dcLogicScriptSource(', 'function dcLogicScriptSource(')+'\n;dcLogicScriptSource').runInNewContext(Object.create(null),{timeout:1000});
+   projected=projected.replace(marker,fn.toString()+'; // projected from '+serializer);
+  }
+  const expected=Buffer.from('// Generated from '+input+' by '+producer+'.\n'+projected);
   assert(bytes.equals(expected),'Primitive output is not generated from its recorded source: '+output);
-  const evidence=[producer,input,'package.json'];
+  const evidence=[producer,input,'package.json',...(name==='support.js'?[serializer]:[])];
   entries.set(input,{state:'repository_source_candidate_pending_distribution_review',evidence});
   entries.set(output,{state:'generated_from_repository_source_candidate_pending_distribution_review',evidence});
  }

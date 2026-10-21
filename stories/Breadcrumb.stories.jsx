@@ -9,13 +9,6 @@ export default {
     "control": "object"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Breadcrumb. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { items: [{ href: '#', label: 'Home' }, { label: 'Button' }] },
 };
 

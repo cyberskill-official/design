@@ -7,117 +7,136 @@
       "type": "text",
       "label": "Counsel-gated warning banner",
       "maxLength": 220,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "kicker",
       "type": "text",
       "label": "Document type label",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "h1",
       "type": "text",
       "label": "Resolution title",
       "maxLength": 70,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "intro",
       "type": "text",
       "label": "Adoption context line",
-      "maxLength": 180
+      "maxLength": 180,
+      "runtimeBinding": "text"
     },
     {
       "id": "recitalsH",
       "type": "text",
       "label": "Recitals heading",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "wWhereas",
       "type": "text",
       "label": "\"WHEREAS\" label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "recA",
       "type": "richtext",
       "label": "Recital A",
-      "maxLength": 200
+      "maxLength": 200,
+      "runtimeBinding": "text"
     },
     {
       "id": "recB",
       "type": "richtext",
       "label": "Recital B",
-      "maxLength": 200
+      "maxLength": 200,
+      "runtimeBinding": "text"
     },
     {
       "id": "resolvedH",
       "type": "text",
       "label": "Resolved heading",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "wThat",
       "type": "text",
       "label": "\"THAT\" label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "c1",
       "type": "richtext",
       "label": "Clause 1",
       "maxLength": 220,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "c2",
       "type": "richtext",
       "label": "Clause 2",
-      "maxLength": 220
+      "maxLength": 220,
+      "runtimeBinding": "text"
     },
     {
       "id": "c3",
       "type": "richtext",
       "label": "Clause 3",
-      "maxLength": 220
+      "maxLength": 220,
+      "runtimeBinding": "text"
     },
     {
       "id": "voteL",
       "type": "text",
       "label": "Vote label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "voteBody",
       "type": "text",
       "label": "Vote tally",
-      "maxLength": 80
+      "maxLength": 80,
+      "runtimeBinding": "text"
     },
     {
       "id": "sig1",
       "type": "text",
       "label": "Signature line 1",
-      "maxLength": 50
+      "maxLength": 50,
+      "runtimeBinding": "text"
     },
     {
       "id": "sig2",
       "type": "text",
       "label": "Signature line 2",
-      "maxLength": 50
+      "maxLength": 50,
+      "runtimeBinding": "text"
     },
     {
       "id": "sig3",
       "type": "text",
       "label": "Signature line 3",
-      "maxLength": 50
+      "maxLength": 50,
+      "runtimeBinding": "text"
     },
     {
       "id": "sig4",
       "type": "text",
       "label": "Signature line 4",
-      "maxLength": 50
+      "maxLength": 50,
+      "runtimeBinding": "text"
     }
   ]
 }

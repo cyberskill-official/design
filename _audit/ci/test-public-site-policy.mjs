@@ -21,7 +21,25 @@ try {
   }
   put('scripts/public-site-policy.json',JSON.stringify(policy));rmSync(join(scratch,'assets/public.svg'));assert.throws(()=>stagePublicFiles(scratch));
   put('secret.svg');symlinkSync(join(scratch,'secret.svg'),join(scratch,'assets/public.svg'));assert.throws(()=>stagePublicFiles(scratch),/symlink/);
+  // The public DESIGN parity diagnostic imports the shared pure model, whose
+  // translated prose helper is therefore a browser dependency, not a build-only
+  // source. Review this exact path; a sibling translation helper stays private.
+  const modelPath='scripts/design-md-lib.mjs';
+  const languagePath='scripts/design-md-language.mjs';
+  const diagnostic=readFileSync(join(root,'_audit/design-md-parity.html'),'utf8');
+  assert(diagnostic.includes('../'+modelPath),'DESIGN diagnostic must consume the shared model');
+  const model=readFileSync(join(root,modelPath),'utf8');
+  assert.match(model,/import\s*\{designMessage\}\s*from\s*["']\.\/design-md-language\.mjs["']/);
+  const language=readFileSync(join(root,languagePath),'utf8');
+  assert(!/\b(?:import|fetch|XMLHttpRequest|process|require)\s*[(.{]/.test(language),'Public prose helper must remain data and pure lookup');
+  put(languagePath,language);
+  put('scripts/public-site-policy.json',JSON.stringify({schemaVersion:1,audiences:{diagnostics:{purpose:'Reviewed DESIGN language model',files:[languagePath]}}}));
+  assert(loadPublicPolicy(scratch).has(languagePath));
+  put('scripts/design-md-unreviewed-language.mjs','export const text="private";');
+  put('scripts/public-site-policy.json',JSON.stringify({schemaVersion:1,audiences:{diagnostics:{purpose:'Unknown helper fixture',files:['scripts/design-md-unreviewed-language.mjs']}}}));
+  assert.throws(()=>loadPublicPolicy(scratch),/Unreviewed public script/);
   const real=loadPublicPolicy(root);const realStage=stagePublicFiles(root);
+  assert.equal(real.get(languagePath)?.audience,'diagnostics');
   for(const [path,entry] of real){if(entry.optional&&!existsSync(join(root,path)))continue;assert.deepEqual(readFileSync(join(realStage,path)),readFileSync(join(root,path)),path);}
   assert(!existsSync(join(realStage,'package-lock.json')));
   // A content sidecar is part of the public template contract, including

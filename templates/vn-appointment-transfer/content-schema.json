@@ -1,0 +1,30 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-appointment-transfer",
+  "slots": [
+    {
+      "id": "headerReferenceSequence",
+      "type": "text",
+      "label": "Số/No. · existing placeholder sequence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "documentReferenceSequence",
+      "type": "text",
+      "label": "Số/No. · existing placeholder sequence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "employeeName",
+      "type": "text",
+      "label": "Họ và tênFull name",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "api-index structural export contract",
+  "description": "Structural shape only. Existing semantic, byte-freshness and provenance gates remain authoritative.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "interpretation",
+    "compiler",
+    "sourceHashes",
+    "propDefinitions",
+    "exports"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "interpretation": {
+      "type": "string"
+    },
+    "compiler": {
+      "type": "object"
+    },
+    "sourceHashes": {
+      "type": "object"
+    },
+    "propDefinitions": {
+      "type": "object"
+    },
+    "exports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "sourcePath",
+          "props"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "sourcePath": {
+            "type": "string"
+          },
+          "props": {
+            "type": "array"
+          },
+          "kind": {
+            "enum": [
+              "component",
+              "constant",
+              "hook"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

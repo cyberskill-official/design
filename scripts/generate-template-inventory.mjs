@@ -1,5 +1,5 @@
 // Source declarations only: this inventory does not certify rendering or exports.
-import {readFileSync,readdirSync,existsSync} from 'node:fs';
+import {readFileSync,readdirSync,existsSync,writeFileSync} from 'node:fs';
 import {resolve,relative,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
@@ -26,9 +26,10 @@ export function collectTemplates(base=root) {
       const target=local?relative(base,resolve(value.startsWith('/')?base:resolve(base,dirname(path)),value.replace(/^\//,'').split(/[?#]/)[0])):null;
       return {value,kind:dynamic?'dynamic':remote?'external-or-data':fragment?'fragment':'local',...(local?{path:target,exists:existsSync(resolve(base,target))}:{})};
     });
-    return {path,sha256:sha(source),declaredProps:declarations,componentImports:imports,references,
-      runtime:path.endsWith('.dc.html')?'design-components-compiler-required':'inspect-scripts-and-imports',
-      verification:{rendering:'not-established',exports:'not-established',accessibility:'not-established'},contentOwner:null};
+    return {path,sha256:sha(source),declaredProps:declarations,componentImports:imports,references,contentBinding:nodes.some(node=>attr(node,'data-content-schema')==='./content-schema.json'),
+      runtime:path.endsWith('.dc.html')?'in-repository-browser-interpreter':'inspect-scripts-and-imports',
+      capabilityEvidence:path.endsWith('.dc.html')?{bootstrap:'_audit/ci/test-template-bootstrap-browser.mjs',documentExport:'_audit/ci/test-doc-export.mjs',scope:'Test definitions only; no retained run receipt or human acceptance implied'}:null,
+      verification:{rendering:'run-required',exports:'archetype-and-run-dependent',accessibility:'not-established'},contentOwner:null};
   };
   const templates=manifest.templates.map(t=>{
     const inspected=inspect(t.entryPath),path=t.folder+'/content-schema.json';
@@ -36,7 +37,7 @@ export function collectTemplates(base=root) {
     let contentSchema=null;
     if(existsSync(resolve(base,path))) {
       const schema=JSON.parse(read(path));
-      contentSchema={path,sha256:sha(read(path)),slots:schema.slots.map(slot=>({...slot,runtimeBinding:props.has(slot.id)?'declared-prop_requires-runtime-verification':'not-a-declared-runtime-prop'}))};
+      contentSchema={path,sha256:sha(read(path)),slots:schema.slots.map(slot=>({...slot,runtimeBinding:['text','number','structured'].includes(slot.runtimeBinding)?(inspected.contentBinding?'validated-'+slot.runtimeBinding+'-content':'declared-content-binding_not-enabled'):props.has(slot.id)?'declared-prop_requires-runtime-verification':'not-a-declared-runtime-prop'}))};
     }
     return {name:t.name,...inspected,contentSchema,supportFiles:files.filter(p=>dirname(p)===t.folder&&p!==t.entryPath).map(path=>({path,sha256:sha(readFileSync(resolve(base,path)))}))};}).sort((a,b)=>a.path.localeCompare(b.path,'en'));
   const kitFiles=walk('ui_kits');
@@ -45,6 +46,9 @@ export function collectTemplates(base=root) {
     kits:[...new Set(kitFiles.map(p=>p.split('/')[1]))].sort().map(name=>({name,files:kitFiles.filter(p=>p.startsWith('ui_kits/'+name+'/')).map(path=>({path,sha256:sha(readFileSync(resolve(base,path)))})),pages:kitFiles.filter(p=>p.startsWith('ui_kits/'+name+'/')&&p.endsWith('.html')).map(inspect),contentOwner:null,acceptance:'not-established'}))};
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
-  collectTemplates();
-  console.log('PASS template inventory: complete DC/static/kit source inventory; capabilities unverified');
+  const output=resolve(root,'docs/template-inventory.json'),bytes=JSON.stringify(collectTemplates(),null,2)+'\n';
+  if(process.argv.includes('--check')) {
+    if(!existsSync(output)||readFileSync(output,'utf8')!==bytes) throw Error('Stale template inventory: run node scripts/generate-template-inventory.mjs');
+  } else writeFileSync(output,bytes);
+  console.log('PASS template inventory: source declarations, runtime paths and test definitions; run evidence and acceptance separate');
 }

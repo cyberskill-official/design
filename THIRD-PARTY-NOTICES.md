@@ -16,7 +16,7 @@ Full license text and copyright lines: [`fonts/OFL.txt`](fonts/OFL.txt).
 
 ## Vendored browser runtimes (`_vendor/`)
 
-Hosted / Storybook / template tooling may load these; they are not always present in every npm tarball revision (see Phase 1 packaging). When redistributed:
+The current npm package explicitly includes `_vendor/`. Hosted, Storybook and template tooling also load these offline runtimes. Their upstream license and provenance records ship beside the files:
 
 | Asset | Upstream | License |
 |---|---|---|
@@ -36,6 +36,7 @@ offline/no-build consumers and does not fetch code or parse into a live DOM.
 
 | Asset | Notes |
 |---|---|
+| `templates/_vendor/doc-export.js` | Retained document-export runtime with unverified historical origin. Current local logo/export changes have an exact byte and focused regression record in `_audit/remediation/retained-exporter-review.json`; this does not establish upstream provenance, rights or distribution approval. |
 | `templates/_vendor/deck-stage.js` | Authored replacement candidate generated from `scripts/template-runtime/primitives/deck-stage.js`. The previous omelette scaffold is preserved in historical audit evidence; its original source remains unavailable. Current source/output binding and distribution review are separate. |
 | `image-slot.js` | Authored replacement candidate generated from `scripts/template-runtime/primitives/image-slot.js`; the historical copied starter is not an authenticated source for this replacement. Browser fixtures exercise the documented host write boundary, not actual host filesystem acceptance. Distribution review remains pending. |
 | `templates/_vendor/support.js` and its template-local copies | Authored replacement candidate generated from `scripts/template-runtime/primitives/support.js`; every registered copy is byte-checked. The original `dc-runtime/src/*.ts` source remains unavailable. The pending record establishes local reproducibility, not reconstruction or rights approval. |
@@ -76,3 +77,9 @@ official published SHA256 and the distribution checksum is pinned. Gradle's
 Apache-2.0 license and bundled third-party notices are retained in
 `examples/native/flutter/android/GRADLE-LICENSE.txt`. This is local build-host
 provenance, not a signed product or store approval.
+
+## Retained skill resources
+
+The seven routers in each of `.agents/skills/` and `.cursor/skills/` retain claudekit attribution in adapter metadata. Their optional upstream payload is quarantined, without byte or file-mode changes, under `vendor/skill-resources/agents/` and `vendor/skill-resources/cursor/`. The repository-only archive's `manifest.json` maps all 330 original payload paths to their archived paths and hashes; the npm files list and explicit public website inventory exclude it. Discovery directories contain only the routers.
+
+The archived `ui-styling/LICENSE.txt` files contain Apache-2.0. The former blanket `license: MIT` adapter metadata was unsupported by the retained files and has been removed; no license conversion is implied. Adjacent licenses apply to their own materials. A complete upstream origin and rights inventory for the other retained resource payloads remains unverified and requires rights-holder review before outward redistribution. Generic framework installer scripts are inert upstream references, not CyberSkill authoring instructions or approval to install dependencies.

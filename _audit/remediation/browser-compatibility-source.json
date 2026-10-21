@@ -1,0 +1,199 @@
+{
+  "source": "Official MDN browser-compat-data repository",
+  "commit": "12bc0268c7fe89a4b23fab5c54702c1fb9c34f7a",
+  "retrievedOn": "2026-10-20",
+  "sourceFiles": {
+    "css/types/color.json": {
+      "url": "https://raw.githubusercontent.com/mdn/browser-compat-data/12bc0268c7fe89a4b23fab5c54702c1fb9c34f7a/css/types/color.json",
+      "sha256": "6094a7a4f42ce5a0385e358b3cb9213d4192ee3863d10043678da83d116d54e7"
+    },
+    "css/properties/container-type.json": {
+      "url": "https://raw.githubusercontent.com/mdn/browser-compat-data/12bc0268c7fe89a4b23fab5c54702c1fb9c34f7a/css/properties/container-type.json",
+      "sha256": "e33a521d2406f2a168f466986af6766e8a404f890b1be1ea25b7c8383509d21e"
+    },
+    "css/selectors/has.json": {
+      "url": "https://raw.githubusercontent.com/mdn/browser-compat-data/12bc0268c7fe89a4b23fab5c54702c1fb9c34f7a/css/selectors/has.json",
+      "sha256": "60f5293efe37ee1eb84c6d325c3915cd7e2523726208e1e564b1f6982522a413"
+    },
+    "css/properties/text-wrap.json": {
+      "url": "https://raw.githubusercontent.com/mdn/browser-compat-data/12bc0268c7fe89a4b23fab5c54702c1fb9c34f7a/css/properties/text-wrap.json",
+      "sha256": "3e8f2b58e9a8970106bee0d8f37f21db54fe22a8f4ed56a0aa3d49974de3dc8a"
+    },
+    "api/HTMLElement.json": {
+      "url": "https://raw.githubusercontent.com/mdn/browser-compat-data/12bc0268c7fe89a4b23fab5c54702c1fb9c34f7a/api/HTMLElement.json",
+      "sha256": "ff68c2126222f12a7ac080381cd6fd57ae0bf48bec6b263d496ec2dad5d8e6e9"
+    },
+    "browsers/chrome.json": {
+      "url": "https://raw.githubusercontent.com/mdn/browser-compat-data/12bc0268c7fe89a4b23fab5c54702c1fb9c34f7a/browsers/chrome.json",
+      "sha256": "cf2ec22c9e3dd451be440a7f492949d45f357aea4194fb7ce384f3af5dc8aabf"
+    },
+    "browsers/firefox.json": {
+      "url": "https://raw.githubusercontent.com/mdn/browser-compat-data/12bc0268c7fe89a4b23fab5c54702c1fb9c34f7a/browsers/firefox.json",
+      "sha256": "8cd63e8050e6040cdef7a51a65f50744003e0c1413b7a3e75c3b7747b3265c83"
+    },
+    "browsers/safari.json": {
+      "url": "https://raw.githubusercontent.com/mdn/browser-compat-data/12bc0268c7fe89a4b23fab5c54702c1fb9c34f7a/browsers/safari.json",
+      "sha256": "85a6ab0403c2bdead0bde7b6734984ab2917628edb2eaaa5b06659ad5033c2ab"
+    },
+    "browsers/safari_ios.json": {
+      "url": "https://raw.githubusercontent.com/mdn/browser-compat-data/12bc0268c7fe89a4b23fab5c54702c1fb9c34f7a/browsers/safari_ios.json",
+      "sha256": "5ca4ecb7e1a5586fe60ceb8cbe08dd8630c054b5005ff0ecbb3adec9e5360d0b"
+    }
+  },
+  "features": {
+    "colorMixOklab": {
+      "mdnUrl": "https://developer.mozilla.org/docs/Web/CSS/Reference/Values/color_value/color-mix",
+      "specUrl": "https://drafts.csswg.org/css-color-5/#color-mix",
+      "support": {
+        "chrome": {
+          "version_added": "111"
+        },
+        "firefox": {
+          "version_added": "113"
+        },
+        "safari": {
+          "version_added": "16.2"
+        },
+        "safari_ios": "mirror"
+      }
+    },
+    "containerInlineSize": {
+      "mdnUrl": null,
+      "specUrl": "https://drafts.csswg.org/css-conditional-5/#valdef-container-type-inline-size",
+      "support": {
+        "chrome": {
+          "version_added": "105"
+        },
+        "firefox": {
+          "version_added": "110"
+        },
+        "safari": {
+          "version_added": "16"
+        },
+        "safari_ios": "mirror"
+      }
+    },
+    "relationalHas": {
+      "mdnUrl": "https://developer.mozilla.org/docs/Web/CSS/Reference/Selectors/:has",
+      "specUrl": "https://drafts.csswg.org/selectors/#relational",
+      "support": {
+        "chrome": {
+          "version_added": "105"
+        },
+        "firefox": {
+          "version_added": "121"
+        },
+        "safari": {
+          "version_added": "15.4"
+        },
+        "safari_ios": "mirror"
+      }
+    },
+    "textWrapBalance": {
+      "mdnUrl": null,
+      "specUrl": "https://drafts.csswg.org/css-text-4/#valdef-text-wrap-style-balance",
+      "support": {
+        "chrome": {
+          "version_added": "114"
+        },
+        "firefox": {
+          "version_added": "121"
+        },
+        "safari": {
+          "version_added": "17.5"
+        },
+        "safari_ios": "mirror"
+      }
+    },
+    "inert": {
+      "mdnUrl": "https://developer.mozilla.org/docs/Web/API/HTMLElement/inert",
+      "specUrl": "https://html.spec.whatwg.org/multipage/dom.html#dom-inert",
+      "support": {
+        "chrome": {
+          "version_added": "102"
+        },
+        "firefox": {
+          "version_added": "112"
+        },
+        "safari": {
+          "version_added": "15.5"
+        },
+        "safari_ios": "mirror"
+      }
+    }
+  },
+  "latestTwoReleasedVersionsInSnapshot": {
+    "chrome": [
+      {
+        "version": "155",
+        "release_date": "2026-10-06",
+        "status": "current",
+        "engine": "Blink",
+        "engine_version": "155"
+      },
+      {
+        "version": "154",
+        "release_date": "2026-09-22",
+        "release_notes": "https://developer.chrome.com/release-notes/154",
+        "status": "retired",
+        "engine": "Blink",
+        "engine_version": "154"
+      }
+    ],
+    "firefox": [
+      {
+        "version": "158",
+        "release_date": "2026-10-13",
+        "release_notes": "https://developer.mozilla.org/docs/Mozilla/Firefox/Releases/158",
+        "status": "current",
+        "engine": "Gecko",
+        "engine_version": "158"
+      },
+      {
+        "version": "157",
+        "release_date": "2026-09-29",
+        "release_notes": "https://developer.mozilla.org/docs/Mozilla/Firefox/Releases/157",
+        "status": "retired",
+        "engine": "Gecko",
+        "engine_version": "157"
+      }
+    ],
+    "safari": [
+      {
+        "version": "27",
+        "release_date": "2026-09-14",
+        "release_notes": "https://developer.apple.com/documentation/safari-release-notes/safari-27-release-notes",
+        "status": "current",
+        "engine": "WebKit",
+        "engine_version": "625.1.29"
+      },
+      {
+        "version": "26.6",
+        "release_date": "2026-07-27",
+        "release_notes": "https://developer.apple.com/documentation/safari-release-notes/safari-26_6-release-notes",
+        "status": "retired",
+        "engine": "WebKit",
+        "engine_version": "624.4.5"
+      }
+    ],
+    "safari_ios": [
+      {
+        "version": "27",
+        "release_date": "2026-09-14",
+        "release_notes": "https://developer.apple.com/documentation/safari-release-notes/safari-27-release-notes",
+        "status": "current",
+        "engine": "WebKit",
+        "engine_version": "625.1.29"
+      },
+      {
+        "version": "26.6",
+        "release_date": "2026-07-27",
+        "release_notes": "https://developer.apple.com/documentation/safari-release-notes/safari-26_6-release-notes",
+        "status": "retired",
+        "engine": "WebKit",
+        "engine_version": "624.4.5"
+      }
+    ]
+  },
+  "limits": "Compatibility data only, not execution evidence. safari_ios mirror entries inherit Safari support in BCD; a physical iOS Safari run is still required. Installed Playwright WebKit does not certify Safari release versions. Refresh this snapshot deliberately when browser policy or required features change."
+}

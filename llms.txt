@@ -1,9 +1,14 @@
+<!-- BEGIN GENERATED ENTRY LANGUAGE ROUTE v1 -->
+**Tiếng Việt:** [Đọc hướng dẫn đầy đủ](docs/vi/entrypoints/llms.txt) · **English:** full original guidance follows below.
+<!-- END GENERATED ENTRY LANGUAGE ROUTE v1 -->
+
 # CyberSkill Design System
 
 > HTML-first, Vietnamese-first design system. Begin with the shared agent contract below. This file is a discovery index; it does not define a second set of design rules or certify runtime capabilities.
 
 ## Start here
 
+- [guidance/agent-contract.json](guidance/agent-contract.json): generated portable doctrine, retirement, runtime and validation projection; source identities are recorded.
 - [SKILL.md](SKILL.md): canonical agent entrypoint, runtime selection, brand constraints, verification and capability limits.
 - [README.md](README.md): human orientation, brand foundations and system overview.
 - [docs/doctrine.md](docs/doctrine.md): normative design immutables, expansion and verification requirements.
@@ -15,11 +20,11 @@
 - [DESIGN.md](DESIGN.md): generated doctrine/token/inventory view. Static consumers such as Stitch must not treat `*.dc.html` as source of truth; use the static CSS/class path instead.
 - [styles.css](styles.css): CSS entrypoint importing [tokens](tokens/) and [base styles](base/).
 - [templates/kitchen-sink.html](templates/kitchen-sink.html): static HTML class examples.
-- [_esm/react.mjs](_esm/react.mjs): default package React entry, source JSX requiring the consumer's bundler/transpilation and React peer dependencies.
+- [Compiled React entry](dist/esm/_esm/react.mjs): the default package entry uses compiled ESM with React peer dependencies; explicit `@cyberskill/design/source` retains [raw JSX](_esm/react.mjs) for source-aware bundlers.
 - [_esm/cs.mjs](_esm/cs.mjs): legacy no-build browser entry; not an SSR entry.
 - [_ds_bundle.js](_ds_bundle.js): browser bundle; resolve `CyberSkillDesignSystem_` globals by prefix rather than compiler suffix.
 - [components](components/): component implementations with declaration and prompt contracts.
-- [templates](templates/): inspect the selected template's runtime, language and export requirements; DC authoring requires an available compiler.
+- [templates](templates/): inspect the selected template's runtime, language and export requirements; browser preview uses shipped `support.js`; host tweak panels and PPTX require external tools. See [template grammar](docs/template-grammar.md).
 - [tokens/tokens.json](tokens/tokens.json), [tokens/tokens.js](tokens/tokens.js), [tokens/tokens.dtcg.json](tokens/tokens.dtcg.json): machine exports. Validate types and axis coverage for the consuming tool; file presence is not interoperability proof.
 - [assets](assets/), [fonts](fonts/), [ui_kits](ui_kits/): official assets, self-hosted fonts and composition references.
 
@@ -33,9 +38,38 @@
 - [docs/storybook.md](docs/storybook.md): local Storybook and published documentation organization.
 - [docs/sync.md](docs/sync.md): supported authoring round trips. Repository synchronization or publication requires the authorization specified by repository governance and the user's task.
 
-Maintainer commands and audit harnesses require the full repository. CyberOS orchestration and its two acceptance gates were retired by operator decision on 2026-10-08; no CyberOS installation is required. The DC compiler, authenticated Figma tooling and native toolchains are conditional capabilities: inspect the actual environment and report unavailable tools. Product visual review, manual accessibility evidence and explicit authorization for push, deploy or merge remain separate requirements. Historical audits and generic bundled skill references are evidence, not current policy. Keep confirmed findings, recommendations, test results and human acceptance separate.
+Maintainer commands and audit harnesses require the full repository. Authenticated Figma tooling and native toolchains are conditional capabilities: inspect the actual environment and report unavailable tools. The generated contract below supplies retirement, manual acceptance and operator-approval boundaries. Historical audits and generic bundled skill references are evidence, not current policy. Keep confirmed findings, recommendations, test results and human acceptance separate.
 
 ## Reference authority
 
 - [Generated reference catalog](docs/reference-catalog.json): current declared inventory counts and public document roles; not approval or runtime certification.
 - Historical audit evidence and task records are repository context, not current global policy. Adopted scope remains governed by the applicable decision record.
+
+First-party entry guidance has Vietnamese-first routes to paired translations under `docs/vi/entrypoints/`; every component prompt presents Vietnamese before its preserved English text. Authored operator guides and source-only maintainer decisions keep their declared `docs/vi/` mirrors. Technical identifiers, exact code examples and verbatim third-party materials retain their original language. Source-bound guards check pairing, coverage and freshness; they do not establish human linguistic acceptance or publication of private documents.
+
+<!-- BEGIN PORTABLE GUIDANCE CONTRACT -->
+<!-- Generated by scripts/generate-guidance.mjs; edit its authored sources, not this block. -->
+Read [SKILL.md](SKILL.md) for runtime routing and [docs/doctrine.md](docs/doctrine.md) for normative expansion, verification depth and immutables. The machine-readable projection is [guidance/agent-contract.json](guidance/agent-contract.json); generated inventories and historical evidence do not grant capabilities or acceptance.
+
+CyberOS orchestration and its two acceptance gates were retired by operator decision on 2026-10-08; no CyberOS installation is required. Product visual review and manual accessibility acceptance remain separate requirements. Never push, deploy or merge without explicit operator instruction.
+
+The portable repository gate is `npm run test:unit` plus the fast [audit board](_audit/run.html); generate the Linux pixel receipt before its board gate. Follow doctrine's whole-set and relevant-state checks. An external compiler check is supplemental when available, not a repository command. State actual source/runtime, language/theme/state/viewport coverage and unavailable/manual checks.
+
+Doctrine immutables (source-derived):
+
+| Immutable | Value |
+|---|---|
+| Slogan | *Turn Your Will Into Real* / *Hiện Thực Hoá Ý Chí* |
+| Primary brand | Umber `#45210E` |
+| Primary accent | Ochre `#F4BA17` |
+| Voice | warm · direct · honest · respectful (all four at once) |
+| Language | Vietnamese-first; every UI string ships an EN + VN pair |
+| Accessibility floor | APCA Lc ≥ 75 body text; focus rings never removed; ≥ 44px touch targets |
+| Axes | Theme × Element × Language × Style (independent) |
+| Style pack | liquid-glass (sole pack; absent ≡ default) |
+
+- **static-html** — `styles.css`; [guide](DESIGN.md). Use .cs-* classes; .dc.html additionally requires the shipped interpreter or a verified grammar-aware runtime.
+- **react** — `@cyberskill/design`; [guide](docs/consuming.md). Compiled ESM with peer React; explicit @cyberskill/design/source is raw JSX. CommonJS is not promised.
+- **legacy-browser** — `_esm/cs.mjs`; [guide](docs/consuming.md). Browser-only; resolve the CyberSkillDesignSystem_ global by prefix, not a fixed suffix. Not an SSR entry.
+- **document-templates** — `templates/_vendor/support.js`; [guide](docs/template-grammar.md). Serve relative resources. Browser preview, declared controls/content and PDF/DOCX have scoped checks; host authoring tools, PPTX and super_inline_html remain external.
+<!-- END PORTABLE GUIDANCE CONTRACT -->

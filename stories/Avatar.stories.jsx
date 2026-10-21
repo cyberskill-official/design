@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { Avatar, AvatarGroup } from '../components/data/Avatar.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
@@ -14,23 +15,12 @@ export default {
   },
   "size": {
     "control": "select",
-    "options": [
-      "sm",
-      "md",
-      "lg"
-    ]
+    "options": DECLARED_DOMAINS.Avatar["size"]
   },
   "square": {
     "control": "boolean"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Avatar. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { name: 'Stephen Cheng', size: 'md' },
 };
 
@@ -65,7 +55,7 @@ export const AllSizes = {
 export const FullMatrix = {
   name: 'Full matrix / size',
   render: (args) => {
-    const cells = cartesian({ size: ["sm","md","lg"] }).flatMap((combo) =>
+    const cells = cartesian({ size: DECLARED_DOMAINS.Avatar["size"] }).flatMap((combo) =>
       stateCombos([]).map((state) => {
         const props = { ...combo, ...state };
         const label = comboLabel(props, ['size']);

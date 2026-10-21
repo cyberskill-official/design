@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {deriveCardMetadata} from '../../scripts/lib/card-metadata.mjs';
+const root=new URL('../../',import.meta.url), read=path=>readFileSync(new URL(path,root),'utf8');
+const catalog=JSON.parse(read('scripts/catalog-source.json')),manifest=JSON.parse(read('_ds_manifest.json'));
+assert.equal(catalog.schemaVersion,1);
+for(const key of ['namespace','startingPoints','templates','hasThumbnailHtml','themes','brandFonts','source'])assert.deepEqual(manifest[key],catalog[key],key+' authored source drift');
+assert.deepEqual(manifest.cards,deriveCardMetadata(catalog.cards,read));
+assert(catalog.cards.every(card=>Object.keys(card).join() === 'path'),'Card metadata must come from @dsCard source comments');
+console.log('PASS catalog authored inputs: namespace, template/starting-point descriptors, theme labels and source-derived card metadata');

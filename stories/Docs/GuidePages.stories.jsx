@@ -37,8 +37,38 @@ export const BenchmarkRubric = {
   render: () => <Page path="docs/benchmark-rubric.md" title="Benchmark rubric" />,
 };
 
-export const ComponentApi = {name: "Current component API",render: () => <Page path="docs/component-api.md" title="Current component API" />};
+export const TemplateGrammar = {
+  name: 'Template grammar',
+  render: () => <Page path="docs/template-grammar.md" title="Template grammar" />,
+};
 
-export const LocaleMessages = {name: "Scoped UI messages",render: () => <Page path="docs/locale-messages.md" title="Scoped UI messages" />};
+export const ComponentAPI = {name: 'Component API', render: () => <Page path="docs/component-api.md" title="Component API" />};
+export const RuntimeAPI = {name: 'Runtime API', render: () => <Page path="docs/runtime-api.md" title="Runtime API" />};
 
-export const RuntimeApi = {name: "Runtime API foundation",render: () => <Page path="docs/runtime-api.md" title="Runtime API foundation" />};
+export const BrowserSupport = {name: 'Browser support', render: () => <Page path="docs/browser-support.md" title="Browser support" />};
+
+export const StaticHTMLReference = {name: "Static HTML reference", render: () => <Page path="docs/static-html-reference.md" title="Static HTML reference" />};
+
+export const UIMessages = {name: "UI messages", render: () => <Page path="docs/locale-messages.md" title="UI messages" />};
+
+export const ComponentSemantics = {name: "Component semantics", render: () => <Page path="docs/component-semantics.md" title="Component semantics" />};
+
+export const NativeRefs = {name: "Native refs", render: () => <Page path="docs/native-refs.md" title="Native refs" />};
+
+export const TemplateContent = {name: "Template content", render: () => <Page path="docs/template-content.md" title="Template content" />};
+
+export const FloatingPanels = {name: "Floating panels", render: () => <Page path="docs/floating-panels.md" title="Floating panels" />};
+
+export const LayeredCSS = { name: "Layered CSS", render: () => <Page path="docs/layered-css.md" title="Layered CSS" /> };
+
+export const ComponentCSS = { name: "Component CSS", render: () => <Page path="docs/component-css.md" title="Component CSS" /> };
+
+export const GuidelineLanguage = { name: "Guideline language", render: () => <Page path="docs/guideline-language.md" title="Guideline language" /> };
+
+export const ComponentScenarios = { name: "Component state scenarios", render: () => <Page path="docs/component-scenarios.md" title="Component state scenarios" /> };
+
+export const TemplateArchetypes = { name: "Template archetypes", render: () => <Page path="docs/template-archetypes.md" title="Template archetypes" /> };
+
+export const ComponentSemanticContracts = { name: "Component semantic contracts", render: () => <Page path="docs/component-semantic-contracts.md" title="Component semantic contracts" /> };
+
+export const TemplateSharedLayouts = { name: "Shared template layouts", render: () => <Page path="docs/template-shared-layouts.md" title="Shared template layouts" /> };

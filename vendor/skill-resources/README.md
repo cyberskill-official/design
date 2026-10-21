@@ -1,0 +1,9 @@
+# Retained upstream skill resources
+
+This tracked archive preserves optional payload removed from the `.agents/skills/` and `.cursor/skills/` discovery trees. Each discovery directory now contains only its seven CyberSkill `SKILL.md` routers. The archive is excluded from the npm package and the explicit public website inventory; it is not an installed skill set, dependency bundle or command source for CyberSkill tasks.
+
+`manifest.json` records every original path, archived path, exact byte hash, byte count and file mode. `agents/<skill>/` and `cursor/<skill>/` retain both observed mirrors; their internal directory layout and every payload byte are unchanged. This is path-preserving provenance, not certification that historical links or tool commands work after relocation. Active adapters link here; no repository code depended on the former payload paths. Consult a specific resource only when the user task requires it, with the shared root `SKILL.md` and doctrine governing the task.
+
+The retained `agents/ui-styling/LICENSE.txt` and `cursor/ui-styling/LICENSE.txt` contain Apache-2.0. Claudekit attribution remains in the active adapter metadata. No complete upstream-origin or rights inventory was supplied for the other resource payloads; retention does not grant a new license, approve redistribution or resolve reconstructed-runtime rights. Preserve adjacent notices and obtain the appropriate rights review before outward distribution. Generic installer/framework content remains inert reference material and does not authorize installations or framework replacement.
+
+Run `npm run test:repository-skills` to verify the routers, mirrored routing, archived byte and executable-bit preservation and distribution exclusion. Do not edit historical payload in place: document a reviewed replacement or provenance update explicitly.

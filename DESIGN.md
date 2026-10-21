@@ -9,11 +9,13 @@ sources:
 gate: "_audit/design-md-parity.html (window.__designmd)"
 ---
 
+**Tiếng Việt:** [Đọc đặc tả đầy đủ](docs/vi/entrypoints/DESIGN.md) · **English**
+
 # CyberSkill Design System — open spec
 
 > GENERATED FILE — do not edit by hand. Regenerate with `npm run build:design-md` after any token change; the `design-md-parity` gate fails on drift. This is the single-file open-spec surface for design tools and agents that read a root `DESIGN.md` (e.g. Google Stitch); The base typed projection is `tokens/tokens.dtcg.json`; its hashed `tokens/declarations.json` companion preserves the remaining declarations and source conditions. Read both for the repository adapter; use canonical CSS for runtime cascade behavior. This document is a selected token/inventory guide, not a complete conditional-mode or native rendering contract.
 
-> **Stitch / non-DC consumers:** do **not** treat `templates/**/*.dc.html` as source of truth — those files need the Design Components compiler (tweaks, `__dcSetProps`). Generate static UI from this file + DTCG + `styles.css` / `.cs-*` / `templates/kitchen-sink.html` / `examples/static-hello/`. DC-capable authoring starts at `SKILL.md` and may use bundler `_esm/react.mjs` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). Dual path: `docs/consuming.md`. Operator docs are published on the Storybook Docs sidebar at `design.cyberskill.world`.
+> **Stitch / non-DC consumers:** do **not** treat `templates/**/*.dc.html` as source of truth — those files use the shipped `support.js` browser interpreter (tweaks, `__dcSetProps`); a separate host compiler is not required for browser preview. Generate static UI from this file + DTCG + `styles.css` / `.cs-*` / `templates/kitchen-sink.html` / `examples/static-hello/`. DC-capable authoring starts at `SKILL.md` and uses compiled ESM `dist/esm/_esm/react.mjs` by default, explicit raw JSX `_esm/react.mjs` for source authoring, or legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). Dual path: `docs/consuming.md`. Operator docs are published on the Storybook Docs sidebar at `design.cyberskill.world`.
 
 ## Brand & doctrine
 

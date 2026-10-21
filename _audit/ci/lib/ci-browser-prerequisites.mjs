@@ -32,7 +32,7 @@ export function inspectWorkflow(text, name) {
           const location = `${name}:${jobName}:step ${index + 1}`;
           assert(installed.has('chromium'), `${location}: install required browsers before Chromium checks: chromium`);
         }
-        if (!Object.hasOwn(step, 'if') && !step['continue-on-error'] && straightLine && /^npx playwright install(?: --with-deps)?(?: (?:chromium|firefox|webkit))+$/.test(line)) {
+        if (!Object.hasOwn(step, 'if') && !step['continue-on-error'] && straightLine && /^npx(?: --no-install)? playwright install(?: --with-deps)?(?: (?:chromium|firefox|webkit))+$/.test(line)) {
           for (const browser of line.split(' ').filter(token => requiredBrowsers.includes(token))) installed.add(browser);
         }
       }

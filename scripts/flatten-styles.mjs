@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /** Flatten styles.css @import chain → dist/styles.min.css (UX-027 / C7). */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
+import { transformSync } from 'esbuild';
 import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -29,8 +30,7 @@ function flatten(absPath, seen = new Set()) {
 
 function buildFlattened() {
   const css = flatten(join(ROOT, 'styles.css'));
-  let min = css.replace(/\/\*[\s\S]*?\*\//g, '');
-  min = min.replace(/\n{3,}/g, '\n\n').replace(/[ \t]+/g, ' ').replace(/\n /g, '\n');
+  const min = transformSync(css, {loader:'css', minifyWhitespace:true, minifySyntax:false}).code;
   if (min.includes('@import')) {
     throw new Error('flatten-styles: residual @import after flatten');
   }

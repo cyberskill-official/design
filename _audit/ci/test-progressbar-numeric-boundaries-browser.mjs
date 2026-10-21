@@ -1,7 +1,88 @@
-import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';import {join} from 'node:path';import {fileURLToPath} from 'node:url';import {createHash} from 'node:crypto';
-const root=fileURLToPath(new URL('../../',import.meta.url));const {withBrowserFixture}=await import('./lib/browser-fixture.mjs');const rows=[];
-for(const browserName of ['chromium','firefox','webkit'])await withBrowserFixture(async page=>{
-for(const lang of ['en','vi'])for(const kind of ['finite','infiniteMax','infiniteBoth','negativeInfiniteMax','nanMax','zeroMax','fraction','fractionAtMax','overMax']){
- const x=await page.evaluate(({kind,lang})=>{const inputs={finite:[25,100],infiniteMax:[25,Infinity],infiniteBoth:[Infinity,Infinity],negativeInfiniteMax:[25,-Infinity],nanMax:[25,NaN],zeroMax:[25,0],fraction:[1.25,2.5],fractionAtMax:[2.5,2.5],overMax:[1.5,1]};const [value,max]=inputs[kind];renderFixture(React.createElement(CS.ProgressBar,{value,max,lang,label:'Work completed'}));const bar=document.querySelector('[role="progressbar"]'),fill=bar.firstElementChild;return {now:bar.getAttribute('aria-valuenow'),max:bar.getAttribute('aria-valuemax'),inlineSize:fill.style.inlineSize,width:fill.style.width,accessibleLabel:bar.getAttribute('aria-label')};},{kind,lang});
- const expected={finite:['25','100','25%'],infiniteMax:['25','100','25%'],infiniteBoth:['100','100','100%'],negativeInfiniteMax:['25','100','25%'],nanMax:['25','100','25%'],zeroMax:['25','100','25%'],fraction:['1.25','2.5','50%'],fractionAtMax:['2.5','2.5','100%'],overMax:['1','1','100%']}[kind];const pass=x.now===expected[0]&&x.max===expected[1]&&x.inlineSize===expected[2]&&x.width===expected[2]&&x.accessibleLabel==='Work completed';rows.push({browserName,lang,kind,expected,actual:x,pass});}
-},{browserName});const hash=p=>createHash('sha256').update(readFileSync(join(root,p))).digest('hex'),failures=rows.filter(x=>!x.pass).length;const report={recordedAt:new Date().toISOString(),sourceRoot:root,sourceFiles:Object.fromEntries(['components/feedback/ProgressBar.jsx','components/feedback/ProgressBar.d.ts','components/feedback/ProgressBar.prompt.md','_ds_bundle.js','_audit/ci/lib/browser-fixture.mjs'].map(p=>[p,hash(p)])),cases:rows.length,failures,exitCode:failures?1:0,rows,scope:'Actual finite/invalid max browser ARIA and inline-fill output in three engines/ENVI; no manual AT or visual acceptance.'};console.log(JSON.stringify({cases:rows.length,failures,exitCode:report.exitCode}));process.exitCode=report.exitCode;
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
+const root = fileURLToPath(new URL('../../', import.meta.url));
+const {
+  withBrowserFixture
+} = await import('./lib/browser-fixture.mjs');
+const rows = [];
+for (const browserName of ['chromium', 'firefox', 'webkit']) await withBrowserFixture(async page => {
+  for (const lang of ['en', 'vi']) for (const kind of ['finite', 'infiniteMax', 'infiniteBoth', 'negativeInfiniteMax', 'nanMax', 'zeroMax', 'fraction', 'fractionAtMax', 'overMax']) {
+    const x = await page.evaluate(({
+      kind,
+      lang
+    }) => {
+      const inputs = {
+        finite: [25, 100],
+        infiniteMax: [25, Infinity],
+        infiniteBoth: [Infinity, Infinity],
+        negativeInfiniteMax: [25, -Infinity],
+        nanMax: [25, NaN],
+        zeroMax: [25, 0],
+        fraction: [1.25, 2.5],
+        fractionAtMax: [2.5, 2.5],
+        overMax: [1.5, 1]
+      };
+      const [value, max] = inputs[kind];
+      renderFixture(React.createElement(CS.ProgressBar, {
+        value,
+        max,
+        lang,
+        label: 'Work completed'
+      }));
+      const bar = document.querySelector('[role="progressbar"]'),
+        fill = bar.firstElementChild;
+      return {
+        now: bar.getAttribute('aria-valuenow'),
+        max: bar.getAttribute('aria-valuemax'),
+        inlineSize: fill.style.inlineSize,
+        width: fill.style.width,
+        accessibleLabel: bar.getAttribute('aria-label')
+      };
+    }, {
+      kind,
+      lang
+    });
+    const expected = {
+      finite: ['25', '100', '25%'],
+      infiniteMax: ['25', '100', '25%'],
+      infiniteBoth: ['100', '100', '100%'],
+      negativeInfiniteMax: ['25', '100', '25%'],
+      nanMax: ['25', '100', '25%'],
+      zeroMax: ['25', '100', '25%'],
+      fraction: ['1.25', '2.5', '50%'],
+      fractionAtMax: ['2.5', '2.5', '100%'],
+      overMax: ['1', '1', '100%']
+    }[kind];
+    const pass = x.now === expected[0] && x.max === expected[1] && x.inlineSize === expected[2] && x.width === expected[2] && x.accessibleLabel === 'Work completed';
+    rows.push({
+      browserName,
+      lang,
+      kind,
+      expected,
+      actual: x,
+      pass
+    });
+  }
+}, {
+  browserName
+});
+const hash = p => createHash('sha256').update(readFileSync(join(root, p))).digest('hex'),
+  failures = rows.filter(x => !x.pass).length;
+const report = {
+  recordedAt: new Date().toISOString(),
+  sourceRoot: root,
+  sourceFiles: Object.fromEntries(['components/feedback/ProgressBar.jsx', 'components/feedback/ProgressBar.d.ts', 'components/feedback/ProgressBar.prompt.md', '_ds_bundle.js', '_audit/ci/lib/browser-fixture.mjs'].map(p => [p, hash(p)])),
+  cases: rows.length,
+  failures,
+  exitCode: failures ? 1 : 0,
+  rows,
+  scope: 'Actual finite/invalid max browser ARIA and inline-fill output in three engines/ENVI; no manual AT or visual acceptance.'
+};
+console.log(JSON.stringify({
+  cases: rows.length,
+  failures,
+  exitCode: report.exitCode
+}));
+process.exitCode = report.exitCode;

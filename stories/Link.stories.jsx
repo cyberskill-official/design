@@ -1,7 +1,8 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { Link } from '../components/navigation/Link.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
-const VARIANTS = ['default', 'muted', 'standalone'];
+const VARIANTS = DECLARED_DOMAINS.Link["variant"];
 
 export default {
   title: 'Components/Navigation/Link',
@@ -17,14 +18,6 @@ export default {
     },
     external: {
       control: 'boolean',
-    },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus exhaustive variant matrix mounting Link. Portable consumers use styles.css + bundle, not Storybook.',
-      },
     },
   },
   args: { href: '#', children: 'Read the doctrine' },
@@ -49,7 +42,7 @@ export const Matrix = {
 export const FullMatrix = {
   name: 'Full matrix / variant',
   render: (args) => {
-    const cells = cartesian({ variant: ["default","muted","standalone"] }).flatMap((combo) =>
+    const cells = cartesian({ variant: DECLARED_DOMAINS.Link["variant"] }).flatMap((combo) =>
       stateCombos([]).map((state) => {
         const props = { ...combo, ...state };
         const label = comboLabel(props, ['variant']);

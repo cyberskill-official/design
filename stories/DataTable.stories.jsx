@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { DataTable } from '../components/datatable/DataTable.jsx';
 
 export default {
@@ -5,6 +6,7 @@ export default {
   component: DataTable,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "header": {
     "control": "object"
   },
@@ -28,16 +30,9 @@ export default {
   },
   "state": {
     "control": "select",
-    "options": ["idle", "loading", "error"]
+    "options": DECLARED_DOMAINS.DataTable["state"]
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting DataTable. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { columns: [{ key: 'name', header: 'Name' }, { key: 'role', header: 'Role' }], rows: [{ id: 1, name: 'Stephen', role: 'Founder' }, { id: 2, name: 'Lumi', role: 'Genie' }], caption: 'Team' },
 };
 
@@ -54,3 +49,43 @@ export const Matrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioDataTableError = {
+  name: "DataTable: Validation error",
+  args: {
+  "columns": [
+    {
+      "key": "name",
+      "header": "Name"
+    }
+  ],
+  "rows": [
+    {
+      "id": "a",
+      "name": "Alpha"
+    }
+  ],
+  "state": "error",
+  "errorState": "DataTable scenario validation error"
+},
+  render: args => renderComponentScenario("DataTable--error",args),
+  play: ({canvasElement}) => playComponentScenario("DataTable--error",canvasElement),
+};
+
+export const ScenarioDataTableEmpty = {
+  name: "DataTable: Empty collection",
+  args: {
+  "columns": [
+    {
+      "key": "name",
+      "header": "Name"
+    }
+  ],
+  "rows": []
+},
+  render: args => renderComponentScenario("DataTable--empty",args),
+  play: ({canvasElement}) => playComponentScenario("DataTable--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

@@ -13,6 +13,10 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const manifest = JSON.parse(readFileSync(join(root, '_ds_manifest.json'), 'utf8'));
 const life = JSON.parse(readFileSync(join(root, 'components/lifecycle.json'), 'utf8'));
+const maintainers = JSON.parse(readFileSync(join(root, 'components/maintainers.json'), 'utf8'));
+assert(maintainers.schemaVersion === 1, 'maintainers schema');
+assert(new Set(maintainers.maintainers.map(item => item.name)).size === maintainers.maintainers.length, 'duplicate maintainer');
+const hasRole = (name, role) => maintainers.maintainers.some(item => item.name === name && item.roles.includes(role));
 
 function assert(cond, msg) {
   if (!cond) throw new Error(msg);
@@ -33,7 +37,7 @@ for (const c of manifest.components) {
   if (!allowed.has(entry.status)) bad.push(`${c.name}:${entry.status}`);
   if (entry.kind !== c.kind) bad.push(`${c.name}:kind drift`);
   validateSupport(entry.support, root);
-  if (entry.support.reviewState !== 'reviewed' || entry.support.owner !== 'Stephen Cheng' || entry.support.reviewedBy !== 'Stephen Cheng' || !entry.support.limitations.length) {
+  if (entry.support.reviewState !== 'reviewed' || !hasRole(entry.support.owner, 'owner') || !hasRole(entry.support.reviewedBy, 'reviewer') || !entry.support.limitations.length) {
     bad.push(`${c.name}:support review incomplete`);
   }
   if (entry.status === 'deprecated') assert(entry.support.deprecation, `${c.name}: deprecated export requires migration guidance`);
@@ -72,9 +76,9 @@ try {
     const invalid = structuredClone(reviewed); mutate(invalid);
     nodeAssert.throws(() => validateSupport(invalid, temp));
   }
-  const unreviewed = structuredClone(life.components.Editor.support);
+  const unreviewed = structuredClone(reviewed);
   unreviewed.reviewedBy = null;
-  nodeAssert.throws(() => validateSupport(unreviewed, root), /owner and reviewer/);
+  nodeAssert.throws(() => validateSupport(unreviewed, temp), /owner and reviewer/);
   writeFileSync(join(temp, 'review.txt'), 'changed');
   nodeAssert.throws(() => validateSupport(reviewed, temp), /evidence changed/);
 } finally { rmSync(temp, {recursive:true, force:true}); }

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-20",
+  "identity": {
+    "login": "zintaen",
+    "name": "Stephen Cheng"
+  },
+  "repository": {
+    "default_branch": "main",
+    "full_name": "cyberskill-official/design",
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    }
+  },
+  "rulesets": [],
+  "mainProtection": {
+    "url": "https://api.github.com/repos/cyberskill-official/design/branches/main/protection",
+    "required_status_checks": {
+      "url": "https://api.github.com/repos/cyberskill-official/design/branches/main/protection/required_status_checks",
+      "strict": true,
+      "contexts": [
+        "fast-gates",
+        "docs-consistency-blocker"
+      ],
+      "contexts_url": "https://api.github.com/repos/cyberskill-official/design/branches/main/protection/required_status_checks/contexts",
+      "checks": [
+        {
+          "context": "fast-gates",
+          "app_id": 15368
+        },
+        {
+          "context": "docs-consistency-blocker",
+          "app_id": 15368
+        }
+      ]
+    },
+    "required_signatures": {
+      "url": "https://api.github.com/repos/cyberskill-official/design/branches/main/protection/required_signatures",
+      "enabled": false
+    },
+    "enforce_admins": {
+      "url": "https://api.github.com/repos/cyberskill-official/design/branches/main/protection/enforce_admins",
+      "enabled": false
+    },
+    "required_linear_history": {
+      "enabled": false
+    },
+    "allow_force_pushes": {
+      "enabled": false
+    },
+    "allow_deletions": {
+      "enabled": false
+    },
+    "block_creations": {
+      "enabled": false
+    },
+    "required_conversation_resolution": {
+      "enabled": false
+    },
+    "lock_branch": {
+      "enabled": false
+    },
+    "allow_fork_syncing": {
+      "enabled": false
+    }
+  },
+  "boundary": "Read-only GitHub API snapshot; no remote settings changed; revalidate live eligibility before reliance."
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "source": "base/collections.css",
+  "baseline": "_audit/ci/fixtures/g31-collections-before.css",
+  "baselineSha256": "3055ed210f59ff76a5635b91f263a7a594cfd4bddfa160d5aef80ede55c55482",
+  "roles": [
+    {
+      "selector": ".cs-list__item",
+      "property": "gap",
+      "before": "12px",
+      "after": "var(--cs-space-3)"
+    },
+    {
+      "selector": ".cs-list__item",
+      "property": "padding",
+      "before": "10px 12px",
+      "after": "10px var(--cs-space-3)"
+    },
+    {
+      "selector": ".cs-item",
+      "property": "padding",
+      "before": "12px 14px",
+      "after": "var(--cs-space-3) 14px"
+    },
+    {
+      "selector": ".cs-timeline__item",
+      "property": "padding-block-end",
+      "before": "20px",
+      "after": "var(--cs-space-5)"
+    },
+    {
+      "selector": ".cs-accordion__trigger",
+      "property": "gap",
+      "before": "12px",
+      "after": "var(--cs-space-3)"
+    }
+  ]
+}

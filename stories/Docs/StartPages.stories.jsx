@@ -41,3 +41,8 @@ export const Library = {
   name: 'Library',
   render: () => <Page path="" title="Documentation Library" />,
 };
+
+export const DESIGN = {
+  name: 'DESIGN',
+  render: () => <Page path="DESIGN.md" title="DESIGN" />,
+};

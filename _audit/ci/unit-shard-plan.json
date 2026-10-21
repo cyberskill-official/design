@@ -1,0 +1,2612 @@
+{
+  "schemaVersion": 1,
+  "registrySha256": "0f3cd69f0d719cda41ee6ca83c9517653ee25ff69b811651e9b1014a0b86ad0d",
+  "shardCount": 4,
+  "shards": [
+    [
+      "suite-004",
+      "suite-012",
+      "suite-015",
+      "suite-016",
+      "suite-017",
+      "suite-028",
+      "suite-031",
+      "suite-034",
+      "suite-046",
+      "suite-049",
+      "suite-050",
+      "suite-054",
+      "suite-056",
+      "suite-064",
+      "suite-066",
+      "suite-068",
+      "suite-072",
+      "suite-076",
+      "suite-079",
+      "suite-083",
+      "suite-085",
+      "suite-087",
+      "suite-092",
+      "suite-096",
+      "suite-097",
+      "suite-098",
+      "suite-099",
+      "suite-109",
+      "suite-113",
+      "suite-117",
+      "suite-118",
+      "suite-121",
+      "suite-123",
+      "suite-127",
+      "suite-129",
+      "suite-136",
+      "suite-140",
+      "suite-144",
+      "suite-147",
+      "suite-153",
+      "suite-155",
+      "suite-157",
+      "suite-160",
+      "suite-172",
+      "suite-175",
+      "suite-191",
+      "suite-198",
+      "suite-199",
+      "suite-201",
+      "suite-206",
+      "suite-210",
+      "suite-213",
+      "suite-214",
+      "suite-217",
+      "suite-222",
+      "suite-226",
+      "suite-231",
+      "export-schemas",
+      "remediation-03",
+      "remediation-09",
+      "integration-01",
+      "integration-04",
+      "integration-05",
+      "approved-04",
+      "release-preparation",
+      "verification-server",
+      "dependency-audit-policy",
+      "locale-message-consumers",
+      "locale-message-ssr18",
+      "site-csp-contracts",
+      "storybook-remediation",
+      "disabled-information",
+      "template-content-adoption",
+      "targeted-keyboard",
+      "floating-position",
+      "bundle-runtime-order",
+      "floating-placement",
+      "floating-tab-order",
+      "floating-boards",
+      "portable-guidance",
+      "browser-performance",
+      "story-domains",
+      "alert-aliases",
+      "template-structured-content",
+      "overlay-multibundle",
+      "progressive-viewport",
+      "element-version-ownership",
+      "styles-layered",
+      "browser-retry-evidence",
+      "suite-370",
+      "textfield-field-types",
+      "component-scenarios-browser",
+      "textfield-field-browser",
+      "bilingual-start-docs",
+      "suite-388",
+      "suite-392",
+      "suite-395",
+      "suite-398",
+      "suite-399",
+      "suite-402",
+      "suite-406",
+      "suite-410",
+      "suite-414",
+      "suite-418",
+      "design-languages-browser",
+      "native-validation-routing"
+    ],
+    [
+      "suite-003",
+      "suite-007",
+      "suite-021",
+      "suite-025",
+      "suite-026",
+      "suite-033",
+      "suite-037",
+      "suite-038",
+      "suite-043",
+      "suite-044",
+      "suite-045",
+      "suite-059",
+      "suite-063",
+      "suite-065",
+      "suite-067",
+      "suite-078",
+      "suite-081",
+      "suite-082",
+      "suite-086",
+      "suite-090",
+      "suite-100",
+      "suite-101",
+      "suite-102",
+      "suite-103",
+      "suite-104",
+      "suite-111",
+      "suite-114",
+      "suite-115",
+      "suite-126",
+      "suite-131",
+      "suite-133",
+      "suite-135",
+      "suite-137",
+      "suite-139",
+      "suite-142",
+      "suite-146",
+      "suite-149",
+      "suite-151",
+      "suite-152",
+      "suite-159",
+      "suite-161",
+      "suite-164",
+      "suite-167",
+      "suite-171",
+      "suite-177",
+      "suite-178",
+      "suite-182",
+      "suite-184",
+      "suite-194",
+      "suite-195",
+      "suite-197",
+      "suite-200",
+      "suite-202",
+      "suite-203",
+      "suite-208",
+      "suite-209",
+      "suite-211",
+      "suite-219",
+      "suite-225",
+      "remediation-04",
+      "remediation-05",
+      "integration-03",
+      "final-01",
+      "approved-01",
+      "image-slot-capabilities",
+      "template-hex-policy",
+      "attribute-targets-browser",
+      "field-associations",
+      "static-reference",
+      "static-reference-browsers",
+      "static-reference-types",
+      "compiled-esm-packed19",
+      "compiled-esm-packed18",
+      "compiled-export-gate",
+      "token-css-entry-browser",
+      "locale-message-browsers",
+      "locale-message-surfaces",
+      "storybook-runtime-controls",
+      "python-audit-policy",
+      "template-content-targets",
+      "typescript-api-adapter",
+      "native-field-labels",
+      "prompt-api",
+      "component-specifications",
+      "floating-panels",
+      "floating-scope",
+      "floating-ssr-react18",
+      "pdf-text",
+      "api-discovery",
+      "owner-routing",
+      "template-structured-content-browser",
+      "overlay-multibundle-ssr",
+      "token-legacy-aliases-browser",
+      "collection-spacing",
+      "native-paper-fields-browser",
+      "styles-layered-interactions",
+      "suite-371",
+      "textfield-field-browser-firefox",
+      "suite-386",
+      "suite-389",
+      "suite-396",
+      "suite-409",
+      "suite-413",
+      "suite-417",
+      "design-languages",
+      "editor-parser-attribution"
+    ],
+    [
+      "suite-002",
+      "suite-008",
+      "suite-009",
+      "suite-010",
+      "suite-013",
+      "suite-018",
+      "suite-019",
+      "suite-020",
+      "suite-022",
+      "suite-024",
+      "suite-027",
+      "suite-032",
+      "suite-036",
+      "suite-039",
+      "suite-040",
+      "suite-041",
+      "suite-051",
+      "suite-061",
+      "suite-062",
+      "suite-069",
+      "suite-071",
+      "suite-073",
+      "suite-075",
+      "suite-080",
+      "suite-084",
+      "suite-088",
+      "suite-094",
+      "suite-095",
+      "suite-106",
+      "suite-108",
+      "suite-112",
+      "suite-116",
+      "suite-134",
+      "suite-145",
+      "suite-150",
+      "suite-156",
+      "suite-158",
+      "suite-165",
+      "suite-166",
+      "suite-170",
+      "suite-176",
+      "suite-180",
+      "suite-181",
+      "suite-183",
+      "suite-185",
+      "suite-189",
+      "suite-190",
+      "suite-193",
+      "suite-205",
+      "suite-207",
+      "suite-215",
+      "suite-216",
+      "suite-218",
+      "suite-220",
+      "suite-224",
+      "suite-229",
+      "suite-230",
+      "remediation-02",
+      "remediation-07",
+      "remediation-08",
+      "integration-06",
+      "final-02",
+      "final-03",
+      "manifest-bootstrap",
+      "approved-02",
+      "attribute-targets-types",
+      "token-mode-documents",
+      "token-mode-browsers",
+      "spacing-role-preservation",
+      "token-css-entry",
+      "required-field-names",
+      "vite-consumer",
+      "component-semantic-hosts",
+      "native-ref-contracts",
+      "native-refs",
+      "native-refs-react18",
+      "bundle-source-map",
+      "template-content-projections",
+      "template-metric-layout",
+      "floating-types",
+      "floating-ssr-react19",
+      "expansion-coverage-browser",
+      "floating-native-form-ssr-react19",
+      "floating-native-form-ssr-react18",
+      "component-inventory",
+      "unit-shards",
+      "api-fact-comparison",
+      "token-legacy-aliases",
+      "theme-palette-projection",
+      "native-mode-packs",
+      "native-paper-fields",
+      "styles-layered-browser",
+      "suite-373",
+      "suite-374",
+      "suite-375",
+      "component-scenarios-browser-webkit",
+      "textfield-field-browser-webkit",
+      "suite-385",
+      "suite-391",
+      "suite-400",
+      "suite-405",
+      "suite-408",
+      "suite-412",
+      "suite-416",
+      "entrypoint-languages",
+      "release-identity",
+      "segmented-alias-contract"
+    ],
+    [
+      "suite-001",
+      "suite-005",
+      "suite-006",
+      "suite-011",
+      "suite-014",
+      "suite-023",
+      "suite-029",
+      "suite-030",
+      "suite-035",
+      "suite-042",
+      "suite-047",
+      "suite-048",
+      "suite-052",
+      "suite-053",
+      "suite-055",
+      "suite-057",
+      "suite-058",
+      "suite-060",
+      "suite-070",
+      "suite-074",
+      "suite-077",
+      "suite-089",
+      "suite-091",
+      "suite-093",
+      "suite-105",
+      "suite-107",
+      "suite-110",
+      "suite-119",
+      "suite-120",
+      "suite-122",
+      "suite-124",
+      "suite-125",
+      "suite-128",
+      "suite-130",
+      "suite-132",
+      "suite-138",
+      "suite-141",
+      "suite-143",
+      "suite-148",
+      "suite-154",
+      "suite-162",
+      "suite-163",
+      "suite-168",
+      "suite-169",
+      "suite-173",
+      "suite-174",
+      "suite-179",
+      "suite-186",
+      "suite-187",
+      "suite-188",
+      "suite-192",
+      "suite-196",
+      "suite-204",
+      "suite-212",
+      "suite-221",
+      "suite-223",
+      "suite-227",
+      "suite-228",
+      "support-invalidation",
+      "remediation-01",
+      "remediation-06",
+      "integration-02",
+      "integration-07",
+      "approved-03",
+      "template-brand-swatches",
+      "composite-fields-browser",
+      "composite-fields-types",
+      "compiled-esm",
+      "locale-messages",
+      "public-hook-membership",
+      "locale-message-ssr",
+      "font-glyphs",
+      "native-refs-types",
+      "template-literals",
+      "component-api-behavior",
+      "api-domains",
+      "component-behavior-evidence",
+      "floating-live-style",
+      "toolchain-reproducibility",
+      "expansion-coverage",
+      "floating-native-form",
+      "docs-recursive-parity",
+      "release-compatibility",
+      "story-domains-browser",
+      "security-support",
+      "template-static-logos",
+      "template-static-logos-browser",
+      "segmented-modes",
+      "treetable-relations",
+      "token-native-aliases",
+      "token-mode-aliases",
+      "element-legacy-equivalence",
+      "suite-372",
+      "component-scenarios",
+      "component-scenarios-browser-firefox",
+      "suite-387",
+      "suite-390",
+      "suite-393",
+      "suite-394",
+      "suite-397",
+      "suite-401",
+      "suite-403",
+      "suite-404",
+      "suite-407",
+      "suite-411",
+      "suite-415",
+      "prompt-languages",
+      "release-version",
+      "runtime-map-publication"
+    ]
+  ],
+  "estimatedDurationMs": [
+    1341197,
+    1341195,
+    1341193,
+    1341222
+  ],
+  "fallbackEstimateMs": 8312,
+  "estimates": [
+    {
+      "id": "suite-001",
+      "estimateMs": 123810,
+      "observed": true
+    },
+    {
+      "id": "suite-002",
+      "estimateMs": 36025,
+      "observed": true
+    },
+    {
+      "id": "suite-003",
+      "estimateMs": 360862,
+      "observed": true
+    },
+    {
+      "id": "suite-004",
+      "estimateMs": 389400,
+      "observed": true
+    },
+    {
+      "id": "suite-005",
+      "estimateMs": 454,
+      "observed": true
+    },
+    {
+      "id": "suite-006",
+      "estimateMs": 4334,
+      "observed": true
+    },
+    {
+      "id": "suite-007",
+      "estimateMs": 7044,
+      "observed": true
+    },
+    {
+      "id": "suite-008",
+      "estimateMs": 4120,
+      "observed": true
+    },
+    {
+      "id": "suite-009",
+      "estimateMs": 55,
+      "observed": true
+    },
+    {
+      "id": "suite-010",
+      "estimateMs": 36,
+      "observed": true
+    },
+    {
+      "id": "suite-011",
+      "estimateMs": 35,
+      "observed": true
+    },
+    {
+      "id": "suite-012",
+      "estimateMs": 4216,
+      "observed": true
+    },
+    {
+      "id": "suite-013",
+      "estimateMs": 14151,
+      "observed": true
+    },
+    {
+      "id": "suite-014",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-015",
+      "estimateMs": 2712,
+      "observed": true
+    },
+    {
+      "id": "suite-016",
+      "estimateMs": 55,
+      "observed": true
+    },
+    {
+      "id": "suite-017",
+      "estimateMs": 106,
+      "observed": true
+    },
+    {
+      "id": "suite-018",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-019",
+      "estimateMs": 76,
+      "observed": true
+    },
+    {
+      "id": "suite-020",
+      "estimateMs": 20884,
+      "observed": true
+    },
+    {
+      "id": "suite-021",
+      "estimateMs": 41,
+      "observed": true
+    },
+    {
+      "id": "suite-022",
+      "estimateMs": 870,
+      "observed": true
+    },
+    {
+      "id": "suite-023",
+      "estimateMs": 86,
+      "observed": true
+    },
+    {
+      "id": "suite-024",
+      "estimateMs": 6405,
+      "observed": true
+    },
+    {
+      "id": "suite-025",
+      "estimateMs": 275,
+      "observed": true
+    },
+    {
+      "id": "suite-026",
+      "estimateMs": 150,
+      "observed": true
+    },
+    {
+      "id": "suite-027",
+      "estimateMs": 163,
+      "observed": true
+    },
+    {
+      "id": "suite-028",
+      "estimateMs": 467,
+      "observed": true
+    },
+    {
+      "id": "suite-029",
+      "estimateMs": 3230,
+      "observed": true
+    },
+    {
+      "id": "suite-030",
+      "estimateMs": 255,
+      "observed": true
+    },
+    {
+      "id": "suite-031",
+      "estimateMs": 6927,
+      "observed": true
+    },
+    {
+      "id": "suite-032",
+      "estimateMs": 51,
+      "observed": true
+    },
+    {
+      "id": "suite-033",
+      "estimateMs": 1444,
+      "observed": true
+    },
+    {
+      "id": "suite-034",
+      "estimateMs": 185,
+      "observed": true
+    },
+    {
+      "id": "suite-035",
+      "estimateMs": 71,
+      "observed": true
+    },
+    {
+      "id": "suite-036",
+      "estimateMs": 1990,
+      "observed": true
+    },
+    {
+      "id": "suite-037",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-038",
+      "estimateMs": 64,
+      "observed": true
+    },
+    {
+      "id": "suite-039",
+      "estimateMs": 43,
+      "observed": true
+    },
+    {
+      "id": "suite-040",
+      "estimateMs": 5589,
+      "observed": true
+    },
+    {
+      "id": "suite-041",
+      "estimateMs": 2518,
+      "observed": true
+    },
+    {
+      "id": "suite-042",
+      "estimateMs": 46,
+      "observed": true
+    },
+    {
+      "id": "suite-043",
+      "estimateMs": 975,
+      "observed": true
+    },
+    {
+      "id": "suite-044",
+      "estimateMs": 48,
+      "observed": true
+    },
+    {
+      "id": "suite-045",
+      "estimateMs": 52,
+      "observed": true
+    },
+    {
+      "id": "suite-046",
+      "estimateMs": 56,
+      "observed": true
+    },
+    {
+      "id": "suite-047",
+      "estimateMs": 52,
+      "observed": true
+    },
+    {
+      "id": "suite-048",
+      "estimateMs": 263,
+      "observed": true
+    },
+    {
+      "id": "suite-049",
+      "estimateMs": 3355,
+      "observed": true
+    },
+    {
+      "id": "suite-050",
+      "estimateMs": 66702,
+      "observed": true
+    },
+    {
+      "id": "suite-051",
+      "estimateMs": 301,
+      "observed": true
+    },
+    {
+      "id": "suite-052",
+      "estimateMs": 148,
+      "observed": true
+    },
+    {
+      "id": "suite-053",
+      "estimateMs": 730,
+      "observed": true
+    },
+    {
+      "id": "suite-054",
+      "estimateMs": 8393,
+      "observed": true
+    },
+    {
+      "id": "suite-055",
+      "estimateMs": 591,
+      "observed": true
+    },
+    {
+      "id": "suite-056",
+      "estimateMs": 913,
+      "observed": true
+    },
+    {
+      "id": "suite-057",
+      "estimateMs": 670,
+      "observed": true
+    },
+    {
+      "id": "suite-058",
+      "estimateMs": 591,
+      "observed": true
+    },
+    {
+      "id": "suite-059",
+      "estimateMs": 35280,
+      "observed": true
+    },
+    {
+      "id": "suite-060",
+      "estimateMs": 3079,
+      "observed": true
+    },
+    {
+      "id": "suite-061",
+      "estimateMs": 12049,
+      "observed": true
+    },
+    {
+      "id": "suite-062",
+      "estimateMs": 1584,
+      "observed": true
+    },
+    {
+      "id": "suite-063",
+      "estimateMs": 3272,
+      "observed": true
+    },
+    {
+      "id": "suite-064",
+      "estimateMs": 4801,
+      "observed": true
+    },
+    {
+      "id": "suite-065",
+      "estimateMs": 7777,
+      "observed": true
+    },
+    {
+      "id": "suite-066",
+      "estimateMs": 10398,
+      "observed": true
+    },
+    {
+      "id": "suite-067",
+      "estimateMs": 20376,
+      "observed": true
+    },
+    {
+      "id": "suite-068",
+      "estimateMs": 15356,
+      "observed": true
+    },
+    {
+      "id": "suite-069",
+      "estimateMs": 14874,
+      "observed": true
+    },
+    {
+      "id": "suite-070",
+      "estimateMs": 13502,
+      "observed": true
+    },
+    {
+      "id": "suite-071",
+      "estimateMs": 7324,
+      "observed": true
+    },
+    {
+      "id": "suite-072",
+      "estimateMs": 36748,
+      "observed": true
+    },
+    {
+      "id": "suite-073",
+      "estimateMs": 9612,
+      "observed": true
+    },
+    {
+      "id": "suite-074",
+      "estimateMs": 25398,
+      "observed": true
+    },
+    {
+      "id": "suite-075",
+      "estimateMs": 913,
+      "observed": true
+    },
+    {
+      "id": "suite-076",
+      "estimateMs": 12935,
+      "observed": true
+    },
+    {
+      "id": "suite-077",
+      "estimateMs": 2755,
+      "observed": true
+    },
+    {
+      "id": "suite-078",
+      "estimateMs": 82182,
+      "observed": true
+    },
+    {
+      "id": "suite-079",
+      "estimateMs": 8162,
+      "observed": true
+    },
+    {
+      "id": "suite-080",
+      "estimateMs": 864,
+      "observed": true
+    },
+    {
+      "id": "suite-081",
+      "estimateMs": 69009,
+      "observed": true
+    },
+    {
+      "id": "suite-082",
+      "estimateMs": 2687,
+      "observed": true
+    },
+    {
+      "id": "suite-083",
+      "estimateMs": 28944,
+      "observed": true
+    },
+    {
+      "id": "suite-084",
+      "estimateMs": 39286,
+      "observed": true
+    },
+    {
+      "id": "suite-085",
+      "estimateMs": 4262,
+      "observed": true
+    },
+    {
+      "id": "suite-086",
+      "estimateMs": 3760,
+      "observed": true
+    },
+    {
+      "id": "suite-087",
+      "estimateMs": 6103,
+      "observed": true
+    },
+    {
+      "id": "suite-088",
+      "estimateMs": 33746,
+      "observed": true
+    },
+    {
+      "id": "suite-089",
+      "estimateMs": 169,
+      "observed": true
+    },
+    {
+      "id": "suite-090",
+      "estimateMs": 5167,
+      "observed": true
+    },
+    {
+      "id": "suite-091",
+      "estimateMs": 2007,
+      "observed": true
+    },
+    {
+      "id": "suite-092",
+      "estimateMs": 1982,
+      "observed": true
+    },
+    {
+      "id": "suite-093",
+      "estimateMs": 1357,
+      "observed": true
+    },
+    {
+      "id": "suite-094",
+      "estimateMs": 647,
+      "observed": true
+    },
+    {
+      "id": "suite-095",
+      "estimateMs": 1313,
+      "observed": true
+    },
+    {
+      "id": "suite-096",
+      "estimateMs": 74846,
+      "observed": true
+    },
+    {
+      "id": "suite-097",
+      "estimateMs": 49618,
+      "observed": true
+    },
+    {
+      "id": "suite-098",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-099",
+      "estimateMs": 895,
+      "observed": true
+    },
+    {
+      "id": "suite-100",
+      "estimateMs": 749,
+      "observed": true
+    },
+    {
+      "id": "suite-101",
+      "estimateMs": 94,
+      "observed": true
+    },
+    {
+      "id": "suite-102",
+      "estimateMs": 659,
+      "observed": true
+    },
+    {
+      "id": "suite-103",
+      "estimateMs": 765,
+      "observed": true
+    },
+    {
+      "id": "suite-104",
+      "estimateMs": 7144,
+      "observed": true
+    },
+    {
+      "id": "suite-105",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-106",
+      "estimateMs": 603,
+      "observed": true
+    },
+    {
+      "id": "suite-107",
+      "estimateMs": 1979,
+      "observed": true
+    },
+    {
+      "id": "suite-108",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-109",
+      "estimateMs": 1607,
+      "observed": true
+    },
+    {
+      "id": "suite-110",
+      "estimateMs": 1265,
+      "observed": true
+    },
+    {
+      "id": "suite-111",
+      "estimateMs": 17878,
+      "observed": true
+    },
+    {
+      "id": "suite-112",
+      "estimateMs": 2460,
+      "observed": true
+    },
+    {
+      "id": "suite-113",
+      "estimateMs": 1560,
+      "observed": true
+    },
+    {
+      "id": "suite-114",
+      "estimateMs": 1848,
+      "observed": true
+    },
+    {
+      "id": "suite-115",
+      "estimateMs": 1589,
+      "observed": true
+    },
+    {
+      "id": "suite-116",
+      "estimateMs": 186,
+      "observed": true
+    },
+    {
+      "id": "suite-117",
+      "estimateMs": 1285,
+      "observed": true
+    },
+    {
+      "id": "suite-118",
+      "estimateMs": 1492,
+      "observed": true
+    },
+    {
+      "id": "suite-119",
+      "estimateMs": 1806,
+      "observed": true
+    },
+    {
+      "id": "suite-120",
+      "estimateMs": 2444,
+      "observed": true
+    },
+    {
+      "id": "suite-121",
+      "estimateMs": 2072,
+      "observed": true
+    },
+    {
+      "id": "suite-122",
+      "estimateMs": 2922,
+      "observed": true
+    },
+    {
+      "id": "suite-123",
+      "estimateMs": 1066,
+      "observed": true
+    },
+    {
+      "id": "suite-124",
+      "estimateMs": 7210,
+      "observed": true
+    },
+    {
+      "id": "suite-125",
+      "estimateMs": 1700,
+      "observed": true
+    },
+    {
+      "id": "suite-126",
+      "estimateMs": 551,
+      "observed": true
+    },
+    {
+      "id": "suite-127",
+      "estimateMs": 1781,
+      "observed": true
+    },
+    {
+      "id": "suite-128",
+      "estimateMs": 27655,
+      "observed": true
+    },
+    {
+      "id": "suite-129",
+      "estimateMs": 3672,
+      "observed": true
+    },
+    {
+      "id": "suite-130",
+      "estimateMs": 14508,
+      "observed": true
+    },
+    {
+      "id": "suite-131",
+      "estimateMs": 15245,
+      "observed": true
+    },
+    {
+      "id": "suite-132",
+      "estimateMs": 111484,
+      "observed": true
+    },
+    {
+      "id": "suite-133",
+      "estimateMs": 62298,
+      "observed": true
+    },
+    {
+      "id": "suite-134",
+      "estimateMs": 3411,
+      "observed": true
+    },
+    {
+      "id": "suite-135",
+      "estimateMs": 13658,
+      "observed": true
+    },
+    {
+      "id": "suite-136",
+      "estimateMs": 1158,
+      "observed": true
+    },
+    {
+      "id": "suite-137",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-138",
+      "estimateMs": 1599,
+      "observed": true
+    },
+    {
+      "id": "suite-139",
+      "estimateMs": 1754,
+      "observed": true
+    },
+    {
+      "id": "suite-140",
+      "estimateMs": 1386,
+      "observed": true
+    },
+    {
+      "id": "suite-141",
+      "estimateMs": 33713,
+      "observed": true
+    },
+    {
+      "id": "suite-142",
+      "estimateMs": 554,
+      "observed": true
+    },
+    {
+      "id": "suite-143",
+      "estimateMs": 1440,
+      "observed": true
+    },
+    {
+      "id": "suite-144",
+      "estimateMs": 1427,
+      "observed": true
+    },
+    {
+      "id": "suite-145",
+      "estimateMs": 1664,
+      "observed": true
+    },
+    {
+      "id": "suite-146",
+      "estimateMs": 3626,
+      "observed": true
+    },
+    {
+      "id": "suite-147",
+      "estimateMs": 2435,
+      "observed": true
+    },
+    {
+      "id": "suite-148",
+      "estimateMs": 99486,
+      "observed": true
+    },
+    {
+      "id": "suite-149",
+      "estimateMs": 2992,
+      "observed": true
+    },
+    {
+      "id": "suite-150",
+      "estimateMs": 1075,
+      "observed": true
+    },
+    {
+      "id": "suite-151",
+      "estimateMs": 2006,
+      "observed": true
+    },
+    {
+      "id": "suite-152",
+      "estimateMs": 167,
+      "observed": true
+    },
+    {
+      "id": "suite-153",
+      "estimateMs": 1954,
+      "observed": true
+    },
+    {
+      "id": "suite-154",
+      "estimateMs": 984,
+      "observed": true
+    },
+    {
+      "id": "suite-155",
+      "estimateMs": 1266,
+      "observed": true
+    },
+    {
+      "id": "suite-156",
+      "estimateMs": 1395,
+      "observed": true
+    },
+    {
+      "id": "suite-157",
+      "estimateMs": 983,
+      "observed": true
+    },
+    {
+      "id": "suite-158",
+      "estimateMs": 1212,
+      "observed": true
+    },
+    {
+      "id": "suite-159",
+      "estimateMs": 1184,
+      "observed": true
+    },
+    {
+      "id": "suite-160",
+      "estimateMs": 1018,
+      "observed": true
+    },
+    {
+      "id": "suite-161",
+      "estimateMs": 3782,
+      "observed": true
+    },
+    {
+      "id": "suite-162",
+      "estimateMs": 1148,
+      "observed": true
+    },
+    {
+      "id": "suite-163",
+      "estimateMs": 1008,
+      "observed": true
+    },
+    {
+      "id": "suite-164",
+      "estimateMs": 1543,
+      "observed": true
+    },
+    {
+      "id": "suite-165",
+      "estimateMs": 1004,
+      "observed": true
+    },
+    {
+      "id": "suite-166",
+      "estimateMs": 1473,
+      "observed": true
+    },
+    {
+      "id": "suite-167",
+      "estimateMs": 1020,
+      "observed": true
+    },
+    {
+      "id": "suite-168",
+      "estimateMs": 1462,
+      "observed": true
+    },
+    {
+      "id": "suite-169",
+      "estimateMs": 2498,
+      "observed": true
+    },
+    {
+      "id": "suite-170",
+      "estimateMs": 10134,
+      "observed": true
+    },
+    {
+      "id": "suite-171",
+      "estimateMs": 2366,
+      "observed": true
+    },
+    {
+      "id": "suite-172",
+      "estimateMs": 5446,
+      "observed": true
+    },
+    {
+      "id": "suite-173",
+      "estimateMs": 5581,
+      "observed": true
+    },
+    {
+      "id": "suite-174",
+      "estimateMs": 4223,
+      "observed": true
+    },
+    {
+      "id": "suite-175",
+      "estimateMs": 4994,
+      "observed": true
+    },
+    {
+      "id": "suite-176",
+      "estimateMs": 6893,
+      "observed": true
+    },
+    {
+      "id": "suite-177",
+      "estimateMs": 12274,
+      "observed": true
+    },
+    {
+      "id": "suite-178",
+      "estimateMs": 4490,
+      "observed": true
+    },
+    {
+      "id": "suite-179",
+      "estimateMs": 3518,
+      "observed": true
+    },
+    {
+      "id": "suite-180",
+      "estimateMs": 8721,
+      "observed": true
+    },
+    {
+      "id": "suite-181",
+      "estimateMs": 8134,
+      "observed": true
+    },
+    {
+      "id": "suite-182",
+      "estimateMs": 4917,
+      "observed": true
+    },
+    {
+      "id": "suite-183",
+      "estimateMs": 11010,
+      "observed": true
+    },
+    {
+      "id": "suite-184",
+      "estimateMs": 54100,
+      "observed": true
+    },
+    {
+      "id": "suite-185",
+      "estimateMs": 1412,
+      "observed": true
+    },
+    {
+      "id": "suite-186",
+      "estimateMs": 1320,
+      "observed": true
+    },
+    {
+      "id": "suite-187",
+      "estimateMs": 1582,
+      "observed": true
+    },
+    {
+      "id": "suite-188",
+      "estimateMs": 7548,
+      "observed": true
+    },
+    {
+      "id": "suite-189",
+      "estimateMs": 4872,
+      "observed": true
+    },
+    {
+      "id": "suite-190",
+      "estimateMs": 3149,
+      "observed": true
+    },
+    {
+      "id": "suite-191",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-192",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-193",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-194",
+      "estimateMs": 485,
+      "observed": true
+    },
+    {
+      "id": "suite-195",
+      "estimateMs": 1347,
+      "observed": true
+    },
+    {
+      "id": "suite-196",
+      "estimateMs": 3623,
+      "observed": true
+    },
+    {
+      "id": "suite-197",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-198",
+      "estimateMs": 7471,
+      "observed": true
+    },
+    {
+      "id": "suite-199",
+      "estimateMs": 34425,
+      "observed": true
+    },
+    {
+      "id": "suite-200",
+      "estimateMs": 1208,
+      "observed": true
+    },
+    {
+      "id": "suite-201",
+      "estimateMs": 10578,
+      "observed": true
+    },
+    {
+      "id": "suite-202",
+      "estimateMs": 95586,
+      "observed": true
+    },
+    {
+      "id": "suite-203",
+      "estimateMs": 30404,
+      "observed": true
+    },
+    {
+      "id": "suite-204",
+      "estimateMs": 5960,
+      "observed": true
+    },
+    {
+      "id": "suite-205",
+      "estimateMs": 2884,
+      "observed": true
+    },
+    {
+      "id": "suite-206",
+      "estimateMs": 92223,
+      "observed": true
+    },
+    {
+      "id": "suite-207",
+      "estimateMs": 1823,
+      "observed": true
+    },
+    {
+      "id": "suite-208",
+      "estimateMs": 8329,
+      "observed": true
+    },
+    {
+      "id": "suite-209",
+      "estimateMs": 180,
+      "observed": true
+    },
+    {
+      "id": "suite-210",
+      "estimateMs": 199,
+      "observed": true
+    },
+    {
+      "id": "suite-211",
+      "estimateMs": 189,
+      "observed": true
+    },
+    {
+      "id": "suite-212",
+      "estimateMs": 3728,
+      "observed": true
+    },
+    {
+      "id": "suite-213",
+      "estimateMs": 3200,
+      "observed": true
+    },
+    {
+      "id": "suite-214",
+      "estimateMs": 18521,
+      "observed": true
+    },
+    {
+      "id": "suite-215",
+      "estimateMs": 3552,
+      "observed": true
+    },
+    {
+      "id": "suite-216",
+      "estimateMs": 64734,
+      "observed": true
+    },
+    {
+      "id": "suite-217",
+      "estimateMs": 11990,
+      "observed": true
+    },
+    {
+      "id": "suite-218",
+      "estimateMs": 4225,
+      "observed": true
+    },
+    {
+      "id": "suite-219",
+      "estimateMs": 2616,
+      "observed": true
+    },
+    {
+      "id": "suite-220",
+      "estimateMs": 106630,
+      "observed": true
+    },
+    {
+      "id": "suite-221",
+      "estimateMs": 8154,
+      "observed": true
+    },
+    {
+      "id": "suite-222",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-223",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-224",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-225",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-226",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-227",
+      "estimateMs": 124052,
+      "observed": true
+    },
+    {
+      "id": "suite-228",
+      "estimateMs": 55160,
+      "observed": true
+    },
+    {
+      "id": "suite-229",
+      "estimateMs": 288152,
+      "observed": true
+    },
+    {
+      "id": "suite-230",
+      "estimateMs": 74682,
+      "observed": true
+    },
+    {
+      "id": "suite-231",
+      "estimateMs": 43,
+      "observed": true
+    },
+    {
+      "id": "support-invalidation",
+      "estimateMs": 30,
+      "observed": true
+    },
+    {
+      "id": "export-schemas",
+      "estimateMs": 206,
+      "observed": true
+    },
+    {
+      "id": "remediation-01",
+      "estimateMs": 196,
+      "observed": true
+    },
+    {
+      "id": "remediation-02",
+      "estimateMs": 660,
+      "observed": true
+    },
+    {
+      "id": "remediation-03",
+      "estimateMs": 49,
+      "observed": true
+    },
+    {
+      "id": "remediation-04",
+      "estimateMs": 214,
+      "observed": true
+    },
+    {
+      "id": "remediation-05",
+      "estimateMs": 6761,
+      "observed": true
+    },
+    {
+      "id": "remediation-06",
+      "estimateMs": 220,
+      "observed": true
+    },
+    {
+      "id": "remediation-07",
+      "estimateMs": 89023,
+      "observed": true
+    },
+    {
+      "id": "remediation-08",
+      "estimateMs": 473,
+      "observed": true
+    },
+    {
+      "id": "remediation-09",
+      "estimateMs": 8050,
+      "observed": true
+    },
+    {
+      "id": "integration-01",
+      "estimateMs": 2898,
+      "observed": true
+    },
+    {
+      "id": "integration-02",
+      "estimateMs": 8394,
+      "observed": true
+    },
+    {
+      "id": "integration-03",
+      "estimateMs": 195,
+      "observed": true
+    },
+    {
+      "id": "integration-04",
+      "estimateMs": 448,
+      "observed": true
+    },
+    {
+      "id": "integration-05",
+      "estimateMs": 143,
+      "observed": true
+    },
+    {
+      "id": "integration-06",
+      "estimateMs": 139,
+      "observed": true
+    },
+    {
+      "id": "integration-07",
+      "estimateMs": 96,
+      "observed": true
+    },
+    {
+      "id": "final-01",
+      "estimateMs": 1474,
+      "observed": true
+    },
+    {
+      "id": "final-02",
+      "estimateMs": 334,
+      "observed": true
+    },
+    {
+      "id": "final-03",
+      "estimateMs": 1189,
+      "observed": true
+    },
+    {
+      "id": "manifest-bootstrap",
+      "estimateMs": 173,
+      "observed": true
+    },
+    {
+      "id": "approved-01",
+      "estimateMs": 625,
+      "observed": true
+    },
+    {
+      "id": "approved-02",
+      "estimateMs": 3464,
+      "observed": true
+    },
+    {
+      "id": "approved-03",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "approved-04",
+      "estimateMs": 3591,
+      "observed": true
+    },
+    {
+      "id": "release-preparation",
+      "estimateMs": 187,
+      "observed": true
+    },
+    {
+      "id": "image-slot-capabilities",
+      "estimateMs": 5166,
+      "observed": true
+    },
+    {
+      "id": "verification-server",
+      "estimateMs": 86,
+      "observed": true
+    },
+    {
+      "id": "template-hex-policy",
+      "estimateMs": 438,
+      "observed": true
+    },
+    {
+      "id": "template-brand-swatches",
+      "estimateMs": 6381,
+      "observed": true
+    },
+    {
+      "id": "attribute-targets-browser",
+      "estimateMs": 3532,
+      "observed": true
+    },
+    {
+      "id": "attribute-targets-types",
+      "estimateMs": 685,
+      "observed": true
+    },
+    {
+      "id": "field-associations",
+      "estimateMs": 4434,
+      "observed": true
+    },
+    {
+      "id": "composite-fields-browser",
+      "estimateMs": 3945,
+      "observed": true
+    },
+    {
+      "id": "composite-fields-types",
+      "estimateMs": 920,
+      "observed": true
+    },
+    {
+      "id": "token-mode-documents",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "token-mode-browsers",
+      "estimateMs": 53410,
+      "observed": true
+    },
+    {
+      "id": "spacing-role-preservation",
+      "estimateMs": 19560,
+      "observed": true
+    },
+    {
+      "id": "static-reference",
+      "estimateMs": 466,
+      "observed": true
+    },
+    {
+      "id": "static-reference-browsers",
+      "estimateMs": 8288,
+      "observed": true
+    },
+    {
+      "id": "static-reference-types",
+      "estimateMs": 1004,
+      "observed": true
+    },
+    {
+      "id": "compiled-esm",
+      "estimateMs": 527,
+      "observed": true
+    },
+    {
+      "id": "compiled-esm-packed19",
+      "estimateMs": 6792,
+      "observed": true
+    },
+    {
+      "id": "compiled-esm-packed18",
+      "estimateMs": 2998,
+      "observed": true
+    },
+    {
+      "id": "compiled-export-gate",
+      "estimateMs": 868,
+      "observed": true
+    },
+    {
+      "id": "token-css-entry",
+      "estimateMs": 212,
+      "observed": true
+    },
+    {
+      "id": "token-css-entry-browser",
+      "estimateMs": 42413,
+      "observed": true
+    },
+    {
+      "id": "dependency-audit-policy",
+      "estimateMs": 248,
+      "observed": true
+    },
+    {
+      "id": "locale-messages",
+      "estimateMs": 191,
+      "observed": true
+    },
+    {
+      "id": "public-hook-membership",
+      "estimateMs": 10265,
+      "observed": true
+    },
+    {
+      "id": "locale-message-consumers",
+      "estimateMs": 809,
+      "observed": true
+    },
+    {
+      "id": "locale-message-browsers",
+      "estimateMs": 3583,
+      "observed": true
+    },
+    {
+      "id": "locale-message-ssr",
+      "estimateMs": 1074,
+      "observed": true
+    },
+    {
+      "id": "locale-message-ssr18",
+      "estimateMs": 2111,
+      "observed": true
+    },
+    {
+      "id": "locale-message-surfaces",
+      "estimateMs": 17761,
+      "observed": true
+    },
+    {
+      "id": "required-field-names",
+      "estimateMs": 2015,
+      "observed": true
+    },
+    {
+      "id": "site-csp-contracts",
+      "estimateMs": 606,
+      "observed": true
+    },
+    {
+      "id": "vite-consumer",
+      "estimateMs": 12984,
+      "observed": true
+    },
+    {
+      "id": "component-semantic-hosts",
+      "estimateMs": 3615,
+      "observed": true
+    },
+    {
+      "id": "storybook-remediation",
+      "estimateMs": 7338,
+      "observed": true
+    },
+    {
+      "id": "storybook-runtime-controls",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "disabled-information",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "python-audit-policy",
+      "estimateMs": 211,
+      "observed": true
+    },
+    {
+      "id": "font-glyphs",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "native-ref-contracts",
+      "estimateMs": 262,
+      "observed": true
+    },
+    {
+      "id": "native-refs-types",
+      "estimateMs": 870,
+      "observed": true
+    },
+    {
+      "id": "native-refs",
+      "estimateMs": 3203,
+      "observed": true
+    },
+    {
+      "id": "native-refs-react18",
+      "estimateMs": 8394,
+      "observed": true
+    },
+    {
+      "id": "bundle-source-map",
+      "estimateMs": 4560,
+      "observed": true
+    },
+    {
+      "id": "template-content-adoption",
+      "estimateMs": 540,
+      "observed": true
+    },
+    {
+      "id": "template-content-projections",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "template-content-targets",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "template-metric-layout",
+      "estimateMs": 1628,
+      "observed": true
+    },
+    {
+      "id": "template-literals",
+      "estimateMs": 4652,
+      "observed": true
+    },
+    {
+      "id": "typescript-api-adapter",
+      "estimateMs": 2340,
+      "observed": true
+    },
+    {
+      "id": "native-field-labels",
+      "estimateMs": 4217,
+      "observed": true
+    },
+    {
+      "id": "prompt-api",
+      "estimateMs": 1350,
+      "observed": true
+    },
+    {
+      "id": "component-api-behavior",
+      "estimateMs": 16935,
+      "observed": true
+    },
+    {
+      "id": "api-domains",
+      "estimateMs": 4597,
+      "observed": true
+    },
+    {
+      "id": "component-specifications",
+      "estimateMs": 6021,
+      "observed": true
+    },
+    {
+      "id": "component-behavior-evidence",
+      "estimateMs": 68646,
+      "observed": true
+    },
+    {
+      "id": "targeted-keyboard",
+      "estimateMs": 4260,
+      "observed": true
+    },
+    {
+      "id": "floating-position",
+      "estimateMs": 164,
+      "observed": true
+    },
+    {
+      "id": "floating-types",
+      "estimateMs": 551,
+      "observed": true
+    },
+    {
+      "id": "bundle-runtime-order",
+      "estimateMs": 706,
+      "observed": true
+    },
+    {
+      "id": "floating-panels",
+      "estimateMs": 10931,
+      "observed": true
+    },
+    {
+      "id": "floating-placement",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "floating-tab-order",
+      "estimateMs": 9359,
+      "observed": true
+    },
+    {
+      "id": "floating-scope",
+      "estimateMs": 3456,
+      "observed": true
+    },
+    {
+      "id": "floating-boards",
+      "estimateMs": 20466,
+      "observed": true
+    },
+    {
+      "id": "floating-ssr-react19",
+      "estimateMs": 5132,
+      "observed": true
+    },
+    {
+      "id": "floating-ssr-react18",
+      "estimateMs": 9105,
+      "observed": true
+    },
+    {
+      "id": "pdf-text",
+      "estimateMs": 1034,
+      "observed": true
+    },
+    {
+      "id": "floating-live-style",
+      "estimateMs": 4987,
+      "observed": true
+    },
+    {
+      "id": "toolchain-reproducibility",
+      "estimateMs": 3582,
+      "observed": true
+    },
+    {
+      "id": "expansion-coverage",
+      "estimateMs": 1892,
+      "observed": true
+    },
+    {
+      "id": "expansion-coverage-browser",
+      "estimateMs": 28118,
+      "observed": true
+    },
+    {
+      "id": "floating-native-form",
+      "estimateMs": 11242,
+      "observed": true
+    },
+    {
+      "id": "floating-native-form-ssr-react19",
+      "estimateMs": 5625,
+      "observed": true
+    },
+    {
+      "id": "floating-native-form-ssr-react18",
+      "estimateMs": 6932,
+      "observed": true
+    },
+    {
+      "id": "docs-recursive-parity",
+      "estimateMs": 452,
+      "observed": true
+    },
+    {
+      "id": "portable-guidance",
+      "estimateMs": 267,
+      "observed": true
+    },
+    {
+      "id": "component-inventory",
+      "estimateMs": 478,
+      "observed": true
+    },
+    {
+      "id": "unit-shards",
+      "estimateMs": 560,
+      "observed": true
+    },
+    {
+      "id": "release-compatibility",
+      "estimateMs": 177,
+      "observed": true
+    },
+    {
+      "id": "browser-performance",
+      "estimateMs": 1704,
+      "observed": true
+    },
+    {
+      "id": "story-domains",
+      "estimateMs": 9106,
+      "observed": true
+    },
+    {
+      "id": "story-domains-browser",
+      "estimateMs": 6786,
+      "observed": true
+    },
+    {
+      "id": "api-fact-comparison",
+      "estimateMs": 193,
+      "observed": true
+    },
+    {
+      "id": "security-support",
+      "estimateMs": 209,
+      "observed": true
+    },
+    {
+      "id": "api-discovery",
+      "estimateMs": 261,
+      "observed": true
+    },
+    {
+      "id": "owner-routing",
+      "estimateMs": 618,
+      "observed": true
+    },
+    {
+      "id": "alert-aliases",
+      "estimateMs": 3139,
+      "observed": true
+    },
+    {
+      "id": "template-structured-content",
+      "estimateMs": 474,
+      "observed": true
+    },
+    {
+      "id": "template-static-logos",
+      "estimateMs": 641,
+      "observed": true
+    },
+    {
+      "id": "template-structured-content-browser",
+      "estimateMs": 32202,
+      "observed": true
+    },
+    {
+      "id": "template-static-logos-browser",
+      "estimateMs": 80571,
+      "observed": true
+    },
+    {
+      "id": "overlay-multibundle",
+      "estimateMs": 3550,
+      "observed": true
+    },
+    {
+      "id": "overlay-multibundle-ssr",
+      "estimateMs": 7813,
+      "observed": true
+    },
+    {
+      "id": "segmented-modes",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "treetable-relations",
+      "estimateMs": 6656,
+      "observed": true
+    },
+    {
+      "id": "token-legacy-aliases",
+      "estimateMs": 205,
+      "observed": true
+    },
+    {
+      "id": "token-legacy-aliases-browser",
+      "estimateMs": 1978,
+      "observed": true
+    },
+    {
+      "id": "token-native-aliases",
+      "estimateMs": 496,
+      "observed": true
+    },
+    {
+      "id": "token-mode-aliases",
+      "estimateMs": 817,
+      "observed": true
+    },
+    {
+      "id": "collection-spacing",
+      "estimateMs": 13342,
+      "observed": true
+    },
+    {
+      "id": "progressive-viewport",
+      "estimateMs": 59136,
+      "observed": true
+    },
+    {
+      "id": "element-legacy-equivalence",
+      "estimateMs": 34893,
+      "observed": true
+    },
+    {
+      "id": "element-version-ownership",
+      "estimateMs": 580,
+      "observed": true
+    },
+    {
+      "id": "theme-palette-projection",
+      "estimateMs": 1969,
+      "observed": true
+    },
+    {
+      "id": "native-mode-packs",
+      "estimateMs": 16948,
+      "observed": true
+    },
+    {
+      "id": "native-paper-fields",
+      "estimateMs": 2143,
+      "observed": true
+    },
+    {
+      "id": "native-paper-fields-browser",
+      "estimateMs": 9747,
+      "observed": true
+    },
+    {
+      "id": "styles-layered",
+      "estimateMs": 684,
+      "observed": true
+    },
+    {
+      "id": "styles-layered-browser",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "styles-layered-interactions",
+      "estimateMs": 9800,
+      "observed": true
+    },
+    {
+      "id": "browser-retry-evidence",
+      "estimateMs": 14494,
+      "observed": true
+    },
+    {
+      "id": "suite-370",
+      "estimateMs": 6927,
+      "observed": true
+    },
+    {
+      "id": "suite-371",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-372",
+      "estimateMs": 51135,
+      "observed": true
+    },
+    {
+      "id": "suite-373",
+      "estimateMs": 6632,
+      "observed": true
+    },
+    {
+      "id": "suite-374",
+      "estimateMs": 7441,
+      "observed": true
+    },
+    {
+      "id": "suite-375",
+      "estimateMs": 42805,
+      "observed": true
+    },
+    {
+      "id": "component-scenarios",
+      "estimateMs": 17872,
+      "observed": true
+    },
+    {
+      "id": "textfield-field-types",
+      "estimateMs": 632,
+      "observed": true
+    },
+    {
+      "id": "component-scenarios-browser",
+      "estimateMs": 30758,
+      "observed": true
+    },
+    {
+      "id": "textfield-field-browser",
+      "estimateMs": 2575,
+      "observed": true
+    },
+    {
+      "id": "component-scenarios-browser-firefox",
+      "estimateMs": 42720,
+      "observed": true
+    },
+    {
+      "id": "textfield-field-browser-firefox",
+      "estimateMs": 6300,
+      "observed": true
+    },
+    {
+      "id": "component-scenarios-browser-webkit",
+      "estimateMs": 58508,
+      "observed": true
+    },
+    {
+      "id": "textfield-field-browser-webkit",
+      "estimateMs": 2723,
+      "observed": true
+    },
+    {
+      "id": "bilingual-start-docs",
+      "estimateMs": 228,
+      "observed": true
+    },
+    {
+      "id": "suite-385",
+      "estimateMs": 234,
+      "observed": true
+    },
+    {
+      "id": "suite-386",
+      "estimateMs": 1761,
+      "observed": true
+    },
+    {
+      "id": "suite-387",
+      "estimateMs": 61490,
+      "observed": true
+    },
+    {
+      "id": "suite-388",
+      "estimateMs": 52805,
+      "observed": true
+    },
+    {
+      "id": "suite-389",
+      "estimateMs": 51802,
+      "observed": true
+    },
+    {
+      "id": "suite-390",
+      "estimateMs": 12687,
+      "observed": true
+    },
+    {
+      "id": "suite-391",
+      "estimateMs": 4305,
+      "observed": true
+    },
+    {
+      "id": "suite-392",
+      "estimateMs": 6480,
+      "observed": true
+    },
+    {
+      "id": "suite-393",
+      "estimateMs": 10516,
+      "observed": true
+    },
+    {
+      "id": "suite-394",
+      "estimateMs": 8577,
+      "observed": true
+    },
+    {
+      "id": "suite-395",
+      "estimateMs": 3461,
+      "observed": true
+    },
+    {
+      "id": "suite-396",
+      "estimateMs": 88,
+      "observed": true
+    },
+    {
+      "id": "suite-397",
+      "estimateMs": 9609,
+      "observed": true
+    },
+    {
+      "id": "suite-398",
+      "estimateMs": 17433,
+      "observed": true
+    },
+    {
+      "id": "suite-399",
+      "estimateMs": 6409,
+      "observed": true
+    },
+    {
+      "id": "suite-400",
+      "estimateMs": 994,
+      "observed": true
+    },
+    {
+      "id": "suite-401",
+      "estimateMs": 3422,
+      "observed": true
+    },
+    {
+      "id": "suite-402",
+      "estimateMs": 8312,
+      "observed": true
+    },
+    {
+      "id": "suite-403",
+      "estimateMs": 2263,
+      "observed": true
+    },
+    {
+      "id": "suite-404",
+      "estimateMs": 7142,
+      "observed": true
+    },
+    {
+      "id": "suite-405",
+      "estimateMs": 3679,
+      "observed": true
+    },
+    {
+      "id": "suite-406",
+      "estimateMs": 4557,
+      "observed": true
+    },
+    {
+      "id": "suite-407",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-408",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-409",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-410",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-411",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-412",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-413",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-414",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-415",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-416",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-417",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "suite-418",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "prompt-languages",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "entrypoint-languages",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "design-languages",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "design-languages-browser",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "release-version",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "release-identity",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "editor-parser-attribution",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "native-validation-routing",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "runtime-map-publication",
+      "estimateMs": 8312,
+      "observed": false
+    },
+    {
+      "id": "segmented-alias-contract",
+      "estimateMs": 8312,
+      "observed": false
+    }
+  ],
+  "scope": "Historical local durations estimate load only. Failed, missing or changed commands use the observed 75th percentile (1000ms without history). No suite is skipped and no CI latency guarantee is made.",
+  "timingSource": "Completed local406-suite baseline on Node22.23.3/darwin-arm64, before final focused corrections. All406 observations retained; only379 passing unchanged command identities provide timing estimates. Failed/missing/changed/new commands use observed75th-percentile fallback. Local concurrent routing evidence, not current correctness, hosted CI latency or final validation. Prior333 baseline retained separately.",
+  "timingSourceReports": [
+    {
+      "path": "test-results/continuation43-unit-1/unit-results.json",
+      "sha256": "a67f014f3f1a1c0b32eaaa0463ed795e8ac986e32ddf4a02db86faecbda13d04"
+    },
+    {
+      "path": "test-results/continuation43-unit-2/unit-results.json",
+      "sha256": "d915ffce9b0e5dbcbf2ea00887afd46e61fb6af73c3ad3623b2b54fc7b806796"
+    },
+    {
+      "path": "test-results/continuation43-unit-3/unit-results.json",
+      "sha256": "4eb5e1a6f8bfd43ebe8f43ce36307bedc3295948a3ec021192a6baf50e0ac4d9"
+    },
+    {
+      "path": "test-results/continuation43-unit-4/unit-results.json",
+      "sha256": "342d62cfa577de1286a9a99dd2d216bd9d08ee628f76dd34eda8c2feb39f1c8d"
+    }
+  ]
+}

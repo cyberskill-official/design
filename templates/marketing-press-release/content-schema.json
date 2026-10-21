@@ -6,111 +6,129 @@
       "id": "kicker",
       "type": "text",
       "label": "Header eyebrow",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "h1",
       "type": "text",
       "label": "Headline",
       "maxLength": 160,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "sub",
       "type": "text",
       "label": "Subheadline",
-      "maxLength": 220
+      "maxLength": 220,
+      "runtimeBinding": "text"
     },
     {
       "id": "lead",
       "type": "richtext",
       "label": "Lead paragraph (dateline + intro)",
       "maxLength": 600,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "body2",
       "type": "richtext",
       "label": "Body paragraph 2",
-      "maxLength": 400
+      "maxLength": 400,
+      "runtimeBinding": "text"
     },
     {
       "id": "body3",
       "type": "richtext",
       "label": "Body paragraph 3",
-      "maxLength": 400
+      "maxLength": 400,
+      "runtimeBinding": "text"
     },
     {
       "id": "glanceL",
       "type": "text",
       "label": "\"At a glance\" label",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "g1t",
       "type": "text",
       "label": "Glance item 1 title",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "g1b",
       "type": "text",
       "label": "Glance item 1 body",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "g2t",
       "type": "text",
       "label": "Glance item 2 title",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "g2b",
       "type": "text",
       "label": "Glance item 2 body",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "g3t",
       "type": "text",
       "label": "Glance item 3 title",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "g3b",
       "type": "text",
       "label": "Glance item 3 body",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "aboutL",
       "type": "text",
       "label": "Boilerplate heading",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "aboutP",
       "type": "richtext",
       "label": "Boilerplate paragraph",
-      "maxLength": 400
+      "maxLength": 400,
+      "runtimeBinding": "text"
     },
     {
       "id": "mediaL",
       "type": "text",
       "label": "Media contact label",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "place",
       "type": "text",
       "label": "Location line",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "assetsL",
       "type": "text",
       "label": "Assets note",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     }
   ]
 }

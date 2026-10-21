@@ -2,30 +2,525 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CyberSkill template content-schema v2",
   "type": "object",
-  "required": ["$schemaVersion", "template", "slots"],
+  "required": [
+    "$schemaVersion",
+    "template",
+    "slots"
+  ],
   "properties": {
-    "$schemaVersion": { "const": "2.0" },
-    "template": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "$schemaVersion": {
+      "const": "2.0"
+    },
+    "template": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
     "slots": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "type", "label"],
+        "required": [
+          "id",
+          "type",
+          "label"
+        ],
         "properties": {
-          "id": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
-          "type": { "enum": ["text", "richtext", "image", "link", "list", "table", "date"] },
-          "label": { "type": "string", "minLength": 1 },
-          "maxLength": { "type": "integer", "minimum": 1 },
-          "required": { "type": "boolean" },
+          "id": {
+            "type": "string",
+            "pattern": "^(?!__csDisplayLiteralEmpty$)[A-Za-z_][A-Za-z0-9_]*$"
+          },
+          "type": {
+            "enum": [
+              "text",
+              "richtext",
+              "image",
+              "link",
+              "list",
+              "table",
+              "date",
+              "number"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "maxLength": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "required": {
+            "type": "boolean"
+          },
           "i18n": {
             "type": "object",
-            "properties": { "en": { "type": "string" }, "vi": { "type": "string" } }
+            "properties": {
+              "en": {
+                "type": "string"
+              },
+              "vi": {
+                "type": "string"
+              }
+            }
+          },
+          "runtimeBinding": {
+            "enum": [
+              "text",
+              "structured",
+              "number"
+            ],
+            "description": "Explicit plain-text, finite percent-width number, or bounded structured display data; no arbitrary HTML, attributes, functions, URLs or axis controls."
+          },
+          "runtimeTargets": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "tag",
+                "attribute"
+              ],
+              "properties": {
+                "tag": {
+                  "enum": [
+                    "nav",
+                    "button",
+                    "image-slot",
+                    "x-import",
+                    "sc-for",
+                    "span"
+                  ]
+                },
+                "component": {
+                  "type": "string",
+                  "pattern": "^CyberSkillDS\\.[A-Za-z]+$"
+                },
+                "attribute": {
+                  "enum": [
+                    "aria-label",
+                    "placeholder",
+                    "label",
+                    "value",
+                    "delta",
+                    "caption",
+                    "code",
+                    "title",
+                    "error",
+                    "details",
+                    "send-label",
+                    "description",
+                    "confirm-label",
+                    "placeholder-vi",
+                    "list",
+                    "columns",
+                    "rows",
+                    "options",
+                    "items",
+                    "steps",
+                    "sources",
+                    "data-dc-percent-width"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "minLength": {
+            "const": 1
+          },
+          "semanticReason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "runtimeProjection": {
+            "enum": [
+              "records",
+              "column-headers",
+              "percent-width"
+            ]
+          },
+          "runtimeModel": {
+            "$ref": "#/definitions/displayModel"
+          },
+          "minimum": {
+            "const": 0
+          },
+          "maximum": {
+            "const": 100
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "runtimeBinding"
+              ],
+              "properties": {
+                "runtimeBinding": {
+                  "const": "text"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "maxLength"
+              ],
+              "properties": {
+                "type": {
+                  "enum": [
+                    "text",
+                    "richtext"
+                  ]
+                },
+                "maxLength": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "runtimeTargets": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "tag",
+                      "attribute"
+                    ],
+                    "properties": {
+                      "tag": {
+                        "enum": [
+                          "nav",
+                          "button",
+                          "image-slot",
+                          "x-import",
+                          "sc-for"
+                        ]
+                      },
+                      "component": {
+                        "type": "string",
+                        "pattern": "^CyberSkillDS\\.[A-Za-z]+$"
+                      },
+                      "attribute": {
+                        "enum": [
+                          "aria-label",
+                          "placeholder",
+                          "label",
+                          "value",
+                          "delta",
+                          "caption",
+                          "code",
+                          "title",
+                          "error",
+                          "details",
+                          "send-label",
+                          "description",
+                          "confirm-label",
+                          "placeholder-vi",
+                          "list",
+                          "columns",
+                          "rows",
+                          "options",
+                          "items",
+                          "steps",
+                          "sources"
+                        ]
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "runtimeBinding"
+              ],
+              "properties": {
+                "runtimeBinding": {
+                  "const": "structured"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "runtimeModel",
+                "runtimeTargets",
+                "runtimeProjection"
+              ],
+              "properties": {
+                "type": {
+                  "enum": [
+                    "list",
+                    "table"
+                  ]
+                },
+                "runtimeModel": {
+                  "$ref": "#/definitions/displayModel"
+                },
+                "runtimeTargets": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "tag",
+                      "attribute"
+                    ],
+                    "properties": {
+                      "tag": {
+                        "enum": [
+                          "nav",
+                          "button",
+                          "image-slot",
+                          "x-import",
+                          "sc-for"
+                        ]
+                      },
+                      "component": {
+                        "type": "string",
+                        "pattern": "^CyberSkillDS\\.[A-Za-z]+$"
+                      },
+                      "attribute": {
+                        "enum": [
+                          "aria-label",
+                          "placeholder",
+                          "label",
+                          "value",
+                          "delta",
+                          "caption",
+                          "code",
+                          "title",
+                          "error",
+                          "details",
+                          "send-label",
+                          "description",
+                          "confirm-label",
+                          "placeholder-vi",
+                          "list",
+                          "columns",
+                          "rows",
+                          "options",
+                          "items",
+                          "steps",
+                          "sources"
+                        ]
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "runtimeProjection": {
+                  "enum": [
+                    "records",
+                    "column-headers"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "anyOf": [
+                {
+                  "required": [
+                    "runtimeBinding"
+                  ],
+                  "properties": {
+                    "runtimeBinding": {
+                      "const": "number"
+                    }
+                  }
+                },
+                {
+                  "required": [
+                    "type"
+                  ],
+                  "properties": {
+                    "type": {
+                      "const": "number"
+                    }
+                  }
+                }
+              ]
+            },
+            "then": {
+              "required": [
+                "runtimeBinding",
+                "type",
+                "minimum",
+                "maximum",
+                "runtimeProjection",
+                "runtimeTargets"
+              ],
+              "properties": {
+                "runtimeBinding": {
+                  "const": "number"
+                },
+                "type": {
+                  "const": "number"
+                },
+                "minimum": {
+                  "const": 0
+                },
+                "maximum": {
+                  "const": 100
+                },
+                "runtimeProjection": {
+                  "const": "percent-width"
+                },
+                "runtimeTargets": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "tag",
+                      "attribute"
+                    ],
+                    "properties": {
+                      "tag": {
+                        "const": "span"
+                      },
+                      "attribute": {
+                        "const": "data-dc-percent-width"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "runtimeModel": false,
+                "maxLength": false,
+                "minLength": false
+              }
+            }
+          }
+        ]
       }
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "definitions": {
+    "displayModel": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "minLength",
+            "maxLength"
+          ],
+          "properties": {
+            "type": {
+              "const": "string"
+            },
+            "minLength": {
+              "const": 1
+            },
+            "maxLength": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8192
+            },
+            "enum": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "minimum",
+            "maximum"
+          ],
+          "properties": {
+            "type": {
+              "const": "number"
+            },
+            "minimum": {
+              "type": "number",
+              "minimum": -1000000000000.0
+            },
+            "maximum": {
+              "type": "number",
+              "maximum": 1000000000000.0
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "minItems",
+            "maxItems",
+            "items"
+          ],
+          "properties": {
+            "type": {
+              "const": "array"
+            },
+            "minItems": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "maxItems": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "items": {
+              "$ref": "#/definitions/displayModel"
+            },
+            "uniqueBy": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]*$"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "properties",
+            "required",
+            "additionalProperties"
+          ],
+          "properties": {
+            "type": {
+              "const": "object"
+            },
+            "properties": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "$ref": "#/definitions/displayModel"
+              }
+            },
+            "required": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            },
+            "additionalProperties": {
+              "const": false
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
 }

@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Bounded source-bound component state scenarios",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schemaVersion", "interpretation", "coverage", "inputs", "components", "cases"],
+  "properties": {
+    "$schema": {"const": "../schemas/component-scenarios.schema.json"},
+    "schemaVersion": {"const": 1},
+    "interpretation": {"type": "string", "minLength": 1},
+    "coverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["components", "cases", "categories", "finiteComponents", "finiteDomains"],
+      "properties": {
+        "components": {"type": "integer", "minimum": 1}, "cases": {"type": "integer", "minimum": 1},
+        "finiteComponents": {"type": "integer", "minimum": 0}, "finiteDomains": {"type": "integer", "minimum": 0},
+        "categories": {"type": "object", "additionalProperties": false,
+          "required": ["default", "finite", "disabled", "error", "empty"],
+          "properties": {"default": {"type": "integer", "minimum": 1}, "finite": {"type": "integer", "minimum": 0}, "disabled": {"type": "integer", "minimum": 0}, "error": {"type": "integer", "minimum": 0}, "empty": {"type": "integer", "minimum": 0}}
+        }
+      }
+    },
+    "inputs": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "components": {"type": "array", "minItems": 1, "items": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "caseIds", "finiteDomains", "disabled", "error", "empty", "keyboard"],
+      "properties": {
+        "name": {"type": "string", "pattern": "^[A-Z][A-Za-z0-9]*$"},
+        "caseIds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+        "finiteDomains": {"type": "object", "additionalProperties": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": ["string", "number"]}}},
+        "disabled": {"enum": ["supported-and-asserted", "no-declared-disabled-prop"]},
+        "error": {"enum": ["supported-and-asserted", "no-declared-error-prop"]},
+        "empty": {"enum": ["supported-and-asserted", "not-classified-no-empty-claim"]},
+        "keyboard": {"type": "string", "minLength": 1}
+      }
+    }},
+    "cases": {"type": "array", "minItems": 1, "items": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "component", "category", "props", "expectation", "sourcePath", "declarationPath"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Z][A-Za-z0-9]*--[A-Za-z0-9-]+$"},
+        "component": {"type": "string"}, "category": {"enum": ["default", "finite", "disabled", "error", "empty"]},
+        "props": {"type": "object"}, "wrapper": {"type": "object"},
+        "expectation": {"type": "object", "required": ["kind"], "properties": {"kind": {"enum": ["mounted", "class-prefix", "conditional-class", "destructive", "icon-size", "skeleton", "table-state", "segmented-mode", "native-disabled", "anchor-disabled", "associated-error", "form-error", "table-error", "empty-collection"]}}},
+        "sourcePath": {"type": "string", "pattern": "^components/.*\\.jsx$"},
+        "declarationPath": {"type": "string", "pattern": "^components/.*\\.d\\.ts$"}
+      }
+    }}
+  }
+}

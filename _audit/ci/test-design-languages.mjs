@@ -1,0 +1,46 @@
+import assert from 'node:assert/strict';
+import {mkdtempSync, mkdirSync, readFileSync, writeFileSync, rmSync, symlinkSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join, resolve, dirname} from 'node:path';
+import {buildDesignMd} from '../../scripts/design-md-lib.mjs';
+import {designMessage} from '../../scripts/design-md-language.mjs';
+import {generateDesignMd} from '../../scripts/generate-design-md.mjs';
+const root = resolve('.'), temporary = mkdtempSync(join(tmpdir(), 'cs-design-languages-'));
+const read = path => readFileSync(join(root, path), 'utf8');
+const inputs = {dtcg: JSON.parse(read('tokens/tokens.dtcg.json')), manifest: JSON.parse(read('_ds_manifest.json')), version: read('VERSION').trim()};
+const en = buildDesignMd(inputs), vi = buildDesignMd({...inputs, language: 'vi'});
+const codes = text => [...text.matchAll(/`([^`\n]+)`/g)].map(match => match[1]).sort();
+// Language routing is deliberately different; source values and normative identifiers are not.
+const body = text => text.replace(/^\*\*Tiếng Việt.*$/m, '');
+assert.deepEqual(codes(body(en)), codes(body(vi)), 'Every technical token/value/reference remains literal');
+const rows = text => text.split('\n').filter(line => /^\| `/.test(line));
+assert.deepEqual(rows(en), rows(vi), 'All source-derived token rows are identical');
+assert.equal(vi.match(/^---\n[\s\S]*?\n---/)[0], en.match(/^---\n[\s\S]*?\n---/)[0], 'Metadata remains literal');
+assert.equal((vi.match(/^#{1,6} /gm) || []).length, (en.match(/^#{1,6} /gm) || []).length);
+assert(vi.includes('Không ánh xạ lại') && vi.includes('không chứng nhận chất lượng dịch'));
+assert(en.includes('compiled ESM `dist/esm/_esm/react.mjs` by default'));
+assert.throws(() => buildDesignMd({...inputs, language: 'fr'}), /Unsupported/);
+assert.throws(() => designMessage('New untranslated normative paragraph', 'vi'), /Untranslated/);
+const unknown = structuredClone(inputs); unknown.dtcg.unplaced = {new: {$type: 'number', $value: 1}};
+assert.throws(() => buildDesignMd({...unknown, language: 'vi'}), /unplaced/);
+const write = (path, value) => {mkdirSync(dirname(join(temporary, path)), {recursive: true}); writeFileSync(join(temporary, path), value);};
+try {
+  for (const path of ['tokens/tokens.dtcg.json', '_ds_manifest.json', 'VERSION']) write(path, read(path));
+  assert.throws(() => generateDesignMd(temporary, {check: true}), /stale/);
+  assert.equal(generateDesignMd(temporary).changed, 2);
+  assert.equal(generateDesignMd(temporary, {check: true}).changed, 0);
+  assert.equal(readFileSync(join(temporary, 'DESIGN.md'), 'utf8'), en);
+  assert.equal(readFileSync(join(temporary, 'docs/vi/entrypoints/DESIGN.md'), 'utf8'), vi);
+  write('docs/vi/entrypoints/DESIGN.md', vi.replace('Không ánh xạ lại', 'Cho phép ánh xạ lại'));
+  assert.throws(() => generateDesignMd(temporary, {check: true}), /stale/);
+  generateDesignMd(temporary);
+  write('DESIGN.md', 'sentinel English');
+  rmSync(join(temporary, 'docs/vi/entrypoints/DESIGN.md'));
+  const outside = join(temporary, 'outside.md');
+  symlinkSync(outside, join(temporary, 'docs/vi/entrypoints/DESIGN.md'));
+  assert.throws(() => generateDesignMd(temporary), /symlink/);
+  assert.equal(readFileSync(join(temporary, 'DESIGN.md'), 'utf8'), 'sentinel English', 'Late output rejection must write neither language');
+  assert.throws(() => readFileSync(outside), /ENOENT/, 'Dangling symlink must never create its external target');
+} finally {rmSync(temporary, {recursive: true, force: true});}
+console.log('PASS generated DESIGN EN/VI: same token rows, code, metadata and inventory; missing translation/language/group/freshness/atomic dangling-output counterproofs. Linguistic acceptance remains human review.');
+if (process.argv.includes('--current')) console.log(JSON.stringify(generateDesignMd(root, {check: true})));

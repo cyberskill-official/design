@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "interpretation": "Anchored floating surfaces only. Modal/image-preview/toast surfaces and inline editors retain separate contracts.",
+  "components": [
+    {
+      "name": "Tooltip",
+      "source": "components/data/Tooltip.jsx",
+      "boundary": "ref",
+      "panel": "bubbleRef",
+      "selector": "cs-tooltip__bubble",
+      "open": "open",
+      "defaultPlacement": "\"top\"",
+      "gap": 8
+    },
+    {
+      "name": "Popover",
+      "source": "components/overlays/Popover.jsx",
+      "boundary": "ref",
+      "panel": "floatingRef",
+      "selector": "cs-popover__panel",
+      "open": "open",
+      "defaultPlacement": "(align === \"end\" ? \"bottom-end\" : \"bottom-start\")",
+      "gap": 8
+    },
+    {
+      "name": "HoverCard",
+      "source": "components/overlays/HoverCard.jsx",
+      "boundary": "panel",
+      "panel": "floatingRef",
+      "selector": "cs-hovercard__panel",
+      "open": "open",
+      "defaultPlacement": "\"bottom-start\"",
+      "gap": 8
+    },
+    {
+      "name": "Popconfirm",
+      "source": "components/overlays/Popconfirm.jsx",
+      "boundary": "wrap",
+      "panel": "floatingRef",
+      "selector": "cs-popconfirm__panel",
+      "open": "open",
+      "defaultPlacement": "\"bottom-start\"",
+      "gap": 8
+    },
+    {
+      "name": "Menu",
+      "source": "components/navigation/Menu.jsx",
+      "boundary": "ref",
+      "panel": "listRef",
+      "selector": "cs-menu__list",
+      "open": "open",
+      "defaultPlacement": "(align === \"end\" ? \"bottom-end\" : \"bottom-start\")",
+      "gap": 6
+    },
+    {
+      "name": "ContextMenu",
+      "source": "components/overlays/ContextMenu.jsx",
+      "boundary": "ref",
+      "panel": "list",
+      "selector": "cs-menu__list",
+      "open": "Boolean(pos)",
+      "defaultPlacement": "\"bottom-start\"",
+      "gap": 0
+    },
+    {
+      "name": "Combobox",
+      "source": "components/forms/Combobox.jsx",
+      "boundary": "wrapRef",
+      "panel": "floatingRef",
+      "selector": "cs-combobox__popup",
+      "open": "open",
+      "defaultPlacement": "\"bottom-start\"",
+      "gap": 6
+    },
+    {
+      "name": "DatePicker",
+      "source": "components/forms/DatePicker.jsx",
+      "boundary": "wrap",
+      "panel": "popup",
+      "selector": "cs-datepicker__pop",
+      "open": "open",
+      "defaultPlacement": "\"bottom-start\"",
+      "gap": 6
+    },
+    {
+      "name": "Cascader",
+      "source": "components/forms/Cascader.jsx",
+      "boundary": "wrap",
+      "panel": "floatingRef",
+      "selector": "cs-cascader__pop",
+      "open": "open",
+      "defaultPlacement": "\"bottom-start\"",
+      "gap": 6
+    },
+    {
+      "name": "TreeSelect",
+      "source": "components/forms/TreeSelect.jsx",
+      "boundary": "wrap",
+      "panel": "floatingRef",
+      "selector": "cs-treeselect__pop",
+      "open": "open",
+      "defaultPlacement": "\"bottom-start\"",
+      "gap": 6
+    },
+    {
+      "name": "ColorPicker",
+      "source": "components/forms/ColorPicker.jsx",
+      "boundary": "wrap",
+      "panel": "floatingRef",
+      "selector": "cs-colorpicker__pop",
+      "open": "open",
+      "defaultPlacement": "\"bottom-start\"",
+      "gap": 6
+    },
+    {
+      "name": "Mentions",
+      "source": "components/forms/Mentions.jsx",
+      "boundary": "ref",
+      "panel": "floatingRef",
+      "selector": "cs-mentions__pop",
+      "open": "open",
+      "defaultPlacement": "\"bottom-start\"",
+      "gap": 0
+    },
+    {
+      "name": "Menubar",
+      "source": "components/navigation/Menubar.jsx",
+      "boundary": "wrap",
+      "panel": "floatingRef",
+      "selector": "cs-menu__list",
+      "open": "open != null",
+      "defaultPlacement": "\"bottom-start\"",
+      "gap": 5
+    },
+    {
+      "name": "NavigationMenu",
+      "source": "components/navigation/NavigationMenu.jsx",
+      "boundary": "wrap",
+      "panel": "popup",
+      "selector": "cs-navmenu__panel",
+      "open": "open != null",
+      "defaultPlacement": "\"bottom-start\"",
+      "gap": 8
+    },
+    {
+      "name": "Toolbar",
+      "source": "components/navigation/Toolbar.jsx",
+      "boundary": "wrap",
+      "panel": "floatingRef",
+      "selector": "cs-menu__list",
+      "open": "open && hasMore",
+      "defaultPlacement": "\"bottom-end\"",
+      "gap": 6
+    },
+    {
+      "name": "FloatingActionButton",
+      "source": "components/button/FloatingActionButton.jsx",
+      "boundary": "panel",
+      "panel": "floatingRef",
+      "selector": "cs-fab__dial",
+      "open": "open && actions.length > 0",
+      "defaultPlacement": "\"top-end\"",
+      "gap": 10
+    },
+    {
+      "name": "AIDisclosureBadge",
+      "source": "components/ai/AIDisclosureBadge.jsx",
+      "boundary": "panel",
+      "panel": "floatingRef",
+      "selector": "cs-ai-disclosure__panel",
+      "open": "open",
+      "defaultPlacement": "\"bottom-start\"",
+      "gap": 8
+    }
+  ]
+}

@@ -1,26 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import { IframeSurface } from '../Maintainer/IframeSurface.jsx';
 
 <Meta title="Docs/Guides/Products" />
 
-# Product registry — element mapping
-
-**Locked** (Jul 2026). Maps CyberSkill portfolio products to Ngũ Hành element packs. One element per product; secondary accents only in gradient washes along Tương sinh. Do not invent new product → element assignments.
-
-| Product | Element | Variant | Markup |
-|---|---|---|---|
-| **Lumi** — wish assistant | Hỏa · fire | plasma | `data-cs-element="hoa" data-cs-variant="plasma"` |
-| **Status Hub** — client portfolio portal | Thủy · water | river (default) | `data-cs-element="thuy"` |
-| **CyberOS Agent Spine** | Kim · metal | steel | `data-cs-element="kim" data-cs-variant="steel"` |
-| **CyberSkill Design System** | Mộc · wood | leaf (default) | `data-cs-element="moc"` |
-| **cyberskill.world** — studio site | Thổ · earth | studio (default) | *(no attributes — studio is Thổ)* |
-| **Client delivery suite** | Thổ · earth | clay | `data-cs-element="tho" data-cs-variant="clay"` |
-| **Board / investor collateral** | Kim · metal | champagne | `data-cs-element="kim"` |
-| **HR / employment instruments** | Mộc · wood | bamboo | `data-cs-element="moc" data-cs-variant="bamboo"` |
-
-## Scope
-
-- UI kits stay Thổ-faithful; per-element demos live in the **Storybook Element toolbar**, **Atomic View**, and **Elements Geometry** specimen
-- Consume a mapping by scoping the product root with the row's markup and `--cs-accent-*`
-- Tương khắc pairs are never combined as primary + secondary
-
-Canonical markdown: `docs/products.md`. Live packs: **Foundations → Elements**.
+<IframeSurface src="/docs/viewer.html?embed=1#docs/products.md" title="Products" fullBleed />

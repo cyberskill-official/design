@@ -1,0 +1,1128 @@
+{
+  "schemaVersion": 1,
+  "interpretation": "Exact display-data models observed in existing authored renderVals and declared component targets. Caller owns translation, legal/financial correctness and calculations; no HTML/functions/URLs/axis or arbitrary props.",
+  "models": [
+    {
+      "template": "app-shell",
+      "id": "cols",
+      "projection": "column-headers",
+      "model": {
+        "type": "array",
+        "minItems": 5,
+        "maxItems": 5,
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "header": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "key",
+            "header"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "key"
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "columns",
+          "component": "CyberSkillDS.DataTable"
+        }
+      ]
+    },
+    {
+      "template": "app-shell",
+      "id": "rows",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "squad": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "pct": {
+              "type": "number",
+              "minimum": -1000000000000,
+              "maximum": 1000000000000
+            },
+            "status": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "key",
+            "name",
+            "squad",
+            "pct",
+            "status"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "key"
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "rows",
+          "component": "CyberSkillDS.DataTable"
+        }
+      ]
+    },
+    {
+      "template": "bod-report",
+      "id": "sources",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "sources",
+          "component": "CyberSkillDS.AIDisclosureBadge"
+        }
+      ]
+    },
+    {
+      "template": "bod-report",
+      "id": "cols",
+      "projection": "column-headers",
+      "model": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 4,
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "header": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "key",
+            "header"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "key"
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "columns",
+          "component": "CyberSkillDS.DataTable"
+        }
+      ]
+    },
+    {
+      "template": "bod-report",
+      "id": "rows",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "client": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "status": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "name",
+            "client",
+            "status",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "name"
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "rows",
+          "component": "CyberSkillDS.DataTable"
+        }
+      ]
+    },
+    {
+      "template": "dashboard",
+      "id": "cols",
+      "projection": "column-headers",
+      "model": {
+        "type": "array",
+        "minItems": 5,
+        "maxItems": 5,
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "header": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "key",
+            "header"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "key"
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "columns",
+          "component": "CyberSkillDS.DataTable"
+        }
+      ]
+    },
+    {
+      "template": "dashboard",
+      "id": "rows",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "squad": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "pct": {
+              "type": "number",
+              "minimum": -1000000000000,
+              "maximum": 1000000000000
+            },
+            "status": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "key",
+            "name",
+            "squad",
+            "pct",
+            "status"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "key"
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "rows",
+          "component": "CyberSkillDS.DataTable"
+        }
+      ]
+    },
+    {
+      "template": "doc-suite-index",
+      "id": "sections",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "rows": {
+              "type": "array",
+              "minItems": 0,
+              "maxItems": 100,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "vi": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 256
+                  },
+                  "en": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 256
+                  },
+                  "code": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 256
+                  }
+                },
+                "required": [
+                  "vi",
+                  "en",
+                  "code"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "vi",
+            "en",
+            "rows"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
+    },
+    {
+      "template": "marketing-campaign-brief",
+      "id": "steps",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "title"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "steps",
+          "component": "CyberSkillDS.Steps"
+        }
+      ]
+    },
+    {
+      "template": "settings",
+      "id": "squads",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "value",
+            "label"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "value"
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "options",
+          "component": "CyberSkillDS.Select"
+        }
+      ]
+    },
+    {
+      "template": "settings",
+      "id": "langs",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "enum": [
+                "en",
+                "vi"
+              ]
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "value",
+            "label"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "value"
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "options",
+          "component": "CyberSkillDS.NativeSelect"
+        }
+      ]
+    },
+    {
+      "template": "tech-incident-report",
+      "id": "timeline",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "meta": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "state": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "enum": [
+                "done",
+                "now",
+                "todo"
+              ]
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "title",
+            "meta",
+            "state",
+            "body"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "items",
+          "component": "CyberSkillDS.Timeline"
+        }
+      ]
+    },
+    {
+      "template": "tech-incident-report",
+      "id": "cols",
+      "projection": "column-headers",
+      "model": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 4,
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "header": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "key",
+            "header"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "key"
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "columns",
+          "component": "CyberSkillDS.DataTable"
+        }
+      ]
+    },
+    {
+      "template": "tech-incident-report",
+      "id": "actions",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "action": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "owner": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "due": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "id",
+            "action",
+            "owner",
+            "due"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "id"
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "rows",
+          "component": "CyberSkillDS.DataTable"
+        }
+      ]
+    },
+    {
+      "template": "tech-rfc",
+      "id": "steps",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "title"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "x-import",
+          "attribute": "steps",
+          "component": "CyberSkillDS.Steps"
+        }
+      ]
+    },
+    {
+      "template": "vn-disciplinary-schedule",
+      "id": "rows",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "group": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "groupEn": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "first": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "repeat": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "group",
+            "groupEn",
+            "vi",
+            "en",
+            "first",
+            "repeat"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
+    },
+    {
+      "template": "vn-foreign-employee-pack",
+      "id": "checklist",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "vi",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
+    },
+    {
+      "template": "vn-foreign-employee-pack",
+      "id": "steps",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "n": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "tvi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "ten": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "n",
+            "vi",
+            "en",
+            "tvi",
+            "ten"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
+    },
+    {
+      "template": "vn-foreign-employee-pack",
+      "id": "exemptions",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "vi",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
+    },
+    {
+      "template": "vn-labour-management-book",
+      "id": "fields",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "n": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "n",
+            "vi",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
+    },
+    {
+      "template": "vn-onboarding-checklist",
+      "id": "groups",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "items": {
+              "type": "array",
+              "minItems": 0,
+              "maxItems": 100,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "vi": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 256
+                  },
+                  "en": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 256
+                  }
+                },
+                "required": [
+                  "vi",
+                  "en"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "vi",
+            "en",
+            "items"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
+    },
+    {
+      "template": "vn-phantom-stock",
+      "id": "articles",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "paras": {
+              "type": "array",
+              "minItems": 0,
+              "maxItems": 100,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "vi": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1878
+                  },
+                  "en": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1916
+                  }
+                },
+                "required": [
+                  "vi",
+                  "en"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "vi",
+            "en",
+            "paras"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
+    },
+    {
+      "template": "vn-phantom-stock",
+      "id": "defs",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "term": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 780
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 840
+            }
+          },
+          "required": [
+            "term",
+            "vi",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
+    },
+    {
+      "template": "vn-receipt-acknowledgement",
+      "id": "docs",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "vi",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
+    },
+    {
+      "template": "vn-salary-scale",
+      "id": "grades",
+      "projection": "records",
+      "model": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "n": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "n",
+            "vi",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "targets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
+    }
+  ]
+}

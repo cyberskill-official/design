@@ -8,6 +8,9 @@ import {apca} from '../../scripts/lib/oklch.mjs';
 const root = new URL('../../', import.meta.url);
 const elements = ['neutral', ...Object.keys(JSON.parse(readFileSync(new URL('tokens/tokens.json', root))).elements)];
 const rows = [], verdicts = [];
+const declaredSuccessRows=14;
+const matrix={browsers:3,osSchemes:2,contrastPreferences:2,themes:3,densities:2,contrastModes:3,elements:elements.length,rows:declaredSuccessRows+1};
+assert.equal(elements.length,16,'Neutral plus all15 declared element/variant packs');
 const hex = color => '#' + color.slice(0, 3).map(n => n.toString(16).padStart(2, '0')).join('');
 for (const browserName of ['chromium', 'firefox', 'webkit']) {
   await withBrowserFixture(async page => {
@@ -20,6 +23,9 @@ for (const browserName of ['chromium', 'firefox', 'webkit']) {
       assert.equal(verdict.pass, true, 'The actual geometry gate must still run and pass');
       assert.equal(verdict.packs, 15);
       assert.deepEqual(verdict.problems, []);
+      const messages=await page.locator('#out .row').allTextContents();
+      assert.equal(messages.length,declaredSuccessRows,'All original13 geometry rows plus the independently owned runtime palette row');
+      assert.equal(messages.filter(text=>text.includes('Actual light/dark public roles and system inheritance')).length,1,'The new resolver guard has exactly one measured row');
       verdicts.push({browserName, colorScheme, contrast, verdict});
       await page.addStyleTag({content: '*{transition:none!important;animation:none!important}:root{--test-contrast:standard}@media(prefers-contrast:more){:root{--test-contrast:high}}'});
       assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--test-contrast').trim()), contrast === 'more' ? 'high' : 'standard');
@@ -66,12 +72,13 @@ const failures = rows.filter(row => row.lc < 75);
 const report = {
   recordedAt: new Date().toISOString(),
   sourceSha256: createHash('sha256').update(readFileSync(new URL('_audit/element-geometry.html', root))).digest('hex'),
-  scope: 'Actual geometry gate: all 13 generated successful rows plus one failure-class fixture, all neutral/15 element variants, 3 themes, 2 densities, inherited/explicit Standard/High contrast, 2 OS schemes and 2 contrast preferences in 3 engines. Opaque text on the declared solid body surface; no arbitrary compositing, native, manual AT or owner acceptance claim.',
-  verdicts, rows, failures,
+  scope: 'Actual geometry gate: all 14 generated successful rows plus one failure-class fixture, all neutral/15 element variants, 3 themes, 2 densities, inherited/explicit Standard/High contrast, 2 OS schemes and 2 contrast preferences in 3 engines. Opaque text on the declared solid body surface; no arbitrary compositing, native, manual AT or owner acceptance claim.',
+  matrix, verdicts, rows, failures,
 };
 if (process.env.CS_GEOMETRY_TEXT_RECEIPT) writeFileSync(process.env.CS_GEOMETRY_TEXT_RECEIPT, gzipSync(JSON.stringify(report)));
 console.log(JSON.stringify({measurements: rows.length, failures: failures.length, minimumLc: Math.min(...rows.map(row => row.lc)), examples: failures.slice(0, 2)}, null, 2));
 assert.equal(verdicts.length, 12);
-assert.equal(rows.length, 48384, 'All 14 rows across the complete declared axes');
+const expectedMeasurements=Object.values(matrix).reduce((product,count)=>product*count,1);
+assert.equal(rows.length,expectedMeasurements,'All15 owned rows across the complete declared matrix');
 assert(rows.every(row => row.fg[3] === 255 && row.bg[3] === 255), 'Text and body surface must be opaque');
 assert.equal(failures.length, 0, 'Geometry gate verdict text must meet the repository APCA75 body floor');

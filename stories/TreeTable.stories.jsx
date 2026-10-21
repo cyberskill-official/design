@@ -58,3 +58,21 @@ export const Matrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioTreeTableEmpty = {
+  name: "TreeTable: Empty collection",
+  args: {
+  "columns": [
+    {
+      "key": "name",
+      "header": "Name"
+    }
+  ],
+  "nodes": []
+},
+  render: args => renderComponentScenario("TreeTable--empty",args),
+  play: ({canvasElement}) => playComponentScenario("TreeTable--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

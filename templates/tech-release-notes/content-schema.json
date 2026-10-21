@@ -1,0 +1,46 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "tech-release-notes",
+  "slots": [
+    {
+      "id": "releaseVersionDisplay",
+      "type": "text",
+      "label": "Release Version Display",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "releaseTitleEn",
+      "type": "text",
+      "label": "Release Title En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "releaseTitleVi",
+      "type": "text",
+      "label": "Release Title Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "releaseDateKickerEn",
+      "type": "text",
+      "label": "Release date kicker en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "releaseDateKickerVi",
+      "type": "text",
+      "label": "Release date kicker vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

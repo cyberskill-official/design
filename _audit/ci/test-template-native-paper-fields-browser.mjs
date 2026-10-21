@@ -1,0 +1,153 @@
+import assert from 'node:assert/strict';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { withBrowserFixture } from './lib/browser-fixture.mjs';
+import { unzipEntries } from './lib/docx-zip.mjs';
+import { extractPdfText } from './lib/pdf-text.mjs';
+const source = JSON.parse(readFileSync('scripts/template-native-paper-fields.json')),
+  browserName = process.env.CS_TEST_BROWSER || 'chromium',
+  records = [],
+  hash = s => createHash('sha256').update(s).digest('hex');
+await withBrowserFixture(async page => {
+  const origin = new URL(page.url()).origin,
+    settle = () => page.evaluate(async () => {
+      await document.fonts.ready;
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    });
+  const docx = async () => {
+    if (!(await page.evaluate(() => window.__csDocExport?.buildDocxBlob))) await page.addScriptTag({
+      url: origin + '/templates/_vendor/doc-export.js'
+    });
+    const bytes = await page.evaluate(async () => Array.from(new Uint8Array(await (await __csDocExport.buildDocxBlob(document.querySelector('.cs-sheet'))).arrayBuffer())));
+    const parts = unzipEntries(Buffer.from(bytes)),
+      xml = parts['word/document.xml'].toString();
+    const parsed = await page.evaluate(xml => {
+      const doc = new DOMParser().parseFromString(xml, 'application/xml');
+      if (doc.querySelector('parsererror')) throw Error('Invalid DOCX XML');
+      return doc.documentElement.textContent;
+    }, xml);
+    return {
+      xml,
+      text: parsed,
+      media: Object.fromEntries(Object.entries(parts).filter(([p]) => p.startsWith('word/media/')).map(([p, b]) => [p, hash(b)]))
+    };
+  };
+  for (const entry of source.templates) {
+    const url = origin + '/' + entry.path;
+    await page.goto(url);
+    await page.waitForFunction(() => window.__dcSetContent && document.querySelector('.cs-sheet') && !document.querySelector('.sc-logic-error'));
+    await settle();
+    const currentHtml = await page.locator('[data-sc-name]').innerHTML(),
+      currentPixels = await page.locator('.cs-sheet').screenshot(),
+      currentDocx = await docx();
+    const authored = readFileSync(entry.path, 'utf8'),
+      original = authored.replace(/\{\{ ([A-Za-z][A-Za-z0-9]*) \}\}/g, (m, id) => entry.fields.find(f => f.id === id)?.default || m).replace(/\/\* @generated native-paper-content:defaults \*\/[\s\S]*?\/\* @endgenerated native-paper-content:defaults \*\//, '').replace(' data-content-schema="./content-schema.json"', '');
+    assert.equal(hash(original), entry.baselineSha256);
+    await page.route(url, route => route.fulfill({
+      body: original,
+      contentType: 'text/html'
+    }));
+    await page.goto(url);
+    await page.waitForFunction(() => window.__dcRootName?.() && document.querySelector('.cs-sheet'));
+    await settle();
+    assert.equal(await page.locator('[data-sc-name]').innerHTML(), currentHtml, 'Entire default legal/identity markup unchanged');
+    assert(currentPixels.equals(await page.locator('.cs-sheet').screenshot()), 'Entire default paper pixels unchanged');
+    assert.deepEqual(await docx(), currentDocx, 'Editable DOCX XML and media unchanged');
+    await page.unroute(url);
+    await page.goto(url);
+    await page.waitForFunction(() => window.__dcSetContent && document.querySelector('.cs-sheet'));
+    await settle();
+    const content = Object.fromEntries(entry.fields.map((f, i) => [f.id, 'Ứng viên ' + i + ' <img src=x> & " 🌟']));
+    await page.evaluate(c => __dcSetContent(__dcRootName(), c), content);
+    await settle();
+    const text = await page.locator('.cs-sheet').textContent();
+    for (const value of Object.values(content)) assert(text.includes(value));
+    assert.equal(await page.locator('img[src=x]').count(), 0, 'Caller markup remains literal');
+    const customDocx = await docx();
+    for (const value of Object.values(content)) assert(customDocx.text.includes(value), 'Actual editable XML retains field data');
+    await page.emulateMedia({
+      media: 'print'
+    });
+    for (const value of Object.values(content)) assert((await page.locator('.cs-sheet').textContent()).includes(value));
+    let parsedPdf = false;
+    if (browserName === 'chromium') {
+      const pdf = extractPdfText(await page.pdf({
+        printBackground: true,
+        preferCSSPageSize: true
+      }));
+      for (const value of Object.values(content)) assert(pdf.text.replace(/\s/gu, '').includes(value.replace(/\s/gu, '')));
+      parsedPdf = true;
+    }
+    await page.emulateMedia({
+      media: 'screen'
+    });
+    const rejected = await page.evaluate(ids => {
+      const before = document.querySelector('[data-sc-name]').innerHTML;
+      let count = 0,
+        getters = 0;
+      const reject = c => {
+        try {
+          __dcSetContent(__dcRootName(), c);
+        } catch {
+          count++;
+          return;
+        }
+        throw Error('Unsafe content accepted');
+      };
+      for (const id of ids) {
+        for (const bad of [[], {}, () => {}, 'A\u0000Z', 'A\uD800Z', 'x'.repeat(257), '']) reject({
+          [id]: bad
+        });
+        const c = {};
+        Object.defineProperty(c, id, {
+          get() {
+            getters++;
+            return 'bad';
+          },
+          enumerable: true
+        });
+        reject(c);
+      }
+      reject({
+        unknown: 'bad'
+      });
+      reject({
+        element: 'bad'
+      });
+      reject(JSON.parse('{"__proto__":"bad"}'));
+      if (getters) throw Error('Accessor executed');
+      if (before !== document.querySelector('[data-sc-name]').innerHTML) throw Error('Rejected content changed prior state');
+      return {
+        count,
+        getters
+      };
+    }, entry.fields.map(f => f.id));
+    await page.evaluate(() => __dcSetContent(__dcRootName(), {}));
+    await settle();
+    assert.equal(await page.locator('[data-sc-name]').innerHTML(), currentHtml, 'Reset restores every exact default/legal clause');
+    records.push({
+      path: entry.path,
+      fields: entry.fields.length,
+      defaultHtmlPixelsDocxIdentical: true,
+      customPlainTextDocx: true,
+      print: true,
+      parsedPdf,
+      rejected
+    });
+  }
+}, {
+  browserName
+});
+mkdirSync('test-results/native-paper-fields', {
+  recursive: true
+});
+writeFileSync('test-results/native-paper-fields/' + browserName + '.json', JSON.stringify({
+  pass: true,
+  browserName,
+  fields: source.templates.flatMap(entry => entry.fields).length,
+  templates: source.templates.length,
+  records,
+  sourceSha256: hash(readFileSync('scripts/template-native-paper-fields.json')),
+  scope: 'Existing bilingual fill-only display fields; no date/legal/financial interpretation. Browser-print PDF text proof Chromium only.'
+}, null, 2) + '\n');
+console.log('PASS ' + browserName + ' ' + source.templates.flatMap(entry => entry.fields).length + ' native paper fields: exact original defaults/pixels/DOCX, custom print/export and atomic unsafe input rejection');

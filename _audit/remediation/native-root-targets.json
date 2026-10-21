@@ -1,0 +1,1737 @@
+{
+  "schemaVersion": 1,
+  "scope": "Isolated explicit native-target API batch. Source facts; presence alone does not prove accessibility or release acceptance.",
+  "remediatedTargets": [
+    {
+      "name": "Accordion",
+      "source": "components/data/Accordion.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "AIDisclosureBadge",
+      "source": "components/ai/AIDisclosureBadge.jsx",
+      "target": "span",
+      "protected": []
+    },
+    {
+      "name": "AvatarGroup",
+      "source": "components/data/Avatar.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "BackTop",
+      "source": "components/navigation/BackTop.jsx",
+      "target": "button",
+      "protected": [
+        "type",
+        "aria-label"
+      ]
+    },
+    {
+      "name": "Calendar",
+      "source": "components/forms/Calendar.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "Carousel",
+      "source": "components/data/Carousel.jsx",
+      "target": "div",
+      "protected": [
+        "role",
+        "aria-roledescription",
+        "aria-label"
+      ]
+    },
+    {
+      "name": "Chart",
+      "source": "components/data/Chart.jsx",
+      "target": "figure",
+      "protected": [
+        "role",
+        "aria-label"
+      ]
+    },
+    {
+      "name": "ChatMessage",
+      "source": "components/ai/ChatMessage.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "CitationList",
+      "source": "components/ai/CitationList.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "CodeBlock",
+      "source": "components/data/CodeBlock.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "CommandPalette",
+      "source": "components/navigation/CommandPalette.jsx",
+      "target": "div",
+      "protected": [
+        "role",
+        "aria-modal",
+        "aria-label"
+      ]
+    },
+    {
+      "name": "Comment",
+      "source": "components/data/Comment.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "ConfidenceMeter",
+      "source": "components/ai/ConfidenceMeter.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "ContextMenu",
+      "source": "components/overlays/ContextMenu.jsx",
+      "target": "div",
+      "protected": [
+        "role",
+        "aria-label",
+        "tabIndex"
+      ]
+    },
+    {
+      "name": "DataGrid",
+      "target": "div",
+      "protected": [
+        "data-virtual",
+        "data-row-count",
+        "data-row-height"
+      ],
+      "source": "components/datatable/DataGrid.jsx"
+    },
+    {
+      "name": "DataTable",
+      "source": "components/datatable/DataTable.jsx",
+      "target": "div",
+      "protected": [
+        "aria-busy",
+        "role"
+      ]
+    },
+    {
+      "name": "Dock",
+      "source": "components/navigation/Dock.jsx",
+      "target": "div",
+      "protected": [
+        "role",
+        "aria-label"
+      ]
+    },
+    {
+      "name": "Drawer",
+      "target": "div",
+      "protected": [
+        "role",
+        "tabIndex",
+        "aria-modal",
+        "aria-labelledby",
+        "aria-label",
+        "data-cs-overlay-material"
+      ],
+      "source": "components/overlays/Drawer.jsx"
+    },
+    {
+      "name": "Editor",
+      "source": "components/forms/Editor.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "EmptyState",
+      "target": "div",
+      "protected": [],
+      "source": "components/feedback/EmptyState.jsx"
+    },
+    {
+      "name": "FileUpload",
+      "source": "components/forms/FileUpload.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "FloatingActionButton",
+      "source": "components/button/FloatingActionButton.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "HotKeys",
+      "source": "components/navigation/HotKeys.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "HoverCard",
+      "source": "components/overlays/HoverCard.jsx",
+      "target": "span",
+      "protected": []
+    },
+    {
+      "name": "HumanReviewGate",
+      "source": "components/ai/HumanReviewGate.jsx",
+      "target": "section",
+      "protected": [
+        "aria-label"
+      ]
+    },
+    {
+      "name": "InlineEdit",
+      "source": "components/forms/InlineEdit.jsx",
+      "target": "span",
+      "protected": []
+    },
+    {
+      "name": "Masonry",
+      "source": "components/data/Masonry.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "Mentions",
+      "source": "components/forms/Mentions.jsx",
+      "target": "span",
+      "protected": []
+    },
+    {
+      "name": "Menu",
+      "source": "components/navigation/Menu.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "Menubar",
+      "source": "components/navigation/Menubar.jsx",
+      "target": "div",
+      "protected": [
+        "role",
+        "aria-label",
+        "aria-labelledby"
+      ]
+    },
+    {
+      "name": "Popconfirm",
+      "source": "components/overlays/Popconfirm.jsx",
+      "target": "span",
+      "protected": []
+    },
+    {
+      "name": "Popover",
+      "target": "span",
+      "protected": [],
+      "source": "components/overlays/Popover.jsx"
+    },
+    {
+      "name": "ProgressBar",
+      "source": "components/feedback/ProgressBar.jsx",
+      "target": "div",
+      "protected": [
+        "role",
+        "aria-valuenow",
+        "aria-valuemin",
+        "aria-valuemax",
+        "aria-label"
+      ]
+    },
+    {
+      "name": "PromptInput",
+      "source": "components/ai/PromptInput.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "PromptSuggestions",
+      "source": "components/ai/PromptSuggestions.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "QRCode",
+      "target": "span",
+      "protected": [
+        "role",
+        "aria-label"
+      ],
+      "source": "components/data/QRCode.jsx"
+    },
+    {
+      "name": "RadioGroup",
+      "source": "components/forms/RadioGroup.jsx",
+      "target": "fieldset",
+      "protected": []
+    },
+    {
+      "name": "Result",
+      "target": "div",
+      "protected": [
+        "role"
+      ],
+      "source": "components/feedback/Result.jsx"
+    },
+    {
+      "name": "Skeleton",
+      "source": "components/feedback/Skeleton.jsx",
+      "target": "div/span",
+      "protected": [
+        "aria-hidden",
+        "role"
+      ]
+    },
+    {
+      "name": "Sortable",
+      "source": "components/data/Sortable.jsx",
+      "target": "ul",
+      "protected": []
+    },
+    {
+      "name": "Splitter",
+      "source": "components/data/Splitter.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "Steps",
+      "source": "components/navigation/Steps.jsx",
+      "target": "div",
+      "protected": [
+        "role",
+        "aria-label"
+      ]
+    },
+    {
+      "name": "Terminal",
+      "source": "components/data/Terminal.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "Timeline",
+      "target": "div",
+      "protected": [],
+      "source": "components/data/Timeline.jsx"
+    },
+    {
+      "name": "TimePicker",
+      "source": "components/forms/TimePicker.jsx",
+      "target": "span",
+      "protected": []
+    },
+    {
+      "name": "ToastStack",
+      "source": "components/feedback/Toast.jsx",
+      "target": "div",
+      "protected": [
+        "role",
+        "aria-label"
+      ]
+    },
+    {
+      "name": "Toolbar",
+      "source": "components/navigation/Toolbar.jsx",
+      "target": "div",
+      "protected": [
+        "role",
+        "aria-label",
+        "aria-orientation"
+      ]
+    },
+    {
+      "name": "Tooltip",
+      "target": "span",
+      "protected": [
+        "data-managed",
+        "data-open"
+      ],
+      "source": "components/data/Tooltip.jsx"
+    },
+    {
+      "name": "Tour",
+      "source": "components/overlays/Tour.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "Transfer",
+      "source": "components/forms/Transfer.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "Tree",
+      "source": "components/data/Tree.jsx",
+      "target": "ul",
+      "protected": [
+        "role",
+        "aria-label",
+        "aria-labelledby"
+      ]
+    },
+    {
+      "name": "TreeTable",
+      "source": "components/datatable/TreeTable.jsx",
+      "target": "div",
+      "protected": []
+    },
+    {
+      "name": "TypingIndicator",
+      "source": "components/ai/TypingIndicator.jsx",
+      "target": "span",
+      "protected": [
+        "role",
+        "aria-label"
+      ]
+    },
+    {
+      "name": "Watermark",
+      "target": "div",
+      "protected": [],
+      "source": "components/data/Watermark.jsx"
+    }
+  ],
+  "components": [
+    {
+      "name": "AIDisclosureBadge",
+      "source": "components/ai/AIDisclosureBadge.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Accordion",
+      "source": "components/data/Accordion.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Alert",
+      "source": "components/feedback/Alert.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "AlertDialog",
+      "source": "components/overlays/AlertDialog.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Anchor",
+      "source": "components/navigation/Anchor.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "AspectRatio",
+      "source": "components/data/AspectRatio.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "style"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Avatar",
+      "source": "components/data/Avatar.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "AvatarGroup",
+      "source": "components/data/Avatar.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "BackTop",
+      "source": "components/navigation/BackTop.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Badge",
+      "source": "components/feedback/Badge.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Breadcrumb",
+      "source": "components/navigation/Breadcrumb.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Button",
+      "source": "components/button/Button.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "ButtonGroup",
+      "source": "components/button/ButtonGroup.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Calendar",
+      "source": "components/forms/Calendar.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Card",
+      "source": "components/data/Card.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "CardBody",
+      "source": "components/data/Card.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "CardFooter",
+      "source": "components/data/Card.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "CardHeader",
+      "source": "components/data/Card.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Carousel",
+      "source": "components/data/Carousel.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Cascader",
+      "source": "components/forms/Cascader.jsx",
+      "rootProps": true,
+      "controlProps": true,
+      "rest": false,
+      "explicitNativeKeys": [
+        "aria-labelledby",
+        "id"
+      ],
+      "classification": "field_batch_root_target"
+    },
+    {
+      "name": "Chart",
+      "source": "components/data/Chart.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "ChatMessage",
+      "source": "components/ai/ChatMessage.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "role"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Checkbox",
+      "source": "components/forms/Checkbox.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "CitationList",
+      "source": "components/ai/CitationList.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "CodeBlock",
+      "source": "components/data/CodeBlock.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Collapsible",
+      "source": "components/data/Collapsible.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "ColorPicker",
+      "source": "components/forms/ColorPicker.jsx",
+      "rootProps": true,
+      "controlProps": true,
+      "rest": false,
+      "explicitNativeKeys": [
+        "aria-labelledby",
+        "id"
+      ],
+      "classification": "field_batch_root_target"
+    },
+    {
+      "name": "Combobox",
+      "source": "components/forms/Combobox.jsx",
+      "rootProps": true,
+      "controlProps": true,
+      "rest": false,
+      "explicitNativeKeys": [
+        "aria-labelledby"
+      ],
+      "classification": "field_batch_root_target"
+    },
+    {
+      "name": "CommandPalette",
+      "source": "components/navigation/CommandPalette.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Comment",
+      "source": "components/data/Comment.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "ConfidenceMeter",
+      "source": "components/ai/ConfidenceMeter.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "ContextMenu",
+      "source": "components/overlays/ContextMenu.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "tabIndex"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "DataGrid",
+      "source": "components/datatable/DataGrid.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "DataTable",
+      "source": "components/datatable/DataTable.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "DatePicker",
+      "source": "components/forms/DatePicker.jsx",
+      "rootProps": true,
+      "controlProps": true,
+      "rest": false,
+      "explicitNativeKeys": [
+        "aria-labelledby"
+      ],
+      "classification": "field_batch_root_target"
+    },
+    {
+      "name": "DescriptionList",
+      "source": "components/data/DescriptionList.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Dialog",
+      "source": "components/dialog/Dialog.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Divider",
+      "source": "components/data/Divider.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Dock",
+      "source": "components/navigation/Dock.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Drawer",
+      "source": "components/overlays/Drawer.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Editor",
+      "source": "components/forms/Editor.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "EmptyState",
+      "source": "components/feedback/EmptyState.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "FileUpload",
+      "source": "components/forms/FileUpload.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "FloatingActionButton",
+      "source": "components/button/FloatingActionButton.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Form",
+      "source": "components/forms/Form.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "FormField",
+      "source": "components/forms/Form.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "field_batch_root_target"
+    },
+    {
+      "name": "FormFieldArray",
+      "source": "components/forms/Form.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "field_batch_root_target"
+    },
+    {
+      "name": "FormWizard",
+      "source": "components/forms/Form.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "field_batch_root_target"
+    },
+    {
+      "name": "HotKeys",
+      "source": "components/navigation/HotKeys.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "HoverCard",
+      "source": "components/overlays/HoverCard.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "aria-label",
+        "aria-labelledby"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "HumanReviewGate",
+      "source": "components/ai/HumanReviewGate.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Icon",
+      "source": "components/icon/Icon.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Image",
+      "source": "components/data/Image.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "InlineEdit",
+      "source": "components/forms/InlineEdit.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "InputGroup",
+      "source": "components/forms/InputGroup.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "id",
+        "aria-label"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "InputOTP",
+      "source": "components/forms/InputOTP.jsx",
+      "rootProps": true,
+      "controlProps": true,
+      "rest": false,
+      "explicitNativeKeys": [
+        "id"
+      ],
+      "classification": "field_batch_root_target"
+    },
+    {
+      "name": "Item",
+      "source": "components/data/Item.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Kbd",
+      "source": "components/data/Kbd.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Link",
+      "source": "components/navigation/Link.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "List",
+      "source": "components/data/List.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "ListItem",
+      "source": "components/data/List.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "LocaleProvider",
+      "source": "components/i18n/LocaleProvider.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "context_provider_no_public_content_root"
+    },
+    {
+      "name": "Logo",
+      "source": "components/logo/Logo.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "LumiAvatar",
+      "source": "components/brand/LumiAvatar.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Masonry",
+      "source": "components/data/Masonry.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "style"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Mentions",
+      "source": "components/forms/Mentions.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "aria-label"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Menu",
+      "source": "components/navigation/Menu.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "MenuItem",
+      "source": "components/navigation/Menu.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Menubar",
+      "source": "components/navigation/Menubar.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "aria-label",
+        "aria-labelledby"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "NativeSelect",
+      "source": "components/forms/NativeSelect.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "id"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "NavItem",
+      "source": "components/navigation/Sidebar.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "NavigationMenu",
+      "source": "components/navigation/NavigationMenu.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "NumberField",
+      "source": "components/forms/NumberField.jsx",
+      "rootProps": true,
+      "controlProps": true,
+      "rest": true,
+      "explicitNativeKeys": [
+        "id"
+      ],
+      "classification": "field_batch_root_target"
+    },
+    {
+      "name": "OverlayProvider",
+      "source": "components/overlays/OverlayManager.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "context_provider_no_public_content_root"
+    },
+    {
+      "name": "Pagination",
+      "source": "components/navigation/Pagination.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Popconfirm",
+      "source": "components/overlays/Popconfirm.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Popover",
+      "source": "components/overlays/Popover.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "aria-label",
+        "aria-labelledby"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "ProgressBar",
+      "source": "components/feedback/ProgressBar.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "PromptInput",
+      "source": "components/ai/PromptInput.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "aria-label"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "PromptSuggestions",
+      "source": "components/ai/PromptSuggestions.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "QRCode",
+      "source": "components/data/QRCode.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Radio",
+      "source": "components/forms/RadioGroup.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "RadioGroup",
+      "source": "components/forms/RadioGroup.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Rating",
+      "source": "components/forms/Rating.jsx",
+      "rootProps": true,
+      "controlProps": true,
+      "rest": false,
+      "explicitNativeKeys": [
+        "id"
+      ],
+      "classification": "field_batch_root_target"
+    },
+    {
+      "name": "Result",
+      "source": "components/feedback/Result.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "ScrollArea",
+      "source": "components/data/ScrollArea.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "style"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "SearchField",
+      "source": "components/forms/SearchField.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "SegmentedControl",
+      "source": "components/forms/SegmentedControl.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Select",
+      "source": "components/forms/Select.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "id"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Sidebar",
+      "source": "components/navigation/Sidebar.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Skeleton",
+      "source": "components/feedback/Skeleton.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "style"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Slider",
+      "source": "components/forms/Slider.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "aria-label"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Sortable",
+      "source": "components/data/Sortable.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Spinner",
+      "source": "components/feedback/Spinner.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "style"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Splitter",
+      "source": "components/data/Splitter.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Stat",
+      "source": "components/data/Stat.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "StatusIndicator",
+      "source": "components/feedback/StatusIndicator.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Steps",
+      "source": "components/navigation/Steps.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Switch",
+      "source": "components/forms/Switch.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "aria-label",
+        "aria-labelledby"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Tab",
+      "source": "components/navigation/Tabs.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Tabs",
+      "source": "components/navigation/Tabs.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "aria-label"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Tag",
+      "source": "components/feedback/Tag.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "TagInput",
+      "source": "components/forms/TagInput.jsx",
+      "rootProps": true,
+      "controlProps": true,
+      "rest": false,
+      "explicitNativeKeys": [
+        "id"
+      ],
+      "classification": "field_batch_root_target"
+    },
+    {
+      "name": "Terminal",
+      "source": "components/data/Terminal.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "TextField",
+      "source": "components/textfield/TextField.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "id"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Textarea",
+      "source": "components/forms/Textarea.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "id"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "TimePicker",
+      "source": "components/forms/TimePicker.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "aria-labelledby"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Timeline",
+      "source": "components/data/Timeline.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Toast",
+      "source": "components/feedback/Toast.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "title"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "ToastStack",
+      "source": "components/feedback/Toast.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Toggle",
+      "source": "components/forms/Toggle.jsx",
+      "rootProps": false,
+      "controlProps": false,
+      "rest": true,
+      "explicitNativeKeys": [
+        "aria-label"
+      ],
+      "classification": "existing_native_spread"
+    },
+    {
+      "name": "Toolbar",
+      "source": "components/navigation/Toolbar.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Tooltip",
+      "source": "components/data/Tooltip.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Tour",
+      "source": "components/overlays/Tour.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Transfer",
+      "source": "components/forms/Transfer.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Tree",
+      "source": "components/data/Tree.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [
+        "aria-label",
+        "aria-labelledby"
+      ],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "TreeSelect",
+      "source": "components/forms/TreeSelect.jsx",
+      "rootProps": true,
+      "controlProps": true,
+      "rest": false,
+      "explicitNativeKeys": [
+        "aria-labelledby",
+        "id"
+      ],
+      "classification": "field_batch_root_target"
+    },
+    {
+      "name": "TreeTable",
+      "source": "components/datatable/TreeTable.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "TypingIndicator",
+      "source": "components/ai/TypingIndicator.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    },
+    {
+      "name": "Watermark",
+      "source": "components/data/Watermark.jsx",
+      "rootProps": true,
+      "controlProps": false,
+      "rest": false,
+      "explicitNativeKeys": [],
+      "classification": "remediated_existing_root"
+    }
+  ],
+  "baselineRevalidation": {
+    "scope": "Frozen repository before the explicit target API batch; export-signature census, not a statement that component-specific props equal native attributes.",
+    "publicComponentExports": 119,
+    "distinctSources": 106,
+    "classNameExportsWithoutRestSpread": 65,
+    "exceptions": [
+      {
+        "name": "Cascader",
+        "explicitNamedProps": [
+          "aria-labelledby"
+        ]
+      },
+      {
+        "name": "ColorPicker",
+        "explicitNamedProps": [
+          "aria-labelledby"
+        ]
+      },
+      {
+        "name": "Combobox",
+        "explicitNamedProps": [
+          "aria-labelledby"
+        ]
+      },
+      {
+        "name": "ContextMenu",
+        "explicitNamedProps": [
+          "tabIndex"
+        ]
+      },
+      {
+        "name": "DatePicker",
+        "explicitNamedProps": [
+          "aria-labelledby"
+        ]
+      },
+      {
+        "name": "Drawer",
+        "explicitNamedProps": [
+          "title"
+        ]
+      },
+      {
+        "name": "EmptyState",
+        "explicitNamedProps": [
+          "title"
+        ]
+      },
+      {
+        "name": "FileUpload",
+        "explicitNamedProps": [
+          "title"
+        ]
+      },
+      {
+        "name": "HoverCard",
+        "explicitNamedProps": [
+          "aria-label",
+          "aria-labelledby"
+        ]
+      },
+      {
+        "name": "Masonry",
+        "explicitNamedProps": [
+          "style"
+        ]
+      },
+      {
+        "name": "Mentions",
+        "explicitNamedProps": [
+          "aria-label"
+        ]
+      },
+      {
+        "name": "Menubar",
+        "explicitNamedProps": [
+          "aria-label",
+          "aria-labelledby"
+        ]
+      },
+      {
+        "name": "Popconfirm",
+        "explicitNamedProps": [
+          "title"
+        ]
+      },
+      {
+        "name": "Popover",
+        "explicitNamedProps": [
+          "aria-label",
+          "aria-labelledby"
+        ]
+      },
+      {
+        "name": "PromptInput",
+        "explicitNamedProps": [
+          "aria-label"
+        ]
+      },
+      {
+        "name": "Result",
+        "explicitNamedProps": [
+          "title"
+        ]
+      },
+      {
+        "name": "Skeleton",
+        "explicitNamedProps": [
+          "style"
+        ]
+      },
+      {
+        "name": "TagInput",
+        "explicitNamedProps": [
+          "id"
+        ]
+      },
+      {
+        "name": "Terminal",
+        "explicitNamedProps": [
+          "title"
+        ]
+      },
+      {
+        "name": "TimePicker",
+        "explicitNamedProps": [
+          "aria-labelledby"
+        ]
+      },
+      {
+        "name": "Tree",
+        "explicitNamedProps": [
+          "aria-label",
+          "aria-labelledby"
+        ]
+      },
+      {
+        "name": "TreeSelect",
+        "explicitNamedProps": [
+          "aria-labelledby"
+        ]
+      }
+    ],
+    "finding59Count": "The assessment grep count is not reproduced exactly. Several existing components already expose specific style/id/ARIA props; this batch closes arbitrary common root-attribute gaps rather than assuming zero native support."
+  }
+}

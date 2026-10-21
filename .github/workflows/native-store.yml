@@ -10,6 +10,15 @@ name: native-store
 on:
   workflow_dispatch:
   pull_request:
+    paths:
+      - 'examples/native/**'
+      - 'tokens/native/**'
+      - 'fonts/subset-recipe.json'
+      - '_audit/ci/native-store-dry-run.mjs'
+      - '_audit/ci/test-native-samples.mjs'
+      - '_audit/ci/ci-verdict.mjs'
+      - '.github/workflows/native-store.yml'
+      - 'package.json'
   push:
     branches: [main]
     paths:
@@ -40,6 +49,7 @@ jobs:
         with:
           node-version: '22'
           cache: npm
+      - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
       - name: Store packaging dry-run (scaffolds + metadata, no secrets)

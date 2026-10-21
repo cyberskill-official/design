@@ -1,0 +1,54 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-job-description",
+  "slots": [
+    {
+      "id": "headerReferenceSequence",
+      "type": "text",
+      "label": "Số/No. · existing placeholder sequence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "position",
+      "type": "text",
+      "label": "Chức danhPosition",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "department",
+      "type": "text",
+      "label": "Bộ phậnDepartment",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "lineManager",
+      "type": "text",
+      "label": "Cấp báo cáoReports to",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "levelDisplay",
+      "type": "text",
+      "label": "Cấp bậcLevel / Grade",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "workLocation",
+      "type": "text",
+      "label": "Địa điểm làm việcLocation",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

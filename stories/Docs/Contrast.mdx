@@ -1,23 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import { IframeSurface } from '../Maintainer/IframeSurface.jsx';
 
 <Meta title="Docs/Guides/Contrast" />
 
-# Contrast (APCA)
-
-**Doctrine:** text sits on `-bright` (`--cs-accent-on`), `-strong` (`--cs-accent-on-strong`), or `-tint` (`--cs-accent-ink`), never on the mid-tone `-accent` — at any size. The mid-tone `-accent` is for bars, borders, progress fills, and non-text fills only.
-
-## What we measure
-
-- Elemental text-accent / bright / on-strong pairings (light and dark)
-- Dark elemental packs: bright ≥ 75 · accent ≥ 60 · button ink ≥ 75 · ink-on-tint ≥ 75 — **15/15 packs pass**
-- Semantic colours on dark surfaces carry dedicated overrides (success / danger / warning / info)
-
-## Where to look
-
-| Surface | Role |
-|---|---|
-| **A11y → Contrast (APCA)** | Live specimen in this Storybook |
-| **Status** | Contrast guard + APCA dark packs on the gate board |
-| `docs/contrast-report.md` | Full generated matrix (regenerate after token changes) |
-
-Interactive components that paint brand-umber on themeable surfaces **must** ship a `[data-theme="dark"]` override — umber is near-invisible on dark (contrast-guard enforced).
+<IframeSurface src="/docs/viewer.html?embed=1#docs/contrast-report.md" title="Contrast report" fullBleed />

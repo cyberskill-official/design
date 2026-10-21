@@ -1,0 +1,30 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-resignation-letter",
+  "slots": [
+    {
+      "id": "employeeName",
+      "type": "text",
+      "label": "Full name",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "departmentPosition",
+      "type": "text",
+      "label": "Department / Position",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "laborContractReference",
+      "type": "text",
+      "label": "Labor Contract No.",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

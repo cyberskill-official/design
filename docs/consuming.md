@@ -31,20 +31,20 @@ Built-in language resolves from an explicit `lang` prop, then the nearest DOM `[
 
 | Consumer | Start here | Available path and validation boundary | Do not |
 |---|---|---|---|
-| **Claude Code** | `SKILL.md` → `README.md` → `styles.css` + bundler `@cyberskill/design` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve) | Repository rules, components and prompts; verify skill loading and a representative task in the host | Hardcode the bundle suffix; treat Storybook host as the portable contract; import `_esm/cs.mjs` or `@cyberskill/design/legacy` into Next/SSR bundlers |
-| **Google Stitch** | `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` | Doctrine, tokens and static `.cs-*` HTML; verify the tool's generated output separately | Treat `templates/**/*.dc.html` as SoT — no tweaks / `__dcSetProps` / DC compiler |
-| **Claude Design** | Full repo + available DC compiler | DC authoring sources for tweaks, `x-import` and declared language controls; verify compiler availability, preview and each required export | Skip the sync loop in `docs/sync.md` |
-| **npm** | `@cyberskill/design` | Repository version and registry publication are separate: auto-bump → tag validation → authorized dispatch → verified publication; grant in `docs/consumer-grant.md` | Treat registry install as a public license (still UNLICENSED) |
+| **Repository maintenance** | `SKILL.md` → `CONTRIBUTING.md` → doctrine and relevant checks | Source contracts and full repository validation | Treat a passing check as human acceptance |
+| **Plain HTML / open-spec tools** | `DESIGN.md` → `llms.txt` → tokens and `.cs-*` | Standard HTML/CSS; verify the consuming tool's output | Feed `.dc.html` to a tool that does not understand its grammar |
+| **Browser templates** | `templates/<slug>/<Name>.dc.html` → [template grammar](template-grammar.md) | Serve the repository over HTTP: shipped `support.js` interprets templates and exposes `__dcSetProps`; document toolbar exports PDF/DOCX | Assume arbitrary content slots are writable runtime props |
+| **Host-assisted authoring/export** | Browser template plus host capability checks | Tweak-panel authoring, PPTX (`gen_pptx`), single-file inlining (`super_inline_html`) and `check_design_system` are external capabilities | Assume those names are installed repository commands |
+| **npm** | `@cyberskill/design` | Authorized version edit → tag validation → authorized dispatch → verified publication; grant in `docs/consumer-grant.md` | Treat registry install as a public license (still UNLICENSED) |
 
-**Stitch DC rule:** Stitch (and any non-DC tool) must **not** consume `*.dc.html` as source of truth. Use static export patterns, `templates/kitchen-sink.html`, `examples/static-hello/`, and `.cs-*` classes from `styles.css`.
-
-**Release signal:** `VERSION` (auto-bump on `main`; no CHANGELOG). Treat the **git tip SHA** as technical truth; read curated product highlights in `docs/release-notes.md`.
+**Runtime boundary:** `.dc.html` is source for the shipped browser interpreter. Plain HTML tools can use `.cs-*` or a verified rendered copy; they need grammar support before editing DC directives.
+**Release signal:** `VERSION` (explicit release edit; no CHANGELOG). Treat the **git tip SHA** as technical truth; read curated product highlights in `docs/release-notes.md`.
 
 ## Quick path for AI agents (DC-capable authoring, or driving one)
 
-**What you get:** `styles.css` (public CSS tokens + `.cs-*` classes + Liquid Glass surfaces, `@import`s `tokens/` + `base/`) · `_ds_bundle.js` (compiled React components, no build step) · `dist/esm/_esm/react.mjs` (bundler-native React entry — React as peerDependency; default `exports["."]`) · `_esm/cs.mjs` (browser / no-build legacy via `exports["./legacy"]`) · `_ds_manifest.json` (machine-readable inventory) · per-component `Name.d.ts` (API) + `Name.prompt.md` (usage brief) · `tokens/tokens.dtcg.json` (DTCG 2025.10) + `tokens.json`/`tokens.js`.
+**What you get:** `styles.css` (public CSS tokens + `.cs-*` classes + Liquid Glass surfaces, `@import`s `tokens/` + `base/`) · `_ds_bundle.js` (compiled React components, no build step) · `dist/esm/_esm/react.mjs` (compiled ESM default with linked source maps and peer React) · `_esm/react.mjs` (explicit `@cyberskill/design/source`, raw JSX) · `_esm/cs.mjs` (browser / no-build legacy via `exports["./legacy"]`) · `_ds_manifest.json` (machine-readable inventory) · per-component `Name.d.ts` (API) + `Name.prompt.md` (usage brief) · `tokens/tokens.dtcg.json` (DTCG 2025.10) + `tokens.json`/`tokens.js`.
 
-**Repo checkout** — clone or copy the whole tree; everything is relative-path static. Entry points: Storybook on the host site (`/` / `npm run storybook`) · `guidelines/atomic-view.html` (every component live, portable) · `templates/<slug>/` (copyable starting points — DC when a compiler is present; kitchen-sink / `.cs-*` for Stitch / static). Read `SKILL.md` before authoring anything on-brand; Stitch readers start at `DESIGN.md`. Deeper maps live in `llms.txt` (inventory) and this file (full adoption + upgrade guide below).
+**Repo checkout** — clone or copy the whole tree; everything is relative-path static. Entry points: Storybook on the host site (`/` / `npm run storybook`) · `guidelines/atomic-view.html` (every component live, portable) · `templates/<slug>/` (copyable starting points interpreted by shipped `support.js`; kitchen-sink / `.cs-*` for plain HTML). Read `SKILL.md` before authoring anything on-brand; Stitch readers start at `DESIGN.md`. Deeper maps live in `llms.txt` (inventory) and this file (full adoption + upgrade guide below).
 
 **After import — run the checks.** Open `_audit/run.html` and let every fast gate finish. A pass covers the gate's implemented scope and tested source/environment. Inspect skipped, N/A, advisory and waiver results; then run the relevant consumer, interaction and export checks for your product. Complete accessibility, visual quality and host behavior require their own evidence and human review. Full-clone only — `_audit/` is not in the npm tarball.
 
@@ -77,7 +77,7 @@ import { Button, TextField } from "@cyberskill/design";
 import "@cyberskill/design/styles.css";
 ```
 
-The default package entry is compiled ESM at `dist/esm/_esm/react.mjs`; Next.js does not need package JSX transpilation for this entry. The generated entry retains `"use client"`. Explicit `@cyberskill/design/source` resolves to source JSX at `_esm/react.mjs` and requires transpilation (Next.js: `transpilePackages: ["@cyberskill/design"]`). React and react-dom remain peer dependencies. Published types require TypeScript 5.0+. Keep `_esm/cs.mjs` / `@cyberskill/design/legacy` in browsers; it loads React globals and the classic bundle and is not an SSR import. See the [runtime API contract](runtime-api.md).
+The default entry (`dist/esm/_esm/react.mjs`) ships compiled ESM with linked authored source maps; no package JSX transpilation is required. It retains a **`"use client"` boundary** — App Router Server Components can `import { Button } from "@cyberskill/design"` without per-import client shims. React and react-dom are **peerDependencies** — your app provides them. Published types use `export type *` (**TypeScript 5.0+**). Do **not** import `_esm/cs.mjs` (or `@cyberskill/design/legacy`) into an SSR bundler; that browser path supplies missing React globals from local `_vendor/react/` first, falls back to a pinned CDN only after a local load fails, and side-loads `_ds_bundle.js`.
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) or continue with the static tree paths below. The published tarball is the **full portable tree** (styles, tokens, components, templates, guidelines, docs, UI kits) — not a minimal “lib-only” subset. Host-only tooling (Storybook, `_audit/`) is not in `files[]`.
 
@@ -110,7 +110,9 @@ The default package entry is compiled ESM at `dist/esm/_esm/react.mjs`; Next.js 
 ```
 The template helper `ds-base.js` also waits for both runtime globals before loading the bundle, then exposes `window.CyberSkillDS`. The classic-script example above is a browser path; bundler consumers use the package entry in 2b.
 
-**2b. Bundler React (Next / Vite / SSR) — default package entry.** `@cyberskill/design` and `@cyberskill/design/react` share compiled ESM at `dist/esm/_esm/react.mjs`. Root and compiled component imports share context and component identity. React/react-dom remain external peers; no CDN or classic bundle is loaded by this path. The explicit `@cyberskill/design/source` and `@cyberskill/design/source/components/*` entries retain a separate source module family for JSX-aware builds. Use one family consistently within a component tree. Link CSS separately. Regenerate source entries with `build:react-entry`, then compiled entries with `build:compiled`; compiled freshness and actual packed SSR tests cover the generated graph.
+**2b. Compiled React ESM (Next / Vite / Node SSR) — default package entry.** `import { Button, TextField } from "@cyberskill/design"` resolves to `dist/esm/_esm/react.mjs` (also `@cyberskill/design/react`). Compiled entries and shared chunks retain `"use client"`; React and react-dom remain external peers. Root and granular imports such as `@cyberskill/design/components/button/Button.jsx` use the same split module graph, preserving component/context identity. The `.jsx` import spelling remains compatible while its import target is compiled `.mjs`. Linked source maps contain the actual authored sources. Link CSS yourself. CommonJS is not a supported entry contract.
+
+**Source workflow:** `@cyberskill/design/source` retains the generated `_esm/react.mjs` raw-JSX barrel, and `@cyberskill/design/source/components/button/Button.jsx` selects raw component source. These explicit source paths require JSX-aware tooling (for Next, configure `transpilePackages` when using this source path). Use one entry family per component tree to preserve shared contexts. Maintainers run `npm run build:react-entry && npm run build:compiled`; `node scripts/build-compiled-esm.mjs --check` verifies every output and rejects stale, missing or orphan files without writing.
 
 **2c. Browser ESM legacy — one import, no build.** `import { Button, TextField } from "@cyberskill/design/legacy"` (or `"<path>/_esm/cs.mjs"`) — the module checks `window.React` and `window.ReactDOM` separately, loads missing globals from local `_vendor/react/` production files first, and falls back to **umd-react@19.2.8** on the SRI-pinned CDN only when a local load fails, side-loads `_ds_bundle.js` once, resolves the namespace by prefix, and re-exports all components (`_audit/esm-smoke-test.html` keeps the export list in lockstep with the manifest). For a copied subtree, retain `_vendor/react/` with its provided licenses, `_esm/`, `_ds_bundle.js`, CSS and the referenced token/base/font paths; preserve applicable notices. External fallback is not an offline guarantee. `npm run test:subtree-consume` verifies this declared copy and the EN/VI classic-script examples with external requests rejected. Still link `styles.css` yourself. **Not for Next/SSR.** Bundler apps should keep providing their own `react` / `react-dom` peers (`^18 || ^19`).
 
@@ -118,9 +120,11 @@ The template helper `ds-base.js` also waits for both runtime globals before load
 
 The template helper waits for React and ReactDOM before loading the component bundle, shares one load promise per resolved bundle URL, and rejects module initialization failures before publishing `window.CyberSkillDS`. This prevents duplicate or premature bundle execution when the DC runtime mounts the template head. The standalone script example above requires React and ReactDOM to be loaded first.
 
+`image-slot.js` is a browser custom-element helper copied by relative URL (not a package subpath export). It reads `.image-slots.state.json` beside the template. Upload/crop persistence requires a host providing `window.omelette.writeFile`; a static server does not provide that bridge. See [image authoring](conventions.md#real-imagery-image-slot-retrofit).
+
 **Machine-readable tokens.** `tokens/tokens.json` + `tokens/tokens.js` (ESM) + `tokens/tokens.dtcg.json` (DTCG 2025.10 emitted-value profile; see [extension contract](conventions.md)) expose the exported base categories and CSS-valued theme/element maps — for native/mobile/design-tool pipelines. Live tool imports remain unverified. **Native source files ship pre-generated** in `tokens/native/` (SwiftUI `CSTokens.swift` · Compose `CSTokens.kt` · Flutter `cs_tokens.dart`) with `tokens/provenance.json` (release, source sha-256, conversion rules, per-target sha-256); the `token-pipeline` gate keeps them in lockstep with the DTCG source.
 
-**Static HTML / no React / no build tooling.** Link `dist/styles.min.css` (production) or `styles.css` (source/dev) and compose with `.cs-*` classes — full catalog demonstrated in `templates/kitchen-sink.html`.
+**Static HTML / no React / no build tooling.** Link `dist/styles.min.css` (production) or `styles.css` (source/dev) and compose with `.cs-*` classes — static examples demonstrated in `templates/kitchen-sink.html`.
 
 **Fonts, including a display face.** All three brand families are self-hosted in `fonts/` and declared by `tokens/fonts.css` (which `styles.css` `@import`s): **Be Vietnam Pro** (`--cs-font-family-ui`), **JetBrains Mono** (`--cs-font-family-mono`), and **Space Grotesk** (`--cs-font-family-display`, variable 300–700, Vietnamese subset included). The display face is **opt-in** — nothing in the DS points at it. A product that wants a headline face adds `class="cs-display-face"` (or sets `--cs-heading-family: var(--cs-font-family-display)`) on the scope; heading utilities follow, body copy stays on the UI face.
 
@@ -223,7 +227,7 @@ For multiple independently hydrated roots on one page, choose a distinct
 `identifierPrefix` for each root and use that same value on the server and client:
 
 ```jsx
-// Server: the default package entry is already compiled ESM.
+// Server (plain Node ESM; package code is already compiled).
 const markup = renderToString(<App />, { identifierPrefix: 'account-' });
 // Client, with the same initial component tree and content.
 hydrateRoot(document.getElementById('account'), <App />, {
@@ -300,7 +304,16 @@ loaded bytes are different measurements. The loopback server sends uncompressed
 bodies with caching disabled;
 `gzipBytes` is an offline per-body estimate, not measured network transfer.
 Already-compressed WOFF2 may grow under gzip. Headers, protocol overhead,
-latency, CPU, memory, repeat visits and unvisited states are excluded.
+CPU/memory profiles, repeat visits and unvisited states are excluded.
+
+Each path also records `browserTimings`: browser-clock navigation milestones,
+observed fixture DOM/font readiness followed by two frame opportunities, optional
+FCP/LCP and long-task observations, and a native-click-to-next-render-opportunity
+sample for the two React paths after the expected DOM commit. Unsupported or
+unobserved observer metrics remain `null`; static paths have no fabricated
+interaction duration. The report also hashes the instrumentation source. These
+are individual cold loopback measurements, not percentile baselines, INP,
+hardware presentation times, latency thresholds or physical-device acceptance.
 
 This reference fixture complements the SSR/hydration tests. It does not replace
 real product pilots, prove adoption, establish performance budgets or authorize
@@ -335,3 +348,25 @@ Coarse-pointer sizing also covers speed-dial actions, interactive list rows, sma
 image previews, context-menu zones, and direct focusable overlay triggers.
 `npm run test:touch-supplemental` and `npm run test:trigger-touch` exercise these
 optional and fallback surfaces across both languages, densities and themes.
+
+## Variables-only CSS
+
+Import `@cyberskill/design/tokens.css` when your application owns its reset, typography, link styling and component classes. This entry contains scoped custom-property declarations from the canonical token and base stylesheet graph, including private resolver dependencies for theme, element, density and contrast. It does not load fonts or apply ordinary style declarations, aurora backgrounds, resets or `.cs-*` component styles. Load your chosen fonts separately. The normal `styles.css` entry remains the complete design-system stylesheet.
+
+`tokens/variables.css` is generated by `npm run build:token-css`; `node scripts/generate-token-css-entry.mjs --check` rejects stale output. Browser regressions compare all 256 supported mode combinations with the complete stylesheet and verify that existing host presentation and network requests remain unchanged. Generated component CSS entries are supported at `@cyberskill/design/styles/components/<Name>.css`; see [component CSS entries](component-css.md) for conservative dependency closures, explicit full fallbacks and the ordered composition helper. Arbitrary manual sheet subsets remain unsupported. `components/css-index.json` remains a source dependency index.
+
+Consumer UI-message overrides and additional namespaces use [LocaleProvider and useMessages](locale-messages.md). The scoped message API preserves existing date/number formatter fallbacks and does not add automatic RTL support.
+
+The legacy `_ds_bundle.js` preserves its namespace and per-module initialization error boundaries while compacting whitespace. Its linked `_ds_bundle.js.map` maps through import/export rewriting and JSX compilation to exact authored sources; identifiers are preserved. Ship the adjacent map when debugging that entry. The compiled ESM graph has its own linked source maps.
+
+## Explicit native mode data
+
+`tokens/native/CSModes.swift`, `CSModes.kt` and `cs_modes.dart` add typed data packs beside the unchanged flat constants. The resolver requires explicit theme, color-scheme, element, variant, density, contrast and style choices and rejects combinations absent from the canonical 256-mode inventory. It preserves color spaces, numeric channels, units and omission reasons; callers supply platform UI conversions and OS selection. These are data APIs, not automatic native appearance adapters. Swift has local compilation/execution evidence; Kotlin/Dart source parity and prepared hosted compilation are separate from executed platform acceptance. The native-validation workflow now includes main and relevant pull requests; no hosted run is inferred from a local workflow edit.
+
+For an explicit cascade-layer override contract, import `@cyberskill/design/styles.layered.css` instead of the default stylesheet. See [Layered CSS](layered-css.md) for normal override order and the preserved important safety rules. Do not load both entries; the current default remains unchanged.
+
+`npm run measure:consumers` always retains its packed-consumer report at `test-results/consumer-costs.json`; `-- --output PATH` selects another path. Reports bind the tarball, lockfile, measurement script, browser/tool versions and resource bodies, and retain the observed timings. A single loopback sample is not a device result, percentile or latency budget.
+
+Carousel dots retain 9px visual marks inside separate 24px fine-pointer and 44px coarse-pointer targets. Narrow dot rows wrap; forced-colors selection uses a double system-color border. Tree selection pairs primary text with a theme-aware accent surface; the regression checks all 256 mode combinations.
+
+The compiled ESM producer also refreshes only the reviewed `dist/esm/` publication namespace from its exact output map, including linked source maps and build provenance. Its readonly check rejects stale chunk membership; arbitrary directory files do not gain publication rights. All other public policy entries remain explicit.

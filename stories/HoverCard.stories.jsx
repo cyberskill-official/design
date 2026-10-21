@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { HoverCard } from '../components/overlays/HoverCard.jsx';
 import { Button } from '../components/button/Button.jsx';
 
@@ -5,7 +6,11 @@ export default {
   title: 'Components/Overlays/HoverCard',
   component: HoverCard,
   tags: ['autodocs'],
+  args: { portal: true, className: '' },
   argTypes: {
+    portal: {control: 'boolean', description: 'Body portal after client mount by default; false keeps inline/server markup and ancestor clipping.'},
+    placement: {control: 'select', options: DECLARED_DOMAINS.HoverCard["placement"], description: 'Preferred physical side; flips/shifts within the visual viewport. Top/bottom start/end follow inline direction.'},
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "trigger": {
     "control": "object"
   },
@@ -16,16 +21,9 @@ export default {
     "control": "number"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting HoverCard. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
 };
 
-export const Default = { render: () => (<HoverCard aria-label="Lumi the golden genie" trigger={<Button variant="ghost">Hover</Button>}>Lumi the golden genie</HoverCard>) };
+export const Default = { render: (args) => (<HoverCard aria-label="Lumi the golden genie" trigger={<Button variant="ghost">Hover</Button>} {...args} portal={args.portal} placement={args.placement} >Lumi the golden genie</HoverCard>) };
 
 export const Matrix = {
   name: 'Matrix / Content',

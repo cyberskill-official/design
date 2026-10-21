@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { DatePicker } from '../components/forms/DatePicker.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
@@ -6,11 +7,18 @@ export default {
   component: DatePicker,
   tags: ['autodocs'],
   argTypes: {
+    portal: {control: 'boolean', description: 'Body portal after client mount by default; false keeps inline/server markup and ancestor clipping.'},
+    placement: {control: 'select', options: DECLARED_DOMAINS.DatePicker["placement"], description: 'Preferred physical side; flips/shifts within the visual viewport. Top/bottom start/end follow inline direction.'},
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
+  "controlProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
+  "description": {"control":"text"},
+  "error": {"control":"text"},
+  "required": {"control":"boolean"},
   "value": {
     "control": "text"
   },
   "onChange": {
-    "control": "text"
+    "control": false
   },
   "placeholder": {
     "control": "text"
@@ -25,14 +33,7 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting DatePicker. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
-  args: { label: 'Due date' },
+  args: { portal: true, label: 'Due date' },
 };
 
 export const Default = {};
@@ -62,15 +63,16 @@ export const FullMatrix = {
   name: 'Full matrix / state',
   render: (args) => {
     const cells = cartesian({  }).flatMap((combo) =>
-      stateCombos(["disabled"]).map((state) => {
+      stateCombos(["disabled","error"]).map((state) => {
         const props = { ...combo, ...state };
-        const label = comboLabel(props, ['disabled']);
+        const label = comboLabel(props, ["disabled","error"]);
         return (
           <DatePicker
             key={label}
             {...args}
             disabled={!!state.disabled}
-          />
+           error={state.error ? "Example field error" : undefined}
+           portal={args.portal} placement={args.placement} />
         );
       }),
     );
@@ -81,3 +83,17 @@ export const FullMatrix = {
     );
   },
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioDatePickerError = {
+  name: "DatePicker: Validation error",
+  args: {
+  "value": "2026-10-20",
+  "label": "Date",
+  "error": "DatePicker scenario validation error"
+},
+  render: args => renderComponentScenario("DatePicker--error",args),
+  play: ({canvasElement}) => playComponentScenario("DatePicker--error",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="cs-template-library" content="static-logo">
 <title>Marketing · Social post kit · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,11 +29,11 @@
 <div lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-canvas-desk" style="background:#2a1a0d;padding:28px;font-family:var(--cs-font-family-ui);display:grid;gap:28px;justify-items:center">
 
   <div id="square" style="width:1080px;height:1080px;position:relative;overflow:hidden;background:var(--cs-color-brand-umber);color:#FFFDF8;display:flex;flex-direction:column;justify-content:center;padding:0 96px;box-sizing:border-box;box-shadow:var(--cs-shadow-xl)">
-    <image-slot id="cs-social-square" shape="rect" lang="{{ langAttr }}" placeholder="{{ imagePlaceholder }}" placeholder-vi="Thả ảnh thương hiệu" style="position:absolute;inset:0"></image-slot>
+    <image-slot id="cs-social-square" shape="rect" lang="{{ langAttr }}" placeholder="{{ imagePlaceholder }}" placeholder-vi="{{ imagePlaceholder }}" style="position:absolute;inset:0"></image-slot>
     <div class="cs-aurora-wash" style="position:absolute;inset:0;opacity:0.55;pointer-events:none"></div>
     <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(42,26,13,0.58),rgba(42,26,13,0.44))"></div>
     <div style="position:relative;display:flex;align-items:center;gap:16px;margin-bottom:44px">
-      <x-import component-from-global-scope="CyberSkillDS.Logo" size="56" hint-size="56px,56px"></x-import>
+      <img data-cs-official-logo="" class="cs-logo" width="56" height="56" role="img" alt="CyberSkill" title="CyberSkill">
       <span style="font-weight:800;font-size:28px;letter-spacing:-0.01em">CyberSkill</span>
     </div>
     <div style="position:relative;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--cs-accent-bright)">{{ sqKicker }}</div>
@@ -42,12 +43,12 @@
   </div>
 
   <div id="linkcard" style="width:1200px;height:630px;position:relative;overflow:hidden;background:var(--cs-color-brand-umber);color:#FFFDF8;display:flex;align-items:center;box-sizing:border-box;box-shadow:var(--cs-shadow-xl)">
-    <image-slot id="cs-social-link" shape="rect" lang="{{ langAttr }}" placeholder="{{ imagePlaceholder }}" placeholder-vi="Thả ảnh thương hiệu" style="position:absolute;inset:0"></image-slot>
+    <image-slot id="cs-social-link" shape="rect" lang="{{ langAttr }}" placeholder="{{ imagePlaceholder }}" placeholder-vi="{{ imagePlaceholder }}" style="position:absolute;inset:0"></image-slot>
     <div class="cs-aurora-wash" style="position:absolute;inset:0;opacity:0.5;pointer-events:none"></div>
     <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(42,26,13,0.72),rgba(42,26,13,0.4))"></div>
     <div style="position:relative;padding:0 88px;max-width:820px">
       <div style="display:flex;align-items:center;gap:14px;margin-bottom:30px">
-        <x-import component-from-global-scope="CyberSkillDS.Logo" size="44" hint-size="44px,44px"></x-import>
+        <img data-cs-official-logo="" class="cs-logo" width="44" height="44" role="img" alt="CyberSkill" title="CyberSkill">
         <span style="font-weight:800;font-size:23px">CyberSkill</span>
       </div>
       <div style="font-size:52px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:16px">{{ lcLine1 }}<br><span style="color:var(--cs-accent-bright)">{{ lcLine2 }}</span></div>
@@ -56,11 +57,11 @@
   </div>
 
   <div id="story" style="width:1080px;height:1920px;position:relative;overflow:hidden;background:var(--cs-color-brand-umber);color:#FFFDF8;display:flex;flex-direction:column;justify-content:center;padding:0 100px;box-sizing:border-box;box-shadow:var(--cs-shadow-xl)">
-    <image-slot id="cs-social-story" shape="rect" lang="{{ langAttr }}" placeholder="{{ imagePlaceholder }}" placeholder-vi="Thả ảnh thương hiệu" style="position:absolute;inset:0"></image-slot>
+    <image-slot id="cs-social-story" shape="rect" lang="{{ langAttr }}" placeholder="{{ imagePlaceholder }}" placeholder-vi="{{ imagePlaceholder }}" style="position:absolute;inset:0"></image-slot>
     <div class="cs-aurora-wash" style="position:absolute;inset:0;opacity:0.55;pointer-events:none"></div>
     <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(42,26,13,0.58),rgba(42,26,13,0.46))"></div>
     <div style="position:relative;display:flex;align-items:center;gap:16px;margin-bottom:60px">
-      <x-import component-from-global-scope="CyberSkillDS.Logo" size="60" hint-size="60px,60px"></x-import>
+      <img data-cs-official-logo="" class="cs-logo" width="60" height="60" role="img" alt="CyberSkill" title="CyberSkill">
       <span style="font-weight:800;font-size:30px">CyberSkill</span>
     </div>
     <div style="position:relative;font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--cs-accent-bright)">{{ stKicker }}</div>
@@ -71,17 +72,17 @@
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
+<script type="text/x-dc" data-dc-script data-content-schema="./content-schema.json" data-props="{
   &quot;language&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;},
   &quot;element&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;}
 }">
 class Component extends DCLogic {
   renderVals() {
-    const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
+    const EL = /* @generated template-literal:axis.element-map */ {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]} /* @endgenerated template-literal:axis.element-map */;
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
 const vn = this.props.language === "Tiếng Việt";
-    const en = { sqKicker:"Make a wish", lcLine1:"A wish in one sentence.", lcLine2:"Software that lasts.", lcSub:"Senior Saigon studio · honest about trade-offs · EN·VN", stKicker:"Hiring · Saigon", stLine1:"Build things", stLine2:"that last", stSub:"Senior Product Engineer · Platform squad · Tiếng Việt · English" };
-    const vi = { sqKicker:"Gửi điều ước", lcLine1:"Một điều ước, một câu.", lcLine2:"Phần mềm bền lâu.", lcSub:"Studio Sài Gòn cấp cao · thành thật về đánh đổi · EN·VN", stKicker:"Tuyển dụng · Sài Gòn", stLine1:"Làm những thứ", stLine2:"bền lâu", stSub:"Kỹ sư sản phẩm cấp cao · nhóm Platform · Tiếng Việt · English" };
+    const en = { sqKicker:/* @generated template-literal:copy.make-a-wish.en */ "Make a wish" /* @endgenerated template-literal:copy.make-a-wish.en */, lcLine1:/* @generated template-literal:dictionary.en.6c634c696e6531 */ "A wish in one sentence." /* @endgenerated template-literal:dictionary.en.6c634c696e6531 */, lcLine2:/* @generated template-literal:dictionary.en.6c634c696e6532 */ "Software that lasts." /* @endgenerated template-literal:dictionary.en.6c634c696e6532 */, lcSub:/* @generated template-literal:dictionary.en.6c63537562 */ "Senior Saigon studio · honest about trade-offs · EN·VN" /* @endgenerated template-literal:dictionary.en.6c63537562 */, stKicker:/* @generated template-literal:dictionary.en.73744b69636b6572 */ "Hiring · Saigon" /* @endgenerated template-literal:dictionary.en.73744b69636b6572 */, stLine1:/* @generated template-literal:dictionary.en.73744c696e6531 */ "Build things" /* @endgenerated template-literal:dictionary.en.73744c696e6531 */, stLine2:/* @generated template-literal:dictionary.en.73744c696e6532 */ "that last" /* @endgenerated template-literal:dictionary.en.73744c696e6532 */, stSub:/* @generated template-literal:dictionary.en.7374537562 */ "Senior Product Engineer · Platform squad · Tiếng Việt · English" /* @endgenerated template-literal:dictionary.en.7374537562 */ };
+    const vi = { sqKicker:/* @generated template-literal:copy.make-a-wish.vi */ "Gửi điều ước" /* @endgenerated template-literal:copy.make-a-wish.vi */, lcLine1:/* @generated template-literal:dictionary.vi.6c634c696e6531 */ "Một điều ước, một câu." /* @endgenerated template-literal:dictionary.vi.6c634c696e6531 */, lcLine2:/* @generated template-literal:dictionary.vi.6c634c696e6532 */ "Phần mềm bền lâu." /* @endgenerated template-literal:dictionary.vi.6c634c696e6532 */, lcSub:/* @generated template-literal:dictionary.vi.6c63537562 */ "Studio Sài Gòn cấp cao · thành thật về đánh đổi · EN·VN" /* @endgenerated template-literal:dictionary.vi.6c63537562 */, stKicker:/* @generated template-literal:dictionary.vi.73744b69636b6572 */ "Tuyển dụng · Sài Gòn" /* @endgenerated template-literal:dictionary.vi.73744b69636b6572 */, stLine1:/* @generated template-literal:dictionary.vi.73744c696e6531 */ "Làm những thứ" /* @endgenerated template-literal:dictionary.vi.73744c696e6531 */, stLine2:/* @generated template-literal:dictionary.vi.73744c696e6532 */ "bền lâu" /* @endgenerated template-literal:dictionary.vi.73744c696e6532 */, stSub:/* @generated template-literal:dictionary.vi.7374537562 */ "Kỹ sư sản phẩm cấp cao · nhóm Platform · Tiếng Việt · English" /* @endgenerated template-literal:dictionary.vi.7374537562 */ };
     return Object.assign({ imagePlaceholder: vn ? "Thả ảnh thương hiệu" : "Drop a brand image", langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr }, vn ? vi : en);
   }
 }

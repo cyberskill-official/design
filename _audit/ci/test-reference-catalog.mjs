@@ -8,8 +8,31 @@ import { buildReferenceCatalog, countSurfaces, documentRole, replaceCounts, visu
 assert.equal(replaceCounts('<!-- cs-count:templates -->999<!-- /cs-count -->', { templates: 2 }).text, '<!-- cs-count:templates -->2<!-- /cs-count -->');
 for (const text of ['<!-- cs-count:unknown -->3<!-- /cs-count -->', '<!-- cs-count:templates -->oops<!-- /cs-count -->', '<!-- cs-count:templates -->3', '<!-- /cs-count -->']) assert.throws(() => replaceCounts(text, { templates: 2 }));
 assert.equal(documentRole('docs/doctrine.md'), 'normative_repository_contract');
+assert.equal(documentRole('MAINTAINERS.md'), 'operator_guide');
+for (const name of ['README.md','SKILL.md','AGENTS.md','CLAUDE.md','GEMINI.md','CONTRIBUTING.md','llms.txt','DESIGN.md','MAINTAINERS.md','SECURITY.md']) {
+  assert.equal(documentRole('docs/vi/entrypoints/'+name),documentRole(name));
+  assert.equal(documentRole('unknown/docs/vi/entrypoints/'+name),'unclassified_requires_review');
+}
+assert.equal(documentRole('docs/vi/entrypoints/unreviewed.md'),'unclassified_requires_review');
+const reviewedDocumentRoles = {
+  '.github/pull_request_template.md': 'contribution_template',
+  '_audit/remediation/assessment-source.md': 'retained_assessment_source',
+  '_audit/remediation/assessment-remediation.md': 'remediation_report',
+  '_audit/remediation/decision-template.md': 'decision_template',
+    '_audit/remediation/release-v1.7.2-notes-proposal.md': 'private_owner_review_release_metadata_proposal',
+  'scripts/lib/compiler-and-story-domains.md': 'source_maintenance_guide',
+  'scripts/template-hex-policy.md': 'source_maintenance_guide',
+};
+for (const [path, role] of Object.entries(reviewedDocumentRoles)) {
+  assert.equal(documentRole(path), role);
+  assert.equal(documentRole('unknown/' + path), 'unclassified_requires_review', 'Exact reviewed path never blesses an unreviewed prefix');
+}
+
+assert.equal(documentRole('MAINTAINERS-unknown.md'), 'unclassified_requires_review');
 assert.equal(documentRole('docs/vi/doctrine.md'), 'normative_repository_contract');
 assert.equal(documentRole('docs/decisions.md'), 'decision_record');
+assert.equal(documentRole('tokens/modes.md'), 'source_maintenance_guide');
+assert.equal(documentRole('tokens/unreviewed-guide.md'), 'unclassified_requires_review');
 assert.equal(documentRole('components/actions/Button.prompt.md'), 'implementation_contract');
 assert.deepEqual(visualBaselineNames('<script>const BASE={first:{w:909},"second-dark":{w:1280}};</script>'),['first','second-dark']);
 for(const source of ['const OTHER={a:{}};', 'const BASE=window.dynamic;', 'const BASE={...others};', 'const BASE={[dynamic]:{}};', 'const BASE={first:{},first:{}};', 'const BASE={first:()=>({})};']) assert.throws(()=>visualBaselineNames('<script>'+source+'</script>'));
@@ -19,7 +42,7 @@ const write = (path, value) => { const target = join(root, path); mkdirSync(dirn
 try {
   execFileSync('git', ['init', '-q', root]);
   mkdirSync(join(root, 'ui_kits'));
-  const manifest = { components: [{ name: 'Example', kind: 'component', sourcePath: 'components/Example.jsx' }, { name: 'VALUE', kind: 'constant', sourcePath: 'components/constants.js' }, { name: 'useExample', kind: 'hook', sourcePath: 'components/example-hook.js' }], cards: [], tokens: [{}], templates: [{ name: 'First', folder: 'templates/first', entryPath: 'templates/first/First.dc.html' }] };
+  const manifest = { components: [{ name: 'Example', kind: 'component', sourcePath: 'components/Example.jsx' }, { name: 'VALUE', kind: 'constant', sourcePath: 'components/constants.js' }, { name: 'useExample', kind: 'hook', sourcePath: 'components/Example.jsx' }], cards: [], tokens: [{}], templates: [{ name: 'First', folder: 'templates/first', entryPath: 'templates/first/First.dc.html' }] };
   write('_ds_manifest.json', manifest);
   write('templates/first/First.dc.html', '<div data-props=\'{"language":{"options":["English","Tiếng Việt"]}}\'>First</div>');
   write('tokens/tokens.dtcg.json', { example: { $type: 'number', $value: 1 } });

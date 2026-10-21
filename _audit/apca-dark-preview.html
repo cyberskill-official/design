@@ -51,7 +51,8 @@
 <button class="copy" id="copy">Copy proposed CSS</button>
 <textarea id="css" aria-label="Proposed dark-pack CSS" readonly></textarea>
 <p class="note">Derivation: sRGB↔OKLab per Björn Ottosson's matrices; contrast per APCA-W3 (SAPC-4g: Y with 2.4 TRC, black-soften 0.022/1.414, polarity exponents 0.56/0.57 normal · 0.65/0.62 reverse, ×1.14, clamp 0.1/offset 0.027). Dark surfaces from <code>tokens/colors.css</code> dark scope (panel <code>#221710</code>, page <code>#1a1108</code>, text <code>#f5ead9</code>). Verdict global <code>window.__apcaPreview</code> carries per-pack pass/fail for both sets.</p>
-<script>
+<script type="module">
+import {apcaLc} from "./lib/apca.mjs";
 // ---- color math ----
 const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
 const hex2rgb=h=>{const m=/^#?([0-9a-f]{6})$/i.exec(h.trim());if(!m)return null;const n=parseInt(m[1],16);return[n>>16&255,n>>8&255,n&255];};
@@ -70,13 +71,8 @@ const toLCH=lab=>[lab[0],Math.hypot(lab[1],lab[2]),Math.atan2(lab[2],lab[1])];
 const fromLCH=([L,C,H])=>[L,C*Math.cos(H),C*Math.sin(H)];
 function inGamut(rgb){return rgb.every(v=>v>=-0.5&&v<=255.5);}
 function lchToHex(L,C,H){ let c=C; for(let i=0;i<20;i++){ const rgb=oklab2rgb(fromLCH([L,c,H])); if(inGamut(rgb)) return rgb2hex(...rgb); c*=0.92; } return rgb2hex(...oklab2rgb(fromLCH([L,0,H]))); }
-// ---- APCA-W3 (SAPC-4g) ----
-function apcaY([r,g,b]){ const f=c=>Math.pow(c/255,2.4); let Y=0.2126729*f(r)+0.7151522*f(g)+0.0721750*f(b); return Y; }
-function soft(Y){ return Y<0.022?Y+Math.pow(0.022-Y,1.414):Y; }
-function apca(txtHex,bgHex){ const t=hex2rgb(txtHex),g=hex2rgb(bgHex); if(!t||!g) return 0;
-  let Yt=soft(apcaY(t)), Yb=soft(apcaY(g)), S;
-  if(Yb>Yt) S=(Math.pow(Yb,0.56)-Math.pow(Yt,0.57))*1.14; else S=(Math.pow(Yb,0.65)-Math.pow(Yt,0.62))*1.14;
-  const a=Math.abs(S); if(a<0.1) return 0; return Math.round((a-0.027)*1000)/10; }
+// Shared APCA with the generator and contrast gates; invalid hex remains fail-closed.
+const apca=(text,background)=>{const t=hex2rgb(text),b=hex2rgb(background);return t&&b?apcaLc(t,b):0;};
 // solve lightness so apca(color,bg) >= target (dark bg -> raise L)
 function solveL(hex,bg,target){ const lab=rgb2oklab(hex2rgb(hex)); let [L,C,H]=toLCH(lab);
   let out=lchToHex(L,C,H);

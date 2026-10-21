@@ -33,4 +33,4 @@ Provider sao chép và đóng băng dữ liệu hợp lệ mà không sửa đ�
 
 Đây là phần mở rộng thông điệp giao diện. API không mở rộng định dạng ngày/số, đổi quy tắc dự phòng của formatter, đặt `dir` hay thêm hỗ trợ bố cục RTL. Từ điển `fr` bổ sung có thể dịch thông điệp giao diện tích hợp trong khi formatter vẫn dùng cách dự phòng hiện có cho ngôn ngữ chưa hỗ trợ. Tên truy cập xuất phát từ thông điệp tích hợp thay đổi theo nội dung; vai trò, bàn phím và trạng thái vẫn do component quản lý. `LocaleProvider` không có DOM root, `rootProps`, đích ref hay thao tác bàn phím riêng.
 
-Khai báo nằm tại [LocaleProvider.d.ts](../../components/i18n/LocaleProvider.d.ts). [Hợp đồng API runtime](runtime-api.md) ghi rõ ranh giới chỉ cung cấp context; sao chép markup không mang theo hành vi provider.
+Khai báo nằm tại [LocaleProvider.d.ts](../../components/i18n/LocaleProvider.d.ts). [Tham chiếu HTML tĩnh](static-html-reference.md) ghi rõ ranh giới chỉ cung cấp context; sao chép markup không mang theo hành vi provider.

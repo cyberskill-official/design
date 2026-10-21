@@ -13,18 +13,19 @@ await withBrowserFixture(async page=>{
    }),e('input',{'aria-label':'After'}));}
    renderFixture(e(Fixture,{key:kind+orientation}));
   },{kind,orientation});
+  const role=kind==='Tabs'?'tab':'radio',selection=kind==='Tabs'?'aria-selected':'aria-checked';
   const forward=orientation==='vertical'?'ArrowDown':'ArrowRight';
   const back=orientation==='vertical'?'ArrowUp':'ArrowLeft';
   const ignored=orientation==='vertical'?'ArrowRight':'ArrowDown';
-  await page.getByRole('tab',{name:'Alpha'}).focus();await page.keyboard.press(forward);
-  assert.equal(await page.getByRole('tab',{name:'Beta'}).getAttribute('aria-selected'),'true',kind+' '+orientation+' forward selection');
+  await page.getByRole(role,{name:'Alpha'}).focus();await page.keyboard.press(forward);
+  assert.equal(await page.getByRole(role,{name:'Beta'}).getAttribute(selection),'true',kind+' '+orientation+' forward selection');
   assert.equal(await page.evaluate(()=>document.activeElement.textContent),'Beta');
   await page.keyboard.press(ignored);assert.deepEqual(await page.evaluate(()=>changes),['b'],'other-axis key must not select');
   await page.keyboard.press('End');assert.equal(await page.evaluate(()=>document.activeElement.textContent),'Gamma');
   await page.keyboard.press(forward);assert.equal(await page.evaluate(()=>document.activeElement.textContent),'Alpha','wrap forward');
   await page.keyboard.press(back);assert.equal(await page.evaluate(()=>document.activeElement.textContent),'Gamma','wrap backward');
   await page.keyboard.press('Home');assert.equal(await page.evaluate(()=>document.activeElement.textContent),'Alpha');
-  assert.equal(await page.locator('[role="tab"][tabindex="0"]').count(),1);
+  assert.equal(await page.locator('[role="'+role+'"][tabindex="0"]').count(),1);
   await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement.getAttribute('aria-label')),'After','one tab stop per group');
   assert.deepEqual(await page.evaluate(()=>changes),['b','c','a','c','a']);
   console.log('PASS '+kind+' '+orientation+': directional selection/focus, wrapping, Home/End and roving tab stop');
@@ -33,7 +34,7 @@ await withBrowserFixture(async page=>{
   await page.evaluate(kind=>{
    const e=React.createElement;
    function Fixture(){const [value,setValue]=React.useState('a');return e('div',null,
-    e(CS[kind],{[kind==='Tabs'?'tabs':'options']:[{value:'a',label:'Alpha',id:'alpha-tab','aria-controls':'alpha-panel'},{value:'b',label:'Beta',id:'beta-tab','aria-controls':'beta-panel'}],value,onChange:setValue,'aria-label':'Views'}),
+    e(CS[kind],{...(kind==='SegmentedControl'?{mode:'tabs'}:{}),[kind==='Tabs'?'tabs':'options']:[{value:'a',label:'Alpha',id:'alpha-tab','aria-controls':'alpha-panel'},{value:'b',label:'Beta',id:'beta-tab','aria-controls':'beta-panel'}],value,onChange:setValue,'aria-label':'Views'}),
     e('section',{id:'alpha-panel',role:'tabpanel','aria-labelledby':'alpha-tab',hidden:value!=='a',tabIndex:0},'Alpha content'),
     e('section',{id:'beta-panel',role:'tabpanel','aria-labelledby':'beta-tab',hidden:value!=='b',tabIndex:0},'Beta content'));
    }

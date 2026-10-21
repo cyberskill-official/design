@@ -1,0 +1,5776 @@
+{
+  "schemaVersion": 1,
+  "scope": "Explicit adoption of all 832 declared source slots: 806 scalar plain-text bindings, 1 finite numeric percent bindings and 25 bounded structured display models. Exact target/model metadata preserve authored controls, functions and offline runtime copies.",
+  "templates": [
+    {
+      "path": "templates/app-shell/content-schema.json",
+      "template": "app-shell",
+      "slots": [
+        {
+          "id": "skipLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "navLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "nav",
+              "attribute": "aria-label"
+            }
+          ]
+        },
+        {
+          "id": "nav1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "nav2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "nav3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "nav4",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "nav5",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "searchPh",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.SearchField",
+              "attribute": "placeholder"
+            }
+          ]
+        },
+        {
+          "id": "newBtn",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "sub",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "s3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "s4",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "s4d",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "delta"
+            }
+          ]
+        },
+        {
+          "id": "tblCap",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.DataTable",
+              "attribute": "caption"
+            }
+          ]
+        },
+        {
+          "id": "cols",
+          "projection": "structured",
+          "declaredType": "table",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "columns",
+              "component": "CyberSkillDS.DataTable"
+            }
+          ]
+        },
+        {
+          "id": "rows",
+          "projection": "structured",
+          "declaredType": "table",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "rows",
+              "component": "CyberSkillDS.DataTable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "templates/article/content-schema.json",
+      "template": "article",
+      "slots": [
+        {
+          "id": "skipLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "eyebrow",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "authorTeam",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "meta",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "badge",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "lede",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "p1",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "p2",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "code",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.CodeBlock",
+              "attribute": "code"
+            }
+          ]
+        },
+        {
+          "id": "alertTitle",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Alert",
+              "attribute": "title"
+            }
+          ]
+        },
+        {
+          "id": "alertBody",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "p3",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/auth/content-schema.json",
+      "template": "auth",
+      "slots": [
+        {
+          "id": "skipLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "brandH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "brandP",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "title",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "sub",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "emailL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.TextField",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "pwL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.TextField",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "rememberL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Switch",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "signInBtn",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "lumiBtn",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "newHere",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "askAccess",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "resetHint",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "resetLink",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "errTitle",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Alert",
+              "attribute": "title"
+            }
+          ]
+        },
+        {
+          "id": "errBody",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "emailError",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.TextField",
+              "attribute": "error"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "templates/bod-deck/content-schema.json",
+      "template": "bod-deck",
+      "slots": [
+        {
+          "id": "s1kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s1h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s1sub",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "dateLine",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s2kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s2h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "n1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "n2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "runway",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "n3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "n4",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s3kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s3h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "p1n",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "p1s",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "p2n",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "p2s",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "p3n",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "p3s",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s4kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s4h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r1b",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r1t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r2b",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r2t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "closeH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "closeP",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/bod-investor-update/content-schema.json",
+      "template": "bod-investor-update",
+      "slots": [
+        {
+          "id": "headTitle",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "k1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "k2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "runway",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "k3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "hlH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "hl1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "hl2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "hl3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "lowH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "lowBody",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "asksL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "asksBody",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "cta",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "footer",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "template": "bod-memo",
+      "path": "templates/bod-memo/content-schema.json",
+      "slots": [
+        {
+          "id": "memoTitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "memoTitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "recipientEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "recipientVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "sender",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "subjectEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "subjectVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "memoDateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "memoDateVi",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/bod-minutes/content-schema.json",
+      "template": "bod-minutes",
+      "slots": [
+        {
+          "id": "hdrLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/bod-report/content-schema.json",
+      "template": "bod-report",
+      "slots": [
+        {
+          "id": "headTitle",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "conf",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "st1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "st2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "st3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "runway",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "value"
+            }
+          ]
+        },
+        {
+          "id": "steady",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "delta"
+            }
+          ]
+        },
+        {
+          "id": "st4",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "hlH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "hlBody",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "aiLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.AIDisclosureBadge",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "aiDetails",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.AIDisclosureBadge",
+              "attribute": "details"
+            }
+          ]
+        },
+        {
+          "id": "sources",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "sources",
+              "component": "CyberSkillDS.AIDisclosureBadge"
+            }
+          ]
+        },
+        {
+          "id": "portH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "cols",
+          "projection": "structured",
+          "declaredType": "table",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "columns",
+              "component": "CyberSkillDS.DataTable"
+            }
+          ]
+        },
+        {
+          "id": "rows",
+          "projection": "structured",
+          "declaredType": "table",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "rows",
+              "component": "CyberSkillDS.DataTable"
+            }
+          ]
+        },
+        {
+          "id": "riskH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "risk1t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Alert",
+              "attribute": "title"
+            }
+          ]
+        },
+        {
+          "id": "risk1b",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "risk2t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Alert",
+              "attribute": "title"
+            }
+          ]
+        },
+        {
+          "id": "risk2b",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/bod-resolution/content-schema.json",
+      "template": "bod-resolution",
+      "slots": [
+        {
+          "id": "banner",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "intro",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "recitalsH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "wWhereas",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "recA",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "recB",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "resolvedH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "wThat",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "c1",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "c2",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "c3",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "voteL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "voteBody",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "sig1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "sig2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "sig3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "sig4",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/culture-event-invite/content-schema.json",
+      "template": "culture-event-invite",
+      "slots": [
+        {
+          "id": "imagePlaceholder",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "image-slot",
+              "attribute": "placeholder"
+            },
+            {
+              "tag": "image-slot",
+              "attribute": "placeholder-vi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "templates/dashboard/content-schema.json",
+      "template": "dashboard",
+      "slots": [
+        {
+          "id": "skipLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "tagline",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "newBtn",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "s3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "s4",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "s4d",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "delta"
+            }
+          ]
+        },
+        {
+          "id": "c1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "c2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "c3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stInprog",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stBlocked",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "tblCap",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.DataTable",
+              "attribute": "caption"
+            }
+          ]
+        },
+        {
+          "id": "cols",
+          "projection": "structured",
+          "declaredType": "table",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "columns",
+              "component": "CyberSkillDS.DataTable"
+            }
+          ]
+        },
+        {
+          "id": "rows",
+          "projection": "structured",
+          "declaredType": "table",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "rows",
+              "component": "CyberSkillDS.DataTable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "templates/delivery-change-note/content-schema.json",
+      "template": "delivery-change-note",
+      "slots": [
+        {
+          "id": "eyebrow",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "altTitle",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "intro",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "changeH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "changeP",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "whyH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "whyP",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "impactH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "thDim",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "thBefore",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "thAfter",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "thDelta",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "rScope",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "rScopeB",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "rScopeA",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "rFee",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "rTime",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "rTimeB",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "rTimeA",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "rTimeD",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "closing",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "partyA",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "clientName",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "sigMeta",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/delivery-kickoff/content-schema.json",
+      "template": "delivery-kickoff",
+      "slots": [
+        {
+          "id": "kickLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "intro",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "goalsL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "g1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "g2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "g3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "teamH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "thWho",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "thRole",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "thDecides",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r1role",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r1dec",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r2role",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r2dec",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r3role",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r3dec",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r4who",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r4role",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "r4dec",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "cadH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "cadWeeklyB",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "cadWeeklyT",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "cadMsB",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "cadMsT",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "cadAnyB",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "cadAnyT",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "msH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "m1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "m2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "m3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "risksH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "risksP",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "linksL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "linksBody",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/delivery-qbr-deck/content-schema.json",
+      "template": "delivery-qbr-deck",
+      "slots": [
+        {
+          "id": "s1kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s1h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s1p",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s2kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s2h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "k1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "k2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "k3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "k4",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s3kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s3h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1n",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1s",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h2n",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h2s",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h3n",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h3s",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "note",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s4kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s4h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "n1b",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "n1t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "n2b",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "n2t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "n3b",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "n3t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "closeH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "closeP",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/delivery-runbook/content-schema.json",
+      "template": "delivery-runbook",
+      "slots": [
+        {
+          "id": "hdrLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "eyebrow",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "altTitle",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "intro",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ovH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ovP1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ovP2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "envH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "thEnv",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "thFrom",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "envProd",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "envProdFrom",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "envStg",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "envStgFrom",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "envSb",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "envSbFrom",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "depH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "dep1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "dep2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "dep3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "dep4",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "monH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "mon1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "mon2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "mon3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "mon4",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "breakH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "breakP1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "breakP2",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "contactsL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "contactsBody",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "handedBy",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "acceptedBy",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "sigMeta",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "template": "delivery-status-email",
+      "path": "templates/delivery-status-email/content-schema.json",
+      "slots": [
+        {
+          "id": "reportTitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "reportTitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "reportingPeriodEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "reportingPeriodVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "shippedPerformanceEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "shippedPerformanceVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "nextCanaryEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "nextCanaryVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "responseDeadlineEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "responseDeadlineVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "completionPercent",
+          "declaredType": "number",
+          "projection": "number",
+          "runtimeTargets": [
+            {
+              "tag": "span",
+              "attribute": "data-dc-percent-width"
+            },
+            {
+              "tag": "span",
+              "attribute": "data-dc-percent-width"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "templates/doc-suite-index/content-schema.json",
+      "template": "doc-suite-index",
+      "slots": [
+        {
+          "id": "sections",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "sc-for",
+              "attribute": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "doc-templates",
+      "path": "templates/doc-templates/content-schema.json",
+      "slots": [
+        {
+          "id": "documentTitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentTitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "email",
+      "path": "templates/email/content-schema.json",
+      "slots": [
+        {
+          "id": "recipientIntroductionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "recipientIntroductionVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "requestSummaryEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "requestSummaryVi",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "finance-dunning-email",
+      "path": "templates/finance-dunning-email/content-schema.json",
+      "slots": [
+        {
+          "id": "invoiceReference",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "amountDisplayEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "amountDisplayVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "dueDateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "dueDateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "overdueDisplayEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "overdueDisplayVi",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "finance-expense-report",
+      "path": "templates/finance-expense-report/content-schema.json",
+      "slots": [
+        {
+          "id": "expenseReference",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "claimSummaryEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "claimSummaryVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "reportingTitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "reportingTitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "totalClaimedEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "totalClaimedVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense1DateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense1ItemEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense1CategoryEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense1AmountEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense2DateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense2ItemEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense2CategoryEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense2AmountEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense3DateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense3ItemEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense3CategoryEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense3AmountEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense1DateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense1ItemVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense1CategoryVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense1AmountVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense2DateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense2ItemVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense2CategoryVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense2AmountVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense3DateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense3ItemVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense3CategoryVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "expense3AmountVi",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/finance-invoice/content-schema.json",
+      "template": "finance-invoice",
+      "slots": [
+        {
+          "id": "invoiceReference",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "clientName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "clientAddress",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "issuedDateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "dueDateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1DescriptionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1QuantityEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1RateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1AmountEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2DescriptionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2QuantityEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2RateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2AmountEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3DescriptionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3QuantityEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3RateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3AmountEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "subtotalEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "taxAmountEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "totalDueEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "issuedDateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "dueDateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1DescriptionVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1QuantityVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1RateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1AmountVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2DescriptionVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2QuantityVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2RateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2AmountVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3DescriptionVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3QuantityVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3RateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3AmountVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "subtotalVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "taxAmountVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "totalDueVi",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/finance-quote/content-schema.json",
+      "template": "finance-quote",
+      "slots": [
+        {
+          "id": "quoteReference",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "clientName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1DescriptionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1PriceEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2DescriptionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2PriceEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3DescriptionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3PriceEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line4TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line4DescriptionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line4PriceEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "coreTotalEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "validUntilEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "preparedByName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1DescriptionVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line1PriceVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2DescriptionVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line2PriceVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3DescriptionVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line3PriceVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line4TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line4DescriptionVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "line4PriceVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "coreTotalVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "validUntilVi",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "hr-announcement",
+      "path": "templates/hr-announcement/content-schema.json",
+      "slots": [
+        {
+          "id": "employeeFullName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "employeeRole",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "announcementTitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "announcementTitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "employeeStartDateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "employeeStartDateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "announcementDateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "announcementDateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "employeeGivenName",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/hr-interview-kit/content-schema.json",
+      "template": "hr-interview-kit",
+      "slots": [
+        {
+          "id": "hdrLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/hr-offboarding/content-schema.json",
+      "template": "hr-offboarding",
+      "slots": [
+        {
+          "id": "hdrLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/hr-performance-review/content-schema.json",
+      "template": "hr-performance-review",
+      "slots": [
+        {
+          "id": "hdrLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/hr-pip/content-schema.json",
+      "template": "hr-pip",
+      "slots": [
+        {
+          "id": "hdrLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/legal-msa/content-schema.json",
+      "template": "legal-msa",
+      "slots": [
+        {
+          "id": "hdrLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "template": "legal-sow",
+      "path": "templates/legal-sow/content-schema.json",
+      "slots": [
+        {
+          "id": "statementReference",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "projectTitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "projectTitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "clientNameEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "clientNameVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "agreementDateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "agreementDateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "startDateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "targetDateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone1DateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone2DateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone3DateEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone1FeeEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone2FeeEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone3FeeEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "totalFeeEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable1TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable1DescriptionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable1OwnerEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable2TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable2DescriptionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable2OwnerEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable3TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable3DescriptionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable3OwnerEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable4TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable4DescriptionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable4OwnerEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone1TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone2TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone3TitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "startDateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "targetDateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone1DateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone2DateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone3DateVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone1FeeVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone2FeeVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone3FeeVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "totalFeeVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable1TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable1DescriptionVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable1OwnerVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable2TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable2DescriptionVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable2OwnerVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable3TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable3DescriptionVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable3OwnerVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable4TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable4DescriptionVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "deliverable4OwnerVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone1TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone2TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "milestone3TitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/marketing-campaign-brief/content-schema.json",
+      "template": "marketing-campaign-brief",
+      "slots": [
+        {
+          "id": "hdr",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "draft",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "eyebrow",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "objL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "objP",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "audL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "audP",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "msgL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "msgP",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "chL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ch1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ch2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ch4",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ch5",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "tlL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "steps",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "steps",
+              "component": "CyberSkillDS.Steps"
+            }
+          ]
+        },
+        {
+          "id": "smL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "m1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "m1d",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "delta"
+            }
+          ]
+        },
+        {
+          "id": "m2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "m3d",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Stat",
+              "attribute": "delta"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "templates/marketing-case-study/content-schema.json",
+      "template": "marketing-case-study",
+      "slots": [
+        {
+          "id": "imagePlaceholder",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "image-slot",
+              "attribute": "placeholder"
+            },
+            {
+              "tag": "image-slot",
+              "attribute": "placeholder-vi"
+            }
+          ]
+        },
+        {
+          "id": "kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stat1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stat2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stat3v",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stat3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "p1",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "p2",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "p3",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "quote",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "quoteWho",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ctaKicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ctaBody",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ctaBtn",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "template": "marketing-launch",
+      "path": "templates/marketing-launch/content-schema.json",
+      "slots": [
+        {
+          "id": "testimonialEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "testimonialVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "testimonialAttributionEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "testimonialAttributionVi",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "marketing-newsletter",
+      "path": "templates/marketing-newsletter/content-schema.json",
+      "slots": [
+        {
+          "id": "issueDisplayEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "issueDisplayVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "leadArticleTitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "leadArticleTitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "teamArticleTitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "teamArticleTitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "fieldArticleTitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "fieldArticleTitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/marketing-page/content-schema.json",
+      "template": "marketing-page",
+      "slots": [
+        {
+          "id": "heroImagePlaceholder",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "image-slot",
+              "attribute": "placeholder"
+            },
+            {
+              "tag": "image-slot",
+              "attribute": "placeholder-vi"
+            }
+          ]
+        },
+        {
+          "id": "closeLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "button",
+              "attribute": "aria-label"
+            }
+          ]
+        },
+        {
+          "id": "skipLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "heroKicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "heroH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "heroSub",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "heroP",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "promptPh",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.PromptInput",
+              "attribute": "placeholder"
+            }
+          ]
+        },
+        {
+          "id": "svcKicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "svcH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "svcP",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "c1h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "c1p",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "c2h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "c2p",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "c3h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "c3p",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ctaH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ctaP",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "talkBtn",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "footer",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "navServices",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "navProcess",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "navContact",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "promptSend",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.PromptInput",
+              "attribute": "send-label"
+            }
+          ]
+        },
+        {
+          "id": "genieLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "chatHello",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "chatPh",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.PromptInput",
+              "attribute": "placeholder"
+            }
+          ]
+        },
+        {
+          "id": "chatSend",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.PromptInput",
+              "attribute": "send-label"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "templates/marketing-press-release/content-schema.json",
+      "template": "marketing-press-release",
+      "slots": [
+        {
+          "id": "kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "sub",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "lead",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "body2",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "body3",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "glanceL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "g1t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "g1b",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "g2t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "g2b",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "g3t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "g3b",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "aboutL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "aboutP",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "mediaL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "place",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "assetsL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/marketing-social-kit/content-schema.json",
+      "template": "marketing-social-kit",
+      "slots": [
+        {
+          "id": "imagePlaceholder",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "image-slot",
+              "attribute": "placeholder"
+            },
+            {
+              "tag": "image-slot",
+              "attribute": "placeholder"
+            },
+            {
+              "tag": "image-slot",
+              "attribute": "placeholder"
+            },
+            {
+              "tag": "image-slot",
+              "attribute": "placeholder-vi"
+            },
+            {
+              "tag": "image-slot",
+              "attribute": "placeholder-vi"
+            },
+            {
+              "tag": "image-slot",
+              "attribute": "placeholder-vi"
+            }
+          ]
+        },
+        {
+          "id": "sqKicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "lcLine1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "lcLine2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "lcSub",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stKicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stLine1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stLine2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stSub",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/sales-one-pager/content-schema.json",
+      "template": "sales-one-pager",
+      "slots": [
+        {
+          "id": "ctaBtn",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ctaKicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ctaPlace",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "heroKicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "processTitle",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stat1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stat1l",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stat2l",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stat3l",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stat4",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "stat4l",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/sales-proposal-deck/content-schema.json",
+      "template": "sales-proposal-deck",
+      "slots": [
+        {
+          "id": "s1kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s1h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s1client",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s1sub",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s1prep",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s2kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s2h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s2p",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s3kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s3h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "u1t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "u1p",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "u2t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "u2p",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "u3t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "u3p",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s4kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s4h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "a1b",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "a1t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "a2b",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "a2t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "a3b",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "a3t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s5kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s5h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "mo1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "t1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "mo2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "t2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "mo3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "t3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s6kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s6h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "role1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "role2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "role3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s7kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s7h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "inv1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "inv2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "inv3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "closeH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "closeP",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/settings/content-schema.json",
+      "template": "settings",
+      "slots": [
+        {
+          "id": "skipLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "title",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "sub",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "profileH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "profileP",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "nameL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.TextField",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "emailL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.TextField",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "squadL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Select",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "ifaceL",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.NativeSelect",
+              "attribute": "label"
+            }
+          ]
+        },
+        {
+          "id": "squads",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "options",
+              "component": "CyberSkillDS.Select"
+            }
+          ]
+        },
+        {
+          "id": "langs",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "options",
+              "component": "CyberSkillDS.NativeSelect"
+            }
+          ]
+        },
+        {
+          "id": "notifH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.ScrollArea",
+              "attribute": "aria-label"
+            }
+          ]
+        },
+        {
+          "id": "notifP",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "n1t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Item",
+              "attribute": "title"
+            },
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Switch",
+              "attribute": "aria-label"
+            }
+          ]
+        },
+        {
+          "id": "n1d",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Item",
+              "attribute": "description"
+            }
+          ]
+        },
+        {
+          "id": "n2t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Item",
+              "attribute": "title"
+            },
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Switch",
+              "attribute": "aria-label"
+            }
+          ]
+        },
+        {
+          "id": "n2d",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Item",
+              "attribute": "description"
+            }
+          ]
+        },
+        {
+          "id": "n3t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Item",
+              "attribute": "title"
+            }
+          ]
+        },
+        {
+          "id": "n3d",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Item",
+              "attribute": "description"
+            }
+          ]
+        },
+        {
+          "id": "n4t",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Item",
+              "attribute": "title"
+            }
+          ]
+        },
+        {
+          "id": "n4d",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Item",
+              "attribute": "description"
+            }
+          ]
+        },
+        {
+          "id": "advT",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Collapsible",
+              "attribute": "title"
+            }
+          ]
+        },
+        {
+          "id": "advD",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "dangerT",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.AlertDialog",
+              "attribute": "title"
+            }
+          ]
+        },
+        {
+          "id": "dangerD",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.AlertDialog",
+              "attribute": "description"
+            }
+          ]
+        },
+        {
+          "id": "dangerBtn",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.AlertDialog",
+              "attribute": "confirm-label"
+            }
+          ]
+        },
+        {
+          "id": "cancelBtn",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "saveBtn",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/slide-deck/content-schema.json",
+      "template": "slide-deck",
+      "slots": [
+        {
+          "id": "s1kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s1h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s1sub",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s2kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "s2h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "f1h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "f1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "f2h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "f2",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "f3h",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "f3",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "quoteA",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "quoteB",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "quoteC",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "quoteWho",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "closeH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "closeP",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/team-meeting-agenda/content-schema.json",
+      "template": "team-meeting-agenda",
+      "slots": [
+        {
+          "id": "hdrLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/tech-incident-report/content-schema.json",
+      "template": "tech-incident-report",
+      "slots": [
+        {
+          "id": "timeline",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "items",
+              "component": "CyberSkillDS.Timeline"
+            }
+          ]
+        },
+        {
+          "id": "cols",
+          "projection": "structured",
+          "declaredType": "table",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "columns",
+              "component": "CyberSkillDS.DataTable"
+            }
+          ]
+        },
+        {
+          "id": "actions",
+          "projection": "structured",
+          "declaredType": "table",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "rows",
+              "component": "CyberSkillDS.DataTable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "tech-release-notes",
+      "path": "templates/tech-release-notes/content-schema.json",
+      "slots": [
+        {
+          "id": "releaseVersionDisplay",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "releaseTitleEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "releaseTitleVi",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "releaseDateKickerEn",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "releaseDateKickerVi",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/tech-retro/content-schema.json",
+      "template": "tech-retro",
+      "slots": [
+        {
+          "id": "hdrLabel",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        }
+      ]
+    },
+    {
+      "path": "templates/tech-rfc/content-schema.json",
+      "template": "tech-rfc",
+      "slots": [
+        {
+          "id": "badge",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "kicker",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "h1",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "dtAuthor",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "dtRev",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "dtStatus",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ddStatus",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "dtTarget",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ctxH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "ctxP",
+          "projection": "text",
+          "declaredType": "richtext",
+          "runtimeTargets": []
+        },
+        {
+          "id": "propH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "code",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.CodeBlock",
+              "attribute": "code"
+            }
+          ]
+        },
+        {
+          "id": "toH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "gainsT",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Alert",
+              "attribute": "title"
+            }
+          ]
+        },
+        {
+          "id": "gainsB",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "costsT",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "component": "CyberSkillDS.Alert",
+              "attribute": "title"
+            }
+          ]
+        },
+        {
+          "id": "costsB",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "rollH",
+          "projection": "text",
+          "declaredType": "text",
+          "runtimeTargets": []
+        },
+        {
+          "id": "steps",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "x-import",
+              "attribute": "steps",
+              "component": "CyberSkillDS.Steps"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-appointment-transfer",
+      "path": "templates/vn-appointment-transfer/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-certificate-of-employment",
+      "path": "templates/vn-certificate-of-employment/content-schema.json",
+      "slots": [
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "citizenId",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "position",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "department",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-code-of-conduct",
+      "path": "templates/vn-code-of-conduct/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "reportingContactDisplay",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-compensation-regulation",
+      "path": "templates/vn-compensation-regulation/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-contract-amendment",
+      "path": "templates/vn-contract-amendment/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "address",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-contractor-agreement",
+      "path": "templates/vn-contractor-agreement/content-schema.json",
+      "slots": [
+        {
+          "id": "contractorName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "residentialAddress",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "personalTaxCode",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "bankAccountAndBank",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-data-protection-policy",
+      "path": "templates/vn-data-protection-policy/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-disciplinary-case-file",
+      "path": "templates/vn-disciplinary-case-file/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "caseReference",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "positionDepartmentDisplay",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-disciplinary-schedule/content-schema.json",
+      "template": "vn-disciplinary-schedule",
+      "slots": [
+        {
+          "id": "rows",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "sc-for",
+              "attribute": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-employee-request",
+      "path": "templates/vn-employee-request/content-schema.json",
+      "slots": [
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "positionDepartment",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "lineManager",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "workHandoverRecipient",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-exit-handover",
+      "path": "templates/vn-exit-handover/content-schema.json",
+      "slots": [
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "address",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-foreign-employee-pack/content-schema.json",
+      "template": "vn-foreign-employee-pack",
+      "slots": [
+        {
+          "id": "checklist",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "sc-for",
+              "attribute": "list"
+            }
+          ]
+        },
+        {
+          "id": "steps",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "sc-for",
+              "attribute": "list"
+            }
+          ]
+        },
+        {
+          "id": "exemptions",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "sc-for",
+              "attribute": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-framework-agreement",
+      "path": "templates/vn-framework-agreement/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "accountRecipientEmailDisplay",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-grassroots-democracy",
+      "path": "templates/vn-grassroots-democracy/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-infosec-policy",
+      "path": "templates/vn-infosec-policy/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-internal-labor-regulations",
+      "path": "templates/vn-internal-labor-regulations/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-internship-agreement",
+      "path": "templates/vn-internship-agreement/content-schema.json",
+      "slots": [
+        {
+          "id": "internName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "residentialAddress",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "schoolAndMajor",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-job-description",
+      "path": "templates/vn-job-description/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "position",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "department",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "lineManager",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "levelDisplay",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "workLocation",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-labor-contract",
+      "path": "templates/vn-labor-contract/content-schema.json",
+      "slots": [
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "nationality",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "residentialAddress",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "citizenId",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "telephone",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "email",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-labour-management-book/content-schema.json",
+      "template": "vn-labour-management-book",
+      "slots": [
+        {
+          "id": "fields",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "sc-for",
+              "attribute": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-mutual-nda",
+      "path": "templates/vn-mutual-nda/content-schema.json",
+      "slots": [
+        {
+          "id": "organizationName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "taxCode",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "address",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "telephoneAndEmail",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-ndnca-ip",
+      "path": "templates/vn-ndnca-ip/content-schema.json",
+      "slots": [
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "nationality",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "address",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-offer-letter",
+      "path": "templates/vn-offer-letter/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "position",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "department",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "lineManager",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-onboarding-checklist/content-schema.json",
+      "template": "vn-onboarding-checklist",
+      "slots": [
+        {
+          "id": "groups",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "sc-for",
+              "attribute": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-pdpl-consent",
+      "path": "templates/vn-pdpl-consent/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "citizenId",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "address",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-performance-evaluation-regulation",
+      "path": "templates/vn-performance-evaluation-regulation/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-performance-review-form",
+      "path": "templates/vn-performance-review-form/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "positionDepartmentDisplay",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "lineManager",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-phantom-stock/content-schema.json",
+      "template": "vn-phantom-stock",
+      "slots": [
+        {
+          "id": "articles",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "sc-for",
+              "attribute": "list"
+            }
+          ]
+        },
+        {
+          "id": "defs",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "sc-for",
+              "attribute": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-probation-contract",
+      "path": "templates/vn-probation-contract/content-schema.json",
+      "slots": [
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "citizenId",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "residentialAddress",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "telephone",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "email",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-receipt-acknowledgement/content-schema.json",
+      "template": "vn-receipt-acknowledgement",
+      "slots": [
+        {
+          "id": "docs",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "sc-for",
+              "attribute": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-remote-work-policy",
+      "path": "templates/vn-remote-work-policy/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-resignation-letter",
+      "path": "templates/vn-resignation-letter/content-schema.json",
+      "slots": [
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "departmentPosition",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "laborContractReference",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-salary-scale/content-schema.json",
+      "template": "vn-salary-scale",
+      "slots": [
+        {
+          "id": "grades",
+          "projection": "structured",
+          "declaredType": "list",
+          "boundary": "structured-model",
+          "runtimeTargets": [
+            {
+              "tag": "sc-for",
+              "attribute": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-sow-appendix",
+      "path": "templates/vn-sow-appendix/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-termination-decision",
+      "path": "templates/vn-termination-decision/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "position",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "department",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-total-rewards-appendix",
+      "path": "templates/vn-total-rewards-appendix/content-schema.json",
+      "slots": [
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "address",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-training-commitment",
+      "path": "templates/vn-training-commitment/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "employeeName",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "citizenId",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "address",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "contactDisplay",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    },
+    {
+      "template": "vn-travel-expense-policy",
+      "path": "templates/vn-travel-expense-policy/content-schema.json",
+      "slots": [
+        {
+          "id": "headerReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        },
+        {
+          "id": "documentReferenceSequence",
+          "declaredType": "text",
+          "projection": "text"
+        }
+      ]
+    }
+  ]
+}

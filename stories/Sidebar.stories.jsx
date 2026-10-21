@@ -4,21 +4,15 @@ export default {
   title: 'Components/Navigation/Sidebar',
   component: Sidebar,
   tags: ['autodocs'],
+  args: { className: '' },
   argTypes: {
   "label": {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Sidebar. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
 };
 
-export const Default = { render: () => (<Sidebar label="App"><NavItem active>Overview</NavItem><NavItem>Health</NavItem><NavItem>Tokens</NavItem></Sidebar>) };
+export const Default = { render: (args) => (<Sidebar label="App" {...args}><NavItem active>Overview</NavItem><NavItem>Health</NavItem><NavItem>Tokens</NavItem></Sidebar>) };
 
 export const Matrix = {
   name: 'Matrix / Active item',

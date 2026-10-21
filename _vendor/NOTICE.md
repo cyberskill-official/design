@@ -6,8 +6,8 @@ Atomic View JSX transforms do not require a CDN.
 
 | Path | Upstream | License |
 |---|---|---|
-| `_vendor/react/react.production.min.js` | [umd-react](https://github.com/lofcz/umd-react) / React 19.2.8 | MIT |
-| `_vendor/react/react-dom.production.min.js` | umd-react / React DOM 19.2.8 | MIT |
+| `_vendor/react/react.production.min.js` | [umd-react](https://github.com/lofcz/umd-react) distribution 19.2.8 / retained React runtime 19.2.4 | MIT |
+| `_vendor/react/react-dom.production.min.js` | umd-react distribution 19.2.8 / retained React DOM runtime 19.2.4 | MIT |
 | `_vendor/babel/babel.min.js` | [@babel/standalone](https://github.com/babel/babel) 7.29.0 | MIT |
 
 Pin hashes and versions live in each subdirectory `README.md`. Package license

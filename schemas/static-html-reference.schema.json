@@ -1,0 +1,244 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Source-bound static rendered DOM reference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schemaVersion",
+    "interpretation",
+    "renderer",
+    "inputs",
+    "kitchenSink",
+    "components",
+    "nonComponentExports"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "../schemas/static-html-reference.schema.json"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "interpretation": {
+      "type": "string"
+    },
+    "renderer": {
+      "type": "object",
+      "required": [
+        "scope",
+        "platform",
+        "time",
+        "viewport",
+        "supportContext",
+        "idNormalization"
+      ]
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixturesSha256",
+        "generatorSha256",
+        "bundledSourceGraphSha256",
+        "componentCount",
+        "sourceFileCount",
+        "exportCount",
+        "hookCount",
+        "constantCount"
+      ],
+      "properties": {
+        "fixturesSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "generatorSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "bundledSourceGraphSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "componentCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sourceFileCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "exportCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hookCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "constantCount": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "kitchenSink": {
+      "type": "object",
+      "required": [
+        "path",
+        "sourceSha256",
+        "distinctPlainCsClassNames",
+        "distinctRootClassTokens",
+        "distinctAllCsClassTokens",
+        "method"
+      ]
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "sourcePath",
+          "fixtureAuthority",
+          "state",
+          "boundary",
+          "sourceSha256",
+          "declarationSha256",
+          "html",
+          "props",
+          "referenceKind",
+          "semanticDOM",
+          "nodeCount",
+          "canvasCount",
+          "portalCount"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "sourcePath": {
+            "type": "string"
+          },
+          "fixtureAuthority": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "boundary": {
+            "type": "string"
+          },
+          "sourceSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "declarationSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "html": {
+            "type": "string"
+          },
+          "props": {
+            "type": "object"
+          },
+          "wrapper": {
+            "type": "object"
+          },
+          "referenceKind": {
+            "enum": [
+              "rendered-dom-reference",
+              "interactive-dom-snapshot",
+              "context-only"
+            ]
+          },
+          "semanticDOM": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/domNode"
+            }
+          },
+          "nodeCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "canvasCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "portalCount": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "nonComponentExports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "kind",
+          "sourcePath",
+          "boundary"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "hook",
+              "constant"
+            ]
+          },
+          "sourcePath": {
+            "type": "string"
+          },
+          "boundary": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "domNode": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "tag",
+            "attributes",
+            "children"
+          ],
+          "properties": {
+            "tag": {
+              "type": "string"
+            },
+            "attributes": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "children": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/domNode"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

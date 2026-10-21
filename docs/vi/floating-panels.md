@@ -1,0 +1,21 @@
+# Panel nổi theo phần tử neo
+
+Các component sau mặc định đưa panel vào portal dưới body: Tooltip, Popover, HoverCard, Popconfirm, Menu, ContextMenu, Combobox, DatePicker, Cascader, TreeSelect, ColorPicker, Mentions, Menubar, NavigationMenu, Toolbar, FloatingActionButton, AIDisclosureBadge. Đặt `portal={false}` để giữ panel inline. Dialog, Drawer, xem trước ảnh, toast và trình sửa inline giữ hợp đồng riêng.
+
+`placement` nhận top/bottom/left/right và hậu tố -start/-end. Cạnh là cạnh vật lý; start/end của top/bottom theo hướng chữ. Panel đổi cạnh khi phía đối diện có nhiều chỗ hơn, dịch vào visual viewport và cập nhật khi cuộn, đổi kích thước hay visual viewport thay đổi. Prop căn chỉnh cũ vẫn chọn vị trí khi không truyền placement. Tooltip mặc định top, nút hành động nổi top-end, toolbar bottom-end, các panel khác bottom-start.
+
+Portal giữ React context, thông điệp theo scope, custom properties đã tính, font/màu và các trục theme/ngôn ngữ/hướng chữ/density/contrast. Các điều khiển hidden, inert và aria-hidden trên tổ tiên nguồn vẫn có hiệu lực. CSS cần quan hệ tổ tiên nguồn không đi xuyên portal; dùng token scope hoặc portal=false khi cần quan hệ đó. Chế độ inline vẫn chịu clipping và stacking context của tổ tiên.
+
+Overlay manager hiện có đăng ký panel thật và quan hệ cha logic, giữ quyền sở hữu focus và đóng panel lồng nhau. Tab đi theo vị trí logic bên cạnh trigger. Hợp đồng bàn phím riêng của menu vẫn áp dụng; portal không tự tạo focus trap.
+
+SSR và lần render hydration đầu chưa có nội dung panel portal; client gắn panel khi host tồn tại. portal=false giữ markup inline trên server. Ref panel là null khi phần tử chưa tồn tại; ref wrapper/control giữ đích đã công bố. Đổi portal làm remount nội dung panel và đặt lại state cục bộ của các phần tử con, nhưng component sở hữu và trigger vẫn được giữ. Giữ chế độ ổn định nếu cần giữ state con.
+
+Định vị và kế thừa scope dùng style attribute hiện có; siết CSP script không thay đổi CSP style. Kiểm thử browser bao phủ 17 component, hai chế độ, quyền sở hữu trong modal, placement/RTL, clipping, cuộn/resize, Tab logic, context và remount. Sự kiện visual viewport mô phỏng không thay thế nghiệm thu bàn phím di động thật.
+
+Khi panel đang mở, helper định vị quản lý vị trí có ràng buộc và có thể giới hạn kích thước do bên gọi đặt theo vùng viewport còn trống. Helper phân biệt giá trị geometry do chính nó ghi lần cuối với thay đổi tiếp theo của bên gọi, kể cả độ ưu tiên CSS. Khi đóng hoặc unmount, helper khôi phục giá trị geometry mới nhất của bên gọi thay vì ảnh chụp cũ. Phép đo kích thước tự nhiên giữ vị trí cuộn ngang và dọc hiện tại trong phạm vi cuộn còn khả dụng sau cùng; việc cuộn hoặc focus nội dung phía sau vẫn phải hoạt động sau khi định vị lại. Hành vi này không thêm prop style cho panel hay đổi đích native ref đã công bố.
+
+Khi vị trí chèn inline gốc nằm trong form hoặc fieldset native, panel tự đặt cục bộ ngay cả khi portal=true. Cùng host riêng display:contents giữ nguyên quan hệ DOM native: form.elements, FormData, reset, validation, submitter và ngoại lệ legend đầu tiên của fieldset disabled. Không suy đoán serialization hay form từ opener; ContextMenu bao một form con vẫn có panel ngoài form con. Chế độ cục bộ chịu clipping của tổ tiên. Host thêm một tầng DOM; CSS cần con trực tiếp chính xác nên dùng class panel hoặc portal=false.
+
+MutationObserver theo dõi việc chèn/di chuyển tổ tiên. Đổi tự động giữa body và cục bộ giữ cây React, node DOM, state và ref. Nếu browser hỗ trợ, host di chuyển mà giữ trạng thái focus; nếu không, helper khôi phục phần tử đang focus và selection khi có thể. Không chặn sự kiện focus/blur native; callback của bên dùng tự đóng hoặc xóa nội dung có thể ngăn việc khôi phục. Control bị disabled không được focus lại. Đổi prop portal rõ ràng vẫn remount phần tử con như hợp đồng trước.
+
+Portal được yêu cầu, kể cả fallback cục bộ, vẫn chưa có trong SSR và lần hydration đầu; lần mount client đầu đã đúng tổ tiên native. Dùng portal=false nếu control trong panel mở phải có sẵn trên server. Observer chạy bất đồng bộ: di chuyển rồi submit/đọc FormData hoặc gọi blur ngay trong cùng task không có bảo đảm nguyên tử. Đặt nguồn vào đúng ngữ cảnh trước khi mở/submit, dùng inline rõ ràng cho di chuyển đồng bộ, hoặc chờ browser cập nhật ổn định.

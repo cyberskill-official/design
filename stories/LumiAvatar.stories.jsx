@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { LumiAvatar } from '../components/brand/LumiAvatar.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
@@ -11,11 +12,7 @@ export default {
   },
   "size": {
     "control": "select",
-    "options": [
-      "sm",
-      "md",
-      "lg"
-    ]
+    "options": DECLARED_DOMAINS.LumiAvatar["size"]
   },
   "ring": {
     "control": "boolean"
@@ -24,13 +21,6 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting LumiAvatar. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { size: 'md' },
 };
 
@@ -61,7 +51,7 @@ export const AllSizes = {
 export const FullMatrix = {
   name: 'Full matrix / size',
   render: (args) => {
-    const cells = cartesian({ size: ["sm","md","lg"] }).flatMap((combo) =>
+    const cells = cartesian({ size: DECLARED_DOMAINS.LumiAvatar["size"] }).flatMap((combo) =>
       stateCombos([]).map((state) => {
         const props = { ...combo, ...state };
         const label = comboLabel(props, ['size']);

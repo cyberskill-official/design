@@ -33,4 +33,4 @@ The provider snapshots and freezes accepted data without modifying the caller's 
 
 This is a UI-message extension. It does not extend date/number formatting, change existing formatter fallback behavior, set `dir`, or add RTL layout support. An added `fr` dictionary can translate a component's built-in UI while its formatter retains the existing unsupported-locale fallback. Accessibility names derived from built-in messages change with copy; component roles, keyboard behavior and state remain component-owned. `LocaleProvider` has no native root, `rootProps`, ref target or keyboard behavior.
 
-The declaration is [LocaleProvider.d.ts](../components/i18n/LocaleProvider.d.ts). The [runtime API contract](runtime-api.md) records its context-only boundary; copied markup does not carry provider behavior.
+The declaration is [LocaleProvider.d.ts](../components/i18n/LocaleProvider.d.ts). The [static HTML reference](static-html-reference.md) records its context-only boundary; copied markup does not carry provider behavior.

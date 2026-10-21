@@ -1,0 +1,7349 @@
+{
+  "schemaVersion": 1,
+  "scope": "Exact observed plain-text business and fill-in data. Native fixed rows and independently supplied amounts are preserved; no arithmetic, legal interpretation, URL injection or arbitrary new row models.",
+  "templates": [
+    {
+      "template": "bod-memo",
+      "path": "templates/bod-memo/BodMemo.dc.html",
+      "baselineSha256": "0c95f77ec73b08ba590b0a444914897541333a189dcc01ce6b14dac9dbfef91a",
+      "fields": [
+        {
+          "id": "memoTitleEn",
+          "label": "Memo Title En",
+          "default": "Second senior hire for the AI squad",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                3,
+                0
+              ],
+              "rawDefault": "Second senior hire for the AI squad"
+            }
+          ]
+        },
+        {
+          "id": "memoTitleVi",
+          "label": "Memo Title Vi",
+          "default": "Tuyển thêm một senior cho đội AI",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                3,
+                0
+              ],
+              "rawDefault": "Tuyển thêm một senior cho đội AI"
+            }
+          ]
+        },
+        {
+          "id": "recipientEn",
+          "label": "Recipient En",
+          "default": "Board of Directors",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "Board of Directors"
+            }
+          ]
+        },
+        {
+          "id": "recipientVi",
+          "label": "Recipient Vi",
+          "default": "Hội đồng Quản trị",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "Hội đồng Quản trị"
+            }
+          ]
+        },
+        {
+          "id": "sender",
+          "label": "Sender",
+          "default": "CEO, CyberSkill",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                5,
+                5,
+                0
+              ],
+              "rawDefault": "CEO, CyberSkill"
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                5,
+                5,
+                0
+              ],
+              "rawDefault": "CEO, CyberSkill"
+            }
+          ]
+        },
+        {
+          "id": "subjectEn",
+          "label": "Subject En",
+          "default": "Approval to hire a second senior AI engineer",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                5,
+                11,
+                0
+              ],
+              "rawDefault": "Approval to hire a second senior AI engineer"
+            }
+          ]
+        },
+        {
+          "id": "subjectVi",
+          "label": "Subject Vi",
+          "default": "Phê duyệt tuyển thêm một kỹ sư AI cấp cao",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                5,
+                11,
+                0
+              ],
+              "rawDefault": "Phê duyệt tuyển thêm một kỹ sư AI cấp cao"
+            }
+          ]
+        },
+        {
+          "id": "memoDateEn",
+          "label": "Memo date en",
+          "default": "18 July 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                5,
+                8,
+                0
+              ],
+              "rawDefault": "18 July 2026"
+            }
+          ]
+        },
+        {
+          "id": "memoDateVi",
+          "label": "Memo date vi",
+          "default": "18 tháng 7, 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                5,
+                8,
+                0
+              ],
+              "rawDefault": "18 tháng 7, 2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "delivery-status-email",
+      "path": "templates/delivery-status-email/DeliveryStatusEmail.dc.html",
+      "baselineSha256": "184a92437677fa83303157e90f13ad2d5fb5cf938363b9283428d8395c243ad3",
+      "fields": [
+        {
+          "id": "reportTitleEn",
+          "label": "Report Title En",
+          "default": "Weekly status · Checkout rebuild",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Weekly status · Checkout rebuild"
+            }
+          ]
+        },
+        {
+          "id": "reportTitleVi",
+          "label": "Report Title Vi",
+          "default": "Cập nhật hằng tuần · Xây lại thanh toán",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                3,
+                0
+              ],
+              "rawDefault": "Cập nhật hằng tuần · Xây lại thanh toán"
+            }
+          ]
+        },
+        {
+          "id": "reportingPeriodEn",
+          "label": "Reporting Period En",
+          "default": "Week 29 — on track for the Sep 19 milestone",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                3,
+                0
+              ],
+              "rawDefault": "Week 29 — on track for the Sep 19 milestone"
+            }
+          ]
+        },
+        {
+          "id": "reportingPeriodVi",
+          "label": "Reporting Period Vi",
+          "default": "Tuần 29 — đúng tiến độ cho cột mốc 19/09",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                5,
+                0
+              ],
+              "rawDefault": "Tuần 29 — đúng tiến độ cho cột mốc 19/09"
+            }
+          ]
+        },
+        {
+          "id": "shippedPerformanceEn",
+          "label": "Shipped performance en",
+          "default": "Payment step rebuilt behind the flag — p95 at 780ms on staging.",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                9,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Payment step rebuilt behind the flag — p95 at 780ms on staging."
+            }
+          ]
+        },
+        {
+          "id": "shippedPerformanceVi",
+          "label": "Shipped performance vi",
+          "default": "Bước thanh toán đã xây lại sau feature flag — p95 đạt 780ms trên staging.",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                11,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Bước thanh toán đã xây lại sau feature flag — p95 đạt 780ms trên staging."
+            }
+          ]
+        },
+        {
+          "id": "nextCanaryEn",
+          "label": "Next canary en",
+          "default": "10% traffic canary on the new checkout.",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                13,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "10% traffic canary on the new checkout."
+            }
+          ]
+        },
+        {
+          "id": "nextCanaryVi",
+          "label": "Next canary vi",
+          "default": "Canary 10% lưu lượng trên checkout mới.",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                15,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Canary 10% lưu lượng trên checkout mới."
+            }
+          ]
+        },
+        {
+          "id": "responseDeadlineEn",
+          "label": "Response deadline en",
+          "default": "Wednesday",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                15,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Wednesday"
+            }
+          ]
+        },
+        {
+          "id": "responseDeadlineVi",
+          "label": "Response deadline vi",
+          "default": "thứ Tư",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                17,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "thứ Tư"
+            }
+          ]
+        },
+        {
+          "id": "completionPercent",
+          "type": "number",
+          "label": "Completion percent (0–100)",
+          "default": 72,
+          "minimum": 0,
+          "maximum": 100,
+          "runtimeProjection": "percent-width",
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                5,
+                0,
+                0
+              ],
+              "kind": "percent-width",
+              "rawDefault": "<span style=\"display:block;height:100%;width:72%;background:var(--cs-accent);border-radius:var(--cs-radius-full)\">"
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "72%",
+              "suffix": "%"
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                7,
+                0,
+                0
+              ],
+              "kind": "percent-width",
+              "rawDefault": "<span style=\"display:block;height:100%;width:72%;background:var(--cs-accent);border-radius:var(--cs-radius-full)\">"
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                7,
+                1,
+                0
+              ],
+              "rawDefault": "72%",
+              "suffix": "%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "doc-templates",
+      "path": "templates/doc-templates/DocTemplates.dc.html",
+      "baselineSha256": "df5680ad3ce54cc4b1ffedfeb27c0d195bae5202b58d8e744b5af80b99b97b04",
+      "fields": [
+        {
+          "id": "documentTitleVi",
+          "label": "Document Title Vi",
+          "default": "TÊN TÀI LIỆU",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "TÊN TÀI LIỆU"
+            }
+          ]
+        },
+        {
+          "id": "documentTitleEn",
+          "label": "Document Title En",
+          "default": "DOCUMENT TITLE",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                1,
+                3,
+                0
+              ],
+              "rawDefault": "DOCUMENT TITLE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "email",
+      "path": "templates/email/Email.dc.html",
+      "baselineSha256": "ad2be808b7d067b090bbc09e4503df4bf8e9f4cf7b44230e69d1a4d64df0a27c",
+      "fields": [
+        {
+          "id": "recipientIntroductionEn",
+          "label": "Recipient Introduction En",
+          "default": "We've started on your wish, An.",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                3,
+                0
+              ],
+              "rawDefault": "We've started on your wish, An."
+            }
+          ]
+        },
+        {
+          "id": "recipientIntroductionVi",
+          "label": "Recipient Introduction Vi",
+          "default": "Chúng tôi đã bắt đầu điều ước của bạn, An.",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                5,
+                0
+              ],
+              "rawDefault": "Chúng tôi đã bắt đầu điều ước của bạn, An."
+            }
+          ]
+        },
+        {
+          "id": "requestSummaryEn",
+          "label": "Request Summary En",
+          "default": "A real person on the team has picked up your request for a faster checkout. We'll share a first shape within one business day — built to ship, built to last.",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                5,
+                0
+              ],
+              "rawDefault": "A real person on the team has picked up your request for a faster checkout. We'll share a first shape within one business day — built to ship, built to last."
+            }
+          ]
+        },
+        {
+          "id": "requestSummaryVi",
+          "label": "Request Summary Vi",
+          "default": "Một người thật trong đội đã tiếp nhận yêu cầu thanh toán nhanh hơn của bạn. Chúng tôi sẽ gửi bản hình dung đầu tiên trong vòng một ngày làm việc — làm để chạy được, và làm để bền lâu.",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                7,
+                0
+              ],
+              "rawDefault": "Một người thật trong đội đã tiếp nhận yêu cầu thanh toán nhanh hơn của bạn. Chúng tôi sẽ gửi bản hình dung đầu tiên trong vòng một ngày làm việc — làm để chạy được, và làm để bền lâu."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "finance-dunning-email",
+      "path": "templates/finance-dunning-email/FinanceDunningEmail.dc.html",
+      "baselineSha256": "f3cb6934f09e06b5f6876f2850532bcee308f6d919e920aa19ba5bb840377fe6",
+      "fields": [
+        {
+          "id": "invoiceReference",
+          "label": "Invoice Reference",
+          "default": "INV-2026-0142",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                0
+              ],
+              "rawDefault": "INV-2026-0142"
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "INV-2026-0142"
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                7,
+                12,
+                0
+              ],
+              "rawDefault": "INV-2026-0142"
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "INV-2026-0142"
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                9,
+                12,
+                0
+              ],
+              "rawDefault": "INV-2026-0142"
+            }
+          ]
+        },
+        {
+          "id": "amountDisplayEn",
+          "label": "Amount Display En",
+          "default": "₫1,423,400,000",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                7,
+                6,
+                0
+              ],
+              "rawDefault": "₫1,423,400,000"
+            }
+          ]
+        },
+        {
+          "id": "amountDisplayVi",
+          "label": "Amount Display Vi",
+          "default": "₫1.423.400.000",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                9,
+                6,
+                0
+              ],
+              "rawDefault": "₫1.423.400.000"
+            }
+          ]
+        },
+        {
+          "id": "dueDateEn",
+          "label": "Due date en",
+          "default": "02 Aug 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                7,
+                9
+              ],
+              "rawDefault": " 02 Aug 2026 · ",
+              "prefix": " ",
+              "suffix": " · "
+            }
+          ]
+        },
+        {
+          "id": "dueDateVi",
+          "label": "Due date vi",
+          "default": "02/08/2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                9,
+                9
+              ],
+              "rawDefault": " 02/08/2026 · ",
+              "prefix": " ",
+              "suffix": " · "
+            }
+          ]
+        },
+        {
+          "id": "overdueDisplayEn",
+          "label": "Overdue display en",
+          "default": "7 days",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                3,
+                2
+              ],
+              "rawDefault": " is 7 days past due",
+              "prefix": " is ",
+              "suffix": " past due"
+            }
+          ]
+        },
+        {
+          "id": "overdueDisplayVi",
+          "label": "Overdue display vi",
+          "default": "7 ngày",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                5,
+                2
+              ],
+              "rawDefault": " đã quá hạn 7 ngày",
+              "prefix": " đã quá hạn "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "finance-expense-report",
+      "path": "templates/finance-expense-report/FinanceExpenseReport.dc.html",
+      "baselineSha256": "44369ca8a5f13e5076c2f31dc3dfce2f8f503feea03b014c6dd1ae5587bae245",
+      "fields": [
+        {
+          "id": "expenseReference",
+          "label": "Expense Reference",
+          "default": "EXP-2026-081",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                0
+              ],
+              "rawDefault": "EXP-2026-081"
+            }
+          ]
+        },
+        {
+          "id": "claimSummaryEn",
+          "label": "Claim Summary En",
+          "default": "Minh Trần · client workshop, Hà Nội",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0
+              ],
+              "rawDefault": "Minh Trần · client workshop, Hà Nội"
+            }
+          ]
+        },
+        {
+          "id": "claimSummaryVi",
+          "label": "Claim Summary Vi",
+          "default": "Minh Trần · workshop khách hàng, Hà Nội",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                3,
+                0
+              ],
+              "rawDefault": "Minh Trần · workshop khách hàng, Hà Nội"
+            }
+          ]
+        },
+        {
+          "id": "reportingTitleEn",
+          "label": "Reporting title en",
+          "default": "Expense report · July 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "Expense report · July 2026"
+            }
+          ]
+        },
+        {
+          "id": "reportingTitleVi",
+          "label": "Reporting title vi",
+          "default": "Đề nghị hoàn chi phí · Tháng 7, 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                1,
+                0
+              ],
+              "rawDefault": "Đề nghị hoàn chi phí · Tháng 7, 2026"
+            }
+          ]
+        },
+        {
+          "id": "totalClaimedEn",
+          "label": "Total claimed en",
+          "default": "₫6,030,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                0,
+                1,
+                0
+              ],
+              "rawDefault": "₫6,030,000"
+            }
+          ]
+        },
+        {
+          "id": "totalClaimedVi",
+          "label": "Total claimed vi",
+          "default": "₫6.030.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                7,
+                0,
+                1,
+                0
+              ],
+              "rawDefault": "₫6.030.000"
+            }
+          ]
+        },
+        {
+          "id": "expense1DateEn",
+          "label": "Expense1date en",
+          "default": "14/07",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "14/07"
+            }
+          ]
+        },
+        {
+          "id": "expense1ItemEn",
+          "label": "Expense1item en",
+          "default": "Flights SGN–HAN return",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Flights SGN–HAN return"
+            }
+          ]
+        },
+        {
+          "id": "expense1CategoryEn",
+          "label": "Expense1category en",
+          "default": "Travel",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                1,
+                2,
+                0
+              ],
+              "rawDefault": "Travel"
+            }
+          ]
+        },
+        {
+          "id": "expense1AmountEn",
+          "label": "Expense1amount en",
+          "default": "3,400,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                1,
+                3,
+                0
+              ],
+              "rawDefault": "3,400,000"
+            }
+          ]
+        },
+        {
+          "id": "expense2DateEn",
+          "label": "Expense2date en",
+          "default": "14–15/07",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                3,
+                0,
+                0
+              ],
+              "rawDefault": "14–15/07"
+            }
+          ]
+        },
+        {
+          "id": "expense2ItemEn",
+          "label": "Expense2item en",
+          "default": "Hotel, 1 night",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "Hotel, 1 night"
+            }
+          ]
+        },
+        {
+          "id": "expense2CategoryEn",
+          "label": "Expense2category en",
+          "default": "Lodging",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                3,
+                2,
+                0
+              ],
+              "rawDefault": "Lodging"
+            }
+          ]
+        },
+        {
+          "id": "expense2AmountEn",
+          "label": "Expense2amount en",
+          "default": "1,650,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                3,
+                3,
+                0
+              ],
+              "rawDefault": "1,650,000"
+            }
+          ]
+        },
+        {
+          "id": "expense3DateEn",
+          "label": "Expense3date en",
+          "default": "15/07",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                5,
+                0,
+                0
+              ],
+              "rawDefault": "15/07"
+            }
+          ]
+        },
+        {
+          "id": "expense3ItemEn",
+          "label": "Expense3item en",
+          "default": "Client lunch (4 people)",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "Client lunch (4 people)"
+            }
+          ]
+        },
+        {
+          "id": "expense3CategoryEn",
+          "label": "Expense3category en",
+          "default": "Meals",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "Meals"
+            }
+          ]
+        },
+        {
+          "id": "expense3AmountEn",
+          "label": "Expense3amount en",
+          "default": "980,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                5,
+                3,
+                0
+              ],
+              "rawDefault": "980,000"
+            }
+          ]
+        },
+        {
+          "id": "expense1DateVi",
+          "label": "Expense1date vi",
+          "default": "14/07",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "14/07"
+            }
+          ]
+        },
+        {
+          "id": "expense1ItemVi",
+          "label": "Expense1item vi",
+          "default": "Vé bay khứ hồi SGN–HAN",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Vé bay khứ hồi SGN–HAN"
+            }
+          ]
+        },
+        {
+          "id": "expense1CategoryVi",
+          "label": "Expense1category vi",
+          "default": "Di chuyển",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                1,
+                2,
+                0
+              ],
+              "rawDefault": "Di chuyển"
+            }
+          ]
+        },
+        {
+          "id": "expense1AmountVi",
+          "label": "Expense1amount vi",
+          "default": "3.400.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                1,
+                3,
+                0
+              ],
+              "rawDefault": "3.400.000"
+            }
+          ]
+        },
+        {
+          "id": "expense2DateVi",
+          "label": "Expense2date vi",
+          "default": "14–15/07",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                3,
+                0,
+                0
+              ],
+              "rawDefault": "14–15/07"
+            }
+          ]
+        },
+        {
+          "id": "expense2ItemVi",
+          "label": "Expense2item vi",
+          "default": "Khách sạn, 1 đêm",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "Khách sạn, 1 đêm"
+            }
+          ]
+        },
+        {
+          "id": "expense2CategoryVi",
+          "label": "Expense2category vi",
+          "default": "Lưu trú",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                3,
+                2,
+                0
+              ],
+              "rawDefault": "Lưu trú"
+            }
+          ]
+        },
+        {
+          "id": "expense2AmountVi",
+          "label": "Expense2amount vi",
+          "default": "1.650.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                3,
+                3,
+                0
+              ],
+              "rawDefault": "1.650.000"
+            }
+          ]
+        },
+        {
+          "id": "expense3DateVi",
+          "label": "Expense3date vi",
+          "default": "15/07",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                5,
+                0,
+                0
+              ],
+              "rawDefault": "15/07"
+            }
+          ]
+        },
+        {
+          "id": "expense3ItemVi",
+          "label": "Expense3item vi",
+          "default": "Ăn trưa với khách (4 người)",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "Ăn trưa với khách (4 người)"
+            }
+          ]
+        },
+        {
+          "id": "expense3CategoryVi",
+          "label": "Expense3category vi",
+          "default": "Ăn uống",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "Ăn uống"
+            }
+          ]
+        },
+        {
+          "id": "expense3AmountVi",
+          "label": "Expense3amount vi",
+          "default": "980.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                5,
+                3,
+                0
+              ],
+              "rawDefault": "980.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "hr-announcement",
+      "path": "templates/hr-announcement/HrAnnouncement.dc.html",
+      "baselineSha256": "5181e9cb098ccd198ea0d0f9538fa5f61bc6acc0dfd85c0c3ad268c8f02d785d",
+      "fields": [
+        {
+          "id": "employeeFullName",
+          "label": "Employee Full Name",
+          "default": "Nguyễn Hoàng An",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                3,
+                0,
+                0
+              ],
+              "rawDefault": "Nguyễn Hoàng An"
+            }
+          ]
+        },
+        {
+          "id": "employeeRole",
+          "label": "Employee Role",
+          "default": "Senior Product Engineer · Platform",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "Senior Product Engineer · Platform"
+            }
+          ]
+        },
+        {
+          "id": "announcementTitleEn",
+          "label": "Announcement Title En",
+          "default": "Please welcome An to the Platform squad",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                3,
+                0
+              ],
+              "rawDefault": "Please welcome An to the Platform squad"
+            }
+          ]
+        },
+        {
+          "id": "announcementTitleVi",
+          "label": "Announcement Title Vi",
+          "default": "Xin chào mừng An gia nhập nhóm Platform",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                3,
+                0
+              ],
+              "rawDefault": "Xin chào mừng An gia nhập nhóm Platform"
+            }
+          ]
+        },
+        {
+          "id": "employeeStartDateEn",
+          "label": "Employee start date en",
+          "default": "01 September",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "01 September"
+            }
+          ]
+        },
+        {
+          "id": "employeeStartDateVi",
+          "label": "Employee start date vi",
+          "default": "01 tháng 9",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                9,
+                0,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "01 tháng 9"
+            }
+          ]
+        },
+        {
+          "id": "announcementDateEn",
+          "label": "Announcement date en",
+          "default": "18 Jul 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Announcement · 18 Jul 2026",
+              "prefix": "Announcement · "
+            }
+          ]
+        },
+        {
+          "id": "announcementDateVi",
+          "label": "Announcement date vi",
+          "default": "18 Th7 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                1,
+                0
+              ],
+              "rawDefault": "Thông báo · 18 Th7 2026",
+              "prefix": "Thông báo · "
+            }
+          ]
+        },
+        {
+          "id": "employeeGivenName",
+          "label": "Employee given name",
+          "default": "An",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                0
+              ],
+              "rawDefault": "An joins us on ",
+              "suffix": " joins us on "
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                9,
+                0,
+                3,
+                0
+              ],
+              "rawDefault": "An gia nhập cùng chúng tôi từ ",
+              "suffix": " gia nhập cùng chúng tôi từ "
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                5,
+                0
+              ],
+              "rawDefault": "Say hi to An →",
+              "prefix": "Say hi to ",
+              "suffix": " →"
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                9,
+                0,
+                7,
+                0
+              ],
+              "rawDefault": "Chào An nào →",
+              "prefix": "Chào ",
+              "suffix": " nào →"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "legal-sow",
+      "path": "templates/legal-sow/LegalSow.dc.html",
+      "baselineSha256": "42331028500c113f45d1b9e5a130f2454eecfcb09798fdb1aeb3227ef41737a0",
+      "fields": [
+        {
+          "id": "statementReference",
+          "label": "Statement Reference",
+          "default": "SOW-2026-014",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                0
+              ],
+              "rawDefault": "SOW-2026-014"
+            }
+          ]
+        },
+        {
+          "id": "projectTitleEn",
+          "label": "Project Title En",
+          "default": "Checkout rebuild & ops console",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0
+              ],
+              "rawDefault": "Checkout rebuild &amp; ops console"
+            }
+          ]
+        },
+        {
+          "id": "projectTitleVi",
+          "label": "Project Title Vi",
+          "default": "Xây lại thanh toán & ops console",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                0
+              ],
+              "rawDefault": "Xây lại thanh toán &amp; ops console"
+            }
+          ]
+        },
+        {
+          "id": "clientNameEn",
+          "label": "Client Name En",
+          "default": "[Client Ltd]",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                3,
+                0
+              ],
+              "rawDefault": "[Client Ltd]"
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                23,
+                1,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "[Client Ltd]"
+            }
+          ]
+        },
+        {
+          "id": "clientNameVi",
+          "label": "Client Name Vi",
+          "default": "[Công ty khách hàng]",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                7,
+                3,
+                0
+              ],
+              "rawDefault": "[Công ty khách hàng]"
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                25,
+                1,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "[Công ty khách hàng]"
+            }
+          ]
+        },
+        {
+          "id": "agreementDateEn",
+          "label": "Agreement date en",
+          "default": "12 June 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                4
+              ],
+              "rawDefault": " dated 12 June 2026. It captures the wish, what we&rsquo;ll ship, and how we&rsquo;ll know it&rsquo;s done.",
+              "prefix": " dated ",
+              "suffix": ". It captures the wish, what we&rsquo;ll ship, and how we&rsquo;ll know it&rsquo;s done."
+            }
+          ]
+        },
+        {
+          "id": "agreementDateVi",
+          "label": "Agreement date vi",
+          "default": "12/06/2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                7,
+                4
+              ],
+              "rawDefault": " ngày 12/06/2026. Nó ghi lại điều ước, những gì chúng tôi sẽ giao, và cách xác nhận hoàn thành.",
+              "prefix": " ngày ",
+              "suffix": ". Nó ghi lại điều ước, những gì chúng tôi sẽ giao, và cách xác nhận hoàn thành."
+            }
+          ]
+        },
+        {
+          "id": "startDateEn",
+          "label": "Start date en",
+          "default": "01 Aug 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "01 Aug 2026"
+            }
+          ]
+        },
+        {
+          "id": "targetDateEn",
+          "label": "Target date en",
+          "default": "31 Oct 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "31 Oct 2026"
+            }
+          ]
+        },
+        {
+          "id": "milestone1DateEn",
+          "label": "Milestone1date en",
+          "default": "08 Aug",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                19,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "08 Aug"
+            }
+          ]
+        },
+        {
+          "id": "milestone2DateEn",
+          "label": "Milestone2date en",
+          "default": "19 Sep",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                19,
+                3,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "19 Sep"
+            }
+          ]
+        },
+        {
+          "id": "milestone3DateEn",
+          "label": "Milestone3date en",
+          "default": "31 Oct",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                19,
+                3,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "31 Oct"
+            }
+          ]
+        },
+        {
+          "id": "milestone1FeeEn",
+          "label": "Milestone1fee en",
+          "default": "₫900,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                19,
+                3,
+                1,
+                2,
+                0
+              ],
+              "rawDefault": "₫900,000,000"
+            }
+          ]
+        },
+        {
+          "id": "milestone2FeeEn",
+          "label": "Milestone2fee en",
+          "default": "₫1,200,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                19,
+                3,
+                3,
+                2,
+                0
+              ],
+              "rawDefault": "₫1,200,000,000"
+            }
+          ]
+        },
+        {
+          "id": "milestone3FeeEn",
+          "label": "Milestone3fee en",
+          "default": "₫1,000,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                19,
+                3,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "₫1,000,000,000"
+            }
+          ]
+        },
+        {
+          "id": "totalFeeEn",
+          "label": "Total fee en",
+          "default": "₫3,100,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                19,
+                3,
+                7,
+                1,
+                0
+              ],
+              "rawDefault": "₫3,100,000,000"
+            }
+          ]
+        },
+        {
+          "id": "deliverable1TitleEn",
+          "label": "Deliverable1title en",
+          "default": "Checkout flow",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                15,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "Checkout flow"
+            }
+          ]
+        },
+        {
+          "id": "deliverable1DescriptionEn",
+          "label": "Deliverable1description en",
+          "default": "Rebuilt cart, payment, and confirmation with recovery emails",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                15,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Rebuilt cart, payment, and confirmation with recovery emails"
+            }
+          ]
+        },
+        {
+          "id": "deliverable1OwnerEn",
+          "label": "Deliverable1owner en",
+          "default": "CS",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                15,
+                3,
+                1,
+                2,
+                0
+              ],
+              "rawDefault": "CS"
+            }
+          ]
+        },
+        {
+          "id": "deliverable2TitleEn",
+          "label": "Deliverable2title en",
+          "default": "Ops console",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                15,
+                3,
+                3,
+                0,
+                0
+              ],
+              "rawDefault": "Ops console"
+            }
+          ]
+        },
+        {
+          "id": "deliverable2DescriptionEn",
+          "label": "Deliverable2description en",
+          "default": "Order search, refunds, and status board for the support team",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                15,
+                3,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "Order search, refunds, and status board for the support team"
+            }
+          ]
+        },
+        {
+          "id": "deliverable2OwnerEn",
+          "label": "Deliverable2owner en",
+          "default": "CS",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                15,
+                3,
+                3,
+                2,
+                0
+              ],
+              "rawDefault": "CS"
+            }
+          ]
+        },
+        {
+          "id": "deliverable3TitleEn",
+          "label": "Deliverable3title en",
+          "default": "Analytics hooks",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                15,
+                3,
+                5,
+                0,
+                0
+              ],
+              "rawDefault": "Analytics hooks"
+            }
+          ]
+        },
+        {
+          "id": "deliverable3DescriptionEn",
+          "label": "Deliverable3description en",
+          "default": "Funnel events wired to the Client’s existing warehouse",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                15,
+                3,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "Funnel events wired to the Client&rsquo;s existing warehouse"
+            }
+          ]
+        },
+        {
+          "id": "deliverable3OwnerEn",
+          "label": "Deliverable3owner en",
+          "default": "Joint",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                15,
+                3,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "Joint"
+            }
+          ]
+        },
+        {
+          "id": "deliverable4TitleEn",
+          "label": "Deliverable4title en",
+          "default": "Handover",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                15,
+                3,
+                7,
+                0,
+                0
+              ],
+              "rawDefault": "Handover"
+            }
+          ]
+        },
+        {
+          "id": "deliverable4DescriptionEn",
+          "label": "Deliverable4description en",
+          "default": "Docs, runbook, and two weeks of post-launch support",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                15,
+                3,
+                7,
+                1,
+                0
+              ],
+              "rawDefault": "Docs, runbook, and two weeks of post-launch support"
+            }
+          ]
+        },
+        {
+          "id": "deliverable4OwnerEn",
+          "label": "Deliverable4owner en",
+          "default": "CS",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                15,
+                3,
+                7,
+                2,
+                0
+              ],
+              "rawDefault": "CS"
+            }
+          ]
+        },
+        {
+          "id": "milestone1TitleEn",
+          "label": "Milestone1title en",
+          "default": "Kickoff & discovery signed off",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                19,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "Kickoff &amp; discovery signed off"
+            }
+          ]
+        },
+        {
+          "id": "milestone2TitleEn",
+          "label": "Milestone2title en",
+          "default": "Checkout in staging",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                19,
+                3,
+                3,
+                0,
+                0
+              ],
+              "rawDefault": "Checkout in staging"
+            }
+          ]
+        },
+        {
+          "id": "milestone3TitleEn",
+          "label": "Milestone3title en",
+          "default": "Launch & handover accepted",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                19,
+                3,
+                5,
+                0,
+                0
+              ],
+              "rawDefault": "Launch &amp; handover accepted"
+            }
+          ]
+        },
+        {
+          "id": "startDateVi",
+          "label": "Start date vi",
+          "default": "01/08/2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "01/08/2026"
+            }
+          ]
+        },
+        {
+          "id": "targetDateVi",
+          "label": "Target date vi",
+          "default": "31/10/2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "31/10/2026"
+            }
+          ]
+        },
+        {
+          "id": "milestone1DateVi",
+          "label": "Milestone1date vi",
+          "default": "08/08",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                21,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "08/08"
+            }
+          ]
+        },
+        {
+          "id": "milestone2DateVi",
+          "label": "Milestone2date vi",
+          "default": "19/09",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                21,
+                3,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "19/09"
+            }
+          ]
+        },
+        {
+          "id": "milestone3DateVi",
+          "label": "Milestone3date vi",
+          "default": "31/10",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                21,
+                3,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "31/10"
+            }
+          ]
+        },
+        {
+          "id": "milestone1FeeVi",
+          "label": "Milestone1fee vi",
+          "default": "₫900.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                21,
+                3,
+                1,
+                2,
+                0
+              ],
+              "rawDefault": "₫900.000.000"
+            }
+          ]
+        },
+        {
+          "id": "milestone2FeeVi",
+          "label": "Milestone2fee vi",
+          "default": "₫1.200.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                21,
+                3,
+                3,
+                2,
+                0
+              ],
+              "rawDefault": "₫1.200.000.000"
+            }
+          ]
+        },
+        {
+          "id": "milestone3FeeVi",
+          "label": "Milestone3fee vi",
+          "default": "₫1.000.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                21,
+                3,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "₫1.000.000.000"
+            }
+          ]
+        },
+        {
+          "id": "totalFeeVi",
+          "label": "Total fee vi",
+          "default": "₫3.100.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                21,
+                3,
+                7,
+                1,
+                0
+              ],
+              "rawDefault": "₫3.100.000.000"
+            }
+          ]
+        },
+        {
+          "id": "deliverable1TitleVi",
+          "label": "Deliverable1title vi",
+          "default": "Luồng thanh toán",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                17,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "Luồng thanh toán"
+            }
+          ]
+        },
+        {
+          "id": "deliverable1DescriptionVi",
+          "label": "Deliverable1description vi",
+          "default": "Giỏ hàng, thanh toán, xác nhận, kèm email khôi phục",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                17,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Giỏ hàng, thanh toán, xác nhận, kèm email khôi phục"
+            }
+          ]
+        },
+        {
+          "id": "deliverable1OwnerVi",
+          "label": "Deliverable1owner vi",
+          "default": "CS",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                17,
+                3,
+                1,
+                2,
+                0
+              ],
+              "rawDefault": "CS"
+            }
+          ]
+        },
+        {
+          "id": "deliverable2TitleVi",
+          "label": "Deliverable2title vi",
+          "default": "Ops console",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                17,
+                3,
+                3,
+                0,
+                0
+              ],
+              "rawDefault": "Ops console"
+            }
+          ]
+        },
+        {
+          "id": "deliverable2DescriptionVi",
+          "label": "Deliverable2description vi",
+          "default": "Tra cứu đơn, hoàn tiền, bảng trạng thái cho đội hỗ trợ",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                17,
+                3,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "Tra cứu đơn, hoàn tiền, bảng trạng thái cho đội hỗ trợ"
+            }
+          ]
+        },
+        {
+          "id": "deliverable2OwnerVi",
+          "label": "Deliverable2owner vi",
+          "default": "CS",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                17,
+                3,
+                3,
+                2,
+                0
+              ],
+              "rawDefault": "CS"
+            }
+          ]
+        },
+        {
+          "id": "deliverable3TitleVi",
+          "label": "Deliverable3title vi",
+          "default": "Analytics hooks",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                17,
+                3,
+                5,
+                0,
+                0
+              ],
+              "rawDefault": "Analytics hooks"
+            }
+          ]
+        },
+        {
+          "id": "deliverable3DescriptionVi",
+          "label": "Deliverable3description vi",
+          "default": "Sự kiện phễu nối vào warehouse hiện có của Khách hàng",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                17,
+                3,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "Sự kiện phễu nối vào warehouse hiện có của Khách hàng"
+            }
+          ]
+        },
+        {
+          "id": "deliverable3OwnerVi",
+          "label": "Deliverable3owner vi",
+          "default": "Cùng làm",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                17,
+                3,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "Cùng làm"
+            }
+          ]
+        },
+        {
+          "id": "deliverable4TitleVi",
+          "label": "Deliverable4title vi",
+          "default": "Bàn giao",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                17,
+                3,
+                7,
+                0,
+                0
+              ],
+              "rawDefault": "Bàn giao"
+            }
+          ]
+        },
+        {
+          "id": "deliverable4DescriptionVi",
+          "label": "Deliverable4description vi",
+          "default": "Tài liệu, runbook, và hai tuần hỗ trợ sau ra mắt",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                17,
+                3,
+                7,
+                1,
+                0
+              ],
+              "rawDefault": "Tài liệu, runbook, và hai tuần hỗ trợ sau ra mắt"
+            }
+          ]
+        },
+        {
+          "id": "deliverable4OwnerVi",
+          "label": "Deliverable4owner vi",
+          "default": "CS",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                17,
+                3,
+                7,
+                2,
+                0
+              ],
+              "rawDefault": "CS"
+            }
+          ]
+        },
+        {
+          "id": "milestone1TitleVi",
+          "label": "Milestone1title vi",
+          "default": "Kickoff & chốt discovery",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                21,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "Kickoff &amp; chốt discovery"
+            }
+          ]
+        },
+        {
+          "id": "milestone2TitleVi",
+          "label": "Milestone2title vi",
+          "default": "Thanh toán lên staging",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                21,
+                3,
+                3,
+                0,
+                0
+              ],
+              "rawDefault": "Thanh toán lên staging"
+            }
+          ]
+        },
+        {
+          "id": "milestone3TitleVi",
+          "label": "Milestone3title vi",
+          "default": "Ra mắt & nghiệm thu bàn giao",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                21,
+                3,
+                5,
+                0,
+                0
+              ],
+              "rawDefault": "Ra mắt &amp; nghiệm thu bàn giao"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "marketing-launch",
+      "path": "templates/marketing-launch/MarketingLaunch.dc.html",
+      "baselineSha256": "22600c328915ee4ad9106f8cbe45d391838e6394481f8b98d219ae8b141edb9d",
+      "fields": [
+        {
+          "id": "testimonialEn",
+          "label": "Testimonial En",
+          "default": "“We described a checkout in two sentences. Two weeks later it shipped.”",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                5,
+                0
+              ],
+              "rawDefault": "“We described a checkout in two sentences. Two weeks later it shipped.”"
+            }
+          ]
+        },
+        {
+          "id": "testimonialVi",
+          "label": "Testimonial Vi",
+          "default": "“Chúng tôi mô tả trang thanh toán trong hai câu. Hai tuần sau nó đã chạy.”",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                7,
+                0
+              ],
+              "rawDefault": "“Chúng tôi mô tả trang thanh toán trong hai câu. Hai tuần sau nó đã chạy.”"
+            }
+          ]
+        },
+        {
+          "id": "testimonialAttributionEn",
+          "label": "Testimonial Attribution En",
+          "default": "— Product lead, Retailer A",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "— Product lead, Retailer A"
+            }
+          ]
+        },
+        {
+          "id": "testimonialAttributionVi",
+          "label": "Testimonial Attribution Vi",
+          "default": "— Trưởng sản phẩm, Retailer A",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                7,
+                2,
+                0
+              ],
+              "rawDefault": "— Trưởng sản phẩm, Retailer A"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "marketing-newsletter",
+      "path": "templates/marketing-newsletter/MarketingNewsletter.dc.html",
+      "baselineSha256": "e9e9777818bed1b84d495548a41b5b979b6348fa7a72fe47ad0dd9439656f239",
+      "fields": [
+        {
+          "id": "issueDisplayEn",
+          "label": "Issue Display En",
+          "default": "Issue 12 · July 2026",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                0,
+                0,
+                0
+              ],
+              "rawDefault": "Issue 12 · July 2026"
+            }
+          ]
+        },
+        {
+          "id": "issueDisplayVi",
+          "label": "Issue Display Vi",
+          "default": "Số 12 · Tháng 7 2026",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "Số 12 · Tháng 7 2026"
+            }
+          ]
+        },
+        {
+          "id": "leadArticleTitleEn",
+          "label": "Lead Article Title En",
+          "default": "Liquid Glass, now in every build",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                0
+              ],
+              "rawDefault": "Liquid Glass, now in every build"
+            }
+          ]
+        },
+        {
+          "id": "leadArticleTitleVi",
+          "label": "Lead Article Title Vi",
+          "default": "Liquid Glass, giờ có trong mọi bản build",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                3,
+                0,
+                5,
+                0
+              ],
+              "rawDefault": "Liquid Glass, giờ có trong mọi bản build"
+            }
+          ]
+        },
+        {
+          "id": "teamArticleTitleEn",
+          "label": "Team article title en",
+          "default": "An joins Platform",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                1,
+                5,
+                3,
+                0
+              ],
+              "rawDefault": "An joins Platform"
+            }
+          ]
+        },
+        {
+          "id": "teamArticleTitleVi",
+          "label": "Team article title vi",
+          "default": "An gia nhập Platform",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                3,
+                0,
+                7,
+                3,
+                0
+              ],
+              "rawDefault": "An gia nhập Platform"
+            }
+          ]
+        },
+        {
+          "id": "fieldArticleTitleEn",
+          "label": "Field article title en",
+          "default": "How we grant a wish in four steps",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0
+              ],
+              "rawDefault": "How we grant a wish in four steps"
+            }
+          ]
+        },
+        {
+          "id": "fieldArticleTitleVi",
+          "label": "Field article title vi",
+          "default": "Cách chúng tôi thực hiện một điều ước trong bốn bước",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                3,
+                0,
+                5,
+                3,
+                0
+              ],
+              "rawDefault": "Cách chúng tôi thực hiện một điều ước trong bốn bước"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "tech-release-notes",
+      "path": "templates/tech-release-notes/TechReleaseNotes.dc.html",
+      "baselineSha256": "1580de9f4783266bc3a38f1310b25da14fd7cb6ad18fc83c5c89e75b49704d8a",
+      "fields": [
+        {
+          "id": "releaseVersionDisplay",
+          "label": "Release Version Display",
+          "default": "v1.6.0",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                0
+              ],
+              "rawDefault": "v1.6.0"
+            }
+          ]
+        },
+        {
+          "id": "releaseTitleEn",
+          "label": "Release Title En",
+          "default": "Glass bindings + element-pack v2",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                3,
+                0
+              ],
+              "rawDefault": "Glass bindings + element-pack v2"
+            }
+          ]
+        },
+        {
+          "id": "releaseTitleVi",
+          "label": "Release Title Vi",
+          "default": "Gắn Liquid Glass vào component + element-pack v2",
+          "maxLength": 1024,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                5,
+                0
+              ],
+              "rawDefault": "Gắn Liquid Glass vào component + element-pack v2"
+            }
+          ]
+        },
+        {
+          "id": "releaseDateKickerEn",
+          "label": "Release date kicker en",
+          "default": "Release notes · 18 Jul 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Release notes · 18 Jul 2026"
+            }
+          ]
+        },
+        {
+          "id": "releaseDateKickerVi",
+          "label": "Release date kicker vi",
+          "default": "Ghi chú phát hành · 18 Th7 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                0,
+                3,
+                0
+              ],
+              "rawDefault": "Ghi chú phát hành · 18 Th7 2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-appointment-transfer",
+      "path": "templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html",
+      "baselineSha256": "379ea1aed5b6ccd070427f66cebb0151cd8f3a64d9861ae79e371296e27f2cde",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "documentReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        },
+        {
+          "id": "employeeName",
+          "label": "Họ và tênFull name",
+          "default": "..................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                23,
+                3,
+                1,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".................."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-code-of-conduct",
+      "path": "templates/vn-code-of-conduct/VnCodeOfConduct.dc.html",
+      "baselineSha256": "042bac78bd4ec0f6fa077bc3abef991a8c2eaec16fed2f47a4b8d4456672db65",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "documentReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        },
+        {
+          "id": "reportingContactDisplay",
+          "label": "Thư điện tử · Reporting email display",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                11,
+                2,
+                1,
+                0
+              ],
+              "rawDefault": ".............................."
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                11,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-compensation-regulation",
+      "path": "templates/vn-compensation-regulation/VnCompensationRegulation.dc.html",
+      "baselineSha256": "e3a6f93ec4b69d04cfb60a6bb4200518da9fe250c0f6569f327c240872907a9f",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "documentReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-contract-amendment",
+      "path": "templates/vn-contract-amendment/VnContractAmendment.dc.html",
+      "baselineSha256": "5a900943db6afa58e37e35cda783eae101ba6011e4eb4c6c9c8bfabac62caa66",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "employeeName",
+          "label": "Họ và tênFull name",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                17,
+                3,
+                1,
+                1,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "address",
+          "label": "Nơi cư trúPlace of residence",
+          "default": "............................................................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                17,
+                3,
+                1,
+                7,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "............................................................"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-data-protection-policy",
+      "path": "templates/vn-data-protection-policy/VnDataProtectionPolicy.dc.html",
+      "baselineSha256": "c6fd3db428d316d743af631e33526021180f4f3967ae714b0bfbf1aca320dc73",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "documentReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-disciplinary-case-file",
+      "path": "templates/vn-disciplinary-case-file/VnDisciplinaryCaseFile.dc.html",
+      "baselineSha256": "c511851daa709757b62532e947a461d54ed6954fac3c209715a4738a3abbd20b",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "documentReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        },
+        {
+          "id": "caseReference",
+          "label": "Số hồ sơCase number",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                15,
+                3,
+                1,
+                1,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        },
+        {
+          "id": "employeeName",
+          "label": "Người lao độngEmployee",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                15,
+                3,
+                1,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "positionDepartmentDisplay",
+          "label": "Chức danh / Bộ phậnPosition / Department",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                15,
+                3,
+                1,
+                5,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-exit-handover",
+      "path": "templates/vn-exit-handover/VnExitHandover.dc.html",
+      "baselineSha256": "aec77ecb10eb36b8879c697058b930821d213cbd30e3d89b2c53d72eb66133c9",
+      "fields": [
+        {
+          "id": "employeeName",
+          "label": "Họ và tênFull name",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                3,
+                1,
+                1,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "address",
+          "label": "Địa chỉ thường trúResidential address",
+          "default": "............................................................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                3,
+                1,
+                7,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "............................................................"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-framework-agreement",
+      "path": "templates/vn-framework-agreement/VnFrameworkAgreement.dc.html",
+      "baselineSha256": "b3c87d2f0d46854fdf8fe0c897d201ae062ba65cc988f058f518bb60fddd3028",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "accountRecipientEmailDisplay",
+          "label": "Email tiếp nhận tài khoảnAccount recipient email(s)",
+          "default": "................................................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                21,
+                5,
+                1,
+                17,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "................................................"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-grassroots-democracy",
+      "path": "templates/vn-grassroots-democracy/VnGrassrootsDemocracy.dc.html",
+      "baselineSha256": "5150135a368301e8343418dc5bbd1f1615ce21af78975d634a8f9045e0da56e5",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "documentReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-infosec-policy",
+      "path": "templates/vn-infosec-policy/VnInfosecPolicy.dc.html",
+      "baselineSha256": "58d5fed8453f6b3455cacef75acef33f2fd05d66098f4038677e2de3d65c07b6",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "documentReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-internal-labor-regulations",
+      "path": "templates/vn-internal-labor-regulations/VnInternalLaborRegulations.dc.html",
+      "baselineSha256": "ea8cbaa3a24ada7164bef7d907f813a81cbb91ed1bb8b49f299309407620e6c4",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "documentReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-job-description",
+      "path": "templates/vn-job-description/VnJobDescription.dc.html",
+      "baselineSha256": "05d35c40372772114aeef3503894a82db05f92ce6ff42e116793cfbeba0dbe46",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "position",
+          "label": "Chức danhPosition",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                7,
+                1,
+                1,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "department",
+          "label": "Bộ phậnDepartment",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                7,
+                1,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "lineManager",
+          "label": "Cấp báo cáoReports to",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                7,
+                1,
+                5,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "levelDisplay",
+          "label": "Cấp bậcLevel / Grade",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                7,
+                1,
+                7,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "workLocation",
+          "label": "Địa điểm làm việcLocation",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                7,
+                1,
+                9,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-ndnca-ip",
+      "path": "templates/vn-ndnca-ip/VnNdncaIp.dc.html",
+      "baselineSha256": "501cf6973e8dd3f4e398eef2131aea8f5a0ebd4806f884e5b16a1915353f58ae",
+      "fields": [
+        {
+          "id": "employeeName",
+          "label": "Họ và tênFull name",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                3,
+                1,
+                1,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "nationality",
+          "label": "Quốc tịchNationality",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                3,
+                1,
+                5,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "address",
+          "label": "Địa chỉ thường trúResidential address",
+          "default": "............................................................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                3,
+                1,
+                9,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "............................................................"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-offer-letter",
+      "path": "templates/vn-offer-letter/VnOfferLetter.dc.html",
+      "baselineSha256": "71abb7197638a28d72c26d00bb10f1a6ce3da0e572bfa23661dbea12ccb3ea1b",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "position",
+          "label": "Vị tríPosition",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                15,
+                3,
+                1,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "department",
+          "label": "Bộ phậnDepartment",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                15,
+                3,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "lineManager",
+          "label": "Cấp báo cáoReports to",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                15,
+                3,
+                5,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-pdpl-consent",
+      "path": "templates/vn-pdpl-consent/VnPdplConsent.dc.html",
+      "baselineSha256": "5188894e451cfe14537a15ee1317bb931e2a5a46d6dcc881361702458dfc1b82",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "employeeName",
+          "label": "Họ và tênFull name",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                3,
+                1,
+                1,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "citizenId",
+          "label": "Số CCCDCitizen ID no.",
+          "default": "...............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                3,
+                1,
+                5,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "..............................."
+            }
+          ]
+        },
+        {
+          "id": "address",
+          "label": "Nơi cư trúPlace of residence",
+          "default": "............................................................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                3,
+                1,
+                9,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "............................................................"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-performance-evaluation-regulation",
+      "path": "templates/vn-performance-evaluation-regulation/VnPerformanceEvaluationRegulation.dc.html",
+      "baselineSha256": "bc2ffef768c3b1b9e824b81efbb0b83575a90b4ae1cf92b2b46251dbd42a676a",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "documentReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-performance-review-form",
+      "path": "templates/vn-performance-review-form/VnPerformanceReviewForm.dc.html",
+      "baselineSha256": "110b30c411d893fd15f7b5bfbff80ce49399a0ec835efcb2fb4fc0c342a9d364",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "documentReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        },
+        {
+          "id": "employeeName",
+          "label": "Người lao độngEmployee",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                1,
+                1,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "positionDepartmentDisplay",
+          "label": "Chức danh / Bộ phậnPosition / Department",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                1,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "lineManager",
+          "label": "Quản lý trực tiếpLine manager",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                1,
+                5,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-remote-work-policy",
+      "path": "templates/vn-remote-work-policy/VnRemoteWorkPolicy.dc.html",
+      "baselineSha256": "1020c9d302cb5221d99b0767d4f68e5da7f209bf28e97df64773d6d03605c760",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "documentReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-sow-appendix",
+      "path": "templates/vn-sow-appendix/VnSowAppendix.dc.html",
+      "baselineSha256": "3a580ae5886652736b7029548de06eace378f0539711141576aeae99ad73c037",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-termination-decision",
+      "path": "templates/vn-termination-decision/VnTerminationDecision.dc.html",
+      "baselineSha256": "53bc414684cc6253e1e9e4a2c8074ff993dac4334705ce395cf3a26c08ce7988",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "employeeName",
+          "label": "Ông/Bà · Mr./Ms.",
+          "default": "..................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                25,
+                1,
+                2,
+                1,
+                0
+              ],
+              "rawDefault": ".................."
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                25,
+                1,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": ".................."
+            }
+          ]
+        },
+        {
+          "id": "position",
+          "label": "Chức danh · Position",
+          "default": "..................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                25,
+                1,
+                2,
+                3,
+                0
+              ],
+              "rawDefault": ".................."
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                25,
+                1,
+                3,
+                3,
+                0
+              ],
+              "rawDefault": ".................."
+            }
+          ]
+        },
+        {
+          "id": "department",
+          "label": "Bộ phận · Department",
+          "default": "..................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                25,
+                1,
+                2,
+                5,
+                0
+              ],
+              "rawDefault": ".................."
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                25,
+                1,
+                3,
+                5,
+                0
+              ],
+              "rawDefault": ".................."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-total-rewards-appendix",
+      "path": "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html",
+      "baselineSha256": "96e7e1ddc90c2f3e089ff4ed5dcbef052c4a26735deb4c01812cc758fac2862a",
+      "fields": [
+        {
+          "id": "employeeName",
+          "label": "Ông/BàMr./Ms.",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                3,
+                1,
+                1,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "address",
+          "label": "Địa chỉHome address",
+          "default": "............................................................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                13,
+                3,
+                1,
+                5,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "............................................................"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-training-commitment",
+      "path": "templates/vn-training-commitment/VnTrainingCommitment.dc.html",
+      "baselineSha256": "ceb080a1780b9f2833b95f1b9b0a91f7726edc197f34d514e19835c36546794d",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "employeeName",
+          "label": "Họ và tênFull name",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                17,
+                3,
+                1,
+                1,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        },
+        {
+          "id": "citizenId",
+          "label": "Số CCCDCitizen ID no.",
+          "default": "...............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                17,
+                3,
+                1,
+                5,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "..............................."
+            }
+          ]
+        },
+        {
+          "id": "address",
+          "label": "Nơi cư trúPlace of residence",
+          "default": "............................................................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                17,
+                3,
+                1,
+                7,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "............................................................"
+            }
+          ]
+        },
+        {
+          "id": "contactDisplay",
+          "label": "Điện thoại · EmailTel · Email",
+          "default": "..............................",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                17,
+                3,
+                1,
+                9,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": ".............................."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "vn-travel-expense-policy",
+      "path": "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html",
+      "baselineSha256": "82dfe6fd593d6d58f57569fe1411dc06bc43032f467247afe3355f28fe661294",
+      "fields": [
+        {
+          "id": "headerReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": ".....",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "....."
+            }
+          ]
+        },
+        {
+          "id": "documentReferenceSequence",
+          "label": "Số/No. · existing placeholder sequence",
+          "default": "......",
+          "maxLength": 256,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "......"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "finance-invoice",
+      "path": "templates/finance-invoice/FinanceInvoice.dc.html",
+      "baselineSha256": "20bee0227fe4a56a92576c3eaa086e74a3689a486dfc73b84ba069380378e203",
+      "preservedSchema": {
+        "source": "{\n  \"$schemaVersion\": \"2.0\",\n  \"template\": \"finance-invoice\",\n  \"slots\": [\n    {\n      \"id\": \"invoiceReference\",\n      \"type\": \"text\",\n      \"label\": \"Document reference\",\n      \"maxLength\": 80,\n      \"required\": true,\n      \"runtimeBinding\": \"text\"\n    },\n    {\n      \"id\": \"clientName\",\n      \"type\": \"text\",\n      \"label\": \"Client name\",\n      \"maxLength\": 120,\n      \"required\": true,\n      \"runtimeBinding\": \"text\"\n    },\n    {\n      \"id\": \"clientAddress\",\n      \"type\": \"text\",\n      \"label\": \"Client address\",\n      \"maxLength\": 240,\n      \"runtimeBinding\": \"text\"\n    }\n  ]\n}\n",
+        "sha256": "9680fc1cb5d9c4d8a12df9319388c6f21beec2ab7a2df0cf702d36447b20e7fc"
+      },
+      "fields": [
+        {
+          "id": "issuedDateEn",
+          "label": "Issued date en",
+          "default": "18 Jul 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                5,
+                1,
+                1
+              ],
+              "rawDefault": " 18 Jul 2026",
+              "prefix": " "
+            }
+          ]
+        },
+        {
+          "id": "dueDateEn",
+          "label": "Due date en",
+          "default": "02 Aug 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                1,
+                5,
+                1,
+                5,
+                0
+              ],
+              "rawDefault": "02 Aug 2026"
+            }
+          ]
+        },
+        {
+          "id": "line1TitleEn",
+          "label": "Line1title en",
+          "default": "Checkout rebuild — milestone 2",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                1,
+                0,
+                0,
+                0
+              ],
+              "rawDefault": "Checkout rebuild — milestone 2"
+            }
+          ]
+        },
+        {
+          "id": "line1DescriptionEn",
+          "label": "Line1description en",
+          "default": "Staging delivery, per SOW-2026-014",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                1,
+                0,
+                1,
+                0
+              ],
+              "rawDefault": "Staging delivery, per SOW-2026-014"
+            }
+          ]
+        },
+        {
+          "id": "line1QuantityEn",
+          "label": "Line1quantity en",
+          "default": "1",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "1"
+            }
+          ]
+        },
+        {
+          "id": "line1RateEn",
+          "label": "Line1rate en",
+          "default": "1,200,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                1,
+                2,
+                0
+              ],
+              "rawDefault": "1,200,000,000"
+            }
+          ]
+        },
+        {
+          "id": "line1AmountEn",
+          "label": "Line1amount en",
+          "default": "1,200,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                1,
+                3,
+                0
+              ],
+              "rawDefault": "1,200,000,000"
+            }
+          ]
+        },
+        {
+          "id": "line2TitleEn",
+          "label": "Line2title en",
+          "default": "Ops console — design sprint",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                3,
+                0,
+                0,
+                0
+              ],
+              "rawDefault": "Ops console — design sprint"
+            }
+          ]
+        },
+        {
+          "id": "line2DescriptionEn",
+          "label": "Line2description en",
+          "default": "3 senior days",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                3,
+                0,
+                1,
+                0
+              ],
+              "rawDefault": "3 senior days"
+            }
+          ]
+        },
+        {
+          "id": "line2QuantityEn",
+          "label": "Line2quantity en",
+          "default": "3",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "3"
+            }
+          ]
+        },
+        {
+          "id": "line2RateEn",
+          "label": "Line2rate en",
+          "default": "18,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                3,
+                2,
+                0
+              ],
+              "rawDefault": "18,000,000"
+            }
+          ]
+        },
+        {
+          "id": "line2AmountEn",
+          "label": "Line2amount en",
+          "default": "54,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                3,
+                3,
+                0
+              ],
+              "rawDefault": "54,000,000"
+            }
+          ]
+        },
+        {
+          "id": "line3TitleEn",
+          "label": "Line3title en",
+          "default": "Post-launch support",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                5,
+                0,
+                0,
+                0
+              ],
+              "rawDefault": "Post-launch support"
+            }
+          ]
+        },
+        {
+          "id": "line3DescriptionEn",
+          "label": "Line3description en",
+          "default": "Retainer, July",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                5,
+                0,
+                1,
+                0
+              ],
+              "rawDefault": "Retainer, July"
+            }
+          ]
+        },
+        {
+          "id": "line3QuantityEn",
+          "label": "Line3quantity en",
+          "default": "1",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "1"
+            }
+          ]
+        },
+        {
+          "id": "line3RateEn",
+          "label": "Line3rate en",
+          "default": "40,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "40,000,000"
+            }
+          ]
+        },
+        {
+          "id": "line3AmountEn",
+          "label": "Line3amount en",
+          "default": "40,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                3,
+                1,
+                3,
+                5,
+                3,
+                0
+              ],
+              "rawDefault": "40,000,000"
+            }
+          ]
+        },
+        {
+          "id": "subtotalEn",
+          "label": "Subtotal en",
+          "default": "₫1,294,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "₫1,294,000,000"
+            }
+          ]
+        },
+        {
+          "id": "taxAmountEn",
+          "label": "Tax amount en",
+          "default": "₫129,400,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "₫129,400,000"
+            }
+          ]
+        },
+        {
+          "id": "totalDueEn",
+          "label": "Total due en",
+          "default": "₫1,423,400,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                5,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "₫1,423,400,000"
+            }
+          ]
+        },
+        {
+          "id": "issuedDateVi",
+          "label": "Issued date vi",
+          "default": "18/07/2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                3,
+                5,
+                1,
+                1
+              ],
+              "rawDefault": " 18/07/2026",
+              "prefix": " "
+            }
+          ]
+        },
+        {
+          "id": "dueDateVi",
+          "label": "Due date vi",
+          "default": "02/08/2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                3,
+                5,
+                1,
+                5,
+                0
+              ],
+              "rawDefault": "02/08/2026"
+            }
+          ]
+        },
+        {
+          "id": "line1TitleVi",
+          "label": "Line1title vi",
+          "default": "Xây lại trang thanh toán — mốc 2",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                1,
+                0,
+                0,
+                0
+              ],
+              "rawDefault": "Xây lại trang thanh toán — mốc 2"
+            }
+          ]
+        },
+        {
+          "id": "line1DescriptionVi",
+          "label": "Line1description vi",
+          "default": "Bàn giao staging, theo SOW-2026-014",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                1,
+                0,
+                1,
+                0
+              ],
+              "rawDefault": "Bàn giao staging, theo SOW-2026-014"
+            }
+          ]
+        },
+        {
+          "id": "line1QuantityVi",
+          "label": "Line1quantity vi",
+          "default": "1",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "1"
+            }
+          ]
+        },
+        {
+          "id": "line1RateVi",
+          "label": "Line1rate vi",
+          "default": "1.200.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                1,
+                2,
+                0
+              ],
+              "rawDefault": "1.200.000.000"
+            }
+          ]
+        },
+        {
+          "id": "line1AmountVi",
+          "label": "Line1amount vi",
+          "default": "1.200.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                1,
+                3,
+                0
+              ],
+              "rawDefault": "1.200.000.000"
+            }
+          ]
+        },
+        {
+          "id": "line2TitleVi",
+          "label": "Line2title vi",
+          "default": "Ops console — sprint thiết kế",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                3,
+                0,
+                0,
+                0
+              ],
+              "rawDefault": "Ops console — sprint thiết kế"
+            }
+          ]
+        },
+        {
+          "id": "line2DescriptionVi",
+          "label": "Line2description vi",
+          "default": "3 ngày công senior",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                3,
+                0,
+                1,
+                0
+              ],
+              "rawDefault": "3 ngày công senior"
+            }
+          ]
+        },
+        {
+          "id": "line2QuantityVi",
+          "label": "Line2quantity vi",
+          "default": "3",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "3"
+            }
+          ]
+        },
+        {
+          "id": "line2RateVi",
+          "label": "Line2rate vi",
+          "default": "18.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                3,
+                2,
+                0
+              ],
+              "rawDefault": "18.000.000"
+            }
+          ]
+        },
+        {
+          "id": "line2AmountVi",
+          "label": "Line2amount vi",
+          "default": "54.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                3,
+                3,
+                0
+              ],
+              "rawDefault": "54.000.000"
+            }
+          ]
+        },
+        {
+          "id": "line3TitleVi",
+          "label": "Line3title vi",
+          "default": "Hỗ trợ sau ra mắt",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                5,
+                0,
+                0,
+                0
+              ],
+              "rawDefault": "Hỗ trợ sau ra mắt"
+            }
+          ]
+        },
+        {
+          "id": "line3DescriptionVi",
+          "label": "Line3description vi",
+          "default": "Gói duy trì, tháng 7",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                5,
+                0,
+                1,
+                0
+              ],
+              "rawDefault": "Gói duy trì, tháng 7"
+            }
+          ]
+        },
+        {
+          "id": "line3QuantityVi",
+          "label": "Line3quantity vi",
+          "default": "1",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "1"
+            }
+          ]
+        },
+        {
+          "id": "line3RateVi",
+          "label": "Line3rate vi",
+          "default": "40.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "40.000.000"
+            }
+          ]
+        },
+        {
+          "id": "line3AmountVi",
+          "label": "Line3amount vi",
+          "default": "40.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                5,
+                1,
+                3,
+                5,
+                3,
+                0
+              ],
+              "rawDefault": "40.000.000"
+            }
+          ]
+        },
+        {
+          "id": "subtotalVi",
+          "label": "Subtotal vi",
+          "default": "₫1.294.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                7,
+                1,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "₫1.294.000.000"
+            }
+          ]
+        },
+        {
+          "id": "taxAmountVi",
+          "label": "Tax amount vi",
+          "default": "₫129.400.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                7,
+                1,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "₫129.400.000"
+            }
+          ]
+        },
+        {
+          "id": "totalDueVi",
+          "label": "Total due vi",
+          "default": "₫1.423.400.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                7,
+                1,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "₫1.423.400.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "finance-quote",
+      "path": "templates/finance-quote/FinanceQuote.dc.html",
+      "baselineSha256": "5fdd9ce4318761447f980ef7e2d6e985278b3cb38d2235e7b9984b910e810612",
+      "preservedSchema": {
+        "source": "{\n  \"$schemaVersion\": \"2.0\",\n  \"template\": \"finance-quote\",\n  \"slots\": [\n    {\n      \"id\": \"quoteReference\",\n      \"type\": \"text\",\n      \"label\": \"Document reference\",\n      \"maxLength\": 80,\n      \"required\": true,\n      \"runtimeBinding\": \"text\"\n    },\n    {\n      \"id\": \"clientName\",\n      \"type\": \"text\",\n      \"label\": \"Client name\",\n      \"maxLength\": 120,\n      \"required\": true,\n      \"runtimeBinding\": \"text\"\n    }\n  ]\n}\n",
+        "sha256": "20c9b52deb9265d6979953276ac3256b2f6a8a64a9b1d87e615184af3af00ffa"
+      },
+      "fields": [
+        {
+          "id": "line1TitleEn",
+          "label": "Line1title en",
+          "default": "Checkout rebuild",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "Checkout rebuild"
+            }
+          ]
+        },
+        {
+          "id": "line1DescriptionEn",
+          "label": "Line1description en",
+          "default": "Cart, payment, confirmation, recovery emails",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Cart, payment, confirmation, recovery emails"
+            }
+          ]
+        },
+        {
+          "id": "line1PriceEn",
+          "label": "Line1price en",
+          "default": "₫1,800,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                3,
+                1,
+                2,
+                0
+              ],
+              "rawDefault": "₫1,800,000,000"
+            }
+          ]
+        },
+        {
+          "id": "line2TitleEn",
+          "label": "Line2title en",
+          "default": "Ops console",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                3,
+                3,
+                0,
+                0
+              ],
+              "rawDefault": "Ops console"
+            }
+          ]
+        },
+        {
+          "id": "line2DescriptionEn",
+          "label": "Line2description en",
+          "default": "Order search, refunds, status board",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                3,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "Order search, refunds, status board"
+            }
+          ]
+        },
+        {
+          "id": "line2PriceEn",
+          "label": "Line2price en",
+          "default": "₫900,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                3,
+                3,
+                2,
+                0
+              ],
+              "rawDefault": "₫900,000,000"
+            }
+          ]
+        },
+        {
+          "id": "line3TitleEn",
+          "label": "Line3title en",
+          "default": "Analytics & handover",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                3,
+                5,
+                0,
+                0
+              ],
+              "rawDefault": "Analytics &amp; handover"
+            }
+          ]
+        },
+        {
+          "id": "line3DescriptionEn",
+          "label": "Line3description en",
+          "default": "Funnel events, docs, 2 weeks support",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                3,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "Funnel events, docs, 2 weeks support"
+            }
+          ]
+        },
+        {
+          "id": "line3PriceEn",
+          "label": "Line3price en",
+          "default": "₫400,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                3,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "₫400,000,000"
+            }
+          ]
+        },
+        {
+          "id": "line4TitleEn",
+          "label": "Line4title en",
+          "default": "Optional · A/B kit",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                3,
+                7,
+                0,
+                0
+              ],
+              "rawDefault": "Optional · A/B kit"
+            }
+          ]
+        },
+        {
+          "id": "line4DescriptionEn",
+          "label": "Line4description en",
+          "default": "Experiment framework + first two tests",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                3,
+                7,
+                1,
+                0
+              ],
+              "rawDefault": "Experiment framework + first two tests"
+            }
+          ]
+        },
+        {
+          "id": "line4PriceEn",
+          "label": "Line4price en",
+          "default": "+₫220,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                7,
+                1,
+                3,
+                7,
+                2,
+                0
+              ],
+              "rawDefault": "+₫220,000,000"
+            }
+          ]
+        },
+        {
+          "id": "coreTotalEn",
+          "label": "Core total en",
+          "default": "₫3,100,000,000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                9,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "₫3,100,000,000"
+            }
+          ]
+        },
+        {
+          "id": "validUntilEn",
+          "label": "Valid until en",
+          "default": "17 Aug 2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                13,
+                1,
+                0
+              ],
+              "rawDefault": "17 Aug 2026"
+            }
+          ]
+        },
+        {
+          "id": "preparedByName",
+          "label": "Prepared by name",
+          "default": "Minh Trần",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                3,
+                13,
+                0
+              ],
+              "rawDefault": "Prepared by Minh Trần · CyberSkill · Valid until ",
+              "prefix": "Prepared by ",
+              "suffix": " · CyberSkill · Valid until "
+            },
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                15,
+                0
+              ],
+              "rawDefault": "Soạn bởi Minh Trần · CyberSkill · Hiệu lực đến ",
+              "prefix": "Soạn bởi ",
+              "suffix": " · CyberSkill · Hiệu lực đến "
+            }
+          ]
+        },
+        {
+          "id": "line1TitleVi",
+          "label": "Line1title vi",
+          "default": "Xây lại trang thanh toán",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                3,
+                1,
+                0,
+                0
+              ],
+              "rawDefault": "Xây lại trang thanh toán"
+            }
+          ]
+        },
+        {
+          "id": "line1DescriptionVi",
+          "label": "Line1description vi",
+          "default": "Giỏ hàng, thanh toán, xác nhận, email khôi phục",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                3,
+                1,
+                1,
+                0
+              ],
+              "rawDefault": "Giỏ hàng, thanh toán, xác nhận, email khôi phục"
+            }
+          ]
+        },
+        {
+          "id": "line1PriceVi",
+          "label": "Line1price vi",
+          "default": "₫1.800.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                3,
+                1,
+                2,
+                0
+              ],
+              "rawDefault": "₫1.800.000.000"
+            }
+          ]
+        },
+        {
+          "id": "line2TitleVi",
+          "label": "Line2title vi",
+          "default": "Ops console",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                3,
+                3,
+                0,
+                0
+              ],
+              "rawDefault": "Ops console"
+            }
+          ]
+        },
+        {
+          "id": "line2DescriptionVi",
+          "label": "Line2description vi",
+          "default": "Tra cứu đơn, hoàn tiền, bảng trạng thái",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                3,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "Tra cứu đơn, hoàn tiền, bảng trạng thái"
+            }
+          ]
+        },
+        {
+          "id": "line2PriceVi",
+          "label": "Line2price vi",
+          "default": "₫900.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                3,
+                3,
+                2,
+                0
+              ],
+              "rawDefault": "₫900.000.000"
+            }
+          ]
+        },
+        {
+          "id": "line3TitleVi",
+          "label": "Line3title vi",
+          "default": "Analytics & bàn giao",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                3,
+                5,
+                0,
+                0
+              ],
+              "rawDefault": "Analytics &amp; bàn giao"
+            }
+          ]
+        },
+        {
+          "id": "line3DescriptionVi",
+          "label": "Line3description vi",
+          "default": "Sự kiện phễu, tài liệu, 2 tuần hỗ trợ",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                3,
+                5,
+                1,
+                0
+              ],
+              "rawDefault": "Sự kiện phễu, tài liệu, 2 tuần hỗ trợ"
+            }
+          ]
+        },
+        {
+          "id": "line3PriceVi",
+          "label": "Line3price vi",
+          "default": "₫400.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                3,
+                5,
+                2,
+                0
+              ],
+              "rawDefault": "₫400.000.000"
+            }
+          ]
+        },
+        {
+          "id": "line4TitleVi",
+          "label": "Line4title vi",
+          "default": "Tuỳ chọn · Bộ A/B",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                3,
+                7,
+                0,
+                0
+              ],
+              "rawDefault": "Tuỳ chọn · Bộ A/B"
+            }
+          ]
+        },
+        {
+          "id": "line4DescriptionVi",
+          "label": "Line4description vi",
+          "default": "Khung thử nghiệm + hai test đầu tiên",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                3,
+                7,
+                1,
+                0
+              ],
+              "rawDefault": "Khung thử nghiệm + hai test đầu tiên"
+            }
+          ]
+        },
+        {
+          "id": "line4PriceVi",
+          "label": "Line4price vi",
+          "default": "+₫220.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                9,
+                1,
+                3,
+                7,
+                2,
+                0
+              ],
+              "rawDefault": "+₫220.000.000"
+            }
+          ]
+        },
+        {
+          "id": "coreTotalVi",
+          "label": "Core total vi",
+          "default": "₫3.100.000.000",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                11,
+                3,
+                1,
+                0
+              ],
+              "rawDefault": "₫3.100.000.000"
+            }
+          ]
+        },
+        {
+          "id": "validUntilVi",
+          "label": "Valid until vi",
+          "default": "17/08/2026",
+          "maxLength": 160,
+          "targets": [
+            {
+              "path": [
+                1,
+                2,
+                1,
+                5,
+                1,
+                5,
+                0,
+                15,
+                1,
+                0
+              ],
+              "rawDefault": "17/08/2026"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

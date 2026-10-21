@@ -15,7 +15,7 @@ for(const [name,change] of [
 ]){
  const dir=await mkdtemp(join(tmpdir(),'cs-density-export-'));
  try{
-  for(const path of [...outputs,'VERSION','scripts/generate-theme-exports.mjs','scripts/lib/contrast-maps.mjs','tokens/theme-attributes.css','tokens/colors.css','tokens/component-tokens.css','tokens/elevation.css']){
+  for(const path of [...outputs,'VERSION','scripts/generate-theme-exports.mjs','scripts/generate-theme-palettes.mjs','scripts/lib/theme-palette-projection.mjs','scripts/lib/dtcg-values.mjs','tokens/theme-palette-source.json','scripts/lib/contrast-maps.mjs','tokens/theme-attributes.css','tokens/colors.css','tokens/component-tokens.css','tokens/elevation.css']){
    await mkdir(dirname(join(dir,path)),{recursive:true});await copyFile(new URL(path,root),join(dir,path));
   }
   await symlink(new URL('node_modules',root).pathname,join(dir,'node_modules'),'dir');
@@ -33,14 +33,19 @@ console.log('PASS density generator failure paths: missing/cyclic aliases, unsup
 {
  const dir=await mkdtemp(join(tmpdir(),'cs-theme-export-'));
  try {
-  for(const path of [...outputs,'VERSION','scripts/generate-theme-exports.mjs','scripts/lib/contrast-maps.mjs','tokens/theme-attributes.css','tokens/colors.css','tokens/component-tokens.css','tokens/elevation.css']) {
+  for(const path of [...outputs,'VERSION','scripts/generate-theme-exports.mjs','scripts/generate-theme-palettes.mjs','scripts/lib/theme-palette-projection.mjs','scripts/lib/dtcg-values.mjs','tokens/theme-palette-source.json','scripts/lib/contrast-maps.mjs','tokens/theme-attributes.css','tokens/colors.css','tokens/component-tokens.css','tokens/elevation.css']) {
    await mkdir(dirname(join(dir,path)),{recursive:true});await copyFile(new URL(path,root),join(dir,path));
   }
   await symlink(new URL('node_modules',root).pathname,join(dir,'node_modules'),'dir');
   const componentPath=join(dir,'tokens/component-tokens.css');
   const source=await readFile(componentPath,'utf8');
-  await writeFile(componentPath,source.replaceAll('#5a4636','#123456'));
   const run=()=>spawnSync(process.execPath,['scripts/generate-theme-exports.mjs'],{cwd:dir,encoding:'utf8'});
+  await writeFile(componentPath,source.replaceAll('#5a4636','#123456'));
+  assert.notEqual(run().status,0,'Unowned mirror edits must fail until canonical palette projection');
+  const canonicalPath=join(dir,'tokens/theme-palette-source.json'),canonical=JSON.parse(await readFile(canonicalPath,'utf8'));
+  canonical.files['tokens/component-tokens.css']['--cs-component-textfield-border-default']='#123456';
+  await writeFile(canonicalPath,JSON.stringify(canonical,null,2)+'\n');
+  const projected=spawnSync(process.execPath,['scripts/generate-theme-palettes.mjs'],{cwd:dir,encoding:'utf8'});assert.equal(projected.status,0,projected.stderr);
   const result=run();assert.equal(result.status,0,result.stderr);
   const json=JSON.parse(await readFile(join(dir,'tokens/tokens.json'),'utf8'));
   const dtcg=JSON.parse(await readFile(join(dir,'tokens/tokens.dtcg.json'),'utf8'));
