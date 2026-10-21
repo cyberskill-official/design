@@ -1,3 +1,4 @@
+import {retainModeCaptureOrigin} from '../../scripts/lib/mode-capture-origin.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,mkdtempSync,mkdirSync,copyFileSync,rmSync,symlinkSync} from 'node:fs';
 import {resolve,join,dirname} from 'node:path';
@@ -67,3 +68,14 @@ try {
  assert.notEqual(failed.status,0);assert.match(failed.stderr,/Unclassified mode token/);assert.equal(readFileSync(join(temp,'tokens/modes/index.json'),'utf8'),'unchanged sentinel','Failed generation preserves artifacts');
 } finally {rmSync(temp,{recursive:true,force:true})}
 console.log('PASS 256 standalone DTCG modes:194typed values+12explicit omissions each, default-profile isolation, OKLAB/range/mutation checks, source drift, unknown membership and failed-write preservation; repository adapter roundtrip for every document');
+
+{
+ const original={renderer:{engine:'chromium',version:'fixture',platform:'darwin-arm64'},sourceHash:'original',modes:[{id:'one',sha256:'original'}]};
+ const files={'one.dtcg.json':'exact frozen bytes'};
+ const fresh=()=>({index:{...structuredClone(original),renderer:{...original.renderer,platform:'linux-x64'}},files:{...files}});
+ const same=fresh();assert.equal(retainModeCaptureOrigin(same,original,files),true);assert.deepEqual(same.index,original);
+ for(const mutate of [b=>b.index.sourceHash='changed',b=>b.index.renderer.version='changed',b=>b.files['one.dtcg.json']='changed',b=>b.files['extra.json']='extra',b=>b.index.modes[0].sha256='changed']) {
+  const changed=fresh();mutate(changed);const before=structuredClone(changed);assert.equal(retainModeCaptureOrigin(changed,original,files),false);assert.deepEqual(changed,before,'Changed evidence must retain its actual new capture platform');
+ }
+ assert.equal(retainModeCaptureOrigin(fresh(),{...original,renderer:{}},files),false);
+}

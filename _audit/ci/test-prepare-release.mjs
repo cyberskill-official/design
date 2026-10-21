@@ -153,10 +153,22 @@ for(const fault of ['source','mirror','duplicate']) {
 // inventories, feature baselines, immutable release sections and MDX history.
 const alpha=fixture();
 try {
-  for(const target of documentationStampTargets)alpha.put(target.path,readFileSync(target.path,'utf8'));
+  const checkoutVersion=readFileSync('VERSION','utf8').trim();
+  for(const target of documentationStampTargets) {
+    let text=readFileSync(target.path,'utf8');
+    for(const id of target.ids) {
+      const marker=sourceVersionMarker(target.path,id,checkoutVersion);
+      assert.equal(text.split(marker).length,2,'Real source marker must match the current checkout exactly');
+      text=text.replace(marker,sourceVersionMarker(target.path,id,'1.7.2'));
+    }
+    alpha.put(target.path,text);
+  }
   const documents=new Map(documentationStampTargets.map(target=>[target.path,readFileSync(join(alpha.root,target.path),'utf8')]));
   const protections=new Map(['components/lifecycle.json','components/release-compatibility.json'].map(path=>[path,readFileSync(join(alpha.root,path),'utf8')]));
-  alpha.put('scripts/entrypoint-language-source.json',readFileSync('scripts/entrypoint-language-source.json','utf8'));
+  const fixtureBinding=JSON.parse(readFileSync('scripts/entrypoint-language-source.json','utf8'));
+  fixtureBinding.entries[0].sourceSha256=hash(stripEntryRoute(readFileSync(join(alpha.root,'README.md'),'utf8')));
+  fixtureBinding.entries[0].mirrorSha256=hash(readFileSync(join(alpha.root,'docs/vi/entrypoints/README.md'),'utf8'));
+  alpha.put('scripts/entrypoint-language-source.json',fixtureBinding);
   const bindingBefore=JSON.parse(readFileSync(join(alpha.root,'scripts/entrypoint-language-source.json'),'utf8'));
   const version='2.0.0-alpha.0';
   const receipt=prepareRelease(alpha.root,{version,sourceSha},{runGit:alpha.runGit,regenerate:()=>{}});

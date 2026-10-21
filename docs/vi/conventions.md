@@ -373,3 +373,7 @@ Kiểm tra export legacy dùng bộ phân tích phiên bản phát hành chuẩn
 Audit token native phân tích nhãn phiên bản mang tính thông tin bằng cùng quy tắc stable/prerelease chuẩn của quy trình chuẩn bị phát hành. Hash nguồn DTCG, hash của mọi đích và toàn bộ phép kiểm tra giá trị native vẫn là căn cứ xác định sai lệch.
 
 Bảng nhãn phiên bản trên trình duyệt và kiểm tra provenance nhanh bằng Node cũng dùng bộ phân tích prerelease chuẩn. Cả chín nhãn phải khớp VERSION; front matter DESIGN sai dạng hoặc lệch phiên bản vẫn làm bảng kiểm tra thất bại.
+
+Sinh lại mode chỉ giữ provenance nền tảng thu thập ban đầu khi toàn bộ byte tài liệu, tập file đầy đủ và mọi trường index khác giống hệt. Thay đổi nguồn, phiên bản trình kết xuất hoặc giá trị ghi nhận nền tảng thu thập mới. Log thực thi nêu nền tảng hiện tại; hash index native và mọi kiểm tra độ mới, giá trị vẫn chính xác.
+
+Fixture hồi quy chuẩn bị phát hành chỉ chuẩn hóa các vùng phiên bản checkout được sở hữu về mốc lịch sử tường minh của kiểm thử; pin registry, ví dụ sibling và các phần đã công bố giữ nguyên. Fixture chạy từ checkout stable và alpha đã chuẩn bị mà không coi marker nguồn khác nhau là lỗi sản phẩm.

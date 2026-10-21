@@ -60,7 +60,7 @@ export function modeInputs(root) {
     ast.walkAtRules('font-face',rule=>rule.remove());return ast.toString();
   }
   const css=flatten('styles.css');
-  const helperPaths=['tokens/theme-palette-source.json','scripts/lib/theme-palette-projection.mjs','scripts/generate-theme-palettes.mjs','tokens/base-inventory.json','tokens/element-seeds.json','scripts/generate-token-modes.mjs','scripts/lib/token-modes.mjs','scripts/lib/dtcg-values.mjs','scripts/lib/token-declarations.mjs','scripts/lib/base-token-exports.mjs','scripts/lib/oklch.mjs','_audit/lib/dtcg-profile.mjs','_audit/lib/apca.mjs'];
+  const helperPaths=['tokens/theme-palette-source.json','scripts/lib/theme-palette-projection.mjs','scripts/generate-theme-palettes.mjs','tokens/base-inventory.json','tokens/element-seeds.json','scripts/generate-token-modes.mjs','scripts/lib/mode-capture-origin.mjs','scripts/lib/token-modes.mjs','scripts/lib/dtcg-values.mjs','scripts/lib/token-declarations.mjs','scripts/lib/base-token-exports.mjs','scripts/lib/oklch.mjs','_audit/lib/dtcg-profile.mjs','_audit/lib/apca.mjs'];
   const sources=Object.fromEntries([...new Set([...included,...helperPaths])].sort().map(path=>[path,sha(readFileSync(resolve(root,path),'utf8'))]));
   return {inventory,css,modes:modeList(metadata),sources,sourceHash:sha(JSON.stringify(sources)),names:[...known]};
 }

@@ -921,7 +921,7 @@
       "path": "docs/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "603885550cfd356eb544950f7a75326118c5b86008eb1e5cdc1b0ed7907c336e"
+      "sha256": "50a16323276c2d88c196765eb2c51c08627df39b2cd8e57848ac84ea4b826dc8"
     },
     {
       "path": "docs/decisions.md",
@@ -1077,7 +1077,7 @@
       "path": "docs/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "647e47a8b2711bee32343902a6380de9f0f58c75f56e18d4228bf53d0f92a864"
+      "sha256": "5c9d08b103a3135f583cce7c711ec66b96ae361ae992d84dab02240be6643246"
     },
     {
       "path": "docs/storybook.md",
@@ -1197,7 +1197,7 @@
       "path": "docs/vi/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "cb9528ddaf043416b4dbec9290c1c8c5eb78559e19d4cb3cf712be5a39437858"
+      "sha256": "dd813e7f10a8064083eafebb09463686c35a3ef50d3b1a865ec4a5012216e3bd"
     },
     {
       "path": "docs/vi/decisions.md",
@@ -1353,7 +1353,7 @@
       "path": "docs/vi/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "2729aff02ca50cfccc7a19340d7fdee454c09b92be4ae4c272f38ce098d0a234"
+      "sha256": "9ae81cee7dede3fa3833fbb8ed45df5c1da1365264d9de1513dc7b26e624ed63"
     },
     {
       "path": "docs/vi/storybook.md",

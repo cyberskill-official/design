@@ -1,4 +1,5 @@
-import {readFileSync,writeFileSync,mkdirSync,readdirSync} from 'node:fs';
+import {retainModeCaptureOrigin} from './lib/mode-capture-origin.mjs';
+import {readFileSync,writeFileSync,mkdirSync,readdirSync,existsSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
 import {modeInputs,captureTokenModes,projectModeBundle} from './lib/token-modes.mjs';
@@ -6,6 +7,12 @@ const root=fileURLToPath(new URL('../',import.meta.url)),directory=resolve(root,
 const inputs=modeInputs(root),capture=await captureTokenModes(inputs),bundle=projectModeBundle(inputs,capture);
 if(modeInputs(root).sourceHash!==inputs.sourceHash)throw Error('Mode sources changed during capture; retry against frozen sources');
 const check=process.argv.includes('--check');
+if(!check&&existsSync(resolve(directory,'index.json'))) {
+ const previous=JSON.parse(readFileSync(resolve(directory,'index.json'),'utf8'));
+ const previousFiles=Object.fromEntries(readdirSync(directory).filter(p=>p.endsWith('.json')&&p!=='index.json').map(p=>[p,readFileSync(resolve(directory,p),'utf8')]));
+ retainModeCaptureOrigin(bundle,previous,previousFiles);
+}
+
 if(check){
  const previous=JSON.parse(readFileSync(resolve(directory,'index.json'),'utf8'));
  // Platform is provenance, not an excuse to accept value drift. The same pinned

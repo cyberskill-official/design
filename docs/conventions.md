@@ -368,3 +368,7 @@ Legacy export validation uses the canonical release-version parser, including pr
 The native-token audit parses informational release stamps with the same canonical stable/prerelease grammar as preparation. DTCG source hashes, every target hash and the complete native value round trip remain the drift authority.
 
 The browser version-stamp board and fast Node provenance check also use canonical prerelease parsing. All nine version stamps must match VERSION; malformed or mismatched DESIGN front matter still fails the board.
+
+Mode regeneration retains the original capture-platform provenance only when all generated document bytes, complete membership and every other index field are identical. Source, renderer-version or value changes record the new capture platform. Execution logs name the current platform; native index hashes and all freshness/value checks remain exact.
+
+The preparation regression fixture normalizes only owned checkout-version spans to its explicit historical test base; registry pins, sibling examples and published sections are unchanged. It runs from stable and prepared-alpha checkouts without treating their different source markers as a product defect.
