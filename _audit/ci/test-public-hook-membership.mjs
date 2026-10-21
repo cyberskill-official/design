@@ -21,7 +21,7 @@ try{
  catalog.publicHooks=[{name:'useAllowed',sourcePath:'components/Example.jsx'}];catalog.cards=[];save();
  mkdirSync(join(directory,'scripts/lib'));mkdirSync(join(directory,'_esm'));
  for(const file of ['build-bundle.mjs','generate-export-catalog.mjs','generate-api-index.mjs'])copyFileSync(new URL('../../scripts/'+file,import.meta.url),join(directory,'scripts',file));
- for(const file of ['card-metadata.mjs','component-support.mjs','typescript-api.mjs'])copyFileSync(new URL('../../scripts/lib/'+file,import.meta.url),join(directory,'scripts/lib',file));
+ for(const file of ['card-metadata.mjs','component-support.mjs','legacy-export-section.mjs','release-version.mjs','release-version-core.mjs','typescript-api.mjs'])copyFileSync(new URL('../../scripts/lib/'+file,import.meta.url),join(directory,'scripts/lib',file));
  symlinkSync(resolve(new URL('../../node_modules',import.meta.url).pathname),join(directory,'node_modules'));
  writeFileSync(join(directory,'components/Example.d.ts'),'export function Example(props:{label?:string}):null; export function useAllowed(namespace:string):number;');
  writeFileSync(join(directory,'_esm/react.d.ts'),'export {Example,useAllowed}from"../components/Example";export declare const INTERNAL_TOKEN:1;');

@@ -15,7 +15,24 @@ for (const [path, text] of outputs) assert.equal(readFileSync(new URL(path, root
 const evidenceInputs = proofInputs(root.pathname);
 let browserVersion;
 const results = [];
-const keyNames = new Set(['Button', 'TextField', 'Checkbox', 'RadioGroup', 'Switch', 'Toggle', 'SegmentedControl', 'Tabs', 'Menu', 'Popover', 'Tooltip', 'Combobox', 'DatePicker', 'TagInput', 'Drawer', 'AlertDialog', 'Skeleton', 'ProgressBar', 'FileUpload', 'Card', 'DataTable', 'TreeTable', 'Cascader', 'Carousel', 'Tree']);
+const keyNames = new Set(['Button', 'TextField', 'Checkbox', 'RadioGroup', 'Switch', 'Toggle', 'SegmentedControl', 'Tabs', 'Menu', 'Popover', 'Tooltip', 'Combobox', 'DatePicker', 'TagInput', 'Drawer', 'AlertDialog', 'Skeleton', 'ProgressBar', 'FileUpload', 'Card', 'DataTable', 'TreeTable', 'Cascader', 'Carousel', 'Tree', 'HoverCard']);
+async function establishHoverCardState(page, state) {
+  // The authored reference is initially closed. A pointer/focus timer must not
+  // turn the stylesheet comparison into a comparison of two interaction states.
+  await page.mouse.move(-10, -10);
+  const trigger = page.getByRole('button', { name: 'Hover reference', exact: true });
+  await trigger.focus(); // Prime the real delayed-open path for the closed guard too.
+  if (state === 'closed') await page.locator('#reference-anchor').focus();
+  else await page.locator('.cs-hovercard__panel').waitFor({ state: 'visible', timeout: 3000 });
+  await assertHoverCardState(page, state);
+}
+async function assertHoverCardState(page, state) {
+  const actual = await page.evaluate(() => {
+    const trigger = [...document.querySelectorAll('button')].find(node => node.textContent === 'Hover reference');
+    return { panels: document.querySelectorAll('.cs-hovercard__panel').length, focused: document.activeElement === trigger, hovered: trigger.closest('.cs-hovercard').matches(':hover') };
+  });
+  assert.deepEqual(actual, { panels: state === 'closed' ? 0 : 1, focused: state !== 'closed', hovered: false }, 'HoverCard stylesheet snapshots use the same explicit interaction state');
+}
 const configurations = [{
   name: 'default'
 }, {
@@ -88,16 +105,22 @@ for (const config of configurations) {
       });
       assert.notEqual(accent, 'rgb(244, 186, 23)', 'Actual water/ocean scope must differ from default ochre');
     }
-    for (const fixture of config.name === 'default' ? fixtures : fixtures.filter(item => keyNames.has(item.name))) {
+    for (const fixture of (config.name === 'default' ? fixtures : fixtures.filter(item => keyNames.has(item.name))).flatMap(item => item.name === 'HoverCard' ? [{ ...item, hoverCardState: 'closed' }, { ...item, hoverCardState: 'focus-open' }] : [item])) {
       const names = fixtureComponents(fixture);
       const sheets = componentStylesheets(names);
       projection = sheets.map(path => '@import url("../../' + path + '");').join('\n');
       await sheet(page, '/styles.css');
       await mount(page, fixture);
+      if (fixture.name === 'HoverCard') await establishHoverCardState(page, fixture.hoverCardState);
       await page.evaluate(() => settleInPage());
+      if (fixture.name === 'HoverCard') await assertHoverCardState(page, fixture.hoverCardState);
       const before = await snapshot(page);
       assert(before.length, 'Fixture must actually mount');
+      // A pending authored 150ms open timer must not escape the closed-state
+      // precondition. The focus-open case separately includes the actual panel.
+      if (fixture.name === 'HoverCard' && fixture.hoverCardState === 'closed') await page.waitForTimeout(175);
       await sheet(page, '/styles/components/fixture.css?v=' + ++sequence);
+      if (fixture.name === 'HoverCard') await assertHoverCardState(page, fixture.hoverCardState);
       const after = await snapshot(page);
       try {
         assert.deepEqual(after, before, `${browserName}/${config.name}/${fixture.name}: component sheet closure changed computed styles`);
@@ -108,6 +131,7 @@ for (const config of configurations) {
         writeFileSync(`test-results/component-css/${browserName}-failure.json`, JSON.stringify({
           config,
           fixture: fixture.name,
+          state: fixture.hoverCardState || 'declared-default',
           names,
           sheets,
           before,
@@ -118,6 +142,7 @@ for (const config of configurations) {
       results.push({
         config: config.name,
         component: fixture.name,
+        state: fixture.hoverCardState || 'declared-default',
         entries: names,
         sheets: sheets.length,
         nodes: before.length,

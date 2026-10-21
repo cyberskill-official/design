@@ -715,9 +715,12 @@
       "validation": [
         "test-prepare-release passed, independently reviewed with no injection/identity bypass found.",
         "Live gh release view and git tag inspection.",
-        "test-results/partial11-release-body-correction.json"
+        "test-results/partial11-release-body-correction.json",
+        "test-results/actual-alpha-origin/prepared.json",
+        "test-results/alpha-429-origin-077b3650/terminal/final.json",
+        "test-results/unit-3-followups/final.json"
       ],
-      "blocker": "Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending clean-checkout preparation gates; bounded source/support approval is now applied.",
+      "blocker": "Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; bounded source/support approval is applied; isolated clean-checkout 2.0.0-alpha.0 candidate preparation and validation are recorded, while committing a candidate release identity or tag/publication remains held pending separate operator authorization.",
       "status": "partial",
       "scopedEvidence": [
         {
@@ -737,10 +740,10 @@
       ],
       "continuationState": "Integrated engineering; lane outcomes and human/external boundaries recorded separately",
       "partial11Continuation": {
-        "recordedAt": "2026-10-21T11:12:54.197851+00:00",
-        "state": "in-progress",
-        "evidence": "test-results/partial11-release-body-correction.json",
-        "disposition": "Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending clean-checkout preparation gates; bounded source/support approval is now applied."
+        "recordedAt": "2026-10-21T14:29:00Z",
+        "state": "prepared-candidate-validated-awaiting-commit-authorization",
+        "evidence": "test-results/actual-alpha-origin/prepared.json",
+        "disposition": "Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; bounded source/support approval is applied; isolated clean-checkout 2.0.0-alpha.0 candidate preparation and validation are recorded, while committing a candidate release identity or tag/publication remains held pending separate operator authorization."
       }
     },
     {
@@ -1036,9 +1039,12 @@
         "test-prepare-release",
         "Current VERSION/package/tag checked.",
         "test-results/segmented-alias/alpha-plan-final.json",
-        "test-results/alpha-doc-stamping/independent-review.json: bounded tooling/source and3engine proof, not actual alpha preparation or whole429 acceptance."
+        "test-results/alpha-doc-stamping/independent-review.json: bounded tooling/source and3engine proof, not actual alpha preparation or whole429 acceptance.",
+        "test-results/actual-alpha-origin/prepared.json",
+        "test-results/alpha-429-origin-077b3650/terminal/final.json",
+        "test-results/unit-3-followups/final.json"
       ],
-      "blocker": "Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still requires a clean source checkout; bounded source/support approval is now applied; no VERSION/tag/publication written.",
+      "blocker": "Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling preserves published pins/history with explicit source markers and canonical browser prerelease validation; bounded source/support approval is applied; isolated clean-checkout 2.0.0-alpha.0 candidate preparation and validation are recorded, while committing VERSION/candidate release identity or tag/publication on the branch requires separate operator authorization.",
       "status": "partial",
       "scopedEvidence": [
         {
@@ -1058,10 +1064,10 @@
       ],
       "continuationState": "Integrated engineering; lane outcomes and human/external boundaries recorded separately",
       "partial11Continuation": {
-        "recordedAt": "2026-10-21T11:12:54.197851+00:00",
-        "state": "awaiting-clean-checkout-preparation",
-        "evidence": "test-results/alpha-doc-stamping/independent-review.json",
-        "disposition": "Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still requires a clean source checkout; bounded source/support approval is now applied; no VERSION/tag/publication written."
+        "recordedAt": "2026-10-21T14:29:00Z",
+        "state": "prepared-candidate-validated-awaiting-commit-authorization",
+        "evidence": "test-results/actual-alpha-origin/prepared.json",
+        "disposition": "Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling preserves published pins/history with explicit source markers and canonical browser prerelease validation; bounded source/support approval is applied; isolated clean-checkout 2.0.0-alpha.0 candidate preparation and validation are recorded, while committing VERSION/candidate release identity or tag/publication on the branch requires separate operator authorization."
       }
     },
     {
@@ -9404,8 +9410,13 @@
       "newFullSuiteStarted": false
     },
     "postApprovalCI": {
-      "state": "independent-remediation-batches-integrating; final-full-suite-and-exact-head-CI-pending",
+      "state": "frozen-baseline-and-prepared-alpha-validated; three-unit-fixture-followups-remediated",
       "baselineHead": "35adeacd8469a1c8fcee1e6293d25694e373f8fd",
+      "frozen1362160aBaseline": "test-results/alpha-429-baseline-1362160a/terminal/final.json (423/429 PASS, 6 baseline failures preserved, sourceUnchanged=true)",
+      "prepared077b3650Candidate": "test-results/actual-alpha-origin/prepared.json (2.0.0-alpha.0 patchSha256 f7988817ced7c640c0eb4a518567a3d2cb1f19769ac3c839a4a671dc593414fc; build:check, build:site, test:public-site, test-component-lifecycle, 3-engine test:site-csp-browser, 40-gate audit board, whole-set audits and docs-consistency PASS)",
+      "prepared077b3650Unit429": "test-results/alpha-429-origin-077b3650/terminal/final.json (428/429 PASS, 1 failure public-hook-membership; all 6 prior 1362160a failures resolved, sourceUnchanged=true)",
+      "hosted077b3650CiRun": "test-results/actual-alpha-origin/hosted-ci-39607678854.json (run 39607678854: native-validation, native-store-readiness, Linux pixel-diff 15/15, fast-gates, whole-set-audits, regenerate-tokens, node-prechecks, npm-hello-smoke, token-provenance, docs-consistency-blocker, storybook-build PASS; unit-tests 426/429 PASS with 3 test-only failures)",
+      "unit3Followups": "test-results/unit-3-followups/final.json (public-hook-membership, suite-371 HoverCard closed/focus-open state guard, and floating-live-style Linux WebKit wheel tick settlement PASS across Chromium, Firefox and WebKit; 0 approved direct source files changed)",
       "rawEvidence": "test-results/hosted-approval-ci/",
       "toolingManifest": "test-results/hosted-approval-ci/tooling-fix/files.json",
       "toolingManifestSha256": "6c8e38b92e3d57dbb458d9bd46e5a936b09c522ddaae25a049bfb04a767f6a5f",
@@ -9413,13 +9424,16 @@
       "responsiveManifest": "test-results/partial11-bod-overflow/files.json",
       "responsiveManifestSha256": "7a84c9f306b2a7551276aba8ab6032d2f6a87e79f0c39e88e2b21d3e3226ccc7",
       "responsiveEvidence": "test-results/partial11-bod-overflow/",
-      "approvalBoundary": "No current approved direct evidence changed by tooling or responsive batches; exact125record/hash verification required after coherent regeneration.",
+      "approvalBoundary": "No current approved direct evidence changed by tooling, responsive or unit-3-followups batches; all 125 reviewed records, 123 archived approvals and 433 direct source hashes preserved.",
       "scope": [
         "Per-engine token launch flags",
         "Pinned npm and invoking Node in isolated Vite consumer",
         "Explicit Chromium dependency before all token generation paths",
         "Fixed canvas retains authored grid columns while ordinary pages reflow",
-        "React fixture commit and browser interaction readiness; original assertions retained"
+        "React fixture commit and browser interaction readiness; original assertions retained",
+        "Detached hook-membership fixture copies legacy-export-section and release-version helpers",
+        "Component CSS browser proof applies explicit HoverCard closed/focus-open state guards matching layered CSS proof",
+        "Floating live-style browser proof settles multi-frame Linux WebKit wheel ticks while retaining lost-scroll-offset and stale-caller-styles mutant rejection"
       ]
     }
   },
