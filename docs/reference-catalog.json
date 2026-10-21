@@ -921,7 +921,7 @@
       "path": "docs/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "851eb7593745c8a14299efbc92e53af6e153c881d38555862be8c6fe7638ab12"
+      "sha256": "0fe93f0963756c90c829cc9171d8f7ce8bea2fdb115423ddbe59202d350a0e70"
     },
     {
       "path": "docs/decisions.md",
@@ -1197,7 +1197,7 @@
       "path": "docs/vi/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "5293ab7c95f9722590a62a169e412cc38e5fd98df57b314b77d1037ef61f0478"
+      "sha256": "7a36895c8595aab4b823ac185900a8ee565eb8dd3b095f3d93438faded269fb7"
     },
     {
       "path": "docs/vi/decisions.md",

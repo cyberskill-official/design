@@ -364,3 +364,5 @@ Inside `.cs-canvas-desk`, authored fixed-column grids retain their columns, incl
 Release preparation captures Git output with a bounded64MiB buffer so generated binary patches above1MiB remain complete; subprocess failures and exact patch-hash checks still fail closed.
 
 Legacy export validation uses the canonical release-version parser, including prereleases while rejecting build metadata. Only the VERSION export may contain a version string; other generated exports remain direct CS references. Repeated version-comment stamping is idempotent, and malformed versions or extra code fail closed.
+
+The native-token audit parses informational release stamps with the same canonical stable/prerelease grammar as preparation. DTCG source hashes, every target hash and the complete native value round trip remain the drift authority.

@@ -14,7 +14,8 @@
 <p class="lede">Whole-set proof that the committed native token files (<code>tokens/native/</code> — SwiftUI · Compose · Flutter) and <code>tokens/provenance.json</code> are in lockstep with <code>tokens/tokens.dtcg.json</code>: re-derives <b>every</b> expected constant (same conversions: rem→px@16, em→<code>…Em</code>, rgba→ARGB byte) and asserts it appears verbatim in each target; verifies provenance <b>source sha-256</b> (the drift authority — the release stamp is informational: natives regenerate when <i>tokens</i> change, not on every version bump), per-target sha-256, and counts. Fails on any drift — regenerate the native files after any token change. Verdict on <code>window.__tokenpipe</code>.</p>
 <div id="list"></div>
 <div id="sum">running…</div>
-<script>
+<script type="module">
+import {parseReleaseVersion} from '../scripts/lib/release-version-core.mjs';
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 const P=window.__gateProgress={done:0,total:7,current:'boot'};
 const results=[]; const list=document.getElementById('list');
@@ -71,7 +72,7 @@ function expected(name,type,value,cssRaw,nativeFormat){
   });
   if(!dtcgText){ publish({pass:false,total:results.length,failed:results.filter(r=>!r.ok).map(r=>r.name),error:'fetch failed'}); return; }
   const dtcg=JSON.parse(dtcgText);
-  await test('provenance release stamp sane',async()=>{ assert(/^\d+\.\d+\.\d+$/.test(prov.release||''),'bad release stamp: '+prov.release); return 'generated at v'+prov.release+' (source-sha pinning is the drift authority, not the release stamp)'; });
+  await test('provenance release stamp sane',async()=>{ parseReleaseVersion(prov.release); return 'generated at v'+prov.release+' (source-sha pinning is the drift authority, not the release stamp)'; });
   await test('provenance source sha-256 matches dtcg',async()=>{ const s=await sha256(dtcgText); assert(s===prov.sourceSha256,'source changed since generation — regenerate tokens/native/'); return s.slice(0,16)+'\u2026'; });
   await test('target sha-256s match provenance',async()=>{
     const map={'tokens/native/CSTokens.swift':swift,'tokens/native/CSTokens.kt':kt,'tokens/native/cs_tokens.dart':dart};
