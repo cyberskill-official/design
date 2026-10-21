@@ -31,6 +31,8 @@ Open `examples/native/compose/` in **Android Studio** (Hedgehog+ / AGP 8.2-compa
 
 There is **no committed `gradlew`** in this sample. First sync does **not** create the wrapper scripts — those come from the Gradle `wrapper` task. A fresh clone therefore needs an explicit bootstrap (`gradle wrapper --gradle-version 8.2.1` with **JDK 17**) before `./gradlew :app:assembleDebug` is usable, and `assembleDebug` still needs an Android SDK (`ANDROID_HOME` / `ANDROID_SDK_ROOT`). Android Studio can provide the SDK and a compatible configured Gradle JDK.
 
+The Compose project sets a 2 GiB Gradle JVM heap, a 512 MiB metaspace cap and at most two workers in `gradle.properties`. This bounds concurrent build work and avoids D8 dex-merge heap exhaustion observed on the hosted runner. Both app and instrumentation APKs must still compile; this resource setting does not execute instrumentation tests or establish device acceptance.
+
 Optional CLI (when JDK 17, Gradle 8.2.1 and `ANDROID_HOME` / `ANDROID_SDK_ROOT` are already set):
 
 ```bash

@@ -40,3 +40,20 @@ if(actual.jobs.validate.steps.some(x=>x.uses==='./.github/actions/setup-npm')){
  for(const mutate of [x=>delete x.packageMetadata.packageManager,x=>x.packageMetadata.packageManager='npm@0.0.0',x=>delete x.lockMetadata.packages[''].engines]){const changed=structuredClone(toolchain);mutate(changed);assert.throws(()=>validateNativeRouting(actual,changed));}
 }
 console.log('PASS native CI routing and delivered pinned metadata: main+relevant PR sources, all3platforms, read-only permissions, failed-build evidence and negative missing/wrong package-pin controls');
+
+// A routing pass must not silently restore the undersized implicit JVM heap that
+// failed the hosted D8 merge. Keep both APK tasks in the real build script.
+function validateComposeResources(properties, script) {
+ const entries=properties.split(/\r?\n/).map(line=>line.trim()).filter(line=>line&&!line.startsWith('#')).map(line=>line.split(/=(.*)/s).slice(0,2));
+ assert.equal(new Set(entries.map(([key])=>key)).size,entries.length,'Duplicate Gradle property');
+ const values=Object.fromEntries(entries);
+ assert.match(values['org.gradle.jvmargs']||'',/(?:^|\s)-Xmx2g(?:\s|$)/,'Retain bounded dex-merge heap');
+ assert.match(values['org.gradle.jvmargs']||'',/(?:^|\s)-XX:MaxMetaspaceSize=512m(?:\s|$)/);
+ assert.equal(values['org.gradle.workers.max'],'2','Bound concurrent build workers');
+ assert(script.includes(':app:assembleDebug :app:assembleDebugAndroidTest'),'Compile both APK targets');
+}
+const properties=readFileSync('examples/native/compose/gradle.properties','utf8'),script=readFileSync('scripts/ci/native-validation.sh','utf8');
+validateComposeResources(properties,script);
+for(const changed of [properties.replace('-Xmx2g','-Xmx512m'),properties.replace('org.gradle.workers.max=2','org.gradle.workers.max=8'),properties+'org.gradle.workers.max=2\n']) assert.throws(()=>validateComposeResources(changed,script));
+assert.throws(()=>validateComposeResources(properties,script.replace(':app:assembleDebugAndroidTest','')));
+console.log('PASS bounded Compose build resources and retained app/instrumentation tasks; four negative controls');
