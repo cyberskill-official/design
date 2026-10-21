@@ -37,11 +37,10 @@ for(const pointer of ['fine','coarse']) await withBrowserFixture(async page=>{
         host.innerHTML=`<main ${attrs} data-theme="${theme}" data-cs-density="${density}" style="background:var(--cs-color-surface-page);padding:30px;min-height:200px">${fixture.html}</main>`;
         const focus=host.querySelector(fixture.focus),indicator=host.querySelector(fixture.indicator);
         if(!focus||!indicator)throw Error('Missing focus fixture '+fixture.id);
+        // Match authored selectors in both states; stripping focus pseudos corrupts :not(:focus-visible).
+        for(const selector of selectors)if(focus.matches(selector)||indicator.matches(selector))covered.add(selector);
         focus.focus({preventScroll:true});
-        for(const selector of selectors) {
-          const clean=selector.replace(':where(:focus-visible)',':where(*)').replace(/:focus(?:-visible|-within)?/g,'');
-          if(focus.matches(clean)||indicator.matches(clean))covered.add(selector);
-        }
+        for(const selector of selectors)if(focus.matches(selector)||indicator.matches(selector))covered.add(selector);
         const measured=csInspectFocusIndicator(focus,indicator);cases++;minimumContrast=Math.min(minimumContrast,measured.contrastRatio);
         if(!measured.pass){failures++;failureByFixture[fixture.id]=(failureByFixture[fixture.id]||0)+1;if(!examples.some(example=>example.id===fixture.id))examples.push({variant,theme,density,id:fixture.id,...measured});}
       }
@@ -52,6 +51,12 @@ for(const pointer of ['fine','coarse']) await withBrowserFixture(async page=>{
     for(const [id,count] of Object.entries(result.failureByFixture))failureByFixture[id]=(failureByFixture[id]||0)+count;
     for(const example of result.examples)if(!examples.some(existing=>existing.id===example.id))examples.push({pointer,colorScheme,contrast,...example});
   }
+  const negativeFocusMatch=await page.evaluate(()=>{
+    const host=document.getElementById('fixture');host.innerHTML='<button class="cs-toggle" aria-pressed="true">Pressed toggle</button>';
+    const el=host.firstElementChild,selector='.cs-toggle[aria-pressed="true"]:not(:focus-visible)';
+    const before=el.matches(selector);el.focus();return [before,el.matches(selector)];
+  });
+  assert.deepEqual(negativeFocusMatch,[true,false],'Negated focus override must match unfocused state and stop matching focused state');
   // Actual computed-style failure paths, not a regex-only existence check.
   const negatives=await page.evaluate(()=>{
     const host=document.getElementById('fixture');host.innerHTML='<main data-theme="light"><button class="cs-button">Negative</button></main>';

@@ -12,6 +12,8 @@ export const focusIndicatorCases = [
   direct('radio', '<label class="cs-radio"><input type="radio"><span>Radio</span></label>', 'input'),
   direct('radio-on', '<label class="cs-radio"><input type="radio" checked><span>Radio</span></label>', 'input'),
   direct('button', '<button class="cs-button">Button</button>', 'button'),
+  direct('toggle', '<button class="cs-toggle" aria-pressed="false">Toggle</button>', 'button'),
+  direct('toggle-pressed', '<button class="cs-toggle" aria-pressed="true">Toggle</button>', 'button'),
   direct('secondary-button', '<button class="cs-button cs-button--secondary">Secondary</button>', 'button'),
   direct('danger-button', '<button class="cs-button cs-button--danger">Danger</button>', 'button'),
   direct('field', '<input class="cs-field__control" aria-label="Field">', 'input'),
