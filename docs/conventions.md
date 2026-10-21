@@ -207,13 +207,13 @@ Native base density aliases are resolved dimensions; scoped metrics use `Compact
 
 DTCG regeneration: `npm run tokens:generate` runs the element/density projections, `tokens:dtcg`, native outputs and reference artifacts. `tokens:dtcg` reads CSS-valued `tokens.json` and the existing semantic type inventory; it rejects missing/extra entries, malformed values and alias cycles before writing. Run `npm run test:dtcg-profile` for generator freshness, invalid-input coverage and browser round trips. All base tokens retain exact CSS in `com.cyberskill.css`; `relativeUnit: em` preserves relative letter spacing as a number, `cssScale: 100` represents percentage ratios, and `nativeFormat` explicitly preserves legacy CSS strings or `Em` constants. These extensions are not portable DTCG modes. Native rem conversion still assumes 16px; color alpha quantizes to an ARGB byte where required. Actual platform builds are a separate acceptance check.
 
-A local Style Dictionary 5.5.5 probe retained all <!-- cs-count:typedBaseTokens -->175<!-- /cs-count --> original base values and per-token extensions, but its default CSS formatter emitted `[object Object]` for four durations and its normalized dictionary omitted root scope metadata. Use neither that formatter nor the normalized dictionary as a lossless CyberSkill export. The repository adapter below repairs that interchange loss; neither probe contacted Figma.
+A local Style Dictionary 5.5.5 probe retained all <!-- cs-count:typedBaseTokens -->197<!-- /cs-count --> original base values and per-token extensions, but its default CSS formatter emitted `[object Object]` for four durations and its normalized dictionary omitted root scope metadata. Use neither that formatter nor the normalized dictionary as a lossless CyberSkill export. The repository adapter below repairs that interchange loss; neither probe contacted Figma.
 
 ### Style Dictionary adapter (repository maintainers)
 
 Use `createStyleDictionaryAdapter(document)` from `scripts/lib/style-dictionary-adapter.mjs` with the complete original DTCG document before constructing Style Dictionary. Register `adapter.formatDtcg` as a custom formatter; it reconstructs the exported document from every tool-provided `token.original` and retained root/group metadata. It rejects missing/duplicate/changed leaves instead of filling gaps from the source. Changes belong in canonical CSS and generation, not transformed tool values. The adapter snapshots metadata so later input/output mutations cannot alter subsequent exports.
 
-Style Dictionary 5.5.5 is the tested version. Two real import/export cycles preserve all <!-- cs-count:typedBaseTokens -->175<!-- /cs-count --> base leaves and all 36 currently exported scope maps, including aliases and extensions. `adapter.formatBaseCss` preserves exact base CSS expressions (including durations), but is only a `:root` projection; use canonical `styles.css` for runtime scope composition. Retaining the exported maps does not certify coverage of every runtime conditional rule.
+Style Dictionary 5.5.5 is the tested version. Two real import/export cycles preserve all <!-- cs-count:typedBaseTokens -->197<!-- /cs-count --> base leaves and all 36 currently exported scope maps, including aliases and extensions. `adapter.formatBaseCss` preserves exact base CSS expressions (including durations), but is only a `:root` projection; use canonical `styles.css` for runtime scope composition. Retaining the exported maps does not certify coverage of every runtime conditional rule.
 
 `npm run test:dtcg-profile` includes dependency-free adapter failure tests. For the real-tool test, install `style-dictionary@5.5.5` in an isolated directory with scripts disabled, then run `npm run test:dtcg-style-dictionary -- <directory>/node_modules/style-dictionary`. CI performs that separate pinned test. No Style Dictionary package is added to the design-system runtime, and no Figma account is accessed.
 
@@ -255,7 +255,7 @@ This graph describes declarations, not computed cascade results or a dependency 
 
 For repository maintenance, `npm run tokens:coverage` separates base
 typed membership from source-scoped values for every public-namespace name.
-Currently <!-- cs-count:typedBaseTokens -->175<!-- /cs-count --> names have a base DTCG entry; 11 additional names have scoped literal
+Currently <!-- cs-count:typedBaseTokens -->197<!-- /cs-count --> names have a base DTCG entry; 11 additional names have scoped literal
 colors, seven have unresolved glass expressions, and one identifies the style
 pack. Literal-color metadata is not a new root token or proof of native support.
 Run `npm run tokens:coverage` after source/type inventory changes and
@@ -290,7 +290,7 @@ human typography review and platform pixel comparison as separate acceptance.
 
 ### Export applicability and regeneration authority
 
-`tokens:base` projects all <!-- cs-count:typedBaseTokens -->175<!-- /cs-count --> typed base values from unconditional CSS root declarations into the existing category inventory. It preserves aliases and rejects missing, duplicate or unclassified root names; conditional `:root` rules never become defaults. `tokens:elements` owns element seeds and their light/dark projections; `tokens:theme` owns authored theme, density and high-contrast maps. `tokens:generate` runs these before DTCG, declaration metadata, native outputs and dependent references. A changed source value must propagate; retaining a historically correct JSON value is not sufficient evidence of generation.
+`tokens:base` projects all <!-- cs-count:typedBaseTokens -->197<!-- /cs-count --> typed base values from unconditional CSS root declarations into the existing category inventory. It preserves aliases and rejects missing, duplicate or unclassified root names; conditional `:root` rules never become defaults. `tokens:elements` owns element seeds and their light/dark projections; `tokens:theme` owns authored theme, density and high-contrast maps. `tokens:generate` runs these before DTCG, declaration metadata, native outputs and dependent references. A changed source value must propagate; retaining a historically correct JSON value is not sufficient evidence of generation.
 
 | Consumer format | Represented values and scope | Non-applicability rule |
 |---|---|---|

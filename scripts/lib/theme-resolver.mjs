@@ -1,3 +1,4 @@
+import {assertThemePaletteFreshness} from './theme-palette-projection.mjs';
 import {readFileSync} from 'node:fs';
 import {readContrastMaps} from './contrast-maps.mjs';
 
@@ -16,6 +17,7 @@ const channel=(mode,key)=>`--_cs-${mode}-${key.slice(5)}`;
 const choose=(key)=>`var(--_cs-light, var(${channel('light',key)})) var(--_cs-dark, var(${channel('dark',key)}))`;
 const lines=map=>Object.entries(map).map(([k,v])=>`  ${k}: ${v};`).join('\n');
 export function emitThemeResolver(root,packs,roleKeys) {
+  assertThemePaletteFreshness(root);
   const light=palette(new URL('tokens/colors.css',root),':root');
   const dark={...light,...palette(new URL('tokens/colors.css',root),'[data-theme="dark"]')};
   // Include every theme-dependent component/elevation value, not only CTA colors.

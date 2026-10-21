@@ -17,8 +17,8 @@
     "componentSourceFiles": 106,
     "coExports": 17,
     "cards": 57,
-    "publicTokenDeclarations": 823,
-    "typedBaseTokens": 175,
+    "publicTokenDeclarations": 397,
+    "typedBaseTokens": 197,
     "templatesWithLanguageControl": 44,
     "templatesWithoutLanguageControl": 41,
     "templatesWithThemeControl": 16,
@@ -28,7 +28,7 @@
   },
   "sourceHashes": {
     "_audit/visual-diff.html": "648e2698f16900ce2dc929eb0f67efa3478a882cb2d1922ddc6e179c1ea6b2b8",
-    "_ds_manifest.json": "a2f5076c575d00a454566de48c2eb3753ea24dc38b2034addf950ddda65135bb",
+    "_ds_manifest.json": "8a5823b39539d28ec3593b584c317ebb52484f130088d4d9621c9328aff6aefd",
     "scripts/public-site-policy.json": "46fe5ae88ff53c77dae40dd9dce3e0a5ec28099a0f8c7befccbe846fdb8d7878",
     "templates/app-shell/AppShell.dc.html": "806c90114a3ba89442dda3bf1608fdcf0116eedf3be5e1d45c21a8d0402d8b01",
     "templates/article/Article.dc.html": "07e81ab1ce7592592a5b4fda49993fde3e9bdb417cb00a828fd9a334c055405b",
@@ -115,7 +115,7 @@
     "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html": "9b26fde39b0b5eae7a99e307781e36f129b39b578f4e6d9e0d795f3532d8ef23",
     "templates/vn-training-commitment/VnTrainingCommitment.dc.html": "55bface30bfc3747ec751354291465cc900bdd6e0b8cdf130ab99411ee76647c",
     "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html": "ec4a01cd6403da156341bde35b634d6f1ddcd83bd8e3858036da13f9c22669d2",
-    "tokens/tokens.dtcg.json": "588f0c3c8906b520972fe423101e5e3487046a03d6ead1e545ec60504b6a9d95"
+    "tokens/tokens.dtcg.json": "5389a3151b76a039b5fc8a5bb3aa3a5087fa41e1b02a6bc3d5903038796cf6a8"
   },
   "documents": [
     {
@@ -128,7 +128,7 @@
       "path": "DESIGN.md",
       "audience": "documentation",
       "role": "generated_reference",
-      "sha256": "745d9f606854fb3b172d8ac9154ec6d33bfc4f10268150ddcf4c1e1941e439e1"
+      "sha256": "32d2a947f63f09296f4227da467bbb60c75021f546bb0f009b1c711d1289f6e1"
     },
     {
       "path": "README.md",
@@ -146,7 +146,7 @@
       "path": "THIRD-PARTY-NOTICES.md",
       "audience": "documentation",
       "role": "attribution_or_distribution_record",
-      "sha256": "8c202b586afbf120698a2af8f5991f29cfe88b586d65f91bf3ff6a39f8750e23"
+      "sha256": "880a801376e65eca21bd2de95e1bf2f521e49225738576d455d47239c4a324de"
     },
     {
       "path": "_audit/README.md",
@@ -854,13 +854,13 @@
       "path": "docs/contrast-report.md",
       "audience": "documentation",
       "role": "generated_measurement",
-      "sha256": "3727b3f5e2b38ed56be332249fb9b7cecfe7b21909e96374d96fe3d7f79eaf13"
+      "sha256": "728f6dc012040c778f4090bb6a73f5dac5e8b27cfd3bcb820d8bf3ac1d035985"
     },
     {
       "path": "docs/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "16fdf698d207c6048e0fdb014fb78f75ed5822f63ce0037b4b1cd93ce2b4a930"
+      "sha256": "686b3ceb3bce5f0b16aa4989473336a4d145d309b444effbb36797f7d5811eb5"
     },
     {
       "path": "docs/decisions.md",
@@ -914,7 +914,7 @@
       "path": "docs/figma.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "421e30deff247be00cb19a6d75936f081951e6873737ead072e5219588fcd438"
+      "sha256": "f8b792489ef93eddfbd02ad82353a4d0ceb1804067b4b8f3bc666ff2da916cf9"
     },
     {
       "path": "docs/hr-suite-sources.md",
@@ -944,7 +944,7 @@
       "path": "docs/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "56658d8b46d309dd20b63dd52cd5fd9ebd5dc4a4cbe78b8c29e6a6e3a53e53d8"
+      "sha256": "730d711a6fb435497820302b2b22fc71931f40588a885fed54cec7c662a06f92"
     },
     {
       "path": "docs/storybook.md",
@@ -992,13 +992,13 @@
       "path": "docs/vi/contrast-report.md",
       "audience": "documentation",
       "role": "generated_measurement",
-      "sha256": "5387b5db54f3714f2ad71d0d85129b9c8fe1c985683ddf5cf87bd60cea8bc664"
+      "sha256": "c306e0b99a2d15ee3ed1bb3d810be39b39a48d23023f293d3cffe2141db40558"
     },
     {
       "path": "docs/vi/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "aa9310a6cd9b5eec1d7f67f21069ca3b8f69c3ccad987406c45f3d76e13e65b5"
+      "sha256": "1d959d90773c60a9bad3c98e5f6464a265bc74b9951ecd8c5a28685b734b6b6b"
     },
     {
       "path": "docs/vi/decisions.md",
@@ -1028,7 +1028,7 @@
       "path": "docs/vi/figma.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "f51a7deadb1a5131959e51f1494995de0cffb2de50cd39866414604b3b08179b"
+      "sha256": "9fe9646516d33d0b46d4d4e18d9c10db13a8fe80af6587e1dbbd427ae39f6124"
     },
     {
       "path": "docs/vi/hr-suite-sources.md",
@@ -1058,7 +1058,7 @@
       "path": "docs/vi/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "09146f1252b2d1e1e1575fdf0d3f646bb93685433557eb547030349aea4c9af6"
+      "sha256": "a674bee308efefd56ff6b79ef9e25c2737226ba1fb7518a4fb2284d278594f6f"
     },
     {
       "path": "docs/vi/storybook.md",

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "dateSemantics": "The generated field is the historical token inventory origin date, not the current build time. Current source identity is declarationGraph.sha256; deterministic builds do not stamp wall-clock time.",
+  "json": {
+    "system": "CyberSkill Design System",
+    "version": "1.7.2",
+    "generated": "2026-07-23",
+    "note": "Generated from tokens/*.css. Root grouped by category; theme/element scopes carry overrides only. Regenerate after any token change (see docs/conventions.md)."
+  },
+  "dtcg": {
+    "$description": "CyberSkill design tokens targeting the DTCG 2025.10 emitted-value profile. CSS custom-property names and exact CSS expressions are preserved; scope overrides and relative em values use documented com.cyberskill extensions. General reader conformance and live design-tool imports are not implied.",
+    "$extensions": {
+      "com.cyberskill": {
+        "system": "CyberSkill Design System",
+        "version": "1.7.2",
+        "generated": "2026-07-23",
+        "source": "tokens/tokens.json",
+        "note": "CSS remains authoritative. Scope maps are CSS-valued vendor extensions; use the CyberSkill adapter. Relative em numbers retain relativeUnit; cssScale converts percentage ratios. nativeFormat preserves established native representation.",
+        "overrides": {},
+        "format": "https://www.designtokens.org/tr/2025.10/format/",
+        "colorFormat": "https://www.designtokens.org/tr/2025.10/color/"
+      }
+    }
+  }
+}

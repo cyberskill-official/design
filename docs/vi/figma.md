@@ -88,4 +88,4 @@ Sau push thành công, mở file trong Figma → **Local variables** → collect
 
 Job Variables chỉ push 42 leaf **màu** cơ sở, chuyển màu sRGB dạng đối tượng DTCG hiện tại (gồm alpha) sang Figma RGBA. Helper vẫn hỗ trợ đầu vào hex cũ; đó không phải định dạng xuất hiện tại. Spacing, type, và pack multi-mode light/dark chưa auto-sync — dùng Tokens Studio cho những phần đó đến khi sync sau mở rộng job REST.
 
-Bản xuất DTCG hiện phát <!-- cs-count:typedBaseTokens -->175<!-- /cs-count --> token cơ sở có kiểu. Số lượng lấy từ [reference catalog](../reference-catalog.json).
+Bản xuất DTCG hiện phát <!-- cs-count:typedBaseTokens -->197<!-- /cs-count --> token cơ sở có kiểu. Số lượng lấy từ [reference catalog](../reference-catalog.json).

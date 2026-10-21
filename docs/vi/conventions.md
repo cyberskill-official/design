@@ -208,13 +208,13 @@ Bí danh mật độ gốc được xuất thành kích thước số cho native
 
 Tạo lại DTCG: `npm run tokens:generate` cập nhật element/density, chạy `tokens:dtcg`, rồi tạo native và tài liệu tham chiếu. `tokens:dtcg` đọc giá trị CSS từ `tokens.json` và danh mục kiểu ngữ nghĩa hiện có; từ chối mục thiếu/thừa, giá trị sai và vòng lặp bí danh trước khi ghi. Chạy `npm run test:dtcg-profile` để kiểm tra tính mới, đầu vào sai và round-trip trong trình duyệt. Mỗi token giữ CSS gốc trong `com.cyberskill.css`; `relativeUnit: em` giữ khoảng cách chữ tương đối dưới dạng số, `cssScale: 100` biểu diễn tỷ lệ phần trăm, và `nativeFormat` giữ chuỗi CSS hoặc hằng `Em` cũ. Đây không phải các mode DTCG dùng chung. Native vẫn quy đổi rem theo 16px và làm tròn alpha thành một byte ARGB khi cần. Build trên nền tảng đích là bước nghiệm thu riêng.
 
-Thử nghiệm local với Style Dictionary 5.5.5 giữ <!-- cs-count:typedBaseTokens -->175<!-- /cs-count --> giá trị cơ sở gốc và phần mở rộng từng token, nhưng bộ định dạng CSS mặc định xuất `[object Object]` cho bốn duration; dictionary chuẩn hóa cũng bỏ siêu dữ liệu phạm vi ở root. Không dùng bộ định dạng hay dictionary đó làm bản xuất CyberSkill không mất dữ liệu. Bộ chuyển đổi của repository bên dưới khắc phục mất dữ liệu trao đổi này; các thử nghiệm không kết nối Figma.
+Thử nghiệm local với Style Dictionary 5.5.5 giữ <!-- cs-count:typedBaseTokens -->197<!-- /cs-count --> giá trị cơ sở gốc và phần mở rộng từng token, nhưng bộ định dạng CSS mặc định xuất `[object Object]` cho bốn duration; dictionary chuẩn hóa cũng bỏ siêu dữ liệu phạm vi ở root. Không dùng bộ định dạng hay dictionary đó làm bản xuất CyberSkill không mất dữ liệu. Bộ chuyển đổi của repository bên dưới khắc phục mất dữ liệu trao đổi này; các thử nghiệm không kết nối Figma.
 
 ### Bộ chuyển đổi Style Dictionary (bảo trì repository)
 
 Gọi `createStyleDictionaryAdapter(document)` từ `scripts/lib/style-dictionary-adapter.mjs` với tài liệu DTCG gốc đầy đủ trước khi khởi tạo Style Dictionary. Đăng ký `adapter.formatDtcg` làm bộ định dạng riêng; nó dựng lại tài liệu từ toàn bộ `token.original` do công cụ trả về cùng siêu dữ liệu root/nhóm được giữ riêng. Mục thiếu, trùng hay bị đổi đều bị từ chối; không lấy nguồn gốc để âm thầm bù dữ liệu thiếu. Thay đổi phải đi qua CSS chuẩn và trình sinh, không qua giá trị đã được công cụ biến đổi. Siêu dữ liệu được sao chép độc lập để việc sửa đầu vào/đầu ra sau đó không ảnh hưởng lần xuất tiếp theo.
 
-Phiên bản đã kiểm tra là Style Dictionary 5.5.5. Hai vòng nhập/xuất thực giữ đủ <!-- cs-count:typedBaseTokens -->175<!-- /cs-count --> token cơ sở và 36 map phạm vi đang được xuất, gồm bí danh và phần mở rộng. `adapter.formatBaseCss` giữ biểu thức CSS cơ sở chính xác, gồm duration, nhưng chỉ tạo phần `:root`; dùng `styles.css` chuẩn cho kết hợp phạm vi khi chạy. Giữ đủ các map đã xuất không chứng minh bao phủ mọi quy tắc CSS có điều kiện.
+Phiên bản đã kiểm tra là Style Dictionary 5.5.5. Hai vòng nhập/xuất thực giữ đủ <!-- cs-count:typedBaseTokens -->197<!-- /cs-count --> token cơ sở và 36 map phạm vi đang được xuất, gồm bí danh và phần mở rộng. `adapter.formatBaseCss` giữ biểu thức CSS cơ sở chính xác, gồm duration, nhưng chỉ tạo phần `:root`; dùng `styles.css` chuẩn cho kết hợp phạm vi khi chạy. Giữ đủ các map đã xuất không chứng minh bao phủ mọi quy tắc CSS có điều kiện.
 
 `npm run test:dtcg-profile` bao gồm kiểm tra lỗi của bộ chuyển đổi không cần cài thêm phụ thuộc. Để kiểm tra công cụ thực, cài `style-dictionary@5.5.5` trong thư mục riêng với script bị tắt, rồi chạy `npm run test:dtcg-style-dictionary -- <directory>/node_modules/style-dictionary`. CI chạy kiểm tra ghim phiên bản này riêng. Runtime của hệ thiết kế không thêm Style Dictionary và không truy cập tài khoản Figma.
 
@@ -250,7 +250,7 @@ không phải đánh giá CSS cascade, giải biểu thức hay chứng nhận h
 Đây là đồ thị khai báo, không phải kết quả cascade đã tính hay bộ giải phụ thuộc. Ma trận theme/contrast/density vẫn xác minh hành vi khi chạy. Các bản xuất cơ sở có kiểu và phạm vi hiện có vẫn là đầu ra riêng; không suy ra hỗ trợ đầy đủ mode có điều kiện trên mọi nền tảng.
 
 Khi bảo trì repo, `npm run tokens:coverage` phân biệt tên có entry
-DTCG nền với giá trị theo scope của từng token public. Hiện có <!-- cs-count:typedBaseTokens -->175<!-- /cs-count --> tên trong
+DTCG nền với giá trị theo scope của từng token public. Hiện có <!-- cs-count:typedBaseTokens -->197<!-- /cs-count --> tên trong
 DTCG nền, thêm 11 tên có màu literal theo scope, bảy tên là biểu thức glass chưa
 được resolve và một tên định danh style pack. Metadata màu literal không tạo
 token root mới và không chứng minh hỗ trợ native. Chạy `npm run tokens:coverage`
@@ -289,7 +289,7 @@ Generator theme export dựng lại density và các override dark/system từ c
 
 ### Phạm vi áp dụng của bản xuất và nguồn sinh dữ liệu
 
-`tokens:base` lấy toàn bộ <!-- cs-count:typedBaseTokens -->175<!-- /cs-count --> giá trị base có kiểu từ khai báo CSS root không điều kiện vào nhóm token hiện có. Generator giữ alias và từ chối tên root bị thiếu, trùng hoặc chưa phân loại; rule `:root` có điều kiện không trở thành mặc định. `tokens:elements` quản lý seed và bảng light/dark của element; `tokens:theme` quản lý theme, density và high-contrast từ CSS. `tokens:generate` chạy các bước này trước DTCG, metadata declaration, native và tài liệu phụ thuộc. Khi nguồn đổi, giá trị phải được truyền sang bản xuất; JSON từng đúng không đủ chứng minh quá trình sinh dữ liệu.
+`tokens:base` lấy toàn bộ <!-- cs-count:typedBaseTokens -->197<!-- /cs-count --> giá trị base có kiểu từ khai báo CSS root không điều kiện vào nhóm token hiện có. Generator giữ alias và từ chối tên root bị thiếu, trùng hoặc chưa phân loại; rule `:root` có điều kiện không trở thành mặc định. `tokens:elements` quản lý seed và bảng light/dark của element; `tokens:theme` quản lý theme, density và high-contrast từ CSS. `tokens:generate` chạy các bước này trước DTCG, metadata declaration, native và tài liệu phụ thuộc. Khi nguồn đổi, giá trị phải được truyền sang bản xuất; JSON từng đúng không đủ chứng minh quá trình sinh dữ liệu.
 
 | Định dạng sử dụng | Giá trị và scope được biểu diễn | Quy tắc không áp dụng |
 |---|---|---|
