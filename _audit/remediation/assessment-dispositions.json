@@ -131,6 +131,11 @@
       "id": "owner-segmented-role-alias",
       "decision": "Retain deprecated role=tablist/radiogroup semantic aliases when mode is absent; explicit mode takes precedence, invalid roles reject, default remains radio. Retain the major/two-published-minor/90-day policy.",
       "source": "Direct user answer: Retain the deprecated semantic alias."
+    },
+    {
+      "id": "owner-source-support-review",
+      "decision": "Apply one bounded source/declared-support batch approval for124exports and431directfiles using exact proposal e1bb92e45b9601c7af4f545709cd60aa333d3bf4d607165e3139b2443ff54ef7. Preserve122archived approvals and unchangedEDITOR_SCHEMA current approval; no manual AT/device/linguistic/rights/release/full-suite acceptance.",
+      "source": "Direct user answer: Approve and apply bounded source/support review. Reply2026-10-21T12:03Z, minute precision."
     }
   ],
   "findings": [
@@ -777,19 +782,21 @@
       "severity": "High",
       "finding": "The lifecycle gate hard-codes one name as the only valid owner and reviewer; all 123 records share one timestamp to the millisecond",
       "assessmentEvidence": "`_audit/ci/test-component-lifecycle.mjs:36`; `components/lifecycle.json`",
-      "disposition": "partially-remediated",
+      "disposition": "remediated",
       "evidence": [
         "Lifecycle test restricted both identities to Stephen Cheng."
       ],
       "changes": [
-        "Added components/maintainers.json role registry; gate validates authorized owner/reviewer roles and still requires reviewed records."
+        "Added components/maintainers.json role registry; gate validates authorized owner/reviewer roles and still requires reviewed records.",
+        "Applied explicit owner-authorized source/declared-support review to124exports; one honest batch timestamp and fresh checkedAt hashes, preserving all123prior approval records."
       ],
       "validation": [
         "test-component-lifecycle remains fail-closed on118 unreviewed records; initial117 invalidations plus1 Editor review invalidation retain approval history.",
-        "Current committed125exports:124unreviewed/1reviewed; prior122history plus unchangedEDITOR_SCHEMA current approval retained. Exact431files for proposed124review match392310f2; no approval written. See test-results/partial11-owner-support-review-parent-check.json."
+        "Current committed125exports:124unreviewed/1reviewed; prior122history plus unchangedEDITOR_SCHEMA current approval retained. Exact431files for proposed124review match392310f2; no approval written. See test-results/partial11-owner-support-review-parent-check.json.",
+        "Exact431target evidence hashes and433all-export files revalidated against35adeacd; lifecycle, invalidation and independent application review recorded in the bounded approval receipt."
       ],
-      "blocker": "Concrete124-export/431-file source-and-declared-support review packet is pending explicit owner approval. All123prior approval records remain unchanged; no delegate or review sessions invented.",
-      "status": "partial",
+      "blocker": "Current bounded source review is authorized; historical review quality and manual/device/product/translation/rights acceptance remain separate and are not promoted.",
+      "status": "fixed",
       "scopedEvidence": [
         {
           "ledger": "_audit/remediation/integration.json",
@@ -824,10 +831,10 @@
       ],
       "continuationState": "Integrated engineering; lane outcomes and human/external boundaries recorded separately",
       "partial11Continuation": {
-        "recordedAt": "2026-10-21T10:46:07.195376+00:00",
-        "state": "awaiting-owner-source-review",
-        "evidence": "test-results/partial11-owner-support-review-proposal.json",
-        "disposition": "Concrete124-export/431-file source-and-declared-support review packet is pending explicit owner approval. All123prior approval records remain unchanged; no delegate or review sessions invented."
+        "recordedAt": "2026-10-21T12:08:13.113Z",
+        "state": "owner-approved-applied",
+        "evidence": "_audit/remediation/owner-source-support-review-2026-10-21.json",
+        "disposition": "Owner explicitly approved124source/support scopes; exact431files rechecked,125current reviewed records and all123prior approvals preserved. Separate manual/external acceptance remains pending."
       }
     },
     {
@@ -8294,14 +8301,14 @@
     "statusCounts": {
       "decision-dependent": 2,
       "documented-boundary": 13,
-      "fixed": 111,
-      "partial": 7,
+      "fixed": 112,
+      "partial": 6,
       "refuted": 2,
       "unverified": 8,
       "verified-boundary": 5
     },
     "notAllActionableFindingsClosed": true,
-    "sourceState": "Partial11 continuation: G41 andG13 fixed; U03/U05 verified bounded questions;7partials remain. Runtime and bilingual/template source batches pushed through392310f2. Source/support approval, alpha preparation, final full-suite and external/manual evidence remain distinct."
+    "sourceState": "Source/support approval applied for124exports; original43continuation now35fixed/6partial/2verified-boundary. Alpha preparation, terminal429-suite and external/manual acceptance remain separate."
   },
   "validationSummary": {
     "state": "Partial11 continuation in progress; no new aggregate/full-suite pass claimed",
@@ -9688,18 +9695,7 @@
       }
     }
   ],
-  "pendingUserQuestions": [
-    {
-      "id": "owner-source-support-review",
-      "finding": "D18",
-      "state": "pending-no-approval",
-      "recordedAt": "2026-10-21T11:12:54.197851+00:00",
-      "scope": "Record/apply exact124export source and declared-support reviews covering431unique directfiles; no manualAT/device/translation/rights/release or whole-suite acceptance.",
-      "proposal": "test-results/partial11-owner-support-review-proposal.json",
-      "proposalSha256": "e1bb92e45b9601c7af4f545709cd60aa333d3bf4d607165e3139b2443ff54ef7",
-      "humanDecisionReceived": false
-    }
-  ],
+  "pendingUserQuestions": [],
   "editorialIntegration": {
     "state": "Engineering integrated; fullbaseline and separate final affected lanes recorded",
     "sourceBeforeSha256": "4ff15201791435cdbf7d1fa1dab92aed124f14121575a0aba2906575c54ec61c",

@@ -1,8 +1,8 @@
 # Assessment remediation record
 
-All148 visible source findings are preserved;25 owner decisions are now recorded. The referenced181-row TSV was not supplied. Engineering fixes, validation, human acceptance and release authorization remain separate.
+All148 visible source findings are preserved;26 owner decisions are now recorded. The referenced181-row TSV was not supplied. Engineering fixes, validation, human acceptance and release authorization remain separate.
 
-**Continuation 43: 34 fixed, 7 partial, 2 verified boundaries (work in progress).** G41 passes hosted SwiftUI/Compose/Flutter compilation after the bounded Compose heap fix, with committed main/PR routing and source-bound [native evidence](../../test-results/partial11-hosted-native-resources/final.json). U05's native-inert feature availability and U03's live required-check configuration are verified with explicit device, manual AT and admin-bypass boundaries.
+**Continuation 43: 35 fixed, 6 partial, 2 verified boundaries (work in progress).** G41 passes hosted SwiftUI/Compose/Flutter compilation after the bounded Compose heap fix, with committed main/PR routing and source-bound [native evidence](../../test-results/partial11-hosted-native-resources/final.json). U05's native-inert feature availability and U03's live required-check configuration are verified with explicit device, manual AT and admin-bypass boundaries.
 
 The earlier418baseline remains416pass/2fail. The frozen current428baseline finished425pass/3fail with3503captured source/output files unchanged. The support gate and two candidate prerequisite failures are retained; follow-ups remain separate. No updated clean aggregate pass is claimed. Incremental reviewed commits are pushed on `codex/assessment-followup` in draft PR107. Required fast/docs gates passed at04923723; pushed e2f19259 corrects three stale fixtures,6b3a4b8f pins deployment commands without dropping security/routing fields, and d6306ce9 repairs authored focus-selector measurement. The runtime batch `b4cff9b1` and bilingual/template batch `392310f2` are now pushed. The frozen integrated candidate passes its focused language, reader, public-site and CSP checks; the later four-file build alias fix is separate. A clean checkout of `392310f2` reports a stale generated reference catalog; this retained failure awaits regeneration with the release-documentation fix. Current hosted outcomes remain source-bound and separate. Current lane evidence is [partial11 progress](../../test-results/partial11-progress.json).
 
@@ -11,7 +11,7 @@ Remaining boundaries include fresh per-export source reviews,16manual AT rows wi
 ## Current partial11 continuation
 
 - **D16 (partial)**: Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending fresh source/support approval and clean-checkout gates. Evidence: [partial11-release-body-correction.json](../../test-results/partial11-release-body-correction.json).
-- **D18 (partial)**: Concrete124-export/431-file source-and-declared-support review packet is pending explicit owner approval. All123prior approval records remain unchanged; no delegate or review sessions invented. Evidence: [partial11-owner-support-review-proposal.json](../../test-results/partial11-owner-support-review-proposal.json).
+- **D18 (fixed)**: Owner explicitly approved124source/support scopes; exact431files rechecked,125current reviewed records and all123prior approvals preserved. Separate manual/external acceptance remains pending. Evidence: [owner-source-support-review-2026-10-21.json](../../_audit/remediation/owner-source-support-review-2026-10-21.json).
 - **D22 (partial)**: Verified bounded upstream/package byte matches and corrected entities8.1.0 attribution to BSD-2-Clause. Rights-chain conflicts and reconstructed runtime origin remain unresolved. Evidence: [final.json](../../test-results/d22-provenance-refresh/final.json).
 - **D23 (partial)**: Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still awaits fresh source/support approval and a clean source checkout; no VERSION/tag/publication written. Evidence: [independent-review.json](../../test-results/alpha-doc-stamping/independent-review.json).
 - **G13 (fixed)**: Committed and pushed392310f2: all107prompts/767proseblocks and10entry/operator pairs. Build/check, source-language guards, actual85template/94reader-route CSP checks across3engines, public-site links/private404, and reader/touch/count checks pass. Separate additive build-script alias retains compatibility; no postalias sitefreshness or full428green claim. Evidence: [b4-coherent-final.json](../../test-results/g13-instruction-languages/b4-coherent-final.json).
@@ -55,6 +55,8 @@ Remaining boundaries include fresh per-export source reviews,16manual AT rows wi
 - **owner-release-body-correction**: Apply reviewed body-only correction to GitHubv1.7.2 description, preserving historical quote and all tag/package/publication metadata.
 
 - **owner-segmented-role-alias**: Retain deprecated role=tablist/radiogroup semantic aliases when mode is absent; explicit mode takes precedence, invalid roles reject, default remains radio. Retain the major/two-published-minor/90-day policy.
+
+- **owner-source-support-review**: Apply one bounded source/declared-support batch approval for124exports and431directfiles using exact proposal e1bb92e45b9601c7af4f545709cd60aa333d3bf4d607165e3139b2443ff54ef7. Preserve122archived approvals and unchangedEDITOR_SCHEMA current approval; no manual AT/device/linguistic/rights/release/full-suite acceptance.
 
 ## Finding dispositions
 
@@ -412,7 +414,7 @@ Validation receipts:
 
 Remaining scope / boundary: No remaining source remediation identified; current validation and human acceptance remain separate.
 
-### D18 — partial
+### D18 — fixed
 
 The lifecycle gate hard-codes one name as the only valid owner and reviewer; all 123 records share one timestamp to the millisecond
 
@@ -430,9 +432,9 @@ Validation receipts:
 
 - test-component-lifecycle remains fail-closed on118 unreviewed records; initial117 invalidations plus1 Editor review invalidation retain approval history.
 
-Remaining scope / boundary: Concrete124-export/431-file source-and-declared-support review packet is pending explicit owner approval. All123prior approval records remain unchanged; no delegate or review sessions invented.
+Remaining scope / boundary: Current bounded source review is authorized; historical review quality and manual/device/product/translation/rights acceptance remain separate and are not promoted.
 
-Current continuation: Concrete124-export/431-file source-and-declared-support review packet is pending explicit owner approval. All123prior approval records remain unchanged; no delegate or review sessions invented. Evidence: [partial11-owner-support-review-proposal.json](../../test-results/partial11-owner-support-review-proposal.json).
+Current continuation: Owner explicitly approved124source/support scopes; exact431files rechecked,125current reviewed records and all123prior approvals preserved. Separate manual/external acceptance remains pending. Evidence: [owner-source-support-review-2026-10-21.json](../../_audit/remediation/owner-source-support-review-2026-10-21.json).
 
 ### D19 — decision-dependent
 
