@@ -1082,7 +1082,7 @@
       "path": "examples/native/README.md",
       "audience": "authoring",
       "role": "consumer_example_guide",
-      "sha256": "bdf0279689b0ae3ac179c9857fb58e29d564c6510c873847176506bed0c1692d"
+      "sha256": "3a53d1f57a551759a1280538df1b0232e986d1af3d522996751af90b8d821eaf"
     },
     {
       "path": "examples/npm-hello/README.md",
