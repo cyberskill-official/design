@@ -25,8 +25,8 @@ Hosted / Storybook / template tooling may load these; they are not always presen
 
 ## Editor HTML parser
 
-The generated `components/forms/editor-parser.js` embeds **parse5 8.0.1** and its
-**entities** dependency under their MIT licenses. Full copyright/license texts
+The generated `components/forms/editor-parser.js` embeds **parse5 8.0.1** (MIT) and its
+**entities** dependency (BSD-2-Clause). Full copyright/license texts
 are in `_vendor/editor-parser/NOTICE.txt`. The generator records exact versions
 and package integrity values from `package-lock.json`; verify with
 `node scripts/generate-editor-parser.mjs --check`. The parser is bundled for
