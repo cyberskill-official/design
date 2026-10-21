@@ -1,0 +1,665 @@
+{
+  "schemaVersion": 1,
+  "interpretation": "Manual attestations only. No results were recovered from the prior undocumented matrix. The owner-approved currentScopePlan defines all16current scopes; historical known/null scopes remain preserved separately. Automated proxies and scope approval do not populate manual verdicts.",
+  "rows": [
+    {
+      "id": "AT-01",
+      "scope": "Native field names and errors",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-02",
+      "scope": "Choice controls and mixed state",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-03",
+      "scope": "Nested overlay Escape and focus restoration",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-04",
+      "scope": "Dialog and Drawer focus containment",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-05",
+      "scope": "Combobox, Select and tree pickers",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-06",
+      "scope": "CommandPalette documented keyboard boundary",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-07",
+      "scope": "APG Menu and Menubar navigation",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-08",
+      "scope": "Tabs and SegmentedControl modes",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-09",
+      "scope": "Tables and expandable tree rows",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-10",
+      "scope": "Numeric values and sliders",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-11",
+      "scope": "Live notifications and loading states",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-12",
+      "scope": "Auth product surface",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-13",
+      "scope": "Website home product surface",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-14",
+      "scope": "Status Hub settings product surface",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-15",
+      "scope": "Marketing page Vietnamese surface",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    },
+    {
+      "id": "AT-16",
+      "scope": "VN disciplinary schedule product surface",
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "sourceCommit": null,
+      "environment": null,
+      "observations": null,
+      "evidence": []
+    }
+  ],
+  "currentScopePlan": {
+    "schemaVersion": 1,
+    "state": "approved",
+    "basis": "New current testing plan derived from the present component and product contracts; not reconstruction of the undocumented historical matrix. Existing seven known English scope names remain unchanged.",
+    "environmentRequirement": {
+      "vi": "Ghi phiên bản hệ điều hành, trình duyệt và trình đọc màn hình thực tế, các trục ngôn ngữ/chủ đề/trạng thái/kích thước màn hình và kết quả đọc/tiêu điểm. Không suy ra kết quả trên môi trường chưa chạy.",
+      "en": "Record actual OS, browser and screen-reader versions, language/theme/state/viewport axes and observed speech/focus behavior. Do not infer results for untested environments."
+    },
+    "rows": [
+      {
+        "id": "AT-01",
+        "scope": {
+          "vi": "Nhãn và lỗi của trường nhập",
+          "en": "Native field names and errors"
+        },
+        "historicalScopeKnown": false,
+        "tasks": [
+          {
+            "vi": "Đi qua trường nhập có nhãn, mô tả và lỗi bằng Tab.",
+            "en": "Tab through labelled fields with descriptions and errors."
+          },
+          {
+            "vi": "Gửi biểu mẫu không hợp lệ, rồi sửa trường bị lỗi.",
+            "en": "Submit an invalid form, then correct the field."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Trình đọc màn hình đọc đúng tên, mô tả và lỗi của trường.",
+            "en": "Names, descriptions and errors are announced for the correct field."
+          },
+          {
+            "vi": "Lỗi được liên kết với trường; sửa lỗi không làm mất tiêu điểm.",
+            "en": "Errors are associated with their fields; correction preserves usable focus."
+          }
+        ],
+        "historicalScope": null
+      },
+      {
+        "id": "AT-02",
+        "scope": {
+          "vi": "Lựa chọn và trạng thái hỗn hợp",
+          "en": "Choice controls and mixed state"
+        },
+        "historicalScopeKnown": false,
+        "tasks": [
+          {
+            "vi": "Đổi Checkbox, Switch và RadioGroup bằng bàn phím.",
+            "en": "Change Checkbox, Switch and RadioGroup using the keyboard."
+          },
+          {
+            "vi": "Kiểm tra trạng thái hỗn hợp và lựa chọn bị vô hiệu hóa.",
+            "en": "Inspect mixed and disabled states."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Vai trò và trạng thái hiện tại được đọc chính xác.",
+            "en": "Roles and current states are announced accurately."
+          },
+          {
+            "vi": "Điều khiển bị vô hiệu hóa không thay đổi giá trị.",
+            "en": "Disabled controls cannot change value."
+          }
+        ],
+        "historicalScope": null
+      },
+      {
+        "id": "AT-03",
+        "scope": {
+          "vi": "Escape và khôi phục tiêu điểm trong lớp phủ lồng nhau",
+          "en": "Nested overlay Escape and focus restoration"
+        },
+        "historicalScopeKnown": true,
+        "tasks": [
+          {
+            "vi": "Mở Dialog, rồi mở Popover hoặc Menu bên trong.",
+            "en": "Open a Dialog, then a nested Popover or Menu."
+          },
+          {
+            "vi": "Nhấn Escape từng lần và kiểm tra vị trí tiêu điểm.",
+            "en": "Press Escape once at a time and inspect focus."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Escape chỉ đóng lớp trên cùng trong mỗi lần nhấn.",
+            "en": "Each Escape closes only the topmost layer."
+          },
+          {
+            "vi": "Tiêu điểm trở lại phần tử mở lớp tương ứng.",
+            "en": "Focus returns to the trigger of the corresponding layer."
+          }
+        ],
+        "historicalScope": "Nested overlay Escape and focus restoration"
+      },
+      {
+        "id": "AT-04",
+        "scope": {
+          "vi": "Giới hạn tiêu điểm trong hộp thoại",
+          "en": "Dialog and Drawer focus containment"
+        },
+        "historicalScopeKnown": false,
+        "tasks": [
+          {
+            "vi": "Mở Dialog và Drawer từ nút kích hoạt.",
+            "en": "Open a Dialog and Drawer from their triggers."
+          },
+          {
+            "vi": "Duyệt Tab, Shift+Tab, đóng lớp và thử vùng nền.",
+            "en": "Traverse Tab and Shift+Tab, close the layer and inspect background access."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Tên và vai trò hộp thoại được đọc khi mở.",
+            "en": "The dialog name and role are announced on opening."
+          },
+          {
+            "vi": "Tiêu điểm không lọt ra nền khi mở và trở về nút khi đóng.",
+            "en": "Focus stays within the open modal and returns to its trigger on close."
+          }
+        ],
+        "historicalScope": null
+      },
+      {
+        "id": "AT-05",
+        "scope": {
+          "vi": "Bộ chọn và điều hướng cây",
+          "en": "Combobox, Select and tree pickers"
+        },
+        "historicalScopeKnown": false,
+        "tasks": [
+          {
+            "vi": "Mở bộ chọn, lọc kết quả và di chuyển bằng phím mũi tên.",
+            "en": "Open a picker, filter results and navigate using arrow keys."
+          },
+          {
+            "vi": "Chọn một mục, kiểm tra mục bị vô hiệu hóa và trạng thái không có kết quả.",
+            "en": "Select an item; inspect disabled items and an empty result."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Tên, trạng thái mở và lựa chọn được đọc đúng.",
+            "en": "Name, expanded state and selection are announced correctly."
+          },
+          {
+            "vi": "Mục vô hiệu hóa không được chọn; trạng thái rỗng có thông báo dễ hiểu.",
+            "en": "Disabled items cannot be selected; empty results have understandable feedback."
+          }
+        ],
+        "historicalScope": null
+      },
+      {
+        "id": "AT-06",
+        "scope": {
+          "vi": "Giới hạn bàn phím đã công bố của CommandPalette",
+          "en": "CommandPalette documented keyboard boundary"
+        },
+        "historicalScopeKnown": true,
+        "tasks": [
+          {
+            "vi": "Mở CommandPalette và nhập truy vấn có kết quả.",
+            "en": "Open CommandPalette and enter a query with results."
+          },
+          {
+            "vi": "Duyệt kết quả, kích hoạt một lệnh và đóng bằng Escape.",
+            "en": "Navigate results, activate a command and close with Escape."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Tên, kết quả đang hoạt động và trạng thái rỗng được đọc đúng.",
+            "en": "Name, active result and empty state are announced correctly."
+          },
+          {
+            "vi": "Thao tác tuân theo hợp đồng bàn phím đã công bố; tiêu điểm được khôi phục khi đóng.",
+            "en": "Interactions follow the documented keyboard contract; closing restores focus."
+          }
+        ],
+        "historicalScope": "CommandPalette documented keyboard boundary"
+      },
+      {
+        "id": "AT-07",
+        "scope": {
+          "vi": "Menu và thanh menu",
+          "en": "APG Menu and Menubar navigation"
+        },
+        "historicalScopeKnown": false,
+        "tasks": [
+          {
+            "vi": "Mở Menu bằng Enter, Space và phím mũi tên phù hợp.",
+            "en": "Open Menu using Enter, Space and the applicable arrow keys."
+          },
+          {
+            "vi": "Duyệt mục, kiểm tra mục vô hiệu hóa và dùng Tab để rời menu.",
+            "en": "Navigate items, inspect disabled items and use Tab to leave the menu."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Vai trò menu và mục đang có tiêu điểm được đọc đúng.",
+            "en": "Menu role and focused item are announced correctly."
+          },
+          {
+            "vi": "Tab đóng menu và tiếp tục tới phần tử kế tiếp theo hợp đồng APG.",
+            "en": "Tab closes the menu and continues to the next focusable element under the APG contract."
+          }
+        ],
+        "historicalScope": null
+      },
+      {
+        "id": "AT-08",
+        "scope": {
+          "vi": "Tabs và SegmentedControl",
+          "en": "Tabs and SegmentedControl modes"
+        },
+        "historicalScopeKnown": false,
+        "tasks": [
+          {
+            "vi": "Chọn giá trị trong SegmentedControl ở chế độ radio.",
+            "en": "Choose a value in radio-mode SegmentedControl."
+          },
+          {
+            "vi": "Chuyển tab trong Tabs và SegmentedControl ở chế độ tabs.",
+            "en": "Switch panels using Tabs and tabs-mode SegmentedControl."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Chế độ radio đọc nhóm và trạng thái được chọn.",
+            "en": "Radio mode announces the group and checked state."
+          },
+          {
+            "vi": "Chế độ tabs liên kết tab với panel và không đưa tiêu điểm vào panel ẩn.",
+            "en": "Tabs mode associates tabs with panels and keeps hidden panels out of focus."
+          }
+        ],
+        "historicalScope": null
+      },
+      {
+        "id": "AT-09",
+        "scope": {
+          "vi": "Bảng và hàng cây mở rộng",
+          "en": "Tables and expandable tree rows"
+        },
+        "historicalScopeKnown": false,
+        "tasks": [
+          {
+            "vi": "Đọc tiêu đề cột và dữ liệu theo hàng trong DataTable và TreeTable.",
+            "en": "Read column headers and row data in DataTable and TreeTable."
+          },
+          {
+            "vi": "Mở, đóng hàng con và kiểm tra lựa chọn hàng nếu có.",
+            "en": "Expand and collapse child rows; inspect row selection where available."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Dữ liệu giữ liên kết đúng với tiêu đề của bảng gốc.",
+            "en": "Data remains associated with native table headers."
+          },
+          {
+            "vi": "Nút mở rộng đọc trạng thái mở/đóng; lựa chọn không chỉ dựa vào màu.",
+            "en": "Disclosure controls announce expanded state; selection is not conveyed by color alone."
+          }
+        ],
+        "historicalScope": null
+      },
+      {
+        "id": "AT-10",
+        "scope": {
+          "vi": "Giá trị số và thanh trượt",
+          "en": "Numeric values and sliders"
+        },
+        "historicalScopeKnown": false,
+        "tasks": [
+          {
+            "vi": "Điều chỉnh Slider và NumberField bằng bàn phím.",
+            "en": "Adjust Slider and NumberField using the keyboard."
+          },
+          {
+            "vi": "Đọc giá trị nhỏ nhất, lớn nhất, hiện tại và tiến trình.",
+            "en": "Inspect minimum, maximum, current values and progress."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Giá trị và giới hạn được đọc chính xác.",
+            "en": "Values and bounds are announced accurately."
+          },
+          {
+            "vi": "Thay đổi tuân theo bước và giới hạn đã công bố; tiến trình có tên phù hợp.",
+            "en": "Changes respect documented steps and bounds; progress has an appropriate accessible name."
+          }
+        ],
+        "historicalScope": null
+      },
+      {
+        "id": "AT-11",
+        "scope": {
+          "vi": "Thông báo trực tiếp và trạng thái tải",
+          "en": "Live notifications and loading states"
+        },
+        "historicalScopeKnown": false,
+        "tasks": [
+          {
+            "vi": "Kích hoạt Toast, lỗi và trạng thái đang tải từ một thao tác.",
+            "en": "Trigger a Toast, error and loading state from an action."
+          },
+          {
+            "vi": "Giữ tiêu điểm ở điều khiển ban đầu trong khi nhận thông báo.",
+            "en": "Keep focus on the initiating control while receiving feedback."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Thông báo được đọc khi cần, không lặp liên tục.",
+            "en": "Feedback is announced when needed without repeated unsolicited speech."
+          },
+          {
+            "vi": "Thông báo không cướp tiêu điểm ngoài hợp đồng được công bố.",
+            "en": "Notifications do not steal focus outside the documented contract."
+          }
+        ],
+        "historicalScope": null
+      },
+      {
+        "id": "AT-12",
+        "scope": {
+          "vi": "Bề mặt sản phẩm xác thực",
+          "en": "Auth product surface"
+        },
+        "historicalScopeKnown": true,
+        "tasks": [
+          {
+            "vi": "Duyệt mẫu Auth bằng bàn phím và trình đọc màn hình.",
+            "en": "Navigate the Auth product surface using keyboard and screen reader."
+          },
+          {
+            "vi": "Thử gửi thông tin không hợp lệ rồi sửa lỗi.",
+            "en": "Submit invalid input, then correct it."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Thứ tự đọc, nhãn và hướng dẫn xác thực có nghĩa.",
+            "en": "Reading order, names and authentication instructions are meaningful."
+          },
+          {
+            "vi": "Lỗi được chỉ rõ và người dùng có thể sửa mà không bị kẹt tiêu điểm.",
+            "en": "Errors are identified and can be corrected without a focus trap."
+          }
+        ],
+        "historicalScope": "Auth product surface"
+      },
+      {
+        "id": "AT-13",
+        "scope": {
+          "vi": "Trang chủ website",
+          "en": "Website home product surface"
+        },
+        "historicalScopeKnown": true,
+        "tasks": [
+          {
+            "vi": "Duyệt landmark, heading và điều hướng của trang chủ.",
+            "en": "Navigate home-page landmarks, headings and navigation."
+          },
+          {
+            "vi": "Mở menu trên màn hình hẹp và theo một liên kết chính.",
+            "en": "Open narrow-viewport navigation and follow a primary link."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Thứ tự landmark và heading phản ánh nội dung hiển thị.",
+            "en": "Landmarks and headings reflect the displayed content."
+          },
+          {
+            "vi": "Menu hẹp đọc tên và trạng thái đúng, có thể mở và đóng bằng bàn phím.",
+            "en": "Narrow navigation announces its name/state and opens and closes from the keyboard."
+          }
+        ],
+        "historicalScope": "Website home product surface"
+      },
+      {
+        "id": "AT-14",
+        "scope": {
+          "vi": "Cài đặt Status Hub",
+          "en": "Status Hub settings product surface"
+        },
+        "historicalScopeKnown": true,
+        "tasks": [
+          {
+            "vi": "Duyệt trang cài đặt và thay đổi một tùy chọn.",
+            "en": "Navigate settings and change an option."
+          },
+          {
+            "vi": "Kiểm tra trạng thái lưu, lỗi và điều khiển bị vô hiệu hóa.",
+            "en": "Inspect saved, error and disabled states."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Tên và giá trị tùy chọn được đọc chính xác.",
+            "en": "Option names and values are announced accurately."
+          },
+          {
+            "vi": "Trạng thái lưu/lỗi được thông báo mà không làm mất ngữ cảnh.",
+            "en": "Save/error feedback is announced without losing context."
+          }
+        ],
+        "historicalScope": "Status Hub settings product surface"
+      },
+      {
+        "id": "AT-15",
+        "scope": {
+          "vi": "Trang marketing tiếng Việt",
+          "en": "Marketing page Vietnamese surface"
+        },
+        "historicalScopeKnown": true,
+        "tasks": [
+          {
+            "vi": "Đọc nội dung tiếng Việt, heading, liên kết và ảnh.",
+            "en": "Read Vietnamese copy, headings, links and images."
+          },
+          {
+            "vi": "Chuyển sang tiếng Anh rồi quay lại tiếng Việt nếu bề mặt có công tắc ngôn ngữ.",
+            "en": "Switch to English and back when the surface exposes a language control."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Ngôn ngữ và thứ tự đọc phù hợp với nội dung thực tế.",
+            "en": "Language and reading order match actual content."
+          },
+          {
+            "vi": "Liên kết có tên rõ nghĩa; ảnh trang trí không gây tiếng đọc thừa.",
+            "en": "Links have meaningful names; decorative images do not add redundant speech."
+          }
+        ],
+        "historicalScope": "Marketing page Vietnamese surface"
+      },
+      {
+        "id": "AT-16",
+        "scope": {
+          "vi": "Lịch xử lý kỷ luật tiếng Việt",
+          "en": "VN disciplinary schedule product surface"
+        },
+        "historicalScopeKnown": true,
+        "tasks": [
+          {
+            "vi": "Đọc lịch, tiêu đề bảng và thông tin ngày tháng tiếng Việt.",
+            "en": "Read the Vietnamese schedule, table headers and dates."
+          },
+          {
+            "vi": "Kiểm tra bản xem trước in; giữ riêng kết quả xuất Word/PDF.",
+            "en": "Inspect print preview; retain Word/PDF export verdicts separately."
+          }
+        ],
+        "expected": [
+          {
+            "vi": "Các ô dữ liệu giữ ngữ cảnh tiêu đề phù hợp.",
+            "en": "Data cells retain their appropriate header context."
+          },
+          {
+            "vi": "Nội dung tiếng Việt và thứ tự đọc không bị mất khi đổi chế độ xem.",
+            "en": "Vietnamese content and reading order remain usable when changing view modes."
+          }
+        ],
+        "historicalScope": "VN disciplinary schedule product surface"
+      }
+    ],
+    "approval": {
+      "reviewedBy": "Stephen Cheng",
+      "approvedAt": "2026-10-21T07:00:45.240415+00:00",
+      "proposalSha256": "bea830d226ceae09474b6e1e48e868880bf085926c6e344ba5decb234f472441",
+      "decision": "Adopt the proposed 16-row scope plan",
+      "scope": "Current scope definitions, tasks and expected outcomes only; no manual execution or result approval.",
+      "proposalPath": "_audit/remediation/manual-at-scope-proposal.json"
+    }
+  }
+}
