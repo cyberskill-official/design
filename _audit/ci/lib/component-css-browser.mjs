@@ -78,6 +78,24 @@ export async function sheet(page, target) {
 export async function installSettlement(page) {
   await page.evaluate(() => {
     window.settleInPage = async () => {
+      const flushPseudoAndTransitions = () => {
+        const flushStyle = document.createElement('style');
+        flushStyle.textContent = ':root {}';
+        document.head.appendChild(flushStyle);
+        getComputedStyle(document.documentElement).color;
+        flushStyle.remove();
+        for (const node of document.body.querySelectorAll('*')) {
+          getComputedStyle(node).color;
+          getComputedStyle(node, '::before').color;
+          getComputedStyle(node, '::after').color;
+        }
+        for (const animation of document.getAnimations()) {
+          if (animation instanceof CSSTransition) animation.finish();else {
+            animation.pause();
+            animation.currentTime = 0;
+          }
+        }
+      };
       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       // Stylesheet replacement creates new FontFace objects even when URLs match.
       await Promise.all([...document.body.querySelectorAll('*')].map(node => {
@@ -85,14 +103,17 @@ export async function installSettlement(page) {
         return document.fonts.load(`${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`, node.textContent || ' ');
       }));
       await document.fonts.ready;
+      flushPseudoAndTransitions();
+      window.dispatchEvent(new Event('resize'));
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      flushPseudoAndTransitions();
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       for (const animation of document.getAnimations()) {
         if (animation instanceof CSSTransition) animation.finish();else {
           animation.pause();
           animation.currentTime = 0;
         }
       }
-      window.dispatchEvent(new Event('resize'));
-      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     };
   });
 }

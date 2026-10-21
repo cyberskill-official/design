@@ -58,6 +58,46 @@ async function mount(page, fixture) {
     await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   }, fixture);
 }
+async function settleLayeredPage(page) {
+  await page.evaluate(async () => {
+    const flushPseudoAndTransitions = () => {
+      const flushStyle = document.createElement('style');
+      flushStyle.textContent = ':root {}';
+      document.head.appendChild(flushStyle);
+      getComputedStyle(document.documentElement).color;
+      flushStyle.remove();
+      for (const node of document.body.querySelectorAll('*')) {
+        getComputedStyle(node).color;
+        getComputedStyle(node, '::before').color;
+        getComputedStyle(node, '::after').color;
+      }
+      for (const animation of document.getAnimations()) {
+        if (animation instanceof CSSTransition) animation.finish();else {
+          animation.pause();
+          animation.currentTime = 0;
+        }
+      }
+    };
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    // Stylesheet replacement creates new FontFace objects even when URLs match.
+    await Promise.all([...document.body.querySelectorAll('*')].map(node => {
+      const style = getComputedStyle(node);
+      return document.fonts.load(`${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`, node.textContent || ' ');
+    }));
+    await document.fonts.ready;
+    flushPseudoAndTransitions();
+    window.dispatchEvent(new Event('resize'));
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    flushPseudoAndTransitions();
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    for (const animation of document.getAnimations()) {
+      if (animation instanceof CSSTransition) animation.finish();else {
+        animation.pause();
+        animation.currentTime = 0;
+      }
+    }
+  });
+}
 async function sheet(page, layered) {
   await page.evaluate(async layered => {
     const target = '/' + (layered ? 'styles.layered.css' : 'styles.css'),
@@ -73,22 +113,8 @@ async function sheet(page, layered) {
     });
     await document.fonts.ready;
     previous.remove();
-    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-    // Stylesheet replacement creates new FontFace objects even when URLs match.
-    await Promise.all([...document.body.querySelectorAll('*')].map(node => {
-      const style = getComputedStyle(node);
-      return document.fonts.load(`${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`, node.textContent || ' ');
-    }));
-    await document.fonts.ready;
-    for (const animation of document.getAnimations()) {
-      if (animation instanceof CSSTransition) animation.finish();else {
-        animation.pause();
-        animation.currentTime = 0;
-      }
-    }
-    window.dispatchEvent(new Event('resize'));
-    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
   }, layered);
+  await settleLayeredPage(page);
 }
 async function establishHoverCardState(page, state) {
   // The authored reference is initially closed. A pointer/focus timer must not
@@ -187,20 +213,8 @@ for (const config of [{
     await sheet(page, false);
     await mount(page, fixture);
     if (fixture.name === 'HoverCard') await establishHoverCardState(page, fixture.layeredState);
-    await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(40);
-    await page.evaluate(() => {
-      for (const animation of document.getAnimations()) {
-        if (animation instanceof CSSTransition) animation.finish();else {
-          animation.pause();
-          animation.currentTime = 0;
-        }
-      }
-    });
-    await page.evaluate(async () => {
-      window.dispatchEvent(new Event('resize'));
-      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-    });
+    await settleLayeredPage(page);
     if (fixture.name === 'HoverCard') await assertHoverCardState(page, fixture.layeredState);
     const before = await snapshot(page);
     // A pending authored 150ms open timer must not escape the closed-state
