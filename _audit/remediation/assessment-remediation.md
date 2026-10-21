@@ -6,14 +6,14 @@ All148 visible source findings are preserved;26 owner decisions are now recorded
 
 The earlier418baseline remains416pass/2fail. The frozen current428baseline finished425pass/3fail with3503captured source/output files unchanged. The support gate and two candidate prerequisite failures are retained; follow-ups remain separate. No updated clean aggregate pass is claimed. Incremental reviewed commits are pushed on `codex/assessment-followup` in draft PR107. Required fast/docs gates passed at04923723; pushed e2f19259 corrects three stale fixtures,6b3a4b8f pins deployment commands without dropping security/routing fields, and d6306ce9 repairs authored focus-selector measurement. The runtime batch `b4cff9b1` and bilingual/template batch `392310f2` are now pushed. The frozen integrated candidate passes its focused language, reader, public-site and CSP checks; the later four-file build alias fix is separate. A clean checkout of `392310f2` reports a stale generated reference catalog; this retained failure awaits regeneration with the release-documentation fix. Current hosted outcomes remain source-bound and separate. Current lane evidence is [partial11 progress](../../test-results/partial11-progress.json).
 
-Remaining boundaries include fresh per-export source reviews,16manual AT rows with approved definitions but pending observations, previous-version/physical browser coverage, rights/Office fidelity, governance policy and release preparation. Actual installed Chrome/Safari probes pass and Safari automation was restored disabled. The selected2.0.0-alpha.0 is unpublished and untagged; no merge or release publication has been performed.
+The bounded source/support review is applied. Remaining boundaries include16manual AT rows with approved definitions but pending observations, previous-version/physical browser coverage, rights/Office fidelity, governance policy and release preparation. Actual installed Chrome/Safari probes pass and Safari automation was restored disabled. The selected2.0.0-alpha.0 is unpublished and untagged; no merge or release publication has been performed.
 
 ## Current partial11 continuation
 
-- **D16 (partial)**: Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending fresh source/support approval and clean-checkout gates. Evidence: [partial11-release-body-correction.json](../../test-results/partial11-release-body-correction.json).
+- **D16 (partial)**: Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending clean-checkout preparation gates; bounded source/support approval is now applied. Evidence: [partial11-release-body-correction.json](../../test-results/partial11-release-body-correction.json).
 - **D18 (fixed)**: Owner explicitly approved124source/support scopes; exact431files rechecked,125current reviewed records and all123prior approvals preserved. Separate manual/external acceptance remains pending. Evidence: [owner-source-support-review-2026-10-21.json](../../_audit/remediation/owner-source-support-review-2026-10-21.json).
 - **D22 (partial)**: Verified bounded upstream/package byte matches and corrected entities8.1.0 attribution to BSD-2-Clause. Rights-chain conflicts and reconstructed runtime origin remain unresolved. Evidence: [final.json](../../test-results/d22-provenance-refresh/final.json).
-- **D23 (partial)**: Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still awaits fresh source/support approval and a clean source checkout; no VERSION/tag/publication written. Evidence: [independent-review.json](../../test-results/alpha-doc-stamping/independent-review.json).
+- **D23 (partial)**: Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still requires a clean source checkout; bounded source/support approval is now applied; no VERSION/tag/publication written. Evidence: [independent-review.json](../../test-results/alpha-doc-stamping/independent-review.json).
 - **G13 (fixed)**: Committed and pushed392310f2: all107prompts/767proseblocks and10entry/operator pairs. Build/check, source-language guards, actual85template/94reader-route CSP checks across3engines, public-site links/private404, and reader/touch/count checks pass. Separate additive build-script alias retains compatibility; no postalias sitefreshness or full428green claim. Evidence: [b4-coherent-final.json](../../test-results/g13-instruction-languages/b4-coherent-final.json).
 - **G24 (partial)**: Owner adopted all16scope rows; actual manual observations remain16pending. Approval defines tests, not results. Evidence: [partial11-at-scope-batch.json](../../test-results/partial11-at-scope-batch.json).
 - **G26 (partial)**: Official Firefox157.0.1/158.0.1 and installed Chrome155/Safari27 capability/inert/focus probes pass; sessions/settings restored. Fresh Chrome stable metadata nowlists156; additional156 official downloads failed strict signature verification and were not executed. OlderSafari and physicaliOS remain unvalidated. Evidence: [final.json](../../test-results/partial11-official-firefox/final.json).
@@ -390,9 +390,9 @@ Validation receipts:
 - test-prepare-release passed, independently reviewed with no injection/identity bypass found.
 - Live gh release view and git tag inspection.
 
-Remaining scope / boundary: Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending fresh source/support approval and clean-checkout gates.
+Remaining scope / boundary: Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending clean-checkout preparation gates; bounded source/support approval is now applied.
 
-Current continuation: Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending fresh source/support approval and clean-checkout gates. Evidence: [partial11-release-body-correction.json](../../test-results/partial11-release-body-correction.json).
+Current continuation: Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending clean-checkout preparation gates; bounded source/support approval is now applied. Evidence: [partial11-release-body-correction.json](../../test-results/partial11-release-body-correction.json).
 
 ### D17 — fixed
 
@@ -430,7 +430,7 @@ Remediation:
 
 Validation receipts:
 
-- test-component-lifecycle remains fail-closed on118 unreviewed records; initial117 invalidations plus1 Editor review invalidation retain approval history.
+- Historical integration: test-component-lifecycle failed closed on118 unreviewed records; invalidations retained approval history. Current authorized review is recorded below.
 
 Remaining scope / boundary: Current bounded source review is authorized; historical review quality and manual/device/product/translation/rights acceptance remain separate and are not promoted.
 
@@ -543,9 +543,9 @@ Validation receipts:
 - test-prepare-release
 - Current VERSION/package/tag checked.
 
-Remaining scope / boundary: Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still awaits fresh source/support approval and a clean source checkout; no VERSION/tag/publication written.
+Remaining scope / boundary: Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still requires a clean source checkout; bounded source/support approval is now applied; no VERSION/tag/publication written.
 
-Current continuation: Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still awaits fresh source/support approval and a clean source checkout; no VERSION/tag/publication written. Evidence: [independent-review.json](../../test-results/alpha-doc-stamping/independent-review.json).
+Current continuation: Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still requires a clean source checkout; bounded source/support approval is now applied; no VERSION/tag/publication written. Evidence: [independent-review.json](../../test-results/alpha-doc-stamping/independent-review.json).
 
 ### D24 — documented-boundary
 

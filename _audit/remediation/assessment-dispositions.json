@@ -717,7 +717,7 @@
         "Live gh release view and git tag inspection.",
         "test-results/partial11-release-body-correction.json"
       ],
-      "blocker": "Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending fresh source/support approval and clean-checkout gates.",
+      "blocker": "Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending clean-checkout preparation gates; bounded source/support approval is now applied.",
       "status": "partial",
       "scopedEvidence": [
         {
@@ -740,7 +740,7 @@
         "recordedAt": "2026-10-21T11:12:54.197851+00:00",
         "state": "in-progress",
         "evidence": "test-results/partial11-release-body-correction.json",
-        "disposition": "Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending fresh source/support approval and clean-checkout gates."
+        "disposition": "Local EN/VI/MDX and authorized GitHub description correction preserve August package identity. Reviewed source-only stamping/parser tooling preserves published pins/history; selected new prerelease identity remains unprepared pending clean-checkout preparation gates; bounded source/support approval is now applied."
       }
     },
     {
@@ -1037,7 +1037,7 @@
         "test-results/segmented-alias/alpha-plan-final.json",
         "test-results/alpha-doc-stamping/independent-review.json: bounded tooling/source and3engine proof, not actual alpha preparation or whole429 acceptance."
       ],
-      "blocker": "Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still awaits fresh source/support approval and a clean source checkout; no VERSION/tag/publication written.",
+      "blocker": "Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still requires a clean source checkout; bounded source/support approval is now applied; no VERSION/tag/publication written.",
       "status": "partial",
       "scopedEvidence": [
         {
@@ -1058,9 +1058,9 @@
       "continuationState": "Integrated engineering; lane outcomes and human/external boundaries recorded separately",
       "partial11Continuation": {
         "recordedAt": "2026-10-21T11:12:54.197851+00:00",
-        "state": "awaiting-source-review-before-actual-preparation",
+        "state": "awaiting-clean-checkout-preparation",
         "evidence": "test-results/alpha-doc-stamping/independent-review.json",
-        "disposition": "Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still awaits fresh source/support approval and a clean source checkout; no VERSION/tag/publication written."
+        "disposition": "Owner-selected2.0.0-alpha.0 and deprecated semantic role alias contracts are settled. Reviewed preparation tooling now preserves published pins/history with explicit source markers and canonical browser prerelease validation. Actual preparation still requires a clean source checkout; bounded source/support approval is now applied; no VERSION/tag/publication written."
       }
     },
     {
