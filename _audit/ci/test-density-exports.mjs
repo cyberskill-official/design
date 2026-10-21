@@ -73,6 +73,13 @@ await withBrowserFixture(async page=>{
   if(!verdict.pass)assert.deepEqual(verdict.failed,['provenance release stamp sane'],'Only the malformed informational stamp should fail; all hash/value checks still run');
   await page.unroute('**/tokens/provenance.json');
  }
+ await page.goto(`${origin}/_audit/version-stamp.html`);await page.waitForFunction(()=>window.__versionstamp);
+ const versionStamp=await page.evaluate(()=>window.__versionstamp);
+ assert.equal(versionStamp.pass,true,JSON.stringify(versionStamp));assert.equal(versionStamp.stamps.length,9);
+ await page.route('**/DESIGN.md',route=>route.fulfill({body:'---\nversion: "2.0.0-alpha.01"\n---\n'}));
+ await page.goto(`${origin}/_audit/version-stamp.html`);await page.waitForFunction(()=>window.__versionstamp);
+ const invalidDesign=await page.evaluate(()=>window.__versionstamp);assert.equal(invalidDesign.pass,false);assert(invalidDesign.failed.some(x=>x.startsWith('DESIGN.md front-matter version=')));
+ await page.unroute('**/DESIGN.md');
  await page.goto(`${origin}/_audit/design-md-parity.html`);
  await page.waitForFunction(()=>window.__designmd);
  const design=await page.evaluate(()=>window.__designmd);

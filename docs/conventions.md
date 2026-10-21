@@ -366,3 +366,5 @@ Release preparation captures Git output with a bounded64MiB buffer so generated 
 Legacy export validation uses the canonical release-version parser, including prereleases while rejecting build metadata. Only the VERSION export may contain a version string; other generated exports remain direct CS references. Repeated version-comment stamping is idempotent, and malformed versions or extra code fail closed.
 
 The native-token audit parses informational release stamps with the same canonical stable/prerelease grammar as preparation. DTCG source hashes, every target hash and the complete native value round trip remain the drift authority.
+
+The browser version-stamp board and fast Node provenance check also use canonical prerelease parsing. All nine version stamps must match VERSION; malformed or mismatched DESIGN front matter still fails the board.

@@ -371,3 +371,5 @@ Chuẩn bị phát hành thu nhận đầu ra Git với bộ đệm giới hạn
 Kiểm tra export legacy dùng bộ phân tích phiên bản phát hành chuẩn, gồm prerelease nhưng từ chối build metadata. Chỉ export VERSION được chứa chuỗi phiên bản; các export sinh tự động khác vẫn tham chiếu trực tiếp CS. Ghi lại chú thích phiên bản nhiều lần không đổi kết quả; phiên bản sai dạng hoặc mã bổ sung bị từ chối.
 
 Audit token native phân tích nhãn phiên bản mang tính thông tin bằng cùng quy tắc stable/prerelease chuẩn của quy trình chuẩn bị phát hành. Hash nguồn DTCG, hash của mọi đích và toàn bộ phép kiểm tra giá trị native vẫn là căn cứ xác định sai lệch.
+
+Bảng nhãn phiên bản trên trình duyệt và kiểm tra provenance nhanh bằng Node cũng dùng bộ phân tích prerelease chuẩn. Cả chín nhãn phải khớp VERSION; front matter DESIGN sai dạng hoặc lệch phiên bản vẫn làm bảng kiểm tra thất bại.
