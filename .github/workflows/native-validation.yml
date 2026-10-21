@@ -26,6 +26,13 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+      - name: Initialize native evidence
+        shell: bash
+        run: |
+          mkdir -p native-evidence
+          git rev-parse HEAD > native-evidence/source-commit.txt
+          git ls-files -z package.json package-lock.json scripts/bootstrap-toolchain.mjs scripts/check-npm-version.mjs .github/actions/setup-npm/action.yml .github/workflows/native-validation.yml |
+            xargs -0 shasum -a 256 > native-evidence/toolchain-source.txt
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version: '22'
