@@ -149,3 +149,28 @@
 @media (prefers-color-scheme: dark) and (prefers-contrast: more) {
   [data-theme="system"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)) { --cs-color-border-default: #7a6450; --cs-color-text-muted: #f5ead9; }
 }
+
+/* Forced colors removes authored backgrounds and shadows. State must survive
+ * that substitution using real borders, system colors and knob position. */
+@media (forced-colors: active) {
+  .cs-switch__track {
+    box-sizing: border-box;
+    border: 1px solid ButtonText;
+    background: Canvas;
+    forced-color-adjust: none;
+  }
+  .cs-switch__track::after { background: ButtonText; box-shadow: none; }
+  .cs-switch input:checked + .cs-switch__track { background: Highlight; border-color: Highlight; }
+  .cs-switch input:checked + .cs-switch__track::after { background: HighlightText; }
+  .cs-switch.is-disabled .cs-switch__track { border-color: GrayText; }
+  .cs-carousel__dots button { border: 1px solid ButtonText; background: Canvas; forced-color-adjust: none; }
+  .cs-carousel__dots button::before { background: ButtonText; }
+  .cs-carousel__dots button[aria-current="true"] { border: 3px double Highlight; background: Canvas; }
+  .cs-carousel__dots button[aria-current="true"]::before { background: Highlight; }
+  .cs-tab[aria-selected="true"] { border-block-end: 3px solid Highlight; }
+  .cs-segmented button { border: 2px solid transparent; }
+  .cs-segmented button[aria-checked="true"],
+  .cs-segmented button[aria-selected="true"],
+  .cs-segmented button[aria-pressed="true"] { border-color: Highlight; }
+  .cs-toggle[aria-pressed="true"]:not(:focus-visible) { outline: 2px solid Highlight; outline-offset: -4px; }
+}

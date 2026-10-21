@@ -2,7 +2,7 @@
   "system": "CyberSkill Design System",
   "release": "1.7.2",
   "source": "tokens/tokens.dtcg.json",
-  "sourceSha256": "588f0c3c8906b520972fe423101e5e3487046a03d6ead1e545ec60504b6a9d95",
+  "sourceSha256": "5389a3151b76a039b5fc8a5bb3aa3a5087fa41e1b02a6bc3d5903038796cf6a8",
   "dtcgStamp": {
     "version": "1.7.2",
     "generated": "2026-07-23"
@@ -18,11 +18,11 @@
     "darkPackSuffix": "<Scope>Dark (authored dark deltas plus inherited light roles)"
   },
   "counts": {
-    "baseTokens": 175,
+    "baseTokens": 197,
     "byType": {
       "color": 42,
-      "dimension": 86,
-      "number": 30,
+      "dimension": 105,
+      "number": 33,
       "shadow": 5,
       "duration": 4,
       "cubicBezier": 4,
@@ -30,8 +30,8 @@
     },
     "darkColorOverrides": 25,
     "darkCssOverrides": 5,
-    "densityCompactOverrides": 18,
-    "densityComfortableOverrides": 18,
+    "densityCompactOverrides": 28,
+    "densityComfortableOverrides": 28,
     "highContrastOverrides": 4,
     "lightPackConstants": 180,
     "darkPackConstants": 180,
@@ -42,17 +42,17 @@
     {
       "file": "tokens/native/CSTokens.swift",
       "lang": "swift",
-      "sha256": "d3cbddad500b1846f604ef3881035f1144b894ce4936f5ab267956dcfe40aeef"
+      "sha256": "383de291e79779f0df629ffe637e39607b06041bfb71373d4df2e924350b007c"
     },
     {
       "file": "tokens/native/CSTokens.kt",
       "lang": "kotlin",
-      "sha256": "a03683980475c3e897444ef2d9a65859d484431c8a56c3a60672ed58cdb41010"
+      "sha256": "4f39da3a925ddcee7a62e51cc0c1f4516489da3dead935e0e0c911d2a89b7f73"
     },
     {
       "file": "tokens/native/cs_tokens.dart",
       "lang": "dart",
-      "sha256": "a1a38bed8fcf10033b63404d2d13045104967b7d89ada48a864d0904aba8c1b1"
+      "sha256": "7fdb3829a2cb93ec73f92e355f67b28a485d18da3c3e81897bc39dbe2594a4a9"
     }
   ]
 }

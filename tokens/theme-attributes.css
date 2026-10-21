@@ -28,17 +28,27 @@
 
   --cs-component-button-gap: 6px;
   --cs-component-button-xs-paddingY: 3px;
+  --cs-component-button-xs-padding-y: var(--cs-component-button-xs-paddingY);
   --cs-component-button-xs-paddingX: 8px;
+  --cs-component-button-xs-padding-x: var(--cs-component-button-xs-paddingX);
   --cs-component-button-sm-paddingY: 6px;
+  --cs-component-button-sm-padding-y: var(--cs-component-button-sm-paddingY);
   --cs-component-button-sm-paddingX: 12px;
+  --cs-component-button-sm-padding-x: var(--cs-component-button-sm-paddingX);
   --cs-component-button-md-paddingY: 10px;
+  --cs-component-button-md-padding-y: var(--cs-component-button-md-paddingY);
   --cs-component-button-md-paddingX: 16px;
+  --cs-component-button-md-padding-x: var(--cs-component-button-md-paddingX);
   /* md minHeight stays 44px — immutable touch floor */
   --cs-component-button-lg-paddingY: 12px;
+  --cs-component-button-lg-padding-y: var(--cs-component-button-lg-paddingY);
   --cs-component-button-lg-paddingX: 22px;
+  --cs-component-button-lg-padding-x: var(--cs-component-button-lg-paddingX);
 
   --cs-component-textfield-paddingY: 8px;
+  --cs-component-textfield-padding-y: var(--cs-component-textfield-paddingY);
   --cs-component-textfield-paddingX: 10px;
+  --cs-component-textfield-padding-x: var(--cs-component-textfield-paddingX);
   /* textfield minHeight stays 44px */
 }
 
@@ -55,15 +65,25 @@
   --cs-density-control-gap: var(--cs-component-button-gap);
   --cs-component-button-gap: 8px;
   --cs-component-button-xs-paddingY: 4px;
+  --cs-component-button-xs-padding-y: var(--cs-component-button-xs-paddingY);
   --cs-component-button-xs-paddingX: 10px;
+  --cs-component-button-xs-padding-x: var(--cs-component-button-xs-paddingX);
   --cs-component-button-sm-paddingY: 8px;
+  --cs-component-button-sm-padding-y: var(--cs-component-button-sm-paddingY);
   --cs-component-button-sm-paddingX: 14px;
+  --cs-component-button-sm-padding-x: var(--cs-component-button-sm-paddingX);
   --cs-component-button-md-paddingY: 12px;
+  --cs-component-button-md-padding-y: var(--cs-component-button-md-paddingY);
   --cs-component-button-md-paddingX: 20px;
+  --cs-component-button-md-padding-x: var(--cs-component-button-md-paddingX);
   --cs-component-button-lg-paddingY: 16px;
+  --cs-component-button-lg-padding-y: var(--cs-component-button-lg-paddingY);
   --cs-component-button-lg-paddingX: 28px;
+  --cs-component-button-lg-padding-x: var(--cs-component-button-lg-paddingX);
   --cs-component-textfield-paddingY: 10px;
+  --cs-component-textfield-padding-y: var(--cs-component-textfield-paddingY);
   --cs-component-textfield-paddingX: 12px;
+  --cs-component-textfield-padding-x: var(--cs-component-textfield-paddingX);
 }
 
 /* High contrast Theme attribute — strengthens muted text + borders.

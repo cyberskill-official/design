@@ -5,19 +5,24 @@ evidence_dir="$PWD/native-evidence"
 {
   git rev-parse HEAD
   printf 'Platform: %s\nRunner image: %s %s\n' "$NATIVE_PLATFORM" "${ImageOS:-unknown}" "${ImageVersion:-unknown}"
-  git ls-files -z examples/native tokens/native scripts/ci/native-validation.sh .github/workflows/native-validation.yml scripts/generate-native-sample-copy.mjs scripts/generate-native-sample-fonts.mjs fonts/subset-recipe.json |
+  git ls-files -z examples/native tokens/native tokens/modes scripts/generate-native-mode-packs.mjs scripts/lib/native-mode-packs.mjs scripts/lib/native-mode-renderers.mjs _audit/ci/test-native-mode-swift.mjs _audit/ci/lib/native-mode-proof.mjs scripts/ci/native-validation.sh .github/workflows/native-validation.yml scripts/generate-native-sample-copy.mjs scripts/generate-native-sample-fonts.mjs fonts/subset-recipe.json |
     xargs -0 shasum -a 256
 } > native-evidence/source.txt
 node scripts/generate-native-sample-copy.mjs --check
 node scripts/generate-native-sample-fonts.mjs --check
 node _audit/ci/test-native-sample-copy.mjs
 node _audit/ci/test-native-sample-fonts.mjs
+node scripts/generate-native-mode-packs.mjs --check
+node _audit/ci/test-native-mode-packs.mjs
 case "$NATIVE_PLATFORM" in
   swiftui)
     export DEVELOPER_DIR=/Applications/Xcode_16.4.app/Contents/Developer
     test -d "$DEVELOPER_DIR"
     xcodebuild -version
     swift --version
+    node _audit/ci/test-native-mode-swift.mjs
+    cp test-results/native-mode-packs/swift.json "$evidence_dir/swift-mode-data.json"
+    cp tokens/native/CSModes.swift examples/native/swiftui/Sources/CyberSkillSample/CSModes.swift
     cmp tokens/native/CSTokens.swift examples/native/swiftui/Sources/CyberSkillSample/CSTokens.swift
     swift build --package-path examples/native/swiftui --scratch-path "$RUNNER_TEMP/native-swift-build"
     swift test --package-path examples/native/swiftui --scratch-path "$RUNNER_TEMP/native-swift-build"
@@ -28,6 +33,7 @@ case "$NATIVE_PLATFORM" in
     java -version
     sed 's/^package world\.cyberskill\.tokens$/package world.cyberskill.sample.tokens/' tokens/native/CSTokens.kt > "$RUNNER_TEMP/CSTokens-sample.kt"
     cmp "$RUNNER_TEMP/CSTokens-sample.kt" examples/native/compose/app/src/main/java/world/cyberskill/sample/tokens/CSTokens.kt
+    sed 's/^package world\.cyberskill\.tokens$/package world.cyberskill.sample.tokens/' tokens/native/CSModes.kt > examples/native/compose/app/src/main/java/world/cyberskill/sample/tokens/CSModes.kt
     "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-34' 'build-tools;34.0.0'
     curl --fail --location --retry 3 https://services.gradle.org/distributions/gradle-8.2.1-bin.zip -o "$RUNNER_TEMP/gradle.zip"
     printf '%s  %s\n' '03ec176d388f2aa99defcadc3ac6adf8dd2bce5145a129659537c0874dea5ad1' "$RUNNER_TEMP/gradle.zip" | sha256sum --check
@@ -41,6 +47,7 @@ case "$NATIVE_PLATFORM" in
     java -version
     "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-34' 'build-tools;34.0.0' 'build-tools;33.0.1'
     cmp tokens/native/cs_tokens.dart examples/native/flutter/lib/tokens/cs_tokens.dart
+    cp tokens/native/cs_modes.dart examples/native/flutter/lib/tokens/cs_modes.dart
     git clone --depth 1 --branch 3.24.5 https://github.com/flutter/flutter.git "$RUNNER_TEMP/flutter"
     test "$(git -C "$RUNNER_TEMP/flutter" rev-parse HEAD)" = dec2ee5c1f98f8e84a7d5380c05eb8a3d0a81668
     export PATH="$RUNNER_TEMP/flutter/bin:$PATH"

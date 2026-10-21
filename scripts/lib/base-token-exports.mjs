@@ -14,7 +14,7 @@ export const baseExportExclusions = Object.freeze({
   '--cs-glass-heavy-border': 'CSS material expression requires a surface/cascade adapter',
 });
 
-export function projectBaseTokens(graph, inventory) {
+export function projectBaseTokens(graph, inventory, authoredInventory) {
   const source = new Map();
   for (const declaration of graph.declarations) {
     const [context] = declaration.context;
@@ -24,6 +24,14 @@ export function projectBaseTokens(graph, inventory) {
     source.set(declaration.name, declaration.value);
   }
   const result = structuredClone(inventory);
+  if (authoredInventory) {
+    if (authoredInventory.schemaVersion !== 1 || !authoredInventory.groups) throw Error('Unsupported authored token inventory');
+    result.root = Object.fromEntries(Object.entries(authoredInventory.groups).map(([group, entries]) => [group,
+      Object.fromEntries(Object.entries(entries).map(([name, definition]) => {
+        if (!name.startsWith('--cs-') || !definition.$type) throw Error('Invalid authored token definition: ' + name);
+        return [name, null];
+      }))]));
+  }
   const names = new Set();
   for (const entries of Object.values(result.root)) for (const name of Object.keys(entries)) {
     if (names.has(name)) throw Error('Duplicate base inventory token: ' + name);
@@ -33,7 +41,7 @@ export function projectBaseTokens(graph, inventory) {
     entries[name] = source.get(name);
   }
   for (const name of source.keys()) {
-    if (!names.has(name) && !Object.hasOwn(baseExportExclusions, name)) throw Error('Unclassified root token: ' + name);
+    if (!names.has(name) && !Object.hasOwn(baseExportExclusions, name)) throw Error('Unclassified root token: ' + name + '; add membership and $type to tokens/base-inventory.json (see tokens/README.md)');
   }
   for (const name of Object.keys(baseExportExclusions)) {
     if (!source.has(name)) throw Error('Stale base exclusion: ' + name);

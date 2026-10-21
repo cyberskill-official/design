@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.7.2 · source sha256 588f0c3c8906b520…
+// release v1.7.2 · source sha256 5389a3151b76a039…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -24,14 +24,14 @@ object CSTokens {
   val colorSemanticDanger = Color(0xFFB42318)
   val colorSemanticWarning = Color(0xFF92400E)
   val colorSemanticInfo = Color(0xFF1D4ED8)
-  val colorAccentOchre = Color(0xFFF4BA17)
-  val colorBorderDefault = Color(0xFFE7D9C6)
-  val colorLink = Color(0xFF6E3B0E)
-  val colorLinkHover = Color(0xFF45210E)
   val colorSemanticSuccessFg = Color(0xFFFFFFFF)
   val colorSemanticDangerFg = Color(0xFFFFFFFF)
   val colorSemanticWarningFg = Color(0xFFFFFFFF)
   val colorSemanticInfoFg = Color(0xFFFFFFFF)
+  val colorAccentOchre = Color(0xFFF4BA17)
+  val colorBorderDefault = Color(0xFFE7D9C6)
+  val colorLink = Color(0xFF6E3B0E)
+  val colorLinkHover = Color(0xFF45210E)
   val colorSemanticSuccessText = Color(0xFF042D13)
   val colorSemanticDangerText = Color(0xFF4B0502)
   val colorSemanticWarningText = Color(0xFF441801)
@@ -61,6 +61,25 @@ object CSTokens {
   val componentTextfieldPaddingX = 12.dp
   val componentTextfieldMinHeight = 44.dp
   val focusRing = 3.dp
+  val componentButtonXsPaddingYAlias = 4.dp
+  val componentButtonXsPaddingXAlias = 10.dp
+  val componentButtonXsMinHeightAlias = 28.dp
+  val componentButtonXsMinWidthAlias = 28.dp
+  val componentButtonXsMinHeightCoarseAlias = 44.dp
+  val componentButtonSmPaddingYAlias = 8.dp
+  val componentButtonSmPaddingXAlias = 14.dp
+  val componentButtonSmMinHeightAlias = 36.dp
+  val componentButtonSmMinHeightCoarseAlias = 44.dp
+  val componentButtonMdPaddingYAlias = 12.dp
+  val componentButtonMdPaddingXAlias = 20.dp
+  val componentButtonMdMinHeightAlias = 44.dp
+  val componentButtonMdMinHeightCoarseAlias = 44.dp
+  val componentButtonLgPaddingYAlias = 16.dp
+  val componentButtonLgPaddingXAlias = 28.dp
+  val componentButtonLgMinHeightAlias = 52.dp
+  val componentTextfieldPaddingYAlias = 10.dp
+  val componentTextfieldPaddingXAlias = 12.dp
+  val componentTextfieldMinHeightAlias = 44.dp
   val accent = Color(0xFFF4BA17)
   val accentStrong = Color(0xFF916D10)
   val accentBright = Color(0xFFF4BA17)
@@ -154,6 +173,9 @@ object CSTokens {
   val fontSize3xl = 36.dp
   val fontSize4xl = 48.dp
   val fontSize5xl = 60.dp
+  val fontLineHeightBodyAlias = 1.5f
+  val fontLineHeightHeadingAlias = 1.35f
+  val fontLineHeightTightAlias = 1.15f
   val textDisplay = "var(--cs-font-size-5xl)"
   val textH1 = "var(--cs-font-size-3xl)"
   val textH2 = "var(--cs-font-size-2xl)"
@@ -229,15 +251,25 @@ object CSTokens {
   val densityControlGapCompact = 6.dp
   val componentButtonGapCompact = 6.dp
   val componentButtonXsPaddingYCompact = 3.dp
+  val componentButtonXsPaddingYAliasCompact = 3.dp
   val componentButtonXsPaddingXCompact = 8.dp
+  val componentButtonXsPaddingXAliasCompact = 8.dp
   val componentButtonSmPaddingYCompact = 6.dp
+  val componentButtonSmPaddingYAliasCompact = 6.dp
   val componentButtonSmPaddingXCompact = 12.dp
+  val componentButtonSmPaddingXAliasCompact = 12.dp
   val componentButtonMdPaddingYCompact = 10.dp
+  val componentButtonMdPaddingYAliasCompact = 10.dp
   val componentButtonMdPaddingXCompact = 16.dp
+  val componentButtonMdPaddingXAliasCompact = 16.dp
   val componentButtonLgPaddingYCompact = 12.dp
+  val componentButtonLgPaddingYAliasCompact = 12.dp
   val componentButtonLgPaddingXCompact = 22.dp
+  val componentButtonLgPaddingXAliasCompact = 22.dp
   val componentTextfieldPaddingYCompact = 8.dp
+  val componentTextfieldPaddingYAliasCompact = 8.dp
   val componentTextfieldPaddingXCompact = 10.dp
+  val componentTextfieldPaddingXAliasCompact = 10.dp
 
   // comfortable-density Theme metrics
   val densitySpace1Comfortable = 4.dp
@@ -249,15 +281,25 @@ object CSTokens {
   val densityControlGapComfortable = 8.dp
   val componentButtonGapComfortable = 8.dp
   val componentButtonXsPaddingYComfortable = 4.dp
+  val componentButtonXsPaddingYAliasComfortable = 4.dp
   val componentButtonXsPaddingXComfortable = 10.dp
+  val componentButtonXsPaddingXAliasComfortable = 10.dp
   val componentButtonSmPaddingYComfortable = 8.dp
+  val componentButtonSmPaddingYAliasComfortable = 8.dp
   val componentButtonSmPaddingXComfortable = 14.dp
+  val componentButtonSmPaddingXAliasComfortable = 14.dp
   val componentButtonMdPaddingYComfortable = 12.dp
+  val componentButtonMdPaddingYAliasComfortable = 12.dp
   val componentButtonMdPaddingXComfortable = 20.dp
+  val componentButtonMdPaddingXAliasComfortable = 20.dp
   val componentButtonLgPaddingYComfortable = 16.dp
+  val componentButtonLgPaddingYAliasComfortable = 16.dp
   val componentButtonLgPaddingXComfortable = 28.dp
+  val componentButtonLgPaddingXAliasComfortable = 28.dp
   val componentTextfieldPaddingYComfortable = 10.dp
+  val componentTextfieldPaddingYAliasComfortable = 10.dp
   val componentTextfieldPaddingXComfortable = 12.dp
+  val componentTextfieldPaddingXAliasComfortable = 12.dp
 
   // High-contrast role deltas: apply after theme and element selection
   val colorBorderDefaultHighLight = Color(0xFF9A8060)

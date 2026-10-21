@@ -1,0 +1,8 @@
+name: Set up locked npm CLI
+description: Bootstrap the exact npm CLI from a maintained audited lock using setup-node bundled npm
+runs:
+  using: composite
+  steps:
+    - name: Install and expose locked npm with lifecycle scripts disabled
+      shell: bash
+      run: node scripts/bootstrap-toolchain.mjs --github-path

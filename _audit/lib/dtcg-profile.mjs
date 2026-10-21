@@ -8,7 +8,7 @@ const own = (value, key) => Object.hasOwn(value, key);
 const finite = value => typeof value === 'number' && Number.isFinite(value);
 const alias = value => typeof value === 'string' && /^\{[^{}]+\}$/.test(value);
 
-export function validateDtcgProfile(document) {
+export function validateDtcgProfile(document, {colorSpaces = ["srgb"]} = {}) {
   const errors = [], tokens = new Map(), counts = {};
   const issue = (path, message) => errors.push({path, message});
   function walk(node, path = [], inherited) {
@@ -47,8 +47,10 @@ export function validateDtcgProfile(document) {
     switch (type) {
       case 'color':
         if (!object(value)) { fail('Color requires an object, not a CSS string'); break; }
-        if (value.colorSpace !== 'srgb') fail('Emitted color profile requires colorSpace srgb');
-        if (!Array.isArray(value.components) || value.components.length !== 3 || !value.components.every(n => n === 'none' || finite(n) && n >= 0 && n <= 1)) fail('sRGB requires three numeric components in [0,1] or none');
+        if (!colorSpaces.includes(value.colorSpace) || !['srgb', 'oklab'].includes(value.colorSpace)) fail('Color space is outside the selected emitted profile');
+        if (value.colorSpace === 'oklab') {
+          if (!Array.isArray(value.components) || value.components.length !== 3 || !value.components.every(finite) || value.components[0] < 0 || value.components[0] > 1) fail('OKLAB requires numeric L in [0,1] and finite signed A/B components');
+        } else if (!Array.isArray(value.components) || value.components.length !== 3 || !value.components.every(n => n === 'none' || finite(n) && n >= 0 && n <= 1)) fail('sRGB requires three numeric components in [0,1] or none');
         if (own(value, 'alpha') && !(finite(value.alpha) && value.alpha >= 0 && value.alpha <= 1)) fail('Color alpha must be a number in [0,1]');
         if (own(value, 'hex') && !(typeof value.hex === 'string' && /^#[0-9a-f]{6}$/i.test(value.hex))) fail('Color hex fallback must contain six hex digits');
         break;

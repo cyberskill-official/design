@@ -24,6 +24,14 @@ async function test(name,fn){ P.current=name; try{ const d=await fn(); record(na
 function assert(c,m){ if(!c) throw new Error(m); }
 const sha256=async s=>{ const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); };
 const camel=css=>css.replace(/^--cs-/,'').split(/[-_]/).map((p,i)=>i?p.charAt(0).toUpperCase()+p.slice(1):p).join('');
+// Independent native-name projection: only the reviewed additive alias shape
+// may choose a new identifier. Legacy normalization remains unchanged.
+function nativeName(css,def){
+  const e=def?.$extensions?.['com.cyberskill']||{},name=camel(css);
+  if(e.nativeAliasOf===undefined&&e.nativeName===undefined)return name;
+  assert(typeof e.nativeAliasOf==='string'&&/^--cs-[\w-]+$/.test(e.nativeAliasOf)&&/[A-Z]/.test(e.nativeAliasOf)&&e.nativeAliasOf.replace(/[A-Z]/g,c=>'-'+c.toLowerCase())===css&&e.css===`var(${e.nativeAliasOf})`&&['number','dimension'].includes(def.$type)&&e.nativeName===name+'Alias','Invalid native alias '+css);
+  return e.nativeName;
+}
 const parseColor=v=>{ let m=/^#([0-9a-f]{6})$/i.exec(v.trim()); if(m){const n=parseInt(m[1],16);return{r:n>>16&255,g:n>>8&255,b:n&255,a:1};}
   m=/^#([0-9a-f]{3})$/i.exec(v.trim()); if(m){const h=m[1];return{r:parseInt(h[0]+h[0],16),g:parseInt(h[1]+h[1],16),b:parseInt(h[2]+h[2],16),a:1};}
   m=/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+)\s*)?\)$/i.exec(v.trim()); if(m)return{r:+m[1],g:+m[2],b:+m[3],a:m[4]===undefined?1:+m[4]}; return null; };
@@ -76,9 +84,11 @@ function expected(name,type,value,cssRaw,nativeFormat){
     const def=key.split('.').reduce((n,k)=>n&&n[k],dtcg);assert(def,'Missing alias '+key);
     return resolveAlias(def.$value,seen.concat(key));
   }
-  const toks=[]; for(const [g,entries] of Object.entries(dtcg)){ if(g.startsWith('$'))continue; for(const [css,def] of Object.entries(entries)){ if(css.startsWith('$')||!def||def.$value===undefined)continue; toks.push({css,name:camel(css),value:g==='density'?resolveAlias(def.$value):def.$value,type:def.$type||'string',cssRaw:def.$extensions?.['com.cyberskill']?.nativeFormat==='css'?def.$extensions['com.cyberskill'].css:undefined,nativeFormat:def.$extensions?.['com.cyberskill']?.nativeFormat,sourceCss:def.$extensions?.['com.cyberskill']?.css}); } }
+  const toks=[]; for(const [g,entries] of Object.entries(dtcg)){ if(g.startsWith('$'))continue; for(const [css,def] of Object.entries(entries)){ if(css.startsWith('$')||!def||def.$value===undefined)continue; toks.push({css,name:nativeName(css,def),value:g==='density'||def.$extensions?.['com.cyberskill']?.nativeAliasOf?resolveAlias(def.$value):def.$value,type:def.$type||'string',cssRaw:def.$extensions?.['com.cyberskill']?.nativeFormat==='css'?def.$extensions['com.cyberskill'].css:undefined,nativeFormat:def.$extensions?.['com.cyberskill']?.nativeFormat,sourceCss:def.$extensions?.['com.cyberskill']?.css}); } }
+  const nativeIdentifiers=new Set(toks.map(t=>t.name));
   await test('every base token present in all 3 targets',async()=>{
     const miss=[];
+    assert(new Set(toks.map(t=>t.name)).size===toks.length,'Native base identifier collision');
     for(const t of toks){ const e=expected(t.name,t.type,t.value,t.cssRaw,t.nativeFormat); if(!e){ miss.push(t.css+' (unconvertible)'); continue; }
       if(swift.indexOf(e.swift)<0) miss.push(t.css+' [swift]');
       if(kt.indexOf(e.kt)<0) miss.push(t.css+' [kotlin]');
@@ -140,7 +150,9 @@ function expected(name,type,value,cssRaw,nativeFormat){
         return resolve(merged[m[1]],seen.concat(m[1]));
       }
       for(const [key,value] of Object.entries(entries)){
-        const name=camel(key)+scope[0].toUpperCase()+scope.slice(1);
+        const def=Object.values(dtcg).find(g=>g?.[key])?.[key];
+        const name=nativeName(key,def)+scope[0].toUpperCase()+scope.slice(1);
+        assert(!nativeIdentifiers.has(name),'Native density identifier collision '+name);nativeIdentifiers.add(name);
         const e=expected(name,'dimension',resolve(value));assert(e,'Unconvertible '+key);
         assert(swift.includes(e.swift)&&kt.includes(e.kt)&&dart.includes(e.dart),'Missing density '+name);
       }

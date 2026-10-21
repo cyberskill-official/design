@@ -6,6 +6,21 @@ export function numberFromCss(css) {
   return Number(css);
 }
 export function colorFromCss(css) {
+  // Standalone mode exports preserve concrete fractional sRGB channels without
+  // rasterizing or rounding them to 8-bit color. Existing legacy CSS forms stay
+  // byte-compatible in the original export pipeline.
+  const srgb = /^color\(srgb\s+([+\-\d.e]+)\s+([+\-\d.e]+)\s+([+\-\d.e]+)(?:\s*\/\s*([+\-\d.e]+))?\)$/.exec(css);
+  if (srgb) {
+    const components = srgb.slice(1, 4).map(numberFromCss), alpha = srgb[4] === undefined ? 1 : numberFromCss(srgb[4]);
+    if (components.some(c => c < 0 || c > 1) || alpha < 0 || alpha > 1) throw Error(`Out of range CSS color: ${css}`);
+    return { colorSpace: 'srgb', components, alpha };
+  }
+  const oklab = /^oklab\(\s*([+\-\d.]+)\s+([+\-\d.]+)\s+([+\-\d.]+)(?:\s*\/\s*([+\-\d.]+))?\s*\)$/.exec(css);
+  if (oklab) {
+    const components = oklab.slice(1, 4).map(numberFromCss), alpha = oklab[4] === undefined ? 1 : numberFromCss(oklab[4]);
+    if (components[0] < 0 || components[0] > 1 || alpha < 0 || alpha > 1) throw Error(`Out of range CSS OKLAB color: ${css}`);
+    return { colorSpace: 'oklab', components, alpha };
+  }
   let m = /^#([0-9a-f]{6})$/i.exec(css), channels, alpha=1;
   if (m) channels=[0,2,4].map(i=>parseInt(m[1].slice(i,i+2),16));
   else {
@@ -70,6 +85,20 @@ export function srgbToRgba(value) {
 }
 
 /** Check exact CSS metadata against typed values; raw metadata cannot mask drift. */
+// Only reviewed additive kebab aliases opt into distinct numeric native names.
+// Existing normalization and all established native identifiers stay unchanged.
+export function nativeTokenName(css, def = {}) {
+  const camel = css.replace(/^--cs-/, '').split(/[-_]/).map((p,i)=>i?p.charAt(0).toUpperCase()+p.slice(1):p).join('');
+  const ext = def.$extensions?.['com.cyberskill'] || {};
+  if(ext.nativeAliasOf === undefined && ext.nativeName === undefined)return camel;
+  const target = ext.nativeAliasOf;
+  if(typeof target !== 'string' || !/^--cs-[\w-]+$/.test(target) || !/[A-Z]/.test(target) || target.replace(/[A-Z]/g,c=>'-'+c.toLowerCase())!==css || ext.css!==`var(${target})` || !['number','dimension'].includes(def.$type) || ext.nativeName!==camel+'Alias')throw Error('Invalid native alias metadata: '+css);
+  return ext.nativeName;
+}
+export function assertUniqueNativeNames(entries) {
+  const names=new Set();
+  for(const entry of entries){if(names.has(entry.name))throw Error('Native identifier collision: '+entry.name);names.add(entry.name);}
+}
 export function assertCssProjection(doc) {
   const tokens=new Map();
   for(const [group,entries] of Object.entries(doc))if(!group.startsWith('$'))for(const [name,def] of Object.entries(entries)){
@@ -82,11 +111,12 @@ export function assertCssProjection(doc) {
   for(const [name,{path,group,def}] of tokens){
     const ext=def.$extensions?.['com.cyberskill'],css=ext?.css;
     if(typeof css!=='string')throw Error(`Missing CSS projection: ${path}`);
+    nativeTokenName(name,def);
     let expected,nativeFormat,relativeUnit,cssScale;
     const ref=/^var\((--cs-[\w-]+)\)$/.exec(css);
     if(ref){
       const target=tokens.get(ref[1]);if(!target||target.def.$type!==def.$type)throw Error(`Invalid CSS alias: ${path}`);
-      expected=`{${target.path}}`;if(group!=='density')nativeFormat='css';
+      expected=`{${target.path}}`;if(group!=='density'&&ext.nativeAliasOf===undefined)nativeFormat='css';
     }else if(/^-?[\d.]+em$/.test(css)){
       if(def.$type!=='number')throw Error(`Relative em must use number with extension: ${path}`);
       expected=numberFromCss(css.slice(0,-2));nativeFormat='em';relativeUnit='em';

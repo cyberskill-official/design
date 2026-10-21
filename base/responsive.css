@@ -9,7 +9,7 @@
  * NOTE on the [style*=…] selectors below: Design-Component templates compile inline
  * `style="…"` into React style objects, so the RENDERED attribute is serialized with
  * a space after the colon and after commas — e.g. `grid-template-columns: repeat(4, 1fr)`.
- * Every substring selector here MUST match that spaced form, not the authored source. */
+ * Both the spaced DOM serialization and compact authored property forms are supported below. */
 
 /* 1 — Media and embeds never blow out a column */
 img, svg, video, canvas { max-width: 100%; height: auto; }
@@ -87,27 +87,48 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
  * breakpoints never fire during print/export. */
 @media screen and (max-width: 768px) {
   [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns:repeat(3"],
   [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns:repeat(4"],
   [style*="grid-template-columns: repeat(5"],
-  [style*="grid-template-columns: repeat(6"] { grid-template-columns: repeat(2, 1fr) !important; }
+  [style*="grid-template-columns:repeat(5"],
+  [style*="grid-template-columns: repeat(6"],
+  [style*="grid-template-columns:repeat(6"] { grid-template-columns: repeat(2, 1fr) !important; }
 }
 @media screen and (max-width: 640px) {
   [style*="grid-template-columns: repeat(2"],
+  [style*="grid-template-columns:repeat(2"],
   [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns:repeat(3"],
   [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns:repeat(4"],
   [style*="grid-template-columns: repeat(5"],
+  [style*="grid-template-columns:repeat(5"],
   [style*="grid-template-columns: repeat(6"],
+  [style*="grid-template-columns:repeat(6"],
   [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr"],
   [style*="grid-template-columns: 1.15fr 1fr"],
+  [style*="grid-template-columns:1.15fr 1fr"],
   [style*="grid-template-columns: 1fr 1.15fr"],
+  [style*="grid-template-columns:1fr 1.15fr"],
   [style*="grid-template-columns: 2fr 1fr"],
+  [style*="grid-template-columns:2fr 1fr"],
   [style*="grid-template-columns: 1fr 2fr"],
-  [style*="grid-template-columns: auto 1fr"] { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns:1fr 2fr"],
+  [style*="grid-template-columns: auto 1fr"],
+  [style*="grid-template-columns:auto 1fr"] { grid-template-columns: 1fr !important; }
 }
 /* Decks & social canvases keep their authored columns — they scroll (see §5), so their
  * internal grids must not collapse. Unscoped + higher specificity, so they win at every width. */
-.cs-canvas-desk [style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: repeat(3, 1fr) !important; }
-.cs-canvas-desk [style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: repeat(4, 1fr) !important; }
+.cs-canvas-desk [style*="grid-template-columns: repeat(3, 1fr)"],
+.cs-canvas-desk [style*="grid-template-columns: repeat(3,1fr)"],
+.cs-canvas-desk [style*="grid-template-columns:repeat(3, 1fr)"],
+.cs-canvas-desk [style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: repeat(3, 1fr) !important; }
+.cs-canvas-desk [style*="grid-template-columns: repeat(4, 1fr)"],
+.cs-canvas-desk [style*="grid-template-columns: repeat(4,1fr)"],
+.cs-canvas-desk [style*="grid-template-columns:repeat(4, 1fr)"],
+.cs-canvas-desk [style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(4, 1fr) !important; }
 
 /* 8 — Touch targets reach the 44px minimum on phones/tablets (the system's a11y
  * floor). Base sidebar nav rows (39px) and the topbar search input (26px) are
@@ -140,7 +161,8 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
  * selector does not). Then let the app-region grids shrink (min-width:0) and the data
  * table scroll inside its panel instead of forcing the page wide. */
 @media screen and (max-width: 768px) {
-  [style*="grid-template-columns: 248px 1fr"] { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: 248px 1fr"],
+  [style*="grid-template-columns:248px 1fr"] { grid-template-columns: 1fr !important; }
   main { min-width: 0; }
   main > * { min-width: 0; }
   .cs-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -155,7 +177,6 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
   .cs-dl { grid-template-columns: 1fr; }
   .cs-field { min-inline-size: 0; }
   .cs-field__control { min-inline-size: 0; }
-  .card, button.card, article.case { min-width: 0 !important; }
   [style*="minmax(320px"] { grid-template-columns: 1fr !important; }
 }
 

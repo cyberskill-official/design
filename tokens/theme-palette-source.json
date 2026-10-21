@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "scope": "Authored dark palette values. Exact explicit-dark and system-dark CSS mirrors preserve their selectors/order/comments; VERSION owns release identity.",
+  "files": {
+    "tokens/colors.css": {
+      "color-scheme": "dark",
+      "--cs-color-surface-page": "#1a1108",
+      "--cs-color-surface-panel": "#221710",
+      "--cs-color-surface-raised": "#2b1e14",
+      "--cs-color-text-primary": "#f5ead9",
+      "--cs-color-text-inverse": "#1a1108",
+      "--cs-color-text-accent": "#FECD5D",
+      "--cs-color-text-muted": "#E9D6C2",
+      "--cs-color-semantic-success": "#4ADE80",
+      "--cs-color-semantic-danger": "#FC9895",
+      "--cs-color-semantic-warning": "#FBBF24",
+      "--cs-color-semantic-info": "#B5D4FD",
+      "--cs-color-semantic-success-fg": "#1a1108",
+      "--cs-color-semantic-danger-fg": "#1a1108",
+      "--cs-color-semantic-warning-fg": "#1a1108",
+      "--cs-color-semantic-info-fg": "#1a1108",
+      "--cs-color-semantic-success-text": "#68F798",
+      "--cs-color-semantic-danger-text": "#FFD2CF",
+      "--cs-color-semantic-warning-text": "#FFD887",
+      "--cs-color-semantic-info-text": "#C7DFFF",
+      "--cs-color-border-default": "#4a3a2c",
+      "--cs-color-link": "#FECD5D",
+      "--cs-color-link-hover": "#f5ead9"
+    },
+    "tokens/component-tokens.css": {
+      "--cs-component-button-primary-bg": "#f4ba17",
+      "--cs-component-button-primary-fg": "#1a1108",
+      "--cs-component-textfield-border-default": "#5a4636"
+    },
+    "tokens/elevation.css": {
+      "--cs-shadow-xs": "0 1px 2px rgba(0, 0, 0, 0.40)",
+      "--cs-shadow-sm": "0 1px 3px rgba(0, 0, 0, 0.34), 0 8px 24px rgba(0, 0, 0, 0.42)",
+      "--cs-shadow-md": "0 12px 30px rgba(0, 0, 0, 0.50)",
+      "--cs-shadow-lg": "0 20px 60px rgba(0, 0, 0, 0.55)",
+      "--cs-shadow-xl": "0 24px 80px rgba(0, 0, 0, 0.62)"
+    }
+  }
+}

@@ -9,7 +9,18 @@ import {withBrowserFixture} from './lib/browser-fixture.mjs';
 const source=new URL('../../',import.meta.url);
 const text=await readFile(new URL('tokens/tokens.dtcg.json',source),'utf8'),doc=JSON.parse(text);
 assert.equal(validateDtcgProfile(doc).pass,true);
-assert.equal(assertCssProjection(doc),175);
+assert.equal(assertCssProjection(doc),197);
+const aliases=JSON.parse(await readFile(new URL('_audit/ci/fixtures/a01-token-aliases/aliases.json',source),'utf8')).aliases;
+assert.equal(aliases.length,22);
+assert.equal(new Set(aliases.map(pair=>pair.alias)).size,22);
+for(const {group,legacy,alias,type} of aliases){
+ assert(doc[group][legacy]&&doc[group][alias],legacy+' legacy and additive alias retained');
+ assert.equal(doc[group][legacy].$type,type);
+ assert.equal(doc[group][alias].$type,type);
+ assert.equal(doc[group][alias].$value,'{'+group+'.'+legacy+'}');
+ assert.equal(doc[group][alias].$extensions['com.cyberskill'].css,'var('+legacy+')');
+ assert.equal(doc[group][alias].$extensions['com.cyberskill'].nativeAliasOf,legacy);
+}
 for (const role of ['success','danger','warning','info']) { const def=doc.color[`--cs-color-semantic-${role}-text`]; assert.equal(def.$type,'color'); assert.equal(def.$value.colorSpace,'srgb'); assert.equal(def.$extensions['com.cyberskill'].css,JSON.parse(await readFile(new URL('../../tokens/tokens.json',import.meta.url),'utf8')).root.color[`--cs-color-semantic-${role}-text`]); }
 for(const mutate of [d=>d.color['--cs-color-brand-umber'].$value.components[0]=1,d=>d.letter['--cs-letter-spacing-tight'].$extensions['com.cyberskill'].relativeUnit='rem',d=>d.shadow['--cs-shadow-xs'].$value.offsetY.value=999]){
  const d=structuredClone(doc);mutate(d);assert.throws(()=>assertCssProjection(d),/mismatch/);
@@ -60,7 +71,7 @@ await withBrowserFixture(async page=>{
   const verdict=await page.evaluate(k=>window[k],key);assert.equal(verdict.pass,true,JSON.stringify(verdict));
  }
 });
-const dependencies=['scripts/generate-dtcg.mjs','scripts/lib/dtcg-values.mjs','_audit/lib/dtcg-profile.mjs','tokens/tokens.json','tokens/tokens.dtcg.json'];
+const dependencies=['scripts/generate-dtcg.mjs','scripts/lib/dtcg-values.mjs','scripts/lib/project-dtcg.mjs','tokens/base-inventory.json','_audit/lib/dtcg-profile.mjs','tokens/tokens.json','tokens/tokens.dtcg.json'];
 for(const [name,mutate] of [
  ['valid',()=>{}],
  ['invalid color',j=>j.root.color['--cs-color-brand-umber']='garbage'],
@@ -79,4 +90,4 @@ for(const [name,mutate] of [
   assert.equal(await readFile(join(dir,'tokens/tokens.dtcg.json'),'utf8'),text,'Determinism or failed-write preservation: '+name);
  }finally{await rm(dir,{recursive:true,force:true});}
 }
-console.log('PASS DTCG roundtrip: 175 canonical CSS values/aliases; typed values and extensions agree; real format/native/profile gates pass; invalid generation preserves output.');
+console.log('PASS DTCG roundtrip: 197 canonical CSS values/aliases including22 reviewed additive legacy aliases; typed values and extensions agree; real format/native/profile gates pass; invalid generation preserves output.');

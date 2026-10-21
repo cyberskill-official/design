@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.7.2 · source sha256 588f0c3c8906b520…
+// release v1.7.2 · source sha256 5389a3151b76a039…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -22,14 +22,14 @@ class CSTokens {
   static const Color colorSemanticDanger = Color(0xFFB42318);
   static const Color colorSemanticWarning = Color(0xFF92400E);
   static const Color colorSemanticInfo = Color(0xFF1D4ED8);
-  static const Color colorAccentOchre = Color(0xFFF4BA17);
-  static const Color colorBorderDefault = Color(0xFFE7D9C6);
-  static const Color colorLink = Color(0xFF6E3B0E);
-  static const Color colorLinkHover = Color(0xFF45210E);
   static const Color colorSemanticSuccessFg = Color(0xFFFFFFFF);
   static const Color colorSemanticDangerFg = Color(0xFFFFFFFF);
   static const Color colorSemanticWarningFg = Color(0xFFFFFFFF);
   static const Color colorSemanticInfoFg = Color(0xFFFFFFFF);
+  static const Color colorAccentOchre = Color(0xFFF4BA17);
+  static const Color colorBorderDefault = Color(0xFFE7D9C6);
+  static const Color colorLink = Color(0xFF6E3B0E);
+  static const Color colorLinkHover = Color(0xFF45210E);
   static const Color colorSemanticSuccessText = Color(0xFF042D13);
   static const Color colorSemanticDangerText = Color(0xFF4B0502);
   static const Color colorSemanticWarningText = Color(0xFF441801);
@@ -59,6 +59,25 @@ class CSTokens {
   static const double componentTextfieldPaddingX = 12;
   static const double componentTextfieldMinHeight = 44;
   static const double focusRing = 3;
+  static const double componentButtonXsPaddingYAlias = 4;
+  static const double componentButtonXsPaddingXAlias = 10;
+  static const double componentButtonXsMinHeightAlias = 28;
+  static const double componentButtonXsMinWidthAlias = 28;
+  static const double componentButtonXsMinHeightCoarseAlias = 44;
+  static const double componentButtonSmPaddingYAlias = 8;
+  static const double componentButtonSmPaddingXAlias = 14;
+  static const double componentButtonSmMinHeightAlias = 36;
+  static const double componentButtonSmMinHeightCoarseAlias = 44;
+  static const double componentButtonMdPaddingYAlias = 12;
+  static const double componentButtonMdPaddingXAlias = 20;
+  static const double componentButtonMdMinHeightAlias = 44;
+  static const double componentButtonMdMinHeightCoarseAlias = 44;
+  static const double componentButtonLgPaddingYAlias = 16;
+  static const double componentButtonLgPaddingXAlias = 28;
+  static const double componentButtonLgMinHeightAlias = 52;
+  static const double componentTextfieldPaddingYAlias = 10;
+  static const double componentTextfieldPaddingXAlias = 12;
+  static const double componentTextfieldMinHeightAlias = 44;
   static const Color accent = Color(0xFFF4BA17);
   static const Color accentStrong = Color(0xFF916D10);
   static const Color accentBright = Color(0xFFF4BA17);
@@ -152,6 +171,9 @@ class CSTokens {
   static const double fontSize3xl = 36;
   static const double fontSize4xl = 48;
   static const double fontSize5xl = 60;
+  static const double fontLineHeightBodyAlias = 1.5;
+  static const double fontLineHeightHeadingAlias = 1.35;
+  static const double fontLineHeightTightAlias = 1.15;
   static const String textDisplay = "var(--cs-font-size-5xl)";
   static const String textH1 = "var(--cs-font-size-3xl)";
   static const String textH2 = "var(--cs-font-size-2xl)";
@@ -227,15 +249,25 @@ class CSTokens {
   static const double densityControlGapCompact = 6;
   static const double componentButtonGapCompact = 6;
   static const double componentButtonXsPaddingYCompact = 3;
+  static const double componentButtonXsPaddingYAliasCompact = 3;
   static const double componentButtonXsPaddingXCompact = 8;
+  static const double componentButtonXsPaddingXAliasCompact = 8;
   static const double componentButtonSmPaddingYCompact = 6;
+  static const double componentButtonSmPaddingYAliasCompact = 6;
   static const double componentButtonSmPaddingXCompact = 12;
+  static const double componentButtonSmPaddingXAliasCompact = 12;
   static const double componentButtonMdPaddingYCompact = 10;
+  static const double componentButtonMdPaddingYAliasCompact = 10;
   static const double componentButtonMdPaddingXCompact = 16;
+  static const double componentButtonMdPaddingXAliasCompact = 16;
   static const double componentButtonLgPaddingYCompact = 12;
+  static const double componentButtonLgPaddingYAliasCompact = 12;
   static const double componentButtonLgPaddingXCompact = 22;
+  static const double componentButtonLgPaddingXAliasCompact = 22;
   static const double componentTextfieldPaddingYCompact = 8;
+  static const double componentTextfieldPaddingYAliasCompact = 8;
   static const double componentTextfieldPaddingXCompact = 10;
+  static const double componentTextfieldPaddingXAliasCompact = 10;
 
   // comfortable-density Theme metrics
   static const double densitySpace1Comfortable = 4;
@@ -247,15 +279,25 @@ class CSTokens {
   static const double densityControlGapComfortable = 8;
   static const double componentButtonGapComfortable = 8;
   static const double componentButtonXsPaddingYComfortable = 4;
+  static const double componentButtonXsPaddingYAliasComfortable = 4;
   static const double componentButtonXsPaddingXComfortable = 10;
+  static const double componentButtonXsPaddingXAliasComfortable = 10;
   static const double componentButtonSmPaddingYComfortable = 8;
+  static const double componentButtonSmPaddingYAliasComfortable = 8;
   static const double componentButtonSmPaddingXComfortable = 14;
+  static const double componentButtonSmPaddingXAliasComfortable = 14;
   static const double componentButtonMdPaddingYComfortable = 12;
+  static const double componentButtonMdPaddingYAliasComfortable = 12;
   static const double componentButtonMdPaddingXComfortable = 20;
+  static const double componentButtonMdPaddingXAliasComfortable = 20;
   static const double componentButtonLgPaddingYComfortable = 16;
+  static const double componentButtonLgPaddingYAliasComfortable = 16;
   static const double componentButtonLgPaddingXComfortable = 28;
+  static const double componentButtonLgPaddingXAliasComfortable = 28;
   static const double componentTextfieldPaddingYComfortable = 10;
+  static const double componentTextfieldPaddingYAliasComfortable = 10;
   static const double componentTextfieldPaddingXComfortable = 12;
+  static const double componentTextfieldPaddingXAliasComfortable = 12;
 
   // High-contrast role deltas: apply after theme and element selection
   static const Color colorBorderDefaultHighLight = Color(0xFF9A8060);

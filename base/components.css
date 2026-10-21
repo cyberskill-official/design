@@ -100,7 +100,7 @@
   animation: cs-spin 0.6s linear infinite;
 }
 @keyframes cs-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .cs-button__spinner { animation-duration: 1.4s; } }
+@media (prefers-reduced-motion: reduce) { .cs-button__spinner { animation: none; } }
 
 /* Touch ergonomics: bump small sizes on coarse pointers (tokenized). */
 @media (pointer: coarse) {
@@ -162,6 +162,27 @@
 @media (max-width: 640px) {
   .cs-dialog { max-inline-size: calc(100vw - 1rem); top: 4vh; padding: var(--cs-space-4, 16px); }
   .cs-dialog__actions .cs-button, .cs-review-gate__actions .cs-button { flex: 1 1 auto; }
+}
+
+
+/* Progressive viewport geometry: preserve the vh fallback above. Safe-area
+   bounds are physical viewport edges; direction does not swap a device notch. */
+@supports (height: 100dvh) and (top: max(1px, env(safe-area-inset-top, 0px))) {
+  .cs-dialog {
+    --_cs-dialog-safe-top: max(12dvh, env(safe-area-inset-top, 0px));
+    left: env(safe-area-inset-left, 0px);
+    right: env(safe-area-inset-right, 0px);
+    max-inline-size: min(42rem, calc(100vw - 2rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+    max-block-size: min(80dvh, calc(100dvh - 4rem), calc(100dvh - var(--_cs-dialog-safe-top) - env(safe-area-inset-bottom, 0px) - 1rem));
+    top: var(--_cs-dialog-safe-top);
+  }
+  .cs-alert-dialog { max-inline-size: min(28rem, calc(100vw - 2rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px))); }
+  @media (max-width: 640px) {
+    .cs-dialog {
+      --_cs-dialog-safe-top: max(4dvh, env(safe-area-inset-top, 0px));
+      max-inline-size: calc(100vw - 1rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
+    }
+  }
 }
 
 /* ---- DataTable ---- */

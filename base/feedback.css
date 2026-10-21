@@ -50,7 +50,7 @@
 
 /* Spinner */
 .cs-spinner { display: inline-block; inline-size: 20px; block-size: 20px; border-radius: 50%; border: 2.5px solid color-mix(in oklab, var(--cs-color-brand-umber) 22%, transparent); border-color: var(--_cs-light, color-mix(in oklab, var(--cs-color-brand-umber) 22%, transparent)) var(--_cs-dark, color-mix(in oklab, var(--cs-color-brand-ochre) 26%, transparent)); border-top-color: var(--_cs-light, var(--cs-color-brand-umber)) var(--_cs-dark, var(--cs-color-brand-ochre)); animation: cs-spin 0.62s linear infinite; }
-@media (prefers-reduced-motion: reduce) { .cs-spinner { animation-duration: 1.5s; } }
+@media (prefers-reduced-motion: reduce) { .cs-spinner { animation: none; } }
 
 /* Progress bar */
 .cs-progress { inline-size: 100%; block-size: 10px; border-radius: var(--cs-radius-full); background: var(--cs-color-surface-raised); overflow: hidden; }

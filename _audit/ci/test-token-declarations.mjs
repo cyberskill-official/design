@@ -16,7 +16,20 @@ const reference=declarationGraphReference(graphText);
 assert.deepEqual(json.$meta.declarationGraph,reference);
 assert.deepEqual(tokens.$meta.declarationGraph,reference);
 assert.deepEqual(dtcg.$extensions['com.cyberskill'].declarationGraph,reference);
-assert.equal(reference.publicNames,194);
+assert.equal(reference.publicNames,216);
+const aliases=JSON.parse(await readFile(new URL('_audit/ci/fixtures/a01-token-aliases/aliases.json',root),'utf8')).aliases;
+assert.equal(aliases.length,22);
+assert.equal(new Set(aliases.map(pair=>pair.alias)).size,22);
+const camelNames=[...new Set(graph.declarations.filter(row=>row.visibility==='public'&&/[A-Z]/.test(row.name)).map(row=>row.name))].sort();
+assert.deepEqual(camelNames,aliases.map(pair=>pair.legacy).sort(),'Every legacy camelCase declaration remains owned');
+for(const {group,legacy,alias,type} of aliases){
+ const rows=graph.declarations.filter(row=>row.visibility==='public'&&row.name===alias);
+ assert(rows.length>0&&rows.every(row=>row.value.trim()==='var('+legacy+')'),'All alias scopes retain the legacy binding');
+ assert(manifest.tokens.some(row=>row.name===legacy)&&manifest.tokens.some(row=>row.name===alias));
+ assert.equal(dtcg[group][alias].$type,type);assert.equal(dtcg[group][legacy].$type,type);
+ assert.equal(dtcg[group][alias].$value,'{'+group+'.'+legacy+'}');
+ assert.equal(dtcg[group][alias].$extensions['com.cyberskill'].nativeAliasOf,legacy);
+}
 for(const role of ['success','danger','warning','info']) {
  const name='--cs-color-semantic-'+role+'-text';
  assert(graph.declarations.some(d=>d.name===name&&d.visibility==='public'),name+' must be a public source declaration');
