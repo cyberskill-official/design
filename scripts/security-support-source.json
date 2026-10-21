@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "package": "@cyberskill/design",
+  "registry": "https://registry.npmjs.org/",
+  "snapshotPath": "_audit/ci/fixtures/npm-published-release.json",
+  "observedAt": "2026-10-20T10:16:52.889912+00:00",
+  "supportWindow": "latest-published-stable-minor",
+  "acknowledgementBusinessDays": 10,
+  "bestEffort": true,
+  "fixDeadline": null,
+  "sla": false
+}
