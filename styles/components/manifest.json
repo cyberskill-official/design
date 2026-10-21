@@ -7259,7 +7259,7 @@
     "fonts/spacegrotesk-var-latin-ext.woff2": "054c266fbb441ee059365dba0885d206f67ca05b375de869b88e02ebfccc9b9d",
     "fonts/spacegrotesk-var-latin.woff2": "9edad0c033651c6cd4d87654b7c5d11d7b6ec1e3f3578d7c7af76ab6e9f55dfc",
     "fonts/spacegrotesk-var-vietnamese.woff2": "d699664b145bfeeccc66a4cce7fa55e14eb63efd7ec6b0b2ec52e25dd98f3917",
-    "package-lock.json": "356d892ca3d6de521667becbfc42217cb6d8192161ea8305e308ee40e9d0898c",
+    "package-lock.json": "4dd80c42e783f8ce52953d0c827ed58643179e11add32f033f6fcb08ac39c380",
     "scripts/generate-component-css-entries.mjs": "5bc04d592e6f2837ce87e14e530a8ce39775cb45577c1234e292e09b1625d55b",
     "scripts/lib/component-css-entries.mjs": "6073b63e689b7e8007919afad424da3686bfc8f755f9ef755fbe287906ea9f06",
     "scripts/lib/component-css-graph.mjs": "44af4648d10a472927d9a42afd307c1ea57063ccacdf8f43a90a9a8424f00b0f",
