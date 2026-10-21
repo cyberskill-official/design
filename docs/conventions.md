@@ -78,7 +78,7 @@ only for HTML element content, never URL, attribute, CSS or script contexts.
 
 **New element variant** — stay inside the element's oklch envelope; set the 10 `--cs-accent-*` contract tokens (incl. `--cs-accent-on-strong` ≥4.5:1 and body APCA75 on `-strong`) plus `--cs-color-text-accent`/`--cs-color-link` (APCA-check both); the aurora wash inherits from the element via `.cs-aurora-wash` (override the class rule only if the variant truly needs its own image); gradient partner (`grad-b`) must follow Tương sinh.
 
-**Ship check** — follow the portable verification gate in `docs/doctrine.md`, then run `_audit/docs-consistency.html` **and** `_audit/namespace-portability.html` (both must be green). VERSION **1.7.2**.
+**Ship check** — follow the portable verification gate in `docs/doctrine.md`, then run `_audit/docs-consistency.html` **and** `_audit/namespace-portability.html` (both must be green). source checkout VERSION **<!-- cs-source-version:checkout -->1.7.2<!-- /cs-source-version -->**.
 
 ## Decision log (owner-approved)
 
@@ -354,3 +354,5 @@ Use `node scripts/npm.mjs …` for the locked npm CLI. The wrapper prepends both
 Browser infrastructure retries retain structured `CS_BROWSER_RETRY` records with the engine, failed/next attempt and original reason in the captured suite logs. The three-attempt ceiling is unchanged, and assertion failures are not retried. A successful retry records recovery; it does not prove why the browser crashed or establish a memory-pressure diagnosis.
 
 Release preparation invoked directly with `node scripts/prepare-release.mjs` uses the same pinned npm runner for its regeneration stage. Run the locked toolchain bootstrap first; a conflicting shell npm must not change the candidate toolchain or checkout. Preparation preserves approval records and never publishes.
+
+Release preparation updates only the finite source-identity markers in its reviewed document list. Missing, duplicate, malformed or stale markers block every version write. Registry install commands, sibling inventories and historical release sections retain their published identities. An unpublished checkout or reviewed local tarball does not establish registry availability or authorize publication.

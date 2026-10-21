@@ -30,7 +30,7 @@
   "sourceHashes": {
     "_audit/visual-diff.html": "648e2698f16900ce2dc929eb0f67efa3478a882cb2d1922ddc6e179c1ea6b2b8",
     "_ds_manifest.json": "9fef7ed2af64995319f08b6ac45a93870a0a99ae3a739316eddf9a6f2ad25421",
-    "scripts/public-site-policy.json": "96e4a1c5f9e2a00e77b12503355d5607e231a7984732fe650c126eb2bb5edf89",
+    "scripts/public-site-policy.json": "86fa68504d34fde8b905f95835a5ed6481f60f7b4afe81fbfdef0da6500f01e0",
     "templates/app-shell/AppShell.dc.html": "08307cd2ef46ee1142af4bbfa9e25728fa4d919bf3a40cd568374f8728ee7c44",
     "templates/article/Article.dc.html": "d2330c050a3cf0df9267b36f8025552bcaa5c962bf1462b694fa8e359360efdf",
     "templates/auth/Auth.dc.html": "c75ac411379fbf0e85dcff730c4cc18540fa60c667f0689bc5eb001dc7b0f2b6",
@@ -141,7 +141,7 @@
       "path": "README.md",
       "audience": "documentation",
       "role": "human_orientation",
-      "sha256": "df11256982613d82f60c539902c0783f81290a16e7c3ef2e9e1fc065b9675b9e"
+      "sha256": "ffb073f1d958dca6efda82e1aedd01da9cafe427b948984291fd4983dd38c546"
     },
     {
       "path": "SECURITY.md",
@@ -867,7 +867,7 @@
       "path": "docs/ci-cd.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "da47fa6d8cefc89461a2e8343b7f100ecc2f32c6c1f813dd9ae993dab933effa"
+      "sha256": "e47fb6b51f8ef158d02cb6d1e8bcdde385136fefd7b2446c46e33100f926ad6a"
     },
     {
       "path": "docs/component-api.md",
@@ -879,7 +879,7 @@
       "path": "docs/component-css.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "bf93989e7125c81b224049bb0df6bfa6352f25b8f546390698cd7b16e54cc5fe"
+      "sha256": "ef3dada2ae6b988741046c91232bfa94cddd71fa282c408ec31a5ea20610550a"
     },
     {
       "path": "docs/component-scenarios.md",
@@ -909,7 +909,7 @@
       "path": "docs/consuming.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "9bd7ae909e22f4d69933e80231fee266f924868b56d9ca882bc0cf6a689fd529"
+      "sha256": "5a4a736d38d4b8718da6326ee42dc166f8c28b6625ac0d0a19c15e0d7f9987f4"
     },
     {
       "path": "docs/contrast-report.md",
@@ -921,7 +921,7 @@
       "path": "docs/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "2545fd93c1ca2a00ec623ad9e37cc9ae2849f737e229a8dc733ce03cd8020814"
+      "sha256": "d61af5b024b7ad35e22ebfa12a39027b1d458a5ceac8865428dba34f8795cee8"
     },
     {
       "path": "docs/decisions.md",
@@ -1059,7 +1059,7 @@
       "path": "docs/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "730d711a6fb435497820302b2b22fc71931f40588a885fed54cec7c662a06f92"
+      "sha256": "e0efb85d5719db28b834b93621a472ac7ea1e79700471064f8b70de7ed7e6a3c"
     },
     {
       "path": "docs/releasing.md",
@@ -1077,7 +1077,7 @@
       "path": "docs/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "7dd622da71cc5735881d87275c850898ce3227a63e7f65b51164da2fd588af6c"
+      "sha256": "37332c3f62b120de3f2df7ade2f440485b0e1e74ec9874b2f3c4da87e62ce014"
     },
     {
       "path": "docs/storybook.md",
@@ -1143,7 +1143,7 @@
       "path": "docs/vi/ci-cd.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "2bb47939d655c25d8bd9f34dd57ae736ce3c2dd4da19c278b082fcc93f863d5e"
+      "sha256": "eca94000e3bd9632993eb2d2de401997351f04623363fcfb575df63136bce6bf"
     },
     {
       "path": "docs/vi/component-api.md",
@@ -1155,7 +1155,7 @@
       "path": "docs/vi/component-css.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "b986b6a155b4c73c4cf9a2b18fd819cc922fb013e8d516a255aa561e8d80aadb"
+      "sha256": "280243297dccb76a2e741bd7c811e9a27a92b48363a24ee8661690ccf53e93ed"
     },
     {
       "path": "docs/vi/component-scenarios.md",
@@ -1185,7 +1185,7 @@
       "path": "docs/vi/consuming.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "304152f42964febfeec4b5924c68958b2fbd5336409287b495bba1d89525ebf8"
+      "sha256": "dff359ce8f4c46e4d357c9e4f3d73a7c1f3acb13511f74c01b15adbda7e74914"
     },
     {
       "path": "docs/vi/contrast-report.md",
@@ -1197,7 +1197,7 @@
       "path": "docs/vi/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "558b79124f8aa5f8645d72971edfc4d8946f7ab2ac0c8f5abbe5e30fe75b4cf6"
+      "sha256": "320d8e41bb173b19f770272f041aefa7b0173daa2d9f8fbfb4904689722fd540"
     },
     {
       "path": "docs/vi/decisions.md",
@@ -1239,7 +1239,7 @@
       "path": "docs/vi/entrypoints/README.md",
       "audience": "documentation",
       "role": "human_orientation",
-      "sha256": "4adf6f08a2741c41eb648c4c10b8f6c2d4d3a082654cb2c2d185119d9d06ad4d"
+      "sha256": "7a755b335b2725ce30f57d8e6f5bec835a79781ed4fa73963db26ad593c06a88"
     },
     {
       "path": "docs/vi/entrypoints/SKILL.md",
@@ -1335,7 +1335,7 @@
       "path": "docs/vi/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "a674bee308efefd56ff6b79ef9e25c2737226ba1fb7518a4fb2284d278594f6f"
+      "sha256": "c4816652f07b3e42efc90fd0112460b165295f2f4af0f26b7307de8b16a4d77f"
     },
     {
       "path": "docs/vi/releasing.md",
@@ -1353,7 +1353,7 @@
       "path": "docs/vi/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "4a7c0a4ae9bd9b2c0300f750b9dda2a99701efa49dff7eeea61d2ec46a9b396b"
+      "sha256": "4d6c63ede2cefd81b1a71b119b89d3c9feedc7c7422871037f73f73adee5db77"
     },
     {
       "path": "docs/vi/storybook.md",

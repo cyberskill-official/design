@@ -10,6 +10,7 @@ import { validateSupport } from './lib/component-support.mjs';
 import {compatibilityBlockers} from './lib/release-compatibility.mjs';
 import {parseReleaseVersion, compareReleaseVersions} from './lib/release-version.mjs';
 import {runPinnedNpm} from './npm.mjs';
+import {documentationStampTargets,stampReleaseDocumentation} from './lib/release-documentation.mjs';
 
 const repository = fileURLToPath(new URL('../', import.meta.url));
 const digest = value => createHash('sha256').update(value).digest('hex');
@@ -71,6 +72,7 @@ export function planRelease(root, { version, sourceSha }, { runGit = git } = {})
   assert(newer(version, currentVersion), 'Proposed version must be greater than current VERSION');
   const sourceCommit = sourceIdentity(root, sourceSha, runGit);
   const tag = `v${version}`;
+  stampReleaseDocumentation(root,currentVersion,version); // Fail closed before planning any writes.
   const blockers = supportBlockers(root);
   blockers.push(...compatibilityBlockers(root,currentVersion,version));
   if (runGit(root, ['status', '--porcelain', '--untracked-files=normal'])) blockers.push('Source checkout is not clean; commit/review the intended source before preparing a candidate');
@@ -78,7 +80,7 @@ export function planRelease(root, { version, sourceSha }, { runGit = git } = {})
   return {
     schemaVersion: 1, mode: 'plan', currentVersion, proposedVersion: version,
     sourceCommit, proposedTag: tag, readyToPrepare: blockers.length === 0, blockers,
-    authoredStamps: ['VERSION', 'package.json', 'package-lock.json', 'README.md', 'docs/consuming.md', 'docs/vi/consuming.md', 'docs/conventions.md', 'docs/vi/conventions.md', 'docs/release-notes.md', 'docs/vi/release-notes.md', 'stories/ReleaseNotes/ReleaseNotes.mdx'],
+    authoredStamps: ['VERSION', 'package.json', 'package-lock.json', ...documentationStampTargets.map(target=>target.path),'scripts/entrypoint-language-source.json'],
     regeneration: ['npm run tokens:generate'],
     requiredValidation: ['node _audit/ci/test-component-lifecycle.mjs', 'npm run verify', 'npm run verify:browser (Linux pixel baselines)'],
     acceptance: 'Preparation only. No release, package publication, tag, commit, push, merge, deployment or support approval is performed.',
@@ -103,6 +105,7 @@ export function verifyTagIdentity(root, { version, sourceSha }, { runGit = git }
 export function prepareRelease(root, options, { runGit = git, regenerate } = {}) {
   const plan = planRelease(root, options, { runGit });
   assert(plan.readyToPrepare, 'Preparation blocked:\n' + plan.blockers.join('\n'));
+  const documentationUpdates=stampReleaseDocumentation(root,plan.currentVersion,options.version);
   const evidenceBefore = read(root, 'components/lifecycle.json');
   const compatibilityBefore = read(root,'components/release-compatibility.json');
   const pkg = json(root, 'package.json'), lock = json(root, 'package-lock.json');
@@ -112,14 +115,7 @@ export function prepareRelease(root, options, { runGit = git, regenerate } = {})
   write(root, 'VERSION', options.version + '\n');
   write(root, 'package.json', JSON.stringify(pkg, null, 2) + '\n');
   write(root, 'package-lock.json', JSON.stringify(lock, null, 2) + '\n');
-  for (const path of plan.authoredStamps.slice(3)) {
-    // These are current consumer instructions; published historical release notes
-    // and earlier evidence remain unchanged and are never relabelled as accepted.
-    const text = read(root, path);
-    const introductionEnd = path.includes('release-notes') || path.includes('ReleaseNotes') ? text.indexOf('\n## ') : -1;
-    const boundary = introductionEnd < 0 ? text.length : introductionEnd;
-    write(root, path, text.slice(0, boundary).replace(new RegExp('(?<![0-9.])' + plan.currentVersion.replaceAll('.', '\\.') + '(?![0-9.])', 'g'), options.version) + text.slice(boundary));
-  }
+  for (const update of documentationUpdates) write(root,update.path,update.after);
   const generate = regenerate || (() => {
     const result = runPinnedNpm(root, ['run', 'tokens:generate'], { stdio: ['ignore', 2, 2] });
     assert(!result.error && !result.signal && result.status === 0, 'Candidate regeneration failed; inspect the disposable checkout; no release was performed');

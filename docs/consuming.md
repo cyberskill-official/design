@@ -1,5 +1,7 @@
 # Consuming & upgrading the CyberSkill Design System
 
+**Source checkout:** VERSION **<!-- cs-source-version:checkout -->1.7.2<!-- /cs-source-version -->** is local source identity, not a registry-availability claim. For an unpublished candidate, validate the reviewed local package tarball or source checkout. Registry commands and sibling inventories below refer to published stable 1.7.2 and are not automatically updated by preparation. Preparation does not authorize publication.
+
 How any project — human-driven or agent-driven — adopts this HTML-first design system, and how to take updates safely. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 **Package name:** `@cyberskill/design` (see `package.json`). Do not treat historical `@cyberskill/react` as the install path for this monolith.
@@ -167,7 +169,7 @@ Portfolio / sibling products that still pin an older `@cyberskill/design` (or a 
 | **Strategem** (ops / status) | Status Hub → Thủy when applicable | Status hub kit: sticky-bar scroll-padding; regenerate status page after task HITL |
 
 Checklist per consumer:
-1. `npm install @cyberskill/design@1.7.2` (or current `VERSION`) — or refresh subtree / `_ds/` bind.
+1. `npm install @cyberskill/design@1.7.2` (published stable package; source candidates use a reviewed local tarball) — or refresh subtree / `_ds/` bind.
 2. Switch static CSS to `dist/styles.min.css` if still on the `@import` waterfall (FIND-017).
 3. Smoke: consumer app build + keyboard Tab to skip link → `#main` on shell pages.
 4. Record the pin in that repo’s lockfile / release notes — not here.

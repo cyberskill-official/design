@@ -38,8 +38,22 @@ try {
   put('scripts/design-md-unreviewed-language.mjs','export const text="private";');
   put('scripts/public-site-policy.json',JSON.stringify({schemaVersion:1,audiences:{diagnostics:{purpose:'Unknown helper fixture',files:['scripts/design-md-unreviewed-language.mjs']}}}));
   assert.throws(()=>loadPublicPolicy(scratch),/Unreviewed public script/);
+  const versionCore='scripts/lib/release-version-core.mjs';
+  const versionSource=readFileSync(join(root,versionCore),'utf8');
+  const docsGate=readFileSync(join(root,'_audit/docs-consistency.html'),'utf8');
+  assert(docsGate.includes("import('../"+versionCore+"')"),'Docs identity gate must consume the canonical browser-safe grammar');
+  assert(!/from\s*['"]node:|\b(?:require|fetch|XMLHttpRequest)\s*\(/.test(versionSource),'Published release grammar has no Node/network dependency');
+  put(versionCore,versionSource);
+  put('scripts/public-site-policy.json',JSON.stringify({schemaVersion:1,audiences:{diagnostics:{purpose:'Reviewed canonical release grammar',files:[versionCore]}}}));
+  assert(loadPublicPolicy(scratch).has(versionCore));
+  for(const privatePath of ['scripts/lib/release-version.mjs','scripts/lib/unreviewed-release-version.mjs']) {
+    put(privatePath,'export const privateSource=true;');
+    put('scripts/public-site-policy.json',JSON.stringify({schemaVersion:1,audiences:{diagnostics:{purpose:'Unreviewed sibling',files:[privatePath]}}}));
+    assert.throws(()=>loadPublicPolicy(scratch),/Unreviewed public script/);
+  }
   const real=loadPublicPolicy(root);const realStage=stagePublicFiles(root);
   assert.equal(real.get(languagePath)?.audience,'diagnostics');
+  assert.equal(real.get(versionCore)?.audience,'diagnostics');
   for(const [path,entry] of real){if(entry.optional&&!existsSync(join(root,path)))continue;assert.deepEqual(readFileSync(join(realStage,path)),readFileSync(join(root,path)),path);}
   assert(!existsSync(join(realStage,'package-lock.json')));
   // A content sidecar is part of the public template contract, including

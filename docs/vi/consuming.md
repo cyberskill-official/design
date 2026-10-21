@@ -1,5 +1,7 @@
 # Tiêu thụ & nâng cấp CyberSkill Design System
 
+**Checkout nguồn:** VERSION **<!-- cs-source-version:checkout -->1.7.2<!-- /cs-source-version -->** là định danh nguồn cục bộ, không xác nhận phiên bản có trên registry. Với bản ứng viên chưa công bố, kiểm chứng tarball gói cục bộ hoặc checkout nguồn đã rà soát. Lệnh registry và inventory sibling bên dưới chỉ bản ổn định 1.7.2 đã công bố, không tự đổi khi chuẩn bị bản phát hành. Chuẩn bị không cấp quyền công bố.
+
 Cách mọi project — do người hoặc agent điều khiển — áp dụng design system HTML-first này, và cách nhận update an toàn. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 **Tên package:** `@cyberskill/design` (xem `package.json`). Không coi `@cyberskill/react` lịch sử là đường cài cho monolith này.
@@ -166,7 +168,7 @@ Sản phẩm portfolio / sibling còn pin `@cyberskill/design` cũ (hoặc subtr
 | **Landing** | Kit website: dùng `.cs-skip` + `--cs-scroll-padding-block-start` |
 | **Strategem** | Kit status hub: scroll-padding sticky bar |
 
-Checklist: cài `@cyberskill/design@1.7.2` (hoặc `VERSION` hiện tại) → smoke Tab skip → `#main` → ghi pin trong lockfile consumer.
+Checklist: cài `@cyberskill/design@1.7.2` (gói ổn định đã công bố; bản ứng viên nguồn dùng tarball cục bộ đã rà soát) → smoke Tab skip → `#main` → ghi pin trong lockfile consumer.
 
 **One-liner sẵn PR (chỉ sửa trong repo consumer):**
 

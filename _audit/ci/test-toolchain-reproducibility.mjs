@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {readFileSync,writeFileSync,mkdtempSync,mkdirSync,rmSync,symlinkSync,chmodSync} from 'node:fs';
+import {readFileSync,writeFileSync,mkdtempSync,mkdirSync,rmSync,symlinkSync,chmodSync,readdirSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {resolve,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -14,6 +14,71 @@ import {serveVerification} from '../../scripts/serve-verification.mjs';
 import {waitVerification} from '../../scripts/wait-verification.mjs';
 const root=fileURLToPath(new URL('../../',import.meta.url)),read=p=>readFileSync(resolve(root,p),'utf8'),pkg=JSON.parse(read('package.json'));
 const expected=pkg.packageManager.slice('npm@'.length);
+// setup-node runs before the pinned npm bootstrap. Its cache discovery must stay off.
+function assertSetupNodeBootstrapOrder(workflow, label) {
+  let count = 0;
+  for (const job of Object.values(workflow.jobs)) {
+    const steps = job.steps || [];
+    for (let index = 0; index < steps.length; index++) {
+      if (!steps[index].uses?.startsWith('actions/setup-node@')) continue;
+      count++;
+      const inputs = steps[index].with || {};
+      assert.equal(inputs['package-manager-cache'], false, 'Disable implicit pre-bootstrap npm caching: ' + label);
+      assert(!Object.hasOwn(inputs, 'cache'), 'No explicit pre-bootstrap package-manager cache: ' + label);
+      assert.equal(steps[index + 1]?.uses, './.github/actions/setup-npm', 'Bootstrap pinned npm immediately after setup-node: ' + label);
+    }
+  }
+  return count;
+}
+const nodeWorkflows = readdirSync(resolve(root, '.github/workflows'))
+  .filter(name => /\.ya?ml$/.test(name))
+  .map(name => ['.github/workflows/' + name, parse(read('.github/workflows/' + name))]);
+let nodeContexts = 0;
+for (const [path, workflow] of nodeWorkflows) nodeContexts += assertSetupNodeBootstrapOrder(workflow, path);
+assert(nodeContexts > 0, 'At least one real setup-node context must be checked');
+const exampleWorkflow = {
+  jobs: {example: {steps: [
+    {uses: 'actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1', with: {'package-manager-cache': false}},
+    {uses: './.github/actions/setup-npm'}
+  ]}}
+};
+for (const mutation of ['explicit', 'implicit', 'enabled', 'order']) {
+  const fixture = structuredClone(exampleWorkflow);
+  const setup = fixture.jobs.example.steps[0];
+  if (mutation === 'explicit') setup.with.cache = 'npm';
+  if (mutation === 'implicit') delete setup.with['package-manager-cache'];
+  if (mutation === 'enabled') setup.with['package-manager-cache'] = true;
+  if (mutation === 'order') fixture.jobs.example.steps.reverse();
+  assert.throws(() => assertSetupNodeBootstrapOrder(fixture, mutation), /pre-bootstrap|immediately/);
+}
+
+// Exercise actual npm devEngines in a temporary copy of this project's full package.
+// The installed locked CLI keeps this regression portable when Node's bundled npm changes.
+const packageBeforeCacheProbe = read('package.json');
+const pinnedCacheCli = resolve(root, '_audit/ci/fixtures/npm-cli/node_modules/npm/bin/npm-cli.js');
+const cacheEngineFixture = mkdtempSync(join(tmpdir(), 'cs-cache-devengines-'));
+try {
+  const fixturePackage = JSON.parse(packageBeforeCacheProbe);
+  assert.equal(fixturePackage.devEngines.packageManager.version, expected);
+  fixturePackage.devEngines.packageManager.version = '0.0.0';
+  writeFileSync(join(cacheEngineFixture, 'package.json'), JSON.stringify(fixturePackage));
+  const rejectedCache = spawnSync(process.execPath, [pinnedCacheCli, 'config', 'get', 'cache'], {cwd: cacheEngineFixture, encoding: 'utf8'});
+  assert.notEqual(rejectedCache.status, 0, 'Cache discovery must enforce the fixture devEngines mismatch');
+  assert.match(rejectedCache.stderr, /EBADDEVENGINES/);
+  assert(rejectedCache.stderr.includes('0.0.0'), 'Failure must identify the controlled fixture requirement');
+  writeFileSync(join(cacheEngineFixture, 'package.json'), packageBeforeCacheProbe);
+  const acceptedCache = spawnSync(process.execPath, [pinnedCacheCli, 'config', 'get', 'cache'], {cwd: cacheEngineFixture, encoding: 'utf8'});
+  assert.equal(acceptedCache.status, 0, 'Identical cache command succeeds after restoring the expected pin');
+  assert(acceptedCache.stdout.trim());
+} finally {
+  rmSync(cacheEngineFixture, {recursive: true, force: true});
+}
+const pinnedCache = runPinnedNpm(root, ['config', 'get', 'cache'], {stdio: 'pipe'});
+assert.equal(pinnedCache.status, 0, 'Actual project cache discovery succeeds through the locked CLI');
+assert(pinnedCache.stdout.trim() && !/[\r\n]/.test(pinnedCache.stdout.trim()));
+assert.equal(read('package.json'), packageBeforeCacheProbe, 'Cache regression must not weaken actual devEngines');
+console.log(`PASS all ${nodeContexts} setup-node contexts disable early caching; actual npm rejects a controlled package mismatch and accepts the restored ${expected} pin`);
+
 // Both documented script names are supported CLI entrypoints for the same producer.
 function assertCssIndexEntrypoints(scripts) {
  assert.equal(scripts['build:css-index'], 'node scripts/generate-css-index.mjs');
@@ -103,6 +168,23 @@ for(const path of ['.github/workflows/design-system-gates.yml','.github/workflow
  assert(!/npx --yes (?:serve|wait-on|@cyclonedx)/.test(read(path)),'No remote execution of formerly unlocked CLI graphs');
 }
 const action=parse(read('.github/actions/setup-npm/action.yml'));assert.equal(action.runs.steps[0].run,'node scripts/bootstrap-toolchain.mjs --github-path');
+assert.equal(action.runs.steps[1].id, 'npm-cache');
+assert(action.runs.steps[1].run.includes("runPinnedNpm(process.cwd(), ['config', 'get', 'cache']"), 'Cache path discovery uses the locked CLI after bootstrap');
+assert.equal(action.runs.steps[2].uses, 'actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9');
+assert.equal(action.runs.steps[2].with.path, '${{ steps.npm-cache.outputs.path }}');
+assert(action.runs.steps[2].with.key.includes("hashFiles('package-lock.json'"), 'Restored downloads remain keyed to maintained locks');
+const cacheOutputFixture = mkdtempSync(join(tmpdir(), 'cs-pinned-cache-output-'));
+try {
+ const outputFile = join(cacheOutputFixture, 'output');
+ writeFileSync(outputFile, '');
+ const cacheStep = spawnSync('bash', ['-e', '-c', action.runs.steps[1].run], {cwd: root, env: {...process.env, GITHUB_OUTPUT: outputFile}, encoding: 'utf8'});
+ assert.equal(cacheStep.status, 0, cacheStep.stderr);
+ assert.equal(readFileSync(outputFile, 'utf8'), 'path=' + pinnedCache.stdout.trim() + '\n', 'Actual composite cache step emits the guarded cache path after bootstrap');
+} finally {
+ rmSync(cacheOutputFixture, {recursive: true, force: true});
+}
+
+
 assert(read('scripts/bootstrap-toolchain.mjs').includes("from 'node:os'"),'Native path delimiter/newline must work on Windows/macOS/Linux');
 assert.equal(findBootstrapNpm({execPath:process.execPath,env:{npm_execpath:cli,PATH:''}}),await import('node:fs').then(fs=>fs.realpathSync(cli)));
 assert.throws(()=>findBootstrapNpm({execPath:join(tmpdir(),'missing-node'),env:{PATH:''}}),/No installed npm CLI/);

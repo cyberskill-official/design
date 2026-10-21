@@ -90,3 +90,7 @@ node _audit/ci/native-store-dry-run.mjs   # thiếu secret → SOFT SKIP missing
 ```
 
 Bộ `npm run test:unit` cần Chromium, Firefox và WebKit. `node _audit/ci/check-ci-browser-prerequisites.mjs` kiểm tra lệnh cài đặt trước entrypoint CI; `npm run test:ci-browser-prerequisites` còn khởi chạy thật cả ba engine. Kiểm tra YAML local không chứng minh CI Linux đã chạy thành công. Các job chỉ chạy gate Chromium vẫn chỉ cần Chromium.
+
+## Cố định npm trước khi cache dependency
+
+Mọi bước `actions/setup-node` đều tắt cả cache npm tường minh và cache package-manager tự động. Action thiết lập npm dùng chung bootstrap CLI đã khóa trước, sau đó xác định đường dẫn cache qua `node scripts/npm.mjs config get cache` và khôi phục các lượt tải npm bằng action cache đã cố định hiện có. `devEngines` và kiểm tra phiên bản chính xác vẫn được thực thi. npm đi kèm Node có thể bootstrap trong fixture CLI riêng; nó không được xác định cache trong project trước khi phiên bản npm bắt buộc hoạt động.

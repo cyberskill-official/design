@@ -577,7 +577,8 @@
     "test:template-numeric-content:browser": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-template-numeric-content-browser.mjs",
     "generate:prompt-languages": "node scripts/generate-prompt-languages.mjs",
     "generate:entrypoint-languages": "node scripts/generate-entrypoint-languages.mjs",
-    "build:component-css-index": "node scripts/generate-css-index.mjs"
+    "build:component-css-index": "node scripts/generate-css-index.mjs",
+    "test:release-documentation": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-release-documentation-browser.mjs"
   },
   "devDependencies": {
     "@babel/parser": "7.29.7",

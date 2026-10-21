@@ -1713,6 +1713,10 @@
     {
       "id": "segmented-alias-contract",
       "command": "node _audit/ci/test-segmented-alias-contract.mjs"
+    },
+    {
+      "id": "release-documentation",
+      "command": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-release-documentation-browser.mjs"
     }
   ]
 }

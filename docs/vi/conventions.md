@@ -79,7 +79,7 @@ phần tử HTML, không dùng trong URL, thuộc tính, CSS hay script.
 
 **Element variant mới** — ở trong envelope oklch của element; đặt 10 token hợp đồng `--cs-accent-*` (gồm `--cs-accent-on-strong` ≥4.5:1 và APCA75 cho nội dung thường trên `-strong`) cộng `--cs-color-text-accent`/`--cs-color-link` (APCA-check cả hai); aurora wash kế thừa từ element qua `.cs-aurora-wash` (chỉ override class rule nếu variant thật sự cần ảnh riêng); đối tác gradient (`grad-b`) phải theo Tương sinh.
 
-**Ship check** — theo gate kiểm chứng portable trong `docs/doctrine.md`, rồi chạy `_audit/docs-consistency.html` **và** `_audit/namespace-portability.html` (cả hai phải xanh). VERSION **1.7.2**.
+**Ship check** — theo gate kiểm chứng portable trong `docs/doctrine.md`, rồi chạy `_audit/docs-consistency.html` **và** `_audit/namespace-portability.html` (cả hai phải xanh). VERSION của checkout nguồn **<!-- cs-source-version:checkout -->1.7.2<!-- /cs-source-version -->**.
 
 ## Decision log (owner duyệt)
 
@@ -359,3 +359,5 @@ Dùng `node scripts/npm.mjs …` để chạy npm CLI đã khóa. Wrapper thêm 
 Khi retry lỗi hạ tầng trình duyệt, log của test giữ record có cấu trúc `CS_BROWSER_RETRY` gồm engine, lần thất bại/lần tiếp theo và nguyên nhân gốc. Giới hạn ba lần không đổi; lỗi assertion không được retry. Retry thành công ghi nhận phục hồi, không chứng minh nguyên nhân crash hay kết luận do thiếu bộ nhớ.
 
 Khi gọi trực tiếp bằng `node scripts/prepare-release.mjs`, bước tái sinh của quy trình chuẩn bị phát hành vẫn dùng trình chạy npm đã khóa. Chạy bootstrap toolchain đã khóa trước; npm khác trong shell không được thay đổi toolchain hay checkout của bản ứng viên. Quy trình giữ nguyên bản ghi phê duyệt và không công bố bản phát hành.
+
+Chuẩn bị bản phát hành chỉ cập nhật tập marker định danh nguồn hữu hạn trong danh sách tài liệu đã rà soát. Marker thiếu, trùng, sai dạng hoặc lỗi thời chặn mọi thao tác ghi phiên bản. Lệnh cài registry, inventory sibling và phần lịch sử phát hành giữ nguyên định danh đã công bố. Checkout chưa công bố hoặc tarball cục bộ đã rà soát không xác nhận phiên bản có trên registry và không cấp quyền công bố.

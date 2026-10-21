@@ -2035,7 +2035,8 @@
         "scripts/design-md-language.mjs",
         "scripts/design-md-lib.mjs",
         "scripts/lib/dtcg-values.mjs",
-        "scripts/lib/oklch.mjs"
+        "scripts/lib/oklch.mjs",
+        "scripts/lib/release-version-core.mjs"
       ]
     }
   },

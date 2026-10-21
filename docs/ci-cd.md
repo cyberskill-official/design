@@ -90,3 +90,7 @@ node _audit/ci/native-store-dry-run.mjs   # without secrets → SOFT SKIP missin
 ```
 
 The complete `npm run test:unit` suite requires Chromium, Firefox and WebKit. `node _audit/ci/check-ci-browser-prerequisites.mjs` checks explicit installation commands before the CI entrypoint; `npm run test:ci-browser-prerequisites` also launches all three engines. Local YAML checks do not establish successful hosted Linux execution. Jobs that only run Chromium gates still require only Chromium.
+
+## Pinned npm before dependency caching
+
+Every `actions/setup-node` step disables both explicit npm caching and its automatic package-manager cache. The shared npm setup action first bootstraps the locked CLI, then discovers the cache path through `node scripts/npm.mjs config get cache` and restores npm downloads with the existing pinned cache action. `devEngines` and exact-version checks remain enforced. The bundled npm can bootstrap in the isolated CLI fixture; it must not run project cache discovery before the required npm version is active.

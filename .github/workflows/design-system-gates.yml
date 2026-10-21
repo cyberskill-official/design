@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
       - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
@@ -74,6 +74,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
+          package-manager-cache: false
       - uses: ./.github/actions/setup-npm
       - name: Verify tokens/native/ is in lockstep with tokens.dtcg.json (fast, no browser)
         run: node _audit/ci/check-token-provenance.mjs
@@ -95,7 +96,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
       - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
@@ -151,7 +152,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
       - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies (esbuild needed by the bundle checker)
         run: npm ci
@@ -177,7 +178,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
       - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
@@ -221,7 +222,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
       - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
@@ -250,7 +251,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
       - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
@@ -281,7 +282,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
       - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
@@ -333,7 +334,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
       - uses: ./.github/actions/setup-npm
       - name: Detect token-related path changes
         id: filter
@@ -394,7 +395,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
       - uses: ./.github/actions/setup-npm
       - name: Detect token-related path changes
         id: filter
@@ -480,6 +481,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
+          package-manager-cache: false
       - uses: ./.github/actions/setup-npm
       - name: Check Figma secrets (soft-skip when empty)
         id: figma_secrets
@@ -549,6 +551,7 @@ jobs:
         with:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
       - uses: ./.github/actions/setup-npm
       - name: Detect npm-hello / package-export path changes
         id: filter
