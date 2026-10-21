@@ -18,7 +18,7 @@ await withBrowserFixture(async page=>{
    const skip=page.locator('a.cs-skip');
    if(await skip.count()){
     await skip.focus();const r=await skip.boundingBox();assert(r.width>=44&&r.height>=44,template.name+' focused skip size');
-    const href=await skip.getAttribute('href');await page.keyboard.press('Enter');assert.equal(new URL(page.url()).hash,href,template.name+' skip destination');skips++;
+    const href=await skip.getAttribute('href');await skip.press('Enter');await page.waitForFunction(expected=>location.hash===expected,href);assert.equal(await page.evaluate(()=>location.hash),href,template.name+' skip destination');skips++;
     await page.evaluate(()=>history.replaceState(null,'',location.pathname));
    }
    const trigger=page.locator('[data-cs-export="trigger"]');

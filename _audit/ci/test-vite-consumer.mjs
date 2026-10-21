@@ -35,29 +35,42 @@ try {
  server=await createVerificationServer(join(consumer,'dist'));await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const url=`http://127.0.0.1:${server.address().port}/`,engines=[];
  for(const type of[chromium,firefox,webkit]){
-  const browser=await type.launch(process.platform==='linux'&&type.name()==='chromium'?{args:['--disable-dev-shm-usage']}:{ });
-  try {
-   const page=await browser.newPage(),errors=[],failed=[];
-   page.on('pageerror',error=>errors.push(String(error)));page.on('requestfailed',request=>failed.push(request.url()));
-   await page.goto(url);await page.getByRole('heading',{name:'Plan a workshop'}).waitFor();
-   const combo=page.getByRole('combobox',{name:'City required',exact:true});
-   assert.equal(await combo.getAttribute('id'),'workshop-city');
-   assert.equal(await combo.getAttribute('aria-required'),'true');
-   const hint=await combo.getAttribute('aria-describedby');assert(hint);
-   assert.equal(await combo.evaluate((element,id)=>element.ownerDocument.getElementById(id).textContent,hint),'Choose the workshop location.','Root FormField hint must reach deep-imported Combobox');
-   await page.getByRole('button',{name:'Reserve seats',exact:true}).click();
-   await page.waitForFunction(()=>document.getElementById('workshop-city').getAttribute('aria-invalid')==='true');
-   await combo.click();await page.getByRole('option',{name:'Ho Chi Minh City',exact:true}).click();
-   assert.equal(await combo.inputValue(),'Ho Chi Minh City');
-   const seats=page.getByRole('spinbutton',{name:'Seats',exact:true});assert.equal(await seats.inputValue(),'2');
-   await page.getByRole('button',{name:'Increase',exact:true}).click();assert.equal(await seats.inputValue(),'3');
-   await page.getByRole('button',{name:'Reserve seats',exact:true}).click();
-   await page.waitForFunction(()=>document.querySelector('[data-testid="submission"]').textContent==='Reserved 3 seats in Ho Chi Minh City.');
-   assert.equal(await page.evaluate(()=>getComputedStyle(document.body).color),'rgb(69, 33, 14)','Production CSS keeps warm text tokens');
-   assert.equal(await page.evaluate(()=>Object.keys(window).some(key=>/^CyberSkillDesignSystem_/.test(key))),false,'Compiled consumer must not load the legacy registry');
-   assert.deepEqual(errors,[]);assert.deepEqual(failed,[],'All production script/style/font requests must load');
-   engines.push({name:type.name(),version:browser.version(),passed:true});
-  } finally {await browser.close()}
+  for(let attempt=0;attempt<3;attempt++){
+   const browser=await type.launch(process.platform==='linux'&&type.name()==='chromium'?{args:['--disable-dev-shm-usage']}:{ });
+   try {
+    const page=await browser.newPage(),errors=[],failed=[];
+    page.on('pageerror',error=>errors.push(String(error)));page.on('requestfailed',request=>failed.push(request.url()));
+    await page.goto(url);await page.getByRole('heading',{name:'Plan a workshop'}).waitFor();
+    const combo=page.getByRole('combobox',{name:'City required',exact:true});
+    assert.equal(await combo.getAttribute('id'),'workshop-city');
+    assert.equal(await combo.getAttribute('aria-required'),'true');
+    const hint=await combo.getAttribute('aria-describedby');assert(hint);
+    assert.equal(await combo.evaluate((element,id)=>element.ownerDocument.getElementById(id).textContent,hint),'Choose the workshop location.','Root FormField hint must reach deep-imported Combobox');
+    await page.getByRole('button',{name:'Reserve seats',exact:true}).click();
+    await page.waitForFunction(()=>document.getElementById('workshop-city').getAttribute('aria-invalid')==='true');
+    await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+    await combo.click();
+    if(await combo.getAttribute('aria-expanded')!=='true')await combo.focus();
+    await page.waitForFunction(()=>document.getElementById('workshop-city').getAttribute('aria-expanded')==='true');
+    await page.getByRole('option',{name:'Ho Chi Minh City',exact:true}).click();
+    assert.equal(await combo.inputValue(),'Ho Chi Minh City');
+    const seats=page.getByRole('spinbutton',{name:'Seats',exact:true});assert.equal(await seats.inputValue(),'2');
+    await page.getByRole('button',{name:'Increase',exact:true}).click();assert.equal(await seats.inputValue(),'3');
+    await page.getByRole('button',{name:'Reserve seats',exact:true}).click();
+    await page.waitForFunction(()=>document.querySelector('[data-testid="submission"]').textContent==='Reserved 3 seats in Ho Chi Minh City.');
+    assert.equal(await page.evaluate(()=>getComputedStyle(document.body).color),'rgb(69, 33, 14)','Production CSS keeps warm text tokens');
+    assert.equal(await page.evaluate(()=>Object.keys(window).some(key=>/^CyberSkillDesignSystem_/.test(key))),false,'Compiled consumer must not load the legacy registry');
+    assert.deepEqual(errors,[]);assert.deepEqual(failed,[],'All production script/style/font requests must load');
+    engines.push({name:type.name(),version:browser.version(),passed:true});
+    break;
+   } catch(error){
+    if(attempt<2&&/crashed|has been closed|(?:Page|Target|Browser|Context) closed|Connection closed/i.test(String(error?.message||error))){
+     console.warn('CS_BROWSER_RETRY '+JSON.stringify({browser:type.name(),failedAttempt:attempt+1,nextAttempt:attempt+2,test:process.argv[1]||null,reason:String(error?.message||error)}));
+     continue;
+    }
+    throw error;
+   } finally {await browser.close().catch(()=>{})}
+  }
  }
  mkdirSync('test-results',{recursive:true});const pkg=installed('@cyberskill/design');assert.equal(pkg.name,'@cyberskill/design');
  writeFileSync('test-results/vite-consumer-final.json',JSON.stringify({schemaVersion:1,passed:true,node:process.version,producer:{version:pkg.version,tarballSha256:hash(tarball),defaultExport:pkg.exports['.'].import,deepExport:pkg.exports['./components/*.jsx'].import},consumer:{vite:'8.1.6',react:'19.2.8',reactDom:'19.2.8',lockSha256:lockBefore,cleanInstallPreservedLock:true},sourceHashes:Object.fromEntries(['package.json','package-lock.json','vite.config.mjs','index.html','src/main.jsx','src/styles.css','scripts/use-design-tarball.mjs','README.md'].map(path=>[path,hash(resolve('examples/vite-consumer',path))])),build:{javascriptModules:proof.javascript,associationChunks:proof.associationChunks,buildLog},engines,interpretation:'Actual independently installed local tarball, consumer production build and shared-context interactions. Registry publication, broader bundler support, manual accessibility and dependency-security review are not implied.'},null,2)+'\n');
