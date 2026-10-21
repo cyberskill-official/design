@@ -14,6 +14,12 @@ export const storybookRootFiles = {
   '/CONTRIBUTING.md': 'CONTRIBUTING.md',
 };
 const storybookStaticDirs = ['fonts', 'assets', 'base', 'tokens', 'guidelines', 'templates', 'ui_kits', '_audit', 'docs'];
+// Exact generated trees from maintained fixture manifests and locks. Authored
+// fixture sources remain hashed; arbitrary node_modules paths are not exempt.
+export const storybookGeneratedDependencies = [
+  '_audit/ci/fixtures/npm-cli/node_modules',
+  '_audit/ci/fixtures/style-dictionary/node_modules',
+];
 export const storybookBuildInputs = [
   ...publicSources,
   ...Object.values(storybookRootFiles), ...storybookStaticDirs,

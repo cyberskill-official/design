@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { lstatSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { storybookBuildInputs } from './storybook-inputs.mjs';
+import { storybookBuildInputs, storybookGeneratedDependencies } from './storybook-inputs.mjs';
 
 export function toolchainIdentity() {
   return { node: process.version, platform: process.platform, arch: process.arch };
@@ -30,7 +30,7 @@ export function fingerprint(root, inputs, identity = {}, exclude = []) {
   return { hash: hash.digest('hex'), entries: paths.size };
 }
 export function sourceFingerprint(root, identity = toolchainIdentity()) {
-  return fingerprint(root, storybookBuildInputs, identity);
+  return fingerprint(root, storybookBuildInputs, identity, storybookGeneratedDependencies);
 }
 export function outputFingerprint(root) {
   return fingerprint(join(root, 'storybook-static'), [''], {}, ['.cs-freshness.json']);

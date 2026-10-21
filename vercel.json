@@ -1,7 +1,7 @@
 {
   "framework": null,
-  "installCommand": "npm install",
-  "buildCommand": "npm run build:site",
+  "installCommand": "node scripts/bootstrap-toolchain.mjs && node scripts/npm.mjs ci",
+  "buildCommand": "node scripts/npm.mjs run build:site",
   "outputDirectory": ".vercel-static",
   "cleanUrls": false,
   "trailingSlash": false,

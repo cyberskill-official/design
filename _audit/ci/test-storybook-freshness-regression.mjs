@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
-import { storybookBuildInputs } from '../../scripts/storybook-inputs.mjs';
-import { sourceFingerprint, outputFingerprint, toolchainIdentity, verifyFreshness } from '../../scripts/storybook-fingerprint.mjs';
+import { storybookBuildInputs, storybookGeneratedDependencies } from '../../scripts/storybook-inputs.mjs';
+import { fingerprint, sourceFingerprint, outputFingerprint, toolchainIdentity, verifyFreshness } from '../../scripts/storybook-fingerprint.mjs';
 import { stampStorybook } from '../../scripts/stamp-storybook-freshness.mjs';
 const root = mkdtempSync(join(tmpdir(), 'cs-storybook-freshness-'));
 const put = (path, text = 'fixture') => { mkdirSync(dirname(join(root, path)), { recursive: true }); writeFileSync(join(root, path), text); };
@@ -18,6 +18,9 @@ try {
     'tokens/colors.css', 'base/a11y.css', 'docs/consuming.md', 'templates/demo/index.html',
     'assets/logo.png', 'fonts/font.woff2', 'guidelines/atomic.html', 'ui_kits/site/index.html',
     '_vendor/react.js', '_esm/react.mjs', '_audit/run.html', 'templates/demo/.thumbnail',
+    '_audit/ci/fixtures/npm-cli/package.json', '_audit/ci/fixtures/npm-cli/package-lock.json',
+    '_audit/ci/fixtures/style-dictionary/package.json', '_audit/ci/fixtures/style-dictionary/package-lock.json',
+    '_audit/ci/test-toolchain-reproducibility.mjs',
   ];
   for (const path of fixtures) put(path);
   put('storybook-static/index.html');
@@ -52,7 +55,32 @@ try {
   symlinkSync(join(root, 'unrelated-local-note.txt'), join(root, 'assets/external'));
   assert.throws(() => sourceFingerprint(root), /symbolic link/);
   rmSync(join(root, 'assets/external'));
+  assert.deepEqual(storybookGeneratedDependencies, [
+    '_audit/ci/fixtures/npm-cli/node_modules',
+    '_audit/ci/fixtures/style-dictionary/node_modules',
+  ]);
+  for (const dependencies of storybookGeneratedDependencies) {
+    put(`${dependencies}/package/index.js`, 'installed dependency');
+    mkdirSync(join(root, dependencies, '.bin'), { recursive: true });
+    symlinkSync(join(root, 'unrelated-local-note.txt'), join(root, dependencies, '.bin/npm'));
+    assert.deepEqual(sourceFingerprint(root), source, 'Generated tool dependencies and their internal bin symlink do not change source identity');
+    put(`${dependencies}/package/index.js`, 'changed installed dependency');
+    verifyFreshness(root, stamp);
+    assert.throws(() => fingerprint(root, [dependencies]), /symbolic link/, 'Generic fingerprint still rejects dependency symlinks without explicit exclusions');
+    rmSync(join(root, dependencies), { recursive: true, force: true });
+    assert.deepEqual(sourceFingerprint(root), source, 'Clean and installed fixture states have identical source fingerprints');
+  }
+  for (const lookalike of [
+    '_audit/ci/fixtures/npm-cli/node_modules-review',
+    '_audit/ci/fixtures/style-dictionary/node_modules.backup',
+    '_audit/ci/fixtures/unreviewed-tool',
+  ]) {
+    mkdirSync(join(root, lookalike), { recursive: true });
+    symlinkSync(join(root, 'unrelated-local-note.txt'), join(root, lookalike, 'external'));
+    assert.throws(() => sourceFingerprint(root), /symbolic link/, 'Only the two exact generated paths are excluded: ' + lookalike);
+    rmSync(join(root, lookalike), { recursive: true, force: true });
+  }
   const actual = stampStorybook(root, source);
   verifyFreshness(root, actual);
-  console.log('PASS Storybook freshness regression: source/binary/hidden changes, additions/removals, toolchain, output integrity, mid-build mutation, legacy stamps and symlinks');
+  console.log('PASS Storybook freshness regression: source/binary/hidden changes, authored fixture manifests/locks/scripts, exact generated tool-tree exclusions, additions/removals, toolchain, output integrity, mid-build mutation, legacy stamps and rejected unrelated symlinks');
 } finally { rmSync(root, { recursive: true, force: true }); }
