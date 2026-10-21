@@ -362,3 +362,5 @@ Release preparation updates only the finite source-identity markers in its revie
 Inside `.cs-canvas-desk`, authored fixed-column grids retain their columns, including `repeat(4,minmax(0,1fr))`. The desk provides horizontal scrolling below its fixed canvas width; ordinary screen grids outside the desk still collapse at the documented responsive breakpoints. Keep slide content within its authored 16:9 bounds in both languages rather than stacking its internal columns at phone widths.
 
 Release preparation captures Git output with a bounded64MiB buffer so generated binary patches above1MiB remain complete; subprocess failures and exact patch-hash checks still fail closed.
+
+Legacy export validation uses the canonical release-version parser, including prereleases while rejecting build metadata. Only the VERSION export may contain a version string; other generated exports remain direct CS references. Repeated version-comment stamping is idempotent, and malformed versions or extra code fail closed.
