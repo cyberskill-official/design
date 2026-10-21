@@ -14,7 +14,7 @@ Các thay đổi này thuộc working tree đang sửa đổi. Đây chưa phả
 - Bản xuất DOCX giữ tỉ lệ cột grid đã được trình duyệt tính, tránh ép đoạn nội dung rộng vào các ô bằng nhau. Các ca hồi quy trên ba trình duyệt và bản render văn phòng EN/VI theo ngày được giữ làm bằng chứng; cú pháp chưa được tính và độ trung thực của toàn bộ bố cục CSS nằm ngoài hợp đồng này. Việc làm tròn phần lẻ giữ độ rộng cột cuối rất hẹp không âm và bảo toàn tổng độ rộng bảng.
 - Pilot FAQ cục bộ hiện tại của Practice dùng package có dấu vân tay chính xác, kèm hồ sơ chuyển đổi và rollback. Bằng chứng theo ngày gồm 36 trường hợp trình duyệt, 18 phạm vi tương phản chữ trên nền phẳng, 12 lần quét axe cho con trỏ thô và bốn lần đo tài nguyên khi tải nguội theo ngưỡng cục bộ đã được phê duyệt. Các kết quả này không xác nhận hiệu năng thực tế, lời đọc của công nghệ hỗ trợ, nghiệm thu hình ảnh hay triển khai production.
 
-- Stephen Cheng phê duyệt chính sách hỗ trợ và bảo trì ngày 14 tháng 10 năm 2026 và được ghi nhận là owner kiêm reviewer (`2026-10-17T02:54:39.000Z`) của cả 123 hồ sơ hỗ trợ (`118` component `stable`, `1` component `preview` là `Editor`, `3` hằng số `stable`, và `1` hằng số `preview` là `EDITOR_SCHEMA`). Trách nhiệm hằng tháng và hằng quý được ghi trong [Quy ước](conventions.md). Việc review hồ sơ hỗ trợ không xác nhận nghiệm thu thị giác sản phẩm, công nghệ hỗ trợ thủ công hay phê duyệt phát hành.
+- Hồ sơ lịch sử: Stephen Cheng phê duyệt chính sách hỗ trợ ngày 14 tháng 10 năm 2026; hồ sơ ngày 17 tháng 10 ghi nhận 123 export đã được review. Review có ngày này không phê duyệt bằng chứng đã thay đổi. Hash nguồn và trạng thái hiện tại trong `components/lifecycle.json` quyết định yêu cầu review lại; nghiệm thu thị giác, công nghệ hỗ trợ thủ công và phát hành vẫn tách biệt.
 
 - AlertDialog cho thao tác phá hủy đặt focus ban đầu vào Hủy; hộp xác nhận thông thường đặt focus vào Xác nhận. Thứ tự ưu tiên `tone`/`variant`, callback, đóng bằng Escape và trả focus được giữ lại. Chính sách đã được operator phê duyệt vẫn cần bằng chứng kiểm tra hiện tại trên trình duyệt và công nghệ hỗ trợ.
 - Các control chọn dạng popup tùy chỉnh (`Combobox`, `DatePicker`, `TimePicker`, `ColorPicker`, `Cascader` và `TreeSelect`) hỗ trợ `"aria-labelledby"` trên cả nút mở và vùng popup để liên kết trực tiếp với nhãn trường bên ngoài mà không lặp chuỗi `aria-label`.
@@ -26,11 +26,17 @@ Các thay đổi này thuộc working tree đang sửa đổi. Đây chưa phả
 3. Kiểm tra nội dung Editor đã lưu cùng luồng paste/drop theo ranh giới tin cậy HTML đã khai báo. `unsafeHtml` không cho phép chèn markup thực thi mã. Kiểm tra định dạng được phép trong quy trình soạn thảo thực tế.
 4. Kiểm tra overlay lồng nhau, phạm vi ngôn ngữ khi mount trễ hoặc dùng portal, theme light/dark/system, vùng chạm và trạng thái lỗi/loading trong sản phẩm thực tế. Với tài liệu, so sánh nội dung, tài nguyên, phân trang và bản export trong ứng dụng đích. Ghi candidate, môi trường, bằng chứng và kết luận của owner cho cả hai pilot.
 
-Release vẫn chờ nghiệm thu thị giác của con người, kiểm tra native/công nghệ hỗ trợ thủ công bắt buộc, quyết định về nguồn gốc tài nguyên và nghiệm thu hiện vật pilot đã thay đổi; toàn bộ 123 hồ sơ hỗ trợ theo từng export trong `components/lifecycle.json` đã được review (`2026-10-17T02:54:39.000Z`). EN/VI là phạm vi ngôn ngữ mục tiêu; tiếng Nhật vẫn là spike chưa đầy đủ. Ghi chú này không cho phép mở rộng cam kết hỗ trợ, deprecate hay loại bỏ API.
+Release vẫn chờ nghiệm thu thị giác của con người, kiểm tra native/công nghệ hỗ trợ thủ công bắt buộc, quyết định về nguồn gốc tài nguyên và nghiệm thu hiện vật pilot đã thay đổi. Bằng chứng hỗ trợ đã thay đổi phải được review lại trong `components/lifecycle.json`. EN/VI là phạm vi ngôn ngữ mục tiêu; tiếng Nhật vẫn là spike chưa đầy đủ. Ghi chú này không cho phép mở rộng cam kết hỗ trợ, deprecate hay loại bỏ API.
 
 ## Release — `@cyberskill/design@1.7.2`
 
-Hoàn tất kiểm toán độc lập năm miền, review đầy đủ cả 123 hồ sơ hỗ trợ component/hằng số trong `components/lifecycle.json`, đồng bộ baseline hình ảnh Linux (`_audit/baselines/`), bổ sung `"aria-labelledby"` cho các bộ chọn biểu mẫu tùy chỉnh và chạy song song kiểm thử CI trên ba trình duyệt Chromium, Firefox và WebKit.
+Đính chính định danh (ngày 21 tháng 10 năm 2026): npm phát hành package này lúc **2026-08-13T08:50:39.579Z**. Annotated tag từ remote `v1.7.2` trỏ tới commit `792b503e71c115d76f26eb4721cc4b04a9b6e6c3`, khớp với `gitHead` do registry công bố. Trang GitHub release ghi thời điểm xuất bản **2026-10-19T13:32:00Z**; ngày của trang này không thay đổi nội dung package. Đây là metadata định danh được quan sát, chưa phải xác minh nguồn gốc bằng mật mã độc lập.
+
+Các sửa đổi tháng 10 bên dưới thuộc công việc repository sau đó, chưa phát hành; không mô tả package tháng 8. Owner đã chọn chuẩn bị **`2.0.0-alpha.0`**; tại thời điểm đính chính, phiên bản này chưa được phát hành hay gắn tag, và vẫn phải qua các gate review nguồn, tương thích và nghiệm thu.
+
+Tóm tắt tháng 10 đã được thay thế, giữ lại dưới dạng trích dẫn lịch sử:
+
+> Hoàn tất kiểm toán độc lập năm miền, review đầy đủ cả 123 hồ sơ hỗ trợ component/hằng số trong `components/lifecycle.json`, đồng bộ baseline hình ảnh Linux (`_audit/baselines/`), bổ sung `"aria-labelledby"` cho các bộ chọn biểu mẫu tùy chỉnh và chạy song song kiểm thử CI trên ba trình duyệt Chromium, Firefox và WebKit.
 
 ```bash
 npm install @cyberskill/design@1.7.2

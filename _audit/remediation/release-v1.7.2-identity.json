@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "observedDate": "2026-10-21",
+  "package": "@cyberskill/design",
+  "version": "1.7.2",
+  "registryPublishedAt": "2026-08-13T08:50:39.579Z",
+  "registryGitHead": "792b503e71c115d76f26eb4721cc4b04a9b6e6c3",
+  "registryIntegrity": "sha512-/j4HntlU0eS7tQ6pwJi+H8Pq7ONitMfLCP/qNykO+XtFOVOOnVDsjsAOeFpWPEvm8mZlPUS7ckT3PlAeap+v9w==",
+  "tagObject": "a154c19ffdd73e6ce68ce22ef4b089b4d63b9f22",
+  "tagCommit": "792b503e71c115d76f26eb4721cc4b04a9b6e6c3",
+  "githubRelease": {
+    "body": "## @cyberskill/design@1.7.2\n\n- **Five-Domain Audit Closure:** Resolved all audit defects across tokens/native projections, components/types/a11y, templates/DOCX/print/email, docs/Storybook/public site, and CI/packaging/gate board.\n- **Lifecycle & Support Governance:** Reviewed and stamped all 123 component and constant support records in `components/lifecycle.json` with SHA-256 evidence verification.\n- **Custom Form Picker Accessibility (`R2-02`):** Added `\"aria-labelledby\"` support to `Combobox`, `DatePicker`, `TimePicker`, `ColorPicker`, `Cascader`, and `TreeSelect` across both trigger controls and open popup surfaces.\n- **Linux Visual Baselines:** Synchronized all 15 PNG visual baselines in `_audit/baselines/` with deterministic Linux Chromium rendering.\n- **3-Browser CI Acceleration:** Memoized canvas color parsing and parallelized Chromium, Firefox, and WebKit execution in `test-paper-text-contrast-browser.mjs` (~6x speedup) and across 31 multi-engine browser test scripts via `_audit/ci/lib/run-browsers.mjs`.\n- **Dependabot Grouping:** Configured grouped weekly updates in `.github/dependabot.yml`.",
+    "createdAt": "2026-08-13T08:50:09Z",
+    "publishedAt": "2026-10-19T13:32:00Z",
+    "tagName": "v1.7.2",
+    "targetCommitish": "main",
+    "url": "https://github.com/cyberskill-official/design/releases/tag/v1.7.2"
+  },
+  "previousBodySha256": "6c2661aab3575bd5f790742ffc1ea9c2d6daf922252e26b6311dc10892784f8e",
+  "verificationScope": "Observed remote tag and registry metadata; no independent cryptographic provenance verification.",
+  "selectedUnpublishedCandidate": "2.0.0-alpha.0"
+}
