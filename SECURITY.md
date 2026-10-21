@@ -31,6 +31,16 @@ issue and the available fix. The target covers reporting and coordination for
 this design-system package, not consumer applications or upstream services.
 <!-- END GENERATED SECURITY SUPPORT -->
 
+The development lockfile resolves Vite **8.1.6**, the patched 8.1.x version for
+[GHSA-587h-7wmj-h5pm](https://github.com/advisories/GHSA-587h-7wmj-h5pm).
+Keep the complete dependency audit separate from this specific update; a version
+floor alone does not establish that future dependency resolutions are safe.
+
+Lockfile phát triển dùng Vite **8.1.6**, phiên bản 8.1.x đã sửa
+[GHSA-587h-7wmj-h5pm](https://github.com/advisories/GHSA-587h-7wmj-h5pm).
+Giữ kết quả audit toàn bộ dependency riêng với cập nhật cụ thể này; mức phiên bản
+tối thiểu không chứng minh mọi lần phân giải dependency về sau đều an toàn.
+
 ## Public surfaces
 
 The hosted site ships `_audit/` gate tooling intentionally — Storybook Status embeds `_audit/run.html` full-bleed. Treat audit harnesses as public documentation, not a private control plane.
