@@ -26,7 +26,7 @@ export async function scanStoryDocument(page, axeUrl) {
       const knownHiddenWrapper=node.matches('.sb-preparing-story.sb-wrapper,.sb-preparing-docs.sb-wrapper,.sb-nopreview.sb-wrapper,.sb-errordisplay.sb-wrapper')&&getComputedStyle(node).display==='none';
       const docs=node.id==='storybook-docs'&&node.hidden;
       const highlights=node.id==='storybook-highlights-root';
-      const vision=node.id==='storybook-a11y-vision-filters'&&node.tagName.toLowerCase()==='svg'&&getComputedStyle(node).display==='none';
+      const vision=node.id==='storybook-a11y-vision-filters'&&node.tagName.toLowerCase()==='svg'&&(getComputedStyle(node).display==='none'||(node.getAttribute('aria-hidden')==='true'&&getComputedStyle(node).position==='absolute'&&getComputedStyle(node).overflow==='hidden'&&node.getBoundingClientRect().width===0&&node.getBoundingClientRect().height===0));
       if(!knownHiddenWrapper&&!docs&&!highlights&&!vision)unknown.push({tag:node.tagName,id:node.id,html:node.outerHTML.slice(0,500)});
     }
     const serialize=result=>({violations:result.violations,incomplete:result.incomplete,passes:result.passes.map(r=>({id:r.id,nodes:r.nodes.length})),inapplicable:result.inapplicable.map(r=>r.id)});
