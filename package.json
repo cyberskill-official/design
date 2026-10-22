@@ -581,7 +581,7 @@
     "test:release-documentation": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-release-documentation-browser.mjs"
   },
   "devDependencies": {
-    "@babel/parser": "7.29.7",
+    "@babel/parser": "8.0.7",
     "@csstools/css-syntax-patches-for-csstree": "1.1.15",
     "@jridgewell/trace-mapping": "0.3.31",
     "@storybook/addon-a11y": "^10.5.4",
