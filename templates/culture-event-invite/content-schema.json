@@ -6,7 +6,20 @@
       "id": "imagePlaceholder",
       "type": "text",
       "label": "Image authoring placeholder",
-      "maxLength": 80
+      "maxLength": 80,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "image-slot",
+          "attribute": "placeholder"
+        },
+        {
+          "tag": "image-slot",
+          "attribute": "placeholder-vi"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     }
   ]
 }

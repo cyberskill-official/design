@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "styles": {
+    "footerLink": {
+      "color": "var(--cs-color-link)"
+    },
+    "invitationEyebrow": {
+      "position": "relative",
+      "font-size": "12px",
+      "font-weight": "700",
+      "text-transform": "uppercase",
+      "letter-spacing": "0.14em",
+      "color": "var(--cs-accent-bright)"
+    },
+    "invitationTitle": {
+      "position": "relative",
+      "font-size": "30px",
+      "font-weight": "800",
+      "letter-spacing": "-0.02em",
+      "margin": "8px 0 6px"
+    },
+    "invitationSubtitle": {
+      "position": "relative",
+      "font-size": "15px",
+      "opacity": "0.9",
+      "margin": "0"
+    }
+  },
+  "templates": [
+    {
+      "template": "culture-event-invite",
+      "path": "templates/culture-event-invite/CultureEventInvite.dc.html",
+      "branchIndex": 0,
+      "owners": [
+        {
+          "language": "en",
+          "path": [
+            1
+          ],
+          "tag": "div",
+          "role": "invitationEyebrow",
+          "attributes": {},
+          "text": "You're invited"
+        },
+        {
+          "language": "en",
+          "path": [
+            3
+          ],
+          "tag": "h1",
+          "role": "invitationTitle",
+          "attributes": {},
+          "text": "Mid-Autumn studio night"
+        },
+        {
+          "language": "en",
+          "path": [
+            5
+          ],
+          "tag": "p",
+          "role": "invitationSubtitle",
+          "attributes": {},
+          "text": "Lanterns, bánh trung thu, and the yearly demo-anything hour"
+        },
+        {
+          "language": "vi",
+          "path": [
+            3
+          ],
+          "tag": "div",
+          "role": "invitationEyebrow",
+          "attributes": {},
+          "text": "Mời bạn tham dự"
+        },
+        {
+          "language": "vi",
+          "path": [
+            5
+          ],
+          "tag": "h1",
+          "role": "invitationTitle",
+          "attributes": {},
+          "text": "Đêm Trung thu của studio"
+        },
+        {
+          "language": "vi",
+          "path": [
+            7
+          ],
+          "tag": "p",
+          "role": "invitationSubtitle",
+          "attributes": {},
+          "text": "Lồng đèn, bánh trung thu, và giờ demo-mọi-thứ thường niên"
+        }
+      ]
+    },
+    {
+      "template": "email",
+      "path": "templates/email/Email.dc.html",
+      "branchIndex": 1,
+      "owners": [
+        {
+          "language": "en",
+          "path": [
+            1,
+            1
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Unsubscribe"
+        },
+        {
+          "language": "en",
+          "path": [
+            1,
+            3
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Preferences"
+        },
+        {
+          "language": "vi",
+          "path": [
+            3,
+            1
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Huỷ đăng ký"
+        },
+        {
+          "language": "vi",
+          "path": [
+            3,
+            3
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Tuỳ chọn"
+        }
+      ]
+    },
+    {
+      "template": "marketing-launch",
+      "path": "templates/marketing-launch/MarketingLaunch.dc.html",
+      "branchIndex": 2,
+      "owners": [
+        {
+          "language": "en",
+          "path": [
+            1
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Unsubscribe"
+        },
+        {
+          "language": "vi",
+          "path": [
+            3
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Huỷ đăng ký"
+        }
+      ]
+    },
+    {
+      "template": "marketing-newsletter",
+      "path": "templates/marketing-newsletter/MarketingNewsletter.dc.html",
+      "branchIndex": 4,
+      "owners": [
+        {
+          "language": "en",
+          "path": [
+            1
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Preferences"
+        },
+        {
+          "language": "en",
+          "path": [
+            3
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Unsubscribe"
+        },
+        {
+          "language": "vi",
+          "path": [
+            3
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Tuỳ chọn"
+        },
+        {
+          "language": "vi",
+          "path": [
+            5
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Huỷ đăng ký"
+        }
+      ]
+    },
+    {
+      "template": "tech-release-notes",
+      "path": "templates/tech-release-notes/TechReleaseNotes.dc.html",
+      "branchIndex": 1,
+      "owners": [
+        {
+          "language": "en",
+          "path": [
+            1
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Status Hub"
+        },
+        {
+          "language": "en",
+          "path": [
+            3
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Unsubscribe"
+        },
+        {
+          "language": "vi",
+          "path": [
+            3
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Status Hub"
+        },
+        {
+          "language": "vi",
+          "path": [
+            5
+          ],
+          "tag": "a",
+          "role": "footerLink",
+          "attributes": {
+            "class": "cs-touch-target",
+            "href": "#"
+          },
+          "text": "Huỷ đăng ký"
+        }
+      ]
+    }
+  ]
+}

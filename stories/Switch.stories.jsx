@@ -6,6 +6,7 @@ export default {
   component: Switch,
   tags: ['autodocs'],
   argTypes: {
+  "required": {"control":"boolean"},
     lang: { control: 'select', options: ['en', 'vi'] },
 
   "label": {
@@ -15,13 +16,6 @@ export default {
     "control": "boolean"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Switch. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { lang: 'vi', label: 'Dark mode', defaultChecked: false },
 };
 

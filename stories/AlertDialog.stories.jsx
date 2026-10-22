@@ -1,8 +1,9 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import React from 'react';
 import { AlertDialog } from '../components/overlays/AlertDialog.jsx';
 import { Button } from '../components/button/Button.jsx';
 
-const TONES = ['default', 'destructive'];
+const TONES = DECLARED_DOMAINS.AlertDialog["variant"];
 
 export default {
   title: 'Components/Overlays/AlertDialog',
@@ -21,14 +22,6 @@ export default {
     onConfirm: { control: false },
     onCancel: { control: false },
     onOpenChange: { control: false },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting AlertDialog. Portable consumers use styles.css + bundle, not Storybook. `tone` and `variant` are aliases (`destructive` styles the confirm action).',
-      },
-    },
   },
   args: {
     title: 'Delete workspace?',

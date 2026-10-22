@@ -1,3 +1,4 @@
+import type { RootTargetProps } from "../_utils/target-props";
 import type * as React from "react";
 import type { ReactNode } from "react";
 
@@ -9,6 +10,8 @@ import type { ReactNode } from "react";
  * calculate calibrated confidence, verify sources or establish approval.
  */
 export interface ConfidenceMeterProps {
+  /** Attributes for the existing div root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: RootTargetProps<HTMLDivElement>;
   value?: number;
   level?: "low" | "medium" | "high";
   /** Whole segment count; finite fractions round down, minimum 1. Zero and invalid/nonfinite or unrepresentable counts use 5. */
@@ -20,4 +23,4 @@ export interface ConfidenceMeterProps {
   className?: string;
 }
 
-export function ConfidenceMeter(props: ConfidenceMeterProps): React.ReactElement;
+export const ConfidenceMeter: React.ForwardRefExoticComponent<React.PropsWithoutRef<ConfidenceMeterProps> & React.RefAttributes<HTMLDivElement>>;

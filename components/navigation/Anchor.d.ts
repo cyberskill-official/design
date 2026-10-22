@@ -9,4 +9,4 @@ export interface AnchorProps extends Omit<React.HTMLAttributes<HTMLElement>, "ti
   title?: ReactNode;
   className?: string;
 }
-export function Anchor(props: AnchorProps): React.ReactElement;
+export const Anchor: React.ForwardRefExoticComponent<React.PropsWithoutRef<AnchorProps> & React.RefAttributes<HTMLElement>>;

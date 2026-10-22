@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/data/DescriptionList.jsx"],
+  "sourcesContent": ["import { useComposedRefs } from \"../_utils/refs.js\";\nimport React from \"react\";\nimport { cx } from \"../_utils/cx.js\";\n\n/** CyberSkill DescriptionList — term/value metadata grid. */\nexport const DescriptionList = React.forwardRef(function DescriptionList({ items = [], className, ...props }, forwardedRef) {\n  const mergedNativeRef = useComposedRefs(forwardedRef);\n  return (\n    <dl className={cx(\"cs-dl\", className)} {...props} ref={mergedNativeRef} >\n      {items.map((it, i) => (\n        <div key={i}>\n          <dt>{it.term}</dt>\n          <dd>{it.value}</dd>\n        </div>\n      ))}\n    </dl>\n  );\n});\nDescriptionList.displayName = \"DescriptionList\";\n"],
+  "mappings": ";;;;;;;;;AACA,OAAO,WAAW;AAIX,IAAM,kBAAkB,MAAM,WAAW,SAASA,iBAAgB,EAAE,QAAQ,CAAC,GAAG,WAAW,GAAG,MAAM,GAAG,cAAc;AAC1H,QAAM,kBAAkB,gBAAgB,YAAY;AACpD,SACE,oCAAC,QAAG,WAAW,GAAG,SAAS,SAAS,GAAI,GAAG,OAAO,KAAK,mBACpD,MAAM,IAAI,CAAC,IAAI,MACd,oCAAC,SAAI,KAAK,KACR,oCAAC,YAAI,GAAG,IAAK,GACb,oCAAC,YAAI,GAAG,KAAM,CAChB,CACD,CACH;AAEJ,CAAC;AACD,gBAAgB,cAAc;",
+  "names": ["DescriptionList"]
+}

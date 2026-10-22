@@ -6,13 +6,14 @@
 //     read from _ds_manifest.json — the manifest and bundle must never drift)
 //   • React is NOT bundled: modules reference the global React provided by the
 //     consumer (script tags, or _esm/cs.mjs which self-ensures React 19.2.8 (umd-react))
-//   • every source module is wrapped in its own try/IIFE with a `// <path>`
-//     marker and pushes load errors onto <namespace>.__errors
+//   • every source module is wrapped in its own try/IIFE and pushes load
+//     errors onto <namespace>.__errors; authored paths survive in source maps
 //   • modules share values through a private __ds_scope object; ESM imports
 //     between sources become destructured reads of that scope (dependencies are
 //     ordered first, so values exist at read time)
 //   • exports whose names start with an uppercase letter are exposed on the
-//     namespace; lowercase exports stay scope-internal (header lists them under
+//     namespace; explicitly registered publicHooks are also exposed. Other
+//     lowercase exports stay scope-internal (header lists them under
 //     unexposedExports)
 //   • line 1 is a `/* @ds-bundle: {...} */` JSON header: format 4, namespace,
 //     components (name + sourcePath), sourceHashes (first 12 hex chars of the
@@ -28,9 +29,12 @@ import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, posix, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { transformSync } from "esbuild";
+import MagicString from "magic-string";
+import {parse} from "@babel/parser";
 
 export const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export const BUNDLE_PATH = join(REPO_ROOT, "_ds_bundle.js");
+export const BUNDLE_MAP_PATH = join(REPO_ROOT, "_ds_bundle.js.map");
 
 /** Public library sources only (FIND-025). UI kits + image-slot stay authoring-local. */
 const SOURCE_DIRS = ["components"];
@@ -92,13 +96,39 @@ function rewriteModule(sourcePath, source) {
   const scopeReads = [];
   const exports = [];
   const lines = source.split("\n");
-  const out = [];
+  const mapped = new MagicString(source);
+  // Keep significant literal whitespace, but encode it rather than emitting
+  // trailing spaces in generated lines (the authored logo data uses these).
+  const visit = (node, parent) => {
+    if (!node || typeof node !== "object") return;
+    if (node.type === "TemplateLiteral" && !node.expressions.length && parent?.type !== "TaggedTemplateExpression" && /[ \t]+\r?\n/.test(node.quasis[0].value.raw)) {
+      mapped.overwrite(node.start, node.end, JSON.stringify(node.quasis[0].value.cooked));
+    }
+    for (const [key, value] of Object.entries(node)) {
+      if (["loc", "start", "end"].includes(key)) continue;
+      if (Array.isArray(value)) for (const child of value) visit(child, node);
+      else if (value && typeof value === "object") visit(value, node);
+    }
+  };
+  visit(parse(source, {sourceType: "module", plugins: ["jsx"]}));
+  let offset = 0;
 
   for (const line of lines) {
+    const start = offset;
+    offset += line.length + 1;
+    const end = Math.min(offset, source.length);
     const im = line.match(IMPORT_RE);
     if (im) {
       const [, defaultName, named, spec] = im;
+      mapped.remove(start, end);
       if (spec === "react") continue; // global React — never bundled
+      if (spec === "react-dom") {
+        if (defaultName || named?.trim() !== "createPortal") throw new Error(`${sourcePath}: only the named createPortal ReactDOM peer import is supported`);
+        // Some legacy consumers load ReactDOM after this bundle. Resolve the
+        // peer when a portal is actually requested, preserving SSR evaluation.
+        scopeReads.push('const createPortal = (...args) => { if (typeof ReactDOM === "undefined" || typeof ReactDOM.createPortal !== "function") throw new Error("ReactDOM.createPortal peer is required to render a portal"); return ReactDOM.createPortal(...args); };');
+        continue;
+      }
       if (!spec.startsWith(".")) throw new Error(`${sourcePath}: unsupported external import "${spec}"`);
       const depPath = posix.join(posix.dirname(sourcePath), spec);
       deps.push(depPath);
@@ -122,21 +152,22 @@ function rewriteModule(sourcePath, source) {
     const decl = line.match(/^export\s+(async\s+function|function|const|let|var|class)\s+([A-Za-z_$][\w$]*)/);
     if (decl) {
       exports.push({ name: decl[2], kind: "named" });
-      out.push(line.replace(/^export\s+/, ""));
+      mapped.remove(start, start + line.match(/^export\s+/)[0].length);
       continue;
     }
 
     const dflt = line.match(/^export\s+default\s+([A-Za-z_$][\w$]*);?\s*$/);
     if (dflt) {
       exports.push({ name: dflt[1], kind: "default" });
+      mapped.remove(start, end);
       continue; // the identifier already exists; scope assignment re-exposes it
     }
     if (/^export[\s{]/.test(line)) throw new Error(`${sourcePath}: unsupported export syntax: ${line.trim()}`);
 
-    out.push(line);
   }
 
-  return { code: [...scopeReads, ...out].join("\n"), exports, deps };
+  if (scopeReads.length) mapped.prepend(scopeReads.join("\n") + "\n");
+  return { code: mapped.toString(), map: mapped.generateMap({hires: true, source: sourcePath, includeContent: true}).toString(), exports, deps };
 }
 
 /** Kahn's algorithm, always emitting the byte-smallest ready path. */
@@ -155,8 +186,8 @@ function topoOrder(paths, depsByPath) {
 }
 
 export function buildBundle(root = REPO_ROOT) {
-  const manifest = JSON.parse(readFileSync(join(root, "_ds_manifest.json"), "utf8"));
-  const namespace = manifest.namespace;
+  const catalog = JSON.parse(readFileSync(join(root, "scripts/catalog-source.json"), "utf8"));
+  const namespace = catalog.namespace;
   if (!/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(namespace)) {
     throw new Error(`_ds_manifest.json namespace "${namespace}" does not match CyberSkillDesignSystem_<6hex>`);
   }
@@ -168,32 +199,41 @@ export function buildBundle(root = REPO_ROOT) {
   for (const path of sources) {
     const raw = readFileSync(join(root, path));
     sourceHashes[path] = shortHash(raw);
-    const { code, exports, deps } = rewriteModule(path, raw.toString("utf8"));
+    const { code, map, exports, deps } = rewriteModule(path, raw.toString("utf8"));
     for (const d of deps) {
       if (!sources.includes(d)) throw new Error(`${path}: import resolves outside the source set: ${d}`);
     }
-    const compiled = transformSync(code, {
+    const transformed = transformSync(code + "\n//# sourceMappingURL=data:application/json;base64," + Buffer.from(map).toString("base64"), {
+      sourcemap: "external",
+      sourcefile: path,
       loader: "jsx",
       jsx: "transform",
       jsxFactory: "React.createElement",
       jsxFragment: "React.Fragment",
       target: "es2020",
       charset: "utf8",
-    }).code.replace(/\n+$/, "");
-    modules.set(path, { compiled, exports, deps });
+    });
+    const compiled = transformed.code.replace(/\n+$/, "");
+    modules.set(path, { compiled, map: JSON.parse(transformed.map), exports, deps });
   }
 
   const order = topoOrder(sources, new Map(sources.map((p) => [p, modules.get(p).deps])));
 
   // ---- header ----------------------------------------------------------------
   const components = [];
+  const publicHooks = catalog.publicHooks || [];
+  if (!Array.isArray(publicHooks) || publicHooks.some(item => !item || !/^use[A-Z][A-Za-z0-9]*$/.test(item.name) || typeof item.sourcePath !== "string") || new Set(publicHooks.map(item => item.name)).size !== publicHooks.length) throw Error("Invalid explicit public hook membership");
+  const pendingHooks = new Set(publicHooks.map(item => item.name));
   const unexposed = [];
   for (const path of sources) {
     for (const ex of modules.get(path).exports) {
       if (ex.kind !== "named") continue;
-      (/^[A-Z]/.test(ex.name) ? components : unexposed).push({ name: ex.name, sourcePath: path });
+      const publicHook = publicHooks.some(item => item.name === ex.name && item.sourcePath === path);
+      if (publicHook) pendingHooks.delete(ex.name);
+      (/^[A-Z]/.test(ex.name) || publicHook ? components : unexposed).push({ name: ex.name, sourcePath: path });
     }
   }
+  if (pendingHooks.size) throw Error("Missing public hook export: " + [...pendingHooks].join(", "));
   unexposed.sort((a, b) => byteCompare(a.name, b.name) || byteCompare(a.sourcePath, b.sourcePath));
 
   const header = {
@@ -219,13 +259,15 @@ export function buildBundle(root = REPO_ROOT) {
     "",
   ];
 
+  const sections = [];
   for (const path of order) {
-    const { compiled, exports } = modules.get(path);
+    const { compiled, map, exports } = modules.get(path);
     const assigns = exports.map((ex) =>
       ex.kind === "default" ? `${defaultScopeName(path)}: ${ex.name}` : ex.name
     );
     parts.push(`// ${path}`);
     parts.push("try { (() => {");
+    sections.push({offset: {line: parts.join("\n").split("\n").length, column: 0}, map});
     parts.push(compiled);
     if (assigns.length) parts.push(`Object.assign(__ds_scope, { ${assigns.join(", ")} });`);
     parts.push(
@@ -240,16 +282,23 @@ export function buildBundle(root = REPO_ROOT) {
   }
   parts.push("})();");
 
-  return { text: parts.join("\n") + "\n", header };
+  // Chain import/export rewrites and JSX maps before whitespace compaction.
+  // Identifiers, syntax choices and each module's error boundary stay intact.
+  const indexedMap = {version: 3, sections};
+  const input = parts.join("\n") + "\n//# sourceMappingURL=data:application/json;base64," + Buffer.from(JSON.stringify(indexedMap)).toString("base64");
+  const compact = transformSync(input, {minifyWhitespace: true, minifyIdentifiers: false, minifySyntax: false, target: "es2020", charset: "utf8", legalComments: "inline", sourcemap: "external", sourcefile: "_ds_bundle.js", banner: `/* @ds-bundle: ${JSON.stringify(header)} */`});
+  const map = JSON.parse(compact.map); map.file = "_ds_bundle.js";
+  return {text: compact.code + "//# sourceMappingURL=_ds_bundle.js.map\n", mapText: JSON.stringify(map) + "\n", header};
 }
 
 const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
-  const { text, header } = buildBundle();
+  const { text, mapText, header } = buildBundle();
+  writeFileSync(BUNDLE_MAP_PATH, mapText);
   writeFileSync(BUNDLE_PATH, text);
   console.log(
     `built _ds_bundle.js — ${Object.keys(header.sourceHashes).length} modules, ` +
       `${header.components.length} exposed exports, ${header.unexposedExports.length} unexposed, ` +
-      `${(text.length / 1024).toFixed(1)} KB`
+      `${(Buffer.byteLength(text) / 1024).toFixed(1)} KiB; ${Buffer.byteLength(mapText)} source-map bytes`
   );
 }

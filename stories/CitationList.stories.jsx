@@ -5,6 +5,7 @@ export default {
   component: CitationList,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "lang": { "control": "select", "options": ["vi", "en"] },
   "label": {
     "control": "object"
@@ -13,13 +14,6 @@ export default {
     "control": "object"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting CitationList. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { items: [{ title: 'SKILL.md', href: '#' }] },
 };
 

@@ -1,3 +1,5 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { Skeleton } from "../feedback/Skeleton.jsx";
@@ -12,7 +14,7 @@ import { renderCount } from "../_utils/renderCount.js";
  * data (FIND-020): Skeleton rows while loading, Result on error, empty cell
  * when idle with no rows. Other data surfaces should follow the same triad.
  */
-export function DataTable({
+export const DataTable = React.forwardRef(function DataTable({
   caption,
   columns,
   rows,
@@ -24,17 +26,18 @@ export function DataTable({
   loadingRows: requestedLoadingRows = 5,
   lang,
   className,
-}) {
+ rootProps }, forwardedRef) {
   const normalized = Array.isArray(rows) ? rows : [];
   const loadingRows = renderCount(requestedLoadingRows, 5, 1);
-  const [ref, L] = useLang(lang);
-  const t = makeT("DataTable", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("DataTable", L, localeMessages);
   const es = emptyState != null ? emptyState : t("empty");
   const colCount = Math.max(1, (columns && columns.length) || 1);
 
   if (state === "loading") {
     return (
-      <div ref={ref} className={cx("cs-table-wrap", className)} aria-busy="true">
+      <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-table-wrap", className) }, rootProps, ["aria-busy","role"])} aria-busy="true">
         <span className="cs-sr-only">{t("loading")}</span>
         {loadingState != null ? (
           loadingState
@@ -69,7 +72,7 @@ export function DataTable({
 
   if (state === "error") {
     return (
-      <div ref={ref} className={cx("cs-table-wrap", "cs-table-wrap--status", className)} role="alert">
+      <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-table-wrap", "cs-table-wrap--status", className) }, rootProps, ["aria-busy","role"])} role="alert">
         {errorState != null ? (
           errorState
         ) : (
@@ -82,7 +85,7 @@ export function DataTable({
   }
 
   return (
-    <div ref={ref} className={cx("cs-table-wrap", className)}>
+    <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-table-wrap", className) }, rootProps, ["aria-busy","role"])}>
       <table className="cs-table">
         {(caption || caption === 0) ? <caption>{caption}</caption> : null}
         <thead>
@@ -114,4 +117,5 @@ export function DataTable({
       </table>
     </div>
   );
-}
+});
+DataTable.displayName = "DataTable";

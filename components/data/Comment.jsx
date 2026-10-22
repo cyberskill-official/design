@@ -1,13 +1,16 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Comment — discussion entry: avatar, author, meta, body, actions, nested replies. */
-export function Comment({ avatar, author, meta, children, actions = [], replies, lang, className }) {
-  const [ref, L] = useLang(lang);
-  const t = makeT("Comment", L);
+export const Comment = React.forwardRef(function Comment({ avatar, author, meta, children, actions = [], replies, lang, className , rootProps }, forwardedRef) {
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("Comment", L, localeMessages);
   return (
-    <div ref={ref} className={cx("cs-comment", className)}>
+    <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-comment", className) }, rootProps, [])}>
       {(avatar || avatar === 0) ? <span className="cs-comment__avatar">{avatar}</span> : null}
       <div className="cs-comment__main">
         <div className="cs-comment__head"><b>{author}</b>{(meta || meta === 0) ? <span className="cs-comment__meta">{meta}</span> : null}</div>
@@ -21,4 +24,5 @@ export function Comment({ avatar, author, meta, children, actions = [], replies,
       </div>
     </div>
   );
-}
+});
+Comment.displayName = "Comment";

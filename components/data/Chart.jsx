@@ -1,12 +1,15 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Chart — token-colored SVG charts: bar | line | spark | pie. data: [{label,value}]. */
-export function Chart({ type = "bar", data = [], height = 160, color = "var(--cs-accent)", showValues = false, label, lang, className }) {
-  const [ref, L] = useLang(lang);
+export const Chart = React.forwardRef(function Chart({ type = "bar", data = [], height = 160, color = "var(--cs-accent)", showValues = false, label, lang, className , rootProps }, forwardedRef) {
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
   const dataName = data.map((d) => d.label + ": " + d.value).join(", ");
-  const accessibleName = typeof label === "string" && label.trim() ? label : dataName || makeT("Chart", L)("empty");
+  const accessibleName = typeof label === "string" && label.trim() ? label : dataName || makeT("Chart", L, localeMessages)("empty");
   const W = 320, H = height, max = Math.max(1, ...data.map((d) => d.value));
   let body = null;
   if (type === "pie") {
@@ -51,7 +54,7 @@ export function Chart({ type = "bar", data = [], height = 160, color = "var(--cs
     );
   }
   return (
-    <figure ref={ref} className={cx("cs-chart", className)} role="img" aria-label={accessibleName}>
+    <figure ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-chart", className) }, rootProps, ["role","aria-label"])} role="img" aria-label={accessibleName}>
       {body}
       {type !== "spark" ? (
         <figcaption className="cs-chart__legend">
@@ -60,4 +63,5 @@ export function Chart({ type = "bar", data = [], height = 160, color = "var(--cs
       ) : null}
     </figure>
   );
-}
+});
+Chart.displayName = "Chart";

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/_utils/use-client-layout-effect.js"],
+  "sourcesContent": ["import React from \"react\";\n\n// DOM work must run before paint in a browser, but cannot run during SSR.\n// Selecting the effect at module load preserves hook order within each runtime.\nexport const useClientLayoutEffect = typeof document === \"undefined\"\n  ? React.useEffect\n  : React.useLayoutEffect;\n"],
+  "mappings": ";;;AAAA,OAAO,WAAW;AAIX,IAAM,wBAAwB,OAAO,aAAa,cACrD,MAAM,YACN,MAAM;",
+  "names": []
+}

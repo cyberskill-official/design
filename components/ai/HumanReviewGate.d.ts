@@ -1,3 +1,4 @@
+import type { RootTargetProps } from "../_utils/target-props";
 /** The reviewer slots preserve numeric zero; null/false/empty string omit those slots. */
 import type { ReactNode } from "react";
 import type * as React from "react";
@@ -10,6 +11,8 @@ import type * as React from "react";
  * authorization before an action. The consumer owns that workflow.
  */
 export interface HumanReviewGateProps {
+  /** Attributes for the existing section root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: Omit<RootTargetProps<HTMLElement>, "aria-label">;
   risk?: ReactNode;
   summary: ReactNode;
   reviewer?: ReactNode;
@@ -22,4 +25,4 @@ export interface HumanReviewGateProps {
   onReject?: () => void;
 }
 
-export function HumanReviewGate(props: HumanReviewGateProps): React.ReactElement;
+export const HumanReviewGate: React.ForwardRefExoticComponent<React.PropsWithoutRef<HumanReviewGateProps> & React.RefAttributes<HTMLElement>>;

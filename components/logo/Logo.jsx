@@ -1,3 +1,4 @@
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 import { CS_LOGO_VIEWBOX, CS_LOGO_MARK_INNER } from "./logo-data.js";
 import { cx } from "../_utils/cx.js";
@@ -7,7 +8,9 @@ import { cx } from "../_utils/cx.js";
  * Ochre genie figure). Use whenever a product is for or owned by CyberSkill.
  * Do not recreate or recolour the mark.
  */
-export function Logo({ size = 32, title = "CyberSkill", decorative = false, className, ...props }) {
+export const Logo = React.forwardRef(function Logo({ size = 32, title = "CyberSkill", decorative = false, className, children, ...props }, forwardedRef) {
+  // The official SVG owns its inner markup; inherited children cannot replace it.
+  const mergedNativeRef = useComposedRefs(forwardedRef);
   const safeTitle = String(title).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   return (
     <svg
@@ -21,6 +24,7 @@ export function Logo({ size = 32, title = "CyberSkill", decorative = false, clas
       aria-hidden={decorative ? true : undefined}
       aria-label={decorative ? undefined : title}
       dangerouslySetInnerHTML={{ __html: (decorative ? "" : `<title>${safeTitle}</title>`) + CS_LOGO_MARK_INNER }}
-    />
+     ref={mergedNativeRef} />
   );
-}
+});
+Logo.displayName = "Logo";

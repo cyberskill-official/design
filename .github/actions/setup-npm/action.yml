@@ -1,0 +1,29 @@
+name: Set up locked npm CLI
+description: Bootstrap the exact npm CLI from a maintained audited lock using setup-node bundled npm
+runs:
+  using: composite
+  steps:
+    - name: Install and expose locked npm with lifecycle scripts disabled
+      shell: bash
+      run: node scripts/bootstrap-toolchain.mjs --github-path
+    - name: Determine npm cache path with the locked CLI
+      id: npm-cache
+      shell: bash
+      run: |
+        node --input-type=module <<'JS'
+        import assert from 'node:assert/strict';
+        import {appendFileSync} from 'node:fs';
+        import {runPinnedNpm} from './scripts/npm.mjs';
+        const result = runPinnedNpm(process.cwd(), ['config', 'get', 'cache'], {stdio: 'pipe'});
+        assert.equal(result.status, 0, 'Pinned npm cache discovery must succeed');
+        const cachePath = result.stdout.trim();
+        assert(cachePath && !/[\r\n]/.test(cachePath), 'npm cache path must be one nonempty line');
+        appendFileSync(process.env.GITHUB_OUTPUT, 'path=' + cachePath + '\n');
+        JS
+    - name: Restore npm downloads after locked npm bootstrap
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6; same reviewed cache action as browser caches
+      with:
+        path: ${{ steps.npm-cache.outputs.path }}
+        key: npm-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('package-lock.json', '_audit/ci/fixtures/**/package-lock.json', 'examples/**/package-lock.json') }}
+        restore-keys: |
+          npm-${{ runner.os }}-${{ runner.arch }}-

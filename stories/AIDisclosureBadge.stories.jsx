@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { AIDisclosureBadge } from '../components/ai/AIDisclosureBadge.jsx';
 
 export default {
@@ -5,6 +6,9 @@ export default {
   component: AIDisclosureBadge,
   tags: ['autodocs'],
   argTypes: {
+    portal: {control: 'boolean', description: 'Body portal after client mount by default; false keeps inline/server markup and ancestor clipping.'},
+    placement: {control: 'select', options: DECLARED_DOMAINS.AIDisclosureBadge["placement"], description: 'Preferred physical side; flips/shifts within the visual viewport. Top/bottom start/end follow inline direction.'},
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   lang: { control: "select", options: [undefined, "en", "vi"] },
   "label": {
     "control": "text"
@@ -16,14 +20,7 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting AIDisclosureBadge. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
-  args: {},
+  args: { portal: true,},
 };
 
 export const Default = {};

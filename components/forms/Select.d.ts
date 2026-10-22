@@ -24,4 +24,4 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
   lang?: string;
 }
 
-export function Select(props: SelectProps): React.ReactElement;
+export const Select: React.ForwardRefExoticComponent<React.PropsWithoutRef<SelectProps> & React.RefAttributes<HTMLSelectElement>>;

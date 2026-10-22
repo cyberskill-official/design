@@ -1,0 +1,22 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-exit-handover",
+  "slots": [
+    {
+      "id": "employeeName",
+      "type": "text",
+      "label": "Họ và tênFull name",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "address",
+      "type": "text",
+      "label": "Địa chỉ thường trúResidential address",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

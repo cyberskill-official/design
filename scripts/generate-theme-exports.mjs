@@ -1,8 +1,10 @@
 // CSS owns density and authored dark/system theme overrides. Preserve unrelated
 // export groups while deterministically rebuilding these projections.
 import {readFileSync,writeFileSync} from 'node:fs';
+import {assertThemePaletteFreshness} from './lib/theme-palette-projection.mjs';
 import {readContrastMaps} from './lib/contrast-maps.mjs';
 const root=new URL('../',import.meta.url);
+assertThemePaletteFreshness(root);
 const read=p=>readFileSync(new URL(p,root),'utf8');
 const css=read('tokens/theme-attributes.css').replace(/\/\*[\s\S]*?\*\//g,'');
 function scope(selector){

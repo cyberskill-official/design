@@ -5,6 +5,7 @@ export default {
   component: Accordion,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "items": {
     "control": "object"
   },
@@ -15,13 +16,6 @@ export default {
     "control": "boolean"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Accordion. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { items: [{ title: 'What is a wish?', content: 'A clear outcome.' }, { title: 'Languages', content: 'EN · VI.' }], defaultOpen: 0 },
 };
 

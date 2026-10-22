@@ -14,6 +14,7 @@ const producer='scripts/build-template-primitives.mjs';
 assert.throws(()=>run(new Map([[producer,Buffer.alloc(0)]])),/Missing primitive producer/);
 const input='scripts/template-runtime/primitives/support.js',output='templates/_vendor/support.js';
 assert.throws(()=>run(new Map([[input,Buffer.from('changed source')]])),/not generated from its recorded source/);
+assert.throws(()=>run(new Map([['scripts/template-runtime/dc-logic-source.mjs',Buffer.from(read('scripts/template-runtime/dc-logic-source.mjs').toString().replace("return '(() => {","return '/*changed*/(() => {"))]])),/not generated from its recorded source/);
 const bytes=Buffer.from(read(output).toString()+'\n// forged output\n');
 assert.throws(()=>run(new Map([[output,bytes]])),/not generated from its recorded source/);
 assert.throws(()=>run(new Map([[manifest.templates[0].folder+'/support.js',Buffer.from('changed copied artifact')]])),/Changed authored primitive copy/);

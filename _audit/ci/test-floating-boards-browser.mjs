@@ -1,0 +1,7 @@
+import assert from 'node:assert/strict';import{mkdirSync,writeFileSync,readFileSync}from'node:fs';import{createHash}from'node:crypto';import{withBrowserFixture}from'./lib/browser-fixture.mjs';
+const browserName=process.env.CS_TEST_BROWSER||'chromium',rows=[];
+await withBrowserFixture(async page=>{
+ for(const[path,variable]of[['component-behavior-test','__behavior'],['a11y-gate','__a11y']]){
+  await page.goto(new URL('/_audit/'+path+'.html',page.url()).href);await page.waitForFunction(variable=>window[variable],variable,{timeout:180000});const result=await page.evaluate(variable=>window[variable],variable);rows.push({path,result});assert.equal(result.pass,true,JSON.stringify(result));assert(result.results.some(row=>row.name.startsWith('Menubar —')&&row.ok));assert(result.results.some(row=>row.name.startsWith('Mentions —')&&row.ok));assert(result.results.some(row=>row.name.startsWith('Cascader —')&&row.ok));assert.equal(await page.locator('[data-cs-floating-root]').count(),0,'last board fixture cleans floating hosts from prior cases');
+ }
+},{browserName});mkdirSync('test-results/floating-panels',{recursive:true});writeFileSync(`test-results/floating-panels/boards-${browserName}.json`,JSON.stringify({status:'PASS',browserName,bundleSha256:createHash('sha256').update(readFileSync('_ds_bundle.js')).digest('hex'),rows},null,2)+'\n');console.log('PASS actual behavior/a11y boards including body-popup queries and cleanup; '+browserName);

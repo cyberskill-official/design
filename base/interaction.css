@@ -1,5 +1,5 @@
 /* CyberSkill — interaction layer: hover depth, focus glow, entrance motion.
- * Additive layer loaded LAST so it enhances base components without changing
+ * Additive layer loaded after component sheets so it enhances base components without changing
  * their structure. Everything degrades under prefers-reduced-motion. Anchors
  * (Umber/Ochre) unchanged — this only adds warmth to elevation + interaction. */
 

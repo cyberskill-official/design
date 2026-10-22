@@ -1,3 +1,4 @@
+import type { RootTargetProps } from "../_utils/target-props";
 import type * as React from "react";
 
 /**
@@ -5,6 +6,8 @@ import type * as React from "react";
  * for multi-line text, or a single block/circle sized by width/height.
  */
 export interface SkeletonProps {
+  /** Attributes for the existing div/span root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: Omit<RootTargetProps<HTMLDivElement | HTMLSpanElement>, "aria-hidden" | "role">;
   variant?: "block" | "circle";
   width?: number | string;
   height?: number | string;
@@ -15,4 +18,4 @@ export interface SkeletonProps {
   style?: React.CSSProperties;
 }
 
-export function Skeleton(props: SkeletonProps): React.ReactElement;
+export const Skeleton: React.ForwardRefExoticComponent<React.PropsWithoutRef<SkeletonProps> & React.RefAttributes<HTMLDivElement | HTMLSpanElement>>;

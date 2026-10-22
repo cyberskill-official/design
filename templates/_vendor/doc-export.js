@@ -534,10 +534,15 @@
     </w:drawing></w:r>`;
   }
 
+  function isOfficialLogoImage(el) {
+    if (el?.tagName?.toLowerCase() !== 'img' || !el.hasAttribute('data-cs-official-logo')) return false;
+    try { const url = new URL(el.currentSrc || el.src, location.href); return url.origin === location.origin && url.pathname.endsWith('/assets/logo-mark.svg') && !url.search && !url.hash; } catch (_) { return false; }
+  }
+
   function findSvg(el) {
     if (!el || el.nodeType !== 1) return null;
-    if (el.tagName.toLowerCase() === 'svg') return el;
-    const light = el.querySelector?.('svg');
+    if (el.tagName.toLowerCase() === 'svg' || isOfficialLogoImage(el)) return el;
+    const light = [...(el.querySelectorAll?.('svg,img[data-cs-official-logo]') || [])].find(node => node.tagName.toLowerCase() === 'svg' || isOfficialLogoImage(node));
     if (light) return light;
     if (el.shadowRoot) {
       const sh = el.shadowRoot.querySelector('svg');
@@ -550,6 +555,17 @@
     return null;
   }
 
+  async function officialLogoSvg(image, width, height) {
+    const response = await fetch(image.currentSrc || image.src);
+    if (!response.ok) throw new Error('Official logo asset unavailable');
+    const document = new DOMParser().parseFromString(await response.text(), 'image/svg+xml');
+    const svg = document.documentElement;
+    if (document.querySelector('parsererror') || svg.localName !== 'svg' || svg.querySelector('foreignObject,script')) throw new Error('Invalid official logo asset');
+    svg.setAttribute('width', String(width));
+    svg.setAttribute('height', String(height));
+    return new XMLSerializer().serializeToString(svg);
+  }
+
   async function addSvgPng(svg, bag) {
     const box = svg.getBoundingClientRect();
     const cssW = Math.max(box.width || parseFloat(svg.getAttribute('width')) || 18, 12);
@@ -558,16 +574,24 @@
     const w = Math.max(1, Math.round(cssW * scale));
     const h = Math.max(1, Math.round(cssH * scale));
     try {
-      const clone = svg.cloneNode(true);
-      clone.setAttribute('width', String(cssW));
-      clone.setAttribute('height', String(cssH));
-      if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-      const xml = new XMLSerializer().serializeToString(clone);
-      if (/foreignObject/i.test(xml)) return '';
-      const blob = new Blob([xml], { type: 'image/svg+xml;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
+      let url;
       try {
-        const img = await loadImage(url);
+        let img = svg;
+        if (isOfficialLogoImage(svg)) {
+          const xml = await officialLogoSvg(svg, cssW, cssH);
+          url = URL.createObjectURL(new Blob([xml], { type: 'image/svg+xml;charset=utf-8' }));
+          img = await loadImage(url);
+        } else {
+          const clone = svg.cloneNode(true);
+          clone.setAttribute('width', String(cssW));
+          clone.setAttribute('height', String(cssH));
+          if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+          const xml = new XMLSerializer().serializeToString(clone);
+          if (/foreignObject/i.test(xml)) return '';
+          const blob = new Blob([xml], { type: 'image/svg+xml;charset=utf-8' });
+          url = URL.createObjectURL(blob);
+          img = await loadImage(url);
+        }
         const c = document.createElement('canvas');
         c.width = w;
         c.height = h;
@@ -580,7 +604,7 @@
         const emu = Math.round(cssW * 9525);
         return drawingRun(relId, emu, Math.round(emu * (h / w)));
       } finally {
-        URL.revokeObjectURL(url);
+        if (url) URL.revokeObjectURL(url);
       }
     } catch (_) {
       return '';
@@ -1027,9 +1051,13 @@ ${mediaRels}
     const b = relBox(svg, origin, sheet);
     if (b.w < 1 || b.h < 1) return;
     try {
-      const xml = new XMLSerializer().serializeToString(svg);
-      if (/foreignObject/i.test(xml)) return;
-      const img = await loadImage('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(xml));
+      let img = svg;
+      if (isOfficialLogoImage(svg)) img = await loadImage('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(await officialLogoSvg(svg, b.w, b.h)));
+      else {
+        const xml = new XMLSerializer().serializeToString(svg);
+        if (/foreignObject/i.test(xml)) return;
+        img = await loadImage('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(xml));
+      }
       ctx.drawImage(img, b.x, b.y, b.w, b.h);
     } catch (_) {
       /* skip logo if SVG paint fails */
@@ -1053,7 +1081,7 @@ ${mediaRels}
         if (isChrome(node)) return;
         const tag = node.tagName.toLowerCase();
         if (tag === 'script' || tag === 'style' || tag === 'noscript') return;
-        if (tag === 'svg') {
+        if (tag === 'svg' || isOfficialLogoImage(node)) {
           paintBox(ctx, node, origin, sheet);
           svgs.push(node);
           return;

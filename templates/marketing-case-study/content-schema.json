@@ -6,104 +6,133 @@
       "id": "imagePlaceholder",
       "type": "text",
       "label": "Image authoring placeholder",
-      "maxLength": 80
+      "maxLength": 80,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "image-slot",
+          "attribute": "placeholder"
+        },
+        {
+          "tag": "image-slot",
+          "attribute": "placeholder-vi"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "kicker",
       "type": "text",
       "label": "Header eyebrow",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "stat1",
       "type": "text",
       "label": "Stat 1 label",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "stat2",
       "type": "text",
       "label": "Stat 2 label",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "stat3v",
       "type": "text",
       "label": "Stat 3 value",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "stat3",
       "type": "text",
       "label": "Stat 3 label",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "h1",
       "type": "text",
       "label": "Section 1 heading (The wish)",
       "maxLength": 30,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "p1",
       "type": "richtext",
       "label": "Section 1 body",
-      "maxLength": 300
+      "maxLength": 300,
+      "runtimeBinding": "text"
     },
     {
       "id": "h2",
       "type": "text",
       "label": "Section 2 heading (Approach)",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "p2",
       "type": "richtext",
       "label": "Section 2 body",
-      "maxLength": 400
+      "maxLength": 400,
+      "runtimeBinding": "text"
     },
     {
       "id": "h3",
       "type": "text",
       "label": "Section 3 heading (Result)",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "p3",
       "type": "richtext",
       "label": "Section 3 body",
-      "maxLength": 300
+      "maxLength": 300,
+      "runtimeBinding": "text"
     },
     {
       "id": "quote",
       "type": "text",
       "label": "Client quote",
-      "maxLength": 180
+      "maxLength": 180,
+      "runtimeBinding": "text"
     },
     {
       "id": "quoteWho",
       "type": "text",
       "label": "Quote attribution",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "ctaKicker",
       "type": "text",
       "label": "CTA eyebrow",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "ctaBody",
       "type": "text",
       "label": "CTA body",
-      "maxLength": 100
+      "maxLength": 100,
+      "runtimeBinding": "text"
     },
     {
       "id": "ctaBtn",
       "type": "text",
       "label": "CTA button label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     }
   ]
 }

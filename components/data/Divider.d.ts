@@ -11,4 +11,4 @@ export interface DividerProps extends React.HTMLAttributes<HTMLElement> {
   label?: ReactNode;
 }
 
-export function Divider(props: DividerProps): React.ReactElement;
+export const Divider: React.ForwardRefExoticComponent<React.PropsWithoutRef<DividerProps> & React.RefAttributes<HTMLDivElement | HTMLHRElement>>;

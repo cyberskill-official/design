@@ -1,0 +1,38 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-termination-decision",
+  "slots": [
+    {
+      "id": "headerReferenceSequence",
+      "type": "text",
+      "label": "Số/No. · existing placeholder sequence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "employeeName",
+      "type": "text",
+      "label": "Ông/Bà · Mr./Ms.",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "position",
+      "type": "text",
+      "label": "Chức danh · Position",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "department",
+      "type": "text",
+      "label": "Bộ phận · Department",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

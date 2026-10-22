@@ -1,0 +1,46 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-performance-review-form",
+  "slots": [
+    {
+      "id": "headerReferenceSequence",
+      "type": "text",
+      "label": "Số/No. · existing placeholder sequence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "documentReferenceSequence",
+      "type": "text",
+      "label": "Số/No. · existing placeholder sequence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "employeeName",
+      "type": "text",
+      "label": "Người lao độngEmployee",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "positionDepartmentDisplay",
+      "type": "text",
+      "label": "Chức danh / Bộ phậnPosition / Department",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "lineManager",
+      "type": "text",
+      "label": "Quản lý trực tiếpLine manager",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

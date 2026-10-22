@@ -22,4 +22,4 @@ export interface ImageProps extends React.HTMLAttributes<HTMLElement> {
   lang?: string;
   className?: string;
 }
-export function Image(props: ImageProps): React.ReactElement;
+export const Image: React.ForwardRefExoticComponent<React.PropsWithoutRef<ImageProps> & React.RefAttributes<HTMLImageElement>>;

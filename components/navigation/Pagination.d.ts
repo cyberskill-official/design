@@ -10,4 +10,4 @@ export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>,
   onChange?: (page: number) => void;
 }
 
-export function Pagination(props: PaginationProps): React.ReactElement;
+export const Pagination: React.ForwardRefExoticComponent<React.PropsWithoutRef<PaginationProps> & React.RefAttributes<HTMLElement>>;

@@ -50,27 +50,27 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
+<script type="text/x-dc" data-dc-script data-content-schema="./content-schema.json" data-props="{
   &quot;language&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;},
   &quot;element&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;}
 }">
 class Component extends DCLogic {
   renderVals() {
-    const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
+    const EL = /* @generated template-literal:axis.element-map */ {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]} /* @endgenerated template-literal:axis.element-map */;
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
     const vn = this.props.language === "Tiếng Việt";
     const en = {
-      headTitle:"CyberSkill · Board report", conf:"Confidential",
-      kicker:"Q3 2026 · Business review", h1:"The quarter in one page",
-      st1:"Revenue (QoQ)", st2:"Wishes granted", st3:"Runway", st4:"Headcount", steady:"steady", runway:"19 mo",
-      hlH:"Highlights",
-      hlBody:"Revenue grew 18% QoQ on two enterprise wins and a renewed retainer. The design system reached v1.6 and now underpins every new build, cutting delivery time. Hiring is on plan; the Saigon studio is at healthy capacity.",
-      aiLabel:"AI-assisted summary",
-      aiDetails:"This narrative was drafted with AI from the quarter's metrics and reviewed by the leadership team before circulation.",
-      portH:"Portfolio",
-      riskH:"Risks & asks",
-      risk1t:"Key-person risk", risk1b:"AI squad depends on one senior lead. Ask: approve a second senior hire in Q4.",
-      risk2t:"Decision needed", risk2b:"Sign off on the CyberOS infra spend to unblock the provenance ledger (target Q1 2027).",
+      headTitle:/* @generated template-literal:dictionary.en.686561645469746c65 */ "CyberSkill · Board report" /* @endgenerated template-literal:dictionary.en.686561645469746c65 */, conf:/* @generated template-literal:dictionary.en.636f6e66 */ "Confidential" /* @endgenerated template-literal:dictionary.en.636f6e66 */,
+      kicker:/* @generated template-literal:dictionary.en.6b69636b6572 */ "Q3 2026 · Business review" /* @endgenerated template-literal:dictionary.en.6b69636b6572 */, h1:/* @generated template-literal:dictionary.en.6831 */ "The quarter in one page" /* @endgenerated template-literal:dictionary.en.6831 */,
+      st1:/* @generated template-literal:dictionary.en.737431 */ "Revenue (QoQ)" /* @endgenerated template-literal:dictionary.en.737431 */, st2:/* @generated template-literal:copy.wishes-granted.en */ "Wishes granted" /* @endgenerated template-literal:copy.wishes-granted.en */, st3:/* @generated template-literal:copy.runway.en */ "Runway" /* @endgenerated template-literal:copy.runway.en */, st4:/* @generated template-literal:copy.headcount.en */ "Headcount" /* @endgenerated template-literal:copy.headcount.en */, steady:/* @generated template-literal:dictionary.en.737465616479 */ "steady" /* @endgenerated template-literal:dictionary.en.737465616479 */, runway:/* @generated template-literal:dictionary.en.72756e776179 */ "19 mo" /* @endgenerated template-literal:dictionary.en.72756e776179 */,
+      hlH:/* @generated template-literal:copy.highlights.en */ "Highlights" /* @endgenerated template-literal:copy.highlights.en */,
+      hlBody:/* @generated template-literal:dictionary.en.686c426f6479 */ "Revenue grew 18% QoQ on two enterprise wins and a renewed retainer. The design system reached v1.6 and now underpins every new build, cutting delivery time. Hiring is on plan; the Saigon studio is at healthy capacity." /* @endgenerated template-literal:dictionary.en.686c426f6479 */,
+      aiLabel:/* @generated template-literal:dictionary.en.61694c6162656c */ "AI-assisted summary" /* @endgenerated template-literal:dictionary.en.61694c6162656c */,
+      aiDetails:/* @generated template-literal:dictionary.en.616944657461696c73 */ "This narrative was drafted with AI from the quarter's metrics and reviewed by the leadership team before circulation." /* @endgenerated template-literal:dictionary.en.616944657461696c73 */,
+      portH:/* @generated template-literal:copy.portfolio.en */ "Portfolio" /* @endgenerated template-literal:copy.portfolio.en */,
+      riskH:/* @generated template-literal:copy.risks-asks.en */ "Risks & asks" /* @endgenerated template-literal:copy.risks-asks.en */,
+      risk1t:/* @generated template-literal:dictionary.en.7269736b3174 */ "Key-person risk" /* @endgenerated template-literal:dictionary.en.7269736b3174 */, risk1b:/* @generated template-literal:dictionary.en.7269736b3162 */ "AI squad depends on one senior lead. Ask: approve a second senior hire in Q4." /* @endgenerated template-literal:dictionary.en.7269736b3162 */,
+      risk2t:/* @generated template-literal:dictionary.en.7269736b3274 */ "Decision needed" /* @endgenerated template-literal:dictionary.en.7269736b3274 */, risk2b:/* @generated template-literal:dictionary.en.7269736b3262 */ "Sign off on the CyberOS infra spend to unblock the provenance ledger (target Q1 2027)." /* @endgenerated template-literal:dictionary.en.7269736b3262 */,
       sources: ["Status Hub", "Finance close Q3"],
       cols: [ { key:"name", header:"Project" }, { key:"client", header:"Client" }, { key:"status", header:"Status" }, { key:"value", header:"Value" } ],
       rows: [
@@ -80,17 +80,17 @@ class Component extends DCLogic {
         { name:"Agent spine", client:"Internal", status:"Blocked", value:"—" },
       ]};
     const vi = {
-      headTitle:"CyberSkill · Báo cáo Hội đồng", conf:"Mật",
-      kicker:"Quý 3 2026 · Đánh giá kinh doanh", h1:"Cả quý gói gọn trong một trang",
-      st1:"Doanh thu (QoQ)", st2:"Điều ước đã thực hiện", st3:"Số tháng còn vốn", st4:"Nhân sự", steady:"ổn định", runway:"19 tháng",
-      hlH:"Điểm nổi bật",
-      hlBody:"Doanh thu tăng 18% so với quý trước nhờ hai hợp đồng doanh nghiệp và một hợp đồng duy trì được gia hạn. Hệ thống thiết kế đạt v1.6 và nay là nền của mọi sản phẩm mới, rút ngắn thời gian bàn giao. Tuyển dụng đúng kế hoạch; studio Sài Gòn đang ở công suất lành mạnh.",
-      aiLabel:"Tóm tắt có AI hỗ trợ",
-      aiDetails:"Bản tường thuật này được AI soạn nháp từ các chỉ số của quý và được ban lãnh đạo rà soát trước khi lưu hành.",
-      portH:"Danh mục dự án",
-      riskH:"Rủi ro & đề xuất",
-      risk1t:"Rủi ro nhân sự chủ chốt", risk1b:"Đội AI phụ thuộc vào một trưởng nhóm cấp cao. Đề xuất: duyệt tuyển thêm một nhân sự cấp cao trong Q4.",
-      risk2t:"Cần quyết định", risk2b:"Phê duyệt chi phí hạ tầng CyberOS để mở đường cho sổ cái nguồn gốc (mục tiêu Q1 2027).",
+      headTitle:/* @generated template-literal:dictionary.vi.686561645469746c65 */ "CyberSkill · Báo cáo Hội đồng" /* @endgenerated template-literal:dictionary.vi.686561645469746c65 */, conf:/* @generated template-literal:dictionary.vi.636f6e66 */ "Mật" /* @endgenerated template-literal:dictionary.vi.636f6e66 */,
+      kicker:/* @generated template-literal:dictionary.vi.6b69636b6572 */ "Quý 3 2026 · Đánh giá kinh doanh" /* @endgenerated template-literal:dictionary.vi.6b69636b6572 */, h1:/* @generated template-literal:dictionary.vi.6831 */ "Cả quý gói gọn trong một trang" /* @endgenerated template-literal:dictionary.vi.6831 */,
+      st1:/* @generated template-literal:dictionary.vi.737431 */ "Doanh thu (QoQ)" /* @endgenerated template-literal:dictionary.vi.737431 */, st2:/* @generated template-literal:copy.wishes-granted.vi */ "Điều ước đã thực hiện" /* @endgenerated template-literal:copy.wishes-granted.vi */, st3:/* @generated template-literal:copy.runway.vi */ "Số tháng còn vốn" /* @endgenerated template-literal:copy.runway.vi */, st4:/* @generated template-literal:copy.headcount.vi */ "Nhân sự" /* @endgenerated template-literal:copy.headcount.vi */, steady:/* @generated template-literal:dictionary.vi.737465616479 */ "ổn định" /* @endgenerated template-literal:dictionary.vi.737465616479 */, runway:/* @generated template-literal:dictionary.vi.72756e776179 */ "19 tháng" /* @endgenerated template-literal:dictionary.vi.72756e776179 */,
+      hlH:/* @generated template-literal:copy.highlights.vi */ "Điểm nổi bật" /* @endgenerated template-literal:copy.highlights.vi */,
+      hlBody:/* @generated template-literal:dictionary.vi.686c426f6479 */ "Doanh thu tăng 18% so với quý trước nhờ hai hợp đồng doanh nghiệp và một hợp đồng duy trì được gia hạn. Hệ thống thiết kế đạt v1.6 và nay là nền của mọi sản phẩm mới, rút ngắn thời gian bàn giao. Tuyển dụng đúng kế hoạch; studio Sài Gòn đang ở công suất lành mạnh." /* @endgenerated template-literal:dictionary.vi.686c426f6479 */,
+      aiLabel:/* @generated template-literal:dictionary.vi.61694c6162656c */ "Tóm tắt có AI hỗ trợ" /* @endgenerated template-literal:dictionary.vi.61694c6162656c */,
+      aiDetails:/* @generated template-literal:dictionary.vi.616944657461696c73 */ "Bản tường thuật này được AI soạn nháp từ các chỉ số của quý và được ban lãnh đạo rà soát trước khi lưu hành." /* @endgenerated template-literal:dictionary.vi.616944657461696c73 */,
+      portH:/* @generated template-literal:copy.portfolio.vi */ "Danh mục dự án" /* @endgenerated template-literal:copy.portfolio.vi */,
+      riskH:/* @generated template-literal:copy.risks-asks.vi */ "Rủi ro & đề xuất" /* @endgenerated template-literal:copy.risks-asks.vi */,
+      risk1t:/* @generated template-literal:dictionary.vi.7269736b3174 */ "Rủi ro nhân sự chủ chốt" /* @endgenerated template-literal:dictionary.vi.7269736b3174 */, risk1b:/* @generated template-literal:dictionary.vi.7269736b3162 */ "Đội AI phụ thuộc vào một trưởng nhóm cấp cao. Đề xuất: duyệt tuyển thêm một nhân sự cấp cao trong Q4." /* @endgenerated template-literal:dictionary.vi.7269736b3162 */,
+      risk2t:/* @generated template-literal:dictionary.vi.7269736b3274 */ "Cần quyết định" /* @endgenerated template-literal:dictionary.vi.7269736b3274 */, risk2b:/* @generated template-literal:dictionary.vi.7269736b3262 */ "Phê duyệt chi phí hạ tầng CyberOS để mở đường cho sổ cái nguồn gốc (mục tiêu Q1 2027)." /* @endgenerated template-literal:dictionary.vi.7269736b3262 */,
       sources: ["Status Hub", "Chốt sổ tài chính Q3"],
       cols: [ { key:"name", header:"Dự án" }, { key:"client", header:"Khách hàng" }, { key:"status", header:"Trạng thái" }, { key:"value", header:"Giá trị" } ],
       rows: [

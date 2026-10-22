@@ -1,0 +1,60 @@
+"use client";
+import {
+  makeT,
+  useLang
+} from "./chunk-25AOTZAM.mjs";
+import {
+  mergeTargetProps
+} from "./chunk-RQFCRXMQ.mjs";
+import {
+  cx
+} from "./chunk-5LXHLKXS.mjs";
+import {
+  useComposedRefs
+} from "./chunk-BQH4YUGI.mjs";
+
+// components/data/Chart.jsx
+import React from "react";
+var Chart = React.forwardRef(function Chart2({ type = "bar", data = [], height = 160, color = "var(--cs-accent)", showValues = false, label, lang, className, rootProps }, forwardedRef) {
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const dataName = data.map((d) => d.label + ": " + d.value).join(", ");
+  const accessibleName = typeof label === "string" && label.trim() ? label : dataName || makeT("Chart", L, localeMessages)("empty");
+  const W = 320, H = height, max = Math.max(1, ...data.map((d) => d.value));
+  let body = null;
+  if (type === "pie") {
+    const total = data.reduce((a, d) => a + d.value, 0) || 1;
+    const cols = [color, "var(--cs-accent-strong)", "var(--cs-accent-grad-b)", "var(--cs-color-text-muted)", "var(--cs-color-border-default)"];
+    let a0 = -Math.PI / 2;
+    body = /* @__PURE__ */ React.createElement("svg", { viewBox: "0 0 120 120", width: H, height: H, "aria-hidden": "true" }, data.map((d, i) => {
+      if (d.value === 0) return null;
+      if (d.value === total) return /* @__PURE__ */ React.createElement("circle", { key: i, cx: "60", cy: "60", r: "50", fill: cols[i % cols.length], stroke: "var(--cs-color-surface-panel)", strokeWidth: "1.5" });
+      const a1 = a0 + d.value / total * Math.PI * 2;
+      const large = a1 - a0 > Math.PI ? 1 : 0;
+      const p = `M60 60 L${60 + 50 * Math.cos(a0)} ${60 + 50 * Math.sin(a0)} A50 50 0 ${large} 1 ${60 + 50 * Math.cos(a1)} ${60 + 50 * Math.sin(a1)} Z`;
+      a0 = a1;
+      return /* @__PURE__ */ React.createElement("path", { key: i, d: p, fill: cols[i % cols.length], stroke: "var(--cs-color-surface-panel)", strokeWidth: "1.5" });
+    }));
+  } else if (type === "line" || type === "spark") {
+    const pts = data.map((d, i) => `${i / Math.max(1, data.length - 1) * (W - 8) + 4},${H - 6 - d.value / max * (H - 24)}`).join(" ");
+    body = /* @__PURE__ */ React.createElement("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", height: H, preserveAspectRatio: "none", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("polyline", { points: pts, fill: "none", stroke: color, strokeWidth: "2.4", strokeLinejoin: "round", strokeLinecap: "round" }), type === "line" ? data.map((d, i) => /* @__PURE__ */ React.createElement("circle", { key: i, cx: i / Math.max(1, data.length - 1) * (W - 8) + 4, cy: H - 6 - d.value / max * (H - 24), r: "3.4", fill: color })) : null);
+  } else {
+    const bw = (W - 8) / data.length;
+    const min = Math.min(0, ...data.map((d) => Number(d.value) || 0));
+    const span = max - min || 1;
+    const zeroY = min < 0 ? 6 + max / span * (H - 26) : H - 20;
+    body = /* @__PURE__ */ React.createElement("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", height: H, preserveAspectRatio: "none", "aria-hidden": "true" }, data.map((d, i) => {
+      const val = Number(d.value) || 0;
+      const h = min < 0 ? Math.abs(val) / span * (H - 26) : Math.max(0, Math.max(0, val) / max * (H - 26));
+      const y = min < 0 ? val >= 0 ? zeroY - h : zeroY : H - 20 - h;
+      return /* @__PURE__ */ React.createElement("rect", { key: i, x: 4 + i * bw + bw * 0.14, y, width: bw * 0.72, height: h, rx: "3", fill: color });
+    }));
+  }
+  return /* @__PURE__ */ React.createElement("figure", { ref: mergedNativeRef, ...mergeTargetProps({ "className": cx("cs-chart", className) }, rootProps, ["role", "aria-label"]), role: "img", "aria-label": accessibleName }, body, type !== "spark" ? /* @__PURE__ */ React.createElement("figcaption", { className: "cs-chart__legend" }, data.map((d, i) => /* @__PURE__ */ React.createElement("span", { key: i }, d.label, showValues ? /* @__PURE__ */ React.createElement("b", null, " ", d.value) : null))) : null);
+});
+Chart.displayName = "Chart";
+
+export {
+  Chart
+};
+//# sourceMappingURL=chunk-P64YS5W2.mjs.map

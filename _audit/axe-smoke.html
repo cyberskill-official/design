@@ -56,7 +56,7 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
         for(const state of ['default','expanded']){
           if(state==='expanded') scene.expansion=await window.__axeFixtures.expandSceneForScan(stage,name);
           await window.__axeFixtures.settleSceneForScan(stage);
-          const res=await axe.run(stage,{runOnly:{type:'tag',values:['wcag2a','wcag2aa']}});
+          const res=await axe.run({include:window.__axeFixtures.sceneRoots(stage)},{runOnly:{type:'tag',values:['wcag2a','wcag2aa']}});
           const serious=res.violations.filter(v=>v.impact==='serious'||v.impact==='critical');
           scene.scans.push({state,seriousCritical:compact(serious),violations:compact(res.violations),incomplete:compact(res.incomplete),passes:res.passes.length,inertNodes:stage.querySelectorAll('[inert]').length});
           serious.forEach(v=>fails.push(lang+':'+name+':'+state+':'+v.id));

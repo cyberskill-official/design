@@ -1,3 +1,7 @@
+<!-- BEGIN GENERATED ENTRY LANGUAGE ROUTE v1 -->
+**Tiếng Việt:** [Đọc hướng dẫn đầy đủ](docs/vi/entrypoints/README.md) · **English:** full original guidance follows below.
+<!-- END GENERATED ENTRY LANGUAGE ROUTE v1 -->
+
 # CyberSkill Global Design System
 
 > **Turn Your Will Into Real — Hiện Thực Hoá Ý Chí**
@@ -6,16 +10,16 @@
 
 ## Start here
 
-This is the **entrance document** for the CyberSkill Design System — VERSION **1.7.2** (see `VERSION`). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Operator documentation is published in the Storybook **Docs** sidebar (and the Documentation Library at `/docs/viewer.html`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves four independent axes — **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
+This is the **entrance document** for the CyberSkill Design System — source checkout VERSION **<!-- cs-source-version:checkout -->1.7.2<!-- /cs-source-version -->** (see `VERSION`; this does not establish registry availability). The **product site** is Storybook at **`/`** on `design.cyberskill.world` (host-only; local: `npm run storybook`). Operator documentation is published in the Storybook **Docs** sidebar (and the Documentation Library at `/docs/viewer.html`). Legacy `/dashboard`, `/dashboard.html`, and `/playground/*` redirect to `/`. One sentence: a warm, Vietnamese-first, enterprise-grade system where every surface resolves four independent axes — **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
 
 **Quick start by audience**
 - **Designers** — open Storybook (**Foundations / Components / Templates / Pages / Docs**). **Templates** lists all <!-- cs-count:templates -->85<!-- /cs-count --> starting points (Gallery → Atomic View, plus category stories including the 38-document VN A4 suite (Employment Suite + commercial framework) under **Templates → HR**). Flip Theme × Element × Language × Style live via the Storybook toolbar, Atomic View, and the Elements Geometry specimen.
 
-- **DC-capable authoring** (Design Components compiler present) — read `SKILL.md` (normative Hard rules + orientation), then the guide below; compose with `styles.css` + bundler `@cyberskill/design` (`_esm/react.mjs`) / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). DC `*.dc.html` templates only when the session has the compiler. Component contracts live beside each component (`.d.ts` + `.prompt.md`).
+- **Browser template authoring** (static HTTP server) — read `SKILL.md` (runtime routing + design constraints), then the guide below; compose with `styles.css` + compiled ESM `@cyberskill/design` (`dist/esm/_esm/react.mjs`; raw JSX via `@cyberskill/design/source`) / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). The shipped `support.js` interprets `*.dc.html` in a browser; see `docs/template-grammar.md` for grammar and host-only boundaries. Component contracts live beside each component (`.d.ts` + `.prompt.md`).
 
-- **Static / open-spec** (e.g. Google Stitch) — start at **`DESIGN.md`** (generated open-spec) → `llms.txt` → `tokens/tokens.dtcg.json`. Build **static** UI with `styles.css` + `.cs-*` / kitchen-sink / `examples/static-hello/`. **Do not** treat `templates/**/*.dc.html` as source of truth.
+- **Static / open-spec** (e.g. Google Stitch) — start at **`DESIGN.md`** (generated open-spec) → `llms.txt` → `tokens/tokens.dtcg.json`. Build **static** UI with `styles.css` + `.cs-*` / kitchen-sink / `examples/static-hello/`. Use `.dc.html` through the shipped interpreter or a grammar-aware tool; plain HTML tools consume `.cs-*` or a verified rendered snapshot.
 
-- **Implementers** — npm package **`@cyberskill/design@1.7.2`** (see `docs/consuming.md`; grant in `docs/consumer-grant.md` — still UNLICENSED). **Next/SSR:** `import { Button } from "@cyberskill/design"` (peer React). **Browser demo:** **`examples/npm-hello/`** (Lumi · Hỏa · plasma, legacy `_esm/cs.mjs`). Or link **`styles.css`** from a clone/subtree (one file = everything), or copy a `templates/<slug>/` folder and edit one line in its `ds-base.js` (one-line rebind, validated end-to-end Jul 2026). Scope identity with `data-theme` · `data-cs-element` (+`data-cs-variant`) · `lang`. Release signal: tip SHA + `docs/release-notes.md` (VERSION is **1.7.2**; no CHANGELOG).
+- **Implementers** — published stable npm package **`@cyberskill/design@1.7.2`** (see `docs/consuming.md`; grant in `docs/consumer-grant.md` — still UNLICENSED). **Next/SSR:** `import { Button } from "@cyberskill/design"` (peer React). **Browser demo:** **`examples/npm-hello/`** (Lumi · Hỏa · plasma, legacy `_esm/cs.mjs`). Or link **`styles.css`** from a clone/subtree (one file = everything), or copy a `templates/<slug>/` folder and edit one line in its `ds-base.js` (one-line rebind, validated end-to-end Jul 2026). Scope identity with `data-theme` · `data-cs-element` (+`data-cs-variant`) · `lang`. Release signal: tip SHA + `docs/release-notes.md` (source VERSION is **<!-- cs-source-version:release-signal -->1.7.2<!-- /cs-source-version -->**; no CHANGELOG).
 
 - **Maintainers** — `docs/doctrine.md` (expansion + verification), then `CONTRIBUTING.md` and `docs/quality-gates.md`.
 
@@ -25,7 +29,7 @@ This is the **entrance document** for the CyberSkill Design System — VERSION *
 |---|---|
 | `README.md` (this file, below) | The full guide: anchors, voice, visual foundations, components, templates, index |
 | `DESIGN.md` | **This repo's** generated open-spec surface (Stitch-style) — doctrine + every token value + inventory, from DTCG; regenerate via `npm run build:design-md`. Do not hand-edit. |
-| `SKILL.md` | Agent entry — hard rules + fast orientation |
+| `SKILL.md` | Agent entry — runtime routing + design constraints |
 | `docs/consuming.md` | Adopting & upgrading — DC-capable vs static dual path, npm package name, axes, upgrade + extend |
 | `docs/consumer-grant.md` | Written npm consumer grant (CyberSkill portfolio; UNLICENSED + named products) |
 | `docs/conventions.md` | How to extend the system (naming grammar, checklists, the four axes) |
@@ -38,7 +42,7 @@ This is the **entrance document** for the CyberSkill Design System — VERSION *
 | `docs/live-hub.md` | Storybook at `/` is the product surface; surface map |
 | `docs/storybook.md` | Host Storybook product surface at `/` — Docs sidebar is the published reading surface |
 | `docs/figma.md` | Figma / Tokens Studio import recipe for consumers and maintainers |
-| `docs/vi/*.md` | Vietnamese mirror of every operator-facing `docs/*.md` (toggle EN\|VI in `docs/viewer.html`; entrance docs stay EN) |
+| `docs/vi/*.md` | Vietnamese mirror of every operator-facing `docs/*.md` (toggle EN\|VI in `docs/viewer.html`; paired entry translations live under `docs/vi/entrypoints/`) |
 
 **Document map — maintainers** (CI, decisions, gates — not consumer onboarding)
 
@@ -69,14 +73,18 @@ Related CyberSkill repos (not in this tree — explore for product/marketing fid
 
 ## Anchor immutables (never change these)
 
+<!-- BEGIN DOCTRINE IMMUTABLES -->
 | Immutable | Value |
 |---|---|
-| **Slogan** | *Turn Your Will Into Real* / *Hiện Thực Hoá Ý Chí* |
-| **Primary brand** | **Umber** `#45210E` · `oklch(0.265 0.073 44.3)` |
-| **Primary accent** | **Ochre** `#F4BA17` · `oklch(0.811 0.162 83.7)` |
-| **Voice** | warm · direct · honest · respectful (a chord — all four at once) |
-| **Vietnamese-first** | every UI string ships an EN + VN pair |
-| **Accessibility floor** | APCA Lc ≥ 75 body text, focus rings never removed, ≥ 44px touch targets |
+| Slogan | *Turn Your Will Into Real* / *Hiện Thực Hoá Ý Chí* |
+| Primary brand | Umber `#45210E` |
+| Primary accent | Ochre `#F4BA17` |
+| Voice | warm · direct · honest · respectful (all four at once) |
+| Language | Vietnamese-first; every UI string ships an EN + VN pair |
+| Accessibility floor | APCA Lc ≥ 75 body text; focus rings never removed; ≥ 44px touch targets |
+| Axes | Theme × Element × Language × Style (independent) |
+| Style pack | liquid-glass (sole pack; absent ≡ default) |
+<!-- END DOCTRINE IMMUTABLES -->
 
 ---
 
@@ -140,35 +148,39 @@ Copied assets live in `assets/`: `logo-mark.svg` / `logo-mark.png` (official mas
 
 ## Components
 
-**A comprehensive library — <!-- cs-count:publicExports -->123<!-- /cs-count --> exports across 8 groups.** <!-- cs-count:componentSourceFiles -->106<!-- /cs-count --> of these are primary component files, and every primary ships the full contract trio — a `.jsx`, a `.d.ts` props contract, a `.prompt.md` — plus a Design-System card. The other <!-- cs-count:coExports -->17<!-- /cs-count --> are co-exports (sub-parts such as `CardHeader`, `Tab`, `MenuItem`, `Radio`, and data consts such as `CS_ICONS`) documented inside their parent's files rather than with files of their own. Mount from the compiled bundle. The bundle's global is `window.CyberSkillDesignSystem_<projectId>` — the 6-hex suffix is assigned by the compiler and **changes when this system is imported into another project**, so resolve it by prefix rather than hardcoding it: `const CS = window[Object.keys(window).find(k => /^CyberSkillDesignSystem_/.test(k))]; const { Button } = CS;`
+<!-- BEGIN CATALOG COMPONENT INVENTORY -->
+Generated from the public source catalog and actual Atomic story AST. **125 exports across 9 import groups**; kinds include components, constants and hooks. Inventory membership is not semantic or human acceptance.
 
-- **Core — actions & overlays** — `Button`, `ButtonGroup`, `FloatingActionButton`, `Dialog`
+- **AI-native** — `AIDisclosureBadge`, `ChatMessage`, `CitationList`, `ConfidenceMeter`, `HumanReviewGate`, `PromptInput`, `PromptSuggestions`, `TypingIndicator`
 
-- **Forms** — `TextField`, `Textarea`, `Select`, `NativeSelect`, `Checkbox`, `RadioGroup` (+ `Radio`), `Switch`, `SearchField`, `NumberField`, `Slider`, `FileUpload`, `SegmentedControl`, `Toggle`, `Rating`, `InputOTP`, `InputGroup`, `TagInput`, `TimePicker`, `Combobox`, `Mentions`, `InlineEdit`, `ColorPicker`, `Calendar`, `DatePicker`, `Cascader`, `TreeSelect`, `Transfer`, `Editor`, `Form` (+ `FormField`, `FormFieldArray`, `FormWizard`)
+- **Data & layout** — `Accordion`, `AspectRatio`, `Avatar`, `AvatarGroup`, `Card`, `CardBody`, `CardFooter`, `CardHeader`, `Carousel`, `Chart`, `CodeBlock`, `Collapsible`, `Comment`, `DataGrid`, `DataTable`, `DescriptionList`, `Divider`, `Image`, `Item`, `Kbd`, `List`, `ListItem`, `Masonry`, `QRCode`, `ScrollArea`, `Sortable`, `Splitter`, `Stat`, `Terminal`, `Timeline`, `Tooltip`, `Tree`, `TreeTable`, `Watermark`
 
-- **Data & layout** — `DataTable`, `DataGrid`, `TreeTable`, `Card` (+ `CardHeader`, `CardBody`, `CardFooter`), `Stat`, `Avatar` (+ `AvatarGroup`), `Tooltip`, `Divider`, `ScrollArea`, `AspectRatio`, `Item`, `List` (+ `ListItem`), `DescriptionList`, `Timeline`, `Accordion`, `Collapsible`, `Kbd`, `CodeBlock`, `Tree`, `Comment`, `Carousel`, `Image`, `Masonry`, `Splitter`, `Sortable`, `Chart`, `Terminal`, `QRCode`, `Watermark`
+- **Feedback & status** — `Alert`, `Badge`, `EmptyState`, `ProgressBar`, `Result`, `Skeleton`, `Spinner`, `StatusIndicator`, `Tag`, `Toast`, `ToastStack`
 
-- **Feedback & status** — `Badge`, `Tag`, `Alert`, `Toast` (+ `ToastStack`), `Spinner`, `ProgressBar`, `Skeleton`, `StatusIndicator`, `EmptyState`, `Result`
+- **Overlays** — `AlertDialog`, `ContextMenu`, `Drawer`, `HoverCard`, `OverlayProvider`, `Popconfirm`, `Popover`, `Tour`
 
-- **Navigation** — `Tabs` (+ `Tab`), `Breadcrumb`, `Pagination`, `Menu` (+ `MenuItem`), `Sidebar` (+ `NavItem`), `Steps`, `CommandPalette`, `Menubar`, `NavigationMenu`, `Anchor`, `Toolbar`, `Dock`, `BackTop`, `Link`, `HotKeys`
+- **Navigation** — `Anchor`, `BackTop`, `Breadcrumb`, `CommandPalette`, `Dock`, `HotKeys`, `Link`, `Menu`, `MenuItem`, `Menubar`, `NavItem`, `NavigationMenu`, `Pagination`, `Sidebar`, `Steps`, `Tab`, `Tabs`, `Toolbar`
 
-- **Overlays** — `Popover`, `Drawer`, `HoverCard`, `Popconfirm`, `AlertDialog`, `ContextMenu`, `Tour`
+- **Core** — `Button`, `ButtonGroup`, `Dialog`, `FloatingActionButton`
 
-- **AI-native** — `AIDisclosureBadge`, `HumanReviewGate`, `PromptInput`, `ChatMessage`, `ConfidenceMeter`, `PromptSuggestions`, `TypingIndicator`, `CitationList`
+- **Brand** — `CS_ICONS` (constant), `CS_LOGO_MARK_INNER` (constant), `CS_LOGO_VIEWBOX` (constant), `Icon`, `Logo`, `LumiAvatar`
 
-- **Brand** — `Logo` (+ the `CS_LOGO_MARK_INNER` / `CS_LOGO_VIEWBOX` data consts), `Icon` (+ the `CS_ICONS` data const), `LumiAvatar`
+- **Forms** — `Calendar`, `Cascader`, `Checkbox`, `ColorPicker`, `Combobox`, `DatePicker`, `EDITOR_SCHEMA` (constant), `Editor`, `FileUpload`, `Form`, `FormField`, `FormFieldArray`, `FormWizard`, `InlineEdit`, `InputGroup`, `InputOTP`, `Mentions`, `NativeSelect`, `NumberField`, `Radio`, `RadioGroup`, `Rating`, `SearchField`, `SegmentedControl`, `Select`, `Slider`, `Switch`, `TagInput`, `TextField`, `Textarea`, `TimePicker`, `Toggle`, `Transfer`, `TreeSelect`
 
-**Atomic tiers** — the same <!-- cs-count:publicExports -->123<!-- /cs-count --> exports seen through the design-composition lens (browsable live in `guidelines/atomic-view.html`, where one toolbar reskins every tier across Theme × Element × Language × Style). The eight groups above are the *functional/import* grouping (how the bundle is organized); these tiers are the *composition* grouping — same components, two lenses.
+- **Localization** — `LocaleProvider`, `useMessages` (hook)
 
-- **Atoms** (indivisible primitives) — `Button`, `Icon`, `Badge`, `Tag`, `StatusIndicator`, `Spinner`, `ProgressBar`, `Skeleton`, `Avatar` (+ `AvatarGroup`), `Divider`, `AspectRatio`, `Item`, `Kbd`, `Logo`, `LumiAvatar`, `Toggle`, `Link`
+**Observed Atomic compositions** — these lists derive from actual JSX render targets in the authored tier stories, including reused children. A target can occur in more than one tier. Context-only providers, constants and hooks do not imply standalone visual specimens.
 
-- **Molecules** (a few atoms bonded into one control) — `TextField`, `Textarea`, `Select`, `NativeSelect`, `Checkbox`, `RadioGroup`, `Switch`, `SearchField`, `NumberField`, `Slider`, `FileUpload`, `SegmentedControl`, `Tabs`, `Breadcrumb`, `Pagination`, `Menu`, `Steps`, `Stat`, `Card`, `Tooltip`, `ScrollArea`, `Collapsible`, `List`, `DescriptionList`, `CodeBlock`, `Alert`, `Toast`, `ConfidenceMeter`, `AIDisclosureBadge`, `PromptSuggestions`, `TypingIndicator`, `CitationList`, `Rating`, `InputOTP`, `ButtonGroup`, `Combobox`, `InputGroup`, `TagInput`, `TimePicker`, `HoverCard`, `Popconfirm`, `ContextMenu`, `FloatingActionButton`, `InlineEdit`, `Toolbar`, `Anchor`, `Image`, `Watermark`, `BackTop`, `Mentions`, `ColorPicker`, `QRCode`
+- **Atom** — `AspectRatio`, `Avatar`, `AvatarGroup`, `Badge`, `Button`, `Divider`, `Icon`, `Item`, `Kbd`, `Link`, `Logo`, `LumiAvatar`, `ProgressBar`, `Skeleton`, `Spinner`, `StatusIndicator`, `Switch`, `Tag`, `Toggle`
 
-- **Organisms** (composite, self-contained sections) — `Sidebar` (+ `NavItem`), `CommandPalette`, `DataTable`, `Accordion`, `Timeline`, `EmptyState`, `Dialog`, `AlertDialog`, `Drawer`, `Popover`, the `PromptInput` + `ChatMessage` conversation, `HumanReviewGate`, `Calendar`, `DatePicker`, `Result`, `Menubar`, `NavigationMenu`, `Carousel`, `Comment`, `Form` (+ `FormField`), `Tree`, `TreeSelect`, `Cascader`, `Transfer`, `Tour`, `Masonry`, `Splitter`, `HotKeys`, `Dock`, `DataGrid`, `TreeTable`, `Sortable`, `Chart`, `Editor`, `Terminal`
+- **Molecule** — `AIDisclosureBadge`, `Alert`, `Anchor`, `Avatar`, `AvatarGroup`, `BackTop`, `Badge`, `Breadcrumb`, `Button`, `ButtonGroup`, `Card`, `CardBody`, `CardFooter`, `CardHeader`, `ChatMessage`, `Checkbox`, `CitationList`, `CodeBlock`, `Collapsible`, `ColorPicker`, `Combobox`, `ConfidenceMeter`, `ContextMenu`, `DescriptionList`, `FileUpload`, `FloatingActionButton`, `HoverCard`, `Icon`, `Image`, `InlineEdit`, `InputGroup`, `InputOTP`, `List`, `ListItem`, `Mentions`, `Menu`, `MenuItem`, `NativeSelect`, `NumberField`, `Pagination`, `Popconfirm`, `PromptSuggestions`, `QRCode`, `RadioGroup`, `Rating`, `ScrollArea`, `SearchField`, `SegmentedControl`, `Select`, `Slider`, `Stat`, `Steps`, `Switch`, `Tabs`, `TagInput`, `TextField`, `Textarea`, `Toast`, `ToastStack`, `Toolbar`, `Tooltip`, `TypingIndicator`, `Watermark`
+
+- **Organism** — `Accordion`, `AlertDialog`, `Avatar`, `Badge`, `Button`, `Calendar`, `Carousel`, `Cascader`, `Chart`, `ChatMessage`, `CommandPalette`, `Comment`, `DataGrid`, `DataTable`, `DatePicker`, `Dialog`, `Dock`, `Drawer`, `Editor`, `EmptyState`, `Form`, `FormField`, `FormFieldArray`, `FormWizard`, `HotKeys`, `HumanReviewGate`, `Icon`, `Kbd`, `LocaleProvider`, `Masonry`, `Menubar`, `NavItem`, `NavigationMenu`, `OverlayProvider`, `Pagination`, `Popover`, `PromptInput`, `RadioGroup`, `Result`, `Sidebar`, `Sortable`, `Splitter`, `Terminal`, `TextField`, `TimePicker`, `Timeline`, `Tour`, `Transfer`, `Tree`, `TreeSelect`, `TreeTable`
+<!-- END CATALOG COMPONENT INVENTORY -->
 
 Highlights: **Button** — Umber primary; variants primary/secondary/tertiary/ghost/danger/danger-ghost; sizes xs–lg; loading, icon, fullWidth. **TextField / Textarea / Select / NativeSelect** share one `.cs-field` frame (label + description/error; diacritic/IME-safe). **DataTable** — caption, scoped headers, per-column render, idle/loading/error/empty triad. **Card** — warm panel + header/body/footer. **Logo** renders the exact official mark; **Icon** drives the in-repo line-icon set. The **AI-native** family carries the brand's explainability doctrine — disclosure, human review, wish capture, and confidence, all stated in words (never colour alone).
 
-**Install / package name.** This monolith publishes as **`@cyberskill/design`** (VERSION **1.7.2**; grant in `docs/consumer-grant.md` governs *use* — package remains UNLICENSED). Do **not** install `@cyberskill/react` for this tree — that name is historical marketing-site inventory, not this package.
+**Install / package name.** The package name is **`@cyberskill/design`** (source checkout VERSION **<!-- cs-source-version:package-source -->1.7.2<!-- /cs-source-version -->**; grant in `docs/consumer-grant.md` governs *use* — package remains UNLICENSED). Do **not** install `@cyberskill/react` for this tree — that name is historical marketing-site inventory, not this package.
 
 **Source inventory vs. extensions.** An earlier CyberSkill surface shipped six primitives — `Button`, `TextField`, `Dialog`, `DataTable`, `AIDisclosureBadge`, `HumanReviewGate` — plus a brand `Logo`. Everything else in **this** package is an **intentional extension** built in the brand's own token vocabulary so consumers have a complete working kit: `Icon` (the marketing site's real in-repo line-icon set), the standard Forms / Feedback / Data / Navigation / Overlays primitives (search, stepper, slider, file upload, list, description list, timeline, accordion, kbd, code block, sidebar, steps, command palette, popover, drawer, and more), added AI-native pieces (`PromptInput`, `ChatMessage`, `ConfidenceMeter`, `PromptSuggestions`, `TypingIndicator`, `CitationList`) that formalise the Lumi wish-flow, and the `LumiAvatar` mascot. None invent new visual language — they reuse the anchors, surfaces, type, and motion already defined.
 
@@ -198,7 +210,7 @@ Every template declares the **Element (Ngũ Hành)** selector (15 variants). The
 
 ### Team artifact templates
 
-Branded documents, emails, reports, and decks per department — each a copyable `.dc.html` composing the design-system components. Groups now cover **Tech, Team, HR, Board, Marketing, Culture, Delivery, Legal, Finance, Sales** — the full operations map (coverage research, Jul 2026). Counsel-gated drafts (PIP, board resolution, VN employment contract) ship **banner-marked**: legal/HR review is mandatory before real use.
+Branded documents, emails, reports, and decks per department — each a copyable `.dc.html` using design-system tokens, branded markup and selected components. Many documents import only Logo; the markup is not automatically composed from React components. Groups now cover **Tech, Team, HR, Board, Marketing, Culture, Delivery, Legal, Finance, Sales** — the full operations map (coverage research, Jul 2026). Counsel-gated drafts (PIP, board resolution, VN employment contract) ship **banner-marked**: legal/HR review is mandatory before real use.
 
 - **Tech** — `tech-release-notes` (release email), `tech-incident-report` (blameless postmortem: timeline + action table), `tech-rfc` (design doc: proposal, trade-offs, rollout).
 
@@ -281,7 +293,7 @@ Every template resolves to one of six archetypes, framed by `templates/doc-templ
 ## Index / manifest
 
 ```
-styles.css                 ← single entry point (@import manifest only) · VERSION 1.7.2
+styles.css                 ← single entry point (@import manifest only) · checkout version: see VERSION
 tokens/                    fonts · colors · typography · spacing · elevation · motion · component-tokens · elements (Ngũ Hành packs)
 base/                      reset · typography · components · forms · feedback · data · navigation · ai · controls · collections · shell · glass · interaction · a11y · responsive
 components/                button · textfield · dialog · datatable · forms · feedback · data · navigation · overlays · ai · logo · icon · brand
@@ -307,7 +319,7 @@ The VN A4 source inventory contains <!-- cs-count:vietnameseInstrumentTemplates 
 
 **UI kits** (product recreations, composing the tokens + `.cs-*` classes): **Status Hub** (portfolio dashboard — KPIs, board/table/releases lenses, drawer — plus **sign-in**, **settings**, **project detail**). Live axis demos: Storybook toolbar · Atomic View · Elements Geometry specimen, **cyberskill.world** (bilingual marketing home with Lumi chat — plus **Work**, **Careers**, and a full-page **Lumi assistant**), and a **Brand deck** (16:9, `deck-stage`, browser print and host capture hooks). See each kit's `README.md`.
 
-**Storybook** renders every card: Components (<!-- cs-count:publicExports -->123<!-- /cs-count --> exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), **Templates** (<!-- cs-count:templates -->85<!-- /cs-count --> starting points from the manifest, including HR Suite / VN A4), **Pages** (Status Hub, Website, Deck), plus Maintainer mirrors for gates.
+**Storybook** renders every card: Components (<!-- cs-count:publicExports -->125<!-- /cs-count --> exports — Core, Forms, Data, Feedback, Navigation, Overlays, AI-native, Brand), Foundations (Colors, Type, Spacing, Surfaces, Brand, Motion, Responsive & Bilingual, **Elements**), **Templates** (<!-- cs-count:templates -->85<!-- /cs-count --> starting points from the manifest, including HR Suite / VN A4), **Pages** (Status Hub, Website, Deck), plus Maintainer mirrors for gates.
 
 ---
 
@@ -331,3 +343,9 @@ The accessibility fixture gate (`_audit/a11y-harness.html`) checks actual access
 Semantic statuses expose separate fill, paired foreground (`-fg`) and surface-text (`-text`) roles. Use the text role for messages and labels on page/panel/raised surfaces. Fixed white print sheets use an explicit Light scope with their own primary text color; adaptive sheets follow the selected theme.
 
 `--cs-accent-on-strong` is the paired foreground for strong callout fills, with body APCA75 and WCAG4.5 in both modes. The generator targets78; see the contrast report and `test:strong-text-contrast` for their declared scopes.
+
+<!-- BEGIN PINNED TOOLCHAIN BOOTSTRAP -->
+Before the source-repository `npm ci` or `npm run` commands, use Node >=22.12.0 and run `node scripts/bootstrap-toolchain.mjs` directly. This installs the audited, lockfile-pinned npm11.21.1 fixture with lifecycle scripts disabled; it works from the npm bundled with Node and does not install npm globally. Add `_audit/ci/fixtures/npm-cli/node_modules/.bin` to PATH, or run `node scripts/npm.mjs ci` and use `node scripts/npm.mjs` in place of `npm` for later commands. Source `devEngines` rejects another npm version. Published-package consumers keep their own package manager; this guard is not an installation lifecycle hook. See [validation and toolchain guidance](docs/validation.md).
+
+Trước các lệnh `npm ci` hoặc `npm run` trong kho nguồn, dùng Node >=22.12.0 và chạy trực tiếp `node scripts/bootstrap-toolchain.mjs`. Lệnh cài fixture npm11.21.1 có lockfile đã audit, tắt lifecycle scripts và không cài npm toàn cục. Thêm `_audit/ci/fixtures/npm-cli/node_modules/.bin` vào PATH, hoặc dùng `node scripts/npm.mjs ci`; các lệnh sau dùng `node scripts/npm.mjs` thay cho `npm`. `devEngines` chỉ ràng buộc dự án nguồn; người dùng gói đã phát hành giữ package manager của họ. [Hướng dẫn kiểm tra và toolchain](docs/vi/validation.md).
+<!-- END PINNED TOOLCHAIN BOOTSTRAP -->

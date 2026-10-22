@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { NativeSelect } from '../components/forms/NativeSelect.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
@@ -6,20 +7,13 @@ export default {
   component: NativeSelect,
   tags: ['autodocs'],
   argTypes: {
+  "required": {"control":"boolean"},
     label: { control: 'text' },
-    size: { control: 'select', options: ['sm', 'md'] },
+    size: { control: 'select', options: DECLARED_DOMAINS.NativeSelect["size"] },
     options: { control: 'object' },
     defaultValue: { control: 'text' },
     error: { control: 'text' },
     disabled: { control: 'boolean' },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting NativeSelect. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
   },
   args: {
     label: 'Squad',
@@ -73,7 +67,7 @@ export const States = {
 export const FullMatrix = {
   name: 'Full matrix / size × state',
   render: (args) => {
-    const cells = cartesian({ size: ['sm', 'md'] }).flatMap((combo) =>
+    const cells = cartesian({ size: DECLARED_DOMAINS.NativeSelect["size"] }).flatMap((combo) =>
       stateCombos(['disabled', 'error']).map((state) => {
         const props = { ...combo, ...state };
         const label = comboLabel(props, ['size', 'disabled', 'error']);
@@ -95,3 +89,27 @@ export const FullMatrix = {
     );
   },
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioNativeSelectError = {
+  name: "NativeSelect: Validation error",
+  args: {
+  "label": "Project",
+  "options": [
+    {
+      "value": "a",
+      "label": "Alpha"
+    },
+    {
+      "value": "b",
+      "label": "Beta"
+    }
+  ],
+  "defaultValue": "a",
+  "error": "NativeSelect scenario validation error"
+},
+  render: args => renderComponentScenario("NativeSelect--error",args),
+  play: ({canvasElement}) => playComponentScenario("NativeSelect--error",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

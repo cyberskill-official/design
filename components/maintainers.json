@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "description": "Authorized support record identities. Membership does not establish review or appoint a delegate.",
+  "maintainers": [
+    {
+      "name": "Stephen Cheng",
+      "roles": [
+        "owner",
+        "reviewer"
+      ],
+      "githubLogin": "zintaen",
+      "eligibilitySnapshot": "_audit/ci/fixtures/github-ownership.json"
+    }
+  ]
+}

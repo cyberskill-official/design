@@ -6,6 +6,7 @@ export default {
   component: Checkbox,
   tags: ['autodocs'],
   argTypes: {
+  "required": {"control":"boolean"},
   "label": {
     "control": "object"
   },
@@ -16,13 +17,6 @@ export default {
     "control": "boolean"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Checkbox. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { label: 'Remember this wish', defaultChecked: true },
 };
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Generate bundler-native React package entries from `_ds_bundle.js` header:
+ * Generate React source barrel and declaration entries from `_ds_bundle.js` header:
  *   • `_esm/react.mjs`  — re-exports every exposed component from source JSX/JS
  *                         (React is a peerDependency / external — no CDN, no bundle)
  *   • `_esm/react.d.ts` — TypeScript surface mirroring those named exports
@@ -34,12 +34,12 @@ function buildMjs(components) {
   const lines = [
     '"use client";',
     "// CyberSkill Design System — bundler-native React entry (GENERATED).",
-    "// Client barrel: marks the default package entry as a React Client Module",
+    "// Source barrel: compile input and explicit ./source React Client Module",
     "// so Next.js App Router / RSC consumers can import interactive components",
-    "// without per-import shims (FIND-006).",
+    "// without per-import shims after compilation (FIND-006).",
     "// Re-exports every public component from source. React / react-dom are",
-    "// peerDependencies (external) — do not use this entry without a bundler",
-    "// that can transpile JSX (Next transpilePackages, Vite, etc.).",
+    "// peerDependencies (external). Explicit ./source requires a bundler",
+    "// that transpiles JSX. Default ./react and package root use compiled ESM.",
     "// Browser / no-build consumers: import from `@cyberskill/design/legacy`",
     "// (`_esm/cs.mjs`) instead. Styles are NOT injected — link styles.css",
     "// (or dist/styles.min.css for production static).",

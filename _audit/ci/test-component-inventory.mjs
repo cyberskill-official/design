@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {inventoryOutputs,publicInventory,atomicMetadata} from '../../scripts/lib/component-inventory.mjs';
+const root=new URL('../../',import.meta.url),read=p=>readFileSync(new URL(p,root),'utf8');
+const manifest=JSON.parse(read('_ds_manifest.json')),readme=read('README.md'),atomic=read('guidelines/atomic-view.html');
+const outputs=inventoryOutputs(manifest,readme,atomic);
+for(const[path,text]of outputs)assert.equal(read(path),text,`Derived catalog inventory: ${path}`);
+const names=publicInventory(manifest).names;
+assert.equal(names.length,manifest.components.length);
+assert.equal(publicInventory(manifest).groups.get('Localization').length,2,'Provider and hook remain visible in inventory');
+const add=structuredClone(manifest);add.components.push({name:'InventoryFixture',kind:'component',sourcePath:'components/forms/InventoryFixture.jsx'});
+const changed=inventoryOutputs(add,readme,atomic);
+assert(changed.get('README.md').includes('`InventoryFixture`'));
+assert(changed.get('guidelines/atomic-view.html').includes('  InventoryFixture,'));
+assert.notEqual(changed.get('README.md'),readme,'New catalog member must fail stale README check');
+const remove=structuredClone(manifest);remove.components=remove.components.filter(x=>x.name!=='Button');
+assert.throws(()=>inventoryOutputs(remove,readme,atomic),'Rendered target must belong to actual public catalog');
+for(const member of [{name:'Duplicate',kind:'component',sourcePath:'components/new-family/X.jsx'},{...manifest.components[0]}, {name:'Fake',kind:'unknown',sourcePath:'components/forms/Fake.jsx'}]) {
+ const broken=structuredClone(manifest);broken.components.push(member);assert.throws(()=>publicInventory(broken));
+}
+const renamed=atomic.replace('tier:"Atom", name:"Button"','tier:"Organism", name:"Button"');
+assert.notEqual(inventoryOutputs(manifest,readme,renamed).get('README.md'),readme,'README composition inventory must follow actual story tier');
+assert.deepEqual(atomicMetadata(atomic+'\n<!-- {tier:"Atom",name:"Invented"} -->'),atomicMetadata(atomic),'Comment-only metadata must not create a specimen');
+const removedMarker=readme.replace('<!-- END CATALOG COMPONENT INVENTORY -->','');
+assert.throws(()=>inventoryOutputs(manifest,removedMarker,atomic));
+const staleReadme=readme.replace('`LocaleProvider`','`RemovedProvider`');
+assert.notEqual(inventoryOutputs(manifest,staleReadme,atomic).get('README.md'),staleReadme,'Manual inventory drift rejected');
+const outside=atomic.slice(0,atomic.indexOf('// <!-- BEGIN CATALOG COMPONENT BINDINGS -->'))+atomic.slice(atomic.indexOf('// <!-- END CATALOG COMPONENT BINDINGS -->')+'// <!-- END CATALOG COMPONENT BINDINGS -->'.length);
+const regenerated=outputs.get('guidelines/atomic-view.html');
+const after=regenerated.slice(0,regenerated.indexOf('// <!-- BEGIN CATALOG COMPONENT BINDINGS -->'))+regenerated.slice(regenerated.indexOf('// <!-- END CATALOG COMPONENT BINDINGS -->')+'// <!-- END CATALOG COMPONENT BINDINGS -->'.length);
+assert.equal(outside,after,'Generator cannot alter authored renderers, controls or keyboard behavior');
+console.log('PASS catalog-derived README groups/compositions and Atomic bindings: complete membership, new/missing/drift fixtures, source-family rejection and unchanged authored demos.');

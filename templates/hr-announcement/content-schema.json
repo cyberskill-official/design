@@ -1,0 +1,78 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "hr-announcement",
+  "slots": [
+    {
+      "id": "employeeFullName",
+      "type": "text",
+      "label": "Employee Full Name",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "employeeRole",
+      "type": "text",
+      "label": "Employee Role",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "announcementTitleEn",
+      "type": "text",
+      "label": "Announcement Title En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "announcementTitleVi",
+      "type": "text",
+      "label": "Announcement Title Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "employeeStartDateEn",
+      "type": "text",
+      "label": "Employee start date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "employeeStartDateVi",
+      "type": "text",
+      "label": "Employee start date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "announcementDateEn",
+      "type": "text",
+      "label": "Announcement date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "announcementDateVi",
+      "type": "text",
+      "label": "Announcement date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "employeeGivenName",
+      "type": "text",
+      "label": "Employee given name",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

@@ -87,3 +87,16 @@
 /* Hoverable tooltip and a transparent bridge across the visual trigger gap. */
 .cs-tooltip[data-open="true"] .cs-tooltip__bubble { pointer-events: auto; }
 .cs-tooltip[data-managed] .cs-tooltip__bubble::before { content: ""; position: absolute; inset-block-start: 100%; inset-inline: 0; block-size: 8px; }
+
+/* Portaled tooltip arrows/hover bridges follow the resolved physical side. */
+.cs-tooltip__bubble[data-cs-placement^="bottom"]::after { top: auto; bottom: 100%; left: 50%; right: auto; transform: translateX(-50%); border-color: transparent; border-bottom-color: var(--cs-color-brand-umber); }
+.cs-tooltip__bubble[data-cs-placement^="left"]::after { top: 50%; bottom: auto; left: 100%; right: auto; transform: translateY(-50%); border-color: transparent; border-left-color: var(--cs-color-brand-umber); }
+.cs-tooltip__bubble[data-cs-placement^="right"]::after { top: 50%; bottom: auto; left: auto; right: 100%; transform: translateY(-50%); border-color: transparent; border-right-color: var(--cs-color-brand-umber); }
+.cs-tooltip[data-managed] .cs-tooltip__bubble[data-cs-placement^="bottom"]::before, [data-cs-floating-root][data-managed] .cs-tooltip__bubble[data-cs-placement^="bottom"]::before { top: auto; bottom: 100%; left: 0; right: 0; block-size: 8px; }
+.cs-tooltip[data-managed] .cs-tooltip__bubble[data-cs-placement^="left"]::before, [data-cs-floating-root][data-managed] .cs-tooltip__bubble[data-cs-placement^="left"]::before { top: 0; bottom: 0; left: 100%; right: auto; inline-size: 8px; block-size: auto; }
+.cs-tooltip[data-managed] .cs-tooltip__bubble[data-cs-placement^="right"]::before, [data-cs-floating-root][data-managed] .cs-tooltip__bubble[data-cs-placement^="right"]::before { top: 0; bottom: 0; left: auto; right: 100%; inline-size: 8px; block-size: auto; }
+
+.cs-tooltip__bubble[data-cs-placement] { white-space: normal; overflow-wrap: anywhere; }
+
+[data-cs-floating-root][data-open="true"] > .cs-tooltip__bubble { opacity: 1; pointer-events: auto; }
+[data-cs-floating-root][data-managed] > .cs-tooltip__bubble::before { content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 8px; }

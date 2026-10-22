@@ -1,0 +1,17 @@
+# Token authoring
+
+CSS in this directory is the value authority. `base-inventory.json` is the authored membership, DTCG type and description inventory for unconditional portable root tokens. `tokens.json`, `tokens.js`, `tokens.dtcg.json`, `declarations.json` and native outputs are generated projections.
+
+To add a portable root token, add its CSS declaration and add its group/name definition with an explicit `$type` to `base-inventory.json`. Do not add membership or types by editing the generated JSON files. Run `npm run tokens:generate`, then `npm run tokens:check` and `node _audit/ci/test-token-inventory.mjs`. CSS expressions that cannot be converted portably must remain in the declaration graph; update the explicit exclusion policy in `scripts/lib/base-token-exports.mjs` only with a documented type decision. Scoped values must never become unconditional defaults simply to fill an inventory.
+
+The declaration graph preserves selectors, media conditions and declaration order. The DTCG document exposes a portable root snapshot; its `com.cyberskill` scope extensions require the repository adapter. It does not establish native cascade parity or successful import into arbitrary design tools.
+
+Existing scope-key formats are compatibility contracts: light `overrides.elements` keys use a dot for variants (`tho.sand`); dark `overrides.elementsDark` keys use a hyphen (`tho-sand`). The native adapter normalizes the light key before looking up the dark counterpart. Consumers must use that mapping rather than assuming keys are identical. A future format migration must version this contract and preserve existing consumers.
+
+The token pipeline is ordered: element seeds, authored CSS, `base-inventory.json` and `export-metadata.json` → source-only JSON/JS/DTCG projections (including theme/density/contrast scopes) → declaration graph and manifest token section → coverage validation → native exports → native sample copies → exported artifacts/styles → contrast documentation. Element generation uses its newly generated CSS in memory when constructing the source graph, so the prior `elements.css` and JSON/JS/DTCG files are not build inputs. Independent stage checks remain idempotent.
+
+Run `node _audit/ci/test-token-clean-build.mjs` to delete all nine generated token artifacts in an isolated fixture and rebuild twice byte-identically, preserving every root/scoped value and unrelated manifest sections. The token stage still takes the repository manifest as input for its non-token sections; it does not own component/template/catalog generation.
+
+`export-metadata.json` owns document-level labels and descriptions. Its legacy `generated` date records the token inventory's historical origin, not the wall-clock time of a fresh build. Current source identity is the deterministic `declarationGraph.sha256`; native provenance hashes bind the actual token input/output bytes. Rebuilding never fabricates a fresh review or timestamp.
+
+Standalone mode documents are additive: see [modes.md](modes.md) and the versioned [mode index](modes/index.json). Generate them after the regular token stages with `node scripts/generate-token-modes.mjs`, then run its `--check`, `test-token-modes.mjs` and `test-token-modes-browser.mjs`. The 256 documents contain 172 typed values each; every mode explicitly lists three font-relative omissions plus nine pre-existing untyped CSS declarations. Existing root/scoped exports remain unchanged.

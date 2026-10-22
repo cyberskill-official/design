@@ -1,3 +1,5 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
@@ -14,11 +16,12 @@ function match(combo, e) {
 }
 
 /** CyberSkill HotKeys — global keymap: bindings [{keys:"mod+k",description,onTrigger}]. "?" opens a bilingual cheat-sheet. */
-export function HotKeys({ bindings = [], help = true, children, lang, className }) {
+export const HotKeys = React.forwardRef(function HotKeys({ bindings = [], help = true, children, lang, className , rootProps }, forwardedRef) {
   const [show, setShow] = React.useState(false);
-  const [ref, L] = useLang(lang);
-  const t = makeT("HotKeys", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const t = makeT("HotKeys", L, localeMessages);
   const panel = React.useRef(null);
+  const mergedNativeRef = useComposedRefs(panel, forwardedRef);
   const backdrop = React.useRef(null);
   const { scope } = useOverlayLayer({ open: show, kind: "modal", trapFocus: true, panelRef: panel, backdropRef: backdrop, onEscape: () => setShow(false) });
   React.useEffect(() => {
@@ -38,11 +41,11 @@ export function HotKeys({ bindings = [], help = true, children, lang, className 
   }, [bindings, help, show]);
   return (
     <overlayScopeContext.Provider value={scope}>
-    <div ref={ref} className={cx("cs-hotkeys", className)}>
+    <div ref={ref} {...mergeTargetProps({ "className": cx("cs-hotkeys", className) }, rootProps, [])}>
       {children}
       {show ? (
         <div ref={backdrop} className="cs-hotkeys__sheet" onClick={() => setShow(false)}>
-          <div ref={panel} tabIndex={-1} className="cs-hotkeys__card" role="dialog" aria-modal="true" aria-label={t("title")} onClick={(e) => e.stopPropagation()}>
+          <div ref={mergedNativeRef} tabIndex={-1} className="cs-hotkeys__card" role="dialog" aria-modal="true" aria-label={t("title")} onClick={(e) => e.stopPropagation()}>
             <b>{t("title")}</b>
             <ul>
               {bindings.map((b, i) => <li key={i}><span>{b.description}</span><kbd className="cs-kbd">{b.keys}</kbd></li>)}
@@ -54,4 +57,5 @@ export function HotKeys({ bindings = [], help = true, children, lang, className 
     </div>
     </overlayScopeContext.Provider>
   );
-}
+});
+HotKeys.displayName = "HotKeys";

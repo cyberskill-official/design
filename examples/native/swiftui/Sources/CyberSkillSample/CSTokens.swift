@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v1.7.2 · source sha256 588f0c3c8906b520…
+// release v1.7.2 · source sha256 87b8b100947a5533…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -26,14 +26,14 @@ public enum CSTokens {
   public static let colorSemanticDanger = color(0xB42318)
   public static let colorSemanticWarning = color(0x92400E)
   public static let colorSemanticInfo = color(0x1D4ED8)
-  public static let colorAccentOchre = color(0xF4BA17)
-  public static let colorBorderDefault = color(0xE7D9C6)
-  public static let colorLink = color(0x6E3B0E)
-  public static let colorLinkHover = color(0x45210E)
   public static let colorSemanticSuccessFg = color(0xFFFFFF)
   public static let colorSemanticDangerFg = color(0xFFFFFF)
   public static let colorSemanticWarningFg = color(0xFFFFFF)
   public static let colorSemanticInfoFg = color(0xFFFFFF)
+  public static let colorAccentOchre = color(0xF4BA17)
+  public static let colorBorderDefault = color(0xE7D9C6)
+  public static let colorLink = color(0x6E3B0E)
+  public static let colorLinkHover = color(0x45210E)
   public static let colorSemanticSuccessText = color(0x042D13)
   public static let colorSemanticDangerText = color(0x4B0502)
   public static let colorSemanticWarningText = color(0x441801)
@@ -63,6 +63,25 @@ public enum CSTokens {
   public static let componentTextfieldPaddingX: CGFloat = 12
   public static let componentTextfieldMinHeight: CGFloat = 44
   public static let focusRing: CGFloat = 3
+  public static let componentButtonXsPaddingYAlias: CGFloat = 4
+  public static let componentButtonXsPaddingXAlias: CGFloat = 10
+  public static let componentButtonXsMinHeightAlias: CGFloat = 28
+  public static let componentButtonXsMinWidthAlias: CGFloat = 28
+  public static let componentButtonXsMinHeightCoarseAlias: CGFloat = 44
+  public static let componentButtonSmPaddingYAlias: CGFloat = 8
+  public static let componentButtonSmPaddingXAlias: CGFloat = 14
+  public static let componentButtonSmMinHeightAlias: CGFloat = 36
+  public static let componentButtonSmMinHeightCoarseAlias: CGFloat = 44
+  public static let componentButtonMdPaddingYAlias: CGFloat = 12
+  public static let componentButtonMdPaddingXAlias: CGFloat = 20
+  public static let componentButtonMdMinHeightAlias: CGFloat = 44
+  public static let componentButtonMdMinHeightCoarseAlias: CGFloat = 44
+  public static let componentButtonLgPaddingYAlias: CGFloat = 16
+  public static let componentButtonLgPaddingXAlias: CGFloat = 28
+  public static let componentButtonLgMinHeightAlias: CGFloat = 52
+  public static let componentTextfieldPaddingYAlias: CGFloat = 10
+  public static let componentTextfieldPaddingXAlias: CGFloat = 12
+  public static let componentTextfieldMinHeightAlias: CGFloat = 44
   public static let accent = color(0xF4BA17)
   public static let accentStrong = color(0x916D10)
   public static let accentBright = color(0xF4BA17)
@@ -156,6 +175,9 @@ public enum CSTokens {
   public static let fontSize3xl: CGFloat = 36
   public static let fontSize4xl: CGFloat = 48
   public static let fontSize5xl: CGFloat = 60
+  public static let fontLineHeightBodyAlias: Double = 1.5
+  public static let fontLineHeightHeadingAlias: Double = 1.35
+  public static let fontLineHeightTightAlias: Double = 1.15
   public static let textDisplay: String = "var(--cs-font-size-5xl)"
   public static let textH1: String = "var(--cs-font-size-3xl)"
   public static let textH2: String = "var(--cs-font-size-2xl)"
@@ -231,15 +253,25 @@ public enum CSTokens {
   public static let densityControlGapCompact: CGFloat = 6
   public static let componentButtonGapCompact: CGFloat = 6
   public static let componentButtonXsPaddingYCompact: CGFloat = 3
+  public static let componentButtonXsPaddingYAliasCompact: CGFloat = 3
   public static let componentButtonXsPaddingXCompact: CGFloat = 8
+  public static let componentButtonXsPaddingXAliasCompact: CGFloat = 8
   public static let componentButtonSmPaddingYCompact: CGFloat = 6
+  public static let componentButtonSmPaddingYAliasCompact: CGFloat = 6
   public static let componentButtonSmPaddingXCompact: CGFloat = 12
+  public static let componentButtonSmPaddingXAliasCompact: CGFloat = 12
   public static let componentButtonMdPaddingYCompact: CGFloat = 10
+  public static let componentButtonMdPaddingYAliasCompact: CGFloat = 10
   public static let componentButtonMdPaddingXCompact: CGFloat = 16
+  public static let componentButtonMdPaddingXAliasCompact: CGFloat = 16
   public static let componentButtonLgPaddingYCompact: CGFloat = 12
+  public static let componentButtonLgPaddingYAliasCompact: CGFloat = 12
   public static let componentButtonLgPaddingXCompact: CGFloat = 22
+  public static let componentButtonLgPaddingXAliasCompact: CGFloat = 22
   public static let componentTextfieldPaddingYCompact: CGFloat = 8
+  public static let componentTextfieldPaddingYAliasCompact: CGFloat = 8
   public static let componentTextfieldPaddingXCompact: CGFloat = 10
+  public static let componentTextfieldPaddingXAliasCompact: CGFloat = 10
 
   // comfortable-density Theme metrics
   public static let densitySpace1Comfortable: CGFloat = 4
@@ -251,15 +283,25 @@ public enum CSTokens {
   public static let densityControlGapComfortable: CGFloat = 8
   public static let componentButtonGapComfortable: CGFloat = 8
   public static let componentButtonXsPaddingYComfortable: CGFloat = 4
+  public static let componentButtonXsPaddingYAliasComfortable: CGFloat = 4
   public static let componentButtonXsPaddingXComfortable: CGFloat = 10
+  public static let componentButtonXsPaddingXAliasComfortable: CGFloat = 10
   public static let componentButtonSmPaddingYComfortable: CGFloat = 8
+  public static let componentButtonSmPaddingYAliasComfortable: CGFloat = 8
   public static let componentButtonSmPaddingXComfortable: CGFloat = 14
+  public static let componentButtonSmPaddingXAliasComfortable: CGFloat = 14
   public static let componentButtonMdPaddingYComfortable: CGFloat = 12
+  public static let componentButtonMdPaddingYAliasComfortable: CGFloat = 12
   public static let componentButtonMdPaddingXComfortable: CGFloat = 20
+  public static let componentButtonMdPaddingXAliasComfortable: CGFloat = 20
   public static let componentButtonLgPaddingYComfortable: CGFloat = 16
+  public static let componentButtonLgPaddingYAliasComfortable: CGFloat = 16
   public static let componentButtonLgPaddingXComfortable: CGFloat = 28
+  public static let componentButtonLgPaddingXAliasComfortable: CGFloat = 28
   public static let componentTextfieldPaddingYComfortable: CGFloat = 10
+  public static let componentTextfieldPaddingYAliasComfortable: CGFloat = 10
   public static let componentTextfieldPaddingXComfortable: CGFloat = 12
+  public static let componentTextfieldPaddingXAliasComfortable: CGFloat = 12
 
   // High-contrast role deltas: apply after theme and element selection
   public static let colorBorderDefaultHighLight = color(0x9A8060)

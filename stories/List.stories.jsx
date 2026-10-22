@@ -4,6 +4,7 @@ export default {
   title: 'Components/Data/List',
   component: List,
   tags: ['autodocs'],
+  args: { className: '' },
   argTypes: {
   "lead": {
     "control": "object"
@@ -18,16 +19,9 @@ export default {
     "control": "object"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting List. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
 };
 
-export const Default = { render: () => (<List><ListItem>First wish</ListItem><ListItem>Second wish</ListItem></List>) };
+export const Default = { render: (args) => (<List {...args}><ListItem>First wish</ListItem><ListItem>Second wish</ListItem></List>) };
 
 export const Matrix = {
   name: 'Matrix / Density',

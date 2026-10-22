@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import { sortStoriesV7 } from 'storybook/internal/preview-api';
+import { getStorySortParameter } from 'storybook/internal/csf-tools';
+import {navigation,storyOrder} from '../../scripts/generate-doc-navigation.mjs';
+const catalog={entrance:[{path:'README.md',story:'Docs/Start/README',labelEn:'Readme',labelVi:'Đọc'}],pages:[{path:'docs/a.md',story:'Docs/Guides/A',labelEn:'A',labelVi:'Â'}],curated:[{story:'Docs/Start/Introduction'}]};
+assert.deepEqual(navigation(catalog,'vi'),[['Bắt đầu',[['README.md','Đọc']]],['Hướng dẫn',[['docs/a.md','Â']]],['Bảo trì',[]]]);
+assert.deepEqual(storyOrder(catalog),['Start',['Introduction','README'],'Guides',['A'],'Maintainers',[]]);
+assert.throws(()=>navigation({...catalog,pages:[...catalog.pages,...catalog.entrance]},'en'),/Duplicate/);
+const preview=readFileSync(new URL('../../.storybook/preview.jsx',import.meta.url),'utf8');
+const current=JSON.parse(readFileSync(new URL('../docs-catalog.json',import.meta.url),'utf8'));
+assert.deepEqual(getStorySortParameter(preview).order[1],storyOrder(current),'Installed Storybook must accept the generated inline sort');assert(!/description:\s*\{\s*component:/.test(preview),'Global component description must not mask component JSDoc');
+const stories=[{title:'Docs/Maintainers/Quality gates',name:'Docs'},{title:'Docs/Maintainers/CI/CD',name:'Docs'}];
+sortStoriesV7(stories,{order:['Docs',storyOrder(current)]},[]);
+assert.equal(stories[0].title,'Docs/Maintainers/CI/CD','Slash-bearing catalog titles must retain their nested story order');
+console.log('PASS docs navigation: exact bilingual catalog projection, curated ordering, duplicates rejected, JSDoc unmasked');
+
+const orderedCatalog = {entrance:catalog.entrance,pages:[{path:'docs/start.md',story:'Docs/Start/First',labelEn:'First',labelVi:'Đầu tiên',sortOrder:0}],curated:[{story:'Docs/Start/Introduction',sortOrder:1}]};
+assert.deepEqual(storyOrder(orderedCatalog).slice(0,2),['Start',['First','Introduction','README']]);
+assert.equal(navigation(orderedCatalog,'vi')[0][1][0][0],'docs/start.md');
+assert.throws(()=>storyOrder({...orderedCatalog,curated:[{story:'Docs/Start/Introduction',sortOrder:0}]}),/duplicate/);

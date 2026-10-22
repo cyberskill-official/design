@@ -9,7 +9,46 @@
       "i18n": {
         "en": "Ordered field rows for the labour management book",
         "vi": "Các dòng trường sổ quản lý lao động"
-      }
+      },
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "n": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "n",
+            "vi",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "runtimeTargets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
     }
   ]
 }

@@ -10,13 +10,6 @@ export default {
     "description": "Optional className on root"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Kbd. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { children: '⌘K' },
 };
 

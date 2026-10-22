@@ -12,13 +12,6 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Spinner. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { size: 24 },
 };
 

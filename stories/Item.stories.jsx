@@ -16,14 +16,6 @@ export default {
     disabled: { control: 'boolean' },
     onClick: { control: false },
   },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting Item. Portable consumers use styles.css + bundle, not Storybook. Leading / trailing are composition slots; `href` renders as a link.',
-      },
-    },
-  },
   args: {
     title: 'Release notes',
     description: 'A summary each time a project ships. Bilingual.',

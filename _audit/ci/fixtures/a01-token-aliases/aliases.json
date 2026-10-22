@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "aliases": [
+    {
+      "legacy": "--cs-component-button-xs-paddingY",
+      "alias": "--cs-component-button-xs-padding-y",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-xs-paddingX",
+      "alias": "--cs-component-button-xs-padding-x",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-xs-minHeight",
+      "alias": "--cs-component-button-xs-min-height",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-xs-minWidth",
+      "alias": "--cs-component-button-xs-min-width",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-xs-minHeight-coarse",
+      "alias": "--cs-component-button-xs-min-height-coarse",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-sm-paddingY",
+      "alias": "--cs-component-button-sm-padding-y",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-sm-paddingX",
+      "alias": "--cs-component-button-sm-padding-x",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-sm-minHeight",
+      "alias": "--cs-component-button-sm-min-height",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-sm-minHeight-coarse",
+      "alias": "--cs-component-button-sm-min-height-coarse",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-md-paddingY",
+      "alias": "--cs-component-button-md-padding-y",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-md-paddingX",
+      "alias": "--cs-component-button-md-padding-x",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-md-minHeight",
+      "alias": "--cs-component-button-md-min-height",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-md-minHeight-coarse",
+      "alias": "--cs-component-button-md-min-height-coarse",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-lg-paddingY",
+      "alias": "--cs-component-button-lg-padding-y",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-lg-paddingX",
+      "alias": "--cs-component-button-lg-padding-x",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-button-lg-minHeight",
+      "alias": "--cs-component-button-lg-min-height",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-textfield-paddingY",
+      "alias": "--cs-component-textfield-padding-y",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-textfield-paddingX",
+      "alias": "--cs-component-textfield-padding-x",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-component-textfield-minHeight",
+      "alias": "--cs-component-textfield-min-height",
+      "group": "component",
+      "type": "dimension"
+    },
+    {
+      "legacy": "--cs-font-lineHeight-body",
+      "alias": "--cs-font-line-height-body",
+      "group": "font",
+      "type": "number"
+    },
+    {
+      "legacy": "--cs-font-lineHeight-heading",
+      "alias": "--cs-font-line-height-heading",
+      "group": "font",
+      "type": "number"
+    },
+    {
+      "legacy": "--cs-font-lineHeight-tight",
+      "alias": "--cs-font-line-height-tight",
+      "group": "font",
+      "type": "number"
+    }
+  ],
+  "before": [
+    {
+      "path": "tokens/typography.css",
+      "sha256": "c982f50400960a2229988289b397cfb136b0320842b8a164b81010598e167a34"
+    },
+    {
+      "path": "tokens/component-tokens.css",
+      "sha256": "124185bf8baa2d4161be322fb65f6405f992f3eb9f3a3e183b41778f8839068c"
+    },
+    {
+      "path": "tokens/theme-attributes.css",
+      "sha256": "cacf46c52b3c941339c08c7d0b17d3f06dd3c5dedf3dd0e2297b735081190c91"
+    }
+  ],
+  "scope": "Reviewed additive token aliases. Snapshot retains every original declaration; no legacy name/value removal."
+}

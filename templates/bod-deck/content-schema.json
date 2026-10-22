@@ -6,166 +6,193 @@
       "id": "s1kicker",
       "type": "text",
       "label": "Slide 1 eyebrow",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "s1h",
       "type": "text",
       "label": "Slide 1 title",
       "maxLength": 40,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "s1sub",
       "type": "text",
       "label": "Slide 1 subtitle",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "dateLine",
       "type": "text",
       "label": "Slide 1 date/location",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "s2kicker",
       "type": "text",
       "label": "Slide 2 eyebrow",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "s2h",
       "type": "text",
       "label": "Slide 2 title",
       "maxLength": 40,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "n1",
       "type": "text",
       "label": "Number 1 label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "n2",
       "type": "text",
       "label": "Number 2 label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "runway",
       "type": "text",
       "label": "Number 3 value",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "n3",
       "type": "text",
       "label": "Number 3 label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "n4",
       "type": "text",
       "label": "Number 4 label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "s3kicker",
       "type": "text",
       "label": "Slide 3 eyebrow",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "s3h",
       "type": "text",
       "label": "Slide 3 title",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "p1n",
       "type": "text",
       "label": "Portfolio row 1 name",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "p1s",
       "type": "text",
       "label": "Portfolio row 1 status",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "p2n",
       "type": "text",
       "label": "Portfolio row 2 name",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "p2s",
       "type": "text",
       "label": "Portfolio row 2 status",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "p3n",
       "type": "text",
       "label": "Portfolio row 3 name",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "p3s",
       "type": "text",
       "label": "Portfolio row 3 status",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "s4kicker",
       "type": "text",
       "label": "Slide 4 eyebrow",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "s4h",
       "type": "text",
       "label": "Slide 4 title",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "r1b",
       "type": "text",
       "label": "Risk/ask 1 bold lead",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "r1t",
       "type": "text",
       "label": "Risk/ask 1 text",
-      "maxLength": 80
+      "maxLength": 80,
+      "runtimeBinding": "text"
     },
     {
       "id": "r2b",
       "type": "text",
       "label": "Risk/ask 2 bold lead",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "r2t",
       "type": "text",
       "label": "Risk/ask 2 text",
-      "maxLength": 80
+      "maxLength": 80,
+      "runtimeBinding": "text"
     },
     {
       "id": "closeH",
       "type": "text",
       "label": "Closing slide title",
       "maxLength": 30,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "closeP",
       "type": "text",
       "label": "Closing slide subtitle",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     }
   ]
 }

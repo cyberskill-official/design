@@ -197,8 +197,8 @@ export const strings = {
     vi: { label: "Giờ" },
   },
   Combobox: {
-    en: { placeholder: "Select or type…", empty: "No results" },
-    vi: { placeholder: "Chọn hoặc nhập…", empty: "Không có kết quả" },
+    en: { placeholder: "Select or type…", label: "Choose an option", empty: "No results" },
+    vi: { placeholder: "Chọn hoặc nhập…", label: "Chọn mục", empty: "Không có kết quả" },
   },
   InputGroup: {
     en: { clear: "Clear", show: "Show password", hide: "Hide password", input: "Input" },
@@ -226,8 +226,8 @@ export const strings = {
   },
 
   Switch: {
-    en: { on: "On", off: "Off" },
-    vi: { on: "Bật", off: "Tắt" },
+    en: { label: "Setting" },
+    vi: { label: "Cài đặt" },
   },
   Tabs: {
     en: { list: "Tabs" },
@@ -254,12 +254,20 @@ export const strings = {
     vi: { label: "Các bước" },
   },
   Toggle: {
-    en: { pressed: "Pressed", unpressed: "Not pressed" },
-    vi: { pressed: "Đang bật", unpressed: "Chưa bật" },
+    en: { label: "Toggle" },
+    vi: { label: "Nút bật tắt" },
   },
   Menu: {
     en: { menu: "Menu" },
     vi: { menu: "Trình đơn" },
+  },
+  Popover: {
+    en: { panel: "Details" },
+    vi: { panel: "Chi tiết" },
+  },
+  Menubar: {
+    en: { label: "Application menu" },
+    vi: { label: "Trình đơn ứng dụng" },
   },
   ContextMenu: {
     en: { menu: "Context menu" },
@@ -282,3 +290,10 @@ export const strings = {
     vi: { you: "Bạn" },
   },
 };
+
+// Built-in tables are immutable. Consumer overrides belong to scoped LocaleProvider snapshots.
+for (const namespace of Object.values(strings)) {
+  for (const table of Object.values(namespace)) Object.freeze(table);
+  Object.freeze(namespace);
+}
+Object.freeze(strings);

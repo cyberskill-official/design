@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "token-declarations structural export contract",
+  "description": "Structural shape only. Existing semantic, byte-freshness and provenance gates remain authoritative.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "entry",
+    "sources",
+    "declarations",
+    "generator"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "entry": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array"
+    },
+    "declarations": {
+      "type": "array"
+    },
+    "generator": {
+      "type": "string"
+    }
+  }
+}

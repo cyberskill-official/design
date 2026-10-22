@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "manifest structural export contract",
+  "description": "Structural shape only. Existing semantic, byte-freshness and provenance gates remain authoritative.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "namespace",
+    "components",
+    "templates",
+    "tokens",
+    "globalCssPaths"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "namespace": {
+      "type": "string"
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "sourcePath",
+          "kind"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "sourcePath": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "component",
+              "constant",
+              "hook"
+            ]
+          }
+        }
+      }
+    },
+    "templates": {
+      "type": "array"
+    },
+    "tokens": {
+      "type": "array"
+    },
+    "globalCssPaths": {
+      "type": "array"
+    }
+  }
+}

@@ -6,218 +6,254 @@
       "id": "kickLabel",
       "type": "text",
       "label": "Header eyebrow",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "kicker",
       "type": "text",
       "label": "Doc type + SOW ref",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "h1",
       "type": "text",
       "label": "Kickoff title",
       "maxLength": 70,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "intro",
       "type": "richtext",
       "label": "Intro paragraph",
-      "maxLength": 260
+      "maxLength": 260,
+      "runtimeBinding": "text"
     },
     {
       "id": "goalsL",
       "type": "text",
       "label": "Goals label",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "g1",
       "type": "text",
       "label": "Goal 1",
-      "maxLength": 120
+      "maxLength": 120,
+      "runtimeBinding": "text"
     },
     {
       "id": "g2",
       "type": "text",
       "label": "Goal 2",
-      "maxLength": 120
+      "maxLength": 120,
+      "runtimeBinding": "text"
     },
     {
       "id": "g3",
       "type": "text",
       "label": "Goal 3",
-      "maxLength": 120
+      "maxLength": 120,
+      "runtimeBinding": "text"
     },
     {
       "id": "teamH",
       "type": "text",
       "label": "Team & roles heading",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "thWho",
       "type": "text",
       "label": "Table column: Who",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "thRole",
       "type": "text",
       "label": "Table column: Role",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "thDecides",
       "type": "text",
       "label": "Table column: Decides",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "r1role",
       "type": "text",
       "label": "Role 1",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "r1dec",
       "type": "text",
       "label": "Decides 1",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "r2role",
       "type": "text",
       "label": "Role 2",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "r2dec",
       "type": "text",
       "label": "Decides 2",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "r3role",
       "type": "text",
       "label": "Role 3",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "r3dec",
       "type": "text",
       "label": "Decides 3",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "r4who",
       "type": "text",
       "label": "Row 4: who",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "r4role",
       "type": "text",
       "label": "Row 4: role",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "r4dec",
       "type": "text",
       "label": "Row 4: decides",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "cadH",
       "type": "text",
       "label": "Cadence heading",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "cadWeeklyB",
       "type": "text",
       "label": "Cadence: weekly bold",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "cadWeeklyT",
       "type": "text",
       "label": "Cadence: weekly text",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "cadMsB",
       "type": "text",
       "label": "Cadence: per-milestone bold",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "cadMsT",
       "type": "text",
       "label": "Cadence: per-milestone text",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "cadAnyB",
       "type": "text",
       "label": "Cadence: anytime bold",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "cadAnyT",
       "type": "text",
       "label": "Cadence: anytime text",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "msH",
       "type": "text",
       "label": "Milestones heading",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "m1",
       "type": "text",
       "label": "Milestone 1",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "m2",
       "type": "text",
       "label": "Milestone 2",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "m3",
       "type": "text",
       "label": "Milestone 3",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "risksH",
       "type": "text",
       "label": "Risks heading",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "risksP",
       "type": "richtext",
       "label": "Risks body",
-      "maxLength": 300
+      "maxLength": 300,
+      "runtimeBinding": "text"
     },
     {
       "id": "linksL",
       "type": "text",
       "label": "Links label",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "linksBody",
       "type": "text",
       "label": "Links body",
-      "maxLength": 150
+      "maxLength": 150,
+      "runtimeBinding": "text"
     }
   ]
 }

@@ -1,0 +1,869 @@
+{
+  "schemaVersion": 1,
+  "description": "Authored portable root membership and semantic metadata. CSS supplies values; do not edit generated token exports to add tokens. Scoped declarations and exclusions remain governed separately.",
+  "groups": {
+    "color": {
+      "--cs-color-brand-umber": {
+        "$type": "color"
+      },
+      "--cs-color-brand-ochre": {
+        "$type": "color"
+      },
+      "--cs-color-surface-page": {
+        "$type": "color"
+      },
+      "--cs-color-surface-panel": {
+        "$type": "color"
+      },
+      "--cs-color-surface-raised": {
+        "$type": "color"
+      },
+      "--cs-color-text-primary": {
+        "$type": "color"
+      },
+      "--cs-color-text-inverse": {
+        "$type": "color"
+      },
+      "--cs-color-text-accent": {
+        "$type": "color"
+      },
+      "--cs-color-text-muted": {
+        "$type": "color"
+      },
+      "--cs-color-semantic-success": {
+        "$type": "color"
+      },
+      "--cs-color-semantic-danger": {
+        "$type": "color"
+      },
+      "--cs-color-semantic-warning": {
+        "$type": "color"
+      },
+      "--cs-color-semantic-info": {
+        "$type": "color"
+      },
+      "--cs-color-semantic-success-fg": {
+        "$type": "color"
+      },
+      "--cs-color-semantic-danger-fg": {
+        "$type": "color"
+      },
+      "--cs-color-semantic-warning-fg": {
+        "$type": "color"
+      },
+      "--cs-color-semantic-info-fg": {
+        "$type": "color"
+      },
+      "--cs-color-accent-ochre": {
+        "$type": "color"
+      },
+      "--cs-color-border-default": {
+        "$type": "color"
+      },
+      "--cs-color-link": {
+        "$type": "color"
+      },
+      "--cs-color-link-hover": {
+        "$type": "color"
+      },
+      "--cs-color-semantic-success-text": {
+        "$type": "color",
+        "$description": "success text on page, panel and raised surfaces. Separate from semantic fill; never elemental."
+      },
+      "--cs-color-semantic-danger-text": {
+        "$type": "color",
+        "$description": "danger text on page, panel and raised surfaces. Separate from semantic fill; never elemental."
+      },
+      "--cs-color-semantic-warning-text": {
+        "$type": "color",
+        "$description": "warning text on page, panel and raised surfaces. Separate from semantic fill; never elemental."
+      },
+      "--cs-color-semantic-info-text": {
+        "$type": "color",
+        "$description": "info text on page, panel and raised surfaces. Separate from semantic fill; never elemental."
+      }
+    },
+    "component": {
+      "--cs-component-button-primary-bg": {
+        "$type": "color"
+      },
+      "--cs-component-button-primary-fg": {
+        "$type": "color"
+      },
+      "--cs-component-button-gap": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-radius": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-xs-paddingY": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-xs-paddingX": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-xs-minHeight": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-xs-minWidth": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-xs-minHeight-coarse": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-sm-paddingY": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-sm-paddingX": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-sm-minHeight": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-sm-minHeight-coarse": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-md-paddingY": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-md-paddingX": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-md-minHeight": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-md-minHeight-coarse": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-lg-paddingY": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-lg-paddingX": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-lg-minHeight": {
+        "$type": "dimension"
+      },
+      "--cs-component-textfield-border-default": {
+        "$type": "color"
+      },
+      "--cs-component-textfield-paddingY": {
+        "$type": "dimension"
+      },
+      "--cs-component-textfield-paddingX": {
+        "$type": "dimension"
+      },
+      "--cs-component-textfield-minHeight": {
+        "$type": "dimension"
+      },
+      "--cs-focus-ring": {
+        "$type": "dimension"
+      },
+      "--cs-component-button-xs-padding-y": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-xs-paddingY.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-xs-paddingY",
+            "nativeName": "componentButtonXsPaddingYAlias"
+          }
+        }
+      },
+      "--cs-component-button-xs-padding-x": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-xs-paddingX.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-xs-paddingX",
+            "nativeName": "componentButtonXsPaddingXAlias"
+          }
+        }
+      },
+      "--cs-component-button-xs-min-height": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-xs-minHeight.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-xs-minHeight",
+            "nativeName": "componentButtonXsMinHeightAlias"
+          }
+        }
+      },
+      "--cs-component-button-xs-min-width": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-xs-minWidth.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-xs-minWidth",
+            "nativeName": "componentButtonXsMinWidthAlias"
+          }
+        }
+      },
+      "--cs-component-button-xs-min-height-coarse": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-xs-minHeight-coarse.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-xs-minHeight-coarse",
+            "nativeName": "componentButtonXsMinHeightCoarseAlias"
+          }
+        }
+      },
+      "--cs-component-button-sm-padding-y": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-sm-paddingY.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-sm-paddingY",
+            "nativeName": "componentButtonSmPaddingYAlias"
+          }
+        }
+      },
+      "--cs-component-button-sm-padding-x": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-sm-paddingX.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-sm-paddingX",
+            "nativeName": "componentButtonSmPaddingXAlias"
+          }
+        }
+      },
+      "--cs-component-button-sm-min-height": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-sm-minHeight.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-sm-minHeight",
+            "nativeName": "componentButtonSmMinHeightAlias"
+          }
+        }
+      },
+      "--cs-component-button-sm-min-height-coarse": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-sm-minHeight-coarse.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-sm-minHeight-coarse",
+            "nativeName": "componentButtonSmMinHeightCoarseAlias"
+          }
+        }
+      },
+      "--cs-component-button-md-padding-y": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-md-paddingY.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-md-paddingY",
+            "nativeName": "componentButtonMdPaddingYAlias"
+          }
+        }
+      },
+      "--cs-component-button-md-padding-x": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-md-paddingX.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-md-paddingX",
+            "nativeName": "componentButtonMdPaddingXAlias"
+          }
+        }
+      },
+      "--cs-component-button-md-min-height": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-md-minHeight.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-md-minHeight",
+            "nativeName": "componentButtonMdMinHeightAlias"
+          }
+        }
+      },
+      "--cs-component-button-md-min-height-coarse": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-md-minHeight-coarse.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-md-minHeight-coarse",
+            "nativeName": "componentButtonMdMinHeightCoarseAlias"
+          }
+        }
+      },
+      "--cs-component-button-lg-padding-y": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-lg-paddingY.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-lg-paddingY",
+            "nativeName": "componentButtonLgPaddingYAlias"
+          }
+        }
+      },
+      "--cs-component-button-lg-padding-x": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-lg-paddingX.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-lg-paddingX",
+            "nativeName": "componentButtonLgPaddingXAlias"
+          }
+        }
+      },
+      "--cs-component-button-lg-min-height": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-button-lg-minHeight.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-button-lg-minHeight",
+            "nativeName": "componentButtonLgMinHeightAlias"
+          }
+        }
+      },
+      "--cs-component-textfield-padding-y": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-textfield-paddingY.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-textfield-paddingY",
+            "nativeName": "componentTextfieldPaddingYAlias"
+          }
+        }
+      },
+      "--cs-component-textfield-padding-x": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-textfield-paddingX.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-textfield-paddingX",
+            "nativeName": "componentTextfieldPaddingXAlias"
+          }
+        }
+      },
+      "--cs-component-textfield-min-height": {
+        "$type": "dimension",
+        "$description": "Alias of --cs-component-textfield-minHeight.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-component-textfield-minHeight",
+            "nativeName": "componentTextfieldMinHeightAlias"
+          }
+        }
+      }
+    },
+    "accent": {
+      "--cs-accent": {
+        "$type": "color"
+      },
+      "--cs-accent-strong": {
+        "$type": "color"
+      },
+      "--cs-accent-bright": {
+        "$type": "color"
+      },
+      "--cs-accent-on": {
+        "$type": "color"
+      },
+      "--cs-accent-tint": {
+        "$type": "color"
+      },
+      "--cs-accent-ink": {
+        "$type": "color"
+      },
+      "--cs-accent-glow": {
+        "$type": "color"
+      },
+      "--cs-accent-grad-a": {
+        "$type": "color"
+      },
+      "--cs-accent-grad-b": {
+        "$type": "color"
+      },
+      "--cs-accent-on-strong": {
+        "$type": "color"
+      }
+    },
+    "depth": {
+      "--cs-depth-bg": {
+        "$type": "number"
+      },
+      "--cs-depth-section": {
+        "$type": "number"
+      },
+      "--cs-depth-card": {
+        "$type": "number"
+      },
+      "--cs-depth-nav": {
+        "$type": "number"
+      },
+      "--cs-depth-modal": {
+        "$type": "number"
+      },
+      "--cs-depth-toast": {
+        "$type": "number"
+      },
+      "--cs-depth-dropdown": {
+        "$type": "number"
+      },
+      "--cs-depth-overlay": {
+        "$type": "number"
+      }
+    },
+    "glass": {
+      "--cs-glass-whisper-blur": {
+        "$type": "dimension"
+      },
+      "--cs-glass-whisper-saturate": {
+        "$type": "number",
+        "$description": "Backdrop saturate() multiplier of the whisper glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 110% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-glass-whisper-opacity": {
+        "$type": "number",
+        "$description": "Surface opacity of the whisper glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 60% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-glass-light-blur": {
+        "$type": "dimension"
+      },
+      "--cs-glass-light-saturate": {
+        "$type": "number",
+        "$description": "Backdrop saturate() multiplier of the light glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 130% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-glass-light-opacity": {
+        "$type": "number",
+        "$description": "Surface opacity of the light glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 70% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-glass-standard-blur": {
+        "$type": "dimension"
+      },
+      "--cs-glass-standard-saturate": {
+        "$type": "number",
+        "$description": "Backdrop saturate() multiplier of the standard glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 150% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-glass-standard-opacity": {
+        "$type": "number",
+        "$description": "Surface opacity of the standard glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 80% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-glass-heavy-blur": {
+        "$type": "dimension"
+      },
+      "--cs-glass-heavy-saturate": {
+        "$type": "number",
+        "$description": "Backdrop saturate() multiplier of the heavy glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 180% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-glass-heavy-opacity": {
+        "$type": "number",
+        "$description": "Surface opacity of the heavy glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 90% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css."
+      }
+    },
+    "shadow": {
+      "--cs-shadow-xs": {
+        "$type": "shadow",
+        "$description": "Structured from the CSS box-shadow string in tokens/elevation.css; the raw CSS form (native/agent emission source) is preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-shadow-sm": {
+        "$type": "shadow",
+        "$description": "Structured from the CSS box-shadow string in tokens/elevation.css; the raw CSS form (native/agent emission source) is preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-shadow-md": {
+        "$type": "shadow",
+        "$description": "Structured from the CSS box-shadow string in tokens/elevation.css; the raw CSS form (native/agent emission source) is preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-shadow-lg": {
+        "$type": "shadow",
+        "$description": "Structured from the CSS box-shadow string in tokens/elevation.css; the raw CSS form (native/agent emission source) is preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-shadow-xl": {
+        "$type": "shadow",
+        "$description": "Structured from the CSS box-shadow string in tokens/elevation.css; the raw CSS form (native/agent emission source) is preserved in $extensions[\"com.cyberskill\"].css."
+      }
+    },
+    "duration": {
+      "--cs-duration-instant": {
+        "$type": "duration"
+      },
+      "--cs-duration-fast": {
+        "$type": "duration"
+      },
+      "--cs-duration-base": {
+        "$type": "duration"
+      },
+      "--cs-duration-slow": {
+        "$type": "duration"
+      }
+    },
+    "ease": {
+      "--cs-ease-standard": {
+        "$type": "cubicBezier"
+      },
+      "--cs-ease-entrance": {
+        "$type": "cubicBezier"
+      },
+      "--cs-ease-exit": {
+        "$type": "cubicBezier"
+      },
+      "--cs-ease-emphasized": {
+        "$type": "cubicBezier"
+      }
+    },
+    "space": {
+      "--cs-space-0": {
+        "$type": "dimension"
+      },
+      "--cs-space-1": {
+        "$type": "dimension"
+      },
+      "--cs-space-2": {
+        "$type": "dimension"
+      },
+      "--cs-space-3": {
+        "$type": "dimension"
+      },
+      "--cs-space-4": {
+        "$type": "dimension"
+      },
+      "--cs-space-5": {
+        "$type": "dimension"
+      },
+      "--cs-space-6": {
+        "$type": "dimension"
+      },
+      "--cs-space-8": {
+        "$type": "dimension"
+      },
+      "--cs-space-10": {
+        "$type": "dimension"
+      },
+      "--cs-space-12": {
+        "$type": "dimension"
+      },
+      "--cs-space-16": {
+        "$type": "dimension"
+      },
+      "--cs-space-20": {
+        "$type": "dimension"
+      },
+      "--cs-space-24": {
+        "$type": "dimension"
+      }
+    },
+    "radius": {
+      "--cs-radius-sm": {
+        "$type": "dimension"
+      },
+      "--cs-radius-md": {
+        "$type": "dimension"
+      },
+      "--cs-radius-lg": {
+        "$type": "dimension"
+      },
+      "--cs-radius-full": {
+        "$type": "dimension"
+      }
+    },
+    "breakpoint": {
+      "--cs-breakpoint-xs": {
+        "$type": "dimension"
+      },
+      "--cs-breakpoint-phone": {
+        "$type": "dimension",
+        "$description": "Justified small-phone / 320-reflow stop (UX-003)."
+      },
+      "--cs-breakpoint-sm": {
+        "$type": "dimension"
+      },
+      "--cs-breakpoint-md": {
+        "$type": "dimension"
+      },
+      "--cs-breakpoint-lg": {
+        "$type": "dimension"
+      },
+      "--cs-breakpoint-xl": {
+        "$type": "dimension"
+      },
+      "--cs-breakpoint-2xl": {
+        "$type": "dimension"
+      }
+    },
+    "container": {
+      "--cs-container-max": {
+        "$type": "dimension"
+      },
+      "--cs-prose-measure": {
+        "$type": "dimension",
+        "$description": "Readable prose measure for long-form kit/tool copy (UX-024). Web CSS may prefer ch; rem keeps native mirrors convertible."
+      },
+      "--cs-scroll-padding-block-start": {
+        "$type": "dimension",
+        "$description": "Focus-not-obscured scroll offset (WCAG 2.2 AA) — sticky nav / bottom bars."
+      },
+      "--cs-scroll-padding-block-end": {
+        "$type": "dimension",
+        "$description": "Focus-not-obscured scroll offset (WCAG 2.2 AA) — sticky nav / bottom bars."
+      }
+    },
+    "font": {
+      "--cs-font-family-ui": {
+        "$type": "fontFamily"
+      },
+      "--cs-font-family-display": {
+        "$type": "fontFamily"
+      },
+      "--cs-font-family-mono": {
+        "$type": "fontFamily"
+      },
+      "--cs-font-weight-regular": {
+        "$type": "number"
+      },
+      "--cs-font-weight-medium": {
+        "$type": "number"
+      },
+      "--cs-font-weight-semibold": {
+        "$type": "number"
+      },
+      "--cs-font-weight-bold": {
+        "$type": "number"
+      },
+      "--cs-font-weight-extrabold": {
+        "$type": "number"
+      },
+      "--cs-font-lineHeight-body": {
+        "$type": "number"
+      },
+      "--cs-font-lineHeight-heading": {
+        "$type": "number"
+      },
+      "--cs-font-lineHeight-tight": {
+        "$type": "number"
+      },
+      "--cs-font-size-2xs": {
+        "$type": "dimension",
+        "$description": "Micro numerals (11px)"
+      },
+      "--cs-font-size-xs": {
+        "$type": "dimension"
+      },
+      "--cs-font-size-sm": {
+        "$type": "dimension"
+      },
+      "--cs-font-size-base": {
+        "$type": "dimension"
+      },
+      "--cs-font-size-md": {
+        "$type": "dimension"
+      },
+      "--cs-font-size-lg": {
+        "$type": "dimension"
+      },
+      "--cs-font-size-xl": {
+        "$type": "dimension"
+      },
+      "--cs-font-size-2xl": {
+        "$type": "dimension"
+      },
+      "--cs-font-size-3xl": {
+        "$type": "dimension"
+      },
+      "--cs-font-size-4xl": {
+        "$type": "dimension"
+      },
+      "--cs-font-size-5xl": {
+        "$type": "dimension"
+      },
+      "--cs-font-line-height-body": {
+        "$type": "number",
+        "$description": "Alias of --cs-font-lineHeight-body.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-font-lineHeight-body",
+            "nativeName": "fontLineHeightBodyAlias"
+          }
+        }
+      },
+      "--cs-font-line-height-heading": {
+        "$type": "number",
+        "$description": "Alias of --cs-font-lineHeight-heading.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-font-lineHeight-heading",
+            "nativeName": "fontLineHeightHeadingAlias"
+          }
+        }
+      },
+      "--cs-font-line-height-tight": {
+        "$type": "number",
+        "$description": "Alias of --cs-font-lineHeight-tight.",
+        "$extensions": {
+          "com.cyberskill": {
+            "nativeAliasOf": "--cs-font-lineHeight-tight",
+            "nativeName": "fontLineHeightTightAlias"
+          }
+        }
+      }
+    },
+    "text": {
+      "--cs-text-display": {
+        "$type": "dimension",
+        "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-text-h1": {
+        "$type": "dimension",
+        "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-text-h2": {
+        "$type": "dimension",
+        "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-text-h3": {
+        "$type": "dimension",
+        "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-text-h4": {
+        "$type": "dimension",
+        "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-text-body-lg": {
+        "$type": "dimension",
+        "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-text-body": {
+        "$type": "dimension",
+        "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-text-secondary": {
+        "$type": "dimension",
+        "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-text-micro": {
+        "$type": "dimension",
+        "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-text-caption": {
+        "$type": "dimension",
+        "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css."
+      },
+      "--cs-text-eyebrow": {
+        "$type": "dimension",
+        "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css."
+      }
+    },
+    "letter": {
+      "--cs-letter-spacing-tight": {
+        "$type": "number"
+      },
+      "--cs-letter-spacing-normal": {
+        "$type": "number"
+      },
+      "--cs-letter-spacing-caps": {
+        "$type": "number"
+      }
+    },
+    "heading": {
+      "--cs-heading-family": {
+        "$type": "fontFamily"
+      },
+      "--cs-heading-weight-strong": {
+        "$type": "number"
+      },
+      "--cs-heading-weight": {
+        "$type": "number"
+      },
+      "--cs-heading-tracking": {
+        "$type": "number"
+      }
+    },
+    "icon": {
+      "--cs-icon-sm": {
+        "$type": "dimension"
+      },
+      "--cs-icon-md": {
+        "$type": "dimension"
+      },
+      "--cs-icon-lg": {
+        "$type": "dimension"
+      }
+    },
+    "doc": {
+      "--cs-doc-ink": {
+        "$type": "color"
+      },
+      "--cs-doc-slate": {
+        "$type": "color"
+      },
+      "--cs-doc-fill": {
+        "$type": "color"
+      },
+      "--cs-doc-fill-ink": {
+        "$type": "color"
+      }
+    },
+    "density": {
+      "--cs-density-space-1": {
+        "$type": "dimension"
+      },
+      "--cs-density-space-2": {
+        "$type": "dimension"
+      },
+      "--cs-density-space-3": {
+        "$type": "dimension"
+      },
+      "--cs-density-space-4": {
+        "$type": "dimension"
+      },
+      "--cs-density-space-5": {
+        "$type": "dimension"
+      },
+      "--cs-density-space-6": {
+        "$type": "dimension"
+      },
+      "--cs-density-control-gap": {
+        "$type": "dimension"
+      }
+    }
+  },
+  "groupMetadata": {
+    "color": {
+      "$description": "Core semantic colours (brand, surface, text, semantic, border, link)."
+    },
+    "component": {
+      "$description": "Component-level design decisions (button, textfield sizing & colour)."
+    },
+    "accent": {
+      "$description": "Ngũ Hành elemental accent role tokens — reskinned per element×variant scope."
+    },
+    "depth": {
+      "$description": "Elevation/stacking depth scale."
+    },
+    "glass": {
+      "$description": "Liquid Glass material scalars — blur / saturate / surface opacity per material tier (tokens/elevation.css)."
+    },
+    "shadow": {
+      "$description": "Elevation shadows (light + dark overrides)."
+    },
+    "duration": {
+      "$description": "Motion durations (tokens/motion.css :root). Real values — the prefers-reduced-motion override collapses them to 0ms at runtime only, never in exports."
+    },
+    "ease": {},
+    "space": {
+      "$description": "Spacing scale."
+    },
+    "radius": {
+      "$description": "Corner radius scale."
+    },
+    "breakpoint": {
+      "$description": "Responsive breakpoints."
+    },
+    "container": {},
+    "font": {
+      "$description": "Typography — families, sizes, weights, line-heights, tracking."
+    },
+    "text": {
+      "$description": "Semantic type-role aliases into the font size ramp — write intent, not magic numbers (tokens/typography.css)."
+    },
+    "letter": {},
+    "heading": {
+      "$description": "Heading treatment roles (tokens/typography.css) — aliases into font/letter primitives. CSS var() forms preserved in $extensions[\"com.cyberskill\"].css."
+    },
+    "icon": {},
+    "doc": {},
+    "density": {}
+  }
+}

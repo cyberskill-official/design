@@ -1,3 +1,4 @@
+import {parseReleaseVersion} from '../../scripts/lib/release-version.mjs';
 // Fast, browser-free CI pre-check: proves tokens/native/ + tokens/provenance.json
 // are in lockstep with tokens/tokens.dtcg.json WITHOUT spinning up a browser —
 // same drift authority (source sha-256) as _audit/token-pipeline-test.html, just
@@ -16,7 +17,7 @@ const version = readFileSync(new URL('../../VERSION', import.meta.url), 'utf8').
 const srcSha = sha256(dtcgText);
 let bad = [];
 if (srcSha !== prov.sourceSha256) bad.push('provenance.sourceSha256 stale — regenerate tokens/native/ (source changed since last generation)');
-if (!/^\d+\.\d+\.\d+$/.test(prov.release || '')) bad.push('provenance.release is not a semver string');
+try { parseReleaseVersion(prov.release); } catch { bad.push('provenance.release is not a canonical stable/prerelease string'); }
 
 for (const t of prov.targets || []) {
   let text;

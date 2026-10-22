@@ -1,0 +1,95 @@
+# Preparation only: no writable token, OIDC publication, commit, tag, push or release API.
+name: Prepare release candidate
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Proposed stable major.minor.patch version; must exceed VERSION'
+        required: true
+        type: string
+      source_sha:
+        description: 'Exact commit SHA of the selected workflow ref; must equal github.sha'
+        required: true
+        type: string
+      accept_evidence_review:
+        description: 'I checked required source-bound support, visual and manual acceptance evidence; recorded reviews must also pass'
+        required: true
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: prepare-release-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+      SOURCE_SHA: ${{ inputs.source_sha }}
+      EVIDENCE_REVIEW_ACKNOWLEDGED: ${{ inputs.accept_evidence_review }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
+      - name: Require exact source identity and explicit evidence acknowledgement
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          assert.equal(process.env.EVIDENCE_REVIEW_ACKNOWLEDGED, 'true', 'Explicit evidence-review acknowledgement is required; this does not create support approval records');
+          assert.equal(process.env.SOURCE_SHA, process.env.GITHUB_SHA, 'Select the exact source commit as the workflow ref');
+          JS
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Record read-only preparation plan
+        run: node scripts/prepare-release.mjs --version "$RELEASE_VERSION" --source-sha "$SOURCE_SHA" > "$RUNNER_TEMP/release-plan.json"
+      - name: Enforce existing source-bound support approval gate
+        run: node _audit/ci/test-component-lifecycle.mjs
+      - name: Install all required pinned Playwright browsers
+        run: npx --no-install playwright install --with-deps chromium firefox webkit
+      - name: Set up Python for isolated font and PDF checks
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6
+        with:
+          python-version: '3.12'
+      - name: Install hash-pinned Python test tools
+        run: |
+          python -m venv "$RUNNER_TEMP/cs-python-tests"
+          "$RUNNER_TEMP/cs-python-tests/bin/python" -m pip install --require-hashes --only-binary=:all: --no-deps -r scripts/requirements-fonts.txt -r _audit/ci/requirements-pdf.txt
+          echo "$RUNNER_TEMP/cs-python-tests/bin" >> "$GITHUB_PATH"
+          echo "CS_PDF_PYTHON=$RUNNER_TEMP/cs-python-tests/bin/python" >> "$GITHUB_ENV"
+      - name: Prepare version files and generated stamps in this disposable checkout
+        run: node scripts/prepare-release.mjs --version "$RELEASE_VERSION" --source-sha "$SOURCE_SHA" --write > "$RUNNER_TEMP/release-candidate.json"
+      - name: Verify candidate including unit contracts and support evidence
+        run: npm run verify
+      - name: Verify Linux pixel baselines before the unchanged browser gate board
+        run: npm run verify:browser
+      - name: Confirm the exact candidate patch survived validation
+        run: node scripts/prepare-release.mjs --version "$RELEASE_VERSION" --source-sha "$SOURCE_SHA" --check-candidate "$RUNNER_TEMP/release-candidate.json" > "$RUNNER_TEMP/release-identity.json"
+      - name: Retain reviewable patch without creating a release identity
+        if: always()
+        run: |
+          git diff --binary HEAD > "$RUNNER_TEMP/release-candidate.patch"
+          printf '%s\n' 'Preparation only. Inspect job verdict, source SHA, patch hash and all acceptance evidence. No commit, tag, push, merge, deployment, GitHub Release or npm publication occurred.' > "$RUNNER_TEMP/RELEASE-PREPARATION.txt"
+      - name: Upload proposal and validation evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: release-preparation-${{ github.run_id }}
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/release-plan.json
+            ${{ runner.temp }}/release-candidate.json
+            ${{ runner.temp }}/release-identity.json
+            ${{ runner.temp }}/release-candidate.patch
+            ${{ runner.temp }}/RELEASE-PREPARATION.txt
+            test-results/
+            _audit/ci/pixel-diff-report.json
+            _audit/ci/import-report.json

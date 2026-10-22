@@ -1,0 +1,10 @@
+{
+  "templates": [
+    "vn-labor-contract",
+    "vn-probation-contract",
+    "vn-internship-agreement",
+    "vn-contractor-agreement",
+    "vn-mutual-nda"
+  ],
+  "scope": "Five exact single-fill native contract identity/contact model regression owners; full central model suite remains separate."
+}

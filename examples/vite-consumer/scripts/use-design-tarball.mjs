@@ -1,0 +1,12 @@
+import {readFileSync,writeFileSync,mkdirSync,copyFileSync} from 'node:fs';
+import {resolve,dirname,join} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {createHash} from 'node:crypto';
+const input=process.argv[2];if(!input)throw Error('Pass an actual locally packed @cyberskill/design .tgz file. This script never installs from an unpublished registry version.');
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),source=resolve(input),bytes=readFileSync(source);
+const sha256=createHash('sha256').update(bytes).digest('hex'),name=`cyberskill-design-${sha256.slice(0,20)}.tgz`;
+mkdirSync(join(root,'vendor'),{recursive:true});copyFileSync(source,join(root,'vendor',name));
+const path=join(root,'package.json'),pkg=JSON.parse(readFileSync(path,'utf8'));
+pkg.dependencies['@cyberskill/design']='file:vendor/'+name;
+writeFileSync(path,JSON.stringify(pkg,null,2)+'\n');
+console.log(`Prepared private design tarball sha256:${sha256}. Run npm install --ignore-scripts to deliberately update its lock, then npm run build. Do not replace an existing tarball under the same filename.`);

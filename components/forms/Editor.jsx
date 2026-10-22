@@ -1,3 +1,5 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { useClientLayoutEffect } from "../_utils/use-client-layout-effect.js";
 import { makeT, useLang } from "../_i18n/i18n.js";
@@ -11,8 +13,9 @@ function EditorToolbarButton({ command, label, pressed, onCommand, children }) {
 /** CyberSkill Editor — light rich-text (contentEditable): bold · italic · bullet list. onChange(html).
  *  Trust boundary (CDS-SEC-001 / SEC-001): `defaultValue` is schema-sanitized. Pass `unsafeHtml` only for
  *  already-trusted markup that must bypass sanitization (operator/CMS HTML). Emitted HTML is also sanitized. */
-export function Editor({ defaultValue = "", unsafeHtml, onChange, minHeight = 120, lang, className }) {
+export const Editor = React.forwardRef(function Editor({ controlRef, defaultValue = "", unsafeHtml, onChange, minHeight = 120, lang, className , rootProps }, forwardedRef) {
   const box = React.useRef(null);
+  const mergedControlRef = useComposedRefs(box, controlRef);
   const seeded = React.useRef(false);
   const selection = React.useRef(null);
   const [formatting, setFormatting] = React.useState({ bold: false, italic: false, insertUnorderedList: false });
@@ -44,8 +47,9 @@ export function Editor({ defaultValue = "", unsafeHtml, onChange, minHeight = 12
     setFormatting(previous => commands.every(key => previous[key] === next[key]) ? previous : next);
   };
   const lastEmitted = React.useRef(null);
-  const [ref, L] = useLang(lang);
-  const t = makeT("Editor", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("Editor", L, localeMessages);
   const rememberSelection = () => {
     const s = window.getSelection();
     if (s?.rangeCount && box.current?.contains(s.getRangeAt(0).commonAncestorContainer)) {
@@ -124,14 +128,14 @@ export function Editor({ defaultValue = "", unsafeHtml, onChange, minHeight = 12
     seeded.current = true;
   }, [defaultValue, unsafeHtml]);
   return (
-    <div ref={ref} className={cx("cs-editor", className)}>
+    <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-editor", className) }, rootProps, [])}>
       <div className="cs-editor__bar" role="toolbar" aria-label={t("toolbar")}>
         <EditorToolbarButton onCommand={cmd} pressed={formatting.bold} command="bold" label={t("bold")}><b>B</b></EditorToolbarButton>
         <EditorToolbarButton onCommand={cmd} pressed={formatting.italic} command="italic" label={t("italic")}><i>I</i></EditorToolbarButton>
         <EditorToolbarButton onCommand={cmd} pressed={formatting.insertUnorderedList} command="insertUnorderedList" label={t("list")}>≔</EditorToolbarButton>
       </div>
       <div
-        ref={box}
+        ref={mergedControlRef}
         className="cs-editor__area"
         contentEditable
         suppressContentEditableWarning
@@ -148,4 +152,5 @@ export function Editor({ defaultValue = "", unsafeHtml, onChange, minHeight = 12
       />
     </div>
   );
-}
+});
+Editor.displayName = "Editor";

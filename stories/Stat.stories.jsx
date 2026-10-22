@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { Stat } from '../components/data/Stat.jsx';
 
 export default {
@@ -16,20 +17,9 @@ export default {
   },
   "trend": {
     "control": "select",
-    "options": [
-      "up",
-      "down",
-      "flat"
-    ]
+    "options": DECLARED_DOMAINS.Stat["trend"]
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Stat. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { label: 'Open wishes', value: '12', delta: '+2' },
 };
 

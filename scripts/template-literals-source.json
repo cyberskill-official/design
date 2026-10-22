@@ -1,0 +1,2037 @@
+{
+  "schemaVersion": 1,
+  "elementMap": {
+    "Thổ · studio": [
+      "tho",
+      ""
+    ],
+    "Thổ · clay": [
+      "tho",
+      "clay"
+    ],
+    "Thổ · sand": [
+      "tho",
+      "sand"
+    ],
+    "Hỏa · ember": [
+      "hoa",
+      ""
+    ],
+    "Hỏa · lava": [
+      "hoa",
+      "lava"
+    ],
+    "Hỏa · plasma": [
+      "hoa",
+      "plasma"
+    ],
+    "Thủy · river": [
+      "thuy",
+      ""
+    ],
+    "Thủy · ocean": [
+      "thuy",
+      "ocean"
+    ],
+    "Thủy · mist": [
+      "thuy",
+      "mist"
+    ],
+    "Mộc · leaf": [
+      "moc",
+      ""
+    ],
+    "Mộc · bamboo": [
+      "moc",
+      "bamboo"
+    ],
+    "Mộc · forest": [
+      "moc",
+      "forest"
+    ],
+    "Kim · champagne": [
+      "kim",
+      ""
+    ],
+    "Kim · steel": [
+      "kim",
+      "steel"
+    ],
+    "Kim · titanium": [
+      "kim",
+      "titanium"
+    ]
+  },
+  "commonCopy": {
+    "skip-to-content": {
+      "en": "Skip to content",
+      "vi": "Bỏ qua nội dung"
+    },
+    "in-progress": {
+      "en": "In progress",
+      "vi": "Đang làm"
+    },
+    "projects": {
+      "en": "Projects",
+      "vi": "Dự án"
+    },
+    "shipped": {
+      "en": "Shipped",
+      "vi": "Đã ra mắt"
+    },
+    "squad": {
+      "en": "Squad",
+      "vi": "Nhóm"
+    },
+    "status": {
+      "en": "Status",
+      "vi": "Trạng thái"
+    },
+    "turn-your-will-into-real": {
+      "en": "Turn Your Will Into Real",
+      "vi": "Hiện Thực Hoá Ý Chí"
+    },
+    "wishes-granted": {
+      "en": "Wishes granted",
+      "vi": "Điều ước đã thực hiện"
+    },
+    "runway": {
+      "en": "Runway",
+      "vi": "Số tháng còn vốn"
+    },
+    "make-a-wish": {
+      "en": "Make a wish",
+      "vi": "Gửi điều ước"
+    },
+    "settings": {
+      "en": "Settings",
+      "vi": "Cài đặt"
+    },
+    "new-project": {
+      "en": "New project",
+      "vi": "Dự án mới"
+    },
+    "avg-progress": {
+      "en": "Avg progress",
+      "vi": "Tiến độ TB"
+    },
+    "key": {
+      "en": "Key",
+      "vi": "Mã"
+    },
+    "project": {
+      "en": "Project",
+      "vi": "Dự án"
+    },
+    "progress": {
+      "en": "Progress",
+      "vi": "Tiến độ"
+    },
+    "blocked": {
+      "en": "Blocked",
+      "vi": "Bị chặn"
+    },
+    "work-email": {
+      "en": "Work email",
+      "vi": "Email công việc"
+    },
+    "revenue-qoq": {
+      "en": "Revenue QoQ",
+      "vi": "Doanh thu QoQ"
+    },
+    "headcount": {
+      "en": "Headcount",
+      "vi": "Nhân sự"
+    },
+    "portfolio": {
+      "en": "Portfolio",
+      "vi": "Danh mục dự án"
+    },
+    "risks-asks": {
+      "en": "Risks & asks",
+      "vi": "Rủi ro & đề xuất"
+    },
+    "highlights": {
+      "en": "Highlights",
+      "vi": "Điểm nổi bật"
+    },
+    "name-title-date": {
+      "en": "Name / title / date",
+      "vi": "Họ tên / chức danh / ngày"
+    },
+    "lead-engineer": {
+      "en": "Lead engineer",
+      "vi": "Kỹ sư trưởng"
+    },
+    "product-designer": {
+      "en": "Product designer",
+      "vi": "Nhà thiết kế sản phẩm"
+    },
+    "delivery-lead": {
+      "en": "Delivery lead",
+      "vi": "Trưởng bàn giao"
+    },
+    "completed-orders": {
+      "en": "Completed orders",
+      "vi": "Đơn hoàn tất"
+    },
+    "time-to-pay": {
+      "en": "Time to pay",
+      "vi": "Thời gian thanh toán"
+    },
+    "the-wish": {
+      "en": "The wish",
+      "vi": "Điều ước"
+    },
+    "overview": {
+      "en": "Overview",
+      "vi": "Tổng quan"
+    },
+    "healthy": {
+      "en": "Healthy",
+      "vi": "Khỏe"
+    },
+    "services": {
+      "en": "Services",
+      "vi": "Dịch vụ"
+    },
+    "profile": {
+      "en": "Profile",
+      "vi": "Hồ sơ"
+    },
+    "notifications": {
+      "en": "Notifications",
+      "vi": "Thông báo"
+    },
+    "delete-workspace": {
+      "en": "Delete workspace",
+      "vi": "Xoá không gian làm việc"
+    },
+    "in-review": {
+      "en": "In review",
+      "vi": "Đang rà soát"
+    }
+  },
+  "templates": [
+    {
+      "file": "templates/app-shell/AppShell.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "skipLabel",
+          "id": "skip-to-content"
+        },
+        {
+          "key": "s2",
+          "id": "in-progress"
+        },
+        {
+          "key": "stInprog",
+          "id": "in-progress"
+        },
+        {
+          "key": "nav2",
+          "id": "projects"
+        },
+        {
+          "key": "s1",
+          "id": "projects"
+        },
+        {
+          "key": "tblCap",
+          "id": "projects"
+        },
+        {
+          "key": "s3",
+          "id": "shipped"
+        },
+        {
+          "key": "cSquad",
+          "id": "squad"
+        },
+        {
+          "key": "cStatus",
+          "id": "status"
+        },
+        {
+          "key": "nav5",
+          "id": "settings"
+        },
+        {
+          "key": "newBtn",
+          "id": "new-project"
+        },
+        {
+          "key": "s4",
+          "id": "avg-progress"
+        },
+        {
+          "key": "cKey",
+          "id": "key"
+        },
+        {
+          "key": "cName",
+          "id": "project"
+        },
+        {
+          "key": "cProg",
+          "id": "progress"
+        },
+        {
+          "key": "stBlocked",
+          "id": "blocked"
+        },
+        {
+          "key": "nav1",
+          "id": "overview"
+        },
+        {
+          "key": "h1",
+          "id": "overview"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "navLabel": "Workspace",
+          "nav3": "Releases",
+          "nav4": "Team",
+          "searchPh": "Search projects…",
+          "sub": "Every wish in flight, at a glance.",
+          "s4d": "+6 this week"
+        },
+        "vi": {
+          "navLabel": "Không gian",
+          "nav3": "Phát hành",
+          "nav4": "Đội ngũ",
+          "searchPh": "Tìm dự án…",
+          "sub": "Mọi điều ước đang chạy, trong một cái nhìn.",
+          "s4d": "+6 tuần này"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/article/Article.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "skipLabel",
+          "id": "skip-to-content"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "eyebrow": "Engineering · Design systems",
+          "h1": "Liquid Glass, now bound to components",
+          "meta": "18 Jul 2026 · 6 min read",
+          "badge": "New",
+          "authorTeam": "Platform",
+          "lede": "Five glass materials over the immutable Umber and Ochre anchors — and now they are one class away on any surface. Here's how the bindings work, and when to reach for each.",
+          "p1": "Liquid Glass is CyberSkill's default surface treatment: translucent, refractive layers that let warm gold light show through. The material scalars live in tokens; this release wires them to real components so a card, a nav, or a modal can opt in with a single class.",
+          "h2": "When to reach for glass",
+          "p2": "Keep dense content on solid surfaces. Reserve glass for nav, cards over imagery, and modals — always after an APCA check against the backdrop.",
+          "alertTitle": "Rule of thumb",
+          "alertBody": "If text sits directly on a busy photo, step up one glass tier or drop to a solid surface.",
+          "p3": "That's the whole surface. Everything paints from the same anchors — warm, honest, and Vietnamese-first by default."
+        },
+        "vi": {
+          "eyebrow": "Kỹ thuật · Design system",
+          "h1": "Liquid Glass, nay gắn vào component",
+          "meta": "18/07/2026 · đọc 6 phút",
+          "badge": "Mới",
+          "authorTeam": "Nền tảng",
+          "lede": "Năm vật liệu kính trên hai màu neo bất biến Umber và Ochre — và giờ chỉ cách một class trên mọi bề mặt. Đây là cách các liên kết hoạt động, và khi nào nên dùng từng loại.",
+          "p1": "Liquid Glass là lớp bề mặt mặc định của CyberSkill: những lớp mờ, khúc xạ, để ánh vàng ấm hiện qua. Hệ số vật liệu nằm trong token; bản phát hành này gắn chúng vào component thật, để một card, một nav hay một modal có thể bật lên chỉ bằng một class.",
+          "h2": "Khi nào nên dùng kính",
+          "p2": "Giữ nội dung dày đặc trên bề mặt đặc. Dành kính cho nav, card trên ảnh, và modal — luôn sau khi kiểm tra APCA với nền phía sau.",
+          "alertTitle": "Nguyên tắc chung",
+          "alertBody": "Nếu chữ nằm trực tiếp trên ảnh rối, tăng một bậc kính hoặc chuyển xuống bề mặt đặc.",
+          "p3": "Đó là toàn bộ bề mặt. Mọi thứ đều vẽ từ cùng các màu neo — ấm, thành thật, và ưu tiên tiếng Việt theo mặc định."
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/auth/Auth.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "skipLabel",
+          "id": "skip-to-content"
+        },
+        {
+          "key": "brandH",
+          "id": "turn-your-will-into-real"
+        },
+        {
+          "key": "emailL",
+          "id": "work-email"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "brandP": "Sign in to your workspace — one page, three lenses across every wish in flight.",
+          "title": "Sign in",
+          "sub": "Welcome back. Sign in to continue.",
+          "pwL": "Password",
+          "rememberL": "Remember me",
+          "lumiBtn": "✦ Talk to Lumi instead",
+          "newHere": "New here?",
+          "askAccess": "Ask for access",
+          "resetHint": "Forgot password?",
+          "resetLink": "Email your workspace admin to reset.",
+          "errTitle": "Sign-in failed",
+          "errBody": "Check your email and password, then try again.",
+          "emailErr": "Enter a valid work email."
+        },
+        "vi": {
+          "brandP": "Đăng nhập vào không gian làm việc — một trang, ba lăng kính cho mọi điều ước đang chạy.",
+          "title": "Đăng nhập",
+          "sub": "Mừng bạn quay lại. Đăng nhập để tiếp tục.",
+          "pwL": "Mật khẩu",
+          "rememberL": "Ghi nhớ đăng nhập",
+          "lumiBtn": "✦ Trò chuyện với Lumi",
+          "newHere": "Lần đầu?",
+          "askAccess": "Xin quyền truy cập",
+          "resetHint": "Quên mật khẩu?",
+          "resetLink": "Gửi email cho quản trị không gian làm việc để đặt lại.",
+          "errTitle": "Đăng nhập thất bại",
+          "errBody": "Kiểm tra email và mật khẩu, rồi thử lại.",
+          "emailErr": "Nhập email công việc hợp lệ."
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/bod-deck/BodDeck.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "p2s",
+          "id": "in-progress"
+        },
+        {
+          "key": "p3s",
+          "id": "in-progress"
+        },
+        {
+          "key": "p1s",
+          "id": "shipped"
+        },
+        {
+          "key": "n2",
+          "id": "wishes-granted"
+        },
+        {
+          "key": "n3",
+          "id": "runway"
+        },
+        {
+          "key": "n1",
+          "id": "revenue-qoq"
+        },
+        {
+          "key": "n4",
+          "id": "headcount"
+        },
+        {
+          "key": "s3h",
+          "id": "portfolio"
+        },
+        {
+          "key": "s4h",
+          "id": "risks-asks"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "s1kicker": "Board of Directors · Confidential",
+          "s1h": "Q3 2026 Review",
+          "s1sub": "Hiện Thực Hoá Ý Chí · the quarter & what's next",
+          "dateLine": "18 July 2026 · Saigon",
+          "s2kicker": "By the numbers",
+          "s2h": "A strong quarter",
+          "runway": "19mo",
+          "s3kicker": "What we shipped",
+          "p1n": "Checkout rebuild · Retailer A",
+          "p2n": "Ops console · Logistics B",
+          "p3n": "Design System v1.6 · Internal",
+          "s4kicker": "Honest about trade-offs",
+          "r1b": "Key-person risk on AI.",
+          "r1t": "Ask: approve a second senior AI hire in Q4.",
+          "r2b": "CyberOS infra spend.",
+          "r2t": "Ask: sign off to unblock the provenance ledger.",
+          "closeH": "Thank you",
+          "closeP": "Questions & discussion · Turn Your Will Into Real"
+        },
+        "vi": {
+          "s1kicker": "Hội đồng Quản trị · Mật",
+          "s1h": "Đánh giá Quý 3 2026",
+          "s1sub": "Turn Your Will Into Real · nhìn lại quý & chặng tiếp theo",
+          "dateLine": "18 tháng 7 2026 · Sài Gòn",
+          "s2kicker": "Theo con số",
+          "s2h": "Một quý vững vàng",
+          "runway": "19 tháng",
+          "s3kicker": "Đã ra mắt",
+          "p1n": "Làm lại checkout · Nhà bán lẻ A",
+          "p2n": "Bảng điều hành vận hành · Logistics B",
+          "p3n": "Design System v1.6 · Nội bộ",
+          "s4kicker": "Thẳng thắn về đánh đổi",
+          "r1b": "Rủi ro nhân sự chủ chốt về AI.",
+          "r1t": "Đề xuất: duyệt tuyển thêm một nhân sự AI cấp cao trong Q4.",
+          "r2b": "Chi phí hạ tầng CyberOS.",
+          "r2t": "Đề xuất: phê duyệt để mở đường cho sổ cái nguồn gốc.",
+          "closeH": "Cảm ơn",
+          "closeP": "Hỏi đáp & thảo luận · Hiện Thực Hoá Ý Chí"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/bod-investor-update/BodInvestorUpdate.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "k3",
+          "id": "wishes-granted"
+        },
+        {
+          "key": "k2",
+          "id": "runway"
+        },
+        {
+          "key": "k1",
+          "id": "revenue-qoq"
+        },
+        {
+          "key": "hlH",
+          "id": "highlights"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "headTitle": "CyberSkill · Investor update",
+          "h1": "A strong quarter, one honest miss",
+          "runway": "19 mo",
+          "hl1": "Two enterprise wins; checkout rebuild live at 100% with +31% completed orders.",
+          "hl2": "Design system v2 shipped — every deliverable now themeable per product.",
+          "hl3": "Board approved a second senior AI hire; search underway.",
+          "lowH": "Lowlights — said plainly",
+          "lowBody": "One Sev-2 outage (48 min, no data loss) traced to a canary gap — now closed. Q4 budget deferred one board cycle; revision circulates by 01 Aug. Key-person risk on AI was flagged a quarter late; monthly updates now carry a risk section.",
+          "asksL": "Asks",
+          "asksBody": "Intros to Vietnamese retail or logistics leadership welcome — the checkout case study opens doors. Senior AI candidates likewise.",
+          "cta": "Full quarterly report →",
+          "footer": "CyberSkill · Saigon · Turn Your Will Into Real · Questions? Reply — a real person answers."
+        },
+        "vi": {
+          "headTitle": "CyberSkill · Cập nhật nhà đầu tư",
+          "h1": "Một quý vững vàng, một điểm chưa đạt nói thẳng",
+          "runway": "19 tháng",
+          "hl1": "Hai hợp đồng doanh nghiệp; checkout mới chạy 100% với +31% đơn hoàn tất.",
+          "hl2": "Hệ thống thiết kế v2 đã ra mắt — mọi sản phẩm bàn giao nay đổi chủ đề theo từng sản phẩm.",
+          "hl3": "Hội đồng đã duyệt tuyển thêm một nhân sự AI cấp cao; đang tìm ứng viên.",
+          "lowH": "Điểm chưa đạt — nói thẳng",
+          "lowBody": "Một sự cố Sev-2 (48 phút, không mất dữ liệu) do lỗ hổng canary — nay đã khắc phục. Ngân sách Q4 lùi một kỳ họp; bản chỉnh sửa gửi trước 01/8. Rủi ro nhân sự chủ chốt về AI được nêu chậm một quý; bản cập nhật hằng tháng nay có mục rủi ro.",
+          "asksL": "Đề xuất",
+          "asksBody": "Rất hoan nghênh kết nối với lãnh đạo ngành bán lẻ hoặc logistics Việt Nam — case study checkout mở được nhiều cánh cửa. Ứng viên AI cấp cao cũng vậy.",
+          "cta": "Báo cáo quý đầy đủ →",
+          "footer": "CyberSkill · Sài Gòn · Turn Your Will Into Real · Có câu hỏi? Trả lời email — một người thật sẽ đáp."
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/bod-memo/BodMemo.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/bod-minutes/BodMinutes.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/bod-report/BodReport.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "st2",
+          "id": "wishes-granted"
+        },
+        {
+          "key": "st3",
+          "id": "runway"
+        },
+        {
+          "key": "st4",
+          "id": "headcount"
+        },
+        {
+          "key": "portH",
+          "id": "portfolio"
+        },
+        {
+          "key": "riskH",
+          "id": "risks-asks"
+        },
+        {
+          "key": "hlH",
+          "id": "highlights"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "headTitle": "CyberSkill · Board report",
+          "conf": "Confidential",
+          "kicker": "Q3 2026 · Business review",
+          "h1": "The quarter in one page",
+          "st1": "Revenue (QoQ)",
+          "steady": "steady",
+          "runway": "19 mo",
+          "hlBody": "Revenue grew 18% QoQ on two enterprise wins and a renewed retainer. The design system reached v1.6 and now underpins every new build, cutting delivery time. Hiring is on plan; the Saigon studio is at healthy capacity.",
+          "aiLabel": "AI-assisted summary",
+          "aiDetails": "This narrative was drafted with AI from the quarter's metrics and reviewed by the leadership team before circulation.",
+          "risk1t": "Key-person risk",
+          "risk1b": "AI squad depends on one senior lead. Ask: approve a second senior hire in Q4.",
+          "risk2t": "Decision needed",
+          "risk2b": "Sign off on the CyberOS infra spend to unblock the provenance ledger (target Q1 2027)."
+        },
+        "vi": {
+          "headTitle": "CyberSkill · Báo cáo Hội đồng",
+          "conf": "Mật",
+          "kicker": "Quý 3 2026 · Đánh giá kinh doanh",
+          "h1": "Cả quý gói gọn trong một trang",
+          "st1": "Doanh thu (QoQ)",
+          "steady": "ổn định",
+          "runway": "19 tháng",
+          "hlBody": "Doanh thu tăng 18% so với quý trước nhờ hai hợp đồng doanh nghiệp và một hợp đồng duy trì được gia hạn. Hệ thống thiết kế đạt v1.6 và nay là nền của mọi sản phẩm mới, rút ngắn thời gian bàn giao. Tuyển dụng đúng kế hoạch; studio Sài Gòn đang ở công suất lành mạnh.",
+          "aiLabel": "Tóm tắt có AI hỗ trợ",
+          "aiDetails": "Bản tường thuật này được AI soạn nháp từ các chỉ số của quý và được ban lãnh đạo rà soát trước khi lưu hành.",
+          "risk1t": "Rủi ro nhân sự chủ chốt",
+          "risk1b": "Đội AI phụ thuộc vào một trưởng nhóm cấp cao. Đề xuất: duyệt tuyển thêm một nhân sự cấp cao trong Q4.",
+          "risk2t": "Cần quyết định",
+          "risk2b": "Phê duyệt chi phí hạ tầng CyberOS để mở đường cho sổ cái nguồn gốc (mục tiêu Q1 2027)."
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/bod-resolution/BodResolution.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [],
+      "dictionaries": {
+        "en": {
+          "banner": "Counsel-gated draft — corporate resolutions have statutory requirements (Law on Enterprises); legal must review form and filing before adoption.",
+          "kicker": "Written resolution of the Board of Directors",
+          "h1": "CyberSkill Co., Ltd — Resolution R-26-07",
+          "intro": "Adopted at the duly convened meeting of 18 July 2026, Saigon, quorum confirmed (see minutes of the same date).",
+          "recitalsH": "Recitals",
+          "wWhereas": "WHEREAS",
+          "recA": "the CEO's memo of 18 July 2026 identified single-person key risk on the company's AI initiatives; and",
+          "recB": "the Board has reviewed the associated cost and delivery impact;",
+          "resolvedH": "Resolved",
+          "wThat": "THAT",
+          "c1": "the company is authorized to hire one (1) additional senior AI engineer in Q4 2026, within the compensation band tabled;",
+          "c2": "the CEO is authorized to execute the employment documents required to give effect to paragraph 1;",
+          "c3": "the Secretary shall file this resolution in the company records and report execution at the next meeting.",
+          "voteL": "Vote.",
+          "voteBody": "In favor: 3 · Against: 0 · Abstain: 1 · Carried.",
+          "sig1": "[Chair] — Chair of the Board · date",
+          "sig2": "[Director A] · date",
+          "sig3": "[Director B] · date",
+          "sig4": "[Secretary] — attest · date"
+        },
+        "vi": {
+          "banner": "Bản nháp cần luật sư rà soát — nghị quyết của công ty có các yêu cầu luật định (Luật Doanh nghiệp); bộ phận pháp lý phải rà soát hình thức và thủ tục lưu trước khi thông qua.",
+          "kicker": "Nghị quyết bằng văn bản của Hội đồng Quản trị",
+          "h1": "Công ty TNHH CyberSkill — Nghị quyết R-26-07",
+          "intro": "Được thông qua tại cuộc họp hợp lệ ngày 18 tháng 7 năm 2026, Sài Gòn, đã đủ số đại biểu (xem biên bản cùng ngày).",
+          "recitalsH": "Xét rằng",
+          "wWhereas": "XÉT RẰNG",
+          "recA": "bản ghi nhớ của Tổng Giám đốc ngày 18/7/2026 đã chỉ ra rủi ro phụ thuộc một cá nhân trong các sáng kiến AI của công ty; và",
+          "recB": "Hội đồng đã xem xét tác động về chi phí và tiến độ liên quan;",
+          "resolvedH": "Quyết nghị",
+          "wThat": "RẰNG",
+          "c1": "công ty được chấp thuận tuyển thêm một (01) kỹ sư AI cấp cao trong Quý 4/2026, trong khung lương đã trình;",
+          "c2": "Tổng Giám đốc được ủy quyền ký kết các văn bản lao động cần thiết để thực hiện khoản 1;",
+          "c3": "Thư ký lưu nghị quyết này vào hồ sơ công ty và báo cáo việc thực hiện tại cuộc họp kế tiếp.",
+          "voteL": "Biểu quyết.",
+          "voteBody": "Tán thành: 3 · Không tán thành: 0 · Không biểu quyết: 1 · Thông qua.",
+          "sig1": "[Chủ tịch] — Chủ tịch HĐQT · ngày",
+          "sig2": "[Thành viên A] · ngày",
+          "sig3": "[Thành viên B] · ngày",
+          "sig4": "[Thư ký] — xác nhận · ngày"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/culture-event-invite/CultureEventInvite.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/dashboard/Dashboard.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "skipLabel",
+          "id": "skip-to-content"
+        },
+        {
+          "key": "s2",
+          "id": "in-progress"
+        },
+        {
+          "key": "stInprog",
+          "id": "in-progress"
+        },
+        {
+          "key": "s1",
+          "id": "projects"
+        },
+        {
+          "key": "tblCap",
+          "id": "projects"
+        },
+        {
+          "key": "s3",
+          "id": "shipped"
+        },
+        {
+          "key": "cSquad",
+          "id": "squad"
+        },
+        {
+          "key": "cStatus",
+          "id": "status"
+        },
+        {
+          "key": "newBtn",
+          "id": "new-project"
+        },
+        {
+          "key": "s4",
+          "id": "avg-progress"
+        },
+        {
+          "key": "cKey",
+          "id": "key"
+        },
+        {
+          "key": "cName",
+          "id": "project"
+        },
+        {
+          "key": "cProg",
+          "id": "progress"
+        },
+        {
+          "key": "stBlocked",
+          "id": "blocked"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "tagline": "Portfolio · one page, three lenses",
+          "s4d": "+6 this week",
+          "boardL": "Board",
+          "tableL": "Table",
+          "c1": "Liquid Glass component bindings + 15 element packs.",
+          "c2": "Bilingual storytelling landing; lead capture live.",
+          "c3": "BRAIN memory store + human-in-the-loop gates."
+        },
+        "vi": {
+          "tagline": "Danh mục · một trang, ba lăng kính",
+          "s4d": "+6 tuần này",
+          "boardL": "Bảng",
+          "tableL": "Danh sách",
+          "c1": "Gắn component Liquid Glass + 15 element pack.",
+          "c2": "Landing kể chuyện song ngữ; thu lead đã chạy.",
+          "c3": "Kho ký ức BRAIN + cổng có con người kiểm duyệt."
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/delivery-change-note/DeliveryChangeNote.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "sigMeta",
+          "id": "name-title-date"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "eyebrow": "Change note · under SOW-2026-014",
+          "h1": "Add A/B experiment kit to the checkout scope",
+          "altTitle": "Scope amendment note",
+          "intro": "Per the MSA, changes happen in writing, signed by both parties. This note states the change, why, and exactly what it does to scope, fee, and timeline — nothing else in the SOW moves.",
+          "changeH": "The change",
+          "changeP": "Add the optional A/B kit from quote QT-2026-0088: experiment framework on the new checkout plus the first two tests (copy variants; shipping-threshold banner).",
+          "whyH": "Why now",
+          "whyP": "The canary shows recoverable drop-off at the shipping step. Testing while the team is in the code is cheaper than a second engagement later. Honest trade-off: it adds a week to M3.",
+          "impactH": "Impact",
+          "thDim": "Dimension",
+          "thBefore": "Before",
+          "thAfter": "After",
+          "thDelta": "Delta",
+          "rScope": "Scope",
+          "rScopeB": "3 deliverables",
+          "rScopeA": "+ A/B kit & 2 tests",
+          "rFee": "Fee (excl. VAT)",
+          "rTime": "Timeline (M3)",
+          "rTimeD": "+1 wk",
+          "closing": "All other SOW-2026-014 and MSA terms unchanged. Effective on the later signature date below; the added fee joins the M3 invoice.",
+          "clientName": "[Client Ltd]",
+          "rTimeB": "31 Oct 2026",
+          "rTimeA": "07 Nov 2026",
+          "partyA": "CyberSkill Co., Ltd"
+        },
+        "vi": {
+          "eyebrow": "Văn bản thay đổi · theo SOW-2026-014",
+          "h1": "Bổ sung bộ thử nghiệm A/B vào phạm vi thanh toán",
+          "altTitle": "Văn bản thay đổi phạm vi",
+          "intro": "Theo Hợp đồng khung (MSA), mọi thay đổi được lập bằng văn bản, có chữ ký hai bên. Văn bản này nêu thay đổi, lý do, và tác động chính xác đến phạm vi, phí và tiến độ — không điều nào khác trong SOW thay đổi.",
+          "changeH": "Nội dung thay đổi",
+          "changeP": "Bổ sung bộ A/B tùy chọn từ báo giá QT-2026-0088: khung thử nghiệm trên trang thanh toán mới cùng hai test đầu tiên (biến thể nội dung; banner ngưỡng phí vận chuyển).",
+          "whyH": "Vì sao lúc này",
+          "whyP": "Bản canary cho thấy tỷ lệ rớt có thể thu hồi ở bước vận chuyển. Thử nghiệm khi đội còn trong mã nguồn rẻ hơn một đợt hợp tác thứ hai về sau. Đánh đổi thành thật: thêm một tuần vào M3.",
+          "impactH": "Tác động",
+          "thDim": "Hạng mục",
+          "thBefore": "Trước",
+          "thAfter": "Sau",
+          "thDelta": "Chênh lệch",
+          "rScope": "Phạm vi",
+          "rScopeB": "3 hạng mục bàn giao",
+          "rScopeA": "+ bộ A/B & 2 test",
+          "rFee": "Phí (chưa VAT)",
+          "rTime": "Tiến độ (M3)",
+          "rTimeD": "+1 tuần",
+          "closing": "Mọi điều khoản khác của SOW-2026-014 và MSA giữ nguyên. Hiệu lực từ ngày ký sau cùng dưới đây; phí bổ sung được gộp vào hóa đơn M3.",
+          "clientName": "[Công ty khách hàng]",
+          "rTimeB": "31/10/2026",
+          "rTimeA": "07/11/2026",
+          "partyA": "Công ty TNHH CyberSkill"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/delivery-kickoff/DeliveryKickoff.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "r1role",
+          "id": "lead-engineer"
+        },
+        {
+          "key": "r2role",
+          "id": "product-designer"
+        },
+        {
+          "key": "r3role",
+          "id": "delivery-lead"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "kickLabel": "Kickoff",
+          "kicker": "Project kickoff · SOW-2026-014",
+          "h1": "Checkout rebuild & ops console — how we'll work",
+          "intro": "One page everyone signs onto in week zero: what winning looks like, who decides what, and how we talk. Honest by default — if something feels off, say it in the room.",
+          "goalsL": "Goals — what winning looks like",
+          "g1": "Checkout completion up materially (target agreed at M1) with p95 under 1s.",
+          "g2": "Support runs the day from the ops console without engineering help.",
+          "g3": "Clean handover: docs, runbook, and your team confident to own it.",
+          "teamH": "Team & roles",
+          "thWho": "Who",
+          "thRole": "Role",
+          "thDecides": "Decides",
+          "r1dec": "Technical approach",
+          "r2dec": "UX within scope",
+          "r3dec": "Schedule, escalation",
+          "r4who": "[Name] · Client",
+          "r4role": "Decision-maker",
+          "r4dec": "Scope & acceptance · 48h SLA",
+          "cadH": "Cadence",
+          "cadWeeklyB": "Weekly",
+          "cadWeeklyT": "— status email (Fri) + 30-min sync (Mon)",
+          "cadMsB": "Per milestone",
+          "cadMsT": "— demo & acceptance review",
+          "cadAnyB": "Anytime",
+          "cadAnyT": "— Status Hub, always current",
+          "msH": "Milestones",
+          "m1": "discovery signed off",
+          "m2": "checkout in staging",
+          "m3": "launch & handover",
+          "risksH": "Risks we already see",
+          "risksP": "Staging access in week one is the critical path. Payment-provider quirks may surface in the canary — we've budgeted a buffer week. Said now, so nothing surprises later.",
+          "linksL": "Links",
+          "linksBody": "· Status Hub · shared drive · #project-checkout channel · escalation: vu@cyberskill.world"
+        },
+        "vi": {
+          "kickLabel": "Khởi động",
+          "kicker": "Khởi động dự án · SOW-2026-014",
+          "h1": "Làm lại checkout & bảng điều hành vận hành — cách chúng ta làm việc",
+          "intro": "Một trang cả nhóm cùng thống nhất trong tuần số 0: thắng lợi trông ra sao, ai quyết điều gì, và ta trao đổi thế nào. Thẳng thắn là mặc định — thấy gì chưa ổn, nói ngay trong phòng.",
+          "goalsL": "Mục tiêu — thắng lợi trông như thế nào",
+          "g1": "Tỷ lệ hoàn tất checkout tăng rõ rệt (chỉ tiêu chốt ở M1) với p95 dưới 1 giây.",
+          "g2": "Bộ phận hỗ trợ tự vận hành cả ngày từ bảng điều hành, không cần kỹ thuật.",
+          "g3": "Bàn giao gọn gàng: tài liệu, runbook, và đội của bạn đủ tự tin để làm chủ.",
+          "teamH": "Đội ngũ & vai trò",
+          "thWho": "Ai",
+          "thRole": "Vai trò",
+          "thDecides": "Quyết định",
+          "r1dec": "Hướng kỹ thuật",
+          "r2dec": "UX trong phạm vi",
+          "r3dec": "Tiến độ, leo thang",
+          "r4who": "[Tên] · Khách hàng",
+          "r4role": "Người ra quyết định",
+          "r4dec": "Phạm vi & nghiệm thu · SLA 48h",
+          "cadH": "Nhịp làm việc",
+          "cadWeeklyB": "Hằng tuần",
+          "cadWeeklyT": "— email trạng thái (T6) + họp nhanh 30 phút (T2)",
+          "cadMsB": "Mỗi mốc",
+          "cadMsT": "— demo & rà soát nghiệm thu",
+          "cadAnyB": "Bất cứ lúc nào",
+          "cadAnyT": "— Status Hub, luôn cập nhật",
+          "msH": "Các mốc",
+          "m1": "chốt khám phá",
+          "m2": "checkout lên staging",
+          "m3": "ra mắt & bàn giao",
+          "risksH": "Rủi ro đã thấy trước",
+          "risksP": "Truy cập staging trong tuần đầu là đường găng. Những điểm lạ của nhà cung cấp thanh toán có thể lộ ra ở canary — chúng tôi đã dự trù một tuần đệm. Nói trước, để sau này không có bất ngờ.",
+          "linksL": "Liên kết",
+          "linksBody": "· Status Hub · ổ đĩa chung · kênh #project-checkout · leo thang: vu@cyberskill.world"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/delivery-qbr-deck/DeliveryQbrDeck.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "k1",
+          "id": "completed-orders"
+        },
+        {
+          "key": "k2",
+          "id": "time-to-pay"
+        },
+        {
+          "key": "h1s",
+          "id": "healthy"
+        },
+        {
+          "key": "h2s",
+          "id": "healthy"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "s1kicker": "Quarterly business review · [Client]",
+          "s1h": "Q3 together, honestly",
+          "s1p": "What shipped, what it did, and where we go next",
+          "s2kicker": "The quarter in numbers",
+          "s2h": "What your investment did",
+          "k3": "Sev-1 incidents",
+          "k4": "Milestones on time",
+          "s3kicker": "Shipped & health",
+          "s3h": "Delivered, and holding",
+          "h1n": "Checkout v2 — live at 100% traffic",
+          "h2n": "Ops console — support self-serve, zero eng tickets",
+          "h3n": "Recovery emails — 19% of abandoned carts returned",
+          "h3s": "Watch: volume",
+          "note": "Honest note: one Sev-2 (48 min, July). Root-caused, canary now covers the pricing path — the fix is in your runbook.",
+          "s4kicker": "Next quarter",
+          "s4h": "Where the next đồng works hardest",
+          "n1b": "A/B kit results → roll winners.",
+          "n1t": "Two tests live; shipping-threshold banner is promising.",
+          "n2b": "Mobile checkout polish.",
+          "n2t": "60% of your traffic; the next biggest lever.",
+          "n3b": "Quarterly load test + runbook drill.",
+          "n3t": "Keep “built to last” true.",
+          "closeH": "Shall we keep going?",
+          "closeP": "Renewal proposal for Q4 is in your inbox — same team, fixed scope, honest as ever. A yes this week keeps the squad intact."
+        },
+        "vi": {
+          "s1kicker": "Đánh giá kinh doanh hằng quý · [Khách hàng]",
+          "s1h": "Quý 3 cùng nhau, thẳng thắn",
+          "s1p": "Đã ra mắt gì, mang lại điều gì, và đi tiếp về đâu",
+          "s2kicker": "Quý này qua con số",
+          "s2h": "Đầu tư của bạn đã làm được gì",
+          "k3": "Sự cố Sev-1",
+          "k4": "Mốc đúng hạn",
+          "s3kicker": "Đã ra mắt & sức khỏe",
+          "s3h": "Đã giao, và đang vững",
+          "h1n": "Checkout v2 — chạy 100% lưu lượng",
+          "h2n": "Bảng điều hành — hỗ trợ tự phục vụ, không ticket kỹ thuật",
+          "h3n": "Email thu hồi — 19% giỏ bỏ quên quay lại",
+          "h3s": "Theo dõi: sản lượng",
+          "note": "Nói thẳng: một Sev-2 (48 phút, tháng 7). Đã tìm ra gốc rễ, canary nay phủ đường giá — bản vá đã nằm trong runbook của bạn.",
+          "s4kicker": "Quý tới",
+          "s4h": "Nơi đồng vốn tiếp theo làm việc chăm nhất",
+          "n1b": "Kết quả bộ A/B → nhân rộng cái thắng.",
+          "n1t": "Hai thử nghiệm đang chạy; banner ngưỡng phí ship rất hứa hẹn.",
+          "n2b": "Tinh chỉnh checkout trên di động.",
+          "n2t": "60% lưu lượng của bạn; đòn bẩy lớn kế tiếp.",
+          "n3b": "Kiểm tải hằng quý + diễn tập runbook.",
+          "n3t": "Giữ đúng lời hứa “làm để bền lâu”.",
+          "closeH": "Chúng ta đi tiếp chứ?",
+          "closeP": "Đề xuất gia hạn Q4 đã ở hộp thư của bạn — vẫn đội đó, phạm vi cố định, thẳng thắn như mọi khi. Một cái gật tuần này giữ nguyên đội hình."
+        }
+      },
+      "lexicalExceptions": {
+        "en": {
+          "n3t": "\"Keep \\u201cbuilt to last\\u201d true.\""
+        },
+        "vi": {
+          "n3t": "\"Giữ đúng lời hứa \\u201clàm để bền lâu\\u201d.\""
+        }
+      }
+    },
+    {
+      "file": "templates/delivery-runbook/DeliveryRunbook.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "sigMeta",
+          "id": "name-title-date"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "eyebrow": "Handover · SOW-2026-014",
+          "h1": "Checkout & ops console — run it yourself",
+          "altTitle": "Operations runbook & handover",
+          "intro": "Everything your team needs to own the system: what it is, where it runs, how to deploy, what watches it, and who to call. Built to last means you don't need us — and we're one message away if you do.",
+          "ovH": "System overview",
+          "ovP1": "Next.js storefront checkout (behind flag ",
+          "ovP2": ") → pricing service (cache TTL 300s) → payment provider. Ops console reads the orders API with support-role auth. Recovery emails run on a nightly job.",
+          "envH": "Environments",
+          "thEnv": "Env",
+          "thFrom": "Deploys from",
+          "envProd": "Production",
+          "envProdFrom": "main · tagged release",
+          "envStg": "Staging",
+          "envStgFrom": "main · every merge",
+          "envSb": "Support sandbox",
+          "envSbFrom": "weekly snapshot",
+          "depH": "Deploy",
+          "dep1": "1. Merge to main → staging auto-deploys",
+          "dep2": "2. Smoke-check checkout on staging",
+          "dep3": "3. Tag release → production; canary 10% for 1h",
+          "dep4": "4. Rollback = redeploy previous tag (5 min)",
+          "monH": "Monitoring & alerts",
+          "mon1": "p95 checkout > 3s → pages on-call",
+          "mon2": "Cache TTL = 0 → warning (post-INC-034)",
+          "mon3": "Payment error rate > 2% → pages on-call",
+          "mon4": "Dashboards: linked in the Hub",
+          "breakH": "If something breaks",
+          "breakP1": "Flip ",
+          "breakP2": " off (instant, safe — old flow stays deployable through Q1), then follow the alert's linked playbook. Support-visible issues: post the outage notice template. Two weeks of post-launch cover included; after that, the retainer or one message to us.",
+          "contactsL": "Contacts",
+          "contactsBody": "Your on-call rota (primary) · CyberSkill: minh@cyberskill.world · escalation: vu@cyberskill.world · we reply within one business day",
+          "handedBy": "Handed over — CyberSkill Co., Ltd",
+          "acceptedBy": "Accepted — [Client Ltd]"
+        },
+        "vi": {
+          "eyebrow": "Bàn giao · SOW-2026-014",
+          "h1": "Thanh toán & ops console — tự vận hành",
+          "altTitle": "Sổ tay vận hành & bàn giao",
+          "intro": "Tất cả những gì đội bạn cần để làm chủ hệ thống: nó là gì, chạy ở đâu, triển khai thế nào, ai giám sát, và gọi ai. Làm để bền lâu nghĩa là bạn không cần đến chúng tôi — và chúng tôi luôn cách một tin nhắn nếu cần.",
+          "ovH": "Tổng quan hệ thống",
+          "ovP1": "Trang thanh toán Next.js (sau cờ ",
+          "ovP2": ") → dịch vụ định giá (cache TTL 300s) → nhà cung cấp thanh toán. Ops console đọc API đơn hàng với quyền support. Email khôi phục chạy theo tác vụ hằng đêm.",
+          "envH": "Môi trường",
+          "thEnv": "Môi trường",
+          "thFrom": "Triển khai từ",
+          "envProd": "Production",
+          "envProdFrom": "main · bản gắn thẻ",
+          "envStg": "Staging",
+          "envStgFrom": "main · mỗi lần merge",
+          "envSb": "Sandbox hỗ trợ",
+          "envSbFrom": "ảnh chụp hằng tuần",
+          "depH": "Triển khai",
+          "dep1": "1. Merge vào main → staging tự triển khai",
+          "dep2": "2. Kiểm tra nhanh thanh toán trên staging",
+          "dep3": "3. Gắn thẻ bản phát hành → production; canary 10% trong 1h",
+          "dep4": "4. Rollback = triển khai lại thẻ trước (5 phút)",
+          "monH": "Giám sát & cảnh báo",
+          "mon1": "p95 thanh toán > 3s → gọi trực",
+          "mon2": "Cache TTL = 0 → cảnh báo (sau INC-034)",
+          "mon3": "Tỷ lệ lỗi thanh toán > 2% → gọi trực",
+          "mon4": "Dashboard: liên kết trong Hub",
+          "breakH": "Khi có sự cố",
+          "breakP1": "Tắt cờ ",
+          "breakP2": " (tức thì, an toàn — luồng cũ vẫn triển khai được đến hết Q1), rồi làm theo playbook liên kết trong cảnh báo. Sự cố người dùng thấy: đăng mẫu thông báo gián đoạn. Bao gồm hai tuần hỗ trợ sau ra mắt; sau đó là gói duy trì hoặc một tin nhắn cho chúng tôi.",
+          "contactsL": "Liên hệ",
+          "contactsBody": "Lịch trực của bạn (chính) · CyberSkill: minh@cyberskill.world · leo thang: vu@cyberskill.world · chúng tôi phản hồi trong một ngày làm việc",
+          "handedBy": "Bàn giao — Công ty TNHH CyberSkill",
+          "acceptedBy": "Tiếp nhận — [Công ty khách hàng]"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/delivery-status-email/DeliveryStatusEmail.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/doc-style-guide/DocStyleGuide.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/doc-suite-index/DocSuiteIndex.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/doc-templates/DocTemplates.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/email/Email.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/finance-dunning-email/FinanceDunningEmail.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/finance-expense-report/FinanceExpenseReport.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/finance-invoice/FinanceInvoice.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/finance-quote/FinanceQuote.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/hr-announcement/HrAnnouncement.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/hr-interview-kit/HrInterviewKit.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/hr-offboarding/HrOffboarding.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/hr-performance-review/HrPerformanceReview.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/hr-pip/HrPip.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/legal-msa/LegalMsa.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/legal-sow/LegalSow.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/marketing-campaign-brief/MarketingCampaignBrief.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [],
+      "dictionaries": {
+        "en": {
+          "hdr": "Campaign brief",
+          "draft": "Draft",
+          "eyebrow": "Q4 2026 · Growth",
+          "h1": "“Make a wish” launch campaign",
+          "objL": "Objective",
+          "objP": "Grow qualified “wish” submissions 40% in Q4 by telling one clear story: a wish, granted by a real team.",
+          "audL": "Audience",
+          "audP": "Founders & product leads at Vietnamese SMEs and regional scale-ups who need software shipped — bilingual EN/VN.",
+          "msgL": "Core message",
+          "msgP": "Turn Your Will Into Real. Tell us a wish; Lumi and a real team make it software you run.",
+          "chL": "Channels",
+          "ch1": "Landing page",
+          "ch2": "Email",
+          "ch4": "Founder events",
+          "ch5": "Referral",
+          "tlL": "Timeline",
+          "smL": "Success metrics",
+          "m1": "Wish submissions",
+          "m1d": "target",
+          "m2": "Qualified leads",
+          "m3d": "vs Q3"
+        },
+        "vi": {
+          "hdr": "Bản brief chiến dịch",
+          "draft": "Bản nháp",
+          "eyebrow": "Q4 2026 · Tăng trưởng",
+          "h1": "Chiến dịch ra mắt “Gửi điều ước”",
+          "objL": "Mục tiêu",
+          "objP": "Tăng 40% số “điều ước” đạt chuẩn trong Q4 bằng một câu chuyện rõ ràng: một điều ước, được một đội ngũ thật thực hiện.",
+          "audL": "Đối tượng",
+          "audP": "Nhà sáng lập & trưởng sản phẩm tại các SME Việt Nam và scale-up khu vực cần đưa phần mềm ra thị trường — song ngữ EN/VN.",
+          "msgL": "Thông điệp cốt lõi",
+          "msgP": "Hiện Thực Hoá Ý Chí. Kể cho chúng tôi một điều ước; Lumi và một đội ngũ thật biến nó thành phần mềm bạn vận hành.",
+          "chL": "Kênh",
+          "ch1": "Landing page",
+          "ch2": "Email",
+          "ch4": "Sự kiện nhà sáng lập",
+          "ch5": "Giới thiệu",
+          "tlL": "Tiến độ",
+          "smL": "Chỉ số thành công",
+          "m1": "Điều ước gửi về",
+          "m1d": "mục tiêu",
+          "m2": "Lead đạt chuẩn",
+          "m3d": "so với Q3"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {
+          "h1": "\"\\u201cMake a wish\\u201d launch campaign\"",
+          "objP": "\"Grow qualified \\u201cwish\\u201d submissions 40% in Q4 by telling one clear story: a wish, granted by a real team.\""
+        },
+        "vi": {
+          "h1": "\"Chiến dịch ra mắt \\u201cGửi điều ước\\u201d\"",
+          "objP": "\"Tăng 40% số \\u201cđiều ước\\u201d đạt chuẩn trong Q4 bằng một câu chuyện rõ ràng: một điều ước, được một đội ngũ thật thực hiện.\""
+        }
+      }
+    },
+    {
+      "file": "templates/marketing-case-study/MarketingCaseStudy.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "stat1",
+          "id": "completed-orders"
+        },
+        {
+          "key": "stat2",
+          "id": "time-to-pay"
+        },
+        {
+          "key": "h1",
+          "id": "the-wish"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "kicker": "Case study",
+          "stat3v": "12 wks",
+          "stat3": "Wish to launch",
+          "p1": "One in three shoppers abandoned at payment, and support couldn't see why. The ask, in one sentence: a checkout that just works — and a console to run the day.",
+          "h2": "How we shaped it",
+          "p2": "A senior pair rebuilt checkout behind a feature flag and proved it on 10% of traffic before cutover. The ops console shipped in parallel, so support had order visibility from week three. Honest trade-off, stated up front: we kept the payment provider as-is and spent the budget where the funnel leaked.",
+          "h3": "What lasted",
+          "p3": "Recovery emails now return a fifth of abandoned carts. The console handles refunds without engineering help. Docs, runbook, and analytics were handed over cleanly — built to ship, built to last.",
+          "quote": "“We described the outcome in two sentences. Twelve weeks later it was live — and it still runs itself.”",
+          "quoteWho": "Product lead, Retailer A",
+          "ctaKicker": "Have a wish like this?",
+          "ctaBody": "Tell us the outcome in a sentence. We reply within one business day.",
+          "ctaBtn": "Make a wish →"
+        },
+        "vi": {
+          "kicker": "Nghiên cứu tình huống",
+          "stat3v": "12 tuần",
+          "stat3": "Từ điều ước đến ra mắt",
+          "p1": "Cứ ba người mua thì một bỏ giỏ ở bước thanh toán, và bộ phận hỗ trợ không thấy vì sao. Yêu cầu, gói trong một câu: một trang thanh toán cứ thế chạy — và một console để vận hành mỗi ngày.",
+          "h2": "Cách chúng tôi định hình",
+          "p2": "Một cặp senior dựng lại thanh toán sau một feature flag và kiểm chứng trên 10% lưu lượng trước khi cắt chuyển. Ops console ra song song, nên hỗ trợ thấy được đơn hàng từ tuần thứ ba. Đánh đổi thành thật, nói trước: giữ nguyên nhà cung cấp thanh toán và dồn ngân sách vào nơi phễu rò rỉ.",
+          "h3": "Điều còn lại",
+          "p3": "Email khôi phục nay kéo về một phần năm số giỏ bị bỏ. Console xử lý hoàn tiền mà không cần đến kỹ thuật. Tài liệu, runbook và analytics được bàn giao gọn gàng — làm để chạy được, làm để bền lâu.",
+          "quote": "“Chúng tôi mô tả kết quả trong hai câu. Mười hai tuần sau nó đã chạy — và tự vận hành đến giờ.”",
+          "quoteWho": "Trưởng sản phẩm, Retailer A",
+          "ctaKicker": "Bạn cũng có một điều ước như vậy?",
+          "ctaBody": "Kể cho chúng tôi kết quả trong một câu. Chúng tôi phản hồi trong một ngày làm việc.",
+          "ctaBtn": "Gửi điều ước →"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {
+          "quote": "\"\\u201cWe described the outcome in two sentences. Twelve weeks later it was live — and it still runs itself.\\u201d\""
+        },
+        "vi": {
+          "quote": "\"\\u201cChúng tôi mô tả kết quả trong hai câu. Mười hai tuần sau nó đã chạy — và tự vận hành đến giờ.\\u201d\""
+        }
+      }
+    },
+    {
+      "file": "templates/marketing-launch/MarketingLaunch.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/marketing-newsletter/MarketingNewsletter.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/marketing-page/MarketingPage.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "skipLabel",
+          "id": "skip-to-content"
+        },
+        {
+          "key": "heroH",
+          "id": "turn-your-will-into-real"
+        },
+        {
+          "key": "promptSend",
+          "id": "make-a-wish"
+        },
+        {
+          "key": "navServices",
+          "id": "services"
+        },
+        {
+          "key": "svcKicker",
+          "id": "services"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "heroImagePlaceholder": "Drop a hero image (optional)",
+          "closeLabel": "Close",
+          "navProcess": "Process",
+          "navContact": "Contact",
+          "talkBtn": "Talk to Lumi",
+          "heroKicker": "A Saigon studio · since 2020",
+          "heroSub": "Hiện Thực Hoá Ý Chí",
+          "heroP": "Tell us a wish in a sentence. Lumi shares plain advice, then hands it to a real team who build software your people actually run — built to ship, built to last.",
+          "promptPh": "Make a wish… a faster checkout, an app, a tool",
+          "svcH": "What we build",
+          "svcP": "Three focused practices. One team that answers for the result.",
+          "c1h": "Web & mobile apps",
+          "c1p": "Product apps your customers reach for — fast, accessible, bilingual by default.",
+          "c2h": "Internal systems & automation",
+          "c2p": "The tools your team runs on: dashboards, workflows, and the automation behind them.",
+          "c3h": "Built to last",
+          "c3p": "Shipped software that keeps running — tested, documented, handed over cleanly.",
+          "ctaH": "Ready to make a wish?",
+          "ctaP": "Send a short note. We reply within one business day.",
+          "chatHello": "Hello, I’m Lumi. Tell me a wish, and I’ll share plain advice before asking for anything.",
+          "chatPh": "Type your wish…",
+          "chatSend": "Send",
+          "footer": "© 2026 CyberSkill · Saigon · Turn Your Will Into Real",
+          "genieLabel": "golden genie"
+        },
+        "vi": {
+          "heroImagePlaceholder": "Thả ảnh bìa (không bắt buộc)",
+          "closeLabel": "Đóng",
+          "navProcess": "Quy trình",
+          "navContact": "Liên hệ",
+          "talkBtn": "Trò chuyện với Lumi",
+          "heroKicker": "Studio Sài Gòn · từ 2020",
+          "heroSub": "Turn Your Will Into Real",
+          "heroP": "Kể cho chúng tôi một điều ước trong một câu. Lumi chia sẻ lời khuyên thẳng thắn, rồi trao cho một đội ngũ thật xây phần mềm mà người của bạn thực sự vận hành — làm để chạy được, làm để bền lâu.",
+          "promptPh": "Gửi điều ước… thanh toán nhanh hơn, một app, một công cụ",
+          "svcH": "Chúng tôi xây gì",
+          "svcP": "Ba mảng tập trung. Một đội ngũ chịu trách nhiệm về kết quả.",
+          "c1h": "Ứng dụng web & di động",
+          "c1p": "Sản phẩm khách hàng muốn dùng — nhanh, dễ tiếp cận, song ngữ mặc định.",
+          "c2h": "Hệ thống nội bộ & tự động hoá",
+          "c2p": "Công cụ đội bạn vận hành: dashboard, luồng công việc, và tự động hoá phía sau.",
+          "c3h": "Làm để bền lâu",
+          "c3p": "Phần mềm đã ra mắt vẫn chạy đều — kiểm thử, tài liệu, bàn giao gọn gàng.",
+          "ctaH": "Sẵn sàng gửi điều ước?",
+          "ctaP": "Gửi một ghi chú ngắn. Chúng tôi phản hồi trong một ngày làm việc.",
+          "chatHello": "Xin chào, tôi là Lumi. Kể cho tôi một điều ước, tôi sẽ chia sẻ lời khuyên thẳng thắn trước khi hỏi bất cứ điều gì.",
+          "chatPh": "Nhập điều ước của bạn…",
+          "chatSend": "Gửi",
+          "footer": "© 2026 CyberSkill · Sài Gòn · Hiện Thực Hoá Ý Chí",
+          "genieLabel": "thần đèn vàng"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/marketing-press-release/MarketingPressRelease.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [],
+      "dictionaries": {
+        "en": {
+          "kicker": "For immediate release",
+          "h1": "CyberSkill opens Lumi to every business: describe a wish, get working software",
+          "sub": "The Saigon studio's golden genie now takes wishes in Vietnamese and English — with honest advice first, and a human team behind every build.",
+          "lead": "HO CHI MINH CITY, 18 July 2026 — CyberSkill, the Saigon software studio behind Status Hub, today opened Lumi, its wish-capture assistant, to all businesses. Anyone can describe an outcome in one sentence; Lumi replies with plain advice, then hands the wish to a senior human team that scopes it honestly and builds it to last.",
+          "body2": "Unlike tools that generate throwaway code, every Lumi wish ends with people. “AI drafts, humans answer for the result,” said the studio's founder. “We put our names on what ships — that changes what you're willing to ship.”",
+          "body3": "Lumi is bilingual by default (Tiếng Việt · English), discloses when AI is involved, and never contacts anyone without consent. Since 2020 the studio has granted 40+ wishes for retail, logistics, and internal-tools teams across Vietnam.",
+          "glanceL": "At a glance",
+          "g1t": "Free to wish",
+          "g1b": "Advice first; no signup to ask.",
+          "g2t": "Human in the loop",
+          "g2b": "Every wish reviewed by a person.",
+          "g3t": "One business day",
+          "g3b": "First reply, guaranteed.",
+          "aboutL": "About CyberSkill",
+          "aboutP": "CyberSkill is a Saigon software studio, est. 2020. Slogan: Turn Your Will Into Real — Hiện Thực Hoá Ý Chí. A small, senior team that turns a clear wish into software that ships and lasts: web and mobile products, internal systems, and honest AI. cyberskill.world",
+          "mediaL": "Media contact",
+          "place": "District 1, Saigon",
+          "assetsL": "Assets: logo & Lumi renders on request"
+        },
+        "vi": {
+          "kicker": "Phát hành ngay",
+          "h1": "CyberSkill mở Lumi cho mọi doanh nghiệp: nói một điều ước, nhận phần mềm chạy được",
+          "sub": "Vị thần đèn vàng của studio Sài Gòn nay nhận điều ước bằng cả tiếng Việt và tiếng Anh — lời khuyên thành thật trước, và một đội ngũ con người phía sau mỗi bản build.",
+          "lead": "TP. HỒ CHÍ MINH, 18 tháng 7 năm 2026 — CyberSkill, studio phần mềm Sài Gòn đứng sau Status Hub, hôm nay mở Lumi, trợ lý tiếp nhận điều ước, cho mọi doanh nghiệp. Bất kỳ ai cũng có thể mô tả kết quả trong một câu; Lumi trả lời bằng lời khuyên thẳng thắn, rồi trao điều ước cho một đội ngũ con người cấp cao xác định phạm vi thành thật và làm để bền lâu.",
+          "body2": "Khác với các công cụ sinh mã dùng một lần, mọi điều ước của Lumi đều kết thúc ở con người. “AI soạn nháp, con người chịu trách nhiệm về kết quả,” nhà sáng lập studio nói. “Chúng tôi đặt tên mình lên thứ được bàn giao — điều đó thay đổi thứ bạn sẵn lòng bàn giao.”",
+          "body3": "Lumi song ngữ mặc định (Tiếng Việt · English), công khai khi có AI tham gia, và không bao giờ liên hệ ai khi chưa được đồng ý. Từ 2020, studio đã thực hiện hơn 40 điều ước cho các đội bán lẻ, logistics và công cụ nội bộ khắp Việt Nam.",
+          "glanceL": "Tóm tắt",
+          "g1t": "Ước miễn phí",
+          "g1b": "Lời khuyên trước; không cần đăng ký để hỏi.",
+          "g2t": "Con người trong vòng lặp",
+          "g2b": "Mọi điều ước đều có người rà soát.",
+          "g3t": "Một ngày làm việc",
+          "g3b": "Phản hồi đầu tiên, cam kết.",
+          "aboutL": "Về CyberSkill",
+          "aboutP": "CyberSkill là studio phần mềm Sài Gòn, thành lập 2020. Khẩu hiệu: Turn Your Will Into Real — Hiện Thực Hoá Ý Chí. Một đội ngũ nhỏ, giàu kinh nghiệm, biến điều ước rõ ràng thành phần mềm chạy được và bền lâu: sản phẩm web và di động, hệ thống nội bộ, và AI tử tế. cyberskill.world",
+          "mediaL": "Liên hệ báo chí",
+          "place": "Quận 1, Sài Gòn",
+          "assetsL": "Tư liệu: logo & ảnh Lumi khi có yêu cầu"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {
+          "body2": "\"Unlike tools that generate throwaway code, every Lumi wish ends with people. \\u201cAI drafts, humans answer for the result,\\u201d said the studio's founder. \\u201cWe put our names on what ships — that changes what you're willing to ship.\\u201d\""
+        },
+        "vi": {
+          "body2": "\"Khác với các công cụ sinh mã dùng một lần, mọi điều ước của Lumi đều kết thúc ở con người. \\u201cAI soạn nháp, con người chịu trách nhiệm về kết quả,\\u201d nhà sáng lập studio nói. \\u201cChúng tôi đặt tên mình lên thứ được bàn giao — điều đó thay đổi thứ bạn sẵn lòng bàn giao.\\u201d\""
+        }
+      }
+    },
+    {
+      "file": "templates/marketing-social-kit/MarketingSocialKit.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "sqKicker",
+          "id": "make-a-wish"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "lcLine1": "A wish in one sentence.",
+          "lcLine2": "Software that lasts.",
+          "lcSub": "Senior Saigon studio · honest about trade-offs · EN·VN",
+          "stKicker": "Hiring · Saigon",
+          "stLine1": "Build things",
+          "stLine2": "that last",
+          "stSub": "Senior Product Engineer · Platform squad · Tiếng Việt · English"
+        },
+        "vi": {
+          "lcLine1": "Một điều ước, một câu.",
+          "lcLine2": "Phần mềm bền lâu.",
+          "lcSub": "Studio Sài Gòn cấp cao · thành thật về đánh đổi · EN·VN",
+          "stKicker": "Tuyển dụng · Sài Gòn",
+          "stLine1": "Làm những thứ",
+          "stLine2": "bền lâu",
+          "stSub": "Kỹ sư sản phẩm cấp cao · nhóm Platform · Tiếng Việt · English"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/sales-one-pager/SalesOnePager.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/sales-proposal-deck/SalesProposalDeck.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "role1",
+          "id": "lead-engineer"
+        },
+        {
+          "key": "role2",
+          "id": "product-designer"
+        },
+        {
+          "key": "role3",
+          "id": "delivery-lead"
+        },
+        {
+          "key": "s2kicker",
+          "id": "the-wish"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "s1kicker": "Proposal · Confidential",
+          "s1h": "Rebuilding checkout for ",
+          "s1client": "[Client]",
+          "s1sub": "A faster path to purchase — and an ops console your team enjoys",
+          "s1prep": "Prepared for [Client] · 18 July 2026",
+          "s2h": "You’re losing carts you shouldn’t",
+          "s2p": "One in three shoppers drops off at payment, and support can’t see why. You need a checkout that just works — and a console to run the day. That’s the wish, in plain words.",
+          "s3kicker": "Our understanding",
+          "s3h": "What we heard",
+          "u1t": "Speed first",
+          "u1p": "Every extra second at payment costs real revenue.",
+          "u2t": "Visibility",
+          "u2p": "Support is flying blind without an order view.",
+          "u3t": "No rebuild churn",
+          "u3p": "It has to last — not need redoing next year.",
+          "s4kicker": "Our approach",
+          "s4h": "Ship in slices, not big bangs",
+          "a1b": "Rebuild checkout behind a flag.",
+          "a1t": "Prove it on a slice of traffic before full cutover.",
+          "a2b": "Stand up the ops console in parallel.",
+          "a2t": "Support gets value from week three, not month three.",
+          "a3b": "Instrument everything, then hand over.",
+          "a3t": "You keep the data, the docs, and the keys.",
+          "s5kicker": "Scope & timeline",
+          "s5h": "Three months, three milestones",
+          "mo1": "Aug",
+          "mo2": "Sep",
+          "mo3": "Oct",
+          "t1": "Discovery & checkout foundations",
+          "t2": "Checkout in staging · ops console v1",
+          "t3": "Launch, analytics & handover",
+          "s6kicker": "Your team",
+          "s6h": "Senior, small, accountable",
+          "s7kicker": "Investment",
+          "s7h": "Priced honestly, fixed scope",
+          "inv1": "Core scope, excl. VAT",
+          "inv2": "Milestone payments",
+          "inv3": "Warranty after launch",
+          "closeH": "Let’s grant this wish",
+          "closeP": "Say yes and we’ll send the SOW and a start date within one business day."
+        },
+        "vi": {
+          "s1kicker": "Đề xuất · Mật",
+          "s1h": "Làm lại checkout cho ",
+          "s1client": "[Khách hàng]",
+          "s1sub": "Đường tới thanh toán nhanh hơn — và một bảng điều hành đội bạn thích dùng",
+          "s1prep": "Chuẩn bị cho [Khách hàng] · 18 tháng 7 2026",
+          "s2h": "Bạn đang mất những giỏ hàng lẽ ra không nên mất",
+          "s2p": "Cứ ba người mua thì một người rời đi ở khâu thanh toán, và bộ phận hỗ trợ không hiểu vì sao. Bạn cần một checkout chạy trơn tru — và một bảng điều hành để vận hành cả ngày. Đó là điều ước, nói mộc mạc.",
+          "s3kicker": "Điều chúng tôi hiểu",
+          "s3h": "Những gì chúng tôi nghe được",
+          "u1t": "Tốc độ trước tiên",
+          "u1p": "Mỗi giây thêm ở khâu thanh toán là doanh thu thật mất đi.",
+          "u2t": "Khả năng nhìn thấy",
+          "u2p": "Hỗ trợ mù thông tin khi không có màn hình đơn hàng.",
+          "u3t": "Không phải làm lại",
+          "u3p": "Phải bền — không phải làm lại vào năm sau.",
+          "s4kicker": "Cách tiếp cận",
+          "s4h": "Ra từng lát, không làm một phát lớn",
+          "a1b": "Làm lại checkout sau một cờ tính năng.",
+          "a1t": "Chứng minh trên một phần lưu lượng trước khi chuyển toàn bộ.",
+          "a2b": "Dựng bảng điều hành vận hành song song.",
+          "a2t": "Hỗ trợ nhận giá trị từ tuần thứ ba, không phải tháng thứ ba.",
+          "a3b": "Đo đạc mọi thứ, rồi bàn giao.",
+          "a3t": "Bạn giữ dữ liệu, tài liệu, và chìa khoá.",
+          "s5kicker": "Phạm vi & tiến độ",
+          "s5h": "Ba tháng, ba mốc",
+          "mo1": "Th8",
+          "mo2": "Th9",
+          "mo3": "Th10",
+          "t1": "Khám phá & nền móng checkout",
+          "t2": "Checkout trên staging · bảng điều hành v1",
+          "t3": "Ra mắt, phân tích & bàn giao",
+          "s6kicker": "Đội của bạn",
+          "s6h": "Cấp cao, nhỏ gọn, chịu trách nhiệm",
+          "s7kicker": "Chi phí đầu tư",
+          "s7h": "Báo giá thẳng thắn, phạm vi cố định",
+          "inv1": "Phạm vi cốt lõi, chưa VAT",
+          "inv2": "Thanh toán theo mốc",
+          "inv3": "Bảo hành sau ra mắt",
+          "closeH": "Cùng thực hiện điều ước này",
+          "closeP": "Đồng ý là chúng tôi gửi SOW và ngày bắt đầu trong vòng một ngày làm việc."
+        }
+      },
+      "lexicalExceptions": {
+        "en": {
+          "s2h": "\"You\\u2019re losing carts you shouldn\\u2019t\"",
+          "s2p": "\"One in three shoppers drops off at payment, and support can\\u2019t see why. You need a checkout that just works — and a console to run the day. That\\u2019s the wish, in plain words.\"",
+          "closeH": "\"Let\\u2019s grant this wish\"",
+          "closeP": "\"Say yes and we\\u2019ll send the SOW and a start date within one business day.\""
+        },
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/settings/Settings.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "skipLabel",
+          "id": "skip-to-content"
+        },
+        {
+          "key": "squadL",
+          "id": "squad"
+        },
+        {
+          "key": "title",
+          "id": "settings"
+        },
+        {
+          "key": "emailL",
+          "id": "work-email"
+        },
+        {
+          "key": "pfL",
+          "id": "profile"
+        },
+        {
+          "key": "ntL",
+          "id": "notifications"
+        },
+        {
+          "key": "profileH",
+          "id": "profile"
+        },
+        {
+          "key": "notifH",
+          "id": "notifications"
+        },
+        {
+          "key": "dangerT",
+          "id": "delete-workspace"
+        },
+        {
+          "key": "dangerBtn",
+          "id": "delete-workspace"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "sub": "Workspace & preferences · an@cyberskill.world",
+          "profileP": "This is how you appear across the workspace.",
+          "nameL": "Full name",
+          "ifaceL": "Interface language",
+          "notifP": "We keep it quiet — only what you ask for.",
+          "n1t": "Release notes",
+          "n1d": "A summary each time a project ships. Bilingual.",
+          "n2t": "Blocked-project alerts",
+          "n2d": "Get pinged when a project is blocked.",
+          "n3t": "Weekly velocity digest",
+          "n3d": "Tasks shipped per week, every Monday morning.",
+          "n4t": "Quiet hours",
+          "n4d": "No pings between 22:00 and 07:00 local time.",
+          "advT": "Advanced preferences",
+          "advD": "Digest timing and quiet hours stay here — expand only when you need them.",
+          "dangerD": "Removes every project and release. This cannot be undone.",
+          "cancelBtn": "Cancel",
+          "saveBtn": "Save changes"
+        },
+        "vi": {
+          "sub": "Không gian làm việc & tuỳ chọn · an@cyberskill.world",
+          "profileP": "Đây là cách bạn hiển thị trong không gian làm việc.",
+          "nameL": "Họ và tên",
+          "ifaceL": "Ngôn ngữ giao diện",
+          "notifP": "Chúng tôi giữ yên tĩnh — chỉ gửi thứ bạn yêu cầu.",
+          "n1t": "Ghi chú phát hành",
+          "n1d": "Bản tóm tắt mỗi khi một dự án ra mắt. Song ngữ.",
+          "n2t": "Cảnh báo dự án bị chặn",
+          "n2d": "Được báo khi một dự án bị chặn.",
+          "n3t": "Tóm tắt tốc độ tuần",
+          "n3d": "Số task giao mỗi tuần, sáng thứ Hai.",
+          "n4t": "Giờ yên tĩnh",
+          "n4d": "Không ping từ 22:00 đến 07:00 theo giờ địa phương.",
+          "advT": "Tuỳ chọn nâng cao",
+          "advD": "Thời gian tóm tắt và giờ yên tĩnh nằm ở đây — chỉ mở khi bạn cần.",
+          "dangerD": "Xoá mọi dự án và bản phát hành. Không thể hoàn tác.",
+          "cancelBtn": "Huỷ",
+          "saveBtn": "Lưu thay đổi"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/slide-deck/SlideDeck.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "s1h",
+          "id": "turn-your-will-into-real"
+        },
+        {
+          "key": "closeH",
+          "id": "make-a-wish"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "s1kicker": "Product review · Q3 2026",
+          "s1sub": "Hiện Thực Hoá Ý Chí · a look at what shipped",
+          "s2kicker": "What we'll cover",
+          "s2h": "Three things that shipped",
+          "f1h": "Liquid Glass",
+          "f1": "Five materials, now bound to components.",
+          "f2h": "15 element packs",
+          "f2": "Verified, zero warnings across the set.",
+          "f3h": "Lumi genie",
+          "f3": "A wish-capture flow, human in the loop.",
+          "quoteA": "“A clear wish, granted by a real team — ",
+          "quoteB": "built to ship, built to last.",
+          "quoteC": "”",
+          "quoteWho": "The CyberSkill promise",
+          "closeP": "cyberskill.world · we reply within one business day"
+        },
+        "vi": {
+          "s1kicker": "Đánh giá sản phẩm · Q3 2026",
+          "s1sub": "Turn Your Will Into Real · điểm lại những gì đã ra mắt",
+          "s2kicker": "Nội dung trình bày",
+          "s2h": "Ba thứ đã ra mắt",
+          "f1h": "Liquid Glass",
+          "f1": "Năm vật liệu, nay gắn vào component.",
+          "f2h": "15 element pack",
+          "f2": "Đã kiểm định, không một cảnh báo.",
+          "f3h": "Thần đèn Lumi",
+          "f3": "Luồng tiếp nhận điều ước, có con người trong vòng lặp.",
+          "quoteA": "“Một điều ước rõ ràng, được một đội ngũ thật thực hiện — ",
+          "quoteB": "làm để chạy được, làm để bền lâu.",
+          "quoteC": "”",
+          "quoteWho": "Lời hứa của CyberSkill",
+          "closeP": "cyberskill.world · chúng tôi phản hồi trong một ngày làm việc"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {
+          "quoteA": "\"\\u201cA clear wish, granted by a real team — \"",
+          "quoteC": "\"\\u201d\""
+        },
+        "vi": {
+          "quoteA": "\"\\u201cMột điều ước rõ ràng, được một đội ngũ thật thực hiện — \"",
+          "quoteC": "\"\\u201d\""
+        }
+      }
+    },
+    {
+      "file": "templates/team-meeting-agenda/TeamMeetingAgenda.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/tech-incident-report/TechIncidentReport.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/tech-release-notes/TechReleaseNotes.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/tech-retro/TechRetro.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/tech-rfc/TechRfc.dc.html",
+      "axisDeclaration": "EL",
+      "copy": [
+        {
+          "key": "dtStatus",
+          "id": "status"
+        },
+        {
+          "key": "badge",
+          "id": "in-review"
+        },
+        {
+          "key": "ddStatus",
+          "id": "in-review"
+        }
+      ],
+      "dictionaries": {
+        "en": {
+          "kicker": "RFC-041 · Platform",
+          "h1": "Token pipeline: multi-target export",
+          "dtAuthor": "Author",
+          "dtRev": "Reviewers",
+          "dtTarget": "Target",
+          "ctxH": "Context",
+          "ctxP": "Design tokens ship as CSS today. Native (Swift/Kotlin) and Flutter teams hand-copy values, which drifts. We propose one DTCG source compiling to every target with provenance.",
+          "propH": "Proposal",
+          "toH": "Trade-offs",
+          "gainsT": "Gains",
+          "gainsB": "Single source of truth; provenance JSON per token; no hand-copying across platforms.",
+          "costsT": "Costs (honest)",
+          "costsB": "A new build step and DTCG learning curve. Migrating 159 tokens is ~1 sprint of careful work.",
+          "rollH": "Rollout"
+        },
+        "vi": {
+          "kicker": "RFC-041 · Nền tảng",
+          "h1": "Đường ống token: xuất đa nền tảng",
+          "dtAuthor": "Tác giả",
+          "dtRev": "Người rà soát",
+          "dtTarget": "Mục tiêu",
+          "ctxH": "Bối cảnh",
+          "ctxP": "Hôm nay token thiết kế chỉ xuất ra CSS. Các đội native (Swift/Kotlin) và Flutter phải chép tay giá trị, dẫn đến sai lệch. Chúng tôi đề xuất một nguồn DTCG duy nhất biên dịch ra mọi nền tảng kèm nguồn gốc.",
+          "propH": "Đề xuất",
+          "toH": "Đánh đổi",
+          "gainsT": "Được gì",
+          "gainsB": "Một nguồn sự thật duy nhất; JSON nguồn gốc cho mỗi token; không còn chép tay giữa các nền tảng.",
+          "costsT": "Mất gì (thẳng thắn)",
+          "costsB": "Thêm một bước build và thời gian làm quen DTCG. Chuyển đổi 159 token tốn khoảng một sprint làm cẩn thận.",
+          "rollH": "Triển khai"
+        }
+      },
+      "lexicalExceptions": {
+        "en": {},
+        "vi": {}
+      }
+    },
+    {
+      "file": "templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-certificate-of-employment/VnCertificateOfEmployment.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-code-of-conduct/VnCodeOfConduct.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-compensation-regulation/VnCompensationRegulation.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-contract-amendment/VnContractAmendment.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-contractor-agreement/VnContractorAgreement.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-data-protection-policy/VnDataProtectionPolicy.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-disciplinary-case-file/VnDisciplinaryCaseFile.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-disciplinary-schedule/VnDisciplinarySchedule.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-employee-request/VnEmployeeRequest.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-exit-handover/VnExitHandover.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-foreign-employee-pack/VnForeignEmployeePack.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-framework-agreement/VnFrameworkAgreement.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-grassroots-democracy/VnGrassrootsDemocracy.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-infosec-policy/VnInfosecPolicy.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-internal-labor-regulations/VnInternalLaborRegulations.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-internship-agreement/VnInternshipAgreement.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-job-description/VnJobDescription.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-labor-contract/VnLaborContract.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-labour-management-book/VnLabourManagementBook.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-mutual-nda/VnMutualNda.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-ndnca-ip/VnNdncaIp.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-offer-letter/VnOfferLetter.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-onboarding-checklist/VnOnboardingChecklist.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-pdpl-consent/VnPdplConsent.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-performance-evaluation-regulation/VnPerformanceEvaluationRegulation.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-performance-review-form/VnPerformanceReviewForm.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-phantom-stock/VnPhantomStock.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-probation-contract/VnProbationContract.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-receipt-acknowledgement/VnReceiptAcknowledgement.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-remote-work-policy/VnRemoteWorkPolicy.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-resignation-letter/VnResignationLetter.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-salary-scale/VnSalaryScale.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-sow-appendix/VnSowAppendix.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-termination-decision/VnTerminationDecision.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-training-commitment/VnTrainingCommitment.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    },
+    {
+      "file": "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html",
+      "axisDeclaration": "EL",
+      "copy": []
+    }
+  ]
+}

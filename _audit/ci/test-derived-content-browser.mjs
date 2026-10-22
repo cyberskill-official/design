@@ -22,7 +22,7 @@ await withBrowserFixture(async page=>{
   await page.evaluate(content=>renderFixture(React.createElement(CS.PromptInput,{hint:content})),content);
   await expect('.cs-prompt__hint',content===0?['0']:[],'prompt hint');
   await page.evaluate(content=>renderFixture(React.createElement(CS.SegmentedControl,{options:[{value:'a',label:'A',icon:content}],value:'a'})),content);
-  await expect('[role=tab] > span',content===0?['0']:[],'nested icon');
+  await expect('[role=radio] > span',content===0?['0']:[],'nested icon');
   await page.evaluate(content=>renderFixture(React.createElement(CS.Form,{initialValues:{items:[]}},React.createElement(CS.FormFieldArray,{name:'items',label:content},()=>null))),content);
   await expect('.cs-form-array > .cs-formfield__label',content===0?['0']:[],'array label');
  }

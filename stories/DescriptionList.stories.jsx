@@ -7,14 +7,6 @@ export default {
   argTypes: {
     items: { control: 'object' },
   },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting DescriptionList. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { items: [{ term: 'Element', value: 'Thổ · studio' }] },
 };
 

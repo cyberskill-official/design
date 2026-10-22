@@ -13,4 +13,4 @@ export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputEle
   lang?: string;
 }
 
-export function Switch(props: SwitchProps): React.ReactElement;
+export const Switch: React.ForwardRefExoticComponent<React.PropsWithoutRef<SwitchProps> & React.RefAttributes<HTMLInputElement>>;

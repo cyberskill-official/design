@@ -1,0 +1,38 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-contractor-agreement",
+  "slots": [
+    {
+      "id": "contractorName",
+      "type": "text",
+      "label": "Họ và tênFull name",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "residentialAddress",
+      "type": "text",
+      "label": "Nơi cư trúPlace of residence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "personalTaxCode",
+      "type": "text",
+      "label": "Mã số thuế cá nhânPersonal tax code",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "bankAccountAndBank",
+      "type": "text",
+      "label": "Số tài khoản / Ngân hàngBank account / Bank",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

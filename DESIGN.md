@@ -9,11 +9,13 @@ sources:
 gate: "_audit/design-md-parity.html (window.__designmd)"
 ---
 
+**Tiếng Việt:** [Đọc đặc tả đầy đủ](docs/vi/entrypoints/DESIGN.md) · **English**
+
 # CyberSkill Design System — open spec
 
 > GENERATED FILE — do not edit by hand. Regenerate with `npm run build:design-md` after any token change; the `design-md-parity` gate fails on drift. This is the single-file open-spec surface for design tools and agents that read a root `DESIGN.md` (e.g. Google Stitch); The base typed projection is `tokens/tokens.dtcg.json`; its hashed `tokens/declarations.json` companion preserves the remaining declarations and source conditions. Read both for the repository adapter; use canonical CSS for runtime cascade behavior. This document is a selected token/inventory guide, not a complete conditional-mode or native rendering contract.
 
-> **Stitch / non-DC consumers:** do **not** treat `templates/**/*.dc.html` as source of truth — those files need the Design Components compiler (tweaks, `__dcSetProps`). Generate static UI from this file + DTCG + `styles.css` / `.cs-*` / `templates/kitchen-sink.html` / `examples/static-hello/`. DC-capable authoring starts at `SKILL.md` and may use bundler `_esm/react.mjs` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). Dual path: `docs/consuming.md`. Operator docs are published on the Storybook Docs sidebar at `design.cyberskill.world`.
+> **Stitch / non-DC consumers:** do **not** treat `templates/**/*.dc.html` as source of truth — those files use the shipped `support.js` browser interpreter (tweaks, `__dcSetProps`); a separate host compiler is not required for browser preview. Generate static UI from this file + DTCG + `styles.css` / `.cs-*` / `templates/kitchen-sink.html` / `examples/static-hello/`. DC-capable authoring starts at `SKILL.md` and uses compiled ESM `dist/esm/_esm/react.mjs` by default, explicit raw JSX `_esm/react.mjs` for source authoring, or legacy `_esm/cs.mjs` / `_ds_bundle.js` (prefix resolve). Dual path: `docs/consuming.md`. Operator docs are published on the Storybook Docs sidebar at `design.cyberskill.world`.
 
 ## Brand & doctrine
 
@@ -44,14 +46,14 @@ Core semantic colours. Dark values are the `[data-theme="dark"]` overrides (the 
 | `--cs-color-semantic-danger` | `#B42318` | `#FC9895` |
 | `--cs-color-semantic-warning` | `#92400E` | `#FBBF24` |
 | `--cs-color-semantic-info` | `#1D4ED8` | `#B5D4FD` |
-| `--cs-color-accent-ochre` | `#F4BA17` | — |
-| `--cs-color-border-default` | `#E7D9C6` | `#4a3a2c` |
-| `--cs-color-link` | `#6E3B0E` | `#FECD5D` |
-| `--cs-color-link-hover` | `#45210E` | `#f5ead9` |
 | `--cs-color-semantic-success-fg` | `#FFFFFF` | `#1a1108` |
 | `--cs-color-semantic-danger-fg` | `#FFFFFF` | `#1a1108` |
 | `--cs-color-semantic-warning-fg` | `#FFFFFF` | `#1a1108` |
 | `--cs-color-semantic-info-fg` | `#FFFFFF` | `#1a1108` |
+| `--cs-color-accent-ochre` | `#F4BA17` | — |
+| `--cs-color-border-default` | `#E7D9C6` | `#4a3a2c` |
+| `--cs-color-link` | `#6E3B0E` | `#FECD5D` |
+| `--cs-color-link-hover` | `#45210E` | `#f5ead9` |
 | `--cs-color-semantic-success-text` | `#042D13` | `#68F798` |
 | `--cs-color-semantic-danger-text` | `#4B0502` | `#FFD2CF` |
 | `--cs-color-semantic-warning-text` | `#441801` | `#FFD887` |
@@ -113,6 +115,9 @@ Families ship self-hosted (Be Vietnam Pro · Space Grotesk · JetBrains Mono) wi
 | `--cs-font-size-3xl` | `2.25rem` |
 | `--cs-font-size-4xl` | `3rem` |
 | `--cs-font-size-5xl` | `3.75rem` |
+| `--cs-font-line-height-body` | `var(--cs-font-lineHeight-body)` |
+| `--cs-font-line-height-heading` | `var(--cs-font-lineHeight-heading)` |
+| `--cs-font-line-height-tight` | `var(--cs-font-lineHeight-tight)` |
 
 ### Type roles & tracking
 
@@ -197,15 +202,25 @@ Scoped overrides (distinct from the base token rows):
 | `data-cs-density="compact"` | `--cs-density-control-gap` | `6px` |
 | `data-cs-density="compact"` | `--cs-component-button-gap` | `6px` |
 | `data-cs-density="compact"` | `--cs-component-button-xs-paddingY` | `3px` |
+| `data-cs-density="compact"` | `--cs-component-button-xs-padding-y` | `var(--cs-component-button-xs-paddingY)` |
 | `data-cs-density="compact"` | `--cs-component-button-xs-paddingX` | `8px` |
+| `data-cs-density="compact"` | `--cs-component-button-xs-padding-x` | `var(--cs-component-button-xs-paddingX)` |
 | `data-cs-density="compact"` | `--cs-component-button-sm-paddingY` | `6px` |
+| `data-cs-density="compact"` | `--cs-component-button-sm-padding-y` | `var(--cs-component-button-sm-paddingY)` |
 | `data-cs-density="compact"` | `--cs-component-button-sm-paddingX` | `12px` |
+| `data-cs-density="compact"` | `--cs-component-button-sm-padding-x` | `var(--cs-component-button-sm-paddingX)` |
 | `data-cs-density="compact"` | `--cs-component-button-md-paddingY` | `10px` |
+| `data-cs-density="compact"` | `--cs-component-button-md-padding-y` | `var(--cs-component-button-md-paddingY)` |
 | `data-cs-density="compact"` | `--cs-component-button-md-paddingX` | `16px` |
+| `data-cs-density="compact"` | `--cs-component-button-md-padding-x` | `var(--cs-component-button-md-paddingX)` |
 | `data-cs-density="compact"` | `--cs-component-button-lg-paddingY` | `12px` |
+| `data-cs-density="compact"` | `--cs-component-button-lg-padding-y` | `var(--cs-component-button-lg-paddingY)` |
 | `data-cs-density="compact"` | `--cs-component-button-lg-paddingX` | `22px` |
+| `data-cs-density="compact"` | `--cs-component-button-lg-padding-x` | `var(--cs-component-button-lg-paddingX)` |
 | `data-cs-density="compact"` | `--cs-component-textfield-paddingY` | `8px` |
+| `data-cs-density="compact"` | `--cs-component-textfield-padding-y` | `var(--cs-component-textfield-paddingY)` |
 | `data-cs-density="compact"` | `--cs-component-textfield-paddingX` | `10px` |
+| `data-cs-density="compact"` | `--cs-component-textfield-padding-x` | `var(--cs-component-textfield-paddingX)` |
 | `data-cs-density="comfortable"` | `--cs-density-space-1` | `var(--cs-space-1)` |
 | `data-cs-density="comfortable"` | `--cs-density-space-2` | `var(--cs-space-2)` |
 | `data-cs-density="comfortable"` | `--cs-density-space-3` | `var(--cs-space-3)` |
@@ -215,15 +230,25 @@ Scoped overrides (distinct from the base token rows):
 | `data-cs-density="comfortable"` | `--cs-density-control-gap` | `var(--cs-component-button-gap)` |
 | `data-cs-density="comfortable"` | `--cs-component-button-gap` | `8px` |
 | `data-cs-density="comfortable"` | `--cs-component-button-xs-paddingY` | `4px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-xs-padding-y` | `var(--cs-component-button-xs-paddingY)` |
 | `data-cs-density="comfortable"` | `--cs-component-button-xs-paddingX` | `10px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-xs-padding-x` | `var(--cs-component-button-xs-paddingX)` |
 | `data-cs-density="comfortable"` | `--cs-component-button-sm-paddingY` | `8px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-sm-padding-y` | `var(--cs-component-button-sm-paddingY)` |
 | `data-cs-density="comfortable"` | `--cs-component-button-sm-paddingX` | `14px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-sm-padding-x` | `var(--cs-component-button-sm-paddingX)` |
 | `data-cs-density="comfortable"` | `--cs-component-button-md-paddingY` | `12px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-md-padding-y` | `var(--cs-component-button-md-paddingY)` |
 | `data-cs-density="comfortable"` | `--cs-component-button-md-paddingX` | `20px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-md-padding-x` | `var(--cs-component-button-md-paddingX)` |
 | `data-cs-density="comfortable"` | `--cs-component-button-lg-paddingY` | `16px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-lg-padding-y` | `var(--cs-component-button-lg-paddingY)` |
 | `data-cs-density="comfortable"` | `--cs-component-button-lg-paddingX` | `28px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-lg-padding-x` | `var(--cs-component-button-lg-paddingX)` |
 | `data-cs-density="comfortable"` | `--cs-component-textfield-paddingY` | `10px` |
+| `data-cs-density="comfortable"` | `--cs-component-textfield-padding-y` | `var(--cs-component-textfield-paddingY)` |
 | `data-cs-density="comfortable"` | `--cs-component-textfield-paddingX` | `12px` |
+| `data-cs-density="comfortable"` | `--cs-component-textfield-padding-x` | `var(--cs-component-textfield-paddingX)` |
 
 ### Layout & iconography
 
@@ -327,12 +352,31 @@ Component-level design decisions (button · textfield). Dark values are theme ov
 | `--cs-component-textfield-paddingX` | `12px` | — |
 | `--cs-component-textfield-minHeight` | `44px` | — |
 | `--cs-focus-ring` | `3px` | — |
+| `--cs-component-button-xs-padding-y` | `var(--cs-component-button-xs-paddingY)` | — |
+| `--cs-component-button-xs-padding-x` | `var(--cs-component-button-xs-paddingX)` | — |
+| `--cs-component-button-xs-min-height` | `var(--cs-component-button-xs-minHeight)` | — |
+| `--cs-component-button-xs-min-width` | `var(--cs-component-button-xs-minWidth)` | — |
+| `--cs-component-button-xs-min-height-coarse` | `var(--cs-component-button-xs-minHeight-coarse)` | — |
+| `--cs-component-button-sm-padding-y` | `var(--cs-component-button-sm-paddingY)` | — |
+| `--cs-component-button-sm-padding-x` | `var(--cs-component-button-sm-paddingX)` | — |
+| `--cs-component-button-sm-min-height` | `var(--cs-component-button-sm-minHeight)` | — |
+| `--cs-component-button-sm-min-height-coarse` | `var(--cs-component-button-sm-minHeight-coarse)` | — |
+| `--cs-component-button-md-padding-y` | `var(--cs-component-button-md-paddingY)` | — |
+| `--cs-component-button-md-padding-x` | `var(--cs-component-button-md-paddingX)` | — |
+| `--cs-component-button-md-min-height` | `var(--cs-component-button-md-minHeight)` | — |
+| `--cs-component-button-md-min-height-coarse` | `var(--cs-component-button-md-minHeight-coarse)` | — |
+| `--cs-component-button-lg-padding-y` | `var(--cs-component-button-lg-paddingY)` | — |
+| `--cs-component-button-lg-padding-x` | `var(--cs-component-button-lg-paddingX)` | — |
+| `--cs-component-button-lg-min-height` | `var(--cs-component-button-lg-minHeight)` | — |
+| `--cs-component-textfield-padding-y` | `var(--cs-component-textfield-paddingY)` | — |
+| `--cs-component-textfield-padding-x` | `var(--cs-component-textfield-paddingX)` | — |
+| `--cs-component-textfield-min-height` | `var(--cs-component-textfield-minHeight)` | — |
 
 ## Components inventory
 
-106 component files · 123 exports (from `_ds_manifest.json`). Every primary ships `.jsx` + `.d.ts` + `.prompt.md`.
+107 component files · 125 exports (from `_ds_manifest.json`). Every primary ships `.jsx` + `.d.ts` + `.prompt.md`.
 
-`AIDisclosureBadge` · `Accordion` · `Alert` · `AlertDialog` · `Anchor` · `AspectRatio` · `Avatar` · `AvatarGroup` · `BackTop` · `Badge` · `Breadcrumb` · `Button` · `ButtonGroup` · `CS_ICONS` · `CS_LOGO_MARK_INNER` · `CS_LOGO_VIEWBOX` · `Calendar` · `Card` · `CardBody` · `CardFooter` · `CardHeader` · `Carousel` · `Cascader` · `Chart` · `ChatMessage` · `Checkbox` · `CitationList` · `CodeBlock` · `Collapsible` · `ColorPicker` · `Combobox` · `CommandPalette` · `Comment` · `ConfidenceMeter` · `ContextMenu` · `DataGrid` · `DataTable` · `DatePicker` · `DescriptionList` · `Dialog` · `Divider` · `Dock` · `Drawer` · `EDITOR_SCHEMA` · `Editor` · `EmptyState` · `FileUpload` · `FloatingActionButton` · `Form` · `FormField` · `FormFieldArray` · `FormWizard` · `HotKeys` · `HoverCard` · `HumanReviewGate` · `Icon` · `Image` · `InlineEdit` · `InputGroup` · `InputOTP` · `Item` · `Kbd` · `Link` · `List` · `ListItem` · `Logo` · `LumiAvatar` · `Masonry` · `Mentions` · `Menu` · `MenuItem` · `Menubar` · `NativeSelect` · `NavItem` · `NavigationMenu` · `NumberField` · `OverlayProvider` · `Pagination` · `Popconfirm` · `Popover` · `ProgressBar` · `PromptInput` · `PromptSuggestions` · `QRCode` · `Radio` · `RadioGroup` · `Rating` · `Result` · `ScrollArea` · `SearchField` · `SegmentedControl` · `Select` · `Sidebar` · `Skeleton` · `Slider` · `Sortable` · `Spinner` · `Splitter` · `Stat` · `StatusIndicator` · `Steps` · `Switch` · `Tab` · `Tabs` · `Tag` · `TagInput` · `Terminal` · `TextField` · `Textarea` · `TimePicker` · `Timeline` · `Toast` · `ToastStack` · `Toggle` · `Toolbar` · `Tooltip` · `Tour` · `Transfer` · `Tree` · `TreeSelect` · `TreeTable` · `TypingIndicator` · `Watermark`
+`AIDisclosureBadge` · `Accordion` · `Alert` · `AlertDialog` · `Anchor` · `AspectRatio` · `Avatar` · `AvatarGroup` · `BackTop` · `Badge` · `Breadcrumb` · `Button` · `ButtonGroup` · `CS_ICONS` · `CS_LOGO_MARK_INNER` · `CS_LOGO_VIEWBOX` · `Calendar` · `Card` · `CardBody` · `CardFooter` · `CardHeader` · `Carousel` · `Cascader` · `Chart` · `ChatMessage` · `Checkbox` · `CitationList` · `CodeBlock` · `Collapsible` · `ColorPicker` · `Combobox` · `CommandPalette` · `Comment` · `ConfidenceMeter` · `ContextMenu` · `DataGrid` · `DataTable` · `DatePicker` · `DescriptionList` · `Dialog` · `Divider` · `Dock` · `Drawer` · `EDITOR_SCHEMA` · `Editor` · `EmptyState` · `FileUpload` · `FloatingActionButton` · `Form` · `FormField` · `FormFieldArray` · `FormWizard` · `HotKeys` · `HoverCard` · `HumanReviewGate` · `Icon` · `Image` · `InlineEdit` · `InputGroup` · `InputOTP` · `Item` · `Kbd` · `Link` · `List` · `ListItem` · `LocaleProvider` · `Logo` · `LumiAvatar` · `Masonry` · `Mentions` · `Menu` · `MenuItem` · `Menubar` · `NativeSelect` · `NavItem` · `NavigationMenu` · `NumberField` · `OverlayProvider` · `Pagination` · `Popconfirm` · `Popover` · `ProgressBar` · `PromptInput` · `PromptSuggestions` · `QRCode` · `Radio` · `RadioGroup` · `Rating` · `Result` · `ScrollArea` · `SearchField` · `SegmentedControl` · `Select` · `Sidebar` · `Skeleton` · `Slider` · `Sortable` · `Spinner` · `Splitter` · `Stat` · `StatusIndicator` · `Steps` · `Switch` · `Tab` · `Tabs` · `Tag` · `TagInput` · `Terminal` · `TextField` · `Textarea` · `TimePicker` · `Timeline` · `Toast` · `ToastStack` · `Toggle` · `Toolbar` · `Tooltip` · `Tour` · `Transfer` · `Tree` · `TreeSelect` · `TreeTable` · `TypingIndicator` · `Watermark` · `useMessages`
 
 ## Templates
 

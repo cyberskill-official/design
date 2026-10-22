@@ -1,0 +1,1267 @@
+{
+  "schemaVersion": 1,
+  "description": "Authored discovery/catalog inputs. Components, token declarations, fonts and card comment metadata remain derived by their owning generators.",
+  "namespace": "CyberSkillDesignSystem_847b3c",
+  "startingPoints": [
+    {
+      "id": "app-shell",
+      "name": "App shell",
+      "description": "CyberSkill product shell \u2014 Sidebar navigation, topbar with search, KPI Stats, and a DataTable. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "entryPath": "templates/app-shell/AppShell.dc.html",
+      "folder": "templates/app-shell"
+    },
+    {
+      "id": "auth",
+      "name": "Sign in",
+      "description": "CyberSkill split sign-in \u2014 umber brand panel + form built from TextField, Switch, and Button. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "entryPath": "templates/auth/Auth.dc.html",
+      "folder": "templates/auth"
+    },
+    {
+      "id": "dashboard",
+      "name": "Dashboard",
+      "description": "CyberSkill portfolio dashboard \u2014 umber header, KPI stats, board / table lenses, and status cards. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t). Built on the Status Hub prod",
+      "entryPath": "templates/dashboard/Dashboard.dc.html",
+      "folder": "templates/dashboard"
+    },
+    {
+      "id": "marketing-page",
+      "name": "Marketing page",
+      "description": "Bilingual CyberSkill landing page \u2014 umber hero with a wish prompt, service cards, process, and a Lumi chat launcher. Language tweak: English \u00b7 Ti\u1ebfng Vi\u1ec7t.",
+      "entryPath": "templates/marketing-page/MarketingPage.dc.html",
+      "folder": "templates/marketing-page"
+    },
+    {
+      "id": "bod-report",
+      "name": "Board \u00b7 Quarterly report",
+      "description": "CyberSkill board business review \u2014 KPI stats, highlights, portfolio table, risks, and an AI-assisted disclosure. Document-style page. Bilingual (English \u00b7 Ti\u1ebfng",
+      "entryPath": "templates/bod-report/BodReport.dc.html",
+      "folder": "templates/bod-report"
+    },
+    {
+      "id": "slide-deck",
+      "name": "Slide deck",
+      "description": "CyberSkill 16:9 slide deck \u2014 umber title + closing, ochre accents, and light content layouts. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t). Brand-ready presentation shell.",
+      "entryPath": "templates/slide-deck/SlideDeck.dc.html",
+      "folder": "templates/slide-deck"
+    },
+    {
+      "id": "email",
+      "name": "Email",
+      "description": "CyberSkill transactional / announcement email \u2014 umber header, body, ochre CTA, footer. Centred 600px layout.",
+      "entryPath": "templates/email/Email.dc.html",
+      "folder": "templates/email"
+    },
+    {
+      "id": "kitchen-sink",
+      "name": "Kitchen sink",
+      "description": "Full .cs-* class catalog in one scroll \u2014 static HTML consumer path.",
+      "entryPath": "templates/kitchen-sink.html",
+      "folder": "templates"
+    }
+  ],
+  "templates": [
+    {
+      "name": "App shell",
+      "description": "CyberSkill product shell \u2014 Sidebar navigation, topbar with search, KPI Stats, and a DataTable. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "folder": "templates/app-shell",
+      "entryPath": "templates/app-shell/AppShell.dc.html",
+      "thumbnail": {
+        "path": "templates/app-shell/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Article",
+      "description": "CyberSkill long-form article / blog post \u2014 title, author meta, prose, callout, and code block. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "folder": "templates/article",
+      "entryPath": "templates/article/Article.dc.html",
+      "thumbnail": {
+        "path": "templates/article/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Board \u00b7 Executive memo",
+      "description": "CyberSkill one-page executive memo \u2014 TO/FROM/RE header, recommendation, context, and a single clear ask.",
+      "folder": "templates/bod-memo",
+      "entryPath": "templates/bod-memo/BodMemo.dc.html",
+      "thumbnail": {
+        "path": "templates/bod-memo/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Board \u00b7 Investor update email",
+      "description": "CyberSkill stakeholder update \u2014 numbers, wins, honest lowlights, asks. External comms, EN-first with a Ti\u1ebfng Vi\u1ec7t switch.",
+      "folder": "templates/bod-investor-update",
+      "entryPath": "templates/bod-investor-update/BodInvestorUpdate.dc.html",
+      "thumbnail": {
+        "path": "templates/bod-investor-update/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Board \u00b7 Meeting deck",
+      "description": "CyberSkill 16:9 board deck \u2014 title, financials, portfolio, risks & asks, closing. Stacked slides; umber + ochre. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "folder": "templates/bod-deck",
+      "entryPath": "templates/bod-deck/BodDeck.dc.html",
+      "thumbnail": {
+        "path": "templates/bod-deck/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Board \u00b7 Meeting minutes",
+      "description": "CyberSkill board minutes \u2014 attendance, resolutions with votes, actions. Letter-sized, print-ready. EN\u00b7VN.",
+      "folder": "templates/bod-minutes",
+      "entryPath": "templates/bod-minutes/BodMinutes.dc.html",
+      "thumbnail": {
+        "path": "templates/bod-minutes/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Board \u00b7 Quarterly report",
+      "description": "CyberSkill board business review \u2014 KPI stats, highlights, portfolio table, risks, and an AI-assisted disclosure. Document-style page. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "folder": "templates/bod-report",
+      "entryPath": "templates/bod-report/BodReport.dc.html",
+      "thumbnail": {
+        "path": "templates/bod-report/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Board \u00b7 Resolution",
+      "description": "CyberSkill written board resolution \u2014 recitals, resolved clauses, director signatures. Counsel-gated draft: banner-marked, legal review required. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "folder": "templates/bod-resolution",
+      "entryPath": "templates/bod-resolution/BodResolution.dc.html",
+      "thumbnail": {
+        "path": "templates/bod-resolution/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Culture \u00b7 Event invite",
+      "description": "CyberSkill internal event invite email \u2014 what/when/where, RSVP CTA. Bilingual EN\u00b7VN\u00b7Both.",
+      "folder": "templates/culture-event-invite",
+      "entryPath": "templates/culture-event-invite/CultureEventInvite.dc.html",
+      "thumbnail": {
+        "path": "templates/culture-event-invite/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Dashboard",
+      "description": "CyberSkill portfolio dashboard \u2014 umber header, KPI stats, board / table lenses, and status cards. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t). Built on the Status Hub product surface.",
+      "folder": "templates/dashboard",
+      "entryPath": "templates/dashboard/Dashboard.dc.html",
+      "thumbnail": {
+        "path": "templates/dashboard/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Delivery \u00b7 Change note",
+      "description": "CyberSkill change note \u2014 the signed scope/fee/timeline amendment the MSA and SOW reference. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t). Letter-sized, print-ready.",
+      "folder": "templates/delivery-change-note",
+      "entryPath": "templates/delivery-change-note/DeliveryChangeNote.dc.html",
+      "thumbnail": {
+        "path": "templates/delivery-change-note/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Delivery \u00b7 Kickoff doc",
+      "description": "CyberSkill project kickoff \u2014 goals, team & roles, cadence, milestones, risks, links. Letter-sized, print-ready. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "folder": "templates/delivery-kickoff",
+      "entryPath": "templates/delivery-kickoff/DeliveryKickoff.dc.html",
+      "thumbnail": {
+        "path": "templates/delivery-kickoff/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Delivery \u00b7 QBR deck",
+      "description": "CyberSkill quarterly business review for a client \u2014 quarter results, shipped work, health, next quarter, renewal ask. Stacked 16:9 slides. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "folder": "templates/delivery-qbr-deck",
+      "entryPath": "templates/delivery-qbr-deck/DeliveryQbrDeck.dc.html",
+      "thumbnail": {
+        "path": "templates/delivery-qbr-deck/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Delivery \u00b7 Runbook / handover",
+      "description": "CyberSkill service handover \u2014 system overview, environments, deploy, monitoring, contacts, acceptance sign-off. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t). Letter-sized, print-ready.",
+      "folder": "templates/delivery-runbook",
+      "entryPath": "templates/delivery-runbook/DeliveryRunbook.dc.html",
+      "thumbnail": {
+        "path": "templates/delivery-runbook/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Delivery \u00b7 Weekly status email",
+      "description": "CyberSkill client status update \u2014 progress bar, shipped/next lists, one clear ask, Status Hub CTA. Bilingual EN\u00b7VN.",
+      "folder": "templates/delivery-status-email",
+      "entryPath": "templates/delivery-status-email/DeliveryStatusEmail.dc.html",
+      "thumbnail": {
+        "path": "templates/delivery-status-email/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Documents \u00b7 Style Guide",
+      "description": "The CyberSkill document presentation standard for EVERY template \u2014 palette, type, bilingual rule, tables, fill-ins, signing blocks, plus how the rules map to non-print archetypes. Rules preserved verb",
+      "folder": "templates/doc-style-guide",
+      "entryPath": "templates/doc-style-guide/DocStyleGuide.dc.html",
+      "thumbnail": {
+        "path": "templates/doc-style-guide/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Documents \u00b7 Suite Index & Usage Guide",
+      "description": "The catalogue of EVERY CyberSkill template (HR suite, legal, finance, sales, product, comms) plus how to use them \u2014 employment lifecycle, which docs carry disciplinary force, the house presentation ru",
+      "folder": "templates/doc-suite-index",
+      "entryPath": "templates/doc-suite-index/DocSuiteIndex.dc.html",
+      "thumbnail": {
+        "path": "templates/doc-suite-index/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Documents \u00b7 Templates",
+      "description": "The reusable document frames for the whole system \u2014 a blank A4 bilingual shell (header, title block, sample clause, Party A pre-filled / Party B blank, signing block) plus an archetype map (A4, Letter",
+      "folder": "templates/doc-templates",
+      "entryPath": "templates/doc-templates/DocTemplates.dc.html",
+      "thumbnail": {
+        "path": "templates/doc-templates/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Email",
+      "description": "CyberSkill transactional / announcement email \u2014 umber header, body, ochre CTA, footer. Centred 600px layout.",
+      "folder": "templates/email",
+      "entryPath": "templates/email/Email.dc.html",
+      "thumbnail": {
+        "path": "templates/email/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Finance \u00b7 Expense report",
+      "description": "CyberSkill internal expense claim \u2014 line items, receipts checklist, approval chain. Letter-sized, print-ready. EN\u00b7VN.",
+      "folder": "templates/finance-expense-report",
+      "entryPath": "templates/finance-expense-report/FinanceExpenseReport.dc.html",
+      "thumbnail": {
+        "path": "templates/finance-expense-report/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Finance \u00b7 Invoice",
+      "description": "CyberSkill invoice \u2014 bill-to/from, line items in \u0111\u1ed3ng, VAT, total, bank details. Letter-sized, print-ready.",
+      "folder": "templates/finance-invoice",
+      "entryPath": "templates/finance-invoice/FinanceInvoice.dc.html",
+      "thumbnail": {
+        "path": "templates/finance-invoice/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Finance \u00b7 Payment reminder email",
+      "description": "CyberSkill dunning email \u2014 warm, direct reminder with invoice summary and pay details. Bilingual EN\u00b7VN\u00b7Both.",
+      "folder": "templates/finance-dunning-email",
+      "entryPath": "templates/finance-dunning-email/FinanceDunningEmail.dc.html",
+      "thumbnail": {
+        "path": "templates/finance-dunning-email/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Finance \u00b7 Quote",
+      "description": "CyberSkill quote / estimate \u2014 scope lines, optional add-ons, total, valid-until, accept CTA. Letter-sized, print-ready.",
+      "folder": "templates/finance-quote",
+      "entryPath": "templates/finance-quote/FinanceQuote.dc.html",
+      "thumbnail": {
+        "path": "templates/finance-quote/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR \u00b7 Internal announcement",
+      "description": "CyberSkill company-wide announcement email \u2014 new hire, policy, or milestone. Warm, direct, centred layout.",
+      "folder": "templates/hr-announcement",
+      "entryPath": "templates/hr-announcement/HrAnnouncement.dc.html",
+      "thumbnail": {
+        "path": "templates/hr-announcement/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR \u00b7 Interview kit",
+      "description": "CyberSkill interview kit \u2014 candidate meta, question guide, scorecard rubric, decision box. Letter-sized, print-ready. EN\u00b7VN.",
+      "folder": "templates/hr-interview-kit",
+      "entryPath": "templates/hr-interview-kit/HrInterviewKit.dc.html",
+      "thumbnail": {
+        "path": "templates/hr-interview-kit/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR \u00b7 Offboarding checklist",
+      "description": "CyberSkill farewell checklist \u2014 handover, last day, after departure; warm send-off. Letter-sized, print-ready. EN\u00b7VN.",
+      "folder": "templates/hr-offboarding",
+      "entryPath": "templates/hr-offboarding/HrOffboarding.dc.html",
+      "thumbnail": {
+        "path": "templates/hr-offboarding/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR \u00b7 Performance improvement plan",
+      "description": "CyberSkill PIP \u2014 specific concerns, expectations, support, checkpoints. Counsel-gated draft: banner-marked, HR/legal review required. EN\u00b7VN.",
+      "folder": "templates/hr-pip",
+      "entryPath": "templates/hr-pip/HrPip.dc.html",
+      "thumbnail": {
+        "path": "templates/hr-pip/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR \u00b7 Performance review",
+      "description": "CyberSkill review \u2014 goals recap, self-reflection, manager assessment, next-period goals, signatures. Letter-sized, print-ready. EN\u00b7VN.",
+      "folder": "templates/hr-performance-review",
+      "entryPath": "templates/hr-performance-review/HrPerformanceReview.dc.html",
+      "thumbnail": {
+        "path": "templates/hr-performance-review/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 B\u1ea3n m\u00f4 t\u1ea3 c\u00f4ng vi\u1ec7c \u2014 Job Description",
+      "description": "Lawyer-validated CyberSkill job description \u2014 role meta, purpose, key responsibilities, requirements, KPIs, three-way sign-off. A4, bilingual VN\u00b7EN, print-ready. Content preserved verbatim.",
+      "folder": "templates/vn-job-description",
+      "entryPath": "templates/vn-job-description/VnJobDescription.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-job-description/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 B\u1ea3ng x\u1eed l\u00fd k\u1ef7 lu\u1eadt lao \u0111\u1ed9ng \u2014 Disciplinary Schedule",
+      "description": "Lawyer-validated CyberSkill disciplinary schedule (annex to the ILR, Labor Code Art. 124-127) \u2014 forms of discipline and a violation \u2192 form table by group. A4, VN\u00b7EN, print-ready. Content verbatim.",
+      "folder": "templates/vn-disciplinary-schedule",
+      "entryPath": "templates/vn-disciplinary-schedule/VnDisciplinarySchedule.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-disciplinary-schedule/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Bi\u1ec3u m\u1eabu \u0111\u00e1nh gi\u00e1 k\u1ebft qu\u1ea3 c\u00f4ng vi\u1ec7c \u2014 Performance Review Form",
+      "description": "Lawyer-validated CyberSkill performance review \u2014 cycle info, weighted scoring, 5-level rating with P3 bonus consequences, self/manager assessment, next-cycle objectives, appeal right. A4, VN\u00b7EN, print",
+      "folder": "templates/vn-performance-review-form",
+      "entryPath": "templates/vn-performance-review-form/VnPerformanceReviewForm.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-performance-review-form/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 B\u1ed9 Quy t\u1eafc \u1ee8ng x\u1eed \u2014 Code of Conduct",
+      "description": "Lawyer-validated CyberSkill code of conduct \u2014 the four values, working together, gifts & hospitality, conflicts of interest, public speaking, anti-bribery, speaking up. A4, VN\u00b7EN, print-ready. Content",
+      "folder": "templates/vn-code-of-conduct",
+      "entryPath": "templates/vn-code-of-conduct/VnCodeOfConduct.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-code-of-conduct/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Ch\u00ednh s\u00e1ch An to\u00e0n Th\u00f4ng tin & S\u1eed d\u1ee5ng CNTT \u2014 Information Security & Acceptable Use Polic",
+      "description": "Lawyer-validated CyberSkill infosec & acceptable-use policy \u2014 devices, accounts & passwords, AI-tool use, software, incident severity table, leaving, breach. A4, VN\u00b7EN, print-ready. Content verbatim.",
+      "folder": "templates/vn-infosec-policy",
+      "entryPath": "templates/vn-infosec-policy/VnInfosecPolicy.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-infosec-policy/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Ch\u00ednh s\u00e1ch B\u1ea3o v\u1ec7 D\u1eef li\u1ec7u C\u00e1 nh\u00e2n \u2014 Personal Data Protection Policy",
+      "description": "Lawyer-validated CyberSkill personal data protection policy (Law 91/2025) \u2014 principles, data categories & retention, subject rights, cross-border transfer, breach procedure, responsibility. A4, VN\u00b7EN,",
+      "folder": "templates/vn-data-protection-policy",
+      "entryPath": "templates/vn-data-protection-policy/VnDataProtectionPolicy.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-data-protection-policy/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Ch\u00ednh s\u00e1ch L\u00e0m vi\u1ec7c T\u1eeb xa & K\u1ebft h\u1ee3p \u2014 Remote & Hybrid Work Policy",
+      "description": "Lawyer-validated CyberSkill remote & hybrid policy \u2014 working model, eligibility, working away, equipment & allowance, remote security, health & safety. A4, VN\u00b7EN, print-ready. Content verbatim.",
+      "folder": "templates/vn-remote-work-policy",
+      "entryPath": "templates/vn-remote-work-policy/VnRemoteWorkPolicy.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-remote-work-policy/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Danh m\u1ee5c h\u1ed3 s\u01a1 & checklist nh\u1eadn vi\u1ec7c \u2014 Onboarding Checklist",
+      "description": "Lawyer-validated CyberSkill onboarding & personnel-file checklist \u2014 legal file, signed documents, setup & orientation tick-lists, dual signature. A4, VN\u00b7EN, print-ready. Content verbatim.",
+      "folder": "templates/vn-onboarding-checklist",
+      "entryPath": "templates/vn-onboarding-checklist/VnOnboardingChecklist.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-onboarding-checklist/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 \u0110\u1ed3ng \u00fd x\u1eed l\u00fd d\u1eef li\u1ec7u c\u00e1 nh\u00e2n \u2014 Personal Data Consent (PDPL)",
+      "description": "Lawyer-validated CyberSkill PDPL consent per Decree 13/2023 & Law 91/2025 \u2014 controller/subject blocks, 7 articles (data categories, purposes, method, recipients, rights, withdrawal, consent ticks). A4",
+      "folder": "templates/vn-pdpl-consent",
+      "entryPath": "templates/vn-pdpl-consent/VnPdplConsent.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-pdpl-consent/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 \u0110\u01a1n \u0111\u1ec1 ngh\u1ecb c\u1ee7a ng\u01b0\u1eddi lao \u0111\u1ed9ng \u2014 Employee Request Form",
+      "description": "Lawyer-validated CyberSkill employee request form \u2014 leave, overtime consent (Art. 107), or other; approval chain. A4, VN\u00b7EN, print-ready. Content verbatim.",
+      "folder": "templates/vn-employee-request",
+      "entryPath": "templates/vn-employee-request/VnEmployeeRequest.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-employee-request/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 \u0110\u01a1n xin ngh\u1ec9 vi\u1ec7c \u2014 Resignation Letter",
+      "description": "Lawyer-validated CyberSkill resignation letter (Labor Code Art. 35 notice periods) \u2014 addressee, employee block, notice-dated resignation, reason, handover undertaking, dual signature. A4, VN\u00b7EN, print",
+      "folder": "templates/vn-resignation-letter",
+      "entryPath": "templates/vn-resignation-letter/VnResignationLetter.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-resignation-letter/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Gi\u1ea5y x\u00e1c nh\u1eadn qu\u00e1 tr\u00ecnh c\u00f4ng t\u00e1c \u2014 Certificate of Employment",
+      "description": "Lawyer-validated CyberSkill certificate of employment (Labor Code Art. 48.3) \u2014 deliberately neutral: confirms identity, role, service period and handover only; no reason, no performance, no discipline",
+      "folder": "templates/vn-certificate-of-employment",
+      "entryPath": "templates/vn-certificate-of-employment/VnCertificateOfEmployment.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-certificate-of-employment/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 H\u1ed3 s\u01a1 lao \u0111\u1ed9ng ng\u01b0\u1eddi n\u01b0\u1edbc ngo\u00e0i \u2014 Foreign Employee Work Permit Pack",
+      "description": "Lawyer-validated CyberSkill foreign work-permit pack per Labor Code Art. 151-158 & Decree 152/2020 (amended 70/2023) \u2014 sequence, application checklist, exemptions, post-permit rules. A4, VN\u00b7EN, print-",
+      "folder": "templates/vn-foreign-employee-pack",
+      "entryPath": "templates/vn-foreign-employee-pack/VnForeignEmployeePack.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-foreign-employee-pack/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 H\u1ed3 s\u01a1 x\u1eed l\u00fd k\u1ef7 lu\u1eadt lao \u0111\u1ed9ng \u2014 Disciplinary Case File",
+      "description": "Lawyer-validated CyberSkill disciplinary case file (Labor Code Art. 122-125) \u2014 four ordered parts: A violation record, B meeting notice (5 working days), C meeting minutes, D disciplinary decision. A4",
+      "folder": "templates/vn-disciplinary-case-file",
+      "entryPath": "templates/vn-disciplinary-case-file/VnDisciplinaryCaseFile.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-disciplinary-case-file/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 H\u1ee3p \u0111\u1ed3ng d\u1ecbch v\u1ee5 (c\u1ed9ng t\u00e1c vi\u00ean) \u2014 Independent Contractor Agreement",
+      "description": "Lawyer-validated CyberSkill independent contractor / service agreement (Civil Code \u2014 expressly not employment) \u2014 client & contractor blocks, scope via SOW, fees & tax, IP on payment, confidentiality, ",
+      "folder": "templates/vn-contractor-agreement",
+      "entryPath": "templates/vn-contractor-agreement/VnContractorAgreement.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-contractor-agreement/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 H\u1ee3p \u0111\u1ed3ng \u0111\u00e0o t\u1ea1o & cam k\u1ebft \u2014 Training & Service Commitment Agreement",
+      "description": "Lawyer-validated CyberSkill training & service commitment (Labor Code Art. 62) \u2014 party blocks, training cost, service period, prorated reimbursement, dual signature. A4, VN\u00b7EN, print-ready. Content ve",
+      "folder": "templates/vn-training-commitment",
+      "entryPath": "templates/vn-training-commitment/VnTrainingCommitment.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-training-commitment/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 H\u1ee3p \u0111\u1ed3ng lao \u0111\u1ed9ng \u2014 Labor Contract",
+      "description": "Lawyer-validated CyberSkill labor contract per Labor Code 45/2019/QH14, Decree 145/2020, SI/Employment/PDPL laws 2024-2025 \u2014 recitals, party blocks, 7 articles (terms, conditions, employee & employer ",
+      "folder": "templates/vn-labor-contract",
+      "entryPath": "templates/vn-labor-contract/VnLaborContract.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-labor-contract/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 H\u1ee3p \u0111\u1ed3ng nguy\u00ean t\u1eafc \u2014 Framework Agreement",
+      "description": "Commercial framework agreement for software services & account provisioning (specimen: Ban QLDA B\u00ecnh Qu\u1edbi) \u2014 Party blocks, subject matter, delivery & payment, responsibilities, general terms, dual signature. A4, VN\u00b7EN stacked, print-ready. Counsel review before real use. Not an employment instrument.",
+      "folder": "templates/vn-framework-agreement",
+      "entryPath": "templates/vn-framework-agreement/VnFrameworkAgreement.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-framework-agreement/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 H\u1ee3p \u0111\u1ed3ng th\u1eed vi\u1ec7c \u2014 Probation Contract",
+      "description": "Lawyer-validated CyberSkill probation contract per Labor Code 45/2019/QH14 \u2014 party blocks, 9 articles (job, period, salary \u226585%, end of probation), dual signature. A4, bilingual VN\u00b7EN, print-ready. Co",
+      "folder": "templates/vn-probation-contract",
+      "entryPath": "templates/vn-probation-contract/VnProbationContract.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-probation-contract/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 N\u1ed9i quy lao \u0111\u1ed9ng \u2014 Internal Labor Regulations",
+      "description": "Lawyer-validated CyberSkill Internal Labor Regulations (must be registered, Labor Code Art. 118-121) \u2014 hours, order, safety, anti-harassment, assets & data, reassignment, discipline procedure, materia",
+      "folder": "templates/vn-internal-labor-regulations",
+      "entryPath": "templates/vn-internal-labor-regulations/VnInternalLaborRegulations.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-internal-labor-regulations/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Phi\u1ebfu x\u00e1c nh\u1eadn \u0111\u00e3 nh\u1eadn t\u00e0i li\u1ec7u \u2014 Acknowledgement of Receipt",
+      "description": "Lawyer-validated CyberSkill acknowledgement of receipt \u2014 the evidence that makes the Internal Labor Regulations enforceable (Art. 124-125). Employee block, documents-received table, undertaking, dual ",
+      "folder": "templates/vn-receipt-acknowledgement",
+      "entryPath": "templates/vn-receipt-acknowledgement/VnReceiptAcknowledgement.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-receipt-acknowledgement/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Ph\u1ee5 l\u1ee5c \u0110\u00e3i ng\u1ed9 To\u00e0n di\u1ec7n & L\u1ed9 tr\u00ecnh \u2014 Total Rewards & Career Path Appendix",
+      "description": "Lawyer-validated CyberSkill total-rewards appendix to the labor contract (Labor Code Art. 22) \u2014 3P income, Bonus Points, project bonus, MVP, phantom stock summary, career path, PDPL, general terms. A4",
+      "folder": "templates/vn-total-rewards-appendix",
+      "entryPath": "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-total-rewards-appendix/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Ph\u1ee5 l\u1ee5c ph\u1ea1m vi c\u00f4ng vi\u1ec7c (SOW) \u2014 Statement of Work",
+      "description": "Lawyer-validated CyberSkill statement of work \u2014 integral appendix to the Service Agreement; scope, deliverables, milestones, acceptance, fee, payment schedule; dual signature. A4, VN\u00b7EN, print-ready. ",
+      "folder": "templates/vn-sow-appendix",
+      "entryPath": "templates/vn-sow-appendix/VnSowAppendix.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-sow-appendix/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Ph\u1ee5 l\u1ee5c s\u1eeda \u0111\u1ed5i H\u0110L\u0110 \u2014 Labor Contract Amendment Appendix",
+      "description": "Lawyer-validated CyberSkill labor contract amendment (Labor Code Art. 22) \u2014 party blocks, before/after change table, effect (may not change type/term), dual signature. A4, VN\u00b7EN, print-ready. Content ",
+      "folder": "templates/vn-contract-amendment",
+      "entryPath": "templates/vn-contract-amendment/VnContractAmendment.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-contract-amendment/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Quy ch\u1ebf C\u00f4ng t\u00e1c ph\u00ed & Chi ph\u00ed \u2014 Travel & Expense Policy",
+      "description": "Lawyer-validated CyberSkill travel & expense policy \u2014 principles, allowance table, approval thresholds, claiming, non-reimbursables, fraud. A4, VN\u00b7EN, print-ready. Content verbatim.",
+      "folder": "templates/vn-travel-expense-policy",
+      "entryPath": "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-travel-expense-policy/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Quy ch\u1ebf D\u00e2n ch\u1ee7 C\u01a1 s\u1edf \u2014 Grassroots Democracy Regulation",
+      "description": "Lawyer-validated CyberSkill grassroots democracy regulation (mandatory, Labor Code Art. 63 & Decree 145/2020 Ch. V) \u2014 disclosure, consultation, decision, oversight, employee conference, dialogue. A4, ",
+      "folder": "templates/vn-grassroots-democracy",
+      "entryPath": "templates/vn-grassroots-democracy/VnGrassrootsDemocracy.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-grassroots-democracy/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Quy ch\u1ebf \u0110\u00e1nh gi\u00e1 K\u1ebft qu\u1ea3 C\u00f4ng vi\u1ec7c \u2014 Performance Evaluation Regulation",
+      "description": "Lawyer-validated CyberSkill performance evaluation regulation (mandatory basis for Labor Code Art. 36.1(a)) \u2014 5-point scale, weighted criteria, cycle, PIP, repeated-failure test. A4, VN\u00b7EN, print-read",
+      "folder": "templates/vn-performance-evaluation-regulation",
+      "entryPath": "templates/vn-performance-evaluation-regulation/VnPerformanceEvaluationRegulation.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-performance-evaluation-regulation/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Quy ch\u1ebf L\u01b0\u01a1ng, Th\u01b0\u1edfng & Ph\u00fac l\u1ee3i \u2014 Compensation & Reward Regulation",
+      "description": "Lawyer-validated CyberSkill compensation regulation (Labor Code Art. 93 & 104) \u2014 reward structure, 3P salary, Bonus Points, discretionary bonus, benefits, publication. A4, VN\u00b7EN, print-ready. Content ",
+      "folder": "templates/vn-compensation-regulation",
+      "entryPath": "templates/vn-compensation-regulation/VnCompensationRegulation.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-compensation-regulation/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Quy\u1ebft \u0111\u1ecbnh b\u1ed5 nhi\u1ec7m / \u0111i\u1ec1u chuy\u1ec3n \u2014 Appointment & Transfer Decision",
+      "description": "Lawyer-validated CyberSkill appointment/transfer decision (Labor Code Art. 29) \u2014 decision type tick-list, before/after employee table, effect, recipients, dual signature. A4, VN\u00b7EN, print-ready. Conte",
+      "folder": "templates/vn-appointment-transfer",
+      "entryPath": "templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-appointment-transfer/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Quy\u1ebft \u0111\u1ecbnh ch\u1ea5m d\u1ee9t H\u0110L\u0110 \u2014 Decision on Termination",
+      "description": "Lawyer-validated CyberSkill decision on termination of the labor contract (Labor Code Art. 48) \u2014 legal recitals, three articles (termination, 14-day settlement, implementation), recipients, dual signa",
+      "folder": "templates/vn-termination-decision",
+      "entryPath": "templates/vn-termination-decision/VnTerminationDecision.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-termination-decision/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 S\u1ed5 qu\u1ea3n l\u00fd lao \u0111\u1ed9ng \u2014 Labour Management Book",
+      "description": "Lawyer-validated CyberSkill labour management book (mandatory, Labor Code Art. 12 & Decree 145/2020 Art. 3) \u2014 employer details, 13 required register fields, maintenance rules, dual signature. A4, VN\u00b7E",
+      "folder": "templates/vn-labour-management-book",
+      "entryPath": "templates/vn-labour-management-book/VnLabourManagementBook.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-labour-management-book/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Thang l\u01b0\u01a1ng, B\u1ea3ng l\u01b0\u01a1ng \u2014 Salary Scale & Payroll Table",
+      "description": "Lawyer-validated CyberSkill salary scale (mandatory, Labor Code Art. 93 & Decree 293/2025) \u2014 principles, 3P structure, 5-grade scale, progression, labour norms, publication. A4, VN\u00b7EN, print-ready. Co",
+      "folder": "templates/vn-salary-scale",
+      "entryPath": "templates/vn-salary-scale/VnSalaryScale.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-salary-scale/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Th\u1ecfa thu\u1eadn b\u1ea3o m\u1eadt song ph\u01b0\u01a1ng \u2014 Mutual NDA",
+      "description": "Lawyer-validated CyberSkill mutual NDA (Civil Code + PDPL) \u2014 CyberSkill & partner blocks, confidential info, obligations, exclusions, term, data protection, return/destruction, remedies, dual signatur",
+      "folder": "templates/vn-mutual-nda",
+      "entryPath": "templates/vn-mutual-nda/VnMutualNda.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-mutual-nda/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Th\u1ecfa thu\u1eadn B\u1ea3o m\u1eadt, KCT & SHTT \u2014 NDNCA & IP",
+      "description": "Lawyer-validated CyberSkill non-disclosure, non-compete & IP assignment per Labor Code Art. 21.2, IP Law, Civil Code, PDPL \u2014 8 articles, VIAC arbitration, Schedule A background IP. A4, VN\u00b7EN, print-re",
+      "folder": "templates/vn-ndnca-ip",
+      "entryPath": "templates/vn-ndnca-ip/VnNdncaIp.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-ndnca-ip/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Th\u1ecfa thu\u1eadn ch\u1ea5m d\u1ee9t H\u0110L\u0110 v\u00e0 b\u00e0n giao \u2014 Exit-Handover Agreement",
+      "description": "Lawyer-validated CyberSkill exit & handover agreement (Labor Code Art. 34.3 mutual termination) \u2014 9 articles (settlement, handover, non-compete election, phantom stock, surviving obligations, mutual r",
+      "folder": "templates/vn-exit-handover",
+      "entryPath": "templates/vn-exit-handover/VnExitHandover.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-exit-handover/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Th\u1ecfa thu\u1eadn C\u1ed5 ph\u1ea7n \u1ea3o \u2014 Phantom Stock Agreement",
+      "description": "Lawyer-validated CyberSkill phantom stock master agreement (independent civil transaction, Civil Code & Enterprise Law) \u2014 12 articles, cash-settled SP, vesting, put option, VIAC arbitration, Schedule ",
+      "folder": "templates/vn-phantom-stock",
+      "entryPath": "templates/vn-phantom-stock/VnPhantomStock.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-phantom-stock/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Th\u1ecfa thu\u1eadn th\u1ef1c t\u1eadp \u2014 Internship Agreement",
+      "description": "Lawyer-validated CyberSkill internship agreement (Civil Code \u2014 expressly not a labor contract) \u2014 host & intern blocks, objectives, duration, support stipend, confidentiality & IP, termination, dual si",
+      "folder": "templates/vn-internship-agreement",
+      "entryPath": "templates/vn-internship-agreement/VnInternshipAgreement.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-internship-agreement/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "HR Suite \u00b7 Th\u01b0 m\u1eddi nh\u1eadn vi\u1ec7c \u2014 Employment Offer Letter",
+      "description": "Lawyer-validated CyberSkill offer letter \u2014 key-terms table, conditions of offer, acceptance block. A4, bilingual VN\u00b7EN, print-ready. Content preserved verbatim.",
+      "folder": "templates/vn-offer-letter",
+      "entryPath": "templates/vn-offer-letter/VnOfferLetter.dc.html",
+      "thumbnail": {
+        "path": "templates/vn-offer-letter/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Legal \u00b7 Master services agreement",
+      "description": "CyberSkill MSA \u2014 the umbrella terms SOWs hang off. Definitions, IP, fees, liability, term. Letter-sized, print-ready.",
+      "folder": "templates/legal-msa",
+      "entryPath": "templates/legal-msa/LegalMsa.dc.html",
+      "thumbnail": {
+        "path": "templates/legal-msa/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Legal \u00b7 Statement of work",
+      "description": "CyberSkill SOW \u2014 scope, deliverables & milestone tables, fees, acceptance. Hangs off the MSA. Letter-sized, print-ready.",
+      "folder": "templates/legal-sow",
+      "entryPath": "templates/legal-sow/LegalSow.dc.html",
+      "thumbnail": {
+        "path": "templates/legal-sow/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Marketing \u00b7 Campaign brief",
+      "description": "CyberSkill campaign brief \u2014 objective, audience, message, channels, timeline, and success metrics. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t). Document-style page.",
+      "folder": "templates/marketing-campaign-brief",
+      "entryPath": "templates/marketing-campaign-brief/MarketingCampaignBrief.dc.html",
+      "thumbnail": {
+        "path": "templates/marketing-campaign-brief/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Marketing \u00b7 Case study",
+      "description": "CyberSkill client case study \u2014 result hero, challenge/approach/result, proof stats, client quote. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t). Letter-sized, print-ready.",
+      "folder": "templates/marketing-case-study",
+      "entryPath": "templates/marketing-case-study/MarketingCaseStudy.dc.html",
+      "thumbnail": {
+        "path": "templates/marketing-case-study/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Marketing \u00b7 Launch announcement",
+      "description": "CyberSkill product/feature launch email \u2014 bold hero, three benefits, social proof, and a single CTA.",
+      "folder": "templates/marketing-launch",
+      "entryPath": "templates/marketing-launch/MarketingLaunch.dc.html",
+      "thumbnail": {
+        "path": "templates/marketing-launch/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Marketing \u00b7 Newsletter",
+      "description": "CyberSkill customer newsletter \u2014 hero story, two secondary items, and a CTA. Warm, bilingual-friendly email.",
+      "folder": "templates/marketing-newsletter",
+      "entryPath": "templates/marketing-newsletter/MarketingNewsletter.dc.html",
+      "thumbnail": {
+        "path": "templates/marketing-newsletter/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Marketing \u00b7 Press release",
+      "description": "CyberSkill press release \u2014 FOR IMMEDIATE RELEASE, dateline, body, boilerplate, media contact. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t). Letter-sized, print-ready.",
+      "folder": "templates/marketing-press-release",
+      "entryPath": "templates/marketing-press-release/MarketingPressRelease.dc.html",
+      "thumbnail": {
+        "path": "templates/marketing-press-release/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Marketing \u00b7 Social post kit",
+      "description": "CyberSkill social canvases \u2014 1080\u00d71080 square, 1200\u00d7630 link card, 1080\u00d71920 story. Element wash + slogan lockups; bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t); snapshot each canvas to export.",
+      "folder": "templates/marketing-social-kit",
+      "entryPath": "templates/marketing-social-kit/MarketingSocialKit.dc.html",
+      "thumbnail": {
+        "path": "templates/marketing-social-kit/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Marketing page",
+      "description": "Bilingual CyberSkill landing page \u2014 umber hero with a wish prompt, service cards, process, and a Lumi chat launcher. Language tweak: English \u00b7 Ti\u1ebfng Vi\u1ec7t.",
+      "folder": "templates/marketing-page",
+      "entryPath": "templates/marketing-page/MarketingPage.dc.html",
+      "thumbnail": {
+        "path": "templates/marketing-page/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Sales \u00b7 One-pager",
+      "description": "CyberSkill leave-behind \u2014 umber hero, what we do, proof stats, the wish process, contact CTA. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t). Letter-sized, print-ready.",
+      "folder": "templates/sales-one-pager",
+      "entryPath": "templates/sales-one-pager/SalesOnePager.dc.html",
+      "thumbnail": {
+        "path": "templates/sales-one-pager/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Sales \u00b7 Proposal deck",
+      "description": "CyberSkill 16:9 client proposal \u2014 title, the wish, understanding, approach, scope, timeline, team, investment, next steps. Stacked slides. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "folder": "templates/sales-proposal-deck",
+      "entryPath": "templates/sales-proposal-deck/SalesProposalDeck.dc.html",
+      "thumbnail": {
+        "path": "templates/sales-proposal-deck/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Settings",
+      "description": "CyberSkill settings page \u2014 Tabs, form fields, switches, and a danger zone. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "folder": "templates/settings",
+      "entryPath": "templates/settings/Settings.dc.html",
+      "thumbnail": {
+        "path": "templates/settings/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Sign in",
+      "description": "CyberSkill split sign-in \u2014 umber brand panel + form built from TextField, Switch, and Button. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "folder": "templates/auth",
+      "entryPath": "templates/auth/Auth.dc.html",
+      "thumbnail": {
+        "path": "templates/auth/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Slide deck",
+      "description": "CyberSkill 16:9 slide deck \u2014 umber title + closing, ochre accents, and light content layouts. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t). Brand-ready presentation shell.",
+      "folder": "templates/slide-deck",
+      "entryPath": "templates/slide-deck/SlideDeck.dc.html",
+      "thumbnail": {
+        "path": "templates/slide-deck/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Team \u00b7 Meeting agenda",
+      "description": "CyberSkill meeting agenda \u2014 meta grid, time-boxed items with owners, decisions log, next steps. One page, print-ready.",
+      "folder": "templates/team-meeting-agenda",
+      "entryPath": "templates/team-meeting-agenda/TeamMeetingAgenda.dc.html",
+      "thumbnail": {
+        "path": "templates/team-meeting-agenda/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Tech \u00b7 Incident report",
+      "description": "CyberSkill postmortem \u2014 severity, timeline, root cause, impact, and action items. Blameless, honest, document-style page.",
+      "folder": "templates/tech-incident-report",
+      "entryPath": "templates/tech-incident-report/TechIncidentReport.dc.html",
+      "thumbnail": {
+        "path": "templates/tech-incident-report/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Tech \u00b7 Release notes email",
+      "description": "CyberSkill engineering release announcement \u2014 version, highlights, fixes, and upgrade notes in a centred email layout.",
+      "folder": "templates/tech-release-notes",
+      "entryPath": "templates/tech-release-notes/TechReleaseNotes.dc.html",
+      "thumbnail": {
+        "path": "templates/tech-release-notes/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Tech \u00b7 RFC / design doc",
+      "description": "CyberSkill technical design doc \u2014 status, context, proposal, trade-offs, and rollout. Honest about trade-offs by default. Bilingual (English \u00b7 Ti\u1ebfng Vi\u1ec7t).",
+      "folder": "templates/tech-rfc",
+      "entryPath": "templates/tech-rfc/TechRfc.dc.html",
+      "thumbnail": {
+        "path": "templates/tech-rfc/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Tech \u00b7 Sprint retro",
+      "description": "CyberSkill blameless retro \u2014 went well / didn't / actions with owners, kudos, one metric. Letter-sized, print-ready. EN\u00b7VN.",
+      "folder": "templates/tech-retro",
+      "entryPath": "templates/tech-retro/TechRetro.dc.html",
+      "thumbnail": {
+        "path": "templates/tech-retro/.thumbnail",
+        "kind": "captured"
+      }
+    }
+  ],
+  "hasThumbnailHtml": true,
+  "themes": [
+    {
+      "selector": "[data-theme=\"dark\"]",
+      "label": "Dark"
+    },
+    {
+      "selector": "[data-theme=\"system\"]",
+      "label": "System"
+    },
+    {
+      "selector": "[data-cs-element]",
+      "label": "Cs Element"
+    },
+    {
+      "selector": "[data-cs-element][data-theme=\"dark\"]",
+      "label": "Cs Element Dark"
+    },
+    {
+      "selector": "[data-cs-element][data-theme=\"system\"]",
+      "label": "Cs Element System"
+    },
+    {
+      "selector": "[data-cs-element=\"tho\"]",
+      "label": "Cs Element Tho"
+    },
+    {
+      "selector": "[data-cs-element=\"tho\"][data-cs-variant=\"clay\"]",
+      "label": "Cs Element Tho Cs Variant Clay"
+    },
+    {
+      "selector": "[data-cs-element=\"tho\"][data-cs-variant=\"sand\"]",
+      "label": "Cs Element Tho Cs Variant Sand"
+    },
+    {
+      "selector": "[data-cs-element=\"hoa\"]",
+      "label": "Cs Element Hoa"
+    },
+    {
+      "selector": "[data-cs-element=\"hoa\"][data-cs-variant=\"lava\"]",
+      "label": "Cs Element Hoa Cs Variant Lava"
+    },
+    {
+      "selector": "[data-cs-element=\"hoa\"][data-cs-variant=\"plasma\"]",
+      "label": "Cs Element Hoa Cs Variant Plasma"
+    },
+    {
+      "selector": "[data-cs-element=\"thuy\"]",
+      "label": "Cs Element Thuy"
+    },
+    {
+      "selector": "[data-cs-element=\"thuy\"][data-cs-variant=\"ocean\"]",
+      "label": "Cs Element Thuy Cs Variant Ocean"
+    },
+    {
+      "selector": "[data-cs-element=\"thuy\"][data-cs-variant=\"mist\"]",
+      "label": "Cs Element Thuy Cs Variant Mist"
+    },
+    {
+      "selector": "[data-cs-element=\"moc\"]",
+      "label": "Cs Element Moc"
+    },
+    {
+      "selector": "[data-cs-element=\"moc\"][data-cs-variant=\"bamboo\"]",
+      "label": "Cs Element Moc Cs Variant Bamboo"
+    },
+    {
+      "selector": "[data-cs-element=\"moc\"][data-cs-variant=\"forest\"]",
+      "label": "Cs Element Moc Cs Variant Forest"
+    },
+    {
+      "selector": "[data-cs-element=\"kim\"]",
+      "label": "Cs Element Kim"
+    },
+    {
+      "selector": "[data-cs-element=\"kim\"][data-cs-variant=\"steel\"]",
+      "label": "Cs Element Kim Cs Variant Steel"
+    },
+    {
+      "selector": "[data-cs-element=\"kim\"][data-cs-variant=\"titanium\"]",
+      "label": "Cs Element Kim Cs Variant Titanium"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"tho\"]",
+      "label": "Dark Cs Element Tho"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"tho\"][data-cs-variant=\"clay\"]",
+      "label": "Dark Cs Element Tho Cs Variant Clay"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"tho\"][data-cs-variant=\"sand\"]",
+      "label": "Dark Cs Element Tho Cs Variant Sand"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"hoa\"]",
+      "label": "Dark Cs Element Hoa"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"hoa\"][data-cs-variant=\"lava\"]",
+      "label": "Dark Cs Element Hoa Cs Variant Lava"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"hoa\"][data-cs-variant=\"plasma\"]",
+      "label": "Dark Cs Element Hoa Cs Variant Plasma"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"thuy\"]",
+      "label": "Dark Cs Element Thuy"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"thuy\"][data-cs-variant=\"ocean\"]",
+      "label": "Dark Cs Element Thuy Cs Variant Ocean"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"thuy\"][data-cs-variant=\"mist\"]",
+      "label": "Dark Cs Element Thuy Cs Variant Mist"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"moc\"]",
+      "label": "Dark Cs Element Moc"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"moc\"][data-cs-variant=\"bamboo\"]",
+      "label": "Dark Cs Element Moc Cs Variant Bamboo"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"moc\"][data-cs-variant=\"forest\"]",
+      "label": "Dark Cs Element Moc Cs Variant Forest"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"kim\"]",
+      "label": "Dark Cs Element Kim"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"kim\"][data-cs-variant=\"steel\"]",
+      "label": "Dark Cs Element Kim Cs Variant Steel"
+    },
+    {
+      "selector": "[data-theme=\"dark\"][data-cs-element=\"kim\"][data-cs-variant=\"titanium\"]",
+      "label": "Dark Cs Element Kim Cs Variant Titanium"
+    }
+  ],
+  "brandFonts": [
+    {
+      "family": "Be Vietnam Pro",
+      "status": "ok",
+      "tokens": [
+        "--cs-font-family-ui"
+      ],
+      "path": "tokens/fonts.css"
+    },
+    {
+      "family": "JetBrains Mono",
+      "status": "ok",
+      "tokens": [
+        "--cs-font-family-mono"
+      ],
+      "path": "tokens/fonts.css"
+    },
+    {
+      "family": "Space Grotesk",
+      "status": "ok",
+      "tokens": [
+        "--cs-font-family-display"
+      ],
+      "path": "tokens/fonts.css"
+    }
+  ],
+  "source": "spa",
+  "cards": [
+    {
+      "path": "components/ai/ai-conversation.card.html"
+    },
+    {
+      "path": "components/ai/ai-lumi.card.html"
+    },
+    {
+      "path": "components/ai/ai.card.html"
+    },
+    {
+      "path": "components/brand/brand.card.html"
+    },
+    {
+      "path": "components/button/buttons.card.html"
+    },
+    {
+      "path": "components/data/collections.card.html"
+    },
+    {
+      "path": "components/data/data.card.html"
+    },
+    {
+      "path": "components/datatable/datatable.card.html"
+    },
+    {
+      "path": "components/dialog/dialog.card.html"
+    },
+    {
+      "path": "components/feedback/feedback-2.card.html"
+    },
+    {
+      "path": "components/feedback/feedback.card.html"
+    },
+    {
+      "path": "components/forms/forms-2.card.html"
+    },
+    {
+      "path": "components/forms/forms.card.html"
+    },
+    {
+      "path": "components/i18n/i18n.card.html"
+    },
+    {
+      "path": "components/icon/icon.card.html"
+    },
+    {
+      "path": "components/logo/logo.card.html"
+    },
+    {
+      "path": "components/navigation/navigation.card.html"
+    },
+    {
+      "path": "components/navigation/shell.card.html"
+    },
+    {
+      "path": "components/overlays/alertdialog.card.html"
+    },
+    {
+      "path": "components/overlays/overlays.card.html"
+    },
+    {
+      "path": "components/textfield/textfield.card.html"
+    },
+    {
+      "path": "guidelines/atomic-view.html"
+    },
+    {
+      "path": "guidelines/brand-iconography.html"
+    },
+    {
+      "path": "guidelines/brand-imagery.html"
+    },
+    {
+      "path": "guidelines/brand-interaction.html"
+    },
+    {
+      "path": "guidelines/brand-voice.html"
+    },
+    {
+      "path": "guidelines/colors-anchors.html"
+    },
+    {
+      "path": "guidelines/colors-semantic.html"
+    },
+    {
+      "path": "guidelines/colors-surfaces.html"
+    },
+    {
+      "path": "guidelines/colors-text.html"
+    },
+    {
+      "path": "guidelines/documents.html"
+    },
+    {
+      "path": "guidelines/elements-components.html"
+    },
+    {
+      "path": "guidelines/elements-concept.html"
+    },
+    {
+      "path": "guidelines/elements-geometry.html"
+    },
+    {
+      "path": "guidelines/elements-variants.html"
+    },
+    {
+      "path": "guidelines/motion-interaction.html"
+    },
+    {
+      "path": "guidelines/motion.html"
+    },
+    {
+      "path": "guidelines/responsive-bilingual.html"
+    },
+    {
+      "path": "guidelines/spacing-breakpoints.html"
+    },
+    {
+      "path": "guidelines/spacing-radius.html"
+    },
+    {
+      "path": "guidelines/spacing-scale.html"
+    },
+    {
+      "path": "guidelines/surfaces-aurora.html"
+    },
+    {
+      "path": "guidelines/surfaces-depth.html"
+    },
+    {
+      "path": "guidelines/surfaces-glass.html"
+    },
+    {
+      "path": "guidelines/surfaces-shadow.html"
+    },
+    {
+      "path": "guidelines/type-families.html"
+    },
+    {
+      "path": "guidelines/type-lineheight.html"
+    },
+    {
+      "path": "guidelines/type-scale.html"
+    },
+    {
+      "path": "guidelines/type-weights.html"
+    },
+    {
+      "path": "ui_kits/deck/index.html"
+    },
+    {
+      "path": "ui_kits/status-hub/index.html"
+    },
+    {
+      "path": "ui_kits/status-hub/login.html"
+    },
+    {
+      "path": "ui_kits/status-hub/project.html"
+    },
+    {
+      "path": "ui_kits/status-hub/settings.html"
+    },
+    {
+      "path": "ui_kits/website/careers.html"
+    },
+    {
+      "path": "ui_kits/website/chat.html"
+    },
+    {
+      "path": "ui_kits/website/index.html"
+    },
+    {
+      "path": "ui_kits/website/work.html"
+    }
+  ],
+  "publicHooks": [
+    {
+      "name": "useMessages",
+      "sourcePath": "components/i18n/LocaleProvider.jsx"
+    }
+  ]
+}

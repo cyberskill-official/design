@@ -1,3 +1,4 @@
+import type { RootTargetProps } from "../_utils/target-props";
 /** Group label, item icon and item shortcut preserve numeric zero; null, false and empty strings omit those slots. */
 import type * as React from "react";
 import type { ReactNode } from "react";
@@ -14,6 +15,8 @@ export interface CommandGroup { label?: ReactNode; items: CommandItem[]; }
  * after selection or Escape when that control is still connected and available.
  */
 export interface CommandPaletteProps {
+  /** Attributes for the existing div root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: Omit<RootTargetProps<HTMLDivElement>, "role" | "aria-modal" | "aria-label">;
   open: boolean;
   onClose?: () => void;
   placeholder?: string;
@@ -21,5 +24,7 @@ export interface CommandPaletteProps {
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;
   className?: string;
+  /** Native input control; only while open. Separate from ref's primary target. */
+  controlRef?: React.Ref<HTMLInputElement>;
 }
-export function CommandPalette(props: CommandPaletteProps): React.ReactElement | null;
+export const CommandPalette: React.ForwardRefExoticComponent<React.PropsWithoutRef<CommandPaletteProps> & React.RefAttributes<HTMLDivElement>>;

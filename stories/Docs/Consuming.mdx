@@ -1,67 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import { IframeSurface } from '../Maintainer/IframeSurface.jsx';
 
 <Meta title="Docs/Guides/Consuming" />
 
-# Consuming the system
-
-How any project adopts this HTML-first design system. One sentence: consumers link **one file** (`styles.css`) and, if they want React, use the **bundler-native** package entry (Next/Vite) or the browser legacy / compiled bundle. **This Storybook is host-only — product apps never depend on it.**
-
-## 1 · Static / prototypes — link the stylesheet
-
-Copy `styles.css` plus the `tokens/`, `base/`, `fonts/` folders it imports (or serve the whole tree) and link it. You get every `--cs-*` token, the `.cs-*` component classes, and the Liquid Glass surfaces:
-
-```html
-<link rel="stylesheet" href="<path>/styles.css">
-```
-
-Compose with classes — the full catalog is demonstrated in `templates/kitchen-sink.html`.
-
-## 2 · Production React — the compiled bundle
-
-Link `styles.css` and `_ds_bundle.js`, then **resolve the namespace by prefix, never hardcode it** (the 6-hex suffix changes on import into another project — gate-enforced):
-
-```html
-<link rel="stylesheet" href="<path>/styles.css">
-<script src="<path>/_ds_bundle.js"></script>
-<script>
-  const CS = window[Object.keys(window).find(k => /^CyberSkillDesignSystem_/.test(k))];
-  const { Button, TextField, DataGrid } = CS;
-</script>
-```
-
-## 2b · Bundler-native React (Next / Vite / SSR) — default npm entry
-
-```js
-import { Button, TextField } from '@cyberskill/design';
-// or: import { Button } from '@cyberskill/design/react';
-import '@cyberskill/design/styles.css';
-```
-
-Resolves to `_esm/react.mjs`. React is a **peerDependency** (no CDN). Next.js: `transpilePackages: ["@cyberskill/design"]`.
-
-## 2c · Browser ESM legacy — one import, no build
-
-```js
-import { Button, TextField } from '@cyberskill/design/legacy';
-// or: import { Button } from '<path>/_esm/cs.mjs';
-```
-
-The module self-ensures React, side-loads `_ds_bundle.js` once, resolves the namespace by prefix, and re-exports every component. Still link `styles.css` yourself. **Not for Next/SSR.**
-
-## 3 · Machine-readable tokens
-
-- `tokens/tokens.json` + `tokens/tokens.js` (ESM) — grouped by category with theme/element maps
-- `tokens/tokens.dtcg.json` — W3C DTCG, for Tokens Studio / Style Dictionary
-- `tokens/native/` — pre-generated SwiftUI · Compose · Flutter, kept in lockstep by the token-pipeline gate
-
-## Templates
-
-Copy a `templates/<slug>/` folder and edit one line in its `ds-base.js` (path rebind); each template is a Design Component that loads this system.
-
-## Upgrading
-
-VERSION **1.7.2** (auto-bumps on `main`). There is **no `CHANGELOG.md`** — treat the repo tip as the technical truth, and read curated **Release Notes** in this Storybook for product-facing highlights. Anchors (Umber/Ochre), `.cs-*` class names, and `--cs-*` token names are stable contracts. After an upgrade, open the consumer smoke test and the **Status** gate board against the new tip.
-
-## Canonical markdown
-
-Longer maintainer prose still lives under `docs/consuming.md` (+ `docs/vi/`). This page is the public Storybook Docs entry.
+<IframeSurface src="/docs/viewer.html?embed=1#docs/consuming.md" title="Consuming & upgrading" fullBleed />

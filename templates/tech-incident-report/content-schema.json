@@ -9,17 +9,150 @@
       "i18n": {
         "en": "Ordered timeline entries (title, meta, state, body)",
         "vi": "Các mục dòng thời gian (title, meta, state, body)"
-      }
+      },
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "meta": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "state": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "enum": [
+                "done",
+                "now",
+                "todo"
+              ]
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "title",
+            "meta",
+            "state",
+            "body"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "attribute": "items",
+          "component": "CyberSkillDS.Timeline"
+        }
+      ]
     },
     {
       "id": "cols",
       "type": "table",
-      "label": "Action-items table columns"
+      "label": "Action-items table columns",
+      "runtimeBinding": "structured",
+      "runtimeProjection": "column-headers",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 4,
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "header": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "key",
+            "header"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "key"
+      },
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "attribute": "columns",
+          "component": "CyberSkillDS.DataTable"
+        }
+      ]
     },
     {
       "id": "actions",
       "type": "table",
-      "label": "Action-items table rows"
+      "label": "Action-items table rows",
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "action": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "owner": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "due": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "id",
+            "action",
+            "owner",
+            "due"
+          ],
+          "additionalProperties": false
+        },
+        "uniqueBy": "id"
+      },
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "attribute": "rows",
+          "component": "CyberSkillDS.DataTable"
+        }
+      ]
     }
   ]
 }

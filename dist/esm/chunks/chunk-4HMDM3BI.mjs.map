@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/navigation/Link.jsx"],
+  "sourcesContent": ["import { useComposedRefs } from \"../_utils/refs.js\";\nimport React from \"react\";\nimport { cx } from \"../_utils/cx.js\";\n\n/** CyberSkill Link — brand-styled anchor. variant: default | muted | standalone (arrow). external adds ↗ + rel. */\nexport const Link = React.forwardRef(function Link({ href = \"#\", variant = \"default\", external = false, children, className, ...props }, forwardedRef) {\n  const mergedNativeRef = useComposedRefs(forwardedRef);\n  return (\n    <a href={href} className={cx(\"cs-link\", variant !== \"default\" && \"cs-link--\" + variant, className)}\n      target={external ? \"_blank\" : undefined} rel={external ? \"noopener noreferrer\" : undefined} {...props} ref={mergedNativeRef} >\n      {children}\n      {external ? <span aria-hidden=\"true\"> ↗</span> : variant === \"standalone\" ? <span aria-hidden=\"true\"> →</span> : null}\n    </a>\n  );\n});\nLink.displayName = \"Link\";\n"],
+  "mappings": ";;;;;;;;;AACA,OAAO,WAAW;AAIX,IAAM,OAAO,MAAM,WAAW,SAASA,MAAK,EAAE,OAAO,KAAK,UAAU,WAAW,WAAW,OAAO,UAAU,WAAW,GAAG,MAAM,GAAG,cAAc;AACrJ,QAAM,kBAAkB,gBAAgB,YAAY;AACpD,SACE;AAAA,IAAC;AAAA;AAAA,MAAE;AAAA,MAAY,WAAW,GAAG,WAAW,YAAY,aAAa,cAAc,SAAS,SAAS;AAAA,MAC/F,QAAQ,WAAW,WAAW;AAAA,MAAW,KAAK,WAAW,wBAAwB;AAAA,MAAY,GAAG;AAAA,MAAO,KAAK;AAAA;AAAA,IAC3G;AAAA,IACA,WAAW,oCAAC,UAAK,eAAY,UAAO,IAAE,IAAU,YAAY,eAAe,oCAAC,UAAK,eAAY,UAAO,IAAE,IAAU;AAAA,EACnH;AAEJ,CAAC;AACD,KAAK,cAAc;",
+  "names": ["Link"]
+}

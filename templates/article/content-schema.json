@@ -7,87 +7,117 @@
       "type": "text",
       "label": "Skip-to-content link label",
       "maxLength": 40,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "eyebrow",
       "type": "text",
       "label": "Section eyebrow",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "h1",
       "type": "text",
       "label": "Article title",
       "maxLength": 70,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "authorTeam",
       "type": "text",
       "label": "Author team",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "meta",
       "type": "text",
       "label": "Date · read time",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "badge",
       "type": "text",
       "label": "Status badge",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "lede",
       "type": "richtext",
       "label": "Lede paragraph",
       "maxLength": 260,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "p1",
       "type": "richtext",
       "label": "Body paragraph 1",
-      "maxLength": 400
+      "maxLength": 400,
+      "runtimeBinding": "text"
     },
     {
       "id": "h2",
       "type": "text",
       "label": "Subheading",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "p2",
       "type": "richtext",
       "label": "Body paragraph 2",
-      "maxLength": 300
+      "maxLength": 300,
+      "runtimeBinding": "text"
     },
     {
       "id": "code",
       "type": "text",
       "label": "Inline code sample",
-      "maxLength": 400
+      "maxLength": 400,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.CodeBlock",
+          "attribute": "code"
+        }
+      ]
     },
     {
       "id": "alertTitle",
       "type": "text",
       "label": "Callout title",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Alert",
+          "attribute": "title"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "alertBody",
       "type": "text",
       "label": "Callout body",
-      "maxLength": 150
+      "maxLength": 150,
+      "runtimeBinding": "text"
     },
     {
       "id": "p3",
       "type": "richtext",
       "label": "Closing paragraph",
-      "maxLength": 250
+      "maxLength": 250,
+      "runtimeBinding": "text"
     }
   ]
 }

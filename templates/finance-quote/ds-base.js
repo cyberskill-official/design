@@ -9,6 +9,8 @@
     l.rel = 'stylesheet'; l.href = base + '/' + p;
     document.head.appendChild(l);
   }
+  const staticLogo = !!document.querySelector('meta[name="cs-template-library"][content="static-logo"]');
+  if (!staticLogo) {
   // Raw <helmet> scripts can execute while the HTML parser is still running,
   // before support.js finishes loading React. The DC runtime mounts them again.
   // Share one load per resolved URL and never evaluate the bundle before React.
@@ -47,6 +49,12 @@
   loads[bundleUrl].then(namespace => { window.CyberSkillDS = namespace; })
     .catch(error => console.error('ds-base.js:', error.message));
 
+  }
+  const syncOfficialLogos = () => {
+    const src = new URL(base + '/assets/logo-mark.svg', document.baseURI).href;
+    for (const image of document.querySelectorAll('img[data-cs-official-logo]')) if (image.src !== src) image.src = src;
+  };
+
   // Print documents: PDF (window.print) + editable DOCX toolbar (TASK-IMP-022).
   // Path is relative to this template folder → templates/_vendor/doc-export.js
   if (document.querySelector('meta[name="omelette-owns-print"]')) {
@@ -57,10 +65,10 @@
 
   const syncLang = () => {
     try {
-      const a = document.querySelector('[lang]');
+      const a = document.body?.querySelector('[lang]:not([lang*="{{"])');
       const v = a && a.getAttribute('lang');
       // Ignore unresolved DC holes like {{ langAttr }}
-      if (v && v.indexOf('{{') === -1) document.documentElement.setAttribute('lang', v);
+      if (v && v.indexOf('{{') === -1 && document.documentElement.lang !== v) document.documentElement.setAttribute('lang', v);
       else if (!document.documentElement.getAttribute('lang')) document.documentElement.setAttribute('lang', 'en');
     } catch (e) { /* authoring host may sandbox */ }
   };
@@ -95,9 +103,11 @@
         if (m) document.title = m[1] + ' · CyberSkill';
       }
       syncLang();
+      syncOfficialLogos();
       ensureLandmark();
       const obs = new MutationObserver(() => {
         syncLang();
+        syncOfficialLogos();
         if (ensureLandmark()) { /* keep observing lang; landmark is sticky once set */ }
       });
       obs.observe(document.body || document.documentElement, {

@@ -36,5 +36,5 @@ The package remains **UNLICENSED**. Installing from the npm registry does **not*
 ## Related
 
 - Adopt / install: `docs/consuming.md`
-- Decision record: `docs/decisions.md` §7
+- Decision record: `docs/decisions.md` (Roadmap defaults / npm)
 - Product → element registry: `docs/products.md`

@@ -1,0 +1,254 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "finance-quote",
+  "slots": [
+    {
+      "id": "quoteReference",
+      "type": "text",
+      "label": "Document reference",
+      "maxLength": 80,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "clientName",
+      "type": "text",
+      "label": "Client name",
+      "maxLength": 120,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1TitleEn",
+      "type": "text",
+      "label": "Line1title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1DescriptionEn",
+      "type": "text",
+      "label": "Line1description en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1PriceEn",
+      "type": "text",
+      "label": "Line1price en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2TitleEn",
+      "type": "text",
+      "label": "Line2title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2DescriptionEn",
+      "type": "text",
+      "label": "Line2description en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2PriceEn",
+      "type": "text",
+      "label": "Line2price en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3TitleEn",
+      "type": "text",
+      "label": "Line3title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3DescriptionEn",
+      "type": "text",
+      "label": "Line3description en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3PriceEn",
+      "type": "text",
+      "label": "Line3price en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line4TitleEn",
+      "type": "text",
+      "label": "Line4title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line4DescriptionEn",
+      "type": "text",
+      "label": "Line4description en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line4PriceEn",
+      "type": "text",
+      "label": "Line4price en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "coreTotalEn",
+      "type": "text",
+      "label": "Core total en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "validUntilEn",
+      "type": "text",
+      "label": "Valid until en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "preparedByName",
+      "type": "text",
+      "label": "Prepared by name",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1TitleVi",
+      "type": "text",
+      "label": "Line1title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1DescriptionVi",
+      "type": "text",
+      "label": "Line1description vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line1PriceVi",
+      "type": "text",
+      "label": "Line1price vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2TitleVi",
+      "type": "text",
+      "label": "Line2title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2DescriptionVi",
+      "type": "text",
+      "label": "Line2description vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line2PriceVi",
+      "type": "text",
+      "label": "Line2price vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3TitleVi",
+      "type": "text",
+      "label": "Line3title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3DescriptionVi",
+      "type": "text",
+      "label": "Line3description vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line3PriceVi",
+      "type": "text",
+      "label": "Line3price vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line4TitleVi",
+      "type": "text",
+      "label": "Line4title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line4DescriptionVi",
+      "type": "text",
+      "label": "Line4description vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "line4PriceVi",
+      "type": "text",
+      "label": "Line4price vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "coreTotalVi",
+      "type": "text",
+      "label": "Core total vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "validUntilVi",
+      "type": "text",
+      "label": "Valid until vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

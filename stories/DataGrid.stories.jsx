@@ -5,6 +5,7 @@ export default {
   component: DataGrid,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "columns": {
     "control": "object"
   },
@@ -21,7 +22,7 @@ export default {
     "control": "text"
   },
   "onSelect": {
-    "control": "text"
+    "control": false
   },
   "height": {
     "control": "number"
@@ -54,13 +55,6 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting DataGrid. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { columns: [{ key: 'name', header: 'Name' }, { key: 'status', header: 'Status' }], rows: [{ id: 1, name: 'Alpha wish', status: 'Open' }, { id: 2, name: 'Beta wish', status: 'Done' }], caption: 'Wishes' },
 };
 
@@ -75,3 +69,21 @@ export const Matrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioDataGridEmpty = {
+  name: "DataGrid: Empty collection",
+  args: {
+  "columns": [
+    {
+      "key": "name",
+      "header": "Name"
+    }
+  ],
+  "rows": []
+},
+  render: args => renderComponentScenario("DataGrid--empty",args),
+  play: ({canvasElement}) => playComponentScenario("DataGrid--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

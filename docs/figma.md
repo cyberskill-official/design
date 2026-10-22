@@ -88,4 +88,4 @@ Recommended path until the design org is on Enterprise:
 
 Variables job pushes the 42 base **colour** leaves only, converting the current object-valued DTCG sRGB colors (including alpha) to Figma RGBA. Legacy hex inputs are supported by the helper but are not the current export format. Spacing, type, and multi-mode light/dark packs are not auto-synced yet — use Tokens Studio for those until a later sync expands the REST job.
 
-The DTCG export currently emits <!-- cs-count:typedBaseTokens -->175<!-- /cs-count --> typed base tokens. Counts come from [the reference catalog](reference-catalog.json).
+The DTCG export currently emits <!-- cs-count:typedBaseTokens -->197<!-- /cs-count --> typed base tokens. Counts come from [the reference catalog](reference-catalog.json).

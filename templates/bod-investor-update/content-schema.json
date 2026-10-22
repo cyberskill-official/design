@@ -7,99 +7,115 @@
       "type": "text",
       "label": "Header title",
       "maxLength": 40,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "h1",
       "type": "text",
       "label": "Update headline",
       "maxLength": 60,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "k1",
       "type": "text",
       "label": "Stat 1 label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "k2",
       "type": "text",
       "label": "Stat 2 label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "runway",
       "type": "text",
       "label": "Stat 2 value",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "k3",
       "type": "text",
       "label": "Stat 3 label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "hlH",
       "type": "text",
       "label": "Highlights label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "hl1",
       "type": "text",
       "label": "Highlight 1",
-      "maxLength": 140
+      "maxLength": 140,
+      "runtimeBinding": "text"
     },
     {
       "id": "hl2",
       "type": "text",
       "label": "Highlight 2",
-      "maxLength": 140
+      "maxLength": 140,
+      "runtimeBinding": "text"
     },
     {
       "id": "hl3",
       "type": "text",
       "label": "Highlight 3",
-      "maxLength": 140
+      "maxLength": 140,
+      "runtimeBinding": "text"
     },
     {
       "id": "lowH",
       "type": "text",
       "label": "Lowlights label",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "lowBody",
       "type": "richtext",
       "label": "Lowlights body",
       "maxLength": 400,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "asksL",
       "type": "text",
       "label": "Asks label",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "asksBody",
       "type": "text",
       "label": "Asks body",
-      "maxLength": 200
+      "maxLength": 200,
+      "runtimeBinding": "text"
     },
     {
       "id": "cta",
       "type": "text",
       "label": "CTA link label",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "footer",
       "type": "text",
       "label": "Footer line",
-      "maxLength": 100
+      "maxLength": 100,
+      "runtimeBinding": "text"
     }
   ]
 }

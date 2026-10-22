@@ -6,6 +6,7 @@ import {createHash} from 'node:crypto';
 import {Script} from 'node:vm';
 import {fileURLToPath} from 'node:url';
 import {join, resolve} from 'node:path';
+import {dcLogicScriptSource} from './template-runtime/dc-logic-source.mjs';
 import {syncTemplateRuntimes} from './sync-support-runtime.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const check = process.argv.includes('--check');
@@ -17,7 +18,14 @@ const entries = Object.entries(sources).map(([name, output]) => {
   assert(!lstatSync(join(root,input)).isSymbolicLink());
   const source = readFileSync(join(root,input));
   new Script(source.toString(), {filename:input});
-  const bytes = Buffer.from('// Generated from ' + input + ' by scripts/build-template-primitives.mjs.\n' + source.toString());
+  let projected = source.toString();
+  if (name === 'support.js') {
+    const marker = 'null; // @cs-dc-source-serializer';
+    assert.equal(projected.split(marker).length, 2, 'Missing/duplicate shared DC serializer marker');
+    projected = projected.replace(marker, dcLogicScriptSource.toString() + '; // projected from scripts/template-runtime/dc-logic-source.mjs');
+  }
+  new Script(projected, {filename:input});
+  const bytes = Buffer.from('// Generated from ' + input + ' by scripts/build-template-primitives.mjs.\n' + projected);
   return {input, output, inputSha256:hash(source), outputSha256:hash(bytes), bytes};
 });
 for (const row of entries) {

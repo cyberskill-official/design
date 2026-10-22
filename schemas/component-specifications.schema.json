@@ -1,0 +1,1090 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "interpretation": {
+      "type": "string"
+    },
+    "sourceHashes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "exports": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "supportedRenderAnalysis": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "componentsWithFixtureReferences": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "componentsWithBoundedRequirements": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completeBehaviorSpecifications": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completeAccessibilitySpecifications": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "boundedRequirements": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unmappedNamedCases": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "exports",
+        "supportedRenderAnalysis",
+        "componentsWithFixtureReferences",
+        "componentsWithBoundedRequirements",
+        "completeBehaviorSpecifications",
+        "completeAccessibilitySpecifications",
+        "boundedRequirements",
+        "unmappedNamedCases"
+      ],
+      "additionalProperties": false
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "additionalProperties": false
+          },
+          "api": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "const": "components/api-index.json"
+              },
+              "authoredPropDefinitions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "inheritedPropCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "defaultExpressionNames": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "analysis": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "index",
+              "authoredPropDefinitions",
+              "inheritedPropCount",
+              "defaultExpressionNames",
+              "analysis"
+            ],
+            "additionalProperties": false
+          },
+          "sourceFacts": {
+            "type": "object",
+            "properties": {
+              "analysis": {
+                "enum": [
+                  "direct",
+                  "forward-ref",
+                  "unsupported-render-expression"
+                ]
+              },
+              "renderSpan": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "start": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "end": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    },
+                    "required": [
+                      "start",
+                      "end"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "jsxElements": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "tag": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "enum": [
+                        "intrinsic",
+                        "member-expression",
+                        "component-or-dynamic"
+                      ]
+                    },
+                    "start": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "end": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "attributes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "kind": {
+                            "enum": [
+                              "boolean-presence",
+                              "string-literal",
+                              "expression"
+                            ]
+                          },
+                          "source": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "end": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "kind",
+                          "source",
+                          "start",
+                          "end"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "spreads": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "start": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "end": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "expression": {
+                            "type": "string"
+                          },
+                          "forwarding": {
+                            "const": "unverified-target-and-precedence"
+                          }
+                        },
+                        "required": [
+                          "start",
+                          "end",
+                          "expression",
+                          "forwarding"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "tag",
+                    "kind",
+                    "start",
+                    "end",
+                    "attributes",
+                    "spreads"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "slotCandidates": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "end": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "source": {
+                      "type": "string"
+                    },
+                    "referencedParameterNames": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "interpretation": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "start",
+                    "end",
+                    "source",
+                    "referencedParameterNames",
+                    "interpretation"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "keyboardLiterals": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "end": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "value": {
+                      "type": "string"
+                    },
+                    "interpretation": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "start",
+                    "end",
+                    "value",
+                    "interpretation"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "analysis",
+              "renderSpan",
+              "jsxElements",
+              "slotCandidates",
+              "keyboardLiterals"
+            ],
+            "additionalProperties": false
+          },
+          "fileScopedClassHooks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "stylesheets": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "stylesheets"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "authoredSemantics": {
+            "type": "object",
+            "properties": {
+              "anatomy": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "bounded-source-reviewed",
+                      "unverified"
+                    ]
+                  },
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "statement": {
+                          "type": "string"
+                        },
+                        "evidence": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "start": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "end": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "source": {
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "type": "string"
+                              },
+                              "sourceSha256": {
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{64}$"
+                              },
+                              "ownership": {
+                                "enum": [
+                                  "component-source",
+                                  "component-declaration",
+                                  "canonical-prompt",
+                                  "imported-source",
+                                  "component-story",
+                                  "constructor-fixture",
+                                  "named-case-fixture"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "start",
+                              "end",
+                              "source",
+                              "sourcePath",
+                              "sourceSha256",
+                              "ownership"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "statement",
+                        "evidence"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "scope": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status",
+                  "entries",
+                  "scope"
+                ],
+                "additionalProperties": false
+              },
+              "slots": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "bounded-source-reviewed",
+                      "unverified"
+                    ]
+                  },
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "statement": {
+                          "type": "string"
+                        },
+                        "evidence": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "start": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "end": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "source": {
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "type": "string"
+                              },
+                              "sourceSha256": {
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{64}$"
+                              },
+                              "ownership": {
+                                "enum": [
+                                  "component-source",
+                                  "component-declaration",
+                                  "canonical-prompt",
+                                  "imported-source",
+                                  "component-story",
+                                  "constructor-fixture",
+                                  "named-case-fixture"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "start",
+                              "end",
+                              "source",
+                              "sourcePath",
+                              "sourceSha256",
+                              "ownership"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "statement",
+                        "evidence"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "scope": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status",
+                  "entries",
+                  "scope"
+                ],
+                "additionalProperties": false
+              },
+              "roles": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "bounded-source-reviewed",
+                      "unverified"
+                    ]
+                  },
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "statement": {
+                          "type": "string"
+                        },
+                        "evidence": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "start": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "end": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "source": {
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "type": "string"
+                              },
+                              "sourceSha256": {
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{64}$"
+                              },
+                              "ownership": {
+                                "enum": [
+                                  "component-source",
+                                  "component-declaration",
+                                  "canonical-prompt",
+                                  "imported-source",
+                                  "component-story",
+                                  "constructor-fixture",
+                                  "named-case-fixture"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "start",
+                              "end",
+                              "source",
+                              "sourcePath",
+                              "sourceSha256",
+                              "ownership"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "statement",
+                        "evidence"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "scope": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status",
+                  "entries",
+                  "scope"
+                ],
+                "additionalProperties": false
+              },
+              "states": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "bounded-source-reviewed",
+                      "unverified"
+                    ]
+                  },
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "statement": {
+                          "type": "string"
+                        },
+                        "evidence": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "start": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "end": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "source": {
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "type": "string"
+                              },
+                              "sourceSha256": {
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{64}$"
+                              },
+                              "ownership": {
+                                "enum": [
+                                  "component-source",
+                                  "component-declaration",
+                                  "canonical-prompt",
+                                  "imported-source",
+                                  "component-story",
+                                  "constructor-fixture",
+                                  "named-case-fixture"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "start",
+                              "end",
+                              "source",
+                              "sourcePath",
+                              "sourceSha256",
+                              "ownership"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "statement",
+                        "evidence"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "scope": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status",
+                  "entries",
+                  "scope"
+                ],
+                "additionalProperties": false
+              },
+              "keyboard": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "bounded-source-reviewed",
+                      "unverified"
+                    ]
+                  },
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "statement": {
+                          "type": "string"
+                        },
+                        "evidence": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "start": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "end": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "source": {
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "type": "string"
+                              },
+                              "sourceSha256": {
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{64}$"
+                              },
+                              "ownership": {
+                                "enum": [
+                                  "component-source",
+                                  "component-declaration",
+                                  "canonical-prompt",
+                                  "imported-source",
+                                  "component-story",
+                                  "constructor-fixture",
+                                  "named-case-fixture"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "start",
+                              "end",
+                              "source",
+                              "sourcePath",
+                              "sourceSha256",
+                              "ownership"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "statement",
+                        "evidence"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "scope": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status",
+                  "entries",
+                  "scope"
+                ],
+                "additionalProperties": false
+              },
+              "examples": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "bounded-source-reviewed",
+                      "unverified"
+                    ]
+                  },
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "statement": {
+                          "type": "string"
+                        },
+                        "evidence": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "start": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "end": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "source": {
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "type": "string"
+                              },
+                              "sourceSha256": {
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{64}$"
+                              },
+                              "ownership": {
+                                "enum": [
+                                  "component-source",
+                                  "component-declaration",
+                                  "canonical-prompt",
+                                  "imported-source",
+                                  "component-story",
+                                  "constructor-fixture",
+                                  "named-case-fixture"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "start",
+                              "end",
+                              "source",
+                              "sourcePath",
+                              "sourceSha256",
+                              "ownership"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "statement",
+                        "evidence"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "scope": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status",
+                  "entries",
+                  "scope"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "anatomy",
+              "slots",
+              "roles",
+              "states",
+              "keyboard",
+              "examples"
+            ],
+            "additionalProperties": false
+          },
+          "behavior": {
+            "type": "object",
+            "properties": {
+              "fixtureReferences": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "testPath": {
+                      "type": "string"
+                    },
+                    "testSha256": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "caseName": {
+                      "type": "string"
+                    },
+                    "caseSpan": {
+                      "type": "object",
+                      "properties": {
+                        "start": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "end": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      },
+                      "required": [
+                        "start",
+                        "end"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "assertions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "start": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "end": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "source": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "start",
+                          "end",
+                          "source"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "status": {
+                      "const": "fixture-reference-only"
+                    },
+                    "scope": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "testPath",
+                    "testSha256",
+                    "caseName",
+                    "caseSpan",
+                    "assertions",
+                    "status",
+                    "scope"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "requirements": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "statement": {
+                      "type": "string"
+                    },
+                    "testPath": {
+                      "type": "string"
+                    },
+                    "testSha256": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "caseName": {
+                      "type": "string"
+                    },
+                    "assertions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "start": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "end": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "source": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "start",
+                          "end",
+                          "source"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "status": {
+                      "const": "authored-assertion-mapping"
+                    },
+                    "execution": {
+                      "type": "string"
+                    },
+                    "contextComponents": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "statement",
+                    "testPath",
+                    "testSha256",
+                    "caseName",
+                    "assertions",
+                    "status",
+                    "execution",
+                    "contextComponents"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "uncoveredAuthoredProps": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "scope": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "fixtureReferences",
+              "requirements",
+              "uncoveredAuthoredProps",
+              "scope"
+            ],
+            "additionalProperties": false
+          },
+          "gaps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "source",
+          "api",
+          "sourceFacts",
+          "fileScopedClassHooks",
+          "authoredSemantics",
+          "behavior",
+          "gaps"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "unmappedNamedCases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "testPath": {
+            "type": "string"
+          },
+          "caseName": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "testPath",
+          "caseName",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "interpretation",
+    "sourceHashes",
+    "coverage",
+    "components",
+    "unmappedNamedCases"
+  ],
+  "additionalProperties": false,
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cyberskill.local/schemas/component-specifications.schema.json"
+}

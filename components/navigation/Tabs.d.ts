@@ -21,10 +21,10 @@ export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "o
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;
 }
-export function Tabs(props: TabsProps): React.ReactElement;
+export const Tabs: React.ForwardRefExoticComponent<React.PropsWithoutRef<TabsProps> & React.RefAttributes<HTMLDivElement>>;
 
 export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   selected?: boolean;
   count?: number;
 }
-export function Tab(props: TabProps): React.ReactElement;
+export const Tab: React.ForwardRefExoticComponent<React.PropsWithoutRef<TabProps> & React.RefAttributes<HTMLButtonElement>>;

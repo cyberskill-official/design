@@ -19,4 +19,4 @@ export interface ToggleProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   lang?: string;
   className?: string;
 }
-export function Toggle(props: ToggleProps): React.ReactElement;
+export const Toggle: React.ForwardRefExoticComponent<React.PropsWithoutRef<ToggleProps> & React.RefAttributes<HTMLButtonElement>>;

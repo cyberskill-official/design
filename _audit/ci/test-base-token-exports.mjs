@@ -7,8 +7,17 @@ const graph = collectTokenDeclarations(process.cwd());
 const inventory = JSON.parse(readFileSync('tokens/tokens.json', 'utf8'));
 assert.deepEqual(projectBaseTokens(graph, inventory), inventory);
 for (const role of ['success','danger','warning','info']) assert.ok(Object.hasOwn(inventory.root.color, `--cs-color-semantic-${role}-text`), 'Explicit additional semantic text inventory role');
-assert.equal(Object.values(inventory.root).reduce((n, group) => n + Object.keys(group).length, 0), 175);
+assert.equal(Object.values(inventory.root).reduce((n, group) => n + Object.keys(group).length, 0), 197);
 assert.equal(Object.keys(baseExportExclusions).length, 9);
+const aliases=JSON.parse(readFileSync('_audit/ci/fixtures/a01-token-aliases/aliases.json','utf8')).aliases;
+const authored=JSON.parse(readFileSync('tokens/base-inventory.json','utf8'));
+assert.equal(aliases.length,22);assert.equal(new Set(aliases.map(pair=>pair.alias)).size,22);
+for(const {group,legacy,alias,type} of aliases){
+ assert(Object.hasOwn(inventory.root[group],legacy),'Original public legacy token remains');
+ assert.equal(inventory.root[group][alias],'var('+legacy+')','Additive alias remains a reference, not flattened');
+ assert.equal(authored.groups[group][alias].$type,type);assert.equal(authored.groups[group][legacy].$type,type);
+ assert.equal(authored.groups[group][alias].$extensions['com.cyberskill'].nativeAliasOf,legacy);
+}
 const changed = structuredClone(graph);
 const spacing = changed.declarations.find(d => d.name === '--cs-space-2' && d.context[0].selector === ':root');
 assert.ok(spacing);
@@ -29,4 +38,4 @@ assert.throws(() => projectBaseTokens(duplicate, inventory), /Ambiguous root tok
 const conditional = structuredClone(graph);
 conditional.declarations.push({...spacing, value: '99px', context: [{kind: 'at-rule', name: 'media', params: '(prefers-contrast: more)'}, {kind: 'rule', selector: ':root'}]});
 assert.deepEqual(projectBaseTokens(conditional, inventory), inventory, 'Conditional roots must never become unconditional defaults');
-console.log('PASS base export source parity: 175 typed roots, nine explicit exclusions, source mutation, missing/extra/duplicate and conditional-root guards.');
+console.log('PASS base export source parity: 197 typed roots including22 additive legacy aliases, nine explicit exclusions, source mutation, missing/extra/duplicate and conditional-root guards.');

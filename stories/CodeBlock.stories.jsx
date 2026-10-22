@@ -5,6 +5,7 @@ export default {
   component: CodeBlock,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   lang: { control: "select", options: [undefined, "en", "vi"] },
   "code": {
     "control": "text"
@@ -19,13 +20,6 @@ export default {
     "control": "boolean"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting CodeBlock. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { code: 'const wish = "ship";', language: 'js' },
 };
 

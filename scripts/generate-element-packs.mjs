@@ -8,7 +8,7 @@
  *   node scripts/generate-element-packs.mjs --check   # exit 1 if committed outputs are stale
  */
 import fs from 'node:fs';
-import { colorFromCss } from './lib/dtcg-values.mjs';
+import { tokenExportSeed } from './lib/token-export-seed.mjs';
 import { emitThemeResolver } from './lib/theme-resolver.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -389,78 +389,16 @@ function emitCss(packs) {
   let css = header;
   css += `:root {\n${decls(thoMiddle.light, ROLE_KEYS)}\n}\n\n`;
 
-  css += `/* ---- Element reach beyond accent ---- */
-[data-cs-element] {
-  --cs-color-surface-panel: color-mix(in oklab, var(--cs-accent) 4%, #FFFFFF);
-  --cs-color-surface-page: color-mix(in oklab, var(--cs-accent) 8%, #FFFDF8);
-  --cs-color-surface-raised: color-mix(in oklab, var(--cs-accent) 15%, #FBF4E9);
-  --cs-color-border-default: color-mix(in oklab, var(--cs-accent) 40%, #E7D9C6);
-}
-[data-theme="dark"] [data-cs-element], [data-cs-element][data-theme="dark"] {
-  --cs-color-surface-panel: color-mix(in oklab, var(--cs-accent) 10%, #221710);
-  --cs-color-surface-page: color-mix(in oklab, var(--cs-accent) 8%, #1a1108);
-  --cs-color-surface-raised: color-mix(in oklab, var(--cs-accent) 14%, #2b1e14);
-  --cs-color-border-default: color-mix(in oklab, var(--cs-accent) 40%, #4a3a2c);
-}
-@media (prefers-color-scheme: dark) {
-  [data-theme="system"] [data-cs-element], [data-cs-element][data-theme="system"] {
-    --cs-color-surface-panel: color-mix(in oklab, var(--cs-accent) 10%, #221710);
-    --cs-color-surface-page: color-mix(in oklab, var(--cs-accent) 8%, #1a1108);
-    --cs-color-surface-raised: color-mix(in oklab, var(--cs-accent) 14%, #2b1e14);
-    --cs-color-border-default: color-mix(in oklab, var(--cs-accent) 40%, #4a3a2c);
-  }
-}
-
-`;
-
-  for (const el of EL_ORDER) {
-    const group = packs.filter((p) => p.el === el);
-    const middle = group.find((p) => !p.variant);
-    css += `/* ---- ${EL_LABEL[el]} — soft / middle / deep ---- */\n`;
-    css += `[data-cs-element="${el}"] {\n${decls(middle.light, [...ROLE_KEYS, '--cs-color-text-accent', '--cs-color-link'])}\n}\n`;
-    for (const p of group.filter((x) => x.variant)) {
-      css += `[data-cs-element="${el}"][data-cs-variant="${p.variant}"] {\n${decls(p.light, [...ROLE_KEYS, '--cs-color-text-accent', '--cs-color-link'])}\n}\n`;
-    }
-    css += '\n';
-  }
-
-  const ctaRemap = `  --cs-component-button-primary-bg: var(--cs-accent-strong);
-  --cs-component-button-primary-fg: var(--cs-accent-on-strong);
-  --cs-color-link-hover: var(--cs-color-text-primary);`;
-
-  css += `/* ---- Dark theme CTA remaps inside element scopes ---- */
-[data-theme="dark"] [data-cs-element], [data-cs-element][data-theme="dark"] {
-${ctaRemap}
-}
-@media (prefers-color-scheme: dark) {
-  [data-theme="system"] [data-cs-element], [data-cs-element][data-theme="system"] {
-${ctaRemap}
-  }
-}
-
-/* ---- Aurora washes ---- */
+  // The scope resolver below owns all scoped public values. Retain only the
+  // unconditional root export defaults and non-token aurora presentation here.
+  css += `/* ---- Aurora washes ---- */
 .cs-aurora-wash { background-image: url("../assets/aurora-tho.webp"); background-size: cover; background-position: center; }
 [data-cs-element="hoa"] .cs-aurora-wash { background-image: url("../assets/aurora-hoa.webp"); }
 [data-cs-element="thuy"] .cs-aurora-wash { background-image: url("../assets/aurora-thuy.webp"); }
 [data-cs-element="moc"] .cs-aurora-wash { background-image: url("../assets/aurora-moc.webp"); }
 [data-cs-element="kim"] .cs-aurora-wash { background-image: url("../assets/aurora-kim.webp"); }
-
-/* ---- APCA-derived DARK elemental packs (generated; hue-locked to light) ---- */
 `;
 
-  const darkKeys = ['--cs-accent', '--cs-accent-bright', '--cs-accent-strong', '--cs-accent-on', '--cs-accent-on-strong', '--cs-accent-tint', '--cs-accent-ink', '--cs-color-text-accent', '--cs-color-link'];
-  for (const el of EL_ORDER) {
-    for (const p of packs.filter((x) => x.el === el)) {
-      const darkSel = p.variant
-        ? `[data-theme="dark"][data-cs-element="${el}"][data-cs-variant="${p.variant}"]`
-        : `[data-theme="dark"][data-cs-element="${el}"]`;
-      const sysSel = p.variant
-        ? `[data-theme="system"][data-cs-element="${el}"][data-cs-variant="${p.variant}"]`
-        : `[data-theme="system"][data-cs-element="${el}"]`;
-      css += `${darkSel} {\n${decls(p.dark, darkKeys)}\n}\n`;
-      css += `@media (prefers-color-scheme: dark) {\n  ${sysSel} {\n${decls(p.dark, darkKeys).split('\n').map((l) => (l ? '  ' + l : l)).join('\n')}\n  }\n}\n`;
-    }
-  }
   return css + emitThemeResolver(new URL('../', import.meta.url), packs, ROLE_KEYS);
 }
 
@@ -482,53 +420,6 @@ function patchJsonElements(packs) {
   return { elements, elementsDark };
 }
 
-function buildTokensJson(elements) {
-  const p = path.join(ROOT, 'tokens/tokens.json');
-  const j = JSON.parse(fs.readFileSync(p, 'utf8'));
-  j.elements = elements;
-  const tho = elements.tho;
-  if (!j.root.accent) j.root.accent = {};
-  for (const k of ROLE_KEYS) {
-    if (tho[k] != null) j.root.accent[k] = tho[k];
-  }
-  return JSON.stringify(j, null, 2) + '\n';
-}
-
-function buildTokensJs(elements) {
-  // tokens.js: `export const tokens = { ... };` + `export default tokens;`
-  const p = path.join(ROOT, 'tokens/tokens.js');
-  const raw = fs.readFileSync(p, 'utf8');
-  const m = raw.match(/export const tokens = (\{[\s\S]*\n\});/);
-  if (!m) throw new Error('tokens.js: unexpected shape');
-  const j = JSON.parse(m[1]);
-  j.elements = elements;
-  const tho = elements.tho;
-  if (!j.root.accent) j.root.accent = {};
-  for (const k of ROLE_KEYS) {
-    if (tho[k] != null) j.root.accent[k] = tho[k];
-  }
-  const ver = fs.readFileSync(path.join(ROOT, 'VERSION'), 'utf8').trim();
-  return `// CyberSkill design tokens — generated from tokens/*.css (v${ver}). Do not edit by hand.\nexport const tokens = ${JSON.stringify(j, null, 2)};\nexport default tokens;\n`;
-}
-
-function buildDtcg(elements, elementsDark) {
-  const p = path.join(ROOT, 'tokens/tokens.dtcg.json');
-  const j = JSON.parse(fs.readFileSync(p, 'utf8'));
-  const ext = j.$extensions['com.cyberskill'];
-  if (!ext.overrides) ext.overrides = {};
-  ext.overrides.elements = { ...elements };
-  ext.overrides.elementsDark = { ...elementsDark };
-  // Keep typed accent leaves in lockstep with :root / Thổ middle
-  const tho = elements.tho;
-  if (!j.accent) j.accent = {};
-  for (const k of ROLE_KEYS) {
-    if (tho[k] == null) continue;
-    if (!j.accent[k]) j.accent[k] = { $type: 'color' };
-    j.accent[k].$value = colorFromCss(tho[k]);
-    j.accent[k].$extensions = {...j.accent[k].$extensions, 'com.cyberskill': {...j.accent[k].$extensions?.['com.cyberskill'], css:tho[k]}};
-  }
-  return JSON.stringify(j, null, 2) + '\n';
-}
 
 function selfCheck(seeds, packs) {
   let fails = 0;
@@ -597,11 +488,17 @@ function main() {
   const packs = buildAllPacks(seeds);
   const css = emitCss(packs);
   const { elements, elementsDark } = patchJsonElements(packs);
+  const exports = tokenExportSeed(ROOT, css, elements, elementsDark);
+  const version = fs.readFileSync(path.join(ROOT,'VERSION'),'utf8').trim();
+  // Preserve the public metadata field, but derive its release identity from VERSION.
+  // Palette seeds remain authored inputs; $meta.version is a checked projection.
+  const projectedSeeds = {...seeds, $meta: {...seeds.$meta, version}};
   const next = {
+    'tokens/element-seeds.json': JSON.stringify(projectedSeeds,null,2)+'\n',
     'tokens/elements.css': css,
-    'tokens/tokens.json': buildTokensJson(elements),
-    'tokens/tokens.js': buildTokensJs(elements),
-    'tokens/tokens.dtcg.json': buildDtcg(elements, elementsDark),
+    'tokens/tokens.json': JSON.stringify(exports.json,null,2)+'\n',
+    'tokens/tokens.js': `// CyberSkill design tokens — generated from tokens/*.css (v${version}). Do not edit by hand.\nexport const tokens = ${JSON.stringify(exports.json,null,2)};\nexport default tokens;\n`,
+    'tokens/tokens.dtcg.json': JSON.stringify(exports.dtcg,null,2)+'\n',
   };
 
   if (check) {

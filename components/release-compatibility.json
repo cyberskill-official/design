@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "baselineVersion": "1.7.2",
+  "policy": {
+    "versioning": "semver",
+    "breakingChangesRequireMajor": true,
+    "minimumDeprecationMinorReleases": 2,
+    "minimumDeprecationDays": 90,
+    "dateBasis": "UTC calendar dates"
+  },
+  "releases": [],
+  "deprecations": [
+    {
+      "id": "segmented-role-override",
+      "contract": "SegmentedControl deprecated semantic role aliases: tablist and radiogroup; retained compatibility API",
+      "replacement": "Prefer mode=\"tabs\" or mode=\"radio\". Explicit mode takes precedence; when omitted, a valid deprecated role alias selects matching child semantics. Future removal requires the unchanged major, two published minors and 90-day notice policy.",
+      "announcedVersion": null,
+      "announcedAt": null
+    }
+  ],
+  "pendingChanges": [
+    {
+      "id": "compiled-default-entry",
+      "kind": "breaking",
+      "description": "The default package entry changes from raw JSX to compiled ESM; explicit source entry remains available."
+    },
+    {
+      "id": "apg-menu-keyboard",
+      "kind": "breaking",
+      "description": "Menu adopts the approved APG arrow-key and Tab-closes interaction contract."
+    },
+    {
+      "id": "floating-default-portal",
+      "kind": "breaking",
+      "description": "Floating panels use body placement by default, with explicit inline opt-out and automatic native form/fieldset fallback."
+    },
+    {
+      "id": "segmented-radio-default",
+      "kind": "breaking",
+      "description": "SegmentedControl defaults to radiogroup semantics for value selection; caller-rendered panels use explicit tabs mode."
+    },
+    {
+      "id": "segmented-role-alias-validation",
+      "kind": "breaking",
+      "description": "SegmentedControl retains deprecated tablist/radiogroup semantic role aliases; unsupported arbitrary role values reject instead of silently overriding or being ignored by owned group semantics."
+    }
+  ]
+}

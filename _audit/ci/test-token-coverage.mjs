@@ -4,8 +4,17 @@ import {tokenCoverage} from '../../scripts/generate-token-coverage.mjs';
 const read=path=>JSON.parse(readFileSync(new URL('../../'+path,import.meta.url),'utf8'));
 const graph=read('tokens/declarations.json'),dtcg=read('tokens/tokens.dtcg.json');
 const report=tokenCoverage(graph,dtcg);
-assert.equal(report.tokens.length,194);
-assert.equal(report.tokens.filter(t=>t.baseDtcg).length,175);
+assert.equal(report.tokens.length,216);
+assert.equal(report.tokens.filter(t=>t.baseDtcg).length,197);
+const aliases = read('_audit/ci/fixtures/a01-token-aliases/aliases.json').aliases;
+assert.equal(aliases.length, 22);
+for (const {alias, legacy, group} of aliases) {
+  const entry = report.tokens.find(token => token.name === alias);
+  const previous = report.tokens.find(token => token.name === legacy);
+  assert(entry?.baseDtcg && previous?.baseDtcg, 'Both alias and legacy public names retain typed coverage');
+  assert.equal(entry.baseDtcg.type, previous.baseDtcg.type);
+  assert.equal(dtcg[group][alias].$extensions['com.cyberskill'].nativeAliasOf, legacy);
+}
 assert.equal(report.tokens.filter(t=>t.coverage==='scoped-literal-color_not-in-base-export').length,11);
 assert.equal(report.tokens.filter(t=>t.coverage==='css-expression_requires-adapter').length,7);
 assert.equal(report.tokens.filter(t=>t.coverage==='style-metadata_not-a-portable-value').length,1);
@@ -20,4 +29,4 @@ const modified=structuredClone(graph);modified.declarations.find(d=>d.name==='--
 assert.equal(tokenCoverage(modified,dtcg).tokens.find(t=>t.name==='--cs-code-bg').coverage,'css-expression_requires-adapter','Unknown expression must not inherit a guessed color value');
 const missing=structuredClone(graph);missing.declarations=missing.declarations.filter(d=>d.name!=='--cs-color-brand-umber');
 assert.throws(()=>tokenCoverage(missing,dtcg),/Typed token absent/);
-console.log('PASS token coverage: 194 names; 175 typed base, 11 scoped literal colors, 7 expressions, 1 style identifier; scope and unknown-value guards');
+console.log('PASS token coverage: 216 names; 197 typed base including22 retained typed aliases, 11 scoped literal colors, 7 expressions, 1 style identifier; scope and unknown-value guards');

@@ -1,17 +1,22 @@
+import { useFloatingPanel } from "../_utils/floating-panel.js";
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Toolbar — horizontal action bar (APG toolbar arrows); overflow items collapse into a menubutton + popup menu. items: {label,icon,onSelect} or "-". */
-export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
+export const Toolbar = React.forwardRef(function Toolbar({ portal = true, placement, items = [], overflowAfter, label, lang, className , rootProps }, forwardedRef) {
+  const floatingRef = React.useRef(null);
   const [open, setOpen] = React.useState(false);
   const [focusIdx, setFocusIdx] = React.useState(0);
   const wrap = React.useRef(null);
   const btnRefs = React.useRef([]);
   const menuRefs = React.useRef([]);
-  const [ref, L] = useLang(lang);
-  const t = makeT("Toolbar", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(wrap, ref, forwardedRef);
+  const t = makeT("Toolbar", L, localeMessages);
   const cut = overflowAfter != null ? overflowAfter : items.length;
   const head = items.slice(0, cut);
   const tail = items.slice(cut).filter((x) => x !== "-");
@@ -24,10 +29,11 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
   });
   if (hasMore) controlMeta.push({ kind: "more" });
 
-  const { scope } = useOverlayLayer({ open: open && hasMore, kind: "dropdown", panelRef: wrap, onEscape: () => setOpen(false) });
+  const floating = useFloatingPanel({ open: open && hasMore, anchorRef: wrap, panelRef: floatingRef, portal, placement: placement ?? "bottom-end", gap: 6, getAnchor: ()=>wrap.current?.querySelector('.cs-toolbar__more > button'), getInlineParent: ()=>wrap.current?.querySelector('.cs-toolbar__more'), lang });
+  const { scope } = useOverlayLayer({ open: (open && hasMore) && floating.ready, kind: "dropdown", panelRef: floatingRef, surfaceKey: floating.surfaceKey, onEscape: () => setOpen(false) });
   React.useEffect(() => {
     if (!open) return;
-    const d = (e) => { if (wrap.current && !wrap.current.contains(e.target)) setOpen(false); };
+    const d = (e) => { if (!floating.contains(e.target)) setOpen(false); };
     document.addEventListener("mousedown", d);
     return () => document.removeEventListener("mousedown", d);
   }, [open]);
@@ -75,7 +81,7 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
   let controlI = 0;
   return (
     <overlayScopeContext.Provider value={scope}>
-    <div ref={(el) => { wrap.current = el; ref.current = el; }} className={cx("cs-toolbar", className)} role="toolbar" aria-label={label} aria-orientation="horizontal">
+    <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-toolbar", className) }, rootProps, ["role","aria-label","aria-orientation"])} role="toolbar" aria-label={label} aria-orientation="horizontal">
       {head.map((it, i) => {
         if (it === "-") return <span key={"sep-" + i} className="cs-toolbar__sep" aria-hidden="true" />;
         const ci = controlI++;
@@ -114,7 +120,7 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
               onClick={() => setOpen((o) => !o)}
             >⋯</button>
             {open ? (
-              <span className="cs-menu__list" role="menu">
+              floating.render(<span ref={floatingRef} className="cs-menu__list" role="menu">
                 {tail.map((it, i) => (
                   <button
                     key={i}
@@ -126,7 +132,7 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
                     onClick={() => { setOpen(false); it.onSelect && it.onSelect(); }}
                   >{it.label}</button>
                 ))}
-              </span>
+              </span>)
             ) : null}
           </span>
         );
@@ -134,4 +140,5 @@ export function Toolbar({ items = [], overflowAfter, label, lang, className }) {
     </div>
     </overlayScopeContext.Provider>
   );
-}
+});
+Toolbar.displayName = "Toolbar";

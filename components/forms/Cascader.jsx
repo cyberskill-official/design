@@ -1,4 +1,8 @@
+import { useFloatingPanel } from "../_utils/floating-panel.js";
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
+import { useFieldAssociation, mergeTargetProps, fieldMessages } from "../_utils/field-association.js";
+
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
 import { cx } from "../_utils/cx.js";
@@ -6,30 +10,39 @@ import { cx } from "../_utils/cx.js";
 const EMPTY_PATH = [];
 
 /** CyberSkill Cascader — column-per-level picker for hierarchies (province → district style). */
-export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder, label, "aria-labelledby": ariaLabelledBy, disabled = false, lang, className }) {
+export const Cascader = React.forwardRef(function Cascader({ portal = true, placement, controlRef, nodes = [], value = EMPTY_PATH, onChange, placeholder, label, "aria-labelledby": ariaLabelledBy, disabled = false, lang, className, id, description, error, required = false, rootProps, controlProps }, forwardedRef) {
+  const floatingRef = React.useRef(null);
+  const mergedControlRef = useComposedRefs(controlRef);
   const [requestedOpen, setOpen] = React.useState(false);
   // Disable the mounted surface immediately and discard its previous open state.
   const open = requestedOpen && !disabled;
   React.useEffect(() => { if (disabled) setOpen(false); }, [disabled]);
   const [path, setPath] = React.useState(value);
   const wrap = React.useRef(null);
-  const fieldId = React.useId();
-  const [ref, L] = useLang(lang);
-  const t = makeT("Cascader", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(wrap, ref, forwardedRef);
+  const t = makeT("Cascader", L, localeMessages);
   const ph = placeholder != null ? placeholder : t("placeholder");
+  const requiredDescription = required ? makeT("Form", L, localeMessages)("required") : undefined;
+  const control = useFieldAssociation({ id: controlProps?.id ?? id,
+    "aria-label": controlProps?.["aria-label"] ?? (controlProps?.["aria-labelledby"] || ariaLabelledBy ? undefined : label),
+    "aria-labelledby": controlProps?.["aria-labelledby"] ?? ariaLabelledBy,
+    "aria-describedby": controlProps?.["aria-describedby"], "aria-invalid": controlProps?.["aria-invalid"] },
+    { fallbackLabel: label, description, error, requiredDescription });
   // Controlled value must re-sync even when the popover stays closed (FIND-014).
   // Depend on a stable key — default `[]` must not reset path every render.
   const valueKey = Array.isArray(value) ? value.join("\0") : "";
   React.useEffect(() => { setPath(Array.isArray(value) ? value : EMPTY_PATH); }, [valueKey]);
-  const { manager, scope } = useOverlayLayer({ open, kind: "dropdown", panelRef: wrap, onEscape: () => setOpen(false) });
+  const floating = useFloatingPanel({ open: open, anchorRef: wrap, panelRef: floatingRef, portal, placement: placement ?? "bottom-start", gap: 6, getAnchor: ()=>wrap.current?.querySelector(":scope > button"), lang });
+  const { manager, scope } = useOverlayLayer({ open: (open) && floating.ready, kind: "dropdown", panelRef: floatingRef, surfaceKey: floating.surfaceKey, onEscape: () => setOpen(false) });
   React.useEffect(() => {
     if (!open) return;
-    const d = (e) => { if (wrap.current && !wrap.current.contains(e.target)) setOpen(false); };
+    const d = (e) => { if (!floating.contains(e.target)) setOpen(false); };
     const k = (e) => {
-      if (manager.topDismissible()?.panelEl !== wrap.current) return;
+      if (manager.topDismissible()?.panelEl !== floatingRef.current) return;
       if (e.defaultPrevented || e.isComposing || e.keyCode === 229) return;
-      if (!wrap.current?.contains(e.target)) return;
-      const opts = [...wrap.current.querySelectorAll('[role="option"]')];
+      if (!floating.contains(e.target)) return;
+      const opts = [...floatingRef.current.querySelectorAll('[role="option"]')];
       if (!opts.length) return;
       const active = document.activeElement;
       const idx = opts.indexOf(active);
@@ -51,7 +64,7 @@ export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
         if (path.length) {
-          const columns = [...wrap.current.querySelectorAll('[role="listbox"]')];
+          const columns = [...floatingRef.current.querySelectorAll('[role="listbox"]')];
           const column = active?.closest('[role="listbox"]');
           const depth = columns.indexOf(column);
           const parentDepth = depth > 0 ? depth - 1 : Math.max(0, path.length - 1);
@@ -84,18 +97,8 @@ export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder
   { let lv = nodes; for (const k of value) { const n = (lv || []).find((x) => x.key === k); if (!n) break; labels.push(n.label); lv = n.children; } }
   return (
     <overlayScopeContext.Provider value={scope}>
-    <div ref={(el) => { wrap.current = el; ref.current = el; }} className={cx("cs-cascader", className)}>
-      <button
-        type="button"
-        id={fieldId}
-        className="cs-treeselect__field"
-        disabled={disabled}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-label={label}
-        aria-labelledby={ariaLabelledBy}
-        onClick={() => setOpen((o) => !o)}
-        onKeyDown={(e) => {
+    <div ref={mergedNativeRef} {...mergeTargetProps({ className: cx("cs-cascader", className) }, rootProps)}>
+      <button {...mergeTargetProps({ ...control, type: "button", className: "cs-treeselect__field", disabled, "aria-haspopup": "listbox", "aria-expanded": open, onClick: () => setOpen(o => !o), onKeyDown: (e) => {
           if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;
           // Once open, the document handler owns arrows from this trigger too.
           if (open && e.key === "ArrowDown") return;
@@ -103,14 +106,13 @@ export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder
             e.preventDefault();
             setOpen(true);
           }
-        }}
-      >
+        } }, controlProps, ["id", "role", "type", "name", "value", "defaultValue", "disabled", "required", "aria-required", "aria-label", "aria-labelledby", "aria-describedby", "aria-invalid", "aria-haspopup", "aria-expanded", "aria-controls", "aria-activedescendant"])} ref={mergedControlRef} >
         <span className={labels.length ? undefined : "ph"}>{labels.length ? labels.map((label, index) => <React.Fragment key={index}>{index ? <React.Fragment>{" "}<span aria-hidden="true">/</span>{" "}</React.Fragment> : null}{label}</React.Fragment>) : ph}</span><span aria-hidden="true">▾</span>
       </button>
       {open ? (
-        <div className="cs-cascader__pop">
+        floating.render(<div ref={floatingRef} className="cs-cascader__pop">
           {cols.map((col, i) => (
-            <ul key={i} role="listbox" aria-labelledby={ariaLabelledBy || fieldId} className="cs-cascader__col">
+            <ul key={i} role="listbox" aria-labelledby={control["aria-labelledby"] || control.id} className="cs-cascader__col">
               {col.map((n) => (
                 // role="none" — the <li> wrapper must not sit between listbox and option.
                 <li key={n.key} role="none">
@@ -133,9 +135,11 @@ export function Cascader({ nodes = [], value = EMPTY_PATH, onChange, placeholder
               ))}
             </ul>
           ))}
-        </div>
+        </div>)
       ) : null}
+      {fieldMessages(control, description, error, requiredDescription)}
     </div>
     </overlayScopeContext.Provider>
   );
-}
+});
+Cascader.displayName = "Cascader";

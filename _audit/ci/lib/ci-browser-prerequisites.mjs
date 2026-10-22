@@ -8,16 +8,25 @@ import {parse} from 'yaml';
 export const requiredBrowsers = ['chromium', 'firefox', 'webkit'];
 const chromiumCommandPattern = /\b(?:npm\s+run\s+test:public-site|node\s+_audit\/ci\/(?:pixel-diff|run-gates|run-single-gate)\.mjs)\b/;
 
-export function inspectWorkflow(text, name) {
-  const workflow = parse(text), checks = [];
+export function chromiumDependentScripts(scripts) {
+ const dependent=new Set();
+ let changed=true;while(changed){changed=false;for(const [name,command]of Object.entries(scripts)){
+  if(dependent.has(name))continue;
+  if(/\bnode\s+scripts\/generate-token-modes\.mjs\b/.test(command)||[...command.matchAll(/\bnpm\s+run\s+([\w:-]+)/g)].some(match=>dependent.has(match[1]))){dependent.add(name);changed=true;}
+ }}
+ return dependent;
+}
+export function inspectWorkflow(text, name, {scripts={}}={}) {
+  const workflow = parse(text), checks = [], scriptDependencies=chromiumDependentScripts(scripts);
   for (const [jobName, job] of Object.entries(workflow.jobs || {})) {
-    const installed = new Set();
+    const installed = new Set(), conditionalInstalled=new Map();
     for (const [index, step] of (job.steps || []).entries()) {
       if (typeof step.run !== 'string') continue;
       const lines = step.run.split('\n').map(line => line.trim()).filter(line => line && !line.startsWith('#'));
       // This check supports explicit, straight-line installers, not arbitrary
       // shell execution. An installer in a conditional block is not a guarantee.
       const straightLine = !lines.some(line => /^(?:if|then|else|elif|fi|for|while|until|case|function)\b|[{}]/.test(line));
+      const available=new Set([...installed,...(conditionalInstalled.get(step.if)||[])]);
       for (const line of lines) {
         if (/\bnpm\s+run\s+test:unit\b/.test(line)) {
           const location = `${name}:${jobName}:step ${index + 1}`;
@@ -25,15 +34,17 @@ export function inspectWorkflow(text, name) {
           for (const env of [workflow.env, job.env, step.env]) {
             assert(!env || !Object.hasOwn(env, 'CS_TEST_BROWSER'), `${location}: canonical suite must not select a single engine`);
           }
-          const missing = requiredBrowsers.filter(browser => !installed.has(browser));
+          const missing = requiredBrowsers.filter(browser => !available.has(browser));
           assert.equal(missing.length, 0, `${location}: install required browsers before canonical checks: ${missing.join(', ')}`);
-          checks.push({workflow: name, job: jobName, step: index + 1, browsers: [...installed].sort()});
-        } else if (chromiumCommandPattern.test(line)) {
+          checks.push({workflow: name, job: jobName, step: index + 1, browsers: [...available].sort()});
+        } else if (chromiumCommandPattern.test(line)||/\bnode\s+scripts\/generate-token-modes\.mjs\b/.test(line)||[...line.matchAll(/\bnpm\s+run\s+([\w:-]+)/g)].some(match=>scriptDependencies.has(match[1]))) {
           const location = `${name}:${jobName}:step ${index + 1}`;
-          assert(installed.has('chromium'), `${location}: install required browsers before Chromium checks: chromium`);
+          assert(available.has('chromium'), `${location}: install required browsers before Chromium checks: chromium`);
         }
-        if (!Object.hasOwn(step, 'if') && !step['continue-on-error'] && straightLine && /^npx playwright install(?: --with-deps)?(?: (?:chromium|firefox|webkit))+$/.test(line)) {
-          for (const browser of line.split(' ').filter(token => requiredBrowsers.includes(token))) installed.add(browser);
+        if ((!Object.hasOwn(step, 'if')||(typeof step.if==='string'&&step.if.trim())) && !step['continue-on-error'] && straightLine && /^npx(?: --no-install)? playwright install(?: --with-deps)?(?: (?:chromium|firefox|webkit))+$/.test(line)) {
+          const target=Object.hasOwn(step,'if')?(conditionalInstalled.get(step.if)||new Set()):installed;
+          if(Object.hasOwn(step,'if'))conditionalInstalled.set(step.if,target);
+          for (const browser of line.split(' ').filter(token => requiredBrowsers.includes(token))) target.add(browser);
         }
       }
     }
@@ -43,7 +54,8 @@ export function inspectWorkflow(text, name) {
 
 export function inspectRepository(root) {
   const directory = join(root, '.github/workflows');
-  const checks = readdirSync(directory).filter(name => /\.ya?ml$/.test(name)).sort().flatMap(name => inspectWorkflow(readFileSync(join(directory, name), 'utf8'), name));
+  const scripts=JSON.parse(readFileSync(join(root,'package.json'),'utf8')).scripts;
+  const checks = readdirSync(directory).filter(name => /\.ya?ml$/.test(name)).sort().flatMap(name => inspectWorkflow(readFileSync(join(directory, name), 'utf8'), name,{scripts}));
   // Guard the canonical entrypoint against accidental removal or aliasing.
   for (const [workflow, job] of [['design-system-gates.yml', 'unit-tests']]) {
     assert(checks.some(check => check.workflow === workflow && check.job === job), `${workflow}:${job}: missing recognized canonical entrypoint`);

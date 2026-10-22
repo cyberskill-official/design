@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 /**
  * FIND-073 / FIND-118 / FIND-120 — directory-driven EN·VI docs parity.
- * Enumerates docs/*.md (not a hardcoded allowlist). Optional EN_ONLY exemptions
+ * Enumerates current docs/*.md guides plus recursive Markdown decision source pairs.
+ * Browser tracking remains the top-level guide collection. Optional EN_ONLY exemptions
  * must be named + commented. Also asserts heading-count parity (FIND-121).
  */
 import { readdirSync, readFileSync, existsSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {documentationParityScope,listMarkdownFiles,pairProblems} from './lib/docs-parity.mjs';
 
 const root = join(fileURLToPath(new URL('.', import.meta.url)), '../..');
 
@@ -25,22 +27,16 @@ const BLACKLIST = [
   /not\s+a\s+fourth\s+axis/i,
   /Theme\s*×\s*Element\s*×\s*Language(?!\s*×\s*Style)/,
 ];
-const STUB_RE = /translate\s+me|stub\s+only|chưa\s+dịch|pending\s+translation|^\s*#?\s*TODO\b[\s:]*$/im;
 
-function listMd(dir) {
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir)
-    .filter((f) => f.endsWith('.md'))
-    .sort();
-}
 
-function headingCount(text) {
-  return (text.match(/^#{1,6}\s+\S/gm) || []).length;
-}
+function listMd(dir) { return listMarkdownFiles(dir); }
+
 
 const enDir = join(root, 'docs');
 const viDir = join(root, 'docs/vi');
-const enFiles = listMd(enDir).filter((f) => !EN_ONLY.has(f));
+const scope = documentationParityScope(root);
+const publicFiles = scope.guides.filter((f) => !EN_ONLY.has(f));
+const enFiles = scope.source.filter((f) => !EN_ONLY.has(f));
 const problems = [];
 
 for (const name of enFiles) {
@@ -52,16 +48,10 @@ for (const name of enFiles) {
     continue;
   }
   const vi = readFileSync(viPath, 'utf8');
-  const enLen = en.trim().length;
-  const viLen = vi.trim().length;
-  const minLen = Math.max(80, Math.floor(enLen * 0.4));
-  if (viLen < minLen) problems.push(`docs/vi/${name}: stub/too short (${viLen}; need ≥${minLen})`);
-  if (STUB_RE.test(vi)) problems.push(`docs/vi/${name}: stub placeholder phrase`);
-  const enH = headingCount(en);
-  const viH = headingCount(vi);
-  if (enH !== viH) {
-    problems.push(`docs/vi/${name}: heading-count drift EN=${enH} VI=${viH}`);
-  }
+  problems.push(...pairProblems(en, vi, {label:`docs/vi/${name}`}));
+  // Preserve the current-guide stale-language contract. Historical decision
+  // records are translated faithfully; their dated source is not rewritten.
+  if (name.startsWith('decisions/')) continue;
   for (const [label, text] of [
     [`docs/${name}`, en],
     [`docs/vi/${name}`, vi],
@@ -75,7 +65,7 @@ for (const name of enFiles) {
 }
 
 // VI orphans (file in vi/ with no EN twin)
-for (const name of listMd(viDir)) {
+for (const name of scope.vietnamese) {
   if (!existsSync(join(enDir, name)) && !EN_ONLY.has(name)) {
     problems.push(`docs/vi/${name}: orphan (no docs/${name})`);
   }
@@ -104,4 +94,4 @@ if (problems.length) {
   for (const p of problems.slice(0, 40)) console.error('  ·', p);
   process.exit(1);
 }
-console.log('PASS test-docs-lang-parity', { tracked: enFiles.length, enOnly: EN_ONLY.size });
+console.log('PASS test-docs-lang-parity', { tracked: publicFiles.length, sourcePairs: enFiles.length, decisionPairs: scope.decisions.length, enOnly: EN_ONLY.size, browserPublication: 'unchanged; docs-tracked.json contains only top-level guides' });

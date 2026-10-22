@@ -1,5 +1,7 @@
 # Tiêu thụ & nâng cấp CyberSkill Design System
 
+**Checkout nguồn:** VERSION **<!-- cs-source-version:checkout -->1.7.2<!-- /cs-source-version -->** là định danh nguồn cục bộ, không xác nhận phiên bản có trên registry. Với bản ứng viên chưa công bố, kiểm chứng tarball gói cục bộ hoặc checkout nguồn đã rà soát. Lệnh registry và inventory sibling bên dưới chỉ bản ổn định 1.7.2 đã công bố, không tự đổi khi chuẩn bị bản phát hành. Chuẩn bị không cấp quyền công bố.
+
 Cách mọi project — do người hoặc agent điều khiển — áp dụng design system HTML-first này, và cách nhận update an toàn. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 **Tên package:** `@cyberskill/design` (xem `package.json`). Không coi `@cyberskill/react` lịch sử là đường cài cho monolith này.
@@ -31,20 +33,20 @@ Ngôn ngữ của chuỗi UI có sẵn được xác định theo thứ tự: pr
 
 | Consumer | Bắt đầu tại | Đường dùng và giới hạn xác minh | Không làm |
 |---|---|---|---|
-| **Claude Code** | `SKILL.md` → `README.md` → `styles.css` + bundler `@cyberskill/design` / legacy `_esm/cs.mjs` / `_ds_bundle.js` (resolve theo prefix) | Rules, components và prompts của repo; xác minh việc nạp skill và một tác vụ đại diện trong host | Hardcode hậu tố bundle; coi Storybook host là hợp đồng portable; import `_esm/cs.mjs` hoặc `@cyberskill/design/legacy` vào bundler Next/SSR |
-| **Google Stitch** | `DESIGN.md` → `llms.txt` → `tokens/tokens.dtcg.json` | Doctrine, tokens và HTML tĩnh `.cs-*`; xác minh riêng đầu ra do tool tạo | Coi `templates/**/*.dc.html` là SoT — không có tweaks / `__dcSetProps` / DC compiler |
-| **Claude Design** | Full repo + DC compiler khả dụng | Source authoring DC cho tweaks, `x-import` và điều khiển ngôn ngữ đã khai báo; xác minh compiler khả dụng, preview và từng export cần dùng | Bỏ qua vòng sync trong `docs/sync.md` |
-| **npm** | `@cyberskill/design` | Phiên bản repo và việc xuất bản registry là hai trạng thái riêng: auto-bump → tag validation → authorized dispatch → xuất bản đã xác minh; grant tại `docs/consumer-grant.md` | Coi cài từ registry như license công khai (vẫn UNLICENSED) |
+| **Bảo trì repository** | `SKILL.md` → `CONTRIBUTING.md` → doctrine và check liên quan | Hợp đồng source và kiểm chứng toàn repository | Coi check pass là chấp nhận của con người |
+| **HTML thuần / công cụ open-spec** | `DESIGN.md` → `llms.txt` → token và `.cs-*` | HTML/CSS tiêu chuẩn; kiểm chứng output của công cụ consumer | Đưa `.dc.html` vào công cụ không hiểu ngữ pháp của nó |
+| **Template trong browser** | `templates/<slug>/<Name>.dc.html` → [ngữ pháp template](template-grammar.md) | Serve repository qua HTTP: `support.js` đi kèm diễn giải template và cung cấp `__dcSetProps`; toolbar tài liệu xuất PDF/DOCX | Cho rằng mọi content slot là runtime prop ghi được |
+| **Authoring/export qua host** | Template browser cùng kiểm tra capability của host | Tweak panel, PPTX (`gen_pptx`), inline một file (`super_inline_html`) và `check_design_system` là capability bên ngoài | Cho rằng các tên này là lệnh repository đã cài |
+| **npm** | `@cyberskill/design` | Sửa version được cho phép → kiểm tra tag → dispatch được cho phép → xác minh publication; grant tại `docs/consumer-grant.md` | Coi cài registry là giấy phép công khai (vẫn UNLICENSED) |
 
-**Quy tắc DC cho Stitch:** Stitch (và mọi tool non-DC) **không** được tiêu thụ `*.dc.html` như nguồn chân lý. Dùng pattern export tĩnh, `templates/kitchen-sink.html`, `examples/static-hello/`, và class `.cs-*` từ `styles.css`.
-
-**Tín hiệu release:** **theo `VERSION`** (auto-bump trên `main`; không CHANGELOG). Coi **git tip SHA** là chân lý kỹ thuật; đọc điểm nổi bật sản phẩm curated trong `docs/release-notes.md`.
+**Ranh giới runtime:** `.dc.html` là source cho interpreter browser đi kèm. Công cụ HTML thuần dùng `.cs-*` hoặc bản render đã kiểm chứng; cần hỗ trợ ngữ pháp trước khi sửa DC directive.
+**Tín hiệu release:** **theo `VERSION`** (chỉnh sửa release được cho phép; không CHANGELOG). Coi **git tip SHA** là chân lý kỹ thuật; đọc điểm nổi bật sản phẩm curated trong `docs/release-notes.md`.
 
 ## Đường nhanh cho AI agent (DC-capable authoring, hoặc điều khiển một agent)
 
-**Bạn nhận:** `styles.css` (token CSS công khai + class `.cs-*` + bề mặt Liquid Glass, `@import` `tokens/` + `base/`) · `_ds_bundle.js` (React component đã compile, không cần build) · `_esm/react.mjs` (entry React bundler-native — React là peerDependency; mặc định `exports["."]`) · `_esm/cs.mjs` (browser / no-build legacy qua `exports["./legacy"]`) · `_ds_manifest.json` (inventory máy đọc được) · mỗi component `Name.d.ts` (API) + `Name.prompt.md` (brief dùng) · `tokens/tokens.dtcg.json` (DTCG 2025.10) + `tokens.json`/`tokens.js`.
+**Bạn nhận:** `styles.css` (token CSS công khai + class `.cs-*` + bề mặt Liquid Glass, `@import` `tokens/` + `base/`) · `_ds_bundle.js` (React component đã compile, không cần build) · `dist/esm/_esm/react.mjs` (ESM đã biên dịch mặc định, source map và peer React) · `_esm/react.mjs` (JSX nguồn qua `@cyberskill/design/source`) · `_esm/cs.mjs` (browser / no-build legacy qua `exports["./legacy"]`) · `_ds_manifest.json` (inventory máy đọc được) · mỗi component `Name.d.ts` (API) + `Name.prompt.md` (brief dùng) · `tokens/tokens.dtcg.json` (DTCG 2025.10) + `tokens.json`/`tokens.js`.
 
-**Checkout repo** — clone hoặc copy cả cây; mọi thứ là static đường dẫn tương đối. Điểm vào: Storybook trên host site (`/` / `npm run storybook`) · `guidelines/atomic-view.html` (mọi component live, portable) · `templates/<slug>/` (điểm bắt đầu copy được — DC khi có compiler; kitchen-sink / `.cs-*` cho Stitch / static). Đọc `SKILL.md` trước khi author bất kỳ thứ gì on-brand; reader Stitch bắt đầu tại `DESIGN.md`. Bản đồ sâu hơn ở `llms.txt` (inventory) và file này (hướng dẫn adopt + upgrade đầy đủ bên dưới).
+**Checkout repo** — clone hoặc copy cả cây; mọi thứ là static đường dẫn tương đối. Điểm vào: Storybook trên host site (`/` / `npm run storybook`) · `guidelines/atomic-view.html` (mọi component live, portable) · `templates/<slug>/` (điểm bắt đầu copy được — diễn giải bằng `support.js` đi kèm; kitchen-sink / `.cs-*` cho HTML thuần). Đọc `SKILL.md` trước khi author bất kỳ thứ gì on-brand; reader Stitch bắt đầu tại `DESIGN.md`. Bản đồ sâu hơn ở `llms.txt` (inventory) và file này (hướng dẫn adopt + upgrade đầy đủ bên dưới).
 
 **Sau import — chạy kiểm tra.** Mở `_audit/run.html` và để mọi fast gate chạy xong. Một kết quả pass chỉ bao phủ phạm vi gate đã triển khai cùng source/môi trường được kiểm tra. Đọc kết quả skipped, N/A, advisory và waiver; sau đó chạy các kiểm tra consumer, tương tác và export phù hợp với sản phẩm. Accessibility đầy đủ, chất lượng hình ảnh và hành vi host cần bằng chứng riêng cùng đánh giá của con người. Chỉ full-clone — `_audit/` không nằm trong tarball npm.
 
@@ -77,7 +79,7 @@ import { Button, TextField } from "@cyberskill/design";
 import "@cyberskill/design/styles.css";
 ```
 
-Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng source). Entry mặc định (`_esm/react.mjs`) là **barrel `"use client"`** — Server Component App Router có thể `import { Button } from "@cyberskill/design"` mà không cần shim client từng import. React và react-dom là **peerDependencies** — app của bạn cung cấp. Types publish dùng `export type *` (**TypeScript 5.0+**). **Không** import `_esm/cs.mjs` (hay `@cyberskill/design/legacy`) vào bundler SSR; đường browser đó nạp global React còn thiếu từ `_vendor/react/` local trước, chỉ fallback sang CDN đã pin khi tải local lỗi, rồi side-load `_ds_bundle.js`.
+Entry mặc định (`dist/esm/_esm/react.mjs`) là ESM đã biên dịch với source map trỏ đến nguồn thực; không cần biên dịch JSX của package. Entry giữ ranh giới **`"use client"`** — Server Component App Router có thể `import { Button } from "@cyberskill/design"` mà không cần shim client từng import. React và react-dom là **peerDependencies** — app của bạn cung cấp. Types publish dùng `export type *` (**TypeScript 5.0+**). **Không** import `_esm/cs.mjs` (hay `@cyberskill/design/legacy`) vào bundler SSR; đường browser đó nạp global React còn thiếu từ `_vendor/react/` local trước, chỉ fallback sang CDN đã pin khi tải local lỗi, rồi side-load `_ds_bundle.js`.
 
 **Browser / no-build:** import `@cyberskill/design/legacy` (`_esm/cs.mjs`) hoặc tiếp tục dùng đường cây tĩnh bên dưới. Tarball đã publish là **cả cây portable** (styles, tokens, components, templates, guidelines, docs, UI kits) — không phải subset “chỉ lib” tối thiểu. Tooling chỉ-host (Storybook, `_audit/`) không nằm trong `files[]`.
 
@@ -110,7 +112,9 @@ Thêm `transpilePackages: ["@cyberskill/design"]` trong Next.js (JSX ship dạng
 ```
 Helper `ds-base.js` của template cũng đợi cả hai global runtime trước khi nạp bundle, rồi expose `window.CyberSkillDS`. Ví dụ script thường là đường browser; consumer bundler dùng entry package ở 2b.
 
-**2b. React bundler-native (Next / Vite / SSR) — entry package mặc định.** `import { Button, TextField } from "@cyberskill/design"` resolve tới `_esm/react.mjs` (cũng export như `@cyberskill/design/react`). File generated bắt đầu bằng `"use client"` để consumer App Router / RSC import component tương tác trực tiếp. Re-export mọi component từ JSX source với **React là peer external** — không CDN, không side-load `_ds_bundle.js`. Bundler của bạn phải transpile package (Next: `transpilePackages: ["@cyberskill/design"]`). Vẫn tự link styles (`styles.min.css` khuyến nghị cho sheet static production). Regenerated bằng `npm run build:react-entry`; parity được gate bởi `package-exports-integrity` + `test:react-entry`.
+**2b. React ESM đã biên dịch (Next / Vite / Node SSR) — entry package mặc định.** `import { Button, TextField } from "@cyberskill/design"` resolve tới `dist/esm/_esm/react.mjs` (cũng là `@cyberskill/design/react`). Các entry và chunk dùng chung giữ `"use client"`; React và react-dom vẫn là peer external. Import gốc và import riêng như `@cyberskill/design/components/button/Button.jsx` dùng cùng đồ thị module tách chunk, giữ nguyên định danh thành phần và context. Tên import `.jsx` được giữ để tương thích nhưng trỏ tới `.mjs` đã biên dịch. Source map liên kết chứa nguồn thực. Vẫn tự link CSS. CommonJS không thuộc hợp đồng entry được hỗ trợ.
+
+**Quy trình dùng nguồn:** `@cyberskill/design/source` giữ barrel `_esm/react.mjs` với JSX nguồn; `@cyberskill/design/source/components/button/Button.jsx` chọn nguồn thành phần. Các đường nguồn này cần công cụ hiểu JSX (với Next, cấu hình `transpilePackages` khi dùng đường nguồn này). Dùng một họ entry trong cùng cây thành phần để giữ context dùng chung. Maintainer chạy `npm run build:react-entry && npm run build:compiled`; `node scripts/build-compiled-esm.mjs --check` kiểm tra toàn bộ đầu ra, từ chối tệp cũ, thiếu hoặc thừa và không ghi tệp.
 
 **2c. ESM browser legacy — một import, không build.** `import { Button, TextField } from "@cyberskill/design/legacy"` (hoặc `"<path>/_esm/cs.mjs"`) — module kiểm tra `window.React` và `window.ReactDOM` riêng, nạp global còn thiếu từ file production local trong `_vendor/react/` trước, và chỉ fallback sang CDN **umd-react@19.2.8** pin SRI khi tải local lỗi, side-load `_ds_bundle.js` một lần, resolve namespace theo prefix, và re-export mọi component (`_audit/esm-smoke-test.html` giữ danh sách export khóa với manifest). Nếu copy subtree, giữ `_vendor/react/` cùng các license được cung cấp, `_esm/`, `_ds_bundle.js`, CSS và các đường token/base/font được tham chiếu; giữ notice áp dụng. Fallback bên ngoài không phải bảo đảm offline. `npm run test:subtree-consume` kiểm tra bản copy đã khai báo và ví dụ script thường EN/VI với mọi request bên ngoài bị chặn. Vẫn tự link `styles.css`. **Không dùng cho Next/SSR.** App bundler vẫn cung cấp peer `react` / `react-dom` (`^18 || ^19`).
 
@@ -125,6 +129,8 @@ Helper của template đợi React và ReactDOM sẵn sàng rồi mới tải bu
 **Font, kể cả mặt chữ display.** Cả ba họ chữ brand đều self-host trong `fonts/` và khai báo ở `tokens/fonts.css` (được `styles.css` `@import`): **Be Vietnam Pro** (`--cs-font-family-ui`), **JetBrains Mono** (`--cs-font-family-mono`), và **Space Grotesk** (`--cs-font-family-display`, variable 300–700, có subset tiếng Việt). Mặt chữ display là **opt-in** — không thứ gì trong DS trỏ vào nó. Sản phẩm muốn mặt chữ tiêu đề thêm `class="cs-display-face"` (hoặc đặt `--cs-heading-family: var(--cs-font-family-display)`) trên scope; các utility heading theo sau, body copy vẫn ở mặt chữ UI.
 
 Consumer bỏ qua `styles.css` để tự kiểm soát font loading (`cyberskill.world` / Lumi import riêng các sheet token + base và giữ chiến lược `font-display: optional` của mình) có thể chuyển từ `brand-fonts.css` tự chế sang package: hoặc `@import "@cyberskill/design/tokens/fonts.css"` để lấy face đóng gói, hoặc giữ block `@font-face` cục bộ và trỏ `--cs-heading-family` vào `var(--cs-font-family-display)` để **role** đến từ DS ngay cả khi **byte** vẫn phục vụ cục bộ. Cách nào thì mặt chữ display cũng thôi là ngoại lệ riêng của một sản phẩm. Space Grotesk không có weight 800, nên `--cs-heading-weight-strong` (800) dưới `.cs-display-face` clamp về 700 trong Space Grotesk — CSS không nhảy sang Be Vietnam Pro vì thiếu weight.
+
+`image-slot.js` là helper custom element trong browser, copy theo URL tương đối (không phải package subpath export). Nó đọc `.image-slots.state.json` cạnh template. Lưu upload/crop cần host cung cấp `window.omelette.writeFile`; server static không cung cấp bridge đó. Xem phần ảnh thật trong [conventions](conventions.md).
 
 ## Bốn trục
 
@@ -162,7 +168,7 @@ Sản phẩm portfolio / sibling còn pin `@cyberskill/design` cũ (hoặc subtr
 | **Landing** | Kit website: dùng `.cs-skip` + `--cs-scroll-padding-block-start` |
 | **Strategem** | Kit status hub: scroll-padding sticky bar |
 
-Checklist: cài `@cyberskill/design@1.7.2` (hoặc `VERSION` hiện tại) → smoke Tab skip → `#main` → ghi pin trong lockfile consumer.
+Checklist: cài `@cyberskill/design@1.7.2` (gói ổn định đã công bố; bản ứng viên nguồn dùng tarball cục bộ đã rà soát) → smoke Tab skip → `#main` → ghi pin trong lockfile consumer.
 
 **One-liner sẵn PR (chỉ sửa trong repo consumer):**
 
@@ -219,7 +225,7 @@ Khi hydrate nhiều root độc lập trên cùng trang, chọn `identifierPrefi
 cho mỗi root và dùng đúng giá trị đó ở cả server lẫn client:
 
 ```jsx
-// Server, sau khi transpile JSX của package theo hướng dẫn ở trên.
+// Server (Node ESM trực tiếp; mã package đã được biên dịch).
 const markup = renderToString(<App />, { identifierPrefix: 'account-' });
 // Client dùng cùng cây component và dữ liệu ban đầu.
 hydrateRoot(document.getElementById('account'), <App />, {
@@ -291,7 +297,16 @@ phông và ảnh màn hình mẫu chưa yêu cầu. Dung lượng tệp xuất v
 hai phép đo khác nhau. Máy chủ loopback gửi dữ liệu không nén và tắt cache;
 `gzipBytes` là ước lượng gzip riêng từng body, không phải lưu lượng mạng đo được.
 WOFF2 đã nén có thể lớn hơn khi gzip. Phép đo không bao gồm header, chi phí giao
-thức, độ trễ, CPU, bộ nhớ, lượt truy cập lại hay các trạng thái chưa được mở.
+thức, hồ sơ CPU/bộ nhớ, lượt truy cập lại hay các trạng thái chưa được mở.
+
+Mỗi đường dẫn cũng ghi `browserTimings`: các mốc navigation theo đồng hồ trình
+duyệt, thời điểm DOM/phông của màn hình mẫu sẵn sàng rồi hai cơ hội dựng frame,
+các quan sát FCP/LCP và long task nếu có, cùng một mẫu từ click native đến cơ hội
+dựng frame kế tiếp sau DOM commit mong đợi cho hai đường dẫn React. Chỉ số observer
+không được hỗ trợ hoặc chưa quan sát được giữ `null`; đường dẫn static không có
+thời lượng tương tác giả. Báo cáo còn băm mã instrumentation. Đây là từng mẫu cold
+trên loopback, không phải phân vị, INP, thời gian hiển thị phần cứng, ngưỡng độ trễ
+hay bằng chứng chấp nhận thiết bị thực.
 
 Màn hình mẫu bổ sung cho kiểm thử SSR/hydration. Nó không thay thế pilot sản phẩm,
 không chứng minh việc áp dụng, không đặt ngân sách hiệu năng và không cho phép
@@ -328,3 +343,25 @@ dòng danh sách tương tác, ảnh xem trước nhỏ, vùng context menu và 
 hoạt overlay có thể nhận focus ở cấp trực tiếp. `npm run test:touch-supplemental`
 và `npm run test:trigger-touch` kiểm tra các bề mặt tuỳ chọn và fallback này theo
 hai ngôn ngữ, hai mật độ và hai theme.
+
+## CSS chỉ chứa biến
+
+Import `@cyberskill/design/tokens.css` khi ứng dụng tự quản lý reset, typography, kiểu liên kết và class component. Entry này chứa các khai báo custom property có scope từ đồ thị stylesheet token và base chuẩn, bao gồm phụ thuộc riêng tư của bộ phân giải theme, element, density và contrast. Nó không nạp font hay áp dụng khai báo style thông thường, nền aurora, reset hoặc style component `.cs-*`. Hãy nạp riêng các font đã chọn. Entry `styles.css` thông thường vẫn là stylesheet đầy đủ của design system.
+
+`tokens/variables.css` được sinh bằng `npm run build:token-css`; `node scripts/generate-token-css-entry.mjs --check` từ chối đầu ra cũ. Kiểm tra trình duyệt so sánh toàn bộ 256 tổ hợp mode được hỗ trợ với stylesheet đầy đủ, đồng thời xác nhận giao diện host và yêu cầu mạng không thay đổi. Entry CSS được sinh cho từng component được hỗ trợ tại `@cyberskill/design/styles/components/<Name>.css`; xem [entry CSS cho component](component-css.md) để biết bao đóng phụ thuộc, các trường hợp dùng CSS đầy đủ và helper hợp nhất đúng thứ tự. Việc tự chọn một tập sheet bất kỳ vẫn chưa được hỗ trợ. `components/css-index.json` tiếp tục là chỉ mục phụ thuộc nguồn.
+
+Consumer ghi đè thông điệp UI và thêm namespace qua [LocaleProvider và useMessages](locale-messages.md). API thông điệp theo scope giữ fallback định dạng ngày/số hiện có và không tự bổ sung hỗ trợ RTL.
+
+`_ds_bundle.js` legacy giữ namespace và ranh giới lỗi khởi tạo của từng module khi thu gọn khoảng trắng. `_ds_bundle.js.map` đi kèm ánh xạ qua bước viết lại import/export và biên dịch JSX về đúng mã nguồn gốc; tên định danh được giữ. Phân phối map liền kề khi cần gỡ lỗi entry này. Graph ESM đã biên dịch có source map riêng.
+
+## Dữ liệu mode native tường minh
+
+`tokens/native/CSModes.swift`, `CSModes.kt` và `cs_modes.dart` bổ sung pack dữ liệu có kiểu bên cạnh các hằng số phẳng được giữ nguyên. Resolver yêu cầu chọn tường minh theme, color-scheme, element, variant, density, contrast và style, đồng thời từ chối tổ hợp ngoài inventory 256 mode chuẩn. API giữ color space, kênh số, đơn vị và lý do bỏ qua; caller tự chuyển đổi sang UI nền tảng và chọn theo OS. Đây là API dữ liệu, không tự thích nghi giao diện native. Swift có bằng chứng biên dịch/thực thi cục bộ; đối chiếu nguồn Kotlin/Dart và cấu hình biên dịch hosted khác với nghiệm thu nền tảng đã thực thi. Workflow native-validation nay bao gồm main và pull request liên quan; sửa workflow cục bộ không chứng minh đã chạy hosted.
+
+Để dùng hợp đồng ghi đè theo cascade layer tường minh, import `@cyberskill/design/styles.layered.css` thay cho stylesheet mặc định. Xem [CSS theo layer](layered-css.md) về thứ tự ghi đè thường và các quy tắc important an toàn được giữ nguyên. Không tải đồng thời hai entry; mặc định hiện tại không đổi.
+
+`npm run measure:consumers` luôn lưu báo cáo consumer đã pack tại `test-results/consumer-costs.json`; `-- --output PATH` chọn đường dẫn khác. Báo cáo gắn hash tarball, lockfile, script đo, phiên bản trình duyệt/công cụ và body tài nguyên, đồng thời giữ thời gian đã quan sát. Một mẫu loopback không phải kết quả thiết bị, percentile hay ngân sách độ trễ.
+
+Chấm Carousel giữ dấu hiển thị 9px bên trong các vùng bấm riêng biệt 24px với con trỏ chính xác và 44px với con trỏ thô. Hàng chấm tự xuống dòng khi hẹp; chế độ forced-colors dùng viền đôi theo màu hệ thống để biểu thị lựa chọn. Tree ghép chữ chính với nền nhấn theo theme; kiểm tra hồi quy bao phủ toàn bộ 256 tổ hợp mode.
+
+Bộ sinh ESM đã biên dịch cũng cập nhật riêng namespace công bố `dist/esm/` đã được rà soát từ tập đầu ra chính xác, gồm source map liên kết và nguồn gốc build. Kiểm tra chỉ đọc từ chối danh sách chunk cũ; tệp bất kỳ trong thư mục không tự có quyền công bố. Các mục chính sách công khai khác tiếp tục được khai báo rõ ràng.

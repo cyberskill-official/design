@@ -1,0 +1,78 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "bod-memo",
+  "slots": [
+    {
+      "id": "memoTitleEn",
+      "type": "text",
+      "label": "Memo Title En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "memoTitleVi",
+      "type": "text",
+      "label": "Memo Title Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "recipientEn",
+      "type": "text",
+      "label": "Recipient En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "recipientVi",
+      "type": "text",
+      "label": "Recipient Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "sender",
+      "type": "text",
+      "label": "Sender",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "subjectEn",
+      "type": "text",
+      "label": "Subject En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "subjectVi",
+      "type": "text",
+      "label": "Subject Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "memoDateEn",
+      "type": "text",
+      "label": "Memo date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "memoDateVi",
+      "type": "text",
+      "label": "Memo date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

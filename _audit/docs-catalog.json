@@ -1,36 +1,316 @@
 {
   "generatedBy": "hand-maintained inventory for Storybook Docs + viewer coverage",
   "entrance": [
-    { "path": "README.md", "story": "Docs/Start/README", "labelEn": "README", "labelVi": "README (EN)" },
-    { "path": "SKILL.md", "story": "Docs/Start/SKILL", "labelEn": "SKILL", "labelVi": "SKILL (EN)" },
-    { "path": "llms.txt", "story": "Docs/Start/llms.txt", "labelEn": "llms.txt", "labelVi": "llms.txt (EN)" },
-    { "path": "CONTRIBUTING.md", "story": "Docs/Start/Contributing", "labelEn": "Contributing", "labelVi": "Contributing (EN)" }
+    {
+      "path": "README.md",
+      "story": "Docs/Start/README",
+      "labelEn": "README",
+      "labelVi": "README",
+      "pathVi": "docs/vi/entrypoints/README.md"
+    },
+    {
+      "path": "SKILL.md",
+      "story": "Docs/Start/SKILL",
+      "labelEn": "SKILL",
+      "labelVi": "SKILL",
+      "pathVi": "docs/vi/entrypoints/SKILL.md"
+    },
+    {
+      "path": "llms.txt",
+      "story": "Docs/Start/llms.txt",
+      "labelEn": "llms.txt",
+      "labelVi": "llms.txt",
+      "pathVi": "docs/vi/entrypoints/llms.txt"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "story": "Docs/Start/Contributing",
+      "labelEn": "Contributing",
+      "labelVi": "Contributing",
+      "pathVi": "docs/vi/entrypoints/CONTRIBUTING.md"
+    },
+    {
+      "path": "DESIGN.md",
+      "story": "Docs/Start/DESIGN",
+      "labelEn": "DESIGN (generated spec)",
+      "labelVi": "DESIGN (đặc tả được sinh)",
+      "pathVi": "docs/vi/entrypoints/DESIGN.md"
+    }
   ],
   "curated": [
-    { "story": "Docs/Start/Introduction", "mdx": "stories/Docs/Introduction.mdx" },
-    { "story": "Docs/Start/The Four Axes", "mdx": "stories/Docs/TheFourAxes.mdx" },
-    { "story": "Docs/Start/Voice & Language", "mdx": "stories/Docs/VoiceAndLanguage.mdx" },
-    { "story": "Docs/Start/Library" }
+    {
+      "story": "Docs/Start/Library",
+      "sortOrder": 3
+    }
   ],
   "pages": [
-    { "path": "docs/consuming.md", "story": "Docs/Guides/Consuming", "mdx": "stories/Docs/Consuming.mdx", "labelEn": "Consuming & upgrading", "labelVi": "Tiêu thụ & nâng cấp" },
-    { "path": "docs/consumer-grant.md", "story": "Docs/Guides/Consumer grant", "labelEn": "Consumer grant (npm · UNLICENSED)", "labelVi": "Grant consumer (npm · UNLICENSED)" },
-    { "path": "docs/deploy.md", "story": "Docs/Guides/Deploy", "mdx": "stories/Docs/Deploy.mdx", "labelEn": "Deploy (Vercel/VPS)", "labelVi": "Deploy (Vercel/VPS)" },
-    { "path": "docs/template-schema-v2.md", "story": "Docs/Guides/Schema", "mdx": "stories/Docs/Schema.mdx", "labelEn": "Template content-schema v2", "labelVi": "Template schema v2" },
-    { "path": "docs/conventions.md", "story": "Docs/Guides/Conventions", "mdx": "stories/Docs/Conventions.mdx", "labelEn": "Conventions", "labelVi": "Conventions" },
-    { "path": "docs/release-notes.md", "story": "Release Notes/Overview", "mdx": "stories/ReleaseNotes/ReleaseNotes.mdx", "labelEn": "Release Notes", "labelVi": "Ghi chú phát hành" },
-    { "path": "docs/storybook.md", "story": "Docs/Guides/Storybook", "labelEn": "Storybook (product at /)", "labelVi": "Storybook (sản phẩm tại /)" },
-    { "path": "docs/live-hub.md", "story": "Docs/Guides/Live hub", "labelEn": "Live hub (Storybook at /)", "labelVi": "Live hub (Storybook tại /)" },
-    { "path": "docs/hr-suite-sources.md", "story": "Docs/Guides/HR Suite sources", "labelEn": "HR Suite sources (DOCX ↔ templates)", "labelVi": "Nguồn HR Suite (DOCX ↔ templates)" },
-    { "path": "docs/design-styles.md", "story": "Docs/Guides/Design styles", "mdx": "stories/Docs/DesignStyles.mdx", "labelEn": "Design styles", "labelVi": "Phong cách" },
-    { "path": "docs/benchmark-rubric.md", "story": "Docs/Guides/Benchmark rubric", "labelEn": "Benchmark rubric", "labelVi": "Rubric benchmark" },
-    { "path": "docs/products.md", "story": "Docs/Guides/Products", "mdx": "stories/Docs/Products.mdx", "labelEn": "Products", "labelVi": "Sản phẩm" },
-    { "path": "docs/contrast-report.md", "story": "Docs/Guides/Contrast", "mdx": "stories/Docs/Contrast.mdx", "labelEn": "Contrast report", "labelVi": "Báo cáo contrast" },
-    { "path": "docs/figma.md", "story": "Docs/Guides/Figma", "mdx": "stories/Docs/Figma.mdx", "labelEn": "Figma", "labelVi": "Figma" },
-    { "path": "docs/doctrine.md", "story": "Docs/Maintainers/Doctrine", "labelEn": "Doctrine", "labelVi": "Học thuyết" },
-    { "path": "docs/decisions.md", "story": "Docs/Maintainers/Decisions", "labelEn": "Decisions", "labelVi": "Quyết định" },
-    { "path": "docs/ci-cd.md", "story": "Docs/Maintainers/CI/CD", "labelEn": "CI/CD automation", "labelVi": "CI/CD" },
-    { "path": "docs/quality-gates.md", "story": "Docs/Maintainers/Quality gates", "labelEn": "Quality gates", "labelVi": "Quality gates" },
-    { "path": "docs/sync.md", "story": "Docs/Maintainers/Sync", "labelEn": "Git sync & hygiene", "labelVi": "Đồng bộ Git" }
+    {
+      "path": "docs/consuming.md",
+      "story": "Docs/Guides/Consuming",
+      "mdx": "stories/Docs/Consuming.mdx",
+      "labelEn": "Consuming & upgrading",
+      "labelVi": "Tiêu thụ & nâng cấp"
+    },
+    {
+      "path": "docs/consumer-grant.md",
+      "story": "Docs/Guides/Consumer grant",
+      "labelEn": "Consumer grant (npm · UNLICENSED)",
+      "labelVi": "Grant consumer (npm · UNLICENSED)"
+    },
+    {
+      "path": "docs/deploy.md",
+      "story": "Docs/Guides/Deploy",
+      "mdx": "stories/Docs/Deploy.mdx",
+      "labelEn": "Deploy (Vercel/VPS)",
+      "labelVi": "Deploy (Vercel/VPS)"
+    },
+    {
+      "path": "docs/template-schema-v2.md",
+      "story": "Docs/Guides/Schema",
+      "mdx": "stories/Docs/Schema.mdx",
+      "labelEn": "Template content-schema v2",
+      "labelVi": "Template schema v2"
+    },
+    {
+      "path": "docs/conventions.md",
+      "story": "Docs/Guides/Conventions",
+      "mdx": "stories/Docs/Conventions.mdx",
+      "labelEn": "Conventions",
+      "labelVi": "Conventions"
+    },
+    {
+      "path": "docs/release-notes.md",
+      "story": "Release Notes/Overview",
+      "mdx": "stories/ReleaseNotes/ReleaseNotes.mdx",
+      "labelEn": "Release Notes",
+      "labelVi": "Ghi chú phát hành"
+    },
+    {
+      "path": "docs/storybook.md",
+      "story": "Docs/Guides/Storybook",
+      "labelEn": "Storybook (product at /)",
+      "labelVi": "Storybook (sản phẩm tại /)"
+    },
+    {
+      "path": "docs/live-hub.md",
+      "story": "Docs/Guides/Live hub",
+      "labelEn": "Live hub (Storybook at /)",
+      "labelVi": "Live hub (Storybook tại /)"
+    },
+    {
+      "path": "docs/hr-suite-sources.md",
+      "story": "Docs/Guides/HR Suite sources",
+      "labelEn": "HR Suite sources (DOCX ↔ templates)",
+      "labelVi": "Nguồn HR Suite (DOCX ↔ templates)"
+    },
+    {
+      "path": "docs/design-styles.md",
+      "story": "Docs/Guides/Design styles",
+      "mdx": "stories/Docs/DesignStyles.mdx",
+      "labelEn": "Design styles",
+      "labelVi": "Phong cách"
+    },
+    {
+      "path": "docs/benchmark-rubric.md",
+      "story": "Docs/Guides/Benchmark rubric",
+      "labelEn": "Benchmark rubric",
+      "labelVi": "Rubric benchmark"
+    },
+    {
+      "path": "docs/products.md",
+      "story": "Docs/Guides/Products",
+      "mdx": "stories/Docs/Products.mdx",
+      "labelEn": "Products",
+      "labelVi": "Sản phẩm"
+    },
+    {
+      "path": "docs/contrast-report.md",
+      "story": "Docs/Guides/Contrast",
+      "mdx": "stories/Docs/Contrast.mdx",
+      "labelEn": "Contrast report",
+      "labelVi": "Báo cáo contrast"
+    },
+    {
+      "path": "docs/figma.md",
+      "story": "Docs/Guides/Figma",
+      "mdx": "stories/Docs/Figma.mdx",
+      "labelEn": "Figma",
+      "labelVi": "Figma"
+    },
+    {
+      "path": "docs/doctrine.md",
+      "story": "Docs/Maintainers/Doctrine",
+      "labelEn": "Doctrine",
+      "labelVi": "Học thuyết"
+    },
+    {
+      "path": "docs/decisions.md",
+      "story": "Docs/Maintainers/Decisions",
+      "labelEn": "Decisions",
+      "labelVi": "Quyết định"
+    },
+    {
+      "path": "docs/ci-cd.md",
+      "story": "Docs/Maintainers/CI/CD",
+      "labelEn": "CI/CD automation",
+      "labelVi": "CI/CD"
+    },
+    {
+      "path": "docs/quality-gates.md",
+      "story": "Docs/Maintainers/Quality gates",
+      "labelEn": "Quality gates",
+      "labelVi": "Quality gates"
+    },
+    {
+      "path": "docs/sync.md",
+      "story": "Docs/Maintainers/Sync",
+      "labelEn": "Git sync & hygiene",
+      "labelVi": "Đồng bộ Git"
+    },
+    {
+      "path": "docs/template-grammar.md",
+      "story": "Docs/Guides/Template grammar",
+      "labelEn": "Template grammar",
+      "labelVi": "Ngữ pháp template"
+    },
+    {
+      "path": "docs/manual-at-matrix.md",
+      "story": "Docs/Maintainers/Manual AT matrix",
+      "labelEn": "Manual AT matrix",
+      "labelVi": "Ma trận AT thủ công"
+    },
+    {
+      "path": "docs/validation.md",
+      "story": "Docs/Maintainers/Validation",
+      "labelEn": "Validation",
+      "labelVi": "Kiểm chứng"
+    },
+    {
+      "path": "docs/component-api.md",
+      "story": "Docs/Guides/Component API",
+      "labelEn": "Component API",
+      "labelVi": "API component"
+    },
+    {
+      "path": "docs/runtime-api.md",
+      "story": "Docs/Guides/Runtime API",
+      "labelEn": "Runtime API",
+      "labelVi": "API runtime"
+    },
+    {
+      "path": "docs/releasing.md",
+      "story": "Docs/Maintainers/Releasing",
+      "mdx": "stories/Docs/Releasing.mdx",
+      "labelEn": "Release preparation",
+      "labelVi": "Chuẩn bị phát hành"
+    },
+    {
+      "path": "docs/browser-support.md",
+      "story": "Docs/Guides/Browser support",
+      "labelEn": "Browser support",
+      "labelVi": "Hỗ trợ trình duyệt"
+    },
+    {
+      "path": "docs/static-html-reference.md",
+      "story": "Docs/Guides/Static HTML reference",
+      "labelEn": "Static HTML reference",
+      "labelVi": "Tham chiếu HTML tĩnh"
+    },
+    {
+      "path": "docs/locale-messages.md",
+      "story": "Docs/Guides/UI messages",
+      "labelEn": "Scoped UI messages",
+      "labelVi": "Thông điệp UI theo scope"
+    },
+    {
+      "path": "docs/component-semantics.md",
+      "story": "Docs/Guides/Component semantics",
+      "labelEn": "Component semantics",
+      "labelVi": "Ngữ nghĩa component"
+    },
+    {
+      "path": "docs/native-refs.md",
+      "story": "Docs/Guides/Native refs",
+      "labelEn": "Native refs",
+      "labelVi": "Ref đến phần tử native"
+    },
+    {
+      "path": "docs/template-content.md",
+      "story": "Docs/Guides/Template content",
+      "labelEn": "Template content",
+      "labelVi": "Nội dung mẫu"
+    },
+    {
+      "path": "docs/floating-panels.md",
+      "story": "Docs/Guides/Floating panels",
+      "labelEn": "Floating panels",
+      "labelVi": "Panel nổi"
+    },
+    {
+      "path": "docs/layered-css.md",
+      "story": "Docs/Guides/Layered CSS",
+      "labelEn": "Layered CSS (opt-in)",
+      "labelVi": "CSS theo layer (tùy chọn)"
+    },
+    {
+      "path": "docs/component-css.md",
+      "story": "Docs/Guides/Component CSS",
+      "labelEn": "Component CSS",
+      "labelVi": "CSS theo component"
+    },
+    {
+      "path": "docs/guideline-language.md",
+      "story": "Docs/Guides/Guideline language",
+      "labelEn": "Guideline language",
+      "labelVi": "Ngôn ngữ guideline"
+    },
+    {
+      "path": "docs/component-scenarios.md",
+      "story": "Docs/Guides/Component state scenarios",
+      "labelEn": "Component state scenarios",
+      "labelVi": "Kịch bản trạng thái component"
+    },
+    {
+      "path": "docs/introduction.md",
+      "story": "Docs/Start/Introduction",
+      "mdx": "stories/Docs/Introduction.mdx",
+      "labelEn": "Introduction",
+      "labelVi": "Giới thiệu",
+      "sortOrder": 0
+    },
+    {
+      "path": "docs/four-axes.md",
+      "story": "Docs/Start/The Four Axes",
+      "mdx": "stories/Docs/TheFourAxes.mdx",
+      "labelEn": "The Four Axes",
+      "labelVi": "Bốn trục",
+      "sortOrder": 1
+    },
+    {
+      "path": "docs/voice-and-language.md",
+      "story": "Docs/Start/Voice & Language",
+      "mdx": "stories/Docs/VoiceAndLanguage.mdx",
+      "labelEn": "Voice & Language",
+      "labelVi": "Giọng điệu và ngôn ngữ",
+      "sortOrder": 2
+    },
+    {
+      "path": "docs/template-archetypes.md",
+      "story": "Docs/Guides/Template archetypes",
+      "labelEn": "Template archetypes",
+      "labelVi": "Mẫu cấu trúc tài liệu"
+    },
+    {
+      "path": "docs/component-semantic-contracts.md",
+      "story": "Docs/Guides/Component semantic contracts",
+      "labelEn": "Component semantic contracts",
+      "labelVi": "Contract ngữ nghĩa component"
+    },
+    {
+      "path": "docs/template-shared-layouts.md",
+      "story": "Docs/Guides/Shared template layouts",
+      "labelEn": "Shared template layouts",
+      "labelVi": "Bố cục mẫu dùng chung"
+    }
   ]
 }

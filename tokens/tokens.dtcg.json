@@ -464,15 +464,25 @@
             "--cs-density-control-gap": "6px",
             "--cs-component-button-gap": "6px",
             "--cs-component-button-xs-paddingY": "3px",
+            "--cs-component-button-xs-padding-y": "var(--cs-component-button-xs-paddingY)",
             "--cs-component-button-xs-paddingX": "8px",
+            "--cs-component-button-xs-padding-x": "var(--cs-component-button-xs-paddingX)",
             "--cs-component-button-sm-paddingY": "6px",
+            "--cs-component-button-sm-padding-y": "var(--cs-component-button-sm-paddingY)",
             "--cs-component-button-sm-paddingX": "12px",
+            "--cs-component-button-sm-padding-x": "var(--cs-component-button-sm-paddingX)",
             "--cs-component-button-md-paddingY": "10px",
+            "--cs-component-button-md-padding-y": "var(--cs-component-button-md-paddingY)",
             "--cs-component-button-md-paddingX": "16px",
+            "--cs-component-button-md-padding-x": "var(--cs-component-button-md-paddingX)",
             "--cs-component-button-lg-paddingY": "12px",
+            "--cs-component-button-lg-padding-y": "var(--cs-component-button-lg-paddingY)",
             "--cs-component-button-lg-paddingX": "22px",
+            "--cs-component-button-lg-padding-x": "var(--cs-component-button-lg-paddingX)",
             "--cs-component-textfield-paddingY": "8px",
-            "--cs-component-textfield-paddingX": "10px"
+            "--cs-component-textfield-padding-y": "var(--cs-component-textfield-paddingY)",
+            "--cs-component-textfield-paddingX": "10px",
+            "--cs-component-textfield-padding-x": "var(--cs-component-textfield-paddingX)"
           },
           "comfortable": {
             "--cs-density-space-1": "var(--cs-space-1)",
@@ -484,15 +494,25 @@
             "--cs-density-control-gap": "var(--cs-component-button-gap)",
             "--cs-component-button-gap": "8px",
             "--cs-component-button-xs-paddingY": "4px",
+            "--cs-component-button-xs-padding-y": "var(--cs-component-button-xs-paddingY)",
             "--cs-component-button-xs-paddingX": "10px",
+            "--cs-component-button-xs-padding-x": "var(--cs-component-button-xs-paddingX)",
             "--cs-component-button-sm-paddingY": "8px",
+            "--cs-component-button-sm-padding-y": "var(--cs-component-button-sm-paddingY)",
             "--cs-component-button-sm-paddingX": "14px",
+            "--cs-component-button-sm-padding-x": "var(--cs-component-button-sm-paddingX)",
             "--cs-component-button-md-paddingY": "12px",
+            "--cs-component-button-md-padding-y": "var(--cs-component-button-md-paddingY)",
             "--cs-component-button-md-paddingX": "20px",
+            "--cs-component-button-md-padding-x": "var(--cs-component-button-md-paddingX)",
             "--cs-component-button-lg-paddingY": "16px",
+            "--cs-component-button-lg-padding-y": "var(--cs-component-button-lg-paddingY)",
             "--cs-component-button-lg-paddingX": "28px",
+            "--cs-component-button-lg-padding-x": "var(--cs-component-button-lg-paddingX)",
             "--cs-component-textfield-paddingY": "10px",
-            "--cs-component-textfield-paddingX": "12px"
+            "--cs-component-textfield-padding-y": "var(--cs-component-textfield-paddingY)",
+            "--cs-component-textfield-paddingX": "12px",
+            "--cs-component-textfield-padding-x": "var(--cs-component-textfield-paddingX)"
           }
         },
         "contrasts": {
@@ -511,17 +531,18 @@
       "declarationGraph": {
         "path": "declarations.json",
         "schemaVersion": 1,
-        "sha256": "e460225ef29fb70ac7b1adc52111dd8431981418d86e9fe240529d5b91b4cf8a",
-        "declarations": 1501,
-        "publicDeclarations": 823,
-        "publicNames": 194,
-        "privateDeclarations": 678
+        "sha256": "7e617b006cbbbe5acb41e325a7e16e4d886f3551f6c895dff3e3768c083ff698",
+        "declarations": 1077,
+        "publicDeclarations": 397,
+        "publicNames": 216,
+        "privateDeclarations": 680
       }
     }
   },
   "color": {
     "$description": "Core semantic colours (brand, surface, text, semantic, border, link).",
     "--cs-color-brand-umber": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -531,7 +552,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#45210E"
@@ -539,6 +559,7 @@
       }
     },
     "--cs-color-brand-ochre": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -548,7 +569,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#F4BA17"
@@ -556,6 +576,7 @@
       }
     },
     "--cs-color-surface-page": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -565,7 +586,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#FFFDF8"
@@ -573,6 +593,7 @@
       }
     },
     "--cs-color-surface-panel": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -582,7 +603,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#FFFFFF"
@@ -590,6 +610,7 @@
       }
     },
     "--cs-color-surface-raised": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -599,7 +620,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#FBF4E9"
@@ -607,6 +627,7 @@
       }
     },
     "--cs-color-text-primary": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -616,7 +637,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#45210E"
@@ -624,6 +644,7 @@
       }
     },
     "--cs-color-text-inverse": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -633,7 +654,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#FFFFFF"
@@ -641,6 +661,7 @@
       }
     },
     "--cs-color-text-accent": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -650,7 +671,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#6E3B0E"
@@ -658,6 +678,7 @@
       }
     },
     "--cs-color-text-muted": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -667,7 +688,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#3F2D21"
@@ -675,6 +695,7 @@
       }
     },
     "--cs-color-semantic-success": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -684,7 +705,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#166534"
@@ -692,6 +712,7 @@
       }
     },
     "--cs-color-semantic-danger": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -701,7 +722,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#B42318"
@@ -709,6 +729,7 @@
       }
     },
     "--cs-color-semantic-warning": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -718,7 +739,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#92400E"
@@ -726,6 +746,7 @@
       }
     },
     "--cs-color-semantic-info": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -735,78 +756,9 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#1D4ED8"
-        }
-      }
-    },
-    "--cs-color-accent-ochre": {
-      "$value": {
-        "colorSpace": "srgb",
-        "components": [
-          0.9568627450980393,
-          0.7294117647058823,
-          0.09019607843137255
-        ],
-        "alpha": 1
-      },
-      "$type": "color",
-      "$extensions": {
-        "com.cyberskill": {
-          "css": "#F4BA17"
-        }
-      }
-    },
-    "--cs-color-border-default": {
-      "$value": {
-        "colorSpace": "srgb",
-        "components": [
-          0.9058823529411765,
-          0.8509803921568627,
-          0.7764705882352941
-        ],
-        "alpha": 1
-      },
-      "$type": "color",
-      "$extensions": {
-        "com.cyberskill": {
-          "css": "#E7D9C6"
-        }
-      }
-    },
-    "--cs-color-link": {
-      "$value": {
-        "colorSpace": "srgb",
-        "components": [
-          0.43137254901960786,
-          0.23137254901960785,
-          0.054901960784313725
-        ],
-        "alpha": 1
-      },
-      "$type": "color",
-      "$extensions": {
-        "com.cyberskill": {
-          "css": "#6E3B0E"
-        }
-      }
-    },
-    "--cs-color-link-hover": {
-      "$value": {
-        "colorSpace": "srgb",
-        "components": [
-          0.27058823529411763,
-          0.12941176470588237,
-          0.054901960784313725
-        ],
-        "alpha": 1
-      },
-      "$type": "color",
-      "$extensions": {
-        "com.cyberskill": {
-          "css": "#45210E"
         }
       }
     },
@@ -875,6 +827,74 @@
       "$extensions": {
         "com.cyberskill": {
           "css": "#FFFFFF"
+        }
+      }
+    },
+    "--cs-color-accent-ochre": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9568627450980393,
+          0.7294117647058823,
+          0.09019607843137255
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "com.cyberskill": {
+          "css": "#F4BA17"
+        }
+      }
+    },
+    "--cs-color-border-default": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9058823529411765,
+          0.8509803921568627,
+          0.7764705882352941
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "com.cyberskill": {
+          "css": "#E7D9C6"
+        }
+      }
+    },
+    "--cs-color-link": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.43137254901960786,
+          0.23137254901960785,
+          0.054901960784313725
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "com.cyberskill": {
+          "css": "#6E3B0E"
+        }
+      }
+    },
+    "--cs-color-link-hover": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.27058823529411763,
+          0.12941176470588237,
+          0.054901960784313725
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "com.cyberskill": {
+          "css": "#45210E"
         }
       }
     },
@@ -954,6 +974,7 @@
   "component": {
     "$description": "Component-level design decisions (button, textfield sizing & colour).",
     "--cs-component-button-primary-bg": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -963,7 +984,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#45210E"
@@ -971,6 +991,7 @@
       }
     },
     "--cs-component-button-primary-fg": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -980,7 +1001,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#FFFFFF"
@@ -988,11 +1008,11 @@
       }
     },
     "--cs-component-button-gap": {
+      "$type": "dimension",
       "$value": {
         "value": 8,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "8px"
@@ -1000,11 +1020,11 @@
       }
     },
     "--cs-component-button-radius": {
+      "$type": "dimension",
       "$value": {
         "value": 8,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "8px"
@@ -1012,11 +1032,11 @@
       }
     },
     "--cs-component-button-xs-paddingY": {
+      "$type": "dimension",
       "$value": {
         "value": 4,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "4px"
@@ -1024,11 +1044,11 @@
       }
     },
     "--cs-component-button-xs-paddingX": {
+      "$type": "dimension",
       "$value": {
         "value": 10,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "10px"
@@ -1036,11 +1056,11 @@
       }
     },
     "--cs-component-button-xs-minHeight": {
+      "$type": "dimension",
       "$value": {
         "value": 28,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "28px"
@@ -1048,11 +1068,11 @@
       }
     },
     "--cs-component-button-xs-minWidth": {
+      "$type": "dimension",
       "$value": {
         "value": 28,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "28px"
@@ -1060,11 +1080,11 @@
       }
     },
     "--cs-component-button-xs-minHeight-coarse": {
+      "$type": "dimension",
       "$value": {
         "value": 44,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "44px"
@@ -1072,11 +1092,11 @@
       }
     },
     "--cs-component-button-sm-paddingY": {
+      "$type": "dimension",
       "$value": {
         "value": 8,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "8px"
@@ -1084,11 +1104,11 @@
       }
     },
     "--cs-component-button-sm-paddingX": {
+      "$type": "dimension",
       "$value": {
         "value": 14,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "14px"
@@ -1096,11 +1116,11 @@
       }
     },
     "--cs-component-button-sm-minHeight": {
+      "$type": "dimension",
       "$value": {
         "value": 36,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "36px"
@@ -1108,11 +1128,11 @@
       }
     },
     "--cs-component-button-sm-minHeight-coarse": {
+      "$type": "dimension",
       "$value": {
         "value": 44,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "44px"
@@ -1120,11 +1140,11 @@
       }
     },
     "--cs-component-button-md-paddingY": {
+      "$type": "dimension",
       "$value": {
         "value": 12,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "12px"
@@ -1132,11 +1152,11 @@
       }
     },
     "--cs-component-button-md-paddingX": {
+      "$type": "dimension",
       "$value": {
         "value": 20,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "20px"
@@ -1144,11 +1164,11 @@
       }
     },
     "--cs-component-button-md-minHeight": {
+      "$type": "dimension",
       "$value": {
         "value": 44,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "44px"
@@ -1156,11 +1176,11 @@
       }
     },
     "--cs-component-button-md-minHeight-coarse": {
+      "$type": "dimension",
       "$value": {
         "value": 44,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "44px"
@@ -1168,11 +1188,11 @@
       }
     },
     "--cs-component-button-lg-paddingY": {
+      "$type": "dimension",
       "$value": {
         "value": 16,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "16px"
@@ -1180,11 +1200,11 @@
       }
     },
     "--cs-component-button-lg-paddingX": {
+      "$type": "dimension",
       "$value": {
         "value": 28,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "28px"
@@ -1192,11 +1212,11 @@
       }
     },
     "--cs-component-button-lg-minHeight": {
+      "$type": "dimension",
       "$value": {
         "value": 52,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "52px"
@@ -1204,6 +1224,7 @@
       }
     },
     "--cs-component-textfield-border-default": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -1213,7 +1234,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#BFA58F"
@@ -1221,11 +1241,11 @@
       }
     },
     "--cs-component-textfield-paddingY": {
+      "$type": "dimension",
       "$value": {
         "value": 10,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "10px"
@@ -1233,11 +1253,11 @@
       }
     },
     "--cs-component-textfield-paddingX": {
+      "$type": "dimension",
       "$value": {
         "value": 12,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "12px"
@@ -1245,11 +1265,11 @@
       }
     },
     "--cs-component-textfield-minHeight": {
+      "$type": "dimension",
       "$value": {
         "value": 44,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "44px"
@@ -1267,11 +1287,240 @@
           "css": "3px"
         }
       }
+    },
+    "--cs-component-button-xs-padding-y": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-xs-paddingY}",
+      "$description": "Alias of --cs-component-button-xs-paddingY.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-xs-paddingY",
+          "nativeName": "componentButtonXsPaddingYAlias",
+          "css": "var(--cs-component-button-xs-paddingY)"
+        }
+      }
+    },
+    "--cs-component-button-xs-padding-x": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-xs-paddingX}",
+      "$description": "Alias of --cs-component-button-xs-paddingX.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-xs-paddingX",
+          "nativeName": "componentButtonXsPaddingXAlias",
+          "css": "var(--cs-component-button-xs-paddingX)"
+        }
+      }
+    },
+    "--cs-component-button-xs-min-height": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-xs-minHeight}",
+      "$description": "Alias of --cs-component-button-xs-minHeight.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-xs-minHeight",
+          "nativeName": "componentButtonXsMinHeightAlias",
+          "css": "var(--cs-component-button-xs-minHeight)"
+        }
+      }
+    },
+    "--cs-component-button-xs-min-width": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-xs-minWidth}",
+      "$description": "Alias of --cs-component-button-xs-minWidth.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-xs-minWidth",
+          "nativeName": "componentButtonXsMinWidthAlias",
+          "css": "var(--cs-component-button-xs-minWidth)"
+        }
+      }
+    },
+    "--cs-component-button-xs-min-height-coarse": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-xs-minHeight-coarse}",
+      "$description": "Alias of --cs-component-button-xs-minHeight-coarse.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-xs-minHeight-coarse",
+          "nativeName": "componentButtonXsMinHeightCoarseAlias",
+          "css": "var(--cs-component-button-xs-minHeight-coarse)"
+        }
+      }
+    },
+    "--cs-component-button-sm-padding-y": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-sm-paddingY}",
+      "$description": "Alias of --cs-component-button-sm-paddingY.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-sm-paddingY",
+          "nativeName": "componentButtonSmPaddingYAlias",
+          "css": "var(--cs-component-button-sm-paddingY)"
+        }
+      }
+    },
+    "--cs-component-button-sm-padding-x": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-sm-paddingX}",
+      "$description": "Alias of --cs-component-button-sm-paddingX.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-sm-paddingX",
+          "nativeName": "componentButtonSmPaddingXAlias",
+          "css": "var(--cs-component-button-sm-paddingX)"
+        }
+      }
+    },
+    "--cs-component-button-sm-min-height": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-sm-minHeight}",
+      "$description": "Alias of --cs-component-button-sm-minHeight.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-sm-minHeight",
+          "nativeName": "componentButtonSmMinHeightAlias",
+          "css": "var(--cs-component-button-sm-minHeight)"
+        }
+      }
+    },
+    "--cs-component-button-sm-min-height-coarse": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-sm-minHeight-coarse}",
+      "$description": "Alias of --cs-component-button-sm-minHeight-coarse.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-sm-minHeight-coarse",
+          "nativeName": "componentButtonSmMinHeightCoarseAlias",
+          "css": "var(--cs-component-button-sm-minHeight-coarse)"
+        }
+      }
+    },
+    "--cs-component-button-md-padding-y": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-md-paddingY}",
+      "$description": "Alias of --cs-component-button-md-paddingY.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-md-paddingY",
+          "nativeName": "componentButtonMdPaddingYAlias",
+          "css": "var(--cs-component-button-md-paddingY)"
+        }
+      }
+    },
+    "--cs-component-button-md-padding-x": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-md-paddingX}",
+      "$description": "Alias of --cs-component-button-md-paddingX.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-md-paddingX",
+          "nativeName": "componentButtonMdPaddingXAlias",
+          "css": "var(--cs-component-button-md-paddingX)"
+        }
+      }
+    },
+    "--cs-component-button-md-min-height": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-md-minHeight}",
+      "$description": "Alias of --cs-component-button-md-minHeight.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-md-minHeight",
+          "nativeName": "componentButtonMdMinHeightAlias",
+          "css": "var(--cs-component-button-md-minHeight)"
+        }
+      }
+    },
+    "--cs-component-button-md-min-height-coarse": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-md-minHeight-coarse}",
+      "$description": "Alias of --cs-component-button-md-minHeight-coarse.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-md-minHeight-coarse",
+          "nativeName": "componentButtonMdMinHeightCoarseAlias",
+          "css": "var(--cs-component-button-md-minHeight-coarse)"
+        }
+      }
+    },
+    "--cs-component-button-lg-padding-y": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-lg-paddingY}",
+      "$description": "Alias of --cs-component-button-lg-paddingY.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-lg-paddingY",
+          "nativeName": "componentButtonLgPaddingYAlias",
+          "css": "var(--cs-component-button-lg-paddingY)"
+        }
+      }
+    },
+    "--cs-component-button-lg-padding-x": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-lg-paddingX}",
+      "$description": "Alias of --cs-component-button-lg-paddingX.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-lg-paddingX",
+          "nativeName": "componentButtonLgPaddingXAlias",
+          "css": "var(--cs-component-button-lg-paddingX)"
+        }
+      }
+    },
+    "--cs-component-button-lg-min-height": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-button-lg-minHeight}",
+      "$description": "Alias of --cs-component-button-lg-minHeight.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-button-lg-minHeight",
+          "nativeName": "componentButtonLgMinHeightAlias",
+          "css": "var(--cs-component-button-lg-minHeight)"
+        }
+      }
+    },
+    "--cs-component-textfield-padding-y": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-textfield-paddingY}",
+      "$description": "Alias of --cs-component-textfield-paddingY.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-textfield-paddingY",
+          "nativeName": "componentTextfieldPaddingYAlias",
+          "css": "var(--cs-component-textfield-paddingY)"
+        }
+      }
+    },
+    "--cs-component-textfield-padding-x": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-textfield-paddingX}",
+      "$description": "Alias of --cs-component-textfield-paddingX.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-textfield-paddingX",
+          "nativeName": "componentTextfieldPaddingXAlias",
+          "css": "var(--cs-component-textfield-paddingX)"
+        }
+      }
+    },
+    "--cs-component-textfield-min-height": {
+      "$type": "dimension",
+      "$value": "{component.--cs-component-textfield-minHeight}",
+      "$description": "Alias of --cs-component-textfield-minHeight.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-component-textfield-minHeight",
+          "nativeName": "componentTextfieldMinHeightAlias",
+          "css": "var(--cs-component-textfield-minHeight)"
+        }
+      }
     }
   },
   "accent": {
     "$description": "Ngũ Hành elemental accent role tokens — reskinned per element×variant scope.",
     "--cs-accent": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -1281,7 +1530,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#F4BA17"
@@ -1289,6 +1537,7 @@
       }
     },
     "--cs-accent-strong": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -1298,7 +1547,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#916D10"
@@ -1306,6 +1554,7 @@
       }
     },
     "--cs-accent-bright": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -1315,7 +1564,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#F4BA17"
@@ -1323,6 +1571,7 @@
       }
     },
     "--cs-accent-on": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -1332,7 +1581,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#45210E"
@@ -1340,6 +1588,7 @@
       }
     },
     "--cs-accent-tint": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -1349,7 +1598,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#FBF4E9"
@@ -1357,6 +1605,7 @@
       }
     },
     "--cs-accent-ink": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -1366,7 +1615,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#45210E"
@@ -1374,6 +1622,7 @@
       }
     },
     "--cs-accent-glow": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -1383,7 +1632,6 @@
         ],
         "alpha": 0.48
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "rgba(244, 186, 23, 0.48)"
@@ -1391,6 +1639,7 @@
       }
     },
     "--cs-accent-grad-a": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -1400,7 +1649,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#F4BA17"
@@ -1408,6 +1656,7 @@
       }
     },
     "--cs-accent-grad-b": {
+      "$type": "color",
       "$value": {
         "colorSpace": "srgb",
         "components": [
@@ -1417,7 +1666,6 @@
         ],
         "alpha": 1
       },
-      "$type": "color",
       "$extensions": {
         "com.cyberskill": {
           "css": "#F3B958"
@@ -1445,8 +1693,8 @@
   "depth": {
     "$description": "Elevation/stacking depth scale.",
     "--cs-depth-bg": {
-      "$value": 0,
       "$type": "number",
+      "$value": 0,
       "$extensions": {
         "com.cyberskill": {
           "css": "0"
@@ -1454,8 +1702,8 @@
       }
     },
     "--cs-depth-section": {
-      "$value": 5,
       "$type": "number",
+      "$value": 5,
       "$extensions": {
         "com.cyberskill": {
           "css": "5"
@@ -1463,8 +1711,8 @@
       }
     },
     "--cs-depth-card": {
-      "$value": 10,
       "$type": "number",
+      "$value": 10,
       "$extensions": {
         "com.cyberskill": {
           "css": "10"
@@ -1472,8 +1720,8 @@
       }
     },
     "--cs-depth-nav": {
-      "$value": 50,
       "$type": "number",
+      "$value": 50,
       "$extensions": {
         "com.cyberskill": {
           "css": "50"
@@ -1481,8 +1729,8 @@
       }
     },
     "--cs-depth-modal": {
-      "$value": 100,
       "$type": "number",
+      "$value": 100,
       "$extensions": {
         "com.cyberskill": {
           "css": "100"
@@ -1490,8 +1738,8 @@
       }
     },
     "--cs-depth-toast": {
-      "$value": 200,
       "$type": "number",
+      "$value": 200,
       "$extensions": {
         "com.cyberskill": {
           "css": "200"
@@ -1499,8 +1747,8 @@
       }
     },
     "--cs-depth-dropdown": {
-      "$value": 60,
       "$type": "number",
+      "$value": 60,
       "$extensions": {
         "com.cyberskill": {
           "css": "60"
@@ -1508,8 +1756,8 @@
       }
     },
     "--cs-depth-overlay": {
-      "$value": 80,
       "$type": "number",
+      "$value": 80,
       "$extensions": {
         "com.cyberskill": {
           "css": "80"
@@ -1520,11 +1768,11 @@
   "glass": {
     "$description": "Liquid Glass material scalars — blur / saturate / surface opacity per material tier (tokens/elevation.css).",
     "--cs-glass-whisper-blur": {
+      "$type": "dimension",
       "$value": {
         "value": 8,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "8px"
@@ -1532,8 +1780,8 @@
       }
     },
     "--cs-glass-whisper-saturate": {
-      "$value": 1.1,
       "$type": "number",
+      "$value": 1.1,
       "$description": "Backdrop saturate() multiplier of the whisper glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 110% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1544,8 +1792,8 @@
       }
     },
     "--cs-glass-whisper-opacity": {
-      "$value": 0.6,
       "$type": "number",
+      "$value": 0.6,
       "$description": "Surface opacity of the whisper glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 60% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1556,11 +1804,11 @@
       }
     },
     "--cs-glass-light-blur": {
+      "$type": "dimension",
       "$value": {
         "value": 12,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "12px"
@@ -1568,8 +1816,8 @@
       }
     },
     "--cs-glass-light-saturate": {
-      "$value": 1.3,
       "$type": "number",
+      "$value": 1.3,
       "$description": "Backdrop saturate() multiplier of the light glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 130% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1580,8 +1828,8 @@
       }
     },
     "--cs-glass-light-opacity": {
-      "$value": 0.7,
       "$type": "number",
+      "$value": 0.7,
       "$description": "Surface opacity of the light glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 70% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1592,11 +1840,11 @@
       }
     },
     "--cs-glass-standard-blur": {
+      "$type": "dimension",
       "$value": {
         "value": 16,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "16px"
@@ -1604,8 +1852,8 @@
       }
     },
     "--cs-glass-standard-saturate": {
-      "$value": 1.5,
       "$type": "number",
+      "$value": 1.5,
       "$description": "Backdrop saturate() multiplier of the standard glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 150% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1616,8 +1864,8 @@
       }
     },
     "--cs-glass-standard-opacity": {
-      "$value": 0.8,
       "$type": "number",
+      "$value": 0.8,
       "$description": "Surface opacity of the standard glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 80% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1628,11 +1876,11 @@
       }
     },
     "--cs-glass-heavy-blur": {
+      "$type": "dimension",
       "$value": {
         "value": 24,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "24px"
@@ -1640,8 +1888,8 @@
       }
     },
     "--cs-glass-heavy-saturate": {
-      "$value": 1.8,
       "$type": "number",
+      "$value": 1.8,
       "$description": "Backdrop saturate() multiplier of the heavy glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 180% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1652,8 +1900,8 @@
       }
     },
     "--cs-glass-heavy-opacity": {
-      "$value": 0.9,
       "$type": "number",
+      "$value": 0.9,
       "$description": "Surface opacity of the heavy glass material. DTCG has no percentage type, so the closest legitimate $type is number (CSS 90% ÷ 100); the raw CSS form is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1667,6 +1915,7 @@
   "shadow": {
     "$description": "Elevation shadows (light + dark overrides).",
     "--cs-shadow-xs": {
+      "$type": "shadow",
       "$value": {
         "color": {
           "colorSpace": "srgb",
@@ -1694,7 +1943,6 @@
           "unit": "px"
         }
       },
-      "$type": "shadow",
       "$description": "Structured from the CSS box-shadow string in tokens/elevation.css; the raw CSS form (native/agent emission source) is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1704,6 +1952,7 @@
       }
     },
     "--cs-shadow-sm": {
+      "$type": "shadow",
       "$value": [
         {
           "color": {
@@ -1760,7 +2009,6 @@
           }
         }
       ],
-      "$type": "shadow",
       "$description": "Structured from the CSS box-shadow string in tokens/elevation.css; the raw CSS form (native/agent emission source) is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1770,6 +2018,7 @@
       }
     },
     "--cs-shadow-md": {
+      "$type": "shadow",
       "$value": {
         "color": {
           "colorSpace": "srgb",
@@ -1797,7 +2046,6 @@
           "unit": "px"
         }
       },
-      "$type": "shadow",
       "$description": "Structured from the CSS box-shadow string in tokens/elevation.css; the raw CSS form (native/agent emission source) is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1807,6 +2055,7 @@
       }
     },
     "--cs-shadow-lg": {
+      "$type": "shadow",
       "$value": {
         "color": {
           "colorSpace": "srgb",
@@ -1834,7 +2083,6 @@
           "unit": "px"
         }
       },
-      "$type": "shadow",
       "$description": "Structured from the CSS box-shadow string in tokens/elevation.css; the raw CSS form (native/agent emission source) is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1844,6 +2092,7 @@
       }
     },
     "--cs-shadow-xl": {
+      "$type": "shadow",
       "$value": {
         "color": {
           "colorSpace": "srgb",
@@ -1871,7 +2120,6 @@
           "unit": "px"
         }
       },
-      "$type": "shadow",
       "$description": "Structured from the CSS box-shadow string in tokens/elevation.css; the raw CSS form (native/agent emission source) is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -1884,11 +2132,11 @@
   "duration": {
     "$description": "Motion durations (tokens/motion.css :root). Real values — the prefers-reduced-motion override collapses them to 0ms at runtime only, never in exports.",
     "--cs-duration-instant": {
+      "$type": "duration",
       "$value": {
         "value": 80,
         "unit": "ms"
       },
-      "$type": "duration",
       "$extensions": {
         "com.cyberskill": {
           "css": "80ms"
@@ -1896,11 +2144,11 @@
       }
     },
     "--cs-duration-fast": {
+      "$type": "duration",
       "$value": {
         "value": 120,
         "unit": "ms"
       },
-      "$type": "duration",
       "$extensions": {
         "com.cyberskill": {
           "css": "120ms"
@@ -1908,11 +2156,11 @@
       }
     },
     "--cs-duration-base": {
+      "$type": "duration",
       "$value": {
         "value": 200,
         "unit": "ms"
       },
-      "$type": "duration",
       "$extensions": {
         "com.cyberskill": {
           "css": "200ms"
@@ -1920,11 +2168,11 @@
       }
     },
     "--cs-duration-slow": {
+      "$type": "duration",
       "$value": {
         "value": 320,
         "unit": "ms"
       },
-      "$type": "duration",
       "$extensions": {
         "com.cyberskill": {
           "css": "320ms"
@@ -1934,13 +2182,13 @@
   },
   "ease": {
     "--cs-ease-standard": {
+      "$type": "cubicBezier",
       "$value": [
         0.2,
         0,
         0,
         1
       ],
-      "$type": "cubicBezier",
       "$extensions": {
         "com.cyberskill": {
           "css": "cubic-bezier(0.2, 0, 0, 1)"
@@ -1948,13 +2196,13 @@
       }
     },
     "--cs-ease-entrance": {
+      "$type": "cubicBezier",
       "$value": [
         0,
         0,
         0,
         1
       ],
-      "$type": "cubicBezier",
       "$extensions": {
         "com.cyberskill": {
           "css": "cubic-bezier(0, 0, 0, 1)"
@@ -1962,13 +2210,13 @@
       }
     },
     "--cs-ease-exit": {
+      "$type": "cubicBezier",
       "$value": [
         0.4,
         0,
         1,
         1
       ],
-      "$type": "cubicBezier",
       "$extensions": {
         "com.cyberskill": {
           "css": "cubic-bezier(0.4, 0, 1, 1)"
@@ -1976,13 +2224,13 @@
       }
     },
     "--cs-ease-emphasized": {
+      "$type": "cubicBezier",
       "$value": [
         0.2,
         0,
         0,
         1
       ],
-      "$type": "cubicBezier",
       "$extensions": {
         "com.cyberskill": {
           "css": "cubic-bezier(0.2, 0, 0, 1)"
@@ -1993,11 +2241,11 @@
   "space": {
     "$description": "Spacing scale.",
     "--cs-space-0": {
+      "$type": "dimension",
       "$value": {
         "value": 0,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "0px"
@@ -2005,11 +2253,11 @@
       }
     },
     "--cs-space-1": {
+      "$type": "dimension",
       "$value": {
         "value": 4,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "4px"
@@ -2017,11 +2265,11 @@
       }
     },
     "--cs-space-2": {
+      "$type": "dimension",
       "$value": {
         "value": 8,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "8px"
@@ -2029,11 +2277,11 @@
       }
     },
     "--cs-space-3": {
+      "$type": "dimension",
       "$value": {
         "value": 12,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "12px"
@@ -2041,11 +2289,11 @@
       }
     },
     "--cs-space-4": {
+      "$type": "dimension",
       "$value": {
         "value": 16,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "16px"
@@ -2053,11 +2301,11 @@
       }
     },
     "--cs-space-5": {
+      "$type": "dimension",
       "$value": {
         "value": 20,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "20px"
@@ -2065,11 +2313,11 @@
       }
     },
     "--cs-space-6": {
+      "$type": "dimension",
       "$value": {
         "value": 24,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "24px"
@@ -2077,11 +2325,11 @@
       }
     },
     "--cs-space-8": {
+      "$type": "dimension",
       "$value": {
         "value": 32,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "32px"
@@ -2089,11 +2337,11 @@
       }
     },
     "--cs-space-10": {
+      "$type": "dimension",
       "$value": {
         "value": 40,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "40px"
@@ -2101,11 +2349,11 @@
       }
     },
     "--cs-space-12": {
+      "$type": "dimension",
       "$value": {
         "value": 48,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "48px"
@@ -2113,11 +2361,11 @@
       }
     },
     "--cs-space-16": {
+      "$type": "dimension",
       "$value": {
         "value": 64,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "64px"
@@ -2125,11 +2373,11 @@
       }
     },
     "--cs-space-20": {
+      "$type": "dimension",
       "$value": {
         "value": 80,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "80px"
@@ -2137,11 +2385,11 @@
       }
     },
     "--cs-space-24": {
+      "$type": "dimension",
       "$value": {
         "value": 96,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "96px"
@@ -2152,11 +2400,11 @@
   "radius": {
     "$description": "Corner radius scale.",
     "--cs-radius-sm": {
+      "$type": "dimension",
       "$value": {
         "value": 4,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "4px"
@@ -2164,11 +2412,11 @@
       }
     },
     "--cs-radius-md": {
+      "$type": "dimension",
       "$value": {
         "value": 8,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "8px"
@@ -2176,11 +2424,11 @@
       }
     },
     "--cs-radius-lg": {
+      "$type": "dimension",
       "$value": {
         "value": 14,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "14px"
@@ -2188,11 +2436,11 @@
       }
     },
     "--cs-radius-full": {
+      "$type": "dimension",
       "$value": {
         "value": 999,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "999px"
@@ -2203,11 +2451,11 @@
   "breakpoint": {
     "$description": "Responsive breakpoints.",
     "--cs-breakpoint-xs": {
+      "$type": "dimension",
       "$value": {
         "value": 0,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "0px"
@@ -2215,11 +2463,11 @@
       }
     },
     "--cs-breakpoint-phone": {
+      "$type": "dimension",
       "$value": {
         "value": 360,
         "unit": "px"
       },
-      "$type": "dimension",
       "$description": "Justified small-phone / 320-reflow stop (UX-003).",
       "$extensions": {
         "com.cyberskill": {
@@ -2228,11 +2476,11 @@
       }
     },
     "--cs-breakpoint-sm": {
+      "$type": "dimension",
       "$value": {
         "value": 640,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "640px"
@@ -2240,11 +2488,11 @@
       }
     },
     "--cs-breakpoint-md": {
+      "$type": "dimension",
       "$value": {
         "value": 768,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "768px"
@@ -2252,11 +2500,11 @@
       }
     },
     "--cs-breakpoint-lg": {
+      "$type": "dimension",
       "$value": {
         "value": 1024,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "1024px"
@@ -2264,11 +2512,11 @@
       }
     },
     "--cs-breakpoint-xl": {
+      "$type": "dimension",
       "$value": {
         "value": 1280,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "1280px"
@@ -2276,11 +2524,11 @@
       }
     },
     "--cs-breakpoint-2xl": {
+      "$type": "dimension",
       "$value": {
         "value": 1536,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "1536px"
@@ -2290,11 +2538,11 @@
   },
   "container": {
     "--cs-container-max": {
+      "$type": "dimension",
       "$value": {
         "value": 1320,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "1320px"
@@ -2302,11 +2550,11 @@
       }
     },
     "--cs-prose-measure": {
+      "$type": "dimension",
       "$value": {
         "value": 45,
         "unit": "rem"
       },
-      "$type": "dimension",
       "$description": "Readable prose measure for long-form kit/tool copy (UX-024). Web CSS may prefer ch; rem keeps native mirrors convertible.",
       "$extensions": {
         "com.cyberskill": {
@@ -2315,8 +2563,8 @@
       }
     },
     "--cs-scroll-padding-block-start": {
-      "$value": "{space.--cs-space-4}",
       "$type": "dimension",
+      "$value": "{space.--cs-space-4}",
       "$description": "Focus-not-obscured scroll offset (WCAG 2.2 AA) — sticky nav / bottom bars.",
       "$extensions": {
         "com.cyberskill": {
@@ -2326,8 +2574,8 @@
       }
     },
     "--cs-scroll-padding-block-end": {
-      "$value": "{space.--cs-space-4}",
       "$type": "dimension",
+      "$value": "{space.--cs-space-4}",
       "$description": "Focus-not-obscured scroll offset (WCAG 2.2 AA) — sticky nav / bottom bars.",
       "$extensions": {
         "com.cyberskill": {
@@ -2340,13 +2588,13 @@
   "font": {
     "$description": "Typography — families, sizes, weights, line-heights, tracking.",
     "--cs-font-family-ui": {
+      "$type": "fontFamily",
       "$value": [
         "Be Vietnam Pro",
         "ui-sans-serif",
         "system-ui",
         "sans-serif"
       ],
-      "$type": "fontFamily",
       "$extensions": {
         "com.cyberskill": {
           "css": "'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif"
@@ -2354,6 +2602,7 @@
       }
     },
     "--cs-font-family-display": {
+      "$type": "fontFamily",
       "$value": [
         "Space Grotesk",
         "Be Vietnam Pro",
@@ -2361,7 +2610,6 @@
         "system-ui",
         "sans-serif"
       ],
-      "$type": "fontFamily",
       "$extensions": {
         "com.cyberskill": {
           "css": "'Space Grotesk', 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif"
@@ -2369,6 +2617,7 @@
       }
     },
     "--cs-font-family-mono": {
+      "$type": "fontFamily",
       "$value": [
         "JetBrains Mono",
         "ui-monospace",
@@ -2377,7 +2626,6 @@
         "Consolas",
         "monospace"
       ],
-      "$type": "fontFamily",
       "$extensions": {
         "com.cyberskill": {
           "css": "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
@@ -2385,8 +2633,8 @@
       }
     },
     "--cs-font-weight-regular": {
-      "$value": 400,
       "$type": "number",
+      "$value": 400,
       "$extensions": {
         "com.cyberskill": {
           "css": "400"
@@ -2394,8 +2642,8 @@
       }
     },
     "--cs-font-weight-medium": {
-      "$value": 500,
       "$type": "number",
+      "$value": 500,
       "$extensions": {
         "com.cyberskill": {
           "css": "500"
@@ -2403,8 +2651,8 @@
       }
     },
     "--cs-font-weight-semibold": {
-      "$value": 600,
       "$type": "number",
+      "$value": 600,
       "$extensions": {
         "com.cyberskill": {
           "css": "600"
@@ -2412,8 +2660,8 @@
       }
     },
     "--cs-font-weight-bold": {
-      "$value": 700,
       "$type": "number",
+      "$value": 700,
       "$extensions": {
         "com.cyberskill": {
           "css": "700"
@@ -2421,8 +2669,8 @@
       }
     },
     "--cs-font-weight-extrabold": {
-      "$value": 800,
       "$type": "number",
+      "$value": 800,
       "$extensions": {
         "com.cyberskill": {
           "css": "800"
@@ -2430,8 +2678,8 @@
       }
     },
     "--cs-font-lineHeight-body": {
-      "$value": 1.5,
       "$type": "number",
+      "$value": 1.5,
       "$extensions": {
         "com.cyberskill": {
           "css": "1.5"
@@ -2439,8 +2687,8 @@
       }
     },
     "--cs-font-lineHeight-heading": {
-      "$value": 1.35,
       "$type": "number",
+      "$value": 1.35,
       "$extensions": {
         "com.cyberskill": {
           "css": "1.35"
@@ -2448,8 +2696,8 @@
       }
     },
     "--cs-font-lineHeight-tight": {
-      "$value": 1.15,
       "$type": "number",
+      "$value": 1.15,
       "$extensions": {
         "com.cyberskill": {
           "css": "1.15"
@@ -2470,11 +2718,11 @@
       }
     },
     "--cs-font-size-xs": {
+      "$type": "dimension",
       "$value": {
         "value": 0.75,
         "unit": "rem"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "0.75rem"
@@ -2482,11 +2730,11 @@
       }
     },
     "--cs-font-size-sm": {
+      "$type": "dimension",
       "$value": {
         "value": 0.875,
         "unit": "rem"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "0.875rem"
@@ -2494,11 +2742,11 @@
       }
     },
     "--cs-font-size-base": {
+      "$type": "dimension",
       "$value": {
         "value": 1,
         "unit": "rem"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "1rem"
@@ -2506,11 +2754,11 @@
       }
     },
     "--cs-font-size-md": {
+      "$type": "dimension",
       "$value": {
         "value": 1.125,
         "unit": "rem"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "1.125rem"
@@ -2518,11 +2766,11 @@
       }
     },
     "--cs-font-size-lg": {
+      "$type": "dimension",
       "$value": {
         "value": 1.25,
         "unit": "rem"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "1.25rem"
@@ -2530,11 +2778,11 @@
       }
     },
     "--cs-font-size-xl": {
+      "$type": "dimension",
       "$value": {
         "value": 1.5,
         "unit": "rem"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "1.5rem"
@@ -2542,11 +2790,11 @@
       }
     },
     "--cs-font-size-2xl": {
+      "$type": "dimension",
       "$value": {
         "value": 1.875,
         "unit": "rem"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "1.875rem"
@@ -2554,11 +2802,11 @@
       }
     },
     "--cs-font-size-3xl": {
+      "$type": "dimension",
       "$value": {
         "value": 2.25,
         "unit": "rem"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "2.25rem"
@@ -2566,11 +2814,11 @@
       }
     },
     "--cs-font-size-4xl": {
+      "$type": "dimension",
       "$value": {
         "value": 3,
         "unit": "rem"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "3rem"
@@ -2578,14 +2826,50 @@
       }
     },
     "--cs-font-size-5xl": {
+      "$type": "dimension",
       "$value": {
         "value": 3.75,
         "unit": "rem"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "3.75rem"
+        }
+      }
+    },
+    "--cs-font-line-height-body": {
+      "$type": "number",
+      "$value": "{font.--cs-font-lineHeight-body}",
+      "$description": "Alias of --cs-font-lineHeight-body.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-font-lineHeight-body",
+          "nativeName": "fontLineHeightBodyAlias",
+          "css": "var(--cs-font-lineHeight-body)"
+        }
+      }
+    },
+    "--cs-font-line-height-heading": {
+      "$type": "number",
+      "$value": "{font.--cs-font-lineHeight-heading}",
+      "$description": "Alias of --cs-font-lineHeight-heading.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-font-lineHeight-heading",
+          "nativeName": "fontLineHeightHeadingAlias",
+          "css": "var(--cs-font-lineHeight-heading)"
+        }
+      }
+    },
+    "--cs-font-line-height-tight": {
+      "$type": "number",
+      "$value": "{font.--cs-font-lineHeight-tight}",
+      "$description": "Alias of --cs-font-lineHeight-tight.",
+      "$extensions": {
+        "com.cyberskill": {
+          "nativeAliasOf": "--cs-font-lineHeight-tight",
+          "nativeName": "fontLineHeightTightAlias",
+          "css": "var(--cs-font-lineHeight-tight)"
         }
       }
     }
@@ -2593,8 +2877,8 @@
   "text": {
     "$description": "Semantic type-role aliases into the font size ramp — write intent, not magic numbers (tokens/typography.css).",
     "--cs-text-display": {
-      "$value": "{font.--cs-font-size-5xl}",
       "$type": "dimension",
+      "$value": "{font.--cs-font-size-5xl}",
       "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -2604,8 +2888,8 @@
       }
     },
     "--cs-text-h1": {
-      "$value": "{font.--cs-font-size-3xl}",
       "$type": "dimension",
+      "$value": "{font.--cs-font-size-3xl}",
       "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -2615,8 +2899,8 @@
       }
     },
     "--cs-text-h2": {
-      "$value": "{font.--cs-font-size-2xl}",
       "$type": "dimension",
+      "$value": "{font.--cs-font-size-2xl}",
       "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -2626,8 +2910,8 @@
       }
     },
     "--cs-text-h3": {
-      "$value": "{font.--cs-font-size-xl}",
       "$type": "dimension",
+      "$value": "{font.--cs-font-size-xl}",
       "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -2637,8 +2921,8 @@
       }
     },
     "--cs-text-h4": {
-      "$value": "{font.--cs-font-size-lg}",
       "$type": "dimension",
+      "$value": "{font.--cs-font-size-lg}",
       "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -2648,8 +2932,8 @@
       }
     },
     "--cs-text-body-lg": {
-      "$value": "{font.--cs-font-size-md}",
       "$type": "dimension",
+      "$value": "{font.--cs-font-size-md}",
       "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -2659,8 +2943,8 @@
       }
     },
     "--cs-text-body": {
-      "$value": "{font.--cs-font-size-base}",
       "$type": "dimension",
+      "$value": "{font.--cs-font-size-base}",
       "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -2670,8 +2954,8 @@
       }
     },
     "--cs-text-secondary": {
-      "$value": "{font.--cs-font-size-sm}",
       "$type": "dimension",
+      "$value": "{font.--cs-font-size-sm}",
       "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -2681,8 +2965,8 @@
       }
     },
     "--cs-text-micro": {
-      "$value": "{font.--cs-font-size-2xs}",
       "$type": "dimension",
+      "$value": "{font.--cs-font-size-2xs}",
       "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -2692,8 +2976,8 @@
       }
     },
     "--cs-text-caption": {
-      "$value": "{font.--cs-font-size-xs}",
       "$type": "dimension",
+      "$value": "{font.--cs-font-size-xs}",
       "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -2703,8 +2987,8 @@
       }
     },
     "--cs-text-eyebrow": {
-      "$value": "{font.--cs-font-size-xs}",
       "$type": "dimension",
+      "$value": "{font.--cs-font-size-xs}",
       "$description": "Semantic type-role alias into the font size ramp; resolves to a dimension. CSS form (var()) preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
@@ -2716,8 +3000,8 @@
   },
   "letter": {
     "--cs-letter-spacing-tight": {
-      "$value": -0.01,
       "$type": "number",
+      "$value": -0.01,
       "$extensions": {
         "com.cyberskill": {
           "css": "-0.01em",
@@ -2727,8 +3011,8 @@
       }
     },
     "--cs-letter-spacing-normal": {
-      "$value": 0,
       "$type": "number",
+      "$value": 0,
       "$extensions": {
         "com.cyberskill": {
           "css": "0"
@@ -2736,8 +3020,8 @@
       }
     },
     "--cs-letter-spacing-caps": {
-      "$value": 0.08,
       "$type": "number",
+      "$value": 0.08,
       "$extensions": {
         "com.cyberskill": {
           "css": "0.08em",
@@ -2750,8 +3034,8 @@
   "heading": {
     "$description": "Heading treatment roles (tokens/typography.css) — aliases into font/letter primitives. CSS var() forms preserved in $extensions[\"com.cyberskill\"].css.",
     "--cs-heading-family": {
-      "$value": "{font.--cs-font-family-ui}",
       "$type": "fontFamily",
+      "$value": "{font.--cs-font-family-ui}",
       "$extensions": {
         "com.cyberskill": {
           "css": "var(--cs-font-family-ui)",
@@ -2760,8 +3044,8 @@
       }
     },
     "--cs-heading-weight-strong": {
-      "$value": "{font.--cs-font-weight-extrabold}",
       "$type": "number",
+      "$value": "{font.--cs-font-weight-extrabold}",
       "$extensions": {
         "com.cyberskill": {
           "css": "var(--cs-font-weight-extrabold)",
@@ -2770,8 +3054,8 @@
       }
     },
     "--cs-heading-weight": {
-      "$value": "{font.--cs-font-weight-bold}",
       "$type": "number",
+      "$value": "{font.--cs-font-weight-bold}",
       "$extensions": {
         "com.cyberskill": {
           "css": "var(--cs-font-weight-bold)",
@@ -2780,8 +3064,8 @@
       }
     },
     "--cs-heading-tracking": {
-      "$value": "{letter.--cs-letter-spacing-tight}",
       "$type": "number",
+      "$value": "{letter.--cs-letter-spacing-tight}",
       "$extensions": {
         "com.cyberskill": {
           "css": "var(--cs-letter-spacing-tight)",
@@ -2792,11 +3076,11 @@
   },
   "icon": {
     "--cs-icon-sm": {
+      "$type": "dimension",
       "$value": {
         "value": 16,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "16px"
@@ -2804,11 +3088,11 @@
       }
     },
     "--cs-icon-md": {
+      "$type": "dimension",
       "$value": {
         "value": 20,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "20px"
@@ -2816,11 +3100,11 @@
       }
     },
     "--cs-icon-lg": {
+      "$type": "dimension",
       "$value": {
         "value": 24,
         "unit": "px"
       },
-      "$type": "dimension",
       "$extensions": {
         "com.cyberskill": {
           "css": "24px"

@@ -1,3 +1,5 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -16,7 +18,7 @@ const TONE = {
  * for disclosure and review controls. Values and levels are caller-supplied;
  * this display does not calculate calibrated confidence or verify provenance.
  */
-export function ConfidenceMeter({ value, level, segments = 5, label, lang, className }) {
+export const ConfidenceMeter = React.forwardRef(function ConfidenceMeter({ value, level, segments = 5, label, lang, className , rootProps }, forwardedRef) {
   let tone, filled;
   const segs = renderCount(Number(segments) || 5, 5, 1);
   if (value != null) {
@@ -28,13 +30,14 @@ export function ConfidenceMeter({ value, level, segments = 5, label, lang, class
     filled = Math.max(0, Math.min(segs, Math.round((TONE[tone].fill / 5) * segs)));
   }
   const meta = TONE[tone];
-  const [ref, L] = useLang(lang);
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
   const nameId = React.useId();
-  const t = makeT("ConfidenceMeter", L);
+  const t = makeT("ConfidenceMeter", L, localeMessages);
   const lbl = label != null ? label : t("label");
   const levelText = t(tone);
   return (
-    <div ref={ref} className={cx("cs-confidence", className)}>
+    <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-confidence", className) }, rootProps, [])}>
       <div className="cs-confidence__head">
         <span id={nameId + "-label"}>{lbl}</span>
         <span id={nameId + "-level"} className="cs-confidence__level" style={{ color: meta.textColor }}>{levelText}</span>
@@ -46,4 +49,5 @@ export function ConfidenceMeter({ value, level, segments = 5, label, lang, class
       </div>
     </div>
   );
-}
+});
+ConfidenceMeter.displayName = "ConfidenceMeter";

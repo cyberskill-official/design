@@ -6,153 +6,178 @@
       "id": "eyebrow",
       "type": "text",
       "label": "Header eyebrow",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "h1",
       "type": "text",
       "label": "Change title",
       "maxLength": 70,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "altTitle",
       "type": "text",
       "label": "Alt-language title",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "intro",
       "type": "richtext",
       "label": "Intro paragraph",
-      "maxLength": 260
+      "maxLength": 260,
+      "runtimeBinding": "text"
     },
     {
       "id": "changeH",
       "type": "text",
       "label": "\"The change\" heading",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "changeP",
       "type": "richtext",
       "label": "Change description",
       "maxLength": 260,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "whyH",
       "type": "text",
       "label": "\"Why now\" heading",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "whyP",
       "type": "richtext",
       "label": "Rationale",
-      "maxLength": 260
+      "maxLength": 260,
+      "runtimeBinding": "text"
     },
     {
       "id": "impactH",
       "type": "text",
       "label": "Impact table heading",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "thDim",
       "type": "text",
       "label": "Column: Dimension",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "thBefore",
       "type": "text",
       "label": "Column: Before",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "thAfter",
       "type": "text",
       "label": "Column: After",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "thDelta",
       "type": "text",
       "label": "Column: Delta",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "rScope",
       "type": "text",
       "label": "Row: Scope label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "rScopeB",
       "type": "text",
       "label": "Scope before",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "rScopeA",
       "type": "text",
       "label": "Scope after",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "rFee",
       "type": "text",
       "label": "Row: Fee label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "rTime",
       "type": "text",
       "label": "Row: Timeline label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "rTimeB",
       "type": "text",
       "label": "Timeline before",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "rTimeA",
       "type": "text",
       "label": "Timeline after",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "rTimeD",
       "type": "text",
       "label": "Timeline delta",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text"
     },
     {
       "id": "closing",
       "type": "richtext",
       "label": "Closing note",
-      "maxLength": 220
+      "maxLength": 220,
+      "runtimeBinding": "text"
     },
     {
       "id": "partyA",
       "type": "text",
       "label": "Signature: our party name",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "clientName",
       "type": "text",
       "label": "Signature: client party name",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "sigMeta",
       "type": "text",
       "label": "Signature meta caption",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     }
   ]
 }

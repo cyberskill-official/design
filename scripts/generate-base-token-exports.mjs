@@ -5,7 +5,7 @@ import {projectBaseTokens} from './lib/base-token-exports.mjs';
 
 const root = new URL('../', import.meta.url);
 const read = path => readFileSync(new URL(path, root), 'utf8');
-const tokens = projectBaseTokens(collectTokenDeclarations(fileURLToPath(root)), JSON.parse(read('tokens/tokens.json')));
+const tokens = projectBaseTokens(collectTokenDeclarations(fileURLToPath(root)), JSON.parse(read('tokens/tokens.json')), JSON.parse(read('tokens/base-inventory.json')));
 const version = read('VERSION').trim();
 const outputs = {
   'tokens/tokens.json': JSON.stringify(tokens, null, 2) + '\n',

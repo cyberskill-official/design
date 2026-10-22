@@ -9,13 +9,6 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Tag. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { children: 'Thổ' },
 };
 

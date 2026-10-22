@@ -2,7 +2,6 @@
 name: design-system
 description: Revise CyberSkill tokens and component contracts using the repository
   doctrine and existing generators.
-license: MIT
 metadata:
   author: claudekit
   version: 1.0.0
@@ -14,4 +13,4 @@ Read the [shared CyberSkill entrypoint](../../../SKILL.md) first, then [design d
 
 For token work, inspect [tokens](../../../tokens/) and the relevant generator in [scripts](../../../scripts/). For a component, inspect its JSX, declaration and prompt together in [components](../../../components/). Apply the expansion and verification requirements in doctrine; preserve generated/source boundaries.
 
-The other scripts, data, templates and references in this skill directory are retained upstream resources, not CyberSkill defaults or normative instructions. Consult them only for a task-specific need after checking compatibility with the shared contract. Their installation, external-tool and framework commands are not prerequisites for this adapter. Existing upstream license and attribution files remain applicable.
+Optional upstream scripts, data, templates and references are preserved outside skill discovery in [the repository-only archive](../../../vendor/skill-resources/). Read its inventory and licensing limitations before consulting a resource. The archive does not supply CyberSkill defaults or normative instructions; installation and framework commands in retained material are not prerequisites or authorization for this adapter.

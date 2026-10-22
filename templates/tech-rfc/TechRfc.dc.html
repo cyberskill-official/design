@@ -49,36 +49,36 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
+<script type="text/x-dc" data-dc-script data-content-schema="./content-schema.json" data-props="{
   &quot;language&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;},
   &quot;element&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;},
   &quot;theme&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;\&quot;light\&quot; | \&quot;dark\&quot;&quot;,&quot;section&quot;:&quot;Theme&quot;}
 }">
 class Component extends DCLogic {
   renderVals() {
-    const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
+    const EL = /* @generated template-literal:axis.element-map */ {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]} /* @endgenerated template-literal:axis.element-map */;
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
     const code = "tokens.tokens.json  →  style-dictionary\n   ├─ css   (--cs-*)\n   ├─ ts / swift / kotlin\n   └─ flutter + provenance.json";
     const vn = this.props.language === "Tiếng Việt";
     const en = {
-      badge:"In review", kicker:"RFC-041 · Platform", h1:"Token pipeline: multi-target export",
-      dtAuthor:"Author", dtRev:"Reviewers", dtStatus:"Status", ddStatus:"In review", dtTarget:"Target",
-      ctxH:"Context",
-      ctxP:"Design tokens ship as CSS today. Native (Swift/Kotlin) and Flutter teams hand-copy values, which drifts. We propose one DTCG source compiling to every target with provenance.",
-      propH:"Proposal", toH:"Trade-offs",
-      gainsT:"Gains", gainsB:"Single source of truth; provenance JSON per token; no hand-copying across platforms.",
-      costsT:"Costs (honest)", costsB:"A new build step and DTCG learning curve. Migrating 159 tokens is ~1 sprint of careful work.",
-      rollH:"Rollout",
+      badge:/* @generated template-literal:copy.in-review.en */ "In review" /* @endgenerated template-literal:copy.in-review.en */, kicker:/* @generated template-literal:dictionary.en.6b69636b6572 */ "RFC-041 · Platform" /* @endgenerated template-literal:dictionary.en.6b69636b6572 */, h1:/* @generated template-literal:dictionary.en.6831 */ "Token pipeline: multi-target export" /* @endgenerated template-literal:dictionary.en.6831 */,
+      dtAuthor:/* @generated template-literal:dictionary.en.6474417574686f72 */ "Author" /* @endgenerated template-literal:dictionary.en.6474417574686f72 */, dtRev:/* @generated template-literal:dictionary.en.6474526576 */ "Reviewers" /* @endgenerated template-literal:dictionary.en.6474526576 */, dtStatus:/* @generated template-literal:copy.status.en */ "Status" /* @endgenerated template-literal:copy.status.en */, ddStatus:/* @generated template-literal:copy.in-review.en */ "In review" /* @endgenerated template-literal:copy.in-review.en */, dtTarget:/* @generated template-literal:dictionary.en.6474546172676574 */ "Target" /* @endgenerated template-literal:dictionary.en.6474546172676574 */,
+      ctxH:/* @generated template-literal:dictionary.en.63747848 */ "Context" /* @endgenerated template-literal:dictionary.en.63747848 */,
+      ctxP:/* @generated template-literal:dictionary.en.63747850 */ "Design tokens ship as CSS today. Native (Swift/Kotlin) and Flutter teams hand-copy values, which drifts. We propose one DTCG source compiling to every target with provenance." /* @endgenerated template-literal:dictionary.en.63747850 */,
+      propH:/* @generated template-literal:dictionary.en.70726f7048 */ "Proposal" /* @endgenerated template-literal:dictionary.en.70726f7048 */, toH:/* @generated template-literal:dictionary.en.746f48 */ "Trade-offs" /* @endgenerated template-literal:dictionary.en.746f48 */,
+      gainsT:/* @generated template-literal:dictionary.en.6761696e7354 */ "Gains" /* @endgenerated template-literal:dictionary.en.6761696e7354 */, gainsB:/* @generated template-literal:dictionary.en.6761696e7342 */ "Single source of truth; provenance JSON per token; no hand-copying across platforms." /* @endgenerated template-literal:dictionary.en.6761696e7342 */,
+      costsT:/* @generated template-literal:dictionary.en.636f73747354 */ "Costs (honest)" /* @endgenerated template-literal:dictionary.en.636f73747354 */, costsB:/* @generated template-literal:dictionary.en.636f73747342 */ "A new build step and DTCG learning curve. Migrating 159 tokens is ~1 sprint of careful work." /* @endgenerated template-literal:dictionary.en.636f73747342 */,
+      rollH:/* @generated template-literal:dictionary.en.726f6c6c48 */ "Rollout" /* @endgenerated template-literal:dictionary.en.726f6c6c48 */,
       steps: [ { title:"RFC approved" }, { title:"Pilot: colors" }, { title:"All 159 tokens" }, { title:"Deprecate hand-copy" } ]};
     const vi = {
-      badge:"Đang rà soát", kicker:"RFC-041 · Nền tảng", h1:"Đường ống token: xuất đa nền tảng",
-      dtAuthor:"Tác giả", dtRev:"Người rà soát", dtStatus:"Trạng thái", ddStatus:"Đang rà soát", dtTarget:"Mục tiêu",
-      ctxH:"Bối cảnh",
-      ctxP:"Hôm nay token thiết kế chỉ xuất ra CSS. Các đội native (Swift/Kotlin) và Flutter phải chép tay giá trị, dẫn đến sai lệch. Chúng tôi đề xuất một nguồn DTCG duy nhất biên dịch ra mọi nền tảng kèm nguồn gốc.",
-      propH:"Đề xuất", toH:"Đánh đổi",
-      gainsT:"Được gì", gainsB:"Một nguồn sự thật duy nhất; JSON nguồn gốc cho mỗi token; không còn chép tay giữa các nền tảng.",
-      costsT:"Mất gì (thẳng thắn)", costsB:"Thêm một bước build và thời gian làm quen DTCG. Chuyển đổi 159 token tốn khoảng một sprint làm cẩn thận.",
-      rollH:"Triển khai",
+      badge:/* @generated template-literal:copy.in-review.vi */ "Đang rà soát" /* @endgenerated template-literal:copy.in-review.vi */, kicker:/* @generated template-literal:dictionary.vi.6b69636b6572 */ "RFC-041 · Nền tảng" /* @endgenerated template-literal:dictionary.vi.6b69636b6572 */, h1:/* @generated template-literal:dictionary.vi.6831 */ "Đường ống token: xuất đa nền tảng" /* @endgenerated template-literal:dictionary.vi.6831 */,
+      dtAuthor:/* @generated template-literal:dictionary.vi.6474417574686f72 */ "Tác giả" /* @endgenerated template-literal:dictionary.vi.6474417574686f72 */, dtRev:/* @generated template-literal:dictionary.vi.6474526576 */ "Người rà soát" /* @endgenerated template-literal:dictionary.vi.6474526576 */, dtStatus:/* @generated template-literal:copy.status.vi */ "Trạng thái" /* @endgenerated template-literal:copy.status.vi */, ddStatus:/* @generated template-literal:copy.in-review.vi */ "Đang rà soát" /* @endgenerated template-literal:copy.in-review.vi */, dtTarget:/* @generated template-literal:dictionary.vi.6474546172676574 */ "Mục tiêu" /* @endgenerated template-literal:dictionary.vi.6474546172676574 */,
+      ctxH:/* @generated template-literal:dictionary.vi.63747848 */ "Bối cảnh" /* @endgenerated template-literal:dictionary.vi.63747848 */,
+      ctxP:/* @generated template-literal:dictionary.vi.63747850 */ "Hôm nay token thiết kế chỉ xuất ra CSS. Các đội native (Swift/Kotlin) và Flutter phải chép tay giá trị, dẫn đến sai lệch. Chúng tôi đề xuất một nguồn DTCG duy nhất biên dịch ra mọi nền tảng kèm nguồn gốc." /* @endgenerated template-literal:dictionary.vi.63747850 */,
+      propH:/* @generated template-literal:dictionary.vi.70726f7048 */ "Đề xuất" /* @endgenerated template-literal:dictionary.vi.70726f7048 */, toH:/* @generated template-literal:dictionary.vi.746f48 */ "Đánh đổi" /* @endgenerated template-literal:dictionary.vi.746f48 */,
+      gainsT:/* @generated template-literal:dictionary.vi.6761696e7354 */ "Được gì" /* @endgenerated template-literal:dictionary.vi.6761696e7354 */, gainsB:/* @generated template-literal:dictionary.vi.6761696e7342 */ "Một nguồn sự thật duy nhất; JSON nguồn gốc cho mỗi token; không còn chép tay giữa các nền tảng." /* @endgenerated template-literal:dictionary.vi.6761696e7342 */,
+      costsT:/* @generated template-literal:dictionary.vi.636f73747354 */ "Mất gì (thẳng thắn)" /* @endgenerated template-literal:dictionary.vi.636f73747354 */, costsB:/* @generated template-literal:dictionary.vi.636f73747342 */ "Thêm một bước build và thời gian làm quen DTCG. Chuyển đổi 159 token tốn khoảng một sprint làm cẩn thận." /* @endgenerated template-literal:dictionary.vi.636f73747342 */,
+      rollH:/* @generated template-literal:dictionary.vi.726f6c6c48 */ "Triển khai" /* @endgenerated template-literal:dictionary.vi.726f6c6c48 */,
       steps: [ { title:"Duyệt RFC" }, { title:"Thử nghiệm: màu" }, { title:"Toàn bộ 159 token" }, { title:"Ngừng chép tay" } ]};
     return Object.assign({ langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, code, rootTheme: this.props.theme === "dark" ? "dark" : "" }, vn ? vi : en);
   }

@@ -9,4 +9,4 @@ export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;
   className?: string;
 }
-export function ButtonGroup(props: ButtonGroupProps): React.ReactElement;
+export const ButtonGroup: React.ForwardRefExoticComponent<React.PropsWithoutRef<ButtonGroupProps> & React.RefAttributes<HTMLDivElement>>;

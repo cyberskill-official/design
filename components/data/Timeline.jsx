@@ -1,10 +1,13 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Timeline — vertical event trail. item.state: "done" (default) | "now" | "todo". */
-export function Timeline({ items = [], className }) {
+export const Timeline = React.forwardRef(function Timeline({ items = [], className, rootProps }, forwardedRef) {
+  const mergedNativeRef = useComposedRefs(forwardedRef);
   return (
-    <div className={cx("cs-timeline", className)}>
+    <div {...mergeTargetProps({ className: cx("cs-timeline", className) }, rootProps)} ref={mergedNativeRef} >
       {items.map((it, i) => (
         <div key={i} className={cx("cs-timeline__item", it.state === "now" && "cs-timeline__item--now", it.state === "todo" && "cs-timeline__item--todo")}>
           <span className="cs-timeline__marker" aria-hidden="true">{it.state === "todo" ? "" : it.state === "now" ? "→" : "✓"}</span>
@@ -17,4 +20,5 @@ export function Timeline({ items = [], className }) {
       ))}
     </div>
   );
-}
+});
+Timeline.displayName = "Timeline";

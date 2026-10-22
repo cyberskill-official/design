@@ -1,3 +1,4 @@
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 import { cx } from "../_utils/cx.js";
 
@@ -8,7 +9,7 @@ import { cx } from "../_utils/cx.js";
  * When `title` is set and `trailing` is omitted, `children` render in the
  * trailing slot (handy for DC templates nesting a Switch).
  */
-export function Item({
+export const Item = React.forwardRef(function Item({
   leading,
   trailing,
   title,
@@ -20,7 +21,8 @@ export function Item({
   children,
   className,
   ...props
-}) {
+}, forwardedRef) {
+  const mergedNativeRef = useComposedRefs(forwardedRef);
   const interactive = href != null || typeof onClick === "function";
   const Tag = href != null ? "a" : interactive ? "button" : "div";
   const rowProps = { ...props };
@@ -55,7 +57,7 @@ export function Item({
         className
       )}
       {...rowProps}
-    >
+     ref={mergedNativeRef} >
       {leading != null ? <span className="cs-item__leading">{leading}</span> : null}
       <span className="cs-item__main">
         {title != null ? <span className="cs-item__title">{title}</span> : null}
@@ -65,4 +67,5 @@ export function Item({
       {trailNode != null && trailNode !== false ? <span className="cs-item__trailing">{trailNode}</span> : null}
     </Tag>
   );
-}
+});
+Item.displayName = "Item";

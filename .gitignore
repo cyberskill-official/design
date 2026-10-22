@@ -71,3 +71,6 @@ examples/native/**/*.jks
 examples/native/**/*.keystore
 examples/native/**/*.p8
 examples/native/**/*-play-key.json
+
+# Generated Vercel Build Output API deployment artifacts.
+/.vercel/output/

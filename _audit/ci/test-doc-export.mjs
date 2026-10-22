@@ -3,6 +3,7 @@
  * TASK-IMP-022 — every omelette-owns-print template under the site CSP:
  * no EvalError, export toolbar present, PDF magic + page size, DOCX ZIP + OOXML.
  */
+import {designCsp} from '../../scripts/lib/site-csp.mjs';
 import { createServer } from 'node:http';
 import { readFileSync, statSync, existsSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { join, dirname, extname, relative } from 'node:path';
@@ -13,8 +14,7 @@ import { listPrintTemplates } from './lib/print-template-contract.mjs';
 import { readLiveDocExport } from './lib/doc-export-readiness.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
-const CSP =
-  "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; connect-src 'self'; frame-src 'self'; worker-src 'self' blob:; base-uri 'self'; form-action 'self'";
+const CSP = designCsp('').value;
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -67,7 +67,7 @@ const server = createServer((req, res) => {
   }
   res.writeHead(200, {
     'Content-Type': MIME[extname(file)] || 'application/octet-stream',
-    'Content-Security-Policy': CSP,
+    'Content-Security-Policy': extname(file)==='.html' ? designCsp(readFileSync(file,'utf8'),{path:p}).value : CSP,
   });
   res.end(readFileSync(file));
 });

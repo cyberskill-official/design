@@ -4,7 +4,9 @@ export default {
   title: 'Components/Data/Splitter',
   component: Splitter,
   tags: ['autodocs'],
+  args: { className: '' },
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "start": {
     "control": "object"
   },
@@ -27,16 +29,9 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Splitter. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
 };
 
-export const Default = { render: () => (<Splitter><div style={{ padding: 12 }}>Left</div><div style={{ padding: 12 }}>Right</div></Splitter>) };
+export const Default = { render: (args) => (<Splitter {...args}><div style={{ padding: 12 }}>Left</div><div style={{ padding: 12 }}>Right</div></Splitter>) };
 
 export const Matrix = {
   name: 'Matrix / Panes',

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "source": "components/release-compatibility.json",
+  "sourceSha256": "ef7f2b69350ed31e5627ebc7e288db27b554897596392593a9dfea48f0bb8d74",
+  "sourceBytes": "{\n  \"schemaVersion\": 1,\n  \"baselineVersion\": \"1.7.2\",\n  \"policy\": {\n    \"versioning\": \"semver\",\n    \"breakingChangesRequireMajor\": true,\n    \"minimumDeprecationMinorReleases\": 2,\n    \"minimumDeprecationDays\": 90,\n    \"dateBasis\": \"UTC calendar dates\"\n  },\n  \"releases\": [],\n  \"deprecations\": [\n    {\n      \"id\": \"segmented-role-override\",\n      \"contract\": \"SegmentedControl.role DOM override and inherited role prop\",\n      \"replacement\": \"Use mode=\\\"radio\\\" for value selection or mode=\\\"tabs\\\" for caller-rendered panels; mode owns root and item roles.\",\n      \"announcedVersion\": null,\n      \"announcedAt\": null\n    }\n  ],\n  \"pendingChanges\": [\n    {\n      \"id\": \"compiled-default-entry\",\n      \"kind\": \"breaking\",\n      \"description\": \"The default package entry changes from raw JSX to compiled ESM; explicit source entry remains available.\"\n    },\n    {\n      \"id\": \"apg-menu-keyboard\",\n      \"kind\": \"breaking\",\n      \"description\": \"Menu adopts the approved APG arrow-key and Tab-closes interaction contract.\"\n    },\n    {\n      \"id\": \"floating-default-portal\",\n      \"kind\": \"breaking\",\n      \"description\": \"Floating panels use body placement by default, with explicit inline opt-out and automatic native form/fieldset fallback.\"\n    },\n    {\n      \"id\": \"segmented-radio-default\",\n      \"kind\": \"breaking\",\n      \"description\": \"SegmentedControl defaults to radiogroup semantics for value selection; caller-rendered panels use explicit tabs mode.\"\n    },\n    {\n      \"id\": \"remove-segmented-role-override\",\n      \"kind\": \"removal\",\n      \"description\": \"SegmentedControl mode owns ARIA roles and the inherited caller role override is removed. Notice has not been published.\",\n      \"deprecationId\": \"segmented-role-override\"\n    }\n  ]\n}\n",
+  "archivedProposal": {
+    "id": "remove-segmented-role-override",
+    "kind": "removal",
+    "description": "SegmentedControl mode owns ARIA roles and the inherited caller role override is removed. Notice has not been published.",
+    "deprecationId": "segmented-role-override"
+  },
+  "originalNotice": {
+    "id": "segmented-role-override",
+    "contract": "SegmentedControl.role DOM override and inherited role prop",
+    "replacement": "Use mode=\"radio\" for value selection or mode=\"tabs\" for caller-rendered panels; mode owns root and item roles.",
+    "announcedVersion": null,
+    "announcedAt": null
+  },
+  "disposition": "Superseded current removal proposal: owner selected retained deprecated semantic role aliases. This archive does not record a publication, notice date, release identity or approval of support evidence."
+}

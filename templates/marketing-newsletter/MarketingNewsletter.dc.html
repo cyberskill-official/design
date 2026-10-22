@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="cs-template-library" content="static-logo">
 <title>Marketing · Newsletter · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,9 +16,9 @@
 <div data-theme="{{ rootTheme }}" lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" style="background:#efe6d8;padding:32px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary);min-height:100vh">
   <div style="max-width:640px;margin:0 auto;background:var(--cs-color-surface-panel);border-radius:16px;overflow:hidden;box-shadow:var(--cs-shadow-sm)">
     <div style="background:var(--cs-color-brand-umber);padding:22px 32px;display:flex;align-items:center;gap:12px">
-      <x-import component-from-global-scope="CyberSkillDS.Logo" size="28" hint-size="28px,28px"></x-import>
+      <img data-cs-official-logo="" class="cs-logo" width="28" height="28" role="img" alt="CyberSkill" title="CyberSkill">
       <span style="color:#FFFDF8;font-weight:800;font-size:16px">The Lamp</span>
-      <span style="margin-left:auto;text-align:right;color:#FFFDF8;font-size:13px;font-family:var(--cs-font-family-mono)"><sc-if value="{{ isEN }}" hint-placeholder-val="{{ true }}"><span style="display:block">Issue 12 · July 2026</span></sc-if><sc-if value="{{ isVN }}"><span lang="vi" style="display:block">Số 12 · Tháng 7 2026</span></sc-if></span>
+      <span style="margin-left:auto;text-align:right;color:#FFFDF8;font-size:13px;font-family:var(--cs-font-family-mono)"><sc-if value="{{ isEN }}" hint-placeholder-val="{{ true }}"><span style="display:block">{{ issueDisplayEn }}</span></sc-if><sc-if value="{{ isVN }}"><span lang="vi" style="display:block">{{ issueDisplayVi }}</span></sc-if></span>
     </div>
     <div style="position:relative;overflow:hidden;background:var(--cs-color-brand-umber)">
       <div class="cs-aurora-wash" style="position:absolute;inset:0;opacity:0.5"></div>
@@ -25,13 +26,13 @@
       <div style="position:relative;z-index:1;padding:32px;color:#FFFDF8">
         <sc-if value="{{ isEN }}" hint-placeholder-val="{{ true }}">
           <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-accent-bright)">This month</div>
-          <h1 style="font-size:26px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;margin:8px 0 8px">Liquid Glass, now in every build</h1>
+          <h1 style="font-size:26px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;margin:8px 0 8px">{{ leadArticleTitleEn }}</h1>
           <p style="font-size:15px;line-height:1.6;opacity:0.92;margin:0">Our design system reached v1.6 — warmer, faster, and bilingual by default. Here's what it means for your next release.</p>
         </sc-if>
         <sc-if value="{{ isVN }}"><div lang="vi" style="display:contents">
           <sc-if value="{{ isBoth }}"><div style="height:1px;background:rgba(255,255,255,0.18);margin:16px 0"></div></sc-if>
           <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-accent-bright)">Tháng này</div>
-          <h1 style="font-size:26px;font-weight:800;letter-spacing:-0.02em;line-height:1.3;margin:8px 0 8px">Liquid Glass, giờ có trong mọi bản build</h1>
+          <h1 style="font-size:26px;font-weight:800;letter-spacing:-0.02em;line-height:1.3;margin:8px 0 8px">{{ leadArticleTitleVi }}</h1>
           <p style="font-size:15px;line-height:1.65;opacity:0.92;margin:0">Design system của chúng tôi đã đạt v1.6 — ấm hơn, nhanh hơn, và song ngữ mặc định. Đây là ý nghĩa với bản phát hành tiếp theo của bạn.</p>
         </div></sc-if>
       </div>
@@ -41,13 +42,13 @@
       <a class="cs-touch-target" href="#" style="display:inline-block;background:var(--cs-color-brand-umber);color:#FFFDF8;font-weight:700;font-size:15px;text-decoration:none;padding:12px 22px;border-radius:var(--cs-radius-full);margin-bottom:26px">Read the story →</a>
       <div style="border-top:1px solid var(--cs-color-border-default);padding-top:20px;margin-bottom:20px">
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--cs-color-text-accent);margin-bottom:6px">Field notes</div>
-        <h2 style="font-size:19px;font-weight:700;margin:0 0 6px">How we grant a wish in four steps</h2>
+        <h2 style="font-size:19px;font-weight:700;margin:0 0 6px">{{ fieldArticleTitleEn }}</h2>
         <p style="font-size:14px;line-height:1.6;color:var(--cs-color-text-muted);margin:0 0 8px">From a one-sentence wish to software you run — the arc, and why we're honest about trade-offs at every step.</p>
         <a class="cs-touch-target" href="#" style="font-size:14px;font-weight:600;color:var(--cs-color-link)">Keep reading →</a>
       </div>
       <div style="border-top:1px solid var(--cs-color-border-default);padding-top:20px">
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--cs-color-text-accent);margin-bottom:6px">Meet the team</div>
-        <h2 style="font-size:19px;font-weight:700;margin:0 0 6px">An joins Platform</h2>
+        <h2 style="font-size:19px;font-weight:700;margin:0 0 6px">{{ teamArticleTitleEn }}</h2>
         <p style="font-size:14px;line-height:1.6;color:var(--cs-color-text-muted);margin:0 0 8px">A new senior engineer to help ship the token pipeline and the next design-system releases.</p>
         <a class="cs-touch-target" href="#" style="font-size:14px;font-weight:600;color:var(--cs-color-link)">Say hello →</a>
       </div>
@@ -57,13 +58,13 @@
       <a class="cs-touch-target" href="#" style="display:inline-block;background:var(--cs-color-brand-umber);color:#FFFDF8;font-weight:700;font-size:15px;text-decoration:none;padding:12px 22px;border-radius:var(--cs-radius-full);margin-bottom:26px">Đọc câu chuyện →</a>
       <div style="border-top:1px solid var(--cs-color-border-default);padding-top:20px;margin-bottom:20px">
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--cs-color-text-accent);margin-bottom:6px">Ghi chú thực địa</div>
-        <h2 style="font-size:19px;font-weight:700;margin:0 0 6px">Cách chúng tôi thực hiện một điều ước trong bốn bước</h2>
+        <h2 style="font-size:19px;font-weight:700;margin:0 0 6px">{{ fieldArticleTitleVi }}</h2>
         <p style="font-size:14px;line-height:1.65;color:var(--cs-color-text-muted);margin:0 0 8px">Từ một điều ước một câu đến phần mềm bạn vận hành — hành trình, và vì sao chúng tôi thành thật về đánh đổi ở mỗi bước.</p>
         <a class="cs-touch-target" href="#" style="font-size:14px;font-weight:600;color:var(--cs-color-link)">Đọc tiếp →</a>
       </div>
       <div style="border-top:1px solid var(--cs-color-border-default);padding-top:20px">
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--cs-color-text-accent);margin-bottom:6px">Gặp gỡ đội ngũ</div>
-        <h2 style="font-size:19px;font-weight:700;margin:0 0 6px">An gia nhập Platform</h2>
+        <h2 style="font-size:19px;font-weight:700;margin:0 0 6px">{{ teamArticleTitleVi }}</h2>
         <p style="font-size:14px;line-height:1.65;color:var(--cs-color-text-muted);margin:0 0 8px">Một kỹ sư cấp cao mới, giúp hoàn thiện quy trình token và những bản phát hành design system tiếp theo.</p>
         <a class="cs-touch-target" href="#" style="font-size:14px;font-weight:600;color:var(--cs-color-link)">Chào hỏi →</a>
       </div>
@@ -77,7 +78,7 @@
       </sc-if>
       <sc-if value="{{ isVN }}"><div lang="vi" style="display:contents">
         <sc-if value="{{ isBoth }}"><div style="height:1px;background:rgba(255,255,255,0.18);margin:0 auto 16px;max-width:200px"></div></sc-if>
-        <div style="font-size:17px;font-weight:700;color:var(--cs-accent-bright);margin-bottom:4px">Bạn có điều ước của riêng mình?</div>
+        <div style="font-size:17px;font-weight:700;margin-bottom:4px">Bạn có điều ước của riêng mình?</div>
         <p style="font-size:14px;opacity:0.85;margin:0 0 14px">Kể cho chúng tôi kết quả bạn muốn trong một câu. Chúng tôi trả lời trong vòng một ngày làm việc.</p>
         <a class="cs-touch-target" href="#" style="display:inline-block;background:var(--cs-color-brand-umber);color:#FFFDF8;font-weight:700;font-size:14px;text-decoration:none;padding:11px 22px;border-radius:var(--cs-radius-full)">Gửi điều ước</a>
       </div></sc-if>
@@ -92,13 +93,13 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;element&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;\&quot;light\&quot; | \&quot;dark\&quot;&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;language&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;,&quot;Both&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot; | \&quot;Both\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;element&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;\&quot;light\&quot; | \&quot;dark\&quot;&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;language&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;,&quot;Both&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot; | \&quot;Both\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;}}" data-content-schema="./content-schema.json">
 class Component extends DCLogic {
   renderVals() {
-    const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
+    const EL = /* @generated template-literal:axis.element-map */ {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]} /* @endgenerated template-literal:axis.element-map */;
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
     const lang = this.props.language ?? "English";
-    return { langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr,
+    return {/* @generated display-content:defaults */"issueDisplayEn":"Issue 12 · July 2026","issueDisplayVi":"Số 12 · Tháng 7 2026","leadArticleTitleEn":"Liquid Glass, now in every build","leadArticleTitleVi":"Liquid Glass, giờ có trong mọi bản build","teamArticleTitleEn":"An joins Platform","teamArticleTitleVi":"An gia nhập Platform","fieldArticleTitleEn":"How we grant a wish in four steps","fieldArticleTitleVi":"Cách chúng tôi thực hiện một điều ước trong bốn bước",/* @endgenerated display-content:defaults */ langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr,
       rootTheme: this.props.theme === "dark" ? "dark" : "",
       isEN: lang === "English" || lang === "Both",
       isVN: lang === "Tiếng Việt" || lang === "Both",

@@ -11,7 +11,7 @@ code{font-family:var(--cs-font-family-mono);font-size:12px}
 </style>
 </head><body>
 <h1>Element geometry</h1>
-<p class="lede">Hard gate for the <b>30</b> default colour sets (5 elements × soft/middle/deep × light/dark): intensity sync across elements, soft↔middle↔deep distinctness (<b>both</b> minΔE and minΔL), monotonic L ladder, and light↔dark hue identity. Seeds: <code>tokens/element-seeds.json</code>. Verdict: <code>window.__elementgeometry</code>.</p>
+<p class="lede">Hard gate for the <b>30</b> default colour sets (5 elements × soft/middle/deep × light/dark): intensity sync across elements, soft↔middle↔deep distinctness (<b>both</b> minΔE and minΔL), monotonic L ladder, and light↔dark hue identity. Seeds: <code>tokens/element-seeds.json</code>. Browser CSSOM reconstructs authored light/dark channels; an independent computed-variable check also exercises explicit light, dark and system inheritance. Missing palettes fail before geometry calculations. Verdict: <code>window.__elementgeometry</code>.</p>
 <div id="out"></div>
 <script type="module">
 import {
@@ -28,31 +28,7 @@ const row = (ok, msg) => {
   if (!ok) problems.push(msg);
 };
 
-function parsePacks(css) {
-  const packs = {};
-  const re = /((?:\[[^\]]+\])+)\s*\{([^}]*)\}/g;
-  let m;
-  while ((m = re.exec(css))) {
-    const sel = m[1], body = m[2];
-    // System theme blocks mirror dark accents under prefers-color-scheme;
-    // counting them as light overwrites the soft/middle/deep ladder (#69).
-    if (/data-theme="system"/.test(sel)) continue;
-    const el = (/\[data-cs-element="(\w+)"\]/.exec(sel) || [])[1];
-    if (!el) continue;
-    const va = (/\[data-cs-variant="(\w+)"\]/.exec(sel) || [])[1] || '';
-    const dark = /data-theme="dark"/.test(sel);
-    if (/data-cs-element\]/.test(sel) && !/data-cs-element="/.test(sel)) continue;
-    const decls = {};
-    let d;
-    const dr = /(--cs-[\w-]+)\s*:\s*([^;]+);/g;
-    while ((d = dr.exec(body))) decls[d[1]] = d[2].trim();
-    if (!decls['--cs-accent'] || !hex2rgb(decls['--cs-accent'])) continue;
-    const k = el + '|' + va;
-    packs[k] = packs[k] || { el, va, light: {}, dark: {} };
-    Object.assign(dark ? packs[k].dark : packs[k].light, decls);
-  }
-  return packs;
-}
+import {readElementCssPacks,elementRuntimeDrift} from './lib/element-css-packs.mjs';
 
 const SLOT_OF = {
   'tho|': 'middle', 'tho|sand': 'soft', 'tho|clay': 'deep',
@@ -65,10 +41,17 @@ const SLOT_OF = {
 (async () => {
   const seeds = await (await fetch('../tokens/element-seeds.json', { cache: 'no-store' })).json();
   const css = await (await fetch('../tokens/elements.css', { cache: 'no-store' })).text();
-  const packs = parsePacks(css);
+  const packs = readElementCssPacks(css);
   const keys = Object.keys(SLOT_OF);
   row(keys.every((k) => packs[k] && packs[k].light['--cs-accent']), '15 light packs present');
   row(keys.every((k) => packs[k] && packs[k].dark['--cs-accent']), '15 dark packs present');
+
+  if (problems.length) {
+    window.__elementgeometry = {pass:false,problems,packs:keys.filter(k=>packs[k]).length};
+    return;
+  }
+  const runtimeDrift=elementRuntimeDrift(packs);
+  row(runtimeDrift.length===0, 'Actual light/dark public roles and system inheritance match authored palettes'+(runtimeDrift.length?': '+JSON.stringify(runtimeDrift.slice(0,3)):''));
 
   const tol = seeds.tolerance;
   for (const slot of ['soft', 'middle', 'deep']) {

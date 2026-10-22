@@ -1,3 +1,4 @@
+import { apcaLc } from '../../_audit/lib/apca.mjs';
 /** Shared OKLCH / APCA helpers for element-pack generation and geometry gates. */
 
 export const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
@@ -88,27 +89,10 @@ export function deltaEok(hexA, hexB) {
   return Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
 }
 
-function apcaY([r, g, b]) {
-  const f = (c) => Math.pow(c / 255, 2.4);
-  return 0.2126729 * f(r) + 0.7151522 * f(g) + 0.0721750 * f(b);
-}
-function softY(Y) {
-  return Y < 0.022 ? Y + Math.pow(0.022 - Y, 1.414) : Y;
-}
-
-/** APCA-W3 SAPC-4g Lc (absolute). */
+/** Hex-only adapter preserves the generator's invalid-input contract. */
 export function apca(txtHex, bgHex) {
-  const t = hex2rgb(txtHex);
-  const g = hex2rgb(bgHex);
-  if (!t || !g) return 0;
-  const Yt = softY(apcaY(t));
-  const Yb = softY(apcaY(g));
-  let S;
-  if (Yb > Yt) S = (Math.pow(Yb, 0.56) - Math.pow(Yt, 0.57)) * 1.14;
-  else S = (Math.pow(Yb, 0.65) - Math.pow(Yt, 0.62)) * 1.14;
-  const a = Math.abs(S);
-  if (a < 0.1) return 0;
-  return Math.round((a - 0.027) * 1000) / 10;
+  const text = hex2rgb(txtHex), background = hex2rgb(bgHex);
+  return text && background ? apcaLc(text, background) : 0;
 }
 
 export function solveL(hex, bg, target) {

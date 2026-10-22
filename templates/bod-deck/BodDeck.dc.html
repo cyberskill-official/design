@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="cs-template-library" content="static-logo">
 <title>Board · Meeting deck · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +18,7 @@
 
     <section style="position:relative;width:100%;aspect-ratio:16/9;background:var(--cs-color-brand-umber);color:#FFFDF8;border-radius:var(--cs-radius-lg);overflow:hidden;box-shadow:var(--cs-shadow-xl);display:flex;flex-direction:column;justify-content:center;padding:0 88px">
       <div style="display:flex;align-items:center;gap:14px;margin-bottom:26px">
-        <x-import component-from-global-scope="CyberSkillDS.Logo" size="46" hint-size="46px,46px"></x-import>
+        <img data-cs-official-logo="" class="cs-logo" width="46" height="46" role="img" alt="CyberSkill" title="CyberSkill">
         <span style="font-weight:800;font-size:22px;letter-spacing:-0.01em">CyberSkill</span>
       </div>
       <div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--cs-accent-bright)">{{ s1kicker }}</div>
@@ -30,7 +31,7 @@
     <section style="position:relative;width:100%;aspect-ratio:16/9;background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);border-radius:var(--cs-radius-lg);overflow:hidden;box-shadow:var(--cs-shadow-xl);padding:64px 88px;display:flex;flex-direction:column;justify-content:center">
       <div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-primary)">{{ s2kicker }}</div>
       <h2 style="font-size:44px;font-weight:800;letter-spacing:-0.02em;margin:10px 0 40px">{{ s2h }}</h2>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px">
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px;overflow-wrap:anywhere">
         <div><div style="font-size:60px;font-weight:800;color:var(--cs-color-text-accent);line-height:1;letter-spacing:-0.02em">+18%</div><div style="font-size:19px;color:var(--cs-color-text-muted);margin-top:10px">{{ n1 }}</div></div>
         <div><div style="font-size:60px;font-weight:800;color:var(--cs-color-text-accent);line-height:1;letter-spacing:-0.02em">14</div><div style="font-size:19px;color:var(--cs-color-text-muted);margin-top:10px">{{ n2 }}</div></div>
         <div><div style="font-size:60px;font-weight:800;color:var(--cs-color-text-accent);line-height:1;letter-spacing:-0.02em">{{ runway }}</div><div style="font-size:19px;color:var(--cs-color-text-muted);margin-top:10px">{{ n3 }}</div></div>
@@ -61,7 +62,7 @@
     </section>
 
     <section style="position:relative;width:100%;aspect-ratio:16/9;background:var(--cs-color-brand-umber);color:#FFFDF8;border-radius:var(--cs-radius-lg);overflow:hidden;box-shadow:var(--cs-shadow-xl);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 88px">
-      <x-import component-from-global-scope="CyberSkillDS.Logo" size="72" hint-size="72px,72px"></x-import>
+      <img data-cs-official-logo="" class="cs-logo" width="72" height="72" role="img" alt="CyberSkill" title="CyberSkill">
       <h2 style="font-size:56px;font-weight:800;letter-spacing:-0.02em;color:var(--cs-accent-bright);margin:24px 0 10px">{{ closeH }}</h2>
       <p style="font-size:22px;opacity:0.9;margin:0">{{ closeP }}</p>
       <sc-if value="{{ showNumbers }}"><div style="position:absolute;bottom:40px;right:88px;font-family:var(--cs-font-family-mono);font-size:14px;color:var(--cs-accent-bright)">05 / 05</div></sc-if>
@@ -70,7 +71,7 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
+<script type="text/x-dc" data-dc-script data-content-schema="./content-schema.json" data-props="{
   &quot;language&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;},
   &quot;element&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;},
   &quot;theme&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;\&quot;light\&quot; | \&quot;dark\&quot;&quot;,&quot;section&quot;:&quot;Theme&quot;},
@@ -78,27 +79,27 @@
 }">
 class Component extends DCLogic {
   renderVals() {
-    const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
+    const EL = /* @generated template-literal:axis.element-map */ {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]} /* @endgenerated template-literal:axis.element-map */;
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
     const vn = this.props.language === "Tiếng Việt";
     const en = {
-      s1kicker:"Board of Directors · Confidential", s1h:"Q3 2026 Review", s1sub:"Hiện Thực Hoá Ý Chí · the quarter & what's next", dateLine:"18 July 2026 · Saigon",
-      s2kicker:"By the numbers", s2h:"A strong quarter", n1:"Revenue QoQ", n2:"Wishes granted", n3:"Runway", n4:"Headcount", runway:"19mo",
-      s3kicker:"What we shipped", s3h:"Portfolio",
-      p1n:"Checkout rebuild · Retailer A", p1s:"Shipped", p2n:"Ops console · Logistics B", p2s:"In progress", p3n:"Design System v1.6 · Internal", p3s:"In progress",
-      s4kicker:"Honest about trade-offs", s4h:"Risks & asks",
-      r1b:"Key-person risk on AI.", r1t:"Ask: approve a second senior AI hire in Q4.",
-      r2b:"CyberOS infra spend.", r2t:"Ask: sign off to unblock the provenance ledger.",
-      closeH:"Thank you", closeP:"Questions & discussion · Turn Your Will Into Real"};
+      s1kicker:/* @generated template-literal:dictionary.en.73316b69636b6572 */ "Board of Directors · Confidential" /* @endgenerated template-literal:dictionary.en.73316b69636b6572 */, s1h:/* @generated template-literal:dictionary.en.733168 */ "Q3 2026 Review" /* @endgenerated template-literal:dictionary.en.733168 */, s1sub:/* @generated template-literal:dictionary.en.7331737562 */ "Hiện Thực Hoá Ý Chí · the quarter & what's next" /* @endgenerated template-literal:dictionary.en.7331737562 */, dateLine:/* @generated template-literal:dictionary.en.646174654c696e65 */ "18 July 2026 · Saigon" /* @endgenerated template-literal:dictionary.en.646174654c696e65 */,
+      s2kicker:/* @generated template-literal:dictionary.en.73326b69636b6572 */ "By the numbers" /* @endgenerated template-literal:dictionary.en.73326b69636b6572 */, s2h:/* @generated template-literal:dictionary.en.733268 */ "A strong quarter" /* @endgenerated template-literal:dictionary.en.733268 */, n1:/* @generated template-literal:copy.revenue-qoq.en */ "Revenue QoQ" /* @endgenerated template-literal:copy.revenue-qoq.en */, n2:/* @generated template-literal:copy.wishes-granted.en */ "Wishes granted" /* @endgenerated template-literal:copy.wishes-granted.en */, n3:/* @generated template-literal:copy.runway.en */ "Runway" /* @endgenerated template-literal:copy.runway.en */, n4:/* @generated template-literal:copy.headcount.en */ "Headcount" /* @endgenerated template-literal:copy.headcount.en */, runway:/* @generated template-literal:dictionary.en.72756e776179 */ "19mo" /* @endgenerated template-literal:dictionary.en.72756e776179 */,
+      s3kicker:/* @generated template-literal:dictionary.en.73336b69636b6572 */ "What we shipped" /* @endgenerated template-literal:dictionary.en.73336b69636b6572 */, s3h:/* @generated template-literal:copy.portfolio.en */ "Portfolio" /* @endgenerated template-literal:copy.portfolio.en */,
+      p1n:/* @generated template-literal:dictionary.en.70316e */ "Checkout rebuild · Retailer A" /* @endgenerated template-literal:dictionary.en.70316e */, p1s:/* @generated template-literal:copy.shipped.en */ "Shipped" /* @endgenerated template-literal:copy.shipped.en */, p2n:/* @generated template-literal:dictionary.en.70326e */ "Ops console · Logistics B" /* @endgenerated template-literal:dictionary.en.70326e */, p2s:/* @generated template-literal:copy.in-progress.en */ "In progress" /* @endgenerated template-literal:copy.in-progress.en */, p3n:/* @generated template-literal:dictionary.en.70336e */ "Design System v1.6 · Internal" /* @endgenerated template-literal:dictionary.en.70336e */, p3s:/* @generated template-literal:copy.in-progress.en */ "In progress" /* @endgenerated template-literal:copy.in-progress.en */,
+      s4kicker:/* @generated template-literal:dictionary.en.73346b69636b6572 */ "Honest about trade-offs" /* @endgenerated template-literal:dictionary.en.73346b69636b6572 */, s4h:/* @generated template-literal:copy.risks-asks.en */ "Risks & asks" /* @endgenerated template-literal:copy.risks-asks.en */,
+      r1b:/* @generated template-literal:dictionary.en.723162 */ "Key-person risk on AI." /* @endgenerated template-literal:dictionary.en.723162 */, r1t:/* @generated template-literal:dictionary.en.723174 */ "Ask: approve a second senior AI hire in Q4." /* @endgenerated template-literal:dictionary.en.723174 */,
+      r2b:/* @generated template-literal:dictionary.en.723262 */ "CyberOS infra spend." /* @endgenerated template-literal:dictionary.en.723262 */, r2t:/* @generated template-literal:dictionary.en.723274 */ "Ask: sign off to unblock the provenance ledger." /* @endgenerated template-literal:dictionary.en.723274 */,
+      closeH:/* @generated template-literal:dictionary.en.636c6f736548 */ "Thank you" /* @endgenerated template-literal:dictionary.en.636c6f736548 */, closeP:/* @generated template-literal:dictionary.en.636c6f736550 */ "Questions & discussion · Turn Your Will Into Real" /* @endgenerated template-literal:dictionary.en.636c6f736550 */};
     const vi = {
-      s1kicker:"Hội đồng Quản trị · Mật", s1h:"Đánh giá Quý 3 2026", s1sub:"Turn Your Will Into Real · nhìn lại quý & chặng tiếp theo", dateLine:"18 tháng 7 2026 · Sài Gòn",
-      s2kicker:"Theo con số", s2h:"Một quý vững vàng", n1:"Doanh thu QoQ", n2:"Điều ước đã thực hiện", n3:"Số tháng còn vốn", n4:"Nhân sự", runway:"19 tháng",
-      s3kicker:"Đã ra mắt", s3h:"Danh mục dự án",
-      p1n:"Làm lại checkout · Nhà bán lẻ A", p1s:"Đã ra mắt", p2n:"Bảng điều hành vận hành · Logistics B", p2s:"Đang làm", p3n:"Design System v1.6 · Nội bộ", p3s:"Đang làm",
-      s4kicker:"Thẳng thắn về đánh đổi", s4h:"Rủi ro & đề xuất",
-      r1b:"Rủi ro nhân sự chủ chốt về AI.", r1t:"Đề xuất: duyệt tuyển thêm một nhân sự AI cấp cao trong Q4.",
-      r2b:"Chi phí hạ tầng CyberOS.", r2t:"Đề xuất: phê duyệt để mở đường cho sổ cái nguồn gốc.",
-      closeH:"Cảm ơn", closeP:"Hỏi đáp & thảo luận · Hiện Thực Hoá Ý Chí"};
+      s1kicker:/* @generated template-literal:dictionary.vi.73316b69636b6572 */ "Hội đồng Quản trị · Mật" /* @endgenerated template-literal:dictionary.vi.73316b69636b6572 */, s1h:/* @generated template-literal:dictionary.vi.733168 */ "Đánh giá Quý 3 2026" /* @endgenerated template-literal:dictionary.vi.733168 */, s1sub:/* @generated template-literal:dictionary.vi.7331737562 */ "Turn Your Will Into Real · nhìn lại quý & chặng tiếp theo" /* @endgenerated template-literal:dictionary.vi.7331737562 */, dateLine:/* @generated template-literal:dictionary.vi.646174654c696e65 */ "18 tháng 7 2026 · Sài Gòn" /* @endgenerated template-literal:dictionary.vi.646174654c696e65 */,
+      s2kicker:/* @generated template-literal:dictionary.vi.73326b69636b6572 */ "Theo con số" /* @endgenerated template-literal:dictionary.vi.73326b69636b6572 */, s2h:/* @generated template-literal:dictionary.vi.733268 */ "Một quý vững vàng" /* @endgenerated template-literal:dictionary.vi.733268 */, n1:/* @generated template-literal:copy.revenue-qoq.vi */ "Doanh thu QoQ" /* @endgenerated template-literal:copy.revenue-qoq.vi */, n2:/* @generated template-literal:copy.wishes-granted.vi */ "Điều ước đã thực hiện" /* @endgenerated template-literal:copy.wishes-granted.vi */, n3:/* @generated template-literal:copy.runway.vi */ "Số tháng còn vốn" /* @endgenerated template-literal:copy.runway.vi */, n4:/* @generated template-literal:copy.headcount.vi */ "Nhân sự" /* @endgenerated template-literal:copy.headcount.vi */, runway:/* @generated template-literal:dictionary.vi.72756e776179 */ "19 tháng" /* @endgenerated template-literal:dictionary.vi.72756e776179 */,
+      s3kicker:/* @generated template-literal:dictionary.vi.73336b69636b6572 */ "Đã ra mắt" /* @endgenerated template-literal:dictionary.vi.73336b69636b6572 */, s3h:/* @generated template-literal:copy.portfolio.vi */ "Danh mục dự án" /* @endgenerated template-literal:copy.portfolio.vi */,
+      p1n:/* @generated template-literal:dictionary.vi.70316e */ "Làm lại checkout · Nhà bán lẻ A" /* @endgenerated template-literal:dictionary.vi.70316e */, p1s:/* @generated template-literal:copy.shipped.vi */ "Đã ra mắt" /* @endgenerated template-literal:copy.shipped.vi */, p2n:/* @generated template-literal:dictionary.vi.70326e */ "Bảng điều hành vận hành · Logistics B" /* @endgenerated template-literal:dictionary.vi.70326e */, p2s:/* @generated template-literal:copy.in-progress.vi */ "Đang làm" /* @endgenerated template-literal:copy.in-progress.vi */, p3n:/* @generated template-literal:dictionary.vi.70336e */ "Design System v1.6 · Nội bộ" /* @endgenerated template-literal:dictionary.vi.70336e */, p3s:/* @generated template-literal:copy.in-progress.vi */ "Đang làm" /* @endgenerated template-literal:copy.in-progress.vi */,
+      s4kicker:/* @generated template-literal:dictionary.vi.73346b69636b6572 */ "Thẳng thắn về đánh đổi" /* @endgenerated template-literal:dictionary.vi.73346b69636b6572 */, s4h:/* @generated template-literal:copy.risks-asks.vi */ "Rủi ro & đề xuất" /* @endgenerated template-literal:copy.risks-asks.vi */,
+      r1b:/* @generated template-literal:dictionary.vi.723162 */ "Rủi ro nhân sự chủ chốt về AI." /* @endgenerated template-literal:dictionary.vi.723162 */, r1t:/* @generated template-literal:dictionary.vi.723174 */ "Đề xuất: duyệt tuyển thêm một nhân sự AI cấp cao trong Q4." /* @endgenerated template-literal:dictionary.vi.723174 */,
+      r2b:/* @generated template-literal:dictionary.vi.723262 */ "Chi phí hạ tầng CyberOS." /* @endgenerated template-literal:dictionary.vi.723262 */, r2t:/* @generated template-literal:dictionary.vi.723274 */ "Đề xuất: phê duyệt để mở đường cho sổ cái nguồn gốc." /* @endgenerated template-literal:dictionary.vi.723274 */,
+      closeH:/* @generated template-literal:dictionary.vi.636c6f736548 */ "Cảm ơn" /* @endgenerated template-literal:dictionary.vi.636c6f736548 */, closeP:/* @generated template-literal:dictionary.vi.636c6f736550 */ "Hỏi đáp & thảo luận · Hiện Thực Hoá Ý Chí" /* @endgenerated template-literal:dictionary.vi.636c6f736550 */};
     return Object.assign({ langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr, rootTheme: this.props.theme === "dark" ? "dark" : "", showNumbers: this.props.showPageNumbers ?? true }, vn ? vi : en);
   }
 }

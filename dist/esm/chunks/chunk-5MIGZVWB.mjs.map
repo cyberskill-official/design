@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/_utils/renderCount.js"],
+  "sourcesContent": ["/** Whole rendered count, with the component's existing minimum/default.\n * Array lengths cannot reach 2^32; this is not a resource or UI budget. */\nexport function renderCount(value, fallback, minimum = 0) {\n  if (!Number.isFinite(value) || value >= 2 ** 32) return fallback;\n  return Math.max(minimum, Math.trunc(value));\n}\n"],
+  "mappings": ";;;AAEO,SAAS,YAAY,OAAO,UAAU,UAAU,GAAG;AACxD,MAAI,CAAC,OAAO,SAAS,KAAK,KAAK,SAAS,KAAK,GAAI,QAAO;AACxD,SAAO,KAAK,IAAI,SAAS,KAAK,MAAM,KAAK,CAAC;AAC5C;",
+  "names": []
+}

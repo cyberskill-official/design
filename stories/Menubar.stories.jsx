@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { Menubar } from '../components/navigation/Menubar.jsx';
 
 const MENUS = [
@@ -10,21 +11,16 @@ export default {
   component: Menubar,
   tags: ['autodocs'],
   argTypes: {
+    portal: {control: 'boolean', description: 'Body portal after client mount by default; false keeps inline/server markup and ancestor clipping.'},
+    placement: {control: 'select', options: DECLARED_DOMAINS.Menubar["placement"], description: 'Preferred physical side; flips/shifts within the visual viewport. Top/bottom start/end follow inline direction.'},
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     menus: { control: 'object' },
     className: {
       control: 'text',
       description: 'Optional className on root',
     },
   },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting Menubar. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
-  args: { menus: MENUS },
+  args: { portal: true, menus: MENUS },
 };
 
 export const Default = {};

@@ -1,7 +1,8 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { Badge } from '../components/feedback/Badge.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
-const VARIANTS = ['neutral', 'solid', 'ochre', 'success', 'danger', 'warning', 'info'];
+const VARIANTS = DECLARED_DOMAINS.Badge["variant"];
 
 export default {
   title: 'Components/Feedback/Badge',
@@ -14,14 +15,6 @@ export default {
     },
     dot: {
       control: 'boolean',
-    },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus exhaustive variant matrix mounting Badge. Portable consumers use styles.css + bundle, not Storybook.',
-      },
     },
   },
   args: { children: 'New' },
@@ -49,7 +42,7 @@ export const Matrix = {
 export const FullMatrix = {
   name: 'Full matrix / variant',
   render: (args) => {
-    const cells = cartesian({ variant: ["neutral","solid","ochre","success","danger","warning","info"] }).flatMap((combo) =>
+    const cells = cartesian({ variant: DECLARED_DOMAINS.Badge["variant"] }).flatMap((combo) =>
       stateCombos([]).map((state) => {
         const props = { ...combo, ...state };
         const label = comboLabel(props, ['variant']);

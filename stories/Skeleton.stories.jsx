@@ -1,13 +1,15 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { Skeleton } from '../components/feedback/Skeleton.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
-const VARIANTS = ['block', 'circle'];
+const VARIANTS = DECLARED_DOMAINS.Skeleton["variant"];
 
 export default {
   title: 'Components/Feedback/Skeleton',
   component: Skeleton,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     variant: {
       control: 'select',
       options: VARIANTS,
@@ -23,14 +25,6 @@ export default {
     },
     radius: {
       control: 'number',
-    },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus exhaustive variant matrix mounting Skeleton. Portable consumers use styles.css + bundle, not Storybook.',
-      },
     },
   },
   args: { width: 200, height: 16 },
@@ -54,7 +48,7 @@ export const Matrix = {
 export const FullMatrix = {
   name: 'Full matrix / variant',
   render: (args) => {
-    const cells = cartesian({ variant: ["block","circle"] }).flatMap((combo) =>
+    const cells = cartesian({ variant: DECLARED_DOMAINS.Skeleton["variant"] }).flatMap((combo) =>
       stateCombos([]).map((state) => {
         const props = { ...combo, ...state };
         const label = comboLabel(props, ['variant']);

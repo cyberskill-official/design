@@ -7,67 +7,78 @@
       "type": "text",
       "label": "Cta Btn",
       "maxLength": 90,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "ctaKicker",
       "type": "text",
       "label": "Cta Kicker",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     },
     {
       "id": "ctaPlace",
       "type": "text",
       "label": "Cta Place",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     },
     {
       "id": "heroKicker",
       "type": "text",
       "label": "Hero Kicker",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     },
     {
       "id": "processTitle",
       "type": "text",
       "label": "Process Title",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     },
     {
       "id": "stat1",
       "type": "text",
       "label": "Stat1",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     },
     {
       "id": "stat1l",
       "type": "text",
       "label": "Stat1L",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     },
     {
       "id": "stat2l",
       "type": "text",
       "label": "Stat2L",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     },
     {
       "id": "stat3l",
       "type": "text",
       "label": "Stat3L",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     },
     {
       "id": "stat4",
       "type": "text",
       "label": "Stat4",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     },
     {
       "id": "stat4l",
       "type": "text",
       "label": "Stat4L",
-      "maxLength": 90
+      "maxLength": 90,
+      "runtimeBinding": "text"
     }
   ]
 }

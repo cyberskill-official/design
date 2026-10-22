@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="cs-template-library" content="static-logo">
 <title>Marketing · Launch announcement · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +19,7 @@
       <div class="cs-aurora-wash" style="position:absolute;inset:0;opacity:0.5"></div>
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,17,8,0.25),rgba(26,17,8,0.82))"></div>
       <div style="position:relative;z-index:1;color:#FFFDF8">
-        <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:20px"><x-import component-from-global-scope="CyberSkillDS.Logo" size="30" hint-size="30px,30px"></x-import><span style="font-weight:800;font-size:16px">CyberSkill</span></div>
+        <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:20px"><img data-cs-official-logo="" class="cs-logo" width="30" height="30" role="img" alt="CyberSkill" title="CyberSkill"><span style="font-weight:800;font-size:16px">CyberSkill</span></div>
         <sc-if value="{{ isEN }}" hint-placeholder-val="{{ true }}">
         <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--cs-accent-bright)">Now live</div>
         <h1 style="font-size:34px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;color:var(--cs-accent-bright);margin:10px 0 10px">Meet Lumi</h1>
@@ -42,7 +43,7 @@
       <div style="text-align:center;margin-bottom:24px">
         <a class="cs-touch-target" href="#" style="display:inline-block;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);font-weight:700;font-size:16px;text-decoration:none;padding:15px 32px;border-radius:var(--cs-radius-full)">Talk to Lumi →</a>
       </div>
-      <blockquote style="margin:0;background:var(--cs-color-surface-raised);border-left:4px solid var(--cs-accent);border-radius:var(--cs-radius-md);padding:16px 20px;font-size:15px;line-height:1.6;font-style:italic">“We described a checkout in two sentences. Two weeks later it shipped.”<br /><span style="font-style:normal;font-size:13px;color:var(--cs-color-text-muted)">— Product lead, Retailer A</span></blockquote>
+      <blockquote style="margin:0;background:var(--cs-color-surface-raised);border-left:4px solid var(--cs-accent);border-radius:var(--cs-radius-md);padding:16px 20px;font-size:15px;line-height:1.6;font-style:italic">{{ testimonialEn }}<br /><span style="font-style:normal;font-size:13px;color:var(--cs-color-text-muted)">{{ testimonialAttributionEn }}</span></blockquote>
       </sc-if>
       <sc-if value="{{ isVN }}"><div lang="vi" style="display:contents">
       <sc-if value="{{ isBoth }}"><div style="border-top:1px solid var(--cs-color-border-default);margin:26px 0 24px"></div></sc-if>
@@ -54,7 +55,7 @@
       <div style="text-align:center;margin-bottom:24px">
         <a class="cs-touch-target" href="#" style="display:inline-block;background:var(--cs-accent-strong);color:var(--cs-accent-on-strong);font-weight:700;font-size:16px;text-decoration:none;padding:15px 32px;border-radius:var(--cs-radius-full)">Trò chuyện với Lumi →</a>
       </div>
-      <blockquote style="margin:0;background:var(--cs-color-surface-raised);border-left:4px solid var(--cs-accent);border-radius:var(--cs-radius-md);padding:16px 20px;font-size:15px;line-height:1.65;font-style:italic">“Chúng tôi mô tả trang thanh toán trong hai câu. Hai tuần sau nó đã chạy.”<br /><span style="font-style:normal;font-size:13px;color:var(--cs-color-text-muted)">— Trưởng sản phẩm, Retailer A</span></blockquote>
+      <blockquote style="margin:0;background:var(--cs-color-surface-raised);border-left:4px solid var(--cs-accent);border-radius:var(--cs-radius-md);padding:16px 20px;font-size:15px;line-height:1.65;font-style:italic">{{ testimonialVi }}<br /><span style="font-style:normal;font-size:13px;color:var(--cs-color-text-muted)">{{ testimonialAttributionVi }}</span></blockquote>
       </div></sc-if>
     </div>
     <div style="padding:16px 32px;background:var(--cs-color-surface-raised);font-size:12px;color:var(--cs-color-text-muted);text-align:center">
@@ -67,13 +68,13 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;element&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;\&quot;light\&quot; | \&quot;dark\&quot;&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;language&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;,&quot;Both&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot; | \&quot;Both\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;element&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;\&quot;light\&quot; | \&quot;dark\&quot;&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;language&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;,&quot;Both&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot; | \&quot;Both\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;}}" data-content-schema="./content-schema.json">
 class Component extends DCLogic {
   renderVals() {
-    const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
+    const EL = /* @generated template-literal:axis.element-map */ {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]} /* @endgenerated template-literal:axis.element-map */;
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
     const lang = this.props.language ?? "English";
-    return { langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr,
+    return {/* @generated display-content:defaults */"testimonialEn":"“We described a checkout in two sentences. Two weeks later it shipped.”","testimonialVi":"“Chúng tôi mô tả trang thanh toán trong hai câu. Hai tuần sau nó đã chạy.”","testimonialAttributionEn":"— Product lead, Retailer A","testimonialAttributionVi":"— Trưởng sản phẩm, Retailer A",/* @endgenerated display-content:defaults */ langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr,
       rootTheme: this.props.theme === "dark" ? "dark" : "",
       isEN: lang === "English" || lang === "Both",
       isVN: lang === "Tiếng Việt" || lang === "Both",

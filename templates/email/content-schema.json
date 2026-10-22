@@ -1,0 +1,38 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "email",
+  "slots": [
+    {
+      "id": "recipientIntroductionEn",
+      "type": "text",
+      "label": "Recipient Introduction En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "recipientIntroductionVi",
+      "type": "text",
+      "label": "Recipient Introduction Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "requestSummaryEn",
+      "type": "text",
+      "label": "Request Summary En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "requestSummaryVi",
+      "type": "text",
+      "label": "Request Summary Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

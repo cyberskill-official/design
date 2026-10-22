@@ -26,10 +26,11 @@ const report = result
       'failed: ' + ((result.failed && result.failed.length) ? result.failed.join(', ') : '(none)'),
       'advisoryFailed: ' + ((result.advisoryFailed && result.advisoryFailed.length) ? result.advisoryFailed.join(', ') : '(none)'),
       '',
-      JSON.stringify(result.details || {}, null, 2).slice(0, 12000),
+      JSON.stringify(result.details || {}, null, 2),
     ].join('\n')
   : '(no window.__run — board did not finish)';
 writeFileSync(new URL('./import-report.txt', import.meta.url), report);
+writeFileSync(new URL('./import-report.json', import.meta.url), JSON.stringify(result || {pass:false, error:'Gate board timed out'}, null, 2) + '\n');
 
 await browser.close();
 

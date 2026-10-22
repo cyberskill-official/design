@@ -21,7 +21,7 @@
 8. **`pixel-diff`** — so sánh ảnh chụp màn hình Playwright Chromium (`_audit/ci/pixel-diff.mjs`) với 15 baseline chọn lọc trong `_audit/baselines/*.png`; upload `pixel-baselines-linux` và `_audit/ci/pixel-diff-report.json`.
 9. **`regenerate-tokens`** (pull request) + **`regenerate-tokens-push`** (push `main` / schedule / thủ công) — path filter phủ element seeds/packs (`element-seeds.json`, `elements.css`, mirror JSON/JS/DTCG, `generate-element-packs.mjs`) cộng natives / `VERSION`. Regenerate chạy `npm run tokens:generate`, gồm toàn bộ export token, bản sao native và output/catalog phụ thuộc. Trên **pull request** job chạy với `contents: read`, không bao giờ push, và **exit 1** khi có drift: chạy pipeline này ở local rồi chuẩn bị diff đã review (freshness bắt buộc trên PR). Chỉ job song sinh push/schedule/thủ công giữ `contents: write` và có thể auto-commit với `PUSH_TOKEN` (hoặc `github.token`). Auto-commit **không** dùng `[skip ci]` — tip được push phải chạy lại bảng gate (FIND-021 / TASK-IMP-008); lần chạy thứ hai deterministic là no-op.
 10. **`npm-hello-smoke`** — chứng minh consumer registry cho `@cyberskill/design@$VERSION` (**fail-closed**, FIND-087): `examples/npm-hello` → `npm install` từ registry + `npm run smoke`. Nếu VERSION **không** có trên registry, job **fail** (không soft-skip pack proof trên `cyberskill-official/design`). Fork chỉ được opt-in pack local khi đặt biến repo **`NPM_HELLO_ALLOW_LOCAL_PACK=true`**. Path-filtered trên push/PR khi `examples/npm-hello/**`, bề mặt publish package, hoặc workflow này đổi; luôn chạy trên schedule / `workflow_dispatch`.
-11. **`notify-schedule-failure`** — mở hoặc cập nhật issue `ci-failure` khi lượt chạy lịch trình hàng đêm bị lỗi.
+11. **`notify-schedule-failure`** — phát error annotation và exit 1 khi lượt chạy lịch trình hàng đêm bị lỗi; job không tạo hoặc cập nhật issue.
 
 Workflow riêng **`native-store`** (`.github/workflows/native-store.yml`): PR + `main` (path-filtered) + `workflow_dispatch`; dry-run scaffold luôn; kiểm signed-release soft-skip khi thiếu `ASC_KEY_ID` / `ASC_ISSUER_ID` / `ASC_KEY_P8` / `PLAY_SERVICE_ACCOUNT_JSON`. **Không bao giờ submit** lên App Store / Play — sample vẫn là sample. Xem `examples/native/README.md`.
 
@@ -90,3 +90,15 @@ node _audit/ci/native-store-dry-run.mjs   # thiếu secret → SOFT SKIP missing
 ```
 
 Bộ `npm run test:unit` cần Chromium, Firefox và WebKit. `node _audit/ci/check-ci-browser-prerequisites.mjs` kiểm tra lệnh cài đặt trước entrypoint CI; `npm run test:ci-browser-prerequisites` còn khởi chạy thật cả ba engine. Kiểm tra YAML local không chứng minh CI Linux đã chạy thành công. Các job chỉ chạy gate Chromium vẫn chỉ cần Chromium.
+
+## Cố định npm trước khi cache dependency
+
+Mọi bước `actions/setup-node` đều tắt cả cache npm tường minh và cache package-manager tự động. Action thiết lập npm dùng chung bootstrap CLI đã khóa trước, sau đó xác định đường dẫn cache qua `node scripts/npm.mjs config get cache` và khôi phục các lượt tải npm bằng action cache đã cố định hiện có. `devEngines` và kiểm tra phiên bản chính xác vẫn được thực thi. npm đi kèm Node có thể bootstrap trong fixture CLI riêng; nó không được xác định cache trong project trước khi phiên bản npm bắt buộc hoạt động.
+
+## Thu thập token bằng trình duyệt và consumer độc lập
+
+`tokens:generate` chạy gián tiếp bộ sinh mode đã phân giải, cần Chromium được cài ngay cả với `--check`. Hai job sinh lại đều cài Chromium với đúng điều kiện của bước sinh; guard tiền điều kiện lần theo alias npm-script và từ chối thiếu cài đặt, cài muộn, khác điều kiện hoặc cho phép lỗi. Kiểm tra token truyền tùy chọn riêng từng trình duyệt: cờ shared-memory trên Linux chỉ dành cho Chromium, không dành cho Firefox hay WebKit. Kiểm thử Vite consumer gọi CLI npm đã khóa của project bằng đúng Node đang chạy ở cả thư mục producer và consumer riêng, nên PATH trỏ đến thư mục Node không thể âm thầm chọn npm đi kèm. `devEngines` chính xác, lock sạch và các kiểm tra tương tác production vẫn được thực thi.
+
+## Trạng thái sẵn sàng của fixture trình duyệt
+
+Hàm đặt trạng thái React của fixture được commit trước khi đọc quan hệ TreeTable; kiểm thử vẫn xác minh định danh hàng, focus, giá trị input, khả năng tiếp cận và cả hai biến thể lỗi hành vi. Kiểm thử cuộn panel nổi đợi thao tác cuộn gốc thực sự bắt đầu trước khoảng đo hiện có, giữ nguyên các khẳng định về vị trí cuộn, resize, khả năng tới phần tử bằng bàn phím và vòng lặp đo; probe trì hoãn vị trí cuộn kiểm tra trạng thái sẵn sàng riêng với thao tác wheel thật. So sánh CSS phân lớp thiết lập cùng trạng thái con trỏ và focus, rồi so sánh HoverCard ở cả trạng thái đóng và mở bằng focus trong các mode hiện có, giữ mọi phép so sánh và thuộc tính tính toán ban đầu.

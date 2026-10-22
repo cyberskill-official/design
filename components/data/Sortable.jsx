@@ -1,3 +1,5 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -11,11 +13,12 @@ export function reorderItems(items, from, to) {
 }
 
 /** CyberSkill Sortable — reorderable list (move buttons + HTML5 DnD enhancement). items: [{key,label}]; onChange(newItems). */
-export function Sortable({ items = [], onChange, lang, className }) {
+export const Sortable = React.forwardRef(function Sortable({ items = [], onChange, lang, className , rootProps }, forwardedRef) {
   const [dragKey, setDragKey] = React.useState(null);
   const [over, setOver] = React.useState(null);
-  const [ref, L] = useLang(lang);
-  const t = makeT("Sortable", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("Sortable", L, localeMessages);
   const move = (from, to) => {
     const next = reorderItems(items, from, to);
     if (next !== items) onChange && onChange(next);
@@ -28,7 +31,7 @@ export function Sortable({ items = [], onChange, lang, className }) {
     setDragKey(null); setOver(null);
   };
   return (
-    <ul ref={ref} className={cx("cs-sortable", className)}>
+    <ul ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-sortable", className) }, rootProps, [])}>
       {items.map((it, idx) => (
         <li key={it.key} draggable
           className={cx("cs-sortable__item", dragKey === it.key && "is-dragging", over === it.key && "is-over")}
@@ -68,4 +71,5 @@ export function Sortable({ items = [], onChange, lang, className }) {
       ))}
     </ul>
   );
-}
+});
+Sortable.displayName = "Sortable";

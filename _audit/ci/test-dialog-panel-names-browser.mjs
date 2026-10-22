@@ -27,8 +27,10 @@ for(const browserName of ['chromium','firefox','webkit'])await withBrowserFixtur
   const selector=component==='HoverCard'?'.cs-hovercard__panel':'.cs-popover__panel';await page.locator(selector).waitFor();
   const result=await page.evaluate(async selector=>{const result=await axe.run(document.querySelector(selector),{runOnly:{type:'rule',values:['aria-dialog-name']}});return{violations:result.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>n.target)})),incomplete:result.incomplete.map(v=>v.id),axeVersion:axe.version};},selector);
   assert.deepEqual(result.incomplete,[]);
-  assert.equal(result.violations.length,item.invalid?1:0,component+'/'+item.id+'/'+nested);
-  if(!item.invalid)assert.equal(await page.getByRole('dialog',{name:item.name,exact:true}).count(),1,'Resolved accessible name');
+  const defaultName = component === 'Popover' && item.id === 'missing';
+  const expectedInvalid = !!item.invalid && !defaultName;
+  assert.equal(result.violations.length,expectedInvalid?1:0,component+'/'+item.id+'/'+nested);
+  if(!expectedInvalid)assert.equal(await page.getByRole('dialog',{name:defaultName?'Details':item.name,exact:true}).count(),1,'Resolved accessible name');
   await page.locator('#panel-action').focus();await page.keyboard.press('Escape');
    // A native Escape listener schedules React state; verify its committed DOM result.
    await page.locator(selector).waitFor({state:'detached',timeout:1000});
@@ -36,7 +38,7 @@ for(const browserName of ['chromium','firefox','webkit'])await withBrowserFixtur
   await page.waitForFunction(()=>document.activeElement?.textContent==='Open preview');
   assert.equal(await page.evaluate(()=>parentCloses),0,'Child Escape preserves parent');
   if(nested){await page.keyboard.press('Escape');assert.equal(await page.evaluate(()=>parentCloses),1);}
-  rows.push({browserName,component,case:item.id,nested,expectedInvalid:!!item.invalid,...result,result:'pass'});await page.evaluate(()=>renderFixture(null));
+  rows.push({browserName,component,case:item.id,nested,expectedInvalid,...result,result:'pass'});await page.evaluate(()=>renderFixture(null));
  }
  console.log(browserName+': '+rows.filter(row=>row.browserName===browserName).length+' candidate cases passed');
 },{browserName});

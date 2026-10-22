@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "scope": "Initial43 schema-less source entries before three-paper adoption; literal marker counts are syntax evidence only, not claims of authoring-field completeness or legal/financial semantics. Forty entries remain without schema after this batch.",
+  "templates": [
+    {
+      "template": "bod-memo",
+      "path": "templates/bod-memo/BodMemo.dc.html",
+      "sourceSha256": "0c95f77ec73b08ba590b0a444914897541333a189dcc01ce6b14dac9dbfef91a",
+      "literalFillMarkers": 0,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "delivery-status-email",
+      "path": "templates/delivery-status-email/DeliveryStatusEmail.dc.html",
+      "sourceSha256": "184a92437677fa83303157e90f13ad2d5fb5cf938363b9283428d8395c243ad3",
+      "literalFillMarkers": 0,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "doc-style-guide",
+      "path": "templates/doc-style-guide/DocStyleGuide.dc.html",
+      "sourceSha256": "46fc9f9224cde3ee5e295bc49b77185181ec004c6738b2a8972bcc9c08a90305",
+      "literalFillMarkers": 6,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "doc-templates",
+      "path": "templates/doc-templates/DocTemplates.dc.html",
+      "sourceSha256": "df5680ad3ce54cc4b1ffedfeb27c0d195bae5202b58d8e744b5af80b99b97b04",
+      "literalFillMarkers": 15,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "email",
+      "path": "templates/email/Email.dc.html",
+      "sourceSha256": "ad2be808b7d067b090bbc09e4503df4bf8e9f4cf7b44230e69d1a4d64df0a27c",
+      "literalFillMarkers": 0,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "finance-dunning-email",
+      "path": "templates/finance-dunning-email/FinanceDunningEmail.dc.html",
+      "sourceSha256": "f3cb6934f09e06b5f6876f2850532bcee308f6d919e920aa19ba5bb840377fe6",
+      "literalFillMarkers": 0,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "finance-expense-report",
+      "path": "templates/finance-expense-report/FinanceExpenseReport.dc.html",
+      "sourceSha256": "44369ca8a5f13e5076c2f31dc3dfce2f8f503feea03b014c6dd1ae5587bae245",
+      "literalFillMarkers": 0,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "hr-announcement",
+      "path": "templates/hr-announcement/HrAnnouncement.dc.html",
+      "sourceSha256": "5181e9cb098ccd198ea0d0f9538fa5f61bc6acc0dfd85c0c3ad268c8f02d785d",
+      "literalFillMarkers": 0,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "legal-sow",
+      "path": "templates/legal-sow/LegalSow.dc.html",
+      "sourceSha256": "42331028500c113f45d1b9e5a130f2454eecfcb09798fdb1aeb3227ef41737a0",
+      "literalFillMarkers": 0,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "marketing-launch",
+      "path": "templates/marketing-launch/MarketingLaunch.dc.html",
+      "sourceSha256": "22600c328915ee4ad9106f8cbe45d391838e6394481f8b98d219ae8b141edb9d",
+      "literalFillMarkers": 0,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "marketing-newsletter",
+      "path": "templates/marketing-newsletter/MarketingNewsletter.dc.html",
+      "sourceSha256": "d81c14a9e961f98894cb61fec5cd50ce26fcb1a15993d41584d4f4844a957216",
+      "literalFillMarkers": 0,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "tech-release-notes",
+      "path": "templates/tech-release-notes/TechReleaseNotes.dc.html",
+      "sourceSha256": "1580de9f4783266bc3a38f1310b25da14fd7cb6ad18fc83c5c89e75b49704d8a",
+      "literalFillMarkers": 0,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-appointment-transfer",
+      "path": "templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html",
+      "sourceSha256": "379ea1aed5b6ccd070427f66cebb0151cd8f3a64d9861ae79e371296e27f2cde",
+      "literalFillMarkers": 30,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-certificate-of-employment",
+      "path": "templates/vn-certificate-of-employment/VnCertificateOfEmployment.dc.html",
+      "sourceSha256": "fa1424c67b8886dc072c9dd4a404a90a2fc4210ea1736c5e0e048fef1d8bfd73",
+      "literalFillMarkers": 21,
+      "disposition": "11 exact named fill fields adopted in first bounded paper batch"
+    },
+    {
+      "template": "vn-code-of-conduct",
+      "path": "templates/vn-code-of-conduct/VnCodeOfConduct.dc.html",
+      "sourceSha256": "042bac78bd4ec0f6fa077bc3abef991a8c2eaec16fed2f47a4b8d4456672db65",
+      "literalFillMarkers": 13,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-compensation-regulation",
+      "path": "templates/vn-compensation-regulation/VnCompensationRegulation.dc.html",
+      "sourceSha256": "e3a6f93ec4b69d04cfb60a6bb4200518da9fe250c0f6569f327c240872907a9f",
+      "literalFillMarkers": 11,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-contract-amendment",
+      "path": "templates/vn-contract-amendment/VnContractAmendment.dc.html",
+      "sourceSha256": "5a900943db6afa58e37e35cda783eae101ba6011e4eb4c6c9c8bfabac62caa66",
+      "literalFillMarkers": 34,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-contractor-agreement",
+      "path": "templates/vn-contractor-agreement/VnContractorAgreement.dc.html",
+      "sourceSha256": "cac7eedcbe4d91df7a908946e4ee48481c8da43eae2cd0ed7abf3799aee7fa52",
+      "literalFillMarkers": 32,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-data-protection-policy",
+      "path": "templates/vn-data-protection-policy/VnDataProtectionPolicy.dc.html",
+      "sourceSha256": "c6fd3db428d316d743af631e33526021180f4f3967ae714b0bfbf1aca320dc73",
+      "literalFillMarkers": 11,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-disciplinary-case-file",
+      "path": "templates/vn-disciplinary-case-file/VnDisciplinaryCaseFile.dc.html",
+      "sourceSha256": "c511851daa709757b62532e947a461d54ed6954fac3c209715a4738a3abbd20b",
+      "literalFillMarkers": 34,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-employee-request",
+      "path": "templates/vn-employee-request/VnEmployeeRequest.dc.html",
+      "sourceSha256": "a06798a8e0e3e82e22c77ecc5dad4ced9bcad128b322f280279b2cef317db322",
+      "literalFillMarkers": 26,
+      "disposition": "11 exact named fill fields adopted in first bounded paper batch"
+    },
+    {
+      "template": "vn-exit-handover",
+      "path": "templates/vn-exit-handover/VnExitHandover.dc.html",
+      "sourceSha256": "aec77ecb10eb36b8879c697058b930821d213cbd30e3d89b2c53d72eb66133c9",
+      "literalFillMarkers": 52,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-framework-agreement",
+      "path": "templates/vn-framework-agreement/VnFrameworkAgreement.dc.html",
+      "sourceSha256": "b3c87d2f0d46854fdf8fe0c897d201ae062ba65cc988f058f518bb60fddd3028",
+      "literalFillMarkers": 11,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-grassroots-democracy",
+      "path": "templates/vn-grassroots-democracy/VnGrassrootsDemocracy.dc.html",
+      "sourceSha256": "5150135a368301e8343418dc5bbd1f1615ce21af78975d634a8f9045e0da56e5",
+      "literalFillMarkers": 13,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-infosec-policy",
+      "path": "templates/vn-infosec-policy/VnInfosecPolicy.dc.html",
+      "sourceSha256": "58d5fed8453f6b3455cacef75acef33f2fd05d66098f4038677e2de3d65c07b6",
+      "literalFillMarkers": 11,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-internal-labor-regulations",
+      "path": "templates/vn-internal-labor-regulations/VnInternalLaborRegulations.dc.html",
+      "sourceSha256": "ea8cbaa3a24ada7164bef7d907f813a81cbb91ed1bb8b49f299309407620e6c4",
+      "literalFillMarkers": 17,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-internship-agreement",
+      "path": "templates/vn-internship-agreement/VnInternshipAgreement.dc.html",
+      "sourceSha256": "839f1d56bdd23670e6140b2eb7901eab968ed6bd1ffbad9e28c4480df2298c88",
+      "literalFillMarkers": 33,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-job-description",
+      "path": "templates/vn-job-description/VnJobDescription.dc.html",
+      "sourceSha256": "05d35c40372772114aeef3503894a82db05f92ce6ff42e116793cfbeba0dbe46",
+      "literalFillMarkers": 18,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-labor-contract",
+      "path": "templates/vn-labor-contract/VnLaborContract.dc.html",
+      "sourceSha256": "08d89b36ee282ae444836a9530bace03f7a31e444f18e85651d2d46dcab6f688",
+      "literalFillMarkers": 45,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-mutual-nda",
+      "path": "templates/vn-mutual-nda/VnMutualNda.dc.html",
+      "sourceSha256": "d003bcef260c1b7a2befd5b7e796c585655fa4c7ae4d4d0d759d6254d19953ca",
+      "literalFillMarkers": 18,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-ndnca-ip",
+      "path": "templates/vn-ndnca-ip/VnNdncaIp.dc.html",
+      "sourceSha256": "501cf6973e8dd3f4e398eef2131aea8f5a0ebd4806f884e5b16a1915353f58ae",
+      "literalFillMarkers": 10,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-offer-letter",
+      "path": "templates/vn-offer-letter/VnOfferLetter.dc.html",
+      "sourceSha256": "71abb7197638a28d72c26d00bb10f1a6ce3da0e572bfa23661dbea12ccb3ea1b",
+      "literalFillMarkers": 20,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-pdpl-consent",
+      "path": "templates/vn-pdpl-consent/VnPdplConsent.dc.html",
+      "sourceSha256": "5188894e451cfe14537a15ee1317bb931e2a5a46d6dcc881361702458dfc1b82",
+      "literalFillMarkers": 14,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-performance-evaluation-regulation",
+      "path": "templates/vn-performance-evaluation-regulation/VnPerformanceEvaluationRegulation.dc.html",
+      "sourceSha256": "bc2ffef768c3b1b9e824b81efbb0b83575a90b4ae1cf92b2b46251dbd42a676a",
+      "literalFillMarkers": 11,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-performance-review-form",
+      "path": "templates/vn-performance-review-form/VnPerformanceReviewForm.dc.html",
+      "sourceSha256": "110b30c411d893fd15f7b5bfbff80ce49399a0ec835efcb2fb4fc0c342a9d364",
+      "literalFillMarkers": 33,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-probation-contract",
+      "path": "templates/vn-probation-contract/VnProbationContract.dc.html",
+      "sourceSha256": "9b43988f34e1f1d97a1d1a02b571ec1ba151be807204beadcb1d36dd60cef9ea",
+      "literalFillMarkers": 36,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-remote-work-policy",
+      "path": "templates/vn-remote-work-policy/VnRemoteWorkPolicy.dc.html",
+      "sourceSha256": "1020c9d302cb5221d99b0767d4f68e5da7f209bf28e97df64773d6d03605c760",
+      "literalFillMarkers": 11,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-resignation-letter",
+      "path": "templates/vn-resignation-letter/VnResignationLetter.dc.html",
+      "sourceSha256": "d9e5cffe2181c47a03b2c5372a49eceeac33cd9d6a7ac09db470657bfb919e2d",
+      "literalFillMarkers": 14,
+      "disposition": "11 exact named fill fields adopted in first bounded paper batch"
+    },
+    {
+      "template": "vn-sow-appendix",
+      "path": "templates/vn-sow-appendix/VnSowAppendix.dc.html",
+      "sourceSha256": "3a580ae5886652736b7029548de06eace378f0539711141576aeae99ad73c037",
+      "literalFillMarkers": 17,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-termination-decision",
+      "path": "templates/vn-termination-decision/VnTerminationDecision.dc.html",
+      "sourceSha256": "53bc414684cc6253e1e9e4a2c8074ff993dac4334705ce395cf3a26c08ce7988",
+      "literalFillMarkers": 21,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-total-rewards-appendix",
+      "path": "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html",
+      "sourceSha256": "96e7e1ddc90c2f3e089ff4ed5dcbef052c4a26735deb4c01812cc758fac2862a",
+      "literalFillMarkers": 5,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-training-commitment",
+      "path": "templates/vn-training-commitment/VnTrainingCommitment.dc.html",
+      "sourceSha256": "ceb080a1780b9f2833b95f1b9b0a91f7726edc197f34d514e19835c36546794d",
+      "literalFillMarkers": 30,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    },
+    {
+      "template": "vn-travel-expense-policy",
+      "path": "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html",
+      "sourceSha256": "82dfe6fd593d6d58f57569fe1411dc06bc43032f467247afe3355f28fe661294",
+      "literalFillMarkers": 11,
+      "disposition": "Unbound source content remains; requires explicit semantically named model adoption, not a generic positional/textblob API."
+    }
+  ]
+}

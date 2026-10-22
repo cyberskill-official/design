@@ -1,0 +1,70 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "marketing-newsletter",
+  "slots": [
+    {
+      "id": "issueDisplayEn",
+      "type": "text",
+      "label": "Issue Display En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "issueDisplayVi",
+      "type": "text",
+      "label": "Issue Display Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "leadArticleTitleEn",
+      "type": "text",
+      "label": "Lead Article Title En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "leadArticleTitleVi",
+      "type": "text",
+      "label": "Lead Article Title Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "teamArticleTitleEn",
+      "type": "text",
+      "label": "Team article title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "teamArticleTitleVi",
+      "type": "text",
+      "label": "Team article title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "fieldArticleTitleEn",
+      "type": "text",
+      "label": "Field article title en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "fieldArticleTitleVi",
+      "type": "text",
+      "label": "Field article title vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

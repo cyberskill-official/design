@@ -6,17 +6,10 @@ export default {
   component: HotKeys,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     bindings: { control: 'object' },
     help: { control: 'boolean' },
     lang: { control: 'text' },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting HotKeys. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
   },
   args: {
     bindings: [

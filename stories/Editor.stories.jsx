@@ -5,6 +5,7 @@ export default {
   component: Editor,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     defaultValue: { control: 'text' },
     unsafeHtml: { control: 'text', description: 'Trusted HTML only — bypasses sanitization (CDS-SEC-001)' },
     minHeight: { control: 'number' },

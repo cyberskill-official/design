@@ -87,6 +87,10 @@
       const root = this.attachShadow({mode: 'open'});
       root.innerHTML = `<style>${styles}</style><div class="frame" part="frame"><img part="image"><div class="empty" part="empty"><div class="cap"></div><div class="sub"></div></div><div class="loading" role="status"></div><div class="credit" hidden></div><div class="error" role="status" hidden></div></div><div class="tools" popover="manual" data-dc-edit-transparent><button type="button" data-act="replace"></button><button type="button" data-act="edit"></button><button type="button" data-act="clear"></button></div><div class="editor" popover="manual" tabindex="0" role="group" data-dc-edit-transparent><div class="ghost" aria-hidden="true"></div><button type="button" class="handle" data-c="nw"></button><button type="button" class="handle" data-c="ne"></button><button type="button" class="handle" data-c="sw"></button><button type="button" class="handle" data-c="se"></button></div><input type="file" accept="${uploadTypes.join(',')}" hidden>`;
       this.image = root.querySelector('.frame img'); this.empty = root.querySelector('.empty'); this.fileInput = root.querySelector('input'); this.editor = root.querySelector('.editor'); this.tools = root.querySelector('.tools');
+      // Host bridges can appear/disappear after connection. Refresh before an
+      // interaction exposes authoring controls instead of waiting for the poll.
+      for (const event of ['pointerenter', 'pointerdown', 'focusin'])
+        this.addEventListener(event, () => this.refreshCapabilities());
       this.empty.addEventListener('click', () => this.openFilePicker());
       this.empty.addEventListener('keydown', event => { if (['Enter',' '].includes(event.key)) {event.preventDefault(); this.openFilePicker();} });
       root.querySelector('[data-act=replace]').addEventListener('click', () => {
@@ -122,9 +126,10 @@
       subscribers.add(this); this._render(); hydrate();
       this.sizeObserver = new ResizeObserver(() => this.fitImage()); this.sizeObserver.observe(this);
       this.localeObserver = new MutationObserver(() => this._render()); this.localeObserver.observe(document.documentElement, {attributes: true, attributeFilter: ['lang'], subtree: true});
-      this.authoringTimer = setInterval(() => {
-        if (this.hasAttribute('data-authoring') !== (typeof window.__dcSetProps === 'function') || this.hasAttribute('data-editable') !== editable()) this._render();
-      }, 100);
+      this.authoringTimer = setInterval(() => this.refreshCapabilities(), 100);
+    }
+    refreshCapabilities() {
+      if (this.hasAttribute('data-authoring') !== (typeof window.__dcSetProps === 'function') || this.hasAttribute('data-editable') !== editable()) this._render();
     }
     disconnectedCallback() {
       this.finishEditing(false, false); subscribers.delete(this); this.localeObserver?.disconnect(); this.sizeObserver?.disconnect(); clearInterval(this.authoringTimer);

@@ -8,11 +8,11 @@ export const tokens = {
     "declarationGraph": {
       "path": "declarations.json",
       "schemaVersion": 1,
-      "sha256": "e460225ef29fb70ac7b1adc52111dd8431981418d86e9fe240529d5b91b4cf8a",
-      "declarations": 1501,
-      "publicDeclarations": 823,
-      "publicNames": 194,
-      "privateDeclarations": 678
+      "sha256": "7e617b006cbbbe5acb41e325a7e16e4d886f3551f6c895dff3e3768c083ff698",
+      "declarations": 1077,
+      "publicDeclarations": 397,
+      "publicNames": 216,
+      "privateDeclarations": 680
     }
   },
   "root": {
@@ -68,7 +68,26 @@ export const tokens = {
       "--cs-component-textfield-paddingY": "10px",
       "--cs-component-textfield-paddingX": "12px",
       "--cs-component-textfield-minHeight": "44px",
-      "--cs-focus-ring": "3px"
+      "--cs-focus-ring": "3px",
+      "--cs-component-button-xs-padding-y": "var(--cs-component-button-xs-paddingY)",
+      "--cs-component-button-xs-padding-x": "var(--cs-component-button-xs-paddingX)",
+      "--cs-component-button-xs-min-height": "var(--cs-component-button-xs-minHeight)",
+      "--cs-component-button-xs-min-width": "var(--cs-component-button-xs-minWidth)",
+      "--cs-component-button-xs-min-height-coarse": "var(--cs-component-button-xs-minHeight-coarse)",
+      "--cs-component-button-sm-padding-y": "var(--cs-component-button-sm-paddingY)",
+      "--cs-component-button-sm-padding-x": "var(--cs-component-button-sm-paddingX)",
+      "--cs-component-button-sm-min-height": "var(--cs-component-button-sm-minHeight)",
+      "--cs-component-button-sm-min-height-coarse": "var(--cs-component-button-sm-minHeight-coarse)",
+      "--cs-component-button-md-padding-y": "var(--cs-component-button-md-paddingY)",
+      "--cs-component-button-md-padding-x": "var(--cs-component-button-md-paddingX)",
+      "--cs-component-button-md-min-height": "var(--cs-component-button-md-minHeight)",
+      "--cs-component-button-md-min-height-coarse": "var(--cs-component-button-md-minHeight-coarse)",
+      "--cs-component-button-lg-padding-y": "var(--cs-component-button-lg-paddingY)",
+      "--cs-component-button-lg-padding-x": "var(--cs-component-button-lg-paddingX)",
+      "--cs-component-button-lg-min-height": "var(--cs-component-button-lg-minHeight)",
+      "--cs-component-textfield-padding-y": "var(--cs-component-textfield-paddingY)",
+      "--cs-component-textfield-padding-x": "var(--cs-component-textfield-paddingX)",
+      "--cs-component-textfield-min-height": "var(--cs-component-textfield-minHeight)"
     },
     "accent": {
       "--cs-accent": "#F4BA17",
@@ -183,7 +202,10 @@ export const tokens = {
       "--cs-font-size-2xl": "1.875rem",
       "--cs-font-size-3xl": "2.25rem",
       "--cs-font-size-4xl": "3rem",
-      "--cs-font-size-5xl": "3.75rem"
+      "--cs-font-size-5xl": "3.75rem",
+      "--cs-font-line-height-body": "var(--cs-font-lineHeight-body)",
+      "--cs-font-line-height-heading": "var(--cs-font-lineHeight-heading)",
+      "--cs-font-line-height-tight": "var(--cs-font-lineHeight-tight)"
     },
     "text": {
       "--cs-text-display": "var(--cs-font-size-5xl)",
@@ -519,15 +541,25 @@ export const tokens = {
       "--cs-density-control-gap": "6px",
       "--cs-component-button-gap": "6px",
       "--cs-component-button-xs-paddingY": "3px",
+      "--cs-component-button-xs-padding-y": "var(--cs-component-button-xs-paddingY)",
       "--cs-component-button-xs-paddingX": "8px",
+      "--cs-component-button-xs-padding-x": "var(--cs-component-button-xs-paddingX)",
       "--cs-component-button-sm-paddingY": "6px",
+      "--cs-component-button-sm-padding-y": "var(--cs-component-button-sm-paddingY)",
       "--cs-component-button-sm-paddingX": "12px",
+      "--cs-component-button-sm-padding-x": "var(--cs-component-button-sm-paddingX)",
       "--cs-component-button-md-paddingY": "10px",
+      "--cs-component-button-md-padding-y": "var(--cs-component-button-md-paddingY)",
       "--cs-component-button-md-paddingX": "16px",
+      "--cs-component-button-md-padding-x": "var(--cs-component-button-md-paddingX)",
       "--cs-component-button-lg-paddingY": "12px",
+      "--cs-component-button-lg-padding-y": "var(--cs-component-button-lg-paddingY)",
       "--cs-component-button-lg-paddingX": "22px",
+      "--cs-component-button-lg-padding-x": "var(--cs-component-button-lg-paddingX)",
       "--cs-component-textfield-paddingY": "8px",
-      "--cs-component-textfield-paddingX": "10px"
+      "--cs-component-textfield-padding-y": "var(--cs-component-textfield-paddingY)",
+      "--cs-component-textfield-paddingX": "10px",
+      "--cs-component-textfield-padding-x": "var(--cs-component-textfield-paddingX)"
     },
     "comfortable": {
       "--cs-density-space-1": "var(--cs-space-1)",
@@ -539,15 +571,25 @@ export const tokens = {
       "--cs-density-control-gap": "var(--cs-component-button-gap)",
       "--cs-component-button-gap": "8px",
       "--cs-component-button-xs-paddingY": "4px",
+      "--cs-component-button-xs-padding-y": "var(--cs-component-button-xs-paddingY)",
       "--cs-component-button-xs-paddingX": "10px",
+      "--cs-component-button-xs-padding-x": "var(--cs-component-button-xs-paddingX)",
       "--cs-component-button-sm-paddingY": "8px",
+      "--cs-component-button-sm-padding-y": "var(--cs-component-button-sm-paddingY)",
       "--cs-component-button-sm-paddingX": "14px",
+      "--cs-component-button-sm-padding-x": "var(--cs-component-button-sm-paddingX)",
       "--cs-component-button-md-paddingY": "12px",
+      "--cs-component-button-md-padding-y": "var(--cs-component-button-md-paddingY)",
       "--cs-component-button-md-paddingX": "20px",
+      "--cs-component-button-md-padding-x": "var(--cs-component-button-md-paddingX)",
       "--cs-component-button-lg-paddingY": "16px",
+      "--cs-component-button-lg-padding-y": "var(--cs-component-button-lg-paddingY)",
       "--cs-component-button-lg-paddingX": "28px",
+      "--cs-component-button-lg-padding-x": "var(--cs-component-button-lg-paddingX)",
       "--cs-component-textfield-paddingY": "10px",
-      "--cs-component-textfield-paddingX": "12px"
+      "--cs-component-textfield-padding-y": "var(--cs-component-textfield-paddingY)",
+      "--cs-component-textfield-paddingX": "12px",
+      "--cs-component-textfield-padding-x": "var(--cs-component-textfield-paddingX)"
     }
   },
   "contrasts": {

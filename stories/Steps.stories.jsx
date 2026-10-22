@@ -5,6 +5,7 @@ export default {
   component: Steps,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     lang: { control: 'select', options: ['en', 'vi'] },
 
   "steps": {
@@ -14,13 +15,6 @@ export default {
     "control": "number"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Steps. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { lang: 'vi', current: 1, steps: [{ title: 'Capture' }, { title: 'Build' }, { title: 'Ship' }] },
 };
 

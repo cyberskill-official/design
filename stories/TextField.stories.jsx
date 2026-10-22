@@ -6,6 +6,7 @@ export default {
   component: TextField,
   tags: ['autodocs'],
   argTypes: {
+  "required": {"control":"boolean"},
   "label": {
     "control": "object"
   },
@@ -19,13 +20,6 @@ export default {
     "control": "boolean"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting TextField. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { label: 'Work email', placeholder: 'you@cyberskill.world' },
 };
 
@@ -67,3 +61,18 @@ export const FullMatrix = {
     );
   },
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioTextFieldError = {
+  name: "TextField: Validation error",
+  args: {
+  "label": "Name",
+  "defaultValue": "Alpha",
+  "description": "Reference hint",
+  "error": "TextField scenario validation error"
+},
+  render: args => renderComponentScenario("TextField--error",args),
+  play: ({canvasElement}) => playComponentScenario("TextField--error",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

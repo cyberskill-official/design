@@ -27,9 +27,24 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
+      - name: Audit all dependency classes (high and critical block)
+        run: npm run security:audit
+      - name: Audit isolated Python font and PDF test dependencies
+        if: ${{ !cancelled() }}
+        run: npm run security:audit-python
+      - name: Retain complete dependency audit evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: dependency-audit
+          path: |
+            test-results/dependency-audit/
+            test-results/python-dependency-audit/
+          if-no-files-found: warn
       - name: Cache Playwright browsers
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
         id: pw-cache
@@ -37,11 +52,11 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
       - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+        run: npx --no-install playwright install --with-deps chromium
       - name: Serve the repo statically
-        run: npx --yes serve@14.2.6 -l 8080 . &
+        run: node scripts/serve-verification.mjs 8080 &
       - name: Wait for server
-        run: npx --yes wait-on@7.2.0 http://127.0.0.1:8080/dashboard.html
+        run: node scripts/wait-verification.mjs http://127.0.0.1:8080/dashboard.html
       - name: Playwright pixel compare (hard — feeds board Pixel CI row)
         run: node _audit/ci/pixel-diff.mjs http://127.0.0.1:8080
       - name: Run the fast gate board (headless)
@@ -59,12 +74,14 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
       - name: Verify tokens/native/ is in lockstep with tokens.dtcg.json (fast, no browser)
         run: node _audit/ci/check-token-provenance.mjs
 
   unit-tests:
     # npm run test:unit combines Node contracts, three-engine interactions, document
-    # exports and packed-consumer tests. package.json is the executable inventory.
+    # exports and packed-consumer tests. _audit/ci/unit-suites.json is the executable inventory.
     # Chromium, Firefox and WebKit are required beyond the subtree smoke.
     # Wired into CI by the Jul 2026 hardening (previously local-only).
     # Storybook freshness runs in storybook-build (FIND-074/075), not here.
@@ -79,26 +96,46 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
+      - name: Set up Python for isolated font and PDF checks
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6
+        with:
+          python-version: '3.12'
+      - name: Install hash-pinned Python test tools
+        run: |
+          python -m venv "$RUNNER_TEMP/cs-python-tests"
+          "$RUNNER_TEMP/cs-python-tests/bin/python" -m pip install --require-hashes --only-binary=:all: --no-deps -r scripts/requirements-fonts.txt -r _audit/ci/requirements-pdf.txt
+          echo "$RUNNER_TEMP/cs-python-tests/bin" >> "$GITHUB_PATH"
+          echo "CS_PDF_PYTHON=$RUNNER_TEMP/cs-python-tests/bin/python" >> "$GITHUB_ENV"
       - name: Cache Playwright browsers
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium-firefox-webkit
       - name: Install Playwright unit-test browsers
-        run: npx playwright install --with-deps chromium firefox webkit
+        run: npx --no-install playwright install --with-deps chromium firefox webkit
       - name: Run unit tests
         env:
           CS_UNIT_SHARD: ${{ matrix.shard }}
+          CS_UNIT_PLAN: _audit/ci/unit-shard-plan.json
         run: npm run test:unit
       - name: Verify pinned Style Dictionary interchange adapter
         if: matrix.shard == '1/4'
         run: |
-          SD_FIXTURE="$RUNNER_TEMP/cyberskill-style-dictionary"
-          npm install --prefix "$SD_FIXTURE" --ignore-scripts --no-audit --no-fund --save-exact style-dictionary@5.5.5
+          SD_FIXTURE="_audit/ci/fixtures/style-dictionary"
+          npm ci --prefix "$SD_FIXTURE" --ignore-scripts --no-audit --no-fund
           npm run test:dtcg-style-dictionary -- "$SD_FIXTURE/node_modules/style-dictionary"
+          node _audit/ci/test-token-modes-style-dictionary.mjs "$SD_FIXTURE/node_modules/style-dictionary"
+      - name: Retain complete unit results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: unit-results-${{ strategy.job-index }}
+          path: test-results/
+          if-no-files-found: error
 
   node-prechecks:
     # Browser-free Node gates that the run.html board does not own:
@@ -115,7 +152,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies (esbuild needed by the bundle checker)
         run: npm ci
       - name: Canonical CI jobs declare every required browser
@@ -140,20 +178,36 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
       - name: Cache Playwright browsers
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
-      - name: Install browser for public-site checks
-        run: npx playwright install --with-deps chromium
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-all
+      - name: Install browsers for public-site and CSP checks
+        run: npx --no-install playwright install --with-deps chromium firefox webkit
       - name: Build reviewed public site (+ freshness stamp)
         run: npm run build:site
       - name: Verify isolated public webroot
         run: npm run test:public-site
+      - name: Validate exact static CSP and rendered surfaces
+        run: npm run test:site-csp-browser
+      - name: Scan every built component story in all engines
+        run: node _audit/ci/lib/run-browsers.mjs _audit/ci/test-storybook-runtime-browser.mjs
+      - name: Verify built error and empty stories execute their interaction assertions
+        run: node _audit/ci/lib/run-browsers.mjs _audit/ci/test-component-scenario-stories-browser.mjs
+      - name: Retain complete Storybook accessibility evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: storybook-runtime-accessibility
+          path: |
+            test-results/storybook-runtime-*/
+            test-results/component-scenario-stories/
+          if-no-files-found: warn
       - name: Measure distribution costs
         run: node scripts/measure-distribution-costs.mjs --output "$RUNNER_TEMP/distribution-costs.json"
       - name: Storybook static freshness (--require)
@@ -168,7 +222,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
       - name: Cache Playwright browsers
@@ -177,11 +232,11 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
       - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+        run: npx --no-install playwright install --with-deps chromium
       - name: Serve the repo statically
-        run: npx --yes serve@14.2.6 -l 8080 . &
+        run: node scripts/serve-verification.mjs 8080 &
       - name: Wait for server
-        run: npx --yes wait-on@7.2.0 http://127.0.0.1:8080/dashboard.html
+        run: node scripts/wait-verification.mjs http://127.0.0.1:8080/dashboard.html
       - name: docs-consistency must be green to merge
         run: node _audit/ci/run-single-gate.mjs http://127.0.0.1:8080/_audit/docs-consistency.html __docs
       - name: bilingual-parity must be green to merge
@@ -196,7 +251,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
       - name: Cache Playwright browsers
@@ -205,11 +261,11 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
       - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+        run: npx --no-install playwright install --with-deps chromium
       - name: Serve the repo statically
-        run: npx --yes serve@14.2.6 -l 8080 . &
+        run: node scripts/serve-verification.mjs 8080 &
       - name: Wait for server
-        run: npx --yes wait-on@7.2.0 http://127.0.0.1:8080/dashboard.html
+        run: node scripts/wait-verification.mjs http://127.0.0.1:8080/dashboard.html
       - name: responsive-overflow (all 85 templates)
         run: node _audit/ci/run-single-gate.mjs http://127.0.0.1:8080/_audit/responsive-overflow.html __overflow 360000
       - name: language-overflow (all 85 templates, forced VN)
@@ -226,7 +282,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
       - name: Install npm dependencies
         run: npm ci
       - name: Cache Playwright browsers
@@ -235,11 +292,11 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
       - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+        run: npx --no-install playwright install --with-deps chromium
       - name: Serve the repo statically
-        run: npx --yes serve@14.2.6 -l 8080 . &
+        run: node scripts/serve-verification.mjs 8080 &
       - name: Wait for server
-        run: npx --yes wait-on@7.2.0 http://127.0.0.1:8080/dashboard.html
+        run: node scripts/wait-verification.mjs http://127.0.0.1:8080/dashboard.html
       - name: Playwright pixel compare (hard)
         run: node _audit/ci/pixel-diff.mjs http://127.0.0.1:8080
       - name: Upload pixel-diff report
@@ -277,7 +334,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
       - name: Detect token-related path changes
         id: filter
         run: |
@@ -298,6 +356,9 @@ jobs:
       - name: Install npm dependencies
         if: steps.filter.outputs.run == 'true'
         run: npm ci --ignore-scripts
+      - name: Install Chromium for resolved token mode generation
+        if: steps.filter.outputs.run == 'true'
+        run: npx --no-install playwright install --with-deps chromium
       - name: Regenerate element packs from seeds + native mirrors from DTCG
         if: steps.filter.outputs.run == 'true'
         run: |
@@ -337,7 +398,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
-          cache: npm
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
       - name: Detect token-related path changes
         id: filter
         if: github.event_name == 'push'
@@ -359,6 +421,9 @@ jobs:
       - name: Install npm dependencies
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
         run: npm ci --ignore-scripts
+      - name: Install Chromium for resolved token mode generation
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
+        run: npx --no-install playwright install --with-deps chromium
       - name: Regenerate element packs from seeds + native mirrors from DTCG
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || steps.filter.outputs.run == 'true'
         run: |
@@ -375,6 +440,9 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
             git --no-pager diff --stat -- "${TRACKED[@]}"
           fi
+      - name: Install Chromium before post-sync token regeneration
+        if: steps.drift.outputs.changed == 'true'
+        run: npx --no-install playwright install --with-deps chromium
       - name: Commit regenerated files if they changed
         if: steps.drift.outputs.changed == 'true'
         run: |
@@ -422,6 +490,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with:
           node-version: '22'
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
       - name: Check Figma secrets (soft-skip when empty)
         id: figma_secrets
         env:
@@ -490,6 +560,8 @@ jobs:
         with:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
       - name: Detect npm-hello / package-export path changes
         id: filter
         if: github.event_name == 'push' || github.event_name == 'pull_request'

@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { Tooltip } from '../components/data/Tooltip.jsx';
 import { Button } from '../components/button/Button.jsx';
 
@@ -5,23 +6,20 @@ export default {
   title: 'Components/Data/Tooltip',
   component: Tooltip,
   tags: ['autodocs'],
+  args: { portal: true, className: '' },
   argTypes: {
+    portal: {control: 'boolean', description: 'Body portal after client mount by default; false keeps inline/server markup and ancestor clipping.'},
+    placement: {control: 'select', options: DECLARED_DOMAINS.Tooltip["placement"], description: 'Preferred physical side; flips/shifts within the visual viewport. Top/bottom start/end follow inline direction.'},
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     lang: { control: 'select', options: ['en', 'vi'] },
 
   "label": {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Tooltip. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
 };
 
-export const Default = { render: () => (<Tooltip label="Helpful hint"><Button variant="ghost">Hover me</Button></Tooltip>) };
+export const Default = { render: (args) => (<Tooltip label="Helpful hint" {...args} portal={args.portal} placement={args.placement} ><Button variant="ghost">Hover me</Button></Tooltip>) };
 
 export const Matrix = {
   name: 'Matrix / Labels',

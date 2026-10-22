@@ -6,134 +6,215 @@
       "id": "hdr",
       "type": "text",
       "label": "Header title suffix",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "draft",
       "type": "text",
       "label": "Draft badge label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "eyebrow",
       "type": "text",
       "label": "Eyebrow (quarter · team)",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "h1",
       "type": "text",
       "label": "Campaign title",
       "maxLength": 70,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "objL",
       "type": "text",
       "label": "Objective label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "objP",
       "type": "richtext",
       "label": "Objective statement",
       "maxLength": 220,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "audL",
       "type": "text",
       "label": "Audience label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "audP",
       "type": "text",
       "label": "Audience description",
-      "maxLength": 220
+      "maxLength": 220,
+      "runtimeBinding": "text"
     },
     {
       "id": "msgL",
       "type": "text",
       "label": "Core message label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "msgP",
       "type": "text",
       "label": "Core message body",
-      "maxLength": 220
+      "maxLength": 220,
+      "runtimeBinding": "text"
     },
     {
       "id": "chL",
       "type": "text",
       "label": "Channels label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "ch1",
       "type": "text",
       "label": "Channel 1",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "ch2",
       "type": "text",
       "label": "Channel 2",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "ch4",
       "type": "text",
       "label": "Channel 4",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "ch5",
       "type": "text",
       "label": "Channel 5",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "tlL",
       "type": "text",
       "label": "Timeline label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "steps",
       "type": "list",
-      "label": "Timeline steps"
+      "label": "Timeline steps",
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "title"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "attribute": "steps",
+          "component": "CyberSkillDS.Steps"
+        }
+      ]
     },
     {
       "id": "smL",
       "type": "text",
       "label": "Success metrics label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "m1",
       "type": "text",
       "label": "Metric 1 label",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Stat",
+          "attribute": "label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "m1d",
       "type": "text",
       "label": "Metric 1 delta",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Stat",
+          "attribute": "delta"
+        }
+      ]
     },
     {
       "id": "m2",
       "type": "text",
       "label": "Metric 2 label",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Stat",
+          "attribute": "label"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "m3d",
       "type": "text",
       "label": "Metric 3 delta",
-      "maxLength": 16
+      "maxLength": 16,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Stat",
+          "attribute": "delta"
+        }
+      ]
     }
   ]
 }

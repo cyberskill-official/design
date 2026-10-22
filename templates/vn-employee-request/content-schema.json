@@ -1,0 +1,38 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-employee-request",
+  "slots": [
+    {
+      "id": "employeeName",
+      "type": "text",
+      "label": "Full name",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "positionDepartment",
+      "type": "text",
+      "label": "Position / Department",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "lineManager",
+      "type": "text",
+      "label": "Line manager",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "workHandoverRecipient",
+      "type": "text",
+      "label": "Work handed over to",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

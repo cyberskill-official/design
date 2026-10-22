@@ -5,4 +5,4 @@ import type { ReactNode } from "react";
 export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
   children?: ReactNode;
 }
-export function Kbd(props: KbdProps): React.ReactElement;
+export const Kbd: React.ForwardRefExoticComponent<React.PropsWithoutRef<KbdProps> & React.RefAttributes<HTMLElement>>;

@@ -1,0 +1,18 @@
+import assert from'node:assert/strict';import{readFileSync,writeFileSync,readdirSync,statSync,mkdirSync}from'node:fs';import{resolve,join}from'node:path';import{pathToFileURL}from'node:url';import{createHash}from'node:crypto';import{execFileSync}from'node:child_process';import{chromium,firefox,webkit}from'playwright';import{behaviorSourceCases}from'./lib/behavior-source-cases.mjs';import{behaviorInputInventoryVersion,behaviorBoards,snapshotBehaviorInputs}from'./lib/behavior-evidence-inputs.mjs';
+const root=resolve(process.argv[2]||'.'),output=resolve(process.argv[3]||join(root,'test-results/component-behavior-evidence.json')),hash=p=>createHash('sha256').update(readFileSync(join(root,p))).digest('hex');
+const api=JSON.parse(readFileSync(join(root,'components/api-index.json'))),components=api.exports.filter(e=>e.kind==='component'),boards=behaviorBoards;
+const snapshot=()=>snapshotBehaviorInputs(root);const before=snapshot();
+const sourceCases=boards.map(board=>({...board,sourceSha256:hash(board.path),cases:behaviorSourceCases(readFileSync(join(root,board.path),'utf8'),components.map(c=>c.name))}));
+for(const board of sourceCases)assert.ok(board.cases.length>0);
+execFileSync(process.execPath,['_audit/ci/check-bundle-freshness.mjs'],{cwd:root,stdio:'inherit'});
+const{createVerificationServer}=await import(pathToFileURL(join(root,'scripts/lib/verification-server.mjs'))),server=await createVerificationServer(root);await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port,results=[];
+try{
+ for(const type of[chromium,firefox,webkit]){
+  const browser=await type.launch({headless:true});try{
+   for(const board of sourceCases){const page=await browser.newPage(),pageErrors=[];page.on('pageerror',e=>pageErrors.push(String(e)));await page.goto(origin+'/'+board.path);await page.waitForFunction(key=>!!window[key],board.global,{timeout:300000});const verdict=await page.evaluate(key=>window[key],board.global);results.push({browser:type.name(),version:browser.version(),board:board.path,verdict,pageErrors});console.log(`${type.name()} ${board.path}: ${verdict.results?.length||0} namedcases,pass=${verdict.pass}`);await page.close();}
+  }finally{await browser.close();}
+ }
+ const fieldLog=execFileSync(process.execPath,['_audit/ci/test-field-associations-browser.mjs'],{cwd:root,encoding:'utf8',maxBuffer:8*1024*1024});console.log(fieldLog.trim());const after=snapshot();assert.deepEqual(after,before,'Sources/test/bundle/styles changed during capture');
+ const failures=[];for(const row of results){const cases=sourceCases.find(b=>b.path===row.board).cases;if(!row.verdict.pass||row.pageErrors.length)failures.push(row);assert.deepEqual(row.verdict.results.map(r=>r.name).sort(),cases.map(c=>c.name).sort(),'Every authored named case must publish exactly once');}
+ const receipt={schemaVersion:1,inputInventoryVersion:behaviorInputInventoryVersion,node:process.version,sourceArtifactsUnchanged:true,before,after,sourceCases,results,fieldAssociations:{passed:true,sourceSha256:before['_audit/ci/test-field-associations-browser.mjs'],stdout:fieldLog},passed:failures.length===0,scope:'Exact existing named assertion cases on recorded source/bundle in installed engines; not per-prop completeness, authored anatomy/a11y certification or manual acceptance.'};mkdirSync(resolve(output,'..'),{recursive:true});writeFileSync(output,JSON.stringify(receipt,null,2)+'\n');assert.equal(failures.length,0,'Named board cases failed; full unfiltered receipt retained');console.log('PASS source-bound existing named cases/4fieldassociationcomponents');
+}finally{await new Promise(r=>server.close(r));}

@@ -1,0 +1,38 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-certificate-of-employment",
+  "slots": [
+    {
+      "id": "employeeName",
+      "type": "text",
+      "label": "Full name",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "citizenId",
+      "type": "text",
+      "label": "Citizen ID no.",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "position",
+      "type": "text",
+      "label": "Position on leaving",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "department",
+      "type": "text",
+      "label": "Department",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

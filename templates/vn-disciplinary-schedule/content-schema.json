@@ -9,7 +9,64 @@
       "i18n": {
         "en": "Ordered schedule entries (columns per template table)",
         "vi": "Các dòng lịch kỷ luật (theo cột bảng mẫu)"
-      }
+      },
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "group": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "groupEn": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "first": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "repeat": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "group",
+            "groupEn",
+            "vi",
+            "en",
+            "first",
+            "repeat"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "runtimeTargets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
     }
   ]
 }

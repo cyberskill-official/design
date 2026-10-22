@@ -1,5 +1,8 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
-import { makeT, useLang, monthName } from "../_i18n/i18n.js";
+import { makeT, useLang, monthName, primaryLang } from "../_i18n/i18n.js";
+import { useClientLayoutEffect } from "../_utils/use-client-layout-effect.js";
 import { cx } from "../_utils/cx.js";
 const WD = { en: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"], vi: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"], ja: ["月", "火", "水", "木", "金", "土", "日"] };
 function localDate(year, month, day) {
@@ -20,51 +23,89 @@ function grid(year, month) { // Monday week-start (VN convention)
 }
 
 /** CyberSkill Calendar — month grid, Monday week-start, bilingual month/weekday names. Controlled value/onChange (Date). */
-export function Calendar({ value, onChange, lang, className }) {
+export const Calendar = React.forwardRef(function Calendar({ value, onChange, lang, className , rootProps }, forwardedRef) {
   const parsed = value != null ? new Date(value) : null;
   const sel = parsed && Number.isFinite(parsed.getTime()) ? parsed : null;
-  const selectedYear = sel?.getFullYear(), selectedMonth = sel?.getMonth();
+  const selectedYear = sel?.getFullYear(), selectedMonth = sel?.getMonth(), selectedDay = sel?.getDate();
   const today = new Date();
   const [view, setView] = React.useState(() => (sel ? [sel.getFullYear(), sel.getMonth()] : [today.getFullYear(), today.getMonth()]));
   React.useEffect(() => {
-    if (selectedYear != null && selectedMonth != null) setView([selectedYear, selectedMonth]);
-  }, [selectedYear, selectedMonth]);
+    if (selectedYear != null && selectedMonth != null) {
+      setView([selectedYear, selectedMonth]);
+      setFocusedDay(selectedDay);
+    }
+  }, [selectedYear, selectedMonth, selectedDay]);
   const [y, m] = view;
-  const [ref, L] = useLang(lang);
-  const t = makeT("Calendar", L);
+  const [focusedDay, setFocusedDay] = React.useState(() => sel?.getDate() ?? today.getDate());
+  const pendingFocus = React.useRef(false);
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("Calendar", L, localeMessages);
   const cells = grid(y, m);
+  const maxDay = localDate(y, m + 1, 0).getDate();
+  const activeDay = Math.min(focusedDay, maxDay);
+  const monthId = React.useId();
+  useClientLayoutEffect(() => {
+    if (!pendingFocus.current) return;
+    pendingFocus.current = false;
+    ref.current?.querySelector(`button[data-day="${activeDay}"]`)?.focus();
+  }, [y, m, activeDay]);
+  const moveFocus = (date) => {
+    pendingFocus.current = true;
+    setFocusedDay(date.getDate());
+    setView([date.getFullYear(), date.getMonth()]);
+  };
+  const dateLabel = (d) => new Intl.DateTimeFormat(
+    primaryLang(L) === "vi" ? "vi-VN" : primaryLang(L) === "ja" ? "ja-JP" : "en-US",
+    { weekday: "long", day: "numeric", month: "long", year: "numeric" },
+  ).format(localDate(y, m, d));
   const isSel = (d) => sel && d === sel.getDate() && m === sel.getMonth() && y === sel.getFullYear();
   const isToday = (d) => d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
   return (
-    <div ref={ref} className={cx("cs-cal", className)}>
+    <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-cal", className) }, rootProps, [])}>
       <div className="cs-cal__head">
         <button type="button" aria-label={t("prev")} onClick={() => setView(([yy, mm]) => (mm ? [yy, mm - 1] : [yy - 1, 11]))}>‹</button>
-        <b>{monthName(m, L)} {y}</b>
+        <b id={monthId} aria-live="polite">{monthName(m, L)} {y}</b>
         <button type="button" aria-label={t("next")} onClick={() => setView(([yy, mm]) => (mm === 11 ? [yy + 1, 0] : [yy, mm + 1]))}>›</button>
       </div>
       <div className="cs-cal__wd">{WD[WD[L] ? L : "en"].map((w) => <span key={w}>{w}</span>)}</div>
-      <div className="cs-cal__grid" onKeyDown={(e) => {
+      <div className="cs-cal__grid" role="grid" aria-labelledby={monthId} onKeyDown={(e) => {
         const btn = e.target.closest("button[data-day]");
         if (!btn) return;
         const cur = Number(btn.getAttribute("data-day"));
-        const maxDay = localDate(y, m + 1, 0).getDate();
         let next = null;
-        if (e.key === "ArrowLeft") next = Math.max(1, cur - 1);
-        else if (e.key === "ArrowRight") next = Math.min(maxDay, cur + 1);
-        else if (e.key === "ArrowUp") next = Math.max(1, cur - 7);
-        else if (e.key === "ArrowDown") next = Math.min(maxDay, cur + 7);
-        else if (e.key === "Home") next = 1;
-        else if (e.key === "End") next = maxDay;
-        if (next != null) {
+        if (e.key === "ArrowLeft") next = localDate(y, m, cur - 1);
+        else if (e.key === "ArrowRight") next = localDate(y, m, cur + 1);
+        else if (e.key === "ArrowUp") next = localDate(y, m, cur - 7);
+        else if (e.key === "ArrowDown") next = localDate(y, m, cur + 7);
+        // Keep the established month-boundary Home/End contract.
+        else if (e.key === "Home") next = localDate(y, m, 1);
+        else if (e.key === "End") next = localDate(y, m, maxDay);
+        else if (e.key === "PageUp" || e.key === "PageDown") {
+          const offset = (e.key === "PageUp" ? -1 : 1) * (e.shiftKey ? 12 : 1);
+          const target = localDate(y, m + offset, 1);
+          next = localDate(target.getFullYear(), target.getMonth(), Math.min(cur, localDate(target.getFullYear(), target.getMonth() + 1, 0).getDate()));
+        }
+        if (next) {
           e.preventDefault();
-          e.currentTarget.querySelector(`button[data-day="${next}"]`)?.focus();
+          moveFocus(next);
         }
       }}>
-        {cells.map((d, i) => d == null
-          ? <span key={i} />
-          : <button key={i} type="button" data-day={d} className={cx(isSel(d) && "sel", isToday(d) && "today")} aria-pressed={isSel(d) || undefined} aria-current={isToday(d) ? "date" : undefined} aria-label={`${monthName(m, L)} ${d}, ${y}`}
-              onClick={() => onChange && onChange(localDate(y, m, d))}>{d}</button>)}
+        {Array.from({ length: cells.length / 7 }, (_, week) => (
+          <div role="row" key={week} style={{ display: "contents" }}>
+            {cells.slice(week * 7, week * 7 + 7).map((d, i) => d == null
+              ? <span role="gridcell" key={i} />
+              : <span role="gridcell" aria-selected={!!isSel(d)} key={i} style={{ display: "contents" }}>
+                  <button type="button" data-day={d} tabIndex={d === activeDay ? 0 : -1}
+                    onFocus={() => setFocusedDay(d)}
+                    className={cx(isSel(d) && "sel", isToday(d) && "today")}
+                    aria-pressed={isSel(d) || undefined} aria-current={isToday(d) ? "date" : undefined} aria-label={dateLabel(d)}
+                    onClick={() => onChange && onChange(localDate(y, m, d))}>{d}</button>
+                </span>)}
+          </div>
+        ))}
       </div>
     </div>
   );
-}
+});
+Calendar.displayName = "Calendar";

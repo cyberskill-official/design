@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "layers": [
+    "cs-safety",
+    "cs-reset",
+    "cs-tokens",
+    "cs-components",
+    "cs-accessibility",
+    "cs-responsive",
+    "cs-overrides"
+  ],
+  "inputs": [
+    {
+      "path": "styles.css",
+      "sha256": "6dcb5c4286bd2bd39cfe233ddce11118996b0ed5cffa497e9db38ef2d51436d5"
+    },
+    {
+      "path": "tokens/fonts.css",
+      "sha256": "5a9618d951d93c906ebb6db87a2df200c98669b95e1871f4fa92dda1c5a84a56"
+    },
+    {
+      "path": "tokens/colors.css",
+      "sha256": "40914e9efbdde8c8b9f81a49881d4c5c98646ccf8b53397d4fbf7fc8ce0b54f4"
+    },
+    {
+      "path": "tokens/typography.css",
+      "sha256": "39ca03cb84cbac869d6e9e4084313b416c7e2ff3a9bc837cdb2e7dc6d9069efd"
+    },
+    {
+      "path": "tokens/spacing.css",
+      "sha256": "88e98e4473e88716df4b6f0a721f1f5923bdec3bb761f3e59fe90864ccde1587"
+    },
+    {
+      "path": "tokens/elevation.css",
+      "sha256": "0c24e92a2026cc036ee53b72d6bb4ffef3e44ca12641650e8ad97c687acb7f6b"
+    },
+    {
+      "path": "tokens/motion.css",
+      "sha256": "4575fcae7e779e2b35144624a76e91f99fd06b11ee7a3cd104c64f46515cb027"
+    },
+    {
+      "path": "tokens/component-tokens.css",
+      "sha256": "96a5dfef6f0f52e7c530e975443673455b0e55a5215ad045581c5f3a3dd68683"
+    },
+    {
+      "path": "tokens/elements.css",
+      "sha256": "414f94c16d5325562017db708eb41a8ae4eb9389e49f5460d9aedbf53736cb82"
+    },
+    {
+      "path": "tokens/styles.css",
+      "sha256": "b53c447d63ecdea95426260c203ca58163176aee97e282bc0ffc09e03f1d2ee6"
+    },
+    {
+      "path": "tokens/theme-attributes.css",
+      "sha256": "33a325c8f44d049d8de0aa68c6bd7bb16925ea88f759b2348e2c116543f8c065"
+    },
+    {
+      "path": "base/reset.css",
+      "sha256": "9cb796b22cf853d2dbd65899d0665564bddab9a1108d2cac80acc9dcbcb02971"
+    },
+    {
+      "path": "base/typography.css",
+      "sha256": "38b5c60a2f61f64d64b25120c39f85800a5a094cefa2586d511d769b76d647a8"
+    },
+    {
+      "path": "base/components.css",
+      "sha256": "cf66f05f5a9b8efca9822b67222f479ddf12862a27a84c67c274cb0dad8be5fd"
+    },
+    {
+      "path": "base/forms.css",
+      "sha256": "f0d630ba97b71222ef544434f2d3c0334d74253c76dac33ccac628044707e7fb"
+    },
+    {
+      "path": "base/feedback.css",
+      "sha256": "b3b28a815b0756fa070c560034784c17981500664f7e8940fbf1638f4985d083"
+    },
+    {
+      "path": "base/data.css",
+      "sha256": "6ba4958cd92ee11dad2c3aefb58e59685a2e93ef9c5118e53952d32e0506d5a3"
+    },
+    {
+      "path": "base/navigation.css",
+      "sha256": "62907b13da193a6db3e16748f2658f7d3bdb5428f5dd47b58174ebdd873807e2"
+    },
+    {
+      "path": "base/ai.css",
+      "sha256": "cb0371760568fd565b9363bdd5646e484e14ad74aa628faa988d3967da242691"
+    },
+    {
+      "path": "base/controls.css",
+      "sha256": "bb6c44713afdc74d6170507a07a46c1111b833e7ae11899fb9ef697cfaedb757"
+    },
+    {
+      "path": "base/collections.css",
+      "sha256": "900b89baf36e40a04c4cab38415ab203255daa4c900adfcba55a03c3a5420bed"
+    },
+    {
+      "path": "base/shell.css",
+      "sha256": "1d6f9fe366fb2f5164fe79f611ed2afe3f59e755b1b487409b75686e2ce681d3"
+    },
+    {
+      "path": "base/glass.css",
+      "sha256": "c9bb2a39244841311aaf61f98fb410a0f7cafa37d10a8283d682c558e33ef78b"
+    },
+    {
+      "path": "base/interaction.css",
+      "sha256": "c6d12550087efc09a269dab5ff8739ab73bd8c36716aa6fd8f0f42780a18c71c"
+    },
+    {
+      "path": "base/a11y.css",
+      "sha256": "c0fee897f85ea638c4552ccc445e69278e3b1416a2140bfeb2b369e4821722af"
+    },
+    {
+      "path": "base/responsive.css",
+      "sha256": "68e0c66ee9eccfb681e5345e0800a00869a9deec14900dcc262fed2a6ab1f918"
+    }
+  ],
+  "assets": [
+    "assets/aurora-hoa.webp",
+    "assets/aurora-kim.webp",
+    "assets/aurora-moc.webp",
+    "assets/aurora-tho.webp",
+    "assets/aurora-thuy.webp",
+    "fonts/bevietnampro-300-latin-ext.woff2",
+    "fonts/bevietnampro-300-latin.woff2",
+    "fonts/bevietnampro-300-vietnamese.woff2",
+    "fonts/bevietnampro-400-latin-ext.woff2",
+    "fonts/bevietnampro-400-latin.woff2",
+    "fonts/bevietnampro-400-vietnamese.woff2",
+    "fonts/bevietnampro-400i-latin-ext.woff2",
+    "fonts/bevietnampro-400i-latin.woff2",
+    "fonts/bevietnampro-400i-vietnamese.woff2",
+    "fonts/bevietnampro-500-latin-ext.woff2",
+    "fonts/bevietnampro-500-latin.woff2",
+    "fonts/bevietnampro-500-vietnamese.woff2",
+    "fonts/bevietnampro-600-latin-ext.woff2",
+    "fonts/bevietnampro-600-latin.woff2",
+    "fonts/bevietnampro-600-vietnamese.woff2",
+    "fonts/bevietnampro-600i-latin-ext.woff2",
+    "fonts/bevietnampro-600i-latin.woff2",
+    "fonts/bevietnampro-600i-vietnamese.woff2",
+    "fonts/bevietnampro-700-latin-ext.woff2",
+    "fonts/bevietnampro-700-latin.woff2",
+    "fonts/bevietnampro-700-vietnamese.woff2",
+    "fonts/bevietnampro-800-latin-ext.woff2",
+    "fonts/bevietnampro-800-latin.woff2",
+    "fonts/bevietnampro-800-vietnamese.woff2",
+    "fonts/jetbrainsmono-400-cyrillic-ext.woff2",
+    "fonts/jetbrainsmono-400-cyrillic.woff2",
+    "fonts/jetbrainsmono-400-greek.woff2",
+    "fonts/jetbrainsmono-400-latin-ext.woff2",
+    "fonts/jetbrainsmono-400-latin.woff2",
+    "fonts/jetbrainsmono-400-vietnamese.woff2",
+    "fonts/spacegrotesk-var-latin-ext.woff2",
+    "fonts/spacegrotesk-var-latin.woff2",
+    "fonts/spacegrotesk-var-vietnamese.woff2"
+  ],
+  "importantCount": 46,
+  "sha256": "d193a333e25e1f4119f1bdf9b616d1f2cd224b2ba492db9a90e2ac221c0a77bf"
+}

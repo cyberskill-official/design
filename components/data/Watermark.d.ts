@@ -1,3 +1,5 @@
+import type * as React from "react";
+import type { RootTargetProps } from "../_utils/target-props";
 import type { ReactNode } from "react";
 
 /** Repeats rotated text behind children (draft/confidential marking). */
@@ -10,6 +12,8 @@ export interface WatermarkProps {
   /** Degrees. Default -22. */
   rotate?: number;
   children?: ReactNode;
+  /** Attributes for the existing outer div. Internal handlers run before consumer handlers; owned semantics remain controlled. */
+  rootProps?: RootTargetProps<HTMLDivElement>;
   className?: string;
 }
-export function Watermark(props: WatermarkProps): React.ReactElement;
+export const Watermark: React.ForwardRefExoticComponent<React.PropsWithoutRef<WatermarkProps> & React.RefAttributes<HTMLDivElement>>;

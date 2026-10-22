@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/brand/LumiAvatar.jsx"],
+  "sourcesContent": ["import { useComposedRefs } from \"../_utils/refs.js\";\nimport React from \"react\";\nimport { cx } from \"../_utils/cx.js\";\n\n/** CyberSkill LumiAvatar — the golden-genie mascot avatar. Pass `src` (e.g. lumi-poster.webp) or fall back to the ✦ glyph. */\nexport const LumiAvatar = React.forwardRef(function LumiAvatar({ src, size = \"md\", ring = false, alt = \"Lumi\", className, ...props }, forwardedRef) {\n  const mergedNativeRef = useComposedRefs(forwardedRef);\n  return (\n    <span className={cx(\"cs-lumi\", `cs-lumi--${size}`, ring && \"cs-lumi--ring\", className)} role={!src && alt ? \"img\" : undefined} aria-label={!src && alt ? alt : undefined} {...props} ref={mergedNativeRef} >\n      {src ? <img src={src} alt={alt} /> : <span aria-hidden=\"true\">✦</span>}\n    </span>\n  );\n});\nLumiAvatar.displayName = \"LumiAvatar\";\n"],
+  "mappings": ";;;;;;;;;AACA,OAAO,WAAW;AAIX,IAAM,aAAa,MAAM,WAAW,SAASA,YAAW,EAAE,KAAK,OAAO,MAAM,OAAO,OAAO,MAAM,QAAQ,WAAW,GAAG,MAAM,GAAG,cAAc;AAClJ,QAAM,kBAAkB,gBAAgB,YAAY;AACpD,SACE,oCAAC,UAAK,WAAW,GAAG,WAAW,YAAY,IAAI,IAAI,QAAQ,iBAAiB,SAAS,GAAG,MAAM,CAAC,OAAO,MAAM,QAAQ,QAAW,cAAY,CAAC,OAAO,MAAM,MAAM,QAAY,GAAG,OAAO,KAAK,mBACvL,MAAM,oCAAC,SAAI,KAAU,KAAU,IAAK,oCAAC,UAAK,eAAY,UAAO,GAAC,CACjE;AAEJ,CAAC;AACD,WAAW,cAAc;",
+  "names": ["LumiAvatar"]
+}

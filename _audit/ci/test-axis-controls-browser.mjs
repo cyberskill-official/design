@@ -28,15 +28,34 @@ await withBrowserFixture(async page=>{
     muted:getComputedStyle(document.querySelector('#fixture > div')).getPropertyValue('--cs-color-text-muted').trim().toLowerCase(),
   }));
   if(story.theme!=='light'||story.density!=='comfortable'||story.space!=='4px'||story.root!=='standard'||story.scope!=='standard'||story.muted!=='#3f2d21')failures.push({surface:'Storybook explicit Standard under OS more',...story});
-  await page.goto(new URL('/guidelines/atomic-view.html',page.url()).href);
-  await page.evaluate(()=>{document.documentElement.setAttribute('data-theme','dark');document.documentElement.setAttribute('data-cs-density','compact')});
-  const select=name=>page.locator('.toolbar label').filter({hasText:name}).locator('select');
-  await select('Theme').selectOption('dark');await select('Theme').selectOption('light');
-  await select('Density').selectOption('compact');await select('Density').selectOption('comfortable');
-  const contrast=page.locator('.toolbar label').filter({hasText:'Contrast'}).locator('select');
-  await contrast.selectOption('high');await contrast.selectOption('standard');
-  const atomic=await page.locator('#canvas').evaluate(el=>({theme:el.getAttribute('data-theme'),density:el.getAttribute('data-cs-density'),space:getComputedStyle(el).getPropertyValue('--cs-density-space-1').trim(),scope:el.getAttribute('data-cs-contrast'),muted:getComputedStyle(el).getPropertyValue('--cs-color-text-muted').trim().toLowerCase()}));
-  if(atomic.theme!=='light'||atomic.density!=='comfortable'||atomic.space!=='4px'||atomic.scope!=='standard'||atomic.muted!=='#3f2d21')failures.push({surface:'Atomic View explicit Standard under OS more',...atomic});
+  for (const [language, labels] of [
+    ['vi', {theme: 'Chế độ nền', density: 'Mật độ', contrast: 'Tương phản'}],
+    ['en', {theme: 'Theme', density: 'Density', contrast: 'Contrast'}],
+  ]) {
+    await page.goto(new URL('/guidelines/atomic-view.html?language=' + language, page.url()).href);
+    await page.waitForFunction(language => window.CS_GuidelinesLanguage?.status.ready &&
+      document.documentElement.lang === language, language);
+    await page.evaluate(() => {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.setAttribute('data-cs-density', 'compact');
+    });
+    const select = name => page.locator('.toolbar label').filter({hasText: name}).locator('select');
+    await select(labels.theme).selectOption('dark');
+    await select(labels.theme).selectOption('light');
+    await select(labels.density).selectOption('compact');
+    await select(labels.density).selectOption('comfortable');
+    await select(labels.contrast).selectOption('high');
+    await select(labels.contrast).selectOption('standard');
+    const atomic = await page.locator('#canvas').evaluate(el => ({
+      theme: el.getAttribute('data-theme'), density: el.getAttribute('data-cs-density'),
+      space: getComputedStyle(el).getPropertyValue('--cs-density-space-1').trim(),
+      scope: el.getAttribute('data-cs-contrast'),
+      muted: getComputedStyle(el).getPropertyValue('--cs-color-text-muted').trim().toLowerCase(),
+    }));
+    if (atomic.theme !== 'light' || atomic.density !== 'comfortable' || atomic.space !== '4px' ||
+        atomic.scope !== 'standard' || atomic.muted !== '#3f2d21')
+      failures.push({surface: 'Atomic View explicit Standard under OS more', language, ...atomic});
+  }
   const artifact=await page.evaluate(()=>{
     const iframe=document.createElement('iframe');document.body.append(iframe);
     applyAxis(iframe,{theme:'light',density:'comfortable',contrast:'standard',style:'liquid-glass',elm:'tho',elv:'',lang:'vi'});

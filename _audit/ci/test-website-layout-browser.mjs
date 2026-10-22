@@ -1,17 +1,139 @@
-import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';import {join} from 'node:path';import {createRequire} from 'node:module';import {pathToFileURL,fileURLToPath} from 'node:url';
-const root=fileURLToPath(new URL('../../',import.meta.url)),require=createRequire(join(root,'package.json')),{transformSync}=require('esbuild'),{withBrowserFixture}=await import(pathToFileURL(join(root,'_audit/ci/lib/browser-fixture.mjs')));const rows=[];
-const compiled=transformSync(readFileSync(join(root,'ui_kits/website/Website.jsx'),'utf8'),{loader:'jsx',jsxFactory:'React.createElement',jsxFragment:'React.Fragment'}).code,copy=readFileSync(join(root,'ui_kits/website/copy.js'),'utf8'),css=readFileSync(join(root,'ui_kits/website/site.css'),'utf8');
-for(const browser of ['chromium','firefox','webkit'])await withBrowserFixture(async page=>{
- await page.evaluate(({compiled,copy})=>{const base=document.createElement('base');base.href=location.origin+'/ui_kits/website/';document.head.append(base);(0,eval)(copy);(0,eval)(compiled);},{compiled,copy});await page.addStyleTag({content:css});
- for(const width of [320,390,1280])for(const lang of ['en','vi'])for(const theme of ['light','dark']){
-  await page.setViewportSize({width,height:900});await page.evaluate(key=>renderFixture(React.createElement(window.Website,{key})),[width,lang,theme].join(':'));
-  if(lang==='vi')await page.locator('.hdr-side .mini').first().click();if(theme==='dark')await page.locator('.hdr-side button.icon').click();await page.evaluate(async()=>{await document.fonts.ready;});
-  const key={browser,width,lang,theme};let metrics;const add=(name,actual,expected)=>rows.push({...key,name,actual,expected,pass:actual===expected,metrics});
-  const home=await page.evaluate(()=>{const box=e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right,width:r.width};};return {viewport:innerWidth,document:document.documentElement.scrollWidth,header:[...document.querySelectorAll('.hdr button,.hdr .brand')].map(box),wish:box(document.querySelector('.wish input'))};});
-  metrics=home;add('home has no horizontal page overflow',home.document<=width+1,true);add('header controls remain in viewport',home.header.every(x=>x.left>=-1&&x.right<=width+1),true);add('hero input remains in viewport',home.wish.left>=-1&&home.wish.right<=width+1,true);
-  await page.locator('.hdr-side button').last().click();
-  const chat=await page.evaluate(()=>{const chat=document.querySelector('.chat'),r=chat.getBoundingClientRect(),body=document.querySelector('.chat-b'),controls=[...chat.querySelectorAll('.chat-f input,.chat-f button,.chat-h button')].map(e=>{const q=e.getBoundingClientRect();return {left:q.left,right:q.right,top:q.top,bottom:q.bottom};});return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,controls,bodyWidth:body.clientWidth,bodyScroll:body.scrollWidth};});
-  metrics=chat;add('chat controls contained',chat.controls.every(x=>x.left>=chat.left-1&&x.right<=chat.right+1&&x.top>=chat.top-1&&x.bottom<=chat.bottom+1),true);add('chat in viewport',chat.left>=-1&&chat.right<=width+1&&chat.top>=-1&&chat.bottom<=901,true);add('chat body has no horizontal overflow',chat.bodyScroll<=chat.bodyWidth+1,true);
- }
-},{browserName:browser,contextOptions:{viewport:{width:1280,height:900},reducedMotion:'reduce'}});
-const failures=rows.filter(x=>!x.pass).length;const report={recordedAt:new Date().toISOString(),cases:rows.length,contexts:36,failures,exitCode:failures?1:0,rows,scope:'Finite website home/chat geometry at 320/390/1280px, EN/VI and light/dark in three engines. Source render fixture, reduced motion; no all-route, screenshot, keyboard speech, real IME or operator acceptance.'};console.log(JSON.stringify({cases:rows.length,failures}));process.exitCode=failures?1:0;
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { join } from 'node:path';
+import { createRequire } from 'node:module';
+import { pathToFileURL, fileURLToPath } from 'node:url';
+const root = fileURLToPath(new URL('../../', import.meta.url)),
+  require = createRequire(join(root, 'package.json')),
+  {
+    transformSync
+  } = require('esbuild'),
+  {
+    withBrowserFixture
+  } = await import(pathToFileURL(join(root, '_audit/ci/lib/browser-fixture.mjs')));
+const rows = [];
+const compiled = transformSync(readFileSync(join(root, 'ui_kits/website/Website.jsx'), 'utf8'), {
+    loader: 'jsx',
+    jsxFactory: 'React.createElement',
+    jsxFragment: 'React.Fragment'
+  }).code,
+  copy = readFileSync(join(root, 'ui_kits/website/copy.js'), 'utf8'),
+  css = readFileSync(join(root, 'ui_kits/website/site.css'), 'utf8');
+for (const browser of ['chromium', 'firefox', 'webkit']) await withBrowserFixture(async page => {
+  await page.evaluate(({
+    compiled,
+    copy
+  }) => {
+    const base = document.createElement('base');
+    base.href = location.origin + '/ui_kits/website/';
+    document.head.append(base);
+    (0, eval)(copy);
+    (0, eval)(compiled);
+  }, {
+    compiled,
+    copy
+  });
+  await page.addStyleTag({
+    content: css
+  });
+  for (const width of [320, 390, 1280]) for (const lang of ['en', 'vi']) for (const theme of ['light', 'dark']) {
+    await page.setViewportSize({
+      width,
+      height: 900
+    });
+    await page.evaluate(key => renderFixture(React.createElement(window.Website, {
+      key
+    })), [width, lang, theme].join(':'));
+    if (lang === 'vi') await page.locator('.hdr-side .mini').first().click();
+    if (theme === 'dark') await page.locator('.hdr-side button.icon').click();
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+    });
+    const key = {
+      browser,
+      width,
+      lang,
+      theme
+    };
+    let metrics;
+    const add = (name, actual, expected) => rows.push({
+      ...key,
+      name,
+      actual,
+      expected,
+      pass: actual === expected,
+      metrics
+    });
+    const home = await page.evaluate(() => {
+      const box = e => {
+        const r = e.getBoundingClientRect();
+        return {
+          left: r.left,
+          right: r.right,
+          width: r.width
+        };
+      };
+      return {
+        viewport: innerWidth,
+        document: document.documentElement.scrollWidth,
+        header: [...document.querySelectorAll('.hdr button,.hdr .brand')].map(box),
+        wish: box(document.querySelector('.wish input'))
+      };
+    });
+    metrics = home;
+    add('home has no horizontal page overflow', home.document <= width + 1, true);
+    add('header controls remain in viewport', home.header.every(x => x.left >= -1 && x.right <= width + 1), true);
+    add('hero input remains in viewport', home.wish.left >= -1 && home.wish.right <= width + 1, true);
+    await page.locator('.hdr-side button').last().click();
+    const chat = await page.evaluate(() => {
+      const chat = document.querySelector('.chat'),
+        r = chat.getBoundingClientRect(),
+        body = document.querySelector('.chat-b'),
+        controls = [...chat.querySelectorAll('.chat-f input,.chat-f button,.chat-h button')].map(e => {
+          const q = e.getBoundingClientRect();
+          return {
+            left: q.left,
+            right: q.right,
+            top: q.top,
+            bottom: q.bottom
+          };
+        });
+      return {
+        left: r.left,
+        right: r.right,
+        top: r.top,
+        bottom: r.bottom,
+        controls,
+        bodyWidth: body.clientWidth,
+        bodyScroll: body.scrollWidth
+      };
+    });
+    metrics = chat;
+    add('chat controls contained', chat.controls.every(x => x.left >= chat.left - 1 && x.right <= chat.right + 1 && x.top >= chat.top - 1 && x.bottom <= chat.bottom + 1), true);
+    add('chat in viewport', chat.left >= -1 && chat.right <= width + 1 && chat.top >= -1 && chat.bottom <= 901, true);
+    add('chat body has no horizontal overflow', chat.bodyScroll <= chat.bodyWidth + 1, true);
+  }
+}, {
+  browserName: browser,
+  contextOptions: {
+    viewport: {
+      width: 1280,
+      height: 900
+    },
+    reducedMotion: 'reduce'
+  }
+});
+const failures = rows.filter(x => !x.pass).length;
+const report = {
+  recordedAt: new Date().toISOString(),
+  cases: rows.length,
+  contexts: 36,
+  failures,
+  exitCode: failures ? 1 : 0,
+  rows,
+  scope: 'Finite website home/chat geometry at 320/390/1280px, EN/VI and light/dark in three engines. Source render fixture, reduced motion; no all-route, screenshot, keyboard speech, real IME or operator acceptance.'
+};
+console.log(JSON.stringify({
+  cases: rows.length,
+  failures
+}));
+process.exitCode = failures ? 1 : 0;

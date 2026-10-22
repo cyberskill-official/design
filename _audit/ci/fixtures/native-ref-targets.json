@@ -1,0 +1,1736 @@
+{
+  "schemaVersion": 1,
+  "interpretation": "Authored native ref targets. Availability is a mount contract, not a promise of focusability, accessibility acceptance or release approval.",
+  "components": [
+    {
+      "name": "AIDisclosureBadge",
+      "source": "components/ai/AIDisclosureBadge.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "span"
+        ],
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "button",
+        "className": "cs-ai-disclosure__badge",
+        "types": [
+          "HTMLButtonElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "Accordion",
+      "source": "components/data/Accordion.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Alert",
+      "source": "components/feedback/Alert.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "AlertDialog",
+      "source": "components/overlays/AlertDialog.jsx",
+      "kind": "managed-panel",
+      "ref": {
+        "role": "alertdialog",
+        "types": [
+          "HTMLElement"
+        ],
+        "availability": "only while panel is mounted"
+      }
+    },
+    {
+      "name": "Anchor",
+      "source": "components/navigation/Anchor.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "nav"
+        ],
+        "types": [
+          "HTMLElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "AspectRatio",
+      "source": "components/data/AspectRatio.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Avatar",
+      "source": "components/data/Avatar.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "span"
+        ],
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "AvatarGroup",
+      "source": "components/data/Avatar.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "BackTop",
+      "source": "components/navigation/BackTop.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "tag": "button",
+        "types": [
+          "HTMLButtonElement"
+        ],
+        "availability": "only while visible"
+      }
+    },
+    {
+      "name": "Badge",
+      "source": "components/feedback/Badge.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "span"
+        ],
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Breadcrumb",
+      "source": "components/navigation/Breadcrumb.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "nav"
+        ],
+        "types": [
+          "HTMLElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Button",
+      "source": "components/button/Button.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "button"
+        ],
+        "types": [
+          "HTMLButtonElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "ButtonGroup",
+      "source": "components/button/ButtonGroup.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Calendar",
+      "source": "components/forms/Calendar.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Card",
+      "source": "components/data/Card.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "tag": "Tag",
+        "types": [
+          "Element"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "CardBody",
+      "source": "components/data/Card.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "CardFooter",
+      "source": "components/data/Card.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "CardHeader",
+      "source": "components/data/Card.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Carousel",
+      "source": "components/data/Carousel.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Cascader",
+      "source": "components/forms/Cascader.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "button",
+        "className": "cs-treeselect__field",
+        "types": [
+          "HTMLButtonElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "Chart",
+      "source": "components/data/Chart.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "figure"
+        ],
+        "types": [
+          "HTMLElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "ChatMessage",
+      "source": "components/ai/ChatMessage.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Checkbox",
+      "source": "components/forms/Checkbox.jsx",
+      "kind": "native-attribute-target",
+      "ref": {
+        "tag": "input",
+        "types": [
+          "HTMLInputElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "CitationList",
+      "source": "components/ai/CitationList.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "CodeBlock",
+      "source": "components/data/CodeBlock.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Collapsible",
+      "source": "components/data/Collapsible.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "button",
+        "types": [
+          "HTMLButtonElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "ColorPicker",
+      "source": "components/forms/ColorPicker.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "span"
+        ],
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "button",
+        "className": "cs-colorpicker__field",
+        "types": [
+          "HTMLButtonElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "Combobox",
+      "source": "components/forms/Combobox.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "input",
+        "types": [
+          "HTMLInputElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "CommandPalette",
+      "source": "components/navigation/CommandPalette.jsx",
+      "kind": "managed-panel",
+      "ref": {
+        "role": "dialog",
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "only while panel is mounted"
+      },
+      "controlRef": {
+        "tag": "input",
+        "types": [
+          "HTMLInputElement"
+        ],
+        "availability": "only while open"
+      }
+    },
+    {
+      "name": "Comment",
+      "source": "components/data/Comment.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "ConfidenceMeter",
+      "source": "components/ai/ConfidenceMeter.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "ContextMenu",
+      "source": "components/overlays/ContextMenu.jsx",
+      "kind": "managed-panel",
+      "ref": {
+        "role": "menu",
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "only while panel is mounted"
+      }
+    },
+    {
+      "name": "DataGrid",
+      "source": "components/datatable/DataGrid.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "DataTable",
+      "source": "components/datatable/DataTable.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "DatePicker",
+      "source": "components/forms/DatePicker.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "button",
+        "types": [
+          "HTMLButtonElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "DescriptionList",
+      "source": "components/data/DescriptionList.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "dl"
+        ],
+        "types": [
+          "HTMLDListElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Dialog",
+      "source": "components/dialog/Dialog.jsx",
+      "kind": "managed-panel",
+      "ref": {
+        "role": "dialog",
+        "types": [
+          "HTMLElement"
+        ],
+        "availability": "only while panel is mounted"
+      }
+    },
+    {
+      "name": "Divider",
+      "source": "components/data/Divider.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div",
+          "hr"
+        ],
+        "types": [
+          "HTMLDivElement",
+          "HTMLHRElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Dock",
+      "source": "components/navigation/Dock.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Drawer",
+      "source": "components/overlays/Drawer.jsx",
+      "kind": "managed-panel",
+      "ref": {
+        "role": "dialog",
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "only while panel is mounted"
+      }
+    },
+    {
+      "name": "Editor",
+      "source": "components/forms/Editor.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "div",
+        "role": "textbox",
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "EmptyState",
+      "source": "components/feedback/EmptyState.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "FileUpload",
+      "source": "components/forms/FileUpload.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "input",
+        "types": [
+          "HTMLInputElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "FloatingActionButton",
+      "source": "components/button/FloatingActionButton.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "button",
+        "className": "cs-fab__main",
+        "types": [
+          "HTMLButtonElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "Form",
+      "source": "components/forms/Form.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "form"
+        ],
+        "types": [
+          "HTMLFormElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "FormField",
+      "source": "components/forms/Form.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "FormFieldArray",
+      "source": "components/forms/Form.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "FormWizard",
+      "source": "components/forms/Form.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "HotKeys",
+      "source": "components/navigation/HotKeys.jsx",
+      "kind": "managed-panel",
+      "ref": {
+        "role": "dialog",
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "only while panel is mounted"
+      }
+    },
+    {
+      "name": "HoverCard",
+      "source": "components/overlays/HoverCard.jsx",
+      "kind": "managed-panel",
+      "ref": {
+        "role": "dialog",
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "only while panel is mounted"
+      }
+    },
+    {
+      "name": "HumanReviewGate",
+      "source": "components/ai/HumanReviewGate.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "section"
+        ],
+        "types": [
+          "HTMLElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Icon",
+      "source": "components/icon/Icon.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "svg"
+        ],
+        "types": [
+          "SVGSVGElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Image",
+      "source": "components/data/Image.jsx",
+      "kind": "native-attribute-target",
+      "ref": {
+        "tag": "img",
+        "types": [
+          "HTMLImageElement"
+        ],
+        "availability": "while underlying image is mounted (null during fallback)"
+      }
+    },
+    {
+      "name": "InlineEdit",
+      "source": "components/forms/InlineEdit.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "span"
+        ],
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "input",
+        "types": [
+          "HTMLInputElement"
+        ],
+        "availability": "only while editing"
+      }
+    },
+    {
+      "name": "InputGroup",
+      "source": "components/forms/InputGroup.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "InputOTP",
+      "source": "components/forms/InputOTP.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Item",
+      "source": "components/data/Item.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "tag": "Tag",
+        "types": [
+          "HTMLDivElement",
+          "HTMLButtonElement",
+          "HTMLAnchorElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Kbd",
+      "source": "components/data/Kbd.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "kbd"
+        ],
+        "types": [
+          "HTMLElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Link",
+      "source": "components/navigation/Link.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "a"
+        ],
+        "types": [
+          "HTMLAnchorElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "List",
+      "source": "components/data/List.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "ListItem",
+      "source": "components/data/List.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "LocaleProvider",
+      "source": "components/i18n/LocaleProvider.jsx",
+      "kind": "context-only",
+      "ref": null,
+      "controlRef": null,
+      "reason": "No own public native target; never borrow a child or helper host"
+    },
+    {
+      "name": "Logo",
+      "source": "components/logo/Logo.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "svg"
+        ],
+        "types": [
+          "SVGSVGElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "LumiAvatar",
+      "source": "components/brand/LumiAvatar.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "span"
+        ],
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Masonry",
+      "source": "components/data/Masonry.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Mentions",
+      "source": "components/forms/Mentions.jsx",
+      "kind": "native-attribute-target",
+      "ref": {
+        "tag": "textarea",
+        "types": [
+          "HTMLTextAreaElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Menu",
+      "source": "components/navigation/Menu.jsx",
+      "kind": "managed-panel",
+      "ref": {
+        "role": "menu",
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "only while panel is mounted"
+      }
+    },
+    {
+      "name": "MenuItem",
+      "source": "components/navigation/Menu.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "button"
+        ],
+        "types": [
+          "HTMLButtonElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Menubar",
+      "source": "components/navigation/Menubar.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "NativeSelect",
+      "source": "components/forms/NativeSelect.jsx",
+      "kind": "native-attribute-target",
+      "ref": {
+        "tag": "select",
+        "types": [
+          "HTMLSelectElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "NavItem",
+      "source": "components/navigation/Sidebar.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "tag": "Tag",
+        "types": [
+          "HTMLButtonElement",
+          "HTMLAnchorElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "NavigationMenu",
+      "source": "components/navigation/NavigationMenu.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "nav"
+        ],
+        "types": [
+          "HTMLElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "NumberField",
+      "source": "components/forms/NumberField.jsx",
+      "kind": "native-attribute-target",
+      "ref": {
+        "tag": "input",
+        "types": [
+          "HTMLInputElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "OverlayProvider",
+      "source": "components/overlays/OverlayManager.jsx",
+      "kind": "context-only",
+      "ref": null,
+      "controlRef": null,
+      "reason": "No own public native target; never borrow a child or helper host"
+    },
+    {
+      "name": "Pagination",
+      "source": "components/navigation/Pagination.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "nav"
+        ],
+        "types": [
+          "HTMLElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Popconfirm",
+      "source": "components/overlays/Popconfirm.jsx",
+      "kind": "managed-panel",
+      "ref": {
+        "role": "alertdialog",
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "only while panel is mounted"
+      }
+    },
+    {
+      "name": "Popover",
+      "source": "components/overlays/Popover.jsx",
+      "kind": "managed-panel",
+      "ref": {
+        "role": "dialog",
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "only while panel is mounted"
+      }
+    },
+    {
+      "name": "ProgressBar",
+      "source": "components/feedback/ProgressBar.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "PromptInput",
+      "source": "components/ai/PromptInput.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "textarea",
+        "types": [
+          "HTMLTextAreaElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "PromptSuggestions",
+      "source": "components/ai/PromptSuggestions.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "QRCode",
+      "source": "components/data/QRCode.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "span"
+        ],
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Radio",
+      "source": "components/forms/RadioGroup.jsx",
+      "kind": "native-attribute-target",
+      "ref": {
+        "tag": "input",
+        "types": [
+          "HTMLInputElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "RadioGroup",
+      "source": "components/forms/RadioGroup.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "fieldset"
+        ],
+        "types": [
+          "HTMLFieldSetElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Rating",
+      "source": "components/forms/Rating.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Result",
+      "source": "components/feedback/Result.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "ScrollArea",
+      "source": "components/data/ScrollArea.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "SearchField",
+      "source": "components/forms/SearchField.jsx",
+      "kind": "native-attribute-target",
+      "ref": {
+        "tag": "input",
+        "types": [
+          "HTMLInputElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "SegmentedControl",
+      "source": "components/forms/SegmentedControl.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Select",
+      "source": "components/forms/Select.jsx",
+      "kind": "native-attribute-target",
+      "ref": {
+        "tag": "select",
+        "types": [
+          "HTMLSelectElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Sidebar",
+      "source": "components/navigation/Sidebar.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "nav"
+        ],
+        "types": [
+          "HTMLElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Skeleton",
+      "source": "components/feedback/Skeleton.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div",
+          "span"
+        ],
+        "types": [
+          "HTMLDivElement",
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Slider",
+      "source": "components/forms/Slider.jsx",
+      "kind": "native-attribute-target",
+      "ref": {
+        "tag": "input",
+        "types": [
+          "HTMLInputElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Sortable",
+      "source": "components/data/Sortable.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "ul"
+        ],
+        "types": [
+          "HTMLUListElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Spinner",
+      "source": "components/feedback/Spinner.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "span"
+        ],
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Splitter",
+      "source": "components/data/Splitter.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Stat",
+      "source": "components/data/Stat.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "StatusIndicator",
+      "source": "components/feedback/StatusIndicator.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "span"
+        ],
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Steps",
+      "source": "components/navigation/Steps.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Switch",
+      "source": "components/forms/Switch.jsx",
+      "kind": "native-attribute-target",
+      "ref": {
+        "tag": "input",
+        "types": [
+          "HTMLInputElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Tab",
+      "source": "components/navigation/Tabs.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "button"
+        ],
+        "types": [
+          "HTMLButtonElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Tabs",
+      "source": "components/navigation/Tabs.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Tag",
+      "source": "components/feedback/Tag.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "span"
+        ],
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "TagInput",
+      "source": "components/forms/TagInput.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "input",
+        "types": [
+          "HTMLInputElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "Terminal",
+      "source": "components/data/Terminal.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "TextField",
+      "source": "components/textfield/TextField.jsx",
+      "kind": "native-attribute-target",
+      "ref": {
+        "tag": "input",
+        "types": [
+          "HTMLInputElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Textarea",
+      "source": "components/forms/Textarea.jsx",
+      "kind": "native-attribute-target",
+      "ref": {
+        "tag": "textarea",
+        "types": [
+          "HTMLTextAreaElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "TimePicker",
+      "source": "components/forms/TimePicker.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "span"
+        ],
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "select",
+        "types": [
+          "HTMLSelectElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "Timeline",
+      "source": "components/data/Timeline.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Toast",
+      "source": "components/feedback/Toast.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "ToastStack",
+      "source": "components/feedback/Toast.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Toggle",
+      "source": "components/forms/Toggle.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "button"
+        ],
+        "types": [
+          "HTMLButtonElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Toolbar",
+      "source": "components/navigation/Toolbar.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Tooltip",
+      "source": "components/data/Tooltip.jsx",
+      "kind": "managed-panel",
+      "ref": {
+        "role": "tooltip",
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Tour",
+      "source": "components/overlays/Tour.jsx",
+      "kind": "managed-panel",
+      "ref": {
+        "role": "dialog",
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "only while panel is mounted"
+      }
+    },
+    {
+      "name": "Transfer",
+      "source": "components/forms/Transfer.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Tree",
+      "source": "components/data/Tree.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "ul"
+        ],
+        "types": [
+          "HTMLUListElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "TreeSelect",
+      "source": "components/forms/TreeSelect.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      },
+      "controlRef": {
+        "tag": "button",
+        "className": "cs-treeselect__field",
+        "types": [
+          "HTMLButtonElement"
+        ],
+        "availability": "while component control is mounted"
+      }
+    },
+    {
+      "name": "TreeTable",
+      "source": "components/datatable/TreeTable.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "TypingIndicator",
+      "source": "components/ai/TypingIndicator.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "span"
+        ],
+        "types": [
+          "HTMLSpanElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    },
+    {
+      "name": "Watermark",
+      "source": "components/data/Watermark.jsx",
+      "kind": "native-root-or-group",
+      "ref": {
+        "rootTags": [
+          "div"
+        ],
+        "types": [
+          "HTMLDivElement"
+        ],
+        "availability": "while native target is mounted"
+      }
+    }
+  ]
+}

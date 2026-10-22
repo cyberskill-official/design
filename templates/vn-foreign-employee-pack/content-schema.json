@@ -6,17 +6,134 @@
       "id": "checklist",
       "type": "list",
       "label": "Compliance checklist",
-      "required": true
+      "required": true,
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "vi",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "runtimeTargets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
     },
     {
       "id": "steps",
       "type": "list",
-      "label": "Process steps"
+      "label": "Process steps",
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "n": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "tvi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "ten": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "n",
+            "vi",
+            "en",
+            "tvi",
+            "ten"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "runtimeTargets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
     },
     {
       "id": "exemptions",
       "type": "list",
-      "label": "Exemptions"
+      "label": "Exemptions",
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "vi": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "vi",
+            "en"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "runtimeTargets": [
+        {
+          "tag": "sc-for",
+          "attribute": "list"
+        }
+      ]
     }
   ]
 }

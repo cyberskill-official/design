@@ -23,4 +23,4 @@ export interface DialogProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   className?: string;
 }
 
-export function Dialog(props: DialogProps): React.ReactElement | null;
+export const Dialog: React.ForwardRefExoticComponent<React.PropsWithoutRef<DialogProps> & React.RefAttributes<HTMLElement>>;

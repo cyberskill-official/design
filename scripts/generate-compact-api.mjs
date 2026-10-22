@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { compactApi } from './lib/compact-api.mjs';
+const root = new URL('../', import.meta.url);
+const args = process.argv.slice(2);
+assert(args.length === 0 || args.length === 1 && args[0] === '--check', 'Usage: generate-compact-api.mjs [--check]');
+const input = readFileSync(new URL('components/api-index.json', root), 'utf8');
+const output = JSON.stringify(compactApi(input), null, 2) + '\n';
+const path = new URL('components/api-discovery.json', root);
+if (args.length) assert.equal(readFileSync(path, 'utf8'), output, 'Stale compact API discovery projection');
+else writeFileSync(path, output);
+console.log(`PASS complete API discovery projection: ${Buffer.byteLength(input)} → ${Buffer.byteLength(output)} bytes; inherited details remain in the full index`);

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="cs-template-library" content="static-logo">
 <title>Board · Investor update email · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +16,7 @@
 <div lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" style="background:#efe6d8;padding:32px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary);min-height:100vh">
   <div style="max-width:620px;margin:0 auto;background:var(--cs-color-surface-panel);border-radius:16px;overflow:hidden;box-shadow:var(--cs-shadow-sm)">
     <div style="background:var(--cs-accent-strong);padding:22px 32px;display:flex;align-items:center;gap:12px">
-      <x-import component-from-global-scope="CyberSkillDS.Logo" size="28" hint-size="28px,28px"></x-import>
+      <img data-cs-official-logo="" class="cs-logo" width="28" height="28" role="img" alt="CyberSkill" title="CyberSkill">
       <span style="color:var(--cs-accent-on-strong);font-weight:800;font-size:16px">{{ headTitle }}</span>
       <span style="margin-left:auto;font-family:var(--cs-font-family-mono);font-size:12px;color:var(--cs-accent-on-strong)">Q3 2026</span>
     </div>
@@ -41,39 +42,39 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
+<script type="text/x-dc" data-dc-script data-content-schema="./content-schema.json" data-props="{
   &quot;language&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;},
   &quot;element&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;}
 }">
 class Component extends DCLogic {
   renderVals() {
-    const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
+    const EL = /* @generated template-literal:axis.element-map */ {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]} /* @endgenerated template-literal:axis.element-map */;
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
 const vn = this.props.language === "Tiếng Việt";
     const en = {
-      headTitle:"CyberSkill · Investor update", h1:"A strong quarter, one honest miss",
-      k1:"Revenue QoQ", k2:"Runway", k3:"Wishes granted", runway:"19 mo", hlH:"Highlights",
-      hl1:"Two enterprise wins; checkout rebuild live at 100% with +31% completed orders.",
-      hl2:"Design system v2 shipped — every deliverable now themeable per product.",
-      hl3:"Board approved a second senior AI hire; search underway.",
-      lowH:"Lowlights — said plainly",
-      lowBody:"One Sev-2 outage (48 min, no data loss) traced to a canary gap — now closed. Q4 budget deferred one board cycle; revision circulates by 01 Aug. Key-person risk on AI was flagged a quarter late; monthly updates now carry a risk section.",
-      asksL:"Asks",
-      asksBody:"Intros to Vietnamese retail or logistics leadership welcome — the checkout case study opens doors. Senior AI candidates likewise.",
-      cta:"Full quarterly report →",
-      footer:"CyberSkill · Saigon · Turn Your Will Into Real · Questions? Reply — a real person answers."};
+      headTitle:/* @generated template-literal:dictionary.en.686561645469746c65 */ "CyberSkill · Investor update" /* @endgenerated template-literal:dictionary.en.686561645469746c65 */, h1:/* @generated template-literal:dictionary.en.6831 */ "A strong quarter, one honest miss" /* @endgenerated template-literal:dictionary.en.6831 */,
+      k1:/* @generated template-literal:copy.revenue-qoq.en */ "Revenue QoQ" /* @endgenerated template-literal:copy.revenue-qoq.en */, k2:/* @generated template-literal:copy.runway.en */ "Runway" /* @endgenerated template-literal:copy.runway.en */, k3:/* @generated template-literal:copy.wishes-granted.en */ "Wishes granted" /* @endgenerated template-literal:copy.wishes-granted.en */, runway:/* @generated template-literal:dictionary.en.72756e776179 */ "19 mo" /* @endgenerated template-literal:dictionary.en.72756e776179 */, hlH:/* @generated template-literal:copy.highlights.en */ "Highlights" /* @endgenerated template-literal:copy.highlights.en */,
+      hl1:/* @generated template-literal:dictionary.en.686c31 */ "Two enterprise wins; checkout rebuild live at 100% with +31% completed orders." /* @endgenerated template-literal:dictionary.en.686c31 */,
+      hl2:/* @generated template-literal:dictionary.en.686c32 */ "Design system v2 shipped — every deliverable now themeable per product." /* @endgenerated template-literal:dictionary.en.686c32 */,
+      hl3:/* @generated template-literal:dictionary.en.686c33 */ "Board approved a second senior AI hire; search underway." /* @endgenerated template-literal:dictionary.en.686c33 */,
+      lowH:/* @generated template-literal:dictionary.en.6c6f7748 */ "Lowlights — said plainly" /* @endgenerated template-literal:dictionary.en.6c6f7748 */,
+      lowBody:/* @generated template-literal:dictionary.en.6c6f77426f6479 */ "One Sev-2 outage (48 min, no data loss) traced to a canary gap — now closed. Q4 budget deferred one board cycle; revision circulates by 01 Aug. Key-person risk on AI was flagged a quarter late; monthly updates now carry a risk section." /* @endgenerated template-literal:dictionary.en.6c6f77426f6479 */,
+      asksL:/* @generated template-literal:dictionary.en.61736b734c */ "Asks" /* @endgenerated template-literal:dictionary.en.61736b734c */,
+      asksBody:/* @generated template-literal:dictionary.en.61736b73426f6479 */ "Intros to Vietnamese retail or logistics leadership welcome — the checkout case study opens doors. Senior AI candidates likewise." /* @endgenerated template-literal:dictionary.en.61736b73426f6479 */,
+      cta:/* @generated template-literal:dictionary.en.637461 */ "Full quarterly report →" /* @endgenerated template-literal:dictionary.en.637461 */,
+      footer:/* @generated template-literal:dictionary.en.666f6f746572 */ "CyberSkill · Saigon · Turn Your Will Into Real · Questions? Reply — a real person answers." /* @endgenerated template-literal:dictionary.en.666f6f746572 */};
     const vi = {
-      headTitle:"CyberSkill · Cập nhật nhà đầu tư", h1:"Một quý vững vàng, một điểm chưa đạt nói thẳng",
-      k1:"Doanh thu QoQ", k2:"Số tháng còn vốn", k3:"Điều ước đã thực hiện", runway:"19 tháng", hlH:"Điểm nổi bật",
-      hl1:"Hai hợp đồng doanh nghiệp; checkout mới chạy 100% với +31% đơn hoàn tất.",
-      hl2:"Hệ thống thiết kế v2 đã ra mắt — mọi sản phẩm bàn giao nay đổi chủ đề theo từng sản phẩm.",
-      hl3:"Hội đồng đã duyệt tuyển thêm một nhân sự AI cấp cao; đang tìm ứng viên.",
-      lowH:"Điểm chưa đạt — nói thẳng",
-      lowBody:"Một sự cố Sev-2 (48 phút, không mất dữ liệu) do lỗ hổng canary — nay đã khắc phục. Ngân sách Q4 lùi một kỳ họp; bản chỉnh sửa gửi trước 01/8. Rủi ro nhân sự chủ chốt về AI được nêu chậm một quý; bản cập nhật hằng tháng nay có mục rủi ro.",
-      asksL:"Đề xuất",
-      asksBody:"Rất hoan nghênh kết nối với lãnh đạo ngành bán lẻ hoặc logistics Việt Nam — case study checkout mở được nhiều cánh cửa. Ứng viên AI cấp cao cũng vậy.",
-      cta:"Báo cáo quý đầy đủ →",
-      footer:"CyberSkill · Sài Gòn · Turn Your Will Into Real · Có câu hỏi? Trả lời email — một người thật sẽ đáp."};
+      headTitle:/* @generated template-literal:dictionary.vi.686561645469746c65 */ "CyberSkill · Cập nhật nhà đầu tư" /* @endgenerated template-literal:dictionary.vi.686561645469746c65 */, h1:/* @generated template-literal:dictionary.vi.6831 */ "Một quý vững vàng, một điểm chưa đạt nói thẳng" /* @endgenerated template-literal:dictionary.vi.6831 */,
+      k1:/* @generated template-literal:copy.revenue-qoq.vi */ "Doanh thu QoQ" /* @endgenerated template-literal:copy.revenue-qoq.vi */, k2:/* @generated template-literal:copy.runway.vi */ "Số tháng còn vốn" /* @endgenerated template-literal:copy.runway.vi */, k3:/* @generated template-literal:copy.wishes-granted.vi */ "Điều ước đã thực hiện" /* @endgenerated template-literal:copy.wishes-granted.vi */, runway:/* @generated template-literal:dictionary.vi.72756e776179 */ "19 tháng" /* @endgenerated template-literal:dictionary.vi.72756e776179 */, hlH:/* @generated template-literal:copy.highlights.vi */ "Điểm nổi bật" /* @endgenerated template-literal:copy.highlights.vi */,
+      hl1:/* @generated template-literal:dictionary.vi.686c31 */ "Hai hợp đồng doanh nghiệp; checkout mới chạy 100% với +31% đơn hoàn tất." /* @endgenerated template-literal:dictionary.vi.686c31 */,
+      hl2:/* @generated template-literal:dictionary.vi.686c32 */ "Hệ thống thiết kế v2 đã ra mắt — mọi sản phẩm bàn giao nay đổi chủ đề theo từng sản phẩm." /* @endgenerated template-literal:dictionary.vi.686c32 */,
+      hl3:/* @generated template-literal:dictionary.vi.686c33 */ "Hội đồng đã duyệt tuyển thêm một nhân sự AI cấp cao; đang tìm ứng viên." /* @endgenerated template-literal:dictionary.vi.686c33 */,
+      lowH:/* @generated template-literal:dictionary.vi.6c6f7748 */ "Điểm chưa đạt — nói thẳng" /* @endgenerated template-literal:dictionary.vi.6c6f7748 */,
+      lowBody:/* @generated template-literal:dictionary.vi.6c6f77426f6479 */ "Một sự cố Sev-2 (48 phút, không mất dữ liệu) do lỗ hổng canary — nay đã khắc phục. Ngân sách Q4 lùi một kỳ họp; bản chỉnh sửa gửi trước 01/8. Rủi ro nhân sự chủ chốt về AI được nêu chậm một quý; bản cập nhật hằng tháng nay có mục rủi ro." /* @endgenerated template-literal:dictionary.vi.6c6f77426f6479 */,
+      asksL:/* @generated template-literal:dictionary.vi.61736b734c */ "Đề xuất" /* @endgenerated template-literal:dictionary.vi.61736b734c */,
+      asksBody:/* @generated template-literal:dictionary.vi.61736b73426f6479 */ "Rất hoan nghênh kết nối với lãnh đạo ngành bán lẻ hoặc logistics Việt Nam — case study checkout mở được nhiều cánh cửa. Ứng viên AI cấp cao cũng vậy." /* @endgenerated template-literal:dictionary.vi.61736b73426f6479 */,
+      cta:/* @generated template-literal:dictionary.vi.637461 */ "Báo cáo quý đầy đủ →" /* @endgenerated template-literal:dictionary.vi.637461 */,
+      footer:/* @generated template-literal:dictionary.vi.666f6f746572 */ "CyberSkill · Sài Gòn · Turn Your Will Into Real · Có câu hỏi? Trả lời email — một người thật sẽ đáp." /* @endgenerated template-literal:dictionary.vi.666f6f746572 */};
     return Object.assign({ langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr }, vn ? vi : en);
   }
 }

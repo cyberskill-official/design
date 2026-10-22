@@ -5,16 +5,10 @@ export default {
   component: Sortable,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     items: { control: 'object' },
     onChange: { control: false },
     lang: { control: 'select', options: ['en', 'vi'] },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Sortable (move buttons + DnD). Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
   },
   args: { items: [{ key: 'a', label: 'Alpha' }, { key: 'b', label: 'Beta' }], lang: 'en' },
 };

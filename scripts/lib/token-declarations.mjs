@@ -4,14 +4,14 @@ import {resolve,dirname,relative,sep} from 'node:path';
 import {createHash} from 'node:crypto';
 
 /** Source declaration inventory, not a computed cascade or cross-platform type inference. */
-export function collectTokenDeclarations(root,entry='styles.css') {
+export function collectTokenDeclarations(root,entry='styles.css',sourceOverrides={}) {
   const base=resolve(root),sources=new Map(),declarations=[];
   function visit(path,stack=[]){
     const absolute=resolve(base,path);
     if(!absolute.startsWith(base+sep))throw Error('CSS import escapes repository: '+path);
     const rel=relative(base,absolute).split(sep).join('/');
     if(stack.includes(rel))throw Error('CSS import cycle: '+[...stack,rel].join(' -> '));
-    const css=readFileSync(absolute,'utf8');
+    const css=sourceOverrides[rel]??readFileSync(absolute,'utf8');
     sources.set(rel,{path:rel,sha256:createHash('sha256').update(css).digest('hex')});
     const ast=postcss.parse(css,{from:rel});
     function walk(nodes,context=[]){

@@ -11,4 +11,4 @@ export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
   removeLabel?: string;
 }
 
-export function Tag(props: TagProps): React.ReactElement;
+export const Tag: React.ForwardRefExoticComponent<React.PropsWithoutRef<TagProps> & React.RefAttributes<HTMLSpanElement>>;

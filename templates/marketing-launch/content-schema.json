@@ -1,0 +1,38 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "marketing-launch",
+  "slots": [
+    {
+      "id": "testimonialEn",
+      "type": "text",
+      "label": "Testimonial En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "testimonialVi",
+      "type": "text",
+      "label": "Testimonial Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "testimonialAttributionEn",
+      "type": "text",
+      "label": "Testimonial Attribution En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "testimonialAttributionVi",
+      "type": "text",
+      "label": "Testimonial Attribution Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "purpose",
+    "serializerSha256",
+    "pages"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "serializerSha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "htmlSha256",
+          "csp",
+          "scripts"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^[^/].*\\.html$"
+          },
+          "htmlSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "csp": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "scripts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "line",
+                "hash",
+                "bytes"
+              ],
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "html-inline",
+                    "dc-logic-wrapper"
+                  ]
+                },
+                "line": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 1
+                },
+                "hash": {
+                  "type": "string",
+                  "pattern": "^'sha256-[A-Za-z0-9+/]{43}='$"
+                },
+                "bytes": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "token": {
+                  "type": "string",
+                  "pattern": "^Component([1-9][0-9]*)?$"
+                },
+                "logicSha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "kind": {
+                        "const": "dc-logic-wrapper"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "token",
+                      "logicSha256"
+                    ],
+                    "properties": {
+                      "token": {},
+                      "logicSha256": {}
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

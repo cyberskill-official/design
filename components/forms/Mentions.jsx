@@ -1,10 +1,15 @@
+import { useFloatingPanel } from "../_utils/floating-panel.js";
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
 import { cx } from "../_utils/cx.js";
 
-/** CyberSkill Mentions — textarea that suggests @users while typing (APG editable combobox). */
-export function Mentions({ value, defaultValue = "", onChange, users = [], placeholder, rows = 3, lang, className, "aria-label": ariaLabel }) {
+/** CyberSkill Mentions — textarea that suggests @users while typing (native multiline textbox with list autocomplete). */
+export const Mentions = React.forwardRef(function Mentions({ portal = true, placement, value, defaultValue = "", onChange, users = [], placeholder, rows = 3, lang, className, "aria-label": ariaLabel , rootProps }, forwardedRef) {
+  const floatingRef = React.useRef(null);
+  const mergedNativeRef = useComposedRefs(forwardedRef);
   const [inner, setInner] = React.useState(defaultValue);
   const val = value != null ? value : inner;
   const set = (v) => { if (value == null) setInner(v); onChange && onChange(v); };
@@ -12,16 +17,17 @@ export function Mentions({ value, defaultValue = "", onChange, users = [], place
   const [activeIndex, setActiveIndex] = React.useState(0);
   const caretRef = React.useRef(null);
   const listId = React.useId();
-  const [ref, L] = useLang(lang);
-  const t = makeT("Mentions", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const t = makeT("Mentions", L, localeMessages);
   const ph = placeholder != null ? placeholder : t("placeholder");
   const hits = q == null ? [] : users.filter((u) => u.toLowerCase().includes(q)).slice(0, 6);
   const open = hits.length > 0;
 
-  const { scope } = useOverlayLayer({ open, kind: "dropdown", panelRef: ref, restoreFocus: false, onEscape: () => setQ(null) });
+  const floating = useFloatingPanel({ open: open, anchorRef: ref, panelRef: floatingRef, portal, placement: placement ?? "bottom-start", gap: 0, getAnchor: ()=>ref.current?.querySelector(":scope > textarea"), lang });
+  const { scope } = useOverlayLayer({ open: (open) && floating.ready, kind: "dropdown", panelRef: floatingRef, surfaceKey: floating.surfaceKey, restoreFocus: false, onEscape: () => setQ(null) });
   React.useEffect(() => {
     if (!open) return;
-    const onDoc = (e) => { if (ref.current && !ref.current.contains(e.target)) setQ(null); };
+    const onDoc = (e) => { if (!floating.contains(e.target)) setQ(null); };
     document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
   }, [open]);
@@ -65,8 +71,8 @@ export function Mentions({ value, defaultValue = "", onChange, users = [], place
     <overlayScopeContext.Provider value={scope}>
     <span
       ref={ref}
-      className={cx("cs-mentions", className)}
-      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setQ(null); }}
+      {...mergeTargetProps({ "className": cx("cs-mentions", className), "onBlur": (e) => { if (!floating.contains(e.relatedTarget)) setQ(null); } }, rootProps, [])}
+
     >
       <textarea
         className="cs-field__control"
@@ -74,31 +80,32 @@ export function Mentions({ value, defaultValue = "", onChange, users = [], place
         value={val}
         placeholder={ph}
         aria-label={ariaLabel || ph}
-        role="combobox"
         aria-autocomplete="list"
-        aria-expanded={open}
+        aria-haspopup="listbox"
         aria-controls={open ? listId : undefined}
         aria-activedescendant={open && hits[activeIndex] ? optionId(activeIndex) : undefined}
         onChange={onInput}
         onKeyDown={onKeyDown}
-      />
+       ref={mergedNativeRef} />
       {open ? (
-        <span className="cs-mentions__pop" role="listbox" id={listId}>
+        floating.render(<span ref={floatingRef} className="cs-mentions__pop" role="listbox" id={listId}>
           {hits.map((u, i) => (
             <button
               key={u}
               type="button"
               id={optionId(i)}
               role="option"
+              tabIndex={-1}
               aria-selected={i === activeIndex}
               className={cx(i === activeIndex && "hl")}
               onMouseEnter={() => setActiveIndex(i)}
               onMouseDown={(e) => { e.preventDefault(); pick(u); }}
             >@{u}</button>
           ))}
-        </span>
+        </span>)
       ) : null}
     </span>
     </overlayScopeContext.Provider>
   );
-}
+});
+Mentions.displayName = "Mentions";

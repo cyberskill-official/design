@@ -10,4 +10,4 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
   children?: ReactNode;
   className?: string;
 }
-export function Link(props: LinkProps): React.ReactElement;
+export const Link: React.ForwardRefExoticComponent<React.PropsWithoutRef<LinkProps> & React.RefAttributes<HTMLAnchorElement>>;

@@ -1,6 +1,7 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { StatusIndicator } from '../components/feedback/StatusIndicator.jsx';
 
-const STATUSES = ['online', 'busy', 'offline', 'error'];
+const STATUSES = DECLARED_DOMAINS.StatusIndicator["status"];
 
 export default {
   title: 'Components/Feedback/StatusIndicator',
@@ -13,14 +14,6 @@ export default {
     },
     pulse: {
       control: 'boolean',
-    },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting StatusIndicator. Portable consumers use styles.css + bundle, not Storybook.',
-      },
     },
   },
   args: { status: 'online', children: 'All systems go', pulse: true },

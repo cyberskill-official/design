@@ -11,19 +11,12 @@ export default {
   component: Transfer,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     items: { control: 'object' },
     value: { control: 'object' },
     onChange: { control: false },
     titles: { control: 'object' },
     lang: { control: 'text' },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting Transfer. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
   },
   args: { items: ITEMS, value: ['2'], titles: ['Available', 'Selected'] },
 };
@@ -39,3 +32,18 @@ export const Matrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioTransferEmpty = {
+  name: "Transfer: Empty collection",
+  args: {
+  "items": [],
+  "value": [
+    "a"
+  ]
+},
+  render: args => renderComponentScenario("Transfer--empty",args),
+  play: ({canvasElement}) => playComponentScenario("Transfer--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

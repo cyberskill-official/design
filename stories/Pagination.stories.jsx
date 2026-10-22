@@ -5,6 +5,7 @@ export default {
   title: 'Components/Navigation/Pagination',
   component: Pagination,
   tags: ['autodocs'],
+  args: { className: '' },
   argTypes: {
   "page": {
     "control": "number"
@@ -13,19 +14,12 @@ export default {
     "control": "number"
   },
   "onChange": {
-    "control": "text"
+    "control": false
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Pagination. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
 };
 
-export const Default = { render: function P() { const [page, setPage] = React.useState(1); return <Pagination page={page} pageCount={8} onChange={setPage} />; } };
+export const Default = { render: function P(args) { const [page, setPage] = React.useState(1); return <Pagination page={page} pageCount={8} onChange={setPage}  {...args}/>; } };
 
 export const Matrix = {
   name: 'Matrix / Pages',

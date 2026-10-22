@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="cs-template-library" content="static-logo">
 <title>Delivery · Kickoff doc · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +18,7 @@
 <div lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary)">
   <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 64px" data-theme="light">
     <header style="display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--cs-color-brand-umber);padding-bottom:18px;margin-bottom:24px">
-      <x-import component-from-global-scope="CyberSkillDS.Logo" size="34" hint-size="34px,34px"></x-import>
+      <img data-cs-official-logo="" class="cs-logo" width="34" height="34" role="img" alt="CyberSkill" title="CyberSkill">
       <div><div style="font-weight:800;font-size:17px;color:var(--cs-color-brand-umber);line-height:1.1">CyberSkill</div><div style="font-size:11px;color:var(--cs-color-text-muted)">Hiện Thực Hoá Ý Chí · Turn Your Will Into Real</div></div>
       <span style="margin-left:auto;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-accent)">{{ kickLabel }}</span>
     </header>
@@ -54,57 +55,57 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
+<script type="text/x-dc" data-dc-script data-content-schema="./content-schema.json" data-props="{
   &quot;language&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;},
   &quot;element&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;}
 }">
 class Component extends DCLogic {
   renderVals() {
-    const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
+    const EL = /* @generated template-literal:axis.element-map */ {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]} /* @endgenerated template-literal:axis.element-map */;
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
 const vn = this.props.language === "Tiếng Việt";
     const en = {
-      kickLabel:"Kickoff", kicker:"Project kickoff · SOW-2026-014",
-      h1:"Checkout rebuild & ops console — how we'll work",
-      intro:"One page everyone signs onto in week zero: what winning looks like, who decides what, and how we talk. Honest by default — if something feels off, say it in the room.",
-      goalsL:"Goals — what winning looks like",
-      g1:"Checkout completion up materially (target agreed at M1) with p95 under 1s.",
-      g2:"Support runs the day from the ops console without engineering help.",
-      g3:"Clean handover: docs, runbook, and your team confident to own it.",
-      teamH:"Team & roles", thWho:"Who", thRole:"Role", thDecides:"Decides",
-      r1role:"Lead engineer", r1dec:"Technical approach",
-      r2role:"Product designer", r2dec:"UX within scope",
-      r3role:"Delivery lead", r3dec:"Schedule, escalation",
-      r4who:"[Name] · Client", r4role:"Decision-maker", r4dec:"Scope & acceptance · 48h SLA",
-      cadH:"Cadence",
-      cadWeeklyB:"Weekly", cadWeeklyT:"— status email (Fri) + 30-min sync (Mon)",
-      cadMsB:"Per milestone", cadMsT:"— demo & acceptance review",
-      cadAnyB:"Anytime", cadAnyT:"— Status Hub, always current",
-      msH:"Milestones", m1:"discovery signed off", m2:"checkout in staging", m3:"launch & handover",
-      risksH:"Risks we already see",
-      risksP:"Staging access in week one is the critical path. Payment-provider quirks may surface in the canary — we've budgeted a buffer week. Said now, so nothing surprises later.",
-      linksL:"Links", linksBody:"· Status Hub · shared drive · #project-checkout channel · escalation: vu@cyberskill.world"};
+      kickLabel:/* @generated template-literal:dictionary.en.6b69636b4c6162656c */ "Kickoff" /* @endgenerated template-literal:dictionary.en.6b69636b4c6162656c */, kicker:/* @generated template-literal:dictionary.en.6b69636b6572 */ "Project kickoff · SOW-2026-014" /* @endgenerated template-literal:dictionary.en.6b69636b6572 */,
+      h1:/* @generated template-literal:dictionary.en.6831 */ "Checkout rebuild & ops console — how we'll work" /* @endgenerated template-literal:dictionary.en.6831 */,
+      intro:/* @generated template-literal:dictionary.en.696e74726f */ "One page everyone signs onto in week zero: what winning looks like, who decides what, and how we talk. Honest by default — if something feels off, say it in the room." /* @endgenerated template-literal:dictionary.en.696e74726f */,
+      goalsL:/* @generated template-literal:dictionary.en.676f616c734c */ "Goals — what winning looks like" /* @endgenerated template-literal:dictionary.en.676f616c734c */,
+      g1:/* @generated template-literal:dictionary.en.6731 */ "Checkout completion up materially (target agreed at M1) with p95 under 1s." /* @endgenerated template-literal:dictionary.en.6731 */,
+      g2:/* @generated template-literal:dictionary.en.6732 */ "Support runs the day from the ops console without engineering help." /* @endgenerated template-literal:dictionary.en.6732 */,
+      g3:/* @generated template-literal:dictionary.en.6733 */ "Clean handover: docs, runbook, and your team confident to own it." /* @endgenerated template-literal:dictionary.en.6733 */,
+      teamH:/* @generated template-literal:dictionary.en.7465616d48 */ "Team & roles" /* @endgenerated template-literal:dictionary.en.7465616d48 */, thWho:/* @generated template-literal:dictionary.en.746857686f */ "Who" /* @endgenerated template-literal:dictionary.en.746857686f */, thRole:/* @generated template-literal:dictionary.en.7468526f6c65 */ "Role" /* @endgenerated template-literal:dictionary.en.7468526f6c65 */, thDecides:/* @generated template-literal:dictionary.en.746844656369646573 */ "Decides" /* @endgenerated template-literal:dictionary.en.746844656369646573 */,
+      r1role:/* @generated template-literal:copy.lead-engineer.en */ "Lead engineer" /* @endgenerated template-literal:copy.lead-engineer.en */, r1dec:/* @generated template-literal:dictionary.en.7231646563 */ "Technical approach" /* @endgenerated template-literal:dictionary.en.7231646563 */,
+      r2role:/* @generated template-literal:copy.product-designer.en */ "Product designer" /* @endgenerated template-literal:copy.product-designer.en */, r2dec:/* @generated template-literal:dictionary.en.7232646563 */ "UX within scope" /* @endgenerated template-literal:dictionary.en.7232646563 */,
+      r3role:/* @generated template-literal:copy.delivery-lead.en */ "Delivery lead" /* @endgenerated template-literal:copy.delivery-lead.en */, r3dec:/* @generated template-literal:dictionary.en.7233646563 */ "Schedule, escalation" /* @endgenerated template-literal:dictionary.en.7233646563 */,
+      r4who:/* @generated template-literal:dictionary.en.723477686f */ "[Name] · Client" /* @endgenerated template-literal:dictionary.en.723477686f */, r4role:/* @generated template-literal:dictionary.en.7234726f6c65 */ "Decision-maker" /* @endgenerated template-literal:dictionary.en.7234726f6c65 */, r4dec:/* @generated template-literal:dictionary.en.7234646563 */ "Scope & acceptance · 48h SLA" /* @endgenerated template-literal:dictionary.en.7234646563 */,
+      cadH:/* @generated template-literal:dictionary.en.63616448 */ "Cadence" /* @endgenerated template-literal:dictionary.en.63616448 */,
+      cadWeeklyB:/* @generated template-literal:dictionary.en.6361645765656b6c7942 */ "Weekly" /* @endgenerated template-literal:dictionary.en.6361645765656b6c7942 */, cadWeeklyT:/* @generated template-literal:dictionary.en.6361645765656b6c7954 */ "— status email (Fri) + 30-min sync (Mon)" /* @endgenerated template-literal:dictionary.en.6361645765656b6c7954 */,
+      cadMsB:/* @generated template-literal:dictionary.en.6361644d7342 */ "Per milestone" /* @endgenerated template-literal:dictionary.en.6361644d7342 */, cadMsT:/* @generated template-literal:dictionary.en.6361644d7354 */ "— demo & acceptance review" /* @endgenerated template-literal:dictionary.en.6361644d7354 */,
+      cadAnyB:/* @generated template-literal:dictionary.en.636164416e7942 */ "Anytime" /* @endgenerated template-literal:dictionary.en.636164416e7942 */, cadAnyT:/* @generated template-literal:dictionary.en.636164416e7954 */ "— Status Hub, always current" /* @endgenerated template-literal:dictionary.en.636164416e7954 */,
+      msH:/* @generated template-literal:dictionary.en.6d7348 */ "Milestones" /* @endgenerated template-literal:dictionary.en.6d7348 */, m1:/* @generated template-literal:dictionary.en.6d31 */ "discovery signed off" /* @endgenerated template-literal:dictionary.en.6d31 */, m2:/* @generated template-literal:dictionary.en.6d32 */ "checkout in staging" /* @endgenerated template-literal:dictionary.en.6d32 */, m3:/* @generated template-literal:dictionary.en.6d33 */ "launch & handover" /* @endgenerated template-literal:dictionary.en.6d33 */,
+      risksH:/* @generated template-literal:dictionary.en.7269736b7348 */ "Risks we already see" /* @endgenerated template-literal:dictionary.en.7269736b7348 */,
+      risksP:/* @generated template-literal:dictionary.en.7269736b7350 */ "Staging access in week one is the critical path. Payment-provider quirks may surface in the canary — we've budgeted a buffer week. Said now, so nothing surprises later." /* @endgenerated template-literal:dictionary.en.7269736b7350 */,
+      linksL:/* @generated template-literal:dictionary.en.6c696e6b734c */ "Links" /* @endgenerated template-literal:dictionary.en.6c696e6b734c */, linksBody:/* @generated template-literal:dictionary.en.6c696e6b73426f6479 */ "· Status Hub · shared drive · #project-checkout channel · escalation: vu@cyberskill.world" /* @endgenerated template-literal:dictionary.en.6c696e6b73426f6479 */};
     const vi = {
-      kickLabel:"Khởi động", kicker:"Khởi động dự án · SOW-2026-014",
-      h1:"Làm lại checkout & bảng điều hành vận hành — cách chúng ta làm việc",
-      intro:"Một trang cả nhóm cùng thống nhất trong tuần số 0: thắng lợi trông ra sao, ai quyết điều gì, và ta trao đổi thế nào. Thẳng thắn là mặc định — thấy gì chưa ổn, nói ngay trong phòng.",
-      goalsL:"Mục tiêu — thắng lợi trông như thế nào",
-      g1:"Tỷ lệ hoàn tất checkout tăng rõ rệt (chỉ tiêu chốt ở M1) với p95 dưới 1 giây.",
-      g2:"Bộ phận hỗ trợ tự vận hành cả ngày từ bảng điều hành, không cần kỹ thuật.",
-      g3:"Bàn giao gọn gàng: tài liệu, runbook, và đội của bạn đủ tự tin để làm chủ.",
-      teamH:"Đội ngũ & vai trò", thWho:"Ai", thRole:"Vai trò", thDecides:"Quyết định",
-      r1role:"Kỹ sư trưởng", r1dec:"Hướng kỹ thuật",
-      r2role:"Nhà thiết kế sản phẩm", r2dec:"UX trong phạm vi",
-      r3role:"Trưởng bàn giao", r3dec:"Tiến độ, leo thang",
-      r4who:"[Tên] · Khách hàng", r4role:"Người ra quyết định", r4dec:"Phạm vi & nghiệm thu · SLA 48h",
-      cadH:"Nhịp làm việc",
-      cadWeeklyB:"Hằng tuần", cadWeeklyT:"— email trạng thái (T6) + họp nhanh 30 phút (T2)",
-      cadMsB:"Mỗi mốc", cadMsT:"— demo & rà soát nghiệm thu",
-      cadAnyB:"Bất cứ lúc nào", cadAnyT:"— Status Hub, luôn cập nhật",
-      msH:"Các mốc", m1:"chốt khám phá", m2:"checkout lên staging", m3:"ra mắt & bàn giao",
-      risksH:"Rủi ro đã thấy trước",
-      risksP:"Truy cập staging trong tuần đầu là đường găng. Những điểm lạ của nhà cung cấp thanh toán có thể lộ ra ở canary — chúng tôi đã dự trù một tuần đệm. Nói trước, để sau này không có bất ngờ.",
-      linksL:"Liên kết", linksBody:"· Status Hub · ổ đĩa chung · kênh #project-checkout · leo thang: vu@cyberskill.world"};
+      kickLabel:/* @generated template-literal:dictionary.vi.6b69636b4c6162656c */ "Khởi động" /* @endgenerated template-literal:dictionary.vi.6b69636b4c6162656c */, kicker:/* @generated template-literal:dictionary.vi.6b69636b6572 */ "Khởi động dự án · SOW-2026-014" /* @endgenerated template-literal:dictionary.vi.6b69636b6572 */,
+      h1:/* @generated template-literal:dictionary.vi.6831 */ "Làm lại checkout & bảng điều hành vận hành — cách chúng ta làm việc" /* @endgenerated template-literal:dictionary.vi.6831 */,
+      intro:/* @generated template-literal:dictionary.vi.696e74726f */ "Một trang cả nhóm cùng thống nhất trong tuần số 0: thắng lợi trông ra sao, ai quyết điều gì, và ta trao đổi thế nào. Thẳng thắn là mặc định — thấy gì chưa ổn, nói ngay trong phòng." /* @endgenerated template-literal:dictionary.vi.696e74726f */,
+      goalsL:/* @generated template-literal:dictionary.vi.676f616c734c */ "Mục tiêu — thắng lợi trông như thế nào" /* @endgenerated template-literal:dictionary.vi.676f616c734c */,
+      g1:/* @generated template-literal:dictionary.vi.6731 */ "Tỷ lệ hoàn tất checkout tăng rõ rệt (chỉ tiêu chốt ở M1) với p95 dưới 1 giây." /* @endgenerated template-literal:dictionary.vi.6731 */,
+      g2:/* @generated template-literal:dictionary.vi.6732 */ "Bộ phận hỗ trợ tự vận hành cả ngày từ bảng điều hành, không cần kỹ thuật." /* @endgenerated template-literal:dictionary.vi.6732 */,
+      g3:/* @generated template-literal:dictionary.vi.6733 */ "Bàn giao gọn gàng: tài liệu, runbook, và đội của bạn đủ tự tin để làm chủ." /* @endgenerated template-literal:dictionary.vi.6733 */,
+      teamH:/* @generated template-literal:dictionary.vi.7465616d48 */ "Đội ngũ & vai trò" /* @endgenerated template-literal:dictionary.vi.7465616d48 */, thWho:/* @generated template-literal:dictionary.vi.746857686f */ "Ai" /* @endgenerated template-literal:dictionary.vi.746857686f */, thRole:/* @generated template-literal:dictionary.vi.7468526f6c65 */ "Vai trò" /* @endgenerated template-literal:dictionary.vi.7468526f6c65 */, thDecides:/* @generated template-literal:dictionary.vi.746844656369646573 */ "Quyết định" /* @endgenerated template-literal:dictionary.vi.746844656369646573 */,
+      r1role:/* @generated template-literal:copy.lead-engineer.vi */ "Kỹ sư trưởng" /* @endgenerated template-literal:copy.lead-engineer.vi */, r1dec:/* @generated template-literal:dictionary.vi.7231646563 */ "Hướng kỹ thuật" /* @endgenerated template-literal:dictionary.vi.7231646563 */,
+      r2role:/* @generated template-literal:copy.product-designer.vi */ "Nhà thiết kế sản phẩm" /* @endgenerated template-literal:copy.product-designer.vi */, r2dec:/* @generated template-literal:dictionary.vi.7232646563 */ "UX trong phạm vi" /* @endgenerated template-literal:dictionary.vi.7232646563 */,
+      r3role:/* @generated template-literal:copy.delivery-lead.vi */ "Trưởng bàn giao" /* @endgenerated template-literal:copy.delivery-lead.vi */, r3dec:/* @generated template-literal:dictionary.vi.7233646563 */ "Tiến độ, leo thang" /* @endgenerated template-literal:dictionary.vi.7233646563 */,
+      r4who:/* @generated template-literal:dictionary.vi.723477686f */ "[Tên] · Khách hàng" /* @endgenerated template-literal:dictionary.vi.723477686f */, r4role:/* @generated template-literal:dictionary.vi.7234726f6c65 */ "Người ra quyết định" /* @endgenerated template-literal:dictionary.vi.7234726f6c65 */, r4dec:/* @generated template-literal:dictionary.vi.7234646563 */ "Phạm vi & nghiệm thu · SLA 48h" /* @endgenerated template-literal:dictionary.vi.7234646563 */,
+      cadH:/* @generated template-literal:dictionary.vi.63616448 */ "Nhịp làm việc" /* @endgenerated template-literal:dictionary.vi.63616448 */,
+      cadWeeklyB:/* @generated template-literal:dictionary.vi.6361645765656b6c7942 */ "Hằng tuần" /* @endgenerated template-literal:dictionary.vi.6361645765656b6c7942 */, cadWeeklyT:/* @generated template-literal:dictionary.vi.6361645765656b6c7954 */ "— email trạng thái (T6) + họp nhanh 30 phút (T2)" /* @endgenerated template-literal:dictionary.vi.6361645765656b6c7954 */,
+      cadMsB:/* @generated template-literal:dictionary.vi.6361644d7342 */ "Mỗi mốc" /* @endgenerated template-literal:dictionary.vi.6361644d7342 */, cadMsT:/* @generated template-literal:dictionary.vi.6361644d7354 */ "— demo & rà soát nghiệm thu" /* @endgenerated template-literal:dictionary.vi.6361644d7354 */,
+      cadAnyB:/* @generated template-literal:dictionary.vi.636164416e7942 */ "Bất cứ lúc nào" /* @endgenerated template-literal:dictionary.vi.636164416e7942 */, cadAnyT:/* @generated template-literal:dictionary.vi.636164416e7954 */ "— Status Hub, luôn cập nhật" /* @endgenerated template-literal:dictionary.vi.636164416e7954 */,
+      msH:/* @generated template-literal:dictionary.vi.6d7348 */ "Các mốc" /* @endgenerated template-literal:dictionary.vi.6d7348 */, m1:/* @generated template-literal:dictionary.vi.6d31 */ "chốt khám phá" /* @endgenerated template-literal:dictionary.vi.6d31 */, m2:/* @generated template-literal:dictionary.vi.6d32 */ "checkout lên staging" /* @endgenerated template-literal:dictionary.vi.6d32 */, m3:/* @generated template-literal:dictionary.vi.6d33 */ "ra mắt & bàn giao" /* @endgenerated template-literal:dictionary.vi.6d33 */,
+      risksH:/* @generated template-literal:dictionary.vi.7269736b7348 */ "Rủi ro đã thấy trước" /* @endgenerated template-literal:dictionary.vi.7269736b7348 */,
+      risksP:/* @generated template-literal:dictionary.vi.7269736b7350 */ "Truy cập staging trong tuần đầu là đường găng. Những điểm lạ của nhà cung cấp thanh toán có thể lộ ra ở canary — chúng tôi đã dự trù một tuần đệm. Nói trước, để sau này không có bất ngờ." /* @endgenerated template-literal:dictionary.vi.7269736b7350 */,
+      linksL:/* @generated template-literal:dictionary.vi.6c696e6b734c */ "Liên kết" /* @endgenerated template-literal:dictionary.vi.6c696e6b734c */, linksBody:/* @generated template-literal:dictionary.vi.6c696e6b73426f6479 */ "· Status Hub · ổ đĩa chung · kênh #project-checkout · leo thang: vu@cyberskill.world" /* @endgenerated template-literal:dictionary.vi.6c696e6b73426f6479 */};
     return Object.assign({ langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr }, vn ? vi : en);
   }
 }

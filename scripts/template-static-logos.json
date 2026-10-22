@@ -1,0 +1,808 @@
+{
+  "schemaVersion": 1,
+  "asset": "assets/logo-mark.svg",
+  "assetSha256": "5f0fe46db109b6a8e58148be4ea1607a90b974a37cdc307acf96367f0af8e487",
+  "scope": "Only existing Logo-only templates with literal size/hint-size; React/DC and offline copies remain. Official asset identity, rendered semantics and one-line base rebind are checked; this is not arbitrary component replacement.",
+  "templates": [
+    {
+      "path": "templates/app-shell/AppShell.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/article/Article.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/bod-memo/BodMemo.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/bod-investor-update/BodInvestorUpdate.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 28,
+          "hintSize": "28px,28px"
+        }
+      ]
+    },
+    {
+      "path": "templates/bod-deck/BodDeck.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 46,
+          "hintSize": "46px,46px"
+        },
+        {
+          "size": 72,
+          "hintSize": "72px,72px"
+        }
+      ]
+    },
+    {
+      "path": "templates/bod-minutes/BodMinutes.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/bod-report/BodReport.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/bod-resolution/BodResolution.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/culture-event-invite/CultureEventInvite.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 30,
+          "hintSize": "30px,30px"
+        }
+      ]
+    },
+    {
+      "path": "templates/dashboard/Dashboard.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/delivery-change-note/DeliveryChangeNote.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/delivery-kickoff/DeliveryKickoff.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/delivery-qbr-deck/DeliveryQbrDeck.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 46,
+          "hintSize": "46px,46px"
+        },
+        {
+          "size": 66,
+          "hintSize": "66px,66px"
+        }
+      ]
+    },
+    {
+      "path": "templates/delivery-runbook/DeliveryRunbook.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/delivery-status-email/DeliveryStatusEmail.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 28,
+          "hintSize": "28px,28px"
+        }
+      ]
+    },
+    {
+      "path": "templates/doc-style-guide/DocStyleGuide.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/doc-suite-index/DocSuiteIndex.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/doc-templates/DocTemplates.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/email/Email.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/finance-expense-report/FinanceExpenseReport.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/finance-invoice/FinanceInvoice.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 38,
+          "hintSize": "38px,38px"
+        }
+      ]
+    },
+    {
+      "path": "templates/finance-dunning-email/FinanceDunningEmail.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 28,
+          "hintSize": "28px,28px"
+        }
+      ]
+    },
+    {
+      "path": "templates/finance-quote/FinanceQuote.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 38,
+          "hintSize": "38px,38px"
+        }
+      ]
+    },
+    {
+      "path": "templates/hr-announcement/HrAnnouncement.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/hr-interview-kit/HrInterviewKit.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/hr-offboarding/HrOffboarding.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/hr-pip/HrPip.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/hr-performance-review/HrPerformanceReview.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-job-description/VnJobDescription.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-disciplinary-schedule/VnDisciplinarySchedule.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-performance-review-form/VnPerformanceReviewForm.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-code-of-conduct/VnCodeOfConduct.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-infosec-policy/VnInfosecPolicy.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-data-protection-policy/VnDataProtectionPolicy.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-remote-work-policy/VnRemoteWorkPolicy.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-onboarding-checklist/VnOnboardingChecklist.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-pdpl-consent/VnPdplConsent.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-employee-request/VnEmployeeRequest.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-resignation-letter/VnResignationLetter.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-certificate-of-employment/VnCertificateOfEmployment.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-foreign-employee-pack/VnForeignEmployeePack.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-disciplinary-case-file/VnDisciplinaryCaseFile.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-contractor-agreement/VnContractorAgreement.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-training-commitment/VnTrainingCommitment.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-labor-contract/VnLaborContract.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-framework-agreement/VnFrameworkAgreement.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-probation-contract/VnProbationContract.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-internal-labor-regulations/VnInternalLaborRegulations.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-receipt-acknowledgement/VnReceiptAcknowledgement.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-sow-appendix/VnSowAppendix.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-contract-amendment/VnContractAmendment.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-grassroots-democracy/VnGrassrootsDemocracy.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-performance-evaluation-regulation/VnPerformanceEvaluationRegulation.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-compensation-regulation/VnCompensationRegulation.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-termination-decision/VnTerminationDecision.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-labour-management-book/VnLabourManagementBook.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-salary-scale/VnSalaryScale.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-mutual-nda/VnMutualNda.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-ndnca-ip/VnNdncaIp.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-exit-handover/VnExitHandover.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-phantom-stock/VnPhantomStock.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-internship-agreement/VnInternshipAgreement.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/vn-offer-letter/VnOfferLetter.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 18,
+          "hintSize": "18px,18px"
+        }
+      ]
+    },
+    {
+      "path": "templates/legal-msa/LegalMsa.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/legal-sow/LegalSow.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/marketing-campaign-brief/MarketingCampaignBrief.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/marketing-case-study/MarketingCaseStudy.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 32,
+          "hintSize": "32px,32px"
+        }
+      ]
+    },
+    {
+      "path": "templates/marketing-launch/MarketingLaunch.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 30,
+          "hintSize": "30px,30px"
+        }
+      ]
+    },
+    {
+      "path": "templates/marketing-newsletter/MarketingNewsletter.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 28,
+          "hintSize": "28px,28px"
+        }
+      ]
+    },
+    {
+      "path": "templates/marketing-press-release/MarketingPressRelease.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/marketing-social-kit/MarketingSocialKit.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 56,
+          "hintSize": "56px,56px"
+        },
+        {
+          "size": 44,
+          "hintSize": "44px,44px"
+        },
+        {
+          "size": 60,
+          "hintSize": "60px,60px"
+        }
+      ]
+    },
+    {
+      "path": "templates/marketing-page/MarketingPage.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/sales-one-pager/SalesOnePager.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 40,
+          "hintSize": "40px,40px"
+        }
+      ]
+    },
+    {
+      "path": "templates/sales-proposal-deck/SalesProposalDeck.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/settings/Settings.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/auth/Auth.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/slide-deck/SlideDeck.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 48,
+          "hintSize": "48px,48px"
+        },
+        {
+          "size": 64,
+          "hintSize": "64px,64px"
+        }
+      ]
+    },
+    {
+      "path": "templates/team-meeting-agenda/TeamMeetingAgenda.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    },
+    {
+      "path": "templates/tech-incident-report/TechIncidentReport.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/tech-release-notes/TechReleaseNotes.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/tech-rfc/TechRfc.dc.html",
+      "strategy": "components",
+      "logos": []
+    },
+    {
+      "path": "templates/tech-retro/TechRetro.dc.html",
+      "strategy": "static-logo",
+      "logos": [
+        {
+          "size": 34,
+          "hintSize": "34px,34px"
+        }
+      ]
+    }
+  ]
+}

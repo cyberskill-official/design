@@ -6,212 +6,247 @@
       "id": "hdrLabel",
       "type": "text",
       "label": "Header document label",
-      "maxLength": 28
+      "maxLength": 28,
+      "runtimeBinding": "text"
     },
     {
       "id": "eyebrow",
       "type": "text",
       "label": "Header eyebrow",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "h1",
       "type": "text",
       "label": "Document title",
       "maxLength": 60,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "altTitle",
       "type": "text",
       "label": "Alt-language title (italic subtitle)",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "intro",
       "type": "richtext",
       "label": "Intro paragraph",
-      "maxLength": 260
+      "maxLength": 260,
+      "runtimeBinding": "text"
     },
     {
       "id": "ovH",
       "type": "text",
       "label": "System overview heading",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "ovP1",
       "type": "text",
       "label": "Overview text (before flag name)",
-      "maxLength": 120
+      "maxLength": 120,
+      "runtimeBinding": "text"
     },
     {
       "id": "ovP2",
       "type": "text",
       "label": "Overview text (after flag name)",
-      "maxLength": 200
+      "maxLength": 200,
+      "runtimeBinding": "text"
     },
     {
       "id": "envH",
       "type": "text",
       "label": "Environments heading",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "thEnv",
       "type": "text",
       "label": "Table column: Env",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "thFrom",
       "type": "text",
       "label": "Table column: Deploys from",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "envProd",
       "type": "text",
       "label": "Row: Production label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "envProdFrom",
       "type": "text",
       "label": "Row: Production deploys-from",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "envStg",
       "type": "text",
       "label": "Row: Staging label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "envStgFrom",
       "type": "text",
       "label": "Row: Staging deploys-from",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "envSb",
       "type": "text",
       "label": "Row: Sandbox label",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "envSbFrom",
       "type": "text",
       "label": "Row: Sandbox deploys-from",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "depH",
       "type": "text",
       "label": "Deploy steps heading",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "dep1",
       "type": "text",
       "label": "Deploy step 1",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "dep2",
       "type": "text",
       "label": "Deploy step 2",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "dep3",
       "type": "text",
       "label": "Deploy step 3",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "dep4",
       "type": "text",
       "label": "Deploy step 4",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "monH",
       "type": "text",
       "label": "Monitoring heading",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text"
     },
     {
       "id": "mon1",
       "type": "text",
       "label": "Monitoring rule 1",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "mon2",
       "type": "text",
       "label": "Monitoring rule 2",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "mon3",
       "type": "text",
       "label": "Monitoring rule 3",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "mon4",
       "type": "text",
       "label": "Monitoring rule 4",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "breakH",
       "type": "text",
       "label": "\"If something breaks\" heading",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "breakP1",
       "type": "text",
       "label": "Break text (before flag name)",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "breakP2",
       "type": "richtext",
       "label": "Break text (after flag name)",
-      "maxLength": 300
+      "maxLength": 300,
+      "runtimeBinding": "text"
     },
     {
       "id": "contactsL",
       "type": "text",
       "label": "Contacts label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "contactsBody",
       "type": "text",
       "label": "Contacts body",
-      "maxLength": 200
+      "maxLength": 200,
+      "runtimeBinding": "text"
     },
     {
       "id": "handedBy",
       "type": "text",
       "label": "Handed-over-by signature line",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "acceptedBy",
       "type": "text",
       "label": "Accepted-by signature line",
-      "maxLength": 60
+      "maxLength": 60,
+      "runtimeBinding": "text"
     },
     {
       "id": "sigMeta",
       "type": "text",
       "label": "Signature meta caption",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     }
   ]
 }

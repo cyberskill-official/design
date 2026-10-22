@@ -1,3 +1,5 @@
+import type * as React from "react";
+import type { RootTargetProps } from "../_utils/target-props";
 /** Row selection names include first text-cell content or the row key. */
 /** The caption slots preserve numeric zero; null/false/empty string omit those slots. */
 import type { ReactNode } from "react";
@@ -43,6 +45,8 @@ export interface DataGridProps<R = any> {
   /** When set, column order is stored under localStorage key cs:datagrid:cols:<persistKey>. */
   persistKey?: string;
   lang?: string;
+  /** Attributes for the existing scroll container, not the table. Internal handlers run before consumer handlers; owned semantics remain controlled. */
+  rootProps?: Omit<RootTargetProps<HTMLDivElement>, "data-virtual" | "data-row-count" | "data-row-height"> & { "data-virtual"?: never; "data-row-count"?: never; "data-row-height"?: never };
   className?: string;
 }
-export function DataGrid(props: DataGridProps): React.ReactElement;
+export const DataGrid: React.ForwardRefExoticComponent<React.PropsWithoutRef<DataGridProps> & React.RefAttributes<HTMLDivElement>>;

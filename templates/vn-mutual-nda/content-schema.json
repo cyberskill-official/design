@@ -1,0 +1,38 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-mutual-nda",
+  "slots": [
+    {
+      "id": "organizationName",
+      "type": "text",
+      "label": "Tên tổ chứcOrganization",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "taxCode",
+      "type": "text",
+      "label": "Mã số thuếTax code",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "address",
+      "type": "text",
+      "label": "Địa chỉAddress",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "telephoneAndEmail",
+      "type": "text",
+      "label": "Điện thoại · EmailTel · Email",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

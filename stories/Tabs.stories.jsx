@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import React from 'react';
 import { Tabs, Tab } from '../components/navigation/Tabs.jsx';
 
@@ -5,7 +6,9 @@ export default {
   title: 'Components/Navigation/Tabs',
   component: Tabs,
   tags: ['autodocs'],
+  args: { className: '', 'aria-orientation': 'horizontal' },
   argTypes: {
+    'aria-orientation': { control: 'select', options: DECLARED_DOMAINS.Tabs["aria-orientation"] },
     lang: { control: 'select', options: ['en', 'vi'] },
 
   "tabs": {
@@ -15,19 +18,12 @@ export default {
     "control": "text"
   },
   "onChange": {
-    "control": "text"
+    "control": false
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Tabs. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
 };
 
-export const Default = { render: function T() { const [v, setV] = React.useState('a'); return (<Tabs value={v} onChange={setV} tabs={[{ value: 'a', label: 'Overview' }, { value: 'b', label: 'Activity', count: 3 }]} />); } };
+export const Default = { render: function T(args) { const [v, setV] = React.useState('a'); return (<Tabs value={v} onChange={setV} tabs={[{ value: 'a', label: 'Overview' }, { value: 'b', label: 'Activity', count: 3 }]}  {...args} style={{ ...args.style, flexDirection: args['aria-orientation'] === 'vertical' ? 'column' : 'row' }}/>); } };
 
 export const Matrix = {
   name: 'Matrix / Counts',
@@ -60,6 +56,24 @@ export const WithPanels = {
         aria-labelledby={item.id} hidden={value!==item.value} tabIndex={0}>
         <p>{item.label} content</p>
       </section>)}
+    </div>;
+  },
+};
+
+export const ComposedTab = {
+  render: function ComposedTabStory() {
+    const [selected, setSelected] = React.useState('overview');
+    return <div role="tablist" aria-label="Workspace views" onKeyDown={event => {
+      if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      const values = ['overview', 'activity'];
+      const current = values.indexOf(selected);
+      const next = event.key === 'Home' ? 0 : event.key === 'End' ? 1 : (current + 1) % 2;
+      setSelected(values[next]);
+      event.currentTarget.querySelectorAll('[role="tab"]')[next]?.focus();
+    }}>
+      <Tab selected={selected === 'overview'} tabIndex={selected === 'overview' ? 0 : -1} onClick={() => setSelected('overview')}>Overview</Tab>
+      <Tab selected={selected === 'activity'} tabIndex={selected === 'activity' ? 0 : -1} onClick={() => setSelected('activity')}>Activity</Tab>
     </div>;
   },
 };

@@ -1,3 +1,5 @@
+import { useComposedRefs } from "../_utils/refs.js";
+import { mergeTargetProps } from "../_utils/field-association.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
@@ -9,7 +11,7 @@ import { cx } from "../_utils/cx.js";
  * implements that workflow, otherwise supply an accurate hint. Submission
  * invokes the caller callback; model replies and human review are caller-owned.
  */
-export function PromptInput({
+export const PromptInput = React.forwardRef(function PromptInput({ controlRef,
   value, onChange, onSubmit,
   placeholder,
   sendLabel,
@@ -17,23 +19,25 @@ export function PromptInput({
   lang,
   disabled = false, busy = false, className,
   "aria-label": ariaLabel,
-}) {
+ rootProps }, forwardedRef) {
+  const mergedControlRef = useComposedRefs(controlRef);
   const [inner, setInner] = React.useState("");
   const val = value != null ? value : inner;
   const setVal = (v) => { if (value == null) setInner(v); onChange?.(v); };
   const submit = () => { if (!disabled && !busy && String(val).trim()) onSubmit && onSubmit(val); };
-  const [ref, L] = useLang(lang);
-  const t = makeT("PromptInput", L);
+  const [ref, L, localeMessages] = useLang(lang);
+  const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  const t = makeT("PromptInput", L, localeMessages);
   const ph = placeholder != null ? placeholder : t("placeholder");
   const sl = sendLabel != null ? sendLabel : t("send");
   const ht = hint !== undefined ? hint : t("hint");
   return (
-    <div ref={ref} className={cx("cs-prompt", className)}>
+    <div ref={mergedNativeRef} {...mergeTargetProps({ "className": cx("cs-prompt", className) }, rootProps, [])}>
       <textarea
         className="cs-prompt__field" rows={1} value={val} placeholder={ph} aria-label={ariaLabel || ph} disabled={disabled}
         onChange={(e) => setVal(e.target.value)}
         onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing && e.keyCode !== 229) { e.preventDefault(); submit(); } }}
-      />
+       ref={mergedControlRef} />
       <div className="cs-prompt__bar">
         {(ht || ht === 0) ? (
           <span className="cs-prompt__hint">
@@ -48,4 +52,5 @@ export function PromptInput({
       </div>
     </div>
   );
-}
+});
+PromptInput.displayName = "PromptInput";

@@ -24,4 +24,4 @@ export interface ItemProps extends Omit<React.HTMLAttributes<HTMLElement>, "titl
   className?: string;
 }
 
-export function Item(props: ItemProps): React.ReactElement;
+export const Item: React.ForwardRefExoticComponent<React.PropsWithoutRef<ItemProps> & React.RefAttributes<HTMLDivElement | HTMLButtonElement | HTMLAnchorElement>>;

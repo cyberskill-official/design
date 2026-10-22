@@ -1,3 +1,4 @@
+import { declaredOptionsFromSource } from '../../scripts/lib/story-domain-options.mjs';
 /**
  * Host Storybook contract:
  * - Live hub = Storybook only (guidelines/live-view.html must not exist)
@@ -10,6 +11,8 @@
  *   FullMatrix must mount the size × variant × key-state product
  */
 import { readFileSync, existsSync } from 'node:fs';
+import { getStorySortParameter } from 'storybook/internal/csf-tools';
+import {extractRuntimeProps} from '../../scripts/generate-component-contracts.mjs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { coveredPrimariesFromStories, listPublicComponents, listStoryFiles } from './storybook-inventory.mjs';
@@ -105,11 +108,15 @@ assert(!pkg.devDependencies?.['@storybook/addon-essentials'], 'addon-essentials 
 
 const vercel = JSON.parse(readFileSync(join(root, 'vercel.json'), 'utf8'));
 assert(vercel.buildCommand.includes('build:site'), 'vercel builds site with storybook');
-assert(Array.isArray(vercel.redirects), 'vercel redirects configured');
-const redirectSources = vercel.redirects.map((r) => r.source).join(' ');
-assert(redirectSources.includes('/dashboard'), 'redirect /dashboard');
-assert(redirectSources.includes('/playground'), 'redirect /playground');
-assert(vercel.redirects.every((r) => r.destination === '/'), 'legacy paths redirect to /');
+const deploymentPolicy=JSON.parse(readFileSync(join(root,'scripts/site-deployment-policy.json'),'utf8'));
+assert(Array.isArray(deploymentPolicy.legacyRedirects),'authored deployment redirects configured');
+for(const path of ['/dashboard','/dashboard.html','/dashboard/','/dashboard/nested','/playground','/playground/nested']){
+ const redirect=deploymentPolicy.legacyRedirects.find(rule=>new RegExp(rule.src).test(path));
+ assert(redirect,path+' has an explicit legacy redirect');assert(redirect.dest==='/'&&redirect.status===308,'Legacy redirect destination/status preserved');
+}
+for(const path of ['/dashboard-other','/playgrounds'])assert(!deploymentPolicy.legacyRedirects.some(rule=>new RegExp(rule.src).test(path)),'Unrelated paths remain distinct');
+assert(deploymentPolicy.legacyRedirects.every(rule=>rule.dest==='/'&&rule.status===308),'All legacy destinations/statuses preserved');
+assert(JSON.stringify(deploymentPolicy.csp['script-src'])===JSON.stringify(["'self'"]),'Script default remains self only');assert(JSON.stringify(deploymentPolicy.csp['script-src-attr'])===JSON.stringify(["'none'"]),'Native inline handlers remain blocked');
 
 const pack = readFileSync(join(root, 'scripts/vercel-static-output.mjs'), 'utf8');
 assert(pack.includes('storybook-static'), 'packager reads storybook-static');
@@ -137,12 +144,16 @@ assert(/`\/`/.test(liveHub) || liveHub.includes('Production **`/`**'), 'docs say
 assert(/Release Notes|Status/i.test(liveHub), 'docs mention Release Notes / Status IA');
 
 const previewSort = readFileSync(join(root, '.storybook/preview.jsx'), 'utf8');
-assert(previewSort.includes("'Docs'") && previewSort.includes("'Release Notes'") && previewSort.includes("'Status'"), 'storySort has Docs / Release Notes / Status');
-assert(previewSort.includes("'Start'") && previewSort.includes("'Guides'") && previewSort.includes("'Maintainers'"), 'storySort has Docs Start / Guides / Maintainers');
-assert(previewSort.includes("'Library'") && previewSort.includes("'Doctrine'"), 'storySort has Docs Library + Doctrine');
-assert(previewSort.includes("'Templates'") && previewSort.includes("'Pages'"), 'storySort has public Templates + Pages');
-assert(previewSort.includes("'Maintainer'"), 'storySort keeps Maintainer for gates');
-assert(!previewSort.includes("'Guidelines'"), 'Guidelines merged into Docs');
+const sortOrder = getStorySortParameter(previewSort)?.order;
+assert(Array.isArray(sortOrder), 'Storybook parser must accept the configured story order');
+const sortLabels = new Set(sortOrder.flat(Infinity));
+const docsOrder = sortOrder[sortOrder.indexOf('Docs') + 1];
+assert(Array.isArray(docsOrder), 'Docs has an explicit nested order');
+for (const label of ['Docs', 'Release Notes', 'Status', 'Library', 'Doctrine', 'Templates', 'Pages', 'Maintainer']) {
+  assert(sortLabels.has(label), 'storySort retains required label: ' + label);
+}
+for (const label of ['Start', 'Guides', 'Maintainers']) assert(docsOrder.includes(label), 'Docs retains group: ' + label);
+assert(!sortLabels.has('Guidelines'), 'Guidelines merged into Docs');
 assert(serves('docs'), 'staticDirs publish docs/');
 
 const statusStory = readFileSync(join(root, 'stories/Status/Status.stories.jsx'), 'utf8');
@@ -178,18 +189,26 @@ for (const needle of ['system', 'FullMatrix', 'liquid-glass', 'Axe smoke']) {
 }
 assert(releaseNotes.includes('system') && releaseNotes.includes('FullMatrix') && releaseNotes.includes('liquid-glass'), 'docs/release-notes.md axes + FullMatrix + Style');
 
-const fourAxes = readFileSync(join(root, 'stories/Docs/TheFourAxes.mdx'), 'utf8');
+const fourAxes = embeddedCanonicalDoc('stories/Docs/TheFourAxes.mdx', 'docs/four-axes.md');
+const fourAxesVi = readFileSync(join(root, 'docs/vi/four-axes.md'), 'utf8');
 assert(/system/.test(fourAxes) && /prefers-color-scheme/.test(fourAxes), 'TheFourAxes Theme includes system');
 assert(/liquid-glass/.test(fourAxes), 'TheFourAxes Style pack named');
+assert(/system/.test(fourAxesVi) && /prefers-color-scheme/.test(fourAxesVi), 'Vietnamese Four Axes retains system theme contract');
+assert(/liquid-glass/.test(fourAxesVi), 'Vietnamese Four Axes retains Style pack');
 
 assert(managerHead.includes('Theme × Element × Language × Style'), 'manager-head description names four axes');
 assert(dash.includes('Theme × Element × Language × Style'), 'dashboard meta names four axes');
 
-const conventionsMdx = readFileSync(join(root, 'stories/Docs/Conventions.mdx'), 'utf8');
+function embeddedCanonicalDoc(story, path) {
+  const mdx = readFileSync(join(root, story), 'utf8');
+  assert(mdx.includes('<IframeSurface ') && mdx.includes('/docs/viewer.html?embed=1#' + path), story + ' embeds the canonical document');
+  return readFileSync(join(root, path), 'utf8');
+}
+const conventionsMdx = embeddedCanonicalDoc('stories/Docs/Conventions.mdx', 'docs/conventions.md');
 assert(!/not a fourth axis/i.test(conventionsMdx), 'Conventions MDX must not deny Style as fourth axis');
 assert(/data-cs-style/.test(conventionsMdx) && /liquid-glass/.test(conventionsMdx), 'Conventions MDX lists Style axis');
 
-const designStylesMdx = readFileSync(join(root, 'stories/Docs/DesignStyles.mdx'), 'utf8');
+const designStylesMdx = embeddedCanonicalDoc('stories/Docs/DesignStyles.mdx', 'docs/design-styles.md');
 assert(/data-cs-style/.test(designStylesMdx) && /liquid-glass/.test(designStylesMdx), 'DesignStyles MDX names Style pack');
 assert(/system/.test(designStylesMdx) && /prefers-color-scheme/.test(designStylesMdx), 'DesignStyles MDX Theme includes system');
 assert(!/invent a fourth product axis/i.test(designStylesMdx), 'DesignStyles MDX must not call Style a non-axis');
@@ -418,6 +437,8 @@ function matrixFamilyBodies(text) {
 
 /** Resolve discrete select options from argTypes (literal array or const ref). */
 function resolveOptions(text, key) {
+  const derived = declaredOptionsFromSource(text,key,root);
+  if (derived) return derived.map(String);
   const at = argTypesSection(text);
   const keyRe = new RegExp('["\']?' + key + '["\']?\\s*:\\s*(\\{)');
   const m = at.match(keyRe);
@@ -671,9 +692,8 @@ for (const m of modules) {
     }
     if (new RegExp('<' + m.primary + '\\b[^>]*\\bdisabled(?:\\s|=|/|>)').test(body)) {
       const jsx = readFileSync(join(root, m.relFromRoot), 'utf8');
-      const sig = jsx.match(new RegExp('export\\s+function\\s+' + m.primary + '\\s*\\(\\s*\\{([^}]*)\\}'));
-      const params = sig ? sig[1] : '';
-      if (!/\bdisabled\b/.test(params)) {
+      const runtime = extractRuntimeProps(jsx, m.primary);
+      if (runtime.analysis === 'unknown' || !runtime.props.includes('disabled')) {
         fail.push(m.primary + ' ' + name + ' uses disabled but prop not in signature');
       }
     }
@@ -722,7 +742,7 @@ for (const m of modules) {
   if (m.primary === 'HoverCard' && /content\s*=/.test(text)) {
     fail.push('HoverCard uses content= (API is trigger+children)');
   }
-  if (m.primary === 'Tabs' && /selected\s*=/.test(text)) {
+  if (m.primary === 'Tabs' && /<Tabs\b[^>]*\bselected\s*=/.test(text)) {
     fail.push('Tabs uses selected= (companion Tab prop only)');
   }
   if (m.primary === 'Sidebar' && /<Sidebar[^>]*\bactive\s*=/.test(text)) {

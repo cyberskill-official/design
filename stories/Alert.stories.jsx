@@ -1,3 +1,4 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { Alert } from '../components/feedback/Alert.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
@@ -11,12 +12,7 @@ export default {
 
   "variant": {
     "control": "select",
-    "options": [
-      "info",
-      "success",
-      "warning",
-      "danger"
-    ]
+    "options": DECLARED_DOMAINS.Alert["variant"]
   },
   "title": {
     "control": "object"
@@ -25,13 +21,6 @@ export default {
     "control": "object"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Alert. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { lang: 'vi', children: 'Your wish is in review.', variant: 'info' },
 };
 
@@ -53,7 +42,7 @@ export const Matrix = {
 export const FullMatrix = {
   name: 'Full matrix / variant',
   render: (args) => {
-    const cells = cartesian({ variant: ["info","success","warning","danger"] }).flatMap((combo) =>
+    const cells = cartesian({ variant: DECLARED_DOMAINS.Alert["variant"] }).flatMap((combo) =>
       stateCombos([]).map((state) => {
         const props = { ...combo, ...state };
         const label = comboLabel(props, ['variant']);

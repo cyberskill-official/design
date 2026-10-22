@@ -23,4 +23,4 @@ export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
 }
 
-export function Icon(props: IconProps): React.ReactElement;
+export const Icon: React.ForwardRefExoticComponent<React.PropsWithoutRef<IconProps> & React.RefAttributes<SVGSVGElement>>;

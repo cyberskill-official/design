@@ -1,8 +1,9 @@
+import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 import { cx } from "../_utils/cx.js";
 
 /** CyberSkill Collapsible — single expand panel without Accordion chrome. */
-export function Collapsible({
+export const Collapsible = React.forwardRef(function Collapsible({ controlRef,
   open,
   defaultOpen = false,
   onOpenChange,
@@ -11,7 +12,9 @@ export function Collapsible({
   children,
   className,
   ...props
-}) {
+}, forwardedRef) {
+  const mergedControlRef = useComposedRefs(controlRef);
+  const mergedNativeRef = useComposedRefs(forwardedRef);
   const uncontrolled = open === undefined;
   const [internal, setInternal] = React.useState(!!defaultOpen);
   const isOpen = uncontrolled ? internal : !!open;
@@ -23,7 +26,7 @@ export function Collapsible({
   const panelId = React.useId();
   const triggerId = React.useId();
   return (
-    <div className={cx("cs-collapsible", className)} {...props}>
+    <div className={cx("cs-collapsible", className)} {...props} ref={mergedNativeRef} >
       <button
         type="button"
         id={triggerId}
@@ -31,7 +34,7 @@ export function Collapsible({
         aria-expanded={isOpen}
         aria-controls={isOpen ? panelId : undefined}
         onClick={() => setOpen(!isOpen)}
-      >
+       ref={mergedControlRef} >
         <span className="cs-collapsible__label">{label}</span>
         <span className="cs-collapsible__chevron" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -46,4 +49,5 @@ export function Collapsible({
       ) : null}
     </div>
   );
-}
+});
+Collapsible.displayName = "Collapsible";

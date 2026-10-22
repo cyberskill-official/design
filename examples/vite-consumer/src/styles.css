@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  font-family: var(--cs-font-family-ui);
+  color: var(--cs-color-text-primary);
+  background: var(--cs-color-surface-page);
+}
+.consumer-page {
+  max-inline-size: 36rem;
+  margin-inline: auto;
+  padding: var(--cs-space-6);
+}
+.consumer-page h1 { font: var(--cs-text-h2); }
+.consumer-page output { display: block; margin-block-start: var(--cs-space-5); }

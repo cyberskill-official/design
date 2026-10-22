@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="cs-template-library" content="static-logo">
 <title>Board · Resolution · CyberSkill</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +18,7 @@
 <div lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" class="cs-desk" style="background:#efe6d8;min-height:100vh;padding:40px 16px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary)">
   <div class="cs-sheet" style="color:var(--cs-color-text-primary);max-width:816px;margin:0 auto;background:#fff;border:1px solid var(--cs-color-border-default);border-radius:12px;box-shadow:var(--cs-shadow-md);padding:56px 64px" data-theme="light">
     <header style="display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--cs-color-brand-umber);padding-bottom:18px;margin-bottom:20px">
-      <x-import component-from-global-scope="CyberSkillDS.Logo" size="34" hint-size="34px,34px"></x-import>
+      <img data-cs-official-logo="" class="cs-logo" width="34" height="34" role="img" alt="CyberSkill" title="CyberSkill">
       <div><div style="font-weight:800;font-size:17px;color:var(--cs-color-brand-umber);line-height:1.1">CyberSkill</div><div style="font-size:11px;color:var(--cs-color-text-muted)">Hiện Thực Hoá Ý Chí · Turn Your Will Into Real</div></div>
       <span style="margin-left:auto;font-family:var(--cs-font-family-mono);font-size:12px;color:var(--cs-color-text-muted)">R-26-07</span>
     </header>
@@ -43,43 +44,43 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
+<script type="text/x-dc" data-dc-script data-content-schema="./content-schema.json" data-props="{
   &quot;language&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;English&quot;,&quot;Tiếng Việt&quot;],&quot;default&quot;:&quot;English&quot;,&quot;tsType&quot;:&quot;\&quot;English\&quot; | \&quot;Tiếng Việt\&quot;&quot;,&quot;section&quot;:&quot;Content&quot;},
   &quot;element&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Thổ · studio&quot;,&quot;Thổ · clay&quot;,&quot;Thổ · sand&quot;,&quot;Hỏa · ember&quot;,&quot;Hỏa · lava&quot;,&quot;Hỏa · plasma&quot;,&quot;Thủy · river&quot;,&quot;Thủy · ocean&quot;,&quot;Thủy · mist&quot;,&quot;Mộc · leaf&quot;,&quot;Mộc · bamboo&quot;,&quot;Mộc · forest&quot;,&quot;Kim · champagne&quot;,&quot;Kim · steel&quot;,&quot;Kim · titanium&quot;],&quot;default&quot;:&quot;Thổ · studio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Element (Ngũ Hành)&quot;}
 }">
 class Component extends DCLogic {
   renderVals() {
-    const EL = {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]};
+    const EL = /* @generated template-literal:axis.element-map */ {"Thổ · studio":["tho",""],"Thổ · clay":["tho","clay"],"Thổ · sand":["tho","sand"],"Hỏa · ember":["hoa",""],"Hỏa · lava":["hoa","lava"],"Hỏa · plasma":["hoa","plasma"],"Thủy · river":["thuy",""],"Thủy · ocean":["thuy","ocean"],"Thủy · mist":["thuy","mist"],"Mộc · leaf":["moc",""],"Mộc · bamboo":["moc","bamboo"],"Mộc · forest":["moc","forest"],"Kim · champagne":["kim",""],"Kim · steel":["kim","steel"],"Kim · titanium":["kim","titanium"]} /* @endgenerated template-literal:axis.element-map */;
     const [elAttr, vaAttr] = EL[this.props.element] || EL["Thổ · studio"];
 const vn = this.props.language === "Tiếng Việt";
     const en = {
-      banner:"Counsel-gated draft — corporate resolutions have statutory requirements (Law on Enterprises); legal must review form and filing before adoption.",
-      kicker:"Written resolution of the Board of Directors",
-      h1:"CyberSkill Co., Ltd — Resolution R-26-07",
-      intro:"Adopted at the duly convened meeting of 18 July 2026, Saigon, quorum confirmed (see minutes of the same date).",
-      recitalsH:"Recitals", wWhereas:"WHEREAS",
-      recA:"the CEO's memo of 18 July 2026 identified single-person key risk on the company's AI initiatives; and",
-      recB:"the Board has reviewed the associated cost and delivery impact;",
-      resolvedH:"Resolved", wThat:"THAT",
-      c1:"the company is authorized to hire one (1) additional senior AI engineer in Q4 2026, within the compensation band tabled;",
-      c2:"the CEO is authorized to execute the employment documents required to give effect to paragraph 1;",
-      c3:"the Secretary shall file this resolution in the company records and report execution at the next meeting.",
-      voteL:"Vote.", voteBody:"In favor: 3 · Against: 0 · Abstain: 1 · Carried.",
-      sig1:"[Chair] — Chair of the Board · date", sig2:"[Director A] · date", sig3:"[Director B] · date", sig4:"[Secretary] — attest · date"};
+      banner:/* @generated template-literal:dictionary.en.62616e6e6572 */ "Counsel-gated draft — corporate resolutions have statutory requirements (Law on Enterprises); legal must review form and filing before adoption." /* @endgenerated template-literal:dictionary.en.62616e6e6572 */,
+      kicker:/* @generated template-literal:dictionary.en.6b69636b6572 */ "Written resolution of the Board of Directors" /* @endgenerated template-literal:dictionary.en.6b69636b6572 */,
+      h1:/* @generated template-literal:dictionary.en.6831 */ "CyberSkill Co., Ltd — Resolution R-26-07" /* @endgenerated template-literal:dictionary.en.6831 */,
+      intro:/* @generated template-literal:dictionary.en.696e74726f */ "Adopted at the duly convened meeting of 18 July 2026, Saigon, quorum confirmed (see minutes of the same date)." /* @endgenerated template-literal:dictionary.en.696e74726f */,
+      recitalsH:/* @generated template-literal:dictionary.en.7265636974616c7348 */ "Recitals" /* @endgenerated template-literal:dictionary.en.7265636974616c7348 */, wWhereas:/* @generated template-literal:dictionary.en.7757686572656173 */ "WHEREAS" /* @endgenerated template-literal:dictionary.en.7757686572656173 */,
+      recA:/* @generated template-literal:dictionary.en.72656341 */ "the CEO's memo of 18 July 2026 identified single-person key risk on the company's AI initiatives; and" /* @endgenerated template-literal:dictionary.en.72656341 */,
+      recB:/* @generated template-literal:dictionary.en.72656342 */ "the Board has reviewed the associated cost and delivery impact;" /* @endgenerated template-literal:dictionary.en.72656342 */,
+      resolvedH:/* @generated template-literal:dictionary.en.7265736f6c76656448 */ "Resolved" /* @endgenerated template-literal:dictionary.en.7265736f6c76656448 */, wThat:/* @generated template-literal:dictionary.en.7754686174 */ "THAT" /* @endgenerated template-literal:dictionary.en.7754686174 */,
+      c1:/* @generated template-literal:dictionary.en.6331 */ "the company is authorized to hire one (1) additional senior AI engineer in Q4 2026, within the compensation band tabled;" /* @endgenerated template-literal:dictionary.en.6331 */,
+      c2:/* @generated template-literal:dictionary.en.6332 */ "the CEO is authorized to execute the employment documents required to give effect to paragraph 1;" /* @endgenerated template-literal:dictionary.en.6332 */,
+      c3:/* @generated template-literal:dictionary.en.6333 */ "the Secretary shall file this resolution in the company records and report execution at the next meeting." /* @endgenerated template-literal:dictionary.en.6333 */,
+      voteL:/* @generated template-literal:dictionary.en.766f74654c */ "Vote." /* @endgenerated template-literal:dictionary.en.766f74654c */, voteBody:/* @generated template-literal:dictionary.en.766f7465426f6479 */ "In favor: 3 · Against: 0 · Abstain: 1 · Carried." /* @endgenerated template-literal:dictionary.en.766f7465426f6479 */,
+      sig1:/* @generated template-literal:dictionary.en.73696731 */ "[Chair] — Chair of the Board · date" /* @endgenerated template-literal:dictionary.en.73696731 */, sig2:/* @generated template-literal:dictionary.en.73696732 */ "[Director A] · date" /* @endgenerated template-literal:dictionary.en.73696732 */, sig3:/* @generated template-literal:dictionary.en.73696733 */ "[Director B] · date" /* @endgenerated template-literal:dictionary.en.73696733 */, sig4:/* @generated template-literal:dictionary.en.73696734 */ "[Secretary] — attest · date" /* @endgenerated template-literal:dictionary.en.73696734 */};
     const vi = {
-      banner:"Bản nháp cần luật sư rà soát — nghị quyết của công ty có các yêu cầu luật định (Luật Doanh nghiệp); bộ phận pháp lý phải rà soát hình thức và thủ tục lưu trước khi thông qua.",
-      kicker:"Nghị quyết bằng văn bản của Hội đồng Quản trị",
-      h1:"Công ty TNHH CyberSkill — Nghị quyết R-26-07",
-      intro:"Được thông qua tại cuộc họp hợp lệ ngày 18 tháng 7 năm 2026, Sài Gòn, đã đủ số đại biểu (xem biên bản cùng ngày).",
-      recitalsH:"Xét rằng", wWhereas:"XÉT RẰNG",
-      recA:"bản ghi nhớ của Tổng Giám đốc ngày 18/7/2026 đã chỉ ra rủi ro phụ thuộc một cá nhân trong các sáng kiến AI của công ty; và",
-      recB:"Hội đồng đã xem xét tác động về chi phí và tiến độ liên quan;",
-      resolvedH:"Quyết nghị", wThat:"RẰNG",
-      c1:"công ty được chấp thuận tuyển thêm một (01) kỹ sư AI cấp cao trong Quý 4/2026, trong khung lương đã trình;",
-      c2:"Tổng Giám đốc được ủy quyền ký kết các văn bản lao động cần thiết để thực hiện khoản 1;",
-      c3:"Thư ký lưu nghị quyết này vào hồ sơ công ty và báo cáo việc thực hiện tại cuộc họp kế tiếp.",
-      voteL:"Biểu quyết.", voteBody:"Tán thành: 3 · Không tán thành: 0 · Không biểu quyết: 1 · Thông qua.",
-      sig1:"[Chủ tịch] — Chủ tịch HĐQT · ngày", sig2:"[Thành viên A] · ngày", sig3:"[Thành viên B] · ngày", sig4:"[Thư ký] — xác nhận · ngày"};
+      banner:/* @generated template-literal:dictionary.vi.62616e6e6572 */ "Bản nháp cần luật sư rà soát — nghị quyết của công ty có các yêu cầu luật định (Luật Doanh nghiệp); bộ phận pháp lý phải rà soát hình thức và thủ tục lưu trước khi thông qua." /* @endgenerated template-literal:dictionary.vi.62616e6e6572 */,
+      kicker:/* @generated template-literal:dictionary.vi.6b69636b6572 */ "Nghị quyết bằng văn bản của Hội đồng Quản trị" /* @endgenerated template-literal:dictionary.vi.6b69636b6572 */,
+      h1:/* @generated template-literal:dictionary.vi.6831 */ "Công ty TNHH CyberSkill — Nghị quyết R-26-07" /* @endgenerated template-literal:dictionary.vi.6831 */,
+      intro:/* @generated template-literal:dictionary.vi.696e74726f */ "Được thông qua tại cuộc họp hợp lệ ngày 18 tháng 7 năm 2026, Sài Gòn, đã đủ số đại biểu (xem biên bản cùng ngày)." /* @endgenerated template-literal:dictionary.vi.696e74726f */,
+      recitalsH:/* @generated template-literal:dictionary.vi.7265636974616c7348 */ "Xét rằng" /* @endgenerated template-literal:dictionary.vi.7265636974616c7348 */, wWhereas:/* @generated template-literal:dictionary.vi.7757686572656173 */ "XÉT RẰNG" /* @endgenerated template-literal:dictionary.vi.7757686572656173 */,
+      recA:/* @generated template-literal:dictionary.vi.72656341 */ "bản ghi nhớ của Tổng Giám đốc ngày 18/7/2026 đã chỉ ra rủi ro phụ thuộc một cá nhân trong các sáng kiến AI của công ty; và" /* @endgenerated template-literal:dictionary.vi.72656341 */,
+      recB:/* @generated template-literal:dictionary.vi.72656342 */ "Hội đồng đã xem xét tác động về chi phí và tiến độ liên quan;" /* @endgenerated template-literal:dictionary.vi.72656342 */,
+      resolvedH:/* @generated template-literal:dictionary.vi.7265736f6c76656448 */ "Quyết nghị" /* @endgenerated template-literal:dictionary.vi.7265736f6c76656448 */, wThat:/* @generated template-literal:dictionary.vi.7754686174 */ "RẰNG" /* @endgenerated template-literal:dictionary.vi.7754686174 */,
+      c1:/* @generated template-literal:dictionary.vi.6331 */ "công ty được chấp thuận tuyển thêm một (01) kỹ sư AI cấp cao trong Quý 4/2026, trong khung lương đã trình;" /* @endgenerated template-literal:dictionary.vi.6331 */,
+      c2:/* @generated template-literal:dictionary.vi.6332 */ "Tổng Giám đốc được ủy quyền ký kết các văn bản lao động cần thiết để thực hiện khoản 1;" /* @endgenerated template-literal:dictionary.vi.6332 */,
+      c3:/* @generated template-literal:dictionary.vi.6333 */ "Thư ký lưu nghị quyết này vào hồ sơ công ty và báo cáo việc thực hiện tại cuộc họp kế tiếp." /* @endgenerated template-literal:dictionary.vi.6333 */,
+      voteL:/* @generated template-literal:dictionary.vi.766f74654c */ "Biểu quyết." /* @endgenerated template-literal:dictionary.vi.766f74654c */, voteBody:/* @generated template-literal:dictionary.vi.766f7465426f6479 */ "Tán thành: 3 · Không tán thành: 0 · Không biểu quyết: 1 · Thông qua." /* @endgenerated template-literal:dictionary.vi.766f7465426f6479 */,
+      sig1:/* @generated template-literal:dictionary.vi.73696731 */ "[Chủ tịch] — Chủ tịch HĐQT · ngày" /* @endgenerated template-literal:dictionary.vi.73696731 */, sig2:/* @generated template-literal:dictionary.vi.73696732 */ "[Thành viên A] · ngày" /* @endgenerated template-literal:dictionary.vi.73696732 */, sig3:/* @generated template-literal:dictionary.vi.73696733 */ "[Thành viên B] · ngày" /* @endgenerated template-literal:dictionary.vi.73696733 */, sig4:/* @generated template-literal:dictionary.vi.73696734 */ "[Thư ký] — xác nhận · ngày" /* @endgenerated template-literal:dictionary.vi.73696734 */};
     return Object.assign({ langAttr: (this.props.language ?? "English") === "Tiếng Việt" ? "vi" : "en", elAttr, vaAttr }, vn ? vi : en);
   }
 }

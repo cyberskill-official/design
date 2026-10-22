@@ -36,3 +36,13 @@ export const Sync = {
   name: 'Sync',
   render: () => <Page path="docs/sync.md" title="Sync" />,
 };
+
+export const ManualAtMatrix = {
+  name: 'Manual AT matrix',
+  render: () => <Page path="docs/manual-at-matrix.md" title="Manual AT matrix" />,
+};
+
+export const Validation = {
+  name: 'Validation',
+  render: () => <Page path="docs/validation.md" title="Validation" />,
+};

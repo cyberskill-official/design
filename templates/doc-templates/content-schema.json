@@ -1,0 +1,22 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "doc-templates",
+  "slots": [
+    {
+      "id": "documentTitleVi",
+      "type": "text",
+      "label": "Document Title Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "documentTitleEn",
+      "type": "text",
+      "label": "Document Title En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

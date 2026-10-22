@@ -6,116 +6,187 @@
       "id": "badge",
       "type": "text",
       "label": "Status badge",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "kicker",
       "type": "text",
       "label": "RFC number + team",
-      "maxLength": 40
+      "maxLength": 40,
+      "runtimeBinding": "text"
     },
     {
       "id": "h1",
       "type": "text",
       "label": "RFC title",
       "maxLength": 60,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "dtAuthor",
       "type": "text",
       "label": "Author field label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "dtRev",
       "type": "text",
       "label": "Reviewers field label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "dtStatus",
       "type": "text",
       "label": "Status field label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "ddStatus",
       "type": "text",
       "label": "Status field value",
-      "maxLength": 24
+      "maxLength": 24,
+      "runtimeBinding": "text"
     },
     {
       "id": "dtTarget",
       "type": "text",
       "label": "Target field label",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "ctxH",
       "type": "text",
       "label": "Context heading",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "ctxP",
       "type": "richtext",
       "label": "Context body",
       "maxLength": 400,
-      "required": true
+      "required": true,
+      "runtimeBinding": "text"
     },
     {
       "id": "propH",
       "type": "text",
       "label": "Proposal heading",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "code",
       "type": "text",
       "label": "Proposal code / pipeline sample",
-      "maxLength": 400
+      "maxLength": 400,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.CodeBlock",
+          "attribute": "code"
+        }
+      ]
     },
     {
       "id": "toH",
       "type": "text",
       "label": "Trade-offs heading",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "gainsT",
       "type": "text",
       "label": "Gains alert title",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Alert",
+          "attribute": "title"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "gainsB",
       "type": "text",
       "label": "Gains alert body",
-      "maxLength": 200
+      "maxLength": 200,
+      "runtimeBinding": "text"
     },
     {
       "id": "costsT",
       "type": "text",
       "label": "Costs alert title",
-      "maxLength": 30
+      "maxLength": 30,
+      "runtimeBinding": "text",
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "component": "CyberSkillDS.Alert",
+          "attribute": "title"
+        }
+      ],
+      "minLength": 1,
+      "semanticReason": "Preserve a nonempty accessible name or visible control/section label."
     },
     {
       "id": "costsB",
       "type": "text",
       "label": "Costs alert body",
-      "maxLength": 200
+      "maxLength": 200,
+      "runtimeBinding": "text"
     },
     {
       "id": "rollH",
       "type": "text",
       "label": "Rollout heading",
-      "maxLength": 20
+      "maxLength": 20,
+      "runtimeBinding": "text"
     },
     {
       "id": "steps",
       "type": "list",
-      "label": "Rollout steps"
+      "label": "Rollout steps",
+      "runtimeBinding": "structured",
+      "runtimeProjection": "records",
+      "runtimeModel": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "title"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "runtimeTargets": [
+        {
+          "tag": "x-import",
+          "attribute": "steps",
+          "component": "CyberSkillDS.Steps"
+        }
+      ]
     }
   ]
 }

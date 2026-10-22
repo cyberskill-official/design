@@ -7,8 +7,8 @@ import {assertCssProjection} from './dtcg-values.mjs';
 const clone=value=>structuredClone(value);
 const canonical=value=>Array.isArray(value)?'['+value.map(canonical).join(',')+']':value&&typeof value==='object'?'{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+canonical(value[k])).join(',')+'}':JSON.stringify(value);
 
-export function createStyleDictionaryAdapter(document,{declarationsJson}={}) {
-  const report=validateDtcgProfile(document);
+export function createStyleDictionaryAdapter(document,{declarationsJson,colorSpaces}={}) {
+  const report=validateDtcgProfile(document,{colorSpaces});
   if(!report.pass)throw Error('Invalid DTCG export: '+JSON.stringify(report.errors));
   assertCssProjection(document);
   const reference=clone(document.$extensions?.['com.cyberskill']?.declarationGraph);

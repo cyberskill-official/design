@@ -1,0 +1,30 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-internship-agreement",
+  "slots": [
+    {
+      "id": "internName",
+      "type": "text",
+      "label": "Họ và tênFull name",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "residentialAddress",
+      "type": "text",
+      "label": "Nơi cư trúPlace of residence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "schoolAndMajor",
+      "type": "text",
+      "label": "Trường / Chuyên ngànhSchool / Major",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

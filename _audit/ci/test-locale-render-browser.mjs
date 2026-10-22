@@ -7,9 +7,16 @@ const unused=new Set(['Dialog.confirm','Dialog.cancel','EmptyState.action']);
 const missing=[];
 await withBrowserFixture(async page=>{
   await page.addScriptTag({url:'/_audit/lib/axe-fixtures.js'});
+  // A pre-existing foreign portal must never contribute translated evidence.
+  await page.evaluate(()=>{
+    const foreign=document.createElement('div');foreign.setAttribute('data-cs-floating-root','');foreign.id='locale-unowned-sentinel';foreign.textContent='UNOWNED_FLOATING_LOCALE_SENTINEL';foreign.setAttribute('aria-label',foreign.textContent);document.body.appendChild(foreign);
+  });
   for(const lang of ['en','vi']) for(const [namespace,tables] of Object.entries(strings)) {
     await page.evaluate(({namespace,lang})=>{
       renderFixture(null);
+      const roots=[...document.querySelectorAll('[data-cs-floating-root]')];
+      if(roots.some(root=>root.id!=='locale-unowned-sentinel'))throw Error('Previous locale fixture left a floating root mounted');
+      window.localePriorFloatingRoots=new Set(roots);
       document.documentElement.lang=lang;
       const nodes=__axeFixtures.buildCluster(React.createElement,CS,{lang}).nodes;
       const node=nodes.find(node=>node.type===CS[namespace]);
@@ -28,13 +35,21 @@ await withBrowserFixture(async page=>{
     },{namespace,lang});
     const values=[];
     const capture=async()=>{
-      values.push(...await page.locator('#fixture').evaluate(root=>[...root.querySelectorAll('*')].flatMap(el=>[
-        ...[...el.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent),
-        ...['aria-label','title','placeholder'].map(a=>el.getAttribute(a)).filter(v=>v!=null),
-      ])));
+      const evidence=await page.evaluate(()=>{
+        // Each namespace starts with a full unmount. Only roots created by this
+        // mounted fixture are owned; pre-existing external roots are excluded.
+        const roots=[document.getElementById('fixture'),...[...document.querySelectorAll('[data-cs-floating-root]')].filter(root=>!localePriorFloatingRoots.has(root))];
+        roots.forEach((root,index)=>root.setAttribute('data-locale-evidence-root',String(index)));
+        return {count:roots.length,values:roots.flatMap(root=>[root,...root.querySelectorAll('*')].flatMap(el=>[
+          ...[...el.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent),
+          ...['aria-label','title','placeholder'].map(a=>el.getAttribute(a)).filter(v=>v!=null),
+        ]))};
+      });
+      assert(!evidence.values.some(value=>value.includes('UNOWNED_FLOATING_LOCALE_SENTINEL')),'Foreign/stale floating content cannot satisfy locale coverage');
+      values.push(...evidence.values);
       // DOM-linked rich names are resolved by the browser naming engine; their
       // complete text need not exist in a single attribute or text node.
-      values.push(await page.locator('#fixture').ariaSnapshot());
+      for(let index=0;index<evidence.count;index++)values.push(await page.locator('[data-locale-evidence-root="'+index+'"]').ariaSnapshot());
     };
     await capture();
     const click=async selector=>{await page.locator(selector).first().click();await capture()};
@@ -53,6 +68,7 @@ await withBrowserFixture(async page=>{
     if(namespace==='Result') for(const status of ['error','warning','info']){await page.evaluate(status=>drawLocaleCase({status}),status);await capture()}
     if(namespace==='HotKeys'){await page.locator('body').press('?');await capture()}
     if(namespace==='Popconfirm') await click('button');
+    if(namespace==='Popover') await click('button');
     if(namespace==='ContextMenu'){await page.locator('.cs-ctxmenu-zone').click({button:'right'});await capture()}
     if(namespace==='Combobox'){await page.locator('input').fill('No matching caller option');await capture()}
     if(namespace==='CommandPalette'){
@@ -88,6 +104,7 @@ await withBrowserFixture(async page=>{
       if(!unused.has(namespace+'.'+key)&&!values.some(text=>text.includes(expected))) missing.push(`${lang}:${namespace}.${key}`);
     }
   }
+  await page.evaluate(()=>{renderFixture(null);const roots=[...document.querySelectorAll('[data-cs-floating-root]')];if(roots.length!==1||roots[0].id!=='locale-unowned-sentinel')throw Error('Final locale fixture leaked a floating root');roots[0].remove();});
 },{browserName:process.env.CS_TEST_BROWSER||'chromium',development:true});
 if(missing.length) console.error('Missing rendered keys:',missing);
 assert.equal(missing.length,0,'Every used registry key must have rendered EN/VI evidence');

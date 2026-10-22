@@ -46,7 +46,7 @@ for (const ent of ['README.md', 'SKILL.md', 'llms.txt', 'CONTRIBUTING.md']) {
 assert(catalog.pages.some((p) => p.path === 'docs/doctrine.md'), 'doctrine.md in catalog');
 
 const viewer = read('docs/viewer.html');
-const viewerPaths = [...viewer.matchAll(/\['([^']+\.(?:md|txt))'/g)].map((m) => m[1]);
+const viewerPaths = [...viewer.matchAll(/\[(["'])([^"']+\.(?:md|txt))\1/g)].map((m) => m[2]);
 const viewerSet = new Set(viewerPaths);
 for (const path of catalogPaths) {
   assert(viewerSet.has(path), `viewer nav missing ${path}`);

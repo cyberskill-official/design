@@ -6,6 +6,8 @@ import type * as React from "react";
  * never recreate, retype, or recolour it. For third-party tenants, swap the
  * tenant's own logo instead (do not use this mark to represent another company).
  */
+/** Inherited children remain accepted for compatibility but are ignored: the official
+ * SVG markup and its generated accessible title are owned by Logo. */
 export interface LogoProps extends React.SVGAttributes<SVGSVGElement> {
   /** Rendered width/height in px. Default 32. */
   size?: number;
@@ -15,4 +17,4 @@ export interface LogoProps extends React.SVGAttributes<SVGSVGElement> {
   decorative?: boolean;
 }
 
-export function Logo(props: LogoProps): React.ReactElement;
+export const Logo: React.ForwardRefExoticComponent<React.PropsWithoutRef<LogoProps> & React.RefAttributes<SVGSVGElement>>;

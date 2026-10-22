@@ -6,6 +6,7 @@ export default {
   component: InputGroup,
   tags: ['autodocs'],
   argTypes: {
+  "required": {"control":"boolean"},
     label: { control: 'text' },
     prefix: { control: 'text' },
     suffix: { control: 'text' },
@@ -18,14 +19,6 @@ export default {
     disabled: { control: 'boolean' },
     readOnly: { control: 'boolean' },
     lang: { control: 'select', options: ['en', 'vi'] },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting InputGroup. Portable consumers use styles.css + bundle, not Storybook. Prefix/suffix addons, clearable ×, and password reveal — not a TextField wrapper.',
-      },
-    },
   },
   args: {
     label: 'Amount',

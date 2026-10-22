@@ -1,25 +1,19 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { Result } from '../components/feedback/Result.jsx';
 import { Button } from '../components/button/Button.jsx';
 
-const STATUSES = ['success', 'error', 'warning', 'info'];
+const STATUSES = DECLARED_DOMAINS.Result["status"];
 
 export default {
   title: 'Components/Feedback/Result',
   component: Result,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     status: { control: 'select', options: STATUSES },
     title: { control: 'text' },
     children: { control: 'text' },
     lang: { control: 'select', options: ['en', 'vi'] },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting Result. Portable consumers use styles.css + bundle, not Storybook. `actions` is a composition slot for Buttons.',
-      },
-    },
   },
   args: { status: 'success', title: 'Wish shipped', children: 'All gates green.', lang: 'en' },
 };

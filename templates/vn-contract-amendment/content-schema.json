@@ -1,0 +1,30 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-contract-amendment",
+  "slots": [
+    {
+      "id": "headerReferenceSequence",
+      "type": "text",
+      "label": "Số/No. · existing placeholder sequence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "employeeName",
+      "type": "text",
+      "label": "Họ và tênFull name",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "address",
+      "type": "text",
+      "label": "Nơi cư trúPlace of residence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

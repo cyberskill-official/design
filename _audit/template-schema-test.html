@@ -24,9 +24,10 @@ function publish(v){ if(window.__schemav2) return; window.__schemav2=v; const s=
 async function test(name,fn){ try{ const d=await fn(); record(name,true,d); }catch(e){ record(name,false,String(e.message||e).slice(0,140)); } }
 function assert(c,m){ if(!c) throw new Error(m); }
 // Hole taxonomy (docs/template-schema-v2.md). Only *content* holes are schema-eligible:
-// axis / control-flow, boolean tweaks, and runtime-control holes stay out of schema.
+// axis / control-flow, boolean tweaks, and runtime-control holes stay out of schema. The exact owned literal-empty
+// constant is runtime-only; no wildcard/prefix exemption is granted.
 const AXIS_HOLES=new Set(['rootTheme','langAttr','elAttr','vaAttr','dirAttr','true','false']);
-const RUNTIME_CONTROL_HOLES=new Set(['tabs','tab','lens','chatOpen','closeChat','dangerOpen','closeDanger']);
+const RUNTIME_CONTROL_HOLES=new Set(['tabs','tab','lens','chatOpen','closeChat','dangerOpen','closeDanger','__csDisplayLiteralEmpty']);
 const isAxisHole=(h)=>AXIS_HOLES.has(h)||/^is[A-Z]/.test(h)||/^\d+$/.test(h);
 const isBooleanTweakHole=(h)=>/^(show|hide|has|enable|with)[A-Z]/.test(h);
 const isRuntimeControlHole=(h)=>RUNTIME_CONTROL_HOLES.has(h)||/^(set|open)[A-Z]/.test(h);

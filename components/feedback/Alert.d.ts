@@ -17,4 +17,4 @@ export interface AlertProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "
   lang?: string;
 }
 
-export function Alert(props: AlertProps): React.ReactElement;
+export const Alert: React.ForwardRefExoticComponent<React.PropsWithoutRef<AlertProps> & React.RefAttributes<HTMLDivElement>>;

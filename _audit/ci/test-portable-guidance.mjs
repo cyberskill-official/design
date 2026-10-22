@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {buildContract,renderBlock,replaceBlock,hash} from '../../scripts/lib/guidance-contract.mjs';
+import {outputs} from '../../scripts/generate-guidance.mjs';
+const root=new URL('../../',import.meta.url),read=p=>readFileSync(new URL(p,root),'utf8');
+const sourceText=read('scripts/guidance-source.json'),source=JSON.parse(sourceText),doctrine=read('docs/doctrine.md'),pkg=JSON.parse(read('package.json'));
+const contract=buildContract(source,doctrine,pkg,sourceText), expected=outputs(read);
+for(const[path,value]of expected)assert.equal(read(path),value,`Source-derived guidance: ${path}`);
+assert.equal(contract.sourceHashes['docs/doctrine.md'],hash(doctrine));
+assert.equal(contract.immutables['Primary brand'],'Umber `#45210E`');
+assert.equal(Object.keys(contract.immutables).length,8);
+assert.equal(contract.sourceHashes['scripts/guidance-source.json'],hash(sourceText));
+assert.equal(contract.normative['Verification depth'],doctrine.split('## Verification depth\n')[1].split('\n## ')[0].trim());
+for(const[title,text]of Object.entries(contract.normative))assert(text.length>100,title);
+const mutate=(fn)=>{const x=structuredClone(source);fn(x);return()=>buildContract(x,doctrine,pkg);};
+for(const fn of [x=>x.retirement.installationRequired=true,x=>x.retirement.state='required',x=>x.acceptance.manualAccessibility='automated',x=>x.acceptance.productVisualReview='optional',x=>x.acceptance.pushDeployMerge='automatic',x=>x.portableValidation.externalCompiler='required',x=>x.portableValidation.pixelBeforeBoard=false,x=>x.portableValidation.unit='npm run nonexistent',x=>x.authorities.doctrine='README.md',x=>x.runtimeRoutes.pop(),x=>x.runtimeRoutes[0].unreviewedCapability='PPTX',x=>x.unknownAuthority='vendor'])assert.throws(mutate(fn));
+for(const broken of [doctrine.replace('Lc ≥ 75','Lc ≥ 60'),doctrine.replace('44px','24px'),doctrine.replace('## Verification depth','## Removed depth'),doctrine.replace('not an in-repository command','always required'),doctrine.replace('npm run test:unit','echo pass'),doctrine.replace('#45210E','#000000'),doctrine.replace('Lumi stays golden','Lumi changes with the element'),doctrine.replace('never elemental','elemental')])assert.throws(()=>buildContract(source,broken,pkg));
+const block=renderBlock(contract);
+assert.throws(()=>replaceBlock(block+'\n'+block,block));
+assert.throws(()=>replaceBlock(block.replace('<!-- END PORTABLE GUIDANCE CONTRACT -->',''),block));
+const changedDoctrine=doctrine.replace('Deep checks, never surface spot-checks.','Deep checks, never surface spot-checks. Record all checked states.');
+const changedContract=buildContract(source,changedDoctrine,pkg,sourceText);
+assert.notDeepEqual(changedContract.sourceHashes,contract.sourceHashes,'Actual doctrine changes must alter machine identity');
+assert.notEqual(JSON.stringify(changedContract),read('guidance/agent-contract.json'),'Old projection must fail freshness after source change');
+for(const file of ['AGENTS.md','SKILL.md','CLAUDE.md','GEMINI.md','llms.txt','CONTRIBUTING.md']) {
+ const current=read(file),broken=current.replace('Never push, deploy or merge without explicit operator instruction.','Push automatically.');
+ assert.notEqual(broken,expected.get(file),'Approval weakening is detected by derived-output comparison');
+ assert.equal(replaceBlock(broken,block),current,`Regeneration restores owned block in ${file}`);
+}
+assert(!read('SKILL.md').includes('records currently remain English'));
+console.log('PASS portable guidance: exact doctrine/source identity and six generated host/discovery surfaces and README immutables; 28 authority, retirement, approval, capability and freshness negatives. This is contract projection, not host loading, manual acceptance or complete prose equivalence.');

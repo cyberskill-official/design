@@ -1,8 +1,9 @@
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
 import { Button } from '../components/button/Button.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
-const VARIANTS = ['primary', 'secondary', 'tertiary', 'ghost', 'danger', 'danger-ghost'];
-const SIZES = ['xs', 'sm', 'md', 'lg'];
+const VARIANTS = DECLARED_DOMAINS.Button["variant"];
+const SIZES = DECLARED_DOMAINS.Button["size"];
 const STATE_KEYS = ['loading', 'disabled'];
 
 export default {
@@ -32,14 +33,6 @@ export default {
     },
     type: {
       control: 'text',
-    },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus exhaustive size × variant × key-state FullMatrix. Portable consumers use styles.css + bundle, not Storybook.',
-      },
     },
   },
   args: { children: 'Make a wish', variant: 'primary', size: 'md' },

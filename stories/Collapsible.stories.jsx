@@ -8,14 +8,6 @@ export default {
     defaultOpen: { control: 'boolean' },
     title: { control: 'text' },
   },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting Collapsible. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { title: 'Advanced preferences', defaultOpen: false },
 };
 

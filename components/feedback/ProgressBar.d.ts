@@ -1,3 +1,4 @@
+import type { RootTargetProps } from "../_utils/target-props";
 import type * as React from "react";
 
 /**
@@ -5,6 +6,8 @@ import type * as React from "react";
  * Always pass a `label` for assistive tech.
  */
 export interface ProgressBarProps {
+  /** Attributes for the existing div root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: Omit<RootTargetProps<HTMLDivElement>, "role" | "aria-valuenow" | "aria-valuemin" | "aria-valuemax" | "aria-label">;
   /** Numeric progress clamped to zero through the normalized maximum; fractions are retained in ARIA. */
   value?: number;
   /** Positive finite maximum. Nonpositive or nonfinite values fall back to 100. */
@@ -16,4 +19,4 @@ export interface ProgressBarProps {
   className?: string;
 }
 
-export function ProgressBar(props: ProgressBarProps): React.ReactElement;
+export const ProgressBar: React.ForwardRefExoticComponent<React.PropsWithoutRef<ProgressBarProps> & React.RefAttributes<HTMLDivElement>>;

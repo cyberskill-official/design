@@ -1,0 +1,66 @@
+/* CyberSkill — component-level tokens (Button, TextField). File: component-tokens.css.
+ * Exact values from @cyberskill/tokens. Buttons carry a full size ramp with a
+ * 44px comfortable default touch target; TextField matches. */
+:root {
+  --cs-focus-ring: 3px; /* @kind other */ /* signature focus outline width */
+  /* Button */
+  --cs-component-button-primary-bg: #45210E;
+  --cs-component-button-primary-fg: #FFFFFF;
+  --cs-component-button-gap: 8px;
+  --cs-component-button-radius: 8px;
+  --cs-component-button-xs-paddingY: 4px;
+  --cs-component-button-xs-padding-y: var(--cs-component-button-xs-paddingY);
+  --cs-component-button-xs-paddingX: 10px;
+  --cs-component-button-xs-padding-x: var(--cs-component-button-xs-paddingX);
+  --cs-component-button-xs-minHeight: 28px;
+  --cs-component-button-xs-min-height: var(--cs-component-button-xs-minHeight);
+  --cs-component-button-xs-minWidth: 28px;
+  --cs-component-button-xs-min-width: var(--cs-component-button-xs-minWidth);
+  --cs-component-button-xs-minHeight-coarse: 44px;
+  --cs-component-button-xs-min-height-coarse: var(--cs-component-button-xs-minHeight-coarse);
+  --cs-component-button-sm-paddingY: 8px;
+  --cs-component-button-sm-padding-y: var(--cs-component-button-sm-paddingY);
+  --cs-component-button-sm-paddingX: 14px;
+  --cs-component-button-sm-padding-x: var(--cs-component-button-sm-paddingX);
+  --cs-component-button-sm-minHeight: 36px;
+  --cs-component-button-sm-min-height: var(--cs-component-button-sm-minHeight);
+  --cs-component-button-sm-minHeight-coarse: 44px;
+  --cs-component-button-sm-min-height-coarse: var(--cs-component-button-sm-minHeight-coarse);
+  --cs-component-button-md-paddingY: 12px;
+  --cs-component-button-md-padding-y: var(--cs-component-button-md-paddingY);
+  --cs-component-button-md-paddingX: 20px;
+  --cs-component-button-md-padding-x: var(--cs-component-button-md-paddingX);
+  --cs-component-button-md-minHeight: 44px;
+  --cs-component-button-md-min-height: var(--cs-component-button-md-minHeight);
+  --cs-component-button-md-minHeight-coarse: 44px;
+  --cs-component-button-md-min-height-coarse: var(--cs-component-button-md-minHeight-coarse);
+  --cs-component-button-lg-paddingY: 16px;
+  --cs-component-button-lg-padding-y: var(--cs-component-button-lg-paddingY);
+  --cs-component-button-lg-paddingX: 28px;
+  --cs-component-button-lg-padding-x: var(--cs-component-button-lg-paddingX);
+  --cs-component-button-lg-minHeight: 52px;
+  --cs-component-button-lg-min-height: var(--cs-component-button-lg-minHeight);
+
+  /* TextField */
+  --cs-component-textfield-border-default: #BFA58F;
+  --cs-component-textfield-paddingY: 10px;
+  --cs-component-textfield-padding-y: var(--cs-component-textfield-paddingY);
+  --cs-component-textfield-paddingX: 12px;
+  --cs-component-textfield-padding-x: var(--cs-component-textfield-paddingX);
+  --cs-component-textfield-minHeight: 44px;
+  --cs-component-textfield-min-height: var(--cs-component-textfield-minHeight);
+}
+
+/* Dark theme: CTA becomes Ochre-on-dark; field border warms up. */
+[data-theme="dark"] {
+  --cs-component-button-primary-bg: #f4ba17;
+  --cs-component-button-primary-fg: #1a1108;
+  --cs-component-textfield-border-default: #5a4636;
+}
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    --cs-component-button-primary-bg: #f4ba17;
+    --cs-component-button-primary-fg: #1a1108;
+    --cs-component-textfield-border-default: #5a4636;
+  }
+}

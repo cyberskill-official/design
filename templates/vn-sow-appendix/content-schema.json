@@ -1,0 +1,14 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "vn-sow-appendix",
+  "slots": [
+    {
+      "id": "headerReferenceSequence",
+      "type": "text",
+      "label": "Số/No. · existing placeholder sequence",
+      "maxLength": 256,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

@@ -163,6 +163,8 @@ export { TreeSelect } from "../components/forms/TreeSelect";
 export type * from "../components/forms/TreeSelect";
 export { EDITOR_SCHEMA } from "../components/forms/editor-schema";
 export type * from "../components/forms/editor-schema";
+export { LocaleProvider, useMessages } from "../components/i18n/LocaleProvider";
+export type * from "../components/i18n/LocaleProvider";
 export { Icon } from "../components/icon/Icon";
 export type * from "../components/icon/Icon";
 export declare const CS_ICONS: Readonly<Record<string, string>>;

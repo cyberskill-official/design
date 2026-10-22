@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/forms/Slider.jsx"],
+  "sourcesContent": ["import { useComposedRefs } from \"../_utils/refs.js\";\nimport React from \"react\";\nimport { makeT, useLang } from \"../_i18n/i18n.js\";\nimport { cx } from \"../_utils/cx.js\";\n\n/** CyberSkill Slider — brand-tinted native range input. Pass native props (min/max/step/value/onChange). */\n// `children` is destructured but never rendered on purpose: keeps stray children out of {...props} → void <input>.\nexport const Slider = React.forwardRef(function Slider({ className, children, lang, \"aria-label\": ariaLabel, ...props }, forwardedRef) {\n  const [ref, L, localeMessages] = useLang(lang);\n  const mergedNativeRef = useComposedRefs(ref, forwardedRef);\n  const t = makeT(\"Slider\", L, localeMessages);\n  return <input ref={mergedNativeRef} type=\"range\" className={cx(\"cs-slider\", className)} aria-label={ariaLabel ?? t(\"label\")} {...props} />;\n});\nSlider.displayName = \"Slider\";\n"],
+  "mappings": ";;;;;;;;;;;;;AACA,OAAO,WAAW;AAMX,IAAM,SAAS,MAAM,WAAW,SAASA,QAAO,EAAE,WAAW,UAAU,MAAM,cAAc,WAAW,GAAG,MAAM,GAAG,cAAc;AACrI,QAAM,CAAC,KAAK,GAAG,cAAc,IAAI,QAAQ,IAAI;AAC7C,QAAM,kBAAkB,gBAAgB,KAAK,YAAY;AACzD,QAAM,IAAI,MAAM,UAAU,GAAG,cAAc;AAC3C,SAAO,oCAAC,WAAM,KAAK,iBAAiB,MAAK,SAAQ,WAAW,GAAG,aAAa,SAAS,GAAG,cAAY,aAAa,EAAE,OAAO,GAAI,GAAG,OAAO;AAC1I,CAAC;AACD,OAAO,cAAc;",
+  "names": ["Slider"]
+}

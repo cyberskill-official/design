@@ -7,7 +7,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { validateDtcgProfile } from '../lib/dtcg-profile.mjs';
-import { srgbToRgba, assertCssProjection, valueFromCss } from '../../scripts/lib/dtcg-values.mjs';
+import { srgbToRgba, assertCssProjection, valueFromCss, nativeTokenName, assertUniqueNativeNames } from '../../scripts/lib/dtcg-values.mjs';
 
 const ROOT = new URL('../../', import.meta.url);
 const read = (p) => readFile(new URL(p, ROOT), 'utf8');
@@ -90,13 +90,13 @@ const VERSION = (await read('VERSION')).trim();
 
 // Resolve the new density projection to usable native dimensions. Existing
 // non-density CSS-string constants retain their established compatibility shape.
-function resolveTokenAlias(value, seen = new Set()) {
+function resolveTokenAlias(value, seen = new Set(), expectedType = 'dimension') {
   if (typeof value !== 'string' || !/^\{[^{}]+\}$/.test(value)) return value;
   const path = value.slice(1, -1);
   if (seen.has(path)) throw new Error(`Density alias cycle: ${path}`);
   const def = path.split('.').reduce((node, key) => node?.[key], dtcg);
-  if (!def || def.$type !== 'dimension') throw new Error(`Invalid density alias: ${path}`);
-  return resolveTokenAlias(def.$value, new Set([...seen, path]));
+  if (!def || def.$type !== expectedType) throw new Error(`Invalid density alias: ${path}`);
+  return resolveTokenAlias(def.$value, new Set([...seen, path]), expectedType);
 }
 const rootCss = Object.fromEntries(Object.entries(dtcg).filter(([g]) => !g.startsWith('$')).flatMap(([, entries]) =>
   Object.entries(entries).filter(([, d]) => d?.$value !== undefined).map(([key, d]) =>
@@ -112,7 +112,7 @@ function densityConstants(name) {
   const declarations = ext.overrides.densities?.[name] || {};
   const scope = { ...rootCss, ...declarations };
   return Object.entries(declarations).map(([css, v]) => ({css,
-    name: camel(css) + name[0].toUpperCase() + name.slice(1),
+    name: nativeTokenName(css, Object.values(dtcg).find(g=>g?.[css])?.[css]) + name[0].toUpperCase() + name.slice(1),
     value: resolveDensityCss(v, scope), type: 'dimension'}));
 }
 
@@ -126,7 +126,7 @@ for (const [g, entries] of Object.entries(dtcg)) {
     const type = def.$type || 'string';
     const metadata = def.$extensions?.['com.cyberskill'] || {};
     const cssRaw = metadata.nativeFormat === 'css' ? metadata.css : undefined;
-    base.push({ css, name: camel(css), value: g === 'density' ? resolveTokenAlias(def.$value) : def.$value, type, cssRaw, nativeFormat: metadata.nativeFormat });
+    base.push({ css, name: nativeTokenName(css,def), value: g === 'density' || metadata.nativeAliasOf ? resolveTokenAlias(def.$value,new Set(),type) : def.$value, type, cssRaw, nativeFormat: metadata.nativeFormat });
     byType[type] = (byType[type] || 0) + 1;
   }
 }
@@ -173,6 +173,8 @@ for (const [key, light] of Object.entries(ext.overrides.elements || {})) {
   }
 }
 if (Object.keys(ext.overrides.elementsDark || {}).some(key => !matchedDark.has(key))) throw Error('Unconvertible token pack: unmatched dark scope');
+
+assertUniqueNativeNames([...base,...darkOverrides,...densityCompact,...densityComfortable,...contrasts,...elementsLight,...elementsDark]);
 
 function render(list, lang) {
   const out = [];

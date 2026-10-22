@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "scope": "Shared financial document-type heading archetype only; all other EN/VI layout, grammar, content bindings and portable interpreter remain authored per template.",
+  "archetypes": {
+    "financialDocumentTitle": {
+      "fontSizePx": 26,
+      "fontWeight": 800,
+      "letterSpacingEm": "0.02",
+      "colorToken": "--cs-color-brand-umber"
+    }
+  },
+  "templates": [
+    {
+      "template": "finance-invoice",
+      "path": "templates/finance-invoice/FinanceInvoice.dc.html",
+      "archetype": "financialDocumentTitle",
+      "titles": {
+        "en": "INVOICE",
+        "vi": "HÓA ĐƠN"
+      }
+    },
+    {
+      "template": "finance-quote",
+      "path": "templates/finance-quote/FinanceQuote.dc.html",
+      "archetype": "financialDocumentTitle",
+      "titles": {
+        "en": "QUOTE",
+        "vi": "BÁO GIÁ"
+      }
+    }
+  ]
+}

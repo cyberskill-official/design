@@ -1,0 +1,23 @@
+{
+  "name": "@cyberskill/vite-consumer-example",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "use-design-tarball": "node scripts/use-design-tarball.mjs",
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "@cyberskill/design": "file:vendor/cyberskill-design-050761070d0ede96f9d3.tgz",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "vite": "8.1.6"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schemaVersion": "2.0",
+  "template": "finance-dunning-email",
+  "slots": [
+    {
+      "id": "invoiceReference",
+      "type": "text",
+      "label": "Invoice Reference",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "amountDisplayEn",
+      "type": "text",
+      "label": "Amount Display En",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "amountDisplayVi",
+      "type": "text",
+      "label": "Amount Display Vi",
+      "maxLength": 1024,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "dueDateEn",
+      "type": "text",
+      "label": "Due date en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "dueDateVi",
+      "type": "text",
+      "label": "Due date vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "overdueDisplayEn",
+      "type": "text",
+      "label": "Overdue display en",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    },
+    {
+      "id": "overdueDisplayVi",
+      "type": "text",
+      "label": "Overdue display vi",
+      "maxLength": 160,
+      "required": true,
+      "runtimeBinding": "text"
+    }
+  ]
+}

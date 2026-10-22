@@ -1,0 +1,9 @@
+# One authored source for dark palette mirrors
+
+`tokens/theme-palette-source.json` owns 31 declarations: 23 color-file entries (including `color-scheme`), three component colors and five shadows. Thirty are custom properties. Explicit dark and operating-system dark scopes retain 62 mirrored declarations across `tokens/colors.css`, `tokens/component-tokens.css` and `tokens/elevation.css`.
+
+Edit the JSON values, then run `node scripts/generate-theme-palettes.mjs` before the element/theme producers. The checker is `node scripts/generate-theme-palettes.mjs --check`. The AST projection changes only each owned declaration’s value span. It preserves selectors, media conditions, ordering, whitespace and comments. Adoption reproduces all three CSS files byte for byte; this is source ownership consolidation with no palette change. There are no new runtime imports, attributes or fetches.
+
+The exact three paths and two mirror contexts are bounded. Missing, reordered, additional or ambiguous declarations fail. Unknown paths, traversal, symlinks, invalid typed values and injected CSS fail before any mirror is written. The element resolver, theme exporter and mode capture reject stale mirrors. The authored JSON and producer identities also participate in standalone-mode source hashes. Frozen CSS snapshots and `test-theme-palette-projection.mjs` prove byte identity, failure preservation, source-hash restoration and actual canonical-value propagation into resolver channels, both JSON theme scopes and all three native dark constants. This establishes deterministic source projection; it adds no manual visual or native-platform acceptance claim.
+
+`VERSION` remains the sole release stamp authority. This palette source has a schema version, not a duplicate release date or release version. The existing public seed release field is retained as a generated projection.

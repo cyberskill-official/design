@@ -6,6 +6,7 @@ export default {
   component: FileUpload,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
     lang: { control: 'select', options: ['en', 'vi'] },
 
     title: { control: 'text' },
@@ -13,14 +14,6 @@ export default {
     accept: { control: 'text' },
     multiple: { control: 'boolean' },
     onFiles: { control: false },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting FileUpload. Portable consumers use styles.css + bundle, not Storybook. `icon` is a composition slot.',
-      },
-    },
   },
   args: { lang: 'vi', title: 'Attachments', accept: '.pdf,.png', hint: 'PDF or PNG', multiple: false },
 };

@@ -6,6 +6,11 @@ export default {
   component: NumberField,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
+  "controlProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
+  "description": {"control":"text"},
+  "error": {"control":"text"},
+  "required": {"control":"boolean"},
     label: { control: 'text' },
     value: { control: 'number' },
     min: { control: 'number' },
@@ -13,14 +18,6 @@ export default {
     step: { control: 'number' },
     disabled: { control: 'boolean' },
     lang: { control: 'text' },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Host Live CSF — Default plus honest control matrix mounting NumberField. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
   },
   args: { label: 'Quantity', min: 0, step: 1 },
 };
@@ -52,10 +49,11 @@ export const FullMatrix = {
   name: 'Full matrix / state',
   render: (args) => {
     const cells = cartesian({}).flatMap((combo) =>
-      stateCombos(['disabled']).map((state) => {
+      stateCombos(["disabled","error"]).map((state) => {
         const props = { ...combo, ...state };
-        const label = comboLabel(props, ['disabled']);
-        return <NumberField key={label} {...args} disabled={!!state.disabled} />;
+        const label = comboLabel(props, ["disabled","error"]);
+        return <NumberField key={label} {...args} disabled={!!state.disabled}  error={state.error ? "Example field error" : undefined}
+          />;
       }),
     );
     return (
@@ -65,3 +63,17 @@ export const FullMatrix = {
     );
   },
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioNumberFieldError = {
+  name: "NumberField: Validation error",
+  args: {
+  "label": "Quantity",
+  "defaultValue": 3,
+  "error": "NumberField scenario validation error"
+},
+  render: args => renderComponentScenario("NumberField--error",args),
+  play: ({canvasElement}) => playComponentScenario("NumberField--error",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

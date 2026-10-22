@@ -1,4 +1,5 @@
-import { Icon } from '../components/icon/Icon.jsx';
+import { DECLARED_DOMAINS } from './declared-domains.mjs';
+import { Icon, CS_ICONS } from '../components/icon/Icon.jsx';
 import { cartesian, comboLabel, MatrixGrid, stateCombos } from './lib/matrix.jsx';
 
 export default {
@@ -8,11 +9,7 @@ export default {
   argTypes: {
   "size": {
     "control": "select",
-    "options": [
-      "sm",
-      "md",
-      "lg"
-    ]
+    "options": DECLARED_DOMAINS.Icon["size"]
   },
   "label": {
     "control": "text"
@@ -21,16 +18,10 @@ export default {
     "control": "number"
   },
   "name": {
-    "control": "text"
+    "control": "select",
+    "options": Object.keys(CS_ICONS)
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Icon. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { name: 'sparkle', size: 'md' },
 };
 
@@ -39,10 +30,8 @@ export const Default = {};
 export const Matrix = {
   name: 'Matrix / Names',
   render: (args) => (
-    <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-      <Icon {...args} name="sparkle" />
-      <Icon {...args} name="check" />
-      <Icon {...args} name="close" />
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center' }}>
+      {Object.keys(CS_ICONS).map(name => <Icon key={name} {...args} name={name} label={name} />)}
     </div>
   ),
 };
@@ -62,7 +51,7 @@ export const AllSizes = {
 export const FullMatrix = {
   name: 'Full matrix / size',
   render: (args) => {
-    const cells = cartesian({ size: ["sm","md","lg"] }).flatMap((combo) =>
+    const cells = cartesian({ size: DECLARED_DOMAINS.Icon["size"] }).flatMap((combo) =>
       stateCombos([]).map((state) => {
         const props = { ...combo, ...state };
         const label = comboLabel(props, ['size']);

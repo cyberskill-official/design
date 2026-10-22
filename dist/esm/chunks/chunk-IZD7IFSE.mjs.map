@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/data/ScrollArea.jsx"],
+  "sourcesContent": ["import { useComposedRefs } from \"../_utils/refs.js\";\nimport React from \"react\";\nimport { cx } from \"../_utils/cx.js\";\n\n/** CyberSkill ScrollArea — focusable overflow region for dense bilingual panels. */\nexport const ScrollArea = React.forwardRef(function ScrollArea({ children, maxHeight, className, style, ...props }, forwardedRef) {\n  const mergedNativeRef = useComposedRefs(forwardedRef);\n  const max =\n    maxHeight == null\n      ? undefined\n      : typeof maxHeight === \"number\"\n        ? `${maxHeight}px`\n        : maxHeight;\n  return (\n    <div\n      className={cx(\"cs-scroll-area\", className)}\n      tabIndex={0}\n      style={{\n        ...(style || {}),\n        ...(max != null ? { maxBlockSize: max } : {}),\n      }}\n      {...props}\n     ref={mergedNativeRef} >\n      {children}\n    </div>\n  );\n});\nScrollArea.displayName = \"ScrollArea\";\n"],
+  "mappings": ";;;;;;;;;AACA,OAAO,WAAW;AAIX,IAAM,aAAa,MAAM,WAAW,SAASA,YAAW,EAAE,UAAU,WAAW,WAAW,OAAO,GAAG,MAAM,GAAG,cAAc;AAChI,QAAM,kBAAkB,gBAAgB,YAAY;AACpD,QAAM,MACJ,aAAa,OACT,SACA,OAAO,cAAc,WACnB,GAAG,SAAS,OACZ;AACR,SACE;AAAA,IAAC;AAAA;AAAA,MACC,WAAW,GAAG,kBAAkB,SAAS;AAAA,MACzC,UAAU;AAAA,MACV,OAAO;AAAA,QACL,GAAI,SAAS,CAAC;AAAA,QACd,GAAI,OAAO,OAAO,EAAE,cAAc,IAAI,IAAI,CAAC;AAAA,MAC7C;AAAA,MACC,GAAG;AAAA,MACL,KAAK;AAAA;AAAA,IACH;AAAA,EACH;AAEJ,CAAC;AACD,WAAW,cAAc;",
+  "names": ["ScrollArea"]
+}

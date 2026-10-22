@@ -13,9 +13,9 @@ const html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta n
   '<script src="/_ds_bundle.js"></script></body></html>';
 
 /** Ephemeral loopback server; no output files and no external resources. */
-export async function withBrowserFixture(run, { development = false, contextOptions = {}, browserName = 'chromium', launchOptions = {} } = {}) {
+export async function withBrowserFixture(run, { development = false, contextOptions = {}, browserName = 'chromium', launchOptions = {}, reactRuntimeRoot = root } = {}) {
   const runtime = development ? buildSync({
-    stdin: { contents: "import React from 'react'; import * as client from 'react-dom/client'; import { flushSync, createPortal } from 'react-dom'; window.React = React; window.ReactDOM = { ...client, flushSync, createPortal };", resolveDir: root },
+    stdin: { contents: "import React from 'react'; import * as client from 'react-dom/client'; import { flushSync, createPortal } from 'react-dom'; window.React = React; window.ReactDOM = { ...client, flushSync, createPortal };", resolveDir: reactRuntimeRoot },
     bundle: true, write: false, platform: 'browser', format: 'iife',
     define: { 'process.env.NODE_ENV': '"development"' },
   }).outputFiles[0].contents : null;
@@ -64,6 +64,10 @@ export async function withBrowserFixture(run, { development = false, contextOpti
         break;
       } catch (error) {
         if (attempt < 2 && /crashed|has been closed|(?:Page|Target|Browser|Context) closed|Connection closed/i.test(String(error?.message || error))) {
+          console.warn('CS_BROWSER_RETRY ' + JSON.stringify({
+            browser: browserName, failedAttempt: attempt + 1, nextAttempt: attempt + 2,
+            test: process.argv[1] || null, reason: String(error?.message || error),
+          }));
           await browser?.close().catch(() => {});
           browser = undefined;
           continue;

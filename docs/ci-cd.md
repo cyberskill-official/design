@@ -21,7 +21,7 @@
 8. **`pixel-diff`** — Playwright Chromium screenshot comparison (`_audit/ci/pixel-diff.mjs`) against the 15 curated baselines in `_audit/baselines/*.png`; uploads `pixel-baselines-linux` and `_audit/ci/pixel-diff-report.json`.
 9. **`regenerate-tokens`** (pull requests) + **`regenerate-tokens-push`** (push to `main` / schedule / manual) — path filter covers element seeds/packs (`element-seeds.json`, `elements.css`, JSON/JS/DTCG mirrors, `generate-element-packs.mjs`) plus natives / `VERSION`. Regeneration runs `npm run tokens:generate`, including the complete token exports, native copies and dependent outputs/catalog. On a **pull request** the job runs with `contents: read`, never pushes, and **exits 1** on drift: run this pipeline locally and prepare the reviewed diff (PR-required freshness). Only the push/schedule/manual twin holds `contents: write` and may auto-commit with `PUSH_TOKEN` (or `github.token`). Auto-commits **do not** use `[skip ci]` — the pushed tip re-enters the gate board (FIND-021 / TASK-IMP-008); a deterministic second pass is a no-op.
 10. **`npm-hello-smoke`** — registry consumer proof for `@cyberskill/design@$VERSION` (**fail-closed**, FIND-087): `examples/npm-hello` → registry `npm install` + `npm run smoke`. If the exact VERSION is **not** on the registry, the job **fails** (no soft-skip pack proof on `cyberskill-official/design`). Forks may opt into local-pack proof only by setting repo variable **`NPM_HELLO_ALLOW_LOCAL_PACK=true`**. Path-filtered on push/PR when `examples/npm-hello/**`, package publish surface, or this workflow changes; always on schedule / `workflow_dispatch`.
-11. **`notify-schedule-failure`** — opens or updates a `ci-failure` issue when a scheduled nightly run fails.
+11. **`notify-schedule-failure`** — emits an error annotation and exits 1 when a scheduled nightly run fails; it does not create or update an issue.
 
 Separate workflow **`native-store`** (`.github/workflows/native-store.yml`): PR + `main` (path-filtered) + `workflow_dispatch`; scaffold dry-run always; signed-release check soft-skips without `ASC_KEY_ID` / `ASC_ISSUER_ID` / `ASC_KEY_P8` / `PLAY_SERVICE_ACCOUNT_JSON`. **Never submits** to App Store / Play — samples remain samples. See `examples/native/README.md`.
 
@@ -90,3 +90,15 @@ node _audit/ci/native-store-dry-run.mjs   # without secrets → SOFT SKIP missin
 ```
 
 The complete `npm run test:unit` suite requires Chromium, Firefox and WebKit. `node _audit/ci/check-ci-browser-prerequisites.mjs` checks explicit installation commands before the CI entrypoint; `npm run test:ci-browser-prerequisites` also launches all three engines. Local YAML checks do not establish successful hosted Linux execution. Jobs that only run Chromium gates still require only Chromium.
+
+## Pinned npm before dependency caching
+
+Every `actions/setup-node` step disables both explicit npm caching and its automatic package-manager cache. The shared npm setup action first bootstraps the locked CLI, then discovers the cache path through `node scripts/npm.mjs config get cache` and restores npm downloads with the existing pinned cache action. `devEngines` and exact-version checks remain enforced. The bundled npm can bootstrap in the isolated CLI fixture; it must not run project cache discovery before the required npm version is active.
+
+## Browser-backed token capture and isolated consumers
+
+`tokens:generate` transitively runs the resolved-mode producer, which needs installed Chromium even with `--check`. Both regeneration jobs install Chromium under the same exact condition as generation; the prerequisite guard follows npm-script aliases and rejects missing, late, mismatched-condition or tolerated-failure installers. Token parity passes browser-specific launch options: the Linux shared-memory flag belongs only to Chromium, never Firefox or WebKit. The Vite consumer test invokes the project-pinned npm CLI with the invoking Node executable in both producer and separate consumer directories, so a Node-bin PATH entry cannot silently select bundled npm. Exact `devEngines`, clean locks and production interaction checks remain enforced.
+
+## Browser fixture readiness
+
+A fixture-owned React state setter commits before TreeTable relationship reads; the test still verifies row identity, focus, input values, accessibility and both behavior mutants. Floating-panel wheel tests wait for actual native scrolling to start before the existing measurement window, retaining offset, resize, keyboard-reachability and scheduling-loop assertions; a controlled delayed-offset probe checks readiness separately from trusted wheel input. Layered-CSS comparisons establish matching pointer/focus state and compare both closed and focus-open HoverCard panels across the existing modes, preserving all original comparisons and computed properties.

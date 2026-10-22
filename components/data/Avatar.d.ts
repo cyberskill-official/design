@@ -1,3 +1,4 @@
+import type { RootTargetProps } from "../_utils/target-props";
 import type * as React from "react";
 import type { ReactNode } from "react";
 
@@ -12,7 +13,9 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLSpanElement> {
   size?: "sm" | "md" | "lg";
   square?: boolean;
 }
-export function Avatar(props: AvatarProps): React.ReactElement;
+export const Avatar: React.ForwardRefExoticComponent<React.PropsWithoutRef<AvatarProps> & React.RefAttributes<HTMLSpanElement>>;
 
-export interface AvatarGroupProps { className?: string; children?: ReactNode; }
-export function AvatarGroup(props: AvatarGroupProps): React.ReactElement;
+export interface AvatarGroupProps {
+  /** Attributes for the existing div root. Owned semantics/state stay controlled; internal handlers run first. */
+  rootProps?: RootTargetProps<HTMLDivElement>; className?: string; children?: ReactNode; }
+export const AvatarGroup: React.ForwardRefExoticComponent<React.PropsWithoutRef<AvatarGroupProps> & React.RefAttributes<HTMLDivElement>>;

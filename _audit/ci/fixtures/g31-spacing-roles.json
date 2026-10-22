@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "scope": "Exact base spacing references only; no density expansion, rounding, new token API or min-size change",
+  "source": "base/controls.css",
+  "baseline": "_audit/ci/fixtures/g31-controls-before.css",
+  "baselineSha256": "7b44cec43ba5bacec34bdc972aa9e4a16aa36fae40182776096e998773f1a27d",
+  "roles": [
+    {
+      "role": "search-content-gap",
+      "selector": ".cs-search",
+      "property": "gap",
+      "before": "8px",
+      "after": "var(--cs-space-2)"
+    },
+    {
+      "role": "combobox-leading-padding",
+      "selector": ".cs-combobox input",
+      "property": "padding",
+      "before": "10px 34px 10px 12px",
+      "after": "10px 34px 10px var(--cs-space-3)"
+    },
+    {
+      "role": "tag-container-inline-padding",
+      "selector": ".cs-taginput",
+      "property": "padding",
+      "before": "6px 8px",
+      "after": "6px var(--cs-space-2)"
+    },
+    {
+      "role": "tag-draft-inline-padding",
+      "selector": ".cs-taginput > input",
+      "property": "padding",
+      "before": "6px 4px",
+      "after": "6px var(--cs-space-1)"
+    },
+    {
+      "role": "calendar-container-padding",
+      "selector": ".cs-cal",
+      "property": "padding",
+      "before": "12px",
+      "after": "var(--cs-space-3)"
+    },
+    {
+      "role": "date-content-gap",
+      "selector": ".cs-datepicker__field",
+      "property": "gap",
+      "before": "8px",
+      "after": "var(--cs-space-2)"
+    },
+    {
+      "role": "date-control-padding",
+      "selector": ".cs-datepicker__field",
+      "property": "padding",
+      "before": "8px 12px",
+      "after": "var(--cs-space-2) var(--cs-space-3)"
+    },
+    {
+      "role": "form-field-stack-gap",
+      "selector": ".cs-form",
+      "property": "gap",
+      "before": "16px",
+      "after": "var(--cs-space-4)"
+    },
+    {
+      "role": "form-summary-block-padding",
+      "selector": ".cs-form__summary",
+      "property": "padding",
+      "before": "12px 14px",
+      "after": "var(--cs-space-3) 14px"
+    }
+  ]
+}

@@ -8,4 +8,4 @@ export interface StatusIndicatorProps extends React.HTMLAttributes<HTMLSpanEleme
   pulse?: boolean;
   children?: ReactNode;
 }
-export function StatusIndicator(props: StatusIndicatorProps): React.ReactElement;
+export const StatusIndicator: React.ForwardRefExoticComponent<React.PropsWithoutRef<StatusIndicatorProps> & React.RefAttributes<HTMLSpanElement>>;

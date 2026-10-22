@@ -1,0 +1,31 @@
+# CyberSkill Design System
+
+This Storybook is the **product surface** at `design.cyberskill.world` (`/`). Use the sidebar for Docs, Foundations, Components, **Templates**, **Pages**, Release Notes, and Status. Toolbar globals match production: **Theme × Element × Language × Style**.
+
+## Who this is for
+
+Operators and maintainers exploring the system live. **Product apps never depend on Storybook** — they link `styles.css` plus `_ds_bundle.js`, the compiled package default ESM entry (with an explicit source entry), or legacy `_esm/cs.mjs`. Portable Atomic View stays at `guidelines/atomic-view.html` (public under **Templates → Gallery**; also under **Maintainer** for gates).
+
+## Sidebar
+
+| Group | What you get |
+|---|---|
+| **Docs** | Public guides — consuming, deploy, conventions, styles, products, schema, Figma, contrast, voice, axes |
+| **Foundations** | Colors, typography, spacing, elevation, motion, elements |
+| **Components** | Full CSF library with Default + control matrices |
+| **Templates** | All starting points in the [current template inventory](reference-catalog.json) (Atomic gallery + categories, including HR Suite `vn-*`) |
+| **Pages** | UI kits — Status Hub, Marketing site, Slide deck |
+| **Release Notes** | Curated product prose (not a git dump; **no CHANGELOG.md**) |
+| **Status** | Gate board (`_audit/run.html`) embedded full-bleed |
+| **A11y / I18n** | Accessibility specimens and bilingual pairs |
+| **Maintainer** | Portable HTML surfaces for gates and demos |
+
+## Start here
+
+1. **Docs → Consuming** — adopt via stylesheet, bundle, or ESM
+2. **Foundations → Elements** — Ngũ Hành identity packs
+3. **Components** — pick a primary and open its matrix
+4. **Templates → Gallery** — Atomic View Templates tier (or **Templates → HR** for the Employment Suite)
+5. **Status** — run the fast gate board (auto-runs on first load; **Re-run** on demand)
+
+The current version is recorded in [VERSION](../VERSION). Release preparation is an explicit manual action; publication requires separate authorization. Continuity is git history plus curated Release Notes — never a `CHANGELOG.md` file.

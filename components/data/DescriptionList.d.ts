@@ -7,4 +7,4 @@ export interface DescriptionItem { term: ReactNode; value: ReactNode; }
 export interface DescriptionListProps extends React.HTMLAttributes<HTMLDListElement> {
   items: DescriptionItem[];
 }
-export function DescriptionList(props: DescriptionListProps): React.ReactElement;
+export const DescriptionList: React.ForwardRefExoticComponent<React.PropsWithoutRef<DescriptionListProps> & React.RefAttributes<HTMLDListElement>>;

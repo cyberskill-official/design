@@ -5,6 +5,7 @@ export default {
   component: Tour,
   tags: ['autodocs'],
   argTypes: {
+  "rootProps": {"control":"object","description":"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.","table":{"category":"DOM targets"}},
   "steps": {
     "control": "object"
   },
@@ -15,13 +16,6 @@ export default {
     "control": "text"
   }
 },
-  parameters: {
-    docs: {
-      description: {
-        component: 'Host Live CSF — Default plus honest control matrix mounting Tour. Portable consumers use styles.css + bundle, not Storybook.',
-      },
-    },
-  },
   args: { steps: [{ title: 'Welcome', content: 'Host Live hub.' }, { title: 'Axes', content: 'Theme × Element × Language × Style.' }], open: true },
 };
 

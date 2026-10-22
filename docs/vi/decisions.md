@@ -2,6 +2,23 @@
 
 Các lựa chọn của owner định hình CI, đồng bộ Figma, và phân phối. How-to nằm ở `docs/figma.md` và `docs/ci-cd.md` — file này chỉ là biên bản quyết định. Không phải hướng dẫn consumer. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
+Số quyết định lịch sử là định danh ổn định; giữ khoảng trống để bảo toàn trích dẫn cũ. Danh sách task maintainer là chuỗi lịch sử riêng, không phải ID quyết định. Quyết định được chấp nhận và bằng chứng chấp nhận còn thiếu là hai trạng thái riêng.
+
+## Hợp đồng hiện tại và hồ sơ lịch sử
+
+Các mục có số bên dưới giữ quyết định có ngày và ID trích dẫn ổn định; đường dẫn, phiên bản và ghi chú hoàn thành trong lịch sử không phải bằng chứng kiểm tra hiện tại. Để xác định hành vi hiện tại, đọc các nguồn sở hữu hợp đồng dưới đây. Quyết định cũ không thay thế hợp đồng được duyệt sau đó.
+
+| Chủ đề | Nguồn hiện tại |
+|---|---|
+| Entry package và tương thích React | `docs/vi/component-api.md`, `docs/vi/consuming.md`, `package.json` |
+| Versioning, thay đổi phá vỡ và thông báo deprecation | `components/release-compatibility.json`, `docs/vi/component-api.md` |
+| Phạm vi phiên bản bảo mật và mục tiêu xác nhận | `SECURITY.md` |
+| Chấp nhận hỗ trợ và phê duyệt được lưu | `components/lifecycle.json`, `docs/vi/conventions.md` |
+| Chuẩn bị phát hành và ủy quyền riêng | `docs/vi/release-notes.md`, `.github/workflows/release.yml` |
+| Kiểm tra và disposition hiện tại | `_audit/remediation/assessment-remediation.md`, `test-results/final-validation.json` |
+
+Release notes đã phát hành vẫn là hồ sơ lịch sử. Build cục bộ, candidate đã chuẩn bị, hồ sơ hỗ trợ đã duyệt và bản phát hành công khai là các trạng thái riêng biệt.
+
 ## 1. Whole-set audits trên mọi PR
 
 **Lựa chọn owner: B — Bật trên mọi PR** (Th7 2026)

@@ -64,7 +64,7 @@ function covered(title, set){
   }
   const viewerR=await fetchRaw('docs/viewer.html');
   if(!viewerR.ok) throw new Error('viewer '+viewerR.err);
-  const viewerSet=new Set([...(viewerR.text.matchAll(/\['([^']+\.(?:md|txt))'/g)||[])].map(m=>m[1]));
+  const viewerSet=new Set([...(viewerR.text.matchAll(/\[(["'])([^"']+\.(?:md|txt))\1/g)||[])].map(m=>m[2]));
   for(const path of catalogPaths){
     if(!viewerSet.has(path)) problems.push('viewer nav missing '+path);
   }
