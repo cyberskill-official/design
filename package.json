@@ -596,7 +596,7 @@
     "caniuse-lite": "1.0.30001816",
     "css-tree": "3.2.1",
     "esbuild": "^0.28.1",
-    "magic-string": "0.30.21",
+    "magic-string": "1.4.3",
     "parse5": "8.0.1",
     "playwright": "^1.62.0",
     "postcss": "8.5.28",
