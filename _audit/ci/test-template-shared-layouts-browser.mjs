@@ -69,7 +69,7 @@ await withBrowserFixture(async page => {
   let currentEntry;
   const open = async (url, language) => {
     await page.goto(url);
-    await page.waitForFunction(() => window.__dcRootName?.() && document.querySelector('[data-sc-name]'));
+    await page.waitForFunction(() => window.__dcRootName?.() && document.querySelector('[data-sc-name]') && window.__csContentReady !== false);
     await page.evaluate(language => __dcSetProps(__dcRootName(), {
       language
     }), language);
@@ -192,6 +192,7 @@ await withBrowserFixture(async page => {
     const actualResponse = await page.goto(url);
     assert.equal(actualResponse.status(), 200);
     assert.equal(await actualResponse.text(), raw, 'Real HTTP source bytes match the current authored template');
+    await page.waitForFunction(() => window.__dcRootName?.() && document.querySelector('[data-sc-name]') && window.__csContentReady !== false);
     for (const language of languages(raw)) {
       console.log('VIEW ' + entry.template + ' ' + language);
       await page.route(url, route => route.fulfill({

@@ -24,7 +24,7 @@ concurrency:
 jobs:
   prepare:
     runs-on: ubuntu-24.04
-    timeout-minutes: 180
+    timeout-minutes: 360
     env:
       RELEASE_VERSION: ${{ inputs.version }}
       SOURCE_SHA: ${{ inputs.source_sha }}

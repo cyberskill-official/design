@@ -54,10 +54,10 @@ await withBrowserFixture(async page=>{
    drawFloating();
   },{name,fixture,nested,portal});
   const trigger=page.locator(triggerSelector).first();
-  if(name==='Tooltip'){
-   // This matrix opens Tooltip by native focus. A pointer left over the prior
+  if(name==='Tooltip'||name==='HoverCard'){
+   // This matrix opens Tooltip/HoverCard by native focus. A pointer left over the prior
    // fixture can create a separate hover entry when its geometry changes.
-   await page.mouse.move(0,0);assert.equal(await trigger.evaluate(el=>el.matches(':hover')),false,'focus-mode Tooltip has no incidental hover owner');
+   await page.mouse.move(0,0);assert.equal(await trigger.evaluate(el=>el.matches(':hover')),false,name+' focus-mode has no incidental hover owner');
   }
   await trigger.focus();
   if(action==='click')await trigger.click();
