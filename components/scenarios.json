@@ -240,7 +240,7 @@
     "scripts/fixtures/static-html-reference.json": "7077fab3557aebc62ebf2a60858ea7f37f8231870d68bde99eeb4ae885417fa2",
     "scripts/generate-component-scenario-stories.mjs": "0642cec25308d4b8c9aa16052290a6d67648d686ebddd0d36ba03943ea2aa6c8",
     "scripts/generate-component-scenarios.mjs": "d5c2106a7dbadec145bcfa2afb310ca8cc4b07f42276392f8ecc9521e4c81ab7",
-    "scripts/generate-static-html-reference.mjs": "be2b4584e2da894282e9a4885b5763b98b859edbb0aec7e52e587b8c35a3cf01",
+    "scripts/generate-static-html-reference.mjs": "d70780e434804d23f3dd112ff0833d72fa7bb004c43001baa6a302966ea97b50",
     "scripts/lib/component-scenario-browser.mjs": "5035f6fff0cece0a42e4308cef9eb378d6de457e7c0f73c0745596165d51a181",
     "scripts/lib/component-scenarios.mjs": "e9bcb709cfbe612796873f561b64dcf3c36354293f02f5a74780f67638c9963b",
     "stories/_scenarios/renderer.jsx": "6128b6a2249da0649858233f5a6535cdd89b01d373a73dcf4a93c748c9770430"

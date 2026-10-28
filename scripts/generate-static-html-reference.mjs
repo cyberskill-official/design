@@ -138,8 +138,7 @@ export async function captureReference({browserName='chromium'}={}){
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)){
  const reference=await captureReference();const next=JSON.stringify(reference,null,2)+'\n';const markdown=referenceMarkdown(reference);
- if(process.argv.includes('--check')){
-  const recorded=JSON.parse(read('components/static-html-reference.json'));
+ const checkFresh=recorded=>{
   assert.deepEqual(recorded.inputs,reference.inputs,'Static reference inputs/source inventory stale');
   assert.deepEqual(recorded.kitchenSink,reference.kitchenSink,'Kitchen-sink specimen source/census stale');
   assert.equal(recorded.components.length,reference.components.length);
@@ -149,7 +148,13 @@ if(process.argv[1]===fileURLToPath(import.meta.url)){
   }
   assert.equal(read('docs/static-html-reference.md'),referenceMarkdown(recorded),'Human reference stale relative to checked JSON');
   assert.equal(read('docs/vi/static-html-reference.md'),referenceMarkdownVi(recorded),'Vietnamese reference stale relative to checked JSON');
+ };
+ if(process.argv.includes('--check')){
+  checkFresh(JSON.parse(read('components/static-html-reference.json')));
  }
- else{writeFileSync(new URL('components/static-html-reference.json',root),next);writeFileSync(new URL('docs/static-html-reference.md',root),markdown);writeFileSync(new URL('docs/vi/static-html-reference.md',root),referenceMarkdownVi(reference))}
+ else{
+  let fresh=false;try{checkFresh(JSON.parse(read('components/static-html-reference.json')));fresh=true}catch{}
+  if(!fresh){writeFileSync(new URL('components/static-html-reference.json',root),next);writeFileSync(new URL('docs/static-html-reference.md',root),markdown);writeFileSync(new URL('docs/vi/static-html-reference.md',root),referenceMarkdownVi(reference))}
+ }
  console.log('PASS rendered static HTML reference '+reference.components.length+' exports; interactive behavior and human acceptance are separate');
 }

@@ -1077,7 +1077,7 @@
       "path": "docs/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "0d6e2ac5391a209b8bbb6b033d028a17c5c15b1169d2c1dd4b0038369daf0670"
+      "sha256": "c4743af374d66a6125c36e544e82e7ea10b3fa01d6928850e691b93bb651f3bd"
     },
     {
       "path": "docs/storybook.md",
@@ -1353,7 +1353,7 @@
       "path": "docs/vi/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "5c729ffac0e8521fb15529c62c65c911e6391f60c9b622d2262564f15640c791"
+      "sha256": "73784c9afc677c5486cb763409f75567f93e4a8d8b5448ecb24b8209ec0ebc03"
     },
     {
       "path": "docs/vi/storybook.md",

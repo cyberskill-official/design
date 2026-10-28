@@ -49,6 +49,7 @@ storybook-static/
 .storybook-public/
 .vercel-static/
 _audit/ci/import-report.txt
+_audit/ci/import-report.json
 _audit/ci/figma-push-report.json
 _audit/ci/pixel-diff-report.json
 _audit/ci/native-store-report.json
