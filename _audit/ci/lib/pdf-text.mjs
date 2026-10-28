@@ -19,7 +19,7 @@ export function extractPdfText(bytes, {python=process.env.CS_PDF_PYTHON||'python
     }
     let parsed;
     try { parsed=JSON.parse(result.stdout); } catch(error) { throw new Error('PDF text extraction returned malformed JSON',{cause:error}); }
-    if(parsed?.parser!=='pypdf'||parsed.version!=='6.21.1'||!Number.isSafeInteger(parsed.pages)||parsed.pages<1||typeof parsed.text!=='string') throw new Error('PDF text extraction returned invalid parser metadata or page/text results');
+    if(parsed?.parser!=='pypdf'||parsed.version!=='6.21.4'||!Number.isSafeInteger(parsed.pages)||parsed.pages<1||typeof parsed.text!=='string') throw new Error('PDF text extraction returned invalid parser metadata or page/text results');
     return parsed;
   } finally { rmSync(directory,{recursive:true,force:true}); }
 }

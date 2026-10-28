@@ -78,7 +78,7 @@ only for HTML element content, never URL, attribute, CSS or script contexts.
 
 **New element variant** — stay inside the element's oklch envelope; set the 10 `--cs-accent-*` contract tokens (incl. `--cs-accent-on-strong` ≥4.5:1 and body APCA75 on `-strong`) plus `--cs-color-text-accent`/`--cs-color-link` (APCA-check both); the aurora wash inherits from the element via `.cs-aurora-wash` (override the class rule only if the variant truly needs its own image); gradient partner (`grad-b`) must follow Tương sinh.
 
-**Ship check** — follow the portable verification gate in `docs/doctrine.md`, then run `_audit/docs-consistency.html` **and** `_audit/namespace-portability.html` (both must be green). source checkout VERSION **<!-- cs-source-version:checkout -->1.7.2<!-- /cs-source-version -->**.
+**Ship check** — follow the portable verification gate in `docs/doctrine.md`, then run `_audit/docs-consistency.html` **and** `_audit/namespace-portability.html` (both must be green). source checkout VERSION **<!-- cs-source-version:checkout -->2.0.0<!-- /cs-source-version -->**.
 
 ## Decision log (owner-approved)
 

@@ -79,7 +79,7 @@ phần tử HTML, không dùng trong URL, thuộc tính, CSS hay script.
 
 **Element variant mới** — ở trong envelope oklch của element; đặt 10 token hợp đồng `--cs-accent-*` (gồm `--cs-accent-on-strong` ≥4.5:1 và APCA75 cho nội dung thường trên `-strong`) cộng `--cs-color-text-accent`/`--cs-color-link` (APCA-check cả hai); aurora wash kế thừa từ element qua `.cs-aurora-wash` (chỉ override class rule nếu variant thật sự cần ảnh riêng); đối tác gradient (`grad-b`) phải theo Tương sinh.
 
-**Ship check** — theo gate kiểm chứng portable trong `docs/doctrine.md`, rồi chạy `_audit/docs-consistency.html` **và** `_audit/namespace-portability.html` (cả hai phải xanh). VERSION của checkout nguồn **<!-- cs-source-version:checkout -->1.7.2<!-- /cs-source-version -->**.
+**Ship check** — theo gate kiểm chứng portable trong `docs/doctrine.md`, rồi chạy `_audit/docs-consistency.html` **và** `_audit/namespace-portability.html` (cả hai phải xanh). VERSION của checkout nguồn **<!-- cs-source-version:checkout -->2.0.0<!-- /cs-source-version -->**.
 
 ## Decision log (owner duyệt)
 

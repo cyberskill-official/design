@@ -1,6 +1,6 @@
 # Ghi chú phát hành
 
-Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. VERSION của checkout nguồn **<!-- cs-source-version:checkout -->1.7.2<!-- /cs-source-version -->** là phiên bản trong repository. Trang này cung cấp nội dung Storybook **Release Notes**; sửa cục bộ chưa xác nhận nội dung đang triển khai tại `design.cyberskill.world`.
+Điểm nổi bật sản phẩm cho operator — **không** phải git log và **không** phải `CHANGELOG.md`. Hệ thống thiết kế không maintain file changelog. VERSION của checkout nguồn **<!-- cs-source-version:checkout -->2.0.0<!-- /cs-source-version -->** là phiên bản trong repository. Trang này cung cấp nội dung Storybook **Release Notes**; sửa cục bộ chưa xác nhận nội dung đang triển khai tại `design.cyberskill.world`.
 
 ## Bản sửa đổi chưa phát hành — đã triển khai cục bộ, chờ nghiệm thu
 

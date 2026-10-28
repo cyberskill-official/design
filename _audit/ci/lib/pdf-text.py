@@ -6,7 +6,7 @@ try:
 except ImportError as error:
     raise SystemExit("Install hash-pinned _audit/ci/requirements-pdf.txt in an isolated venv and set CS_PDF_PYTHON") from error
 
-if pypdf.__version__ != "6.21.1":
+if pypdf.__version__ != "6.21.4":
     raise RuntimeError("Install the hash-pinned _audit/ci/requirements-pdf.txt in an isolated environment")
 if len(sys.argv) != 2:
     raise SystemExit("Usage: pdf-text.py PDF_FILE")

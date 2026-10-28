@@ -1,6 +1,6 @@
 # Release Notes
 
-Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. source checkout VERSION **<!-- cs-source-version:checkout -->1.7.2<!-- /cs-source-version -->** identifies the repository version. This page supplies Storybook **Release Notes**; local edits do not establish what is deployed at `design.cyberskill.world`.
+Curated product highlights for operators. This is **not** a git log and **not** a `CHANGELOG.md` — the design system does not maintain a changelog file. source checkout VERSION **<!-- cs-source-version:checkout -->2.0.0<!-- /cs-source-version -->** identifies the repository version. This page supplies Storybook **Release Notes**; local edits do not establish what is deployed at `design.cyberskill.world`.
 
 ## Unreleased revision — local implementation, acceptance pending
 

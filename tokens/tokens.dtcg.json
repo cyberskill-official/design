@@ -3,7 +3,7 @@
   "$extensions": {
     "com.cyberskill": {
       "system": "CyberSkill Design System",
-      "version": "1.7.2",
+      "version": "2.0.0",
       "generated": "2026-07-23",
       "source": "tokens/tokens.json",
       "note": "CSS remains authoritative. Scope maps are CSS-valued vendor extensions; use the CyberSkill adapter. Relative em numbers retain relativeUnit; cssScale converts percentage ratios. nativeFormat preserves established native representation.",

@@ -1,6 +1,6 @@
 # Tiêu thụ & nâng cấp CyberSkill Design System
 
-**Checkout nguồn:** VERSION **<!-- cs-source-version:checkout -->1.7.2<!-- /cs-source-version -->** là định danh nguồn cục bộ, không xác nhận phiên bản có trên registry. Với bản ứng viên chưa công bố, kiểm chứng tarball gói cục bộ hoặc checkout nguồn đã rà soát. Lệnh registry và inventory sibling bên dưới chỉ bản ổn định 1.7.2 đã công bố, không tự đổi khi chuẩn bị bản phát hành. Chuẩn bị không cấp quyền công bố.
+**Checkout nguồn:** VERSION **<!-- cs-source-version:checkout -->2.0.0<!-- /cs-source-version -->** là định danh nguồn cục bộ, không xác nhận phiên bản có trên registry. Với bản ứng viên chưa công bố, kiểm chứng tarball gói cục bộ hoặc checkout nguồn đã rà soát. Lệnh registry và inventory sibling bên dưới chỉ bản ổn định 1.7.2 đã công bố, không tự đổi khi chuẩn bị bản phát hành. Chuẩn bị không cấp quyền công bố.
 
 Cách mọi project — do người hoặc agent điều khiển — áp dụng design system HTML-first này, và cách nhận update an toàn. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 

@@ -1,6 +1,6 @@
 # Báo cáo contrast — cặp elemental (APCA)
 
-Tạo · quét tại VERSION 1.7.2.
+Tạo · quét tại VERSION 2.0.0.
 
 Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
