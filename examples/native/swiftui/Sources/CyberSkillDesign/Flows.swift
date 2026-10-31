@@ -53,6 +53,7 @@ public enum CSMentionModel {
     return Array(users.filter { $0.lowercased().contains(query) }.prefix(6))
   }
   public static func dismissOutside(open: Bool, inside: Bool) -> Bool { open && !inside }
+  public static func clearOnBlur(relatedInside: Bool) -> Bool { !relatedInside }
   public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double) -> CSMentionPlace? {
     guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: "bottom-start", gap: 0) else { return nil }
     guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: 0) else { return nil }
@@ -238,6 +239,11 @@ public struct CSMentionPlace: Equatable {
   }
 }
 
+private enum CSMentionFocus: Hashable {
+  case field
+  case option(Int)
+}
+
 public struct CSMentions: View {
   public let ariaLabel: String?
   public let placeholder: String?
@@ -250,7 +256,7 @@ public struct CSMentions: View {
   let onChange: (String) -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
   @State private var focusId = UUID().uuidString
-  @FocusState private var focused: Bool
+  @FocusState private var mentionFocus: CSMentionFocus?
   @State private var active = 0
   @State private var dismissed = false
   @State private var anchor = CGRect.zero
@@ -282,21 +288,22 @@ public struct CSMentions: View {
     let current = CSMentionModel.active(active, count: found.count)
     VStack(alignment: .leading) {
       TextField("", text: Binding(get: { text }, set: { next in
-        CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
+        CSFocusRegistry.shared.claim(id: focusId, restore: { mentionFocus = .field })
         dismissed = false
         active = 0
         onChange(next)
       }), prompt: Text(hint), axis: .vertical)
         .lineLimit(3...3)
-        .focused($focused)
+        .focused($mentionFocus, equals: .field)
         .accessibilityLabel(spoken)
         .onSubmit {
           guard current < found.count else { return }
           onChange(CSMentionModel.pick(text: text, caret: text.count, user: found[current]))
           dismissed = true
         }
-        .onChange(of: focused) { isFocused in
-          if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
+        .onChange(of: mentionFocus) { next in
+          if next == .field { CSFocusRegistry.shared.claim(id: focusId, restore: { mentionFocus = .field }) }
+          if CSMentionModel.clearOnBlur(relatedInside: next != nil) { dismissed = true }
         }
         .csRovingKeys { key in
           guard !found.isEmpty else { return false }
@@ -330,6 +337,7 @@ public struct CSMentions: View {
               onChange(CSMentionModel.pick(text: text, caret: text.count, user: user))
               dismissed = true
             }
+            .focused($mentionFocus, equals: .option(index))
             .frame(minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
             .accessibilityAddTraits(index == current ? .isSelected : [])
           }

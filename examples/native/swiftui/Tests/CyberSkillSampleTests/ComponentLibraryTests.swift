@@ -1185,6 +1185,8 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertTrue(CSMentionModel.dismissOutside(open: true, inside: false))
     XCTAssertFalse(CSMentionModel.dismissOutside(open: true, inside: true))
     XCTAssertFalse(CSMentionModel.dismissOutside(open: false, inside: false))
+    XCTAssertTrue(CSMentionModel.clearOnBlur(relatedInside: false))
+    XCTAssertFalse(CSMentionModel.clearOnBlur(relatedInside: true))
     let mentionAnchor = CSFloatingRect(left: 10, top: 300, right: 110, bottom: 340, width: 100, height: 40)
     let mentionViewport = CSFloatingRect(left: 0, top: 0, right: 400, bottom: 400, width: 0, height: 0)
     let mentionBelow = CSMentionModel.shift(anchor: mentionAnchor, naturalWidth: 80, naturalHeight: 20, fittedWidth: 80, fittedHeight: 20, viewport: mentionViewport, originX: 10, originY: 340, scaleX: 1, scaleY: 1)

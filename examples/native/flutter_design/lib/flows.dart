@@ -131,6 +131,7 @@ String csMentionPlaceholderText(String? text, String fallback) => text ?? fallba
 String csMentionName(String? ariaLabel, String placeholder) => ariaLabel != null && ariaLabel.isNotEmpty ? ariaLabel : placeholder;
 String csMentionOption(String user) => '@$user';
 bool csMentionDismissOutside(bool open, bool inside) => open && !inside;
+bool csMentionClearOnBlur(bool relatedInside) => !relatedInside;
 class CsMentionPlace {
   const CsMentionPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
   final double x;
@@ -166,6 +167,7 @@ class CsMentions extends StatefulWidget {
 
 class _CsMentionsState extends State<CsMentions> {
   var dismissed = false;
+  FocusNode? fieldNode;
   final fieldKey = GlobalKey();
   final listKey = GlobalKey();
   CsMentionPlace? place;
@@ -195,6 +197,30 @@ class _CsMentionsState extends State<CsMentions> {
     setState(() => place = next);
   }
 
+  bool relatedInsideList() {
+    final focusObject = FocusManager.instance.primaryFocus?.context?.findRenderObject();
+    final listObject = listKey.currentContext?.findRenderObject();
+    if (focusObject == null || listObject == null) return false;
+    RenderObject? current = focusObject;
+    while (current != null) {
+      if (identical(current, listObject)) return true;
+      current = current.parent;
+    }
+    return false;
+  }
+
+  void onFieldBlur() {
+    final node = fieldNode;
+    if (node == null || node.hasFocus || !mounted) return;
+    if (csMentionClearOnBlur(relatedInsideList())) setState(() => dismissed = true);
+  }
+
+  @override
+  void dispose() {
+    fieldNode?.removeListener(onFieldBlur);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
@@ -204,7 +230,14 @@ class _CsMentionsState extends State<CsMentions> {
     return TapRegion(
       onTapOutside: hits.isNotEmpty && csMentionDismissOutside(true, false) ? (_) { setState(() => dismissed = true); } : null,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        CsOwnFocus(builder: (node, claim) => Semantics(textField: true, label: spoken, child: TextField(key: fieldKey, focusNode: node, controller: TextEditingController(text: widget.text), minLines: 3, maxLines: 3, decoration: InputDecoration(hintText: hint.isEmpty ? null : hint), onChanged: (next) { claim(); setState(() => dismissed = false); widget.onChange(next); }))),
+        CsOwnFocus(builder: (node, claim) {
+          if (fieldNode != node) {
+            fieldNode?.removeListener(onFieldBlur);
+            fieldNode = node;
+            node.addListener(onFieldBlur);
+          }
+          return Semantics(textField: true, label: spoken, child: TextField(key: fieldKey, focusNode: node, controller: TextEditingController(text: widget.text), minLines: 3, maxLines: 3, decoration: InputDecoration(hintText: hint.isEmpty ? null : hint), onChanged: (next) { claim(); setState(() => dismissed = false); widget.onChange(next); }));
+        }),
         if (hits.isNotEmpty) Transform.translate(offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Column(key: listKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
           for (final user in hits) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onChange(csMentionPick(widget.text, widget.text.length, user)); setState(() => dismissed = true); }, child: Text(csMentionOption(user)))),
         ])),

@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the splitter drag checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the mentions blur checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `e1e24159aefa25698161d88b5af4b31f9b17e4fd`, with the hash note in `ca65a6e3`
-- Checkpoint commit hash: `18963b34cfa1ec393c32b1e5b369e1371d4f5914`
+- Previous checkpoint: `18963b34cfa1ec393c32b1e5b369e1371d4f5914`, with the hash note in `819860c4`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `splitter drag, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `mention blur, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,16 +54,16 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The splitter now follows the pointer, not only the arrow keys. `components/data/Splitter.jsx` adds `(clientX - grabX) / (wrap width - handle width) * 100` to the percent at pointer down. Right-to-left reverses that distance. A non-primary button does not start a drag. A later event from another pointer does not move it. When the available width is not positive, the percent stays. The result is still clamped from 20 to 80.
+The mentions query now clears on blur, the way `components/forms/Mentions.jsx` does. The root blur handler calls `setQ(null)` when the next focus is not inside the floating list. Focus that moves onto a suggestion keeps the query. Escape and an outside click still hide the suggestions. The next edit shows them again.
 
-- A 200-point available width and a 50-point move changes 50 to 75. The same move in right-to-left changes 50 to 25. A move past the end stops at 80.
-- Swift uses a global drag so the handle can move without changing the measured distance. Arrow keys still nudge by 2.
-- Compose and Flutter call `csSplitterDrag` from a pointer drag. They were not compiled.
-- Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
+- Swift treats focus on the field or a suggestion as inside. Focus that leaves both clears the query.
+- Compose clears when the text field loses focus, because its suggestion popup does not take focus.
+- Flutter clears when the field node blurs and the next focus is not inside the list.
+- Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed. Compose and Flutter were not compiled.
 
 ## Next concrete step
 
-Clear the mentions query on blur, the way the web field does. Re-read `components/forms/Mentions.jsx` before editing. Do not invent a string.
+Add the tour backdrop and focus trap. Re-read `components/overlays/Tour.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

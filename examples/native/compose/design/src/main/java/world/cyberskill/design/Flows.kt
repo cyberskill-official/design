@@ -74,6 +74,7 @@ fun csMentionQuery(text: String, caret: Int): String? {
 }
 
 fun csMentionDismissOutside(open: Boolean, inside: Boolean) = open && !inside
+fun csMentionClearOnBlur(relatedInside: Boolean) = !relatedInside
 data class CsMentionPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
 fun csMentionShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double): CsMentionPlace? {
   val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, "bottom-start", 0.0) ?: return null
@@ -180,7 +181,10 @@ fun CsMentions(text: String, users: List<String>, onChange: (String) -> Unit, da
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
     }) {
       if (text.isEmpty() && hint.isNotEmpty()) Text(hint, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
-      androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); dismissed = false; onChange(next) }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = spoken }, textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()))
+      androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); dismissed = false; onChange(next) }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged {
+        if (it.isFocused) handle.claim()
+        else if (csMentionClearOnBlur(false)) dismissed = true
+      }.semantics { contentDescription = spoken }, textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()))
     }
     if (hits.isNotEmpty()) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csMentionDismissOutside(true, false)) dismissed = true }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) {
       Column(Modifier.onGloballyPositioned {
