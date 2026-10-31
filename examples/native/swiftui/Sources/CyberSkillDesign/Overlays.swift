@@ -575,6 +575,29 @@ public enum CSAIDisclosureModel {
   }
   public static func controls(open: Bool, id: String) -> String? { open ? id : nil }
   public static func toggle(open: Bool) -> Bool { !open }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String) -> CSAIDisclosurePlace? {
+    let space = Double(gap)
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: placement, gap: space) else { return nil }
+    guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: space) else { return nil }
+    let sx = scaleX == 0 ? 1 : scaleX
+    let sy = scaleY == 0 ? 1 : scaleY
+    return CSAIDisclosurePlace(x: (placed.left - originX) / sx, y: (placed.top - originY) / sy, maxWidth: initial.maxWidth, maxHeight: initial.maxHeight, placement: placed.placement)
+  }
+}
+
+public struct CSAIDisclosurePlace: Equatable {
+  public var x: Double
+  public var y: Double
+  public var maxWidth: Double
+  public var maxHeight: Double
+  public var placement: String
+  public init(x: Double, y: Double, maxWidth: Double, maxHeight: Double, placement: String) {
+    self.x = x
+    self.y = y
+    self.maxWidth = maxWidth
+    self.maxHeight = maxHeight
+    self.placement = placement
+  }
 }
 
 public struct CSAIDisclosure: View {
@@ -588,9 +611,16 @@ public struct CSAIDisclosure: View {
   let highContrast: Bool
   let compact: Bool
   public let language: String?
+  public let placement: String?
   @Environment(\.csLanguage) private var ancestorLanguage
+  @State private var anchor = CGRect.zero
+  @State private var naturalSize: CGSize?
+  @State private var fittedSize: CGSize?
+  @State private var panelOrigin: CGPoint?
+  @State private var panelScale = CGSize(width: 1, height: 1)
+  @State private var measurePass = 0
 
-  public init(label: String? = nil, details: String? = nil, sources: [String], expandedLabel: String, collapsedLabel: String, open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil) {
+  public init(label: String? = nil, details: String? = nil, sources: [String], expandedLabel: String, collapsedLabel: String, open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, placement: String? = nil) {
     self.label = label
     self.details = details
     self.sources = sources
@@ -601,6 +631,7 @@ public struct CSAIDisclosure: View {
     self.highContrast = highContrast
     self.compact = compact
     self.language = language
+    self.placement = placement
   }
 
   public var body: some View {
@@ -612,19 +643,81 @@ public struct CSAIDisclosure: View {
       CSTriggerButton(badge) { open = CSAIDisclosureModel.toggle(open: open) }
         .frame(minHeight: pack.componentButtonMdMinHeight.points)
         .accessibilityValue(Text(open ? expandedLabel : collapsedLabel))
+        .background(GeometryReader { geo in
+          Color.clear.preference(key: CSAIDisclosureAnchorKey.self, value: geo.frame(in: .global))
+        })
       if open {
+        let screen = CSContextMenuModel.screenSize()
+        let box = CSFloatingRect(left: anchor.minX, top: anchor.minY, right: anchor.maxX, bottom: anchor.maxY, width: anchor.width, height: anchor.height)
+        let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
+        let place = CSAIDisclosureModel.placement(placement, fallback: CSAIDisclosureModel.placementDefault)
+        let placed = naturalSize.flatMap { natural in
+          fittedSize.flatMap { fitted in
+            CSAIDisclosureModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
+          }
+        }
         VStack(alignment: .leading, spacing: 4) {
           Text(explanation).foregroundStyle(pack.primaryTextColor)
           if let line = CSAIDisclosureModel.sourceLine(sources: sources.map { Optional($0) }, prefix: CSAIDisclosureModel.copy("sources", language: spoken)) {
             Text(line).foregroundStyle(pack.mutedColor)
           }
         }
+        .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+        .background(GeometryReader { geo in
+          let frame = geo.frame(in: .global)
+          let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
+          let scaleY = geo.size.height > 0 ? frame.height / geo.size.height : 1
+          Color.clear.preference(key: CSAIDisclosurePanelKey.self, value: CSAIDisclosureMeasure(size: geo.size, pass: measurePass, origin: frame.origin, scale: CGSize(width: scaleX == 0 ? 1 : scaleX, height: scaleY == 0 ? 1 : scaleY)))
+        })
+        .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? 0))
+        .opacity(placed == nil ? 0 : 1)
+        .accessibilityHidden(placed == nil)
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.updatesFrequently)
       }
     }
     .onExitCommand { open = false }
+    .onPreferenceChange(CSAIDisclosureAnchorKey.self) { frame in
+      if frame.width > 0, frame.height > 0 { anchor = frame }
+    }
+    .onPreferenceChange(CSAIDisclosurePanelKey.self) { measure in
+      guard open, measure.size.width > 0, measure.size.height > 0 else { return }
+      panelOrigin = measure.origin
+      panelScale = measure.scale
+      if naturalSize == nil {
+        naturalSize = measure.size
+        measurePass = 1
+      } else if measure.pass >= 1 {
+        fittedSize = measure.size
+      }
+    }
+    .onChange(of: open) { isOpen in
+      if !isOpen {
+        naturalSize = nil
+        fittedSize = nil
+        panelOrigin = nil
+        panelScale = CGSize(width: 1, height: 1)
+        measurePass = 0
+      }
+    }
   }
+}
+
+private struct CSAIDisclosureMeasure: Equatable {
+  var size: CGSize
+  var pass: Int
+  var origin: CGPoint
+  var scale: CGSize
+}
+
+private struct CSAIDisclosureAnchorKey: PreferenceKey {
+  static var defaultValue = CGRect.zero
+  static func reduce(value: inout CGRect, nextValue: () -> CGRect) { value = nextValue() }
+}
+
+private struct CSAIDisclosurePanelKey: PreferenceKey {
+  static var defaultValue = CSAIDisclosureMeasure(size: .zero, pass: 0, origin: .zero, scale: CGSize(width: 1, height: 1))
+  static func reduce(value: inout CSAIDisclosureMeasure, nextValue: () -> CSAIDisclosureMeasure) { value = nextValue() }
 }
 
 public enum CSAspectRatioModel {

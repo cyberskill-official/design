@@ -416,7 +416,25 @@ String? csDisclosureSourceLine(List<String?> sources, String prefix) {
   return kept.isEmpty ? null : '$prefix: ${kept.join(', ')}';
 }
 String? csDisclosureControls(bool open, String id) => open ? id : null;
-class CsAIDisclosure extends StatelessWidget {
+const csDisclosureGap = 8.0;
+class CsDisclosurePlace {
+  const CsDisclosurePlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsDisclosurePlace? csDisclosureShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, String placement) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: placement, gap: csDisclosureGap);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csDisclosureGap);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsDisclosurePlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
+class CsAIDisclosure extends StatefulWidget {
   const CsAIDisclosure({super.key, this.label, this.details, required this.sources, required this.expandedLabel, required this.collapsedLabel, required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.language});
   final String? label;
   final String? details;
@@ -429,25 +447,67 @@ class CsAIDisclosure extends StatelessWidget {
   final bool dark;
   final bool highContrast;
   final bool compact;
+  @override
+  State<CsAIDisclosure> createState() => _CsAIDisclosureState();
+}
+
+class _CsAIDisclosureState extends State<CsAIDisclosure> {
+  final fieldKey = GlobalKey();
+  final listKey = GlobalKey();
+  Size? natural;
+  Size? fitted;
+  CsDisclosurePlace? place;
+
+  void measure() {
+    final fieldBox = fieldKey.currentContext?.findRenderObject() as RenderBox?;
+    final listBox = listKey.currentContext?.findRenderObject() as RenderBox?;
+    if (fieldBox == null || !fieldBox.hasSize || listBox == null || !listBox.hasSize || !fieldBox.attached || !listBox.attached) return;
+    final field = fieldBox.localToGlobal(Offset.zero);
+    final list = listBox.localToGlobal(Offset.zero);
+    if (natural == null) {
+      setState(() => natural = listBox.size);
+      return;
+    }
+    if (fitted == listBox.size && place != null) return;
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csDisclosureShift(
+      CsFloatingRect(field.dx, field.dy, field.dx + fieldBox.size.width, field.dy + fieldBox.size.height, fieldBox.size.width, fieldBox.size.height),
+      natural!.width,
+      natural!.height,
+      listBox.size.width,
+      listBox.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      list.dx,
+      list.dy,
+      1,
+      1,
+      csDisclosurePlacementText(null, csDisclosurePlacement),
+    );
+    setState(() { fitted = listBox.size; place = next; });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    final spoken = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
-    final badge = csDisclosureLabelText(label, csDisclosureCopy('label', spoken));
-    final explanation = details ?? csDisclosureCopy('details', spoken);
-    final line = csDisclosureSourceLine(sources, csDisclosureCopy('sources', spoken));
+    if (!widget.open) { natural = null; fitted = null; }
+    if (widget.open) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && widget.open) measure(); });
+    final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
+    final spoken = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
+    final badge = csDisclosureLabelText(widget.label, csDisclosureCopy('label', spoken));
+    final explanation = widget.details ?? csDisclosureCopy('details', spoken);
+    final line = csDisclosureSourceLine(widget.sources, csDisclosureCopy('sources', spoken));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CsOwnFocus(builder: (node, claim) => Semantics(label: badge, value: open ? expandedLabel : collapsedLabel, button: true, child: TextButton(focusNode: node, onPressed: () { claim(); onOpenChange(!open); }, child: ExcludeSemantics(child: Text(badge, style: TextStyle(color: csColor(pack.colorTextPrimary))))))),
-        if (open) Semantics(liveRegion: true, container: true, child: Column(
+        CsOwnFocus(builder: (node, claim) => Semantics(label: badge, value: widget.open ? widget.expandedLabel : widget.collapsedLabel, button: true, child: TextButton(key: fieldKey, focusNode: node, onPressed: () { claim(); widget.onOpenChange(!widget.open); }, child: ExcludeSemantics(child: Text(badge, style: TextStyle(color: csColor(pack.colorTextPrimary))))))),
+        if (widget.open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Semantics(liveRegion: true, container: true, child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(explanation, style: TextStyle(color: csColor(pack.colorTextPrimary))),
             if (line != null) Text(line, style: TextStyle(color: csColor(pack.colorTextMuted))),
           ],
-        )),
+        )))),
       ],
     );
   }
