@@ -1285,6 +1285,8 @@ class CsMenuItem extends StatelessWidget {
   Widget build(BuildContext context) => CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onSelect(); }, child: Text(title)));
 }
 
+bool csNativeSelectAlert(String? error) => error != null && csPresenceShown(CsPresence.text, error);
+
 class CsNativeSelect extends StatelessWidget {
   const CsNativeSelect({super.key, required this.label, required this.options, required this.selection, required this.onSelect, this.error, this.disabled = false, this.disabledOptions = const {}, this.dark = false, this.highContrast = false, this.compact = false});
   final String label;
@@ -1308,7 +1310,7 @@ class CsNativeSelect extends StatelessWidget {
         ]),
         Positioned(right: 12, top: 0, bottom: 0, child: IgnorePointer(child: ExcludeSemantics(child: Align(alignment: Alignment.centerRight, child: CsIcon(name: 'chevron-down', label: '', dark: dark, highContrast: highContrast, compact: compact))))),
       ]),
-      if (error != null && csPresenceShown(CsPresence.text, error!)) Semantics(liveRegion: true, child: Text(error!, style: TextStyle(color: csColor(pack.colorSemanticDangerText)))),
+      if (csNativeSelectAlert(error)) Semantics(liveRegion: true, child: Text(error!, style: TextStyle(color: csColor(pack.colorSemanticDangerText)))),
     ]);
   }
 }

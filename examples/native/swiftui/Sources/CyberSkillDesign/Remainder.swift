@@ -1734,6 +1734,10 @@ public enum CSNativeSelectModel {
     !optionDisabled && !controlDisabled
   }
   public static func descriptionId(_ id: String, shown: Bool) -> String? { shown ? id + "-desc" : nil }
+  public static func isAlert(_ error: String?) -> Bool {
+    guard let error else { return false }
+    return !error.isEmpty
+  }
 }
 
 public struct CSNativeSelectOption: Hashable, ExpressibleByStringLiteral {
@@ -2068,7 +2072,7 @@ public struct CSNativeSelect: View {
         .simultaneousGesture(TapGesture().onEnded {
           if !disabled { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
         })
-      if let error, CSPresenceValue.text(error).shown {
+      if let error, CSNativeSelectModel.isAlert(error) {
         Text(error).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
       }
     }

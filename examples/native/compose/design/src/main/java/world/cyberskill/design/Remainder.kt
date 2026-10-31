@@ -873,6 +873,7 @@ fun csInputCopy(key: String, language: String?): String {
   val handle = rememberFocusHandle("menu-item")
   TextButton(onClick = { handle.claim(); onSelect() }, modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.minimumInteractiveComponentSize(), enabled = csControlEnabled()) { Text(title) }
 }
+fun csNativeSelectAlert(error: String?) = error != null && csPresenceShown(CsPresence.Text, error)
 @Composable fun CsNativeSelect(label: String, options: List<String>, selection: String, onSelect: (String) -> Unit, modifier: Modifier = Modifier, error: String? = null, disabled: Boolean = false, disabledOptions: Set<String> = emptySet(), dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
   val handle = rememberFocusHandle("select")
   val pack = csModePack(dark, highContrast, compact)
@@ -892,7 +893,7 @@ fun csInputCopy(key: String, language: String?): String {
       }
       CsIcon(name = "chevron-down", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.align(Alignment.CenterEnd).clearAndSetSemantics { })
     }
-    if (error != null && csPresenceShown(CsPresence.Text, error)) Text(error, color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
+    if (csNativeSelectAlert(error)) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
   }
 }
 @Composable fun CsNavItem(title: String, active: Boolean, onSelect: () -> Unit, modifier: Modifier = Modifier) {
