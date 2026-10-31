@@ -736,6 +736,8 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSDataGridSelection.window(count: 10, height: 280, rowHeight: 36, scrollTop: 0, virtual: false), CSGridWindow(start: 0, end: 10))
     XCTAssertEqual(CSDataGridSelection.window(count: 100, height: 280, rowHeight: 36, scrollTop: 0, virtual: true), CSGridWindow(start: 0, end: 15))
     XCTAssertEqual(CSDataGridSelection.window(count: 100, height: 280, rowHeight: 36, scrollTop: 1800, virtual: true), CSGridWindow(start: 46, end: 61))
+    XCTAssertEqual(CSDataGridSelection.window(count: 100, height: 80, rowHeight: 36, scrollTop: 0, virtual: true), CSGridWindow(start: 0, end: 10))
+    XCTAssertEqual(CSDataGridSelection.window(count: 100, height: 280, rowHeight: 72, scrollTop: 0, virtual: true), CSGridWindow(start: 0, end: 12))
     XCTAssertEqual(CSDataGridSelection.painted(count: 100, window: CSGridWindow(start: 46, end: 61)), Array(46..<61))
     XCTAssertEqual(CSDataGridSelection.pad(count: 100, window: CSGridWindow(start: 46, end: 61), rowHeight: 36).top, 46 * 36)
     XCTAssertEqual(CSDataGridSelection.pad(count: 100, window: CSGridWindow(start: 46, end: 61), rowHeight: 36).bottom, 39 * 36)

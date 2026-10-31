@@ -128,6 +128,8 @@ fun CsDataGrid(
   filterKeys: List<String>? = null,
   virtual: Boolean = false,
   virtualThreshold: Int = 80,
+  height: Double = 280.0,
+  rowHeight: Double = 36.0,
   modifier: Modifier = Modifier,
 ) {
   val pack = csModePack(dark, highContrast, compact)
@@ -174,12 +176,14 @@ fun CsDataGrid(
       }
     }
     val scroll = rememberScrollState()
-    val window = csGridWindow(shown.size, 280.0, 36.0, scroll.value.toDouble(), useVirtual)
+    val safeRow = if (rowHeight.isFinite() && rowHeight > 0) rowHeight else 36.0
+    val body = maxOf(0.0, height - 40)
+    val window = csGridWindow(shown.size, height, rowHeight, scroll.value.toDouble(), useVirtual)
     val painted = csGridPainted(shown.size, window.first, window.second)
     if (shown.isEmpty()) {
       Text(csGridEmptyText(empty, csGridCopy("empty", null)), color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { csGridRowIndex(useVirtual, 0)?.let { csGridRowIndexValue = it } })
-    } else Column(if (useVirtual) Modifier.height(240.dp).verticalScroll(scroll) else Modifier) {
-      if (useVirtual && window.first > 0) Spacer(Modifier.height((window.first * 36).dp))
+    } else Column(if (useVirtual) Modifier.height(body.dp).verticalScroll(scroll) else Modifier) {
+      if (useVirtual && window.first > 0) Spacer(Modifier.height((window.first * safeRow).dp))
       painted.forEach { index ->
         val row = shown[index]
         val key = csGridRowKey(row["id"], index)
@@ -193,7 +197,7 @@ fun CsDataGrid(
           }
         }
       }
-      if (useVirtual && shown.size > window.second) Spacer(Modifier.height(((shown.size - window.second) * 36).dp))
+      if (useVirtual && shown.size > window.second) Spacer(Modifier.height(((shown.size - window.second) * safeRow).dp))
     }
   }
 }
