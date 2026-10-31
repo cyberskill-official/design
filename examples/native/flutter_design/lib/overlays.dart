@@ -41,6 +41,25 @@ String csMenuCopy(String key, String? language) {
 }
 
 const csFabMain = 56.0;
+String csFabPlacement(String? explicit) => explicit ?? 'top-end';
+const csFabGap = 10.0;
+class CsFabPlace {
+  const CsFabPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsFabPlace? csFabShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, String placement) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: placement, gap: csFabGap);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csFabGap);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsFabPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
 bool? csFabNextOpen(int actionCount, bool open) => actionCount > 0 ? !open : null;
 const csBackTopLabel = 'Back to top';
 String csBackTopLabelText(String? label, String fallback) => label ?? fallback;
@@ -425,16 +444,59 @@ class CsFab extends StatefulWidget {
 
 class _CsFabState extends State<CsFab> {
   var open = false;
+  final fieldKey = GlobalKey();
+  final listKey = GlobalKey();
+  Size? natural;
+  Size? fitted;
+  CsFabPlace? place;
+
+  void measure() {
+    final fieldBox = fieldKey.currentContext?.findRenderObject() as RenderBox?;
+    final listBox = listKey.currentContext?.findRenderObject() as RenderBox?;
+    if (fieldBox == null || !fieldBox.hasSize || listBox == null || !listBox.hasSize || !fieldBox.attached || !listBox.attached) return;
+    final field = fieldBox.localToGlobal(Offset.zero);
+    final list = listBox.localToGlobal(Offset.zero);
+    if (natural == null) {
+      setState(() => natural = listBox.size);
+      return;
+    }
+    if (fitted == listBox.size && place != null) return;
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csFabShift(
+      CsFloatingRect(field.dx, field.dy, field.dx + fieldBox.size.width, field.dy + fieldBox.size.height, fieldBox.size.width, fieldBox.size.height),
+      natural!.width,
+      natural!.height,
+      listBox.size.width,
+      listBox.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      list.dx,
+      list.dy,
+      1,
+      1,
+      csFabPlacement(null),
+    );
+    setState(() { fitted = listBox.size; place = next; });
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (!open) { natural = null; fitted = null; }
+    if (open && widget.actions.isNotEmpty) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && open) measure(); });
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        if (open)
-          for (final action in widget.actions) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); setState(() => open = false); }, child: Text(action))),
+        if (open && widget.actions.isNotEmpty)
+          Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              for (final action in widget.actions) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); setState(() => open = false); }, child: Text(action))),
+            ],
+          ))),
         CsOwnFocus(builder: (node, claim) => TextButton(
+          key: fieldKey,
           focusNode: node,
           onPressed: () {
             claim();
