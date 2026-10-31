@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
@@ -277,7 +278,10 @@ class _CsDataGridState extends State<CsDataGrid> {
   Widget _gridRow(Map<String, String> row, CSTokenModePack pack, List<CsDataColumn> columns, List<String> selected, ValueChanged<List<String>> onSelect, bool selectable, int index, bool virtual, double rowHeight) {
     final key = csGridRowKey(row['id'], index);
     final box = csGridRowBox(virtual, rowHeight);
-    return ConstrainedBox(
+    final fill = selectable && selected.contains(key) ? csColor(csGridSelectedFill(widget.dark, pack.accentTint, pack.accent, pack.colorSurfacePanel)) : const Color(0x00000000);
+    return ColoredBox(
+      color: fill,
+      child: ConstrainedBox(
       constraints: box == null ? BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)) : BoxConstraints.tightFor(height: box),
       child: Semantics(
         selected: selectable && selected.contains(key),
@@ -307,6 +311,7 @@ class _CsDataGridState extends State<CsDataGrid> {
         ],
         ),
       ),
+    ),
     );
   }
 }
@@ -582,6 +587,23 @@ Alignment csGridCheckAlignment() => Alignment.center;
 double csGridSelectionWidth() => 36;
 double csGridSortPadding() => 0;
 double csGridSortBorder() => 0;
+CSColorValue csGridSelectedFill(bool dark, CSColorValue tint, CSColorValue accent, CSColorValue panel) {
+  if (!dark) return CSColorValue(CSColorSpace.oklab, csGridOklab(tint), 1);
+  final lead = csGridOklab(accent);
+  final base = csGridOklab(panel);
+  return CSColorValue(CSColorSpace.oklab, [for (var i = 0; i < 3; i++) 0.18 * lead[i] + 0.82 * base[i]], 1);
+}
+List<double> csGridOklab(CSColorValue color) => color.colorSpace == CSColorSpace.oklab ? color.components.take(3).toList() : csGridSrgbToOklab(color.components);
+double _csLinear(double channel) => channel <= 0.04045 ? channel / 12.92 : math.pow((channel + 0.055) / 1.055, 2.4).toDouble();
+List<double> csGridSrgbToOklab(List<double> rgb) {
+  final r = _csLinear(rgb[0]);
+  final g = _csLinear(rgb[1]);
+  final b = _csLinear(rgb[2]);
+  final l = math.pow(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b, 1 / 3).toDouble();
+  final m = math.pow(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b, 1 / 3).toDouble();
+  final s = math.pow(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b, 1 / 3).toDouble();
+  return [0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s];
+}
 double csGridScrolled(bool virtual, double current, double next) => virtual && next.isFinite ? next : current;
 List<int> csGridWindow(int count, double height, double rowHeight, double scrollTop, bool virtual) {
   if (!virtual) return [0, count];

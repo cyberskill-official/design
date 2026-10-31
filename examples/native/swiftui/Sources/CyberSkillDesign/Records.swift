@@ -122,6 +122,28 @@ public enum CSDataGridSelection {
   public static func selectionWidth() -> Double { 36 }
   public static func sortPadding() -> Double { 0 }
   public static func sortBorder() -> Double { 0 }
+  public static let selectedAccentPortion = 0.18
+  public static func selectedLab(dark: Bool, tint: CSColorValue, accent: CSColorValue, panel: CSColorValue) -> [Double] {
+    dark ? oklabMix(accent, panel, selectedAccentPortion) : oklab(tint)
+  }
+  public static func selectedFill(dark: Bool, tint: CSColorValue, accent: CSColorValue, panel: CSColorValue) -> Color {
+    CSColorValue(colorSpace: .oklab, components: selectedLab(dark: dark, tint: tint, accent: accent, panel: panel), alpha: 1).color
+  }
+  private static func oklab(_ color: CSColorValue) -> [Double] {
+    color.colorSpace == .oklab ? Array(color.components.prefix(3)) : srgbToOklab(color.components)
+  }
+  private static func oklabMix(_ accent: CSColorValue, _ panel: CSColorValue, _ portion: Double) -> [Double] {
+    let lead = oklab(accent), base = oklab(panel)
+    return zip(lead, base).map { portion * $0 + (1 - portion) * $1 }
+  }
+  private static func srgbToOklab(_ rgb: [Double]) -> [Double] {
+    func linear(_ channel: Double) -> Double { channel <= 0.04045 ? channel / 12.92 : pow((channel + 0.055) / 1.055, 2.4) }
+    let r = linear(rgb[0]), g = linear(rgb[1]), b = linear(rgb[2])
+    let l = cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b)
+    let m = cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b)
+    let s = cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b)
+    return [0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s]
+  }
   public static func scrolled(virtual: Bool, current: Double, next: Double) -> Double {
     guard virtual, next.isFinite else { return current }
     return next
@@ -437,6 +459,7 @@ public struct CSDataGrid: View {
     ForEach(indexes, id: \.self) { index in
       let row = shown[index]
       let key = CSDataGridSelection.rowKey(value: row[rowKeyName], index: index)
+      let fill = CSDataGridSelection.selectedFill(dark: dark, tint: pack.accentTint, accent: pack.accent, panel: pack.colorSurfacePanel)
       HStack(alignment: .center) {
         if selectable {
           CSCheckbox(label: "\(CSDataGridSelection.copy("selectRow", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))): \(CSDataGridSelection.rowName(cells: orderedColumns.map { row[$0.key] }, key: key))", isOn: Binding(get: { selected.contains(key) }, set: { next in
@@ -448,7 +471,7 @@ public struct CSDataGrid: View {
         }
         ForEach(orderedColumns.filter { CSDataGridSelection.sticky($0.key, pinned: pinnedKey) != nil }, id: \.key) { column in
           Text(CSDataGridSelection.cellText(row: row, key: column.key, render: renders[column.key])).foregroundStyle(pack.primaryTextColor)
-            .background(pack.colorSurfacePanel.color)
+            .background(selected.contains(key) ? fill : pack.colorSurfacePanel.color)
             .zIndex(1)
         }
         ScrollView(.horizontal, showsIndicators: false) {
@@ -461,6 +484,7 @@ public struct CSDataGrid: View {
       }
       .frame(minHeight: box.map { CGFloat($0) } ?? pack.componentButtonMdMinHeight.points)
       .frame(height: box.map { CGFloat($0) })
+      .background(selected.contains(key) ? fill : Color.clear)
       .accessibilityElement(children: .contain)
       .accessibilityAddTraits((selectable && selected.contains(key)) ? .isSelected : [])
       .accessibilityCustomContent(AccessibilityCustomContentKey("rowindex", id: "rowindex"), CSDataGridSelection.rowIndex(virtual: CSDataGridSelection.virtual(enabled: virtualRows, count: shown.count, threshold: virtualThreshold), position: index).map { Text(String($0)) })

@@ -51,6 +51,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.pow
 import kotlin.math.roundToInt
 
 fun csToggleSelection(selected: List<String>, key: String): List<String> =
@@ -207,7 +208,7 @@ fun CsDataGrid(
         val row = shown[index]
         val key = csGridRowKey(row["id"], index)
         val box = csGridRowBox(useVirtual, safeRow)
-        Row((if (box != null) Modifier.height(box.dp) else Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp())).semantics { if (selectable && selected.contains(key)) this.selected = true; csGridRowIndex(useVirtual, index)?.let { csGridRowIndexValue = it } }) {
+        Row((if (box != null) Modifier.height(box.dp) else Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp())).background(if (selectable && selected.contains(key)) csGridSelectedFill(dark, pack.accentTint, pack.accent, pack.colorSurfacePanel).toComposeColor() else Color.Transparent).semantics { if (selectable && selected.contains(key)) this.selected = true; csGridRowIndex(useVirtual, index)?.let { csGridRowIndexValue = it } }) {
           if (selectable) {
             Box(Modifier.width(csGridSelectionWidth()).fillMaxHeight(), contentAlignment = csGridCheckAlignment()) {
               CsCheckbox(label = csGridCopy("selectRow", null) + ": " + csGridRowName(ordered.map { row[it.key] }, key), checked = selected.contains(key), onCheckedChange = { onSelect(csToggleSelection(selected, key)) }, dark = dark, highContrast = highContrast, compact = compact)
@@ -474,6 +475,21 @@ fun csGridCheckAlignment() = Alignment.Center
 fun csGridSelectionWidth() = 36.dp
 fun csGridSortPadding() = 0.dp
 fun csGridSortBorder() = 0.dp
+fun csGridSelectedFill(dark: Boolean, tint: CSColorValue, accent: CSColorValue, panel: CSColorValue): CSColorValue {
+  if (!dark) return CSColorValue(CSColorSpace.OKLAB, csGridOklab(tint), 1.0)
+  val lead = csGridOklab(accent)
+  val base = csGridOklab(panel)
+  return CSColorValue(CSColorSpace.OKLAB, lead.zip(base) { a, p -> 0.18 * a + 0.82 * p }, 1.0)
+}
+private fun csGridOklab(color: CSColorValue) = if (color.colorSpace == CSColorSpace.OKLAB) color.components.take(3) else csGridSrgbToOklab(color.components)
+private fun csGridSrgbToOklab(rgb: List<Double>): List<Double> {
+  fun linear(channel: Double) = if (channel <= 0.04045) channel / 12.92 else ((channel + 0.055) / 1.055).pow(2.4)
+  val r = linear(rgb[0]); val g = linear(rgb[1]); val b = linear(rgb[2])
+  val l = (0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b).pow(1.0 / 3)
+  val m = (0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b).pow(1.0 / 3)
+  val s = (0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b).pow(1.0 / 3)
+  return listOf(0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s)
+}
 fun csGridScrolled(virtual: Boolean, current: Double, next: Double) = if (virtual && next.isFinite()) next else current
 fun csGridWindow(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Boolean): Pair<Int, Int> {
   if (!virtual) return 0 to count
