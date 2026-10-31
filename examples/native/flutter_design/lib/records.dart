@@ -189,7 +189,14 @@ class _CsDataGridState extends State<CsDataGrid> {
       value: published?.toString(),
       child: Semantics(
       value: rowCount?.toString(),
-      child: Column(
+      child: Container(
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          color: csColor(pack.colorSurfacePanel),
+          border: Border.all(color: csColor(pack.colorBorderDefault)),
+          borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+        ),
+        child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (csGridShowsCaption(widget.caption)) Text(widget.caption ?? ''),
@@ -249,6 +256,7 @@ class _CsDataGridState extends State<CsDataGrid> {
         else
           for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual, safeRow),
       ],
+      ),
       ),
       ),
       ),

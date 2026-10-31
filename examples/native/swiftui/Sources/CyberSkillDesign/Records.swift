@@ -399,6 +399,9 @@ public struct CSDataGrid: View {
       }
       }
     }
+    .background(pack.colorSurfacePanel.color)
+    .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.colorBorderDefault.color, lineWidth: 1))
     .accessibilityCustomContent(AccessibilityCustomContentKey("data-virtual", id: "data-virtual"), Text(CSDataGridSelection.virtualFlag(useVirtual)))
     .accessibilityCustomContent(AccessibilityCustomContentKey("cs-datagrid--virtual", id: "cs-datagrid--virtual"), CSDataGridSelection.virtualClass(useVirtual).map { Text($0) })
     .accessibilityCustomContent(AccessibilityCustomContentKey("data-row-count", id: "data-row-count"), Text(String(CSDataGridSelection.dataCount(shown.count))))

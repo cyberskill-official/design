@@ -156,7 +156,7 @@ fun CsDataGrid(
   val window = csGridWindow(shown.size, height, safeRow, csGridScrolled(useVirtual, 0.0, scroll.value.toDouble()), useVirtual)
   val painted = csGridPainted(shown.size, window.first, window.second)
   val publishedHeight = csGridRowBox(useVirtual, safeRow)
-  Column(modifier.semantics {
+  Column(modifier.border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).clip(RoundedCornerShape(pack.radiusMd.toDp())).semantics {
     csGridDataCountValue = csGridDataCount(shown.size)
     csGridVirtualFlagValue = csGridVirtualFlag(useVirtual)
     csGridVirtualClass(useVirtual)?.let { csGridVirtualClassValue = it }
