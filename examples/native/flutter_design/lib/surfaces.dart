@@ -822,11 +822,18 @@ CsNavPlace? csNavShift(CsFloatingRect anchor, double naturalWidth, double natura
   return CsNavPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
 }
 
+class CsNavMenuCard {
+  const CsNavMenuCard(this.label, {this.href, this.description});
+  final String label;
+  final String? href;
+  final String? description;
+}
+
 class CsNavMenuItem {
   const CsNavMenuItem(this.label, {this.href, this.panel = const []});
   final String label;
   final String? href;
-  final List<String> panel;
+  final List<CsNavMenuCard> panel;
 }
 
 class CsNavigationMenu extends StatefulWidget {
@@ -897,7 +904,7 @@ class _CsNavigationMenuState extends State<CsNavigationMenu> {
   Widget build(BuildContext context) {
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
     final current = open;
-    final cards = current != null && widget.items.asMap().containsKey(current) ? widget.items[current].panel : const <String>[];
+    final cards = current != null && widget.items.asMap().containsKey(current) ? widget.items[current].panel : const <CsNavMenuCard>[];
     if (current != null) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && open == current) measure(); });
     return TapRegion(
       onTapOutside: current == null ? null : (_) => choose(null),
@@ -938,7 +945,15 @@ class _CsNavigationMenuState extends State<CsNavigationMenu> {
               opacity: place == null ? 0 : 1,
               child: Transform.translate(offset: Offset(place?.x ?? 0, place?.y ?? 0), child: ConstrainedBox(constraints: place == null ? const BoxConstraints() : BoxConstraints(maxWidth: place!.maxWidth, maxHeight: place!.maxHeight), child: Column(key: panelKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
                 for (final card in cards)
-                  if (csNavShowsDescription(card)) TextButton(onPressed: () => choose(null), child: Text(card, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
+                  Semantics(
+                    link: true,
+                    hint: csNavHref(card.href),
+                    label: card.label,
+                    child: TextButton(onPressed: () => choose(null), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text(card.label, style: TextStyle(fontWeight: FontWeight.w700, color: csColor(pack.colorTextPrimary))),
+                      if (csNavShowsDescription(card.description)) Text(card.description ?? '', style: TextStyle(color: csColor(pack.colorTextMuted))),
+                    ])),
+                  ),
               ]))),
             ),
           ),

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -564,7 +565,8 @@ fun csNavShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Doub
   return CsNavPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
 }
 
-data class CsNavMenuItem(val label: String, val href: String? = null, val panel: List<String> = emptyList())
+data class CsNavMenuCard(val label: String, val href: String? = null, val description: String? = null)
+data class CsNavMenuItem(val label: String, val href: String? = null, val panel: List<CsNavMenuCard> = emptyList())
 
 @Composable
 private fun CsNavPanelButton(index: Int, item: CsNavMenuItem, open: Int?, onOpen: (Int?) -> Unit, onAnchor: (CsFloatingRect) -> Unit) {
@@ -647,7 +649,12 @@ fun CsNavigationMenu(items: List<CsNavMenuItem>, dark: Boolean, highContrast: Bo
           } else if (pass >= 1 && fitted != width to height) fitted = width to height
         }) {
           cards.forEach { card ->
-            if (csNavShowsDescription(card)) TextButton(onClick = { choose(null) }) { Text(card, color = pack.colorTextPrimary.toComposeColor()) }
+            TextButton(onClick = { choose(null) }, modifier = Modifier.semantics { contentDescription = csNavHref(card.href) }) {
+              Column {
+                Text(card.label, color = pack.colorTextPrimary.toComposeColor(), fontWeight = FontWeight.Bold)
+                if (csNavShowsDescription(card.description)) Text(card.description ?: "", color = pack.colorTextMuted.toComposeColor())
+              }
+            }
           }
         }
       }

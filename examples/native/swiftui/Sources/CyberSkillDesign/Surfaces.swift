@@ -1280,11 +1280,22 @@ private final class CSTouchContextClickView: UIView {
 }
 #endif
 
+public struct CSNavMenuCard: Equatable, Hashable {
+  public var label: String
+  public var href: String?
+  public var description: String?
+  public init(label: String, href: String? = nil, description: String? = nil) {
+    self.label = label
+    self.href = href
+    self.description = description
+  }
+}
+
 public struct CSNavMenuItem: Equatable, Hashable {
   public var label: String
   public var href: String?
-  public var panel: [String]
-  public init(label: String, href: String? = nil, panel: [String] = []) {
+  public var panel: [CSNavMenuCard]
+  public init(label: String, href: String? = nil, panel: [CSNavMenuCard] = []) {
     self.label = label
     self.href = href
     self.panel = panel
@@ -1392,8 +1403,8 @@ public struct CSNavigationMenu: View {
       .onChange(of: menuItem) { index in
         if let index { CSFocusRegistry.shared.claim(id: "\(menuFocusId)-\(index)", restore: { menuItem = index }) }
       }
-      if let open, items.indices.contains(open), items[open].opensPanel {
-        let anchor = anchors[open] ?? .zero
+      if let opened = open, items.indices.contains(opened), items[opened].opensPanel {
+        let anchor = anchors[opened] ?? .zero
         let screen = CSContextMenuModel.screenSize()
         let box = CSFloatingRect(left: anchor.minX, top: anchor.minY, right: anchor.maxX, bottom: anchor.maxY, width: anchor.width, height: anchor.height)
         let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
@@ -1403,9 +1414,17 @@ public struct CSNavigationMenu: View {
           }
         }
         VStack(alignment: .leading, spacing: 0) {
-          ForEach(Array(items[open].panel.enumerated()), id: \.offset) { _, card in
-            if CSNavigationMenuModel.showsDescription(card) {
-              Text(card).foregroundStyle(pack.primaryTextColor)
+          ForEach(Array(items[opened].panel.enumerated()), id: \.offset) { _, card in
+            if let url = URL(string: CSNavigationMenuModel.href(card.href)) {
+              Link(destination: url) {
+                VStack(alignment: .leading, spacing: 2) {
+                  Text(card.label).fontWeight(.bold).foregroundStyle(pack.primaryTextColor)
+                  if CSNavigationMenuModel.showsDescription(card.description), let description = card.description {
+                    Text(description).foregroundStyle(pack.mutedColor)
+                  }
+                }
+              }
+              .simultaneousGesture(TapGesture().onEnded { open = nil })
             }
           }
         }
