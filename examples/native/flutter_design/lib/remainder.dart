@@ -1500,7 +1500,9 @@ class _CsTerminalState extends State<CsTerminal> {
   }
 
   void _submit(String value) {
-    if (!csTerminalSubmits(composing: false, keyCode: 0)) return;
+    final range = draft.value.composing;
+    final composing = range.isValid && !range.isCollapsed;
+    if (!csTerminalSubmits(composing: composing, keyCode: 0)) return;
     final trimmed = value.trim();
     if (trimmed.isEmpty) return;
     final next = csTerminalRun(lines, value, widget.onCommand?.call(trimmed));

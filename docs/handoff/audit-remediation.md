@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the editor-format checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the terminal composing checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `2e3d83230ef465b556a368aad46fcbe9022dca6b`, with the hash note in `88c1d9ce`
-- Checkpoint commit hash: `2a5d82296d29e42b8b865690feee5bb7a62eee26`
+- Previous checkpoint: `2a5d82296d29e42b8b865690feee5bb7a62eee26`, with the hash note in `96de47d9`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `editor format, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `terminal ime, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,16 +54,16 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The editor now applies `bold`, `italic`, and `insertUnorderedList`, the commands `components/forms/Editor.jsx` sends to `document.execCommand`. A selection of `hello` becomes `<b>hello</b>`, and the same command again removes the tags. Italic wraps the chosen range. A list wraps each `<br>` line in `<li>` inside `<ul>`, and the same command unwraps it. An empty caret does not change the text. It only flips the pressed flag. An unknown command leaves the text alone.
+Enter in the terminal no longer runs a command while an IME composition is open. `components/data/Terminal.jsx` returns before `run()` when `isComposing` is true or the key code is 229. The shared check was already tested. Compose now reads `TextFieldValue.composition`. Flutter now reads the field's composing range. Swift on macOS still reads marked text. The iOS SwiftUI path still passes composing as false, because that path is not compiled by the macOS test.
 
-- The native buttons apply the command to the whole field, because the native field has no selection range.
-- The labels stay `Đậm`, `Nghiêng`, and `Danh sách`. They were not rewritten.
-- Compose and Flutter call `csEditorApply`. They were not compiled.
+- A composition and key code 229 each refuse the submit. A normal Enter still runs the trimmed command.
+- The input name stays `Ô nhập lệnh`. It was not rewritten.
+- Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Handle terminal composing, the way the web terminal does. Re-read the terminal component before editing. Do not invent a string.
+Trap focus in the command palette and close it from the backdrop, the way the web palette does. Re-read `components/overlays/CommandPalette.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

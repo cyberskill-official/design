@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.minimumInteractiveComponentSize
@@ -1147,7 +1148,7 @@ fun csTreeTableTwist(action: String, cell: String) = "$action $cell"
   val bar = csTerminalBarTitle(title, csTerminalCopy("title", locale))
   val inputName = csTerminalCopy("input", locale)
   var lines by remember { mutableStateOf(history) }
-  var draft by remember { mutableStateOf("") }
+  var draft by remember { mutableStateOf(TextFieldValue("")) }
   Column(modifier) {
     Text(bar, color = pack.colorTextPrimary.toComposeColor())
     lines.forEach { line -> if (line.command != null) Text(prompt + " " + line.command); if (line.output != null) Text(line.output) }
@@ -1155,12 +1156,12 @@ fun csTreeTableTwist(action: String, cell: String) = "$action $cell"
       Text(prompt)
       BasicTextField(value = draft, onValueChange = { if (!csControlEnabled()) return@BasicTextField; draft = it }, enabled = csControlEnabled(), modifier = Modifier.semantics { contentDescription = inputName }.onPreviewKeyEvent { event ->
         if (event.type != KeyEventType.KeyDown || event.key != Key.Enter) return@onPreviewKeyEvent false
-        if (!csTerminalSubmits(false, 0)) return@onPreviewKeyEvent false
-        val trimmed = draft.trim()
+        if (!csTerminalSubmits(draft.composition != null, 0)) return@onPreviewKeyEvent false
+        val trimmed = draft.text.trim()
         if (trimmed.isEmpty()) return@onPreviewKeyEvent true
-        val next = csTerminalRun(lines, draft, onCommand(trimmed)) ?: return@onPreviewKeyEvent true
+        val next = csTerminalRun(lines, draft.text, onCommand(trimmed)) ?: return@onPreviewKeyEvent true
         lines = next
-        draft = ""
+        draft = TextFieldValue("")
         true
       })
     }
