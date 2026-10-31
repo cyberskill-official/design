@@ -40,6 +40,7 @@ import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.matchParentSize
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Popup
@@ -634,6 +635,16 @@ fun csFormWizardRequired(value: String?, fallback: String) = if (value?.trim().i
     if (open) Column(Modifier.semantics { contentDescription = spoken }) { Text(spoken); bindings.forEach { Text(it.second); Text(it.first) }; Text(toggle); Text("?") }
   }
 }
+fun csHoverPlacement(explicit: String?) = explicit ?: "bottom-start"
+const val csHoverGap = 8.0
+data class CsHoverPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
+fun csHoverShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String): CsHoverPlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement, csHoverGap) ?: return null
+  val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, csHoverGap) ?: return null
+  val sx = if (scaleX == 0.0) 1.0 else scaleX
+  val sy = if (scaleY == 0.0) 1.0 else scaleY
+  return CsHoverPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
+}
 fun csHoverOpen(hovered: Boolean, focused: Boolean) = hovered || focused
 fun csHoverDelay(opening: Boolean, openDelay: Int = 150, closeDelay: Int = 200) = if (opening) openDelay else closeDelay
 fun csHoverSyncAfterLeave(focused: Boolean) = !focused
@@ -643,6 +654,22 @@ fun csHoverSyncAfterBlur(hovered: Boolean) = !hovered
   var focused by remember { mutableStateOf(false) }
   var open by remember { mutableStateOf(false) }
   var request by remember { mutableStateOf(0) }
+  var field by remember { mutableStateOf<CsFloatingRect?>(null) }
+  var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var origin by remember { mutableStateOf(0.0 to 0.0) }
+  var panelScale by remember { mutableStateOf(1.0 to 1.0) }
+  val config = LocalConfiguration.current
+  val density = LocalDensity.current
+  val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
+  val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
+  val viewport = CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), 0.0, 0.0)
+  val place = field?.let { box ->
+    val first = natural
+    val second = fitted
+    if (first == null || second == null) null else csHoverShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csHoverPlacement(null))
+  }
+  if (!open && natural != null) { natural = null; fitted = null }
   LaunchedEffect(request) {
     if (request == 0) return@LaunchedEffect
     val next = csHoverOpen(hovered, focused)
@@ -660,8 +687,22 @@ fun csHoverSyncAfterBlur(hovered: Boolean) = !hovered
       true
     } else false
   }) {
-    content()
-    if (open) Text(label)
+    Box(Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
+    }) { content() }
+    if (open) Text(label, modifier = Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      val width = it.size.width.toDouble()
+      val height = it.size.height.toDouble()
+      if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+      val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+      val nextScale = (bounds.width / width) to (bounds.height / height)
+      val nextSize = width to height
+      if (origin != nextOrigin) origin = nextOrigin
+      if (panelScale != nextScale) panelScale = nextScale
+      if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+    }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).alpha(if (place == null) 0f else 1f))
   }
 }
 enum class CsPresence { Absent, Zero, Text }

@@ -1536,14 +1536,40 @@ public struct CSEditor: View {
 }
 
 public enum CSHoverCardModel {
+  public static let placementDefault = "bottom-start"
+  public static let gap = 8.0
+  public static func placement(_ explicit: String?) -> String { explicit ?? placementDefault }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String) -> CSHoverPlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: placement, gap: gap) else { return nil }
+    guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: gap) else { return nil }
+    let sx = scaleX == 0 ? 1 : scaleX
+    let sy = scaleY == 0 ? 1 : scaleY
+    return CSHoverPlace(x: (placed.left - originX) / sx, y: (placed.top - originY) / sy, maxWidth: initial.maxWidth, maxHeight: initial.maxHeight, placement: placed.placement)
+  }
   public static func nextOpen(hovered: Bool, focused: Bool) -> Bool { hovered || focused }
   public static func delay(opening: Bool, openDelay: Int = 150, closeDelay: Int = 200) -> Int { opening ? openDelay : closeDelay }
   public static func syncAfterLeave(focused: Bool) -> Bool { !focused }
   public static func syncAfterBlur(hovered: Bool) -> Bool { !hovered }
 }
 
+public struct CSHoverPlace: Equatable {
+  public var x: Double
+  public var y: Double
+  public var maxWidth: Double
+  public var maxHeight: Double
+  public var placement: String
+  public init(x: Double, y: Double, maxWidth: Double, maxHeight: Double, placement: String) {
+    self.x = x
+    self.y = y
+    self.maxWidth = maxWidth
+    self.maxHeight = maxHeight
+    self.placement = placement
+  }
+}
+
 public struct CSHoverCard<Content: View>: View {
   public let label: String
+  public let placement: String?
   public let openDelay: Int
   public let closeDelay: Int
   let content: () -> Content
@@ -1551,8 +1577,15 @@ public struct CSHoverCard<Content: View>: View {
   @State private var hovered = false
   @State private var ticket = 0
   @FocusState private var focused: Bool
-  public init(label: String, openDelay: Int = 150, closeDelay: Int = 200, @ViewBuilder content: @escaping () -> Content) {
+  @State private var anchor = CGRect.zero
+  @State private var naturalSize: CGSize?
+  @State private var fittedSize: CGSize?
+  @State private var panelOrigin: CGPoint?
+  @State private var panelScale = CGSize(width: 1, height: 1)
+  @State private var measurePass = 0
+  public init(label: String, openDelay: Int = 150, closeDelay: Int = 200, placement: String? = nil, @ViewBuilder content: @escaping () -> Content) {
     self.label = label
+    self.placement = placement
     self.openDelay = openDelay
     self.closeDelay = closeDelay
     self.content = content
@@ -1567,9 +1600,58 @@ public struct CSHoverCard<Content: View>: View {
       .onChange(of: focused) { isFocused in
         if isFocused || CSHoverCardModel.syncAfterBlur(hovered: hovered) { sync() }
       }
-      .overlay(alignment: .top) { if open { Text(label).padding(8) } }
+      .background(GeometryReader { geo in
+        Color.clear.preference(key: CSHoverAnchorKey.self, value: geo.frame(in: .global))
+      })
+      .overlay(alignment: .topLeading) {
+        if open {
+          let screen = CSContextMenuModel.screenSize()
+          let box = CSFloatingRect(left: anchor.minX, top: anchor.minY, right: anchor.maxX, bottom: anchor.maxY, width: anchor.width, height: anchor.height)
+          let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
+          let place = CSHoverCardModel.placement(placement)
+          let placed = naturalSize.flatMap { natural in
+            fittedSize.flatMap { fitted in
+              CSHoverCardModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
+            }
+          }
+          Text(label).padding(8)
+            .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+            .background(GeometryReader { geo in
+              let frame = geo.frame(in: .global)
+              let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
+              let scaleY = geo.size.height > 0 ? frame.height / geo.size.height : 1
+              Color.clear.preference(key: CSHoverPanelKey.self, value: CSHoverMeasure(size: geo.size, pass: measurePass, origin: frame.origin, scale: CGSize(width: scaleX == 0 ? 1 : scaleX, height: scaleY == 0 ? 1 : scaleY)))
+            })
+            .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? 0))
+            .opacity(placed == nil ? 0 : 1)
+            .accessibilityHidden(placed == nil)
+        }
+      }
       .accessibilityHint(label)
       .onExitCommand { dismiss() }
+      .onPreferenceChange(CSHoverAnchorKey.self) { frame in
+        if frame.width > 0, frame.height > 0 { anchor = frame }
+      }
+      .onPreferenceChange(CSHoverPanelKey.self) { measure in
+        guard open, measure.size.width > 0, measure.size.height > 0 else { return }
+        panelOrigin = measure.origin
+        panelScale = measure.scale
+        if naturalSize == nil {
+          naturalSize = measure.size
+          measurePass = 1
+        } else if measure.pass >= 1 {
+          fittedSize = measure.size
+        }
+      }
+      .onChange(of: open) { isOpen in
+        if !isOpen {
+          naturalSize = nil
+          fittedSize = nil
+          panelOrigin = nil
+          panelScale = CGSize(width: 1, height: 1)
+          measurePass = 0
+        }
+      }
   }
 
   private func sync() {
@@ -1587,6 +1669,23 @@ public struct CSHoverCard<Content: View>: View {
     ticket += 1
     open = false
   }
+}
+
+private struct CSHoverMeasure: Equatable {
+  var size: CGSize
+  var pass: Int
+  var origin: CGPoint
+  var scale: CGSize
+}
+
+private struct CSHoverAnchorKey: PreferenceKey {
+  static var defaultValue = CGRect.zero
+  static func reduce(value: inout CGRect, nextValue: () -> CGRect) { value = nextValue() }
+}
+
+private struct CSHoverPanelKey: PreferenceKey {
+  static var defaultValue = CSHoverMeasure(size: .zero, pass: 0, origin: .zero, scale: CGSize(width: 1, height: 1))
+  static func reduce(value: inout CSHoverMeasure, nextValue: () -> CSHoverMeasure) { value = nextValue() }
 }
 
 public enum CSPresenceValue: Equatable {

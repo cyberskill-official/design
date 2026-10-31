@@ -873,6 +873,25 @@ class _CsHotKeysState extends State<CsHotKeys> {
   }
 }
 
+String csHoverPlacement(String? explicit) => explicit ?? 'bottom-start';
+const csHoverGap = 8.0;
+class CsHoverPlace {
+  const CsHoverPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsHoverPlace? csHoverShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, String placement) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: placement, gap: csHoverGap);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csHoverGap);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsHoverPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
 bool csHoverOpen(bool hovered, bool focused) => hovered || focused;
 int csHoverDelay(bool opening, {int openDelay = 150, int closeDelay = 200}) => opening ? openDelay : closeDelay;
 bool csHoverSyncAfterLeave(bool focused) => !focused;
@@ -893,6 +912,41 @@ class _CsHoverCardState extends State<CsHoverCard> {
   var focused = false;
   var open = false;
   Timer? timer;
+  final fieldKey = GlobalKey();
+  final listKey = GlobalKey();
+  Size? natural;
+  Size? fitted;
+  CsHoverPlace? place;
+
+  void measure() {
+    final fieldBox = fieldKey.currentContext?.findRenderObject() as RenderBox?;
+    final listBox = listKey.currentContext?.findRenderObject() as RenderBox?;
+    if (fieldBox == null || !fieldBox.hasSize || listBox == null || !listBox.hasSize || !fieldBox.attached || !listBox.attached) return;
+    final field = fieldBox.localToGlobal(Offset.zero);
+    final list = listBox.localToGlobal(Offset.zero);
+    if (natural == null) {
+      setState(() => natural = listBox.size);
+      return;
+    }
+    if (fitted == listBox.size && place != null) return;
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csHoverShift(
+      CsFloatingRect(field.dx, field.dy, field.dx + fieldBox.size.width, field.dy + fieldBox.size.height, fieldBox.size.width, fieldBox.size.height),
+      natural!.width,
+      natural!.height,
+      listBox.size.width,
+      listBox.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      list.dx,
+      list.dy,
+      1,
+      1,
+      csHoverPlacement(null),
+    );
+    setState(() { fitted = listBox.size; place = next; });
+  }
 
   @override
   void dispose() {
@@ -915,7 +969,10 @@ class _CsHoverCardState extends State<CsHoverCard> {
   }
 
   @override
-  Widget build(BuildContext context) => MouseRegion(
+  Widget build(BuildContext context) {
+    if (!open) { natural = null; fitted = null; }
+    if (open) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && open) measure(); });
+    return MouseRegion(
     onEnter: (_) { hovered = true; sync(); },
     onExit: (_) { hovered = false; if (csHoverSyncAfterLeave(focused)) sync(); },
     child: Focus(
@@ -925,9 +982,13 @@ class _CsHoverCardState extends State<CsHoverCard> {
         dismiss();
         return KeyEventResult.handled;
       },
-      child: Column(children: [widget.child, if (open) Text(widget.label)]),
+      child: Column(children: [
+        KeyedSubtree(key: fieldKey, child: widget.child),
+        if (open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Text(widget.label))),
+      ]),
     ),
   );
+  }
 }
 
 enum CsPresence { absent, zero, text }
