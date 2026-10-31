@@ -1,5 +1,6 @@
 package world.cyberskill.design
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -57,6 +58,8 @@ fun csCommandFormat(count: Int, language: String?): String {
   }
   return java.text.NumberFormat.getNumberInstance(locale).format(count)
 }
+fun csCommandClosesOnBackdrop() = true
+fun csCommandStops(resultCount: Int) = 1 + maxOf(0, resultCount)
 fun csCommandStatus(count: Int, language: String?): String {
   if (count == 0) return csCommandCopy("empty", language)
   val template = csCommandCopy(if (count == 1) "oneResult" else "results", language)
@@ -199,10 +202,16 @@ fun CsCommandPalette(
   val filtered = csCommandFilter(groups, query)
   val resultCount = filtered.sumOf { it.items.size }
   val handle = rememberFocusHandle("command-query")
-  Column(modifier.semantics { contentDescription = csCommandCopy("aria", locale) }.onPreviewKeyEvent { event ->
-    if (event.type != KeyEventType.KeyDown || event.key != Key.Escape) return@onPreviewKeyEvent false
-    onQuery("")
-    onClose()
+  val stops = csCommandStops(resultCount)
+  var trap by remember { mutableIntStateOf(0) }
+  Box(modifier) {
+    if (csCommandClosesOnBackdrop()) Box(Modifier.matchParentSize().clickable { onQuery(""); onClose() })
+  Column(Modifier.semantics { contentDescription = csCommandCopy("aria", locale) }.onPreviewKeyEvent { event ->
+    if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+    if (event.key == Key.Escape) { onQuery(""); onClose(); return@onPreviewKeyEvent true }
+    if (event.key != Key.Tab) return@onPreviewKeyEvent false
+    val next = csFocusNext(trap, stops, event.isShiftPressed, trap >= 0) ?: return@onPreviewKeyEvent false
+    trap = if (csModalPullBack(next >= 0)) 0 else next
     true
   }) {
     Row {
@@ -221,6 +230,7 @@ fun CsCommandPalette(
         }
       }
     }
+  }
   }
 }
 

@@ -43,6 +43,8 @@ String csCommandFormat(int count, String? language) {
   }
   return buffer.toString();
 }
+bool csCommandClosesOnBackdrop() => true;
+int csCommandStops(int resultCount) => 1 + (resultCount < 0 ? 0 : resultCount);
 String csCommandStatus(int count, String? language) {
   if (count == 0) return csCommandCopy('empty', language);
   final template = csCommandCopy(count == 1 ? 'oneResult' : 'results', language);
@@ -186,7 +188,7 @@ List<String> csFileNames(List<String> files, {bool multiple = false}) {
   return multiple ? files : [files.first];
 }
 
-class CsCommandPalette extends StatelessWidget {
+class CsCommandPalette extends StatefulWidget {
   const CsCommandPalette({super.key, required this.groups, required this.query, required this.onQuery, required this.onSelect, required this.onClose, required this.dark, required this.highContrast, required this.compact, this.placeholder, this.language});
   final String? placeholder;
   final String? language;
@@ -200,27 +202,44 @@ class CsCommandPalette extends StatelessWidget {
   final bool compact;
 
   @override
+  State<CsCommandPalette> createState() => _CsCommandPaletteState();
+}
+
+class _CsCommandPaletteState extends State<CsCommandPalette> {
+  var trap = 0;
+
+  @override
   Widget build(BuildContext context) {
-    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    final locale = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
-    final hint = csCommandPlaceholderText(placeholder, csCommandCopy('placeholder', locale));
-    final filtered = csCommandFilter(groups, query);
+    final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
+    final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
+    final hint = csCommandPlaceholderText(widget.placeholder, csCommandCopy('placeholder', locale));
+    final filtered = csCommandFilter(widget.groups, widget.query);
     final resultCount = filtered.fold<int>(0, (count, group) => count + group.items.length);
+    final stops = csCommandStops(resultCount);
     return Semantics(
       namesRoute: true,
       label: csCommandCopy('aria', locale),
       child: Focus(
         onKeyEvent: (node, event) {
-          if (event is! KeyDownEvent || event.logicalKey != LogicalKeyboardKey.escape) return KeyEventResult.ignored;
-          onQuery('');
-          onClose();
+          if (event is! KeyDownEvent) return KeyEventResult.ignored;
+          if (event.logicalKey == LogicalKeyboardKey.escape) {
+            widget.onQuery('');
+            widget.onClose();
+            return KeyEventResult.handled;
+          }
+          if (event.logicalKey != LogicalKeyboardKey.tab) return KeyEventResult.ignored;
+          final next = csFocusNext(trap, stops, HardwareKeyboard.instance.isShiftPressed, true);
+          if (next == null) return KeyEventResult.ignored;
+          setState(() => trap = next);
           return KeyEventResult.handled;
         },
-        child: Column(
+        child: Stack(children: [
+          if (csCommandClosesOnBackdrop()) Positioned.fill(child: GestureDetector(onTap: () { widget.onQuery(''); widget.onClose(); }, child: const ColoredBox(color: Color(0x6B000000)))),
+          Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(children: [
-              Expanded(child: CsOwnFocus(builder: (node, claim) => TextField(focusNode: node, controller: TextEditingController(text: query), onChanged: (next) { claim(); onQuery(next); }, decoration: InputDecoration(hintText: hint.isEmpty ? null : hint)))),
+              Expanded(child: CsOwnFocus(builder: (node, claim) => TextField(focusNode: node, controller: TextEditingController(text: widget.query), onChanged: (next) { claim(); widget.onQuery(next); }, decoration: InputDecoration(hintText: hint.isEmpty ? null : hint)))),
               Text(csCommandCopy('esc', locale)),
             ]),
             Semantics(liveRegion: true, child: Text(csCommandStatus(resultCount, locale), style: TextStyle(color: csColor(pack.colorTextMuted)))),
@@ -228,10 +247,11 @@ class CsCommandPalette extends StatelessWidget {
               if (group.items.isNotEmpty) ...[
                 if (group.title.isNotEmpty) Text(group.title, style: TextStyle(color: csColor(pack.colorTextMuted))),
                 for (final item in group.items)
-                  CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onSelect(item); onQuery(''); onClose(); }, child: Text(item))),
+                  CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onSelect(item); widget.onQuery(''); widget.onClose(); }, child: Text(item))),
               ],
           ],
-        ),
+          ),
+        ]),
       ),
     );
   }

@@ -38,6 +38,8 @@ public enum CSCommandFilter {
     let template = copy(count == 1 ? "oneResult" : "results", language: language)
     return template.replacingOccurrences(of: "{count}", with: format(count, language: language))
   }
+  public static func closesOnBackdrop() -> Bool { true }
+  public static func stops(resultCount: Int) -> Int { 1 + max(0, resultCount) }
 }
 
 public enum CSTransferModel {
@@ -317,7 +319,7 @@ public struct CSCommandPalette: View {
   let onClose: () -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
   @State private var focusId = UUID().uuidString
-  @FocusState private var focused: Bool
+  @FocusState private var trap: Int?
 
   public init(placeholder: String? = nil, groups: [(title: String, items: [String])], query: String, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onQuery: @escaping (String) -> Void, onSelect: @escaping (String) -> Void, onClose: @escaping () -> Void) {
     self.placeholder = placeholder
@@ -338,34 +340,54 @@ public struct CSCommandPalette: View {
     let hint = CSCommandFilter.placeholder(placeholder, fallback: CSCommandFilter.copy("placeholder", language: locale))
     let filtered = CSCommandFilter.filter(groups: groups, query: query)
     let resultCount = filtered.reduce(0) { $0 + $1.items.count }
+    let stops = CSCommandFilter.stops(resultCount: resultCount)
+    ZStack {
+      if CSCommandFilter.closesOnBackdrop() {
+        Color.black.opacity(0.42)
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
+          .contentShape(Rectangle())
+          .onTapGesture {
+            onQuery("")
+            onClose()
+          }
+          .accessibilityHidden(true)
+      }
     VStack(alignment: .leading, spacing: 8) {
       HStack {
         TextField(hint, text: Binding(get: { query }, set: { next in
-          CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
+          CSFocusRegistry.shared.claim(id: focusId, restore: { trap = 0 })
           onQuery(next)
         }))
-          .focused($focused)
-          .onChange(of: focused) { isFocused in
-            if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
+          .focused($trap, equals: 0)
+          .onChange(of: trap) { index in
+            if index == 0 { CSFocusRegistry.shared.claim(id: focusId, restore: { trap = 0 }) }
           }
         Text(CSCommandFilter.copy("esc", language: locale)).foregroundStyle(pack.mutedColor)
       }
       Text(CSCommandFilter.status(count: resultCount, language: locale))
         .foregroundStyle(pack.mutedColor)
         .accessibilityAddTraits(.updatesFrequently)
-      ForEach(Array(filtered.enumerated()), id: \.offset) { _, group in
+      ForEach(Array(filtered.enumerated()), id: \.offset) { groupIndex, group in
         if !group.items.isEmpty {
+          let before = filtered.prefix(groupIndex).reduce(0) { $0 + $1.items.count }
           if !group.title.isEmpty { Text(group.title).foregroundStyle(pack.mutedColor) }
-          ForEach(group.items, id: \.self) { item in
+          ForEach(Array(group.items.enumerated()), id: \.offset) { itemIndex, item in
             CSTriggerButton(item) {
               onSelect(item)
               onQuery("")
               onClose()
             }
+              .focused($trap, equals: before + itemIndex + 1)
               .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
           }
         }
       }
+    }
+    .onAppear { trap = CSFocusTrap.initialIndex(preferred: 0, count: stops) }
+    .csTabTrap { shift in
+      let next = CSFocusTrap.nextIndex(current: trap ?? -1, count: stops, shift: shift, inside: trap != nil)
+      trap = CSModalFocus.pullBack(inside: next != nil) ? CSFocusTrap.initialIndex(preferred: 0, count: stops) : next
+      return stops > 0
     }
     .padding(16)
     .background(pack.colorSurfacePanel.color)
@@ -375,6 +397,7 @@ public struct CSCommandPalette: View {
     .onExitCommand {
       onQuery("")
       onClose()
+    }
     }
   }
 }

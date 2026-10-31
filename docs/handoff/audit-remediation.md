@@ -1,8 +1,8 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the terminal composing checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the command palette checkpoint. Goal is still active. Do not mark it complete.
 
-Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
+Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
 ## Resume from
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `2a5d82296d29e42b8b865690feee5bb7a62eee26`, with the hash note in `96de47d9`
-- Checkpoint commit hash: `699afcf6e0e0488a15efe1f73c9b0af876c83ebc`
+- Previous checkpoint: `699afcf6e0e0488a15efe1f73c9b0af876c83ebc`, with the hash note in `3e620f17`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `terminal ime, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `palette trap, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,22 +48,22 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the cascader arrow change: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the command palette change: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-Enter in the terminal no longer runs a command while an IME composition is open. `components/data/Terminal.jsx` returns before `run()` when `isComposing` is true or the key code is 229. The shared check was already tested. Compose now reads `TextFieldValue.composition`. Flutter now reads the field's composing range. Swift on macOS still reads marked text. The iOS SwiftUI path still passes composing as false, because that path is not compiled by the macOS test.
+The command palette now closes from the backdrop and wraps Tab across the search field plus each filtered result. The web source is `components/navigation/CommandPalette.jsx`: the scrim click calls `notifyClosed`, and the overlay traps focus with the search field preferred. Escape still clears the query and closes. A click on the panel does not close it.
 
-- A composition and key code 229 each refuse the submit. A normal Enter still runs the trimmed command.
-- The input name stays `Ô nhập lệnh`. It was not rewritten.
-- Compose and Flutter were not compiled.
+- Zero results leave one stop, the search field. Two results make three stops. Tab from the last result returns to the search field.
+- Flutter stores the trap index, so Tab does not restart at zero on every key.
+- The labels were not rewritten. Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Trap focus in the command palette and close it from the backdrop, the way the web palette does. Re-read `components/overlays/CommandPalette.jsx` before editing. Do not invent a string.
+Give the Compose and Flutter navigation menus the same open panel the Swift menu already has. Re-read `components/navigation/NavigationMenu.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
