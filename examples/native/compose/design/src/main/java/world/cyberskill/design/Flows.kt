@@ -3,6 +3,13 @@ package world.cyberskill.design
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.minimumInteractiveComponentSize
@@ -67,6 +74,14 @@ fun csMentionQuery(text: String, caret: Int): String? {
 }
 
 fun csMentionDismissOutside(open: Boolean, inside: Boolean) = open && !inside
+data class CsMentionPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
+fun csMentionShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double): CsMentionPlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, "bottom-start", 0.0) ?: return null
+  val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, 0.0) ?: return null
+  val sx = if (scaleX == 0.0) 1.0 else scaleX
+  val sy = if (scaleY == 0.0) 1.0 else scaleY
+  return CsMentionPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
+}
 fun csMentionHits(users: List<String>, query: String?): List<String> {
   if (query == null) return emptyList()
   return users.filter { it.lowercase().contains(query) }.take(6)
@@ -136,18 +151,47 @@ fun CsMentions(text: String, users: List<String>, onChange: (String) -> Unit, da
   val spoken = csMentionName(ariaLabel, hint)
   val handle = rememberFocusHandle("mentions")
   var dismissed by remember { mutableStateOf(false) }
+  var field by remember { mutableStateOf<CsFloatingRect?>(null) }
+  var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var origin by remember { mutableStateOf(0.0 to 0.0) }
+  var panelScale by remember { mutableStateOf(1.0 to 1.0) }
   val hits = if (dismissed) emptyList() else csMentionHits(users, csMentionQuery(text, text.length))
+  val config = LocalConfiguration.current
+  val density = LocalDensity.current
+  val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
+  val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
+  val viewport = CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), 0.0, 0.0)
+  val place = field?.let { box ->
+    val first = natural
+    val second = fitted
+    if (first == null || second == null) null else csMentionShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second)
+  }
+  val shiftX = with(density) { (place?.x ?: 0.0).toFloat().toDp() }
+  val shiftY = with(density) { (place?.y ?: 0.0).toFloat().toDp() }
+  LaunchedEffect(hits.isEmpty()) { if (hits.isEmpty()) { natural = null; fitted = null } }
   Column(modifier.onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown || event.key != Key.Escape) return@onPreviewKeyEvent false
     dismissed = true
     true
   }) {
-    Box {
+    Box(Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
+    }) {
       if (text.isEmpty() && hint.isNotEmpty()) Text(hint, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
       androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); dismissed = false; onChange(next) }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = spoken }, textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()))
     }
     if (hits.isNotEmpty()) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csMentionDismissOutside(true, false)) dismissed = true }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) {
-      Column {
+      Column(Modifier.onGloballyPositioned {
+        val bounds = it.boundsInWindow()
+        val width = it.size.width.toDouble()
+        val height = it.size.height.toDouble()
+        if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+        origin = bounds.left.toDouble() to bounds.top.toDouble()
+        panelScale = (bounds.width / width) to (bounds.height / height)
+        if (natural == null) natural = width to height else fitted = width to height
+      }.offset(x = shiftX, y = shiftY).widthIn(max = with(density) { (place?.maxWidth ?: viewWidth).toFloat().toDp() })) {
         hits.forEach { user ->
           CsTriggerButton(title = csMentionOption(user), onClick = { onChange(csMentionPick(text, text.length, user)); dismissed = true }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(csMentionOption(user)) }
         }

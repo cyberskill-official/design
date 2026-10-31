@@ -53,6 +53,13 @@ public enum CSMentionModel {
     return Array(users.filter { $0.lowercased().contains(query) }.prefix(6))
   }
   public static func dismissOutside(open: Bool, inside: Bool) -> Bool { open && !inside }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double) -> CSMentionPlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: "bottom-start", gap: 0) else { return nil }
+    guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: 0) else { return nil }
+    let sx = scaleX == 0 ? 1 : scaleX
+    let sy = scaleY == 0 ? 1 : scaleY
+    return CSMentionPlace(x: (placed.left - originX) / sx, y: (placed.top - originY) / sy, maxWidth: initial.maxWidth, maxHeight: initial.maxHeight, placement: placed.placement)
+  }
 
   public static func pick(text: String, caret: Int, user: String) -> String {
     let end = min(max(caret, 0), text.count)
@@ -216,6 +223,21 @@ public struct CSTimePicker: View {
   }
 }
 
+public struct CSMentionPlace: Equatable {
+  public var x: Double
+  public var y: Double
+  public var maxWidth: Double
+  public var maxHeight: Double
+  public var placement: String
+  public init(x: Double, y: Double, maxWidth: Double, maxHeight: Double, placement: String) {
+    self.x = x
+    self.y = y
+    self.maxWidth = maxWidth
+    self.maxHeight = maxHeight
+    self.placement = placement
+  }
+}
+
 public struct CSMentions: View {
   public let ariaLabel: String?
   public let placeholder: String?
@@ -231,6 +253,12 @@ public struct CSMentions: View {
   @FocusState private var focused: Bool
   @State private var active = 0
   @State private var dismissed = false
+  @State private var anchor = CGRect.zero
+  @State private var naturalSize: CGSize?
+  @State private var fittedSize: CGSize?
+  @State private var panelOrigin: CGPoint?
+  @State private var panelScale = CGSize(width: 1, height: 1)
+  @State private var measurePass = 0
 
   public init(ariaLabel: String? = nil, placeholder: String? = nil, text: String, users: [String], dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping (String) -> Void) {
     self.ariaLabel = ariaLabel
@@ -284,13 +312,38 @@ public struct CSMentions: View {
           }
         }
         .onExitCommand { dismissed = true }
-      ForEach(Array(found.enumerated()), id: \.offset) { index, user in
-        CSTriggerButton(CSMentionModel.option(user)) {
-          onChange(CSMentionModel.pick(text: text, caret: text.count, user: user))
-          dismissed = true
+        .background(GeometryReader { geo in
+          Color.clear.preference(key: CSMentionAnchorKey.self, value: geo.frame(in: .global))
+        })
+      if !found.isEmpty {
+        let screen = CSContextMenuModel.screenSize()
+        let box = CSFloatingRect(left: anchor.minX, top: anchor.minY, right: anchor.maxX, bottom: anchor.maxY, width: anchor.width, height: anchor.height)
+        let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
+        let placed = naturalSize.flatMap { natural in
+          fittedSize.flatMap { fitted in
+            CSMentionModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height))
+          }
         }
-        .frame(minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
-        .accessibilityAddTraits(index == current ? .isSelected : [])
+        VStack(alignment: .leading, spacing: 0) {
+          ForEach(Array(found.enumerated()), id: \.offset) { index, user in
+            CSTriggerButton(CSMentionModel.option(user)) {
+              onChange(CSMentionModel.pick(text: text, caret: text.count, user: user))
+              dismissed = true
+            }
+            .frame(minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
+            .accessibilityAddTraits(index == current ? .isSelected : [])
+          }
+        }
+        .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+        .background(GeometryReader { geo in
+          let frame = geo.frame(in: .global)
+          let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
+          let scaleY = geo.size.height > 0 ? frame.height / geo.size.height : 1
+          Color.clear.preference(key: CSMentionPanelKey.self, value: CSMentionMeasure(size: geo.size, pass: measurePass, origin: frame.origin, scale: CGSize(width: scaleX == 0 ? 1 : scaleX, height: scaleY == 0 ? 1 : scaleY)))
+        })
+        .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? 0))
+        .opacity(placed == nil ? 0 : 1)
+        .accessibilityHidden(placed == nil)
       }
     }
     .background(GeometryReader { _ in
@@ -298,7 +351,47 @@ public struct CSMentions: View {
         if CSMentionModel.dismissOutside(open: true, inside: false) { dismissed = true }
       }
     })
+    .onPreferenceChange(CSMentionAnchorKey.self) { frame in
+      if frame.width > 0, frame.height > 0 { anchor = frame }
+    }
+    .onPreferenceChange(CSMentionPanelKey.self) { measure in
+      guard !found.isEmpty, measure.size.width > 0, measure.size.height > 0 else { return }
+      panelOrigin = measure.origin
+      panelScale = measure.scale
+      if naturalSize == nil {
+        naturalSize = measure.size
+        measurePass = 1
+      } else if measure.pass >= 1 {
+        fittedSize = measure.size
+      }
+    }
+    .onChange(of: found.count) { count in
+      if count == 0 {
+        naturalSize = nil
+        fittedSize = nil
+        panelOrigin = nil
+        panelScale = CGSize(width: 1, height: 1)
+        measurePass = 0
+      }
+    }
   }
+}
+
+private struct CSMentionMeasure: Equatable {
+  var size: CGSize
+  var pass: Int
+  var origin: CGPoint
+  var scale: CGSize
+}
+
+private struct CSMentionAnchorKey: PreferenceKey {
+  static var defaultValue = CGRect.zero
+  static func reduce(value: inout CGRect, nextValue: () -> CGRect) { value = nextValue() }
+}
+
+private struct CSMentionPanelKey: PreferenceKey {
+  static var defaultValue = CSMentionMeasure(size: .zero, pass: 0, origin: .zero, scale: CGSize(width: 1, height: 1))
+  static func reduce(value: inout CSMentionMeasure, nextValue: () -> CSMentionMeasure) { value = nextValue() }
 }
 
 public struct CSSortable: View {

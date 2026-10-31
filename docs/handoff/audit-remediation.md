@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the mentions outside-click checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the mentions placement checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `9841859e3f1c9d4f9312b8dd520833c4b4ad8720`, with the hash note in `64649ebf`
-- Checkpoint commit hash: `825a228d1671440180d0a4ae5ba76a45743038a9`
+- Previous checkpoint: `825a228d1671440180d0a4ae5ba76a45743038a9`, with the hash note in `a834765d`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `mention outside, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `mention place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,22 +54,19 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-An outside click hides the mentions suggestion list. Web `components/forms/Mentions.jsx` does this by `setQ(null)` on `mousedown` outside `floating.contains`. A null query produces no hits.
+Mentions suggestions use the web floating placement. The web call is `bottom-start` with gap `0`. `CSMentionModel.shift` measures twice: the first result chooses the side, the second uses that side after the max size is applied. The painted shift is `(result - origin) / scale`. A scale of 2 turns a 10-point left shift into 5. A panel that does not fit below flips to `top-start`.
 
-- `CSMentionModel.dismissOutside` is true only when the list is open and the point is outside.
-- Swift sets `dismissed` through `CSInlineOutside`. Typing again clears `dismissed`. Escape and choosing a person still hide the list.
-- Compose puts the open list in a `Popup` with `dismissOnClickOutside`.
-- Flutter keeps `dismissed` on a state object and wraps the field and the list in one `TapRegion`.
-- The text itself does not change on an outside click.
-- Floating placement is still not ported. Web blur also clears the query when focus leaves the field and the list. That blur path is not this checkpoint.
-
-Outside click is now in for the cascader (`4e601135`), color picker (`45f68a26`), tree select (`9841859e`), and mentions (this checkpoint).
+- Swift hides the list until the second measurement exists, then offsets it. The field frame is the anchor.
+- Compose and Flutter call the same two-pass function and offset the list. Compose still uses a `Popup` only to catch the outside click. The offset comes from `csMentionShift`, not from the popup's default position.
+- Outside click, Escape, and choosing a person still hide the list.
+- Web blur that clears the query is still not ported.
+- Cascader, color picker, and tree select still do not use this placement.
 
 Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed after this change. Compose and Flutter were not compiled.
 
 ## Next concrete step
 
-Port floating placement for one of those four controls. Re-read `components/_utils/floating-position.js` and the control before editing. Combobox, popover, tooltip, and context menu already measure twice and divide by scale. Do not treat a Compose `Popup` as that placement. Do not invent a close the web component does not have.
+Port the same two-pass placement to the cascader. Re-read `components/forms/Cascader.jsx`: placement is `bottom-start` and gap is `6`. Reuse `CSFloatingModel.position`. Do not treat a Compose `Popup` as the placement. Do not invent a close the web component does not have.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

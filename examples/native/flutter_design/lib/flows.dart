@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'catalog.dart';
 import 'controls.dart';
+import 'surfaces.dart';
 
 const csTimeLabel = 'Time';
 String csTimeCopy(String key, String? language) {
@@ -130,6 +131,23 @@ String csMentionPlaceholderText(String? text, String fallback) => text ?? fallba
 String csMentionName(String? ariaLabel, String placeholder) => ariaLabel != null && ariaLabel.isNotEmpty ? ariaLabel : placeholder;
 String csMentionOption(String user) => '@$user';
 bool csMentionDismissOutside(bool open, bool inside) => open && !inside;
+class CsMentionPlace {
+  const CsMentionPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsMentionPlace? csMentionShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: 'bottom-start', gap: 0);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: 0);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsMentionPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
 
 class CsMentions extends StatefulWidget {
   const CsMentions({super.key, required this.text, required this.users, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.ariaLabel, this.placeholder, this.language});
@@ -148,6 +166,34 @@ class CsMentions extends StatefulWidget {
 
 class _CsMentionsState extends State<CsMentions> {
   var dismissed = false;
+  final fieldKey = GlobalKey();
+  final listKey = GlobalKey();
+  CsMentionPlace? place;
+
+  void measure() {
+    final fieldBox = fieldKey.currentContext?.findRenderObject() as RenderBox?;
+    final listBox = listKey.currentContext?.findRenderObject() as RenderBox?;
+    if (fieldBox == null || !fieldBox.hasSize || listBox == null || !listBox.hasSize || !fieldBox.attached || !listBox.attached) return;
+    final field = fieldBox.localToGlobal(Offset.zero);
+    final list = listBox.localToGlobal(Offset.zero);
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csMentionShift(
+      CsFloatingRect(field.dx, field.dy, field.dx + fieldBox.size.width, field.dy + fieldBox.size.height, fieldBox.size.width, fieldBox.size.height),
+      listBox.size.width,
+      listBox.size.height,
+      listBox.size.width,
+      listBox.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      list.dx,
+      list.dy,
+      1,
+      1,
+    );
+    if (next == null || (place?.x == next.x && place?.y == next.y && place?.placement == next.placement)) return;
+    setState(() => place = next);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,10 +204,18 @@ class _CsMentionsState extends State<CsMentions> {
     return TapRegion(
       onTapOutside: hits.isNotEmpty && csMentionDismissOutside(true, false) ? (_) { setState(() => dismissed = true); } : null,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        CsOwnFocus(builder: (node, claim) => Semantics(textField: true, label: spoken, child: TextField(focusNode: node, controller: TextEditingController(text: widget.text), minLines: 3, maxLines: 3, decoration: InputDecoration(hintText: hint.isEmpty ? null : hint), onChanged: (next) { claim(); setState(() => dismissed = false); widget.onChange(next); }))),
-        for (final user in hits) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onChange(csMentionPick(widget.text, widget.text.length, user)); setState(() => dismissed = true); }, child: Text(csMentionOption(user)))),
+        CsOwnFocus(builder: (node, claim) => Semantics(textField: true, label: spoken, child: TextField(key: fieldKey, focusNode: node, controller: TextEditingController(text: widget.text), minLines: 3, maxLines: 3, decoration: InputDecoration(hintText: hint.isEmpty ? null : hint), onChanged: (next) { claim(); setState(() => dismissed = false); widget.onChange(next); }))),
+        if (hits.isNotEmpty) Transform.translate(offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Column(key: listKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
+          for (final user in hits) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onChange(csMentionPick(widget.text, widget.text.length, user)); setState(() => dismissed = true); }, child: Text(csMentionOption(user)))),
+        ])),
       ]),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!dismissed) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted) measure(); });
   }
 }
 
