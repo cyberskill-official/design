@@ -172,9 +172,12 @@ class _CsDataGridState extends State<CsDataGrid> {
         columns.firstWhere((column) => column.key == key),
     ];
     final listed = csGridDataCount(rows.length);
+    final published = csGridRowBox(useVirtual, safeRow);
     final rowCount = csGridRowCount(useVirtual, rows.length);
     return Semantics(
       value: listed.toString(),
+      child: Semantics(
+      value: published?.toString(),
       child: Semantics(
       value: rowCount?.toString(),
       child: Column(
@@ -233,6 +236,7 @@ class _CsDataGridState extends State<CsDataGrid> {
         else
           for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual, safeRow),
       ],
+      ),
       ),
       ),
     );

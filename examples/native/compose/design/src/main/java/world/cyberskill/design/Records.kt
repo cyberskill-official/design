@@ -146,9 +146,20 @@ fun CsDataGrid(
   val keys = shown.mapIndexed { index, row -> csGridRowKey(row["id"], index) }
   val allSelected = keys.isNotEmpty() && keys.all { selected.contains(it) }
   val useVirtual = csGridVirtual(virtual, shown.size, virtualThreshold)
+  val scroll = rememberScrollState()
+  val incoming = measuredRowHeight ?: rowHeight
+  var settled by remember { mutableStateOf(rowHeight) }
+  val shownMeasure = csGridMeasured(settled, incoming)
+  LaunchedEffect(incoming) { settled = shownMeasure }
+  val safeRow = csGridRowHeight(rowHeight, shownMeasure)
+  val body = maxOf(0.0, height - 40)
+  val window = csGridWindow(shown.size, height, safeRow, scroll.value.toDouble(), useVirtual)
+  val painted = csGridPainted(shown.size, window.first, window.second)
+  val publishedHeight = csGridRowBox(useVirtual, safeRow)
   Column(modifier.semantics {
     csGridDataCountValue = csGridDataCount(shown.size)
     csGridRowCount(useVirtual, shown.size)?.let { csGridRowCountValue = it }
+    publishedHeight?.let { csGridDataRowHeightValue = it }
   }) {
     if (csGridShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor())
     if (selectable) {
@@ -180,15 +191,6 @@ fun CsDataGrid(
         }
       }
     }
-    val scroll = rememberScrollState()
-    val incoming = measuredRowHeight ?: rowHeight
-    var settled by remember { mutableStateOf(rowHeight) }
-    val shownMeasure = csGridMeasured(settled, incoming)
-    LaunchedEffect(incoming) { settled = shownMeasure }
-    val safeRow = csGridRowHeight(rowHeight, shownMeasure)
-    val body = maxOf(0.0, height - 40)
-    val window = csGridWindow(shown.size, height, safeRow, scroll.value.toDouble(), useVirtual)
-    val painted = csGridPainted(shown.size, window.first, window.second)
     if (shown.isEmpty()) {
       Text(csGridEmptyText(empty, csGridCopy("empty", null)), color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { csGridRowIndex(useVirtual, 0)?.let { csGridRowIndexValue = it } })
     } else Column(if (useVirtual) Modifier.height(body.dp).verticalScroll(scroll) else Modifier) {
@@ -437,6 +439,8 @@ private val csGridRowCountKey = SemanticsPropertyKey<Int>("rowcount")
 private var SemanticsPropertyReceiver.csGridRowCountValue by csGridRowCountKey
 private val csGridDataCountKey = SemanticsPropertyKey<Int>("data-row-count")
 private var SemanticsPropertyReceiver.csGridDataCountValue by csGridDataCountKey
+private val csGridDataRowHeightKey = SemanticsPropertyKey<Double>("data-row-height")
+private var SemanticsPropertyReceiver.csGridDataRowHeightValue by csGridDataRowHeightKey
 fun csGridRowCount(virtual: Boolean, count: Int) = if (virtual) maxOf(2, count + 1) else null
 fun csGridDataCount(count: Int) = count
 fun csGridRowHeight(requested: Double, measured: Double): Double {

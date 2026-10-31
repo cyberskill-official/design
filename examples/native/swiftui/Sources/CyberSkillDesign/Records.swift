@@ -389,6 +389,7 @@ public struct CSDataGrid: View {
       }
     }
     .accessibilityCustomContent(AccessibilityCustomContentKey("data-row-count", id: "data-row-count"), Text(String(CSDataGridSelection.dataCount(shown.count))))
+    .accessibilityCustomContent(AccessibilityCustomContentKey("data-row-height", id: "data-row-height"), CSDataGridSelection.rowBox(virtual: useVirtual, height: row).map { Text(String($0)) })
     .accessibilityCustomContent(AccessibilityCustomContentKey("rowcount", id: "rowcount"), CSDataGridSelection.rowCount(virtual: useVirtual, count: shown.count).map { Text(String($0)) })
     .onAppear {
       settledRowHeight = CSDataGridSelection.measured(gridRowHeight, next: measuredRowHeight ?? gridRowHeight)
