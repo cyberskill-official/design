@@ -669,6 +669,7 @@ class CsFieldset extends StatelessWidget {
 
 bool csFormFieldShowsLabel(String label) => label.trim().isNotEmpty;
 bool csFormFieldShowsHint(String? hint) => hint != null && hint.isNotEmpty;
+bool csFormFieldAlert(String? error) => error != null && error.isNotEmpty;
 String csFormFieldCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'required': 'bắt buộc'};
@@ -703,7 +704,7 @@ class CsFormField extends StatelessWidget {
         if (required) Semantics(label: mark, child: const ExcludeSemantics(child: Text('*'))),
       ]),
       child,
-      if (error != null && error!.isNotEmpty) Text(error!) else if (csFormFieldShowsHint(hint)) Text(hint!),
+      if (csFormFieldAlert(error)) Semantics(liveRegion: true, child: Text(error!)) else if (csFormFieldShowsHint(hint)) Text(hint!),
     ]);
   }
 }

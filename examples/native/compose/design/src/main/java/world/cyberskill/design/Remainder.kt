@@ -523,6 +523,7 @@ val LocalCsDisabled = androidx.compose.runtime.compositionLocalOf { false }
 }
 fun csFormFieldShowsLabel(label: String) = label.trim().isNotEmpty()
 fun csFormFieldShowsHint(hint: String?) = !hint.isNullOrEmpty()
+fun csFormFieldAlert(error: String?) = !error.isNullOrEmpty()
 fun csFormFieldCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("required" to "bắt buộc")
@@ -542,7 +543,7 @@ fun csFormFieldCopy(key: String, language: String?): String {
       if (required) Text("*", color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { contentDescription = mark })
     }
     content()
-    if (!error.isNullOrEmpty()) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor()) else if (csFormFieldShowsHint(hint)) Text(hint ?: "")
+    if (csFormFieldAlert(error)) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive }) else if (csFormFieldShowsHint(hint)) Text(hint ?: "")
   }
 }
 fun csFormArrayCopy(key: String, language: String?): String {

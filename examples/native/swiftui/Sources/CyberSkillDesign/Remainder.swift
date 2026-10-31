@@ -282,6 +282,7 @@ public enum CSFormFieldModel {
     if let error { return !error.isEmpty }
     return false
   }
+  public static func isAlert(_ error: String?) -> Bool { showsError(error) }
   public static func showsLabel(_ label: String) -> Bool {
     !label.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
   }
@@ -735,8 +736,8 @@ public struct CSFormField<Content: View>: View {
         }
       }
       content()
-      if CSFormFieldModel.showsError(error), let error {
-        Text(error).foregroundStyle(pack.colorSemanticDangerText.color)
+      if CSFormFieldModel.isAlert(error), let error {
+        Text(error).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
       } else if CSFormFieldModel.showsHint(hint), let hint {
         Text(hint).foregroundStyle(pack.mutedColor)
       }

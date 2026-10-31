@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the sortable drag checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the form-field alert checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `73ccf719cbe55d7adc3236627fc5e92170ce4911`, with the hash note in `940a5587`
-- Checkpoint commit hash: `b4f30f91e0923fa5ae8485eca82324188f764223`
+- Previous checkpoint: `b4f30f91e0923fa5ae8485eca82324188f764223`, with the hash note in `c2852769`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `sort drag, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `field alert, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,16 +54,15 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The sortable list now drops a row onto another row, the way `components/data/Sortable.jsx` does. Drop calls the same `reorder` as the up and down buttons. A drop on the same row, or a drag with no source or no target, does not change the list. The grip starts the drag. The buttons do not.
+The form-field error is now an alert, the way `components/forms/Form.jsx` marks `role="alert"` on the error span. A non-empty error, including `"0"`, is the alert. An empty error is not. The hint is not an alert, and it stays hidden while an error is shown.
 
-- A pointer in the first 40-point row is index 0. A pointer 80 points into that rhythm is index 2. A pointer above the list, or past the last row, is not a target.
-- Dropping the first item on the third item turns `a, b, c` into `b, c, a`.
-- Swift, Compose, and Flutter use that hit test. Compose and Flutter were not compiled.
+- Swift adds the live-region trait to the error text. Compose uses an assertive live region. Flutter uses a live region. The hint has none of those.
+- Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Make the form-field error an alert, the way the web field does. Re-read the error span in `components/forms/Form.jsx` before editing. Do not invent a string.
+Make the form-array context message an alert. Re-read the `role="alert"` on the array context in `components/forms/Form.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
