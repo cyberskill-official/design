@@ -146,7 +146,10 @@ fun CsDataGrid(
   val keys = shown.mapIndexed { index, row -> csGridRowKey(row["id"], index) }
   val allSelected = keys.isNotEmpty() && keys.all { selected.contains(it) }
   val useVirtual = csGridVirtual(virtual, shown.size, virtualThreshold)
-  Column(modifier.semantics { csGridRowCount(useVirtual, shown.size)?.let { csGridRowCountValue = it } }) {
+  Column(modifier.semantics {
+    csGridDataCountValue = csGridDataCount(shown.size)
+    csGridRowCount(useVirtual, shown.size)?.let { csGridRowCountValue = it }
+  }) {
     if (csGridShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor())
     if (selectable) {
       CsCheckbox(label = selectAllLabel, checked = allSelected, onCheckedChange = { onSelect(csToggleAllSelection(keys, selected)) }, dark = dark, highContrast = highContrast, compact = compact)
@@ -432,7 +435,10 @@ private val csGridRowIndexKey = SemanticsPropertyKey<Int>("rowindex")
 private var SemanticsPropertyReceiver.csGridRowIndexValue by csGridRowIndexKey
 private val csGridRowCountKey = SemanticsPropertyKey<Int>("rowcount")
 private var SemanticsPropertyReceiver.csGridRowCountValue by csGridRowCountKey
+private val csGridDataCountKey = SemanticsPropertyKey<Int>("data-row-count")
+private var SemanticsPropertyReceiver.csGridDataCountValue by csGridDataCountKey
 fun csGridRowCount(virtual: Boolean, count: Int) = if (virtual) maxOf(2, count + 1) else null
+fun csGridDataCount(count: Int) = count
 fun csGridRowHeight(requested: Double, measured: Double): Double {
   val estimate = if (requested.isFinite() && requested > 0) requested else 36.0
   val known = if (measured.isFinite()) measured else estimate

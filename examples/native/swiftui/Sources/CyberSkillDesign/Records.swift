@@ -92,6 +92,7 @@ public enum CSDataGridSelection {
     guard virtual else { return nil }
     return header ? 1 : position + 2
   }
+  public static func dataCount(_ count: Int) -> Int { count }
   public static func rowCount(virtual: Bool, count: Int) -> Int? { virtual ? max(2, count + 1) : nil }
   public static func pinName(header: String?, key: String, template: String = pinTemplate) -> String {
     template.replacingOccurrences(of: "{name}", with: header ?? key)
@@ -387,6 +388,7 @@ public struct CSDataGrid: View {
       }
       }
     }
+    .accessibilityCustomContent(AccessibilityCustomContentKey("data-row-count", id: "data-row-count"), Text(String(CSDataGridSelection.dataCount(shown.count))))
     .accessibilityCustomContent(AccessibilityCustomContentKey("rowcount", id: "rowcount"), CSDataGridSelection.rowCount(virtual: useVirtual, count: shown.count).map { Text(String($0)) })
     .onAppear {
       settledRowHeight = CSDataGridSelection.measured(gridRowHeight, next: measuredRowHeight ?? gridRowHeight)

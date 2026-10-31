@@ -171,8 +171,11 @@ class _CsDataGridState extends State<CsDataGrid> {
       for (final key in csGridOrderedKeys(columnOrder, columns.map((column) => column.key).toList()))
         columns.firstWhere((column) => column.key == key),
     ];
+    final listed = csGridDataCount(rows.length);
     final rowCount = csGridRowCount(useVirtual, rows.length);
     return Semantics(
+      value: listed.toString(),
+      child: Semantics(
       value: rowCount?.toString(),
       child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,6 +233,7 @@ class _CsDataGridState extends State<CsDataGrid> {
         else
           for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual, safeRow),
       ],
+      ),
       ),
     );
   }
@@ -517,6 +521,7 @@ int csToolbarMove(int current, int count, int delta) => count <= 0 ? 0 : (curren
 String csGridRowKey(String? value, int index) => value ?? '$index';
 int? csGridRowIndex(bool virtual, int position, {bool header = false}) => virtual ? (header ? 1 : position + 2) : null;
 int? csGridRowCount(bool virtual, int count) => virtual ? (count + 1 > 2 ? count + 1 : 2) : null;
+int csGridDataCount(int count) => count;
 double csGridRowHeight(double requested, double measured) {
   final estimate = requested.isFinite && requested > 0 ? requested : 36.0;
   final known = measured.isFinite ? measured : estimate;
