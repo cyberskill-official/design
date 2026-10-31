@@ -215,6 +215,8 @@ class _CsOwnFocusState extends State<CsOwnFocus> {
   Widget build(BuildContext context) => widget.builder(node, () => CsFocusRegistry.claim(focusId, node.requestFocus));
 }
 
+bool csTextFieldAlert(String? error) => error != null && error.isNotEmpty;
+
 class CsTextField extends StatelessWidget {
   const CsTextField({
     super.key,
@@ -224,6 +226,7 @@ class CsTextField extends StatelessWidget {
     required this.highContrast,
     required this.compact,
     this.secure = false,
+    this.error,
   });
 
   final String label;
@@ -232,6 +235,7 @@ class CsTextField extends StatelessWidget {
   final bool highContrast;
   final bool compact;
   final bool secure;
+  final String? error;
 
   @override
   Widget build(BuildContext context) {
@@ -240,7 +244,7 @@ class CsTextField extends StatelessWidget {
       highContrast: highContrast,
       compact: compact,
     );
-    return CsOwnFocus(builder: (node, claim) => TextField(
+    final field = CsOwnFocus(builder: (node, claim) => TextField(
       focusNode: node,
       controller: controller,
       obscureText: secure,
@@ -259,6 +263,11 @@ class CsTextField extends StatelessWidget {
       ),
       onChanged: (_) => claim(),
     ));
+    if (!csTextFieldAlert(error)) return field;
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      field,
+      Semantics(liveRegion: true, child: Text(error!)),
+    ]);
   }
 }
 

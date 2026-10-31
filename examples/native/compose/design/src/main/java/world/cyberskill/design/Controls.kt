@@ -199,6 +199,7 @@ fun CsButton(
   }
 }
 
+fun csTextFieldAlert(error: String?) = !error.isNullOrEmpty()
 @Composable
 fun CsTextField(
   label: String,
@@ -209,6 +210,7 @@ fun CsTextField(
   compact: Boolean,
   secure: Boolean = false,
   modifier: Modifier = Modifier,
+  error: String? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("text-field")
@@ -229,6 +231,7 @@ fun CsTextField(
         .focusRequester(handle.requester)
         .onFocusChanged { if (it.isFocused) handle.claim() },
     )
+    if (csTextFieldAlert(error)) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
   }
 }
 

@@ -104,9 +104,18 @@ public struct CSButton: View {
   }
 }
 
+public enum CSTextFieldModel {
+  public static func showsError(_ error: String?) -> Bool {
+    if let error { return !error.isEmpty }
+    return false
+  }
+  public static func isAlert(_ error: String?) -> Bool { showsError(error) }
+}
+
 public struct CSTextField: View {
   let label: String
   @Binding var text: String
+  public let error: String?
   let secure: Bool
   let dark: Bool
   let highContrast: Bool
@@ -114,9 +123,10 @@ public struct CSTextField: View {
   @State private var focusId = UUID().uuidString
   @FocusState private var focused: Bool
 
-  public init(label: String, text: Binding<String>, secure: Bool = false, dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(label: String, text: Binding<String>, secure: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, error: String? = nil) {
     self.label = label
     _text = text
+    self.error = error
     self.secure = secure
     self.dark = dark
     self.highContrast = highContrast
@@ -142,6 +152,9 @@ public struct CSTextField: View {
         .onChange(of: focused) { isFocused in
           if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
         }
+      if CSTextFieldModel.isAlert(error), let error {
+        Text(error).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
+      }
     }
   }
 

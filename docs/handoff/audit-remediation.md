@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the data-table alert checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the text-field alert checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `b19748a009c4b25c64232131201b759fb6eb1948`, with the hash note in `d381c450`
-- Checkpoint commit hash: `e12f3c04b9b653b65b7c453ab5bcbb2afecb4516`
+- Previous checkpoint: `e12f3c04b9b653b65b7c453ab5bcbb2afecb4516`, with the hash note in `da2868c3`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `table alert, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `text alert, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,16 +54,15 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The data-table error state is now an alert. `components/datatable/DataTable.jsx` puts `role="alert"` on the error wrap only. Loading stays a busy status. An empty table stays a plain message. A caller-supplied error replaces the default title and hint, and that replacement is still the alert.
+The text-field error is now an alert. `components/textfield/TextField.jsx` shows the error span with `role="alert"` when `Boolean(error) || error === 0`. A non-empty error, including `"0"`, is the alert. An empty error is not. The description is not an alert.
 
-- The default title stays `Không tải được bảng này`. The hint stays `Kiểm tra kết nối, rồi thử lại.`
-- Swift adds the live-region trait to the error group. Compose uses an assertive live region. Flutter uses a live region.
+- Swift adds the live-region trait to the error text. Compose uses an assertive live region. Flutter uses a live region.
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Make the text-field error an alert. Re-read the error span in `components/textfield/TextField.jsx` before editing. Do not invent a string.
+Make the textarea error an alert. Re-read the error span in `components/forms/Textarea.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
