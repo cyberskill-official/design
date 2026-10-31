@@ -59,6 +59,16 @@ fun csNonnegative(value: Int, count: Int): Int {
 }
 
 const val csMenuLabel = "Menu"
+fun csMenuPlacement(explicit: String?, align: String) = explicit ?: if (align == "end") "bottom-end" else "bottom-start"
+const val csMenuGap = 6.0
+data class CsMenuPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
+fun csMenuShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String): CsMenuPlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement, csMenuGap) ?: return null
+  val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, csMenuGap) ?: return null
+  val sx = if (scaleX == 0.0) 1.0 else scaleX
+  val sy = if (scaleY == 0.0) 1.0 else scaleY
+  return CsMenuPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
+}
 fun csMenuCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("menu" to "Trình đơn")

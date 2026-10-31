@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the date-picker placement checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the menu placement checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `428cc4158e0f36a4835ef1e70219f5fcb08b8e9e`, with the hash note in `87d35359`
-- Checkpoint commit hash: `1b52eb797a36c5b11d6fbabd8d66e6a13bcc651c`
+- Previous checkpoint: `1b52eb797a36c5b11d6fbabd8d66e6a13bcc651c`, with the hash note in `248d4ac4`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `date place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `menu place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,18 +54,17 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The date panel uses the web floating placement. `components/forms/DatePicker.jsx` calls `useFloatingPanel` with `bottom-start` and gap `6`. `CSDateField` already stored that gap. `CSDateField.shift` now measures twice. The same anchor puts the panel 6 points below the button, turns a scale of 2 into a 5-point left shift and a 173-point top shift, and flips to `top-start` at 94 when the panel does not fit below.
+The menu uses the web floating placement. `components/navigation/Menu.jsx` uses gap `6`. A missing placement with `align="end"` is `bottom-end`. A missing placement otherwise is `bottom-start`. An explicit placement wins, including an empty string, which does not place. For the tested anchor, `bottom-end` with an 80-point panel shifts 20 points right and 6 points down.
 
-- Swift hides the panel until the second measurement exists, then offsets it. The panel is still the selected text. It is not the month grid from the web calendar.
-- Compose and Flutter call `csDateShift` and offset that same text. They were not compiled.
-- Mentions stays at gap 0. Cascader, the color dialog, and the tree select stay at gap 6.
-- Menu is the next floating panel. Re-read `components/navigation/Menu.jsx` before copying a gap. Its default placement depends on `align`.
+- Swift hides the item list until the second measurement exists, then offsets it. The default align is `start`. Arrow keys and typeahead still run.
+- Compose `csMenuShift` and Flutter `csMenuShift` have the same rule. Their open lists are not offset yet.
+- The date panel is still the selected text, not the month grid.
 
 Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed after this change. Compose and Flutter were not compiled.
 
 ## Next concrete step
 
-Place the menu. Re-read `components/navigation/Menu.jsx` for its `useFloatingPanel` gap and placement before editing. The default is `bottom-end` when `align` is `end`, and `bottom-start` otherwise. Do not treat a popup corner as the placement.
+Offset the Compose and Flutter menu lists with `csMenuShift`. Default align is `start`. `align="end"` uses `bottom-end`. Do not treat a popup corner as the placement.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

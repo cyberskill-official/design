@@ -2,10 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'controls.dart';
+import 'surfaces.dart';
 
 enum CsRovingKey { right, left, up, down, home, end }
 
 const csMenuLabel = 'Menu';
+const csMenuGap = 6.0;
+String csMenuPlacement(String? explicit, String align) => explicit ?? (align == 'end' ? 'bottom-end' : 'bottom-start');
+class CsMenuPlace {
+  const CsMenuPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsMenuPlace? csMenuShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, String placement) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: placement, gap: csMenuGap);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csMenuGap);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsMenuPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
 String csMenuCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'menu': 'Trình đơn'};
