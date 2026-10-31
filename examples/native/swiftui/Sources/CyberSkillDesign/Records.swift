@@ -187,7 +187,7 @@ public enum CSGridSort: Equatable {
     }
   }
 
-  public static func ordered(_ rows: [[String: String]], sort: CSGridSort) -> [[String: String]] {
+  public static func ordered(_ rows: [[String: String]], sort: CSGridSort, values: [String: ([String: String]) -> String?] = [:]) -> [[String: String]] {
     let key: String
     let descending: Bool
     switch sort {
@@ -200,8 +200,15 @@ public enum CSGridSort: Equatable {
       descending = true
     }
     return rows.enumerated().sorted { lhs, rhs in
-      let x = lhs.element[key]
-      let y = rhs.element[key]
+      let x: String?
+      let y: String?
+      if let value = values[key] {
+        x = value(lhs.element)
+        y = value(rhs.element)
+      } else {
+        x = lhs.element[key]
+        y = rhs.element[key]
+      }
       if let x, let y, x != y { return descending ? x > y : x < y }
       return lhs.offset < rhs.offset
     }.map(\.element)
@@ -232,6 +239,7 @@ public struct CSDataGrid: View {
   public let filterKeys: [String]?
   public let persistKey: String?
   public let caption: String?
+  public let sortValues: [String: ([String: String]) -> String?]
   public let rowKeyName: String
   let dark: Bool
   let highContrast: Bool
@@ -249,7 +257,7 @@ public struct CSDataGrid: View {
   @State private var scrollTop = 0.0
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String, filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, caption: String? = nil, rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, virtualRows: Bool = false, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
+  public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String, filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, caption: String? = nil, sortValues: [String: ([String: String]) -> String?] = [:], rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, virtualRows: Bool = false, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
     self.columns = columns
     self.rows = rows
     self.selectable = selectable
@@ -260,6 +268,7 @@ public struct CSDataGrid: View {
     self.filterKeys = filterKeys
     self.persistKey = persistKey
     self.caption = caption
+    self.sortValues = sortValues
     self.rowKeyName = rowKeyName
     self.dark = dark
     self.highContrast = highContrast
@@ -280,7 +289,7 @@ public struct CSDataGrid: View {
     let pinTemplate = CSDataGridSelection.copy("pinNamed", language: locale)
     let orderedColumns = CSDataGridSelection.orderedKeys(order: columnOrder, columns: columns.map(\.key)).compactMap { key in columns.first { $0.key == key } }
     let keysToSearch = CSDataGridSelection.filterKeys(requested: filterKeys, columns: orderedColumns.map(\.key))
-    let shown = CSGridSort.ordered(CSDataGridSelection.filtered(rows: rows, query: filterText, keys: keysToSearch), sort: sort)
+    let shown = CSGridSort.ordered(CSDataGridSelection.filtered(rows: rows, query: filterText, keys: keysToSearch), sort: sort, values: sortValues)
     let useVirtual = CSDataGridSelection.virtual(enabled: virtualRows, count: shown.count)
     let frame = CSDataGridSelection.window(count: shown.count, height: gridHeight, rowHeight: gridRowHeight, scrollTop: scrollTop, virtual: useVirtual)
     let indexes = CSDataGridSelection.painted(count: shown.count, window: frame)

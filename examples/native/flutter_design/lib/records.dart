@@ -81,7 +81,7 @@ class CsDataColumn {
 }
 
 class CsDataGrid extends StatefulWidget {
-  const CsDataGrid({super.key, required this.columns, required this.rows, required this.selectable, required this.selected, required this.selectAllLabel, required this.clearLabel, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.persistKey, this.caption, this.empty, this.filterText, this.filterKeys});
+  const CsDataGrid({super.key, required this.columns, required this.rows, required this.selectable, required this.selected, required this.selectAllLabel, required this.clearLabel, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.persistKey, this.caption, this.empty, this.sortValues, this.filterText, this.filterKeys});
   final List<CsDataColumn> columns;
   final List<Map<String, String>> rows;
   final bool selectable;
@@ -95,6 +95,7 @@ class CsDataGrid extends StatefulWidget {
   final String? persistKey;
   final String? caption;
   final String? empty;
+  final Map<String, String? Function(Map<String, String>)>? sortValues;
   final String? filterText;
   final List<String>? filterKeys;
 
@@ -135,7 +136,7 @@ class _CsDataGridState extends State<CsDataGrid> {
 
   @override
   Widget build(BuildContext context) {
-    final rows = csGridSorted(csGridFiltered(widget.rows, widget.filterText, csGridFilterKeys(widget.filterKeys, widget.columns.map((column) => column.key).toList())), sort);
+    final rows = csGridSorted(csGridFiltered(widget.rows, widget.filterText, csGridFilterKeys(widget.filterKeys, widget.columns.map((column) => column.key).toList())), sort, widget.sortValues);
     final columns = widget.columns;
     final selected = widget.selected;
     final onSelect = widget.onSelect;
@@ -520,12 +521,23 @@ List<Map<String, String>> csGridFiltered(List<Map<String, String>> rows, String?
   if (needle.isEmpty) return rows;
   return rows.where((row) => keys.any((key) => (row[key] ?? '').toLowerCase().contains(needle))).toList();
 }
-List<Map<String, String>> csGridSorted(List<Map<String, String>> rows, String? sort) {
+List<Map<String, String>> csGridSorted(List<Map<String, String>> rows, String? sort, [Map<String, String? Function(Map<String, String>)>? values]) {
   if (sort == null || !sort.contains(':')) return rows;
   final descending = sort.startsWith('desc:');
   final key = sort.substring(sort.indexOf(':') + 1);
-  final sorted = [...rows]..sort((a, b) => (a[key] ?? '').compareTo(b[key] ?? ''));
-  return descending ? sorted.reversed.toList() : sorted;
+  final value = values == null ? null : values[key];
+  if (value == null) {
+    final sorted = [...rows]..sort((a, b) => (a[key] ?? '').compareTo(b[key] ?? ''));
+    return descending ? sorted.reversed.toList() : sorted;
+  }
+  final sorted = [...rows]..sort((a, b) {
+    final x = value(a);
+    final y = value(b);
+    if (x == null || y == null || x == y) return 0;
+    final cmp = x.compareTo(y);
+    return descending ? -cmp : cmp;
+  });
+  return sorted;
 }
 String? csGridNextSort(String? current, String key) => current == 'asc:$key' ? 'desc:$key' : current == 'desc:$key' ? null : 'asc:$key';
 String? csGridSortAria(String? current, String key) => current == 'asc:$key' ? 'ascending' : current == 'desc:$key' ? 'descending' : null;

@@ -122,6 +122,7 @@ fun CsDataGrid(
   persistKey: String? = null,
   caption: String? = null,
   empty: String? = null,
+  sortValues: Map<String, (Map<String, String>) -> String?> = emptyMap(),
   filterText: String? = null,
   filterKeys: List<String>? = null,
   modifier: Modifier = Modifier,
@@ -134,7 +135,7 @@ fun CsDataGrid(
   var sort by remember { mutableStateOf<String?>(null) }
   val ordered = csGridOrderedKeys(order, columns.map { it.key }).mapNotNull { key -> columns.find { it.key == key } }
   val keysToSearch = csGridFilterKeys(filterKeys, ordered.map { it.key })
-  val shown = csGridSorted(csGridFiltered(rows, filterText, keysToSearch), sort)
+  val shown = csGridSorted(csGridFiltered(rows, filterText, keysToSearch), sort, sortValues)
   val keys = shown.mapIndexed { index, row -> csGridRowKey(row["id"], index) }
   val allSelected = keys.isNotEmpty() && keys.all { selected.contains(it) }
   val useVirtual = csGridVirtual(false, shown.size)
@@ -437,12 +438,22 @@ fun csGridFiltered(rows: List<Map<String, String>>, query: String?, keys: List<S
   if (needle.isEmpty()) return rows
   return rows.filter { row -> keys.any { key -> (row[key] ?: "").lowercase().contains(needle) } }
 }
-fun csGridSorted(rows: List<Map<String, String>>, sort: String?): List<Map<String, String>> {
+fun csGridSorted(rows: List<Map<String, String>>, sort: String?, values: Map<String, (Map<String, String>) -> String?> = emptyMap()): List<Map<String, String>> {
   if (sort == null || !sort.contains(":")) return rows
   val descending = sort.startsWith("desc:")
   val key = sort.substring(sort.indexOf(':') + 1)
-  val sorted = rows.sortedWith(compareBy { it[key] ?: "" })
-  return if (descending) sorted.asReversed() else sorted
+  val value = values[key]
+  if (value == null) {
+    val sorted = rows.sortedWith(compareBy { it[key] ?: "" })
+    return if (descending) sorted.asReversed() else sorted
+  }
+  val sorted = rows.sortedWith { left, right ->
+    val x = value(left)
+    val y = value(right)
+    val cmp = if (x == null || y == null || x == y) 0 else if (x > y) 1 else -1
+    if (descending) -cmp else cmp
+  }
+  return sorted
 }
 fun csGridNextSort(current: String?, key: String) = when (current) {
   "asc:$key" -> "desc:$key"

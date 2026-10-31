@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the blank-empty-body checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the sort-value checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `409864ab9e6f794e2c5e366cb619060bb5add7a5`, with the hash note in `a52b2078`
-- Checkpoint commit hash: `04625abf436a7f27f431fa9be29b4aba16f1910a`
+- Previous checkpoint: `04625abf436a7f27f431fa9be29b4aba16f1910a`, with the hash note in `07a6781a`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `blank empty, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `sort value, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the blank empty body: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the sort value: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-An empty data-grid body keeps `""`. The web source is `components/datatable/DataGrid.jsx`: `empty != null ? empty : t("empty")`. A missing empty value uses the translated fallback. `""` stays blank. `0` stays `0`. Compose and Flutter now show that text when no rows remain. Swift already did. The painted window uses the filtered row count, so a filter cannot index past the rows that remain.
+A data-grid column now sorts by `sortValue` when the column has one. The web source is `components/datatable/DataGrid.jsx`: `col && col.sortValue ? col.sortValue(r) : r[sort.key]`. Names `B` then `A` sort as `A` then `B`. The same rows sorted by a rank of `20` then `3` stay in that order, because `20` is before `3` as text. A missing sort value still sorts the cell text.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Sort a data-grid column with its `sortValue` when the column has one. Otherwise sort the cell text. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
+Draw a data-grid cell with its `render` function when the column has one. Otherwise draw the cell text. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

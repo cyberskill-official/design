@@ -685,6 +685,9 @@ final class ComponentLibraryTests: XCTestCase {
     let gridRows = [["id": "1", "name": "B"], ["id": "2", "name": "A"], ["id": "3"]]
     XCTAssertEqual(CSGridSort.ordered(gridRows, sort: .ascending("name")).map { $0["id"] ?? "" }, ["2", "1", "3"])
     XCTAssertEqual(CSGridSort.ordered(gridRows, sort: .descending("name")).map { $0["id"] ?? "" }, ["1", "2", "3"])
+    let ranked = [["id": "1", "name": "B", "rank": "20"], ["id": "2", "name": "A", "rank": "3"]]
+    XCTAssertEqual(CSGridSort.ordered(ranked, sort: .ascending("name")).map { $0["id"] ?? "" }, ["2", "1"])
+    XCTAssertEqual(CSGridSort.ordered(ranked, sort: .ascending("name"), values: ["name": { $0["rank"] }]).map { $0["id"] ?? "" }, ["1", "2"])
     let filterRows = [["id": "1", "name": "An"], ["id": "2", "name": "Bo", "city": "10"]]
     XCTAssertEqual(CSDataGridSelection.filtered(rows: filterRows, query: "  ", keys: ["name"]).count, 2)
     XCTAssertEqual(CSDataGridSelection.filtered(rows: filterRows, query: "AN", keys: ["name"]).map { $0["id"] ?? "" }, ["1"])
