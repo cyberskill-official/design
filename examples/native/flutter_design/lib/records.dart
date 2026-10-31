@@ -138,7 +138,7 @@ class _CsDataGridState extends State<CsDataGrid> {
     final clearLabel = widget.clearLabel;
     final selectAllLabel = widget.selectAllLabel;
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
-    final keys = rows.map((row) => row['id'] ?? '').toList();
+    final keys = [for (var index = 0; index < rows.length; index++) csGridRowKey(rows[index]['id'], index)];
     final allSelected = keys.isNotEmpty && keys.every(selected.contains);
     final useVirtual = csGridVirtual(false, rows.length);
     final window = csGridWindow(rows.length, 280, 36, scrollTop, useVirtual);
@@ -186,30 +186,30 @@ class _CsDataGridState extends State<CsDataGrid> {
               controller: scroll,
               child: Column(children: [
                 if (window[0] > 0) SizedBox(height: window[0] * 36),
-                for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable),
+                for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index),
                 if (rows.length > window[1]) SizedBox(height: (rows.length - window[1]) * 36),
               ]),
             ),
           )
         else
-          for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable),
+          for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index),
       ],
     );
   }
 
-  Widget _gridRow(Map<String, String> row, CSTokenModePack pack, List<CsDataColumn> columns, List<String> selected, ValueChanged<List<String>> onSelect, bool selectable) {
+  Widget _gridRow(Map<String, String> row, CSTokenModePack pack, List<CsDataColumn> columns, List<String> selected, ValueChanged<List<String>> onSelect, bool selectable, int index) {
+    final key = csGridRowKey(row['id'], index);
     return ConstrainedBox(
       constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
       child: Semantics(
-        selected: selectable && selected.contains(row['id'] ?? ''),
+        selected: selectable && selected.contains(key),
         child: Row(
         children: [
           if (selectable)
             CsCheckbox(
-              label: '${csGridCopy('selectRow', null)}: ${csGridRowName(columns.map((column) => row[column.key]).toList(), row['id'] ?? '')}',
-              value: selected.contains(row['id'] ?? ''),
+              label: '${csGridCopy('selectRow', null)}: ${csGridRowName(columns.map((column) => row[column.key]).toList(), key)}',
+              value: selected.contains(key),
               onChanged: (next) {
-                final key = row['id'] ?? '';
                 if (next == null || next == selected.contains(key)) return;
                 onSelect(csToggleSelection(selected, key));
               },

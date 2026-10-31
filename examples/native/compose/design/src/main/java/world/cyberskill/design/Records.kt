@@ -126,7 +126,7 @@ fun CsDataGrid(
   var sort by remember { mutableStateOf<String?>(null) }
   val ordered = csGridOrderedKeys(order, columns.map { it.key }).mapNotNull { key -> columns.find { it.key == key } }
   val shown = csGridSorted(rows, sort)
-  val keys = shown.map { it["id"] ?: "" }
+  val keys = shown.mapIndexed { index, row -> csGridRowKey(row["id"], index) }
   val allSelected = keys.isNotEmpty() && keys.all { selected.contains(it) }
   Column(modifier) {
     if (selectable) {
@@ -161,7 +161,7 @@ fun CsDataGrid(
       if (useVirtual && window.first > 0) Spacer(Modifier.height((window.first * 36).dp))
       painted.forEach { index ->
         val row = shown[index]
-        val key = row["id"] ?: ""
+        val key = csGridRowKey(row["id"], index)
         Row(Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp()).semantics { if (selectable && selected.contains(key)) this.selected = true }) {
           if (selectable) {
             CsCheckbox(label = csGridCopy("selectRow", null) + ": " + csGridRowName(ordered.map { row[it.key] }, key), checked = selected.contains(key), onCheckedChange = { onSelect(csToggleSelection(selected, key)) }, dark = dark, highContrast = highContrast, compact = compact)
