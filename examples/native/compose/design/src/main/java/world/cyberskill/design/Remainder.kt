@@ -592,27 +592,42 @@ fun csFormWizardStep(title: String, index: Int, fallback: String) = "${index + 1
 fun csFormWizardCanBack(index: Int, pending: Boolean) = index > 0 && !pending
 fun csFormWizardLast(index: Int, count: Int) = count > 0 && index >= count - 1
 fun csFormWizardRequired(value: String?, fallback: String) = if (value?.trim().isNullOrEmpty()) fallback else null
+data class CsWizardAdvance(val index: Int, val errors: List<String>, val completed: Boolean)
+fun csFormWizardAdvance(index: Int, count: Int, pending: Boolean, values: Map<String, String>, required: List<String>, fallback: String): CsWizardAdvance? {
+  if (pending) return null
+  val messages = required.mapNotNull { csFormWizardRequired(values[it], fallback) }
+  if (messages.isNotEmpty()) return CsWizardAdvance(index, messages, false)
+  if (csFormWizardLast(index, count)) return CsWizardAdvance(index, emptyList(), true)
+  return CsWizardAdvance(index + 1, emptyList(), false)
+}
 fun csFormWizardSummary(errors: List<String>, submission: String?) = errors.isNotEmpty() || !submission.isNullOrEmpty()
 fun csFormWizardAlert(errors: List<String>, submission: String?) = csFormWizardSummary(errors, submission)
-@Composable fun CsFormWizard(steps: List<String>, index: Int, onIndex: (Int) -> Unit, modifier: Modifier = Modifier, backLabel: String? = null, nextLabel: String? = null, finishLabel: String? = null, errors: List<String> = emptyList(), submission: String? = null, pending: Boolean = false, language: String? = null, onComplete: () -> Unit = {}) {
+@Composable fun CsFormWizard(steps: List<String>, index: Int, onIndex: (Int) -> Unit, modifier: Modifier = Modifier, backLabel: String? = null, nextLabel: String? = null, finishLabel: String? = null, errors: List<String> = emptyList(), values: Map<String, String> = emptyMap(), required: List<String> = emptyList(), submission: String? = null, pending: Boolean = false, language: String? = null, onComplete: () -> Unit = {}) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val active = if (steps.isEmpty()) 0 else index.coerceIn(0, steps.lastIndex)
   val last = csFormWizardLast(active, steps.size)
   val back = csFormWizardButton(backLabel, csFormWizardCopy("back", locale))
   val next = csFormWizardButton(nextLabel, csFormWizardCopy("next", locale))
   val finish = csFormWizardButton(finishLabel, csFormWizardCopy("finish", locale))
+  var ruled by remember { mutableStateOf<List<String>?>(null) }
+  val liveErrors = ruled ?: errors
   Column(modifier.semantics { if (pending) stateDescription = "true" }) {
     steps.forEachIndexed { offset, title ->
       Text(csFormWizardStep(title, offset, csFormWizardCopy("step", locale)), modifier = Modifier.semantics { if (offset == active) stateDescription = "step" })
     }
-    if (csFormWizardAlert(errors, submission)) Column(Modifier.semantics { liveRegion = LiveRegionMode.Assertive }) {
+    if (csFormWizardAlert(liveErrors, submission)) Column(Modifier.semantics { liveRegion = LiveRegionMode.Assertive }) {
       Text(csFormWizardCopy("summary", locale))
       if (!submission.isNullOrEmpty()) Text(submission)
-      errors.forEach { Text(it) }
+      liveErrors.forEach { Text(it) }
     }
     if (steps.isNotEmpty()) Row {
-      CsTriggerButton(title = back, onClick = { if (csFormWizardCanBack(active, pending)) onIndex(active - 1) }, enabled = csFormWizardCanBack(active, pending)) { Text(back) }
-      CsTriggerButton(title = if (last) finish else next, onClick = { if (!pending) { if (last) onComplete() else onIndex(active + 1) } }, enabled = !pending) { Text(if (last) finish else next) }
+      CsTriggerButton(title = back, onClick = { if (csFormWizardCanBack(active, pending)) { ruled = emptyList(); onIndex(active - 1) } }, enabled = csFormWizardCanBack(active, pending)) { Text(back) }
+      CsTriggerButton(title = if (last) finish else next, onClick = {
+        val step = csFormWizardAdvance(active, steps.size, pending, values, required, csFormWizardCopy("requiredField", locale)) ?: return@CsTriggerButton
+        ruled = step.errors
+        if (step.errors.isNotEmpty()) return@CsTriggerButton
+        if (step.completed) onComplete() else onIndex(step.index)
+      }, enabled = !pending) { Text(if (last) finish else next) }
     }
   }
 }

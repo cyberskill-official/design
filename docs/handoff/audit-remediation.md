@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the native-select alert checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the wizard-rules checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `a27ee8a307e7ae2813e5caeaec42dcb471522b8a`, with the hash note in `751c60c7`
-- Checkpoint commit hash: `ea3efb53b1d3b1ebd00eea2665dd587b703d5653`
+- Previous checkpoint: `ea3efb53b1d3b1ebd00eea2665dd587b703d5653`, with the hash note in `7e99fe2e`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `native alert, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `wizard rules, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,15 +54,16 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The native-select error is now an alert. `components/forms/NativeSelect.jsx` shows the error span with `role="alert"` when `Boolean(error) || error === 0`. A non-empty error, including `"0"` and a space, is the alert. An empty error is not. The placeholder stays `Select…`. This file has no string table, so that English placeholder was not translated.
+The form wizard now runs the current step's required rules before it moves. `components/forms/Form.jsx` `goNext` returns early while pending. A missing, empty, or whitespace value stays on the step and reports `requiredField`. The value `"0"` is present, so the wizard moves. The last valid step completes instead of moving past the end. Back still clears the ruled errors.
 
-- Swift names the check `isAlert` and keeps the live-region trait. Compose and Flutter call `csNativeSelectAlert` before the live region.
-- Compose and Flutter were not compiled.
+- The required message stays `Vui lòng nhập giá trị` in Vietnamese and `Enter a value` in English. It was not rewritten.
+- A custom function rule is still not run. Only the `"required"` rule is.
+- Compose and Flutter call `csFormWizardAdvance`. They were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Run the form-wizard rules before the next step, the way the web wizard does. Re-read the next handler in `components/forms/Form.jsx` before editing. Do not invent a string.
+Apply editor formatting, the way the web editor does. Re-read the editor format control before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

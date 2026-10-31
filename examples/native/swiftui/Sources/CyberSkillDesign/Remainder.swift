@@ -885,6 +885,27 @@ public enum CSFormWizardModel {
     let trimmed = value?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
     return trimmed.isEmpty ? fallback : nil
   }
+  public static func advance(index: Int, count: Int, pending: Bool, values: [String: String], required: [String], fallback: String) -> CSWizardAdvance? {
+    if pending { return nil }
+    var messages: [String] = []
+    for name in required {
+      if let message = requiredMessage(values[name], fallback: fallback) { messages.append(message) }
+    }
+    if !messages.isEmpty { return CSWizardAdvance(index: index, errors: messages, completed: false) }
+    if isLast(index: index, count: count) { return CSWizardAdvance(index: index, errors: [], completed: true) }
+    return CSWizardAdvance(index: index + 1, errors: [], completed: false)
+  }
+}
+
+public struct CSWizardAdvance: Equatable {
+  public var index: Int
+  public var errors: [String]
+  public var completed: Bool
+  public init(index: Int, errors: [String], completed: Bool) {
+    self.index = index
+    self.errors = errors
+    self.completed = completed
+  }
 }
 
 public struct CSFormWizard: View {
@@ -894,20 +915,25 @@ public struct CSFormWizard: View {
   public let nextLabel: String?
   public let finishLabel: String?
   public let errors: [String]
+  public let values: [String: String]
+  public let required: [String]
   public let submission: String?
   public let pending: Bool
   public let language: String?
   let onIndex: (Int) -> Void
   let onComplete: () -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
+  @State private var ruled: [String]?
 
-  public init(steps: [String], index: Int, backLabel: String? = nil, nextLabel: String? = nil, finishLabel: String? = nil, errors: [String] = [], submission: String? = nil, pending: Bool = false, language: String? = nil, onIndex: @escaping (Int) -> Void, onComplete: @escaping () -> Void = {}) {
+  public init(steps: [String], index: Int, backLabel: String? = nil, nextLabel: String? = nil, finishLabel: String? = nil, errors: [String] = [], values: [String: String] = [:], required: [String] = [], submission: String? = nil, pending: Bool = false, language: String? = nil, onIndex: @escaping (Int) -> Void, onComplete: @escaping () -> Void = {}) {
     self.steps = steps
     self.index = steps.isEmpty ? 0 : min(steps.count - 1, max(0, index))
     self.backLabel = backLabel
     self.nextLabel = nextLabel
     self.finishLabel = finishLabel
     self.errors = errors
+    self.values = values
+    self.required = required
     self.submission = submission
     self.pending = pending
     self.language = language
@@ -921,30 +947,38 @@ public struct CSFormWizard: View {
     let next = CSFormWizardModel.button(nextLabel, fallback: CSFormWizardModel.copy("next", language: locale))
     let finish = CSFormWizardModel.button(finishLabel, fallback: CSFormWizardModel.copy("finish", language: locale))
     let last = CSFormWizardModel.isLast(index: index, count: steps.count)
+    let liveErrors = ruled ?? errors
     VStack(alignment: .leading, spacing: 8) {
       ForEach(Array(steps.enumerated()), id: \.offset) { offset, title in
         Text(CSFormWizardModel.stepTitle(title, index: offset, fallback: CSFormWizardModel.copy("step", language: locale)))
           .accessibilityAddTraits(offset == index ? .isSelected : [])
           .accessibilityValue(offset == index ? "step" : "")
       }
-      if CSFormWizardModel.isAlert(errors: errors, submission: submission) {
+      if CSFormWizardModel.isAlert(errors: liveErrors, submission: submission) {
         VStack(alignment: .leading) {
           Text(CSFormWizardModel.copy("summary", language: locale)).fontWeight(.bold)
           if let submission, !submission.isEmpty { Text(submission) }
-          ForEach(errors, id: \.self) { Text($0) }
+          ForEach(liveErrors, id: \.self) { Text($0) }
         }
         .accessibilityElement(children: .contain)
         .accessibilityAddTraits(.updatesFrequently)
       }
       if !steps.isEmpty {
         HStack {
-          Button { if CSFormWizardModel.canBack(index: index, pending: pending) { onIndex(index - 1) } } label: {
+          Button {
+            guard CSFormWizardModel.canBack(index: index, pending: pending) else { return }
+            ruled = []
+            onIndex(index - 1)
+          } label: {
             Text(back).frame(minHeight: 44)
           }
           .disabled(!CSFormWizardModel.canBack(index: index, pending: pending))
           Button {
-            guard !pending else { return }
-            if last { onComplete() } else { onIndex(index + 1) }
+            let fallback = CSFormWizardModel.copy("requiredField", language: locale)
+            guard let step = CSFormWizardModel.advance(index: index, count: steps.count, pending: pending, values: values, required: required, fallback: fallback) else { return }
+            ruled = step.errors
+            if !step.errors.isEmpty { return }
+            if step.completed { onComplete() } else { onIndex(step.index) }
           } label: {
             Text(last ? finish : next).frame(minHeight: 44)
           }

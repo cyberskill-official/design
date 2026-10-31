@@ -774,22 +774,38 @@ String csFormWizardStep(String title, int index, String fallback) => '${index + 
 bool csFormWizardCanBack(int index, {required bool pending}) => index > 0 && !pending;
 bool csFormWizardLast(int index, int count) => count > 0 && index >= count - 1;
 String? csFormWizardRequired(String? value, String fallback) => value == null || value.trim().isEmpty ? fallback : null;
+class CsWizardAdvance {
+  const CsWizardAdvance(this.index, this.errors, this.completed);
+  final int index;
+  final List<String> errors;
+  final bool completed;
+}
+CsWizardAdvance? csFormWizardAdvance(int index, int count, bool pending, Map<String, String> values, List<String> required, String fallback) {
+  if (pending) return null;
+  final messages = required.map((name) => csFormWizardRequired(values[name], fallback)).whereType<String>().toList();
+  if (messages.isNotEmpty) return CsWizardAdvance(index, messages, false);
+  if (csFormWizardLast(index, count)) return CsWizardAdvance(index, const [], true);
+  return CsWizardAdvance(index + 1, const [], false);
+}
 bool csFormWizardSummary(List<String> errors, String? submission) => errors.isNotEmpty || (submission != null && submission.isNotEmpty);
 bool csFormWizardAlert(List<String> errors, String? submission) => csFormWizardSummary(errors, submission);
 
 class CsFormWizard extends StatelessWidget {
-  const CsFormWizard({super.key, required this.steps, required this.index, required this.onIndex, this.backLabel, this.nextLabel, this.finishLabel, this.errors = const [], this.submission, this.pending = false, this.language, this.onComplete});
+  const CsFormWizard({super.key, required this.steps, required this.index, required this.onIndex, this.backLabel, this.nextLabel, this.finishLabel, this.errors = const [], this.values = const {}, this.required = const [], this.submission, this.pending = false, this.language, this.onComplete, this.onErrors});
   final List<String> steps;
   final int index;
   final String? backLabel;
   final String? nextLabel;
   final String? finishLabel;
   final List<String> errors;
+  final Map<String, String> values;
+  final List<String> required;
   final String? submission;
   final bool pending;
   final String? language;
   final ValueChanged<int> onIndex;
   final VoidCallback? onComplete;
+  final ValueChanged<List<String>>? onErrors;
   @override
   Widget build(BuildContext context) {
     final locale = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
@@ -808,7 +824,14 @@ class CsFormWizard extends StatelessWidget {
       ])),
       if (steps.isNotEmpty) Row(children: [
         CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csFormWizardCanBack(active, pending: pending) ? () { claim(); onIndex(active - 1); } : null, child: Text(back))),
-        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: pending ? null : () { claim(); if (last) { onComplete?.call(); } else { onIndex(active + 1); } }, child: Text(last ? finish : next))),
+        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: pending ? null : () {
+          claim();
+          final step = csFormWizardAdvance(active, steps.length, pending, values, required, csFormWizardCopy('requiredField', locale));
+          if (step == null) return;
+          onErrors?.call(step.errors);
+          if (step.errors.isNotEmpty) return;
+          if (step.completed) { onComplete?.call(); } else { onIndex(step.index); }
+        }, child: Text(last ? finish : next))),
       ]),
     ]);
   }
