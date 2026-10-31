@@ -560,10 +560,12 @@ fun csFormArrayAdd(text: String?, fallback: String) = if (text.isNullOrEmpty()) 
 fun csFormArrayShowsLabel(label: String?) = !label.isNullOrEmpty()
 fun csFormArrayCanAdd(count: Int, max: Int) = count < max
 fun csFormArrayCanRemove(count: Int, min: Int) = count > min
+fun csFormArrayContext(inForm: Boolean) = !inForm
+fun csFormArrayAlert(inForm: Boolean) = csFormArrayContext(inForm)
 @Composable fun CsFormFieldArray(rows: List<String>, removeLabel: String, onChange: (List<String>) -> Unit, modifier: Modifier = Modifier, label: String? = null, addLabel: String? = null, min: Int = 0, max: Int = 50, language: String? = null) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val add = csFormArrayAdd(addLabel, csFormArrayCopy("addRow", locale))
-  if (!LocalCsForm.current) Text(csFormArrayCopy("arrayContext", locale), modifier)
+  if (csFormArrayAlert(LocalCsForm.current)) Text(csFormArrayCopy("arrayContext", locale), modifier.semantics { liveRegion = LiveRegionMode.Assertive })
   else Column(modifier) {
     if (csFormArrayShowsLabel(label)) Text(label ?: "")
     rows.forEachIndexed { index, row ->

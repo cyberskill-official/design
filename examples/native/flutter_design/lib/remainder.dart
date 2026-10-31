@@ -726,6 +726,8 @@ String csFormArrayAdd(String? text, String fallback) => text != null && text.isN
 bool csFormArrayShowsLabel(String? label) => label != null && label.isNotEmpty;
 bool csFormArrayCanAdd(int count, int max) => count < max;
 bool csFormArrayCanRemove(int count, int min) => count > min;
+bool csFormArrayContext(bool inForm) => !inForm;
+bool csFormArrayAlert(bool inForm) => csFormArrayContext(inForm);
 
 class CsFormFieldArray extends StatelessWidget {
   const CsFormFieldArray({super.key, required this.rows, required this.removeLabel, required this.onChange, this.label, this.addLabel, this.min = 0, this.max = 50, this.language});
@@ -741,7 +743,7 @@ class CsFormFieldArray extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
     final add = csFormArrayAdd(addLabel, csFormArrayCopy('addRow', locale));
-    if (!CsFormAncestor.of(context)) return Text(csFormArrayCopy('arrayContext', locale));
+    if (csFormArrayAlert(CsFormAncestor.of(context))) return Semantics(liveRegion: true, child: Text(csFormArrayCopy('arrayContext', locale)));
     return Column(children: [
       if (csFormArrayShowsLabel(label)) Text(label!),
       for (var i = 0; i < rows.length; i++)

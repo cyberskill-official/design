@@ -791,6 +791,8 @@ public enum CSFormArrayModel {
   public static func showsLabel(_ label: String?) -> Bool { label?.isEmpty == false }
   public static func canAdd(count: Int, max: Int) -> Bool { count < max }
   public static func canRemove(count: Int, min: Int) -> Bool { count > min }
+  public static func showsContext(_ inForm: Bool) -> Bool { !inForm }
+  public static func isAlert(_ inForm: Bool) -> Bool { showsContext(inForm) }
 }
 
 public struct CSFormFieldArray: View {
@@ -819,8 +821,8 @@ public struct CSFormFieldArray: View {
   public var body: some View {
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let add = CSFormArrayModel.addLabel(addLabel, fallback: CSFormArrayModel.copy("addRow", language: locale))
-    if !inForm {
-      Text(CSFormArrayModel.copy("arrayContext", language: locale))
+    if CSFormArrayModel.isAlert(inForm) {
+      Text(CSFormArrayModel.copy("arrayContext", language: locale)).accessibilityAddTraits(.updatesFrequently)
     } else {
       VStack(alignment: .leading) {
         if CSFormArrayModel.showsLabel(label), let label { Text(label) }
