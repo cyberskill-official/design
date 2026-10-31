@@ -875,6 +875,12 @@ public enum CSFormWizardModel {
   }
   public static func canBack(index: Int, pending: Bool) -> Bool { index > 0 && !pending }
   public static func isLast(index: Int, count: Int) -> Bool { count > 0 && index >= count - 1 }
+  public static func showsSummary(errors: [String], submission: String?) -> Bool {
+    if !errors.isEmpty { return true }
+    guard let submission else { return false }
+    return !submission.isEmpty
+  }
+  public static func isAlert(errors: [String], submission: String?) -> Bool { showsSummary(errors: errors, submission: submission) }
   public static func requiredMessage(_ value: String?, fallback: String) -> String? {
     let trimmed = value?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
     return trimmed.isEmpty ? fallback : nil
@@ -888,19 +894,21 @@ public struct CSFormWizard: View {
   public let nextLabel: String?
   public let finishLabel: String?
   public let errors: [String]
+  public let submission: String?
   public let pending: Bool
   public let language: String?
   let onIndex: (Int) -> Void
   let onComplete: () -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(steps: [String], index: Int, backLabel: String? = nil, nextLabel: String? = nil, finishLabel: String? = nil, errors: [String] = [], pending: Bool = false, language: String? = nil, onIndex: @escaping (Int) -> Void, onComplete: @escaping () -> Void = {}) {
+  public init(steps: [String], index: Int, backLabel: String? = nil, nextLabel: String? = nil, finishLabel: String? = nil, errors: [String] = [], submission: String? = nil, pending: Bool = false, language: String? = nil, onIndex: @escaping (Int) -> Void, onComplete: @escaping () -> Void = {}) {
     self.steps = steps
     self.index = steps.isEmpty ? 0 : min(steps.count - 1, max(0, index))
     self.backLabel = backLabel
     self.nextLabel = nextLabel
     self.finishLabel = finishLabel
     self.errors = errors
+    self.submission = submission
     self.pending = pending
     self.language = language
     self.onIndex = onIndex
@@ -919,11 +927,14 @@ public struct CSFormWizard: View {
           .accessibilityAddTraits(offset == index ? .isSelected : [])
           .accessibilityValue(offset == index ? "step" : "")
       }
-      if !errors.isEmpty {
+      if CSFormWizardModel.isAlert(errors: errors, submission: submission) {
         VStack(alignment: .leading) {
           Text(CSFormWizardModel.copy("summary", language: locale)).fontWeight(.bold)
+          if let submission, !submission.isEmpty { Text(submission) }
           ForEach(errors, id: \.self) { Text($0) }
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityAddTraits(.updatesFrequently)
       }
       if !steps.isEmpty {
         HStack {

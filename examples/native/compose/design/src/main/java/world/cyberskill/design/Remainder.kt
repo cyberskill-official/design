@@ -592,7 +592,9 @@ fun csFormWizardStep(title: String, index: Int, fallback: String) = "${index + 1
 fun csFormWizardCanBack(index: Int, pending: Boolean) = index > 0 && !pending
 fun csFormWizardLast(index: Int, count: Int) = count > 0 && index >= count - 1
 fun csFormWizardRequired(value: String?, fallback: String) = if (value?.trim().isNullOrEmpty()) fallback else null
-@Composable fun CsFormWizard(steps: List<String>, index: Int, onIndex: (Int) -> Unit, modifier: Modifier = Modifier, backLabel: String? = null, nextLabel: String? = null, finishLabel: String? = null, errors: List<String> = emptyList(), pending: Boolean = false, language: String? = null, onComplete: () -> Unit = {}) {
+fun csFormWizardSummary(errors: List<String>, submission: String?) = errors.isNotEmpty() || !submission.isNullOrEmpty()
+fun csFormWizardAlert(errors: List<String>, submission: String?) = csFormWizardSummary(errors, submission)
+@Composable fun CsFormWizard(steps: List<String>, index: Int, onIndex: (Int) -> Unit, modifier: Modifier = Modifier, backLabel: String? = null, nextLabel: String? = null, finishLabel: String? = null, errors: List<String> = emptyList(), submission: String? = null, pending: Boolean = false, language: String? = null, onComplete: () -> Unit = {}) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val active = if (steps.isEmpty()) 0 else index.coerceIn(0, steps.lastIndex)
   val last = csFormWizardLast(active, steps.size)
@@ -603,7 +605,11 @@ fun csFormWizardRequired(value: String?, fallback: String) = if (value?.trim().i
     steps.forEachIndexed { offset, title ->
       Text(csFormWizardStep(title, offset, csFormWizardCopy("step", locale)), modifier = Modifier.semantics { if (offset == active) stateDescription = "step" })
     }
-    if (errors.isNotEmpty()) Column { Text(csFormWizardCopy("summary", locale)); errors.forEach { Text(it) } }
+    if (csFormWizardAlert(errors, submission)) Column(Modifier.semantics { liveRegion = LiveRegionMode.Assertive }) {
+      Text(csFormWizardCopy("summary", locale))
+      if (!submission.isNullOrEmpty()) Text(submission)
+      errors.forEach { Text(it) }
+    }
     if (steps.isNotEmpty()) Row {
       CsTriggerButton(title = back, onClick = { if (csFormWizardCanBack(active, pending)) onIndex(active - 1) }, enabled = csFormWizardCanBack(active, pending)) { Text(back) }
       CsTriggerButton(title = if (last) finish else next, onClick = { if (!pending) { if (last) onComplete() else onIndex(active + 1) } }, enabled = !pending) { Text(if (last) finish else next) }

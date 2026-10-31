@@ -774,15 +774,18 @@ String csFormWizardStep(String title, int index, String fallback) => '${index + 
 bool csFormWizardCanBack(int index, {required bool pending}) => index > 0 && !pending;
 bool csFormWizardLast(int index, int count) => count > 0 && index >= count - 1;
 String? csFormWizardRequired(String? value, String fallback) => value == null || value.trim().isEmpty ? fallback : null;
+bool csFormWizardSummary(List<String> errors, String? submission) => errors.isNotEmpty || (submission != null && submission.isNotEmpty);
+bool csFormWizardAlert(List<String> errors, String? submission) => csFormWizardSummary(errors, submission);
 
 class CsFormWizard extends StatelessWidget {
-  const CsFormWizard({super.key, required this.steps, required this.index, required this.onIndex, this.backLabel, this.nextLabel, this.finishLabel, this.errors = const [], this.pending = false, this.language, this.onComplete});
+  const CsFormWizard({super.key, required this.steps, required this.index, required this.onIndex, this.backLabel, this.nextLabel, this.finishLabel, this.errors = const [], this.submission, this.pending = false, this.language, this.onComplete});
   final List<String> steps;
   final int index;
   final String? backLabel;
   final String? nextLabel;
   final String? finishLabel;
   final List<String> errors;
+  final String? submission;
   final bool pending;
   final String? language;
   final ValueChanged<int> onIndex;
@@ -798,7 +801,11 @@ class CsFormWizard extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       for (var offset = 0; offset < steps.length; offset++)
         Semantics(selected: offset == active, value: offset == active ? 'step' : null, child: Text(csFormWizardStep(steps[offset], offset, csFormWizardCopy('step', locale)))),
-      if (errors.isNotEmpty) ...[Text(csFormWizardCopy('summary', locale)), for (final error in errors) Text(error)],
+      if (csFormWizardAlert(errors, submission)) Semantics(liveRegion: true, container: true, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(csFormWizardCopy('summary', locale)),
+        if (submission != null && submission!.isNotEmpty) Text(submission!),
+        for (final error in errors) Text(error),
+      ])),
       if (steps.isNotEmpty) Row(children: [
         CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csFormWizardCanBack(active, pending: pending) ? () { claim(); onIndex(active - 1); } : null, child: Text(back))),
         CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: pending ? null : () { claim(); if (last) { onComplete?.call(); } else { onIndex(active + 1); } }, child: Text(last ? finish : next))),
