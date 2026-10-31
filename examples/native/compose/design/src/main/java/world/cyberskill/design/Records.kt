@@ -156,7 +156,7 @@ fun CsDataGrid(
   val window = csGridWindow(shown.size, height, safeRow, csGridScrolled(useVirtual, 0.0, scroll.value.toDouble()), useVirtual)
   val painted = csGridPainted(shown.size, window.first, window.second)
   val publishedHeight = csGridRowBox(useVirtual, safeRow)
-  Column(modifier.border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).clip(RoundedCornerShape(pack.radiusMd.toDp())).semantics {
+  Column(modifier.padding(csGridTableMargin()).border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).clip(RoundedCornerShape(pack.radiusMd.toDp())).semantics {
     csGridDataCountValue = csGridDataCount(shown.size)
     csGridVirtualFlagValue = csGridVirtualFlag(useVirtual)
     csGridVirtualClass(useVirtual)?.let { csGridVirtualClassValue = it }
@@ -461,6 +461,7 @@ fun csGridVirtualFlag(virtual: Boolean) = if (virtual) "true" else "false"
 fun csGridVirtualClass(virtual: Boolean) = if (virtual) "cs-datagrid--virtual" else null
 fun csGridHeaderStart() = 0.0
 fun csGridHeaderLayer() = 1
+fun csGridTableMargin() = 0.dp
 fun csGridScrolled(virtual: Boolean, current: Double, next: Double) = if (virtual && next.isFinite()) next else current
 fun csGridWindow(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Boolean): Pair<Int, Int> {
   if (!virtual) return 0 to count

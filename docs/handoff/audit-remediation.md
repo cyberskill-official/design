@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the grid-frame checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the table-margin checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `c73ac556e68154221364b045238b18418c2c295d`, with the hash note in `03b9f63f`
-- Checkpoint commit hash: `cb68d2b9ed2cbd255b527cf488980449fc9447f4`
+- Previous checkpoint: `cb68d2b9ed2cbd255b527cf488980449fc9447f4`, with the hash note in `a3dc76a4`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `grid frame, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `table margin, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the grid frame: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the table margin: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The data grid now uses the panel background, a 1-point default border, and the medium radius. The web rule is in `base/controls.css`: `.cs-datagrid` sets `background: var(--cs-color-surface-panel)`, `border: 1px solid var(--cs-color-border-default)`, and `border-radius: var(--cs-radius-md)`. The native frame uses those tokens. It does not invent a color.
+The table inside the data grid now has a margin of 0. The web rule is in `base/controls.css`: `.cs-datagrid .cs-table { margin: 0; }`. The native inset is 0. It is not a space token.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Remove the table margin inside the data grid. The next rule in `base/controls.css` is `.cs-datagrid .cs-table { margin: 0; }`. Re-read that rule before editing. Do not invent a spacing value.
+Center the selection checkbox in its cell. The next rule in `base/controls.css` is `.cs-datagrid__check { display: inline-flex; align-items: center; justify-content: center; }`. Re-read that rule before editing. Do not invent a spacing value.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

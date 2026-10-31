@@ -117,6 +117,7 @@ public enum CSDataGridSelection {
   public static func virtualClass(_ virtual: Bool) -> String? { virtual ? "cs-datagrid--virtual" : nil }
   public static func headerStart() -> Double { 0 }
   public static func headerLayer() -> Int { 1 }
+  public static func tableMargin() -> Double { 0 }
   public static func scrolled(virtual: Bool, current: Double, next: Double) -> Double {
     guard virtual, next.isFinite else { return current }
     return next
@@ -400,6 +401,7 @@ public struct CSDataGrid: View {
       }
     }
     .background(pack.colorSurfacePanel.color)
+    .padding(CGFloat(CSDataGridSelection.tableMargin()))
     .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
     .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.colorBorderDefault.color, lineWidth: 1))
     .accessibilityCustomContent(AccessibilityCustomContentKey("data-virtual", id: "data-virtual"), Text(CSDataGridSelection.virtualFlag(useVirtual)))

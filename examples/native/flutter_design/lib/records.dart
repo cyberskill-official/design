@@ -196,6 +196,7 @@ class _CsDataGridState extends State<CsDataGrid> {
           border: Border.all(color: csColor(pack.colorBorderDefault)),
           borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
         ),
+        padding: EdgeInsets.all(csGridTableMargin()),
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -561,6 +562,7 @@ String csGridVirtualFlag(bool virtual) => virtual ? 'true' : 'false';
 String? csGridVirtualClass(bool virtual) => virtual ? 'cs-datagrid--virtual' : null;
 double csGridHeaderStart() => 0;
 int csGridHeaderLayer() => 1;
+double csGridTableMargin() => 0;
 double csGridScrolled(bool virtual, double current, double next) => virtual && next.isFinite ? next : current;
 List<int> csGridWindow(int count, double height, double rowHeight, double scrollTop, bool virtual) {
   if (!virtual) return [0, count];
