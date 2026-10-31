@@ -120,6 +120,8 @@ fun CsDataGrid(
   highContrast: Boolean,
   compact: Boolean,
   persistKey: String? = null,
+  filterText: String? = null,
+  filterKeys: List<String>? = null,
   modifier: Modifier = Modifier,
 ) {
   val pack = csModePack(dark, highContrast, compact)
@@ -129,7 +131,8 @@ fun CsDataGrid(
   var pinned by remember { mutableStateOf<String?>(null) }
   var sort by remember { mutableStateOf<String?>(null) }
   val ordered = csGridOrderedKeys(order, columns.map { it.key }).mapNotNull { key -> columns.find { it.key == key } }
-  val shown = csGridSorted(rows, sort)
+  val keysToSearch = csGridFilterKeys(filterKeys, ordered.map { it.key })
+  val shown = csGridSorted(csGridFiltered(rows, filterText, keysToSearch), sort)
   val keys = shown.mapIndexed { index, row -> csGridRowKey(row["id"], index) }
   val allSelected = keys.isNotEmpty() && keys.all { selected.contains(it) }
   val useVirtual = csGridVirtual(false, shown.size)

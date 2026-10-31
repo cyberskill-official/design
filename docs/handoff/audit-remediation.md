@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the pinned-column checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the grid-filter checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `ef1f4cb492a51dc973edd0c75493667ff8331c2a`, with the hash note in `836ca9f5`
-- Checkpoint commit hash: `92f16253fb092a5114ab4b2150fa4fa176c38bac`
+- Previous checkpoint: `92f16253fb092a5114ab4b2150fa4fa176c38bac`, with the hash note in `fa6253bf`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `pinned col, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `filter zero, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,21 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the pinned column: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the grid filter: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A pinned data-grid column stays at the inline start. The web source is `components/datatable/DataGrid.jsx`: a pinned cell uses `insetInlineStart: 0`. Pinning `c` in `a, b, c` makes the order `c, a, b` and the sticky offset of `c` is 0. Other columns are not sticky. A missing pin is not sticky.
+A data-grid filter query of `0` now matches a cell whose text contains `0`. The web source is `components/datatable/DataGrid.jsx`. The query is trimmed and lowercased. A blank query returns every row. `0` stays a query because it is not blank. A city of `10` matches. Compose and Flutter now filter the rows they paint. Swift already did.
 
-- Swift data cells for the pinned key sit outside the horizontal scroll. Compose and Flutter paint that cell with the panel background.
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Keep a filter query of `0`. It must match a cell whose text is `0`. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
+Show a data-grid caption of `0`. The web shows a caption when the value is present, including `0`, and hides a blank caption. The helper exists, and the grid views do not call it. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
