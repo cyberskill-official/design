@@ -108,6 +108,10 @@ public enum CSDataGridSelection {
   public static func measured(_ previous: Double, next: Double) -> Double {
     abs(previous - next) > 0.01 ? next : previous
   }
+  public static func rowBox(virtual: Bool, height: Double) -> Double? {
+    guard virtual, height.isFinite, height > 0 else { return nil }
+    return height
+  }
   public static func virtual(enabled: Bool, count: Int, threshold: Int = 80) -> Bool { enabled || count >= threshold }
   public static func window(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Bool) -> CSGridWindow {
     guard virtual else { return CSGridWindow(start: 0, end: count) }
@@ -372,13 +376,13 @@ public struct CSDataGrid: View {
               Color.clear.preference(key: CSGridScrollKey.self, value: max(0, -geo.frame(in: .named("cs-grid")).minY))
             }
             .frame(height: 0)
-            gridRows(shown: shown, indexes: indexes, orderedColumns: orderedColumns, pack: pack, pads: pads)
+            gridRows(shown: shown, indexes: indexes, orderedColumns: orderedColumns, pack: pack, pads: pads, box: CSDataGridSelection.rowBox(virtual: useVirtual, height: row))
           }
           .coordinateSpace(name: "cs-grid")
           .frame(height: max(0, gridHeight - 40))
           .onPreferenceChange(CSGridScrollKey.self) { scrollTop = $0 }
         } else {
-          gridRows(shown: shown, indexes: indexes, orderedColumns: orderedColumns, pack: pack, pads: pads)
+          gridRows(shown: shown, indexes: indexes, orderedColumns: orderedColumns, pack: pack, pads: pads, box: CSDataGridSelection.rowBox(virtual: useVirtual, height: row))
         }
       }
       }
@@ -398,7 +402,7 @@ public struct CSDataGrid: View {
   }
 
   @ViewBuilder
-  private func gridRows(shown: [[String: String]], indexes: [Int], orderedColumns: [CSDataColumn], pack: CSTokenModePack, pads: (top: Double, bottom: Double)) -> some View {
+  private func gridRows(shown: [[String: String]], indexes: [Int], orderedColumns: [CSDataColumn], pack: CSTokenModePack, pads: (top: Double, bottom: Double), box: Double?) -> some View {
     if pads.top > 0 { Color.clear.frame(height: pads.top).accessibilityHidden(true) }
     ForEach(indexes, id: \.self) { index in
       let row = shown[index]
@@ -423,7 +427,8 @@ public struct CSDataGrid: View {
           }
         }
       }
-      .frame(minHeight: pack.componentButtonMdMinHeight.points)
+      .frame(minHeight: box.map { CGFloat($0) } ?? pack.componentButtonMdMinHeight.points)
+      .frame(height: box.map { CGFloat($0) })
       .accessibilityElement(children: .contain)
       .accessibilityAddTraits((selectable && selected.contains(key)) ? .isSelected : [])
       .accessibilityCustomContent(AccessibilityCustomContentKey("rowindex", id: "rowindex"), CSDataGridSelection.rowIndex(virtual: CSDataGridSelection.virtual(enabled: virtualRows, count: shown.count, threshold: virtualThreshold), position: index).map { Text(String($0)) })

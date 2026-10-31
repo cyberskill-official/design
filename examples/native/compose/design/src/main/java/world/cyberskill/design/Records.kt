@@ -193,7 +193,8 @@ fun CsDataGrid(
       painted.forEach { index ->
         val row = shown[index]
         val key = csGridRowKey(row["id"], index)
-        Row(Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp()).semantics { if (selectable && selected.contains(key)) this.selected = true; csGridRowIndex(useVirtual, index)?.let { csGridRowIndexValue = it } }) {
+        val box = csGridRowBox(useVirtual, safeRow)
+        Row((if (box != null) Modifier.height(box.dp) else Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp())).semantics { if (selectable && selected.contains(key)) this.selected = true; csGridRowIndex(useVirtual, index)?.let { csGridRowIndexValue = it } }) {
           if (selectable) {
             CsCheckbox(label = csGridCopy("selectRow", null) + ": " + csGridRowName(ordered.map { row[it.key] }, key), checked = selected.contains(key), onCheckedChange = { onSelect(csToggleSelection(selected, key)) }, dark = dark, highContrast = highContrast, compact = compact)
           }
@@ -438,6 +439,7 @@ fun csGridRowHeight(requested: Double, measured: Double): Double {
   return maxOf(estimate, known)
 }
 fun csGridMeasured(previous: Double, next: Double) = if (kotlin.math.abs(previous - next) > 0.01) next else previous
+fun csGridRowBox(virtual: Boolean, height: Double) = if (virtual && height.isFinite() && height > 0) height else null
 fun csGridVirtual(enabled: Boolean, count: Int, threshold: Int = 80) = enabled || count >= threshold
 fun csGridWindow(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Boolean): Pair<Int, Int> {
   if (!virtual) return 0 to count

@@ -222,22 +222,23 @@ class _CsDataGridState extends State<CsDataGrid> {
               controller: scroll,
               child: Column(children: [
                 if (window[0] > 0) SizedBox(height: window[0] * safeRow),
-                for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual),
+                for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual, safeRow),
                 if (rows.length > window[1]) SizedBox(height: (rows.length - window[1]) * safeRow),
               ]),
             ),
           )
         else
-          for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual),
+          for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual, safeRow),
       ],
       ),
     );
   }
 
-  Widget _gridRow(Map<String, String> row, CSTokenModePack pack, List<CsDataColumn> columns, List<String> selected, ValueChanged<List<String>> onSelect, bool selectable, int index, bool virtual) {
+  Widget _gridRow(Map<String, String> row, CSTokenModePack pack, List<CsDataColumn> columns, List<String> selected, ValueChanged<List<String>> onSelect, bool selectable, int index, bool virtual, double rowHeight) {
     final key = csGridRowKey(row['id'], index);
+    final box = csGridRowBox(virtual, rowHeight);
     return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
+      constraints: box == null ? BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)) : BoxConstraints.tightFor(height: box),
       child: Semantics(
         selected: selectable && selected.contains(key),
         value: csGridRowIndex(virtual, index)?.toString(),
@@ -522,6 +523,7 @@ double csGridRowHeight(double requested, double measured) {
   return estimate > known ? estimate : known;
 }
 double csGridMeasured(double previous, double next) => (previous - next).abs() > 0.01 ? next : previous;
+double? csGridRowBox(bool virtual, double height) => virtual && height.isFinite && height > 0 ? height : null;
 bool csGridVirtual(bool enabled, int count, {int threshold = 80}) => enabled || count >= threshold;
 List<int> csGridWindow(int count, double height, double rowHeight, double scrollTop, bool virtual) {
   if (!virtual) return [0, count];
