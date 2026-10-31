@@ -271,8 +271,25 @@ String csSortCopy(String key, String? language) {
 String csSortLabel(String? text, String fallback) => text ?? fallback;
 bool csSortCanMoveUp(int index) => index > 0;
 bool csSortCanMoveDown(int index, int count) => index >= 0 && index < count - 1;
+int? csSortRowAt(double originY, double rowHeight, int count, double pointY) {
+  if (count <= 0 || rowHeight <= 0) return null;
+  final index = ((pointY - originY) / rowHeight).floor();
+  if (index < 0 || index >= count) return null;
+  return index;
+}
+List<String>? csSortDrop(List<String> items, int? from, int? to) {
+  if (from == null || to == null) return null;
+  final next = csReorder(items, from, to);
+  if (next.length == items.length) {
+    for (var i = 0; i < next.length; i++) {
+      if (next[i] != items[i]) return next;
+    }
+    return null;
+  }
+  return next;
+}
 
-class CsSortable extends StatelessWidget {
+class CsSortable extends StatefulWidget {
   const CsSortable({super.key, required this.items, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.upLabel, this.downLabel, this.language});
   final List<String> items;
   final String? upLabel;
@@ -282,20 +299,46 @@ class CsSortable extends StatelessWidget {
   final bool dark;
   final bool highContrast;
   final bool compact;
+  @override
+  State<CsSortable> createState() => _CsSortableState();
+}
+
+class _CsSortableState extends State<CsSortable> {
+  final listKey = GlobalKey();
+  int? dragFrom;
+  double originY = 0;
+  double rowHeight = 0;
+  double pointY = 0;
 
   @override
   Widget build(BuildContext context) {
-    final locale = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
-    final up = csSortLabel(upLabel, csSortCopy('moveUp', locale));
-    final down = csSortLabel(downLabel, csSortCopy('moveDown', locale));
-    return Column(children: [
-      for (var index = 0; index < items.length; index++)
-        Row(children: [
-          const ExcludeSemantics(child: Text('⠿')),
-          Text(items[index]),
-          Semantics(button: true, label: up, enabled: csSortCanMoveUp(index), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveUp(index) ? () { claim(); onChange(csReorder(items, index, index - 1)); } : null, child: const ExcludeSemantics(child: Text('↑'))))),
-          Semantics(button: true, label: down, enabled: csSortCanMoveDown(index, items.length), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveDown(index, items.length) ? () { claim(); onChange(csReorder(items, index, index + 1)); } : null, child: const ExcludeSemantics(child: Text('↓'))))),
-        ]),
+    final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
+    final up = csSortLabel(widget.upLabel, csSortCopy('moveUp', locale));
+    final down = csSortLabel(widget.downLabel, csSortCopy('moveDown', locale));
+    return Column(key: listKey, children: [
+      for (var index = 0; index < widget.items.length; index++)
+        Builder(builder: (rowContext) => Row(children: [
+          GestureDetector(
+            onVerticalDragStart: (_) {
+              final box = listKey.currentContext?.findRenderObject() as RenderBox?;
+              final row = rowContext.findRenderObject() as RenderBox?;
+              dragFrom = index;
+              originY = box?.localToGlobal(Offset.zero).dy ?? 0;
+              rowHeight = row?.size.height ?? 0;
+            },
+            onVerticalDragUpdate: (details) { pointY = details.globalPosition.dy; },
+            onVerticalDragEnd: (_) {
+              final to = csSortRowAt(originY, rowHeight, widget.items.length, pointY);
+              final next = csSortDrop(widget.items, dragFrom, to);
+              if (next != null) widget.onChange(next);
+              dragFrom = null;
+            },
+            child: const ExcludeSemantics(child: Text('⠿')),
+          ),
+          Text(widget.items[index]),
+          Semantics(button: true, label: up, enabled: csSortCanMoveUp(index), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveUp(index) ? () { claim(); widget.onChange(csReorder(widget.items, index, index - 1)); } : null, child: const ExcludeSemantics(child: Text('↑'))))),
+          Semantics(button: true, label: down, enabled: csSortCanMoveDown(index, widget.items.length), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveDown(index, widget.items.length) ? () { claim(); widget.onChange(csReorder(widget.items, index, index + 1)); } : null, child: const ExcludeSemantics(child: Text('↓'))))),
+        ])),
     ]);
   }
 }

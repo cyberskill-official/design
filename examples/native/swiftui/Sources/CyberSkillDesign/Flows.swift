@@ -126,6 +126,17 @@ public enum CSSortModel {
   public static func label(_ text: String?, fallback: String) -> String { text ?? fallback }
   public static func canMoveUp(_ index: Int) -> Bool { index > 0 }
   public static func canMoveDown(_ index: Int, count: Int) -> Bool { index >= 0 && index < count - 1 }
+  public static func rowAt(originY: Double, rowHeight: Double, count: Int, pointY: Double) -> Int? {
+    guard count > 0, rowHeight > 0 else { return nil }
+    let index = Int(((pointY - originY) / rowHeight).rounded(.down))
+    if index < 0 || index >= count { return nil }
+    return index
+  }
+  public static func drop(_ items: [String], from: Int?, to: Int?) -> [String]? {
+    guard let from, let to else { return nil }
+    let next = reorder(items, from: from, to: to)
+    return next == items ? nil : next
+  }
 }
 
 public enum CSTourModel {
@@ -415,6 +426,9 @@ public struct CSSortable: View {
   let compact: Bool
   let onChange: ([String]) -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
+  @State private var originY = 0.0
+  @State private var rowHeight = 0.0
+  @State private var dragFrom: Int?
 
   public init(items: [String], upLabel: String? = nil, downLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping ([String]) -> Void) {
     self.items = items
@@ -435,8 +449,17 @@ public struct CSSortable: View {
     VStack(alignment: .leading) {
       ForEach(Array(items.enumerated()), id: \.offset) { index, item in
         HStack {
-          Text("⠿").accessibilityHidden(true).foregroundStyle(pack.mutedColor)
-          Text(item).foregroundStyle(pack.primaryTextColor)
+          HStack {
+            Text("⠿").accessibilityHidden(true).foregroundStyle(pack.mutedColor)
+            Text(item).foregroundStyle(pack.primaryTextColor)
+          }
+          .gesture(DragGesture(minimumDistance: 4, coordinateSpace: .global).onChanged { _ in
+            if dragFrom == nil { dragFrom = index }
+          }.onEnded { value in
+            let to = CSSortModel.rowAt(originY: originY, rowHeight: rowHeight, count: items.count, pointY: value.location.y)
+            if let next = CSSortModel.drop(items, from: dragFrom, to: to) { onChange(next) }
+            dragFrom = nil
+          })
           Button {
             if CSSortModel.canMoveUp(index) { onChange(CSSortModel.reorder(items, from: index, to: index - 1)) }
           } label: {
@@ -452,8 +475,33 @@ public struct CSSortable: View {
           .disabled(!CSSortModel.canMoveDown(index, count: items.count))
           .accessibilityLabel(down)
         }
+        .background(GeometryReader { geo in
+          Color.clear.preference(key: CSSortRowKey.self, value: geo.frame(in: .global))
+        })
       }
     }
+    .background(GeometryReader { geo in
+      Color.clear.preference(key: CSSortListKey.self, value: geo.frame(in: .global).minY)
+    })
+    .onPreferenceChange(CSSortListKey.self) { y in
+      originY = y
+    }
+    .onPreferenceChange(CSSortRowKey.self) { frame in
+      if frame.height > 0 { rowHeight = frame.height }
+    }
+  }
+}
+
+private struct CSSortListKey: PreferenceKey {
+  static var defaultValue = 0.0
+  static func reduce(value: inout Double, nextValue: () -> Double) { value = nextValue() }
+}
+
+private struct CSSortRowKey: PreferenceKey {
+  static var defaultValue = CGRect.zero
+  static func reduce(value: inout CGRect, nextValue: () -> CGRect) {
+    let next = nextValue()
+    if next.height > 0 { value = next }
   }
 }
 

@@ -1,12 +1,15 @@
 package world.cyberskill.design
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -221,16 +224,46 @@ fun csSortCopy(key: String, language: String?): String {
 fun csSortLabel(text: String?, fallback: String) = text ?: fallback
 fun csSortCanMoveUp(index: Int) = index > 0
 fun csSortCanMoveDown(index: Int, count: Int) = index >= 0 && index < count - 1
+fun csSortRowAt(originY: Double, rowHeight: Double, count: Int, pointY: Double): Int? {
+  if (count <= 0 || rowHeight <= 0.0) return null
+  val index = kotlin.math.floor((pointY - originY) / rowHeight).toInt()
+  return if (index < 0 || index >= count) null else index
+}
+fun csSortDrop(items: List<String>, from: Int?, to: Int?): List<String>? {
+  if (from == null || to == null) return null
+  val next = csReorder(items, from, to)
+  return if (next == items) null else next
+}
 @Composable
 fun CsSortable(items: List<String>, onChange: (List<String>) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, upLabel: String? = null, downLabel: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val up = csSortLabel(upLabel, csSortCopy("moveUp", locale))
   val down = csSortLabel(downLabel, csSortCopy("moveDown", locale))
-  Column(modifier) {
+  var originY by remember { mutableStateOf(0.0) }
+  var rowHeight by remember { mutableStateOf(0.0) }
+  var dragFrom by remember { mutableStateOf<Int?>(null) }
+  var pointY by remember { mutableStateOf(0.0) }
+  Column(modifier.onGloballyPositioned { originY = it.positionInRoot().y.toDouble() }) {
     items.forEachIndexed { index, item ->
-      Row {
-        Text("⠿", color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
+      Row(Modifier.onGloballyPositioned { if (it.size.height > 0) rowHeight = it.size.height.toDouble() }) {
+        Text("⠿", color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {}.pointerInput(items, originY, rowHeight) {
+          detectDragGestures(
+            onDragStart = { offset ->
+              dragFrom = index
+              pointY = originY + rowHeight * index + offset.y.toDouble()
+            },
+            onDragEnd = {
+              val to = csSortRowAt(originY, rowHeight, items.size, pointY)
+              csSortDrop(items, dragFrom, to)?.let(onChange)
+              dragFrom = null
+            },
+            onDragCancel = { dragFrom = null },
+            onDrag = { change, _ ->
+              pointY = originY + rowHeight * index + change.position.y.toDouble()
+            },
+          )
+        })
         Text(item, color = pack.colorTextPrimary.toComposeColor())
         CsTriggerButton(title = "↑", onClick = { if (csSortCanMoveUp(index)) onChange(csReorder(items, index, index - 1)) }, enabled = csSortCanMoveUp(index), modifier = Modifier.semantics { contentDescription = up }) { Text("↑", modifier = Modifier.clearAndSetSemantics {}) }
         CsTriggerButton(title = "↓", onClick = { if (csSortCanMoveDown(index, items.size)) onChange(csReorder(items, index, index + 1)) }, enabled = csSortCanMoveDown(index, items.size), modifier = Modifier.semantics { contentDescription = down }) { Text("↓", modifier = Modifier.clearAndSetSemantics {}) }
