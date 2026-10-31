@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the grid row-key checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the virtual row-index checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `0a0006b7dcf98f85b3598002ff9ceee5a047ed84`, with the hash note in `13d69f52`
-- Checkpoint commit hash: `f7f58347d33cea2a8cc129c392cc3a248518ca98`
+- Previous checkpoint: `f7f58347d33cea2a8cc129c392cc3a248518ca98`, with the hash note in `a4b75700`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `grid key, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `row index, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the grid row key: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the virtual row index: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A data-grid row with no id now uses its index. The web source is `components/datatable/DataGrid.jsx`: `r[rowKey] != null ? r[rowKey] : start + i`. An empty id stays empty. `"0"` stays `"0"`. A missing id at index 4 becomes `"4"`. Select-all uses the same keys as the rows.
+A virtual data grid now numbers its rows. The web source is `components/datatable/DataGrid.jsx`. The header is row 1. An empty body is row 2. Data position 3 is row 5. A grid that is not virtual leaves the index off. The row count is at least 2 while virtualization is on.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Expose the virtual row index the way `aria-rowindex` does. The helper exists, and the grid views do not call it. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
+Keep a pinned grid column at the inline start, the way the web sticky cell does. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

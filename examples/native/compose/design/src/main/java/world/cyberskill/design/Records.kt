@@ -37,6 +37,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -128,11 +130,12 @@ fun CsDataGrid(
   val shown = csGridSorted(rows, sort)
   val keys = shown.mapIndexed { index, row -> csGridRowKey(row["id"], index) }
   val allSelected = keys.isNotEmpty() && keys.all { selected.contains(it) }
-  Column(modifier) {
+  val useVirtual = csGridVirtual(false, shown.size)
+  Column(modifier.semantics { csGridRowCount(useVirtual, shown.size)?.let { csGridRowCountValue = it } }) {
     if (selectable) {
       CsCheckbox(label = selectAllLabel, checked = allSelected, onCheckedChange = { onSelect(csToggleAllSelection(keys, selected)) }, dark = dark, highContrast = highContrast, compact = compact)
     }
-    Row {
+    Row(Modifier.semantics { csGridRowIndex(useVirtual, 0, true)?.let { csGridRowIndexValue = it } }) {
       ordered.forEach { column ->
         val aria = csGridSortAria(sort, column.key)
         val mark = if (aria == "ascending") "▲" else if (aria == "descending") "▼" else "↕"
@@ -154,7 +157,6 @@ fun CsDataGrid(
       }
     }
     val scroll = rememberScrollState()
-    val useVirtual = csGridVirtual(false, shown.size)
     val window = csGridWindow(shown.size, 280.0, 36.0, scroll.value.toDouble(), useVirtual)
     val painted = csGridPainted(rows.size, window.first, window.second)
     Column(if (useVirtual) Modifier.height(240.dp).verticalScroll(scroll) else Modifier) {
@@ -162,7 +164,7 @@ fun CsDataGrid(
       painted.forEach { index ->
         val row = shown[index]
         val key = csGridRowKey(row["id"], index)
-        Row(Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp()).semantics { if (selectable && selected.contains(key)) this.selected = true }) {
+        Row(Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp()).semantics { if (selectable && selected.contains(key)) this.selected = true; csGridRowIndex(useVirtual, index)?.let { csGridRowIndexValue = it } }) {
           if (selectable) {
             CsCheckbox(label = csGridCopy("selectRow", null) + ": " + csGridRowName(ordered.map { row[it.key] }, key), checked = selected.contains(key), onCheckedChange = { onSelect(csToggleSelection(selected, key)) }, dark = dark, highContrast = highContrast, compact = compact)
           }
@@ -391,6 +393,10 @@ fun csToolbarTail(items: List<String>, overflowAfter: Int?) = items.drop(csToolb
 fun csToolbarMove(current: Int, count: Int, delta: Int) = if (count <= 0) 0 else minOf(count - 1, maxOf(0, current + delta))
 fun csGridRowKey(value: String?, index: Int) = value ?: index.toString()
 fun csGridRowIndex(virtual: Boolean, position: Int, header: Boolean = false) = if (virtual) if (header) 1 else position + 2 else null
+private val csGridRowIndexKey = SemanticsPropertyKey<Int>("rowindex")
+private var SemanticsPropertyReceiver.csGridRowIndexValue by csGridRowIndexKey
+private val csGridRowCountKey = SemanticsPropertyKey<Int>("rowcount")
+private var SemanticsPropertyReceiver.csGridRowCountValue by csGridRowCountKey
 fun csGridRowCount(virtual: Boolean, count: Int) = if (virtual) maxOf(2, count + 1) else null
 fun csGridRowHeight(requested: Double, measured: Double): Double {
   val estimate = if (requested.isFinite() && requested > 0) requested else 36.0

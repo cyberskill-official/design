@@ -147,10 +147,13 @@ class _CsDataGridState extends State<CsDataGrid> {
       for (final key in csGridOrderedKeys(columnOrder, columns.map((column) => column.key).toList()))
         columns.firstWhere((column) => column.key == key),
     ];
-    return Column(
+    final rowCount = csGridRowCount(useVirtual, rows.length);
+    return Semantics(
+      value: rowCount?.toString(),
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
+        Semantics(value: csGridRowIndex(useVirtual, 0, header: true)?.toString(), child: Row(children: [
           for (final column in ordered)
             CsOwnFocus(builder: (node, claim) => TextButton(
               focusNode: node,
@@ -160,7 +163,7 @@ class _CsDataGridState extends State<CsDataGrid> {
               },
               child: Text('${column.header} ${csGridSortAria(sort, column.key) == 'ascending' ? '▲' : csGridSortAria(sort, column.key) == 'descending' ? '▼' : '↕'}'),
             )),
-        ]),
+        ])),
         if (selectable)
           CsCheckbox(label: selectAllLabel, value: allSelected, onChanged: (next) { if (next == null || next == allSelected) return; onSelect(csToggleAllSelection(keys, selected)); }, dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),
         if (widget.persistKey != null)
@@ -186,23 +189,25 @@ class _CsDataGridState extends State<CsDataGrid> {
               controller: scroll,
               child: Column(children: [
                 if (window[0] > 0) SizedBox(height: window[0] * 36),
-                for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index),
+                for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual),
                 if (rows.length > window[1]) SizedBox(height: (rows.length - window[1]) * 36),
               ]),
             ),
           )
         else
-          for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index),
+          for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual),
       ],
+      ),
     );
   }
 
-  Widget _gridRow(Map<String, String> row, CSTokenModePack pack, List<CsDataColumn> columns, List<String> selected, ValueChanged<List<String>> onSelect, bool selectable, int index) {
+  Widget _gridRow(Map<String, String> row, CSTokenModePack pack, List<CsDataColumn> columns, List<String> selected, ValueChanged<List<String>> onSelect, bool selectable, int index, bool virtual) {
     final key = csGridRowKey(row['id'], index);
     return ConstrainedBox(
       constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
       child: Semantics(
         selected: selectable && selected.contains(key),
+        value: csGridRowIndex(virtual, index)?.toString(),
         child: Row(
         children: [
           if (selectable)

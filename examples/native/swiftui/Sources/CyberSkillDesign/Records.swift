@@ -312,6 +312,7 @@ public struct CSDataGrid: View {
           }
         }
       }
+      .accessibilityCustomContent(AccessibilityCustomContentKey("rowindex", id: "rowindex"), CSDataGridSelection.rowIndex(virtual: useVirtual, position: 0, header: true).map { Text(String($0)) })
       .onChange(of: sortColumn) { key in
         if let key { CSFocusRegistry.shared.claim(id: "\(sortFocusId)-\(key)", restore: { sortColumn = key }) }
       }
@@ -325,6 +326,7 @@ public struct CSDataGrid: View {
       if shown.isEmpty {
         Text(CSDataGridSelection.emptyText(empty, fallback: CSDataGridSelection.copy("empty", language: locale)))
           .foregroundStyle(pack.mutedColor)
+          .accessibilityCustomContent(AccessibilityCustomContentKey("rowindex", id: "rowindex"), CSDataGridSelection.rowIndex(virtual: useVirtual, position: 0).map { Text(String($0)) })
       } else {
       Group {
         if useVirtual {
@@ -344,6 +346,7 @@ public struct CSDataGrid: View {
       }
       }
     }
+    .accessibilityCustomContent(AccessibilityCustomContentKey("rowcount", id: "rowcount"), CSDataGridSelection.rowCount(virtual: useVirtual, count: shown.count).map { Text(String($0)) })
     .onAppear {
       guard let key = CSDataGridSelection.storageKey(persistKey) else {
         columnOrder = nil
@@ -373,6 +376,7 @@ public struct CSDataGrid: View {
       .frame(minHeight: pack.componentButtonMdMinHeight.points)
       .accessibilityElement(children: .contain)
       .accessibilityAddTraits((selectable && selected.contains(key)) ? .isSelected : [])
+      .accessibilityCustomContent(AccessibilityCustomContentKey("rowindex", id: "rowindex"), CSDataGridSelection.rowIndex(virtual: CSDataGridSelection.virtual(enabled: virtualRows, count: shown.count), position: index).map { Text(String($0)) })
     }
     if pads.bottom > 0 { Color.clear.frame(height: pads.bottom).accessibilityHidden(true) }
   }
