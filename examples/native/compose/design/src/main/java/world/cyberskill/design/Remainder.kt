@@ -204,6 +204,15 @@ data class CsDockScale(val scale: Double, val lift: Double)
 
 fun csCascaderOpen(requested: Boolean, disabled: Boolean) = requested && !disabled
 fun csCascaderDismissOutside(open: Boolean, inside: Boolean) = open && !inside
+const val csCascaderGap = 6.0
+data class CsCascaderPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
+fun csCascaderShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double): CsCascaderPlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, "bottom-start", csCascaderGap) ?: return null
+  val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, csCascaderGap) ?: return null
+  val sx = if (scaleX == 0.0) 1.0 else scaleX
+  val sy = if (scaleY == 0.0) 1.0 else scaleY
+  return CsCascaderPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
+}
 fun csCascaderColumns(nodes: List<CsCascaderNode>, path: List<String>): List<List<CsCascaderNode>> {
   val columns = mutableListOf<List<CsCascaderNode>>()
   var level = nodes

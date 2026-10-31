@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'controls.dart';
+import 'surfaces.dart';
 import 'icon_paths.dart';
 import 'qr_encode.dart';
 import 'structures.dart';
@@ -229,6 +230,24 @@ class CsDockScale {
 
 bool csCascaderOpen(bool requested, bool disabled) => requested && !disabled;
 bool csCascaderDismissOutside(bool open, bool inside) => open && !inside;
+const csCascaderGap = 6.0;
+class CsCascaderPlace {
+  const CsCascaderPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsCascaderPlace? csCascaderShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: 'bottom-start', gap: csCascaderGap);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csCascaderGap);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsCascaderPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
 
 List<List<CsCascaderNode>> csCascaderColumns(List<CsCascaderNode> nodes, List<String> path) {
   final columns = <List<CsCascaderNode>>[];

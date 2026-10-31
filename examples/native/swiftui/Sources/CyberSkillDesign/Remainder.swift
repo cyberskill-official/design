@@ -953,9 +953,32 @@ public struct CSCascaderNode: Equatable {
   }
 }
 
+public struct CSCascaderPlace: Equatable {
+  public var x: Double
+  public var y: Double
+  public var maxWidth: Double
+  public var maxHeight: Double
+  public var placement: String
+  public init(x: Double, y: Double, maxWidth: Double, maxHeight: Double, placement: String) {
+    self.x = x
+    self.y = y
+    self.maxWidth = maxWidth
+    self.maxHeight = maxHeight
+    self.placement = placement
+  }
+}
+
 public enum CSCascaderModel {
   public static func isOpen(requested: Bool, disabled: Bool) -> Bool { requested && !disabled }
   public static func dismissOutside(open: Bool, inside: Bool) -> Bool { open && !inside }
+  public static let panelGap = 6.0
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double) -> CSCascaderPlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: "bottom-start", gap: panelGap) else { return nil }
+    guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: panelGap) else { return nil }
+    let sx = scaleX == 0 ? 1 : scaleX
+    let sy = scaleY == 0 ? 1 : scaleY
+    return CSCascaderPlace(x: (placed.left - originX) / sx, y: (placed.top - originY) / sy, maxWidth: initial.maxWidth, maxHeight: initial.maxHeight, placement: placed.placement)
+  }
 
   public static func columns(_ nodes: [CSCascaderNode], path: [String]) -> [[CSCascaderNode]] {
     var level = nodes
@@ -1102,6 +1125,12 @@ public struct CSCascader: View {
   @State private var highlight = -1
   @State private var keysArmed = false
   @FocusState private var fieldFocused: Bool
+  @State private var anchor = CGRect.zero
+  @State private var naturalSize: CGSize?
+  @State private var fittedSize: CGSize?
+  @State private var panelOrigin: CGPoint?
+  @State private var panelScale = CGSize(width: 1, height: 1)
+  @State private var measurePass = 0
 
   public init(label: String? = nil, labelledBy: String? = nil, path: [String], nodes: [CSCascaderNode] = [], placeholder: String? = nil, disabled: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping ([String]) -> Void = { _ in }) {
     self.label = label
@@ -1142,7 +1171,18 @@ public struct CSCascader: View {
       .disabled(disabled)
       .accessibilityValue(opened ? "true" : "false")
       .frame(minHeight: 44, alignment: .leading)
+      .background(GeometryReader { geo in
+        Color.clear.preference(key: CSCascaderAnchorKey.self, value: geo.frame(in: .global))
+      })
       if opened {
+        let screen = CSContextMenuModel.screenSize()
+        let box = CSFloatingRect(left: anchor.minX, top: anchor.minY, right: anchor.maxX, bottom: anchor.maxY, width: anchor.width, height: anchor.height)
+        let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
+        let placed = naturalSize.flatMap { natural in
+          fittedSize.flatMap { fitted in
+            CSCascaderModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height))
+          }
+        }
         HStack(alignment: .top, spacing: 12) {
           ForEach(Array(columns.enumerated()), id: \.offset) { depth, column in
             VStack(alignment: .leading, spacing: 0) {
@@ -1169,6 +1209,16 @@ public struct CSCascader: View {
             }
           }
         }
+        .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+        .background(GeometryReader { geo in
+          let frame = geo.frame(in: .global)
+          let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
+          let scaleY = geo.size.height > 0 ? frame.height / geo.size.height : 1
+          Color.clear.preference(key: CSCascaderPanelKey.self, value: CSCascaderMeasure(size: geo.size, pass: measurePass, origin: frame.origin, scale: CGSize(width: scaleX == 0 ? 1 : scaleX, height: scaleY == 0 ? 1 : scaleY)))
+        })
+        .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? 0))
+        .opacity(placed == nil ? 0 : 1)
+        .accessibilityHidden(placed == nil)
         .onExitCommand { requested = false; highlight = -1 }
       }
     }
@@ -1187,6 +1237,29 @@ public struct CSCascader: View {
         }
       }
     })
+    .onPreferenceChange(CSCascaderAnchorKey.self) { frame in
+      if frame.width > 0, frame.height > 0 { anchor = frame }
+    }
+    .onPreferenceChange(CSCascaderPanelKey.self) { measure in
+      guard opened, measure.size.width > 0, measure.size.height > 0 else { return }
+      panelOrigin = measure.origin
+      panelScale = measure.scale
+      if naturalSize == nil {
+        naturalSize = measure.size
+        measurePass = 1
+      } else if measure.pass >= 1 {
+        fittedSize = measure.size
+      }
+    }
+    .onChange(of: requested) { isRequested in
+      if !isRequested {
+        naturalSize = nil
+        fittedSize = nil
+        panelOrigin = nil
+        panelScale = CGSize(width: 1, height: 1)
+        measurePass = 0
+      }
+    }
     .onChange(of: path) { next in draft = next; highlight = -1 }
     .onChange(of: disabled) { isDisabled in
       if isDisabled { requested = false; highlight = -1 }
@@ -1212,6 +1285,23 @@ public struct CSCascader: View {
     }
     return true
   }
+}
+
+private struct CSCascaderMeasure: Equatable {
+  var size: CGSize
+  var pass: Int
+  var origin: CGPoint
+  var scale: CGSize
+}
+
+private struct CSCascaderAnchorKey: PreferenceKey {
+  static var defaultValue = CGRect.zero
+  static func reduce(value: inout CGRect, nextValue: () -> CGRect) { value = nextValue() }
+}
+
+private struct CSCascaderPanelKey: PreferenceKey {
+  static var defaultValue = CSCascaderMeasure(size: .zero, pass: 0, origin: .zero, scale: CGSize(width: 1, height: 1))
+  static func reduce(value: inout CSCascaderMeasure, nextValue: () -> CSCascaderMeasure) { value = nextValue() }
 }
 
 struct CSInlineOutside: View {

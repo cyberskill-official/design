@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the mentions placement checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the cascader placement checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `825a228d1671440180d0a4ae5ba76a45743038a9`, with the hash note in `a834765d`
-- Checkpoint commit hash: `c8de85f45eb85a979fbbcc57fd06ca353834cdc4`
+- Previous checkpoint: `c8de85f45eb85a979fbbcc57fd06ca353834cdc4`, with the hash note in `fe565e81`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `mention place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `cascader place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,19 +54,18 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-Mentions suggestions use the web floating placement. The web call is `bottom-start` with gap `0`. `CSMentionModel.shift` measures twice: the first result chooses the side, the second uses that side after the max size is applied. The painted shift is `(result - origin) / scale`. A scale of 2 turns a 10-point left shift into 5. A panel that does not fit below flips to `top-start`.
+The cascader columns use the web floating placement. `components/forms/Cascader.jsx` calls it with `bottom-start` and gap `6`. `CSCascaderModel.shift` measures twice. The painted shift is `(result - origin) / scale`. With the anchor bottom at 340 and the list origin there, the vertical shift is 6. A scale of 2 turns the 10-point left shift into 5 and the 346-point top into 173. A panel that does not fit below flips to `top-start`, whose top is 94 for the tested anchor.
 
-- Swift hides the list until the second measurement exists, then offsets it. The field frame is the anchor.
-- Compose and Flutter call the same two-pass function and offset the list. Compose still uses a `Popup` only to catch the outside click. The offset comes from `csMentionShift`, not from the popup's default position.
-- Outside click, Escape, and choosing a person still hide the list.
-- Web blur that clears the query is still not ported.
-- Cascader, color picker, and tree select still do not use this placement.
+- Swift hides the columns until the second measurement exists, then offsets them. The field frame is the anchor. Arrow keys, outside click, leaf commit, and Escape still behave as before.
+- Compose `csCascaderShift` and Flutter `csCascaderShift` use the same gap. Their open lists are not offset by that result yet. A Compose `Popup` is still only the outside-click catch.
+- Mentions placement remains `c8de85f4`, with gap 0.
+- The color picker and tree select still do not use this placement.
 
 Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed after this change. Compose and Flutter were not compiled.
 
 ## Next concrete step
 
-Port the same two-pass placement to the cascader. Re-read `components/forms/Cascader.jsx`: placement is `bottom-start` and gap is `6`. Reuse `CSFloatingModel.position`. Do not treat a Compose `Popup` as the placement. Do not invent a close the web component does not have.
+Offset the Compose and Flutter cascader lists with `csCascaderShift` / `csCascaderShift`, using the field as the anchor and the list's second measurement as the fitted size. Do not treat the popup's default corner as the placement. Then do the color picker: re-read its `useFloatingPanel` gap before copying the cascader's 6.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
