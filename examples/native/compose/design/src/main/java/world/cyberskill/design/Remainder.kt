@@ -891,6 +891,7 @@ fun csTreeSelectFind(nodes: List<CsTreeNode>, key: String?): CsTreeNode? {
 fun csTreeSelectFace(found: String?, placeholder: String) = found ?: placeholder
 fun csTreeSelectCommits(node: CsTreeNode) = node.children.isEmpty()
 fun csTreeSelectShown(requested: Boolean, disabled: Boolean) = requested && !disabled
+fun csTreeSelectDismissOutside(open: Boolean, inside: Boolean) = open && !inside
 fun csTreeSelectFieldName(label: String?, labelledBy: String?) = if (!labelledBy.isNullOrEmpty()) null else label
 fun csTreeSelectTreeName(label: String?, labelledBy: String?, placeholder: String) = when {
   !labelledBy.isNullOrEmpty() -> null
@@ -911,7 +912,7 @@ fun csTreeSelectTreeName(label: String?, labelledBy: String?, placeholder: Strin
       Text(shown, modifier = Modifier.clearAndSetSemantics {})
       Text("▾", modifier = Modifier.clearAndSetSemantics {})
     }
-    if (opened) Column(Modifier.onPreviewKeyEvent { event ->
+    if (opened) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csTreeSelectDismissOutside(true, false)) requested = false }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) { Column(Modifier.onPreviewKeyEvent { event ->
       if (event.type != KeyEventType.KeyDown || event.key != Key.Escape) return@onPreviewKeyEvent false
       requested = false
       true
@@ -922,7 +923,7 @@ fun csTreeSelectTreeName(label: String?, labelledBy: String?, placeholder: Strin
         onSelect(key)
         requested = false
       }, dark, highContrast, compact)
-    }
+    } }
   }
 }
 data class CsTreeTableNode(val key: String, val label: String = "", val children: List<CsTreeTableNode> = emptyList())

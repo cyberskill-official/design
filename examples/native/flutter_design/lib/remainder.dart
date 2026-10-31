@@ -1386,6 +1386,7 @@ CsTreeNode? csTreeSelectFind(List<CsTreeNode> nodes, String? key) {
 String csTreeSelectFace(String? found, String placeholder) => found ?? placeholder;
 bool csTreeSelectCommits(CsTreeNode node) => node.children.isEmpty;
 bool csTreeSelectShown({required bool requested, required bool disabled}) => requested && !disabled;
+bool csTreeSelectDismissOutside(bool open, bool inside) => open && !inside;
 String? csTreeSelectFieldName(String? label, String? labelledBy) => labelledBy != null && labelledBy.isNotEmpty ? null : label;
 String? csTreeSelectTreeName(String? label, String? labelledBy, String placeholder) {
   if (labelledBy != null && labelledBy.isNotEmpty) return null;
@@ -1429,7 +1430,9 @@ class _CsTreeSelectState extends State<CsTreeSelect> {
     final opened = csTreeSelectShown(requested: requested, disabled: widget.disabled);
     final name = csTreeSelectFieldName(widget.label, widget.labelledBy);
     final tree = csTreeSelectTreeName(widget.label, widget.labelledBy, hint) ?? '';
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return TapRegion(
+      onTapOutside: opened && csTreeSelectDismissOutside(true, false) ? (_) { setState(() => requested = false); } : null,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Semantics(
         button: true,
         label: name,
@@ -1449,7 +1452,8 @@ class _CsTreeSelectState extends State<CsTreeSelect> {
           setState(() => requested = false);
         }, dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),
       ),
-    ]);
+    ]),
+    );
   }
 }
 

@@ -2114,6 +2114,7 @@ public enum CSTreeSelectModel {
   public static func face(found: String?, placeholder: String) -> String { found ?? placeholder }
   public static func commits(_ node: CSTreeNode) -> Bool { node.children.isEmpty }
   public static func shown(requested: Bool, disabled: Bool) -> Bool { requested && !disabled }
+  public static func dismissOutside(open: Bool, inside: Bool) -> Bool { open && !inside }
   public static func fieldName(label: String?, labelledBy: String?) -> String? {
     if let labelledBy, !labelledBy.isEmpty { return nil }
     return label
@@ -2188,6 +2189,11 @@ public struct CSTreeSelect: View {
         .onExitCommand { requested = false }
       }
     }
+    .background(GeometryReader { _ in
+      CSInlineOutside(active: opened) {
+        if CSTreeSelectModel.dismissOutside(open: true, inside: false) { requested = false }
+      }
+    })
     .onChange(of: disabled) { isDisabled in
       if isDisabled { requested = false }
     }
