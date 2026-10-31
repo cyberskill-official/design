@@ -84,6 +84,9 @@ String csTourCopy(String key, String? language) {
 String csTourLabel(String? text, String fallback) => text ?? fallback;
 bool csTourLast(int index, int count) => count > 0 && index == count - 1;
 String csTourCount(int index, int count) => '${index + 1} / $count';
+bool csTourShows(bool open, int count) => open && count > 0;
+bool csTourClosesOnBackdrop() => true;
+int csTourStops(bool hasBack) => hasBack ? 3 : 2;
 
 class CsTimePicker extends StatefulWidget {
   const CsTimePicker({super.key, this.label, required this.value, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.step = 30, this.labelledBy, this.language});
@@ -317,6 +320,7 @@ class CsTour extends StatefulWidget {
 }
 
 class _CsTourState extends State<CsTour> {
+  var trap = 0;
   @override
   void initState() {
     super.initState();
@@ -331,7 +335,7 @@ class _CsTourState extends State<CsTour> {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.open || widget.steps.isEmpty) return const SizedBox.shrink();
+    if (!csTourShows(widget.open, widget.steps.length)) return const SizedBox.shrink();
     final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
     final skip = csTourLabel(widget.skipLabel, csTourCopy('skip', locale));
     final back = csTourLabel(widget.backLabel, csTourCopy('back', locale));
@@ -344,16 +348,27 @@ class _CsTourState extends State<CsTour> {
       label: widget.steps[active],
       child: Focus(
         onKeyEvent: (node, event) {
-          if (event is! KeyDownEvent || event.logicalKey != LogicalKeyboardKey.escape) return KeyEventResult.ignored;
-          widget.onOpenChange(false);
+          if (event is! KeyDownEvent) return KeyEventResult.ignored;
+          if (event.logicalKey == LogicalKeyboardKey.escape) {
+            widget.onOpenChange(false);
+            return KeyEventResult.handled;
+          }
+          if (event.logicalKey != LogicalKeyboardKey.tab) return KeyEventResult.ignored;
+          final stops = csTourStops(active > 0);
+          final next = csFocusNext(trap, stops, HardwareKeyboard.instance.isShiftPressed, true);
+          if (next == null) return KeyEventResult.ignored;
+          setState(() => trap = next);
           return KeyEventResult.handled;
         },
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        child: Stack(children: [
+          if (csTourClosesOnBackdrop()) Positioned.fill(child: GestureDetector(onTap: () => widget.onOpenChange(false), child: const ColoredBox(color: Color(0x6B000000)))),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(widget.steps[active]),
           Text(csTourCount(active, widget.steps.length)),
           CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onOpenChange(false); }, child: Text(skip))),
           if (active > 0) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onIndex(active - 1); }, child: Text(back))),
           CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); last ? widget.onOpenChange(false) : widget.onIndex(active + 1); }, child: Text(last ? done : next))),
+          ]),
         ]),
       ),
     );

@@ -152,6 +152,9 @@ public enum CSTourModel {
   public static func isLast(index: Int, count: Int) -> Bool { count > 0 && index == count - 1 }
 
   public static func countText(index: Int, count: Int) -> String { "\(index + 1) / \(count)" }
+  public static func shows(open: Bool, count: Int) -> Bool { open && count > 0 }
+  public static func closesOnBackdrop() -> Bool { true }
+  public static func stops(hasBack: Bool) -> Int { hasBack ? 3 : 2 }
 }
 
 public enum CSTableModel {
@@ -469,6 +472,7 @@ public struct CSTour: View {
   let onIndex: (Int) -> Void
   let onOpenChange: (Bool) -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
+  @FocusState private var trap: Int?
 
   public init(steps: [String], index: Int, backLabel: String? = nil, nextLabel: String? = nil, doneLabel: String? = nil, skipLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, open: Bool = true, language: String? = nil, onIndex: @escaping (Int) -> Void, onOpenChange: @escaping (Bool) -> Void) {
     self.steps = steps
@@ -495,29 +499,51 @@ public struct CSTour: View {
     let done = CSTourModel.label(doneLabel, fallback: CSTourModel.copy("done", language: locale))
     let last = CSTourModel.isLast(index: index, count: steps.count)
     Group {
-      if !open || steps.isEmpty {
+      if !CSTourModel.shows(open: open, count: steps.count) {
         EmptyView()
       } else {
-        VStack(alignment: .leading, spacing: 8) {
-          Text(steps[index]).foregroundStyle(pack.primaryTextColor)
-          Text(CSTourModel.countText(index: index, count: steps.count)).foregroundStyle(pack.mutedColor)
-          HStack {
-            CSTriggerButton(skip) { onOpenChange(false) }.frame(minHeight: 44)
-            if index > 0 {
-              CSTriggerButton(back) { onIndex(index - 1) }.frame(minHeight: 44)
+        let hasBack = index > 0
+        let stops = CSTourModel.stops(hasBack: hasBack)
+        ZStack {
+          if CSTourModel.closesOnBackdrop() {
+            Color.black.opacity(0.42)
+              .frame(maxWidth: .infinity, maxHeight: .infinity)
+              .contentShape(Rectangle())
+              .onTapGesture { onOpenChange(false) }
+              .accessibilityHidden(true)
+          }
+          VStack(alignment: .leading, spacing: 8) {
+            Text(steps[index]).foregroundStyle(pack.primaryTextColor)
+            Text(CSTourModel.countText(index: index, count: steps.count)).foregroundStyle(pack.mutedColor)
+            HStack {
+              CSTriggerButton(skip) { onOpenChange(false) }
+                .frame(minHeight: 44)
+                .focused($trap, equals: 0)
+              if hasBack {
+                CSTriggerButton(back) { onIndex(index - 1) }
+                  .frame(minHeight: 44)
+                  .focused($trap, equals: 1)
+              }
+              CSTriggerButton(last ? done : next) {
+                if last { onOpenChange(false) } else { onIndex(index + 1) }
+              }
+              .frame(minHeight: 44)
+              .focused($trap, equals: hasBack ? 2 : 1)
             }
-            CSTriggerButton(last ? done : next) {
-              if last { onOpenChange(false) } else { onIndex(index + 1) }
-            }
-            .frame(minHeight: 44)
+          }
+          .padding(16)
+          .background(pack.colorSurfacePanel.color)
+          .accessibilityElement(children: .contain)
+          .accessibilityLabel(steps[index])
+          .accessibilityAddTraits(.isModal)
+          .onExitCommand { onOpenChange(false) }
+          .onAppear { trap = CSFocusTrap.initialIndex(preferred: nil, count: stops) }
+          .csTabTrap { shift in
+            let next = CSFocusTrap.nextIndex(current: trap ?? -1, count: stops, shift: shift, inside: trap != nil)
+            trap = CSModalFocus.pullBack(inside: next != nil) ? CSFocusTrap.initialIndex(preferred: nil, count: stops) : next
+            return stops > 0
           }
         }
-        .padding(16)
-        .background(pack.colorSurfacePanel.color)
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel(steps[index])
-        .accessibilityAddTraits(.isModal)
-        .onExitCommand { onOpenChange(false) }
       }
     }
     .onAppear { if open { onIndex(0) } }

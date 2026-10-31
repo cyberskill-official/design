@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the mentions blur checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the tour backdrop checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `18963b34cfa1ec393c32b1e5b369e1371d4f5914`, with the hash note in `819860c4`
-- Checkpoint commit hash: `266199d97aa0f82b98e6ea54d765acab7dca5867`
+- Previous checkpoint: `266199d97aa0f82b98e6ea54d765acab7dca5867`, with the hash note in `dc62f358`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `mention blur, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `tour trap, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,16 +54,15 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The mentions query now clears on blur, the way `components/forms/Mentions.jsx` does. The root blur handler calls `setQ(null)` when the next focus is not inside the floating list. Focus that moves onto a suggestion keeps the query. Escape and an outside click still hide the suggestions. The next edit shows them again.
+The tour now has the modal scrim and the tab trap from `components/overlays/Tour.jsx`. The tour is shown only when it is open and has steps. A click on the scrim closes it. Escape still closes it. Tab wraps inside the dialog. With no Back button there are two stops, Skip and Next, and Tab from Next returns to Skip. With Back there are three stops. Opening the tour focuses the first stop.
 
-- Swift treats focus on the field or a suggestion as inside. Focus that leaves both clears the query.
-- Compose clears when the text field loses focus, because its suggestion popup does not take focus.
-- Flutter clears when the field node blurs and the next focus is not inside the list.
-- Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed. Compose and Flutter were not compiled.
+- The spotlight hole is still absent. The native steps are strings, so there is no target rectangle to cut out of the scrim. Do not invent a selector.
+- Compose and Flutter draw the scrim and wrap Tab with `csFocusNext`. They were not compiled.
+- Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Add the tour backdrop and focus trap. Re-read `components/overlays/Tour.jsx` before editing. Do not invent a string.
+Drag to reorder, the way the web sortable does. Re-read `components/data/Sortable.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

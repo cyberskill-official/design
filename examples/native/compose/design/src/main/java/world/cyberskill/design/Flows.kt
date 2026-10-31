@@ -1,5 +1,6 @@
 package world.cyberskill.design
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -118,6 +119,9 @@ fun csTourCopy(key: String, language: String?): String {
 fun csTourLabel(text: String?, fallback: String) = text ?: fallback
 fun csTourLast(index: Int, count: Int) = count > 0 && index == count - 1
 fun csTourCount(index: Int, count: Int) = "${index + 1} / $count"
+fun csTourShows(open: Boolean, count: Int) = open && count > 0
+fun csTourClosesOnBackdrop() = true
+fun csTourStops(hasBack: Boolean) = if (hasBack) 3 else 2
 
 @Composable
 fun CsTimePicker(value: String, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, step: Double = 30.0, language: String? = null) {
@@ -242,21 +246,29 @@ fun CsTour(steps: List<String>, index: Int, onIndex: (Int) -> Unit, onOpenChange
   val back = csTourLabel(backLabel, csTourCopy("back", locale))
   val next = csTourLabel(nextLabel, csTourCopy("next", locale))
   val done = csTourLabel(doneLabel, csTourCopy("done", locale))
-  LaunchedEffect(open) { if (open) onIndex(0) }
-  if (!open || steps.isEmpty()) return
+  var trap by remember { mutableStateOf(0) }
+  LaunchedEffect(open) { if (open) { onIndex(0); trap = 0 } }
+  if (!csTourShows(open, steps.size)) return
   val active = csTourClamp(index, steps.size)
   val pack = csModePack(dark, highContrast, compact)
   val last = csTourLast(active, steps.size)
-  Column(modifier.semantics { contentDescription = steps[active] }.onPreviewKeyEvent { event ->
-    if (event.type != KeyEventType.KeyDown || event.key != Key.Escape) return@onPreviewKeyEvent false
-    onOpenChange(false)
-    true
-  }) {
-    Text(steps[active], color = pack.colorTextPrimary.toComposeColor())
-    Text(csTourCount(active, steps.size), color = pack.colorTextMuted.toComposeColor())
-    CsTriggerButton(title = skip, onClick = { onOpenChange(false) }) { Text(skip) }
-    if (active > 0) CsTriggerButton(title = back, onClick = { onIndex(active - 1) }) { Text(back) }
-    CsTriggerButton(title = if (last) done else next, onClick = { if (last) onOpenChange(false) else onIndex(active + 1) }) { Text(if (last) done else next) }
+  val stops = csTourStops(active > 0)
+  Box(modifier) {
+    if (csTourClosesOnBackdrop()) Box(Modifier.matchParentSize().clickable { onOpenChange(false) })
+    Column(Modifier.semantics { contentDescription = steps[active] }.onPreviewKeyEvent { event ->
+      if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+      if (event.key == Key.Escape) { onOpenChange(false); return@onPreviewKeyEvent true }
+      if (event.key != Key.Tab) return@onPreviewKeyEvent false
+      val next = csFocusNext(trap, stops, event.isShiftPressed, trap >= 0) ?: return@onPreviewKeyEvent false
+      trap = if (csModalPullBack(next >= 0)) 0 else next
+      true
+    }) {
+      Text(steps[active], color = pack.colorTextPrimary.toComposeColor())
+      Text(csTourCount(active, steps.size), color = pack.colorTextMuted.toComposeColor())
+      CsTriggerButton(title = skip, onClick = { onOpenChange(false) }) { Text(skip) }
+      if (active > 0) CsTriggerButton(title = back, onClick = { onIndex(active - 1) }) { Text(back) }
+      CsTriggerButton(title = if (last) done else next, onClick = { if (last) onOpenChange(false) else onIndex(active + 1) }) { Text(if (last) done else next) }
+    }
   }
 }
 
