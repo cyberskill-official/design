@@ -18,6 +18,10 @@ public enum CSDataGridSelection {
     return !caption.isEmpty
   }
   public static func emptyText(_ empty: String?, fallback: String) -> String { empty ?? fallback }
+  public static func cellText(row: [String: String], key: String, render: (([String: String]) -> String?)?) -> String {
+    if let render { return render(row) ?? "" }
+    return row[key] ?? ""
+  }
   public static let pinTemplate = "Pin column {name}"
   public static let pinDefault = "Pin this column"
   public static func copy(_ key: String, language: String?) -> String {
@@ -240,6 +244,7 @@ public struct CSDataGrid: View {
   public let persistKey: String?
   public let caption: String?
   public let sortValues: [String: ([String: String]) -> String?]
+  public let renders: [String: ([String: String]) -> String?]
   public let rowKeyName: String
   let dark: Bool
   let highContrast: Bool
@@ -257,7 +262,7 @@ public struct CSDataGrid: View {
   @State private var scrollTop = 0.0
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String, filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, caption: String? = nil, sortValues: [String: ([String: String]) -> String?] = [:], rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, virtualRows: Bool = false, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
+  public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String, filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, caption: String? = nil, sortValues: [String: ([String: String]) -> String?] = [:], renders: [String: ([String: String]) -> String?] = [:], rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, virtualRows: Bool = false, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
     self.columns = columns
     self.rows = rows
     self.selectable = selectable
@@ -269,6 +274,7 @@ public struct CSDataGrid: View {
     self.persistKey = persistKey
     self.caption = caption
     self.sortValues = sortValues
+    self.renders = renders
     self.rowKeyName = rowKeyName
     self.dark = dark
     self.highContrast = highContrast
@@ -391,14 +397,14 @@ public struct CSDataGrid: View {
           }), dark: dark, highContrast: highContrast, compact: compact)
         }
         ForEach(orderedColumns.filter { CSDataGridSelection.sticky($0.key, pinned: pinnedKey) != nil }, id: \.key) { column in
-          Text(row[column.key] ?? "").foregroundStyle(pack.primaryTextColor)
+          Text(CSDataGridSelection.cellText(row: row, key: column.key, render: renders[column.key])).foregroundStyle(pack.primaryTextColor)
             .background(pack.colorSurfacePanel.color)
             .zIndex(1)
         }
         ScrollView(.horizontal, showsIndicators: false) {
           HStack {
             ForEach(orderedColumns.filter { CSDataGridSelection.sticky($0.key, pinned: pinnedKey) == nil }, id: \.key) { column in
-              Text(row[column.key] ?? "").foregroundStyle(pack.primaryTextColor)
+              Text(CSDataGridSelection.cellText(row: row, key: column.key, render: renders[column.key])).foregroundStyle(pack.primaryTextColor)
             }
           }
         }

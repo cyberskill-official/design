@@ -81,7 +81,7 @@ class CsDataColumn {
 }
 
 class CsDataGrid extends StatefulWidget {
-  const CsDataGrid({super.key, required this.columns, required this.rows, required this.selectable, required this.selected, required this.selectAllLabel, required this.clearLabel, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.persistKey, this.caption, this.empty, this.sortValues, this.filterText, this.filterKeys});
+  const CsDataGrid({super.key, required this.columns, required this.rows, required this.selectable, required this.selected, required this.selectAllLabel, required this.clearLabel, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.persistKey, this.caption, this.empty, this.sortValues, this.renders, this.filterText, this.filterKeys});
   final List<CsDataColumn> columns;
   final List<Map<String, String>> rows;
   final bool selectable;
@@ -96,6 +96,7 @@ class CsDataGrid extends StatefulWidget {
   final String? caption;
   final String? empty;
   final Map<String, String? Function(Map<String, String>)>? sortValues;
+  final Map<String, String? Function(Map<String, String>)>? renders;
   final String? filterText;
   final List<String>? filterKeys;
 
@@ -234,7 +235,7 @@ class _CsDataGridState extends State<CsDataGrid> {
               highContrast: widget.highContrast,
               compact: widget.compact,
             ),
-          for (final column in columns) Text(row[column.key] ?? '', style: TextStyle(color: csColor(pack.colorTextPrimary), backgroundColor: csGridSticky(column.key, pinnedKey) == null ? null : csColor(pack.colorSurfacePanel))),
+          for (final column in columns) Text(csGridCellText(row, column.key, widget.renders?[column.key]), style: TextStyle(color: csColor(pack.colorTextPrimary), backgroundColor: csGridSticky(column.key, pinnedKey) == null ? null : csColor(pack.colorSurfacePanel))),
         ],
         ),
       ),
@@ -391,6 +392,7 @@ String csGridRowName(List<String?> cells, String key) {
 bool csGridAllSelected(bool selectable, List<String> keys, List<String> selected) => selectable && keys.isNotEmpty && keys.every(selected.contains);
 bool csGridShowsCaption(String? caption) => caption != null && caption.isNotEmpty;
 String csGridEmptyText(String? empty, String fallback) => empty ?? fallback;
+String csGridCellText(Map<String, String> row, String key, String? Function(Map<String, String>)? render) => render != null ? (render(row) ?? '') : (row[key] ?? '');
 List<String> csGridFilterKeys(List<String>? requested, List<String> columns) => requested == null || requested.isEmpty ? columns : requested;
 const csGridPin = 'Pin column {name}';
 List<String> csGridOrderedKeys(List<String>? order, List<String> columns) {

@@ -123,6 +123,7 @@ fun CsDataGrid(
   caption: String? = null,
   empty: String? = null,
   sortValues: Map<String, (Map<String, String>) -> String?> = emptyMap(),
+  renders: Map<String, (Map<String, String>) -> String?> = emptyMap(),
   filterText: String? = null,
   filterKeys: List<String>? = null,
   modifier: Modifier = Modifier,
@@ -182,7 +183,7 @@ fun CsDataGrid(
           }
           ordered.forEach { column ->
             val stuck = csGridSticky(column.key, pinned) != null
-            Text(row[column.key] ?: "", color = pack.colorTextPrimary.toComposeColor(), modifier = if (stuck) Modifier.background(pack.colorSurfacePanel.toComposeColor()).zIndex(1f) else Modifier)
+            Text(csGridCellText(row, column.key, renders[column.key]), color = pack.colorTextPrimary.toComposeColor(), modifier = if (stuck) Modifier.background(pack.colorSurfacePanel.toComposeColor()).zIndex(1f) else Modifier)
           }
         }
       }
@@ -314,6 +315,7 @@ fun csGridRowName(cells: List<String?>, key: String): String {
 fun csGridAllSelected(selectable: Boolean, keys: List<String>, selected: List<String>) = selectable && keys.isNotEmpty() && keys.all { selected.contains(it) }
 fun csGridShowsCaption(caption: String?) = caption != null && caption.isNotEmpty()
 fun csGridEmptyText(empty: String?, fallback: String) = empty ?: fallback
+fun csGridCellText(row: Map<String, String>, key: String, render: ((Map<String, String>) -> String?)?) = if (render != null) render(row) ?: "" else row[key] ?: ""
 fun csGridFilterKeys(requested: List<String>?, columns: List<String>) = if (requested.isNullOrEmpty()) columns else requested
 const val csGridPin = "Pin column {name}"
 fun csGridOrderedKeys(order: List<String>?, columns: List<String>): List<String> {
