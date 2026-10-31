@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the menu offset checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the toolbar placement checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `716458e55467baa72610f9f9cdf694f7a876ae48`, with the hash note in `ac262973`
-- Checkpoint commit hash: `8332c804e72ac7263c565cda28d433f45d745861`
+- Previous checkpoint: `8332c804e72ac7263c565cda28d433f45d745861`, with the hash note in `2ffdeec4`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `menu offset, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `toolbar place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,17 +54,15 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The menu uses the web floating placement. `components/navigation/Menu.jsx` uses gap `6`. A missing placement with `align="end"` is `bottom-end`. A missing placement otherwise is `bottom-start`. An explicit placement wins, including an empty string, which does not place. For the tested anchor, `bottom-end` with an 80-point panel shifts 20 points right and 6 points down.
+The toolbar overflow uses the web floating placement. `components/navigation/Toolbar.jsx` calls `useFloatingPanel` with `bottom-end` and gap `6`. The anchor is the More button, not the whole bar. An explicit placement wins, including an empty string, which does not place. For the tested More button, an 80-point panel shifts 20 points right and 6 points down.
 
-- Swift hides the item list until the second measurement exists, then offsets it. The default align is `start`. Arrow keys and typeahead still run.
-- Compose and Flutter now measure the trigger and the list and offset the list with `csMenuShift`. Default align is `start`. `align="end"` uses `bottom-end`. They were not compiled. `node _audit/ci/test-native-samples.mjs` passed. The Swift catalog test was not re-run because the Swift menu file did not change in this step.
-- The date panel is still the selected text, not the month grid.
-
-Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed after this change. Compose and Flutter were not compiled.
+- Swift hides the overflow until the second measurement exists, then offsets it. The items that stay on the bar are unchanged.
+- Compose and Flutter call `csToolbarShift` with `bottom-end` and offset the overflow. They were not compiled.
+- Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Place the toolbar overflow. Re-read `components/navigation/Toolbar.jsx` for its `useFloatingPanel` gap and placement before editing. Do not copy the menu's `bottom-start` without that read.
+Place the popconfirm. Re-read `components/overlays/Popconfirm.jsx` for its `useFloatingPanel` gap and placement before editing. Do not copy the toolbar's `bottom-end`.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

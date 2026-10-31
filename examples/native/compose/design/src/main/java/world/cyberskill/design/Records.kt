@@ -24,6 +24,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
@@ -364,6 +370,16 @@ fun csTagCopy(key: String, language: String?): String {
 fun csTagCanEdit(disabled: Boolean, composing: Boolean) = !disabled && !composing
 const val csToolbarMore = "More actions"
 fun csToolbarCut(count: Int, overflowAfter: Int?) = overflowAfter?.let { minOf(count, maxOf(0, it)) } ?: count
+fun csToolbarPlacement(explicit: String?) = explicit ?: "bottom-end"
+const val csToolbarGap = 6.0
+data class CsToolbarPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
+fun csToolbarShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String): CsToolbarPlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement, csToolbarGap) ?: return null
+  val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, csToolbarGap) ?: return null
+  val sx = if (scaleX == 0.0) 1.0 else scaleX
+  val sy = if (scaleY == 0.0) 1.0 else scaleY
+  return CsToolbarPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
+}
 fun csToolbarCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("more" to "Thao tác khác")
@@ -462,6 +478,22 @@ fun CsToolbar(
   val actionable = head.mapIndexedNotNull { index, item -> if (item == "-") null else index }
   var focus by remember { mutableIntStateOf(actionable.firstOrNull() ?: 0) }
   var open by remember { mutableStateOf(false) }
+  var field by remember { mutableStateOf<CsFloatingRect?>(null) }
+  var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var origin by remember { mutableStateOf(0.0 to 0.0) }
+  var panelScale by remember { mutableStateOf(1.0 to 1.0) }
+  val config = LocalConfiguration.current
+  val density = LocalDensity.current
+  val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
+  val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
+  val viewport = CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), 0.0, 0.0)
+  val place = field?.let { box ->
+    val first = natural
+    val second = fitted
+    if (first == null || second == null) null else csToolbarShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csToolbarPlacement(null))
+  }
+  if (!open && natural != null) { natural = null; fitted = null }
   Column(modifier) {
     Row(Modifier.semantics { contentDescription = label ?: "" }) {
       head.forEachIndexed { index, item ->
@@ -474,14 +506,30 @@ fun CsToolbar(
         }
       }
       if (extra.isNotEmpty()) {
-        CsTriggerButton(title = moreName, onClick = { open = !open }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = moreName; stateDescription = if (open) "true" else "false" }) {
+        CsTriggerButton(title = moreName, onClick = { open = !open }, modifier = Modifier.minimumInteractiveComponentSize().onGloballyPositioned {
+          val bounds = it.boundsInWindow()
+          field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
+        }.semantics { contentDescription = moreName; stateDescription = if (open) "true" else "false" }) {
           Text(moreName, modifier = Modifier.clearAndSetSemantics {})
         }
       }
     }
     if (open && extra.isNotEmpty()) {
-      extra.forEach { item ->
-        CsTriggerButton(title = item, onClick = { open = false; onSelect(item) }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(item) }
+      Column(Modifier.onGloballyPositioned {
+        val bounds = it.boundsInWindow()
+        val width = it.size.width.toDouble()
+        val height = it.size.height.toDouble()
+        if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+        val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+        val nextScale = (bounds.width / width) to (bounds.height / height)
+        val nextSize = width to height
+        if (origin != nextOrigin) origin = nextOrigin
+        if (panelScale != nextScale) panelScale = nextScale
+        if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+      }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).widthIn(max = with(density) { (place?.maxWidth ?: viewWidth).toFloat().toDp() })) {
+        extra.forEach { item ->
+          CsTriggerButton(title = item, onClick = { open = false; onSelect(item) }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(item) }
+        }
       }
     }
   }

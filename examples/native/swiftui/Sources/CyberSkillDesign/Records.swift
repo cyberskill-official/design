@@ -750,13 +750,43 @@ public enum CSToolbarModel {
     guard let label else { return false }
     return !label.isEmpty
   }
+  public static func placement(_ explicit: String?) -> String { explicit ?? placementDefault }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String) -> CSToolbarPlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: placement, gap: gap) else { return nil }
+    guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: gap) else { return nil }
+    let sx = scaleX == 0 ? 1 : scaleX
+    let sy = scaleY == 0 ? 1 : scaleY
+    return CSToolbarPlace(x: (placed.left - originX) / sx, y: (placed.top - originY) / sy, maxWidth: initial.maxWidth, maxHeight: initial.maxHeight, placement: placed.placement)
+  }
+}
+
+public struct CSToolbarPlace: Equatable {
+  public var x: Double
+  public var y: Double
+  public var maxWidth: Double
+  public var maxHeight: Double
+  public var placement: String
+  public init(x: Double, y: Double, maxWidth: Double, maxHeight: Double, placement: String) {
+    self.x = x
+    self.y = y
+    self.maxWidth = maxWidth
+    self.maxHeight = maxHeight
+    self.placement = placement
+  }
 }
 
 public struct CSToolbar: View {
   public let label: String?
   public let items: [String]
   public let overflowAfter: Int?
+  public let placement: String?
   @State private var focus: Int = 0
+  @State private var anchor = CGRect.zero
+  @State private var naturalSize: CGSize?
+  @State private var fittedSize: CGSize?
+  @State private var panelOrigin: CGPoint?
+  @State private var panelScale = CGSize(width: 1, height: 1)
+  @State private var measurePass = 0
   @State private var keysArmed = false
   @FocusState private var toolbarFocused: Bool
   @State private var open = false
@@ -767,10 +797,11 @@ public struct CSToolbar: View {
   public let language: String?
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String? = nil, items: [String], overflowAfter: Int? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onSelect: @escaping (String) -> Void = { _ in }) {
+  public init(label: String? = nil, items: [String], overflowAfter: Int? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, placement: String? = nil, onSelect: @escaping (String) -> Void = { _ in }) {
     self.label = label
     self.items = items
     self.overflowAfter = overflowAfter
+    self.placement = placement
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -784,6 +815,7 @@ public struct CSToolbar: View {
     let shown = CSToolbarModel.head(items, overflowAfter: overflowAfter)
     let extra = CSToolbarModel.tail(items, overflowAfter: overflowAfter)
     let actionable = shown.enumerated().filter { $0.element != "-" }.map(\.offset)
+    VStack(alignment: .leading, spacing: 0) {
     HStack(spacing: 8) {
       ForEach(Array(shown.enumerated()), id: \.offset) { index, item in
         if item == "-" {
@@ -801,6 +833,9 @@ public struct CSToolbar: View {
         CSTriggerButton(moreName) { open.toggle() }
           .frame(minHeight: pack.componentButtonMdMinHeight.points)
           .accessibilityValue(open ? "true" : "false")
+          .background(GeometryReader { geo in
+            Color.clear.preference(key: CSToolbarAnchorKey.self, value: geo.frame(in: .global))
+          })
       }
     }
     .accessibilityElement(children: .contain)
@@ -813,11 +848,54 @@ public struct CSToolbar: View {
       moveToolbar(key, actionable: actionable)
     })
     if open && !extra.isEmpty {
+      let screen = CSContextMenuModel.screenSize()
+      let box = CSFloatingRect(left: anchor.minX, top: anchor.minY, right: anchor.maxX, bottom: anchor.maxY, width: anchor.width, height: anchor.height)
+      let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
+      let place = CSToolbarModel.placement(placement)
+      let placed = naturalSize.flatMap { natural in
+        fittedSize.flatMap { fitted in
+          CSToolbarModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
+        }
+      }
       VStack(alignment: .leading) {
         ForEach(Array(extra.enumerated()), id: \.offset) { _, item in
           CSTriggerButton(item) { open = false; onSelect(item) }
             .frame(minHeight: 44, alignment: .leading)
         }
+      }
+      .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+      .background(GeometryReader { geo in
+        let frame = geo.frame(in: .global)
+        let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
+        let scaleY = geo.size.height > 0 ? frame.height / geo.size.height : 1
+        Color.clear.preference(key: CSToolbarPanelKey.self, value: CSToolbarMeasure(size: geo.size, pass: measurePass, origin: frame.origin, scale: CGSize(width: scaleX == 0 ? 1 : scaleX, height: scaleY == 0 ? 1 : scaleY)))
+      })
+      .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? 0))
+      .opacity(placed == nil ? 0 : 1)
+      .accessibilityHidden(placed == nil)
+    }
+    }
+    .onPreferenceChange(CSToolbarAnchorKey.self) { frame in
+      if frame.width > 0, frame.height > 0 { anchor = frame }
+    }
+    .onPreferenceChange(CSToolbarPanelKey.self) { measure in
+      guard open, measure.size.width > 0, measure.size.height > 0 else { return }
+      panelOrigin = measure.origin
+      panelScale = measure.scale
+      if naturalSize == nil {
+        naturalSize = measure.size
+        measurePass = 1
+      } else if measure.pass >= 1 {
+        fittedSize = measure.size
+      }
+    }
+    .onChange(of: open) { isOpen in
+      if !isOpen {
+        naturalSize = nil
+        fittedSize = nil
+        panelOrigin = nil
+        panelScale = CGSize(width: 1, height: 1)
+        measurePass = 0
       }
     }
   }
@@ -841,4 +919,21 @@ public struct CSToolbar: View {
     focus = actionable[next]
     return true
   }
+}
+
+private struct CSToolbarMeasure: Equatable {
+  var size: CGSize
+  var pass: Int
+  var origin: CGPoint
+  var scale: CGSize
+}
+
+private struct CSToolbarAnchorKey: PreferenceKey {
+  static var defaultValue = CGRect.zero
+  static func reduce(value: inout CGRect, nextValue: () -> CGRect) { value = nextValue() }
+}
+
+private struct CSToolbarPanelKey: PreferenceKey {
+  static var defaultValue = CSToolbarMeasure(size: .zero, pass: 0, origin: .zero, scale: CGSize(width: 1, height: 1))
+  static func reduce(value: inout CSToolbarMeasure, nextValue: () -> CSToolbarMeasure) { value = nextValue() }
 }

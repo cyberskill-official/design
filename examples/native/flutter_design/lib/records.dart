@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'grid_column_file.dart';
 import 'catalog.dart';
 import 'controls.dart';
+import 'surfaces.dart';
 import 'cs_modes.dart';
 
 List<String> csToggleSelection(List<String> selected, String key) =>
@@ -429,6 +430,25 @@ String csTagCopy(String key, String? language) {
 bool csTagCanEdit(bool disabled, bool composing) => !disabled && !composing;
 const csToolbarMore = 'More actions';
 int csToolbarCut(int count, int? overflowAfter) => overflowAfter == null ? count : (overflowAfter < 0 ? 0 : (overflowAfter > count ? count : overflowAfter));
+String csToolbarPlacement(String? explicit) => explicit ?? 'bottom-end';
+const csToolbarGap = 6.0;
+class CsToolbarPlace {
+  const CsToolbarPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsToolbarPlace? csToolbarShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, String placement) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: placement, gap: csToolbarGap);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csToolbarGap);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsToolbarPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
 String csToolbarCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'more': 'Thao tác khác'};
@@ -549,6 +569,41 @@ class CsToolbar extends StatefulWidget {
 class _CsToolbarState extends State<CsToolbar> {
   var focus = 0;
   var open = false;
+  final moreKey = GlobalKey();
+  final listKey = GlobalKey();
+  Size? natural;
+  Size? fitted;
+  CsToolbarPlace? place;
+
+  void measure() {
+    final fieldBox = moreKey.currentContext?.findRenderObject() as RenderBox?;
+    final listBox = listKey.currentContext?.findRenderObject() as RenderBox?;
+    if (fieldBox == null || !fieldBox.hasSize || listBox == null || !listBox.hasSize || !fieldBox.attached || !listBox.attached) return;
+    final field = fieldBox.localToGlobal(Offset.zero);
+    final list = listBox.localToGlobal(Offset.zero);
+    if (natural == null) {
+      setState(() => natural = listBox.size);
+      return;
+    }
+    if (fitted == listBox.size && place != null) return;
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csToolbarShift(
+      CsFloatingRect(field.dx, field.dy, field.dx + fieldBox.size.width, field.dy + fieldBox.size.height, fieldBox.size.width, fieldBox.size.height),
+      natural!.width,
+      natural!.height,
+      listBox.size.width,
+      listBox.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      list.dx,
+      list.dy,
+      1,
+      1,
+      csToolbarPlacement(null),
+    );
+    setState(() { fitted = listBox.size; place = next; });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -557,6 +612,8 @@ class _CsToolbarState extends State<CsToolbar> {
     final cut = csToolbarCut(widget.items.length, widget.overflowAfter);
     final head = widget.items.take(cut).toList();
     final extra = csToolbarTail(widget.items, widget.overflowAfter);
+    if (!open) { natural = null; fitted = null; }
+    if (open && extra.isNotEmpty) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && open) measure(); });
     return Semantics(
       label: widget.label ?? '',
       child: Column(
@@ -576,17 +633,19 @@ class _CsToolbarState extends State<CsToolbar> {
                   },
                   child: Text(head[index], style: TextStyle(color: csColor(focus == index ? pack.colorBrandOchre : pack.colorTextPrimary))),
                 )),
-            if (extra.isNotEmpty) CsOwnFocus(builder: (node, claim) => Semantics(label: moreName, value: open ? 'true' : 'false', button: true, child: TextButton(
+            if (extra.isNotEmpty) CsOwnFocus(builder: (node, claim) => Semantics(label: moreName, value: open ? 'true' : 'false', button: true, child: TextButton(key: moreKey,
               focusNode: node,
               onPressed: () { claim(); setState(() => open = !open); },
               child: ExcludeSemantics(child: Text(moreName)),
             ))),
           ]),
-          if (open) for (final item in extra) CsOwnFocus(builder: (node, claim) => TextButton(
+          if (open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          for (final item in extra) CsOwnFocus(builder: (node, claim) => TextButton(
             focusNode: node,
             onPressed: () { claim(); setState(() => open = false); widget.onSelect(item); },
             child: Text(item),
           )),
+          ]))),
         ],
       ),
     );
