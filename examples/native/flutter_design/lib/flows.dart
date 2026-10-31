@@ -129,8 +129,9 @@ String csMentionCopy(String key, String? language) {
 String csMentionPlaceholderText(String? text, String fallback) => text ?? fallback;
 String csMentionName(String? ariaLabel, String placeholder) => ariaLabel != null && ariaLabel.isNotEmpty ? ariaLabel : placeholder;
 String csMentionOption(String user) => '@$user';
+bool csMentionDismissOutside(bool open, bool inside) => open && !inside;
 
-class CsMentions extends StatelessWidget {
+class CsMentions extends StatefulWidget {
   const CsMentions({super.key, required this.text, required this.users, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.ariaLabel, this.placeholder, this.language});
   final String? ariaLabel;
   final String? placeholder;
@@ -141,17 +142,26 @@ class CsMentions extends StatelessWidget {
   final bool dark;
   final bool highContrast;
   final bool compact;
+  @override
+  State<CsMentions> createState() => _CsMentionsState();
+}
+
+class _CsMentionsState extends State<CsMentions> {
+  var dismissed = false;
 
   @override
   Widget build(BuildContext context) {
-    final locale = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
-    final hint = csMentionPlaceholderText(placeholder, csMentionCopy('placeholder', locale));
-    final spoken = csMentionName(ariaLabel, hint);
-    final hits = csMentionHits(users, csMentionQuery(text, text.length));
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      CsOwnFocus(builder: (node, claim) => Semantics(textField: true, label: spoken, child: TextField(focusNode: node, controller: TextEditingController(text: text), minLines: 3, maxLines: 3, decoration: InputDecoration(hintText: hint.isEmpty ? null : hint), onChanged: (next) { claim(); onChange(next); }))),
-      for (final user in hits) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onChange(csMentionPick(text, text.length, user)); }, child: Text(csMentionOption(user)))),
-    ]);
+    final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
+    final hint = csMentionPlaceholderText(widget.placeholder, csMentionCopy('placeholder', locale));
+    final spoken = csMentionName(widget.ariaLabel, hint);
+    final hits = dismissed ? <String>[] : csMentionHits(widget.users, csMentionQuery(widget.text, widget.text.length));
+    return TapRegion(
+      onTapOutside: hits.isNotEmpty && csMentionDismissOutside(true, false) ? (_) { setState(() => dismissed = true); } : null,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        CsOwnFocus(builder: (node, claim) => Semantics(textField: true, label: spoken, child: TextField(focusNode: node, controller: TextEditingController(text: widget.text), minLines: 3, maxLines: 3, decoration: InputDecoration(hintText: hint.isEmpty ? null : hint), onChanged: (next) { claim(); setState(() => dismissed = false); widget.onChange(next); }))),
+        for (final user in hits) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onChange(csMentionPick(widget.text, widget.text.length, user)); setState(() => dismissed = true); }, child: Text(csMentionOption(user)))),
+      ]),
+    );
   }
 }
 

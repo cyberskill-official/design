@@ -52,6 +52,7 @@ public enum CSMentionModel {
     guard let query else { return [] }
     return Array(users.filter { $0.lowercased().contains(query) }.prefix(6))
   }
+  public static func dismissOutside(open: Bool, inside: Bool) -> Bool { open && !inside }
 
   public static func pick(text: String, caret: Int, user: String) -> String {
     let end = min(max(caret, 0), text.count)
@@ -292,6 +293,11 @@ public struct CSMentions: View {
         .accessibilityAddTraits(index == current ? .isSelected : [])
       }
     }
+    .background(GeometryReader { _ in
+      CSInlineOutside(active: !found.isEmpty) {
+        if CSMentionModel.dismissOutside(open: true, inside: false) { dismissed = true }
+      }
+    })
   }
 }
 

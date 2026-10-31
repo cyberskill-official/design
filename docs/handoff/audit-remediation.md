@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the tree-select outside-click checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the mentions outside-click checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `45f68a26de5d353c0ff57819d38fd39dd989790c`, with the hash note in `f648a7a6`
-- Checkpoint commit hash: `9841859e3f1c9d4f9312b8dd520833c4b4ad8720`
+- Previous checkpoint: `9841859e3f1c9d4f9312b8dd520833c4b4ad8720`, with the hash note in `64649ebf`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `tree outside, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `mention outside, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,22 +54,22 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-An outside click closes an open tree select. Web `components/forms/TreeSelect.jsx` already does this on `mousedown` outside `floating.contains`.
+An outside click hides the mentions suggestion list. Web `components/forms/Mentions.jsx` does this by `setQ(null)` on `mousedown` outside `floating.contains`. A null query produces no hits.
 
-- `CSTreeSelectModel.dismissOutside` is true only when the tree is open and the point is outside.
-- Swift reuses `CSInlineOutside`. The tree stays inline. A point inside the control does not close it.
-- Compose puts the open tree in a `Popup` with `dismissOnClickOutside`. That click is consumed, so the field does not toggle back open.
-- Flutter wraps the field and the tree in one `TapRegion`.
-- A parent node still does not commit. A leaf still commits and closes. Escape still closes. Disabling the field still closes it.
-- Floating placement is still not ported.
+- `CSMentionModel.dismissOutside` is true only when the list is open and the point is outside.
+- Swift sets `dismissed` through `CSInlineOutside`. Typing again clears `dismissed`. Escape and choosing a person still hide the list.
+- Compose puts the open list in a `Popup` with `dismissOnClickOutside`.
+- Flutter keeps `dismissed` on a state object and wraps the field and the list in one `TapRegion`.
+- The text itself does not change on an outside click.
+- Floating placement is still not ported. Web blur also clears the query when focus leaves the field and the list. That blur path is not this checkpoint.
 
-Mentions is the remaining outside-click gap from this set. Web `components/forms/Mentions.jsx` clears the query with `setQ(null)` on an outside `mousedown`. Cascader outside click is `4e601135`. Color picker outside click is `45f68a26`.
+Outside click is now in for the cascader (`4e601135`), color picker (`45f68a26`), tree select (`9841859e`), and mentions (this checkpoint).
 
 Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed after this change. Compose and Flutter were not compiled.
 
 ## Next concrete step
 
-Port the mentions outside click. Re-read `components/forms/Mentions.jsx` first. The outside event clears the suggestion query. It does not use a separate open boolean. Do not invent a close the web component does not have.
+Port floating placement for one of those four controls. Re-read `components/_utils/floating-position.js` and the control before editing. Combobox, popover, tooltip, and context menu already measure twice and divide by scale. Do not treat a Compose `Popup` as that placement. Do not invent a close the web component does not have.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

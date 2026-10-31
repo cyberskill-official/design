@@ -12,7 +12,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
@@ -63,6 +66,7 @@ fun csMentionQuery(text: String, caret: Int): String? {
   return after.lowercase()
 }
 
+fun csMentionDismissOutside(open: Boolean, inside: Boolean) = open && !inside
 fun csMentionHits(users: List<String>, query: String?): List<String> {
   if (query == null) return emptyList()
   return users.filter { it.lowercase().contains(query) }.take(6)
@@ -142,8 +146,12 @@ fun CsMentions(text: String, users: List<String>, onChange: (String) -> Unit, da
       if (text.isEmpty() && hint.isNotEmpty()) Text(hint, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
       androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); dismissed = false; onChange(next) }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = spoken }, textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()))
     }
-    hits.forEach { user ->
-      CsTriggerButton(title = csMentionOption(user), onClick = { onChange(csMentionPick(text, text.length, user)); dismissed = true }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(csMentionOption(user)) }
+    if (hits.isNotEmpty()) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csMentionDismissOutside(true, false)) dismissed = true }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) {
+      Column {
+        hits.forEach { user ->
+          CsTriggerButton(title = csMentionOption(user), onClick = { onChange(csMentionPick(text, text.length, user)); dismissed = true }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(csMentionOption(user)) }
+        }
+      }
     }
   }
 }
