@@ -1,6 +1,7 @@
 package world.cyberskill.design
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.width
 import androidx.compose.ui.zIndex
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -167,7 +168,7 @@ fun CsDataGrid(
   }) {
     if (csGridShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor())
     if (selectable) {
-      Box(contentAlignment = csGridCheckAlignment()) {
+      Box(Modifier.width(csGridSelectionWidth()), contentAlignment = csGridCheckAlignment()) {
         CsCheckbox(label = selectAllLabel, checked = allSelected, onCheckedChange = { onSelect(csToggleAllSelection(keys, selected)) }, dark = dark, highContrast = highContrast, compact = compact)
       }
     }
@@ -207,7 +208,7 @@ fun CsDataGrid(
         val box = csGridRowBox(useVirtual, safeRow)
         Row((if (box != null) Modifier.height(box.dp) else Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp())).semantics { if (selectable && selected.contains(key)) this.selected = true; csGridRowIndex(useVirtual, index)?.let { csGridRowIndexValue = it } }) {
           if (selectable) {
-            Box(Modifier.fillMaxHeight(), contentAlignment = csGridCheckAlignment()) {
+            Box(Modifier.width(csGridSelectionWidth()).fillMaxHeight(), contentAlignment = csGridCheckAlignment()) {
               CsCheckbox(label = csGridCopy("selectRow", null) + ": " + csGridRowName(ordered.map { row[it.key] }, key), checked = selected.contains(key), onCheckedChange = { onSelect(csToggleSelection(selected, key)) }, dark = dark, highContrast = highContrast, compact = compact)
             }
           }
@@ -469,6 +470,7 @@ fun csGridHeaderStart() = 0.0
 fun csGridHeaderLayer() = 1
 fun csGridTableMargin() = 0.dp
 fun csGridCheckAlignment() = Alignment.Center
+fun csGridSelectionWidth() = 36.dp
 fun csGridScrolled(virtual: Boolean, current: Double, next: Double) = if (virtual && next.isFinite()) next else current
 fun csGridWindow(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Boolean): Pair<Int, Int> {
   if (!virtual) return 0 to count
