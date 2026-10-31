@@ -105,6 +105,9 @@ public enum CSDataGridSelection {
     let known = measured.isFinite ? measured : estimate
     return max(estimate, known)
   }
+  public static func measured(_ previous: Double, next: Double) -> Double {
+    abs(previous - next) > 0.01 ? next : previous
+  }
   public static func virtual(enabled: Bool, count: Int, threshold: Int = 80) -> Bool { enabled || count >= threshold }
   public static func window(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Bool) -> CSGridWindow {
     guard virtual else { return CSGridWindow(start: 0, end: count) }
@@ -262,6 +265,7 @@ public struct CSDataGrid: View {
   @State private var columnOrder: [String]? = nil
   @State private var pinnedKey: String? = nil
   @State private var scrollTop = 0.0
+  @State private var settledRowHeight: Double? = nil
   @Environment(\.csLanguage) private var ancestorLanguage
 
   public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String, filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, caption: String? = nil, sortValues: [String: ([String: String]) -> String?] = [:], renders: [String: ([String: String]) -> String?] = [:], rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, measuredRowHeight: Double? = nil, virtualRows: Bool = false, virtualThreshold: Int = 80, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
@@ -301,7 +305,8 @@ public struct CSDataGrid: View {
     let keysToSearch = CSDataGridSelection.filterKeys(requested: filterKeys, columns: orderedColumns.map(\.key))
     let shown = CSGridSort.ordered(CSDataGridSelection.filtered(rows: rows, query: filterText, keys: keysToSearch), sort: sort, values: sortValues)
     let useVirtual = CSDataGridSelection.virtual(enabled: virtualRows, count: shown.count, threshold: virtualThreshold)
-    let row = CSDataGridSelection.rowHeight(requested: gridRowHeight, measured: measuredRowHeight ?? gridRowHeight)
+    let settled = settledRowHeight ?? CSDataGridSelection.measured(gridRowHeight, next: measuredRowHeight ?? gridRowHeight)
+    let row = CSDataGridSelection.rowHeight(requested: gridRowHeight, measured: settled)
     let frame = CSDataGridSelection.window(count: shown.count, height: gridHeight, rowHeight: row, scrollTop: scrollTop, virtual: useVirtual)
     let indexes = CSDataGridSelection.painted(count: shown.count, window: frame)
     let pads = CSDataGridSelection.pad(count: shown.count, window: frame, rowHeight: row)
@@ -380,11 +385,15 @@ public struct CSDataGrid: View {
     }
     .accessibilityCustomContent(AccessibilityCustomContentKey("rowcount", id: "rowcount"), CSDataGridSelection.rowCount(virtual: useVirtual, count: shown.count).map { Text(String($0)) })
     .onAppear {
+      settledRowHeight = CSDataGridSelection.measured(gridRowHeight, next: measuredRowHeight ?? gridRowHeight)
       guard let key = CSDataGridSelection.storageKey(persistKey) else {
         columnOrder = nil
         return
       }
       columnOrder = CSDataGridSelection.decodeOrder(columnStore.string(forKey: key))
+    }
+    .onChange(of: measuredRowHeight) { _ in
+      settledRowHeight = CSDataGridSelection.measured(settledRowHeight ?? gridRowHeight, next: measuredRowHeight ?? gridRowHeight)
     }
   }
 

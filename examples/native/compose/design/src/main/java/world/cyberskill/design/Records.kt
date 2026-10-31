@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.offset
@@ -177,7 +178,11 @@ fun CsDataGrid(
       }
     }
     val scroll = rememberScrollState()
-    val safeRow = csGridRowHeight(rowHeight, measuredRowHeight ?: rowHeight)
+    val incoming = measuredRowHeight ?: rowHeight
+    var settled by remember { mutableStateOf(rowHeight) }
+    val shownMeasure = csGridMeasured(settled, incoming)
+    LaunchedEffect(incoming) { settled = shownMeasure }
+    val safeRow = csGridRowHeight(rowHeight, shownMeasure)
     val body = maxOf(0.0, height - 40)
     val window = csGridWindow(shown.size, height, safeRow, scroll.value.toDouble(), useVirtual)
     val painted = csGridPainted(shown.size, window.first, window.second)
@@ -432,6 +437,7 @@ fun csGridRowHeight(requested: Double, measured: Double): Double {
   val known = if (measured.isFinite()) measured else estimate
   return maxOf(estimate, known)
 }
+fun csGridMeasured(previous: Double, next: Double) = if (kotlin.math.abs(previous - next) > 0.01) next else previous
 fun csGridVirtual(enabled: Boolean, count: Int, threshold: Int = 80) = enabled || count >= threshold
 fun csGridWindow(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Boolean): Pair<Int, Int> {
   if (!virtual) return 0 to count

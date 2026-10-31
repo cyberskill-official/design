@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the measured-row checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the tiny-measurement checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `157bb1fb2f32b94e7715243271a24c1cc41f9c8a`, with the hash note in `4db02074`
-- Checkpoint commit hash: `f043251089f8265e948b5959b4fd8d81b52b63ce`
+- Previous checkpoint: `f043251089f8265e948b5959b4fd8d81b52b63ce`, with the hash note in `b1b914d7`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `measured row, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `tiny measure, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the measured row: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the tiny measurement: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A measured data-grid row now wins when it is taller than the requested row height. The web source is `components/datatable/DataGrid.jsx`: `Math.max(estimate, measuredRowHeight)`. A request of 36 and a measurement of 48 uses 48. A measurement of 20 stays at 36, because the estimate is the floor. A missing measurement uses the request. The window and the spacer use that height. The native value is supplied by the host. It does not read a rendered row the way the web layout effect does.
+A data-grid row measurement that moves by 0.01 or less now keeps the previous height. The web source is `components/datatable/DataGrid.jsx`: `Math.abs(previous - next) > 0.01 ? next : previous`. A move from 36 to 36.005 stays at 36. A move from 36 to 36.02 becomes 36.02. A move from 48 to 36 becomes 36. The settled height is what the window uses. The native value is still supplied by the host. It does not read a rendered row.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Ignore a row-height measurement that moves by 0.01 or less. The web keeps the previous measurement unless the change is larger than 0.01. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
+Give a virtual data-grid row the effective row height. The web sets that height only while virtualization is on. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

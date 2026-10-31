@@ -116,10 +116,12 @@ class _CsDataGridState extends State<CsDataGrid> {
   List<String>? columnOrder;
   String? pinnedKey;
   String? sort;
+  double? settledRow;
 
   @override
   void initState() {
     super.initState();
+    settledRow = csGridMeasured(widget.rowHeight, widget.measuredRowHeight ?? widget.rowHeight);
     final key = csGridStorageKey(widget.persistKey);
     columnOrder = key == null ? null : csGridDecodeOrder(csGridColumnStore[key]);
     if (key != null) {
@@ -133,6 +135,13 @@ class _CsDataGridState extends State<CsDataGrid> {
       if (!mounted) return;
       setState(() => scrollTop = scroll.offset);
     });
+  }
+
+  @override
+  void didUpdateWidget(CsDataGrid oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final incoming = widget.measuredRowHeight ?? widget.rowHeight;
+    settledRow = csGridMeasured(settledRow ?? widget.rowHeight, incoming);
   }
 
   @override
@@ -154,7 +163,7 @@ class _CsDataGridState extends State<CsDataGrid> {
     final keys = [for (var index = 0; index < rows.length; index++) csGridRowKey(rows[index]['id'], index)];
     final allSelected = keys.isNotEmpty && keys.every(selected.contains);
     final useVirtual = csGridVirtual(widget.virtual, rows.length, threshold: widget.virtualThreshold);
-    final safeRow = csGridRowHeight(widget.rowHeight, widget.measuredRowHeight ?? widget.rowHeight);
+    final safeRow = csGridRowHeight(widget.rowHeight, settledRow ?? csGridMeasured(widget.rowHeight, widget.measuredRowHeight ?? widget.rowHeight));
     final body = widget.height - 40 > 0 ? widget.height - 40 : 0.0;
     final window = csGridWindow(rows.length, widget.height, safeRow, scrollTop, useVirtual);
     final painted = csGridPainted(rows.length, window[0], window[1]);
@@ -512,6 +521,7 @@ double csGridRowHeight(double requested, double measured) {
   final known = measured.isFinite ? measured : estimate;
   return estimate > known ? estimate : known;
 }
+double csGridMeasured(double previous, double next) => (previous - next).abs() > 0.01 ? next : previous;
 bool csGridVirtual(bool enabled, int count, {int threshold = 80}) => enabled || count >= threshold;
 List<int> csGridWindow(int count, double height, double rowHeight, double scrollTop, bool virtual) {
   if (!virtual) return [0, count];
