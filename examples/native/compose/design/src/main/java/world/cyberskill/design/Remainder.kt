@@ -483,6 +483,9 @@ fun csEditorSpan(start: Int, end: Int, length: Int): Pair<Int, Int> {
   return lower to upper
 }
 fun csEditorMovedEnd(start: Int, end: Int, before: Int, after: Int) = start + (after - before + (end - start))
+data class CsEditorRange(val start: Int, val end: Int, val hadRange: Boolean)
+fun csEditorRemember(inside: Boolean, start: Int, end: Int, previousStart: Int, previousEnd: Int, hadRange: Boolean) = if (inside) CsEditorRange(start, end, true) else CsEditorRange(previousStart, previousEnd, hadRange)
+fun csEditorRestore(hadRange: Boolean, start: Int, end: Int, contained: Boolean, length: Int) = if (hadRange && contained) csEditorSpan(start, end, length) else length to length
 fun csEditorApply(html: String, command: String, start: Int, end: Int): String {
   val lower = start.coerceIn(0, html.length)
   val upper = end.coerceIn(lower, html.length)
@@ -521,13 +524,23 @@ fun csEditorPressed(current: Boolean) = !current
   var bold by remember { mutableStateOf(false) }
   var italic by remember { mutableStateOf(false) }
   var list by remember { mutableStateOf(false) }
+  var hadRange by remember { mutableStateOf(selectionStart != 0 || selectionEnd != 0) }
+  var draft by remember { mutableStateOf(TextFieldValue(text, androidx.compose.ui.text.TextRange(selectionStart, selectionEnd))) }
   Column(modifier) {
     Row(Modifier.semantics { contentDescription = csEditorCopy("toolbar", locale) }) {
-      CsTriggerButton(title = "B", onClick = { val span = csEditorSpan(selectionStart, selectionEnd, text.length); val next = csEditorApply(text, "bold", span.first, span.second); if (next == text) bold = csEditorPressed(bold) else { onSelection(span.first, csEditorMovedEnd(span.first, span.second, text.length, next.length)); onChange(next); bold = csEditorWrapped(next, "<b>", "</b>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("bold", locale); stateDescription = bold.toString() }) { Text("B", modifier = Modifier.clearAndSetSemantics {}) }
-      CsTriggerButton(title = "I", onClick = { val span = csEditorSpan(selectionStart, selectionEnd, text.length); val next = csEditorApply(text, "italic", span.first, span.second); if (next == text) italic = csEditorPressed(italic) else { onSelection(span.first, csEditorMovedEnd(span.first, span.second, text.length, next.length)); onChange(next); italic = csEditorWrapped(next, "<i>", "</i>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("italic", locale); stateDescription = italic.toString() }) { Text("I", modifier = Modifier.clearAndSetSemantics {}) }
-      CsTriggerButton(title = "≔", onClick = { val span = csEditorSpan(selectionStart, selectionEnd, text.length); val next = csEditorApply(text, "insertUnorderedList", span.first, span.second); if (next == text) list = csEditorPressed(list) else { onSelection(span.first, csEditorMovedEnd(span.first, span.second, text.length, next.length)); onChange(next); list = csEditorWrapped(next, "<ul>", "</ul>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("list", locale); stateDescription = list.toString() }) { Text("≔", modifier = Modifier.clearAndSetSemantics {}) }
+      CsTriggerButton(title = "B", onClick = { val restored = csEditorRestore(hadRange, selectionStart, selectionEnd, true, text.length); val span = csEditorSpan(restored.first, restored.second, text.length); val next = csEditorApply(text, "bold", span.first, span.second); if (next == text) bold = csEditorPressed(bold) else { onSelection(span.first, csEditorMovedEnd(span.first, span.second, text.length, next.length)); onChange(next); bold = csEditorWrapped(next, "<b>", "</b>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("bold", locale); stateDescription = bold.toString() }) { Text("B", modifier = Modifier.clearAndSetSemantics {}) }
+      CsTriggerButton(title = "I", onClick = { val restored = csEditorRestore(hadRange, selectionStart, selectionEnd, true, text.length); val span = csEditorSpan(restored.first, restored.second, text.length); val next = csEditorApply(text, "italic", span.first, span.second); if (next == text) italic = csEditorPressed(italic) else { onSelection(span.first, csEditorMovedEnd(span.first, span.second, text.length, next.length)); onChange(next); italic = csEditorWrapped(next, "<i>", "</i>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("italic", locale); stateDescription = italic.toString() }) { Text("I", modifier = Modifier.clearAndSetSemantics {}) }
+      CsTriggerButton(title = "≔", onClick = { val restored = csEditorRestore(hadRange, selectionStart, selectionEnd, true, text.length); val span = csEditorSpan(restored.first, restored.second, text.length); val next = csEditorApply(text, "insertUnorderedList", span.first, span.second); if (next == text) list = csEditorPressed(list) else { onSelection(span.first, csEditorMovedEnd(span.first, span.second, text.length, next.length)); onChange(next); list = csEditorWrapped(next, "<ul>", "</ul>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("list", locale); stateDescription = list.toString() }) { Text("≔", modifier = Modifier.clearAndSetSemantics {}) }
     }
-    androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); onChange(next) }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = spoken })
+    androidx.compose.foundation.text.BasicTextField(value = draft, onValueChange = { next ->
+      if (!csControlEnabled()) return@BasicTextField
+      handle.claim()
+      val remembered = csEditorRemember(true, next.selection.start, next.selection.end, selectionStart, selectionEnd, hadRange)
+      hadRange = remembered.hadRange
+      draft = next
+      onSelection(remembered.start, remembered.end)
+      if (next.text != text) onChange(next.text)
+    }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = spoken })
   }
 }
 val LocalCsLanguage = androidx.compose.runtime.compositionLocalOf<String?> { null }

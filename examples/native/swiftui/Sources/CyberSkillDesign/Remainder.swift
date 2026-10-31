@@ -1571,6 +1571,14 @@ public enum CSEditorModel {
   public static func movedEnd(start: Int, end: Int, before: Int, after: Int) -> Int {
     start + (after - before + (end - start))
   }
+  public static func remember(inside: Bool, start: Int, end: Int, previousStart: Int, previousEnd: Int, hadRange: Bool) -> (start: Int, end: Int, hadRange: Bool) {
+    if inside { return (start, end, true) }
+    return (previousStart, previousEnd, hadRange)
+  }
+  public static func restore(hadRange: Bool, start: Int, end: Int, contained: Bool, length: Int) -> (start: Int, end: Int) {
+    if hadRange && contained { return span(start: start, end: end, length: length) }
+    return (length, length)
+  }
   public static func apply(_ html: String, command: String, start: Int, end: Int) -> String {
     let lower = min(max(start, 0), html.count)
     let upper = min(max(end, lower), html.count)
@@ -1623,6 +1631,7 @@ public struct CSEditor: View {
   @State private var bold = false
   @State private var italic = false
   @State private var list = false
+  @State private var hadRange = false
 
   public init(label: String? = nil, text: Binding<String>, language: String? = nil, selectionStart: Binding<Int> = .constant(0), selectionEnd: Binding<Int> = .constant(0)) {
     self.label = label
@@ -1633,7 +1642,8 @@ public struct CSEditor: View {
   }
 
   private func applyFormat(_ command: String) {
-    let span = CSEditorModel.span(start: selectionStart, end: selectionEnd, length: text.count)
+    let restored = CSEditorModel.restore(hadRange: hadRange, start: selectionStart, end: selectionEnd, contained: true, length: text.count)
+    let span = CSEditorModel.span(start: restored.start, end: restored.end, length: text.count)
     let next = CSEditorModel.apply(text, command: command, start: span.start, end: span.end)
     if next != text {
       selectionStart = span.start
@@ -1671,6 +1681,10 @@ public struct CSEditor: View {
       TextField(spoken, text: Binding(get: { text }, set: { next in
         CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
         text = next
+        let remembered = CSEditorModel.remember(inside: focused, start: next.count, end: next.count, previousStart: selectionStart, previousEnd: selectionEnd, hadRange: hadRange)
+        selectionStart = remembered.start
+        selectionEnd = remembered.end
+        hadRange = remembered.hadRange
       }), axis: .vertical)
         .lineLimit(6...12)
         .focused($focused)

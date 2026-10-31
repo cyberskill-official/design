@@ -599,6 +599,14 @@ String csEditorList(String text) {
   return (lower, upper);
 }
 int csEditorMovedEnd(int start, int end, int before, int after) => start + (after - before + (end - start));
+class CsEditorRange {
+  const CsEditorRange(this.start, this.end, this.hadRange);
+  final int start;
+  final int end;
+  final bool hadRange;
+}
+CsEditorRange csEditorRemember(bool inside, int start, int end, int previousStart, int previousEnd, bool hadRange) => inside ? CsEditorRange(start, end, true) : CsEditorRange(previousStart, previousEnd, hadRange);
+(int, int) csEditorRestore(bool hadRange, int start, int end, bool contained, int length) => hadRange && contained ? csEditorSpan(start, end, length) : (length, length);
 String csEditorApply(String html, String command, int start, int end) {
   final lower = start < 0 ? 0 : (start > html.length ? html.length : start);
   final upper = end < lower ? lower : (end > html.length ? html.length : end);
@@ -648,6 +656,34 @@ class _CsEditorState extends State<CsEditor> {
   var bold = false;
   var italic = false;
   var list = false;
+  var hadRange = false;
+  late final controller = TextEditingController(text: widget.text);
+
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      if (!controller.selection.isValid) return;
+      final remembered = csEditorRemember(true, controller.selection.start, controller.selection.end, widget.selectionStart, widget.selectionEnd, hadRange);
+      if (!remembered.hadRange) return;
+      hadRange = true;
+      widget.onSelection?.call(remembered.start, remembered.end);
+    });
+  }
+
+  @override
+  void didUpdateWidget(CsEditor oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (controller.text != widget.text) {
+      controller.value = TextEditingValue(text: widget.text, selection: TextSelection.collapsed(offset: widget.text.length));
+    }
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -661,11 +697,11 @@ class _CsEditorState extends State<CsEditor> {
     );
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Semantics(container: true, label: csEditorCopy('toolbar', locale), child: Row(children: [
-        mark('B', csEditorCopy('bold', locale), bold, () { final span = csEditorSpan(widget.selectionStart, widget.selectionEnd, widget.text.length); final next = csEditorApply(widget.text, 'bold', span.$1, span.$2); setState(() { if (next == widget.text) { bold = csEditorPressed(bold); } else { bold = csEditorWrapped(next, '<b>', '</b>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
-        mark('I', csEditorCopy('italic', locale), italic, () { final span = csEditorSpan(widget.selectionStart, widget.selectionEnd, widget.text.length); final next = csEditorApply(widget.text, 'italic', span.$1, span.$2); setState(() { if (next == widget.text) { italic = csEditorPressed(italic); } else { italic = csEditorWrapped(next, '<i>', '</i>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
-        mark('≔', csEditorCopy('list', locale), list, () { final span = csEditorSpan(widget.selectionStart, widget.selectionEnd, widget.text.length); final next = csEditorApply(widget.text, 'insertUnorderedList', span.$1, span.$2); setState(() { if (next == widget.text) { list = csEditorPressed(list); } else { list = csEditorWrapped(next, '<ul>', '</ul>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
+        mark('B', csEditorCopy('bold', locale), bold, () { final restored = csEditorRestore(hadRange, widget.selectionStart, widget.selectionEnd, true, widget.text.length); final span = csEditorSpan(restored.$1, restored.$2, widget.text.length); final next = csEditorApply(widget.text, 'bold', span.$1, span.$2); setState(() { if (next == widget.text) { bold = csEditorPressed(bold); } else { bold = csEditorWrapped(next, '<b>', '</b>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
+        mark('I', csEditorCopy('italic', locale), italic, () { final restored = csEditorRestore(hadRange, widget.selectionStart, widget.selectionEnd, true, widget.text.length); final span = csEditorSpan(restored.$1, restored.$2, widget.text.length); final next = csEditorApply(widget.text, 'italic', span.$1, span.$2); setState(() { if (next == widget.text) { italic = csEditorPressed(italic); } else { italic = csEditorWrapped(next, '<i>', '</i>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
+        mark('≔', csEditorCopy('list', locale), list, () { final restored = csEditorRestore(hadRange, widget.selectionStart, widget.selectionEnd, true, widget.text.length); final span = csEditorSpan(restored.$1, restored.$2, widget.text.length); final next = csEditorApply(widget.text, 'insertUnorderedList', span.$1, span.$2); setState(() { if (next == widget.text) { list = csEditorPressed(list); } else { list = csEditorWrapped(next, '<ul>', '</ul>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
       ])),
-      CsOwnFocus(builder: (node, claim) => TextField(focusNode: node, controller: TextEditingController(text: widget.text), onChanged: (next) { claim(); widget.onChange(next); }, decoration: InputDecoration(labelText: spoken.isEmpty ? null : spoken))),
+      CsOwnFocus(builder: (node, claim) => TextField(focusNode: node, controller: controller, onChanged: (next) { claim(); widget.onChange(next); }, decoration: InputDecoration(labelText: spoken.isEmpty ? null : spoken))),
     ]);
   }
 }
