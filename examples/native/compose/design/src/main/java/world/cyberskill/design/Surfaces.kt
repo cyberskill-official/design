@@ -1,6 +1,7 @@
 package world.cyberskill.design
 
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -84,6 +86,13 @@ fun csSplitterClamp(value: Double, lower: Double = 20.0, upper: Double = 80.0): 
 fun csSplitterNudge(value: Double, right: Boolean, rtl: Boolean, lower: Double = 20.0, upper: Double = 80.0): Double {
   val delta = (if (right) 2.0 else -2.0) * (if (rtl) -1 else 1)
   return csSplitterClamp(csSplitterClamp(value, lower, upper) + delta, lower, upper)
+}
+fun csSplitterAcceptsPointer(button: Int, pointerId: Int, eventPointer: Int) = button == 0 && pointerId == eventPointer
+fun csSplitterDrag(start: Double, grabX: Double, currentX: Double, wrapWidth: Double, handleWidth: Double, rtl: Boolean, lower: Double = 20.0, upper: Double = 80.0): Double? {
+  val available = wrapWidth - handleWidth
+  if (available <= 0.0) return null
+  val distance = (currentX - grabX) * (if (rtl) -1.0 else 1.0)
+  return csSplitterClamp(start + (distance / available) * 100.0, lower, upper)
 }
 const val csSplitterLabel = "Resize panes"
 fun csSplitterCopy(key: String, language: String?): String {
@@ -231,7 +240,12 @@ fun CsSplitter(start: String, end: String, percent: Double, onChange: (Double) -
   val pack = csModePack(dark, highContrast, compact)
   val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
   val spoken = csSplitterName(label, csSplitterCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
-  Row(modifier.onPreviewKeyEvent { event ->
+  val currentPercent by rememberUpdatedState(percent)
+  var dragStart by remember { mutableStateOf<Double?>(null) }
+  var travel by remember { mutableStateOf(0.0) }
+  var wrapWidth by remember { mutableStateOf(0.0) }
+  var handleWidth by remember { mutableStateOf(0.0) }
+  Row(modifier.onGloballyPositioned { wrapWidth = it.size.width.toDouble() }.onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
     when (event.key) {
       Key.DirectionRight -> { onChange(csSplitterNudge(percent, true, rtl)); true }
@@ -240,7 +254,18 @@ fun CsSplitter(start: String, end: String, percent: Double, onChange: (Double) -
     }
   }) {
     Text(start, color = pack.colorTextPrimary.toComposeColor())
-    CsTriggerButton(title = spoken, onClick = { onChange(csSplitterNudge(percent, true, rtl)) }, modifier = Modifier.semantics { contentDescription = spoken; stateDescription = percent.toInt().toString() }) { Text(spoken, modifier = Modifier.clearAndSetSemantics {}) }
+    CsTriggerButton(title = spoken, onClick = { onChange(csSplitterNudge(percent, true, rtl)) }, modifier = Modifier.onGloballyPositioned { handleWidth = it.size.width.toDouble() }.pointerInput(rtl, wrapWidth, handleWidth) {
+      detectDragGestures(
+        onDragStart = { dragStart = currentPercent; travel = 0.0 },
+        onDrag = { _, amount ->
+          val start = dragStart ?: return@detectDragGestures
+          travel += amount.x.toDouble()
+          csSplitterDrag(start, 0.0, travel, wrapWidth, handleWidth, rtl)?.let(onChange)
+        },
+        onDragEnd = { dragStart = null },
+        onDragCancel = { dragStart = null },
+      )
+    }.semantics { contentDescription = spoken; stateDescription = percent.toInt().toString() }) { Text(spoken, modifier = Modifier.clearAndSetSemantics {}) }
     Text(end, color = pack.colorTextPrimary.toComposeColor())
   }
 }

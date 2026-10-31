@@ -61,6 +61,13 @@ double csSplitterNudge(double value, {required bool right, required bool rtl, do
   final delta = (right ? 2 : -2) * (rtl ? -1 : 1);
   return csSplitterClamp(csSplitterClamp(value, lower: lower, upper: upper) + delta, lower: lower, upper: upper);
 }
+bool csSplitterAcceptsPointer(int button, int pointerId, int eventPointer) => button == 0 && pointerId == eventPointer;
+double? csSplitterDrag(double start, double grabX, double currentX, double wrapWidth, double handleWidth, bool rtl, {double lower = 20, double upper = 80}) {
+  final available = wrapWidth - handleWidth;
+  if (available <= 0) return null;
+  final distance = (currentX - grabX) * (rtl ? -1 : 1);
+  return csSplitterClamp(start + (distance / available) * 100, lower: lower, upper: upper);
+}
 const csSplitterLabel = 'Resize panes';
 String csSplitterCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
@@ -278,7 +285,7 @@ class _CsColorPickerState extends State<CsColorPicker> {
   }
 }
 
-class CsSplitter extends StatelessWidget {
+class CsSplitter extends StatefulWidget {
   const CsSplitter({super.key, required this.start, required this.end, required this.percent, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.label, this.language});
   final String start;
   final String end;
@@ -289,34 +296,59 @@ class CsSplitter extends StatelessWidget {
   final bool dark;
   final bool highContrast;
   final bool compact;
+  @override
+  State<CsSplitter> createState() => _CsSplitterState();
+}
+
+class _CsSplitterState extends State<CsSplitter> {
+  final handleKey = GlobalKey();
+  double wrapWidth = 0;
+  double? dragStart;
+  double? grabX;
 
   @override
   Widget build(BuildContext context) {
     final rtl = Directionality.of(context) == TextDirection.rtl;
-    final spoken = csSplitterName(label, csSplitterCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
+    final spoken = csSplitterName(widget.label, csSplitterCopy('label', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context))));
     return Focus(
       onKeyEvent: (node, event) {
         if (event is! KeyDownEvent) return KeyEventResult.ignored;
         if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
-          onChange(csSplitterNudge(percent, right: true, rtl: rtl));
+          widget.onChange(csSplitterNudge(widget.percent, right: true, rtl: rtl));
           return KeyEventResult.handled;
         }
         if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
-          onChange(csSplitterNudge(percent, right: false, rtl: rtl));
+          widget.onChange(csSplitterNudge(widget.percent, right: false, rtl: rtl));
           return KeyEventResult.handled;
         }
         return KeyEventResult.ignored;
       },
-      child: Row(children: [
-        Text(start),
-        Semantics(
-          button: true,
-          label: spoken,
-          value: percent.round().toString(),
-          child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onChange(csSplitterNudge(percent, right: true, rtl: rtl)); }, child: ExcludeSemantics(child: Text(spoken)))),
-        ),
-        Text(end),
-      ]),
+      child: LayoutBuilder(builder: (context, constraints) {
+        final nextWrap = constraints.maxWidth.isFinite ? constraints.maxWidth : wrapWidth;
+        return Row(children: [
+          Text(widget.start),
+          Semantics(
+            button: true,
+            label: spoken,
+            value: widget.percent.round().toString(),
+            child: GestureDetector(
+              onHorizontalDragStart: (details) { dragStart = widget.percent; grabX = details.globalPosition.dx; },
+              onHorizontalDragUpdate: (details) {
+                final start = dragStart;
+                final grab = grabX;
+                if (start == null || grab == null) return;
+                final box = handleKey.currentContext?.findRenderObject() as RenderBox?;
+                final next = csSplitterDrag(start, grab, details.globalPosition.dx, nextWrap, box?.size.width ?? 0, rtl);
+                if (next != null) widget.onChange(next);
+              },
+              onHorizontalDragEnd: (_) { dragStart = null; grabX = null; },
+              onHorizontalDragCancel: () { dragStart = null; grabX = null; },
+              child: CsOwnFocus(builder: (node, claim) => TextButton(key: handleKey, focusNode: node, onPressed: () { claim(); widget.onChange(csSplitterNudge(widget.percent, right: true, rtl: rtl)); }, child: ExcludeSemantics(child: Text(spoken)))),
+            ),
+          ),
+          Text(widget.end),
+        ]);
+      }),
     );
   }
 }

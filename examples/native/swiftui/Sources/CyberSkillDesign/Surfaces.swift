@@ -84,6 +84,17 @@ public enum CSSplitterModel {
     return clamp(clamp(value, min: lower, max: upper) + delta, min: lower, max: upper)
   }
 
+  public static func acceptsPointer(button: Int, pointerId: Int, eventPointer: Int) -> Bool {
+    button == 0 && pointerId == eventPointer
+  }
+
+  public static func drag(start: Double, grabX: Double, currentX: Double, wrapWidth: Double, handleWidth: Double, rtl: Bool, min lower: Double = 20, max upper: Double = 80) -> Double? {
+    let available = wrapWidth - handleWidth
+    guard available > 0 else { return nil }
+    let distance = (currentX - grabX) * (rtl ? -1.0 : 1.0)
+    return clamp(start + (distance / available) * 100, min: lower, max: upper)
+  }
+
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
     let tables: [String: [String: String]] = [
@@ -380,6 +391,9 @@ public struct CSSplitter: View {
   @FocusState private var focused: Bool
   @State private var keysArmed = false
   @State private var focusId = UUID().uuidString
+  @State private var dragStart: Double?
+  @State private var wrapWidth = 0.0
+  @State private var handleWidth = 0.0
 
   public init(start: String, end: String, percent: Double, label: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping (Double) -> Void) {
     self.start = start
@@ -427,10 +441,41 @@ public struct CSSplitter: View {
       .onChange(of: focused) { isFocused in
         if isFocused { keysArmed = true }
       }
+      .background(GeometryReader { geo in
+        Color.clear.preference(key: CSSplitterHandleKey.self, value: geo.size.width)
+      })
+      .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global).onChanged { value in
+        if dragStart == nil { dragStart = percent }
+        guard let start = dragStart else { return }
+        if let next = CSSplitterModel.drag(start: start, grabX: value.startLocation.x, currentX: value.location.x, wrapWidth: wrapWidth, handleWidth: handleWidth, rtl: rtl) {
+          onChange(next)
+        }
+      }.onEnded { _ in
+        dragStart = nil
+      })
       Text(end).frame(maxWidth: .infinity).foregroundStyle(pack.primaryTextColor)
+    }
+    .background(GeometryReader { geo in
+      Color.clear.preference(key: CSSplitterWrapKey.self, value: geo.size.width)
+    })
+    .onPreferenceChange(CSSplitterWrapKey.self) { width in
+      if width > 0 { wrapWidth = width }
+    }
+    .onPreferenceChange(CSSplitterHandleKey.self) { width in
+      if width > 0 { handleWidth = width }
     }
     .accessibilityElement(children: .contain)
   }
+}
+
+private struct CSSplitterWrapKey: PreferenceKey {
+  static var defaultValue = 0.0
+  static func reduce(value: inout Double, nextValue: () -> Double) { value = nextValue() }
+}
+
+private struct CSSplitterHandleKey: PreferenceKey {
+  static var defaultValue = 0.0
+  static func reduce(value: inout Double, nextValue: () -> Double) { value = nextValue() }
 }
 
 public struct CSDatePlace: Equatable {

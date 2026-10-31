@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the floating-action placement checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the splitter drag checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `dd048984d8733c3b3b62d74c6a03b7505cb40b2e`, with the hash note in `5415a9aa`
-- Checkpoint commit hash: `e1e24159aefa25698161d88b5af4b31f9b17e4fd`
+- Previous checkpoint: `e1e24159aefa25698161d88b5af4b31f9b17e4fd`, with the hash note in `ca65a6e3`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `fab place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `splitter drag, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,16 +54,16 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The floating action dial uses the web floating placement. `components/button/FloatingActionButton.jsx` calls `useFloatingPanel` with `top-end` and gap `10`. The anchor is the main button. An explicit placement wins, including an empty string. For the tested button, an 80-by-20 dial sits 20 points to the right and 30 points above the button's top. A dial that does not fit above a high button flips to `bottom-end` at 90.
+The splitter now follows the pointer, not only the arrow keys. `components/data/Splitter.jsx` adds `(clientX - grabX) / (wrap width - handle width) * 100` to the percent at pointer down. Right-to-left reverses that distance. A non-primary button does not start a drag. A later event from another pointer does not move it. When the available width is not positive, the percent stays. The result is still clamped from 20 to 80.
 
-- Swift hides the dial until the second measurement exists, then offsets it. The column spacing is 0. The 8-point space between mini actions stays. Escape still closes the dial. A button with no actions still runs the press handler.
-- Compose and Flutter call `csFabShift` and offset the actions. They were not compiled.
+- A 200-point available width and a 50-point move changes 50 to 75. The same move in right-to-left changes 50 to 25. A move past the end stops at 80.
+- Swift uses a global drag so the handle can move without changing the measured distance. Arrow keys still nudge by 2.
+- Compose and Flutter call `csSplitterDrag` from a pointer drag. They were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
-- Every `useFloatingPanel` caller in `components/` now has a native shift. Combobox, context menu, and tooltip already had one before this series.
 
 ## Next concrete step
 
-Move the splitter by pointer, the way the web component does. Re-read `components/data/Splitter.jsx` before editing. Do not start another string table.
+Clear the mentions query on blur, the way the web field does. Re-read `components/forms/Mentions.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
