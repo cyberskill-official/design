@@ -167,7 +167,7 @@ fun CsDataGrid(
     if (selectable) {
       CsCheckbox(label = selectAllLabel, checked = allSelected, onCheckedChange = { onSelect(csToggleAllSelection(keys, selected)) }, dark = dark, highContrast = highContrast, compact = compact)
     }
-    Row(Modifier.semantics { csGridRowIndex(useVirtual, 0, true)?.let { csGridRowIndexValue = it } }) {
+    Row(Modifier.background(pack.colorSurfaceRaised.toComposeColor()).zIndex(csGridHeaderLayer().toFloat()).offset(y = csGridHeaderStart().dp).semantics { csGridRowIndex(useVirtual, 0, true)?.let { csGridRowIndexValue = it } }) {
       ordered.forEach { column ->
         if (column.sortable) {
           val aria = csGridSortAria(sort, column.key)
@@ -459,6 +459,8 @@ fun csGridRowBox(virtual: Boolean, height: Double) = if (virtual && height.isFin
 fun csGridVirtual(enabled: Boolean, count: Int, threshold: Int = 80) = enabled || count >= threshold
 fun csGridVirtualFlag(virtual: Boolean) = if (virtual) "true" else "false"
 fun csGridVirtualClass(virtual: Boolean) = if (virtual) "cs-datagrid--virtual" else null
+fun csGridHeaderStart() = 0.0
+fun csGridHeaderLayer() = 1
 fun csGridScrolled(virtual: Boolean, current: Double, next: Double) = if (virtual && next.isFinite()) next else current
 fun csGridWindow(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Boolean): Pair<Int, Int> {
   if (!virtual) return 0 to count

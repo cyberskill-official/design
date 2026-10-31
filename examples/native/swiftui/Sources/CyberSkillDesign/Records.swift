@@ -115,6 +115,8 @@ public enum CSDataGridSelection {
   }
   public static func virtualFlag(_ virtual: Bool) -> String { virtual ? "true" : "false" }
   public static func virtualClass(_ virtual: Bool) -> String? { virtual ? "cs-datagrid--virtual" : nil }
+  public static func headerStart() -> Double { 0 }
+  public static func headerLayer() -> Int { 1 }
   public static func scrolled(virtual: Bool, current: Double, next: Double) -> Double {
     guard virtual, next.isFinite else { return current }
     return next
@@ -360,6 +362,9 @@ public struct CSDataGrid: View {
           .zIndex(CSDataGridSelection.sticky(column.key, pinned: pinnedKey) == nil ? 0 : 1)
         }
       }
+      .background(pack.colorSurfaceRaised.color)
+      .zIndex(Double(CSDataGridSelection.headerLayer()))
+      .offset(y: CSDataGridSelection.headerStart())
       .accessibilityCustomContent(AccessibilityCustomContentKey("rowindex", id: "rowindex"), CSDataGridSelection.rowIndex(virtual: useVirtual, position: 0, header: true).map { Text(String($0)) })
       .onChange(of: sortColumn) { key in
         if let key { CSFocusRegistry.shared.claim(id: "\(sortFocusId)-\(key)", restore: { sortColumn = key }) }

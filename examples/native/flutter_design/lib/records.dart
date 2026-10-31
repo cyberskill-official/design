@@ -193,7 +193,11 @@ class _CsDataGridState extends State<CsDataGrid> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (csGridShowsCaption(widget.caption)) Text(widget.caption ?? ''),
-        Semantics(value: csGridRowIndex(useVirtual, 0, header: true)?.toString(), child: Row(children: [
+        ColoredBox(
+          color: csColor(pack.colorSurfaceRaised),
+          child: Transform.translate(
+            offset: Offset(0, csGridHeaderStart()),
+            child: Semantics(value: csGridRowIndex(useVirtual, 0, header: true)?.toString(), child: Row(children: [
           for (final column in ordered)
             if (column.sortable)
               CsOwnFocus(builder: (node, claim) => TextButton(
@@ -206,7 +210,7 @@ class _CsDataGridState extends State<CsDataGrid> {
               ))
             else
               Text(column.header),
-        ])),
+        ])))),
         if (selectable)
           CsCheckbox(label: selectAllLabel, value: allSelected, onChanged: (next) { if (next == null || next == allSelected) return; onSelect(csToggleAllSelection(keys, selected)); }, dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),
         if (widget.persistKey != null)
@@ -547,6 +551,8 @@ double? csGridRowBox(bool virtual, double height) => virtual && height.isFinite 
 bool csGridVirtual(bool enabled, int count, {int threshold = 80}) => enabled || count >= threshold;
 String csGridVirtualFlag(bool virtual) => virtual ? 'true' : 'false';
 String? csGridVirtualClass(bool virtual) => virtual ? 'cs-datagrid--virtual' : null;
+double csGridHeaderStart() => 0;
+int csGridHeaderLayer() => 1;
 double csGridScrolled(bool virtual, double current, double next) => virtual && next.isFinite ? next : current;
 List<int> csGridWindow(int count, double height, double rowHeight, double scrollTop, bool virtual) {
   if (!virtual) return [0, count];

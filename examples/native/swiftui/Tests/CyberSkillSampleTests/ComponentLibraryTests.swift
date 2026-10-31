@@ -741,6 +741,8 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSDataGridSelection.virtualFlag(false), "false")
     XCTAssertEqual(CSDataGridSelection.virtualClass(true), "cs-datagrid--virtual")
     XCTAssertNil(CSDataGridSelection.virtualClass(false))
+    XCTAssertEqual(CSDataGridSelection.headerStart(), 0)
+    XCTAssertEqual(CSDataGridSelection.headerLayer(), 1)
     XCTAssertEqual(CSDataGridSelection.scrolled(virtual: true, current: 0, next: 180), 180)
     XCTAssertEqual(CSDataGridSelection.scrolled(virtual: false, current: 40, next: 180), 40)
     XCTAssertEqual(CSDataGridSelection.scrolled(virtual: true, current: 40, next: 0), 0)
