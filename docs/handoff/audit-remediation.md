@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the editor caret checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the data-grid checkbox checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `7107736bd3c9cfa60a3823a3df07afff69e75630`, with the hash note in `78f8c1b6`
-- Checkpoint commit hash: `d529935e4b9892e0005ade5f4cd04318aa94a4b9`
+- Previous checkpoint: `d529935e4b9892e0005ade5f4cd04318aa94a4b9`, with the hash note in `42565e7d`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `editor caret, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `grid check, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,21 +48,21 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the editor caret: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the data-grid checkboxes: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The editor now remembers a selection only when it is inside the field. The web source is `rememberSelection` in `components/forms/Editor.jsx`. A selection outside the editor leaves the last range at 1 through 4. A selection inside replaces it. If no range has been stored, the toolbar collapses to the end of the text. A stored range that has left the editor does the same.
+Data-grid selection is now a checkbox. The web source is `components/datatable/DataGrid.jsx`. The header checkbox is named `Chọn tất cả`. Each row checkbox is named `Chọn dòng` plus the row name. A selected row is marked selected. The old box glyphs are gone.
 
-- SwiftUI's text field on macOS 13 does not report a mouse range. An edit while the field is focused stores a caret at the end of the new text. Compose and Flutter read the field selection.
+- Compose and Flutter still take the row key from `id`. Swift uses the row-key rule.
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Check the data grid's selection control against `components/datatable/DataGrid.jsx`. Re-read that file before editing. Do not invent a string.
+Use the web row key when a grid row has no id. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

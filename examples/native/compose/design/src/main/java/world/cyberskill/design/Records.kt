@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
@@ -129,9 +130,7 @@ fun CsDataGrid(
   val allSelected = keys.isNotEmpty() && keys.all { selected.contains(it) }
   Column(modifier) {
     if (selectable) {
-      CsTriggerButton(title = if (allSelected) clearLabel else selectAllLabel, onClick = { onSelect(csToggleAllSelection(keys, selected)) }, modifier = Modifier.minimumInteractiveComponentSize()) {
-        Text(if (allSelected) clearLabel else selectAllLabel)
-      }
+      CsCheckbox(label = selectAllLabel, checked = allSelected, onCheckedChange = { onSelect(csToggleAllSelection(keys, selected)) }, dark = dark, highContrast = highContrast, compact = compact)
     }
     Row {
       ordered.forEach { column ->
@@ -163,11 +162,9 @@ fun CsDataGrid(
       painted.forEach { index ->
         val row = shown[index]
         val key = row["id"] ?: ""
-        Row(Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp())) {
+        Row(Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp()).semantics { if (selectable && selected.contains(key)) this.selected = true }) {
           if (selectable) {
-            CsTriggerButton(title = if (selected.contains(key)) "☑" else "☐", onClick = { onSelect(csToggleSelection(selected, key)) }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = csGridCopy("selectRow", null) + ": " + csGridRowName(ordered.map { row[it.key] }, key) }) {
-              Text(if (selected.contains(key)) "☑" else "☐", modifier = Modifier.clearAndSetSemantics {})
-            }
+            CsCheckbox(label = csGridCopy("selectRow", null) + ": " + csGridRowName(ordered.map { row[it.key] }, key), checked = selected.contains(key), onCheckedChange = { onSelect(csToggleSelection(selected, key)) }, dark = dark, highContrast = highContrast, compact = compact)
           }
           ordered.forEach { column -> Text(row[column.key] ?: "", color = pack.colorTextPrimary.toComposeColor()) }
         }

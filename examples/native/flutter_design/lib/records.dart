@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'grid_column_file.dart';
 import 'catalog.dart';
 import 'controls.dart';
+import 'primitives.dart';
 import 'surfaces.dart';
 import 'cs_modes.dart';
 
@@ -161,7 +162,7 @@ class _CsDataGridState extends State<CsDataGrid> {
             )),
         ]),
         if (selectable)
-          CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onSelect(csToggleAllSelection(keys, selected)); }, child: Text(allSelected ? clearLabel : selectAllLabel))),
+          CsCheckbox(label: selectAllLabel, value: allSelected, onChanged: (next) { if (next == null || next == allSelected) return; onSelect(csToggleAllSelection(keys, selected)); }, dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),
         if (widget.persistKey != null)
           Row(children: [
             for (final column in ordered)
@@ -199,18 +200,26 @@ class _CsDataGridState extends State<CsDataGrid> {
   Widget _gridRow(Map<String, String> row, CSTokenModePack pack, List<CsDataColumn> columns, List<String> selected, ValueChanged<List<String>> onSelect, bool selectable) {
     return ConstrainedBox(
       constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
-      child: Row(
+      child: Semantics(
+        selected: selectable && selected.contains(row['id'] ?? ''),
+        child: Row(
         children: [
           if (selectable)
-            CsOwnFocus(builder: (node, claim) => IconButton(
-              focusNode: node,
-              onPressed: () { claim(); onSelect(csToggleSelection(selected, row['id'] ?? '')); },
-              constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
-              tooltip: '${csGridCopy('selectRow', null)}: ${row['id'] ?? ''}',
-              icon: ExcludeSemantics(child: Text(selected.contains(row['id'] ?? '') ? '☑' : '☐')),
-            )),
+            CsCheckbox(
+              label: '${csGridCopy('selectRow', null)}: ${csGridRowName(columns.map((column) => row[column.key]).toList(), row['id'] ?? '')}',
+              value: selected.contains(row['id'] ?? ''),
+              onChanged: (next) {
+                final key = row['id'] ?? '';
+                if (next == null || next == selected.contains(key)) return;
+                onSelect(csToggleSelection(selected, key));
+              },
+              dark: widget.dark,
+              highContrast: widget.highContrast,
+              compact: widget.compact,
+            ),
           for (final column in columns) Text(row[column.key] ?? '', style: TextStyle(color: csColor(pack.colorTextPrimary))),
         ],
+        ),
       ),
     );
   }

@@ -317,11 +317,10 @@ public struct CSDataGrid: View {
       }
       if selectable {
         let all = CSDataGridSelection.allSelected(selectable: true, keys: keys, selected: selected)
-        CSTriggerButton(allName) {
+        CSCheckbox(label: allName, isOn: Binding(get: { all }, set: { next in
+          if next == all { return }
           onSelect(CSDataGridSelection.toggleAll(keys: keys, selected: selected))
-        }
-        .frame(minHeight: pack.componentButtonMdMinHeight.points)
-        .accessibilityAddTraits(all ? .isSelected : [])
+        }), dark: dark, highContrast: highContrast, compact: compact)
       }
       if shown.isEmpty {
         Text(CSDataGridSelection.emptyText(empty, fallback: CSDataGridSelection.copy("empty", language: locale)))
@@ -362,18 +361,18 @@ public struct CSDataGrid: View {
       let key = CSDataGridSelection.rowKey(value: row[rowKeyName], index: index)
       HStack {
         if selectable {
-          CSTriggerButton(selected.contains(key) ? "☑" : "☐") {
+          CSCheckbox(label: "\(CSDataGridSelection.copy("selectRow", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))): \(CSDataGridSelection.rowName(cells: orderedColumns.map { row[$0.key] }, key: key))", isOn: Binding(get: { selected.contains(key) }, set: { next in
+            if next == selected.contains(key) { return }
             onSelect(CSDataGridSelection.toggle(selected: selected, key: key))
-          }
-          .frame(minWidth: 44, minHeight: 44)
-          .accessibilityLabel("\(CSDataGridSelection.copy("selectRow", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))): \(CSDataGridSelection.rowName(cells: orderedColumns.map { row[$0.key] }, key: key))")
-          .accessibilityAddTraits(selected.contains(key) ? .isSelected : [])
+          }), dark: dark, highContrast: highContrast, compact: compact)
         }
         ForEach(orderedColumns, id: \.key) { column in
           Text(row[column.key] ?? "").foregroundStyle(pack.primaryTextColor)
         }
       }
       .frame(minHeight: pack.componentButtonMdMinHeight.points)
+      .accessibilityElement(children: .contain)
+      .accessibilityAddTraits((selectable && selected.contains(key)) ? .isSelected : [])
     }
     if pads.bottom > 0 { Color.clear.frame(height: pads.bottom).accessibilityHidden(true) }
   }
