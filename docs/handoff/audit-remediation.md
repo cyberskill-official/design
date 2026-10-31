@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the short-list virtual checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the virtual-threshold checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `b80a7831718fe522ddd1cf8b9c30eea436a605b8`, with the hash note in `f8ec8902`
-- Checkpoint commit hash: `14bf58a2e3073f8093d951129b393cb59272d7f6`
+- Previous checkpoint: `14bf58a2e3073f8093d951129b393cb59272d7f6`, with the hash note in `0ac71e47`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `short virtual, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `threshold 2, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the short-list virtual flag: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the virtual threshold: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A short data grid now virtualizes when `virtual` is on. The web source is `components/datatable/DataGrid.jsx`: `virtual || sorted.length >= virtualThreshold`. Ten rows stay unvirtualized when the flag is off. Ten rows virtualize when the flag is on. Eighty rows still virtualize when the flag is off. Compose and Flutter were passing `false` into the helper, so the flag could not turn a short list on. Swift already passed `virtualRows`.
+A custom data-grid `virtualThreshold` now changes when a short list virtualizes. The web source is `components/datatable/DataGrid.jsx`: `virtual || sorted.length >= virtualThreshold`. Two rows virtualize when the threshold is 2. One row does not. The default stays 80. Compose and Flutter now pass the threshold into the helper. Swift does too.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Honor a custom `virtualThreshold`. Two rows should virtualize when the threshold is 2, even if `virtual` is off. The helper accepts a threshold, and the grid views do not pass one. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
+Use the grid height and row height for the painted window. Compose and Flutter still pass `280` and `36`. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

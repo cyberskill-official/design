@@ -254,6 +254,7 @@ public struct CSDataGrid: View {
   public let gridHeight: Double
   public let gridRowHeight: Double
   public let virtualRows: Bool
+  public let virtualThreshold: Int
   @State private var sort = CSGridSort.none
   @State private var sortFocusId = UUID().uuidString
   @FocusState private var sortColumn: String?
@@ -262,7 +263,7 @@ public struct CSDataGrid: View {
   @State private var scrollTop = 0.0
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String, filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, caption: String? = nil, sortValues: [String: ([String: String]) -> String?] = [:], renders: [String: ([String: String]) -> String?] = [:], rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, virtualRows: Bool = false, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
+  public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String, filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, caption: String? = nil, sortValues: [String: ([String: String]) -> String?] = [:], renders: [String: ([String: String]) -> String?] = [:], rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, virtualRows: Bool = false, virtualThreshold: Int = 80, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
     self.columns = columns
     self.rows = rows
     self.selectable = selectable
@@ -282,6 +283,7 @@ public struct CSDataGrid: View {
     self.gridHeight = gridHeight
     self.gridRowHeight = gridRowHeight
     self.virtualRows = virtualRows
+    self.virtualThreshold = virtualThreshold
     self.empty = empty
     self.language = language
     self.columnStore = columnStore ?? CSGridDefaultsStore()
@@ -296,7 +298,7 @@ public struct CSDataGrid: View {
     let orderedColumns = CSDataGridSelection.orderedKeys(order: columnOrder, columns: columns.map(\.key)).compactMap { key in columns.first { $0.key == key } }
     let keysToSearch = CSDataGridSelection.filterKeys(requested: filterKeys, columns: orderedColumns.map(\.key))
     let shown = CSGridSort.ordered(CSDataGridSelection.filtered(rows: rows, query: filterText, keys: keysToSearch), sort: sort, values: sortValues)
-    let useVirtual = CSDataGridSelection.virtual(enabled: virtualRows, count: shown.count)
+    let useVirtual = CSDataGridSelection.virtual(enabled: virtualRows, count: shown.count, threshold: virtualThreshold)
     let frame = CSDataGridSelection.window(count: shown.count, height: gridHeight, rowHeight: gridRowHeight, scrollTop: scrollTop, virtual: useVirtual)
     let indexes = CSDataGridSelection.painted(count: shown.count, window: frame)
     let pads = CSDataGridSelection.pad(count: shown.count, window: frame, rowHeight: gridRowHeight)
@@ -412,7 +414,7 @@ public struct CSDataGrid: View {
       .frame(minHeight: pack.componentButtonMdMinHeight.points)
       .accessibilityElement(children: .contain)
       .accessibilityAddTraits((selectable && selected.contains(key)) ? .isSelected : [])
-      .accessibilityCustomContent(AccessibilityCustomContentKey("rowindex", id: "rowindex"), CSDataGridSelection.rowIndex(virtual: CSDataGridSelection.virtual(enabled: virtualRows, count: shown.count), position: index).map { Text(String($0)) })
+      .accessibilityCustomContent(AccessibilityCustomContentKey("rowindex", id: "rowindex"), CSDataGridSelection.rowIndex(virtual: CSDataGridSelection.virtual(enabled: virtualRows, count: shown.count, threshold: virtualThreshold), position: index).map { Text(String($0)) })
     }
     if pads.bottom > 0 { Color.clear.frame(height: pads.bottom).accessibilityHidden(true) }
   }
