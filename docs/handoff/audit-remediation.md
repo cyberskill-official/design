@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the window-size checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the measured-row checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `4bf9093565a0415458669097f202b96fc0822057`, with the hash note in `dad6973a`
-- Checkpoint commit hash: `157bb1fb2f32b94e7715243271a24c1cc41f9c8a`
+- Previous checkpoint: `157bb1fb2f32b94e7715243271a24c1cc41f9c8a`, with the hash note in `4db02074`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `window size, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `measured row, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the window size: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the measured row: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The painted data-grid window now uses the grid height and the row height. The web source is `components/datatable/DataGrid.jsx`. The body is the height minus 40. A height of 80 and a row of 36 paints 10 rows. A height of 280 and a row of 72 paints 12 rows. A height of 280 and a row of 36 still paints 15 rows. Compose and Flutter were passing 280 and 36. The scroll viewport and the spacer now use the same sizes. Swift already passed `gridHeight` and `gridRowHeight`.
+A measured data-grid row now wins when it is taller than the requested row height. The web source is `components/datatable/DataGrid.jsx`: `Math.max(estimate, measuredRowHeight)`. A request of 36 and a measurement of 48 uses 48. A measurement of 20 stays at 36, because the estimate is the floor. A missing measurement uses the request. The window and the spacer use that height. The native value is supplied by the host. It does not read a rendered row the way the web layout effect does.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Use the measured row height when it is taller than the requested row height. The web uses `Math.max(estimate, measuredRowHeight)`. The helper exists, and the window calls do not pass a measured height. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
+Ignore a row-height measurement that moves by 0.01 or less. The web keeps the previous measurement unless the change is larger than 0.01. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

@@ -130,6 +130,7 @@ fun CsDataGrid(
   virtualThreshold: Int = 80,
   height: Double = 280.0,
   rowHeight: Double = 36.0,
+  measuredRowHeight: Double? = null,
   modifier: Modifier = Modifier,
 ) {
   val pack = csModePack(dark, highContrast, compact)
@@ -176,9 +177,9 @@ fun CsDataGrid(
       }
     }
     val scroll = rememberScrollState()
-    val safeRow = if (rowHeight.isFinite() && rowHeight > 0) rowHeight else 36.0
+    val safeRow = csGridRowHeight(rowHeight, measuredRowHeight ?: rowHeight)
     val body = maxOf(0.0, height - 40)
-    val window = csGridWindow(shown.size, height, rowHeight, scroll.value.toDouble(), useVirtual)
+    val window = csGridWindow(shown.size, height, safeRow, scroll.value.toDouble(), useVirtual)
     val painted = csGridPainted(shown.size, window.first, window.second)
     if (shown.isEmpty()) {
       Text(csGridEmptyText(empty, csGridCopy("empty", null)), color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { csGridRowIndex(useVirtual, 0)?.let { csGridRowIndexValue = it } })

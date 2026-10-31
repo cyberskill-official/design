@@ -253,6 +253,7 @@ public struct CSDataGrid: View {
   let columnStore: any CSGridColumnStore
   public let gridHeight: Double
   public let gridRowHeight: Double
+  public let measuredRowHeight: Double?
   public let virtualRows: Bool
   public let virtualThreshold: Int
   @State private var sort = CSGridSort.none
@@ -263,7 +264,7 @@ public struct CSDataGrid: View {
   @State private var scrollTop = 0.0
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String, filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, caption: String? = nil, sortValues: [String: ([String: String]) -> String?] = [:], renders: [String: ([String: String]) -> String?] = [:], rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, virtualRows: Bool = false, virtualThreshold: Int = 80, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
+  public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String, filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, caption: String? = nil, sortValues: [String: ([String: String]) -> String?] = [:], renders: [String: ([String: String]) -> String?] = [:], rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, measuredRowHeight: Double? = nil, virtualRows: Bool = false, virtualThreshold: Int = 80, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
     self.columns = columns
     self.rows = rows
     self.selectable = selectable
@@ -282,6 +283,7 @@ public struct CSDataGrid: View {
     self.compact = compact
     self.gridHeight = gridHeight
     self.gridRowHeight = gridRowHeight
+    self.measuredRowHeight = measuredRowHeight
     self.virtualRows = virtualRows
     self.virtualThreshold = virtualThreshold
     self.empty = empty
@@ -299,9 +301,10 @@ public struct CSDataGrid: View {
     let keysToSearch = CSDataGridSelection.filterKeys(requested: filterKeys, columns: orderedColumns.map(\.key))
     let shown = CSGridSort.ordered(CSDataGridSelection.filtered(rows: rows, query: filterText, keys: keysToSearch), sort: sort, values: sortValues)
     let useVirtual = CSDataGridSelection.virtual(enabled: virtualRows, count: shown.count, threshold: virtualThreshold)
-    let frame = CSDataGridSelection.window(count: shown.count, height: gridHeight, rowHeight: gridRowHeight, scrollTop: scrollTop, virtual: useVirtual)
+    let row = CSDataGridSelection.rowHeight(requested: gridRowHeight, measured: measuredRowHeight ?? gridRowHeight)
+    let frame = CSDataGridSelection.window(count: shown.count, height: gridHeight, rowHeight: row, scrollTop: scrollTop, virtual: useVirtual)
     let indexes = CSDataGridSelection.painted(count: shown.count, window: frame)
-    let pads = CSDataGridSelection.pad(count: shown.count, window: frame, rowHeight: gridRowHeight)
+    let pads = CSDataGridSelection.pad(count: shown.count, window: frame, rowHeight: row)
     let keys = shown.enumerated().map { CSDataGridSelection.rowKey(value: $0.element[rowKeyName], index: $0.offset) }
     VStack(alignment: .leading, spacing: 0) {
       if CSDataGridSelection.showsCaption(caption), let caption {

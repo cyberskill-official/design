@@ -82,7 +82,7 @@ class CsDataColumn {
 }
 
 class CsDataGrid extends StatefulWidget {
-  const CsDataGrid({super.key, required this.columns, required this.rows, required this.selectable, required this.selected, required this.selectAllLabel, required this.clearLabel, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.persistKey, this.caption, this.empty, this.sortValues, this.renders, this.filterText, this.filterKeys, this.virtual = false, this.virtualThreshold = 80, this.height = 280, this.rowHeight = 36});
+  const CsDataGrid({super.key, required this.columns, required this.rows, required this.selectable, required this.selected, required this.selectAllLabel, required this.clearLabel, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.persistKey, this.caption, this.empty, this.sortValues, this.renders, this.filterText, this.filterKeys, this.virtual = false, this.virtualThreshold = 80, this.height = 280, this.rowHeight = 36, this.measuredRowHeight});
   final List<CsDataColumn> columns;
   final List<Map<String, String>> rows;
   final bool selectable;
@@ -104,6 +104,7 @@ class CsDataGrid extends StatefulWidget {
   final int virtualThreshold;
   final double height;
   final double rowHeight;
+  final double? measuredRowHeight;
 
   @override
   State<CsDataGrid> createState() => _CsDataGridState();
@@ -153,9 +154,9 @@ class _CsDataGridState extends State<CsDataGrid> {
     final keys = [for (var index = 0; index < rows.length; index++) csGridRowKey(rows[index]['id'], index)];
     final allSelected = keys.isNotEmpty && keys.every(selected.contains);
     final useVirtual = csGridVirtual(widget.virtual, rows.length, threshold: widget.virtualThreshold);
-    final safeRow = widget.rowHeight.isFinite && widget.rowHeight > 0 ? widget.rowHeight : 36.0;
+    final safeRow = csGridRowHeight(widget.rowHeight, widget.measuredRowHeight ?? widget.rowHeight);
     final body = widget.height - 40 > 0 ? widget.height - 40 : 0.0;
-    final window = csGridWindow(rows.length, widget.height, widget.rowHeight, scrollTop, useVirtual);
+    final window = csGridWindow(rows.length, widget.height, safeRow, scrollTop, useVirtual);
     final painted = csGridPainted(rows.length, window[0], window[1]);
     final ordered = [
       for (final key in csGridOrderedKeys(columnOrder, columns.map((column) => column.key).toList()))

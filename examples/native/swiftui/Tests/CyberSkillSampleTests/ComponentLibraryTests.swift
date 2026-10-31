@@ -728,6 +728,8 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSDataGridSelection.rowCount(virtual: true, count: 0), 2)
     XCTAssertEqual(CSDataGridSelection.rowHeight(requested: 0, measured: 10), 36)
     XCTAssertEqual(CSDataGridSelection.rowHeight(requested: 20, measured: 30), 30)
+    XCTAssertEqual(CSDataGridSelection.rowHeight(requested: 36, measured: 48), 48)
+    XCTAssertEqual(CSDataGridSelection.rowHeight(requested: 36, measured: 20), 36)
     XCTAssertFalse(CSDataGridSelection.virtual(enabled: false, count: 10))
     XCTAssertTrue(CSDataGridSelection.virtual(enabled: true, count: 10))
     XCTAssertTrue(CSDataGridSelection.virtual(enabled: false, count: 80))
