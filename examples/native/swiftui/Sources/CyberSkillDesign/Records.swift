@@ -60,6 +60,10 @@ public enum CSDataGridSelection {
     guard canPersist else { return nil }
     return [key] + order.filter { $0 != key }
   }
+  public static func sticky(_ key: String, pinned: String?) -> Double? {
+    guard let pinned, key == pinned else { return nil }
+    return 0
+  }
   public static func storageKey(_ persistKey: String?) -> String? {
     guard let persistKey, !persistKey.isEmpty else { return nil }
     return "cs:datagrid:cols:\(persistKey)"
@@ -240,6 +244,7 @@ public struct CSDataGrid: View {
   @State private var sortFocusId = UUID().uuidString
   @FocusState private var sortColumn: String?
   @State private var columnOrder: [String]? = nil
+  @State private var pinnedKey: String? = nil
   @State private var scrollTop = 0.0
   @Environment(\.csLanguage) private var ancestorLanguage
 
@@ -303,6 +308,7 @@ public struct CSDataGrid: View {
               CSTriggerButton(CSDataGridSelection.copy("pin", language: locale)) {
                 guard let next = CSDataGridSelection.pin(order: orderedColumns.map(\.key), key: column.key, canPersist: true) else { return }
                 columnOrder = next
+                pinnedKey = column.key
                 if let storage = CSDataGridSelection.storageKey(persistKey), let encoded = CSDataGridSelection.encodeOrder(next) {
                   columnStore.set(encoded, forKey: storage)
                 }
@@ -310,6 +316,7 @@ public struct CSDataGrid: View {
               .accessibilityLabel(CSDataGridSelection.pinName(header: column.header.isEmpty ? nil : column.header, key: column.key, template: pinTemplate))
             }
           }
+          .zIndex(CSDataGridSelection.sticky(column.key, pinned: pinnedKey) == nil ? 0 : 1)
         }
       }
       .accessibilityCustomContent(AccessibilityCustomContentKey("rowindex", id: "rowindex"), CSDataGridSelection.rowIndex(virtual: useVirtual, position: 0, header: true).map { Text(String($0)) })
@@ -369,8 +376,17 @@ public struct CSDataGrid: View {
             onSelect(CSDataGridSelection.toggle(selected: selected, key: key))
           }), dark: dark, highContrast: highContrast, compact: compact)
         }
-        ForEach(orderedColumns, id: \.key) { column in
+        ForEach(orderedColumns.filter { CSDataGridSelection.sticky($0.key, pinned: pinnedKey) != nil }, id: \.key) { column in
           Text(row[column.key] ?? "").foregroundStyle(pack.primaryTextColor)
+            .background(pack.colorSurfacePanel.color)
+            .zIndex(1)
+        }
+        ScrollView(.horizontal, showsIndicators: false) {
+          HStack {
+            ForEach(orderedColumns.filter { CSDataGridSelection.sticky($0.key, pinned: pinnedKey) == nil }, id: \.key) { column in
+              Text(row[column.key] ?? "").foregroundStyle(pack.primaryTextColor)
+            }
+          }
         }
       }
       .frame(minHeight: pack.componentButtonMdMinHeight.points)

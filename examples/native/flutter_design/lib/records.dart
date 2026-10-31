@@ -102,6 +102,7 @@ class _CsDataGridState extends State<CsDataGrid> {
   final scroll = ScrollController();
   var scrollTop = 0.0;
   List<String>? columnOrder;
+  String? pinnedKey;
   String? sort;
 
   @override
@@ -174,7 +175,7 @@ class _CsDataGridState extends State<CsDataGrid> {
                 onPressed: () {
                   claim();
                   final next = csGridPinOrder(ordered.map((column) => column.key).toList(), column.key, true);
-                  setState(() => columnOrder = next);
+                  setState(() { columnOrder = next; pinnedKey = column.key; });
                   csGridSaveOrder(csGridColumnStore, widget.persistKey, next);
                   final key = csGridStorageKey(widget.persistKey);
                   if (key != null && next != null) csGridFileSave(key, csGridEncodeOrder(next));
@@ -222,7 +223,7 @@ class _CsDataGridState extends State<CsDataGrid> {
               highContrast: widget.highContrast,
               compact: widget.compact,
             ),
-          for (final column in columns) Text(row[column.key] ?? '', style: TextStyle(color: csColor(pack.colorTextPrimary))),
+          for (final column in columns) Text(row[column.key] ?? '', style: TextStyle(color: csColor(pack.colorTextPrimary), backgroundColor: csGridSticky(column.key, pinnedKey) == null ? null : csColor(pack.colorSurfacePanel))),
         ],
         ),
       ),
@@ -392,6 +393,7 @@ List<String> csGridOrderedKeys(List<String>? order, List<String> columns) {
   return out;
 }
 List<String>? csGridPinOrder(List<String> order, String key, bool canPersist) => canPersist ? [key, ...order.where((item) => item != key)] : null;
+double? csGridSticky(String key, String? pinned) => pinned != null && key == pinned ? 0 : null;
 String? csGridStorageKey(String? persistKey) => persistKey == null || persistKey.isEmpty ? null : 'cs:datagrid:cols:$persistKey';
 List<String>? csGridDecodeOrder(String? raw) {
   if (raw == null) return null;

@@ -1,6 +1,7 @@
 package world.cyberskill.design
 
 import androidx.compose.foundation.background
+import androidx.compose.ui.zIndex
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -125,6 +126,7 @@ fun CsDataGrid(
   val context = androidx.compose.ui.platform.LocalContext.current
   val stored = csGridPrefsLoad(context, persistKey) ?: csGridDecodeOrder(csGridStorageKey(persistKey)?.let { CsGridColumnStore.values[it] })
   var order by remember(persistKey) { mutableStateOf(stored) }
+  var pinned by remember { mutableStateOf<String?>(null) }
   var sort by remember { mutableStateOf<String?>(null) }
   val ordered = csGridOrderedKeys(order, columns.map { it.key }).mapNotNull { key -> columns.find { it.key == key } }
   val shown = csGridSorted(rows, sort)
@@ -150,6 +152,7 @@ fun CsDataGrid(
           CsTriggerButton(title = csGridCopy("pin", null), onClick = {
             val next = csGridPinOrder(ordered.map { it.key }, column.key, true) ?: return@CsTriggerButton
             order = next
+            pinned = column.key
             csGridSaveOrder(CsGridColumnStore.values, persistKey, next)
             csGridPrefsSave(context, persistKey, next)
           }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = csGridPinName(column.header.ifEmpty { null }, column.key, csGridCopy("pinNamed", null)) }) { Text(csGridCopy("pin", null), modifier = Modifier.clearAndSetSemantics {}) }
@@ -168,7 +171,10 @@ fun CsDataGrid(
           if (selectable) {
             CsCheckbox(label = csGridCopy("selectRow", null) + ": " + csGridRowName(ordered.map { row[it.key] }, key), checked = selected.contains(key), onCheckedChange = { onSelect(csToggleSelection(selected, key)) }, dark = dark, highContrast = highContrast, compact = compact)
           }
-          ordered.forEach { column -> Text(row[column.key] ?: "", color = pack.colorTextPrimary.toComposeColor()) }
+          ordered.forEach { column ->
+            val stuck = csGridSticky(column.key, pinned) != null
+            Text(row[column.key] ?: "", color = pack.colorTextPrimary.toComposeColor(), modifier = if (stuck) Modifier.background(pack.colorSurfacePanel.toComposeColor()).zIndex(1f) else Modifier)
+          }
         }
       }
       if (useVirtual && shown.size > window.second) Spacer(Modifier.height(((shown.size - window.second) * 36).dp))
@@ -310,6 +316,7 @@ fun csGridOrderedKeys(order: List<String>?, columns: List<String>): List<String>
   return out
 }
 fun csGridPinOrder(order: List<String>, key: String, canPersist: Boolean) = if (canPersist) listOf(key) + order.filter { it != key } else null
+fun csGridSticky(key: String, pinned: String?) = if (pinned != null && key == pinned) 0.0 else null
 fun csGridStorageKey(persistKey: String?) = if (persistKey.isNullOrEmpty()) null else "cs:datagrid:cols:$persistKey"
 fun csGridDecodeOrder(raw: String?): List<String>? {
   if (raw == null) return null
