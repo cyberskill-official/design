@@ -131,6 +131,7 @@ List<int> csAccordionToggle(List<int> open, int index, bool allowMultiple) {
 const csTextareaRows = 4;
 const csTextareaMinHeight = 96.0;
 bool csTextareaShows(String? value) => value != null && value.isNotEmpty;
+bool csTextareaAlert(String? error) => csTextareaShows(error);
 String? csTextareaDescribedBy(List<String?> parts) {
   final seen = <String>[];
   for (final part in parts) {
@@ -143,7 +144,7 @@ String? csTextareaDescribedBy(List<String?> parts) {
 }
 
 class CsTextarea extends StatelessWidget {
-  const CsTextarea({super.key, required this.label, required this.value, required this.onChanged, required this.dark, required this.highContrast, required this.compact, this.rows = 4});
+  const CsTextarea({super.key, required this.label, required this.value, required this.onChanged, required this.dark, required this.highContrast, required this.compact, this.rows = 4, this.error});
   final String label;
   final String value;
   final ValueChanged<String> onChanged;
@@ -151,11 +152,12 @@ class CsTextarea extends StatelessWidget {
   final bool dark;
   final bool highContrast;
   final bool compact;
+  final String? error;
 
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    return CsOwnFocus(builder: (node, claim) => TextField(
+    final field = CsOwnFocus(builder: (node, claim) => TextField(
       focusNode: node,
       controller: TextEditingController(text: value),
       onChanged: (next) { claim(); onChanged(next); },
@@ -169,6 +171,11 @@ class CsTextarea extends StatelessWidget {
         constraints: const BoxConstraints(minHeight: csTextareaMinHeight),
       ),
     ));
+    if (!csTextareaAlert(error)) return field;
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      field,
+      Semantics(liveRegion: true, child: Text(error!)),
+    ]);
   }
 }
 

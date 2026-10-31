@@ -169,6 +169,7 @@ fun csAccordionToggle(open: List<Int>, index: Int, allowMultiple: Boolean): List
 const val csTextareaRows = 4
 const val csTextareaMinHeight = 96
 fun csTextareaShows(value: String?) = value != null && value.isNotEmpty()
+fun csTextareaAlert(error: String?) = csTextareaShows(error)
 fun csTextareaDescribedBy(parts: List<String?>): String? {
   val seen = linkedSetOf<String>()
   for (part in parts) {
@@ -188,9 +189,11 @@ fun CsTextarea(
   compact: Boolean,
   modifier: Modifier = Modifier,
   rows: Int = 4,
+  error: String? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("textarea")
+  Column {
   BasicTextField(
     value = value,
     onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); onValueChange(next) },
@@ -205,6 +208,8 @@ fun CsTextarea(
       .semantics { if (csTextareaShows(label)) contentDescription = label },
     textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()),
   )
+  if (csTextareaAlert(error)) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
+  }
 }
 
 const val csSearchPlaceholder = "Search…"

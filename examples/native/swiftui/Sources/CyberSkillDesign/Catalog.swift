@@ -160,6 +160,7 @@ public enum CSTextareaModel {
     guard let value else { return false }
     return !value.isEmpty
   }
+  public static func isAlert(_ error: String?) -> Bool { shows(error) }
   public static func describedBy(_ parts: [String?]) -> String? {
     var seen = Set<String>()
     var tokens: [String] = []
@@ -222,7 +223,7 @@ public struct CSTextarea: View {
         .accessibilityLabel(CSTextareaModel.shows(label) ? (label ?? "") : "")
         .accessibilityHint(described ?? "")
         .disabled(disabled)
-      if let error, CSTextareaModel.shows(error) {
+      if let error, CSTextareaModel.isAlert(error) {
         Text(error).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
       }
     }
