@@ -133,7 +133,10 @@ class _CsDataGridState extends State<CsDataGrid> {
     }
     scroll.addListener(() {
       if (!mounted) return;
-      setState(() => scrollTop = scroll.offset);
+      setState(() {
+        final live = csGridVirtual(widget.virtual, widget.rows.length, threshold: widget.virtualThreshold);
+        scrollTop = csGridScrolled(live, scrollTop, scroll.offset);
+      });
     });
   }
 
@@ -539,6 +542,7 @@ double csGridMeasured(double previous, double next) => (previous - next).abs() >
 double? csGridRowBox(bool virtual, double height) => virtual && height.isFinite && height > 0 ? height : null;
 bool csGridVirtual(bool enabled, int count, {int threshold = 80}) => enabled || count >= threshold;
 String csGridVirtualFlag(bool virtual) => virtual ? 'true' : 'false';
+double csGridScrolled(bool virtual, double current, double next) => virtual && next.isFinite ? next : current;
 List<int> csGridWindow(int count, double height, double rowHeight, double scrollTop, bool virtual) {
   if (!virtual) return [0, count];
   final safeRow = rowHeight.isFinite && rowHeight > 0 ? rowHeight : 36.0;

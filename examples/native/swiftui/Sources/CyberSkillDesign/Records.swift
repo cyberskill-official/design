@@ -114,6 +114,10 @@ public enum CSDataGridSelection {
     return height
   }
   public static func virtualFlag(_ virtual: Bool) -> String { virtual ? "true" : "false" }
+  public static func scrolled(virtual: Bool, current: Double, next: Double) -> Double {
+    guard virtual, next.isFinite else { return current }
+    return next
+  }
   public static func virtual(enabled: Bool, count: Int, threshold: Int = 80) -> Bool { enabled || count >= threshold }
   public static func window(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Bool) -> CSGridWindow {
     guard virtual else { return CSGridWindow(start: 0, end: count) }
@@ -382,7 +386,7 @@ public struct CSDataGrid: View {
           }
           .coordinateSpace(name: "cs-grid")
           .frame(height: max(0, gridHeight - 40))
-          .onPreferenceChange(CSGridScrollKey.self) { scrollTop = $0 }
+          .onPreferenceChange(CSGridScrollKey.self) { scrollTop = CSDataGridSelection.scrolled(virtual: useVirtual, current: scrollTop, next: $0) }
         } else {
           gridRows(shown: shown, indexes: indexes, orderedColumns: orderedColumns, pack: pack, pads: pads, box: CSDataGridSelection.rowBox(virtual: useVirtual, height: row))
         }

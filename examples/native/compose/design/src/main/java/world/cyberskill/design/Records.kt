@@ -153,7 +153,7 @@ fun CsDataGrid(
   LaunchedEffect(incoming) { settled = shownMeasure }
   val safeRow = csGridRowHeight(rowHeight, shownMeasure)
   val body = maxOf(0.0, height - 40)
-  val window = csGridWindow(shown.size, height, safeRow, scroll.value.toDouble(), useVirtual)
+  val window = csGridWindow(shown.size, height, safeRow, csGridScrolled(useVirtual, 0.0, scroll.value.toDouble()), useVirtual)
   val painted = csGridPainted(shown.size, window.first, window.second)
   val publishedHeight = csGridRowBox(useVirtual, safeRow)
   Column(modifier.semantics {
@@ -455,6 +455,7 @@ fun csGridMeasured(previous: Double, next: Double) = if (kotlin.math.abs(previou
 fun csGridRowBox(virtual: Boolean, height: Double) = if (virtual && height.isFinite() && height > 0) height else null
 fun csGridVirtual(enabled: Boolean, count: Int, threshold: Int = 80) = enabled || count >= threshold
 fun csGridVirtualFlag(virtual: Boolean) = if (virtual) "true" else "false"
+fun csGridScrolled(virtual: Boolean, current: Double, next: Double) = if (virtual && next.isFinite()) next else current
 fun csGridWindow(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Boolean): Pair<Int, Int> {
   if (!virtual) return 0 to count
   val safeRow = if (rowHeight.isFinite() && rowHeight > 0) rowHeight else 36.0

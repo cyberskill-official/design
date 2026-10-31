@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the virtual-flag checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the scroll-gate checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `3427362cc32f5fd7fd69c278db90750eb8df4f10`, with the hash note in `8e205292`
-- Checkpoint commit hash: `05d1b092bc72486c3b269f50d3668c2672e453a0`
+- Previous checkpoint: `05d1b092bc72486c3b269f50d3668c2672e453a0`, with the hash note in `c0322c17`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `virtual flag, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `scroll gate, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the virtual flag: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the scroll gate: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A data grid now says whether it is virtual. The web source is `components/datatable/DataGrid.jsx`: `data-virtual={useVirtual ? "true" : "false"}`. The value is the string `true` or the string `false`. A grid that is not virtual still reports `false`. It does not omit the flag.
+A data grid now records a new scroll offset only while it is virtual. The web source is `components/datatable/DataGrid.jsx`: `onScroll` is set only in that case. A virtual grid moves from 0 to 180. A grid that is not virtual keeps 40 when a scroll of 180 is reported. A virtual grid can still return to 0.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Update the scroll offset only while the data grid is virtual. The web sets `onScroll` only in that case. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
+Add the virtual class only while the data grid is virtual. The web class is `cs-datagrid--virtual`. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
