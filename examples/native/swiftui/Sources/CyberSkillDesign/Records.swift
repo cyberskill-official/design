@@ -113,6 +113,7 @@ public enum CSDataGridSelection {
     guard virtual, height.isFinite, height > 0 else { return nil }
     return height
   }
+  public static func virtualFlag(_ virtual: Bool) -> String { virtual ? "true" : "false" }
   public static func virtual(enabled: Bool, count: Int, threshold: Int = 80) -> Bool { enabled || count >= threshold }
   public static func window(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Bool) -> CSGridWindow {
     guard virtual else { return CSGridWindow(start: 0, end: count) }
@@ -388,6 +389,7 @@ public struct CSDataGrid: View {
       }
       }
     }
+    .accessibilityCustomContent(AccessibilityCustomContentKey("data-virtual", id: "data-virtual"), Text(CSDataGridSelection.virtualFlag(useVirtual)))
     .accessibilityCustomContent(AccessibilityCustomContentKey("data-row-count", id: "data-row-count"), Text(String(CSDataGridSelection.dataCount(shown.count))))
     .accessibilityCustomContent(AccessibilityCustomContentKey("data-row-height", id: "data-row-height"), CSDataGridSelection.rowBox(virtual: useVirtual, height: row).map { Text(String($0)) })
     .accessibilityCustomContent(AccessibilityCustomContentKey("rowcount", id: "rowcount"), CSDataGridSelection.rowCount(virtual: useVirtual, count: shown.count).map { Text(String($0)) })

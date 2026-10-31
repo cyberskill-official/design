@@ -158,6 +158,7 @@ fun CsDataGrid(
   val publishedHeight = csGridRowBox(useVirtual, safeRow)
   Column(modifier.semantics {
     csGridDataCountValue = csGridDataCount(shown.size)
+    csGridVirtualFlagValue = csGridVirtualFlag(useVirtual)
     csGridRowCount(useVirtual, shown.size)?.let { csGridRowCountValue = it }
     publishedHeight?.let { csGridDataRowHeightValue = it }
   }) {
@@ -441,6 +442,8 @@ private val csGridDataCountKey = SemanticsPropertyKey<Int>("data-row-count")
 private var SemanticsPropertyReceiver.csGridDataCountValue by csGridDataCountKey
 private val csGridDataRowHeightKey = SemanticsPropertyKey<Double>("data-row-height")
 private var SemanticsPropertyReceiver.csGridDataRowHeightValue by csGridDataRowHeightKey
+private val csGridVirtualFlagKey = SemanticsPropertyKey<String>("data-virtual")
+private var SemanticsPropertyReceiver.csGridVirtualFlagValue by csGridVirtualFlagKey
 fun csGridRowCount(virtual: Boolean, count: Int) = if (virtual) maxOf(2, count + 1) else null
 fun csGridDataCount(count: Int) = count
 fun csGridRowHeight(requested: Double, measured: Double): Double {
@@ -451,6 +454,7 @@ fun csGridRowHeight(requested: Double, measured: Double): Double {
 fun csGridMeasured(previous: Double, next: Double) = if (kotlin.math.abs(previous - next) > 0.01) next else previous
 fun csGridRowBox(virtual: Boolean, height: Double) = if (virtual && height.isFinite() && height > 0) height else null
 fun csGridVirtual(enabled: Boolean, count: Int, threshold: Int = 80) = enabled || count >= threshold
+fun csGridVirtualFlag(virtual: Boolean) = if (virtual) "true" else "false"
 fun csGridWindow(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Boolean): Pair<Int, Int> {
   if (!virtual) return 0 to count
   val safeRow = if (rowHeight.isFinite() && rowHeight > 0) rowHeight else 36.0

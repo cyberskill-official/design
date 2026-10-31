@@ -172,9 +172,12 @@ class _CsDataGridState extends State<CsDataGrid> {
         columns.firstWhere((column) => column.key == key),
     ];
     final listed = csGridDataCount(rows.length);
+    final flag = csGridVirtualFlag(useVirtual);
     final published = csGridRowBox(useVirtual, safeRow);
     final rowCount = csGridRowCount(useVirtual, rows.length);
     return Semantics(
+      value: flag,
+      child: Semantics(
       value: listed.toString(),
       child: Semantics(
       value: published?.toString(),
@@ -236,6 +239,7 @@ class _CsDataGridState extends State<CsDataGrid> {
         else
           for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual, safeRow),
       ],
+      ),
       ),
       ),
       ),
@@ -534,6 +538,7 @@ double csGridRowHeight(double requested, double measured) {
 double csGridMeasured(double previous, double next) => (previous - next).abs() > 0.01 ? next : previous;
 double? csGridRowBox(bool virtual, double height) => virtual && height.isFinite && height > 0 ? height : null;
 bool csGridVirtual(bool enabled, int count, {int threshold = 80}) => enabled || count >= threshold;
+String csGridVirtualFlag(bool virtual) => virtual ? 'true' : 'false';
 List<int> csGridWindow(int count, double height, double rowHeight, double scrollTop, bool virtual) {
   if (!virtual) return [0, count];
   final safeRow = rowHeight.isFinite && rowHeight > 0 ? rowHeight : 36.0;

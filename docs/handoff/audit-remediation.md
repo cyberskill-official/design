@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the row-height-attribute checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the virtual-flag checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `5a2734a7b5e48b3006f8df7f068632d971d8381e`, with the hash note in `2e8237c9`
-- Checkpoint commit hash: `3427362cc32f5fd7fd69c278db90750eb8df4f10`
+- Previous checkpoint: `3427362cc32f5fd7fd69c278db90750eb8df4f10`, with the hash note in `8e205292`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `row height, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `virtual flag, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the row-height attribute: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the virtual flag: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A data grid now exposes its row height only while virtualization is on. The web source is `components/datatable/DataGrid.jsx`: `data-row-height={useVirtual ? effectiveRowHeight : undefined}`. A virtual grid whose effective row is 48 reports 48. A grid that is not virtual leaves the height off. An empty virtual grid still reports the height, because the attribute is on the grid, not on a painted row.
+A data grid now says whether it is virtual. The web source is `components/datatable/DataGrid.jsx`: `data-virtual={useVirtual ? "true" : "false"}`. The value is the string `true` or the string `false`. A grid that is not virtual still reports `false`. It does not omit the flag.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Expose whether the data grid is virtual as `true` or `false`. The web always sets `data-virtual`, including when the grid is not virtual. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
+Update the scroll offset only while the data grid is virtual. The web sets `onScroll` only in that case. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
