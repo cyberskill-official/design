@@ -126,6 +126,7 @@ fun CsDataGrid(
   renders: Map<String, (Map<String, String>) -> String?> = emptyMap(),
   filterText: String? = null,
   filterKeys: List<String>? = null,
+  virtual: Boolean = false,
   modifier: Modifier = Modifier,
 ) {
   val pack = csModePack(dark, highContrast, compact)
@@ -139,7 +140,7 @@ fun CsDataGrid(
   val shown = csGridSorted(csGridFiltered(rows, filterText, keysToSearch), sort, sortValues)
   val keys = shown.mapIndexed { index, row -> csGridRowKey(row["id"], index) }
   val allSelected = keys.isNotEmpty() && keys.all { selected.contains(it) }
-  val useVirtual = csGridVirtual(false, shown.size)
+  val useVirtual = csGridVirtual(virtual, shown.size)
   Column(modifier.semantics { csGridRowCount(useVirtual, shown.size)?.let { csGridRowCountValue = it } }) {
     if (csGridShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor())
     if (selectable) {

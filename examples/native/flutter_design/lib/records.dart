@@ -82,7 +82,7 @@ class CsDataColumn {
 }
 
 class CsDataGrid extends StatefulWidget {
-  const CsDataGrid({super.key, required this.columns, required this.rows, required this.selectable, required this.selected, required this.selectAllLabel, required this.clearLabel, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.persistKey, this.caption, this.empty, this.sortValues, this.renders, this.filterText, this.filterKeys});
+  const CsDataGrid({super.key, required this.columns, required this.rows, required this.selectable, required this.selected, required this.selectAllLabel, required this.clearLabel, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.persistKey, this.caption, this.empty, this.sortValues, this.renders, this.filterText, this.filterKeys, this.virtual = false});
   final List<CsDataColumn> columns;
   final List<Map<String, String>> rows;
   final bool selectable;
@@ -100,6 +100,7 @@ class CsDataGrid extends StatefulWidget {
   final Map<String, String? Function(Map<String, String>)>? renders;
   final String? filterText;
   final List<String>? filterKeys;
+  final bool virtual;
 
   @override
   State<CsDataGrid> createState() => _CsDataGridState();
@@ -148,7 +149,7 @@ class _CsDataGridState extends State<CsDataGrid> {
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
     final keys = [for (var index = 0; index < rows.length; index++) csGridRowKey(rows[index]['id'], index)];
     final allSelected = keys.isNotEmpty && keys.every(selected.contains);
-    final useVirtual = csGridVirtual(false, rows.length);
+    final useVirtual = csGridVirtual(widget.virtual, rows.length);
     final window = csGridWindow(rows.length, 280, 36, scrollTop, useVirtual);
     final painted = csGridPainted(rows.length, window[0], window[1]);
     final ordered = [

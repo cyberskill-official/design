@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the plain-header checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the short-list virtual checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `ae169ef3cf795bb0efca94d53aa4f220e9218b07`, with the hash note in `2371908b`
-- Checkpoint commit hash: `b80a7831718fe522ddd1cf8b9c30eea436a605b8`
+- Previous checkpoint: `b80a7831718fe522ddd1cf8b9c30eea436a605b8`, with the hash note in `f8ec8902`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `plain header, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `short virtual, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the plain header: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the short-list virtual flag: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A data-grid column with `sortable` set to false is now plain text. The web source is `components/datatable/DataGrid.jsx`: the header is a button only when `c.sortable` is true. Compose and Flutter had a sort button on every column. A false flag now draws the header text and does not change the sort. The native default stays true, so a column that omits the flag still sorts. The web treats an omitted flag as not sortable.
+A short data grid now virtualizes when `virtual` is on. The web source is `components/datatable/DataGrid.jsx`: `virtual || sorted.length >= virtualThreshold`. Ten rows stay unvirtualized when the flag is off. Ten rows virtualize when the flag is on. Eighty rows still virtualize when the flag is off. Compose and Flutter were passing `false` into the helper, so the flag could not turn a short list on. Swift already passed `virtualRows`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Honor a data-grid `virtual` flag on a short list. Compose and Flutter call `csGridVirtual(false, ...)`, so only the 80-row threshold can turn virtualization on. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
+Honor a custom `virtualThreshold`. Two rows should virtualize when the threshold is 2, even if `virtual` is off. The helper accepts a threshold, and the grid views do not pass one. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
