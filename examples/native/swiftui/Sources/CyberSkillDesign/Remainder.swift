@@ -2601,6 +2601,7 @@ public struct CSTreeTableRow: Equatable {
   public var depth: Int
   public var expandable: Bool
   public var open: Bool
+  public var children: [String]
 }
 
 public enum CSTreeTableModel {
@@ -2615,7 +2616,7 @@ public enum CSTreeTableModel {
   public static func rows(_ nodes: [CSTreeTableNode], expanded: [String], depth: Int = 0) -> [CSTreeTableRow] {
     nodes.flatMap { node in
       let open = expanded.contains(node.key)
-      let row = CSTreeTableRow(key: node.key, label: node.label, depth: depth, expandable: !node.children.isEmpty, open: open)
+      let row = CSTreeTableRow(key: node.key, label: node.label, depth: depth, expandable: !node.children.isEmpty, open: open, children: node.children.map(\.key))
       return open ? [row] + rows(node.children, expanded: expanded, depth: depth + 1) : [row]
     }
   }
@@ -2654,6 +2655,7 @@ public struct CSTreeTable: View {
   public let language: String?
   let onExpanded: ([String]) -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
+  @State private var treeId = UUID().uuidString
   public init(columns: [String], nodes: [CSTreeTableNode], expanded: [String] = [], emptyLabel: String = "", expandLabel: String = "", collapseLabel: String = "", caption: String? = nil, language: String? = nil, onExpanded: @escaping ([String]) -> Void = { _ in }) {
     self.columns = columns
     self.nodes = nodes
@@ -2682,12 +2684,14 @@ public struct CSTreeTable: View {
             CSTriggerButton(row.open ? "▾" : "▸") { onExpanded(CSTreeTableModel.toggle(expanded, row.key)) }
               .accessibilityLabel(CSTreeTableModel.twistName(action: row.open ? collapse : expand, cell: cell))
               .accessibilityValue(row.open ? "true" : "false")
+              .accessibilityCustomContent(AccessibilityCustomContentKey("Controls", id: "controls"), CSTreeTableModel.controls(prefix: treeId, children: row.children, open: row.open).map { Text($0) })
               .frame(minWidth: 44, minHeight: 44)
           }
           Text(cell)
         }
         .padding(.leading, CGFloat(CSTreeTableModel.indent(row.depth)))
         .frame(minHeight: 44, alignment: .leading)
+        .accessibilityIdentifier(CSTreeTableModel.rowId(prefix: treeId, key: row.key))
       }
     }
   }

@@ -57,6 +57,8 @@ import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
@@ -1100,12 +1102,12 @@ fun csTreeSelectTreeName(label: String?, labelledBy: String?, placeholder: Strin
   }
 }
 data class CsTreeTableNode(val key: String, val label: String = "", val children: List<CsTreeTableNode> = emptyList())
-data class CsTreeTableRow(val key: String, val label: String, val depth: Int, val expandable: Boolean, val open: Boolean)
+data class CsTreeTableRow(val key: String, val label: String, val depth: Int, val expandable: Boolean, val open: Boolean, val children: List<String> = emptyList())
 fun csTreeRowId(prefix: String, key: String) = prefix + "-row-" + key.toCharArray().joinToString("") { it.code.toString(16).padStart(4, '0') }
 fun csTreeToggle(expanded: List<String>, key: String) = if (key in expanded) expanded.filter { it != key } else expanded + key
 fun csTreeRows(nodes: List<CsTreeTableNode>, expanded: List<String>, depth: Int = 0): List<CsTreeTableRow> = nodes.flatMap { node ->
   val open = node.key in expanded
-  val row = CsTreeTableRow(node.key, node.label, depth, node.children.isNotEmpty(), open)
+  val row = CsTreeTableRow(node.key, node.label, depth, node.children.isNotEmpty(), open, node.children.map { it.key })
   if (open) listOf(row) + csTreeRows(node.children, expanded, depth + 1) else listOf(row)
 }
 fun csTreeIndent(depth: Int) = depth * 18
@@ -1123,12 +1125,15 @@ fun csTreeTableCopy(key: String, language: String?): String {
 fun csTreeTableWord(text: String, fallback: String) = if (text.isEmpty()) fallback else text
 fun csTreeTableShowsCaption(caption: String?) = !caption.isNullOrEmpty()
 fun csTreeTableTwist(action: String, cell: String) = "$action $cell"
+private val csTreeControlsKey = SemanticsPropertyKey<String>("Controls")
+private var SemanticsPropertyReceiver.csTreeControlsValue by csTreeControlsKey
 @Composable fun CsTreeTable(columns: List<String>, nodes: List<CsTreeTableNode>, onExpanded: (List<String>) -> Unit = {}, modifier: Modifier = Modifier, expanded: List<String> = emptyList(), emptyLabel: String = "", expandLabel: String = "", collapseLabel: String = "", caption: String? = null, language: String? = null) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val empty = csTreeTableWord(emptyLabel, csTreeTableCopy("empty", locale))
   val expand = csTreeTableWord(expandLabel, csTreeTableCopy("expand", locale))
   val collapse = csTreeTableWord(collapseLabel, csTreeTableCopy("collapse", locale))
   val visible = csTreeRows(nodes, expanded)
+  val treeId = remember { java.util.UUID.randomUUID().toString() }
   Column(modifier) {
     if (csTreeTableShowsCaption(caption)) Text(caption ?: "")
     Text(columns.joinToString(" "))
@@ -1136,7 +1141,7 @@ fun csTreeTableTwist(action: String, cell: String) = "$action $cell"
     visible.forEach { row ->
       val cell = row.label.ifEmpty { row.key }
       Row(Modifier.padding(start = csTreeIndent(row.depth).dp)) {
-        if (row.expandable) CsTriggerButton(title = if (row.open) "▾" else "▸", onClick = { onExpanded(csTreeToggle(expanded, row.key)) }, modifier = Modifier.semantics { contentDescription = csTreeTableTwist(if (row.open) collapse else expand, cell); stateDescription = row.open.toString() }.minimumInteractiveComponentSize()) { Text(if (row.open) "▾" else "▸", modifier = Modifier.clearAndSetSemantics {}) }
+        if (row.expandable) CsTriggerButton(title = if (row.open) "▾" else "▸", onClick = { onExpanded(csTreeToggle(expanded, row.key)) }, modifier = Modifier.semantics { contentDescription = csTreeTableTwist(if (row.open) collapse else expand, cell); stateDescription = row.open.toString(); csTreeControls(treeId, row.children, row.open)?.let { csTreeControlsValue = it } }.minimumInteractiveComponentSize()) { Text(if (row.open) "▾" else "▸", modifier = Modifier.clearAndSetSemantics {}) }
         Text(cell)
       }
     }

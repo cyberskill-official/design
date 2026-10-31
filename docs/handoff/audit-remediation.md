@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the transfer checkbox checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the tree-table twist checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `c91bd98f36c57625a57a741366d9b3ee7003657c`, with the hash note in `c1d5d1d2`
-- Checkpoint commit hash: `64171e222343d237acc3ef967631329d8de824d8`
+- Previous checkpoint: `64171e222343d237acc3ef967631329d8de824d8`, with the hash note in `129c6d29`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `transfer box, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `tree twist, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the transfer checkboxes: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the tree-table twist: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-Each transfer row is now a checkbox. The web source is `components/forms/Transfer.jsx`: a row toggles its key in `checked`, and the move buttons carry the checked keys to the other list. The native rows were buttons. They now use the existing checkbox control. A second press clears that key. The list titles stay `Có sẵn` and `Đã chọn`.
+The tree-table twist now names its open child rows. The web source is `components/datatable/TreeTable.jsx`: the button has `aria-expanded`, and `aria-controls` lists the direct child row ids only while the branch is open. A closed branch names nothing, because those rows are not mounted. The child keys stay on the row either way. The labels stay `Mở rộng` and `Thu gọn`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Expose the tree-table twist control the way the web row does. Re-read the tree table component before editing. Do not invent a string.
+Give each navigation-menu card its own label and description. The native panel is still a list of strings. Re-read `components/navigation/NavigationMenu.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

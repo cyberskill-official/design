@@ -1687,12 +1687,13 @@ class CsTreeTableNode {
 }
 
 class CsTreeTableRow {
-  const CsTreeTableRow(this.key, this.label, this.depth, this.expandable, this.open);
+  const CsTreeTableRow(this.key, this.label, this.depth, this.expandable, this.open, this.children);
   final String key;
   final String label;
   final int depth;
   final bool expandable;
   final bool open;
+  final List<String> children;
 }
 
 String csTreeRowId(String prefix, String key) => '$prefix-row-${key.codeUnits.map((unit) => unit.toRadixString(16).padLeft(4, '0')).join()}';
@@ -1703,7 +1704,7 @@ List<CsTreeTableRow> csTreeRows(List<CsTreeTableNode> nodes, List<String> expand
   final rows = <CsTreeTableRow>[];
   for (final node in nodes) {
     final open = expanded.contains(node.key);
-    rows.add(CsTreeTableRow(node.key, node.label, depth, node.children.isNotEmpty, open));
+    rows.add(CsTreeTableRow(node.key, node.label, depth, node.children.isNotEmpty, open, node.children.map((child) => child.key).toList()));
     if (open) rows.addAll(csTreeRows(node.children, expanded, depth + 1));
   }
   return rows;
@@ -1729,7 +1730,7 @@ String csTreeTableWord(String text, String fallback) => text.isEmpty ? fallback 
 bool csTreeTableShowsCaption(String? caption) => caption != null && caption.isNotEmpty;
 String csTreeTableTwist(String action, String cell) => '$action $cell';
 
-class CsTreeTable extends StatelessWidget {
+class CsTreeTable extends StatefulWidget {
   const CsTreeTable({super.key, required this.columns, required this.nodes, this.expanded = const [], this.emptyLabel = '', this.expandLabel = '', this.collapseLabel = '', this.caption, this.language, this.onExpanded});
   final List<String> columns;
   final List<CsTreeTableNode> nodes;
@@ -1741,26 +1742,39 @@ class CsTreeTable extends StatelessWidget {
   final String? language;
   final ValueChanged<List<String>>? onExpanded;
   @override
+  State<CsTreeTable> createState() => _CsTreeTableState();
+}
+
+class _CsTreeTableState extends State<CsTreeTable> {
+  late final treeId = 'tree-$hashCode';
+  @override
   Widget build(BuildContext context) {
-    final locale = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
-    final empty = csTreeTableWord(emptyLabel, csTreeTableCopy('empty', locale));
-    final expand = csTreeTableWord(expandLabel, csTreeTableCopy('expand', locale));
-    final collapse = csTreeTableWord(collapseLabel, csTreeTableCopy('collapse', locale));
+    final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
+    final empty = csTreeTableWord(widget.emptyLabel, csTreeTableCopy('empty', locale));
+    final expand = csTreeTableWord(widget.expandLabel, csTreeTableCopy('expand', locale));
+    final collapse = csTreeTableWord(widget.collapseLabel, csTreeTableCopy('collapse', locale));
+    final nodes = widget.nodes;
+    final expanded = widget.expanded;
     final visible = csTreeRows(nodes, expanded);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      if (csTreeTableShowsCaption(caption)) Text(caption!),
-      Text(columns.join(' ')),
+      if (csTreeTableShowsCaption(widget.caption)) Text(widget.caption!),
+      Text(widget.columns.join(' ')),
       if (visible.isEmpty) Text(empty),
       for (final row in visible)
         Padding(
           padding: EdgeInsets.only(left: csTreeIndent(row.depth).toDouble()),
           child: Row(children: [
             if (row.expandable)
-              CsOwnFocus(builder: (node, claim) => TextButton(
-                focusNode: node,
-                onPressed: () { claim(); onExpanded?.call(csTreeToggle(expanded, row.key)); },
-                child: Text(row.open ? '▾' : '▸', semanticsLabel: csTreeTableTwist(row.open ? collapse : expand, row.label.isEmpty ? row.key : row.label)),
-              )),
+              Semantics(
+                expanded: row.open,
+                hint: csTreeControls(treeId, row.children, row.open),
+                button: true,
+                child: CsOwnFocus(builder: (node, claim) => TextButton(
+                  focusNode: node,
+                  onPressed: () { claim(); widget.onExpanded?.call(csTreeToggle(expanded, row.key)); },
+                  child: Text(row.open ? '▾' : '▸', semanticsLabel: csTreeTableTwist(row.open ? collapse : expand, row.label.isEmpty ? row.key : row.label)),
+                )),
+              ),
             Text(row.label.isEmpty ? row.key : row.label),
           ]),
         ),

@@ -1729,6 +1729,8 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertFalse(CSTreeTableModel.rows(branch, expanded: [])[0].open)
     let expandedRows = CSTreeTableModel.rows(branch, expanded: ["a"])
     XCTAssertEqual(expandedRows.map(\.key), ["a", "a1"])
+    XCTAssertEqual(expandedRows[0].children, ["a1"])
+    XCTAssertEqual(CSTreeTableModel.rows(branch, expanded: [])[0].children, ["a1"])
     XCTAssertEqual(expandedRows[1].depth, 1)
     XCTAssertFalse(expandedRows[1].expandable)
     XCTAssertEqual(CSTreeTableModel.indent(1), 18)
