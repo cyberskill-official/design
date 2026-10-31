@@ -120,6 +120,7 @@ fun CsDataGrid(
   highContrast: Boolean,
   compact: Boolean,
   persistKey: String? = null,
+  caption: String? = null,
   filterText: String? = null,
   filterKeys: List<String>? = null,
   modifier: Modifier = Modifier,
@@ -137,6 +138,7 @@ fun CsDataGrid(
   val allSelected = keys.isNotEmpty() && keys.all { selected.contains(it) }
   val useVirtual = csGridVirtual(false, shown.size)
   Column(modifier.semantics { csGridRowCount(useVirtual, shown.size)?.let { csGridRowCountValue = it } }) {
+    if (csGridShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor())
     if (selectable) {
       CsCheckbox(label = selectAllLabel, checked = allSelected, onCheckedChange = { onSelect(csToggleAllSelection(keys, selected)) }, dark = dark, highContrast = highContrast, compact = compact)
     }

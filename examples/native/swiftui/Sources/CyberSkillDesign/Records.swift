@@ -231,6 +231,7 @@ public struct CSDataGrid: View {
   public let filterText: String?
   public let filterKeys: [String]?
   public let persistKey: String?
+  public let caption: String?
   public let rowKeyName: String
   let dark: Bool
   let highContrast: Bool
@@ -248,7 +249,7 @@ public struct CSDataGrid: View {
   @State private var scrollTop = 0.0
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String, filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, virtualRows: Bool = false, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
+  public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String, filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, caption: String? = nil, rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, virtualRows: Bool = false, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
     self.columns = columns
     self.rows = rows
     self.selectable = selectable
@@ -258,6 +259,7 @@ public struct CSDataGrid: View {
     self.filterText = filterText
     self.filterKeys = filterKeys
     self.persistKey = persistKey
+    self.caption = caption
     self.rowKeyName = rowKeyName
     self.dark = dark
     self.highContrast = highContrast
@@ -285,6 +287,9 @@ public struct CSDataGrid: View {
     let pads = CSDataGridSelection.pad(count: shown.count, window: frame, rowHeight: gridRowHeight)
     let keys = shown.enumerated().map { CSDataGridSelection.rowKey(value: $0.element[rowKeyName], index: $0.offset) }
     VStack(alignment: .leading, spacing: 0) {
+      if CSDataGridSelection.showsCaption(caption), let caption {
+        Text(caption).foregroundStyle(pack.primaryTextColor)
+      }
       HStack {
         ForEach(orderedColumns, id: \.key) { column in
           HStack(spacing: 4) {

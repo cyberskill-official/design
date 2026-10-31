@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the grid-filter checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the grid-caption checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `92f16253fb092a5114ab4b2150fa4fa176c38bac`, with the hash note in `fa6253bf`
-- Checkpoint commit hash: `ce3362c1a6f972811ec6ee3c25909b543e0ae02f`
+- Previous checkpoint: `ce3362c1a6f972811ec6ee3c25909b543e0ae02f`, with the hash note in `db232b9c`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `filter zero, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `grid caption, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the grid filter: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the grid caption: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A data-grid filter query of `0` now matches a cell whose text contains `0`. The web source is `components/datatable/DataGrid.jsx`. The query is trimmed and lowercased. A blank query returns every row. `0` stays a query because it is not blank. A city of `10` matches. Compose and Flutter now filter the rows they paint. Swift already did.
+A data-grid caption of `0` now shows. The web source is `components/datatable/DataGrid.jsx`: `(caption || caption === 0)`. A blank caption stays hidden. A missing caption stays hidden. `0` is present, so it shows.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Show a data-grid caption of `0`. The web shows a caption when the value is present, including `0`, and hides a blank caption. The helper exists, and the grid views do not call it. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
+Show an empty data-grid body of `""` and fall back only when the empty text is missing. The web uses `empty != null ? empty : t("empty")`. The helper exists. Compose and Flutter do not call it. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
