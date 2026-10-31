@@ -81,7 +81,7 @@ class CsDataColumn {
 }
 
 class CsDataGrid extends StatefulWidget {
-  const CsDataGrid({super.key, required this.columns, required this.rows, required this.selectable, required this.selected, required this.selectAllLabel, required this.clearLabel, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.persistKey, this.caption, this.filterText, this.filterKeys});
+  const CsDataGrid({super.key, required this.columns, required this.rows, required this.selectable, required this.selected, required this.selectAllLabel, required this.clearLabel, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.persistKey, this.caption, this.empty, this.filterText, this.filterKeys});
   final List<CsDataColumn> columns;
   final List<Map<String, String>> rows;
   final bool selectable;
@@ -94,6 +94,7 @@ class CsDataGrid extends StatefulWidget {
   final bool compact;
   final String? persistKey;
   final String? caption;
+  final String? empty;
   final String? filterText;
   final List<String>? filterKeys;
 
@@ -187,7 +188,12 @@ class _CsDataGridState extends State<CsDataGrid> {
                 child: Text(csGridCopy('pin', null)),
               )),
           ]),
-        if (useVirtual)
+        if (rows.isEmpty)
+          Semantics(
+            value: csGridRowIndex(useVirtual, 0)?.toString(),
+            child: Text(csGridEmptyText(widget.empty, csGridCopy('empty', null))),
+          )
+        else if (useVirtual)
           SizedBox(
             height: 240,
             child: SingleChildScrollView(

@@ -121,6 +121,7 @@ fun CsDataGrid(
   compact: Boolean,
   persistKey: String? = null,
   caption: String? = null,
+  empty: String? = null,
   filterText: String? = null,
   filterKeys: List<String>? = null,
   modifier: Modifier = Modifier,
@@ -166,8 +167,10 @@ fun CsDataGrid(
     }
     val scroll = rememberScrollState()
     val window = csGridWindow(shown.size, 280.0, 36.0, scroll.value.toDouble(), useVirtual)
-    val painted = csGridPainted(rows.size, window.first, window.second)
-    Column(if (useVirtual) Modifier.height(240.dp).verticalScroll(scroll) else Modifier) {
+    val painted = csGridPainted(shown.size, window.first, window.second)
+    if (shown.isEmpty()) {
+      Text(csGridEmptyText(empty, csGridCopy("empty", null)), color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { csGridRowIndex(useVirtual, 0)?.let { csGridRowIndexValue = it } })
+    } else Column(if (useVirtual) Modifier.height(240.dp).verticalScroll(scroll) else Modifier) {
       if (useVirtual && window.first > 0) Spacer(Modifier.height((window.first * 36).dp))
       painted.forEach { index ->
         val row = shown[index]
