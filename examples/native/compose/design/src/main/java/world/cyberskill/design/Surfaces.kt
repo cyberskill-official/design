@@ -35,6 +35,7 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
 
@@ -67,6 +68,15 @@ fun csColorDialogName(label: String?, labelledBy: String?, fallback: String): St
 fun csColorSelected(swatch: String, value: String) = swatch.lowercase() == value.lowercase()
 fun csColorSubmits(composing: Boolean, keyCode: Int) = !composing && keyCode != 229
 fun csColorDismissOutside(open: Boolean, inside: Boolean) = open && !inside
+const val csColorGap = 6.0
+data class CsColorPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
+fun csColorShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double): CsColorPlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, "bottom-start", csColorGap) ?: return null
+  val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, csColorGap) ?: return null
+  val sx = if (scaleX == 0.0) 1.0 else scaleX
+  val sy = if (scaleY == 0.0) 1.0 else scaleY
+  return CsColorPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
+}
 
 fun csSplitterClamp(value: Double, lower: Double = 20.0, upper: Double = 80.0): Double =
   minOf(upper, maxOf(lower, value))
@@ -154,9 +164,41 @@ fun CsColorPicker(value: String, swatches: List<String>, onChange: (String) -> U
   val dialog = csColorDialogName(label, labelledBy, fallback)
   var open by remember { mutableStateOf(false) }
   var hex by remember(value) { mutableStateOf(value) }
+  var field by remember { mutableStateOf<CsFloatingRect?>(null) }
+  var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var origin by remember { mutableStateOf(0.0 to 0.0) }
+  var panelScale by remember { mutableStateOf(1.0 to 1.0) }
+  val config = androidx.compose.ui.platform.LocalConfiguration.current
+  val density = androidx.compose.ui.platform.LocalDensity.current
+  val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
+  val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
+  val viewport = CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), 0.0, 0.0)
+  val place = field?.let { box ->
+    val first = natural
+    val second = fitted
+    if (first == null || second == null) null else csColorShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second)
+  }
+  val shiftX = with(density) { (place?.x ?: 0.0).toFloat().toDp() }
+  val shiftY = with(density) { (place?.y ?: 0.0).toFloat().toDp() }
+  if (!open && natural != null) { natural = null; fitted = null }
   Column(modifier) {
-    CsTriggerButton(title = value, onClick = { open = !open }, modifier = Modifier.semantics { if (name != null) contentDescription = name; stateDescription = open.toString() }) { Text(value, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics {}) }
-    if (open) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csColorDismissOutside(true, false)) open = false }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) { Column(Modifier.semantics { if (dialog != null) contentDescription = dialog }.onPreviewKeyEvent { event ->
+    CsTriggerButton(title = value, onClick = { open = !open }, modifier = Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
+    }.semantics { if (name != null) contentDescription = name; stateDescription = open.toString() }) { Text(value, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics {}) }
+    if (open) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csColorDismissOutside(true, false)) open = false }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) { Column(Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      val width = it.size.width.toDouble()
+      val height = it.size.height.toDouble()
+      if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+      val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+      val nextScale = (bounds.width / width) to (bounds.height / height)
+      val nextSize = width to height
+      if (origin != nextOrigin) origin = nextOrigin
+      if (panelScale != nextScale) panelScale = nextScale
+      if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+    }.offset(x = shiftX, y = shiftY).widthIn(max = with(density) { (place?.maxWidth ?: viewWidth).toFloat().toDp() }).semantics { if (dialog != null) contentDescription = dialog }.onPreviewKeyEvent { event ->
       if (event.type != KeyEventType.KeyDown || event.key != Key.Escape) return@onPreviewKeyEvent false
       open = false
       true

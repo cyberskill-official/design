@@ -35,6 +35,24 @@ String? csColorDialogName(String? label, String? labelledBy, String fallback) {
 bool csColorSelected(String swatch, String value) => swatch.toLowerCase() == value.toLowerCase();
 bool csColorSubmits({required bool composing, required int keyCode}) => !composing && keyCode != 229;
 bool csColorDismissOutside(bool open, bool inside) => open && !inside;
+const csColorGap = 6.0;
+class CsColorPlace {
+  const CsColorPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsColorPlace? csColorShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: 'bottom-start', gap: csColorGap);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csColorGap);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsColorPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
 
 double csSplitterClamp(double value, {double lower = 20, double upper = 80}) =>
     value < lower ? lower : (value > upper ? upper : value);
@@ -142,6 +160,40 @@ class CsColorPicker extends StatefulWidget {
 
 class _CsColorPickerState extends State<CsColorPicker> {
   var open = false;
+  final fieldKey = GlobalKey();
+  final listKey = GlobalKey();
+  Size? natural;
+  Size? fitted;
+  CsColorPlace? place;
+
+  void measure() {
+    final fieldBox = fieldKey.currentContext?.findRenderObject() as RenderBox?;
+    final listBox = listKey.currentContext?.findRenderObject() as RenderBox?;
+    if (fieldBox == null || !fieldBox.hasSize || listBox == null || !listBox.hasSize || !fieldBox.attached || !listBox.attached) return;
+    final field = fieldBox.localToGlobal(Offset.zero);
+    final list = listBox.localToGlobal(Offset.zero);
+    if (natural == null) {
+      setState(() => natural = listBox.size);
+      return;
+    }
+    if (fitted == listBox.size && place != null) return;
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csColorShift(
+      CsFloatingRect(field.dx, field.dy, field.dx + fieldBox.size.width, field.dy + fieldBox.size.height, fieldBox.size.width, fieldBox.size.height),
+      natural!.width,
+      natural!.height,
+      listBox.size.width,
+      listBox.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      list.dx,
+      list.dy,
+      1,
+      1,
+    );
+    setState(() { fitted = listBox.size; place = next; });
+  }
   late final hex = TextEditingController(text: widget.value);
 
   @override
@@ -167,6 +219,8 @@ class _CsColorPickerState extends State<CsColorPicker> {
     final fallback = csColorCopy('label', locale);
     final name = csColorFieldName(widget.label, widget.labelledBy, widget.value, fallback);
     final dialog = csColorDialogName(widget.label, widget.labelledBy, fallback);
+    if (!open) { natural = null; fitted = null; }
+    if (open) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && open) measure(); });
     return TapRegion(
       onTapOutside: open && csColorDismissOutside(true, false) ? (_) { setState(() => open = false); } : null,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -174,7 +228,7 @@ class _CsColorPickerState extends State<CsColorPicker> {
         button: true,
         label: name,
         toggled: open,
-        child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); setState(() => open = !open); }, child: ExcludeSemantics(child: Text(widget.value)))),
+        child: CsOwnFocus(builder: (node, claim) => TextButton(key: fieldKey, focusNode: node, onPressed: () { claim(); setState(() => open = !open); }, child: ExcludeSemantics(child: Text(widget.value)))),
       ),
       if (open) Semantics(
         namesRoute: true,
@@ -185,7 +239,7 @@ class _CsColorPickerState extends State<CsColorPicker> {
             setState(() => open = false);
             return KeyEventResult.handled;
           },
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child: Transform.translate(offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Column(key: listKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
             for (final swatch in widget.swatches)
               Semantics(
                 button: true,
@@ -198,7 +252,7 @@ class _CsColorPickerState extends State<CsColorPicker> {
               label: csColorCopy('hex', locale),
               child: TextField(controller: hex, onSubmitted: (_) { if (!csColorSubmits(composing: false, keyCode: 0)) return; _commit(); setState(() => open = false); }, onEditingComplete: _commit),
             ),
-          ]),
+          ])),
         ),
       ),
     ]),
