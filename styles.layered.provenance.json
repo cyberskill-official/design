@@ -24,7 +24,7 @@
     },
     {
       "path": "tokens/typography.css",
-      "sha256": "39ca03cb84cbac869d6e9e4084313b416c7e2ff3a9bc837cdb2e7dc6d9069efd"
+      "sha256": "49eb6c53f8837695c41e61ca8c3c92bccf8c292dcecb9bb43d81bd7c92dbf96e"
     },
     {
       "path": "tokens/spacing.css",
@@ -40,11 +40,11 @@
     },
     {
       "path": "tokens/component-tokens.css",
-      "sha256": "96a5dfef6f0f52e7c530e975443673455b0e55a5215ad045581c5f3a3dd68683"
+      "sha256": "d32c09ca6b12719e4064af6d097050f68f9feca8d4dc0fc4660bc0ecfca6db64"
     },
     {
       "path": "tokens/elements.css",
-      "sha256": "414f94c16d5325562017db708eb41a8ae4eb9389e49f5460d9aedbf53736cb82"
+      "sha256": "704d2316d9001b01bdeea45b39d6021fb6fdb2085405cdff64f0d7b424063de8"
     },
     {
       "path": "tokens/styles.css",
@@ -52,7 +52,7 @@
     },
     {
       "path": "tokens/theme-attributes.css",
-      "sha256": "33a325c8f44d049d8de0aa68c6bd7bb16925ea88f759b2348e2c116543f8c065"
+      "sha256": "fdbbfd3607c0bfec09bfa230071c092a6ced91f5ce9da6b4a4313bf1b5fdd277"
     },
     {
       "path": "base/reset.css",
@@ -64,15 +64,15 @@
     },
     {
       "path": "base/components.css",
-      "sha256": "cf66f05f5a9b8efca9822b67222f479ddf12862a27a84c67c274cb0dad8be5fd"
+      "sha256": "12cf902bc5553d1b69469f61efdacf857936e20d1bc7e467091319360fe0411e"
     },
     {
       "path": "base/forms.css",
-      "sha256": "f0d630ba97b71222ef544434f2d3c0334d74253c76dac33ccac628044707e7fb"
+      "sha256": "bc34544044436f4fdf84a2b042d51bd689617fca7d83e249fd0e81e439669d4e"
     },
     {
       "path": "base/feedback.css",
-      "sha256": "b3b28a815b0756fa070c560034784c17981500664f7e8940fbf1638f4985d083"
+      "sha256": "d6072bf4fabaaface90f3eee75cfbc93a3b6ff105923ec98a1535c4be1934e64"
     },
     {
       "path": "base/data.css",
@@ -80,7 +80,7 @@
     },
     {
       "path": "base/navigation.css",
-      "sha256": "62907b13da193a6db3e16748f2658f7d3bdb5428f5dd47b58174ebdd873807e2"
+      "sha256": "aaffc6045a14889cef15b1962437a4589854146a1e5b66c51f2c75dc486a6474"
     },
     {
       "path": "base/ai.css",
@@ -88,15 +88,15 @@
     },
     {
       "path": "base/controls.css",
-      "sha256": "bb6c44713afdc74d6170507a07a46c1111b833e7ae11899fb9ef697cfaedb757"
+      "sha256": "d7ee04aa90df2807c8e07e2bcf43db68b53fda77a3d1c1941bbfc95367471da2"
     },
     {
       "path": "base/collections.css",
-      "sha256": "900b89baf36e40a04c4cab38415ab203255daa4c900adfcba55a03c3a5420bed"
+      "sha256": "d00ca84ed3d23ba8298963238b112e9cd6bd496d0a3fe46d59bc5625d32fda79"
     },
     {
       "path": "base/shell.css",
-      "sha256": "1d6f9fe366fb2f5164fe79f611ed2afe3f59e755b1b487409b75686e2ce681d3"
+      "sha256": "0a345b662cf02790ae20f045f70b68c9ff472d6d8190a4ddb72856330dc3df3f"
     },
     {
       "path": "base/glass.css",
@@ -156,5 +156,5 @@
     "fonts/spacegrotesk-var-vietnamese.woff2"
   ],
   "importantCount": 46,
-  "sha256": "d193a333e25e1f4119f1bdf9b616d1f2cd224b2ba492db9a90e2ac221c0a77bf"
+  "sha256": "83cddeaff4f5c67edf14d51f67f702c90d4560e3c3f9895bb4f970b804e48d7b"
 }

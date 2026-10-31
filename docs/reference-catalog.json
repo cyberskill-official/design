@@ -8,7 +8,7 @@
   "interpretation": "The document inventory covers Git-listed Markdown and llms.txt; HTML count surfaces are tracked separately. Audience follows the website publication policy, not npm membership. Source paths locate repository evidence and need not all be packaged. Roles describe source routing and audience, not approval, factual freshness of every sentence, translation quality or capability certification.",
   "countScope": "Counts describe declared inventory only. Declared language/theme/boolean controls are inventory facts, not proof of complete content, working behavior or every supported state; token declarations and typed base values are distinct counts.",
   "counts": {
-    "visualBaselines": 15,
+    "visualBaselines": 16,
     "templates": 85,
     "vietnameseInstrumentTemplates": 38,
     "publicExports": 125,
@@ -28,9 +28,9 @@
     "templatesWithoutBooleanControl": 70
   },
   "sourceHashes": {
-    "_audit/visual-diff.html": "648e2698f16900ce2dc929eb0f67efa3478a882cb2d1922ddc6e179c1ea6b2b8",
-    "_ds_manifest.json": "9fef7ed2af64995319f08b6ac45a93870a0a99ae3a739316eddf9a6f2ad25421",
-    "scripts/public-site-policy.json": "86fa68504d34fde8b905f95835a5ed6481f60f7b4afe81fbfdef0da6500f01e0",
+    "_audit/visual-diff.html": "fd344cf31f0aa4130dddec2a99dca5ef60d9d08025b5dc2b4b729a1d388c5bb8",
+    "_ds_manifest.json": "aa7c859299ef367e7df3aee45706ab58836d7fe0274c32c117b7c0534159ff37",
+    "scripts/public-site-policy.json": "137bca0b6045707a184c4d4ed6edae06cafa57f30fb694cbaa40fc5ee0837173",
     "templates/app-shell/AppShell.dc.html": "08307cd2ef46ee1142af4bbfa9e25728fa4d919bf3a40cd568374f8728ee7c44",
     "templates/article/Article.dc.html": "d2330c050a3cf0df9267b36f8025552bcaa5c962bf1462b694fa8e359360efdf",
     "templates/auth/Auth.dc.html": "c75ac411379fbf0e85dcff730c4cc18540fa60c667f0689bc5eb001dc7b0f2b6",
@@ -116,7 +116,7 @@
     "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html": "ee941a6d26aa525bba779015ca01f4bdb7246571db2c3558499d7bc2fee3c2aa",
     "templates/vn-training-commitment/VnTrainingCommitment.dc.html": "49b2b4459bf2a900ddfafe679b6f3b088c78a31f611ae76dc3ac276e05a14c46",
     "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html": "1e585bd53ec6fb41322082bddfb7eed4ac811bfabb1ad2d639b9babba6c0e212",
-    "tokens/tokens.dtcg.json": "51b0bc8a8cb7b8bffa7942324986ed9b137a3ea33b87a0b9ca1ccf4bbc0b140b"
+    "tokens/tokens.dtcg.json": "27671e79b9683d94a6c693f8c4b6d5fa3f51ac4662563d8f48a0d9f0bb208e74"
   },
   "documents": [
     {
@@ -129,7 +129,7 @@
       "path": "DESIGN.md",
       "audience": "documentation",
       "role": "generated_reference",
-      "sha256": "8cba9ee8d0eb1dd9fc759d343c4e7150c965e0487845400fea0cb1a8434800fa"
+      "sha256": "16f06be6d7aedf316692e87212fe6a0aeab4159493862c8d75cbb9f8d2cebbd5"
     },
     {
       "path": "MAINTAINERS.md",
@@ -147,7 +147,7 @@
       "path": "SECURITY.md",
       "audience": "documentation",
       "role": "security_reporting_policy",
-      "sha256": "7cfa7b084960aa3b80f7184960039aa22b01a0b47f6588578deaa2d18ee74c36"
+      "sha256": "625410a24dedd969d4d8baaf18aad10f2c56f47f050c927bc0a78623cc48f940"
     },
     {
       "path": "SKILL.md",
@@ -165,13 +165,13 @@
       "path": "_audit/README.md",
       "audience": "diagnostics",
       "role": "diagnostic_operator_guide",
-      "sha256": "f8b5c94d83961b4b3214655fd1e77e8611696919555649112c7b2c0d315f1050"
+      "sha256": "ca5f1c15c56b8c887954cdf28f43661c7fccb8522f6542ac72b97e582e265f34"
     },
     {
       "path": "_audit/baselines/README.md",
       "audience": "diagnostics",
       "role": "visual_baseline_method",
-      "sha256": "95fb6ab0f4bc638bec09815b840e528b85fec9e44c700c2af2c2b9a4bc538d63"
+      "sha256": "cb2de252cf50766b21bf3bfc61a944a9d9f1a2d4e7266a47fc15edff2143641b"
     },
     {
       "path": "_audit/baselines/components/README.md",
@@ -459,13 +459,13 @@
       "path": "components/dialog/Dialog.prompt.md",
       "audience": "runtime",
       "role": "implementation_contract",
-      "sha256": "b4f3db80f99469f2c5876bdb66cfe78c718b027411db5ab553eb1e342c353801"
+      "sha256": "1e4f1ccf90683c2eddb66de8f7294a751c728f76c62feece750d989f8309fcda"
     },
     {
       "path": "components/feedback/Alert.prompt.md",
       "audience": "runtime",
       "role": "implementation_contract",
-      "sha256": "0e114a1cd9f21703084bfb73fdf612bfb8f02126791612c69b0c9ba2907467a5"
+      "sha256": "62860feb1a3f7282dbc89c4879c14a89f6df355d2499ebb6010d7a5cfd049820"
     },
     {
       "path": "components/feedback/Badge.prompt.md",
@@ -519,7 +519,7 @@
       "path": "components/feedback/Toast.prompt.md",
       "audience": "runtime",
       "role": "implementation_contract",
-      "sha256": "636a6c67157d0292c341a2f3e7993acb1c8aeda941a51470cd4aaab7f876fb07"
+      "sha256": "0a9dc8498887b83caa6be84a06ea47ff7f225626ecccb27fcc4a4434350f60a0"
     },
     {
       "path": "components/forms/Calendar.prompt.md",
@@ -729,7 +729,7 @@
       "path": "components/navigation/CommandPalette.prompt.md",
       "audience": "runtime",
       "role": "implementation_contract",
-      "sha256": "bb86395e2bca3565a4cb4276cf00ab1481287fd20b781e8b39bf06807e0d8ffd"
+      "sha256": "8f44916b37ff6905a58a9b2faa7548543df8c13838a1574cad3d4dbc974ea3ad"
     },
     {
       "path": "components/navigation/Dock.prompt.md",
@@ -813,7 +813,7 @@
       "path": "components/overlays/Drawer.prompt.md",
       "audience": "runtime",
       "role": "implementation_contract",
-      "sha256": "5a4ee76ef54c0e96d90c34f7e4a48e6d7cca65fa7a2e270ed00db6723b1d3f23"
+      "sha256": "3beac4a67fedb34af5086bfa5590cea431b6e31a8f38f39752f4b633a3128781"
     },
     {
       "path": "components/overlays/HoverCard.prompt.md",
@@ -843,7 +843,7 @@
       "path": "components/overlays/Tour.prompt.md",
       "audience": "runtime",
       "role": "implementation_contract",
-      "sha256": "b4834e211c8be8565032583fb8925da9a9dc394c1eb59bc90be381dfdb4506fc"
+      "sha256": "065f0f7d749322e64836feffa7de04047c5f4ef7d94f97ecbcd54cde0f1d3b65"
     },
     {
       "path": "components/textfield/TextField.prompt.md",
@@ -867,13 +867,13 @@
       "path": "docs/ci-cd.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "ce03819411ef27b81eacaab5cda543af4991738a7bd95e7b69e55de9e3c04456"
+      "sha256": "cd56384f559c7d7d13c8f275e0c8f9bb473269fcca0fed5c06eab42ec7acf115"
     },
     {
       "path": "docs/component-api.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "61908a19d6a916ad839d9573e9cd6e19eddf088b4eca4b56bd548df314c2d557"
+      "sha256": "69b7003edef9e11747847b85c23e6db76efa3785d02db4580faccbe0558cde7a"
     },
     {
       "path": "docs/component-css.md",
@@ -969,7 +969,7 @@
       "path": "docs/design-styles.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "7dd6933630101b6e944b37e409c222d5b578908f1ce6aeb6f0a88f651a01e071"
+      "sha256": "797ed62e44a7850acfacf612d379fe31576330b1c34cc5ccc78d8a535d7c1da7"
     },
     {
       "path": "docs/doctrine.md",
@@ -1035,7 +1035,7 @@
       "path": "docs/manual-at-matrix.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "ff3e09955c4d3c41e3f54c8e673191c1926c4adbdaa81eb77d84ca2e207f6953"
+      "sha256": "8af4b0f8eacebdd1ce777a9cb5bc303d4af575959cc82b29dbc5e7210962cf2e"
     },
     {
       "path": "docs/native-refs.md",
@@ -1053,7 +1053,7 @@
       "path": "docs/quality-gates.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "7e664bad6a3ec855d7c18ff3fb4425fc3bc60edcbeb149b65eafa469d55b0811"
+      "sha256": "20c5828e15f22238cbb458c6d5de6ce4fff978082259159dc5bc43cef8204159"
     },
     {
       "path": "docs/release-notes.md",
@@ -1077,7 +1077,7 @@
       "path": "docs/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "c4743af374d66a6125c36e544e82e7ea10b3fa01d6928850e691b93bb651f3bd"
+      "sha256": "c9851667475bea6b0545ffd1ed5ce1de8d36bcf7a060f925c67a9c64acf5a02c"
     },
     {
       "path": "docs/storybook.md",
@@ -1143,13 +1143,13 @@
       "path": "docs/vi/ci-cd.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "368996fe76dd5acfafdd5cdadab2682b8ce54fcd4ef816d31cc10ffdc1d75aa0"
+      "sha256": "962f07cb4d618e68ad7ebbb9714de0a4a50e17237965ad9079cb72527aa585a5"
     },
     {
       "path": "docs/vi/component-api.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "a2c329c637b520a2dea138a9222cdab93d27b556aeed4630cd5798985403319d"
+      "sha256": "55504cbdf5baf57befa0d8558c73ee872fa7c20f4cf54026f38b0c4bf76a7c08"
     },
     {
       "path": "docs/vi/component-css.md",
@@ -1215,7 +1215,7 @@
       "path": "docs/vi/design-styles.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "2affcc41503541d6fccff26c5b125deec91c9e0bc8d5962c775f356a09144cc3"
+      "sha256": "81dca5bd1d253ead246877464db40fc986578fc1c0eb74da23ddee6003a697d5"
     },
     {
       "path": "docs/vi/doctrine.md",
@@ -1233,7 +1233,7 @@
       "path": "docs/vi/entrypoints/DESIGN.md",
       "audience": "documentation",
       "role": "generated_reference",
-      "sha256": "ad0ed321cbf3dac276f784a44a619aec50f7a8117efcc2eeb58303b76a6a0598"
+      "sha256": "29d7d17a181f0f95fa75ff0e48ed7662b5c5f689c9fdcdab58d02b87def3c409"
     },
     {
       "path": "docs/vi/entrypoints/README.md",
@@ -1311,7 +1311,7 @@
       "path": "docs/vi/manual-at-matrix.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "73046c42af4be1f16d73b25994eec425ffe603e180901d6b837b194e85beb839"
+      "sha256": "ed08d6812b2bd670f1c11e0e06367e2bede6f6aa7b20b292818eda640c511d4a"
     },
     {
       "path": "docs/vi/native-refs.md",
@@ -1329,7 +1329,7 @@
       "path": "docs/vi/quality-gates.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "786fe0e6508a41efb96ed42d8793dba09a0b9e9d8352ffcceda75175ecf668a8"
+      "sha256": "35dfa41f38d4317c130b56ce730d27b7b6fb6b37d07a4dd1cec9e90224b5ab0b"
     },
     {
       "path": "docs/vi/release-notes.md",
@@ -1353,7 +1353,7 @@
       "path": "docs/vi/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "73784c9afc677c5486cb763409f75567f93e4a8d8b5448ecb24b8209ec0ebc03"
+      "sha256": "77f327da2367b939fc61c95407ee0f731505211dbb067b46244fd949246cd577"
     },
     {
       "path": "docs/vi/storybook.md",
@@ -1419,7 +1419,7 @@
       "path": "examples/native/README.md",
       "audience": "authoring",
       "role": "consumer_example_guide",
-      "sha256": "3a53d1f57a551759a1280538df1b0232e986d1af3d522996751af90b8d821eaf"
+      "sha256": "9746992d071d8bcfc285e2e6b317bfcfb6af947de38fdc2431beedfc719489d9"
     },
     {
       "path": "examples/npm-hello/README.md",

@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "interpretation": "Canonical definition/default-key references and generated prompt inventory, not a second type system, behavioral specification, accessibility certification or acceptance record.",
   "sourceHashes": {
-    "components/api-index.json": "6debff3d5be5f06879cb09cc06db5d2b8a184b345a0489f52a3c0837e9f928d1",
-    "components/contracts.json": "191d23738a712d7adc6e0d146534d0dc09821d7cf24ae33de8367c196c935fad",
-    "_ds_manifest.json": "9fef7ed2af64995319f08b6ac45a93870a0a99ae3a739316eddf9a6f2ad25421",
+    "components/api-index.json": "8e876f2a86a03a7380c9126c252eb1190becc020b4b59d0b6bf48ca33d7806d4",
+    "components/contracts.json": "e4ebe085e32dc639dea36cb032155c6aa557e61411bec7fa800691dd61a2ce03",
+    "_ds_manifest.json": "04a04432d0a268bac39a3f4ab4572e66829c77b5b5c9d9efeaaf10d8c25d90d4",
     "scripts/generate-component-contracts.mjs": "a94d0d58b3d0b6f629bf2cdc2a53bdfc8b43b8fa1479434b770f0cd8dc53187c",
     "scripts/lib/component-export.mjs": "9f6fd3df4a9e0366fef8c384a0926e050bd8fbcb3887bf5e6ffaed5c0622cd15",
     "scripts/generate-prompt-api.mjs": "e67709ad813a46330d2825912334244050422c16f05021890cc6b41b73acd602"
@@ -1057,7 +1057,7 @@
     {
       "path": "components/dialog/Dialog.prompt.md",
       "proseSha256": "148b27d6d5188c9fe361ac7a1a3c87e83aa53e6ed733914aa164856fc63f156a",
-      "sectionSha256": "3bdca4c232c4dd3d3119c489dfb4b5dd0ef34653dde32320f099bdd353993104",
+      "sectionSha256": "ea628bf7a4fac812d95fe054cc79312ccba268f438b201cc5c4bcf8e01fbc754",
       "exports": [
         {
           "name": "Dialog",
@@ -1069,6 +1069,7 @@
             "p-acb6c67ff7317f3f",
             "p-ec6b967c01b03950",
             "p-2284375ab0ebe0bd",
+            "p-c15681973896567b",
             "p-4406abb730948cd0",
             "p-681b79b82148a038"
           ],
@@ -1081,7 +1082,7 @@
     {
       "path": "components/feedback/Alert.prompt.md",
       "proseSha256": "417d1166817059a4c7eac2b2fb16e58a157a5f88e16acf46d331f33bfd64c924",
-      "sectionSha256": "517ba192ee4b651c32c70249de7ce8ff67c3f86fb694b63c20ccd7e8d8229974",
+      "sectionSha256": "d09c8bce0ea01dd81418913e49fa79a0d84e1ae23baabb5252380386ac057c43",
       "exports": [
         {
           "name": "Alert",
@@ -1089,7 +1090,9 @@
             "p-cef86355a67e06ab",
             "p-dc44c6296108324a",
             "p-ec6b967c01b03950",
-            "p-3ff5af9835c625c0",
+            "p-2284375ab0ebe0bd",
+            "p-5abd70dc2fc547ab",
+            "p-9e76c539d6ccf02e",
             "p-194398030531e630",
             "p-853b7e452998d5b5"
           ],
@@ -1279,7 +1282,7 @@
     {
       "path": "components/feedback/Toast.prompt.md",
       "proseSha256": "8c50c3fa6fa239137f673b9c8b0eaf71da67e47f3317c997fc175b245e51b399",
-      "sectionSha256": "55223ddd56b02d3791bb94bbdc5d9c514450446289deee5218eb88d957b63bf6",
+      "sectionSha256": "4608a5651d2c6ab507a56a821f585cae98718085ee1d789a1e705737daea2fbd",
       "exports": [
         {
           "name": "Toast",
@@ -1287,6 +1290,7 @@
             "p-cef86355a67e06ab",
             "p-dc44c6296108324a",
             "p-2284375ab0ebe0bd",
+            "p-48124dcdb9733b12",
             "p-194398030531e630",
             "p-5602fdd850aab03b"
           ],
@@ -2295,7 +2299,7 @@
     {
       "path": "components/navigation/CommandPalette.prompt.md",
       "proseSha256": "4a667cd863ae895208d7364de6fccd2beceee455136a298d429f8e321cda0103",
-      "sectionSha256": "1382bf5b2ea0887c22daa07afe460012ee156589b690c6c48049cd8c4797ab13",
+      "sectionSha256": "4642307e572673e74df4930524ccf4fcd632e93b7b8c67984af5a0937cba45a1",
       "exports": [
         {
           "name": "CommandPalette",
@@ -2305,6 +2309,7 @@
             "p-e6372a1f36b90947",
             "p-ec6b967c01b03950",
             "p-2284375ab0ebe0bd",
+            "p-50f04dc954570a9d",
             "p-4406abb730948cd0",
             "p-5243bafbc21f8015",
             "p-8f6b90aa38da1461"
@@ -2671,7 +2676,7 @@
     {
       "path": "components/overlays/Drawer.prompt.md",
       "proseSha256": "573b6754204b35c47fe3ce4e6297bd837e6c532eecc14347adc7de751c9425c3",
-      "sectionSha256": "7ff4962187abb862a5002fe6ce92eee2833eeb91f4b9d71c0f66b930ef9c89e1",
+      "sectionSha256": "273147c1457d694b11a002229862eced276a6c223a09a1efb632855546fd8481",
       "exports": [
         {
           "name": "Drawer",
@@ -2681,6 +2686,7 @@
             "p-49bab479fadb4c98",
             "p-ec6b967c01b03950",
             "p-2284375ab0ebe0bd",
+            "p-d13a077ec708bdb4",
             "p-4406abb730948cd0",
             "p-a785ddcc06d4ea7e",
             "p-17e984cb2c20b727",
@@ -2799,7 +2805,7 @@
     {
       "path": "components/overlays/Tour.prompt.md",
       "proseSha256": "1b433cc876ddd70d7a4a8344a39edf97994b0f3ca19534255e5ccd41b1d880a4",
-      "sectionSha256": "7fe7310def7e82884976ee913a902fae3dcdda0ecb1ee4e9a41286df4d2e7cf0",
+      "sectionSha256": "e67ac5d50798c1fd13ed03c95fd6c48c38e12606cab2ba5a54a360d0b996280b",
       "exports": [
         {
           "name": "Tour",
@@ -2807,6 +2813,7 @@
             "p-49bab479fadb4c98",
             "p-9db160296252f528",
             "p-2284375ab0ebe0bd",
+            "p-9d36605ef21b15ae",
             "p-4406abb730948cd0",
             "p-54c1ff74645c33ec",
             "p-56cfcfc4e09b4914"

@@ -388,6 +388,7 @@
     "test:assessment-keyboard": "node _audit/ci/test-assessment-keyboard-browser.mjs",
     "test:menu-apg": "node _audit/ci/test-menu-apg-browser.mjs",
     "test:manual-at-matrix": "node _audit/ci/test-manual-at-matrix.mjs",
+    "test:manual-at-publication": "node scripts/require-manual-at-publication.mjs",
     "build:component-contracts": "node scripts/generate-component-contracts.mjs",
     "test:component-contracts": "node scripts/generate-component-contracts.mjs --check && node _audit/ci/test-component-contracts.mjs",
     "test:distribution-budgets": "node _audit/ci/test-distribution-budgets.mjs",

@@ -1,5 +1,5 @@
+import 'package:cyberskill_design/controls.dart';
 import 'package:flutter/material.dart';
-import '../tokens/cs_tokens.dart';
 import '../sample_theme.dart';
 import '../sample_language.dart';
 
@@ -47,45 +47,31 @@ class _SignInScreenState extends State<SignInScreen> {
                   style: TextStyle(fontSize: 15, color: colors.colorTextMuted),
                 ),
                 const SizedBox(height: 24),
-                TextField(
+                CsTextField(
+                  label: sampleTheme.text(SampleText.workEmail),
                   controller: _email,
-                  decoration: InputDecoration(
-                    labelText: sampleTheme.text(SampleText.workEmail),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                  dark: sampleTheme.dark,
+                  highContrast: sampleTheme.highContrast,
+                  compact: false,
                 ),
                 const SizedBox(height: 12),
-                TextField(
+                CsTextField(
+                  label: sampleTheme.text(SampleText.password),
                   controller: _password,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: sampleTheme.text(SampleText.password),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                  dark: sampleTheme.dark,
+                  highContrast: sampleTheme.highContrast,
+                  compact: false,
+                  secure: true,
                 ),
                 const SizedBox(height: 20),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(
-                      minHeight: CSTokens.componentButtonMdMinHeight),
-                  child: FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: colors.componentButtonPrimaryBg,
-                      foregroundColor: colors.componentButtonPrimaryFg,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          CSTokens.componentButtonRadius,
-                        ),
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed('/home');
-                    },
-                    child: Text(sampleTheme.text(SampleText.signIn)),
-                  ),
+                CsButton(
+                  title: sampleTheme.text(SampleText.signIn),
+                  dark: sampleTheme.dark,
+                  highContrast: sampleTheme.highContrast,
+                  compact: false,
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('/home');
+                  },
                 ),
               ],
             ),

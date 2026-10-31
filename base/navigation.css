@@ -4,7 +4,7 @@
 .cs-tabs { display: flex; gap: 4px; overflow-x: auto; border-block-end: 1px solid var(--cs-color-border-default); }
 .cs-tab { flex-shrink: 0; appearance: none; border: 0; background: transparent; font: inherit; font-family: var(--cs-font-family-ui); font-weight: 600; font-size: var(--cs-font-size-sm); color: var(--cs-color-text-muted); padding: 10px 14px; cursor: pointer; position: relative; border-block-end: 2px solid transparent; margin-block-end: 0; display: inline-flex; align-items: center; gap: 7px; }
 .cs-tab:hover { color: var(--cs-color-text-primary); }
-.cs-tab[aria-selected="true"] { color: var(--_cs-light, var(--cs-color-brand-umber)) var(--_cs-dark, var(--cs-color-brand-ochre)); border-block-end-color: var(--cs-color-brand-ochre); }
+.cs-tab[aria-selected="true"] { color: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); border-block-end-color: var(--cs-color-brand-ochre); }
 .cs-tab:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: -3px; border-radius: var(--cs-radius-sm); box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-tab__count { font-family: var(--cs-font-family-mono); font-size: var(--cs-font-size-xs); background: var(--cs-color-surface-raised); border-radius: var(--cs-radius-full); padding: 1px 7px; }
 
@@ -20,7 +20,7 @@
 .cs-pagination { display: inline-flex; align-items: center; gap: 4px; }
 .cs-pagination button { min-inline-size: 38px; block-size: 38px; padding: 0 10px; border: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); color: var(--cs-color-text-primary); border-radius: var(--cs-radius-md); font: inherit; font-family: var(--cs-font-family-ui); font-weight: 600; font-size: var(--cs-font-size-sm); cursor: pointer; display: inline-grid; place-items: center; }
 .cs-pagination button:hover:not(:disabled) { border-color: var(--cs-color-brand-ochre); }
-.cs-pagination button[aria-current="page"] { background: var(--_cs-light, var(--cs-color-brand-umber)) var(--_cs-dark, var(--cs-color-brand-ochre)); color: var(--_cs-light, var(--cs-color-text-inverse)) var(--_cs-dark, var(--cs-color-brand-umber)); border-color: transparent; }
+.cs-pagination button[aria-current="page"] { background: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); color: var(--_cs-light, var(--cs-color-text-inverse))var(--_cs-dark, var(--cs-color-brand-umber)); border-color: transparent; }
 .cs-pagination button:disabled { opacity: 0.45; cursor: not-allowed; }
 .cs-pagination__ellipsis { padding: 0 4px; color: var(--cs-color-text-muted); }
 

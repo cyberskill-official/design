@@ -6,8 +6,8 @@
 .cs-nav-item { display: flex; align-items: center; gap: 11px; padding: 9px 12px; border-radius: var(--cs-radius-md); color: var(--cs-color-text-primary); font-family: var(--cs-font-family-ui); font-weight: 600; font-size: var(--cs-font-size-sm); text-decoration: none; cursor: pointer; border: 0; background: transparent; inline-size: 100%; text-align: start; }
 .cs-nav-item:hover { background: var(--cs-color-surface-raised); }
 .cs-nav-item__icon { flex: none; color: var(--cs-color-text-muted); display: grid; place-items: center; }
-.cs-nav-item.is-active { background: color-mix(in oklab, var(--cs-color-brand-ochre) 22%, var(--cs-color-surface-panel)); color: var(--_cs-light, var(--cs-color-brand-umber)) var(--_cs-dark, var(--cs-color-brand-ochre)); }
-.cs-nav-item.is-active .cs-nav-item__icon { color: var(--_cs-light, var(--cs-color-brand-umber)) var(--_cs-dark, var(--cs-color-brand-ochre)); }
+.cs-nav-item.is-active { background: color-mix(in oklab, var(--cs-color-brand-ochre) 22%, var(--cs-color-surface-panel)); color: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); }
+.cs-nav-item.is-active .cs-nav-item__icon { color: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); }
 .cs-nav-item__trail { margin-inline-start: auto; }
 
 /* Steps */

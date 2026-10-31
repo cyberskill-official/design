@@ -13,13 +13,13 @@ Vui lòng báo cáo riêng tư qua **GitHub Security Advisories** của [`cybers
 
 | Dòng phát hành | Bảo trì bảo mật |
 |---|---|
-| Bản minor ổn định được xuất bản gần nhất, hiện là **1.7.x** | Việc phân loại và sửa lỗi bảo mật hướng đến dòng này. |
+| Bản minor ổn định được xuất bản gần nhất, hiện là **2.0.x** | Việc phân loại và sửa lỗi bảo mật hướng đến dòng này. |
 | Các dòng minor/major ổn định trước đó | Hướng dẫn nâng cấp; không cam kết chuyển ngược bản sửa lỗi. |
 | Cây làm việc chưa phát hành và bản phát hành thử | Bằng chứng phát triển; không phải bản đã xuất bản được hỗ trợ. |
 
-Ảnh chụp bản đã xuất bản gần nhất là **1.7.2**, được ghi nhận lúc
-`2026-10-20T10:16:52.889912+00:00` từ npm registry chính thức. SHA-256 của ảnh chụp:
-`6d840cde271d6422f89c0e1139919ba83c848881d869ae32ea07a5d461ebe91e`. Đây là danh tính xuất bản đã được ghi nhận, không phải truy vấn registry trực tiếp.
+Ảnh chụp bản đã xuất bản gần nhất là **2.0.0**, được ghi nhận lúc
+`2026-10-30T16:59:22.000Z` từ npm registry chính thức. SHA-256 của ảnh chụp:
+`091130f87f852a11a513a03a839d21e7da11ba140134e04ee5d83925d34bcd80`. Đây là danh tính xuất bản đã được ghi nhận, không phải truy vấn registry trực tiếp.
 Cập nhật ảnh chụp và khối được sinh này sau một lần xuất bản được cho phép riêng;
 thay đổi VERSION cục bộ không xác lập việc xuất bản hay hỗ trợ.
 

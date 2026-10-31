@@ -66,7 +66,9 @@ Generated from the [canonical declared API](../api-index.json) and [source facts
 | `children` | optional | Không khai báo trong tham số / Not declared in parameter |
 | `icon` | optional | Không khai báo trong tham số / Not declared in parameter |
 | `lang` | optional | Không khai báo trong tham số / Not declared in parameter |
+| `onClose` | optional | Không khai báo trong tham số / Not declared in parameter |
 | `onDismiss` | optional | Không khai báo trong tham số / Not declared in parameter |
+| `onOpenChange` | optional | Không khai báo trong tham số / Not declared in parameter |
 | `title` | optional | Không khai báo trong tham số / Not declared in parameter |
 | `variant` | optional | `"info"` |
 

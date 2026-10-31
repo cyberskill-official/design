@@ -1,20 +1,12 @@
 package world.cyberskill.sample.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,12 +14,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import world.cyberskill.sample.tokens.CSTokens
+import world.cyberskill.design.CsButton
+import world.cyberskill.design.CsTextField
 
 @Composable
 fun SignInScreen(onSuccess: () -> Unit) {
@@ -48,34 +38,30 @@ fun SignInScreen(onSuccess: () -> Unit) {
       color = colors.colorTextMuted,
       fontSize = 15.sp,
     )
-    OutlinedTextField(
+    CsTextField(
+      label = SampleText.WorkEmail.value(language),
       value = email,
       onValueChange = { email = it },
-      label = { Text(SampleText.WorkEmail.value(language)) },
-      modifier = Modifier.fillMaxWidth(),
+      dark = colors.dark,
+      highContrast = colors.highContrast,
+      compact = false,
     )
-    OutlinedTextField(
+    CsTextField(
+      label = SampleText.Password.value(language),
       value = password,
       onValueChange = { password = it },
-      label = { Text(SampleText.Password.value(language)) },
-      visualTransformation = PasswordVisualTransformation(),
-      keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-      singleLine = true,
-      modifier = Modifier.fillMaxWidth(),
+      dark = colors.dark,
+      highContrast = colors.highContrast,
+      compact = false,
+      secure = true,
     )
     Spacer(modifier = Modifier.height(8.dp))
-    Button(
+    CsButton(
+      title = SampleText.SignIn.value(language),
       onClick = onSuccess,
-      modifier = Modifier
-        .fillMaxWidth()
-        .heightIn(min = CSTokens.componentButtonMdMinHeight),
-      colors = ButtonDefaults.buttonColors(
-        containerColor = colors.componentButtonPrimaryBg,
-        contentColor = colors.componentButtonPrimaryFg,
-      ),
-      shape = RoundedCornerShape(CSTokens.componentButtonRadius),
-    ) {
-      Text(SampleText.SignIn.value(language))
-    }
+      dark = colors.dark,
+      highContrast = colors.highContrast,
+      compact = false,
+    )
   }
 }

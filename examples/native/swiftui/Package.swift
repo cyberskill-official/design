@@ -8,17 +8,23 @@ let package = Package(
     .iOS(.v16),
   ],
   products: [
+    .library(name: "CyberSkillDesign", targets: ["CyberSkillDesign"]),
     .executable(name: "CyberSkillSample", targets: ["CyberSkillSample"]),
   ],
   targets: [
+    .target(
+      name: "CyberSkillDesign",
+      path: "Sources/CyberSkillDesign"
+    ),
     .executableTarget(
       name: "CyberSkillSample",
+      dependencies: ["CyberSkillDesign"],
       path: "Sources/CyberSkillSample",
       resources: [.copy("Fonts")]
     ),
     .testTarget(
       name: "CyberSkillSampleTests",
-      dependencies: ["CyberSkillSample"]
+      dependencies: ["CyberSkillSample", "CyberSkillDesign"]
     ),
   ]
 )

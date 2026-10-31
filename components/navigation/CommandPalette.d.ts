@@ -8,7 +8,7 @@ export interface CommandGroup { label?: ReactNode; items: CommandItem[]; }
 
 /**
  * ⌘K command palette: scrim + search box + grouped, filterable actions. The
- * brand's "command palette (Heavy Glass)" surface. Controlled via open/onClose;
+ * brand's "command palette (Heavy Glass)" surface. Controlled via open/onOpenChange;
  * Escape and scrim-click close it. A visible EN/VI result count or empty message
  * is exposed as a polite, atomic status without moving search focus.
  * The overlay manager focuses search on open and restores the invoking control
@@ -18,6 +18,9 @@ export interface CommandPaletteProps {
   /** Attributes for the existing div root. Owned semantics/state stay controlled; internal handlers run first. */
   rootProps?: Omit<RootTargetProps<HTMLDivElement>, "role" | "aria-modal" | "aria-label">;
   open: boolean;
+  /** Called with `false` when the palette asks to close. Preferred open-state callback. */
+  onOpenChange?: (open: boolean) => void;
+  /** @deprecated Still supported. Called after `onOpenChange(false)` when the palette closes. */
   onClose?: () => void;
   placeholder?: string;
   groups: CommandGroup[];

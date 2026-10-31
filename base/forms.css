@@ -17,7 +17,7 @@
 
 /* Checkbox + Radio — native, brand accent */
 .cs-check, .cs-radio { display: inline-flex; align-items: flex-start; gap: 10px; cursor: pointer; color: var(--cs-color-text-primary); font-family: var(--cs-font-family-ui); line-height: 1.4; }
-.cs-check input, .cs-radio input { inline-size: 20px; block-size: 20px; margin: 0; flex: none; accent-color: var(--_cs-light, var(--cs-color-brand-umber)) var(--_cs-dark, var(--cs-color-brand-ochre)); cursor: pointer; }
+.cs-check input, .cs-radio input { inline-size: 20px; block-size: 20px; margin: 0; flex: none; accent-color: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); cursor: pointer; }
 .cs-check.is-disabled, .cs-radio.is-disabled { opacity: 0.55; cursor: not-allowed; }
 .cs-check__text, .cs-radio__text { display: grid; gap: 2px; }
 .cs-check__desc, .cs-radio__desc { font-size: var(--cs-font-size-sm); color: var(--cs-color-text-muted); }
@@ -29,7 +29,7 @@
 .cs-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
 .cs-switch__track { inline-size: 44px; block-size: 26px; border-radius: 999px; background: var(--cs-color-border-default); position: relative; transition: background var(--cs-duration-fast) var(--cs-ease-standard); flex: none; }
 .cs-switch__track::after { content: ""; position: absolute; inset-block-start: 3px; inset-inline-start: 3px; inline-size: 20px; block-size: 20px; border-radius: 50%; background: var(--cs-color-surface-panel, #fff); box-shadow: var(--cs-shadow-xs); transition: transform var(--cs-duration-fast) var(--cs-ease-standard); }
-.cs-switch input:checked + .cs-switch__track { background: var(--_cs-light, var(--cs-color-brand-umber)) var(--_cs-dark, var(--cs-color-brand-ochre)); }
+.cs-switch input:checked + .cs-switch__track { background: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); }
 .cs-switch input:checked + .cs-switch__track::after { transform: translateX(18px); }
 .cs-switch input:focus-visible + .cs-switch__track { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-switch.is-disabled { opacity: 0.55; cursor: not-allowed; }

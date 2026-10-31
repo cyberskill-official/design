@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {mkdtempSync,readFileSync,writeFileSync,rmSync} from 'node:fs';
+import {spawnSync} from 'node:child_process';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
 import {createHash} from 'node:crypto';
 export function validateManualAT(matrix){
  assert.equal(matrix.schemaVersion,1);assert.equal(matrix.rows.length,16);
@@ -48,4 +51,16 @@ for(const mutate of [x=>x.currentScopePlan.rows.pop(),x=>x.currentScopePlan.rows
 }
 const incomplete=structuredClone(matrix);incomplete.rows[0].status='passed';assert.throws(()=>validateManualAT(incomplete));
 const missing=structuredClone(matrix);missing.rows.pop();assert.throws(()=>validateManualAT(missing));
-console.log('PASS manual AT record integrity and16owner-approved bilingual scopes/tasks/expected outcomes; historical scopes preserved, pending rows are not manual acceptance');
+const refused=spawnSync(process.execPath,['scripts/require-manual-at-publication.mjs'],{encoding:'utf8'});
+assert.notEqual(refused.status,0);assert.match(refused.stderr,/AT-01=pending/);
+const accepted=structuredClone(matrix);
+for (const row of accepted.rows) {
+  row.status='passed';row.reviewer='Fixture reviewer';row.reviewedAt='2026-10-30T00:00:00.000Z';row.sourceCommit='a'.repeat(40);row.environment='Fixture only';row.observations='Fixture observation. Not a manual assistive-technology result.';row.evidence=[{path:'fixture'}];
+}
+const dir=mkdtempSync(join(tmpdir(),'cs-at-publication-'));
+try {
+  const fixture=join(dir,'matrix.json');writeFileSync(fixture,JSON.stringify(accepted));
+  const allowed=spawnSync(process.execPath,['scripts/require-manual-at-publication.mjs',fixture],{encoding:'utf8'});
+  assert.equal(allowed.status,0,allowed.stderr);
+} finally {rmSync(dir,{recursive:true,force:true})}
+console.log('PASS manual AT record integrity and16owner-approved bilingual scopes/tasks/expected outcomes; historical scopes preserved, pending rows are not manual acceptance; publication refuses the live pending matrix');

@@ -34,9 +34,12 @@ function convert(key){
  const ref=/^var\((--cs-[\w-]+)\)$/.exec(css);
  if(ref){
   const target=pathByName.get(ref[1]);if(!target)throw Error(`Missing CSS alias ${css}`);
-  convert(target);def.$type=definitions.get(target).$type;def.$value=`{${target}}`;
+  convert(target);const targetDef=definitions.get(target);def.$type=targetDef.$type;
+  const tokenName=key.slice(key.indexOf('.')+1);
+  if(targetDef.$extensions?.['com.cyberskill']?.nativeAliasOf===tokenName)def.$value=targetDef.$value;
+  else {def.$value=`{${target}}`;
   // Legacy native aliases stay CSS strings; density metrics resolve numerically.
-  if(!key.startsWith('density.')&&ext.nativeAliasOf===undefined)ext.nativeFormat='css';
+  if(!key.startsWith('density.')&&ext.nativeAliasOf===undefined)ext.nativeFormat='css';}
  }else if(/^-?[\d.]+em$/.test(css)){
   def.$type='number';def.$value=numberFromCss(css.slice(0,-2));ext.relativeUnit='em';ext.nativeFormat='em';
  }else if(css.endsWith('%')&&def.$type==='number'){

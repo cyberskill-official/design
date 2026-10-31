@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v2.0.0 · source sha256 51b0bc8a8cb7b8bf…
+// release v2.0.0 · source sha256 27671e79b9683d94…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -282,26 +282,26 @@ public enum CSTokens {
   public static let densitySpace6Comfortable: CGFloat = 24
   public static let densityControlGapComfortable: CGFloat = 8
   public static let componentButtonGapComfortable: CGFloat = 8
-  public static let componentButtonXsPaddingYComfortable: CGFloat = 4
   public static let componentButtonXsPaddingYAliasComfortable: CGFloat = 4
-  public static let componentButtonXsPaddingXComfortable: CGFloat = 10
+  public static let componentButtonXsPaddingYComfortable: CGFloat = 4
   public static let componentButtonXsPaddingXAliasComfortable: CGFloat = 10
-  public static let componentButtonSmPaddingYComfortable: CGFloat = 8
+  public static let componentButtonXsPaddingXComfortable: CGFloat = 10
   public static let componentButtonSmPaddingYAliasComfortable: CGFloat = 8
-  public static let componentButtonSmPaddingXComfortable: CGFloat = 14
+  public static let componentButtonSmPaddingYComfortable: CGFloat = 8
   public static let componentButtonSmPaddingXAliasComfortable: CGFloat = 14
-  public static let componentButtonMdPaddingYComfortable: CGFloat = 12
+  public static let componentButtonSmPaddingXComfortable: CGFloat = 14
   public static let componentButtonMdPaddingYAliasComfortable: CGFloat = 12
-  public static let componentButtonMdPaddingXComfortable: CGFloat = 20
+  public static let componentButtonMdPaddingYComfortable: CGFloat = 12
   public static let componentButtonMdPaddingXAliasComfortable: CGFloat = 20
-  public static let componentButtonLgPaddingYComfortable: CGFloat = 16
+  public static let componentButtonMdPaddingXComfortable: CGFloat = 20
   public static let componentButtonLgPaddingYAliasComfortable: CGFloat = 16
-  public static let componentButtonLgPaddingXComfortable: CGFloat = 28
+  public static let componentButtonLgPaddingYComfortable: CGFloat = 16
   public static let componentButtonLgPaddingXAliasComfortable: CGFloat = 28
-  public static let componentTextfieldPaddingYComfortable: CGFloat = 10
+  public static let componentButtonLgPaddingXComfortable: CGFloat = 28
   public static let componentTextfieldPaddingYAliasComfortable: CGFloat = 10
-  public static let componentTextfieldPaddingXComfortable: CGFloat = 12
+  public static let componentTextfieldPaddingYComfortable: CGFloat = 10
   public static let componentTextfieldPaddingXAliasComfortable: CGFloat = 12
+  public static let componentTextfieldPaddingXComfortable: CGFloat = 12
 
   // High-contrast role deltas: apply after theme and element selection
   public static let colorBorderDefaultHighLight = color(0x9A8060)

@@ -35,6 +35,7 @@ export const PIXEL_TARGETS = Object.freeze(
     },
     { slug: "status-hub", path: "/ui_kits/status-hub/" },
     { slug: "website", path: "/ui_kits/website/" },
+    { slug: "component-states", path: "/_audit/component-state-pixels.html" },
   ].map((target) => Object.freeze(target))
 );
 
@@ -53,6 +54,7 @@ const fixedInputs = [
   "_audit/ci/lib/pixel-theme.mjs",
   "_audit/lib/pixel-report-contract.mjs",
   "_audit/pixel-ci.html",
+  "_audit/component-state-pixels.html",
   ...PIXEL_TARGETS.map((target) => "_audit/baselines/" + target.slug + ".png"),
 ];
 const SHA = /^[a-f0-9]{64}$/;

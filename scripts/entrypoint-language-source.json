@@ -53,8 +53,8 @@
     {
       "source": "SECURITY.md",
       "mirror": "docs/vi/entrypoints/SECURITY.md",
-      "sourceSha256": "5c163580d9455afd9a665749d747727aed212ae39b3ac0ea712d5aae34d13b96",
-      "mirrorSha256": "3e27f53d92f2f4f1901e13760491f5bd1b1750e32f75e9d37943271766fa4c70"
+      "sourceSha256": "389040226ad1c84f49a36d83394b80516430b32a942a81dd45b0c76eca921bbc",
+      "mirrorSha256": "a2754ed21a7195cf0b128409df302b4fb4bcb6df70d199824fcbeac392767e43"
     }
   ],
   "generatedEntries": [

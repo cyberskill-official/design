@@ -4,15 +4,16 @@ import React from "react";
 import { formatNumber, makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
 import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
+import { notifyClosed } from "../_utils/open-change.js";
 
 /** CyberSkill CommandPalette — ⌘K overlay with search + grouped actions. Controlled via open/onClose. */
-export const CommandPalette = React.forwardRef(function CommandPalette({ controlRef, open, onClose, placeholder, groups = [], lang, className , rootProps }, forwardedRef) {
+export const CommandPalette = React.forwardRef(function CommandPalette({ controlRef, open, onClose, onOpenChange, placeholder, groups = [], lang, className , rootProps }, forwardedRef) {
   const mergedControlRef = useComposedRefs(controlRef);
   const mergedNativeRef = useComposedRefs(forwardedRef);
   const [q, setQ] = React.useState("");
   const panel = React.useRef(null);
-  const closeRef = React.useRef(onClose);
-  closeRef.current = onClose;
+  const closeRef = React.useRef(null);
+  closeRef.current = () => notifyClosed(onOpenChange, onClose);
 
   const { scope } = useOverlayLayer({
     open: !!open,
@@ -47,7 +48,7 @@ export const CommandPalette = React.forwardRef(function CommandPalette({ control
         panel.current = el;
       }}
       className="cs-cmdk-scrim"
-      onClick={onClose}
+      onClick={() => closeRef.current()}
     >
       <div {...mergeTargetProps({ "className": cx("cs-cmdk", className), "onClick": (e) => e.stopPropagation() }, rootProps, ["role","aria-modal","aria-label"])} role="dialog" aria-modal="true" aria-label={t("aria")}  ref={mergedNativeRef} >
         <div className="cs-cmdk__search">
@@ -64,7 +65,7 @@ export const CommandPalette = React.forwardRef(function CommandPalette({ control
               <React.Fragment key={gi}>
                 {(g.label || g.label === 0) ? <div className="cs-cmdk__label">{g.label}</div> : null}
                 {items.map((it, ii) => (
-                  <button key={ii} type="button" className="cs-cmdk__item" onClick={() => { it.onSelect && it.onSelect(); setQ(""); onClose && onClose(); }}>
+                  <button key={ii} type="button" className="cs-cmdk__item" onClick={() => { it.onSelect && it.onSelect(); setQ(""); closeRef.current(); }}>
                     {(it.icon || it.icon === 0) ? <span aria-hidden="true">{it.icon}</span> : null}
                     <span>{it.label}</span>
                     {(it.shortcut || it.shortcut === 0) ? <span className="cs-kbd">{it.shortcut}</span> : null}

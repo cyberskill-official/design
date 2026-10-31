@@ -1,0 +1,488 @@
+package world.cyberskill.design
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.unit.dp
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.roundToInt
+
+fun csToggleSelection(selected: List<String>, key: String): List<String> =
+  if (selected.contains(key)) selected.filter { it != key } else selected + key
+
+fun csToggleAllSelection(keys: List<String>, selected: List<String>): List<String> {
+  val all = keys.isNotEmpty() && keys.all { selected.contains(it) }
+  return if (all) emptyList() else keys
+}
+
+data class CsTagEdit(val tags: List<String>, val query: String)
+
+fun csAddTag(tags: List<String>, query: String, max: Int?): CsTagEdit {
+  val text = query.trim()
+  if (text.isEmpty()) return CsTagEdit(tags, query)
+  if (tags.contains(text)) return CsTagEdit(tags, "")
+  if (max != null && tags.size >= max) return CsTagEdit(tags, query)
+  return CsTagEdit(tags + text, "")
+}
+
+fun csBackspaceTag(tags: List<String>, query: String): List<String> =
+  if (query.isEmpty() && tags.isNotEmpty()) tags.dropLast(1) else tags
+
+data class CsConfidenceMeasurement(val tone: String, val filled: Int, val segments: Int)
+
+const val csConfidenceLabel = "Confidence"
+fun csConfidenceLabelText(label: String?, fallback: String) = label ?: fallback
+fun csConfidenceCopy(key: String, language: String?): String {
+  val want = csComboboxPrimaryLanguage(language) ?: "vi"
+  val vi = mapOf("label" to "Độ tin cậy", "low" to "Thấp", "medium" to "Trung bình", "high" to "Cao")
+  val en = mapOf("label" to csConfidenceLabel, "low" to "Low", "medium" to "Medium", "high" to "High")
+  for (locale in linkedSetOf(want, "en", "vi")) {
+    val table = if (locale == "vi") vi else if (locale == "en") en else emptyMap()
+    table[key]?.let { return it }
+  }
+  return key
+}
+fun csConfidenceToneWord(tone: String, low: String, medium: String, high: String) = when (tone) {
+  "low" -> low
+  "high" -> high
+  else -> medium
+}
+fun csConfidenceName(label: String, word: String) = if (label.isEmpty()) word else "$label $word"
+fun csConfidenceMeasure(value: Double?, level: String?, segments: Double): CsConfidenceMeasurement {
+  val source = if (segments.isFinite() && segments != 0.0) segments else Double.NaN
+  val segs = csRenderCount(source, 5, 1)
+  if (value != null) {
+    val numeric = if (value.isFinite()) value else 0.0
+    val clamped = min(1.0, max(0.0, numeric))
+    val tone = if (clamped < 0.4) "low" else if (clamped < 0.75) "medium" else "high"
+    val filled = min(segs, max(0, (clamped * segs).roundToInt()))
+    return CsConfidenceMeasurement(tone, filled, segs)
+  }
+  val tone = if (level == "low" || level == "medium" || level == "high") level else "medium"
+  val fill = if (tone == "low") 2 else if (tone == "high") 5 else 3
+  val filled = min(segs, max(0, (fill / 5.0 * segs).roundToInt()))
+  return CsConfidenceMeasurement(tone, filled, segs)
+}
+
+data class CsDataColumn(val key: String, val header: String)
+
+@Composable
+fun CsDataGrid(
+  columns: List<CsDataColumn>,
+  rows: List<Map<String, String>>,
+  selectable: Boolean,
+  selected: List<String>,
+  selectAllLabel: String,
+  clearLabel: String,
+  onSelect: (List<String>) -> Unit,
+  dark: Boolean,
+  highContrast: Boolean,
+  compact: Boolean,
+  persistKey: String? = null,
+  modifier: Modifier = Modifier,
+) {
+  val pack = csModePack(dark, highContrast, compact)
+  val context = androidx.compose.ui.platform.LocalContext.current
+  val stored = csGridPrefsLoad(context, persistKey) ?: csGridDecodeOrder(csGridStorageKey(persistKey)?.let { CsGridColumnStore.values[it] })
+  var order by remember(persistKey) { mutableStateOf(stored) }
+  var sort by remember { mutableStateOf<String?>(null) }
+  val ordered = csGridOrderedKeys(order, columns.map { it.key }).mapNotNull { key -> columns.find { it.key == key } }
+  val shown = csGridSorted(rows, sort)
+  val keys = shown.map { it["id"] ?: "" }
+  val allSelected = keys.isNotEmpty() && keys.all { selected.contains(it) }
+  Column(modifier) {
+    if (selectable) {
+      CsTriggerButton(title = if (allSelected) clearLabel else selectAllLabel, onClick = { onSelect(csToggleAllSelection(keys, selected)) }, modifier = Modifier.minimumInteractiveComponentSize()) {
+        Text(if (allSelected) clearLabel else selectAllLabel)
+      }
+    }
+    Row {
+      ordered.forEach { column ->
+        val aria = csGridSortAria(sort, column.key)
+        val mark = if (aria == "ascending") "▲" else if (aria == "descending") "▼" else "↕"
+        CsTriggerButton(title = column.header, onClick = { sort = csGridNextSort(sort, column.key) }, modifier = Modifier.minimumInteractiveComponentSize()) {
+          Text(column.header + " " + mark)
+        }
+      }
+    }
+    if (persistKey != null) {
+      Row {
+        ordered.forEach { column ->
+          CsTriggerButton(title = csGridCopy("pin", null), onClick = {
+            val next = csGridPinOrder(ordered.map { it.key }, column.key, true) ?: return@CsTriggerButton
+            order = next
+            csGridSaveOrder(CsGridColumnStore.values, persistKey, next)
+            csGridPrefsSave(context, persistKey, next)
+          }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = csGridPinName(column.header.ifEmpty { null }, column.key, csGridCopy("pinNamed", null)) }) { Text(csGridCopy("pin", null), modifier = Modifier.clearAndSetSemantics {}) }
+        }
+      }
+    }
+    val scroll = rememberScrollState()
+    val useVirtual = csGridVirtual(false, shown.size)
+    val window = csGridWindow(shown.size, 280.0, 36.0, scroll.value.toDouble(), useVirtual)
+    val painted = csGridPainted(rows.size, window.first, window.second)
+    Column(if (useVirtual) Modifier.height(240.dp).verticalScroll(scroll) else Modifier) {
+      if (useVirtual && window.first > 0) Spacer(Modifier.height((window.first * 36).dp))
+      painted.forEach { index ->
+        val row = shown[index]
+        val key = row["id"] ?: ""
+        Row(Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp())) {
+          if (selectable) {
+            CsTriggerButton(title = if (selected.contains(key)) "☑" else "☐", onClick = { onSelect(csToggleSelection(selected, key)) }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = csGridCopy("selectRow", null) + ": " + csGridRowName(ordered.map { row[it.key] }, key) }) {
+              Text(if (selected.contains(key)) "☑" else "☐", modifier = Modifier.clearAndSetSemantics {})
+            }
+          }
+          ordered.forEach { column -> Text(row[column.key] ?: "", color = pack.colorTextPrimary.toComposeColor()) }
+        }
+      }
+      if (useVirtual && shown.size > window.second) Spacer(Modifier.height(((shown.size - window.second) * 36).dp))
+    }
+  }
+}
+
+@Composable
+fun CsTagInput(
+  tags: List<String>,
+  query: String,
+  onChange: (List<String>, String) -> Unit,
+  dark: Boolean,
+  highContrast: Boolean,
+  compact: Boolean,
+  modifier: Modifier = Modifier,
+  label: String? = null,
+  removeLabel: String? = null,
+  placeholder: String? = null,
+  max: Int? = null,
+  language: String? = null,
+) {
+  val pack = csModePack(dark, highContrast, compact)
+  val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
+  val hint = csTagPlaceholderShown(placeholder, emptyList(), csTagCopy("placeholder", locale))
+  val fieldName = if (label.isNullOrEmpty()) hint else label
+  val handle = rememberFocusHandle("tag-query")
+  Column(modifier) {
+    if (!label.isNullOrEmpty()) Text(label, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
+    Row {
+      tags.forEach { tag ->
+        val name = csTagRemoveName(removeLabel, tag, csTagCopy("remove", locale))
+        CsTriggerButton(title = name, onClick = { onChange(tags.filter { it != tag }, query) }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = name }) {
+          Text(name, modifier = Modifier.clearAndSetSemantics {})
+        }
+      }
+    }
+    androidx.compose.foundation.text.BasicTextField(
+      value = query,
+      onValueChange = { next ->
+        if (!csControlEnabled()) return@BasicTextField
+        handle.claim()
+        if (next.contains(",")) {
+          val edit = csAddTag(tags, next.replace(",", ""), max)
+          onChange(edit.tags, edit.query)
+        } else onChange(tags, next)
+      },
+      enabled = csControlEnabled(),
+      textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()),
+      modifier = Modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = fieldName },
+    )
+  }
+}
+
+@Composable
+fun CsConfidenceMeter(
+  dark: Boolean,
+  highContrast: Boolean,
+  compact: Boolean,
+  modifier: Modifier = Modifier,
+  label: String? = null,
+  value: Double? = null,
+  level: String? = null,
+  segments: Double = 5.0,
+  language: String? = null,
+) {
+  val pack = csModePack(dark, highContrast, compact)
+  val measurement = csConfidenceMeasure(value, level, segments)
+  val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
+  val shown = csConfidenceLabelText(label, csConfidenceCopy("label", spoken))
+  val word = csConfidenceToneWord(measurement.tone, csConfidenceCopy("low", spoken), csConfidenceCopy("medium", spoken), csConfidenceCopy("high", spoken))
+  val color = when (measurement.tone) {
+    "low" -> pack.colorSemanticDanger
+    "high" -> pack.colorSemanticSuccess
+    else -> pack.colorSemanticWarning
+  }.toComposeColor()
+  val ink = when (measurement.tone) {
+    "low" -> pack.colorSemanticDangerText
+    "high" -> pack.colorSemanticSuccessText
+    else -> pack.colorSemanticWarningText
+  }.toComposeColor()
+  Column(modifier.semantics { contentDescription = csConfidenceName(shown, word) }) {
+    Text(shown, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
+    Text(word, color = ink, modifier = Modifier.clearAndSetSemantics {})
+    Row {
+      repeat(measurement.segments) { index ->
+        androidx.compose.foundation.layout.Box(
+          Modifier
+            .padding(end = 4.dp)
+            .size(16.dp, 8.dp)
+            .clip(RoundedCornerShape(2.dp))
+            .background(if (index < measurement.filled) color else pack.colorBorderDefault.toComposeColor()),
+        )
+      }
+    }
+  }
+}
+
+@Composable
+fun CsCollapsible(
+  title: String,
+  content: String,
+  expandedLabel: String,
+  collapsedLabel: String,
+  isOpen: Boolean,
+  onOpenChange: (Boolean) -> Unit,
+  dark: Boolean,
+  highContrast: Boolean,
+  compact: Boolean,
+  modifier: Modifier = Modifier,
+) {
+  val pack = csModePack(dark, highContrast, compact)
+  Column(modifier) {
+    CsTriggerButton(title = title, onClick = { onOpenChange(!isOpen) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize()) {
+      Text(title, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { contentDescription = if (isOpen) expandedLabel else collapsedLabel })
+    }
+    if (isOpen) Text(content, color = pack.colorTextMuted.toComposeColor())
+  }
+}
+
+const val csGridSelectAll = "Select all rows"
+const val csGridSelectRow = "Select row"
+const val csGridEmpty = "No results"
+fun csGridRowName(cells: List<String?>, key: String): String {
+  for (cell in cells) if (cell != null && cell.trim().isNotEmpty()) return cell
+  return key
+}
+fun csGridAllSelected(selectable: Boolean, keys: List<String>, selected: List<String>) = selectable && keys.isNotEmpty() && keys.all { selected.contains(it) }
+fun csGridShowsCaption(caption: String?) = caption != null && caption.isNotEmpty()
+fun csGridEmptyText(empty: String?, fallback: String) = empty ?: fallback
+fun csGridFilterKeys(requested: List<String>?, columns: List<String>) = if (requested.isNullOrEmpty()) columns else requested
+const val csGridPin = "Pin column {name}"
+fun csGridOrderedKeys(order: List<String>?, columns: List<String>): List<String> {
+  if (order.isNullOrEmpty()) return columns
+  val remaining = columns.toMutableList()
+  val out = mutableListOf<String>()
+  for (key in order) if (remaining.remove(key)) out += key
+  out += remaining
+  return out
+}
+fun csGridPinOrder(order: List<String>, key: String, canPersist: Boolean) = if (canPersist) listOf(key) + order.filter { it != key } else null
+fun csGridStorageKey(persistKey: String?) = if (persistKey.isNullOrEmpty()) null else "cs:datagrid:cols:$persistKey"
+fun csGridDecodeOrder(raw: String?): List<String>? {
+  if (raw == null) return null
+  return try {
+    val array = org.json.JSONArray(raw)
+    (0 until array.length()).map { index ->
+      val item = array.get(index)
+      if (item !is String) return null
+      item
+    }
+  } catch (error: Exception) { null }
+}
+fun csGridEncodeOrder(order: List<String>) = org.json.JSONArray(order).toString()
+object CsGridColumnStore {
+  val values = mutableMapOf<String, String>()
+}
+fun csGridPrefsLoad(context: android.content.Context, persistKey: String?): List<String>? {
+  val key = csGridStorageKey(persistKey) ?: return null
+  val raw = context.getSharedPreferences("cs-datagrid", android.content.Context.MODE_PRIVATE).getString(key, null)
+  return csGridDecodeOrder(raw)
+}
+fun csGridPrefsSave(context: android.content.Context, persistKey: String?, order: List<String>?) {
+  val key = csGridStorageKey(persistKey) ?: return
+  if (order == null) return
+  context.getSharedPreferences("cs-datagrid", android.content.Context.MODE_PRIVATE).edit().putString(key, csGridEncodeOrder(order)).apply()
+}
+fun csGridSaveOrder(store: MutableMap<String, String>, persistKey: String?, order: List<String>?) {
+  val key = csGridStorageKey(persistKey) ?: return
+  if (order == null) return
+  store[key] = csGridEncodeOrder(order)
+}
+fun csGridPinName(header: String?, key: String, template: String = csGridPin) = template.replace("{name}", header ?: key)
+fun csGridCopy(key: String, language: String?): String {
+  val want = csComboboxPrimaryLanguage(language) ?: "vi"
+  val vi = mapOf("selectAll" to "Chọn tất cả", "selectRow" to "Chọn dòng", "empty" to "Không có kết quả", "pin" to "Ghim cột này", "pinNamed" to "Ghim cột {name}")
+  val en = mapOf("selectAll" to csGridSelectAll, "selectRow" to csGridSelectRow, "empty" to "No results", "pin" to "Pin this column", "pinNamed" to csGridPin)
+  for (locale in linkedSetOf(want, "en", "vi")) {
+    val table = if (locale == "vi") vi else if (locale == "en") en else emptyMap()
+    table[key]?.let { return it }
+  }
+  return key
+}
+const val csTagPlaceholder = "Add a tag…"
+fun csTagValues(value: List<String>?, inner: List<String>) = value ?: inner
+fun csTagPlaceholderShown(text: String?, tags: List<String>, fallback: String) = if (tags.isNotEmpty()) "" else text ?: fallback
+fun csTagRemoveName(label: String?, tag: String, fallback: String) = "${label ?: fallback} $tag"
+fun csTagCopy(key: String, language: String?): String {
+  val want = csComboboxPrimaryLanguage(language) ?: "vi"
+  val vi = mapOf("placeholder" to "Thêm thẻ…", "remove" to "Gỡ")
+  val en = mapOf("placeholder" to "Add a tag…", "remove" to "Remove")
+  for (locale in linkedSetOf(want, "en", "vi")) {
+    val table = if (locale == "vi") vi else if (locale == "en") en else emptyMap()
+    table[key]?.let { return it }
+  }
+  return key
+}
+fun csTagCanEdit(disabled: Boolean, composing: Boolean) = !disabled && !composing
+const val csToolbarMore = "More actions"
+fun csToolbarCut(count: Int, overflowAfter: Int?) = overflowAfter?.let { minOf(count, maxOf(0, it)) } ?: count
+fun csToolbarCopy(key: String, language: String?): String {
+  val want = csComboboxPrimaryLanguage(language) ?: "vi"
+  val vi = mapOf("more" to "Thao tác khác")
+  val en = mapOf("more" to "More actions")
+  for (locale in linkedSetOf(want, "en", "vi")) {
+    val table = if (locale == "vi") vi else if (locale == "en") en else emptyMap()
+    table[key]?.let { return it }
+  }
+  return key
+}
+fun csToolbarTail(items: List<String>, overflowAfter: Int?) = items.drop(csToolbarCut(items.size, overflowAfter)).filter { it != "-" }
+fun csToolbarMove(current: Int, count: Int, delta: Int) = if (count <= 0) 0 else minOf(count - 1, maxOf(0, current + delta))
+fun csGridRowKey(value: String?, index: Int) = value ?: index.toString()
+fun csGridRowIndex(virtual: Boolean, position: Int, header: Boolean = false) = if (virtual) if (header) 1 else position + 2 else null
+fun csGridRowCount(virtual: Boolean, count: Int) = if (virtual) maxOf(2, count + 1) else null
+fun csGridRowHeight(requested: Double, measured: Double): Double {
+  val estimate = if (requested.isFinite() && requested > 0) requested else 36.0
+  val known = if (measured.isFinite()) measured else estimate
+  return maxOf(estimate, known)
+}
+fun csGridVirtual(enabled: Boolean, count: Int, threshold: Int = 80) = enabled || count >= threshold
+fun csGridWindow(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Boolean): Pair<Int, Int> {
+  if (!virtual) return 0 to count
+  val safeRow = if (rowHeight.isFinite() && rowHeight > 0) rowHeight else 36.0
+  val body = maxOf(0.0, height - 40)
+  val visible = kotlin.math.ceil(body / safeRow).toInt() + 8
+  val start = minOf(maxOf(0, count - visible), maxOf(0, kotlin.math.floor(scrollTop / safeRow).toInt() - 4))
+  return start to minOf(count, start + visible)
+}
+fun csGridPainted(count: Int, start: Int, end: Int): List<Int> {
+  val safeStart = minOf(maxOf(0, start), count)
+  val safeEnd = minOf(maxOf(safeStart, end), count)
+  return (safeStart until safeEnd).toList()
+}
+fun csGridFiltered(rows: List<Map<String, String>>, query: String?, keys: List<String>): List<Map<String, String>> {
+  val needle = (query ?: "").trim().lowercase()
+  if (needle.isEmpty()) return rows
+  return rows.filter { row -> keys.any { key -> (row[key] ?: "").lowercase().contains(needle) } }
+}
+fun csGridSorted(rows: List<Map<String, String>>, sort: String?): List<Map<String, String>> {
+  if (sort == null || !sort.contains(":")) return rows
+  val descending = sort.startsWith("desc:")
+  val key = sort.substring(sort.indexOf(':') + 1)
+  val sorted = rows.sortedWith(compareBy { it[key] ?: "" })
+  return if (descending) sorted.asReversed() else sorted
+}
+fun csGridNextSort(current: String?, key: String) = when (current) {
+  "asc:$key" -> "desc:$key"
+  "desc:$key" -> null
+  else -> "asc:$key"
+}
+fun csGridSortAria(current: String?, key: String) = when (current) {
+  "asc:$key" -> "ascending"
+  "desc:$key" -> "descending"
+  else -> null
+}
+fun csTimelineMarker(state: String) = if (state == "todo") "" else if (state == "now") "→" else "✓"
+fun csTimelineShowsDetail(text: String?) = text != null && text.isNotEmpty()
+data class CsTimelineItem(val title: String, val state: String = "done", val meta: String? = null, val body: String? = null)
+
+@Composable
+fun CsTimeline(items: List<CsTimelineItem>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
+  val pack = csModePack(dark, highContrast, compact)
+  Column(modifier) {
+    items.forEach { item ->
+      val fill = if (item.state == "now") pack.colorBrandOchre else if (item.state == "todo") pack.colorSurfaceRaised else pack.colorSemanticSuccess
+      val ink = if (item.state == "now") pack.colorBrandUmber else if (item.state == "todo") pack.colorTextMuted else pack.colorSemanticSuccessFg
+      Row(verticalAlignment = Alignment.Top) {
+        Text(csTimelineMarker(item.state), color = ink.toComposeColor(), modifier = Modifier.size(26.dp).background(fill.toComposeColor(), CircleShape).then(if (item.state == "todo") Modifier.border(1.dp, pack.colorBorderDefault.toComposeColor(), CircleShape) else Modifier), textAlign = TextAlign.Center)
+        Column {
+          Text(item.title, color = pack.colorTextPrimary.toComposeColor())
+          if (csTimelineShowsDetail(item.meta)) Text(item.meta ?: "", color = pack.colorTextMuted.toComposeColor())
+          if (csTimelineShowsDetail(item.body)) Text(item.body ?: "", color = pack.colorTextMuted.toComposeColor())
+        }
+      }
+    }
+  }
+}
+
+@Composable
+fun CsToolbar(
+  items: List<String>,
+  onSelect: (String) -> Unit,
+  dark: Boolean,
+  highContrast: Boolean,
+  compact: Boolean,
+  modifier: Modifier = Modifier,
+  label: String? = null,
+  overflowAfter: Int? = null,
+  language: String? = null,
+) {
+  val pack = csModePack(dark, highContrast, compact)
+  val moreName = csToolbarCopy("more", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
+  val head = items.take(csToolbarCut(items.size, overflowAfter))
+  val extra = csToolbarTail(items, overflowAfter)
+  val actionable = head.mapIndexedNotNull { index, item -> if (item == "-") null else index }
+  var focus by remember { mutableIntStateOf(actionable.firstOrNull() ?: 0) }
+  var open by remember { mutableStateOf(false) }
+  Column(modifier) {
+    Row(Modifier.semantics { contentDescription = label ?: "" }) {
+      head.forEachIndexed { index, item ->
+        if (item == "-") {
+          androidx.compose.foundation.layout.Box(Modifier.padding(horizontal = 4.dp).size(1.dp, 24.dp).background(pack.colorBorderDefault.toComposeColor()).clearAndSetSemantics {})
+        } else {
+          CsTriggerButton(title = item, onClick = { focus = index; onSelect(item) }, modifier = Modifier.minimumInteractiveComponentSize()) {
+            Text(item, color = if (focus == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
+          }
+        }
+      }
+      if (extra.isNotEmpty()) {
+        CsTriggerButton(title = moreName, onClick = { open = !open }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = moreName; stateDescription = if (open) "true" else "false" }) {
+          Text(moreName, modifier = Modifier.clearAndSetSemantics {})
+        }
+      }
+    }
+    if (open && extra.isNotEmpty()) {
+      extra.forEach { item ->
+        CsTriggerButton(title = item, onClick = { open = false; onSelect(item) }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(item) }
+      }
+    }
+  }
+}

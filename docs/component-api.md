@@ -18,7 +18,7 @@ The public contract for a selected export is its adjacent `.d.ts`, `.jsx` and `.
 
 For components that declare `value`, `defaultValue` and `onChange`, `value` is controlled state, `defaultValue` seeds local state and `onChange` reports changes. The callback argument comes from that component's declaration: it can be a scalar, collection or event. Never substitute a native DOM event for a declared value callback. Do not switch controlled/local ownership during a mount. [Consuming](consuming.md) describes current ownership exceptions and form integration.
 
-Open-state APIs vary: some overlays require `open` and use `onClose`; others declare `open`, `defaultOpen` and `onOpenChange`. `onDismiss`, `onClose` and `onOpenChange` are distinct contracts. Awaited form callbacks accept the declared asynchronous return type. Use the declaration for the selected export rather than assuming every component supports an ownership triplet.
+Open-state callbacks share `onOpenChange(open)`. Dialog, Drawer, Tour, CommandPalette, Toast and Alert accept it. `onClose` remains a supported zero-argument alias and still runs after `onOpenChange(false)`. Alert's `onDismiss` remains a supported click handler and still runs after those two. Awaited form callbacks accept the declared asynchronous return type. Use the declaration for the selected export rather than assuming every component supports an ownership triplet.
 
 ## Composition, refs and native attributes
 

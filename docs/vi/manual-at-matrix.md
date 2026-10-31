@@ -15,3 +15,5 @@ Kiểm tra tính toàn vẹn từ chối hàng thiếu/trùng, bản dịch tr�
 Reviewer ghi commit source chính xác, người kiểm tra, ngày, phiên bản OS, browser và công nghệ hỗ trợ, ngôn ngữ/theme/state, chuỗi thao tác, hành vi speech/focus quan sát được và tham chiếu bằng chứng. Chỉ dùng `passed` sau lượt chạy thủ công đó, `failed` khi quan sát lỗi, `blocked` khi thiếu môi trường hoặc scope chưa rõ. Giữ quan sát và bằng chứng lỗi; lượt kiểm lại là attestation mới. Trường trống vẫn pending.
 
 Chạy `node _audit/ci/test-manual-at-matrix.mjs` để kiểm tra hình dạng record và từ chối hàng hoàn tất thiếu bằng chứng. Đây là kiểm tra tính toàn vẹn, không phải test screen reader hay chấp nhận AT. `_audit/a11y-gate.html` và `_audit/at-kit-probe.html` vẫn là proxy lập trình có verdict riêng.
+
+Xuất bản chạy `node scripts/require-manual-at-publication.mjs`. Bản phát hành bị từ chối khi còn hàng AT-01–AT-16 chưa `passed` kèm bằng chứng. Hàng pending, failed và blocked không được xuất bản. Kiểm tra này không tạo ra quan sát thủ công.

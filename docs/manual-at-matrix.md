@@ -15,3 +15,5 @@ The integrity test rejects missing/duplicate rows, empty translations, missing t
 A reviewer records the exact source commit, reviewer, date, OS, browser and assistive-technology versions, language/theme/state, task sequence, observed speech/focus behavior and evidence references. Use `passed` only after that manual run, `failed` for an observed failure and `blocked` for a missing environment or unresolved scope. Keep observations and failing evidence; a later recheck is a new attestation. Empty fields remain pending.
 
 Run `node _audit/ci/test-manual-at-matrix.mjs` to verify record shape and reject completed rows without evidence. This integrity check is not a screen-reader test and does not certify AT acceptance. `_audit/a11y-gate.html` and `_audit/at-kit-probe.html` remain programmatic proxies with separate verdicts.
+
+Publication runs `node scripts/require-manual-at-publication.mjs`. The release is refused while any AT-01–AT-16 row is not `passed` with evidence. Pending, failed, and blocked rows stay unpublished. The check does not create the manual observations.

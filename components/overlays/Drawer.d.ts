@@ -10,6 +10,9 @@ import type { ReactNode } from "react";
  */
 export interface DrawerProps {
   open: boolean;
+  /** Called with `false` when the drawer asks to close. Preferred open-state callback. */
+  onOpenChange?: (open: boolean) => void;
+  /** @deprecated Still supported. Called after `onOpenChange(false)` when the drawer closes. */
   onClose?: () => void;
   title?: ReactNode;
   side?: "right" | "left";

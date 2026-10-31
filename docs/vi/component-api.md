@@ -18,7 +18,7 @@ Hợp đồng công khai cho export được chọn là bộ ba `.d.ts`, `.jsx`,
 
 Với component khai báo `value`, `defaultValue`, `onChange`, `value` là state controlled, `defaultValue` khởi tạo state local, `onChange` báo thay đổi. Đối số callback theo khai báo từng component: có thể là scalar, collection hoặc event. Không thay DOM event native cho callback khai báo trả giá trị. Không chuyển quyền quản lý controlled/local trong một lần mount. [Consuming](consuming.md) mô tả ngoại lệ hiện tại và tích hợp form.
 
-API open-state khác nhau: một số overlay yêu cầu `open` và dùng `onClose`; số khác khai báo `open`, `defaultOpen`, `onOpenChange`. `onDismiss`, `onClose`, `onOpenChange` là hợp đồng riêng. Callback form được await chấp nhận kiểu trả về bất đồng bộ đã khai báo. Dùng khai báo của export được chọn thay vì giả định mọi component hỗ trợ bộ ba ownership.
+Callback open-state dùng chung `onOpenChange(open)`. Dialog, Drawer, Tour, CommandPalette, Toast và Alert nhận callback này. `onClose` vẫn là alias không tham số được hỗ trợ và vẫn chạy sau `onOpenChange(false)`. `onDismiss` của Alert vẫn là handler click được hỗ trợ và vẫn chạy sau hai callback kia. Callback form được await chấp nhận kiểu trả về bất đồng bộ đã khai báo. Dùng khai báo của export được chọn thay vì giả định mọi component hỗ trợ bộ ba ownership.
 
 ## Composition, ref và attribute native
 

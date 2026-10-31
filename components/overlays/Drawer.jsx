@@ -6,9 +6,10 @@ import { useClientLayoutEffect } from "../_utils/use-client-layout-effect.js";
 import { cx } from "../_utils/cx.js";
 import { overlaySurfaceClass, useOverlaySurface } from "../_utils/use-overlay-surface.js";
 import { useOverlayLayer, overlayScopeContext } from "./OverlayManager.jsx";
+import { notifyClosed } from "../_utils/open-change.js";
 
 /** CyberSkill Drawer — slide-in side panel with scrim. side: right (default) | left. */
-export const Drawer = React.forwardRef(function Drawer({ open, onClose, title, side = "right", children, actions, lang, className, rootProps }, forwardedRef) {
+export const Drawer = React.forwardRef(function Drawer({ open, onClose, onOpenChange, title, side = "right", children, actions, lang, className, rootProps }, forwardedRef) {
   const [ref, L, localeMessages] = useLang(lang);
   const titleId = React.useId();
   const hasTitle = Boolean(title) || title === 0;
@@ -31,8 +32,8 @@ export const Drawer = React.forwardRef(function Drawer({ open, onClose, title, s
     for (const child of el.children) observer.observe(child);
     return () => observer.disconnect();
   }, [open, children]);
-  const closeRef = React.useRef(onClose);
-  closeRef.current = onClose;
+  const closeRef = React.useRef(null);
+  closeRef.current = () => notifyClosed(onOpenChange, onClose);
 
   const { scope } = useOverlayLayer({
     open: !!open,
@@ -48,7 +49,7 @@ export const Drawer = React.forwardRef(function Drawer({ open, onClose, title, s
   return (
     <overlayScopeContext.Provider value={scope}>
     <>
-      <div ref={backdrop} className="cs-drawer-scrim" onClick={onClose} aria-hidden="true" />
+      <div ref={backdrop} className="cs-drawer-scrim" onClick={() => closeRef.current()} aria-hidden="true" />
       {material ? <div ref={surface} className={cx("cs-overlay-surface", material)} aria-hidden="true" /> : null}
       <div
         {...mergeTargetProps({ className: cx("cs-drawer", side === "left" && "cs-drawer--left", className) }, rootProps, ["role", "tabIndex", "aria-modal", "aria-labelledby", "aria-label", "data-cs-overlay-material"])}
@@ -62,7 +63,7 @@ export const Drawer = React.forwardRef(function Drawer({ open, onClose, title, s
       >
         <div className="cs-drawer__header">
           {hasTitle ? <h2 id={titleId} className="cs-drawer__title">{title}</h2> : null}
-          <button type="button" className="cs-drawer__close" aria-label={t("close")} onClick={onClose}>
+          <button type="button" className="cs-drawer__close" aria-label={t("close")} onClick={() => closeRef.current()}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
           </button>
         </div>

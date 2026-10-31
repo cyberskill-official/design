@@ -8,6 +8,12 @@ await withBrowserFixture(async page=>{
     await page.locator('#open').focus();await page.keyboard.press('Enter');await page.locator('#terms').focus();await page.keyboard.press('Shift+Tab');
     assert.equal(await page.evaluate(()=>document.activeElement.getAttribute('aria-label')),'Close');
   });
+  await check('Dialog onOpenChange and onClose both fire',async()=>{
+    await page.evaluate(()=>{const seen=[];window.__closeSeen=seen;function App(){const[o,S]=React.useState(true);return React.createElement(CS.Dialog,{open:o,title:'Close me',onOpenChange:(next)=>{seen.push('change:'+next);if(next===false)S(false);},onClose:()=>seen.push('close')},'Body');}renderFixture(React.createElement(App));});
+    await page.getByRole('button',{name:'Close'}).click();
+    assert.deepEqual(await page.evaluate(()=>window.__closeSeen),['change:false','close']);
+    assert.equal(await page.locator('[role=dialog]').count(),0);
+  });
   await check('Dialog explicit description contract',async()=>{
     await page.evaluate(()=>renderFixture(React.createElement(CS.Dialog,{open:true,title:'FAQ','aria-describedby':'short'},React.createElement('p',{id:'short'},'Short summary'),React.createElement('dl',null,React.createElement('dt',null,'Question'),React.createElement('dd',null,'Answer')))));
     assert.equal(await page.getByRole('dialog').getAttribute('aria-describedby'),'short');
@@ -23,6 +29,10 @@ await withBrowserFixture(async page=>{
     await page.evaluate(()=>renderFixture(React.createElement(CS.Menubar,{menus:[{label:'File',items:[{label:'New'},'-',{label:'Open'}]}]})));
     await page.getByRole('menuitem',{name:'File',exact:true}).focus();await page.keyboard.press('ArrowDown');
     assert.equal(await page.evaluate(()=>document.activeElement.textContent),'New');await page.keyboard.press('ArrowDown');assert.equal(await page.evaluate(()=>document.activeElement.textContent),'Open');assert.equal(await page.getByRole('menu',{name:'File',exact:true}).count(),1);
+    assert.deepEqual(await page.evaluate(()=>[...document.querySelectorAll('[role=menu] [role=menuitem]')].map(el=>el.tabIndex)),[-1,-1]);
+    await page.keyboard.press('Tab');
+    assert.equal(await page.evaluate(()=>document.activeElement.textContent),'File');
+    assert.equal(await page.locator('[role=menu]').count(),0);
   });
 }, {browserName:process.env.CS_BROWSER || 'chromium'});
 assert.deepEqual(failures,[]);

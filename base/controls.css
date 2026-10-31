@@ -29,7 +29,7 @@
 .cs-stepper input::-webkit-outer-spin-button, .cs-stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
 /* Slider (native range) */
-.cs-slider { inline-size: 100%; accent-color: var(--_cs-light, var(--cs-color-brand-umber)) var(--_cs-dark, var(--cs-color-brand-ochre)); block-size: 22px; cursor: pointer; }
+.cs-slider { inline-size: 100%; accent-color: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); block-size: 22px; cursor: pointer; }
 .cs-slider:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 4px; border-radius: var(--cs-radius-full); box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 
 /* FileUpload / dropzone */
@@ -42,7 +42,7 @@
 /* SegmentedControl (matches Status Hub lens switcher) */
 .cs-segmented { display: inline-flex; gap: 4px; background: var(--cs-color-surface-raised); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-full); padding: 3px; }
 .cs-segmented button { border: 0; background: transparent; border-radius: var(--cs-radius-full); padding: 7px 15px; font: inherit; font-family: var(--cs-font-family-ui); font-weight: 600; font-size: var(--cs-font-size-sm); color: var(--cs-color-text-accent); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-.cs-segmented button[aria-checked="true"], .cs-segmented button[aria-pressed="true"], .cs-segmented button[aria-selected="true"] { background: var(--_cs-light, var(--cs-color-brand-umber)) var(--_cs-dark, var(--cs-color-brand-ochre)); color: var(--_cs-light, var(--cs-color-text-inverse)) var(--_cs-dark, var(--cs-color-brand-umber)); }
+.cs-segmented button[aria-checked="true"], .cs-segmented button[aria-pressed="true"], .cs-segmented button[aria-selected="true"] { background: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); color: var(--_cs-light, var(--cs-color-text-inverse))var(--_cs-dark, var(--cs-color-brand-umber)); }
 
 /* StatusIndicator */
 .cs-status { display: inline-flex; align-items: center; gap: 7px; font-family: var(--cs-font-family-ui); font-size: var(--cs-font-size-sm); font-weight: 600; color: var(--cs-color-text-primary); }
@@ -61,7 +61,7 @@
 /* ---- v3 Batch 2 inputs (Jul 2026): Toggle · Rating · InputOTP · ButtonGroup ---- */
 .cs-toggle { display: inline-flex; align-items: center; gap: 8px; font: 600 14px var(--cs-font-family-ui); color: var(--cs-color-text-primary); background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); padding: 8px 14px; min-block-size: 40px; cursor: pointer; transition: background var(--cs-duration-fast, 120ms), border-color var(--cs-duration-fast, 120ms); }
 .cs-toggle:hover { background: var(--cs-color-surface-raised); }
-.cs-toggle[aria-pressed="true"] { background: var(--_cs-light, var(--cs-accent-tint)) var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 22%, var(--cs-color-surface-panel))); border-color: var(--cs-accent); color: var(--cs-color-text-primary); }
+.cs-toggle[aria-pressed="true"] { background: var(--_cs-light, var(--cs-accent-tint))var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 22%, var(--cs-color-surface-panel))); border-color: var(--cs-accent); color: var(--cs-color-text-primary); }
 .cs-toggle:disabled { opacity: .5; cursor: not-allowed; }
 .cs-rating { display: inline-flex; gap: 4px; }
 .cs-rating button { background: none; border: 0; padding: 2px; cursor: pointer; color: var(--cs-color-border-default); display: grid; place-items: center; }
@@ -86,7 +86,7 @@
 .cs-combobox__popup { color: var(--cs-color-text-primary); position: absolute; z-index: var(--cs-depth-dropdown, 60); inset-inline: 0; inset-block-start: calc(100% + 6px); max-block-size: 240px; overflow: auto; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); box-shadow: var(--cs-shadow-md); padding: 6px; margin: 0; }
 .cs-combobox__list { padding: 0; margin: 0; list-style: none; }
 .cs-combobox__opt { padding: 8px 10px; border-radius: var(--cs-radius-sm); cursor: pointer; font-size: var(--cs-font-size-sm); }
-.cs-combobox__opt[aria-selected="true"], .cs-combobox__opt.hl { background: var(--_cs-light, var(--cs-accent-tint)) var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 22%, var(--cs-color-surface-panel))); color: var(--_cs-light, var(--cs-color-text-primary)) var(--_cs-dark, var(--cs-accent-bright)); }
+.cs-combobox__opt[aria-selected="true"], .cs-combobox__opt.hl { background: var(--_cs-light, var(--cs-accent-tint))var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 22%, var(--cs-color-surface-panel))); color: var(--_cs-light, var(--cs-color-text-primary))var(--_cs-dark, var(--cs-accent-bright)); }
 .cs-combobox__empty { padding: 10px; color: var(--cs-color-text-muted); font-size: var(--cs-font-size-sm); }
 .cs-igroup { display: inline-flex; align-items: stretch; min-inline-size: 260px; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); overflow: hidden; }
 .cs-igroup:focus-within { outline: 2px solid var(--cs-color-text-primary); outline-offset: 1px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
@@ -168,7 +168,7 @@
 .cs-anchor__title { font: 700 10.5px/1.4 var(--cs-font-family-ui); text-transform: uppercase; letter-spacing: .1em; color: var(--cs-color-text-muted); padding: 2px 12px 6px; }
 .cs-anchor__item { display: block; padding: 5px 12px; font-size: var(--cs-font-size-sm); color: var(--cs-color-text-muted); text-decoration: none; border-inline-start: 2px solid transparent; margin-inline-start: -2px; }
 .cs-anchor__item:hover { color: var(--cs-color-text-primary); }
-.cs-anchor__item.is-active { color: var(--_cs-light, var(--cs-accent-strong)) var(--_cs-dark, var(--cs-accent-bright)); border-inline-start-color: var(--cs-accent); font-weight: 600; }
+.cs-anchor__item.is-active { color: var(--_cs-light, var(--cs-accent-strong))var(--_cs-dark, var(--cs-accent-bright)); border-inline-start-color: var(--cs-accent); font-weight: 600; }
 .cs-image { position: relative; display: inline-block; overflow: hidden; border-radius: var(--cs-radius-md); background: var(--cs-color-surface-raised); max-inline-size: 100%; }
 .cs-image img { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
 .cs-image.is-loading { min-inline-size: 120px; min-block-size: 80px; animation: cs-img-shimmer 1.2s ease-in-out infinite alternate; }
@@ -246,7 +246,7 @@
 .cs-tree ul { list-style: none; margin: 0; padding: 0; }
 .cs-tree__row { display: flex; align-items: center; gap: 2px; border-radius: var(--cs-radius-sm); }
 .cs-tree__row:hover { background: var(--cs-color-surface-raised); }
-.cs-tree__row.is-selected { background: var(--_cs-light, var(--cs-accent-tint)) var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel))); }
+.cs-tree__row.is-selected { background: var(--_cs-light, var(--cs-accent-tint))var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel))); }
 .cs-tree__row.is-selected .cs-tree__label { color: var(--cs-color-text-primary); font-weight: 600; }
 .cs-tree__twist { inline-size: 20px; block-size: 28px; border: 0; background: none; color: var(--cs-color-text-muted); cursor: pointer; padding: 0; display: inline-grid; place-items: center; }
 .cs-tree__label { border: 0; background: none; color: var(--cs-color-text-primary); font: inherit; padding: 4px 6px; cursor: pointer; border-radius: var(--cs-radius-sm); }
@@ -264,7 +264,7 @@
 .cs-cascader__col + .cs-cascader__col { border-inline-start: 1px solid var(--cs-color-border-default); }
 .cs-cascader__opt { display: flex; justify-content: space-between; gap: 8px; inline-size: 100%; border: 0; background: none; text-align: start; font: 500 13.5px var(--cs-font-family-ui); color: var(--cs-color-text-primary); padding: 8px 10px; border-radius: var(--cs-radius-sm); cursor: pointer; }
 .cs-cascader__opt:hover { background: var(--cs-color-surface-raised); }
-.cs-cascader__opt.on { background: var(--_cs-light, var(--cs-accent-tint)) var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 22%, var(--cs-color-surface-panel))); color: var(--_cs-light, var(--cs-accent-strong)) var(--_cs-dark, var(--cs-accent-bright)); font-weight: 600; }
+.cs-cascader__opt.on { background: var(--_cs-light, var(--cs-accent-tint))var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 22%, var(--cs-color-surface-panel))); color: var(--_cs-light, var(--cs-accent-strong))var(--_cs-dark, var(--cs-accent-bright)); font-weight: 600; }
 .cs-transfer { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: stretch; gap: 10px; min-inline-size: 0; }
 .cs-transfer__list { border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); background: var(--cs-color-surface-panel); min-inline-size: 0; overflow-wrap: anywhere; }
 .cs-transfer__title { font: 700 12px var(--cs-font-family-ui); padding: 9px 12px; border-block-end: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-raised); border-radius: var(--cs-radius-md) var(--cs-radius-md) 0 0; }
@@ -274,7 +274,7 @@
 .cs-mentions { position: relative; display: block; max-inline-size: 420px; }
 .cs-mentions__pop { position: absolute; z-index: var(--cs-depth-dropdown, 60); inset-inline-start: 10px; inset-block-start: calc(100% - 6px); display: grid; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); box-shadow: var(--cs-shadow-md); padding: 4px; }
 .cs-mentions__pop button { border: 0; background: none; text-align: start; font: 600 13px var(--cs-font-family-mono); color: var(--cs-color-text-primary); padding: 7px 10px; border-radius: var(--cs-radius-sm); cursor: pointer; }
-.cs-mentions__pop button:hover, .cs-mentions__pop button.hl, .cs-mentions__pop button[aria-selected="true"] { background: var(--_cs-light, var(--cs-accent-tint)) var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 22%, var(--cs-color-surface-panel))); color: var(--cs-color-text-primary); }
+.cs-mentions__pop button:hover, .cs-mentions__pop button.hl, .cs-mentions__pop button[aria-selected="true"] { background: var(--_cs-light, var(--cs-accent-tint))var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 22%, var(--cs-color-surface-panel))); color: var(--cs-color-text-primary); }
 
 /* ---- v3 Batch 6c (Jul 2026): ColorPicker · Tour · QRCode ---- */
 .cs-colorpicker { position: relative; display: inline-block; }
@@ -321,7 +321,7 @@
 .cs-datagrid__check { display: inline-flex; align-items: center; justify-content: center; }
 .cs-datagrid__selcol { inline-size: 36px; text-align: center; }
 .cs-datagrid__sort { border: 0; background: none; font: inherit; color: inherit; cursor: pointer; padding: 0; }
-.cs-datagrid tr.is-selected td { background: var(--_cs-light, var(--cs-accent-tint)) var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel))); }
+.cs-datagrid tr.is-selected td { background: var(--_cs-light, var(--cs-accent-tint))var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel))); }
 .cs-treetable .cs-treetable__cell { display: inline-flex; align-items: center; gap: 2px; }
 .cs-sortable { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; max-inline-size: 380px; }
 .cs-sortable__item { display: flex; align-items: center; gap: 10px; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); padding: 10px 12px; font-size: var(--cs-font-size-sm); color: var(--cs-color-text-primary); cursor: grab; }

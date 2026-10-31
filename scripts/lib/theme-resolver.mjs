@@ -14,7 +14,10 @@ function palette(file, selector) {
   return declarations(css.slice(start+selector.length+2,css.indexOf('}',start)));
 }
 const channel=(mode,key)=>`--_cs-${mode}-${key.slice(5)}`;
-const choose=(key)=>`var(--_cs-light, var(${channel('light',key)})) var(--_cs-dark, var(${channel('dark',key)}))`;
+// No stylesheet space between channels. A space survives as a second
+// background-shorthand layer when the inactive channel substitutes nothing,
+// and Chromium then keeps the previous used color across a theme toggle.
+const choose=(key)=>`var(--_cs-light, var(${channel('light',key)}))var(--_cs-dark, var(${channel('dark',key)}))`;
 const lines=map=>Object.entries(map).map(([k,v])=>`  ${k}: ${v};`).join('\n');
 export function emitThemeResolver(root,packs,roleKeys) {
   assertThemePaletteFreshness(root);
@@ -73,8 +76,8 @@ export function emitThemeResolver(root,packs,roleKeys) {
   const contrasts=readContrastMaps(root);
   for(const [key,lo] of Object.entries(contrasts['high-light'])){
     const hi=contrasts['high-dark'][key];
-    bindings[key]=`var(--_cs-standard, ${choose(key)}) var(--_cs-high, var(--_cs-light, ${lo}) var(--_cs-dark, ${hi}))`;
+    bindings[key]=`var(--_cs-standard, ${choose(key)})var(--_cs-high, var(--_cs-light, ${lo})var(--_cs-dark, ${hi}))`;
   }
-  css+=`\n:is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant]) {\n${lines(bindings)}\n  color-scheme: var(--_cs-light, light) var(--_cs-dark, dark);\n}\n`;
+  css+=`\n:is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant]) {\n${lines(bindings)}\n  color-scheme: var(--_cs-light, light)var(--_cs-dark, dark);\n}\n`;
   return css;
 }

@@ -25,12 +25,12 @@
   --cs-font-weight-extrabold: 800;
 
   /* Line-heights (Vietnamese-safe) */
-  --cs-font-lineHeight-body: 1.5;
-  --cs-font-line-height-body: var(--cs-font-lineHeight-body);
-  --cs-font-lineHeight-heading: 1.35;
-  --cs-font-line-height-heading: var(--cs-font-lineHeight-heading);
-  --cs-font-lineHeight-tight: 1.15;
-  --cs-font-line-height-tight: var(--cs-font-lineHeight-tight);
+  --cs-font-lineHeight-body: var(--cs-font-line-height-body);
+  --cs-font-line-height-body: 1.5;
+  --cs-font-lineHeight-heading: var(--cs-font-line-height-heading);
+  --cs-font-line-height-heading: 1.35;
+  --cs-font-lineHeight-tight: var(--cs-font-line-height-tight);
+  --cs-font-line-height-tight: 1.15;
 
   /* Size ramp (rem-based, 16px root) */
   --cs-font-size-2xs: 0.6875rem; /* 11 — micro numerals only (documented exception) */

@@ -13,11 +13,8 @@ const root=fileURLToPath(new URL('../../',import.meta.url)),read=p=>readFileSync
 const pairs=JSON.parse(read('_audit/ci/fixtures/a01-token-aliases/aliases.json')).aliases,inventory=JSON.parse(read('tokens/base-inventory.json'));
 assert.deepEqual(Object.values(inventory.groups).flatMap(g=>Object.keys(g)).filter(n=>/[A-Z]/.test(n)).sort(),pairs.map(p=>p.legacy).sort());
 const json=projectBaseTokens(collectTokenDeclarations(root),{root:{}},inventory),doc=projectDtcg(JSON.parse(read('tokens/tokens.dtcg.json')),json,inventory).doc;
-// These aliases rebind in the existing authored density scopes, preserving each
-// native density metric rather than exporting a reference/string placeholder.
-for(const scope of ['compact','comfortable'])for(const p of pairs)if(Object.hasOwn(doc.$extensions['com.cyberskill'].overrides.densities[scope],p.legacy))doc.$extensions['com.cyberskill'].overrides.densities[scope][p.alias]=`var(${p.legacy})`;
 for(const p of pairs){const d=doc[p.group][p.alias];assert.equal(nativeTokenName(p.alias,d),nativeTokenName(p.legacy)+'Alias');assert.equal(d.$extensions['com.cyberskill'].nativeFormat,undefined);}
-for(const mutate of [d=>delete d.$extensions['com.cyberskill'].nativeAliasOf,d=>d.$extensions['com.cyberskill'].nativeName='arbitrary',d=>d.$extensions['com.cyberskill'].css='4px',d=>d.$type='color']){const p=pairs[0],d=structuredClone(doc[p.group][p.alias]);mutate(d);assert.throws(()=>nativeTokenName(p.alias,d),/Invalid native alias/);}
+for(const mutate of [d=>delete d.$extensions['com.cyberskill'].nativeAliasOf,d=>d.$extensions['com.cyberskill'].nativeName='arbitrary',d=>d.$extensions['com.cyberskill'].css='var(--cs-unrelated)',d=>d.$type='color']){const p=pairs[0],d=structuredClone(doc[p.group][p.alias]);mutate(d);assert.throws(()=>nativeTokenName(p.alias,d),/Invalid native alias/);}
 assert.throws(()=>assertUniqueNativeNames([{name:'duplicate'},{name:'duplicate'}]),/collision/);
 // Execute the independent browser-gate naming implementation, not the producer.
 const board=read('_audit/token-pipeline-test.html'),start=board.indexOf('function nativeName('),end=board.indexOf('const parseColor=',start);
@@ -41,7 +38,7 @@ try{
   }
  }
  // Omitting reviewed native metadata must fail on the real collision before any output.
- const bad=structuredClone(doc);delete bad[pairs[0].group][pairs[0].alias].$extensions['com.cyberskill'].nativeAliasOf;delete bad[pairs[0].group][pairs[0].alias].$extensions['com.cyberskill'].nativeName;bad[pairs[0].group][pairs[0].alias].$extensions['com.cyberskill'].nativeFormat='css';writeFileSync(join(scratch,'tokens/tokens.dtcg.json'),JSON.stringify(bad));
+ const bad=structuredClone(doc);const aliasDef=bad[pairs[0].group][pairs[0].alias],legacyDef=bad[pairs[0].group][pairs[0].legacy];delete aliasDef.$extensions['com.cyberskill'].nativeAliasOf;delete aliasDef.$extensions['com.cyberskill'].nativeName;legacyDef.$value=`{${pairs[0].group}.${pairs[0].alias}}`;legacyDef.$extensions['com.cyberskill'].nativeFormat='css';writeFileSync(join(scratch,'tokens/tokens.dtcg.json'),JSON.stringify(bad));
  const before=readFileSync(join(scratch,'tokens/native/CSTokens.swift'),'utf8'),failed=spawnSync(process.execPath,['_audit/ci/generate-native-tokens.mjs'],{cwd:scratch,encoding:'utf8'});assert.notEqual(failed.status,0);assert.match(failed.stderr,/identifier collision/);assert.equal(readFileSync(join(scratch,'tokens/native/CSTokens.swift'),'utf8'),before);
  console.log('PASS22 typed native aliases, all established constants byte-identical in3targets, both density scopes, metadata and real fail-before-write collision negatives');
 }finally{rmSync(scratch,{recursive:true,force:true});}

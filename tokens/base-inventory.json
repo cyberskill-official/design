@@ -161,7 +161,7 @@
       },
       "--cs-component-button-xs-padding-y": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-xs-paddingY.",
+        "$description": "Owns the value. --cs-component-button-xs-paddingY reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-xs-paddingY",
@@ -171,7 +171,7 @@
       },
       "--cs-component-button-xs-padding-x": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-xs-paddingX.",
+        "$description": "Owns the value. --cs-component-button-xs-paddingX reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-xs-paddingX",
@@ -181,7 +181,7 @@
       },
       "--cs-component-button-xs-min-height": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-xs-minHeight.",
+        "$description": "Owns the value. --cs-component-button-xs-minHeight reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-xs-minHeight",
@@ -191,7 +191,7 @@
       },
       "--cs-component-button-xs-min-width": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-xs-minWidth.",
+        "$description": "Owns the value. --cs-component-button-xs-minWidth reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-xs-minWidth",
@@ -201,7 +201,7 @@
       },
       "--cs-component-button-xs-min-height-coarse": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-xs-minHeight-coarse.",
+        "$description": "Owns the value. --cs-component-button-xs-minHeight-coarse reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-xs-minHeight-coarse",
@@ -211,7 +211,7 @@
       },
       "--cs-component-button-sm-padding-y": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-sm-paddingY.",
+        "$description": "Owns the value. --cs-component-button-sm-paddingY reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-sm-paddingY",
@@ -221,7 +221,7 @@
       },
       "--cs-component-button-sm-padding-x": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-sm-paddingX.",
+        "$description": "Owns the value. --cs-component-button-sm-paddingX reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-sm-paddingX",
@@ -231,7 +231,7 @@
       },
       "--cs-component-button-sm-min-height": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-sm-minHeight.",
+        "$description": "Owns the value. --cs-component-button-sm-minHeight reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-sm-minHeight",
@@ -241,7 +241,7 @@
       },
       "--cs-component-button-sm-min-height-coarse": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-sm-minHeight-coarse.",
+        "$description": "Owns the value. --cs-component-button-sm-minHeight-coarse reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-sm-minHeight-coarse",
@@ -251,7 +251,7 @@
       },
       "--cs-component-button-md-padding-y": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-md-paddingY.",
+        "$description": "Owns the value. --cs-component-button-md-paddingY reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-md-paddingY",
@@ -261,7 +261,7 @@
       },
       "--cs-component-button-md-padding-x": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-md-paddingX.",
+        "$description": "Owns the value. --cs-component-button-md-paddingX reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-md-paddingX",
@@ -271,7 +271,7 @@
       },
       "--cs-component-button-md-min-height": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-md-minHeight.",
+        "$description": "Owns the value. --cs-component-button-md-minHeight reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-md-minHeight",
@@ -281,7 +281,7 @@
       },
       "--cs-component-button-md-min-height-coarse": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-md-minHeight-coarse.",
+        "$description": "Owns the value. --cs-component-button-md-minHeight-coarse reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-md-minHeight-coarse",
@@ -291,7 +291,7 @@
       },
       "--cs-component-button-lg-padding-y": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-lg-paddingY.",
+        "$description": "Owns the value. --cs-component-button-lg-paddingY reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-lg-paddingY",
@@ -301,7 +301,7 @@
       },
       "--cs-component-button-lg-padding-x": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-lg-paddingX.",
+        "$description": "Owns the value. --cs-component-button-lg-paddingX reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-lg-paddingX",
@@ -311,7 +311,7 @@
       },
       "--cs-component-button-lg-min-height": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-button-lg-minHeight.",
+        "$description": "Owns the value. --cs-component-button-lg-minHeight reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-button-lg-minHeight",
@@ -321,7 +321,7 @@
       },
       "--cs-component-textfield-padding-y": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-textfield-paddingY.",
+        "$description": "Owns the value. --cs-component-textfield-paddingY reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-textfield-paddingY",
@@ -331,7 +331,7 @@
       },
       "--cs-component-textfield-padding-x": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-textfield-paddingX.",
+        "$description": "Owns the value. --cs-component-textfield-paddingX reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-textfield-paddingX",
@@ -341,7 +341,7 @@
       },
       "--cs-component-textfield-min-height": {
         "$type": "dimension",
-        "$description": "Alias of --cs-component-textfield-minHeight.",
+        "$description": "Owns the value. --cs-component-textfield-minHeight reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-component-textfield-minHeight",
@@ -670,7 +670,7 @@
       },
       "--cs-font-line-height-body": {
         "$type": "number",
-        "$description": "Alias of --cs-font-lineHeight-body.",
+        "$description": "Owns the value. --cs-font-lineHeight-body reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-font-lineHeight-body",
@@ -680,7 +680,7 @@
       },
       "--cs-font-line-height-heading": {
         "$type": "number",
-        "$description": "Alias of --cs-font-lineHeight-heading.",
+        "$description": "Owns the value. --cs-font-lineHeight-heading reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-font-lineHeight-heading",
@@ -690,7 +690,7 @@
       },
       "--cs-font-line-height-tight": {
         "$type": "number",
-        "$description": "Alias of --cs-font-lineHeight-tight.",
+        "$description": "Owns the value. --cs-font-lineHeight-tight reads this name.",
         "$extensions": {
           "com.cyberskill": {
             "nativeAliasOf": "--cs-font-lineHeight-tight",

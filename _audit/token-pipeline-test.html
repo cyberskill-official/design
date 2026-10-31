@@ -30,7 +30,8 @@ const camel=css=>css.replace(/^--cs-/,'').split(/[-_]/).map((p,i)=>i?p.charAt(0)
 function nativeName(css,def){
   const e=def?.$extensions?.['com.cyberskill']||{},name=camel(css);
   if(e.nativeAliasOf===undefined&&e.nativeName===undefined)return name;
-  assert(typeof e.nativeAliasOf==='string'&&/^--cs-[\w-]+$/.test(e.nativeAliasOf)&&/[A-Z]/.test(e.nativeAliasOf)&&e.nativeAliasOf.replace(/[A-Z]/g,c=>'-'+c.toLowerCase())===css&&e.css===`var(${e.nativeAliasOf})`&&['number','dimension'].includes(def.$type)&&e.nativeName===name+'Alias','Invalid native alias '+css);
+  const followsLegacy=e.css===`var(${e.nativeAliasOf})`,ownsValue=typeof e.css==='string'&&!/^var\(/.test(e.css);
+  assert(typeof e.nativeAliasOf==='string'&&/^--cs-[\w-]+$/.test(e.nativeAliasOf)&&/[A-Z]/.test(e.nativeAliasOf)&&e.nativeAliasOf.replace(/[A-Z]/g,c=>'-'+c.toLowerCase())===css&&(followsLegacy||ownsValue)&&['number','dimension'].includes(def.$type)&&e.nativeName===name+'Alias','Invalid native alias '+css);
   return e.nativeName;
 }
 const parseColor=v=>{ let m=/^#([0-9a-f]{6})$/i.exec(v.trim()); if(m){const n=parseInt(m[1],16);return{r:n>>16&255,g:n>>8&255,b:n&255,a:1};}

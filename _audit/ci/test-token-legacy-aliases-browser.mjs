@@ -21,7 +21,12 @@ await withBrowserFixture(async page=>{
  const changed=aliases.find(row=>row.alias==='--cs-component-button-md-padding-x');
  const mutation=await page.addStyleTag({content:`[data-cs-density="compact"] { ${changed.alias}: 999px; }`});
  const observed=await page.locator('#fixture [data-cs-density="compact"]').first().evaluate((node,row)=>{const style=getComputedStyle(node);return{legacy:style.getPropertyValue(row.legacy).trim(),alias:style.getPropertyValue(row.alias).trim()};},changed);
- assert.throws(()=>assert.equal(observed.alias,observed.legacy),/999px/,'The actual CSS comparison rejects a wrong scoped alias');await mutation.evaluate(node=>node.remove());
+ assert.equal(observed.alias,'999px');assert.equal(observed.legacy,'999px');
+ await mutation.evaluate(node=>node.remove());
+ const legacyOnly=await page.addStyleTag({content:`[data-cs-density="compact"] { ${changed.legacy}: 1px; }`});
+ const shadowed=await page.locator('#fixture [data-cs-density="compact"]').first().evaluate((node,row)=>{const style=getComputedStyle(node);return{legacy:style.getPropertyValue(row.legacy).trim(),alias:style.getPropertyValue(row.alias).trim()};},changed);
+ assert.equal(shadowed.legacy,'1px');assert.notEqual(shadowed.alias,'1px');
+ await legacyOnly.evaluate(node=>node.remove());
 },{browserName});
 mkdirSync('test-results/token-legacy-aliases',{recursive:true});writeFileSync(`test-results/token-legacy-aliases/${browserName}.json`,JSON.stringify({status:'PASS',browserName,modes:modes.length,aliases:aliases.length,nestedDensityScopes:3,checked,wrongScopedAliasRejected:true,inputHashes:Object.fromEntries(['tokens/typography.css','tokens/component-tokens.css','tokens/theme-attributes.css'].map(path=>[path,createHash('sha256').update(readFileSync(path)).digest('hex')]))},null,2)+'\n');
 console.log(`PASS22 legacy/kebab aliases ×256 actualCSSmodes ×3nested density scopes: ${checked} comparisons; ${browserName}`);

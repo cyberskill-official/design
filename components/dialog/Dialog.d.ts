@@ -14,6 +14,9 @@ export interface DialogProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   children?: ReactNode;
   /** Footer actions, typically Buttons. */
   actions?: ReactNode;
+  /** Called with `false` when the dialog asks to close. Preferred open-state callback. */
+  onOpenChange?: (open: boolean) => void;
+  /** @deprecated Still supported. Called after `onOpenChange(false)` when the dialog closes. */
   onClose?: () => void;
   closeLabel?: string;
   /** Override the body description with a short description ID; an empty string opts out for structured content. */

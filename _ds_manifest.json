@@ -2911,7 +2911,7 @@
     },
     {
       "name": "--cs-font-lineHeight-body",
-      "value": "1.5",
+      "value": "var(--cs-font-line-height-body)",
       "kind": "number",
       "definedIn": "tokens/typography.css",
       "important": false,
@@ -2920,7 +2920,7 @@
     },
     {
       "name": "--cs-font-line-height-body",
-      "value": "var(--cs-font-lineHeight-body)",
+      "value": "1.5",
       "kind": "number",
       "definedIn": "tokens/typography.css",
       "important": false,
@@ -2929,7 +2929,7 @@
     },
     {
       "name": "--cs-font-lineHeight-heading",
-      "value": "1.35",
+      "value": "var(--cs-font-line-height-heading)",
       "kind": "number",
       "definedIn": "tokens/typography.css",
       "important": false,
@@ -2938,7 +2938,7 @@
     },
     {
       "name": "--cs-font-line-height-heading",
-      "value": "var(--cs-font-lineHeight-heading)",
+      "value": "1.35",
       "kind": "number",
       "definedIn": "tokens/typography.css",
       "important": false,
@@ -2947,7 +2947,7 @@
     },
     {
       "name": "--cs-font-lineHeight-tight",
-      "value": "1.15",
+      "value": "var(--cs-font-line-height-tight)",
       "kind": "number",
       "definedIn": "tokens/typography.css",
       "important": false,
@@ -2956,7 +2956,7 @@
     },
     {
       "name": "--cs-font-line-height-tight",
-      "value": "var(--cs-font-lineHeight-tight)",
+      "value": "1.15",
       "kind": "number",
       "definedIn": "tokens/typography.css",
       "important": false,
@@ -4041,7 +4041,7 @@
     },
     {
       "name": "--cs-component-button-xs-paddingY",
-      "value": "4px",
+      "value": "var(--cs-component-button-xs-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4050,7 +4050,7 @@
     },
     {
       "name": "--cs-component-button-xs-padding-y",
-      "value": "var(--cs-component-button-xs-paddingY)",
+      "value": "4px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4059,7 +4059,7 @@
     },
     {
       "name": "--cs-component-button-xs-paddingX",
-      "value": "10px",
+      "value": "var(--cs-component-button-xs-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4068,7 +4068,7 @@
     },
     {
       "name": "--cs-component-button-xs-padding-x",
-      "value": "var(--cs-component-button-xs-paddingX)",
+      "value": "10px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4077,7 +4077,7 @@
     },
     {
       "name": "--cs-component-button-xs-minHeight",
-      "value": "28px",
+      "value": "var(--cs-component-button-xs-min-height)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4086,7 +4086,7 @@
     },
     {
       "name": "--cs-component-button-xs-min-height",
-      "value": "var(--cs-component-button-xs-minHeight)",
+      "value": "28px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4095,7 +4095,7 @@
     },
     {
       "name": "--cs-component-button-xs-minWidth",
-      "value": "28px",
+      "value": "var(--cs-component-button-xs-min-width)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4104,7 +4104,7 @@
     },
     {
       "name": "--cs-component-button-xs-min-width",
-      "value": "var(--cs-component-button-xs-minWidth)",
+      "value": "28px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4113,7 +4113,7 @@
     },
     {
       "name": "--cs-component-button-xs-minHeight-coarse",
-      "value": "44px",
+      "value": "var(--cs-component-button-xs-min-height-coarse)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4122,7 +4122,7 @@
     },
     {
       "name": "--cs-component-button-xs-min-height-coarse",
-      "value": "var(--cs-component-button-xs-minHeight-coarse)",
+      "value": "44px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4131,7 +4131,7 @@
     },
     {
       "name": "--cs-component-button-sm-paddingY",
-      "value": "8px",
+      "value": "var(--cs-component-button-sm-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4140,7 +4140,7 @@
     },
     {
       "name": "--cs-component-button-sm-padding-y",
-      "value": "var(--cs-component-button-sm-paddingY)",
+      "value": "8px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4149,7 +4149,7 @@
     },
     {
       "name": "--cs-component-button-sm-paddingX",
-      "value": "14px",
+      "value": "var(--cs-component-button-sm-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4158,7 +4158,7 @@
     },
     {
       "name": "--cs-component-button-sm-padding-x",
-      "value": "var(--cs-component-button-sm-paddingX)",
+      "value": "14px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4167,7 +4167,7 @@
     },
     {
       "name": "--cs-component-button-sm-minHeight",
-      "value": "36px",
+      "value": "var(--cs-component-button-sm-min-height)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4176,7 +4176,7 @@
     },
     {
       "name": "--cs-component-button-sm-min-height",
-      "value": "var(--cs-component-button-sm-minHeight)",
+      "value": "36px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4185,7 +4185,7 @@
     },
     {
       "name": "--cs-component-button-sm-minHeight-coarse",
-      "value": "44px",
+      "value": "var(--cs-component-button-sm-min-height-coarse)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4194,7 +4194,7 @@
     },
     {
       "name": "--cs-component-button-sm-min-height-coarse",
-      "value": "var(--cs-component-button-sm-minHeight-coarse)",
+      "value": "44px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4203,7 +4203,7 @@
     },
     {
       "name": "--cs-component-button-md-paddingY",
-      "value": "12px",
+      "value": "var(--cs-component-button-md-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4212,7 +4212,7 @@
     },
     {
       "name": "--cs-component-button-md-padding-y",
-      "value": "var(--cs-component-button-md-paddingY)",
+      "value": "12px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4221,7 +4221,7 @@
     },
     {
       "name": "--cs-component-button-md-paddingX",
-      "value": "20px",
+      "value": "var(--cs-component-button-md-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4230,7 +4230,7 @@
     },
     {
       "name": "--cs-component-button-md-padding-x",
-      "value": "var(--cs-component-button-md-paddingX)",
+      "value": "20px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4239,7 +4239,7 @@
     },
     {
       "name": "--cs-component-button-md-minHeight",
-      "value": "44px",
+      "value": "var(--cs-component-button-md-min-height)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4248,7 +4248,7 @@
     },
     {
       "name": "--cs-component-button-md-min-height",
-      "value": "var(--cs-component-button-md-minHeight)",
+      "value": "44px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4257,7 +4257,7 @@
     },
     {
       "name": "--cs-component-button-md-minHeight-coarse",
-      "value": "44px",
+      "value": "var(--cs-component-button-md-min-height-coarse)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4266,7 +4266,7 @@
     },
     {
       "name": "--cs-component-button-md-min-height-coarse",
-      "value": "var(--cs-component-button-md-minHeight-coarse)",
+      "value": "44px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4275,7 +4275,7 @@
     },
     {
       "name": "--cs-component-button-lg-paddingY",
-      "value": "16px",
+      "value": "var(--cs-component-button-lg-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4284,7 +4284,7 @@
     },
     {
       "name": "--cs-component-button-lg-padding-y",
-      "value": "var(--cs-component-button-lg-paddingY)",
+      "value": "16px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4293,7 +4293,7 @@
     },
     {
       "name": "--cs-component-button-lg-paddingX",
-      "value": "28px",
+      "value": "var(--cs-component-button-lg-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4302,7 +4302,7 @@
     },
     {
       "name": "--cs-component-button-lg-padding-x",
-      "value": "var(--cs-component-button-lg-paddingX)",
+      "value": "28px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4311,7 +4311,7 @@
     },
     {
       "name": "--cs-component-button-lg-minHeight",
-      "value": "52px",
+      "value": "var(--cs-component-button-lg-min-height)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4320,7 +4320,7 @@
     },
     {
       "name": "--cs-component-button-lg-min-height",
-      "value": "var(--cs-component-button-lg-minHeight)",
+      "value": "52px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4338,7 +4338,7 @@
     },
     {
       "name": "--cs-component-textfield-paddingY",
-      "value": "10px",
+      "value": "var(--cs-component-textfield-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4347,7 +4347,7 @@
     },
     {
       "name": "--cs-component-textfield-padding-y",
-      "value": "var(--cs-component-textfield-paddingY)",
+      "value": "10px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4356,7 +4356,7 @@
     },
     {
       "name": "--cs-component-textfield-paddingX",
-      "value": "12px",
+      "value": "var(--cs-component-textfield-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4365,7 +4365,7 @@
     },
     {
       "name": "--cs-component-textfield-padding-x",
-      "value": "var(--cs-component-textfield-paddingX)",
+      "value": "12px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4374,7 +4374,7 @@
     },
     {
       "name": "--cs-component-textfield-minHeight",
-      "value": "44px",
+      "value": "var(--cs-component-textfield-min-height)",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4383,7 +4383,7 @@
     },
     {
       "name": "--cs-component-textfield-min-height",
-      "value": "var(--cs-component-textfield-minHeight)",
+      "value": "44px",
       "kind": "dimension",
       "definedIn": "tokens/component-tokens.css",
       "important": false,
@@ -4560,7 +4560,7 @@
     },
     {
       "name": "--cs-color-brand-umber",
-      "value": "var(--_cs-light, var(--_cs-light-color-brand-umber)) var(--_cs-dark, var(--_cs-dark-color-brand-umber))",
+      "value": "var(--_cs-light, var(--_cs-light-color-brand-umber))var(--_cs-dark, var(--_cs-dark-color-brand-umber))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4570,7 +4570,7 @@
     },
     {
       "name": "--cs-color-brand-ochre",
-      "value": "var(--_cs-light, var(--_cs-light-color-brand-ochre)) var(--_cs-dark, var(--_cs-dark-color-brand-ochre))",
+      "value": "var(--_cs-light, var(--_cs-light-color-brand-ochre))var(--_cs-dark, var(--_cs-dark-color-brand-ochre))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4580,7 +4580,7 @@
     },
     {
       "name": "--cs-color-surface-page",
-      "value": "var(--_cs-light, var(--_cs-light-color-surface-page)) var(--_cs-dark, var(--_cs-dark-color-surface-page))",
+      "value": "var(--_cs-light, var(--_cs-light-color-surface-page))var(--_cs-dark, var(--_cs-dark-color-surface-page))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4590,7 +4590,7 @@
     },
     {
       "name": "--cs-color-surface-panel",
-      "value": "var(--_cs-light, var(--_cs-light-color-surface-panel)) var(--_cs-dark, var(--_cs-dark-color-surface-panel))",
+      "value": "var(--_cs-light, var(--_cs-light-color-surface-panel))var(--_cs-dark, var(--_cs-dark-color-surface-panel))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4600,7 +4600,7 @@
     },
     {
       "name": "--cs-color-surface-raised",
-      "value": "var(--_cs-light, var(--_cs-light-color-surface-raised)) var(--_cs-dark, var(--_cs-dark-color-surface-raised))",
+      "value": "var(--_cs-light, var(--_cs-light-color-surface-raised))var(--_cs-dark, var(--_cs-dark-color-surface-raised))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4610,7 +4610,7 @@
     },
     {
       "name": "--cs-color-text-primary",
-      "value": "var(--_cs-light, var(--_cs-light-color-text-primary)) var(--_cs-dark, var(--_cs-dark-color-text-primary))",
+      "value": "var(--_cs-light, var(--_cs-light-color-text-primary))var(--_cs-dark, var(--_cs-dark-color-text-primary))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4620,7 +4620,7 @@
     },
     {
       "name": "--cs-color-text-inverse",
-      "value": "var(--_cs-light, var(--_cs-light-color-text-inverse)) var(--_cs-dark, var(--_cs-dark-color-text-inverse))",
+      "value": "var(--_cs-light, var(--_cs-light-color-text-inverse))var(--_cs-dark, var(--_cs-dark-color-text-inverse))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4630,7 +4630,7 @@
     },
     {
       "name": "--cs-color-text-accent",
-      "value": "var(--_cs-light, var(--_cs-light-color-text-accent)) var(--_cs-dark, var(--_cs-dark-color-text-accent))",
+      "value": "var(--_cs-light, var(--_cs-light-color-text-accent))var(--_cs-dark, var(--_cs-dark-color-text-accent))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4640,7 +4640,7 @@
     },
     {
       "name": "--cs-color-text-muted",
-      "value": "var(--_cs-standard, var(--_cs-light, var(--_cs-light-color-text-muted)) var(--_cs-dark, var(--_cs-dark-color-text-muted))) var(--_cs-high, var(--_cs-light, #45210E) var(--_cs-dark, #F5EAD9))",
+      "value": "var(--_cs-standard, var(--_cs-light, var(--_cs-light-color-text-muted))var(--_cs-dark, var(--_cs-dark-color-text-muted)))var(--_cs-high, var(--_cs-light, #45210E)var(--_cs-dark, #F5EAD9))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4650,7 +4650,7 @@
     },
     {
       "name": "--cs-color-semantic-success",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-success)) var(--_cs-dark, var(--_cs-dark-color-semantic-success))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-success))var(--_cs-dark, var(--_cs-dark-color-semantic-success))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4660,7 +4660,7 @@
     },
     {
       "name": "--cs-color-semantic-danger",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-danger)) var(--_cs-dark, var(--_cs-dark-color-semantic-danger))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-danger))var(--_cs-dark, var(--_cs-dark-color-semantic-danger))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4670,7 +4670,7 @@
     },
     {
       "name": "--cs-color-semantic-warning",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-warning)) var(--_cs-dark, var(--_cs-dark-color-semantic-warning))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-warning))var(--_cs-dark, var(--_cs-dark-color-semantic-warning))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4680,7 +4680,7 @@
     },
     {
       "name": "--cs-color-semantic-info",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-info)) var(--_cs-dark, var(--_cs-dark-color-semantic-info))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-info))var(--_cs-dark, var(--_cs-dark-color-semantic-info))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4690,7 +4690,7 @@
     },
     {
       "name": "--cs-color-semantic-success-fg",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-success-fg)) var(--_cs-dark, var(--_cs-dark-color-semantic-success-fg))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-success-fg))var(--_cs-dark, var(--_cs-dark-color-semantic-success-fg))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4700,7 +4700,7 @@
     },
     {
       "name": "--cs-color-semantic-danger-fg",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-danger-fg)) var(--_cs-dark, var(--_cs-dark-color-semantic-danger-fg))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-danger-fg))var(--_cs-dark, var(--_cs-dark-color-semantic-danger-fg))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4710,7 +4710,7 @@
     },
     {
       "name": "--cs-color-semantic-warning-fg",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-warning-fg)) var(--_cs-dark, var(--_cs-dark-color-semantic-warning-fg))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-warning-fg))var(--_cs-dark, var(--_cs-dark-color-semantic-warning-fg))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4720,7 +4720,7 @@
     },
     {
       "name": "--cs-color-semantic-info-fg",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-info-fg)) var(--_cs-dark, var(--_cs-dark-color-semantic-info-fg))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-info-fg))var(--_cs-dark, var(--_cs-dark-color-semantic-info-fg))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4730,7 +4730,7 @@
     },
     {
       "name": "--cs-color-semantic-success-text",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-success-text)) var(--_cs-dark, var(--_cs-dark-color-semantic-success-text))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-success-text))var(--_cs-dark, var(--_cs-dark-color-semantic-success-text))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4740,7 +4740,7 @@
     },
     {
       "name": "--cs-color-semantic-danger-text",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-danger-text)) var(--_cs-dark, var(--_cs-dark-color-semantic-danger-text))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-danger-text))var(--_cs-dark, var(--_cs-dark-color-semantic-danger-text))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4750,7 +4750,7 @@
     },
     {
       "name": "--cs-color-semantic-warning-text",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-warning-text)) var(--_cs-dark, var(--_cs-dark-color-semantic-warning-text))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-warning-text))var(--_cs-dark, var(--_cs-dark-color-semantic-warning-text))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4760,7 +4760,7 @@
     },
     {
       "name": "--cs-color-semantic-info-text",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-info-text)) var(--_cs-dark, var(--_cs-dark-color-semantic-info-text))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-info-text))var(--_cs-dark, var(--_cs-dark-color-semantic-info-text))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4770,7 +4770,7 @@
     },
     {
       "name": "--cs-doc-ink",
-      "value": "var(--_cs-light, var(--_cs-light-doc-ink)) var(--_cs-dark, var(--_cs-dark-doc-ink))",
+      "value": "var(--_cs-light, var(--_cs-light-doc-ink))var(--_cs-dark, var(--_cs-dark-doc-ink))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4780,7 +4780,7 @@
     },
     {
       "name": "--cs-doc-slate",
-      "value": "var(--_cs-light, var(--_cs-light-doc-slate)) var(--_cs-dark, var(--_cs-dark-doc-slate))",
+      "value": "var(--_cs-light, var(--_cs-light-doc-slate))var(--_cs-dark, var(--_cs-dark-doc-slate))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4790,7 +4790,7 @@
     },
     {
       "name": "--cs-doc-fill",
-      "value": "var(--_cs-light, var(--_cs-light-doc-fill)) var(--_cs-dark, var(--_cs-dark-doc-fill))",
+      "value": "var(--_cs-light, var(--_cs-light-doc-fill))var(--_cs-dark, var(--_cs-dark-doc-fill))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4800,7 +4800,7 @@
     },
     {
       "name": "--cs-doc-fill-ink",
-      "value": "var(--_cs-light, var(--_cs-light-doc-fill-ink)) var(--_cs-dark, var(--_cs-dark-doc-fill-ink))",
+      "value": "var(--_cs-light, var(--_cs-light-doc-fill-ink))var(--_cs-dark, var(--_cs-dark-doc-fill-ink))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4810,7 +4810,7 @@
     },
     {
       "name": "--cs-color-accent-ochre",
-      "value": "var(--_cs-light, var(--_cs-light-color-accent-ochre)) var(--_cs-dark, var(--_cs-dark-color-accent-ochre))",
+      "value": "var(--_cs-light, var(--_cs-light-color-accent-ochre))var(--_cs-dark, var(--_cs-dark-color-accent-ochre))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4820,7 +4820,7 @@
     },
     {
       "name": "--cs-color-border-default",
-      "value": "var(--_cs-standard, var(--_cs-light, var(--_cs-light-color-border-default)) var(--_cs-dark, var(--_cs-dark-color-border-default))) var(--_cs-high, var(--_cs-light, #9a8060) var(--_cs-dark, #7a6450))",
+      "value": "var(--_cs-standard, var(--_cs-light, var(--_cs-light-color-border-default))var(--_cs-dark, var(--_cs-dark-color-border-default)))var(--_cs-high, var(--_cs-light, #9a8060)var(--_cs-dark, #7a6450))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4830,7 +4830,7 @@
     },
     {
       "name": "--cs-color-link",
-      "value": "var(--_cs-light, var(--_cs-light-color-link)) var(--_cs-dark, var(--_cs-dark-color-link))",
+      "value": "var(--_cs-light, var(--_cs-light-color-link))var(--_cs-dark, var(--_cs-dark-color-link))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4840,7 +4840,7 @@
     },
     {
       "name": "--cs-color-link-hover",
-      "value": "var(--_cs-light, var(--_cs-light-color-link-hover)) var(--_cs-dark, var(--_cs-dark-color-link-hover))",
+      "value": "var(--_cs-light, var(--_cs-light-color-link-hover))var(--_cs-dark, var(--_cs-dark-color-link-hover))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4850,7 +4850,7 @@
     },
     {
       "name": "--cs-component-button-primary-bg",
-      "value": "var(--_cs-light, var(--_cs-light-component-button-primary-bg)) var(--_cs-dark, var(--_cs-dark-component-button-primary-bg))",
+      "value": "var(--_cs-light, var(--_cs-light-component-button-primary-bg))var(--_cs-dark, var(--_cs-dark-component-button-primary-bg))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4860,7 +4860,7 @@
     },
     {
       "name": "--cs-component-button-primary-fg",
-      "value": "var(--_cs-light, var(--_cs-light-component-button-primary-fg)) var(--_cs-dark, var(--_cs-dark-component-button-primary-fg))",
+      "value": "var(--_cs-light, var(--_cs-light-component-button-primary-fg))var(--_cs-dark, var(--_cs-dark-component-button-primary-fg))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4870,7 +4870,7 @@
     },
     {
       "name": "--cs-component-textfield-border-default",
-      "value": "var(--_cs-light, var(--_cs-light-component-textfield-border-default)) var(--_cs-dark, var(--_cs-dark-component-textfield-border-default))",
+      "value": "var(--_cs-light, var(--_cs-light-component-textfield-border-default))var(--_cs-dark, var(--_cs-dark-component-textfield-border-default))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4880,7 +4880,7 @@
     },
     {
       "name": "--cs-shadow-xs",
-      "value": "var(--_cs-light, var(--_cs-light-shadow-xs)) var(--_cs-dark, var(--_cs-dark-shadow-xs))",
+      "value": "var(--_cs-light, var(--_cs-light-shadow-xs))var(--_cs-dark, var(--_cs-dark-shadow-xs))",
       "kind": "shadow",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4890,7 +4890,7 @@
     },
     {
       "name": "--cs-shadow-sm",
-      "value": "var(--_cs-light, var(--_cs-light-shadow-sm)) var(--_cs-dark, var(--_cs-dark-shadow-sm))",
+      "value": "var(--_cs-light, var(--_cs-light-shadow-sm))var(--_cs-dark, var(--_cs-dark-shadow-sm))",
       "kind": "shadow",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4900,7 +4900,7 @@
     },
     {
       "name": "--cs-shadow-md",
-      "value": "var(--_cs-light, var(--_cs-light-shadow-md)) var(--_cs-dark, var(--_cs-dark-shadow-md))",
+      "value": "var(--_cs-light, var(--_cs-light-shadow-md))var(--_cs-dark, var(--_cs-dark-shadow-md))",
       "kind": "shadow",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4910,7 +4910,7 @@
     },
     {
       "name": "--cs-shadow-lg",
-      "value": "var(--_cs-light, var(--_cs-light-shadow-lg)) var(--_cs-dark, var(--_cs-dark-shadow-lg))",
+      "value": "var(--_cs-light, var(--_cs-light-shadow-lg))var(--_cs-dark, var(--_cs-dark-shadow-lg))",
       "kind": "shadow",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4920,7 +4920,7 @@
     },
     {
       "name": "--cs-shadow-xl",
-      "value": "var(--_cs-light, var(--_cs-light-shadow-xl)) var(--_cs-dark, var(--_cs-dark-shadow-xl))",
+      "value": "var(--_cs-light, var(--_cs-light-shadow-xl))var(--_cs-dark, var(--_cs-dark-shadow-xl))",
       "kind": "shadow",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4930,7 +4930,7 @@
     },
     {
       "name": "--cs-accent",
-      "value": "var(--_cs-light, var(--_cs-light-accent)) var(--_cs-dark, var(--_cs-dark-accent))",
+      "value": "var(--_cs-light, var(--_cs-light-accent))var(--_cs-dark, var(--_cs-dark-accent))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4940,7 +4940,7 @@
     },
     {
       "name": "--cs-accent-strong",
-      "value": "var(--_cs-light, var(--_cs-light-accent-strong)) var(--_cs-dark, var(--_cs-dark-accent-strong))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-strong))var(--_cs-dark, var(--_cs-dark-accent-strong))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4950,7 +4950,7 @@
     },
     {
       "name": "--cs-accent-bright",
-      "value": "var(--_cs-light, var(--_cs-light-accent-bright)) var(--_cs-dark, var(--_cs-dark-accent-bright))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-bright))var(--_cs-dark, var(--_cs-dark-accent-bright))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4960,7 +4960,7 @@
     },
     {
       "name": "--cs-accent-on",
-      "value": "var(--_cs-light, var(--_cs-light-accent-on)) var(--_cs-dark, var(--_cs-dark-accent-on))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-on))var(--_cs-dark, var(--_cs-dark-accent-on))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4970,7 +4970,7 @@
     },
     {
       "name": "--cs-accent-on-strong",
-      "value": "var(--_cs-light, var(--_cs-light-accent-on-strong)) var(--_cs-dark, var(--_cs-dark-accent-on-strong))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-on-strong))var(--_cs-dark, var(--_cs-dark-accent-on-strong))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4980,7 +4980,7 @@
     },
     {
       "name": "--cs-accent-tint",
-      "value": "var(--_cs-light, var(--_cs-light-accent-tint)) var(--_cs-dark, var(--_cs-dark-accent-tint))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-tint))var(--_cs-dark, var(--_cs-dark-accent-tint))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -4990,7 +4990,7 @@
     },
     {
       "name": "--cs-accent-ink",
-      "value": "var(--_cs-light, var(--_cs-light-accent-ink)) var(--_cs-dark, var(--_cs-dark-accent-ink))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-ink))var(--_cs-dark, var(--_cs-dark-accent-ink))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -5000,7 +5000,7 @@
     },
     {
       "name": "--cs-accent-glow",
-      "value": "var(--_cs-light, var(--_cs-light-accent-glow)) var(--_cs-dark, var(--_cs-dark-accent-glow))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-glow))var(--_cs-dark, var(--_cs-dark-accent-glow))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -5010,7 +5010,7 @@
     },
     {
       "name": "--cs-accent-grad-a",
-      "value": "var(--_cs-light, var(--_cs-light-accent-grad-a)) var(--_cs-dark, var(--_cs-dark-accent-grad-a))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-grad-a))var(--_cs-dark, var(--_cs-dark-accent-grad-a))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -5020,7 +5020,7 @@
     },
     {
       "name": "--cs-accent-grad-b",
-      "value": "var(--_cs-light, var(--_cs-light-accent-grad-b)) var(--_cs-dark, var(--_cs-dark-accent-grad-b))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-grad-b))var(--_cs-dark, var(--_cs-dark-accent-grad-b))",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
@@ -5192,7 +5192,7 @@
     },
     {
       "name": "--cs-component-button-xs-paddingY",
-      "value": "3px",
+      "value": "var(--cs-component-button-xs-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5202,7 +5202,7 @@
     },
     {
       "name": "--cs-component-button-xs-padding-y",
-      "value": "var(--cs-component-button-xs-paddingY)",
+      "value": "3px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5212,7 +5212,7 @@
     },
     {
       "name": "--cs-component-button-xs-paddingX",
-      "value": "8px",
+      "value": "var(--cs-component-button-xs-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5222,7 +5222,7 @@
     },
     {
       "name": "--cs-component-button-xs-padding-x",
-      "value": "var(--cs-component-button-xs-paddingX)",
+      "value": "8px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5232,7 +5232,7 @@
     },
     {
       "name": "--cs-component-button-sm-paddingY",
-      "value": "6px",
+      "value": "var(--cs-component-button-sm-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5242,7 +5242,7 @@
     },
     {
       "name": "--cs-component-button-sm-padding-y",
-      "value": "var(--cs-component-button-sm-paddingY)",
+      "value": "6px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5252,7 +5252,7 @@
     },
     {
       "name": "--cs-component-button-sm-paddingX",
-      "value": "12px",
+      "value": "var(--cs-component-button-sm-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5262,7 +5262,7 @@
     },
     {
       "name": "--cs-component-button-sm-padding-x",
-      "value": "var(--cs-component-button-sm-paddingX)",
+      "value": "12px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5272,7 +5272,7 @@
     },
     {
       "name": "--cs-component-button-md-paddingY",
-      "value": "10px",
+      "value": "var(--cs-component-button-md-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5282,7 +5282,7 @@
     },
     {
       "name": "--cs-component-button-md-padding-y",
-      "value": "var(--cs-component-button-md-paddingY)",
+      "value": "10px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5292,7 +5292,7 @@
     },
     {
       "name": "--cs-component-button-md-paddingX",
-      "value": "16px",
+      "value": "var(--cs-component-button-md-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5302,7 +5302,7 @@
     },
     {
       "name": "--cs-component-button-md-padding-x",
-      "value": "var(--cs-component-button-md-paddingX)",
+      "value": "16px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5312,7 +5312,7 @@
     },
     {
       "name": "--cs-component-button-lg-paddingY",
-      "value": "12px",
+      "value": "var(--cs-component-button-lg-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5322,7 +5322,7 @@
     },
     {
       "name": "--cs-component-button-lg-padding-y",
-      "value": "var(--cs-component-button-lg-paddingY)",
+      "value": "12px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5332,7 +5332,7 @@
     },
     {
       "name": "--cs-component-button-lg-paddingX",
-      "value": "22px",
+      "value": "var(--cs-component-button-lg-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5342,7 +5342,7 @@
     },
     {
       "name": "--cs-component-button-lg-padding-x",
-      "value": "var(--cs-component-button-lg-paddingX)",
+      "value": "22px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5352,7 +5352,7 @@
     },
     {
       "name": "--cs-component-textfield-paddingY",
-      "value": "8px",
+      "value": "var(--cs-component-textfield-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5362,7 +5362,7 @@
     },
     {
       "name": "--cs-component-textfield-padding-y",
-      "value": "var(--cs-component-textfield-paddingY)",
+      "value": "8px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5372,7 +5372,7 @@
     },
     {
       "name": "--cs-component-textfield-paddingX",
-      "value": "10px",
+      "value": "var(--cs-component-textfield-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5382,7 +5382,7 @@
     },
     {
       "name": "--cs-component-textfield-padding-x",
-      "value": "var(--cs-component-textfield-paddingX)",
+      "value": "10px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
@@ -5471,7 +5471,7 @@
       "sourceLine": 66
     },
     {
-      "name": "--cs-component-button-xs-paddingY",
+      "name": "--cs-component-button-xs-padding-y",
       "value": "4px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
@@ -5481,8 +5481,8 @@
       "sourceLine": 67
     },
     {
-      "name": "--cs-component-button-xs-padding-y",
-      "value": "var(--cs-component-button-xs-paddingY)",
+      "name": "--cs-component-button-xs-paddingY",
+      "value": "var(--cs-component-button-xs-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
@@ -5491,7 +5491,7 @@
       "sourceLine": 68
     },
     {
-      "name": "--cs-component-button-xs-paddingX",
+      "name": "--cs-component-button-xs-padding-x",
       "value": "10px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
@@ -5501,8 +5501,8 @@
       "sourceLine": 69
     },
     {
-      "name": "--cs-component-button-xs-padding-x",
-      "value": "var(--cs-component-button-xs-paddingX)",
+      "name": "--cs-component-button-xs-paddingX",
+      "value": "var(--cs-component-button-xs-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
@@ -5511,7 +5511,7 @@
       "sourceLine": 70
     },
     {
-      "name": "--cs-component-button-sm-paddingY",
+      "name": "--cs-component-button-sm-padding-y",
       "value": "8px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
@@ -5521,8 +5521,8 @@
       "sourceLine": 71
     },
     {
-      "name": "--cs-component-button-sm-padding-y",
-      "value": "var(--cs-component-button-sm-paddingY)",
+      "name": "--cs-component-button-sm-paddingY",
+      "value": "var(--cs-component-button-sm-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
@@ -5531,7 +5531,7 @@
       "sourceLine": 72
     },
     {
-      "name": "--cs-component-button-sm-paddingX",
+      "name": "--cs-component-button-sm-padding-x",
       "value": "14px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
@@ -5541,8 +5541,8 @@
       "sourceLine": 73
     },
     {
-      "name": "--cs-component-button-sm-padding-x",
-      "value": "var(--cs-component-button-sm-paddingX)",
+      "name": "--cs-component-button-sm-paddingX",
+      "value": "var(--cs-component-button-sm-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
@@ -5551,7 +5551,7 @@
       "sourceLine": 74
     },
     {
-      "name": "--cs-component-button-md-paddingY",
+      "name": "--cs-component-button-md-padding-y",
       "value": "12px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
@@ -5561,8 +5561,8 @@
       "sourceLine": 75
     },
     {
-      "name": "--cs-component-button-md-padding-y",
-      "value": "var(--cs-component-button-md-paddingY)",
+      "name": "--cs-component-button-md-paddingY",
+      "value": "var(--cs-component-button-md-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
@@ -5571,7 +5571,7 @@
       "sourceLine": 76
     },
     {
-      "name": "--cs-component-button-md-paddingX",
+      "name": "--cs-component-button-md-padding-x",
       "value": "20px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
@@ -5581,8 +5581,8 @@
       "sourceLine": 77
     },
     {
-      "name": "--cs-component-button-md-padding-x",
-      "value": "var(--cs-component-button-md-paddingX)",
+      "name": "--cs-component-button-md-paddingX",
+      "value": "var(--cs-component-button-md-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
@@ -5591,7 +5591,7 @@
       "sourceLine": 78
     },
     {
-      "name": "--cs-component-button-lg-paddingY",
+      "name": "--cs-component-button-lg-padding-y",
       "value": "16px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
@@ -5601,8 +5601,8 @@
       "sourceLine": 79
     },
     {
-      "name": "--cs-component-button-lg-padding-y",
-      "value": "var(--cs-component-button-lg-paddingY)",
+      "name": "--cs-component-button-lg-paddingY",
+      "value": "var(--cs-component-button-lg-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
@@ -5611,7 +5611,7 @@
       "sourceLine": 80
     },
     {
-      "name": "--cs-component-button-lg-paddingX",
+      "name": "--cs-component-button-lg-padding-x",
       "value": "28px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
@@ -5621,8 +5621,8 @@
       "sourceLine": 81
     },
     {
-      "name": "--cs-component-button-lg-padding-x",
-      "value": "var(--cs-component-button-lg-paddingX)",
+      "name": "--cs-component-button-lg-paddingX",
+      "value": "var(--cs-component-button-lg-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
@@ -5631,7 +5631,7 @@
       "sourceLine": 82
     },
     {
-      "name": "--cs-component-textfield-paddingY",
+      "name": "--cs-component-textfield-padding-y",
       "value": "10px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
@@ -5641,8 +5641,8 @@
       "sourceLine": 83
     },
     {
-      "name": "--cs-component-textfield-padding-y",
-      "value": "var(--cs-component-textfield-paddingY)",
+      "name": "--cs-component-textfield-paddingY",
+      "value": "var(--cs-component-textfield-padding-y)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
@@ -5651,7 +5651,7 @@
       "sourceLine": 84
     },
     {
-      "name": "--cs-component-textfield-paddingX",
+      "name": "--cs-component-textfield-padding-x",
       "value": "12px",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
@@ -5661,8 +5661,8 @@
       "sourceLine": 85
     },
     {
-      "name": "--cs-component-textfield-padding-x",
-      "value": "var(--cs-component-textfield-paddingX)",
+      "name": "--cs-component-textfield-paddingX",
+      "value": "var(--cs-component-textfield-padding-x)",
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",

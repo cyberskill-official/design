@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>CyberSkill — component state pixels</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="../_vendor/react/react.production.min.js" integrity="sha384-/nh8CKeV7Pk42Gpda6L4DM1JtZ2bwPOi+eh9O7+a1Y22UkGs8+mw3aW1shQ9FV30"></script>
+<script src="../_vendor/react/react-dom.production.min.js" integrity="sha384-rhLCB72qrpcezgY2QW0panvW9IeO32m94nvuDVRD/iEGHXoUbjtijL6Xi/Z5/mzu"></script>
+<script src="../_ds_bundle.js"></script>
+<style>
+  html,body{margin:0;width:909px;height:540px;overflow:hidden;background:#111111}
+  #stage{position:absolute;left:-4000px;top:0;width:720px}
+  .swatch{position:absolute;width:100px;height:80px}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+</style></head><body>
+<div id="stage"></div>
+<script>
+const NS = window[Object.keys(window).find(k => /^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
+const h = React.createElement;
+const stage = document.getElementById('stage');
+const root = ReactDOM.createRoot(stage);
+const names = ['primary', 'secondary', 'danger', 'dialog', 'menu', 'error', 'selected', 'ghost'];
+function swatch(theme, name, color) {
+  const node = document.createElement('div');
+  node.className = 'swatch';
+  const index = names.indexOf(name);
+  node.style.left = (20 + index * 110) + 'px';
+  node.style.top = (theme === 'light' ? 40 : 220) + 'px';
+  node.style.backgroundColor = color;
+  document.body.appendChild(node);
+}
+function readMounted(node, selector, property) {
+  ReactDOM.flushSync(() => root.render(node));
+  const found = document.querySelector(selector);
+  const color = getComputedStyle(found)[property];
+  ReactDOM.flushSync(() => root.render(null));
+  return color;
+}
+function paint(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const button = variant => h(NS.Button, { variant }, variant);
+  swatch(theme, 'primary', readMounted(button('primary'), '.cs-button--primary', 'backgroundColor'));
+  swatch(theme, 'secondary', readMounted(button('secondary'), '.cs-button--secondary', 'backgroundColor'));
+  swatch(theme, 'danger', readMounted(button('danger'), '.cs-button--danger', 'backgroundColor'));
+  swatch(theme, 'ghost', readMounted(button('ghost'), '.cs-button--ghost', 'color'));
+  swatch(theme, 'error', readMounted(h(NS.TextField, { label: 'Email', error: 'Required' }), '.cs-field__error', 'color'));
+  swatch(theme, 'selected', readMounted(h(NS.DataGrid, { selectable: true, selected: ['1'], columns: [{ key: 'n', header: 'Name' }], rows: [{ id: '1', n: 'An' }] }), '.cs-datagrid tr.is-selected td', 'backgroundColor'));
+  swatch(theme, 'dialog', readMounted(h(NS.Dialog, { open: true, title: 'Notice', onOpenChange() {} }, 'Body'), '.cs-dialog', 'backgroundColor'));
+  swatch(theme, 'menu', readMounted(h(NS.Menu, { open: true, onOpenChange() {}, trigger: h('button', { type: 'button' }, 'File') }, h(NS.MenuItem, null, 'Open')), '.cs-menu__list', 'backgroundColor'));
+}
+paint('light');
+paint('dark');
+window.__statepixels = { ready: true, swatches: names.length * 2 };
+</script>
+</body></html>

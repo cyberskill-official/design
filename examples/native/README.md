@@ -1,12 +1,12 @@
 # Native multi-screen sample apps
 
-Post-LAUNCH samples (VERSION tracks the repo root file) that demonstrate **Sign in → Home (wish list) → Settings** on three platforms, consuming **generated** design tokens from `tokens/native/` (not hand-copied hex).
+Post-LAUNCH samples (VERSION tracks the repo root file) that demonstrate **Sign in → Home (wish list) → Settings** on three platforms. Interactive controls come from a component library on each platform: button, text field, textarea, search field, number field, text button, link, list row, badge, divider, switch, select, checkbox, radio group, segmented control, rating, progress bar, avatar, avatar group, alert, slider, tabs, breadcrumb, pagination, steps, accordion, skeleton, spinner, tag, stat, kbd, empty state, status, result, tooltip, toast, description list, button group, data grid, tag input, confidence meter, collapsible, timeline, toolbar, menu, menubar, command palette, transfer, one-time code, carousel, tree, file upload, drawer, calendar, combobox, alert dialog, popover, list, comment, code block, sidebar, time picker, mentions, sortable list, tour, data table, popconfirm, toggle, color picker, splitter, date picker, chat message, icon, anchor, citation list, scroll area, image, logo, context menu, navigation menu, card header, card body, card footer, toast stack, back-to-top, floating action, AI disclosure, watermark, aspect ratio, dialog, and card. Tabs, segmented controls, rating, and the toolbar move selection with the same arrow, Home, and End rules as the web controls on macOS 14 and iOS 17. Those libraries resolve a generated `CSModes` pack for the explicit theme, contrast, and density. Flat `CSTokens` remain for swatches and the settings density readouts. This is not a port of every web component.
 
 | App | Path | Token source |
 |---|---|---|
-| SwiftUI | `examples/native/swiftui/` | `CSTokens.swift` (synced) |
-| Jetpack Compose | `examples/native/compose/` | `tokens/CSTokens.kt` (synced, package remapped) |
-| Flutter | `examples/native/flutter/` | `lib/tokens/cs_tokens.dart` (synced) |
+| SwiftUI | `examples/native/swiftui/` | `CSTokens.swift` in the sample; `CSModes.swift` in the `CyberSkillDesign` library |
+| Jetpack Compose | `examples/native/compose/` | `tokens/CSTokens.kt` in the app; `design/` library holds `CSModes.kt` |
+| Flutter | `examples/native/flutter/` | `lib/tokens/cs_tokens.dart` in the sample; `flutter_design` holds `cs_modes.dart` |
 
 ## Sync tokens after DTCG changes
 

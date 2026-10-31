@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v2.0.0 · source sha256 51b0bc8a8cb7b8bf…
+// release v2.0.0 · source sha256 27671e79b9683d94…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -278,26 +278,26 @@ class CSTokens {
   static const double densitySpace6Comfortable = 24;
   static const double densityControlGapComfortable = 8;
   static const double componentButtonGapComfortable = 8;
-  static const double componentButtonXsPaddingYComfortable = 4;
   static const double componentButtonXsPaddingYAliasComfortable = 4;
-  static const double componentButtonXsPaddingXComfortable = 10;
+  static const double componentButtonXsPaddingYComfortable = 4;
   static const double componentButtonXsPaddingXAliasComfortable = 10;
-  static const double componentButtonSmPaddingYComfortable = 8;
+  static const double componentButtonXsPaddingXComfortable = 10;
   static const double componentButtonSmPaddingYAliasComfortable = 8;
-  static const double componentButtonSmPaddingXComfortable = 14;
+  static const double componentButtonSmPaddingYComfortable = 8;
   static const double componentButtonSmPaddingXAliasComfortable = 14;
-  static const double componentButtonMdPaddingYComfortable = 12;
+  static const double componentButtonSmPaddingXComfortable = 14;
   static const double componentButtonMdPaddingYAliasComfortable = 12;
-  static const double componentButtonMdPaddingXComfortable = 20;
+  static const double componentButtonMdPaddingYComfortable = 12;
   static const double componentButtonMdPaddingXAliasComfortable = 20;
-  static const double componentButtonLgPaddingYComfortable = 16;
+  static const double componentButtonMdPaddingXComfortable = 20;
   static const double componentButtonLgPaddingYAliasComfortable = 16;
-  static const double componentButtonLgPaddingXComfortable = 28;
+  static const double componentButtonLgPaddingYComfortable = 16;
   static const double componentButtonLgPaddingXAliasComfortable = 28;
-  static const double componentTextfieldPaddingYComfortable = 10;
+  static const double componentButtonLgPaddingXComfortable = 28;
   static const double componentTextfieldPaddingYAliasComfortable = 10;
-  static const double componentTextfieldPaddingXComfortable = 12;
+  static const double componentTextfieldPaddingYComfortable = 10;
   static const double componentTextfieldPaddingXAliasComfortable = 12;
+  static const double componentTextfieldPaddingXComfortable = 12;
 
   // High-contrast role deltas: apply after theme and element selection
   static const Color colorBorderDefaultHighLight = Color(0xFF9A8060);

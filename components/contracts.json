@@ -151,12 +151,14 @@
       "sourcePath": "components/feedback/Alert.jsx",
       "declarationPath": "components/feedback/Alert.d.ts",
       "promptPath": "components/feedback/Alert.prompt.md",
-      "sourceSha256": "b9c0a4e67f41118230fec5abdad7f22e8a98a2a8c46420cde54c1a46759f9d91",
+      "sourceSha256": "00beec82c17f94bc99069319b0e8a3a83d90ee8f5321fad72a72344761eb3f7a",
       "authoredProps": [
         "children",
         "icon",
         "lang",
+        "onClose",
         "onDismiss",
+        "onOpenChange",
         "title",
         "variant"
       ],
@@ -446,6 +448,8 @@
           "icon",
           "children",
           "onDismiss",
+          "onClose",
+          "onOpenChange",
           "lang",
           "className"
         ],
@@ -6193,13 +6197,14 @@
       "sourcePath": "components/navigation/CommandPalette.jsx",
       "declarationPath": "components/navigation/CommandPalette.d.ts",
       "promptPath": "components/navigation/CommandPalette.prompt.md",
-      "sourceSha256": "7572bc9c884cc84b46d289947aad5d23a6b59bb222a207f7e49e4ce385eb5771",
+      "sourceSha256": "4d01c61f1a034b08686456d2fec66aa51291f7e9b0e95a9d4e8a8761c0ce9f01",
       "authoredProps": [
         "className",
         "controlRef",
         "groups",
         "lang",
         "onClose",
+        "onOpenChange",
         "open",
         "placeholder",
         "rootProps"
@@ -6213,6 +6218,7 @@
           "controlRef",
           "open",
           "onClose",
+          "onOpenChange",
           "placeholder",
           "groups",
           "lang",
@@ -6549,7 +6555,7 @@
       "sourcePath": "components/datatable/DataGrid.jsx",
       "declarationPath": "components/datatable/DataGrid.d.ts",
       "promptPath": "components/datatable/DataGrid.prompt.md",
-      "sourceSha256": "f98b241da97de25b2014cc1e28d84d1f35e4f16aeaa64d0e92961eabbc9499c5",
+      "sourceSha256": "e1c12c99dee3b1b1ab1cc81b0b8b6ba2efe8a6a9756f3d48d217366461ddd83f",
       "authoredProps": [
         "caption",
         "className",
@@ -7170,7 +7176,7 @@
       "sourcePath": "components/dialog/Dialog.jsx",
       "declarationPath": "components/dialog/Dialog.d.ts",
       "promptPath": "components/dialog/Dialog.prompt.md",
-      "sourceSha256": "975f4e5ad0d0d9eb972f3f6e2eb6bd7ecd9ee00c3520268b8355998ab801c240",
+      "sourceSha256": "69ea5f27ca854cad7c029680a522df968f491e9aeab617b6104cccf73f318f66",
       "authoredProps": [
         "actions",
         "aria-describedby",
@@ -7179,6 +7185,7 @@
         "closeLabel",
         "lang",
         "onClose",
+        "onOpenChange",
         "open",
         "title"
       ],
@@ -7466,6 +7473,7 @@
           "children",
           "actions",
           "onClose",
+          "onOpenChange",
           "className",
           "closeLabel",
           "lang"
@@ -7935,13 +7943,14 @@
       "sourcePath": "components/overlays/Drawer.jsx",
       "declarationPath": "components/overlays/Drawer.d.ts",
       "promptPath": "components/overlays/Drawer.prompt.md",
-      "sourceSha256": "a98fc2c5e5bcfc3c8ff69005bcc5018a54685bfb971690e79cd483d8ce9e1bca",
+      "sourceSha256": "4fa7fd44111751148d9c1e9e48ab4ffed0f17dd2dd64448d9ba354935969c2c1",
       "authoredProps": [
         "actions",
         "children",
         "className",
         "lang",
         "onClose",
+        "onOpenChange",
         "open",
         "rootProps",
         "side",
@@ -7955,6 +7964,7 @@
         "props": [
           "open",
           "onClose",
+          "onOpenChange",
           "title",
           "side",
           "children",
@@ -13944,7 +13954,7 @@
       "sourcePath": "components/navigation/Menubar.jsx",
       "declarationPath": "components/navigation/Menubar.d.ts",
       "promptPath": "components/navigation/Menubar.prompt.md",
-      "sourceSha256": "21b8409d336182e0706de0d4ece24d2304d1978eea42dbc313949d9a46819ea9",
+      "sourceSha256": "c53128a82420abbab20dad86abfd844d8e145544de3fbba52d8d8cba69b1574d",
       "authoredProps": [
         "aria-label",
         "aria-labelledby",
@@ -22545,11 +22555,12 @@
       "sourcePath": "components/feedback/Toast.jsx",
       "declarationPath": "components/feedback/Toast.d.ts",
       "promptPath": "components/feedback/Toast.prompt.md",
-      "sourceSha256": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
+      "sourceSha256": "600f0efdcc28bfd5118533b75046f07ce72515ab4978386825c0bbc3e2919206",
       "authoredProps": [
         "children",
         "icon",
         "onClose",
+        "onOpenChange",
         "title",
         "variant"
       ],
@@ -22839,6 +22850,7 @@
           "title",
           "icon",
           "onClose",
+          "onOpenChange",
           "lang",
           "children",
           "className"
@@ -22896,7 +22908,7 @@
       "sourcePath": "components/feedback/Toast.jsx",
       "declarationPath": "components/feedback/Toast.d.ts",
       "promptPath": "components/feedback/Toast.prompt.md",
-      "sourceSha256": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
+      "sourceSha256": "600f0efdcc28bfd5118533b75046f07ce72515ab4978386825c0bbc3e2919206",
       "authoredProps": [
         "children",
         "className",
@@ -23435,11 +23447,12 @@
       "sourcePath": "components/overlays/Tour.jsx",
       "declarationPath": "components/overlays/Tour.d.ts",
       "promptPath": "components/overlays/Tour.prompt.md",
-      "sourceSha256": "83459a653179098a298cbdbba807e2544ad3ed8ce2222934d3a61d0529fc8421",
+      "sourceSha256": "74775e9b0740f093f18283fdab036facbf8ac1370051c950807cae197b192010",
       "authoredProps": [
         "className",
         "lang",
         "onClose",
+        "onOpenChange",
         "open",
         "rootProps",
         "steps"
@@ -23453,6 +23466,7 @@
           "steps",
           "open",
           "onClose",
+          "onOpenChange",
           "lang",
           "className",
           "rootProps"

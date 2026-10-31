@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v2.0.0 · source sha256 51b0bc8a8cb7b8bf…
+// release v2.0.0 · source sha256 27671e79b9683d94…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -280,26 +280,26 @@ object CSTokens {
   val densitySpace6Comfortable = 24.dp
   val densityControlGapComfortable = 8.dp
   val componentButtonGapComfortable = 8.dp
-  val componentButtonXsPaddingYComfortable = 4.dp
   val componentButtonXsPaddingYAliasComfortable = 4.dp
-  val componentButtonXsPaddingXComfortable = 10.dp
+  val componentButtonXsPaddingYComfortable = 4.dp
   val componentButtonXsPaddingXAliasComfortable = 10.dp
-  val componentButtonSmPaddingYComfortable = 8.dp
+  val componentButtonXsPaddingXComfortable = 10.dp
   val componentButtonSmPaddingYAliasComfortable = 8.dp
-  val componentButtonSmPaddingXComfortable = 14.dp
+  val componentButtonSmPaddingYComfortable = 8.dp
   val componentButtonSmPaddingXAliasComfortable = 14.dp
-  val componentButtonMdPaddingYComfortable = 12.dp
+  val componentButtonSmPaddingXComfortable = 14.dp
   val componentButtonMdPaddingYAliasComfortable = 12.dp
-  val componentButtonMdPaddingXComfortable = 20.dp
+  val componentButtonMdPaddingYComfortable = 12.dp
   val componentButtonMdPaddingXAliasComfortable = 20.dp
-  val componentButtonLgPaddingYComfortable = 16.dp
+  val componentButtonMdPaddingXComfortable = 20.dp
   val componentButtonLgPaddingYAliasComfortable = 16.dp
-  val componentButtonLgPaddingXComfortable = 28.dp
+  val componentButtonLgPaddingYComfortable = 16.dp
   val componentButtonLgPaddingXAliasComfortable = 28.dp
-  val componentTextfieldPaddingYComfortable = 10.dp
+  val componentButtonLgPaddingXComfortable = 28.dp
   val componentTextfieldPaddingYAliasComfortable = 10.dp
-  val componentTextfieldPaddingXComfortable = 12.dp
+  val componentTextfieldPaddingYComfortable = 10.dp
   val componentTextfieldPaddingXAliasComfortable = 12.dp
+  val componentTextfieldPaddingXComfortable = 12.dp
 
   // High-contrast role deltas: apply after theme and element selection
   val colorBorderDefaultHighLight = Color(0xFF9A8060)

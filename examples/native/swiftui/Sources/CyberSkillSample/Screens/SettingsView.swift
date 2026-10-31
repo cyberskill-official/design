@@ -1,4 +1,5 @@
 import SwiftUI
+import CyberSkillDesign
 
 struct SettingsView: View {
   @EnvironmentObject private var preferences: SamplePreferences
@@ -6,6 +7,8 @@ struct SettingsView: View {
   private var colors: SampleColors { preferences.colors }
   var onSignOut: () -> Void
   @State private var compact = false
+  @State private var languageFocusId = UUID().uuidString
+  @FocusState private var languageFocused: Bool
 
   private var controlGap: CGFloat { compact ? CSTokens.densityControlGapCompact : CSTokens.densityControlGapComfortable }
   private var buttonPaddingX: CGFloat { compact ? CSTokens.componentButtonMdPaddingXCompact : CSTokens.componentButtonMdPaddingXComfortable }
@@ -23,34 +26,18 @@ struct SettingsView: View {
         .foregroundStyle(colors.colorTextMuted)
         .fixedSize(horizontal: false, vertical: true)
 
-      VStack(alignment: .leading, spacing: controlGap) {
-        Toggle(isOn: $preferences.dark) {
-          Text(preferences.text(.preferDark))
-            .foregroundStyle(colors.colorTextPrimary)
-            .fixedSize(horizontal: false, vertical: true)
-        }
-        .tint(CSTokens.colorBrandOchre)
-
-        Toggle(isOn: $compact) {
-          Text(preferences.text(.compactSpacing))
-            .fixedSize(horizontal: false, vertical: true)
-        }
-          .tint(CSTokens.colorBrandOchre)
+      CSCard(dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: compact, spacing: controlGap, padding: 16) {
+        CSSwitch(title: preferences.text(.preferDark), isOn: $preferences.dark, dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: compact)
+        CSSwitch(title: preferences.text(.compactSpacing), isOn: $compact, dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: compact)
         Text(compact ? preferences.text(.compact) : preferences.text(.comfortable))
           .foregroundStyle(colors.colorTextPrimary)
           .fixedSize(horizontal: false, vertical: true)
 
-        Menu {
-          Picker(preferences.text(.contrast), selection: $preferences.contrast) {
-            ForEach(SampleContrast.allCases, id: \.self) { option in
-              Text(preferences.text(option.label)).tag(option)
-            }
+        CSSelect(label: preferences.text(.contrast), value: preferences.text(preferences.contrast.label), selection: $preferences.contrast, dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: compact) {
+          ForEach(SampleContrast.allCases, id: \.self) { option in
+            Text(preferences.text(option.label)).tag(option)
           }
-        } label: {
-          menuLabel(preferences.text(preferences.contrast.label))
         }
-        .accessibilityLabel(preferences.text(.contrast))
-        .accessibilityValue(preferences.text(preferences.contrast.label))
 
         if dynamicTypeSize.isAccessibilitySize {
           Menu {
@@ -58,6 +45,11 @@ struct SettingsView: View {
           } label: {
             menuLabel(preferences.language == .en ? "English" : "Tiếng Việt")
           }
+          .focused($languageFocused)
+          .onChange(of: languageFocused) { isFocused in
+            if isFocused { claimLanguage() }
+          }
+          .simultaneousGesture(TapGesture().onEnded { claimLanguage() })
           .accessibilityLabel(preferences.text(.language))
           .accessibilityValue(preferences.language == .en ? "English" : "Tiếng Việt")
         } else {
@@ -83,31 +75,13 @@ struct SettingsView: View {
             .frame(width: 36, height: 24)
         }
       }
-      .padding(16)
-      .background(colors.colorSurfacePanel)
-      .clipShape(RoundedRectangle(cornerRadius: 12))
-      .overlay(
-        RoundedRectangle(cornerRadius: 12)
-          .stroke(colors.colorBorderDefault, lineWidth: 1)
-      )
 
     }
     .padding(24)
     .frame(maxWidth: .infinity, alignment: .topLeading)
     }
     .safeAreaInset(edge: .bottom) {
-      Button(action: onSignOut) {
-        Text(preferences.text(.signOut))
-          .fixedSize(horizontal: false, vertical: true)
-          .padding(.horizontal, buttonPaddingX)
-          .padding(.vertical, buttonPaddingY)
-          .frame(maxWidth: .infinity)
-          .frame(minHeight: CSTokens.componentButtonMdMinHeight)
-          .foregroundStyle(colors.colorTextInverse)
-          .background(colors.colorSemanticDanger)
-          .clipShape(RoundedRectangle(cornerRadius: CSTokens.componentButtonRadius))
-      }
-      .buttonStyle(.plain)
+      CSButton(title: preferences.text(.signOut), role: .danger, dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: compact, paddingX: buttonPaddingX, paddingY: buttonPaddingY, action: onSignOut)
       .padding(24)
       .background(colors.colorSurfacePage)
     }
@@ -115,11 +89,18 @@ struct SettingsView: View {
   }
 
   private var languagePicker: some View {
-    Picker(preferences.text(.language), selection: $preferences.language) {
+    Picker(preferences.text(.language), selection: Binding(get: { preferences.language }, set: { next in
+      claimLanguage()
+      preferences.language = next
+    })) {
       Text("English").tag(SampleLanguage.en)
       Text("Tiếng Việt").tag(SampleLanguage.vi)
     }
     .fixedSize(horizontal: false, vertical: true)
+  }
+
+  private func claimLanguage() {
+    CSFocusRegistry.shared.claim(id: languageFocusId, restore: { languageFocused = true })
   }
 
   private func menuLabel(_ value: String) -> some View {

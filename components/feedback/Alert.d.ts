@@ -11,7 +11,11 @@ export interface AlertProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "
   title?: ReactNode;
   icon?: ReactNode;
   children?: ReactNode;
-  /** Shows a dismiss button and reports its click; the parent owns removal. */
+  /** Called with `false` when the dismiss button is used. Preferred open-state callback. */
+  onOpenChange?: (open: boolean) => void;
+  /** @deprecated Still supported. Called after `onOpenChange(false)` when the banner is dismissed. */
+  onClose?: () => void;
+  /** @deprecated Still supported. Click handler called after `onOpenChange(false)` and `onClose`. Shows the dismiss button. */
   onDismiss?: React.MouseEventHandler<HTMLButtonElement>;
   /** "en" | "vi" — else resolved from the nearest [lang] ancestor (vi default). */
   lang?: string;

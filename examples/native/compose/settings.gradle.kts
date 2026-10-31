@@ -13,4 +13,5 @@ dependencyResolutionManagement {
   }
 }
 rootProject.name = "CyberSkillSample"
+include(":design")
 include(":app")

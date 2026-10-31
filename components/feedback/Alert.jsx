@@ -2,6 +2,7 @@ import { useComposedRefs } from "../_utils/refs.js";
 import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { cx } from "../_utils/cx.js";
+import { hasDismiss, notifyDismiss } from "../_utils/open-change.js";
 
 const PATHS = {
   info: "M12 8h.01M11 12h1v4h1 M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
@@ -18,7 +19,7 @@ function DefaultIcon({ variant }) {
 }
 
 /** CyberSkill Alert — inline banner. variant: info | success | warning | danger. */
-export const Alert = React.forwardRef(function Alert({ variant = "info", title, icon, children, onDismiss, lang, className, ...props }, forwardedRef) {
+export const Alert = React.forwardRef(function Alert({ variant = "info", title, icon, children, onDismiss, onClose, onOpenChange, lang, className, ...props }, forwardedRef) {
   const [ref, L, localeMessages] = useLang(lang);
   const mergedNativeRef = useComposedRefs(ref, forwardedRef);
   const t = makeT("Alert", L, localeMessages);
@@ -29,8 +30,8 @@ export const Alert = React.forwardRef(function Alert({ variant = "info", title, 
         {(title || title === 0) ? <p className="cs-alert__title">{title}</p> : null}
         {(children || children === 0) ? <div className="cs-alert__body">{children}</div> : null}
       </div>
-      {onDismiss ? (
-        <button type="button" className="cs-alert__dismiss" aria-label={t("dismiss")} onClick={onDismiss}>×</button>
+      {hasDismiss(onOpenChange, onClose, onDismiss) ? (
+        <button type="button" className="cs-alert__dismiss" aria-label={t("dismiss")} onClick={(event) => notifyDismiss(event, onOpenChange, onClose, onDismiss)}>×</button>
       ) : null}
     </div>
   );

@@ -17,7 +17,7 @@
     },
     {
       "path": "tokens/typography.css",
-      "sha256": "39ca03cb84cbac869d6e9e4084313b416c7e2ff3a9bc837cdb2e7dc6d9069efd"
+      "sha256": "49eb6c53f8837695c41e61ca8c3c92bccf8c292dcecb9bb43d81bd7c92dbf96e"
     },
     {
       "path": "tokens/spacing.css",
@@ -33,11 +33,11 @@
     },
     {
       "path": "tokens/component-tokens.css",
-      "sha256": "96a5dfef6f0f52e7c530e975443673455b0e55a5215ad045581c5f3a3dd68683"
+      "sha256": "d32c09ca6b12719e4064af6d097050f68f9feca8d4dc0fc4660bc0ecfca6db64"
     },
     {
       "path": "tokens/elements.css",
-      "sha256": "414f94c16d5325562017db708eb41a8ae4eb9389e49f5460d9aedbf53736cb82"
+      "sha256": "704d2316d9001b01bdeea45b39d6021fb6fdb2085405cdff64f0d7b424063de8"
     },
     {
       "path": "tokens/styles.css",
@@ -45,7 +45,7 @@
     },
     {
       "path": "tokens/theme-attributes.css",
-      "sha256": "33a325c8f44d049d8de0aa68c6bd7bb16925ea88f759b2348e2c116543f8c065"
+      "sha256": "fdbbfd3607c0bfec09bfa230071c092a6ced91f5ce9da6b4a4313bf1b5fdd277"
     },
     {
       "path": "base/reset.css",
@@ -57,15 +57,15 @@
     },
     {
       "path": "base/components.css",
-      "sha256": "cf66f05f5a9b8efca9822b67222f479ddf12862a27a84c67c274cb0dad8be5fd"
+      "sha256": "12cf902bc5553d1b69469f61efdacf857936e20d1bc7e467091319360fe0411e"
     },
     {
       "path": "base/forms.css",
-      "sha256": "f0d630ba97b71222ef544434f2d3c0334d74253c76dac33ccac628044707e7fb"
+      "sha256": "bc34544044436f4fdf84a2b042d51bd689617fca7d83e249fd0e81e439669d4e"
     },
     {
       "path": "base/feedback.css",
-      "sha256": "b3b28a815b0756fa070c560034784c17981500664f7e8940fbf1638f4985d083"
+      "sha256": "d6072bf4fabaaface90f3eee75cfbc93a3b6ff105923ec98a1535c4be1934e64"
     },
     {
       "path": "base/data.css",
@@ -73,7 +73,7 @@
     },
     {
       "path": "base/navigation.css",
-      "sha256": "62907b13da193a6db3e16748f2658f7d3bdb5428f5dd47b58174ebdd873807e2"
+      "sha256": "aaffc6045a14889cef15b1962437a4589854146a1e5b66c51f2c75dc486a6474"
     },
     {
       "path": "base/ai.css",
@@ -81,15 +81,15 @@
     },
     {
       "path": "base/controls.css",
-      "sha256": "bb6c44713afdc74d6170507a07a46c1111b833e7ae11899fb9ef697cfaedb757"
+      "sha256": "d7ee04aa90df2807c8e07e2bcf43db68b53fda77a3d1c1941bbfc95367471da2"
     },
     {
       "path": "base/collections.css",
-      "sha256": "900b89baf36e40a04c4cab38415ab203255daa4c900adfcba55a03c3a5420bed"
+      "sha256": "d00ca84ed3d23ba8298963238b112e9cd6bd496d0a3fe46d59bc5625d32fda79"
     },
     {
       "path": "base/shell.css",
-      "sha256": "1d6f9fe366fb2f5164fe79f611ed2afe3f59e755b1b487409b75686e2ce681d3"
+      "sha256": "0a345b662cf02790ae20f045f70b68c9ff472d6d8190a4ddb72856330dc3df3f"
     },
     {
       "path": "base/glass.css",
@@ -1521,7 +1521,7 @@
       "line": 28,
       "column": 3,
       "name": "--cs-font-lineHeight-body",
-      "value": "1.5",
+      "value": "var(--cs-font-line-height-body)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -1537,7 +1537,7 @@
       "line": 29,
       "column": 3,
       "name": "--cs-font-line-height-body",
-      "value": "var(--cs-font-lineHeight-body)",
+      "value": "1.5",
       "important": false,
       "visibility": "public",
       "context": [
@@ -1553,7 +1553,7 @@
       "line": 30,
       "column": 3,
       "name": "--cs-font-lineHeight-heading",
-      "value": "1.35",
+      "value": "var(--cs-font-line-height-heading)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -1569,7 +1569,7 @@
       "line": 31,
       "column": 3,
       "name": "--cs-font-line-height-heading",
-      "value": "var(--cs-font-lineHeight-heading)",
+      "value": "1.35",
       "important": false,
       "visibility": "public",
       "context": [
@@ -1585,7 +1585,7 @@
       "line": 32,
       "column": 3,
       "name": "--cs-font-lineHeight-tight",
-      "value": "1.15",
+      "value": "var(--cs-font-line-height-tight)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -1601,7 +1601,7 @@
       "line": 33,
       "column": 3,
       "name": "--cs-font-line-height-tight",
-      "value": "var(--cs-font-lineHeight-tight)",
+      "value": "1.15",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3454,7 +3454,7 @@
       "line": 11,
       "column": 3,
       "name": "--cs-component-button-xs-paddingY",
-      "value": "4px",
+      "value": "var(--cs-component-button-xs-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3470,7 +3470,7 @@
       "line": 12,
       "column": 3,
       "name": "--cs-component-button-xs-padding-y",
-      "value": "var(--cs-component-button-xs-paddingY)",
+      "value": "4px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3486,7 +3486,7 @@
       "line": 13,
       "column": 3,
       "name": "--cs-component-button-xs-paddingX",
-      "value": "10px",
+      "value": "var(--cs-component-button-xs-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3502,7 +3502,7 @@
       "line": 14,
       "column": 3,
       "name": "--cs-component-button-xs-padding-x",
-      "value": "var(--cs-component-button-xs-paddingX)",
+      "value": "10px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3518,7 +3518,7 @@
       "line": 15,
       "column": 3,
       "name": "--cs-component-button-xs-minHeight",
-      "value": "28px",
+      "value": "var(--cs-component-button-xs-min-height)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3534,7 +3534,7 @@
       "line": 16,
       "column": 3,
       "name": "--cs-component-button-xs-min-height",
-      "value": "var(--cs-component-button-xs-minHeight)",
+      "value": "28px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3550,7 +3550,7 @@
       "line": 17,
       "column": 3,
       "name": "--cs-component-button-xs-minWidth",
-      "value": "28px",
+      "value": "var(--cs-component-button-xs-min-width)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3566,7 +3566,7 @@
       "line": 18,
       "column": 3,
       "name": "--cs-component-button-xs-min-width",
-      "value": "var(--cs-component-button-xs-minWidth)",
+      "value": "28px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3582,7 +3582,7 @@
       "line": 19,
       "column": 3,
       "name": "--cs-component-button-xs-minHeight-coarse",
-      "value": "44px",
+      "value": "var(--cs-component-button-xs-min-height-coarse)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3598,7 +3598,7 @@
       "line": 20,
       "column": 3,
       "name": "--cs-component-button-xs-min-height-coarse",
-      "value": "var(--cs-component-button-xs-minHeight-coarse)",
+      "value": "44px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3614,7 +3614,7 @@
       "line": 21,
       "column": 3,
       "name": "--cs-component-button-sm-paddingY",
-      "value": "8px",
+      "value": "var(--cs-component-button-sm-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3630,7 +3630,7 @@
       "line": 22,
       "column": 3,
       "name": "--cs-component-button-sm-padding-y",
-      "value": "var(--cs-component-button-sm-paddingY)",
+      "value": "8px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3646,7 +3646,7 @@
       "line": 23,
       "column": 3,
       "name": "--cs-component-button-sm-paddingX",
-      "value": "14px",
+      "value": "var(--cs-component-button-sm-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3662,7 +3662,7 @@
       "line": 24,
       "column": 3,
       "name": "--cs-component-button-sm-padding-x",
-      "value": "var(--cs-component-button-sm-paddingX)",
+      "value": "14px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3678,7 +3678,7 @@
       "line": 25,
       "column": 3,
       "name": "--cs-component-button-sm-minHeight",
-      "value": "36px",
+      "value": "var(--cs-component-button-sm-min-height)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3694,7 +3694,7 @@
       "line": 26,
       "column": 3,
       "name": "--cs-component-button-sm-min-height",
-      "value": "var(--cs-component-button-sm-minHeight)",
+      "value": "36px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3710,7 +3710,7 @@
       "line": 27,
       "column": 3,
       "name": "--cs-component-button-sm-minHeight-coarse",
-      "value": "44px",
+      "value": "var(--cs-component-button-sm-min-height-coarse)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3726,7 +3726,7 @@
       "line": 28,
       "column": 3,
       "name": "--cs-component-button-sm-min-height-coarse",
-      "value": "var(--cs-component-button-sm-minHeight-coarse)",
+      "value": "44px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3742,7 +3742,7 @@
       "line": 29,
       "column": 3,
       "name": "--cs-component-button-md-paddingY",
-      "value": "12px",
+      "value": "var(--cs-component-button-md-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3758,7 +3758,7 @@
       "line": 30,
       "column": 3,
       "name": "--cs-component-button-md-padding-y",
-      "value": "var(--cs-component-button-md-paddingY)",
+      "value": "12px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3774,7 +3774,7 @@
       "line": 31,
       "column": 3,
       "name": "--cs-component-button-md-paddingX",
-      "value": "20px",
+      "value": "var(--cs-component-button-md-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3790,7 +3790,7 @@
       "line": 32,
       "column": 3,
       "name": "--cs-component-button-md-padding-x",
-      "value": "var(--cs-component-button-md-paddingX)",
+      "value": "20px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3806,7 +3806,7 @@
       "line": 33,
       "column": 3,
       "name": "--cs-component-button-md-minHeight",
-      "value": "44px",
+      "value": "var(--cs-component-button-md-min-height)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3822,7 +3822,7 @@
       "line": 34,
       "column": 3,
       "name": "--cs-component-button-md-min-height",
-      "value": "var(--cs-component-button-md-minHeight)",
+      "value": "44px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3838,7 +3838,7 @@
       "line": 35,
       "column": 3,
       "name": "--cs-component-button-md-minHeight-coarse",
-      "value": "44px",
+      "value": "var(--cs-component-button-md-min-height-coarse)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3854,7 +3854,7 @@
       "line": 36,
       "column": 3,
       "name": "--cs-component-button-md-min-height-coarse",
-      "value": "var(--cs-component-button-md-minHeight-coarse)",
+      "value": "44px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3870,7 +3870,7 @@
       "line": 37,
       "column": 3,
       "name": "--cs-component-button-lg-paddingY",
-      "value": "16px",
+      "value": "var(--cs-component-button-lg-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3886,7 +3886,7 @@
       "line": 38,
       "column": 3,
       "name": "--cs-component-button-lg-padding-y",
-      "value": "var(--cs-component-button-lg-paddingY)",
+      "value": "16px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3902,7 +3902,7 @@
       "line": 39,
       "column": 3,
       "name": "--cs-component-button-lg-paddingX",
-      "value": "28px",
+      "value": "var(--cs-component-button-lg-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3918,7 +3918,7 @@
       "line": 40,
       "column": 3,
       "name": "--cs-component-button-lg-padding-x",
-      "value": "var(--cs-component-button-lg-paddingX)",
+      "value": "28px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3934,7 +3934,7 @@
       "line": 41,
       "column": 3,
       "name": "--cs-component-button-lg-minHeight",
-      "value": "52px",
+      "value": "var(--cs-component-button-lg-min-height)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3950,7 +3950,7 @@
       "line": 42,
       "column": 3,
       "name": "--cs-component-button-lg-min-height",
-      "value": "var(--cs-component-button-lg-minHeight)",
+      "value": "52px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3982,7 +3982,7 @@
       "line": 46,
       "column": 3,
       "name": "--cs-component-textfield-paddingY",
-      "value": "10px",
+      "value": "var(--cs-component-textfield-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -3998,7 +3998,7 @@
       "line": 47,
       "column": 3,
       "name": "--cs-component-textfield-padding-y",
-      "value": "var(--cs-component-textfield-paddingY)",
+      "value": "10px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -4014,7 +4014,7 @@
       "line": 48,
       "column": 3,
       "name": "--cs-component-textfield-paddingX",
-      "value": "12px",
+      "value": "var(--cs-component-textfield-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -4030,7 +4030,7 @@
       "line": 49,
       "column": 3,
       "name": "--cs-component-textfield-padding-x",
-      "value": "var(--cs-component-textfield-paddingX)",
+      "value": "12px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -4046,7 +4046,7 @@
       "line": 50,
       "column": 3,
       "name": "--cs-component-textfield-minHeight",
-      "value": "44px",
+      "value": "var(--cs-component-textfield-min-height)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -4062,7 +4062,7 @@
       "line": 51,
       "column": 3,
       "name": "--cs-component-textfield-min-height",
-      "value": "var(--cs-component-textfield-minHeight)",
+      "value": "44px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15217,7 +15217,7 @@
       "line": 771,
       "column": 3,
       "name": "--cs-color-brand-umber",
-      "value": "var(--_cs-light, var(--_cs-light-color-brand-umber)) var(--_cs-dark, var(--_cs-dark-color-brand-umber))",
+      "value": "var(--_cs-light, var(--_cs-light-color-brand-umber))var(--_cs-dark, var(--_cs-dark-color-brand-umber))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15233,7 +15233,7 @@
       "line": 772,
       "column": 3,
       "name": "--cs-color-brand-ochre",
-      "value": "var(--_cs-light, var(--_cs-light-color-brand-ochre)) var(--_cs-dark, var(--_cs-dark-color-brand-ochre))",
+      "value": "var(--_cs-light, var(--_cs-light-color-brand-ochre))var(--_cs-dark, var(--_cs-dark-color-brand-ochre))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15249,7 +15249,7 @@
       "line": 773,
       "column": 3,
       "name": "--cs-color-surface-page",
-      "value": "var(--_cs-light, var(--_cs-light-color-surface-page)) var(--_cs-dark, var(--_cs-dark-color-surface-page))",
+      "value": "var(--_cs-light, var(--_cs-light-color-surface-page))var(--_cs-dark, var(--_cs-dark-color-surface-page))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15265,7 +15265,7 @@
       "line": 774,
       "column": 3,
       "name": "--cs-color-surface-panel",
-      "value": "var(--_cs-light, var(--_cs-light-color-surface-panel)) var(--_cs-dark, var(--_cs-dark-color-surface-panel))",
+      "value": "var(--_cs-light, var(--_cs-light-color-surface-panel))var(--_cs-dark, var(--_cs-dark-color-surface-panel))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15281,7 +15281,7 @@
       "line": 775,
       "column": 3,
       "name": "--cs-color-surface-raised",
-      "value": "var(--_cs-light, var(--_cs-light-color-surface-raised)) var(--_cs-dark, var(--_cs-dark-color-surface-raised))",
+      "value": "var(--_cs-light, var(--_cs-light-color-surface-raised))var(--_cs-dark, var(--_cs-dark-color-surface-raised))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15297,7 +15297,7 @@
       "line": 776,
       "column": 3,
       "name": "--cs-color-text-primary",
-      "value": "var(--_cs-light, var(--_cs-light-color-text-primary)) var(--_cs-dark, var(--_cs-dark-color-text-primary))",
+      "value": "var(--_cs-light, var(--_cs-light-color-text-primary))var(--_cs-dark, var(--_cs-dark-color-text-primary))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15313,7 +15313,7 @@
       "line": 777,
       "column": 3,
       "name": "--cs-color-text-inverse",
-      "value": "var(--_cs-light, var(--_cs-light-color-text-inverse)) var(--_cs-dark, var(--_cs-dark-color-text-inverse))",
+      "value": "var(--_cs-light, var(--_cs-light-color-text-inverse))var(--_cs-dark, var(--_cs-dark-color-text-inverse))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15329,7 +15329,7 @@
       "line": 778,
       "column": 3,
       "name": "--cs-color-text-accent",
-      "value": "var(--_cs-light, var(--_cs-light-color-text-accent)) var(--_cs-dark, var(--_cs-dark-color-text-accent))",
+      "value": "var(--_cs-light, var(--_cs-light-color-text-accent))var(--_cs-dark, var(--_cs-dark-color-text-accent))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15345,7 +15345,7 @@
       "line": 779,
       "column": 3,
       "name": "--cs-color-text-muted",
-      "value": "var(--_cs-standard, var(--_cs-light, var(--_cs-light-color-text-muted)) var(--_cs-dark, var(--_cs-dark-color-text-muted))) var(--_cs-high, var(--_cs-light, #45210E) var(--_cs-dark, #F5EAD9))",
+      "value": "var(--_cs-standard, var(--_cs-light, var(--_cs-light-color-text-muted))var(--_cs-dark, var(--_cs-dark-color-text-muted)))var(--_cs-high, var(--_cs-light, #45210E)var(--_cs-dark, #F5EAD9))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15361,7 +15361,7 @@
       "line": 780,
       "column": 3,
       "name": "--cs-color-semantic-success",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-success)) var(--_cs-dark, var(--_cs-dark-color-semantic-success))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-success))var(--_cs-dark, var(--_cs-dark-color-semantic-success))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15377,7 +15377,7 @@
       "line": 781,
       "column": 3,
       "name": "--cs-color-semantic-danger",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-danger)) var(--_cs-dark, var(--_cs-dark-color-semantic-danger))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-danger))var(--_cs-dark, var(--_cs-dark-color-semantic-danger))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15393,7 +15393,7 @@
       "line": 782,
       "column": 3,
       "name": "--cs-color-semantic-warning",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-warning)) var(--_cs-dark, var(--_cs-dark-color-semantic-warning))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-warning))var(--_cs-dark, var(--_cs-dark-color-semantic-warning))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15409,7 +15409,7 @@
       "line": 783,
       "column": 3,
       "name": "--cs-color-semantic-info",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-info)) var(--_cs-dark, var(--_cs-dark-color-semantic-info))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-info))var(--_cs-dark, var(--_cs-dark-color-semantic-info))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15425,7 +15425,7 @@
       "line": 784,
       "column": 3,
       "name": "--cs-color-semantic-success-fg",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-success-fg)) var(--_cs-dark, var(--_cs-dark-color-semantic-success-fg))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-success-fg))var(--_cs-dark, var(--_cs-dark-color-semantic-success-fg))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15441,7 +15441,7 @@
       "line": 785,
       "column": 3,
       "name": "--cs-color-semantic-danger-fg",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-danger-fg)) var(--_cs-dark, var(--_cs-dark-color-semantic-danger-fg))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-danger-fg))var(--_cs-dark, var(--_cs-dark-color-semantic-danger-fg))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15457,7 +15457,7 @@
       "line": 786,
       "column": 3,
       "name": "--cs-color-semantic-warning-fg",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-warning-fg)) var(--_cs-dark, var(--_cs-dark-color-semantic-warning-fg))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-warning-fg))var(--_cs-dark, var(--_cs-dark-color-semantic-warning-fg))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15473,7 +15473,7 @@
       "line": 787,
       "column": 3,
       "name": "--cs-color-semantic-info-fg",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-info-fg)) var(--_cs-dark, var(--_cs-dark-color-semantic-info-fg))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-info-fg))var(--_cs-dark, var(--_cs-dark-color-semantic-info-fg))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15489,7 +15489,7 @@
       "line": 788,
       "column": 3,
       "name": "--cs-color-semantic-success-text",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-success-text)) var(--_cs-dark, var(--_cs-dark-color-semantic-success-text))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-success-text))var(--_cs-dark, var(--_cs-dark-color-semantic-success-text))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15505,7 +15505,7 @@
       "line": 789,
       "column": 3,
       "name": "--cs-color-semantic-danger-text",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-danger-text)) var(--_cs-dark, var(--_cs-dark-color-semantic-danger-text))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-danger-text))var(--_cs-dark, var(--_cs-dark-color-semantic-danger-text))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15521,7 +15521,7 @@
       "line": 790,
       "column": 3,
       "name": "--cs-color-semantic-warning-text",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-warning-text)) var(--_cs-dark, var(--_cs-dark-color-semantic-warning-text))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-warning-text))var(--_cs-dark, var(--_cs-dark-color-semantic-warning-text))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15537,7 +15537,7 @@
       "line": 791,
       "column": 3,
       "name": "--cs-color-semantic-info-text",
-      "value": "var(--_cs-light, var(--_cs-light-color-semantic-info-text)) var(--_cs-dark, var(--_cs-dark-color-semantic-info-text))",
+      "value": "var(--_cs-light, var(--_cs-light-color-semantic-info-text))var(--_cs-dark, var(--_cs-dark-color-semantic-info-text))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15553,7 +15553,7 @@
       "line": 792,
       "column": 3,
       "name": "--cs-doc-ink",
-      "value": "var(--_cs-light, var(--_cs-light-doc-ink)) var(--_cs-dark, var(--_cs-dark-doc-ink))",
+      "value": "var(--_cs-light, var(--_cs-light-doc-ink))var(--_cs-dark, var(--_cs-dark-doc-ink))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15569,7 +15569,7 @@
       "line": 793,
       "column": 3,
       "name": "--cs-doc-slate",
-      "value": "var(--_cs-light, var(--_cs-light-doc-slate)) var(--_cs-dark, var(--_cs-dark-doc-slate))",
+      "value": "var(--_cs-light, var(--_cs-light-doc-slate))var(--_cs-dark, var(--_cs-dark-doc-slate))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15585,7 +15585,7 @@
       "line": 794,
       "column": 3,
       "name": "--cs-doc-fill",
-      "value": "var(--_cs-light, var(--_cs-light-doc-fill)) var(--_cs-dark, var(--_cs-dark-doc-fill))",
+      "value": "var(--_cs-light, var(--_cs-light-doc-fill))var(--_cs-dark, var(--_cs-dark-doc-fill))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15601,7 +15601,7 @@
       "line": 795,
       "column": 3,
       "name": "--cs-doc-fill-ink",
-      "value": "var(--_cs-light, var(--_cs-light-doc-fill-ink)) var(--_cs-dark, var(--_cs-dark-doc-fill-ink))",
+      "value": "var(--_cs-light, var(--_cs-light-doc-fill-ink))var(--_cs-dark, var(--_cs-dark-doc-fill-ink))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15617,7 +15617,7 @@
       "line": 796,
       "column": 3,
       "name": "--cs-color-accent-ochre",
-      "value": "var(--_cs-light, var(--_cs-light-color-accent-ochre)) var(--_cs-dark, var(--_cs-dark-color-accent-ochre))",
+      "value": "var(--_cs-light, var(--_cs-light-color-accent-ochre))var(--_cs-dark, var(--_cs-dark-color-accent-ochre))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15633,7 +15633,7 @@
       "line": 797,
       "column": 3,
       "name": "--cs-color-border-default",
-      "value": "var(--_cs-standard, var(--_cs-light, var(--_cs-light-color-border-default)) var(--_cs-dark, var(--_cs-dark-color-border-default))) var(--_cs-high, var(--_cs-light, #9a8060) var(--_cs-dark, #7a6450))",
+      "value": "var(--_cs-standard, var(--_cs-light, var(--_cs-light-color-border-default))var(--_cs-dark, var(--_cs-dark-color-border-default)))var(--_cs-high, var(--_cs-light, #9a8060)var(--_cs-dark, #7a6450))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15649,7 +15649,7 @@
       "line": 798,
       "column": 3,
       "name": "--cs-color-link",
-      "value": "var(--_cs-light, var(--_cs-light-color-link)) var(--_cs-dark, var(--_cs-dark-color-link))",
+      "value": "var(--_cs-light, var(--_cs-light-color-link))var(--_cs-dark, var(--_cs-dark-color-link))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15665,7 +15665,7 @@
       "line": 799,
       "column": 3,
       "name": "--cs-color-link-hover",
-      "value": "var(--_cs-light, var(--_cs-light-color-link-hover)) var(--_cs-dark, var(--_cs-dark-color-link-hover))",
+      "value": "var(--_cs-light, var(--_cs-light-color-link-hover))var(--_cs-dark, var(--_cs-dark-color-link-hover))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15681,7 +15681,7 @@
       "line": 800,
       "column": 3,
       "name": "--cs-component-button-primary-bg",
-      "value": "var(--_cs-light, var(--_cs-light-component-button-primary-bg)) var(--_cs-dark, var(--_cs-dark-component-button-primary-bg))",
+      "value": "var(--_cs-light, var(--_cs-light-component-button-primary-bg))var(--_cs-dark, var(--_cs-dark-component-button-primary-bg))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15697,7 +15697,7 @@
       "line": 801,
       "column": 3,
       "name": "--cs-component-button-primary-fg",
-      "value": "var(--_cs-light, var(--_cs-light-component-button-primary-fg)) var(--_cs-dark, var(--_cs-dark-component-button-primary-fg))",
+      "value": "var(--_cs-light, var(--_cs-light-component-button-primary-fg))var(--_cs-dark, var(--_cs-dark-component-button-primary-fg))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15713,7 +15713,7 @@
       "line": 802,
       "column": 3,
       "name": "--cs-component-textfield-border-default",
-      "value": "var(--_cs-light, var(--_cs-light-component-textfield-border-default)) var(--_cs-dark, var(--_cs-dark-component-textfield-border-default))",
+      "value": "var(--_cs-light, var(--_cs-light-component-textfield-border-default))var(--_cs-dark, var(--_cs-dark-component-textfield-border-default))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15729,7 +15729,7 @@
       "line": 803,
       "column": 3,
       "name": "--cs-shadow-xs",
-      "value": "var(--_cs-light, var(--_cs-light-shadow-xs)) var(--_cs-dark, var(--_cs-dark-shadow-xs))",
+      "value": "var(--_cs-light, var(--_cs-light-shadow-xs))var(--_cs-dark, var(--_cs-dark-shadow-xs))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15745,7 +15745,7 @@
       "line": 804,
       "column": 3,
       "name": "--cs-shadow-sm",
-      "value": "var(--_cs-light, var(--_cs-light-shadow-sm)) var(--_cs-dark, var(--_cs-dark-shadow-sm))",
+      "value": "var(--_cs-light, var(--_cs-light-shadow-sm))var(--_cs-dark, var(--_cs-dark-shadow-sm))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15761,7 +15761,7 @@
       "line": 805,
       "column": 3,
       "name": "--cs-shadow-md",
-      "value": "var(--_cs-light, var(--_cs-light-shadow-md)) var(--_cs-dark, var(--_cs-dark-shadow-md))",
+      "value": "var(--_cs-light, var(--_cs-light-shadow-md))var(--_cs-dark, var(--_cs-dark-shadow-md))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15777,7 +15777,7 @@
       "line": 806,
       "column": 3,
       "name": "--cs-shadow-lg",
-      "value": "var(--_cs-light, var(--_cs-light-shadow-lg)) var(--_cs-dark, var(--_cs-dark-shadow-lg))",
+      "value": "var(--_cs-light, var(--_cs-light-shadow-lg))var(--_cs-dark, var(--_cs-dark-shadow-lg))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15793,7 +15793,7 @@
       "line": 807,
       "column": 3,
       "name": "--cs-shadow-xl",
-      "value": "var(--_cs-light, var(--_cs-light-shadow-xl)) var(--_cs-dark, var(--_cs-dark-shadow-xl))",
+      "value": "var(--_cs-light, var(--_cs-light-shadow-xl))var(--_cs-dark, var(--_cs-dark-shadow-xl))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15809,7 +15809,7 @@
       "line": 808,
       "column": 3,
       "name": "--cs-accent",
-      "value": "var(--_cs-light, var(--_cs-light-accent)) var(--_cs-dark, var(--_cs-dark-accent))",
+      "value": "var(--_cs-light, var(--_cs-light-accent))var(--_cs-dark, var(--_cs-dark-accent))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15825,7 +15825,7 @@
       "line": 809,
       "column": 3,
       "name": "--cs-accent-strong",
-      "value": "var(--_cs-light, var(--_cs-light-accent-strong)) var(--_cs-dark, var(--_cs-dark-accent-strong))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-strong))var(--_cs-dark, var(--_cs-dark-accent-strong))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15841,7 +15841,7 @@
       "line": 810,
       "column": 3,
       "name": "--cs-accent-bright",
-      "value": "var(--_cs-light, var(--_cs-light-accent-bright)) var(--_cs-dark, var(--_cs-dark-accent-bright))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-bright))var(--_cs-dark, var(--_cs-dark-accent-bright))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15857,7 +15857,7 @@
       "line": 811,
       "column": 3,
       "name": "--cs-accent-on",
-      "value": "var(--_cs-light, var(--_cs-light-accent-on)) var(--_cs-dark, var(--_cs-dark-accent-on))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-on))var(--_cs-dark, var(--_cs-dark-accent-on))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15873,7 +15873,7 @@
       "line": 812,
       "column": 3,
       "name": "--cs-accent-on-strong",
-      "value": "var(--_cs-light, var(--_cs-light-accent-on-strong)) var(--_cs-dark, var(--_cs-dark-accent-on-strong))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-on-strong))var(--_cs-dark, var(--_cs-dark-accent-on-strong))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15889,7 +15889,7 @@
       "line": 813,
       "column": 3,
       "name": "--cs-accent-tint",
-      "value": "var(--_cs-light, var(--_cs-light-accent-tint)) var(--_cs-dark, var(--_cs-dark-accent-tint))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-tint))var(--_cs-dark, var(--_cs-dark-accent-tint))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15905,7 +15905,7 @@
       "line": 814,
       "column": 3,
       "name": "--cs-accent-ink",
-      "value": "var(--_cs-light, var(--_cs-light-accent-ink)) var(--_cs-dark, var(--_cs-dark-accent-ink))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-ink))var(--_cs-dark, var(--_cs-dark-accent-ink))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15921,7 +15921,7 @@
       "line": 815,
       "column": 3,
       "name": "--cs-accent-glow",
-      "value": "var(--_cs-light, var(--_cs-light-accent-glow)) var(--_cs-dark, var(--_cs-dark-accent-glow))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-glow))var(--_cs-dark, var(--_cs-dark-accent-glow))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15937,7 +15937,7 @@
       "line": 816,
       "column": 3,
       "name": "--cs-accent-grad-a",
-      "value": "var(--_cs-light, var(--_cs-light-accent-grad-a)) var(--_cs-dark, var(--_cs-dark-accent-grad-a))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-grad-a))var(--_cs-dark, var(--_cs-dark-accent-grad-a))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -15953,7 +15953,7 @@
       "line": 817,
       "column": 3,
       "name": "--cs-accent-grad-b",
-      "value": "var(--_cs-light, var(--_cs-light-accent-grad-b)) var(--_cs-dark, var(--_cs-dark-accent-grad-b))",
+      "value": "var(--_cs-light, var(--_cs-light-accent-grad-b))var(--_cs-dark, var(--_cs-dark-accent-grad-b))",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16241,7 +16241,7 @@
       "line": 30,
       "column": 3,
       "name": "--cs-component-button-xs-paddingY",
-      "value": "3px",
+      "value": "var(--cs-component-button-xs-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16257,7 +16257,7 @@
       "line": 31,
       "column": 3,
       "name": "--cs-component-button-xs-padding-y",
-      "value": "var(--cs-component-button-xs-paddingY)",
+      "value": "3px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16273,7 +16273,7 @@
       "line": 32,
       "column": 3,
       "name": "--cs-component-button-xs-paddingX",
-      "value": "8px",
+      "value": "var(--cs-component-button-xs-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16289,7 +16289,7 @@
       "line": 33,
       "column": 3,
       "name": "--cs-component-button-xs-padding-x",
-      "value": "var(--cs-component-button-xs-paddingX)",
+      "value": "8px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16305,7 +16305,7 @@
       "line": 34,
       "column": 3,
       "name": "--cs-component-button-sm-paddingY",
-      "value": "6px",
+      "value": "var(--cs-component-button-sm-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16321,7 +16321,7 @@
       "line": 35,
       "column": 3,
       "name": "--cs-component-button-sm-padding-y",
-      "value": "var(--cs-component-button-sm-paddingY)",
+      "value": "6px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16337,7 +16337,7 @@
       "line": 36,
       "column": 3,
       "name": "--cs-component-button-sm-paddingX",
-      "value": "12px",
+      "value": "var(--cs-component-button-sm-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16353,7 +16353,7 @@
       "line": 37,
       "column": 3,
       "name": "--cs-component-button-sm-padding-x",
-      "value": "var(--cs-component-button-sm-paddingX)",
+      "value": "12px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16369,7 +16369,7 @@
       "line": 38,
       "column": 3,
       "name": "--cs-component-button-md-paddingY",
-      "value": "10px",
+      "value": "var(--cs-component-button-md-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16385,7 +16385,7 @@
       "line": 39,
       "column": 3,
       "name": "--cs-component-button-md-padding-y",
-      "value": "var(--cs-component-button-md-paddingY)",
+      "value": "10px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16401,7 +16401,7 @@
       "line": 40,
       "column": 3,
       "name": "--cs-component-button-md-paddingX",
-      "value": "16px",
+      "value": "var(--cs-component-button-md-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16417,7 +16417,7 @@
       "line": 41,
       "column": 3,
       "name": "--cs-component-button-md-padding-x",
-      "value": "var(--cs-component-button-md-paddingX)",
+      "value": "16px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16433,7 +16433,7 @@
       "line": 43,
       "column": 3,
       "name": "--cs-component-button-lg-paddingY",
-      "value": "12px",
+      "value": "var(--cs-component-button-lg-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16449,7 +16449,7 @@
       "line": 44,
       "column": 3,
       "name": "--cs-component-button-lg-padding-y",
-      "value": "var(--cs-component-button-lg-paddingY)",
+      "value": "12px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16465,7 +16465,7 @@
       "line": 45,
       "column": 3,
       "name": "--cs-component-button-lg-paddingX",
-      "value": "22px",
+      "value": "var(--cs-component-button-lg-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16481,7 +16481,7 @@
       "line": 46,
       "column": 3,
       "name": "--cs-component-button-lg-padding-x",
-      "value": "var(--cs-component-button-lg-paddingX)",
+      "value": "22px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16497,7 +16497,7 @@
       "line": 48,
       "column": 3,
       "name": "--cs-component-textfield-paddingY",
-      "value": "8px",
+      "value": "var(--cs-component-textfield-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16513,7 +16513,7 @@
       "line": 49,
       "column": 3,
       "name": "--cs-component-textfield-padding-y",
-      "value": "var(--cs-component-textfield-paddingY)",
+      "value": "8px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16529,7 +16529,7 @@
       "line": 50,
       "column": 3,
       "name": "--cs-component-textfield-paddingX",
-      "value": "10px",
+      "value": "var(--cs-component-textfield-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16545,7 +16545,7 @@
       "line": 51,
       "column": 3,
       "name": "--cs-component-textfield-padding-x",
-      "value": "var(--cs-component-textfield-paddingX)",
+      "value": "10px",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16688,7 +16688,7 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 67,
       "column": 3,
-      "name": "--cs-component-button-xs-paddingY",
+      "name": "--cs-component-button-xs-padding-y",
       "value": "4px",
       "important": false,
       "visibility": "public",
@@ -16704,8 +16704,8 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 68,
       "column": 3,
-      "name": "--cs-component-button-xs-padding-y",
-      "value": "var(--cs-component-button-xs-paddingY)",
+      "name": "--cs-component-button-xs-paddingY",
+      "value": "var(--cs-component-button-xs-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16720,7 +16720,7 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 69,
       "column": 3,
-      "name": "--cs-component-button-xs-paddingX",
+      "name": "--cs-component-button-xs-padding-x",
       "value": "10px",
       "important": false,
       "visibility": "public",
@@ -16736,8 +16736,8 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 70,
       "column": 3,
-      "name": "--cs-component-button-xs-padding-x",
-      "value": "var(--cs-component-button-xs-paddingX)",
+      "name": "--cs-component-button-xs-paddingX",
+      "value": "var(--cs-component-button-xs-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16752,7 +16752,7 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 71,
       "column": 3,
-      "name": "--cs-component-button-sm-paddingY",
+      "name": "--cs-component-button-sm-padding-y",
       "value": "8px",
       "important": false,
       "visibility": "public",
@@ -16768,8 +16768,8 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 72,
       "column": 3,
-      "name": "--cs-component-button-sm-padding-y",
-      "value": "var(--cs-component-button-sm-paddingY)",
+      "name": "--cs-component-button-sm-paddingY",
+      "value": "var(--cs-component-button-sm-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16784,7 +16784,7 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 73,
       "column": 3,
-      "name": "--cs-component-button-sm-paddingX",
+      "name": "--cs-component-button-sm-padding-x",
       "value": "14px",
       "important": false,
       "visibility": "public",
@@ -16800,8 +16800,8 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 74,
       "column": 3,
-      "name": "--cs-component-button-sm-padding-x",
-      "value": "var(--cs-component-button-sm-paddingX)",
+      "name": "--cs-component-button-sm-paddingX",
+      "value": "var(--cs-component-button-sm-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16816,7 +16816,7 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 75,
       "column": 3,
-      "name": "--cs-component-button-md-paddingY",
+      "name": "--cs-component-button-md-padding-y",
       "value": "12px",
       "important": false,
       "visibility": "public",
@@ -16832,8 +16832,8 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 76,
       "column": 3,
-      "name": "--cs-component-button-md-padding-y",
-      "value": "var(--cs-component-button-md-paddingY)",
+      "name": "--cs-component-button-md-paddingY",
+      "value": "var(--cs-component-button-md-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16848,7 +16848,7 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 77,
       "column": 3,
-      "name": "--cs-component-button-md-paddingX",
+      "name": "--cs-component-button-md-padding-x",
       "value": "20px",
       "important": false,
       "visibility": "public",
@@ -16864,8 +16864,8 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 78,
       "column": 3,
-      "name": "--cs-component-button-md-padding-x",
-      "value": "var(--cs-component-button-md-paddingX)",
+      "name": "--cs-component-button-md-paddingX",
+      "value": "var(--cs-component-button-md-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16880,7 +16880,7 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 79,
       "column": 3,
-      "name": "--cs-component-button-lg-paddingY",
+      "name": "--cs-component-button-lg-padding-y",
       "value": "16px",
       "important": false,
       "visibility": "public",
@@ -16896,8 +16896,8 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 80,
       "column": 3,
-      "name": "--cs-component-button-lg-padding-y",
-      "value": "var(--cs-component-button-lg-paddingY)",
+      "name": "--cs-component-button-lg-paddingY",
+      "value": "var(--cs-component-button-lg-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16912,7 +16912,7 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 81,
       "column": 3,
-      "name": "--cs-component-button-lg-paddingX",
+      "name": "--cs-component-button-lg-padding-x",
       "value": "28px",
       "important": false,
       "visibility": "public",
@@ -16928,8 +16928,8 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 82,
       "column": 3,
-      "name": "--cs-component-button-lg-padding-x",
-      "value": "var(--cs-component-button-lg-paddingX)",
+      "name": "--cs-component-button-lg-paddingX",
+      "value": "var(--cs-component-button-lg-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16944,7 +16944,7 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 83,
       "column": 3,
-      "name": "--cs-component-textfield-paddingY",
+      "name": "--cs-component-textfield-padding-y",
       "value": "10px",
       "important": false,
       "visibility": "public",
@@ -16960,8 +16960,8 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 84,
       "column": 3,
-      "name": "--cs-component-textfield-padding-y",
-      "value": "var(--cs-component-textfield-paddingY)",
+      "name": "--cs-component-textfield-paddingY",
+      "value": "var(--cs-component-textfield-padding-y)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -16976,7 +16976,7 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 85,
       "column": 3,
-      "name": "--cs-component-textfield-paddingX",
+      "name": "--cs-component-textfield-padding-x",
       "value": "12px",
       "important": false,
       "visibility": "public",
@@ -16992,8 +16992,8 @@
       "sourcePath": "tokens/theme-attributes.css",
       "line": 86,
       "column": 3,
-      "name": "--cs-component-textfield-padding-x",
-      "value": "var(--cs-component-textfield-paddingX)",
+      "name": "--cs-component-textfield-paddingX",
+      "value": "var(--cs-component-textfield-padding-x)",
       "important": false,
       "visibility": "public",
       "context": [

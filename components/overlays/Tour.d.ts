@@ -12,6 +12,9 @@ export interface TourProps {
   /** Shrinking clamps the current index; empty steps hide the tour. Reopening starts at zero. */
   steps: TourStep[];
   open: boolean;
+  /** Called with `false` when the tour asks to close. Preferred open-state callback. */
+  onOpenChange?: (open: boolean) => void;
+  /** @deprecated Still supported. Called after `onOpenChange(false)` when the tour closes. */
   onClose?: () => void;
   lang?: string;
   className?: string;

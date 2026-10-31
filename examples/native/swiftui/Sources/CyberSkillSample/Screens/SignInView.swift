@@ -1,8 +1,10 @@
 import SwiftUI
+import CyberSkillDesign
 
 struct SignInView: View {
   @EnvironmentObject private var preferences: SamplePreferences
   private var colors: SampleColors { preferences.colors }
+  private var highContrast: Bool { preferences.contrast.resolve(systemHigh: preferences.systemHighContrast) }
   var onSuccess: () -> Void
   @State private var email = "you@cyberskill.world"
   @State private var password = ""
@@ -19,54 +21,14 @@ struct SignInView: View {
           .foregroundStyle(colors.colorTextMuted)
           .fixedSize(horizontal: false, vertical: true)
 
-        VStack(alignment: .leading, spacing: 8) {
-          Text(preferences.text(.workEmail))
-            .font(SampleFonts.font(size: 13, weight: .semibold))
-            .foregroundStyle(colors.colorTextPrimary)
-          TextField("you@cyberskill.world", text: $email)
-            .accessibilityLabel(preferences.text(.workEmail))
-            .textFieldStyle(.plain)
-            .padding(.horizontal, CSTokens.componentTextfieldPaddingX)
-            .padding(.vertical, CSTokens.componentTextfieldPaddingY)
-            .frame(minHeight: CSTokens.componentTextfieldMinHeight)
-            .background(colors.colorSurfacePanel)
-            .overlay(
-              RoundedRectangle(cornerRadius: 8)
-                .stroke(colors.componentTextfieldBorderDefault, lineWidth: 1)
-            )
-        }
-
-        VStack(alignment: .leading, spacing: 8) {
-          Text(preferences.text(.password))
-            .font(SampleFonts.font(size: 13, weight: .semibold))
-            .foregroundStyle(colors.colorTextPrimary)
-          SecureField("••••••••", text: $password)
-            .accessibilityLabel(preferences.text(.password))
-            .textFieldStyle(.plain)
-            .padding(.horizontal, CSTokens.componentTextfieldPaddingX)
-            .padding(.vertical, CSTokens.componentTextfieldPaddingY)
-            .frame(minHeight: CSTokens.componentTextfieldMinHeight)
-            .background(colors.colorSurfacePanel)
-            .overlay(
-              RoundedRectangle(cornerRadius: 8)
-                .stroke(colors.componentTextfieldBorderDefault, lineWidth: 1)
-            )
-        }
+        CSTextField(label: preferences.text(.workEmail), text: $email, dark: preferences.dark, highContrast: highContrast, compact: false)
+        CSTextField(label: preferences.text(.password), text: $password, secure: true, dark: preferences.dark, highContrast: highContrast, compact: false)
       }
       .padding(24)
       .frame(maxWidth: .infinity, alignment: .topLeading)
     }
     .safeAreaInset(edge: .bottom, spacing: 0) {
-      Button(action: onSuccess) {
-        Text(preferences.text(.signIn))
-          .font(SampleFonts.font(size: 15, weight: .semibold))
-          .frame(maxWidth: .infinity)
-          .frame(minHeight: CSTokens.componentButtonMdMinHeight)
-          .foregroundStyle(colors.componentButtonPrimaryFg)
-          .background(colors.componentButtonPrimaryBg)
-          .clipShape(RoundedRectangle(cornerRadius: CSTokens.componentButtonRadius))
-      }
-      .buttonStyle(.plain)
+      CSButton(title: preferences.text(.signIn), dark: preferences.dark, highContrast: highContrast, compact: false, action: onSuccess)
       .padding(24)
       .background(colors.colorSurfacePage)
     }

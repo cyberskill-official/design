@@ -88,6 +88,7 @@ Generated from the [canonical declared API](../api-index.json) and [source facts
 | `className` | optional | Không khai báo trong tham số / Not declared in parameter |
 | `lang` | optional | Không khai báo trong tham số / Not declared in parameter |
 | `onClose` | optional | Không khai báo trong tham số / Not declared in parameter |
+| `onOpenChange` | optional | Không khai báo trong tham số / Not declared in parameter |
 | `open` | required | Không khai báo trong tham số / Not declared in parameter |
 | `rootProps` | optional | Không khai báo trong tham số / Not declared in parameter |
 | `side` | optional | `"right"` |

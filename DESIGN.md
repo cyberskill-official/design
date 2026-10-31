@@ -101,9 +101,9 @@ Families ship self-hosted (Be Vietnam Pro · Space Grotesk · JetBrains Mono) wi
 | `--cs-font-weight-semibold` | `600` |
 | `--cs-font-weight-bold` | `700` |
 | `--cs-font-weight-extrabold` | `800` |
-| `--cs-font-lineHeight-body` | `1.5` |
-| `--cs-font-lineHeight-heading` | `1.35` |
-| `--cs-font-lineHeight-tight` | `1.15` |
+| `--cs-font-lineHeight-body` | `var(--cs-font-line-height-body)` |
+| `--cs-font-lineHeight-heading` | `var(--cs-font-line-height-heading)` |
+| `--cs-font-lineHeight-tight` | `var(--cs-font-line-height-tight)` |
 | `--cs-font-size-2xs` | `0.6875rem` |
 | `--cs-font-size-xs` | `0.75rem` |
 | `--cs-font-size-sm` | `0.875rem` |
@@ -115,9 +115,9 @@ Families ship self-hosted (Be Vietnam Pro · Space Grotesk · JetBrains Mono) wi
 | `--cs-font-size-3xl` | `2.25rem` |
 | `--cs-font-size-4xl` | `3rem` |
 | `--cs-font-size-5xl` | `3.75rem` |
-| `--cs-font-line-height-body` | `var(--cs-font-lineHeight-body)` |
-| `--cs-font-line-height-heading` | `var(--cs-font-lineHeight-heading)` |
-| `--cs-font-line-height-tight` | `var(--cs-font-lineHeight-tight)` |
+| `--cs-font-line-height-body` | `1.5` |
+| `--cs-font-line-height-heading` | `1.35` |
+| `--cs-font-line-height-tight` | `1.15` |
 
 ### Type roles & tracking
 
@@ -201,26 +201,26 @@ Scoped overrides (distinct from the base token rows):
 | `data-cs-density="compact"` | `--cs-density-space-6` | `18px` |
 | `data-cs-density="compact"` | `--cs-density-control-gap` | `6px` |
 | `data-cs-density="compact"` | `--cs-component-button-gap` | `6px` |
-| `data-cs-density="compact"` | `--cs-component-button-xs-paddingY` | `3px` |
-| `data-cs-density="compact"` | `--cs-component-button-xs-padding-y` | `var(--cs-component-button-xs-paddingY)` |
-| `data-cs-density="compact"` | `--cs-component-button-xs-paddingX` | `8px` |
-| `data-cs-density="compact"` | `--cs-component-button-xs-padding-x` | `var(--cs-component-button-xs-paddingX)` |
-| `data-cs-density="compact"` | `--cs-component-button-sm-paddingY` | `6px` |
-| `data-cs-density="compact"` | `--cs-component-button-sm-padding-y` | `var(--cs-component-button-sm-paddingY)` |
-| `data-cs-density="compact"` | `--cs-component-button-sm-paddingX` | `12px` |
-| `data-cs-density="compact"` | `--cs-component-button-sm-padding-x` | `var(--cs-component-button-sm-paddingX)` |
-| `data-cs-density="compact"` | `--cs-component-button-md-paddingY` | `10px` |
-| `data-cs-density="compact"` | `--cs-component-button-md-padding-y` | `var(--cs-component-button-md-paddingY)` |
-| `data-cs-density="compact"` | `--cs-component-button-md-paddingX` | `16px` |
-| `data-cs-density="compact"` | `--cs-component-button-md-padding-x` | `var(--cs-component-button-md-paddingX)` |
-| `data-cs-density="compact"` | `--cs-component-button-lg-paddingY` | `12px` |
-| `data-cs-density="compact"` | `--cs-component-button-lg-padding-y` | `var(--cs-component-button-lg-paddingY)` |
-| `data-cs-density="compact"` | `--cs-component-button-lg-paddingX` | `22px` |
-| `data-cs-density="compact"` | `--cs-component-button-lg-padding-x` | `var(--cs-component-button-lg-paddingX)` |
-| `data-cs-density="compact"` | `--cs-component-textfield-paddingY` | `8px` |
-| `data-cs-density="compact"` | `--cs-component-textfield-padding-y` | `var(--cs-component-textfield-paddingY)` |
-| `data-cs-density="compact"` | `--cs-component-textfield-paddingX` | `10px` |
-| `data-cs-density="compact"` | `--cs-component-textfield-padding-x` | `var(--cs-component-textfield-paddingX)` |
+| `data-cs-density="compact"` | `--cs-component-button-xs-paddingY` | `var(--cs-component-button-xs-padding-y)` |
+| `data-cs-density="compact"` | `--cs-component-button-xs-padding-y` | `3px` |
+| `data-cs-density="compact"` | `--cs-component-button-xs-paddingX` | `var(--cs-component-button-xs-padding-x)` |
+| `data-cs-density="compact"` | `--cs-component-button-xs-padding-x` | `8px` |
+| `data-cs-density="compact"` | `--cs-component-button-sm-paddingY` | `var(--cs-component-button-sm-padding-y)` |
+| `data-cs-density="compact"` | `--cs-component-button-sm-padding-y` | `6px` |
+| `data-cs-density="compact"` | `--cs-component-button-sm-paddingX` | `var(--cs-component-button-sm-padding-x)` |
+| `data-cs-density="compact"` | `--cs-component-button-sm-padding-x` | `12px` |
+| `data-cs-density="compact"` | `--cs-component-button-md-paddingY` | `var(--cs-component-button-md-padding-y)` |
+| `data-cs-density="compact"` | `--cs-component-button-md-padding-y` | `10px` |
+| `data-cs-density="compact"` | `--cs-component-button-md-paddingX` | `var(--cs-component-button-md-padding-x)` |
+| `data-cs-density="compact"` | `--cs-component-button-md-padding-x` | `16px` |
+| `data-cs-density="compact"` | `--cs-component-button-lg-paddingY` | `var(--cs-component-button-lg-padding-y)` |
+| `data-cs-density="compact"` | `--cs-component-button-lg-padding-y` | `12px` |
+| `data-cs-density="compact"` | `--cs-component-button-lg-paddingX` | `var(--cs-component-button-lg-padding-x)` |
+| `data-cs-density="compact"` | `--cs-component-button-lg-padding-x` | `22px` |
+| `data-cs-density="compact"` | `--cs-component-textfield-paddingY` | `var(--cs-component-textfield-padding-y)` |
+| `data-cs-density="compact"` | `--cs-component-textfield-padding-y` | `8px` |
+| `data-cs-density="compact"` | `--cs-component-textfield-paddingX` | `var(--cs-component-textfield-padding-x)` |
+| `data-cs-density="compact"` | `--cs-component-textfield-padding-x` | `10px` |
 | `data-cs-density="comfortable"` | `--cs-density-space-1` | `var(--cs-space-1)` |
 | `data-cs-density="comfortable"` | `--cs-density-space-2` | `var(--cs-space-2)` |
 | `data-cs-density="comfortable"` | `--cs-density-space-3` | `var(--cs-space-3)` |
@@ -229,26 +229,26 @@ Scoped overrides (distinct from the base token rows):
 | `data-cs-density="comfortable"` | `--cs-density-space-6` | `var(--cs-space-6)` |
 | `data-cs-density="comfortable"` | `--cs-density-control-gap` | `var(--cs-component-button-gap)` |
 | `data-cs-density="comfortable"` | `--cs-component-button-gap` | `8px` |
-| `data-cs-density="comfortable"` | `--cs-component-button-xs-paddingY` | `4px` |
-| `data-cs-density="comfortable"` | `--cs-component-button-xs-padding-y` | `var(--cs-component-button-xs-paddingY)` |
-| `data-cs-density="comfortable"` | `--cs-component-button-xs-paddingX` | `10px` |
-| `data-cs-density="comfortable"` | `--cs-component-button-xs-padding-x` | `var(--cs-component-button-xs-paddingX)` |
-| `data-cs-density="comfortable"` | `--cs-component-button-sm-paddingY` | `8px` |
-| `data-cs-density="comfortable"` | `--cs-component-button-sm-padding-y` | `var(--cs-component-button-sm-paddingY)` |
-| `data-cs-density="comfortable"` | `--cs-component-button-sm-paddingX` | `14px` |
-| `data-cs-density="comfortable"` | `--cs-component-button-sm-padding-x` | `var(--cs-component-button-sm-paddingX)` |
-| `data-cs-density="comfortable"` | `--cs-component-button-md-paddingY` | `12px` |
-| `data-cs-density="comfortable"` | `--cs-component-button-md-padding-y` | `var(--cs-component-button-md-paddingY)` |
-| `data-cs-density="comfortable"` | `--cs-component-button-md-paddingX` | `20px` |
-| `data-cs-density="comfortable"` | `--cs-component-button-md-padding-x` | `var(--cs-component-button-md-paddingX)` |
-| `data-cs-density="comfortable"` | `--cs-component-button-lg-paddingY` | `16px` |
-| `data-cs-density="comfortable"` | `--cs-component-button-lg-padding-y` | `var(--cs-component-button-lg-paddingY)` |
-| `data-cs-density="comfortable"` | `--cs-component-button-lg-paddingX` | `28px` |
-| `data-cs-density="comfortable"` | `--cs-component-button-lg-padding-x` | `var(--cs-component-button-lg-paddingX)` |
-| `data-cs-density="comfortable"` | `--cs-component-textfield-paddingY` | `10px` |
-| `data-cs-density="comfortable"` | `--cs-component-textfield-padding-y` | `var(--cs-component-textfield-paddingY)` |
-| `data-cs-density="comfortable"` | `--cs-component-textfield-paddingX` | `12px` |
-| `data-cs-density="comfortable"` | `--cs-component-textfield-padding-x` | `var(--cs-component-textfield-paddingX)` |
+| `data-cs-density="comfortable"` | `--cs-component-button-xs-padding-y` | `4px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-xs-paddingY` | `var(--cs-component-button-xs-padding-y)` |
+| `data-cs-density="comfortable"` | `--cs-component-button-xs-padding-x` | `10px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-xs-paddingX` | `var(--cs-component-button-xs-padding-x)` |
+| `data-cs-density="comfortable"` | `--cs-component-button-sm-padding-y` | `8px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-sm-paddingY` | `var(--cs-component-button-sm-padding-y)` |
+| `data-cs-density="comfortable"` | `--cs-component-button-sm-padding-x` | `14px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-sm-paddingX` | `var(--cs-component-button-sm-padding-x)` |
+| `data-cs-density="comfortable"` | `--cs-component-button-md-padding-y` | `12px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-md-paddingY` | `var(--cs-component-button-md-padding-y)` |
+| `data-cs-density="comfortable"` | `--cs-component-button-md-padding-x` | `20px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-md-paddingX` | `var(--cs-component-button-md-padding-x)` |
+| `data-cs-density="comfortable"` | `--cs-component-button-lg-padding-y` | `16px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-lg-paddingY` | `var(--cs-component-button-lg-padding-y)` |
+| `data-cs-density="comfortable"` | `--cs-component-button-lg-padding-x` | `28px` |
+| `data-cs-density="comfortable"` | `--cs-component-button-lg-paddingX` | `var(--cs-component-button-lg-padding-x)` |
+| `data-cs-density="comfortable"` | `--cs-component-textfield-padding-y` | `10px` |
+| `data-cs-density="comfortable"` | `--cs-component-textfield-paddingY` | `var(--cs-component-textfield-padding-y)` |
+| `data-cs-density="comfortable"` | `--cs-component-textfield-padding-x` | `12px` |
+| `data-cs-density="comfortable"` | `--cs-component-textfield-paddingX` | `var(--cs-component-textfield-padding-x)` |
 
 ### Layout & iconography
 
@@ -331,46 +331,46 @@ Component-level design decisions (button · textfield). Dark values are theme ov
 | `--cs-component-button-primary-fg` | `#FFFFFF` | `#1a1108` |
 | `--cs-component-button-gap` | `8px` | — |
 | `--cs-component-button-radius` | `8px` | — |
-| `--cs-component-button-xs-paddingY` | `4px` | — |
-| `--cs-component-button-xs-paddingX` | `10px` | — |
-| `--cs-component-button-xs-minHeight` | `28px` | — |
-| `--cs-component-button-xs-minWidth` | `28px` | — |
-| `--cs-component-button-xs-minHeight-coarse` | `44px` | — |
-| `--cs-component-button-sm-paddingY` | `8px` | — |
-| `--cs-component-button-sm-paddingX` | `14px` | — |
-| `--cs-component-button-sm-minHeight` | `36px` | — |
-| `--cs-component-button-sm-minHeight-coarse` | `44px` | — |
-| `--cs-component-button-md-paddingY` | `12px` | — |
-| `--cs-component-button-md-paddingX` | `20px` | — |
-| `--cs-component-button-md-minHeight` | `44px` | — |
-| `--cs-component-button-md-minHeight-coarse` | `44px` | — |
-| `--cs-component-button-lg-paddingY` | `16px` | — |
-| `--cs-component-button-lg-paddingX` | `28px` | — |
-| `--cs-component-button-lg-minHeight` | `52px` | — |
+| `--cs-component-button-xs-paddingY` | `var(--cs-component-button-xs-padding-y)` | — |
+| `--cs-component-button-xs-paddingX` | `var(--cs-component-button-xs-padding-x)` | — |
+| `--cs-component-button-xs-minHeight` | `var(--cs-component-button-xs-min-height)` | — |
+| `--cs-component-button-xs-minWidth` | `var(--cs-component-button-xs-min-width)` | — |
+| `--cs-component-button-xs-minHeight-coarse` | `var(--cs-component-button-xs-min-height-coarse)` | — |
+| `--cs-component-button-sm-paddingY` | `var(--cs-component-button-sm-padding-y)` | — |
+| `--cs-component-button-sm-paddingX` | `var(--cs-component-button-sm-padding-x)` | — |
+| `--cs-component-button-sm-minHeight` | `var(--cs-component-button-sm-min-height)` | — |
+| `--cs-component-button-sm-minHeight-coarse` | `var(--cs-component-button-sm-min-height-coarse)` | — |
+| `--cs-component-button-md-paddingY` | `var(--cs-component-button-md-padding-y)` | — |
+| `--cs-component-button-md-paddingX` | `var(--cs-component-button-md-padding-x)` | — |
+| `--cs-component-button-md-minHeight` | `var(--cs-component-button-md-min-height)` | — |
+| `--cs-component-button-md-minHeight-coarse` | `var(--cs-component-button-md-min-height-coarse)` | — |
+| `--cs-component-button-lg-paddingY` | `var(--cs-component-button-lg-padding-y)` | — |
+| `--cs-component-button-lg-paddingX` | `var(--cs-component-button-lg-padding-x)` | — |
+| `--cs-component-button-lg-minHeight` | `var(--cs-component-button-lg-min-height)` | — |
 | `--cs-component-textfield-border-default` | `#BFA58F` | `#5a4636` |
-| `--cs-component-textfield-paddingY` | `10px` | — |
-| `--cs-component-textfield-paddingX` | `12px` | — |
-| `--cs-component-textfield-minHeight` | `44px` | — |
+| `--cs-component-textfield-paddingY` | `var(--cs-component-textfield-padding-y)` | — |
+| `--cs-component-textfield-paddingX` | `var(--cs-component-textfield-padding-x)` | — |
+| `--cs-component-textfield-minHeight` | `var(--cs-component-textfield-min-height)` | — |
 | `--cs-focus-ring` | `3px` | — |
-| `--cs-component-button-xs-padding-y` | `var(--cs-component-button-xs-paddingY)` | — |
-| `--cs-component-button-xs-padding-x` | `var(--cs-component-button-xs-paddingX)` | — |
-| `--cs-component-button-xs-min-height` | `var(--cs-component-button-xs-minHeight)` | — |
-| `--cs-component-button-xs-min-width` | `var(--cs-component-button-xs-minWidth)` | — |
-| `--cs-component-button-xs-min-height-coarse` | `var(--cs-component-button-xs-minHeight-coarse)` | — |
-| `--cs-component-button-sm-padding-y` | `var(--cs-component-button-sm-paddingY)` | — |
-| `--cs-component-button-sm-padding-x` | `var(--cs-component-button-sm-paddingX)` | — |
-| `--cs-component-button-sm-min-height` | `var(--cs-component-button-sm-minHeight)` | — |
-| `--cs-component-button-sm-min-height-coarse` | `var(--cs-component-button-sm-minHeight-coarse)` | — |
-| `--cs-component-button-md-padding-y` | `var(--cs-component-button-md-paddingY)` | — |
-| `--cs-component-button-md-padding-x` | `var(--cs-component-button-md-paddingX)` | — |
-| `--cs-component-button-md-min-height` | `var(--cs-component-button-md-minHeight)` | — |
-| `--cs-component-button-md-min-height-coarse` | `var(--cs-component-button-md-minHeight-coarse)` | — |
-| `--cs-component-button-lg-padding-y` | `var(--cs-component-button-lg-paddingY)` | — |
-| `--cs-component-button-lg-padding-x` | `var(--cs-component-button-lg-paddingX)` | — |
-| `--cs-component-button-lg-min-height` | `var(--cs-component-button-lg-minHeight)` | — |
-| `--cs-component-textfield-padding-y` | `var(--cs-component-textfield-paddingY)` | — |
-| `--cs-component-textfield-padding-x` | `var(--cs-component-textfield-paddingX)` | — |
-| `--cs-component-textfield-min-height` | `var(--cs-component-textfield-minHeight)` | — |
+| `--cs-component-button-xs-padding-y` | `4px` | — |
+| `--cs-component-button-xs-padding-x` | `10px` | — |
+| `--cs-component-button-xs-min-height` | `28px` | — |
+| `--cs-component-button-xs-min-width` | `28px` | — |
+| `--cs-component-button-xs-min-height-coarse` | `44px` | — |
+| `--cs-component-button-sm-padding-y` | `8px` | — |
+| `--cs-component-button-sm-padding-x` | `14px` | — |
+| `--cs-component-button-sm-min-height` | `36px` | — |
+| `--cs-component-button-sm-min-height-coarse` | `44px` | — |
+| `--cs-component-button-md-padding-y` | `12px` | — |
+| `--cs-component-button-md-padding-x` | `20px` | — |
+| `--cs-component-button-md-min-height` | `44px` | — |
+| `--cs-component-button-md-min-height-coarse` | `44px` | — |
+| `--cs-component-button-lg-padding-y` | `16px` | — |
+| `--cs-component-button-lg-padding-x` | `28px` | — |
+| `--cs-component-button-lg-min-height` | `52px` | — |
+| `--cs-component-textfield-padding-y` | `10px` | — |
+| `--cs-component-textfield-padding-x` | `12px` | — |
+| `--cs-component-textfield-min-height` | `44px` | — |
 
 ## Components inventory
 

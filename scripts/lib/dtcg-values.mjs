@@ -92,7 +92,9 @@ export function nativeTokenName(css, def = {}) {
   const ext = def.$extensions?.['com.cyberskill'] || {};
   if(ext.nativeAliasOf === undefined && ext.nativeName === undefined)return camel;
   const target = ext.nativeAliasOf;
-  if(typeof target !== 'string' || !/^--cs-[\w-]+$/.test(target) || !/[A-Z]/.test(target) || target.replace(/[A-Z]/g,c=>'-'+c.toLowerCase())!==css || ext.css!==`var(${target})` || !['number','dimension'].includes(def.$type) || ext.nativeName!==camel+'Alias')throw Error('Invalid native alias metadata: '+css);
+  const cssFollowsLegacy = ext.css === `var(${target})`;
+  const cssOwnsValue = typeof ext.css === 'string' && !/^var\(/.test(ext.css);
+  if(typeof target !== 'string' || !/^--cs-[\w-]+$/.test(target) || !/[A-Z]/.test(target) || target.replace(/[A-Z]/g,c=>'-'+c.toLowerCase())!==css || (!cssFollowsLegacy && !cssOwnsValue) || !['number','dimension'].includes(def.$type) || ext.nativeName!==camel+'Alias')throw Error('Invalid native alias metadata: '+css);
   return ext.nativeName;
 }
 export function assertUniqueNativeNames(entries) {
@@ -116,7 +118,9 @@ export function assertCssProjection(doc) {
     const ref=/^var\((--cs-[\w-]+)\)$/.exec(css);
     if(ref){
       const target=tokens.get(ref[1]);if(!target||target.def.$type!==def.$type)throw Error(`Invalid CSS alias: ${path}`);
-      expected=`{${target.path}}`;if(group!=='density'&&ext.nativeAliasOf===undefined)nativeFormat='css';
+      const legacyReadsOwner = target.def.$extensions?.['com.cyberskill']?.nativeAliasOf === name;
+      if(legacyReadsOwner)expected=target.def.$value;
+      else {expected=`{${target.path}}`;if(group!=='density'&&ext.nativeAliasOf===undefined)nativeFormat='css';}
     }else if(/^-?[\d.]+em$/.test(css)){
       if(def.$type!=='number')throw Error(`Relative em must use number with extension: ${path}`);
       expected=numberFromCss(css.slice(0,-2));nativeFormat='em';relativeUnit='em';

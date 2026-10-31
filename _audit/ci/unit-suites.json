@@ -1717,6 +1717,14 @@
     {
       "id": "release-documentation",
       "command": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-release-documentation-browser.mjs"
+    },
+    {
+      "id": "theme-toggle-contrast",
+      "command": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-theme-toggle-browser.mjs"
+    },
+    {
+      "id": "component-state-paint",
+      "command": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-component-state-paint-browser.mjs"
     }
   ]
 }

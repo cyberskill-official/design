@@ -91,7 +91,7 @@ div.cs-item.is-disabled { opacity: 1; }
 
 /* EmptyState */
 .cs-empty { text-align: center; padding: 48px 24px; display: grid; gap: 8px; justify-items: center; }
-.cs-empty__icon { inline-size: 56px; block-size: 56px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in oklab, var(--cs-color-brand-ochre) 24%, var(--cs-color-surface-panel)); color: var(--_cs-light, var(--cs-color-brand-umber)) var(--_cs-dark, var(--cs-color-brand-ochre)); margin-block-end: 6px; }
+.cs-empty__icon { inline-size: 56px; block-size: 56px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in oklab, var(--cs-color-brand-ochre) 24%, var(--cs-color-surface-panel)); color: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); margin-block-end: 6px; }
 .cs-empty__title { font-size: var(--cs-text-h4); font-weight: 700; }
 .cs-empty__body { color: var(--cs-color-text-muted); max-inline-size: 380px; }
 .cs-empty__actions { margin-block-start: 12px; display: flex; gap: 10px; }

@@ -65,13 +65,13 @@ export const Menubar = React.forwardRef(function Menubar({ portal = true, placem
               else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
                 e.preventDefault(); const target = (i + (e.key === "ArrowRight" ? 1 : -1) + menus.length) % menus.length;
                 itemFocus.current = 0; setFocusI(target); setOpen(target); return;
-              } else if (e.key === "Tab") { setOpen(null); btns.current[i]?.focus(); return; }
+              } else if (e.key === "Tab") { e.preventDefault(); setOpen(null); btns.current[i]?.focus(); return; }
               else return;
               e.preventDefault(); items[next]?.focus();
             }}>
               {m.items.map((it, j) => it === "-"
                 ? <span key={j} className="cs-menu__sep" role="separator" />
-                : <button key={j} type="button" role="menuitem" className={cx("cs-menu__item", it.danger && "cs-menu__item--danger")} onClick={() => { setOpen(null); btns.current[i]?.focus(); it.onSelect && it.onSelect(); }}>{it.label}</button>)}
+                : <button key={j} type="button" role="menuitem" tabIndex={-1} className={cx("cs-menu__item", it.danger && "cs-menu__item--danger")} onClick={() => { setOpen(null); btns.current[i]?.focus(); it.onSelect && it.onSelect(); }}>{it.label}</button>)}
             </span>)
           ) : null}
         </span>

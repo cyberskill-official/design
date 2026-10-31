@@ -1,4 +1,5 @@
 import SwiftUI
+import CyberSkillDesign
 
 struct WishRow: Identifiable {
   let id: String
@@ -9,7 +10,7 @@ struct WishRow: Identifiable {
 struct HomeView: View {
   @EnvironmentObject private var preferences: SamplePreferences
   @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-  private var colors: SampleColors { preferences.colors }
+  private var pack: CSTokenModePack { CSControlMode.pack(dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: false) }
   var onOpenSettings: () -> Void
   var onSignOut: () -> Void
 
@@ -37,72 +38,36 @@ struct HomeView: View {
 
       Text(preferences.text(.listDescription))
         .font(SampleFonts.font(size: 13))
-        .foregroundStyle(colors.colorTextMuted)
+        .foregroundStyle(pack.mutedColor)
         .fixedSize(horizontal: false, vertical: true)
 
-      VStack(spacing: 0) {
+      CSCard(dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: false) {
         ForEach(wishes) { wish in
-          HStack {
-            VStack(alignment: .leading, spacing: 4) {
-              Text(wish.title)
-                .font(SampleFonts.font(size: 15, weight: .semibold))
-                .foregroundStyle(colors.colorTextPrimary)
-                .fixedSize(horizontal: false, vertical: true)
-              Text(wish.status)
-                .font(SampleFonts.font(size: 12))
-                .foregroundStyle(colors.colorTextMuted)
-                .fixedSize(horizontal: false, vertical: true)
-            }
-            Spacer()
-            Circle()
-              .fill(CSTokens.colorBrandOchre)
-              .frame(width: 10, height: 10)
-          }
-          .padding(14)
-          .background(colors.colorSurfacePanel)
-          Divider().overlay(colors.colorBorderDefault)
+          CSListRow(title: wish.title, subtitle: wish.status, dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: false)
+          CSDivider(dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: false)
         }
       }
-      .clipShape(RoundedRectangle(cornerRadius: 12))
-      .overlay(
-        RoundedRectangle(cornerRadius: 12)
-          .stroke(colors.colorBorderDefault, lineWidth: 1)
-      )
 
     }
     .padding(24)
     .frame(maxWidth: .infinity, alignment: .topLeading)
     }
     .safeAreaInset(edge: .bottom) {
-      Button(action: onSignOut) {
-        Text(preferences.text(.signOut))
-          .fixedSize(horizontal: false, vertical: true)
-          .frame(maxWidth: .infinity, minHeight: CSTokens.componentButtonMdMinHeight, alignment: .leading)
-          .contentShape(Rectangle())
-      }
-      .buttonStyle(.plain)
-      .foregroundStyle(colors.colorSemanticDangerText)
+      CSTextButton(title: preferences.text(.signOut), role: .danger, dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: false, expand: true, action: onSignOut)
       .padding(24)
-      .background(colors.colorSurfacePage)
+      .background(pack.pageColor)
     }
-    .background(colors.colorSurfacePage)
+    .background(pack.pageColor)
   }
 
   private var heading: some View {
     Text(preferences.text(.wishes))
       .font(SampleFonts.font(size: 24, weight: .extraBold, relativeTo: .title))
-      .foregroundStyle(colors.colorTextPrimary)
+        .foregroundStyle(pack.primaryTextColor)
       .fixedSize(horizontal: false, vertical: true)
   }
 
   private var settingsButton: some View {
-    Button(action: onOpenSettings) {
-      Text(preferences.text(.settings))
-        .fixedSize(horizontal: false, vertical: true)
-        .frame(minWidth: CSTokens.componentButtonMdMinHeight, minHeight: CSTokens.componentButtonMdMinHeight)
-        .contentShape(Rectangle())
-    }
-    .buttonStyle(.plain)
-    .foregroundStyle(colors.colorLink)
+    CSTextButton(title: preferences.text(.settings), dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: false, action: onOpenSettings)
   }
 }

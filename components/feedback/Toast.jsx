@@ -4,6 +4,7 @@ import React from "react";
 import { makeT, useLang } from "../_i18n/i18n.js";
 import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
 import { cx } from "../_utils/cx.js";
+import { hasDismiss, notifyClosed } from "../_utils/open-change.js";
 
 /** Variant glyphs — aligned with Alert so status is never colour-alone (FIND-036). */
 const PATHS = {
@@ -28,7 +29,7 @@ export const ToastStack = React.forwardRef(function ToastStack({ children, lang,
 ToastStack.displayName = "ToastStack";
 
 /** CyberSkill Toast — transient notification. variant: default | success | danger. */
-export const Toast = React.forwardRef(function Toast({ variant = "default", title, icon, onClose, lang, children, className, ...props }, forwardedRef) {
+export const Toast = React.forwardRef(function Toast({ variant = "default", title, icon, onClose, onOpenChange, lang, children, className, ...props }, forwardedRef) {
   const [ref, L, localeMessages] = useLang(lang);
   const mergedNativeRef = useComposedRefs(ref, forwardedRef);
   const { scope } = useOverlayLayer({ open: true, kind: "toast", panelRef: ref, restoreFocus: false });
@@ -42,8 +43,8 @@ export const Toast = React.forwardRef(function Toast({ variant = "default", titl
         {(title || title === 0) ? <div className="cs-toast__title">{title}</div> : null}
         {(children || children === 0) ? <div className="cs-toast__body">{children}</div> : null}
       </div>
-      {onClose ? (
-        <button type="button" className="cs-toast__close" aria-label={makeT("Toast", L, localeMessages)("dismiss")} onClick={onClose}>
+      {hasDismiss(onOpenChange, onClose) ? (
+        <button type="button" className="cs-toast__close" aria-label={makeT("Toast", L, localeMessages)("dismiss")} onClick={() => notifyClosed(onOpenChange, onClose)}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
         </button>
       ) : null}

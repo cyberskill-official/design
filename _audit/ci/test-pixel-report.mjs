@@ -319,7 +319,7 @@ try {
     await gate(replacement === undefined ? receipt : replacement, false, name);
   }
   const positive = await gate(fixture, true, "complete synthetic receipt, actual current files");
-  assert.equal(positive.compared, 15);
+  assert.equal(positive.compared, PIXEL_TARGETS.length);
   assert.equal(positive.sourceState, "matches");
   alterStyles = true;
   assert.equal((await gate(fixture, false, "stale actual served stylesheet")).sourceState, "not_current");
@@ -416,7 +416,7 @@ try {
   const actual = JSON.parse(await readFile(resolve(scratch, "_audit/ci/pixel-diff-report.json")));
   assert.equal(validatePixelReport(actual).pass, true);
   assert.equal(actual.renderer.version.includes("fixture"), false);
-  assert.equal(actual.results.filter(row => row.result === "captured").length, 15);
+  assert.equal(actual.results.filter(row => row.result === "captured").length, PIXEL_TARGETS.length);
   assert.equal(actual.maxDiff, 0);
   assert.equal(actual.sourceInputs.scope, PIXEL_INPUT_SCOPE);
   // A different served checkout must fail before capture and remove the old passing receipt.
@@ -434,7 +434,7 @@ try {
   assert.equal(changed.code, 1, changed.output);
   const actualDrift = JSON.parse(await readFile(resolve(scratch, "_audit/ci/pixel-diff-report.json")));
   assert.equal(validatePixelReport(actualDrift).pass, false);
-  assert.equal(actualDrift.results.length, 15);
+  assert.equal(actualDrift.results.length, PIXEL_TARGETS.length);
   assert.equal(actualDrift.captureFails, 0);
   assert.deepEqual(actualDrift.drifted, ["kitchen-sink"]);
   assert.equal(actualDrift.results[0].pct, 100);
@@ -443,11 +443,11 @@ try {
   assert.equal(unavailable.code, 1, unavailable.output);
   const actualFailure = JSON.parse(await readFile(resolve(scratch, "_audit/ci/pixel-diff-report.json")));
   assert.equal(validatePixelReport(actualFailure).pass, false);
-  assert.equal(actualFailure.results.length, 15);
+  assert.equal(actualFailure.results.length, PIXEL_TARGETS.length);
   assert.equal(actualFailure.captureFails, 1);
   assert.equal(actualFailure.results[0].result, "capture_failed");
   assert.match(actualFailure.results[0].error, /Capture resource HTTP 404/);
-  console.log("PASS actual Pixel CLI isolated fixtures: 15 real clean captures; foreign source abort removes old receipt; genuine 100% screenshot drift and missing capture resource fail");
+  console.log("PASS actual Pixel CLI isolated fixtures: " + PIXEL_TARGETS.length + " real clean captures; foreign source abort removes old receipt; genuine 100% screenshot drift and missing capture resource fail");
 } finally {
   await browser?.close();
   await isolated?.close();

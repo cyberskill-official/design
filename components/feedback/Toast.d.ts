@@ -16,6 +16,9 @@ export interface ToastProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "
   variant?: "default" | "success" | "danger";
   title?: ReactNode;
   icon?: ReactNode;
+  /** Called with `false` when the toast asks to close. Preferred open-state callback. */
+  onOpenChange?: (open: boolean) => void;
+  /** @deprecated Still supported. Called after `onOpenChange(false)` when the toast closes. */
   onClose?: () => void;
   children?: ReactNode;
 }

@@ -38,21 +38,21 @@
 
 .cs-button--secondary {
   background: var(--cs-color-surface-panel, #ffffff);
-  border-color: var(--_cs-light, var(--cs-color-brand-umber, #45210e)) var(--_cs-dark, var(--cs-color-brand-ochre));
-  color: var(--_cs-light, var(--cs-color-brand-umber, #45210e)) var(--_cs-dark, var(--cs-color-brand-ochre));
+  border-color: var(--_cs-light, var(--cs-color-brand-umber, #45210e))var(--_cs-dark, var(--cs-color-brand-ochre));
+  color: var(--_cs-light, var(--cs-color-brand-umber, #45210e))var(--_cs-dark, var(--cs-color-brand-ochre));
 }
 .cs-button--secondary:hover { background: var(--cs-color-surface-raised, #fbf4e9); filter: none; }
 
 .cs-button--tertiary {
   background: var(--cs-color-surface-raised, #fbf4e9);
   border-color: transparent;
-  color: var(--_cs-light, var(--cs-color-brand-umber, #45210e)) var(--_cs-dark, var(--cs-color-text-primary));
+  color: var(--_cs-light, var(--cs-color-brand-umber, #45210e))var(--_cs-dark, var(--cs-color-text-primary));
 }
 .cs-button--tertiary:hover { filter: none; border-color: var(--cs-color-border-default, #e7d9c6); }
 
 .cs-button--ghost {
   background: transparent;
-  color: var(--_cs-light, var(--cs-color-brand-umber, #45210e)) var(--_cs-dark, var(--cs-color-text-primary));
+  color: var(--_cs-light, var(--cs-color-brand-umber, #45210e))var(--_cs-dark, var(--cs-color-text-primary));
 }
 .cs-button--ghost:hover { background: var(--cs-color-surface-raised, #fbf4e9); filter: none; }
 

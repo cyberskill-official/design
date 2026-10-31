@@ -191,7 +191,7 @@ export const DataGrid = React.forwardRef(function DataGrid({
               {slice.map((r, i) => {
                 const k = r[rowKey] != null ? r[rowKey] : start + i;
                 return (
-                  <tr key={k} aria-rowindex={useVirtual ? start + i + 2 : undefined} className={selected.includes(k) ? "is-selected" : undefined} style={useVirtual ? { height: effectiveRowHeight } : undefined}>
+                  <tr key={k} aria-rowindex={useVirtual ? start + i + 2 : undefined} aria-selected={selectable ? selected.includes(k) : undefined} className={selected.includes(k) ? "is-selected" : undefined} style={useVirtual ? { height: effectiveRowHeight } : undefined}>
                     {selectable ? <td className="cs-datagrid__selcol"><label className="cs-datagrid__check"><input type="checkbox" aria-label={`${t("selectRow")}: ${String(orderedColumns.map(c => r[c.key]).find(v => typeof v === "string" && v.trim()) ?? k)}`} checked={selected.includes(k)} onChange={() => toggle(k)} /></label></td> : null}
                     {orderedColumns.map((c) => (
                       <td key={c.key} className={c.pinned ? "cs-datagrid__pinned" : undefined} style={c.pinned ? { position: "sticky", insetInlineStart: 0, background: "var(--cs-color-surface-panel)" } : undefined}>

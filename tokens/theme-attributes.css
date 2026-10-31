@@ -27,28 +27,28 @@
   --cs-density-control-gap: 6px;
 
   --cs-component-button-gap: 6px;
-  --cs-component-button-xs-paddingY: 3px;
-  --cs-component-button-xs-padding-y: var(--cs-component-button-xs-paddingY);
-  --cs-component-button-xs-paddingX: 8px;
-  --cs-component-button-xs-padding-x: var(--cs-component-button-xs-paddingX);
-  --cs-component-button-sm-paddingY: 6px;
-  --cs-component-button-sm-padding-y: var(--cs-component-button-sm-paddingY);
-  --cs-component-button-sm-paddingX: 12px;
-  --cs-component-button-sm-padding-x: var(--cs-component-button-sm-paddingX);
-  --cs-component-button-md-paddingY: 10px;
-  --cs-component-button-md-padding-y: var(--cs-component-button-md-paddingY);
-  --cs-component-button-md-paddingX: 16px;
-  --cs-component-button-md-padding-x: var(--cs-component-button-md-paddingX);
+  --cs-component-button-xs-paddingY: var(--cs-component-button-xs-padding-y);
+  --cs-component-button-xs-padding-y: 3px;
+  --cs-component-button-xs-paddingX: var(--cs-component-button-xs-padding-x);
+  --cs-component-button-xs-padding-x: 8px;
+  --cs-component-button-sm-paddingY: var(--cs-component-button-sm-padding-y);
+  --cs-component-button-sm-padding-y: 6px;
+  --cs-component-button-sm-paddingX: var(--cs-component-button-sm-padding-x);
+  --cs-component-button-sm-padding-x: 12px;
+  --cs-component-button-md-paddingY: var(--cs-component-button-md-padding-y);
+  --cs-component-button-md-padding-y: 10px;
+  --cs-component-button-md-paddingX: var(--cs-component-button-md-padding-x);
+  --cs-component-button-md-padding-x: 16px;
   /* md minHeight stays 44px — immutable touch floor */
-  --cs-component-button-lg-paddingY: 12px;
-  --cs-component-button-lg-padding-y: var(--cs-component-button-lg-paddingY);
-  --cs-component-button-lg-paddingX: 22px;
-  --cs-component-button-lg-padding-x: var(--cs-component-button-lg-paddingX);
+  --cs-component-button-lg-paddingY: var(--cs-component-button-lg-padding-y);
+  --cs-component-button-lg-padding-y: 12px;
+  --cs-component-button-lg-paddingX: var(--cs-component-button-lg-padding-x);
+  --cs-component-button-lg-padding-x: 22px;
 
-  --cs-component-textfield-paddingY: 8px;
-  --cs-component-textfield-padding-y: var(--cs-component-textfield-paddingY);
-  --cs-component-textfield-paddingX: 10px;
-  --cs-component-textfield-padding-x: var(--cs-component-textfield-paddingX);
+  --cs-component-textfield-paddingY: var(--cs-component-textfield-padding-y);
+  --cs-component-textfield-padding-y: 8px;
+  --cs-component-textfield-paddingX: var(--cs-component-textfield-padding-x);
+  --cs-component-textfield-padding-x: 10px;
   /* textfield minHeight stays 44px */
 }
 
@@ -64,26 +64,26 @@
   --cs-density-space-6: var(--cs-space-6);
   --cs-density-control-gap: var(--cs-component-button-gap);
   --cs-component-button-gap: 8px;
-  --cs-component-button-xs-paddingY: 4px;
-  --cs-component-button-xs-padding-y: var(--cs-component-button-xs-paddingY);
-  --cs-component-button-xs-paddingX: 10px;
-  --cs-component-button-xs-padding-x: var(--cs-component-button-xs-paddingX);
-  --cs-component-button-sm-paddingY: 8px;
-  --cs-component-button-sm-padding-y: var(--cs-component-button-sm-paddingY);
-  --cs-component-button-sm-paddingX: 14px;
-  --cs-component-button-sm-padding-x: var(--cs-component-button-sm-paddingX);
-  --cs-component-button-md-paddingY: 12px;
-  --cs-component-button-md-padding-y: var(--cs-component-button-md-paddingY);
-  --cs-component-button-md-paddingX: 20px;
-  --cs-component-button-md-padding-x: var(--cs-component-button-md-paddingX);
-  --cs-component-button-lg-paddingY: 16px;
-  --cs-component-button-lg-padding-y: var(--cs-component-button-lg-paddingY);
-  --cs-component-button-lg-paddingX: 28px;
-  --cs-component-button-lg-padding-x: var(--cs-component-button-lg-paddingX);
-  --cs-component-textfield-paddingY: 10px;
-  --cs-component-textfield-padding-y: var(--cs-component-textfield-paddingY);
-  --cs-component-textfield-paddingX: 12px;
-  --cs-component-textfield-padding-x: var(--cs-component-textfield-paddingX);
+  --cs-component-button-xs-padding-y: 4px;
+  --cs-component-button-xs-paddingY: var(--cs-component-button-xs-padding-y);
+  --cs-component-button-xs-padding-x: 10px;
+  --cs-component-button-xs-paddingX: var(--cs-component-button-xs-padding-x);
+  --cs-component-button-sm-padding-y: 8px;
+  --cs-component-button-sm-paddingY: var(--cs-component-button-sm-padding-y);
+  --cs-component-button-sm-padding-x: 14px;
+  --cs-component-button-sm-paddingX: var(--cs-component-button-sm-padding-x);
+  --cs-component-button-md-padding-y: 12px;
+  --cs-component-button-md-paddingY: var(--cs-component-button-md-padding-y);
+  --cs-component-button-md-padding-x: 20px;
+  --cs-component-button-md-paddingX: var(--cs-component-button-md-padding-x);
+  --cs-component-button-lg-padding-y: 16px;
+  --cs-component-button-lg-paddingY: var(--cs-component-button-lg-padding-y);
+  --cs-component-button-lg-padding-x: 28px;
+  --cs-component-button-lg-paddingX: var(--cs-component-button-lg-padding-x);
+  --cs-component-textfield-padding-y: 10px;
+  --cs-component-textfield-paddingY: var(--cs-component-textfield-padding-y);
+  --cs-component-textfield-padding-x: 12px;
+  --cs-component-textfield-paddingX: var(--cs-component-textfield-padding-x);
 }
 
 /* High contrast Theme attribute — strengthens muted text + borders.

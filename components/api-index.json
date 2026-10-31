@@ -14,7 +14,7 @@
     "scripts/catalog-source.json": "f12045fb1cccf19df8a2469dba096c582bc1885c8be464e2fc3df9aec06b89e9",
     "scripts/lib/component-support.mjs": "6626078ffaaa91cb3a43d87858577fc5d405e5bfb474e7519abf50d4797b2eb1",
     "_esm/react.d.ts": "56e221d6eb875cf7c3a4de841372ba0b70389836957d8538b1d5a276848db95d",
-    "components/lifecycle.json": "701f5aeacd6a9d635e08a9ef83740ba160b419d23de6e7b4d707b88b2e5e891b"
+    "components/lifecycle.json": "b8999f80d07a706f4555ddbe8c5690fc99631cc1fdee1728b5af52a5fd8ab2dc"
   },
   "propDefinitions": {
     "p-0003926b4717c94d": {
@@ -4973,13 +4973,6 @@
       "type": "number | undefined",
       "description": "px. Default 128."
     },
-    "p-3ff5af9835c625c0": {
-      "name": "onDismiss",
-      "optional": true,
-      "origin": "authored",
-      "type": "MouseEventHandler<HTMLButtonElement> | undefined",
-      "description": "Shows a dismiss button and reports its click; the parent owns removal."
-    },
     "p-40a5cb5922766a70": {
       "name": "onWaitingCapture",
       "optional": true,
@@ -5525,6 +5518,13 @@
       "origin": "authored",
       "type": "BreadcrumbItem[]",
       "description": ""
+    },
+    "p-48124dcdb9733b12": {
+      "name": "onOpenChange",
+      "optional": true,
+      "origin": "authored",
+      "type": "((open: boolean) => void) | undefined",
+      "description": "Called with `false` when the toast asks to close. Preferred open-state callback."
     },
     "p-482720d8140da903": {
       "name": "onLoadedMetadata",
@@ -6233,6 +6233,13 @@
       "type": "ClipboardEventHandler<HTMLTextAreaElement> | undefined",
       "description": ""
     },
+    "p-50f04dc954570a9d": {
+      "name": "onOpenChange",
+      "optional": true,
+      "origin": "authored",
+      "type": "((open: boolean) => void) | undefined",
+      "description": "Called with `false` when the palette asks to close. Preferred open-state callback."
+    },
     "p-512f6e33fa39bb99": {
       "name": "onPointerCancelCapture",
       "optional": true,
@@ -6917,6 +6924,13 @@
       "optional": true,
       "origin": "inherited",
       "type": "CompositionEventHandler<HTMLDivElement> | undefined",
+      "description": ""
+    },
+    "p-5abd70dc2fc547ab": {
+      "name": "onDismiss",
+      "optional": true,
+      "origin": "authored",
+      "type": "MouseEventHandler<HTMLButtonElement> | undefined",
       "description": ""
     },
     "p-5abe20172574ccd8": {
@@ -11623,6 +11637,13 @@
       "type": "\"info\" | \"warning\" | \"success\" | \"solid\" | \"danger\" | \"neutral\" | \"ochre\" | undefined",
       "description": ""
     },
+    "p-9d36605ef21b15ae": {
+      "name": "onOpenChange",
+      "optional": true,
+      "origin": "authored",
+      "type": "((open: boolean) => void) | undefined",
+      "description": "Called with `false` when the tour asks to close. Preferred open-state callback."
+    },
     "p-9d408594fcefd3de": {
       "name": "onMouseMove",
       "optional": true,
@@ -11713,6 +11734,13 @@
       "origin": "inherited",
       "type": "AnimationEventHandler<HTMLDListElement> | undefined",
       "description": ""
+    },
+    "p-9e76c539d6ccf02e": {
+      "name": "onOpenChange",
+      "optional": true,
+      "origin": "authored",
+      "type": "((open: boolean) => void) | undefined",
+      "description": "Called with `false` when the dismiss button is used. Preferred open-state callback."
     },
     "p-9e8acedf994e73d1": {
       "name": "onLoadStart",
@@ -14416,6 +14444,13 @@
       "type": "MouseEventHandler<HTMLElement> | undefined",
       "description": ""
     },
+    "p-c15681973896567b": {
+      "name": "onOpenChange",
+      "optional": true,
+      "origin": "authored",
+      "type": "((open: boolean) => void) | undefined",
+      "description": "Called with `false` when the dialog asks to close. Preferred open-state callback."
+    },
     "p-c1b35cf089b2619a": {
       "name": "onCompositionEndCapture",
       "optional": true,
@@ -15507,6 +15542,13 @@
       "origin": "inherited",
       "type": "MouseEventHandler<HTMLInputElement> | undefined",
       "description": ""
+    },
+    "p-d13a077ec708bdb4": {
+      "name": "onOpenChange",
+      "optional": true,
+      "origin": "authored",
+      "type": "((open: boolean) => void) | undefined",
+      "description": "Called with `false` when the drawer asks to close. Preferred open-state callback."
     },
     "p-d13a8fed80b920ce": {
       "name": "onTransitionEnd",
@@ -19034,8 +19076,8 @@
       "sourcePath": "components/feedback/Alert.jsx",
       "declarationPath": "components/feedback/Alert.d.ts",
       "promptPath": "components/feedback/Alert.prompt.md",
-      "sourceSha256": "b9c0a4e67f41118230fec5abdad7f22e8a98a2a8c46420cde54c1a46759f9d91",
-      "declarationSha256": "874625a12e07ab58639a7bd1e01607d907d668706663a96f11242e2c1dbf0d66",
+      "sourceSha256": "00beec82c17f94bc99069319b0e8a3a83d90ee8f5321fad72a72344761eb3f7a",
+      "declarationSha256": "c1fd15f2b8211131b1df6607e33152f8924bd3821a74b3a6fe0d4e0e59db5e41",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -19054,21 +19096,21 @@
         "evidence": [
           {
             "path": "components/feedback/Alert.d.ts",
-            "sha256": "874625a12e07ab58639a7bd1e01607d907d668706663a96f11242e2c1dbf0d66",
+            "sha256": "c1fd15f2b8211131b1df6607e33152f8924bd3821a74b3a6fe0d4e0e59db5e41",
             "scope": "Authored public TypeScript declaration contract",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/feedback/Alert.jsx",
-            "sha256": "b9c0a4e67f41118230fec5abdad7f22e8a98a2a8c46420cde54c1a46759f9d91",
+            "sha256": "00beec82c17f94bc99069319b0e8a3a83d90ee8f5321fad72a72344761eb3f7a",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/feedback/Alert.prompt.md",
-            "sha256": "0e114a1cd9f21703084bfb73fdf612bfb8f02126791612c69b0c9ba2907467a5",
+            "sha256": "62860feb1a3f7282dbc89c4879c14a89f6df355d2499ebb6010d7a5cfd049820",
             "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:50:00.000Z"
           },
           {
             "path": "stories/Alert.stories.jsx",
@@ -19077,9 +19119,10 @@
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
         ],
-        "reviewedAt": "2026-10-21T12:03:00.000Z",
+        "reviewedAt": "2026-10-30T16:45:00.000Z",
         "reviewedBy": "Stephen Cheng",
         "limitations": [
+          "2026-10-30 source edit: onOpenChange(false) is the shared close callback. onClose and Alert onDismiss still run afterward. This hash refresh is not a new manual assistive-technology acceptance.",
           "This bounded source/declared-support review covers only the exact direct evidence listed below and its public declaration and implementation contracts. Automated execution is limited to separately bound receipts; this scope does not establish all-state acceptance.",
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
@@ -19126,6 +19169,47 @@
               "Style: default, liquid-glass"
             ],
             "sourceSha256": "08e19c6eee49cfd07e4a761520725edee885e4e1d8c1f60c53a1ef0cf85a7be0"
+          },
+          {
+            "reviewedBy": "Stephen Cheng",
+            "reviewedAt": "2026-10-21T12:03:00.000Z",
+            "evidence": [
+              {
+                "path": "components/feedback/Alert.d.ts",
+                "sha256": "874625a12e07ab58639a7bd1e01607d907d668706663a96f11242e2c1dbf0d66",
+                "scope": "Authored public TypeScript declaration contract",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/feedback/Alert.jsx",
+                "sha256": "b9c0a4e67f41118230fec5abdad7f22e8a98a2a8c46420cde54c1a46759f9d91",
+                "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/feedback/Alert.prompt.md",
+                "sha256": "0e114a1cd9f21703084bfb73fdf612bfb8f02126791612c69b0c9ba2907467a5",
+                "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "stories/Alert.stories.jsx",
+                "sha256": "31d78cab081a063f70ca591d714ca25c96db7c6be7ceb1ea633d6b5da4444f30",
+                "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              }
+            ],
+            "environments": [
+              "Declared web target: React18/19 through compiled default @cyberskill/design and /react entry, with peer React; raw JSX requires explicit /source opt-in and a consumer JSX toolchain.",
+              "Declared browser compatibility entry: legacy _esm/cs.mjs / _ds_bundle.js; browser-only, not an SSR entry. Source and compiled module families must not be mixed.",
+              "Storybook10 authored CSF/matrix surface is a demonstration/test target. Actual engine/runtime/state coverage is listed separately in execution receipts."
+            ],
+            "axes": [
+              "Theme: light, dark, system (token/CSS contract)",
+              "Element: 5 Ngũ Hành elements / 15 packs",
+              "Language: vi, en",
+              "Style: default, liquid-glass"
+            ]
           }
         ]
       },
@@ -19576,6 +19660,10 @@
           "definition": "p-0e2e84c4718d87b4"
         },
         {
+          "name": "onClose",
+          "definition": "p-2284375ab0ebe0bd"
+        },
+        {
           "name": "onCompositionEnd",
           "definition": "p-2d61d6a1be0a6b98"
         },
@@ -19625,7 +19713,7 @@
         },
         {
           "name": "onDismiss",
-          "definition": "p-3ff5af9835c625c0"
+          "definition": "p-5abd70dc2fc547ab"
         },
         {
           "name": "onDoubleClick",
@@ -19882,6 +19970,10 @@
         {
           "name": "onMouseUpCapture",
           "definition": "p-6a123d5e4dc11b85"
+        },
+        {
+          "name": "onOpenChange",
+          "definition": "p-9e76c539d6ccf02e"
         },
         {
           "name": "onPaste",
@@ -39617,8 +39709,8 @@
       "sourcePath": "components/navigation/CommandPalette.jsx",
       "declarationPath": "components/navigation/CommandPalette.d.ts",
       "promptPath": "components/navigation/CommandPalette.prompt.md",
-      "sourceSha256": "7572bc9c884cc84b46d289947aad5d23a6b59bb222a207f7e49e4ce385eb5771",
-      "declarationSha256": "d19b4eb7a083a8b4057884a25562272bbbb81345c875d50e70ec3d673ae76893",
+      "sourceSha256": "4d01c61f1a034b08686456d2fec66aa51291f7e9b0e95a9d4e8a8761c0ce9f01",
+      "declarationSha256": "fc27fdb09a4f741142a2fa07da7beb4ddc6b7b8967cb9683124a49db5947f5f1",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -39637,21 +39729,21 @@
         "evidence": [
           {
             "path": "components/navigation/CommandPalette.d.ts",
-            "sha256": "d19b4eb7a083a8b4057884a25562272bbbb81345c875d50e70ec3d673ae76893",
+            "sha256": "fc27fdb09a4f741142a2fa07da7beb4ddc6b7b8967cb9683124a49db5947f5f1",
             "scope": "Authored public TypeScript declaration contract",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/navigation/CommandPalette.jsx",
-            "sha256": "7572bc9c884cc84b46d289947aad5d23a6b59bb222a207f7e49e4ce385eb5771",
+            "sha256": "4d01c61f1a034b08686456d2fec66aa51291f7e9b0e95a9d4e8a8761c0ce9f01",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/navigation/CommandPalette.prompt.md",
-            "sha256": "bb86395e2bca3565a4cb4276cf00ab1481287fd20b781e8b39bf06807e0d8ffd",
+            "sha256": "8f44916b37ff6905a58a9b2faa7548543df8c13838a1574cad3d4dbc974ea3ad",
             "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:50:00.000Z"
           },
           {
             "path": "stories/CommandPalette.stories.jsx",
@@ -39660,9 +39752,10 @@
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
         ],
-        "reviewedAt": "2026-10-21T12:03:00.000Z",
+        "reviewedAt": "2026-10-30T16:45:00.000Z",
         "reviewedBy": "Stephen Cheng",
         "limitations": [
+          "2026-10-30 source edit: onOpenChange(false) is the shared close callback. onClose and Alert onDismiss still run afterward. This hash refresh is not a new manual assistive-technology acceptance.",
           "This bounded source/declared-support review covers only the exact direct evidence listed below and its public declaration and implementation contracts. Automated execution is limited to separately bound receipts; this scope does not establish all-state acceptance.",
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
@@ -39709,6 +39802,47 @@
               "Style: default, liquid-glass"
             ],
             "sourceSha256": "794167f0501331e4f90e1f034a5925e2b7ed3c874a2d4cf70ce29b8a1c90cf21"
+          },
+          {
+            "reviewedBy": "Stephen Cheng",
+            "reviewedAt": "2026-10-21T12:03:00.000Z",
+            "evidence": [
+              {
+                "path": "components/navigation/CommandPalette.d.ts",
+                "sha256": "d19b4eb7a083a8b4057884a25562272bbbb81345c875d50e70ec3d673ae76893",
+                "scope": "Authored public TypeScript declaration contract",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/navigation/CommandPalette.jsx",
+                "sha256": "7572bc9c884cc84b46d289947aad5d23a6b59bb222a207f7e49e4ce385eb5771",
+                "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/navigation/CommandPalette.prompt.md",
+                "sha256": "bb86395e2bca3565a4cb4276cf00ab1481287fd20b781e8b39bf06807e0d8ffd",
+                "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "stories/CommandPalette.stories.jsx",
+                "sha256": "66f7538e06d68317d6a049060ab692d8fbc648a1fe2b434664426f7a5a171ec4",
+                "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              }
+            ],
+            "environments": [
+              "Declared web target: React18/19 through compiled default @cyberskill/design and /react entry, with peer React; raw JSX requires explicit /source opt-in and a consumer JSX toolchain.",
+              "Declared browser compatibility entry: legacy _esm/cs.mjs / _ds_bundle.js; browser-only, not an SSR entry. Source and compiled module families must not be mixed.",
+              "Storybook10 authored CSF/matrix surface is a demonstration/test target. Actual engine/runtime/state coverage is listed separately in execution receipts."
+            ],
+            "axes": [
+              "Theme: light, dark, system (token/CSS contract)",
+              "Element: 5 Ngũ Hành elements / 15 packs",
+              "Language: vi, en",
+              "Style: default, liquid-glass"
+            ]
           }
         ]
       },
@@ -39737,6 +39871,10 @@
         {
           "name": "onClose",
           "definition": "p-2284375ab0ebe0bd"
+        },
+        {
+          "name": "onOpenChange",
+          "definition": "p-50f04dc954570a9d"
         },
         {
           "name": "open",
@@ -40201,7 +40339,7 @@
       "sourcePath": "components/datatable/DataGrid.jsx",
       "declarationPath": "components/datatable/DataGrid.d.ts",
       "promptPath": "components/datatable/DataGrid.prompt.md",
-      "sourceSha256": "f98b241da97de25b2014cc1e28d84d1f35e4f16aeaa64d0e92961eabbc9499c5",
+      "sourceSha256": "e1c12c99dee3b1b1ab1cc81b0b8b6ba2efe8a6a9756f3d48d217366461ddd83f",
       "declarationSha256": "fe6c38c69ddf62249fa9d9920a713386b661f2d500b52e0db13de7f6fa246eb9",
       "declaredLifecycle": "stable",
       "support": {
@@ -40227,9 +40365,9 @@
           },
           {
             "path": "components/datatable/DataGrid.jsx",
-            "sha256": "f98b241da97de25b2014cc1e28d84d1f35e4f16aeaa64d0e92961eabbc9499c5",
+            "sha256": "e1c12c99dee3b1b1ab1cc81b0b8b6ba2efe8a6a9756f3d48d217366461ddd83f",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:30:00.000Z"
           },
           {
             "path": "components/datatable/DataGrid.prompt.md",
@@ -40244,9 +40382,10 @@
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
         ],
-        "reviewedAt": "2026-10-21T12:03:00.000Z",
+        "reviewedAt": "2026-10-30T16:30:00.000Z",
         "reviewedBy": "Stephen Cheng",
         "limitations": [
+          "2026-10-30 source edit: selectable rows expose aria-selected in addition to the row checkbox. This hash refresh records that edit. It is not a new manual assistive-technology acceptance.",
           "This bounded source/declared-support review covers only the exact direct evidence listed below and its public declaration and implementation contracts. Automated execution is limited to separately bound receipts; this scope does not establish all-state acceptance.",
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
@@ -40293,6 +40432,47 @@
               "Style: default, liquid-glass"
             ],
             "sourceSha256": "d44ff4be5b72db630142173303885c91d5d246909a775510c1eb1d9daf2423cb"
+          },
+          {
+            "reviewedBy": "Stephen Cheng",
+            "reviewedAt": "2026-10-21T12:03:00.000Z",
+            "evidence": [
+              {
+                "path": "components/datatable/DataGrid.d.ts",
+                "sha256": "fe6c38c69ddf62249fa9d9920a713386b661f2d500b52e0db13de7f6fa246eb9",
+                "scope": "Authored public TypeScript declaration contract",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/datatable/DataGrid.jsx",
+                "sha256": "f98b241da97de25b2014cc1e28d84d1f35e4f16aeaa64d0e92961eabbc9499c5",
+                "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/datatable/DataGrid.prompt.md",
+                "sha256": "56805e7126a922fc8782a7cc521ff95e56abaad74efcce34699c7cd161a24ac2",
+                "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "stories/DataGrid.stories.jsx",
+                "sha256": "92cc93e9cd7ae2f48efa101fd4d24e0559c6819ac74db959af3d449c5c0ed047",
+                "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              }
+            ],
+            "environments": [
+              "Declared web target: React18/19 through compiled default @cyberskill/design and /react entry, with peer React; raw JSX requires explicit /source opt-in and a consumer JSX toolchain.",
+              "Declared browser compatibility entry: legacy _esm/cs.mjs / _ds_bundle.js; browser-only, not an SSR entry. Source and compiled module families must not be mixed.",
+              "Storybook10 authored CSF/matrix surface is a demonstration/test target. Actual engine/runtime/state coverage is listed separately in execution receipts."
+            ],
+            "axes": [
+              "Theme: light, dark, system (token/CSS contract)",
+              "Element: 5 Ngũ Hành elements / 15 packs",
+              "Language: vi, en",
+              "Style: default, liquid-glass"
+            ]
           }
         ]
       },
@@ -41957,8 +42137,8 @@
       "sourcePath": "components/dialog/Dialog.jsx",
       "declarationPath": "components/dialog/Dialog.d.ts",
       "promptPath": "components/dialog/Dialog.prompt.md",
-      "sourceSha256": "975f4e5ad0d0d9eb972f3f6e2eb6bd7ecd9ee00c3520268b8355998ab801c240",
-      "declarationSha256": "a60c36dcd189c52bd40e8935cfaaf52829dc43db79941ff642360ffe34445a29",
+      "sourceSha256": "69ea5f27ca854cad7c029680a522df968f491e9aeab617b6104cccf73f318f66",
+      "declarationSha256": "7d7880f58ea5e29e0264af5d82439d755d8da23ff27a933503deaaf35d8fe1ff",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -41977,21 +42157,21 @@
         "evidence": [
           {
             "path": "components/dialog/Dialog.d.ts",
-            "sha256": "a60c36dcd189c52bd40e8935cfaaf52829dc43db79941ff642360ffe34445a29",
+            "sha256": "7d7880f58ea5e29e0264af5d82439d755d8da23ff27a933503deaaf35d8fe1ff",
             "scope": "Authored public TypeScript declaration contract",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/dialog/Dialog.jsx",
-            "sha256": "975f4e5ad0d0d9eb972f3f6e2eb6bd7ecd9ee00c3520268b8355998ab801c240",
+            "sha256": "69ea5f27ca854cad7c029680a522df968f491e9aeab617b6104cccf73f318f66",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/dialog/Dialog.prompt.md",
-            "sha256": "b4f3db80f99469f2c5876bdb66cfe78c718b027411db5ab553eb1e342c353801",
+            "sha256": "1e4f1ccf90683c2eddb66de8f7294a751c728f76c62feece750d989f8309fcda",
             "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:50:00.000Z"
           },
           {
             "path": "stories/Dialog.stories.jsx",
@@ -42000,9 +42180,10 @@
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
         ],
-        "reviewedAt": "2026-10-21T12:03:00.000Z",
+        "reviewedAt": "2026-10-30T16:45:00.000Z",
         "reviewedBy": "Stephen Cheng",
         "limitations": [
+          "2026-10-30 source edit: onOpenChange(false) is the shared close callback. onClose and Alert onDismiss still run afterward. This hash refresh is not a new manual assistive-technology acceptance.",
           "This bounded source/declared-support review covers only the exact direct evidence listed below and its public declaration and implementation contracts. Automated execution is limited to separately bound receipts; this scope does not establish all-state acceptance.",
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
@@ -42049,6 +42230,47 @@
               "Style: default, liquid-glass"
             ],
             "sourceSha256": "79a1fe051a4c28cdc5e5b8679c5587c46e3dc67adf3bf654eca4d76e7abcef31"
+          },
+          {
+            "reviewedBy": "Stephen Cheng",
+            "reviewedAt": "2026-10-21T12:03:00.000Z",
+            "evidence": [
+              {
+                "path": "components/dialog/Dialog.d.ts",
+                "sha256": "a60c36dcd189c52bd40e8935cfaaf52829dc43db79941ff642360ffe34445a29",
+                "scope": "Authored public TypeScript declaration contract",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/dialog/Dialog.jsx",
+                "sha256": "975f4e5ad0d0d9eb972f3f6e2eb6bd7ecd9ee00c3520268b8355998ab801c240",
+                "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/dialog/Dialog.prompt.md",
+                "sha256": "b4f3db80f99469f2c5876bdb66cfe78c718b027411db5ab553eb1e342c353801",
+                "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "stories/Dialog.stories.jsx",
+                "sha256": "8d34512438d2c7ff75e7fd0115d8235b707e2dbee79243e498ff912c4b560d71",
+                "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              }
+            ],
+            "environments": [
+              "Declared web target: React18/19 through compiled default @cyberskill/design and /react entry, with peer React; raw JSX requires explicit /source opt-in and a consumer JSX toolchain.",
+              "Declared browser compatibility entry: legacy _esm/cs.mjs / _ds_bundle.js; browser-only, not an SSR entry. Source and compiled module families must not be mixed.",
+              "Storybook10 authored CSF/matrix surface is a demonstration/test target. Actual engine/runtime/state coverage is listed separately in execution receipts."
+            ],
+            "axes": [
+              "Theme: light, dark, system (token/CSS contract)",
+              "Element: 5 Ngũ Hành elements / 15 packs",
+              "Language: vi, en",
+              "Style: default, liquid-glass"
+            ]
           }
         ]
       },
@@ -42809,6 +43031,10 @@
         {
           "name": "onMouseUpCapture",
           "definition": "p-6a123d5e4dc11b85"
+        },
+        {
+          "name": "onOpenChange",
+          "definition": "p-c15681973896567b"
         },
         {
           "name": "onPaste",
@@ -44563,8 +44789,8 @@
       "sourcePath": "components/overlays/Drawer.jsx",
       "declarationPath": "components/overlays/Drawer.d.ts",
       "promptPath": "components/overlays/Drawer.prompt.md",
-      "sourceSha256": "a98fc2c5e5bcfc3c8ff69005bcc5018a54685bfb971690e79cd483d8ce9e1bca",
-      "declarationSha256": "0ee655f846d77574a82c65378dac2424bb16d5ce6bd9732a71655a5107dff8f9",
+      "sourceSha256": "4fa7fd44111751148d9c1e9e48ab4ffed0f17dd2dd64448d9ba354935969c2c1",
+      "declarationSha256": "30a912dd6482a2934d1508960d0bf4e76caef7e4055f312bffd77941c05396f2",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -44583,21 +44809,21 @@
         "evidence": [
           {
             "path": "components/overlays/Drawer.d.ts",
-            "sha256": "0ee655f846d77574a82c65378dac2424bb16d5ce6bd9732a71655a5107dff8f9",
+            "sha256": "30a912dd6482a2934d1508960d0bf4e76caef7e4055f312bffd77941c05396f2",
             "scope": "Authored public TypeScript declaration contract",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/overlays/Drawer.jsx",
-            "sha256": "a98fc2c5e5bcfc3c8ff69005bcc5018a54685bfb971690e79cd483d8ce9e1bca",
+            "sha256": "4fa7fd44111751148d9c1e9e48ab4ffed0f17dd2dd64448d9ba354935969c2c1",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/overlays/Drawer.prompt.md",
-            "sha256": "5a4ee76ef54c0e96d90c34f7e4a48e6d7cca65fa7a2e270ed00db6723b1d3f23",
+            "sha256": "3beac4a67fedb34af5086bfa5590cea431b6e31a8f38f39752f4b633a3128781",
             "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:50:00.000Z"
           },
           {
             "path": "stories/Drawer.stories.jsx",
@@ -44606,9 +44832,10 @@
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
         ],
-        "reviewedAt": "2026-10-21T12:03:00.000Z",
+        "reviewedAt": "2026-10-30T16:45:00.000Z",
         "reviewedBy": "Stephen Cheng",
         "limitations": [
+          "2026-10-30 source edit: onOpenChange(false) is the shared close callback. onClose and Alert onDismiss still run afterward. This hash refresh is not a new manual assistive-technology acceptance.",
           "This bounded source/declared-support review covers only the exact direct evidence listed below and its public declaration and implementation contracts. Automated execution is limited to separately bound receipts; this scope does not establish all-state acceptance.",
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
@@ -44655,6 +44882,47 @@
               "Style: default, liquid-glass"
             ],
             "sourceSha256": "139dc6b2483b19592d8257027de0380c3b29d2647b52c38598d1b6d0ad4aba63"
+          },
+          {
+            "reviewedBy": "Stephen Cheng",
+            "reviewedAt": "2026-10-21T12:03:00.000Z",
+            "evidence": [
+              {
+                "path": "components/overlays/Drawer.d.ts",
+                "sha256": "0ee655f846d77574a82c65378dac2424bb16d5ce6bd9732a71655a5107dff8f9",
+                "scope": "Authored public TypeScript declaration contract",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/overlays/Drawer.jsx",
+                "sha256": "a98fc2c5e5bcfc3c8ff69005bcc5018a54685bfb971690e79cd483d8ce9e1bca",
+                "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/overlays/Drawer.prompt.md",
+                "sha256": "5a4ee76ef54c0e96d90c34f7e4a48e6d7cca65fa7a2e270ed00db6723b1d3f23",
+                "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "stories/Drawer.stories.jsx",
+                "sha256": "8b48197c77768ce08b49823e12133ba8eb1f4458ab833a4766f5047b882519d5",
+                "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              }
+            ],
+            "environments": [
+              "Declared web target: React18/19 through compiled default @cyberskill/design and /react entry, with peer React; raw JSX requires explicit /source opt-in and a consumer JSX toolchain.",
+              "Declared browser compatibility entry: legacy _esm/cs.mjs / _ds_bundle.js; browser-only, not an SSR entry. Source and compiled module families must not be mixed.",
+              "Storybook10 authored CSF/matrix surface is a demonstration/test target. Actual engine/runtime/state coverage is listed separately in execution receipts."
+            ],
+            "axes": [
+              "Theme: light, dark, system (token/CSS contract)",
+              "Element: 5 Ngũ Hành elements / 15 packs",
+              "Language: vi, en",
+              "Style: default, liquid-glass"
+            ]
           }
         ]
       },
@@ -44683,6 +44951,10 @@
         {
           "name": "onClose",
           "definition": "p-2284375ab0ebe0bd"
+        },
+        {
+          "name": "onOpenChange",
+          "definition": "p-d13a077ec708bdb4"
         },
         {
           "name": "open",
@@ -63847,7 +64119,7 @@
       "sourcePath": "components/navigation/Menubar.jsx",
       "declarationPath": "components/navigation/Menubar.d.ts",
       "promptPath": "components/navigation/Menubar.prompt.md",
-      "sourceSha256": "21b8409d336182e0706de0d4ece24d2304d1978eea42dbc313949d9a46819ea9",
+      "sourceSha256": "c53128a82420abbab20dad86abfd844d8e145544de3fbba52d8d8cba69b1574d",
       "declarationSha256": "4785192d3a6c96b7162d22d2f2148dc4d9b4352b545e96c1f74bba4b5987a5a2",
       "declaredLifecycle": "stable",
       "support": {
@@ -63873,9 +64145,9 @@
           },
           {
             "path": "components/navigation/Menubar.jsx",
-            "sha256": "21b8409d336182e0706de0d4ece24d2304d1978eea42dbc313949d9a46819ea9",
+            "sha256": "c53128a82420abbab20dad86abfd844d8e145544de3fbba52d8d8cba69b1574d",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:30:00.000Z"
           },
           {
             "path": "components/navigation/Menubar.prompt.md",
@@ -63890,9 +64162,10 @@
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
         ],
-        "reviewedAt": "2026-10-21T12:03:00.000Z",
+        "reviewedAt": "2026-10-30T16:30:00.000Z",
         "reviewedBy": "Stephen Cheng",
         "limitations": [
+          "2026-10-30 source edit: submenu items use tabindex -1 and Tab closes the menu without walking each item. Automated keyboard coverage is test-at-review-keyboard-browser. This hash refresh is not a new manual assistive-technology acceptance.",
           "This bounded source/declared-support review covers only the exact direct evidence listed below and its public declaration and implementation contracts. Automated execution is limited to separately bound receipts; this scope does not establish all-state acceptance.",
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
@@ -63939,6 +64212,47 @@
               "Style: default, liquid-glass"
             ],
             "sourceSha256": "3f36fa3c2e3a6c8d5d796e598651e13a4bf4bf228115b747a4668d70d8cbaeeb"
+          },
+          {
+            "reviewedBy": "Stephen Cheng",
+            "reviewedAt": "2026-10-21T12:03:00.000Z",
+            "evidence": [
+              {
+                "path": "components/navigation/Menubar.d.ts",
+                "sha256": "4785192d3a6c96b7162d22d2f2148dc4d9b4352b545e96c1f74bba4b5987a5a2",
+                "scope": "Authored public TypeScript declaration contract",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/navigation/Menubar.jsx",
+                "sha256": "21b8409d336182e0706de0d4ece24d2304d1978eea42dbc313949d9a46819ea9",
+                "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/navigation/Menubar.prompt.md",
+                "sha256": "113569d1721bd918a431865660ee899582712a9d9e5a986ad50d12b918efc07f",
+                "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "stories/Menubar.stories.jsx",
+                "sha256": "b6924460ce229e232fce86ec7d191d9672469084460924f2c8b7b1f4089aa84c",
+                "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              }
+            ],
+            "environments": [
+              "Declared web target: React18/19 through compiled default @cyberskill/design and /react entry, with peer React; raw JSX requires explicit /source opt-in and a consumer JSX toolchain.",
+              "Declared browser compatibility entry: legacy _esm/cs.mjs / _ds_bundle.js; browser-only, not an SSR entry. Source and compiled module families must not be mixed.",
+              "Storybook10 authored CSF/matrix surface is a demonstration/test target. Actual engine/runtime/state coverage is listed separately in execution receipts."
+            ],
+            "axes": [
+              "Theme: light, dark, system (token/CSS contract)",
+              "Element: 5 Ngũ Hành elements / 15 packs",
+              "Language: vi, en",
+              "Style: default, liquid-glass"
+            ]
           }
         ]
       },
@@ -93435,8 +93749,8 @@
       "sourcePath": "components/feedback/Toast.jsx",
       "declarationPath": "components/feedback/Toast.d.ts",
       "promptPath": "components/feedback/Toast.prompt.md",
-      "sourceSha256": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
-      "declarationSha256": "9d49bd59876f958c4a82a15725edcd6fd4a03087d5c740c9eecdbf35b9584faf",
+      "sourceSha256": "600f0efdcc28bfd5118533b75046f07ce72515ab4978386825c0bbc3e2919206",
+      "declarationSha256": "5bae319f9a870dfb54bb234f1b6d9dde268cbdbca721d3ec3d4f465c5cf5b2a6",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -93455,21 +93769,21 @@
         "evidence": [
           {
             "path": "components/feedback/Toast.d.ts",
-            "sha256": "9d49bd59876f958c4a82a15725edcd6fd4a03087d5c740c9eecdbf35b9584faf",
+            "sha256": "5bae319f9a870dfb54bb234f1b6d9dde268cbdbca721d3ec3d4f465c5cf5b2a6",
             "scope": "Authored public TypeScript declaration contract",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/feedback/Toast.jsx",
-            "sha256": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
+            "sha256": "600f0efdcc28bfd5118533b75046f07ce72515ab4978386825c0bbc3e2919206",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/feedback/Toast.prompt.md",
-            "sha256": "636a6c67157d0292c341a2f3e7993acb1c8aeda941a51470cd4aaab7f876fb07",
+            "sha256": "0a9dc8498887b83caa6be84a06ea47ff7f225626ecccb27fcc4a4434350f60a0",
             "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:50:00.000Z"
           },
           {
             "path": "stories/Toast.stories.jsx",
@@ -93478,9 +93792,10 @@
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
         ],
-        "reviewedAt": "2026-10-21T12:03:00.000Z",
+        "reviewedAt": "2026-10-30T16:45:00.000Z",
         "reviewedBy": "Stephen Cheng",
         "limitations": [
+          "2026-10-30 source edit: onOpenChange(false) is the shared close callback. onClose and Alert onDismiss still run afterward. This hash refresh is not a new manual assistive-technology acceptance.",
           "This bounded source/declared-support review covers only the exact direct evidence listed below and its public declaration and implementation contracts. Automated execution is limited to separately bound receipts; this scope does not establish all-state acceptance.",
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
@@ -93527,6 +93842,47 @@
               "Style: default, liquid-glass"
             ],
             "sourceSha256": "4a3e1a791fe0372bbfdf2f1f65b379efa91f4068466ba0fed7765f86c3512c97"
+          },
+          {
+            "reviewedBy": "Stephen Cheng",
+            "reviewedAt": "2026-10-21T12:03:00.000Z",
+            "evidence": [
+              {
+                "path": "components/feedback/Toast.d.ts",
+                "sha256": "9d49bd59876f958c4a82a15725edcd6fd4a03087d5c740c9eecdbf35b9584faf",
+                "scope": "Authored public TypeScript declaration contract",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/feedback/Toast.jsx",
+                "sha256": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
+                "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/feedback/Toast.prompt.md",
+                "sha256": "636a6c67157d0292c341a2f3e7993acb1c8aeda941a51470cd4aaab7f876fb07",
+                "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "stories/Toast.stories.jsx",
+                "sha256": "90e2fff06adcc708037d4e7f34e793a1a9456fd5f5055eafe08fcde7865ce2b2",
+                "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              }
+            ],
+            "environments": [
+              "Declared web target: React18/19 through compiled default @cyberskill/design and /react entry, with peer React; raw JSX requires explicit /source opt-in and a consumer JSX toolchain.",
+              "Declared browser compatibility entry: legacy _esm/cs.mjs / _ds_bundle.js; browser-only, not an SSR entry. Source and compiled module families must not be mixed.",
+              "Storybook10 authored CSF/matrix surface is a demonstration/test target. Actual engine/runtime/state coverage is listed separately in execution receipts."
+            ],
+            "axes": [
+              "Theme: light, dark, system (token/CSS contract)",
+              "Element: 5 Ngũ Hành elements / 15 packs",
+              "Language: vi, en",
+              "Style: default, liquid-glass"
+            ]
           }
         ]
       },
@@ -94285,6 +94641,10 @@
           "definition": "p-6a123d5e4dc11b85"
         },
         {
+          "name": "onOpenChange",
+          "definition": "p-48124dcdb9733b12"
+        },
+        {
           "name": "onPaste",
           "definition": "p-4dcffebd3757fadf"
         },
@@ -94673,8 +95033,8 @@
       "sourcePath": "components/feedback/Toast.jsx",
       "declarationPath": "components/feedback/Toast.d.ts",
       "promptPath": "components/feedback/Toast.prompt.md",
-      "sourceSha256": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
-      "declarationSha256": "9d49bd59876f958c4a82a15725edcd6fd4a03087d5c740c9eecdbf35b9584faf",
+      "sourceSha256": "600f0efdcc28bfd5118533b75046f07ce72515ab4978386825c0bbc3e2919206",
+      "declarationSha256": "5bae319f9a870dfb54bb234f1b6d9dde268cbdbca721d3ec3d4f465c5cf5b2a6",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -94693,21 +95053,21 @@
         "evidence": [
           {
             "path": "components/feedback/Toast.d.ts",
-            "sha256": "9d49bd59876f958c4a82a15725edcd6fd4a03087d5c740c9eecdbf35b9584faf",
+            "sha256": "5bae319f9a870dfb54bb234f1b6d9dde268cbdbca721d3ec3d4f465c5cf5b2a6",
             "scope": "Authored public TypeScript declaration contract",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/feedback/Toast.jsx",
-            "sha256": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
+            "sha256": "600f0efdcc28bfd5118533b75046f07ce72515ab4978386825c0bbc3e2919206",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/feedback/Toast.prompt.md",
-            "sha256": "636a6c67157d0292c341a2f3e7993acb1c8aeda941a51470cd4aaab7f876fb07",
+            "sha256": "0a9dc8498887b83caa6be84a06ea47ff7f225626ecccb27fcc4a4434350f60a0",
             "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:50:00.000Z"
           },
           {
             "path": "stories/Toast.stories.jsx",
@@ -94716,9 +95076,10 @@
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
         ],
-        "reviewedAt": "2026-10-21T12:03:00.000Z",
+        "reviewedAt": "2026-10-30T16:45:00.000Z",
         "reviewedBy": "Stephen Cheng",
         "limitations": [
+          "2026-10-30 source edit: onOpenChange(false) is the shared close callback. onClose and Alert onDismiss still run afterward. This hash refresh is not a new manual assistive-technology acceptance.",
           "This bounded source/declared-support review covers only the exact direct evidence listed below and its public declaration and implementation contracts. Automated execution is limited to separately bound receipts; this scope does not establish all-state acceptance.",
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
@@ -94765,6 +95126,47 @@
               "Style: default, liquid-glass"
             ],
             "sourceSha256": "4a3e1a791fe0372bbfdf2f1f65b379efa91f4068466ba0fed7765f86c3512c97"
+          },
+          {
+            "reviewedBy": "Stephen Cheng",
+            "reviewedAt": "2026-10-21T12:03:00.000Z",
+            "evidence": [
+              {
+                "path": "components/feedback/Toast.d.ts",
+                "sha256": "9d49bd59876f958c4a82a15725edcd6fd4a03087d5c740c9eecdbf35b9584faf",
+                "scope": "Authored public TypeScript declaration contract",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/feedback/Toast.jsx",
+                "sha256": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
+                "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/feedback/Toast.prompt.md",
+                "sha256": "636a6c67157d0292c341a2f3e7993acb1c8aeda941a51470cd4aaab7f876fb07",
+                "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "stories/Toast.stories.jsx",
+                "sha256": "90e2fff06adcc708037d4e7f34e793a1a9456fd5f5055eafe08fcde7865ce2b2",
+                "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              }
+            ],
+            "environments": [
+              "Declared web target: React18/19 through compiled default @cyberskill/design and /react entry, with peer React; raw JSX requires explicit /source opt-in and a consumer JSX toolchain.",
+              "Declared browser compatibility entry: legacy _esm/cs.mjs / _ds_bundle.js; browser-only, not an SSR entry. Source and compiled module families must not be mixed.",
+              "Storybook10 authored CSF/matrix surface is a demonstration/test target. Actual engine/runtime/state coverage is listed separately in execution receipts."
+            ],
+            "axes": [
+              "Theme: light, dark, system (token/CSS contract)",
+              "Element: 5 Ngũ Hành elements / 15 packs",
+              "Language: vi, en",
+              "Style: default, liquid-glass"
+            ]
           }
         ]
       },
@@ -96369,8 +96771,8 @@
       "sourcePath": "components/overlays/Tour.jsx",
       "declarationPath": "components/overlays/Tour.d.ts",
       "promptPath": "components/overlays/Tour.prompt.md",
-      "sourceSha256": "83459a653179098a298cbdbba807e2544ad3ed8ce2222934d3a61d0529fc8421",
-      "declarationSha256": "cb41b40137c56919b2db4c7732296410d3b8a047bba0dd27c36bc6bfdc780831",
+      "sourceSha256": "74775e9b0740f093f18283fdab036facbf8ac1370051c950807cae197b192010",
+      "declarationSha256": "9b25c447a1606adf4316268de3d0cfb2e99290e3b473510b65f1dc5ffe389e19",
       "declaredLifecycle": "stable",
       "support": {
         "reviewState": "reviewed",
@@ -96389,21 +96791,21 @@
         "evidence": [
           {
             "path": "components/overlays/Tour.d.ts",
-            "sha256": "cb41b40137c56919b2db4c7732296410d3b8a047bba0dd27c36bc6bfdc780831",
+            "sha256": "9b25c447a1606adf4316268de3d0cfb2e99290e3b473510b65f1dc5ffe389e19",
             "scope": "Authored public TypeScript declaration contract",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/overlays/Tour.jsx",
-            "sha256": "83459a653179098a298cbdbba807e2544ad3ed8ce2222934d3a61d0529fc8421",
+            "sha256": "74775e9b0740f093f18283fdab036facbf8ac1370051c950807cae197b192010",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:45:00.000Z"
           },
           {
             "path": "components/overlays/Tour.prompt.md",
-            "sha256": "b4834e211c8be8565032583fb8925da9a9dc394c1eb59bc90be381dfdb4506fc",
+            "sha256": "065f0f7d749322e64836feffa7de04047c5f4ef7d94f97ecbcd54cde0f1d3b65",
             "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-10-30T16:50:00.000Z"
           },
           {
             "path": "stories/Tour.stories.jsx",
@@ -96412,9 +96814,10 @@
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
         ],
-        "reviewedAt": "2026-10-21T12:03:00.000Z",
+        "reviewedAt": "2026-10-30T16:45:00.000Z",
         "reviewedBy": "Stephen Cheng",
         "limitations": [
+          "2026-10-30 source edit: onOpenChange(false) is the shared close callback. onClose and Alert onDismiss still run afterward. This hash refresh is not a new manual assistive-technology acceptance.",
           "This bounded source/declared-support review covers only the exact direct evidence listed below and its public declaration and implementation contracts. Automated execution is limited to separately bound receipts; this scope does not establish all-state acceptance.",
           "Automated contract, type, Storybook mount/FullMatrix, and multi-engine browser checks do not substitute for manual assistive-technology listening, physical mobile device testing, or every dynamic prop-state combination.",
           "Declared stable lifecycle status covers API contract stability within the recorded environments and axes, not whole-platform human acceptance."
@@ -96461,6 +96864,47 @@
               "Style: default, liquid-glass"
             ],
             "sourceSha256": "eb9bbddb51808580180baaeae86350b1851631bb66426f2264ab121b76e614f3"
+          },
+          {
+            "reviewedBy": "Stephen Cheng",
+            "reviewedAt": "2026-10-21T12:03:00.000Z",
+            "evidence": [
+              {
+                "path": "components/overlays/Tour.d.ts",
+                "sha256": "cb41b40137c56919b2db4c7732296410d3b8a047bba0dd27c36bc6bfdc780831",
+                "scope": "Authored public TypeScript declaration contract",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/overlays/Tour.jsx",
+                "sha256": "83459a653179098a298cbdbba807e2544ad3ed8ce2222934d3a61d0529fc8421",
+                "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/overlays/Tour.prompt.md",
+                "sha256": "b4834e211c8be8565032583fb8925da9a9dc394c1eb59bc90be381dfdb4506fc",
+                "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "stories/Tour.stories.jsx",
+                "sha256": "a898e39888a302c88fc2f3d15cc06ea657f1b05c72f8eca8af14c3a1703e3f80",
+                "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              }
+            ],
+            "environments": [
+              "Declared web target: React18/19 through compiled default @cyberskill/design and /react entry, with peer React; raw JSX requires explicit /source opt-in and a consumer JSX toolchain.",
+              "Declared browser compatibility entry: legacy _esm/cs.mjs / _ds_bundle.js; browser-only, not an SSR entry. Source and compiled module families must not be mixed.",
+              "Storybook10 authored CSF/matrix surface is a demonstration/test target. Actual engine/runtime/state coverage is listed separately in execution receipts."
+            ],
+            "axes": [
+              "Theme: light, dark, system (token/CSS contract)",
+              "Element: 5 Ngũ Hành elements / 15 packs",
+              "Language: vi, en",
+              "Style: default, liquid-glass"
+            ]
           }
         ]
       },
@@ -96481,6 +96925,10 @@
         {
           "name": "onClose",
           "definition": "p-2284375ab0ebe0bd"
+        },
+        {
+          "name": "onOpenChange",
+          "definition": "p-9d36605ef21b15ae"
         },
         {
           "name": "open",

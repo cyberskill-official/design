@@ -5,6 +5,7 @@ import { Icon } from "../icon/Icon.jsx";
 import { cx } from "../_utils/cx.js";
 import { overlaySurfaceClass, useOverlaySurface } from "../_utils/use-overlay-surface.js";
 import { useOverlayLayer, overlayScopeContext } from "../overlays/OverlayManager.jsx";
+import { hasDismiss, notifyClosed } from "../_utils/open-change.js";
 
 /**
  * CyberSkill Dialog — modal overlay + panel. aria-modal, labelled by title and
@@ -17,6 +18,7 @@ export const Dialog = React.forwardRef(function Dialog({
   children,
   actions,
   onClose,
+  onOpenChange,
   className,
   closeLabel,
   lang,
@@ -31,8 +33,8 @@ export const Dialog = React.forwardRef(function Dialog({
   const backdrop = React.useRef(null);
   const material = overlaySurfaceClass(className);
   const surface = useOverlaySurface(!!open, panel, material);
-  const closeRef = React.useRef(onClose);
-  closeRef.current = onClose;
+  const closeRef = React.useRef(null);
+  closeRef.current = () => notifyClosed(onOpenChange, onClose);
 
   const { scope } = useOverlayLayer({
     open: !!open,
@@ -48,7 +50,7 @@ export const Dialog = React.forwardRef(function Dialog({
   return (
     <overlayScopeContext.Provider value={scope}>
     <div ref={ref} className="cs-dialog-layer">
-      <div ref={backdrop} className="cs-dialog__overlay" onClick={onClose} aria-hidden="true" />
+      <div ref={backdrop} className="cs-dialog__overlay" onClick={() => closeRef.current()} aria-hidden="true" />
       {material ? <div ref={surface} className={cx("cs-overlay-surface", material)} aria-hidden="true" /> : null}
       <section
         {...props}
@@ -63,8 +65,8 @@ export const Dialog = React.forwardRef(function Dialog({
       >
         <header className="cs-dialog__header">
           <h2 id={titleId} className="cs-dialog__title">{title}</h2>
-          {onClose ? (
-            <button type="button" className="cs-button cs-button--ghost cs-button--sm" onClick={onClose} aria-label={cl}>
+          {hasDismiss(onOpenChange, onClose) ? (
+            <button type="button" className="cs-button cs-button--ghost cs-button--sm" onClick={() => closeRef.current()} aria-label={cl}>
               <Icon name="close" size="sm" />
             </button>
           ) : null}

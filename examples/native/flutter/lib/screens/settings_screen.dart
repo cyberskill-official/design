@@ -1,3 +1,4 @@
+import 'package:cyberskill_design/controls.dart';
 import 'package:flutter/material.dart';
 import '../tokens/cs_tokens.dart';
 import '../sample_theme.dart';
@@ -62,38 +63,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           TextStyle(fontSize: 13, color: colors.colorTextMuted),
                     ),
                     const SizedBox(height: 16),
-                    Container(
+                    CsCard(
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: colors.colorSurfacePanel,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: colors.colorBorderDefault),
-                      ),
+                      dark: sampleTheme.dark,
+                      highContrast: sampleTheme.highContrast,
+                      compact: compact,
                       child: Column(
                         children: [
-                          SwitchListTile(
-                            title: Text(
-                              sampleTheme.text(SampleText.preferDark),
-                              style: TextStyle(color: colors.colorTextPrimary),
-                            ),
+                          CsSwitch(
+                            title: sampleTheme.text(SampleText.preferDark),
                             value: sampleTheme.dark,
-                            activeColor: CSTokens.colorBrandOchre,
                             onChanged: sampleTheme.onDarkChanged,
+                            dark: sampleTheme.dark,
+                            highContrast: sampleTheme.highContrast,
+                            compact: compact,
                           ),
-                          SwitchListTile(
-                            title: Text(
-                                sampleTheme.text(SampleText.compactSpacing)),
+                          CsSwitch(
+                            title: sampleTheme.text(SampleText.compactSpacing),
                             value: compact,
                             onChanged: (v) => setState(() => compact = v),
+                            dark: sampleTheme.dark,
+                            highContrast: sampleTheme.highContrast,
+                            compact: compact,
                           ),
-                          DropdownButtonFormField<SampleContrast>(
+                          CsSelect<SampleContrast>(
+                            label: sampleTheme.text(SampleText.contrast),
                             value: sampleTheme.contrast,
-                            isExpanded: true,
-                            isDense: false,
-                            itemHeight: null,
-                            decoration: InputDecoration(
-                                labelText:
-                                    sampleTheme.text(SampleText.contrast)),
+                            dark: sampleTheme.dark,
+                            highContrast: sampleTheme.highContrast,
+                            compact: compact,
                             items: SampleContrast.values
                                 .map((option) => DropdownMenuItem(
                                     value: option,
@@ -105,14 +103,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 sampleTheme.onContrastChanged(value);
                             },
                           ),
-                          DropdownButtonFormField<SampleLanguage>(
+                          CsSelect<SampleLanguage>(
+                            label: sampleTheme.text(SampleText.language),
                             value: sampleTheme.language,
-                            isExpanded: true,
-                            isDense: false,
-                            itemHeight: null,
-                            decoration: InputDecoration(
-                                labelText:
-                                    sampleTheme.text(SampleText.language)),
+                            dark: sampleTheme.dark,
+                            highContrast: sampleTheme.highContrast,
+                            compact: compact,
                             items: const [
                               DropdownMenuItem(
                                   value: SampleLanguage.vi,
@@ -150,26 +146,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   alignment: Alignment.bottomCenter,
                   child: SizedBox(
                     width: double.infinity,
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                          minHeight: CSTokens.componentButtonMdMinHeight),
-                      child: FilledButton(
-                        style: FilledButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: buttonPaddingX,
-                              vertical: buttonPaddingY),
-                          backgroundColor: colors.colorSemanticDanger,
-                          foregroundColor: colors.colorTextInverse,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              CSTokens.componentButtonRadius,
-                            ),
-                          ),
-                        ),
-                        onPressed: () => Navigator.of(context)
-                            .pushReplacementNamed('/sign-in'),
-                        child: Text(sampleTheme.text(SampleText.signOut)),
-                      ),
+                    child: CsButton(
+                      title: sampleTheme.text(SampleText.signOut),
+                      dark: sampleTheme.dark,
+                      highContrast: sampleTheme.highContrast,
+                      compact: compact,
+                      role: CsButtonRole.danger,
+                      paddingX: buttonPaddingX,
+                      paddingY: buttonPaddingY,
+                      onPressed: () => Navigator.of(context)
+                          .pushReplacementNamed('/sign-in'),
                     ),
                   ),
                 ),

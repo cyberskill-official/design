@@ -1,5 +1,5 @@
+import 'package:cyberskill_design/controls.dart';
 import 'package:flutter/material.dart';
-import '../tokens/cs_tokens.dart';
 import '../sample_theme.dart';
 import '../sample_language.dart';
 
@@ -38,13 +38,13 @@ class HomeScreen extends StatelessWidget {
                           ),
                         )),
                         const SizedBox(width: 8),
-                        TextButton(
+                        CsTextButton(
+                          title: sampleTheme.text(SampleText.settings),
+                          dark: sampleTheme.dark,
+                          highContrast: sampleTheme.highContrast,
+                          compact: false,
                           onPressed: () =>
                               Navigator.of(context).pushNamed('/settings'),
-                          child: Text(
-                            sampleTheme.text(SampleText.settings),
-                            style: TextStyle(color: colors.colorLink),
-                          ),
                         ),
                       ],
                     ),
@@ -54,35 +54,24 @@ class HomeScreen extends StatelessWidget {
                           TextStyle(fontSize: 13, color: colors.colorTextMuted),
                     ),
                     const SizedBox(height: 16),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: colors.colorSurfacePanel,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: colors.colorBorderDefault),
-                      ),
+                    CsCard(
+                      dark: sampleTheme.dark,
+                      highContrast: sampleTheme.highContrast,
+                      compact: false,
                       child: Column(
                         children: [
                           for (final w in _wishKeys)
-                            ListTile(
-                              title: Text(
-                                sampleTheme.text(w.$1),
-                                style: TextStyle(
-                                  color: colors.colorTextPrimary,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              subtitle: Text(
-                                sampleTheme.text(w.$2),
-                                style: TextStyle(color: colors.colorTextMuted),
-                              ),
-                              trailing: Container(
-                                width: 10,
-                                height: 10,
-                                decoration: BoxDecoration(
-                                  color: CSTokens.colorBrandOchre,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
+                            CsListRow(
+                              title: sampleTheme.text(w.$1),
+                              subtitle: sampleTheme.text(w.$2),
+                              dark: sampleTheme.dark,
+                              highContrast: sampleTheme.highContrast,
+                              compact: false,
+                            ),
+                            CsDivider(
+                              dark: sampleTheme.dark,
+                              highContrast: sampleTheme.highContrast,
+                              compact: false,
                             ),
                         ],
                       ),
@@ -97,13 +86,14 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(24),
                 child: Align(
                   alignment: Alignment.bottomLeft,
-                  child: TextButton(
+                  child: CsTextButton(
+                    title: sampleTheme.text(SampleText.signOut),
+                    dark: sampleTheme.dark,
+                    highContrast: sampleTheme.highContrast,
+                    compact: false,
+                    role: CsButtonRole.danger,
                     onPressed: () =>
                         Navigator.of(context).pushReplacementNamed('/sign-in'),
-                    child: Text(
-                      sampleTheme.text(SampleText.signOut),
-                      style: TextStyle(color: colors.colorSemanticDangerText),
-                    ),
                   ),
                 ),
               ),
