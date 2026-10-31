@@ -398,6 +398,40 @@ class _CsCascaderState extends State<CsCascader> {
   var requested = false;
   var highlight = -1;
   late List<String> draft = widget.path;
+  final fieldKey = GlobalKey();
+  final listKey = GlobalKey();
+  Size? natural;
+  Size? fitted;
+  CsCascaderPlace? place;
+
+  void measure() {
+    final fieldBox = fieldKey.currentContext?.findRenderObject() as RenderBox?;
+    final listBox = listKey.currentContext?.findRenderObject() as RenderBox?;
+    if (fieldBox == null || !fieldBox.hasSize || listBox == null || !listBox.hasSize || !fieldBox.attached || !listBox.attached) return;
+    final field = fieldBox.localToGlobal(Offset.zero);
+    final list = listBox.localToGlobal(Offset.zero);
+    if (natural == null) {
+      setState(() => natural = listBox.size);
+      return;
+    }
+    if (fitted == listBox.size && place != null) return;
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csCascaderShift(
+      CsFloatingRect(field.dx, field.dy, field.dx + fieldBox.size.width, field.dy + fieldBox.size.height, fieldBox.size.width, fieldBox.size.height),
+      natural!.width,
+      natural!.height,
+      listBox.size.width,
+      listBox.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      list.dx,
+      list.dy,
+      1,
+      1,
+    );
+    setState(() { fitted = listBox.size; place = next; });
+  }
 
   @override
   void didUpdateWidget(CsCascader oldWidget) {
@@ -414,6 +448,8 @@ class _CsCascaderState extends State<CsCascader> {
     final opened = csCascaderOpen(requested, widget.disabled);
     final name = csCascaderFieldName(widget.label, widget.labelledBy);
     final columns = csCascaderColumns(widget.nodes, draft);
+    if (!opened) { natural = null; fitted = null; }
+    if (opened) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && requested) measure(); });
     return TapRegion(
       onTapOutside: opened && csCascaderDismissOutside(true, false) ? (_) { setState(() { requested = false; highlight = -1; }); } : null,
       child: Focus(
@@ -451,9 +487,9 @@ class _CsCascaderState extends State<CsCascader> {
         button: true,
         label: name,
         toggled: opened,
-        child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: widget.disabled ? null : () { claim(); setState(() => requested = !requested); }, child: name == null ? Text('$shown ▾') : ExcludeSemantics(child: Text('$shown ▾')))),
+        child: CsOwnFocus(builder: (node, claim) => TextButton(key: fieldKey, focusNode: node, onPressed: widget.disabled ? null : () { claim(); setState(() => requested = !requested); }, child: name == null ? Text('$shown ▾') : ExcludeSemantics(child: Text('$shown ▾')))),
       ),
-      if (opened) Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      if (opened) Transform.translate(offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Row(key: listKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
           for (var depth = 0; depth < columns.length; depth++)
             Column(children: [
               for (var offset = 0; offset < columns[depth].length; offset++)
@@ -473,7 +509,7 @@ class _CsCascaderState extends State<CsCascader> {
                   );
                 }),
             ]),
-        ]),
+        ])),
     ]),
     ),
     );

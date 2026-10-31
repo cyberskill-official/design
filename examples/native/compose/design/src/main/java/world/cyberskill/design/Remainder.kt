@@ -5,6 +5,11 @@ import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
@@ -325,7 +330,25 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
   var requested by remember { mutableStateOf(false) }
   var draft by remember(path) { mutableStateOf(path) }
   var highlight by remember { mutableStateOf(-1) }
+  var field by remember { mutableStateOf<CsFloatingRect?>(null) }
+  var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var origin by remember { mutableStateOf(0.0 to 0.0) }
+  var panelScale by remember { mutableStateOf(1.0 to 1.0) }
   val opened = csCascaderOpen(requested, disabled)
+  val config = LocalConfiguration.current
+  val density = LocalDensity.current
+  val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
+  val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
+  val viewport = CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), 0.0, 0.0)
+  val place = field?.let { box ->
+    val first = natural
+    val second = fitted
+    if (first == null || second == null) null else csCascaderShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second)
+  }
+  val shiftX = with(density) { (place?.x ?: 0.0).toFloat().toDp() }
+  val shiftY = with(density) { (place?.y ?: 0.0).toFloat().toDp() }
+  LaunchedEffect(opened) { if (!opened) { natural = null; fitted = null } }
   Column(modifier.onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
     if (event.key == Key.Escape && opened) { requested = false; highlight = -1; return@onPreviewKeyEvent true }
@@ -351,11 +374,25 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
     if (next.close) { requested = false; highlight = -1 }
     true
   }) {
-    CsTriggerButton(title = shown, onClick = { if (!disabled) requested = !requested }, enabled = !disabled && csControlEnabled(), modifier = Modifier.semantics { if (name != null) contentDescription = name; stateDescription = opened.toString() }) {
+    CsTriggerButton(title = shown, onClick = { if (!disabled) requested = !requested }, enabled = !disabled && csControlEnabled(), modifier = Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
+    }.semantics { if (name != null) contentDescription = name; stateDescription = opened.toString() }) {
       Text(shown, color = pack.colorTextPrimary.toComposeColor(), modifier = if (name != null) Modifier.clearAndSetSemantics {} else Modifier)
       Text("▾", modifier = Modifier.clearAndSetSemantics {})
     }
-    if (opened) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csCascaderDismissOutside(true, false)) { requested = false; highlight = -1 } }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) { Row {
+    if (opened) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csCascaderDismissOutside(true, false)) { requested = false; highlight = -1 } }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) { Row(Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      val width = it.size.width.toDouble()
+      val height = it.size.height.toDouble()
+      if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+      val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+      val nextScale = (bounds.width / width) to (bounds.height / height)
+      val nextSize = width to height
+      if (origin != nextOrigin) origin = nextOrigin
+      if (panelScale != nextScale) panelScale = nextScale
+      if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+    }.offset(x = shiftX, y = shiftY).widthIn(max = with(density) { (place?.maxWidth ?: viewWidth).toFloat().toDp() })) {
       val columns = csCascaderColumns(nodes, draft)
       var seen = 0
       columns.forEachIndexed { depth, column ->

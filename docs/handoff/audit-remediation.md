@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the cascader placement checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the cascader offset checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `c8de85f45eb85a979fbbcc57fd06ca353834cdc4`, with the hash note in `fe565e81`
-- Checkpoint commit hash: `79114dcce304a2ca5b11248229ff4594fc923df1`
+- Previous checkpoint: `79114dcce304a2ca5b11248229ff4594fc923df1`, with the hash note in `df5e4212`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `cascader place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `cascader offset, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -57,7 +57,8 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 The cascader columns use the web floating placement. `components/forms/Cascader.jsx` calls it with `bottom-start` and gap `6`. `CSCascaderModel.shift` measures twice. The painted shift is `(result - origin) / scale`. With the anchor bottom at 340 and the list origin there, the vertical shift is 6. A scale of 2 turns the 10-point left shift into 5 and the 346-point top into 173. A panel that does not fit below flips to `top-start`, whose top is 94 for the tested anchor.
 
 - Swift hides the columns until the second measurement exists, then offsets them. The field frame is the anchor. Arrow keys, outside click, leaf commit, and Escape still behave as before.
-- Compose `csCascaderShift` and Flutter `csCascaderShift` use the same gap. Their open lists are not offset by that result yet. A Compose `Popup` is still only the outside-click catch.
+- Compose measures the field and the list, then offsets the list with `csCascaderShift`. The `Popup` still only catches the outside click.
+- Flutter measures the field and the list on the next frame. The first size is the natural size. The next size is the fitted size. `Transform.translate` uses `csCascaderShift`.
 - Mentions placement remains `c8de85f4`, with gap 0.
 - The color picker and tree select still do not use this placement.
 
@@ -65,7 +66,7 @@ Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed after thi
 
 ## Next concrete step
 
-Offset the Compose and Flutter cascader lists with `csCascaderShift` / `csCascaderShift`, using the field as the anchor and the list's second measurement as the fitted size. Do not treat the popup's default corner as the placement. Then do the color picker: re-read its `useFloatingPanel` gap before copying the cascader's 6.
+Place the color picker with the same two-pass rule. Re-read `components/forms/ColorPicker.jsx` for its `useFloatingPanel` gap and placement before copying the cascader's 6. Do not treat a popup corner as the placement.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
