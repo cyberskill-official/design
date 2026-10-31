@@ -1180,7 +1180,7 @@ public struct CSCascader: View {
       onCascaderKey(key)
     })
     .background(GeometryReader { _ in
-      CSCascaderOutside(active: opened) {
+      CSInlineOutside(active: opened) {
         if CSCascaderModel.dismissOutside(open: true, inside: false) {
           requested = false
           highlight = -1
@@ -1214,14 +1214,14 @@ public struct CSCascader: View {
   }
 }
 
-private struct CSCascaderOutside: View {
+struct CSInlineOutside: View {
   var active: Bool
   var onOutside: () -> Void
   var body: some View {
     #if os(macOS)
-    CSCascaderMacOutside(active: active, onOutside: onOutside)
+    CSInlineMacOutside(active: active, onOutside: onOutside)
     #elseif os(iOS)
-    CSCascaderPadOutside(active: active, onOutside: onOutside)
+    CSInlinePadOutside(active: active, onOutside: onOutside)
     #else
     Color.clear.frame(width: 0, height: 0).accessibilityHidden(true)
     #endif
@@ -1229,7 +1229,7 @@ private struct CSCascaderOutside: View {
 }
 
 #if os(macOS)
-private struct CSCascaderMacOutside: NSViewRepresentable {
+private struct CSInlineMacOutside: NSViewRepresentable {
   var active: Bool
   var onOutside: () -> Void
   func makeCoordinator() -> Coordinator { Coordinator() }
@@ -1255,7 +1255,7 @@ private struct CSCascaderMacOutside: NSViewRepresentable {
       monitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
         guard let self, let view = self.view, view.bounds.width > 0, view.bounds.height > 0 else { return event }
         let local = view.convert(event.locationInWindow, from: nil)
-        if CSCascaderModel.dismissOutside(open: true, inside: view.bounds.contains(local)) { self.onOutside?() }
+        if !view.bounds.contains(local) { self.onOutside?() }
         return event
       }
     }
@@ -1266,23 +1266,23 @@ private struct CSCascaderMacOutside: NSViewRepresentable {
   }
 }
 #elseif os(iOS)
-private struct CSCascaderPadOutside: UIViewRepresentable {
+private struct CSInlinePadOutside: UIViewRepresentable {
   var active: Bool
   var onOutside: () -> Void
-  func makeUIView(context: Context) -> CSCascaderPadOutsideView {
-    let view = CSCascaderPadOutsideView()
+  func makeUIView(context: Context) -> CSInlinePadOutsideView {
+    let view = CSInlinePadOutsideView()
     view.onOutside = onOutside
     view.active = active
     return view
   }
-  func updateUIView(_ uiView: CSCascaderPadOutsideView, context: Context) {
+  func updateUIView(_ uiView: CSInlinePadOutsideView, context: Context) {
     uiView.onOutside = onOutside
     uiView.active = active
     uiView.sync()
   }
-  static func dismantleUIView(_ uiView: CSCascaderPadOutsideView, coordinator: ()) { uiView.uninstall() }
+  static func dismantleUIView(_ uiView: CSInlinePadOutsideView, coordinator: ()) { uiView.uninstall() }
 }
-private final class CSCascaderPadOutsideView: UIView {
+private final class CSInlinePadOutsideView: UIView {
   var onOutside: (() -> Void)?
   var active = false
   private var recognizer: UITapGestureRecognizer?
@@ -1305,7 +1305,7 @@ private final class CSCascaderPadOutsideView: UIView {
   @objc func tapped(_ tap: UITapGestureRecognizer) {
     guard bounds.width > 0, bounds.height > 0 else { return }
     let point = tap.location(in: self)
-    if CSCascaderModel.dismissOutside(open: true, inside: bounds.contains(point)) { onOutside?() }
+    if !bounds.contains(point) { onOutside?() }
   }
 }
 #endif

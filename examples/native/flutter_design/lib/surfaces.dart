@@ -34,6 +34,7 @@ String? csColorDialogName(String? label, String? labelledBy, String fallback) {
 }
 bool csColorSelected(String swatch, String value) => swatch.toLowerCase() == value.toLowerCase();
 bool csColorSubmits({required bool composing, required int keyCode}) => !composing && keyCode != 229;
+bool csColorDismissOutside(bool open, bool inside) => open && !inside;
 
 double csSplitterClamp(double value, {double lower = 20, double upper = 80}) =>
     value < lower ? lower : (value > upper ? upper : value);
@@ -166,7 +167,9 @@ class _CsColorPickerState extends State<CsColorPicker> {
     final fallback = csColorCopy('label', locale);
     final name = csColorFieldName(widget.label, widget.labelledBy, widget.value, fallback);
     final dialog = csColorDialogName(widget.label, widget.labelledBy, fallback);
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return TapRegion(
+      onTapOutside: open && csColorDismissOutside(true, false) ? (_) { setState(() => open = false); } : null,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Semantics(
         button: true,
         label: name,
@@ -198,7 +201,8 @@ class _CsColorPickerState extends State<CsColorPicker> {
           ]),
         ),
       ),
-    ]);
+    ]),
+    );
   }
 }
 

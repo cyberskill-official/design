@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the cascader outside-click checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the color-picker outside-click checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `00c349ca77bcffa98f1c1845731cf91cc5385df7`, with the hash note in `1d833dd1`
-- Checkpoint commit hash: `4e6011355fa711b8d43f6bfee2054ce7e6282d46`
+- Previous checkpoint: `4e6011355fa711b8d43f6bfee2054ce7e6282d46`, with the hash note in `845fa3d0`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `cascader arrows, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `color outside, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,34 +54,24 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-An outside click closes an open cascader.
+An outside click closes an open color picker. Web `components/forms/ColorPicker.jsx` already does this on `mousedown` outside `floating.contains`.
 
-- The rule is `dismissOutside(open:inside:)`, true only when the list is open and the point is outside the control.
-- Swift listens for mouse-down on macOS and a window tap on iOS. A point inside the cascader frame does not close it. The list stays inline.
-- Compose puts the open list in a `Popup` with `dismissOnClickOutside`. That click is consumed, so the field does not toggle back open.
-- Flutter wraps the field and the list in one `TapRegion`. A tap on either stays inside.
-- Floating placement is still not ported. The same outside-click gap remains for the color picker, tree select, and mentions.
+- `CSColorModel.dismissOutside` is true only when the dialog is open and the point is outside.
+- Swift reuses `CSInlineOutside` from `Remainder.swift`. The dialog stays inline. A point inside the control does not close it.
+- Compose puts the open dialog in a `Popup` with `dismissOnClickOutside`. That click is consumed, so the swatch button does not toggle back open.
+- Flutter wraps the button and the dialog in one `TapRegion`.
+- Choosing a swatch, Enter on a valid hex value, and Escape still close. Blur still commits a valid hex value and does not close by itself.
+- Floating placement is still not ported.
+
+The same outside-click gap remains for tree select and mentions. Both web components close on an outside `mousedown`. Cascader outside click is already in `4e601135`.
 
 Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed after this change. Compose and Flutter were not compiled.
 
 ## Next concrete step
 
-Port outside click for the color picker the same way. Web `components` color picker does not close on an outside click today if that is still true when you re-read it. Re-read the component before editing. If the color picker still ignores outside clicks, take the next control that does close: tree select or mentions. Do not invent a close the web component does not have.
+Port the same outside click for tree select, then mentions. Re-read `components/forms/TreeSelect.jsx` and `components/forms/Mentions.jsx` first. Mentions clears the query (`setQ(null)`) instead of a boolean open flag. Do not invent a close the web component does not have.
 
-Web behavior to preserve:
-
-- Options are one flat list in column order. Down, Up, Home, and End move through that list.
-- Down on a closed field opens the list and does not move the highlight on that same key.
-- Right activates the highlighted option. A parent stays open. A leaf commits and closes.
-- Left returns to the parent column. Left on an empty path closes.
-- Escape closes.
-- The selected mark follows the path. The highlight is ochre and is not the selected trait.
-
-Still not ported for the cascader: outside click, and floating placement. The same two gaps remain for the color picker, tree select, and mentions.
-
-`csComboboxContains` and `CSComboboxOutside` in `examples/native/swiftui/Sources/CyberSkillDesign/Fields.swift` are the existing outside-click pattern. Combobox measures host and panel frames. The cascader list is still inline, so an outside click can use the field frame plus the list frame without a portal.
-
-After that, keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
+Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
 ## Native rules that already bit this work
 

@@ -47,6 +47,7 @@ public enum CSColorModel {
   public static func submits(composing: Bool, keyCode: Int) -> Bool {
     !composing && keyCode != 229
   }
+  public static func dismissOutside(open: Bool, inside: Bool) -> Bool { open && !inside }
 }
 
 public enum CSSplitterModel {
@@ -258,6 +259,11 @@ public struct CSColorPicker: View {
         .onExitCommand { open = false }
       }
     }
+    .background(GeometryReader { _ in
+      CSInlineOutside(active: open) {
+        if CSColorModel.dismissOutside(open: true, inside: false) { open = false }
+      }
+    })
     .onChange(of: value) { next in hex = next }
   }
 }

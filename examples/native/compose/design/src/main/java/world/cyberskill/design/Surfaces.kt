@@ -17,7 +17,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -63,6 +66,7 @@ fun csColorDialogName(label: String?, labelledBy: String?, fallback: String): St
 }
 fun csColorSelected(swatch: String, value: String) = swatch.lowercase() == value.lowercase()
 fun csColorSubmits(composing: Boolean, keyCode: Int) = !composing && keyCode != 229
+fun csColorDismissOutside(open: Boolean, inside: Boolean) = open && !inside
 
 fun csSplitterClamp(value: Double, lower: Double = 20.0, upper: Double = 80.0): Double =
   minOf(upper, maxOf(lower, value))
@@ -152,7 +156,7 @@ fun CsColorPicker(value: String, swatches: List<String>, onChange: (String) -> U
   var hex by remember(value) { mutableStateOf(value) }
   Column(modifier) {
     CsTriggerButton(title = value, onClick = { open = !open }, modifier = Modifier.semantics { if (name != null) contentDescription = name; stateDescription = open.toString() }) { Text(value, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics {}) }
-    if (open) Column(Modifier.semantics { if (dialog != null) contentDescription = dialog }.onPreviewKeyEvent { event ->
+    if (open) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csColorDismissOutside(true, false)) open = false }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) { Column(Modifier.semantics { if (dialog != null) contentDescription = dialog }.onPreviewKeyEvent { event ->
       if (event.type != KeyEventType.KeyDown || event.key != Key.Escape) return@onPreviewKeyEvent false
       open = false
       true
@@ -167,7 +171,7 @@ fun CsColorPicker(value: String, swatches: List<String>, onChange: (String) -> U
         open = false
         true
       })
-    }
+    } }
   }
 }
 
