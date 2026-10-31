@@ -746,6 +746,8 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSDataGridSelection.tableMargin(), 0)
     XCTAssertEqual(CSDataGridSelection.checkAlignment(), .center)
     XCTAssertEqual(CSDataGridSelection.selectionWidth(), 36)
+    XCTAssertEqual(CSDataGridSelection.sortPadding(), 0)
+    XCTAssertEqual(CSDataGridSelection.sortBorder(), 0)
     XCTAssertEqual(CSDataGridSelection.scrolled(virtual: true, current: 0, next: 180), 180)
     XCTAssertEqual(CSDataGridSelection.scrolled(virtual: false, current: 40, next: 180), 40)
     XCTAssertEqual(CSDataGridSelection.scrolled(virtual: true, current: 40, next: 0), 0)

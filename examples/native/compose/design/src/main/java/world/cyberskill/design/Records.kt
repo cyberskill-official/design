@@ -2,6 +2,7 @@ package world.cyberskill.design
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.width
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.zIndex
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -177,8 +178,8 @@ fun CsDataGrid(
         if (column.sortable) {
           val aria = csGridSortAria(sort, column.key)
           val mark = if (aria == "ascending") "▲" else if (aria == "descending") "▼" else "↕"
-          CsTriggerButton(title = column.header, onClick = { sort = csGridNextSort(sort, column.key) }, modifier = Modifier.minimumInteractiveComponentSize()) {
-            Text(column.header + " " + mark)
+          CsTriggerButton(title = column.header, onClick = { sort = csGridNextSort(sort, column.key) }, modifier = Modifier.minimumInteractiveComponentSize().padding(csGridSortPadding()).border(csGridSortBorder(), Color.Transparent)) {
+            Text(column.header + " " + mark, color = pack.colorTextPrimary.toComposeColor())
           }
         } else {
           Text(column.header, color = pack.colorTextPrimary.toComposeColor())
@@ -471,6 +472,8 @@ fun csGridHeaderLayer() = 1
 fun csGridTableMargin() = 0.dp
 fun csGridCheckAlignment() = Alignment.Center
 fun csGridSelectionWidth() = 36.dp
+fun csGridSortPadding() = 0.dp
+fun csGridSortBorder() = 0.dp
 fun csGridScrolled(virtual: Boolean, current: Double, next: Double) = if (virtual && next.isFinite()) next else current
 fun csGridWindow(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Boolean): Pair<Int, Int> {
   if (!virtual) return 0 to count

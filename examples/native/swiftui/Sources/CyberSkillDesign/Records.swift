@@ -120,6 +120,8 @@ public enum CSDataGridSelection {
   public static func tableMargin() -> Double { 0 }
   public static func checkAlignment() -> Alignment { .center }
   public static func selectionWidth() -> Double { 36 }
+  public static func sortPadding() -> Double { 0 }
+  public static func sortBorder() -> Double { 0 }
   public static func scrolled(virtual: Bool, current: Double, next: Double) -> Double {
     guard virtual, next.isFinite else { return current }
     return next
@@ -345,6 +347,9 @@ public struct CSDataGrid: View {
                     .accessibilityHidden(true)
                 }
               }
+              .buttonStyle(.plain)
+              .padding(CGFloat(CSDataGridSelection.sortPadding()))
+              .foregroundStyle(pack.primaryTextColor)
               .focused($sortColumn, equals: column.key)
               .accessibilityValue(Text(CSGridSort.aria(sort, key: column.key) ?? ""))
             } else {

@@ -210,6 +210,14 @@ class _CsDataGridState extends State<CsDataGrid> {
             if (column.sortable)
               CsOwnFocus(builder: (node, claim) => TextButton(
                 focusNode: node,
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.all(csGridSortPadding()),
+                  backgroundColor: const Color(0x00000000),
+                  foregroundColor: csColor(pack.colorTextPrimary),
+                  side: BorderSide(width: csGridSortBorder(), color: const Color(0x00000000)),
+                  minimumSize: Size.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
                 onPressed: () {
                   claim();
                   setState(() => sort = csGridNextSort(sort, column.key));
@@ -572,6 +580,8 @@ int csGridHeaderLayer() => 1;
 double csGridTableMargin() => 0;
 Alignment csGridCheckAlignment() => Alignment.center;
 double csGridSelectionWidth() => 36;
+double csGridSortPadding() => 0;
+double csGridSortBorder() => 0;
 double csGridScrolled(bool virtual, double current, double next) => virtual && next.isFinite ? next : current;
 List<int> csGridWindow(int count, double height, double rowHeight, double scrollTop, bool virtual) {
   if (!virtual) return [0, count];

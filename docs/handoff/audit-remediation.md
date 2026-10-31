@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the selection-column checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the plain-sort checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `112b45818eabaf8b787439b17aa39368afe1ef99`, with the hash note in `5b1f251a`
-- Checkpoint commit hash: `233a7350065f22c7964b2ef07f128b40e15f0613`
+- Previous checkpoint: `233a7350065f22c7964b2ef07f128b40e15f0613`, with the hash note in `e47c2251`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `selcol 36, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `plain sort, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the selection column: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the plain sort button: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The selection column is now 36 points wide, and its text stays centered. The web rule is in `base/controls.css`: `.cs-datagrid__selcol { inline-size: 36px; text-align: center; }`. The width is 36. It is not a touch-target token.
+The sort button now has no border, no fill, and no padding. The web rule is in `base/controls.css`: `.cs-datagrid__sort { border: 0; background: none; font: inherit; color: inherit; cursor: pointer; padding: 0; }`. The label uses the header text color. The padding is 0. The border width is 0.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Give the sort button no border, no background, inherited type, and no padding. The next rule in `base/controls.css` is `.cs-datagrid__sort { border: 0; background: none; font: inherit; color: inherit; cursor: pointer; padding: 0; }`. Re-read that rule before editing. Do not invent a padding value.
+Paint a selected data-grid row. The next rule in `base/controls.css` is `.cs-datagrid tr.is-selected td`. Re-read that declaration before editing. The value is unusual, so do not invent a mix.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
