@@ -1442,6 +1442,24 @@ String csTreeSelectFace(String? found, String placeholder) => found ?? placehold
 bool csTreeSelectCommits(CsTreeNode node) => node.children.isEmpty;
 bool csTreeSelectShown({required bool requested, required bool disabled}) => requested && !disabled;
 bool csTreeSelectDismissOutside(bool open, bool inside) => open && !inside;
+const csTreeSelectGap = 6.0;
+class CsTreeSelectPlace {
+  const CsTreeSelectPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsTreeSelectPlace? csTreeSelectShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: 'bottom-start', gap: csTreeSelectGap);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csTreeSelectGap);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsTreeSelectPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
 String? csTreeSelectFieldName(String? label, String? labelledBy) => labelledBy != null && labelledBy.isNotEmpty ? null : label;
 String? csTreeSelectTreeName(String? label, String? labelledBy, String placeholder) {
   if (labelledBy != null && labelledBy.isNotEmpty) return null;
@@ -1469,6 +1487,40 @@ class CsTreeSelect extends StatefulWidget {
 
 class _CsTreeSelectState extends State<CsTreeSelect> {
   var requested = false;
+  final fieldKey = GlobalKey();
+  final listKey = GlobalKey();
+  Size? natural;
+  Size? fitted;
+  CsTreeSelectPlace? place;
+
+  void measure() {
+    final fieldBox = fieldKey.currentContext?.findRenderObject() as RenderBox?;
+    final listBox = listKey.currentContext?.findRenderObject() as RenderBox?;
+    if (fieldBox == null || !fieldBox.hasSize || listBox == null || !listBox.hasSize || !fieldBox.attached || !listBox.attached) return;
+    final field = fieldBox.localToGlobal(Offset.zero);
+    final list = listBox.localToGlobal(Offset.zero);
+    if (natural == null) {
+      setState(() => natural = listBox.size);
+      return;
+    }
+    if (fitted == listBox.size && place != null) return;
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csTreeSelectShift(
+      CsFloatingRect(field.dx, field.dy, field.dx + fieldBox.size.width, field.dy + fieldBox.size.height, fieldBox.size.width, fieldBox.size.height),
+      natural!.width,
+      natural!.height,
+      listBox.size.width,
+      listBox.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      list.dx,
+      list.dy,
+      1,
+      1,
+    );
+    setState(() { fitted = listBox.size; place = next; });
+  }
 
   @override
   void didUpdateWidget(CsTreeSelect oldWidget) {
@@ -1485,6 +1537,8 @@ class _CsTreeSelectState extends State<CsTreeSelect> {
     final opened = csTreeSelectShown(requested: requested, disabled: widget.disabled);
     final name = csTreeSelectFieldName(widget.label, widget.labelledBy);
     final tree = csTreeSelectTreeName(widget.label, widget.labelledBy, hint) ?? '';
+    if (!opened) { natural = null; fitted = null; }
+    if (opened) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && requested) measure(); });
     return TapRegion(
       onTapOutside: opened && csTreeSelectDismissOutside(true, false) ? (_) { setState(() => requested = false); } : null,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -1492,7 +1546,7 @@ class _CsTreeSelectState extends State<CsTreeSelect> {
         button: true,
         label: name,
         toggled: opened,
-        child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: widget.disabled ? null : () { claim(); setState(() => requested = !requested); }, child: ExcludeSemantics(child: Text('$shown ▾')))),
+        child: CsOwnFocus(builder: (node, claim) => TextButton(key: fieldKey, focusNode: node, onPressed: widget.disabled ? null : () { claim(); setState(() => requested = !requested); }, child: ExcludeSemantics(child: Text('$shown ▾')))),
       ),
       if (opened) Focus(
         onKeyEvent: (node, event) {
@@ -1500,12 +1554,12 @@ class _CsTreeSelectState extends State<CsTreeSelect> {
           setState(() => requested = false);
           return KeyEventResult.handled;
         },
-        child: CsTree(label: tree, nodes: widget.nodes, open: widget.open, selected: widget.selected, onSelect: (key) {
+        child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: CsTree(label: tree, nodes: widget.nodes, open: widget.open, selected: widget.selected, onSelect: (key) {
           final node = csTreeSelectFind(widget.nodes, key);
           if (node == null || !csTreeSelectCommits(node)) return;
           widget.onSelect(key);
           setState(() => requested = false);
-        }, dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),
+        }, dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact)),
       ),
     ]),
     );

@@ -938,6 +938,15 @@ fun csTreeSelectFace(found: String?, placeholder: String) = found ?: placeholder
 fun csTreeSelectCommits(node: CsTreeNode) = node.children.isEmpty()
 fun csTreeSelectShown(requested: Boolean, disabled: Boolean) = requested && !disabled
 fun csTreeSelectDismissOutside(open: Boolean, inside: Boolean) = open && !inside
+const val csTreeSelectGap = 6.0
+data class CsTreeSelectPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
+fun csTreeSelectShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double): CsTreeSelectPlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, "bottom-start", csTreeSelectGap) ?: return null
+  val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, csTreeSelectGap) ?: return null
+  val sx = if (scaleX == 0.0) 1.0 else scaleX
+  val sy = if (scaleY == 0.0) 1.0 else scaleY
+  return CsTreeSelectPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
+}
 fun csTreeSelectFieldName(label: String?, labelledBy: String?) = if (!labelledBy.isNullOrEmpty()) null else label
 fun csTreeSelectTreeName(label: String?, labelledBy: String?, placeholder: String) = when {
   !labelledBy.isNullOrEmpty() -> null
@@ -952,13 +961,45 @@ fun csTreeSelectTreeName(label: String?, labelledBy: String?, placeholder: Strin
   val name = csTreeSelectFieldName(label, labelledBy)
   val tree = csTreeSelectTreeName(label, labelledBy, hint) ?: ""
   var requested by remember { mutableStateOf(false) }
+  var field by remember { mutableStateOf<CsFloatingRect?>(null) }
+  var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var origin by remember { mutableStateOf(0.0 to 0.0) }
+  var panelScale by remember { mutableStateOf(1.0 to 1.0) }
   val opened = csTreeSelectShown(requested, disabled)
+  val config = LocalConfiguration.current
+  val density = LocalDensity.current
+  val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
+  val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
+  val viewport = CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), 0.0, 0.0)
+  val place = field?.let { box ->
+    val first = natural
+    val second = fitted
+    if (first == null || second == null) null else csTreeSelectShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second)
+  }
+  val shiftX = with(density) { (place?.x ?: 0.0).toFloat().toDp() }
+  val shiftY = with(density) { (place?.y ?: 0.0).toFloat().toDp() }
+  if (!opened && natural != null) { natural = null; fitted = null }
   Column(modifier) {
-    CsTriggerButton(title = shown, onClick = { if (!disabled) requested = !requested }, enabled = !disabled && csControlEnabled(), modifier = Modifier.semantics { if (name != null) contentDescription = name; stateDescription = opened.toString() }) {
+    CsTriggerButton(title = shown, onClick = { if (!disabled) requested = !requested }, enabled = !disabled && csControlEnabled(), modifier = Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
+    }.semantics { if (name != null) contentDescription = name; stateDescription = opened.toString() }) {
       Text(shown, modifier = Modifier.clearAndSetSemantics {})
       Text("▾", modifier = Modifier.clearAndSetSemantics {})
     }
-    if (opened) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csTreeSelectDismissOutside(true, false)) requested = false }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) { Column(Modifier.onPreviewKeyEvent { event ->
+    if (opened) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csTreeSelectDismissOutside(true, false)) requested = false }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) { Column(Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      val width = it.size.width.toDouble()
+      val height = it.size.height.toDouble()
+      if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+      val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+      val nextScale = (bounds.width / width) to (bounds.height / height)
+      val nextSize = width to height
+      if (origin != nextOrigin) origin = nextOrigin
+      if (panelScale != nextScale) panelScale = nextScale
+      if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+    }.offset(x = shiftX, y = shiftY).widthIn(max = with(density) { (place?.maxWidth ?: viewWidth).toFloat().toDp() }).onPreviewKeyEvent { event ->
       if (event.type != KeyEventType.KeyDown || event.key != Key.Escape) return@onPreviewKeyEvent false
       requested = false
       true

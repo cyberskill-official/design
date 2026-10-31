@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the color-picker placement checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the tree-select placement checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `7d9815f5c02e10c653c4cb91e12a8aaf90ed84e1`, with the hash note in `0fa0f0aa`
-- Checkpoint commit hash: `0f255d10b4ea68daff6343fc7c8f1abdf0ed79c6`
+- Previous checkpoint: `0f255d10b4ea68daff6343fc7c8f1abdf0ed79c6`, with the hash note in `bc55d47f`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `color place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `tree place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,17 +54,18 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The color dialog uses the web floating placement. `components/forms/ColorPicker.jsx` calls `useFloatingPanel` with `bottom-start` and gap `6`. That 6 is from this component, and it happens to match the cascader. `CSColorModel.shift` measures twice. The same anchor used for the cascader test puts the dialog 6 points below the button, turns a scale of 2 into a 5-point left shift and a 173-point top shift, and flips to `top-start` at 94 when the panel does not fit below.
+The tree select uses the web floating placement. `components/forms/TreeSelect.jsx` calls `useFloatingPanel` with `bottom-start` and gap `6`. That 6 is from this file. `CSTreeSelectModel.shift` measures twice. The same anchor used for the color dialog puts the tree 6 points below the field, turns a scale of 2 into a 5-point left shift and a 173-point top shift, and flips to `top-start` at 94 when the panel does not fit below.
 
-- Swift hides the dialog until the second measurement exists, then offsets it. Escape, a swatch choice, a valid hex Enter, and an outside click still close it. Blur still commits a valid hex value.
-- Compose and Flutter call `csColorShift` and offset the dialog. Their popup or tap region still only catches the outside click.
-- The tree select still does not use this placement. Re-read its gap before copying 6.
+- Swift hides the tree until the second measurement exists, then offsets it. A parent still does not commit. A leaf still commits and closes. Escape and an outside click still close it.
+- Compose and Flutter call `csTreeSelectShift` and offset the tree. Their popup or tap region still only catches the outside click.
+- Mentions stays at gap 0. Cascader and the color dialog stay at gap 6.
+- Date picker is the next field with a floating panel. Re-read `components/forms/DatePicker.jsx` before copying a gap.
 
 Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed after this change. Compose and Flutter were not compiled.
 
 ## Next concrete step
 
-Place the tree select the same way. Re-read `components/forms/TreeSelect.jsx` for its `useFloatingPanel` gap and placement before copying 6. Do not treat a popup corner as the placement.
+Place the date picker. Re-read `components/forms/DatePicker.jsx` for its `useFloatingPanel` gap and placement before editing. Do not treat a popup corner as the placement.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
