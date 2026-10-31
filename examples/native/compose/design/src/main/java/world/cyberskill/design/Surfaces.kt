@@ -117,6 +117,15 @@ fun csDateDialogLabel(label: String?, placeholder: String?, fallback: String): S
   return if (hint.isEmpty()) fallback else hint
 }
 fun csDateOpen(requested: Boolean, disabled: Boolean): Boolean = requested && !disabled
+const val csDateGap = 6.0
+data class CsDatePlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
+fun csDateShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double): CsDatePlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, "bottom-start", csDateGap) ?: return null
+  val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, csDateGap) ?: return null
+  val sx = if (scaleX == 0.0) 1.0 else scaleX
+  val sy = if (scaleY == 0.0) 1.0 else scaleY
+  return CsDatePlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
+}
 
 fun csDateFormat(day: Int, month: Int, year: Int, language: String): String {
   if (language == "vi" || language.isEmpty()) return "%02d/%02d/%04d".format(day, month + 1, year)
@@ -242,9 +251,39 @@ fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpen
   val hint = csDatePlaceholderText(placeholder, csDateCopy("placeholder", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   val face = if (text.isEmpty()) hint else text
   val name = if (label.isNullOrEmpty()) face else label
+  var field by remember { mutableStateOf<CsFloatingRect?>(null) }
+  var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var origin by remember { mutableStateOf(0.0 to 0.0) }
+  var panelScale by remember { mutableStateOf(1.0 to 1.0) }
+  val config = androidx.compose.ui.platform.LocalConfiguration.current
+  val density = androidx.compose.ui.platform.LocalDensity.current
+  val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
+  val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
+  val viewport = CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), 0.0, 0.0)
+  val place = field?.let { box ->
+    val first = natural
+    val second = fitted
+    if (first == null || second == null) null else csDateShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second)
+  }
+  if (!open && natural != null) { natural = null; fitted = null }
   Column(modifier) {
-    CsTriggerButton(title = face, onClick = { if (!disabled) onOpenChange(!open) }, enabled = !disabled && csControlEnabled(), modifier = Modifier.semantics { contentDescription = name }) { Text(face, modifier = Modifier.clearAndSetSemantics {}) }
-    if (open) Text(text)
+    CsTriggerButton(title = face, onClick = { if (!disabled) onOpenChange(!open) }, enabled = !disabled && csControlEnabled(), modifier = Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
+    }.semantics { contentDescription = name }) { Text(face, modifier = Modifier.clearAndSetSemantics {}) }
+    if (open) Text(text, modifier = Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      val width = it.size.width.toDouble()
+      val height = it.size.height.toDouble()
+      if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+      val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+      val nextScale = (bounds.width / width) to (bounds.height / height)
+      val nextSize = width to height
+      if (origin != nextOrigin) origin = nextOrigin
+      if (panelScale != nextScale) panelScale = nextScale
+      if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+    }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).alpha(if (place == null) 0f else 1f))
   }
 }
 

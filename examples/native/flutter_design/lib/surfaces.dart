@@ -99,6 +99,24 @@ String csDateDialogLabel(String? label, String? placeholder, String fallback) {
   return hint.isEmpty ? fallback : hint;
 }
 bool csDateOpen({required bool requested, required bool disabled}) => requested && !disabled;
+const csDateGap = 6.0;
+class CsDatePlace {
+  const CsDatePlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsDatePlace? csDateShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: 'bottom-start', gap: csDateGap);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csDateGap);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsDatePlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
 
 String csDateFormat(int day, int month, int year, String language) {
   final dd = day.toString().padLeft(2, '0');
@@ -303,7 +321,7 @@ class CsSplitter extends StatelessWidget {
   }
 }
 
-class CsDatePicker extends StatelessWidget {
+class CsDatePicker extends StatefulWidget {
   const CsDatePicker({super.key, this.label, required this.text, required this.requestedOpen, required this.disabled, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.placeholder, this.language});
   final String? label;
   final String? placeholder;
@@ -315,16 +333,57 @@ class CsDatePicker extends StatelessWidget {
   final bool dark;
   final bool highContrast;
   final bool compact;
+  @override
+  State<CsDatePicker> createState() => _CsDatePickerState();
+}
+
+class _CsDatePickerState extends State<CsDatePicker> {
+  final fieldKey = GlobalKey();
+  final listKey = GlobalKey();
+  Size? natural;
+  Size? fitted;
+  CsDatePlace? place;
+
+  void measure() {
+    final fieldBox = fieldKey.currentContext?.findRenderObject() as RenderBox?;
+    final listBox = listKey.currentContext?.findRenderObject() as RenderBox?;
+    if (fieldBox == null || !fieldBox.hasSize || listBox == null || !listBox.hasSize || !fieldBox.attached || !listBox.attached) return;
+    final field = fieldBox.localToGlobal(Offset.zero);
+    final list = listBox.localToGlobal(Offset.zero);
+    if (natural == null) {
+      setState(() => natural = listBox.size);
+      return;
+    }
+    if (fitted == listBox.size && place != null) return;
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csDateShift(
+      CsFloatingRect(field.dx, field.dy, field.dx + fieldBox.size.width, field.dy + fieldBox.size.height, fieldBox.size.width, fieldBox.size.height),
+      natural!.width,
+      natural!.height,
+      listBox.size.width,
+      listBox.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      list.dx,
+      list.dy,
+      1,
+      1,
+    );
+    setState(() { fitted = listBox.size; place = next; });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final open = csDateOpen(requested: requestedOpen, disabled: disabled);
-    final hint = csDatePlaceholderText(placeholder, csDateCopy('placeholder', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
-    final face = text.isEmpty ? hint : text;
-    final name = (label == null || label!.isEmpty) ? face : label!;
+    final open = csDateOpen(requested: widget.requestedOpen, disabled: widget.disabled);
+    final hint = csDatePlaceholderText(widget.placeholder, csDateCopy('placeholder', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context))));
+    final face = widget.text.isEmpty ? hint : widget.text;
+    final name = (widget.label == null || widget.label!.isEmpty) ? face : widget.label!;
+    if (!open) { natural = null; fitted = null; }
+    if (open) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && widget.requestedOpen && !widget.disabled) measure(); });
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: TextButton(focusNode: node, onPressed: disabled ? null : () { claim(); onOpenChange(!open); }, child: ExcludeSemantics(child: Text(face))))),
-      if (open) Text(text),
+      CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: TextButton(key: fieldKey, focusNode: node, onPressed: widget.disabled ? null : () { claim(); widget.onOpenChange(!open); }, child: ExcludeSemantics(child: Text(face))))),
+      if (open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Text(widget.text))),
     ]);
   }
 }
