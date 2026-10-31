@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'catalog.dart';
 import 'controls.dart';
+import 'primitives.dart';
 import 'icon_paths.dart';
 
 class CsCommandGroup {
@@ -283,11 +284,16 @@ class CsTransfer extends StatelessWidget {
     List<Widget> column(String title, bool side) => [
           Text(title),
           for (final item in items.where((item) => value.contains(item.$1) == side))
-            Semantics(
-              button: true,
+            CsCheckbox(
               label: item.$2,
-              selected: checked.contains(item.$1),
-              child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onChange(value, csTransferToggle(checked, item.$1)); }, child: ExcludeSemantics(child: Text(item.$2)))),
+              value: checked.contains(item.$1),
+              onChanged: (next) {
+                if (next == null || next == checked.contains(item.$1)) return;
+                onChange(value, csTransferToggle(checked, item.$1));
+              },
+              dark: dark,
+              highContrast: highContrast,
+              compact: compact,
             ),
         ];
     return Row(

@@ -466,11 +466,10 @@ public struct CSTransfer: View {
     VStack(alignment: .leading) {
       Text(title).foregroundStyle(pack.primaryTextColor)
       ForEach(items.filter { value.contains($0.key) == target }, id: \.key) { item in
-        CSTriggerButton(item.label) {
+        CSCheckbox(label: item.label, isOn: Binding(get: { checked.contains(item.key) }, set: { next in
+          if next == checked.contains(item.key) { return }
           onChange(value, CSTransferModel.toggle(checked: checked, key: item.key))
-        }
-        .frame(minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
-        .accessibilityAddTraits(checked.contains(item.key) ? .isSelected : [])
+        }), dark: dark, highContrast: highContrast, compact: compact)
       }
     }
   }

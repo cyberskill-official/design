@@ -249,6 +249,7 @@ assert(read('examples/native/flutter_design/lib/overlays.dart').includes('class 
 assert(read('examples/native/flutter_design/lib/overlays.dart').includes('csMenuIndex'), 'Flutter menu uses the web roving index');
 assert(read('examples/native/flutter_design/lib/structures.dart').includes('class CsCommandPalette'), 'Flutter library exports a command palette');
 assert(read('examples/native/flutter_design/lib/structures.dart').includes('class CsTransfer'), 'Flutter library exports a transfer');
+assert(read(join(swiftRoot, 'Sources/CyberSkillDesign/Structures.swift')).includes('CSCheckbox(') && read(join(composeRoot, 'design/src/main/java/world/cyberskill/design/Structures.kt')).includes('CsCheckbox(') && read('examples/native/flutter_design/lib/structures.dart').includes('CsCheckbox('), 'native transfer rows are checkboxes');
 assert(read('examples/native/flutter_design/lib/structures.dart').includes('class CsTree'), 'Flutter library exports a tree');
 assert(read('examples/native/flutter_design/lib/structures.dart').includes('class CsDrawer'), 'Flutter library exports a drawer');
 assert(read('examples/native/flutter_design/lib/fields.dart').includes('class CsCalendar'), 'Flutter library exports a calendar');

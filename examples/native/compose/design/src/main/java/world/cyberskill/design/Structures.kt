@@ -260,7 +260,7 @@ fun CsTransfer(
     Column {
       Text(source)
       items.filter { !value.contains(it.first) }.forEach { item ->
-        CsTriggerButton(title = item.second, onClick = { onChange(value, csTransferToggle(checked, item.first)) }, modifier = Modifier.semantics { stateDescription = checked.contains(item.first).toString() }) { Text(item.second) }
+        CsCheckbox(label = item.second, checked = checked.contains(item.first), onCheckedChange = { onChange(value, csTransferToggle(checked, item.first)) }, dark = dark, highContrast = highContrast, compact = compact)
       }
     }
     Column {
@@ -270,7 +270,7 @@ fun CsTransfer(
     Column {
       Text(target)
       items.filter { value.contains(it.first) }.forEach { item ->
-        CsTriggerButton(title = item.second, onClick = { onChange(value, csTransferToggle(checked, item.first)) }, modifier = Modifier.semantics { stateDescription = checked.contains(item.first).toString() }) { Text(item.second) }
+        CsCheckbox(label = item.second, checked = checked.contains(item.first), onCheckedChange = { onChange(value, csTransferToggle(checked, item.first)) }, dark = dark, highContrast = highContrast, compact = compact)
       }
     }
   }
