@@ -1563,6 +1563,14 @@ public enum CSEditorModel {
   public static func wrapped(_ html: String, open: String, close: String) -> Bool {
     html.hasPrefix(open) && html.hasSuffix(close) && html.count >= open.count + close.count
   }
+  public static func span(start: Int, end: Int, length: Int) -> (start: Int, end: Int) {
+    let lower = min(max(start, 0), length)
+    let upper = min(max(end, lower), length)
+    return (lower, upper)
+  }
+  public static func movedEnd(start: Int, end: Int, before: Int, after: Int) -> Int {
+    start + (after - before + (end - start))
+  }
   public static func apply(_ html: String, command: String, start: Int, end: Int) -> String {
     let lower = min(max(start, 0), html.count)
     let upper = min(max(end, lower), html.count)
@@ -1607,6 +1615,8 @@ public struct CSEditor: View {
   public let label: String?
   public let language: String?
   @Binding var text: String
+  @Binding var selectionStart: Int
+  @Binding var selectionEnd: Int
   @Environment(\.csLanguage) private var ancestorLanguage
   @State private var focusId = UUID().uuidString
   @FocusState private var focused: Bool
@@ -1614,14 +1624,21 @@ public struct CSEditor: View {
   @State private var italic = false
   @State private var list = false
 
-  public init(label: String? = nil, text: Binding<String>, language: String? = nil) {
+  public init(label: String? = nil, text: Binding<String>, language: String? = nil, selectionStart: Binding<Int> = .constant(0), selectionEnd: Binding<Int> = .constant(0)) {
     self.label = label
     self.language = language
     _text = text
+    _selectionStart = selectionStart
+    _selectionEnd = selectionEnd
   }
 
   private func applyFormat(_ command: String) {
-    let next = CSEditorModel.apply(text, command: command, start: 0, end: text.count)
+    let span = CSEditorModel.span(start: selectionStart, end: selectionEnd, length: text.count)
+    let next = CSEditorModel.apply(text, command: command, start: span.start, end: span.end)
+    if next != text {
+      selectionStart = span.start
+      selectionEnd = CSEditorModel.movedEnd(start: span.start, end: span.end, before: text.count, after: next.count)
+    }
     switch command {
     case "bold":
       if next == text { bold = CSEditorModel.pressed(bold) } else { text = next; bold = CSEditorModel.wrapped(next, open: "<b>", close: "</b>") }

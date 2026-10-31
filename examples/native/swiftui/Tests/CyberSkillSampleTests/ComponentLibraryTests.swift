@@ -1663,6 +1663,11 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSEditorModel.apply("hello", command: "bold", start: 0, end: 5), "<b>hello</b>")
     XCTAssertEqual(CSEditorModel.apply("<b>hello</b>", command: "bold", start: 0, end: 12), "hello")
     XCTAssertEqual(CSEditorModel.apply("hello", command: "italic", start: 1, end: 4), "h<i>ell</i>o")
+    XCTAssertEqual(CSEditorModel.span(start: 1, end: 4, length: 5).start, 1)
+    XCTAssertEqual(CSEditorModel.span(start: 1, end: 4, length: 5).end, 4)
+    XCTAssertEqual(CSEditorModel.span(start: 8, end: 2, length: 5).start, 5)
+    XCTAssertEqual(CSEditorModel.span(start: 8, end: 2, length: 5).end, 5)
+    XCTAssertEqual(CSEditorModel.movedEnd(start: 1, end: 4, before: 5, after: 12), 11)
     XCTAssertEqual(CSEditorModel.apply("hello", command: "bold", start: 2, end: 2), "hello")
     XCTAssertEqual(CSEditorModel.apply("a<br>b", command: "insertUnorderedList", start: 0, end: 6), "<ul><li>a</li><li>b</li></ul>")
     let listed = "<ul><li>a</li><li>b</li></ul>"

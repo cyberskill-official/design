@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the tour spotlight checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the editor selection checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `1db51492d2cbaa61e4041469b52fe1281e9d77cb`, with the hash note in `e94ec255`
-- Checkpoint commit hash: `da3eb4a0c3bce7302514931906fce5ec2e30cb13`
+- Previous checkpoint: `da3eb4a0c3bce7302514931906fce5ec2e30cb13`, with the hash note in `131b9339`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `tour hole, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `editor range, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,21 +48,21 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the tour spotlight: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the editor selection: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A tour hole now comes from a measured target, not from an invented selector. The web source is `components/overlays/Tour.jsx`. A target at 10, 20 that is 100 by 40 becomes a hole at 4, 14 that is 112 by 52. The panel then sits at left 12 and top 78 inside an 800 by 600 viewport. No target parks the panel at 80, 40. A body of `0` is shown. A blank body is not.
+Editor commands now use the selected range. The web source is `components/forms/Editor.jsx`: the toolbar restores the last range, and a collapsed caret does not wrap the whole field. Italic on characters 1 through 4 of `hello` becomes `h<i>ell</i>o`. A range that starts past the end stays collapsed. After a wrap, the selection end moves with the inserted tags. The labels stay `Đậm`, `Nghiêng`, and `Danh sách`.
 
-- Native still cannot query a CSS selector. The caller passes the measured rectangle.
+- A host that does not pass a range leaves the caret collapsed, so the button only toggles the pressed state.
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Format only the selected range in the editor. The native buttons still wrap the whole field. Re-read `components/forms/Editor.jsx` before editing. Do not invent a string.
+Remember the editor field's own caret, the way `selectionchange` does. Re-read `components/forms/Editor.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

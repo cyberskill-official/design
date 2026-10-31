@@ -477,6 +477,12 @@ fun csEditorList(text: String): String {
   if (csEditorWrapped(text, "<ul>", "</ul>")) return text.substring(4, text.length - 5).replace("</li><li>", "<br>").replace("<li>", "").replace("</li>", "")
   return "<ul>" + text.replace("\n", "<br>").split("<br>").joinToString("") { "<li>$it</li>" } + "</ul>"
 }
+fun csEditorSpan(start: Int, end: Int, length: Int): Pair<Int, Int> {
+  val lower = start.coerceIn(0, length)
+  val upper = end.coerceIn(lower, length)
+  return lower to upper
+}
+fun csEditorMovedEnd(start: Int, end: Int, before: Int, after: Int) = start + (after - before + (end - start))
 fun csEditorApply(html: String, command: String, start: Int, end: Int): String {
   val lower = start.coerceIn(0, html.length)
   val upper = end.coerceIn(lower, html.length)
@@ -508,7 +514,7 @@ fun csEditorCopy(key: String, language: String?): String {
 }
 fun csEditorName(label: String?, fallback: String) = label ?: fallback
 fun csEditorPressed(current: Boolean) = !current
-@Composable fun CsEditor(text: String, onChange: (String) -> Unit, modifier: Modifier = Modifier, label: String? = null, language: String? = null) {
+@Composable fun CsEditor(text: String, onChange: (String) -> Unit, modifier: Modifier = Modifier, label: String? = null, language: String? = null, selectionStart: Int = 0, selectionEnd: Int = 0, onSelection: (Int, Int) -> Unit = { _, _ -> }) {
   val handle = rememberFocusHandle("editor")
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val spoken = csEditorName(label, csEditorCopy("area", locale))
@@ -517,9 +523,9 @@ fun csEditorPressed(current: Boolean) = !current
   var list by remember { mutableStateOf(false) }
   Column(modifier) {
     Row(Modifier.semantics { contentDescription = csEditorCopy("toolbar", locale) }) {
-      CsTriggerButton(title = "B", onClick = { val next = csEditorApply(text, "bold", 0, text.length); if (next == text) bold = csEditorPressed(bold) else { onChange(next); bold = csEditorWrapped(next, "<b>", "</b>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("bold", locale); stateDescription = bold.toString() }) { Text("B", modifier = Modifier.clearAndSetSemantics {}) }
-      CsTriggerButton(title = "I", onClick = { val next = csEditorApply(text, "italic", 0, text.length); if (next == text) italic = csEditorPressed(italic) else { onChange(next); italic = csEditorWrapped(next, "<i>", "</i>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("italic", locale); stateDescription = italic.toString() }) { Text("I", modifier = Modifier.clearAndSetSemantics {}) }
-      CsTriggerButton(title = "≔", onClick = { val next = csEditorApply(text, "insertUnorderedList", 0, text.length); if (next == text) list = csEditorPressed(list) else { onChange(next); list = csEditorWrapped(next, "<ul>", "</ul>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("list", locale); stateDescription = list.toString() }) { Text("≔", modifier = Modifier.clearAndSetSemantics {}) }
+      CsTriggerButton(title = "B", onClick = { val span = csEditorSpan(selectionStart, selectionEnd, text.length); val next = csEditorApply(text, "bold", span.first, span.second); if (next == text) bold = csEditorPressed(bold) else { onSelection(span.first, csEditorMovedEnd(span.first, span.second, text.length, next.length)); onChange(next); bold = csEditorWrapped(next, "<b>", "</b>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("bold", locale); stateDescription = bold.toString() }) { Text("B", modifier = Modifier.clearAndSetSemantics {}) }
+      CsTriggerButton(title = "I", onClick = { val span = csEditorSpan(selectionStart, selectionEnd, text.length); val next = csEditorApply(text, "italic", span.first, span.second); if (next == text) italic = csEditorPressed(italic) else { onSelection(span.first, csEditorMovedEnd(span.first, span.second, text.length, next.length)); onChange(next); italic = csEditorWrapped(next, "<i>", "</i>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("italic", locale); stateDescription = italic.toString() }) { Text("I", modifier = Modifier.clearAndSetSemantics {}) }
+      CsTriggerButton(title = "≔", onClick = { val span = csEditorSpan(selectionStart, selectionEnd, text.length); val next = csEditorApply(text, "insertUnorderedList", span.first, span.second); if (next == text) list = csEditorPressed(list) else { onSelection(span.first, csEditorMovedEnd(span.first, span.second, text.length, next.length)); onChange(next); list = csEditorWrapped(next, "<ul>", "</ul>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("list", locale); stateDescription = list.toString() }) { Text("≔", modifier = Modifier.clearAndSetSemantics {}) }
     }
     androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); onChange(next) }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = spoken })
   }

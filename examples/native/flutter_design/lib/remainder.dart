@@ -593,6 +593,12 @@ String csEditorList(String text) {
   if (csEditorWrapped(text, '<ul>', '</ul>')) return text.substring(4, text.length - 5).replaceAll('</li><li>', '<br>').replaceAll('<li>', '').replaceAll('</li>', '');
   return '<ul>${text.replaceAll('\n', '<br>').split('<br>').map((line) => '<li>$line</li>').join()}</ul>';
 }
+(int, int) csEditorSpan(int start, int end, int length) {
+  final lower = start < 0 ? 0 : (start > length ? length : start);
+  final upper = end < lower ? lower : (end > length ? length : end);
+  return (lower, upper);
+}
+int csEditorMovedEnd(int start, int end, int before, int after) => start + (after - before + (end - start));
 String csEditorApply(String html, String command, int start, int end) {
   final lower = start < 0 ? 0 : (start > html.length ? html.length : start);
   final upper = end < lower ? lower : (end > html.length ? html.length : end);
@@ -626,11 +632,14 @@ String csEditorName(String? label, String fallback) => label ?? fallback;
 bool csEditorPressed(bool current) => !current;
 
 class CsEditor extends StatefulWidget {
-  const CsEditor({super.key, required this.text, required this.onChange, this.label, this.language});
+  const CsEditor({super.key, required this.text, required this.onChange, this.label, this.language, this.selectionStart = 0, this.selectionEnd = 0, this.onSelection});
   final String? label;
   final String? language;
   final String text;
   final ValueChanged<String> onChange;
+  final int selectionStart;
+  final int selectionEnd;
+  final void Function(int start, int end)? onSelection;
   @override
   State<CsEditor> createState() => _CsEditorState();
 }
@@ -652,9 +661,9 @@ class _CsEditorState extends State<CsEditor> {
     );
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Semantics(container: true, label: csEditorCopy('toolbar', locale), child: Row(children: [
-        mark('B', csEditorCopy('bold', locale), bold, () { final next = csEditorApply(widget.text, 'bold', 0, widget.text.length); setState(() { if (next == widget.text) { bold = csEditorPressed(bold); } else { bold = csEditorWrapped(next, '<b>', '</b>'); } }); if (next != widget.text) widget.onChange(next); }),
-        mark('I', csEditorCopy('italic', locale), italic, () { final next = csEditorApply(widget.text, 'italic', 0, widget.text.length); setState(() { if (next == widget.text) { italic = csEditorPressed(italic); } else { italic = csEditorWrapped(next, '<i>', '</i>'); } }); if (next != widget.text) widget.onChange(next); }),
-        mark('≔', csEditorCopy('list', locale), list, () { final next = csEditorApply(widget.text, 'insertUnorderedList', 0, widget.text.length); setState(() { if (next == widget.text) { list = csEditorPressed(list); } else { list = csEditorWrapped(next, '<ul>', '</ul>'); } }); if (next != widget.text) widget.onChange(next); }),
+        mark('B', csEditorCopy('bold', locale), bold, () { final span = csEditorSpan(widget.selectionStart, widget.selectionEnd, widget.text.length); final next = csEditorApply(widget.text, 'bold', span.$1, span.$2); setState(() { if (next == widget.text) { bold = csEditorPressed(bold); } else { bold = csEditorWrapped(next, '<b>', '</b>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
+        mark('I', csEditorCopy('italic', locale), italic, () { final span = csEditorSpan(widget.selectionStart, widget.selectionEnd, widget.text.length); final next = csEditorApply(widget.text, 'italic', span.$1, span.$2); setState(() { if (next == widget.text) { italic = csEditorPressed(italic); } else { italic = csEditorWrapped(next, '<i>', '</i>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
+        mark('≔', csEditorCopy('list', locale), list, () { final span = csEditorSpan(widget.selectionStart, widget.selectionEnd, widget.text.length); final next = csEditorApply(widget.text, 'insertUnorderedList', span.$1, span.$2); setState(() { if (next == widget.text) { list = csEditorPressed(list); } else { list = csEditorWrapped(next, '<ul>', '</ul>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
       ])),
       CsOwnFocus(builder: (node, claim) => TextField(focusNode: node, controller: TextEditingController(text: widget.text), onChanged: (next) { claim(); widget.onChange(next); }, decoration: InputDecoration(labelText: spoken.isEmpty ? null : spoken))),
     ]);
