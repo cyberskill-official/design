@@ -75,9 +75,10 @@ CsConfidenceMeasurement csConfidenceMeasure(double? value, String? level, double
 }
 
 class CsDataColumn {
-  const CsDataColumn(this.key, this.header);
+  const CsDataColumn(this.key, this.header, {this.sortable = true});
   final String key;
   final String header;
+  final bool sortable;
 }
 
 class CsDataGrid extends StatefulWidget {
@@ -163,14 +164,17 @@ class _CsDataGridState extends State<CsDataGrid> {
         if (csGridShowsCaption(widget.caption)) Text(widget.caption ?? ''),
         Semantics(value: csGridRowIndex(useVirtual, 0, header: true)?.toString(), child: Row(children: [
           for (final column in ordered)
-            CsOwnFocus(builder: (node, claim) => TextButton(
-              focusNode: node,
-              onPressed: () {
-                claim();
-                setState(() => sort = csGridNextSort(sort, column.key));
-              },
-              child: Text('${column.header} ${csGridSortAria(sort, column.key) == 'ascending' ? '▲' : csGridSortAria(sort, column.key) == 'descending' ? '▼' : '↕'}'),
-            )),
+            if (column.sortable)
+              CsOwnFocus(builder: (node, claim) => TextButton(
+                focusNode: node,
+                onPressed: () {
+                  claim();
+                  setState(() => sort = csGridNextSort(sort, column.key));
+                },
+                child: Text('${column.header} ${csGridSortAria(sort, column.key) == 'ascending' ? '▲' : csGridSortAria(sort, column.key) == 'descending' ? '▼' : '↕'}'),
+              ))
+            else
+              Text(column.header),
         ])),
         if (selectable)
           CsCheckbox(label: selectAllLabel, value: allSelected, onChanged: (next) { if (next == null || next == allSelected) return; onSelect(csToggleAllSelection(keys, selected)); }, dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),

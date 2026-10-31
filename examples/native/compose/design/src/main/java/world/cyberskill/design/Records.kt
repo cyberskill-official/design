@@ -105,7 +105,7 @@ fun csConfidenceMeasure(value: Double?, level: String?, segments: Double): CsCon
   return CsConfidenceMeasurement(tone, filled, segs)
 }
 
-data class CsDataColumn(val key: String, val header: String)
+data class CsDataColumn(val key: String, val header: String, val sortable: Boolean = true)
 
 @Composable
 fun CsDataGrid(
@@ -147,10 +147,14 @@ fun CsDataGrid(
     }
     Row(Modifier.semantics { csGridRowIndex(useVirtual, 0, true)?.let { csGridRowIndexValue = it } }) {
       ordered.forEach { column ->
-        val aria = csGridSortAria(sort, column.key)
-        val mark = if (aria == "ascending") "▲" else if (aria == "descending") "▼" else "↕"
-        CsTriggerButton(title = column.header, onClick = { sort = csGridNextSort(sort, column.key) }, modifier = Modifier.minimumInteractiveComponentSize()) {
-          Text(column.header + " " + mark)
+        if (column.sortable) {
+          val aria = csGridSortAria(sort, column.key)
+          val mark = if (aria == "ascending") "▲" else if (aria == "descending") "▼" else "↕"
+          CsTriggerButton(title = column.header, onClick = { sort = csGridNextSort(sort, column.key) }, modifier = Modifier.minimumInteractiveComponentSize()) {
+            Text(column.header + " " + mark)
+          }
+        } else {
+          Text(column.header, color = pack.colorTextPrimary.toComposeColor())
         }
       }
     }

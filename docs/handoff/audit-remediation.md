@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the cell-render checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the plain-header checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `91961e2c8163ce3966aa05f24545fabfaedfd42d`, with the hash note in `1d09d807`
-- Checkpoint commit hash: `ae169ef3cf795bb0efca94d53aa4f220e9218b07`
+- Previous checkpoint: `ae169ef3cf795bb0efca94d53aa4f220e9218b07`, with the hash note in `2371908b`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `cell render, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `plain header, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the cell render: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the plain header: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A data-grid cell now draws its `render` result when the column has one. The web source is `components/datatable/DataGrid.jsx`: `c.render ? c.render(r) : r[c.key]`. A render of `0` shows `0`. A render of `""` stays blank and does not fall back to the cell text. A column without a render draws the cell text. A missing cell draws nothing.
+A data-grid column with `sortable` set to false is now plain text. The web source is `components/datatable/DataGrid.jsx`: the header is a button only when `c.sortable` is true. Compose and Flutter had a sort button on every column. A false flag now draws the header text and does not change the sort. The native default stays true, so a column that omits the flag still sorts. The web treats an omitted flag as not sortable.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Leave a column unsorted when `sortable` is false. The web header is plain text in that case. Swift already checks the flag. Compose and Flutter still sort every column. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
+Honor a data-grid `virtual` flag on a short list. Compose and Flutter call `csGridVirtual(false, ...)`, so only the 80-row threshold can turn virtualization on. Re-read `components/datatable/DataGrid.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

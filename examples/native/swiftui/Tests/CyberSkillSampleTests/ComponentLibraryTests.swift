@@ -679,6 +679,8 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSDataGridSelection.cellText(row: ["name": "Ada"], key: "name", render: { _ in "0" }), "0")
     XCTAssertEqual(CSDataGridSelection.cellText(row: ["name": "Ada"], key: "name", render: { _ in "" }), "")
     XCTAssertEqual(CSDataGridSelection.cellText(row: [:], key: "name", render: nil), "")
+    XCTAssertTrue(CSDataColumn(key: "name", header: "Name").sortable)
+    XCTAssertFalse(CSDataColumn(key: "name", header: "Name", sortable: false).sortable)
     XCTAssertEqual(CSGridSort.next(.none, key: "name"), .ascending("name"))
     XCTAssertEqual(CSGridSort.next(.ascending("name"), key: "name"), .descending("name"))
     XCTAssertEqual(CSGridSort.next(.descending("name"), key: "name"), .none)
