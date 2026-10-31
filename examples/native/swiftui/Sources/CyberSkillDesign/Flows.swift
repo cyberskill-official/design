@@ -166,6 +166,53 @@ public enum CSTourModel {
   public static func shows(open: Bool, count: Int) -> Bool { open && count > 0 }
   public static func closesOnBackdrop() -> Bool { true }
   public static func stops(hasBack: Bool) -> Int { hasBack ? 3 : 2 }
+  public static func showsBody(_ body: String?) -> Bool {
+    guard let body else { return false }
+    return !body.isEmpty
+  }
+  public static func hole(_ target: CSTourTarget?) -> CSTourHole? {
+    guard let target else { return nil }
+    return CSTourHole(x: target.left - 6, y: target.top - 6, w: target.width + 12, h: target.height + 12)
+  }
+  public static func pop(hole: CSTourHole?, viewWidth: Double, viewHeight: Double) -> CSTourPop {
+    guard let hole else { return CSTourPop(top: 80, left: 40) }
+    return CSTourPop(top: min(viewHeight - 170, hole.y + hole.h + 12), left: max(12, min(viewWidth - 292, hole.x)))
+  }
+}
+
+public struct CSTourTarget: Equatable {
+  public var left: Double
+  public var top: Double
+  public var width: Double
+  public var height: Double
+  public init(left: Double, top: Double, width: Double, height: Double) {
+    self.left = left
+    self.top = top
+    self.width = width
+    self.height = height
+  }
+}
+
+public struct CSTourHole: Equatable {
+  public var x: Double
+  public var y: Double
+  public var w: Double
+  public var h: Double
+  public init(x: Double, y: Double, w: Double, h: Double) {
+    self.x = x
+    self.y = y
+    self.w = w
+    self.h = h
+  }
+}
+
+public struct CSTourPop: Equatable {
+  public var top: Double
+  public var left: Double
+  public init(top: Double, left: Double) {
+    self.top = top
+    self.left = left
+  }
 }
 
 public enum CSTableModel {
@@ -508,6 +555,8 @@ private struct CSSortRowKey: PreferenceKey {
 
 public struct CSTour: View {
   public let steps: [String]
+  public let bodies: [String?]
+  public let targets: [CSTourTarget?]
   public let index: Int
   public let backLabel: String?
   public let nextLabel: String?
@@ -523,8 +572,10 @@ public struct CSTour: View {
   @Environment(\.csLanguage) private var ancestorLanguage
   @FocusState private var trap: Int?
 
-  public init(steps: [String], index: Int, backLabel: String? = nil, nextLabel: String? = nil, doneLabel: String? = nil, skipLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, open: Bool = true, language: String? = nil, onIndex: @escaping (Int) -> Void, onOpenChange: @escaping (Bool) -> Void) {
+  public init(steps: [String], index: Int, bodies: [String?] = [], targets: [CSTourTarget?] = [], backLabel: String? = nil, nextLabel: String? = nil, doneLabel: String? = nil, skipLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, open: Bool = true, language: String? = nil, onIndex: @escaping (Int) -> Void, onOpenChange: @escaping (Bool) -> Void) {
     self.steps = steps
+    self.bodies = bodies
+    self.targets = targets
     self.index = CSTourModel.clamp(index: index, count: steps.count)
     self.backLabel = backLabel
     self.nextLabel = nextLabel
@@ -553,7 +604,12 @@ public struct CSTour: View {
       } else {
         let hasBack = index > 0
         let stops = CSTourModel.stops(hasBack: hasBack)
-        ZStack {
+        let screen = CSContextMenuModel.screenSize()
+        let target = targets.indices.contains(index) ? targets[index] : nil
+        let hole = CSTourModel.hole(target)
+        let pop = CSTourModel.pop(hole: hole, viewWidth: screen.width, viewHeight: screen.height)
+        let body = bodies.indices.contains(index) ? bodies[index] : nil
+        ZStack(alignment: .topLeading) {
           if CSTourModel.closesOnBackdrop() {
             Color.black.opacity(0.42)
               .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -561,8 +617,17 @@ public struct CSTour: View {
               .onTapGesture { onOpenChange(false) }
               .accessibilityHidden(true)
           }
+          if let hole {
+            RoundedRectangle(cornerRadius: pack.radiusMd.points)
+              .stroke(pack.colorBrandOchre.color, lineWidth: 3)
+              .frame(width: CGFloat(hole.w), height: CGFloat(hole.h))
+              .position(x: CGFloat(hole.x + hole.w / 2), y: CGFloat(hole.y + hole.h / 2))
+              .allowsHitTesting(false)
+              .accessibilityHidden(true)
+          }
           VStack(alignment: .leading, spacing: 8) {
             Text(steps[index]).foregroundStyle(pack.primaryTextColor)
+            if CSTourModel.showsBody(body), let body { Text(body).foregroundStyle(pack.primaryTextColor) }
             Text(CSTourModel.countText(index: index, count: steps.count)).foregroundStyle(pack.mutedColor)
             HStack {
               CSTriggerButton(skip) { onOpenChange(false) }
@@ -592,6 +657,7 @@ public struct CSTour: View {
             trap = CSModalFocus.pullBack(inside: next != nil) ? CSFocusTrap.initialIndex(preferred: nil, count: stops) : next
             return stops > 0
           }
+          .offset(x: CGFloat(pop.left), y: CGFloat(pop.top))
         }
       }
     }

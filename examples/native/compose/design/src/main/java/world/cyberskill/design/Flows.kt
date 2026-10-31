@@ -1,5 +1,6 @@
 package world.cyberskill.design
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.ui.input.pointer.pointerInput
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.positionInRoot
@@ -128,6 +130,12 @@ fun csTourCount(index: Int, count: Int) = "${index + 1} / $count"
 fun csTourShows(open: Boolean, count: Int) = open && count > 0
 fun csTourClosesOnBackdrop() = true
 fun csTourStops(hasBack: Boolean) = if (hasBack) 3 else 2
+fun csTourShowsBody(body: String?) = !body.isNullOrEmpty()
+data class CsTourTarget(val left: Double, val top: Double, val width: Double, val height: Double)
+data class CsTourHole(val x: Double, val y: Double, val w: Double, val h: Double)
+data class CsTourPop(val top: Double, val left: Double)
+fun csTourHole(target: CsTourTarget?) = target?.let { CsTourHole(it.left - 6, it.top - 6, it.width + 12, it.height + 12) }
+fun csTourPop(hole: CsTourHole?, viewWidth: Double, viewHeight: Double) = if (hole == null) CsTourPop(80.0, 40.0) else CsTourPop(minOf(viewHeight - 170, hole.y + hole.h + 12), maxOf(12.0, minOf(viewWidth - 292, hole.x)))
 
 @Composable
 fun CsTimePicker(value: String, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, step: Double = 30.0, language: String? = null) {
@@ -276,7 +284,7 @@ fun CsSortable(items: List<String>, onChange: (List<String>) -> Unit, dark: Bool
 }
 
 @Composable
-fun CsTour(steps: List<String>, index: Int, onIndex: (Int) -> Unit, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, backLabel: String? = null, nextLabel: String? = null, doneLabel: String? = null, skipLabel: String? = null, language: String? = null, open: Boolean = true) {
+fun CsTour(steps: List<String>, index: Int, onIndex: (Int) -> Unit, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, bodies: List<String?> = emptyList(), targets: List<CsTourTarget?> = emptyList(), backLabel: String? = null, nextLabel: String? = null, doneLabel: String? = null, skipLabel: String? = null, language: String? = null, open: Boolean = true) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val skip = csTourLabel(skipLabel, csTourCopy("skip", locale))
   val back = csTourLabel(backLabel, csTourCopy("back", locale))
@@ -289,9 +297,15 @@ fun CsTour(steps: List<String>, index: Int, onIndex: (Int) -> Unit, onOpenChange
   val pack = csModePack(dark, highContrast, compact)
   val last = csTourLast(active, steps.size)
   val stops = csTourStops(active > 0)
+  val config = androidx.compose.ui.platform.LocalConfiguration.current
+  val target = targets.getOrNull(active)
+  val hole = csTourHole(target)
+  val pop = csTourPop(hole, config.screenWidthDp.toDouble(), config.screenHeightDp.toDouble())
+  val body = bodies.getOrNull(active)
   Box(modifier) {
     if (csTourClosesOnBackdrop()) Box(Modifier.matchParentSize().clickable { onOpenChange(false) })
-    Column(Modifier.semantics { contentDescription = steps[active] }.onPreviewKeyEvent { event ->
+    if (hole != null) Box(Modifier.offset(hole.x.dp, hole.y.dp).size(hole.w.dp, hole.h.dp).border(3.dp, pack.colorBrandOchre.toComposeColor(), androidx.compose.foundation.shape.RoundedCornerShape(8.dp)))
+    Column(Modifier.offset(pop.left.dp, pop.top.dp).semantics { contentDescription = steps[active] }.onPreviewKeyEvent { event ->
       if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
       if (event.key == Key.Escape) { onOpenChange(false); return@onPreviewKeyEvent true }
       if (event.key != Key.Tab) return@onPreviewKeyEvent false
@@ -300,6 +314,7 @@ fun CsTour(steps: List<String>, index: Int, onIndex: (Int) -> Unit, onOpenChange
       true
     }) {
       Text(steps[active], color = pack.colorTextPrimary.toComposeColor())
+      if (csTourShowsBody(body)) Text(body ?: "", color = pack.colorTextPrimary.toComposeColor())
       Text(csTourCount(active, steps.size), color = pack.colorTextMuted.toComposeColor())
       CsTriggerButton(title = skip, onClick = { onOpenChange(false) }) { Text(skip) }
       if (active > 0) CsTriggerButton(title = back, onClick = { onIndex(active - 1) }) { Text(back) }

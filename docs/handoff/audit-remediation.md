@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the inline-edit pen checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the tour spotlight checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `f7d2c33e2b77f9910e8f19861d0a519807000a6f`, with the hash note in `d1d8d4ce`
-- Checkpoint commit hash: `1db51492d2cbaa61e4041469b52fe1281e9d77cb`
+- Previous checkpoint: `1db51492d2cbaa61e4041469b52fe1281e9d77cb`, with the hash note in `e94ec255`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `inline pen, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `tour hole, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,21 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the inline-edit pen: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the tour spotlight: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The inline-edit button now draws the pen beside the text. The web source is `components/forms/InlineEdit.jsx`. The path is `M4 20l4.5-.9L20 7.6a2 2 0 0 0-2.8-2.8L5.7 16.3 4 20z`, at 13 by 13, and it is hidden from assistive technology. The pen is absent while the field is open. The edit label stays `Sửa`.
+A tour hole now comes from a measured target, not from an invented selector. The web source is `components/overlays/Tour.jsx`. A target at 10, 20 that is 100 by 40 becomes a hole at 4, 14 that is 112 by 52. The panel then sits at left 12 and top 78 inside an 800 by 600 viewport. No target parks the panel at 80, 40. A body of `0` is shown. A blank body is not.
 
+- Native still cannot query a CSS selector. The caller passes the measured rectangle.
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-The tour still has no spotlight hole because a step is only a string. Re-read `components/overlays/Tour.jsx` before editing. Do not invent a target selector.
+Format only the selected range in the editor. The native buttons still wrap the whole field. Re-read `components/forms/Editor.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

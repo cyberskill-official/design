@@ -87,6 +87,34 @@ String csTourCount(int index, int count) => '${index + 1} / $count';
 bool csTourShows(bool open, int count) => open && count > 0;
 bool csTourClosesOnBackdrop() => true;
 int csTourStops(bool hasBack) => hasBack ? 3 : 2;
+bool csTourShowsBody(String? body) => body != null && body.isNotEmpty;
+class CsTourTarget {
+  const CsTourTarget(this.left, this.top, this.width, this.height);
+  final double left;
+  final double top;
+  final double width;
+  final double height;
+}
+class CsTourHole {
+  const CsTourHole(this.x, this.y, this.w, this.h);
+  final double x;
+  final double y;
+  final double w;
+  final double h;
+}
+class CsTourPop {
+  const CsTourPop(this.top, this.left);
+  final double top;
+  final double left;
+}
+CsTourHole? csTourHole(CsTourTarget? target) => target == null ? null : CsTourHole(target.left - 6, target.top - 6, target.width + 12, target.height + 12);
+CsTourPop csTourPop(CsTourHole? hole, double viewWidth, double viewHeight) {
+  if (hole == null) return const CsTourPop(80, 40);
+  final top = viewHeight - 170 < hole.y + hole.h + 12 ? viewHeight - 170 : hole.y + hole.h + 12;
+  final room = viewWidth - 292 < hole.x ? viewWidth - 292 : hole.x;
+  final left = room < 12 ? 12.0 : room;
+  return CsTourPop(top, left);
+}
 
 class CsTimePicker extends StatefulWidget {
   const CsTimePicker({super.key, this.label, required this.value, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.step = 30, this.labelledBy, this.language});
@@ -344,8 +372,10 @@ class _CsSortableState extends State<CsSortable> {
 }
 
 class CsTour extends StatefulWidget {
-  const CsTour({super.key, required this.steps, required this.index, required this.onIndex, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.backLabel, this.nextLabel, this.doneLabel, this.skipLabel, this.language, this.open = true});
+  const CsTour({super.key, required this.steps, required this.index, required this.onIndex, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.bodies = const [], this.targets = const [], this.backLabel, this.nextLabel, this.doneLabel, this.skipLabel, this.language, this.open = true});
   final List<String> steps;
+  final List<String?> bodies;
+  final List<CsTourTarget?> targets;
   final int index;
   final String? backLabel;
   final String? nextLabel;
@@ -385,6 +415,11 @@ class _CsTourState extends State<CsTour> {
     final next = csTourLabel(widget.nextLabel, csTourCopy('next', locale));
     final done = csTourLabel(widget.doneLabel, csTourCopy('done', locale));
     final active = csTourClamp(widget.index, widget.steps.length);
+    final target = active < widget.targets.length ? widget.targets[active] : null;
+    final hole = csTourHole(target);
+    final view = View.of(context);
+    final pop = csTourPop(hole, view.physicalSize.width / view.devicePixelRatio, view.physicalSize.height / view.devicePixelRatio);
+    final body = active < widget.bodies.length ? widget.bodies[active] : null;
     final last = csTourLast(active, widget.steps.length);
     return Semantics(
       namesRoute: true,
@@ -405,13 +440,15 @@ class _CsTourState extends State<CsTour> {
         },
         child: Stack(children: [
           if (csTourClosesOnBackdrop()) Positioned.fill(child: GestureDetector(onTap: () => widget.onOpenChange(false), child: const ColoredBox(color: Color(0x6B000000)))),
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          if (hole != null) Positioned(left: hole.x, top: hole.y, width: hole.w, height: hole.h, child: const IgnorePointer(child: DecoratedBox(decoration: BoxDecoration(border: Border.fromBorderSide(BorderSide(color: Color(0xFFF4BA17), width: 3)), borderRadius: BorderRadius.all(Radius.circular(8)))))),
+          Transform.translate(offset: Offset(pop.left, pop.top), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(widget.steps[active]),
+          if (csTourShowsBody(body)) Text(body ?? ''),
           Text(csTourCount(active, widget.steps.length)),
           CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onOpenChange(false); }, child: Text(skip))),
           if (active > 0) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onIndex(active - 1); }, child: Text(back))),
           CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); last ? widget.onOpenChange(false) : widget.onIndex(active + 1); }, child: Text(last ? done : next))),
-          ]),
+          ])),
         ]),
       ),
     );
