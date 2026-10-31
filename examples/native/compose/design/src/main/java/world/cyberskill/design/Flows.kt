@@ -34,9 +34,12 @@ import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 
 const val csTimeLabel = "Time"
 fun csTimeCopy(key: String, language: String?): String {
@@ -318,6 +321,7 @@ fun csTableCopy(key: String, language: String?): String {
 }
 fun csTableText(text: String?, fallback: String) = text ?: fallback
 fun csTableShowsCaption(caption: String?) = !caption.isNullOrEmpty()
+fun csTableAlert(state: String) = state == "error"
 @Composable
 fun CsDataTable(rows: List<String>, state: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, caption: String? = null, emptyLabel: String? = null, errorLabel: String? = null, loadingRows: Double = 5.0, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
@@ -328,7 +332,12 @@ fun CsDataTable(rows: List<String>, state: String, dark: Boolean, highContrast: 
     if (csTableShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor())
     when (state) {
       "loading" -> Column(Modifier.semantics { contentDescription = csTableCopy("loading", locale); stateDescription = "true" }) { repeat(count) { Text(" ", modifier = Modifier.clearAndSetSemantics {}, color = pack.colorBorderDefault.toComposeColor()) } }
-      "error" -> if (errorLabel != null) Text(errorLabel, color = pack.colorSemanticDangerText.toComposeColor()) else Column { Text(csTableCopy("error", locale), color = pack.colorSemanticDangerText.toComposeColor()); Text(csTableCopy("errorHint", locale), color = pack.colorTextMuted.toComposeColor()) }
+      "error" -> {
+        val body: @Composable () -> Unit = {
+          if (errorLabel != null) Text(errorLabel, color = pack.colorSemanticDangerText.toComposeColor()) else Column { Text(csTableCopy("error", locale), color = pack.colorSemanticDangerText.toComposeColor()); Text(csTableCopy("errorHint", locale), color = pack.colorTextMuted.toComposeColor()) }
+        }
+        if (csTableAlert(state)) Column(Modifier.semantics { liveRegion = LiveRegionMode.Assertive }) { body() } else body()
+      }
       else -> if (rows.isEmpty()) Text(empty, color = pack.colorTextMuted.toComposeColor()) else rows.forEach { Text(it, color = pack.colorTextPrimary.toComposeColor()) }
     }
   }

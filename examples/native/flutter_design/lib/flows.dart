@@ -433,6 +433,7 @@ String csTableCopy(String key, String? language) {
 }
 String csTableText(String? text, String fallback) => text ?? fallback;
 bool csTableShowsCaption(String? caption) => caption != null && caption.isNotEmpty;
+bool csTableAlert(String state) => state == 'error';
 
 class CsDataTable extends StatelessWidget {
   const CsDataTable({super.key, required this.rows, required this.state, required this.dark, required this.highContrast, required this.compact, this.caption, this.emptyLabel, this.errorLabel, this.loadingRows = 5, this.language});
@@ -457,7 +458,7 @@ class CsDataTable extends StatelessWidget {
       if (state == 'loading')
         Semantics(label: csTableCopy('loading', locale), value: 'true', child: ExcludeSemantics(child: Column(children: [for (var index = 0; index < count; index++) const Text(' ')])))
       else if (state == 'error')
-        if (errorLabel != null) Text(errorLabel!) else Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(csTableCopy('error', locale)), Text(csTableCopy('errorHint', locale))])
+        if (csTableAlert(state)) Semantics(liveRegion: true, container: true, child: errorLabel != null ? Text(errorLabel!) : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(csTableCopy('error', locale)), Text(csTableCopy('errorHint', locale))])) else if (errorLabel != null) Text(errorLabel!) else Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(csTableCopy('error', locale)), Text(csTableCopy('errorHint', locale))])
       else if (rows.isEmpty)
         Text(empty)
       else

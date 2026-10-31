@@ -186,6 +186,7 @@ public enum CSTableModel {
   }
   public static func text(_ text: String?, fallback: String) -> String { text ?? fallback }
   public static func showsCaption(_ caption: String?) -> Bool { caption?.isEmpty == false }
+  public static func isAlert(_ state: String) -> Bool { state == "error" }
 }
 
 public struct CSTimePicker: View {
@@ -646,15 +647,19 @@ public struct CSDataTable: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(CSTableModel.copy("loading", language: locale))
         .accessibilityValue("true")
-      } else if state == "error" {
-        if let errorLabel {
-          Text(errorLabel).foregroundStyle(pack.colorSemanticDangerText.color)
-        } else {
-          VStack(alignment: .leading) {
-            Text(CSTableModel.copy("error", language: locale)).fontWeight(.bold).foregroundStyle(pack.colorSemanticDangerText.color)
-            Text(CSTableModel.copy("errorHint", language: locale)).foregroundStyle(pack.mutedColor)
+      } else if CSTableModel.isAlert(state) {
+        Group {
+          if let errorLabel {
+            Text(errorLabel).foregroundStyle(pack.colorSemanticDangerText.color)
+          } else {
+            VStack(alignment: .leading) {
+              Text(CSTableModel.copy("error", language: locale)).fontWeight(.bold).foregroundStyle(pack.colorSemanticDangerText.color)
+              Text(CSTableModel.copy("errorHint", language: locale)).foregroundStyle(pack.mutedColor)
+            }
           }
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityAddTraits(.updatesFrequently)
       } else if rows.isEmpty {
         Text(empty).foregroundStyle(pack.mutedColor)
       } else {
