@@ -584,7 +584,7 @@ fun csPopoverCopy(key: String, language: String?): String {
 fun csPopoverToggle(open: Boolean, defaultPrevented: Boolean) = if (defaultPrevented) null else !open
 fun csPopoverDismissOutside(open: Boolean, inside: Boolean) = open && !inside
 
-fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, ariaLabel: String? = null, hasLabelledBy: Boolean = false, language: String? = null, content: @Composable () -> Unit) {
+fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, ariaLabel: String? = null, hasLabelledBy: Boolean = false, language: String? = null, align: String = "start", content: @Composable () -> Unit) {
   var origin by remember { mutableStateOf(0.0 to 0.0) }
   var trigger by remember { mutableStateOf<Pair<Double, Double>?>(null) }
   var natural by remember(open) { mutableStateOf<Pair<Double, Double>?>(null) }
@@ -596,7 +596,7 @@ fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dar
   val density = androidx.compose.ui.platform.LocalDensity.current
   val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
   val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
-  val place = csPopoverPlacement(null, "start")
+  val place = csPopoverPlacement(null, align)
   val panelName = csPopoverLabel(ariaLabel, hasLabelledBy, csPopoverCopy("panel", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   val initial = trigger?.let { size -> natural?.let { panelSize -> csFloatingPlace(
     CsFloatingRect(origin.first, origin.second, origin.first + size.first, origin.second + size.second, size.first, size.second),

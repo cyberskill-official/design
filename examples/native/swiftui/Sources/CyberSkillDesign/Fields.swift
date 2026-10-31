@@ -1416,6 +1416,28 @@ public enum CSPopoverModel {
     defaultPrevented ? nil : !open
   }
   public static func dismissOutside(open: Bool, inside: Bool) -> Bool { open && !inside }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String) -> CSPopoverPlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: placement, gap: gap) else { return nil }
+    guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: gap) else { return nil }
+    let sx = scaleX == 0 ? 1 : scaleX
+    let sy = scaleY == 0 ? 1 : scaleY
+    return CSPopoverPlace(x: (placed.left - originX) / sx, y: (placed.top - originY) / sy, maxWidth: initial.maxWidth, maxHeight: initial.maxHeight, placement: placed.placement)
+  }
+}
+
+public struct CSPopoverPlace: Equatable {
+  public var x: Double
+  public var y: Double
+  public var maxWidth: Double
+  public var maxHeight: Double
+  public var placement: String
+  public init(x: Double, y: Double, maxWidth: Double, maxHeight: Double, placement: String) {
+    self.x = x
+    self.y = y
+    self.maxWidth = maxWidth
+    self.maxHeight = maxHeight
+    self.placement = placement
+  }
 }
 
 public struct CSPopover<Content: View>: View {
@@ -1458,7 +1480,7 @@ public struct CSPopover<Content: View>: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let place = CSPopoverModel.placement(placement, align: align)
     let spoken = CSPopoverModel.label(ariaLabel: ariaLabel, hasLabelledBy: hasLabelledBy, fallback: CSPopoverModel.copy("panel", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)))
-    VStack(alignment: place.hasSuffix("end") ? .trailing : .leading, spacing: CSPopoverModel.gap) {
+    VStack(alignment: place.hasSuffix("end") ? .trailing : .leading, spacing: 0) {
       CSTriggerButton(label) {
         guard let next = CSPopoverModel.toggle(open: open, defaultPrevented: false) else { return }
         open = next
@@ -1473,17 +1495,18 @@ public struct CSPopover<Content: View>: View {
         let screen = CSContextMenuModel.screenSize()
         let anchor = CSFloatingRect(left: trigger.minX, top: trigger.minY, right: trigger.maxX, bottom: trigger.maxY, width: trigger.width, height: trigger.height)
         let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
-        let initial = naturalSize.flatMap { size in CSFloatingModel.position(anchor: anchor, panelWidth: size.width, panelHeight: size.height, viewport: viewport, placement: place, gap: CSPopoverModel.gap) }
-        let placed = fittedSize.flatMap { size in initial.flatMap { first in CSFloatingModel.position(anchor: anchor, panelWidth: size.width, panelHeight: size.height, viewport: viewport, placement: first.placement, gap: CSPopoverModel.gap) } }
-        let scaleX = Double(panelScale.width == 0 ? 1 : panelScale.width)
-        let scaleY = Double(panelScale.height == 0 ? 1 : panelScale.height)
         let originX = Double(panelOrigin?.x ?? trigger.minX)
-        let originY = Double(panelOrigin?.y ?? trigger.minY)
-        let shiftX = CGFloat(placed.map { ($0.left - originX) / scaleX } ?? 0)
-        let shiftY = CGFloat(placed.map { ($0.top - originY) / scaleY } ?? 0)
+        let originY = Double(panelOrigin?.y ?? trigger.maxY)
+        let placed = naturalSize.flatMap { natural in
+          fittedSize.flatMap { fitted in
+            CSPopoverModel.shift(anchor: anchor, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: originX, originY: originY, scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
+          }
+        }
+        let shiftX = CGFloat(placed?.x ?? 0)
+        let shiftY = CGFloat(placed?.y ?? 0)
         content()
           .padding(12)
-          .frame(maxWidth: initial.map { CGFloat($0.maxWidth) }, maxHeight: initial.map { CGFloat($0.maxHeight) }, alignment: .leading)
+          .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
           .background(GeometryReader { geo in
             let frame = geo.frame(in: .global)
             let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1

@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the menubar placement checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the popover placement checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `a45daff3184035cc72fbd1849fbedd1321222a03`, with the hash note in `beadb9f1`
-- Checkpoint commit hash: `232ef270427016c02ab87322fbad367dcaf81d87`
+- Previous checkpoint: `232ef270427016c02ab87322fbad367dcaf81d87`, with the hash note in `7fa7f8cf`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `menubar place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `popover place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,15 +54,15 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The menubar submenu uses the web floating placement. `components/navigation/Menubar.jsx` calls `useFloatingPanel` with `bottom-start` and gap `5`. That is not 8. The anchor is the open menu button. An explicit placement wins, including an empty string. For the tested button, the submenu sits 5 points below. A submenu that does not fit below flips to `top-start` at 95.
+The popover uses the web floating placement. `components/overlays/Popover.jsx` calls `useFloatingPanel` with gap `8`. The side is `bottom-end` when `align` is `end`, and `bottom-start` otherwise. An explicit placement wins, including an empty string. For the tested trigger, a start panel sits 8 points below. An 80-point end panel sits 20 points to the right and 8 points down. A panel that does not fit below flips to `top-start` at 92.
 
-- Swift hides the submenu until the second measurement exists, then offsets it from that button. Arrow keys still move between menus and items. Choosing an item still closes the submenu.
-- Compose and Flutter call `csMenubarShift` and offset the items. They were not compiled.
+- Swift hides the panel until the second measurement exists, then offsets it. The column spacing is 0, so the gap comes only from the shift. Escape still closes it. Outside click still closes it.
+- Compose and Flutter take `align` and pass it to `csPopoverPlacement`. The default is `start`. They were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Place the popover. Re-read `components/overlays/Popover.jsx` before editing. Its placement depends on `align`, and the gap is its own call. Do not copy the menubar's 5.
+Place the floating action button. Re-read `components/button/FloatingActionButton.jsx` before editing. Its placement is `top-end` and its gap is its own call. Do not copy 8.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

@@ -696,7 +696,7 @@ bool? csPopoverToggle(bool open, bool defaultPrevented) => defaultPrevented ? nu
 bool csPopoverDismissOutside(bool open, bool inside) => open && !inside;
 
 class CsPopover extends StatefulWidget {
-  const CsPopover({super.key, required this.label, required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, required this.child, this.ariaLabel, this.hasLabelledBy = false, this.language});
+  const CsPopover({super.key, required this.label, required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, required this.child, this.ariaLabel, this.hasLabelledBy = false, this.language, this.align = 'start'});
   final String label;
   final String? ariaLabel;
   final bool hasLabelledBy;
@@ -707,6 +707,7 @@ class CsPopover extends StatefulWidget {
   final bool highContrast;
   final bool compact;
   final Widget child;
+  final String align;
 
   @override
   State<CsPopover> createState() => _CsPopoverState();
@@ -773,8 +774,9 @@ class _CsPopoverState extends State<CsPopover> {
     final screen = MediaQuery.sizeOf(context);
     final viewport = CsFloatingRect(8, 8, screen.width - 8, screen.height - 8, screen.width, screen.height);
     final anchor = box == null ? null : CsFloatingRect(origin.dx, origin.dy, origin.dx + box.size.width, origin.dy + box.size.height, box.size.width, box.size.height);
-    final initial = anchor == null || natural == null ? null : csFloatingPlace(anchor, natural!.width, natural!.height, viewport, placement: 'bottom-start', gap: 8);
-    final placed = anchor == null || fitted == null || initial == null ? null : csFloatingPlace(anchor, fitted!.width, fitted!.height, viewport, placement: initial.placement, gap: 8);
+    final side = csPopoverPlacement(null, widget.align);
+    final initial = anchor == null || natural == null ? null : csFloatingPlace(anchor, natural!.width, natural!.height, viewport, placement: side, gap: csPopoverGap);
+    final placed = anchor == null || fitted == null || initial == null ? null : csFloatingPlace(anchor, fitted!.width, fitted!.height, viewport, placement: initial.placement, gap: csPopoverGap);
     final desired = placed == null || layoutOrigin == null ? Offset.zero : Offset((placed.left - layoutOrigin!.dx) / (panelScale.dx == 0 ? 1 : panelScale.dx), (placed.top - layoutOrigin!.dy) / (panelScale.dy == 0 ? 1 : panelScale.dy));
     if (placed != null && (desired - applied).distance > 0.5) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted) setState(() => applied = desired); });
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
