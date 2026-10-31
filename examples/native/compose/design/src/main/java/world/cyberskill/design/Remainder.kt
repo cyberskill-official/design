@@ -35,7 +35,10 @@ import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.matchParentSize
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -43,7 +46,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -201,6 +203,7 @@ data class CsCascaderBack(val path: List<String>, val close: Boolean)
 data class CsDockScale(val scale: Double, val lift: Double)
 
 fun csCascaderOpen(requested: Boolean, disabled: Boolean) = requested && !disabled
+fun csCascaderDismissOutside(open: Boolean, inside: Boolean) = open && !inside
 fun csCascaderColumns(nodes: List<CsCascaderNode>, path: List<String>): List<List<CsCascaderNode>> {
   val columns = mutableListOf<List<CsCascaderNode>>()
   var level = nodes
@@ -343,7 +346,7 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
       Text(shown, color = pack.colorTextPrimary.toComposeColor(), modifier = if (name != null) Modifier.clearAndSetSemantics {} else Modifier)
       Text("▾", modifier = Modifier.clearAndSetSemantics {})
     }
-    if (opened) Row {
+    if (opened) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csCascaderDismissOutside(true, false)) { requested = false; highlight = -1 } }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) { Row {
       val columns = csCascaderColumns(nodes, draft)
       var seen = 0
       columns.forEachIndexed { depth, column ->
@@ -364,7 +367,7 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
         }
         seen += column.size
       }
-    }
+    } }
   }
 }
 @Composable fun CsChart(label: String, values: List<Double>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, type: String = "bar", pointLabels: List<String> = emptyList(), showValues: Boolean = false, emptyLabel: String = "", language: String? = null) {

@@ -955,6 +955,7 @@ public struct CSCascaderNode: Equatable {
 
 public enum CSCascaderModel {
   public static func isOpen(requested: Bool, disabled: Bool) -> Bool { requested && !disabled }
+  public static func dismissOutside(open: Bool, inside: Bool) -> Bool { open && !inside }
 
   public static func columns(_ nodes: [CSCascaderNode], path: [String]) -> [[CSCascaderNode]] {
     var level = nodes
@@ -1178,6 +1179,14 @@ public struct CSCascader: View {
     .background(CSLegacyRovingKeys(active: csLegacyRovingActive(focused: fieldFocused, armed: keysArmed), onResign: { keysArmed = false }) { key, _ in
       onCascaderKey(key)
     })
+    .background(GeometryReader { _ in
+      CSCascaderOutside(active: opened) {
+        if CSCascaderModel.dismissOutside(open: true, inside: false) {
+          requested = false
+          highlight = -1
+        }
+      }
+    })
     .onChange(of: path) { next in draft = next; highlight = -1 }
     .onChange(of: disabled) { isDisabled in
       if isDisabled { requested = false; highlight = -1 }
@@ -1204,6 +1213,102 @@ public struct CSCascader: View {
     return true
   }
 }
+
+private struct CSCascaderOutside: View {
+  var active: Bool
+  var onOutside: () -> Void
+  var body: some View {
+    #if os(macOS)
+    CSCascaderMacOutside(active: active, onOutside: onOutside)
+    #elseif os(iOS)
+    CSCascaderPadOutside(active: active, onOutside: onOutside)
+    #else
+    Color.clear.frame(width: 0, height: 0).accessibilityHidden(true)
+    #endif
+  }
+}
+
+#if os(macOS)
+private struct CSCascaderMacOutside: NSViewRepresentable {
+  var active: Bool
+  var onOutside: () -> Void
+  func makeCoordinator() -> Coordinator { Coordinator() }
+  func makeNSView(context: Context) -> NSView {
+    let view = NSView()
+    context.coordinator.view = view
+    context.coordinator.install(active: active, onOutside: onOutside)
+    return view
+  }
+  func updateNSView(_ nsView: NSView, context: Context) {
+    context.coordinator.view = nsView
+    context.coordinator.install(active: active, onOutside: onOutside)
+  }
+  static func dismantleNSView(_ nsView: NSView, coordinator: Coordinator) { coordinator.remove() }
+  final class Coordinator {
+    weak var view: NSView?
+    var monitor: Any?
+    var onOutside: (() -> Void)?
+    func install(active: Bool, onOutside: @escaping () -> Void) {
+      self.onOutside = onOutside
+      guard active else { remove(); return }
+      guard monitor == nil else { return }
+      monitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
+        guard let self, let view = self.view, view.bounds.width > 0, view.bounds.height > 0 else { return event }
+        let local = view.convert(event.locationInWindow, from: nil)
+        if CSCascaderModel.dismissOutside(open: true, inside: view.bounds.contains(local)) { self.onOutside?() }
+        return event
+      }
+    }
+    func remove() {
+      if let monitor { NSEvent.removeMonitor(monitor) }
+      monitor = nil
+    }
+  }
+}
+#elseif os(iOS)
+private struct CSCascaderPadOutside: UIViewRepresentable {
+  var active: Bool
+  var onOutside: () -> Void
+  func makeUIView(context: Context) -> CSCascaderPadOutsideView {
+    let view = CSCascaderPadOutsideView()
+    view.onOutside = onOutside
+    view.active = active
+    return view
+  }
+  func updateUIView(_ uiView: CSCascaderPadOutsideView, context: Context) {
+    uiView.onOutside = onOutside
+    uiView.active = active
+    uiView.sync()
+  }
+  static func dismantleUIView(_ uiView: CSCascaderPadOutsideView, coordinator: ()) { uiView.uninstall() }
+}
+private final class CSCascaderPadOutsideView: UIView {
+  var onOutside: (() -> Void)?
+  var active = false
+  private var recognizer: UITapGestureRecognizer?
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+    sync()
+  }
+  func sync() {
+    uninstall()
+    guard active, let window else { return }
+    let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
+    tap.cancelsTouchesInView = false
+    window.addGestureRecognizer(tap)
+    recognizer = tap
+  }
+  func uninstall() {
+    if let recognizer { recognizer.view?.removeGestureRecognizer(recognizer) }
+    recognizer = nil
+  }
+  @objc func tapped(_ tap: UITapGestureRecognizer) {
+    guard bounds.width > 0, bounds.height > 0 else { return }
+    let point = tap.location(in: self)
+    if CSCascaderModel.dismissOutside(open: true, inside: bounds.contains(point)) { onOutside?() }
+  }
+}
+#endif
 
 public enum CSDockModel {
   public static func scale(index: Int, hover: Int?) -> (scale: Double, lift: Double) {

@@ -228,6 +228,7 @@ class CsDockScale {
 }
 
 bool csCascaderOpen(bool requested, bool disabled) => requested && !disabled;
+bool csCascaderDismissOutside(bool open, bool inside) => open && !inside;
 
 List<List<CsCascaderNode>> csCascaderColumns(List<CsCascaderNode> nodes, List<String> path) {
   final columns = <List<CsCascaderNode>>[];
@@ -394,7 +395,9 @@ class _CsCascaderState extends State<CsCascader> {
     final opened = csCascaderOpen(requested, widget.disabled);
     final name = csCascaderFieldName(widget.label, widget.labelledBy);
     final columns = csCascaderColumns(widget.nodes, draft);
-    return Focus(
+    return TapRegion(
+      onTapOutside: opened && csCascaderDismissOutside(true, false) ? (_) { setState(() { requested = false; highlight = -1; }); } : null,
+      child: Focus(
       onKeyEvent: (node, event) {
         if (event is! KeyDownEvent) return KeyEventResult.ignored;
         if (event.logicalKey == LogicalKeyboardKey.escape && opened) {
@@ -453,6 +456,7 @@ class _CsCascaderState extends State<CsCascader> {
             ]),
         ]),
     ]),
+    ),
     );
   }
 }

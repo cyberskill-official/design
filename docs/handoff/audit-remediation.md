@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the cascader outside-click checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,7 +10,8 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Checkpoint commit hash: `00c349ca77bcffa98f1c1845731cf91cc5385df7`
+- Previous checkpoint: `00c349ca77bcffa98f1c1845731cf91cc5385df7`, with the hash note in `1d833dd1`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -51,9 +52,21 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
+## Latest checkpoint
+
+An outside click closes an open cascader.
+
+- The rule is `dismissOutside(open:inside:)`, true only when the list is open and the point is outside the control.
+- Swift listens for mouse-down on macOS and a window tap on iOS. A point inside the cascader frame does not close it. The list stays inline.
+- Compose puts the open list in a `Popup` with `dismissOnClickOutside`. That click is consumed, so the field does not toggle back open.
+- Flutter wraps the field and the list in one `TapRegion`. A tap on either stays inside.
+- Floating placement is still not ported. The same outside-click gap remains for the color picker, tree select, and mentions.
+
+Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed after this change. Compose and Flutter were not compiled.
+
 ## Next concrete step
 
-Cascader arrow keys are wired. The next gap is an outside click closing the open cascader, matching `components/forms/Cascader.jsx`: a `mousedown` outside `floating.contains` sets open to false.
+Port outside click for the color picker the same way. Web `components` color picker does not close on an outside click today if that is still true when you re-read it. Re-read the component before editing. If the color picker still ignores outside clicks, take the next control that does close: tree select or mentions. Do not invent a close the web component does not have.
 
 Web behavior to preserve:
 
