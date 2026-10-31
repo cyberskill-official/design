@@ -153,8 +153,10 @@ double? csAspectHeight(String ratio, double width) {
 }
 
 class CsMenu extends StatefulWidget {
-  const CsMenu({super.key, required this.label, required this.items, required this.open, required this.onOpenChange, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.language});
+  const CsMenu({super.key, required this.label, required this.items, required this.open, required this.onOpenChange, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.language, this.align = 'start', this.placement});
   final String? language;
+  final String align;
+  final String? placement;
   final String label;
   final List<String> items;
   final bool open;
@@ -170,6 +172,41 @@ class CsMenu extends StatefulWidget {
 
 class _CsMenuState extends State<CsMenu> {
   var focus = -1;
+  final fieldKey = GlobalKey();
+  final listKey = GlobalKey();
+  Size? natural;
+  Size? fitted;
+  CsMenuPlace? place;
+
+  void measure() {
+    final fieldBox = fieldKey.currentContext?.findRenderObject() as RenderBox?;
+    final listBox = listKey.currentContext?.findRenderObject() as RenderBox?;
+    if (fieldBox == null || !fieldBox.hasSize || listBox == null || !listBox.hasSize || !fieldBox.attached || !listBox.attached) return;
+    final field = fieldBox.localToGlobal(Offset.zero);
+    final list = listBox.localToGlobal(Offset.zero);
+    if (natural == null) {
+      setState(() => natural = listBox.size);
+      return;
+    }
+    if (fitted == listBox.size && place != null) return;
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csMenuShift(
+      CsFloatingRect(field.dx, field.dy, field.dx + fieldBox.size.width, field.dy + fieldBox.size.height, fieldBox.size.width, fieldBox.size.height),
+      natural!.width,
+      natural!.height,
+      listBox.size.width,
+      listBox.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      list.dx,
+      list.dy,
+      1,
+      1,
+      csMenuPlacement(widget.placement, widget.align),
+    );
+    setState(() { fitted = listBox.size; place = next; });
+  }
 
   KeyEventResult _key(FocusNode node, KeyEvent event) {
     if (event is! KeyDownEvent) return KeyEventResult.ignored;
@@ -197,17 +234,19 @@ class _CsMenuState extends State<CsMenu> {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
+    if (!widget.open) { natural = null; fitted = null; }
+    if (widget.open) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && widget.open) measure(); });
     return Focus(
       onKeyEvent: _key,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onOpenChange(!widget.open); }, child: Text(widget.label, style: TextStyle(color: csColor(pack.colorTextPrimary))))),
-          if (widget.open) Semantics(
+          CsOwnFocus(builder: (node, claim) => TextButton(key: fieldKey, focusNode: node, onPressed: () { claim(); widget.onOpenChange(!widget.open); }, child: Text(widget.label, style: TextStyle(color: csColor(pack.colorTextPrimary))))),
+          if (widget.open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Semantics(
             container: true,
             explicitChildNodes: true,
             label: csMenuCopy('menu', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context))),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child: Column(key: listKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
             for (var index = 0; index < widget.items.length; index++)
               CsOwnFocus(builder: (node, claim) => TextButton(
                 focusNode: node,
@@ -220,7 +259,7 @@ class _CsMenuState extends State<CsMenu> {
                 child: Text(widget.items[index], style: TextStyle(color: csColor(focus == index ? pack.colorBrandOchre : pack.colorTextPrimary))),
               )),
             ]),
-          ),
+          ))),
         ],
       ),
     );

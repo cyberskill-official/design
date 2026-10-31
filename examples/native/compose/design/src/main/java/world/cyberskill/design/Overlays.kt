@@ -7,7 +7,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.matchParentSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.minimumInteractiveComponentSize
@@ -177,10 +184,29 @@ fun CsMenu(
   compact: Boolean,
   modifier: Modifier = Modifier,
   language: String? = null,
+  align: String = "start",
+  placement: String? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val menuName = csMenuCopy("menu", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
+  val placeName = csMenuPlacement(placement, align)
   var focus by remember { mutableIntStateOf(-1) }
+  var field by remember { mutableStateOf<CsFloatingRect?>(null) }
+  var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var origin by remember { mutableStateOf(0.0 to 0.0) }
+  var panelScale by remember { mutableStateOf(1.0 to 1.0) }
+  val config = LocalConfiguration.current
+  val density = LocalDensity.current
+  val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
+  val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
+  val viewport = CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), 0.0, 0.0)
+  val place = field?.let { box ->
+    val first = natural
+    val second = fitted
+    if (first == null || second == null) null else csMenuShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, placeName)
+  }
+  if (!open && natural != null) { natural = null; fitted = null }
   Column(modifier.onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
     val key = rovingKey(event.key) ?: return@onPreviewKeyEvent false
@@ -193,11 +219,25 @@ fun CsMenu(
     focus = next
     true
   }) {
-    CsTriggerButton(title = label, onClick = { onOpenChange(!open); focus = if (!open) 0 else -1 }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize()) {
+    CsTriggerButton(title = label, onClick = { onOpenChange(!open); focus = if (!open) 0 else -1 }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize().onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
+    }) {
       Text(label, color = pack.colorTextPrimary.toComposeColor())
     }
     if (open) {
-      Column(Modifier.semantics { contentDescription = menuName }) {
+      Column(Modifier.onGloballyPositioned {
+        val bounds = it.boundsInWindow()
+        val width = it.size.width.toDouble()
+        val height = it.size.height.toDouble()
+        if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+        val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+        val nextScale = (bounds.width / width) to (bounds.height / height)
+        val nextSize = width to height
+        if (origin != nextOrigin) origin = nextOrigin
+        if (panelScale != nextScale) panelScale = nextScale
+        if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+      }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).widthIn(max = with(density) { (place?.maxWidth ?: viewWidth).toFloat().toDp() }).semantics { contentDescription = menuName }) {
         items.forEachIndexed { index, item ->
           CsTriggerButton(title = item, onClick = { focus = index; onOpenChange(false); onSelect(item) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize()) {
             Text(item, color = if (focus == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
