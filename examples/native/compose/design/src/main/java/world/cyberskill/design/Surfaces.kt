@@ -491,6 +491,15 @@ fun csNavShowsDescription(description: String?) = description != null && descrip
 fun csNavClick(open: Int?, index: Int) = if (open == index) null else index
 fun csNavHover(open: Int?, index: Int) = if (open == null) null else if (open == index) open else index
 fun csNavPlacement(placement: String?) = placement ?: "bottom-start"
+data class CsNavPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
+fun csNavShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String): CsNavPlace? {
+  val space = csNavGap.toDouble()
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement, space) ?: return null
+  val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, space) ?: return null
+  val sx = if (scaleX == 0.0) 1.0 else scaleX
+  val sy = if (scaleY == 0.0) 1.0 else scaleY
+  return CsNavPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
+}
 
 fun CsNavigationMenu(items: List<String>, active: String, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   val pack = csModePack(dark, highContrast, compact)

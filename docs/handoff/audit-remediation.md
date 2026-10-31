@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the AI disclosure placement checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the navigation-menu placement checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `7f5b75e4118e2e97413b081944ebd93c851693f8`, with the hash note in `fee8840c`
-- Checkpoint commit hash: `f201ea978541afdee2e434fd6ec1f8e1f6d28dc1`
+- Previous checkpoint: `f201ea978541afdee2e434fd6ec1f8e1f6d28dc1`, with the hash note in `940a5f6e`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `disclosure place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `nav place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,15 +54,15 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The AI disclosure panel uses the web floating placement. `components/ai/AIDisclosureBadge.jsx` calls `useFloatingPanel` with `bottom-start` and gap `8`. That 8 was read from this file. The model already stored the same gap and side. An explicit placement wins, including an empty string. For the tested badge, the panel sits 8 points below. A panel that does not fit below flips to `top-start` at 92.
+The navigation menu panel uses the web floating placement. `components/navigation/NavigationMenu.jsx` calls `useFloatingPanel` with `bottom-start` and gap `8`. The anchor is the expanded button, not the whole bar. An explicit placement wins, including an empty string. For the tested button, the panel sits 8 points below. A panel that does not fit below flips to `top-start` at 92.
 
-- Swift hides the panel until the second measurement exists, then offsets it. The badge still toggles it. Escape still closes it. The Vietnamese label, details, and sources stay.
-- Compose and Flutter call `csDisclosureShift` and offset the explanation. They were not compiled.
+- Swift hides the open panel until the second measurement exists, then offsets it from that button. Click and hover still choose the open item.
+- Compose and Flutter define `csNavShift` with the same gap. Their menus are still a row of labels and have no panel to move. They were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Place the navigation menu panel. Re-read `components/navigation/NavigationMenu.jsx` for its `useFloatingPanel` gap and placement before editing. Do not copy 8 without that read.
+Place the menubar submenu. Re-read `components/navigation/Menubar.jsx` for its `useFloatingPanel` gap and placement before editing. Do not copy 8. The earlier read of that file showed gap `5`. Confirm it again before editing.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

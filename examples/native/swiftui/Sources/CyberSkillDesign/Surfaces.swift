@@ -1233,12 +1233,40 @@ public enum CSNavigationMenuModel {
     return open == index ? open : index
   }
   public static func placement(_ placement: String?) -> String { placement ?? "bottom-start" }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String) -> CSNavMenuPlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: placement, gap: gap) else { return nil }
+    guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: gap) else { return nil }
+    let sx = scaleX == 0 ? 1 : scaleX
+    let sy = scaleY == 0 ? 1 : scaleY
+    return CSNavMenuPlace(x: (placed.left - originX) / sx, y: (placed.top - originY) / sy, maxWidth: initial.maxWidth, maxHeight: initial.maxHeight, placement: placed.placement)
+  }
+}
+
+public struct CSNavMenuPlace: Equatable {
+  public var x: Double
+  public var y: Double
+  public var maxWidth: Double
+  public var maxHeight: Double
+  public var placement: String
+  public init(x: Double, y: Double, maxWidth: Double, maxHeight: Double, placement: String) {
+    self.x = x
+    self.y = y
+    self.maxWidth = maxWidth
+    self.maxHeight = maxHeight
+    self.placement = placement
+  }
 }
 
 public struct CSNavigationMenu: View {
   public let items: [CSNavMenuItem]
   public let placement: String?
   @State private var open: Int?
+  @State private var anchors: [Int: CGRect] = [:]
+  @State private var naturalSize: CGSize?
+  @State private var fittedSize: CGSize?
+  @State private var panelOrigin: CGPoint?
+  @State private var panelScale = CGSize(width: 1, height: 1)
+  @State private var measurePass = 0
   @State private var menuFocusId = UUID().uuidString
   @FocusState private var menuItem: Int?
   let dark: Bool
@@ -1256,7 +1284,7 @@ public struct CSNavigationMenu: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let place = CSNavigationMenuModel.placement(placement)
-    VStack(alignment: place.hasSuffix("end") ? .trailing : .leading, spacing: CSNavigationMenuModel.gap) {
+    VStack(alignment: place.hasSuffix("end") ? .trailing : .leading, spacing: 0) {
       HStack {
         ForEach(Array(items.enumerated()), id: \.offset) { index, item in
           if item.opensPanel {
@@ -1270,6 +1298,9 @@ public struct CSNavigationMenu: View {
               }
             }
             .frame(minHeight: pack.componentButtonMdMinHeight.points)
+            .background(GeometryReader { geo in
+              Color.clear.preference(key: CSNavAnchorKey.self, value: [index: geo.frame(in: .global)])
+            })
             .focused($menuItem, equals: index)
             .onHover { inside in
               guard inside else { return }
@@ -1287,14 +1318,75 @@ public struct CSNavigationMenu: View {
         if let index { CSFocusRegistry.shared.claim(id: "\(menuFocusId)-\(index)", restore: { menuItem = index }) }
       }
       if let open, items.indices.contains(open), items[open].opensPanel {
-        ForEach(Array(items[open].panel.enumerated()), id: \.offset) { _, card in
-          if CSNavigationMenuModel.showsDescription(card) {
-            Text(card).foregroundStyle(pack.primaryTextColor)
+        let anchor = anchors[open] ?? .zero
+        let screen = CSContextMenuModel.screenSize()
+        let box = CSFloatingRect(left: anchor.minX, top: anchor.minY, right: anchor.maxX, bottom: anchor.maxY, width: anchor.width, height: anchor.height)
+        let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
+        let placed = naturalSize.flatMap { natural in
+          fittedSize.flatMap { fitted in
+            CSNavigationMenuModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
           }
         }
+        VStack(alignment: .leading, spacing: 0) {
+          ForEach(Array(items[open].panel.enumerated()), id: \.offset) { _, card in
+            if CSNavigationMenuModel.showsDescription(card) {
+              Text(card).foregroundStyle(pack.primaryTextColor)
+            }
+          }
+        }
+        .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+        .background(GeometryReader { geo in
+          let frame = geo.frame(in: .global)
+          let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
+          let scaleY = geo.size.height > 0 ? frame.height / geo.size.height : 1
+          Color.clear.preference(key: CSNavPanelKey.self, value: CSNavMeasure(size: geo.size, pass: measurePass, origin: frame.origin, scale: CGSize(width: scaleX == 0 ? 1 : scaleX, height: scaleY == 0 ? 1 : scaleY)))
+        })
+        .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? 0))
+        .opacity(placed == nil ? 0 : 1)
+        .accessibilityHidden(placed == nil)
       }
     }
+    .onPreferenceChange(CSNavAnchorKey.self) { frames in
+      anchors.merge(frames) { _, new in new }
+    }
+    .onPreferenceChange(CSNavPanelKey.self) { measure in
+      guard open != nil, measure.size.width > 0, measure.size.height > 0 else { return }
+      panelOrigin = measure.origin
+      panelScale = measure.scale
+      if naturalSize == nil {
+        naturalSize = measure.size
+        measurePass = 1
+      } else if measure.pass >= 1 {
+        fittedSize = measure.size
+      }
+    }
+    .onChange(of: open) { _ in
+      naturalSize = nil
+      fittedSize = nil
+      panelOrigin = nil
+      panelScale = CGSize(width: 1, height: 1)
+      measurePass = 0
+    }
   }
+}
+
+private struct CSNavMeasure: Equatable {
+  var size: CGSize
+  var pass: Int
+  var origin: CGPoint
+  var scale: CGSize
+}
+
+private struct CSNavAnchorKey: PreferenceKey {
+  static var defaultValue: [Int: CGRect] = [:]
+  static func reduce(value: inout [Int: CGRect], nextValue: () -> [Int: CGRect]) {
+    value.merge(nextValue()) { _, new in new }
+  }
+}
+
+private struct CSNavPanelKey: PreferenceKey {
+  static var defaultValue = CSNavMeasure(size: .zero, pass: 0, origin: .zero, scale: CGSize(width: 1, height: 1))
+  static func reduce(value: inout CSNavMeasure, nextValue: () -> CSNavMeasure) { value = nextValue() }
 }
 
 public struct CSCardHeader: View {

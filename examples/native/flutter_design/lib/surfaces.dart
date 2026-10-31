@@ -741,6 +741,23 @@ bool csNavShowsDescription(String? description) => description != null && descri
 int? csNavClick(int? open, int index) => open == index ? null : index;
 int? csNavHover(int? open, int index) => open == null ? null : (open == index ? open : index);
 String csNavPlacement(String? placement) => placement ?? 'bottom-start';
+class CsNavPlace {
+  const CsNavPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsNavPlace? csNavShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, String placement) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: placement, gap: csNavGap);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csNavGap);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsNavPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
 
 class CsNavigationMenu extends StatelessWidget {
   const CsNavigationMenu({super.key, required this.items, required this.active, required this.onSelect, required this.dark, required this.highContrast, required this.compact});
