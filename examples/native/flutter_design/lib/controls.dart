@@ -529,6 +529,8 @@ String csSelectShownText(String value, String? placeholder, String fallback, boo
 }
 String? csSelectResolvedLanguage(String? explicit, String? ancestor) => csSelectPrimaryLanguage(explicit) ?? csSelectPrimaryLanguage(ancestor);
 
+bool csSelectAlert(String? error) => error != null && error.isNotEmpty;
+
 class CsSelect<T> extends StatelessWidget {
   const CsSelect({
     super.key,
@@ -588,7 +590,7 @@ class CsSelect<T> extends StatelessWidget {
           onChanged(next);
         },
       )),
-      if (error != null && error!.isNotEmpty) Semantics(liveRegion: true, child: Text(error!, style: TextStyle(color: csColor(pack.colorSemanticDangerText)))),
+      if (csSelectAlert(error)) Semantics(liveRegion: true, child: Text(error!, style: TextStyle(color: csColor(pack.colorSemanticDangerText)))),
     ]);
   }
 }

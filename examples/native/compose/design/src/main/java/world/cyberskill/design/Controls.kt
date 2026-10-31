@@ -391,6 +391,7 @@ fun csSelectShownText(value: String, placeholder: String?, fallback: String, has
   return value
 }
 
+fun csSelectAlert(error: String?) = !error.isNullOrEmpty()
 @Composable
 fun <T> CsSelect(
   label: String,
@@ -437,7 +438,7 @@ fun <T> CsSelect(
         }
       }
     }
-    if (fieldError != null && csPresenceShown(CsPresence.Text, fieldError)) Text(fieldError, color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
+    if (csSelectAlert(fieldError)) Text(fieldError ?: "", color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
   }
 }
 

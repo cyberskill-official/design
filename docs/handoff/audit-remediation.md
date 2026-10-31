@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the textarea alert checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the select alert checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `86959e14f366d776d7121ee841ec76f31ae1def0`, with the hash note in `cd1bcef9`
-- Checkpoint commit hash: `3c03d72baca0ff8f5e25e479deb3d60e1cecf7cb`
+- Previous checkpoint: `3c03d72baca0ff8f5e25e479deb3d60e1cecf7cb`, with the hash note in `d8fc6f0a`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `area alert, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `select alert, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,15 +54,15 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The textarea error is now an alert. `components/forms/Textarea.jsx` shows the error span with `role="alert"` when `Boolean(error) || error === 0`. A non-empty error, including `"0"` and a space, is the alert. An empty error is not. The description is not an alert.
+The select error is now an alert. `components/forms/Select.jsx` shows the error span with `role="alert"` when `Boolean(error) || error === 0`. A non-empty error, including `"0"` and a space, is the alert. An empty error is not. The description is not an alert.
 
-- Swift already drew the error and now names it as the alert. Compose and Flutter show that error as a live region under the field.
+- Swift names that check `isAlert` and keeps the live-region trait. Compose and Flutter call `csSelectAlert` before the assertive live region.
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Make the select error an alert. Re-read the error span in `components/forms/Select.jsx` before editing. Do not invent a string.
+Make the native-select error an alert. Re-read the error span in `components/forms/NativeSelect.jsx` before editing. Do not invent a Vietnamese placeholder. NativeSelect has no `makeT`.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

@@ -377,6 +377,10 @@ public enum CSSelectModel {
     }
     return key
   }
+  public static func isAlert(_ error: String?) -> Bool {
+    guard let error else { return false }
+    return !error.isEmpty
+  }
 }
 
 public struct CSSelect<Selection: Hashable, Content: View>: View {
@@ -447,7 +451,7 @@ public struct CSSelect<Selection: Hashable, Content: View>: View {
       .simultaneousGesture(TapGesture().onEnded {
         if !disabled { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
       })
-      if let errorText, CSPresenceValue.text(errorText).shown {
+      if let errorText, CSSelectModel.isAlert(errorText) {
         Text(errorText).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
       }
     }
