@@ -260,6 +260,8 @@ public enum CSInlineEditModel {
   public static func editLabel(action: String, label: String) -> String {
     label.isEmpty ? action : action + ": " + label
   }
+  public static let pen = "M4 20l4.5-.9L20 7.6a2 2 0 0 0-2.8-2.8L5.7 16.3 4 20z"
+  public static func showsPen(_ editing: Bool) -> Bool { !editing }
   public static func fieldName(label: String, edit: String) -> String {
     label.isEmpty ? edit : label
   }
@@ -670,12 +672,25 @@ public struct CSInlineEdit: View {
             finish()
           }
       } else {
-        Button(shown) {
+        Button {
           claimEdit()
           closed = false
           cancelling = false
           draft = value
           editing = true
+        } label: {
+          HStack(spacing: 6) {
+            Text(shown).accessibilityHidden(true)
+            if CSInlineEditModel.showsPen(editing) {
+              Canvas { context, size in
+                let source = CSIconPaths.path(data: CSInlineEditModel.pen)
+                let scale = min(size.width, size.height) / 24
+                context.stroke(source.applying(CGAffineTransform(scaleX: scale, y: scale)), with: .color(pack.primaryTextColor), style: StrokeStyle(lineWidth: 1.9, lineCap: .round, lineJoin: .round))
+              }
+              .frame(width: 13, height: 13)
+              .accessibilityHidden(true)
+            }
+          }
         }
         .focused($editFocused)
         .onChange(of: editFocused) { isFocused in if isFocused { claimEdit() } }

@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the wizard custom-rule checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the inline-edit pen checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `40e04d9cca1b56d0f419d09167996bbeef885489`, with the hash note in `e4a3b897`
-- Checkpoint commit hash: `f7d2c33e2b77f9910e8f19861d0a519807000a6f`
+- Previous checkpoint: `f7d2c33e2b77f9910e8f19861d0a519807000a6f`, with the hash note in `d1d8d4ce`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `wizard rule, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `inline pen, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the wizard custom rule: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the inline-edit pen: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A wizard step now runs a custom rule after the required rule. The web source is `runRules` in `components/forms/Form.jsx`: a function rule receives the field value and the values, and the first failing rule for that field stops the step. An empty message does not fail. A message of `0` does. A required failure is reported instead of the custom message for the same field.
+The inline-edit button now draws the pen beside the text. The web source is `components/forms/InlineEdit.jsx`. The path is `M4 20l4.5-.9L20 7.6a2 2 0 0 0-2.8-2.8L5.7 16.3 4 20z`, at 13 by 13, and it is hidden from assistive technology. The pen is absent while the field is open. The edit label stays `Sửa`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Draw the inline-edit pen the way the web control does. Re-read the inline-edit component before editing. Do not invent a string.
+The tour still has no spotlight hole because a step is only a string. Re-read `components/overlays/Tour.jsx` before editing. Do not invent a target selector.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

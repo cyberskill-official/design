@@ -20,8 +20,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.minimumInteractiveComponentSize
@@ -865,7 +869,14 @@ fun csInlineCopy(key: String, language: String?): String {
   val empty = emptyLabel.ifEmpty { csInlineCopy("empty", locale) }
   if (!editing) {
     val shown = csInlineText(value, empty)
-    TextButton(onClick = { claimEdit(); closed = false; sawFocus = false; cancelling = false; draft = value; editing = true }, modifier.focusRequester(editRequester).onFocusChanged { if (it.isFocused) claimEdit() }.semantics { contentDescription = csInlineEditLabel(edit, label) }, enabled = csControlEnabled()) { Text(shown, modifier = Modifier.clearAndSetSemantics {}) }
+    TextButton(onClick = { claimEdit(); closed = false; sawFocus = false; cancelling = false; draft = value; editing = true }, modifier.focusRequester(editRequester).onFocusChanged { if (it.isFocused) claimEdit() }.semantics { contentDescription = csInlineEditLabel(edit, label) }, enabled = csControlEnabled()) {
+      Row {
+        Text(shown, modifier = Modifier.clearAndSetSemantics {})
+        if (csInlineShowsPen(editing)) Canvas(Modifier.size(13.dp).clearAndSetSemantics {}) {
+          drawPath(csIconPathData(csInlinePen, size.minDimension), LocalContentColor.current, style = Stroke(width = 1.9f, cap = StrokeCap.Round, join = StrokeJoin.Round))
+        }
+      }
+    }
   } else {
     BasicTextField(value = draft, onValueChange = { if (!csControlEnabled()) return@BasicTextField; claimDraft(); draft = it }, enabled = csControlEnabled(), modifier = modifier.focusRequester(draftRequester).semantics { contentDescription = csInlineFieldName(label, edit) }.onFocusChanged { state -> if (state.isFocused) { sawFocus = true; claimDraft() } else if (sawFocus) finish() }.onPreviewKeyEvent { event ->
       if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
@@ -885,6 +896,8 @@ fun csInlineCopy(key: String, language: String?): String {
     })
   }
 }
+const val csInlinePen = "M4 20l4.5-.9L20 7.6a2 2 0 0 0-2.8-2.8L5.7 16.3 4 20z"
+fun csInlineShowsPen(editing: Boolean) = !editing
 fun csInputShowsClear(clearable: Boolean, value: String) = clearable && value.isNotEmpty()
 fun csInputCanClear(disabled: Boolean, readOnly: Boolean) = !disabled && !readOnly
 fun csInputCanReveal(disabled: Boolean) = !disabled

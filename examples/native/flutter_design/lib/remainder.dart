@@ -1236,7 +1236,10 @@ class _CsInlineEditState extends State<CsInlineEdit> {
     final empty = widget.emptyLabel.isEmpty ? csInlineCopy('empty', locale) : widget.emptyLabel;
     final shown = csInlineText(widget.value, empty);
     final field = csInlineFieldName(widget.label, edit);
-    if (!editing) return TextButton(focusNode: editNode, onPressed: begin, child: Text(shown, semanticsLabel: csInlineEditLabel(edit, widget.label)));
+    if (!editing) return TextButton(focusNode: editNode, onPressed: begin, child: Row(mainAxisSize: MainAxisSize.min, children: [
+      Text(shown, semanticsLabel: csInlineEditLabel(edit, widget.label)),
+      if (csInlineShowsPen(editing)) ExcludeSemantics(child: CustomPaint(size: const Size(13, 13), painter: _InlinePenPainter(DefaultTextStyle.of(context).style.color ?? const Color(0xFF45210E)))),
+    ]));
     return Focus(
       onFocusChange: (hasFocus) {
         if (hasFocus) { sawFocus = true; claimDraft(); }
@@ -1802,6 +1805,24 @@ class _CsTreeTableState extends State<CsTreeTable> {
   }
 }
 
+const csInlinePen = 'M4 20l4.5-.9L20 7.6a2 2 0 0 0-2.8-2.8L5.7 16.3 4 20z';
+bool csInlineShowsPen(bool editing) => !editing;
+class _InlinePenPainter extends CustomPainter {
+  _InlinePenPainter(this.ink);
+  final Color ink;
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = ink
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.9
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+    canvas.drawPath(csIconPathData(csInlinePen, size.width), paint);
+  }
+  @override
+  bool shouldRepaint(_InlinePenPainter old) => old.ink != ink;
+}
 const csTypingLabel = 'Lumi is typing';
 const csTypingDots = 3;
 String csTypingLabelText(String? label, String fallback) => label ?? fallback;
