@@ -246,7 +246,7 @@ fun csCalendarCopy(key: String, language: String?): String {
   return key
 }
 @Composable
-fun CsCalendar(monthLabel: String, year: Int, month: Int, selected: Int?, onSelect: (Int) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, language: String? = null, modifier: Modifier = Modifier) {
+fun CsCalendar(monthLabel: String, year: Int, month: Int, selected: Int?, onSelect: (Int) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, language: String? = null, modifier: Modifier = Modifier, onChoose: (CsCalendarDate) -> Unit = {}) {
   val pack = csModePack(dark, highContrast, compact)
   val now = java.time.LocalDate.now()
   var viewYear by remember(year) { mutableIntStateOf(year) }
@@ -290,7 +290,7 @@ fun CsCalendar(monthLabel: String, year: Int, month: Int, selected: Int?, onSele
         val chosen = selected == day
         val current = csCalendarCurrent(viewYear, viewMonth, day, now.year, now.monthValue - 1, now.dayOfMonth)
         val active = day == minOf(focusedDay, csCalendarDays(viewYear, viewMonth))
-        CsTriggerButton(title = day.toString(), onClick = { focusedDay = day; onSelect(day) }, modifier = Modifier.minimumInteractiveComponentSize().focusProperties { canFocus = csCalendarTabStop(day, focusedDay, csCalendarDays(viewYear, viewMonth)) == 0 }.semantics {
+        CsTriggerButton(title = day.toString(), onClick = { focusedDay = day; onSelect(day); onChoose(CsCalendarDate(viewYear, viewMonth, day)) }, modifier = Modifier.minimumInteractiveComponentSize().focusProperties { canFocus = csCalendarTabStop(day, focusedDay, csCalendarDays(viewYear, viewMonth)) == 0 }.semantics {
           contentDescription = csCalendarDayName(viewYear, viewMonth, day, language)
           stateDescription = if (current) "date" else ""
           this.selected = chosen

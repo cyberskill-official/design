@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'controls.dart';
+import 'fields.dart';
 
 String? csColorCommit(String value) {
   if (value.length != 7 || !value.startsWith('#')) return null;
@@ -354,7 +355,7 @@ class _CsSplitterState extends State<CsSplitter> {
 }
 
 class CsDatePicker extends StatefulWidget {
-  const CsDatePicker({super.key, this.label, required this.text, required this.requestedOpen, required this.disabled, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.placeholder, this.language});
+  const CsDatePicker({super.key, this.label, required this.text, required this.requestedOpen, required this.disabled, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.placeholder, this.language, this.onValue});
   final String? label;
   final String? placeholder;
   final String? language;
@@ -362,6 +363,7 @@ class CsDatePicker extends StatefulWidget {
   final bool requestedOpen;
   final bool disabled;
   final ValueChanged<bool> onOpenChange;
+  final ValueChanged<String>? onValue;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -408,15 +410,44 @@ class _CsDatePickerState extends State<CsDatePicker> {
   @override
   Widget build(BuildContext context) {
     final open = csDateOpen(requested: widget.requestedOpen, disabled: widget.disabled);
-    final hint = csDatePlaceholderText(widget.placeholder, csDateCopy('placeholder', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context))));
+    final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
+    final hint = csDatePlaceholderText(widget.placeholder, csDateCopy('placeholder', locale));
     final face = widget.text.isEmpty ? hint : widget.text;
     final name = (widget.label == null || widget.label!.isEmpty) ? face : widget.label!;
+    final parsed = csDateParse(widget.text, locale);
+    final now = DateTime.now();
+    final seedYear = parsed?.year ?? now.year;
+    final seedMonth = parsed?.month ?? now.month - 1;
     if (!open) { natural = null; fitted = null; }
     if (open) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && widget.requestedOpen && !widget.disabled) measure(); });
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: TextButton(key: fieldKey, focusNode: node, onPressed: widget.disabled ? null : () { claim(); widget.onOpenChange(!open); }, child: ExcludeSemantics(child: Text(face))))),
-      if (open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Text(widget.text))),
-    ]);
+    return TapRegion(
+      onTapOutside: open ? (_) => widget.onOpenChange(false) : null,
+      child: Focus(
+        onKeyEvent: (node, event) {
+          if (event is! KeyDownEvent || event.logicalKey != LogicalKeyboardKey.escape || !open) return KeyEventResult.ignored;
+          widget.onOpenChange(false);
+          return KeyEventResult.handled;
+        },
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: TextButton(key: fieldKey, focusNode: node, onPressed: widget.disabled ? null : () { claim(); widget.onOpenChange(!open); }, child: ExcludeSemantics(child: Text(face))))),
+          if (open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: CsCalendar(
+            monthLabel: csCalendarHeading(seedMonth, seedYear, locale),
+            year: seedYear,
+            month: seedMonth,
+            selected: parsed?.day,
+            onSelect: (_) {},
+            onChoose: (date) {
+              widget.onValue?.call(csDateFormat(date.day, date.month, date.year, locale));
+              widget.onOpenChange(false);
+            },
+            dark: widget.dark,
+            highContrast: widget.highContrast,
+            compact: widget.compact,
+            language: locale,
+          ))),
+        ]),
+      ),
+    );
   }
 }
 

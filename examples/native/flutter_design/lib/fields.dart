@@ -11,6 +11,30 @@ class CsCalendarDate {
   final int day;
 }
 
+CsCalendarDate? csDateParse(String text, String language) {
+  final trimmed = text.trim();
+  if (trimmed.isEmpty) return null;
+  if (language == 'vi' || language.isEmpty) {
+    final parts = trimmed.split('/');
+    if (parts.length != 3) return null;
+    final day = int.tryParse(parts[0]);
+    final month = int.tryParse(parts[1]);
+    final year = int.tryParse(parts[2]);
+    if (day == null || month == null || year == null || month < 1 || month > 12) return null;
+    final index = month - 1;
+    if (day < 1 || day > csCalendarDays(year, index)) return null;
+    return CsCalendarDate(year, index, day);
+  }
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  final parts = trimmed.split(' ');
+  if (parts.length != 3) return null;
+  final day = int.tryParse(parts[0]);
+  final year = int.tryParse(parts[2]);
+  final index = months.indexOf(parts[1]);
+  if (day == null || year == null || index < 0 || day < 1 || day > csCalendarDays(year, index)) return null;
+  return CsCalendarDate(year, index, day);
+}
+
 String csCalendarDayLanguage(String? language) {
   if (language == null) return 'en';
   final trimmed = language.trim();
@@ -250,12 +274,13 @@ int csComboboxHighlight(int current, int count, bool down) {
 }
 
 class CsCalendar extends StatefulWidget {
-  const CsCalendar({super.key, required this.monthLabel, required this.year, required this.month, required this.selected, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.language});
+  const CsCalendar({super.key, required this.monthLabel, required this.year, required this.month, required this.selected, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.language, this.onChoose});
   final String monthLabel;
   final int year;
   final int month;
   final int? selected;
   final ValueChanged<int> onSelect;
+  final ValueChanged<CsCalendarDate>? onChoose;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -382,6 +407,7 @@ class _CsCalendarState extends State<CsCalendar> {
                   CsFocusRegistry.claim('calendar-day-$day', dayNodes[day - 1].requestFocus);
                   setState(() => focusedDay = day);
                   widget.onSelect(day);
+                  widget.onChoose?.call(CsCalendarDate(viewYear, viewMonth, day));
                 },
                 child: Text('$day', style: TextStyle(color: csColor(widget.selected == day ? pack.colorBrandOchre : pack.colorTextPrimary), fontWeight: day == active ? FontWeight.bold : FontWeight.normal)),
               ),

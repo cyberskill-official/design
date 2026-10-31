@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the navigation menu panel checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the date picker grid checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `82e0589012fb80dd8bd05580f454d839575cf783`, with the hash note in `7f415f86`
-- Checkpoint commit hash: `ebcee59cb457ccae3b6e16e9af128bb949726d49`
+- Previous checkpoint: `ebcee59cb457ccae3b6e16e9af128bb949726d49`, with the hash note in `7c1179f7`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `nav panel, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `date grid, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,21 +48,21 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the navigation menu panel: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the date picker grid: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-Compose and Flutter navigation menus now open a panel from the expanded item. The web source is `components/navigation/NavigationMenu.jsx`: a click toggles that item, a hover moves the open panel, and the panel sits `bottom-start` with a gap of 8. Escape and an outside click close it. A second click on the open item closes it. An empty address stays `#`. A description of `0` stays visible, and a blank description stays hidden.
+The date picker panel is now the month grid. The web source is `components/forms/DatePicker.jsx`: the open panel renders `Calendar`, and choosing a day writes the value and closes. `01/10/2026` is 1 October 2026. `01 Oct 2026` is the same day. An empty value and `31/02/2026` do not parse, so the grid opens on today. Escape and an outside click close the panel.
 
-- The panel is still a list of strings, the same shape Swift already used. It is not the web card with a separate link and description.
+- A chosen day uses the calendar's viewed month, including after the month buttons move.
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Put the month grid in the date picker panel. `CSDatePicker` still shows the selected text. Re-read the date picker component before editing. Do not invent a string.
+Make each transfer row a checkbox, the way `components/forms/Transfer.jsx` does. Re-read that file before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

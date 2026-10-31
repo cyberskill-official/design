@@ -145,6 +145,29 @@ fun csDateFormat(day: Int, month: Int, year: Int, language: String): String {
   val months = arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
   return "%02d %s %04d".format(day, months[month], year)
 }
+fun csDateParse(text: String, language: String): CsCalendarDate? {
+  val trimmed = text.trim()
+  if (trimmed.isEmpty()) return null
+  if (language == "vi" || language.isEmpty()) {
+    val parts = trimmed.split("/")
+    if (parts.size != 3) return null
+    val day = parts[0].toIntOrNull() ?: return null
+    val month = parts[1].toIntOrNull() ?: return null
+    val year = parts[2].toIntOrNull() ?: return null
+    if (month !in 1..12) return null
+    val index = month - 1
+    if (day !in 1..csCalendarDays(year, index)) return null
+    return CsCalendarDate(year, index, day)
+  }
+  val months = listOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+  val parts = trimmed.split(" ")
+  if (parts.size != 3) return null
+  val day = parts[0].toIntOrNull() ?: return null
+  val index = months.indexOf(parts[1])
+  val year = parts[2].toIntOrNull() ?: return null
+  if (index < 0 || day !in 1..csCalendarDays(year, index)) return null
+  return CsCalendarDate(year, index, day)
+}
 
 const val csChatYou = "You"
 const val csChatLumi = "Lumi"
@@ -275,7 +298,7 @@ fun CsSplitter(start: String, end: String, percent: Double, onChange: (Double) -
 }
 
 @Composable
-fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, placeholder: String? = null, language: String? = null) {
+fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, placeholder: String? = null, language: String? = null, onValue: (String) -> Unit = {}) {
   val open = csDateOpen(requestedOpen, disabled)
   val hint = csDatePlaceholderText(placeholder, csDateCopy("placeholder", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   val face = if (text.isEmpty()) hint else text
@@ -296,12 +319,23 @@ fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpen
     if (first == null || second == null) null else csDateShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second)
   }
   if (!open && natural != null) { natural = null; fitted = null }
-  Column(modifier) {
+  val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
+  val parsed = csDateParse(text, locale)
+  val today = java.time.LocalDate.now()
+  val seed = parsed ?: CsCalendarDate(today.year, today.monthValue - 1, today.dayOfMonth)
+  Column(modifier.onPreviewKeyEvent { event ->
+    if (event.type != KeyEventType.KeyDown || event.key != Key.Escape || !open) return@onPreviewKeyEvent false
+    onOpenChange(false)
+    true
+  }) {
     CsTriggerButton(title = face, onClick = { if (!disabled) onOpenChange(!open) }, enabled = !disabled && csControlEnabled(), modifier = Modifier.onGloballyPositioned {
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
     }.semantics { contentDescription = name }) { Text(face, modifier = Modifier.clearAndSetSemantics {}) }
-    if (open) Text(text, modifier = Modifier.onGloballyPositioned {
+    if (open) CsCalendar(monthLabel = csCalendarHeading(seed.month, seed.year, locale), year = seed.year, month = seed.month, selected = parsed?.day, onSelect = {}, dark = dark, highContrast = highContrast, compact = compact, language = locale, onChoose = { date ->
+      onValue(csDateFormat(date.day, date.month, date.year, locale))
+      onOpenChange(false)
+    }, modifier = Modifier.onGloballyPositioned {
       val bounds = it.boundsInWindow()
       val width = it.size.width.toDouble()
       val height = it.size.height.toDouble()

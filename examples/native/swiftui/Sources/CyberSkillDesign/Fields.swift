@@ -298,9 +298,10 @@ public struct CSCalendar: View {
   let compact: Bool
   let onSelect: (Int) -> Void
   let onShift: (Int) -> Void
+  let onChoose: (CSCalendarDate) -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(monthLabel: String, weekdayLabels: [String], year: Int, month: Int, selected: Int?, language: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, onSelect: @escaping (Int) -> Void, onShift: @escaping (Int) -> Void = { _ in }) {
+  public init(monthLabel: String, weekdayLabels: [String], year: Int, month: Int, selected: Int?, language: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, onSelect: @escaping (Int) -> Void, onShift: @escaping (Int) -> Void = { _ in }, onChoose: @escaping (CSCalendarDate) -> Void = { _ in }) {
     self.monthLabel = monthLabel
     self.weekdayLabels = weekdayLabels
     self.year = year
@@ -315,6 +316,7 @@ public struct CSCalendar: View {
     self.compact = compact
     self.onSelect = onSelect
     self.onShift = onShift
+    self.onChoose = onChoose
   }
 
   public var body: some View {
@@ -353,6 +355,7 @@ public struct CSCalendar: View {
               CSFocusRegistry.shared.claim(id: calendarFocusId, restore: { dayFocus = day })
               focusedDay = day
               onSelect(day)
+              onChoose(CSCalendarDate(year: viewYear, month: viewMonth, day: day))
             }
               .frame(minWidth: 44, minHeight: 44)
               .fontWeight(day == min(focusedDay, CSCalendarModel.days(year: viewYear, month: viewMonth)) ? .bold : .regular)

@@ -396,6 +396,7 @@ assert(contextSwift.includes('func sourceSuffix') && contextKotlin.includes('fun
 assert(contextSwift.includes('func speaker') && contextKotlin.includes('fun csChatSpeaker') && contextDart.includes('csChatSpeaker('), 'native chat keeps a blank name and uses You only for the user role');
 assert(contextSwift.includes('func previewName') && contextKotlin.includes('fun csImagePreviewName') && contextDart.includes('csImagePreviewName('), 'native images keep a blank alt and add it to the preview name when it is present');
 assert(contextSwift.includes('func dialogLabel') && contextKotlin.includes('fun csDateDialogLabel') && contextDart.includes('csDateDialogLabel('), 'native date fields keep a blank placeholder and trim a blank label out of the dialog name');
+assert(contextSwift.includes('CSCalendar(') && contextKotlin.includes('CsCalendar(') && contextDart.includes('CsCalendar(') && contextSwift.includes('func parse') && contextKotlin.includes('fun csDateParse') && contextDart.includes('csDateParse('), 'native date pickers open a month grid and read the formatted value');
 const timelineSwift = read('examples/native/swiftui/Sources/CyberSkillDesign/Records.swift');
 const timelineKotlin = read('examples/native/compose/design/src/main/java/world/cyberskill/design/Records.kt');
 const timelineDart = read('examples/native/flutter_design/lib/records.dart');

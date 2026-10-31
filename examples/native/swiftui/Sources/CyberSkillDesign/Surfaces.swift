@@ -159,6 +159,22 @@ public enum CSDateField {
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     return String(format: "%02d %@ %04d", date.day, months[date.month], date.year)
   }
+  public static func parse(_ text: String, language: String) -> CSCalendarDate? {
+    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+    if trimmed.isEmpty { return nil }
+    if language == "vi" || language.isEmpty {
+      let parts = trimmed.split(separator: "/")
+      guard parts.count == 3, let day = Int(parts[0]), let month = Int(parts[1]), let year = Int(parts[2]), (1...12).contains(month) else { return nil }
+      let index = month - 1
+      guard (1...CSCalendarModel.days(year: year, month: index)).contains(day) else { return nil }
+      return CSCalendarDate(year: year, month: index, day: day)
+    }
+    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    let parts = trimmed.split(separator: " ")
+    guard parts.count == 3, let day = Int(parts[0]), let year = Int(parts[2]), let index = months.firstIndex(of: String(parts[1])) else { return nil }
+    guard (1...CSCalendarModel.days(year: year, month: index)).contains(day) else { return nil }
+    return CSCalendarDate(year: year, month: index, day: day)
+  }
 }
 
 public enum CSChatRole {
@@ -503,6 +519,7 @@ public struct CSDatePicker: View {
   let highContrast: Bool
   let compact: Bool
   let onOpenChange: (Bool) -> Void
+  let onValue: (String) -> Void
   public let language: String?
   @Environment(\.csLanguage) private var ancestorLanguage
   @State private var anchor = CGRect.zero
@@ -512,7 +529,7 @@ public struct CSDatePicker: View {
   @State private var panelScale = CGSize(width: 1, height: 1)
   @State private var measurePass = 0
 
-  public init(label: String, text: String, placeholder: String? = nil, requestedOpen: Bool, disabled: Bool, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onOpenChange: @escaping (Bool) -> Void) {
+  public init(label: String, text: String, placeholder: String? = nil, requestedOpen: Bool, disabled: Bool, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onOpenChange: @escaping (Bool) -> Void, onValue: @escaping (String) -> Void = { _ in }) {
     self.label = label
     self.text = text
     self.placeholder = placeholder
@@ -523,6 +540,7 @@ public struct CSDatePicker: View {
     self.compact = compact
     self.language = language
     self.onOpenChange = onOpenChange
+    self.onValue = onValue
   }
 
   public var body: some View {
@@ -547,7 +565,15 @@ public struct CSDatePicker: View {
             CSDateField.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height))
           }
         }
-        Text(text).foregroundStyle(pack.primaryTextColor)
+        Group {
+          let spoken = locale ?? "vi"
+          let parsed = CSDateField.parse(text, language: spoken)
+          let seed = parsed ?? CSCalendarModel.currentDate()
+          CSCalendar(monthLabel: CSCalendarModel.heading(month: seed.month, year: seed.year, language: spoken), weekdayLabels: CSCalendarModel.weekdays(spoken), year: seed.year, month: seed.month, selected: parsed?.day, language: spoken, dark: dark, highContrast: highContrast, compact: compact, onSelect: { _ in }, onChoose: { date in
+            onValue(CSDateField.format(date, language: spoken))
+            onOpenChange(false)
+          })
+        }
           .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
           .background(GeometryReader { geo in
             let frame = geo.frame(in: .global)
@@ -558,8 +584,12 @@ public struct CSDatePicker: View {
           .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? 0))
           .opacity(placed == nil ? 0 : 1)
           .accessibilityHidden(placed == nil)
+          .onExitCommand { onOpenChange(false) }
       }
     }
+    .background(GeometryReader { _ in
+      CSInlineOutside(active: open) { onOpenChange(false) }
+    })
     .onPreferenceChange(CSDateAnchorKey.self) { frame in
       if frame.width > 0, frame.height > 0 { anchor = frame }
     }
