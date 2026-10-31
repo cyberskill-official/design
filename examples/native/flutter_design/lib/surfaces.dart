@@ -791,18 +791,129 @@ CsNavPlace? csNavShift(CsFloatingRect anchor, double naturalWidth, double natura
   return CsNavPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
 }
 
-class CsNavigationMenu extends StatelessWidget {
-  const CsNavigationMenu({super.key, required this.items, required this.active, required this.onSelect, required this.dark, required this.highContrast, required this.compact});
-  final List<String> items;
-  final String active;
-  final ValueChanged<String> onSelect;
+class CsNavMenuItem {
+  const CsNavMenuItem(this.label, {this.href, this.panel = const []});
+  final String label;
+  final String? href;
+  final List<String> panel;
+}
+
+class CsNavigationMenu extends StatefulWidget {
+  const CsNavigationMenu({super.key, required this.items, required this.dark, required this.highContrast, required this.compact, this.placement});
+  final List<CsNavMenuItem> items;
   final bool dark;
   final bool highContrast;
   final bool compact;
+  final String? placement;
+
+  @override
+  State<CsNavigationMenu> createState() => _CsNavigationMenuState();
+}
+
+class _CsNavigationMenuState extends State<CsNavigationMenu> {
+  int? open;
+  Size? natural;
+  Size? fitted;
+  CsNavPlace? place;
+  final keys = <int, GlobalKey>{};
+  final panelKey = GlobalKey();
+
+  GlobalKey keyFor(int index) => keys.putIfAbsent(index, GlobalKey.new);
+
+  void choose(int? next) {
+    if (next == open) return;
+    setState(() {
+      open = next;
+      natural = null;
+      fitted = null;
+      place = null;
+    });
+  }
+
+  void measure() {
+    final current = open;
+    if (current == null) return;
+    final button = keys[current]?.currentContext?.findRenderObject() as RenderBox?;
+    final panel = panelKey.currentContext?.findRenderObject() as RenderBox?;
+    if (button == null || panel == null || !button.hasSize || !panel.hasSize || !button.attached || !panel.attached) return;
+    if (natural == null) {
+      setState(() => natural = panel.size);
+      return;
+    }
+    if (fitted == panel.size && place != null) return;
+    final buttonOrigin = button.localToGlobal(Offset.zero);
+    final panelOrigin = panel.localToGlobal(Offset.zero);
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csNavShift(
+      CsFloatingRect(buttonOrigin.dx, buttonOrigin.dy, buttonOrigin.dx + button.size.width, buttonOrigin.dy + button.size.height, button.size.width, button.size.height),
+      natural!.width,
+      natural!.height,
+      panel.size.width,
+      panel.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      panelOrigin.dx,
+      panelOrigin.dy,
+      1,
+      1,
+      csNavPlacement(widget.placement),
+    );
+    setState(() { fitted = panel.size; place = next; });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [for (final item in items) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onSelect(item); }, child: Text(item)))]);
+    final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
+    final current = open;
+    final cards = current != null && widget.items.asMap().containsKey(current) ? widget.items[current].panel : const <String>[];
+    if (current != null) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && open == current) measure(); });
+    return TapRegion(
+      onTapOutside: current == null ? null : (_) => choose(null),
+      child: Focus(
+        onKeyEvent: (node, event) {
+          if (event is! KeyDownEvent || event.logicalKey != LogicalKeyboardKey.escape || open == null) return KeyEventResult.ignored;
+          choose(null);
+          return KeyEventResult.handled;
+        },
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            for (var index = 0; index < widget.items.length; index++)
+              if (widget.items[index].panel.isNotEmpty) MouseRegion(
+                onEnter: (_) {
+                  final next = csNavHover(open, index);
+                  if (next != open) choose(next);
+                },
+                child: Semantics(
+                  button: true,
+                  expanded: open == index,
+                  label: widget.items[index].label,
+                  child: TextButton(
+                    key: keyFor(index),
+                    onPressed: () => choose(csNavClick(open, index)),
+                    child: ExcludeSemantics(child: Text('${widget.items[index].label} ▾')),
+                  ),
+                ),
+              ) else Semantics(
+                link: true,
+                label: widget.items[index].label,
+                hint: csNavHref(widget.items[index].href),
+                child: ExcludeSemantics(child: Text(widget.items[index].label, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
+              ),
+          ]),
+          if (current != null && cards.isNotEmpty) IgnorePointer(
+            ignoring: place == null,
+            child: Opacity(
+              opacity: place == null ? 0 : 1,
+              child: Transform.translate(offset: Offset(place?.x ?? 0, place?.y ?? 0), child: ConstrainedBox(constraints: place == null ? const BoxConstraints() : BoxConstraints(maxWidth: place!.maxWidth, maxHeight: place!.maxHeight), child: Column(key: panelKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                for (final card in cards)
+                  if (csNavShowsDescription(card)) TextButton(onPressed: () => choose(null), child: Text(card, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
+              ]))),
+            ),
+          ),
+        ]),
+      ),
+    );
   }
 }
 

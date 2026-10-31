@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the command palette checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the navigation menu panel checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `699afcf6e0e0488a15efe1f73c9b0af876c83ebc`, with the hash note in `3e620f17`
-- Checkpoint commit hash: `82e0589012fb80dd8bd05580f454d839575cf783`
+- Previous checkpoint: `82e0589012fb80dd8bd05580f454d839575cf783`, with the hash note in `7f415f86`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `palette trap, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `nav panel, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,22 +48,21 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the command palette change: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the navigation menu panel: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The command palette now closes from the backdrop and wraps Tab across the search field plus each filtered result. The web source is `components/navigation/CommandPalette.jsx`: the scrim click calls `notifyClosed`, and the overlay traps focus with the search field preferred. Escape still clears the query and closes. A click on the panel does not close it.
+Compose and Flutter navigation menus now open a panel from the expanded item. The web source is `components/navigation/NavigationMenu.jsx`: a click toggles that item, a hover moves the open panel, and the panel sits `bottom-start` with a gap of 8. Escape and an outside click close it. A second click on the open item closes it. An empty address stays `#`. A description of `0` stays visible, and a blank description stays hidden.
 
-- Zero results leave one stop, the search field. Two results make three stops. Tab from the last result returns to the search field.
-- Flutter stores the trap index, so Tab does not restart at zero on every key.
-- The labels were not rewritten. Compose and Flutter were not compiled.
+- The panel is still a list of strings, the same shape Swift already used. It is not the web card with a separate link and description.
+- Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Give the Compose and Flutter navigation menus the same open panel the Swift menu already has. Re-read `components/navigation/NavigationMenu.jsx` before editing. Do not invent a string.
+Put the month grid in the date picker panel. `CSDatePicker` still shows the selected text. Re-read the date picker component before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

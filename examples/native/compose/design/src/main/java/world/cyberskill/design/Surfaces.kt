@@ -1,5 +1,8 @@
 package world.cyberskill.design
 
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.awaitEachGesture
@@ -14,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -526,10 +530,94 @@ fun csNavShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Doub
   return CsNavPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
 }
 
-fun CsNavigationMenu(items: List<String>, active: String, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
+data class CsNavMenuItem(val label: String, val href: String? = null, val panel: List<String> = emptyList())
+
+@Composable
+private fun CsNavPanelButton(index: Int, item: CsNavMenuItem, open: Int?, onOpen: (Int?) -> Unit, onAnchor: (CsFloatingRect) -> Unit) {
+  val interaction = remember { MutableInteractionSource() }
+  val hovered by interaction.collectIsHoveredAsState()
+  LaunchedEffect(hovered, open) {
+    if (hovered) onOpen(csNavHover(open, index))
+  }
+  TextButton(onClick = { onOpen(csNavClick(open, index)) }, modifier = Modifier.hoverable(interaction).onGloballyPositioned { coordinates ->
+    val bounds = coordinates.boundsInWindow()
+    onAnchor(CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble()))
+  }.semantics { stateDescription = if (open == index) "expanded" else "collapsed" }) {
+    Text(item.label)
+    Text("▾", modifier = Modifier.clearAndSetSemantics { })
+  }
+}
+
+@Composable
+fun CsNavigationMenu(items: List<CsNavMenuItem>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, placement: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
-  Row(modifier) {
-    items.forEach { item -> CsTriggerButton(title = item, onClick = { onSelect(item) }) { Text(item, color = if (item == active) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor()) } }
+  var open by remember { mutableStateOf<Int?>(null) }
+  var anchors by remember { mutableStateOf(mapOf<Int, CsFloatingRect>()) }
+  var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var panelOrigin by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var panelScale by remember { mutableStateOf(1.0 to 1.0) }
+  var pass by remember { mutableStateOf(0) }
+  val placeName = csNavPlacement(placement)
+  val config = androidx.compose.ui.platform.LocalConfiguration.current
+  val density = androidx.compose.ui.platform.LocalDensity.current
+  val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
+  val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
+  val viewport = CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), 0.0, 0.0)
+  fun choose(next: Int?) {
+    if (next != open) {
+      natural = null
+      fitted = null
+      panelOrigin = null
+      panelScale = 1.0 to 1.0
+      pass = 0
+    }
+    open = next
+  }
+  Column(modifier.onPreviewKeyEvent { event ->
+    if (event.type != KeyEventType.KeyDown || event.key != Key.Escape || open == null) return@onPreviewKeyEvent false
+    choose(null)
+    true
+  }) {
+    Row {
+      items.forEachIndexed { index, item ->
+        if (item.panel.isNotEmpty()) CsNavPanelButton(index, item, open, { next -> choose(next) }) { box ->
+          if (anchors[index] != box) anchors = anchors + (index to box)
+        } else Text(item.label, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { contentDescription = csNavHref(item.href) })
+      }
+    }
+    val current = open
+    val cards = current?.let { items.getOrNull(it) }?.panel.orEmpty()
+    if (current != null && cards.isNotEmpty()) {
+      val box = anchors[current] ?: CsFloatingRect(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+      val originX = panelOrigin?.first ?: box.left
+      val originY = panelOrigin?.second ?: box.bottom
+      val place = natural?.let { first -> fitted?.let { second -> csNavShift(box, first.first, first.second, second.first, second.second, viewport, originX, originY, panelScale.first, panelScale.second, placeName) } }
+      Popup(alignment = Alignment.TopStart, onDismissRequest = { choose(null) }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) {
+        Column(Modifier.onPreviewKeyEvent { event ->
+          if (event.type != KeyEventType.KeyDown || event.key != Key.Escape) return@onPreviewKeyEvent false
+          choose(null)
+          true
+        }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).alpha(if (place == null) 0f else 1f).then(if (place == null) Modifier.clearAndSetSemantics { } else Modifier).then(place?.let { Modifier.widthIn(max = with(density) { it.maxWidth.toFloat().toDp() }).heightIn(max = with(density) { it.maxHeight.toFloat().toDp() }) } ?: Modifier).onGloballyPositioned { coordinates ->
+          val bounds = coordinates.boundsInWindow()
+          val width = coordinates.size.width.toDouble()
+          val height = coordinates.size.height.toDouble()
+          if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+          val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+          val nextScale = (if (width == 0.0) 1.0 else bounds.width / width) to (if (height == 0.0) 1.0 else bounds.height / height)
+          if (panelOrigin != nextOrigin) panelOrigin = nextOrigin
+          if (panelScale != nextScale) panelScale = nextScale
+          if (natural == null) {
+            natural = width to height
+            pass = 1
+          } else if (pass >= 1 && fitted != width to height) fitted = width to height
+        }) {
+          cards.forEach { card ->
+            if (csNavShowsDescription(card)) TextButton(onClick = { choose(null) }) { Text(card, color = pack.colorTextPrimary.toComposeColor()) }
+          }
+        }
+      }
+    }
   }
 }
 
