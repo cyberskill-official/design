@@ -464,6 +464,25 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
 enum class CsEditorMark { Off, On, Mixed }
 fun csEditorEscape(text: String) = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 fun csEditorPlainInsert(text: String) = csEditorEscape(text).replace("\r\n", "\n").replace("\n", "<br>")
+fun csEditorWrapped(html: String, open: String, close: String) = html.startsWith(open) && html.endsWith(close) && html.length >= open.length + close.length
+fun csEditorToggle(text: String, open: String, close: String) = if (csEditorWrapped(text, open, close)) text.substring(open.length, text.length - close.length) else open + text + close
+fun csEditorList(text: String): String {
+  if (csEditorWrapped(text, "<ul>", "</ul>")) return text.substring(4, text.length - 5).replace("</li><li>", "<br>").replace("<li>", "").replace("</li>", "")
+  return "<ul>" + text.replace("\n", "<br>").split("<br>").joinToString("") { "<li>$it</li>" } + "</ul>"
+}
+fun csEditorApply(html: String, command: String, start: Int, end: Int): String {
+  val lower = start.coerceIn(0, html.length)
+  val upper = end.coerceIn(lower, html.length)
+  if (upper <= lower) return html
+  val selected = html.substring(lower, upper)
+  val changed = when (command) {
+    "bold" -> csEditorToggle(selected, "<b>", "</b>")
+    "italic" -> csEditorToggle(selected, "<i>", "</i>")
+    "insertUnorderedList" -> csEditorList(selected)
+    else -> return html
+  }
+  return html.substring(0, lower) + changed + html.substring(upper)
+}
 fun csEditorMark(samples: List<Boolean>, fallback: CsEditorMark): CsEditorMark {
   if (samples.isEmpty()) return fallback
   if (samples.all { it }) return CsEditorMark.On
@@ -491,9 +510,9 @@ fun csEditorPressed(current: Boolean) = !current
   var list by remember { mutableStateOf(false) }
   Column(modifier) {
     Row(Modifier.semantics { contentDescription = csEditorCopy("toolbar", locale) }) {
-      CsTriggerButton(title = "B", onClick = { bold = csEditorPressed(bold) }, modifier = Modifier.semantics { contentDescription = csEditorCopy("bold", locale); stateDescription = bold.toString() }) { Text("B", modifier = Modifier.clearAndSetSemantics {}) }
-      CsTriggerButton(title = "I", onClick = { italic = csEditorPressed(italic) }, modifier = Modifier.semantics { contentDescription = csEditorCopy("italic", locale); stateDescription = italic.toString() }) { Text("I", modifier = Modifier.clearAndSetSemantics {}) }
-      CsTriggerButton(title = "≔", onClick = { list = csEditorPressed(list) }, modifier = Modifier.semantics { contentDescription = csEditorCopy("list", locale); stateDescription = list.toString() }) { Text("≔", modifier = Modifier.clearAndSetSemantics {}) }
+      CsTriggerButton(title = "B", onClick = { val next = csEditorApply(text, "bold", 0, text.length); if (next == text) bold = csEditorPressed(bold) else { onChange(next); bold = csEditorWrapped(next, "<b>", "</b>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("bold", locale); stateDescription = bold.toString() }) { Text("B", modifier = Modifier.clearAndSetSemantics {}) }
+      CsTriggerButton(title = "I", onClick = { val next = csEditorApply(text, "italic", 0, text.length); if (next == text) italic = csEditorPressed(italic) else { onChange(next); italic = csEditorWrapped(next, "<i>", "</i>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("italic", locale); stateDescription = italic.toString() }) { Text("I", modifier = Modifier.clearAndSetSemantics {}) }
+      CsTriggerButton(title = "≔", onClick = { val next = csEditorApply(text, "insertUnorderedList", 0, text.length); if (next == text) list = csEditorPressed(list) else { onChange(next); list = csEditorWrapped(next, "<ul>", "</ul>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("list", locale); stateDescription = list.toString() }) { Text("≔", modifier = Modifier.clearAndSetSemantics {}) }
     }
     androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); onChange(next) }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = spoken })
   }

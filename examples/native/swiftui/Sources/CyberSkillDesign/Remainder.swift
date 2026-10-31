@@ -1532,6 +1532,47 @@ public enum CSEditorModel {
   public static func name(_ label: String?, fallback: String) -> String { label ?? fallback }
 
   public static func pressed(_ current: Bool) -> Bool { !current }
+  public static func wrapped(_ html: String, open: String, close: String) -> Bool {
+    html.hasPrefix(open) && html.hasSuffix(close) && html.count >= open.count + close.count
+  }
+  public static func apply(_ html: String, command: String, start: Int, end: Int) -> String {
+    let lower = min(max(start, 0), html.count)
+    let upper = min(max(end, lower), html.count)
+    guard upper > lower else { return html }
+    let head = html.index(html.startIndex, offsetBy: lower)
+    let tail = html.index(html.startIndex, offsetBy: upper)
+    let selected = String(html[head..<tail])
+    let changed: String
+    switch command {
+    case "bold":
+      changed = toggle(selected, open: "<b>", close: "</b>")
+    case "italic":
+      changed = toggle(selected, open: "<i>", close: "</i>")
+    case "insertUnorderedList":
+      changed = list(selected)
+    default:
+      return html
+    }
+    return String(html[..<head]) + changed + String(html[tail...])
+  }
+  public static func toggle(_ text: String, open: String, close: String) -> String {
+    guard wrapped(text, open: open, close: close) else { return open + text + close }
+    let innerStart = text.index(text.startIndex, offsetBy: open.count)
+    let innerEnd = text.index(text.endIndex, offsetBy: -close.count)
+    return String(text[innerStart..<innerEnd])
+  }
+  public static func list(_ text: String) -> String {
+    if wrapped(text, open: "<ul>", close: "</ul>") {
+      let innerStart = text.index(text.startIndex, offsetBy: 4)
+      let innerEnd = text.index(text.endIndex, offsetBy: -5)
+      return String(text[innerStart..<innerEnd])
+        .replacingOccurrences(of: "</li><li>", with: "<br>")
+        .replacingOccurrences(of: "<li>", with: "")
+        .replacingOccurrences(of: "</li>", with: "")
+    }
+    let lines = text.replacingOccurrences(of: "\n", with: "<br>").components(separatedBy: "<br>")
+    return "<ul>" + lines.map { "<li>\($0)</li>" }.joined() + "</ul>"
+  }
 }
 
 public struct CSEditor: View {
@@ -1551,6 +1592,18 @@ public struct CSEditor: View {
     _text = text
   }
 
+  private func applyFormat(_ command: String) {
+    let next = CSEditorModel.apply(text, command: command, start: 0, end: text.count)
+    switch command {
+    case "bold":
+      if next == text { bold = CSEditorModel.pressed(bold) } else { text = next; bold = CSEditorModel.wrapped(next, open: "<b>", close: "</b>") }
+    case "italic":
+      if next == text { italic = CSEditorModel.pressed(italic) } else { text = next; italic = CSEditorModel.wrapped(next, open: "<i>", close: "</i>") }
+    default:
+      if next == text { list = CSEditorModel.pressed(list) } else { text = next; list = CSEditorModel.wrapped(next, open: "<ul>", close: "</ul>") }
+    }
+  }
+
   private func formatButton(_ glyph: String, name: String, pressed: Bool, action: @escaping () -> Void) -> some View {
     Button(action: action) {
       Text(glyph).frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
@@ -1564,9 +1617,9 @@ public struct CSEditor: View {
     let spoken = CSEditorModel.name(label, fallback: CSEditorModel.copy("area", language: locale))
     VStack(alignment: .leading, spacing: 8) {
       HStack(spacing: 0) {
-        formatButton("B", name: CSEditorModel.copy("bold", language: locale), pressed: bold) { bold = CSEditorModel.pressed(bold) }
-        formatButton("I", name: CSEditorModel.copy("italic", language: locale), pressed: italic) { italic = CSEditorModel.pressed(italic) }
-        formatButton("≔", name: CSEditorModel.copy("list", language: locale), pressed: list) { list = CSEditorModel.pressed(list) }
+        formatButton("B", name: CSEditorModel.copy("bold", language: locale), pressed: bold) { applyFormat("bold") }
+        formatButton("I", name: CSEditorModel.copy("italic", language: locale), pressed: italic) { applyFormat("italic") }
+        formatButton("≔", name: CSEditorModel.copy("list", language: locale), pressed: list) { applyFormat("insertUnorderedList") }
       }
       .accessibilityElement(children: .contain)
       .accessibilityLabel(CSEditorModel.copy("toolbar", language: locale))

@@ -1618,6 +1618,14 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSEditorModel.name("", fallback: "Văn bản"), "")
     XCTAssertTrue(CSEditorModel.pressed(false))
     XCTAssertFalse(CSEditorModel.pressed(true))
+    XCTAssertEqual(CSEditorModel.apply("hello", command: "bold", start: 0, end: 5), "<b>hello</b>")
+    XCTAssertEqual(CSEditorModel.apply("<b>hello</b>", command: "bold", start: 0, end: 12), "hello")
+    XCTAssertEqual(CSEditorModel.apply("hello", command: "italic", start: 1, end: 4), "h<i>ell</i>o")
+    XCTAssertEqual(CSEditorModel.apply("hello", command: "bold", start: 2, end: 2), "hello")
+    XCTAssertEqual(CSEditorModel.apply("a<br>b", command: "insertUnorderedList", start: 0, end: 6), "<ul><li>a</li><li>b</li></ul>")
+    let listed = "<ul><li>a</li><li>b</li></ul>"
+    XCTAssertEqual(CSEditorModel.apply(listed, command: "insertUnorderedList", start: 0, end: listed.count), "a<br>b")
+    XCTAssertEqual(CSEditorModel.apply("hello", command: "unknown", start: 0, end: 5), "hello")
     let tree = [
       CSCascaderNode(key: "a", label: "Province", children: [
         CSCascaderNode(key: "a1", label: "District"),

@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the wizard-rules checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the editor-format checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `ea3efb53b1d3b1ebd00eea2665dd587b703d5653`, with the hash note in `7e99fe2e`
-- Checkpoint commit hash: `2e3d83230ef465b556a368aad46fcbe9022dca6b`
+- Previous checkpoint: `2e3d83230ef465b556a368aad46fcbe9022dca6b`, with the hash note in `88c1d9ce`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `wizard rules, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `editor format, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,16 +54,16 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The form wizard now runs the current step's required rules before it moves. `components/forms/Form.jsx` `goNext` returns early while pending. A missing, empty, or whitespace value stays on the step and reports `requiredField`. The value `"0"` is present, so the wizard moves. The last valid step completes instead of moving past the end. Back still clears the ruled errors.
+The editor now applies `bold`, `italic`, and `insertUnorderedList`, the commands `components/forms/Editor.jsx` sends to `document.execCommand`. A selection of `hello` becomes `<b>hello</b>`, and the same command again removes the tags. Italic wraps the chosen range. A list wraps each `<br>` line in `<li>` inside `<ul>`, and the same command unwraps it. An empty caret does not change the text. It only flips the pressed flag. An unknown command leaves the text alone.
 
-- The required message stays `Vui lòng nhập giá trị` in Vietnamese and `Enter a value` in English. It was not rewritten.
-- A custom function rule is still not run. Only the `"required"` rule is.
-- Compose and Flutter call `csFormWizardAdvance`. They were not compiled.
+- The native buttons apply the command to the whole field, because the native field has no selection range.
+- The labels stay `Đậm`, `Nghiêng`, and `Danh sách`. They were not rewritten.
+- Compose and Flutter call `csEditorApply`. They were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Apply editor formatting, the way the web editor does. Re-read the editor format control before editing. Do not invent a string.
+Handle terminal composing, the way the web terminal does. Re-read the terminal component before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

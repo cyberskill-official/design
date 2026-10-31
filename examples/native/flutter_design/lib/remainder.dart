@@ -587,6 +587,21 @@ enum CsEditorMark { off, on, mixed }
 String csEditorEscape(String text) => text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
 String csEditorPlainInsert(String text) => csEditorEscape(text).replaceAll('\r\n', '\n').replaceAll('\n', '<br>');
+bool csEditorWrapped(String html, String open, String close) => html.startsWith(open) && html.endsWith(close) && html.length >= open.length + close.length;
+String csEditorToggle(String text, String open, String close) => csEditorWrapped(text, open, close) ? text.substring(open.length, text.length - close.length) : '$open$text$close';
+String csEditorList(String text) {
+  if (csEditorWrapped(text, '<ul>', '</ul>')) return text.substring(4, text.length - 5).replaceAll('</li><li>', '<br>').replaceAll('<li>', '').replaceAll('</li>', '');
+  return '<ul>${text.replaceAll('\n', '<br>').split('<br>').map((line) => '<li>$line</li>').join()}</ul>';
+}
+String csEditorApply(String html, String command, int start, int end) {
+  final lower = start < 0 ? 0 : (start > html.length ? html.length : start);
+  final upper = end < lower ? lower : (end > html.length ? html.length : end);
+  if (upper <= lower) return html;
+  final selected = html.substring(lower, upper);
+  final changed = command == 'bold' ? csEditorToggle(selected, '<b>', '</b>') : command == 'italic' ? csEditorToggle(selected, '<i>', '</i>') : command == 'insertUnorderedList' ? csEditorList(selected) : null;
+  if (changed == null) return html;
+  return html.substring(0, lower) + changed + html.substring(upper);
+}
 
 CsEditorMark csEditorMark(List<bool> samples, CsEditorMark fallback) {
   if (samples.isEmpty) return fallback;
@@ -637,9 +652,9 @@ class _CsEditorState extends State<CsEditor> {
     );
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Semantics(container: true, label: csEditorCopy('toolbar', locale), child: Row(children: [
-        mark('B', csEditorCopy('bold', locale), bold, () => setState(() => bold = csEditorPressed(bold))),
-        mark('I', csEditorCopy('italic', locale), italic, () => setState(() => italic = csEditorPressed(italic))),
-        mark('≔', csEditorCopy('list', locale), list, () => setState(() => list = csEditorPressed(list))),
+        mark('B', csEditorCopy('bold', locale), bold, () { final next = csEditorApply(widget.text, 'bold', 0, widget.text.length); setState(() { if (next == widget.text) { bold = csEditorPressed(bold); } else { bold = csEditorWrapped(next, '<b>', '</b>'); } }); if (next != widget.text) widget.onChange(next); }),
+        mark('I', csEditorCopy('italic', locale), italic, () { final next = csEditorApply(widget.text, 'italic', 0, widget.text.length); setState(() { if (next == widget.text) { italic = csEditorPressed(italic); } else { italic = csEditorWrapped(next, '<i>', '</i>'); } }); if (next != widget.text) widget.onChange(next); }),
+        mark('≔', csEditorCopy('list', locale), list, () { final next = csEditorApply(widget.text, 'insertUnorderedList', 0, widget.text.length); setState(() { if (next == widget.text) { list = csEditorPressed(list); } else { list = csEditorWrapped(next, '<ul>', '</ul>'); } }); if (next != widget.text) widget.onChange(next); }),
       ])),
       CsOwnFocus(builder: (node, claim) => TextField(focusNode: node, controller: TextEditingController(text: widget.text), onChanged: (next) { claim(); widget.onChange(next); }, decoration: InputDecoration(labelText: spoken.isEmpty ? null : spoken))),
     ]);
