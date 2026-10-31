@@ -290,9 +290,39 @@ fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, 
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val okName = csPopconfirmOkText(confirmLabel, csPopconfirmCopy("ok", spoken))
   val cancelName = csPopconfirmOkText(cancelLabel, csPopconfirmCopy("cancel", spoken))
+  var field by remember { mutableStateOf<CsFloatingRect?>(null) }
+  var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var origin by remember { mutableStateOf(0.0 to 0.0) }
+  var panelScale by remember { mutableStateOf(1.0 to 1.0) }
+  val config = LocalConfiguration.current
+  val density = LocalDensity.current
+  val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
+  val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
+  val viewport = CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), 0.0, 0.0)
+  val place = field?.let { box ->
+    val first = natural
+    val second = fitted
+    if (first == null || second == null) null else csPopconfirmShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csPopconfirmPlacement(null))
+  }
+  if (!open && natural != null) { natural = null; fitted = null }
   Column(modifier) {
-    CsTriggerButton(title = title, onClick = { onOpenChange(!open) }) { Text(title) }
-    if (open) {
+    CsTriggerButton(title = title, onClick = { onOpenChange(!open) }, modifier = Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
+    }) { Text(title) }
+    if (open) Column(Modifier.onGloballyPositioned {
+      val bounds = it.boundsInWindow()
+      val width = it.size.width.toDouble()
+      val height = it.size.height.toDouble()
+      if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+      val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+      val nextScale = (bounds.width / width) to (bounds.height / height)
+      val nextSize = width to height
+      if (origin != nextOrigin) origin = nextOrigin
+      if (panelScale != nextScale) panelScale = nextScale
+      if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+    }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() })) {
       CsTriggerButton(title = cancelName, onClick = { onOpenChange(false); onCancel() }) { Text(cancelName) }
       CsTriggerButton(title = okName, onClick = { onOpenChange(false); onConfirm() }) { Text(okName) }
     }
@@ -321,6 +351,16 @@ fun csToggleCopy(key: String, language: String?): String {
 const val csPopconfirmOk = "Confirm"
 const val csPopconfirmCancel = "Cancel"
 fun csPopconfirmOkText(label: String?, fallback: String) = label ?: fallback
+fun csPopconfirmPlacement(explicit: String?) = explicit ?: "bottom-start"
+const val csPopconfirmGap = 8.0
+data class CsPopconfirmPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
+fun csPopconfirmShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String): CsPopconfirmPlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement, csPopconfirmGap) ?: return null
+  val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, csPopconfirmGap) ?: return null
+  val sx = if (scaleX == 0.0) 1.0 else scaleX
+  val sy = if (scaleY == 0.0) 1.0 else scaleY
+  return CsPopconfirmPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
+}
 fun csPopconfirmCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("ok" to "Xác nhận", "cancel" to "Hủy")

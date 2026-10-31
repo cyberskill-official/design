@@ -604,13 +604,36 @@ public enum CSPopconfirmModel {
     return key
   }
   public static func placement(_ placement: String?, fallback: String) -> String { placement ?? fallback }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String) -> CSPopconfirmPlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: placement, gap: gap) else { return nil }
+    guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: gap) else { return nil }
+    let sx = scaleX == 0 ? 1 : scaleX
+    let sy = scaleY == 0 ? 1 : scaleY
+    return CSPopconfirmPlace(x: (placed.left - originX) / sx, y: (placed.top - originY) / sy, maxWidth: initial.maxWidth, maxHeight: initial.maxHeight, placement: placed.placement)
+  }
   public static func toggle(open: Bool, defaultPrevented: Bool) -> Bool? { defaultPrevented ? nil : !open }
   public static func confirmSteps() -> [String] { ["close", "confirm"] }
   public static func cancelSteps() -> [String] { ["close", "cancel"] }
 }
 
+public struct CSPopconfirmPlace: Equatable {
+  public var x: Double
+  public var y: Double
+  public var maxWidth: Double
+  public var maxHeight: Double
+  public var placement: String
+  public init(x: Double, y: Double, maxWidth: Double, maxHeight: Double, placement: String) {
+    self.x = x
+    self.y = y
+    self.maxWidth = maxWidth
+    self.maxHeight = maxHeight
+    self.placement = placement
+  }
+}
+
 public struct CSPopconfirm: View {
   public let title: String
+  public let placement: String?
   public let confirmLabel: String?
   public let cancelLabel: String?
   @Binding var open: Bool
@@ -621,9 +644,16 @@ public struct CSPopconfirm: View {
   let onCancel: () -> Void
   public let language: String?
   @Environment(\.csLanguage) private var ancestorLanguage
+  @State private var anchor = CGRect.zero
+  @State private var naturalSize: CGSize?
+  @State private var fittedSize: CGSize?
+  @State private var panelOrigin: CGPoint?
+  @State private var panelScale = CGSize(width: 1, height: 1)
+  @State private var measurePass = 0
 
-  public init(title: String, confirmLabel: String? = nil, cancelLabel: String? = nil, open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, onConfirm: @escaping () -> Void, onCancel: @escaping () -> Void, language: String? = nil) {
+  public init(title: String, confirmLabel: String? = nil, cancelLabel: String? = nil, open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, onConfirm: @escaping () -> Void, onCancel: @escaping () -> Void, language: String? = nil, placement: String? = nil) {
     self.title = title
+    self.placement = placement
     self.confirmLabel = confirmLabel
     self.cancelLabel = cancelLabel
     _open = open
@@ -642,16 +672,80 @@ public struct CSPopconfirm: View {
       CSTriggerButton(title) { if let next = CSPopconfirmModel.toggle(open: open, defaultPrevented: false) { open = next } }
         .frame(minHeight: pack.componentButtonMdMinHeight.points)
         .accessibilityValue(open ? "true" : "false")
+        .background(GeometryReader { geo in
+          Color.clear.preference(key: CSPopconfirmAnchorKey.self, value: geo.frame(in: .global))
+        })
       if open {
-        Text(title).foregroundStyle(pack.primaryTextColor)
-        HStack {
-          CSTriggerButton(CSPopconfirmModel.cancelText(cancelLabel, fallback: CSPopconfirmModel.copy("cancel", language: spoken))) { open = false; onCancel() }.frame(minHeight: 44)
-          CSTriggerButton(CSPopconfirmModel.okText(confirmLabel, fallback: CSPopconfirmModel.copy("ok", language: spoken))) { open = false; onConfirm() }.frame(minHeight: 44)
+        let screen = CSContextMenuModel.screenSize()
+        let box = CSFloatingRect(left: anchor.minX, top: anchor.minY, right: anchor.maxX, bottom: anchor.maxY, width: anchor.width, height: anchor.height)
+        let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
+        let place = CSPopconfirmModel.placement(placement, fallback: CSPopconfirmModel.placementDefault)
+        let placed = naturalSize.flatMap { natural in
+          fittedSize.flatMap { fitted in
+            CSPopconfirmModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
+          }
         }
+        VStack(alignment: .leading) {
+          Text(title).foregroundStyle(pack.primaryTextColor)
+          HStack {
+            CSTriggerButton(CSPopconfirmModel.cancelText(cancelLabel, fallback: CSPopconfirmModel.copy("cancel", language: spoken))) { open = false; onCancel() }.frame(minHeight: 44)
+            CSTriggerButton(CSPopconfirmModel.okText(confirmLabel, fallback: CSPopconfirmModel.copy("ok", language: spoken))) { open = false; onConfirm() }.frame(minHeight: 44)
+          }
+        }
+        .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+        .background(GeometryReader { geo in
+          let frame = geo.frame(in: .global)
+          let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
+          let scaleY = geo.size.height > 0 ? frame.height / geo.size.height : 1
+          Color.clear.preference(key: CSPopconfirmPanelKey.self, value: CSPopconfirmMeasure(size: geo.size, pass: measurePass, origin: frame.origin, scale: CGSize(width: scaleX == 0 ? 1 : scaleX, height: scaleY == 0 ? 1 : scaleY)))
+        })
+        .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? 0))
+        .opacity(placed == nil ? 0 : 1)
+        .accessibilityHidden(placed == nil)
       }
     }
     .onExitCommand { open = false }
+    .onPreferenceChange(CSPopconfirmAnchorKey.self) { frame in
+      if frame.width > 0, frame.height > 0 { anchor = frame }
+    }
+    .onPreferenceChange(CSPopconfirmPanelKey.self) { measure in
+      guard open, measure.size.width > 0, measure.size.height > 0 else { return }
+      panelOrigin = measure.origin
+      panelScale = measure.scale
+      if naturalSize == nil {
+        naturalSize = measure.size
+        measurePass = 1
+      } else if measure.pass >= 1 {
+        fittedSize = measure.size
+      }
+    }
+    .onChange(of: open) { isOpen in
+      if !isOpen {
+        naturalSize = nil
+        fittedSize = nil
+        panelOrigin = nil
+        panelScale = CGSize(width: 1, height: 1)
+        measurePass = 0
+      }
+    }
   }
+}
+
+private struct CSPopconfirmMeasure: Equatable {
+  var size: CGSize
+  var pass: Int
+  var origin: CGPoint
+  var scale: CGSize
+}
+
+private struct CSPopconfirmAnchorKey: PreferenceKey {
+  static var defaultValue = CGRect.zero
+  static func reduce(value: inout CGRect, nextValue: () -> CGRect) { value = nextValue() }
+}
+
+private struct CSPopconfirmPanelKey: PreferenceKey {
+  static var defaultValue = CSPopconfirmMeasure(size: .zero, pass: 0, origin: .zero, scale: CGSize(width: 1, height: 1))
+  static func reduce(value: inout CSPopconfirmMeasure, nextValue: () -> CSPopconfirmMeasure) { value = nextValue() }
 }
 
 public enum CSToggleModel {

@@ -375,7 +375,27 @@ class CsDataTable extends StatelessWidget {
   }
 }
 
-class CsPopconfirm extends StatelessWidget {
+String csPopconfirmPlacement(String? explicit) => explicit ?? 'bottom-start';
+const csPopconfirmGap = 8.0;
+class CsPopconfirmPlace {
+  const CsPopconfirmPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsPopconfirmPlace? csPopconfirmShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, String placement) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: placement, gap: csPopconfirmGap);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csPopconfirmGap);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsPopconfirmPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
+
+class CsPopconfirm extends StatefulWidget {
   const CsPopconfirm({super.key, required this.title, this.confirmLabel, this.cancelLabel, required this.open, required this.onOpenChange, required this.onConfirm, required this.onCancel, required this.dark, required this.highContrast, required this.compact, this.language});
   final String title;
   final String? confirmLabel;
@@ -388,15 +408,58 @@ class CsPopconfirm extends StatelessWidget {
   final bool dark;
   final bool highContrast;
   final bool compact;
+  @override
+  State<CsPopconfirm> createState() => _CsPopconfirmState();
+}
+
+class _CsPopconfirmState extends State<CsPopconfirm> {
+  final fieldKey = GlobalKey();
+  final listKey = GlobalKey();
+  Size? natural;
+  Size? fitted;
+  CsPopconfirmPlace? place;
+
+  void measure() {
+    final fieldBox = fieldKey.currentContext?.findRenderObject() as RenderBox?;
+    final listBox = listKey.currentContext?.findRenderObject() as RenderBox?;
+    if (fieldBox == null || !fieldBox.hasSize || listBox == null || !listBox.hasSize || !fieldBox.attached || !listBox.attached) return;
+    final field = fieldBox.localToGlobal(Offset.zero);
+    final list = listBox.localToGlobal(Offset.zero);
+    if (natural == null) {
+      setState(() => natural = listBox.size);
+      return;
+    }
+    if (fitted == listBox.size && place != null) return;
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csPopconfirmShift(
+      CsFloatingRect(field.dx, field.dy, field.dx + fieldBox.size.width, field.dy + fieldBox.size.height, fieldBox.size.width, fieldBox.size.height),
+      natural!.width,
+      natural!.height,
+      listBox.size.width,
+      listBox.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      list.dx,
+      list.dy,
+      1,
+      1,
+      csPopconfirmPlacement(null),
+    );
+    setState(() { fitted = listBox.size; place = next; });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
+    if (!widget.open) { natural = null; fitted = null; }
+    if (widget.open) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && widget.open) measure(); });
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onOpenChange(!open); }, child: Text(title))),
-      if (open) ...[
-        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onOpenChange(false); onCancel(); }, child: Text(csPopconfirmOkText(cancelLabel, csPopconfirmCopy('cancel', csSelectResolvedLanguage(language, CsLanguageScope.of(context))))))),
-        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onOpenChange(false); onConfirm(); }, child: Text(csPopconfirmOkText(confirmLabel, csPopconfirmCopy('ok', csSelectResolvedLanguage(language, CsLanguageScope.of(context))))))),
-      ],
+      CsOwnFocus(builder: (node, claim) => TextButton(key: fieldKey, focusNode: node, onPressed: () { claim(); widget.onOpenChange(!widget.open); }, child: Text(widget.title))),
+      if (widget.open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onOpenChange(false); widget.onCancel(); }, child: Text(csPopconfirmOkText(widget.cancelLabel, csPopconfirmCopy('cancel', locale))))),
+        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onOpenChange(false); widget.onConfirm(); }, child: Text(csPopconfirmOkText(widget.confirmLabel, csPopconfirmCopy('ok', locale))))),
+      ]))),
     ]);
   }
 }

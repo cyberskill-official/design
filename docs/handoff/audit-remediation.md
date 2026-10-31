@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the toolbar placement checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the popconfirm placement checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push. Do not publish, deploy, or merge. Do not push again unless the operator asks.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push. Do not publish, deplo
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `8332c804e72ac7263c565cda28d433f45d745861`, with the hash note in `2ffdeec4`
-- Checkpoint commit hash: `1c4a115c64c2a68ece0f6df36785e2b28c98c087`
+- Previous checkpoint: `1c4a115c64c2a68ece0f6df36785e2b28c98c087`, with the hash note in `d7dc93b7`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `toolbar place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `confirm place, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -54,15 +54,15 @@ Last run after the cascader arrow change: the catalog test passed in about 0.006
 
 ## Latest checkpoint
 
-The toolbar overflow uses the web floating placement. `components/navigation/Toolbar.jsx` calls `useFloatingPanel` with `bottom-end` and gap `6`. The anchor is the More button, not the whole bar. An explicit placement wins, including an empty string, which does not place. For the tested More button, an 80-point panel shifts 20 points right and 6 points down.
+The popconfirm uses the web floating placement. `components/overlays/Popconfirm.jsx` calls `useFloatingPanel` with `bottom-start` and gap `8`. That is not the toolbar's `bottom-end` or the other panels' gap of 6. An explicit placement wins, including an empty string. For the tested trigger, the dialog sits 8 points below. A panel that does not fit below flips to `top-start` at 92.
 
-- Swift hides the overflow until the second measurement exists, then offsets it. The items that stay on the bar are unchanged.
-- Compose and Flutter call `csToolbarShift` with `bottom-end` and offset the overflow. They were not compiled.
+- Swift hides the dialog until the second measurement exists, then offsets it. Confirm and cancel still close it and run their callbacks. Escape still closes it.
+- Compose and Flutter call `csPopconfirmShift` and offset the buttons. They were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Place the popconfirm. Re-read `components/overlays/Popconfirm.jsx` for its `useFloatingPanel` gap and placement before editing. Do not copy the toolbar's `bottom-end`.
+Place the hover card. Re-read `components/overlays/HoverCard.jsx` for its `useFloatingPanel` gap and placement before editing. Do not copy the popconfirm's 8 without that read.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
