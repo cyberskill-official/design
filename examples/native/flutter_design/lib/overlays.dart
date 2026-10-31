@@ -118,6 +118,24 @@ String csMenubarCopy(String key, String? language) {
   }
   return key;
 }
+String csMenubarPlacement(String? explicit) => explicit ?? 'bottom-start';
+class CsMenubarPlace {
+  const CsMenubarPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
+  final double x;
+  final double y;
+  final double maxWidth;
+  final double maxHeight;
+  final String placement;
+}
+CsMenubarPlace? csMenubarShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, String placement) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: placement, gap: csMenubarGap);
+  if (initial == null) return null;
+  final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csMenubarGap);
+  if (placed == null) return null;
+  final sx = scaleX == 0 ? 1.0 : scaleX;
+  final sy = scaleY == 0 ? 1.0 : scaleY;
+  return CsMenubarPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
+}
 int? csMenubarClick(int? open, int index) => open == index ? null : index;
 int? csMenubarHover(int? open, int index) => open == null ? null : (open == index ? open : index);
 List<String> csMenubarActionable(List<String> items) => items.where((item) => item != '-').toList();
@@ -289,11 +307,50 @@ class CsMenubar extends StatefulWidget {
 
 class _CsMenubarState extends State<CsMenubar> {
   var state = const CsMenubarState(0, null, 0);
+  final buttons = <int, GlobalKey>{};
+  final listKey = GlobalKey();
+  Size? natural;
+  Size? fitted;
+  CsMenubarPlace? place;
+
+  GlobalKey buttonKey(int index) => buttons.putIfAbsent(index, GlobalKey.new);
+
+  void measure(int open) {
+    final fieldBox = buttonKey(open).currentContext?.findRenderObject() as RenderBox?;
+    final listBox = listKey.currentContext?.findRenderObject() as RenderBox?;
+    if (fieldBox == null || !fieldBox.hasSize || listBox == null || !listBox.hasSize || !fieldBox.attached || !listBox.attached) return;
+    final field = fieldBox.localToGlobal(Offset.zero);
+    final list = listBox.localToGlobal(Offset.zero);
+    if (natural == null) {
+      setState(() => natural = listBox.size);
+      return;
+    }
+    if (fitted == listBox.size && place != null) return;
+    final view = View.of(context);
+    final width = view.physicalSize.width / view.devicePixelRatio;
+    final height = view.physicalSize.height / view.devicePixelRatio;
+    final next = csMenubarShift(
+      CsFloatingRect(field.dx, field.dy, field.dx + fieldBox.size.width, field.dy + fieldBox.size.height, fieldBox.size.width, fieldBox.size.height),
+      natural!.width,
+      natural!.height,
+      listBox.size.width,
+      listBox.size.height,
+      CsFloatingRect(8, 8, width - 8, height - 8, 0, 0),
+      list.dx,
+      list.dy,
+      1,
+      1,
+      csMenubarPlacement(null),
+    );
+    setState(() { fitted = listBox.size; place = next; });
+  }
 
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
     final open = state.open;
+    if (open == null) { natural = null; fitted = null; }
+    if (open != null) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && state.open == open) measure(open); });
     return Semantics(
       label: csMenubarLabel(widget.label, widget.hasLabelledBy, csMenubarCopy('label', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))),
       child: Column(
@@ -302,6 +359,7 @@ class _CsMenubarState extends State<CsMenubar> {
           Row(children: [
             for (var index = 0; index < widget.menus.length; index++)
               CsOwnFocus(builder: (node, claim) => TextButton(
+                key: buttonKey(index),
                 focusNode: node,
                 onPressed: () {
                   claim();
@@ -311,16 +369,21 @@ class _CsMenubarState extends State<CsMenubar> {
               )),
           ]),
           if (open != null)
-            for (var index = 0; index < widget.menus[open].items.length; index++)
-              CsOwnFocus(builder: (node, claim) => TextButton(
-                focusNode: node,
-                onPressed: () {
-                  claim();
-                  widget.onSelect(widget.menus[open].items[index]);
-                  setState(() => state = CsMenubarState(state.top, null, state.item));
-                },
-                child: Text(widget.menus[open].items[index]),
-              )),
+            Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (var index = 0; index < widget.menus[open].items.length; index++)
+                  CsOwnFocus(builder: (node, claim) => TextButton(
+                    focusNode: node,
+                    onPressed: () {
+                      claim();
+                      widget.onSelect(widget.menus[open].items[index]);
+                      setState(() => state = CsMenubarState(state.top, null, state.item));
+                    },
+                    child: Text(widget.menus[open].items[index]),
+                  )),
+              ],
+            ))),
         ],
       ),
     );

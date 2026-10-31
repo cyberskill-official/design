@@ -129,6 +129,16 @@ fun csMenubarCopy(key: String, language: String?): String {
   }
   return key
 }
+fun csMenubarPlacement(explicit: String?) = explicit ?: "bottom-start"
+data class CsMenubarPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
+fun csMenubarShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String): CsMenubarPlace? {
+  val space = csMenubarGap.toDouble()
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement, space) ?: return null
+  val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, space) ?: return null
+  val sx = if (scaleX == 0.0) 1.0 else scaleX
+  val sy = if (scaleY == 0.0) 1.0 else scaleY
+  return CsMenubarPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
+}
 fun csMenubarClick(open: Int?, index: Int) = if (open == index) null else index
 fun csMenubarHover(open: Int?, index: Int) = if (open == null) null else if (open == index) open else index
 fun csMenubarActionable(items: List<String>) = items.filter { it != "-" }
@@ -266,6 +276,22 @@ fun CsMenubar(
   val pack = csModePack(dark, highContrast, compact)
   val barName = csMenubarLabel(label, hasLabelledBy, csMenubarCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   var state by remember { mutableStateOf(CsMenubarState(0, null, 0)) }
+  var field by remember { mutableStateOf<CsFloatingRect?>(null) }
+  var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var origin by remember { mutableStateOf(0.0 to 0.0) }
+  var panelScale by remember { mutableStateOf(1.0 to 1.0) }
+  val config = LocalConfiguration.current
+  val density = LocalDensity.current
+  val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
+  val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
+  val viewport = CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), 0.0, 0.0)
+  val place = field?.let { box ->
+    val first = natural
+    val second = fitted
+    if (first == null || second == null) null else csMenubarShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csMenubarPlacement(null))
+  }
+  if (state.open == null && natural != null) { natural = null; fitted = null }
   Column(modifier.then(barName?.let { name -> Modifier.semantics { contentDescription = name } } ?: Modifier).onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
     val key = rovingKey(event.key) ?: return@onPreviewKeyEvent false
@@ -291,16 +317,34 @@ fun CsMenubar(
       menus.forEachIndexed { index, menu ->
         CsTriggerButton(title = menu.label, onClick = {
           state = CsMenubarState(index, if (state.open == index) null else index, 0)
-        }, modifier = Modifier.minimumInteractiveComponentSize()) {
+        }, modifier = Modifier.minimumInteractiveComponentSize().onGloballyPositioned {
+          if (state.open == index) {
+            val bounds = it.boundsInWindow()
+            field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
+          }
+        }) {
           Text(menu.label, color = if (state.top == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
         }
       }
     }
     val open = state.open
     if (open != null && menus.indices.contains(open)) {
-      menus[open].items.forEachIndexed { index, item ->
-        CsTriggerButton(title = item, onClick = { onSelect(item); state = state.copy(open = null) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize()) {
-          Text(item, color = if (state.item == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
+      Column(Modifier.onGloballyPositioned {
+        val bounds = it.boundsInWindow()
+        val width = it.size.width.toDouble()
+        val height = it.size.height.toDouble()
+        if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+        val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+        val nextScale = (bounds.width / width) to (bounds.height / height)
+        val nextSize = width to height
+        if (origin != nextOrigin) origin = nextOrigin
+        if (panelScale != nextScale) panelScale = nextScale
+        if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+      }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).alpha(if (place == null) 0f else 1f)) {
+        menus[open].items.forEachIndexed { index, item ->
+          CsTriggerButton(title = item, onClick = { onSelect(item); state = state.copy(open = null) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize()) {
+            Text(item, color = if (state.item == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
+          }
         }
       }
     }

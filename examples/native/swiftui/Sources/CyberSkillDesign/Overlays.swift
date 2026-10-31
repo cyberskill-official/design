@@ -125,6 +125,29 @@ public enum CSMenubarModel {
     guard let next = CSMenuModel.index(current: item, count: itemCount, key: key) else { return nil }
     return CSMenubarState(top: menu, open: menu, item: next)
   }
+  public static func placement(_ explicit: String?) -> String { explicit ?? "bottom-start" }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String) -> CSMenubarPlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: placement, gap: gap) else { return nil }
+    guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: gap) else { return nil }
+    let sx = scaleX == 0 ? 1 : scaleX
+    let sy = scaleY == 0 ? 1 : scaleY
+    return CSMenubarPlace(x: (placed.left - originX) / sx, y: (placed.top - originY) / sy, maxWidth: initial.maxWidth, maxHeight: initial.maxHeight, placement: placed.placement)
+  }
+}
+
+public struct CSMenubarPlace: Equatable {
+  public var x: Double
+  public var y: Double
+  public var maxWidth: Double
+  public var maxHeight: Double
+  public var placement: String
+  public init(x: Double, y: Double, maxWidth: Double, maxHeight: Double, placement: String) {
+    self.x = x
+    self.y = y
+    self.maxWidth = maxWidth
+    self.maxHeight = maxHeight
+    self.placement = placement
+  }
 }
 
 public struct CSMenuPlace: Equatable {
@@ -314,6 +337,12 @@ public struct CSMenubar: View {
   public let label: String?
   public let menus: [CSMenubarMenu]
   @State private var state = CSMenubarState(top: 0, open: nil, item: 0)
+  @State private var anchors: [Int: CGRect] = [:]
+  @State private var naturalSize: CGSize?
+  @State private var fittedSize: CGSize?
+  @State private var panelOrigin: CGPoint?
+  @State private var panelScale = CGSize(width: 1, height: 1)
+  @State private var measurePass = 0
   @State private var keysArmed = false
   @FocusState private var barFocused: Bool
   let dark: Bool
@@ -322,9 +351,10 @@ public struct CSMenubar: View {
   let onSelect: (String) -> Void
   public let hasLabelledBy: Bool
   public let language: String?
+  public let placement: String?
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String? = nil, menus: [CSMenubarMenu], dark: Bool, highContrast: Bool, compact: Bool, onSelect: @escaping (String) -> Void = { _ in }, hasLabelledBy: Bool = false, language: String? = nil) {
+  public init(label: String? = nil, menus: [CSMenubarMenu], dark: Bool, highContrast: Bool, compact: Bool, onSelect: @escaping (String) -> Void = { _ in }, hasLabelledBy: Bool = false, language: String? = nil, placement: String? = nil) {
     self.label = label
     self.menus = menus
     self.dark = dark
@@ -333,10 +363,12 @@ public struct CSMenubar: View {
     self.onSelect = onSelect
     self.hasLabelledBy = hasLabelledBy
     self.language = language
+    self.placement = placement
   }
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
+    let place = CSMenubarModel.placement(placement)
     VStack(alignment: .leading, spacing: 0) {
       HStack(spacing: 0) {
         ForEach(Array(menus.enumerated()), id: \.offset) { index, menu in
@@ -349,24 +381,48 @@ public struct CSMenubar: View {
             state.open = CSMenubarModel.hover(open: state.open, index: index)
           }
           .frame(minHeight: pack.componentButtonMdMinHeight.points)
+          .background(GeometryReader { geo in
+            Color.clear.preference(key: CSMenubarAnchorKey.self, value: [index: geo.frame(in: .global)])
+          })
           .foregroundStyle(state.top == index ? pack.colorBrandOchre.color : pack.primaryTextColor)
           .accessibilityAddTraits(state.open == index ? .isSelected : [])
         }
       }
       if let open = state.open, menus.indices.contains(open) {
-        ForEach(Array(menus[open].items.enumerated()), id: \.offset) { index, item in
-          if CSMenubarModel.isSeparator(item) {
-            Rectangle().fill(pack.borderColor).frame(height: 1).accessibilityHidden(true)
-          } else {
-            let actionIndex = CSMenubarModel.actionable(Array(menus[open].items.prefix(index + 1))).count - 1
-            CSTriggerButton(item) {
-              onSelect(item)
-              state.open = nil
-            }
-            .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
-            .foregroundStyle(state.item == actionIndex ? pack.colorBrandOchre.color : pack.primaryTextColor)
+        let anchor = anchors[open] ?? .zero
+        let screen = CSContextMenuModel.screenSize()
+        let box = CSFloatingRect(left: anchor.minX, top: anchor.minY, right: anchor.maxX, bottom: anchor.maxY, width: anchor.width, height: anchor.height)
+        let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
+        let placed = naturalSize.flatMap { natural in
+          fittedSize.flatMap { fitted in
+            CSMenubarModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
           }
         }
+        VStack(alignment: .leading, spacing: 0) {
+          ForEach(Array(menus[open].items.enumerated()), id: \.offset) { index, item in
+            if CSMenubarModel.isSeparator(item) {
+              Rectangle().fill(pack.borderColor).frame(height: 1).accessibilityHidden(true)
+            } else {
+              let actionIndex = CSMenubarModel.actionable(Array(menus[open].items.prefix(index + 1))).count - 1
+              CSTriggerButton(item) {
+                onSelect(item)
+                state.open = nil
+              }
+              .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
+              .foregroundStyle(state.item == actionIndex ? pack.colorBrandOchre.color : pack.primaryTextColor)
+            }
+          }
+        }
+        .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+        .background(GeometryReader { geo in
+          let frame = geo.frame(in: .global)
+          let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
+          let scaleY = geo.size.height > 0 ? frame.height / geo.size.height : 1
+          Color.clear.preference(key: CSMenubarPanelKey.self, value: CSMenubarMeasure(size: geo.size, pass: measurePass, origin: frame.origin, scale: CGSize(width: scaleX == 0 ? 1 : scaleX, height: scaleY == 0 ? 1 : scaleY)))
+        })
+        .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? 0))
+        .opacity(placed == nil ? 0 : 1)
+        .accessibilityHidden(placed == nil)
       }
     }
     .accessibilityElement(children: .contain)
@@ -378,6 +434,27 @@ public struct CSMenubar: View {
     .background(CSLegacyRovingKeys(active: csLegacyRovingActive(focused: barFocused, armed: keysArmed), onResign: { keysArmed = false }) { key, _ in
       moveBar(key)
     })
+    .onPreferenceChange(CSMenubarAnchorKey.self) { frames in
+      anchors.merge(frames) { _, new in new }
+    }
+    .onPreferenceChange(CSMenubarPanelKey.self) { measure in
+      guard state.open != nil, measure.size.width > 0, measure.size.height > 0 else { return }
+      panelOrigin = measure.origin
+      panelScale = measure.scale
+      if naturalSize == nil {
+        naturalSize = measure.size
+        measurePass = 1
+      } else if measure.pass >= 1 {
+        fittedSize = measure.size
+      }
+    }
+    .onChange(of: state.open) { _ in
+      naturalSize = nil
+      fittedSize = nil
+      panelOrigin = nil
+      panelScale = CGSize(width: 1, height: 1)
+      measurePass = 0
+    }
   }
 
   private func moveBar(_ key: CSRovingKey) -> Bool {
@@ -393,6 +470,25 @@ public struct CSMenubar: View {
     state = next
     return true
   }
+}
+
+private struct CSMenubarMeasure: Equatable {
+  var size: CGSize
+  var pass: Int
+  var origin: CGPoint
+  var scale: CGSize
+}
+
+private struct CSMenubarAnchorKey: PreferenceKey {
+  static var defaultValue: [Int: CGRect] = [:]
+  static func reduce(value: inout [Int: CGRect], nextValue: () -> [Int: CGRect]) {
+    value.merge(nextValue()) { _, new in new }
+  }
+}
+
+private struct CSMenubarPanelKey: PreferenceKey {
+  static var defaultValue = CSMenubarMeasure(size: .zero, pass: 0, origin: .zero, scale: CGSize(width: 1, height: 1))
+  static func reduce(value: inout CSMenubarMeasure, nextValue: () -> CSMenubarMeasure) { value = nextValue() }
 }
 
 public enum CSBackTopModel {
