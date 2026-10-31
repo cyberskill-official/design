@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the navigation card checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the Japanese date checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `727e0c5b7431bfc24124c75fed7af469a0bf5ff0`, with the hash note in `5b6acf38`
-- Checkpoint commit hash: `20fe1d0690ba10a3998266dda60007cd0fcee006`
+- Previous checkpoint: `20fe1d0690ba10a3998266dda60007cd0fcee006`, with the hash note in `664f246d`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `nav card, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `ja date, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the navigation card: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the Japanese date: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-Each navigation card now has its own label, description, and link. The web source is `components/navigation/NavigationMenu.jsx`: the label is always shown, a description of `0` stays visible, a blank description stays hidden, and an empty address stays `#`. Choosing a card closes the panel.
+A Japanese date is now year, month, then day. The web source is `formatDate` in `components/_i18n/i18n.js`. 1 October 2026 is `2026/10/01`. `ja-JP` and `japanese` use that same shape. Vietnamese stays `01/10/2026`. English stays `01 Oct 2026`. `2026/02/31` does not parse.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Format a Japanese date the way `formatDate` does. The native picker writes Vietnamese and English only. Re-read `components/_i18n/i18n.js` before editing. Do not invent a string.
+Run a wizard's custom step rule, not only the required rule. Re-read `components/forms/Form.jsx` before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

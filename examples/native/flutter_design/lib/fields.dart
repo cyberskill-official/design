@@ -14,13 +14,18 @@ class CsCalendarDate {
 CsCalendarDate? csDateParse(String text, String language) {
   final trimmed = text.trim();
   if (trimmed.isEmpty) return null;
-  if (language == 'vi' || language.isEmpty) {
+  final code = csSelectPrimaryLanguage(language) ?? 'vi';
+  if (code == 'vi' || code == 'ja') {
     final parts = trimmed.split('/');
     if (parts.length != 3) return null;
-    final day = int.tryParse(parts[0]);
-    final month = int.tryParse(parts[1]);
-    final year = int.tryParse(parts[2]);
-    if (day == null || month == null || year == null || month < 1 || month > 12) return null;
+    final first = int.tryParse(parts[0]);
+    final second = int.tryParse(parts[1]);
+    final third = int.tryParse(parts[2]);
+    if (first == null || second == null || third == null) return null;
+    final year = code == 'ja' ? first : third;
+    final month = second;
+    final day = code == 'ja' ? third : first;
+    if (month < 1 || month > 12) return null;
     final index = month - 1;
     if (day < 1 || day > csCalendarDays(year, index)) return null;
     return CsCalendarDate(year, index, day);

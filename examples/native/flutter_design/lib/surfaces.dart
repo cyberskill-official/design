@@ -127,9 +127,11 @@ CsDatePlace? csDateShift(CsFloatingRect anchor, double naturalWidth, double natu
 }
 
 String csDateFormat(int day, int month, int year, String language) {
+  final code = csSelectPrimaryLanguage(language) ?? 'vi';
   final dd = day.toString().padLeft(2, '0');
   final mm = (month + 1).toString().padLeft(2, '0');
-  if (language == 'vi' || language.isEmpty) return '$dd/$mm/$year';
+  if (code == 'vi') return '$dd/$mm/$year';
+  if (code == 'ja') return '$year/$mm/$dd';
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   return '$dd ${months[month]} $year';
 }

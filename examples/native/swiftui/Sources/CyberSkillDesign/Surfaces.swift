@@ -153,8 +153,12 @@ public enum CSDateField {
   }
 
   public static func format(_ date: CSCalendarDate, language: String) -> String {
-    if language == "vi" || language.isEmpty {
+    let code = CSComboboxModel.primaryLanguage(language) ?? "vi"
+    if code == "vi" {
       return String(format: "%02d/%02d/%04d", date.day, date.month + 1, date.year)
+    }
+    if code == "ja" {
+      return String(format: "%04d/%02d/%02d", date.year, date.month + 1, date.day)
     }
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     return String(format: "%02d %@ %04d", date.day, months[date.month], date.year)
@@ -162,9 +166,17 @@ public enum CSDateField {
   public static func parse(_ text: String, language: String) -> CSCalendarDate? {
     let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
     if trimmed.isEmpty { return nil }
-    if language == "vi" || language.isEmpty {
+    let code = CSComboboxModel.primaryLanguage(language) ?? "vi"
+    if code == "vi" {
       let parts = trimmed.split(separator: "/")
       guard parts.count == 3, let day = Int(parts[0]), let month = Int(parts[1]), let year = Int(parts[2]), (1...12).contains(month) else { return nil }
+      let index = month - 1
+      guard (1...CSCalendarModel.days(year: year, month: index)).contains(day) else { return nil }
+      return CSCalendarDate(year: year, month: index, day: day)
+    }
+    if code == "ja" {
+      let parts = trimmed.split(separator: "/")
+      guard parts.count == 3, let year = Int(parts[0]), let month = Int(parts[1]), let day = Int(parts[2]), (1...12).contains(month) else { return nil }
       let index = month - 1
       guard (1...CSCalendarModel.days(year: year, month: index)).contains(day) else { return nil }
       return CSCalendarDate(year: year, month: index, day: day)

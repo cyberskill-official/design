@@ -142,19 +142,31 @@ fun csDateShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Dou
 }
 
 fun csDateFormat(day: Int, month: Int, year: Int, language: String): String {
-  if (language == "vi" || language.isEmpty()) return "%02d/%02d/%04d".format(day, month + 1, year)
+  val code = csComboboxPrimaryLanguage(language) ?: "vi"
+  if (code == "vi") return "%02d/%02d/%04d".format(day, month + 1, year)
+  if (code == "ja") return "%04d/%02d/%02d".format(year, month + 1, day)
   val months = arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
   return "%02d %s %04d".format(day, months[month], year)
 }
 fun csDateParse(text: String, language: String): CsCalendarDate? {
   val trimmed = text.trim()
   if (trimmed.isEmpty()) return null
-  if (language == "vi" || language.isEmpty()) {
+  val code = csComboboxPrimaryLanguage(language) ?: "vi"
+  if (code == "vi" || code == "ja") {
     val parts = trimmed.split("/")
     if (parts.size != 3) return null
-    val day = parts[0].toIntOrNull() ?: return null
-    val month = parts[1].toIntOrNull() ?: return null
-    val year = parts[2].toIntOrNull() ?: return null
+    val year: Int
+    val month: Int
+    val day: Int
+    if (code == "ja") {
+      year = parts[0].toIntOrNull() ?: return null
+      month = parts[1].toIntOrNull() ?: return null
+      day = parts[2].toIntOrNull() ?: return null
+    } else {
+      day = parts[0].toIntOrNull() ?: return null
+      month = parts[1].toIntOrNull() ?: return null
+      year = parts[2].toIntOrNull() ?: return null
+    }
     if (month !in 1..12) return null
     val index = month - 1
     if (day !in 1..csCalendarDays(year, index)) return null
