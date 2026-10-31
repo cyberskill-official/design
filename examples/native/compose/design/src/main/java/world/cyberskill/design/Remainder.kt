@@ -614,17 +614,30 @@ fun csFormWizardStep(title: String, index: Int, fallback: String) = "${index + 1
 fun csFormWizardCanBack(index: Int, pending: Boolean) = index > 0 && !pending
 fun csFormWizardLast(index: Int, count: Int) = count > 0 && index >= count - 1
 fun csFormWizardRequired(value: String?, fallback: String) = if (value?.trim().isNullOrEmpty()) fallback else null
+fun interface CsWizardCheck { fun check(value: String?, values: Map<String, String>): String? }
+data class CsWizardRule(val name: String, val check: CsWizardCheck)
+fun csFormWizardCustom(message: String?) = message?.takeIf { it.isNotEmpty() }
 data class CsWizardAdvance(val index: Int, val errors: List<String>, val completed: Boolean)
-fun csFormWizardAdvance(index: Int, count: Int, pending: Boolean, values: Map<String, String>, required: List<String>, fallback: String): CsWizardAdvance? {
+fun csFormWizardAdvance(index: Int, count: Int, pending: Boolean, values: Map<String, String>, required: List<String>, fallback: String, custom: List<CsWizardRule> = emptyList()): CsWizardAdvance? {
   if (pending) return null
-  val messages = required.mapNotNull { csFormWizardRequired(values[it], fallback) }
+  val messages = mutableListOf<String>()
+  val failed = mutableSetOf<String>()
+  for (name in required) {
+    val message = csFormWizardRequired(values[name], fallback) ?: continue
+    messages.add(message)
+    failed.add(name)
+  }
+  for (rule in custom) {
+    if (rule.name in failed) continue
+    csFormWizardCustom(rule.check.check(values[rule.name], values))?.let { messages.add(it) }
+  }
   if (messages.isNotEmpty()) return CsWizardAdvance(index, messages, false)
   if (csFormWizardLast(index, count)) return CsWizardAdvance(index, emptyList(), true)
   return CsWizardAdvance(index + 1, emptyList(), false)
 }
 fun csFormWizardSummary(errors: List<String>, submission: String?) = errors.isNotEmpty() || !submission.isNullOrEmpty()
 fun csFormWizardAlert(errors: List<String>, submission: String?) = csFormWizardSummary(errors, submission)
-@Composable fun CsFormWizard(steps: List<String>, index: Int, onIndex: (Int) -> Unit, modifier: Modifier = Modifier, backLabel: String? = null, nextLabel: String? = null, finishLabel: String? = null, errors: List<String> = emptyList(), values: Map<String, String> = emptyMap(), required: List<String> = emptyList(), submission: String? = null, pending: Boolean = false, language: String? = null, onComplete: () -> Unit = {}) {
+@Composable fun CsFormWizard(steps: List<String>, index: Int, onIndex: (Int) -> Unit, modifier: Modifier = Modifier, backLabel: String? = null, nextLabel: String? = null, finishLabel: String? = null, errors: List<String> = emptyList(), values: Map<String, String> = emptyMap(), required: List<String> = emptyList(), custom: List<CsWizardRule> = emptyList(), submission: String? = null, pending: Boolean = false, language: String? = null, onComplete: () -> Unit = {}) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val active = if (steps.isEmpty()) 0 else index.coerceIn(0, steps.lastIndex)
   val last = csFormWizardLast(active, steps.size)
@@ -645,7 +658,7 @@ fun csFormWizardAlert(errors: List<String>, submission: String?) = csFormWizardS
     if (steps.isNotEmpty()) Row {
       CsTriggerButton(title = back, onClick = { if (csFormWizardCanBack(active, pending)) { ruled = emptyList(); onIndex(active - 1) } }, enabled = csFormWizardCanBack(active, pending)) { Text(back) }
       CsTriggerButton(title = if (last) finish else next, onClick = {
-        val step = csFormWizardAdvance(active, steps.size, pending, values, required, csFormWizardCopy("requiredField", locale)) ?: return@CsTriggerButton
+        val step = csFormWizardAdvance(active, steps.size, pending, values, required, csFormWizardCopy("requiredField", locale), custom) ?: return@CsTriggerButton
         ruled = step.errors
         if (step.errors.isNotEmpty()) return@CsTriggerButton
         if (step.completed) onComplete() else onIndex(step.index)

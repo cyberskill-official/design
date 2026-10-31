@@ -885,11 +885,22 @@ public enum CSFormWizardModel {
     let trimmed = value?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
     return trimmed.isEmpty ? fallback : nil
   }
-  public static func advance(index: Int, count: Int, pending: Bool, values: [String: String], required: [String], fallback: String) -> CSWizardAdvance? {
+  public static func customMessage(_ message: String?) -> String? {
+    guard let message, !message.isEmpty else { return nil }
+    return message
+  }
+  public static func advance(index: Int, count: Int, pending: Bool, values: [String: String], required: [String], fallback: String, custom: [(name: String, check: (String?, [String: String]) -> String?)] = []) -> CSWizardAdvance? {
     if pending { return nil }
     var messages: [String] = []
+    var failed = Set<String>()
     for name in required {
-      if let message = requiredMessage(values[name], fallback: fallback) { messages.append(message) }
+      if let message = requiredMessage(values[name], fallback: fallback) {
+        messages.append(message)
+        failed.insert(name)
+      }
+    }
+    for rule in custom where !failed.contains(rule.name) {
+      if let message = customMessage(rule.check(values[rule.name], values)) { messages.append(message) }
     }
     if !messages.isEmpty { return CSWizardAdvance(index: index, errors: messages, completed: false) }
     if isLast(index: index, count: count) { return CSWizardAdvance(index: index, errors: [], completed: true) }
@@ -917,6 +928,7 @@ public struct CSFormWizard: View {
   public let errors: [String]
   public let values: [String: String]
   public let required: [String]
+  public let custom: [(name: String, check: (String?, [String: String]) -> String?)]
   public let submission: String?
   public let pending: Bool
   public let language: String?
@@ -925,7 +937,7 @@ public struct CSFormWizard: View {
   @Environment(\.csLanguage) private var ancestorLanguage
   @State private var ruled: [String]?
 
-  public init(steps: [String], index: Int, backLabel: String? = nil, nextLabel: String? = nil, finishLabel: String? = nil, errors: [String] = [], values: [String: String] = [:], required: [String] = [], submission: String? = nil, pending: Bool = false, language: String? = nil, onIndex: @escaping (Int) -> Void, onComplete: @escaping () -> Void = {}) {
+  public init(steps: [String], index: Int, backLabel: String? = nil, nextLabel: String? = nil, finishLabel: String? = nil, errors: [String] = [], values: [String: String] = [:], required: [String] = [], custom: [(name: String, check: (String?, [String: String]) -> String?)] = [], submission: String? = nil, pending: Bool = false, language: String? = nil, onIndex: @escaping (Int) -> Void, onComplete: @escaping () -> Void = {}) {
     self.steps = steps
     self.index = steps.isEmpty ? 0 : min(steps.count - 1, max(0, index))
     self.backLabel = backLabel
@@ -934,6 +946,7 @@ public struct CSFormWizard: View {
     self.errors = errors
     self.values = values
     self.required = required
+    self.custom = custom
     self.submission = submission
     self.pending = pending
     self.language = language
@@ -975,7 +988,7 @@ public struct CSFormWizard: View {
           .disabled(!CSFormWizardModel.canBack(index: index, pending: pending))
           Button {
             let fallback = CSFormWizardModel.copy("requiredField", language: locale)
-            guard let step = CSFormWizardModel.advance(index: index, count: steps.count, pending: pending, values: values, required: required, fallback: fallback) else { return }
+            guard let step = CSFormWizardModel.advance(index: index, count: steps.count, pending: pending, values: values, required: required, fallback: fallback, custom: custom) else { return }
             ruled = step.errors
             if !step.errors.isEmpty { return }
             if step.completed { onComplete() } else { onIndex(step.index) }

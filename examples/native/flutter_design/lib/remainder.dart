@@ -789,15 +789,34 @@ String csFormWizardStep(String title, int index, String fallback) => '${index + 
 bool csFormWizardCanBack(int index, {required bool pending}) => index > 0 && !pending;
 bool csFormWizardLast(int index, int count) => count > 0 && index >= count - 1;
 String? csFormWizardRequired(String? value, String fallback) => value == null || value.trim().isEmpty ? fallback : null;
+typedef CsWizardCheck = String? Function(String? value, Map<String, String> values);
+class CsWizardRule {
+  const CsWizardRule(this.name, this.check);
+  final String name;
+  final CsWizardCheck check;
+}
+String? csFormWizardCustom(String? message) => message != null && message.isNotEmpty ? message : null;
 class CsWizardAdvance {
   const CsWizardAdvance(this.index, this.errors, this.completed);
   final int index;
   final List<String> errors;
   final bool completed;
 }
-CsWizardAdvance? csFormWizardAdvance(int index, int count, bool pending, Map<String, String> values, List<String> required, String fallback) {
+CsWizardAdvance? csFormWizardAdvance(int index, int count, bool pending, Map<String, String> values, List<String> required, String fallback, [List<CsWizardRule> custom = const []]) {
   if (pending) return null;
-  final messages = required.map((name) => csFormWizardRequired(values[name], fallback)).whereType<String>().toList();
+  final messages = <String>[];
+  final failed = <String>{};
+  for (final name in required) {
+    final message = csFormWizardRequired(values[name], fallback);
+    if (message == null) continue;
+    messages.add(message);
+    failed.add(name);
+  }
+  for (final rule in custom) {
+    if (failed.contains(rule.name)) continue;
+    final message = csFormWizardCustom(rule.check(values[rule.name], values));
+    if (message != null) messages.add(message);
+  }
   if (messages.isNotEmpty) return CsWizardAdvance(index, messages, false);
   if (csFormWizardLast(index, count)) return CsWizardAdvance(index, const [], true);
   return CsWizardAdvance(index + 1, const [], false);
@@ -806,7 +825,7 @@ bool csFormWizardSummary(List<String> errors, String? submission) => errors.isNo
 bool csFormWizardAlert(List<String> errors, String? submission) => csFormWizardSummary(errors, submission);
 
 class CsFormWizard extends StatelessWidget {
-  const CsFormWizard({super.key, required this.steps, required this.index, required this.onIndex, this.backLabel, this.nextLabel, this.finishLabel, this.errors = const [], this.values = const {}, this.required = const [], this.submission, this.pending = false, this.language, this.onComplete, this.onErrors});
+  const CsFormWizard({super.key, required this.steps, required this.index, required this.onIndex, this.backLabel, this.nextLabel, this.finishLabel, this.errors = const [], this.values = const {}, this.required = const [], this.custom = const [], this.submission, this.pending = false, this.language, this.onComplete, this.onErrors});
   final List<String> steps;
   final int index;
   final String? backLabel;
@@ -815,6 +834,7 @@ class CsFormWizard extends StatelessWidget {
   final List<String> errors;
   final Map<String, String> values;
   final List<String> required;
+  final List<CsWizardRule> custom;
   final String? submission;
   final bool pending;
   final String? language;
@@ -841,7 +861,7 @@ class CsFormWizard extends StatelessWidget {
         CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csFormWizardCanBack(active, pending: pending) ? () { claim(); onIndex(active - 1); } : null, child: Text(back))),
         CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: pending ? null : () {
           claim();
-          final step = csFormWizardAdvance(active, steps.length, pending, values, required, csFormWizardCopy('requiredField', locale));
+          final step = csFormWizardAdvance(active, steps.length, pending, values, required, csFormWizardCopy('requiredField', locale), custom);
           if (step == null) return;
           onErrors?.call(step.errors);
           if (step.errors.isNotEmpty) return;

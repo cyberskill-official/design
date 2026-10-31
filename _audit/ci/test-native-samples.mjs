@@ -400,6 +400,7 @@ assert(contextSwift.includes('func previewName') && contextKotlin.includes('fun 
 assert(contextSwift.includes('func dialogLabel') && contextKotlin.includes('fun csDateDialogLabel') && contextDart.includes('csDateDialogLabel('), 'native date fields keep a blank placeholder and trim a blank label out of the dialog name');
 assert(contextSwift.includes('CSCalendar(') && contextKotlin.includes('CsCalendar(') && contextDart.includes('CsCalendar(') && contextSwift.includes('func parse') && contextKotlin.includes('fun csDateParse') && contextDart.includes('csDateParse('), 'native date pickers open a month grid and read the formatted value');
 assert(contextSwift.includes('code == "ja"') && contextKotlin.includes('code == "ja"') && contextDart.includes("code == 'ja'"), 'native dates write Japanese as year, month, then day');
+assert(read('examples/native/swiftui/Sources/CyberSkillDesign/Remainder.swift').includes('for rule in custom') && read('examples/native/compose/design/src/main/java/world/cyberskill/design/Remainder.kt').includes('for (rule in custom)') && read('examples/native/flutter_design/lib/remainder.dart').includes('for (final rule in custom)'), 'native wizards run a custom step rule after required');
 const timelineSwift = read('examples/native/swiftui/Sources/CyberSkillDesign/Records.swift');
 const timelineKotlin = read('examples/native/compose/design/src/main/java/world/cyberskill/design/Records.kt');
 const timelineDart = read('examples/native/flutter_design/lib/records.dart');

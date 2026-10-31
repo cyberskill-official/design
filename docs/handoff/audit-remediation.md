@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the Japanese date checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-10-31, after the wizard custom-rule checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,14 +10,14 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `20fe1d0690ba10a3998266dda60007cd0fcee006`, with the hash note in `664f246d`
-- Checkpoint commit hash: `40e04d9cca1b56d0f419d09167996bbeef885489`
+- Previous checkpoint: `40e04d9cca1b56d0f419d09167996bbeef885489`, with the hash note in `e4a3b897`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
 `/Users/stephencheng/.cursor/projects/Users-stephencheng-Projects-CyberSkill-design/canvases/design-system-benchmark-audit.canvas.tsx`
 
-Last canvas phrase: `ja date, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
+Last canvas phrase: `wizard rule, vietnamese first,`. Do not raise the Platforms score. Platforms stays 2.
 
 ## What the goal still requires
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the Japanese date: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the wizard custom rule: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A Japanese date is now year, month, then day. The web source is `formatDate` in `components/_i18n/i18n.js`. 1 October 2026 is `2026/10/01`. `ja-JP` and `japanese` use that same shape. Vietnamese stays `01/10/2026`. English stays `01 Oct 2026`. `2026/02/31` does not parse.
+A wizard step now runs a custom rule after the required rule. The web source is `runRules` in `components/forms/Form.jsx`: a function rule receives the field value and the values, and the first failing rule for that field stops the step. An empty message does not fail. A message of `0` does. A required failure is reported instead of the custom message for the same field.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Run a wizard's custom step rule, not only the required rule. Re-read `components/forms/Form.jsx` before editing. Do not invent a string.
+Draw the inline-edit pen the way the web control does. Re-read the inline-edit component before editing. Do not invent a string.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
