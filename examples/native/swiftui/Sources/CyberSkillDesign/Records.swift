@@ -114,6 +114,7 @@ public enum CSDataGridSelection {
     return height
   }
   public static func virtualFlag(_ virtual: Bool) -> String { virtual ? "true" : "false" }
+  public static func virtualClass(_ virtual: Bool) -> String? { virtual ? "cs-datagrid--virtual" : nil }
   public static func scrolled(virtual: Bool, current: Double, next: Double) -> Double {
     guard virtual, next.isFinite else { return current }
     return next
@@ -394,6 +395,7 @@ public struct CSDataGrid: View {
       }
     }
     .accessibilityCustomContent(AccessibilityCustomContentKey("data-virtual", id: "data-virtual"), Text(CSDataGridSelection.virtualFlag(useVirtual)))
+    .accessibilityCustomContent(AccessibilityCustomContentKey("cs-datagrid--virtual", id: "cs-datagrid--virtual"), CSDataGridSelection.virtualClass(useVirtual).map { Text($0) })
     .accessibilityCustomContent(AccessibilityCustomContentKey("data-row-count", id: "data-row-count"), Text(String(CSDataGridSelection.dataCount(shown.count))))
     .accessibilityCustomContent(AccessibilityCustomContentKey("data-row-height", id: "data-row-height"), CSDataGridSelection.rowBox(virtual: useVirtual, height: row).map { Text(String($0)) })
     .accessibilityCustomContent(AccessibilityCustomContentKey("rowcount", id: "rowcount"), CSDataGridSelection.rowCount(virtual: useVirtual, count: shown.count).map { Text(String($0)) })
