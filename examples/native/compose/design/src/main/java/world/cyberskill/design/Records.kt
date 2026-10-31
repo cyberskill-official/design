@@ -3,9 +3,11 @@ package world.cyberskill.design
 import androidx.compose.foundation.background
 import androidx.compose.ui.zIndex
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -165,7 +167,9 @@ fun CsDataGrid(
   }) {
     if (csGridShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor())
     if (selectable) {
-      CsCheckbox(label = selectAllLabel, checked = allSelected, onCheckedChange = { onSelect(csToggleAllSelection(keys, selected)) }, dark = dark, highContrast = highContrast, compact = compact)
+      Box(contentAlignment = csGridCheckAlignment()) {
+        CsCheckbox(label = selectAllLabel, checked = allSelected, onCheckedChange = { onSelect(csToggleAllSelection(keys, selected)) }, dark = dark, highContrast = highContrast, compact = compact)
+      }
     }
     Row(Modifier.background(pack.colorSurfaceRaised.toComposeColor()).zIndex(csGridHeaderLayer().toFloat()).offset(y = csGridHeaderStart().dp).semantics { csGridRowIndex(useVirtual, 0, true)?.let { csGridRowIndexValue = it } }) {
       ordered.forEach { column ->
@@ -203,7 +207,9 @@ fun CsDataGrid(
         val box = csGridRowBox(useVirtual, safeRow)
         Row((if (box != null) Modifier.height(box.dp) else Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp())).semantics { if (selectable && selected.contains(key)) this.selected = true; csGridRowIndex(useVirtual, index)?.let { csGridRowIndexValue = it } }) {
           if (selectable) {
-            CsCheckbox(label = csGridCopy("selectRow", null) + ": " + csGridRowName(ordered.map { row[it.key] }, key), checked = selected.contains(key), onCheckedChange = { onSelect(csToggleSelection(selected, key)) }, dark = dark, highContrast = highContrast, compact = compact)
+            Box(Modifier.fillMaxHeight(), contentAlignment = csGridCheckAlignment()) {
+              CsCheckbox(label = csGridCopy("selectRow", null) + ": " + csGridRowName(ordered.map { row[it.key] }, key), checked = selected.contains(key), onCheckedChange = { onSelect(csToggleSelection(selected, key)) }, dark = dark, highContrast = highContrast, compact = compact)
+            }
           }
           ordered.forEach { column ->
             val stuck = csGridSticky(column.key, pinned) != null
@@ -462,6 +468,7 @@ fun csGridVirtualClass(virtual: Boolean) = if (virtual) "cs-datagrid--virtual" e
 fun csGridHeaderStart() = 0.0
 fun csGridHeaderLayer() = 1
 fun csGridTableMargin() = 0.dp
+fun csGridCheckAlignment() = Alignment.Center
 fun csGridScrolled(virtual: Boolean, current: Double, next: Double) = if (virtual && next.isFinite()) next else current
 fun csGridWindow(count: Int, height: Double, rowHeight: Double, scrollTop: Double, virtual: Boolean): Pair<Int, Int> {
   if (!virtual) return 0 to count

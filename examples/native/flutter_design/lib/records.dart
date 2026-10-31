@@ -220,7 +220,7 @@ class _CsDataGridState extends State<CsDataGrid> {
               Text(column.header),
         ])))),
         if (selectable)
-          CsCheckbox(label: selectAllLabel, value: allSelected, onChanged: (next) { if (next == null || next == allSelected) return; onSelect(csToggleAllSelection(keys, selected)); }, dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),
+          Align(alignment: csGridCheckAlignment(), child: CsCheckbox(label: selectAllLabel, value: allSelected, onChanged: (next) { if (next == null || next == allSelected) return; onSelect(csToggleAllSelection(keys, selected)); }, dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact)),
         if (widget.persistKey != null)
           Row(children: [
             for (final column in ordered)
@@ -275,9 +275,12 @@ class _CsDataGridState extends State<CsDataGrid> {
         selected: selectable && selected.contains(key),
         value: csGridRowIndex(virtual, index)?.toString(),
         child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if (selectable)
-            CsCheckbox(
+            Align(
+              alignment: csGridCheckAlignment(),
+              child: CsCheckbox(
               label: '${csGridCopy('selectRow', null)}: ${csGridRowName(columns.map((column) => row[column.key]).toList(), key)}',
               value: selected.contains(key),
               onChanged: (next) {
@@ -287,6 +290,7 @@ class _CsDataGridState extends State<CsDataGrid> {
               dark: widget.dark,
               highContrast: widget.highContrast,
               compact: widget.compact,
+            ),
             ),
           for (final column in columns) Text(csGridCellText(row, column.key, widget.renders?[column.key]), style: TextStyle(color: csColor(pack.colorTextPrimary), backgroundColor: csGridSticky(column.key, pinnedKey) == null ? null : csColor(pack.colorSurfacePanel))),
         ],
@@ -563,6 +567,7 @@ String? csGridVirtualClass(bool virtual) => virtual ? 'cs-datagrid--virtual' : n
 double csGridHeaderStart() => 0;
 int csGridHeaderLayer() => 1;
 double csGridTableMargin() => 0;
+Alignment csGridCheckAlignment() => Alignment.center;
 double csGridScrolled(bool virtual, double current, double next) => virtual && next.isFinite ? next : current;
 List<int> csGridWindow(int count, double height, double rowHeight, double scrollTop, bool virtual) {
   if (!virtual) return [0, count];

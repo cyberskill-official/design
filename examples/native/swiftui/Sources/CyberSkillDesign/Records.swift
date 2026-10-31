@@ -118,6 +118,7 @@ public enum CSDataGridSelection {
   public static func headerStart() -> Double { 0 }
   public static func headerLayer() -> Int { 1 }
   public static func tableMargin() -> Double { 0 }
+  public static func checkAlignment() -> Alignment { .center }
   public static func scrolled(virtual: Bool, current: Double, next: Double) -> Double {
     guard virtual, next.isFinite else { return current }
     return next
@@ -376,6 +377,7 @@ public struct CSDataGrid: View {
           if next == all { return }
           onSelect(CSDataGridSelection.toggleAll(keys: keys, selected: selected))
         }), dark: dark, highContrast: highContrast, compact: compact)
+          .frame(maxHeight: .infinity, alignment: CSDataGridSelection.checkAlignment())
       }
       if shown.isEmpty {
         Text(CSDataGridSelection.emptyText(empty, fallback: CSDataGridSelection.copy("empty", language: locale)))
@@ -428,12 +430,13 @@ public struct CSDataGrid: View {
     ForEach(indexes, id: \.self) { index in
       let row = shown[index]
       let key = CSDataGridSelection.rowKey(value: row[rowKeyName], index: index)
-      HStack {
+      HStack(alignment: .center) {
         if selectable {
           CSCheckbox(label: "\(CSDataGridSelection.copy("selectRow", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))): \(CSDataGridSelection.rowName(cells: orderedColumns.map { row[$0.key] }, key: key))", isOn: Binding(get: { selected.contains(key) }, set: { next in
             if next == selected.contains(key) { return }
             onSelect(CSDataGridSelection.toggle(selected: selected, key: key))
           }), dark: dark, highContrast: highContrast, compact: compact)
+            .frame(maxHeight: .infinity, alignment: CSDataGridSelection.checkAlignment())
         }
         ForEach(orderedColumns.filter { CSDataGridSelection.sticky($0.key, pinned: pinnedKey) != nil }, id: \.key) { column in
           Text(CSDataGridSelection.cellText(row: row, key: column.key, render: renders[column.key])).foregroundStyle(pack.primaryTextColor)
