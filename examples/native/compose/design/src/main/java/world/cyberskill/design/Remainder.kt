@@ -119,6 +119,10 @@ fun csChartNumber(value: Double): String {
   if (value == rounded && kotlin.math.abs(value) < 1e21) return rounded.toLong().toString()
   return value.toString()
 }
+fun csChartLegendGapY() = 6.dp
+fun csChartLegendGapX() = 16.dp
+fun csChartLegendValue(index: Int, values: List<Double>, showValues: Boolean): String? =
+  if (showValues && index >= 0 && index < values.size) " " + csChartNumber(values[index]) else null
 fun csChartLegend(type: String, labels: List<String>, values: List<Double>, showValues: Boolean): List<String>? {
   if (csChartKind(type) == "spark") return null
   return labels.mapIndexed { index, name -> if (showValues && index < values.size) name + " " + csChartNumber(values[index]) else name }
@@ -456,7 +460,15 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
       else -> csChartBars(values).forEach { bar -> if (bar.height > 0) drawRoundRect(color, Offset((bar.x * scaleX).toFloat(), (bar.y * scaleY).toFloat()), Size((bar.width * scaleX).toFloat(), (bar.height * scaleY).toFloat()), androidx.compose.ui.geometry.CornerRadius(3f, 3f)) }
     }
   }
-  if (rows != null) Row { rows.forEach { Text(it) } }
+  if (rows != null) Row(horizontalArrangement = Arrangement.spacedBy(csChartLegendGapX()), verticalAlignment = Alignment.CenterVertically) {
+    pointLabels.forEachIndexed { index, name ->
+      Row {
+        Text(name, color = pack.colorTextMuted.toComposeColor())
+        val value = csChartLegendValue(index, values, showValues)
+        if (value != null) Text(value, color = pack.colorTextPrimary.toComposeColor(), fontWeight = androidx.compose.ui.text.font.FontWeight.Bold)
+      }
+    }
+  }
   }
 }
 @Composable fun CsDock(label: String, items: List<String>, onSelect: (String) -> Unit, modifier: Modifier = Modifier) {

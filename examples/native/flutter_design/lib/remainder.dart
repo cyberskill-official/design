@@ -73,6 +73,11 @@ String csChartNumber(double value) {
   return value.toString();
 }
 
+double csChartLegendGapY() => 6;
+double csChartLegendGapX() => 16;
+String? csChartLegendValue(int index, List<double> values, bool showValues) =>
+    showValues && index >= 0 && index < values.length ? ' ${csChartNumber(values[index])}' : null;
+
 List<String>? csChartLegend(String type, List<String> labels, List<double> values, bool showValues) {
   if (csChartKind(type) == 'spark') return null;
   return [
@@ -546,7 +551,18 @@ class CsChart extends StatelessWidget {
           CustomPaint(size: const Size(320, 160), painter: _ChartPainter(csChartKind(type), values, fills)),
           if (rows != null) ...[
             SizedBox(height: csChartGap()),
-            Row(children: [for (final row in rows) Text(row)]),
+            Wrap(
+              spacing: csChartLegendGapX(),
+              runSpacing: csChartLegendGapY(),
+              children: [
+                for (var index = 0; index < pointLabels.length; index++)
+                  Row(mainAxisSize: MainAxisSize.min, children: [
+                    Text(pointLabels[index], style: TextStyle(fontSize: csPoints(pack.fontSizeXs), color: csColor(pack.colorTextMuted))),
+                    if (csChartLegendValue(index, values, showValues) != null)
+                      Text(csChartLegendValue(index, values, showValues)!, style: TextStyle(fontSize: csPoints(pack.fontSizeXs), fontWeight: FontWeight.bold, color: csColor(pack.colorTextPrimary))),
+                  ]),
+              ],
+            ),
           ],
         ]),
       ),

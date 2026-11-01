@@ -160,6 +160,14 @@ public enum CSChartModel {
     }
   }
 
+  public static func legendGapY() -> Double { 6 }
+  public static func legendGapX() -> Double { 16 }
+
+  public static func legendValue(index: Int, values: [Double], showValues: Bool) -> String? {
+    guard showValues, index >= 0, index < values.count else { return nil }
+    return " " + jsNumber(values[index])
+  }
+
   public static func legend(type: String, labels: [String], values: [Double], showValues: Bool) -> [String]? {
     if kind(type) == "spark" { return nil }
     return labels.enumerated().map { index, name in
@@ -541,10 +549,22 @@ public struct CSChart: View {
       }
     }
     .frame(width: 320, height: 160)
-    if let rows {
-      HStack(spacing: 12) {
-        ForEach(Array(rows.enumerated()), id: \.offset) { _, row in Text(row) }
+    if rows != nil {
+      HStack(spacing: CGFloat(CSChartModel.legendGapX())) {
+        ForEach(Array(pointLabels.enumerated()), id: \.offset) { index, name in
+          HStack(spacing: 0) {
+            Text(name)
+              .font(.system(size: pack.fontSizeXs.points))
+              .foregroundStyle(pack.mutedColor)
+            if let value = CSChartModel.legendValue(index: index, values: values, showValues: showValues) {
+              Text(value)
+                .font(.system(size: pack.fontSizeXs.points, weight: .bold))
+                .foregroundStyle(pack.primaryTextColor)
+            }
+          }
+        }
       }
+      .padding(.vertical, CGFloat(CSChartModel.legendGapY() / 2))
     }
     }
     .padding(CGFloat(CSChartModel.margin()))
