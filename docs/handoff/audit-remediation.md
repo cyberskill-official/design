@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the records-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the components-and-overlays-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `8bf7be7bc11b3f67a7e22b515e816af2352c5701`, with the hash note in `e9bcf1fb`
-- Checkpoint commit hash: `78cfe349aeb4980a2307a91349e9ca645a334a85`
+- Previous checkpoint: `78cfe349aeb4980a2307a91349e9ca645a334a85`, with the hash note in `f64945f0`
+- Checkpoint commit hash: `54b612cecf0611d105c261dd22c98ac39f3bcfe5`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
