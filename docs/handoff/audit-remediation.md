@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the chart-legend checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the editor-frame checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `59168f53426069a66838b3af7da15e7d479212de`, with the hash note in `4bd09020`
-- Checkpoint commit hash: `910cefb9cba8ab0f72e372c3b82a18bcc3505e06`
+- Previous checkpoint: `910cefb9cba8ab0f72e372c3b82a18bcc3505e06`, with the hash note in `68898173`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the chart legend: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the editor frame: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A chart legend now uses a 6px block gap (`CSChartModel.legendGapY()` / `csChartLegendGapY()`) and a 16px inline gap (`CSChartModel.legendGapX()` / `csChartLegendGapX()`), renders point labels in extra-small muted text, and renders optional point values (`CSChartModel.legendValue(index:values:showValues:)` / `csChartLegendValue`) in bold primary text, matching `.cs-chart__legend` and `.cs-chart__legend b` in `base/controls.css`.
+A rich-text editor now frames the control with a 1px default border (`CSEditorModel.borderWidth()` / `csEditorBorderWidth()`), medium radius, panel surface fill, and a 460px maximum width (`CSEditorModel.maxWidth()` / `csEditorMaxWidth()`), matching `.cs-editor { border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); background: var(--cs-color-surface-panel); max-inline-size: 460px; }` in `base/controls.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Frame the rich-text editor with a 1px default border, medium radius, panel surface fill, and 460px maximum width. The next rule in `base/controls.css` is `.cs-editor { border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); background: var(--cs-color-surface-panel); max-inline-size: 460px; }`. Re-read that rule before editing. Do not invent a border width, radius, surface token, or max width.
+Style the editor toolbar with a 2px gap, 6px padding, a 1px default bottom border, raised surface fill, and top-medium corner radius. The next rule in `base/controls.css` is `.cs-editor__bar { display: flex; gap: 2px; padding: 6px; border-block-end: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-raised); border-radius: var(--cs-radius-md) var(--cs-radius-md) 0 0; }`. Re-read that rule before editing. Do not invent gaps, padding, or colors.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

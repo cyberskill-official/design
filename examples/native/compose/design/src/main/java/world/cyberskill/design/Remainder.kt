@@ -1,6 +1,9 @@
 package world.cyberskill.design
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
@@ -485,6 +488,8 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
   }
 }
 enum class CsEditorMark { Off, On, Mixed }
+fun csEditorBorderWidth() = 1.dp
+fun csEditorMaxWidth() = 460.dp
 fun csEditorEscape(text: String) = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 fun csEditorPlainInsert(text: String) = csEditorEscape(text).replace("\r\n", "\n").replace("\n", "<br>")
 fun csEditorWrapped(html: String, open: String, close: String) = html.startsWith(open) && html.endsWith(close) && html.length >= open.length + close.length
@@ -533,7 +538,8 @@ fun csEditorCopy(key: String, language: String?): String {
 }
 fun csEditorName(label: String?, fallback: String) = label ?: fallback
 fun csEditorPressed(current: Boolean) = !current
-@Composable fun CsEditor(text: String, onChange: (String) -> Unit, modifier: Modifier = Modifier, label: String? = null, language: String? = null, selectionStart: Int = 0, selectionEnd: Int = 0, onSelection: (Int, Int) -> Unit = { _, _ -> }) {
+@Composable fun CsEditor(text: String, onChange: (String) -> Unit, modifier: Modifier = Modifier, label: String? = null, language: String? = null, selectionStart: Int = 0, selectionEnd: Int = 0, onSelection: (Int, Int) -> Unit = { _, _ -> }, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
+  val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("editor")
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val spoken = csEditorName(label, csEditorCopy("area", locale))
@@ -542,7 +548,7 @@ fun csEditorPressed(current: Boolean) = !current
   var list by remember { mutableStateOf(false) }
   var hadRange by remember { mutableStateOf(selectionStart != 0 || selectionEnd != 0) }
   var draft by remember { mutableStateOf(TextFieldValue(text, androidx.compose.ui.text.TextRange(selectionStart, selectionEnd))) }
-  Column(modifier) {
+  Column(modifier.widthIn(max = csEditorMaxWidth()).border(csEditorBorderWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp()))) {
     Row(Modifier.semantics { contentDescription = csEditorCopy("toolbar", locale) }) {
       CsTriggerButton(title = "B", onClick = { val restored = csEditorRestore(hadRange, selectionStart, selectionEnd, true, text.length); val span = csEditorSpan(restored.first, restored.second, text.length); val next = csEditorApply(text, "bold", span.first, span.second); if (next == text) bold = csEditorPressed(bold) else { onSelection(span.first, csEditorMovedEnd(span.first, span.second, text.length, next.length)); onChange(next); bold = csEditorWrapped(next, "<b>", "</b>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("bold", locale); stateDescription = bold.toString() }) { Text("B", modifier = Modifier.clearAndSetSemantics {}) }
       CsTriggerButton(title = "I", onClick = { val restored = csEditorRestore(hadRange, selectionStart, selectionEnd, true, text.length); val span = csEditorSpan(restored.first, restored.second, text.length); val next = csEditorApply(text, "italic", span.first, span.second); if (next == text) italic = csEditorPressed(italic) else { onSelection(span.first, csEditorMovedEnd(span.first, span.second, text.length, next.length)); onChange(next); italic = csEditorWrapped(next, "<i>", "</i>") } }, modifier = Modifier.semantics { contentDescription = csEditorCopy("italic", locale); stateDescription = italic.toString() }) { Text("I", modifier = Modifier.clearAndSetSemantics {}) }

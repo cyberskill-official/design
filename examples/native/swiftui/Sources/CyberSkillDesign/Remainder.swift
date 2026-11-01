@@ -1553,6 +1553,9 @@ public enum CSEditorMark: Equatable {
 }
 
 public enum CSEditorModel {
+  public static func borderWidth() -> Double { 1 }
+  public static func maxWidth() -> Double { 460 }
+
   public static func escape(_ text: String) -> String {
     text.replacingOccurrences(of: "&", with: "&amp;")
       .replacingOccurrences(of: "<", with: "&lt;")
@@ -1648,6 +1651,9 @@ public enum CSEditorModel {
 public struct CSEditor: View {
   public let label: String?
   public let language: String?
+  let dark: Bool
+  let highContrast: Bool
+  let compact: Bool
   @Binding var text: String
   @Binding var selectionStart: Int
   @Binding var selectionEnd: Int
@@ -1659,12 +1665,15 @@ public struct CSEditor: View {
   @State private var list = false
   @State private var hadRange = false
 
-  public init(label: String? = nil, text: Binding<String>, language: String? = nil, selectionStart: Binding<Int> = .constant(0), selectionEnd: Binding<Int> = .constant(0)) {
+  public init(label: String? = nil, text: Binding<String>, language: String? = nil, selectionStart: Binding<Int> = .constant(0), selectionEnd: Binding<Int> = .constant(0), dark: Bool = false, highContrast: Bool = false, compact: Bool = false) {
     self.label = label
     self.language = language
     _text = text
     _selectionStart = selectionStart
     _selectionEnd = selectionEnd
+    self.dark = dark
+    self.highContrast = highContrast
+    self.compact = compact
   }
 
   private func applyFormat(_ command: String) {
@@ -1694,6 +1703,7 @@ public struct CSEditor: View {
   }
 
   public var body: some View {
+    let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let spoken = CSEditorModel.name(label, fallback: CSEditorModel.copy("area", language: locale))
     VStack(alignment: .leading, spacing: 8) {
@@ -1718,6 +1728,9 @@ public struct CSEditor: View {
           if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
         }
     }
+    .frame(maxWidth: CGFloat(CSEditorModel.maxWidth()), alignment: .leading)
+    .background(pack.colorSurfacePanel.color, in: RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSEditorModel.borderWidth())))
   }
 }
 

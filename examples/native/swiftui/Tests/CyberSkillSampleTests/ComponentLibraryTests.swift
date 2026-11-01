@@ -1709,6 +1709,8 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSFormFieldModel.copy("required", language: nil), "bắt buộc")
     XCTAssertEqual(CSFormFieldModel.copy("required", language: "en"), "required")
     XCTAssertEqual(CSFormFieldModel.copy("required", language: "ja"), "required")
+    XCTAssertEqual(CSEditorModel.borderWidth(), 1)
+    XCTAssertEqual(CSEditorModel.maxWidth(), 460)
     XCTAssertEqual(CSEditorModel.escape("a&b<c>d"), "a&amp;b&lt;c&gt;d")
     XCTAssertEqual(CSEditorModel.plainInsert("a&b\n<c>"), "a&amp;b<br>&lt;c&gt;")
     XCTAssertEqual(CSEditorModel.plainInsert("a\r\nb\nc"), "a<br>b<br>c")
