@@ -163,6 +163,10 @@ const csTextareaRows = 4;
 const csTextareaMinHeight = 96.0;
 bool csTextareaShows(String? value) => value != null && value.isNotEmpty;
 bool csTextareaAlert(String? error) => csTextareaShows(error);
+String? csTextareaLabelId(String id, String? label) => csTextareaShows(label) ? '$id-label' : null;
+String? csTextareaDescId(String id, String? description) => csTextareaShows(description) ? '$id-desc' : null;
+String? csTextareaErrId(String id, String? error) => csTextareaShows(error) ? '$id-err' : null;
+String? csTextareaLabelledBy(String? ariaLabelledBy, String? ariaLabel, String id, String? label) => ariaLabelledBy ?? (ariaLabel == null ? csTextareaLabelId(id, label) : null);
 String? csTextareaDescribedBy(List<String?> parts) {
   final seen = <String>[];
   for (final part in parts) {
@@ -175,11 +179,13 @@ String? csTextareaDescribedBy(List<String?> parts) {
 }
 
 class CsTextarea extends StatelessWidget {
-  const CsTextarea({super.key, required this.label, required this.value, required this.onChanged, required this.dark, required this.highContrast, required this.compact, this.rows = 4, this.error});
+  const CsTextarea({super.key, required this.label, required this.value, required this.onChanged, required this.dark, required this.highContrast, required this.compact, this.description, this.rows = 4, this.disabled = false, this.error});
   final String label;
+  final String? description;
   final String value;
   final ValueChanged<String> onChanged;
   final int rows;
+  final bool disabled;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -189,32 +195,48 @@ class CsTextarea extends StatelessWidget {
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final invalid = csTextareaAlert(error);
+    final described = csTextareaDescribedBy([description, error]);
     final borderStroke = csColor(csTextFieldBorderColor(invalid, pack));
-    final field = CsOwnFocus(builder: (node, claim) => TextField(
-      focusNode: node,
-      controller: TextEditingController(text: value),
-      onChanged: (next) { claim(); onChanged(next); },
-      minLines: rows,
-      maxLines: rows,
-      style: TextStyle(color: csColor(pack.colorTextPrimary)),
-      decoration: InputDecoration(
-        labelText: csTextareaShows(label) ? label : null,
-        filled: true,
-        fillColor: csColor(pack.colorSurfacePanel),
-        contentPadding: EdgeInsets.symmetric(horizontal: csTextFieldPaddingX(pack), vertical: csTextFieldPaddingY(pack)),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(csTextFieldRadius(pack)),
-          borderSide: BorderSide(color: borderStroke, width: csTextFieldBorderWidth()),
+    final field = CsOwnFocus(builder: (node, claim) => Semantics(
+      hint: described,
+      child: TextField(
+        focusNode: node,
+        enabled: !disabled,
+        controller: TextEditingController(text: value),
+        onChanged: (next) { if (disabled) return; claim(); onChanged(next); },
+        minLines: rows,
+        maxLines: rows,
+        style: TextStyle(color: csColor(pack.colorTextPrimary)),
+        decoration: InputDecoration(
+          labelText: csTextareaShows(label) ? label : null,
+          filled: true,
+          fillColor: csColor(pack.colorSurfacePanel),
+          contentPadding: EdgeInsets.symmetric(horizontal: csTextFieldPaddingX(pack), vertical: csTextFieldPaddingY(pack)),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(csTextFieldRadius(pack)),
+            borderSide: BorderSide(color: borderStroke, width: csTextFieldBorderWidth()),
+          ),
+          constraints: BoxConstraints(minHeight: csFormsStyleTextareaMinHeight()),
         ),
-        constraints: BoxConstraints(minHeight: csFormsStyleTextareaMinHeight()),
       ),
     ));
-    if (!invalid) return field;
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      field,
-      SizedBox(height: csTextFieldGap()),
-      Semantics(liveRegion: true, child: Text(error!, style: TextStyle(fontSize: csTextFieldErrorFontSize(), color: csColor(pack.colorSemanticDangerText)))),
-    ]);
+    return Opacity(
+      opacity: csTextFieldOpacity(disabled: disabled),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (csTextareaShows(description)) ...[
+            Text(description!, style: TextStyle(fontSize: csTextFieldDescriptionFontSize(), color: csColor(pack.colorTextMuted))),
+            SizedBox(height: csTextFieldGap()),
+          ],
+          field,
+          if (invalid) ...[
+            SizedBox(height: csTextFieldGap()),
+            Semantics(liveRegion: true, child: Text(error!, style: TextStyle(fontSize: csTextFieldErrorFontSize(), color: csColor(pack.colorSemanticDangerText)))),
+          ],
+        ],
+      ),
+    );
   }
 }
 
@@ -245,8 +267,27 @@ bool csSearchCanEdit(bool disabled, bool readOnly) => !disabled && !readOnly;
 String? csSearchCommit(String current, String next, bool disabled, bool readOnly) => csSearchCanEdit(disabled, readOnly) ? next : null;
 String? csSearchSpoken(String? ariaLabel, bool hasLabelledBy, String placeholder) => ariaLabel != null && ariaLabel.isNotEmpty ? ariaLabel : (hasLabelledBy ? null : placeholder);
 
+class _SearchIconPainter extends CustomPainter {
+  const _SearchIconPainter(this.color);
+  final Color color;
+  @override
+  void paint(Canvas canvas, Size size) {
+    final scale = size.shortestSide / 24;
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2 * scale
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+    canvas.drawCircle(Offset(11 * scale, 11 * scale), csSearchIconRadius * scale, paint);
+    canvas.drawPath(csIconPathData(csSearchIconLine, size.shortestSide), paint);
+  }
+  @override
+  bool shouldRepaint(covariant _SearchIconPainter oldDelegate) => oldDelegate.color != color;
+}
+
 class CsSearchField extends StatelessWidget {
-  const CsSearchField({super.key, this.label, required this.value, required this.onChanged, required this.dark, required this.highContrast, required this.compact, this.placeholder, this.clearLabel, this.ariaLabel, this.hasLabelledBy = false, this.disabled = false, this.readOnly = false, this.language});
+  const CsSearchField({super.key, this.label, required this.value, required this.onChanged, required this.dark, required this.highContrast, required this.compact, this.placeholder, this.clearLabel, this.ariaLabel, this.hasLabelledBy = false, this.disabled = false, this.readOnly = false, this.language, this.onClear});
   final String? label;
   final String? placeholder;
   final String? clearLabel;
@@ -255,6 +296,7 @@ class CsSearchField extends StatelessWidget {
   final String? language;
   final String value;
   final ValueChanged<String> onChanged;
+  final VoidCallback? onClear;
   final bool disabled;
   final bool readOnly;
   final bool dark;
@@ -277,14 +319,20 @@ class CsSearchField extends StatelessWidget {
         hintText: hint.isEmpty ? null : hint,
         contentPadding: EdgeInsets.symmetric(horizontal: csControlsWaveStyleSearchPaddingX(), vertical: csControlsWaveStyleSearchGap(pack)),
         constraints: BoxConstraints(minHeight: csControlsWaveStyleSearchMinHeight()),
+        prefixIcon: ExcludeSemantics(
+          child: Center(
+            widthFactor: 1,
+            child: CustomPaint(size: const Size(18, 18), painter: _SearchIconPainter(csColor(pack.colorTextMuted))),
+          ),
+        ),
         suffixIcon: csSearchShowsClear(value)
             ? Padding(
                 padding: EdgeInsets.all(csControlsWaveStyleSearchClearPadding()),
                 child: CsOwnFocus(builder: (node, claim) => Semantics(label: clearName, button: true, child: IconButton(
                   focusNode: node,
-                  onPressed: csSearchCommit(value, '', disabled, readOnly) == null ? null : () { claim(); onChanged(''); },
+                  onPressed: csSearchCommit(value, '', disabled, readOnly) == null ? null : () { claim(); onChanged(''); onClear?.call(); },
                   constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
-                  icon: ExcludeSemantics(child: const Text('×')),
+                  icon: ExcludeSemantics(child: CsIcon(name: 'close', label: '', dark: dark, highContrast: highContrast, compact: compact)),
                 ))),
               )
             : null,
@@ -327,8 +375,11 @@ double? csNumberCommit(String raw) => raw == '' ? null : double.tryParse(raw);
 double? csNumberBlurEmpty(bool uncontrolled, bool empty, double? min, double? max) => uncontrolled && empty ? csClampNumber(0, min, max) : null;
 
 class CsNumberField extends StatelessWidget {
-  const CsNumberField({super.key, this.label, required this.value, required this.onChanged, required this.dark, required this.highContrast, required this.compact, this.minimum, this.maximum, this.step = 1, this.disabled = false, this.language});
+  const CsNumberField({super.key, this.label, this.description, this.error, this.required = false, required this.value, required this.onChanged, required this.dark, required this.highContrast, required this.compact, this.minimum, this.maximum, this.step = 1, this.disabled = false, this.language});
   final String? label;
+  final String? description;
+  final String? error;
+  final bool required;
   final bool disabled;
   final String? language;
   final double value;
@@ -352,14 +403,46 @@ class CsNumberField extends StatelessWidget {
     final valueName = csNumberShowsLabel(label) ? label! : csNumberCopy('value', locale);
     final btnWidth = math.max(44.0, csControlsWaveStyleStepperButtonWidth());
     final btnHeight = math.max(44.0, csControlsWaveStyleStepperInputMinHeight());
-    return Semantics(label: valueName, value: shown, child: Row(
-      children: [
-        Opacity(opacity: down ? 1.0 : csControlsWaveStyleStepperButtonDisabledOpacity, child: CsOwnFocus(builder: (node, claim) => Semantics(label: downName, button: true, child: IconButton(focusNode: node, onPressed: down ? () { claim(); onChanged(csClampNumber(value - step, minimum, maximum)); } : null, constraints: BoxConstraints(minWidth: btnWidth, minHeight: btnHeight), icon: const ExcludeSemantics(child: Text('−')))))),
-        if (csNumberShowsLabel(label)) ExcludeSemantics(child: Text(label!, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
-        ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsWaveStyleStepperInputWidth(), minHeight: csControlsWaveStyleStepperInputMinHeight()), child: Center(child: Text(shown, style: TextStyle(color: csColor(pack.colorTextPrimary))))),
-        Opacity(opacity: up ? 1.0 : csControlsWaveStyleStepperButtonDisabledOpacity, child: CsOwnFocus(builder: (node, claim) => Semantics(label: upName, button: true, child: IconButton(focusNode: node, onPressed: up ? () { claim(); onChanged(csClampNumber(value + step, minimum, maximum)); } : null, constraints: BoxConstraints(minWidth: btnWidth, minHeight: btnHeight), icon: const ExcludeSemantics(child: Text('+')))))),
-      ],
-    ));
+    final invalid = csTextareaAlert(error);
+    return Opacity(
+      opacity: csTextFieldOpacity(disabled: disabled),
+      child: Semantics(
+        label: valueName,
+        value: shown,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (csNumberShowsLabel(label)) ...[
+              ExcludeSemantics(child: Text(label!, style: TextStyle(fontSize: csPoints(pack.fontSizeBase), fontWeight: FontWeight.w700, color: csColor(pack.colorTextPrimary)))),
+              SizedBox(height: csTextFieldGap()),
+            ],
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: csColor(pack.colorSurfacePanel),
+                borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+                border: Border.all(color: csColor(csTextFieldBorderColor(invalid, pack))),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Opacity(opacity: down ? 1.0 : csControlsWaveStyleStepperButtonDisabledOpacity, child: CsOwnFocus(builder: (node, claim) => Semantics(label: downName, button: true, child: IconButton(focusNode: node, onPressed: down ? () { claim(); onChanged(csClampNumber(value - step, minimum, maximum)); } : null, constraints: BoxConstraints(minWidth: btnWidth, minHeight: btnHeight), icon: const ExcludeSemantics(child: Text('−')))))),
+                  ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsWaveStyleStepperInputWidth(), minHeight: csControlsWaveStyleStepperInputMinHeight()), child: Center(child: Text(shown, style: TextStyle(color: csColor(pack.colorTextPrimary))))),
+                  Opacity(opacity: up ? 1.0 : csControlsWaveStyleStepperButtonDisabledOpacity, child: CsOwnFocus(builder: (node, claim) => Semantics(label: upName, button: true, child: IconButton(focusNode: node, onPressed: up ? () { claim(); onChanged(csClampNumber(value + step, minimum, maximum)); } : null, constraints: BoxConstraints(minWidth: btnWidth, minHeight: btnHeight), icon: const ExcludeSemantics(child: Text('+')))))),
+                ],
+              ),
+            ),
+            if (csTextareaShows(description)) ...[
+              SizedBox(height: csTextFieldGap()),
+              Text(description!, style: TextStyle(fontSize: csTextFieldDescriptionFontSize(), color: csColor(pack.colorTextMuted))),
+            ],
+            if (invalid) ...[
+              SizedBox(height: csTextFieldGap()),
+              Semantics(liveRegion: true, child: Text(error!, style: TextStyle(fontSize: csTextFieldErrorFontSize(), color: csColor(pack.colorSemanticDangerText)))),
+            ],
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -497,9 +580,11 @@ class CsEmptyState extends StatelessWidget {
 }
 
 class _ResultMarkPainter extends CustomPainter {
-  const _ResultMarkPainter(this.color, this.mark);
+  const _ResultMarkPainter(this.color, this.wash, this.mark, {this.isInfo = false});
   final Color color;
+  final Color wash;
   final String mark;
+  final bool isInfo;
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -508,11 +593,33 @@ class _ResultMarkPainter extends CustomPainter {
       ..strokeWidth = 2.2
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round;
-    canvas.drawCircle(size.center(Offset.zero), 32, Paint()..color = color.withOpacity(0.14));
+    canvas.drawCircle(size.center(Offset.zero), 32, Paint()..color = wash);
+    if (isInfo) {
+      canvas.drawCircle(size.center(Offset.zero), 11, paint);
+    }
     canvas.drawPath(csIconPathData(mark, 28), paint);
   }
   @override
-  bool shouldRepaint(covariant _ResultMarkPainter oldDelegate) => oldDelegate.color != color || oldDelegate.mark != mark;
+  bool shouldRepaint(covariant _ResultMarkPainter oldDelegate) =>
+      oldDelegate.color != color || oldDelegate.wash != wash || oldDelegate.mark != mark || oldDelegate.isInfo != isInfo;
+}
+
+class _ToastMarkPainter extends CustomPainter {
+  const _ToastMarkPainter(this.color, this.mark);
+  final Color color;
+  final String mark;
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+    canvas.drawPath(csIconPathData(mark, size.shortestSide), paint);
+  }
+  @override
+  bool shouldRepaint(covariant _ToastMarkPainter oldDelegate) => oldDelegate.color != color || oldDelegate.mark != mark;
 }
 
 class _EmptyTrayPainter extends CustomPainter {
@@ -774,9 +881,11 @@ String? csButtonGroupLabel(String? label) => label;
 enum CsStatusKind { online, busy, offline, error }
 
 class CsStatusIndicator extends StatelessWidget {
-  const CsStatusIndicator({super.key, required this.title, required this.dark, required this.highContrast, required this.compact, this.status = CsStatusKind.offline});
+  const CsStatusIndicator({super.key, required this.title, required this.dark, required this.highContrast, required this.compact, this.status = CsStatusKind.offline, this.pulse = false, this.reducedMotion = false});
   final String title;
   final CsStatusKind status;
+  final bool pulse;
+  final bool reducedMotion;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -790,10 +899,19 @@ class CsStatusIndicator extends StatelessWidget {
       CsStatusKind.offline => 'offline',
       CsStatusKind.error => 'error',
     };
-    final color = csControlsWaveStyleStatusDotColor(tone, pack);
+    final color = csColor(csControlsWaveStyleStatusDotColor(tone, pack));
     final dot = csControlsWaveStyleStatusDotSize();
+    final pulsing = csStatusPulses(pulse, reducedMotion);
     return Row(children: [
-      Container(width: dot, height: dot, decoration: BoxDecoration(color: csColor(color), shape: BoxShape.circle)),
+      Container(
+        width: dot,
+        height: dot,
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+          boxShadow: pulsing ? [BoxShadow(color: color.withOpacity(0.35), spreadRadius: 2)] : null,
+        ),
+      ),
       SizedBox(width: csControlsWaveStyleStatusGap()),
       Text(title, style: TextStyle(fontSize: csPoints(pack.fontSizeSm), color: csColor(pack.colorTextPrimary))),
     ]);
@@ -1018,8 +1136,9 @@ String csResultMark(String status) {
 }
 
 class CsResult extends StatelessWidget {
-  const CsResult({super.key, required this.message, required this.dark, required this.highContrast, required this.compact, this.title, this.status = CsResultStatus.info, this.language});
+  const CsResult({super.key, required this.message, required this.dark, required this.highContrast, required this.compact, this.title, this.action, this.status = CsResultStatus.info, this.language});
   final String? title;
+  final String? action;
   final String? language;
   final String message;
   final CsResultStatus status;
@@ -1042,6 +1161,9 @@ class CsResult extends StatelessWidget {
       'warning' => pack.colorSemanticWarningText,
       _ => pack.colorSemanticInfoText,
     };
+    final wash = name == 'info'
+        ? csColor(pack.accentTint)
+        : csColor(tone).withOpacity(name == 'error' ? csControlsWaveStyleResultErrorMixPortion : csControlsWaveStyleResultSuccessMixPortion);
     final heading = csResultTitle(title, name, csSelectResolvedLanguage(language, CsLanguageScope.of(context)));
     final iconDim = csControlsWaveStyleResultIconSize();
     return Semantics(
@@ -1049,12 +1171,16 @@ class CsResult extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: csControlsWaveStyleResultPaddingX(), vertical: csControlsWaveStyleResultPaddingY()),
         child: Column(children: [
-          CustomPaint(size: Size(iconDim, iconDim), painter: _ResultMarkPainter(csColor(tone), csResultMark(name))),
+          CustomPaint(size: Size(iconDim, iconDim), painter: _ResultMarkPainter(csColor(tone), wash, csResultMark(name), isInfo: name == 'info')),
           SizedBox(height: csControlsWaveStyleResultGap()),
           Text(heading, style: TextStyle(fontSize: csControlsWaveStyleResultTitleFontSize(), fontWeight: FontWeight.w800, color: csColor(pack.colorTextPrimary))),
           if (csResultShows(message)) ...[
             SizedBox(height: csControlsWaveStyleResultGap()),
             Text(message, style: TextStyle(color: csColor(pack.colorTextMuted))),
+          ],
+          if (csResultShows(action)) ...[
+            SizedBox(height: csControlsWaveStyleResultActionsMarginTop()),
+            Text(action!, style: TextStyle(color: csColor(pack.colorTextPrimary))),
           ],
         ]),
       ),
@@ -1293,9 +1419,10 @@ bool csToastShowsClose(bool hasOpenChange, bool hasClose) => hasOpenChange || ha
 List<String> csToastNotify(bool hasOpenChange, bool hasClose) => [if (hasOpenChange) 'open-false', if (hasClose) 'close'];
 
 class CsToast extends StatelessWidget {
-  const CsToast({super.key, required this.dark, required this.highContrast, required this.compact, this.title, this.message, this.variant = 'default', this.dismissLabel, this.onOpenChange, this.onClose, this.language});
+  const CsToast({super.key, required this.dark, required this.highContrast, required this.compact, this.title, this.message, this.icon, this.variant = 'default', this.dismissLabel, this.onOpenChange, this.onClose, this.language});
   final String? title;
   final String? message;
+  final String? icon;
   final String variant;
   final String? dismissLabel;
   final String? language;
@@ -1311,31 +1438,38 @@ class CsToast extends StatelessWidget {
     final edge = csToastBorder(variant);
     final closeName = dismissLabel ?? csToastCopy('dismiss', csSelectResolvedLanguage(language, CsLanguageScope.of(context)));
     final ink = edge == 'success' ? pack.colorSemanticSuccessText : edge == 'danger' ? pack.colorSemanticDangerText : edge == 'info' ? pack.colorSemanticInfoText : pack.colorTextAccent;
-    return Material(
-      color: csColor(pack.colorSurfacePanel),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)), side: BorderSide(color: csColor(pack.colorBorderDefault), width: csFeedbackStyleToastBorderWidth())),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: csFeedbackStyleToastPaddingX(), vertical: csFeedbackStyleToastPaddingY()),
-        child: Row(
-          children: [
-            CustomPaint(size: const Size(18, 18), painter: _ResultMarkPainter(csColor(ink), csToastMark(variant))),
-            SizedBox(width: csFeedbackStyleToastGap()),
-            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              if (title != null && csToastShows(title)) Text(title!, style: TextStyle(fontSize: csFeedbackStyleToastTitleFontSize(pack), fontWeight: FontWeight.w700, color: csColor(pack.colorTextPrimary))),
-              if (message != null && csToastShows(message)) Padding(padding: EdgeInsets.only(top: csFeedbackStyleToastBodyMarginTop()), child: Text(message!, style: TextStyle(fontSize: csFeedbackStyleToastBodyFontSize(pack), color: csColor(pack.colorTextMuted)))),
-            ])),
-            if (csToastShowsClose(onOpenChange != null, onClose != null))
-              CsOwnFocus(builder: (node, claim) => Semantics(label: closeName, button: true, child: IconButton(
-                focusNode: node,
-                onPressed: () {
-                  claim();
-                  onOpenChange?.call(false);
-                  onClose?.call();
-                },
-                constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
-                icon: const ExcludeSemantics(child: Text('×')),
-              ))),
-          ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+      child: Material(
+        color: csColor(pack.colorSurfacePanel),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)), side: BorderSide(color: csColor(pack.colorBorderDefault), width: csFeedbackStyleToastBorderWidth())),
+        child: Container(
+          decoration: edge != 'none' ? BoxDecoration(border: Border(left: BorderSide(color: csColor(ink), width: csFeedbackStyleToastAccentBorderWidth()))) : null,
+          padding: EdgeInsets.symmetric(horizontal: csFeedbackStyleToastPaddingX(), vertical: csFeedbackStyleToastPaddingY()),
+          child: Row(
+            children: [
+              if (icon != null && icon!.isNotEmpty)
+                ExcludeSemantics(child: CsIcon(name: icon!, label: '', dark: dark, highContrast: highContrast, compact: compact))
+              else
+                CustomPaint(size: const Size(18, 18), painter: _ToastMarkPainter(csColor(ink), csToastMark(variant))),
+              SizedBox(width: csFeedbackStyleToastGap()),
+              Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                if (title != null && csToastShows(title)) Text(title!, style: TextStyle(fontSize: csFeedbackStyleToastTitleFontSize(pack), fontWeight: FontWeight.w700, color: csColor(pack.colorTextPrimary))),
+                if (message != null && csToastShows(message)) Padding(padding: EdgeInsets.only(top: csFeedbackStyleToastBodyMarginTop()), child: Text(message!, style: TextStyle(fontSize: csFeedbackStyleToastBodyFontSize(pack), color: csColor(pack.colorTextMuted)))),
+              ])),
+              if (csToastShowsClose(onOpenChange != null, onClose != null))
+                CsOwnFocus(builder: (node, claim) => Semantics(label: closeName, button: true, child: IconButton(
+                  focusNode: node,
+                  onPressed: () {
+                    claim();
+                    onOpenChange?.call(false);
+                    onClose?.call();
+                  },
+                  constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
+                  icon: ExcludeSemantics(child: CsIcon(name: 'close', label: '', dark: dark, highContrast: highContrast, compact: compact)),
+                ))),
+            ],
+          ),
         ),
       ),
     );

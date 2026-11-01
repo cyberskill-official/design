@@ -191,6 +191,18 @@ public enum CSTextareaModel {
     return !value.isEmpty
   }
   public static func isAlert(_ error: String?) -> Bool { shows(error) }
+  public static func labelId(id: String, label: String?) -> String? {
+    shows(label) ? "\(id)-label" : nil
+  }
+  public static func descId(id: String, description: String?) -> String? {
+    shows(description) ? "\(id)-desc" : nil
+  }
+  public static func errId(id: String, error: String?) -> String? {
+    shows(error) ? "\(id)-err" : nil
+  }
+  public static func labelledBy(ariaLabelledBy: String?, ariaLabel: String?, id: String, label: String?) -> String? {
+    ariaLabelledBy ?? (ariaLabel == nil ? labelId(id: id, label: label) : nil)
+  }
   public static func describedBy(_ parts: [String?]) -> String? {
     var seen = Set<String>()
     var tokens: [String] = []
@@ -439,6 +451,9 @@ public enum CSNumberFieldModel {
 
 public struct CSNumberField: View {
   public let label: String?
+  public let descriptionText: String?
+  public let error: String?
+  public let required: Bool
   public let value: Double
   public let minimum: Double?
   public let maximum: Double?
@@ -451,8 +466,11 @@ public struct CSNumberField: View {
   public let language: String?
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String? = nil, value: Double, minimum: Double? = nil, maximum: Double? = nil, step: Double = 1, disabled: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping (Double) -> Void) {
+  public init(label: String? = nil, value: Double, minimum: Double? = nil, maximum: Double? = nil, step: Double = 1, disabled: Bool = false, description: String? = nil, error: String? = nil, required: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping (Double) -> Void) {
     self.label = label
+    self.descriptionText = description
+    self.error = error
+    self.required = required
     self.value = value
     self.minimum = minimum
     self.maximum = maximum
@@ -471,34 +489,46 @@ public struct CSNumberField: View {
     let shown = String(value)
     let down = CSNumberFieldModel.canDecrease(disabled: disabled, value: shown, min: minimum)
     let up = CSNumberFieldModel.canIncrease(disabled: disabled, value: shown, max: maximum)
-    HStack(spacing: 0) {
-      CSTriggerButton("−") {
-        guard down else { return }
-        onChange(CSNumberValue.clamp(value - step, min: minimum, max: maximum))
-      }
-      .disabled(!down)
-      .opacity(down ? 1 : CSControlsWaveStyleModel.stepperButtonDisabledOpacity)
-      .frame(minWidth: max(44, CGFloat(CSControlsWaveStyleModel.stepperButtonWidth())), minHeight: max(44, CGFloat(CSControlsWaveStyleModel.stepperInputMinHeight())))
-      .accessibilityLabel(CSNumberFieldModel.copy("decrease", language: locale))
+    let invalid = CSTextareaModel.isAlert(error)
+    VStack(alignment: .leading, spacing: CGFloat(CSTextFieldModel.gap())) {
       if let label, CSNumberFieldModel.showsLabel(label) {
-        Text(label).foregroundStyle(pack.primaryTextColor)
+        Text(label)
+          .font(.system(size: pack.fontSizeBase.points, weight: .bold))
+          .foregroundStyle(pack.primaryTextColor)
       }
-      Text(shown)
-        .font(.system(size: pack.fontSizeSm.points, weight: .semibold, design: .monospaced))
-        .foregroundStyle(pack.primaryTextColor)
-        .frame(minWidth: CGFloat(CSControlsWaveStyleModel.stepperInputWidth()), minHeight: CGFloat(CSControlsWaveStyleModel.stepperInputMinHeight()))
-      CSTriggerButton("+") {
-        guard up else { return }
-        onChange(CSNumberValue.clamp(value + step, min: minimum, max: maximum))
+      HStack(spacing: 0) {
+        CSTriggerButton("−") {
+          guard down else { return }
+          onChange(CSNumberValue.clamp(value - step, min: minimum, max: maximum))
+        }
+        .disabled(!down)
+        .opacity(down ? 1 : CSControlsWaveStyleModel.stepperButtonDisabledOpacity)
+        .frame(minWidth: max(44, CGFloat(CSControlsWaveStyleModel.stepperButtonWidth())), minHeight: max(44, CGFloat(CSControlsWaveStyleModel.stepperInputMinHeight())))
+        .accessibilityLabel(CSNumberFieldModel.copy("decrease", language: locale))
+        Text(shown)
+          .font(.system(size: pack.fontSizeSm.points, weight: .semibold, design: .monospaced))
+          .foregroundStyle(pack.primaryTextColor)
+          .frame(minWidth: CGFloat(CSControlsWaveStyleModel.stepperInputWidth()), minHeight: CGFloat(CSControlsWaveStyleModel.stepperInputMinHeight()))
+        CSTriggerButton("+") {
+          guard up else { return }
+          onChange(CSNumberValue.clamp(value + step, min: minimum, max: maximum))
+        }
+        .disabled(!up)
+        .opacity(up ? 1 : CSControlsWaveStyleModel.stepperButtonDisabledOpacity)
+        .frame(minWidth: max(44, CGFloat(CSControlsWaveStyleModel.stepperButtonWidth())), minHeight: max(44, CGFloat(CSControlsWaveStyleModel.stepperInputMinHeight())))
+        .accessibilityLabel(CSNumberFieldModel.copy("increase", language: locale))
       }
-      .disabled(!up)
-      .opacity(up ? 1 : CSControlsWaveStyleModel.stepperButtonDisabledOpacity)
-      .frame(minWidth: max(44, CGFloat(CSControlsWaveStyleModel.stepperButtonWidth())), minHeight: max(44, CGFloat(CSControlsWaveStyleModel.stepperInputMinHeight())))
-      .accessibilityLabel(CSNumberFieldModel.copy("increase", language: locale))
+      .background(pack.colorSurfacePanel.color)
+      .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+      .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(CSTextFieldModel.borderColor(invalid: invalid, pack: pack).color, lineWidth: 1))
+      if let descriptionText, CSTextareaModel.shows(descriptionText) {
+        Text(descriptionText).font(.system(size: CGFloat(CSTextFieldModel.descriptionFontSize()))).foregroundStyle(pack.mutedColor)
+      }
+      if let error, invalid {
+        Text(error).font(.system(size: CGFloat(CSTextFieldModel.errorFontSize()))).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
+      }
     }
-    .background(pack.colorSurfacePanel.color)
-    .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
-    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.colorBorderDefault.color, lineWidth: 1))
+    .opacity(CSTextFieldModel.opacity(disabled: disabled))
     .accessibilityElement(children: .contain)
     .accessibilityLabel(CSNumberFieldModel.showsLabel(label) ? (label ?? "") : CSNumberFieldModel.copy("value", language: locale))
     .accessibilityValue(Text(shown))
@@ -950,13 +980,17 @@ public enum CSStatusKind {
 public struct CSStatusIndicator: View {
   public let status: CSStatusKind
   public let title: String
+  public let pulse: Bool
+  public let reducedMotion: Bool
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
 
-  public init(status: CSStatusKind = .offline, title: String, dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(status: CSStatusKind = .offline, title: String, pulse: Bool = false, reducedMotion: Bool = false, dark: Bool, highContrast: Bool, compact: Bool) {
     self.status = status
     self.title = title
+    self.pulse = pulse
+    self.reducedMotion = reducedMotion
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -972,8 +1006,17 @@ public struct CSStatusIndicator: View {
     }
     let color = CSControlsWaveStyleModel.statusDotColor(tone: tone, pack: pack).color
     let dot = CGFloat(CSControlsWaveStyleModel.statusDotSize())
+    let pulsing = CSStatusModel.pulses(pulse: pulse, reducedMotion: reducedMotion)
     HStack(spacing: CGFloat(CSControlsWaveStyleModel.statusGap())) {
-      Circle().fill(color).frame(width: dot, height: dot).accessibilityHidden(true)
+      Circle()
+        .fill(color)
+        .frame(width: dot, height: dot)
+        .overlay {
+          if pulsing {
+            Circle().stroke(color.opacity(0.35), lineWidth: 2).padding(-2)
+          }
+        }
+        .accessibilityHidden(true)
       Text(title).font(.system(size: pack.fontSizeSm.points)).foregroundStyle(pack.primaryTextColor)
     }
   }
@@ -1615,6 +1658,7 @@ public struct CSToast: View {
   public let variant: String
   public let title: String?
   public let message: String?
+  public let icon: String?
   public let dismissLabel: String?
   public let language: String?
   let dark: Bool
@@ -1626,10 +1670,11 @@ public struct CSToast: View {
   @FocusState private var closeFocused: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(variant: String = "default", title: String? = nil, message: String? = nil, dismissLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, onOpenChange: ((Bool) -> Void)? = nil, onClose: (() -> Void)? = nil, language: String? = nil) {
+  public init(variant: String = "default", title: String? = nil, message: String? = nil, icon: String? = nil, dismissLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, onOpenChange: ((Bool) -> Void)? = nil, onClose: (() -> Void)? = nil, language: String? = nil) {
     self.variant = variant
     self.title = title
     self.message = message
+    self.icon = icon
     self.dismissLabel = dismissLabel
     self.dark = dark
     self.highContrast = highContrast
@@ -1650,13 +1695,20 @@ public struct CSToast: View {
     default: pack.colorTextAccent.color
     }
     HStack(alignment: .top, spacing: CGFloat(CSFeedbackStyleModel.toastGap())) {
-      Canvas { context, size in
-        let source = CSIconPaths.path(data: CSToastModel.mark(variant))
-        let scale = min(size.width, size.height) / 24
-        context.stroke(source.applying(CGAffineTransform(scaleX: scale, y: scale)), with: .color(ink), lineWidth: 2)
+      if let icon, !icon.isEmpty {
+        CSIcon(name: icon, label: "", dark: dark, highContrast: highContrast, compact: compact)
+          .foregroundStyle(ink)
+          .frame(width: 18, height: 18)
+          .accessibilityHidden(true)
+      } else {
+        Canvas { context, size in
+          let source = CSIconPaths.path(data: CSToastModel.mark(variant))
+          let scale = min(size.width, size.height) / 24
+          context.stroke(source.applying(CGAffineTransform(scaleX: scale, y: scale)), with: .color(ink), lineWidth: 2)
+        }
+        .frame(width: 18, height: 18)
+        .accessibilityHidden(true)
       }
-      .frame(width: 18, height: 18)
-      .accessibilityHidden(true)
       VStack(alignment: .leading, spacing: CGFloat(CSFeedbackStyleModel.toastBodyMarginTop())) {
         if let title, CSToastModel.shows(title) {
           Text(title)

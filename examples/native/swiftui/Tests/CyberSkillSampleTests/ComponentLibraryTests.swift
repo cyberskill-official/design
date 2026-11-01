@@ -3261,6 +3261,21 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSListModel.rowRole(interactive: false), "listitem")
     XCTAssertTrue(CSListModel.wrapsListItem(interactive: true))
     XCTAssertFalse(CSListModel.wrapsListItem(interactive: false))
+    XCTAssertEqual(CSTextareaModel.labelId(id: "bio", label: "Bio"), "bio-label")
+    XCTAssertNil(CSTextareaModel.labelId(id: "bio", label: ""))
+    XCTAssertEqual(CSTextareaModel.descId(id: "bio", description: "Max 200 chars"), "bio-desc")
+    XCTAssertEqual(CSTextareaModel.errId(id: "bio", error: "Required"), "bio-err")
+    XCTAssertEqual(CSTextareaModel.labelledBy(ariaLabelledBy: nil, ariaLabel: nil, id: "bio", label: "Bio"), "bio-label")
+    XCTAssertNil(CSTextareaModel.labelledBy(ariaLabelledBy: nil, ariaLabel: "Bio", id: "bio", label: "Bio"))
+    let numberField = CSNumberField(label: "Qty", value: 2, description: "Max 10", error: "Too low", required: true, dark: false, highContrast: false, compact: false, onChange: { _ in })
+    XCTAssertEqual(numberField.descriptionText, "Max 10")
+    XCTAssertEqual(numberField.error, "Too low")
+    XCTAssertTrue(numberField.required)
+    let statusDot = CSStatusIndicator(status: .online, title: "Online", pulse: true, reducedMotion: false, dark: false, highContrast: false, compact: false)
+    XCTAssertTrue(statusDot.pulse)
+    XCTAssertFalse(statusDot.reducedMotion)
+    let customToast = CSToast(variant: "success", title: "Saved", message: "Done", icon: "check", dark: false, highContrast: false, compact: false)
+    XCTAssertEqual(customToast.icon, "check")
   }
 
   func testSwitchAndDialogExposeTheModeResolvedControls() {
