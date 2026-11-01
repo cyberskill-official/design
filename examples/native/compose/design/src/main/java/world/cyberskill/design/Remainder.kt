@@ -51,6 +51,8 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.matchParentSize
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -221,6 +223,20 @@ fun csTerminalCopy(key: String, language: String?): String {
   return key
 }
 fun csTerminalBarTitle(title: String?, fallback: String) = title ?: fallback
+const val csTerminalBorderHex = "#3a2a1c"
+const val csTerminalBarHex = "#2a1a0d"
+const val csTerminalDotHex = "#5b4331"
+const val csTerminalBgHex = "#1a1108"
+const val csTerminalFgHex = "#f5ead9"
+const val csTerminalMutedHex = "#c9b7a3"
+val csTerminalBorderColor = CSColorValue(CSColorSpace.SRGB, listOf(58.0 / 255.0, 42.0 / 255.0, 28.0 / 255.0), 1.0)
+val csTerminalBarColor = CSColorValue(CSColorSpace.SRGB, listOf(42.0 / 255.0, 26.0 / 255.0, 13.0 / 255.0), 1.0)
+val csTerminalDotColor = CSColorValue(CSColorSpace.SRGB, listOf(91.0 / 255.0, 67.0 / 255.0, 49.0 / 255.0), 1.0)
+val csTerminalBgColor = CSColorValue(CSColorSpace.SRGB, listOf(26.0 / 255.0, 17.0 / 255.0, 8.0 / 255.0), 1.0)
+val csTerminalFgColor = CSColorValue(CSColorSpace.SRGB, listOf(245.0 / 255.0, 234.0 / 255.0, 217.0 / 255.0), 1.0)
+val csTerminalMutedColor = CSColorValue(CSColorSpace.SRGB, listOf(201.0 / 255.0, 183.0 / 255.0, 163.0 / 255.0), 1.0)
+fun csTerminalMaxWidth() = 480.dp
+fun csTerminalBorderWidth() = 1.dp
 fun csTerminalSubmits(composing: Boolean, keyCode: Int) = !composing && keyCode != 229
 
 data class CsCascaderNode(val key: String, val label: String, val children: List<CsCascaderNode> = emptyList())
@@ -1235,9 +1251,9 @@ private var SemanticsPropertyReceiver.csTreeControlsValue by csTreeControlsKey
   val inputName = csTerminalCopy("input", locale)
   var lines by remember { mutableStateOf(history) }
   var draft by remember { mutableStateOf(TextFieldValue("")) }
-  Column(modifier) {
-    Text(bar, color = pack.colorTextPrimary.toComposeColor())
-    lines.forEach { line -> if (line.command != null) Text(prompt + " " + line.command); if (line.output != null) Text(line.output) }
+  Column(modifier.widthIn(max = csTerminalMaxWidth()).shadow(pack.shadowMd.firstOrNull()?.blur?.toDp() ?: 0.dp, RoundedCornerShape(pack.radiusLg.toDp())).clip(RoundedCornerShape(pack.radiusLg.toDp())).background(csTerminalBgColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).border(csTerminalBorderWidth(), csTerminalBorderColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp()))) {
+    Text(bar, color = csTerminalMutedColor.toComposeColor())
+    lines.forEach { line -> if (line.command != null) Text(prompt + " " + line.command); if (line.output != null) Text(line.output, color = csTerminalMutedColor.toComposeColor()) }
     Row {
       Text(prompt)
       BasicTextField(value = draft, onValueChange = { if (!csControlEnabled()) return@BasicTextField; draft = it }, enabled = csControlEnabled(), modifier = Modifier.semantics { contentDescription = inputName }.onPreviewKeyEvent { event ->

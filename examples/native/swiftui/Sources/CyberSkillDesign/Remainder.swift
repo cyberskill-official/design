@@ -246,6 +246,21 @@ public enum CSTerminalModel {
 
   public static func barTitle(_ title: String?, fallback: String) -> String { title ?? fallback }
 
+  public static let borderHex = "#3a2a1c"
+  public static let barHex = "#2a1a0d"
+  public static let dotHex = "#5b4331"
+  public static let bgHex = "#1a1108"
+  public static let fgHex = "#f5ead9"
+  public static let mutedHex = "#c9b7a3"
+  public static let borderColor = CSColorValue(colorSpace: .srgb, components: [58.0 / 255.0, 42.0 / 255.0, 28.0 / 255.0], alpha: 1)
+  public static let barColor = CSColorValue(colorSpace: .srgb, components: [42.0 / 255.0, 26.0 / 255.0, 13.0 / 255.0], alpha: 1)
+  public static let dotColor = CSColorValue(colorSpace: .srgb, components: [91.0 / 255.0, 67.0 / 255.0, 49.0 / 255.0], alpha: 1)
+  public static let bgColor = CSColorValue(colorSpace: .srgb, components: [26.0 / 255.0, 17.0 / 255.0, 8.0 / 255.0], alpha: 1)
+  public static let fgColor = CSColorValue(colorSpace: .srgb, components: [245.0 / 255.0, 234.0 / 255.0, 217.0 / 255.0], alpha: 1)
+  public static let mutedColor = CSColorValue(colorSpace: .srgb, components: [201.0 / 255.0, 183.0 / 255.0, 163.0 / 255.0], alpha: 1)
+  public static func maxWidth() -> Double { 480 }
+  public static func borderWidth() -> Double { 1 }
+
   public static func submits(composing: Bool, keyCode: Int) -> Bool {
     !composing && keyCode != 229
   }
@@ -618,11 +633,12 @@ public struct CSTerminal: View {
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let bar = CSTerminalModel.barTitle(title, fallback: CSTerminalModel.copy("title", language: locale))
     let inputName = CSTerminalModel.copy("input", language: locale)
-    VStack(alignment: .leading) {
-      Text(bar).foregroundStyle(pack.primaryTextColor)
+    let shadow = pack.shadowMd.first
+    VStack(alignment: .leading, spacing: 0) {
+      Text(bar).foregroundStyle(CSTerminalModel.mutedColor.color)
       ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
         if let command = line.command { Text(prompt + " " + command).foregroundStyle(pack.colorBrandOchre.color) }
-        if let output = line.output { Text(output).foregroundStyle(pack.mutedColor) }
+        if let output = line.output { Text(output).foregroundStyle(CSTerminalModel.mutedColor.color) }
       }
       HStack {
         Text(prompt).foregroundStyle(pack.colorBrandOchre.color)
@@ -636,8 +652,11 @@ public struct CSTerminal: View {
       }
     }
     .padding(12)
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .background(pack.colorSurfacePanel.color)
+    .frame(maxWidth: CGFloat(CSTerminalModel.maxWidth()), alignment: .leading)
+    .background(CSTerminalModel.bgColor.color, in: RoundedRectangle(cornerRadius: pack.radiusLg.points))
+    .clipShape(RoundedRectangle(cornerRadius: pack.radiusLg.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusLg.points).stroke(CSTerminalModel.borderColor.color, lineWidth: CGFloat(CSTerminalModel.borderWidth())))
+    .shadow(color: shadow?.color.color ?? .clear, radius: shadow?.blur.points ?? 0, x: shadow?.offsetX.points ?? 0, y: shadow?.offsetY.points ?? 0)
   }
 }
 

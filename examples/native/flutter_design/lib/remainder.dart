@@ -209,6 +209,20 @@ String csTerminalCopy(String key, String? language) {
   return key;
 }
 String csTerminalBarTitle(String? title, String fallback) => title ?? fallback;
+const csTerminalBorderHex = '#3a2a1c';
+const csTerminalBarHex = '#2a1a0d';
+const csTerminalDotHex = '#5b4331';
+const csTerminalBgHex = '#1a1108';
+const csTerminalFgHex = '#f5ead9';
+const csTerminalMutedHex = '#c9b7a3';
+const csTerminalBorderColor = CSColorValue(CSColorSpace.srgb, [58.0 / 255.0, 42.0 / 255.0, 28.0 / 255.0], 1);
+const csTerminalBarColor = CSColorValue(CSColorSpace.srgb, [42.0 / 255.0, 26.0 / 255.0, 13.0 / 255.0], 1);
+const csTerminalDotColor = CSColorValue(CSColorSpace.srgb, [91.0 / 255.0, 67.0 / 255.0, 49.0 / 255.0], 1);
+const csTerminalBgColor = CSColorValue(CSColorSpace.srgb, [26.0 / 255.0, 17.0 / 255.0, 8.0 / 255.0], 1);
+const csTerminalFgColor = CSColorValue(CSColorSpace.srgb, [245.0 / 255.0, 234.0 / 255.0, 217.0 / 255.0], 1);
+const csTerminalMutedColor = CSColorValue(CSColorSpace.srgb, [201.0 / 255.0, 183.0 / 255.0, 163.0 / 255.0], 1);
+double csTerminalMaxWidth() => 480;
+double csTerminalBorderWidth() => 1;
 bool csTerminalSubmits({required bool composing, required int keyCode}) => !composing && keyCode != 229;
 
 class CsCascaderNode {
@@ -1668,17 +1682,43 @@ class _CsTerminalState extends State<CsTerminal> {
 
   @override
   Widget build(BuildContext context) {
+    final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
     final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
     final bar = csTerminalBarTitle(widget.title, csTerminalCopy('title', locale));
     final inputName = csTerminalCopy('input', locale);
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(bar),
-      for (final line in lines) ...[if (line.command != null) Text('${widget.prompt} ${line.command}'), if (line.output != null) Text(line.output!)],
-      Row(children: [
-        Text(widget.prompt),
-        Expanded(child: Semantics(textField: true, label: inputName, child: TextField(controller: draft, onSubmitted: _submit, decoration: const InputDecoration(border: InputBorder.none)))),
-      ]),
-    ]);
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: csTerminalMaxWidth()),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: csColor(csTerminalBgColor),
+          borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
+          border: Border.all(color: csColor(csTerminalBorderColor), width: csTerminalBorderWidth()),
+          boxShadow: [
+            for (final shadow in pack.shadowMd)
+              BoxShadow(
+                color: csColor(shadow.color),
+                offset: Offset(csPoints(shadow.offsetX), csPoints(shadow.offsetY)),
+                blurRadius: csPoints(shadow.blur),
+                spreadRadius: csPoints(shadow.spread),
+              ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(bar, style: TextStyle(color: csColor(csTerminalMutedColor))),
+            for (final line in lines) ...[
+              if (line.command != null) Text('${widget.prompt} ${line.command}', style: TextStyle(color: csColor(csTerminalFgColor))),
+              if (line.output != null) Text(line.output!, style: TextStyle(color: csColor(csTerminalMutedColor))),
+            ],
+            Row(children: [
+              Text(widget.prompt, style: TextStyle(color: csColor(pack.colorBrandOchre))),
+              Expanded(child: Semantics(textField: true, label: inputName, child: TextField(controller: draft, onSubmitted: _submit, decoration: const InputDecoration(border: InputBorder.none)))),
+            ]),
+          ]),
+        ),
+      ),
+    );
   }
 }
 
