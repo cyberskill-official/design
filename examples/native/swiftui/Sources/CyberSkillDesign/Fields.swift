@@ -1572,6 +1572,10 @@ private struct CSPopoverPanelKey: PreferenceKey {
   static func reduce(value: inout CSPopoverMeasure, nextValue: () -> CSPopoverMeasure) { value = nextValue() }
 }
 
+public enum CSListModel {
+  public static func gap() -> Double { 2 }
+}
+
 public struct CSListItem: Hashable {
   public let title: String
   public let subtitle: String
@@ -1596,7 +1600,7 @@ public struct CSList: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: CGFloat(CSListModel.gap())) {
       ForEach(items, id: \.title) { item in
         VStack(alignment: .leading) {
           Text(item.title).foregroundStyle(pack.primaryTextColor)

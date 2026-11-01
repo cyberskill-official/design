@@ -827,6 +827,8 @@ class _CsPopoverState extends State<CsPopover> {
   }
 }
 
+double csListGap() => 2;
+
 class CsList extends StatelessWidget {
   const CsList({super.key, required this.items, required this.dark, required this.highContrast, required this.compact});
   final List<(String, String)> items;
@@ -838,9 +840,12 @@ class CsList extends StatelessWidget {
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      for (final item in items) ...[
-        Text(item.$1, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-        if (item.$2.isNotEmpty) Text(item.$2, style: TextStyle(color: csColor(pack.colorTextMuted))),
+      for (var index = 0; index < items.length; index++) ...[
+        if (index > 0) SizedBox(height: csListGap()),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(items[index].$1, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+          if (items[index].$2.isNotEmpty) Text(items[index].$2, style: TextStyle(color: csColor(pack.colorTextMuted))),
+        ]),
       ],
     ]);
   }

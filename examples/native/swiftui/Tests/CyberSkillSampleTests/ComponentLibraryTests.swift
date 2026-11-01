@@ -1697,6 +1697,7 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSTerminalModel.focusOutlineOffset(focused: false), 0)
     XCTAssertEqual(CSTerminalModel.focusRingWidth(focused: true), 5)
     XCTAssertEqual(CSTerminalModel.focusRingWidth(focused: false), 0)
+    XCTAssertEqual(CSListModel.gap(), 2)
     XCTAssertFalse(CSTerminalModel.submits(composing: true, keyCode: 0))
     XCTAssertFalse(CSTerminalModel.submits(composing: false, keyCode: 229))
     XCTAssertTrue(CSTerminalModel.submits(composing: false, keyCode: 13))

@@ -1,5 +1,6 @@
 package world.cyberskill.design
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
@@ -652,13 +653,17 @@ fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dar
   }
 }
 
+fun csListGap() = 2.dp
+
 @Composable
 fun CsList(items: List<Pair<String, String>>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   val pack = csModePack(dark, highContrast, compact)
-  Column(modifier) {
+  Column(modifier, verticalArrangement = Arrangement.spacedBy(csListGap())) {
     items.forEach { item ->
-      Text(item.first, color = pack.colorTextPrimary.toComposeColor())
-      if (item.second.isNotEmpty()) Text(item.second, color = pack.colorTextMuted.toComposeColor())
+      Column {
+        Text(item.first, color = pack.colorTextPrimary.toComposeColor())
+        if (item.second.isNotEmpty()) Text(item.second, color = pack.colorTextMuted.toComposeColor())
+      }
     }
   }
 }
