@@ -650,7 +650,7 @@ fun CsBadge(
   }
   Row(modifier.background(fill.toComposeColor(), RoundedCornerShape(pack.radiusFull.toDp())).then(if (tone == "neutral") Modifier.border(csBadgeBorderWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusFull.toDp())) else Modifier).padding(horizontal = csBadgePaddingX(), vertical = csBadgePaddingY()), horizontalArrangement = Arrangement.spacedBy(csBadgeGap()), verticalAlignment = Alignment.CenterVertically) {
     if (dot) Box(Modifier.size(csBadgeDotSize()).background(ink.toComposeColor(), CircleShape))
-    Text(label.uppercase(), color = ink.toComposeColor(), fontSize = 12.sp, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { contentDescription = label })
+    Text(label, color = ink.toComposeColor(), fontSize = 12.sp, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { contentDescription = label })
   }
 }
 

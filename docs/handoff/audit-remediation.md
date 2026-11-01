@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the native-flutter-tabs-move-argument-order-fix checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the native-badge-authored-label-text-parity checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `d3ca3ae1d21ecc29ace6150a3c882bfd1d77a8d3` (`fix(native): match csTabsMove(current, count, key) argument order in Flutter CsSegmentedControl`)
-- Previous checkpoint: `d82daccd3ae91c9780c95002c2391aed03243d49`, with the hash note in `f0b45801`
+- Checkpoint commit: `<pending-commit>` (`fix(native): preserve authored label text in Compose and Flutter CsBadge`)
+- Previous checkpoint: `d3ca3ae1d21ecc29ace6150a3c882bfd1d77a8d3`, with the hash note in `217dca41`
 - GitHub Actions push workflows re-enabled (`Design System Gates` `316944477`, `native-validation` `377620668`, `native-store` `318755963`, `OpenSSF Scorecard` `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,10 +54,10 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Aligned `CsSegmentedControl` keyboard roving in `examples/native/flutter_design/lib/catalog.dart` (lines 1081 and 1085) with the `int? csTabsMove(int current, int count, String key, {bool vertical = false})` signature in `primitives.dart` (`csTabsMove(index, options.length, 'ArrowRight') ?? index` and `csTabsMove(index, options.length, 'ArrowLeft') ?? index`).
+Preserved the authored `label` string inside `CsBadge` (`Text(label, ...)` in `examples/native/flutter_design/lib/controls.dart` and `examples/native/compose/design/src/main/java/world/cyberskill/design/Controls.kt`), matching SwiftUI `Text(label)` and allowing `find.text(key.en)` in `examples/native/flutter/test/screens_test.dart` (`"In build"`, `"Open"`, `"Done"`) and `onNodeWithText` in `NativeNavigationTest.kt` to match the rendered wish-row status badges.
 
 - `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed locally.
-- In `native-validation` run `41323068664`, both `validate (compose, ubuntu-24.04)` (job `124897196632`) and `validate (swiftui, macos-15)` (job `124897196812`) passed; in `Design System Gates` run `41323068696`, `pixel-diff`, `whole-set-audits`, `fast-gates`, `docs-consistency-blocker`, `storybook-build`, `node-prechecks`, `token-provenance`, `npm-hello-smoke`, `regenerate-tokens-push`, and `figma-variables-push` all passed.
+- In `native-validation` run `41325858691`, `validate (compose, ubuntu-24.04)` (job `124905521164`) and `validate (swiftui, macos-15)` (job `124905521110`) passed, and `validate (flutter, ubuntu-24.04)` compiled cleanly with 16/17 tests passing before this `CsBadge` text fix.
 
 ## Next concrete step
 

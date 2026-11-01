@@ -853,7 +853,7 @@ class CsBadge extends StatelessWidget {
             ExcludeSemantics(child: Container(width: csBadgeDotSize(), height: csBadgeDotSize(), decoration: BoxDecoration(color: csColor(ink), shape: BoxShape.circle))),
             SizedBox(width: csBadgeGap()),
           ],
-          Text(label.toUpperCase(), semanticsLabel: label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: csColor(ink))),
+          Text(label, semanticsLabel: label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: csColor(ink))),
         ]),
       ),
     );
