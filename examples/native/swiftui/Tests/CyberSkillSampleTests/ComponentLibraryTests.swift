@@ -3305,6 +3305,15 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(otpField.descriptionText, "6 digits")
     XCTAssertEqual(otpField.error, "Invalid")
     XCTAssertTrue(otpField.required)
+    XCTAssertEqual(CSCalendarModel.weekdays("vi-VN"), ["T2", "T3", "T4", "T5", "T6", "T7", "CN"])
+    XCTAssertEqual(CSComboboxModel.resolvedPlacement(nil), "bottom-start")
+    XCTAssertEqual(CSComboboxModel.resolvedPlacement("top-end"), "top-end")
+    XCTAssertFalse(CSComboboxModel.usesWindowPortal(portal: false, inForm: false))
+    let codeReset = CSCodeBlockModel.resetForCodeChange(attempt: 3)
+    XCTAssertEqual(codeReset.attempt, 4)
+    XCTAssertFalse(codeReset.copied)
+    let commentView = CSComment(avatar: "L", author: "Lumi", meta: "2m", body: "Ready", dark: false, highContrast: false, compact: false)
+    XCTAssertEqual(commentView.avatar, "L")
   }
 
   func testSwitchAndDialogExposeTheModeResolvedControls() {

@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the structures-otp-carousel-tree-fileupload-parity checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the fields-calendar-combobox-alertdialog-popover-comment-codeblock-parity checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `c7691f1dd7a5e41d5da2c1fa2efbbc8a328e5824` (`feat(native): align structures command palette, transfer, OTP, carousel, tree, and file upload with web contracts`)
-- Previous checkpoint: `0fcca51385a5f5993ef02c167dcc695e5c70f48d`, with the hash note in `55c886c8`
+- Checkpoint commit: pending (`feat(native): align fields calendar, combobox, alert dialog, popover, list item, comment, code block, and sidebar with web contracts`)
+- Previous checkpoint: `c7691f1dd7a5e41d5da2c1fa2efbbc8a328e5824`, with the hash note in `891825e9`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Aligned `CSCommandPalette`/`CsCommandPalette`, `CSTransfer`/`CsTransfer`, `CSInputOTP`/`CsInputOTP`, `CSCarousel`/`CsCarousel`, `CSTree`/`CsTree`, and `CSFileUpload`/`CsFileUpload` across `Structures.swift`, `Structures.kt`, and `structures.dart` with `CommandPalette.jsx`, `Transfer.jsx`, `InputOTP.jsx`, `Carousel.jsx`, `Tree.jsx`, and `FileUpload.jsx`: added `open` and `onOpenChange` (`CSCommandFilter.notifyClose`/`csCommandNotifyClose`) to `CSCommandPalette`/`CsCommandPalette`; added `csTransferPrune` in Compose and Flutter and pruned `checked` against `items` in `CSTransfer`/`CsTransfer`; added `onComplete`, `description`, `error`, and `required` to `CSInputOTP`/`CsInputOTP` (`disabled` and per-digit cell boxes also added to Flutter `CsInputOTP`) along with `csOneTimeComplete`/`csOneTimeFinished`/`csOneTimeAdvance`/`csOneTimeRetreat`/`csOneTimePastedFocus`; added `csCarouselHidden`/`csCarouselCurrentDot`/`csCarouselCanMove` in Compose and Flutter and rendered slide dots and status semantics in Flutter `CsCarousel`; added `CSTreeModel.rowIndent`/`CSTreeModel.twistGlyph` (`csTreeRowIndent`/`csTreeTwistGlyph`) plus `csTreeParent`/`csTreeMove`/`csTreeOpenSiblings` and `onOpen` in Compose and Flutter `CsTree`; and rendered the `28x28` upload icon (`CSFilePick.resolvedIcon`/`csFileResolvedIcon`) and `accept`/`icon` props in `CSFileUpload`/`CsFileUpload`.
+Aligned `CSCalendar`/`CsCalendar`, `CSCombobox`/`CsCombobox`, `CSAlertDialog`/`CsAlertDialog`, `CSPopover`/`CsPopover`, `CSListItem`/`CsListItem`, `CSComment`/`CsComment`, `CSCodeBlock`/`CsCodeBlock`, and `CSSidebar`/`CsSidebar` across `Fields.swift`, `Fields.kt`, and `fields.dart` with `Calendar.jsx`, `Combobox.jsx`, `AlertDialog.jsx`, `Popover.jsx`, `List.jsx`, `Comment.jsx`, and `Sidebar.jsx`: normalized `CSCalendarModel.weekdays` via `monthLanguage`, added `csCalendarWeekdays(language)` in Compose and Flutter, rendered the 7 weekday header labels and `onShift` callback in Compose and Flutter `CsCalendar`, and synced `viewYear`/`viewMonth`/`focusedDay` on prop changes in SwiftUI `CSCalendar`; added `CSComboboxModel.resolvedPlacement` (`csComboboxPlacement`), `portal`, `placement`, and `labelledBy` across SwiftUI, Compose, and Flutter `CSCombobox`/`CsCombobox`; added Escape close handling in SwiftUI `CSAlertDialog` plus `description`, `children`, `tone`, `variant`, `onRestore`, Escape key handling, and conditional description rendering (`csAlertHasDescription`) in Compose and Flutter `CsAlertDialog`; added `placement` and Escape key close handling in Compose and Flutter `CsPopover`; made SwiftUI `CSListItem` conform to `View` with hover fill (`CSListModel.itemShowsHoverFill`) and `onClick`, and added hover fill (`csListItemShowsHoverFill`) to Flutter `CsListItem`; added `avatar` and `onAction` plus optional `meta` across `CSComment`/`CsComment`; added `CSCodeBlockModel.resetForCodeChange` (`csCodeReset`) and wired Copy button feedback (`CSCodeBlockModel.succeeded`/`csCodeSucceeded`) in `CSCodeBlock`/`CsCodeBlock`; and defaulted `label = ""` while conditionally setting accessibility label (`CSSidebarModel.showsLabel`) in `CSSidebar`/`CsSidebar`.
 
 - `swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Inspect and close the next concrete behavioral parity gaps across `Fields`, `Flows`, `Surfaces`, and `Remainder` against their web `components/**/*.jsx` counterparts (starting with `Fields` components `CSCalendar`/`CsCalendar`, `CSCombobox`/`CsCombobox`, `CSAlertDialog`/`CsAlertDialog`, `CSPopover`/`CsPopover`, `CSCodeBlock`/`CsCodeBlock`, `CSComment`/`CsComment`, and `CSList`/`CsList`).
+Inspect and close the next concrete behavioral parity gaps across `Flows`, `Surfaces`, and `Remainder` against their web `components/**/*.jsx` counterparts (starting with `Flows` components `CSTimePicker`/`CsTimePicker`, `CSMentions`/`CsMentions`, `CSSortable`/`CsSortable`, `CSTour`/`CsTour`, `CSDataTable`/`CsDataTable`, `CSPopconfirm`/`CsPopconfirm`, `CSToggle`/`CsToggle`, and `CSToggleGroup`/`CsToggleGroup`).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

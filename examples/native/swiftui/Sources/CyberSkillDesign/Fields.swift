@@ -97,7 +97,7 @@ public enum CSCalendarModel {
     return (nextYear, nextMonth)
   }
   public static func weekdays(_ language: String) -> [String] {
-    switch language {
+    switch monthLanguage(language) {
     case "vi": return ["T2", "T3", "T4", "T5", "T6", "T7", "CN"]
     case "ja": return ["月", "火", "水", "木", "金", "土", "日"]
     default: return ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
@@ -247,10 +247,14 @@ public enum CSComboboxModel {
     return key
   }
   public static func allowsOpen(_ requested: Bool, disabled: Bool) -> Bool { requested && !disabled }
+  public static func resolvedPlacement(_ placement: String?) -> String {
+    guard let placement, !placement.isEmpty else { return "bottom-start" }
+    return placement
+  }
   public static func matchedWidth(_ anchorWidth: Double, viewportWidth: Double) -> Double {
     min(anchorWidth, max(0, viewportWidth))
   }
-  public static func usesWindowPortal(inForm: Bool, inFieldset: Bool = false) -> Bool { !(inForm || inFieldset) }
+  public static func usesWindowPortal(portal: Bool = true, inForm: Bool, inFieldset: Bool = false) -> Bool { portal && !(inForm || inFieldset) }
   public static func ignoresKey(composing: Bool) -> Bool { composing }
   public static func showsMessage(_ value: String?) -> Bool {
     guard let value else { return false }
@@ -301,7 +305,7 @@ public struct CSCalendar: View {
   let onChoose: (CSCalendarDate) -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(monthLabel: String, weekdayLabels: [String], year: Int, month: Int, selected: Int?, language: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, onSelect: @escaping (Int) -> Void, onShift: @escaping (Int) -> Void = { _ in }, onChoose: @escaping (CSCalendarDate) -> Void = { _ in }) {
+  public init(monthLabel: String, weekdayLabels: [String] = [], year: Int, month: Int, selected: Int?, language: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, onSelect: @escaping (Int) -> Void, onShift: @escaping (Int) -> Void = { _ in }, onChoose: @escaping (CSCalendarDate) -> Void = { _ in }) {
     self.monthLabel = monthLabel
     self.weekdayLabels = weekdayLabels
     self.year = year
@@ -322,6 +326,7 @@ public struct CSCalendar: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let spoken = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
+    let resolvedWeekdays = weekdayLabels.isEmpty ? CSCalendarModel.weekdays(spoken ?? "vi") : weekdayLabels
     let cells = CSCalendarModel.grid(year: viewYear, month: viewMonth)
     let today = CSCalendarModel.currentDate()
     let minWidth = CGFloat(CSControlsWaveStyleModel.calendarMinWidth())
@@ -352,7 +357,7 @@ public struct CSCalendar: View {
           .frame(minWidth: headerBtnSize, minHeight: headerBtnSize)
       }
       LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: gridGap), count: 7), spacing: gridGap) {
-        ForEach(Array(weekdayLabels.enumerated()), id: \.offset) { _, label in
+        ForEach(Array(resolvedWeekdays.enumerated()), id: \.offset) { _, label in
           Text(label).font(.system(size: weekdaySize)).foregroundStyle(pack.mutedColor)
         }
         ForEach(Array(cells.enumerated()), id: \.offset) { _, day in
@@ -380,6 +385,9 @@ public struct CSCalendar: View {
     .frame(minWidth: minWidth, alignment: .leading)
     .accessibilityElement(children: .contain)
     .accessibilityLabel(CSCalendarModel.heading(month: viewMonth, year: viewYear, language: spoken))
+    .onChange(of: year) { next in viewYear = next }
+    .onChange(of: month) { next in viewMonth = next }
+    .onChange(of: selected) { next in if let next { focusedDay = next } }
     .onChange(of: dayFocus) { day in
       if let day {
         keysArmed = true
@@ -641,6 +649,9 @@ public struct CSCombobox: View {
   public let required: Bool
   public let language: String?
   public let placeholder: String?
+  public let placement: String?
+  public let portal: Bool
+  public let labelledBy: String?
   @State private var focusId = UUID().uuidString
   @State private var keysArmed = false
   @State private var listOpen = false
@@ -658,7 +669,7 @@ public struct CSCombobox: View {
   @Environment(\.csFormAncestor) private var inForm
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String, options: [CSComboboxOption], query: String, highlight: Int, dark: Bool, highContrast: Bool, compact: Bool, onQuery: @escaping (String) -> Void, onHighlight: @escaping (Int) -> Void, onSelect: @escaping (String) -> Void, value: String? = nil, disabled: Bool = false, description: String? = nil, error: String? = nil, required: Bool = false, language: String? = nil, placeholder: String? = nil) {
+  public init(label: String, options: [CSComboboxOption], query: String, highlight: Int, dark: Bool, highContrast: Bool, compact: Bool, onQuery: @escaping (String) -> Void, onHighlight: @escaping (Int) -> Void, onSelect: @escaping (String) -> Void, value: String? = nil, disabled: Bool = false, description: String? = nil, error: String? = nil, required: Bool = false, language: String? = nil, placeholder: String? = nil, placement: String? = nil, portal: Bool = true, labelledBy: String? = nil) {
     self.label = label
     self.options = options
     self.query = query
@@ -676,6 +687,9 @@ public struct CSCombobox: View {
     self.required = required
     self.language = language
     self.placeholder = placeholder
+    self.placement = placement
+    self.portal = portal
+    self.labelledBy = labelledBy
   }
 
   public var body: some View {
@@ -729,7 +743,7 @@ public struct CSCombobox: View {
         }
         .onExitCommand { listOpen = false }
         .onChange(of: disabled) { isDisabled in if isDisabled { listOpen = false } }
-        .accessibilityLabel(CSComboboxModel.listName(label: label, labelledBy: nil, fallback: CSComboboxModel.copy("label", language: spoken)) ?? "")
+        .accessibilityLabel(CSComboboxModel.listName(label: label, labelledBy: labelledBy, fallback: CSComboboxModel.copy("label", language: spoken)) ?? "")
         .accessibilityCustomContent(AccessibilityCustomContentKey("Active descendant", id: "activeDescendant"), open && shown.indices.contains(highlight) ? Text(shown[highlight].label) : nil, importance: .high)
         .accessibilityCustomContent(AccessibilityCustomContentKey("Controls", id: "controls"), open ? Text("\(focusId)-list") : nil)
         .accessibilityCustomContent(AccessibilityCustomContentKey("Autocomplete", id: "autocomplete"), Text("list"))
@@ -754,7 +768,8 @@ public struct CSCombobox: View {
         let anchor = CSFloatingRect(left: fieldFrame.minX, top: fieldFrame.minY, right: fieldFrame.maxX, bottom: fieldFrame.maxY, width: fieldFrame.width, height: fieldFrame.height)
         let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
         let matched = CSComboboxModel.matchedWidth(fieldFrame.width, viewportWidth: viewport.right - viewport.left)
-        let initial = naturalSize.flatMap { size in CSFloatingModel.position(anchor: anchor, panelWidth: matched, panelHeight: size.height, viewport: viewport, placement: "bottom-start", gap: popupOffset) }
+        let place = CSComboboxModel.resolvedPlacement(placement)
+        let initial = naturalSize.flatMap { size in CSFloatingModel.position(anchor: anchor, panelWidth: matched, panelHeight: size.height, viewport: viewport, placement: place, gap: popupOffset) }
         let placed = fittedSize.flatMap { size in initial.flatMap { first in CSFloatingModel.position(anchor: anchor, panelWidth: matched, panelHeight: size.height, viewport: viewport, placement: first.placement, gap: popupOffset) } }
         let scaleX = Double(panelScale.width == 0 ? 1 : panelScale.width)
         let scaleY = Double(panelScale.height == 0 ? 1 : panelScale.height)
@@ -789,10 +804,10 @@ public struct CSCombobox: View {
           Color.clear.preference(key: CSComboboxPanelKey.self, value: CSComboboxPanelMeasure(frame: frame, size: geo.size, pass: measurePass, origin: frame.origin, scale: CGSize(width: scaleX == 0 ? 1 : scaleX, height: scaleY == 0 ? 1 : scaleY)))
         })
         .offset(x: shiftX, y: shiftY)
-        .modifier(CSComboboxMeasureOnly(placed: placed != nil, inline: inForm))
+        .modifier(CSComboboxMeasureOnly(placed: placed != nil, inline: !CSComboboxModel.usesWindowPortal(portal: portal, inForm: inForm)))
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("\(focusId)-list")
-        .accessibilityLabel(CSComboboxModel.listName(label: label, labelledBy: nil, fallback: CSComboboxModel.copy("label", language: spoken)) ?? "")
+        .accessibilityLabel(CSComboboxModel.listName(label: label, labelledBy: labelledBy, fallback: CSComboboxModel.copy("label", language: spoken)) ?? "")
       }
     }
     .onPreferenceChange(CSComboboxFieldKey.self) { frame in
@@ -828,7 +843,7 @@ public struct CSCombobox: View {
       disabled ? false : moveCombobox(key)
     })
     .background(CSComboboxOutside(active: open, host: hostFrame, panel: panelFrame) { listOpen = false })
-    .background(CSComboboxPortal(open: CSComboboxModel.usesWindowPortal(inForm: inForm) && open && panelFrame.width > 0 && panelFrame.height > 0, host: hostFrame, panel: panelFrame, content: AnyView(choiceList(pack: pack, shown: shown, width: panelFrame.width))))
+    .background(CSComboboxPortal(open: CSComboboxModel.usesWindowPortal(portal: portal, inForm: inForm) && open && panelFrame.width > 0 && panelFrame.height > 0, host: hostFrame, panel: panelFrame, content: AnyView(choiceList(pack: pack, shown: shown, width: panelFrame.width))))
   }
 
   private func choiceList(pack: CSTokenModePack, shown: [CSComboboxOption], width: CGFloat) -> some View {
@@ -853,7 +868,7 @@ public struct CSCombobox: View {
     .background(pack.colorSurfacePanel.color)
     .accessibilityElement(children: .contain)
     .accessibilityIdentifier("\(focusId)-list")
-    .accessibilityLabel(CSComboboxModel.listName(label: label, labelledBy: nil, fallback: CSComboboxModel.copy("label", language: spoken)) ?? "")
+    .accessibilityLabel(CSComboboxModel.listName(label: label, labelledBy: labelledBy, fallback: CSComboboxModel.copy("label", language: spoken)) ?? "")
   }
 
   private func pickOption(_ option: CSComboboxOption) {
@@ -1399,6 +1414,11 @@ public struct CSAlertDialog: View {
       trap = CSModalFocus.pullBack(inside: next != nil) ? CSFocusTrap.initialIndex(preferred: danger ? 0 : 1, count: 2) : next
       return true
     }
+    .onExitCommand {
+      onOpenChange(false)
+      onCancel()
+      finish()
+    }
     .padding(pad)
     .frame(maxWidth: maxW, alignment: .leading)
     .background(pack.colorSurfacePanel.color)
@@ -1615,16 +1635,77 @@ public enum CSListModel {
   public static func showsSlot(_ value: String?) -> Bool { value != nil }
 }
 
-public struct CSListItem: Hashable {
+public struct CSListItem: View, Hashable {
   public let title: String
   public let subtitle: String
   public let lead: String?
   public let trail: String?
-  public init(title: String, subtitle: String = "", lead: String? = nil, trail: String? = nil) {
+  public let dark: Bool
+  public let highContrast: Bool
+  public let compact: Bool
+  private let onClick: (() -> Void)?
+  @State private var hovered = false
+
+  public init(title: String, subtitle: String = "", lead: String? = nil, trail: String? = nil, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, onClick: (() -> Void)? = nil) {
     self.title = title
     self.subtitle = subtitle
     self.lead = lead
     self.trail = trail
+    self.dark = dark
+    self.highContrast = highContrast
+    self.compact = compact
+    self.onClick = onClick
+  }
+
+  public static func == (lhs: CSListItem, rhs: CSListItem) -> Bool {
+    lhs.title == rhs.title && lhs.subtitle == rhs.subtitle && lhs.lead == rhs.lead && lhs.trail == rhs.trail && lhs.dark == rhs.dark && lhs.highContrast == rhs.highContrast && lhs.compact == rhs.compact
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(title)
+    hasher.combine(subtitle)
+    hasher.combine(lead)
+    hasher.combine(trail)
+    hasher.combine(dark)
+    hasher.combine(highContrast)
+    hasher.combine(compact)
+  }
+
+  public var body: some View {
+    let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
+    let interactive = CSListModel.isInteractive(hasOnClick: onClick != nil)
+    let showHover = CSListModel.itemShowsHoverFill(interactive: interactive, hovered: hovered)
+    HStack(alignment: .center, spacing: pack.space3.points) {
+      if CSListModel.showsSlot(lead), let lead {
+        Text(lead).foregroundStyle(pack.colorTextAccent.color)
+      }
+      VStack(alignment: .leading, spacing: CGFloat(CSListModel.mainGap())) {
+        if !title.isEmpty {
+          Text(title)
+            .font(.system(size: pack.fontSizeSm.points, weight: .semibold))
+            .foregroundStyle(pack.primaryTextColor)
+        }
+        if !subtitle.isEmpty {
+          Text(subtitle)
+            .font(.system(size: pack.fontSizeXs.points))
+            .foregroundStyle(pack.mutedColor)
+        }
+      }
+      .multilineTextAlignment(.leading)
+      .frame(maxWidth: .infinity, alignment: .leading)
+      if CSListModel.showsSlot(trail), let trail {
+        Text(trail)
+          .font(.system(size: pack.fontSizeSm.points))
+          .foregroundStyle(pack.mutedColor)
+      }
+    }
+    .padding(.vertical, CGFloat(CSListModel.itemPaddingY()))
+    .padding(.horizontal, pack.space3.points)
+    .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
+    .background(showHover ? pack.colorSurfaceRaised.color : Color.clear, in: RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .onHover { inside in hovered = inside }
+    .onTapGesture { if interactive { onClick?() } }
   }
 }
 
@@ -1710,6 +1791,7 @@ public enum CSCommentModel {
 }
 
 public struct CSComment: View {
+  public let avatar: String?
   public let author: String
   public let meta: String?
   public let bodyText: String
@@ -1719,9 +1801,11 @@ public struct CSComment: View {
   let highContrast: Bool
   let compact: Bool
   public let language: String?
+  let onAction: (Int) -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(author: String, meta: String? = nil, body bodyText: String, actions: [String] = [], replies: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil) {
+  public init(avatar: String? = nil, author: String, meta: String? = nil, body bodyText: String, actions: [String] = [], replies: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onAction: @escaping (Int) -> Void = { _ in }) {
+    self.avatar = avatar
     self.author = author
     self.meta = meta
     self.bodyText = bodyText
@@ -1731,6 +1815,7 @@ public struct CSComment: View {
     self.highContrast = highContrast
     self.compact = compact
     self.language = language
+    self.onAction = onAction
   }
 
   public var body: some View {
@@ -1739,23 +1824,28 @@ public struct CSComment: View {
     let gap = CGFloat(CSControlsBatchStyleModel.commentGap())
     let repliesIndent = CGFloat(CSControlsBatchStyleModel.commentRepliesIndent())
     let repliesBorder = CGFloat(CSControlsBatchStyleModel.commentRepliesBorderWidth())
-    VStack(alignment: .leading, spacing: gap) {
-      Text(author).foregroundStyle(pack.primaryTextColor)
-      if CSCommentModel.shows(meta), let meta { Text(meta).foregroundStyle(pack.mutedColor) }
-      Text(bodyText).foregroundStyle(pack.primaryTextColor)
-      HStack {
-        ForEach(Array(labels.enumerated()), id: \.offset) { _, label in
-          CSTriggerButton(label) {}
-            .frame(minHeight: 44)
-        }
+    HStack(alignment: .top, spacing: gap) {
+      if CSCommentModel.shows(avatar), let avatar {
+        Text(avatar).foregroundStyle(pack.primaryTextColor)
       }
-      if CSCommentModel.shows(replies), let replies {
-        Text(replies)
-          .foregroundStyle(pack.mutedColor)
-          .padding(.leading, repliesIndent)
-          .overlay(alignment: .leading) {
-            Rectangle().fill(pack.colorBorderDefault.color).frame(width: repliesBorder)
+      VStack(alignment: .leading, spacing: gap) {
+        Text(author).foregroundStyle(pack.primaryTextColor)
+        if CSCommentModel.shows(meta), let meta { Text(meta).foregroundStyle(pack.mutedColor) }
+        Text(bodyText).foregroundStyle(pack.primaryTextColor)
+        HStack {
+          ForEach(Array(labels.enumerated()), id: \.offset) { index, label in
+            CSTriggerButton(label) { onAction(index) }
+              .frame(minHeight: 44)
           }
+        }
+        if CSCommentModel.shows(replies), let replies {
+          Text(replies)
+            .foregroundStyle(pack.mutedColor)
+            .padding(.leading, repliesIndent)
+            .overlay(alignment: .leading) {
+              Rectangle().fill(pack.colorBorderDefault.color).frame(width: repliesBorder)
+            }
+        }
       }
     }
   }
@@ -1803,6 +1893,7 @@ public enum CSCodeBlockModel {
   }
   public static func button(copied: Bool, copy: String, copiedLabel: String) -> String { copied ? copiedLabel : copy }
   public static func beginCopy(attempt: Int) -> Int { attempt + 1 }
+  public static func resetForCodeChange(attempt: Int) -> (attempt: Int, copied: Bool) { (attempt + 1, false) }
   public static func succeeded(current: Int, attempt: Int, wrote: Bool) -> Bool { wrote && current == attempt }
 }
 
@@ -1815,12 +1906,13 @@ public struct CSCodeBlock: View {
   let highContrast: Bool
   let compact: Bool
   public let lang: String?
+  let onCopy: ((String) -> Bool)?
   @State private var copied = false
   @State private var attempt = 0
   @State private var copyHovered = false
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(filename: String? = nil, code: String, language: String? = nil, showBar: Bool = true, dark: Bool, highContrast: Bool, compact: Bool, lang: String? = nil) {
+  public init(filename: String? = nil, code: String, language: String? = nil, showBar: Bool = true, dark: Bool, highContrast: Bool, compact: Bool, lang: String? = nil, onCopy: ((String) -> Bool)? = nil) {
     self.filename = filename
     self.code = code
     self.language = language
@@ -1829,6 +1921,7 @@ public struct CSCodeBlock: View {
     self.highContrast = highContrast
     self.compact = compact
     self.lang = lang
+    self.onCopy = onCopy
   }
 
   public var body: some View {
@@ -1844,8 +1937,10 @@ public struct CSCodeBlock: View {
             .foregroundStyle(CSCodeBlockModel.mutedColor.color)
           Spacer()
           CSTriggerButton(action) {
-            attempt = CSCodeBlockModel.beginCopy(attempt: attempt)
-            copied = false
+            let current = CSCodeBlockModel.beginCopy(attempt: attempt)
+            attempt = current
+            let wrote = onCopy?(code) ?? true
+            copied = CSCodeBlockModel.succeeded(current: attempt, attempt: current, wrote: wrote)
           }
           .font(.system(size: pack.fontSizeXs.points, weight: .semibold))
           .foregroundStyle(CSCodeBlockModel.copyColor(hovered: copyHovered, pack: pack).color)
@@ -1869,6 +1964,11 @@ public struct CSCodeBlock: View {
           .padding(.horizontal, CGFloat(CSCodeBlockModel.prePaddingX()))
           .frame(maxWidth: .infinity, alignment: .leading)
       }
+    }
+    .onChange(of: code) { _ in
+      let reset = CSCodeBlockModel.resetForCodeChange(attempt: attempt)
+      attempt = reset.attempt
+      copied = reset.copied
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(CSCodeBlockModel.bgColor.color, in: RoundedRectangle(cornerRadius: pack.radiusLg.points))
@@ -1903,7 +2003,7 @@ public struct CSSidebar: View {
   let compact: Bool
   let onSelect: (String) -> Void
 
-  public init(label: String, items: [String], active: String, dark: Bool, highContrast: Bool, compact: Bool, onSelect: @escaping (String) -> Void) {
+  public init(label: String = "", items: [String], active: String, dark: Bool, highContrast: Bool, compact: Bool, onSelect: @escaping (String) -> Void) {
     self.label = label
     self.items = items
     self.active = active
@@ -1942,6 +2042,6 @@ public struct CSSidebar: View {
         .frame(width: CGFloat(CSSidebarModel.borderWidth()))
     }
     .accessibilityElement(children: .contain)
-    .accessibilityLabel(label)
+    .accessibilityLabel(CSSidebarModel.showsLabel(label) ? label : "")
   }
 }

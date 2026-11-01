@@ -183,8 +183,9 @@ String? csComboboxListName(String? label, String? labelledBy, String fallback) {
 String? csComboboxEmptyText(int count, String fallback) => count == 0 ? fallback : null;
 String csComboboxDisplay(bool open, String query, String? selected) => open ? query : (selected ?? query);
 bool csComboboxAllowsOpen(bool requested, bool disabled) => requested && !disabled;
+String csComboboxPlacement(String? placement) => placement != null && placement.isNotEmpty ? placement : 'bottom-start';
 bool csComboboxMessage(String? value) => value != null && value.isNotEmpty;
-bool csComboboxUsesWindow(bool inForm, [bool inFieldset = false]) => !(inForm || inFieldset);
+bool csComboboxUsesWindow(bool inForm, [bool inFieldset = false, bool portal = true]) => portal && !(inForm || inFieldset);
 bool csComboboxComposing(TextRange range) => range.isValid && !range.isCollapsed;
 const csComboboxCaret = '▾';
 String? csComboboxPrimaryLanguage(String? tag) {
@@ -262,6 +263,16 @@ String csCalendarCopy(String key, String? language) {
   }
   return key;
 }
+List<String> csCalendarWeekdays(String? language) {
+  switch (csCalendarMonthLanguage(language)) {
+    case 'vi':
+      return const ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+    case 'ja':
+      return const ['月', '火', '水', '木', '金', '土', '日'];
+    default:
+      return const ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  }
+}
 String csCalendarHeading(int month, int year, String? language) {
   final code = csCalendarMonthLanguage(language);
   final safe = month < 0 ? 0 : (month > 11 ? 11 : month);
@@ -281,13 +292,15 @@ int csComboboxHighlight(int current, int count, bool down) {
 }
 
 class CsCalendar extends StatefulWidget {
-  const CsCalendar({super.key, required this.monthLabel, required this.year, required this.month, required this.selected, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.language, this.onChoose});
+  const CsCalendar({super.key, required this.monthLabel, required this.year, required this.month, required this.selected, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.language, this.weekdayLabels = const [], this.onShift, this.onChoose});
   final String monthLabel;
   final int year;
   final int month;
   final int? selected;
   final ValueChanged<int> onSelect;
+  final ValueChanged<int>? onShift;
   final ValueChanged<CsCalendarDate>? onChoose;
+  final List<String> weekdayLabels;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -378,7 +391,9 @@ class _CsCalendarState extends State<CsCalendar> {
     final headerBtnSize = csControlsWaveStyleCalendarHeaderButtonSize();
     final cellSize = csControlsWaveStyleCalendarCellSize();
     final gridGap = csControlsWaveStyleCalendarGridGap();
+    final weekdayFontSize = csControlsWaveStyleCalendarWeekdayFontSize();
     final dayFontSize = csControlsWaveStyleCalendarDayFontSize();
+    final resolvedWeekdays = widget.weekdayLabels.isEmpty ? csCalendarWeekdays(spoken) : widget.weekdayLabels;
     return Focus(
       onKeyEvent: _key,
       child: ConstrainedBox(constraints: BoxConstraints(minWidth: calMinWidth), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -390,6 +405,7 @@ class _CsCalendarState extends State<CsCalendar> {
               claim();
               final next = csCalendarShift(viewYear, viewMonth, -1);
               setState(() { viewYear = next.$1; viewMonth = next.$2; });
+              widget.onShift?.call(-1);
             }, child: const Text('‹')))),
           ),
           SizedBox(width: gridGap),
@@ -402,8 +418,15 @@ class _CsCalendarState extends State<CsCalendar> {
               claim();
               final next = csCalendarShift(viewYear, viewMonth, 1);
               setState(() { viewYear = next.$1; viewMonth = next.$2; });
+              widget.onShift?.call(1);
             }, child: const Text('›')))),
           ),
+        ]),
+        Row(children: [
+          for (var i = 0; i < resolvedWeekdays.length; i++) ...[
+            if (i > 0) SizedBox(width: gridGap),
+            Text(resolvedWeekdays[i], style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: weekdayFontSize)),
+          ],
         ]),
         for (final day in csCalendarGrid(viewYear, viewMonth))
           if (day != null)
@@ -433,7 +456,7 @@ class _CsCalendarState extends State<CsCalendar> {
 }
 
 class CsCombobox extends StatefulWidget {
-  const CsCombobox({super.key, required this.label, required this.options, required this.query, required this.highlight, required this.onQuery, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.onHighlight, this.value, this.disabled = false, this.description, this.error, this.required = false, this.language, this.placeholder});
+  const CsCombobox({super.key, required this.label, required this.options, required this.query, required this.highlight, required this.onQuery, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.onHighlight, this.value, this.disabled = false, this.description, this.error, this.required = false, this.language, this.placeholder, this.placement, this.portal = true, this.labelledBy});
   final String label;
   final List<CsComboboxOption> options;
   final String query;
@@ -448,6 +471,9 @@ class CsCombobox extends StatefulWidget {
   final bool required;
   final String? language;
   final String? placeholder;
+  final String? placement;
+  final bool portal;
+  final String? labelledBy;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -497,7 +523,7 @@ class _CsComboboxState extends State<CsCombobox> {
   }
 
   void syncPortal() {
-    if (CsFormAncestor.of(context) || !csComboboxAllowsOpen(listOpen, widget.disabled) || portalWidth <= 0) {
+    if (!csComboboxUsesWindow(CsFormAncestor.of(context), false, widget.portal) || !csComboboxAllowsOpen(listOpen, widget.disabled) || portalWidth <= 0) {
       portal?.remove();
       portal = null;
       portalOn = false;
@@ -519,7 +545,7 @@ class _CsComboboxState extends State<CsCombobox> {
   }
 
   Widget comboboxList(List<CsComboboxOption> shown, pack) {
-    return Semantics(container: true, explicitChildNodes: true, label: csComboboxListName(widget.label, null, csComboboxCopy('label', spoken)) ?? '', identifier: listId, hint: 'list', child: Column(key: listKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return Semantics(container: true, explicitChildNodes: true, label: csComboboxListName(widget.label, widget.labelledBy, csComboboxCopy('label', spoken)) ?? '', identifier: listId, hint: 'list', child: Column(key: listKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
       for (var index = 0; index < shown.length; index++)
         Semantics(selected: widget.value == shown[index].value, identifier: '${widget.label}-$index', child: MouseRegion(onEnter: (_) => widget.onHighlight?.call(index), child: GestureDetector(
           behavior: HitTestBehavior.opaque,
@@ -551,9 +577,9 @@ class _CsComboboxState extends State<CsCombobox> {
     final comboMinW = csControlsWaveStyleComboboxMinWidth();
     final inputPadEnd = csControlsWaveStyleComboboxInputPaddingEnd();
     final caretInset = csControlsWaveStyleComboboxCaretInsetEnd();
-    final placed = fieldSize.width <= 0 || panelHeight <= 0 ? null : csFloatingPlace(anchor, matched, panelHeight > popupMaxH ? popupMaxH : panelHeight, viewport, placement: 'bottom-start', gap: popupGap);
+    final placed = fieldSize.width <= 0 || panelHeight <= 0 ? null : csFloatingPlace(anchor, matched, panelHeight > popupMaxH ? popupMaxH : panelHeight, viewport, placement: csComboboxPlacement(widget.placement), gap: popupGap);
     final panelWidth = placed == null ? matched : (placed.maxWidth < matched ? placed.maxWidth : matched);
-    final inForm = CsFormAncestor.of(context);
+    final useInline = !csComboboxUsesWindow(CsFormAncestor.of(context), false, widget.portal);
     final inlineLeft = placed == null ? 0.0 : placed.left - fieldOrigin.dx;
     final inlineTop = placed == null ? fieldSize.height + popupGap : placed.top - fieldOrigin.dy;
     portalLeft = placed?.left ?? fieldOrigin.dx;
@@ -612,7 +638,7 @@ class _CsComboboxState extends State<CsCombobox> {
       if (csComboboxMessage(widget.description)) Text(widget.description!, style: TextStyle(color: csColor(pack.colorTextMuted))),
       if (csComboboxMessage(widget.error)) Text(widget.error!, style: TextStyle(color: csColor(pack.colorSemanticDangerText))),
       ])),
-      if (inForm && open && fieldSize.width > 0) Positioned(left: inlineLeft, top: inlineTop, width: panelWidth, child: comboboxList(shown, pack)),
+      if (useInline && open && fieldSize.width > 0) Positioned(left: inlineLeft, top: inlineTop, width: panelWidth, child: comboboxList(shown, pack)),
     ]),
     ),
     );
@@ -643,9 +669,14 @@ List<String> csAlertDismiss() => const ['open-false', 'cancel'];
 List<String> csAlertConfirmOrder() => const ['open-false', 'confirm'];
 
 class CsAlertDialog extends StatefulWidget {
-  const CsAlertDialog({super.key, required this.title, required this.message, this.confirmLabel, this.cancelLabel, required this.onConfirm, required this.onCancel, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.destructive = false, this.language});
+  const CsAlertDialog({super.key, required this.title, this.message = '', this.description, this.children, this.tone, this.variant, this.onRestore, this.confirmLabel, this.cancelLabel, required this.onConfirm, required this.onCancel, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.destructive = false, this.language});
   final String title;
   final String message;
+  final String? description;
+  final String? children;
+  final String? tone;
+  final String? variant;
+  final VoidCallback? onRestore;
   final String? confirmLabel;
   final String? cancelLabel;
   final String? language;
@@ -665,7 +696,7 @@ class _CsAlertDialogState extends State<CsAlertDialog> {
   final cancelNode = FocusNode();
   final confirmNode = FocusNode();
   final layerId = csOverlayFreshId('alert');
-  late int trap = widget.destructive ? 0 : 1;
+  late int trap = (widget.destructive || csAlertDestructive(widget.tone, widget.variant)) ? 0 : 1;
   String? restoreId;
 
   @override
@@ -694,7 +725,14 @@ class _CsAlertDialogState extends State<CsAlertDialog> {
   }
 
   KeyEventResult _tab(FocusNode node, KeyEvent event) {
-    if (event is! KeyDownEvent || event.logicalKey != LogicalKeyboardKey.tab) return KeyEventResult.ignored;
+    if (event is! KeyDownEvent) return KeyEventResult.ignored;
+    if (event.logicalKey == LogicalKeyboardKey.escape) {
+      widget.onOpenChange(false);
+      widget.onCancel();
+      csReturnFocus(restoreId, widget.onRestore, layerId, CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)]));
+      return KeyEventResult.handled;
+    }
+    if (event.logicalKey != LogicalKeyboardKey.tab) return KeyEventResult.ignored;
     final stack = CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)]);
     if (!csOverlayOwns(layerId, stack)) return KeyEventResult.ignored;
     final next = csFocusNext(trap, 2, HardwareKeyboard.instance.isShiftPressed, true);
@@ -707,20 +745,25 @@ class _CsAlertDialogState extends State<CsAlertDialog> {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
+    final danger = widget.destructive || csAlertDestructive(widget.tone, widget.variant);
+    final described = csAlertHasDescription(widget.description, widget.children ?? (widget.message.isEmpty ? null : widget.message));
+    final bodyText = widget.description ?? widget.children ?? widget.message;
     final headerGap = csDialogHeaderGap();
     final titleFontSize = csDialogTitleFontSize();
     final bodyMarginY = csDialogBodyMarginY();
     final pad = csDialogPadding(pack);
     final maxW = csDialogAlertMaxWidth();
-    final titleInk = csColor(csDialogDestructiveTitleColor(widget.destructive, pack));
+    final titleInk = csColor(csDialogDestructiveTitleColor(danger, pack));
     return Focus(
       onKeyEvent: _tab,
       child: ConstrainedBox(constraints: BoxConstraints(maxWidth: maxW), child: Padding(padding: EdgeInsets.all(pad), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(widget.title, style: TextStyle(color: titleInk, fontSize: titleFontSize, fontWeight: FontWeight.bold)),
-        SizedBox(height: headerGap),
-        Padding(padding: EdgeInsets.symmetric(vertical: bodyMarginY), child: Text(widget.message, style: TextStyle(color: csColor(pack.colorTextMuted)))),
-        TextButton(focusNode: cancelNode, onPressed: () { CsFocusRegistry.claim('alert-cancel-$layerId', cancelNode.requestFocus); widget.onOpenChange(false); widget.onCancel(); csReturnFocus(restoreId, null, layerId, CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)])); }, child: Text(csAlertLabel(widget.cancelLabel, csAlertCopy('cancel', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))))),
-        TextButton(focusNode: confirmNode, onPressed: () { CsFocusRegistry.claim('alert-confirm-$layerId', confirmNode.requestFocus); widget.onOpenChange(false); widget.onConfirm(); csReturnFocus(restoreId, null, layerId, CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)])); }, child: Text(csAlertLabel(widget.confirmLabel, csAlertCopy('confirm', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))), style: TextStyle(color: csColor(widget.destructive ? pack.colorSemanticDanger : pack.colorBrandOchre)))),
+        if (described) ...[
+          SizedBox(height: headerGap),
+          Padding(padding: EdgeInsets.symmetric(vertical: bodyMarginY), child: Text(bodyText, style: TextStyle(color: csColor(pack.colorTextMuted)))),
+        ],
+        TextButton(focusNode: cancelNode, onPressed: () { CsFocusRegistry.claim('alert-cancel-$layerId', cancelNode.requestFocus); widget.onOpenChange(false); widget.onCancel(); csReturnFocus(restoreId, widget.onRestore, layerId, CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)])); }, child: Text(csAlertLabel(widget.cancelLabel, csAlertCopy('cancel', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))))),
+        TextButton(focusNode: confirmNode, onPressed: () { CsFocusRegistry.claim('alert-confirm-$layerId', confirmNode.requestFocus); widget.onOpenChange(false); widget.onConfirm(); csReturnFocus(restoreId, widget.onRestore, layerId, CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)])); }, child: Text(csAlertLabel(widget.confirmLabel, csAlertCopy('confirm', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))), style: TextStyle(color: csColor(danger ? pack.colorSemanticDanger : pack.colorBrandOchre)))),
       ]))),
     );
   }
@@ -753,7 +796,7 @@ bool? csPopoverToggle(bool open, bool defaultPrevented) => defaultPrevented ? nu
 bool csPopoverDismissOutside(bool open, bool inside) => open && !inside;
 
 class CsPopover extends StatefulWidget {
-  const CsPopover({super.key, required this.label, required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, required this.child, this.ariaLabel, this.hasLabelledBy = false, this.language, this.align = 'start'});
+  const CsPopover({super.key, required this.label, required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, required this.child, this.ariaLabel, this.hasLabelledBy = false, this.language, this.align = 'start', this.placement});
   final String label;
   final String? ariaLabel;
   final bool hasLabelledBy;
@@ -765,6 +808,7 @@ class CsPopover extends StatefulWidget {
   final bool compact;
   final Widget child;
   final String align;
+  final String? placement;
 
   @override
   State<CsPopover> createState() => _CsPopoverState();
@@ -831,13 +875,19 @@ class _CsPopoverState extends State<CsPopover> {
     final screen = MediaQuery.sizeOf(context);
     final viewport = CsFloatingRect(8, 8, screen.width - 8, screen.height - 8, screen.width, screen.height);
     final anchor = box == null ? null : CsFloatingRect(origin.dx, origin.dy, origin.dx + box.size.width, origin.dy + box.size.height, box.size.width, box.size.height);
-    final side = csPopoverPlacement(null, widget.align);
+    final side = csPopoverPlacement(widget.placement, widget.align);
     final initial = anchor == null || natural == null ? null : csFloatingPlace(anchor, natural!.width, natural!.height, viewport, placement: side, gap: csPopoverGap);
     final placed = anchor == null || fitted == null || initial == null ? null : csFloatingPlace(anchor, fitted!.width, fitted!.height, viewport, placement: initial.placement, gap: csPopoverGap);
     final desired = placed == null || layoutOrigin == null ? Offset.zero : Offset((placed.left - layoutOrigin!.dx) / (panelScale.dx == 0 ? 1 : panelScale.dx), (placed.top - layoutOrigin!.dy) / (panelScale.dy == 0 ? 1 : panelScale.dy));
     if (placed != null && (desired - applied).distance > 0.5) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted) setState(() => applied = desired); });
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
-    return Column(crossAxisAlignment: csPopoverAlignsEnd(widget.align) ? CrossAxisAlignment.end : CrossAxisAlignment.start, children: [
+    return Focus(
+      onKeyEvent: (node, event) {
+        if (!widget.open || event is! KeyDownEvent || event.logicalKey != LogicalKeyboardKey.escape) return KeyEventResult.ignored;
+        widget.onOpenChange(false);
+        return KeyEventResult.handled;
+      },
+      child: Column(crossAxisAlignment: csPopoverAlignsEnd(widget.align) ? CrossAxisAlignment.end : CrossAxisAlignment.start, children: [
       CsOwnFocus(builder: (node, claim) => TextButton(key: triggerKey, focusNode: node, onPressed: () { claim(); widget.onOpenChange(!widget.open); }, child: Text(widget.label))),
       if (widget.open) Transform.translate(
         offset: applied,
@@ -870,7 +920,8 @@ class _CsPopoverState extends State<CsPopover> {
           ),
         ),
       ),
-    ]);
+    ]),
+    );
   }
 }
 
@@ -885,7 +936,7 @@ bool csListItemShowsHoverFill({required bool interactive, required bool hovered}
 double csListMainGap() => 1;
 bool csListShowsSlot(String? value) => value != null;
 
-class CsListItem extends StatelessWidget {
+class CsListItem extends StatefulWidget {
   const CsListItem({
     super.key,
     this.title,
@@ -908,33 +959,55 @@ class CsListItem extends StatelessWidget {
   final bool compact;
 
   @override
+  State<CsListItem> createState() => _CsListItemState();
+}
+
+class _CsListItemState extends State<CsListItem> {
+  var hovered = false;
+
+  @override
   Widget build(BuildContext context) {
-    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    final interactive = csListIsInteractive(onClick != null);
-    return GestureDetector(
-      onTap: interactive ? onClick : null,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: csPoints(pack.space3), vertical: csListItemPaddingY()),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          if (csListShowsSlot(lead)) ...[
-            Text(lead!, style: TextStyle(color: csColor(pack.colorTextAccent))),
-            SizedBox(width: csPoints(pack.space3)),
-          ],
-          Expanded(
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              if (csListShowsSlot(title))
-                Text(title!, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeSm), fontWeight: FontWeight.w600)),
-              if (csListShowsSlot(subtitle)) ...[
-                SizedBox(height: csListMainGap()),
-                Text(subtitle!, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeXs))),
-              ],
-            ]),
+    final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
+    final interactive = csListIsInteractive(widget.onClick != null);
+    final showHover = csListItemShowsHoverFill(interactive: interactive, hovered: hovered);
+    return MouseRegion(
+      cursor: interactive ? SystemMouseCursors.click : MouseCursor.defer,
+      onEnter: (_) => setState(() => hovered = true),
+      onExit: (_) => setState(() => hovered = false),
+      child: GestureDetector(
+        onTap: interactive ? widget.onClick : null,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: showHover ? csColor(pack.colorSurfaceRaised) : Colors.transparent,
+              borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: csPoints(pack.space3), vertical: csListItemPaddingY()),
+              child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                if (csListShowsSlot(widget.lead)) ...[
+                  Text(widget.lead!, style: TextStyle(color: csColor(pack.colorTextAccent))),
+                  SizedBox(width: csPoints(pack.space3)),
+                ],
+                Expanded(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    if (csListShowsSlot(widget.title))
+                      Text(widget.title!, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeSm), fontWeight: FontWeight.w600)),
+                    if (csListShowsSlot(widget.subtitle)) ...[
+                      SizedBox(height: csListMainGap()),
+                      Text(widget.subtitle!, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeXs))),
+                    ],
+                  ]),
+                ),
+                if (csListShowsSlot(widget.trail)) ...[
+                  SizedBox(width: csPoints(pack.space3)),
+                  Text(widget.trail!, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeSm))),
+                ],
+              ]),
+            ),
           ),
-          if (csListShowsSlot(trail)) ...[
-            SizedBox(width: csPoints(pack.space3)),
-            Text(trail!, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeSm))),
-          ],
-        ]),
+        ),
       ),
     );
   }
@@ -1011,13 +1084,15 @@ class _CsListState extends State<CsList> {
 }
 
 class CsComment extends StatelessWidget {
-  const CsComment({super.key, required this.author, required this.meta, required this.bodyText, required this.dark, required this.highContrast, required this.compact, this.actions = const [], this.replies, this.language});
+  const CsComment({super.key, this.avatar, required this.author, this.meta, required this.bodyText, required this.dark, required this.highContrast, required this.compact, this.actions = const [], this.replies, this.language, this.onAction});
+  final String? avatar;
   final String author;
-  final String meta;
+  final String? meta;
   final String bodyText;
   final List<String> actions;
   final String? replies;
   final String? language;
+  final ValueChanged<int>? onAction;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -1028,14 +1103,26 @@ class CsComment extends StatelessWidget {
     final gap = csControlsBatchStyleCommentGap();
     final repliesIndent = csControlsBatchStyleCommentRepliesIndent();
     final repliesBorder = csControlsBatchStyleCommentRepliesBorderWidth();
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(author, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-      if (csCommentShows(meta)) ...[SizedBox(height: gap), Text(meta, style: TextStyle(color: csColor(pack.colorTextMuted)))],
-      SizedBox(height: gap),
-      Text(bodyText, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-      SizedBox(height: gap),
-      Wrap(children: [for (final label in csCommentReplyActions(actions, csCommentCopy('reply', csSelectResolvedLanguage(language, CsLanguageScope.of(context))))) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: claim, child: Text(label)))]),
-      if (csCommentShows(replies)) ...[SizedBox(height: gap), Container(padding: EdgeInsets.only(left: repliesIndent), decoration: BoxDecoration(border: Border(left: BorderSide(color: csColor(pack.colorBorderDefault), width: repliesBorder))), child: Text(replies!, style: TextStyle(color: csColor(pack.colorTextMuted))))],
+    final actionLabels = csCommentReplyActions(actions, csCommentCopy('reply', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
+    return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      if (csCommentShows(avatar)) ...[
+        Text(avatar!, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+        SizedBox(width: gap),
+      ],
+      Expanded(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(author, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+          if (csCommentShows(meta)) ...[SizedBox(height: gap), Text(meta!, style: TextStyle(color: csColor(pack.colorTextMuted)))],
+          SizedBox(height: gap),
+          Text(bodyText, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+          SizedBox(height: gap),
+          Wrap(children: [
+            for (var index = 0; index < actionLabels.length; index++)
+              CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onAction?.call(index); }, child: Text(actionLabels[index]))),
+          ]),
+          if (csCommentShows(replies)) ...[SizedBox(height: gap), Container(padding: EdgeInsets.only(left: repliesIndent), decoration: BoxDecoration(border: Border(left: BorderSide(color: csColor(pack.colorBorderDefault), width: repliesBorder))), child: Text(replies!, style: TextStyle(color: csColor(pack.colorTextMuted))))],
+        ]),
+      ),
     ]);
   }
 }
@@ -1094,13 +1181,15 @@ double csCodePreLineHeight() => 1.6;
 String csCodeBarLabel(String? filename, String? language, String fallback) => filename != null && filename.isNotEmpty ? filename : (language ?? fallback);
 String csCodeButton(bool copied, String copy, String copiedLabel) => copied ? copiedLabel : copy;
 int csCodeBegin(int attempt) => attempt + 1;
+(int, bool) csCodeReset(int attempt) => (attempt + 1, false);
 bool csCodeSucceeded(int current, int attempt, bool wrote) => wrote && current == attempt;
 class CsCodeBlock extends StatefulWidget {
-  const CsCodeBlock({super.key, this.filename, required this.code, required this.dark, required this.highContrast, required this.compact, this.language, this.showBar = true, this.lang});
+  const CsCodeBlock({super.key, this.filename, required this.code, required this.dark, required this.highContrast, required this.compact, this.language, this.showBar = true, this.lang, this.onCopy});
   final String? filename;
   final String? language;
   final bool showBar;
   final String? lang;
+  final bool Function(String)? onCopy;
   final String code;
   final bool dark;
   final bool highContrast;
@@ -1114,6 +1203,16 @@ class _CsCodeBlockState extends State<CsCodeBlock> {
   var attempt = 0;
   var copied = false;
   var copyHovered = false;
+
+  @override
+  void didUpdateWidget(CsCodeBlock oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.code != widget.code) {
+      final reset = csCodeReset(attempt);
+      attempt = reset.$1;
+      copied = reset.$2;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1144,7 +1243,12 @@ class _CsCodeBlockState extends State<CsCodeBlock> {
                   onExit: (_) => setState(() => copyHovered = false),
                   child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () {
                     claim();
-                    setState(() { attempt = csCodeBegin(attempt); copied = false; });
+                    setState(() {
+                      final current = csCodeBegin(attempt);
+                      attempt = current;
+                      final wrote = widget.onCopy?.call(widget.code) ?? true;
+                      copied = csCodeSucceeded(attempt, current, wrote);
+                    });
                   }, child: Text(copyLabel, style: TextStyle(color: csColor(csCodeCopyColor(copyHovered, pack)), fontSize: csPoints(pack.fontSizeXs), fontFamily: pack.fontFamilyUi.first, fontWeight: FontWeight.w600)))),
                 ),
               ]),
@@ -1181,7 +1285,7 @@ bool csSidebarShowsLabel(String? label) => label != null && label.isNotEmpty;
 String csSidebarLabelText(String label) => label.toUpperCase();
 
 class CsSidebar extends StatelessWidget {
-  const CsSidebar({super.key, required this.label, required this.items, required this.active, required this.onSelect, required this.dark, required this.highContrast, required this.compact});
+  const CsSidebar({super.key, this.label = '', required this.items, required this.active, required this.onSelect, required this.dark, required this.highContrast, required this.compact});
   final String label;
   final List<String> items;
   final String active;
