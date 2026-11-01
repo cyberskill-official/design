@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: pending commit for `remainder-hotkeys-chart-terminal-inlineedit-formfield-cascader-dock-editor-hovercard-nativeselect-reviewgate-inputgroup-item-locale-lumi-masonry-menuitem-navitem-overlayprovider-prompt-qrcode-treeselect-treetable-typing-parity`
+- Checkpoint commit: `5c551ba2c7644742a532d116096b992bde7da95d` (`feat(native): align remainder hotkeys, chart, terminal, inline edit, form field/array/wizard, cascader, dock, editor, hover card, native select, human review gate, input group, item, locale provider, lumi avatar, masonry, menu item, nav item, overlay provider, prompt input/suggestions, qr code, tree select/table, and typing indicator with web contracts`)
 - Previous checkpoint: `56a3cd1664bdf884a1eb2bd270bb991b16432b1f`, with the hash note in `a4b2015c`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
