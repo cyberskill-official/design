@@ -3,7 +3,7 @@
   "unmappedNamedCases": [],
   "interpretation": "Exhaustive export inventory, exact JSX/source observations, bounded authored semantic facts and exact named assertion mappings. completeBehaviorSpecifications counts exports with reviewed anatomy, slots and examples plus at least one mapped component-behavior-test assertion. completeAccessibilitySpecifications counts exports with reviewed roles, states and keyboard facts plus at least one mapped a11y-gate assertion. Neither count is a full prop matrix, manual assistive-technology acceptance or certification. Source observations and incidental fixture references are not contracts.",
   "sourceHashes": {
-    "_audit/a11y-gate.html": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+    "_audit/a11y-gate.html": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
     "_audit/component-behavior-test.html": "bc5f24b76962114d3d605f9baeca6f0ef0bdeeb446beaa90370740118e4a0f04",
     "_ds_manifest.json": "aa7c859299ef367e7df3aee45706ab58836d7fe0274c32c117b7c0534159ff37",
     "components/_i18n/i18n.js": "ea69f4f438162cf0e9770d529ec3b9f1107183885c71aa83f2ceff3763a34d2f",
@@ -2206,7 +2206,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Live regions — Toast/Alert/Spinner/Result role=status",
             "caseSpan": {
               "start": 17846,
@@ -2234,7 +2234,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Alert — dismiss has native named focus target",
             "caseSpan": {
               "start": 35536,
@@ -2320,7 +2320,7 @@
             "id": "alert.expansion.accessibility",
             "statement": "dismiss has native named focus target",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Alert — dismiss has native named focus target",
             "contextComponents": [
               "Alert"
@@ -3156,7 +3156,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "AlertDialog — focus in, labelledby, Escape restores",
             "caseSpan": {
               "start": 15393,
@@ -3209,7 +3209,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Overlay stack — nested AlertDialog Escape closes top first",
             "caseSpan": {
               "start": 24525,
@@ -3252,7 +3252,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Overlay stack — scroll-lock refcount across nested modals",
             "caseSpan": {
               "start": 25568,
@@ -3348,7 +3348,7 @@
             "id": "alertdialog.86277b062b99",
             "statement": "In the recorded AlertDialog fixture: focus in, labelledby, Escape restores. The listed exact assertions bound this requirement. Assertions that accept containment or a focus() spy prove that bounded observation, not guaranteed physical focus movement in every environment.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "AlertDialog — focus in, labelledby, Escape restores",
             "contextComponents": [
               "AlertDialog"
@@ -4036,7 +4036,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "AspectRatio — keeps the requested ratio and child",
             "caseSpan": {
               "start": 39295,
@@ -4068,7 +4068,7 @@
             "id": "aspectRatio.bounded-display",
             "statement": "AspectRatio — keeps the requested ratio and child. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "AspectRatio — keeps the requested ratio and child",
             "contextComponents": [
               "AspectRatio"
@@ -4397,7 +4397,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Avatar — exposes the name initials",
             "caseSpan": {
               "start": 39671,
@@ -4420,7 +4420,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "AvatarGroup — keeps each avatar",
             "caseSpan": {
               "start": 39911,
@@ -4447,7 +4447,7 @@
             "id": "avatar.bounded-display",
             "statement": "Avatar — exposes the name initials. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Avatar — exposes the name initials",
             "contextComponents": [
               "Avatar"
@@ -4682,7 +4682,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "AvatarGroup — keeps each avatar",
             "caseSpan": {
               "start": 39911,
@@ -4709,7 +4709,7 @@
             "id": "avatarGroup.bounded-display",
             "statement": "AvatarGroup — keeps each avatar. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "AvatarGroup — keeps each avatar",
             "contextComponents": [
               "Avatar",
@@ -5400,7 +5400,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Badge — shows its text",
             "caseSpan": {
               "start": 40239,
@@ -5427,7 +5427,7 @@
             "id": "badge.bounded-display",
             "statement": "Badge — shows its text. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Badge — shows its text",
             "contextComponents": [
               "Badge"
@@ -6412,7 +6412,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Menu — keyboard activation via focusable trigger",
             "caseSpan": {
               "start": 14007,
@@ -6450,7 +6450,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Popconfirm — alertdialog is labeled",
             "caseSpan": {
               "start": 14734,
@@ -6478,7 +6478,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Button — native focus exposes focus-visible ring",
             "caseSpan": {
               "start": 20576,
@@ -6544,7 +6544,7 @@
             "id": "button.strengthened-d16bb54a0295",
             "statement": "The mounted native Button receives focus, matches focus-visible, and exposes a solid outline at least2px wide with at least2px offset. This is the named browser focus/style scenario, not complete manual accessibility acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Button — native focus exposes focus-visible ring",
             "contextComponents": [
               "Button"
@@ -6819,7 +6819,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ButtonGroup — names the group",
             "caseSpan": {
               "start": 40463,
@@ -6851,7 +6851,7 @@
             "id": "buttonGroup.bounded-display",
             "statement": "ButtonGroup — names the group. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ButtonGroup — names the group",
             "contextComponents": [
               "ButtonGroup"
@@ -8224,7 +8224,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "CardBody — keeps body text",
             "caseSpan": {
               "start": 40848,
@@ -8251,7 +8251,7 @@
             "id": "cardBody.bounded-display",
             "statement": "CardBody — keeps body text. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "CardBody — keeps body text",
             "contextComponents": [
               "CardBody"
@@ -8514,7 +8514,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "CardFooter — keeps footer text",
             "caseSpan": {
               "start": 41093,
@@ -8541,7 +8541,7 @@
             "id": "cardFooter.bounded-display",
             "statement": "CardFooter — keeps footer text. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "CardFooter — keeps footer text",
             "contextComponents": [
               "CardFooter"
@@ -8923,7 +8923,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "CardHeader — keeps the title",
             "caseSpan": {
               "start": 41342,
@@ -8950,7 +8950,7 @@
             "id": "cardHeader.bounded-display",
             "statement": "CardHeader — keeps the title. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "CardHeader — keeps the title",
             "contextComponents": [
               "CardHeader"
@@ -9661,7 +9661,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Carousel — roledescription, one visible slide, labeled nav",
             "caseSpan": {
               "start": 19140,
@@ -9732,7 +9732,7 @@
             "id": "carousel.c7e1e12ae27e",
             "statement": "In the recorded Carousel fixture: roledescription, one visible slide, labeled nav. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Carousel — roledescription, one visible slide, labeled nav",
             "contextComponents": [
               "Carousel"
@@ -10668,7 +10668,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Cascader — open listbox + Escape closes",
             "caseSpan": {
               "start": 21318,
@@ -10706,7 +10706,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Cascader — ArrowDown moves option focus (E3 start)",
             "caseSpan": {
               "start": 26579,
@@ -10782,7 +10782,7 @@
             "id": "cascader.51963c4319a1",
             "statement": "In the recorded Cascader fixture: open listbox + Escape closes. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Cascader — open listbox + Escape closes",
             "contextComponents": [
               "Cascader"
@@ -10821,7 +10821,7 @@
             "id": "cascader.526afea41a76",
             "statement": "In the recorded Cascader fixture: ArrowDown moves option focus (E3 start). The listed exact assertions bound this requirement. Assertions that accept containment or a focus() spy prove that bounded observation, not guaranteed physical focus movement in every environment.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Cascader — ArrowDown moves option focus (E3 start)",
             "contextComponents": [
               "Cascader"
@@ -11656,7 +11656,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Chart — names the data",
             "caseSpan": {
               "start": 41591,
@@ -11683,7 +11683,7 @@
             "id": "chart.bounded-display",
             "statement": "Chart — names the data. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Chart — names the data",
             "contextComponents": [
               "Chart"
@@ -12203,7 +12203,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ChatMessage — shows the message",
             "caseSpan": {
               "start": 41891,
@@ -12230,7 +12230,7 @@
             "id": "chatMessage.bounded-display",
             "statement": "ChatMessage — shows the message. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ChatMessage — shows the message",
             "contextComponents": [
               "ChatMessage"
@@ -15825,7 +15825,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Combobox — aria-activedescendant follows highlight",
             "caseSpan": {
               "start": 13175,
@@ -15891,7 +15891,7 @@
             "id": "combobox.5ae5d47f7981",
             "statement": "In the recorded Combobox fixture: aria-activedescendant follows highlight. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Combobox — aria-activedescendant follows highlight",
             "contextComponents": [
               "Combobox"
@@ -16834,7 +16834,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "CommandPalette — AT-06 open, filter, Esc closes",
             "caseSpan": {
               "start": 34123,
@@ -16960,7 +16960,7 @@
             "id": "commandpalette.e1404baf432d",
             "statement": "In the recorded CommandPalette fixture: AT-06 open, filter, Esc closes. The listed exact assertions bound this requirement. The historical case title denotes a synthetic browser test and is not manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "CommandPalette — AT-06 open, filter, Esc closes",
             "contextComponents": [
               "CommandPalette"
@@ -18080,7 +18080,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ConfidenceMeter — states the level in text",
             "caseSpan": {
               "start": 42151,
@@ -18107,7 +18107,7 @@
             "id": "confidenceMeter.bounded-display",
             "statement": "ConfidenceMeter — states the level in text. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ConfidenceMeter — states the level in text",
             "contextComponents": [
               "ConfidenceMeter"
@@ -18799,7 +18799,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ContextMenu — open menu + Escape closes",
             "caseSpan": {
               "start": 23906,
@@ -18880,7 +18880,7 @@
             "id": "contextmenu.39712e6f8b3d",
             "statement": "In the recorded ContextMenu fixture: open menu + Escape closes. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ContextMenu — open menu + Escape closes",
             "contextComponents": [
               "ContextMenu"
@@ -20212,7 +20212,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "DataGrid — aria-sort + labeled selection",
             "caseSpan": {
               "start": 18353,
@@ -20297,7 +20297,7 @@
             "id": "datagrid.efb9102fb1c7",
             "statement": "In the recorded DataGrid fixture: aria-sort + labeled selection. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "DataGrid — aria-sort + labeled selection",
             "contextComponents": [
               "DataGrid"
@@ -21127,7 +21127,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "DataTable — renders the cell text",
             "caseSpan": {
               "start": 42444,
@@ -21159,7 +21159,7 @@
             "id": "dataTable.bounded-display",
             "statement": "DataTable — renders the cell text. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "DataTable — renders the cell text",
             "contextComponents": [
               "DataTable"
@@ -22081,7 +22081,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "DescriptionList — pairs term and value",
             "caseSpan": {
               "start": 42804,
@@ -22113,7 +22113,7 @@
             "id": "descriptionList.bounded-display",
             "statement": "DescriptionList — pairs term and value. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "DescriptionList — pairs term and value",
             "contextComponents": [
               "DescriptionList"
@@ -22932,7 +22932,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Dialog — focus moves in on open",
             "caseSpan": {
               "start": 7132,
@@ -22960,7 +22960,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Dialog — Tab wraps (trap) and Escape restores trigger",
             "caseSpan": {
               "start": 8046,
@@ -22998,7 +22998,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Overlay stack — nested AlertDialog Escape closes top first",
             "caseSpan": {
               "start": 24525,
@@ -23041,7 +23041,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Overlay stack — scroll-lock refcount across nested modals",
             "caseSpan": {
               "start": 25568,
@@ -23117,7 +23117,7 @@
             "id": "dialog.7f119f47c9e0",
             "statement": "In the recorded Dialog fixture: focus moves in on open. The listed exact assertions bound this requirement. Assertions that accept containment or a focus() spy prove that bounded observation, not guaranteed physical focus movement in every environment.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Dialog — focus moves in on open",
             "contextComponents": [
               "Dialog"
@@ -23146,7 +23146,7 @@
             "id": "dialog.f25c8d5ca6ca",
             "statement": "In the recorded Dialog fixture: Tab wraps (trap) and Escape restores trigger. The listed exact assertions bound this requirement. Assertions that accept containment or a focus() spy prove that bounded observation, not guaranteed physical focus movement in every environment.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Dialog — Tab wraps (trap) and Escape restores trigger",
             "contextComponents": [
               "Dialog"
@@ -23185,7 +23185,7 @@
             "id": "dialog.5fd490b59ae4",
             "statement": "In the recorded AlertDialog, Dialog fixture: nested AlertDialog Escape closes top first. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Overlay stack — nested AlertDialog Escape closes top first",
             "contextComponents": [
               "AlertDialog",
@@ -23230,7 +23230,7 @@
             "id": "dialog.d1bad180f651",
             "statement": "In the recorded AlertDialog, Dialog fixture: scroll-lock refcount across nested modals. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Overlay stack — scroll-lock refcount across nested modals",
             "contextComponents": [
               "AlertDialog",
@@ -23560,7 +23560,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Divider — is a separator",
             "caseSpan": {
               "start": 43159,
@@ -23587,7 +23587,7 @@
             "id": "divider.bounded-display",
             "statement": "Divider — is a separator. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Divider — is a separator",
             "contextComponents": [
               "Divider"
@@ -24765,7 +24765,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Drawer — focus in, Escape restores",
             "caseSpan": {
               "start": 9149,
@@ -24836,7 +24836,7 @@
             "id": "drawer.2be6a56f3d6b",
             "statement": "In the recorded Drawer fixture: focus in, Escape restores. The listed exact assertions bound this requirement. Assertions that accept containment or a focus() spy prove that bounded observation, not guaranteed physical focus movement in every environment.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Drawer — focus in, Escape restores",
             "contextComponents": [
               "Drawer"
@@ -25437,7 +25437,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Editor — toolbar + multiline textbox",
             "caseSpan": {
               "start": 19991,
@@ -25503,7 +25503,7 @@
             "id": "editor.c2ffea5a9fb5",
             "statement": "In the recorded Editor fixture: toolbar + multiline textbox. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Editor — toolbar + multiline textbox",
             "contextComponents": [
               "Editor"
@@ -26045,7 +26045,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "EmptyState — shows the title",
             "caseSpan": {
               "start": 43434,
@@ -26072,7 +26072,7 @@
             "id": "emptyState.bounded-display",
             "statement": "EmptyState — shows the title. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "EmptyState — shows the title",
             "contextComponents": [
               "EmptyState"
@@ -27949,7 +27949,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "FormFieldArray — add and row controls retain native semantics",
             "caseSpan": {
               "start": 36333,
@@ -28705,7 +28705,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "FormField — associates the label",
             "caseSpan": {
               "start": 43694,
@@ -28737,7 +28737,7 @@
             "id": "formField.bounded-display",
             "statement": "FormField — associates the label. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "FormField — associates the label",
             "contextComponents": [
               "FormField"
@@ -29377,7 +29377,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "FormFieldArray — add and row controls retain native semantics",
             "caseSpan": {
               "start": 36333,
@@ -29499,7 +29499,7 @@
             "id": "formfieldarray.expansion.accessibility",
             "statement": "add and row controls retain native semantics",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "FormFieldArray — add and row controls retain native semantics",
             "contextComponents": [
               "Form",
@@ -30295,7 +30295,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "FormWizard — current step and boundary controls are explicit",
             "caseSpan": {
               "start": 37972,
@@ -30406,7 +30406,7 @@
             "id": "formwizard.expansion.accessibility",
             "statement": "current step and boundary controls are explicit",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "FormWizard — current step and boundary controls are explicit",
             "contextComponents": [
               "FormWizard"
@@ -31507,7 +31507,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "HoverCard — focus opens dialog panel",
             "caseSpan": {
               "start": 23362,
@@ -31573,7 +31573,7 @@
             "id": "hovercard.2cab5c228351",
             "statement": "In the recorded HoverCard fixture: focus opens dialog panel. The listed exact assertions bound this requirement. Assertions that accept containment or a focus() spy prove that bounded observation, not guaranteed physical focus movement in every environment.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "HoverCard — focus opens dialog panel",
             "contextComponents": [
               "HoverCard"
@@ -32392,7 +32392,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Icon — uses the accessible name when labelled",
             "caseSpan": {
               "start": 44020,
@@ -32419,7 +32419,7 @@
             "id": "icon.bounded-display",
             "statement": "Icon — uses the accessible name when labelled. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Icon — uses the accessible name when labelled",
             "contextComponents": [
               "Icon"
@@ -35122,7 +35122,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "InputOTP — group + per-box labels",
             "caseSpan": {
               "start": 17368,
@@ -35154,7 +35154,7 @@
             "id": "inputotp.f3cf15aadb05",
             "statement": "The four-box InputOTP fixture has a labelled group and n/len labels on each box; no value or callback behavior is implied.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "InputOTP — group + per-box labels",
             "contextComponents": [
               "InputOTP"
@@ -35956,7 +35956,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Kbd — shows the key",
             "caseSpan": {
               "start": 44321,
@@ -35983,7 +35983,7 @@
             "id": "kbd.bounded-display",
             "statement": "Kbd — shows the key. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Kbd — shows the key",
             "contextComponents": [
               "Kbd"
@@ -36661,7 +36661,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "List — is a list",
             "caseSpan": {
               "start": 44536,
@@ -36688,7 +36688,7 @@
             "id": "list.bounded-display",
             "statement": "List — is a list. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "List — is a list",
             "contextComponents": [
               "List"
@@ -37830,7 +37830,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Logo — exposes the brand name",
             "caseSpan": {
               "start": 44782,
@@ -37857,7 +37857,7 @@
             "id": "logo.bounded-display",
             "statement": "Logo — exposes the brand name. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Logo — exposes the brand name",
             "contextComponents": [
               "Logo"
@@ -38167,7 +38167,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "LumiAvatar — renders the mark",
             "caseSpan": {
               "start": 45109,
@@ -38194,7 +38194,7 @@
             "id": "lumiAvatar.bounded-display",
             "statement": "LumiAvatar — renders the mark. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "LumiAvatar — renders the mark",
             "contextComponents": [
               "LumiAvatar"
@@ -38474,7 +38474,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Masonry — keeps the items",
             "caseSpan": {
               "start": 45352,
@@ -38501,7 +38501,7 @@
             "id": "masonry.bounded-display",
             "statement": "Masonry — keeps the items. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Masonry — keeps the items",
             "contextComponents": [
               "Masonry"
@@ -39273,7 +39273,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Mentions — textbox suggestions + activedescendant + Enter",
             "caseSpan": {
               "start": 27385,
@@ -39351,7 +39351,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Mentions — Escape closes suggestions",
             "caseSpan": {
               "start": 29048,
@@ -39500,7 +39500,7 @@
             "id": "mentions.aa5cadfe4d81",
             "statement": "In the recorded Mentions fixture: textbox suggestions + activedescendant + Enter. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Mentions — textbox suggestions + activedescendant + Enter",
             "contextComponents": [
               "Mentions"
@@ -39579,7 +39579,7 @@
             "id": "mentions.59251c559254",
             "statement": "In the recorded Mentions fixture: Escape closes suggestions. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Mentions — Escape closes suggestions",
             "contextComponents": [
               "Mentions"
@@ -40270,7 +40270,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Menu — keyboard activation via focusable trigger",
             "caseSpan": {
               "start": 14007,
@@ -40347,7 +40347,7 @@
             "id": "menu.975373423474",
             "statement": "In the recorded Button, Menu, MenuItem fixture: keyboard activation via focusable trigger. The listed exact assertions bound this requirement. Assertions that accept containment or a focus() spy prove that bounded observation, not guaranteed physical focus movement in every environment.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Menu — keyboard activation via focusable trigger",
             "contextComponents": [
               "Button",
@@ -40769,7 +40769,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Menu — keyboard activation via focusable trigger",
             "caseSpan": {
               "start": 14007,
@@ -40807,7 +40807,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "MenuItem — is a menuitem",
             "caseSpan": {
               "start": 45598,
@@ -40834,7 +40834,7 @@
             "id": "menuItem.bounded-display",
             "statement": "MenuItem — is a menuitem. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "MenuItem — is a menuitem",
             "contextComponents": [
               "MenuItem"
@@ -41738,7 +41738,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Menubar — arrow roving + ArrowDown opens + Esc restores",
             "caseSpan": {
               "start": 10224,
@@ -41829,7 +41829,7 @@
             "id": "menubar.680345f57ab9",
             "statement": "In the recorded Menubar fixture: arrow roving + ArrowDown opens + Esc restores. The listed exact assertions bound this requirement. Assertions that accept containment or a focus() spy prove that bounded observation, not guaranteed physical focus movement in every environment.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Menubar — arrow roving + ArrowDown opens + Esc restores",
             "contextComponents": [
               "Menubar"
@@ -44596,7 +44596,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "OverlayProvider — renders its children",
             "caseSpan": {
               "start": 45871,
@@ -44623,7 +44623,7 @@
             "id": "overlayProvider.bounded-display",
             "statement": "OverlayProvider — renders its children. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "OverlayProvider — renders its children",
             "contextComponents": [
               "OverlayProvider"
@@ -45858,7 +45858,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Popconfirm — alertdialog is labeled",
             "caseSpan": {
               "start": 14734,
@@ -45920,7 +45920,7 @@
             "id": "popconfirm.b809c38d4c80",
             "statement": "In the recorded Button, Popconfirm fixture: alertdialog is labeled. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Popconfirm — alertdialog is labeled",
             "contextComponents": [
               "Button",
@@ -46812,7 +46812,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ProgressBar — exposes the numeric value",
             "caseSpan": {
               "start": 46156,
@@ -46839,7 +46839,7 @@
             "id": "progressBar.bounded-display",
             "statement": "ProgressBar — exposes the numeric value. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ProgressBar — exposes the numeric value",
             "contextComponents": [
               "ProgressBar"
@@ -48260,7 +48260,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "QRCode — names the code",
             "caseSpan": {
               "start": 46493,
@@ -48287,7 +48287,7 @@
             "id": "qRCode.bounded-display",
             "statement": "QRCode — names the code. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "QRCode — names the code",
             "contextComponents": [
               "QRCode"
@@ -48689,7 +48689,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Radio — exposes a named radio",
             "caseSpan": {
               "start": 46802,
@@ -48721,7 +48721,7 @@
             "id": "radio.bounded-display",
             "statement": "Radio — exposes a named radio. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Radio — exposes a named radio",
             "contextComponents": [
               "Radio"
@@ -49672,7 +49672,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Rating — radiogroup semantics",
             "caseSpan": {
               "start": 16721,
@@ -49715,7 +49715,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Rating — radiogroup roving + ArrowRight",
             "caseSpan": {
               "start": 30985,
@@ -49791,7 +49791,7 @@
             "id": "rating.b000852f2513",
             "statement": "In the recorded Rating fixture: radiogroup semantics. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Rating — radiogroup semantics",
             "contextComponents": [
               "Rating"
@@ -49835,7 +49835,7 @@
             "id": "rating.d7fb86b98ecf",
             "statement": "In the recorded Rating fixture: radiogroup roving + ArrowRight. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Rating — radiogroup roving + ArrowRight",
             "contextComponents": [
               "Rating"
@@ -50296,7 +50296,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Live regions — Toast/Alert/Spinner/Result role=status",
             "caseSpan": {
               "start": 17846,
@@ -50324,7 +50324,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Result — shows the status title",
             "caseSpan": {
               "start": 47104,
@@ -50351,7 +50351,7 @@
             "id": "result.bounded-display",
             "statement": "Result — shows the status title. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Result — shows the status title",
             "contextComponents": [
               "Result"
@@ -50607,7 +50607,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ScrollArea — keeps the content",
             "caseSpan": {
               "start": 47375,
@@ -50634,7 +50634,7 @@
             "id": "scrollArea.bounded-display",
             "statement": "ScrollArea — keeps the content. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ScrollArea — keeps the content",
             "contextComponents": [
               "ScrollArea"
@@ -51738,7 +51738,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "SegmentedControl — arrow roving",
             "caseSpan": {
               "start": 12395,
@@ -51809,7 +51809,7 @@
             "id": "segmentedcontrol.5ed6ed209475",
             "statement": "In the recorded SegmentedControl fixture: arrow roving. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "SegmentedControl — arrow roving",
             "contextComponents": [
               "SegmentedControl"
@@ -53031,7 +53031,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Sidebar — is navigation",
             "caseSpan": {
               "start": 47635,
@@ -53058,7 +53058,7 @@
             "id": "sidebar.bounded-display",
             "statement": "Sidebar — is navigation. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Sidebar — is navigation",
             "contextComponents": [
               "Sidebar"
@@ -53412,7 +53412,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Skeleton — is hidden from assistive technology",
             "caseSpan": {
               "start": 47896,
@@ -53439,7 +53439,7 @@
             "id": "skeleton.bounded-display",
             "statement": "Skeleton — is hidden from assistive technology. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Skeleton — is hidden from assistive technology",
             "contextComponents": [
               "Skeleton"
@@ -54341,7 +54341,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Sortable — move buttons reorder without drag",
             "caseSpan": {
               "start": 29615,
@@ -54451,7 +54451,7 @@
             "id": "sortable.920b81044030",
             "statement": "In the recorded Sortable fixture: move buttons reorder without drag. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Sortable — move buttons reorder without drag",
             "contextComponents": [
               "Sortable"
@@ -54722,7 +54722,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Live regions — Toast/Alert/Spinner/Result role=status",
             "caseSpan": {
               "start": 17846,
@@ -54754,7 +54754,7 @@
             "id": "spinner.a1192a8527f1",
             "statement": "The combined Alert/Result/Spinner/Toast fixture contains at least four status regions and a labelled spinner. This aggregate assertion does not independently identify each export's role.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Live regions — Toast/Alert/Spinner/Result role=status",
             "contextComponents": [
               "Alert",
@@ -55717,7 +55717,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Stat — shows the metric",
             "caseSpan": {
               "start": 48163,
@@ -55744,7 +55744,7 @@
             "id": "stat.bounded-display",
             "statement": "Stat — shows the metric. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Stat — shows the metric",
             "contextComponents": [
               "Stat"
@@ -56036,7 +56036,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "StatusIndicator — names the status",
             "caseSpan": {
               "start": 48434,
@@ -56063,7 +56063,7 @@
             "id": "statusIndicator.bounded-display",
             "statement": "StatusIndicator — names the status. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "StatusIndicator — names the status",
             "contextComponents": [
               "StatusIndicator"
@@ -56462,7 +56462,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Steps — marks the current step",
             "caseSpan": {
               "start": 48710,
@@ -56489,7 +56489,7 @@
             "id": "steps.bounded-display",
             "statement": "Steps — marks the current step. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Steps — marks the current step",
             "contextComponents": [
               "Steps"
@@ -57235,7 +57235,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Tab — exposes selected state",
             "caseSpan": {
               "start": 49034,
@@ -57262,7 +57262,7 @@
             "id": "tab.bounded-display",
             "statement": "Tab — exposes selected state. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Tab — exposes selected state",
             "contextComponents": [
               "Tab"
@@ -57742,7 +57742,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Tabs — arrow keys move selection + roving tabindex",
             "caseSpan": {
               "start": 11387,
@@ -57823,7 +57823,7 @@
             "id": "tabs.fa31fc8c5600",
             "statement": "In the recorded Tabs fixture: arrow keys move selection + roving tabindex. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Tabs — arrow keys move selection + roving tabindex",
             "contextComponents": [
               "Tabs"
@@ -60140,7 +60140,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "FormFieldArray — add and row controls retain native semantics",
             "caseSpan": {
               "start": 36333,
@@ -61573,7 +61573,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Timeline — lists the events",
             "caseSpan": {
               "start": 49319,
@@ -61600,7 +61600,7 @@
             "id": "timeline.bounded-display",
             "statement": "Timeline — lists the events. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Timeline — lists the events",
             "contextComponents": [
               "Timeline"
@@ -62362,7 +62362,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Live regions — Toast/Alert/Spinner/Result role=status",
             "caseSpan": {
               "start": 17846,
@@ -62807,7 +62807,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ToastStack — names the notification region",
             "caseSpan": {
               "start": 49576,
@@ -62834,7 +62834,7 @@
             "id": "toastStack.bounded-display",
             "statement": "ToastStack — names the notification region. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "ToastStack — names the notification region",
             "contextComponents": [
               "ToastStack"
@@ -64187,7 +64187,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Toolbar — arrow nav + overflow menu Escape",
             "caseSpan": {
               "start": 32910,
@@ -64288,7 +64288,7 @@
             "id": "toolbar.b768a65b37ec",
             "statement": "In the recorded Toolbar fixture: arrow nav + overflow menu Escape. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Toolbar — arrow nav + overflow menu Escape",
             "contextComponents": [
               "Toolbar"
@@ -65640,7 +65640,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Tour — dialog role + Escape closes",
             "caseSpan": {
               "start": 22734,
@@ -65701,7 +65701,7 @@
             "id": "tour.2ebd88dd1d84",
             "statement": "In the recorded Tour fixture: dialog role + Escape closes. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Tour — dialog role + Escape closes",
             "contextComponents": [
               "Tour"
@@ -66983,7 +66983,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Tree — APG ArrowDown + ArrowRight expand",
             "caseSpan": {
               "start": 31690,
@@ -67074,7 +67074,7 @@
             "id": "tree.195c1198b7b4",
             "statement": "In the recorded Tree fixture: APG ArrowDown + ArrowRight expand. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Tree — APG ArrowDown + ArrowRight expand",
             "contextComponents": [
               "Tree"
@@ -67733,7 +67733,7 @@
           },
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "TreeSelect — open tree + Escape closes",
             "caseSpan": {
               "start": 22051,
@@ -67814,7 +67814,7 @@
             "id": "treeselect.46215e1d5db7",
             "statement": "In the recorded TreeSelect fixture: open tree + Escape closes. The listed exact assertions bound this requirement.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "TreeSelect — open tree + Escape closes",
             "contextComponents": [
               "TreeSelect"
@@ -68704,7 +68704,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "TypingIndicator — is a status",
             "caseSpan": {
               "start": 49871,
@@ -68731,7 +68731,7 @@
             "id": "typingIndicator.bounded-display",
             "statement": "TypingIndicator — is a status. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "TypingIndicator — is a status",
             "contextComponents": [
               "TypingIndicator"
@@ -69003,7 +69003,7 @@
         "fixtureReferences": [
           {
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Watermark — keeps the label",
             "caseSpan": {
               "start": 50131,
@@ -69030,7 +69030,7 @@
             "id": "watermark.bounded-display",
             "statement": "Watermark — keeps the label. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
             "testPath": "_audit/a11y-gate.html",
-            "testSha256": "08527377c1f53f31c7af0daea0bc97246c283b48f4c55d37d4b4da61eacd6acc",
+            "testSha256": "48f27d8d35ebf2d4094c6161641cb74e50c512929b2a4fb886fd4d0f46218f49",
             "caseName": "Watermark — keeps the label",
             "contextComponents": [
               "Watermark"

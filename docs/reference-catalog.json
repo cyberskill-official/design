@@ -30,7 +30,7 @@
   "sourceHashes": {
     "_audit/visual-diff.html": "fd344cf31f0aa4130dddec2a99dca5ef60d9d08025b5dc2b4b729a1d388c5bb8",
     "_ds_manifest.json": "aa7c859299ef367e7df3aee45706ab58836d7fe0274c32c117b7c0534159ff37",
-    "scripts/public-site-policy.json": "137bca0b6045707a184c4d4ed6edae06cafa57f30fb694cbaa40fc5ee0837173",
+    "scripts/public-site-policy.json": "a6fd0dae713d483d3a39b33d1151ada7e6b295cd6ea352c69e708d3106779724",
     "templates/app-shell/AppShell.dc.html": "08307cd2ef46ee1142af4bbfa9e25728fa4d919bf3a40cd568374f8728ee7c44",
     "templates/article/Article.dc.html": "d2330c050a3cf0df9267b36f8025552bcaa5c962bf1462b694fa8e359360efdf",
     "templates/auth/Auth.dc.html": "c75ac411379fbf0e85dcff730c4cc18540fa60c667f0689bc5eb001dc7b0f2b6",
@@ -1419,7 +1419,7 @@
       "path": "examples/native/README.md",
       "audience": "authoring",
       "role": "consumer_example_guide",
-      "sha256": "9746992d071d8bcfc285e2e6b317bfcfb6af947de38fdc2431beedfc719489d9"
+      "sha256": "f895be993dbb02785f0cd44e3baaf3e4de7006513eab4154a2827a64e654e2b9"
     },
     {
       "path": "examples/npm-hello/README.md",

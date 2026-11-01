@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the native-symbol-deduplication-and-icon-scale-parity checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the component-story-css-scenario-reference-projections-sync checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `8a7239cc3f8ae50960e5778f096a008442e10091` (`fix(native): deduplicate Kotlin/Dart top-level helper symbols across Primitives/Catalog/Records and align Flutter csIconPoints xs/xl scale`)
-- Previous checkpoint: `5c551ba2c7644742a532d116096b992bde7da95d`, with the hash note in `8b344aea`
+- Checkpoint commit: pending (`chore(projections): regenerate story domains, compiled ESM, API discovery, prompt API, component specifications, scenarios, CSS entries, and reference catalog`)
+- Previous checkpoint: `8a7239cc3f8ae50960e5778f096a008442e10091`, with the hash note in `a1078fff`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Deduplicated top-level Kotlin and Dart helper symbols across `Catalog.kt`, `Records.kt`, `primitives.dart`, and `records.dart`, and aligned `csIconPoints` in `icon_paths.dart` to include `'xs' => 14` and `'xl' => 32` matching `CSIconModel.points` (`Icon.jsx`): removed unused `const val csDescriptionColumnMin = 160.0` in `Catalog.kt` that collided with `fun csDescriptionColumnMin() = 160.dp`, removed duplicate `fun csTagCloseIconSize() = 12.dp` in `Records.kt` already declared in `Primitives.kt`, made `_csTagCopy` private in `primitives.dart` so it does not collide with `csTagCopy` in `records.dart`, and removed duplicate `double csTagCloseIconSize() => 12;` in `records.dart` already imported from `primitives.dart`. Verified zero duplicate top-level symbols and balanced delimiters across all 24 Kotlin files and 9 Dart files in `examples/native/`.
+Regenerated and verified all derived component, story, CSS, specification, scenario, and reference catalog projections after the F7/F10/F11 component source/declaration updates (`node scripts/generate-story-domains.mjs`, `node scripts/build-compiled-esm.mjs`, `node scripts/generate-compact-api.mjs`, `node scripts/generate-prompt-api.mjs`, `node scripts/generate-component-specifications.mjs`, `node scripts/generate-reference-catalog.mjs`, `node scripts/flatten-styles.mjs`, `node scripts/generate-layered-styles.mjs`, `node scripts/generate-component-css-entries.mjs`, `node scripts/generate-component-scenarios.mjs`, and `node scripts/generate-component-scenario-stories.mjs`), and updated the reviewed `sourceEvidence` hashes for `Alert`, `Toast`, `DataGrid`, and `CommandPalette` in `scripts/fixtures/component-scenarios.json`.
 
-- `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed.
+- `npm run build:check`, `npm run test:reference-catalog`, `npm run test:storybook-contract`, `npm run test:compiled-esm`, `npm run test:vite-consumer`, `npm run test:prompt-api`, `npm run test:component-api-behavior`, `npm run test:component-specifications`, `npm run test:component-behavior-evidence`, `npm run test:expansion-coverage`, `npm run test:story-domains`, `npm run test:component-css-browser`, `npm run test:component-css-interactions`, `npm run test:component-scenarios`, and `npm run test:component-scenarios:browser` passed.
 
 ## Next concrete step
 
-Regenerate and verify all derived component, story, CSS, specification, scenario, and reference catalog projections (`node scripts/generate-story-domains.mjs`, `node scripts/build-compiled-esm.mjs`, `node scripts/generate-prompt-api.mjs`, `node scripts/generate-component-specifications.mjs`, `node scripts/generate-reference-catalog.mjs`, `node scripts/flatten-styles.mjs`, `node scripts/generate-layered-styles.mjs`, `node scripts/generate-component-css-entries.mjs`, `node scripts/generate-component-scenarios.mjs`, `node scripts/generate-component-scenario-stories.mjs`), then fix the 6 token/theme/health-chrome contract tests (`test-dtcg-roundtrip.mjs`, `test-token-declarations.mjs`, `test-base-token-exports.mjs`, `test-health-chrome-browser.mjs`, `test-theme-palette-projection.mjs`, `test-element-token-gates-browser.mjs`).
+Align the 6 token/theme/health-chrome contract tests and fixtures (`_audit/ci/test-dtcg-roundtrip.mjs`, `_audit/ci/test-token-declarations.mjs`, `_audit/ci/test-base-token-exports.mjs`, `_audit/ci/test-health-chrome-browser.mjs`, `_audit/ci/test-theme-palette-projection.mjs` / `_audit/ci/fixtures/a01-theme-mirrors/component-tokens.css`, and `_audit/ci/test-element-token-gates-browser.mjs`) with the F1/F5/F9 remediation changes from `00c349ca77bcffa98f1c1845731cf91cc5385df7` and verify all 6 suites pass.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

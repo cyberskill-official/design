@@ -4,7 +4,7 @@
   "sourceHashes": {
     "components/api-index.json": "8e876f2a86a03a7380c9126c252eb1190becc020b4b59d0b6bf48ca33d7806d4",
     "components/contracts.json": "e4ebe085e32dc639dea36cb032155c6aa557e61411bec7fa800691dd61a2ce03",
-    "_ds_manifest.json": "04a04432d0a268bac39a3f4ab4572e66829c77b5b5c9d9efeaaf10d8c25d90d4",
+    "_ds_manifest.json": "aa7c859299ef367e7df3aee45706ab58836d7fe0274c32c117b7c0534159ff37",
     "scripts/generate-component-contracts.mjs": "a94d0d58b3d0b6f629bf2cdc2a53bdfc8b43b8fa1479434b770f0cd8dc53187c",
     "scripts/lib/component-export.mjs": "9f6fd3df4a9e0366fef8c384a0926e050bd8fbcb3887bf5e6ffaed5c0622cd15",
     "scripts/generate-prompt-api.mjs": "e67709ad813a46330d2825912334244050422c16f05021890cc6b41b73acd602"

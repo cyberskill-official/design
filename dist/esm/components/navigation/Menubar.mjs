@@ -1,7 +1,7 @@
 "use client";
 import {
   Menubar
-} from "../../chunks/chunk-FXELBWXK.mjs";
+} from "../../chunks/chunk-OUDAVJG3.mjs";
 import "../../chunks/chunk-52SZC6SY.mjs";
 import "../../chunks/chunk-6AEW6SXI.mjs";
 import "../../chunks/chunk-25AOTZAM.mjs";

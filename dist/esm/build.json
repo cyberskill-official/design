@@ -14,6 +14,7 @@
     "components/_utils/field-association.js": "692c40e3e1be1c0a0357e01b94c082235f9b98007374860f8721c2f5b74ef109",
     "components/_utils/floating-panel.js": "23239258bd828a52477b384402c460d02d097ac201a075907ee7e285026bb905",
     "components/_utils/floating-position.js": "b8ca0a589a5adc90d438fae3f55ba88385985213436df8ee0049752f39db0ec1",
+    "components/_utils/open-change.js": "7038e3bb290c794c35c00a0643829cef743f4c08b9d954448ea37ce966266dd7",
     "components/_utils/refs.js": "e3bc17a04584f85538f95d5e565c0ef72d5a924826286606ae0fe21a81ab47c4",
     "components/_utils/renderCount.js": "bee2dce5fdd6dd1f830521f89a4cf3dd9457145c406be229f63c42aded838beb",
     "components/_utils/use-client-layout-effect.js": "ad9fb69fd4a40aa40cf3a4f7ed4fad9e85b456ce3a3b649549e356192cf46c4f",
@@ -58,11 +59,11 @@
     "components/data/Tree.jsx": "09a331fb604898984c78952308513ec92a7da6a0d664ee2467925cefec21b498",
     "components/data/Watermark.jsx": "1f478e37babe1ba79265402764f7127ffcd66d1a53e0097526390c78d56e902e",
     "components/data/qr-encode.js": "844b78fabee53e6a98c945ba09fa72dbb4e7ac19e523dae8cdd8cee4993a40d3",
-    "components/datatable/DataGrid.jsx": "f98b241da97de25b2014cc1e28d84d1f35e4f16aeaa64d0e92961eabbc9499c5",
+    "components/datatable/DataGrid.jsx": "e1c12c99dee3b1b1ab1cc81b0b8b6ba2efe8a6a9756f3d48d217366461ddd83f",
     "components/datatable/DataTable.jsx": "2982f89295d11775882a2411e5bf0eb6fdea123af9431f67bb44a45efe4cbb2c",
     "components/datatable/TreeTable.jsx": "0f050c7e325b0c8fdaf425ba35ddfa89565c4816205d79391828efef24d9e2b4",
-    "components/dialog/Dialog.jsx": "975f4e5ad0d0d9eb972f3f6e2eb6bd7ecd9ee00c3520268b8355998ab801c240",
-    "components/feedback/Alert.jsx": "b9c0a4e67f41118230fec5abdad7f22e8a98a2a8c46420cde54c1a46759f9d91",
+    "components/dialog/Dialog.jsx": "69ea5f27ca854cad7c029680a522df968f491e9aeab617b6104cccf73f318f66",
+    "components/feedback/Alert.jsx": "00beec82c17f94bc99069319b0e8a3a83d90ee8f5321fad72a72344761eb3f7a",
     "components/feedback/Badge.jsx": "6eeac438173e1d489ae503957d6049d4ae4b009350b7ed7a1a0bc789911d2feb",
     "components/feedback/EmptyState.jsx": "324d3ac33620dec1ea597d620f902e7e77bfff55b36235291c66a4eb62651e21",
     "components/feedback/ProgressBar.jsx": "6b5e69900ba76d274dbe25dac4b7d75bb5fde9f2231e2cac08902171994fd8d1",
@@ -71,7 +72,7 @@
     "components/feedback/Spinner.jsx": "dc4addb99ec3c60b9b7f55c245a68a7270c7d562f8cf45a8eef6398ab71a5a91",
     "components/feedback/StatusIndicator.jsx": "b969e7713b3e478b6ed83349472be50553328f98071fc8844da575ef3623a51c",
     "components/feedback/Tag.jsx": "8b6415fd3811a97a82edb62391b0b78059f31ae09b93c92ac55868ca1b68f281",
-    "components/feedback/Toast.jsx": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
+    "components/feedback/Toast.jsx": "600f0efdcc28bfd5118533b75046f07ce72515ab4978386825c0bbc3e2919206",
     "components/forms/Calendar.jsx": "9300c818b4a4de7425600d8b54f8be62e3ca3e7a7e2c0f25fc3cff1b12dad2ce",
     "components/forms/Cascader.jsx": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
     "components/forms/Checkbox.jsx": "19491fd53a0a7c5a4fa3c9d449ee3c0b7f39af18565413a012a7a8f5e25425ee",
@@ -109,12 +110,12 @@
     "components/navigation/Anchor.jsx": "8907d6bfe9ae45869c74c5d419f7a04116379f84f5992ac248418515df3bb500",
     "components/navigation/BackTop.jsx": "d8ad1e190a8601a55fec8ee5812e0b30d7d5444e82147d1604c86412a8280a1e",
     "components/navigation/Breadcrumb.jsx": "205de44c5157c6d543f403520f8ba6f0e1a5b0930696eebd5f762ea3b8da6f98",
-    "components/navigation/CommandPalette.jsx": "7572bc9c884cc84b46d289947aad5d23a6b59bb222a207f7e49e4ce385eb5771",
+    "components/navigation/CommandPalette.jsx": "4d01c61f1a034b08686456d2fec66aa51291f7e9b0e95a9d4e8a8761c0ce9f01",
     "components/navigation/Dock.jsx": "77956d94bda2e3eb7e7514926c8adf86da964d59eba49d70368cc63888b3ad2b",
     "components/navigation/HotKeys.jsx": "bcdf9afdf1b9416987b43e993b8126d9420bee2de5bd8bd08910091bc9e66e6e",
     "components/navigation/Link.jsx": "d4406a6a38f0b586176fa40bab51db654b277bdd4600663357ef0defc695c0a6",
     "components/navigation/Menu.jsx": "d52fc45cfca5febb4d775d9dd10ae771e5333b3ba1c9a97a3eb44fd6ea1f5873",
-    "components/navigation/Menubar.jsx": "21b8409d336182e0706de0d4ece24d2304d1978eea42dbc313949d9a46819ea9",
+    "components/navigation/Menubar.jsx": "c53128a82420abbab20dad86abfd844d8e145544de3fbba52d8d8cba69b1574d",
     "components/navigation/NavigationMenu.jsx": "2d8e2f9cc80d24827b4b070517b1d69609bf842b9c26fc06912e51a273f2fd98",
     "components/navigation/Pagination.jsx": "1f8c7370a149dd4007e0cfecda0ab968767b2000cf54c477a982dbf0d1b5c751",
     "components/navigation/Sidebar.jsx": "f2a96bdbab2d0136e1a4ff6c8f209b8dccca9d25ddbdb68819eef65c532e1b1b",
@@ -123,14 +124,14 @@
     "components/navigation/Toolbar.jsx": "37051ca58d60ed2f950fd58530a0cf99bb25b34f1d15577c323aa89d8bb82bf4",
     "components/overlays/AlertDialog.jsx": "4da78ce1d38abb6659a45b501abc08310f2fd525b7cae7fb20bb4e293bb8c82d",
     "components/overlays/ContextMenu.jsx": "31ac2665583bd13108b5c5f105e14d2a1ff3f105edbbfdfd91852b002826d499",
-    "components/overlays/Drawer.jsx": "a98fc2c5e5bcfc3c8ff69005bcc5018a54685bfb971690e79cd483d8ce9e1bca",
+    "components/overlays/Drawer.jsx": "4fa7fd44111751148d9c1e9e48ab4ffed0f17dd2dd64448d9ba354935969c2c1",
     "components/overlays/HoverCard.jsx": "575ff663edf9f4556de55e5eb839dddba27650cf890fee204f8e6ba4d24d6f48",
     "components/overlays/OverlayManager.jsx": "32ffa7dcba2916ef473d4d9a40acb706b9f1209d61adf0305891703516612a06",
     "components/overlays/Popconfirm.jsx": "53d59355a4426bc59fae7d360118908827ace22c63ee74476535d77a40a75732",
     "components/overlays/Popover.jsx": "1ca5d2905995cc8166566625208a95e8838815d3abe1298312df71eab90b2679",
-    "components/overlays/Tour.jsx": "83459a653179098a298cbdbba807e2544ad3ed8ce2222934d3a61d0529fc8421",
+    "components/overlays/Tour.jsx": "74775e9b0740f093f18283fdab036facbf8ac1370051c950807cae197b192010",
     "components/textfield/TextField.jsx": "878810214bb342d85d933884b5b19984b57f7281e4560c18280b8f4c021c5f99",
-    "tokens/tokens.js": "2b64b874e4d535c1d9770473db111b217cd70cf09871d594e5c652884f22a21a"
+    "tokens/tokens.js": "f7129eabbf86cc018dc6e1f3dc25f4d3d6aea19a515a0a5d43707c4f95a4a614"
   },
   "entryPoints": [
     {
@@ -576,8 +577,8 @@
   ],
   "outputs": {
     "_esm/react.mjs": {
-      "bytes": 8687,
-      "sha256": "e236798d93f29e22cfc7ad87e36ff30953501b59f0b9abaa4a815dc0d88dabf2"
+      "bytes": 8726,
+      "sha256": "fe1301bef3d4ae39b8cff618bf149e14f64cfa3495172b7a670e0b4c81a8db07"
     },
     "_esm/react.mjs.map": {
       "bytes": 93,
@@ -663,6 +664,14 @@
       "bytes": 3149,
       "sha256": "10193168ce57c008fc89657fdce22e83a1538d91d5c60ee85160f8dd55c8a660"
     },
+    "chunks/chunk-56TJOC7K.mjs": {
+      "bytes": 3308,
+      "sha256": "2949dc051116a1aafdf40d84102e04bdf2f464666c4916ae34567f800555bcfa"
+    },
+    "chunks/chunk-56TJOC7K.mjs.map": {
+      "bytes": 5169,
+      "sha256": "03739010ad8bbae7fd6ff2a9463fc6b5072370b4d77caa52e6d95ec3bbcfa647"
+    },
     "chunks/chunk-5LXHLKXS.mjs": {
       "bytes": 164,
       "sha256": "5c143a7193b2cc03fe5b7e447dfd6dbaec51181bae2a67a93e2193172b4eab98"
@@ -694,6 +703,14 @@
     "chunks/chunk-5R5KMLUR.mjs.map": {
       "bytes": 5709,
       "sha256": "46f9ae572c3d0e21537d8eb3c82a4ac1ab97f281a5a1c656d12ff79b7708cb54"
+    },
+    "chunks/chunk-65SIJBJX.mjs": {
+      "bytes": 544,
+      "sha256": "54ada07f0489829e313857b714a00997d54a59cc3862f996ee3a66b45bb8c4c4"
+    },
+    "chunks/chunk-65SIJBJX.mjs.map": {
+      "bytes": 1016,
+      "sha256": "94869371a29245f13a99d8dc569c376414f3ad934250f1ceaf62085c6b470a16"
     },
     "chunks/chunk-6AEW6SXI.mjs": {
       "bytes": 16413,
@@ -727,6 +744,14 @@
       "bytes": 3366,
       "sha256": "ad486c1422e7614907822d17c5dda2516244bb24a3a70bfcbc9166ba4711cae1"
     },
+    "chunks/chunk-7O7BH4JU.mjs": {
+      "bytes": 4031,
+      "sha256": "a9627154734a0f476fceab15da16aa78ec8e78348b324aaba09084646b8e3de0"
+    },
+    "chunks/chunk-7O7BH4JU.mjs.map": {
+      "bytes": 6240,
+      "sha256": "f18a02e7b4bae341d6f02ece6fc044a73df1efc90a5ebaedc882c6ec2ef16f7a"
+    },
     "chunks/chunk-7OKNNACK.mjs": {
       "bytes": 2682,
       "sha256": "2b16d49d7edbd4e38992095369a91ce27b4286fb74cfc58ea457f9cb292f3192"
@@ -750,14 +775,6 @@
     "chunks/chunk-A7RWM4XH.mjs.map": {
       "bytes": 1598,
       "sha256": "fb3ef68b551171aa51753bdcbf0c097074d20789a12fd0dd2284ec667fb5b76f"
-    },
-    "chunks/chunk-ANWF2NX3.mjs": {
-      "bytes": 11361,
-      "sha256": "414b3f806c5a2b4b8a51f4490013df1d439cfce8cfe3ffacdaf7dca15eda1b87"
-    },
-    "chunks/chunk-ANWF2NX3.mjs.map": {
-      "bytes": 19367,
-      "sha256": "ee411ed07d6affe94674ddd15fa80c810ed8d2c8e2fe6c5c88dea56cc848c8b6"
     },
     "chunks/chunk-AX4JJKTY.mjs": {
       "bytes": 1429,
@@ -783,6 +800,14 @@
       "bytes": 2263,
       "sha256": "70f3bd648a85948ea88e73874c23d95d8e120c8083dc71f8184b6b1debc8fc3c"
     },
+    "chunks/chunk-BXD5I7HJ.mjs": {
+      "bytes": 4374,
+      "sha256": "020b7ae98de04adc4a492183e103ddcaeb86cd54d99bd731ad34e62055ba6e0c"
+    },
+    "chunks/chunk-BXD5I7HJ.mjs.map": {
+      "bytes": 6888,
+      "sha256": "8d9d676f3f5ad44ac79a9caacdeafbfb8c19c0977dc2c9c1319dcb16b79503f4"
+    },
     "chunks/chunk-BYGWVKK7.mjs": {
       "bytes": 2249,
       "sha256": "2c3e735031d3aef3eb07d2ac3d6bc0b630fb731282108de6c7742c65d8ff8317"
@@ -790,14 +815,6 @@
     "chunks/chunk-BYGWVKK7.mjs.map": {
       "bytes": 3675,
       "sha256": "63d87efd90f173099518d0befdfeabd5be6461b0ed5e05042c6770ff2599f878"
-    },
-    "chunks/chunk-CH4W6RCG.mjs": {
-      "bytes": 4224,
-      "sha256": "d87fe3992254b3d2e7309c14219877d7696187945e71949aace874e0e1c40f6b"
-    },
-    "chunks/chunk-CH4W6RCG.mjs.map": {
-      "bytes": 6952,
-      "sha256": "b74139c6cdf481383bd2567a722a7f730b0e5eb600c10a3b80ade3f7da0852a4"
     },
     "chunks/chunk-CLWTVJM3.mjs": {
       "bytes": 1542,
@@ -879,14 +896,6 @@
       "bytes": 5371,
       "sha256": "0f75276c88e491d0a5cde5f115305bc4dbb8140999a1aac0098510adbe515e65"
     },
-    "chunks/chunk-F3M5TQ76.mjs": {
-      "bytes": 3132,
-      "sha256": "a7d491bd6a846ecd237d35b4cd1cdec01b072d5be033841485b4233d2c9a1e7d"
-    },
-    "chunks/chunk-F3M5TQ76.mjs.map": {
-      "bytes": 4909,
-      "sha256": "5b4be223541ad84652367af63fe69eadf2cd48d0c5a9f1211491acaaa3ea4995"
-    },
     "chunks/chunk-FAVSLU7E.mjs": {
       "bytes": 3448,
       "sha256": "2169f92165b8d7cc32849a1f3bf84bb38899bc572c4c176640d20d2a8ec6162d"
@@ -903,14 +912,6 @@
       "bytes": 10818,
       "sha256": "3900ced04b86ff9c39f407ae204ea0311335109822c43e19203b1ab9143d466c"
     },
-    "chunks/chunk-FXELBWXK.mjs": {
-      "bytes": 5915,
-      "sha256": "912bd33e4778377011fcc0080104794550f78272796c519fa5ecabc8a5e6d6e3"
-    },
-    "chunks/chunk-FXELBWXK.mjs.map": {
-      "bytes": 10005,
-      "sha256": "d1663479adffd817493f2b45de4c74d7813e14e728a70434e41e8b1c7e089de6"
-    },
     "chunks/chunk-GA5HJNPW.mjs": {
       "bytes": 2908,
       "sha256": "5acbcd3c1a42680ba80a2098705358eb3ad562f6c90158ccff06971c075eef2c"
@@ -918,6 +919,14 @@
     "chunks/chunk-GA5HJNPW.mjs.map": {
       "bytes": 4616,
       "sha256": "9b3f8fdeb0b43a3f8abb46961a05101db341cb95caa89051e38a0828903d1faf"
+    },
+    "chunks/chunk-GJG3D2RU.mjs": {
+      "bytes": 3243,
+      "sha256": "b20d6269f70a9a8438072c1a6bd7c5f2a6c39005d51ea6a727f1773a6915f1b3"
+    },
+    "chunks/chunk-GJG3D2RU.mjs.map": {
+      "bytes": 4850,
+      "sha256": "ded2efa9327bb4c92ef9ca9c43279f6ccbb282f106e2d72a5efd7096a78cee33"
     },
     "chunks/chunk-GK24BZVQ.mjs": {
       "bytes": 1475,
@@ -942,14 +951,6 @@
     "chunks/chunk-GP5ITSCH.mjs.map": {
       "bytes": 4441,
       "sha256": "2bf108b6948224ee4ce4fdc11653a1a3e768dc994094ce218d2764fa549672d9"
-    },
-    "chunks/chunk-GWBINWTF.mjs": {
-      "bytes": 3100,
-      "sha256": "807050af1f2b23a13442e222f20ffef9b41fc2749a1086b4da1a9b54a10d5971"
-    },
-    "chunks/chunk-GWBINWTF.mjs.map": {
-      "bytes": 4659,
-      "sha256": "d7a6f94fda208eacc9c9f47d4dc1a6be1d0de90e64d25bdd87d0d97c3e7339ed"
     },
     "chunks/chunk-H7EJ7TNP.mjs": {
       "bytes": 5453,
@@ -983,13 +984,13 @@
       "bytes": 4610,
       "sha256": "f5e378a9c7ec12bf48cc33b3cf305dedff64c525d0b76ca85dc31da7fb7f9771"
     },
-    "chunks/chunk-IH4I7JSB.mjs": {
-      "bytes": 4259,
-      "sha256": "e558dcc216ce7943458d6ad9dfe7a0ac112dd8eeee24e634de2023ad30f29098"
+    "chunks/chunk-I64ACHQH.mjs": {
+      "bytes": 2188,
+      "sha256": "ae09fc829f471a52d63d7b8b38c38219a92501c4473a4f5532e7c65e4dd7aba0"
     },
-    "chunks/chunk-IH4I7JSB.mjs.map": {
-      "bytes": 6724,
-      "sha256": "2428277f70176845ed820ca860dc90155454e829e377bd2b1a852a1a120a3fc1"
+    "chunks/chunk-I64ACHQH.mjs.map": {
+      "bytes": 3122,
+      "sha256": "3788c0d2da253ffc06e50a25bdb952a845c4a92d8eda367cfa9616dbf49000d5"
     },
     "chunks/chunk-IKEXQTRR.mjs": {
       "bytes": 5399,
@@ -1046,14 +1047,6 @@
     "chunks/chunk-JKRH25UE.mjs.map": {
       "bytes": 3909,
       "sha256": "35e5b156328fdb608ec9f4ab96ed4f1a4d249e69cb1d1c75f237badabf85e346"
-    },
-    "chunks/chunk-JN57OITY.mjs": {
-      "bytes": 3897,
-      "sha256": "5013a4c0915d34670955f4c6e8f3415ff4adab6793cd34e7750063f1cd5cd053"
-    },
-    "chunks/chunk-JN57OITY.mjs.map": {
-      "bytes": 6043,
-      "sha256": "ac37a35895464dae1ded0984546d75a3a5f8ce5eb2f09610ba5dcc057073cf4e"
     },
     "chunks/chunk-JNK7QN24.mjs": {
       "bytes": 1813,
@@ -1175,6 +1168,14 @@
       "bytes": 2629,
       "sha256": "ffa6dc7642d551cefc451a957dc9d9c31f285e592a636b1cea68322d9e01d12b"
     },
+    "chunks/chunk-OUDAVJG3.mjs": {
+      "bytes": 5955,
+      "sha256": "ab3a4f5c48585d6c08ae66d4454c8f185b818614af94ba6a1c7fcbad56930a69"
+    },
+    "chunks/chunk-OUDAVJG3.mjs.map": {
+      "bytes": 10064,
+      "sha256": "479a457f9b60750438dfef47e6c58cfb4e8fbf5af9560b8b4a4a83430b0ec15e"
+    },
     "chunks/chunk-P64YS5W2.mjs": {
       "bytes": 4113,
       "sha256": "4f8ce657da84922e315cbf41f998826a836d3e1f518f902ef50908e231c46b4a"
@@ -1238,6 +1239,14 @@
     "chunks/chunk-R7QVE2JP.mjs.map": {
       "bytes": 2395,
       "sha256": "811889a98f6994d6fd9d4c5490a7d56d0c4b1860a3f32e78444138fd1f74ae58"
+    },
+    "chunks/chunk-RMMCHUZA.mjs": {
+      "bytes": 4445,
+      "sha256": "74c892add70c165dd925d55b3cb731db93d33786f1ad1b2372cb7ee75350ba9f"
+    },
+    "chunks/chunk-RMMCHUZA.mjs.map": {
+      "bytes": 7300,
+      "sha256": "e0c75595f482b9cd0db0040bf5d177772a80dd60bb1fe5ac385f16ad3016f998"
     },
     "chunks/chunk-RQFCRXMQ.mjs": {
       "bytes": 3916,
@@ -1326,14 +1335,6 @@
     "chunks/chunk-TVTBVHT2.mjs.map": {
       "bytes": 4631,
       "sha256": "5773c142a699368c3b28566de3b15e1180d0779646ed300e3de506143672a52e"
-    },
-    "chunks/chunk-UFE32JPH.mjs": {
-      "bytes": 2004,
-      "sha256": "16ff57baaa347ed85a32aef23297bd46d9555e5fc41c8db5e03080f8a20aaf1a"
-    },
-    "chunks/chunk-UFE32JPH.mjs.map": {
-      "bytes": 2865,
-      "sha256": "3baab8d4bd1d149fb76ab461c6e5d461fa719950f6cf7e7f63237d57876a5a24"
     },
     "chunks/chunk-UVJ5BBQG.mjs": {
       "bytes": 2659,
@@ -1454,6 +1455,14 @@
     "chunks/chunk-YA7Y7PEC.mjs.map": {
       "bytes": 12264,
       "sha256": "8378fe10a0cd73940d245cdef50b27281ad037b171a71036612c24b8db949e65"
+    },
+    "chunks/chunk-YCL4FJXQ.mjs": {
+      "bytes": 11422,
+      "sha256": "8e7ef8f0a8bf23831e5e0a9acd57e1f50a126f1d7790ac271f341929672dba1e"
+    },
+    "chunks/chunk-YCL4FJXQ.mjs.map": {
+      "bytes": 19465,
+      "sha256": "7f20a32270d06ee3bc8841cd471714a1a7e67c2866f7ab2c8579460bc5fb9bc5"
     },
     "chunks/chunk-YJ4Z3FXN.mjs": {
       "bytes": 1535,
@@ -1825,7 +1834,7 @@
     },
     "components/datatable/DataGrid.mjs": {
       "bytes": 389,
-      "sha256": "969ef8b4e8c20add719a1ea85ce5e3ee454ed72f56c67dc011e18eddaa286f95"
+      "sha256": "62fb9a28540407253d571157e7af35031b00b7df3ea2530d4868d073c47f653a"
     },
     "components/datatable/DataGrid.mjs.map": {
       "bytes": 93,
@@ -1848,16 +1857,16 @@
       "sha256": "ed562b0bba7ee7214e56ac7f728054b3496bec4597c94a4eb7b4179e6f5cb1c9"
     },
     "components/dialog/Dialog.mjs": {
-      "bytes": 425,
-      "sha256": "2344a8e30867e6a533969518b81932ec70dd54424b971d2d096761df5837d4c4"
+      "bytes": 467,
+      "sha256": "eb7891c933b6a107588b9b6384e4c14a0114756cf4910cb46d989f5f45d95ce9"
     },
     "components/dialog/Dialog.mjs.map": {
       "bytes": 93,
       "sha256": "ed562b0bba7ee7214e56ac7f728054b3496bec4597c94a4eb7b4179e6f5cb1c9"
     },
     "components/feedback/Alert.mjs": {
-      "bytes": 296,
-      "sha256": "9c009ea88741c9ec901b76bff72d6e3a85d532d48f3120c912645a19fd3fbfa0"
+      "bytes": 338,
+      "sha256": "35f345a044565e008b9bd6b95ab386ad3a152e36f4cd6cfb80be13f2448ad3fd"
     },
     "components/feedback/Alert.mjs.map": {
       "bytes": 93,
@@ -1928,8 +1937,8 @@
       "sha256": "ed562b0bba7ee7214e56ac7f728054b3496bec4597c94a4eb7b4179e6f5cb1c9"
     },
     "components/feedback/Toast.mjs": {
-      "bytes": 408,
-      "sha256": "2a5f638667a013ea20214a6c40bb039c3dc04d3693c1c3058e6df32f75282ec7"
+      "bytes": 450,
+      "sha256": "28d58d1518d4035428a3232d83114f27af3e8c50a6624f25e3069f6dd89f1ac5"
     },
     "components/feedback/Toast.mjs.map": {
       "bytes": 93,
@@ -2224,8 +2233,8 @@
       "sha256": "ed562b0bba7ee7214e56ac7f728054b3496bec4597c94a4eb7b4179e6f5cb1c9"
     },
     "components/navigation/CommandPalette.mjs": {
-      "bytes": 407,
-      "sha256": "0500507b848281cd13ae19434e53bd6b38d566c1164dfbb06fdd144d5b6f4426"
+      "bytes": 449,
+      "sha256": "24308976b6fa98eb9d0484f97592330b9bef64996b3e19392e566c9048a2e58b"
     },
     "components/navigation/CommandPalette.mjs.map": {
       "bytes": 93,
@@ -2265,7 +2274,7 @@
     },
     "components/navigation/Menubar.mjs": {
       "bytes": 428,
-      "sha256": "de8e22ae5500159ac67b87832ab8f94b9f80643839cf423b23fef58bb3c467bf"
+      "sha256": "d856c3d93e3f9c323eef7bcfe6c48e4598984772663f992c8274f3a3708e5e09"
     },
     "components/navigation/Menubar.mjs.map": {
       "bytes": 93,
@@ -2336,8 +2345,8 @@
       "sha256": "ed562b0bba7ee7214e56ac7f728054b3496bec4597c94a4eb7b4179e6f5cb1c9"
     },
     "components/overlays/Drawer.mjs": {
-      "bytes": 425,
-      "sha256": "bc29e74beefd98f3fd862a274b8b7371e698aeb442d4fd5b6be8fc1bb450c2f9"
+      "bytes": 467,
+      "sha256": "42ed4c8275f1dab0b0b84d54257023375dd71477b415fb2be936bd3707fbd807"
     },
     "components/overlays/Drawer.mjs.map": {
       "bytes": 93,
@@ -2376,8 +2385,8 @@
       "sha256": "ed562b0bba7ee7214e56ac7f728054b3496bec4597c94a4eb7b4179e6f5cb1c9"
     },
     "components/overlays/Tour.mjs": {
-      "bytes": 377,
-      "sha256": "bb9c2c800901e045dab71b1221c38db31ba68c8d1c22b1ef0665d861aa271a54"
+      "bytes": 419,
+      "sha256": "c8d9da0715857b6e61795d5829f378f56db81c78434f55e38b391d01418219be"
     },
     "components/overlays/Tour.mjs.map": {
       "bytes": 93,

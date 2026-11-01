@@ -119,13 +119,14 @@ var Menubar = React.forwardRef(function Menubar2({ portal = true, placement, men
       setOpen(target);
       return;
     } else if (e.key === "Tab") {
+      e.preventDefault();
       setOpen(null);
       btns.current[i]?.focus();
       return;
     } else return;
     e.preventDefault();
     items[next]?.focus();
-  } }, m.items.map((it, j) => it === "-" ? /* @__PURE__ */ React.createElement("span", { key: j, className: "cs-menu__sep", role: "separator" }) : /* @__PURE__ */ React.createElement("button", { key: j, type: "button", role: "menuitem", className: cx("cs-menu__item", it.danger && "cs-menu__item--danger"), onClick: () => {
+  } }, m.items.map((it, j) => it === "-" ? /* @__PURE__ */ React.createElement("span", { key: j, className: "cs-menu__sep", role: "separator" }) : /* @__PURE__ */ React.createElement("button", { key: j, type: "button", role: "menuitem", tabIndex: -1, className: cx("cs-menu__item", it.danger && "cs-menu__item--danger"), onClick: () => {
     setOpen(null);
     btns.current[i]?.focus();
     it.onSelect && it.onSelect();
@@ -136,4 +137,4 @@ Menubar.displayName = "Menubar";
 export {
   Menubar
 };
-//# sourceMappingURL=chunk-FXELBWXK.mjs.map
+//# sourceMappingURL=chunk-OUDAVJG3.mjs.map

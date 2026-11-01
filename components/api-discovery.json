@@ -3,7 +3,7 @@
   "interpretation": "Discovery projection: every public export and authored prop definition, with inherited prop counts. Inherited native props, full signatures, support evidence/history and compiler metadata remain in components/api-index.json. Declarations remain authoritative; this projection does not establish runtime, semantic or human acceptance.",
   "completeIndex": {
     "path": "components/api-index.json",
-    "sha256": "6debff3d5be5f06879cb09cc06db5d2b8a184b345a0489f52a3c0837e9f928d1"
+    "sha256": "8e876f2a86a03a7380c9126c252eb1190becc020b4b59d0b6bf48ca33d7806d4"
   },
   "exports": [
     {
@@ -96,8 +96,8 @@
       "sourcePath": "components/feedback/Alert.jsx",
       "declarationPath": "components/feedback/Alert.d.ts",
       "promptPath": "components/feedback/Alert.prompt.md",
-      "sourceSha256": "b9c0a4e67f41118230fec5abdad7f22e8a98a2a8c46420cde54c1a46759f9d91",
-      "declarationSha256": "874625a12e07ab58639a7bd1e01607d907d668706663a96f11242e2c1dbf0d66",
+      "sourceSha256": "00beec82c17f94bc99069319b0e8a3a83d90ee8f5321fad72a72344761eb3f7a",
+      "declarationSha256": "c1fd15f2b8211131b1df6607e33152f8924bd3821a74b3a6fe0d4e0e59db5e41",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",
       "authoredProps": [
@@ -114,8 +114,16 @@
           "definition": "p-ec6b967c01b03950"
         },
         {
+          "name": "onClose",
+          "definition": "p-2284375ab0ebe0bd"
+        },
+        {
           "name": "onDismiss",
-          "definition": "p-3ff5af9835c625c0"
+          "definition": "p-5abd70dc2fc547ab"
+        },
+        {
+          "name": "onOpenChange",
+          "definition": "p-9e76c539d6ccf02e"
         },
         {
           "name": "title",
@@ -1133,8 +1141,8 @@
       "sourcePath": "components/navigation/CommandPalette.jsx",
       "declarationPath": "components/navigation/CommandPalette.d.ts",
       "promptPath": "components/navigation/CommandPalette.prompt.md",
-      "sourceSha256": "7572bc9c884cc84b46d289947aad5d23a6b59bb222a207f7e49e4ce385eb5771",
-      "declarationSha256": "d19b4eb7a083a8b4057884a25562272bbbb81345c875d50e70ec3d673ae76893",
+      "sourceSha256": "4d01c61f1a034b08686456d2fec66aa51291f7e9b0e95a9d4e8a8761c0ce9f01",
+      "declarationSha256": "fc27fdb09a4f741142a2fa07da7beb4ddc6b7b8967cb9683124a49db5947f5f1",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",
       "authoredProps": [
@@ -1157,6 +1165,10 @@
         {
           "name": "onClose",
           "definition": "p-2284375ab0ebe0bd"
+        },
+        {
+          "name": "onOpenChange",
+          "definition": "p-50f04dc954570a9d"
         },
         {
           "name": "open",
@@ -1317,7 +1329,7 @@
       "sourcePath": "components/datatable/DataGrid.jsx",
       "declarationPath": "components/datatable/DataGrid.d.ts",
       "promptPath": "components/datatable/DataGrid.prompt.md",
-      "sourceSha256": "f98b241da97de25b2014cc1e28d84d1f35e4f16aeaa64d0e92961eabbc9499c5",
+      "sourceSha256": "e1c12c99dee3b1b1ab1cc81b0b8b6ba2efe8a6a9756f3d48d217366461ddd83f",
       "declarationSha256": "fe6c38c69ddf62249fa9d9920a713386b661f2d500b52e0db13de7f6fa246eb9",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",
@@ -1561,8 +1573,8 @@
       "sourcePath": "components/dialog/Dialog.jsx",
       "declarationPath": "components/dialog/Dialog.d.ts",
       "promptPath": "components/dialog/Dialog.prompt.md",
-      "sourceSha256": "975f4e5ad0d0d9eb972f3f6e2eb6bd7ecd9ee00c3520268b8355998ab801c240",
-      "declarationSha256": "a60c36dcd189c52bd40e8935cfaaf52829dc43db79941ff642360ffe34445a29",
+      "sourceSha256": "69ea5f27ca854cad7c029680a522df968f491e9aeab617b6104cccf73f318f66",
+      "declarationSha256": "7d7880f58ea5e29e0264af5d82439d755d8da23ff27a933503deaaf35d8fe1ff",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",
       "authoredProps": [
@@ -1593,6 +1605,10 @@
         {
           "name": "onClose",
           "definition": "p-2284375ab0ebe0bd"
+        },
+        {
+          "name": "onOpenChange",
+          "definition": "p-c15681973896567b"
         },
         {
           "name": "open",
@@ -1663,8 +1679,8 @@
       "sourcePath": "components/overlays/Drawer.jsx",
       "declarationPath": "components/overlays/Drawer.d.ts",
       "promptPath": "components/overlays/Drawer.prompt.md",
-      "sourceSha256": "a98fc2c5e5bcfc3c8ff69005bcc5018a54685bfb971690e79cd483d8ce9e1bca",
-      "declarationSha256": "0ee655f846d77574a82c65378dac2424bb16d5ce6bd9732a71655a5107dff8f9",
+      "sourceSha256": "4fa7fd44111751148d9c1e9e48ab4ffed0f17dd2dd64448d9ba354935969c2c1",
+      "declarationSha256": "30a912dd6482a2934d1508960d0bf4e76caef7e4055f312bffd77941c05396f2",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",
       "authoredProps": [
@@ -1687,6 +1703,10 @@
         {
           "name": "onClose",
           "definition": "p-2284375ab0ebe0bd"
+        },
+        {
+          "name": "onOpenChange",
+          "definition": "p-d13a077ec708bdb4"
         },
         {
           "name": "open",
@@ -2962,7 +2982,7 @@
       "sourcePath": "components/navigation/Menubar.jsx",
       "declarationPath": "components/navigation/Menubar.d.ts",
       "promptPath": "components/navigation/Menubar.prompt.md",
-      "sourceSha256": "21b8409d336182e0706de0d4ece24d2304d1978eea42dbc313949d9a46819ea9",
+      "sourceSha256": "c53128a82420abbab20dad86abfd844d8e145544de3fbba52d8d8cba69b1574d",
       "declarationSha256": "4785192d3a6c96b7162d22d2f2148dc4d9b4352b545e96c1f74bba4b5987a5a2",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",
@@ -4470,8 +4490,8 @@
       "sourcePath": "components/feedback/Toast.jsx",
       "declarationPath": "components/feedback/Toast.d.ts",
       "promptPath": "components/feedback/Toast.prompt.md",
-      "sourceSha256": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
-      "declarationSha256": "9d49bd59876f958c4a82a15725edcd6fd4a03087d5c740c9eecdbf35b9584faf",
+      "sourceSha256": "600f0efdcc28bfd5118533b75046f07ce72515ab4978386825c0bbc3e2919206",
+      "declarationSha256": "5bae319f9a870dfb54bb234f1b6d9dde268cbdbca721d3ec3d4f465c5cf5b2a6",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",
       "authoredProps": [
@@ -4486,6 +4506,10 @@
         {
           "name": "onClose",
           "definition": "p-2284375ab0ebe0bd"
+        },
+        {
+          "name": "onOpenChange",
+          "definition": "p-48124dcdb9733b12"
         },
         {
           "name": "title",
@@ -4504,8 +4528,8 @@
       "sourcePath": "components/feedback/Toast.jsx",
       "declarationPath": "components/feedback/Toast.d.ts",
       "promptPath": "components/feedback/Toast.prompt.md",
-      "sourceSha256": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
-      "declarationSha256": "9d49bd59876f958c4a82a15725edcd6fd4a03087d5c740c9eecdbf35b9584faf",
+      "sourceSha256": "600f0efdcc28bfd5118533b75046f07ce72515ab4978386825c0bbc3e2919206",
+      "declarationSha256": "5bae319f9a870dfb54bb234f1b6d9dde268cbdbca721d3ec3d4f465c5cf5b2a6",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",
       "authoredProps": [
@@ -4672,8 +4696,8 @@
       "sourcePath": "components/overlays/Tour.jsx",
       "declarationPath": "components/overlays/Tour.d.ts",
       "promptPath": "components/overlays/Tour.prompt.md",
-      "sourceSha256": "83459a653179098a298cbdbba807e2544ad3ed8ce2222934d3a61d0529fc8421",
-      "declarationSha256": "cb41b40137c56919b2db4c7732296410d3b8a047bba0dd27c36bc6bfdc780831",
+      "sourceSha256": "74775e9b0740f093f18283fdab036facbf8ac1370051c950807cae197b192010",
+      "declarationSha256": "9b25c447a1606adf4316268de3d0cfb2e99290e3b473510b65f1dc5ffe389e19",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",
       "authoredProps": [
@@ -4688,6 +4712,10 @@
         {
           "name": "onClose",
           "definition": "p-2284375ab0ebe0bd"
+        },
+        {
+          "name": "onOpenChange",
+          "definition": "p-9d36605ef21b15ae"
         },
         {
           "name": "open",
@@ -5119,12 +5147,26 @@
       "type": "string | undefined",
       "description": "\"en\" | \"vi\" — else resolved from the nearest [lang] ancestor (vi default)."
     },
-    "p-3ff5af9835c625c0": {
+    "p-2284375ab0ebe0bd": {
+      "name": "onClose",
+      "optional": true,
+      "origin": "authored",
+      "type": "(() => void) | undefined",
+      "description": ""
+    },
+    "p-5abd70dc2fc547ab": {
       "name": "onDismiss",
       "optional": true,
       "origin": "authored",
       "type": "MouseEventHandler<HTMLButtonElement> | undefined",
-      "description": "Shows a dismiss button and reports its click; the parent owns removal."
+      "description": ""
+    },
+    "p-9e76c539d6ccf02e": {
+      "name": "onOpenChange",
+      "optional": true,
+      "origin": "authored",
+      "type": "((open: boolean) => void) | undefined",
+      "description": "Called with `false` when the dismiss button is used. Preferred open-state callback."
     },
     "p-194398030531e630": {
       "name": "title",
@@ -5777,12 +5819,12 @@
       "type": "CommandGroup[]",
       "description": ""
     },
-    "p-2284375ab0ebe0bd": {
-      "name": "onClose",
+    "p-50f04dc954570a9d": {
+      "name": "onOpenChange",
       "optional": true,
       "origin": "authored",
-      "type": "(() => void) | undefined",
-      "description": ""
+      "type": "((open: boolean) => void) | undefined",
+      "description": "Called with `false` when the palette asks to close. Preferred open-state callback."
     },
     "p-4406abb730948cd0": {
       "name": "open",
@@ -6106,6 +6148,13 @@
       "type": "string | undefined",
       "description": ""
     },
+    "p-c15681973896567b": {
+      "name": "onOpenChange",
+      "optional": true,
+      "origin": "authored",
+      "type": "((open: boolean) => void) | undefined",
+      "description": "Called with `false` when the dialog asks to close. Preferred open-state callback."
+    },
     "p-1e53d62e153203ae": {
       "name": "label",
       "optional": true,
@@ -6140,6 +6189,13 @@
       "origin": "authored",
       "type": "ReactNode",
       "description": ""
+    },
+    "p-d13a077ec708bdb4": {
+      "name": "onOpenChange",
+      "optional": true,
+      "origin": "authored",
+      "type": "((open: boolean) => void) | undefined",
+      "description": "Called with `false` when the drawer asks to close. Preferred open-state callback."
     },
     "p-a785ddcc06d4ea7e": {
       "name": "rootProps",
@@ -7611,6 +7667,13 @@
       "type": "TimelineItem[]",
       "description": ""
     },
+    "p-48124dcdb9733b12": {
+      "name": "onOpenChange",
+      "optional": true,
+      "origin": "authored",
+      "type": "((open: boolean) => void) | undefined",
+      "description": "Called with `false` when the toast asks to close. Preferred open-state callback."
+    },
     "p-5602fdd850aab03b": {
       "name": "variant",
       "optional": true,
@@ -7701,6 +7764,13 @@
       "origin": "authored",
       "type": "(Omit<RootTargetProps<HTMLSpanElement>, \"data-managed\" | \"data-open\"> & { \"data-managed\"?: undefined; \"data-open\"?: undefined; }) | undefined",
       "description": "Attributes for the existing outer trigger wrapper, not the tooltip bubble or described child. Internal handlers run before consumer handlers; owned semantics remain controlled."
+    },
+    "p-9d36605ef21b15ae": {
+      "name": "onOpenChange",
+      "optional": true,
+      "origin": "authored",
+      "type": "((open: boolean) => void) | undefined",
+      "description": "Called with `false` when the tour asks to close. Preferred open-state callback."
     },
     "p-56cfcfc4e09b4914": {
       "name": "steps",

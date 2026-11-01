@@ -87,7 +87,7 @@
     "fonts/spacegrotesk-var-latin.woff2",
     "fonts/spacegrotesk-var-vietnamese.woff2"
   ],
-  "fullSourceSheetBytes": 223346,
+  "fullSourceSheetBytes": 223310,
   "components": {
     "AIDisclosureBadge": {
       "sourcePath": "components/ai/AIDisclosureBadge.jsx",
@@ -116,7 +116,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -181,7 +181,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 201587,
+      "sourceSheetBytes": 201553,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -235,11 +235,12 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200417,
+      "sourceSheetBytes": 200382,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
         "components/_utils/cx.js",
+        "components/_utils/open-change.js",
         "components/_utils/refs.js",
         "components/_utils/use-client-layout-effect.js",
         "components/feedback/Alert.jsx"
@@ -296,7 +297,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -384,7 +385,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -428,7 +429,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128202,
+      "sourceSheetBytes": 128192,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -475,7 +476,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200930,
+      "sourceSheetBytes": 200897,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -532,7 +533,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200930,
+      "sourceSheetBytes": 200897,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -588,7 +589,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -641,7 +642,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200417,
+      "sourceSheetBytes": 200382,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -696,7 +697,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -747,7 +748,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -808,7 +809,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -854,7 +855,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -905,7 +906,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128202,
+      "sourceSheetBytes": 128192,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -955,7 +956,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128202,
+      "sourceSheetBytes": 128192,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -1005,7 +1006,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128202,
+      "sourceSheetBytes": 128192,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -1055,7 +1056,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128202,
+      "sourceSheetBytes": 128192,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -1109,7 +1110,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -1168,7 +1169,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -1232,7 +1233,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -1286,7 +1287,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 199565,
+      "sourceSheetBytes": 199532,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -1344,7 +1345,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -1396,7 +1397,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 199565,
+      "sourceSheetBytes": 199532,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -1454,7 +1455,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 201587,
+      "sourceSheetBytes": 201553,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -1504,7 +1505,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128859,
+      "sourceSheetBytes": 128848,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -1554,7 +1555,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -1618,7 +1619,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -1683,12 +1684,13 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
+        "components/_utils/open-change.js",
         "components/_utils/refs.js",
         "components/_utils/use-client-layout-effect.js",
         "components/navigation/CommandPalette.jsx",
@@ -1748,7 +1750,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -1808,7 +1810,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 199565,
+      "sourceSheetBytes": 199532,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -1865,7 +1867,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -1934,7 +1936,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 223346,
+      "sourceSheetBytes": 223310,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -2014,7 +2016,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200417,
+      "sourceSheetBytes": 200382,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -2097,7 +2099,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -2165,7 +2167,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128859,
+      "sourceSheetBytes": 128848,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -2215,11 +2217,12 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 223346,
+      "sourceSheetBytes": 223310,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
         "components/_utils/cx.js",
+        "components/_utils/open-change.js",
         "components/_utils/refs.js",
         "components/_utils/use-client-layout-effect.js",
         "components/_utils/use-overlay-surface.js",
@@ -2308,7 +2311,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128202,
+      "sourceSheetBytes": 128192,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -2356,7 +2359,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -2406,12 +2409,13 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
+        "components/_utils/open-change.js",
         "components/_utils/refs.js",
         "components/_utils/use-client-layout-effect.js",
         "components/_utils/use-overlay-surface.js",
@@ -2484,7 +2488,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 223346,
+      "sourceSheetBytes": 223310,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -2567,7 +2571,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 201587,
+      "sourceSheetBytes": 201553,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -2623,7 +2627,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -2679,7 +2683,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -2742,7 +2746,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -2818,7 +2822,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -2894,7 +2898,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -2970,7 +2974,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -3046,7 +3050,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -3107,7 +3111,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -3166,7 +3170,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -3238,7 +3242,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 223346,
+      "sourceSheetBytes": 223310,
       "sourceImports": [
         "components/_utils/refs.js",
         "components/icon/Icon.jsx"
@@ -3294,7 +3298,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 223346,
+      "sourceSheetBytes": 223310,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -3366,7 +3370,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -3425,7 +3429,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -3483,7 +3487,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -3537,7 +3541,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128859,
+      "sourceSheetBytes": 128848,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -3594,7 +3598,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -3640,7 +3644,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -3686,7 +3690,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128859,
+      "sourceSheetBytes": 128848,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -3735,7 +3739,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128859,
+      "sourceSheetBytes": 128848,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -3783,7 +3787,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 120323,
+      "sourceSheetBytes": 120313,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -3826,7 +3830,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 223346,
+      "sourceSheetBytes": 223310,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -3886,7 +3890,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 126837,
+      "sourceSheetBytes": 126827,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -3938,7 +3942,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -3988,7 +3992,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -4050,7 +4054,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -4116,7 +4120,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -4182,7 +4186,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -4249,7 +4253,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -4307,7 +4311,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -4357,7 +4361,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/floating-panel.js",
@@ -4416,7 +4420,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -4471,7 +4475,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 120323,
+      "sourceSheetBytes": 120313,
       "sourceImports": [
         "components/_utils/use-client-layout-effect.js",
         "components/overlays/OverlayManager.jsx"
@@ -4514,7 +4518,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -4564,7 +4568,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -4639,7 +4643,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -4702,7 +4706,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200417,
+      "sourceSheetBytes": 200382,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -4760,7 +4764,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 199565,
+      "sourceSheetBytes": 199532,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -4828,7 +4832,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 199565,
+      "sourceSheetBytes": 199532,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -4877,7 +4881,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -4927,7 +4931,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -4979,7 +4983,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -5031,7 +5035,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -5089,7 +5093,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -5146,7 +5150,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128202,
+      "sourceSheetBytes": 128192,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -5192,7 +5196,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -5242,7 +5246,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -5288,7 +5292,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -5344,7 +5348,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -5395,7 +5399,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200417,
+      "sourceSheetBytes": 200382,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -5447,7 +5451,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -5496,7 +5500,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -5565,7 +5569,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200417,
+      "sourceSheetBytes": 200382,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -5614,7 +5618,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -5664,7 +5668,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 128202,
+      "sourceSheetBytes": 128192,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -5718,7 +5722,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/refs.js",
@@ -5772,7 +5776,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -5832,7 +5836,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -5883,7 +5887,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -5934,7 +5938,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -5986,7 +5990,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200417,
+      "sourceSheetBytes": 200382,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -6037,7 +6041,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200417,
+      "sourceSheetBytes": 200382,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -6094,7 +6098,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -6150,7 +6154,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -6206,7 +6210,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -6257,7 +6261,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -6310,7 +6314,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 201587,
+      "sourceSheetBytes": 201553,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -6367,12 +6371,13 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200417,
+      "sourceSheetBytes": 200382,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
+        "components/_utils/open-change.js",
         "components/_utils/refs.js",
         "components/_utils/use-client-layout-effect.js",
         "components/feedback/Toast.jsx",
@@ -6435,12 +6440,13 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200417,
+      "sourceSheetBytes": 200382,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
+        "components/_utils/open-change.js",
         "components/_utils/refs.js",
         "components/_utils/use-client-layout-effect.js",
         "components/feedback/Toast.jsx",
@@ -6502,7 +6508,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -6551,7 +6557,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -6619,7 +6625,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 200930,
+      "sourceSheetBytes": 200897,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -6680,12 +6686,13 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
+        "components/_utils/open-change.js",
         "components/_utils/refs.js",
         "components/_utils/use-client-layout-effect.js",
         "components/overlays/OverlayManager.jsx",
@@ -6756,7 +6763,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -6823,7 +6830,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -6875,7 +6882,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -6947,7 +6954,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -7008,7 +7015,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 199565,
+      "sourceSheetBytes": 199532,
       "sourceImports": [
         "components/_i18n/i18n.js",
         "components/_i18n/strings.js",
@@ -7060,7 +7067,7 @@
         "base/a11y.css",
         "base/responsive.css"
       ],
-      "sourceSheetBytes": 193051,
+      "sourceSheetBytes": 193018,
       "sourceImports": [
         "components/_utils/cx.js",
         "components/_utils/field-association.js",
@@ -7091,18 +7098,18 @@
     "assets/aurora-thuy.webp": "d00c3efc67b6597a8bb0f9227c6f7594393a06c254a50db34d284152eb253f0b",
     "base/a11y.css": "c0fee897f85ea638c4552ccc445e69278e3b1416a2140bfeb2b369e4821722af",
     "base/ai.css": "cb0371760568fd565b9363bdd5646e484e14ad74aa628faa988d3967da242691",
-    "base/collections.css": "900b89baf36e40a04c4cab38415ab203255daa4c900adfcba55a03c3a5420bed",
-    "base/components.css": "cf66f05f5a9b8efca9822b67222f479ddf12862a27a84c67c274cb0dad8be5fd",
-    "base/controls.css": "bb6c44713afdc74d6170507a07a46c1111b833e7ae11899fb9ef697cfaedb757",
+    "base/collections.css": "d00ca84ed3d23ba8298963238b112e9cd6bd496d0a3fe46d59bc5625d32fda79",
+    "base/components.css": "12cf902bc5553d1b69469f61efdacf857936e20d1bc7e467091319360fe0411e",
+    "base/controls.css": "d7ee04aa90df2807c8e07e2bcf43db68b53fda77a3d1c1941bbfc95367471da2",
     "base/data.css": "6ba4958cd92ee11dad2c3aefb58e59685a2e93ef9c5118e53952d32e0506d5a3",
-    "base/feedback.css": "b3b28a815b0756fa070c560034784c17981500664f7e8940fbf1638f4985d083",
-    "base/forms.css": "f0d630ba97b71222ef544434f2d3c0334d74253c76dac33ccac628044707e7fb",
+    "base/feedback.css": "d6072bf4fabaaface90f3eee75cfbc93a3b6ff105923ec98a1535c4be1934e64",
+    "base/forms.css": "bc34544044436f4fdf84a2b042d51bd689617fca7d83e249fd0e81e439669d4e",
     "base/glass.css": "c9bb2a39244841311aaf61f98fb410a0f7cafa37d10a8283d682c558e33ef78b",
     "base/interaction.css": "c6d12550087efc09a269dab5ff8739ab73bd8c36716aa6fd8f0f42780a18c71c",
-    "base/navigation.css": "62907b13da193a6db3e16748f2658f7d3bdb5428f5dd47b58174ebdd873807e2",
+    "base/navigation.css": "aaffc6045a14889cef15b1962437a4589854146a1e5b66c51f2c75dc486a6474",
     "base/reset.css": "9cb796b22cf853d2dbd65899d0665564bddab9a1108d2cac80acc9dcbcb02971",
     "base/responsive.css": "68e0c66ee9eccfb681e5345e0800a00869a9deec14900dcc262fed2a6ab1f918",
-    "base/shell.css": "1d6f9fe366fb2f5164fe79f611ed2afe3f59e755b1b487409b75686e2ce681d3",
+    "base/shell.css": "0a345b662cf02790ae20f045f70b68c9ff472d6d8190a4ddb72856330dc3df3f",
     "base/typography.css": "38b5c60a2f61f64d64b25120c39f85800a5a094cefa2586d511d769b76d647a8",
     "components/_i18n/i18n.js": "ea69f4f438162cf0e9770d529ec3b9f1107183885c71aa83f2ceff3763a34d2f",
     "components/_i18n/strings.js": "ed4151d4df335f675c29d30031784b7d92f926420673d5c8292feb4f05b4d5e2",
@@ -7110,6 +7117,7 @@
     "components/_utils/field-association.js": "692c40e3e1be1c0a0357e01b94c082235f9b98007374860f8721c2f5b74ef109",
     "components/_utils/floating-panel.js": "23239258bd828a52477b384402c460d02d097ac201a075907ee7e285026bb905",
     "components/_utils/floating-position.js": "b8ca0a589a5adc90d438fae3f55ba88385985213436df8ee0049752f39db0ec1",
+    "components/_utils/open-change.js": "7038e3bb290c794c35c00a0643829cef743f4c08b9d954448ea37ce966266dd7",
     "components/_utils/refs.js": "e3bc17a04584f85538f95d5e565c0ef72d5a924826286606ae0fe21a81ab47c4",
     "components/_utils/renderCount.js": "bee2dce5fdd6dd1f830521f89a4cf3dd9457145c406be229f63c42aded838beb",
     "components/_utils/use-client-layout-effect.js": "ad9fb69fd4a40aa40cf3a4f7ed4fad9e85b456ce3a3b649549e356192cf46c4f",
@@ -7122,7 +7130,7 @@
     "components/ai/PromptInput.jsx": "af962b0e65d405a27e7742ebc0d76be3db0b92b90ac1f91e4eb0393b0caa0f97",
     "components/ai/PromptSuggestions.jsx": "c4c6fca2eb27fd7eb7357a75bc3df9191973eddb051bb0db4eb95a3fe9970345",
     "components/ai/TypingIndicator.jsx": "a367cad658005f314bb3e59a191c6edb5f464a65bc1f48e7e4769165ba35b39c",
-    "components/api-index.json": "6debff3d5be5f06879cb09cc06db5d2b8a184b345a0489f52a3c0837e9f928d1",
+    "components/api-index.json": "8e876f2a86a03a7380c9126c252eb1190becc020b4b59d0b6bf48ca33d7806d4",
     "components/brand/LumiAvatar.jsx": "aef2a9a8be4e4d6eb240d2a4bd6ca32b396fab995663750c812e3b38d228901c",
     "components/button/Button.jsx": "198c46d2c90a065d8510c5a64c38f292075483fdf65d05f36b671082934f3d4d",
     "components/button/ButtonGroup.jsx": "64726fc0b33a51126a02749314a5aa699da12afe0f9702472e3cdd3f4407f5e6",
@@ -7154,11 +7162,11 @@
     "components/data/Tree.jsx": "09a331fb604898984c78952308513ec92a7da6a0d664ee2467925cefec21b498",
     "components/data/Watermark.jsx": "1f478e37babe1ba79265402764f7127ffcd66d1a53e0097526390c78d56e902e",
     "components/data/qr-encode.js": "844b78fabee53e6a98c945ba09fa72dbb4e7ac19e523dae8cdd8cee4993a40d3",
-    "components/datatable/DataGrid.jsx": "f98b241da97de25b2014cc1e28d84d1f35e4f16aeaa64d0e92961eabbc9499c5",
+    "components/datatable/DataGrid.jsx": "e1c12c99dee3b1b1ab1cc81b0b8b6ba2efe8a6a9756f3d48d217366461ddd83f",
     "components/datatable/DataTable.jsx": "2982f89295d11775882a2411e5bf0eb6fdea123af9431f67bb44a45efe4cbb2c",
     "components/datatable/TreeTable.jsx": "0f050c7e325b0c8fdaf425ba35ddfa89565c4816205d79391828efef24d9e2b4",
-    "components/dialog/Dialog.jsx": "975f4e5ad0d0d9eb972f3f6e2eb6bd7ecd9ee00c3520268b8355998ab801c240",
-    "components/feedback/Alert.jsx": "b9c0a4e67f41118230fec5abdad7f22e8a98a2a8c46420cde54c1a46759f9d91",
+    "components/dialog/Dialog.jsx": "69ea5f27ca854cad7c029680a522df968f491e9aeab617b6104cccf73f318f66",
+    "components/feedback/Alert.jsx": "00beec82c17f94bc99069319b0e8a3a83d90ee8f5321fad72a72344761eb3f7a",
     "components/feedback/Badge.jsx": "6eeac438173e1d489ae503957d6049d4ae4b009350b7ed7a1a0bc789911d2feb",
     "components/feedback/EmptyState.jsx": "324d3ac33620dec1ea597d620f902e7e77bfff55b36235291c66a4eb62651e21",
     "components/feedback/ProgressBar.jsx": "6b5e69900ba76d274dbe25dac4b7d75bb5fde9f2231e2cac08902171994fd8d1",
@@ -7167,7 +7175,7 @@
     "components/feedback/Spinner.jsx": "dc4addb99ec3c60b9b7f55c245a68a7270c7d562f8cf45a8eef6398ab71a5a91",
     "components/feedback/StatusIndicator.jsx": "b969e7713b3e478b6ed83349472be50553328f98071fc8844da575ef3623a51c",
     "components/feedback/Tag.jsx": "8b6415fd3811a97a82edb62391b0b78059f31ae09b93c92ac55868ca1b68f281",
-    "components/feedback/Toast.jsx": "f5f63c8605972ff56334fc80071ec8e758f7e024d2528f0681fe17794ae7484c",
+    "components/feedback/Toast.jsx": "600f0efdcc28bfd5118533b75046f07ce72515ab4978386825c0bbc3e2919206",
     "components/forms/Calendar.jsx": "9300c818b4a4de7425600d8b54f8be62e3ca3e7a7e2c0f25fc3cff1b12dad2ce",
     "components/forms/Cascader.jsx": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
     "components/forms/Checkbox.jsx": "19491fd53a0a7c5a4fa3c9d449ee3c0b7f39af18565413a012a7a8f5e25425ee",
@@ -7205,12 +7213,12 @@
     "components/navigation/Anchor.jsx": "8907d6bfe9ae45869c74c5d419f7a04116379f84f5992ac248418515df3bb500",
     "components/navigation/BackTop.jsx": "d8ad1e190a8601a55fec8ee5812e0b30d7d5444e82147d1604c86412a8280a1e",
     "components/navigation/Breadcrumb.jsx": "205de44c5157c6d543f403520f8ba6f0e1a5b0930696eebd5f762ea3b8da6f98",
-    "components/navigation/CommandPalette.jsx": "7572bc9c884cc84b46d289947aad5d23a6b59bb222a207f7e49e4ce385eb5771",
+    "components/navigation/CommandPalette.jsx": "4d01c61f1a034b08686456d2fec66aa51291f7e9b0e95a9d4e8a8761c0ce9f01",
     "components/navigation/Dock.jsx": "77956d94bda2e3eb7e7514926c8adf86da964d59eba49d70368cc63888b3ad2b",
     "components/navigation/HotKeys.jsx": "bcdf9afdf1b9416987b43e993b8126d9420bee2de5bd8bd08910091bc9e66e6e",
     "components/navigation/Link.jsx": "d4406a6a38f0b586176fa40bab51db654b277bdd4600663357ef0defc695c0a6",
     "components/navigation/Menu.jsx": "d52fc45cfca5febb4d775d9dd10ae771e5333b3ba1c9a97a3eb44fd6ea1f5873",
-    "components/navigation/Menubar.jsx": "21b8409d336182e0706de0d4ece24d2304d1978eea42dbc313949d9a46819ea9",
+    "components/navigation/Menubar.jsx": "c53128a82420abbab20dad86abfd844d8e145544de3fbba52d8d8cba69b1574d",
     "components/navigation/NavigationMenu.jsx": "2d8e2f9cc80d24827b4b070517b1d69609bf842b9c26fc06912e51a273f2fd98",
     "components/navigation/Pagination.jsx": "1f8c7370a149dd4007e0cfecda0ab968767b2000cf54c477a982dbf0d1b5c751",
     "components/navigation/Sidebar.jsx": "f2a96bdbab2d0136e1a4ff6c8f209b8dccca9d25ddbdb68819eef65c532e1b1b",
@@ -7219,12 +7227,12 @@
     "components/navigation/Toolbar.jsx": "37051ca58d60ed2f950fd58530a0cf99bb25b34f1d15577c323aa89d8bb82bf4",
     "components/overlays/AlertDialog.jsx": "4da78ce1d38abb6659a45b501abc08310f2fd525b7cae7fb20bb4e293bb8c82d",
     "components/overlays/ContextMenu.jsx": "31ac2665583bd13108b5c5f105e14d2a1ff3f105edbbfdfd91852b002826d499",
-    "components/overlays/Drawer.jsx": "a98fc2c5e5bcfc3c8ff69005bcc5018a54685bfb971690e79cd483d8ce9e1bca",
+    "components/overlays/Drawer.jsx": "4fa7fd44111751148d9c1e9e48ab4ffed0f17dd2dd64448d9ba354935969c2c1",
     "components/overlays/HoverCard.jsx": "575ff663edf9f4556de55e5eb839dddba27650cf890fee204f8e6ba4d24d6f48",
     "components/overlays/OverlayManager.jsx": "32ffa7dcba2916ef473d4d9a40acb706b9f1209d61adf0305891703516612a06",
     "components/overlays/Popconfirm.jsx": "53d59355a4426bc59fae7d360118908827ace22c63ee74476535d77a40a75732",
     "components/overlays/Popover.jsx": "1ca5d2905995cc8166566625208a95e8838815d3abe1298312df71eab90b2679",
-    "components/overlays/Tour.jsx": "83459a653179098a298cbdbba807e2544ad3ed8ce2222934d3a61d0529fc8421",
+    "components/overlays/Tour.jsx": "74775e9b0740f093f18283fdab036facbf8ac1370051c950807cae197b192010",
     "components/textfield/TextField.jsx": "878810214bb342d85d933884b5b19984b57f7281e4560c18280b8f4c021c5f99",
     "fonts/bevietnampro-300-latin-ext.woff2": "3e217c40eb3f30f8378acc06b87fd0010cf192188ec63e3449a0d08130400c6c",
     "fonts/bevietnampro-300-latin.woff2": "feeb3b2e36320519978174d64ac0dda9ae59d8311efa464467020b839ae11b75",
@@ -7267,14 +7275,14 @@
     "scripts/lib/component-export.mjs": "9f6fd3df4a9e0366fef8c384a0926e050bd8fbcb3887bf5e6ffaed5c0622cd15",
     "styles.css": "6dcb5c4286bd2bd39cfe233ddce11118996b0ed5cffa497e9db38ef2d51436d5",
     "tokens/colors.css": "40914e9efbdde8c8b9f81a49881d4c5c98646ccf8b53397d4fbf7fc8ce0b54f4",
-    "tokens/component-tokens.css": "96a5dfef6f0f52e7c530e975443673455b0e55a5215ad045581c5f3a3dd68683",
-    "tokens/elements.css": "414f94c16d5325562017db708eb41a8ae4eb9389e49f5460d9aedbf53736cb82",
+    "tokens/component-tokens.css": "d32c09ca6b12719e4064af6d097050f68f9feca8d4dc0fc4660bc0ecfca6db64",
+    "tokens/elements.css": "704d2316d9001b01bdeea45b39d6021fb6fdb2085405cdff64f0d7b424063de8",
     "tokens/elevation.css": "0c24e92a2026cc036ee53b72d6bb4ffef3e44ca12641650e8ad97c687acb7f6b",
     "tokens/fonts.css": "5a9618d951d93c906ebb6db87a2df200c98669b95e1871f4fa92dda1c5a84a56",
     "tokens/motion.css": "4575fcae7e779e2b35144624a76e91f99fd06b11ee7a3cd104c64f46515cb027",
     "tokens/spacing.css": "88e98e4473e88716df4b6f0a721f1f5923bdec3bb761f3e59fe90864ccde1587",
     "tokens/styles.css": "b53c447d63ecdea95426260c203ca58163176aee97e282bc0ffc09e03f1d2ee6",
-    "tokens/theme-attributes.css": "33a325c8f44d049d8de0aa68c6bd7bb16925ea88f759b2348e2c116543f8c065",
-    "tokens/typography.css": "39ca03cb84cbac869d6e9e4084313b416c7e2ff3a9bc837cdb2e7dc6d9069efd"
+    "tokens/theme-attributes.css": "fdbbfd3607c0bfec09bfa230071c092a6ced91f5ce9da6b4a4313bf1b5fdd277",
+    "tokens/typography.css": "49eb6c53f8837695c41e61ca8c3c92bccf8c292dcecb9bb43d81bd7c92dbf96e"
   }
 }

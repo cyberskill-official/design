@@ -1,7 +1,8 @@
 "use client";
 import {
   Tour
-} from "../../chunks/chunk-CH4W6RCG.mjs";
+} from "../../chunks/chunk-RMMCHUZA.mjs";
+import "../../chunks/chunk-65SIJBJX.mjs";
 import "../../chunks/chunk-6AEW6SXI.mjs";
 import "../../chunks/chunk-25AOTZAM.mjs";
 import "../../chunks/chunk-CQQ2JOJD.mjs";

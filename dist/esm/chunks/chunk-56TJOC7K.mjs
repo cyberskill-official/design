@@ -4,6 +4,10 @@ import {
   useOverlaySurface
 } from "./chunk-ETO3IZEA.mjs";
 import {
+  hasDismiss,
+  notifyClosed
+} from "./chunk-65SIJBJX.mjs";
+import {
   Icon
 } from "./chunk-JPZKGP54.mjs";
 import {
@@ -29,6 +33,7 @@ var Dialog = React.forwardRef(function Dialog2({
   children,
   actions,
   onClose,
+  onOpenChange,
   className,
   closeLabel,
   lang,
@@ -43,8 +48,8 @@ var Dialog = React.forwardRef(function Dialog2({
   const backdrop = React.useRef(null);
   const material = overlaySurfaceClass(className);
   const surface = useOverlaySurface(!!open, panel, material);
-  const closeRef = React.useRef(onClose);
-  closeRef.current = onClose;
+  const closeRef = React.useRef(null);
+  closeRef.current = () => notifyClosed(onOpenChange, onClose);
   const { scope } = useOverlayLayer({
     open: !!open,
     kind: "modal",
@@ -55,7 +60,7 @@ var Dialog = React.forwardRef(function Dialog2({
   });
   const cl = closeLabel != null ? closeLabel : makeT("Dialog", L, localeMessages)("close");
   if (!open) return null;
-  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("div", { ref, className: "cs-dialog-layer" }, /* @__PURE__ */ React.createElement("div", { ref: backdrop, className: "cs-dialog__overlay", onClick: onClose, "aria-hidden": "true" }), material ? /* @__PURE__ */ React.createElement("div", { ref: surface, className: cx("cs-overlay-surface", material), "aria-hidden": "true" }) : null, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("div", { ref, className: "cs-dialog-layer" }, /* @__PURE__ */ React.createElement("div", { ref: backdrop, className: "cs-dialog__overlay", onClick: () => closeRef.current(), "aria-hidden": "true" }), material ? /* @__PURE__ */ React.createElement("div", { ref: surface, className: cx("cs-overlay-surface", material), "aria-hidden": "true" }) : null, /* @__PURE__ */ React.createElement(
     "section",
     {
       ...props,
@@ -68,7 +73,7 @@ var Dialog = React.forwardRef(function Dialog2({
       "aria-describedby": Object.prototype.hasOwnProperty.call(props, "aria-describedby") ? props["aria-describedby"] || void 0 : bodyId,
       className: cx("cs-dialog", className)
     },
-    /* @__PURE__ */ React.createElement("header", { className: "cs-dialog__header" }, /* @__PURE__ */ React.createElement("h2", { id: titleId, className: "cs-dialog__title" }, title), onClose ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--ghost cs-button--sm", onClick: onClose, "aria-label": cl }, /* @__PURE__ */ React.createElement(Icon, { name: "close", size: "sm" })) : null),
+    /* @__PURE__ */ React.createElement("header", { className: "cs-dialog__header" }, /* @__PURE__ */ React.createElement("h2", { id: titleId, className: "cs-dialog__title" }, title), hasDismiss(onOpenChange, onClose) ? /* @__PURE__ */ React.createElement("button", { type: "button", className: "cs-button cs-button--ghost cs-button--sm", onClick: () => closeRef.current(), "aria-label": cl }, /* @__PURE__ */ React.createElement(Icon, { name: "close", size: "sm" })) : null),
     /* @__PURE__ */ React.createElement("div", { id: bodyId, className: "cs-dialog__body" }, children),
     actions || actions === 0 ? /* @__PURE__ */ React.createElement("footer", { className: "cs-dialog__actions" }, actions) : null
   )));
@@ -78,4 +83,4 @@ Dialog.displayName = "Dialog";
 export {
   Dialog
 };
-//# sourceMappingURL=chunk-F3M5TQ76.mjs.map
+//# sourceMappingURL=chunk-56TJOC7K.mjs.map

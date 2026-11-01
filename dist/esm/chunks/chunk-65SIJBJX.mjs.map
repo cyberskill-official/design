@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../components/_utils/open-change.js"],
+  "sourcesContent": ["/** Shared open-state notification. `onOpenChange` is the common contract.\n * `onClose` remains a supported zero-argument alias for closing.\n * `onDismiss` remains the click-handler alias used by Alert. */\n\nexport function hasDismiss(onOpenChange, onClose, onDismiss) {\n  return typeof onOpenChange === \"function\" || typeof onClose === \"function\" || typeof onDismiss === \"function\";\n}\n\nexport function notifyClosed(onOpenChange, onClose) {\n  onOpenChange?.(false);\n  onClose?.();\n}\n\nexport function notifyDismiss(event, onOpenChange, onClose, onDismiss) {\n  onOpenChange?.(false);\n  onClose?.();\n  onDismiss?.(event);\n}\n"],
+  "mappings": ";;;AAIO,SAAS,WAAW,cAAc,SAAS,WAAW;AAC3D,SAAO,OAAO,iBAAiB,cAAc,OAAO,YAAY,cAAc,OAAO,cAAc;AACrG;AAEO,SAAS,aAAa,cAAc,SAAS;AAClD,iBAAe,KAAK;AACpB,YAAU;AACZ;AAEO,SAAS,cAAc,OAAO,cAAc,SAAS,WAAW;AACrE,iBAAe,KAAK;AACpB,YAAU;AACV,cAAY,KAAK;AACnB;",
+  "names": []
+}
