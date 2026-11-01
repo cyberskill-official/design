@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
+- Checkpoint commit: `0c1ff5fb68fd5145449c07add4eda2dd1aa3fdd3` (`feat(native): wire flow views to wave, batch, and table style models`)
 - Previous checkpoint: `4e75c867a506e572ba9991c2d17506c614b00677`, with the hash note in `6e73b3d7`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
