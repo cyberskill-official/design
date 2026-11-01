@@ -3290,6 +3290,9 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertTrue(tagInput.required)
     XCTAssertEqual(CSToolbarModel.controlCount(head: ["Cut", "-", "Copy"], hasMore: true), 3)
     XCTAssertEqual(CSToolbarModel.controlCount(head: ["Cut", "-", "Copy"], hasMore: false), 2)
+    XCTAssertTrue(CSMenuModel.isSeparator("-"))
+    XCTAssertFalse(CSMenuModel.isSeparator("Open"))
+    XCTAssertEqual(CSMenuModel.actionable(["Open", "-", "Close"]), ["Open", "Close"])
   }
 
   func testSwitchAndDialogExposeTheModeResolvedControls() {

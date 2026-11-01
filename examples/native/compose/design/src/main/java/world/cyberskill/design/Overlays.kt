@@ -70,6 +70,8 @@ fun csFabShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Doub
   return CsFabPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
 }
 const val csBackTopLabel = "Back to top"
+const val csBackTopArrow = "M12 19V5M5 12l7-7 7 7"
+const val csBackTopIconSize = 18.0
 fun csBackTopLabelText(label: String?, fallback: String) = label ?: fallback
 fun csBackTopCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -88,6 +90,8 @@ fun csNonnegative(value: Int, count: Int): Int {
 }
 
 const val csMenuLabel = "Menu"
+fun csMenuIsSeparator(item: String) = item == "-"
+fun csMenuActionable(items: List<String>) = items.filter { !csMenuIsSeparator(it) }
 fun csMenuPlacement(explicit: String?, align: String) = explicit ?: if (align == "end") "bottom-end" else "bottom-start"
 const val csMenuGap = 6.0
 data class CsMenuPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
@@ -164,6 +168,7 @@ fun csMenubarClick(open: Int?, index: Int) = if (open == index) null else index
 fun csMenubarHover(open: Int?, index: Int) = if (open == null) null else if (open == index) open else index
 fun csMenubarActionable(items: List<String>) = items.filter { it != "-" }
 fun csMenubarTabStop(index: Int, focus: Int) = if (index == focus) 0 else -1
+fun csMenubarTabClose(top: Int) = CsMenubarState(top, null, 0)
 fun csMenubarBar(top: Int, open: Int?, menuCount: Int, itemCount: Int, key: CsRovingKey): CsMenubarState? {
   if (menuCount <= 0) return null
   if (key == CsRovingKey.Down || key == CsRovingKey.Up) {
@@ -178,6 +183,16 @@ fun csMenubarBar(top: Int, open: Int?, menuCount: Int, itemCount: Int, key: CsRo
     else -> return null
   }
   return CsMenubarState(next, if (open == null) null else next, 0)
+}
+
+fun csMenubarItem(menu: Int, item: Int, menuCount: Int, itemCount: Int, key: CsRovingKey): CsMenubarState? {
+  if (menuCount <= 0) return null
+  if (key == CsRovingKey.Right || key == CsRovingKey.Left) {
+    val next = csNonnegative(menu + if (key == CsRovingKey.Right) 1 else -1 + menuCount, menuCount)
+    return CsMenubarState(next, next, 0)
+  }
+  val moved = csMenuIndex(item, itemCount, key) ?: return null
+  return CsMenubarState(menu, menu, moved)
 }
 
 fun csBackTopVisible(offset: Double, threshold: Double = 320.0): Boolean = offset > threshold
@@ -242,12 +257,13 @@ fun CsMenu(
   Column(modifier.onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
     val key = rovingKey(event.key) ?: return@onPreviewKeyEvent false
+    val enabled = csMenuActionable(items)
     if (!open && (key == CsRovingKey.Down || key == CsRovingKey.Up)) {
       onOpenChange(true)
-      focus = if (key == CsRovingKey.Up) maxOf(0, items.lastIndex) else 0
+      focus = if (key == CsRovingKey.Up) maxOf(0, enabled.lastIndex) else 0
       return@onPreviewKeyEvent true
     }
-    val next = csMenuIndex(focus, items.size, key) ?: return@onPreviewKeyEvent false
+    val next = csMenuIndex(focus, enabled.size, key) ?: return@onPreviewKeyEvent false
     focus = next
     true
   }) {
@@ -281,8 +297,13 @@ fun CsMenu(
         verticalArrangement = Arrangement.spacedBy(csNavigationStyleMenuListGap()),
       ) {
         items.forEachIndexed { index, item ->
-          CsTriggerButton(title = item, onClick = { focus = index; onOpenChange(false); onSelect(item) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize().padding(horizontal = csNavigationStyleMenuItemPaddingX(), vertical = csNavigationStyleMenuItemPaddingY())) {
-            Text(item, color = if (focus == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csNavigationStyleMenuItemFontSize(pack).value.sp)
+          if (csMenuIsSeparator(item)) {
+            Box(Modifier.fillMaxWidth().padding(horizontal = csNavigationStyleMenuSeparatorMarginX(), vertical = csNavigationStyleMenuSeparatorMarginY()).height(csNavigationStyleMenuSeparatorHeight()).background(pack.colorBorderDefault.toComposeColor()))
+          } else {
+            val actionIndex = csMenuActionable(items.take(index + 1)).size - 1
+            CsTriggerButton(title = item, onClick = { focus = actionIndex; onOpenChange(false); onSelect(item) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize().padding(horizontal = csNavigationStyleMenuItemPaddingX(), vertical = csNavigationStyleMenuItemPaddingY())) {
+              Text(item, color = if (focus == actionIndex) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csNavigationStyleMenuItemFontSize(pack).value.sp)
+            }
           }
         }
       }
@@ -303,6 +324,7 @@ fun CsMenubar(
   label: String? = null,
   hasLabelledBy: Boolean = false,
   language: String? = null,
+  placement: String? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val barName = csMenubarLabel(label, hasLabelledBy, csMenubarCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
@@ -320,28 +342,22 @@ fun CsMenubar(
   val place = field?.let { box ->
     val first = natural
     val second = fitted
-    if (first == null || second == null) null else csMenubarShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csMenubarPlacement(null))
+    if (first == null || second == null) null else csMenubarShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csMenubarPlacement(placement))
   }
   if (state.open == null && natural != null) { natural = null; fitted = null }
   Column(modifier.then(barName?.let { name -> Modifier.semantics { contentDescription = name } } ?: Modifier).onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
     val key = rovingKey(event.key) ?: return@onPreviewKeyEvent false
     if (state.open == null) {
-      val count = menus.getOrNull(state.top)?.items?.size ?: 0
+      val count = csMenubarActionable(menus.getOrNull(state.top)?.items.orEmpty()).size
       val next = csMenubarBar(state.top, state.open, menus.size, count, key) ?: return@onPreviewKeyEvent false
       state = next
       return@onPreviewKeyEvent true
     }
     val menu = state.open ?: state.top
-    val count = menus.getOrNull(menu)?.items?.size ?: 0
-    val moved = csMenuIndex(state.item, count, key)
-    if (key == CsRovingKey.Right || key == CsRovingKey.Left) {
-      val nextTop = csNonnegative(menu + if (key == CsRovingKey.Right) 1 else -1 + menus.size, menus.size)
-      state = CsMenubarState(nextTop, nextTop, 0)
-      return@onPreviewKeyEvent true
-    }
-    if (moved == null) return@onPreviewKeyEvent false
-    state = CsMenubarState(menu, menu, moved)
+    val count = csMenubarActionable(menus.getOrNull(menu)?.items.orEmpty()).size
+    val next = csMenubarItem(menu, state.item, menus.size, count, key) ?: return@onPreviewKeyEvent false
+    state = next
     true
   }) {
     androidx.compose.foundation.layout.Row(
@@ -389,8 +405,9 @@ fun CsMenubar(
           if (item == "-") {
             Box(Modifier.fillMaxWidth().padding(horizontal = csNavigationStyleMenuSeparatorMarginX(), vertical = csNavigationStyleMenuSeparatorMarginY()).height(csNavigationStyleMenuSeparatorHeight()).background(pack.colorBorderDefault.toComposeColor()))
           } else {
+            val actionIndex = csMenubarActionable(menus[open].items.take(index + 1)).size - 1
             CsTriggerButton(title = item, onClick = { onSelect(item); state = state.copy(open = null) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize().padding(horizontal = csNavigationStyleMenuItemPaddingX(), vertical = csNavigationStyleMenuItemPaddingY())) {
-              Text(item, color = if (state.item == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csNavigationStyleMenuItemFontSize(pack).value.sp)
+              Text(item, color = if (state.item == actionIndex) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csNavigationStyleMenuItemFontSize(pack).value.sp)
             }
           }
         }
@@ -404,8 +421,9 @@ fun CsBackTop(offset: Double, onPress: () -> Unit, dark: Boolean, highContrast: 
   val pack = csModePack(dark, highContrast, compact)
   val name = csBackTopLabelText(label, csBackTopCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   if (csBackTopVisible(offset, threshold)) {
-    CsTriggerButton(title = name, onClick = onPress, modifier = modifier.size(csControlsBatchStyleBackTopSize()).minimumInteractiveComponentSize().background(pack.colorBrandUmber.toComposeColor()).semantics { contentDescription = name }) {
-      Text(name, color = pack.colorSemanticInfoFg.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
+    val circleShape = androidx.compose.foundation.shape.CircleShape
+    CsTriggerButton(title = name, onClick = onPress, modifier = modifier.size(csControlsBatchStyleBackTopSize()).minimumInteractiveComponentSize().background(pack.colorSurfacePanel.toComposeColor(), circleShape).border(1.dp, pack.colorBorderDefault.toComposeColor(), circleShape).semantics { contentDescription = name }) {
+      CsIcon(name = "arrow-up", label = null, dark = dark, highContrast = highContrast, compact = compact, size = csBackTopIconSize)
     }
   }
 }
@@ -568,7 +586,7 @@ fun CsAIDisclosureBadge(sources: List<String> = emptyList(), expandedLabel: Stri
 }
 
 @Composable
-fun CsAspectRatio(ratio: String, width: Int, modifier: Modifier = Modifier, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, content: @Composable () -> Unit) {
+fun CsAspectRatio(ratio: String = "16 / 9", width: Int, modifier: Modifier = Modifier, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, content: @Composable () -> Unit) {
   val pack = csModePack(dark, highContrast, compact)
   val height = csAspectHeight(ratio, width.toDouble()) ?: width.toDouble()
   Column(modifier.width(width.dp).height(height.dp).clip(RoundedCornerShape(csDataStyleAspectRatioRadius(pack)))) { content() }

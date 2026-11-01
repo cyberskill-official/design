@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'controls.dart';
+import 'icon_paths.dart';
 import 'surfaces.dart';
 
 enum CsRovingKey { right, left, up, down, home, end }
 
 const csMenuLabel = 'Menu';
 const csMenuGap = 6.0;
+bool csMenuIsSeparator(String item) => item == '-';
+List<String> csMenuActionable(List<String> items) => items.where((item) => !csMenuIsSeparator(item)).toList();
 String csMenuPlacement(String? explicit, String align) => explicit ?? (align == 'end' ? 'bottom-end' : 'bottom-start');
 class CsMenuPlace {
   const CsMenuPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
@@ -65,6 +68,8 @@ CsFabPlace? csFabShift(CsFloatingRect anchor, double naturalWidth, double natura
 }
 bool? csFabNextOpen(int actionCount, bool open) => actionCount > 0 ? !open : null;
 const csBackTopLabel = 'Back to top';
+const csBackTopArrow = 'M12 19V5M5 12l7-7 7 7';
+const csBackTopIconSize = 18.0;
 String csBackTopLabelText(String? label, String fallback) => label ?? fallback;
 String csBackTopCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
@@ -162,6 +167,7 @@ int? csMenubarClick(int? open, int index) => open == index ? null : index;
 int? csMenubarHover(int? open, int index) => open == null ? null : (open == index ? open : index);
 List<String> csMenubarActionable(List<String> items) => items.where((item) => item != '-').toList();
 int csMenubarTabStop(int index, int focus) => index == focus ? 0 : -1;
+CsMenubarState csMenubarTabClose(int top) => CsMenubarState(top, null, 0);
 CsMenubarState? csMenubarBar(int top, int? open, int menuCount, int itemCount, CsRovingKey key) {
   if (menuCount <= 0) return null;
   if (key == CsRovingKey.down || key == CsRovingKey.up) {
@@ -176,6 +182,17 @@ CsMenubarState? csMenubarBar(int top, int? open, int menuCount, int itemCount, C
   };
   if (next == null) return null;
   return CsMenubarState(next, open == null ? null : next, 0);
+}
+
+CsMenubarState? csMenubarItem(int menu, int item, int menuCount, int itemCount, CsRovingKey key) {
+  if (menuCount <= 0) return null;
+  if (key == CsRovingKey.right || key == CsRovingKey.left) {
+    final next = csNonnegative(menu + (key == CsRovingKey.right ? 1 : -1 + menuCount), menuCount);
+    return CsMenubarState(next, next, 0);
+  }
+  final moved = csMenuIndex(item, itemCount, key);
+  if (moved == null) return null;
+  return CsMenubarState(menu, menu, moved);
 }
 
 bool csBackTopVisible(double offset, {double threshold = 320}) => offset > threshold;
@@ -250,6 +267,7 @@ class _CsMenuState extends State<CsMenu> {
 
   KeyEventResult _key(FocusNode node, KeyEvent event) {
     if (event is! KeyDownEvent) return KeyEventResult.ignored;
+    final enabled = csMenuActionable(widget.items);
     final CsRovingKey? key = switch (event.logicalKey) {
       LogicalKeyboardKey.arrowDown => CsRovingKey.down,
       LogicalKeyboardKey.arrowUp => CsRovingKey.up,
@@ -262,10 +280,10 @@ class _CsMenuState extends State<CsMenu> {
     if (key == null) return KeyEventResult.ignored;
     if (!widget.open && (key == CsRovingKey.down || key == CsRovingKey.up)) {
       widget.onOpenChange(true);
-      setState(() => focus = key == CsRovingKey.up ? (widget.items.isEmpty ? 0 : widget.items.length - 1) : 0);
+      setState(() => focus = key == CsRovingKey.up ? (enabled.isEmpty ? 0 : enabled.length - 1) : 0);
       return KeyEventResult.handled;
     }
-    final next = csMenuIndex(focus, widget.items.length, key);
+    final next = csMenuIndex(focus, enabled.length, key);
     if (next == null) return KeyEventResult.ignored;
     setState(() => focus = next);
     return KeyEventResult.handled;
@@ -281,7 +299,7 @@ class _CsMenuState extends State<CsMenu> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CsOwnFocus(builder: (node, claim) => TextButton(key: fieldKey, focusNode: node, onPressed: () { claim(); widget.onOpenChange(!widget.open); }, child: Text(widget.label, style: TextStyle(color: csColor(pack.colorTextPrimary))))),
+          CsOwnFocus(builder: (node, claim) => TextButton(key: fieldKey, focusNode: node, onPressed: () { claim(); final nextOpen = !widget.open; setState(() => focus = nextOpen ? 0 : -1); widget.onOpenChange(nextOpen); }, child: Text(widget.label, style: TextStyle(color: csColor(pack.colorTextPrimary))))),
           if (widget.open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Semantics(
             container: true,
             explicitChildNodes: true,
@@ -299,19 +317,28 @@ class _CsMenuState extends State<CsMenu> {
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   for (var index = 0; index < widget.items.length; index++) ...[
                     if (index > 0) SizedBox(height: csNavigationStyleMenuListGap()),
-                    CsOwnFocus(builder: (node, claim) => Padding(
-                      padding: EdgeInsets.symmetric(horizontal: csNavigationStyleMenuItemPaddingX(), vertical: csNavigationStyleMenuItemPaddingY()),
-                      child: TextButton(
-                        focusNode: node,
-                        onPressed: () {
-                          claim();
-                          setState(() => focus = index);
-                          widget.onOpenChange(false);
-                          widget.onSelect(widget.items[index]);
-                        },
-                        child: Text(widget.items[index], style: TextStyle(fontSize: csNavigationStyleMenuItemFontSize(pack), color: csColor(focus == index ? pack.colorBrandOchre : pack.colorTextPrimary))),
-                      ),
-                    )),
+                    if (csMenuIsSeparator(widget.items[index]))
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: csNavigationStyleMenuSeparatorMarginX(), vertical: csNavigationStyleMenuSeparatorMarginY()),
+                        child: SizedBox(height: csNavigationStyleMenuSeparatorHeight(), width: double.infinity, child: ColoredBox(color: csColor(pack.colorBorderDefault))),
+                      )
+                    else
+                      CsOwnFocus(builder: (node, claim) {
+                        final actionIndex = csMenuActionable(widget.items.take(index + 1).toList()).length - 1;
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: csNavigationStyleMenuItemPaddingX(), vertical: csNavigationStyleMenuItemPaddingY()),
+                          child: TextButton(
+                            focusNode: node,
+                            onPressed: () {
+                              claim();
+                              setState(() => focus = actionIndex);
+                              widget.onOpenChange(false);
+                              widget.onSelect(widget.items[index]);
+                            },
+                            child: Text(widget.items[index], style: TextStyle(fontSize: csNavigationStyleMenuItemFontSize(pack), color: csColor(focus == actionIndex ? pack.colorBrandOchre : pack.colorTextPrimary))),
+                          ),
+                        );
+                      }),
                   ],
                 ]),
               ),
@@ -330,10 +357,11 @@ class CsMenubarMenu {
 }
 
 class CsMenubar extends StatefulWidget {
-  const CsMenubar({super.key, this.label, required this.menus, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.hasLabelledBy = false, this.language});
+  const CsMenubar({super.key, this.label, required this.menus, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.hasLabelledBy = false, this.language, this.placement});
   final String? label;
   final bool hasLabelledBy;
   final String? language;
+  final String? placement;
   final List<CsMenubarMenu> menus;
   final ValueChanged<String> onSelect;
   final bool dark;
@@ -379,7 +407,7 @@ class _CsMenubarState extends State<CsMenubar> {
       list.dy,
       1,
       1,
-      csMenubarPlacement(null),
+      csMenubarPlacement(widget.placement),
     );
     setState(() { fitted = listBox.size; place = next; });
   }
@@ -433,18 +461,21 @@ class _CsMenubarState extends State<CsMenubar> {
                           child: SizedBox(height: csNavigationStyleMenuSeparatorHeight(), width: double.infinity, child: ColoredBox(color: csColor(pack.colorBorderDefault))),
                         )
                       else
-                        CsOwnFocus(builder: (node, claim) => Padding(
-                          padding: EdgeInsets.symmetric(horizontal: csNavigationStyleMenuItemPaddingX(), vertical: csNavigationStyleMenuItemPaddingY()),
-                          child: TextButton(
-                            focusNode: node,
-                            onPressed: () {
-                              claim();
-                              widget.onSelect(widget.menus[open].items[index]);
-                              setState(() => state = CsMenubarState(state.top, null, state.item));
-                            },
-                            child: Text(widget.menus[open].items[index], style: TextStyle(fontSize: csNavigationStyleMenuItemFontSize(pack))),
-                          ),
-                        )),
+                        CsOwnFocus(builder: (node, claim) {
+                          final actionIndex = csMenubarActionable(widget.menus[open].items.take(index + 1).toList()).length - 1;
+                          return Padding(
+                            padding: EdgeInsets.symmetric(horizontal: csNavigationStyleMenuItemPaddingX(), vertical: csNavigationStyleMenuItemPaddingY()),
+                            child: TextButton(
+                              focusNode: node,
+                              onPressed: () {
+                                claim();
+                                widget.onSelect(widget.menus[open].items[index]);
+                                setState(() => state = CsMenubarState(state.top, null, state.item));
+                              },
+                              child: Text(widget.menus[open].items[index], style: TextStyle(fontSize: csNavigationStyleMenuItemFontSize(pack), color: csColor(state.item == actionIndex ? pack.colorBrandOchre : pack.colorTextPrimary))),
+                            ),
+                          );
+                        }),
                     ],
                   ],
                 ),
@@ -472,10 +503,15 @@ class CsBackTop extends StatelessWidget {
     if (!csBackTopVisible(offset, threshold: threshold)) return const SizedBox.shrink();
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final name = csBackTopLabelText(label, csBackTopCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
-    return SizedBox(
+    return Container(
       width: csControlsBatchStyleBackTopSize(),
       height: csControlsBatchStyleBackTopSize(),
-      child: CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: TextButton(focusNode: node, onPressed: () { claim(); onPress(); }, child: ExcludeSemantics(child: Text(name, style: TextStyle(color: csColor(pack.colorSemanticInfoFg))))))),
+      decoration: BoxDecoration(
+        color: csColor(pack.colorSurfacePanel),
+        shape: BoxShape.circle,
+        border: Border.all(color: csColor(pack.colorBorderDefault), width: 1),
+      ),
+      child: CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: TextButton(focusNode: node, onPressed: () { claim(); onPress(); }, child: ExcludeSemantics(child: CsIcon(name: 'arrow-up', label: '', dark: dark, highContrast: highContrast, compact: compact, size: csBackTopIconSize))))),
     );
   }
 }
@@ -793,7 +829,7 @@ class _CsAIDisclosureState extends State<CsAIDisclosure> {
 }
 
 class CsAspectRatio extends StatelessWidget {
-  const CsAspectRatio({super.key, required this.ratio, required this.width, required this.child, this.dark = false, this.highContrast = false, this.compact = false});
+  const CsAspectRatio({super.key, this.ratio = '16 / 9', required this.width, required this.child, this.dark = false, this.highContrast = false, this.compact = false});
   final String ratio;
   final double width;
   final Widget child;

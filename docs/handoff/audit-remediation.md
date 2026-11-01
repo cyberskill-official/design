@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the records-datagrid-taginput-toolbar-parity checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the overlays-menu-menubar-backtop-aspectratio-parity checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `593ed98b6becaf3e7568a9eee86192d9d61bc961` (`feat(native): align records data grid, tag input, and toolbar with web contracts`)
-- Previous checkpoint: `ed23e6eac8cf4e9d7c5735233cdfc5bfb63d27cd`, with the hash note in `81008a83`
+- Checkpoint commit: pending (`feat(native): align overlays menu, menubar, back-top, and aspect ratio with web contracts`)
+- Previous checkpoint: `593ed98b6becaf3e7568a9eee86192d9d61bc961`, with the hash note in `0b3296ea`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Aligned `CSDataGrid`/`CsDataGrid`, `CSTagInput`/`CsTagInput`, and `CSToolbar`/`CsToolbar` across `Records.swift`, `Records.kt`, and `records.dart` with `DataGrid.jsx`, `TagInput.jsx`, and `Toolbar.jsx`: added `pinned` to `CSDataColumn`/`CsDataColumn`, `CSDataGridSelection.isPinned(columnPinned:key:pinnedKey:)` (`csGridIsPinned`), and `rowKeyName`/`language` to Compose and Flutter `CsDataGrid`; added `CSTagInputModel.blurCommit(tags:query:max:disabled:)` (`csTagBlurCommit`), `description`, `error`, `required`, and `disabled` to `CSTagInput`/`CsTagInput`, committing pending tags on blur and applying `tagInputDisabledFieldOpacity` only when `disabled` is true; and added `CSToolbarModel.controlCount(head:hasMore:)` (`csToolbarControlCount`) and `placement` to Compose and Flutter `CsToolbar`.
+Aligned `CSMenu`/`CsMenu`, `CSMenubar`/`CsMenubar`, `CSBackTop`/`CsBackTop`, and `CSAspectRatio`/`CsAspectRatio` across `Overlays.swift`, `Overlays.kt`, and `overlays.dart` with `Menu.jsx`, `Menubar.jsx`, `BackTop.jsx`, and `AspectRatio.jsx`: added `CSMenuModel.isSeparator`/`CSMenuModel.actionable` (`csMenuIsSeparator`/`csMenuActionable`) and rendered separator rules while skipping separators in roving/typeahead focus; added `csMenubarItem`/`csMenubarTabClose` and `placement` to Compose and Flutter `CsMenubar`, indexing actionable items across separators; added `csBackTopArrow` (`"M12 19V5M5 12l7-7 7 7"`) and `csBackTopIconSize` (`18.0`) to Compose and Flutter `CsBackTop`, rendering the upward arrow icon inside a circular panel button with a `1px` default border; and defaulted `ratio` to `"16 / 9"` on Compose and Flutter `CsAspectRatio`.
 
 - `swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Inspect and close the next concrete behavioral parity gaps across `Overlays`, `Structures`, `Fields`, `Flows`, `Surfaces`, and `Remainder` against their web `components/**/*.jsx` counterparts (starting with `Overlays` components `CSMenu`/`CsMenu`, `CSMenubar`/`CsMenubar`, `CSBackTop`/`CsBackTop`, `CSFab`/`CsFab`, `CSAIDisclosure`/`CsAIDisclosure`, `CSAspectRatio`/`CsAspectRatio`, and `CSWatermark`/`CsWatermark`).
+Inspect and close the next concrete behavioral parity gaps across `Structures`, `Fields`, `Flows`, `Surfaces`, and `Remainder` against their web `components/**/*.jsx` counterparts (starting with `Structures` components `CSCommandPalette`/`CsCommandPalette`, `CSTransfer`/`CsTransfer`, `CSInputOTP`/`CsInputOTP`, `CSCarousel`/`CsCarousel`, `CSTree`/`CsTree`, `CSFileUpload`/`CsFileUpload`, and `CSDrawer`/`CsDrawer`).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

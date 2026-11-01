@@ -43,6 +43,8 @@ public enum CSMenuModel {
   }
 
   public static let gap = 6.0
+  public static func isSeparator(_ item: String) -> Bool { item == "-" }
+  public static func actionable(_ items: [String]) -> [String] { items.filter { !isSeparator($0) } }
   public static func placement(_ explicit: String?, align: String) -> String {
     if let explicit { return explicit }
     return align == "end" ? "bottom-end" : "bottom-start"
@@ -226,17 +228,27 @@ public struct CSMenu: View {
         }
         VStack(alignment: .leading, spacing: CGFloat(CSNavigationStyleModel.menuListGap())) {
           ForEach(Array(items.enumerated()), id: \.offset) { index, item in
-            CSTriggerButton(item) {
-              focus = index
-              open = false
-              onSelect(item)
+            if CSMenuModel.isSeparator(item) {
+              Rectangle()
+                .fill(pack.borderColor)
+                .frame(height: CGFloat(CSNavigationStyleModel.menuSeparatorHeight()))
+                .padding(.vertical, CGFloat(CSNavigationStyleModel.menuSeparatorMarginY()))
+                .padding(.horizontal, CGFloat(CSNavigationStyleModel.menuSeparatorMarginX()))
+                .accessibilityHidden(true)
+            } else {
+              let actionIndex = CSMenuModel.actionable(Array(items.prefix(index + 1))).count - 1
+              CSTriggerButton(item) {
+                focus = actionIndex
+                open = false
+                onSelect(item)
+              }
+              .font(.system(size: CGFloat(CSNavigationStyleModel.menuItemFontSize(pack))))
+              .padding(.horizontal, CGFloat(CSNavigationStyleModel.menuItemPaddingX()))
+              .padding(.vertical, CGFloat(CSNavigationStyleModel.menuItemPaddingY()))
+              .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
+              .foregroundStyle(focus == actionIndex ? pack.colorBrandOchre.color : pack.primaryTextColor)
+              .accessibilityAddTraits(focus == actionIndex ? .isSelected : [])
             }
-            .font(.system(size: CGFloat(CSNavigationStyleModel.menuItemFontSize(pack))))
-            .padding(.horizontal, CGFloat(CSNavigationStyleModel.menuItemPaddingX()))
-            .padding(.vertical, CGFloat(CSNavigationStyleModel.menuItemPaddingY()))
-            .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
-            .foregroundStyle(focus == index ? pack.colorBrandOchre.color : pack.primaryTextColor)
-            .accessibilityAddTraits(focus == index ? .isSelected : [])
           }
         }
         .padding(CGFloat(CSNavigationStyleModel.menuListPadding()))
@@ -268,7 +280,8 @@ public struct CSMenu: View {
       let needle = CSMenuModel.typeaheadNeedle(previous: typed, character: character, elapsedMs: elapsed)
       typed = needle
       typedAt = Date()
-      guard let next = CSMenuModel.typeahead(labels: items, from: focus, needle: needle) else { return false }
+      let enabled = CSMenuModel.actionable(items)
+      guard let next = CSMenuModel.typeahead(labels: enabled, from: focus, needle: needle) else { return false }
       focus = next
       return true
     }
@@ -302,15 +315,16 @@ public struct CSMenu: View {
   }
 
   private func moveMenu(_ key: CSRovingKey) -> Bool {
+    let enabled = CSMenuModel.actionable(items)
     guard open else {
       if key == .down || key == .up {
         open = true
-        focus = key == .up ? max(0, items.count - 1) : 0
+        focus = key == .up ? max(0, enabled.count - 1) : 0
         return true
       }
       return false
     }
-    guard let next = CSMenuModel.index(current: focus, count: items.count, key: key) else { return false }
+    guard let next = CSMenuModel.index(current: focus, count: enabled.count, key: key) else { return false }
     focus = next
     return true
   }
