@@ -297,6 +297,13 @@ class _CsCommandPaletteState extends State<CsCommandPalette> {
                     children: [
                       DecoratedBox(
                         decoration: BoxDecoration(
+                          boxShadow: [
+                            if (csInteractionCmdkSearchOuterHaloWidth(searchFocused) > 0)
+                              BoxShadow(
+                                color: csColor(pack.colorAccentOchre),
+                                spreadRadius: csInteractionCmdkSearchOuterHaloWidth(searchFocused),
+                              ),
+                          ],
                           border: Border(
                             bottom: BorderSide(color: csColor(pack.colorBorderDefault), width: csCommandBorderWidth()),
                             top: csCommandShowsSearchOutline(searchFocused) ? BorderSide(color: csColor(pack.colorTextPrimary), width: csCommandSearchOutlineWidth()) : BorderSide.none,

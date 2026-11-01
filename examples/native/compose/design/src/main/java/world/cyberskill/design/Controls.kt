@@ -163,6 +163,40 @@ fun csReturnFocus(savedId: String?, onRestore: (() -> Unit)?, layerId: String, l
   }
 }
 
+const val csInteractionHoverShadowRed = 69
+const val csInteractionHoverShadowGreen = 33
+const val csInteractionHoverShadowBlue = 14
+const val csInteractionHoverShadowAlpha = 0.24f
+fun csInteractionHoverShadowOffsetY() = 8.dp
+fun csInteractionHoverShadowBlur() = 20.dp
+fun csInteractionButtonTranslateY(
+  hovered: Boolean,
+  active: Boolean = false,
+  disabled: Boolean = false,
+  reducedMotion: Boolean = false,
+) = if (disabled || active || reducedMotion || !hovered) 0.dp else (-1).dp
+fun csInteractionShowsButtonHoverShadow(hovered: Boolean, active: Boolean = false, disabled: Boolean = false) =
+  hovered && !active && !disabled
+fun csInteractionShowsButtonActiveShadow(active: Boolean, disabled: Boolean = false) =
+  active && !disabled
+fun csInteractionFocusHaloWidth(focused: Boolean) = if (focused) 5.dp else 0.dp
+fun csInteractionCmdkSearchOuterHaloWidth(focused: Boolean) = if (focused) 5.dp else 0.dp
+fun csInteractionCmdkSearchInsetHaloWidth(focused: Boolean) = if (focused) 4.dp else 0.dp
+fun csInteractionRiseOffsetY(reducedMotion: Boolean = false) = if (reducedMotion) 0.dp else 10.dp
+fun csInteractionRiseDelayMs(step: Int, reducedMotion: Boolean = false): Double {
+  if (reducedMotion) return 0.0
+  return when (step) {
+    2 -> 80.0
+    3 -> 160.0
+    4 -> 240.0
+    else -> 0.0
+  }
+}
+fun csInteractionEntranceDurationMs(pack: CSTokenModePack, reducedMotion: Boolean = false): Double =
+  if (reducedMotion) 0.0 else pack.durationSlow.value
+fun csInteractionDialogDurationMs(pack: CSTokenModePack, reducedMotion: Boolean = false): Double =
+  if (reducedMotion) 0.0 else pack.durationBase.value
+
 @Composable
 fun CsButton(
   title: String,
@@ -180,6 +214,9 @@ fun CsButton(
   val ink = (if (role == CsButtonRole.Primary) pack.componentButtonPrimaryFg else pack.colorTextInverse).toComposeColor()
   val focusId = remember { csOverlayFreshId("button") }
   val requester = remember { FocusRequester() }
+  var focused by remember { mutableStateOf(false) }
+  val shape = RoundedCornerShape(pack.componentButtonRadius.toDp())
+  val haloWidth = csInteractionFocusHaloWidth(focused)
   DisposableEffect(focusId) { onDispose { CsFocusRegistry.disconnect(focusId) } }
   Button(
     onClick = {
@@ -187,13 +224,21 @@ fun CsButton(
       onClick()
     },
     enabled = csControlEnabled(),
-    modifier = modifier.fillMaxWidth().heightIn(min = pack.componentButtonMdMinHeight.toDp()).focusRequester(requester).onFocusChanged { if (it.isFocused) CsFocusRegistry.claim(focusId) { requester.requestFocus() } },
+    modifier = modifier
+      .fillMaxWidth()
+      .heightIn(min = pack.componentButtonMdMinHeight.toDp())
+      .then(if (haloWidth > 0.dp) Modifier.border(haloWidth, pack.colorAccentOchre.toComposeColor(), shape) else Modifier)
+      .focusRequester(requester)
+      .onFocusChanged {
+        focused = it.isFocused
+        if (it.isFocused) CsFocusRegistry.claim(focusId) { requester.requestFocus() }
+      },
     contentPadding = androidx.compose.foundation.layout.PaddingValues(
       horizontal = paddingX ?: pack.componentButtonMdPaddingX.toDp(),
       vertical = paddingY ?: pack.componentButtonMdPaddingY.toDp(),
     ),
     colors = ButtonDefaults.buttonColors(containerColor = fill, contentColor = ink),
-    shape = RoundedCornerShape(pack.componentButtonRadius.toDp()),
+    shape = shape,
   ) {
     Text(title)
   }

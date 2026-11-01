@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the glass-lens-depth-fallbacks-aurora checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the interaction-hover-focus-motion checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `b6d9b82ed99dc9249197a4f3c71f39d3b3f7875c`, with the hash note in `399bf670`
-- Checkpoint commit hash: `ba55b5b7afbec0c2f9943baa0adb6098f05e8274`
+- Previous checkpoint: `ba55b5b7afbec0c2f9943baa0adb6098f05e8274`, with the hash note in `ad943247`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the Liquid Glass lens edge, depth utilities, fallbacks, and brand aurora wash: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the interaction layer hover lift, focus halo, and entrance motion utilities: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-Liquid Glass (`CSGlassModel` / `csGlass*`, `CSDepthTier` / `CsDepthTier`, `CSAuroraSurface` / `CsAuroraSurface`) now models the `135deg` `1px` lens edge on `standard`, `heavy`, and `glassCard` (`30%` `#fff` at `0%..30%` to `15%` `--cs-color-brand-umber` at `70%..100%`, suppressed under `reducedTransparency`, `forcedColors`, or `overlaySurface`), depth utilities (`bg` `0`, `section` `5`, `card` `10`, `nav` `50` sticky, `modal` `100`, `toast` `200`), accessibility/capability fallbacks (`effectiveSurfaceBase`, `effectiveOpacity`, `effectiveBlur`, `effectiveBorderMix`, `effectiveBorderWidth`), and `.cs-aurora` brand wash (`--cs-color-brand-umber` base, `#ffffff` ink, `46%` ochre + `32%` `#ffcf5c` + `60%` `#1a1108` radial gradients), matching `base/glass.css` lines 54–129.
+The interaction layer (`CSInteractionModel` / `csInteraction*`, `CSButton` / `CsButton`, `CSCommandPalette` / `CsCommandPalette`) now styles warm hover depth on primary and danger buttons (`translateY(-1px)` + `0 8px 20px rgba(69, 33, 14, 0.24)` hover shadow when not disabled or active, `translateY(0)` + `--cs-shadow-xs` active, `transform: none` under `prefers-reduced-motion: reduce`), `5px` `--cs-color-accent-ochre` focus halo (plus `inset 0 0 0 4px var(--cs-color-accent-ochre)` on `.cs-cmdk__search:focus-within`), and entrance motion utilities (`.cs-fade-in`, `.cs-rise-in` `10px` with `80ms`/`160ms`/`240ms` stagger delays, `.cs-dialog` and `.cs-dialog__overlay` `duration-base` fade-in, disabled under `prefers-reduced-motion: reduce`), matching `base/interaction.css` lines 1–58.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style the interaction layer (`CSInteractionModel` / `csInteraction*`) in `base/interaction.css` lines 1–58: warm hover depth on `.cs-button--primary` and `.cs-button--danger` (`translateY(-1px)` + `0 8px 20px rgba(69, 33, 14, 0.24)` hover shadow when not disabled, `translateY(0)` + `--cs-shadow-xs` active, `transform: none` under `prefers-reduced-motion: reduce`), `5px` `--cs-color-accent-ochre` focus halo (plus `inset 0 0 0 4px var(--cs-color-accent-ochre)` on `.cs-cmdk__search:focus-within`), and entrance motion utilities (`.cs-fade-in`, `.cs-rise-in` `10px` with `80ms`/`160ms`/`240ms` delays, `.cs-dialog` and `.cs-dialog__overlay` `duration-base` fade-in, disabled under `prefers-reduced-motion: reduce`). Re-read `base/interaction.css` lines 1–58 before editing.
+Style the accessibility layer (`CSA11yModel` / `csA11y*`) in `base/a11y.css` lines 1–176: `.cs-sr-only` `1x1` clipped box, coarse-pointer `44px` minimum hit targets (`46px` for `.cs-igroup__btn` and `.cs-splitter`, `24px` check/radio inputs inside `44px` labels, `repeat(5, 44px)` colorpicker grid, `repeat(7, 44px)` calendar grid, `64px` carousel view padding and `44px` dot buttons with `4.5px` radial dot, `none` scrollbar on `.cs-tabs`), global `0.01ms` reduced-motion clamp, `prefers-contrast: more` border/muted overrides (`#9a8060`/`#45210e` light, `#7a6450`/`#f5ead9` dark), and `forced-colors: active` state borders. Re-read `base/a11y.css` lines 1–176 before editing.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

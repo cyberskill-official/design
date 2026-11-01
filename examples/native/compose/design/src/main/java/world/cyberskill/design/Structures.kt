@@ -268,7 +268,14 @@ fun CsCommandPalette(
       Row(
         Modifier
           .fillMaxWidth()
-          .then(if (csCommandShowsSearchOutline(searchFocused)) Modifier.border(csCommandSearchOutlineWidth(), pack.colorTextPrimary.toComposeColor()) else Modifier)
+          .then(
+            if (csCommandShowsSearchOutline(searchFocused)) {
+              Modifier
+                .border(csInteractionCmdkSearchOuterHaloWidth(searchFocused), pack.colorAccentOchre.toComposeColor())
+                .border(csCommandSearchOutlineWidth(), pack.colorTextPrimary.toComposeColor())
+                .border(csInteractionCmdkSearchInsetHaloWidth(searchFocused), pack.colorAccentOchre.toComposeColor())
+            } else Modifier
+          )
           .padding(horizontal = csCommandSearchPaddingX(), vertical = csCommandSearchPaddingY()),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(csCommandSearchGap()),

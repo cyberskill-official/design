@@ -5,6 +5,52 @@ public enum CSButtonRole {
   case danger
 }
 
+public enum CSInteractionModel {
+  public static let hoverShadowRed = 69
+  public static let hoverShadowGreen = 33
+  public static let hoverShadowBlue = 14
+  public static let hoverShadowAlpha = 0.24
+  public static func hoverShadowOffsetY() -> Double { 8 }
+  public static func hoverShadowBlur() -> Double { 20 }
+  public static func hoverTranslateY(hovered: Bool, active: Bool = false, disabled: Bool = false, reducedMotion: Bool = false) -> Double {
+    if disabled || active || reducedMotion || !hovered { return 0 }
+    return -1
+  }
+  public static func showsHoverShadow(hovered: Bool, active: Bool = false, disabled: Bool = false) -> Bool {
+    hovered && !active && !disabled
+  }
+  public static func showsActiveShadow(active: Bool, disabled: Bool = false) -> Bool {
+    active && !disabled
+  }
+  public static func focusHaloWidth(focused: Bool) -> Double {
+    focused ? 5 : 0
+  }
+  public static func cmdkSearchOuterHaloWidth(focused: Bool) -> Double {
+    focused ? 5 : 0
+  }
+  public static func cmdkSearchInsetHaloWidth(focused: Bool) -> Double {
+    focused ? 4 : 0
+  }
+  public static func riseOffsetY(reducedMotion: Bool = false) -> Double {
+    reducedMotion ? 0 : 10
+  }
+  public static func riseDelayMs(step: Int, reducedMotion: Bool = false) -> Double {
+    if reducedMotion { return 0 }
+    switch step {
+    case 2: return 80
+    case 3: return 160
+    case 4: return 240
+    default: return 0
+    }
+  }
+  public static func entranceDurationMs(pack: CSTokenModePack, reducedMotion: Bool = false) -> Double {
+    reducedMotion ? 0 : pack.durationSlow.value
+  }
+  public static func dialogDurationMs(pack: CSTokenModePack, reducedMotion: Bool = false) -> Double {
+    reducedMotion ? 0 : pack.durationBase.value
+  }
+}
+
 public enum CSControlMode {
   public static func pack(dark: Bool, highContrast: Bool, compact: Bool) -> CSTokenModePack {
     let scheme: CSColorScheme = dark ? .dark : .light
@@ -73,13 +119,19 @@ public struct CSButton: View {
   }
 
   @State private var focusId = UUID().uuidString
+  @State private var hovered = false
   @FocusState private var ownerFocused: Bool
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let fill = (role == .primary ? pack.componentButtonPrimaryBg : pack.colorSemanticDanger).color
     let ink = (role == .primary ? pack.componentButtonPrimaryFg : pack.colorTextInverse).color
     let restore = { ownerFocused = true }
+    let liftY = CGFloat(CSInteractionModel.hoverTranslateY(hovered: hovered, reducedMotion: reduceMotion))
+    let showHoverShadow = CSInteractionModel.showsHoverShadow(hovered: hovered)
+    let hoverShadowColor = Color(.sRGB, red: Double(CSInteractionModel.hoverShadowRed) / 255.0, green: Double(CSInteractionModel.hoverShadowGreen) / 255.0, blue: Double(CSInteractionModel.hoverShadowBlue) / 255.0, opacity: CSInteractionModel.hoverShadowAlpha)
+    let haloWidth = CGFloat(CSInteractionModel.focusHaloWidth(focused: ownerFocused))
     Button(action: {
       CSFocusRegistry.shared.claim(id: focusId, restore: restore)
       action()
@@ -93,8 +145,20 @@ public struct CSButton: View {
         .foregroundStyle(ink)
         .background(fill)
         .clipShape(RoundedRectangle(cornerRadius: pack.componentButtonRadius.points))
+        .overlay(
+          RoundedRectangle(cornerRadius: pack.componentButtonRadius.points)
+            .stroke(pack.colorAccentOchre.color, lineWidth: haloWidth)
+        )
+        .shadow(
+          color: showHoverShadow ? hoverShadowColor : .clear,
+          radius: showHoverShadow ? CGFloat(CSInteractionModel.hoverShadowBlur()) : 0,
+          x: 0,
+          y: showHoverShadow ? CGFloat(CSInteractionModel.hoverShadowOffsetY()) : 0
+        )
+        .offset(y: liftY)
     }
     .buttonStyle(.plain)
+    .onHover { hovered = $0 }
     .focused($ownerFocused)
     .accessibilityLabel(title)
     .onChange(of: ownerFocused) { isFocused in

@@ -437,9 +437,15 @@ public struct CSCommandPalette: View {
     .padding(.horizontal, CGFloat(CSCommandFilter.searchPaddingX()))
     .overlay {
       if CSCommandFilter.showsSearchOutline(focused: trap == 0) {
-        Rectangle()
-          .stroke(pack.primaryTextColor, lineWidth: CGFloat(CSCommandFilter.searchOutlineWidth()))
-          .padding(CGFloat(-CSCommandFilter.searchOutlineOffset()))
+        ZStack {
+          Rectangle()
+            .stroke(pack.colorAccentOchre.color, lineWidth: CGFloat(CSInteractionModel.cmdkSearchInsetHaloWidth(focused: trap == 0)))
+          Rectangle()
+            .stroke(pack.primaryTextColor, lineWidth: CGFloat(CSCommandFilter.searchOutlineWidth()))
+            .padding(CGFloat(-CSCommandFilter.searchOutlineOffset()))
+          Rectangle()
+            .stroke(pack.colorAccentOchre.color, lineWidth: CGFloat(CSInteractionModel.cmdkSearchOuterHaloWidth(focused: trap == 0)))
+        }
       }
     }
     .overlay(alignment: .bottom) {

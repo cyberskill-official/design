@@ -106,6 +106,49 @@ void csReturnFocus(String? savedId, void Function()? onRestore, String layerId, 
   }
 }
 
+const int csInteractionHoverShadowRed = 69;
+const int csInteractionHoverShadowGreen = 33;
+const int csInteractionHoverShadowBlue = 14;
+const double csInteractionHoverShadowAlpha = 0.24;
+double csInteractionHoverShadowOffsetY() => 8;
+double csInteractionHoverShadowBlur() => 20;
+double csInteractionButtonTranslateY({
+  required bool hovered,
+  bool active = false,
+  bool disabled = false,
+  bool reducedMotion = false,
+}) => disabled || active || reducedMotion || !hovered ? 0 : -1;
+bool csInteractionShowsButtonHoverShadow({
+  required bool hovered,
+  bool active = false,
+  bool disabled = false,
+}) => hovered && !active && !disabled;
+bool csInteractionShowsButtonActiveShadow({
+  required bool active,
+  bool disabled = false,
+}) => active && !disabled;
+double csInteractionFocusHaloWidth(bool focused) => focused ? 5 : 0;
+double csInteractionCmdkSearchOuterHaloWidth(bool focused) => focused ? 5 : 0;
+double csInteractionCmdkSearchInsetHaloWidth(bool focused) => focused ? 4 : 0;
+double csInteractionRiseOffsetY({bool reducedMotion = false}) => reducedMotion ? 0 : 10;
+double csInteractionRiseDelayMs(int step, {bool reducedMotion = false}) {
+  if (reducedMotion) return 0;
+  switch (step) {
+    case 2:
+      return 80;
+    case 3:
+      return 160;
+    case 4:
+      return 240;
+    default:
+      return 0;
+  }
+}
+double csInteractionEntranceDurationMs(CSTokenModePack pack, {bool reducedMotion = false}) =>
+    reducedMotion ? 0 : pack.durationSlow.value;
+double csInteractionDialogDurationMs(CSTokenModePack pack, {bool reducedMotion = false}) =>
+    reducedMotion ? 0 : pack.durationBase.value;
+
 class CsButton extends StatefulWidget {
   const CsButton({
     super.key,
@@ -135,6 +178,8 @@ class CsButton extends StatefulWidget {
 class _CsButtonState extends State<CsButton> {
   final node = FocusNode();
   final focusId = csOverlayFreshId('button');
+  bool hovered = false;
+  bool focused = false;
 
   @override
   void dispose() {
@@ -152,35 +197,64 @@ class _CsButtonState extends State<CsButton> {
       highContrast: widget.highContrast,
       compact: widget.compact,
     );
+    final reducedMotion = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
     final fill = csColor(widget.role == CsButtonRole.primary
         ? pack.componentButtonPrimaryBg
         : pack.colorSemanticDanger);
     final ink = csColor(widget.role == CsButtonRole.primary
         ? pack.componentButtonPrimaryFg
         : pack.colorTextInverse);
-    return FilledButton(
-      focusNode: node,
-      style: FilledButton.styleFrom(
-        padding: EdgeInsets.symmetric(
-          horizontal: widget.paddingX ?? csPoints(pack.componentButtonMdPaddingX),
-          vertical: widget.paddingY ?? csPoints(pack.componentButtonMdPaddingY),
-        ),
-        minimumSize: Size.fromHeight(csPoints(pack.componentButtonMdMinHeight)),
-        backgroundColor: fill,
-        foregroundColor: ink,
-        shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.circular(csPoints(pack.componentButtonRadius)),
+    final liftY = csInteractionButtonTranslateY(hovered: hovered, reducedMotion: reducedMotion);
+    final haloWidth = csInteractionFocusHaloWidth(focused);
+    return MouseRegion(
+      onEnter: (_) => setState(() => hovered = true),
+      onExit: (_) => setState(() => hovered = false),
+      child: Transform.translate(
+        offset: Offset(0, liftY),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(csPoints(pack.componentButtonRadius)),
+            boxShadow: [
+              if (haloWidth > 0)
+                BoxShadow(
+                  color: csColor(pack.colorAccentOchre),
+                  spreadRadius: haloWidth,
+                ),
+              if (csInteractionShowsButtonHoverShadow(hovered: hovered))
+                BoxShadow(
+                  color: const Color.fromARGB(255, csInteractionHoverShadowRed, csInteractionHoverShadowGreen, csInteractionHoverShadowBlue).withValues(alpha: csInteractionHoverShadowAlpha),
+                  blurRadius: csInteractionHoverShadowBlur(),
+                  offset: Offset(0, csInteractionHoverShadowOffsetY()),
+                ),
+            ],
+          ),
+          child: FilledButton(
+            focusNode: node,
+            style: FilledButton.styleFrom(
+              padding: EdgeInsets.symmetric(
+                horizontal: widget.paddingX ?? csPoints(pack.componentButtonMdPaddingX),
+                vertical: widget.paddingY ?? csPoints(pack.componentButtonMdPaddingY),
+              ),
+              minimumSize: Size.fromHeight(csPoints(pack.componentButtonMdMinHeight)),
+              backgroundColor: fill,
+              foregroundColor: ink,
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(csPoints(pack.componentButtonRadius)),
+              ),
+            ),
+            onPressed: () {
+              _claim();
+              widget.onPressed();
+            },
+            onFocusChange: (nextFocused) {
+              setState(() => focused = nextFocused);
+              if (nextFocused) _claim();
+            },
+            child: Text(widget.title),
+          ),
         ),
       ),
-      onPressed: () {
-        _claim();
-        widget.onPressed();
-      },
-      onFocusChange: (focused) {
-        if (focused) _claim();
-      },
-      child: Text(widget.title),
     );
   }
 }
