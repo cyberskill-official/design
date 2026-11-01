@@ -832,10 +832,14 @@ double csListItemPaddingY() => 10;
 bool csListIsInteractive(bool hasOnClick) => hasOnClick;
 double csListItemBorderWidth() => 0;
 bool csListItemShowsHoverFill({required bool interactive, required bool hovered}) => interactive && hovered;
+double csListMainGap() => 1;
+bool csListShowsSlot(String? value) => value != null;
 
 class CsList extends StatefulWidget {
-  const CsList({super.key, required this.items, required this.dark, required this.highContrast, required this.compact, this.onSelect});
+  const CsList({super.key, required this.items, required this.dark, required this.highContrast, required this.compact, this.leads = const [], this.trails = const [], this.onSelect});
   final List<(String, String)> items;
+  final List<String?> leads;
+  final List<String?> trails;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -873,10 +877,23 @@ class _CsListState extends State<CsList> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: csPoints(pack.space3), vertical: csListItemPaddingY()),
                   child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Text(widget.items[index].$1, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-                      if (widget.items[index].$2.isNotEmpty) Text(widget.items[index].$2, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted))),
-                    ]),
+                    if (index < widget.leads.length && csListShowsSlot(widget.leads[index])) ...[
+                      Text(widget.leads[index]!, style: TextStyle(color: csColor(pack.colorTextAccent))),
+                      SizedBox(width: csPoints(pack.space3)),
+                    ],
+                    Expanded(
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Text(widget.items[index].$1, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeSm), fontWeight: FontWeight.w600)),
+                        if (widget.items[index].$2.isNotEmpty) ...[
+                          SizedBox(height: csListMainGap()),
+                          Text(widget.items[index].$2, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeXs))),
+                        ],
+                      ]),
+                    ),
+                    if (index < widget.trails.length && csListShowsSlot(widget.trails[index])) ...[
+                      SizedBox(width: csPoints(pack.space3)),
+                      Text(widget.trails[index]!, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeSm))),
+                    ],
                   ]),
                 ),
               ),

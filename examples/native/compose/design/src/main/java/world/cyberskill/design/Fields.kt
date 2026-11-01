@@ -42,6 +42,7 @@ import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.focus.FocusRequester
@@ -666,9 +667,11 @@ fun csListItemPaddingY() = 10.dp
 fun csListIsInteractive(hasOnClick: Boolean) = hasOnClick
 fun csListItemBorderWidth() = 0.dp
 fun csListItemShowsHoverFill(interactive: Boolean, hovered: Boolean) = interactive && hovered
+fun csListMainGap() = 1.dp
+fun csListShowsSlot(value: String?) = value != null
 
 @Composable
-fun CsList(items: List<Pair<String, String>>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, onSelect: ((Int) -> Unit)? = null) {
+fun CsList(items: List<Pair<String, String>>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, leads: List<String?> = emptyList(), trails: List<String?> = emptyList(), onSelect: ((Int) -> Unit)? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val interactive = csListIsInteractive(onSelect != null)
   Column(modifier, verticalArrangement = Arrangement.spacedBy(csListGap())) {
@@ -676,11 +679,15 @@ fun CsList(items: List<Pair<String, String>>, dark: Boolean, highContrast: Boole
       val interaction = remember { MutableInteractionSource() }
       val hovered by interaction.collectIsHoveredAsState()
       val showHover = csListItemShowsHoverFill(interactive, hovered)
+      val lead = leads.getOrNull(index)
+      val trail = trails.getOrNull(index)
       Row(Modifier.fillMaxWidth().hoverable(interaction).clip(RoundedCornerShape(pack.radiusMd.toDp())).background(if (showHover) pack.colorSurfaceRaised.toComposeColor() else Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp())).let { if (interactive) it.clickable { onSelect?.invoke(index) } else it }.padding(horizontal = pack.space3.toDp(), vertical = csListItemPaddingY()), horizontalArrangement = Arrangement.spacedBy(pack.space3.toDp()), verticalAlignment = Alignment.CenterVertically) {
-        Column {
-          Text(item.first, color = pack.colorTextPrimary.toComposeColor())
-          if (item.second.isNotEmpty()) Text(item.second, color = pack.colorTextMuted.toComposeColor())
+        if (csListShowsSlot(lead)) Text(lead ?: "", color = pack.colorTextAccent.toComposeColor())
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(csListMainGap())) {
+          Text(item.first, color = pack.colorTextPrimary.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp, fontWeight = FontWeight.SemiBold)
+          if (item.second.isNotEmpty()) Text(item.second, color = pack.colorTextMuted.toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp)
         }
+        if (csListShowsSlot(trail)) Text(trail ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp)
       }
     }
   }

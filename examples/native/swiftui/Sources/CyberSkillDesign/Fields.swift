@@ -1578,14 +1578,20 @@ public enum CSListModel {
   public static func isInteractive(hasOnClick: Bool) -> Bool { hasOnClick }
   public static func itemBorderWidth() -> Double { 0 }
   public static func itemShowsHoverFill(interactive: Bool, hovered: Bool) -> Bool { interactive && hovered }
+  public static func mainGap() -> Double { 1 }
+  public static func showsSlot(_ value: String?) -> Bool { value != nil }
 }
 
 public struct CSListItem: Hashable {
   public let title: String
   public let subtitle: String
-  public init(title: String, subtitle: String = "") {
+  public let lead: String?
+  public let trail: String?
+  public init(title: String, subtitle: String = "", lead: String? = nil, trail: String? = nil) {
     self.title = title
     self.subtitle = subtitle
+    self.lead = lead
+    self.trail = trail
   }
 }
 
@@ -1612,11 +1618,26 @@ public struct CSList: View {
       ForEach(Array(items.enumerated()), id: \.offset) { index, item in
         let hovered = CSListModel.itemShowsHoverFill(interactive: interactive, hovered: hoverIndex == index)
         HStack(alignment: .center, spacing: pack.space3.points) {
-          VStack(alignment: .leading) {
-            Text(item.title).foregroundStyle(pack.primaryTextColor)
-            if !item.subtitle.isEmpty { Text(item.subtitle).foregroundStyle(pack.mutedColor) }
+          if CSListModel.showsSlot(item.lead), let lead = item.lead {
+            Text(lead).foregroundStyle(pack.colorTextAccent.color)
+          }
+          VStack(alignment: .leading, spacing: CGFloat(CSListModel.mainGap())) {
+            Text(item.title)
+              .font(.system(size: pack.fontSizeSm.points, weight: .semibold))
+              .foregroundStyle(pack.primaryTextColor)
+            if !item.subtitle.isEmpty {
+              Text(item.subtitle)
+                .font(.system(size: pack.fontSizeXs.points))
+                .foregroundStyle(pack.mutedColor)
+            }
           }
           .multilineTextAlignment(.leading)
+          .frame(maxWidth: .infinity, alignment: .leading)
+          if CSListModel.showsSlot(item.trail), let trail = item.trail {
+            Text(trail)
+              .font(.system(size: pack.fontSizeSm.points))
+              .foregroundStyle(pack.mutedColor)
+          }
         }
         .padding(.vertical, CGFloat(CSListModel.itemPaddingY()))
         .padding(.horizontal, pack.space3.points)
