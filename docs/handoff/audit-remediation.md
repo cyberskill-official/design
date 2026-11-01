@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the editor-frame checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the editor-bar checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `910cefb9cba8ab0f72e372c3b82a18bcc3505e06`, with the hash note in `68898173`
-- Checkpoint commit hash: `f0f66c34c0a962f8a3eb7e67120b925b2e2e0493`
+- Previous checkpoint: `f0f66c34c0a962f8a3eb7e67120b925b2e2e0493`, with the hash note in `0a250b3b`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the editor frame: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the editor bar: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A rich-text editor now frames the control with a 1px default border (`CSEditorModel.borderWidth()` / `csEditorBorderWidth()`), medium radius, panel surface fill, and a 460px maximum width (`CSEditorModel.maxWidth()` / `csEditorMaxWidth()`), matching `.cs-editor { border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); background: var(--cs-color-surface-panel); max-inline-size: 460px; }` in `base/controls.css`.
+The editor toolbar now uses a 2px button gap (`CSEditorModel.barGap()` / `csEditorBarGap()`), 6px padding (`CSEditorModel.barPadding()` / `csEditorBarPadding()`), a 1px default bottom border (`CSEditorModel.barBorderWidth()` / `csEditorBarBorderWidth()`), raised surface fill, and top-medium corner radius, matching `.cs-editor__bar { display: flex; gap: 2px; padding: 6px; border-block-end: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-raised); border-radius: var(--cs-radius-md) var(--cs-radius-md) 0 0; }` in `base/controls.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style the editor toolbar with a 2px gap, 6px padding, a 1px default bottom border, raised surface fill, and top-medium corner radius. The next rule in `base/controls.css` is `.cs-editor__bar { display: flex; gap: 2px; padding: 6px; border-block-end: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-raised); border-radius: var(--cs-radius-md) var(--cs-radius-md) 0 0; }`. Re-read that rule before editing. Do not invent gaps, padding, or colors.
+Style the editor text area with 12px vertical padding, 14px horizontal padding, a 14px regular UI font with 1.6 line height, primary text color, and a 120px default minimum height. The next rule in `base/controls.css` is `.cs-editor__area { padding: 12px 14px; font: 400 14px/1.6 var(--cs-font-family-ui); color: var(--cs-color-text-primary); outline: none; }`, with `minHeight = 120` in `components/forms/Editor.jsx`. Re-read those before editing. Do not invent padding, font sizes, or minimum heights.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

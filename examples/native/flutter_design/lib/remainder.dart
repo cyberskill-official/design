@@ -612,6 +612,9 @@ enum CsEditorMark { off, on, mixed }
 
 double csEditorBorderWidth() => 1;
 double csEditorMaxWidth() => 460;
+double csEditorBarGap() => 2;
+double csEditorBarPadding() => 6;
+double csEditorBarBorderWidth() => 1;
 
 String csEditorEscape(String text) => text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
@@ -736,11 +739,25 @@ class _CsEditorState extends State<CsEditor> {
         borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Semantics(container: true, label: csEditorCopy('toolbar', locale), child: Row(children: [
-          mark('B', csEditorCopy('bold', locale), bold, () { final restored = csEditorRestore(hadRange, widget.selectionStart, widget.selectionEnd, true, widget.text.length); final span = csEditorSpan(restored.$1, restored.$2, widget.text.length); final next = csEditorApply(widget.text, 'bold', span.$1, span.$2); setState(() { if (next == widget.text) { bold = csEditorPressed(bold); } else { bold = csEditorWrapped(next, '<b>', '</b>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
-          mark('I', csEditorCopy('italic', locale), italic, () { final restored = csEditorRestore(hadRange, widget.selectionStart, widget.selectionEnd, true, widget.text.length); final span = csEditorSpan(restored.$1, restored.$2, widget.text.length); final next = csEditorApply(widget.text, 'italic', span.$1, span.$2); setState(() { if (next == widget.text) { italic = csEditorPressed(italic); } else { italic = csEditorWrapped(next, '<i>', '</i>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
-          mark('≔', csEditorCopy('list', locale), list, () { final restored = csEditorRestore(hadRange, widget.selectionStart, widget.selectionEnd, true, widget.text.length); final span = csEditorSpan(restored.$1, restored.$2, widget.text.length); final next = csEditorApply(widget.text, 'insertUnorderedList', span.$1, span.$2); setState(() { if (next == widget.text) { list = csEditorPressed(list); } else { list = csEditorWrapped(next, '<ul>', '</ul>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
-        ])),
+        Semantics(
+          container: true,
+          label: csEditorCopy('toolbar', locale),
+          child: Container(
+            padding: EdgeInsets.all(csEditorBarPadding()),
+            decoration: BoxDecoration(
+              color: csColor(pack.colorSurfaceRaised),
+              border: Border(bottom: BorderSide(color: csColor(pack.colorBorderDefault), width: csEditorBarBorderWidth())),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(csPoints(pack.radiusMd))),
+            ),
+            child: Row(children: [
+              mark('B', csEditorCopy('bold', locale), bold, () { final restored = csEditorRestore(hadRange, widget.selectionStart, widget.selectionEnd, true, widget.text.length); final span = csEditorSpan(restored.$1, restored.$2, widget.text.length); final next = csEditorApply(widget.text, 'bold', span.$1, span.$2); setState(() { if (next == widget.text) { bold = csEditorPressed(bold); } else { bold = csEditorWrapped(next, '<b>', '</b>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
+              SizedBox(width: csEditorBarGap()),
+              mark('I', csEditorCopy('italic', locale), italic, () { final restored = csEditorRestore(hadRange, widget.selectionStart, widget.selectionEnd, true, widget.text.length); final span = csEditorSpan(restored.$1, restored.$2, widget.text.length); final next = csEditorApply(widget.text, 'italic', span.$1, span.$2); setState(() { if (next == widget.text) { italic = csEditorPressed(italic); } else { italic = csEditorWrapped(next, '<i>', '</i>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
+              SizedBox(width: csEditorBarGap()),
+              mark('≔', csEditorCopy('list', locale), list, () { final restored = csEditorRestore(hadRange, widget.selectionStart, widget.selectionEnd, true, widget.text.length); final span = csEditorSpan(restored.$1, restored.$2, widget.text.length); final next = csEditorApply(widget.text, 'insertUnorderedList', span.$1, span.$2); setState(() { if (next == widget.text) { list = csEditorPressed(list); } else { list = csEditorWrapped(next, '<ul>', '</ul>'); } }); if (next != widget.text) { widget.onSelection?.call(span.$1, csEditorMovedEnd(span.$1, span.$2, widget.text.length, next.length)); widget.onChange(next); } }),
+            ]),
+          ),
+        ),
         CsOwnFocus(builder: (node, claim) => TextField(focusNode: node, controller: controller, onChanged: (next) { claim(); widget.onChange(next); }, decoration: InputDecoration(labelText: spoken.isEmpty ? null : spoken))),
       ]),
     );

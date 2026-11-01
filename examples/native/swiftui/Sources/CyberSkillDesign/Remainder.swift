@@ -1555,6 +1555,9 @@ public enum CSEditorMark: Equatable {
 public enum CSEditorModel {
   public static func borderWidth() -> Double { 1 }
   public static func maxWidth() -> Double { 460 }
+  public static func barGap() -> Double { 2 }
+  public static func barPadding() -> Double { 6 }
+  public static func barBorderWidth() -> Double { 1 }
 
   public static func escape(_ text: String) -> String {
     text.replacingOccurrences(of: "&", with: "&amp;")
@@ -1707,10 +1710,16 @@ public struct CSEditor: View {
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let spoken = CSEditorModel.name(label, fallback: CSEditorModel.copy("area", language: locale))
     VStack(alignment: .leading, spacing: 8) {
-      HStack(spacing: 0) {
+      HStack(spacing: CGFloat(CSEditorModel.barGap())) {
         formatButton("B", name: CSEditorModel.copy("bold", language: locale), pressed: bold) { applyFormat("bold") }
         formatButton("I", name: CSEditorModel.copy("italic", language: locale), pressed: italic) { applyFormat("italic") }
         formatButton("≔", name: CSEditorModel.copy("list", language: locale), pressed: list) { applyFormat("insertUnorderedList") }
+      }
+      .padding(CGFloat(CSEditorModel.barPadding()))
+      .frame(maxWidth: .infinity, alignment: .leading)
+      .background(pack.colorSurfaceRaised.color)
+      .overlay(alignment: .bottom) {
+        Rectangle().fill(pack.colorBorderDefault.color).frame(height: CGFloat(CSEditorModel.barBorderWidth()))
       }
       .accessibilityElement(children: .contain)
       .accessibilityLabel(CSEditorModel.copy("toolbar", language: locale))
