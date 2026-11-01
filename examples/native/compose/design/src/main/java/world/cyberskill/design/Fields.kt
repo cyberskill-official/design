@@ -322,7 +322,7 @@ fun CsCalendar(monthLabel: String, year: Int, month: Int, selected: Int?, onSele
     val headerBtnSize = csControlsWaveStyleCalendarHeaderButtonSize()
     val cellSize = csControlsWaveStyleCalendarCellSize()
     val gridGap = csControlsWaveStyleCalendarGridGap()
-    val weekdayFontSize = csControlsWaveStyleCalendarWeekdayFontSize()
+    val weekdayFontSize = csControlsWaveStyleCalendarWeekdayFontSize.sp
     val dayFontSize = csControlsWaveStyleCalendarDayFontSize()
     Row(Modifier.widthIn(min = calMinWidth), horizontalArrangement = Arrangement.spacedBy(gridGap)) {
       CsTriggerButton(title = csCalendarPrevGlyph, onClick = {

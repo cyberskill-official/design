@@ -232,7 +232,7 @@ class CsTextarea extends StatelessWidget {
       ),
     ));
     return Opacity(
-      opacity: csTextFieldOpacity(disabled: disabled),
+      opacity: csTextFieldOpacity(disabled),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -416,7 +416,7 @@ class CsNumberField extends StatelessWidget {
     final btnHeight = math.max(44.0, csControlsWaveStyleStepperInputMinHeight());
     final invalid = csTextareaAlert(error);
     return Opacity(
-      opacity: csTextFieldOpacity(disabled: disabled),
+      opacity: csTextFieldOpacity(disabled),
       child: Semantics(
         label: valueName,
         value: shown,
@@ -1078,11 +1078,11 @@ class CsSegmentedControl extends StatelessWidget {
               final forward = vertical ? LogicalKeyboardKey.arrowDown : LogicalKeyboardKey.arrowRight;
               final backward = vertical ? LogicalKeyboardKey.arrowUp : LogicalKeyboardKey.arrowLeft;
               if (event.logicalKey == forward) {
-                onSelect(options[csTabsMove(index, 1, options.length)].value);
+                onSelect(options[csSegmentedMove(index, 'ArrowRight', options.length)].value);
                 return KeyEventResult.handled;
               }
               if (event.logicalKey == backward) {
-                onSelect(options[csTabsMove(index, -1, options.length)].value);
+                onSelect(options[csSegmentedMove(index, 'ArrowLeft', options.length)].value);
                 return KeyEventResult.handled;
               }
               if (event.logicalKey == LogicalKeyboardKey.home) {

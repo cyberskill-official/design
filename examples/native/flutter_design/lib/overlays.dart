@@ -596,7 +596,7 @@ class CsBackTop extends StatelessWidget {
         shape: BoxShape.circle,
         border: Border.all(color: csColor(pack.colorBorderDefault), width: 1),
       ),
-      child: CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: TextButton(focusNode: node, onPressed: () { claim(); onPress(); }, child: ExcludeSemantics(child: CsIcon(name: 'arrow-up', label: '', dark: dark, highContrast: highContrast, compact: compact, size: csBackTopIconSize))))),
+      child: CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: TextButton(focusNode: node, onPressed: () { claim(); onPress(); }, child: ExcludeSemantics(child: CsIcon(name: 'arrow-up', label: '', dark: dark, highContrast: highContrast, compact: compact, size: 'sm'))))),
     );
   }
 }

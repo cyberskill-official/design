@@ -412,7 +412,7 @@ class _CsCalendarState extends State<CsCalendar> {
     final headerBtnSize = csControlsWaveStyleCalendarHeaderButtonSize();
     final cellSize = csControlsWaveStyleCalendarCellSize();
     final gridGap = csControlsWaveStyleCalendarGridGap();
-    final weekdayFontSize = csControlsWaveStyleCalendarWeekdayFontSize();
+    final weekdayFontSize = csControlsWaveStyleCalendarWeekdayFontSize;
     final dayFontSize = csControlsWaveStyleCalendarDayFontSize();
     final resolvedWeekdays = widget.weekdayLabels.isEmpty ? csCalendarWeekdays(spoken) : widget.weekdayLabels;
     return Focus(

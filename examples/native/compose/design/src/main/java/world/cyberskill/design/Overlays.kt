@@ -454,7 +454,7 @@ fun CsBackTop(offset: Double, onPress: () -> Unit, dark: Boolean, highContrast: 
   if (csBackTopVisible(offset, threshold)) {
     val circleShape = androidx.compose.foundation.shape.CircleShape
     CsTriggerButton(title = name, onClick = onPress, modifier = modifier.size(csControlsBatchStyleBackTopSize()).minimumInteractiveComponentSize().background(pack.colorSurfacePanel.toComposeColor(), circleShape).border(1.dp, pack.colorBorderDefault.toComposeColor(), circleShape).semantics { contentDescription = name }) {
-      CsIcon(name = "arrow-up", label = null, dark = dark, highContrast = highContrast, compact = compact, size = csBackTopIconSize)
+      CsIcon(name = "arrow-up", label = "", dark = dark, highContrast = highContrast, compact = compact, size = "sm")
     }
   }
 }
