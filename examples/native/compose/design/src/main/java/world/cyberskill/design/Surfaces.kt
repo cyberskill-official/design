@@ -10,12 +10,16 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.ui.text.font.FontWeight
@@ -268,9 +272,9 @@ fun CsColorPicker(value: String, swatches: List<String>, onChange: (String) -> U
       true
     }) {
       swatches.forEach { swatch ->
-        CsTriggerButton(title = swatch, onClick = { csColorCommit(swatch)?.let { onChange(it); open = false } }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = swatch; stateDescription = csColorSelected(swatch, value).toString() }) { Text(swatch, modifier = Modifier.clearAndSetSemantics {}) }
+        CsTriggerButton(title = swatch, onClick = { csColorCommit(swatch)?.let { onChange(it); open = false } }, modifier = Modifier.sizeIn(minWidth = csControlsBatchStyleColorPickerCellSize(), minHeight = csControlsBatchStyleColorPickerCellSize()).minimumInteractiveComponentSize().semantics { contentDescription = swatch; stateDescription = csColorSelected(swatch, value).toString() }) { Text(swatch, modifier = Modifier.clearAndSetSemantics {}) }
       }
-      BasicTextField(value = hex, onValueChange = { hex = it }, modifier = Modifier.semantics { contentDescription = csColorCopy("hex", locale) }.onPreviewKeyEvent { event ->
+      BasicTextField(value = hex, onValueChange = { hex = it }, modifier = Modifier.widthIn(min = csControlsBatchStyleColorPickerHexInputWidth()).semantics { contentDescription = csColorCopy("hex", locale) }.onPreviewKeyEvent { event ->
         if (event.type != KeyEventType.KeyDown || event.key != Key.Enter) return@onPreviewKeyEvent false
         if (!csColorSubmits(false, 0)) return@onPreviewKeyEvent false
         csColorCommit(hex)?.let(onChange)
@@ -299,8 +303,8 @@ fun CsSplitter(start: String, end: String, percent: Double, onChange: (Double) -
       else -> false
     }
   }) {
-    Text(start, color = pack.colorTextPrimary.toComposeColor())
-    CsTriggerButton(title = spoken, onClick = { onChange(csSplitterNudge(percent, true, rtl)) }, modifier = Modifier.onGloballyPositioned { handleWidth = it.size.width.toDouble() }.pointerInput(rtl, wrapWidth, handleWidth) {
+    Text(start, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(csControlsBatchStyleSplitterPanePadding()))
+    CsTriggerButton(title = spoken, onClick = { onChange(csSplitterNudge(percent, true, rtl)) }, modifier = Modifier.widthIn(min = csControlsBatchStyleSplitterBarWidth()).onGloballyPositioned { handleWidth = it.size.width.toDouble() }.pointerInput(rtl, wrapWidth, handleWidth) {
       detectDragGestures(
         onDragStart = { dragStart = currentPercent; travel = 0.0 },
         onDrag = { _, amount ->
@@ -312,7 +316,7 @@ fun CsSplitter(start: String, end: String, percent: Double, onChange: (Double) -
         onDragCancel = { dragStart = null },
       )
     }.semantics { contentDescription = spoken; stateDescription = percent.toInt().toString() }) { Text(spoken, modifier = Modifier.clearAndSetSemantics {}) }
-    Text(end, color = pack.colorTextPrimary.toComposeColor())
+    Text(end, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(csControlsBatchStyleSplitterPanePadding()))
   }
 }
 
@@ -347,7 +351,7 @@ fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpen
     onOpenChange(false)
     true
   }) {
-    CsTriggerButton(title = face, onClick = { if (!disabled) onOpenChange(!open) }, enabled = !disabled && csControlEnabled(), modifier = Modifier.onGloballyPositioned {
+    CsTriggerButton(title = face, onClick = { if (!disabled) onOpenChange(!open) }, enabled = !disabled && csControlEnabled(), modifier = Modifier.widthIn(min = csControlsWaveStyleDatePickerFieldMinWidth()).onGloballyPositioned {
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
     }.semantics { contentDescription = name }) { Text(face, modifier = Modifier.clearAndSetSemantics {}) }
@@ -375,9 +379,9 @@ fun CsChatMessage(role: String, body: String, dark: Boolean, highContrast: Boole
   val user = csChatIsUser(role)
   val you = csChatCopy("you", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
   val speaker = csChatSpeaker(name, role, you, csChatLumi)
-  Column(modifier) {
-    Text(speaker, color = pack.colorTextMuted.toComposeColor())
-    Text(body, color = if (user) pack.colorSemanticInfoFg.toComposeColor() else pack.colorTextPrimary.toComposeColor())
+  Column(modifier, verticalArrangement = Arrangement.spacedBy(csAiStyleChatColGap())) {
+    Text(speaker, color = pack.colorTextMuted.toComposeColor(), fontSize = csAiStyleChatNameFontSize(pack).value.sp)
+    Text(body, color = if (user) pack.colorSemanticInfoFg.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csAiStyleChatBubbleFontSize(pack).value.sp, modifier = Modifier.padding(horizontal = csAiStyleChatBubblePaddingX(), vertical = csAiStyleChatBubblePaddingY()))
   }
 }
 
@@ -385,9 +389,9 @@ fun CsChatMessage(role: String, body: String, dark: Boolean, highContrast: Boole
 fun CsAnchor(title: String, items: List<Pair<String, String>>, visibleIds: List<String>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   val active = visibleIds.firstOrNull()
   val pack = csModePack(dark, highContrast, compact)
-  Column(modifier) {
-    Text(title, color = pack.colorTextPrimary.toComposeColor())
-    items.forEach { item -> Text(item.second, color = if (item.first == active) pack.colorBrandOchre.toComposeColor() else pack.colorTextMuted.toComposeColor()) }
+  Column(modifier.widthIn(min = csControlsBatchStyleAnchorMinWidth())) {
+    Text(title, color = pack.colorTextPrimary.toComposeColor(), fontSize = csControlsBatchStyleAnchorTitleFontSize.sp)
+    items.forEach { item -> Text(item.second, color = if (item.first == active) pack.colorBrandOchre.toComposeColor() else pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(horizontal = csControlsBatchStyleAnchorItemPaddingX(), vertical = csControlsBatchStyleAnchorItemPaddingY())) }
   }
 }
 
@@ -411,15 +415,15 @@ fun csCitationLine(index: Int, title: String, source: String?) = "${index + 1} $
 fun CsCitationList(items: List<String>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val heading = csCitationHeading(label, label == null, csCitationCopy("sources", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
-  Column(modifier) {
-    if (heading != null) Text(heading, color = pack.colorTextPrimary.toComposeColor())
-    items.forEachIndexed { index, item -> Text("${index + 1} $item", color = pack.colorTextPrimary.toComposeColor()) }
+  Column(modifier, verticalArrangement = Arrangement.spacedBy(csAiStyleCitationsGap())) {
+    if (heading != null) Text(heading, color = pack.colorTextPrimary.toComposeColor(), fontSize = csAiStyleCitationsLabelFontSize(pack).value.sp)
+    items.forEachIndexed { index, item -> Text("${index + 1} $item", color = pack.colorTextPrimary.toComposeColor(), fontSize = csAiStyleCitationFontSize(pack).value.sp) }
   }
 }
 
 @Composable
 fun CsScrollArea(maxHeight: Int, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-  Column(modifier) { content() }
+  Column(modifier.padding(csDataStyleScrollAreaFocusOutlineWidth(false))) { content() }
 }
 
 @Composable
@@ -427,13 +431,14 @@ fun CsImage(dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Mo
   val pack = csModePack(dark, highContrast, compact)
   val previewWord = csImageCopy("preview", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
   val name = if (csImageCanPreview(preview, state)) csImagePreviewName(alt, previewWord) else alt
-  Text(alt, color = pack.colorTextMuted.toComposeColor(), modifier = modifier.clearAndSetSemantics { contentDescription = name })
+  Text(alt, color = pack.colorTextMuted.toComposeColor(), modifier = modifier.sizeIn(minWidth = csControlsBatchStyleImageLoadingMinWidth(), minHeight = csControlsBatchStyleImageLoadingMinHeight()).clearAndSetSemantics { contentDescription = name })
 }
 
 @Composable
 fun CsLogo(title: String, decorative: Boolean, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   val pack = csModePack(dark, highContrast, compact)
-  Text(if (decorative) "" else title, color = pack.colorBrandOchre.toComposeColor(), modifier = modifier)
+  val autoHeight = csLogoStyleAutoBlockSize()
+  Text(if (decorative) "" else title, color = pack.colorBrandOchre.toComposeColor(), modifier = if (autoHeight) modifier else modifier)
 }
 
 const val csContextMenu = "Context menu"
@@ -559,7 +564,7 @@ fun CsContextMenu(items: List<String>, onSelect: (String) -> Unit, dark: Boolean
           if (natural == null) natural = width to height
           else fitted = width to height
         }
-      }.semantics { contentDescription = spoken }) {
+      }.padding(csNavigationStyleMenuListPadding()).semantics { contentDescription = spoken }) {
         if (label != null) Text(label, modifier = Modifier.clearAndSetSemantics { })
         items.forEach { item ->
           CsTriggerButton(title = item, onClick = { onSelect(item); raw = null; natural = null; fitted = null }) { Text(item) }
@@ -667,7 +672,7 @@ fun CsNavigationMenu(items: List<CsNavMenuItem>, dark: Boolean, highContrast: Bo
             natural = width to height
             pass = 1
           } else if (pass >= 1 && fitted != width to height) fitted = width to height
-        }) {
+        }.padding(csNavigationStyleMenuListPadding()), verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleNavMenuPanelOffset())) {
           cards.forEach { card ->
             TextButton(onClick = { choose(null) }, modifier = Modifier.semantics { contentDescription = csNavHref(card.href) }) {
               Column {
@@ -684,23 +689,23 @@ fun CsNavigationMenu(items: List<CsNavMenuItem>, dark: Boolean, highContrast: Bo
 
 @Composable
 fun CsCardHeader(title: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
-  Text(title, color = csModePack(dark, highContrast, compact).colorTextPrimary.toComposeColor(), modifier = modifier)
+  Text(title, color = csModePack(dark, highContrast, compact).colorTextPrimary.toComposeColor(), modifier = modifier.padding(start = csDataStyleCardHeaderPaddingX(), top = csDataStyleCardHeaderPaddingTop(), end = csDataStyleCardHeaderPaddingX(), bottom = csDataStyleCardHeaderPaddingBottom()))
 }
 
 @Composable
 fun CsCardBody(text: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
-  Text(text, color = csModePack(dark, highContrast, compact).colorTextPrimary.toComposeColor(), modifier = modifier)
+  Text(text, color = csModePack(dark, highContrast, compact).colorTextPrimary.toComposeColor(), modifier = modifier.padding(horizontal = csDataStyleCardBodyPaddingX(), vertical = csDataStyleCardBodyPaddingY()))
 }
 
 @Composable
 fun CsCardFooter(text: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
-  Text(text, color = csModePack(dark, highContrast, compact).colorTextMuted.toComposeColor(), modifier = modifier)
+  Text(text, color = csModePack(dark, highContrast, compact).colorTextMuted.toComposeColor(), modifier = modifier.padding(start = csDataStyleCardFooterPaddingX(), top = csDataStyleCardFooterPaddingTop(), end = csDataStyleCardFooterPaddingX(), bottom = csDataStyleCardFooterPaddingBottom()))
 }
 
 @Composable
 fun CsToastStack(modifier: Modifier = Modifier, label: String? = null, language: String? = null, content: @Composable () -> Unit) {
   val name = label ?: csToastCopy("notifications", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
-  Column(modifier.semantics { contentDescription = name }) { content() }
+  Column(modifier.padding(csFeedbackStyleToastStackInset()).semantics { contentDescription = name }, verticalArrangement = Arrangement.spacedBy(csFeedbackStyleToastStackGap())) { content() }
 }
 
 enum class CsGlassMaterial(val className: String) {

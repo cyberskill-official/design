@@ -320,10 +320,11 @@ public struct CSColorPicker: View {
                 }
               }
               .accessibilityValue(CSColorModel.selected(swatch, value: value) ? "true" : "false")
-              .frame(minWidth: 44, minHeight: 44)
+              .frame(minWidth: max(44, CGFloat(CSControlsBatchStyleModel.colorPickerCellSize())), minHeight: max(44, CGFloat(CSControlsBatchStyleModel.colorPickerCellSize())))
             }
           }
           TextField("", text: $hex)
+            .frame(minWidth: CGFloat(CSControlsBatchStyleModel.colorPickerHexInputWidth()))
             .focused($hexFocused)
             .accessibilityLabel(CSColorModel.copy("hex", language: locale))
             .onSubmit {
@@ -453,12 +454,12 @@ public struct CSSplitter: View {
     let rtl = layoutDirection == .rightToLeft
     let spoken = CSSplitterModel.name(label, fallback: CSSplitterModel.copy("label", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)))
     HStack(spacing: 0) {
-      Text(start).frame(maxWidth: .infinity).foregroundStyle(pack.primaryTextColor)
+      Text(start).padding(CGFloat(CSControlsBatchStyleModel.splitterPanePadding())).frame(maxWidth: .infinity).foregroundStyle(pack.primaryTextColor)
       Button {
         CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
         onChange(CSSplitterModel.nudge(percent, right: true, rtl: rtl))
       } label: {
-        Text(spoken).frame(minWidth: 44, minHeight: 44)
+        Text(spoken).frame(minWidth: max(44, CGFloat(CSControlsBatchStyleModel.splitterBarWidth())), minHeight: 44)
       }
       .focused($focused)
       .accessibilityValue(Text(String(Int(percent.rounded()))))
@@ -481,7 +482,7 @@ public struct CSSplitter: View {
       }.onEnded { _ in
         dragStart = nil
       })
-      Text(end).frame(maxWidth: .infinity).foregroundStyle(pack.primaryTextColor)
+      Text(end).padding(CGFloat(CSControlsBatchStyleModel.splitterPanePadding())).frame(maxWidth: .infinity).foregroundStyle(pack.primaryTextColor)
     }
     .background(GeometryReader { geo in
       Color.clear.preference(key: CSSplitterWrapKey.self, value: geo.size.width)
@@ -562,7 +563,7 @@ public struct CSDatePicker: View {
     let face = CSDateField.face(hasValue: !text.isEmpty, formatted: text, placeholder: hint)
     VStack(alignment: .leading) {
       CSTriggerButton(face) { onOpenChange(!open) }
-        .frame(minHeight: pack.componentButtonMdMinHeight.points)
+        .frame(minWidth: CGFloat(CSControlsWaveStyleModel.datePickerFieldMinWidth()), minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
         .disabled(disabled)
         .accessibilityLabel(label.isEmpty ? face : label)
         .background(GeometryReader { geo in
@@ -672,7 +673,7 @@ public struct CSChatMessage: View {
     let user = CSChatRole.isUser(role)
     let you = CSChatRole.copy("you", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))
     let speaker = CSChatRole.speaker(name, role: role, you: you, lumi: CSChatRole.lumiDefault)
-    VStack(alignment: user ? .trailing : .leading) {
+    VStack(alignment: user ? .trailing : .leading, spacing: CGFloat(CSAIStyleModel.chatColGap())) {
       if let avatar {
         Text(avatar).accessibilityHidden(true)
       } else if user {
@@ -680,10 +681,16 @@ public struct CSChatMessage: View {
       } else {
         CSIcon(name: "sparkle", label: "", dark: dark, highContrast: highContrast, compact: compact)
       }
-      Text(speaker).foregroundStyle(pack.mutedColor)
-      Text(bodyText).foregroundStyle(user ? pack.colorSemanticInfoFg.color : pack.primaryTextColor)
-        .padding(8)
+      Text(speaker)
+        .font(.system(size: CGFloat(CSAIStyleModel.chatNameFontSize(pack)), weight: .bold))
+        .foregroundStyle(pack.mutedColor)
+      Text(bodyText)
+        .font(.system(size: CGFloat(CSAIStyleModel.chatBubbleFontSize(pack))))
+        .foregroundStyle(user ? pack.colorSemanticInfoFg.color : pack.primaryTextColor)
+        .padding(.horizontal, CGFloat(CSAIStyleModel.chatBubblePaddingX()))
+        .padding(.vertical, CGFloat(CSAIStyleModel.chatBubblePaddingY()))
         .background(user ? pack.colorBrandUmber.color : pack.colorSurfacePanel.color)
+        .clipShape(RoundedRectangle(cornerRadius: CGFloat(CSAIStyleModel.chatBubbleRadius())))
     }
     .frame(maxWidth: .infinity, alignment: user ? .trailing : .leading)
   }
@@ -737,12 +744,18 @@ public struct CSAnchor: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     VStack(alignment: .leading) {
-      Text(title).foregroundStyle(pack.primaryTextColor)
+      Text(title)
+        .font(.system(size: CGFloat(CSControlsBatchStyleModel.anchorTitleFontSize()), weight: .bold))
+        .foregroundStyle(pack.primaryTextColor)
       ForEach(Array(items.enumerated()), id: \.offset) { _, item in
-        Text(item.label).foregroundStyle(item.id == active ? pack.colorBrandOchre.color : pack.mutedColor)
+        Text(item.label)
+          .foregroundStyle(item.id == active ? pack.colorBrandOchre.color : pack.mutedColor)
+          .padding(.horizontal, CGFloat(CSControlsBatchStyleModel.anchorItemPaddingX()))
+          .padding(.vertical, CGFloat(CSControlsBatchStyleModel.anchorItemPaddingY()))
           .frame(minHeight: 44, alignment: .leading)
       }
     }
+    .frame(minWidth: CGFloat(CSControlsBatchStyleModel.anchorMinWidth()), alignment: .leading)
   }
 }
 
@@ -812,17 +825,21 @@ public struct CSCitationList: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    VStack(alignment: .leading) {
+    VStack(alignment: .leading, spacing: CGFloat(CSAIStyleModel.citationsGap())) {
       if let heading = CSCitationModel.heading(label: label, omitted: label == nil, fallback: CSCitationModel.copy("sources", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))) {
-        Text(heading).foregroundStyle(pack.primaryTextColor)
+        Text(heading)
+          .font(.system(size: CGFloat(CSAIStyleModel.citationsLabelFontSize(pack)), weight: .bold))
+          .foregroundStyle(pack.primaryTextColor)
       }
       ForEach(Array(items.enumerated()), id: \.offset) { index, item in
         let line = CSCitationModel.line(index: index, title: item.title, source: item.source)
         if let href = CSCitationModel.href(item.href), let url = URL(string: href) {
           Link(line, destination: url)
+            .font(.system(size: CGFloat(CSAIStyleModel.citationFontSize(pack))))
             .frame(minHeight: 44, alignment: .leading)
         } else {
           Text(line)
+            .font(.system(size: CGFloat(CSAIStyleModel.citationFontSize(pack))))
             .foregroundStyle(pack.primaryTextColor)
             .frame(minHeight: 44, alignment: .leading)
         }
@@ -841,7 +858,9 @@ public struct CSScrollArea<Content: View>: View {
   }
 
   public var body: some View {
-    ScrollView { content() }.frame(maxHeight: maxHeight)
+    ScrollView { content() }
+      .frame(maxHeight: maxHeight)
+      .padding(CGFloat(CSDataStyleModel.scrollAreaFocusOutlineWidth(focused: false)))
   }
 }
 
@@ -901,11 +920,13 @@ public struct CSImage: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    let height = CSAspectRatioModel.height(ratio: ratio, width: 160) ?? 90
+    let minW = CGFloat(CSControlsBatchStyleModel.imageLoadingMinWidth())
+    let minH = CGFloat(CSControlsBatchStyleModel.imageLoadingMinHeight())
+    let height = CSAspectRatioModel.height(ratio: ratio, width: Double(max(160, minW))) ?? Double(max(90, minH))
     let previewWord = CSImageModel.copy("preview", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))
     RoundedRectangle(cornerRadius: pack.radiusMd.points)
       .fill(pack.borderColor)
-      .frame(width: 160, height: height)
+      .frame(width: max(160, minW), height: max(minH, height))
       .accessibilityLabel(CSImageModel.canPreview(preview: preview, state: state) ? CSImageModel.previewName(alt: alt, fallback: previewWord) : alt)
   }
 }
@@ -929,9 +950,11 @@ public struct CSLogo: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
+    let align: Alignment = CSLogoStyleModel.verticalAlign() == "middle" ? .center : .leading
+    let height: CGFloat? = CSLogoStyleModel.autoBlockSize() ? size : nil
     Text(title)
       .foregroundStyle(pack.colorBrandOchre.color)
-      .frame(width: size, height: size)
+      .frame(width: size, height: height, alignment: align)
       .accessibilityHidden(decorative)
       .accessibilityLabel(decorative ? "" : title)
   }
@@ -1134,7 +1157,7 @@ public struct CSContextMenu: View {
           if CSContextMenuModel.firstItem(items) != nil {
             ForEach(Array(items.enumerated()), id: \.offset) { _, item in
               if CSContextMenuModel.isSeparator(item) {
-                Rectangle().fill(pack.borderColor).frame(height: 1).accessibilityHidden(true)
+                Rectangle().fill(pack.borderColor).frame(height: CGFloat(CSNavigationStyleModel.menuSeparatorHeight())).accessibilityHidden(true)
               } else {
                 CSTriggerButton(item) {
                   onSelect(item)
@@ -1148,6 +1171,7 @@ public struct CSContextMenu: View {
             }
           }
         }
+        .padding(CGFloat(CSNavigationStyleModel.menuListPadding()))
         .frame(maxWidth: initial.map { CGFloat($0.maxWidth) }, maxHeight: initial.map { CGFloat($0.maxHeight) }, alignment: .topLeading)
         .offset(x: (placed?.left ?? anchor.x) / (zoneScale.width == 0 ? 1 : zoneScale.width), y: (placed?.top ?? anchor.y) / (zoneScale.height == 0 ? 1 : zoneScale.height))
         .opacity(placed == nil ? 0 : 1)
@@ -1425,7 +1449,7 @@ public struct CSNavigationMenu: View {
             CSNavigationMenuModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
           }
         }
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: CGFloat(CSNavigationStyleModel.menuListGap())) {
           ForEach(Array(items[opened].panel.enumerated()), id: \.offset) { _, card in
             if let url = URL(string: CSNavigationMenuModel.href(card.href)) {
               Link(destination: url) {
@@ -1440,7 +1464,8 @@ public struct CSNavigationMenu: View {
             }
           }
         }
-        .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+        .padding(CGFloat(CSNavigationStyleModel.menuListPadding()))
+        .frame(maxWidth: placed.map { CGFloat(min($0.maxWidth, CSControlsBatchStyleModel.navMenuPanelWidth())) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
         .background(GeometryReader { geo in
           let frame = geo.frame(in: .global)
           let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
@@ -1508,7 +1533,13 @@ public struct CSCardHeader: View {
   }
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    Text(title).font(.headline).foregroundStyle(pack.primaryTextColor).frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+    Text(title)
+      .font(.headline)
+      .foregroundStyle(pack.primaryTextColor)
+      .padding(.top, CGFloat(CSDataStyleModel.cardHeaderPaddingTop()))
+      .padding(.horizontal, CGFloat(CSDataStyleModel.cardHeaderPaddingX()))
+      .padding(.bottom, CGFloat(CSDataStyleModel.cardHeaderPaddingBottom()))
+      .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
   }
 }
 
@@ -1525,7 +1556,10 @@ public struct CSCardBody: View {
   }
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    Text(text).foregroundStyle(pack.primaryTextColor)
+    Text(text)
+      .foregroundStyle(pack.primaryTextColor)
+      .padding(.vertical, CGFloat(CSDataStyleModel.cardBodyPaddingY()))
+      .padding(.horizontal, CGFloat(CSDataStyleModel.cardBodyPaddingX()))
   }
 }
 
@@ -1542,7 +1576,11 @@ public struct CSCardFooter: View {
   }
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    Text(text).foregroundStyle(pack.mutedColor)
+    Text(text)
+      .foregroundStyle(pack.mutedColor)
+      .padding(.top, CGFloat(CSDataStyleModel.cardFooterPaddingTop()))
+      .padding(.horizontal, CGFloat(CSDataStyleModel.cardFooterPaddingX()))
+      .padding(.bottom, CGFloat(CSDataStyleModel.cardFooterPaddingBottom()))
   }
 }
 
@@ -1558,7 +1596,8 @@ public struct CSToastStack<Content: View>: View {
   }
   public var body: some View {
     let name = label ?? CSToastModel.copy("notifications", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))
-    VStack(alignment: .trailing, spacing: CSToastModel.stackGap) { content() }
+    VStack(alignment: .trailing, spacing: CGFloat(CSFeedbackStyleModel.toastStackGap())) { content() }
+      .padding(CGFloat(CSFeedbackStyleModel.toastStackInset()))
       .accessibilityElement(children: .contain)
       .accessibilityLabel(name)
   }

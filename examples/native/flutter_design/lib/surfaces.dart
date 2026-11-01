@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -275,12 +277,12 @@ class _CsColorPickerState extends State<CsColorPicker> {
                 button: true,
                 label: swatch,
                 toggled: csColorSelected(swatch, widget.value),
-                child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); final next = csColorCommit(swatch); if (next != null) { widget.onChange(next); setState(() => open = false); } }, child: ExcludeSemantics(child: Text(swatch)))),
+                child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsBatchStyleColorPickerCellSize(), minHeight: csControlsBatchStyleColorPickerCellSize()), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); final next = csColorCommit(swatch); if (next != null) { widget.onChange(next); setState(() => open = false); } }, child: ExcludeSemantics(child: Text(swatch))))),
               ),
             Semantics(
               textField: true,
               label: csColorCopy('hex', locale),
-              child: TextField(controller: hex, onSubmitted: (_) { if (!csColorSubmits(composing: false, keyCode: 0)) return; _commit(); setState(() => open = false); }, onEditingComplete: _commit),
+              child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsBatchStyleColorPickerHexInputWidth()), child: TextField(controller: hex, onSubmitted: (_) { if (!csColorSubmits(composing: false, keyCode: 0)) return; _commit(); setState(() => open = false); }, onEditingComplete: _commit)),
             ),
           ])),
         ),
@@ -331,7 +333,7 @@ class _CsSplitterState extends State<CsSplitter> {
       child: LayoutBuilder(builder: (context, constraints) {
         final nextWrap = constraints.maxWidth.isFinite ? constraints.maxWidth : wrapWidth;
         return Row(children: [
-          Text(widget.start),
+          Padding(padding: EdgeInsets.all(csControlsBatchStyleSplitterPanePadding()), child: Text(widget.start)),
           Semantics(
             button: true,
             label: spoken,
@@ -348,10 +350,10 @@ class _CsSplitterState extends State<CsSplitter> {
               },
               onHorizontalDragEnd: (_) { dragStart = null; grabX = null; },
               onHorizontalDragCancel: () { dragStart = null; grabX = null; },
-              child: CsOwnFocus(builder: (node, claim) => TextButton(key: handleKey, focusNode: node, onPressed: () { claim(); widget.onChange(csSplitterNudge(widget.percent, right: true, rtl: rtl)); }, child: ExcludeSemantics(child: Text(spoken)))),
+              child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsBatchStyleSplitterBarWidth()), child: CsOwnFocus(builder: (node, claim) => TextButton(key: handleKey, focusNode: node, onPressed: () { claim(); widget.onChange(csSplitterNudge(widget.percent, right: true, rtl: rtl)); }, child: ExcludeSemantics(child: Text(spoken))))),
             ),
           ),
-          Text(widget.end),
+          Padding(padding: EdgeInsets.all(csControlsBatchStyleSplitterPanePadding()), child: Text(widget.end)),
         ]);
       }),
     );
@@ -433,7 +435,7 @@ class _CsDatePickerState extends State<CsDatePicker> {
           return KeyEventResult.handled;
         },
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: TextButton(key: fieldKey, focusNode: node, onPressed: widget.disabled ? null : () { claim(); widget.onOpenChange(!open); }, child: ExcludeSemantics(child: Text(face))))),
+          CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsWaveStyleDatePickerFieldMinWidth()), child: TextButton(key: fieldKey, focusNode: node, onPressed: widget.disabled ? null : () { claim(); widget.onOpenChange(!open); }, child: ExcludeSemantics(child: Text(face)))))),
           if (open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: CsCalendar(
             monthLabel: csCalendarHeading(seedMonth, seedYear, locale),
             year: seedYear,
@@ -472,8 +474,12 @@ class CsChatMessage extends StatelessWidget {
     final you = csChatCopy('you', csSelectResolvedLanguage(language, CsLanguageScope.of(context)));
     final speaker = csChatSpeaker(name, role, you, csChatLumi);
     return Column(crossAxisAlignment: user ? CrossAxisAlignment.end : CrossAxisAlignment.start, children: [
-      Text(speaker, style: TextStyle(color: csColor(pack.colorTextMuted))),
-      Text(bodyText, style: TextStyle(color: csColor(user ? pack.colorSemanticInfoFg : pack.colorTextPrimary))),
+      Text(speaker, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csAiStyleChatNameFontSize(pack))),
+      SizedBox(height: csAiStyleChatColGap()),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: csAiStyleChatBubblePaddingX(), vertical: csAiStyleChatBubblePaddingY()),
+        child: Text(bodyText, style: TextStyle(color: csColor(user ? pack.colorSemanticInfoFg : pack.colorTextPrimary), fontSize: csAiStyleChatBubbleFontSize(pack))),
+      ),
     ]);
   }
 }
@@ -490,10 +496,17 @@ class CsAnchor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final active = visibleIds.isEmpty ? null : visibleIds.first;
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(title),
-      for (final item in items) Text(item.$2, style: TextStyle(fontWeight: item.$1 == active ? FontWeight.w700 : FontWeight.w400)),
-    ]);
+    return ConstrainedBox(
+      constraints: BoxConstraints(minWidth: csControlsBatchStyleAnchorMinWidth()),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(title, style: const TextStyle(fontSize: csControlsBatchStyleAnchorTitleFontSize)),
+        for (final item in items)
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: csControlsBatchStyleAnchorItemPaddingX(), vertical: csControlsBatchStyleAnchorItemPaddingY()),
+            child: Text(item.$2, style: TextStyle(fontWeight: item.$1 == active ? FontWeight.w700 : FontWeight.w400)),
+          ),
+      ]),
+    );
   }
 }
 
@@ -527,10 +540,15 @@ class CsCitationList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final heading = csCitationHeading(label, label == null, csCitationCopy('sources', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      if (heading != null) Text(heading),
-      for (var index = 0; index < items.length; index++) Text('${index + 1} ${items[index]}'),
+      if (heading != null) Text(heading, style: TextStyle(fontSize: csAiStyleCitationsLabelFontSize(pack))),
+      for (var index = 0; index < items.length; index++)
+        Padding(
+          padding: EdgeInsets.only(top: index > 0 ? csAiStyleCitationsGap() : 0),
+          child: Text('${index + 1} ${items[index]}', style: TextStyle(fontSize: csAiStyleCitationFontSize(pack))),
+        ),
     ]);
   }
 }
@@ -542,7 +560,13 @@ class CsScrollArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(constraints: BoxConstraints(maxHeight: maxHeight), child: SingleChildScrollView(child: child));
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: maxHeight),
+      child: Padding(
+        padding: EdgeInsets.all(csDataStyleScrollAreaFocusOutlineWidth(false)),
+        child: SingleChildScrollView(child: child),
+      ),
+    );
   }
 }
 
@@ -561,7 +585,13 @@ class CsImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final previewWord = csImageCopy('preview', csSelectResolvedLanguage(language, CsLanguageScope.of(context)));
     final name = csImageCanPreview(preview, state) ? csImagePreviewName(alt, previewWord) : alt;
-    return Semantics(label: name, child: const SizedBox(width: 160, height: 90));
+    return Semantics(
+      label: name,
+      child: SizedBox(
+        width: math.max(160, csControlsBatchStyleImageLoadingMinWidth()),
+        height: math.max(90, csControlsBatchStyleImageLoadingMinHeight()),
+      ),
+    );
   }
 }
 
@@ -577,7 +607,8 @@ class CsLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = Text(title);
-    return SizedBox(width: size, height: size, child: decorative ? ExcludeSemantics(child: text) : text);
+    final height = csLogoStyleAutoBlockSize() ? size : null;
+    return SizedBox(width: size, height: height, child: decorative ? ExcludeSemantics(child: text) : text);
   }
 }
 
@@ -786,11 +817,11 @@ class _CsContextMenuState extends State<CsContextMenu> {
                 ignoring: shown == null,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: initial?.maxWidth ?? double.infinity, maxHeight: initial?.maxHeight ?? double.infinity),
-                  child: Semantics(container: true, explicitChildNodes: true, label: csContextLabel(widget.label, csContextCopy('menu', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))), child: Column(key: panelKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  child: Semantics(container: true, explicitChildNodes: true, label: csContextLabel(widget.label, csContextCopy('menu', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))), child: Padding(padding: EdgeInsets.all(csNavigationStyleMenuListPadding()), child: Column(key: panelKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
                     if (widget.label != null) ExcludeSemantics(child: Text(widget.label!)),
                     for (final item in widget.items)
                       CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onSelect(item); setState(() { raw = null; natural = null; fitted = null; }); }, child: Text(item))),
-                  ])),
+                  ]))),
                 ),
               ),
             ),
@@ -947,7 +978,7 @@ class _CsNavigationMenuState extends State<CsNavigationMenu> {
             ignoring: place == null,
             child: Opacity(
               opacity: place == null ? 0 : 1,
-              child: Transform.translate(offset: Offset(place?.x ?? 0, place?.y ?? 0), child: ConstrainedBox(constraints: place == null ? const BoxConstraints() : BoxConstraints(maxWidth: place!.maxWidth, maxHeight: place!.maxHeight), child: Column(key: panelKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
+              child: Transform.translate(offset: Offset(place?.x ?? 0, place?.y ?? 0), child: ConstrainedBox(constraints: place == null ? const BoxConstraints() : BoxConstraints(maxWidth: place!.maxWidth, maxHeight: place!.maxHeight), child: Padding(padding: EdgeInsets.only(top: csControlsBatchStyleNavMenuPanelOffset()), child: Column(key: panelKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
                 for (final card in cards)
                   Semantics(
                     link: true,
@@ -958,7 +989,7 @@ class _CsNavigationMenuState extends State<CsNavigationMenu> {
                       if (csNavShowsDescription(card.description)) Text(card.description ?? '', style: TextStyle(color: csColor(pack.colorTextMuted))),
                     ])),
                   ),
-              ]))),
+              ])))),
             ),
           ),
         ]),
@@ -974,7 +1005,10 @@ class CsCardHeader extends StatelessWidget {
   final bool highContrast;
   final bool compact;
   @override
-  Widget build(BuildContext context) => Text(title, style: const TextStyle(fontWeight: FontWeight.w700));
+  Widget build(BuildContext context) => Padding(
+    padding: EdgeInsets.only(left: csDataStyleCardHeaderPaddingX(), top: csDataStyleCardHeaderPaddingTop(), right: csDataStyleCardHeaderPaddingX(), bottom: csDataStyleCardHeaderPaddingBottom()),
+    child: Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
+  );
 }
 
 class CsCardBody extends StatelessWidget {
@@ -984,7 +1018,10 @@ class CsCardBody extends StatelessWidget {
   final bool highContrast;
   final bool compact;
   @override
-  Widget build(BuildContext context) => Text(text);
+  Widget build(BuildContext context) => Padding(
+    padding: EdgeInsets.symmetric(horizontal: csDataStyleCardBodyPaddingX(), vertical: csDataStyleCardBodyPaddingY()),
+    child: Text(text),
+  );
 }
 
 class CsCardFooter extends StatelessWidget {
@@ -994,7 +1031,10 @@ class CsCardFooter extends StatelessWidget {
   final bool highContrast;
   final bool compact;
   @override
-  Widget build(BuildContext context) => Text(text);
+  Widget build(BuildContext context) => Padding(
+    padding: EdgeInsets.only(left: csDataStyleCardFooterPaddingX(), top: csDataStyleCardFooterPaddingTop(), right: csDataStyleCardFooterPaddingX(), bottom: csDataStyleCardFooterPaddingBottom()),
+    child: Text(text),
+  );
 }
 
 String csToastStackName(String? label, String? language) {
@@ -1009,7 +1049,18 @@ class CsToastStack extends StatelessWidget {
   final String? language;
   final List<Widget> children;
   @override
-  Widget build(BuildContext context) => Semantics(label: csToastStackName(label, csSelectResolvedLanguage(language, CsLanguageScope.of(context))), child: Column(children: children));
+  Widget build(BuildContext context) => Semantics(
+    label: csToastStackName(label, csSelectResolvedLanguage(language, CsLanguageScope.of(context))),
+    child: Padding(
+      padding: EdgeInsets.all(csFeedbackStyleToastStackInset()),
+      child: Column(children: [
+        for (var i = 0; i < children.length; i++) ...[
+          if (i > 0) SizedBox(height: csFeedbackStyleToastStackGap()),
+          children[i],
+        ],
+      ]),
+    ),
+  );
 }
 
 enum CsGlassMaterial {
