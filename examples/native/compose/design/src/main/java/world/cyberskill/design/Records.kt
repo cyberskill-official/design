@@ -176,7 +176,7 @@ fun CsDataGrid(
     csGridRowCount(useVirtual, shown.size)?.let { csGridRowCountValue = it }
     publishedHeight?.let { csGridDataRowHeightValue = it }
   }) {
-    if (csGridShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor())
+    if (csGridShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor(), fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = csTableStyleCaptionMarginBottom()))
     if (selectable) {
       Box(Modifier.width(csGridSelectionWidth()), contentAlignment = csGridCheckAlignment()) {
         CsCheckbox(label = selectAllLabel, checked = allSelected, onCheckedChange = { onSelect(csToggleAllSelection(keys, selected)) }, dark = dark, highContrast = highContrast, compact = compact)
@@ -188,10 +188,10 @@ fun CsDataGrid(
           val aria = csGridSortAria(sort, column.key)
           val mark = if (aria == "ascending") "▲" else if (aria == "descending") "▼" else "↕"
           CsTriggerButton(title = column.header, onClick = { sort = csGridNextSort(sort, column.key) }, modifier = Modifier.minimumInteractiveComponentSize().padding(csGridSortPadding()).border(csGridSortBorder(), Color.Transparent)) {
-            Text(column.header + " " + mark, color = pack.colorTextPrimary.toComposeColor())
+            Text(column.header + " " + mark, color = pack.colorTextPrimary.toComposeColor(), fontSize = csTableStyleHeaderFontSize(pack).value.sp, fontWeight = FontWeight.Bold)
           }
         } else {
-          Text(column.header, color = pack.colorTextPrimary.toComposeColor())
+          Text(column.header, color = pack.colorTextPrimary.toComposeColor(), fontSize = csTableStyleHeaderFontSize(pack).value.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = csTableStyleCellPaddingX(), vertical = csTableStyleCellPaddingY()))
         }
       }
     }
@@ -209,7 +209,7 @@ fun CsDataGrid(
       }
     }
     if (shown.isEmpty()) {
-      Text(csGridEmptyText(empty, csGridCopy("empty", null)), color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { csGridRowIndex(useVirtual, 0)?.let { csGridRowIndexValue = it } })
+      Text(csGridEmptyText(empty, csGridCopy("empty", null)), color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(vertical = csTableStyleStatusPaddingY(pack)).semantics { csGridRowIndex(useVirtual, 0)?.let { csGridRowIndexValue = it } })
     } else Column(if (useVirtual) Modifier.height(body.dp).verticalScroll(scroll) else Modifier) {
       if (useVirtual && window.first > 0) Spacer(Modifier.height((window.first * safeRow).dp))
       painted.forEach { index ->
@@ -224,7 +224,7 @@ fun CsDataGrid(
           }
           ordered.forEach { column ->
             val stuck = csGridSticky(column.key, pinned) != null
-            Text(csGridCellText(row, column.key, renders[column.key]), color = pack.colorTextPrimary.toComposeColor(), modifier = if (stuck) Modifier.background(pack.colorSurfacePanel.toComposeColor()).zIndex(1f) else Modifier)
+            Text(csGridCellText(row, column.key, renders[column.key]), color = pack.colorTextPrimary.toComposeColor(), modifier = (if (stuck) Modifier.background(pack.colorSurfacePanel.toComposeColor()).zIndex(1f) else Modifier).padding(horizontal = csTableStyleCellPaddingX(), vertical = csTableStyleCellPaddingY()))
           }
         }
       }
@@ -253,9 +253,9 @@ fun CsTagInput(
   val hint = csTagPlaceholderShown(placeholder, emptyList(), csTagCopy("placeholder", locale))
   val fieldName = if (label.isNullOrEmpty()) hint else label
   val handle = rememberFocusHandle("tag-query")
-  Column(modifier) {
+  Column(modifier.widthIn(min = csControlsWaveStyleTagInputMinWidth()), verticalArrangement = Arrangement.spacedBy(csControlsWaveStyleTagInputGap())) {
     if (!label.isNullOrEmpty()) Text(label, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
-    Row {
+    Row(horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleTagInputGap())) {
       tags.forEach { tag ->
         val name = csTagRemoveName(removeLabel, tag, csTagCopy("remove", locale))
         CsTriggerButton(title = name, onClick = { onChange(tags.filter { it != tag }, query) }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = name }) {
@@ -275,7 +275,7 @@ fun CsTagInput(
       },
       enabled = csControlEnabled(),
       textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()),
-      modifier = Modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = fieldName },
+      modifier = Modifier.widthIn(min = csControlsWaveStyleTagInputFieldMinWidth()).graphicsLayer { alpha = csControlsWaveStyleTagInputDisabledFieldOpacity() }.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = fieldName },
     )
   }
 }
@@ -307,16 +307,15 @@ fun CsConfidenceMeter(
     "high" -> pack.colorSemanticSuccessText
     else -> pack.colorSemanticWarningText
   }.toComposeColor()
-  Column(modifier.semantics { contentDescription = csConfidenceName(shown, word) }) {
-    Text(shown, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
-    Text(word, color = ink, modifier = Modifier.clearAndSetSemantics {})
-    Row {
+  Column(modifier.semantics { contentDescription = csConfidenceName(shown, word) }, verticalArrangement = Arrangement.spacedBy(csAiStyleConfidenceGap())) {
+    Text(shown, color = pack.colorTextPrimary.toComposeColor(), fontSize = csAiStyleConfidenceHeadFontSize(pack).value.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.clearAndSetSemantics {})
+    Text(word, color = ink, fontSize = csAiStyleConfidenceLevelFontSize(pack).value.sp, fontWeight = FontWeight.Bold, modifier = Modifier.clearAndSetSemantics {})
+    Row(horizontalArrangement = Arrangement.spacedBy(csAiStyleConfidenceTrackGap())) {
       repeat(measurement.segments) { index ->
         androidx.compose.foundation.layout.Box(
           Modifier
-            .padding(end = 4.dp)
-            .size(16.dp, 8.dp)
-            .clip(RoundedCornerShape(2.dp))
+            .size(16.dp, csAiStyleConfidenceSegmentHeight())
+            .clip(RoundedCornerShape(csAiStyleConfidenceSegmentRadius()))
             .background(if (index < measurement.filled) color else pack.colorBorderDefault.toComposeColor()),
         )
       }
@@ -645,18 +644,18 @@ fun CsToolbar(
   }
   if (!open && natural != null) { natural = null; fitted = null }
   Column(modifier) {
-    Row(Modifier.semantics { contentDescription = label ?: "" }) {
+    Row(Modifier.padding(csControlsBatchStyleToolbarPadding()).semantics { contentDescription = label ?: "" }, horizontalArrangement = Arrangement.spacedBy(csControlsBatchStyleToolbarGap()), verticalAlignment = Alignment.CenterVertically) {
       head.forEachIndexed { index, item ->
         if (item == "-") {
-          androidx.compose.foundation.layout.Box(Modifier.padding(horizontal = 4.dp).size(1.dp, 24.dp).background(pack.colorBorderDefault.toComposeColor()).clearAndSetSemantics {})
+          androidx.compose.foundation.layout.Box(Modifier.padding(horizontal = 4.dp).size(1.dp, csControlsBatchStyleToolbarSeparatorHeight()).background(pack.colorBorderDefault.toComposeColor()).clearAndSetSemantics {})
         } else {
-          CsTriggerButton(title = item, onClick = { focus = index; onSelect(item) }, modifier = Modifier.minimumInteractiveComponentSize()) {
+          CsTriggerButton(title = item, onClick = { focus = index; onSelect(item) }, modifier = Modifier.heightIn(min = csControlsBatchStyleToolbarButtonMinHeight()).minimumInteractiveComponentSize()) {
             Text(item, color = if (focus == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
           }
         }
       }
       if (extra.isNotEmpty()) {
-        CsTriggerButton(title = moreName, onClick = { open = !open }, modifier = Modifier.minimumInteractiveComponentSize().onGloballyPositioned {
+        CsTriggerButton(title = moreName, onClick = { open = !open }, modifier = Modifier.heightIn(min = csControlsBatchStyleToolbarButtonMinHeight()).minimumInteractiveComponentSize().onGloballyPositioned {
           val bounds = it.boundsInWindow()
           field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
         }.semantics { contentDescription = moreName; stateDescription = if (open) "true" else "false" }) {

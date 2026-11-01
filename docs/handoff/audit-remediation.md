@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the catalog-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the records-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `c25dae0251d81bfb3878007bd2d3cf6097af66b7`, with the hash note in `2ffacc82`
-- Checkpoint commit hash: `8bf7be7bc11b3f67a7e22b515e816af2352c5701`
+- Previous checkpoint: `8bf7be7bc11b3f67a7e22b515e816af2352c5701`, with the hash note in `e9bcf1fb`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -55,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Wired the rendered catalog views (`CSTextarea`/`CsTextarea`, `CSSearchField`/`CsSearchField`, `CSNumberField`/`CsNumberField`, `CSKbd`/`CsKbd`, `CSBreadcrumb`/`CsBreadcrumb`, `CSPagination`/`CsPagination`, `CSStatusIndicator`/`CsStatusIndicator`, `CSRating`/`CsRating`, `CSSegmentedControl`/`CsSegmentedControl`, `CSButtonGroup`/`CsButtonGroup`, `CSAvatarGroup`/`CsAvatarGroup`, `CSResult`/`CsResult`, `CSTooltip`/`CsTooltip`, and `CSToast`/`CsToast`) in `Catalog.swift`, `Catalog.kt`, and `catalog.dart` to consume `CSTextFieldModel`, `CSFormsStyleModel`, `CSControlsWaveStyleModel`, `CSNavigationStyleModel`, `CSDataStyleModel`, and `CSFeedbackStyleModel`.
+Wired the rendered record views (`CSDataGrid`/`CsDataGrid`, `CSTagInput`/`CsTagInput`, `CSConfidenceMeter`/`CsConfidenceMeter`, and `CSToolbar`/`CsToolbar`) in `Records.swift`, `Records.kt`, and `records.dart` to consume `CSTableStyleModel`, `CSControlsWaveStyleModel`, `CSAIStyleModel`, and `CSControlsBatchStyleModel`.
 
 - `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Wire the rendered record views (`CSDataGrid`/`CsDataGrid`, `CSTagInput`/`CsTagInput`, `CSConfidenceMeter`/`CsConfidenceMeter`, and `CSToolbar`/`CsToolbar`) in `Records.swift`, `Records.kt`, and `timeline.dart` to consume `CSTableStyleModel`, `CSControlsWaveStyleModel`, `CSAIStyleModel`, and `CSControlsBatchStyleModel`.
+Wire the remaining rendered views in `Components.swift`, `Controls.kt`, and `controls.dart` (`CSDivider`/`CsDivider`, `CSSelect`/`CsSelect`, `CSDialog`/`CsDialog`, `CSAlertDialog`/`CsAlertDialog`, `CSTable`/`CsTable`, `CSAIDisclosure`/`CsAiDisclosure`, `CSHumanReviewGate`/`CsHumanReviewGate`, and `CSLogo`/`CsLogo`) to consume `CSDividerModel`, `CSSelectModel`, `CSDialogModel`, `CSTableStyleModel`, `CSAIDisclosureStyleModel`, `CSReviewGateStyleModel`, and `CSLogoStyleModel`.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

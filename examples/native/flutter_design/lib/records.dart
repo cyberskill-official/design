@@ -201,7 +201,7 @@ class _CsDataGridState extends State<CsDataGrid> {
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (csGridShowsCaption(widget.caption)) Text(widget.caption ?? ''),
+        if (csGridShowsCaption(widget.caption)) Padding(padding: EdgeInsets.only(bottom: csTableStyleCaptionMarginBottom()), child: Text(widget.caption ?? '', style: TextStyle(color: csColor(pack.colorTextPrimary), fontWeight: FontWeight.w700))),
         ColoredBox(
           color: csColor(pack.colorSurfaceRaised),
           child: Transform.translate(
@@ -223,10 +223,10 @@ class _CsDataGridState extends State<CsDataGrid> {
                   claim();
                   setState(() => sort = csGridNextSort(sort, column.key));
                 },
-                child: Text('${column.header} ${csGridSortAria(sort, column.key) == 'ascending' ? '▲' : csGridSortAria(sort, column.key) == 'descending' ? '▼' : '↕'}'),
+                child: Text('${column.header} ${csGridSortAria(sort, column.key) == 'ascending' ? '▲' : csGridSortAria(sort, column.key) == 'descending' ? '▼' : '↕'}', style: TextStyle(fontSize: csTableStyleHeaderFontSize(pack), fontWeight: FontWeight.w700)),
               ))
             else
-              Text(column.header),
+              Padding(padding: EdgeInsets.symmetric(horizontal: csTableStyleCellPaddingX(), vertical: csTableStyleCellPaddingY()), child: Text(column.header, style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csTableStyleHeaderFontSize(pack), fontWeight: FontWeight.w700))),
         ])))),
         if (selectable)
           Align(alignment: csGridCheckAlignment(), child: SizedBox(width: csGridSelectionWidth(), child: CsCheckbox(label: selectAllLabel, value: allSelected, onChanged: (next) { if (next == null || next == allSelected) return; onSelect(csToggleAllSelection(keys, selected)); }, dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact))),
@@ -249,7 +249,7 @@ class _CsDataGridState extends State<CsDataGrid> {
         if (rows.isEmpty)
           Semantics(
             value: csGridRowIndex(useVirtual, 0)?.toString(),
-            child: Text(csGridEmptyText(widget.empty, csGridCopy('empty', null))),
+            child: Padding(padding: EdgeInsets.symmetric(vertical: csTableStyleStatusPaddingY(pack)), child: Text(csGridEmptyText(widget.empty, csGridCopy('empty', null)))),
           )
         else if (useVirtual)
           SizedBox(
@@ -307,7 +307,7 @@ class _CsDataGridState extends State<CsDataGrid> {
             ),
             ),
             ),
-          for (final column in columns) Text(csGridCellText(row, column.key, widget.renders?[column.key]), style: TextStyle(color: csColor(pack.colorTextPrimary), backgroundColor: csGridSticky(column.key, pinnedKey) == null ? null : csColor(pack.colorSurfacePanel))),
+          for (final column in columns) Padding(padding: EdgeInsets.symmetric(horizontal: csTableStyleCellPaddingX(), vertical: csTableStyleCellPaddingY()), child: Text(csGridCellText(row, column.key, widget.renders?[column.key]), style: TextStyle(color: csColor(pack.colorTextPrimary), backgroundColor: csGridSticky(column.key, pinnedKey) == null ? null : csColor(pack.colorSurfacePanel)))),
         ],
         ),
       ),
@@ -337,15 +337,17 @@ class CsTagInput extends StatelessWidget {
     final hint = csTagPlaceholderShown(placeholder, const [], csTagCopy('placeholder', locale));
     final visible = csTagPlaceholderShown(placeholder, tags, csTagCopy('placeholder', locale));
     final fieldName = (label == null || label!.isEmpty) ? hint : label!;
-    return Column(
+    return ConstrainedBox(
+      constraints: BoxConstraints(minWidth: csControlsWaveStyleTagInputMinWidth()),
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (label != null && label!.isNotEmpty) ExcludeSemantics(child: Text(label!, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
-        Wrap(children: [
+        Wrap(spacing: csControlsWaveStyleTagInputGap(), runSpacing: csControlsWaveStyleTagInputGap(), children: [
           for (final tag in tags)
             CsOwnFocus(builder: (node, claim) => Semantics(label: csTagRemoveName(removeLabel, tag, csTagCopy('remove', locale)), button: true, child: TextButton(focusNode: node, onPressed: () { claim(); onChange(tags.where((item) => item != tag).toList(), query); }, child: ExcludeSemantics(child: Text(csTagRemoveName(removeLabel, tag, csTagCopy('remove', locale))))))),
         ]),
-        CsOwnFocus(builder: (node, claim) => Semantics(label: fieldName, textField: true, child: TextField(
+        CsOwnFocus(builder: (node, claim) => Semantics(label: fieldName, textField: true, child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsWaveStyleTagInputFieldMinWidth()), child: Opacity(opacity: csControlsWaveStyleTagInputDisabledFieldOpacity(), child: TextField(
           focusNode: node,
           controller: TextEditingController(text: query),
           decoration: InputDecoration(hintText: visible.isEmpty ? null : visible),
@@ -363,8 +365,9 @@ class CsTagInput extends StatelessWidget {
             final edit = csAddTag(tags, query, max);
             onChange(edit.tags, edit.query);
           },
-        ))),
+        ))))),
       ],
+    ),
     );
   }
 }
@@ -403,15 +406,17 @@ class CsConfidenceMeter extends StatelessWidget {
       child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ExcludeSemantics(child: Text(shown, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
-        ExcludeSemantics(child: Text(word, style: TextStyle(color: csColor(ink)))),
+        ExcludeSemantics(child: Text(shown, style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csAiStyleConfidenceHeadFontSize(pack), fontWeight: FontWeight.w600))),
+        SizedBox(height: csAiStyleConfidenceGap()),
+        ExcludeSemantics(child: Text(word, style: TextStyle(color: csColor(ink), fontSize: csAiStyleConfidenceLevelFontSize(pack), fontWeight: FontWeight.w700))),
+        SizedBox(height: csAiStyleConfidenceGap()),
         Row(children: [
           for (var index = 0; index < measurement.segments; index++)
             Container(
               width: 16,
-              height: 8,
-              margin: const EdgeInsets.only(right: 4),
-              decoration: BoxDecoration(color: csColor(index < measurement.filled ? color : pack.colorBorderDefault), borderRadius: BorderRadius.circular(2)),
+              height: csAiStyleConfidenceSegmentHeight(),
+              margin: EdgeInsets.only(right: csAiStyleConfidenceTrackGap()),
+              decoration: BoxDecoration(color: csColor(index < measurement.filled ? color : pack.colorBorderDefault), borderRadius: BorderRadius.circular(csAiStyleConfidenceSegmentRadius())),
             ),
         ]),
       ],
@@ -866,26 +871,29 @@ class _CsToolbarState extends State<CsToolbar> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(children: [
-            for (var index = 0; index < head.length; index++)
-              if (head[index] == '-')
-                ExcludeSemantics(child: Container(width: 1, height: 24, color: csColor(pack.colorBorderDefault)))
-              else
-                CsOwnFocus(builder: (node, claim) => TextButton(
-                  focusNode: node,
-                  onPressed: () {
-                    claim();
-                    setState(() => focus = index);
-                    widget.onSelect(head[index]);
-                  },
-                  child: Text(head[index], style: TextStyle(color: csColor(focus == index ? pack.colorBrandOchre : pack.colorTextPrimary))),
-                )),
-            if (extra.isNotEmpty) CsOwnFocus(builder: (node, claim) => Semantics(label: moreName, value: open ? 'true' : 'false', button: true, child: TextButton(key: moreKey,
-              focusNode: node,
-              onPressed: () { claim(); setState(() => open = !open); },
-              child: ExcludeSemantics(child: Text(moreName)),
-            ))),
-          ]),
+          Padding(
+            padding: EdgeInsets.all(csControlsBatchStyleToolbarPadding()),
+            child: Row(children: [
+              for (var index = 0; index < head.length; index++)
+                if (head[index] == '-')
+                  ExcludeSemantics(child: Container(width: 1, height: csControlsBatchStyleToolbarSeparatorHeight(), margin: EdgeInsets.symmetric(horizontal: csControlsBatchStyleToolbarGap() / 2), color: csColor(pack.colorBorderDefault)))
+                else
+                  CsOwnFocus(builder: (node, claim) => ConstrainedBox(constraints: BoxConstraints(minHeight: csControlsBatchStyleToolbarButtonMinHeight()), child: TextButton(
+                    focusNode: node,
+                    onPressed: () {
+                      claim();
+                      setState(() => focus = index);
+                      widget.onSelect(head[index]);
+                    },
+                    child: Text(head[index], style: TextStyle(color: csColor(focus == index ? pack.colorBrandOchre : pack.colorTextPrimary))),
+                  ))),
+              if (extra.isNotEmpty) CsOwnFocus(builder: (node, claim) => Semantics(label: moreName, value: open ? 'true' : 'false', button: true, child: ConstrainedBox(constraints: BoxConstraints(minHeight: csControlsBatchStyleToolbarButtonMinHeight()), child: TextButton(key: moreKey,
+                focusNode: node,
+                onPressed: () { claim(); setState(() => open = !open); },
+                child: ExcludeSemantics(child: Text(moreName)),
+              )))),
+            ]),
+          ),
           if (open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           for (final item in extra) CsOwnFocus(builder: (node, claim) => TextButton(
             focusNode: node,

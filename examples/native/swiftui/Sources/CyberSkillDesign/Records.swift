@@ -353,7 +353,10 @@ public struct CSDataGrid: View {
     let keys = shown.enumerated().map { CSDataGridSelection.rowKey(value: $0.element[rowKeyName], index: $0.offset) }
     VStack(alignment: .leading, spacing: 0) {
       if CSDataGridSelection.showsCaption(caption), let caption {
-        Text(caption).foregroundStyle(pack.primaryTextColor)
+        Text(caption)
+          .font(.system(size: pack.fontSizeSm.points, weight: .bold))
+          .foregroundStyle(pack.primaryTextColor)
+          .padding(.bottom, CGFloat(CSTableStyleModel.captionMarginBottom()))
       }
       HStack {
         ForEach(orderedColumns, id: \.key) { column in
@@ -389,6 +392,9 @@ public struct CSDataGrid: View {
               .accessibilityLabel(CSDataGridSelection.pinName(header: column.header.isEmpty ? nil : column.header, key: column.key, template: pinTemplate))
             }
           }
+          .font(.system(size: CGFloat(CSTableStyleModel.headerFontSize(pack)), weight: .bold))
+          .padding(.horizontal, CGFloat(CSTableStyleModel.cellPaddingX()))
+          .padding(.vertical, CGFloat(CSTableStyleModel.cellPaddingY()))
           .zIndex(CSDataGridSelection.sticky(column.key, pinned: pinnedKey) == nil ? 0 : 1)
         }
       }
@@ -410,6 +416,7 @@ public struct CSDataGrid: View {
       }
       if shown.isEmpty {
         Text(CSDataGridSelection.emptyText(empty, fallback: CSDataGridSelection.copy("empty", language: locale)))
+          .padding(.vertical, CGFloat(CSTableStyleModel.statusPaddingY(pack)))
           .foregroundStyle(pack.mutedColor)
           .accessibilityCustomContent(AccessibilityCustomContentKey("rowindex", id: "rowindex"), CSDataGridSelection.rowIndex(virtual: useVirtual, position: 0).map { Text(String($0)) })
       } else {
@@ -470,14 +477,20 @@ public struct CSDataGrid: View {
           .frame(maxHeight: .infinity, alignment: CSDataGridSelection.checkAlignment())
         }
         ForEach(orderedColumns.filter { CSDataGridSelection.sticky($0.key, pinned: pinnedKey) != nil }, id: \.key) { column in
-          Text(CSDataGridSelection.cellText(row: row, key: column.key, render: renders[column.key])).foregroundStyle(pack.primaryTextColor)
+          Text(CSDataGridSelection.cellText(row: row, key: column.key, render: renders[column.key]))
+            .foregroundStyle(pack.primaryTextColor)
+            .padding(.horizontal, CGFloat(CSTableStyleModel.cellPaddingX()))
+            .padding(.vertical, CGFloat(CSTableStyleModel.cellPaddingY()))
             .background(selected.contains(key) ? fill : pack.colorSurfacePanel.color)
             .zIndex(1)
         }
         ScrollView(.horizontal, showsIndicators: false) {
           HStack {
             ForEach(orderedColumns.filter { CSDataGridSelection.sticky($0.key, pinned: pinnedKey) == nil }, id: \.key) { column in
-              Text(CSDataGridSelection.cellText(row: row, key: column.key, render: renders[column.key])).foregroundStyle(pack.primaryTextColor)
+              Text(CSDataGridSelection.cellText(row: row, key: column.key, render: renders[column.key]))
+                .foregroundStyle(pack.primaryTextColor)
+                .padding(.horizontal, CGFloat(CSTableStyleModel.cellPaddingX()))
+                .padding(.vertical, CGFloat(CSTableStyleModel.cellPaddingY()))
             }
           }
         }
@@ -582,9 +595,9 @@ public struct CSTagInput: View {
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let hint = CSTagInputModel.shownPlaceholder(text: placeholder, tags: [], fallback: CSTagInputModel.copy("placeholder", language: locale))
     let visible = CSTagInputModel.shownPlaceholder(text: placeholder, tags: tags, fallback: CSTagInputModel.copy("placeholder", language: locale))
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: CGFloat(CSControlsWaveStyleModel.tagInputGap())) {
       if !label.isEmpty { Text(label).foregroundStyle(pack.primaryTextColor).accessibilityHidden(true) }
-      HStack {
+      HStack(spacing: CGFloat(CSControlsWaveStyleModel.tagInputGap())) {
         ForEach(tags, id: \.self) { tag in
           CSTriggerButton(CSTagInputModel.removeName(label: removeLabel, tag: tag, fallback: CSTagInputModel.copy("remove", language: locale))) {
             guard CSTagInputModel.canEdit(disabled: disabled, composing: false) else { return }
@@ -604,6 +617,8 @@ public struct CSTagInput: View {
           onChange(tags, next)
         }
       }))
+        .frame(minWidth: CGFloat(CSControlsWaveStyleModel.tagInputFieldMinWidth()))
+        .opacity(disabled ? CSControlsWaveStyleModel.tagInputDisabledFieldOpacity() : 1.0)
         .focused($focused)
         .onChange(of: focused) { isFocused in
           if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
@@ -617,6 +632,7 @@ public struct CSTagInput: View {
           onChange(edit.tags, edit.query)
         }
     }
+    .frame(minWidth: CGFloat(CSControlsWaveStyleModel.tagInputMinWidth()), alignment: .leading)
     .accessibilityElement(children: .contain)
   }
 }
@@ -707,14 +723,18 @@ public struct CSConfidenceMeter: View {
     case "high": pack.colorSemanticSuccessText.color
     default: pack.colorSemanticWarningText.color
     }
-    VStack(alignment: .leading, spacing: 4) {
-      Text(shown).foregroundStyle(pack.primaryTextColor)
-      Text(word).foregroundStyle(ink)
-      HStack(spacing: 4) {
+    VStack(alignment: .leading, spacing: CGFloat(CSAIStyleModel.confidenceGap())) {
+      Text(shown)
+        .font(.system(size: CGFloat(CSAIStyleModel.confidenceHeadFontSize(pack)), weight: .semibold))
+        .foregroundStyle(pack.primaryTextColor)
+      Text(word)
+        .font(.system(size: CGFloat(CSAIStyleModel.confidenceLevelFontSize(pack)), weight: .bold))
+        .foregroundStyle(ink)
+      HStack(spacing: CGFloat(CSAIStyleModel.confidenceTrackGap())) {
         ForEach(0..<measurement.segments, id: \.self) { index in
-          RoundedRectangle(cornerRadius: 2)
+          RoundedRectangle(cornerRadius: CGFloat(CSAIStyleModel.confidenceSegmentRadius()))
             .fill(index < measurement.filled ? color : pack.borderColor)
-            .frame(width: 16, height: 8)
+            .frame(width: 16, height: CGFloat(CSAIStyleModel.confidenceSegmentHeight()))
         }
       }
     }
@@ -1002,28 +1022,29 @@ public struct CSToolbar: View {
     let extra = CSToolbarModel.tail(items, overflowAfter: overflowAfter)
     let actionable = shown.enumerated().filter { $0.element != "-" }.map(\.offset)
     VStack(alignment: .leading, spacing: 0) {
-    HStack(spacing: 8) {
+    HStack(spacing: CGFloat(CSControlsBatchStyleModel.toolbarGap())) {
       ForEach(Array(shown.enumerated()), id: \.offset) { index, item in
         if item == "-" {
-          Rectangle().fill(pack.borderColor).frame(width: 1, height: 24).accessibilityHidden(true)
+          Rectangle().fill(pack.borderColor).frame(width: 1, height: CGFloat(CSControlsBatchStyleModel.toolbarSeparatorHeight())).accessibilityHidden(true)
         } else {
           CSTriggerButton(item) {
             focus = index
             onSelect(item)
           }
-          .frame(minHeight: pack.componentButtonMdMinHeight.points)
+          .frame(minHeight: max(CGFloat(CSControlsBatchStyleModel.toolbarButtonMinHeight()), pack.componentButtonMdMinHeight.points))
           .accessibilityAddTraits(focus == index ? .isSelected : [])
         }
       }
       if !extra.isEmpty {
         CSTriggerButton(moreName) { open.toggle() }
-          .frame(minHeight: pack.componentButtonMdMinHeight.points)
+          .frame(minHeight: max(CGFloat(CSControlsBatchStyleModel.toolbarButtonMinHeight()), pack.componentButtonMdMinHeight.points))
           .accessibilityValue(open ? "true" : "false")
           .background(GeometryReader { geo in
             Color.clear.preference(key: CSToolbarAnchorKey.self, value: geo.frame(in: .global))
           })
       }
     }
+    .padding(CGFloat(CSControlsBatchStyleModel.toolbarPadding()))
     .accessibilityElement(children: .contain)
     .accessibilityLabel(CSToolbarModel.groupLabel(label) ?? "")
     .focusable()
