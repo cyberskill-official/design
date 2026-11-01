@@ -55,6 +55,24 @@ public enum CSCommandFilter {
   public static func searchOutlineWidth() -> Double { 2 }
   public static func searchOutlineOffset() -> Double { -2 }
   public static func showsSearchOutline(focused: Bool) -> Bool { focused }
+  public static func listMaxHeight() -> Double { 340 }
+  public static func listPadding() -> Double { 8 }
+  public static func listGap() -> Double { 2 }
+  public static func statusPaddingY() -> Double { 8 }
+  public static func statusPaddingX() -> Double { 10 }
+  public static func labelPaddingTop() -> Double { 8 }
+  public static func labelPaddingX() -> Double { 10 }
+  public static func labelPaddingBottom() -> Double { 2 }
+  public static func labelTracking() -> Double { 0.08 }
+  public static func showsGroupLabel(_ title: String?) -> Bool {
+    guard let title else { return false }
+    return !title.isEmpty
+  }
+  public static func groupLabelText(_ title: String) -> String { title.uppercased() }
+  public static func itemGap() -> Double { 11 }
+  public static func itemPaddingY() -> Double { 10 }
+  public static func itemPaddingX() -> Double { 12 }
+  public static func itemShowsRaisedFill(hovered: Bool, selected: Bool) -> Bool { hovered || selected }
 }
 
 public enum CSTransferModel {
@@ -334,6 +352,7 @@ public struct CSCommandPalette: View {
   let onClose: () -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
   @State private var focusId = UUID().uuidString
+  @State private var hoveredItem: String? = nil
   @FocusState private var trap: Int?
 
   public init(placeholder: String? = nil, groups: [(title: String, items: [String])], query: String, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onQuery: @escaping (String) -> Void, onSelect: @escaping (String) -> Void, onClose: @escaping () -> Void) {
@@ -372,24 +391,7 @@ public struct CSCommandPalette: View {
       }
       VStack(alignment: .leading, spacing: 0) {
         searchRow(pack: pack, locale: locale, hint: hint)
-        Text(CSCommandFilter.status(count: resultCount, language: locale))
-          .foregroundStyle(pack.mutedColor)
-          .accessibilityAddTraits(.updatesFrequently)
-        ForEach(Array(filtered.enumerated()), id: \.offset) { groupIndex, group in
-          if !group.items.isEmpty {
-            let before = filtered.prefix(groupIndex).reduce(0) { $0 + $1.items.count }
-            if !group.title.isEmpty { Text(group.title).foregroundStyle(pack.mutedColor) }
-            ForEach(Array(group.items.enumerated()), id: \.offset) { itemIndex, item in
-              CSTriggerButton(item) {
-                onSelect(item)
-                onQuery("")
-                onClose()
-              }
-                .focused($trap, equals: before + itemIndex + 1)
-                .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
-            }
-          }
-        }
+        resultsList(pack: pack, locale: locale, filtered: filtered, resultCount: resultCount)
       }
       .onAppear { trap = CSFocusTrap.initialIndex(preferred: 0, count: stops) }
       .csTabTrap { shift in
@@ -445,6 +447,57 @@ public struct CSCommandPalette: View {
         .fill(pack.colorBorderDefault.color)
         .frame(height: CGFloat(CSCommandFilter.borderWidth()))
     }
+  }
+
+  private func resultsList(pack: CSTokenModePack, locale: String?, filtered: [(title: String, items: [String])], resultCount: Int) -> some View {
+    ScrollView {
+      VStack(alignment: .leading, spacing: CGFloat(CSCommandFilter.listGap())) {
+        Text(CSCommandFilter.status(count: resultCount, language: locale))
+          .font(.system(size: pack.fontSizeSm.points))
+          .foregroundStyle(pack.primaryTextColor)
+          .padding(.vertical, CGFloat(CSCommandFilter.statusPaddingY()))
+          .padding(.horizontal, CGFloat(CSCommandFilter.statusPaddingX()))
+          .accessibilityAddTraits(.updatesFrequently)
+        ForEach(Array(filtered.enumerated()), id: \.offset) { groupIndex, group in
+          if !group.items.isEmpty {
+            let before = filtered.prefix(groupIndex).reduce(0) { $0 + $1.items.count }
+            if CSCommandFilter.showsGroupLabel(group.title) {
+              Text(CSCommandFilter.groupLabelText(group.title))
+                .font(.system(size: pack.fontSizeXs.points))
+                .tracking(CGFloat(CSCommandFilter.labelTracking() * pack.fontSizeXs.points))
+                .foregroundStyle(pack.mutedColor)
+                .padding(.top, CGFloat(CSCommandFilter.labelPaddingTop()))
+                .padding(.horizontal, CGFloat(CSCommandFilter.labelPaddingX()))
+                .padding(.bottom, CGFloat(CSCommandFilter.labelPaddingBottom()))
+            }
+            ForEach(Array(group.items.enumerated()), id: \.offset) { itemIndex, item in
+              let stopIndex = before + itemIndex + 1
+              let itemKey = "\(groupIndex)-\(itemIndex)"
+              let raised = CSCommandFilter.itemShowsRaisedFill(hovered: hoveredItem == itemKey, selected: trap == stopIndex)
+              CSTriggerButton(item) {
+                onSelect(item)
+                onQuery("")
+                onClose()
+              }
+                .font(.system(size: pack.fontSizeSm.points))
+                .foregroundStyle(pack.primaryTextColor)
+                .padding(.vertical, CGFloat(CSCommandFilter.itemPaddingY()))
+                .padding(.horizontal, CGFloat(CSCommandFilter.itemPaddingX()))
+                .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
+                .background(raised ? pack.colorSurfaceRaised.color : Color.clear, in: RoundedRectangle(cornerRadius: pack.radiusMd.points))
+                .onHover { isHovered in
+                  if isHovered { hoveredItem = itemKey }
+                  else if hoveredItem == itemKey { hoveredItem = nil }
+                }
+                .focused($trap, equals: stopIndex)
+            }
+          }
+        }
+      }
+      .padding(CGFloat(CSCommandFilter.listPadding()))
+      .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    .frame(maxHeight: CGFloat(CSCommandFilter.listMaxHeight()))
   }
 }
 

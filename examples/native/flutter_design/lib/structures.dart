@@ -61,6 +61,21 @@ double csCommandSearchIconSize() => 18;
 double csCommandSearchOutlineWidth() => 2;
 double csCommandSearchOutlineOffset() => -2;
 bool csCommandShowsSearchOutline(bool focused) => focused;
+double csCommandListMaxHeight() => 340;
+double csCommandListPadding() => 8;
+double csCommandListGap() => 2;
+double csCommandStatusPaddingY() => 8;
+double csCommandStatusPaddingX() => 10;
+double csCommandLabelPaddingTop() => 8;
+double csCommandLabelPaddingX() => 10;
+double csCommandLabelPaddingBottom() => 2;
+double csCommandLabelTracking() => 0.08;
+bool csCommandShowsGroupLabel(String? title) => title != null && title.isNotEmpty;
+String csCommandGroupLabelText(String title) => title.toUpperCase();
+double csCommandItemGap() => 11;
+double csCommandItemPaddingY() => 10;
+double csCommandItemPaddingX() => 12;
+bool csCommandItemShowsRaisedFill({required bool hovered, required bool selected}) => hovered || selected;
 String csCommandStatus(int count, String? language) {
   if (count == 0) return csCommandCopy('empty', language);
   final template = csCommandCopy(count == 1 ? 'oneResult' : 'results', language);
@@ -224,6 +239,7 @@ class CsCommandPalette extends StatefulWidget {
 class _CsCommandPaletteState extends State<CsCommandPalette> {
   var trap = 0;
   var searchFocused = false;
+  String? hoveredItem;
 
   @override
   Widget build(BuildContext context) {
@@ -325,13 +341,100 @@ class _CsCommandPaletteState extends State<CsCommandPalette> {
                           ),
                         ),
                       ),
-                      Semantics(liveRegion: true, child: Text(csCommandStatus(resultCount, locale), style: TextStyle(color: csColor(pack.colorTextMuted)))),
-                      for (final group in filtered)
-                        if (group.items.isNotEmpty) ...[
-                          if (group.title.isNotEmpty) Text(group.title, style: TextStyle(color: csColor(pack.colorTextMuted))),
-                          for (final item in group.items)
-                            CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onSelect(item); widget.onQuery(''); widget.onClose(); }, child: Text(item))),
-                        ],
+                      ConstrainedBox(
+                        constraints: BoxConstraints(maxHeight: csCommandListMaxHeight()),
+                        child: SingleChildScrollView(
+                          padding: EdgeInsets.all(csCommandListPadding()),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: csCommandStatusPaddingX(), vertical: csCommandStatusPaddingY()),
+                                child: Semantics(
+                                  liveRegion: true,
+                                  child: Text(
+                                    csCommandStatus(resultCount, locale),
+                                    style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeSm)),
+                                  ),
+                                ),
+                              ),
+                              for (var gi = 0; gi < filtered.length; gi++)
+                                if (filtered[gi].items.isNotEmpty) ...[
+                                  if (csCommandShowsGroupLabel(filtered[gi].title))
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: csCommandLabelPaddingX(),
+                                        right: csCommandLabelPaddingX(),
+                                        top: csCommandLabelPaddingTop(),
+                                        bottom: csCommandLabelPaddingBottom(),
+                                      ),
+                                      child: Text(
+                                        csCommandGroupLabelText(filtered[gi].title),
+                                        style: TextStyle(
+                                          color: csColor(pack.colorTextMuted),
+                                          fontSize: csPoints(pack.fontSizeXs),
+                                          letterSpacing: csCommandLabelTracking() * csPoints(pack.fontSizeXs),
+                                        ),
+                                      ),
+                                    ),
+                                  for (var ii = 0; ii < filtered[gi].items.length; ii++)
+                                    Padding(
+                                      padding: EdgeInsets.only(top: csCommandListGap()),
+                                      child: Builder(
+                                        builder: (context) {
+                                          final item = filtered[gi].items[ii];
+                                          final itemKey = '$gi-$ii';
+                                          var stopIndex = 1 + ii;
+                                          for (var k = 0; k < gi; k++) {
+                                            stopIndex += filtered[k].items.length;
+                                          }
+                                          final raised = csCommandItemShowsRaisedFill(hovered: hoveredItem == itemKey, selected: trap == stopIndex);
+                                          return MouseRegion(
+                                            onEnter: (_) => setState(() => hoveredItem = itemKey),
+                                            onExit: (_) => setState(() {
+                                              if (hoveredItem == itemKey) hoveredItem = null;
+                                            }),
+                                            child: DecoratedBox(
+                                              decoration: BoxDecoration(
+                                                color: raised ? csColor(pack.colorSurfaceRaised) : Colors.transparent,
+                                                borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+                                              ),
+                                              child: CsOwnFocus(
+                                                builder: (node, claim) => TextButton(
+                                                  focusNode: node,
+                                                  style: TextButton.styleFrom(
+                                                    padding: EdgeInsets.symmetric(horizontal: csCommandItemPaddingX(), vertical: csCommandItemPaddingY()),
+                                                    alignment: Alignment.centerLeft,
+                                                  ),
+                                                  onPressed: () {
+                                                    claim();
+                                                    widget.onSelect(item);
+                                                    widget.onQuery('');
+                                                    widget.onClose();
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      Text(
+                                                        item,
+                                                        style: TextStyle(
+                                                          color: csColor(pack.colorTextPrimary),
+                                                          fontSize: csPoints(pack.fontSizeSm),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                ],
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

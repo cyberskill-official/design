@@ -75,6 +75,21 @@ fun csCommandSearchIconSize() = 18.dp
 fun csCommandSearchOutlineWidth() = 2.dp
 fun csCommandSearchOutlineOffset() = (-2).dp
 fun csCommandShowsSearchOutline(focused: Boolean) = focused
+fun csCommandListMaxHeight() = 340.dp
+fun csCommandListPadding() = 8.dp
+fun csCommandListGap() = 2.dp
+fun csCommandStatusPaddingY() = 8.dp
+fun csCommandStatusPaddingX() = 10.dp
+fun csCommandLabelPaddingTop() = 8.dp
+fun csCommandLabelPaddingX() = 10.dp
+fun csCommandLabelPaddingBottom() = 2.dp
+fun csCommandLabelTracking() = 0.08f
+fun csCommandShowsGroupLabel(title: String?) = !title.isNullOrEmpty()
+fun csCommandGroupLabelText(title: String) = title.uppercase()
+fun csCommandItemGap() = 11.dp
+fun csCommandItemPaddingY() = 10.dp
+fun csCommandItemPaddingX() = 12.dp
+fun csCommandItemShowsRaisedFill(hovered: Boolean, selected: Boolean) = hovered || selected
 fun csCommandStatus(count: Int, language: String?): String {
   if (count == 0) return csCommandCopy("empty", language)
   val template = csCommandCopy(if (count == 1) "oneResult" else "results", language)
@@ -291,12 +306,65 @@ fun CsCommandPalette(
         CsKbd(keys = csCommandCopy("esc", locale), dark = dark, highContrast = highContrast, compact = compact)
       }
       Box(Modifier.fillMaxWidth().height(csCommandBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))
-      Text(csCommandStatus(resultCount, locale), color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
-      filtered.forEach { group ->
-        if (group.items.isNotEmpty()) {
-          if (group.title.isNotEmpty()) Text(group.title, color = pack.colorTextMuted.toComposeColor())
-          group.items.forEach { item ->
-            CsTriggerButton(title = item, onClick = { onSelect(item); onQuery(""); onClose() }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize()) { Text(item) }
+      Column(
+        Modifier
+          .fillMaxWidth()
+          .heightIn(max = csCommandListMaxHeight())
+          .padding(csCommandListPadding()),
+        verticalArrangement = Arrangement.spacedBy(csCommandListGap()),
+      ) {
+        Text(
+          csCommandStatus(resultCount, locale),
+          color = pack.colorTextPrimary.toComposeColor(),
+          fontSize = pack.fontSizeSm.toDp().value.sp,
+          modifier = Modifier
+            .padding(horizontal = csCommandStatusPaddingX(), vertical = csCommandStatusPaddingY())
+            .semantics { liveRegion = LiveRegionMode.Polite },
+        )
+        var runningIndex = 0
+        filtered.forEach { group ->
+          if (group.items.isNotEmpty()) {
+            if (csCommandShowsGroupLabel(group.title)) {
+              Text(
+                csCommandGroupLabelText(group.title),
+                color = pack.colorTextMuted.toComposeColor(),
+                fontSize = pack.fontSizeXs.toDp().value.sp,
+                letterSpacing = (csCommandLabelTracking() * pack.fontSizeXs.toDp().value).sp,
+                modifier = Modifier.padding(
+                  start = csCommandLabelPaddingX(),
+                  end = csCommandLabelPaddingX(),
+                  top = csCommandLabelPaddingTop(),
+                  bottom = csCommandLabelPaddingBottom(),
+                ),
+              )
+            }
+            group.items.forEach { item ->
+              runningIndex += 1
+              val stopIndex = runningIndex
+              val itemShape = RoundedCornerShape(pack.radiusMd.toDp())
+              val raised = csCommandItemShowsRaisedFill(hovered = false, selected = trap == stopIndex)
+              CsTriggerButton(
+                title = item,
+                onClick = { onSelect(item); onQuery(""); onClose() },
+                modifier = Modifier
+                  .fillMaxWidth()
+                  .minimumInteractiveComponentSize()
+                  .background(if (raised) pack.colorSurfaceRaised.toComposeColor() else Color.Transparent, itemShape)
+                  .padding(horizontal = csCommandItemPaddingX(), vertical = csCommandItemPaddingY()),
+              ) {
+                Row(
+                  Modifier.fillMaxWidth(),
+                  verticalAlignment = Alignment.CenterVertically,
+                  horizontalArrangement = Arrangement.spacedBy(csCommandItemGap()),
+                ) {
+                  Text(
+                    item,
+                    color = pack.colorTextPrimary.toComposeColor(),
+                    fontSize = pack.fontSizeSm.toDp().value.sp,
+                  )
+                }
+              }
+            }
           }
         }
       }

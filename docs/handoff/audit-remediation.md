@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the cmdk-scrim-frame-search checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the cmdk-list-status-label-item checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `8fbb506b62fc5dc2533593c0720a5be3d20a8671`, with the hash note in `198b955b`
-- Checkpoint commit hash: `94f1f186e25dc506ed63e5a9ef92f9a8044c5ae8`
+- Previous checkpoint: `94f1f186e25dc506ed63e5a9ef92f9a8044c5ae8`, with the hash note in `0b8f1945`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the command palette scrim, dialog frame, and search bar styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the command palette list, status, group label, and item styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`CommandPalette` (`CSCommandPalette` / `CsCommandPalette`) now uses an `rgba(31, 19, 11, 0.42)` scrim (`CSCommandFilter.scrimRed`, `scrimGreen`, `scrimBlue`, `scrimAlpha` / `csCommandScrimRed`, `csCommandScrimGreen`, `csCommandScrimBlue`, `csCommandScrimAlpha`) at modal depth with `12vh` top offset (`CSCommandFilter.topOffsetRatio` / `csCommandTopOffsetRatio`), `min(560px, 92vw)` dialog width (`CSCommandFilter.maxWidth()`, `viewportWidthRatio` / `csCommandMaxWidth()`, `csCommandViewportWidthRatio`), `--cs-color-surface-panel` background, `1px` default border (`CSCommandFilter.borderWidth()` / `csCommandBorderWidth()`), `--cs-radius-lg`, `--cs-shadow-xl`, clipped overflow, and a `14px 18px` search row (`CSCommandFilter.searchPaddingY()`, `searchPaddingX()`, `searchGap()` / `csCommandSearchPaddingY()`, `csCommandSearchPaddingX()`, `csCommandSearchGap()`) with `1px` bottom border, `18px` muted search icon (`CSCommandFilter.searchIconSize()` / `csCommandSearchIconSize()`), `--cs-font-size-md` primary input, `Esc` kbd badge, and `2px solid var(--cs-color-text-primary)` (`-2px` offset) focus-within outline (`CSCommandFilter.searchOutlineWidth()`, `searchOutlineOffset()`, `showsSearchOutline(focused:)` / `csCommandSearchOutlineWidth()`, `csCommandSearchOutlineOffset()`, `csCommandShowsSearchOutline(focused)`), matching `.cs-cmdk-scrim`, `.cs-cmdk`, `.cs-cmdk__search`, `.cs-cmdk__search svg`, `.cs-cmdk__search input`, and `.cs-cmdk__search:focus-within` in `base/shell.css` and `components/navigation/CommandPalette.jsx`.
+`CommandPalette` (`CSCommandPalette` / `CsCommandPalette`) now styles its `340px` max-height scrollable list (`CSCommandFilter.listMaxHeight()`, `listPadding()`, `listGap()` / `csCommandListMaxHeight()`, `csCommandListPadding()`, `csCommandListGap()`), `8px 10px` `--cs-font-size-sm` primary status row (`CSCommandFilter.statusPaddingY()`, `statusPaddingX()`, `showsStatusRow(resultCount:)` / `csCommandStatusPaddingY()`, `csCommandStatusPaddingX()`, `csCommandShowsStatusRow(resultCount)`), `8px 10px 2px` uppercase `--cs-font-size-xs` `--cs-letter-spacing-caps` muted group label (`CSCommandFilter.labelPaddingTop()`, `labelPaddingX()`, `labelPaddingBottom()`, `labelWeight()`, `groupLabelText(_:)` / `csCommandLabelPaddingTop()`, `csCommandLabelPaddingX()`, `csCommandLabelPaddingBottom()`, `csCommandLabelWeight()`, `csCommandGroupLabelText(raw)`), and `10px 12px` `--cs-radius-md` `--cs-font-size-sm` items (`CSCommandFilter.itemPaddingY()`, `itemPaddingX()`, `itemGap()`, `itemshowsRaisedSurface(selected:hovered:)` / `csCommandItemPaddingY()`, `csCommandItemPaddingX()`, `csCommandItemGap()`, `csCommandItemShowsRaisedSurface(selected, hovered)`) with `--cs-color-surface-raised` hover/selected fill and trailing `CSKbd` / `CsKbd` shortcut badge, matching `.cs-cmdk__list`, `.cs-cmdk__status`, `.cs-cmdk__label`, `.cs-cmdk__item`, `.cs-cmdk__item:hover, .cs-cmdk__item[aria-selected="true"]`, and `.cs-cmdk__item .cs-kbd` in `base/shell.css` and `components/navigation/CommandPalette.jsx`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `CommandPalette` (`CSCommandPalette` / `CsCommandPalette`) list, status, group label, and items in `base/shell.css` lines 54–59 and `components/navigation/CommandPalette.jsx` lines 59–77: `340px` max-height scrollable list with `8px` padding and `2px` gap, `8px 10px` `--cs-font-size-sm` `--cs-color-text-primary` status row, `8px 10px 2px` uppercase `--cs-font-size-xs` `--cs-letter-spacing-caps` muted group label, and `10px 12px` `--cs-radius-md` `--cs-font-size-sm` items with `11px` gap, `--cs-color-surface-raised` hover/selected fill, and `margin-inline-start: auto` shortcut kbd. Re-read `base/shell.css` lines 54–59 and `components/navigation/CommandPalette.jsx` before editing.
+Style Liquid Glass material compositions and classes (`CSGlassSpec` / `csGlassMaterial` / `CSGlassCard` / `CsGlassCard`) in `base/glass.css` lines 10–53: five materials (`whisper`, `light`, `standard`, `heavy`, `solid`/`matte`) with surface base (`page`/`panel`/`raised`), opacity (`60%`, `70%`, `80%`, `90%`, `100%`), backdrop blur (`8px`, `12px`, `16px`, `24px`, `0px`), saturation (`110%`, `130%`, `150%`, `180%`, `100%`), border mix (`0%`, `50%`, `60%`, `80%`, `100%`), and shadow (`none`, `none`, `sm`, `lg`, `none`). Re-read `base/glass.css` lines 10–53 and native `Surfaces.swift` / `Catalog.kt` / `catalog.dart` before editing.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
