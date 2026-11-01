@@ -374,28 +374,35 @@ class _CsCalendarState extends State<CsCalendar> {
     final now = DateTime.now();
     final count = csCalendarDays(viewYear, viewMonth);
     final active = focusedDay < count ? focusedDay : count;
+    final calMinWidth = csControlsWaveStyleCalendarMinWidth();
+    final headerBtnSize = csControlsWaveStyleCalendarHeaderButtonSize();
+    final cellSize = csControlsWaveStyleCalendarCellSize();
+    final gridGap = csControlsWaveStyleCalendarGridGap();
+    final dayFontSize = csControlsWaveStyleCalendarDayFontSize();
     return Focus(
       onKeyEvent: _key,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      child: ConstrainedBox(constraints: BoxConstraints(minWidth: calMinWidth), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
           Semantics(
             label: csCalendarCopy('prev', spoken),
             button: true,
-            child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () {
+            child: ConstrainedBox(constraints: BoxConstraints(minWidth: headerBtnSize, minHeight: headerBtnSize), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () {
               claim();
               final next = csCalendarShift(viewYear, viewMonth, -1);
               setState(() { viewYear = next.$1; viewMonth = next.$2; });
-            }, child: const Text('‹'))),
+            }, child: const Text('‹')))),
           ),
+          SizedBox(width: gridGap),
           Text(csCalendarHeading(viewMonth, viewYear, spoken), style: TextStyle(color: csColor(pack.colorTextPrimary))),
+          SizedBox(width: gridGap),
           Semantics(
             label: csCalendarCopy('next', spoken),
             button: true,
-            child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () {
+            child: ConstrainedBox(constraints: BoxConstraints(minWidth: headerBtnSize, minHeight: headerBtnSize), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () {
               claim();
               final next = csCalendarShift(viewYear, viewMonth, 1);
               setState(() { viewYear = next.$1; viewMonth = next.$2; });
-            }, child: const Text('›'))),
+            }, child: const Text('›')))),
           ),
         ]),
         for (final day in csCalendarGrid(viewYear, viewMonth))
@@ -409,18 +416,18 @@ class _CsCalendarState extends State<CsCalendar> {
               value: csCalendarCurrent(viewYear, viewMonth, day, now.year, now.month - 1, now.day) ? 'date' : '',
               selected: widget.selected == day,
               button: true,
-              child: TextButton(
+              child: ConstrainedBox(constraints: BoxConstraints(minWidth: cellSize, minHeight: cellSize), child: TextButton(
                 onPressed: () {
                   CsFocusRegistry.claim('calendar-day-$day', dayNodes[day - 1].requestFocus);
                   setState(() => focusedDay = day);
                   widget.onSelect(day);
                   widget.onChoose?.call(CsCalendarDate(viewYear, viewMonth, day));
                 },
-                child: Text('$day', style: TextStyle(color: csColor(widget.selected == day ? pack.colorBrandOchre : pack.colorTextPrimary), fontWeight: day == active ? FontWeight.bold : FontWeight.normal)),
-              ),
+                child: Text('$day', style: TextStyle(color: csColor(widget.selected == day ? pack.colorBrandOchre : pack.colorTextPrimary), fontSize: dayFontSize, fontWeight: day == active ? FontWeight.bold : FontWeight.normal)),
+              )),
             ),
             ),
-      ]),
+      ])),
     );
   }
 }
@@ -539,13 +546,18 @@ class _CsComboboxState extends State<CsCombobox> {
     final matched = fieldSize.width <= 0 ? 0.0 : (fieldSize.width < viewportWidth ? fieldSize.width : viewportWidth);
     final anchor = CsFloatingRect(fieldOrigin.dx, fieldOrigin.dy, fieldOrigin.dx + fieldSize.width, fieldOrigin.dy + fieldSize.height, fieldSize.width, fieldSize.height);
     final viewport = CsFloatingRect(8, 8, screen.width - 8, screen.height - 8, screen.width, screen.height);
-    final placed = fieldSize.width <= 0 || panelHeight <= 0 ? null : csFloatingPlace(anchor, matched, panelHeight, viewport, placement: 'bottom-start', gap: 6);
+    final popupGap = csControlsWaveStyleComboboxPopupOffset();
+    final popupMaxH = csControlsWaveStyleComboboxPopupMaxHeight();
+    final comboMinW = csControlsWaveStyleComboboxMinWidth();
+    final inputPadEnd = csControlsWaveStyleComboboxInputPaddingEnd();
+    final caretInset = csControlsWaveStyleComboboxCaretInsetEnd();
+    final placed = fieldSize.width <= 0 || panelHeight <= 0 ? null : csFloatingPlace(anchor, matched, panelHeight > popupMaxH ? popupMaxH : panelHeight, viewport, placement: 'bottom-start', gap: popupGap);
     final panelWidth = placed == null ? matched : (placed.maxWidth < matched ? placed.maxWidth : matched);
     final inForm = CsFormAncestor.of(context);
     final inlineLeft = placed == null ? 0.0 : placed.left - fieldOrigin.dx;
-    final inlineTop = placed == null ? fieldSize.height + 6 : placed.top - fieldOrigin.dy;
+    final inlineTop = placed == null ? fieldSize.height + popupGap : placed.top - fieldOrigin.dy;
     portalLeft = placed?.left ?? fieldOrigin.dx;
-    portalTop = placed?.top ?? fieldOrigin.dy + fieldSize.height + 6;
+    portalTop = placed?.top ?? fieldOrigin.dy + fieldSize.height + popupGap;
     portalWidth = panelWidth;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
@@ -579,8 +591,8 @@ class _CsComboboxState extends State<CsCombobox> {
         }
       },
       child: Stack(clipBehavior: Clip.none, children: [
-      Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-      KeyedSubtree(key: fieldKey, child: Stack(children: [CsOwnFocus(builder: (node, claim) => Semantics(textField: true, expanded: open, hint: open && widget.highlight >= 0 && widget.highlight < shown.length ? shown[widget.highlight].label : null, child: TextField(
+      ConstrainedBox(constraints: BoxConstraints(minWidth: comboMinW), child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+      KeyedSubtree(key: fieldKey, child: Stack(children: [Padding(padding: EdgeInsets.only(right: inputPadEnd), child: CsOwnFocus(builder: (node, claim) => Semantics(textField: true, expanded: open, hint: open && widget.highlight >= 0 && widget.highlight < shown.length ? shown[widget.highlight].label : null, child: TextField(
         focusNode: node,
         enabled: !widget.disabled,
         controller: fieldController,
@@ -594,12 +606,12 @@ class _CsComboboxState extends State<CsCombobox> {
           widget.onSelect(shown[widget.highlight].value);
           widget.onQuery('');
         },
-      ))),
-      Positioned(right: 10, top: 0, bottom: 0, child: IgnorePointer(child: ExcludeSemantics(child: Align(alignment: Alignment.centerRight, child: Text(csComboboxCaret, style: TextStyle(color: csColor(pack.colorTextMuted))))))),
+      )))),
+      Positioned(right: caretInset, top: 0, bottom: 0, child: IgnorePointer(child: ExcludeSemantics(child: Align(alignment: Alignment.centerRight, child: Text(csComboboxCaret, style: TextStyle(color: csColor(pack.colorTextMuted))))))),
     ])),
       if (csComboboxMessage(widget.description)) Text(widget.description!, style: TextStyle(color: csColor(pack.colorTextMuted))),
       if (csComboboxMessage(widget.error)) Text(widget.error!, style: TextStyle(color: csColor(pack.colorSemanticDangerText))),
-      ]),
+      ])),
       if (inForm && open && fieldSize.width > 0) Positioned(left: inlineLeft, top: inlineTop, width: panelWidth, child: comboboxList(shown, pack)),
     ]),
     ),
@@ -695,14 +707,21 @@ class _CsAlertDialogState extends State<CsAlertDialog> {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
+    final headerGap = csDialogHeaderGap();
+    final titleFontSize = csDialogTitleFontSize();
+    final bodyMarginY = csDialogBodyMarginY();
+    final pad = csDialogPadding(pack);
+    final maxW = csDialogAlertMaxWidth();
+    final titleInk = csColor(csDialogDestructiveTitleColor(widget.destructive, pack));
     return Focus(
       onKeyEvent: _tab,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(widget.title, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-        Text(widget.message, style: TextStyle(color: csColor(pack.colorTextMuted))),
+      child: ConstrainedBox(constraints: BoxConstraints(maxWidth: maxW), child: Padding(padding: EdgeInsets.all(pad), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(widget.title, style: TextStyle(color: titleInk, fontSize: titleFontSize, fontWeight: FontWeight.bold)),
+        SizedBox(height: headerGap),
+        Padding(padding: EdgeInsets.symmetric(vertical: bodyMarginY), child: Text(widget.message, style: TextStyle(color: csColor(pack.colorTextMuted)))),
         TextButton(focusNode: cancelNode, onPressed: () { CsFocusRegistry.claim('alert-cancel-$layerId', cancelNode.requestFocus); widget.onOpenChange(false); widget.onCancel(); csReturnFocus(restoreId, null, layerId, CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)])); }, child: Text(csAlertLabel(widget.cancelLabel, csAlertCopy('cancel', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))))),
         TextButton(focusNode: confirmNode, onPressed: () { CsFocusRegistry.claim('alert-confirm-$layerId', confirmNode.requestFocus); widget.onOpenChange(false); widget.onConfirm(); csReturnFocus(restoreId, null, layerId, CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)])); }, child: Text(csAlertLabel(widget.confirmLabel, csAlertCopy('confirm', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))), style: TextStyle(color: csColor(widget.destructive ? pack.colorSemanticDanger : pack.colorBrandOchre)))),
-      ]),
+      ]))),
     );
   }
 }
@@ -948,12 +967,17 @@ class CsComment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    final gap = csControlsBatchStyleCommentGap();
+    final repliesIndent = csControlsBatchStyleCommentRepliesIndent();
+    final repliesBorder = csControlsBatchStyleCommentRepliesBorderWidth();
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(author, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-      if (csCommentShows(meta)) Text(meta, style: TextStyle(color: csColor(pack.colorTextMuted))),
+      if (csCommentShows(meta)) ...[SizedBox(height: gap), Text(meta, style: TextStyle(color: csColor(pack.colorTextMuted)))],
+      SizedBox(height: gap),
       Text(bodyText, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+      SizedBox(height: gap),
       Wrap(children: [for (final label in csCommentReplyActions(actions, csCommentCopy('reply', csSelectResolvedLanguage(language, CsLanguageScope.of(context))))) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: claim, child: Text(label)))]),
-      if (csCommentShows(replies)) Text(replies!, style: TextStyle(color: csColor(pack.colorTextMuted))),
+      if (csCommentShows(replies)) ...[SizedBox(height: gap), Container(padding: EdgeInsets.only(left: repliesIndent), decoration: BoxDecoration(border: Border(left: BorderSide(color: csColor(pack.colorBorderDefault), width: repliesBorder))), child: Text(replies!, style: TextStyle(color: csColor(pack.colorTextMuted))))],
     ]);
   }
 }

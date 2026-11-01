@@ -324,6 +324,12 @@ public struct CSCalendar: View {
     let spoken = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let cells = CSCalendarModel.grid(year: viewYear, month: viewMonth)
     let today = CSCalendarModel.currentDate()
+    let minWidth = CGFloat(CSControlsWaveStyleModel.calendarMinWidth())
+    let headerBtnSize = CGFloat(max(44, CSControlsWaveStyleModel.calendarHeaderButtonSize()))
+    let cellSize = CGFloat(max(44, CSControlsWaveStyleModel.calendarCellSize()))
+    let gridGap = CGFloat(CSControlsWaveStyleModel.calendarGridGap())
+    let weekdaySize = CGFloat(CSControlsWaveStyleModel.calendarWeekdayFontSize())
+    let daySize = CGFloat(CSControlsWaveStyleModel.calendarDayFontSize())
     VStack(alignment: .leading, spacing: 8) {
       HStack {
         CSTriggerButton("‹") {
@@ -333,7 +339,7 @@ public struct CSCalendar: View {
           onShift(-1)
         }
           .accessibilityLabel(CSCalendarModel.copy("prev", language: spoken))
-          .frame(minWidth: 44, minHeight: 44)
+          .frame(minWidth: headerBtnSize, minHeight: headerBtnSize)
         Text(CSCalendarModel.heading(month: viewMonth, year: viewYear, language: spoken)).foregroundStyle(pack.primaryTextColor)
         Spacer()
         CSTriggerButton("›") {
@@ -343,11 +349,11 @@ public struct CSCalendar: View {
           onShift(1)
         }
           .accessibilityLabel(CSCalendarModel.copy("next", language: spoken))
-          .frame(minWidth: 44, minHeight: 44)
+          .frame(minWidth: headerBtnSize, minHeight: headerBtnSize)
       }
-      LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 7), spacing: 4) {
+      LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: gridGap), count: 7), spacing: gridGap) {
         ForEach(Array(weekdayLabels.enumerated()), id: \.offset) { _, label in
-          Text(label).foregroundStyle(pack.mutedColor)
+          Text(label).font(.system(size: weekdaySize)).foregroundStyle(pack.mutedColor)
         }
         ForEach(Array(cells.enumerated()), id: \.offset) { _, day in
           if let day {
@@ -357,8 +363,8 @@ public struct CSCalendar: View {
               onSelect(day)
               onChoose(CSCalendarDate(year: viewYear, month: viewMonth, day: day))
             }
-              .frame(minWidth: 44, minHeight: 44)
-              .fontWeight(day == min(focusedDay, CSCalendarModel.days(year: viewYear, month: viewMonth)) ? .bold : .regular)
+              .frame(minWidth: cellSize, minHeight: cellSize)
+              .font(.system(size: daySize, weight: day == min(focusedDay, CSCalendarModel.days(year: viewYear, month: viewMonth)) ? .bold : .regular))
               .foregroundStyle(selected == day ? pack.colorBrandOchre.color : pack.primaryTextColor)
               .accessibilityLabel(CSCalendarModel.dayName(year: viewYear, month: viewMonth, day: day, language: spoken))
               .accessibilityValue(CSCalendarModel.isCurrentDate(year: viewYear, month: viewMonth, day: day, now: today) ? "date" : "")
@@ -366,11 +372,12 @@ public struct CSCalendar: View {
               .focusable(CSCalendarModel.tabStop(day: day, focused: focusedDay, monthDays: CSCalendarModel.days(year: viewYear, month: viewMonth)) == 0)
               .focused($dayFocus, equals: day)
           } else {
-            Color.clear.frame(width: 44, height: 44).accessibilityHidden(true)
+            Color.clear.frame(width: cellSize, height: cellSize).accessibilityHidden(true)
           }
         }
       }
     }
+    .frame(minWidth: minWidth, alignment: .leading)
     .accessibilityElement(children: .contain)
     .accessibilityLabel(CSCalendarModel.heading(month: viewMonth, year: viewYear, language: spoken))
     .onChange(of: dayFocus) { day in
@@ -676,6 +683,11 @@ public struct CSCombobox: View {
     let spoken = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let shown = CSComboboxModel.shown(options: options, query: query)
     let open = CSComboboxModel.allowsOpen(listOpen, disabled: disabled)
+    let minWidth = CGFloat(CSControlsWaveStyleModel.comboboxMinWidth())
+    let inputPadEnd = CGFloat(CSControlsWaveStyleModel.comboboxInputPaddingEnd())
+    let caretInset = CGFloat(CSControlsWaveStyleModel.comboboxCaretInsetEnd())
+    let popupOffset = CSControlsWaveStyleModel.comboboxPopupOffset()
+    let popupMaxHeight = CGFloat(CSControlsWaveStyleModel.comboboxPopupMaxHeight())
     VStack(alignment: .leading, spacing: 4) {
       TextField(CSComboboxModel.placeholder(placeholder, fallback: CSComboboxModel.copy("placeholder", language: spoken)), text: Binding(get: { CSComboboxModel.display(open: open, query: query, value: value, options: options) }, set: { next in
         if disabled { return }
@@ -686,8 +698,10 @@ public struct CSCombobox: View {
         onHighlight(0)
       }))
         .disabled(disabled)
+        .padding(.trailing, inputPadEnd)
+        .frame(minWidth: minWidth)
         .overlay(alignment: .trailing) {
-          Text(CSComboboxModel.caret).foregroundStyle(pack.mutedColor).padding(.trailing, 10).accessibilityHidden(true).allowsHitTesting(false)
+          Text(CSComboboxModel.caret).foregroundStyle(pack.mutedColor).padding(.trailing, caretInset).accessibilityHidden(true).allowsHitTesting(false)
         }
         .background(GeometryReader { geo in
           Color.clear.preference(key: CSComboboxFieldKey.self, value: geo.frame(in: .global))
@@ -740,8 +754,8 @@ public struct CSCombobox: View {
         let anchor = CSFloatingRect(left: fieldFrame.minX, top: fieldFrame.minY, right: fieldFrame.maxX, bottom: fieldFrame.maxY, width: fieldFrame.width, height: fieldFrame.height)
         let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
         let matched = CSComboboxModel.matchedWidth(fieldFrame.width, viewportWidth: viewport.right - viewport.left)
-        let initial = naturalSize.flatMap { size in CSFloatingModel.position(anchor: anchor, panelWidth: matched, panelHeight: size.height, viewport: viewport, placement: "bottom-start", gap: CSComboboxModel.panelGap) }
-        let placed = fittedSize.flatMap { size in initial.flatMap { first in CSFloatingModel.position(anchor: anchor, panelWidth: matched, panelHeight: size.height, viewport: viewport, placement: first.placement, gap: CSComboboxModel.panelGap) } }
+        let initial = naturalSize.flatMap { size in CSFloatingModel.position(anchor: anchor, panelWidth: matched, panelHeight: size.height, viewport: viewport, placement: "bottom-start", gap: popupOffset) }
+        let placed = fittedSize.flatMap { size in initial.flatMap { first in CSFloatingModel.position(anchor: anchor, panelWidth: matched, panelHeight: size.height, viewport: viewport, placement: first.placement, gap: popupOffset) } }
         let scaleX = Double(panelScale.width == 0 ? 1 : panelScale.width)
         let scaleY = Double(panelScale.height == 0 ? 1 : panelScale.height)
         let originX = Double(panelOrigin?.x ?? fieldFrame.minX)
@@ -766,7 +780,7 @@ public struct CSCombobox: View {
           }
         }
         .frame(width: CGFloat(limit), alignment: .leading)
-        .frame(maxHeight: initial.map { CGFloat($0.maxHeight) }, alignment: .top)
+        .frame(maxHeight: initial.map { min(popupMaxHeight, CGFloat($0.maxHeight)) } ?? popupMaxHeight, alignment: .top)
         .background(pack.colorSurfacePanel.color)
         .background(GeometryReader { geo in
           let frame = geo.frame(in: .global)
@@ -1333,10 +1347,16 @@ public struct CSAlertDialog: View {
     let confirm = CSAlertDialogModel.label(confirmLabel, fallback: CSAlertDialogModel.copy("confirm", language: spoken))
     let cancel = CSAlertDialogModel.label(cancelLabel, fallback: CSAlertDialogModel.copy("cancel", language: spoken))
     let described = CSAlertDialogModel.hasDescription(descriptionText, children: childrenText)
-    VStack(alignment: .leading, spacing: 12) {
-      Text(title).font(.headline).foregroundStyle(pack.primaryTextColor)
+    let headerGap = CGFloat(CSDialogModel.headerGap())
+    let titleFontSize = CGFloat(CSDialogModel.titleFontSize())
+    let bodyMarginY = CGFloat(CSDialogModel.bodyMarginY())
+    let pad = CGFloat(CSDialogModel.padding(pack))
+    let maxW = CGFloat(CSDialogModel.alertMaxWidth())
+    let titleInk = CSDialogModel.destructiveTitleColor(destructive: danger, pack: pack).color
+    VStack(alignment: .leading, spacing: headerGap) {
+      Text(title).font(.system(size: titleFontSize, weight: .bold)).foregroundStyle(titleInk)
       if described {
-        Text(descriptionText ?? childrenText ?? "").foregroundStyle(pack.mutedColor)
+        Text(descriptionText ?? childrenText ?? "").foregroundStyle(pack.mutedColor).padding(.vertical, bodyMarginY)
       }
       HStack {
         Button(cancel) {
@@ -1379,7 +1399,8 @@ public struct CSAlertDialog: View {
       trap = CSModalFocus.pullBack(inside: next != nil) ? CSFocusTrap.initialIndex(preferred: danger ? 0 : 1, count: 2) : next
       return true
     }
-    .padding(16)
+    .padding(pad)
+    .frame(maxWidth: maxW, alignment: .leading)
     .background(pack.colorSurfacePanel.color)
     .accessibilityElement(children: .contain)
     .accessibilityAddTraits(.isModal)
@@ -1712,7 +1733,10 @@ public struct CSComment: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let labels = CSCommentModel.replyActions(actions, fallback: CSCommentModel.copy("reply", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)))
-    VStack(alignment: .leading, spacing: 4) {
+    let gap = CGFloat(CSControlsBatchStyleModel.commentGap())
+    let repliesIndent = CGFloat(CSControlsBatchStyleModel.commentRepliesIndent())
+    let repliesBorder = CGFloat(CSControlsBatchStyleModel.commentRepliesBorderWidth())
+    VStack(alignment: .leading, spacing: gap) {
       Text(author).foregroundStyle(pack.primaryTextColor)
       if CSCommentModel.shows(meta), let meta { Text(meta).foregroundStyle(pack.mutedColor) }
       Text(bodyText).foregroundStyle(pack.primaryTextColor)
@@ -1722,7 +1746,14 @@ public struct CSComment: View {
             .frame(minHeight: 44)
         }
       }
-      if CSCommentModel.shows(replies), let replies { Text(replies).foregroundStyle(pack.mutedColor) }
+      if CSCommentModel.shows(replies), let replies {
+        Text(replies)
+          .foregroundStyle(pack.mutedColor)
+          .padding(.leading, repliesIndent)
+          .overlay(alignment: .leading) {
+            Rectangle().fill(pack.colorBorderDefault.color).frame(width: repliesBorder)
+          }
+      }
     }
   }
 }
