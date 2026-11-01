@@ -149,6 +149,22 @@ fun csStepState(index: Int, current: Int): CsStepState = when {
 
 fun csStepMarker(state: CsStepState, index: Int, number: Int?) = if (state == CsStepState.Done) "✓" else (number?.toString() ?: (index + 1).toString())
 fun csStepCurrent(state: CsStepState) = state == CsStepState.Active
+fun csStepRowGap() = 0.dp
+fun csStepGap() = 8.dp
+fun csStepPaddingEnd() = 12.dp
+fun csStepShowsRail(index: Int, count: Int) = index >= 0 && index < count - 1
+fun csStepRailTop() = 13.dp
+fun csStepRailStart() = 34.dp
+fun csStepRailEnd() = 12.dp
+fun csStepRailInsetDeduction() = 46.dp
+fun csStepRailHeight() = 2.dp
+fun csStepRailUsesUmber(state: CsStepState) = state == CsStepState.Done
+fun csStepMarkerSize() = 28.dp
+fun csStepMarkerFontWeight() = 700
+fun csStepMarkerBorderWidth(state: CsStepState) = if (state == CsStepState.Todo) 1.dp else 0.dp
+fun csStepActiveRingWidth() = 4.dp
+const val csStepActiveRingOchreAlpha = 0.28f
+fun csStepShowsActiveRing(state: CsStepState) = state == CsStepState.Active
 const val csStepLabel = "Steps"
 fun csStepListName(explicit: String?, fallback: String) = fallback
 fun csStepCopy(key: String, language: String?): String {
@@ -161,7 +177,6 @@ fun csStepCopy(key: String, language: String?): String {
   }
   return key
 }
-fun csStepListName(explicit: String?, fallback: String) = fallback
 fun csStepCurrentValue(state: CsStepState) = if (state == CsStepState.Active) "step" else null
 fun csStepShowsBody(body: String?) = body != null
 
@@ -501,13 +516,56 @@ data class CsStepItem(val title: String, val number: Int? = null, val body: Stri
 fun CsSteps(label: String, steps: List<CsStepItem>, current: Int, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val listName = csStepListName(label, csStepCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
-  Row(modifier.semantics { contentDescription = listName }, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+  Row(modifier.semantics { contentDescription = listName }, horizontalArrangement = Arrangement.spacedBy(csStepRowGap()), verticalAlignment = Alignment.Top) {
     steps.forEachIndexed { index, step ->
       val state = csStepState(index, current)
-      Column {
-        Text(csStepMarker(state, index, step.number), color = if (state == CsStepState.Todo) pack.colorTextMuted.toComposeColor() else pack.colorBrandOchre.toComposeColor())
-        Text(step.title, color = pack.colorTextPrimary.toComposeColor())
-        if (step.body != null) Text(step.body, color = pack.colorTextMuted.toComposeColor())
+      val markerFill = when (state) {
+        CsStepState.Done -> pack.colorBrandUmber.toComposeColor()
+        CsStepState.Active -> pack.colorBrandOchre.toComposeColor()
+        CsStepState.Todo -> pack.colorSurfaceRaised.toComposeColor()
+      }
+      val markerInk = when (state) {
+        CsStepState.Done -> Color.White
+        CsStepState.Active -> pack.colorBrandUmber.toComposeColor()
+        CsStepState.Todo -> pack.colorTextMuted.toComposeColor()
+      }
+      Box(Modifier.weight(1f)) {
+        if (csStepShowsRail(index, steps.size)) {
+          Box(
+            Modifier
+              .fillMaxWidth()
+              .padding(top = csStepRailTop(), start = csStepRailStart(), end = csStepRailEnd())
+              .height(csStepRailHeight())
+              .background(if (csStepRailUsesUmber(state)) pack.colorBrandUmber.toComposeColor() else pack.colorBorderDefault.toComposeColor())
+              .clearAndSetSemantics {}
+          )
+        }
+        Column(
+          Modifier.fillMaxWidth().padding(end = csStepPaddingEnd()),
+          horizontalAlignment = Alignment.Start,
+          verticalArrangement = Arrangement.spacedBy(csStepGap()),
+        ) {
+          Box(
+            Modifier
+              .size(csStepMarkerSize())
+              .then(if (csStepShowsActiveRing(state)) Modifier.border(csStepActiveRingWidth(), pack.colorBrandOchre.toComposeColor().copy(alpha = csStepActiveRingOchreAlpha), CircleShape) else Modifier)
+              .background(markerFill, CircleShape)
+              .then(if (csStepMarkerBorderWidth(state) > 0.dp) Modifier.border(csStepMarkerBorderWidth(state), pack.colorBorderDefault.toComposeColor(), CircleShape) else Modifier)
+              .zIndex(1f),
+            contentAlignment = Alignment.Center,
+          ) {
+            Text(
+              csStepMarker(state, index, step.number),
+              color = markerInk,
+              fontSize = pack.fontSizeSm.toDp().value.sp,
+              fontWeight = FontWeight.Bold,
+              fontFamily = FontFamily.Monospace,
+              textAlign = TextAlign.Center,
+            )
+          }
+          Text(step.title, color = pack.colorTextPrimary.toComposeColor())
+          if (step.body != null) Text(step.body, color = pack.colorTextMuted.toComposeColor())
+        }
       }
     }
   }

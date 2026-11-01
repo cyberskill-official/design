@@ -115,6 +115,22 @@ public enum CSStepState: Equatable {
   }
 
   public static func isCurrent(_ state: CSStepState) -> Bool { state == .active }
+  public static func rowGap() -> Double { 0 }
+  public static func stepGap() -> Double { 8 }
+  public static func stepPaddingEnd() -> Double { 12 }
+  public static func showsRail(index: Int, count: Int) -> Bool { index >= 0 && index < count - 1 }
+  public static func railTop() -> Double { 13 }
+  public static func railStart() -> Double { 34 }
+  public static func railEnd() -> Double { 12 }
+  public static func railInsetDeduction() -> Double { 46 }
+  public static func railHeight() -> Double { 2 }
+  public static func railUsesUmber(_ state: CSStepState) -> Bool { state == .done }
+  public static func markerSize() -> Double { 28 }
+  public static func markerFontWeight() -> Int { 700 }
+  public static func markerBorderWidth(_ state: CSStepState) -> Double { state == .todo ? 1 : 0 }
+  public static func activeRingWidth() -> Double { 4 }
+  public static let activeRingOchreAlpha: Double = 0.28
+  public static func showsActiveRing(_ state: CSStepState) -> Bool { state == .active }
   public static let labelDefault = "Steps"
   public static func listName(explicit: String?, fallback: String) -> String { fallback }
   public static func copy(_ key: String, language: String?) -> String {
@@ -809,14 +825,45 @@ public struct CSSteps: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    HStack(alignment: .top, spacing: 12) {
+    HStack(alignment: .top, spacing: CGFloat(CSStepState.rowGap())) {
       ForEach(Array(steps.enumerated()), id: \.offset) { index, step in
         let state = CSStepState.resolve(index: index, current: current)
-        VStack {
+        let markerFill: Color = state == .done ? pack.colorBrandUmber.color : state == .active ? pack.colorBrandOchre.color : pack.colorSurfaceRaised.color
+        let markerInk: Color = state == .done ? Color.white : state == .active ? pack.colorBrandUmber.color : pack.mutedColor
+        VStack(alignment: .leading, spacing: CGFloat(CSStepState.stepGap())) {
           Text(CSStepState.marker(state: state, index: index, number: step.number))
-            .foregroundStyle(state == .todo ? pack.mutedColor : pack.colorBrandOchre.color)
+            .font(.system(size: pack.fontSizeSm.points, weight: .bold, design: .monospaced))
+            .foregroundStyle(markerInk)
+            .frame(width: CGFloat(CSStepState.markerSize()), height: CGFloat(CSStepState.markerSize()))
+            .background(markerFill, in: Circle())
+            .overlay {
+              if CSStepState.markerBorderWidth(state) > 0 {
+                Circle().stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSStepState.markerBorderWidth(state)))
+              }
+            }
+            .overlay {
+              if CSStepState.showsActiveRing(state) {
+                Circle()
+                  .stroke(pack.colorBrandOchre.color.opacity(CSStepState.activeRingOchreAlpha), lineWidth: CGFloat(CSStepState.activeRingWidth()))
+                  .padding(-CGFloat(CSStepState.activeRingWidth() / 2))
+              }
+            }
+            .zIndex(1)
           Text(step.title).foregroundStyle(pack.primaryTextColor)
           if CSStepState.showsBody(step.body), let body = step.body { Text(body).foregroundStyle(pack.mutedColor) }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.trailing, CGFloat(CSStepState.stepPaddingEnd()))
+        .background(alignment: .topLeading) {
+          if CSStepState.showsRail(index: index, count: steps.count) {
+            Rectangle()
+              .fill(CSStepState.railUsesUmber(state) ? pack.colorBrandUmber.color : pack.colorBorderDefault.color)
+              .frame(height: CGFloat(CSStepState.railHeight()))
+              .padding(.top, CGFloat(CSStepState.railTop()))
+              .padding(.leading, CGFloat(CSStepState.railStart()))
+              .padding(.trailing, CGFloat(CSStepState.railEnd()))
+              .accessibilityHidden(true)
+          }
         }
         .accessibilityElement(children: .combine)
         .accessibilityValue(CSStepState.currentValue(state) ?? "")

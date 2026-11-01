@@ -102,6 +102,22 @@ CsStepState csStepState(int index, int current) {
 
 String csStepMarker(CsStepState state, int index, int? number) => state == CsStepState.done ? '✓' : (number ?? index + 1).toString();
 bool csStepCurrent(CsStepState state) => state == CsStepState.active;
+double csStepRowGap() => 0;
+double csStepGap() => 8;
+double csStepPaddingEnd() => 12;
+bool csStepShowsRail(int index, int count) => index >= 0 && index < count - 1;
+double csStepRailTop() => 13;
+double csStepRailStart() => 34;
+double csStepRailEnd() => 12;
+double csStepRailInsetDeduction() => 46;
+double csStepRailHeight() => 2;
+bool csStepRailUsesUmber(CsStepState state) => state == CsStepState.done;
+double csStepMarkerSize() => 28;
+int csStepMarkerFontWeight() => 700;
+double csStepMarkerBorderWidth(CsStepState state) => state == CsStepState.todo ? 1 : 0;
+double csStepActiveRingWidth() => 4;
+const double csStepActiveRingOchreAlpha = 0.28;
+bool csStepShowsActiveRing(CsStepState state) => state == CsStepState.active;
 const csStepLabel = 'Steps';
 String csStepListName(String? explicit, String fallback) => fallback;
 String csStepCopy(String key, String? language) {
@@ -117,7 +133,6 @@ String csStepCopy(String key, String? language) {
   }
   return key;
 }
-String csStepListName(String? explicit, String fallback) => fallback;
 String? csStepCurrentValue(CsStepState state) => state == CsStepState.active ? 'step' : null;
 bool csStepShowsBody(String? body) => body != null;
 
@@ -620,15 +635,82 @@ class CsSteps extends StatelessWidget {
     return Semantics(
       label: csStepListName(label, csStepCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context)))),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           for (var index = 0; index < steps.length; index++)
-            Padding(
-              padding: const EdgeInsets.only(right: 12),
-              child: Column(
+            Expanded(
+              child: Stack(
                 children: [
-                  Text(csStepMarker(csStepState(index, current), index, steps[index].number), style: TextStyle(color: csColor(csStepState(index, current) == CsStepState.todo ? pack.colorTextMuted : pack.colorBrandOchre))),
-                  Text(steps[index].title, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-                  if (steps[index].body != null) Text(steps[index].body!, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                  if (csStepShowsRail(index, steps.length))
+                    Positioned(
+                      top: csStepRailTop(),
+                      left: csStepRailStart(),
+                      right: csStepRailEnd(),
+                      height: csStepRailHeight(),
+                      child: ExcludeSemantics(
+                        child: ColoredBox(
+                          color: csColor(csStepRailUsesUmber(csStepState(index, current)) ? pack.colorBrandUmber : pack.colorBorderDefault),
+                        ),
+                      ),
+                    ),
+                  Padding(
+                    padding: EdgeInsets.only(right: csStepPaddingEnd()),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Builder(
+                          builder: (context) {
+                            final state = csStepState(index, current);
+                            final markerFill = state == CsStepState.done
+                                ? csColor(pack.colorBrandUmber)
+                                : state == CsStepState.active
+                                    ? csColor(pack.colorBrandOchre)
+                                    : csColor(pack.colorSurfaceRaised);
+                            final markerInk = state == CsStepState.done
+                                ? const Color(0xFFFFFFFF)
+                                : state == CsStepState.active
+                                    ? csColor(pack.colorBrandUmber)
+                                    : csColor(pack.colorTextMuted);
+                            return Container(
+                              width: csStepMarkerSize(),
+                              height: csStepMarkerSize(),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: markerFill,
+                                shape: BoxShape.circle,
+                                border: csStepMarkerBorderWidth(state) > 0
+                                    ? Border.all(color: csColor(pack.colorBorderDefault), width: csStepMarkerBorderWidth(state))
+                                    : null,
+                                boxShadow: csStepShowsActiveRing(state)
+                                    ? [
+                                        BoxShadow(
+                                          color: csColor(pack.colorBrandOchre).withOpacity(csStepActiveRingOchreAlpha),
+                                          spreadRadius: csStepActiveRingWidth(),
+                                        ),
+                                      ]
+                                    : null,
+                              ),
+                              child: Text(
+                                csStepMarker(state, index, steps[index].number),
+                                style: TextStyle(
+                                  color: markerInk,
+                                  fontFamily: 'monospace',
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: csPoints(pack.fontSizeSm),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        SizedBox(height: csStepGap()),
+                        Text(steps[index].title, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+                        if (steps[index].body != null) ...[
+                          SizedBox(height: csStepGap()),
+                          Text(steps[index].body!, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                        ],
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

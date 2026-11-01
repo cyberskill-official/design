@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the nav-item-active-hover-slots checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the steps-row-rail-marker checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `3c9be1796955c58d3062794629be788b462150f3`, with the hash note in `6cdcd76b`
-- Checkpoint commit hash: `2db2eb0bc4c14363917a91051fc58da5ce3e591c`
+- Previous checkpoint: `2db2eb0bc4c14363917a91051fc58da5ce3e591c`, with the hash note in `d335af0a`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the nav item active, hover, and slot styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the steps row, rail, and marker styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`NavItem` (`CSNavItem` / `CsNavItem`) and `Sidebar` rows now use an `11px` gap (`CSNavItemModel.gap()` / `csNavItemGap()`), `9px 12px` padding (`CSNavItemModel.paddingY()`, `paddingX()` / `csNavItemPaddingY()`, `csNavItemPaddingX()`), `--cs-radius-md`, semibold `--cs-font-size-sm` (`CSNavItemModel.fontWeight()` / `csNavItemFontWeight()`), `--cs-color-surface-raised` hover fill (`CSNavItemModel.showsHoverFill(active:hovered:)` / `csNavItemShowsHoverFill(active, hovered)`), `color-mix(in oklab, var(--cs-color-brand-ochre) 22%, var(--cs-color-surface-panel))` active fill (`CSNavItemModel.activeOchrePortion` / `csNavItemActiveOchrePortion`) with `--cs-color-brand-umber` (light) / `--cs-color-brand-ochre` (dark) active text and icon color (`CSNavItemModel.activeUsesOchreInk(dark:)` / `csNavItemActiveUsesOchreInk(dark)`), muted inactive icon (`CSNavItemModel.showsIcon(_:)` / `csNavItemShowsIcon(icon)`), and `margin-inline-start: auto` trail (`CSNavItemModel.showsTrail(_:)` / `csNavItemShowsTrail(trail)`), matching `.cs-nav-item`, `.cs-nav-item:hover`, `.cs-nav-item__icon`, `.cs-nav-item.is-active`, `.cs-nav-item.is-active .cs-nav-item__icon`, and `.cs-nav-item__trail` in `base/shell.css` and `components/navigation/Sidebar.jsx`.
+`Steps` (`CSSteps` / `CsSteps`) now uses a `0`-gap horizontal row (`CSStepState.rowGap()` / `csStepRowGap()`), `flex: 1` step columns with `8px` vertical gap (`CSStepState.stepGap()` / `csStepGap()`) and `12px` inline-end padding (`CSStepState.stepPaddingEnd()` / `csStepPaddingEnd()`), a `28px` circular marker (`CSStepState.markerSize()`, `markerFontWeight()` / `csStepMarkerSize()`, `csStepMarkerFontWeight()`, `--cs-font-family-mono`, `700`, `--cs-font-size-sm`), `--cs-color-surface-raised` + muted ink + `1px` default border for `todo`, `--cs-color-brand-umber` + `#fff` ink + umber connector rail for `done` (`CSStepState.railUsesUmber(_:)` / `csStepRailUsesUmber(state)`), `--cs-color-brand-ochre` + `--cs-color-brand-umber` ink + `4px` `28%` ochre ring for `active` (`CSStepState.activeRingWidth()`, `activeRingOchreAlpha`, `showsActiveRing(_:)` / `csStepActiveRingWidth()`, `csStepActiveRingOchreAlpha`, `csStepShowsActiveRing(state)`), and a `2px` connector rail on non-last steps at `13px` top and `34px` inline-start (`CSStepState.showsRail(index:count:)`, `railTop()`, `railStart()`, `railEnd()`, `railInsetDeduction()`, `railHeight()` / `csStepShowsRail(index, count)`, `csStepRailTop()`, `csStepRailStart()`, `csStepRailEnd()`, `csStepRailInsetDeduction()`, `csStepRailHeight()`), matching `.cs-steps`, `.cs-step`, `.cs-step:not(:last-child)::after`, `.cs-step__marker`, `.cs-step--done .cs-step__marker`, `.cs-step--done:not(:last-child)::after`, and `.cs-step--active .cs-step__marker` in `base/shell.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `Steps` (`CSSteps` / `CsSteps`) in `base/shell.css` lines 13–22 and `components/navigation/Steps.jsx`: flex row with `0` gap, `flex: 1` step columns with `8px` gap and `12px` inline-end padding, `28px` circular marker (`--cs-font-family-mono`, `700`, `--cs-font-size-sm`, `--cs-color-surface-raised`, muted text, `1px` default border), non-last connector rail (`inset-block-start: 13px`, `inset-inline-start: 34px`, `calc(100% - 46px)` width, `2px` height, `--cs-color-border-default`), `--cs-color-brand-umber` fill + `#fff` text + umber connector rail for `done` (`✓`), `--cs-color-brand-ochre` fill + `--cs-color-brand-umber` text + `4px` `28%` ochre ring for `active` (`aria-current="step"`), bold `--cs-font-size-sm` title, and `--cs-font-size-xs` muted body (`s.body != null`). Re-read `base/shell.css` lines 13–22 and `components/navigation/Steps.jsx` before editing.
+Style `Steps` title and body (`CSSteps` / `CsSteps`) in `base/shell.css` lines 21–22 and `components/navigation/Steps.jsx` lines 19–20: bold (`700`) `--cs-font-size-sm` primary title (`.cs-step__title`) and `--cs-font-size-xs` muted body (`.cs-step__body`, rendered when `s.body != null`). Re-read `base/shell.css` lines 21–22 and `components/navigation/Steps.jsx` before editing.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
