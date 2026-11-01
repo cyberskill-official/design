@@ -880,6 +880,113 @@ fun csAiStyleLumiSize(size: String = "md") = when (size) {
 }
 fun csAiStyleLumiRingSpread(ring: Boolean = false) = if (ring) 3.dp else 0.dp
 
+const val csControlsWaveStyleStepperButtonDisabledOpacity = 0.45f
+const val csControlsWaveStyleDropzoneHoverOchrePortion = 0.08
+const val csControlsWaveStyleStatusPulseSuccessStartAlpha = 0.55f
+const val csControlsWaveStyleTogglePressedDarkAccentPortion = 0.22
+const val csControlsWaveStyleToggleDisabledOpacity = 0.5f
+const val csControlsWaveStyleOtpDisabledOpacity = 0.5f
+const val csControlsWaveStyleFabMainHoverBrightness = 1.05
+const val csControlsWaveStyleResultSuccessMixPortion = 0.14
+const val csControlsWaveStyleResultErrorMixPortion = 0.12
+const val csControlsWaveStyleResultWarningMixPortion = 0.14
+fun csControlsWaveStyleSearchGap(pack: CSTokenModePack) = pack.space2.toDp()
+fun csControlsWaveStyleSearchPaddingX() = 14.dp
+fun csControlsWaveStyleSearchMinHeight() = 44.dp
+fun csControlsWaveStyleSearchClearPadding() = 2.dp
+fun csControlsWaveStyleStepperButtonWidth() = 40.dp
+fun csControlsWaveStyleStepperInputWidth() = 56.dp
+fun csControlsWaveStyleStepperInputMinHeight() = 42.dp
+fun csControlsWaveStyleSliderHeight() = 22.dp
+fun csControlsWaveStyleSliderFocusOutlineOffset(focused: Boolean) = if (focused) 4.dp else 0.dp
+fun csControlsWaveStyleDropzoneGap() = 6.dp
+fun csControlsWaveStyleDropzoneBorderWidth() = 2.dp
+fun csControlsWaveStyleDropzonePaddingY() = 28.dp
+fun csControlsWaveStyleDropzonePaddingX() = 24.dp
+fun csControlsWaveStyleSegmentedGap() = 4.dp
+fun csControlsWaveStyleSegmentedPadding() = 3.dp
+fun csControlsWaveStyleSegmentedButtonPaddingY() = 7.dp
+fun csControlsWaveStyleSegmentedButtonPaddingX() = 15.dp
+fun csControlsWaveStyleSegmentedButtonGap() = 6.dp
+fun csControlsWaveStyleStatusGap() = 7.dp
+fun csControlsWaveStyleStatusDotSize() = 9.dp
+fun csControlsWaveStyleStatusDotColor(tone: String, pack: CSTokenModePack) = when (tone) {
+  "online" -> pack.colorSemanticSuccess
+  "busy" -> pack.colorBrandOchre
+  "error" -> pack.colorSemanticDanger
+  else -> pack.colorTextMuted
+}
+fun csControlsWaveStyleStatusPulseDurationMs() = 1800.0
+fun csControlsWaveStyleStatusPulseMaxSpread() = 7.dp
+fun csControlsWaveStyleKbdBorderBottomWidth() = 2.dp
+fun csControlsWaveStyleKbdRadius() = 6.dp
+fun csControlsWaveStyleKbdPaddingY() = 3.dp
+fun csControlsWaveStyleKbdPaddingX() = 7.dp
+fun csControlsWaveStyleToggleGap() = 8.dp
+fun csControlsWaveStyleTogglePaddingY() = 8.dp
+fun csControlsWaveStyleTogglePaddingX() = 14.dp
+fun csControlsWaveStyleToggleMinHeight() = 40.dp
+fun csControlsWaveStyleRatingGap() = 4.dp
+fun csControlsWaveStyleRatingButtonPadding() = 2.dp
+fun csControlsWaveStyleRatingFocusRadius() = 4.dp
+fun csControlsWaveStyleOtpGap() = 8.dp
+fun csControlsWaveStyleOtpCellWidth() = 44.dp
+fun csControlsWaveStyleOtpCellHeight() = 52.dp
+fun csControlsWaveStyleOtpFontSize() = 22.dp
+fun csControlsWaveStyleButtonGroupOverlapOffset() = (-1).dp
+fun csControlsWaveStyleComboboxMinWidth() = 260.dp
+fun csControlsWaveStyleComboboxInputPaddingEnd() = 34.dp
+fun csControlsWaveStyleComboboxCaretInsetEnd() = 10.dp
+fun csControlsWaveStyleComboboxPopupOffset() = 6.dp
+fun csControlsWaveStyleComboboxPopupMaxHeight() = 240.dp
+fun csControlsWaveStyleInputGroupMinWidth() = 260.dp
+fun csControlsWaveStyleInputGroupAddonPaddingX() = 10.dp
+fun csControlsWaveStyleTagInputGap() = 6.dp
+fun csControlsWaveStyleTagInputMinWidth() = 280.dp
+fun csControlsWaveStyleTagInputFieldMinWidth() = 120.dp
+fun csControlsWaveStyleTagInputDisabledFieldOpacity() = 1f
+fun csControlsWaveStyleCalendarMinWidth() = 272.dp
+fun csControlsWaveStyleCalendarHeaderButtonSize() = 30.dp
+fun csControlsWaveStyleCalendarCellSize() = 34.dp
+fun csControlsWaveStyleCalendarGridGap() = 2.dp
+const val csControlsWaveStyleCalendarWeekdayFontSize = 10.5
+fun csControlsWaveStyleCalendarDayFontSize() = 13.dp
+fun csControlsWaveStyleDatePickerFieldMinWidth() = 220.dp
+fun csControlsWaveStyleTimePickerGap() = 8.dp
+fun csControlsWaveStyleTimePickerPaddingX() = 10.dp
+fun csControlsWaveStyleHoverCardOffset() = 8.dp
+fun csControlsWaveStyleHoverCardMinWidth() = 240.dp
+fun csControlsWaveStyleHoverCardPaddingY() = 14.dp
+fun csControlsWaveStyleHoverCardPaddingX() = 16.dp
+fun csControlsWaveStylePopconfirmOffset() = 8.dp
+fun csControlsWaveStylePopconfirmMinWidth() = 240.dp
+fun csControlsWaveStylePopconfirmPaddingY() = 12.dp
+fun csControlsWaveStylePopconfirmPaddingX() = 14.dp
+const val csControlsWaveStylePopconfirmTitleFontSize = 13.5
+const val csControlsWaveStylePopconfirmTitleLineHeight = 1.45
+fun csControlsWaveStylePopconfirmTitleMarginBottom() = 10.dp
+fun csControlsWaveStylePopconfirmActionsGap() = 8.dp
+fun csControlsWaveStyleFabInset() = 24.dp
+fun csControlsWaveStyleFabDepth(pack: CSTokenModePack) = pack.depthOverlay
+fun csControlsWaveStyleFabGap() = 10.dp
+fun csControlsWaveStyleFabMainSize() = 56.dp
+fun csControlsWaveStyleFabDialGap() = 8.dp
+fun csControlsWaveStyleFabMiniSize() = 42.dp
+fun csControlsWaveStyleResultGap() = 10.dp
+fun csControlsWaveStyleResultPaddingY() = 44.dp
+fun csControlsWaveStyleResultPaddingX() = 24.dp
+fun csControlsWaveStyleResultIconSize() = 64.dp
+fun csControlsWaveStyleResultTitleFontSize() = 22.dp
+fun csControlsWaveStyleResultTitleFontWeight() = 800
+const val csControlsWaveStyleResultTitleLineHeight = 1.3
+const val csControlsWaveStyleResultBodyMaxCh = 46.0
+const val csControlsWaveStyleResultBodyLineHeight = 1.55
+fun csControlsWaveStyleResultActionsGap() = 10.dp
+fun csControlsWaveStyleResultActionsMarginTop() = 6.dp
+fun csControlsWaveStyleInlineEditGap() = 7.dp
+fun csControlsWaveStyleInlineEditPaddingY() = 4.dp
+fun csControlsWaveStyleInlineEditPaddingX() = 8.dp
+
 @Composable
 fun CsDivider(
   dark: Boolean,

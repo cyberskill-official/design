@@ -1135,6 +1135,119 @@ double csAiStyleLumiSize([String size = 'md']) {
 }
 double csAiStyleLumiRingSpread({bool ring = false}) => ring ? 3 : 0;
 
+const double csControlsWaveStyleStepperButtonDisabledOpacity = 0.45;
+const double csControlsWaveStyleDropzoneHoverOchrePortion = 0.08;
+const double csControlsWaveStyleStatusPulseSuccessStartAlpha = 0.55;
+const double csControlsWaveStyleTogglePressedDarkAccentPortion = 0.22;
+const double csControlsWaveStyleToggleDisabledOpacity = 0.5;
+const double csControlsWaveStyleOtpDisabledOpacity = 0.5;
+const double csControlsWaveStyleFabMainHoverBrightness = 1.05;
+const double csControlsWaveStyleResultSuccessMixPortion = 0.14;
+const double csControlsWaveStyleResultErrorMixPortion = 0.12;
+const double csControlsWaveStyleResultWarningMixPortion = 0.14;
+double csControlsWaveStyleSearchGap(CSTokenModePack pack) => csPoints(pack.space2);
+double csControlsWaveStyleSearchPaddingX() => 14;
+double csControlsWaveStyleSearchMinHeight() => 44;
+double csControlsWaveStyleSearchClearPadding() => 2;
+double csControlsWaveStyleStepperButtonWidth() => 40;
+double csControlsWaveStyleStepperInputWidth() => 56;
+double csControlsWaveStyleStepperInputMinHeight() => 42;
+double csControlsWaveStyleSliderHeight() => 22;
+double csControlsWaveStyleSliderFocusOutlineOffset(bool focused) => focused ? 4 : 0;
+double csControlsWaveStyleDropzoneGap() => 6;
+double csControlsWaveStyleDropzoneBorderWidth() => 2;
+double csControlsWaveStyleDropzonePaddingY() => 28;
+double csControlsWaveStyleDropzonePaddingX() => 24;
+double csControlsWaveStyleSegmentedGap() => 4;
+double csControlsWaveStyleSegmentedPadding() => 3;
+double csControlsWaveStyleSegmentedButtonPaddingY() => 7;
+double csControlsWaveStyleSegmentedButtonPaddingX() => 15;
+double csControlsWaveStyleSegmentedButtonGap() => 6;
+double csControlsWaveStyleStatusGap() => 7;
+double csControlsWaveStyleStatusDotSize() => 9;
+CSColorValue csControlsWaveStyleStatusDotColor(String tone, CSTokenModePack pack) {
+  switch (tone) {
+    case 'online':
+      return pack.colorSemanticSuccess;
+    case 'busy':
+      return pack.colorBrandOchre;
+    case 'error':
+      return pack.colorSemanticDanger;
+    default:
+      return pack.colorTextMuted;
+  }
+}
+double csControlsWaveStyleStatusPulseDurationMs() => 1800;
+double csControlsWaveStyleStatusPulseMaxSpread() => 7;
+double csControlsWaveStyleKbdBorderBottomWidth() => 2;
+double csControlsWaveStyleKbdRadius() => 6;
+double csControlsWaveStyleKbdPaddingY() => 3;
+double csControlsWaveStyleKbdPaddingX() => 7;
+double csControlsWaveStyleToggleGap() => 8;
+double csControlsWaveStyleTogglePaddingY() => 8;
+double csControlsWaveStyleTogglePaddingX() => 14;
+double csControlsWaveStyleToggleMinHeight() => 40;
+double csControlsWaveStyleRatingGap() => 4;
+double csControlsWaveStyleRatingButtonPadding() => 2;
+double csControlsWaveStyleRatingFocusRadius() => 4;
+double csControlsWaveStyleOtpGap() => 8;
+double csControlsWaveStyleOtpCellWidth() => 44;
+double csControlsWaveStyleOtpCellHeight() => 52;
+double csControlsWaveStyleOtpFontSize() => 22;
+double csControlsWaveStyleButtonGroupOverlapOffset() => -1;
+double csControlsWaveStyleComboboxMinWidth() => 260;
+double csControlsWaveStyleComboboxInputPaddingEnd() => 34;
+double csControlsWaveStyleComboboxCaretInsetEnd() => 10;
+double csControlsWaveStyleComboboxPopupOffset() => 6;
+double csControlsWaveStyleComboboxPopupMaxHeight() => 240;
+double csControlsWaveStyleInputGroupMinWidth() => 260;
+double csControlsWaveStyleInputGroupAddonPaddingX() => 10;
+double csControlsWaveStyleTagInputGap() => 6;
+double csControlsWaveStyleTagInputMinWidth() => 280;
+double csControlsWaveStyleTagInputFieldMinWidth() => 120;
+double csControlsWaveStyleTagInputDisabledFieldOpacity() => 1.0;
+double csControlsWaveStyleCalendarMinWidth() => 272;
+double csControlsWaveStyleCalendarHeaderButtonSize() => 30;
+double csControlsWaveStyleCalendarCellSize() => 34;
+double csControlsWaveStyleCalendarGridGap() => 2;
+const double csControlsWaveStyleCalendarWeekdayFontSize = 10.5;
+double csControlsWaveStyleCalendarDayFontSize() => 13;
+double csControlsWaveStyleDatePickerFieldMinWidth() => 220;
+double csControlsWaveStyleTimePickerGap() => 8;
+double csControlsWaveStyleTimePickerPaddingX() => 10;
+double csControlsWaveStyleHoverCardOffset() => 8;
+double csControlsWaveStyleHoverCardMinWidth() => 240;
+double csControlsWaveStyleHoverCardPaddingY() => 14;
+double csControlsWaveStyleHoverCardPaddingX() => 16;
+double csControlsWaveStylePopconfirmOffset() => 8;
+double csControlsWaveStylePopconfirmMinWidth() => 240;
+double csControlsWaveStylePopconfirmPaddingY() => 12;
+double csControlsWaveStylePopconfirmPaddingX() => 14;
+const double csControlsWaveStylePopconfirmTitleFontSize = 13.5;
+const double csControlsWaveStylePopconfirmTitleLineHeight = 1.45;
+double csControlsWaveStylePopconfirmTitleMarginBottom() => 10;
+double csControlsWaveStylePopconfirmActionsGap() => 8;
+double csControlsWaveStyleFabInset() => 24;
+double csControlsWaveStyleFabDepth(CSTokenModePack pack) => pack.depthOverlay;
+double csControlsWaveStyleFabGap() => 10;
+double csControlsWaveStyleFabMainSize() => 56;
+double csControlsWaveStyleFabDialGap() => 8;
+double csControlsWaveStyleFabMiniSize() => 42;
+double csControlsWaveStyleResultGap() => 10;
+double csControlsWaveStyleResultPaddingY() => 44;
+double csControlsWaveStyleResultPaddingX() => 24;
+double csControlsWaveStyleResultIconSize() => 64;
+double csControlsWaveStyleResultTitleFontSize() => 22;
+int csControlsWaveStyleResultTitleFontWeight() => 800;
+const double csControlsWaveStyleResultTitleLineHeight = 1.3;
+const double csControlsWaveStyleResultBodyMaxCh = 46;
+const double csControlsWaveStyleResultBodyLineHeight = 1.55;
+double csControlsWaveStyleResultActionsGap() => 10;
+double csControlsWaveStyleResultActionsMarginTop() => 6;
+double csControlsWaveStyleInlineEditGap() => 7;
+double csControlsWaveStyleInlineEditPaddingY() => 4;
+double csControlsWaveStyleInlineEditPaddingX() => 8;
+
 class CsDivider extends StatelessWidget {
   const CsDivider({
     super.key,

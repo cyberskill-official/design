@@ -936,6 +936,117 @@ public enum CSAIStyleModel {
   public static func lumiRingSpread(ring: Bool = false) -> Double { ring ? 3 : 0 }
 }
 
+public enum CSControlsWaveStyleModel {
+  public static let stepperButtonDisabledOpacity = 0.45
+  public static let dropzoneHoverOchrePortion = 0.08
+  public static let statusPulseSuccessStartAlpha = 0.55
+  public static let togglePressedDarkAccentPortion = 0.22
+  public static let toggleDisabledOpacity = 0.5
+  public static let otpDisabledOpacity = 0.5
+  public static let fabMainHoverBrightness = 1.05
+  public static let resultSuccessMixPortion = 0.14
+  public static let resultErrorMixPortion = 0.12
+  public static let resultWarningMixPortion = 0.14
+  public static func searchGap(_ pack: CSTokenModePack) -> Double { pack.space2.points }
+  public static func searchPaddingX() -> Double { 14 }
+  public static func searchMinHeight() -> Double { 44 }
+  public static func searchClearPadding() -> Double { 2 }
+  public static func stepperButtonWidth() -> Double { 40 }
+  public static func stepperInputWidth() -> Double { 56 }
+  public static func stepperInputMinHeight() -> Double { 42 }
+  public static func sliderHeight() -> Double { 22 }
+  public static func sliderFocusOutlineOffset(focused: Bool) -> Double { focused ? 4 : 0 }
+  public static func dropzoneGap() -> Double { 6 }
+  public static func dropzoneBorderWidth() -> Double { 2 }
+  public static func dropzonePaddingY() -> Double { 28 }
+  public static func dropzonePaddingX() -> Double { 24 }
+  public static func segmentedGap() -> Double { 4 }
+  public static func segmentedPadding() -> Double { 3 }
+  public static func segmentedButtonPaddingY() -> Double { 7 }
+  public static func segmentedButtonPaddingX() -> Double { 15 }
+  public static func segmentedButtonGap() -> Double { 6 }
+  public static func statusGap() -> Double { 7 }
+  public static func statusDotSize() -> Double { 9 }
+  public static func statusDotColor(tone: String, pack: CSTokenModePack) -> CSColorValue {
+    switch tone {
+    case "online": return pack.colorSemanticSuccess
+    case "busy": return pack.colorBrandOchre
+    case "error": return pack.colorSemanticDanger
+    default: return pack.colorTextMuted
+    }
+  }
+  public static func statusPulseDurationMs() -> Double { 1800 }
+  public static func statusPulseMaxSpread() -> Double { 7 }
+  public static func kbdBorderBottomWidth() -> Double { 2 }
+  public static func kbdRadius() -> Double { 6 }
+  public static func kbdPaddingY() -> Double { 3 }
+  public static func kbdPaddingX() -> Double { 7 }
+  public static func toggleGap() -> Double { 8 }
+  public static func togglePaddingY() -> Double { 8 }
+  public static func togglePaddingX() -> Double { 14 }
+  public static func toggleMinHeight() -> Double { 40 }
+  public static func ratingGap() -> Double { 4 }
+  public static func ratingButtonPadding() -> Double { 2 }
+  public static func ratingFocusRadius() -> Double { 4 }
+  public static func otpGap() -> Double { 8 }
+  public static func otpCellWidth() -> Double { 44 }
+  public static func otpCellHeight() -> Double { 52 }
+  public static func otpFontSize() -> Double { 22 }
+  public static func buttonGroupOverlapOffset() -> Double { -1 }
+  public static func comboboxMinWidth() -> Double { 260 }
+  public static func comboboxInputPaddingEnd() -> Double { 34 }
+  public static func comboboxCaretInsetEnd() -> Double { 10 }
+  public static func comboboxPopupOffset() -> Double { 6 }
+  public static func comboboxPopupMaxHeight() -> Double { 240 }
+  public static func inputGroupMinWidth() -> Double { 260 }
+  public static func inputGroupAddonPaddingX() -> Double { 10 }
+  public static func tagInputGap() -> Double { 6 }
+  public static func tagInputMinWidth() -> Double { 280 }
+  public static func tagInputFieldMinWidth() -> Double { 120 }
+  public static func tagInputDisabledFieldOpacity() -> Double { 1.0 }
+  public static func calendarMinWidth() -> Double { 272 }
+  public static func calendarHeaderButtonSize() -> Double { 30 }
+  public static func calendarCellSize() -> Double { 34 }
+  public static func calendarGridGap() -> Double { 2 }
+  public static func calendarWeekdayFontSize() -> Double { 10.5 }
+  public static func calendarDayFontSize() -> Double { 13 }
+  public static func datePickerFieldMinWidth() -> Double { 220 }
+  public static func timePickerGap() -> Double { 8 }
+  public static func timePickerPaddingX() -> Double { 10 }
+  public static func hoverCardOffset() -> Double { 8 }
+  public static func hoverCardMinWidth() -> Double { 240 }
+  public static func hoverCardPaddingY() -> Double { 14 }
+  public static func hoverCardPaddingX() -> Double { 16 }
+  public static func popconfirmOffset() -> Double { 8 }
+  public static func popconfirmMinWidth() -> Double { 240 }
+  public static func popconfirmPaddingY() -> Double { 12 }
+  public static func popconfirmPaddingX() -> Double { 14 }
+  public static func popconfirmTitleFontSize() -> Double { 13.5 }
+  public static func popconfirmTitleLineHeight() -> Double { 1.45 }
+  public static func popconfirmTitleMarginBottom() -> Double { 10 }
+  public static func popconfirmActionsGap() -> Double { 8 }
+  public static func fabInset() -> Double { 24 }
+  public static func fabDepth(_ pack: CSTokenModePack) -> Double { pack.depthOverlay }
+  public static func fabGap() -> Double { 10 }
+  public static func fabMainSize() -> Double { 56 }
+  public static func fabDialGap() -> Double { 8 }
+  public static func fabMiniSize() -> Double { 42 }
+  public static func resultGap() -> Double { 10 }
+  public static func resultPaddingY() -> Double { 44 }
+  public static func resultPaddingX() -> Double { 24 }
+  public static func resultIconSize() -> Double { 64 }
+  public static func resultTitleFontSize() -> Double { 22 }
+  public static func resultTitleFontWeight() -> Int { 800 }
+  public static func resultTitleLineHeight() -> Double { 1.3 }
+  public static func resultBodyMaxCh() -> Double { 46 }
+  public static func resultBodyLineHeight() -> Double { 1.55 }
+  public static func resultActionsGap() -> Double { 10 }
+  public static func resultActionsMarginTop() -> Double { 6 }
+  public static func inlineEditGap() -> Double { 7 }
+  public static func inlineEditPaddingY() -> Double { 4 }
+  public static func inlineEditPaddingX() -> Double { 8 }
+}
+
 public struct CSDivider: View {
   public let label: CSPresenceValue
   public let vertical: Bool
