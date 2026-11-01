@@ -615,6 +615,11 @@ double csEditorMaxWidth() => 460;
 double csEditorBarGap() => 2;
 double csEditorBarPadding() => 6;
 double csEditorBarBorderWidth() => 1;
+double csEditorAreaPaddingY() => 12;
+double csEditorAreaPaddingX() => 14;
+double csEditorAreaFontSize() => 14;
+double csEditorAreaLineHeight() => 1.6;
+double csEditorMinHeight([double value = 120]) => value;
 
 String csEditorEscape(String text) => text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
@@ -672,9 +677,10 @@ String csEditorName(String? label, String fallback) => label ?? fallback;
 bool csEditorPressed(bool current) => !current;
 
 class CsEditor extends StatefulWidget {
-  const CsEditor({super.key, required this.text, required this.onChange, this.label, this.language, this.selectionStart = 0, this.selectionEnd = 0, this.onSelection, this.dark = false, this.highContrast = false, this.compact = false});
+  const CsEditor({super.key, required this.text, required this.onChange, this.label, this.language, this.minHeight = 120, this.selectionStart = 0, this.selectionEnd = 0, this.onSelection, this.dark = false, this.highContrast = false, this.compact = false});
   final String? label;
   final String? language;
+  final double minHeight;
   final String text;
   final ValueChanged<String> onChange;
   final int selectionStart;
@@ -758,7 +764,19 @@ class _CsEditorState extends State<CsEditor> {
             ]),
           ),
         ),
-        CsOwnFocus(builder: (node, claim) => TextField(focusNode: node, controller: controller, onChanged: (next) { claim(); widget.onChange(next); }, decoration: InputDecoration(labelText: spoken.isEmpty ? null : spoken))),
+        ConstrainedBox(
+          constraints: BoxConstraints(minHeight: csEditorMinHeight(widget.minHeight)),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: csEditorAreaPaddingX(), vertical: csEditorAreaPaddingY()),
+            child: CsOwnFocus(builder: (node, claim) => TextField(
+              focusNode: node,
+              controller: controller,
+              style: TextStyle(fontSize: csEditorAreaFontSize(), height: csEditorAreaLineHeight(), color: csColor(pack.colorTextPrimary)),
+              onChanged: (next) { claim(); widget.onChange(next); },
+              decoration: InputDecoration(border: InputBorder.none, labelText: spoken.isEmpty ? null : spoken),
+            )),
+          ),
+        ),
       ]),
     );
   }

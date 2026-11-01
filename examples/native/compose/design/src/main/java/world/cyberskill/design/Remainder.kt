@@ -8,7 +8,9 @@ import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
@@ -493,6 +495,11 @@ fun csEditorMaxWidth() = 460.dp
 fun csEditorBarGap() = 2.dp
 fun csEditorBarPadding() = 6.dp
 fun csEditorBarBorderWidth() = 1.dp
+fun csEditorAreaPaddingY() = 12.dp
+fun csEditorAreaPaddingX() = 14.dp
+fun csEditorAreaFontSize() = 14.sp
+fun csEditorAreaLineHeight() = 1.6
+fun csEditorMinHeight(value: Double = 120.0) = value.dp
 fun csEditorEscape(text: String) = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 fun csEditorPlainInsert(text: String) = csEditorEscape(text).replace("\r\n", "\n").replace("\n", "<br>")
 fun csEditorWrapped(html: String, open: String, close: String) = html.startsWith(open) && html.endsWith(close) && html.length >= open.length + close.length
@@ -541,7 +548,7 @@ fun csEditorCopy(key: String, language: String?): String {
 }
 fun csEditorName(label: String?, fallback: String) = label ?: fallback
 fun csEditorPressed(current: Boolean) = !current
-@Composable fun CsEditor(text: String, onChange: (String) -> Unit, modifier: Modifier = Modifier, label: String? = null, language: String? = null, selectionStart: Int = 0, selectionEnd: Int = 0, onSelection: (Int, Int) -> Unit = { _, _ -> }, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
+@Composable fun CsEditor(text: String, onChange: (String) -> Unit, modifier: Modifier = Modifier, label: String? = null, language: String? = null, minHeight: Double = 120.0, selectionStart: Int = 0, selectionEnd: Int = 0, onSelection: (Int, Int) -> Unit = { _, _ -> }, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
   val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("editor")
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
@@ -565,7 +572,7 @@ fun csEditorPressed(current: Boolean) = !current
       draft = next
       onSelection(remembered.start, remembered.end)
       if (next.text != text) onChange(next.text)
-    }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = spoken })
+    }, enabled = csControlEnabled(), textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor(), fontSize = csEditorAreaFontSize(), lineHeight = (14.0 * csEditorAreaLineHeight()).sp), modifier = Modifier.heightIn(min = csEditorMinHeight(minHeight)).padding(horizontal = csEditorAreaPaddingX(), vertical = csEditorAreaPaddingY()).focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = spoken })
   }
 }
 val LocalCsLanguage = androidx.compose.runtime.compositionLocalOf<String?> { null }

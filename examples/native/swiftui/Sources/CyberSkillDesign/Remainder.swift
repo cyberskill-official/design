@@ -1558,6 +1558,11 @@ public enum CSEditorModel {
   public static func barGap() -> Double { 2 }
   public static func barPadding() -> Double { 6 }
   public static func barBorderWidth() -> Double { 1 }
+  public static func areaPaddingY() -> Double { 12 }
+  public static func areaPaddingX() -> Double { 14 }
+  public static func areaFontSize() -> Double { 14 }
+  public static func areaLineHeight() -> Double { 1.6 }
+  public static func areaMinHeight(_ value: Double = 120) -> Double { value }
 
   public static func escape(_ text: String) -> String {
     text.replacingOccurrences(of: "&", with: "&amp;")
@@ -1654,6 +1659,7 @@ public enum CSEditorModel {
 public struct CSEditor: View {
   public let label: String?
   public let language: String?
+  public let minHeight: Double
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
@@ -1668,9 +1674,10 @@ public struct CSEditor: View {
   @State private var list = false
   @State private var hadRange = false
 
-  public init(label: String? = nil, text: Binding<String>, language: String? = nil, selectionStart: Binding<Int> = .constant(0), selectionEnd: Binding<Int> = .constant(0), dark: Bool = false, highContrast: Bool = false, compact: Bool = false) {
+  public init(label: String? = nil, text: Binding<String>, language: String? = nil, minHeight: Double = 120, selectionStart: Binding<Int> = .constant(0), selectionEnd: Binding<Int> = .constant(0), dark: Bool = false, highContrast: Bool = false, compact: Bool = false) {
     self.label = label
     self.language = language
+    self.minHeight = minHeight
     _text = text
     _selectionStart = selectionStart
     _selectionEnd = selectionEnd
@@ -1709,7 +1716,7 @@ public struct CSEditor: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let spoken = CSEditorModel.name(label, fallback: CSEditorModel.copy("area", language: locale))
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: 0) {
       HStack(spacing: CGFloat(CSEditorModel.barGap())) {
         formatButton("B", name: CSEditorModel.copy("bold", language: locale), pressed: bold) { applyFormat("bold") }
         formatButton("I", name: CSEditorModel.copy("italic", language: locale), pressed: italic) { applyFormat("italic") }
@@ -1731,6 +1738,12 @@ public struct CSEditor: View {
         selectionEnd = remembered.end
         hadRange = remembered.hadRange
       }), axis: .vertical)
+        .font(.system(size: CGFloat(CSEditorModel.areaFontSize())))
+        .foregroundStyle(pack.primaryTextColor)
+        .lineSpacing(CGFloat(CSEditorModel.areaFontSize() * (CSEditorModel.areaLineHeight() - 1)))
+        .padding(.vertical, CGFloat(CSEditorModel.areaPaddingY()))
+        .padding(.horizontal, CGFloat(CSEditorModel.areaPaddingX()))
+        .frame(minHeight: CGFloat(CSEditorModel.areaMinHeight(minHeight)), alignment: .topLeading)
         .lineLimit(6...12)
         .focused($focused)
         .onChange(of: focused) { isFocused in
