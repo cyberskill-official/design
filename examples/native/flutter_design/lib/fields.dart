@@ -963,6 +963,18 @@ String csCommentCopy(String key, String? language) {
   }
   return key;
 }
+const csCodeBgHex = '#2b1e14';
+const csCodeFgHex = '#f5ead9';
+const csCodeBorderHex = '#4a3a2c';
+const csCodeMutedHex = '#c9b7a3';
+const csCodeBgColor = CSColorValue(CSColorSpace.srgb, [0x2B / 255.0, 0x1E / 255.0, 0x14 / 255.0], 1);
+const csCodeFgColor = CSColorValue(CSColorSpace.srgb, [0xF5 / 255.0, 0xEA / 255.0, 0xD9 / 255.0], 1);
+const csCodeBorderColor = CSColorValue(CSColorSpace.srgb, [0x4A / 255.0, 0x3A / 255.0, 0x2C / 255.0], 1);
+const csCodeMutedColor = CSColorValue(CSColorSpace.srgb, [0xC9 / 255.0, 0xB7 / 255.0, 0xA3 / 255.0], 1);
+double csCodeBorderWidth() => 1;
+double csCodeBarPaddingY() => 8;
+double csCodeBarPaddingX() => 14;
+double csCodeBarBorderWidth() => 1;
 String csCodeBarLabel(String? filename, String? language, String fallback) => filename != null && filename.isNotEmpty ? filename : (language ?? fallback);
 String csCodeButton(bool copied, String copy, String copiedLabel) => copied ? copiedLabel : copy;
 int csCodeBegin(int attempt) => attempt + 1;
@@ -992,16 +1004,33 @@ class _CsCodeBlockState extends State<CsCodeBlock> {
     final spoken = csSelectResolvedLanguage(widget.lang, CsLanguageScope.of(context));
     final title = csCodeBarLabel(widget.filename, widget.language, csCodeText('code', spoken));
     final copyLabel = csCodeButton(copied, csCodeText('copy', spoken), csCodeText('copied', spoken));
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      if (widget.showBar) Row(children: [
-        Expanded(child: Text(title, style: TextStyle(color: csColor(pack.colorTextMuted)))),
-        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () {
-          claim();
-          setState(() { attempt = csCodeBegin(attempt); copied = false; });
-        }, child: Text(copyLabel))),
-      ]),
-      Text(widget.code, style: TextStyle(fontFamily: 'monospace', color: csColor(pack.colorTextPrimary))),
-    ]);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: csColor(csCodeBgColor),
+          borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
+          border: Border.all(color: csColor(csCodeBorderColor), width: csCodeBorderWidth()),
+        ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          if (widget.showBar)
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: csCodeBarPaddingX(), vertical: csCodeBarPaddingY()),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: csColor(csCodeBorderColor), width: csCodeBarBorderWidth())),
+              ),
+              child: Row(children: [
+                Expanded(child: Text(title, style: TextStyle(color: csColor(csCodeMutedColor), fontSize: csPoints(pack.fontSizeXs), fontFamily: 'monospace'))),
+                CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () {
+                  claim();
+                  setState(() { attempt = csCodeBegin(attempt); copied = false; });
+                }, child: Text(copyLabel))),
+              ]),
+            ),
+          Text(widget.code, style: TextStyle(fontFamily: 'monospace', color: csColor(csCodeFgColor))),
+        ]),
+      ),
+    );
   }
 }
 

@@ -26,6 +26,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -67,6 +68,7 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 
@@ -733,6 +735,18 @@ fun csCommentCopy(key: String, language: String?): String {
   }
   return key
 }
+const val csCodeBgHex = "#2b1e14"
+const val csCodeFgHex = "#f5ead9"
+const val csCodeBorderHex = "#4a3a2c"
+const val csCodeMutedHex = "#c9b7a3"
+val csCodeBgColor = CSColorValue(CSColorSpace.SRGB, listOf(0x2B / 255.0, 0x1E / 255.0, 0x14 / 255.0), 1.0)
+val csCodeFgColor = CSColorValue(CSColorSpace.SRGB, listOf(0xF5 / 255.0, 0xEA / 255.0, 0xD9 / 255.0), 1.0)
+val csCodeBorderColor = CSColorValue(CSColorSpace.SRGB, listOf(0x4A / 255.0, 0x3A / 255.0, 0x2C / 255.0), 1.0)
+val csCodeMutedColor = CSColorValue(CSColorSpace.SRGB, listOf(0xC9 / 255.0, 0xB7 / 255.0, 0xA3 / 255.0), 1.0)
+fun csCodeBorderWidth() = 1.dp
+fun csCodeBarPaddingY() = 8.dp
+fun csCodeBarPaddingX() = 14.dp
+fun csCodeBarBorderWidth() = 1.dp
 fun csCodeBarLabel(filename: String?, language: String?, fallback: String) = if (!filename.isNullOrEmpty()) filename else language ?: fallback
 fun csCodeButton(copied: Boolean, copy: String, copiedLabel: String) = if (copied) copiedLabel else copy
 fun csCodeBegin(attempt: Int) = attempt + 1
@@ -745,14 +759,15 @@ fun CsCodeBlock(code: String, dark: Boolean, highContrast: Boolean, compact: Boo
   var attempt by remember { mutableIntStateOf(0) }
   var copied by remember { mutableStateOf(false) }
   val copyLabel = csCodeButton(copied, csCodeText("copy", spoken), csCodeText("copied", spoken))
-  Column(modifier) {
+  Column(modifier.clip(RoundedCornerShape(pack.radiusLg.toDp())).background(csCodeBgColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).border(csCodeBorderWidth(), csCodeBorderColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp()))) {
     if (showBar) {
-      Row {
-        Text(title, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.weight(1f))
+      Row(Modifier.fillMaxWidth().padding(horizontal = csCodeBarPaddingX(), vertical = csCodeBarPaddingY()), verticalAlignment = Alignment.CenterVertically) {
+        Text(title, color = csCodeMutedColor.toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp, fontFamily = FontFamily.Monospace, modifier = Modifier.weight(1f))
         CsTriggerButton(title = copyLabel, onClick = { attempt = csCodeBegin(attempt); copied = false }) { Text(copyLabel) }
       }
+      Box(Modifier.fillMaxWidth().height(csCodeBarBorderWidth()).background(csCodeBorderColor.toComposeColor()))
     }
-    Text(code, color = pack.colorTextPrimary.toComposeColor())
+    Text(code, color = csCodeFgColor.toComposeColor())
   }
 }
 

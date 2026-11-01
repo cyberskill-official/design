@@ -1719,6 +1719,18 @@ public struct CSComment: View {
 }
 
 public enum CSCodeBlockModel {
+  public static let bgHex = "#2b1e14"
+  public static let fgHex = "#f5ead9"
+  public static let borderHex = "#4a3a2c"
+  public static let mutedHex = "#c9b7a3"
+  public static let bgColor = CSColorValue(colorSpace: .srgb, components: [Double(0x2B) / 255.0, Double(0x1E) / 255.0, Double(0x14) / 255.0], alpha: 1.0)
+  public static let fgColor = CSColorValue(colorSpace: .srgb, components: [Double(0xF5) / 255.0, Double(0xEA) / 255.0, Double(0xD9) / 255.0], alpha: 1.0)
+  public static let borderColor = CSColorValue(colorSpace: .srgb, components: [Double(0x4A) / 255.0, Double(0x3A) / 255.0, Double(0x2C) / 255.0], alpha: 1.0)
+  public static let mutedColor = CSColorValue(colorSpace: .srgb, components: [Double(0xC9) / 255.0, Double(0xB7) / 255.0, Double(0xA3) / 255.0], alpha: 1.0)
+  public static func borderWidth() -> Double { 1 }
+  public static func barPaddingY() -> Double { 8 }
+  public static func barPaddingX() -> Double { 14 }
+  public static func barBorderWidth() -> Double { 1 }
   public static let labelDefault = "code"
   public static let copyDefault = "Copy"
   public static let copiedDefault = "Copied ✓"
@@ -1774,10 +1786,12 @@ public struct CSCodeBlock: View {
     let spoken = CSComboboxModel.resolvedLanguage(explicit: lang, ancestor: ancestorLanguage)
     let title = CSCodeBlockModel.barLabel(filename: filename, language: language, fallback: CSCodeBlockModel.copy("code", language: spoken))
     let action = CSCodeBlockModel.button(copied: copied, copy: CSCodeBlockModel.copy("copy", language: spoken), copiedLabel: CSCodeBlockModel.copy("copied", language: spoken))
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: 0) {
       if showBar {
-        HStack {
-          Text(title).foregroundStyle(pack.mutedColor)
+        HStack(alignment: .center) {
+          Text(title)
+            .font(.system(size: pack.fontSizeXs.points, design: .monospaced))
+            .foregroundStyle(CSCodeBlockModel.mutedColor.color)
           Spacer()
           CSTriggerButton(action) {
             attempt = CSCodeBlockModel.beginCopy(attempt: attempt)
@@ -1785,12 +1799,20 @@ public struct CSCodeBlock: View {
           }
           .frame(minHeight: 44)
         }
+        .padding(.vertical, CGFloat(CSCodeBlockModel.barPaddingY()))
+        .padding(.horizontal, CGFloat(CSCodeBlockModel.barPaddingX()))
+        .overlay(alignment: .bottom) {
+          Rectangle()
+            .fill(CSCodeBlockModel.borderColor.color)
+            .frame(height: CGFloat(CSCodeBlockModel.barBorderWidth()))
+        }
       }
-      Text(code).font(.system(.body, design: .monospaced)).foregroundStyle(pack.primaryTextColor)
+      Text(code).font(.system(.body, design: .monospaced)).foregroundStyle(CSCodeBlockModel.fgColor.color)
     }
-    .padding(12)
     .frame(maxWidth: .infinity, alignment: .leading)
-    .background(pack.colorSurfacePanel.color)
+    .background(CSCodeBlockModel.bgColor.color, in: RoundedRectangle(cornerRadius: pack.radiusLg.points))
+    .clipShape(RoundedRectangle(cornerRadius: pack.radiusLg.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusLg.points).stroke(CSCodeBlockModel.borderColor.color, lineWidth: CGFloat(CSCodeBlockModel.borderWidth())))
   }
 }
 
