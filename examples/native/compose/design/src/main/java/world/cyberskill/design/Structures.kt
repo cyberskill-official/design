@@ -341,6 +341,17 @@ fun csDrawerShadowBlur() = 48.dp
 fun csDrawerScrimDepth(modalDepth: Float) = modalDepth
 fun csDrawerPanelDepth(modalDepth: Float) = modalDepth + 1f
 fun csDrawerAnimates(reducedMotion: Boolean) = !reducedMotion
+fun csDrawerHeaderGap() = 12.dp
+fun csDrawerHeaderPaddingY() = 16.dp
+fun csDrawerHeaderPaddingX() = 20.dp
+fun csDrawerTitleFontWeight() = 700
+fun csDrawerClosePadding() = 4.dp
+fun csDrawerCloseIconSize() = 20.dp
+fun csDrawerCloseHovered(hovered: Boolean) = hovered
+fun csDrawerBodyPadding() = 20.dp
+fun csDrawerFooterPaddingY() = 14.dp
+fun csDrawerFooterPaddingX() = 20.dp
+fun csDrawerFooterGap() = 10.dp
 fun csDrawerSide(side: String?) = if (side == "left") "left" else "right"
 fun csDrawerShowsTitle(title: String?) = title != null && title.isNotEmpty()
 fun csDrawerLabel(title: String?, fallback: String) = if (csDrawerShowsTitle(title)) title ?: "" else fallback
@@ -364,7 +375,7 @@ fun csDrawerNotify(hasOpenChange: Boolean, hasClose: Boolean): List<String> {
 fun csDrawerBodyFocusable(scrollHeight: Double, clientHeight: Double, scrollWidth: Double, clientWidth: Double) = scrollHeight > clientHeight + 1 || scrollWidth > clientWidth + 1
 
 @Composable
-fun CsDrawer(title: String, message: String, closeLabel: String? = null, open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, side: String = "right", onClose: (() -> Unit)? = null, onRestore: (() -> Unit)? = null, language: String? = null) {
+fun CsDrawer(title: String, message: String, closeLabel: String? = null, open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, side: String = "right", actions: String? = null, onClose: (() -> Unit)? = null, onRestore: (() -> Unit)? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val closeName = closeLabel ?: csDrawerCopy("close", spoken)
@@ -375,6 +386,8 @@ fun CsDrawer(title: String, message: String, closeLabel: String? = null, open: B
     val restoreId = remember { CsFocusRegistry.activeId }
     val closeFocus = remember { FocusRequester() }
     val closeId = remember { csOverlayFreshId("drawer-close") }
+    val closeInteraction = remember { MutableInteractionSource() }
+    val closeHovered by closeInteraction.collectIsHoveredAsState()
     fun claimClose() { CsFocusRegistry.claim(closeId) { closeFocus.requestFocus() } }
     var trap by remember { mutableIntStateOf(0) }
     DisposableEffect(layerId) {
@@ -408,7 +421,7 @@ fun CsDrawer(title: String, message: String, closeLabel: String? = null, open: B
         if (edge != "left") {
           Box(Modifier.fillMaxHeight().width(csDrawerBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))
         }
-        Column(Modifier.weight(1f, fill = false).onPreviewKeyEvent { event ->
+        Column(Modifier.weight(1f, fill = false).fillMaxHeight().onPreviewKeyEvent { event ->
           if (event.type != KeyEventType.KeyDown || event.key != Key.Tab) return@onPreviewKeyEvent false
           val live = CsOverlayRegistry.resolved(layerId, listOf(CsOverlayLayer(layerId, "modal", true)))
           if (!csOverlayOwns(layerId, live)) return@onPreviewKeyEvent false
@@ -416,17 +429,68 @@ fun CsDrawer(title: String, message: String, closeLabel: String? = null, open: B
           trap = next
           true
         }.semantics { contentDescription = csDrawerLabel(title, panelName) }) {
-          if (csDrawerShowsTitle(title)) Text(title, color = pack.colorTextPrimary.toComposeColor())
-          Text(message, color = pack.colorTextMuted.toComposeColor())
-          TextButton(onClick = {
-            if (!csControlEnabled()) return@TextButton
-            claimClose()
-            onOpenChange(false)
-            onClose?.invoke()
-            val stack = CsOverlayRegistry.resolved(layerId, listOf(CsOverlayLayer(layerId, "modal", true)))
-            csReturnFocus(restoreId, onRestore, layerId, stack)
-          }, enabled = csControlEnabled(), modifier = Modifier.minimumInteractiveComponentSize().focusRequester(closeFocus).onFocusChanged { if (it.isFocused) claimClose() }.semantics { contentDescription = closeName }) {
-            CsIcon(name = "close", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.clearAndSetSemantics { })
+          Row(
+            Modifier
+              .fillMaxWidth()
+              .background(pack.colorSurfacePanel.toComposeColor())
+              .padding(horizontal = csDrawerHeaderPaddingX(), vertical = csDrawerHeaderPaddingY()),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(csDrawerHeaderGap()),
+          ) {
+            if (csDrawerShowsTitle(title)) {
+              Text(
+                title,
+                color = pack.colorTextPrimary.toComposeColor(),
+                fontSize = pack.textH4.toDp().value.sp,
+                fontWeight = FontWeight.Bold,
+              )
+            }
+            Spacer(Modifier.weight(1f))
+            TextButton(
+              onClick = {
+                if (!csControlEnabled()) return@TextButton
+                claimClose()
+                onOpenChange(false)
+                onClose?.invoke()
+                val stack = CsOverlayRegistry.resolved(layerId, listOf(CsOverlayLayer(layerId, "modal", true)))
+                csReturnFocus(restoreId, onRestore, layerId, stack)
+              },
+              enabled = csControlEnabled(),
+              interactionSource = closeInteraction,
+              contentPadding = PaddingValues(csDrawerClosePadding()),
+              modifier = Modifier
+                .minimumInteractiveComponentSize()
+                .focusRequester(closeFocus)
+                .onFocusChanged { if (it.isFocused) claimClose() }
+                .semantics { contentDescription = closeName },
+            ) {
+              Box(Modifier.size(csDrawerCloseIconSize())) {
+                CsIcon(
+                  name = "close",
+                  label = "",
+                  dark = dark,
+                  highContrast = highContrast,
+                  compact = compact,
+                  modifier = Modifier.clearAndSetSemantics { },
+                )
+              }
+            }
+          }
+          Box(Modifier.fillMaxWidth().height(csDrawerBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))
+          Box(Modifier.weight(1f, fill = true).fillMaxWidth().padding(csDrawerBodyPadding())) {
+            Text(message, color = pack.colorTextMuted.toComposeColor())
+          }
+          if (csDrawerShowsActions(actions)) {
+            Box(Modifier.fillMaxWidth().height(csDrawerBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))
+            Row(
+              Modifier
+                .fillMaxWidth()
+                .padding(horizontal = csDrawerFooterPaddingX(), vertical = csDrawerFooterPaddingY()),
+              horizontalArrangement = Arrangement.spacedBy(csDrawerFooterGap(), Alignment.End),
+              verticalAlignment = Alignment.CenterVertically,
+            ) {
+              Text(actions ?: "", color = pack.colorTextPrimary.toComposeColor())
+            }
           }
         }
         if (edge == "left") {

@@ -421,6 +421,17 @@ double csDrawerShadowBlur() => 48;
 double csDrawerScrimDepth(double modalDepth) => modalDepth;
 double csDrawerPanelDepth(double modalDepth) => modalDepth + 1;
 bool csDrawerAnimates(bool reducedMotion) => !reducedMotion;
+double csDrawerHeaderGap() => 12;
+double csDrawerHeaderPaddingY() => 16;
+double csDrawerHeaderPaddingX() => 20;
+int csDrawerTitleFontWeight() => 700;
+double csDrawerClosePadding() => 4;
+double csDrawerCloseIconSize() => 20;
+bool csDrawerCloseHovered(bool hovered) => hovered;
+double csDrawerBodyPadding() => 20;
+double csDrawerFooterPaddingY() => 14;
+double csDrawerFooterPaddingX() => 20;
+double csDrawerFooterGap() => 10;
 String csDrawerSide(String? side) => side == 'left' ? 'left' : 'right';
 bool csDrawerShowsTitle(String? title) => title != null && title.isNotEmpty;
 String csDrawerLabel(String? title, String fallback) => csDrawerShowsTitle(title) ? title! : fallback;
@@ -442,9 +453,10 @@ List<String> csDrawerNotify(bool hasOpenChange, bool hasClose) => [if (hasOpenCh
 bool csDrawerBodyFocusable(double scrollHeight, double clientHeight, double scrollWidth, double clientWidth) => scrollHeight > clientHeight + 1 || scrollWidth > clientWidth + 1;
 
 class CsDrawer extends StatefulWidget {
-  const CsDrawer({super.key, required this.title, required this.message, this.closeLabel, required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.side = 'right', this.onClose, this.onRestore, this.language});
+  const CsDrawer({super.key, required this.title, required this.message, this.actions, this.closeLabel, required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.side = 'right', this.onClose, this.onRestore, this.language});
   final String title;
   final String message;
+  final String? actions;
   final String? closeLabel;
   final String? language;
   final String side;
@@ -465,6 +477,7 @@ class _CsDrawerState extends State<CsDrawer> {
   final layerId = csOverlayFreshId('drawer');
   final closeId = csOverlayFreshId('drawer-close');
   var trap = 0;
+  var closeHovered = false;
   String? restoreId;
 
   @override
@@ -543,17 +556,93 @@ class _CsDrawerState extends State<CsDrawer> {
                     ),
                   ],
                 ),
-                child: Column(crossAxisAlignment: edge == 'left' ? CrossAxisAlignment.start : CrossAxisAlignment.end, children: [
-                  if (csDrawerShowsTitle(widget.title)) Text(widget.title, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-                  Text(widget.message, style: TextStyle(color: csColor(pack.colorTextMuted))),
-                  TextButton(focusNode: closeNode, onPressed: () {
-                    claimClose();
-                    widget.onOpenChange(false);
-                    widget.onClose?.call();
-                    final stack = CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)]);
-                    csReturnFocus(restoreId, widget.onRestore, layerId, stack);
-                  }, child: Semantics(label: widget.closeLabel ?? csDrawerCopy('close', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context))), child: ExcludeSemantics(child: CsIcon(name: 'close', label: '', dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact)))),
-                ]),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: csColor(pack.colorSurfacePanel),
+                        border: Border(bottom: BorderSide(color: csColor(pack.colorBorderDefault), width: csDrawerBorderWidth())),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: csDrawerHeaderPaddingX(), vertical: csDrawerHeaderPaddingY()),
+                        child: Row(
+                          children: [
+                            if (csDrawerShowsTitle(widget.title)) ...[
+                              Text(
+                                widget.title,
+                                style: TextStyle(
+                                  color: csColor(pack.colorTextPrimary),
+                                  fontSize: csPoints(pack.textH4),
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              SizedBox(width: csDrawerHeaderGap()),
+                            ],
+                            const Spacer(),
+                            MouseRegion(
+                              onEnter: (_) => setState(() => closeHovered = true),
+                              onExit: (_) => setState(() => closeHovered = false),
+                              child: TextButton(
+                                focusNode: closeNode,
+                                style: TextButton.styleFrom(padding: EdgeInsets.all(csDrawerClosePadding())),
+                                onPressed: () {
+                                  claimClose();
+                                  widget.onOpenChange(false);
+                                  widget.onClose?.call();
+                                  final stack = CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)]);
+                                  csReturnFocus(restoreId, widget.onRestore, layerId, stack);
+                                },
+                                child: Semantics(
+                                  label: widget.closeLabel ?? csDrawerCopy('close', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context))),
+                                  child: ExcludeSemantics(
+                                    child: SizedBox(
+                                      width: csDrawerCloseIconSize(),
+                                      height: csDrawerCloseIconSize(),
+                                      child: IconTheme(
+                                        data: IconThemeData(
+                                          color: csColor(csDrawerCloseHovered(closeHovered) ? pack.colorSemanticDangerText : pack.colorTextMuted),
+                                        ),
+                                        child: CsIcon(
+                                          name: 'close',
+                                          label: '',
+                                          dark: widget.dark,
+                                          highContrast: widget.highContrast,
+                                          compact: widget.compact,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.all(csDrawerBodyPadding()),
+                        child: Text(widget.message, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                      ),
+                    ),
+                    if (csDrawerShowsActions(widget.actions))
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                          border: Border(top: BorderSide(color: csColor(pack.colorBorderDefault), width: csDrawerBorderWidth())),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: csDrawerFooterPaddingX(), vertical: csDrawerFooterPaddingY()),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(widget.actions ?? '', style: TextStyle(color: csColor(pack.colorTextPrimary))),
+                            ],
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
           ),

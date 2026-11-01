@@ -725,6 +725,17 @@ public enum CSDrawerModel {
   public static func scrimDepth(_ modalDepth: Double) -> Double { modalDepth }
   public static func panelDepth(_ modalDepth: Double) -> Double { modalDepth + 1 }
   public static func animates(reducedMotion: Bool) -> Bool { !reducedMotion }
+  public static func headerGap() -> Double { 12 }
+  public static func headerPaddingY() -> Double { 16 }
+  public static func headerPaddingX() -> Double { 20 }
+  public static func titleFontWeight() -> Int { 700 }
+  public static func closePadding() -> Double { 4 }
+  public static func closeIconSize() -> Double { 20 }
+  public static func closeHovered(hovered: Bool) -> Bool { hovered }
+  public static func bodyPadding() -> Double { 20 }
+  public static func footerPaddingY() -> Double { 14 }
+  public static func footerPaddingX() -> Double { 20 }
+  public static func footerGap() -> Double { 10 }
   public static func side(_ side: String?) -> String { side == "left" ? "left" : "right" }
   public static func showsTitle(_ title: String?) -> Bool {
     guard let title else { return false }
@@ -778,6 +789,7 @@ public struct CSDrawer: View {
   let layers: [CSOverlayLayer]
   @State private var restoreId: String? = nil
   @State private var closeFocusId = UUID().uuidString
+  @State private var closeHovered = false
   @FocusState private var trap: Int?
   @Environment(\.csLanguage) private var ancestorLanguage
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -816,28 +828,58 @@ public struct CSDrawer: View {
           .onTapGesture(perform: close)
           .zIndex(CSDrawerModel.scrimDepth(pack.depthModal))
           .accessibilityHidden(true)
-        VStack(alignment: .leading, spacing: 12) {
-          HStack {
+        VStack(alignment: .leading, spacing: 0) {
+          HStack(alignment: .center, spacing: CGFloat(CSDrawerModel.headerGap())) {
             if let title, CSDrawerModel.showsTitle(title) {
-              Text(title).font(.headline).foregroundStyle(pack.primaryTextColor)
+              Text(title)
+                .font(.system(size: pack.textH4.points, weight: .bold))
+                .foregroundStyle(pack.primaryTextColor)
             }
-            Spacer()
+            Spacer(minLength: 0)
             Button(action: {
               CSFocusRegistry.shared.claim(id: closeFocusId, restore: { trap = 0 })
               close()
             }) {
               CSIcon(name: "close", label: "", dark: dark, highContrast: highContrast, compact: compact)
+                .frame(width: CGFloat(CSDrawerModel.closeIconSize()), height: CGFloat(CSDrawerModel.closeIconSize()))
+                .foregroundStyle(CSDrawerModel.closeHovered(hovered: closeHovered) ? pack.colorSemanticDangerText.color : pack.mutedColor)
+                .padding(CGFloat(CSDrawerModel.closePadding()))
                 .frame(minWidth: 44, minHeight: 44)
             }
+            .buttonStyle(.plain)
+            .onHover { closeHovered = $0 }
             .accessibilityLabel(closeName)
             .focused($trap, equals: 0)
           }
-          Text(message).foregroundStyle(pack.mutedColor)
+          .padding(.vertical, CGFloat(CSDrawerModel.headerPaddingY()))
+          .padding(.horizontal, CGFloat(CSDrawerModel.headerPaddingX()))
+          .background(pack.colorSurfacePanel.color)
+          .overlay(alignment: .bottom) {
+            Rectangle()
+              .fill(pack.colorBorderDefault.color)
+              .frame(height: CGFloat(CSDrawerModel.borderWidth()))
+          }
+          ScrollView {
+            Text(message)
+              .foregroundStyle(pack.mutedColor)
+              .frame(maxWidth: .infinity, alignment: .leading)
+              .padding(CGFloat(CSDrawerModel.bodyPadding()))
+          }
+          .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
           if let actions, CSDrawerModel.showsActions(actions) {
-            Text(actions).foregroundStyle(pack.primaryTextColor)
+            HStack(spacing: CGFloat(CSDrawerModel.footerGap())) {
+              Spacer(minLength: 0)
+              Text(actions).foregroundStyle(pack.primaryTextColor)
+            }
+            .padding(.vertical, CGFloat(CSDrawerModel.footerPaddingY()))
+            .padding(.horizontal, CGFloat(CSDrawerModel.footerPaddingX()))
+            .overlay(alignment: .top) {
+              Rectangle()
+                .fill(pack.colorBorderDefault.color)
+                .frame(height: CGFloat(CSDrawerModel.borderWidth()))
+            }
           }
         }
-        .padding(16)
         .frame(maxWidth: CSDrawerModel.width, maxHeight: .infinity, alignment: .topLeading)
         .background(pack.colorSurfacePage.color)
         .overlay(alignment: edge == "left" ? .trailing : .leading) {
