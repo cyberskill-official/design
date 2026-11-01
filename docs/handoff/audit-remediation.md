@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `cf5493c5a600af47785e9f612589155ff31945f7` (`feat(native): wire remainder views to batch, wave, form, review gate, AI, navigation, and select style models`)
-- Previous checkpoint: `9fa69b7585b56c159db32e8dc89f6df8819b3254`, with the hash note in `7865aa75`
+- Checkpoint commit: `728a4626362c6c2efe05fa0a972bc394e590a8ef` (`feat(native): align alert banner icon, copy, presence, and dismiss callbacks with web Alert`)
+- Previous checkpoint: `cf5493c5a600af47785e9f612589155ff31945f7`, with the hash note in `2d5824de`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
