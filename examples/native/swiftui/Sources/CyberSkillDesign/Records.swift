@@ -18,6 +18,14 @@ public enum CSDataGridSelection {
     return !caption.isEmpty
   }
   public static func emptyText(_ empty: String?, fallback: String) -> String { empty ?? fallback }
+  public static func selectAllText(_ explicit: String?, fallback: String) -> String {
+    guard let explicit, !explicit.isEmpty else { return fallback }
+    return explicit
+  }
+  public static func pinNamedParts(_ template: String = pinTemplate) -> [String] {
+    let parts = template.components(separatedBy: "{name}")
+    return parts.count >= 2 ? [parts[0], parts[1]] : [template, ""]
+  }
   public static func cellText(row: [String: String], key: String, render: (([String: String]) -> String?)?) -> String {
     if let render { return render(row) ?? "" }
     return row[key] ?? ""
@@ -313,7 +321,7 @@ public struct CSDataGrid: View {
   @State private var settledRowHeight: Double? = nil
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String, filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, caption: String? = nil, sortValues: [String: ([String: String]) -> String?] = [:], renders: [String: ([String: String]) -> String?] = [:], rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, measuredRowHeight: Double? = nil, virtualRows: Bool = false, virtualThreshold: Int = 80, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
+  public init(columns: [CSDataColumn], rows: [[String: String]], selectable: Bool, selected: [String], selectAllLabel: String? = nil, clearLabel: String = "", filterText: String? = nil, filterKeys: [String]? = nil, persistKey: String? = nil, caption: String? = nil, sortValues: [String: ([String: String]) -> String?] = [:], renders: [String: ([String: String]) -> String?] = [:], rowKeyName: String = "id", dark: Bool, highContrast: Bool, compact: Bool, gridHeight: Double = 280, gridRowHeight: Double = 36, measuredRowHeight: Double? = nil, virtualRows: Bool = false, virtualThreshold: Int = 80, columnStore: (any CSGridColumnStore)? = nil, empty: String? = nil, language: String? = nil, onSelect: @escaping ([String]) -> Void = { _ in }) {
     self.columns = columns
     self.rows = rows
     self.selectable = selectable
@@ -344,7 +352,7 @@ public struct CSDataGrid: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
-    let allName = selectAllLabel ?? CSDataGridSelection.copy("selectAll", language: locale)
+    let allName = CSDataGridSelection.selectAllText(selectAllLabel, fallback: CSDataGridSelection.copy("selectAll", language: locale))
     let pinTemplate = CSDataGridSelection.copy("pinNamed", language: locale)
     let orderedColumns = CSDataGridSelection.orderedKeys(order: columnOrder, columns: columns.map(\.key)).compactMap { key in columns.first { $0.key == key } }
     let keysToSearch = CSDataGridSelection.filterKeys(requested: filterKeys, columns: orderedColumns.map(\.key))
@@ -524,6 +532,29 @@ public struct CSTagEdit: Equatable {
 public enum CSTagInputModel {
   public static let placeholderDefault = "Add a tag…"
   public static let removeDefault = "Remove"
+  public static let closeIconPath = "M6 6l12 12M18 6L6 18"
+  public static func closeIconSize() -> Double { 12 }
+  public static func closeIconStrokeWidth() -> Double { 2.4 }
+  public static func labelId(_ id: String, label: String?) -> String? {
+    guard let label, !label.isEmpty else { return nil }
+    return "\(id)-label"
+  }
+  public static func descriptionId(_ id: String, description: String?) -> String? {
+    guard let description, !description.isEmpty else { return nil }
+    return "\(id)-description"
+  }
+  public static func errorId(_ id: String, error: String?) -> String? {
+    guard let error, !error.isEmpty else { return nil }
+    return "\(id)-error"
+  }
+  public static func labelledBy(explicit: String?, hasAriaLabel: Bool, id: String, label: String?) -> String? {
+    if let explicit, !explicit.isEmpty { return explicit }
+    if hasAriaLabel { return nil }
+    return labelId(id, label: label)
+  }
+  public static func describedBy(explicit: String?, descriptionId: String?, errorId: String?) -> String? {
+    CSTextFieldModel.describedBy(explicit: explicit, descriptionId: descriptionId, errorId: errorId)
+  }
   public static func tags(value: [String]?, inner: [String]) -> [String] { value ?? inner }
   public static func shownPlaceholder(text: String?, tags: [String], fallback: String) -> String {
     if !tags.isEmpty { return "" }
@@ -616,12 +647,15 @@ public struct CSTagInput: View {
       if !label.isEmpty { Text(label).foregroundStyle(pack.primaryTextColor).accessibilityHidden(true) }
       HStack(spacing: CGFloat(CSControlsWaveStyleModel.tagInputGap())) {
         ForEach(tags, id: \.self) { tag in
-          CSTriggerButton(CSTagInputModel.removeName(label: removeLabel, tag: tag, fallback: CSTagInputModel.copy("remove", language: locale))) {
-            guard CSTagInputModel.canEdit(disabled: disabled, composing: false) else { return }
-            onChange(CSTagInputModel.remove(tags: tags, tag: tag, disabled: disabled), query)
+          HStack(spacing: CGFloat(CSFeedbackStyleModel.tagGap())) {
+            Text(tag).font(.system(size: pack.fontSizeXs.points, weight: .semibold)).foregroundStyle(pack.primaryTextColor)
+            CSTriggerButton(CSTagInputModel.removeName(label: removeLabel, tag: tag, fallback: CSTagInputModel.copy("remove", language: locale))) {
+              guard CSTagInputModel.canEdit(disabled: disabled, composing: false) else { return }
+              onChange(CSTagInputModel.remove(tags: tags, tag: tag, disabled: disabled), query)
+            }
+            .disabled(disabled)
+            .frame(minHeight: 44)
           }
-          .disabled(disabled)
-          .frame(minHeight: 44)
         }
       }
       TextField(visible, text: Binding(get: { query }, set: { next in
@@ -700,6 +734,11 @@ public enum CSConfidence {
     }
   }
   public static func name(label: String, word: String) -> String { label.isEmpty ? word : label + " " + word }
+  public static func labelId(_ id: String) -> String { "\(id)-label" }
+  public static func levelId(_ id: String) -> String { "\(id)-level" }
+  public static func labelledBy(_ id: String) -> String { "\(labelId(id)) \(levelId(id))" }
+  public static func meterMin() -> Int { 0 }
+  public static func meterMax(_ measurement: CSConfidenceMeasurement) -> Int { measurement.segments }
   public static func meterNow(_ measurement: CSConfidenceMeasurement) -> Int { measurement.filled }
   public static func measure(value: Double?, level: String?, segments: Double) -> CSConfidenceMeasurement {
     let source = segments.isFinite ? segments : .nan
@@ -755,12 +794,15 @@ public struct CSConfidenceMeter: View {
     default: pack.colorSemanticWarningText.color
     }
     VStack(alignment: .leading, spacing: CGFloat(CSAIStyleModel.confidenceGap())) {
-      Text(shown)
-        .font(.system(size: CGFloat(CSAIStyleModel.confidenceHeadFontSize(pack)), weight: .semibold))
-        .foregroundStyle(pack.primaryTextColor)
-      Text(word)
-        .font(.system(size: CGFloat(CSAIStyleModel.confidenceLevelFontSize(pack)), weight: .bold))
-        .foregroundStyle(ink)
+      HStack(alignment: .firstTextBaseline, spacing: 8) {
+        Text(shown)
+          .font(.system(size: CGFloat(CSAIStyleModel.confidenceHeadFontSize(pack)), weight: .semibold))
+          .foregroundStyle(pack.primaryTextColor)
+        Spacer(minLength: 8)
+        Text(word)
+          .font(.system(size: CGFloat(CSAIStyleModel.confidenceLevelFontSize(pack)), weight: .bold))
+          .foregroundStyle(ink)
+      }
       HStack(spacing: CGFloat(CSAIStyleModel.confidenceTrackGap())) {
         ForEach(0..<measurement.segments, id: \.self) { index in
           RoundedRectangle(cornerRadius: CGFloat(CSAIStyleModel.confidenceSegmentRadius()))
@@ -786,6 +828,10 @@ public enum CSCollapsibleModel {
   public static func panelPaddingBottom() -> Double { 14 }
   public static func edgeChildMargin() -> Double { 0 }
   public static func resolvedLabel(title: String?, trigger: String?) -> String { title ?? trigger ?? "" }
+  public static func triggerId(_ prefix: String) -> String { "\(prefix)-trigger" }
+  public static func panelId(_ prefix: String) -> String { "\(prefix)-panel" }
+  public static let chevronPath = "M6 9l6 6 6-6"
+  public static func chevronSize() -> Double { 18 }
   public static func ariaControls(panelId: String, isOpen: Bool) -> String? { isOpen ? panelId : nil }
 }
 
@@ -802,7 +848,7 @@ public struct CSCollapsible: View {
   let compact: Bool
   let onOpenChange: (Bool) -> Void
 
-  public init(title: String, trigger: String? = nil, content: String, expandedLabel: String, collapsedLabel: String, isOpen: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, onOpenChange: @escaping (Bool) -> Void = { _ in }) {
+  public init(title: String, trigger: String? = nil, content: String, expandedLabel: String = "Expanded", collapsedLabel: String = "Collapsed", isOpen: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, onOpenChange: @escaping (Bool) -> Void = { _ in }) {
     self.title = title
     self.trigger = trigger
     self.content = content
@@ -954,8 +1000,12 @@ public struct CSTimeline: View {
 
 public enum CSToolbarModel {
   public static let moreDefault = "More actions"
+  public static let moreGlyph = "⋯"
   public static let placementDefault = "bottom-end"
   public static let gap = 6.0
+  public static func menuMove(current: Int, count: Int, delta: Int) -> Int {
+    toolbarMove(current: current, count: count, delta: delta)
+  }
   public static func groupLabel(_ label: String?) -> String? { label }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
@@ -1020,6 +1070,7 @@ public struct CSToolbar: View {
   public let items: [String]
   public let overflowAfter: Int?
   public let placement: String?
+  public let portal: Bool
   @State private var focus: Int = 0
   @State private var anchor = CGRect.zero
   @State private var naturalSize: CGSize?
@@ -1037,10 +1088,11 @@ public struct CSToolbar: View {
   public let language: String?
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String? = nil, items: [String], overflowAfter: Int? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, placement: String? = nil, onSelect: @escaping (String) -> Void = { _ in }) {
+  public init(label: String? = nil, items: [String], overflowAfter: Int? = nil, portal: Bool = true, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, placement: String? = nil, onSelect: @escaping (String) -> Void = { _ in }) {
     self.label = label
     self.items = items
     self.overflowAfter = overflowAfter
+    self.portal = portal
     self.placement = placement
     self.dark = dark
     self.highContrast = highContrast
@@ -1054,7 +1106,7 @@ public struct CSToolbar: View {
     let moreName = CSToolbarModel.copy("more", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))
     let shown = CSToolbarModel.head(items, overflowAfter: overflowAfter)
     let extra = CSToolbarModel.tail(items, overflowAfter: overflowAfter)
-    let actionable = shown.enumerated().filter { $0.element != "-" }.map(\.offset)
+    let actionable = shown.enumerated().filter { $0.element != "-" }.map(\.offset) + (extra.isEmpty ? [] : [shown.count])
     VStack(alignment: .leading, spacing: 0) {
     HStack(spacing: CGFloat(CSControlsBatchStyleModel.toolbarGap())) {
       ForEach(Array(shown.enumerated()), id: \.offset) { index, item in
@@ -1070,8 +1122,9 @@ public struct CSToolbar: View {
         }
       }
       if !extra.isEmpty {
-        CSTriggerButton(moreName) { open.toggle() }
+        CSTriggerButton(CSToolbarModel.moreGlyph) { open.toggle() }
           .frame(minHeight: max(CGFloat(CSControlsBatchStyleModel.toolbarButtonMinHeight()), pack.componentButtonMdMinHeight.points))
+          .accessibilityLabel(moreName)
           .accessibilityValue(open ? "true" : "false")
           .background(GeometryReader { geo in
             Color.clear.preference(key: CSToolbarAnchorKey.self, value: geo.frame(in: .global))
@@ -1084,6 +1137,7 @@ public struct CSToolbar: View {
     .focusable()
     .focused($toolbarFocused)
     .onChange(of: toolbarFocused) { isFocused in if isFocused { keysArmed = true } }
+    .onExitCommand { if open { open = false } }
     .csRovingKeys { key in moveToolbar(key, actionable: actionable) }
     .background(CSLegacyRovingKeys(active: csLegacyRovingActive(focused: toolbarFocused, armed: keysArmed), onResign: { keysArmed = false }) { key, _ in
       moveToolbar(key, actionable: actionable)

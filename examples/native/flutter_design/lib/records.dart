@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'grid_column_file.dart';
 import 'catalog.dart';
@@ -64,6 +65,11 @@ String csConfidenceCopy(String key, String? language) {
 }
 String csConfidenceToneWord(String tone, String low, String medium, String high) => tone == 'low' ? low : tone == 'high' ? high : medium;
 String csConfidenceName(String label, String word) => label.isEmpty ? word : '$label $word';
+String csConfidenceLabelId(String id) => '$id-label';
+String csConfidenceLevelId(String id) => '$id-level';
+String csConfidenceLabelledBy(String id) => '${csConfidenceLabelId(id)} ${csConfidenceLevelId(id)}';
+int csConfidenceMeterMin() => 0;
+int csConfidenceMeterMax(CsConfidenceMeasurement measurement) => measurement.segments;
 CsConfidenceMeasurement csConfidenceMeasure(double? value, String? level, double segments) {
   final source = segments.isFinite && segments != 0 ? segments : double.nan;
   final segs = csRenderCount(source, 5, minimum: 1);
@@ -170,9 +176,9 @@ class _CsDataGridState extends State<CsDataGrid> {
     final onSelect = widget.onSelect;
     final selectable = widget.selectable;
     final clearLabel = widget.clearLabel;
-    final selectAllLabel = widget.selectAllLabel;
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
     final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
+    final selectAllLabel = csGridSelectAllText(widget.selectAllLabel, csGridCopy('selectAll', locale));
     final keys = [for (var index = 0; index < rows.length; index++) widget.rowKeyName == 'id' ? csGridRowKey(rows[index]['id'], index) : csGridRowKey(rows[index][widget.rowKeyName], index)];
     final allSelected = keys.isNotEmpty && keys.every(selected.contains);
     final useVirtual = csGridVirtual(widget.virtual, rows.length, threshold: widget.virtualThreshold);
@@ -361,7 +367,14 @@ class CsTagInput extends StatelessWidget {
           if (label != null && label!.isNotEmpty) ExcludeSemantics(child: Text(label!, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
           Wrap(spacing: csControlsWaveStyleTagInputGap(), runSpacing: csControlsWaveStyleTagInputGap(), children: [
             for (final tag in tags)
-              CsOwnFocus(builder: (node, claim) => Semantics(label: csTagRemoveName(removeLabel, tag, csTagCopy('remove', locale)), button: true, child: TextButton(focusNode: node, onPressed: disabled ? null : () { claim(); onChange(tags.where((item) => item != tag).toList(), query); }, child: ExcludeSemantics(child: Text(csTagRemoveName(removeLabel, tag, csTagCopy('remove', locale))))))),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(tag, style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeXs), fontWeight: FontWeight.w600)),
+                  SizedBox(width: csFeedbackStyleTagGap()),
+                  CsOwnFocus(builder: (node, claim) => Semantics(label: csTagRemoveName(removeLabel, tag, csTagCopy('remove', locale)), button: true, child: TextButton(focusNode: node, onPressed: disabled ? null : () { claim(); onChange(tags.where((item) => item != tag).toList(), query); }, child: ExcludeSemantics(child: Text(csTagRemoveName(removeLabel, tag, csTagCopy('remove', locale))))))),
+                ],
+              ),
           ]),
           CsOwnFocus(builder: (node, claim) => Semantics(label: fieldName, textField: true, child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsWaveStyleTagInputFieldMinWidth()), child: Opacity(opacity: disabled ? csControlsWaveStyleTagInputDisabledFieldOpacity() : 1.0, child: Focus(
             onFocusChange: (focused) {
@@ -436,9 +449,13 @@ class CsConfidenceMeter extends StatelessWidget {
       child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ExcludeSemantics(child: Text(shown, style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csAiStyleConfidenceHeadFontSize(pack), fontWeight: FontWeight.w600))),
-        SizedBox(height: csAiStyleConfidenceGap()),
-        ExcludeSemantics(child: Text(word, style: TextStyle(color: csColor(ink), fontSize: csAiStyleConfidenceLevelFontSize(pack), fontWeight: FontWeight.w700))),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ExcludeSemantics(child: Text(shown, style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csAiStyleConfidenceHeadFontSize(pack), fontWeight: FontWeight.w600))),
+            ExcludeSemantics(child: Text(word, style: TextStyle(color: csColor(ink), fontSize: csAiStyleConfidenceLevelFontSize(pack), fontWeight: FontWeight.w700))),
+          ],
+        ),
         SizedBox(height: csAiStyleConfidenceGap()),
         Row(children: [
           for (var index = 0; index < measurement.segments; index++)
@@ -465,10 +482,14 @@ double csCollapsiblePanelPaddingX() => 16;
 double csCollapsiblePanelPaddingBottom() => 14;
 double csCollapsibleEdgeChildMargin() => 0;
 String csCollapsibleResolvedLabel(String? title, String? trigger) => title ?? trigger ?? '';
+String csCollapsibleTriggerId(String prefix) => '$prefix-trigger';
+String csCollapsiblePanelId(String prefix) => '$prefix-panel';
+const csCollapsibleChevronPath = 'M6 9l6 6 6-6';
+double csCollapsibleChevronSize() => 18;
 String? csCollapsibleAriaControls(String panelId, bool isOpen) => isOpen ? panelId : null;
 
 class CsCollapsible extends StatefulWidget {
-  const CsCollapsible({super.key, required this.title, this.trigger, required this.content, required this.expandedLabel, required this.collapsedLabel, required this.isOpen, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact});
+  const CsCollapsible({super.key, required this.title, this.trigger, required this.content, this.expandedLabel = 'Expanded', this.collapsedLabel = 'Collapsed', required this.isOpen, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact});
   final String title;
   final String? trigger;
   final String content;
@@ -570,6 +591,11 @@ String csGridRowName(List<String?> cells, String key) {
 bool csGridAllSelected(bool selectable, List<String> keys, List<String> selected) => selectable && keys.isNotEmpty && keys.every(selected.contains);
 bool csGridShowsCaption(String? caption) => caption != null && caption.isNotEmpty;
 String csGridEmptyText(String? empty, String fallback) => empty ?? fallback;
+String csGridSelectAllText(String? explicit, String fallback) => explicit == null || explicit.isEmpty ? fallback : explicit;
+List<String> csGridPinNamedParts([String template = csGridPin]) {
+  final parts = template.split('{name}');
+  return parts.length >= 2 ? [parts[0], parts[1]] : [template, ''];
+}
 String csGridCellText(Map<String, String> row, String key, String? Function(Map<String, String>)? render) => render != null ? (render(row) ?? '') : (row[key] ?? '');
 List<String> csGridFilterKeys(List<String>? requested, List<String> columns) => requested == null || requested.isEmpty ? columns : requested;
 const csGridPin = 'Pin column {name}';
@@ -619,6 +645,15 @@ String csGridCopy(String key, String? language) {
   return key;
 }
 const csTagPlaceholder = 'Add a tag…';
+double csTagCloseIconSize() => 12;
+double csTagCloseIconStrokeWidth() => 2.4;
+String? csTagLabelId(String id, String? label) => label == null || label.isEmpty ? null : '$id-label';
+String? csTagDescriptionId(String id, String? description) => description == null || description.isEmpty ? null : '$id-description';
+String? csTagErrorId(String id, String? error) => error == null || error.isEmpty ? null : '$id-error';
+String? csTagLabelledBy(String? explicit, bool hasAriaLabel, String id, String? label) =>
+    explicit != null && explicit.isNotEmpty ? explicit : (hasAriaLabel ? null : csTagLabelId(id, label));
+String? csTagDescribedBy(String? explicit, String? descriptionId, String? errorId) =>
+    csTextFieldDescribedBy(explicit, descriptionId, errorId);
 List<String> csTagValues(List<String>? value, List<String> inner) => value ?? inner;
 String csTagPlaceholderShown(String? text, List<String> tags, String fallback) => tags.isNotEmpty ? '' : (text ?? fallback);
 String csTagRemoveName(String? label, String tag, String fallback) => '${label ?? fallback} $tag';
@@ -637,6 +672,8 @@ String csTagCopy(String key, String? language) {
 }
 bool csTagCanEdit(bool disabled, bool composing) => !disabled && !composing;
 const csToolbarMore = 'More actions';
+const csToolbarMoreGlyph = '⋯';
+int csToolbarMenuMove(int current, int count, int delta) => csToolbarMove(current, count, delta);
 int csToolbarCut(int count, int? overflowAfter) => overflowAfter == null ? count : (overflowAfter < 0 ? 0 : (overflowAfter > count ? count : overflowAfter));
 String csToolbarPlacement(String? explicit) => explicit ?? 'bottom-end';
 const csToolbarGap = 6.0;
@@ -836,11 +873,12 @@ class CsTimeline extends StatelessWidget {
 }
 
 class CsToolbar extends StatefulWidget {
-  const CsToolbar({super.key, this.label, required this.items, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.overflowAfter, this.placement, this.language});
+  const CsToolbar({super.key, this.label, required this.items, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.overflowAfter, this.placement, this.language, this.portal = true});
   final String? label;
   final int? overflowAfter;
   final String? placement;
   final String? language;
+  final bool portal;
   final List<String> items;
   final ValueChanged<String> onSelect;
   final bool dark;
@@ -901,7 +939,15 @@ class _CsToolbarState extends State<CsToolbar> {
     if (open && extra.isNotEmpty) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && open) measure(); });
     return Semantics(
       label: widget.label ?? '',
-      child: Column(
+      child: Focus(
+        onKeyEvent: (_, event) {
+          if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.escape && open) {
+            setState(() => open = false);
+            return KeyEventResult.handled;
+          }
+          return KeyEventResult.ignored;
+        },
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -923,7 +969,7 @@ class _CsToolbarState extends State<CsToolbar> {
               if (extra.isNotEmpty) CsOwnFocus(builder: (node, claim) => Semantics(label: moreName, value: open ? 'true' : 'false', button: true, child: ConstrainedBox(constraints: BoxConstraints(minHeight: csControlsBatchStyleToolbarButtonMinHeight()), child: TextButton(key: moreKey,
                 focusNode: node,
                 onPressed: () { claim(); setState(() => open = !open); },
-                child: ExcludeSemantics(child: Text(moreName)),
+                child: const ExcludeSemantics(child: Text(csToolbarMoreGlyph)),
               )))),
             ]),
           ),
@@ -935,6 +981,7 @@ class _CsToolbarState extends State<CsToolbar> {
           )),
           ]))),
         ],
+      ),
       ),
     );
   }

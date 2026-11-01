@@ -43,6 +43,11 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -106,6 +111,11 @@ fun csConfidenceToneWord(tone: String, low: String, medium: String, high: String
   else -> medium
 }
 fun csConfidenceName(label: String, word: String) = if (label.isEmpty()) word else "$label $word"
+fun csConfidenceLabelId(id: String) = "$id-label"
+fun csConfidenceLevelId(id: String) = "$id-level"
+fun csConfidenceLabelledBy(id: String) = "${csConfidenceLabelId(id)} ${csConfidenceLevelId(id)}"
+fun csConfidenceMeterMin() = 0
+fun csConfidenceMeterMax(measurement: CsConfidenceMeasurement) = measurement.segments
 fun csConfidenceMeasure(value: Double?, level: String?, segments: Double): CsConfidenceMeasurement {
   val source = if (segments.isFinite() && segments != 0.0) segments else Double.NaN
   val segs = csRenderCount(source, 5, 1)
@@ -185,7 +195,7 @@ fun CsDataGrid(
     if (csGridShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor(), fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = csTableStyleCaptionMarginBottom()))
     if (selectable) {
       Box(Modifier.width(csGridSelectionWidth()), contentAlignment = csGridCheckAlignment()) {
-        CsCheckbox(label = selectAllLabel, checked = allSelected, onCheckedChange = { onSelect(csToggleAllSelection(keys, selected)) }, dark = dark, highContrast = highContrast, compact = compact)
+        CsCheckbox(label = selectAllLabel.let { csGridSelectAllText(it, csGridCopy("selectAll", locale)) }, checked = allSelected, onCheckedChange = { onSelect(csToggleAllSelection(keys, selected)) }, dark = dark, highContrast = highContrast, compact = compact)
       }
     }
     Row(Modifier.background(pack.colorSurfaceRaised.toComposeColor()).zIndex(csGridHeaderLayer().toFloat()).offset(y = csGridHeaderStart().dp).semantics { csGridRowIndex(useVirtual, 0, true)?.let { csGridRowIndexValue = it } }) {
@@ -269,8 +279,11 @@ fun CsTagInput(
     Row(horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleTagInputGap())) {
       tags.forEach { tag ->
         val name = csTagRemoveName(removeLabel, tag, csTagCopy("remove", locale))
-        CsTriggerButton(title = name, onClick = { if (!disabled) onChange(tags.filter { it != tag }, query) }, enabled = !disabled, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = name }) {
-          Text(name, modifier = Modifier.clearAndSetSemantics {})
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(csFeedbackStyleTagGap())) {
+          Text(tag, color = pack.colorTextPrimary.toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp, fontWeight = FontWeight.SemiBold)
+          CsTriggerButton(title = name, onClick = { if (!disabled) onChange(tags.filter { it != tag }, query) }, enabled = !disabled, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = name }) {
+            Text(name, modifier = Modifier.clearAndSetSemantics {})
+          }
         }
       }
     }
@@ -327,8 +340,10 @@ fun CsConfidenceMeter(
     else -> pack.colorSemanticWarningText
   }.toComposeColor()
   Column(modifier.semantics { contentDescription = csConfidenceName(shown, word) }, verticalArrangement = Arrangement.spacedBy(csAiStyleConfidenceGap())) {
-    Text(shown, color = pack.colorTextPrimary.toComposeColor(), fontSize = csAiStyleConfidenceHeadFontSize(pack).value.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.clearAndSetSemantics {})
-    Text(word, color = ink, fontSize = csAiStyleConfidenceLevelFontSize(pack).value.sp, fontWeight = FontWeight.Bold, modifier = Modifier.clearAndSetSemantics {})
+    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+      Text(shown, color = pack.colorTextPrimary.toComposeColor(), fontSize = csAiStyleConfidenceHeadFontSize(pack).value.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.clearAndSetSemantics {})
+      Text(word, color = ink, fontSize = csAiStyleConfidenceLevelFontSize(pack).value.sp, fontWeight = FontWeight.Bold, modifier = Modifier.clearAndSetSemantics {})
+    }
     Row(horizontalArrangement = Arrangement.spacedBy(csAiStyleConfidenceTrackGap())) {
       repeat(measurement.segments) { index ->
         androidx.compose.foundation.layout.Box(
@@ -352,6 +367,10 @@ fun csCollapsiblePanelPaddingX() = 16.dp
 fun csCollapsiblePanelPaddingBottom() = 14.dp
 fun csCollapsibleEdgeChildMargin() = 0.dp
 fun csCollapsibleResolvedLabel(title: String?, trigger: String?) = title ?: trigger ?: ""
+fun csCollapsibleTriggerId(prefix: String) = "$prefix-trigger"
+fun csCollapsiblePanelId(prefix: String) = "$prefix-panel"
+const val csCollapsibleChevronPath = "M6 9l6 6 6-6"
+fun csCollapsibleChevronSize() = 18.dp
 fun csCollapsibleAriaControls(panelId: String, isOpen: Boolean) = if (isOpen) panelId else null
 
 @Composable
@@ -401,6 +420,11 @@ fun csGridRowName(cells: List<String?>, key: String): String {
 fun csGridAllSelected(selectable: Boolean, keys: List<String>, selected: List<String>) = selectable && keys.isNotEmpty() && keys.all { selected.contains(it) }
 fun csGridShowsCaption(caption: String?) = caption != null && caption.isNotEmpty()
 fun csGridEmptyText(empty: String?, fallback: String) = empty ?: fallback
+fun csGridSelectAllText(explicit: String?, fallback: String) = if (explicit.isNullOrEmpty()) fallback else explicit
+fun csGridPinNamedParts(template: String = csGridPin): List<String> {
+  val parts = template.split("{name}")
+  return if (parts.size >= 2) listOf(parts[0], parts[1]) else listOf(template, "")
+}
 fun csGridCellText(row: Map<String, String>, key: String, render: ((Map<String, String>) -> String?)?) = if (render != null) render(row) ?: "" else row[key] ?: ""
 fun csGridFilterKeys(requested: List<String>?, columns: List<String>) = if (requested.isNullOrEmpty()) columns else requested
 const val csGridPin = "Pin column {name}"
@@ -458,6 +482,15 @@ fun csGridCopy(key: String, language: String?): String {
   return key
 }
 const val csTagPlaceholder = "Add a tag…"
+fun csTagCloseIconSize() = 12.dp
+fun csTagCloseIconStrokeWidth() = 2.4f
+fun csTagLabelId(id: String, label: String?) = if (label.isNullOrEmpty()) null else "$id-label"
+fun csTagDescriptionId(id: String, description: String?) = if (description.isNullOrEmpty()) null else "$id-description"
+fun csTagErrorId(id: String, error: String?) = if (error.isNullOrEmpty()) null else "$id-error"
+fun csTagLabelledBy(explicit: String?, hasAriaLabel: Boolean, id: String, label: String?) =
+  if (!explicit.isNullOrEmpty()) explicit else if (hasAriaLabel) null else csTagLabelId(id, label)
+fun csTagDescribedBy(explicit: String?, descriptionId: String?, errorId: String?) =
+  csTextFieldDescribedBy(explicit, descriptionId, errorId)
 fun csTagValues(value: List<String>?, inner: List<String>) = value ?: inner
 fun csTagPlaceholderShown(text: String?, tags: List<String>, fallback: String) = if (tags.isNotEmpty()) "" else text ?: fallback
 fun csTagRemoveName(label: String?, tag: String, fallback: String) = "${label ?: fallback} $tag"
@@ -473,6 +506,8 @@ fun csTagCopy(key: String, language: String?): String {
 }
 fun csTagCanEdit(disabled: Boolean, composing: Boolean) = !disabled && !composing
 const val csToolbarMore = "More actions"
+const val csToolbarMoreGlyph = "⋯"
+fun csToolbarMenuMove(current: Int, count: Int, delta: Int) = csToolbarMove(current, count, delta)
 fun csToolbarCut(count: Int, overflowAfter: Int?) = overflowAfter?.let { minOf(count, maxOf(0, it)) } ?: count
 fun csToolbarPlacement(explicit: String?) = explicit ?: "bottom-end"
 const val csToolbarGap = 6.0
@@ -641,12 +676,13 @@ fun CsToolbar(
   overflowAfter: Int? = null,
   placement: String? = null,
   language: String? = null,
+  portal: Boolean = true,
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val moreName = csToolbarCopy("more", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
   val head = items.take(csToolbarCut(items.size, overflowAfter))
   val extra = csToolbarTail(items, overflowAfter)
-  val actionable = head.mapIndexedNotNull { index, item -> if (item == "-") null else index }
+  val actionable = head.mapIndexedNotNull { index, item -> if (item == "-") null else index } + if (extra.isEmpty()) emptyList() else listOf(head.size)
   var focus by remember { mutableIntStateOf(actionable.firstOrNull() ?: 0) }
   var open by remember { mutableStateOf(false) }
   var field by remember { mutableStateOf<CsFloatingRect?>(null) }
@@ -665,7 +701,12 @@ fun CsToolbar(
     if (first == null || second == null) null else csToolbarShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csToolbarPlacement(placement))
   }
   if (!open && natural != null) { natural = null; fitted = null }
-  Column(modifier) {
+  Column(modifier.onKeyEvent {
+    if (it.type == KeyEventType.KeyDown && it.key == Key.Escape && open) {
+      open = false
+      true
+    } else false
+  }) {
     Row(Modifier.padding(csControlsBatchStyleToolbarPadding()).semantics { contentDescription = label ?: "" }, horizontalArrangement = Arrangement.spacedBy(csControlsBatchStyleToolbarGap()), verticalAlignment = Alignment.CenterVertically) {
       head.forEachIndexed { index, item ->
         if (item == "-") {
@@ -677,11 +718,11 @@ fun CsToolbar(
         }
       }
       if (extra.isNotEmpty()) {
-        CsTriggerButton(title = moreName, onClick = { open = !open }, modifier = Modifier.heightIn(min = csControlsBatchStyleToolbarButtonMinHeight()).minimumInteractiveComponentSize().onGloballyPositioned {
+        CsTriggerButton(title = csToolbarMoreGlyph, onClick = { open = !open }, modifier = Modifier.heightIn(min = csControlsBatchStyleToolbarButtonMinHeight()).minimumInteractiveComponentSize().onGloballyPositioned {
           val bounds = it.boundsInWindow()
           field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
         }.semantics { contentDescription = moreName; stateDescription = if (open) "true" else "false" }) {
-          Text(moreName, modifier = Modifier.clearAndSetSemantics {})
+          Text(csToolbarMoreGlyph, modifier = Modifier.clearAndSetSemantics {})
         }
       }
     }
