@@ -307,6 +307,7 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSDescriptionModel.columnMin, 160)
     XCTAssertEqual(CSDescriptionModel.columnGap, 24)
     XCTAssertEqual(CSDescriptionModel.rowGap, 14)
+    XCTAssertEqual(CSDescriptionModel.valueGap, 2)
     XCTAssertEqual(CSDescriptionModel.spoken(""), "")
     XCTAssertEqual(CSDescriptionModel.spoken("An"), "An")
     XCTAssertEqual(CSKbdModel.keyFace(""), "")

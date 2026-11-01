@@ -928,6 +928,7 @@ public enum CSDescriptionModel {
   public static let columnMin = 160.0
   public static let columnGap = 24.0
   public static let rowGap = 14.0
+  public static let valueGap = 2.0
   public static let termSize = 12.0
   public static let valueSize = 14.0
   public static let termTracking = 0.08
@@ -960,15 +961,15 @@ public struct CSDescriptionList: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     LazyVGrid(columns: [GridItem(.adaptive(minimum: CSDescriptionModel.columnMin), spacing: CSDescriptionModel.columnGap)], spacing: CSDescriptionModel.rowGap) {
       ForEach(Array(items.enumerated()), id: \.offset) { _, item in
-        VStack(alignment: .leading, spacing: 2) {
+        VStack(alignment: .leading, spacing: CSDescriptionModel.valueGap) {
           Text(item.term)
-            .font(.system(size: CSDescriptionModel.termSize))
+            .font(.system(size: pack.fontSizeXs.points))
             .textCase(.uppercase)
-            .tracking(CSDescriptionModel.termSize * CSDescriptionModel.termTracking)
+            .tracking(pack.fontSizeXs.points * CSDescriptionModel.termTracking)
             .foregroundStyle(pack.mutedColor)
             .accessibilityLabel(CSDescriptionModel.spoken(item.term))
           Text(item.value)
-            .font(.system(size: CSDescriptionModel.valueSize))
+            .font(.system(size: pack.fontSizeSm.points))
             .foregroundStyle(pack.primaryTextColor)
         }
       }

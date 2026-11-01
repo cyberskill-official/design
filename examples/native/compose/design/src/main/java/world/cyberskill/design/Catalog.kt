@@ -540,15 +540,28 @@ fun CsSegmentedControl(
 }
 
 data class CsDescriptionItem(val term: String, val value: String)
+fun csDescriptionColumnMin() = 160.dp
+fun csDescriptionColumnGap() = 24.dp
+fun csDescriptionRowGap() = 14.dp
+fun csDescriptionValueGap() = 2.dp
+fun csDescriptionTermTracking() = 0.08f
+fun csDescriptionSpoken(term: String) = term
 
 @Composable
 fun CsDescriptionList(items: List<CsDescriptionItem>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   val pack = csModePack(dark, highContrast, compact)
-  Column(modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+  val termSize = pack.fontSizeXs.toDp().value
+  Column(modifier, verticalArrangement = Arrangement.spacedBy(csDescriptionRowGap())) {
     items.forEach { item ->
-      Row(Modifier.fillMaxWidth()) {
-        Text(item.term, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.weight(1f))
-        Text(item.value, color = pack.colorTextPrimary.toComposeColor())
+      Column(Modifier.widthIn(min = csDescriptionColumnMin()), verticalArrangement = Arrangement.spacedBy(csDescriptionValueGap())) {
+        Text(
+          item.term.uppercase(),
+          color = pack.colorTextMuted.toComposeColor(),
+          fontSize = termSize.sp,
+          letterSpacing = (termSize * csDescriptionTermTracking()).sp,
+          modifier = Modifier.semantics { contentDescription = csDescriptionSpoken(item.term) },
+        )
+        Text(item.value, color = pack.colorTextPrimary.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp)
       }
     }
   }

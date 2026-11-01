@@ -665,6 +665,13 @@ class CsDescriptionItem {
   final String value;
 }
 
+double csDescriptionColumnMin() => 160;
+double csDescriptionColumnGap() => 24;
+double csDescriptionRowGap() => 14;
+double csDescriptionValueGap() => 2;
+double csDescriptionTermTracking() => 0.08;
+String csDescriptionSpoken(String term) => term;
+
 class CsDescriptionList extends StatelessWidget {
   const CsDescriptionList({super.key, required this.items, required this.dark, required this.highContrast, required this.compact});
   final List<CsDescriptionItem> items;
@@ -675,13 +682,35 @@ class CsDescriptionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    return Column(
+    final termSize = csPoints(pack.fontSizeXs);
+    return Wrap(
+      spacing: csDescriptionColumnGap(),
+      runSpacing: csDescriptionRowGap(),
       children: [
         for (final item in items)
-          Row(children: [
-            Expanded(child: Text(item.term, style: TextStyle(color: csColor(pack.colorTextMuted)))),
-            Text(item.value, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-          ]),
+          ConstrainedBox(
+            constraints: BoxConstraints(minWidth: csDescriptionColumnMin()),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Semantics(
+                  label: csDescriptionSpoken(item.term),
+                  child: ExcludeSemantics(
+                    child: Text(
+                      item.term.toUpperCase(),
+                      style: TextStyle(
+                        color: csColor(pack.colorTextMuted),
+                        fontSize: termSize,
+                        letterSpacing: termSize * csDescriptionTermTracking(),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: csDescriptionValueGap()),
+                Text(item.value, style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeSm))),
+              ],
+            ),
+          ),
       ],
     );
   }
