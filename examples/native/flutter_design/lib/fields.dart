@@ -975,6 +975,12 @@ double csCodeBorderWidth() => 1;
 double csCodeBarPaddingY() => 8;
 double csCodeBarPaddingX() => 14;
 double csCodeBarBorderWidth() => 1;
+int csCodeCopyFontWeight() => 600;
+bool csCodeCopyShowsHoverColor(bool hovered) => hovered;
+CSColorValue csCodeCopyColor(bool hovered, CSTokenModePack pack) => csCodeCopyShowsHoverColor(hovered) ? pack.colorBrandOchre : csCodeMutedColor;
+double csCodePrePaddingY() => 14;
+double csCodePrePaddingX() => 16;
+double csCodePreLineHeight() => 1.6;
 String csCodeBarLabel(String? filename, String? language, String fallback) => filename != null && filename.isNotEmpty ? filename : (language ?? fallback);
 String csCodeButton(bool copied, String copy, String copiedLabel) => copied ? copiedLabel : copy;
 int csCodeBegin(int attempt) => attempt + 1;
@@ -997,6 +1003,7 @@ class CsCodeBlock extends StatefulWidget {
 class _CsCodeBlockState extends State<CsCodeBlock> {
   var attempt = 0;
   var copied = false;
+  var copyHovered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -1021,13 +1028,30 @@ class _CsCodeBlockState extends State<CsCodeBlock> {
               ),
               child: Row(children: [
                 Expanded(child: Text(title, style: TextStyle(color: csColor(csCodeMutedColor), fontSize: csPoints(pack.fontSizeXs), fontFamily: 'monospace'))),
-                CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () {
-                  claim();
-                  setState(() { attempt = csCodeBegin(attempt); copied = false; });
-                }, child: Text(copyLabel))),
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  onEnter: (_) => setState(() => copyHovered = true),
+                  onExit: (_) => setState(() => copyHovered = false),
+                  child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () {
+                    claim();
+                    setState(() { attempt = csCodeBegin(attempt); copied = false; });
+                  }, child: Text(copyLabel, style: TextStyle(color: csColor(csCodeCopyColor(copyHovered, pack)), fontSize: csPoints(pack.fontSizeXs), fontFamily: pack.fontFamilyUi.first, fontWeight: FontWeight.w600)))),
+                ),
               ]),
             ),
-          Text(widget.code, style: TextStyle(fontFamily: 'monospace', color: csColor(csCodeFgColor))),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.symmetric(horizontal: csCodePrePaddingX(), vertical: csCodePrePaddingY()),
+            child: Text(
+              widget.code,
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: csPoints(pack.fontSizeSm),
+                height: csCodePreLineHeight(),
+                color: csColor(csCodeFgColor),
+              ),
+            ),
+          ),
         ]),
       ),
     );

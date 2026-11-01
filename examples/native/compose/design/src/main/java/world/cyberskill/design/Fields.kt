@@ -28,9 +28,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -747,6 +749,12 @@ fun csCodeBorderWidth() = 1.dp
 fun csCodeBarPaddingY() = 8.dp
 fun csCodeBarPaddingX() = 14.dp
 fun csCodeBarBorderWidth() = 1.dp
+fun csCodeCopyFontWeight() = 600
+fun csCodeCopyShowsHoverColor(hovered: Boolean) = hovered
+fun csCodeCopyColor(hovered: Boolean, pack: CSTokenModePack) = if (csCodeCopyShowsHoverColor(hovered)) pack.colorBrandOchre else csCodeMutedColor
+fun csCodePrePaddingY() = 14.dp
+fun csCodePrePaddingX() = 16.dp
+fun csCodePreLineHeight() = 1.6
 fun csCodeBarLabel(filename: String?, language: String?, fallback: String) = if (!filename.isNullOrEmpty()) filename else language ?: fallback
 fun csCodeButton(copied: Boolean, copy: String, copiedLabel: String) = if (copied) copiedLabel else copy
 fun csCodeBegin(attempt: Int) = attempt + 1
@@ -758,16 +766,22 @@ fun CsCodeBlock(code: String, dark: Boolean, highContrast: Boolean, compact: Boo
   val title = csCodeBarLabel(filename, language, csCodeText("code", spoken))
   var attempt by remember { mutableIntStateOf(0) }
   var copied by remember { mutableStateOf(false) }
+  val copyInteraction = remember { MutableInteractionSource() }
+  val copyHovered by copyInteraction.collectIsHoveredAsState()
   val copyLabel = csCodeButton(copied, csCodeText("copy", spoken), csCodeText("copied", spoken))
   Column(modifier.clip(RoundedCornerShape(pack.radiusLg.toDp())).background(csCodeBgColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).border(csCodeBorderWidth(), csCodeBorderColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp()))) {
     if (showBar) {
       Row(Modifier.fillMaxWidth().padding(horizontal = csCodeBarPaddingX(), vertical = csCodeBarPaddingY()), verticalAlignment = Alignment.CenterVertically) {
         Text(title, color = csCodeMutedColor.toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp, fontFamily = FontFamily.Monospace, modifier = Modifier.weight(1f))
-        CsTriggerButton(title = copyLabel, onClick = { attempt = csCodeBegin(attempt); copied = false }) { Text(copyLabel) }
+        CsTriggerButton(title = copyLabel, onClick = { attempt = csCodeBegin(attempt); copied = false }, modifier = Modifier.hoverable(copyInteraction)) {
+          Text(copyLabel, color = csCodeCopyColor(copyHovered, pack).toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp, fontWeight = FontWeight.SemiBold)
+        }
       }
       Box(Modifier.fillMaxWidth().height(csCodeBarBorderWidth()).background(csCodeBorderColor.toComposeColor()))
     }
-    Text(code, color = csCodeFgColor.toComposeColor())
+    Box(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = csCodePrePaddingX(), vertical = csCodePrePaddingY())) {
+      Text(code, color = csCodeFgColor.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp, lineHeight = (pack.fontSizeSm.toDp().value * csCodePreLineHeight().toFloat()).sp, fontFamily = FontFamily.Monospace)
+    }
   }
 }
 

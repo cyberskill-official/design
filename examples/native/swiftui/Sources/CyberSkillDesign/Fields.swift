@@ -1731,6 +1731,12 @@ public enum CSCodeBlockModel {
   public static func barPaddingY() -> Double { 8 }
   public static func barPaddingX() -> Double { 14 }
   public static func barBorderWidth() -> Double { 1 }
+  public static func copyFontWeight() -> Int { 600 }
+  public static func copyShowsHoverColor(hovered: Bool) -> Bool { hovered }
+  public static func copyColor(hovered: Bool, pack: CSTokenModePack) -> CSColorValue { copyShowsHoverColor(hovered: hovered) ? pack.colorBrandOchre : mutedColor }
+  public static func prePaddingY() -> Double { 14 }
+  public static func prePaddingX() -> Double { 16 }
+  public static func preLineHeight() -> Double { 1.6 }
   public static let labelDefault = "code"
   public static let copyDefault = "Copy"
   public static let copiedDefault = "Copied ✓"
@@ -1768,6 +1774,7 @@ public struct CSCodeBlock: View {
   public let lang: String?
   @State private var copied = false
   @State private var attempt = 0
+  @State private var copyHovered = false
   @Environment(\.csLanguage) private var ancestorLanguage
 
   public init(filename: String? = nil, code: String, language: String? = nil, showBar: Bool = true, dark: Bool, highContrast: Bool, compact: Bool, lang: String? = nil) {
@@ -1797,6 +1804,9 @@ public struct CSCodeBlock: View {
             attempt = CSCodeBlockModel.beginCopy(attempt: attempt)
             copied = false
           }
+          .font(.system(size: pack.fontSizeXs.points, weight: .semibold))
+          .foregroundStyle(CSCodeBlockModel.copyColor(hovered: copyHovered, pack: pack).color)
+          .onHover { copyHovered = $0 }
           .frame(minHeight: 44)
         }
         .padding(.vertical, CGFloat(CSCodeBlockModel.barPaddingY()))
@@ -1807,7 +1817,15 @@ public struct CSCodeBlock: View {
             .frame(height: CGFloat(CSCodeBlockModel.barBorderWidth()))
         }
       }
-      Text(code).font(.system(.body, design: .monospaced)).foregroundStyle(CSCodeBlockModel.fgColor.color)
+      ScrollView(.horizontal, showsIndicators: true) {
+        Text(code)
+          .font(.system(size: pack.fontSizeSm.points, design: .monospaced))
+          .lineSpacing(CGFloat(Double(pack.fontSizeSm.points) * (CSCodeBlockModel.preLineHeight() - 1)))
+          .foregroundStyle(CSCodeBlockModel.fgColor.color)
+          .padding(.vertical, CGFloat(CSCodeBlockModel.prePaddingY()))
+          .padding(.horizontal, CGFloat(CSCodeBlockModel.prePaddingX()))
+          .frame(maxWidth: .infinity, alignment: .leading)
+      }
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(CSCodeBlockModel.bgColor.color, in: RoundedRectangle(cornerRadius: pack.radiusLg.points))
