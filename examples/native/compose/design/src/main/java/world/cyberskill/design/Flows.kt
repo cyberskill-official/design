@@ -31,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.input.key.Key
@@ -244,6 +245,7 @@ fun csSortMaxWidth() = 380.dp
 fun csSortItemGap() = 10.dp
 fun csSortItemPaddingY() = 10.dp
 fun csSortItemPaddingX() = 12.dp
+fun csSortItemOpacity(dragging: Boolean) = if (dragging) 0.5f else 1f
 fun csSortRowAt(originY: Double, rowHeight: Double, count: Int, pointY: Double): Int? {
   if (count <= 0 || rowHeight <= 0.0) return null
   val index = kotlin.math.floor((pointY - originY) / rowHeight).toInt()
@@ -266,7 +268,7 @@ fun CsSortable(items: List<String>, onChange: (List<String>) -> Unit, dark: Bool
   var pointY by remember { mutableStateOf(0.0) }
   Column(modifier.widthIn(max = csSortMaxWidth()).onGloballyPositioned { originY = it.positionInRoot().y.toDouble() }, verticalArrangement = Arrangement.spacedBy(csSortListGap())) {
     items.forEachIndexed { index, item ->
-      Row(Modifier.border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).padding(horizontal = csSortItemPaddingX(), vertical = csSortItemPaddingY()).onGloballyPositioned { if (it.size.height > 0) rowHeight = it.size.height.toDouble() }, horizontalArrangement = Arrangement.spacedBy(csSortItemGap()), verticalAlignment = Alignment.CenterVertically) {
+      Row(Modifier.alpha(csSortItemOpacity(dragFrom == index)).border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).padding(horizontal = csSortItemPaddingX(), vertical = csSortItemPaddingY()).onGloballyPositioned { if (it.size.height > 0) rowHeight = it.size.height.toDouble() }, horizontalArrangement = Arrangement.spacedBy(csSortItemGap()), verticalAlignment = Alignment.CenterVertically) {
         Text("⠿", color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {}.pointerInput(items, originY, rowHeight) {
           detectDragGestures(
             onDragStart = { offset ->

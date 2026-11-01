@@ -131,6 +131,7 @@ public enum CSSortModel {
   public static func itemGap() -> Double { 10 }
   public static func itemPaddingY() -> Double { 10 }
   public static func itemPaddingX() -> Double { 12 }
+  public static func itemOpacity(dragging: Bool) -> Double { dragging ? 0.5 : 1 }
   public static func rowAt(originY: Double, rowHeight: Double, count: Int, pointY: Double) -> Int? {
     guard count > 0, rowHeight > 0 else { return nil }
     let index = Int(((pointY - originY) / rowHeight).rounded(.down))
@@ -533,6 +534,7 @@ public struct CSSortable: View {
         .background(pack.colorSurfacePanel.color)
         .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
         .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.colorBorderDefault.color, lineWidth: 1))
+        .opacity(CSSortModel.itemOpacity(dragging: dragFrom == index))
         .background(GeometryReader { geo in
           Color.clear.preference(key: CSSortRowKey.self, value: geo.frame(in: .global))
         })

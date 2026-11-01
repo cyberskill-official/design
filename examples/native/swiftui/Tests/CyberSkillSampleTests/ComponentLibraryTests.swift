@@ -1354,6 +1354,8 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSSortModel.itemGap(), 10)
     XCTAssertEqual(CSSortModel.itemPaddingY(), 10)
     XCTAssertEqual(CSSortModel.itemPaddingX(), 12)
+    XCTAssertEqual(CSSortModel.itemOpacity(dragging: true), 0.5)
+    XCTAssertEqual(CSSortModel.itemOpacity(dragging: false), 1)
     XCTAssertEqual(CSSortModel.rowAt(originY: 100, rowHeight: 40, count: 3, pointY: 100), 0)
     XCTAssertEqual(CSSortModel.rowAt(originY: 100, rowHeight: 40, count: 3, pointY: 180), 2)
     XCTAssertNil(CSSortModel.rowAt(originY: 100, rowHeight: 40, count: 3, pointY: 99))

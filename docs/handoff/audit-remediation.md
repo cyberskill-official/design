@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the sortable-item checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the sortable-dragging checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `b26405fc11529b58e6950a1f5e0c4eb126ff116e`, with the hash note in `ed942c06`
-- Checkpoint commit hash: `29b9714d7dd03c49a1d10ead692f5f3210263e3b`
+- Previous checkpoint: `29b9714d7dd03c49a1d10ead692f5f3210263e3b`, with the hash note in `6406db90`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the sortable item: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the dragging sortable item: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A sortable item now lays out as centered flex with a 10px gap (`CSSortModel.itemGap()` / `csSortItemGap()`), 10px by 12px padding (`CSSortModel.itemPaddingY()` / `CSSortModel.itemPaddingX()`), panel background, 1px default border, medium radius, small font size, and primary text color, matching `.cs-sortable__item { display: flex; align-items: center; gap: 10px; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); padding: 10px 12px; font-size: var(--cs-font-size-sm); color: var(--cs-color-text-primary); cursor: grab; }` in `base/controls.css`.
+A dragging sortable item now dims to 0.5 opacity (`CSSortModel.itemOpacity(dragging:)` / `csSortItemOpacity`), matching `.cs-sortable__item.is-dragging { opacity: .5; }` in `base/controls.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Dim a dragging sortable item to 0.5 opacity. The next rule in `base/controls.css` is `.cs-sortable__item.is-dragging { opacity: .5; }`. Re-read that rule before editing. Do not invent an opacity value.
+Highlight a hovered drop target row with the accent border and a 1px inset accent ring (2px total accent stroke). The next rule in `base/controls.css` is `.cs-sortable__item.is-over { border-color: var(--cs-accent); box-shadow: inset 0 0 0 1px var(--cs-accent); }`. Re-read that rule before editing. Do not invent a border width.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

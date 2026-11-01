@@ -304,6 +304,7 @@ double csSortMaxWidth() => 380;
 double csSortItemGap() => 10;
 double csSortItemPaddingY() => 10;
 double csSortItemPaddingX() => 12;
+double csSortItemOpacity(bool dragging) => dragging ? 0.5 : 1;
 int? csSortRowAt(double originY, double rowHeight, int count, double pointY) {
   if (count <= 0 || rowHeight <= 0) return null;
   final index = ((pointY - originY) / rowHeight).floor();
@@ -354,7 +355,9 @@ class _CsSortableState extends State<CsSortable> {
       child: Column(key: listKey, children: [
         for (var index = 0; index < widget.items.length; index++) ...[
           if (index > 0) SizedBox(height: csSortListGap()),
-          Builder(builder: (rowContext) => Container(
+          Builder(builder: (rowContext) => Opacity(
+            opacity: csSortItemOpacity(dragFrom == index),
+            child: Container(
             padding: EdgeInsets.symmetric(horizontal: csSortItemPaddingX(), vertical: csSortItemPaddingY()),
             decoration: BoxDecoration(
               color: csColor(pack.colorSurfacePanel),
@@ -366,7 +369,7 @@ class _CsSortableState extends State<CsSortable> {
             onVerticalDragStart: (_) {
               final box = listKey.currentContext?.findRenderObject() as RenderBox?;
               final row = rowContext.findRenderObject() as RenderBox?;
-              dragFrom = index;
+              setState(() => dragFrom = index);
               originY = box?.localToGlobal(Offset.zero).dy ?? 0;
               rowHeight = row?.size.height ?? 0;
             },
@@ -375,7 +378,7 @@ class _CsSortableState extends State<CsSortable> {
               final to = csSortRowAt(originY, rowHeight, widget.items.length, pointY);
               final next = csSortDrop(widget.items, dragFrom, to);
               if (next != null) widget.onChange(next);
-              dragFrom = null;
+              setState(() => dragFrom = null);
             },
             child: const ExcludeSemantics(child: Text('⠿')),
           ),
@@ -385,7 +388,7 @@ class _CsSortableState extends State<CsSortable> {
           Semantics(button: true, label: up, enabled: csSortCanMoveUp(index), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveUp(index) ? () { claim(); widget.onChange(csReorder(widget.items, index, index - 1)); } : null, child: const ExcludeSemantics(child: Text('↑'))))),
           Semantics(button: true, label: down, enabled: csSortCanMoveDown(index, widget.items.length), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveDown(index, widget.items.length) ? () { claim(); widget.onChange(csReorder(widget.items, index, index + 1)); } : null, child: const ExcludeSemantics(child: Text('↓'))))),
           ]),
-          )),
+          ))),
         ],
       ]),
     );
