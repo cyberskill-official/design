@@ -257,6 +257,26 @@ fun csComboboxHighlight(current: Int, count: Int, down: Boolean): Int {
   if (count <= 0) return 0
   return if (down) minOf(count - 1, current + 1) else maxOf(0, current - 1)
 }
+fun csComboboxDescriptionId(baseId: String, description: String?): String? =
+  if (csComboboxMessage(description)) "$baseId-description" else null
+fun csComboboxErrorId(baseId: String, error: String?): String? =
+  if (csComboboxMessage(error)) "$baseId-error" else null
+fun csComboboxDescribedBy(explicit: String?, descriptionId: String?, errorId: String?): String? {
+  val parts = listOf(explicit, descriptionId, errorId).mapNotNull { it?.trim()?.takeIf { s -> s.isNotEmpty() } }
+  return if (parts.isEmpty()) null else parts.joinToString(" ")
+}
+fun csComboboxOptionId(baseId: String, index: Int): String = "$baseId-$index"
+fun csComboboxActiveDescendantId(baseId: String, open: Boolean, highlight: Int, count: Int): String? =
+  if (open && highlight in 0 until count) csComboboxOptionId(baseId, highlight) else null
+fun csComboboxInvalid(error: String?): Boolean = csComboboxMessage(error)
+fun csComboboxOptionClass(highlighted: Boolean): String =
+  if (highlighted) "cs-combobox__opt hl" else "cs-combobox__opt"
+
+const val csCalendarPrevGlyph = "‹"
+const val csCalendarNextGlyph = "›"
+fun csCalendarWeekCount(cellCount: Int): Int = maxOf(0, cellCount) / 7
+fun csCalendarIsSelected(year: Int, month: Int, day: Int, selectedYear: Int, selectedMonth: Int, selectedDay: Int?): Boolean =
+  selectedDay != null && day == selectedDay && month == selectedMonth && year == selectedYear
 
 fun csCalendarCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -305,19 +325,19 @@ fun CsCalendar(monthLabel: String, year: Int, month: Int, selected: Int?, onSele
     val weekdayFontSize = csControlsWaveStyleCalendarWeekdayFontSize()
     val dayFontSize = csControlsWaveStyleCalendarDayFontSize()
     Row(Modifier.widthIn(min = calMinWidth), horizontalArrangement = Arrangement.spacedBy(gridGap)) {
-      CsTriggerButton(title = "‹", onClick = {
+      CsTriggerButton(title = csCalendarPrevGlyph, onClick = {
         val next = csCalendarShift(viewYear, viewMonth, -1)
         viewYear = next.first
         viewMonth = next.second
         onShift(-1)
-      }, modifier = Modifier.widthIn(min = headerBtnSize).minimumInteractiveComponentSize().semantics { contentDescription = csCalendarCopy("prev", calLocale) }) { Text("‹", modifier = Modifier.clearAndSetSemantics {}) }
+      }, modifier = Modifier.widthIn(min = headerBtnSize).minimumInteractiveComponentSize().semantics { contentDescription = csCalendarCopy("prev", calLocale) }) { Text(csCalendarPrevGlyph, modifier = Modifier.clearAndSetSemantics {}) }
       Text(csCalendarHeading(viewMonth, viewYear, calLocale), color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { contentDescription = monthLabel })
-      CsTriggerButton(title = "›", onClick = {
+      CsTriggerButton(title = csCalendarNextGlyph, onClick = {
         val next = csCalendarShift(viewYear, viewMonth, 1)
         viewYear = next.first
         viewMonth = next.second
         onShift(1)
-      }, modifier = Modifier.widthIn(min = headerBtnSize).minimumInteractiveComponentSize().semantics { contentDescription = csCalendarCopy("next", calLocale) }) { Text("›", modifier = Modifier.clearAndSetSemantics {}) }
+      }, modifier = Modifier.widthIn(min = headerBtnSize).minimumInteractiveComponentSize().semantics { contentDescription = csCalendarCopy("next", calLocale) }) { Text(csCalendarNextGlyph, modifier = Modifier.clearAndSetSemantics {}) }
     }
     Row(Modifier.widthIn(min = calMinWidth), horizontalArrangement = Arrangement.spacedBy(gridGap)) {
       resolvedWeekdays.forEach { wd ->
@@ -326,7 +346,7 @@ fun CsCalendar(monthLabel: String, year: Int, month: Int, selected: Int?, onSele
     }
     csCalendarGrid(viewYear, viewMonth).forEach { day ->
       if (day != null) {
-        val chosen = selected == day
+        val chosen = csCalendarIsSelected(viewYear, viewMonth, day, year, month, selected)
         val current = csCalendarCurrent(viewYear, viewMonth, day, now.year, now.monthValue - 1, now.dayOfMonth)
         val active = day == minOf(focusedDay, csCalendarDays(viewYear, viewMonth))
         CsTriggerButton(title = day.toString(), onClick = { focusedDay = day; onSelect(day); onChoose(CsCalendarDate(viewYear, viewMonth, day)) }, modifier = Modifier.widthIn(min = cellSize).minimumInteractiveComponentSize().focusProperties { canFocus = csCalendarTabStop(day, focusedDay, csCalendarDays(viewYear, viewMonth)) == 0 }.semantics {
@@ -560,9 +580,16 @@ fun csFocusNext(current: Int, count: Int, shift: Boolean, inside: Boolean): Int?
 }
 fun csAlertDismiss() = listOf("open-false", "cancel")
 fun csAlertConfirmOrder() = listOf("open-false", "confirm")
+fun csAlertTitleId(baseId: String) = "$baseId-title"
+fun csAlertDescId(baseId: String, hasDescription: Boolean): String? = if (hasDescription) "$baseId-desc" else null
+fun csAlertConfirmButtonVariant(destructive: Boolean) = if (destructive) "danger" else "primary"
+fun csAlertCancelButtonVariant() = "ghost"
+fun csAlertEscapeDismiss() = false
 
 @Composable
-fun CsAlertDialog(title: String, message: String = "", onConfirm: () -> Unit, onCancel: () -> Unit, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, destructive: Boolean = false, description: String? = null, children: String? = null, tone: String? = null, variant: String? = null, onRestore: (() -> Unit)? = null, confirmLabel: String? = null, cancelLabel: String? = null, language: String? = null) {
+fun CsAlertDialog(title: String, message: String = "", onConfirm: () -> Unit, onCancel: () -> Unit, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, open: Boolean? = null, defaultOpen: Boolean = true, destructive: Boolean = false, description: String? = null, children: String? = null, tone: String? = null, variant: String? = null, onRestore: (() -> Unit)? = null, confirmLabel: String? = null, cancelLabel: String? = null, language: String? = null) {
+  var internalOpen by remember { mutableStateOf(defaultOpen) }
+  if (!csAlertOpen(open, internalOpen)) return
   val pack = csModePack(dark, highContrast, compact)
   val danger = destructive || csAlertDestructive(tone, variant)
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
@@ -596,14 +623,16 @@ fun CsAlertDialog(title: String, message: String = "", onConfirm: () -> Unit, on
   val titleInk = csDialogDestructiveTitleColor(danger, pack).toComposeColor()
   Column(modifier.widthIn(max = maxW).padding(pad).onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+    val stack = CsOverlayRegistry.resolved(layerId, listOf(CsOverlayLayer(layerId, "modal", true)))
+    if (!csOverlayOwns(layerId, stack)) return@onPreviewKeyEvent false
     if (event.key == Key.Escape) {
-      onOpenChange(false)
+      val next = csAlertEscapeDismiss()
+      if (open == null) internalOpen = next
+      onOpenChange(next)
       onCancel()
       return@onPreviewKeyEvent true
     }
     if (event.key != Key.Tab) return@onPreviewKeyEvent false
-    val stack = CsOverlayRegistry.resolved(layerId, listOf(CsOverlayLayer(layerId, "modal", true)))
-    if (!csOverlayOwns(layerId, stack)) return@onPreviewKeyEvent false
     val next = csFocusNext(trap, 2, event.isShiftPressed, true) ?: return@onPreviewKeyEvent false
     trap = next
     true
@@ -614,10 +643,12 @@ fun CsAlertDialog(title: String, message: String = "", onConfirm: () -> Unit, on
     }
     TextButton(onClick = {
       CsFocusRegistry.claim("alert-cancel-$layerId") { cancelFocus.requestFocus() }
+      if (open == null) internalOpen = false
       onOpenChange(false); onCancel()
     }, enabled = csControlEnabled(), modifier = Modifier.minimumInteractiveComponentSize().focusRequester(cancelFocus).onFocusChanged { if (it.isFocused) CsFocusRegistry.claim("alert-cancel-$layerId") { cancelFocus.requestFocus() } }) { Text(cancelName) }
     TextButton(onClick = {
       CsFocusRegistry.claim("alert-confirm-$layerId") { confirmFocus.requestFocus() }
+      if (open == null) internalOpen = false
       onOpenChange(false); onConfirm()
     }, enabled = csControlEnabled(), modifier = Modifier.minimumInteractiveComponentSize().focusRequester(confirmFocus).onFocusChanged { if (it.isFocused) CsFocusRegistry.claim("alert-confirm-$layerId") { confirmFocus.requestFocus() } }) {
       Text(confirmName, color = if (danger) pack.colorSemanticDanger.toComposeColor() else pack.colorBrandOchre.toComposeColor())
@@ -626,12 +657,16 @@ fun CsAlertDialog(title: String, message: String = "", onConfirm: () -> Unit, on
 }
 
 const val csPopoverPanel = "Details"
+const val csPopoverPanelRole = "dialog"
+const val csPopoverTriggerHasPopup = "dialog"
 const val csPopoverGap = 8
 fun csPopoverMinWidth() = 240.dp
 fun csPopoverBorderWidth() = 1.dp
 fun csPopoverPadding() = 14.dp
 fun csPopoverDepthDropdown() = 60f
 fun csPopoverAlignsEnd(align: String) = align == "end"
+fun csPopoverPanelClass(align: String) = if (csPopoverAlignsEnd(align)) "cs-popover__panel cs-popover__panel--end" else "cs-popover__panel"
+fun csPopoverEscapeClose() = false
 fun csPopoverOpen(controlled: Boolean?, internalOpen: Boolean) = controlled ?: internalOpen
 fun csPopoverPlacement(placement: String?, align: String) = placement ?: if (align == "end") "bottom-end" else "bottom-start"
 fun csPopoverLabel(ariaLabel: String?, hasLabelledBy: Boolean, fallback: String) = if (ariaLabel != null) ariaLabel else if (hasLabelledBy) null else fallback
@@ -649,7 +684,7 @@ fun csPopoverToggle(open: Boolean, defaultPrevented: Boolean) = if (defaultPreve
 fun csPopoverDismissOutside(open: Boolean, inside: Boolean) = open && !inside
 
 @Composable
-fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, ariaLabel: String? = null, hasLabelledBy: Boolean = false, language: String? = null, align: String = "start", placement: String? = null, content: @Composable () -> Unit) {
+fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, ariaLabel: String? = null, ariaLabelledBy: String? = null, hasLabelledBy: Boolean = false, language: String? = null, align: String = "start", placement: String? = null, portal: Boolean = true, content: @Composable () -> Unit) {
   val pack = csModePack(dark, highContrast, compact)
   var origin by remember { mutableStateOf(0.0 to 0.0) }
   var trigger by remember { mutableStateOf<Pair<Double, Double>?>(null) }
@@ -663,7 +698,8 @@ fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dar
   val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
   val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
   val place = csPopoverPlacement(placement, align)
-  val panelName = csPopoverLabel(ariaLabel, hasLabelledBy, csPopoverCopy("panel", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
+  val labelledByFlag = hasLabelledBy || !ariaLabelledBy.isNullOrEmpty()
+  val panelName = csPopoverLabel(ariaLabel, labelledByFlag, csPopoverCopy("panel", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   val initial = trigger?.let { size -> natural?.let { panelSize -> csFloatingPlace(
     CsFloatingRect(origin.first, origin.second, origin.first + size.first, origin.second + size.second, size.first, size.second),
     panelSize.first,
@@ -690,7 +726,7 @@ fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dar
   }
   Column(modifier.onPreviewKeyEvent { event ->
     if (!open || event.type != KeyEventType.KeyDown || event.key != Key.Escape) return@onPreviewKeyEvent false
-    onOpenChange(false)
+    onOpenChange(csPopoverEscapeClose())
     true
   }, horizontalAlignment = if (csPopoverAlignsEnd(align)) Alignment.End else Alignment.Start) {
     CsTriggerButton(title = label, onClick = { onOpenChange(!open) }, modifier = Modifier.minimumInteractiveComponentSize().onGloballyPositioned {
@@ -738,19 +774,21 @@ fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dar
   }
 }
 
+const val csListRole = "list"
 fun csListGap() = 2.dp
 fun csListItemPaddingY() = 10.dp
 fun csListIsInteractive(hasOnClick: Boolean) = hasOnClick
 fun csListRowTag(interactive: Boolean) = if (interactive) "button" else "div"
 fun csListRowRole(interactive: Boolean) = if (interactive) null else "listitem"
 fun csListWrapsListItem(interactive: Boolean) = interactive
+fun csListItemClass(interactive: Boolean) = if (interactive) "cs-list__item cs-list__item--button" else "cs-list__item"
 fun csListItemBorderWidth() = 0.dp
 fun csListItemShowsHoverFill(interactive: Boolean, hovered: Boolean) = interactive && hovered
 fun csListMainGap() = 1.dp
 fun csListShowsSlot(value: String?) = value != null
 
 @Composable
-fun CsListItem(title: String? = null, subtitle: String? = null, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, lead: String? = null, trail: String? = null, onClick: (() -> Unit)? = null) {
+fun CsListItem(title: String? = null, subtitle: String? = null, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, children: String? = null, lead: String? = null, trail: String? = null, onClick: (() -> Unit)? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val interactive = csListIsInteractive(onClick != null)
   val interaction = remember { MutableInteractionSource() }
@@ -761,6 +799,7 @@ fun CsListItem(title: String? = null, subtitle: String? = null, dark: Boolean, h
     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(csListMainGap())) {
       if (csListShowsSlot(title)) Text(title ?: "", color = pack.colorTextPrimary.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp, fontWeight = FontWeight.SemiBold)
       if (csListShowsSlot(subtitle)) Text(subtitle ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp)
+      if (csListShowsSlot(children) && !children.isNullOrEmpty()) Text(children, color = pack.colorTextPrimary.toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp)
     }
     if (csListShowsSlot(trail)) Text(trail ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp)
   }
@@ -799,10 +838,12 @@ fun CsComment(author: String, meta: String? = null, body: String, dark: Boolean,
   Row(modifier, horizontalArrangement = Arrangement.spacedBy(gap)) {
     if (csCommentShows(avatar)) Text(avatar ?: "", color = pack.colorTextPrimary.toComposeColor())
     Column(verticalArrangement = Arrangement.spacedBy(gap)) {
-      Text(author, color = pack.colorTextPrimary.toComposeColor())
-      if (csCommentShows(meta)) Text(meta ?: "", color = pack.colorTextMuted.toComposeColor())
+      Row(horizontalArrangement = Arrangement.spacedBy(csCommentHeadGap()), verticalAlignment = Alignment.CenterVertically) {
+        Text(author, color = pack.colorTextPrimary.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp, fontWeight = FontWeight.Bold)
+        if (csCommentShows(meta)) Text(meta ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp)
+      }
       Text(body, color = pack.colorTextPrimary.toComposeColor())
-      Row { csCommentReplyActions(actions, reply).forEachIndexed { index, label -> CsTriggerButton(title = label, onClick = { onAction(index) }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(label) } } }
+      Row(horizontalArrangement = Arrangement.spacedBy(csCommentActionsGap())) { csCommentReplyActions(actions, reply).forEachIndexed { index, label -> CsTriggerButton(title = label, onClick = { onAction(index) }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(label) } } }
       if (csCommentShows(replies)) Text(replies ?: "", color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.border(repliesBorder, pack.colorBorderDefault.toComposeColor()).padding(start = repliesIndent))
     }
   }
@@ -823,6 +864,9 @@ fun csCodeText(key: String, language: String?): String {
   return key
 }
 const val csCommentReply = "Reply"
+fun csCommentHeadGap() = 8.dp
+fun csCommentActionsGap() = 10.dp
+fun csCommentAuthorFontWeight() = 700
 fun csCommentShows(value: String?) = !value.isNullOrEmpty()
 fun csCommentReplyActions(labels: List<String>?, fallback: String) = if (labels.isNullOrEmpty()) listOf(fallback) else labels
 fun csCommentCopy(key: String, language: String?): String {
@@ -858,8 +902,9 @@ fun csCodeButton(copied: Boolean, copy: String, copiedLabel: String) = if (copie
 fun csCodeBegin(attempt: Int) = attempt + 1
 fun csCodeReset(attempt: Int) = (attempt + 1) to false
 fun csCodeSucceeded(current: Int, attempt: Int, wrote: Boolean) = wrote && current == attempt
+fun csCodeShouldResetTimer(current: Int, attempt: Int) = current == attempt
 @Composable
-fun CsCodeBlock(code: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, filename: String? = null, language: String? = null, showBar: Boolean = true, lang: String? = null, onCopy: ((String) -> Boolean)? = null) {
+fun CsCodeBlock(code: String = "", dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, filename: String? = null, language: String? = null, showBar: Boolean = true, lang: String? = null, onCopy: ((String) -> Boolean)? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val spoken = csComboboxResolvedLanguage(lang, LocalCsLanguage.current)
   val title = csCodeBarLabel(filename, language, csCodeText("code", spoken))
@@ -894,6 +939,7 @@ fun CsCodeBlock(code: String, dark: Boolean, highContrast: Boolean, compact: Boo
   }
 }
 
+const val csSidebarNavRole = "navigation"
 fun csSidebarWidth() = 248.dp
 fun csSidebarBorderWidth() = 1.dp
 fun csSidebarPaddingY() = 16.dp
@@ -904,10 +950,11 @@ fun csSidebarLabelPaddingX() = 12.dp
 fun csSidebarLabelPaddingBottom() = 4.dp
 fun csSidebarLabelTracking() = 0.08f
 fun csSidebarShowsLabel(label: String?) = !label.isNullOrEmpty()
+fun csSidebarLabelId(baseId: String, label: String?): String? = if (csSidebarShowsLabel(label)) "$baseId-label" else null
 fun csSidebarLabelText(label: String) = label.uppercase()
 
 @Composable
-fun CsSidebar(label: String = "", items: List<String>, active: String, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
+fun CsSidebar(label: String = "", items: List<String>, active: String, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, itemIcons: Map<String, String> = emptyMap(), itemTrails: Map<String, String> = emptyMap(), itemHrefs: Map<String, String> = emptyMap()) {
   val pack = csModePack(dark, highContrast, compact)
   val labelSize = pack.fontSizeXs.toDp().value
   Row(modifier.width(csSidebarWidth()).background(pack.colorSurfacePanel.toComposeColor()).semantics { if (csSidebarShowsLabel(label)) contentDescription = label }) {
@@ -922,7 +969,7 @@ fun CsSidebar(label: String = "", items: List<String>, active: String, onSelect:
         )
       }
       items.forEach { item ->
-        CsNavItem(title = item, active = item == active, onSelect = { onSelect(item) }, dark = dark, highContrast = highContrast, compact = compact)
+        CsNavItem(title = item, active = item == active, onSelect = { onSelect(item) }, icon = itemIcons[item], trail = itemTrails[item], href = itemHrefs[item], dark = dark, highContrast = highContrast, compact = compact)
       }
     }
     Box(Modifier.width(csSidebarBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))
