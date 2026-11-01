@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: pending (`feat(native): align primitives radio, tabs, skeleton, tag, stat, and avatar with web contracts`)
+- Checkpoint commit: `0c3ea83874ef83f2050ebbbb5aaf570cd690f6b4` (`feat(native): align primitives radio, tabs, skeleton, tag, stat, and avatar with web contracts`)
 - Previous checkpoint: `775b374c82d71ac319c08d3cdc5c05903c2361f2`, with the hash note in `02ea3b9d`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
