@@ -620,6 +620,8 @@ double csEditorAreaPaddingX() => 14;
 double csEditorAreaFontSize() => 14;
 double csEditorAreaLineHeight() => 1.6;
 double csEditorMinHeight([double value = 120]) => value;
+double csEditorAreaOutlineWidth(bool focused) => focused ? 2 : 0;
+double csEditorAreaRingWidth(bool focused) => focused ? 5 : 0;
 
 String csEditorEscape(String text) => text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
@@ -697,6 +699,7 @@ class _CsEditorState extends State<CsEditor> {
   var bold = false;
   var italic = false;
   var list = false;
+  var focused = false;
   var hadRange = false;
   late final controller = TextEditingController(text: widget.text);
 
@@ -764,10 +767,18 @@ class _CsEditorState extends State<CsEditor> {
             ]),
           ),
         ),
-        ConstrainedBox(
+        Container(
           constraints: BoxConstraints(minHeight: csEditorMinHeight(widget.minHeight)),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: csEditorAreaPaddingX(), vertical: csEditorAreaPaddingY()),
+          padding: EdgeInsets.symmetric(horizontal: csEditorAreaPaddingX(), vertical: csEditorAreaPaddingY()),
+          decoration: focused
+              ? BoxDecoration(
+                  border: Border.all(color: csColor(pack.colorTextPrimary), width: csEditorAreaOutlineWidth(focused)),
+                  boxShadow: [BoxShadow(color: csColor(pack.colorBrandOchre), spreadRadius: csEditorAreaRingWidth(focused))],
+                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(csPoints(pack.radiusMd))),
+                )
+              : null,
+          child: Focus(
+            onFocusChange: (isFocused) => setState(() => focused = isFocused),
             child: CsOwnFocus(builder: (node, claim) => TextField(
               focusNode: node,
               controller: controller,

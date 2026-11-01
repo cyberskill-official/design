@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the editor-area checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the editor-focus checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `c4c9cb7e58396f4c3207ac9822d3c506bf06d13b`, with the hash note in `ff1f0b08`
-- Checkpoint commit hash: `bdc58faafca72e86b569f5acf4adbdaeb3ba23b4`
+- Previous checkpoint: `bdc58faafca72e86b569f5acf4adbdaeb3ba23b4`, with the hash note in `e9b02d76`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the editor area: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the focused editor area: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The editor text area now uses 12px vertical padding (`CSEditorModel.areaPaddingY()` / `csEditorAreaPaddingY()`), 14px horizontal padding (`CSEditorModel.areaPaddingX()` / `csEditorAreaPaddingX()`), a 14px font size (`CSEditorModel.areaFontSize()` / `csEditorAreaFontSize()`), 1.6 line height (`CSEditorModel.areaLineHeight()` / `csEditorAreaLineHeight()`), primary text color, and a 120px default minimum height (`CSEditorModel.areaMinHeight(_:)` / `csEditorMinHeight`), matching `.cs-editor__area { padding: 12px 14px; font: 400 14px/1.6 var(--cs-font-family-ui); color: var(--cs-color-text-primary); outline: none; }` in `base/controls.css` and `minHeight = 120` in `components/forms/Editor.jsx`.
+The focused editor text area now renders a 2px inset primary-text outline (`CSEditorModel.areaOutlineWidth(focused:)` / `csEditorAreaOutlineWidth`), a 5px inset ochre ring (`CSEditorModel.areaRingWidth(focused:)` / `csEditorAreaRingWidth`), and bottom-medium corner radius (`0 0 var(--cs-radius-md) var(--cs-radius-md)`), matching `.cs-editor__area:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: -2px; box-shadow: inset 0 0 0 5px var(--cs-color-accent-ochre); border-radius: 0 0 var(--cs-radius-md) var(--cs-radius-md); }` in `base/controls.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style the focused editor area with a 2px inset primary-text outline, a 5px inset ochre ring, and bottom-medium corner radius. The next rule in `base/controls.css` is `.cs-editor__area:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: -2px; box-shadow: inset 0 0 0 5px var(--cs-color-accent-ochre); border-radius: 0 0 var(--cs-radius-md) var(--cs-radius-md); }`. Re-read that rule before editing. Do not invent ring widths or colors.
+Style the terminal frame with its local always-dark custom properties (`#3a2a1c` border, `#2a1a0d` bar, `#5b4331` dot, `#1a1108` background, `#f5ead9` foreground, `#c9b7a3` muted), 480px max width, large corner radius, 1px border, and medium elevation shadow. The next rule in `base/controls.css` is `.cs-terminal { --cs-term-border: #3a2a1c; --cs-term-bar: #2a1a0d; --cs-term-dot: #5b4331; --cs-term-bg: #1a1108; --cs-term-fg: #f5ead9; --cs-term-muted: #c9b7a3; max-inline-size: 480px; border-radius: var(--cs-radius-lg); overflow: hidden; border: 1px solid var(--cs-term-border); box-shadow: var(--cs-shadow-md); }`. Re-read that rule before editing. Do not invent colors, widths, or radii.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

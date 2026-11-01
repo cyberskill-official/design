@@ -500,6 +500,8 @@ fun csEditorAreaPaddingX() = 14.dp
 fun csEditorAreaFontSize() = 14.sp
 fun csEditorAreaLineHeight() = 1.6
 fun csEditorMinHeight(value: Double = 120.0) = value.dp
+fun csEditorAreaOutlineWidth(focused: Boolean) = if (focused) 2.dp else 0.dp
+fun csEditorAreaRingWidth(focused: Boolean) = if (focused) 5.dp else 0.dp
 fun csEditorEscape(text: String) = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 fun csEditorPlainInsert(text: String) = csEditorEscape(text).replace("\r\n", "\n").replace("\n", "<br>")
 fun csEditorWrapped(html: String, open: String, close: String) = html.startsWith(open) && html.endsWith(close) && html.length >= open.length + close.length
@@ -556,6 +558,7 @@ fun csEditorPressed(current: Boolean) = !current
   var bold by remember { mutableStateOf(false) }
   var italic by remember { mutableStateOf(false) }
   var list by remember { mutableStateOf(false) }
+  var focused by remember { mutableStateOf(false) }
   var hadRange by remember { mutableStateOf(selectionStart != 0 || selectionEnd != 0) }
   var draft by remember { mutableStateOf(TextFieldValue(text, androidx.compose.ui.text.TextRange(selectionStart, selectionEnd))) }
   Column(modifier.widthIn(max = csEditorMaxWidth()).border(csEditorBorderWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp()))) {
@@ -572,7 +575,7 @@ fun csEditorPressed(current: Boolean) = !current
       draft = next
       onSelection(remembered.start, remembered.end)
       if (next.text != text) onChange(next.text)
-    }, enabled = csControlEnabled(), textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor(), fontSize = csEditorAreaFontSize(), lineHeight = (14.0 * csEditorAreaLineHeight()).sp), modifier = Modifier.heightIn(min = csEditorMinHeight(minHeight)).padding(horizontal = csEditorAreaPaddingX(), vertical = csEditorAreaPaddingY()).focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = spoken })
+    }, enabled = csControlEnabled(), textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor(), fontSize = csEditorAreaFontSize(), lineHeight = (14.0 * csEditorAreaLineHeight()).sp), modifier = Modifier.heightIn(min = csEditorMinHeight(minHeight)).border(csEditorAreaRingWidth(focused), pack.colorBrandOchre.toComposeColor(), RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp, bottomStart = pack.radiusMd.toDp(), bottomEnd = pack.radiusMd.toDp())).border(csEditorAreaOutlineWidth(focused), pack.colorTextPrimary.toComposeColor(), RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp, bottomStart = pack.radiusMd.toDp(), bottomEnd = pack.radiusMd.toDp())).padding(horizontal = csEditorAreaPaddingX(), vertical = csEditorAreaPaddingY()).focusRequester(handle.requester).onFocusChanged { focused = it.isFocused; if (it.isFocused) handle.claim() }.semantics { contentDescription = spoken })
   }
 }
 val LocalCsLanguage = androidx.compose.runtime.compositionLocalOf<String?> { null }

@@ -1563,6 +1563,8 @@ public enum CSEditorModel {
   public static func areaFontSize() -> Double { 14 }
   public static func areaLineHeight() -> Double { 1.6 }
   public static func areaMinHeight(_ value: Double = 120) -> Double { value }
+  public static func areaOutlineWidth(focused: Bool) -> Double { focused ? 2 : 0 }
+  public static func areaRingWidth(focused: Bool) -> Double { focused ? 5 : 0 }
 
   public static func escape(_ text: String) -> String {
     text.replacingOccurrences(of: "&", with: "&amp;")
@@ -1744,6 +1746,16 @@ public struct CSEditor: View {
         .padding(.vertical, CGFloat(CSEditorModel.areaPaddingY()))
         .padding(.horizontal, CGFloat(CSEditorModel.areaPaddingX()))
         .frame(minHeight: CGFloat(CSEditorModel.areaMinHeight(minHeight)), alignment: .topLeading)
+        .overlay {
+          if focused {
+            RoundedRectangle(cornerRadius: pack.radiusMd.points)
+              .strokeBorder(pack.colorBrandOchre.color, lineWidth: CGFloat(CSEditorModel.areaRingWidth(focused: focused)))
+              .overlay(
+                RoundedRectangle(cornerRadius: pack.radiusMd.points)
+                  .strokeBorder(pack.primaryTextColor, lineWidth: CGFloat(CSEditorModel.areaOutlineWidth(focused: focused)))
+              )
+          }
+        }
         .lineLimit(6...12)
         .focused($focused)
         .onChange(of: focused) { isFocused in
