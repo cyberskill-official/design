@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the list-item checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the list-item-button checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `8662697d3935c1a62048ad269d83dda83e428731`, with the hash note in `fd0ae50a`
-- Checkpoint commit hash: `3e02865f139100b3a321695f0415576a4ef2077d`
+- Previous checkpoint: `3e02865f139100b3a321695f0415576a4ef2077d`, with the hash note in `16b3f50f`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the list item: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the list item button: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-List items (`CSList` / `CsList`) now use centered flex alignment, a `var(--cs-space-3)` horizontal gap, `10px` (`CSListModel.itemPaddingY()` / `csListItemPaddingY()`) by `var(--cs-space-3)` padding, medium corner radius (`var(--cs-radius-md)`), primary text color, and start text alignment, matching `.cs-list__item { display: flex; align-items: center; gap: var(--cs-space-3); padding: 10px var(--cs-space-3); border-radius: var(--cs-radius-md); color: var(--cs-color-text-primary); text-align: start; }` in `base/collections.css`.
+Interactive list items (`CSList` / `CsList` when `onSelect` is provided) now use a borderless transparent fill (`CSListModel.itemBorderWidth() == 0` / `csListItemBorderWidth()`), 100% inline width, and a raised surface background (`var(--cs-color-surface-raised)`) on hover (`CSListModel.itemShowsHoverFill(interactive:hovered:)` / `csListItemShowsHoverFill`), matching `.cs-list__item--button { border: 0; background: transparent; font: inherit; inline-size: 100%; cursor: pointer; }` and `@media (hover: hover) { .cs-list__item--button:hover { background: var(--cs-color-surface-raised); } }` in `base/collections.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Support interactive list item buttons with borderless transparent fill, 100% inline width, and a raised surface background on hover (`@media (hover: hover)`). The next rules in `base/collections.css` are `.cs-list__item--button { border: 0; background: transparent; font: inherit; inline-size: 100%; cursor: pointer; }` and `@media (hover: hover) { .cs-list__item--button:hover { background: var(--cs-color-surface-raised); } }`. Re-read those rules and `components/data/List.jsx` before editing. Do not invent hover colors.
+Style the list item lead, main column (`flex: 1`, 1px gap), semibold `sm` title, muted `xs` subtitle, and muted `sm` trailing slot. The next rules in `base/collections.css` are `.cs-list__lead { flex: none; color: var(--cs-color-text-accent); display: grid; place-items: center; }`, `.cs-list__main { flex: 1; min-inline-size: 0; display: grid; gap: 1px; }`, `.cs-list__title { font-weight: 600; font-size: var(--cs-font-size-sm); }`, `.cs-list__sub { font-size: var(--cs-font-size-xs); color: var(--cs-color-text-muted); }`, and `.cs-list__trail { flex: none; color: var(--cs-color-text-muted); font-size: var(--cs-font-size-sm); }`. Re-read those rules before editing. Do not invent font sizes or gaps.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

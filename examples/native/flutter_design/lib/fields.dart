@@ -829,30 +829,58 @@ class _CsPopoverState extends State<CsPopover> {
 
 double csListGap() => 2;
 double csListItemPaddingY() => 10;
+bool csListIsInteractive(bool hasOnClick) => hasOnClick;
+double csListItemBorderWidth() => 0;
+bool csListItemShowsHoverFill({required bool interactive, required bool hovered}) => interactive && hovered;
 
-class CsList extends StatelessWidget {
-  const CsList({super.key, required this.items, required this.dark, required this.highContrast, required this.compact});
+class CsList extends StatefulWidget {
+  const CsList({super.key, required this.items, required this.dark, required this.highContrast, required this.compact, this.onSelect});
   final List<(String, String)> items;
   final bool dark;
   final bool highContrast;
   final bool compact;
+  final ValueChanged<int>? onSelect;
+
+  @override
+  State<CsList> createState() => _CsListState();
+}
+
+class _CsListState extends State<CsList> {
+  int? hoverIndex;
 
   @override
   Widget build(BuildContext context) {
-    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
+    final interactive = csListIsInteractive(widget.onSelect != null);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      for (var index = 0; index < items.length; index++) ...[
+      for (var index = 0; index < widget.items.length; index++) ...[
         if (index > 0) SizedBox(height: csListGap()),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: csPoints(pack.space3), vertical: csListItemPaddingY()),
-            child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(items[index].$1, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-                if (items[index].$2.isNotEmpty) Text(items[index].$2, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted))),
-              ]),
-            ]),
+        MouseRegion(
+          cursor: interactive ? SystemMouseCursors.click : MouseCursor.defer,
+          onEnter: (_) => setState(() => hoverIndex = index),
+          onExit: (_) => setState(() { if (hoverIndex == index) hoverIndex = null; }),
+          child: GestureDetector(
+            onTap: interactive ? () => widget.onSelect?.call(index) : null,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: csListItemShowsHoverFill(interactive: interactive, hovered: hoverIndex == index)
+                      ? csColor(pack.colorSurfaceRaised)
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: csPoints(pack.space3), vertical: csListItemPaddingY()),
+                  child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text(widget.items[index].$1, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+                      if (widget.items[index].$2.isNotEmpty) Text(widget.items[index].$2, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                    ]),
+                  ]),
+                ),
+              ),
+            ),
           ),
         ),
       ],

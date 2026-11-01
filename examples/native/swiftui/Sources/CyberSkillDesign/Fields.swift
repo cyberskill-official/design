@@ -1575,6 +1575,9 @@ private struct CSPopoverPanelKey: PreferenceKey {
 public enum CSListModel {
   public static func gap() -> Double { 2 }
   public static func itemPaddingY() -> Double { 10 }
+  public static func isInteractive(hasOnClick: Bool) -> Bool { hasOnClick }
+  public static func itemBorderWidth() -> Double { 0 }
+  public static func itemShowsHoverFill(interactive: Bool, hovered: Bool) -> Bool { interactive && hovered }
 }
 
 public struct CSListItem: Hashable {
@@ -1591,18 +1594,23 @@ public struct CSList: View {
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
+  let onSelect: ((Int) -> Void)?
+  @State private var hoverIndex: Int?
 
-  public init(items: [CSListItem], dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(items: [CSListItem], dark: Bool, highContrast: Bool, compact: Bool, onSelect: ((Int) -> Void)? = nil) {
     self.items = items
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
+    self.onSelect = onSelect
   }
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
+    let interactive = CSListModel.isInteractive(hasOnClick: onSelect != nil)
     VStack(alignment: .leading, spacing: CGFloat(CSListModel.gap())) {
-      ForEach(items, id: \.title) { item in
+      ForEach(Array(items.enumerated()), id: \.offset) { index, item in
+        let hovered = CSListModel.itemShowsHoverFill(interactive: interactive, hovered: hoverIndex == index)
         HStack(alignment: .center, spacing: pack.space3.points) {
           VStack(alignment: .leading) {
             Text(item.title).foregroundStyle(pack.primaryTextColor)
@@ -1613,7 +1621,11 @@ public struct CSList: View {
         .padding(.vertical, CGFloat(CSListModel.itemPaddingY()))
         .padding(.horizontal, pack.space3.points)
         .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
+        .background(hovered ? pack.colorSurfaceRaised.color : Color.clear, in: RoundedRectangle(cornerRadius: pack.radiusMd.points))
         .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+        .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(Color.clear, lineWidth: CGFloat(CSListModel.itemBorderWidth())))
+        .onHover { inside in hoverIndex = inside ? index : (hoverIndex == index ? nil : hoverIndex) }
+        .onTapGesture { if interactive { onSelect?(index) } }
       }
     }
   }
