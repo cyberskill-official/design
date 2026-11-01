@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'controls.dart';
 
-double csIconPoints(String size) => switch (size) { 'sm' => 16, 'lg' => 24, _ => 20 };
+double csIconPoints(String size) => switch (size) { 'xs' => 14, 'sm' => 16, 'lg' => 24, 'xl' => 32, _ => 20 };
 
 String csIconResolved(String name) => csIconGlyphs.containsKey(name) ? name : 'sparkle';
 

@@ -645,7 +645,6 @@ String csGridCopy(String key, String? language) {
   return key;
 }
 const csTagPlaceholder = 'Add a tag…';
-double csTagCloseIconSize() => 12;
 double csTagCloseIconStrokeWidth() => 2.4;
 String? csTagLabelId(String id, String? label) => label == null || label.isEmpty ? null : '$id-label';
 String? csTagDescriptionId(String id, String? description) => description == null || description.isEmpty ? null : '$id-description';

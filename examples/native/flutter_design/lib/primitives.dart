@@ -1013,7 +1013,7 @@ double csTagCloseIconSize() => 12;
 double csTagCloseStrokeWidth() => 2.4;
 bool csTagShowsRemove(bool hasOnRemove) => hasOnRemove;
 String csTagLabel(String? text, String fallback) => text ?? fallback;
-String csTagCopy(String key, String? language) {
+String _csTagCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'remove': 'Gỡ'};
   const en = {'remove': 'Remove'};
@@ -1050,7 +1050,7 @@ class CsTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    final spoken = csTagLabel(removeLabel, csTagCopy('remove', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
+    final spoken = csTagLabel(removeLabel, _csTagCopy('remove', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
     return DecoratedBox(
       decoration: BoxDecoration(
         color: csColor(pack.colorSurfaceRaised),

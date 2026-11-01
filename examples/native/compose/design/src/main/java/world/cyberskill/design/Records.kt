@@ -482,7 +482,6 @@ fun csGridCopy(key: String, language: String?): String {
   return key
 }
 const val csTagPlaceholder = "Add a tag…"
-fun csTagCloseIconSize() = 12.dp
 fun csTagCloseIconStrokeWidth() = 2.4f
 fun csTagLabelId(id: String, label: String?) = if (label.isNullOrEmpty()) null else "$id-label"
 fun csTagDescriptionId(id: String, description: String?) = if (description.isNullOrEmpty()) null else "$id-description"

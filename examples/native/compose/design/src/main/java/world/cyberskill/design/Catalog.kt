@@ -642,7 +642,6 @@ fun csStatusKind(name: String) = when (name) {
   else -> "offline"
 }
 fun csStatusPulses(pulse: Boolean, reducedMotion: Boolean) = pulse && !reducedMotion
-const val csDescriptionColumnMin = 160.0
 const val csKbdPadX = 7.0
 fun csKbdKeyFace(text: String) = text
 const val csButtonGroupOverlap = -1.0
