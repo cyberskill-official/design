@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: pending commit for `catalog-textarea-search-number-status-result-toast-parity`
+- Checkpoint commit: `ed23e6eac8cf4e9d7c5735233cdfc5bfb63d27cd` (`feat(native): align catalog textarea, search, number field, status indicator, result, and toast with web contracts`)
 - Previous checkpoint: `2c926972e05c1c342d8dc15fd65f90e5e937a2c4`, with the hash note in `5105c98b`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
