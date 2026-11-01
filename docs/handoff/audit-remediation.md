@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the controls-textfield-select-card-switch-dialog-parity checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the catalog-rating-segmented-pagination-tooltip-textarea-parity checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `ae3dc114758d82a10c35c981fd53583959a4d656` (`feat(native): align controls text field, select, card, switch, and dialog with web contracts`)
-- Previous checkpoint: `0c3ea83874ef83f2050ebbbb5aaf570cd690f6b4`, with the hash note in `32e41b79`
+- Checkpoint commit: pending (`feat(native): align catalog pagination, rating, textarea, segmented control, and tooltip with web contracts`)
+- Previous checkpoint: `ae3dc114758d82a10c35c981fd53583959a4d656`, with the hash note in `d293855b`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Aligned `CSTextField`/`CsTextField`, `CSSelect`/`CsSelect`, `CSCard`/`CsCard`, `CSSwitch`/`CsSwitch`, and `CSDialog`/`CsDialog` across `Components.swift`, `Controls.kt`, and `controls.dart` with `TextField.jsx`, `Select.jsx`, `Card.jsx`, `Switch.jsx`, and `Dialog.jsx`: added `showsLabel`, `isInvalid(error:ariaInvalid:)`, `labelId`, `descriptionId`, `errorId`, `labelledBy`, and `describedBy` to `CSTextFieldModel` (`csTextFieldShowsLabel`, `csTextFieldInvalid`, `csTextFieldLabelId`, `csTextFieldDescriptionId`, `csTextFieldErrorId`, `csTextFieldLabelledBy`, `csTextFieldDescribedBy`), plus `readOnly = false`, `required = false`, and `placeholder = nil` to `CSTextField`/`CsTextField`; added `labelId`, `descId`, `errId`, `labelledBy`, and `describedBy` to `CSSelectModel` (`csSelectLabelId`, `csSelectDescId`, `csSelectErrId`, `csSelectLabelledBy`, `csSelectDescribedBy`) and gated label rendering on non-empty `label`; added `interactive = false`, `flat = false`, and `onTap`/`onClick` to `CSCard`/`CsCard` consuming `CSDataStyleModel.cardBorderColor(interactive:hovered:pack:)` and `CSDataStyleModel.cardHasShadow(flat:)`; wired `enabled = enabled` and `uncheckedTrackColor` (`inactiveTrackColor`) in Compose and Flutter `CsSwitch`; and wired `open = true` plus Escape dismissal (`onExitCommand` / `Key.Escape` / `LogicalKeyboardKey.escape`) in `CSDialog`/`CsDialog`.
+Aligned `CSPagination`/`CsPagination`, `CSRating`/`CsRating`, `CSTextarea`/`CsTextarea`, `CSSegmentedControl`/`CsSegmentedControl`, and `CSTooltip`/`CsTooltip` across `Catalog.swift`, `Catalog.kt`, and `catalog.dart` with `Pagination.jsx`, `Rating.jsx`, `Textarea.jsx`, `SegmentedControl.jsx`, and `Tooltip.jsx`: added `previousGlyph = "‹"` and `nextGlyph = "›"` (`csPaginationPreviousGlyph`, `csPaginationNextGlyph`) to `CSPaginationModel` and rendered the chevron glyphs while preserving `previousName`/`nextName` as the accessible button labels; added `starPath`, `starSize() = 22`, `starStrokeWidth() = 1.6`, and `csRatingMove` to `CSRatingValue`, plus `description`, `error`, `required`, 22×22 SVG star path rendering, and keyboard roving (`ArrowRight`/`ArrowUp`, `ArrowLeft`/`ArrowDown`, `Home`, `End`) to `CSRating`/`CsRating`; added `placeholder`, `readOnly = false`, and `required = false` to `CSTextarea`/`CsTextarea` blocking edits when `readOnly` is true; added `effectiveMode(mode:role:)`, `groupRole(mode:role:)`, and `itemRole(mode:role:)` (`csSegmentedEffectiveMode`, `csSegmentedGroupRole`, `csSegmentedItemRole`), plus `mode`, `role`, `vertical = false`, and keyboard roving (`csTabsMove`) to `CSSegmentedControl`/`CsSegmentedControl`; and added `resolvedPlacement(_:)` (`csTooltipPlacement`) plus `placement` and `portal = true` to `CSTooltip`/`CsTooltip`.
 
 - `swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Continue the second-pass audit of the 120 native components across `Catalog`, `Records`, `Overlays`, `Structures`, `Fields`, `Flows`, `Surfaces`, and `Remainder` against all web `components/**/*.jsx` files and `test/component-behaviors.test.mjs`, closing any remaining behavioral or prop parity gaps.
+Continue the second-pass audit of the 120 native components across `Records`, `Overlays`, `Structures`, `Fields`, `Flows`, `Surfaces`, and `Remainder` against all web `components/**/*.jsx` files and `test/component-behaviors.test.mjs`, closing any remaining behavioral or prop parity gaps.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

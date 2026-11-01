@@ -24,6 +24,8 @@ public enum CSPaginationModel {
   public static let labelDefault = "Pagination"
   public static let previousDefault = "Previous page"
   public static let nextDefault = "Next page"
+  public static let previousGlyph = "‹"
+  public static let nextGlyph = "›"
   public static func destination(page: Int, target: Int, count: Int, hasHandler: Bool) -> Int? {
     guard hasHandler, target >= 1, target <= count, target != page else { return nil }
     return target
@@ -62,6 +64,9 @@ public enum CSRenderCount {
 
 public enum CSRatingValue {
   public static let labelDefault = "Rating"
+  public static let starPath = "M12 2l2.9 6.2 6.6.8-4.9 4.6 1.3 6.5L12 16.9 6.1 20l1.3-6.5L2.5 9l6.6-.8z"
+  public static func starSize() -> Double { 22 }
+  public static func starStrokeWidth() -> Double { 1.6 }
   public static func label(_ label: String?, fallback: String) -> String { label ?? fallback }
   public static func value(controlled: Int?, inner: Int) -> Int { controlled ?? inner }
   public static func groupName(label: String?, value: Int, max: Int, explicit: String?, hasLabelledBy: Bool, word: String = labelDefault) -> String? {
@@ -220,8 +225,11 @@ public struct CSTextarea: View {
   public let label: String?
   public let descriptionText: String?
   public let error: String?
+  public let placeholder: String?
   public let rows: Int
   public let disabled: Bool
+  public let readOnly: Bool
+  public let required: Bool
   @Binding var text: String
   let dark: Bool
   let highContrast: Bool
@@ -229,12 +237,15 @@ public struct CSTextarea: View {
   @State private var focusId = UUID().uuidString
   @FocusState private var focused: Bool
 
-  public init(label: String? = nil, text: Binding<String>, description: String? = nil, error: String? = nil, rows: Int = CSTextareaModel.defaultRows, disabled: Bool = false, dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(label: String? = nil, text: Binding<String>, description: String? = nil, error: String? = nil, placeholder: String? = nil, rows: Int = CSTextareaModel.defaultRows, disabled: Bool = false, readOnly: Bool = false, required: Bool = false, dark: Bool, highContrast: Bool, compact: Bool) {
     self.label = label
     self.descriptionText = description
     self.error = error
+    self.placeholder = placeholder
     self.rows = rows
     self.disabled = disabled
+    self.readOnly = readOnly
+    self.required = required
     _text = text
     self.dark = dark
     self.highContrast = highContrast
@@ -253,8 +264,9 @@ public struct CSTextarea: View {
       if let descriptionText, CSTextareaModel.shows(descriptionText) {
         Text(descriptionText).font(.system(size: CGFloat(CSTextFieldModel.descriptionFontSize()))).foregroundStyle(pack.mutedColor)
       }
-      TextField("", text: Binding(get: { text }, set: { next in
+      TextField(placeholder ?? "", text: Binding(get: { text }, set: { next in
         CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
+        guard !disabled, !readOnly else { return }
         text = next
       }), axis: .vertical)
         .focused($focused)
@@ -826,13 +838,14 @@ public struct CSPagination: View {
     let nextName = nextLabel ?? CSPaginationModel.copy("next", language: spoken)
     let btnSize = max(44, CGFloat(CSNavigationStyleModel.paginationButtonSize()))
     HStack(spacing: CGFloat(CSNavigationStyleModel.paginationGap())) {
-      CSTriggerButton(previousName) {
+      CSTriggerButton(CSPaginationModel.previousGlyph) {
         if let next = CSPaginationModel.destination(page: page, target: page - 1, count: pageCount, hasHandler: true) { onChange(next) }
       }
         .disabled(page <= 1)
         .opacity(CSNavigationStyleModel.paginationButtonOpacity(disabled: page <= 1))
         .padding(.horizontal, CGFloat(CSNavigationStyleModel.paginationButtonPaddingX()))
         .frame(minWidth: btnSize, minHeight: btnSize)
+        .accessibilityLabel(previousName)
       ForEach(Array(tokens.enumerated()), id: \.offset) { _, token in
         switch token {
         case .ellipsis:
@@ -854,13 +867,14 @@ public struct CSPagination: View {
             .accessibilityValue(Text(current ? "page" : ""))
         }
       }
-      CSTriggerButton(nextName) {
+      CSTriggerButton(CSPaginationModel.nextGlyph) {
         if let next = CSPaginationModel.destination(page: page, target: page + 1, count: pageCount, hasHandler: true) { onChange(next) }
       }
         .disabled(page >= pageCount)
         .opacity(CSNavigationStyleModel.paginationButtonOpacity(disabled: page >= pageCount))
         .padding(.horizontal, CGFloat(CSNavigationStyleModel.paginationButtonPaddingX()))
         .frame(minWidth: btnSize, minHeight: btnSize)
+        .accessibilityLabel(nextName)
     }
     .accessibilityElement(children: .contain)
     .accessibilityLabel(navName)
@@ -1024,6 +1038,9 @@ public struct CSStatusIndicator: View {
 
 public struct CSRating: View {
   public let label: String?
+  public let descriptionText: String?
+  public let error: String?
+  public let required: Bool
   public let value: Int
   public let max: Int
   public let readOnly: Bool
@@ -1036,8 +1053,11 @@ public struct CSRating: View {
   @FocusState private var ratingFocused: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String? = nil, value: Int, max requestedMax: Double = 5, readOnly: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, onChange: @escaping (Int) -> Void = { _ in }, language: String? = nil) {
+  public init(label: String? = nil, value: Int, max requestedMax: Double = 5, readOnly: Bool = false, description: String? = nil, error: String? = nil, required: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, onChange: @escaping (Int) -> Void = { _ in }, language: String? = nil) {
     self.label = label
+    self.descriptionText = description
+    self.error = error
+    self.required = required
     self.value = value
     max = CSRenderCount.whole(requestedMax, fallback: 5)
     self.readOnly = readOnly
@@ -1050,29 +1070,50 @@ public struct CSRating: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    HStack(spacing: CGFloat(CSControlsWaveStyleModel.ratingGap())) {
-      ForEach(max > 0 ? Array(1...max) : [Int](), id: \.self) { star in
-        CSTriggerButton(star <= value ? "★" : "☆") {
-          if !readOnly { onChange(CSRatingValue.commit(current: value, tapped: star)) }
+    let invalid = CSTextareaModel.isAlert(error)
+    VStack(alignment: .leading, spacing: CGFloat(CSTextFieldModel.gap())) {
+      HStack(spacing: CGFloat(CSControlsWaveStyleModel.ratingGap())) {
+        ForEach(max > 0 ? Array(1...max) : [Int](), id: \.self) { star in
+          let on = star <= value
+          let starColor = (on ? pack.colorBrandOchre : pack.colorBorderDefault).color
+          Button(action: {
+            if !readOnly { onChange(CSRatingValue.commit(current: value, tapped: star)) }
+          }) {
+            Canvas { context, size in
+              let scale = min(size.width, size.height) / 24
+              let path = CSIconPaths.path(data: CSRatingValue.starPath).applying(CGAffineTransform(scaleX: scale, y: scale))
+              if on { context.fill(path, with: .color(starColor)) }
+              context.stroke(path, with: .color(starColor), style: StrokeStyle(lineWidth: CGFloat(CSRatingValue.starStrokeWidth() * scale), lineJoin: .round))
+            }
+            .frame(width: CGFloat(CSRatingValue.starSize()), height: CGFloat(CSRatingValue.starSize()))
+            .accessibilityHidden(true)
+          }
+          .buttonStyle(.plain)
+          .disabled(readOnly)
+          .foregroundStyle(starColor)
+          .padding(CGFloat(CSControlsWaveStyleModel.ratingButtonPadding()))
+          .frame(minWidth: 44, minHeight: 44)
+          .accessibilityLabel(CSRatingValue.starLabel(index: star, max: max))
+          .accessibilityAddTraits(star == value ? .isSelected : [])
         }
-        .disabled(readOnly)
-        .foregroundStyle((star <= value ? pack.colorBrandOchre : pack.colorBorderDefault).color)
-        .padding(CGFloat(CSControlsWaveStyleModel.ratingButtonPadding()))
-        .frame(minWidth: 44, minHeight: 44)
-        .accessibilityLabel(CSRatingValue.starLabel(index: star, max: max))
-        .accessibilityAddTraits(star == value ? .isSelected : [])
+      }
+      .accessibilityElement(children: .contain)
+      .accessibilityLabel(CSRatingValue.groupName(label: label, value: value, max: max, explicit: nil, hasLabelledBy: false, word: CSRatingValue.copy("label", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))) ?? "")
+      .accessibilityValue(Text(String(value) + " / " + String(max)))
+      .focusable()
+      .focused($ratingFocused)
+      .onChange(of: ratingFocused) { isFocused in if isFocused { keysArmed = true } }
+      .csRovingKeys { key in moveRating(key) }
+      .background(CSLegacyRovingKeys(active: csLegacyRovingActive(focused: ratingFocused, armed: keysArmed), onResign: { keysArmed = false }) { key, _ in
+        moveRating(key)
+      })
+      if let descriptionText, CSTextareaModel.shows(descriptionText) {
+        Text(descriptionText).font(.system(size: CGFloat(CSTextFieldModel.descriptionFontSize()))).foregroundStyle(pack.mutedColor)
+      }
+      if let error, invalid {
+        Text(error).font(.system(size: CGFloat(CSTextFieldModel.errorFontSize()))).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
       }
     }
-    .accessibilityElement(children: .contain)
-    .accessibilityLabel(CSRatingValue.groupName(label: label, value: value, max: max, explicit: nil, hasLabelledBy: false, word: CSRatingValue.copy("label", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))) ?? "")
-    .accessibilityValue(Text(String(value) + " / " + String(max)))
-    .focusable()
-    .focused($ratingFocused)
-    .onChange(of: ratingFocused) { isFocused in if isFocused { keysArmed = true } }
-    .csRovingKeys { key in moveRating(key) }
-    .background(CSLegacyRovingKeys(active: csLegacyRovingActive(focused: ratingFocused, armed: keysArmed), onResign: { keysArmed = false }) { key, _ in
-      moveRating(key)
-    })
   }
 
   private func moveRating(_ key: CSRovingKey) -> Bool {
@@ -1094,9 +1135,25 @@ public struct CSRating: View {
   }
 }
 
+public enum CSSegmentedModel {
+  public static func effectiveMode(mode: String?, role: String?) -> String {
+    if let mode { return mode == "tabs" ? "tabs" : "radio" }
+    return role == "tablist" ? "tabs" : "radio"
+  }
+  public static func groupRole(mode: String?, role: String?) -> String {
+    effectiveMode(mode: mode, role: role) == "tabs" ? "tablist" : "radiogroup"
+  }
+  public static func itemRole(mode: String?, role: String?) -> String {
+    effectiveMode(mode: mode, role: role) == "tabs" ? "tab" : "radio"
+  }
+}
+
 public struct CSSegmentedControl: View {
   public let label: String
   public let options: [CSTabItem]
+  public let mode: String?
+  public let role: String?
+  public let vertical: Bool
   @Binding var selection: String
   let dark: Bool
   let highContrast: Bool
@@ -1104,9 +1161,12 @@ public struct CSSegmentedControl: View {
   @State private var keysArmed = false
   @FocusState private var segmentFocused: Bool
 
-  public init(label: String, options: [CSTabItem], selection: Binding<String>, dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(label: String, options: [CSTabItem], selection: Binding<String>, mode: String? = nil, role: String? = nil, vertical: Bool = false, dark: Bool, highContrast: Bool, compact: Bool) {
     self.label = label
     self.options = options
+    self.mode = mode
+    self.role = role
+    self.vertical = vertical
     _selection = selection
     self.dark = dark
     self.highContrast = highContrast
@@ -1115,7 +1175,8 @@ public struct CSSegmentedControl: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    HStack(spacing: CGFloat(CSControlsWaveStyleModel.segmentedGap())) {
+    let layout = vertical ? AnyLayout(VStackLayout(alignment: .leading, spacing: CGFloat(CSControlsWaveStyleModel.segmentedGap()))) : AnyLayout(HStackLayout(spacing: CGFloat(CSControlsWaveStyleModel.segmentedGap())))
+    layout {
       ForEach(options, id: \.value) { option in
         let selected = selection == option.value
         CSTriggerButton(option.label) { selection = option.value }
@@ -1146,7 +1207,7 @@ public struct CSSegmentedControl: View {
 
   private func moveSegment(_ key: CSRovingKey) -> Bool {
     guard let index = options.firstIndex(where: { $0.value == selection }),
-          let next = CSRoving.tabs(current: index, count: options.count, key: key) else { return false }
+          let next = CSRoving.tabs(current: index, count: options.count, key: key, vertical: vertical) else { return false }
     selection = options[next].value
     return true
   }
@@ -1447,6 +1508,10 @@ public struct CSTooltipState: Equatable {
 public enum CSTooltipModel {
   public static let labelDefault = "Tooltip"
   public static let gap = 8.0
+  public static func resolvedPlacement(_ placement: String?) -> String {
+    guard let placement, !placement.isEmpty else { return "top" }
+    return placement
+  }
   public static func label(_ label: String?, fallback: String) -> String { label ?? fallback }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
@@ -1480,6 +1545,8 @@ public enum CSTooltipModel {
 public struct CSTooltip<Content: View>: View {
   public let label: String?
   public let fallbackLabel: String?
+  public let placement: String?
+  public let portal: Bool
   public let language: String?
   @Environment(\.csLanguage) private var ancestorLanguage
   let dark: Bool
@@ -1495,9 +1562,11 @@ public struct CSTooltip<Content: View>: View {
   @State private var measurePass = 0
   @FocusState private var triggerFocused: Bool
 
-  public init(label: String? = nil, fallbackLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, @ViewBuilder content: @escaping () -> Content) {
+  public init(label: String? = nil, fallbackLabel: String? = nil, placement: String? = nil, portal: Bool = true, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, @ViewBuilder content: @escaping () -> Content) {
     self.label = label
     self.fallbackLabel = fallbackLabel
+    self.placement = placement
+    self.portal = portal
     self.language = language
     self.dark = dark
     self.highContrast = highContrast
@@ -1508,6 +1577,7 @@ public struct CSTooltip<Content: View>: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let spoken = CSTooltipModel.label(label, fallback: fallbackLabel ?? CSTooltipModel.copy("label", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)))
+    let requestedPlacement = CSTooltipModel.resolvedPlacement(placement)
     content()
       .background(GeometryReader { geo in
         Color.clear.preference(key: CSTooltipTriggerKey.self, value: geo.frame(in: .global))
@@ -1524,7 +1594,7 @@ public struct CSTooltip<Content: View>: View {
           let screen = CSContextMenuModel.screenSize()
           let anchor = CSFloatingRect(left: trigger.minX, top: trigger.minY, right: trigger.maxX, bottom: trigger.maxY, width: trigger.width, height: trigger.height)
           let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
-          let initial = naturalSize.flatMap { size in CSFloatingModel.position(anchor: anchor, panelWidth: size.width, panelHeight: size.height, viewport: viewport, placement: "top", gap: CSTooltipModel.gap) }
+          let initial = naturalSize.flatMap { size in CSFloatingModel.position(anchor: anchor, panelWidth: size.width, panelHeight: size.height, viewport: viewport, placement: requestedPlacement, gap: CSTooltipModel.gap) }
           let placed = fittedSize.flatMap { size in initial.flatMap { first in CSFloatingModel.position(anchor: anchor, panelWidth: size.width, panelHeight: size.height, viewport: viewport, placement: first.placement, gap: CSTooltipModel.gap) } }
           let maxTipWidth = CSDataStyleModel.tooltipMaxWidth()
           let limit = min(maxTipWidth, initial?.maxWidth ?? placed?.maxWidth ?? maxTipWidth)

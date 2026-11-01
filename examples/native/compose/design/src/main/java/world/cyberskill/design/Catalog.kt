@@ -85,6 +85,8 @@ fun csPaginationTokens(page: Int, count: Int): List<CsPageToken> {
 const val csPaginationPrevious = "Previous page"
 const val csPaginationNext = "Next page"
 const val csPaginationLabel = "Pagination"
+const val csPaginationPreviousGlyph = "‹"
+const val csPaginationNextGlyph = "›"
 fun csPaginationCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("label" to "Phân trang", "prev" to "Trang trước", "next" to "Trang sau")
@@ -118,6 +120,10 @@ fun csRenderCount(value: Double, fallback: Int, minimum: Int = 0): Int {
 
 fun csRatingCommit(current: Int, tapped: Int): Int = if (tapped == current) 0 else tapped
 const val csRatingLabel = "Rating"
+const val csRatingStarPath = "M12 2l2.9 6.2 6.6.8-4.9 4.6 1.3 6.5L12 16.9 6.1 20l1.3-6.5L2.5 9l6.6-.8z"
+fun csRatingStarSize() = 22.dp
+fun csRatingStarStrokeWidth() = 1.6f
+fun csRatingMove(from: Int, delta: Int, max: Int): Int = if (max <= 0) 0 else minOf(max - 1, maxOf(0, from + delta)) + 1
 fun csRatingValue(controlled: Int?, inner: Int) = controlled ?: inner
 fun csRatingGroupName(label: String?, value: Int, max: Int, explicit: String?, hasLabelledBy: Boolean, word: String = csRatingLabel) = when {
   explicit != null -> explicit
@@ -228,8 +234,11 @@ fun CsTextarea(
   compact: Boolean,
   modifier: Modifier = Modifier,
   description: String? = null,
+  placeholder: String? = null,
   rows: Int = 4,
   disabled: Boolean = false,
+  readOnly: Boolean = false,
+  required: Boolean = false,
   error: String? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
@@ -242,8 +251,9 @@ fun CsTextarea(
     if (csTextareaShows(description)) Text(description ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = csTextFieldDescriptionFontSize().value.sp)
     BasicTextField(
       value = value,
-      onValueChange = { next -> if (!csControlEnabled(!disabled)) return@BasicTextField; handle.claim(); onValueChange(next) },
+      onValueChange = { next -> if (!csControlEnabled(!disabled && !readOnly)) return@BasicTextField; handle.claim(); onValueChange(next) },
       enabled = csControlEnabled(!disabled),
+      readOnly = readOnly,
       minLines = rows,
       maxLines = rows,
       modifier = Modifier
@@ -537,7 +547,7 @@ fun CsPagination(
   val nextName = nextLabel ?: csPaginationCopy("next", spoken)
   val btnSize = csNavigationStylePaginationButtonSize()
   Row(modifier.semantics { contentDescription = navName }, horizontalArrangement = Arrangement.spacedBy(csNavigationStylePaginationGap()), verticalAlignment = Alignment.CenterVertically) {
-    CsTriggerButton(title = previousName, onClick = { if (page > 1) onChange(page - 1) }, enabled = page > 1, modifier = Modifier.widthIn(min = btnSize).heightIn(min = btnSize).minimumInteractiveComponentSize().alpha(csNavigationStylePaginationButtonOpacity(page <= 1)).padding(horizontal = csNavigationStylePaginationButtonPaddingX())) { Text(previousName) }
+    CsTriggerButton(title = csPaginationPreviousGlyph, onClick = { if (page > 1) onChange(page - 1) }, enabled = page > 1, modifier = Modifier.widthIn(min = btnSize).heightIn(min = btnSize).minimumInteractiveComponentSize().alpha(csNavigationStylePaginationButtonOpacity(page <= 1)).padding(horizontal = csNavigationStylePaginationButtonPaddingX()).semantics { contentDescription = previousName }) { Text(csPaginationPreviousGlyph) }
     csPaginationTokens(page, pageCount).forEach { token ->
       when (token) {
         is CsPageToken.Ellipsis -> Text("…", color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(horizontal = csNavigationStylePaginationEllipsisPaddingX()))
@@ -549,7 +559,7 @@ fun CsPagination(
         }
       }
     }
-    CsTriggerButton(title = nextName, onClick = { if (page < pageCount) onChange(page + 1) }, enabled = page < pageCount, modifier = Modifier.widthIn(min = btnSize).heightIn(min = btnSize).minimumInteractiveComponentSize().alpha(csNavigationStylePaginationButtonOpacity(page >= pageCount)).padding(horizontal = csNavigationStylePaginationButtonPaddingX())) { Text(nextName) }
+    CsTriggerButton(title = csPaginationNextGlyph, onClick = { if (page < pageCount) onChange(page + 1) }, enabled = page < pageCount, modifier = Modifier.widthIn(min = btnSize).heightIn(min = btnSize).minimumInteractiveComponentSize().alpha(csNavigationStylePaginationButtonOpacity(page >= pageCount)).padding(horizontal = csNavigationStylePaginationButtonPaddingX()).semantics { contentDescription = nextName }) { Text(csPaginationNextGlyph) }
   }
 }
 
@@ -671,6 +681,9 @@ fun CsRating(
   compact: Boolean,
   modifier: Modifier = Modifier,
   label: String? = null,
+  description: String? = null,
+  error: String? = null,
+  required: Boolean = false,
   requestedMax: Double = 5.0,
   readOnly: Boolean = false,
   language: String? = null,
@@ -678,14 +691,42 @@ fun CsRating(
   val pack = csModePack(dark, highContrast, compact)
   val max = csRenderCount(requestedMax, 5)
   val groupName = csRatingGroupName(label, value, max, null, false, csRatingCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current))) ?: ""
-  Row(modifier.semantics { contentDescription = groupName }, horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleRatingGap())) {
-    for (star in 1..max) {
-      CsTriggerButton(title = if (star <= value) "★" else "☆", onClick = { if (!readOnly) onChange(csRatingCommit(value, star)) }, enabled = !readOnly, modifier = Modifier.minimumInteractiveComponentSize().padding(csControlsWaveStyleRatingButtonPadding())) {
-        Text(if (star <= value) "★" else "☆", color = (if (star <= value) pack.colorBrandOchre else pack.colorBorderDefault).toComposeColor())
+  val invalid = csTextareaAlert(error)
+  Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(csTextFieldGap())) {
+    Row(
+      Modifier.semantics { contentDescription = groupName }.onPreviewKeyEvent { event ->
+        if (readOnly || max <= 0 || event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+        val from = if (value > 0) minOf(max - 1, value - 1) else 0
+        when (event.key) {
+          Key.DirectionRight, Key.DirectionUp -> { onChange(csRatingMove(from, 1, max)); true }
+          Key.DirectionLeft, Key.DirectionDown -> { onChange(csRatingMove(from, -1, max)); true }
+          Key.MoveHome -> { onChange(csRatingMove(from, -from, max)); true }
+          Key.MoveEnd -> { onChange(csRatingMove(from, max - 1 - from, max)); true }
+          else -> false
+        }
+      },
+      horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleRatingGap()),
+    ) {
+      for (star in 1..max) {
+        val on = star <= value
+        val starColor = (if (on) pack.colorBrandOchre else pack.colorBorderDefault).toComposeColor()
+        CsTriggerButton(title = csRatingStar(star, max), onClick = { if (!readOnly) onChange(csRatingCommit(value, star)) }, enabled = !readOnly, modifier = Modifier.minimumInteractiveComponentSize().padding(csControlsWaveStyleRatingButtonPadding())) {
+          Canvas(Modifier.size(csRatingStarSize()).clearAndSetSemantics {}) {
+            val path = csIconPathData(csRatingStarPath, size.minDimension)
+            if (on) drawPath(path, starColor)
+            drawPath(path, starColor, style = Stroke(width = csRatingStarStrokeWidth()))
+          }
+        }
       }
     }
+    if (csTextareaShows(description)) Text(description ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = csTextFieldDescriptionFontSize().value.sp)
+    if (invalid) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), fontSize = csTextFieldErrorFontSize().value.sp, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
   }
 }
+
+fun csSegmentedEffectiveMode(mode: String?, role: String?) = mode?.let { if (it == "tabs") "tabs" else "radio" } ?: if (role == "tablist") "tabs" else "radio"
+fun csSegmentedGroupRole(mode: String?, role: String?) = if (csSegmentedEffectiveMode(mode, role) == "tabs") "tablist" else "radiogroup"
+fun csSegmentedItemRole(mode: String?, role: String?) = if (csSegmentedEffectiveMode(mode, role) == "tabs") "tab" else "radio"
 
 @Composable
 fun CsSegmentedControl(
@@ -697,28 +738,60 @@ fun CsSegmentedControl(
   highContrast: Boolean,
   compact: Boolean,
   modifier: Modifier = Modifier,
+  mode: String? = null,
+  role: String? = null,
+  vertical: Boolean = false,
 ) {
   val pack = csModePack(dark, highContrast, compact)
-  Row(modifier.clip(RoundedCornerShape(pack.radiusLg.toDp())).background(pack.colorSurfaceRaised.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).padding(csControlsWaveStyleSegmentedPadding()).semantics { contentDescription = label }, horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleSegmentedGap())) {
-    options.forEach { option ->
-      val selected = selection == option.value
-      val handle = rememberFocusHandle("segment-${option.value}")
-      Text(
-        option.label,
-        color = if (selected) pack.colorTextPrimary.toComposeColor() else pack.colorTextMuted.toComposeColor(),
-        fontSize = pack.fontSizeSm.toDp().value.sp,
-        fontWeight = FontWeight.SemiBold,
-        textAlign = TextAlign.Center,
-        modifier = Modifier
-          .weight(1f)
-          .minimumInteractiveComponentSize()
-          .focusRequester(handle.requester)
-          .clip(RoundedCornerShape(pack.radiusMd.toDp()))
-          .background(if (selected) pack.colorSurfacePanel.toComposeColor() else androidx.compose.ui.graphics.Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp()))
-          .padding(horizontal = csControlsWaveStyleSegmentedButtonPaddingX(), vertical = csControlsWaveStyleSegmentedButtonPaddingY())
-          .onFocusChanged { if (it.isFocused) handle.claim() }
-          .clickable(enabled = csControlEnabled(), role = Role.RadioButton) { handle.claim(); onSelect(option.value) },
-      )
+  val isTabs = csSegmentedEffectiveMode(mode, role) == "tabs"
+  val currentIdx = options.indexOfFirst { it.value == selection }.let { if (it >= 0) it else 0 }
+  val rootMod = modifier
+    .clip(RoundedCornerShape(pack.radiusLg.toDp()))
+    .background(pack.colorSurfaceRaised.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp()))
+    .border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp()))
+    .padding(csControlsWaveStyleSegmentedPadding())
+    .semantics { contentDescription = label }
+    .onPreviewKeyEvent { event ->
+      if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+      val keyName = when (event.key) {
+        Key.DirectionRight -> "ArrowRight"
+        Key.DirectionLeft -> "ArrowLeft"
+        Key.DirectionDown -> "ArrowDown"
+        Key.DirectionUp -> "ArrowUp"
+        Key.MoveHome -> "Home"
+        Key.MoveEnd -> "End"
+        else -> return@onPreviewKeyEvent false
+      }
+      val next = csTabsMove(currentIdx, options.size, keyName, vertical) ?: return@onPreviewKeyEvent false
+      onSelect(options[next].value)
+      true
+    }
+  val renderOption: @Composable (CsTabItem, Modifier) -> Unit = { option, itemMod ->
+    val selected = selection == option.value
+    val handle = rememberFocusHandle("segment-${option.value}")
+    Text(
+      option.label,
+      color = if (selected) pack.colorTextPrimary.toComposeColor() else pack.colorTextMuted.toComposeColor(),
+      fontSize = pack.fontSizeSm.toDp().value.sp,
+      fontWeight = FontWeight.SemiBold,
+      textAlign = TextAlign.Center,
+      modifier = itemMod
+        .minimumInteractiveComponentSize()
+        .focusRequester(handle.requester)
+        .clip(RoundedCornerShape(pack.radiusMd.toDp()))
+        .background(if (selected) pack.colorSurfacePanel.toComposeColor() else androidx.compose.ui.graphics.Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp()))
+        .padding(horizontal = csControlsWaveStyleSegmentedButtonPaddingX(), vertical = csControlsWaveStyleSegmentedButtonPaddingY())
+        .onFocusChanged { if (it.isFocused) handle.claim() }
+        .clickable(enabled = csControlEnabled(), role = if (isTabs) Role.Tab else Role.RadioButton) { handle.claim(); onSelect(option.value) },
+    )
+  }
+  if (vertical) {
+    Column(rootMod, verticalArrangement = Arrangement.spacedBy(csControlsWaveStyleSegmentedGap())) {
+      options.forEach { option -> renderOption(option, Modifier.fillMaxWidth()) }
+    }
+  } else {
+    Row(rootMod, horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleSegmentedGap())) {
+      options.forEach { option -> renderOption(option, Modifier.weight(1f)) }
     }
   }
 }
@@ -847,6 +920,7 @@ data class CsTooltipState(val hovered: Boolean = false, val focused: Boolean = f
   val open get() = (hovered || focused) && !dismissed
 }
 const val csTooltipGap = 8
+fun csTooltipPlacement(placement: String?) = if (!placement.isNullOrEmpty()) placement else "top"
 fun csTooltipLabel(label: String?, fallback: String) = label ?: fallback
 const val csTooltipDefault = "Tooltip"
 fun csTooltipCopy(key: String, language: String?): String {
@@ -873,10 +947,13 @@ fun CsTooltip(
   modifier: Modifier = Modifier,
   label: String? = null,
   fallbackLabel: String? = null,
+  placement: String? = null,
+  portal: Boolean = true,
   language: String? = null,
   content: @Composable () -> Unit,
 ) {
   val pack = csModePack(dark, highContrast, compact)
+  val requestedPlacement = csTooltipPlacement(placement)
   var state by remember { mutableStateOf(CsTooltipState()) }
   var origin by remember { mutableStateOf(0.0 to 0.0) }
   var trigger by remember { mutableStateOf<Pair<Double, Double>?>(null) }
@@ -894,7 +971,7 @@ fun CsTooltip(
     panelSize.first,
     panelSize.second,
     CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), viewWidth, viewHeight),
-    "top",
+    requestedPlacement,
     csTooltipGap.toDouble(),
     "ltr",
   ) } }
@@ -905,7 +982,7 @@ fun CsTooltip(
     panelSize.first,
     panelSize.second,
     CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), viewWidth, viewHeight),
-    initial?.placement ?: "top",
+    initial?.placement ?: requestedPlacement,
     csTooltipGap.toDouble(),
     "ltr",
   ) } }

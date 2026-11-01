@@ -36,6 +36,8 @@ List<CsPageToken> csPaginationTokens(int page, int count) {
 const csPaginationPrevious = 'Previous page';
 const csPaginationNext = 'Next page';
 const csPaginationLabel = 'Pagination';
+const csPaginationPreviousGlyph = '‹';
+const csPaginationNextGlyph = '›';
 String csPaginationCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'label': 'Phân trang', 'prev': 'Trang trước', 'next': 'Trang sau'};
@@ -68,6 +70,10 @@ int csRenderCount(double value, int fallback, {int minimum = 0}) {
 
 int csRatingCommit(int current, int tapped) => tapped == current ? 0 : tapped;
 const csRatingLabel = 'Rating';
+const csRatingStarPath = 'M12 2l2.9 6.2 6.6.8-4.9 4.6 1.3 6.5L12 16.9 6.1 20l1.3-6.5L2.5 9l6.6-.8z';
+double csRatingStarSize() => 22;
+double csRatingStarStrokeWidth() => 1.6;
+int csRatingMove(int from, int delta, int max) => max <= 0 ? 0 : (from + delta).clamp(0, max - 1) + 1;
 int csRatingValue(int? controlled, int inner) => controlled ?? inner;
 String? csRatingGroupName(String? label, int value, int max, String? explicit, bool hasLabelledBy, [String word = csRatingLabel]) {
   if (explicit != null) return explicit;
@@ -179,7 +185,7 @@ String? csTextareaDescribedBy(List<String?> parts) {
 }
 
 class CsTextarea extends StatelessWidget {
-  const CsTextarea({super.key, required this.label, required this.value, required this.onChanged, required this.dark, required this.highContrast, required this.compact, this.description, this.rows = 4, this.disabled = false, this.error});
+  const CsTextarea({super.key, required this.label, required this.value, required this.onChanged, required this.dark, required this.highContrast, required this.compact, this.description, this.rows = 4, this.disabled = false, this.error, this.placeholder, this.readOnly = false, this.required = false});
   final String label;
   final String? description;
   final String value;
@@ -190,6 +196,9 @@ class CsTextarea extends StatelessWidget {
   final bool highContrast;
   final bool compact;
   final String? error;
+  final String? placeholder;
+  final bool readOnly;
+  final bool required;
 
   @override
   Widget build(BuildContext context) {
@@ -202,13 +211,15 @@ class CsTextarea extends StatelessWidget {
       child: TextField(
         focusNode: node,
         enabled: !disabled,
+        readOnly: readOnly,
         controller: TextEditingController(text: value),
-        onChanged: (next) { if (disabled) return; claim(); onChanged(next); },
+        onChanged: (next) { if (disabled || readOnly) return; claim(); onChanged(next); },
         minLines: rows,
         maxLines: rows,
         style: TextStyle(color: csColor(pack.colorTextPrimary)),
         decoration: InputDecoration(
           labelText: csTextareaShows(label) ? label : null,
+          hintText: placeholder,
           filled: true,
           fillColor: csColor(pack.colorSurfacePanel),
           contentPadding: EdgeInsets.symmetric(horizontal: csTextFieldPaddingX(pack), vertical: csTextFieldPaddingY(pack)),
@@ -724,7 +735,7 @@ class CsPagination extends StatelessWidget {
         spacing: csNavigationStylePaginationGap(),
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          Opacity(opacity: csNavigationStylePaginationButtonOpacity(disabled: page <= 1), child: ConstrainedBox(constraints: BoxConstraints(minWidth: btnSize, minHeight: btnSize), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, style: TextButton.styleFrom(padding: btnPadding), onPressed: page > 1 ? () { claim(); onChange(page - 1); } : null, child: Text(previousName))))),
+          Opacity(opacity: csNavigationStylePaginationButtonOpacity(disabled: page <= 1), child: ConstrainedBox(constraints: BoxConstraints(minWidth: btnSize, minHeight: btnSize), child: Semantics(label: previousName, button: true, child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, style: TextButton.styleFrom(padding: btnPadding), onPressed: page > 1 ? () { claim(); onChange(page - 1); } : null, child: const Text(csPaginationPreviousGlyph)))))),
           for (final token in tokens)
             if (token.ellipsis)
               Padding(padding: EdgeInsets.symmetric(horizontal: csNavigationStylePaginationEllipsisPaddingX()), child: Text('…', style: TextStyle(color: csColor(pack.colorTextMuted))))
@@ -744,7 +755,7 @@ class CsPagination extends StatelessWidget {
                   );
                 }),
               ),
-          Opacity(opacity: csNavigationStylePaginationButtonOpacity(disabled: page >= pageCount), child: ConstrainedBox(constraints: BoxConstraints(minWidth: btnSize, minHeight: btnSize), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, style: TextButton.styleFrom(padding: btnPadding), onPressed: page < pageCount ? () { claim(); onChange(page + 1); } : null, child: Text(nextName))))),
+          Opacity(opacity: csNavigationStylePaginationButtonOpacity(disabled: page >= pageCount), child: ConstrainedBox(constraints: BoxConstraints(minWidth: btnSize, minHeight: btnSize), child: Semantics(label: nextName, button: true, child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, style: TextButton.styleFrom(padding: btnPadding), onPressed: page < pageCount ? () { claim(); onChange(page + 1); } : null, child: const Text(csPaginationNextGlyph)))))),
         ],
       ),
     );
@@ -918,10 +929,41 @@ class CsStatusIndicator extends StatelessWidget {
   }
 }
 
+class _RatingStarPainter extends CustomPainter {
+  const _RatingStarPainter({required this.filled, required this.fillColor, required this.strokeColor});
+  final bool filled;
+  final Color fillColor;
+  final Color strokeColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final path = csIconPathData(csRatingStarPath, size.shortestSide);
+    if (filled) {
+      canvas.drawPath(path, Paint()..color = fillColor..style = PaintingStyle.fill);
+    }
+    canvas.drawPath(
+      path,
+      Paint()
+        ..color = strokeColor
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = csRatingStarStrokeWidth() * (size.shortestSide / 24)
+        ..strokeCap = StrokeCap.round
+        ..strokeJoin = StrokeJoin.round,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _RatingStarPainter oldDelegate) =>
+      oldDelegate.filled != filled || oldDelegate.fillColor != fillColor || oldDelegate.strokeColor != strokeColor;
+}
+
 class CsRating extends StatelessWidget {
-  const CsRating({super.key, this.label, required this.value, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.requestedMax = 5, this.readOnly = false, this.language});
+  const CsRating({super.key, this.label, required this.value, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.requestedMax = 5, this.readOnly = false, this.language, this.description, this.error, this.required = false});
   final String? label;
   final String? language;
+  final String? description;
+  final String? error;
+  final bool required;
   final int value;
   final ValueChanged<int> onChange;
   final double requestedMax;
@@ -934,21 +976,65 @@ class CsRating extends StatelessWidget {
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final max = csRenderCount(requestedMax, 5);
+    final starDim = csRatingStarSize();
     return Semantics(
       label: csRatingGroupName(label, value, max, null, false, csRatingCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context)))) ?? '',
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (var star = 1; star <= max; star++) ...[
-            if (star > 1) SizedBox(width: csControlsWaveStyleRatingGap()),
-            Padding(
-              padding: EdgeInsets.all(csControlsWaveStyleRatingButtonPadding()),
-              child: CsOwnFocus(builder: (node, claim) => IconButton(
-                focusNode: node,
-                onPressed: readOnly ? null : () { claim(); onChange(csRatingCommit(value, star)); },
-                constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
-                icon: Text(star <= value ? '★' : '☆', style: TextStyle(color: csColor(star <= value ? pack.colorBrandOchre : pack.colorBorderDefault))),
-              )),
-            ),
+          if (description != null && description!.isNotEmpty) ...[
+            Text(description!, style: TextStyle(fontSize: csTextFieldDescriptionFontSize(), color: csColor(pack.colorTextMuted))),
+            SizedBox(height: csTextFieldGap()),
+          ],
+          Row(
+            children: [
+              for (var star = 1; star <= max; star++) ...[
+                if (star > 1) SizedBox(width: csControlsWaveStyleRatingGap()),
+                Padding(
+                  padding: EdgeInsets.all(csControlsWaveStyleRatingButtonPadding()),
+                  child: CsOwnFocus(builder: (node, claim) {
+                    node.onKeyEvent = readOnly
+                        ? null
+                        : (_, event) {
+                            if (event is! KeyDownEvent) return KeyEventResult.ignored;
+                            final idx = star - 1;
+                            if (event.logicalKey == LogicalKeyboardKey.arrowRight || event.logicalKey == LogicalKeyboardKey.arrowUp) {
+                              onChange(csRatingMove(idx, 1, max));
+                              return KeyEventResult.handled;
+                            }
+                            if (event.logicalKey == LogicalKeyboardKey.arrowLeft || event.logicalKey == LogicalKeyboardKey.arrowDown) {
+                              onChange(csRatingMove(idx, -1, max));
+                              return KeyEventResult.handled;
+                            }
+                            if (event.logicalKey == LogicalKeyboardKey.home) {
+                              onChange(1);
+                              return KeyEventResult.handled;
+                            }
+                            if (event.logicalKey == LogicalKeyboardKey.end) {
+                              onChange(max);
+                              return KeyEventResult.handled;
+                            }
+                            return KeyEventResult.ignored;
+                          };
+                    final filled = star <= value;
+                    final starColor = csColor(filled ? pack.colorBrandOchre : pack.colorBorderDefault);
+                    return IconButton(
+                      focusNode: node,
+                      onPressed: readOnly ? null : () { claim(); onChange(csRatingCommit(value, star)); },
+                      constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
+                      icon: CustomPaint(
+                        size: Size(starDim, starDim),
+                        painter: _RatingStarPainter(filled: filled, fillColor: starColor, strokeColor: starColor),
+                      ),
+                    );
+                  }),
+                ),
+              ],
+            ],
+          ),
+          if (error != null && error!.isNotEmpty) ...[
+            SizedBox(height: csTextFieldGap()),
+            Semantics(liveRegion: true, child: Text(error!, style: TextStyle(fontSize: csTextFieldErrorFontSize(), color: csColor(pack.colorSemanticDangerText)))),
           ],
         ],
       ),
@@ -956,8 +1042,12 @@ class CsRating extends StatelessWidget {
   }
 }
 
+String csSegmentedEffectiveMode(String? mode, [String? role]) => mode == 'tabs' || role == 'tablist' ? 'tabs' : 'radio';
+String csSegmentedGroupRole(String? mode, [String? role]) => role ?? (csSegmentedEffectiveMode(mode, role) == 'tabs' ? 'tablist' : 'radiogroup');
+String csSegmentedItemRole(String? mode, [String? role]) => csSegmentedEffectiveMode(mode, role) == 'tabs' ? 'tab' : 'radio';
+
 class CsSegmentedControl extends StatelessWidget {
-  const CsSegmentedControl({super.key, required this.label, required this.options, required this.selection, required this.onSelect, required this.dark, required this.highContrast, required this.compact});
+  const CsSegmentedControl({super.key, required this.label, required this.options, required this.selection, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.mode, this.role, this.vertical = false});
   final String label;
   final List<CsTabItem> options;
   final String selection;
@@ -965,42 +1055,69 @@ class CsSegmentedControl extends StatelessWidget {
   final bool dark;
   final bool highContrast;
   final bool compact;
+  final String? mode;
+  final String? role;
+  final bool vertical;
 
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    final items = <Widget>[
+      for (var index = 0; index < options.length; index++) ...[
+        if (index > 0)
+          vertical
+              ? SizedBox(height: csControlsWaveStyleSegmentedGap())
+              : SizedBox(width: csControlsWaveStyleSegmentedGap()),
+        ConstrainedBox(
+          constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
+          child: CsOwnFocus(builder: (node, claim) {
+            final option = options[index];
+            final selected = selection == option.value;
+            node.onKeyEvent = (_, event) {
+              if (event is! KeyDownEvent || options.isEmpty) return KeyEventResult.ignored;
+              final forward = vertical ? LogicalKeyboardKey.arrowDown : LogicalKeyboardKey.arrowRight;
+              final backward = vertical ? LogicalKeyboardKey.arrowUp : LogicalKeyboardKey.arrowLeft;
+              if (event.logicalKey == forward) {
+                onSelect(options[csTabsMove(index, 1, options.length)].value);
+                return KeyEventResult.handled;
+              }
+              if (event.logicalKey == backward) {
+                onSelect(options[csTabsMove(index, -1, options.length)].value);
+                return KeyEventResult.handled;
+              }
+              if (event.logicalKey == LogicalKeyboardKey.home) {
+                onSelect(options.first.value);
+                return KeyEventResult.handled;
+              }
+              if (event.logicalKey == LogicalKeyboardKey.end) {
+                onSelect(options.last.value);
+                return KeyEventResult.handled;
+              }
+              return KeyEventResult.ignored;
+            };
+            return TextButton(
+              focusNode: node,
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: csControlsWaveStyleSegmentedButtonPaddingX(), vertical: csControlsWaveStyleSegmentedButtonPaddingY()),
+                backgroundColor: selected ? csColor(pack.colorSurfacePanel) : null,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(csPoints(pack.radiusMd))),
+              ),
+              onPressed: () { claim(); onSelect(option.value); },
+              child: Text(option.label, style: TextStyle(fontSize: csPoints(pack.fontSizeSm), fontWeight: FontWeight.w600, color: csColor(selected ? pack.colorTextPrimary : pack.colorTextMuted))),
+            );
+          }),
+        ),
+      ],
+    ];
     return Semantics(
       label: label,
       child: DecoratedBox(
         decoration: BoxDecoration(color: csColor(pack.colorSurfaceRaised), border: Border.all(color: csColor(pack.colorBorderDefault)), borderRadius: BorderRadius.circular(csPoints(pack.radiusLg))),
         child: Padding(
           padding: EdgeInsets.all(csControlsWaveStyleSegmentedPadding()),
-          child: Row(
-            children: [
-              for (var index = 0; index < options.length; index++) ...[
-                if (index > 0) SizedBox(width: csControlsWaveStyleSegmentedGap()),
-                Expanded(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
-                    child: CsOwnFocus(builder: (node, claim) {
-                      final option = options[index];
-                      final selected = selection == option.value;
-                      return TextButton(
-                        focusNode: node,
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.symmetric(horizontal: csControlsWaveStyleSegmentedButtonPaddingX(), vertical: csControlsWaveStyleSegmentedButtonPaddingY()),
-                          backgroundColor: selected ? csColor(pack.colorSurfacePanel) : null,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(csPoints(pack.radiusMd))),
-                        ),
-                        onPressed: () { claim(); onSelect(option.value); },
-                        child: Text(option.label, style: TextStyle(fontSize: csPoints(pack.fontSizeSm), fontWeight: FontWeight.w600, color: csColor(selected ? pack.colorTextPrimary : pack.colorTextMuted))),
-                      );
-                    }),
-                  ),
-                ),
-              ],
-            ],
-          ),
+          child: vertical
+              ? Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: items)
+              : Row(children: [for (final item in items) item is SizedBox ? item : Expanded(child: item)]),
         ),
       ),
     );
@@ -1241,6 +1358,7 @@ class CsTooltipState {
 }
 const csTooltipGap = 8.0;
 String csTooltipLabel(String? label, String fallback) => label ?? fallback;
+String csTooltipPlacement(String? placement) => placement != null && placement.isNotEmpty ? placement : 'top';
 const csTooltipDefault = 'Tooltip';
 String csTooltipCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
@@ -1262,10 +1380,12 @@ CsTooltipState csTooltipBlur(CsTooltipState state, bool inside) => inside ? stat
 CsTooltipState csTooltipEscape(CsTooltipState state) => CsTooltipState(hovered: state.hovered, focused: state.focused, dismissed: true);
 
 class CsTooltip extends StatefulWidget {
-  const CsTooltip({super.key, required this.dark, required this.highContrast, required this.compact, required this.child, this.label, this.fallbackLabel, this.language});
+  const CsTooltip({super.key, required this.dark, required this.highContrast, required this.compact, required this.child, this.label, this.fallbackLabel, this.language, this.placement, this.portal = true});
   final String? label;
   final String? fallbackLabel;
   final String? language;
+  final String? placement;
+  final bool portal;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -1339,7 +1459,7 @@ class _CsTooltipState extends State<CsTooltip> {
     final screen = MediaQuery.sizeOf(context);
     final viewport = CsFloatingRect(8, 8, screen.width - 8, screen.height - 8, screen.width, screen.height);
     final anchor = box == null ? null : CsFloatingRect(origin.dx, origin.dy, origin.dx + box.size.width, origin.dy + box.size.height, box.size.width, box.size.height);
-    final initial = anchor == null || natural == null ? null : csFloatingPlace(anchor, natural!.width, natural!.height, viewport, placement: 'top', gap: csTooltipGap);
+    final initial = anchor == null || natural == null ? null : csFloatingPlace(anchor, natural!.width, natural!.height, viewport, placement: csTooltipPlacement(widget.placement), gap: csTooltipGap);
     final placed = anchor == null || fitted == null || initial == null ? null : csFloatingPlace(anchor, fitted!.width, fitted!.height, viewport, placement: initial.placement, gap: csTooltipGap);
     final desired = placed == null || layoutOrigin == null ? Offset.zero : Offset((placed.left - layoutOrigin!.dx) / (panelScale.dx == 0 ? 1 : panelScale.dx), (placed.top - layoutOrigin!.dy) / (panelScale.dy == 0 ? 1 : panelScale.dy));
     if (placed != null && (desired - applied).distance > 0.5) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted) setState(() => applied = desired); });
