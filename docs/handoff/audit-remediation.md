@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `<pending-commit>` (`fix(native): use csTabsMove in Flutter CsSegmentedControl keyboard roving`)
+- Checkpoint commit: `d82daccd3ae91c9780c95002c2391aed03243d49` (`fix(native): use csTabsMove in Flutter CsSegmentedControl keyboard roving`)
 - Previous checkpoint: `26273a88f7fbe4b16735003b6d92504ff50251c8`, with the hash note in `a41f6300`
 - GitHub Actions push workflows re-enabled (`Design System Gates` `316944477`, `native-validation` `377620668`, `native-store` `318755963`, `OpenSSF Scorecard` `330342703`)
 
