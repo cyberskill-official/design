@@ -124,8 +124,28 @@ fun csHotKeyNextOpen(open: Boolean, helpKey: Boolean, otherModal: Boolean): Bool
   return !open
 }
 fun csHotKeyDismissBackdrop(open: Boolean) = open
+const val csHotKeyRootClass = "cs-hotkeys"
+const val csHotKeySheetClass = "cs-hotkeys__sheet"
+const val csHotKeyCardClass = "cs-hotkeys__card"
+const val csHotKeyKbdClass = "cs-kbd"
+const val csHotKeyDialogRole = "dialog"
+const val csHotKeyHelpShortcut = "?"
+fun csHotKeyIsFieldTag(tag: String): Boolean {
+  val lower = tag.lowercase()
+  return lower == "input" || lower == "textarea" || lower == "select"
+}
 
 const val csChartDefaultHeight = 160.0
+const val csChartDefaultType = "bar"
+const val csChartDefaultWidth = 320.0
+const val csChartRootClass = "cs-chart"
+const val csChartLegendClass = "cs-chart__legend"
+const val csChartRole = "img"
+const val csChartPieViewBox = "0 0 120 120"
+fun csChartPieStrokeWidth() = 1.5
+fun csChartLineStrokeWidth() = 2.4
+fun csChartLinePointRadius() = 3.4
+fun csChartBarCornerRadius() = 3.0
 fun csChartMargin() = 0.dp
 fun csChartGap() = 8.dp
 fun csChartMaxWidth() = 420.dp
@@ -277,6 +297,14 @@ fun csTerminalFocusOutlineWidth(focused: Boolean) = if (focused) 2.dp else 0.dp
 fun csTerminalFocusOutlineOffset(focused: Boolean) = if (focused) 2.dp else 0.dp
 fun csTerminalFocusRingWidth(focused: Boolean) = if (focused) 5.dp else 0.dp
 fun csTerminalSubmits(composing: Boolean, keyCode: Int) = !composing && keyCode != 229
+const val csTerminalDefaultPrompt = "➜"
+const val csTerminalRootClass = "cs-terminal"
+const val csTerminalBarClass = "cs-terminal__bar"
+const val csTerminalBodyClass = "cs-terminal__body"
+const val csTerminalLineClass = "cs-terminal__line"
+const val csTerminalOutputClass = "cs-terminal__out"
+const val csTerminalPromptClass = "p"
+const val csTerminalSpellCheck = false
 
 data class CsCascaderNode(val key: String, val label: String, val children: List<CsCascaderNode> = emptyList())
 data class CsCascaderPick(val path: List<String>, val commit: Boolean)
@@ -391,6 +419,27 @@ fun csCascaderCopy(key: String, language: String?): String {
 fun csCascaderPlaceholderText(text: String?, fallback: String) = text ?: fallback
 fun csCascaderFace(labels: List<String>, placeholder: String) = if (labels.isEmpty()) placeholder else labels.joinToString(" / ")
 fun csCascaderFieldName(label: String?, labelledBy: String?) = if (!labelledBy.isNullOrEmpty()) null else label
+const val csCascaderRootClass = "cs-cascader"
+const val csCascaderFieldClass = "cs-treeselect__field"
+const val csCascaderPopClass = "cs-cascader__pop"
+const val csCascaderColClass = "cs-cascader__col"
+const val csCascaderTriggerHasPopup = "listbox"
+const val csCascaderListboxRole = "listbox"
+const val csCascaderOptionRole = "option"
+const val csCascaderChevronGlyph = "▾"
+const val csCascaderChildGlyph = " ›"
+fun csCascaderOptionClass(selected: Boolean) = if (selected) "cs-cascader__opt on" else "cs-cascader__opt"
+fun csCascaderOpensFromTriggerKey(key: String, open: Boolean) = !open && (key == "ArrowDown" || key == "Enter" || key == " ")
+fun csCascaderDescriptionId(id: String, description: String?) = if (description.isNullOrEmpty()) null else "$id-description"
+fun csCascaderErrorId(id: String, error: String?) = if (error.isNullOrEmpty()) null else "$id-error"
+fun csCascaderDescribedBy(explicit: String?, descriptionId: String?, errorId: String?): String? {
+  val parts = listOfNotNull(explicit, descriptionId, errorId).filter { it.isNotEmpty() }
+  return if (parts.isEmpty()) null else parts.joinToString(" ")
+}
+fun csCascaderInvalid(error: String?) = !error.isNullOrEmpty()
+const val csDockToolbarRole = "toolbar"
+const val csDockRootClass = "cs-dock"
+fun csDockItemClass(active: Boolean) = if (active) "cs-dock__item on" else "cs-dock__item"
 fun csDockIsActive(item: String, activeItems: Set<String> = emptySet()) = item in activeItems
 fun csDockScale(index: Int, hover: Int?): CsDockScale {
   val distance = if (hover == null) 3 else kotlin.math.abs(index - hover)
@@ -400,7 +449,7 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
     else -> CsDockScale(1.0, 0.0)
   }
 }
-@Composable fun CsCascader(path: List<String>, dark: Boolean, highContrast: Boolean, compact: Boolean, onChange: (List<String>) -> Unit, modifier: Modifier = Modifier, nodes: List<CsCascaderNode> = emptyList(), label: String? = null, labelledBy: String? = null, placeholder: String? = null, disabled: Boolean = false, portal: Boolean = true, placement: String? = null, language: String? = null) {
+@Composable fun CsCascader(path: List<String> = emptyList(), dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, onChange: (List<String>) -> Unit = {}, modifier: Modifier = Modifier, nodes: List<CsCascaderNode> = emptyList(), label: String? = null, labelledBy: String? = null, description: String? = null, error: String? = null, required: Boolean = false, ariaDescribedBy: String? = null, placeholder: String? = null, disabled: Boolean = false, portal: Boolean = true, placement: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val hint = csCascaderPlaceholderText(placeholder, csCascaderCopy("placeholder", locale))
@@ -460,6 +509,8 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
       Text(shown, color = pack.colorTextPrimary.toComposeColor(), modifier = if (name != null) Modifier.clearAndSetSemantics {} else Modifier)
       Text("▾", modifier = Modifier.clearAndSetSemantics {})
     }
+    if (!description.isNullOrEmpty()) Text(description, color = pack.colorTextMuted.toComposeColor())
+    if (!error.isNullOrEmpty()) Text(error, color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
     if (opened) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csCascaderDismissOutside(true, false)) { requested = false; highlight = -1 } }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) { Row(Modifier.onGloballyPositioned {
       val bounds = it.boundsInWindow()
       val width = it.size.width.toDouble()
@@ -495,7 +546,7 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
     } }
   }
 }
-@Composable fun CsChart(label: String, values: List<Double>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, type: String = "bar", height: Double = csChartDefaultHeight, pointLabels: List<String> = emptyList(), showValues: Boolean = false, emptyLabel: String = "", language: String? = null) {
+@Composable fun CsChart(label: String = "", values: List<Double> = emptyList(), dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, modifier: Modifier = Modifier, type: String = "bar", height: Double = csChartDefaultHeight, pointLabels: List<String> = emptyList(), showValues: Boolean = false, emptyLabel: String = "", language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val kind = csChartKind(type)
   val color = pack.accent.toComposeColor()
@@ -535,7 +586,7 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
   }
   }
 }
-@Composable fun CsDock(label: String, items: List<String>, onSelect: (String) -> Unit, modifier: Modifier = Modifier, activeItems: Set<String> = emptySet()) {
+@Composable fun CsDock(label: String = "", items: List<String> = emptyList(), onSelect: (String) -> Unit = {}, modifier: Modifier = Modifier, activeItems: Set<String> = emptySet()) {
   var hover by remember { mutableStateOf<Int?>(null) }
   Row(modifier.clip(RoundedCornerShape(csControlsBatchStyleDockRadius())).padding(csControlsBatchStyleDockGap()).onPointerEvent(PointerEventType.Exit) { hover = null }.semantics { contentDescription = label }, horizontalArrangement = Arrangement.spacedBy(csControlsBatchStyleDockGap())) {
     items.forEachIndexed { index, item ->
@@ -549,6 +600,15 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
   }
 }
 enum class CsEditorMark { Off, On, Mixed }
+const val csEditorRootClass = "cs-editor"
+const val csEditorBarClass = "cs-editor__bar"
+const val csEditorButtonClass = "cs-toolbar__btn"
+const val csEditorAreaClass = "cs-editor__area"
+const val csEditorToolbarRole = "toolbar"
+const val csEditorAreaRole = "textbox"
+const val csEditorAreaMultiline = true
+const val csEditorDefaultMinHeight = 120.0
+fun csEditorInitialHtml(defaultValue: String = "", unsafeHtml: String? = null) = unsafeHtml ?: csEditorEscape(defaultValue)
 fun csEditorBorderWidth() = 1.dp
 fun csEditorMaxWidth() = 460.dp
 fun csEditorBarGap() = 2.dp
@@ -609,7 +669,7 @@ fun csEditorCopy(key: String, language: String?): String {
 }
 fun csEditorName(label: String?, fallback: String) = label ?: fallback
 fun csEditorPressed(current: Boolean) = !current
-@Composable fun CsEditor(text: String, onChange: (String) -> Unit, modifier: Modifier = Modifier, label: String? = null, language: String? = null, minHeight: Double = 120.0, selectionStart: Int = 0, selectionEnd: Int = 0, onSelection: (Int, Int) -> Unit = { _, _ -> }, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
+@Composable fun CsEditor(text: String = "", onChange: (String) -> Unit = {}, modifier: Modifier = Modifier, label: String? = null, defaultValue: String = "", unsafeHtml: String? = null, language: String? = null, minHeight: Double = 120.0, selectionStart: Int = 0, selectionEnd: Int = 0, onSelection: (Int, Int) -> Unit = { _, _ -> }, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
   val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("editor")
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
@@ -673,6 +733,18 @@ fun csControlEnabled(enabled: Boolean = true): Boolean = enabled && !CsDisabledS
 fun csFormFieldShowsLabel(label: String) = label.trim().isNotEmpty()
 fun csFormFieldShowsHint(hint: String?) = !hint.isNullOrEmpty()
 fun csFormFieldAlert(error: String?) = !error.isNullOrEmpty()
+const val csFormFieldSummaryClass = "cs-form__summary"
+const val csFormFieldLabelClass = "cs-field__label"
+const val csFormFieldErrorClass = "cs-field__error"
+const val csFormFieldHintClass = "cs-field__hint"
+const val csFormFieldDefaultValueProp = "value"
+fun csFormRootClass(pending: Boolean) = if (pending) "cs-form cs-form--pending" else "cs-form"
+fun csFormFieldRootClass(hasError: Boolean) = if (hasError) "cs-field cs-field--error" else "cs-field"
+fun csFormFieldDefaultValueForProp(valueProp: String = csFormFieldDefaultValueProp) = if (valueProp == "checked") "false" else ""
+fun csFormFieldLabelTag(isNativeControl: Boolean) = if (isNativeControl) "label" else "span"
+fun csFormFieldLabelId(id: String, hasLabel: Boolean) = if (hasLabel) "$id-label" else null
+fun csFormFieldDescriptionId(id: String, hasError: Boolean, hasHint: Boolean) = if (!hasError && hasHint) "$id-hint" else null
+fun csFormFieldErrorId(id: String, hasError: Boolean) = if (hasError) "$id-error" else null
 fun csFormFieldCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("required" to "bắt buộc")
@@ -683,7 +755,7 @@ fun csFormFieldCopy(key: String, language: String?): String {
   }
   return key
 }
-@Composable fun CsFormField(label: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, hint: String? = null, error: String? = null, required: Boolean = false, language: String? = null, content: @Composable () -> Unit) {
+@Composable fun CsFormField(label: String = "", dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, modifier: Modifier = Modifier, name: String? = null, valueProp: String = csFormFieldDefaultValueProp, hint: String? = null, error: String? = null, required: Boolean = false, language: String? = null, content: @Composable () -> Unit = {}) {
   val pack = csModePack(dark, highContrast, compact)
   val mark = csFormFieldCopy("required", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
   Column(modifier, verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleFormFieldGap())) {
@@ -694,6 +766,15 @@ fun csFormFieldCopy(key: String, language: String?): String {
     content()
     if (csFormFieldAlert(error)) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive }) else if (csFormFieldShowsHint(hint)) Text(hint ?: "")
   }
+}
+const val csFormArrayDefaultMin = 0
+const val csFormArrayDefaultMax = 50
+const val csFormArrayRootClass = "cs-form-array"
+const val csFormArrayRowsClass = "cs-form-array__rows"
+const val csFormArrayRowClass = "cs-form-array__row"
+fun csFormArrayFieldPath(name: String, index: Int, field: String? = null): String {
+  val base = "$name.$index"
+  return if (field.isNullOrEmpty()) base else "$base.$field"
 }
 fun csFormArrayCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -711,7 +792,7 @@ fun csFormArrayCanAdd(count: Int, max: Int) = count < max
 fun csFormArrayCanRemove(count: Int, min: Int) = count > min
 fun csFormArrayContext(inForm: Boolean) = !inForm
 fun csFormArrayAlert(inForm: Boolean) = csFormArrayContext(inForm)
-@Composable fun CsFormFieldArray(rows: List<String>, removeLabel: String, onChange: (List<String>) -> Unit, modifier: Modifier = Modifier, label: String? = null, addLabel: String? = null, min: Int = 0, max: Int = 50, language: String? = null) {
+@Composable fun CsFormFieldArray(rows: List<String> = emptyList(), removeLabel: String = "", onChange: (List<String>) -> Unit = {}, modifier: Modifier = Modifier, name: String? = null, label: String? = null, addLabel: String? = null, min: Int = 0, max: Int = 50, language: String? = null) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val add = csFormArrayAdd(addLabel, csFormArrayCopy("addRow", locale))
   if (csFormArrayAlert(LocalCsForm.current)) Text(csFormArrayCopy("arrayContext", locale), modifier.semantics { liveRegion = LiveRegionMode.Assertive })
@@ -726,6 +807,11 @@ fun csFormArrayAlert(inForm: Boolean) = csFormArrayContext(inForm)
     CsTriggerButton(title = add, onClick = { if (csFormArrayCanAdd(rows.size, max)) onChange(rows + "") }, enabled = csFormArrayCanAdd(rows.size, max)) { Text(add) }
   }
 }
+const val csFormWizardStepsClass = "cs-form__steps"
+const val csFormWizardBodyClass = "cs-form__body"
+const val csFormWizardNavClass = "cs-form__nav"
+fun csFormWizardStepCurrent(index: Int, active: Int) = if (index == active) "step" else null
+fun csFormWizardIsBusy(pending: Boolean) = if (pending) true else null
 fun csFormWizardCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("back" to "Quay lại", "next" to "Tiếp", "finish" to "Hoàn tất", "step" to "Bước", "summary" to "Vui lòng sửa các mục sau:", "requiredField" to "Vui lòng nhập giá trị")
@@ -764,7 +850,7 @@ fun csFormWizardAdvance(index: Int, count: Int, pending: Boolean, values: Map<St
 }
 fun csFormWizardSummary(errors: List<String>, submission: String?) = errors.isNotEmpty() || !submission.isNullOrEmpty()
 fun csFormWizardAlert(errors: List<String>, submission: String?) = csFormWizardSummary(errors, submission)
-@Composable fun CsFormWizard(steps: List<String>, index: Int, onIndex: (Int) -> Unit, modifier: Modifier = Modifier, backLabel: String? = null, nextLabel: String? = null, finishLabel: String? = null, errors: List<String> = emptyList(), values: Map<String, String> = emptyMap(), required: List<String> = emptyList(), custom: List<CsWizardRule> = emptyList(), submission: String? = null, pending: Boolean = false, language: String? = null, onComplete: () -> Unit = {}) {
+@Composable fun CsFormWizard(steps: List<String> = emptyList(), index: Int = 0, onIndex: (Int) -> Unit = {}, modifier: Modifier = Modifier, backLabel: String? = null, nextLabel: String? = null, finishLabel: String? = null, errors: List<String> = emptyList(), values: Map<String, String> = emptyMap(), required: List<String> = emptyList(), custom: List<CsWizardRule> = emptyList(), submission: String? = null, pending: Boolean = false, language: String? = null, onComplete: () -> Unit = {}) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val active = if (steps.isEmpty()) 0 else index.coerceIn(0, steps.lastIndex)
   val last = csFormWizardLast(active, steps.size)
@@ -793,7 +879,7 @@ fun csFormWizardAlert(errors: List<String>, submission: String?) = csFormWizardS
     }
   }
 }
-@Composable fun CsHotKeys(bindings: List<Pair<String, String>>, onTrigger: (String) -> Unit, modifier: Modifier = Modifier, help: Boolean = true, language: String? = null) {
+@Composable fun CsHotKeys(bindings: List<Pair<String, String>> = emptyList(), onTrigger: (String) -> Unit = {}, modifier: Modifier = Modifier, help: Boolean = true, language: String? = null) {
   var open by remember { mutableStateOf(false) }
   val spoken = csHotKeyCopy("title", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
   val toggle = csHotKeyCopy("toggle", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
@@ -824,6 +910,12 @@ fun csFormWizardAlert(errors: List<String>, submission: String?) = csFormWizardS
 }
 fun csHoverPlacement(explicit: String?) = explicit ?: "bottom-start"
 const val csHoverGap = 8.0
+const val csHoverDefaultOpenDelay = 150
+const val csHoverDefaultCloseDelay = 200
+const val csHoverRootClass = "cs-hovercard"
+const val csHoverPanelClass = "cs-hovercard__panel"
+const val csHoverDialogRole = "dialog"
+fun csHoverEscapeClose() = false
 data class CsHoverPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
 fun csHoverShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String): CsHoverPlace? {
   val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement, csHoverGap) ?: return null
@@ -836,7 +928,7 @@ fun csHoverOpen(hovered: Boolean, focused: Boolean) = hovered || focused
 fun csHoverDelay(opening: Boolean, openDelay: Int = 150, closeDelay: Int = 200) = if (opening) openDelay else closeDelay
 fun csHoverSyncAfterLeave(focused: Boolean) = !focused
 fun csHoverSyncAfterBlur(hovered: Boolean) = !hovered
-@Composable fun CsHoverCard(label: String, modifier: Modifier = Modifier, openDelay: Int = 150, closeDelay: Int = 200, portal: Boolean = true, placement: String? = null, content: @Composable () -> Unit) {
+@Composable fun CsHoverCard(label: String = "", modifier: Modifier = Modifier, ariaLabel: String? = null, ariaLabelledBy: String? = null, openDelay: Int = 150, closeDelay: Int = 200, portal: Boolean = true, placement: String? = null, content: @Composable () -> Unit) {
   var hovered by remember { mutableStateOf(false) }
   var focused by remember { mutableStateOf(false) }
   var open by remember { mutableStateOf(false) }
@@ -903,10 +995,28 @@ fun csNativeErrorId(id: String, shown: Boolean) = if (shown) "$id-err" else null
 fun csNativeLabelledBy(explicit: String?, hasAriaLabel: Boolean, labelId: String?) = explicit ?: if (hasAriaLabel) null else labelId
 fun csNativeInvalid(hasError: Boolean, passed: Boolean?) = if (hasError) true else passed
 const val csSelectPlaceholder = "Select…"
+const val csNativeSelectControlClass = "cs-field__control"
+const val csNativeSelectChevronClass = "cs-native-select__chevron"
+fun csNativeSelectChevronSize() = 16
+fun csNativeSelectChevronStrokeWidth() = 2.0
+fun csNativeSelectFieldClass(disabled: Boolean, hasError: Boolean): String {
+  val parts = mutableListOf("cs-field", "cs-native-select")
+  if (disabled) parts.add("cs-field--disabled")
+  if (hasError) parts.add("cs-field--error")
+  return parts.joinToString(" ")
+}
+fun csNativeSelectWrapClass(size: String = "md") = "cs-native-select__wrap cs-native-select__wrap--${csNativeSelectSize(size)}"
+fun csNativeSelectResolvedValue(selection: String, defaultValue: String = "") = selection.ifEmpty { defaultValue }
+fun csNativeSelectDescribedBy(explicit: String?, errorId: String?) = explicit ?: errorId
 fun csSelectShowsPlaceholder(placeholder: String?, hasChildren: Boolean) = placeholder != null || !hasChildren
 fun csSelectPlaceholderText(placeholder: String?, fallback: String) = placeholder ?: fallback
 fun csSelectControlId(id: String?, generated: String) = id ?: generated
 const val csInputGroupInput = "Input"
+const val csInputGroupClass = "cs-igroup"
+const val csInputGroupButtonClass = "cs-igroup__btn"
+fun csInputGroupRootClass(disabled: Boolean) = if (disabled) "cs-field cs-field--disabled" else "cs-field"
+fun csInputGroupAddonClass(isSuffix: Boolean) = if (isSuffix) "cs-igroup__addon cs-igroup__addon--suf" else "cs-igroup__addon"
+fun csInputGroupLabelId(id: String, hasLabel: Boolean) = if (hasLabel) "$id-label" else null
 fun csInputGroupText(controlled: String?, inner: String) = controlled ?: inner
 fun csInputGroupAddonName(ariaLabel: String?, hasLabel: Boolean, hasLabelledBy: Boolean, placeholder: String?, fallback: String) = when {
   ariaLabel != null -> ariaLabel
@@ -917,6 +1027,13 @@ fun csInputGroupAddonName(ariaLabel: String?, hasLabel: Boolean, hasLabelledBy: 
 const val csReviewRegion = "Human review gate"
 const val csReviewRisk = "review required"
 const val csReviewerPrefix = "Reviewer"
+const val csReviewRootClass = "cs-review-gate"
+const val csReviewRiskClass = "cs-review-gate__risk"
+const val csReviewSummaryClass = "cs-review-gate__summary"
+const val csReviewReviewerClass = "cs-review-gate__reviewer"
+const val csReviewActionsClass = "cs-review-gate__actions"
+const val csReviewRejectButtonVariant = "secondary"
+const val csReviewApproveButtonVariant = "primary"
 fun csReviewRiskText(risk: String?, fallback: String) = risk ?: fallback
 fun csReviewAction(label: String?, fallback: String) = label ?: fallback
 fun csReviewerLine(reviewer: String?, prefix: String) = if (reviewer.isNullOrEmpty()) null else "$prefix: $reviewer"
@@ -936,7 +1053,7 @@ fun csReviewCopy(key: String, language: String?): String {
   }
   return key
 }
-@Composable fun CsHumanReviewGate(summary: String, onApprove: () -> Unit, onReject: () -> Unit, modifier: Modifier = Modifier, risk: String? = null, approveLabel: String? = null, rejectLabel: String? = null, reviewer: String? = null, language: String? = null) {
+@Composable fun CsHumanReviewGate(summary: String = "", onApprove: () -> Unit = {}, onReject: () -> Unit = {}, modifier: Modifier = Modifier, risk: String? = null, approveLabel: String? = null, rejectLabel: String? = null, reviewer: String? = null, language: String? = null) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val riskText = csReviewRiskText(risk, csReviewCopy("risk", locale))
   val rejectName = csReviewAction(rejectLabel, csReviewCopy("reject", locale))
@@ -950,6 +1067,11 @@ fun csReviewCopy(key: String, language: String?): String {
     CsTriggerButton(title = approveName, onClick = onApprove) { Text(approveName) }
   }
 }
+const val csInlineRootClass = "cs-inline-edit"
+const val csInlineViewClass = "cs-inline-edit__view"
+fun csInlinePenSize() = 13
+fun csInlinePenStrokeWidth() = 1.9
+fun csInlinePlaceholderClass(value: String) = if (value.isEmpty()) "cs-inline-edit__placeholder" else null
 fun csInlineCommit(draft: String, value: String, cancelling: Boolean = false) = if (cancelling || draft == value) null else draft
 fun csInlineText(value: String, empty: String) = value.ifEmpty { empty }
 fun csInlineControlled(value: String?, inner: String) = value ?: inner
@@ -966,7 +1088,7 @@ fun csInlineCopy(key: String, language: String?): String {
   }
   return key
 }
-@Composable fun CsInlineEdit(label: String, value: String, onChange: (String) -> Unit, modifier: Modifier = Modifier, editAction: String = "", emptyLabel: String = "", language: String? = null) {
+@Composable fun CsInlineEdit(label: String = "", value: String = "", onChange: (String) -> Unit = {}, modifier: Modifier = Modifier, defaultValue: String = "", editAction: String = "", emptyLabel: String = "", language: String? = null) {
   var editing by remember { mutableStateOf(false) }
   var draft by remember(value) { mutableStateOf(value) }
   var cancelling by remember { mutableStateOf(false) }
@@ -1037,10 +1159,10 @@ fun csInputCopy(key: String, language: String?): String {
   }
   return key
 }
-@Composable fun CsInputGroup(label: String, modifier: Modifier = Modifier, placeholder: String? = null, prefixText: String? = null, suffixText: String? = null, text: String = "", onText: (String) -> Unit = {}, clearable: Boolean = false, password: Boolean = false, revealed: Boolean = false, onReveal: (Boolean) -> Unit = {}, disabled: Boolean = false, readOnly: Boolean = false, language: String? = null, content: @Composable () -> Unit) {
+@Composable fun CsInputGroup(label: String = "", modifier: Modifier = Modifier, placeholder: String? = null, defaultValue: String = "", ariaLabel: String? = null, ariaLabelledBy: String? = null, ariaDescribedBy: String? = null, prefixText: String? = null, suffixText: String? = null, text: String = "", onText: (String) -> Unit = {}, clearable: Boolean = false, password: Boolean = false, revealed: Boolean = false, onReveal: (Boolean) -> Unit = {}, disabled: Boolean = false, readOnly: Boolean = false, language: String? = null, content: @Composable () -> Unit = {}) {
   val handle = rememberFocusHandle("input-group")
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
-  val fieldName = csInputGroupAddonName(null, label.isNotEmpty(), false, placeholder, csInputCopy("input", locale)) ?: label
+  val fieldName = csInputGroupAddonName(ariaLabel, label.isNotEmpty(), ariaLabelledBy != null, placeholder, csInputCopy("input", locale)) ?: label
   val clearName = csInputCopy("clear", locale)
   val revealName = csInputRevealLabel(revealed, csInputCopy("show", locale), csInputCopy("hide", locale))
   Column(modifier.widthIn(min = csControlsWaveStyleInputGroupMinWidth())) {
@@ -1060,6 +1182,15 @@ fun csItemPaddingX() = 14.dp
 fun csItemBorderWidth() = 1.dp
 fun csItemIsInteractive(href: String?, hasOnClick: Boolean) = href != null || hasOnClick
 fun csItemHasInteractiveClass(interactive: Boolean, disabled: Boolean) = interactive && !disabled
+fun csItemTag(href: String?, hasOnClick: Boolean) = if (href != null) "a" else if (hasOnClick) "button" else "div"
+fun csItemRootClass(interactive: Boolean, selected: Boolean, disabled: Boolean): String {
+  val parts = mutableListOf("cs-item")
+  if (csItemHasInteractiveClass(interactive, disabled)) parts.add("cs-item--interactive")
+  if (selected) parts.add("cs-item--selected")
+  return parts.joinToString(" ")
+}
+fun csItemDisabledLinkTabIndex(isLink: Boolean, disabled: Boolean) = if (isLink && disabled) -1 else null
+fun csItemDisabledLinkRole(isLink: Boolean, disabled: Boolean, explicit: String? = null) = if (isLink && disabled) (explicit ?: "link") else explicit
 fun csItemShowsHover(interactive: Boolean, disabled: Boolean, hovered: Boolean) = csItemHasInteractiveClass(interactive, disabled) && hovered
 fun csItemFocusOutlineWidth(focused: Boolean) = if (focused) 2.dp else 0.dp
 fun csItemFocusOutlineOffset(focused: Boolean) = if (focused) 2.dp else 0.dp
@@ -1072,7 +1203,7 @@ fun csItemDescriptionLineHeight() = 1.4f
 fun csItemShowsSlot(value: String?) = value != null
 fun csItemTrailingText(trailing: String?, hasExplicitTrailing: Boolean, hasTitle: Boolean, children: String?) = if (hasExplicitTrailing) trailing else if (hasTitle) children else null
 fun csItemMainExtraText(hasExplicitTrailing: Boolean, hasTitle: Boolean, children: String?) = if (hasExplicitTrailing) children else if (!hasTitle) children else null
-@Composable fun CsItem(title: String, subtitle: String = "", modifier: Modifier = Modifier, description: String? = null, leading: String? = null, trailing: String? = null, childrenText: String? = null, href: String? = null, selected: Boolean = false, disabled: Boolean = false, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, onClick: (() -> Unit)? = null) {
+@Composable fun CsItem(title: String = "", subtitle: String = "", modifier: Modifier = Modifier, description: String? = null, leading: String? = null, trailing: String? = null, childrenText: String? = null, href: String? = null, selected: Boolean = false, disabled: Boolean = false, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, onClick: (() -> Unit)? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val interaction = remember { MutableInteractionSource() }
   val hovered by interaction.collectIsHoveredAsState()
@@ -1093,28 +1224,47 @@ fun csItemMainExtraText(hasExplicitTrailing: Boolean, hasTitle: Boolean, childre
     if (csItemShowsSlot(trail)) Text(trail ?: "", color = pack.colorTextMuted.toComposeColor())
   }
 }
-@Composable fun CsLocaleProvider(language: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+const val csLocaleDefaultLanguage = "vi"
+fun csLocaleResolveMessage(namespace: String, key: String, messages: Map<String, Map<String, Map<String, String>>> = emptyMap(), language: String? = null): String {
+  val want = csComboboxPrimaryLanguage(language) ?: csLocaleDefaultLanguage
+  for (locale in linkedSetOf(want, "en", "vi")) {
+    messages[namespace]?.get(locale)?.get(key)?.let { return it }
+  }
+  return key
+}
+@Composable fun CsLocaleProvider(language: String = csLocaleDefaultLanguage, modifier: Modifier = Modifier, messages: Map<String, Map<String, Map<String, String>>> = emptyMap(), content: @Composable () -> Unit = {}) {
   androidx.compose.runtime.CompositionLocalProvider(LocalCsLanguage provides language) { Column(modifier) { content() } }
 }
+const val csLumiDefaultSize = "md"
+const val csLumiDefaultAlt = "Lumi"
+const val csLumiGlyph = "✦"
+fun csLumiRootClass(size: String = csLumiDefaultSize, ring: Boolean = false) = if (ring) "cs-lumi cs-lumi--$size cs-lumi--ring" else "cs-lumi cs-lumi--$size"
+fun csLumiRole(src: String?, alt: String) = if (src == null && alt.isNotEmpty()) "img" else null
 const val csMasonryDefaultColumns = 3
+const val csMasonryRootClass = "cs-masonry"
+const val csMasonryItemClass = "cs-masonry__item"
 fun csMasonryDefaultGap() = 16.dp
 fun csMasonrySafeColumns(columns: Int) = maxOf(1, columns)
 fun csMasonryItemMarginBottom(gap: androidx.compose.ui.unit.Dp = csMasonryDefaultGap()) = gap
-@Composable fun CsLumiAvatar(alt: String = csAiStyleLumiDefaultAlt, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, size: String = "md", src: String? = null, ring: Boolean = false) {
+@Composable fun CsLumiAvatar(alt: String = csAiStyleLumiDefaultAlt, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, modifier: Modifier = Modifier, size: String = "md", src: String? = null, ring: Boolean = false) {
   val pack = csModePack(dark, highContrast, compact)
   val label = csAiStyleLumiWrapperLabel(src, alt) ?: alt
   Box(modifier.padding(csAiStyleLumiRingSpread(ring)).size(csAiStyleLumiSize(size)).background(pack.colorBrandOchre.toComposeColor(), RoundedCornerShape(999.dp)).let { if (label.isNotEmpty()) it.semantics { contentDescription = label } else it.clearAndSetSemantics {} }, contentAlignment = Alignment.Center) {
     Text(if (csAiStyleLumiHasImage(src)) alt else csAiStyleLumiGlyph, color = pack.colorBrandUmber.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
   }
 }
-@Composable fun CsMasonry(columns: Int = csMasonryDefaultColumns, modifier: Modifier = Modifier, gap: androidx.compose.ui.unit.Dp = csMasonryDefaultGap(), content: @Composable () -> Unit) { val safe = csMasonrySafeColumns(columns); Column(modifier, verticalArrangement = Arrangement.spacedBy(if (safe >= 1) csMasonryItemMarginBottom(gap) else gap)) { content() } }
-@Composable fun CsMenuItem(title: String, onSelect: () -> Unit, modifier: Modifier = Modifier) {
+@Composable fun CsMasonry(columns: Int = csMasonryDefaultColumns, modifier: Modifier = Modifier, gap: androidx.compose.ui.unit.Dp = csMasonryDefaultGap(), content: @Composable () -> Unit = {}) { val safe = csMasonrySafeColumns(columns); Column(modifier, verticalArrangement = Arrangement.spacedBy(if (safe >= 1) csMasonryItemMarginBottom(gap) else gap)) { content() } }
+const val csMenuItemRole = "menuitem"
+const val csMenuItemTabIndex = -1
+fun csMenuItemClass(danger: Boolean = false) = if (danger) "cs-menu__item cs-menu__item--danger" else "cs-menu__item"
+fun csMenuItemShowsIcon(icon: String?) = !icon.isNullOrEmpty()
+@Composable fun CsMenuItem(title: String = "", onSelect: () -> Unit = {}, modifier: Modifier = Modifier, danger: Boolean = false, icon: String? = null, disabled: Boolean = false) {
   val handle = rememberFocusHandle("menu-item")
-  TextButton(onClick = { handle.claim(); onSelect() }, modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.minimumInteractiveComponentSize(), enabled = csControlEnabled(), contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = csNavigationStyleMenuItemPaddingX(), vertical = csNavigationStyleMenuItemPaddingY())) { Text(title) }
+  TextButton(onClick = { handle.claim(); onSelect() }, modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.minimumInteractiveComponentSize(), enabled = csControlEnabled(!disabled), contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = csNavigationStyleMenuItemPaddingX(), vertical = csNavigationStyleMenuItemPaddingY())) { Text(title) }
 }
 fun csNativeSelectSize(size: String = "md") = if (size == "sm" || size == "lg") size else "md"
 fun csNativeSelectAlert(error: String?) = error != null && csPresenceShown(CsPresence.Text, error)
-@Composable fun CsNativeSelect(label: String, options: List<String>, selection: String, onSelect: (String) -> Unit, modifier: Modifier = Modifier, error: String? = null, placeholder: String? = null, hasChildren: Boolean = false, disabled: Boolean = false, disabledOptions: Set<String> = emptySet(), size: String = "md", dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
+@Composable fun CsNativeSelect(label: String = "", options: List<String> = emptyList(), selection: String = "", onSelect: (String) -> Unit = {}, modifier: Modifier = Modifier, defaultValue: String = "", id: String? = null, ariaLabel: String? = null, ariaLabelledBy: String? = null, ariaDescribedBy: String? = null, error: String? = null, placeholder: String? = null, hasChildren: Boolean = false, disabled: Boolean = false, disabledOptions: Set<String> = emptySet(), size: String = "md", dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
   val handle = rememberFocusHandle("select")
   val pack = csModePack(dark, highContrast, compact)
   val enabled = csControlEnabled(!disabled)
@@ -1139,6 +1289,10 @@ fun csNativeSelectAlert(error: String?) = error != null && csPresenceShown(CsPre
     if (csNativeSelectAlert(error)) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
   }
 }
+const val csNavItemIconClass = "cs-nav-item__icon"
+const val csNavItemTrailClass = "cs-nav-item__trail"
+fun csNavItemRootClass(active: Boolean) = if (active) "cs-nav-item cs-nav-item--active" else "cs-nav-item"
+fun csNavItemButtonType(href: String?) = if (csNavItemTag(href) == "button") "button" else null
 fun csNavItemGap() = 11.dp
 fun csNavItemPaddingY() = 9.dp
 fun csNavItemPaddingX() = 12.dp
@@ -1166,7 +1320,7 @@ private fun csNavItemSrgbToOklab(rgb: List<Double>): List<Double> {
   val s = (0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b).pow(1.0 / 3)
   return listOf(0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s)
 }
-@Composable fun CsNavItem(title: String, active: Boolean, onSelect: () -> Unit, modifier: Modifier = Modifier, icon: String? = null, trail: String? = null, href: String? = null, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
+@Composable fun CsNavItem(title: String = "", active: Boolean = false, onSelect: () -> Unit = {}, modifier: Modifier = Modifier, icon: String? = null, trail: String? = null, href: String? = null, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
   val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("nav-item")
   val interaction = remember { MutableInteractionSource() }
@@ -1189,10 +1343,26 @@ private fun csNavItemSrgbToOklab(rgb: List<Double>): List<Double> {
     }
   }
 }
-@Composable fun CsOverlayProvider(modifier: Modifier = Modifier, content: @Composable () -> Unit) { Column(modifier) { content() } }
+const val csOverlayProviderRegistryProtocol = "cyberskill.overlay-manager/1"
+const val csOverlayProviderRootDataAttr = "data-cs-overlay-root"
+const val csOverlayProviderDefaultKind = "modal"
+fun csOverlayProviderId(id: String) = "cs-overlay-provider-$id"
+fun csOverlayProviderLocksScroll(kind: String = csOverlayProviderDefaultKind, explicit: Boolean? = null) = explicit ?: (kind == "modal" || kind == "drawer" || kind == "sheet" || kind == "command" || kind == "alert")
+@Composable fun CsOverlayProvider(modifier: Modifier = Modifier, content: @Composable () -> Unit = {}) { Column(modifier) { content() } }
 const val csPromptPlaceholder = "Type your wish…"
 const val csPromptSend = "Send"
 const val csPromptHint = "Lumi replies, then hands clear wishes to a human."
+const val csPromptDefaultRows = 1
+const val csPromptRootClass = "cs-prompt"
+const val csPromptFieldClass = "cs-prompt__field"
+const val csPromptBarClass = "cs-prompt__bar"
+const val csPromptHintClass = "cs-prompt__hint"
+const val csPromptSpinnerClass = "cs-button__spinner"
+const val csPromptSendButtonVariant = "primary"
+const val csPromptSendButtonSize = "sm"
+fun csPromptHintIconSize() = 14
+fun csPromptHintIconStrokeWidth() = 1.8
+fun csPromptShowsSpinner(busy: Boolean) = busy
 fun csPromptCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf(
@@ -1219,11 +1389,11 @@ fun csPromptSubmit(value: String, disabled: Boolean, busy: Boolean): String? {
 }
 fun csPromptEnter(shift: Boolean, composing: Boolean, keyCode: Int) = !shift && !composing && keyCode != 229
 fun csPromptShowsHint(hint: String?) = hint == null || hint.isNotEmpty()
-@Composable fun CsPromptInput(text: String, onSubmit: (String) -> Unit, modifier: Modifier = Modifier, onText: (String) -> Unit = {}, submitLabel: String? = null, placeholder: String? = null, hint: String? = null, ariaLabel: String? = null, disabled: Boolean = false, busy: Boolean = false, language: String? = null) {
+@Composable fun CsPromptInput(text: String = "", onSubmit: (String) -> Unit = {}, modifier: Modifier = Modifier, onText: (String) -> Unit = {}, submitLabel: String? = null, sendLabel: String? = null, placeholder: String? = null, hint: String? = null, ariaLabel: String? = null, disabled: Boolean = false, busy: Boolean = false, language: String? = null) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val prompt = csPromptPlaceholderText(placeholder, csPromptCopy("placeholder", locale))
   val name = csPromptSpoken(ariaLabel, prompt)
-  val sendName = submitLabel ?: csPromptCopy("send", locale)
+  val sendName = sendLabel ?: submitLabel ?: csPromptCopy("send", locale)
   val hintLine = csPromptHintText(hint, csPromptCopy("hint", locale))
   val submitted = csPromptSubmit(text, disabled, busy)
   val handle = rememberFocusHandle("prompt")
@@ -1234,10 +1404,13 @@ fun csPromptShowsHint(hint: String?) = hint == null || hint.isNotEmpty()
   }
 }
 data class CsPromptSuggestion(val label: String, val icon: String? = null)
+const val csPromptSuggestionsRootClass = "cs-suggest"
+fun csPromptSuggestionsIconSize() = 14
+fun csPromptSuggestionsIconStrokeWidth() = 1.8
 fun csPromptIcon(icon: String?) = icon ?: "sparkle"
 fun csPromptChosen(label: String, hasHandler: Boolean) = if (hasHandler) label else null
 fun csPromptSelected(suggestion: CsPromptSuggestion) = suggestion.label
-@Composable fun CsPromptSuggestions(suggestions: List<CsPromptSuggestion>, onSelect: (String) -> Unit, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, modifier: Modifier = Modifier) {
+@Composable fun CsPromptSuggestions(suggestions: List<CsPromptSuggestion> = emptyList(), onSelect: (String) -> Unit = {}, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, modifier: Modifier = Modifier) {
   Column(modifier, verticalArrangement = Arrangement.spacedBy(csAiStyleSuggestGap())) {
     suggestions.forEach { item ->
       CsTriggerButton(title = item.label, onClick = { onSelect(csPromptSelected(item)) }, modifier = Modifier.padding(horizontal = csAiStyleSuggestButtonPaddingX(), vertical = csAiStyleSuggestButtonPaddingY()).minimumInteractiveComponentSize()) {
@@ -1247,8 +1420,13 @@ fun csPromptSelected(suggestion: CsPromptSuggestion) = suggestion.label
   }
 }
 const val csQrDefaultSize = 128.0
+const val csQrRootClass = "cs-qrcode"
+const val csQrRole = "img"
+const val csQrFallbackGlyph = "—"
+const val csQrDefaultColor = "var(--cs-color-text-primary)"
+fun csQrCellSize(size: Double = csQrDefaultSize, modulesCount: Int) = if (modulesCount > 0) size / modulesCount else 0.0
 fun csQrAccessibleLabel(label: String?, value: String) = if (!label.isNullOrEmpty()) label else value
-@Composable fun CsQRCode(value: String = "", label: String = "", modifier: Modifier = Modifier, size: Double = csQrDefaultSize) {
+@Composable fun CsQRCode(value: String = "", label: String = "", modifier: Modifier = Modifier, size: Double = csQrDefaultSize, color: String? = null) {
   val modules = csQrMatrix(value)
   val pad = csControlsBatchStyleQrCodePadding()
   val spoken = csQrAccessibleLabel(label, value)
@@ -1260,6 +1438,18 @@ fun csQrAccessibleLabel(label: String?, value: String) = if (!label.isNullOrEmpt
 }
 const val csTreeSelectPlaceholder = "Select…"
 const val csTreeSelectPlacementDefault = "bottom-start"
+const val csTreeSelectRootClass = "cs-treeselect"
+const val csTreeSelectFieldClass = "cs-treeselect__field"
+const val csTreeSelectPopClass = "cs-treeselect__pop"
+const val csTreeSelectTriggerHasPopup = "tree"
+const val csTreeSelectChevronGlyph = "▾"
+fun csTreeSelectDescriptionId(id: String, description: String?) = if (description.isNullOrEmpty()) null else "$id-description"
+fun csTreeSelectErrorId(id: String, error: String?) = if (error.isNullOrEmpty()) null else "$id-error"
+fun csTreeSelectDescribedBy(explicit: String?, descriptionId: String?, errorId: String?): String? {
+  val parts = listOfNotNull(explicit, descriptionId, errorId).filter { it.isNotEmpty() }
+  return if (parts.isEmpty()) null else parts.joinToString(" ")
+}
+fun csTreeSelectInvalid(error: String?) = !error.isNullOrEmpty()
 fun csTreeSelectPlacement(explicit: String?) = explicit ?: csTreeSelectPlacementDefault
 fun csTreeSelectCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -1299,7 +1489,8 @@ fun csTreeSelectTreeName(label: String?, labelledBy: String?, placeholder: Strin
   !label.isNullOrEmpty() -> label
   else -> placeholder
 }
-@Composable fun CsTreeSelect(nodes: List<CsTreeNode>, selected: String?, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, open: Map<String, Boolean> = emptyMap(), placeholder: String? = null, disabled: Boolean = false, portal: Boolean = true, placement: String? = null, language: String? = null) {
+@Composable fun CsTreeSelect(nodes: List<CsTreeNode> = emptyList(), selected: String? = null, onSelect: (String) -> Unit = {}, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, description: String? = null, error: String? = null, required: Boolean = false, ariaDescribedBy: String? = null, open: Map<String, Boolean> = emptyMap(), placeholder: String? = null, disabled: Boolean = false, portal: Boolean = true, placement: String? = null, language: String? = null) {
+  val pack = csModePack(dark, highContrast, compact)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val hint = csTreeSelectPlaceholderText(placeholder, csTreeSelectCopy("placeholder", locale))
   val found = csTreeSelectFind(nodes, selected)
@@ -1334,6 +1525,8 @@ fun csTreeSelectTreeName(label: String?, labelledBy: String?, placeholder: Strin
       Text(shown, modifier = Modifier.clearAndSetSemantics {})
       Text("▾", modifier = Modifier.clearAndSetSemantics {})
     }
+    if (!description.isNullOrEmpty()) Text(description, color = pack.colorTextMuted.toComposeColor())
+    if (!error.isNullOrEmpty()) Text(error, color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
     if (opened) Popup(alignment = Alignment.TopStart, onDismissRequest = { if (csTreeSelectDismissOutside(true, false)) requested = false }, properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) { Column(Modifier.onGloballyPositioned {
       val bounds = it.boundsInWindow()
       val width = it.size.width.toDouble()
@@ -1361,6 +1554,14 @@ fun csTreeSelectTreeName(label: String?, labelledBy: String?, placeholder: Strin
 }
 data class CsTreeTableNode(val key: String, val label: String = "", val children: List<CsTreeTableNode> = emptyList())
 data class CsTreeTableRow(val key: String, val label: String, val depth: Int, val expandable: Boolean, val open: Boolean, val children: List<String> = emptyList())
+const val csTreeTableWrapClass = "cs-table-wrap"
+const val csTreeTableClass = "cs-table cs-treetable"
+const val csTreeTableCellClass = "cs-treetable__cell"
+const val csTreeTableTwistClass = "cs-tree__twist"
+const val csTreeTableEmptyClass = "cs-table__empty"
+const val csTreeTableOpenGlyph = "▾"
+const val csTreeTableClosedGlyph = "▸"
+fun csTreeTableResolvedExpanded(expanded: List<String>?, defaultExpanded: List<String> = emptyList()) = expanded ?: defaultExpanded
 fun csTreeRowId(prefix: String, key: String) = prefix + "-row-" + key.toCharArray().joinToString("") { it.code.toString(16).padStart(4, '0') }
 fun csTreeToggle(expanded: List<String>, key: String) = if (key in expanded) expanded.filter { it != key } else expanded + key
 fun csTreeRows(nodes: List<CsTreeTableNode>, expanded: List<String>, depth: Int = 0): List<CsTreeTableRow> = nodes.flatMap { node ->
@@ -1386,7 +1587,7 @@ fun csTreeTableShowsCaption(caption: String?) = !caption.isNullOrEmpty()
 fun csTreeTableTwist(action: String, cell: String) = "$action $cell"
 private val csTreeControlsKey = SemanticsPropertyKey<String>("Controls")
 private var SemanticsPropertyReceiver.csTreeControlsValue by csTreeControlsKey
-@Composable fun CsTreeTable(columns: List<String>, nodes: List<CsTreeTableNode>, onExpanded: (List<String>) -> Unit = {}, modifier: Modifier = Modifier, expanded: List<String> = emptyList(), emptyLabel: String = "", expandLabel: String = "", collapseLabel: String = "", caption: String? = null, language: String? = null) {
+@Composable fun CsTreeTable(columns: List<String> = emptyList(), nodes: List<CsTreeTableNode> = emptyList(), onExpanded: (List<String>) -> Unit = {}, modifier: Modifier = Modifier, expanded: List<String> = emptyList(), defaultExpanded: List<String> = emptyList(), emptyLabel: String = "", expandLabel: String = "", collapseLabel: String = "", caption: String? = null, language: String? = null) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val empty = csTreeTableWord(emptyLabel, csTreeTableCopy("empty", locale))
   val expand = csTreeTableWord(expandLabel, csTreeTableCopy("expand", locale))
@@ -1406,7 +1607,7 @@ private var SemanticsPropertyReceiver.csTreeControlsValue by csTreeControlsKey
     }
   }
 }
-@Composable fun CsTerminal(history: List<CsTerminalLine> = emptyList(), dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, title: String? = null, welcome: String? = null, prompt: String = "➜", language: String? = null, onCommand: (String) -> String? = { null }) {
+@Composable fun CsTerminal(history: List<CsTerminalLine> = emptyList(), dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, modifier: Modifier = Modifier, title: String? = null, welcome: String? = null, prompt: String = "➜", language: String? = null, onCommand: (String) -> String? = { null }) {
   val pack = csModePack(dark, highContrast, compact)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val bar = csTerminalBarTitle(title, csTerminalCopy("title", locale))
@@ -1447,6 +1648,8 @@ private var SemanticsPropertyReceiver.csTreeControlsValue by csTreeControlsKey
 }
 const val csTypingLabel = "Lumi is typing"
 const val csTypingDots = 3
+const val csTypingRootClass = "cs-typing"
+const val csTypingRole = "status"
 fun csTypingLabelText(label: String?, fallback: String) = label ?: fallback
 fun csTypingCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"

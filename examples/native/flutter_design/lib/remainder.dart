@@ -55,11 +55,31 @@ bool? csHotKeyNextOpen({required bool open, required bool helpKey, required bool
   return !open;
 }
 bool csHotKeyDismissBackdrop(bool open) => open;
+const csHotKeyRootClass = 'cs-hotkeys';
+const csHotKeySheetClass = 'cs-hotkeys__sheet';
+const csHotKeyCardClass = 'cs-hotkeys__card';
+const csHotKeyKbdClass = 'cs-kbd';
+const csHotKeyDialogRole = 'dialog';
+const csHotKeyHelpShortcut = '?';
+bool csHotKeyIsFieldTag(String tag) {
+  final lower = tag.toLowerCase();
+  return lower == 'input' || lower == 'textarea' || lower == 'select';
+}
 
 double csChartMargin() => 0;
 double csChartGap() => 8;
 double csChartMaxWidth() => 420;
 const csChartDefaultHeight = 160.0;
+const csChartDefaultType = 'bar';
+const csChartDefaultWidth = 320.0;
+const csChartRootClass = 'cs-chart';
+const csChartLegendClass = 'cs-chart__legend';
+const csChartRole = 'img';
+const csChartPieViewBox = '0 0 120 120';
+double csChartPieStrokeWidth() => 1.5;
+double csChartLineStrokeWidth() => 2.4;
+double csChartLinePointRadius() => 3.4;
+double csChartBarCornerRadius() => 3.0;
 double csChartCanvasWidth(String type, [double height = csChartDefaultHeight]) => csChartKind(type) == 'pie' ? height : 320;
 double csChartCanvasHeight([double height = csChartDefaultHeight]) => height;
 double csChartMax(List<double> values) => values.isEmpty ? 1 : (values.reduce((a, b) => a > b ? a : b) < 1 ? 1 : values.reduce((a, b) => a > b ? a : b));
@@ -252,6 +272,14 @@ double csTerminalFocusOutlineWidth(bool focused) => focused ? 2 : 0;
 double csTerminalFocusOutlineOffset(bool focused) => focused ? 2 : 0;
 double csTerminalFocusRingWidth(bool focused) => focused ? 5 : 0;
 bool csTerminalSubmits({required bool composing, required int keyCode}) => !composing && keyCode != 229;
+const csTerminalDefaultPrompt = '➜';
+const csTerminalRootClass = 'cs-terminal';
+const csTerminalBarClass = 'cs-terminal__bar';
+const csTerminalBodyClass = 'cs-terminal__body';
+const csTerminalLineClass = 'cs-terminal__line';
+const csTerminalOutputClass = 'cs-terminal__out';
+const csTerminalPromptClass = 'p';
+const csTerminalSpellCheck = false;
 
 class CsCascaderNode {
   const CsCascaderNode(this.key, this.label, [this.children = const []]);
@@ -421,6 +449,27 @@ String csCascaderCopy(String key, String? language) {
 String csCascaderPlaceholderText(String? text, String fallback) => text ?? fallback;
 String csCascaderFace(List<String> labels, String placeholder) => labels.isEmpty ? placeholder : labels.join(' / ');
 String? csCascaderFieldName(String? label, String? labelledBy) => labelledBy != null && labelledBy.isNotEmpty ? null : label;
+const csCascaderRootClass = 'cs-cascader';
+const csCascaderFieldClass = 'cs-treeselect__field';
+const csCascaderPopClass = 'cs-cascader__pop';
+const csCascaderColClass = 'cs-cascader__col';
+const csCascaderTriggerHasPopup = 'listbox';
+const csCascaderListboxRole = 'listbox';
+const csCascaderOptionRole = 'option';
+const csCascaderChevronGlyph = '▾';
+const csCascaderChildGlyph = ' ›';
+String csCascaderOptionClass(bool selected) => selected ? 'cs-cascader__opt on' : 'cs-cascader__opt';
+bool csCascaderOpensFromTriggerKey(String key, bool open) => !open && (key == 'ArrowDown' || key == 'Enter' || key == ' ');
+String? csCascaderDescriptionId(String id, String? description) => description == null || description.isEmpty ? null : '$id-description';
+String? csCascaderErrorId(String id, String? error) => error == null || error.isEmpty ? null : '$id-error';
+String? csCascaderDescribedBy({String? explicit, String? descriptionId, String? errorId}) {
+  final parts = [explicit, descriptionId, errorId].whereType<String>().where((s) => s.isNotEmpty).toList();
+  return parts.isEmpty ? null : parts.join(' ');
+}
+bool csCascaderInvalid(String? error) => error != null && error.isNotEmpty;
+const csDockToolbarRole = 'toolbar';
+const csDockRootClass = 'cs-dock';
+String csDockItemClass(bool active) => active ? 'cs-dock__item on' : 'cs-dock__item';
 
 CsDockScale csDockScale(int index, int? hover) {
   final distance = hover == null ? 3 : (index - hover).abs();
@@ -431,9 +480,13 @@ CsDockScale csDockScale(int index, int? hover) {
 bool csDockIsActive(String item, [Set<String> activeItems = const {}]) => activeItems.contains(item);
 
 class CsCascader extends StatefulWidget {
-  const CsCascader({super.key, required this.path, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.nodes = const [], this.label, this.labelledBy, this.placeholder, this.disabled = false, this.portal = true, this.placement, this.language});
+  const CsCascader({super.key, this.path = const [], this.onChange = _noopCascaderChange, this.dark = false, this.highContrast = false, this.compact = false, this.nodes = const [], this.label, this.labelledBy, this.description, this.error, this.required = false, this.ariaDescribedBy, this.placeholder, this.disabled = false, this.portal = true, this.placement, this.language});
   final String? label;
   final String? labelledBy;
+  final String? description;
+  final String? error;
+  final bool required;
+  final String? ariaDescribedBy;
   final List<String> path;
   final List<CsCascaderNode> nodes;
   final String? placeholder;
@@ -448,6 +501,8 @@ class CsCascader extends StatefulWidget {
   @override
   State<CsCascader> createState() => _CsCascaderState();
 }
+
+void _noopCascaderChange(List<String> _) {}
 
 class _CsCascaderState extends State<CsCascader> {
   var requested = false;
@@ -545,6 +600,8 @@ class _CsCascaderState extends State<CsCascader> {
         toggled: opened,
         child: CsOwnFocus(builder: (node, claim) => TextButton(key: fieldKey, focusNode: node, onPressed: widget.disabled ? null : () { claim(); setState(() => requested = !requested); }, child: name == null ? Text('$shown ▾') : ExcludeSemantics(child: Text('$shown ▾')))),
       ),
+      if (widget.description != null && widget.description!.isNotEmpty) Text(widget.description!),
+      if (widget.error != null && widget.error!.isNotEmpty) Semantics(liveRegion: true, child: Text(widget.error!)),
       if (opened) Transform.translate(offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Row(key: listKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
           for (var depth = 0; depth < columns.length; depth++)
             ConstrainedBox(
@@ -579,7 +636,7 @@ class _CsCascaderState extends State<CsCascader> {
 }
 
 class CsChart extends StatelessWidget {
-  const CsChart({super.key, required this.label, required this.values, required this.dark, required this.highContrast, required this.compact, this.type = 'bar', this.height = csChartDefaultHeight, this.pointLabels = const [], this.showValues = false, this.emptyLabel = '', this.language});
+  const CsChart({super.key, this.label = '', this.values = const [], this.dark = false, this.highContrast = false, this.compact = false, this.type = 'bar', this.height = csChartDefaultHeight, this.pointLabels = const [], this.showValues = false, this.emptyLabel = '', this.language});
   final String label;
   final List<double> values;
   final String type;
@@ -626,7 +683,7 @@ class CsChart extends StatelessWidget {
 }
 
 class CsDock extends StatefulWidget {
-  const CsDock({super.key, required this.label, required this.items, required this.onSelect, this.activeItems = const {}});
+  const CsDock({super.key, this.label = '', this.items = const [], this.onSelect = _noopStringChange, this.activeItems = const {}});
   final String label;
   final List<String> items;
   final Set<String> activeItems;
@@ -682,7 +739,19 @@ class _CsDockState extends State<CsDock> {
   );
 }
 
+void _noopStringChange(String _) {}
+
 enum CsEditorMark { off, on, mixed }
+
+const csEditorRootClass = 'cs-editor';
+const csEditorBarClass = 'cs-editor__bar';
+const csEditorButtonClass = 'cs-toolbar__btn';
+const csEditorAreaClass = 'cs-editor__area';
+const csEditorToolbarRole = 'toolbar';
+const csEditorAreaRole = 'textbox';
+const csEditorAreaMultiline = true;
+const csEditorDefaultMinHeight = 120.0;
+String csEditorInitialHtml({String defaultValue = '', String? unsafeHtml}) => unsafeHtml ?? csEditorEscape(defaultValue);
 
 double csEditorBorderWidth() => 1;
 double csEditorMaxWidth() => 460;
@@ -753,8 +822,10 @@ String csEditorName(String? label, String fallback) => label ?? fallback;
 bool csEditorPressed(bool current) => !current;
 
 class CsEditor extends StatefulWidget {
-  const CsEditor({super.key, required this.text, required this.onChange, this.label, this.language, this.minHeight = 120, this.selectionStart = 0, this.selectionEnd = 0, this.onSelection, this.dark = false, this.highContrast = false, this.compact = false});
+  const CsEditor({super.key, this.text = '', this.onChange = _noopStringChange, this.label, this.defaultValue = '', this.unsafeHtml, this.language, this.minHeight = 120, this.selectionStart = 0, this.selectionEnd = 0, this.onSelection, this.dark = false, this.highContrast = false, this.compact = false});
   final String? label;
+  final String defaultValue;
+  final String? unsafeHtml;
   final String? language;
   final double minHeight;
   final String text;
@@ -891,6 +962,18 @@ class CsFieldset extends StatelessWidget {
 bool csFormFieldShowsLabel(String label) => label.trim().isNotEmpty;
 bool csFormFieldShowsHint(String? hint) => hint != null && hint.isNotEmpty;
 bool csFormFieldAlert(String? error) => error != null && error.isNotEmpty;
+const csFormFieldSummaryClass = 'cs-form__summary';
+const csFormFieldLabelClass = 'cs-field__label';
+const csFormFieldErrorClass = 'cs-field__error';
+const csFormFieldHintClass = 'cs-field__hint';
+const csFormFieldDefaultValueProp = 'value';
+String csFormRootClass(bool pending) => pending ? 'cs-form cs-form--pending' : 'cs-form';
+String csFormFieldRootClass(bool hasError) => hasError ? 'cs-field cs-field--error' : 'cs-field';
+String csFormFieldDefaultValueForProp([String valueProp = csFormFieldDefaultValueProp]) => valueProp == 'checked' ? 'false' : '';
+String csFormFieldLabelTag(bool isNativeControl) => isNativeControl ? 'label' : 'span';
+String? csFormFieldLabelId(String id, bool hasLabel) => hasLabel ? '$id-label' : null;
+String? csFormFieldDescriptionId(String id, {required bool hasError, required bool hasHint}) => !hasError && hasHint ? '$id-hint' : null;
+String? csFormFieldErrorId(String id, bool hasError) => hasError ? '$id-error' : null;
 String csFormFieldCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'required': 'bắt buộc'};
@@ -906,8 +989,10 @@ String csFormFieldCopy(String key, String? language) {
 }
 
 class CsFormField extends StatelessWidget {
-  const CsFormField({super.key, required this.label, required this.dark, required this.highContrast, required this.compact, required this.child, this.hint, this.error, this.required = false, this.language});
+  const CsFormField({super.key, this.label = '', this.dark = false, this.highContrast = false, this.compact = false, this.child = const SizedBox.shrink(), this.name, this.valueProp = csFormFieldDefaultValueProp, this.hint, this.error, this.required = false, this.language});
   final String label;
+  final String? name;
+  final String valueProp;
   final String? hint;
   final String? error;
   final bool required;
@@ -931,6 +1016,15 @@ class CsFormField extends StatelessWidget {
   }
 }
 
+const csFormArrayDefaultMin = 0;
+const csFormArrayDefaultMax = 50;
+const csFormArrayRootClass = 'cs-form-array';
+const csFormArrayRowsClass = 'cs-form-array__rows';
+const csFormArrayRowClass = 'cs-form-array__row';
+String csFormArrayFieldPath(String name, int index, [String? field]) {
+  final base = '$name.$index';
+  return field == null || field.isEmpty ? base : '$base.$field';
+}
 String csFormArrayCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'addRow': 'Thêm dòng', 'arrayContext': 'FormFieldArray phải được đặt bên trong Form'};
@@ -952,7 +1046,8 @@ bool csFormArrayContext(bool inForm) => !inForm;
 bool csFormArrayAlert(bool inForm) => csFormArrayContext(inForm);
 
 class CsFormFieldArray extends StatelessWidget {
-  const CsFormFieldArray({super.key, required this.rows, required this.removeLabel, required this.onChange, this.label, this.addLabel, this.min = 0, this.max = 50, this.language});
+  const CsFormFieldArray({super.key, this.rows = const [], this.removeLabel = '', this.onChange = _noopCascaderChange, this.name, this.label, this.addLabel, this.min = 0, this.max = 50, this.language});
+  final String? name;
   final String? label;
   final List<String> rows;
   final String? addLabel;
@@ -978,6 +1073,11 @@ class CsFormFieldArray extends StatelessWidget {
   }
 }
 
+const csFormWizardStepsClass = 'cs-form__steps';
+const csFormWizardBodyClass = 'cs-form__body';
+const csFormWizardNavClass = 'cs-form__nav';
+String? csFormWizardStepCurrent(int index, int active) => index == active ? 'step' : null;
+bool? csFormWizardIsBusy(bool pending) => pending ? true : null;
 String csFormWizardCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'back': 'Quay lại', 'next': 'Tiếp', 'finish': 'Hoàn tất', 'step': 'Bước', 'summary': 'Vui lòng sửa các mục sau:', 'requiredField': 'Vui lòng nhập giá trị'};
@@ -1031,8 +1131,10 @@ CsWizardAdvance? csFormWizardAdvance(int index, int count, bool pending, Map<Str
 bool csFormWizardSummary(List<String> errors, String? submission) => errors.isNotEmpty || (submission != null && submission.isNotEmpty);
 bool csFormWizardAlert(List<String> errors, String? submission) => csFormWizardSummary(errors, submission);
 
+void _noopIntChange(int _) {}
+
 class CsFormWizard extends StatelessWidget {
-  const CsFormWizard({super.key, required this.steps, required this.index, required this.onIndex, this.backLabel, this.nextLabel, this.finishLabel, this.errors = const [], this.values = const {}, this.required = const [], this.custom = const [], this.submission, this.pending = false, this.language, this.onComplete, this.onErrors});
+  const CsFormWizard({super.key, this.steps = const [], this.index = 0, this.onIndex = _noopIntChange, this.backLabel, this.nextLabel, this.finishLabel, this.errors = const [], this.values = const {}, this.required = const [], this.custom = const [], this.submission, this.pending = false, this.language, this.onComplete, this.onErrors});
   final List<String> steps;
   final int index;
   final String? backLabel;
@@ -1086,7 +1188,7 @@ class CsFormWizard extends StatelessWidget {
 }
 
 class CsHotKeys extends StatefulWidget {
-  const CsHotKeys({super.key, required this.bindings, required this.onTrigger, this.help = true, this.language});
+  const CsHotKeys({super.key, this.bindings = const [], this.onTrigger = _noopStringChange, this.help = true, this.language});
   final List<(String, String)> bindings;
   final ValueChanged<String> onTrigger;
   final bool help;
@@ -1156,6 +1258,12 @@ class _CsHotKeysState extends State<CsHotKeys> {
 
 String csHoverPlacement(String? explicit) => explicit ?? 'bottom-start';
 const csHoverGap = 8.0;
+const csHoverDefaultOpenDelay = 150;
+const csHoverDefaultCloseDelay = 200;
+const csHoverRootClass = 'cs-hovercard';
+const csHoverPanelClass = 'cs-hovercard__panel';
+const csHoverDialogRole = 'dialog';
+bool csHoverEscapeClose() => false;
 class CsHoverPlace {
   const CsHoverPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
   final double x;
@@ -1179,8 +1287,10 @@ bool csHoverSyncAfterLeave(bool focused) => !focused;
 bool csHoverSyncAfterBlur(bool hovered) => !hovered;
 
 class CsHoverCard extends StatefulWidget {
-  const CsHoverCard({super.key, required this.label, required this.child, this.openDelay = 150, this.closeDelay = 200, this.portal = true, this.placement});
+  const CsHoverCard({super.key, this.label = '', this.ariaLabel, this.ariaLabelledBy, this.child = const SizedBox.shrink(), this.openDelay = 150, this.closeDelay = 200, this.portal = true, this.placement});
   final String label;
+  final String? ariaLabel;
+  final String? ariaLabelledBy;
   final Widget child;
   final int openDelay;
   final int closeDelay;
@@ -1287,10 +1397,28 @@ String? csNativeErrorId(String id, bool shown) => shown ? '$id-err' : null;
 String? csNativeLabelledBy(String? explicit, bool hasAriaLabel, String? labelId) => explicit ?? (hasAriaLabel ? null : labelId);
 bool? csNativeInvalid(bool hasError, bool? passed) => hasError ? true : passed;
 const csSelectPlaceholder = 'Select…';
+const csNativeSelectControlClass = 'cs-field__control';
+const csNativeSelectChevronClass = 'cs-native-select__chevron';
+int csNativeSelectChevronSize() => 16;
+double csNativeSelectChevronStrokeWidth() => 2.0;
+String csNativeSelectFieldClass({required bool disabled, required bool hasError}) {
+  final parts = <String>['cs-field', 'cs-native-select'];
+  if (disabled) parts.add('cs-field--disabled');
+  if (hasError) parts.add('cs-field--error');
+  return parts.join(' ');
+}
+String csNativeSelectWrapClass([String size = 'md']) => 'cs-native-select__wrap cs-native-select__wrap--${csNativeSelectSize(size)}';
+String csNativeSelectResolvedValue(String selection, [String defaultValue = '']) => selection.isEmpty ? defaultValue : selection;
+String? csNativeSelectDescribedBy(String? explicit, String? errorId) => explicit ?? errorId;
 bool csSelectShowsPlaceholder(String? placeholder, bool hasChildren) => placeholder != null || !hasChildren;
 String csSelectPlaceholderText(String? placeholder, String fallback) => placeholder ?? fallback;
 String csSelectControlId(String? id, String generated) => id ?? generated;
 const csInputGroupInput = 'Input';
+const csInputGroupClass = 'cs-igroup';
+const csInputGroupButtonClass = 'cs-igroup__btn';
+String csInputGroupRootClass(bool disabled) => disabled ? 'cs-field cs-field--disabled' : 'cs-field';
+String csInputGroupAddonClass(bool isSuffix) => isSuffix ? 'cs-igroup__addon cs-igroup__addon--suf' : 'cs-igroup__addon';
+String? csInputGroupLabelId(String id, bool hasLabel) => hasLabel ? '$id-label' : null;
 String csInputGroupText(String? controlled, String inner) => controlled ?? inner;
 String? csInputGroupAddonName(String? ariaLabel, bool hasLabel, bool hasLabelledBy, String? placeholder, String fallback) {
   if (ariaLabel != null) return ariaLabel;
@@ -1302,6 +1430,13 @@ String? csInputGroupAddonName(String? ariaLabel, bool hasLabel, bool hasLabelled
 const csReviewRegion = 'Human review gate';
 const csReviewRisk = 'review required';
 const csReviewerPrefix = 'Reviewer';
+const csReviewRootClass = 'cs-review-gate';
+const csReviewRiskClass = 'cs-review-gate__risk';
+const csReviewSummaryClass = 'cs-review-gate__summary';
+const csReviewReviewerClass = 'cs-review-gate__reviewer';
+const csReviewActionsClass = 'cs-review-gate__actions';
+const csReviewRejectButtonVariant = 'secondary';
+const csReviewApproveButtonVariant = 'primary';
 String csReviewRiskText(String? risk, String fallback) => risk ?? fallback;
 String csReviewAction(String? label, String fallback) => label ?? fallback;
 String? csReviewerLine(String? reviewer, String prefix) => reviewer == null || reviewer.isEmpty ? null : '$prefix: $reviewer';
@@ -1324,8 +1459,10 @@ String csReviewCopy(String key, String? language) {
   }
   return key;
 }
+void _noopVoid() {}
+
 class CsHumanReviewGate extends StatelessWidget {
-  const CsHumanReviewGate({super.key, this.risk, required this.summary, this.approveLabel, this.rejectLabel, required this.onApprove, required this.onReject, this.reviewer, this.language});
+  const CsHumanReviewGate({super.key, this.risk, this.summary = '', this.approveLabel, this.rejectLabel, this.onApprove = _noopVoid, this.onReject = _noopVoid, this.reviewer, this.language});
   final String? risk;
   final String summary;
   final String? reviewer;
@@ -1356,6 +1493,11 @@ class CsHumanReviewGate extends StatelessWidget {
   }
 }
 
+const csInlineRootClass = 'cs-inline-edit';
+const csInlineViewClass = 'cs-inline-edit__view';
+int csInlinePenSize() => 13;
+double csInlinePenStrokeWidth() => 1.9;
+String? csInlinePlaceholderClass(String value) => value.isEmpty ? 'cs-inline-edit__placeholder' : null;
 String? csInlineCommit(String draft, String value, [bool cancelling = false]) => cancelling || draft == value ? null : draft;
 String csInlineText(String value, String empty) => value.isEmpty ? empty : value;
 String csInlineControlled(String? value, String inner) => value ?? inner;
@@ -1377,9 +1519,10 @@ String csInlineCopy(String key, String? language) {
 }
 
 class CsInlineEdit extends StatefulWidget {
-  const CsInlineEdit({super.key, required this.label, required this.value, required this.onChange, this.editAction = '', this.emptyLabel = '', this.language});
+  const CsInlineEdit({super.key, this.label = '', this.value = '', this.defaultValue = '', this.onChange = _noopStringChange, this.editAction = '', this.emptyLabel = '', this.language});
   final String label;
   final String value;
+  final String defaultValue;
   final String editAction;
   final String emptyLabel;
   final String? language;
@@ -1497,10 +1640,14 @@ String csInputCopy(String key, String? language) {
 }
 
 class CsInputGroup extends StatelessWidget {
-  const CsInputGroup({super.key, required this.label, required this.child, this.text = '', this.placeholder, this.prefixText, this.suffixText, this.onText, this.clearable = false, this.password = false, this.revealed = false, this.onReveal, this.disabled = false, this.readOnly = false, this.language});
+  const CsInputGroup({super.key, this.label = '', this.child = const SizedBox.shrink(), this.text = '', this.defaultValue = '', this.ariaLabel, this.ariaLabelledBy, this.ariaDescribedBy, this.placeholder, this.prefixText, this.suffixText, this.onText, this.clearable = false, this.password = false, this.revealed = false, this.onReveal, this.disabled = false, this.readOnly = false, this.language});
   final String label;
   final Widget child;
   final String text;
+  final String defaultValue;
+  final String? ariaLabel;
+  final String? ariaLabelledBy;
+  final String? ariaDescribedBy;
   final String? placeholder;
   final String? prefixText;
   final String? suffixText;
@@ -1515,7 +1662,7 @@ class CsInputGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
-    final fieldName = csInputGroupAddonName(null, label.isNotEmpty, false, placeholder, csInputCopy('input', locale)) ?? label;
+    final fieldName = csInputGroupAddonName(ariaLabel, label.isNotEmpty, ariaLabelledBy != null, placeholder, csInputCopy('input', locale)) ?? label;
     final clearName = csInputCopy('clear', locale);
     final revealName = csInputRevealLabel(revealed, csInputCopy('show', locale), csInputCopy('hide', locale));
     final addonPadding = EdgeInsets.symmetric(horizontal: csControlsWaveStyleInputGroupAddonPaddingX());
@@ -1541,6 +1688,15 @@ double csItemPaddingX() => 14;
 double csItemBorderWidth() => 1;
 bool csItemIsInteractive(String? href, bool hasOnClick) => href != null || hasOnClick;
 bool csItemHasInteractiveClass({required bool interactive, required bool disabled}) => interactive && !disabled;
+String csItemTag(String? href, bool hasOnClick) => href != null ? 'a' : (hasOnClick ? 'button' : 'div');
+String csItemRootClass({required bool interactive, required bool selected, required bool disabled}) {
+  final parts = <String>['cs-item'];
+  if (csItemHasInteractiveClass(interactive: interactive, disabled: disabled)) parts.add('cs-item--interactive');
+  if (selected) parts.add('cs-item--selected');
+  return parts.join(' ');
+}
+int? csItemDisabledLinkTabIndex(bool isLink, bool disabled) => isLink && disabled ? -1 : null;
+String? csItemDisabledLinkRole(bool isLink, bool disabled, [String? explicit]) => isLink && disabled ? (explicit ?? 'link') : explicit;
 bool csItemShowsHover({required bool interactive, required bool disabled, required bool hovered}) =>
     csItemHasInteractiveClass(interactive: interactive, disabled: disabled) && hovered;
 double csItemFocusOutlineWidth(bool focused) => focused ? 2 : 0;
@@ -1558,7 +1714,7 @@ String? csItemMainExtraText({required bool hasExplicitTrailing, required bool ha
     hasExplicitTrailing ? children : (!hasTitle ? children : null);
 
 class CsItem extends StatefulWidget {
-  const CsItem({super.key, required this.title, this.subtitle = '', this.description, this.leading, this.trailing, this.childrenText, this.href, this.selected = false, this.disabled = false, this.dark = false, this.highContrast = false, this.compact = false, this.onClick});
+  const CsItem({super.key, this.title = '', this.subtitle = '', this.description, this.leading, this.trailing, this.childrenText, this.href, this.selected = false, this.disabled = false, this.dark = false, this.highContrast = false, this.compact = false, this.onClick});
   final String title;
   final String subtitle;
   final String? description;
@@ -1660,21 +1816,42 @@ class _CsItemState extends State<CsItem> {
   }
 }
 
+const csLocaleDefaultLanguage = 'vi';
+String csLocaleResolveMessage(String namespace, String key, [Map<String, Map<String, Map<String, String>>> messages = const {}, String? language]) {
+  final want = csSelectPrimaryLanguage(language) ?? csLocaleDefaultLanguage;
+  final seen = <String>{};
+  for (final locale in [want, 'en', 'vi']) {
+    if (!seen.add(locale)) continue;
+    final value = messages[namespace]?[locale]?[key];
+    if (value != null) return value;
+  }
+  return key;
+}
+
 class CsLocaleProvider extends StatelessWidget {
-  const CsLocaleProvider({super.key, required this.language, required this.child});
+  const CsLocaleProvider({super.key, this.language = csLocaleDefaultLanguage, this.messages = const {}, this.child = const SizedBox.shrink()});
   final String language;
+  final Map<String, Map<String, Map<String, String>>> messages;
   final Widget child;
   @override
   Widget build(BuildContext context) => CsLanguageScope(language: language, child: child);
 }
 
+const csLumiDefaultSize = 'md';
+const csLumiDefaultAlt = 'Lumi';
+const csLumiGlyph = '✦';
+String csLumiRootClass({String size = csLumiDefaultSize, bool ring = false}) => ring ? 'cs-lumi cs-lumi--$size cs-lumi--ring' : 'cs-lumi cs-lumi--$size';
+String? csLumiRole(String? src, String alt) => src == null && alt.isNotEmpty ? 'img' : null;
+
 const int csMasonryDefaultColumns = 3;
+const csMasonryRootClass = 'cs-masonry';
+const csMasonryItemClass = 'cs-masonry__item';
 double csMasonryDefaultGap() => 16;
 int csMasonrySafeColumns(int columns) => columns < 1 ? 1 : columns;
 double csMasonryItemMarginBottom([double? gap]) => gap ?? csMasonryDefaultGap();
 
 class CsLumiAvatar extends StatelessWidget {
-  const CsLumiAvatar({super.key, required this.dark, required this.highContrast, required this.compact, this.alt = csAiStyleLumiDefaultAlt, this.size = 'md', this.src, this.ring = false});
+  const CsLumiAvatar({super.key, this.dark = false, this.highContrast = false, this.compact = false, this.alt = csAiStyleLumiDefaultAlt, this.size = 'md', this.src, this.ring = false});
   final String alt;
   final String size;
   final String? src;
@@ -1714,7 +1891,7 @@ class CsLumiAvatar extends StatelessWidget {
 }
 
 class CsMasonry extends StatelessWidget {
-  const CsMasonry({super.key, required this.children, this.columns = csMasonryDefaultColumns, this.gap = 16});
+  const CsMasonry({super.key, this.children = const [], this.columns = csMasonryDefaultColumns, this.gap = 16});
   final int columns;
   final double gap;
   final List<Widget> children;
@@ -1730,22 +1907,35 @@ class CsMasonry extends StatelessWidget {
   }
 }
 
+const csMenuItemRole = 'menuitem';
+const csMenuItemTabIndex = -1;
+String csMenuItemClass([bool danger = false]) => danger ? 'cs-menu__item cs-menu__item--danger' : 'cs-menu__item';
+bool csMenuItemShowsIcon(String? icon) => icon != null && icon.isNotEmpty;
+
 class CsMenuItem extends StatelessWidget {
-  const CsMenuItem({super.key, required this.title, required this.onSelect});
+  const CsMenuItem({super.key, this.title = '', this.onSelect = _noopVoid, this.danger = false, this.icon, this.disabled = false});
   final String title;
   final VoidCallback onSelect;
+  final bool danger;
+  final String? icon;
+  final bool disabled;
   @override
-  Widget build(BuildContext context) => CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, style: TextButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: csNavigationStyleMenuItemPaddingX(), vertical: csNavigationStyleMenuItemPaddingY())), onPressed: () { claim(); onSelect(); }, child: Text(title)));
+  Widget build(BuildContext context) => CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, style: TextButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: csNavigationStyleMenuItemPaddingX(), vertical: csNavigationStyleMenuItemPaddingY())), onPressed: disabled ? null : () { claim(); onSelect(); }, child: Text(title)));
 }
 
 bool csNativeSelectAlert(String? error) => error != null && csPresenceShown(CsPresence.text, error);
 String csNativeSelectSize([String size = 'md']) => size == 'sm' || size == 'lg' ? size : 'md';
 
 class CsNativeSelect extends StatelessWidget {
-  const CsNativeSelect({super.key, required this.label, required this.options, required this.selection, required this.onSelect, this.placeholder, this.hasChildren = false, this.size = 'md', this.error, this.disabled = false, this.disabledOptions = const {}, this.dark = false, this.highContrast = false, this.compact = false});
+  const CsNativeSelect({super.key, this.label = '', this.options = const [], this.selection = '', this.defaultValue = '', this.id, this.ariaLabel, this.ariaLabelledBy, this.ariaDescribedBy, this.onSelect = _noopStringChange, this.placeholder, this.hasChildren = false, this.size = 'md', this.error, this.disabled = false, this.disabledOptions = const {}, this.dark = false, this.highContrast = false, this.compact = false});
   final String label;
   final List<String> options;
   final String selection;
+  final String defaultValue;
+  final String? id;
+  final String? ariaLabel;
+  final String? ariaLabelledBy;
+  final String? ariaDescribedBy;
   final String? placeholder;
   final bool hasChildren;
   final String size;
@@ -1778,6 +1968,10 @@ class CsNativeSelect extends StatelessWidget {
   }
 }
 
+const csNavItemIconClass = 'cs-nav-item__icon';
+const csNavItemTrailClass = 'cs-nav-item__trail';
+String csNavItemRootClass(bool active) => active ? 'cs-nav-item cs-nav-item--active' : 'cs-nav-item';
+String? csNavItemButtonType(String? href) => csNavItemTag(href) == 'button' ? 'button' : null;
 double csNavItemGap() => 11;
 double csNavItemPaddingY() => 9;
 double csNavItemPaddingX() => 12;
@@ -1809,7 +2003,7 @@ List<double> _csNavItemSrgbToOklab(List<double> rgb) {
 }
 
 class CsNavItem extends StatefulWidget {
-  const CsNavItem({super.key, required this.title, required this.active, required this.onSelect, this.icon, this.trail, this.href, this.dark = false, this.highContrast = false, this.compact = false});
+  const CsNavItem({super.key, this.title = '', this.active = false, this.onSelect = _noopVoid, this.icon, this.trail, this.href, this.dark = false, this.highContrast = false, this.compact = false});
   final String title;
   final bool active;
   final VoidCallback onSelect;
@@ -1885,8 +2079,15 @@ class _CsNavItemState extends State<CsNavItem> {
   }
 }
 
+const csOverlayProviderRegistryProtocol = 'cyberskill.overlay-manager/1';
+const csOverlayProviderRootDataAttr = 'data-cs-overlay-root';
+const csOverlayProviderDefaultKind = 'modal';
+String csOverlayProviderId(String id) => 'cs-overlay-provider-$id';
+bool csOverlayProviderLocksScroll([String kind = csOverlayProviderDefaultKind, bool? explicit]) =>
+    explicit ?? (kind == 'modal' || kind == 'drawer' || kind == 'sheet' || kind == 'command' || kind == 'alert');
+
 class CsOverlayProvider extends StatelessWidget {
-  const CsOverlayProvider({super.key, required this.child});
+  const CsOverlayProvider({super.key, this.child = const SizedBox.shrink()});
   final Widget child;
   @override
   Widget build(BuildContext context) => child;
@@ -1895,6 +2096,17 @@ class CsOverlayProvider extends StatelessWidget {
 const csPromptPlaceholder = 'Type your wish…';
 const csPromptSend = 'Send';
 const csPromptHint = 'Lumi replies, then hands clear wishes to a human.';
+const csPromptDefaultRows = 1;
+const csPromptRootClass = 'cs-prompt';
+const csPromptFieldClass = 'cs-prompt__field';
+const csPromptBarClass = 'cs-prompt__bar';
+const csPromptHintClass = 'cs-prompt__hint';
+const csPromptSpinnerClass = 'cs-button__spinner';
+const csPromptSendButtonVariant = 'primary';
+const csPromptSendButtonSize = 'sm';
+int csPromptHintIconSize() => 14;
+double csPromptHintIconStrokeWidth() => 1.8;
+bool csPromptShowsSpinner(bool busy) => busy;
 String csPromptCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {
@@ -1928,8 +2140,9 @@ bool csPromptEnter(bool shift, bool composing, int keyCode) => !shift && !compos
 bool csPromptShowsHint(String? hint) => hint == null || hint.isNotEmpty;
 
 class CsPromptInput extends StatelessWidget {
-  const CsPromptInput({super.key, this.submitLabel, required this.text, required this.onSubmit, this.onText, this.placeholder, this.hint, this.ariaLabel, this.disabled = false, this.busy = false, this.language});
+  const CsPromptInput({super.key, this.submitLabel, this.sendLabel, this.text = '', this.onSubmit = _noopStringChange, this.onText, this.placeholder, this.hint, this.ariaLabel, this.disabled = false, this.busy = false, this.language});
   final String? submitLabel;
+  final String? sendLabel;
   final String? placeholder;
   final String? hint;
   final String? ariaLabel;
@@ -1944,7 +2157,7 @@ class CsPromptInput extends StatelessWidget {
     final locale = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
     final prompt = csPromptPlaceholderText(placeholder, csPromptCopy('placeholder', locale));
     final name = csPromptSpoken(ariaLabel, prompt);
-    final sendName = submitLabel ?? csPromptCopy('send', locale);
+    final sendName = sendLabel ?? submitLabel ?? csPromptCopy('send', locale);
     final hintLine = csPromptHintText(hint, csPromptCopy('hint', locale));
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: csAiStylePromptPaddingX(), vertical: csAiStylePromptPaddingY()),
@@ -1970,12 +2183,15 @@ class CsPromptSuggestion {
   final String? icon;
 }
 
+const csPromptSuggestionsRootClass = 'cs-suggest';
+int csPromptSuggestionsIconSize() => 14;
+double csPromptSuggestionsIconStrokeWidth() => 1.8;
 String csPromptIcon(String? icon) => icon ?? 'sparkle';
 String? csPromptChosen(String label, bool hasHandler) => hasHandler ? label : null;
 String csPromptSelected(CsPromptSuggestion suggestion) => suggestion.label;
 
 class CsPromptSuggestions extends StatelessWidget {
-  const CsPromptSuggestions({super.key, required this.suggestions, required this.onSelect, this.dark = false, this.highContrast = false, this.compact = false});
+  const CsPromptSuggestions({super.key, this.suggestions = const [], this.onSelect = _noopStringChange, this.dark = false, this.highContrast = false, this.compact = false});
   final List<CsPromptSuggestion> suggestions;
   final ValueChanged<String> onSelect;
   final bool dark;
@@ -1996,13 +2212,19 @@ class CsPromptSuggestions extends StatelessWidget {
 }
 
 const csQrDefaultSize = 128.0;
+const csQrRootClass = 'cs-qrcode';
+const csQrRole = 'img';
+const csQrFallbackGlyph = '—';
+const csQrDefaultColor = 'var(--cs-color-text-primary)';
+double csQrCellSize({double size = csQrDefaultSize, required int modulesCount}) => modulesCount > 0 ? size / modulesCount : 0;
 String csQrAccessibleLabel(String? label, String value) => label != null && label.isNotEmpty ? label : value;
 
 class CsQRCode extends StatelessWidget {
-  const CsQRCode({super.key, this.value = '', this.label = '', this.size = csQrDefaultSize});
+  const CsQRCode({super.key, this.value = '', this.label = '', this.size = csQrDefaultSize, this.color});
   final String value;
   final String label;
   final double size;
+  final String? color;
   @override
   Widget build(BuildContext context) {
     final modules = csQrMatrix(value);
@@ -2020,7 +2242,7 @@ class CsQRCode extends StatelessWidget {
 }
 
 class CsTerminal extends StatefulWidget {
-  const CsTerminal({super.key, this.history = const [], required this.dark, required this.highContrast, required this.compact, this.title, this.welcome, this.prompt = '➜', this.language, this.onCommand});
+  const CsTerminal({super.key, this.history = const [], this.dark = false, this.highContrast = false, this.compact = false, this.title, this.welcome, this.prompt = '➜', this.language, this.onCommand});
   final String? title;
   final String? welcome;
   final List<CsTerminalLine> history;
@@ -2148,6 +2370,18 @@ class _CsTerminalState extends State<CsTerminal> {
 }
 
 const csTreeSelectPlaceholder = 'Select…';
+const csTreeSelectRootClass = 'cs-treeselect';
+const csTreeSelectFieldClass = 'cs-treeselect__field';
+const csTreeSelectPopClass = 'cs-treeselect__pop';
+const csTreeSelectTriggerHasPopup = 'tree';
+const csTreeSelectChevronGlyph = '▾';
+String? csTreeSelectDescriptionId(String id, String? description) => description == null || description.isEmpty ? null : '$id-description';
+String? csTreeSelectErrorId(String id, String? error) => error == null || error.isEmpty ? null : '$id-error';
+String? csTreeSelectDescribedBy({String? explicit, String? descriptionId, String? errorId}) {
+  final parts = [explicit, descriptionId, errorId].whereType<String>().where((s) => s.isNotEmpty).toList();
+  return parts.isEmpty ? null : parts.join(' ');
+}
+bool csTreeSelectInvalid(String? error) => error != null && error.isNotEmpty;
 String csTreeSelectCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'placeholder': 'Chọn…'};
@@ -2203,9 +2437,13 @@ String? csTreeSelectTreeName(String? label, String? labelledBy, String placehold
 }
 
 class CsTreeSelect extends StatefulWidget {
-  const CsTreeSelect({super.key, required this.nodes, required this.selected, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.label, this.labelledBy, this.open = const {}, this.placeholder, this.disabled = false, this.portal = true, this.placement, this.language});
+  const CsTreeSelect({super.key, this.nodes = const [], this.selected, this.onSelect = _noopStringChange, this.dark = false, this.highContrast = false, this.compact = false, this.label, this.labelledBy, this.description, this.error, this.required = false, this.ariaDescribedBy, this.open = const {}, this.placeholder, this.disabled = false, this.portal = true, this.placement, this.language});
   final String? label;
   final String? labelledBy;
+  final String? description;
+  final String? error;
+  final bool required;
+  final String? ariaDescribedBy;
   final List<CsTreeNode> nodes;
   final Map<String, bool> open;
   final String? selected;
@@ -2288,6 +2526,8 @@ class _CsTreeSelectState extends State<CsTreeSelect> {
         toggled: opened,
         child: CsOwnFocus(builder: (node, claim) => TextButton(key: fieldKey, focusNode: node, onPressed: widget.disabled ? null : () { claim(); setState(() => requested = !requested); }, child: ExcludeSemantics(child: Text('$shown ▾')))),
       ),
+      if (widget.description != null && widget.description!.isNotEmpty) Text(widget.description!),
+      if (widget.error != null && widget.error!.isNotEmpty) Semantics(liveRegion: true, child: Text(widget.error!)),
       if (opened) Focus(
         onKeyEvent: (node, event) {
           if (event is! KeyDownEvent || event.logicalKey != LogicalKeyboardKey.escape) return KeyEventResult.ignored;
@@ -2324,6 +2564,14 @@ class CsTreeTableRow {
   final List<String> children;
 }
 
+const csTreeTableWrapClass = 'cs-table-wrap';
+const csTreeTableClass = 'cs-table cs-treetable';
+const csTreeTableCellClass = 'cs-treetable__cell';
+const csTreeTableTwistClass = 'cs-tree__twist';
+const csTreeTableEmptyClass = 'cs-table__empty';
+const csTreeTableOpenGlyph = '▾';
+const csTreeTableClosedGlyph = '▸';
+List<String> csTreeTableResolvedExpanded(List<String>? expanded, [List<String> defaultExpanded = const []]) => expanded ?? defaultExpanded;
 String csTreeRowId(String prefix, String key) => '$prefix-row-${key.codeUnits.map((unit) => unit.toRadixString(16).padLeft(4, '0')).join()}';
 
 List<String> csTreeToggle(List<String> expanded, String key) => expanded.contains(key) ? expanded.where((item) => item != key).toList() : [...expanded, key];
@@ -2360,10 +2608,11 @@ bool csTreeTableShowsCaption(String? caption) => caption != null && caption.isNo
 String csTreeTableTwist(String action, String cell) => '$action $cell';
 
 class CsTreeTable extends StatefulWidget {
-  const CsTreeTable({super.key, required this.columns, required this.nodes, this.expanded = const [], this.emptyLabel = '', this.expandLabel = '', this.collapseLabel = '', this.caption, this.language, this.onExpanded});
+  const CsTreeTable({super.key, this.columns = const [], this.nodes = const [], this.expanded = const [], this.defaultExpanded = const [], this.emptyLabel = '', this.expandLabel = '', this.collapseLabel = '', this.caption, this.language, this.onExpanded});
   final List<String> columns;
   final List<CsTreeTableNode> nodes;
   final List<String> expanded;
+  final List<String> defaultExpanded;
   final String emptyLabel;
   final String expandLabel;
   final String collapseLabel;
@@ -2383,7 +2632,7 @@ class _CsTreeTableState extends State<CsTreeTable> {
     final expand = csTreeTableWord(widget.expandLabel, csTreeTableCopy('expand', locale));
     final collapse = csTreeTableWord(widget.collapseLabel, csTreeTableCopy('collapse', locale));
     final nodes = widget.nodes;
-    final expanded = widget.expanded;
+    final expanded = widget.expanded.isEmpty ? widget.defaultExpanded : widget.expanded;
     final visible = csTreeRows(nodes, expanded);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       if (csTreeTableShowsCaption(widget.caption)) Text(widget.caption!),
@@ -2433,6 +2682,8 @@ class _InlinePenPainter extends CustomPainter {
 }
 const csTypingLabel = 'Lumi is typing';
 const csTypingDots = 3;
+const csTypingRootClass = 'cs-typing';
+const csTypingRole = 'status';
 String csTypingLabelText(String? label, String fallback) => label ?? fallback;
 String csTypingCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';

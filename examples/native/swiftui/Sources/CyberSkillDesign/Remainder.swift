@@ -69,6 +69,15 @@ public enum CSHotKeyModel {
   }
 
   public static func dismissBackdrop(open: Bool) -> Bool { open }
+  public static let rootClass = "cs-hotkeys"
+  public static let sheetClass = "cs-hotkeys__sheet"
+  public static let cardClass = "cs-hotkeys__card"
+  public static let kbdClass = "cs-kbd"
+  public static let dialogRole = "dialog"
+  public static let helpShortcut = "?"
+  public static func isFieldTag(_ tagName: String) -> Bool {
+    ["INPUT", "TEXTAREA", "SELECT"].contains(tagName.uppercased())
+  }
 }
 
 public struct CSChartBar: Equatable {
@@ -91,7 +100,17 @@ public struct CSChartSlice: Equatable {
 }
 
 public enum CSChartModel {
+  public static let defaultType = "bar"
+  public static let defaultWidth = 320.0
   public static let defaultHeight = 160.0
+  public static let rootClass = "cs-chart"
+  public static let legendClass = "cs-chart__legend"
+  public static let role = "img"
+  public static let pieViewBox = "0 0 120 120"
+  public static func pieStrokeWidth() -> Double { 1.5 }
+  public static func lineStrokeWidth() -> Double { 2.4 }
+  public static func linePointRadius() -> Double { 3.4 }
+  public static func barCornerRadius() -> Double { 3.0 }
   public static func margin() -> Double { 0 }
   public static func gap() -> Double { 8 }
   public static func maxWidth() -> Double { 420 }
@@ -293,9 +312,22 @@ public enum CSTerminalModel {
   public static func submits(composing: Bool, keyCode: Int) -> Bool {
     !composing && keyCode != 229
   }
+  public static let defaultPrompt = "➜"
+  public static let rootClass = "cs-terminal"
+  public static let barClass = "cs-terminal__bar"
+  public static let bodyClass = "cs-terminal__body"
+  public static let lineClass = "cs-terminal__line"
+  public static let outputClass = "cs-terminal__out"
+  public static let promptClass = "p"
+  public static let spellCheck = false
 }
 
 public enum CSInlineEditModel {
+  public static let rootClass = "cs-inline-edit"
+  public static let viewClass = "cs-inline-edit__view"
+  public static func penSize() -> Double { 13 }
+  public static func penStrokeWidth() -> Double { 1.9 }
+  public static func placeholderClass(_ value: String) -> String? { value.isEmpty ? "ph" : nil }
   public static func commit(draft: String, value: String, cancelling: Bool = false) -> String? {
     if cancelling { return nil }
     return draft == value ? nil : draft
@@ -336,6 +368,22 @@ public enum CSInlineEditModel {
 }
 
 public enum CSFormFieldModel {
+  public static let summaryClass = "cs-form__summary"
+  public static let labelClass = "cs-formfield__label"
+  public static let errorClass = "cs-formfield__error"
+  public static let hintClass = "cs-formfield__hint"
+  public static let defaultValueProp = "value"
+  public static func formRootClass(pending: Bool) -> String { pending ? "cs-form is-pending" : "cs-form" }
+  public static func fieldRootClass(hasError: Bool) -> String { hasError ? "cs-formfield has-error" : "cs-formfield" }
+  public static func defaultValueForProp(_ valueProp: String) -> String {
+    valueProp == "checked" || valueProp == "pressed" ? "false" : ""
+  }
+  public static func labelTag(isNativeControl: Bool) -> String { isNativeControl ? "label" : "span" }
+  public static func labelId(_ id: String, hasLabel: Bool) -> String? { hasLabel ? "\(id)-field-label" : nil }
+  public static func descriptionId(_ id: String, hasError: Bool, hasHint: Bool) -> String? {
+    !hasError && hasHint ? "\(id)-field-hint" : nil
+  }
+  public static func errorId(_ id: String, hasError: Bool) -> String? { hasError ? "\(id)-field-error" : nil }
   public static func showsError(_ error: String?) -> Bool {
     if let error { return !error.isEmpty }
     return false
@@ -371,7 +419,7 @@ public struct CSHotKeys: View {
   @State private var shown = false
   @State private var sheetId = "hotkeys-\(UUID().uuidString)"
 
-  public init(bindings: [(keys: String, description: String)], help: Bool = true, language: String? = nil, onTrigger: @escaping (String) -> Void = { _ in }) {
+  public init(bindings: [(keys: String, description: String)] = [], help: Bool = true, language: String? = nil, onTrigger: @escaping (String) -> Void = { _ in }) {
     self.bindings = bindings
     self.help = help
     self.language = language
@@ -530,7 +578,7 @@ public struct CSChart: View {
   let highContrast: Bool
   let compact: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
-  public init(label: String, values: [Double], type: String = "bar", height: Double = CSChartModel.defaultHeight, pointLabels: [String] = [], showValues: Bool = false, emptyLabel: String = "", dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil) {
+  public init(label: String = "", values: [Double] = [], type: String = CSChartModel.defaultType, height: Double = CSChartModel.defaultHeight, pointLabels: [String] = [], showValues: Bool = false, emptyLabel: String = "", dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil) {
     self.label = label
     self.values = values
     self.type = type
@@ -642,7 +690,7 @@ public struct CSTerminal: View {
   @FocusState private var focused: Bool
   @State private var focusId = UUID().uuidString
 
-  public init(title: String? = nil, welcome: String? = nil, prompt: String = "➜", history: [CSTerminalLine] = [], dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onCommand: @escaping (String) -> String? = { _ in nil }) {
+  public init(title: String? = nil, welcome: String? = nil, prompt: String = CSTerminalModel.defaultPrompt, history: [CSTerminalLine] = [], dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onCommand: @escaping (String) -> String? = { _ in nil }) {
     self.title = title
     self.welcome = welcome
     self.prompt = prompt
@@ -747,6 +795,7 @@ public struct CSTerminal: View {
 public struct CSInlineEdit: View {
   public let label: String
   public let value: String
+  public let defaultValue: String
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
@@ -763,9 +812,10 @@ public struct CSInlineEdit: View {
   @State private var draftFocusId = UUID().uuidString
   @FocusState private var focused: Bool
   @FocusState private var editFocused: Bool
-  public init(label: String, value: String, dark: Bool, highContrast: Bool, compact: Bool, editAction: String = "", emptyLabel: String = "", language: String? = nil, onChange: @escaping (String) -> Void) {
+  public init(label: String = "", value: String = "", defaultValue: String = "", dark: Bool, highContrast: Bool, compact: Bool, editAction: String = "", emptyLabel: String = "", language: String? = nil, onChange: @escaping (String) -> Void = { _ in }) {
     self.label = label
-    self.value = value
+    self.value = value.isEmpty ? defaultValue : value
+    self.defaultValue = defaultValue
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -849,6 +899,8 @@ public struct CSInlineEdit: View {
 
 public struct CSFormField<Content: View>: View {
   public let label: String
+  public let name: String?
+  public let valueProp: String
   public let hint: String?
   public let error: String?
   public let required: Bool
@@ -858,8 +910,10 @@ public struct CSFormField<Content: View>: View {
   let compact: Bool
   let content: () -> Content
   @Environment(\.csLanguage) private var ancestorLanguage
-  public init(label: String, hint: String? = nil, error: String? = nil, required: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, @ViewBuilder content: @escaping () -> Content) {
+  public init(label: String, name: String? = nil, valueProp: String = CSFormFieldModel.defaultValueProp, hint: String? = nil, error: String? = nil, required: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, @ViewBuilder content: @escaping () -> Content) {
     self.label = label
+    self.name = name
+    self.valueProp = valueProp
     self.hint = hint
     self.error = error
     self.required = required
@@ -920,6 +974,14 @@ public struct CSFieldset<Content: View>: View {
 }
 
 public enum CSFormArrayModel {
+  public static let defaultMin = 0
+  public static let defaultMax = 50
+  public static let rootClass = "cs-form-array"
+  public static let rowsClass = "cs-form-array__rows"
+  public static let rowClass = "cs-form-array__row"
+  public static func fieldPath(name: String, index: Int, field: String) -> String {
+    "\(name).\(index).\(field)"
+  }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
     let tables: [String: [String: String]] = [
@@ -944,6 +1006,7 @@ public enum CSFormArrayModel {
 }
 
 public struct CSFormFieldArray: View {
+  public let name: String
   public let label: String?
   public let rows: [String]
   public let addLabel: String?
@@ -955,7 +1018,8 @@ public struct CSFormFieldArray: View {
   @Environment(\.csLanguage) private var ancestorLanguage
   @Environment(\.csFormAncestor) private var inForm
 
-  public init(label: String? = nil, rows: [String], addLabel: String? = nil, removeLabel: String, min: Int = 0, max: Int = 50, language: String? = nil, onChange: @escaping ([String]) -> Void) {
+  public init(name: String = "", label: String? = nil, rows: [String] = [], addLabel: String? = nil, removeLabel: String = "", min: Int = CSFormArrayModel.defaultMin, max: Int = CSFormArrayModel.defaultMax, language: String? = nil, onChange: @escaping ([String]) -> Void = { _ in }) {
+    self.name = name
     self.label = label
     self.rows = rows
     self.addLabel = addLabel
@@ -1001,6 +1065,12 @@ public struct CSFormFieldArray: View {
 }
 
 public enum CSFormWizardModel {
+  public static let rootClass = "cs-form-wizard"
+  public static let stepsClass = "cs-form-wizard__steps"
+  public static let bodyClass = "cs-form-wizard__body"
+  public static let navClass = "cs-form-wizard__nav"
+  public static func stepCurrent(index: Int, active: Int) -> String? { index == active ? "step" : nil }
+  public static func isBusy(_ pending: Bool) -> Bool? { pending ? true : nil }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
     let tables: [String: [String: String]] = [
@@ -1085,7 +1155,7 @@ public struct CSFormWizard: View {
   @Environment(\.csLanguage) private var ancestorLanguage
   @State private var ruled: [String]?
 
-  public init(steps: [String], index: Int, backLabel: String? = nil, nextLabel: String? = nil, finishLabel: String? = nil, errors: [String] = [], values: [String: String] = [:], required: [String] = [], custom: [(name: String, check: (String?, [String: String]) -> String?)] = [], submission: String? = nil, pending: Bool = false, language: String? = nil, onIndex: @escaping (Int) -> Void, onComplete: @escaping () -> Void = {}) {
+  public init(steps: [String] = [], index: Int = 0, backLabel: String? = nil, nextLabel: String? = nil, finishLabel: String? = nil, errors: [String] = [], values: [String: String] = [:], required: [String] = [], custom: [(name: String, check: (String?, [String: String]) -> String?)] = [], submission: String? = nil, pending: Bool = false, language: String? = nil, onIndex: @escaping (Int) -> Void = { _ in }, onComplete: @escaping () -> Void = {}) {
     self.steps = steps
     self.index = steps.isEmpty ? 0 : min(steps.count - 1, max(0, index))
     self.backLabel = backLabel
@@ -1317,11 +1387,46 @@ public enum CSCascaderModel {
     if let labelledBy, !labelledBy.isEmpty { return nil }
     return label
   }
+  public static let rootClass = "cs-cascader"
+  public static let fieldClass = "cs-treeselect__field"
+  public static let popClass = "cs-cascader__pop"
+  public static let colClass = "cs-cascader__col"
+  public static let triggerHasPopup = "listbox"
+  public static let listboxRole = "listbox"
+  public static let optionRole = "option"
+  public static let chevronGlyph = "▾"
+  public static let childGlyph = " ›"
+  public static func optionClass(selected: Bool) -> String {
+    selected ? "cs-cascader__opt on" : "cs-cascader__opt"
+  }
+  public static func opensFromTriggerKey(_ key: String, open: Bool) -> Bool {
+    !open && (key == "ArrowDown" || key == "Enter" || key == " ")
+  }
+  public static func descriptionId(_ id: String, description: String?) -> String? {
+    guard let description, !description.isEmpty else { return nil }
+    return "\(id)-description"
+  }
+  public static func errorId(_ id: String, error: String?) -> String? {
+    guard let error, !error.isEmpty else { return nil }
+    return "\(id)-error"
+  }
+  public static func describedBy(explicit: String?, descriptionId: String?, errorId: String?) -> String? {
+    let parts = [explicit, descriptionId, errorId].compactMap { $0 }.filter { !$0.isEmpty }
+    return parts.isEmpty ? nil : parts.joined(separator: " ")
+  }
+  public static func invalid(error: String?) -> Bool {
+    guard let error else { return false }
+    return !error.isEmpty
+  }
 }
 
 public struct CSCascader: View {
   public let label: String?
   public let labelledBy: String?
+  public let description: String?
+  public let error: String?
+  public let required: Bool
+  public let ariaDescribedBy: String?
   public let path: [String]
   public let nodes: [CSCascaderNode]
   public let placeholder: String?
@@ -1346,9 +1451,13 @@ public struct CSCascader: View {
   @State private var panelScale = CGSize(width: 1, height: 1)
   @State private var measurePass = 0
 
-  public init(label: String? = nil, labelledBy: String? = nil, path: [String], nodes: [CSCascaderNode] = [], placeholder: String? = nil, disabled: Bool = false, portal: Bool = true, placement: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping ([String]) -> Void = { _ in }) {
+  public init(label: String? = nil, labelledBy: String? = nil, description: String? = nil, error: String? = nil, required: Bool = false, ariaDescribedBy: String? = nil, path: [String] = [], nodes: [CSCascaderNode] = [], placeholder: String? = nil, disabled: Bool = false, portal: Bool = true, placement: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping ([String]) -> Void = { _ in }) {
     self.label = label
     self.labelledBy = labelledBy
+    self.description = description
+    self.error = error
+    self.required = required
+    self.ariaDescribedBy = ariaDescribedBy
     self.path = path
     self.nodes = nodes
     self.placeholder = placeholder
@@ -1391,6 +1500,12 @@ public struct CSCascader: View {
       .background(GeometryReader { geo in
         Color.clear.preference(key: CSCascaderAnchorKey.self, value: geo.frame(in: .global))
       })
+      if let description, !description.isEmpty {
+        Text(description).foregroundStyle(pack.mutedColor)
+      }
+      if let error, !error.isEmpty {
+        Text(error).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
+      }
       if opened {
         let screen = CSContextMenuModel.screenSize()
         let box = CSFloatingRect(left: anchor.minX, top: anchor.minY, right: anchor.maxX, bottom: anchor.maxY, width: anchor.width, height: anchor.height)
@@ -1619,6 +1734,9 @@ private final class CSInlinePadOutsideView: UIView {
 #endif
 
 public enum CSDockModel {
+  public static let toolbarRole = "toolbar"
+  public static let rootClass = "cs-dock"
+  public static func itemClass(active: Bool) -> String { active ? "cs-dock__item on" : "cs-dock__item" }
   public static func isActive(_ item: String, activeItems: Set<String> = []) -> Bool { activeItems.contains(item) }
   public static func scale(index: Int, hover: Int?) -> (scale: Double, lift: Double) {
     let distance = hover == nil ? 3 : abs(index - (hover ?? index))
@@ -1636,7 +1754,7 @@ public struct CSDock: View {
   @State private var hover: Int? = nil
   @State private var dockId = UUID().uuidString
   @FocusState private var focused: Int?
-  public init(label: String, items: [String], activeItems: Set<String> = [], onSelect: @escaping (String) -> Void) {
+  public init(label: String = "", items: [String] = [], activeItems: Set<String> = [], onSelect: @escaping (String) -> Void = { _ in }) {
     self.label = label
     self.items = items
     self.activeItems = activeItems
@@ -1675,6 +1793,18 @@ public enum CSEditorMark: Equatable {
 }
 
 public enum CSEditorModel {
+  public static let rootClass = "cs-editor"
+  public static let barClass = "cs-editor__bar"
+  public static let buttonClass = "cs-toolbar__btn"
+  public static let areaClass = "cs-editor__area"
+  public static let toolbarRole = "toolbar"
+  public static let areaRole = "textbox"
+  public static let areaMultiline = true
+  public static let defaultMinHeight = 120.0
+  public static func initialHtml(defaultValue: String = "", unsafeHtml: String? = nil) -> String {
+    if let unsafeHtml { return unsafeHtml }
+    return escape(defaultValue)
+  }
   public static func borderWidth() -> Double { 1 }
   public static func maxWidth() -> Double { 460 }
   public static func barGap() -> Double { 2 }
@@ -1782,6 +1912,8 @@ public enum CSEditorModel {
 
 public struct CSEditor: View {
   public let label: String?
+  public let defaultValue: String
+  public let unsafeHtml: String?
   public let language: String?
   public let minHeight: Double
   let dark: Bool
@@ -1798,8 +1930,10 @@ public struct CSEditor: View {
   @State private var list = false
   @State private var hadRange = false
 
-  public init(label: String? = nil, text: Binding<String>, language: String? = nil, minHeight: Double = 120, selectionStart: Binding<Int> = .constant(0), selectionEnd: Binding<Int> = .constant(0), dark: Bool = false, highContrast: Bool = false, compact: Bool = false) {
+  public init(label: String? = nil, defaultValue: String = "", unsafeHtml: String? = nil, text: Binding<String> = .constant(""), language: String? = nil, minHeight: Double = 120, selectionStart: Binding<Int> = .constant(0), selectionEnd: Binding<Int> = .constant(0), dark: Bool = false, highContrast: Bool = false, compact: Bool = false) {
     self.label = label
+    self.defaultValue = defaultValue
+    self.unsafeHtml = unsafeHtml
     self.language = language
     self.minHeight = minHeight
     _text = text
@@ -1893,6 +2027,12 @@ public struct CSEditor: View {
 public enum CSHoverCardModel {
   public static let placementDefault = "bottom-start"
   public static let gap = 8.0
+  public static let defaultOpenDelay = 150
+  public static let defaultCloseDelay = 200
+  public static let rootClass = "cs-hovercard"
+  public static let panelClass = "cs-hovercard__panel"
+  public static let dialogRole = "dialog"
+  public static func escapeClose() -> Bool { false }
   public static func placement(_ explicit: String?) -> String { explicit ?? placementDefault }
   public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String) -> CSHoverPlace? {
     guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: placement, gap: gap) else { return nil }
@@ -1924,6 +2064,8 @@ public struct CSHoverPlace: Equatable {
 
 public struct CSHoverCard<Content: View>: View {
   public let label: String
+  public let ariaLabel: String?
+  public let ariaLabelledBy: String?
   public let portal: Bool
   public let placement: String?
   public let openDelay: Int
@@ -1939,8 +2081,10 @@ public struct CSHoverCard<Content: View>: View {
   @State private var panelOrigin: CGPoint?
   @State private var panelScale = CGSize(width: 1, height: 1)
   @State private var measurePass = 0
-  public init(label: String, openDelay: Int = 150, closeDelay: Int = 200, portal: Bool = true, placement: String? = nil, @ViewBuilder content: @escaping () -> Content) {
+  public init(label: String = "", ariaLabel: String? = nil, ariaLabelledBy: String? = nil, openDelay: Int = 150, closeDelay: Int = 200, portal: Bool = true, placement: String? = nil, @ViewBuilder content: @escaping () -> Content) {
     self.label = label
+    self.ariaLabel = ariaLabel
+    self.ariaLabelledBy = ariaLabelledBy
     self.portal = portal
     self.placement = placement
     self.openDelay = openDelay
@@ -2063,6 +2207,25 @@ public enum CSPresenceValue: Equatable {
 public enum CSNativeSelectModel {
   public static let placeholderDefault = "Select…"
   public static let chevronPath = "M6 9l6 6 6-6"
+  public static let controlClass = "cs-field__control"
+  public static let chevronClass = "cs-native-select__chevron"
+  public static func chevronSize() -> Int { 16 }
+  public static func chevronStrokeWidth() -> Double { 2 }
+  public static func fieldClass(disabled: Bool, hasError: Bool) -> String {
+    var parts = ["cs-field", "cs-native-select"]
+    if disabled { parts.append("cs-field--disabled") }
+    if hasError { parts.append("cs-field--error") }
+    return parts.joined(separator: " ")
+  }
+  public static func wrapClass(size: String = "md") -> String {
+    "cs-native-select__wrap cs-native-select__wrap--\(resolvedSize(size))"
+  }
+  public static func resolvedValue(selection: String, defaultValue: String = "") -> String {
+    selection.isEmpty ? defaultValue : selection
+  }
+  public static func describedBy(explicit: String?, errorId: String?) -> String? {
+    explicit ?? errorId
+  }
   public static func resolvedSize(_ size: String = "md") -> String { size == "sm" || size == "lg" ? size : "md" }
   public static func showsPlaceholder(placeholder: String?, hasChildren: Bool) -> Bool { placeholder != nil || !hasChildren }
   public static func placeholderText(_ placeholder: String?, fallback: String) -> String { placeholder ?? fallback }
@@ -2106,6 +2269,13 @@ public enum CSHumanReviewModel {
   public static let approveDefault = "Approve"
   public static let rejectDefault = "Reject"
   public static let reviewerDefault = "Reviewer"
+  public static let rootClass = "cs-review-gate"
+  public static let riskClass = "cs-review-gate__risk"
+  public static let summaryClass = "cs-review-gate__summary"
+  public static let reviewerClass = "cs-review-gate__reviewer"
+  public static let actionsClass = "cs-review-gate__actions"
+  public static let rejectButtonVariant = "secondary"
+  public static let approveButtonVariant = "primary"
   public static func risk(_ risk: String?, fallback: String) -> String { risk ?? fallback }
   public static func action(_ label: String?, fallback: String) -> String { label ?? fallback }
   public static func showsReviewer(_ reviewer: String?) -> Bool {
@@ -2152,7 +2322,7 @@ public struct CSHumanReviewGate: View {
   let onReject: () -> Void
   public let language: String?
   @Environment(\.csLanguage) private var ancestorLanguage
-  public init(risk: String? = nil, summary: String, reviewer: String? = nil, approveLabel: String? = nil, rejectLabel: String? = nil, language: String? = nil, onApprove: @escaping () -> Void, onReject: @escaping () -> Void) {
+  public init(risk: String? = nil, summary: String = "", reviewer: String? = nil, approveLabel: String? = nil, rejectLabel: String? = nil, language: String? = nil, onApprove: @escaping () -> Void = {}, onReject: @escaping () -> Void = {}) {
     self.risk = risk
     self.summary = summary
     self.reviewer = reviewer
@@ -2190,6 +2360,11 @@ public enum CSInputGroupModel {
   public static let clearDefault = "Clear"
   public static let showDefault = "Show password"
   public static let hideDefault = "Hide password"
+  public static let groupClass = "cs-igroup"
+  public static let buttonClass = "cs-igroup__btn"
+  public static func rootClass(disabled: Bool) -> String { disabled ? "cs-field cs-field--disabled" : "cs-field" }
+  public static func addonClass(isSuffix: Bool) -> String { isSuffix ? "cs-igroup__addon cs-igroup__addon--suf" : "cs-igroup__addon" }
+  public static func labelId(_ id: String, hasLabel: Bool) -> String? { hasLabel ? "\(id)-label" : nil }
   public static func text(controlled: String?, inner: String) -> String { controlled ?? inner }
   public static func commit(next: String, disabled: Bool, readOnly: Bool) -> String? { disabled || readOnly ? nil : next }
   public static func showsAddon(_ value: String?) -> Bool { value != nil }
@@ -2225,6 +2400,10 @@ public enum CSInputGroupModel {
 public struct CSInputGroup: View {
   public let label: String?
   public let placeholder: String?
+  public let defaultValue: String
+  public let ariaLabel: String?
+  public let ariaLabelledBy: String?
+  public let ariaDescribedBy: String?
   @Binding var text: String
   public let prefixText: String?
   public let suffixText: String?
@@ -2239,9 +2418,13 @@ public struct CSInputGroup: View {
   @FocusState private var focused: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String? = nil, placeholder: String? = nil, text: Binding<String>, prefixText: String? = nil, suffixText: String? = nil, clearable: Bool = false, password: Bool = false, revealed: Binding<Bool>, disabled: Bool = false, readOnly: Bool = false, language: String? = nil, onChange: @escaping (String) -> Void = { _ in }) {
+  public init(label: String? = nil, placeholder: String? = nil, defaultValue: String = "", ariaLabel: String? = nil, ariaLabelledBy: String? = nil, ariaDescribedBy: String? = nil, text: Binding<String> = .constant(""), prefixText: String? = nil, suffixText: String? = nil, clearable: Bool = false, password: Bool = false, revealed: Binding<Bool> = .constant(false), disabled: Bool = false, readOnly: Bool = false, language: String? = nil, onChange: @escaping (String) -> Void = { _ in }) {
     self.label = label
     self.placeholder = placeholder
+    self.defaultValue = defaultValue
+    self.ariaLabel = ariaLabel
+    self.ariaLabelledBy = ariaLabelledBy
+    self.ariaDescribedBy = ariaDescribedBy
     _text = text
     self.prefixText = prefixText
     self.suffixText = suffixText
@@ -2256,7 +2439,7 @@ public struct CSInputGroup: View {
 
   public var body: some View {
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
-    let spoken = CSInputGroupModel.addonName(ariaLabel: nil, hasLabel: CSInputGroupModel.showsLabel(label), hasLabelledBy: false, placeholder: placeholder, fallback: CSInputGroupModel.copy("input", language: locale))
+    let spoken = CSInputGroupModel.addonName(ariaLabel: ariaLabel, hasLabel: CSInputGroupModel.showsLabel(label), hasLabelledBy: ariaLabelledBy != nil, placeholder: placeholder, fallback: CSInputGroupModel.copy("input", language: locale))
     let clearName = CSInputGroupModel.copy("clear", language: locale)
     let revealName = CSInputGroupModel.revealLabel(revealed: revealed, show: CSInputGroupModel.copy("show", language: locale), hide: CSInputGroupModel.copy("hide", language: locale))
     VStack(alignment: .leading, spacing: 4) {
@@ -2316,6 +2499,23 @@ public enum CSItemModel {
   public static func borderWidth() -> Double { 1 }
   public static func isInteractive(href: String?, hasOnClick: Bool) -> Bool { href != nil || hasOnClick }
   public static func hasInteractiveClass(interactive: Bool, disabled: Bool) -> Bool { interactive && !disabled }
+  public static func tag(href: String?, hasOnClick: Bool) -> String {
+    if href != nil { return "a" }
+    if hasOnClick { return "button" }
+    return "div"
+  }
+  public static func rootClass(interactive: Bool, selected: Bool, disabled: Bool) -> String {
+    var parts = ["cs-item"]
+    if hasInteractiveClass(interactive: interactive, disabled: disabled) { parts.append("cs-item--interactive") }
+    if selected { parts.append("cs-item--selected") }
+    return parts.joined(separator: " ")
+  }
+  public static func disabledLinkTabIndex(isLink: Bool, disabled: Bool) -> Int? {
+    isLink && disabled ? -1 : nil
+  }
+  public static func disabledLinkRole(isLink: Bool, disabled: Bool, explicit: String? = nil) -> String? {
+    isLink && disabled ? (explicit ?? "link") : explicit
+  }
   public static func showsHover(interactive: Bool, disabled: Bool, hovered: Bool) -> Bool {
     hasInteractiveClass(interactive: interactive, disabled: disabled) && hovered
   }
@@ -2352,7 +2552,7 @@ public struct CSItem: View {
   let onClick: (() -> Void)?
   @State private var hovered = false
   @FocusState private var focused: Bool
-  public init(title: String, subtitle: String = "", description: String? = nil, leading: String? = nil, trailing: String? = nil, childrenText: String? = nil, href: String? = nil, selected: Bool = false, disabled: Bool = false, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, onClick: (() -> Void)? = nil) {
+  public init(title: String = "", subtitle: String = "", description: String? = nil, leading: String? = nil, trailing: String? = nil, childrenText: String? = nil, href: String? = nil, selected: Bool = false, disabled: Bool = false, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, onClick: (() -> Void)? = nil) {
     self.title = title
     self.subtitle = subtitle
     self.description = description
@@ -2427,11 +2627,42 @@ public struct CSItem: View {
   }
 }
 
+public enum CSLocaleModel {
+  public static let defaultLanguage = "vi"
+  public static func resolveMessage(namespace: String, key: String, messages: [String: [String: [String: String]]] = [:], language: String?) -> String {
+    let want = CSComboboxModel.primaryLanguage(language) ?? defaultLanguage
+    var seen = Set<String>()
+    for locale in [want, "en", "vi"] where seen.insert(locale).inserted {
+      if let value = messages[namespace]?[locale]?[key] { return value }
+    }
+    return key
+  }
+}
+
 public struct CSLocaleProvider<Content: View>: View {
   public let language: String
+  public let messages: [String: [String: [String: String]]]
   let content: () -> Content
-  public init(language: String, @ViewBuilder content: @escaping () -> Content) { self.language = language; self.content = content }
+  public init(language: String = CSLocaleModel.defaultLanguage, messages: [String: [String: [String: String]]] = [:], @ViewBuilder content: @escaping () -> Content) {
+    self.language = language
+    self.messages = messages
+    self.content = content
+  }
   public var body: some View { content().environment(\.csLanguage, language).environment(\.locale, Locale(identifier: language == "vi" ? "vi" : "en")) }
+}
+
+public enum CSLumiModel {
+  public static let defaultSize = "md"
+  public static let defaultAlt = "Lumi"
+  public static let glyph = "✦"
+  public static func rootClass(size: String = defaultSize, ring: Bool = false) -> String {
+    var parts = ["cs-lumi", "cs-lumi--\(size)"]
+    if ring { parts.append("cs-lumi--ring") }
+    return parts.joined(separator: " ")
+  }
+  public static func role(src: String?, alt: String) -> String? {
+    src == nil && !alt.isEmpty ? "img" : nil
+  }
 }
 
 public struct CSLumiAvatar: View {
@@ -2442,7 +2673,7 @@ public struct CSLumiAvatar: View {
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
-  public init(alt: String = CSAIStyleModel.lumiDefaultAlt, size: String = "md", src: String? = nil, ring: Bool = false, dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(alt: String = CSAIStyleModel.lumiDefaultAlt, size: String = "md", src: String? = nil, ring: Bool = false, dark: Bool = false, highContrast: Bool = false, compact: Bool = false) {
     self.alt = alt
     self.size = size
     self.src = src
@@ -2469,6 +2700,8 @@ public struct CSLumiAvatar: View {
 
 public enum CSMasonryModel {
   public static let defaultColumns = 3
+  public static let rootClass = "cs-masonry"
+  public static let itemClass = "cs-masonry__item"
   public static func defaultGap() -> Double { 16 }
   public static func safeColumns(_ columns: Int) -> Int { max(1, columns) }
   public static func itemMarginBottom(_ gap: Double = defaultGap()) -> Double { gap }
@@ -2486,18 +2719,40 @@ public struct CSMasonry<Content: View>: View {
   public var body: some View { VStack(alignment: .leading, spacing: CGFloat(CSMasonryModel.itemMarginBottom(gap))) { content() } }
 }
 
+public enum CSMenuItemModel {
+  public static let role = "menuitem"
+  public static let tabIndex = -1
+  public static func itemClass(danger: Bool = false) -> String {
+    danger ? "cs-menu__item cs-menu__item--danger" : "cs-menu__item"
+  }
+  public static func showsIcon(_ icon: String?) -> Bool {
+    guard let icon else { return false }
+    return !icon.isEmpty
+  }
+}
+
 public struct CSMenuItem: View {
   public let title: String
+  public let danger: Bool
+  public let icon: String?
+  public let disabled: Bool
   let action: () -> Void
   @State private var focusId = UUID().uuidString
   @FocusState private var ownerFocused: Bool
-  public init(title: String, action: @escaping () -> Void) { self.title = title; self.action = action }
+  public init(title: String = "", danger: Bool = false, icon: String? = nil, disabled: Bool = false, action: @escaping () -> Void = {}) {
+    self.title = title
+    self.danger = danger
+    self.icon = icon
+    self.disabled = disabled
+    self.action = action
+  }
   public var body: some View {
     let restore = { ownerFocused = true }
     Button(title) {
       CSFocusRegistry.shared.claim(id: focusId, restore: restore)
       action()
     }
+    .disabled(disabled)
     .focused($ownerFocused)
     .padding(.vertical, CGFloat(CSNavigationStyleModel.menuItemPaddingY()))
     .padding(.horizontal, CGFloat(CSNavigationStyleModel.menuItemPaddingX()))
@@ -2512,6 +2767,11 @@ public struct CSMenuItem: View {
 public struct CSNativeSelect: View {
   public let label: String
   public let options: [CSNativeSelectOption]
+  public let defaultValue: String
+  public let id: String?
+  public let ariaLabel: String?
+  public let ariaLabelledBy: String?
+  public let ariaDescribedBy: String?
   public let error: String?
   public let placeholder: String?
   public let hasChildren: Bool
@@ -2523,9 +2783,14 @@ public struct CSNativeSelect: View {
   @Binding var selection: String
   @State private var focusId = UUID().uuidString
   @FocusState private var focused: Bool
-  public init(label: String, options: [CSNativeSelectOption], selection: Binding<String>, error: String? = nil, placeholder: String? = nil, hasChildren: Bool = false, disabled: Bool = false, size: String = "md", dark: Bool = false, highContrast: Bool = false, compact: Bool = false) {
+  public init(label: String = "", options: [CSNativeSelectOption] = [], selection: Binding<String> = .constant(""), defaultValue: String = "", id: String? = nil, ariaLabel: String? = nil, ariaLabelledBy: String? = nil, ariaDescribedBy: String? = nil, error: String? = nil, placeholder: String? = nil, hasChildren: Bool = false, disabled: Bool = false, size: String = "md", dark: Bool = false, highContrast: Bool = false, compact: Bool = false) {
     self.label = label
     self.options = options
+    self.defaultValue = defaultValue
+    self.id = id
+    self.ariaLabel = ariaLabel
+    self.ariaLabelledBy = ariaLabelledBy
+    self.ariaDescribedBy = ariaDescribedBy
     self.error = error
     self.placeholder = placeholder
     self.hasChildren = hasChildren
@@ -2579,6 +2844,10 @@ public struct CSNativeSelect: View {
 }
 
 public enum CSNavItemModel {
+  public static let iconClass = "cs-nav-item__icon"
+  public static let trailClass = "cs-nav-item__trail"
+  public static func rootClass(active: Bool) -> String { active ? "cs-nav-item cs-nav-item--active" : "cs-nav-item" }
+  public static func buttonType(href: String?) -> String? { tag(href: href) == "button" ? "button" : nil }
   public static func gap() -> Double { 11 }
   public static func paddingY() -> Double { 9 }
   public static func paddingX() -> Double { 12 }
@@ -2632,7 +2901,7 @@ public struct CSNavItem: View {
   let highContrast: Bool
   let compact: Bool
   let action: () -> Void
-  public init(title: String, active: Bool, icon: String? = nil, trail: String? = nil, href: String? = nil, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, action: @escaping () -> Void) {
+  public init(title: String = "", active: Bool = false, icon: String? = nil, trail: String? = nil, href: String? = nil, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, action: @escaping () -> Void = {}) {
     self.title = title
     self.active = active
     self.icon = icon
@@ -2690,6 +2959,16 @@ public struct CSNavItem: View {
   }
 }
 
+public enum CSOverlayProviderModel {
+  public static let registryProtocol = "cyberskill.overlay-manager/1"
+  public static let rootDataAttr = "data-cs-overlay-root"
+  public static let defaultKind = "modal"
+  public static func providerId(_ id: String) -> String { "cs-overlay-provider-\(id)" }
+  public static func locksScroll(kind: String = defaultKind, explicit: Bool? = nil) -> Bool {
+    explicit ?? (kind == "modal" || kind == "drawer" || kind == "sheet" || kind == "command" || kind == "alert")
+  }
+}
+
 public struct CSOverlayProvider<Content: View>: View {
   let content: () -> Content
   public init(@ViewBuilder content: @escaping () -> Content) { self.content = content }
@@ -2701,6 +2980,16 @@ public enum CSPromptInputModel {
   public static let sendDefault = "Send"
   public static let hintDefault = "Lumi replies, then hands clear wishes to a human."
   public static let defaultRows = 1
+  public static let rootClass = "cs-prompt"
+  public static let fieldClass = "cs-prompt__field"
+  public static let barClass = "cs-prompt__bar"
+  public static let hintClass = "cs-prompt__hint"
+  public static let spinnerClass = "cs-button__spinner"
+  public static let sendButtonVariant = "primary"
+  public static let sendButtonSize = "sm"
+  public static func hintIconSize() -> Int { 14 }
+  public static func hintIconStrokeWidth() -> Double { 1.8 }
+  public static func showsSpinner(busy: Bool) -> Bool { busy }
   public static func text(controlled: String?, inner: String) -> String { controlled ?? inner }
   public static func placeholder(_ text: String?, fallback: String) -> String { text ?? fallback }
   public static func send(_ text: String?, fallback: String) -> String { text ?? fallback }
@@ -2748,6 +3037,7 @@ public enum CSPromptInputModel {
 public struct CSPromptInput: View {
   public let label: String
   public let submitLabel: String?
+  public let sendLabel: String?
   public let disabled: Bool
   public let busy: Bool
   public let placeholder: String?
@@ -2759,9 +3049,10 @@ public struct CSPromptInput: View {
   @State private var focusId = UUID().uuidString
   @FocusState private var focused: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
-  public init(label: String, submitLabel: String? = nil, text: Binding<String>, disabled: Bool = false, busy: Bool = false, placeholder: String? = nil, hint: String? = nil, ariaLabel: String? = nil, language: String? = nil, onSubmit: @escaping (String) -> Void) {
+  public init(label: String = "", submitLabel: String? = nil, sendLabel: String? = nil, text: Binding<String> = .constant(""), disabled: Bool = false, busy: Bool = false, placeholder: String? = nil, hint: String? = nil, ariaLabel: String? = nil, language: String? = nil, onSubmit: @escaping (String) -> Void = { _ in }) {
     self.label = label
     self.submitLabel = submitLabel
+    self.sendLabel = sendLabel
     self.disabled = disabled
     self.busy = busy
     self.placeholder = placeholder
@@ -2775,7 +3066,7 @@ public struct CSPromptInput: View {
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let prompt = CSPromptInputModel.placeholder(placeholder, fallback: CSPromptInputModel.copy("placeholder", language: locale))
     let spoken = CSPromptInputModel.spoken(ariaLabel: ariaLabel, placeholder: prompt)
-    let sendName = CSPromptInputModel.send(submitLabel, fallback: CSPromptInputModel.copy("send", language: locale))
+    let sendName = CSPromptInputModel.send(sendLabel ?? submitLabel, fallback: CSPromptInputModel.copy("send", language: locale))
     VStack(alignment: .leading, spacing: CGFloat(CSAIStyleModel.promptGap())) {
       TextField(prompt, text: Binding(get: { text }, set: { next in
         CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
@@ -2815,6 +3106,9 @@ public struct CSPromptSuggestion: Equatable {
 }
 
 public enum CSPromptSuggestionsModel {
+  public static let rootClass = "cs-suggest"
+  public static func iconSize() -> Int { 14 }
+  public static func iconStrokeWidth() -> Double { 1.8 }
   public static func iconName(_ icon: String?) -> String { icon ?? "sparkle" }
   public static func fromText(_ text: String) -> CSPromptSuggestion { CSPromptSuggestion(text) }
   public static func chosen(_ label: String, hasHandler: Bool) -> String? { hasHandler ? label : nil }
@@ -2829,7 +3123,7 @@ public struct CSPromptSuggestions: View {
   let onSelect: (String) -> Void
   @State private var focusId = UUID().uuidString
   @FocusState private var focused: Int?
-  public init(suggestions: [CSPromptSuggestion], dark: Bool = false, highContrast: Bool = false, compact: Bool = false, onSelect: @escaping (String) -> Void) {
+  public init(suggestions: [CSPromptSuggestion] = [], dark: Bool = false, highContrast: Bool = false, compact: Bool = false, onSelect: @escaping (String) -> Void = { _ in }) {
     self.suggestions = suggestions
     self.dark = dark
     self.highContrast = highContrast
@@ -2865,6 +3159,13 @@ public struct CSPromptSuggestions: View {
 
 extension CSQRCodeModel {
   public static let defaultSize = 128.0
+  public static let rootClass = "cs-qrcode"
+  public static let role = "img"
+  public static let fallbackGlyph = "—"
+  public static let defaultColor = "var(--cs-color-text-primary)"
+  public static func cellSize(size: Double = defaultSize, modulesCount: Int) -> Double {
+    modulesCount > 0 ? size / Double(modulesCount) : 0
+  }
   public static func accessibleLabel(label: String?, value: String) -> String {
     if let label, !label.isEmpty { return label }
     return value
@@ -2875,10 +3176,12 @@ public struct CSQRCode: View {
   public let value: String
   public let label: String
   public let size: Double
-  public init(value: String = "", label: String = "", size: Double = CSQRCodeModel.defaultSize) {
+  public let color: String?
+  public init(value: String = "", label: String = "", size: Double = CSQRCodeModel.defaultSize, color: String? = nil) {
     self.value = value
     self.label = label
     self.size = size
+    self.color = color
   }
   public var body: some View {
     let modules = CSQRCodeModel.matrix(value)
@@ -2905,6 +3208,27 @@ public struct CSQRCode: View {
 public enum CSTreeSelectModel {
   public static let placeholderDefault = "Select…"
   public static let placementDefault = "bottom-start"
+  public static let rootClass = "cs-treeselect"
+  public static let fieldClass = "cs-treeselect__field"
+  public static let popClass = "cs-treeselect__pop"
+  public static let triggerHasPopup = "tree"
+  public static let chevronGlyph = "▾"
+  public static func descriptionId(_ id: String, description: String?) -> String? {
+    guard let description, !description.isEmpty else { return nil }
+    return "\(id)-description"
+  }
+  public static func errorId(_ id: String, error: String?) -> String? {
+    guard let error, !error.isEmpty else { return nil }
+    return "\(id)-error"
+  }
+  public static func describedBy(explicit: String?, descriptionId: String?, errorId: String?) -> String? {
+    let parts = [explicit, descriptionId, errorId].compactMap { $0 }.filter { !$0.isEmpty }
+    return parts.isEmpty ? nil : parts.joined(separator: " ")
+  }
+  public static func invalid(error: String?) -> Bool {
+    guard let error else { return false }
+    return !error.isEmpty
+  }
   public static func resolvedPlacement(_ explicit: String?) -> String { explicit ?? placementDefault }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
@@ -2968,6 +3292,10 @@ public struct CSTreeSelectPlace: Equatable {
 public struct CSTreeSelect: View {
   public let label: String?
   public let labelledBy: String?
+  public let description: String?
+  public let error: String?
+  public let required: Bool
+  public let ariaDescribedBy: String?
   public let nodes: [CSTreeNode]
   public let selected: String?
   public let placeholder: String?
@@ -2989,9 +3317,13 @@ public struct CSTreeSelect: View {
   @State private var panelScale = CGSize(width: 1, height: 1)
   @State private var measurePass = 0
 
-  public init(label: String? = nil, labelledBy: String? = nil, nodes: [CSTreeNode], open: [String: Bool] = [:], selected: String?, placeholder: String? = nil, disabled: Bool = false, portal: Bool = true, placement: String? = nil, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, language: String? = nil, onSelect: @escaping (String) -> Void) {
+  public init(label: String? = nil, labelledBy: String? = nil, description: String? = nil, error: String? = nil, required: Bool = false, ariaDescribedBy: String? = nil, nodes: [CSTreeNode] = [], open: [String: Bool] = [:], selected: String? = nil, placeholder: String? = nil, disabled: Bool = false, portal: Bool = true, placement: String? = nil, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, language: String? = nil, onSelect: @escaping (String) -> Void = { _ in }) {
     self.label = label
     self.labelledBy = labelledBy
+    self.description = description
+    self.error = error
+    self.required = required
+    self.ariaDescribedBy = ariaDescribedBy
     self.nodes = nodes
     self.selected = selected
     self.placeholder = placeholder
@@ -3007,6 +3339,7 @@ public struct CSTreeSelect: View {
   }
 
   public var body: some View {
+    let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let hint = CSTreeSelectModel.placeholder(placeholder, fallback: CSTreeSelectModel.copy("placeholder", language: locale))
     let found = CSTreeSelectModel.find(nodes: nodes, key: selected)
@@ -3033,6 +3366,12 @@ public struct CSTreeSelect: View {
       .background(GeometryReader { geo in
         Color.clear.preference(key: CSTreeSelectAnchorKey.self, value: geo.frame(in: .global))
       })
+      if let description, !description.isEmpty {
+        Text(description).foregroundStyle(pack.mutedColor)
+      }
+      if let error, !error.isEmpty {
+        Text(error).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
+      }
       if opened {
         let screen = CSContextMenuModel.screenSize()
         let box = CSFloatingRect(left: anchor.minX, top: anchor.minY, right: anchor.maxX, bottom: anchor.maxY, width: anchor.width, height: anchor.height)
@@ -3132,6 +3471,16 @@ public struct CSTreeTableRow: Equatable {
 }
 
 public enum CSTreeTableModel {
+  public static let wrapClass = "cs-table-wrap"
+  public static let tableClass = "cs-table cs-treetable"
+  public static let cellClass = "cs-treetable__cell"
+  public static let twistClass = "cs-tree__twist"
+  public static let emptyClass = "cs-table__empty"
+  public static let openGlyph = "▾"
+  public static let closedGlyph = "▸"
+  public static func resolvedExpanded(expanded: [String]?, defaultExpanded: [String] = []) -> [String] {
+    expanded ?? defaultExpanded
+  }
   public static func rowId(prefix: String, key: String) -> String {
     prefix + "-row-" + key.utf16.map { String(format: "%04x", $0) }.joined()
   }
@@ -3176,6 +3525,7 @@ public struct CSTreeTable: View {
   public let columns: [String]
   public let nodes: [CSTreeTableNode]
   public let expanded: [String]
+  public let defaultExpanded: [String]
   public let emptyLabel: String
   public let expandLabel: String
   public let collapseLabel: String
@@ -3184,10 +3534,11 @@ public struct CSTreeTable: View {
   let onExpanded: ([String]) -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
   @State private var treeId = UUID().uuidString
-  public init(columns: [String], nodes: [CSTreeTableNode], expanded: [String] = [], emptyLabel: String = "", expandLabel: String = "", collapseLabel: String = "", caption: String? = nil, language: String? = nil, onExpanded: @escaping ([String]) -> Void = { _ in }) {
+  public init(columns: [String] = [], nodes: [CSTreeTableNode] = [], expanded: [String] = [], defaultExpanded: [String] = [], emptyLabel: String = "", expandLabel: String = "", collapseLabel: String = "", caption: String? = nil, language: String? = nil, onExpanded: @escaping ([String]) -> Void = { _ in }) {
     self.columns = columns
     self.nodes = nodes
-    self.expanded = expanded
+    self.expanded = expanded.isEmpty ? defaultExpanded : expanded
+    self.defaultExpanded = defaultExpanded
     self.emptyLabel = emptyLabel
     self.expandLabel = expandLabel
     self.collapseLabel = collapseLabel
@@ -3228,6 +3579,8 @@ public struct CSTreeTable: View {
 public enum CSTypingModel {
   public static let labelDefault = "Lumi is typing"
   public static let dotCount = 3
+  public static let rootClass = "cs-typing"
+  public static let role = "status"
   public static func label(_ label: String?, fallback: String) -> String { label ?? fallback }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
