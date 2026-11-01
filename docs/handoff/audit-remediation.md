@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the overlays-menu-menubar-backtop-aspectratio-parity checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the structures-otp-carousel-tree-fileupload-parity checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `0fcca51385a5f5993ef02c167dcc695e5c70f48d` (`feat(native): align overlays menu, menubar, back-top, and aspect ratio with web contracts`)
-- Previous checkpoint: `593ed98b6becaf3e7568a9eee86192d9d61bc961`, with the hash note in `0b3296ea`
+- Checkpoint commit: pending (`feat(native): align structures command palette, transfer, OTP, carousel, tree, and file upload with web contracts`)
+- Previous checkpoint: `0fcca51385a5f5993ef02c167dcc695e5c70f48d`, with the hash note in `55c886c8`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Aligned `CSMenu`/`CsMenu`, `CSMenubar`/`CsMenubar`, `CSBackTop`/`CsBackTop`, and `CSAspectRatio`/`CsAspectRatio` across `Overlays.swift`, `Overlays.kt`, and `overlays.dart` with `Menu.jsx`, `Menubar.jsx`, `BackTop.jsx`, and `AspectRatio.jsx`: added `CSMenuModel.isSeparator`/`CSMenuModel.actionable` (`csMenuIsSeparator`/`csMenuActionable`) and rendered separator rules while skipping separators in roving/typeahead focus; added `csMenubarItem`/`csMenubarTabClose` and `placement` to Compose and Flutter `CsMenubar`, indexing actionable items across separators; added `csBackTopArrow` (`"M12 19V5M5 12l7-7 7 7"`) and `csBackTopIconSize` (`18.0`) to Compose and Flutter `CsBackTop`, rendering the upward arrow icon inside a circular panel button with a `1px` default border; and defaulted `ratio` to `"16 / 9"` on Compose and Flutter `CsAspectRatio`.
+Aligned `CSCommandPalette`/`CsCommandPalette`, `CSTransfer`/`CsTransfer`, `CSInputOTP`/`CsInputOTP`, `CSCarousel`/`CsCarousel`, `CSTree`/`CsTree`, and `CSFileUpload`/`CsFileUpload` across `Structures.swift`, `Structures.kt`, and `structures.dart` with `CommandPalette.jsx`, `Transfer.jsx`, `InputOTP.jsx`, `Carousel.jsx`, `Tree.jsx`, and `FileUpload.jsx`: added `open` and `onOpenChange` (`CSCommandFilter.notifyClose`/`csCommandNotifyClose`) to `CSCommandPalette`/`CsCommandPalette`; added `csTransferPrune` in Compose and Flutter and pruned `checked` against `items` in `CSTransfer`/`CsTransfer`; added `onComplete`, `description`, `error`, and `required` to `CSInputOTP`/`CsInputOTP` (`disabled` and per-digit cell boxes also added to Flutter `CsInputOTP`) along with `csOneTimeComplete`/`csOneTimeFinished`/`csOneTimeAdvance`/`csOneTimeRetreat`/`csOneTimePastedFocus`; added `csCarouselHidden`/`csCarouselCurrentDot`/`csCarouselCanMove` in Compose and Flutter and rendered slide dots and status semantics in Flutter `CsCarousel`; added `CSTreeModel.rowIndent`/`CSTreeModel.twistGlyph` (`csTreeRowIndent`/`csTreeTwistGlyph`) plus `csTreeParent`/`csTreeMove`/`csTreeOpenSiblings` and `onOpen` in Compose and Flutter `CsTree`; and rendered the `28x28` upload icon (`CSFilePick.resolvedIcon`/`csFileResolvedIcon`) and `accept`/`icon` props in `CSFileUpload`/`CsFileUpload`.
 
 - `swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Inspect and close the next concrete behavioral parity gaps across `Structures`, `Fields`, `Flows`, `Surfaces`, and `Remainder` against their web `components/**/*.jsx` counterparts (starting with `Structures` components `CSCommandPalette`/`CsCommandPalette`, `CSTransfer`/`CsTransfer`, `CSInputOTP`/`CsInputOTP`, `CSCarousel`/`CsCarousel`, `CSTree`/`CsTree`, `CSFileUpload`/`CsFileUpload`, and `CSDrawer`/`CsDrawer`).
+Inspect and close the next concrete behavioral parity gaps across `Fields`, `Flows`, `Surfaces`, and `Remainder` against their web `components/**/*.jsx` counterparts (starting with `Fields` components `CSCalendar`/`CsCalendar`, `CSCombobox`/`CsCombobox`, `CSAlertDialog`/`CsAlertDialog`, `CSPopover`/`CsPopover`, `CSCodeBlock`/`CsCodeBlock`, `CSComment`/`CsComment`, and `CSList`/`CsList`).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

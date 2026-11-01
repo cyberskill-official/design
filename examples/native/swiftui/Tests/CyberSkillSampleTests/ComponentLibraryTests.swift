@@ -3293,6 +3293,18 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertTrue(CSMenuModel.isSeparator("-"))
     XCTAssertFalse(CSMenuModel.isSeparator("Open"))
     XCTAssertEqual(CSMenuModel.actionable(["Open", "-", "Close"]), ["Open", "Close"])
+    XCTAssertEqual(CSCommandFilter.notifyClose(hasOpenChange: true, hasClose: true), ["open-false", "close"])
+    XCTAssertEqual(CSTreeModel.rowIndent(depth: 0), 6)
+    XCTAssertEqual(CSTreeModel.rowIndent(depth: 2), 42)
+    XCTAssertEqual(CSTreeModel.twistGlyph(hasChildren: true, isOpen: true), "▾")
+    XCTAssertEqual(CSTreeModel.twistGlyph(hasChildren: true, isOpen: false), "▸")
+    XCTAssertEqual(CSTreeModel.twistGlyph(hasChildren: false, isOpen: true), "")
+    XCTAssertEqual(CSFilePick.resolvedIcon(nil), CSFilePick.icon)
+    XCTAssertEqual(CSFilePick.resolvedIcon("M0 0"), "M0 0")
+    let otpField = CSInputOTP(label: "Code", value: "123456", description: "6 digits", error: "Invalid", required: true, dark: false, highContrast: false, compact: false, onComplete: { _ in }, onChange: { _ in })
+    XCTAssertEqual(otpField.descriptionText, "6 digits")
+    XCTAssertEqual(otpField.error, "Invalid")
+    XCTAssertTrue(otpField.required)
   }
 
   func testSwitchAndDialogExposeTheModeResolvedControls() {

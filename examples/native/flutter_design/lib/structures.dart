@@ -47,6 +47,7 @@ String csCommandFormat(int count, String? language) {
   return buffer.toString();
 }
 bool csCommandClosesOnBackdrop() => true;
+List<String> csCommandNotifyClose(bool hasOpenChange, bool hasClose) => [if (hasOpenChange) 'open-false', if (hasClose) 'close'];
 int csCommandStops(int resultCount) => 1 + (resultCount < 0 ? 0 : resultCount);
 const csCommandScrimRed = 31;
 const csCommandScrimGreen = 19;
@@ -86,6 +87,9 @@ String csCommandStatus(int count, String? language) {
 
 List<String> csTransferToggle(List<String> checked, String key) =>
     checked.contains(key) ? checked.where((item) => item != key).toList() : [...checked, key];
+
+List<String> csTransferPrune(List<String> checked, List<String> items) =>
+    checked.where((item) => items.contains(item)).toList();
 
 String csTransferCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
@@ -151,6 +155,14 @@ String csOneTimeBackspace(String value, int index, {double requested = 6}) {
 }
 String? csOneTimePaste(String text, {double requested = 6, required bool disabled}) => disabled ? null : csOneTimeDigits(text, requested: requested);
 String csOneTimeDigitName(String label, int index, int length) => '$label ${index + 1}/$length';
+int csOneTimeAdvance(int index, int length) => length > 0 ? (index + 1 < 0 ? 0 : (index + 1 > length - 1 ? length - 1 : index + 1)) : 0;
+int csOneTimeRetreat(int index) => index - 1 < 0 ? 0 : index - 1;
+int csOneTimePastedFocus(int count, int length) => length > 0 ? (count < 0 ? 0 : (count > length - 1 ? length - 1 : count)) : 0;
+bool csOneTimeComplete(String value, {double requested = 6}) {
+  final length = csRenderCount(requested, 6);
+  return length > 0 && value.length == length;
+}
+String? csOneTimeFinished(String value, {double requested = 6}) => csOneTimeComplete(value, requested: requested) ? value : null;
 
 int csCarouselClamp(int index, int count) => count <= 0 ? 0 : (index < 0 ? 0 : (index > count - 1 ? count - 1 : index));
 
@@ -172,6 +184,9 @@ String csCarouselCopy(String key, String? language) {
 }
 String csCarouselSlideLabel(int index, int count, String word) => '$word ${index + 1}/$count';
 String csCarouselStatus(int index, int count, String word) => count > 0 ? csCarouselSlideLabel(index, count, word) : '';
+bool csCarouselHidden(int index, int active) => index != active;
+bool csCarouselCurrentDot(int index, int active) => index == active;
+bool csCarouselCanMove(int count) => count >= 2;
 int csCarouselGo(int index, int delta, int count) => count <= 0 ? 0 : csNonnegative(index + delta, count);
 
 class CsTreeNode {
@@ -193,9 +208,59 @@ List<CsTreeNode> csTreeVisible(List<CsTreeNode> nodes, Map<String, bool> open) {
   return out;
 }
 
+(bool, CsTreeNode?) csTreeParent(List<CsTreeNode> nodes, String key, [CsTreeNode? parentNode]) {
+  for (final node in nodes) {
+    if (node.key == key) return (true, parentNode);
+    if (node.children.isNotEmpty) {
+      final found = csTreeParent(node.children, key, node);
+      if (found.$1) return found;
+    }
+  }
+  return (false, null);
+}
+
+(String, String)? csTreeMove(List<CsTreeNode> nodes, Map<String, bool> open, String key, String arrow) {
+  final shown = csTreeVisible(nodes, open);
+  final index = shown.indexWhere((node) => node.key == key);
+  if (index < 0) return null;
+  final node = shown[index];
+  switch (arrow) {
+    case 'down':
+      return index < shown.length - 1 ? ('focus', shown[index + 1].key) : null;
+    case 'up':
+      return index > 0 ? ('focus', shown[index - 1].key) : null;
+    case 'home':
+      return shown.isEmpty ? null : ('focus', shown.first.key);
+    case 'end':
+      return shown.isEmpty ? null : ('focus', shown.last.key);
+    case 'right':
+      if (node.children.isNotEmpty && open[key] != true) return ('toggle', key);
+      if (node.children.isNotEmpty) return ('focus', node.children.first.key);
+      return null;
+    case 'left':
+      if (node.children.isNotEmpty && open[key] == true) return ('toggle', key);
+      final parent = csTreeParent(nodes, key);
+      if (parent.$1 && parent.$2 != null) return ('focus', parent.$2!.key);
+      return null;
+    default:
+      return null;
+  }
+}
+
+List<String> csTreeOpenSiblings(List<CsTreeNode> nodes, String key) {
+  final parent = csTreeParent(nodes, key);
+  if (!parent.$1) return const [];
+  final siblings = parent.$2?.children ?? nodes;
+  return [for (final item in siblings) if (item.children.isNotEmpty) item.key];
+}
+
+double csTreeRowIndent(int depth) => (depth < 0 ? 0 : depth) * 18.0 + 6.0;
+String csTreeTwistGlyph({required bool hasChildren, required bool isOpen}) => hasChildren ? (isOpen ? '▾' : '▸') : '';
+
 const csFileTitleDefault = 'Drop files here or browse';
 const csFileHintDefault = 'PNG, JPG, or PDF up to 10MB';
 const csFileIcon = 'M12 16V4M7 9l5-5 5 5M5 16v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3';
+String csFileResolvedIcon(String? icon) => (icon == null || icon.isEmpty) ? csFileIcon : icon;
 String csFileTitle(String? title, String fallback) => title ?? fallback;
 String csFileHint(String? hint, String fallback) => hint ?? fallback;
 String csFileCopy(String key, String? language) {
@@ -222,7 +287,9 @@ List<String> csFileNames(List<String> files, {bool multiple = false}) {
 }
 
 class CsCommandPalette extends StatefulWidget {
-  const CsCommandPalette({super.key, required this.groups, required this.query, required this.onQuery, required this.onSelect, required this.onClose, required this.dark, required this.highContrast, required this.compact, this.placeholder, this.language});
+  const CsCommandPalette({super.key, required this.groups, required this.query, required this.onQuery, required this.onSelect, required this.onClose, required this.dark, required this.highContrast, required this.compact, this.open = true, this.onOpenChange, this.placeholder, this.language});
+  final bool open;
+  final ValueChanged<bool>? onOpenChange;
   final String? placeholder;
   final String? language;
   final List<CsCommandGroup> groups;
@@ -245,6 +312,7 @@ class _CsCommandPaletteState extends State<CsCommandPalette> {
 
   @override
   Widget build(BuildContext context) {
+    if (!widget.open) return const SizedBox.shrink();
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
     final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
     final hint = csCommandPlaceholderText(widget.placeholder, csCommandCopy('placeholder', locale));
@@ -260,6 +328,7 @@ class _CsCommandPaletteState extends State<CsCommandPalette> {
           if (event is! KeyDownEvent) return KeyEventResult.ignored;
           if (event.logicalKey == LogicalKeyboardKey.escape) {
             widget.onQuery('');
+            widget.onOpenChange?.call(false);
             widget.onClose();
             return KeyEventResult.handled;
           }
@@ -277,6 +346,7 @@ class _CsCommandPaletteState extends State<CsCommandPalette> {
                 child: GestureDetector(
                   onTap: () {
                     widget.onQuery('');
+                    widget.onOpenChange?.call(false);
                     widget.onClose();
                   },
                   child: ColoredBox(color: scrimColor),
@@ -419,6 +489,7 @@ class _CsCommandPaletteState extends State<CsCommandPalette> {
                                                     claim();
                                                     widget.onSelect(item);
                                                     widget.onQuery('');
+                                                    widget.onOpenChange?.call(false);
                                                     widget.onClose();
                                                   },
                                                   child: Row(
@@ -479,15 +550,16 @@ class CsTransfer extends StatelessWidget {
     final toward = csTransferTitle(toTargetLabel, csTransferCopy('toTarget', locale));
     final back = csTransferTitle(toSourceLabel, csTransferCopy('toSource', locale));
     final keys = items.map((item) => item.$1).toList();
+    final pruned = csTransferPrune(checked, keys);
     List<Widget> column(String title, bool side) => [
           Text(title),
           for (final item in items.where((item) => value.contains(item.$1) == side))
             CsCheckbox(
               label: item.$2,
-              value: checked.contains(item.$1),
+              value: pruned.contains(item.$1),
               onChanged: (next) {
-                if (next == null || next == checked.contains(item.$1)) return;
-                onChange(value, csTransferToggle(checked, item.$1));
+                if (next == null || next == pruned.contains(item.$1)) return;
+                onChange(value, csTransferToggle(pruned, item.$1));
               },
               dark: dark,
               highContrast: highContrast,
@@ -502,8 +574,8 @@ class CsTransfer extends StatelessWidget {
         ConstrainedBox(constraints: BoxConstraints(maxHeight: maxListHeight), child: Column(children: column(source, false))),
         SizedBox(width: listGap),
         Column(children: [
-          Semantics(button: true, label: toward, child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); final next = csTransferMove(value, checked, keys, true); onChange(next.$1, next.$2); }, child: const ExcludeSemantics(child: Text('›'))))),
-          Semantics(button: true, label: back, child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); final next = csTransferMove(value, checked, keys, false); onChange(next.$1, next.$2); }, child: const ExcludeSemantics(child: Text('‹'))))),
+          Semantics(button: true, label: toward, child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); final next = csTransferMove(value, pruned, keys, true); onChange(next.$1, next.$2); }, child: const ExcludeSemantics(child: Text('›'))))),
+          Semantics(button: true, label: back, child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); final next = csTransferMove(value, pruned, keys, false); onChange(next.$1, next.$2); }, child: const ExcludeSemantics(child: Text('‹'))))),
         ]),
         SizedBox(width: listGap),
         ConstrainedBox(constraints: BoxConstraints(maxHeight: maxListHeight), child: Column(children: column(target, true))),
@@ -513,12 +585,17 @@ class CsTransfer extends StatelessWidget {
 }
 
 class CsInputOTP extends StatelessWidget {
-  const CsInputOTP({super.key, this.label, required this.value, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.length = 6, this.language});
+  const CsInputOTP({super.key, this.label, required this.value, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.length = 6, this.disabled = false, this.description, this.error, this.required = false, this.onComplete, this.language});
   final String? label;
+  final String? description;
+  final String? error;
   final String? language;
   final String value;
   final ValueChanged<String> onChange;
+  final ValueChanged<String>? onComplete;
   final double length;
+  final bool disabled;
+  final bool required;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -526,13 +603,81 @@ class CsInputOTP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    final digits = csOneTimeDigits(value, requested: length);
+    final cellCount = csRenderCount(length, 6);
     final name = csOneTimeLabelText(label, csOneTimeCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
     final cellGap = csControlsWaveStyleOtpGap();
     final cellWidth = csControlsWaveStyleOtpCellWidth();
     final cellHeight = csControlsWaveStyleOtpCellHeight();
     final fontSize = csControlsWaveStyleOtpFontSize();
     final disabledOpacity = csControlsWaveStyleOtpDisabledOpacity;
-    return CsOwnFocus(builder: (node, claim) => Semantics(label: name, textField: true, child: Opacity(opacity: disabledOpacity >= 0 ? 1.0 : disabledOpacity, child: ConstrainedBox(constraints: BoxConstraints(minWidth: cellWidth + cellGap, minHeight: cellHeight), child: TextField(focusNode: node, controller: TextEditingController(text: csOneTimeDigits(value, requested: length)), decoration: InputDecoration(labelText: name.isEmpty ? null : name), style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: fontSize), onChanged: (next) { claim(); final committed = csOneTimeCommit(next, requested: length, disabled: false); if (committed != null) onChange(committed); })))));
+    return Opacity(
+      opacity: disabled ? disabledOpacity : 1.0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (var index = 0; index < (cellCount < 0 ? 0 : cellCount); index++) ...[
+                if (index > 0) SizedBox(width: cellGap),
+                Builder(
+                  builder: (context) {
+                    final digit = csOneTimeBox(digits, index);
+                    return Semantics(
+                      label: csOneTimeDigitName(name, index, cellCount < 0 ? 0 : cellCount),
+                      child: Container(
+                        width: cellWidth,
+                        height: cellHeight,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: csColor(pack.colorBorderDefault), width: 1),
+                          borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+                        ),
+                        child: Text(
+                          digit.isEmpty ? '·' : digit,
+                          style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: fontSize, fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ],
+          ),
+          SizedBox(height: cellGap),
+          CsOwnFocus(
+            builder: (node, claim) => Semantics(
+              label: name,
+              textField: true,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minWidth: cellWidth + cellGap, minHeight: cellHeight),
+                child: TextField(
+                  focusNode: node,
+                  enabled: !disabled,
+                  controller: TextEditingController(text: digits),
+                  decoration: InputDecoration(labelText: name.isEmpty ? null : name),
+                  style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: fontSize),
+                  onChanged: (next) {
+                    claim();
+                    final committed = csOneTimeCommit(next, requested: length, disabled: disabled);
+                    if (committed != null) {
+                      onChange(committed);
+                      final done = csOneTimeFinished(committed, requested: length);
+                      if (done != null) onComplete?.call(done);
+                    }
+                  },
+                ),
+              ),
+            ),
+          ),
+          if (description != null && description!.isNotEmpty)
+            Text(description!, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeSm))),
+          if (error != null && error!.isNotEmpty)
+            Text(error!, style: TextStyle(color: csColor(pack.colorSemanticDangerText), fontSize: csPoints(pack.fontSizeSm))),
+        ],
+      ),
+    );
   }
 }
 
@@ -555,28 +700,79 @@ class CsCarousel extends StatelessWidget {
     final spoken = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
     final previousName = previousLabel ?? csCarouselCopy('prev', spoken);
     final nextName = nextLabel ?? csCarouselCopy('next', spoken);
+    final slideWord = csCarouselCopy('slide', spoken);
     final gap = csControlsBatchStyleCarouselGap();
     final navSize = csControlsBatchStyleCarouselNavSize();
     final dotTarget = csControlsBatchStyleCarouselDotTargetSize();
-    return Column(children: [
-      if (slides.isNotEmpty) Text(slides[active]),
-      SizedBox(height: gap),
-      Row(children: [
-        ConstrainedBox(constraints: BoxConstraints(minWidth: navSize, minHeight: dotTarget), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: slides.length < 2 ? null : () { claim(); onChange(csCarouselGo(active, -1, slides.length)); }, child: Text(previousName)))),
-        SizedBox(width: gap),
-        ConstrainedBox(constraints: BoxConstraints(minWidth: navSize, minHeight: dotTarget), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: slides.length < 2 ? null : () { claim(); onChange(csCarouselGo(active, 1, slides.length)); }, child: Text(nextName)))),
-      ]),
-    ]);
+    return Semantics(
+      label: label ?? '',
+      value: csCarouselStatus(active, slides.length, slideWord),
+      child: Column(
+        children: [
+          if (slides.isNotEmpty) Text(slides[active]),
+          SizedBox(height: gap),
+          Row(
+            children: [
+              ConstrainedBox(
+                constraints: BoxConstraints(minWidth: navSize, minHeight: dotTarget),
+                child: CsOwnFocus(
+                  builder: (node, claim) => TextButton(
+                    focusNode: node,
+                    onPressed: !csCarouselCanMove(slides.length) ? null : () { claim(); onChange(csCarouselGo(active, -1, slides.length)); },
+                    child: Text(previousName),
+                  ),
+                ),
+              ),
+              SizedBox(width: gap),
+              ConstrainedBox(
+                constraints: BoxConstraints(minWidth: navSize, minHeight: dotTarget),
+                child: CsOwnFocus(
+                  builder: (node, claim) => TextButton(
+                    focusNode: node,
+                    onPressed: !csCarouselCanMove(slides.length) ? null : () { claim(); onChange(csCarouselGo(active, 1, slides.length)); },
+                    child: Text(nextName),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          if (slides.isNotEmpty) ...[
+            SizedBox(height: gap),
+            Row(
+              children: [
+                for (var dot = 0; dot < slides.length; dot++) ...[
+                  if (dot > 0) SizedBox(width: gap),
+                  Semantics(
+                    value: csCarouselCurrentDot(dot, active) ? 'true' : '',
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(minWidth: dotTarget, minHeight: dotTarget),
+                      child: CsOwnFocus(
+                        builder: (node, claim) => TextButton(
+                          focusNode: node,
+                          onPressed: () { claim(); onChange(dot); },
+                          child: Text(csCarouselSlideLabel(dot, slides.length, slideWord)),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ],
+        ],
+      ),
+    );
   }
 }
 
 class CsTree extends StatelessWidget {
-  const CsTree({super.key, required this.label, required this.nodes, required this.open, required this.selected, required this.onSelect, required this.dark, required this.highContrast, required this.compact});
+  const CsTree({super.key, required this.label, required this.nodes, required this.open, required this.selected, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.onOpen});
   final String label;
   final List<CsTreeNode> nodes;
   final Map<String, bool> open;
   final String? selected;
   final ValueChanged<String> onSelect;
+  final ValueChanged<Map<String, bool>>? onOpen;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -593,17 +789,61 @@ class CsTree extends StatelessWidget {
         Text(label, style: TextStyle(color: csColor(pack.colorTextMuted))),
         for (final node in csTreeVisible(nodes, open)) ...[
           SizedBox(height: rowGap),
-          ConstrainedBox(constraints: BoxConstraints(minWidth: twistWidth, minHeight: twistHeight), child: CsOwnFocus(builder: (focusNode, claim) => TextButton(focusNode: focusNode, onPressed: () { claim(); onSelect(node.key); }, child: Text(node.label, style: TextStyle(color: csColor(selected == node.key ? pack.colorBrandOchre : pack.colorTextPrimary)))))),
+          Builder(
+            builder: (context) {
+              final glyph = csTreeTwistGlyph(hasChildren: node.children.isNotEmpty, isOpen: open[node.key] == true);
+              final rowText = glyph.isEmpty ? node.label : '$glyph ${node.label}';
+              return ConstrainedBox(
+                constraints: BoxConstraints(minWidth: twistWidth, minHeight: twistHeight),
+                child: CsOwnFocus(
+                  builder: (focusNode, claim) => TextButton(
+                    focusNode: focusNode,
+                    onPressed: () {
+                      claim();
+                      onSelect(node.key);
+                      if (node.children.isNotEmpty) {
+                        onOpen?.call({...open, node.key: !(open[node.key] == true)});
+                      }
+                    },
+                    child: Text(rowText, style: TextStyle(color: csColor(selected == node.key ? pack.colorBrandOchre : pack.colorTextPrimary))),
+                  ),
+                ),
+              );
+            },
+          ),
         ],
       ],
     );
   }
 }
 
+class _CsFileIconPainter extends CustomPainter {
+  const _CsFileIconPainter(this.pathData, this.color);
+  final String pathData;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.8 * size.shortestSide / 24
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..color = color;
+    canvas.drawPath(csIconPathData(pathData, size.shortestSide), paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _CsFileIconPainter oldDelegate) =>
+      oldDelegate.pathData != pathData || oldDelegate.color != color;
+}
+
 class CsFileUpload extends StatelessWidget {
-  const CsFileUpload({super.key, this.title, this.hint, required this.onFiles, required this.dark, required this.highContrast, required this.compact, this.multiple = false, this.language});
+  const CsFileUpload({super.key, this.title, this.hint, this.accept, this.icon, required this.onFiles, required this.dark, required this.highContrast, required this.compact, this.multiple = false, this.language});
   final String? title;
   final String? hint;
+  final String? accept;
+  final String? icon;
   final String? language;
   final ValueChanged<List<String>> onFiles;
   final bool multiple;
@@ -621,11 +861,30 @@ class CsFileUpload extends StatelessWidget {
     final borderWidth = csControlsWaveStyleDropzoneBorderWidth();
     final padX = csControlsWaveStyleDropzonePaddingX();
     final padY = csControlsWaveStyleDropzonePaddingY();
-    return Semantics(label: shownTitle, hint: shownHint, child: Container(padding: EdgeInsets.symmetric(horizontal: padX, vertical: padY), decoration: BoxDecoration(border: Border.all(color: csColor(pack.colorBorderDefault), width: borderWidth)), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      ExcludeSemantics(child: Text(shownTitle, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
-      SizedBox(height: gap),
-      ExcludeSemantics(child: Text(shownHint, style: TextStyle(color: csColor(pack.colorTextMuted)))),
-    ])));
+    final iconData = csFileResolvedIcon(icon);
+    return Semantics(
+      label: shownTitle,
+      hint: shownHint,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: padX, vertical: padY),
+        decoration: BoxDecoration(border: Border.all(color: csColor(pack.colorBorderDefault), width: borderWidth)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ExcludeSemantics(
+              child: CustomPaint(
+                size: const Size(28, 28),
+                painter: _CsFileIconPainter(iconData, csColor(pack.colorTextMuted)),
+              ),
+            ),
+            SizedBox(height: gap),
+            ExcludeSemantics(child: Text(shownTitle, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
+            SizedBox(height: gap),
+            ExcludeSemantics(child: Text(shownHint, style: TextStyle(color: csColor(pack.colorTextMuted)))),
+          ],
+        ),
+      ),
+    );
   }
 }
 

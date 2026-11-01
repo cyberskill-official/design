@@ -39,6 +39,12 @@ public enum CSCommandFilter {
     return template.replacingOccurrences(of: "{count}", with: format(count, language: language))
   }
   public static func closesOnBackdrop() -> Bool { true }
+  public static func notifyClose(hasOpenChange: Bool, hasClose: Bool) -> [String] {
+    var events: [String] = []
+    if hasOpenChange { events.append("open-false") }
+    if hasClose { events.append("close") }
+    return events
+  }
   public static func stops(resultCount: Int) -> Int { 1 + max(0, resultCount) }
   public static let scrimRed = 31
   public static let scrimGreen = 19
@@ -308,12 +314,24 @@ public enum CSTreeModel {
     }
     return siblings.filter { !$0.children.isEmpty }.map(\.key)
   }
+
+  public static func rowIndent(depth: Int) -> Double {
+    Double(max(0, depth)) * 18.0 + 6.0
+  }
+
+  public static func twistGlyph(hasChildren: Bool, isOpen: Bool) -> String {
+    hasChildren ? (isOpen ? "▾" : "▸") : ""
+  }
 }
 
 public enum CSFilePick {
   public static let titleDefault = "Drop files here or browse"
   public static let hintDefault = "PNG, JPG, or PDF up to 10MB"
   public static let icon = "M12 16V4M7 9l5-5 5 5M5 16v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3"
+  public static func resolvedIcon(_ icon: String?) -> String {
+    guard let icon, !icon.isEmpty else { return self.icon }
+    return icon
+  }
   public static func names(_ files: [String], multiple: Bool) -> [String] {
     guard let first = files.first else { return [] }
     return multiple ? files : [first]
@@ -340,6 +358,7 @@ public enum CSFilePick {
 }
 
 public struct CSCommandPalette: View {
+  public let open: Bool
   public let placeholder: String?
   public let groups: [(title: String, items: [String])]
   public let query: String
@@ -349,13 +368,15 @@ public struct CSCommandPalette: View {
   let compact: Bool
   let onQuery: (String) -> Void
   let onSelect: (String) -> Void
+  let onOpenChange: ((Bool) -> Void)?
   let onClose: () -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
   @State private var focusId = UUID().uuidString
   @State private var hoveredItem: String? = nil
   @FocusState private var trap: Int?
 
-  public init(placeholder: String? = nil, groups: [(title: String, items: [String])], query: String, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onQuery: @escaping (String) -> Void, onSelect: @escaping (String) -> Void, onClose: @escaping () -> Void) {
+  public init(open: Bool = true, placeholder: String? = nil, groups: [(title: String, items: [String])], query: String, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onQuery: @escaping (String) -> Void, onSelect: @escaping (String) -> Void, onOpenChange: ((Bool) -> Void)? = nil, onClose: @escaping () -> Void) {
+    self.open = open
     self.placeholder = placeholder
     self.groups = groups
     self.query = query
@@ -365,10 +386,12 @@ public struct CSCommandPalette: View {
     self.compact = compact
     self.onQuery = onQuery
     self.onSelect = onSelect
+    self.onOpenChange = onOpenChange
     self.onClose = onClose
   }
 
   public var body: some View {
+    if open {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let hint = CSCommandFilter.placeholder(placeholder, fallback: CSCommandFilter.copy("placeholder", language: locale))
@@ -384,6 +407,7 @@ public struct CSCommandPalette: View {
           .contentShape(Rectangle())
           .onTapGesture {
             onQuery("")
+            onOpenChange?(false)
             onClose()
           }
           .zIndex(pack.depthModal)
@@ -410,8 +434,10 @@ public struct CSCommandPalette: View {
       .accessibilityAddTraits(.isModal)
       .onExitCommand {
         onQuery("")
+        onOpenChange?(false)
         onClose()
       }
+    }
     }
   }
 
@@ -483,6 +509,7 @@ public struct CSCommandPalette: View {
               CSTriggerButton(item) {
                 onSelect(item)
                 onQuery("")
+                onOpenChange?(false)
                 onClose()
               }
                 .font(.system(size: pack.fontSizeSm.points))
@@ -541,33 +568,34 @@ public struct CSTransfer: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let keys = items.map(\.key)
+    let pruned = CSTransferModel.prune(checked: checked, items: keys)
     let source = CSTransferModel.title(sourceTitle, fallback: CSTransferModel.copy("source", language: locale))
     let target = CSTransferModel.title(targetTitle, fallback: CSTransferModel.copy("target", language: locale))
     let toward = CSTransferModel.title(toTargetLabel, fallback: CSTransferModel.copy("toTarget", language: locale))
     let back = CSTransferModel.title(toSourceLabel, fallback: CSTransferModel.copy("toSource", language: locale))
     HStack(alignment: .top, spacing: CGFloat(CSControlsBatchStyleModel.transferGap())) {
-      list(title: source, target: false, pack: pack)
+      list(title: source, target: false, checked: pruned, pack: pack)
       VStack(spacing: CGFloat(CSControlsBatchStyleModel.transferGap())) {
         Button {
-          let next = CSTransferModel.move(value: value, checked: checked, items: keys, toTarget: true)
+          let next = CSTransferModel.move(value: value, checked: pruned, items: keys, toTarget: true)
           onChange(next.value, next.checked)
         } label: {
           Text("›").frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
         }
         .accessibilityLabel(toward)
         Button {
-          let next = CSTransferModel.move(value: value, checked: checked, items: keys, toTarget: false)
+          let next = CSTransferModel.move(value: value, checked: pruned, items: keys, toTarget: false)
           onChange(next.value, next.checked)
         } label: {
           Text("‹").frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
         }
         .accessibilityLabel(back)
       }
-      list(title: target, target: true, pack: pack)
+      list(title: target, target: true, checked: pruned, pack: pack)
     }
   }
 
-  private func list(title: String, target: Bool, pack: CSTokenModePack) -> some View {
+  private func list(title: String, target: Bool, checked: [String], pack: CSTokenModePack) -> some View {
     VStack(alignment: .leading) {
       Text(title).foregroundStyle(pack.primaryTextColor)
       ForEach(items.filter { value.contains($0.key) == target }, id: \.key) { item in
@@ -586,55 +614,76 @@ public struct CSInputOTP: View {
   public let value: String
   public let length: Int
   public let disabled: Bool
+  public let descriptionText: String?
+  public let error: String?
+  public let required: Bool
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
   let onChange: (String) -> Void
+  let onComplete: ((String) -> Void)?
   public let language: String?
   @State private var focusId = UUID().uuidString
   @FocusState private var focused: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String? = nil, value: String, length: Double = 6, disabled: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping (String) -> Void) {
+  public init(label: String? = nil, value: String, length: Double = 6, disabled: Bool = false, description: String? = nil, error: String? = nil, required: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onComplete: ((String) -> Void)? = nil, onChange: @escaping (String) -> Void) {
     self.label = label
     self.value = CSOneTimeCode.digits(value, length: length)
     self.length = CSRenderCount.whole(length, fallback: 6)
     self.disabled = disabled
+    self.descriptionText = description
+    self.error = error
+    self.required = required
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
     self.language = language
+    self.onComplete = onComplete
     self.onChange = onChange
   }
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let name = CSOneTimeCode.label(label, fallback: CSOneTimeCode.copy("label", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)))
-    HStack(spacing: CGFloat(CSControlsWaveStyleModel.otpGap())) {
-      ForEach(0..<max(length, 0), id: \.self) { index in
-        let digit = CSOneTimeCode.box(value: value, index: index)
-        Text(digit.isEmpty ? "·" : digit)
-          .font(.system(size: CGFloat(CSControlsWaveStyleModel.otpFontSize()), weight: .bold))
-          .accessibilityLabel(CSOneTimeCode.digitName(label: name, index: index, length: max(length, 0)))
-          .frame(width: CGFloat(CSControlsWaveStyleModel.otpCellWidth()), height: CGFloat(CSControlsWaveStyleModel.otpCellHeight()))
-          .foregroundStyle(pack.primaryTextColor)
-          .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.borderColor, lineWidth: 1))
+    VStack(alignment: .leading, spacing: 4) {
+      HStack(spacing: CGFloat(CSControlsWaveStyleModel.otpGap())) {
+        ForEach(0..<max(length, 0), id: \.self) { index in
+          let digit = CSOneTimeCode.box(value: value, index: index)
+          Text(digit.isEmpty ? "·" : digit)
+            .font(.system(size: CGFloat(CSControlsWaveStyleModel.otpFontSize()), weight: .bold))
+            .accessibilityLabel(CSOneTimeCode.digitName(label: name, index: index, length: max(length, 0)))
+            .frame(width: CGFloat(CSControlsWaveStyleModel.otpCellWidth()), height: CGFloat(CSControlsWaveStyleModel.otpCellHeight()))
+            .foregroundStyle(pack.primaryTextColor)
+            .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.borderColor, lineWidth: 1))
+        }
+      }
+      .opacity(disabled ? CSControlsWaveStyleModel.otpDisabledOpacity : 1.0)
+      TextField(name, text: Binding(get: { value }, set: { next in
+        CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
+        if let committed = CSOneTimeCode.commit(raw: next, length: Double(length), disabled: disabled) {
+          onChange(committed)
+          if let done = CSOneTimeCode.finished(committed, length: Double(length)) {
+            onComplete?(done)
+          }
+        }
+      }))
+      .focused($focused)
+      .onChange(of: focused) { isFocused in
+        if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
+      }
+      .disabled(disabled)
+      .opacity(disabled ? CSControlsWaveStyleModel.otpDisabledOpacity : 1.0)
+      .accessibilityElement(children: .ignore)
+      .accessibilityLabel(name)
+      .accessibilityValue(Text(value))
+      if let descriptionText, !descriptionText.isEmpty {
+        Text(descriptionText).font(.system(size: pack.fontSizeSm.points)).foregroundStyle(pack.mutedColor)
+      }
+      if let error, !error.isEmpty {
+        Text(error).font(.system(size: pack.fontSizeSm.points)).foregroundStyle(pack.colorSemanticDangerText.color)
       }
     }
-    .opacity(disabled ? CSControlsWaveStyleModel.otpDisabledOpacity : 1.0)
-    TextField(name, text: Binding(get: { value }, set: { next in
-      CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
-      if let committed = CSOneTimeCode.commit(raw: next, length: Double(length), disabled: disabled) { onChange(committed) }
-    }))
-    .focused($focused)
-    .onChange(of: focused) { isFocused in
-      if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
-    }
-    .disabled(disabled)
-    .opacity(disabled ? CSControlsWaveStyleModel.otpDisabledOpacity : 1.0)
-    .accessibilityElement(children: .ignore)
-    .accessibilityLabel(name)
-    .accessibilityValue(Text(value))
   }
 }
 
@@ -728,7 +777,8 @@ public struct CSTree: View {
     let shown = CSTreeModel.visible(nodes: nodes, open: open)
     VStack(alignment: .leading, spacing: CGFloat(CSControlsBatchStyleModel.treeRowGap())) {
       ForEach(shown, id: \.key) { node in
-        CSTriggerButton(node.label) {
+        let glyph = CSTreeModel.twistGlyph(hasChildren: !node.children.isEmpty, isOpen: open[node.key] == true)
+        CSTriggerButton(glyph.isEmpty ? node.label : "\(glyph) \(node.label)") {
           onSelect(node.key)
           if !node.children.isEmpty {
             var next = open
@@ -773,6 +823,8 @@ public struct CSTree: View {
 public struct CSFileUpload: View {
   public let title: String?
   public let hint: String?
+  public let accept: String?
+  public let icon: String?
   public let multiple: Bool
   let dark: Bool
   let highContrast: Bool
@@ -781,9 +833,11 @@ public struct CSFileUpload: View {
   public let language: String?
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(title: String? = nil, hint: String? = nil, multiple: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onFiles: @escaping ([String]) -> Void) {
+  public init(title: String? = nil, hint: String? = nil, accept: String? = nil, icon: String? = nil, multiple: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onFiles: @escaping ([String]) -> Void) {
     self.title = title
     self.hint = hint
+    self.accept = accept
+    self.icon = icon
     self.multiple = multiple
     self.dark = dark
     self.highContrast = highContrast
@@ -799,7 +853,7 @@ public struct CSFileUpload: View {
     let shownHint = CSFilePick.hint(hint, fallback: CSFilePick.copy("hint", language: spoken))
     VStack(alignment: .leading, spacing: CGFloat(CSControlsWaveStyleModel.dropzoneGap())) {
       Canvas { context, size in
-        let source = CSIconPaths.path(data: CSFilePick.icon)
+        let source = CSIconPaths.path(data: CSFilePick.resolvedIcon(icon))
         let scale = min(size.width, size.height) / 24
         context.stroke(source.applying(CGAffineTransform(scaleX: scale, y: scale)), with: .color(pack.mutedColor), lineWidth: 1.8)
       }
