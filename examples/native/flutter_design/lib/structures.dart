@@ -847,3 +847,106 @@ class _CsDrawerState extends State<CsDrawer> {
     );
   }
 }
+
+const double csResponsivePhoneBreakpoint = 360.0;
+const double csResponsiveSmBreakpoint = 640.0;
+const double csResponsiveMdBreakpoint = 768.0;
+const double csResponsiveXlBreakpoint = 1280.0;
+const double csResponsiveCanvasTrackMinWidth = 960.0;
+const double csResponsiveTouchFloor = 44.0;
+
+double csResponsiveMediaMaxWidthRatio() => 1.0;
+bool csResponsiveMediaAutoHeight() => true;
+
+String csResponsiveCqContainerType() => 'inline-size';
+String csResponsiveCqContainerName() => 'cs';
+int csResponsiveCqColumns(int columns, double containerWidth) {
+  if ((columns == 2 || columns == 3 || columns == 4) && containerWidth <= csResponsiveMdBreakpoint) return 1;
+  return columns < 1 ? 1 : columns;
+}
+bool csResponsiveCqHideNarrow(double containerWidth) => containerWidth <= csResponsiveMdBreakpoint;
+bool csResponsiveCqStackColumn(double containerWidth) => containerWidth <= csResponsiveSmBreakpoint;
+double csResponsiveCqStackChildMinInlineSize() => 0.0;
+double csResponsiveCqStackChildMaxInlineRatio() => 1.0;
+
+double csResponsiveDeskPaddingY(double viewportWidth) =>
+    viewportWidth <= csResponsiveSmBreakpoint ? 12.0 : 24.0;
+double csResponsiveDeskPaddingX(double viewportWidth) =>
+    viewportWidth <= csResponsiveSmBreakpoint ? 6.0 : 10.0;
+double csResponsiveSheetPaddingY(double viewportWidth) {
+  if (viewportWidth <= csResponsivePhoneBreakpoint) return 20.0;
+  if (viewportWidth <= csResponsiveSmBreakpoint) return 26.0;
+  return 40.0;
+}
+double csResponsiveSheetPaddingX(double viewportWidth) {
+  if (viewportWidth <= csResponsivePhoneBreakpoint) return 15.0;
+  if (viewportWidth <= csResponsiveSmBreakpoint) return 20.0;
+  return 40.0;
+}
+double csResponsiveSheetRadius(double viewportWidth, [double defaultRadius = 12.0]) =>
+    viewportWidth <= csResponsiveSmBreakpoint ? 8.0 : defaultRadius;
+bool csResponsiveDeskSheetOverflowWrapAnywhere(double viewportWidth) =>
+    viewportWidth <= csResponsiveMdBreakpoint;
+bool csResponsiveTableScrollsHorizontally(double viewportWidth) =>
+    viewportWidth <= csResponsiveMdBreakpoint;
+
+bool csResponsiveSidebarStacked(double viewportWidth) => viewportWidth <= csResponsiveMdBreakpoint;
+double csResponsiveSidebarRowGap(double viewportWidth) => viewportWidth <= csResponsiveMdBreakpoint ? 4.0 : 2.0;
+double csResponsiveSidebarColumnGap(double viewportWidth) => viewportWidth <= csResponsiveMdBreakpoint ? 10.0 : 0.0;
+double csResponsiveSidebarBorderInlineEnd(double viewportWidth) => viewportWidth <= csResponsiveMdBreakpoint ? 0.0 : 1.0;
+double csResponsiveSidebarBorderBlockEnd(double viewportWidth) => viewportWidth <= csResponsiveMdBreakpoint ? 1.0 : 0.0;
+bool csResponsiveSidebarLabelFullWidth(double viewportWidth) => viewportWidth <= csResponsiveMdBreakpoint;
+int csResponsiveAppShellColumns(double viewportWidth) => viewportWidth <= csResponsiveMdBreakpoint ? 1 : 2;
+double csResponsiveAppShellMainMinWidth() => 0.0;
+
+bool csResponsiveCanvasDeskScrollsHorizontally() => true;
+double csResponsiveCanvasDeskTrackMinWidth(double viewportWidth) =>
+    viewportWidth <= csResponsiveXlBreakpoint ? csResponsiveCanvasTrackMinWidth : 0.0;
+
+double csResponsiveSectionInlinePadding(double authoredPadding, double viewportWidth) =>
+    (viewportWidth <= csResponsiveSmBreakpoint && (authoredPadding == 84.0 || authoredPadding == 80.0 || authoredPadding == 72.0)) ? 22.0 : authoredPadding;
+
+int csResponsiveGridColumns(int authoredColumns, double viewportWidth, {bool insideCanvasDesk = false}) {
+  final cols = authoredColumns < 1 ? 1 : authoredColumns;
+  if (insideCanvasDesk) return cols;
+  if (viewportWidth <= csResponsiveSmBreakpoint && cols >= 2 && cols <= 6) return 1;
+  if (viewportWidth <= csResponsiveMdBreakpoint && cols >= 3 && cols <= 6) return 2;
+  return cols;
+}
+
+bool csResponsiveCollapsesTwoColumnSpec(String spec, double viewportWidth, {bool insideCanvasDesk = false}) {
+  if (insideCanvasDesk) return false;
+  if (viewportWidth <= csResponsivePhoneBreakpoint && spec.contains('minmax(320px')) return true;
+  if (viewportWidth > csResponsiveSmBreakpoint) return false;
+  final normalized = spec.replaceAll(' ', '').toLowerCase();
+  return normalized.contains('1fr1fr') ||
+      normalized.contains('1.15fr1fr') ||
+      normalized.contains('1fr1.15fr') ||
+      normalized.contains('2fr1fr') ||
+      normalized.contains('1fr2fr') ||
+      normalized.contains('auto1fr') ||
+      normalized.contains('248px1fr');
+}
+
+double csResponsiveNavItemMinHeight(double viewportWidth, [double baseHeight = 39.0]) =>
+    viewportWidth <= csResponsiveMdBreakpoint ? (baseHeight < csResponsiveTouchFloor ? csResponsiveTouchFloor : baseHeight) : baseHeight;
+double csResponsiveSearchMinHeight(double viewportWidth, [double baseHeight = 26.0]) =>
+    viewportWidth <= csResponsiveMdBreakpoint ? (baseHeight < csResponsiveTouchFloor ? csResponsiveTouchFloor : baseHeight) : baseHeight;
+
+bool csResponsiveTabsScrollHorizontally(double viewportWidth) => viewportWidth <= csResponsivePhoneBreakpoint;
+String csResponsiveTabsScrollbarWidth(double viewportWidth, {required bool coarsePointer}) {
+  if (coarsePointer) return 'none';
+  if (viewportWidth <= csResponsivePhoneBreakpoint) return 'thin';
+  return 'auto';
+}
+bool csResponsivePaginationWraps(double viewportWidth) => viewportWidth <= csResponsivePhoneBreakpoint;
+bool csResponsiveOtpWraps(double viewportWidth) => viewportWidth <= csResponsivePhoneBreakpoint;
+double csResponsiveOtpGap(double viewportWidth, [double defaultGap = 8.0]) =>
+    viewportWidth <= csResponsivePhoneBreakpoint ? 4.0 : defaultGap;
+double csResponsiveOtpInputWidth(double viewportWidth, {required bool coarsePointer, double defaultWidth = 44.0}) =>
+    (viewportWidth <= csResponsivePhoneBreakpoint && !coarsePointer) ? 36.0 : defaultWidth;
+double csResponsiveOtpInputHeight(double viewportWidth, {required bool coarsePointer, double defaultHeight = 44.0}) =>
+    (viewportWidth <= csResponsivePhoneBreakpoint && !coarsePointer) ? 40.0 : defaultHeight;
+int csResponsiveDlColumns(double viewportWidth, [int defaultColumns = 2]) =>
+    viewportWidth <= csResponsivePhoneBreakpoint ? 1 : defaultColumns;
+double csResponsiveFieldMinInlineSize() => 0.0;

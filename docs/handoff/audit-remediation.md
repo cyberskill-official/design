@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the a11y-coarse-motion-contrast-forced checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the responsive-cq-grid-reflow checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `71201ec410c0c7b8d17b08db8733f2e948ed68f0`, with the hash note in `0b1c8e7f`
-- Checkpoint commit hash: `a065903b579d384c681d53c4393b27f69a81a443`
+- Previous checkpoint: `a065903b579d384c681d53c4393b27f69a81a443`, with the hash note in `afbdd42a`
+- Checkpoint commit hash: pending first push of this checkpoint
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +49,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the accessibility layer coarse touch targets, reduced motion, and contrast overrides: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the responsive layer container-query helpers, desk/sheet breakpoint padding, sidebar wrap strip, canvas-desk scroll floor, fixed-column grid collapse, 44px touch floor, and 360px reflow: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The accessibility layer (`CSA11yModel` / `csA11y*`) now models `.cs-sr-only` `1x1` screen-reader-only clipping, `pointer: coarse` `44px` minimum hit targets (`46px` for `.cs-igroup__btn` and `.cs-splitter`, `24px` `.cs-check__input`/`.cs-radio__input` inside `44px` label rows, `repeat(5, 44px)` `.cs-colorpicker__grid`, `repeat(7, 44px)` `.cs-calendar__grid`, `64px` `.cs-carousel__view` inline padding and `44px` `.cs-carousel__dot` with `4.5px` radial indicator, `none` scrollbar on `.cs-tabs`), global `0.01ms` `prefers-reduced-motion: reduce` animation/transition clamp with `scroll-behavior: auto`, `prefers-contrast: more` light/dark border and text-muted overrides (`#9a8060`/`#45210e` light, `#7a6450`/`#f5ead9` dark, `2px solid var(--cs-color-border)` on buttons/inputs/cards/dialogs/alerts), and `forced-colors: active` `ButtonText`/`Highlight`/`GrayText` borders, matching `base/a11y.css` lines 1–176.
+The responsive layer (`CSResponsiveModel` / `csResponsive*`) now models `100%` max-width / `auto` height media, `.cs-cq` (`container-type: inline-size; container-name: cs`) with `<=768px` `1fr` columns (`.cs-cq-cols-2`/`3`/`4`), `.cs-cq-hide-narrow`, and `<=640px` `.cs-cq-stack`, `.cs-desk` (`24x10` at `<=768px`, `12x6` at `<=640px`) and `.cs-sheet` (`40x40` at `<=768px`, `26x20` + `8px` radius at `<=640px`, `20x15` at `<=360px`) padding with `overflow-wrap: anywhere`, horizontal table scrolling at `<=768px`, `.cs-sidebar` horizontal wrap strip at `<=768px` (`4x10` gap, `0` inline-end border, `1px` block-end border, `100%` `.cs-sidebar__label`, `1fr` app-shell collapse), `.cs-canvas-desk` horizontal scroll with `960px` floor at `<=1280px` and preserved inner columns, `22px` phone inline section padding, inline fixed-column grid collapse (`3..6 -> 2` at `<=768px`, `2..6 -> 1` and two-column fractional specs at `<=640px`), `44px` touch floor on `.cs-nav-item` and `.cs-search` at `<=768px`, and `<=360px` reflow (`.cs-tabs` scroll + `thin`/`none` scrollbar, `.cs-pagination` wrap, `.cs-otp` wrap + `4px` gap + `36x40` fine-pointer inputs, `.cs-dl` `1fr`), matching `base/responsive.css` lines 1–188.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style the responsive layout and breakpoint rules (`CSResponsiveModel` / `csResponsive*`) in `base/responsive.css` lines 1–188: container-query helpers (`.cs-cq`, `<=768px` `1fr` columns, `<=640px` stacked column with `100%` buttons), `.cs-desk` and `.cs-sheet` breakpoint padding/radii (`<=768px`, `<=640px`, `<=360px`), `.cs-sidebar` horizontal wrap strip at `<=768px` (hiding `.cs-sidebar__label`), `.cs-canvas-desk` `<=1280px` horizontal scroll with `960px` floor, inline fixed-column grid collapse (`<=768px` 3–6 cols to 2 cols; `<=640px` 2–6 cols to `1fr`), `<=768px` `44px` touch floor, `<=640px` `min(92vw, 320px)` `.cs-drawer` width, and `<=360px` reflow for `.cs-tabs`, `.cs-pagination`, `.cs-otp`, and `.cs-dl`. Re-read `base/responsive.css` lines 1–188 before editing.
+Fix all Kotlin/Compose compilation errors in `examples/native/compose/design/src/main/java/world/cyberskill/design/{Fields,Flows,Overlays,Primitives,Records,Remainder,Structures,Surfaces}.kt` reported by the `ubuntu-24.04` `:design:compileDebugKotlin` run (`@Composable` invocation contexts, missing `boundsInRoot`/`positionInRoot`/`matchParentSize`/`drawText`/`isShiftPressed`/`onPointerEvent`/`contentDescription`/`selected`/`buttons` imports or helpers, duplicate `csTagCopy` in `Primitives.kt` vs `Records.kt`, and nullable `String?` arguments in `Surfaces.kt`).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

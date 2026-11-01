@@ -645,3 +645,109 @@ fun CsDrawer(title: String, message: String, closeLabel: String? = null, open: B
     }
   }
 }
+
+const val csResponsivePhoneBreakpoint: Float = 360f
+const val csResponsiveSmBreakpoint: Float = 640f
+const val csResponsiveMdBreakpoint: Float = 768f
+const val csResponsiveXlBreakpoint: Float = 1280f
+const val csResponsiveCanvasTrackMinWidth: Float = 960f
+const val csResponsiveTouchFloor: Float = 44f
+
+fun csResponsiveMediaMaxWidthRatio(): Float = 1.0f
+fun csResponsiveMediaAutoHeight(): Boolean = true
+
+fun csResponsiveCqContainerType(): String = "inline-size"
+fun csResponsiveCqContainerName(): String = "cs"
+fun csResponsiveCqColumns(columns: Int, containerWidth: Float): Int {
+  if ((columns == 2 || columns == 3 || columns == 4) && containerWidth <= csResponsiveMdBreakpoint) return 1
+  return columns.coerceAtLeast(1)
+}
+fun csResponsiveCqHideNarrow(containerWidth: Float): Boolean = containerWidth <= csResponsiveMdBreakpoint
+fun csResponsiveCqStackColumn(containerWidth: Float): Boolean = containerWidth <= csResponsiveSmBreakpoint
+fun csResponsiveCqStackChildMinInlineSize(): Float = 0f
+fun csResponsiveCqStackChildMaxInlineRatio(): Float = 1.0f
+
+fun csResponsiveDeskPaddingY(viewportWidth: Float): Float =
+  if (viewportWidth <= csResponsiveSmBreakpoint) 12f else 24f
+fun csResponsiveDeskPaddingX(viewportWidth: Float): Float =
+  if (viewportWidth <= csResponsiveSmBreakpoint) 6f else 10f
+fun csResponsiveSheetPaddingY(viewportWidth: Float): Float =
+  when {
+    viewportWidth <= csResponsivePhoneBreakpoint -> 20f
+    viewportWidth <= csResponsiveSmBreakpoint -> 26f
+    else -> 40f
+  }
+fun csResponsiveSheetPaddingX(viewportWidth: Float): Float =
+  when {
+    viewportWidth <= csResponsivePhoneBreakpoint -> 15f
+    viewportWidth <= csResponsiveSmBreakpoint -> 20f
+    else -> 40f
+  }
+fun csResponsiveSheetRadius(viewportWidth: Float, defaultRadius: Float = 12f): Float =
+  if (viewportWidth <= csResponsiveSmBreakpoint) 8f else defaultRadius
+fun csResponsiveDeskSheetOverflowWrapAnywhere(viewportWidth: Float): Boolean =
+  viewportWidth <= csResponsiveMdBreakpoint
+fun csResponsiveTableScrollsHorizontally(viewportWidth: Float): Boolean =
+  viewportWidth <= csResponsiveMdBreakpoint
+
+fun csResponsiveSidebarStacked(viewportWidth: Float): Boolean = viewportWidth <= csResponsiveMdBreakpoint
+fun csResponsiveSidebarRowGap(viewportWidth: Float): Float = if (viewportWidth <= csResponsiveMdBreakpoint) 4f else 2f
+fun csResponsiveSidebarColumnGap(viewportWidth: Float): Float = if (viewportWidth <= csResponsiveMdBreakpoint) 10f else 0f
+fun csResponsiveSidebarBorderInlineEnd(viewportWidth: Float): Float = if (viewportWidth <= csResponsiveMdBreakpoint) 0f else 1f
+fun csResponsiveSidebarBorderBlockEnd(viewportWidth: Float): Float = if (viewportWidth <= csResponsiveMdBreakpoint) 1f else 0f
+fun csResponsiveSidebarLabelFullWidth(viewportWidth: Float): Boolean = viewportWidth <= csResponsiveMdBreakpoint
+fun csResponsiveAppShellColumns(viewportWidth: Float): Int = if (viewportWidth <= csResponsiveMdBreakpoint) 1 else 2
+fun csResponsiveAppShellMainMinWidth(): Float = 0f
+
+fun csResponsiveCanvasDeskScrollsHorizontally(): Boolean = true
+fun csResponsiveCanvasDeskTrackMinWidth(viewportWidth: Float): Float =
+  if (viewportWidth <= csResponsiveXlBreakpoint) csResponsiveCanvasTrackMinWidth else 0f
+
+fun csResponsiveSectionInlinePadding(authoredPadding: Float, viewportWidth: Float): Float =
+  if (viewportWidth <= csResponsiveSmBreakpoint && (authoredPadding == 84f || authoredPadding == 80f || authoredPadding == 72f)) 22f else authoredPadding
+
+fun csResponsiveGridColumns(authoredColumns: Int, viewportWidth: Float, insideCanvasDesk: Boolean = false): Int {
+  val cols = authoredColumns.coerceAtLeast(1)
+  if (insideCanvasDesk) return cols
+  if (viewportWidth <= csResponsiveSmBreakpoint && cols in 2..6) return 1
+  if (viewportWidth <= csResponsiveMdBreakpoint && cols in 3..6) return 2
+  return cols
+}
+
+fun csResponsiveCollapsesTwoColumnSpec(spec: String, viewportWidth: Float, insideCanvasDesk: Boolean = false): Boolean {
+  if (insideCanvasDesk) return false
+  if (viewportWidth <= csResponsivePhoneBreakpoint && spec.contains("minmax(320px")) return true
+  if (viewportWidth > csResponsiveSmBreakpoint) return false
+  val normalized = spec.replace(" ", "").lowercase()
+  return normalized.contains("1fr1fr")
+    || normalized.contains("1.15fr1fr")
+    || normalized.contains("1fr1.15fr")
+    || normalized.contains("2fr1fr")
+    || normalized.contains("1fr2fr")
+    || normalized.contains("auto1fr")
+    || normalized.contains("248px1fr")
+}
+
+fun csResponsiveNavItemMinHeight(viewportWidth: Float, baseHeight: Float = 39f): Float =
+  if (viewportWidth <= csResponsiveMdBreakpoint) maxOf(baseHeight, csResponsiveTouchFloor) else baseHeight
+fun csResponsiveSearchMinHeight(viewportWidth: Float, baseHeight: Float = 26f): Float =
+  if (viewportWidth <= csResponsiveMdBreakpoint) maxOf(baseHeight, csResponsiveTouchFloor) else baseHeight
+
+fun csResponsiveTabsScrollHorizontally(viewportWidth: Float): Boolean = viewportWidth <= csResponsivePhoneBreakpoint
+fun csResponsiveTabsScrollbarWidth(viewportWidth: Float, coarsePointer: Boolean): String =
+  when {
+    coarsePointer -> "none"
+    viewportWidth <= csResponsivePhoneBreakpoint -> "thin"
+    else -> "auto"
+  }
+fun csResponsivePaginationWraps(viewportWidth: Float): Boolean = viewportWidth <= csResponsivePhoneBreakpoint
+fun csResponsiveOtpWraps(viewportWidth: Float): Boolean = viewportWidth <= csResponsivePhoneBreakpoint
+fun csResponsiveOtpGap(viewportWidth: Float, defaultGap: Float = 8f): Float =
+  if (viewportWidth <= csResponsivePhoneBreakpoint) 4f else defaultGap
+fun csResponsiveOtpInputWidth(viewportWidth: Float, coarsePointer: Boolean, defaultWidth: Float = 44f): Float =
+  if (viewportWidth <= csResponsivePhoneBreakpoint && !coarsePointer) 36f else defaultWidth
+fun csResponsiveOtpInputHeight(viewportWidth: Float, coarsePointer: Boolean, defaultHeight: Float = 44f): Float =
+  if (viewportWidth <= csResponsivePhoneBreakpoint && !coarsePointer) 40f else defaultHeight
+fun csResponsiveDlColumns(viewportWidth: Float, defaultColumns: Int = 2): Int =
+  if (viewportWidth <= csResponsivePhoneBreakpoint) 1 else defaultColumns
+fun csResponsiveFieldMinInlineSize(): Float = 0f

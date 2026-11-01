@@ -1031,3 +1031,124 @@ public struct CSDrawer: View {
     CSOverlayRegistry.shared.remove(id: layerId)
   }
 }
+
+public enum CSResponsiveModel {
+  public static let phoneBreakpoint: Double = 360
+  public static let smBreakpoint: Double = 640
+  public static let mdBreakpoint: Double = 768
+  public static let xlBreakpoint: Double = 1280
+  public static let canvasTrackMinWidth: Double = 960
+  public static let touchFloor: Double = 44
+
+  public static func mediaMaxWidthRatio() -> Double { 1.0 }
+  public static func mediaAutoHeight() -> Bool { true }
+
+  public static func cqContainerType() -> String { "inline-size" }
+  public static func cqContainerName() -> String { "cs" }
+  public static func cqColumns(columns: Int, containerWidth: Double) -> Int {
+    if (columns == 2 || columns == 3 || columns == 4) && containerWidth <= mdBreakpoint { return 1 }
+    return max(columns, 1)
+  }
+  public static func cqHideNarrow(containerWidth: Double) -> Bool { containerWidth <= mdBreakpoint }
+  public static func cqStackColumn(containerWidth: Double) -> Bool { containerWidth <= smBreakpoint }
+  public static func cqStackChildMinInlineSize() -> Double { 0 }
+  public static func cqStackChildMaxInlineRatio() -> Double { 1.0 }
+
+  public static func deskPaddingY(viewportWidth: Double) -> Double {
+    viewportWidth <= smBreakpoint ? 12 : 24
+  }
+  public static func deskPaddingX(viewportWidth: Double) -> Double {
+    viewportWidth <= smBreakpoint ? 6 : 10
+  }
+  public static func sheetPaddingY(viewportWidth: Double) -> Double {
+    if viewportWidth <= phoneBreakpoint { return 20 }
+    if viewportWidth <= smBreakpoint { return 26 }
+    return 40
+  }
+  public static func sheetPaddingX(viewportWidth: Double) -> Double {
+    if viewportWidth <= phoneBreakpoint { return 15 }
+    if viewportWidth <= smBreakpoint { return 20 }
+    return 40
+  }
+  public static func sheetRadius(viewportWidth: Double, defaultRadius: Double = 12) -> Double {
+    viewportWidth <= smBreakpoint ? 8 : defaultRadius
+  }
+  public static func deskSheetOverflowWrapAnywhere(viewportWidth: Double) -> Bool {
+    viewportWidth <= mdBreakpoint
+  }
+  public static func tableScrollsHorizontally(viewportWidth: Double) -> Bool {
+    viewportWidth <= mdBreakpoint
+  }
+
+  public static func sidebarStacked(viewportWidth: Double) -> Bool { viewportWidth <= mdBreakpoint }
+  public static func sidebarRowGap(viewportWidth: Double) -> Double { viewportWidth <= mdBreakpoint ? 4 : 2 }
+  public static func sidebarColumnGap(viewportWidth: Double) -> Double { viewportWidth <= mdBreakpoint ? 10 : 0 }
+  public static func sidebarBorderInlineEnd(viewportWidth: Double) -> Double { viewportWidth <= mdBreakpoint ? 0 : 1 }
+  public static func sidebarBorderBlockEnd(viewportWidth: Double) -> Double { viewportWidth <= mdBreakpoint ? 1 : 0 }
+  public static func sidebarLabelFullWidth(viewportWidth: Double) -> Bool { viewportWidth <= mdBreakpoint }
+  public static func appShellColumns(viewportWidth: Double) -> Int { viewportWidth <= mdBreakpoint ? 1 : 2 }
+  public static func appShellMainMinWidth() -> Double { 0 }
+
+  public static func canvasDeskScrollsHorizontally() -> Bool { true }
+  public static func canvasDeskTrackMinWidth(viewportWidth: Double) -> Double {
+    viewportWidth <= xlBreakpoint ? canvasTrackMinWidth : 0
+  }
+
+  public static func sectionInlinePadding(authoredPadding: Double, viewportWidth: Double) -> Double {
+    if viewportWidth <= smBreakpoint && (authoredPadding == 84 || authoredPadding == 80 || authoredPadding == 72) {
+      return 22
+    }
+    return authoredPadding
+  }
+
+  public static func gridColumns(authoredColumns: Int, viewportWidth: Double, insideCanvasDesk: Bool = false) -> Int {
+    let cols = max(authoredColumns, 1)
+    if insideCanvasDesk { return cols }
+    if viewportWidth <= smBreakpoint && cols >= 2 && cols <= 6 { return 1 }
+    if viewportWidth <= mdBreakpoint && cols >= 3 && cols <= 6 { return 2 }
+    return cols
+  }
+
+  public static func collapsesTwoColumnSpec(_ spec: String, viewportWidth: Double, insideCanvasDesk: Bool = false) -> Bool {
+    if insideCanvasDesk { return false }
+    if viewportWidth <= phoneBreakpoint && spec.contains("minmax(320px") { return true }
+    guard viewportWidth <= smBreakpoint else { return false }
+    let normalized = spec.replacingOccurrences(of: " ", with: "").lowercased()
+    return normalized.contains("1fr1fr")
+      || normalized.contains("1.15fr1fr")
+      || normalized.contains("1fr1.15fr")
+      || normalized.contains("2fr1fr")
+      || normalized.contains("1fr2fr")
+      || normalized.contains("auto1fr")
+      || normalized.contains("248px1fr")
+  }
+
+  public static func navItemMinHeight(viewportWidth: Double, baseHeight: Double = 39) -> Double {
+    viewportWidth <= mdBreakpoint ? max(baseHeight, touchFloor) : baseHeight
+  }
+  public static func searchMinHeight(viewportWidth: Double, baseHeight: Double = 26) -> Double {
+    viewportWidth <= mdBreakpoint ? max(baseHeight, touchFloor) : baseHeight
+  }
+
+  public static func tabsScrollHorizontally(viewportWidth: Double) -> Bool { viewportWidth <= phoneBreakpoint }
+  public static func tabsScrollbarWidth(viewportWidth: Double, coarsePointer: Bool) -> String {
+    if coarsePointer { return "none" }
+    if viewportWidth <= phoneBreakpoint { return "thin" }
+    return "auto"
+  }
+  public static func paginationWraps(viewportWidth: Double) -> Bool { viewportWidth <= phoneBreakpoint }
+  public static func otpWraps(viewportWidth: Double) -> Bool { viewportWidth <= phoneBreakpoint }
+  public static func otpGap(viewportWidth: Double, defaultGap: Double = 8) -> Double {
+    viewportWidth <= phoneBreakpoint ? 4 : defaultGap
+  }
+  public static func otpInputWidth(viewportWidth: Double, coarsePointer: Bool, defaultWidth: Double = 44) -> Double {
+    (viewportWidth <= phoneBreakpoint && !coarsePointer) ? 36 : defaultWidth
+  }
+  public static func otpInputHeight(viewportWidth: Double, coarsePointer: Bool, defaultHeight: Double = 44) -> Double {
+    (viewportWidth <= phoneBreakpoint && !coarsePointer) ? 40 : defaultHeight
+  }
+  public static func dlColumns(viewportWidth: Double, defaultColumns: Int = 2) -> Int {
+    viewportWidth <= phoneBreakpoint ? 1 : defaultColumns
+  }
+  public static func fieldMinInlineSize() -> Double { 0 }
+}
