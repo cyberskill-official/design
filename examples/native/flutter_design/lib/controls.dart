@@ -672,8 +672,66 @@ class CsTextButton extends StatelessWidget {
 }
 
 const csBadgeTracking = 0.04;
+const String csBadgeSolidInkHex = '#ffffff';
+double csBadgeGap() => 5;
+int csBadgeFontWeight() => 700;
+const double csBadgeLineHeight = 1.0;
+double csBadgePaddingY() => 4;
+double csBadgePaddingX() => 9;
+double csBadgeBorderWidth() => 1;
+double csBadgeDotSize() => 7;
+bool csBadgeIsUppercase() => true;
 String? csBadgeToneClass(String name) => name == 'neutral' ? null : name;
 String csBadgeSpoken(String label) => label;
+
+const double csFeedbackStyleTagCloseHoverUmberAlpha = 0.12;
+const double csFeedbackStyleSpinnerLightTrackAlpha = 0.22;
+const double csFeedbackStyleSpinnerDarkTrackAlpha = 0.26;
+const double csFeedbackStyleSkeletonMidStopRaisedPortion = 0.55;
+double csFeedbackStyleTagGap() => 6;
+double csFeedbackStyleTagFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+int csFeedbackStyleTagFontWeight() => 600;
+double csFeedbackStyleTagPaddingY() => 5;
+double csFeedbackStyleTagPaddingX() => 10;
+double csFeedbackStyleTagBorderWidth() => 1;
+double csFeedbackStyleTagCloseSize() => 18;
+double csFeedbackStyleAlertGap() => 12;
+double csFeedbackStyleAlertPaddingY() => 14;
+double csFeedbackStyleAlertPaddingX() => 16;
+double csFeedbackStyleAlertBorderWidth() => 1;
+double csFeedbackStyleAlertAccentBorderWidth() => 4;
+double csFeedbackStyleAlertIconPaddingTop() => 1;
+int csFeedbackStyleAlertTitleFontWeight() => 700;
+double csFeedbackStyleAlertTitleMarginBottom() => 2;
+double csFeedbackStyleAlertBodyFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+double csFeedbackStyleAlertDismissFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeMd);
+double csFeedbackStyleAlertDismissPaddingX() => 2;
+double csFeedbackStyleAlertDismissFocusOutlineWidth(bool focused) => focused ? 2 : 0;
+double csFeedbackStyleAlertDismissFocusHaloSpread(bool focused) => focused ? 5 : 0;
+double csFeedbackStyleToastStackInset() => 20;
+double csFeedbackStyleToastStackGap() => 10;
+double csFeedbackStyleToastStackMaxWidth(double viewportWidth) =>
+    math.max(0.0, math.min(380.0, viewportWidth - 40.0));
+double csFeedbackStyleToastGap() => 12;
+double csFeedbackStyleToastPaddingY() => 12;
+double csFeedbackStyleToastPaddingX() => 14;
+double csFeedbackStyleToastBorderWidth() => 1;
+double csFeedbackStyleToastAccentBorderWidth() => 4;
+int csFeedbackStyleToastTitleFontWeight() => 700;
+double csFeedbackStyleToastTitleFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+double csFeedbackStyleToastBodyFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+double csFeedbackStyleToastBodyMarginTop() => 2;
+double csFeedbackStyleToastEntranceTranslateY({bool reducedMotion = false}) => reducedMotion ? 0 : 8;
+double csFeedbackStyleSpinnerSize() => 20;
+double csFeedbackStyleSpinnerBorderWidth() => 2.5;
+double csFeedbackStyleSpinnerTrackAlpha({required bool dark}) =>
+    dark ? csFeedbackStyleSpinnerDarkTrackAlpha : csFeedbackStyleSpinnerLightTrackAlpha;
+double csFeedbackStyleSpinnerDurationMs() => 620;
+double csFeedbackStyleProgressHeight() => 10;
+double csFeedbackStyleProgressDurationMs(CSTokenModePack pack) => pack.durationSlow.value;
+double csFeedbackStyleSkeletonDurationMs() => 1400;
+const double csFeedbackStyleSkeletonTextHeightEm = 0.75;
+const double csFeedbackStyleSkeletonTextMarginBlockEm = 0.25;
 const csSwitchLabel = 'Setting';
 const double csSwitchDisabledOpacity = 0.55;
 double csSwitchGap() => 10;
@@ -744,8 +802,9 @@ class CsBadge extends StatelessWidget {
       'info' => pack.colorSemanticInfo,
       _ => pack.colorSurfaceRaised,
     };
+    const solidWhite = CSColorValue(colorSpace: 'srgb', components: [1.0, 1.0, 1.0], alpha: 1.0);
     final ink = switch (tone) {
-      'solid' => pack.colorTextInverse,
+      'solid' => solidWhite,
       'ochre' => pack.colorBrandUmber,
       'success' => pack.colorSemanticSuccessFg,
       'danger' => pack.colorSemanticDangerFg,
@@ -757,12 +816,15 @@ class CsBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: csColor(fill),
         borderRadius: BorderRadius.circular(csPoints(pack.radiusFull)),
-        border: tone == 'neutral' ? Border.all(color: csColor(pack.colorBorderDefault)) : null,
+        border: tone == 'neutral' ? Border.all(color: csColor(pack.colorBorderDefault), width: csBadgeBorderWidth()) : null,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+        padding: EdgeInsets.symmetric(horizontal: csBadgePaddingX(), vertical: csBadgePaddingY()),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
-          if (dot) ExcludeSemantics(child: Container(width: 7, height: 7, decoration: BoxDecoration(color: csColor(ink), shape: BoxShape.circle))),
+          if (dot) ...[
+            ExcludeSemantics(child: Container(width: csBadgeDotSize(), height: csBadgeDotSize(), decoration: BoxDecoration(color: csColor(ink), shape: BoxShape.circle))),
+            SizedBox(width: csBadgeGap()),
+          ],
           Text(label.toUpperCase(), semanticsLabel: label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: csColor(ink))),
         ]),
       ),

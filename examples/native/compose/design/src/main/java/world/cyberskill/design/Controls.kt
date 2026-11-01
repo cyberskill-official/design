@@ -503,8 +503,65 @@ fun CsTextButton(
 }
 
 const val csBadgeTracking = 0.04
+const val csBadgeSolidInkHex = "#ffffff"
+fun csBadgeGap() = 5.dp
+fun csBadgeFontWeight() = 700
+const val csBadgeLineHeight = 1.0
+fun csBadgePaddingY() = 4.dp
+fun csBadgePaddingX() = 9.dp
+fun csBadgeBorderWidth() = 1.dp
+fun csBadgeDotSize() = 7.dp
+fun csBadgeIsUppercase() = true
 fun csBadgeToneClass(name: String) = if (name == "neutral") null else name
 fun csBadgeSpoken(label: String) = label
+
+const val csFeedbackStyleTagCloseHoverUmberAlpha = 0.12f
+const val csFeedbackStyleSpinnerLightTrackAlpha = 0.22f
+const val csFeedbackStyleSpinnerDarkTrackAlpha = 0.26f
+const val csFeedbackStyleSkeletonMidStopRaisedPortion = 0.55
+fun csFeedbackStyleTagGap() = 6.dp
+fun csFeedbackStyleTagFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csFeedbackStyleTagFontWeight() = 600
+fun csFeedbackStyleTagPaddingY() = 5.dp
+fun csFeedbackStyleTagPaddingX() = 10.dp
+fun csFeedbackStyleTagBorderWidth() = 1.dp
+fun csFeedbackStyleTagCloseSize() = 18.dp
+fun csFeedbackStyleAlertGap() = 12.dp
+fun csFeedbackStyleAlertPaddingY() = 14.dp
+fun csFeedbackStyleAlertPaddingX() = 16.dp
+fun csFeedbackStyleAlertBorderWidth() = 1.dp
+fun csFeedbackStyleAlertAccentBorderWidth() = 4.dp
+fun csFeedbackStyleAlertIconPaddingTop() = 1.dp
+fun csFeedbackStyleAlertTitleFontWeight() = 700
+fun csFeedbackStyleAlertTitleMarginBottom() = 2.dp
+fun csFeedbackStyleAlertBodyFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csFeedbackStyleAlertDismissFontSize(pack: CSTokenModePack) = pack.fontSizeMd.toDp()
+fun csFeedbackStyleAlertDismissPaddingX() = 2.dp
+fun csFeedbackStyleAlertDismissFocusOutlineWidth(focused: Boolean) = if (focused) 2.dp else 0.dp
+fun csFeedbackStyleAlertDismissFocusHaloSpread(focused: Boolean) = if (focused) 5.dp else 0.dp
+fun csFeedbackStyleToastStackInset() = 20.dp
+fun csFeedbackStyleToastStackGap() = 10.dp
+fun csFeedbackStyleToastStackMaxWidth(viewportWidth: Double) = max(0.0, min(380.0, viewportWidth - 40.0))
+fun csFeedbackStyleToastGap() = 12.dp
+fun csFeedbackStyleToastPaddingY() = 12.dp
+fun csFeedbackStyleToastPaddingX() = 14.dp
+fun csFeedbackStyleToastBorderWidth() = 1.dp
+fun csFeedbackStyleToastAccentBorderWidth() = 4.dp
+fun csFeedbackStyleToastTitleFontWeight() = 700
+fun csFeedbackStyleToastTitleFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csFeedbackStyleToastBodyFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csFeedbackStyleToastBodyMarginTop() = 2.dp
+fun csFeedbackStyleToastEntranceTranslateY(reducedMotion: Boolean = false) = if (reducedMotion) 0.dp else 8.dp
+fun csFeedbackStyleSpinnerSize() = 20.dp
+fun csFeedbackStyleSpinnerBorderWidth() = 2.5.dp
+fun csFeedbackStyleSpinnerTrackAlpha(dark: Boolean) =
+  if (dark) csFeedbackStyleSpinnerDarkTrackAlpha else csFeedbackStyleSpinnerLightTrackAlpha
+fun csFeedbackStyleSpinnerDurationMs() = 620.0
+fun csFeedbackStyleProgressHeight() = 10.dp
+fun csFeedbackStyleProgressDurationMs(pack: CSTokenModePack) = pack.durationSlow.value
+fun csFeedbackStyleSkeletonDurationMs() = 1400.0
+const val csFeedbackStyleSkeletonTextHeightEm = 0.75
+const val csFeedbackStyleSkeletonTextMarginBlockEm = 0.25
 const val csSwitchLabel = "Setting"
 const val csSwitchDisabledOpacity = 0.55f
 fun csSwitchGap() = 10.dp
@@ -558,8 +615,9 @@ fun CsBadge(
     "info" -> pack.colorSemanticInfo
     else -> pack.colorSurfaceRaised
   }
+  val solidWhite = CSColorValue("srgb", listOf(1.0, 1.0, 1.0), 1.0)
   val ink = when (tone) {
-    "solid" -> pack.colorTextInverse
+    "solid" -> solidWhite
     "ochre" -> pack.colorBrandUmber
     "success" -> pack.colorSemanticSuccessFg
     "danger" -> pack.colorSemanticDangerFg
@@ -567,9 +625,9 @@ fun CsBadge(
     "info" -> pack.colorSemanticInfoFg
     else -> pack.colorTextAccent
   }
-  Row(modifier.background(fill.toComposeColor(), RoundedCornerShape(pack.radiusFull.toDp())).then(if (tone == "neutral") Modifier.border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusFull.toDp())) else Modifier).padding(horizontal = 9.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-    if (dot) Box(Modifier.size(7.dp).background(ink.toComposeColor(), CircleShape))
-    Text(label.uppercase(), color = ink.toComposeColor(), fontSize = 12.sp, modifier = Modifier.semantics { contentDescription = label })
+  Row(modifier.background(fill.toComposeColor(), RoundedCornerShape(pack.radiusFull.toDp())).then(if (tone == "neutral") Modifier.border(csBadgeBorderWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusFull.toDp())) else Modifier).padding(horizontal = csBadgePaddingX(), vertical = csBadgePaddingY()), horizontalArrangement = Arrangement.spacedBy(csBadgeGap()), verticalAlignment = Alignment.CenterVertically) {
+    if (dot) Box(Modifier.size(csBadgeDotSize()).background(ink.toComposeColor(), CircleShape))
+    Text(label.uppercase(), color = ink.toComposeColor(), fontSize = 12.sp, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { contentDescription = label })
   }
 }
 

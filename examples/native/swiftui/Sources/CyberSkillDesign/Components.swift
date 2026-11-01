@@ -545,6 +545,15 @@ public struct CSTextButton: View {
 public enum CSBadgeModel {
   public static let trackingEm = 0.04
   public static let fontSize = 12.0
+  public static let solidInkHex = "#ffffff"
+  public static func gap() -> Double { 5 }
+  public static func fontWeight() -> Int { 700 }
+  public static func lineHeight() -> Double { 1.0 }
+  public static func paddingY() -> Double { 4 }
+  public static func paddingX() -> Double { 9 }
+  public static func borderWidth() -> Double { 1 }
+  public static func dotSize() -> Double { 7 }
+  public static func isUppercase() -> Bool { true }
   public static func toneClass(_ name: String) -> String? { name == "neutral" ? nil : name }
   public static func spoken(_ label: String) -> String { label }
   public static func variant(_ name: String) -> String {
@@ -553,6 +562,57 @@ public enum CSBadgeModel {
     default: return "neutral"
     }
   }
+}
+
+public enum CSFeedbackStyleModel {
+  public static let tagCloseHoverUmberAlpha = 0.12
+  public static let spinnerLightTrackAlpha = 0.22
+  public static let spinnerDarkTrackAlpha = 0.26
+  public static let skeletonMidStopRaisedPortion = 0.55
+  public static func tagGap() -> Double { 6 }
+  public static func tagFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func tagFontWeight() -> Int { 600 }
+  public static func tagPaddingY() -> Double { 5 }
+  public static func tagPaddingX() -> Double { 10 }
+  public static func tagBorderWidth() -> Double { 1 }
+  public static func tagCloseSize() -> Double { 18 }
+  public static func alertGap() -> Double { 12 }
+  public static func alertPaddingY() -> Double { 14 }
+  public static func alertPaddingX() -> Double { 16 }
+  public static func alertBorderWidth() -> Double { 1 }
+  public static func alertAccentBorderWidth() -> Double { 4 }
+  public static func alertIconPaddingTop() -> Double { 1 }
+  public static func alertTitleFontWeight() -> Int { 700 }
+  public static func alertTitleMarginBottom() -> Double { 2 }
+  public static func alertBodyFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func alertDismissFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeMd.points }
+  public static func alertDismissPaddingX() -> Double { 2 }
+  public static func alertDismissFocusOutlineWidth(focused: Bool) -> Double { focused ? 2 : 0 }
+  public static func alertDismissFocusHaloSpread(focused: Bool) -> Double { focused ? 5 : 0 }
+  public static func toastStackInset() -> Double { 20 }
+  public static func toastStackGap() -> Double { 10 }
+  public static func toastStackMaxWidth(viewportWidth: Double) -> Double {
+    max(0, min(380, viewportWidth - 40))
+  }
+  public static func toastGap() -> Double { 12 }
+  public static func toastPaddingY() -> Double { 12 }
+  public static func toastPaddingX() -> Double { 14 }
+  public static func toastBorderWidth() -> Double { 1 }
+  public static func toastAccentBorderWidth() -> Double { 4 }
+  public static func toastTitleFontWeight() -> Int { 700 }
+  public static func toastTitleFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func toastBodyFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func toastBodyMarginTop() -> Double { 2 }
+  public static func toastEntranceTranslateY(reducedMotion: Bool = false) -> Double { reducedMotion ? 0 : 8 }
+  public static func spinnerSize() -> Double { 20 }
+  public static func spinnerBorderWidth() -> Double { 2.5 }
+  public static func spinnerTrackAlpha(dark: Bool) -> Double { dark ? spinnerDarkTrackAlpha : spinnerLightTrackAlpha }
+  public static func spinnerDurationMs() -> Double { 620 }
+  public static func progressHeight() -> Double { 10 }
+  public static func progressDurationMs(_ pack: CSTokenModePack) -> Double { pack.durationSlow.value }
+  public static func skeletonDurationMs() -> Double { 1400 }
+  public static func skeletonTextHeightEm() -> Double { 0.75 }
+  public static func skeletonTextMarginBlockEm() -> Double { 0.25 }
 }
 
 public struct CSBadge: View {
@@ -576,17 +636,18 @@ public struct CSBadge: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let tone = CSBadgeModel.variant(variant)
     let fill = tone == "solid" ? pack.colorBrandUmber : tone == "ochre" ? pack.colorBrandOchre : tone == "success" ? pack.colorSemanticSuccess : tone == "danger" ? pack.colorSemanticDanger : tone == "warning" ? pack.colorSemanticWarning : tone == "info" ? pack.colorSemanticInfo : pack.colorSurfaceRaised
-    let ink = tone == "solid" ? pack.colorTextInverse : tone == "ochre" ? pack.colorBrandUmber : tone == "success" ? pack.colorSemanticSuccessFg : tone == "danger" ? pack.colorSemanticDangerFg : tone == "warning" ? pack.colorSemanticWarningFg : tone == "info" ? pack.colorSemanticInfoFg : pack.colorTextAccent
-    HStack(spacing: 5) {
-      if dot { Circle().fill(ink.color).frame(width: 7, height: 7).accessibilityHidden(true) }
+    let solidWhite = CSColorValue(colorSpace: .srgb, components: [1, 1, 1], alpha: 1)
+    let ink = tone == "solid" ? solidWhite : tone == "ochre" ? pack.colorBrandUmber : tone == "success" ? pack.colorSemanticSuccessFg : tone == "danger" ? pack.colorSemanticDangerFg : tone == "warning" ? pack.colorSemanticWarningFg : tone == "info" ? pack.colorSemanticInfoFg : pack.colorTextAccent
+    HStack(spacing: CGFloat(CSBadgeModel.gap())) {
+      if dot { Circle().fill(ink.color).frame(width: CGFloat(CSBadgeModel.dotSize()), height: CGFloat(CSBadgeModel.dotSize())).accessibilityHidden(true) }
       Text(label).textCase(.uppercase).tracking(CSBadgeModel.fontSize * CSBadgeModel.trackingEm).accessibilityLabel(CSBadgeModel.spoken(label))
     }
-    .font(.system(size: 12, weight: .bold))
+    .font(.system(size: CGFloat(CSBadgeModel.fontSize), weight: .bold))
     .foregroundStyle(ink.color)
-    .padding(.horizontal, 9)
-    .padding(.vertical, 4)
+    .padding(.horizontal, CGFloat(CSBadgeModel.paddingX()))
+    .padding(.vertical, CGFloat(CSBadgeModel.paddingY()))
     .background(fill.color)
-    .overlay { if tone == "neutral" { RoundedRectangle(cornerRadius: pack.radiusFull.points).stroke(pack.colorBorderDefault.color, lineWidth: 1) } }
+    .overlay { if tone == "neutral" { RoundedRectangle(cornerRadius: pack.radiusFull.points).stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSBadgeModel.borderWidth())) } }
     .clipShape(RoundedRectangle(cornerRadius: pack.radiusFull.points))
   }
 }
