@@ -165,6 +165,7 @@ fun csStepMarkerBorderWidth(state: CsStepState) = if (state == CsStepState.Todo)
 fun csStepActiveRingWidth() = 4.dp
 const val csStepActiveRingOchreAlpha = 0.28f
 fun csStepShowsActiveRing(state: CsStepState) = state == CsStepState.Active
+fun csStepTitleFontWeight() = 700
 const val csStepLabel = "Steps"
 fun csStepListName(explicit: String?, fallback: String) = fallback
 fun csStepCopy(key: String, language: String?): String {
@@ -563,8 +564,19 @@ fun CsSteps(label: String, steps: List<CsStepItem>, current: Int, dark: Boolean,
               textAlign = TextAlign.Center,
             )
           }
-          Text(step.title, color = pack.colorTextPrimary.toComposeColor())
-          if (step.body != null) Text(step.body, color = pack.colorTextMuted.toComposeColor())
+          Text(
+            step.title,
+            color = pack.colorTextPrimary.toComposeColor(),
+            fontSize = pack.fontSizeSm.toDp().value.sp,
+            fontWeight = FontWeight.Bold,
+          )
+          if (csStepShowsBody(step.body)) {
+            Text(
+              step.body ?: "",
+              color = pack.colorTextMuted.toComposeColor(),
+              fontSize = pack.fontSizeXs.toDp().value.sp,
+            )
+          }
         }
       }
     }

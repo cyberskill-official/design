@@ -333,6 +333,7 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSStepState.activeRingOchreAlpha, 0.28)
     XCTAssertTrue(CSStepState.showsActiveRing(.active))
     XCTAssertFalse(CSStepState.showsActiveRing(.done))
+    XCTAssertEqual(CSStepState.titleFontWeight(), 700)
     XCTAssertEqual(CSStatusModel.statusKind("online"), .online)
     XCTAssertEqual(CSStatusModel.statusKind("busy"), .busy)
     XCTAssertEqual(CSStatusModel.statusKind("error"), .error)

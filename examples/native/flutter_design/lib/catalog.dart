@@ -118,6 +118,7 @@ double csStepMarkerBorderWidth(CsStepState state) => state == CsStepState.todo ?
 double csStepActiveRingWidth() => 4;
 const double csStepActiveRingOchreAlpha = 0.28;
 bool csStepShowsActiveRing(CsStepState state) => state == CsStepState.active;
+int csStepTitleFontWeight() => 700;
 const csStepLabel = 'Steps';
 String csStepListName(String? explicit, String fallback) => fallback;
 String csStepCopy(String key, String? language) {
@@ -703,10 +704,23 @@ class CsSteps extends StatelessWidget {
                           },
                         ),
                         SizedBox(height: csStepGap()),
-                        Text(steps[index].title, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-                        if (steps[index].body != null) ...[
+                        Text(
+                          steps[index].title,
+                          style: TextStyle(
+                            color: csColor(pack.colorTextPrimary),
+                            fontWeight: FontWeight.w700,
+                            fontSize: csPoints(pack.fontSizeSm),
+                          ),
+                        ),
+                        if (csStepShowsBody(steps[index].body)) ...[
                           SizedBox(height: csStepGap()),
-                          Text(steps[index].body!, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                          Text(
+                            steps[index].body ?? '',
+                            style: TextStyle(
+                              color: csColor(pack.colorTextMuted),
+                              fontSize: csPoints(pack.fontSizeXs),
+                            ),
+                          ),
                         ],
                       ],
                     ),

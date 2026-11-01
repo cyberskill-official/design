@@ -131,6 +131,7 @@ public enum CSStepState: Equatable {
   public static func activeRingWidth() -> Double { 4 }
   public static let activeRingOchreAlpha: Double = 0.28
   public static func showsActiveRing(_ state: CSStepState) -> Bool { state == .active }
+  public static func titleFontWeight() -> Int { 700 }
   public static let labelDefault = "Steps"
   public static func listName(explicit: String?, fallback: String) -> String { fallback }
   public static func copy(_ key: String, language: String?) -> String {
@@ -849,8 +850,14 @@ public struct CSSteps: View {
               }
             }
             .zIndex(1)
-          Text(step.title).foregroundStyle(pack.primaryTextColor)
-          if CSStepState.showsBody(step.body), let body = step.body { Text(body).foregroundStyle(pack.mutedColor) }
+          Text(step.title)
+            .font(.system(size: pack.fontSizeSm.points, weight: .bold))
+            .foregroundStyle(pack.primaryTextColor)
+          if CSStepState.showsBody(step.body), let body = step.body {
+            Text(body)
+              .font(.system(size: pack.fontSizeXs.points))
+              .foregroundStyle(pack.mutedColor)
+          }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.trailing, CGFloat(CSStepState.stepPaddingEnd()))

@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the steps-row-rail-marker checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the steps-title-body checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `2db2eb0bc4c14363917a91051fc58da5ce3e591c`, with the hash note in `d335af0a`
-- Checkpoint commit hash: `93cc5527db9fb67f292e138e590882b9a9d68206`
+- Previous checkpoint: `93cc5527db9fb67f292e138e590882b9a9d68206`, with the hash note in `eb6eb6ca`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the steps row, rail, and marker styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the steps title and body styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`Steps` (`CSSteps` / `CsSteps`) now uses a `0`-gap horizontal row (`CSStepState.rowGap()` / `csStepRowGap()`), `flex: 1` step columns with `8px` vertical gap (`CSStepState.stepGap()` / `csStepGap()`) and `12px` inline-end padding (`CSStepState.stepPaddingEnd()` / `csStepPaddingEnd()`), a `28px` circular marker (`CSStepState.markerSize()`, `markerFontWeight()` / `csStepMarkerSize()`, `csStepMarkerFontWeight()`, `--cs-font-family-mono`, `700`, `--cs-font-size-sm`), `--cs-color-surface-raised` + muted ink + `1px` default border for `todo`, `--cs-color-brand-umber` + `#fff` ink + umber connector rail for `done` (`CSStepState.railUsesUmber(_:)` / `csStepRailUsesUmber(state)`), `--cs-color-brand-ochre` + `--cs-color-brand-umber` ink + `4px` `28%` ochre ring for `active` (`CSStepState.activeRingWidth()`, `activeRingOchreAlpha`, `showsActiveRing(_:)` / `csStepActiveRingWidth()`, `csStepActiveRingOchreAlpha`, `csStepShowsActiveRing(state)`), and a `2px` connector rail on non-last steps at `13px` top and `34px` inline-start (`CSStepState.showsRail(index:count:)`, `railTop()`, `railStart()`, `railEnd()`, `railInsetDeduction()`, `railHeight()` / `csStepShowsRail(index, count)`, `csStepRailTop()`, `csStepRailStart()`, `csStepRailEnd()`, `csStepRailInsetDeduction()`, `csStepRailHeight()`), matching `.cs-steps`, `.cs-step`, `.cs-step:not(:last-child)::after`, `.cs-step__marker`, `.cs-step--done .cs-step__marker`, `.cs-step--done:not(:last-child)::after`, and `.cs-step--active .cs-step__marker` in `base/shell.css`.
+`Steps` (`CSSteps` / `CsSteps`) now styles step titles with `700` weight (`CSStepState.titleFontWeight()` / `csStepTitleFontWeight()`), `--cs-font-size-sm`, and `--cs-color-text-primary`, and renders optional step bodies (`CSStepState.showsBody(_:)` / `csStepShowsBody(body)` when `body != null`) with `--cs-font-size-xs` and `--cs-color-text-muted`, matching `.cs-step__title` and `.cs-step__body` in `base/shell.css` and `components/navigation/Steps.jsx`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `Steps` title and body (`CSSteps` / `CsSteps`) in `base/shell.css` lines 21–22 and `components/navigation/Steps.jsx` lines 19–20: bold (`700`) `--cs-font-size-sm` primary title (`.cs-step__title`) and `--cs-font-size-xs` muted body (`.cs-step__body`, rendered when `s.body != null`). Re-read `base/shell.css` lines 21–22 and `components/navigation/Steps.jsx` before editing.
+Style `Popover` (`CSPopover` / `CsPopover`) in `base/shell.css` lines 24–27 and `components/overlays/Popover.jsx`: `8px` anchor offset (`calc(100% + 8px)`), `240px` min width, `--cs-color-surface-panel` background, `1px solid var(--cs-color-border-default)` border, `--cs-radius-md`, `--cs-shadow-md`, `14px` padding, and `start` vs `end` horizontal alignment (`.cs-popover__panel--end`). Re-read `base/shell.css` lines 24–27 and `components/overlays/Popover.jsx` before editing.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
