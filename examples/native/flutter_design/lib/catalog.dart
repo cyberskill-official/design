@@ -371,6 +371,16 @@ double csEmptyIconBoxSize() => 56;
 double csEmptyIconSize() => 26;
 double csEmptyIconStrokeWidth() => 1.8;
 double csEmptyIconMarginBottom() => 6;
+int csEmptyTitleFontWeight() => 700;
+double csEmptyBodyMaxWidth() => 380;
+double csEmptyActionsMarginTop() => 12;
+double csEmptyActionsGap() => 10;
+List<String> csEmptyResolvedActions(String? action, List<String> actions) {
+  final list = actions.where(csEmptyShows).toList();
+  if (list.isNotEmpty) return list;
+  if (csEmptyShows(action)) return [action!];
+  return const [];
+}
 const csEmptyIconOchrePortion = 0.24;
 CSColorValue csEmptyIconBgColor(CSTokenModePack pack) {
   final lead = _csEmptyOklab(pack.colorBrandOchre);
@@ -393,10 +403,11 @@ List<double> _csEmptySrgbToOklab(List<double> rgb) {
 const csEmptyTray = 'M3 8l2-4h14l2 4M3 8v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8M3 8h6l1 3h4l1-3h6';
 
 class CsEmptyState extends StatelessWidget {
-  const CsEmptyState({super.key, required this.dark, required this.highContrast, required this.compact, this.title, this.message, this.action, this.icon, this.fallbackTitle, this.language});
+  const CsEmptyState({super.key, required this.dark, required this.highContrast, required this.compact, this.title, this.message, this.action, this.actions = const [], this.icon, this.fallbackTitle, this.language});
   final String? title;
   final String? message;
   final String? action;
+  final List<String> actions;
   final String? icon;
   final String? fallbackTitle;
   final String? language;
@@ -408,6 +419,7 @@ class CsEmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final iconInk = csColor(csEmptyIconFgColor(dark, pack));
+    final actionItems = csEmptyResolvedActions(action, actions);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: csEmptyPaddingX(), vertical: csEmptyPaddingY()),
       child: Column(
@@ -426,14 +438,25 @@ class CsEmptyState extends StatelessWidget {
                 ? CustomPaint(size: Size(csEmptyIconSize(), csEmptyIconSize()), painter: _EmptyTrayPainter(iconInk))
                 : (icon != null && icon!.isNotEmpty ? CsIcon(name: icon!, dark: dark, highContrast: highContrast, compact: compact) : null),
           ),
-          Text(csEmptyTitle(title, fallbackTitle ?? csEmptyCopy('title', csSelectResolvedLanguage(language, CsLanguageScope.of(context)))), textAlign: TextAlign.center, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: csColor(pack.colorTextPrimary))),
+          Text(csEmptyTitle(title, fallbackTitle ?? csEmptyCopy('title', csSelectResolvedLanguage(language, CsLanguageScope.of(context)))), textAlign: TextAlign.center, style: TextStyle(fontSize: csPoints(pack.textH4), fontWeight: FontWeight.w700, color: csColor(pack.colorTextPrimary))),
           if (csEmptyShows(message)) ...[
             SizedBox(height: csEmptyGap()),
-            Text(message!, textAlign: TextAlign.center, style: TextStyle(color: csColor(pack.colorTextMuted))),
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: csEmptyBodyMaxWidth()),
+              child: Text(message!, textAlign: TextAlign.center, style: TextStyle(color: csColor(pack.colorTextMuted))),
+            ),
           ],
-          if (csEmptyShows(action)) ...[
-            SizedBox(height: csEmptyGap()),
-            Text(action!, textAlign: TextAlign.center, style: TextStyle(color: csColor(pack.colorBrandOchre))),
+          if (actionItems.isNotEmpty) ...[
+            SizedBox(height: csEmptyGap() + csEmptyActionsMarginTop()),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (var i = 0; i < actionItems.length; i++) ...[
+                  if (i > 0) SizedBox(width: csEmptyActionsGap()),
+                  Text(actionItems[i], textAlign: TextAlign.center, style: TextStyle(color: csColor(pack.colorBrandOchre))),
+                ],
+              ],
+            ),
           ],
         ],
       ),

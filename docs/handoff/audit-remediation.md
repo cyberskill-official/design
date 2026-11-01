@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the empty-state-container-icon checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the empty-state-title-body-actions checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `e78590b7cebc418abadffbee3b9426619b55ec8c`, with the hash note in `d62d0724`
-- Checkpoint commit hash: `06ec6e98fc361b9f25b43cd2751a2ec88a0da122`
+- Previous checkpoint: `06ec6e98fc361b9f25b43cd2751a2ec88a0da122`, with the hash note in `fdeff750`
+- Checkpoint commit hash: recorded in the follow-up commit after this checkpoint is created.
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +49,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the empty state container and icon badge styles: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the empty state title, body, and actions styles: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`EmptyState` (`CSEmptyState` / `CsEmptyState`) now uses `48px 24px` container padding (`CSEmptyStateModel.paddingY()`, `paddingX()` / `csEmptyPaddingY()`, `csEmptyPaddingX()`), an `8px` vertical gap (`CSEmptyStateModel.gap()` / `csEmptyGap()`), centered text and item alignment, and a `56px` circular icon badge (`CSEmptyStateModel.iconBoxSize()` / `csEmptyIconBoxSize()`) with a `6px` bottom margin (`CSEmptyStateModel.iconMarginBottom()` / `csEmptyIconMarginBottom()`), `color-mix(in oklab, var(--cs-color-brand-ochre) 24%, var(--cs-color-surface-panel))` background (`CSEmptyStateModel.iconOchrePortion`, `iconBgColor(pack:)` / `csEmptyIconOchrePortion`, `csEmptyIconBgColor(pack)`), and `--cs-color-brand-umber` (light) / `--cs-color-brand-ochre` (dark) foreground (`CSEmptyStateModel.iconUsesOchreForeground(dark:)`, `iconFgColor(dark:pack:)` / `csEmptyIconUsesOchreForeground(dark)`, `csEmptyIconFgColor(dark, pack)`), matching `.cs-empty` and `.cs-empty__icon` in `base/collections.css`.
+`EmptyState` (`CSEmptyState` / `CsEmptyState`) now styles the title with `--cs-text-h4` and `font-weight: 700` (`CSEmptyStateModel.titleFontWeight()` / `csEmptyTitleFontWeight()`), constrains the muted body to a `380px` max inline size (`CSEmptyStateModel.bodyMaxWidth()` / `csEmptyBodyMaxWidth()`), and renders the actions row with a `12px` top margin and `10px` flex gap (`CSEmptyStateModel.actionsMarginTop()`, `actionsGap()`, `resolvedActions(action:actions:)` / `csEmptyActionsMarginTop()`, `csEmptyActionsGap()`, `csEmptyResolvedActions(action, actions)`), matching `.cs-empty__title`, `.cs-empty__body`, and `.cs-empty__actions` in `base/collections.css`. `base/collections.css` is now complete.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `EmptyState` title (`--cs-text-h4`, `font-weight: 700`), body (`--cs-color-text-muted`, `max-inline-size: 380px`), and actions (`margin-block-start: 12px`, `display: flex`, `gap: 10px`) (`.cs-empty__title`, `.cs-empty__body`, `.cs-empty__actions`). Re-read `base/collections.css` lines 95–97 and `components/feedback/EmptyState.jsx` before editing. Do not invent empty-state typography or spacing.
+Start `base/shell.css` (lines 3–11) and `components/navigation/Sidebar.jsx`: style `Sidebar` (`248px` width, `--cs-color-surface-panel` background, `1px solid var(--cs-color-border-default)` inline-end border, `16px 12px` padding, `3px` vertical gap), section label (`--cs-font-size-xs`, uppercase, `--cs-letter-spacing-caps`, `--cs-color-text-muted`, `12px 12px 4px` padding), and `NavItem` (`11px` gap, `9px 12px` padding, `--cs-radius-md`, semibold `--cs-font-size-sm`, hover raised surface, `22%` ochre-mixed active surface with umber/ochre active ink and icon color, and `margin-inline-start: auto` trail). Re-read `base/shell.css` lines 3–11 and `components/navigation/Sidebar.jsx` before editing.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

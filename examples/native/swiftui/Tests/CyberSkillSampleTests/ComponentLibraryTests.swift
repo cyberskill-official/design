@@ -171,6 +171,13 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSEmptyStateModel.iconOchrePortion, 0.24)
     XCTAssertFalse(CSEmptyStateModel.iconUsesOchreForeground(dark: false))
     XCTAssertTrue(CSEmptyStateModel.iconUsesOchreForeground(dark: true))
+    XCTAssertEqual(CSEmptyStateModel.titleFontWeight(), 700)
+    XCTAssertEqual(CSEmptyStateModel.bodyMaxWidth(), 380)
+    XCTAssertEqual(CSEmptyStateModel.actionsMarginTop(), 12)
+    XCTAssertEqual(CSEmptyStateModel.actionsGap(), 10)
+    XCTAssertEqual(CSEmptyStateModel.resolvedActions(action: "Add", actions: []), ["Add"])
+    XCTAssertEqual(CSEmptyStateModel.resolvedActions(action: "Add", actions: ["Import", "", "New"]), ["Import", "New"])
+    XCTAssertEqual(CSEmptyStateModel.resolvedActions(action: nil, actions: []), [])
     let tray = CSIconPaths.path(data: CSEmptyStateModel.tray).boundingRect
     XCTAssertGreaterThan(tray.width, 0)
     XCTAssertGreaterThanOrEqual(tray.minX, -1)

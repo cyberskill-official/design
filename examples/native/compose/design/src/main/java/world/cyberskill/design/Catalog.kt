@@ -377,6 +377,16 @@ fun csEmptyIconBoxSize() = 56.dp
 fun csEmptyIconSize() = 26.dp
 fun csEmptyIconStrokeWidth() = 1.8f
 fun csEmptyIconMarginBottom() = 6.dp
+fun csEmptyTitleFontWeight() = 700
+fun csEmptyBodyMaxWidth() = 380.dp
+fun csEmptyActionsMarginTop() = 12.dp
+fun csEmptyActionsGap() = 10.dp
+fun csEmptyResolvedActions(action: String?, actions: List<String>): List<String> {
+  val list = actions.filter { csEmptyShows(it) }
+  if (list.isNotEmpty()) return list
+  if (csEmptyShows(action)) return listOf(action ?: "")
+  return emptyList()
+}
 const val csEmptyIconOchrePortion = 0.24
 fun csEmptyIconBgColor(pack: CSTokenModePack): CSColorValue {
   val lead = csEmptyOklab(pack.colorBrandOchre)
@@ -396,17 +406,22 @@ private fun csEmptySrgbToOklab(rgb: List<Double>): List<Double> {
 }
 const val csEmptyTray = "M3 8l2-4h14l2 4M3 8v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8M3 8h6l1 3h4l1-3h6"
 @Composable
-fun CsEmptyState(dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, title: String? = null, message: String? = null, action: String? = null, icon: String? = null, fallbackTitle: String? = null, language: String? = null) {
+fun CsEmptyState(dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, title: String? = null, message: String? = null, action: String? = null, actions: List<String> = emptyList(), icon: String? = null, fallbackTitle: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val iconInk = csEmptyIconFgColor(dark, pack).toComposeColor()
+  val actionItems = csEmptyResolvedActions(action, actions)
   Column(modifier.fillMaxWidth().padding(horizontal = csEmptyPaddingX(), vertical = csEmptyPaddingY()), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(csEmptyGap())) {
     Box(Modifier.padding(bottom = csEmptyIconMarginBottom()).size(csEmptyIconBoxSize()).background(csEmptyIconBgColor(pack).toComposeColor(), CircleShape), contentAlignment = Alignment.Center) {
       if (csEmptyUsesDefaultIcon(icon)) Canvas(Modifier.size(csEmptyIconSize())) { drawPath(csIconPathData(csEmptyTray, size.minDimension), iconInk, style = Stroke(width = csEmptyIconStrokeWidth())) }
       else if (!icon.isNullOrEmpty()) CsIcon(name = icon, label = "", dark = dark, highContrast = highContrast, compact = compact)
     }
-    Text(csEmptyTitle(title, fallbackTitle ?: csEmptyCopy("title", csComboboxResolvedLanguage(language, LocalCsLanguage.current))), color = pack.colorTextPrimary.toComposeColor(), fontSize = 16.sp, textAlign = TextAlign.Center)
-    if (csEmptyShows(message)) Text(message ?: "", color = pack.colorTextMuted.toComposeColor(), textAlign = TextAlign.Center)
-    if (csEmptyShows(action)) Text(action ?: "", color = pack.colorBrandOchre.toComposeColor(), textAlign = TextAlign.Center)
+    Text(csEmptyTitle(title, fallbackTitle ?: csEmptyCopy("title", csComboboxResolvedLanguage(language, LocalCsLanguage.current))), color = pack.colorTextPrimary.toComposeColor(), fontSize = pack.textH4.toDp().value.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+    if (csEmptyShows(message)) Text(message ?: "", color = pack.colorTextMuted.toComposeColor(), textAlign = TextAlign.Center, modifier = Modifier.widthIn(max = csEmptyBodyMaxWidth()))
+    if (actionItems.isNotEmpty()) {
+      Row(Modifier.padding(top = csEmptyActionsMarginTop()), horizontalArrangement = Arrangement.spacedBy(csEmptyActionsGap())) {
+        actionItems.forEach { item -> Text(item, color = pack.colorBrandOchre.toComposeColor(), textAlign = TextAlign.Center) }
+      }
+    }
   }
 }
 

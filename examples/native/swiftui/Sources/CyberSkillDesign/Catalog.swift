@@ -555,12 +555,23 @@ public enum CSEmptyStateModel {
     return !value.isEmpty
   }
   public static func usesDefaultIcon(_ icon: String?) -> Bool { icon == nil }
+  public static func titleFontWeight() -> Int { 700 }
+  public static func bodyMaxWidth() -> Double { 380 }
+  public static func actionsMarginTop() -> Double { 12 }
+  public static func actionsGap() -> Double { 10 }
+  public static func resolvedActions(action: String?, actions: [String]) -> [String] {
+    let list = actions.filter { shows($0) }
+    if !list.isEmpty { return list }
+    if let action, shows(action) { return [action] }
+    return []
+  }
 }
 
 public struct CSEmptyState: View {
   public let title: String?
   public let message: String?
   public let action: String?
+  public let actions: [String]
   public let fallbackTitle: String?
   public let language: String?
   public let icon: String?
@@ -570,10 +581,11 @@ public struct CSEmptyState: View {
 
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(title: String? = nil, message: String? = nil, action: String? = nil, icon: String? = nil, fallbackTitle: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil) {
+  public init(title: String? = nil, message: String? = nil, action: String? = nil, actions: [String] = [], icon: String? = nil, fallbackTitle: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil) {
     self.title = title
     self.message = message
     self.action = action
+    self.actions = actions
     self.icon = icon
     self.fallbackTitle = fallbackTitle
     self.dark = dark
@@ -586,6 +598,7 @@ public struct CSEmptyState: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let heading = CSEmptyStateModel.title(title, fallback: fallbackTitle ?? CSEmptyStateModel.copy("title", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)))
     let iconInk = CSEmptyStateModel.iconFgColor(dark: dark, pack: pack).color
+    let actionItems = CSEmptyStateModel.resolvedActions(action: action, actions: actions)
     VStack(alignment: .center, spacing: CGFloat(CSEmptyStateModel.gap())) {
       ZStack {
         Circle()
@@ -605,9 +618,20 @@ public struct CSEmptyState: View {
       }
       .frame(width: CGFloat(CSEmptyStateModel.iconBoxSize()), height: CGFloat(CSEmptyStateModel.iconBoxSize()))
       .padding(.bottom, CGFloat(CSEmptyStateModel.iconMarginBottom()))
-      Text(heading).font(.headline).foregroundStyle(pack.primaryTextColor)
-      if CSEmptyStateModel.shows(message), let message { Text(message).foregroundStyle(pack.mutedColor) }
-      if CSEmptyStateModel.shows(action), let action { Text(action).foregroundStyle(pack.colorBrandOchre.color) }
+      Text(heading).font(.system(size: pack.textH4.points, weight: .bold)).foregroundStyle(pack.primaryTextColor)
+      if CSEmptyStateModel.shows(message), let message {
+        Text(message)
+          .foregroundStyle(pack.mutedColor)
+          .frame(maxWidth: CGFloat(CSEmptyStateModel.bodyMaxWidth()))
+      }
+      if !actionItems.isEmpty {
+        HStack(spacing: CGFloat(CSEmptyStateModel.actionsGap())) {
+          ForEach(Array(actionItems.enumerated()), id: \.offset) { _, item in
+            Text(item).foregroundStyle(pack.colorBrandOchre.color)
+          }
+        }
+        .padding(.top, CGFloat(CSEmptyStateModel.actionsMarginTop()))
+      }
     }
     .multilineTextAlignment(.center)
     .frame(maxWidth: .infinity)
