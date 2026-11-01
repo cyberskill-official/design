@@ -9,7 +9,7 @@ const inputs = new Map(),
   records = [];
 for (const path of ['_audit/ci/test-element-token-gates-browser.mjs', '_audit/ci/lib/browser-fixture.mjs', '_ds_bundle.js', 'package-lock.json']) inputs.set(path, hash(readFileSync(path)));
 const css = readFileSync('tokens/elements.css', 'utf8');
-const binding = '--cs-accent: var(--_cs-light, var(--_cs-light-accent)) var(--_cs-dark, var(--_cs-dark-accent));';
+const binding = '--cs-accent: var(--_cs-light, var(--_cs-light-accent))var(--_cs-dark, var(--_cs-dark-accent));';
 assert.equal(css.split(binding).length, 2);
 const cases = [{
   name: 'baseline',

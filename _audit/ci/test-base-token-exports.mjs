@@ -14,7 +14,8 @@ const authored=JSON.parse(readFileSync('tokens/base-inventory.json','utf8'));
 assert.equal(aliases.length,22);assert.equal(new Set(aliases.map(pair=>pair.alias)).size,22);
 for(const {group,legacy,alias,type} of aliases){
  assert(Object.hasOwn(inventory.root[group],legacy),'Original public legacy token remains');
- assert.equal(inventory.root[group][alias],'var('+legacy+')','Additive alias remains a reference, not flattened');
+ assert.equal(inventory.root[group][legacy],'var('+alias+')','Legacy alias reads the kebab owner, not flattened');
+ assert(!inventory.root[group][alias].startsWith('var('),'Kebab owner holds the concrete value');
  assert.equal(authored.groups[group][alias].$type,type);assert.equal(authored.groups[group][legacy].$type,type);
  assert.equal(authored.groups[group][alias].$extensions['com.cyberskill'].nativeAliasOf,legacy);
 }

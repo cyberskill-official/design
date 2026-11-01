@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the component-story-css-scenario-reference-projections-sync checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the token-theme-health-chrome-contract-tests-sync checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `8e521de02b962bfd6bcb69705004ba0ec0d6838b` (`chore(projections): regenerate story domains, compiled ESM, API discovery, prompt API, component specifications, scenarios, CSS entries, and reference catalog`)
-- Previous checkpoint: `8a7239cc3f8ae50960e5778f096a008442e10091`, with the hash note in `a1078fff`
+- Checkpoint commit: pending (`test(audit): align DTCG roundtrip, token declaration, base token export, theme mirror, element token gate, and health chrome assertions with F1/F5/F9 remediation`)
+- Previous checkpoint: `8e521de02b962bfd6bcb69705004ba0ec0d6838b`, with the hash note in `74ed9bce`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Regenerated and verified all derived component, story, CSS, specification, scenario, and reference catalog projections after the F7/F10/F11 component source/declaration updates (`node scripts/generate-story-domains.mjs`, `node scripts/build-compiled-esm.mjs`, `node scripts/generate-compact-api.mjs`, `node scripts/generate-prompt-api.mjs`, `node scripts/generate-component-specifications.mjs`, `node scripts/generate-reference-catalog.mjs`, `node scripts/flatten-styles.mjs`, `node scripts/generate-layered-styles.mjs`, `node scripts/generate-component-css-entries.mjs`, `node scripts/generate-component-scenarios.mjs`, and `node scripts/generate-component-scenario-stories.mjs`), and updated the reviewed `sourceEvidence` hashes for `Alert`, `Toast`, `DataGrid`, and `CommandPalette` in `scripts/fixtures/component-scenarios.json`.
+Aligned the 6 token, theme, and health-chrome contract tests and fixtures (`_audit/ci/test-dtcg-roundtrip.mjs`, `_audit/ci/test-token-declarations.mjs`, `_audit/ci/test-base-token-exports.mjs`, `_audit/ci/test-health-chrome-browser.mjs`, `_audit/ci/fixtures/a01-theme-mirrors/component-tokens.css`, and `_audit/ci/test-element-token-gates-browser.mjs`) with the F1/F5/F9 remediation changes from `00c349ca77bcffa98f1c1845731cf91cc5385df7`: updated `_audit/ci/test-dtcg-roundtrip.mjs`, `_audit/ci/test-token-declarations.mjs`, `_audit/ci/test-base-token-exports.mjs`, and `_audit/ci/fixtures/a01-theme-mirrors/component-tokens.css` for F9 (where kebab names own the concrete values and camelCase names read `var(--kebab)` with shared typed DTCG values); updated `_audit/ci/test-element-token-gates-browser.mjs` for F1 (where `choose()` in `tokens/elements.css` has no space between `var(--_cs-light, ...)` and `var(--_cs-dark, ...)`); and updated `_audit/ci/test-health-chrome-browser.mjs` for the 44th gate (`Component state paint`, 42 hard gates + 2 advisory gates) added in `_audit/run.html`.
 
-- `npm run build:check`, `npm run test:reference-catalog`, `npm run test:storybook-contract`, `npm run test:compiled-esm`, `npm run test:vite-consumer`, `npm run test:prompt-api`, `npm run test:component-api-behavior`, `npm run test:component-specifications`, `npm run test:component-behavior-evidence`, `npm run test:expansion-coverage`, `npm run test:story-domains`, `npm run test:component-css-browser`, `npm run test:component-css-interactions`, `npm run test:component-scenarios`, and `npm run test:component-scenarios:browser` passed.
+- `npm run test:dtcg-profile`, `npm run test:token-declarations`, `npm run test:base-token-exports`, `npm run test:theme-palette-projection`, `npm run test:element-token-gates`, `npm run test:health-chrome`, and `npm run build:check` passed.
 
 ## Next concrete step
 
-Align the 6 token/theme/health-chrome contract tests and fixtures (`_audit/ci/test-dtcg-roundtrip.mjs`, `_audit/ci/test-token-declarations.mjs`, `_audit/ci/test-base-token-exports.mjs`, `_audit/ci/test-health-chrome-browser.mjs`, `_audit/ci/test-theme-palette-projection.mjs` / `_audit/ci/fixtures/a01-theme-mirrors/component-tokens.css`, and `_audit/ci/test-element-token-gates-browser.mjs`) with the F1/F5/F9 remediation changes from `00c349ca77bcffa98f1c1845731cf91cc5385df7` and verify all 6 suites pass.
+Run the audit gate board (`_audit/ci/run-gates.mjs`) and verify the native sample screens and native platform test suites (`examples/native/swiftui/Tests/CyberSkillSampleTests`, `examples/native/compose/app/src/androidTest`, `examples/native/flutter/test`) while continuing deep behavioral parity across the 120-component native libraries.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

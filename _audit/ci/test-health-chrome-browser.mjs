@@ -81,7 +81,7 @@ await withBrowserFixture(async page => {
       await page.evaluate(() => document.fonts.ready);
       if (path === 'run') {
         const names = await page.locator('.g .open').evaluateAll(nodes => nodes.map(el => el.getAttribute('aria-label')));
-        assert.equal(new Set(names).size, 43);
+        assert.equal(new Set(names).size, 44);
         assert(names.every(n => n?.startsWith('Open ')));
       }
       assert(await page.evaluate(() => matchMedia('(pointer:coarse)').matches));
@@ -201,7 +201,7 @@ await withBrowserFixture(async page => {
   }).click();
   await page.waitForFunction(() => window.__run?.pass === false);
   const failed = await page.evaluate(() => window.__run);
-  assert.equal(failed.failed.length, 41);
+  assert.equal(failed.failed.length, 42);
   assert.equal(failed.advisoryFailed.length, 2);
   assert.equal(await page.getByRole('button', {
     name: 'Re-run',

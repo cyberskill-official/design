@@ -17,8 +17,9 @@ for(const {group,legacy,alias,type} of aliases){
  assert(doc[group][legacy]&&doc[group][alias],legacy+' legacy and additive alias retained');
  assert.equal(doc[group][legacy].$type,type);
  assert.equal(doc[group][alias].$type,type);
- assert.equal(doc[group][alias].$value,'{'+group+'.'+legacy+'}');
- assert.equal(doc[group][alias].$extensions['com.cyberskill'].css,'var('+legacy+')');
+ assert.deepEqual(doc[group][legacy].$value,doc[group][alias].$value);
+ assert.equal(doc[group][legacy].$extensions['com.cyberskill'].css,'var('+alias+')');
+ assert(!doc[group][alias].$extensions['com.cyberskill'].css.startsWith('var('));
  assert.equal(doc[group][alias].$extensions['com.cyberskill'].nativeAliasOf,legacy);
 }
 for (const role of ['success','danger','warning','info']) { const def=doc.color[`--cs-color-semantic-${role}-text`]; assert.equal(def.$type,'color'); assert.equal(def.$value.colorSpace,'srgb'); assert.equal(def.$extensions['com.cyberskill'].css,JSON.parse(await readFile(new URL('../../tokens/tokens.json',import.meta.url),'utf8')).root.color[`--cs-color-semantic-${role}-text`]); }

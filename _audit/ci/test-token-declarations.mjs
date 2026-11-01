@@ -23,11 +23,13 @@ assert.equal(new Set(aliases.map(pair=>pair.alias)).size,22);
 const camelNames=[...new Set(graph.declarations.filter(row=>row.visibility==='public'&&/[A-Z]/.test(row.name)).map(row=>row.name))].sort();
 assert.deepEqual(camelNames,aliases.map(pair=>pair.legacy).sort(),'Every legacy camelCase declaration remains owned');
 for(const {group,legacy,alias,type} of aliases){
- const rows=graph.declarations.filter(row=>row.visibility==='public'&&row.name===alias);
- assert(rows.length>0&&rows.every(row=>row.value.trim()==='var('+legacy+')'),'All alias scopes retain the legacy binding');
+ const ownerRows=graph.declarations.filter(row=>row.visibility==='public'&&row.name===alias);
+ const legacyRows=graph.declarations.filter(row=>row.visibility==='public'&&row.name===legacy);
+ assert(ownerRows.length>0&&ownerRows.every(row=>!row.value.trim().startsWith('var(')),'All kebab owners retain concrete values');
+ assert(legacyRows.length>0&&legacyRows.every(row=>row.value.trim()==='var('+alias+')'),'All legacy scopes read the kebab owner');
  assert(manifest.tokens.some(row=>row.name===legacy)&&manifest.tokens.some(row=>row.name===alias));
  assert.equal(dtcg[group][alias].$type,type);assert.equal(dtcg[group][legacy].$type,type);
- assert.equal(dtcg[group][alias].$value,'{'+group+'.'+legacy+'}');
+ assert.deepEqual(dtcg[group][legacy].$value,dtcg[group][alias].$value);
  assert.equal(dtcg[group][alias].$extensions['com.cyberskill'].nativeAliasOf,legacy);
 }
 for(const role of ['success','danger','warning','info']) {
