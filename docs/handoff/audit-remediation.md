@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the timeline-content checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the accordion-frame checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `5e28a667b6dc3d3083dac4275739bc8ca51cfb11`, with the hash note in `488d61f8`
-- Checkpoint commit hash: `20d88513d712e63083d28591fa548684c9113c9e`
+- Previous checkpoint: `20d88513d712e63083d28591fa548684c9113c9e`, with the hash note in `ab8d4ce0`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the timeline title, meta, and body typography: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the accordion frame and dividers: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`Timeline` item content (`CSTimeline` / `CsTimeline`) now renders bold (`700`) primary-text titles with a 2px vertical margin (`CSTimelineModel.titleMarginY()` / `csTimelineTitleMarginY()`), muted monospaced `var(--cs-font-size-xs)` metadata, and muted `var(--cs-font-size-sm)` body text with a 4px top margin (`CSTimelineModel.bodyMarginTop()` / `csTimelineBodyMarginTop()`), matching `.cs-timeline__title { font-weight: 700; margin: 2px 0 2px; }`, `.cs-timeline__meta { font-size: var(--cs-font-size-xs); color: var(--cs-color-text-muted); font-family: var(--cs-font-family-mono); }`, and `.cs-timeline__body { font-size: var(--cs-font-size-sm); color: var(--cs-color-text-muted); margin-block-start: 4px; }` in `base/collections.css`.
+`Accordion` (`CSAccordion` / `CsAccordion`) now renders a 1px (`CSAccordionModel.borderWidth()` / `csAccordionBorderWidth()`) default border (`var(--cs-color-border-default)`), large corner radius (`var(--cs-radius-lg)`), clipped overflow, the panel surface background (`var(--cs-color-surface-panel)`), 1px top dividers between adjacent items (`CSAccordionModel.showsDivider(index:)` / `csAccordionShowsDivider(index)`), and trigger/panel IDs with `aria-controls` only when expanded (`CSAccordionModel.triggerId`, `CSAccordionModel.panelId`, `CSAccordionModel.ariaControls` / `csAccordionTriggerId`, `csAccordionPanelId`, `csAccordionAriaControls`), matching `.cs-accordion { border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-lg); overflow: hidden; background: var(--cs-color-surface-panel); }` and `.cs-accordion__item + .cs-accordion__item { border-block-start: 1px solid var(--cs-color-border-default); }` in `base/collections.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `Accordion` container frame and item divider (`.cs-accordion`, `.cs-accordion__item + .cs-accordion__item`), trigger, chevron, and panel (`.cs-accordion__trigger`, `.cs-accordion__trigger:hover`, `.cs-accordion__chevron`, `.cs-accordion__trigger[aria-expanded="true"] .cs-accordion__chevron`, `.cs-accordion__panel`). Re-read `base/collections.css` lines 56–65 and `components/layout/Accordion.jsx` before editing. Do not invent accordion styles.
+Style `Accordion` trigger, hover surface, chevron color and rotation, and panel padding and typography (`.cs-accordion__trigger`, `.cs-accordion__trigger:hover`, `.cs-accordion__chevron`, `.cs-accordion__trigger[aria-expanded="true"] .cs-accordion__chevron`, `.cs-accordion__panel`). Re-read `base/collections.css` lines 59–65 and `components/data/Accordion.jsx` before editing. Do not invent accordion trigger or panel padding.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

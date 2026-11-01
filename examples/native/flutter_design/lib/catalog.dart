@@ -118,6 +118,11 @@ String csStepListName(String? explicit, String fallback) => fallback;
 String? csStepCurrentValue(CsStepState state) => state == CsStepState.active ? 'step' : null;
 bool csStepShowsBody(String? body) => body != null;
 
+double csAccordionBorderWidth() => 1;
+bool csAccordionShowsDivider(int index) => index > 0;
+String csAccordionTriggerId(String prefix, int index) => '$prefix-trigger-$index';
+String csAccordionPanelId(String prefix, int index) => '$prefix-panel-$index';
+String? csAccordionAriaControls(String prefix, int index, bool opened) => opened ? csAccordionPanelId(prefix, index) : null;
 List<int> csAccordionInitial(int? defaultOpen) => defaultOpen != null && defaultOpen >= 0 ? [defaultOpen] : <int>[];
 bool csAccordionPanel(List<int> open, int index, bool allowMultiple) => allowMultiple ? open.contains(index) : open.isNotEmpty && open.first == index;
 List<int> csAccordionCollapse(List<int> open, bool allowMultiple) => allowMultiple || open.length <= 1 ? open : open.sublist(0, 1);
@@ -1135,24 +1140,36 @@ class _CsAccordionState extends State<CsAccordion> {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        for (var index = 0; index < widget.items.length; index++) ...[
-          ConstrainedBox(
-            constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
-            child: CsOwnFocus(builder: (node, claim) => TextButton(
-              focusNode: node,
-              onPressed: () {
-                claim();
-                setState(() => open = csAccordionToggle(open, index, widget.allowMultiple));
-              },
-              child: Align(alignment: Alignment.centerLeft, child: Text(widget.items[index].title, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
-            )),
-          ),
-          if (csAccordionPanel(open, index, widget.allowMultiple)) Text(widget.items[index].content, style: TextStyle(color: csColor(pack.colorTextMuted))),
-        ],
-      ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: csColor(pack.colorSurfacePanel),
+          borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
+          border: Border.all(color: csColor(pack.colorBorderDefault), width: csAccordionBorderWidth()),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (var index = 0; index < widget.items.length; index++) ...[
+              if (csAccordionShowsDivider(index))
+                Container(height: csAccordionBorderWidth(), color: csColor(pack.colorBorderDefault)),
+              ConstrainedBox(
+                constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
+                child: CsOwnFocus(builder: (node, claim) => TextButton(
+                  focusNode: node,
+                  onPressed: () {
+                    claim();
+                    setState(() => open = csAccordionToggle(open, index, widget.allowMultiple));
+                  },
+                  child: Align(alignment: Alignment.centerLeft, child: Text(widget.items[index].title, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
+                )),
+              ),
+              if (csAccordionPanel(open, index, widget.allowMultiple)) Text(widget.items[index].content, style: TextStyle(color: csColor(pack.colorTextMuted))),
+            ],
+          ],
+        ),
+      ),
     );
   }
 }

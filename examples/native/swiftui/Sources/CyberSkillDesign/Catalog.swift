@@ -134,6 +134,13 @@ public enum CSStepState: Equatable {
 }
 
 public enum CSAccordionModel {
+  public static func borderWidth() -> Double { 1 }
+  public static func showsDivider(index: Int) -> Bool { index > 0 }
+  public static func triggerId(prefix: String, index: Int) -> String { "\(prefix)-trigger-\(index)" }
+  public static func panelId(prefix: String, index: Int) -> String { "\(prefix)-panel-\(index)" }
+  public static func ariaControls(prefix: String, index: Int, opened: Bool) -> String? {
+    opened ? panelId(prefix: prefix, index: index) : nil
+  }
   public static func initial(defaultOpen: Int?) -> [Int] {
     guard let defaultOpen, defaultOpen >= 0 else { return [] }
     return [defaultOpen]
@@ -1533,6 +1540,11 @@ public struct CSAccordion: View {
     VStack(alignment: .leading, spacing: 0) {
       ForEach(Array(items.enumerated()), id: \.offset) { index, item in
         let opened = CSAccordionModel.panelOpen(open: open, index: index, allowMultiple: allowMultiple)
+        if CSAccordionModel.showsDivider(index: index) {
+          Rectangle()
+            .fill(pack.colorBorderDefault.color)
+            .frame(height: CGFloat(CSAccordionModel.borderWidth()))
+        }
         Button(action: {
           CSFocusRegistry.shared.claim(id: "\(headerFocusId)-\(index)", restore: { headerIndex = index })
           open = CSAccordionModel.toggle(open: open, index: index, allowMultiple: allowMultiple)
@@ -1554,6 +1566,9 @@ public struct CSAccordion: View {
         }
       }
     }
+    .background(pack.colorSurfacePanel.color, in: RoundedRectangle(cornerRadius: pack.radiusLg.points))
+    .clipShape(RoundedRectangle(cornerRadius: pack.radiusLg.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusLg.points).stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSAccordionModel.borderWidth())))
     .onChange(of: headerIndex) { index in
       if let index { CSFocusRegistry.shared.claim(id: "\(headerFocusId)-\(index)", restore: { headerIndex = index }) }
     }

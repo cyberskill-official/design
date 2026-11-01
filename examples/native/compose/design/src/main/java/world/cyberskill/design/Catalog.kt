@@ -5,9 +5,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.offset
@@ -158,6 +160,11 @@ fun csStepListName(explicit: String?, fallback: String) = fallback
 fun csStepCurrentValue(state: CsStepState) = if (state == CsStepState.Active) "step" else null
 fun csStepShowsBody(body: String?) = body != null
 
+fun csAccordionBorderWidth() = 1.dp
+fun csAccordionShowsDivider(index: Int) = index > 0
+fun csAccordionTriggerId(prefix: String, index: Int) = "$prefix-trigger-$index"
+fun csAccordionPanelId(prefix: String, index: Int) = "$prefix-panel-$index"
+fun csAccordionAriaControls(prefix: String, index: Int, opened: Boolean) = if (opened) csAccordionPanelId(prefix, index) else null
 fun csAccordionInitial(defaultOpen: Int?) = if (defaultOpen != null && defaultOpen >= 0) listOf(defaultOpen) else emptyList()
 fun csAccordionPanel(open: List<Int>, index: Int, allowMultiple: Boolean) = if (allowMultiple) open.contains(index) else open.firstOrNull() == index
 fun csAccordionCollapse(open: List<Int>, allowMultiple: Boolean) = if (allowMultiple || open.size <= 1) open else open.take(1)
@@ -851,9 +858,12 @@ fun CsAccordion(
   val pack = csModePack(dark, highContrast, compact)
   var open by remember { mutableStateOf(csAccordionInitial(defaultOpen)) }
   LaunchedEffect(allowMultiple) { open = csAccordionCollapse(open, allowMultiple) }
-  Column(modifier) {
+  Column(modifier.clip(RoundedCornerShape(pack.radiusLg.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).border(csAccordionBorderWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp()))) {
     items.forEachIndexed { index, item ->
       val opened = csAccordionPanel(open, index, allowMultiple)
+      if (csAccordionShowsDivider(index)) {
+        Box(Modifier.fillMaxWidth().height(csAccordionBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))
+      }
       CsTriggerButton(
         title = item.title,
         onClick = { open = csAccordionToggle(open, index, allowMultiple) },
