@@ -653,6 +653,10 @@ public struct CSBadge: View {
 }
 
 public enum CSDividerModel {
+  public static func thickness() -> Double { 1 }
+  public static func margin(_ pack: CSTokenModePack) -> Double { pack.space4.points }
+  public static func labelGap() -> Double { 12 }
+  public static func labelFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
   public static func showsLabel(_ label: CSPresenceValue) -> Bool { label.shown }
   public static func text(_ label: CSPresenceValue) -> String {
     switch label {
@@ -662,6 +666,98 @@ public enum CSDividerModel {
     }
   }
   public static func orientation(vertical: Bool) -> String { vertical ? "vertical" : "horizontal" }
+}
+
+public enum CSDataStyleModel {
+  public static let tooltipBubbleInkHex = "#ffffff"
+  public static let scrollAreaThumbUmberAlpha = 0.35
+  public static func cardBorderWidth() -> Double { 1 }
+  public static func cardHasShadow(flat: Bool = false) -> Bool { !flat }
+  public static func cardBorderColor(interactive: Bool = false, hovered: Bool = false, pack: CSTokenModePack) -> CSColorValue {
+    (interactive && hovered) ? pack.colorBrandOchre : pack.colorBorderDefault
+  }
+  public static func cardFocusHaloSpread(interactive: Bool = false, focused: Bool = false) -> Double {
+    (interactive && focused) ? 5 : 0
+  }
+  public static func cardActiveTranslateY(interactive: Bool = false, active: Bool = false, reducedMotion: Bool = false) -> Double {
+    (interactive && active && !reducedMotion) ? 1 : 0
+  }
+  public static func cardHeaderPaddingTop() -> Double { 18 }
+  public static func cardHeaderPaddingX() -> Double { 20 }
+  public static func cardHeaderPaddingBottom() -> Double { 0 }
+  public static func cardTitleFontWeight() -> Int { 700 }
+  public static func cardTitleLineHeight(_ pack: CSTokenModePack) -> Double { pack.fontLineHeightHeading }
+  public static func cardSubtitleMarginTop() -> Double { 4 }
+  public static func cardSubtitleFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func cardBodyPaddingY() -> Double { 16 }
+  public static func cardBodyPaddingX() -> Double { 20 }
+  public static func cardFooterPaddingTop() -> Double { 12 }
+  public static func cardFooterPaddingX() -> Double { 20 }
+  public static func cardFooterPaddingBottom() -> Double { 18 }
+  public static func cardFooterGap() -> Double { 10 }
+  public static func statGap() -> Double { 3 }
+  public static func statLabelFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeXs.points }
+  public static func statLabelLetterSpacingEm() -> Double { 0.08 }
+  public static func statLabelUppercase() -> Bool { true }
+  public static func statValueFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSize3xl.points }
+  public static func statValueFontWeight() -> Int { 800 }
+  public static func statValueLineHeight() -> Double { 1.1 }
+  public static func statValueLetterSpacingEm() -> Double { -0.01 }
+  public static func statDeltaGap() -> Double { 4 }
+  public static func statDeltaFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func statDeltaFontWeight() -> Int { 700 }
+  public static func statDeltaColor(direction: String, pack: CSTokenModePack) -> CSColorValue {
+    switch direction {
+    case "up": return pack.colorSemanticSuccessText
+    case "down": return pack.colorSemanticDangerText
+    default: return pack.colorTextMuted
+    }
+  }
+  public static func avatarFontWeight() -> Int { 700 }
+  public static func avatarSize(size: String = "md") -> Double {
+    switch size {
+    case "sm": return 28
+    case "lg": return 56
+    default: return 40
+    }
+  }
+  public static func avatarFontSize(size: String = "md", pack: CSTokenModePack) -> Double {
+    switch size {
+    case "sm": return pack.fontSizeXs.points
+    case "lg": return pack.fontSizeLg.points
+    default: return pack.fontSizeSm.points
+    }
+  }
+  public static func avatarRadius(square: Bool = false, size: String = "md", pack: CSTokenModePack) -> Double {
+    square ? pack.radiusMd.points : avatarSize(size: size) / 2.0
+  }
+  public static func avatarGroupRingWidth() -> Double { 2 }
+  public static func avatarGroupOverlapOffset() -> Double { -10 }
+  public static func tooltipBubbleOffset() -> Double { 8 }
+  public static func tooltipClosedTranslateY() -> Double { 4 }
+  public static func tooltipOpenTranslateY() -> Double { 0 }
+  public static func tooltipFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeXs.points }
+  public static func tooltipFontWeight() -> Int { 600 }
+  public static func tooltipLineHeight() -> Double { 1.35 }
+  public static func tooltipPaddingY() -> Double { 6 }
+  public static func tooltipPaddingX() -> Double { 10 }
+  public static func tooltipMaxWidth() -> Double { 240 }
+  public static func tooltipDepth(_ pack: CSTokenModePack) -> Double { pack.depthDropdown }
+  public static func tooltipArrowBorderWidth() -> Double { 5 }
+  public static func tooltipHoverBridgeSize() -> Double { 8 }
+  public static func tooltipArrowPointsToward(placement: String) -> String {
+    if placement.hasPrefix("bottom") { return "top" }
+    if placement.hasPrefix("left") { return "right" }
+    if placement.hasPrefix("right") { return "left" }
+    return "bottom"
+  }
+  public static func scrollAreaRadius(_ pack: CSTokenModePack) -> Double { pack.radiusMd.points }
+  public static func scrollAreaScrollbarWidth() -> String { "thin" }
+  public static func scrollAreaFocusOutlineWidth(focused: Bool) -> Double { focused ? 2 : 0 }
+  public static func scrollAreaFocusOutlineOffset(focused: Bool) -> Double { focused ? -2 : 0 }
+  public static func scrollAreaFocusHaloSpread(focused: Bool) -> Double { focused ? 5 : 0 }
+  public static func aspectRatioRadius(_ pack: CSTokenModePack) -> Double { pack.radiusMd.points }
+  public static func aspectRatioMediaObjectFit() -> String { "cover" }
 }
 
 public struct CSDivider: View {

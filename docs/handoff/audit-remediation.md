@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the feedback-style checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the data-style checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `5ffbabf4206760d3bc83d17929fd5642c8107750`, with the hash note in `617c4149`
-- Checkpoint commit hash: `e1d3fb6394f09605bcaac30999e9f80e6b30e2dd`
+- Previous checkpoint: `e1d3fb6394f09605bcaac30999e9f80e6b30e2dd`, with the hash note in `be2e3f71`
+- Checkpoint commit hash: pending first commit of this checkpoint
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +49,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after styling `Badge`, `Tag` / `Chip`, `Alert` / `Banner`, `Toast`, `Spinner`, `Progress`, and `Skeleton`: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled locally. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after styling `Card`, `Stat`, `Avatar` / `AvatarGroup`, `Tooltip`, `Divider`, `ScrollArea`, and `AspectRatio`: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled locally. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`CSBadgeModel` / `csBadge*` and `CSFeedbackStyleModel` / `csFeedbackStyle*` now style the `base/feedback.css` rules across SwiftUI, Compose, and Flutter (`Badge` `5px` gap, `4x9` padding, `12px` `700` `0.04em` uppercase, `7px` dot, `solid` `#ffffff` on umber ink; `Tag` `6px` gap, `5x10` padding, `font-size-sm` `600`, `18x18` close button with `12%` umber hover wash; `Alert` `12px` gap, `14x16` padding, `4px` semantic inline-start border, `700` title with `2px` bottom margin, `font-size-sm` muted body, dismiss button with `2px`/`5px` focus ring; `Toast` stack `20px` inset, `min(380px, 100vw - 40px)` max width, `10px` gap, toast `12px` gap, `12x14` padding, `4px` semantic inline-start border, `8px` entrance slide with reduced-motion suppression; `Spinner` `20px` `2.5px` border, `22%` umber / `26%` ochre track, `620ms` spin; `Progress` `10px` height, `duration-slow` fill transition; `Skeleton` `55%` raised/panel shimmer stop, `1400ms` loop, `0.75em` text height, `0.25em` vertical margin, matching `base/feedback.css` lines 1–66).
+`CSDividerModel` / `csDivider*` and `CSDataStyleModel` / `csDataStyle*` now style the `base/data.css` rules across SwiftUI, Compose, and Flutter (`Card` `flat` no shadow, `interactive` ochre hover border + `shadow-md`, `5px` ochre focus halo, `1px` active translate with reduced-motion suppression, `18x20x0` header, `700` `1.35` title, `4px` `font-size-sm` muted subtitle, `16x20` body, `12x20x18` footer with `10px` gap; `Stat` `3px` gap, `font-size-xs` `0.08em` uppercase label, `font-size-3xl` `800` `1.1` `-0.01em` value, `4px` `font-size-sm` `700` up/down/flat delta; `Avatar` `28/40/56px` `sm/md/lg` circular umber/ochre or `radius-md` square, `AvatarGroup` `2px` panel ring and `-10px` overlap; `Tooltip` bubble `8px` offset, `4px` closed translate, `#ffffff` on umber, `font-size-xs` `600` `1.35`, `6x10` padding, `240px` max width, `5px` arrow, `8px` hover bridge, portaled placement arrows/bridges; `Divider` `1px` border, `space-4` margin, `12px` label gap; `ScrollArea` `radius-md`, `35%` umber thin scrollbar, `2px` `-2px` `5px` focus ring; `AspectRatio` `radius-md` `cover` media lock, matching `base/data.css` lines 1–102).
 
 - Compose and Flutter were not compiled locally.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `Card`, `Stat`, `Avatar` / `AvatarGroup`, `Tooltip`, `Divider`, `ScrollArea`, and `AspectRatio` in Swift, Compose, and Flutter (`Card` `flat` no shadow, `interactive` ochre hover border + `shadow-md`, `5px` ochre focus halo, `1px` active translate, `18x20x0` header, `h4` `700` title, `4px` `font-size-sm` muted subtitle, `16x20` body, `12x20x18` footer with `10px` gap; `Stat` `3px` gap, `font-size-xs` uppercase caps label, `font-size-3xl` `800` `1.1` tight value, `4px` `font-size-sm` `700` up/down/flat delta; `Avatar` `28/40/56px` `sm/md/lg` circular umber/ochre or `radius-md` square, `AvatarGroup` `2px` panel ring and `-10px` overlap; `Tooltip` bubble `8px` offset, `4px` closed translate, `#fff` on umber, `font-size-xs` `600` `1.35`, `6x10` padding, `240px` max width, `5px` arrow, `8px` hover bridge, portaled placement arrows/bridges; `Divider` `1px` border, `space-4` margin, `12px` label gap; `ScrollArea` `radius-md`, `35%` umber thin scrollbar, `2px` `-2px` `5px` focus ring; `AspectRatio` `radius-md` `cover` media lock, from `base/data.css` lines 1–102).
+Style `Tabs`, `Breadcrumb`, `Pagination`, and `Menu` / `Dropdown` in Swift, Compose, and Flutter (`Tabs` `4px` gap, `1px` bottom border, `Tab` `10x14` padding, `7px` gap, `600` `font-size-sm`, `2px` bottom border, light umber / dark ochre selected text and ochre border, `2px` `-3px` `5px` focus ring, `1x7` mono count pill; `Breadcrumb` `8px` gap, `font-size-sm`, muted link / accent hover, border-default separator, `600` primary current item; `Pagination` `4px` gap, `38x38` `0x10` button, `1px` border, ochre hover border, light umber/inverse and dark ochre/umber current page fill/ink, `0.45` disabled opacity, `0x4` muted ellipsis; `Menu` list `6px` offset, `200px` min width, `6px` padding, `2px` gap, dropdown depth, item `10px` gap, `8x10` padding, `radius-sm`, raised hover/focus, `2px` `-3px` `5px` focus ring, danger item with `10%` danger hover wash, `1px` `4x2` separator, uppercase `font-size-xs` `0.08em` `6x10x2` group label, from `base/navigation.css` lines 1–37).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

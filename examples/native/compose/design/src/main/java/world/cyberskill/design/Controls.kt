@@ -631,6 +631,10 @@ fun CsBadge(
   }
 }
 
+fun csDividerThickness() = 1.dp
+fun csDividerMargin(pack: CSTokenModePack) = pack.space4.toDp()
+fun csDividerLabelGap() = 12.dp
+fun csDividerLabelFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
 fun csDividerShowsLabel(kind: CsPresence, text: String = "") = csPresenceShown(kind, text)
 fun csDividerText(kind: CsPresence, text: String = "") = when (kind) {
   CsPresence.Zero -> "0"
@@ -638,6 +642,86 @@ fun csDividerText(kind: CsPresence, text: String = "") = when (kind) {
   CsPresence.Absent -> ""
 }
 fun csDividerOrientation(vertical: Boolean) = if (vertical) "vertical" else "horizontal"
+
+const val csDataStyleTooltipBubbleInkHex = "#ffffff"
+const val csDataStyleScrollAreaThumbUmberAlpha = 0.35f
+fun csDataStyleCardBorderWidth() = 1.dp
+fun csDataStyleCardHasShadow(flat: Boolean = false) = !flat
+fun csDataStyleCardBorderColor(interactive: Boolean = false, hovered: Boolean = false, pack: CSTokenModePack) =
+  if (interactive && hovered) pack.colorBrandOchre else pack.colorBorderDefault
+fun csDataStyleCardFocusHaloSpread(interactive: Boolean = false, focused: Boolean = false) =
+  if (interactive && focused) 5.dp else 0.dp
+fun csDataStyleCardActiveTranslateY(interactive: Boolean = false, active: Boolean = false, reducedMotion: Boolean = false) =
+  if (interactive && active && !reducedMotion) 1.dp else 0.dp
+fun csDataStyleCardHeaderPaddingTop() = 18.dp
+fun csDataStyleCardHeaderPaddingX() = 20.dp
+fun csDataStyleCardHeaderPaddingBottom() = 0.dp
+fun csDataStyleCardTitleFontWeight() = 700
+fun csDataStyleCardTitleLineHeight(pack: CSTokenModePack) = pack.fontLineHeightHeading
+fun csDataStyleCardSubtitleMarginTop() = 4.dp
+fun csDataStyleCardSubtitleFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csDataStyleCardBodyPaddingY() = 16.dp
+fun csDataStyleCardBodyPaddingX() = 20.dp
+fun csDataStyleCardFooterPaddingTop() = 12.dp
+fun csDataStyleCardFooterPaddingX() = 20.dp
+fun csDataStyleCardFooterPaddingBottom() = 18.dp
+fun csDataStyleCardFooterGap() = 10.dp
+fun csDataStyleStatGap() = 3.dp
+fun csDataStyleStatLabelFontSize(pack: CSTokenModePack) = pack.fontSizeXs.toDp()
+const val csDataStyleStatLabelLetterSpacingEm = 0.08
+fun csDataStyleStatLabelUppercase() = true
+fun csDataStyleStatValueFontSize(pack: CSTokenModePack) = pack.fontSize3xl.toDp()
+fun csDataStyleStatValueFontWeight() = 800
+const val csDataStyleStatValueLineHeight = 1.1
+const val csDataStyleStatValueLetterSpacingEm = -0.01
+fun csDataStyleStatDeltaGap() = 4.dp
+fun csDataStyleStatDeltaFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csDataStyleStatDeltaFontWeight() = 700
+fun csDataStyleStatDeltaColor(direction: String, pack: CSTokenModePack) = when (direction) {
+  "up" -> pack.colorSemanticSuccessText
+  "down" -> pack.colorSemanticDangerText
+  else -> pack.colorTextMuted
+}
+fun csDataStyleAvatarFontWeight() = 700
+fun csDataStyleAvatarSize(size: String = "md") = when (size) {
+  "sm" -> 28.dp
+  "lg" -> 56.dp
+  else -> 40.dp
+}
+fun csDataStyleAvatarFontSize(size: String = "md", pack: CSTokenModePack) = when (size) {
+  "sm" -> pack.fontSizeXs.toDp()
+  "lg" -> pack.fontSizeLg.toDp()
+  else -> pack.fontSizeSm.toDp()
+}
+fun csDataStyleAvatarRadius(square: Boolean = false, size: String = "md", pack: CSTokenModePack) =
+  if (square) pack.radiusMd.toDp() else (csDataStyleAvatarSize(size).value / 2f).dp
+fun csDataStyleAvatarGroupRingWidth() = 2.dp
+fun csDataStyleAvatarGroupOverlapOffset() = (-10).dp
+fun csDataStyleTooltipBubbleOffset() = 8.dp
+fun csDataStyleTooltipClosedTranslateY() = 4.dp
+fun csDataStyleTooltipOpenTranslateY() = 0.dp
+fun csDataStyleTooltipFontSize(pack: CSTokenModePack) = pack.fontSizeXs.toDp()
+fun csDataStyleTooltipFontWeight() = 600
+const val csDataStyleTooltipLineHeight = 1.35
+fun csDataStyleTooltipPaddingY() = 6.dp
+fun csDataStyleTooltipPaddingX() = 10.dp
+fun csDataStyleTooltipMaxWidth() = 240.dp
+fun csDataStyleTooltipDepth(pack: CSTokenModePack) = pack.depthDropdown
+fun csDataStyleTooltipArrowBorderWidth() = 5.dp
+fun csDataStyleTooltipHoverBridgeSize() = 8.dp
+fun csDataStyleTooltipArrowPointsToward(placement: String) = when {
+  placement.startsWith("bottom") -> "top"
+  placement.startsWith("left") -> "right"
+  placement.startsWith("right") -> "left"
+  else -> "bottom"
+}
+fun csDataStyleScrollAreaRadius(pack: CSTokenModePack) = pack.radiusMd.toDp()
+fun csDataStyleScrollAreaScrollbarWidth() = "thin"
+fun csDataStyleScrollAreaFocusOutlineWidth(focused: Boolean) = if (focused) 2.dp else 0.dp
+fun csDataStyleScrollAreaFocusOutlineOffset(focused: Boolean) = if (focused) (-2).dp else 0.dp
+fun csDataStyleScrollAreaFocusHaloSpread(focused: Boolean) = if (focused) 5.dp else 0.dp
+fun csDataStyleAspectRatioRadius(pack: CSTokenModePack) = pack.radiusMd.toDp()
+fun csDataStyleAspectRatioMediaObjectFit() = "cover"
 
 @Composable
 fun CsDivider(

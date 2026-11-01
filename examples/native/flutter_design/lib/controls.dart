@@ -832,9 +832,116 @@ class CsBadge extends StatelessWidget {
   }
 }
 
+double csDividerThickness() => 1;
+double csDividerMargin(CSTokenModePack pack) => csPoints(pack.space4);
+double csDividerLabelGap() => 12;
+double csDividerLabelFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
 bool csDividerShowsLabel(String? label, {bool zero = false}) => zero || (label != null && label.isNotEmpty);
 String csDividerText(String? label, {bool zero = false}) => zero ? '0' : (label ?? '');
 String csDividerOrientation(bool vertical) => vertical ? 'vertical' : 'horizontal';
+
+const String csDataStyleTooltipBubbleInkHex = '#ffffff';
+const double csDataStyleScrollAreaThumbUmberAlpha = 0.35;
+double csDataStyleCardBorderWidth() => 1;
+bool csDataStyleCardHasShadow({bool flat = false}) => !flat;
+CSColorValue csDataStyleCardBorderColor(
+  CSTokenModePack pack, {
+  bool interactive = false,
+  bool hovered = false,
+}) =>
+    (interactive && hovered) ? pack.colorBrandOchre : pack.colorBorderDefault;
+double csDataStyleCardFocusHaloSpread({bool interactive = false, bool focused = false}) =>
+    (interactive && focused) ? 5 : 0;
+double csDataStyleCardActiveTranslateY({
+  bool interactive = false,
+  bool active = false,
+  bool reducedMotion = false,
+}) =>
+    (interactive && active && !reducedMotion) ? 1 : 0;
+double csDataStyleCardHeaderPaddingTop() => 18;
+double csDataStyleCardHeaderPaddingX() => 20;
+double csDataStyleCardHeaderPaddingBottom() => 0;
+int csDataStyleCardTitleFontWeight() => 700;
+double csDataStyleCardTitleLineHeight(CSTokenModePack pack) => pack.fontLineHeightHeading;
+double csDataStyleCardSubtitleMarginTop() => 4;
+double csDataStyleCardSubtitleFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+double csDataStyleCardBodyPaddingY() => 16;
+double csDataStyleCardBodyPaddingX() => 20;
+double csDataStyleCardFooterPaddingTop() => 12;
+double csDataStyleCardFooterPaddingX() => 20;
+double csDataStyleCardFooterPaddingBottom() => 18;
+double csDataStyleCardFooterGap() => 10;
+double csDataStyleStatGap() => 3;
+double csDataStyleStatLabelFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeXs);
+const double csDataStyleStatLabelLetterSpacingEm = 0.08;
+bool csDataStyleStatLabelUppercase() => true;
+double csDataStyleStatValueFontSize(CSTokenModePack pack) => csPoints(pack.fontSize3xl);
+int csDataStyleStatValueFontWeight() => 800;
+const double csDataStyleStatValueLineHeight = 1.1;
+const double csDataStyleStatValueLetterSpacingEm = -0.01;
+double csDataStyleStatDeltaGap() => 4;
+double csDataStyleStatDeltaFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+int csDataStyleStatDeltaFontWeight() => 700;
+CSColorValue csDataStyleStatDeltaColor(String direction, CSTokenModePack pack) {
+  switch (direction) {
+    case 'up':
+      return pack.colorSemanticSuccessText;
+    case 'down':
+      return pack.colorSemanticDangerText;
+    default:
+      return pack.colorTextMuted;
+  }
+}
+int csDataStyleAvatarFontWeight() => 700;
+double csDataStyleAvatarSize([String size = 'md']) {
+  switch (size) {
+    case 'sm':
+      return 28;
+    case 'lg':
+      return 56;
+    default:
+      return 40;
+  }
+}
+double csDataStyleAvatarFontSize(CSTokenModePack pack, [String size = 'md']) {
+  switch (size) {
+    case 'sm':
+      return csPoints(pack.fontSizeXs);
+    case 'lg':
+      return csPoints(pack.fontSizeLg);
+    default:
+      return csPoints(pack.fontSizeSm);
+  }
+}
+double csDataStyleAvatarRadius(CSTokenModePack pack, {bool square = false, String size = 'md'}) =>
+    square ? csPoints(pack.radiusMd) : csDataStyleAvatarSize(size) / 2.0;
+double csDataStyleAvatarGroupRingWidth() => 2;
+double csDataStyleAvatarGroupOverlapOffset() => -10;
+double csDataStyleTooltipBubbleOffset() => 8;
+double csDataStyleTooltipClosedTranslateY() => 4;
+double csDataStyleTooltipOpenTranslateY() => 0;
+double csDataStyleTooltipFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeXs);
+int csDataStyleTooltipFontWeight() => 600;
+const double csDataStyleTooltipLineHeight = 1.35;
+double csDataStyleTooltipPaddingY() => 6;
+double csDataStyleTooltipPaddingX() => 10;
+double csDataStyleTooltipMaxWidth() => 240;
+double csDataStyleTooltipDepth(CSTokenModePack pack) => pack.depthDropdown;
+double csDataStyleTooltipArrowBorderWidth() => 5;
+double csDataStyleTooltipHoverBridgeSize() => 8;
+String csDataStyleTooltipArrowPointsToward(String placement) {
+  if (placement.startsWith('bottom')) return 'top';
+  if (placement.startsWith('left')) return 'right';
+  if (placement.startsWith('right')) return 'left';
+  return 'bottom';
+}
+double csDataStyleScrollAreaRadius(CSTokenModePack pack) => csPoints(pack.radiusMd);
+String csDataStyleScrollAreaScrollbarWidth() => 'thin';
+double csDataStyleScrollAreaFocusOutlineWidth(bool focused) => focused ? 2 : 0;
+double csDataStyleScrollAreaFocusOutlineOffset(bool focused) => focused ? -2 : 0;
+double csDataStyleScrollAreaFocusHaloSpread(bool focused) => focused ? 5 : 0;
+double csDataStyleAspectRatioRadius(CSTokenModePack pack) => csPoints(pack.radiusMd);
+String csDataStyleAspectRatioMediaObjectFit() => 'cover';
 
 class CsDivider extends StatelessWidget {
   const CsDivider({
