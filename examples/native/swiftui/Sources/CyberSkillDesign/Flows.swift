@@ -126,6 +126,8 @@ public enum CSSortModel {
   public static func label(_ text: String?, fallback: String) -> String { text ?? fallback }
   public static func canMoveUp(_ index: Int) -> Bool { index > 0 }
   public static func canMoveDown(_ index: Int, count: Int) -> Bool { index >= 0 && index < count - 1 }
+  public static func listGap() -> Double { 6 }
+  public static func maxWidth() -> Double { 380 }
   public static func rowAt(originY: Double, rowHeight: Double, count: Int, pointY: Double) -> Int? {
     guard count > 0, rowHeight > 0 else { return nil }
     let index = Int(((pointY - originY) / rowHeight).rounded(.down))
@@ -494,7 +496,7 @@ public struct CSSortable: View {
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let up = CSSortModel.label(upLabel, fallback: CSSortModel.copy("moveUp", language: locale))
     let down = CSSortModel.label(downLabel, fallback: CSSortModel.copy("moveDown", language: locale))
-    VStack(alignment: .leading) {
+    VStack(alignment: .leading, spacing: CGFloat(CSSortModel.listGap())) {
       ForEach(Array(items.enumerated()), id: \.offset) { index, item in
         HStack {
           HStack {
@@ -528,6 +530,7 @@ public struct CSSortable: View {
         })
       }
     }
+    .frame(maxWidth: CGFloat(CSSortModel.maxWidth()), alignment: .leading)
     .background(GeometryReader { geo in
       Color.clear.preference(key: CSSortListKey.self, value: geo.frame(in: .global).minY)
     })

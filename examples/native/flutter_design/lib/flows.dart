@@ -299,6 +299,8 @@ String csSortCopy(String key, String? language) {
 String csSortLabel(String? text, String fallback) => text ?? fallback;
 bool csSortCanMoveUp(int index) => index > 0;
 bool csSortCanMoveDown(int index, int count) => index >= 0 && index < count - 1;
+double csSortListGap() => 6;
+double csSortMaxWidth() => 380;
 int? csSortRowAt(double originY, double rowHeight, int count, double pointY) {
   if (count <= 0 || rowHeight <= 0) return null;
   final index = ((pointY - originY) / rowHeight).floor();
@@ -343,9 +345,12 @@ class _CsSortableState extends State<CsSortable> {
     final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
     final up = csSortLabel(widget.upLabel, csSortCopy('moveUp', locale));
     final down = csSortLabel(widget.downLabel, csSortCopy('moveDown', locale));
-    return Column(key: listKey, children: [
-      for (var index = 0; index < widget.items.length; index++)
-        Builder(builder: (rowContext) => Row(children: [
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: csSortMaxWidth()),
+      child: Column(key: listKey, children: [
+        for (var index = 0; index < widget.items.length; index++) ...[
+          if (index > 0) SizedBox(height: csSortListGap()),
+          Builder(builder: (rowContext) => Row(children: [
           GestureDetector(
             onVerticalDragStart: (_) {
               final box = listKey.currentContext?.findRenderObject() as RenderBox?;
@@ -366,8 +371,10 @@ class _CsSortableState extends State<CsSortable> {
           Text(widget.items[index]),
           Semantics(button: true, label: up, enabled: csSortCanMoveUp(index), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveUp(index) ? () { claim(); widget.onChange(csReorder(widget.items, index, index - 1)); } : null, child: const ExcludeSemantics(child: Text('↑'))))),
           Semantics(button: true, label: down, enabled: csSortCanMoveDown(index, widget.items.length), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveDown(index, widget.items.length) ? () { claim(); widget.onChange(csReorder(widget.items, index, index + 1)); } : null, child: const ExcludeSemantics(child: Text('↓'))))),
-        ])),
-    ]);
+          ])),
+        ],
+      ]),
+    );
   }
 }
 

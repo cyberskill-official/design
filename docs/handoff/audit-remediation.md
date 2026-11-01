@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-10-31, after the selected-row checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the tree-table cell and sortable-list checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `27365f3cf1eddc86509b571798f6519980ade8fa`, with the hash note in `83a64000`
-- Checkpoint commit hash: `369fd0e00a09fb33574d1155b28383c35a4f42a4`
+- Previous checkpoint: `369fd0e00a09fb33574d1155b28383c35a4f42a4`, with the hash note in `93eed3b5`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the selected row: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the tree-table cell and sortable list: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A selected data-grid row now uses the theme-channel fill. The web rule is in `base/controls.css`. The two `var()` calls have no space between them. In light, `--_cs-light` is invalid, so the fill is `--cs-accent-tint`. In dark, `--_cs-dark` is invalid, so the fill is `color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel))`. A light row keeps the tint. A dark row is 18% accent and 82% panel in Oklab. An Oklab accent of L 0.5 on a panel of L 1 becomes L 0.91.
+A tree-table cell now lays out as centered inline flex with a 2px gap (`CSTreeTableModel.cellGap()` / `csTreeCellGap()`), matching `.cs-treetable .cs-treetable__cell { display: inline-flex; align-items: center; gap: 2px; }` in `base/controls.css`. A sortable list now uses a 6px vertical gap (`CSSortModel.listGap()` / `csSortListGap()`) and a 380px maximum width (`CSSortModel.maxWidth()` / `csSortMaxWidth()`), matching `.cs-sortable { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; max-inline-size: 380px; }` in `base/controls.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Lay out a tree-table cell as inline flex, centered, with a gap of 2px. The next rule in `base/controls.css` is `.cs-treetable .cs-treetable__cell { display: inline-flex; align-items: center; gap: 2px; }`. Re-read that rule before editing. Do not invent a gap.
+Lay out a sortable item as centered flex with a 10px gap, panel background, 1px default border, medium radius, 10px by 12px padding, small font size, and primary text color. The next rule in `base/controls.css` is `.cs-sortable__item { display: flex; align-items: center; gap: 10px; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); padding: 10px 12px; font-size: var(--cs-font-size-sm); color: var(--cs-color-text-primary); cursor: grab; }`. Re-read that rule before editing. Do not invent spacing or padding values.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

@@ -1779,6 +1779,7 @@ List<CsTreeTableRow> csTreeRows(List<CsTreeTableNode> nodes, List<String> expand
 }
 
 int csTreeIndent(int depth) => depth * 18;
+double csTreeCellGap() => 2;
 
 String? csTreeControls(String prefix, List<String> children, bool open) => !open || children.isEmpty ? null : children.map((child) => csTreeRowId(prefix, child)).join(' ');
 String csTreeTableCopy(String key, String? language) {
@@ -1831,8 +1832,8 @@ class _CsTreeTableState extends State<CsTreeTable> {
       for (final row in visible)
         Padding(
           padding: EdgeInsets.only(left: csTreeIndent(row.depth).toDouble()),
-          child: Row(children: [
-            if (row.expandable)
+          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            if (row.expandable) ...[
               Semantics(
                 expanded: row.open,
                 hint: csTreeControls(treeId, row.children, row.open),
@@ -1843,6 +1844,8 @@ class _CsTreeTableState extends State<CsTreeTable> {
                   child: Text(row.open ? '▾' : '▸', semanticsLabel: csTreeTableTwist(row.open ? collapse : expand, row.label.isEmpty ? row.key : row.label)),
                 )),
               ),
+              SizedBox(width: csTreeCellGap()),
+            ],
             Text(row.label.isEmpty ? row.key : row.label),
           ]),
         ),

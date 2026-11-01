@@ -4,6 +4,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -235,6 +236,8 @@ fun csSortCopy(key: String, language: String?): String {
 fun csSortLabel(text: String?, fallback: String) = text ?: fallback
 fun csSortCanMoveUp(index: Int) = index > 0
 fun csSortCanMoveDown(index: Int, count: Int) = index >= 0 && index < count - 1
+fun csSortListGap() = 6.dp
+fun csSortMaxWidth() = 380.dp
 fun csSortRowAt(originY: Double, rowHeight: Double, count: Int, pointY: Double): Int? {
   if (count <= 0 || rowHeight <= 0.0) return null
   val index = kotlin.math.floor((pointY - originY) / rowHeight).toInt()
@@ -255,7 +258,7 @@ fun CsSortable(items: List<String>, onChange: (List<String>) -> Unit, dark: Bool
   var rowHeight by remember { mutableStateOf(0.0) }
   var dragFrom by remember { mutableStateOf<Int?>(null) }
   var pointY by remember { mutableStateOf(0.0) }
-  Column(modifier.onGloballyPositioned { originY = it.positionInRoot().y.toDouble() }) {
+  Column(modifier.widthIn(max = csSortMaxWidth()).onGloballyPositioned { originY = it.positionInRoot().y.toDouble() }, verticalArrangement = Arrangement.spacedBy(csSortListGap())) {
     items.forEachIndexed { index, item ->
       Row(Modifier.onGloballyPositioned { if (it.size.height > 0) rowHeight = it.size.height.toDouble() }) {
         Text("⠿", color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {}.pointerInput(items, originY, rowHeight) {

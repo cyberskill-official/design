@@ -2681,6 +2681,7 @@ public enum CSTreeTableModel {
   }
 
   public static func indent(_ depth: Int) -> Int { depth * 18 }
+  public static func cellGap() -> Double { 2 }
 
   public static func controls(prefix: String, children: [String], open: Bool) -> String? {
     guard open, !children.isEmpty else { return nil }
@@ -2738,7 +2739,7 @@ public struct CSTreeTable: View {
       if visible.isEmpty { Text(empty) }
       ForEach(Array(visible.enumerated()), id: \.offset) { _, row in
         let cell = row.label.isEmpty ? row.key : row.label
-        HStack(spacing: 8) {
+        HStack(alignment: .center, spacing: CGFloat(CSTreeTableModel.cellGap())) {
           if row.expandable {
             CSTriggerButton(row.open ? "▾" : "▸") { onExpanded(CSTreeTableModel.toggle(expanded, row.key)) }
               .accessibilityLabel(CSTreeTableModel.twistName(action: row.open ? collapse : expand, cell: cell))

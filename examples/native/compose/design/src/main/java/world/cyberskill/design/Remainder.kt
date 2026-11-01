@@ -46,6 +46,7 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.matchParentSize
 import androidx.compose.ui.draw.alpha
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Popup
@@ -1156,6 +1157,7 @@ fun csTreeRows(nodes: List<CsTreeTableNode>, expanded: List<String>, depth: Int 
   if (open) listOf(row) + csTreeRows(node.children, expanded, depth + 1) else listOf(row)
 }
 fun csTreeIndent(depth: Int) = depth * 18
+fun csTreeCellGap() = 2.dp
 fun csTreeControls(prefix: String, children: List<String>, open: Boolean) = if (!open || children.isEmpty()) null else children.joinToString(" ") { csTreeRowId(prefix, it) }
 fun csTreeTableCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -1185,7 +1187,7 @@ private var SemanticsPropertyReceiver.csTreeControlsValue by csTreeControlsKey
     if (visible.isEmpty()) Text(empty)
     visible.forEach { row ->
       val cell = row.label.ifEmpty { row.key }
-      Row(Modifier.padding(start = csTreeIndent(row.depth).dp)) {
+      Row(Modifier.padding(start = csTreeIndent(row.depth).dp), horizontalArrangement = Arrangement.spacedBy(csTreeCellGap()), verticalAlignment = Alignment.CenterVertically) {
         if (row.expandable) CsTriggerButton(title = if (row.open) "▾" else "▸", onClick = { onExpanded(csTreeToggle(expanded, row.key)) }, modifier = Modifier.semantics { contentDescription = csTreeTableTwist(if (row.open) collapse else expand, cell); stateDescription = row.open.toString(); csTreeControls(treeId, row.children, row.open)?.let { csTreeControlsValue = it } }.minimumInteractiveComponentSize()) { Text(if (row.open) "▾" else "▸", modifier = Modifier.clearAndSetSemantics {}) }
         Text(cell)
       }
