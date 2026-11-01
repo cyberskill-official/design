@@ -1,6 +1,9 @@
 package world.cyberskill.design
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.hoverable
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.text.BasicTextField
@@ -707,6 +710,14 @@ enum class CsGlassMaterial(val className: String) {
 
 enum class CsGlassSurfaceBase { Page, Panel, Raised }
 enum class CsGlassShadow { None, Sm, Lg }
+enum class CsDepthTier(val className: String) {
+  Bg("cs-depth-bg"),
+  Section("cs-depth-section"),
+  Card("cs-depth-card"),
+  Nav("cs-depth-nav"),
+  Modal("cs-depth-modal"),
+  Toast("cs-depth-toast"),
+}
 
 val csGlassOverlaySurfacePrecedence = listOf(
   "cs-surface-matte",
@@ -772,4 +783,119 @@ fun csGlassShadow(material: CsGlassMaterial): CsGlassShadow = when (material) {
   CsGlassMaterial.Whisper, CsGlassMaterial.Light, CsGlassMaterial.Solid, CsGlassMaterial.Matte -> CsGlassShadow.None
   CsGlassMaterial.Standard, CsGlassMaterial.GlassCard -> CsGlassShadow.Sm
   CsGlassMaterial.Heavy -> CsGlassShadow.Lg
+}
+
+const val csGlassLensEdgeAngle = 135.0
+fun csGlassLensEdgeWidth() = 1.dp
+const val csGlassLensHighlightAlpha = 0.30
+const val csGlassLensTransparentStartStop = 0.30
+const val csGlassLensTransparentEndStop = 0.70
+const val csGlassLensUmberAlpha = 0.15
+
+fun csGlassShowsLensEdge(
+  material: CsGlassMaterial,
+  reducedTransparency: Boolean = false,
+  forcedColors: Boolean = false,
+  overlaySurface: Boolean = false,
+): Boolean {
+  if (reducedTransparency || forcedColors || overlaySurface) return false
+  return material == CsGlassMaterial.Standard || material == CsGlassMaterial.Heavy || material == CsGlassMaterial.GlassCard
+}
+
+fun csGlassDepthValue(tier: CsDepthTier, pack: CSTokenModePack): Double = when (tier) {
+  CsDepthTier.Bg -> pack.depthBg
+  CsDepthTier.Section -> pack.depthSection
+  CsDepthTier.Card -> pack.depthCard
+  CsDepthTier.Nav -> pack.depthNav
+  CsDepthTier.Modal -> pack.depthModal
+  CsDepthTier.Toast -> pack.depthToast
+}
+
+fun csGlassDepthSticky(tier: CsDepthTier): Boolean = tier == CsDepthTier.Nav
+
+fun csGlassEffectiveSurfaceBase(
+  material: CsGlassMaterial,
+  reducedTransparency: Boolean = false,
+  supportsBackdropFilter: Boolean = true,
+): CsGlassSurfaceBase = if (reducedTransparency || !supportsBackdropFilter) CsGlassSurfaceBase.Panel else csGlassSurfaceBase(material)
+
+fun csGlassEffectiveOpacity(
+  material: CsGlassMaterial,
+  pack: CSTokenModePack,
+  reducedTransparency: Boolean = false,
+  forcedColors: Boolean = false,
+  supportsBackdropFilter: Boolean = true,
+): Double = if (reducedTransparency || forcedColors || !supportsBackdropFilter) 1.0 else csGlassOpacity(material, pack)
+
+fun csGlassEffectiveBlur(
+  material: CsGlassMaterial,
+  pack: CSTokenModePack,
+  reducedTransparency: Boolean = false,
+  forcedColors: Boolean = false,
+  overlaySurfaceReady: Boolean = false,
+) = if (reducedTransparency || forcedColors || overlaySurfaceReady) 0.dp else csGlassBlur(material, pack)
+
+fun csGlassEffectiveBorderMix(
+  material: CsGlassMaterial,
+  reducedTransparency: Boolean = false,
+  forcedColors: Boolean = false,
+): Double = if (reducedTransparency || forcedColors) 1.0 else csGlassBorderMix(material)
+
+fun csGlassEffectiveBorderWidth(
+  material: CsGlassMaterial,
+  reducedTransparency: Boolean = false,
+  forcedColors: Boolean = false,
+  overlaySurface: Boolean = false,
+) = when {
+  overlaySurface -> 0.dp
+  reducedTransparency || forcedColors -> 1.dp
+  else -> csGlassBorderWidth(material)
+}
+
+const val csAuroraInkHex = "#ffffff"
+const val csAuroraOchreAlpha = 0.46
+const val csAuroraOchreCenterX = 0.12
+const val csAuroraOchreCenterY = -0.10
+const val csAuroraOchreRadiusX = 0.90
+const val csAuroraOchreRadiusY = 1.20
+const val csAuroraOchreStop = 0.55
+const val csAuroraGoldHex = "#ffcf5c"
+const val csAuroraGoldAlpha = 0.32
+const val csAuroraGoldCenterX = 0.88
+const val csAuroraGoldCenterY = 0.08
+const val csAuroraGoldRadiusX = 0.70
+const val csAuroraGoldRadiusY = 0.90
+const val csAuroraGoldStop = 0.60
+const val csAuroraDeepHex = "#1a1108"
+const val csAuroraDeepAlpha = 0.60
+const val csAuroraDeepCenterX = 0.50
+const val csAuroraDeepCenterY = 1.20
+const val csAuroraDeepRadiusX = 1.20
+const val csAuroraDeepRadiusY = 1.20
+const val csAuroraDeepStop = 0.60
+
+@Composable
+fun CsAuroraSurface(
+  dark: Boolean,
+  highContrast: Boolean,
+  compact: Boolean,
+  photo: Boolean = false,
+  modifier: Modifier = Modifier,
+  content: @Composable () -> Unit,
+) {
+  val pack = csModePack(dark, highContrast, compact)
+  Box(
+    modifier
+      .background(pack.colorBrandUmber.toComposeColor())
+      .background(
+        Brush.radialGradient(
+          colors = listOf(
+            pack.colorBrandOchre.toComposeColor().copy(alpha = csAuroraOchreAlpha.toFloat()),
+            Color.Transparent,
+          )
+        )
+      )
+  ) {
+    content()
+  }
 }

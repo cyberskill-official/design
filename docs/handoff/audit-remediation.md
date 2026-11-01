@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the glass-materials-classes checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the glass-lens-depth-fallbacks-aurora checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `93c2fcb1806714b3fc8abdece1ff118db22a5378`, with the hash note in `fcdeb41f`
-- Checkpoint commit hash: `b6d9b82ed99dc9249197a4f3c71f39d3b3f7875c`
+- Previous checkpoint: `b6d9b82ed99dc9249197a4f3c71f39d3b3f7875c`, with the hash note in `399bf670`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the Liquid Glass material compositions and classes: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the Liquid Glass lens edge, depth utilities, fallbacks, and brand aurora wash: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-Liquid Glass material compositions (`CSGlassMaterial` / `CsGlassMaterial`, `CSGlassSurfaceBase` / `CsGlassSurfaceBase`, `CSGlassShadow` / `CsGlassShadow`, `CSGlassModel` / `csGlass*`) and `CSCard` / `CsCard` material support now compose the five materials (`whisper`, `light`, `standard`/`glassCard`, `heavy`, `solid`/`matte`) with surface base (`page`/`panel`/`raised`), opacity (`60%`, `70%`, `80%`, `90%`, `100%`), backdrop blur (`8px`, `12px`, `16px`, `24px`, `0px`), saturation (`110%`, `130%`, `150%`, `180%`, `100%`), border mix (`0%`, `50%`, `60%`, `80%`, `100%`), border width (`0px` for whisper, `1px` otherwise), shadow (`none`, `none`, `sm`, `lg`, `none`), and `overlaySurfaceClass` precedence (`["cs-surface-matte", "cs-surface-solid", "cs-surface-heavy", "cs-surface-standard", "cs-glass-card", "cs-surface-light", "cs-surface-whisper"]`), matching `base/glass.css` lines 10–53 and `components/_utils/use-overlay-surface.js` line 8.
+Liquid Glass (`CSGlassModel` / `csGlass*`, `CSDepthTier` / `CsDepthTier`, `CSAuroraSurface` / `CsAuroraSurface`) now models the `135deg` `1px` lens edge on `standard`, `heavy`, and `glassCard` (`30%` `#fff` at `0%..30%` to `15%` `--cs-color-brand-umber` at `70%..100%`, suppressed under `reducedTransparency`, `forcedColors`, or `overlaySurface`), depth utilities (`bg` `0`, `section` `5`, `card` `10`, `nav` `50` sticky, `modal` `100`, `toast` `200`), accessibility/capability fallbacks (`effectiveSurfaceBase`, `effectiveOpacity`, `effectiveBlur`, `effectiveBorderMix`, `effectiveBorderWidth`), and `.cs-aurora` brand wash (`--cs-color-brand-umber` base, `#ffffff` ink, `46%` ochre + `32%` `#ffcf5c` + `60%` `#1a1108` radial gradients), matching `base/glass.css` lines 54–129.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style Liquid Glass lens edge, depth utilities, accessibility/capability fallbacks, brand aurora wash, and modal overlay backing rules (`CSGlassModel` / `csGlass*`) in `base/glass.css` lines 54–129: `135deg` `1px` lens edge on `standard`/`heavy`/`glassCard` (`30%` `#fff` at `0%..30%` to `15%` `--cs-color-brand-umber` at `70%..100%`), depth utilities (`bg` `0`, `section` `5`, `card` `10`, `nav` `50` sticky, `modal` `100`, `toast` `200`), reduced-transparency / forced-colors / print / unsupported-backdrop-filter fallbacks, `.cs-aurora` wash (`--cs-color-brand-umber` base, `#fff` ink, three radial gradients), and `.cs-overlay-surface` backing suppression. Re-read `base/glass.css` lines 54–129 before editing.
+Style the interaction layer (`CSInteractionModel` / `csInteraction*`) in `base/interaction.css` lines 1–58: warm hover depth on `.cs-button--primary` and `.cs-button--danger` (`translateY(-1px)` + `0 8px 20px rgba(69, 33, 14, 0.24)` hover shadow when not disabled, `translateY(0)` + `--cs-shadow-xs` active, `transform: none` under `prefers-reduced-motion: reduce`), `5px` `--cs-color-accent-ochre` focus halo (plus `inset 0 0 0 4px var(--cs-color-accent-ochre)` on `.cs-cmdk__search:focus-within`), and entrance motion utilities (`.cs-fade-in`, `.cs-rise-in` `10px` with `80ms`/`160ms`/`240ms` delays, `.cs-dialog` and `.cs-dialog__overlay` `duration-base` fade-in, disabled under `prefers-reduced-motion: reduce`). Re-read `base/interaction.css` lines 1–58 before editing.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

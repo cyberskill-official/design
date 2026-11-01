@@ -1586,6 +1586,15 @@ public enum CSGlassShadow: String, Equatable {
   case lg
 }
 
+public enum CSDepthTier: String, Equatable, CaseIterable {
+  case bg = "cs-depth-bg"
+  case section = "cs-depth-section"
+  case card = "cs-depth-card"
+  case nav = "cs-depth-nav"
+  case modal = "cs-depth-modal"
+  case toast = "cs-depth-toast"
+}
+
 public enum CSGlassModel {
   public static let overlaySurfacePrecedence: [String] = [
     "cs-surface-matte",
@@ -1665,6 +1674,156 @@ public enum CSGlassModel {
     case .whisper, .light, .solid, .matte: return .none
     case .standard, .glassCard: return .sm
     case .heavy: return .lg
+    }
+  }
+
+  public static let lensEdgeAngle = 135.0
+  public static func lensEdgeWidth() -> Double { 1.0 }
+  public static let lensHighlightAlpha = 0.30
+  public static let lensTransparentStartStop = 0.30
+  public static let lensTransparentEndStop = 0.70
+  public static let lensUmberAlpha = 0.15
+
+  public static func showsLensEdge(
+    _ material: CSGlassMaterial,
+    reducedTransparency: Bool = false,
+    forcedColors: Bool = false,
+    overlaySurface: Bool = false
+  ) -> Bool {
+    guard !reducedTransparency, !forcedColors, !overlaySurface else { return false }
+    switch material {
+    case .standard, .heavy, .glassCard: return true
+    case .whisper, .light, .solid, .matte: return false
+    }
+  }
+
+  public static func depthValue(_ tier: CSDepthTier, pack: CSTokenModePack) -> Double {
+    switch tier {
+    case .bg: return pack.depthBg
+    case .section: return pack.depthSection
+    case .card: return pack.depthCard
+    case .nav: return pack.depthNav
+    case .modal: return pack.depthModal
+    case .toast: return pack.depthToast
+    }
+  }
+
+  public static func depthSticky(_ tier: CSDepthTier) -> Bool {
+    tier == .nav
+  }
+
+  public static func effectiveSurfaceBase(
+    _ material: CSGlassMaterial,
+    reducedTransparency: Bool = false,
+    supportsBackdropFilter: Bool = true
+  ) -> CSGlassSurfaceBase {
+    if reducedTransparency || !supportsBackdropFilter { return .panel }
+    return surfaceBase(material)
+  }
+
+  public static func effectiveOpacity(
+    _ material: CSGlassMaterial,
+    pack: CSTokenModePack,
+    reducedTransparency: Bool = false,
+    forcedColors: Bool = false,
+    supportsBackdropFilter: Bool = true
+  ) -> Double {
+    if reducedTransparency || forcedColors || !supportsBackdropFilter { return 1.0 }
+    return opacity(material, pack: pack)
+  }
+
+  public static func effectiveBlur(
+    _ material: CSGlassMaterial,
+    pack: CSTokenModePack,
+    reducedTransparency: Bool = false,
+    forcedColors: Bool = false,
+    overlaySurfaceReady: Bool = false
+  ) -> Double {
+    if reducedTransparency || forcedColors || overlaySurfaceReady { return 0.0 }
+    return blur(material, pack: pack)
+  }
+
+  public static func effectiveBorderMix(
+    _ material: CSGlassMaterial,
+    reducedTransparency: Bool = false,
+    forcedColors: Bool = false
+  ) -> Double {
+    if reducedTransparency || forcedColors { return 1.0 }
+    return borderMix(material)
+  }
+
+  public static func effectiveBorderWidth(
+    _ material: CSGlassMaterial,
+    reducedTransparency: Bool = false,
+    forcedColors: Bool = false,
+    overlaySurface: Bool = false
+  ) -> Double {
+    if overlaySurface { return 0.0 }
+    if reducedTransparency || forcedColors { return 1.0 }
+    return borderWidth(material)
+  }
+
+  public static let auroraInkHex = "#ffffff"
+  public static let auroraOchreAlpha = 0.46
+  public static let auroraOchreCenterX = 0.12
+  public static let auroraOchreCenterY = -0.10
+  public static let auroraOchreRadiusX = 0.90
+  public static let auroraOchreRadiusY = 1.20
+  public static let auroraOchreStop = 0.55
+  public static let auroraGoldHex = "#ffcf5c"
+  public static let auroraGoldAlpha = 0.32
+  public static let auroraGoldCenterX = 0.88
+  public static let auroraGoldCenterY = 0.08
+  public static let auroraGoldRadiusX = 0.70
+  public static let auroraGoldRadiusY = 0.90
+  public static let auroraGoldStop = 0.60
+  public static let auroraDeepHex = "#1a1108"
+  public static let auroraDeepAlpha = 0.60
+  public static let auroraDeepCenterX = 0.50
+  public static let auroraDeepCenterY = 1.20
+  public static let auroraDeepRadiusX = 1.20
+  public static let auroraDeepRadiusY = 1.20
+  public static let auroraDeepStop = 0.60
+}
+
+public struct CSAuroraSurface<Content: View>: View {
+  public let photo: Bool
+  let dark: Bool
+  let highContrast: Bool
+  let compact: Bool
+  let content: () -> Content
+
+  public init(dark: Bool, highContrast: Bool, compact: Bool, photo: Bool = false, @ViewBuilder content: @escaping () -> Content) {
+    self.dark = dark
+    self.highContrast = highContrast
+    self.compact = compact
+    self.photo = photo
+    self.content = content
+  }
+
+  public var body: some View {
+    let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
+    ZStack {
+      pack.colorBrandUmber.color
+      RadialGradient(
+        colors: [pack.colorBrandOchre.color.opacity(CSGlassModel.auroraOchreAlpha), .clear],
+        center: UnitPoint(x: CSGlassModel.auroraOchreCenterX, y: CSGlassModel.auroraOchreCenterY),
+        startRadius: 0,
+        endRadius: 320 * CSGlassModel.auroraOchreStop
+      )
+      RadialGradient(
+        colors: [Color(red: 1.0, green: 207.0 / 255.0, blue: 92.0 / 255.0).opacity(CSGlassModel.auroraGoldAlpha), .clear],
+        center: UnitPoint(x: CSGlassModel.auroraGoldCenterX, y: CSGlassModel.auroraGoldCenterY),
+        startRadius: 0,
+        endRadius: 280 * CSGlassModel.auroraGoldStop
+      )
+      RadialGradient(
+        colors: [Color(red: 26.0 / 255.0, green: 17.0 / 255.0, blue: 8.0 / 255.0).opacity(CSGlassModel.auroraDeepAlpha), .clear],
+        center: UnitPoint(x: CSGlassModel.auroraDeepCenterX, y: CSGlassModel.auroraDeepCenterY),
+        startRadius: 0,
+        endRadius: 360 * CSGlassModel.auroraDeepStop
+      )
+      content().foregroundStyle(Color.white)
     }
   }
 }

@@ -490,6 +490,7 @@ public struct CSCard<Content: View>: View {
     let fillAlpha = CSGlassModel.opacity(activeMaterial, pack: pack)
     let borderAlpha = CSGlassModel.borderMix(activeMaterial)
     let strokeWidth = CGFloat(CSGlassModel.borderWidth(activeMaterial))
+    let lensEdgeShown = CSGlassModel.showsLensEdge(activeMaterial)
     let shadowSpec = CSGlassModel.shadow(activeMaterial) == .lg ? pack.shadowLg.first : (material == nil || CSGlassModel.shadow(activeMaterial) == .sm ? pack.shadowSm.first : nil)
     VStack(alignment: .leading, spacing: spacing) { content() }
       .padding(padding)
@@ -497,6 +498,22 @@ public struct CSCard<Content: View>: View {
       .background(baseColor.opacity(fillAlpha))
       .clipShape(RoundedRectangle(cornerRadius: pack.radiusLg.points))
       .overlay(RoundedRectangle(cornerRadius: pack.radiusLg.points).stroke(pack.colorBorderDefault.color.opacity(borderAlpha), lineWidth: strokeWidth))
+      .overlay(
+        RoundedRectangle(cornerRadius: pack.radiusLg.points)
+          .strokeBorder(
+            LinearGradient(
+              stops: [
+                .init(color: Color.white.opacity(CSGlassModel.lensHighlightAlpha), location: 0.0),
+                .init(color: .clear, location: CSGlassModel.lensTransparentStartStop),
+                .init(color: .clear, location: CSGlassModel.lensTransparentEndStop),
+                .init(color: pack.colorBrandUmber.color.opacity(CSGlassModel.lensUmberAlpha), location: 1.0),
+              ],
+              startPoint: .topLeading,
+              endPoint: .bottomTrailing
+            ),
+            lineWidth: lensEdgeShown ? CGFloat(CSGlassModel.lensEdgeWidth()) : 0
+          )
+      )
       .shadow(
         color: shadowSpec?.color.color ?? .clear,
         radius: shadowSpec?.blur.points ?? 0,

@@ -1026,6 +1026,17 @@ enum CsGlassMaterial {
 
 enum CsGlassSurfaceBase { page, panel, raised }
 enum CsGlassShadow { none, sm, lg }
+enum CsDepthTier {
+  bg('cs-depth-bg'),
+  section('cs-depth-section'),
+  card('cs-depth-card'),
+  nav('cs-depth-nav'),
+  modal('cs-depth-modal'),
+  toast('cs-depth-toast');
+
+  const CsDepthTier(this.className);
+  final String className;
+}
 
 const List<String> csGlassOverlaySurfacePrecedence = [
   'cs-surface-matte',
@@ -1150,5 +1161,142 @@ CsGlassShadow csGlassShadow(CsGlassMaterial material) {
       return CsGlassShadow.sm;
     case CsGlassMaterial.heavy:
       return CsGlassShadow.lg;
+  }
+}
+
+const double csGlassLensEdgeAngle = 135.0;
+double csGlassLensEdgeWidth() => 1.0;
+const double csGlassLensHighlightAlpha = 0.30;
+const double csGlassLensTransparentStartStop = 0.30;
+const double csGlassLensTransparentEndStop = 0.70;
+const double csGlassLensUmberAlpha = 0.15;
+
+bool csGlassShowsLensEdge(
+  CsGlassMaterial material, {
+  bool reducedTransparency = false,
+  bool forcedColors = false,
+  bool overlaySurface = false,
+}) {
+  if (reducedTransparency || forcedColors || overlaySurface) return false;
+  return material == CsGlassMaterial.standard || material == CsGlassMaterial.heavy || material == CsGlassMaterial.glassCard;
+}
+
+double csGlassDepthValue(CsDepthTier tier, CSTokenModePack pack) {
+  switch (tier) {
+    case CsDepthTier.bg:
+      return pack.depthBg;
+    case CsDepthTier.section:
+      return pack.depthSection;
+    case CsDepthTier.card:
+      return pack.depthCard;
+    case CsDepthTier.nav:
+      return pack.depthNav;
+    case CsDepthTier.modal:
+      return pack.depthModal;
+    case CsDepthTier.toast:
+      return pack.depthToast;
+  }
+}
+
+bool csGlassDepthSticky(CsDepthTier tier) => tier == CsDepthTier.nav;
+
+CsGlassSurfaceBase csGlassEffectiveSurfaceBase(
+  CsGlassMaterial material, {
+  bool reducedTransparency = false,
+  bool supportsBackdropFilter = true,
+}) => reducedTransparency || !supportsBackdropFilter ? CsGlassSurfaceBase.panel : csGlassSurfaceBase(material);
+
+double csGlassEffectiveOpacity(
+  CsGlassMaterial material,
+  CSTokenModePack pack, {
+  bool reducedTransparency = false,
+  bool forcedColors = false,
+  bool supportsBackdropFilter = true,
+}) => reducedTransparency || forcedColors || !supportsBackdropFilter ? 1.0 : csGlassOpacity(material, pack);
+
+double csGlassEffectiveBlur(
+  CsGlassMaterial material,
+  CSTokenModePack pack, {
+  bool reducedTransparency = false,
+  bool forcedColors = false,
+  bool overlaySurfaceReady = false,
+}) => reducedTransparency || forcedColors || overlaySurfaceReady ? 0.0 : csGlassBlur(material, pack);
+
+double csGlassEffectiveBorderMix(
+  CsGlassMaterial material, {
+  bool reducedTransparency = false,
+  bool forcedColors = false,
+}) => reducedTransparency || forcedColors ? 1.0 : csGlassBorderMix(material);
+
+double csGlassEffectiveBorderWidth(
+  CsGlassMaterial material, {
+  bool reducedTransparency = false,
+  bool forcedColors = false,
+  bool overlaySurface = false,
+}) {
+  if (overlaySurface) return 0.0;
+  if (reducedTransparency || forcedColors) return 1.0;
+  return csGlassBorderWidth(material);
+}
+
+const String csAuroraInkHex = '#ffffff';
+const double csAuroraOchreAlpha = 0.46;
+const double csAuroraOchreCenterX = 0.12;
+const double csAuroraOchreCenterY = -0.10;
+const double csAuroraOchreRadiusX = 0.90;
+const double csAuroraOchreRadiusY = 1.20;
+const double csAuroraOchreStop = 0.55;
+const String csAuroraGoldHex = '#ffcf5c';
+const double csAuroraGoldAlpha = 0.32;
+const double csAuroraGoldCenterX = 0.88;
+const double csAuroraGoldCenterY = 0.08;
+const double csAuroraGoldRadiusX = 0.70;
+const double csAuroraGoldRadiusY = 0.90;
+const double csAuroraGoldStop = 0.60;
+const String csAuroraDeepHex = '#1a1108';
+const double csAuroraDeepAlpha = 0.60;
+const double csAuroraDeepCenterX = 0.50;
+const double csAuroraDeepCenterY = 1.20;
+const double csAuroraDeepRadiusX = 1.20;
+const double csAuroraDeepRadiusY = 1.20;
+const double csAuroraDeepStop = 0.60;
+
+class CsAuroraSurface extends StatelessWidget {
+  const CsAuroraSurface({
+    super.key,
+    required this.child,
+    required this.dark,
+    required this.highContrast,
+    required this.compact,
+    this.photo = false,
+  });
+
+  final Widget child;
+  final bool dark;
+  final bool highContrast;
+  final bool compact;
+  final bool photo;
+
+  @override
+  Widget build(BuildContext context) {
+    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    return Container(
+      decoration: BoxDecoration(
+        color: csColor(pack.colorBrandUmber),
+        gradient: RadialGradient(
+          center: const Alignment(-0.76, -1.20),
+          radius: csAuroraOchreRadiusY,
+          colors: [
+            csColor(pack.colorBrandOchre).withValues(alpha: csAuroraOchreAlpha),
+            Colors.transparent,
+          ],
+          stops: const [0.0, csAuroraOchreStop],
+        ),
+      ),
+      child: DefaultTextStyle.merge(
+        style: const TextStyle(color: Colors.white),
+        child: child,
+      ),
+    );
   }
 }
