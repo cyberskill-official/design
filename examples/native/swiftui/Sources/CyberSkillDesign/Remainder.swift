@@ -2266,11 +2266,25 @@ public enum CSItemModel {
   public static func focusRingWidth(focused: Bool) -> Double { focused ? 5 : 0 }
   public static func opacity(interactive: Bool, disabled: Bool) -> Double { interactive && disabled ? 0.55 : 1 }
   public static func ariaCurrent(selected: Bool, explicit: String? = nil) -> String? { selected ? (explicit ?? "true") : explicit }
+  public static func mainGap() -> Double { 2 }
+  public static func titleLineHeight() -> Double { 1.35 }
+  public static func descriptionLineHeight() -> Double { 1.4 }
+  public static func showsSlot(_ value: String?) -> Bool { value != nil }
+  public static func trailingText(trailing: String?, hasExplicitTrailing: Bool, hasTitle: Bool, children: String?) -> String? {
+    hasExplicitTrailing ? trailing : (hasTitle ? children : nil)
+  }
+  public static func mainExtraText(hasExplicitTrailing: Bool, hasTitle: Bool, children: String?) -> String? {
+    hasExplicitTrailing ? children : (!hasTitle ? children : nil)
+  }
 }
 
 public struct CSItem: View {
   public let title: String
   public let subtitle: String
+  public let description: String?
+  public let leading: String?
+  public let trailing: String?
+  public let childrenText: String?
   public let href: String?
   public let selected: Bool
   public let disabled: Bool
@@ -2280,9 +2294,13 @@ public struct CSItem: View {
   let onClick: (() -> Void)?
   @State private var hovered = false
   @FocusState private var focused: Bool
-  public init(title: String, subtitle: String = "", href: String? = nil, selected: Bool = false, disabled: Bool = false, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, onClick: (() -> Void)? = nil) {
+  public init(title: String, subtitle: String = "", description: String? = nil, leading: String? = nil, trailing: String? = nil, childrenText: String? = nil, href: String? = nil, selected: Bool = false, disabled: Bool = false, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, onClick: (() -> Void)? = nil) {
     self.title = title
     self.subtitle = subtitle
+    self.description = description
+    self.leading = leading
+    self.trailing = trailing
+    self.childrenText = childrenText
     self.href = href
     self.selected = selected
     self.disabled = disabled
@@ -2296,12 +2314,35 @@ public struct CSItem: View {
     let interactive = CSItemModel.isInteractive(href: href, hasOnClick: onClick != nil)
     let showHover = CSItemModel.showsHover(interactive: interactive, disabled: disabled, hovered: hovered)
     let showFocus = CSItemModel.hasInteractiveClass(interactive: interactive, disabled: disabled) && focused
+    let desc = description ?? (subtitle.isEmpty ? nil : subtitle)
+    let trail = CSItemModel.trailingText(trailing: trailing, hasExplicitTrailing: trailing != nil, hasTitle: !title.isEmpty, children: childrenText)
+    let extra = CSItemModel.mainExtraText(hasExplicitTrailing: trailing != nil, hasTitle: !title.isEmpty, children: childrenText)
     HStack(alignment: .center, spacing: CGFloat(CSItemModel.gap())) {
-      VStack(alignment: .leading) {
-        Text(title).foregroundStyle(pack.primaryTextColor)
-        if !subtitle.isEmpty { Text(subtitle).foregroundStyle(pack.mutedColor) }
+      if CSItemModel.showsSlot(leading), let leading {
+        Text(leading).foregroundStyle(pack.colorTextAccent.color)
+      }
+      VStack(alignment: .leading, spacing: CGFloat(CSItemModel.mainGap())) {
+        if !title.isEmpty {
+          Text(title)
+            .font(.system(size: pack.fontSizeSm.points, weight: .semibold))
+            .lineSpacing(CGFloat(pack.fontSizeSm.points * (CSItemModel.titleLineHeight() - 1)))
+            .foregroundStyle(pack.primaryTextColor)
+        }
+        if CSItemModel.showsSlot(desc), let desc {
+          Text(desc)
+            .font(.system(size: pack.fontSizeXs.points))
+            .lineSpacing(CGFloat(pack.fontSizeXs.points * (CSItemModel.descriptionLineHeight() - 1)))
+            .foregroundStyle(pack.mutedColor)
+        }
+        if CSItemModel.showsSlot(extra), let extra {
+          Text(extra).foregroundStyle(pack.primaryTextColor)
+        }
       }
       .multilineTextAlignment(.leading)
+      .frame(maxWidth: .infinity, alignment: .leading)
+      if CSItemModel.showsSlot(trail), let trail {
+        Text(trail).foregroundStyle(pack.mutedColor)
+      }
     }
     .padding(.vertical, pack.space3.points)
     .padding(.horizontal, CGFloat(CSItemModel.paddingX()))

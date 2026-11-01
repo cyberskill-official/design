@@ -1479,11 +1479,23 @@ double csItemFocusOutlineOffset(bool focused) => focused ? 2 : 0;
 double csItemFocusRingWidth(bool focused) => focused ? 5 : 0;
 double csItemOpacity({required bool interactive, required bool disabled}) => interactive && disabled ? 0.55 : 1;
 String? csItemAriaCurrent(bool selected, [String? explicit]) => selected ? (explicit ?? 'true') : explicit;
+double csItemMainGap() => 2;
+double csItemTitleLineHeight() => 1.35;
+double csItemDescriptionLineHeight() => 1.4;
+bool csItemShowsSlot(String? value) => value != null;
+String? csItemTrailingText({String? trailing, required bool hasExplicitTrailing, required bool hasTitle, String? children}) =>
+    hasExplicitTrailing ? trailing : (hasTitle ? children : null);
+String? csItemMainExtraText({required bool hasExplicitTrailing, required bool hasTitle, String? children}) =>
+    hasExplicitTrailing ? children : (!hasTitle ? children : null);
 
 class CsItem extends StatefulWidget {
-  const CsItem({super.key, required this.title, this.subtitle = '', this.href, this.selected = false, this.disabled = false, this.dark = false, this.highContrast = false, this.compact = false, this.onClick});
+  const CsItem({super.key, required this.title, this.subtitle = '', this.description, this.leading, this.trailing, this.childrenText, this.href, this.selected = false, this.disabled = false, this.dark = false, this.highContrast = false, this.compact = false, this.onClick});
   final String title;
   final String subtitle;
+  final String? description;
+  final String? leading;
+  final String? trailing;
+  final String? childrenText;
   final String? href;
   final bool selected;
   final bool disabled;
@@ -1504,6 +1516,9 @@ class _CsItemState extends State<CsItem> {
     final interactive = csItemIsInteractive(widget.href, widget.onClick != null);
     final showHover = csItemShowsHover(interactive: interactive, disabled: widget.disabled, hovered: hovered);
     final showFocus = csItemHasInteractiveClass(interactive: interactive, disabled: widget.disabled) && focused;
+    final desc = widget.description ?? (widget.subtitle.isEmpty ? null : widget.subtitle);
+    final trail = csItemTrailingText(trailing: widget.trailing, hasExplicitTrailing: widget.trailing != null, hasTitle: widget.title.isNotEmpty, children: widget.childrenText);
+    final extra = csItemMainExtraText(hasExplicitTrailing: widget.trailing != null, hasTitle: widget.title.isNotEmpty, children: widget.childrenText);
     return Opacity(
       opacity: csItemOpacity(interactive: interactive, disabled: widget.disabled),
       child: IgnorePointer(
@@ -1542,10 +1557,28 @@ class _CsItemState extends State<CsItem> {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: csItemPaddingX(), vertical: csPoints(pack.space3)),
                     child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(widget.title, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-                        if (widget.subtitle.isNotEmpty) Text(widget.subtitle, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted))),
-                      ]),
+                      if (csItemShowsSlot(widget.leading)) ...[
+                        Text(widget.leading!, style: TextStyle(color: csColor(pack.colorTextAccent))),
+                        SizedBox(width: csItemGap()),
+                      ],
+                      Expanded(
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                          if (widget.title.isNotEmpty)
+                            Text(widget.title, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeSm), fontWeight: FontWeight.w600, height: csItemTitleLineHeight())),
+                          if (csItemShowsSlot(desc)) ...[
+                            SizedBox(height: csItemMainGap()),
+                            Text(desc!, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeXs), height: csItemDescriptionLineHeight())),
+                          ],
+                          if (csItemShowsSlot(extra)) ...[
+                            SizedBox(height: csItemMainGap()),
+                            Text(extra!, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+                          ],
+                        ]),
+                      ),
+                      if (csItemShowsSlot(trail)) ...[
+                        SizedBox(width: csItemGap()),
+                        Text(trail!, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                      ],
                     ]),
                   ),
                 ),

@@ -1031,7 +1031,13 @@ fun csItemFocusOutlineOffset(focused: Boolean) = if (focused) 2.dp else 0.dp
 fun csItemFocusRingWidth(focused: Boolean) = if (focused) 5.dp else 0.dp
 fun csItemOpacity(interactive: Boolean, disabled: Boolean) = if (interactive && disabled) 0.55f else 1f
 fun csItemAriaCurrent(selected: Boolean, explicit: String? = null) = if (selected) (explicit ?: "true") else explicit
-@Composable fun CsItem(title: String, subtitle: String = "", modifier: Modifier = Modifier, href: String? = null, selected: Boolean = false, disabled: Boolean = false, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, onClick: (() -> Unit)? = null) {
+fun csItemMainGap() = 2.dp
+fun csItemTitleLineHeight() = 1.35f
+fun csItemDescriptionLineHeight() = 1.4f
+fun csItemShowsSlot(value: String?) = value != null
+fun csItemTrailingText(trailing: String?, hasExplicitTrailing: Boolean, hasTitle: Boolean, children: String?) = if (hasExplicitTrailing) trailing else if (hasTitle) children else null
+fun csItemMainExtraText(hasExplicitTrailing: Boolean, hasTitle: Boolean, children: String?) = if (hasExplicitTrailing) children else if (!hasTitle) children else null
+@Composable fun CsItem(title: String, subtitle: String = "", modifier: Modifier = Modifier, description: String? = null, leading: String? = null, trailing: String? = null, childrenText: String? = null, href: String? = null, selected: Boolean = false, disabled: Boolean = false, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, onClick: (() -> Unit)? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val interaction = remember { MutableInteractionSource() }
   val hovered by interaction.collectIsHoveredAsState()
@@ -1039,11 +1045,17 @@ fun csItemAriaCurrent(selected: Boolean, explicit: String? = null) = if (selecte
   val interactive = csItemIsInteractive(href, onClick != null)
   val showHover = csItemShowsHover(interactive, disabled, hovered)
   val showFocus = csItemHasInteractiveClass(interactive, disabled) && focused
+  val desc = description ?: subtitle.ifEmpty { null }
+  val trail = csItemTrailingText(trailing, trailing != null, title.isNotEmpty(), childrenText)
+  val extra = csItemMainExtraText(trailing != null, title.isNotEmpty(), childrenText)
   Row(modifier.fillMaxWidth().alpha(csItemOpacity(interactive, disabled)).semantics { if (selected) this.selected = true }.hoverable(interaction).onFocusChanged { focused = it.isFocused }.border(csItemFocusRingWidth(showFocus), if (showFocus) pack.colorAccentOchre.toComposeColor() else Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp())).padding(csItemFocusOutlineOffset(showFocus)).border(csItemFocusOutlineWidth(showFocus), if (showFocus) pack.colorTextPrimary.toComposeColor() else Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp())).clip(RoundedCornerShape(pack.radiusMd.toDp())).background((if (selected) pack.accentTint else if (showHover) pack.colorSurfaceRaised else pack.colorSurfacePanel).toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).border(csItemBorderWidth(), if (selected) pack.colorBrandOchre.toComposeColor() else if (showHover) pack.colorBorderDefault.toComposeColor() else Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp())).let { if (csItemHasInteractiveClass(interactive, disabled)) it.clickable { onClick?.invoke() } else it }.padding(horizontal = csItemPaddingX(), vertical = pack.space3.toDp()), horizontalArrangement = Arrangement.spacedBy(csItemGap()), verticalAlignment = Alignment.CenterVertically) {
-    Column {
-      Text(title, color = pack.colorTextPrimary.toComposeColor())
-      if (subtitle.isNotEmpty()) Text(subtitle, color = pack.colorTextMuted.toComposeColor())
+    if (csItemShowsSlot(leading)) Text(leading ?: "", color = pack.colorTextAccent.toComposeColor())
+    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(csItemMainGap())) {
+      if (title.isNotEmpty()) Text(title, color = pack.colorTextPrimary.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp, fontWeight = FontWeight.SemiBold, lineHeight = (pack.fontSizeSm.toDp().value * csItemTitleLineHeight()).sp)
+      if (csItemShowsSlot(desc)) Text(desc ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp, lineHeight = (pack.fontSizeXs.toDp().value * csItemDescriptionLineHeight()).sp)
+      if (csItemShowsSlot(extra)) Text(extra ?: "", color = pack.colorTextPrimary.toComposeColor())
     }
+    if (csItemShowsSlot(trail)) Text(trail ?: "", color = pack.colorTextMuted.toComposeColor())
   }
 }
 @Composable fun CsLocaleProvider(language: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) { Column(modifier) { content() } }
