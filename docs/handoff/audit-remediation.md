@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the steps-title-body checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the popover-panel-styles checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `93cc5527db9fb67f292e138e590882b9a9d68206`, with the hash note in `eb6eb6ca`
-- Checkpoint commit hash: `3dc075f81845ad0628dc36c15f02afe9f0b4b3a5`
+- Previous checkpoint: `3dc075f81845ad0628dc36c15f02afe9f0b4b3a5`, with the hash note in `4c0530c3`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the steps title and body styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the popover panel styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`Steps` (`CSSteps` / `CsSteps`) now styles step titles with `700` weight (`CSStepState.titleFontWeight()` / `csStepTitleFontWeight()`), `--cs-font-size-sm`, and `--cs-color-text-primary`, and renders optional step bodies (`CSStepState.showsBody(_:)` / `csStepShowsBody(body)` when `body != null`) with `--cs-font-size-xs` and `--cs-color-text-muted`, matching `.cs-step__title` and `.cs-step__body` in `base/shell.css` and `components/navigation/Steps.jsx`.
+`Popover` (`CSPopover` / `CsPopover`) now uses an `8px` anchor gap (`CSPopoverModel.gap` / `csPopoverGap`), `240px` minimum width (`CSPopoverModel.minWidth()` / `csPopoverMinWidth()`), `--cs-color-surface-panel` background, `1px solid var(--cs-color-border-default)` border (`CSPopoverModel.borderWidth()` / `csPopoverBorderWidth()`), `--cs-radius-md`, `--cs-shadow-md`, `14px` padding (`CSPopoverModel.padding()` / `csPopoverPadding()`), dropdown depth `60` (`CSPopoverModel.depthDropdown()` / `csPopoverDepthDropdown()`), and `start` vs `end` alignment (`CSPopoverModel.alignsEnd(_:)` / `csPopoverAlignsEnd(align)`), matching `.cs-popover`, `.cs-popover__panel`, and `.cs-popover__panel--end` in `base/shell.css` and `components/overlays/Popover.jsx`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `Popover` (`CSPopover` / `CsPopover`) in `base/shell.css` lines 24–27 and `components/overlays/Popover.jsx`: `8px` anchor offset (`calc(100% + 8px)`), `240px` min width, `--cs-color-surface-panel` background, `1px solid var(--cs-color-border-default)` border, `--cs-radius-md`, `--cs-shadow-md`, `14px` padding, and `start` vs `end` horizontal alignment (`.cs-popover__panel--end`). Re-read `base/shell.css` lines 24–27 and `components/overlays/Popover.jsx` before editing.
+Style `Drawer` (`CSDrawer` / `CsDrawer`) scrim, shell, and side alignment in `base/shell.css` lines 29–32 and 39–41 and `components/overlays/Drawer.jsx`: `rgba(31, 19, 11, 0.42)` scrim at modal depth (`--cs-depth-modal`), `min(480px, 100%)` panel width, `--cs-color-surface-page` background, `1px solid var(--cs-color-border-default)` inline-start (`right`, default) or inline-end (`left`) border, `-18px 0 48px rgba(31, 19, 11, 0.22)` (`right`) or `18px 0 48px rgba(31, 19, 11, 0.22)` (`left`) shadow, `calc(var(--cs-depth-modal) + 1)` depth, and reduced-motion animation suppression (`@media (prefers-reduced-motion: reduce)`). Re-read `base/shell.css` lines 29–41 and `components/overlays/Drawer.jsx` before editing.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

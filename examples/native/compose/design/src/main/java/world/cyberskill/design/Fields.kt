@@ -579,9 +579,13 @@ fun CsAlertDialog(title: String, message: String, onConfirm: () -> Unit, onCance
   }
 }
 
-@Composable
 const val csPopoverPanel = "Details"
 const val csPopoverGap = 8
+fun csPopoverMinWidth() = 240.dp
+fun csPopoverBorderWidth() = 1.dp
+fun csPopoverPadding() = 14.dp
+fun csPopoverDepthDropdown() = 60f
+fun csPopoverAlignsEnd(align: String) = align == "end"
 fun csPopoverOpen(controlled: Boolean?, internalOpen: Boolean) = controlled ?: internalOpen
 fun csPopoverPlacement(placement: String?, align: String) = placement ?: if (align == "end") "bottom-end" else "bottom-start"
 fun csPopoverLabel(ariaLabel: String?, hasLabelledBy: Boolean, fallback: String) = if (ariaLabel != null) ariaLabel else if (hasLabelledBy) null else fallback
@@ -598,7 +602,9 @@ fun csPopoverCopy(key: String, language: String?): String {
 fun csPopoverToggle(open: Boolean, defaultPrevented: Boolean) = if (defaultPrevented) null else !open
 fun csPopoverDismissOutside(open: Boolean, inside: Boolean) = open && !inside
 
+@Composable
 fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, ariaLabel: String? = null, hasLabelledBy: Boolean = false, language: String? = null, align: String = "start", content: @Composable () -> Unit) {
+  val pack = csModePack(dark, highContrast, compact)
   var origin by remember { mutableStateOf(0.0 to 0.0) }
   var trigger by remember { mutableStateOf<Pair<Double, Double>?>(null) }
   var natural by remember(open) { mutableStateOf<Pair<Double, Double>?>(null) }
@@ -636,7 +642,7 @@ fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dar
   SideEffect {
     if (desired != null && (kotlin.math.abs(desired.first - applied.first) > 0.5 || kotlin.math.abs(desired.second - applied.second) > 0.5)) applied = desired
   }
-  Column(modifier) {
+  Column(modifier, horizontalAlignment = if (csPopoverAlignsEnd(align)) Alignment.End else Alignment.Start) {
     CsTriggerButton(title = label, onClick = { onOpenChange(!open) }, modifier = Modifier.minimumInteractiveComponentSize().onGloballyPositioned {
       val width = it.size.width.toDouble()
       val height = it.size.height.toDouble()
@@ -646,23 +652,39 @@ fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dar
         trigger = width to height
       }
     }) { Text(label) }
-    if (open) Column(Modifier.offset(with(density) { applied.first.toFloat().toDp() }, with(density) { applied.second.toFloat().toDp() }).alpha(if (placed != null) 1f else 0f).then(if (placed != null) Modifier else Modifier.clearAndSetSemantics { }).then(panelName?.let { name -> Modifier.semantics { contentDescription = name } } ?: Modifier).then(initial?.let { Modifier.widthIn(max = with(density) { it.maxWidth.toFloat().toDp() }).heightIn(max = with(density) { it.maxHeight.toFloat().toDp() }) } ?: Modifier).onGloballyPositioned {
-      val width = it.size.width.toDouble()
-      val height = it.size.height.toDouble()
-      val bounds = it.boundsInRoot()
-      val rawScaleX = if (it.size.width > 0) bounds.width / it.size.width.toFloat() else 1f
-      val rawScaleY = if (it.size.height > 0) bounds.height / it.size.height.toFloat() else 1f
-      val scaleX = if (rawScaleX == 0f) 1.0 else rawScaleX.toDouble()
-      val scaleY = if (rawScaleY == 0f) 1.0 else rawScaleY.toDouble()
-      panelScale = scaleX to scaleY
-      val shiftX = with(density) { applied.first.toFloat().toDp().toPx() }.toDouble() * scaleX
-      val shiftY = with(density) { applied.second.toFloat().toDp().toPx() }.toDouble() * scaleY
-      layout = (it.positionInRoot().x.toDouble() - shiftX) to (it.positionInRoot().y.toDouble() - shiftY)
-      if (width > 0.0 && height > 0.0) {
-        if (natural == null) natural = width to height
-        else fitted = width to height
-      }
-    }) { content() }
+    if (open) {
+      val shape = RoundedCornerShape(pack.radiusMd.toDp())
+      Column(
+        Modifier
+          .offset(with(density) { applied.first.toFloat().toDp() }, with(density) { applied.second.toFloat().toDp() })
+          .zIndex(csPopoverDepthDropdown())
+          .alpha(if (placed != null) 1f else 0f)
+          .then(if (placed != null) Modifier else Modifier.clearAndSetSemantics { })
+          .then(panelName?.let { name -> Modifier.semantics { contentDescription = name } } ?: Modifier)
+          .widthIn(min = csPopoverMinWidth(), max = initial?.let { with(density) { it.maxWidth.toFloat().toDp() } } ?: androidx.compose.ui.unit.Dp.Unspecified)
+          .then(initial?.let { Modifier.heightIn(max = with(density) { it.maxHeight.toFloat().toDp() }) } ?: Modifier)
+          .background(pack.colorSurfacePanel.toComposeColor(), shape)
+          .border(csPopoverBorderWidth(), pack.colorBorderDefault.toComposeColor(), shape)
+          .padding(csPopoverPadding())
+          .onGloballyPositioned {
+            val width = it.size.width.toDouble()
+            val height = it.size.height.toDouble()
+            val bounds = it.boundsInRoot()
+            val rawScaleX = if (it.size.width > 0) bounds.width / it.size.width.toFloat() else 1f
+            val rawScaleY = if (it.size.height > 0) bounds.height / it.size.height.toFloat() else 1f
+            val scaleX = if (rawScaleX == 0f) 1.0 else rawScaleX.toDouble()
+            val scaleY = if (rawScaleY == 0f) 1.0 else rawScaleY.toDouble()
+            panelScale = scaleX to scaleY
+            val shiftX = with(density) { applied.first.toFloat().toDp().toPx() }.toDouble() * scaleX
+            val shiftY = with(density) { applied.second.toFloat().toDp().toPx() }.toDouble() * scaleY
+            layout = (it.positionInRoot().x.toDouble() - shiftX) to (it.positionInRoot().y.toDouble() - shiftY)
+            if (width > 0.0 && height > 0.0) {
+              if (natural == null) natural = width to height
+              else fitted = width to height
+            }
+          }
+      ) { content() }
+    }
   }
 }
 

@@ -1395,6 +1395,11 @@ public struct CSAlertDialog: View {
 public enum CSPopoverModel {
   public static let panelDefault = "Details"
   public static let gap = 8.0
+  public static func minWidth() -> Double { 240 }
+  public static func borderWidth() -> Double { 1 }
+  public static func padding() -> Double { 14 }
+  public static func depthDropdown() -> Double { 60 }
+  public static func alignsEnd(_ align: String) -> Bool { align == "end" }
   public static func isOpen(controlled: Bool?, internalOpen: Bool) -> Bool { controlled ?? internalOpen }
   public static func placement(_ placement: String?, align: String) -> String {
     placement ?? (align == "end" ? "bottom-end" : "bottom-start")
@@ -1507,9 +1512,13 @@ public struct CSPopover<Content: View>: View {
         }
         let shiftX = CGFloat(placed?.x ?? 0)
         let shiftY = CGFloat(placed?.y ?? 0)
+        let shape = RoundedRectangle(cornerRadius: pack.radiusMd.points)
         content()
-          .padding(12)
-          .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+          .padding(CGFloat(CSPopoverModel.padding()))
+          .frame(minWidth: CGFloat(CSPopoverModel.minWidth()), maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+          .background(pack.colorSurfacePanel.color, in: shape)
+          .overlay(shape.stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSPopoverModel.borderWidth())))
+          .shadow(color: Color.black.opacity(0.14), radius: 12, x: 0, y: 4)
           .background(GeometryReader { geo in
             let frame = geo.frame(in: .global)
             let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
@@ -1517,9 +1526,9 @@ public struct CSPopover<Content: View>: View {
             Color.clear.preference(key: CSPopoverPanelKey.self, value: CSPopoverMeasure(size: geo.size, pass: measurePass, origin: frame.origin, scale: CGSize(width: scaleX == 0 ? 1 : scaleX, height: scaleY == 0 ? 1 : scaleY)))
           })
           .offset(x: shiftX, y: shiftY)
+          .zIndex(CSPopoverModel.depthDropdown())
           .opacity(placed == nil ? 0 : 1)
           .accessibilityHidden(placed == nil)
-          .background(pack.colorSurfacePanel.color)
           .accessibilityElement(children: .contain)
           .accessibilityLabel(spoken ?? "")
       }

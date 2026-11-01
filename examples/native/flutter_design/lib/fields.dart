@@ -708,6 +708,11 @@ class _CsAlertDialogState extends State<CsAlertDialog> {
 
 const csPopoverPanel = 'Details';
 const csPopoverGap = 8.0;
+double csPopoverMinWidth() => 240;
+double csPopoverBorderWidth() => 1;
+double csPopoverPadding() => 14;
+double csPopoverDepthDropdown() => 60;
+bool csPopoverAlignsEnd(String align) => align == 'end';
 bool csPopoverOpen(bool? controlled, bool internalOpen) => controlled ?? internalOpen;
 String csPopoverPlacement(String? placement, String align) => placement ?? (align == 'end' ? 'bottom-end' : 'bottom-start');
 String? csPopoverLabel(String? ariaLabel, bool hasLabelledBy, String fallback) => ariaLabel ?? (hasLabelledBy ? null : fallback);
@@ -811,18 +816,39 @@ class _CsPopoverState extends State<CsPopover> {
     final placed = anchor == null || fitted == null || initial == null ? null : csFloatingPlace(anchor, fitted!.width, fitted!.height, viewport, placement: initial.placement, gap: csPopoverGap);
     final desired = placed == null || layoutOrigin == null ? Offset.zero : Offset((placed.left - layoutOrigin!.dx) / (panelScale.dx == 0 ? 1 : panelScale.dx), (placed.top - layoutOrigin!.dy) / (panelScale.dy == 0 ? 1 : panelScale.dy));
     if (placed != null && (desired - applied).distance > 0.5) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted) setState(() => applied = desired); });
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
+    return Column(crossAxisAlignment: csPopoverAlignsEnd(widget.align) ? CrossAxisAlignment.end : CrossAxisAlignment.start, children: [
       CsOwnFocus(builder: (node, claim) => TextButton(key: triggerKey, focusNode: node, onPressed: () { claim(); widget.onOpenChange(!widget.open); }, child: Text(widget.label))),
       if (widget.open) Transform.translate(
         offset: applied,
         child: Opacity(
-        opacity: placed == null ? 0 : 1,
-        child: ConstrainedBox(
-          key: panelKey,
-          constraints: BoxConstraints(maxWidth: initial?.maxWidth ?? placed?.maxWidth ?? double.infinity, maxHeight: initial?.maxHeight ?? placed?.maxHeight ?? double.infinity),
-          child: Semantics(container: true, explicitChildNodes: true, label: csPopoverLabel(widget.ariaLabel, widget.hasLabelledBy, csPopoverCopy('panel', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))), child: widget.child),
+          opacity: placed == null ? 0 : 1,
+          child: ConstrainedBox(
+            key: panelKey,
+            constraints: BoxConstraints(
+              minWidth: csPopoverMinWidth(),
+              maxWidth: initial?.maxWidth ?? placed?.maxWidth ?? double.infinity,
+              maxHeight: initial?.maxHeight ?? placed?.maxHeight ?? double.infinity,
+            ),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: csColor(pack.colorSurfacePanel),
+                border: Border.all(color: csColor(pack.colorBorderDefault), width: csPopoverBorderWidth()),
+                borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+                boxShadow: const [BoxShadow(color: Color(0x24000000), blurRadius: 12, offset: Offset(0, 4))],
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(csPopoverPadding()),
+                child: Semantics(
+                  container: true,
+                  explicitChildNodes: true,
+                  label: csPopoverLabel(widget.ariaLabel, widget.hasLabelledBy, csPopoverCopy('panel', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))),
+                  child: widget.child,
+                ),
+              ),
+            ),
+          ),
         ),
-      ),
       ),
     ]);
   }
