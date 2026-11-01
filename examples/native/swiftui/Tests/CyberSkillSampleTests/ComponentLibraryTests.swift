@@ -3374,6 +3374,23 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(circleSkeleton.radius, 8)
     let defaultAvatar = CSAvatar(dark: false, highContrast: false, compact: false)
     XCTAssertEqual(defaultAvatar.name, "")
+    XCTAssertEqual(CSTextFieldModel.labelId("tf", label: "Name"), "tf-label")
+    XCTAssertEqual(CSTextFieldModel.descriptionId("tf", description: "Hint"), "tf-description")
+    XCTAssertEqual(CSTextFieldModel.errorId("tf", error: "Required"), "tf-error")
+    XCTAssertEqual(CSTextFieldModel.labelledBy(explicit: nil, hasAriaLabel: false, labelId: "tf-label"), "tf-label")
+    XCTAssertEqual(CSTextFieldModel.describedBy(explicit: "ext", descriptionId: "tf-description", errorId: "tf-error"), "ext tf-description tf-error")
+    XCTAssertTrue(CSTextFieldModel.isInvalid(error: nil, ariaInvalid: true))
+    let readOnlyField = CSTextField(label: "Email", text: .constant("a@b.c"), readOnly: true, required: true, placeholder: "user@example.com", dark: false, highContrast: false, compact: false)
+    XCTAssertTrue(readOnlyField.readOnly)
+    XCTAssertTrue(readOnlyField.required)
+    XCTAssertEqual(readOnlyField.placeholder, "user@example.com")
+    XCTAssertEqual(CSSelectModel.labelId("sel", label: "Role"), "sel-label")
+    XCTAssertEqual(CSSelectModel.descId("sel", description: "Choose one"), "sel-desc")
+    XCTAssertEqual(CSSelectModel.errId("sel", error: "Required"), "sel-err")
+    XCTAssertEqual(CSSelectModel.describedBy(explicit: nil, descId: "sel-desc", errId: "sel-err"), "sel-desc sel-err")
+    let interactiveCard = CSCard(dark: false, highContrast: false, compact: false, interactive: true, flat: true) { CSDivider(dark: false, highContrast: false, compact: false) }
+    XCTAssertTrue(interactiveCard.interactive)
+    XCTAssertTrue(interactiveCard.flat)
   }
 
   func testSwitchAndDialogExposeTheModeResolvedControls() {

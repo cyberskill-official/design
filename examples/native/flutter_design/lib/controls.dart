@@ -532,7 +532,26 @@ class _CsOwnFocusState extends State<CsOwnFocus> {
 const double csTextFieldPlaceholderOpacity = 0.7;
 const double csTextFieldDisabledOpacity = 0.58;
 bool csTextFieldAlert(String? error) => error != null && error.isNotEmpty;
+bool csTextFieldShowsLabel(String? label) => label != null && label.isNotEmpty;
 bool csTextFieldShowsDescription(String? description) => description != null && description.isNotEmpty;
+bool csTextFieldInvalid(String? error, {bool ariaInvalid = false}) => csTextFieldAlert(error) || ariaInvalid;
+String? csTextFieldLabelId(String id, String? label) => csTextFieldShowsLabel(label) ? '$id-label' : null;
+String? csTextFieldDescriptionId(String id, String? description) => csTextFieldShowsDescription(description) ? '$id-description' : null;
+String? csTextFieldErrorId(String id, String? error) => csTextFieldAlert(error) ? '$id-error' : null;
+String? csTextFieldLabelledBy(String? explicit, bool hasAriaLabel, String? labelId) {
+  if (explicit != null) return explicit;
+  return hasAriaLabel ? null : labelId;
+}
+String? csTextFieldDescribedBy(String? explicit, String? descriptionId, String? errorId) {
+  final parts = <String>[];
+  for (final value in [explicit, descriptionId, errorId]) {
+    if (value == null) continue;
+    for (final word in value.trim().split(RegExp(r'\s+'))) {
+      if (word.isNotEmpty && !parts.contains(word)) parts.add(word);
+    }
+  }
+  return parts.isEmpty ? null : parts.join(' ');
+}
 double csTextFieldGap() => 6;
 int csTextFieldLabelFontWeight() => 700;
 double csTextFieldDescriptionFontSize() => 14;
@@ -556,6 +575,9 @@ class CsTextField extends StatelessWidget {
     required this.compact,
     this.secure = false,
     this.disabled = false,
+    this.readOnly = false,
+    this.required = false,
+    this.placeholder,
     this.description,
     this.error,
   });
@@ -567,6 +589,9 @@ class CsTextField extends StatelessWidget {
   final bool compact;
   final bool secure;
   final bool disabled;
+  final bool readOnly;
+  final bool required;
+  final String? placeholder;
   final String? description;
   final String? error;
 
@@ -583,9 +608,11 @@ class CsTextField extends StatelessWidget {
       focusNode: node,
       controller: controller,
       enabled: !disabled,
+      readOnly: readOnly,
       obscureText: secure,
       decoration: InputDecoration(
-        labelText: label,
+        labelText: csTextFieldShowsLabel(label) ? label : null,
+        hintText: placeholder,
         contentPadding: EdgeInsets.symmetric(
           horizontal: csTextFieldPaddingX(pack),
           vertical: csTextFieldPaddingY(pack),
@@ -1528,6 +1555,13 @@ String csSelectShownText(String value, String? placeholder, String fallback, boo
 String? csSelectResolvedLanguage(String? explicit, String? ancestor) => csSelectPrimaryLanguage(explicit) ?? csSelectPrimaryLanguage(ancestor);
 
 bool csSelectAlert(String? error) => error != null && error.isNotEmpty;
+String? csSelectLabelId(String id, String? label) => csTextFieldShowsLabel(label) ? '$id-label' : null;
+String? csSelectDescId(String id, String? description) => csTextFieldShowsDescription(description) ? '$id-desc' : null;
+String? csSelectErrId(String id, String? error) => csSelectAlert(error) ? '$id-err' : null;
+String? csSelectLabelledBy(String? explicit, bool hasAriaLabel, String? labelId) =>
+    csTextFieldLabelledBy(explicit, hasAriaLabel, labelId);
+String? csSelectDescribedBy(String? explicit, String? descId, String? errId) =>
+    csTextFieldDescribedBy(explicit, descId, errId);
 
 class CsSelect<T> extends StatelessWidget {
   const CsSelect({
@@ -1585,7 +1619,7 @@ class CsSelect<T> extends StatelessWidget {
             itemHeight: null,
             style: TextStyle(fontSize: csSelectNativeSelectFontSize(pack), color: csColor(pack.colorTextPrimary)),
             decoration: InputDecoration(
-              labelText: label,
+              labelText: label.isNotEmpty ? label : null,
               labelStyle: TextStyle(color: csColor(pack.colorTextPrimary), fontWeight: FontWeight.w700),
               hintText: csSelectShownText('', placeholder, prompt, items.isNotEmpty),
               contentPadding: EdgeInsets.only(
@@ -1633,6 +1667,9 @@ class CsCard extends StatelessWidget {
     required this.compact,
     this.padding = EdgeInsets.zero,
     this.material,
+    this.interactive = false,
+    this.flat = false,
+    this.onTap,
   });
 
   final Widget child;
@@ -1641,6 +1678,9 @@ class CsCard extends StatelessWidget {
   final bool compact;
   final EdgeInsetsGeometry padding;
   final CsGlassMaterial? material;
+  final bool interactive;
+  final bool flat;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -1658,17 +1698,22 @@ class CsCard extends StatelessWidget {
     final fillAlpha = csGlassOpacity(activeMaterial, pack);
     final borderAlpha = csGlassBorderMix(activeMaterial);
     final strokeWidth = csGlassBorderWidth(activeMaterial);
-    return Container(
+    final borderColor = csColor(csDataStyleCardBorderColor(pack, interactive: interactive)).withOpacity(borderAlpha);
+    final card = Container(
       padding: padding,
       decoration: BoxDecoration(
         color: baseColor.withOpacity(fillAlpha),
         borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
         border: strokeWidth > 0
-            ? Border.all(color: csColor(pack.colorBorderDefault).withOpacity(borderAlpha), width: strokeWidth)
+            ? Border.all(color: borderColor, width: strokeWidth)
             : null,
+        boxShadow: csDataStyleCardHasShadow(flat: flat)
+            ? [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 8, offset: const Offset(0, 2))]
+            : const [],
       ),
       child: child,
     );
+    return (interactive && onTap != null) ? GestureDetector(onTap: onTap, child: card) : card;
   }
 }
 
@@ -1722,6 +1767,7 @@ class CsSwitch extends StatelessWidget {
               title: csSwitchShowsLabel(title) ? ExcludeSemantics(child: Text(title, style: TextStyle(color: csColor(pack.colorTextPrimary)))) : null,
               value: value,
               activeColor: csColor(csSwitchTrackColor(true, dark, pack)),
+              inactiveTrackColor: csColor(csSwitchTrackColor(false, dark, pack)),
               onChanged: disabled ? null : (next) {
                 claim();
                 onChanged(next);
@@ -1901,6 +1947,7 @@ class CsDialog extends StatefulWidget {
     required this.dark,
     required this.highContrast,
     required this.compact,
+    this.open = true,
     this.onOpenChange,
     this.onClose,
     this.closeLabel,
@@ -1914,6 +1961,7 @@ class CsDialog extends StatefulWidget {
   final bool dark;
   final bool highContrast;
   final bool compact;
+  final bool open;
   final ValueChanged<bool>? onOpenChange;
   final VoidCallback? onClose;
   final String? closeLabel;
@@ -1950,9 +1998,16 @@ class _CsDialogState extends State<CsDialog> {
   }
 
   KeyEventResult _tab(FocusNode node, KeyEvent event) {
-    if (event is! KeyDownEvent || event.logicalKey != LogicalKeyboardKey.tab) return KeyEventResult.ignored;
+    if (event is! KeyDownEvent) return KeyEventResult.ignored;
     final stack = CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)]);
     if (!csOverlayOwns(layerId, stack)) return KeyEventResult.ignored;
+    if (event.logicalKey == LogicalKeyboardKey.escape &&
+        csDialogShowsClose(widget.onOpenChange != null, widget.onClose != null)) {
+      widget.onOpenChange?.call(false);
+      widget.onClose?.call();
+      return KeyEventResult.handled;
+    }
+    if (event.logicalKey != LogicalKeyboardKey.tab) return KeyEventResult.ignored;
     final stops = csDialogShowsActions(widget.confirmTitle) ? 1 : 0;
     final next = csFocusNext(trap, stops, HardwareKeyboard.instance.isShiftPressed, true);
     if (next == null) return KeyEventResult.ignored;
@@ -1963,6 +2018,7 @@ class _CsDialogState extends State<CsDialog> {
 
   @override
   Widget build(BuildContext context) {
+    if (!widget.open) return const SizedBox.shrink();
     final pack = csModePack(
       dark: widget.dark,
       highContrast: widget.highContrast,

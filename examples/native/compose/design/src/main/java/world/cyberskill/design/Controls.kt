@@ -419,8 +419,25 @@ fun CsButton(
 
 const val csTextFieldPlaceholderOpacity = 0.7f
 const val csTextFieldDisabledOpacity = 0.58f
+fun csTextFieldShowsLabel(label: String?) = !label.isNullOrBlank()
 fun csTextFieldAlert(error: String?) = !error.isNullOrEmpty()
 fun csTextFieldShowsDescription(description: String?) = !description.isNullOrEmpty()
+fun csTextFieldInvalid(error: String?, ariaInvalid: Boolean = false) = csTextFieldAlert(error) || ariaInvalid
+fun csTextFieldLabelId(id: String, label: String?) = if (csTextFieldShowsLabel(label)) "$id-label" else null
+fun csTextFieldDescriptionId(id: String, description: String?) = if (csTextFieldShowsDescription(description)) "$id-description" else null
+fun csTextFieldErrorId(id: String, error: String?) = if (csTextFieldAlert(error)) "$id-error" else null
+fun csTextFieldLabelledBy(explicit: String?, hasAriaLabel: Boolean, labelId: String?) = when {
+  explicit != null -> explicit
+  hasAriaLabel -> null
+  else -> labelId
+}
+fun csTextFieldDescribedBy(explicit: String?, descriptionId: String?, errorId: String?): String? {
+  val parts = mutableListOf<String>()
+  for (value in listOf(explicit, descriptionId, errorId)) {
+    value?.trim()?.split(Regex("\\s+"))?.forEach { if (it.isNotEmpty() && it !in parts) parts.add(it) }
+  }
+  return if (parts.isEmpty()) null else parts.joinToString(" ")
+}
 fun csTextFieldGap() = 6.dp
 fun csTextFieldLabelFontWeight() = 700
 fun csTextFieldDescriptionFontSize() = 14.sp
@@ -444,6 +461,9 @@ fun CsTextField(
   compact: Boolean,
   secure: Boolean = false,
   disabled: Boolean = false,
+  readOnly: Boolean = false,
+  required: Boolean = false,
+  placeholder: String? = null,
   description: String? = null,
   modifier: Modifier = Modifier,
   error: String? = null,
@@ -461,9 +481,12 @@ fun CsTextField(
     }
     OutlinedTextField(
       value = value,
-      onValueChange = { next -> if (!csControlEnabled(!disabled)) return@OutlinedTextField; handle.claim(); onValueChange(next) },
+      onValueChange = { next -> if (!csControlEnabled(!disabled) || readOnly) return@OutlinedTextField; handle.claim(); onValueChange(next) },
       enabled = csControlEnabled(!disabled),
-      label = { Text(label, fontWeight = FontWeight.Bold) },
+      readOnly = readOnly,
+      isError = invalid,
+      label = if (csTextFieldShowsLabel(label)) ({ Text(label, fontWeight = FontWeight.Bold) }) else null,
+      placeholder = if (placeholder != null) ({ Text(placeholder) }) else null,
       singleLine = true,
       visualTransformation = if (secure) PasswordVisualTransformation() else VisualTransformation.None,
       keyboardOptions = KeyboardOptions(keyboardType = if (secure) KeyboardType.Password else KeyboardType.Text),
@@ -1195,6 +1218,11 @@ fun csSelectShownText(value: String, placeholder: String?, fallback: String, has
 }
 
 fun csSelectAlert(error: String?) = !error.isNullOrEmpty()
+fun csSelectLabelId(id: String, label: String?) = if (!label.isNullOrEmpty()) "$id-label" else null
+fun csSelectDescId(id: String, description: String?) = if (!description.isNullOrEmpty()) "$id-desc" else null
+fun csSelectErrId(id: String, error: String?) = if (csSelectAlert(error)) "$id-err" else null
+fun csSelectLabelledBy(explicit: String?, hasAriaLabel: Boolean, labelId: String?) = csTextFieldLabelledBy(explicit, hasAriaLabel, labelId)
+fun csSelectDescribedBy(explicit: String?, descId: String?, errId: String?) = csTextFieldDescribedBy(explicit, descId, errId)
 @Composable
 fun <T> CsSelect(
   label: String,
@@ -1269,7 +1297,10 @@ fun CsCard(
   compact: Boolean,
   spacing: Dp = 0.dp,
   padding: Dp = 0.dp,
+  interactive: Boolean = false,
+  flat: Boolean = false,
   material: CsGlassMaterial? = null,
+  onClick: (() -> Unit)? = null,
   modifier: Modifier = Modifier,
   content: @Composable androidx.compose.foundation.layout.ColumnScope.() -> Unit,
 ) {
@@ -1283,12 +1314,13 @@ fun CsCard(
   val fillAlpha = csGlassOpacity(activeMaterial, pack).toFloat()
   val borderAlpha = csGlassBorderMix(activeMaterial).toFloat()
   val strokeWidth = csGlassBorderWidth(activeMaterial)
+  val borderColor = csDataStyleCardBorderColor(interactive, false, pack).toComposeColor().copy(alpha = borderAlpha)
   val shape = RoundedCornerShape(pack.radiusLg.toDp())
   Column(
     modifier
       .fillMaxWidth()
       .clip(shape)
-      .then(if (strokeWidth > 0.dp) Modifier.border(strokeWidth, pack.colorBorderDefault.toComposeColor().copy(alpha = borderAlpha), shape) else Modifier)
+      .then(if (strokeWidth > 0.dp) Modifier.border(strokeWidth, borderColor, shape) else Modifier)
       .background(baseColor.copy(alpha = fillAlpha))
       .padding(padding),
     verticalArrangement = Arrangement.spacedBy(spacing),
@@ -1335,7 +1367,11 @@ fun CsSwitch(
     Switch(
       checked = checked,
       onCheckedChange = null,
-      colors = SwitchDefaults.colors(checkedTrackColor = csSwitchTrackColor(true, dark, pack).toComposeColor()),
+      enabled = enabled,
+      colors = SwitchDefaults.colors(
+        checkedTrackColor = csSwitchTrackColor(true, dark, pack).toComposeColor(),
+        uncheckedTrackColor = csSwitchTrackColor(false, dark, pack).toComposeColor(),
+      ),
     )
   }
 }
@@ -1455,11 +1491,13 @@ fun CsDialog(
   highContrast: Boolean,
   compact: Boolean,
   modifier: Modifier = Modifier,
+  open: Boolean = true,
   onOpenChange: ((Boolean) -> Unit)? = null,
   onClose: (() -> Unit)? = null,
   closeLabel: String? = null,
   language: String? = null,
 ) {
+  if (!open) return
   val pack = csModePack(dark, highContrast, compact)
   val canClose = csDialogShowsClose(onOpenChange != null, onClose != null)
   val closeName = csDialogCloseText(closeLabel, csDialogCopy("close", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
@@ -1481,6 +1519,11 @@ fun CsDialog(
   }
   Column(
     modifier.onPreviewKeyEvent { event ->
+      if (event.type == KeyEventType.KeyDown && event.key == Key.Escape && canClose) {
+        onOpenChange?.invoke(false)
+        onClose?.invoke()
+        return@onPreviewKeyEvent true
+      }
       if (event.type != KeyEventType.KeyDown || event.key != Key.Tab) return@onPreviewKeyEvent false
       val stack = CsOverlayRegistry.resolved(layerId, listOf(CsOverlayLayer(layerId, "modal", true)))
       if (!csOverlayOwns(layerId, stack)) return@onPreviewKeyEvent false

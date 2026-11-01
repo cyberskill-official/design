@@ -393,6 +393,10 @@ public enum CSTextFieldModel {
   public static let placeholderOpacity = 0.7
   public static let disabledOpacity = 0.58
 
+  public static func showsLabel(_ label: String?) -> Bool {
+    guard let label else { return false }
+    return !label.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+  }
   public static func showsError(_ error: String?) -> Bool {
     if let error { return !error.isEmpty }
     return false
@@ -402,6 +406,33 @@ public enum CSTextFieldModel {
     return false
   }
   public static func isAlert(_ error: String?) -> Bool { showsError(error) }
+  public static func isInvalid(error: String?, ariaInvalid: Bool = false) -> Bool {
+    showsError(error) || ariaInvalid
+  }
+  public static func labelId(_ id: String, label: String?) -> String? {
+    showsLabel(label) ? id + "-label" : nil
+  }
+  public static func descriptionId(_ id: String, description: String?) -> String? {
+    showsDescription(description) ? id + "-description" : nil
+  }
+  public static func errorId(_ id: String, error: String?) -> String? {
+    showsError(error) ? id + "-error" : nil
+  }
+  public static func labelledBy(explicit: String?, hasAriaLabel: Bool, labelId: String?) -> String? {
+    if let explicit { return explicit }
+    return hasAriaLabel ? nil : labelId
+  }
+  public static func describedBy(explicit: String?, descriptionId: String?, errorId: String?) -> String? {
+    var parts: [String] = []
+    for value in [explicit, descriptionId, errorId] {
+      guard let value else { continue }
+      for token in value.split(whereSeparator: \.isWhitespace) {
+        let word = String(token)
+        if !word.isEmpty && !parts.contains(word) { parts.append(word) }
+      }
+    }
+    return parts.isEmpty ? nil : parts.joined(separator: " ")
+  }
   public static func gap() -> Double { 6 }
   public static func labelFontWeight() -> Int { 700 }
   public static func descriptionFontSize() -> Double { 14 }
@@ -422,6 +453,9 @@ public struct CSTextField: View {
   @Binding var text: String
   public let description: String?
   public let error: String?
+  public let placeholder: String?
+  public let readOnly: Bool
+  public let required: Bool
   let secure: Bool
   let disabled: Bool
   let dark: Bool
@@ -430,11 +464,14 @@ public struct CSTextField: View {
   @State private var focusId = UUID().uuidString
   @FocusState private var focused: Bool
 
-  public init(label: String, text: Binding<String>, secure: Bool = false, disabled: Bool = false, description: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, error: String? = nil) {
+  public init(label: String, text: Binding<String>, secure: Bool = false, disabled: Bool = false, readOnly: Bool = false, required: Bool = false, placeholder: String? = nil, description: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, error: String? = nil) {
     self.label = label
     _text = text
     self.description = description
     self.error = error
+    self.placeholder = placeholder
+    self.readOnly = readOnly
+    self.required = required
     self.secure = secure
     self.disabled = disabled
     self.dark = dark
@@ -447,9 +484,11 @@ public struct CSTextField: View {
     let invalid = CSTextFieldModel.showsError(error)
     let borderStroke = CSTextFieldModel.borderColor(invalid: invalid, pack: pack).color
     VStack(alignment: .leading, spacing: CGFloat(CSTextFieldModel.gap())) {
-      Text(label)
-        .font(.system(size: pack.fontSizeBase.points, weight: .bold))
-        .foregroundStyle(pack.colorTextPrimary.color)
+      if CSTextFieldModel.showsLabel(label) {
+        Text(label)
+          .font(.system(size: pack.fontSizeBase.points, weight: .bold))
+          .foregroundStyle(pack.colorTextPrimary.color)
+      }
       if CSTextFieldModel.showsDescription(description), let description {
         Text(description)
           .font(.system(size: CGFloat(CSTextFieldModel.descriptionFontSize())))
@@ -465,7 +504,7 @@ public struct CSTextField: View {
           RoundedRectangle(cornerRadius: CGFloat(CSTextFieldModel.radius(pack)))
             .stroke(borderStroke, lineWidth: CGFloat(CSTextFieldModel.borderWidth()))
         )
-        .disabled(disabled)
+        .disabled(disabled || readOnly)
         .onChange(of: focused) { isFocused in
           if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
         }
@@ -481,6 +520,7 @@ public struct CSTextField: View {
 
   private var typed: Binding<String> {
     Binding(get: { text }, set: { next in
+      if readOnly { return }
       CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
       text = next
     })
@@ -488,9 +528,9 @@ public struct CSTextField: View {
 
   @ViewBuilder private var field: some View {
     if secure {
-      SecureField("••••••••", text: typed).focused($focused).accessibilityLabel(label)
+      SecureField(placeholder ?? "••••••••", text: typed).focused($focused).accessibilityLabel(label)
     } else {
-      TextField(label, text: typed).focused($focused).accessibilityLabel(label)
+      TextField(placeholder ?? label, text: typed).focused($focused).accessibilityLabel(label)
     }
   }
 }
@@ -1283,6 +1323,23 @@ public enum CSSelectModel {
     guard let error else { return false }
     return !error.isEmpty
   }
+  public static func labelId(_ id: String, label: String?) -> String? {
+    guard let label, !label.isEmpty else { return nil }
+    return id + "-label"
+  }
+  public static func descId(_ id: String, description: String?) -> String? {
+    guard let description, !description.isEmpty else { return nil }
+    return id + "-desc"
+  }
+  public static func errId(_ id: String, error: String?) -> String? {
+    isAlert(error) ? id + "-err" : nil
+  }
+  public static func labelledBy(explicit: String?, hasAriaLabel: Bool, labelId: String?) -> String? {
+    CSTextFieldModel.labelledBy(explicit: explicit, hasAriaLabel: hasAriaLabel, labelId: labelId)
+  }
+  public static func describedBy(explicit: String?, descId: String?, errId: String?) -> String? {
+    CSTextFieldModel.describedBy(explicit: explicit, descriptionId: descId, errorId: errId)
+  }
 }
 
 public struct CSSelect<Selection: Hashable, Content: View>: View {
@@ -1392,16 +1449,23 @@ public struct CSCard<Content: View>: View {
   let compact: Bool
   var spacing: CGFloat
   var padding: CGFloat
+  public let interactive: Bool
+  public let flat: Bool
   public let material: CSGlassMaterial?
+  public let onTap: (() -> Void)?
   let content: () -> Content
+  @State private var hovered = false
 
-  public init(dark: Bool, highContrast: Bool, compact: Bool, spacing: CGFloat = 0, padding: CGFloat = 0, material: CSGlassMaterial? = nil, @ViewBuilder content: @escaping () -> Content) {
+  public init(dark: Bool, highContrast: Bool, compact: Bool, spacing: CGFloat = 0, padding: CGFloat = 0, interactive: Bool = false, flat: Bool = false, material: CSGlassMaterial? = nil, onTap: (() -> Void)? = nil, @ViewBuilder content: @escaping () -> Content) {
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
     self.spacing = spacing
     self.padding = padding
+    self.interactive = interactive
+    self.flat = flat
     self.material = material
+    self.onTap = onTap
     self.content = content
   }
 
@@ -1418,14 +1482,15 @@ public struct CSCard<Content: View>: View {
     let fillAlpha = CSGlassModel.opacity(activeMaterial, pack: pack)
     let borderAlpha = CSGlassModel.borderMix(activeMaterial)
     let strokeWidth = CGFloat(CSGlassModel.borderWidth(activeMaterial))
+    let borderStroke = CSDataStyleModel.cardBorderColor(interactive: interactive, hovered: hovered, pack: pack).color.opacity(borderAlpha)
     let lensEdgeShown = CSGlassModel.showsLensEdge(activeMaterial)
-    let shadowSpec = CSGlassModel.shadow(activeMaterial) == .lg ? pack.shadowLg.first : (material == nil || CSGlassModel.shadow(activeMaterial) == .sm ? pack.shadowSm.first : nil)
+    let shadowSpec = CSDataStyleModel.cardHasShadow(flat: flat) ? (CSGlassModel.shadow(activeMaterial) == .lg ? pack.shadowLg.first : (material == nil || CSGlassModel.shadow(activeMaterial) == .sm ? pack.shadowSm.first : nil)) : nil
     VStack(alignment: .leading, spacing: spacing) { content() }
       .padding(padding)
       .frame(maxWidth: .infinity, alignment: .leading)
       .background(baseColor.opacity(fillAlpha))
       .clipShape(RoundedRectangle(cornerRadius: pack.radiusLg.points))
-      .overlay(RoundedRectangle(cornerRadius: pack.radiusLg.points).stroke(pack.colorBorderDefault.color.opacity(borderAlpha), lineWidth: strokeWidth))
+      .overlay(RoundedRectangle(cornerRadius: pack.radiusLg.points).stroke(borderStroke, lineWidth: strokeWidth))
       .overlay(
         RoundedRectangle(cornerRadius: pack.radiusLg.points)
           .strokeBorder(
@@ -1448,6 +1513,11 @@ public struct CSCard<Content: View>: View {
         x: shadowSpec?.offsetX.points ?? 0,
         y: shadowSpec?.offsetY.points ?? 0
       )
+      .onHover { hovered = $0 }
+      .onTapGesture {
+        if interactive || onTap != nil { onTap?() }
+      }
+      .accessibilityAddTraits(interactive ? .isButton : [])
   }
 }
 
@@ -1825,6 +1895,9 @@ public struct CSDialog: View {
           let next = CSFocusTrap.nextIndex(current: trap ?? -1, count: stops, shift: shift, inside: trap != nil)
           trap = CSModalFocus.pullBack(inside: next != nil) ? CSFocusTrap.initialIndex(preferred: nil, count: stops) : next
           return stops > 0
+        }
+        .onExitCommand {
+          if canClose { close() }
         }
       }
     }
