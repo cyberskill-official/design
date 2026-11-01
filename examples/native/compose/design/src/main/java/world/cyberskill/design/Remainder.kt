@@ -255,6 +255,9 @@ fun csTerminalBodyFontSize() = 13.0
 fun csTerminalBodyLineHeight() = 1.7
 fun csTerminalBodyMinHeight() = 130.dp
 fun csTerminalLineGap() = 8.dp
+fun csTerminalFocusOutlineWidth(focused: Boolean) = if (focused) 2.dp else 0.dp
+fun csTerminalFocusOutlineOffset(focused: Boolean) = if (focused) 2.dp else 0.dp
+fun csTerminalFocusRingWidth(focused: Boolean) = if (focused) 5.dp else 0.dp
 fun csTerminalSubmits(composing: Boolean, keyCode: Int) = !composing && keyCode != 229
 
 data class CsCascaderNode(val key: String, val label: String, val children: List<CsCascaderNode> = emptyList())
@@ -1269,7 +1272,8 @@ private var SemanticsPropertyReceiver.csTreeControlsValue by csTreeControlsKey
   val inputName = csTerminalCopy("input", locale)
   var lines by remember { mutableStateOf(history) }
   var draft by remember { mutableStateOf(TextFieldValue("")) }
-  Column(modifier.widthIn(max = csTerminalMaxWidth()).shadow(pack.shadowMd.firstOrNull()?.blur?.toDp() ?: 0.dp, RoundedCornerShape(pack.radiusLg.toDp())).clip(RoundedCornerShape(pack.radiusLg.toDp())).background(csTerminalBgColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).border(csTerminalBorderWidth(), csTerminalBorderColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp()))) {
+  var focused by remember { mutableStateOf(false) }
+  Column(modifier.widthIn(max = csTerminalMaxWidth()).border(csTerminalFocusRingWidth(focused), if (focused) pack.colorAccentOchre.toComposeColor() else Color.Transparent, RoundedCornerShape(pack.radiusLg.toDp())).padding(csTerminalFocusOutlineOffset(focused)).border(csTerminalFocusOutlineWidth(focused), if (focused) pack.colorTextPrimary.toComposeColor() else Color.Transparent, RoundedCornerShape(pack.radiusLg.toDp())).shadow(pack.shadowMd.firstOrNull()?.blur?.toDp() ?: 0.dp, RoundedCornerShape(pack.radiusLg.toDp())).clip(RoundedCornerShape(pack.radiusLg.toDp())).background(csTerminalBgColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).border(csTerminalBorderWidth(), csTerminalBorderColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp()))) {
     Row(Modifier.fillMaxWidth().background(csTerminalBarColor.toComposeColor()).padding(horizontal = csTerminalBarPaddingX(), vertical = csTerminalBarPaddingY()), horizontalArrangement = Arrangement.spacedBy(csTerminalBarGap()), verticalAlignment = Alignment.CenterVertically) {
       repeat(csTerminalDotCount) { Box(Modifier.size(csTerminalDotSize()).background(csTerminalDotColor.toComposeColor(), RoundedCornerShape(csTerminalDotRadius())).clearAndSetSemantics {}) }
       Text(bar, color = csTerminalMutedColor.toComposeColor(), fontSize = csTerminalBarFontSize().sp, fontWeight = FontWeight.SemiBold, fontFamily = FontFamily.Monospace, modifier = Modifier.padding(start = csTerminalTitleMarginStart()))
@@ -1286,7 +1290,7 @@ private var SemanticsPropertyReceiver.csTreeControlsValue by csTreeControlsKey
       }
       Row(horizontalArrangement = Arrangement.spacedBy(csTerminalLineGap()), verticalAlignment = Alignment.CenterVertically) {
         Text(prompt, color = pack.colorBrandOchre.toComposeColor(), fontSize = csTerminalBodyFontSize().sp, lineHeight = (csTerminalBodyFontSize() * csTerminalBodyLineHeight()).sp, fontWeight = FontWeight.Medium, fontFamily = FontFamily.Monospace)
-        BasicTextField(value = draft, onValueChange = { if (!csControlEnabled()) return@BasicTextField; draft = it }, enabled = csControlEnabled(), textStyle = TextStyle(color = csTerminalFgColor.toComposeColor(), fontSize = csTerminalBodyFontSize().sp, lineHeight = (csTerminalBodyFontSize() * csTerminalBodyLineHeight()).sp, fontWeight = FontWeight.Medium, fontFamily = FontFamily.Monospace), modifier = Modifier.weight(1f).semantics { contentDescription = inputName }.onPreviewKeyEvent { event ->
+        BasicTextField(value = draft, onValueChange = { if (!csControlEnabled()) return@BasicTextField; draft = it }, enabled = csControlEnabled(), textStyle = TextStyle(color = csTerminalFgColor.toComposeColor(), fontSize = csTerminalBodyFontSize().sp, lineHeight = (csTerminalBodyFontSize() * csTerminalBodyLineHeight()).sp, fontWeight = FontWeight.Medium, fontFamily = FontFamily.Monospace), modifier = Modifier.weight(1f).onFocusChanged { focused = it.isFocused }.semantics { contentDescription = inputName }.onPreviewKeyEvent { event ->
           if (event.type != KeyEventType.KeyDown || event.key != Key.Enter) return@onPreviewKeyEvent false
           if (!csTerminalSubmits(draft.composition != null, 0)) return@onPreviewKeyEvent false
           val trimmed = draft.text.trim()

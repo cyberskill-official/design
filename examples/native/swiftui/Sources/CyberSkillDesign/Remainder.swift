@@ -274,6 +274,9 @@ public enum CSTerminalModel {
   public static func bodyLineHeight() -> Double { 1.7 }
   public static func bodyMinHeight() -> Double { 130 }
   public static func lineGap() -> Double { 8 }
+  public static func focusOutlineWidth(focused: Bool) -> Double { focused ? 2 : 0 }
+  public static func focusOutlineOffset(focused: Bool) -> Double { focused ? 2 : 0 }
+  public static func focusRingWidth(focused: Bool) -> Double { focused ? 5 : 0 }
 
   public static func submits(composing: Bool, keyCode: Int) -> Bool {
     !composing && keyCode != 229
@@ -673,7 +676,11 @@ public struct CSTerminal: View {
               Text(command).foregroundStyle(CSTerminalModel.fgColor.color)
             }
           }
-          if let output = line.output { Text(output).foregroundStyle(CSTerminalModel.mutedColor.color) }
+          if let output = line.output {
+            Text(output)
+              .foregroundStyle(CSTerminalModel.mutedColor.color)
+              .fixedSize(horizontal: false, vertical: true)
+          }
         }
         HStack(alignment: .center, spacing: CGFloat(CSTerminalModel.lineGap())) {
           Text(prompt).foregroundStyle(pack.colorBrandOchre.color)
@@ -700,6 +707,16 @@ public struct CSTerminal: View {
     .background(CSTerminalModel.bgColor.color, in: RoundedRectangle(cornerRadius: pack.radiusLg.points))
     .clipShape(RoundedRectangle(cornerRadius: pack.radiusLg.points))
     .overlay(RoundedRectangle(cornerRadius: pack.radiusLg.points).stroke(CSTerminalModel.borderColor.color, lineWidth: CGFloat(CSTerminalModel.borderWidth())))
+    .overlay(
+      RoundedRectangle(cornerRadius: pack.radiusLg.points)
+        .inset(by: -CGFloat(CSTerminalModel.focusRingWidth(focused: focused)) / 2)
+        .stroke(focused ? pack.colorAccentOchre.color : .clear, lineWidth: CGFloat(CSTerminalModel.focusRingWidth(focused: focused)))
+    )
+    .overlay(
+      RoundedRectangle(cornerRadius: pack.radiusLg.points)
+        .inset(by: -(CGFloat(CSTerminalModel.focusOutlineOffset(focused: focused)) + CGFloat(CSTerminalModel.focusOutlineWidth(focused: focused)) / 2))
+        .stroke(focused ? pack.primaryTextColor : .clear, lineWidth: CGFloat(CSTerminalModel.focusOutlineWidth(focused: focused)))
+    )
     .shadow(color: shadow?.color.color ?? .clear, radius: shadow?.blur.points ?? 0, x: shadow?.offsetX.points ?? 0, y: shadow?.offsetY.points ?? 0)
   }
 }

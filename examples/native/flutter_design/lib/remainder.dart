@@ -237,6 +237,9 @@ double csTerminalBodyFontSize() => 13;
 double csTerminalBodyLineHeight() => 1.7;
 double csTerminalBodyMinHeight() => 130;
 double csTerminalLineGap() => 8;
+double csTerminalFocusOutlineWidth(bool focused) => focused ? 2 : 0;
+double csTerminalFocusOutlineOffset(bool focused) => focused ? 2 : 0;
+double csTerminalFocusRingWidth(bool focused) => focused ? 5 : 0;
 bool csTerminalSubmits({required bool composing, required int keyCode}) => !composing && keyCode != 229;
 
 class CsCascaderNode {
@@ -1675,6 +1678,7 @@ class CsTerminal extends StatefulWidget {
 class _CsTerminalState extends State<CsTerminal> {
   late List<CsTerminalLine> lines = widget.history;
   final draft = TextEditingController();
+  var focused = false;
 
   @override
   void dispose() {
@@ -1708,6 +1712,16 @@ class _CsTerminalState extends State<CsTerminal> {
           borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
           border: Border.all(color: csColor(csTerminalBorderColor), width: csTerminalBorderWidth()),
           boxShadow: [
+            if (focused)
+              BoxShadow(
+                color: csColor(pack.colorAccentOchre),
+                spreadRadius: csTerminalFocusRingWidth(focused),
+              ),
+            if (focused)
+              BoxShadow(
+                color: csColor(pack.colorTextPrimary),
+                spreadRadius: csTerminalFocusOutlineOffset(focused) + csTerminalFocusOutlineWidth(focused),
+              ),
             for (final shadow in pack.shadowMd)
               BoxShadow(
                 color: csColor(shadow.color),
@@ -1756,12 +1770,12 @@ class _CsTerminalState extends State<CsTerminal> {
                           SizedBox(width: csTerminalLineGap()),
                           Text(line.command!, style: TextStyle(color: csColor(csTerminalFgColor), fontSize: csTerminalBodyFontSize(), height: csTerminalBodyLineHeight(), fontWeight: FontWeight.w500, fontFamily: 'monospace')),
                         ]),
-                      if (line.output != null) Text(line.output!, style: TextStyle(color: csColor(csTerminalMutedColor), fontSize: csTerminalBodyFontSize(), height: csTerminalBodyLineHeight(), fontWeight: FontWeight.w500, fontFamily: 'monospace')),
+                      if (line.output != null) Text(line.output!, softWrap: true, style: TextStyle(color: csColor(csTerminalMutedColor), fontSize: csTerminalBodyFontSize(), height: csTerminalBodyLineHeight(), fontWeight: FontWeight.w500, fontFamily: 'monospace')),
                     ],
                     Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                       Text(widget.prompt, style: TextStyle(color: csColor(pack.colorBrandOchre), fontSize: csTerminalBodyFontSize(), height: csTerminalBodyLineHeight(), fontWeight: FontWeight.w500, fontFamily: 'monospace')),
                       SizedBox(width: csTerminalLineGap()),
-                      Expanded(child: Semantics(textField: true, label: inputName, child: TextField(controller: draft, onSubmitted: _submit, style: TextStyle(color: csColor(csTerminalFgColor), fontSize: csTerminalBodyFontSize(), height: csTerminalBodyLineHeight(), fontWeight: FontWeight.w500, fontFamily: 'monospace'), decoration: const InputDecoration(border: InputBorder.none)))),
+                      Expanded(child: Focus(onFocusChange: (next) => setState(() => focused = next), child: Semantics(textField: true, label: inputName, child: TextField(controller: draft, onSubmitted: _submit, style: TextStyle(color: csColor(csTerminalFgColor), fontSize: csTerminalBodyFontSize(), height: csTerminalBodyLineHeight(), fontWeight: FontWeight.w500, fontFamily: 'monospace'), decoration: const InputDecoration(border: InputBorder.none))))),
                     ]),
                   ]),
                 ),

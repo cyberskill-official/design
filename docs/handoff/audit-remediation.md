@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the terminal-line checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the terminal-focus checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `6207c9cdcced17fb1101a5e65deae7c11f4b1eea`, with the hash note in `af145a62`
-- Checkpoint commit hash: `4b4b6d4427c8006452e11141da5c6b4e3da83f26`
+- Previous checkpoint: `4b4b6d4427c8006452e11141da5c6b4e3da83f26`, with the hash note in `38234c18`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the terminal line: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the terminal focus ring and output: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-Terminal command and prompt rows now use an 8px gap (`CSTerminalModel.lineGap()` / `csTerminalLineGap()`), centered vertical alignment, a brand-ochre prompt glyph (`var(--cs-color-brand-ochre)`), `#f5ead9` foreground command text, and a flex-expanding borderless transparent input, matching `.cs-terminal__line { display: flex; gap: 8px; align-items: center; }`, `.cs-terminal__line .p { color: var(--cs-color-brand-ochre); }`, and `.cs-terminal__line input { flex: 1; border: 0; background: transparent; color: inherit; font: inherit; outline: none; }` in `base/controls.css`.
+The focused terminal wrapper now draws a 2px primary-text outline at a 2px offset (`CSTerminalModel.focusOutlineWidth(focused:)`, `focusOutlineOffset(focused:)` / `csTerminalFocusOutlineWidth`, `csTerminalFocusOutlineOffset`) and a 5px ochre ring (`CSTerminalModel.focusRingWidth(focused:)` / `csTerminalFocusRingWidth`), and terminal output lines wrap in `#c9b7a3` muted color, matching `.cs-terminal:focus-within { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }` and `.cs-terminal__out { color: var(--cs-term-muted); white-space: pre-wrap; }` in `base/controls.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style the focused terminal wrapper with a 2px primary-text outline at a 2px offset and a 5px ochre ring, and keep terminal output lines pre-wrapped in `#c9b7a3` muted color. The next rules in `base/controls.css` are `.cs-terminal:focus-within { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }` and `.cs-terminal__out { color: var(--cs-term-muted); white-space: pre-wrap; }`. Re-read those rules before editing. Do not invent ring widths or offsets.
+Style the list container with a 2px vertical item gap. Having completed the end of `base/controls.css`, the next rule in `base/collections.css` (following `styles.css` import order) is `.cs-list { display: grid; gap: 2px; }`. Re-read that rule and `components/data/List.jsx` before editing. Do not invent list gaps.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
