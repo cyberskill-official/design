@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `<pending-commit>` (`fix(native): match csTabsMove(current, count, key) argument order in Flutter CsSegmentedControl`)
+- Checkpoint commit: `d3ca3ae1d21ecc29ace6150a3c882bfd1d77a8d3` (`fix(native): match csTabsMove(current, count, key) argument order in Flutter CsSegmentedControl`)
 - Previous checkpoint: `d82daccd3ae91c9780c95002c2391aed03243d49`, with the hash note in `f0b45801`
 - GitHub Actions push workflows re-enabled (`Design System Gates` `316944477`, `native-validation` `377620668`, `native-store` `318755963`, `OpenSSF Scorecard` `330342703`)
 
