@@ -32,6 +32,11 @@ CsTagEdit csAddTag(List<String> tags, String query, int? max) {
   return CsTagEdit([...tags, text], '');
 }
 
+CsTagEdit csTagBlurCommit(List<String> tags, String query, int? max, [bool disabled = false]) {
+  if (disabled || query.trim().isEmpty) return CsTagEdit(tags, query);
+  return csAddTag(tags, query, max);
+}
+
 List<String> csBackspaceTag(List<String> tags, String query) =>
     query.isEmpty && tags.isNotEmpty ? tags.sublist(0, tags.length - 1) : tags;
 
@@ -76,14 +81,15 @@ CsConfidenceMeasurement csConfidenceMeasure(double? value, String? level, double
 }
 
 class CsDataColumn {
-  const CsDataColumn(this.key, this.header, {this.sortable = true});
+  const CsDataColumn(this.key, this.header, {this.sortable = true, this.pinned = false});
   final String key;
   final String header;
   final bool sortable;
+  final bool pinned;
 }
 
 class CsDataGrid extends StatefulWidget {
-  const CsDataGrid({super.key, required this.columns, required this.rows, required this.selectable, required this.selected, required this.selectAllLabel, required this.clearLabel, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.persistKey, this.caption, this.empty, this.sortValues, this.renders, this.filterText, this.filterKeys, this.virtual = false, this.virtualThreshold = 80, this.height = 280, this.rowHeight = 36, this.measuredRowHeight});
+  const CsDataGrid({super.key, required this.columns, required this.rows, required this.selectable, required this.selected, required this.selectAllLabel, required this.clearLabel, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.rowKeyName = 'id', this.persistKey, this.caption, this.empty, this.language, this.sortValues, this.renders, this.filterText, this.filterKeys, this.virtual = false, this.virtualThreshold = 80, this.height = 280, this.rowHeight = 36, this.measuredRowHeight});
   final List<CsDataColumn> columns;
   final List<Map<String, String>> rows;
   final bool selectable;
@@ -94,9 +100,11 @@ class CsDataGrid extends StatefulWidget {
   final bool dark;
   final bool highContrast;
   final bool compact;
+  final String rowKeyName;
   final String? persistKey;
   final String? caption;
   final String? empty;
+  final String? language;
   final Map<String, String? Function(Map<String, String>)>? sortValues;
   final Map<String, String? Function(Map<String, String>)>? renders;
   final String? filterText;
@@ -164,7 +172,8 @@ class _CsDataGridState extends State<CsDataGrid> {
     final clearLabel = widget.clearLabel;
     final selectAllLabel = widget.selectAllLabel;
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
-    final keys = [for (var index = 0; index < rows.length; index++) csGridRowKey(rows[index]['id'], index)];
+    final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
+    final keys = [for (var index = 0; index < rows.length; index++) widget.rowKeyName == 'id' ? csGridRowKey(rows[index]['id'], index) : csGridRowKey(rows[index][widget.rowKeyName], index)];
     final allSelected = keys.isNotEmpty && keys.every(selected.contains);
     final useVirtual = csGridVirtual(widget.virtual, rows.length, threshold: widget.virtualThreshold);
     final safeRow = csGridRowHeight(widget.rowHeight, settledRow ?? csGridMeasured(widget.rowHeight, widget.measuredRowHeight ?? widget.rowHeight));
@@ -243,13 +252,13 @@ class _CsDataGridState extends State<CsDataGrid> {
                   final key = csGridStorageKey(widget.persistKey);
                   if (key != null && next != null) csGridFileSave(key, csGridEncodeOrder(next));
                 },
-                child: Text(csGridCopy('pin', null)),
+                child: Text(csGridCopy('pin', locale)),
               )),
           ]),
         if (rows.isEmpty)
           Semantics(
             value: csGridRowIndex(useVirtual, 0)?.toString(),
-            child: Padding(padding: EdgeInsets.symmetric(vertical: csTableStyleStatusPaddingY(pack)), child: Text(csGridEmptyText(widget.empty, csGridCopy('empty', null)))),
+            child: Padding(padding: EdgeInsets.symmetric(vertical: csTableStyleStatusPaddingY(pack)), child: Text(csGridEmptyText(widget.empty, csGridCopy('empty', locale)))),
           )
         else if (useVirtual)
           SizedBox(
@@ -258,13 +267,13 @@ class _CsDataGridState extends State<CsDataGrid> {
               controller: scroll,
               child: Column(children: [
                 if (window[0] > 0) SizedBox(height: window[0] * safeRow),
-                for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual, safeRow),
+                for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual, safeRow, locale),
                 if (rows.length > window[1]) SizedBox(height: (rows.length - window[1]) * safeRow),
               ]),
             ),
           )
         else
-          for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual, safeRow),
+          for (final index in painted) _gridRow(rows[index], pack, ordered, selected, onSelect, selectable, index, useVirtual, safeRow, locale),
       ],
       ),
       ),
@@ -275,8 +284,8 @@ class _CsDataGridState extends State<CsDataGrid> {
     );
   }
 
-  Widget _gridRow(Map<String, String> row, CSTokenModePack pack, List<CsDataColumn> columns, List<String> selected, ValueChanged<List<String>> onSelect, bool selectable, int index, bool virtual, double rowHeight) {
-    final key = csGridRowKey(row['id'], index);
+  Widget _gridRow(Map<String, String> row, CSTokenModePack pack, List<CsDataColumn> columns, List<String> selected, ValueChanged<List<String>> onSelect, bool selectable, int index, bool virtual, double rowHeight, String? locale) {
+    final key = widget.rowKeyName == 'id' ? csGridRowKey(row['id'], index) : csGridRowKey(row[widget.rowKeyName], index);
     final box = csGridRowBox(virtual, rowHeight);
     final fill = selectable && selected.contains(key) ? csColor(csGridSelectedFill(widget.dark, pack.accentTint, pack.accent, pack.colorSurfacePanel)) : const Color(0x00000000);
     return ColoredBox(
@@ -295,7 +304,7 @@ class _CsDataGridState extends State<CsDataGrid> {
               child: SizedBox(
                 width: csGridSelectionWidth(),
                 child: CsCheckbox(
-              label: '${csGridCopy('selectRow', null)}: ${csGridRowName(columns.map((column) => row[column.key]).toList(), key)}',
+              label: '${csGridCopy('selectRow', locale)}: ${csGridRowName(columns.map((column) => row[column.key]).toList(), key)}',
               value: selected.contains(key),
               onChanged: (next) {
                 if (next == null || next == selected.contains(key)) return;
@@ -307,7 +316,7 @@ class _CsDataGridState extends State<CsDataGrid> {
             ),
             ),
             ),
-          for (final column in columns) Padding(padding: EdgeInsets.symmetric(horizontal: csTableStyleCellPaddingX(), vertical: csTableStyleCellPaddingY()), child: Text(csGridCellText(row, column.key, widget.renders?[column.key]), style: TextStyle(color: csColor(pack.colorTextPrimary), backgroundColor: csGridSticky(column.key, pinnedKey) == null ? null : csColor(pack.colorSurfacePanel)))),
+          for (final column in columns) Padding(padding: EdgeInsets.symmetric(horizontal: csTableStyleCellPaddingX(), vertical: csTableStyleCellPaddingY()), child: Text(csGridCellText(row, column.key, widget.renders?[column.key]), style: TextStyle(color: csColor(pack.colorTextPrimary), backgroundColor: (column.pinned || csGridSticky(column.key, pinnedKey) != null) ? csColor(pack.colorSurfacePanel) : null))),
         ],
         ),
       ),
@@ -317,8 +326,12 @@ class _CsDataGridState extends State<CsDataGrid> {
 }
 
 class CsTagInput extends StatelessWidget {
-  const CsTagInput({super.key, this.label, required this.tags, required this.query, this.removeLabel, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.max, this.placeholder, this.language});
+  const CsTagInput({super.key, this.label, this.description, this.error, this.required = false, this.disabled = false, required this.tags, required this.query, this.removeLabel, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.max, this.placeholder, this.language});
   final String? label;
+  final String? description;
+  final String? error;
+  final bool required;
+  final bool disabled;
   final String? removeLabel;
   final String? placeholder;
   final String? language;
@@ -337,37 +350,54 @@ class CsTagInput extends StatelessWidget {
     final hint = csTagPlaceholderShown(placeholder, const [], csTagCopy('placeholder', locale));
     final visible = csTagPlaceholderShown(placeholder, tags, csTagCopy('placeholder', locale));
     final fieldName = (label == null || label!.isEmpty) ? hint : label!;
-    return ConstrainedBox(
-      constraints: BoxConstraints(minWidth: csControlsWaveStyleTagInputMinWidth()),
-      child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (label != null && label!.isNotEmpty) ExcludeSemantics(child: Text(label!, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
-        Wrap(spacing: csControlsWaveStyleTagInputGap(), runSpacing: csControlsWaveStyleTagInputGap(), children: [
-          for (final tag in tags)
-            CsOwnFocus(builder: (node, claim) => Semantics(label: csTagRemoveName(removeLabel, tag, csTagCopy('remove', locale)), button: true, child: TextButton(focusNode: node, onPressed: () { claim(); onChange(tags.where((item) => item != tag).toList(), query); }, child: ExcludeSemantics(child: Text(csTagRemoveName(removeLabel, tag, csTagCopy('remove', locale))))))),
-        ]),
-        CsOwnFocus(builder: (node, claim) => Semantics(label: fieldName, textField: true, child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsWaveStyleTagInputFieldMinWidth()), child: Opacity(opacity: csControlsWaveStyleTagInputDisabledFieldOpacity(), child: TextField(
-          focusNode: node,
-          controller: TextEditingController(text: query),
-          decoration: InputDecoration(hintText: visible.isEmpty ? null : visible),
-          onChanged: (next) {
-            claim();
-            if (next.contains(',')) {
-              final edit = csAddTag(tags, next.replaceAll(',', ''), max);
-              onChange(edit.tags, edit.query);
-            } else {
-              onChange(tags, next);
-            }
-          },
-          onSubmitted: (_) {
-            claim();
-            final edit = csAddTag(tags, query, max);
-            onChange(edit.tags, edit.query);
-          },
-        ))))),
-      ],
-    ),
+    final invalid = csTextareaAlert(error);
+    return Opacity(
+      opacity: csTextFieldOpacity(disabled),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minWidth: csControlsWaveStyleTagInputMinWidth()),
+        child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (label != null && label!.isNotEmpty) ExcludeSemantics(child: Text(label!, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
+          Wrap(spacing: csControlsWaveStyleTagInputGap(), runSpacing: csControlsWaveStyleTagInputGap(), children: [
+            for (final tag in tags)
+              CsOwnFocus(builder: (node, claim) => Semantics(label: csTagRemoveName(removeLabel, tag, csTagCopy('remove', locale)), button: true, child: TextButton(focusNode: node, onPressed: disabled ? null : () { claim(); onChange(tags.where((item) => item != tag).toList(), query); }, child: ExcludeSemantics(child: Text(csTagRemoveName(removeLabel, tag, csTagCopy('remove', locale))))))),
+          ]),
+          CsOwnFocus(builder: (node, claim) => Semantics(label: fieldName, textField: true, child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsWaveStyleTagInputFieldMinWidth()), child: Opacity(opacity: disabled ? csControlsWaveStyleTagInputDisabledFieldOpacity() : 1.0, child: Focus(
+            onFocusChange: (focused) {
+              if (!focused) {
+                final edit = csTagBlurCommit(tags, query, max, disabled);
+                if (edit.tags.length != tags.length || edit.query != query) onChange(edit.tags, edit.query);
+              }
+            },
+            child: TextField(
+              focusNode: node,
+              enabled: !disabled,
+              controller: TextEditingController(text: query),
+              decoration: InputDecoration(hintText: visible.isEmpty ? null : visible),
+              onChanged: (next) {
+                if (disabled) return;
+                claim();
+                if (next.contains(',')) {
+                  final edit = csAddTag(tags, next.replaceAll(',', ''), max);
+                  onChange(edit.tags, edit.query);
+                } else {
+                  onChange(tags, next);
+                }
+              },
+              onSubmitted: (_) {
+                if (disabled) return;
+                claim();
+                final edit = csAddTag(tags, query, max);
+                onChange(edit.tags, edit.query);
+              },
+            ),
+          ))))),
+          if (csTextareaShows(description)) Text(description!, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csTextFieldDescriptionFontSize())),
+          if (invalid) Text(error!, style: TextStyle(color: csColor(pack.colorSemanticDangerText), fontSize: csTextFieldErrorFontSize())),
+        ],
+      ),
+      ),
     );
   }
 }
@@ -555,6 +585,7 @@ List<String> csGridOrderedKeys(List<String>? order, List<String> columns) {
 }
 List<String>? csGridPinOrder(List<String> order, String key, bool canPersist) => canPersist ? [key, ...order.where((item) => item != key)] : null;
 double? csGridSticky(String key, String? pinned) => pinned != null && key == pinned ? 0 : null;
+bool csGridIsPinned(bool columnPinned, String key, String? pinnedKey) => columnPinned || csGridSticky(key, pinnedKey) != null;
 String? csGridStorageKey(String? persistKey) => persistKey == null || persistKey.isEmpty ? null : 'cs:datagrid:cols:$persistKey';
 List<String>? csGridDecodeOrder(String? raw) {
   if (raw == null) return null;
@@ -641,6 +672,7 @@ String csToolbarCopy(String key, String? language) {
 }
 List<String> csToolbarTail(List<String> items, int? overflowAfter) => items.skip(csToolbarCut(items.length, overflowAfter)).where((item) => item != '-').toList();
 int csToolbarMove(int current, int count, int delta) => count <= 0 ? 0 : (current + delta < 0 ? 0 : (current + delta > count - 1 ? count - 1 : current + delta));
+int csToolbarControlCount(List<String> head, bool hasMore) => head.where((item) => item != '-').length + (hasMore ? 1 : 0);
 String csGridRowKey(String? value, int index) => value ?? '$index';
 int? csGridRowIndex(bool virtual, int position, {bool header = false}) => virtual ? (header ? 1 : position + 2) : null;
 int? csGridRowCount(bool virtual, int count) => virtual ? (count + 1 > 2 ? count + 1 : 2) : null;
@@ -804,9 +836,10 @@ class CsTimeline extends StatelessWidget {
 }
 
 class CsToolbar extends StatefulWidget {
-  const CsToolbar({super.key, this.label, required this.items, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.overflowAfter, this.language});
+  const CsToolbar({super.key, this.label, required this.items, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.overflowAfter, this.placement, this.language});
   final String? label;
   final int? overflowAfter;
+  final String? placement;
   final String? language;
   final List<String> items;
   final ValueChanged<String> onSelect;
@@ -852,7 +885,7 @@ class _CsToolbarState extends State<CsToolbar> {
       list.dy,
       1,
       1,
-      csToolbarPlacement(null),
+      csToolbarPlacement(widget.placement),
     );
     setState(() { fitted = listBox.size; place = next; });
   }

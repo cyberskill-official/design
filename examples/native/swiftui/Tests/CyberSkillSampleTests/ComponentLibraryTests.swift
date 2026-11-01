@@ -3276,6 +3276,20 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertFalse(statusDot.reducedMotion)
     let customToast = CSToast(variant: "success", title: "Saved", message: "Done", icon: "check", dark: false, highContrast: false, compact: false)
     XCTAssertEqual(customToast.icon, "check")
+    let pinnedCol = CSDataColumn(key: "id", header: "ID", sortable: true, pinned: true)
+    XCTAssertTrue(pinnedCol.pinned)
+    XCTAssertTrue(CSDataGridSelection.isPinned(columnPinned: true, key: "id", pinnedKey: nil))
+    XCTAssertTrue(CSDataGridSelection.isPinned(columnPinned: false, key: "id", pinnedKey: "id"))
+    XCTAssertFalse(CSDataGridSelection.isPinned(columnPinned: false, key: "id", pinnedKey: "name"))
+    XCTAssertEqual(CSTagInputModel.blurCommit(tags: ["a"], query: "b", max: 5, disabled: false), CSTagEdit(tags: ["a", "b"], query: ""))
+    XCTAssertEqual(CSTagInputModel.blurCommit(tags: ["a"], query: "b", max: 5, disabled: true), CSTagEdit(tags: ["a"], query: "b"))
+    XCTAssertEqual(CSTagInputModel.blurCommit(tags: ["a"], query: "   ", max: 5, disabled: false), CSTagEdit(tags: ["a"], query: "   "))
+    let tagInput = CSTagInput(label: "Tags", tags: ["one"], query: "", removeLabel: "Remove", description: "Comma or Enter", error: "Required", required: true, dark: false, highContrast: false, compact: false, onChange: { _, _ in })
+    XCTAssertEqual(tagInput.descriptionText, "Comma or Enter")
+    XCTAssertEqual(tagInput.error, "Required")
+    XCTAssertTrue(tagInput.required)
+    XCTAssertEqual(CSToolbarModel.controlCount(head: ["Cut", "-", "Copy"], hasMore: true), 3)
+    XCTAssertEqual(CSToolbarModel.controlCount(head: ["Cut", "-", "Copy"], hasMore: false), 2)
   }
 
   func testSwitchAndDialogExposeTheModeResolvedControls() {

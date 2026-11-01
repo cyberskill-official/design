@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the catalog-textarea-search-number-status-result-toast-parity checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the records-datagrid-taginput-toolbar-parity checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `ed23e6eac8cf4e9d7c5735233cdfc5bfb63d27cd` (`feat(native): align catalog textarea, search, number field, status indicator, result, and toast with web contracts`)
-- Previous checkpoint: `2c926972e05c1c342d8dc15fd65f90e5e937a2c4`, with the hash note in `5105c98b`
+- Checkpoint commit: pending (`feat(native): align records data grid, tag input, and toolbar with web contracts`)
+- Previous checkpoint: `ed23e6eac8cf4e9d7c5735233cdfc5bfb63d27cd`, with the hash note in `81008a83`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Aligned `CSTextarea`/`CsTextarea`, `CSSearchField`/`CsSearchField`, `CSNumberField`/`CsNumberField`, `CSStatusIndicator`/`CsStatusIndicator`, `CSResult`/`CsResult`, and `CSToast`/`CsToast` across `Catalog.swift`, `Catalog.kt`, and `catalog.dart` with `Textarea.jsx`, `SearchField.jsx`, `NumberField.jsx`, `StatusIndicator.jsx`, `Result.jsx`, and `Toast.jsx`: added `CSTextareaModel.labelId`/`descId`/`errId`/`labelledBy` (`csTextareaLabelId`/`csTextareaDescId`/`csTextareaErrId`/`csTextareaLabelledBy`) and wired `description` and `disabled` into Compose and Flutter `CsTextarea`; wired `onClear`, the search magnifier SVG icon, and `CsIcon("close")` into Compose and Flutter `CsSearchField`; added `description`, `error`, and `required` to `CSNumberField`/`CsNumberField` across all three platforms; wired `pulse` and `reducedMotion` into `CSStatusIndicator`/`CsStatusIndicator`; wired `action`, `pack.accentTint`, and the info circle into Compose and Flutter `CsResult`; and wired custom `icon` and the leading toast accent border bar (`csFeedbackStyleToastAccentBorderWidth()`) into `CSToast`/`CsToast`.
+Aligned `CSDataGrid`/`CsDataGrid`, `CSTagInput`/`CsTagInput`, and `CSToolbar`/`CsToolbar` across `Records.swift`, `Records.kt`, and `records.dart` with `DataGrid.jsx`, `TagInput.jsx`, and `Toolbar.jsx`: added `pinned` to `CSDataColumn`/`CsDataColumn`, `CSDataGridSelection.isPinned(columnPinned:key:pinnedKey:)` (`csGridIsPinned`), and `rowKeyName`/`language` to Compose and Flutter `CsDataGrid`; added `CSTagInputModel.blurCommit(tags:query:max:disabled:)` (`csTagBlurCommit`), `description`, `error`, `required`, and `disabled` to `CSTagInput`/`CsTagInput`, committing pending tags on blur and applying `tagInputDisabledFieldOpacity` only when `disabled` is true; and added `CSToolbarModel.controlCount(head:hasMore:)` (`csToolbarControlCount`) and `placement` to Compose and Flutter `CsToolbar`.
 
 - `swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Inspect and close the next concrete behavioral parity gaps across `Records`, `Overlays`, `Structures`, `Fields`, `Flows`, `Surfaces`, and `Remainder` against their web `components/**/*.jsx` counterparts (starting with `Records` components `CSDataGrid`/`CsDataGrid`, `CSTagInput`/`CsTagInput`, `CSConfidenceMeter`/`CsConfidenceMeter`, `CSCollapsible`/`CsCollapsible`, `CSTimeline`/`CsTimeline`, and `CSToolbar`/`CsToolbar`).
+Inspect and close the next concrete behavioral parity gaps across `Overlays`, `Structures`, `Fields`, `Flows`, `Surfaces`, and `Remainder` against their web `components/**/*.jsx` counterparts (starting with `Overlays` components `CSMenu`/`CsMenu`, `CSMenubar`/`CsMenubar`, `CSBackTop`/`CsBackTop`, `CSFab`/`CsFab`, `CSAIDisclosure`/`CsAIDisclosure`, `CSAspectRatio`/`CsAspectRatio`, and `CSWatermark`/`CsWatermark`).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

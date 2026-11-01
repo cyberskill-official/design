@@ -68,6 +68,9 @@ public enum CSDataGridSelection {
     guard let pinned, key == pinned else { return nil }
     return 0
   }
+  public static func isPinned(columnPinned: Bool, key: String, pinnedKey: String?) -> Bool {
+    columnPinned || sticky(key, pinned: pinnedKey) != nil
+  }
   public static func storageKey(_ persistKey: String?) -> String? {
     guard let persistKey, !persistKey.isEmpty else { return nil }
     return "cs:datagrid:cols:\(persistKey)"
@@ -266,10 +269,12 @@ public struct CSDataColumn: Hashable {
   public let key: String
   public let header: String
   public let sortable: Bool
-  public init(key: String, header: String, sortable: Bool = true) {
+  public let pinned: Bool
+  public init(key: String, header: String, sortable: Bool = true, pinned: Bool = false) {
     self.key = key
     self.header = header
     self.sortable = sortable
+    self.pinned = pinned
   }
 }
 
@@ -395,7 +400,7 @@ public struct CSDataGrid: View {
           .font(.system(size: CGFloat(CSTableStyleModel.headerFontSize(pack)), weight: .bold))
           .padding(.horizontal, CGFloat(CSTableStyleModel.cellPaddingX()))
           .padding(.vertical, CGFloat(CSTableStyleModel.cellPaddingY()))
-          .zIndex(CSDataGridSelection.sticky(column.key, pinned: pinnedKey) == nil ? 0 : 1)
+          .zIndex((column.pinned || CSDataGridSelection.sticky(column.key, pinned: pinnedKey) != nil) ? 1 : 0)
         }
       }
       .background(pack.colorSurfaceRaised.color)
@@ -476,7 +481,7 @@ public struct CSDataGrid: View {
             .frame(width: CGFloat(CSDataGridSelection.selectionWidth()), alignment: .center)
           .frame(maxHeight: .infinity, alignment: CSDataGridSelection.checkAlignment())
         }
-        ForEach(orderedColumns.filter { CSDataGridSelection.sticky($0.key, pinned: pinnedKey) != nil }, id: \.key) { column in
+        ForEach(orderedColumns.filter { CSDataGridSelection.isPinned(columnPinned: $0.pinned, key: $0.key, pinnedKey: pinnedKey) }, id: \.key) { column in
           Text(CSDataGridSelection.cellText(row: row, key: column.key, render: renders[column.key]))
             .foregroundStyle(pack.primaryTextColor)
             .padding(.horizontal, CGFloat(CSTableStyleModel.cellPaddingX()))
@@ -486,7 +491,7 @@ public struct CSDataGrid: View {
         }
         ScrollView(.horizontal, showsIndicators: false) {
           HStack {
-            ForEach(orderedColumns.filter { CSDataGridSelection.sticky($0.key, pinned: pinnedKey) == nil }, id: \.key) { column in
+            ForEach(orderedColumns.filter { !CSDataGridSelection.isPinned(columnPinned: $0.pinned, key: $0.key, pinnedKey: pinnedKey) }, id: \.key) { column in
               Text(CSDataGridSelection.cellText(row: row, key: column.key, render: renders[column.key]))
                 .foregroundStyle(pack.primaryTextColor)
                 .padding(.horizontal, CGFloat(CSTableStyleModel.cellPaddingX()))
@@ -556,10 +561,18 @@ public enum CSTagInputModel {
     guard !disabled else { return tags }
     return tags.filter { $0 != tag }
   }
+
+  public static func blurCommit(tags: [String], query: String, max: Int?, disabled: Bool = false) -> CSTagEdit {
+    guard !disabled else { return CSTagEdit(tags: tags, query: query) }
+    return add(tags: tags, query: query, max: max)
+  }
 }
 
 public struct CSTagInput: View {
   public let label: String
+  public let descriptionText: String?
+  public let error: String?
+  public let required: Bool
   public let tags: [String]
   public let query: String
   public let removeLabel: String?
@@ -575,8 +588,11 @@ public struct CSTagInput: View {
   @FocusState private var focused: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String, tags: [String], query: String, removeLabel: String? = nil, max: Int? = nil, disabled: Bool = false, placeholder: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping ([String], String) -> Void) {
+  public init(label: String, tags: [String], query: String, removeLabel: String? = nil, max: Int? = nil, disabled: Bool = false, placeholder: String? = nil, description: String? = nil, error: String? = nil, required: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping ([String], String) -> Void) {
     self.label = label
+    self.descriptionText = description
+    self.error = error
+    self.required = required
     self.tags = tags
     self.query = query
     self.removeLabel = removeLabel
@@ -595,6 +611,7 @@ public struct CSTagInput: View {
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let hint = CSTagInputModel.shownPlaceholder(text: placeholder, tags: [], fallback: CSTagInputModel.copy("placeholder", language: locale))
     let visible = CSTagInputModel.shownPlaceholder(text: placeholder, tags: tags, fallback: CSTagInputModel.copy("placeholder", language: locale))
+    let invalid = CSTextareaModel.isAlert(error)
     VStack(alignment: .leading, spacing: CGFloat(CSControlsWaveStyleModel.tagInputGap())) {
       if !label.isEmpty { Text(label).foregroundStyle(pack.primaryTextColor).accessibilityHidden(true) }
       HStack(spacing: CGFloat(CSControlsWaveStyleModel.tagInputGap())) {
@@ -621,7 +638,14 @@ public struct CSTagInput: View {
         .opacity(disabled ? CSControlsWaveStyleModel.tagInputDisabledFieldOpacity() : 1.0)
         .focused($focused)
         .onChange(of: focused) { isFocused in
-          if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
+          if isFocused {
+            CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
+          } else {
+            let edit = CSTagInputModel.blurCommit(tags: tags, query: query, max: max, disabled: disabled)
+            if edit.tags != tags || edit.query != query {
+              onChange(edit.tags, edit.query)
+            }
+          }
         }
         .disabled(disabled)
         .accessibilityLabel(label.isEmpty ? hint : label)
@@ -631,8 +655,15 @@ public struct CSTagInput: View {
           let edit = CSTagInputModel.add(tags: tags, query: query, max: max)
           onChange(edit.tags, edit.query)
         }
+      if let descriptionText, CSTextareaModel.shows(descriptionText) {
+        Text(descriptionText).font(.system(size: CGFloat(CSTextFieldModel.descriptionFontSize()))).foregroundStyle(pack.mutedColor)
+      }
+      if let error, invalid {
+        Text(error).font(.system(size: CGFloat(CSTextFieldModel.errorFontSize()))).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
+      }
     }
     .frame(minWidth: CGFloat(CSControlsWaveStyleModel.tagInputMinWidth()), alignment: .leading)
+    .opacity(CSTextFieldModel.opacity(disabled: disabled))
     .accessibilityElement(children: .contain)
   }
 }
@@ -947,6 +978,9 @@ public enum CSToolbarModel {
   }
   public static func tail(_ items: [String], overflowAfter: Int?) -> [String] {
     Array(items.dropFirst(cut(count: items.count, overflowAfter: overflowAfter)).filter { $0 != "-" })
+  }
+  public static func controlCount(head: [String], hasMore: Bool) -> Int {
+    head.filter { $0 != "-" }.count + (hasMore ? 1 : 0)
   }
   public static func toolbarMove(current: Int, count: Int, delta: Int) -> Int {
     guard count > 0 else { return 0 }

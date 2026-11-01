@@ -83,6 +83,9 @@ fun csAddTag(tags: List<String>, query: String, max: Int?): CsTagEdit {
 fun csBackspaceTag(tags: List<String>, query: String): List<String> =
   if (query.isEmpty() && tags.isNotEmpty()) tags.dropLast(1) else tags
 
+fun csTagBlurCommit(tags: List<String>, query: String, max: Int?, disabled: Boolean = false): CsTagEdit =
+  if (disabled) CsTagEdit(tags, query) else csAddTag(tags, query, max)
+
 data class CsConfidenceMeasurement(val tone: String, val filled: Int, val segments: Int)
 
 const val csConfidenceLabel = "Confidence"
@@ -119,7 +122,7 @@ fun csConfidenceMeasure(value: Double?, level: String?, segments: Double): CsCon
   return CsConfidenceMeasurement(tone, filled, segs)
 }
 
-data class CsDataColumn(val key: String, val header: String, val sortable: Boolean = true)
+data class CsDataColumn(val key: String, val header: String, val sortable: Boolean = true, val pinned: Boolean = false)
 
 @Composable
 fun CsDataGrid(
@@ -133,9 +136,11 @@ fun CsDataGrid(
   dark: Boolean,
   highContrast: Boolean,
   compact: Boolean,
+  rowKeyName: String = "id",
   persistKey: String? = null,
   caption: String? = null,
   empty: String? = null,
+  language: String? = null,
   sortValues: Map<String, (Map<String, String>) -> String?> = emptyMap(),
   renders: Map<String, (Map<String, String>) -> String?> = emptyMap(),
   filterText: String? = null,
@@ -148,6 +153,7 @@ fun CsDataGrid(
   modifier: Modifier = Modifier,
 ) {
   val pack = csModePack(dark, highContrast, compact)
+  val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val context = androidx.compose.ui.platform.LocalContext.current
   val stored = csGridPrefsLoad(context, persistKey) ?: csGridDecodeOrder(csGridStorageKey(persistKey)?.let { CsGridColumnStore.values[it] })
   var order by remember(persistKey) { mutableStateOf(stored) }
@@ -156,7 +162,7 @@ fun CsDataGrid(
   val ordered = csGridOrderedKeys(order, columns.map { it.key }).mapNotNull { key -> columns.find { it.key == key } }
   val keysToSearch = csGridFilterKeys(filterKeys, ordered.map { it.key })
   val shown = csGridSorted(csGridFiltered(rows, filterText, keysToSearch), sort, sortValues)
-  val keys = shown.mapIndexed { index, row -> csGridRowKey(row["id"], index) }
+  val keys = shown.mapIndexed { index, row -> if (rowKeyName == "id") csGridRowKey(row["id"], index) else csGridRowKey(row[rowKeyName], index) }
   val allSelected = keys.isNotEmpty() && keys.all { selected.contains(it) }
   val useVirtual = csGridVirtual(virtual, shown.size, virtualThreshold)
   val scroll = rememberScrollState()
@@ -198,32 +204,32 @@ fun CsDataGrid(
     if (persistKey != null) {
       Row {
         ordered.forEach { column ->
-          CsTriggerButton(title = csGridCopy("pin", null), onClick = {
+          CsTriggerButton(title = csGridCopy("pin", locale), onClick = {
             val next = csGridPinOrder(ordered.map { it.key }, column.key, true) ?: return@CsTriggerButton
             order = next
             pinned = column.key
             csGridSaveOrder(CsGridColumnStore.values, persistKey, next)
             csGridPrefsSave(context, persistKey, next)
-          }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = csGridPinName(column.header.ifEmpty { null }, column.key, csGridCopy("pinNamed", null)) }) { Text(csGridCopy("pin", null), modifier = Modifier.clearAndSetSemantics {}) }
+          }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = csGridPinName(column.header.ifEmpty { null }, column.key, csGridCopy("pinNamed", locale)) }) { Text(csGridCopy("pin", locale), modifier = Modifier.clearAndSetSemantics {}) }
         }
       }
     }
     if (shown.isEmpty()) {
-      Text(csGridEmptyText(empty, csGridCopy("empty", null)), color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(vertical = csTableStyleStatusPaddingY(pack)).semantics { csGridRowIndex(useVirtual, 0)?.let { csGridRowIndexValue = it } })
+      Text(csGridEmptyText(empty, csGridCopy("empty", locale)), color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(vertical = csTableStyleStatusPaddingY(pack)).semantics { csGridRowIndex(useVirtual, 0)?.let { csGridRowIndexValue = it } })
     } else Column(if (useVirtual) Modifier.height(body.dp).verticalScroll(scroll) else Modifier) {
       if (useVirtual && window.first > 0) Spacer(Modifier.height((window.first * safeRow).dp))
       painted.forEach { index ->
         val row = shown[index]
-        val key = csGridRowKey(row["id"], index)
+        val key = if (rowKeyName == "id") csGridRowKey(row["id"], index) else csGridRowKey(row[rowKeyName], index)
         val box = csGridRowBox(useVirtual, safeRow)
         Row((if (box != null) Modifier.height(box.dp) else Modifier.heightIn(min = pack.componentButtonMdMinHeight.toDp())).background(if (selectable && selected.contains(key)) csGridSelectedFill(dark, pack.accentTint, pack.accent, pack.colorSurfacePanel).toComposeColor() else Color.Transparent).semantics { if (selectable && selected.contains(key)) this.selected = true; csGridRowIndex(useVirtual, index)?.let { csGridRowIndexValue = it } }) {
           if (selectable) {
             Box(Modifier.width(csGridSelectionWidth()).fillMaxHeight(), contentAlignment = csGridCheckAlignment()) {
-              CsCheckbox(label = csGridCopy("selectRow", null) + ": " + csGridRowName(ordered.map { row[it.key] }, key), checked = selected.contains(key), onCheckedChange = { onSelect(csToggleSelection(selected, key)) }, dark = dark, highContrast = highContrast, compact = compact)
+              CsCheckbox(label = csGridCopy("selectRow", locale) + ": " + csGridRowName(ordered.map { row[it.key] }, key), checked = selected.contains(key), onCheckedChange = { onSelect(csToggleSelection(selected, key)) }, dark = dark, highContrast = highContrast, compact = compact)
             }
           }
           ordered.forEach { column ->
-            val stuck = csGridSticky(column.key, pinned) != null
+            val stuck = column.pinned || csGridSticky(column.key, pinned) != null
             Text(csGridCellText(row, column.key, renders[column.key]), color = pack.colorTextPrimary.toComposeColor(), modifier = (if (stuck) Modifier.background(pack.colorSurfacePanel.toComposeColor()).zIndex(1f) else Modifier).padding(horizontal = csTableStyleCellPaddingX(), vertical = csTableStyleCellPaddingY()))
           }
         }
@@ -243,6 +249,10 @@ fun CsTagInput(
   compact: Boolean,
   modifier: Modifier = Modifier,
   label: String? = null,
+  description: String? = null,
+  error: String? = null,
+  required: Boolean = false,
+  disabled: Boolean = false,
   removeLabel: String? = null,
   placeholder: String? = null,
   max: Int? = null,
@@ -252,13 +262,14 @@ fun CsTagInput(
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val hint = csTagPlaceholderShown(placeholder, emptyList(), csTagCopy("placeholder", locale))
   val fieldName = if (label.isNullOrEmpty()) hint else label
+  val invalid = csTextareaAlert(error)
   val handle = rememberFocusHandle("tag-query")
-  Column(modifier.widthIn(min = csControlsWaveStyleTagInputMinWidth()), verticalArrangement = Arrangement.spacedBy(csControlsWaveStyleTagInputGap())) {
+  Column(modifier.widthIn(min = csControlsWaveStyleTagInputMinWidth()).graphicsLayer { alpha = csTextFieldOpacity(disabled) }, verticalArrangement = Arrangement.spacedBy(csControlsWaveStyleTagInputGap())) {
     if (!label.isNullOrEmpty()) Text(label, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
     Row(horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleTagInputGap())) {
       tags.forEach { tag ->
         val name = csTagRemoveName(removeLabel, tag, csTagCopy("remove", locale))
-        CsTriggerButton(title = name, onClick = { onChange(tags.filter { it != tag }, query) }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = name }) {
+        CsTriggerButton(title = name, onClick = { if (!disabled) onChange(tags.filter { it != tag }, query) }, enabled = !disabled, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = name }) {
           Text(name, modifier = Modifier.clearAndSetSemantics {})
         }
       }
@@ -266,17 +277,25 @@ fun CsTagInput(
     androidx.compose.foundation.text.BasicTextField(
       value = query,
       onValueChange = { next ->
-        if (!csControlEnabled()) return@BasicTextField
+        if (!csControlEnabled(!disabled)) return@BasicTextField
         handle.claim()
         if (next.contains(",")) {
           val edit = csAddTag(tags, next.replace(",", ""), max)
           onChange(edit.tags, edit.query)
         } else onChange(tags, next)
       },
-      enabled = csControlEnabled(),
+      enabled = csControlEnabled(!disabled),
       textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()),
-      modifier = Modifier.widthIn(min = csControlsWaveStyleTagInputFieldMinWidth()).graphicsLayer { alpha = csControlsWaveStyleTagInputDisabledFieldOpacity() }.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = fieldName },
+      modifier = Modifier.widthIn(min = csControlsWaveStyleTagInputFieldMinWidth()).graphicsLayer { alpha = if (disabled) csControlsWaveStyleTagInputDisabledFieldOpacity() else 1f }.focusRequester(handle.requester).onFocusChanged {
+        if (it.isFocused) handle.claim()
+        else {
+          val edit = csTagBlurCommit(tags, query, max, disabled)
+          if (edit.tags != tags || edit.query != query) onChange(edit.tags, edit.query)
+        }
+      }.semantics { contentDescription = fieldName },
     )
+    if (csTextareaShows(description)) Text(description ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = csTextFieldDescriptionFontSize().value.sp)
+    if (invalid) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), fontSize = csTextFieldErrorFontSize().value.sp)
   }
 }
 
@@ -395,6 +414,7 @@ fun csGridOrderedKeys(order: List<String>?, columns: List<String>): List<String>
 }
 fun csGridPinOrder(order: List<String>, key: String, canPersist: Boolean) = if (canPersist) listOf(key) + order.filter { it != key } else null
 fun csGridSticky(key: String, pinned: String?) = if (pinned != null && key == pinned) 0.0 else null
+fun csGridIsPinned(columnPinned: Boolean, key: String, pinnedKey: String?) = columnPinned || csGridSticky(key, pinnedKey) != null
 fun csGridStorageKey(persistKey: String?) = if (persistKey.isNullOrEmpty()) null else "cs:datagrid:cols:$persistKey"
 fun csGridDecodeOrder(raw: String?): List<String>? {
   if (raw == null) return null
@@ -475,6 +495,7 @@ fun csToolbarCopy(key: String, language: String?): String {
   return key
 }
 fun csToolbarTail(items: List<String>, overflowAfter: Int?) = items.drop(csToolbarCut(items.size, overflowAfter)).filter { it != "-" }
+fun csToolbarControlCount(head: List<String>, hasMore: Boolean) = head.count { it != "-" } + if (hasMore) 1 else 0
 fun csToolbarMove(current: Int, count: Int, delta: Int) = if (count <= 0) 0 else minOf(count - 1, maxOf(0, current + delta))
 fun csGridRowKey(value: String?, index: Int) = value ?: index.toString()
 fun csGridRowIndex(virtual: Boolean, position: Int, header: Boolean = false) = if (virtual) if (header) 1 else position + 2 else null
@@ -618,6 +639,7 @@ fun CsToolbar(
   modifier: Modifier = Modifier,
   label: String? = null,
   overflowAfter: Int? = null,
+  placement: String? = null,
   language: String? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
@@ -640,7 +662,7 @@ fun CsToolbar(
   val place = field?.let { box ->
     val first = natural
     val second = fitted
-    if (first == null || second == null) null else csToolbarShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csToolbarPlacement(null))
+    if (first == null || second == null) null else csToolbarShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csToolbarPlacement(placement))
   }
   if (!open && natural != null) { natural = null; fitted = null }
   Column(modifier) {
