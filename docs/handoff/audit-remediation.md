@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `<pending-commit>` (`fix(native): preserve authored label text in Compose and Flutter CsBadge`)
+- Checkpoint commit: `27a6d533766aa97218ab0a587feeaa56597c1b4f` (`fix(native): preserve authored label text in Compose and Flutter CsBadge`)
 - Previous checkpoint: `d3ca3ae1d21ecc29ace6150a3c882bfd1d77a8d3`, with the hash note in `217dca41`
 - GitHub Actions push workflows re-enabled (`Design System Gates` `316944477`, `native-validation` `377620668`, `native-store` `318755963`, `OpenSSF Scorecard` `330342703`)
 
